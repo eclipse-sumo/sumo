@@ -109,7 +109,7 @@ void NBPTStopCont::assignLanes(NBEdgeCont& cont) {
     for (auto i = myPTStops.begin(); i != myPTStops.end();) {
         NBPTStop* stop = i->second;
         if (!stop->findLaneAndComputeBusStopExtent(cont)) {
-            WRITE_WARNINGF("Could not find corresponding edge or compatible lane for pt stop '%' (%). Thus, it will be removed!",
+            WRITE_WARNINGF(TL("Could not find corresponding edge or compatible lane for pt stop '%' (%). Thus, it will be removed!"),
                            i->first, i->second->getName());
             EdgeVector edgeVector = cont.getGeneratedFrom((*i).second->getOrigEdgeId());
             //std::cout << edgeVector.size() << std::endl;
@@ -134,7 +134,7 @@ NBPTStopCont::generateBidiStops(NBEdgeCont& ec) {
             const std::string id = getReverseID(stop->getID());
             if (myPTStops.count(id) > 0) {
                 if (myPTStops[id]->getEdgeId() != bidiEdge->getID()) {
-                    WRITE_WARNINGF("Could not create reverse-direction stop for superposed edge '%' (origStop '%'). Stop id '%' already in use by stop on edge '%'.",
+                    WRITE_WARNINGF(TL("Could not create reverse-direction stop for superposed edge '%' (origStop '%'). Stop id '%' already in use by stop on edge '%'."),
                                    bidiEdge->getID(), i->first, id, myPTStops[id]->getEdgeId());
                 }
                 continue;
@@ -260,7 +260,7 @@ NBPTStopCont::computeCrossProductEdgePosition(const NBEdge* edge, const Position
         idx1 = idxTmp - 1;
     }
     if (idx1 < 0 || idx1 >= (int) geom.size() || idx2 < 0 || idx2 >= (int) geom.size()) {
-        WRITE_WARNINGF("Could not determine cross product for edge '%'.", edge->getID());
+        WRITE_WARNINGF(TL("Could not determine cross product for edge '%'."), edge->getID());
         return 0;
     }
     Position p1 = geom[idx1];
@@ -314,7 +314,7 @@ NBPTStopCont::cleanupDeleted(NBEdgeCont& cont) {
     int numDeleted = 0;
     for (auto i = myPTStops.begin(); i != myPTStops.end();) {
         if (cont.getByID(i->second->getEdgeId()) == nullptr) {
-            WRITE_WARNINGF("Removing pt stop '%' on non existing edge '%'.", i->first, i->second->getEdgeId());
+            WRITE_WARNINGF(TL("Removing pt stop '%' on non existing edge '%'."), i->first, i->second->getEdgeId());
             i = myPTStops.erase(i);
             numDeleted++;
         } else {
@@ -345,7 +345,7 @@ NBPTStopCont::replaceEdge(const std::string& edgeID, const EdgeVector& replaceme
     const std::vector<NBPTStop*> stops = myPTStopLookup[edgeID];
     for (NBPTStop* stop : stops) {
         if (!stop->replaceEdge(edgeID, replacement)) {
-            WRITE_WARNINGF("Could not re-assign pt stop '%' after replacing edge '%'.", stop->getID(), edgeID);
+            WRITE_WARNINGF(TL("Could not re-assign pt stop '%' after replacing edge '%'."), stop->getID(), edgeID);
         } else {
             myPTStopLookup[stop->getEdgeId()].push_back(stop);
         }
@@ -434,7 +434,7 @@ NBPTStopCont::assignEdgeForFloatingStops(NBEdgeCont& cont, double maxRadius) {
             }
         }
         if (ptStop->getLaneId() == "") {
-            WRITE_WARNINGF("Could not find corresponding edge or compatible lane for free-floating pt stop '%' (%). Thus, it will be removed!",
+            WRITE_WARNINGF(TL("Could not find corresponding edge or compatible lane for free-floating pt stop '%' (%). Thus, it will be removed!"),
                            ptStop->getID(), ptStop->getName());
             myPTStops.erase(ptStop->getID());
         }

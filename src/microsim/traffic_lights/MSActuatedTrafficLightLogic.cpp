@@ -401,7 +401,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                 }
             }
             if (loops.size() == 0) {
-                WRITE_WARNINGF("At actuated tlLogic '%', actuated phase % has no controlling detector.", getID(), toString(phaseIndex));
+                WRITE_WARNINGF(TL("At actuated tlLogic '%', actuated phase % has no controlling detector."), getID(), toString(phaseIndex));
             }
         }
 #ifdef DEBUG_DETECTORS
@@ -438,7 +438,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
         if (linkToLoops[i].size() == 0 && myLinks[i].size() > 0
                 && (myLinks[i].front()->getLaneBefore()->getPermissions() & motorized) != 0) {
             if (getParameter(myLinks[i].front()->getLaneBefore()->getID()) != NO_DETECTOR) {
-                WRITE_WARNINGF("At actuated tlLogic '%', linkIndex % has no controlling detector.", getID(), toString(i));
+                WRITE_WARNINGF(TL("At actuated tlLogic '%', linkIndex % has no controlling detector."), getID(), toString(i));
             }
         }
     }

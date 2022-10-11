@@ -437,7 +437,7 @@ NBNode::removeSelfLoops(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicC
         // an edge with both its origin and destination being the current
         //  node should be removed
         NBEdge* dummy = *j;
-        WRITE_WARNINGF(" Removing self-looping edge '%'", dummy->getID());
+        WRITE_WARNINGF(TL(" Removing self-looping edge '%'"), dummy->getID());
         // get the list of incoming edges connected to the self-loop
         EdgeVector incomingConnected = dummy->getIncomingEdges();
         // get the list of outgoing edges connected to the self-loop
@@ -749,7 +749,7 @@ NBNode::computeInternalLaneShape(const NBEdge* fromE, const NBEdge::Connection& 
         }
         PositionVector tmp = NBEdge::startShapeAt(con.customShape, this, startBorder);
         if (tmp.size() < 2) {
-            WRITE_WARNINGF("Could not use custom shape for connection %.", con.getDescription(fromE));
+            WRITE_WARNINGF(TL("Could not use custom shape for connection %."), con.getDescription(fromE));
             useCustomShape = false;
         } else {
             if (tmp.length2D() > con.customShape.length2D() + POSITION_EPS) {
@@ -758,7 +758,7 @@ NBNode::computeInternalLaneShape(const NBEdge* fromE, const NBEdge::Connection& 
             } else if (recordError != nullptr) {
                 const double offset = tmp[0].distanceTo2D(fromShape.back());
                 if (offset > fromE->getLaneWidth(con.fromLane) / 2) {
-                    WRITE_WARNINGF("Custom shape has distance % to incoming lane for connection %.", offset, con.getDescription(fromE));
+                    WRITE_WARNINGF(TL("Custom shape has distance % to incoming lane for connection %."), offset, con.getDescription(fromE));
                 }
             }
             PositionVector endBorder = con.toEdge->getNodeBorder(this);
@@ -767,7 +767,7 @@ NBNode::computeInternalLaneShape(const NBEdge* fromE, const NBEdge::Connection& 
             }
             ret = NBEdge::startShapeAt(tmp.reverse(), this, endBorder).reverse();
             if (ret.size() < 2) {
-                WRITE_WARNINGF("Could not use custom shape for connection %.", con.getDescription(fromE));
+                WRITE_WARNINGF(TL("Could not use custom shape for connection %."), con.getDescription(fromE));
                 useCustomShape = false;
             } else if (ret.length2D() > tmp.length2D() + POSITION_EPS) {
                 // shape was lengthened at the end, make sure it attaches at the center of the lane
@@ -775,7 +775,7 @@ NBNode::computeInternalLaneShape(const NBEdge* fromE, const NBEdge::Connection& 
             } else if (recordError != nullptr) {
                 const double offset = ret[-1].distanceTo2D(toShape.front());
                 if (offset > con.toEdge->getLaneWidth(con.toLane) / 2) {
-                    WRITE_WARNINGF("Custom shape has distance % to outgoing lane for connection %.", offset, con.getDescription(fromE));
+                    WRITE_WARNINGF(TL("Custom shape has distance % to outgoing lane for connection %."), offset, con.getDescription(fromE));
                 }
             }
         }
@@ -973,7 +973,7 @@ NBNode::computeLogic(const NBEdgeCont& ec) {
             } else {
                 myType = SumoXMLNodeType::NOJUNCTION;
             }
-            WRITE_WARNINGF("Junction '%' is too complicated (% connections, max %); will be set to %.",
+            WRITE_WARNINGF(TL("Junction '%' is too complicated (% connections, max %); will be set to %."),
                            getID(), numConnections, SUMO_MAX_CONNECTIONS, toString(myType));
         } else if (numConnections == 0) {
             delete myRequest;
@@ -1098,11 +1098,11 @@ NBNode::computeNodeShape(double mismatchThreshold) {
             if (mismatchThreshold >= 0
                     && !tmp.around(myPosition)
                     && tmp.distance2D(myPosition) > mismatchThreshold) {
-                WRITE_WARNINGF("Shape for junction '%' has distance % to its given position.", myID, tmp.distance2D(myPosition));
+                WRITE_WARNINGF(TL("Shape for junction '%' has distance % to its given position."), myID, tmp.distance2D(myPosition));
             }
         }
     } catch (InvalidArgument&) {
-        WRITE_WARNINGF("For junction '%': could not compute shape.", myID);
+        WRITE_WARNINGF(TL("For junction '%': could not compute shape."), myID);
         // make sure our shape is not empty because our XML schema forbids empty attributes
         myPoly.clear();
         myPoly.push_back(myPosition);
@@ -2744,7 +2744,7 @@ NBNode::buildCrossingsAndWalkingAreas() {
         for (auto& crossing : myCrossings) {
             if (waIDs.count(crossing->prevWalkingArea) == 0 || waIDs.count(crossing->nextWalkingArea) == 0 || !crossing->valid) {
                 if (crossing->valid) {
-                    WRITE_WARNINGF("Discarding invalid crossing '%' at junction '%' with edges [%] (no walkingarea found).",
+                    WRITE_WARNINGF(TL("Discarding invalid crossing '%' at junction '%' with edges [%] (no walkingarea found)."),
                                    crossing->id, getID(), toString(crossing->edges));
                     recheck = true;
                 }
@@ -2920,7 +2920,7 @@ NBNode::buildCrossings() {
         }
         if (firstNonPedLane < 0 || lastNonPedLane < 0) {
             // invalid crossing
-            WRITE_WARNINGF("Discarding invalid crossing '%' at junction '%' with edges [%] (no vehicle lanes to cross).", c->id, getID(), toString(c->edges));
+            WRITE_WARNINGF(TL("Discarding invalid crossing '%' at junction '%' with edges [%] (no vehicle lanes to cross)."), c->id, getID(), toString(c->edges));
             c->valid = false;
             // compute surrogate shape to make it visible in netedit
             firstNonPedLane = begDir == FORWARD ? 0 : edges.front()->getNumLanes() - 1;
@@ -2939,7 +2939,7 @@ NBNode::buildCrossings() {
             crossingEnd.shape.extrapolate(c->width / 2);
             // check if after all changes shape are NAN (in these case, discard)
             if (crossingBeg.shape.isNAN() || crossingEnd.shape.isNAN()) {
-                WRITE_WARNINGF("Discarding invalid crossing '%' at junction '%' with edges [%] (invalid shape).", c->id, getID(), toString(c->edges));
+                WRITE_WARNINGF(TL("Discarding invalid crossing '%' at junction '%' with edges [%] (invalid shape)."), c->id, getID(), toString(c->edges));
                 c->valid = false;
             } else {
                 c->shape.push_back(crossingBeg.shape[begDir == FORWARD ? 0 : -1]);
@@ -3090,7 +3090,7 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
                     && (normalizedLanes[end].second.permissions & SVC_PEDESTRIAN) == 0) {
                 // crossing ends
                 if (c->nextWalkingArea != "") {
-                    WRITE_WARNINGF("Invalid pedestrian topology at junction '%'; crossing '%' targets '%' and '%'.",
+                    WRITE_WARNINGF(TL("Invalid pedestrian topology at junction '%'; crossing '%' targets '%' and '%'."),
                                    getID(), c->id, c->nextWalkingArea, wa.id);
                     c->valid = false;
                 }
@@ -3113,7 +3113,7 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
                     && (normalizedLanes[prev].second.permissions & SVC_PEDESTRIAN) == 0) {
                 // crossing starts
                 if (c->prevWalkingArea != "") {
-                    WRITE_WARNINGF("Invalid pedestrian topology at junction '%'; crossing '%' is targeted by '%' and '%'.",
+                    WRITE_WARNINGF(TL("Invalid pedestrian topology at junction '%'; crossing '%' is targeted by '%' and '%'."),
                                    getID(), c->id, c->prevWalkingArea, wa.id);
                     c->valid = false;
                 }
@@ -3330,7 +3330,7 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
         }
         if (prev.nextWalkingArea == "") {
             if (next.prevWalkingArea != "" || &prev == &next) {
-                WRITE_WARNINGF("Invalid pedestrian topology: crossing '%' across [%] has no target.", prev.id, toString(prev.edges));
+                WRITE_WARNINGF(TL("Invalid pedestrian topology: crossing '%' across [%] has no target."), prev.id, toString(prev.edges));
                 prev.valid = false;
                 continue;
             }

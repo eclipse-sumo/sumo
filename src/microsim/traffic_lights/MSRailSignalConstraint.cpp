@@ -144,7 +144,7 @@ MSRailSignalConstraint_Predecessor::loadState(const SUMOSAXAttributes& attrs) {
         throw ProcessError("Unknown lane '" + laneID + "' in loaded state.");
     }
     if (myTrackerLookup.count(lane) == 0) {
-        WRITE_WARNINGF("Unknown tracker lane '%' in loaded state.", laneID);
+        WRITE_WARNINGF(TL("Unknown tracker lane '%' in loaded state."), laneID);
         return;
     }
     PassedTracker* tracker = myTrackerLookup[lane];

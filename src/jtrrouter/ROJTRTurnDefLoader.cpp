@@ -113,7 +113,7 @@ ROJTRTurnDefLoader::myStartElement(int element,
                     static_cast<ROJTREdge*>(edge)->changeSourceFlow(numVehs);
                 }
             } else {
-                WRITE_WARNINGF("Ignoring flow '%' without 'from'", flowID);
+                WRITE_WARNINGF(TL("Ignoring flow '%' without 'from'"), flowID);
             }
             break;
         }

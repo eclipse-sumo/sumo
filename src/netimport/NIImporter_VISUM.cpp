@@ -1159,32 +1159,32 @@ void NIImporter_VISUM::parse_stopPoints() {
     NBNode* to = getNamedNodeSecure(KEYS.getString(VISUM_FROMNODENO));
     const std::string edgeID = myLineParser.get(KEYS.getString(VISUM_LINKNO));
     if (edgeID == "") {
-        WRITE_WARNINGF("Ignoring stopping place '%' without edge id", id);
+        WRITE_WARNINGF(TL("Ignoring stopping place '%' without edge id"), id);
     } else if (from == nullptr && to == nullptr) {
-        WRITE_WARNINGF("Ignoring stopping place '%' without node informatio", id);
+        WRITE_WARNINGF(TL("Ignoring stopping place '%' without node informatio"), id);
     } else {
         NBEdge* edge = getNamedEdge(KEYS.getString(VISUM_LINKNO));
         if (from != nullptr) {
             if (edge->getToNode() == from) {
                 NBEdge* edge2 = myNetBuilder.getEdgeCont().retrieve("-" + edge->getID());
                 if (edge2 == nullptr) {
-                    WRITE_WARNINGF("Could not find edge with from-node '%' and base id '%' for stopping place '%'", from->getID(), edge->getID(), id);
+                    WRITE_WARNINGF(TL("Could not find edge with from-node '%' and base id '%' for stopping place '%'"), from->getID(), edge->getID(), id);
                 } else {
                     edge = edge2;
                 }
             } else if (edge->getFromNode() != from) {
-                WRITE_WARNINGF("Unexpected from-node '%' for edge '%' of stopping place '%'", from->getID(), edge->getID(), id);
+                WRITE_WARNINGF(TL("Unexpected from-node '%' for edge '%' of stopping place '%'"), from->getID(), edge->getID(), id);
             }
         } else {
             if (edge->getFromNode() == to) {
                 NBEdge* edge2 = myNetBuilder.getEdgeCont().retrieve("-" + edge->getID());
                 if (edge2 == nullptr) {
-                    WRITE_WARNINGF("Could not find edge with to-node '%' and base id '%' for stopping place '%'", to->getID(), edge->getID(), id);
+                    WRITE_WARNINGF(TL("Could not find edge with to-node '%' and base id '%' for stopping place '%'"), to->getID(), edge->getID(), id);
                 } else {
                     edge = edge2;
                 }
             } else if (edge->getToNode() != to) {
-                WRITE_WARNINGF("Unexpected to-node '%' for edge '%' of stopping place '%'", to->getID(), edge->getID(), id);
+                WRITE_WARNINGF(TL("Unexpected to-node '%' for edge '%' of stopping place '%'"), to->getID(), edge->getID(), id);
             }
         }
         double relPos = StringUtils::toDouble(myLineParser.get(KEYS.getString(VISUM_RELPOS)));

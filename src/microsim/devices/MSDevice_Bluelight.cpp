@@ -65,7 +65,7 @@ MSDevice_Bluelight::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDev
     OptionsCont& oc = OptionsCont::getOptions();
     if (equippedByDefaultAssignmentOptions(oc, "bluelight", v, false)) {
         if (MSGlobals::gUseMesoSim) {
-            WRITE_WARNINGF("bluelight device is not compatible with mesosim (ignored for vehicle '%')", v.getID());
+            WRITE_WARNINGF(TL("bluelight device is not compatible with mesosim (ignored for vehicle '%')"), v.getID());
         } else {
             MSDevice_Bluelight* device = new MSDevice_Bluelight(v, "bluelight_" + v.getID(),
                     getFloatParam(v, oc, "bluelight.reactiondist", oc.getFloat("device.bluelight.reactiondist"), false));

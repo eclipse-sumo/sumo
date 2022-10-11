@@ -168,7 +168,7 @@ MSDevice_GLOSA::notifyEnter(SUMOTrafficObject& /*veh*/, MSMoveReminder::Notifica
         try {
             tlsRange = StringUtils::toDouble(val);
         } catch (const NumberFormatException&) {
-            WRITE_WARNINGF("Invalid value '%' for parameter 'device.glosa.range' of traffic light '%'",
+            WRITE_WARNINGF(TL("Invalid value '%' for parameter 'device.glosa.range' of traffic light '%'"),
                            val, myNextTLSLink->getTLLogic()->getID());
         }
         myRange = MIN2(getFloatParam(myVeh, OptionsCont::getOptions(), "glosa.range", 100, true), tlsRange);
@@ -294,7 +294,7 @@ MSDevice_GLOSA::adaptSpeed(double distance, double timeToJunction, double timeTo
         const double root_argument = a * d * ((2.0 * d * (s - (w * t))) - ((v - w) * (v - w)) + (a * ((d * (t * t)) + (2.0 * (s - (t * v))))));
         if (root_argument < 0) {
 #ifdef DEBUG_GLOSA
-            WRITE_WARNINGF("GLOSA error 1 root_argument=% s=% t=% v=%", root_argument, s, t, v);
+            WRITE_WARNINGF(TL("GLOSA error 1 root_argument=% s=% t=% v=%"), root_argument, s, t, v);
 #endif
             return;
         }
@@ -302,7 +302,7 @@ MSDevice_GLOSA::adaptSpeed(double distance, double timeToJunction, double timeTo
         const double y = t - (w - x) / d;
         if (!(x >= u && x <= w && y > 0 && y < t)) {
 #ifdef DEBUG_GLOSA
-            WRITE_WARNINGF("GLOSA error 2 x=% y=% s=% t=% v=%", x, y, s, t, v);
+            WRITE_WARNINGF(TL("GLOSA error 2 x=% y=% s=% t=% v=%"), x, y, s, t, v);
 #endif
             return;
         }

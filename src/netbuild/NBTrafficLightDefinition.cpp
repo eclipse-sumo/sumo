@@ -501,7 +501,7 @@ NBTrafficLightDefinition::collectAllLinks(NBConnectionVector& into) {
     }
 
     if (into.size() > 0 && tlIndex == 0) {
-        WRITE_WARNINGF("The rail crossing '%' does not have any roads.", getID());
+        WRITE_WARNINGF(TL("The rail crossing '%' does not have any roads."), getID());
     }
 }
 

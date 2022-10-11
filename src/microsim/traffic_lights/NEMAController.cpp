@@ -563,7 +563,7 @@ NEMALogic::init(NLDetectorBuilder& nb) {
                 }
             }
             if (detectors.size() == 0) {
-                WRITE_WARNINGF("At NEMA tlLogic '%', actuated phase % has no controlling detector", getID(), toString(phaseIndex));
+                WRITE_WARNINGF(TL("At NEMA tlLogic '%', actuated phase % has no controlling detector"), getID(), toString(phaseIndex));
             }
         }
         std::vector<DetectorInfo*> detectorInfos;
@@ -581,7 +581,7 @@ NEMALogic::init(NLDetectorBuilder& nb) {
     for (int i : actuatedLinks) {
         if (linkToDetectors[i].size() == 0 && myLinks[i].size() > 0
                 && (myLinks[i].front()->getLaneBefore()->getPermissions() & motorized) != 0) {
-            WRITE_WARNINGF("At NEMA tlLogic '%, linkIndex % has no controlling detector", getID(), toString(i));
+            WRITE_WARNINGF(TL("At NEMA tlLogic '%, linkIndex % has no controlling detector"), getID(), toString(i));
         }
     }
 }
@@ -627,7 +627,7 @@ NEMALogic::validate_timing() {
 
     // no offset for non coordinated
     if (!coordinateMode && offset != 0) {
-        WRITE_WARNINGF("NEMA tlLogic '%' is not coordinated but an offset was set.", getID());
+        WRITE_WARNINGF(TL("NEMA tlLogic '%' is not coordinated but an offset was set."), getID());
     }
 }
 

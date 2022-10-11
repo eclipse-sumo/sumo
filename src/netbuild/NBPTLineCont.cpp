@@ -93,11 +93,11 @@ NBPTLineCont::reviseStops(NBPTLine* line, const NBEdgeCont& ec, NBPTStopCont& sc
         return;
     }
     if (waysIds.size() <= 1) {
-        WRITE_WARNINGF("Cannot revise pt stop localization for pt line '%', which consist of one way only. Ignoring!", line->getLineID());
+        WRITE_WARNINGF(TL("Cannot revise pt stop localization for pt line '%', which consist of one way only. Ignoring!"), line->getLineID());
         return;
     }
     if (line->getRoute().size() == 0) {
-        WRITE_WARNINGF("Cannot revise pt stop localization for pt line '%', which has no route edges. Ignoring!", line->getLineID());
+        WRITE_WARNINGF(TL("Cannot revise pt stop localization for pt line '%', which has no route edges. Ignoring!"), line->getLineID());
         return;
     }
     std::vector<NBPTStop*> stops = line->getStops();
@@ -116,7 +116,7 @@ NBPTLineCont::reviseStops(NBPTLine* line, const NBEdgeCont& ec, NBPTStopCont& sc
         // find directional edge (OSM ways are bidirectional)
         std::vector<long long int>* way = line->getWaysNodes(stop->getOrigEdgeId());
         if (way == nullptr) {
-            WRITE_WARNINGF("Cannot assign stop '%' on edge '%' to pt line '%' (wayNodes not found). Ignoring!",
+            WRITE_WARNINGF(TL("Cannot assign stop '%' on edge '%' to pt line '%' (wayNodes not found). Ignoring!"),
                            stop->getID(), stop->getOrigEdgeId(), line->getLineID());
             continue;
         }
@@ -134,7 +134,7 @@ NBPTLineCont::reviseStops(NBPTLine* line, const NBEdgeCont& ec, NBPTStopCont& sc
         std::vector<long long int>* wayPrev = line->getWaysNodes(adjIdPrev);
         std::vector<long long int>* wayNext = line->getWaysNodes(adjIdNext);
         if (wayPrev == nullptr && wayNext == nullptr) {
-            WRITE_WARNINGF("Cannot revise pt stop localization for incomplete pt line '%'. Ignoring!", line->getLineID());
+            WRITE_WARNINGF(TL("Cannot revise pt stop localization for incomplete pt line '%'. Ignoring!"), line->getLineID());
             continue;
         }
         long long int wayEnds = *(way->end() - 1);
@@ -150,7 +150,7 @@ NBPTLineCont::reviseStops(NBPTLine* line, const NBEdgeCont& ec, NBPTStopCont& sc
                    || wayBegins == wayNextBegins) {
             dir = BWD;
         } else {
-            WRITE_WARNINGF("Cannot revise pt stop localization for incomplete pt line '%'. Ignoring!", line->getLineID());
+            WRITE_WARNINGF(TL("Cannot revise pt stop localization for incomplete pt line '%'. Ignoring!"), line->getLineID());
             continue;
         }
 
@@ -161,7 +161,7 @@ NBPTLineCont::reviseStops(NBPTLine* line, const NBEdgeCont& ec, NBPTStopCont& sc
         if (dir != assignedTo) {
             NBEdge* reverse = NBPTStopCont::getReverseEdge(current);
             if (reverse == nullptr) {
-                WRITE_WARNINGF("Could not re-assign PT stop '%', probably broken osm file.", stop->getID());
+                WRITE_WARNINGF(TL("Could not re-assign PT stop '%', probably broken osm file."), stop->getID());
                 continue;
             }
             if (stop->getLines().size() > 0) {
@@ -170,7 +170,7 @@ NBPTLineCont::reviseStops(NBPTLine* line, const NBEdgeCont& ec, NBPTStopCont& sc
                 line->replaceStop(stop, reverseStop);
                 stop = reverseStop;
             } else {
-                WRITE_WARNINGF("PT stop '%' has been moved to edge '%'.", stop->getID(), reverse->getID());
+                WRITE_WARNINGF(TL("PT stop '%' has been moved to edge '%'."), stop->getID(), reverse->getID());
             }
             stop->setEdgeId(reverse->getID(), ec);
         }
@@ -242,7 +242,7 @@ NBPTLineCont::findWay(NBPTLine* line, NBPTStop* stop, const NBEdgeCont& ec, NBPT
                 stop = newStop;
             }
         } else {
-            WRITE_WARNINGF("Could not assign stop '%' to pt line '%' (closest edge '%', distance %). Ignoring!",
+            WRITE_WARNINGF(TL("Could not assign stop '%' to pt line '%' (closest edge '%', distance %). Ignoring!"),
                            stop->getID(), line->getLineID(), Named::getIDSecure(best), minDist);
             return nullptr;
         }
@@ -274,7 +274,7 @@ NBPTLineCont::findWay(NBPTLine* line, NBPTStop* stop, const NBEdgeCont& ec, NBPT
                 }
             }
             if (waysIdsIt == waysIds.end()) {
-                WRITE_WARNINGF("Cannot assign stop % on edge '%' to pt line '%'. Ignoring!", stop->getID(), stop->getOrigEdgeId(), line->getLineID());
+                WRITE_WARNINGF(TL("Cannot assign stop % on edge '%' to pt line '%'. Ignoring!"), stop->getID(), stop->getOrigEdgeId(), line->getLineID());
             }
         }
     }
@@ -455,7 +455,7 @@ NBPTLineCont::fixBidiStops(const NBEdgeCont& ec) {
             continue;
         }
         if (types.count(line->getType()) == 0) {
-            WRITE_WARNINGF("Could not determine vehicle class for public transport line of type '%'.", line->getType());
+            WRITE_WARNINGF(TL("Could not determine vehicle class for public transport line of type '%'."), line->getType());
             continue;
         }
         NBVehicle veh(line->getRef(), types[line->getType()]);
@@ -520,7 +520,7 @@ NBPTLineCont::fixBidiStops(const NBEdgeCont& ec) {
                 if (best < std::numeric_limits<double>::max()) {
                     from = used;
                 } else {
-                    WRITE_WARNINGF("Could not determine direction for line '%' at stop '%'.", line->getLineID(), used->getID());
+                    WRITE_WARNINGF(TL("Could not determine direction for line '%' at stop '%'."), line->getLineID(), used->getID());
                 }
             }
             from = used;
@@ -552,7 +552,7 @@ NBPTLineCont::fixPermissions() {
             NBEdge* e2 = route[i];
             std::vector<NBEdge::Connection> cons = e1->getConnectionsFromLane(-1, e2, -1);
             if (cons.size() == 0) {
-                //WRITE_WARNINGF("Disconnected ptline '%' between edge '%' and edge '%'", line->getLineID(), e1->getID(), e2->getID());
+                //WRITE_WARNINGF(TL("Disconnected ptline '%' between edge '%' and edge '%'"), line->getLineID(), e1->getID(), e2->getID());
             } else {
                 bool ok = false;
                 for (const auto& c : cons) {

@@ -571,7 +571,7 @@ PositionVector::splitAt(double where, bool use2D) const {
         throw InvalidArgument("Invalid split position " + toString(where) + " for vector of length " + toString(len));
     }
     if (where <= POSITION_EPS || where >= len - POSITION_EPS) {
-        WRITE_WARNINGF("Splitting vector close to end (pos: %, length: %)", toString(where), toString(len));
+        WRITE_WARNINGF(TL("Splitting vector close to end (pos: %, length: %)"), toString(where), toString(len));
     }
     PositionVector first, second;
     first.push_back((*this)[0]);

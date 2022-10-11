@@ -237,7 +237,7 @@ NIImporter_DlrNavteq::NodesHandler::report(const std::string& result) {
         if (!myNodeCont.insert(n)) {
             delete n;
             if (OptionsCont::getOptions().getBool("ignore-errors")) {
-                WRITE_WARNINGF("Could not add add node '%'", id);
+                WRITE_WARNINGF(TL("Could not add add node '%'"), id);
             } else {
                 throw ProcessError("Could not add node '" + id + "'.");
             }
@@ -496,7 +496,7 @@ NIImporter_DlrNavteq::TrafficlightsHandler::report(const std::string& result) {
     const std::string edgeID = st.get(5);
     NBEdge* edge = myEdgeCont.retrieve(edgeID);
     if (edge == nullptr) {
-        WRITE_WARNINGF("The traffic light edge '%' could not be found.", edgeID);
+        WRITE_WARNINGF(TL("The traffic light edge '%' could not be found."), edgeID);
     } else {
         NBNode* node = edge->getToNode();
         if (node->getType() != SumoXMLNodeType::TRAFFIC_LIGHT) {
@@ -743,7 +743,7 @@ NIImporter_DlrNavteq::ProhibitionHandler::report(const std::string& result) {
         const std::string throughTraffic = st.next();
         const std::string vehicleType = st.next();
         if (validityPeriod != UNDEFINED) {
-            WRITE_WARNINGF("Ignoring temporary prohibited manoeuvre (%).", validityPeriod);
+            WRITE_WARNINGF(TL("Ignoring temporary prohibited manoeuvre (%)."), validityPeriod);
             return true;
         }
     }
@@ -752,12 +752,12 @@ NIImporter_DlrNavteq::ProhibitionHandler::report(const std::string& result) {
 
     NBEdge* from = myEdgeCont.retrieve(startEdge);
     if (from == nullptr) {
-        WRITE_WARNINGF("Ignoring prohibition from unknown start edge '%'.", startEdge);
+        WRITE_WARNINGF(TL("Ignoring prohibition from unknown start edge '%'."), startEdge);
         return true;
     }
     NBEdge* to = myEdgeCont.retrieve(endEdge);
     if (to == nullptr) {
-        WRITE_WARNINGF("Ignoring prohibition from unknown end edge '%'.", endEdge);
+        WRITE_WARNINGF(TL("Ignoring prohibition from unknown end edge '%'."), endEdge);
         return true;
     }
     from->removeFromConnections(to, -1, -1, true);
@@ -797,27 +797,27 @@ NIImporter_DlrNavteq::ConnectedLanesHandler::report(const std::string& result) {
 
     NBEdge* from = myEdgeCont.retrieve(startEdge);
     if (from == nullptr) {
-        WRITE_WARNINGF("Ignoring prohibition from unknown start edge '%'.", startEdge);
+        WRITE_WARNINGF(TL("Ignoring prohibition from unknown start edge '%'."), startEdge);
         return true;
     }
     NBEdge* to = myEdgeCont.retrieve(endEdge);
     if (to == nullptr) {
-        WRITE_WARNINGF("Ignoring prohibition from unknown end edge '%'.", endEdge);
+        WRITE_WARNINGF(TL("Ignoring prohibition from unknown end edge '%'."), endEdge);
         return true;
     }
     int fromLane = StringUtils::toInt(fromLaneS) - 1; // one based
     if (fromLane < 0 || fromLane >= from->getNumLanes()) {
-        WRITE_WARNINGF("Ignoring invalid lane index '%' in connection from edge '%' with % lanes.", fromLaneS, startEdge, from->getNumLanes());
+        WRITE_WARNINGF(TL("Ignoring invalid lane index '%' in connection from edge '%' with % lanes."), fromLaneS, startEdge, from->getNumLanes());
         return true;
     }
     int toLane = StringUtils::toInt(toLaneS) - 1; // one based
     if (toLane < 0 || toLane >= to->getNumLanes()) {
-        WRITE_WARNINGF("Ignoring invalid lane index '%' in connection to edge '%' with % lanes", toLaneS, endEdge, to->getNumLanes());
+        WRITE_WARNINGF(TL("Ignoring invalid lane index '%' in connection to edge '%' with % lanes"), toLaneS, endEdge, to->getNumLanes());
         return true;
     }
     if (!from->addLane2LaneConnection(fromLane, to, toLane, NBEdge::Lane2LaneInfoType::USER, true)) {
         if (OptionsCont::getOptions().getBool("show-errors.connections-first-try")) {
-            WRITE_WARNINGF("Could not set loaded connection from '%' to '%'.", from->getLaneID(fromLane), to->getLaneID(toLane));
+            WRITE_WARNINGF(TL("Could not set loaded connection from '%' to '%'."), from->getLaneID(fromLane), to->getLaneID(toLane));
         }
         // set as to be re-applied after network processing
         // if this connection runs across a node cluster it may not be possible to set this

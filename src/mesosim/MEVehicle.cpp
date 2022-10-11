@@ -216,7 +216,7 @@ MEVehicle::checkStop(SUMOTime time) {
     bool hadStop = false;
     for (MSStop& stop : myStops) {
         if (stop.joinTriggered) {
-            WRITE_WARNINGF("Join stops are not available in meso yet (vehicle '%', segment '%').",
+            WRITE_WARNINGF(TL("Join stops are not available in meso yet (vehicle '%', segment '%')."),
                            getID(), mySegment->getID());
             continue;
         }
@@ -243,7 +243,7 @@ MEVehicle::checkStop(SUMOTime time) {
                 if (!hadStop) {
                     MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber(), myLastEntryTime);
                 } else {
-                    WRITE_WARNINGF("Vehicle '%' has multiple stops on segment '%', time=% (stop-output will be merged).",
+                    WRITE_WARNINGF(TL("Vehicle '%' has multiple stops on segment '%', time=% (stop-output will be merged)."),
                                    getID(), mySegment->getID(), time2string(time));
                 }
             }

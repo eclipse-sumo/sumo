@@ -86,7 +86,7 @@ NIXMLConnectionsHandler::myStartElement(int element,
             return;
         }
         if (!fromEdge->isConnectedTo(toEdge) && fromEdge->getStep() >= NBEdge::EdgeBuildingStep::EDGE2EDGES) {
-            WRITE_WARNINGF("Target edge '%' is not connected with '%'; the connection cannot be reset.", toEdge->getID(), fromEdge->getID());
+            WRITE_WARNINGF(TL("Target edge '%' is not connected with '%'; the connection cannot be reset."), toEdge->getID(), fromEdge->getID());
             return;
         }
         int fromLane = -1; // Assume all lanes are to be reset.
@@ -100,7 +100,7 @@ NIXMLConnectionsHandler::myStartElement(int element,
             // we could be trying to reset a connection loaded from a sumo net and which has become obsolete.
             // In this case it's ok to encounter invalid lance indices
             if (!fromEdge->hasConnectionTo(toEdge, toLane) && fromEdge->getStep() >= NBEdge::EdgeBuildingStep::LANES2EDGES) {
-                WRITE_WARNINGF("Edge '%' has no connection to lane '%'; the connection cannot be reset.", fromEdge->getID(), toEdge->getLaneID(toLane));
+                WRITE_WARNINGF(TL("Edge '%' has no connection to lane '%'; the connection cannot be reset."), fromEdge->getID(), toEdge->getLaneID(toLane));
             }
         }
         fromEdge->removeFromConnections(toEdge, fromLane, toLane, true);
@@ -284,7 +284,7 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes& attrs, NBEdge* 
         if (!from->addLane2LaneConnection(fromLane, to, toLane, NBEdge::Lane2LaneInfoType::USER, true, mayDefinitelyPass,
                                           keepClear, contPos, visibility, speed, friction, length, customShape, uncontrolled, permissions, indirectLeft, edgeType, changeLeft, changeRight)) {
             if (OptionsCont::getOptions().getBool("show-errors.connections-first-try")) {
-                WRITE_WARNINGF("Could not set loaded connection from lane '%' to lane '%'.", from->getLaneID(fromLane), to->getLaneID(toLane));
+                WRITE_WARNINGF(TL("Could not set loaded connection from lane '%' to lane '%'."), from->getLaneID(fromLane), to->getLaneID(toLane));
             }
             // set as to be re-applied after network processing
             myEdgeCont.addPostProcessConnection(from->getID(), fromLane, to->getID(), toLane, mayDefinitelyPass, keepClear, contPos, visibility,

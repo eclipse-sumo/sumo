@@ -515,7 +515,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                         state[i1] = 'r';
                         //std::cout << " disabling minorLeft " << i1 << " (speed=" << fromEdges[i1]->getSpeed() << " thresh=" << minorLeftSpeedThreshold << ")\n";
                     } else if (!isTurnaround[i1]) {
-                        WRITE_WARNINGF("Minor green from edge '%' to edge '%' exceeds %m/s. Maybe a left-turn lane is missing.",
+                        WRITE_WARNINGF(TL("Minor green from edge '%' to edge '%' exceeds %m/s. Maybe a left-turn lane is missing."),
                                        fromEdges[i1]->getID(), toEdges[i1]->getID(), minorLeftSpeedThreshold);
                     }
                 }
@@ -727,7 +727,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
     if (isNEMA) {
         NBTrafficLightLogic* nemaLogic = buildNemaPhases(fromEdges, chosenList, straightStates, leftStates);
         if (nemaLogic == nullptr) {
-            WRITE_WARNINGF("Generating NEMA phases is not support for traffic light '%' with % incoming edges. Using tlType 'actuated' as fallback", getID(), incoming.size());
+            WRITE_WARNINGF(TL("Generating NEMA phases is not support for traffic light '%' with % incoming edges. Using tlType 'actuated' as fallback"), getID(), incoming.size());
             logic->setType(TrafficLightType::ACTUATED);
             setType(TrafficLightType::ACTUATED);
         } else {
@@ -753,7 +753,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                 || STEPS2TIME(minGreenDuration) + patchSeconds + patchSecondsRest < MIN_GREEN_TIME
                 || greenPhases.size() == 0) {
             if (getID() != DummyID) {
-                WRITE_WARNINGF("The traffic light '%' cannot be adapted to a cycle time of %.", getID(), time2string(cycleTime));
+                WRITE_WARNINGF(TL("The traffic light '%' cannot be adapted to a cycle time of %."), getID(), time2string(cycleTime));
             }
             // @todo use a multiple of cycleTime ?
         } else {
@@ -772,7 +772,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
     myNeedsContRelationReady = (myControlledNodes.size() == 1);
     if (totalDuration > 0) {
         if (totalDuration > 3 * (greenTime + 2 * brakingTime + leftTurnTime) && !isNEMA) {
-            WRITE_WARNINGF("The traffic light '%' has a high cycle time of %.", getID(), time2string(totalDuration));
+            WRITE_WARNINGF(TL("The traffic light '%' has a high cycle time of %."), getID(), time2string(totalDuration));
         }
         logic->closeBuilding();
         return logic;

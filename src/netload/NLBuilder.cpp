@@ -181,7 +181,7 @@ NLBuilder::build() {
                     }
                 }
             } else {
-                WRITE_WARNINGF("A TAZ with id '%' already exists. Not building junction TAZ.", it->first)
+                WRITE_WARNINGF(TL("A TAZ with id '%' already exists. Not building junction TAZ."), it->first)
             }
         }
     }

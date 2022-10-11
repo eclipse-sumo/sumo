@@ -105,7 +105,7 @@ MSRailSignal::MSRailSignal(MSTLLogicControl& tlcontrol,
 void
 MSRailSignal::init(NLDetectorBuilder&) {
     if (myLanes.size() == 0) {
-        WRITE_WARNINGF("Rail signal at junction '%' does not control any links", getID());
+        WRITE_WARNINGF(TL("Rail signal at junction '%' does not control any links"), getID());
     }
     for (LinkVector& links : myLinks) { //for every link index
         if (links.size() != 1) {

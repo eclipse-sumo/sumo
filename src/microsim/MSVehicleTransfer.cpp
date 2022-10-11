@@ -61,7 +61,7 @@ MSVehicleTransfer::add(const SUMOTime t, MSVehicle* veh) {
         veh->getLaneChangeModel().endLaneChangeManeuver(MSMoveReminder::NOTIFICATION_TELEPORT);
         MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VehicleState::STARTING_TELEPORT);
         if (veh->succEdge(1) == nullptr) {
-            WRITE_WARNINGF("Vehicle '%' teleports beyond arrival edge '%', time=%.", veh->getID(), veh->getEdge()->getID(), time2string(t));
+            WRITE_WARNINGF(TL("Vehicle '%' teleports beyond arrival edge '%', time=%."), veh->getID(), veh->getEdge()->getID(), time2string(t));
             veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED);
             MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
             return;
@@ -161,7 +161,7 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
                          e->getFreeLane(nullptr, vclass, departPos));
             // handle teleporting vehicles, lane may be 0 because permissions were modified by a closing rerouter or TraCI
             if (l != nullptr && l->freeInsertion(*(desc.myVeh), MIN2(l->getSpeedLimit(), desc.myVeh->getMaxSpeed()), 0, MSMoveReminder::NOTIFICATION_TELEPORT)) {
-                WRITE_WARNINGF("Vehicle '%' ends teleporting on edge '%', time=%.", desc.myVeh->getID(), e->getID(), time2string(time));
+                WRITE_WARNINGF(TL("Vehicle '%' ends teleporting on edge '%', time=%."), desc.myVeh->getID(), e->getID(), time2string(time));
                 MSNet::getInstance()->informVehicleStateListener(desc.myVeh, MSNet::VehicleState::ENDING_TELEPORT);
                 i = vehInfos.erase(i);
             } else {
@@ -175,7 +175,7 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
                     desc.myProceedTime = time + TIME2STEPS(e->getCurrentTravelTime(TeleportMinSpeed));
                 } else if (desc.myProceedTime < time) {
                     if (desc.myVeh->succEdge(1) == nullptr) {
-                        WRITE_WARNINGF("Vehicle '%' teleports beyond arrival edge '%', time=%.", desc.myVeh->getID(), e->getID(), time2string(time));
+                        WRITE_WARNINGF(TL("Vehicle '%' teleports beyond arrival edge '%', time=%."), desc.myVeh->getID(), e->getID(), time2string(time));
                         desc.myVeh->leaveLane(MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED);
                         MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(desc.myVeh);
                         i = vehInfos.erase(i);

@@ -751,7 +751,7 @@ MSRouteHandler::closeTransportable() {
         if (myActiveType == ObjectTypeEnum::PERSON
                 && type->getVehicleClass() != SVC_PEDESTRIAN
                 && !type->getParameter().wasSet(VTYPEPARS_VEHICLECLASS_SET)) {
-            WRITE_WARNINGF("Person '%' receives type '%' which implicitly uses unsuitable vClass '%'.", myVehicleParameter->id, type->getID(), toString(type->getVehicleClass()));
+            WRITE_WARNINGF(TL("Person '%' receives type '%' which implicitly uses unsuitable vClass '%'."), myVehicleParameter->id, type->getID(), toString(type->getVehicleClass()));
         }
         int created = addFlowTransportable(myVehicleParameter->depart, type, myVehicleParameter->id, -1);
         registerLastDepart();
@@ -887,7 +887,7 @@ MSRouteHandler::addFlowTransportable(SUMOTime depart, MSVehicleType* type, const
                 }
             } else if ((net->hasPersons() && net->getPersonControl().get(myVehicleParameter->id) != nullptr)
                        && (net->hasContainers() && net->getContainerControl().get(myVehicleParameter->id) != nullptr)) {
-                WRITE_WARNINGF("There exists a person and a container with the same id '%'. Starting with SUMO 1.9.0 this is an error.", myVehicleParameter->id);
+                WRITE_WARNINGF(TL("There exists a person and a container with the same id '%'. Starting with SUMO 1.9.0 this is an error."), myVehicleParameter->id);
             }
         }
         return numCreated;

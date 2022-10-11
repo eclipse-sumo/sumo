@@ -939,7 +939,7 @@ MSVehicle::Influencer::implicitDeltaPosRemote(const MSVehicle* veh) {
         return 0;
     } else {
         if (DIST2SPEED(dist) > veh->getMaxSpeed() * 1.1) {
-            WRITE_WARNINGF("Vehicle '%' moved by TraCI from % to % (dist %) with implied speed of % (exceeding maximum speed %). time=%.",
+            WRITE_WARNINGF(TL("Vehicle '%' moved by TraCI from % to % (dist %) with implied speed of % (exceeding maximum speed %). time=%."),
                            veh->getID(), veh->getPosition(), myRemoteXYPos, dist, DIST2SPEED(dist), veh->getMaxSpeed(), time2string(SIMSTEP));
             // some sanity check here
             dist = MIN2(dist, SPEED2DIST(veh->getMaxSpeed() * 2));
@@ -1797,7 +1797,7 @@ MSVehicle::processNextStop(double currentVelocity) {
                     // split the train
                     MSVehicle* splitVeh = dynamic_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(stop.pars.split));
                     if (splitVeh == nullptr) {
-                        WRITE_WARNINGF("Vehicle '%' to split from vehicle '%' is not known. time=%.", stop.pars.split, getID(), SIMTIME)
+                        WRITE_WARNINGF(TL("Vehicle '%' to split from vehicle '%' is not known. time=%."), stop.pars.split, getID(), SIMTIME)
                     } else {
                         MSNet::getInstance()->getInsertionControl().add(splitVeh);
                         splitVeh->getRoute().getEdges()[0]->removeWaiting(splitVeh);
@@ -2704,7 +2704,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                 //std::cout << "   blocker=" << Named::getIDSecure(blocker.first) << "\n";
             }
             if (n == 0) {
-                WRITE_WARNINGF("Suspicious right_before_left junction '%s'.", lane->getEdge().getToJunction()->getID());
+                WRITE_WARNINGF(TL("Suspicious right_before_left junction '%s'."), lane->getEdge().getToJunction()->getID());
             }
             //std::cout << "   blockerLink=" << blocker.second << " link=" << *link << "\n";
             if (blocker.second == *link) {
@@ -4457,7 +4457,7 @@ MSVehicle::updateState(double vNext) {
             decelPlus += 2 * NUMERICAL_EPS;
             const double emergencyFraction = decelPlus / MAX2(NUMERICAL_EPS, getCarFollowModel().getEmergencyDecel() - getCarFollowModel().getMaxDecel());
             if (emergencyFraction >= MSGlobals::gEmergencyDecelWarningThreshold) {
-                WRITE_WARNINGF("Vehicle '%' performs emergency braking on lane '%' with decel=%, wished=%, severity=%, time=%.",
+                WRITE_WARNINGF(TL("Vehicle '%' performs emergency braking on lane '%' with decel=%, wished=%, severity=%, time=%."),
                                //+ " decelPlus=" + toString(decelPlus)
                                //+ " prevAccel=" + toString(previousAcceleration)
                                //+ " reserve=" + toString(MAX2(NUMERICAL_EPS, getCarFollowModel().getEmergencyDecel() - getCarFollowModel().getMaxDecel()))
@@ -5859,7 +5859,7 @@ MSVehicle::getUpcomingLanesUntil(double distance) const {
     std::vector<const MSLane*> lanes;
 
     if (distance <= 0.) {
-        // WRITE_WARNINGF("MSVehicle::getUpcomingLanesUntil(): distance ('%') should be greater than 0.", distance);
+        // WRITE_WARNINGF(TL("MSVehicle::getUpcomingLanesUntil(): distance ('%') should be greater than 0."), distance);
         return lanes;
     }
 
@@ -5928,7 +5928,7 @@ MSVehicle::getPastLanesUntil(double distance) const {
     std::vector<const MSLane*> lanes;
 
     if (distance <= 0.) {
-        // WRITE_WARNINGF("MSVehicle::getPastLanesUntil(): distance ('%') should be greater than 0.", distance);
+        // WRITE_WARNINGF(TL("MSVehicle::getPastLanesUntil(): distance ('%') should be greater than 0."), distance);
         return lanes;
     }
 

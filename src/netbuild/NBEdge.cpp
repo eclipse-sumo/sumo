@@ -523,7 +523,7 @@ NBEdge::init(int noLanes, bool tryIgnoreNodePositions, const std::string& origID
         myGeom.push_back(myTo->getPosition());
     }
     if (myGeom.size() == 2 && myGeom[0] == myGeom[1]) {
-        WRITE_WARNINGF("Edge's '%' from- and to-node are at the same position.", myID);
+        WRITE_WARNINGF(TL("Edge's '%' from- and to-node are at the same position."), myID);
         int patchIndex = myFrom->getID() < myTo->getID() ? 1 : 0;
         myGeom[patchIndex].add(Position(POSITION_EPS, POSITION_EPS));
     }
@@ -657,7 +657,7 @@ NBEdge::setGeometry(const PositionVector& s, bool inner) {
     }
     // ensure non-zero length (see ::init)
     if (myGeom.size() == 2 && myGeom[0] == myGeom[1]) {
-        WRITE_WARNINGF("Edge's '%' from- and to-node are at the same position.", myID);
+        WRITE_WARNINGF(TL("Edge's '%' from- and to-node are at the same position."), myID);
         int patchIndex = myFrom->getID() < myTo->getID() ? 1 : 0;
         myGeom[patchIndex].add(Position(POSITION_EPS, POSITION_EPS));
     }
@@ -1025,7 +1025,7 @@ NBEdge::checkGeometry(const double maxAngle, const double minRadius, bool fix, b
         const double relAngle = fabs(GeomHelper::angleDiff(angles[i], angles[i + 1]));
         //std::cout << relAngle << " ";
         if (maxAngle > 0 && relAngle > maxAngle && !silent) {
-            WRITE_WARNINGF("Found angle of % degrees at edge '%', segment %.", RAD2DEG(relAngle), getID(), i);
+            WRITE_WARNINGF(TL("Found angle of % degrees at edge '%', segment %."), RAD2DEG(relAngle), getID(), i);
         }
         if (relAngle < DEG2RAD(1)) {
             continue;
@@ -1180,7 +1180,7 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
     }
     if ((int)myLanes.size() <= lane || destEdge->getNumLanes() <= (int)destLane) {
         // problem might be corrigible in post-processing
-        WRITE_WARNINGF("Could not set connection from '%' to '%'.", getLaneID(lane), destEdge->getLaneID(destLane));
+        WRITE_WARNINGF(TL("Could not set connection from '%' to '%'."), getLaneID(lane), destEdge->getLaneID(destLane));
         return false;
     }
     for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end();) {
@@ -1687,7 +1687,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
         std::vector<int> foeInternalLinks;
 
         if (dir != LinkDirection::STRAIGHT && shape.length() < POSITION_EPS && !(isBidiRail() && getTurnDestination(true) == con.toEdge)) {
-            WRITE_WARNINGF("Connection '%_%->%_%' is only %m short.", getID(), con.fromLane, con.toEdge->getID(), con.toLane, shape.length());
+            WRITE_WARNINGF(TL("Connection '%_%->%_%' is only %m short."), getID(), con.fromLane, con.toEdge->getID(), con.toLane, shape.length());
         }
 
         // crossingPosition, list of foe link indices
@@ -1787,7 +1787,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                             // do not warn for unregulated nodes
                             && n.getType() != SumoXMLNodeType::NOJUNCTION
                        ) {
-                        WRITE_WARNINGF("Intersecting left turns at junction '%' from lane '%' and lane '%' (increase junction radius to avoid this).",
+                        WRITE_WARNINGF(TL("Intersecting left turns at junction '%' from lane '%' and lane '%' (increase junction radius to avoid this)."),
                                 n.getID(), getLaneID(con.fromLane), i2->getLaneID(k2.fromLane));
                     }
                     // compute foe incoming lanes
@@ -1887,7 +1887,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                         if (atRoundabout) {
                             dirType = "roundabout";
                         }
-                        WRITE_WARNINGF("Speed of % connection '%' reduced by % due to turning radius of % (length=%, angle=%).",
+                        WRITE_WARNINGF(TL("Speed of % connection '%' reduced by % due to turning radius of % (length=%, angle=%)."),
                                        dirType, con.getDescription(this), reduction, radius, length, RAD2DEG(angleRaw));
                     }
                     con.vmax = MIN2(con.vmax, limit);
@@ -2215,7 +2215,7 @@ NBEdge::computeLaneShapes() {
         try {
             myLanes[i].shape = computeLaneShape(i, offsets[i]);
         } catch (InvalidArgument& e) {
-            WRITE_WARNINGF("In lane '%': lane shape could not be determined (%).", getLaneID(i), e.what());
+            WRITE_WARNINGF(TL("In lane '%': lane shape could not be determined (%)."), getLaneID(i), e.what());
             myLanes[i].shape = myGeom;
         }
     }
@@ -2228,7 +2228,7 @@ NBEdge::computeLaneShape(int lane, double offset) const {
     try {
         shape.move2side(offset);
     } catch (InvalidArgument& e) {
-        WRITE_WARNINGF("In lane '%': Could not build shape (%).", getLaneID(lane), e.what());
+        WRITE_WARNINGF(TL("In lane '%': Could not build shape (%)."), getLaneID(lane), e.what());
     }
     return shape;
 }
@@ -2633,7 +2633,7 @@ NBEdge::applyTurnSigns() {
     std::vector<LinkDirection> signedDirs = decodeTurnSigns(allDirs);
     std::map<LinkDirection, const NBEdge*> dirMap;
     if (signedDirs.size() > targets.size()) {
-        WRITE_WARNINGF("Cannot apply turn sign information for edge '%' because there are % signed directions but only % targets", getID(), signedDirs.size(), targets.size());
+        WRITE_WARNINGF(TL("Cannot apply turn sign information for edge '%' because there are % signed directions but only % targets"), getID(), signedDirs.size(), targets.size());
         return false;
     } else if (signedDirs.size() < targets.size()) {
         // we need to drop some targets (i.e. turn-around)
@@ -2674,7 +2674,7 @@ NBEdge::applyTurnSigns() {
             }
         }
         if (signedDirs.size() != targets.size()) {
-            WRITE_WARNINGF("Cannot apply turn sign information for edge '%' because there are % signed directions and % targets (after target pruning)", getID(), signedDirs.size(), targets.size());
+            WRITE_WARNINGF(TL("Cannot apply turn sign information for edge '%' because there are % signed directions and % targets (after target pruning)"), getID(), signedDirs.size(), targets.size());
             return false;
         }
     }
@@ -2693,7 +2693,7 @@ NBEdge::applyTurnSigns() {
         if ((int)knownTargets.size() < item.second) {
             int candidates = to->getNumLanesThatAllow(SVC_PASSENGER);
             if (candidates < item.second) {
-                WRITE_WARNINGF("Cannot apply turn sign information for edge '%' because there are % signed connections with directions '%' but target edge '%' has only % suitable lanes",
+                WRITE_WARNINGF(TL("Cannot apply turn sign information for edge '%' because there are % signed connections with directions '%' but target edge '%' has only % suitable lanes"),
                                getID(), item.second, toString(dir), to->getID(), candidates);
                 return false;
             }
@@ -2720,7 +2720,7 @@ NBEdge::applyTurnSigns() {
                 i += iInc;
             }
             if ((int)knownTargets.size() != item.second) {
-                WRITE_WARNINGF("Cannot apply turn sign information for edge '%' because not enough target lanes could be determined for direction '%'", getID(), toString(dir));
+                WRITE_WARNINGF(TL("Cannot apply turn sign information for edge '%' because not enough target lanes could be determined for direction '%'"), getID(), toString(dir));
                 return false;
             }
             std::sort(knownTargets.begin(), knownTargets.end());
@@ -2885,7 +2885,7 @@ NBEdge::recheckLanes() {
     // check involuntary dead end at "real" junctions
     if (getPermissions() != SVC_PEDESTRIAN) {
         if (myConnections.empty() && myTo->getOutgoingEdges().size() > 1 && (getPermissions() & ~SVC_PEDESTRIAN) != 0) {
-            WRITE_WARNINGF("Edge '%' is not connected to outgoing edges at junction '%'.", getID(), myTo->getID());
+            WRITE_WARNINGF(TL("Edge '%' is not connected to outgoing edges at junction '%'."), getID(), myTo->getID());
         }
         const EdgeVector& incoming = myFrom->getIncomingEdges();
         if (incoming.size() > 1) {
@@ -2899,7 +2899,7 @@ NBEdge::recheckLanes() {
                         }
                     }
                     if (!connected) {
-                        WRITE_WARNINGF("Lane '%' is not connected from any incoming edge at junction '%'.", getLaneID(i), myFrom->getID());
+                        WRITE_WARNINGF(TL("Lane '%' is not connected from any incoming edge at junction '%'."), getLaneID(i), myFrom->getID());
                     }
                 }
             }
@@ -3539,13 +3539,13 @@ NBEdge::setControllingTLInformation(const NBConnection& c, const std::string& tl
             no++;
         } else {
             if ((*i).tlID != tlID && (*i).tlLinkIndex == tlIndex) {
-                WRITE_WARNINGF("The lane '%' on edge '%' already had a traffic light signal.", i->fromLane, getID());
+                WRITE_WARNINGF(TL("The lane '%' on edge '%' already had a traffic light signal."), i->fromLane, getID());
                 hadError = true;
             }
         }
     }
     if (hadError && no == 0) {
-        WRITE_WARNINGF("Could not set any signal of the tlLogic '%' (unknown group).", tlID);
+        WRITE_WARNINGF(TL("Could not set any signal of the tlLogic '%' (unknown group)."), tlID);
     }
     return true;
 }
@@ -4027,7 +4027,7 @@ NBEdge::setEdgeStopOffset(int lane, const StopOffset& offset, bool overwrite) {
         // all lanes are meant...
         if (offset.getOffset() < 0) {
             // Edge length unknown at parsing time, thus check here.
-            WRITE_WARNINGF("Ignoring invalid stopOffset for edge '%' (negative offset).", getID());
+            WRITE_WARNINGF(TL("Ignoring invalid stopOffset for edge '%' (negative offset)."), getID());
             return false;
         } else {
             myEdgeStopOffset = offset;
@@ -4036,13 +4036,13 @@ NBEdge::setEdgeStopOffset(int lane, const StopOffset& offset, bool overwrite) {
         if (!myLanes[lane].laneStopOffset.isDefined() || overwrite) {
             if (offset.getOffset() < 0) {
                 // Edge length unknown at parsing time, thus check here.
-                WRITE_WARNINGF("Ignoring invalid stopOffset for lane '%' (negative offset).", getLaneID(lane));
+                WRITE_WARNINGF(TL("Ignoring invalid stopOffset for lane '%' (negative offset)."), getLaneID(lane));
             } else {
                 myLanes[lane].laneStopOffset = offset;
             }
         }
     } else {
-        WRITE_WARNINGF("Ignoring invalid stopOffset for lane '%' (invalid lane index).", toString(lane));
+        WRITE_WARNINGF(TL("Ignoring invalid stopOffset for lane '%' (invalid lane index)."), toString(lane));
     }
     return true;
 }
@@ -4363,7 +4363,7 @@ NBEdge::hasRestrictedLane(SUMOVehicleClass vclass) const {
 void
 NBEdge::addRestrictedLane(double width, SUMOVehicleClass vclass) {
     if (hasRestrictedLane(vclass)) {
-        WRITE_WARNINGF("Edge '%' already has a dedicated lane for %s. Not adding another one.", getID(), toString(vclass));
+        WRITE_WARNINGF(TL("Edge '%' already has a dedicated lane for %s. Not adding another one."), getID(), toString(vclass));
         return;
     }
     if (myLaneSpreadFunction == LaneSpreadFunction::CENTER) {
@@ -4400,7 +4400,7 @@ void
 NBEdge::restoreRestrictedLane(SUMOVehicleClass vclass, std::vector<NBEdge::Lane> oldLanes, PositionVector oldGeometry, std::vector<NBEdge::Connection> oldConnections) {
     // check that previously lane was transformed
     if (myLanes[0].permissions != vclass) {
-        WRITE_WARNINGF("Edge '%' doesn't have a dedicated lane for %s. Cannot be restored.", getID(), toString(vclass));
+        WRITE_WARNINGF(TL("Edge '%' doesn't have a dedicated lane for %s. Cannot be restored."), getID(), toString(vclass));
         return;
     }
     // restore old values
@@ -4448,7 +4448,7 @@ NBEdge::shiftPositionAtNode(NBNode* node, NBEdge* other) {
                 tmp.move2side(neededOffset - dist);
                 myGeom[i] = tmp[i];
             } catch (InvalidArgument&) {
-                WRITE_WARNINGF("Could not avoid overlapping shape at node '%' for edge '%'.", node->getID(), getID());
+                WRITE_WARNINGF(TL("Could not avoid overlapping shape at node '%' for edge '%'."), node->getID(), getID());
             }
         }
     }

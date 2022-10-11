@@ -1102,7 +1102,7 @@ MSTriggeredRerouter::addParkValues(SUMOVehicle& veh, double brakeGap, bool newDe
                                        routeToPark.begin(), routeToPark.end() - 1, includeInternalLengths);
 
             if (parkValues["distanceto"] == std::numeric_limits<double>::max()) {
-                WRITE_WARNINGF("Invalid distance computation for vehicle '%' to parkingArea '%' at time=%.",
+                WRITE_WARNINGF(TL("Invalid distance computation for vehicle '%' to parkingArea '%' at time=%."),
                                veh.getID(), pa->getID(), time2string(SIMSTEP));
             }
             const double endPos = pa->getOccupancy() == pa->getCapacity()
@@ -1157,7 +1157,7 @@ MSTriggeredRerouter::addParkValues(SUMOVehicle& veh, double brakeGap, bool newDe
                 parkValues["distancefrom"] = routeFromPark.getDistanceBetween(pa->getBeginLanePosition(), routeFromPark.getLastEdge()->getLength(),
                                              routeFromPark.begin(), routeFromPark.end() - 1, includeInternalLengths);
                 if (parkValues["distancefrom"] == std::numeric_limits<double>::max()) {
-                    WRITE_WARNINGF("Invalid distance computation for vehicle '%' from parkingArea '%' at time=%.",
+                    WRITE_WARNINGF(TL("Invalid distance computation for vehicle '%' from parkingArea '%' at time=%."),
                                    veh.getID(), pa->getID(), time2string(SIMSTEP));
                 }
                 // The time to reach this area
@@ -1233,7 +1233,7 @@ MSTriggeredRerouter::checkParkingRerouteConsistency() {
     }
     for (const auto& item : targetedParkingArea) {
         if (parkingRerouterEdges.count(&item.first->getLane().getEdge()) == 0) {
-            WRITE_WARNINGF("ParkingArea '%' is targeted by rerouter '%' but doesn't have it's own rerouter. This may cause parking search to abort.",
+            WRITE_WARNINGF(TL("ParkingArea '%' is targeted by rerouter '%' but doesn't have it's own rerouter. This may cause parking search to abort."),
                            item.first->getID(), item.second);
         }
     }

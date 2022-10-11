@@ -156,7 +156,7 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                                        + "', program '" + getProgramID() + "' in phases " + toString(i) + " and " + toString(iNext));
                 }
                 if (!haveWarnedAboutUnusedStates && state1.size() > myLanes.size() + myIgnoredIndices.size()) {
-                    WRITE_WARNINGF("Unused states in tlLogic '%', program '%' in phase % after tl-index %",
+                    WRITE_WARNINGF(TL("Unused states in tlLogic '%', program '%' in phase % after tl-index %"),
                                    getID(), getProgramID(), i, (int)myLanes.size() - 1);
                     haveWarnedAboutUnusedStates = true;
                 }
@@ -175,7 +175,7 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                         for (LaneVector::const_iterator it = myLanes[j].begin(); it != myLanes[j].end(); ++it) {
                             if ((*it)->getPermissions() != SVC_PEDESTRIAN) {
                                 if (getLogicType() != TrafficLightType::NEMA) {
-                                    WRITE_WARNINGF("Missing yellow phase in tlLogic '%', program '%' for tl-index % when switching% to phase %.",
+                                    WRITE_WARNINGF(TL("Missing yellow phase in tlLogic '%', program '%' for tl-index % when switching% to phase %."),
                                                    getID(), getProgramID(), j, optionalFrom, iNext);
                                     // one warning per program is enough
                                     haveWarned = true;
@@ -197,7 +197,7 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
         for (int j = 0; j < (int)foundGreen.size(); ++j) {
             if (!foundGreen[j]) {
                 if (getLogicType() != TrafficLightType::NEMA) {
-                    WRITE_WARNINGF("Missing green phase in tlLogic '%', program '%' for tl-index %.", getID(), getProgramID(), j);
+                    WRITE_WARNINGF(TL("Missing green phase in tlLogic '%', program '%' for tl-index %."), getID(), getProgramID(), j);
                 }
                 break;
             }
@@ -458,7 +458,7 @@ void MSTrafficLightLogic::initMesoTLSPenalties() {
                     greenFraction = MAX2(MIN2(greenFraction / edgeType.tlsFlowPenalty, 1.0), 0.01);
                 }
                 if (greenFraction == 0.01) {
-                    WRITE_WARNINGF("Green fraction is only 1% for link % in tlLogic '%', program '%'.", "%", j, getID(), getProgramID());
+                    WRITE_WARNINGF(TL("Green fraction is only 1% for link % in tlLogic '%', program '%'."), "%", j, getID(), getProgramID());
                 }
                 link->setGreenFraction(greenFraction);
             }

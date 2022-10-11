@@ -281,13 +281,13 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
         NBEdge* prohibitorFrom = myEdges[it->prohibitorFrom]->builtEdge;
         NBEdge* prohibitorTo = myEdges[it->prohibitorTo]->builtEdge;
         if (prohibitedFrom == nullptr) {
-            WRITE_WARNINGF("Edge '%' in prohibition was not built.", it->prohibitedFrom);
+            WRITE_WARNINGF(TL("Edge '%' in prohibition was not built."), it->prohibitedFrom);
         } else if (prohibitedTo == nullptr) {
-            WRITE_WARNINGF("Edge '%' in prohibition was not built.", it->prohibitedTo);
+            WRITE_WARNINGF(TL("Edge '%' in prohibition was not built."), it->prohibitedTo);
         } else if (prohibitorFrom == nullptr) {
-            WRITE_WARNINGF("Edge '%' in prohibition was not built.", it->prohibitorFrom);
+            WRITE_WARNINGF(TL("Edge '%' in prohibition was not built."), it->prohibitorFrom);
         } else if (prohibitorTo == nullptr) {
-            WRITE_WARNINGF("Edge '%' in prohibition was not built.", it->prohibitorTo);
+            WRITE_WARNINGF(TL("Edge '%' in prohibition was not built."), it->prohibitorTo);
         } else {
             NBNode* n = prohibitedFrom->getToNode();
             n->addSortedLinkFoes(
@@ -514,7 +514,7 @@ NIImporter_SUMO::myEndElement(int element) {
         case SUMO_TAG_EDGE:
             if (myCurrentEdge != nullptr) {
                 if (myEdges.find(myCurrentEdge->id) != myEdges.end()) {
-                    WRITE_WARNINGF("Edge '%' occurred at least twice in the input.", myCurrentEdge->id);
+                    WRITE_WARNINGF(TL("Edge '%' occurred at least twice in the input."), myCurrentEdge->id);
                 } else {
                     myEdges[myCurrentEdge->id] = myCurrentEdge;
                 }
@@ -729,7 +729,7 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes& attrs) {
     NBNetBuilder::transformCoordinate(pos, true, myLocation);
     NBNode* node = new NBNode(id, pos, type);
     if (!myNodeCont.insert(node)) {
-        WRITE_WARNINGF("Junction '%' occurred at least twice in the input.", id);
+        WRITE_WARNINGF(TL("Junction '%' occurred at least twice in the input."), id);
         delete node;
         myLastParameterised.push_back(myNodeCont.retrieve(id));
         return;

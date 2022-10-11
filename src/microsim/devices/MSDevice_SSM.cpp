@@ -1052,7 +1052,7 @@ MSDevice_SSM::estimateConflictTimes(EncounterApproachInfo& eInfo) {
     if (eInfo.egoEstimatedConflictEntryTime == 0. && eInfo.foeEstimatedConflictEntryTime == 0. &&
             eInfo.egoConflictExitDist >= 0 && eInfo.foeConflictExitDist >= 0) {
         type = ENCOUNTER_TYPE_COLLISION;
-        WRITE_WARNINGF("SSM device of vehicle '%' detected collision with vehicle '%' at time=%.", e->egoID, e->foeID, time2string(SIMSTEP));
+        WRITE_WARNINGF(TL("SSM device of vehicle '%' detected collision with vehicle '%' at time=%."), e->egoID, e->foeID, time2string(SIMSTEP));
     } else if (eInfo.egoEstimatedConflictEntryTime < eInfo.foeEstimatedConflictEntryTime) {
         // ego is estimated first at conflict point
 #ifdef DEBUG_SSM
@@ -2183,7 +2183,7 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                     // (since they approach via the same link, findSurroundingVehicles() would have determined a
                     // different conflictLane if both are not on the junction)
                     if (egoLane != egoConflictLane || foeLane != foeConflictLane) {
-                        WRITE_WARNINGF("Cannot classify SSM encounter between ego vehicle % and foe vehicle % at time=%\n", e->ego->getID(), e->foe->getID(), SIMTIME);
+                        WRITE_WARNINGF(TL("Cannot classify SSM encounter between ego vehicle % and foe vehicle % at time=%\n"), e->ego->getID(), e->foe->getID(), SIMTIME);
                         return ENCOUNTER_TYPE_NOCONFLICT_AHEAD;
                     }
                     if (egoLane == foeLane) {
@@ -2368,7 +2368,7 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                     if (!foeConflictLane->getCanonicalSuccessorLane()->isInternal()) {
                         // intersection has wierd geometry and the intersection was found
                         egoDistToConflictFromJunctionEntry = 0;
-                        WRITE_WARNINGF("Cannot compute SSM due to bad internal lane geometry at junction '%'. Crossing point between traffic from links % and % not found.",
+                        WRITE_WARNINGF(TL("Cannot compute SSM due to bad internal lane geometry at junction '%'. Crossing point between traffic from links % and % not found."),
                                        egoEntryLink->getJunction()->getID(),
                                        egoEntryLink->getIndex(),
                                        foeEntryLink->getIndex());
@@ -2392,7 +2392,7 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                     if (!egoConflictLane->getCanonicalSuccessorLane()->isInternal()) {
                         // intersection has wierd geometry and the intersection was found
                         foeDistToConflictFromJunctionEntry = 0;
-                        WRITE_WARNINGF("Cannot compute SSM due to bad internal lane geometry at junction '%'. Crossing point between traffic from links % and % not found.",
+                        WRITE_WARNINGF(TL("Cannot compute SSM due to bad internal lane geometry at junction '%'. Crossing point between traffic from links % and % not found."),
                                        foeEntryLink->getJunction()->getID(),
                                        foeEntryLink->getIndex(),
                                        egoEntryLink->getIndex());

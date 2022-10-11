@@ -350,7 +350,7 @@ NBTrafficLightLogicCont::setOpenDriveSignalParameters() {
         for (const NBConnection& con : def->getControlledLinks()) {
             const NBEdge::Connection& c = con.getFrom()->getConnection(con.getFromLane(), con.getTo(), con.getToLane());
             if (!c.knowsParameter("signalID") && defaultSignalIDs.count(con.getFrom()) != 0) {
-                WRITE_WARNINGF("Guessing signalID for link index % at traffic light '%'.", con.getTLIndex(), def->getID());
+                WRITE_WARNINGF(TL("Guessing signalID for link index % at traffic light '%'."), con.getTLIndex(), def->getID());
                 def->setParameter("linkSignalID:" + toString(con.getTLIndex()), defaultSignalIDs[con.getFrom()]);
             }
         }

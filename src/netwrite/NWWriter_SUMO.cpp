@@ -348,7 +348,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                                                              0, e->getTurnDestination(true), 0);
                             into.writeAttr(SUMO_ATTR_BIDI, bidiCon.id);
                         } catch (ProcessError&) {
-                            WRITE_WARNINGF("Could not find bidi-connection for edge '%'", edgeID)
+                            WRITE_WARNINGF(TL("Could not find bidi-connection for edge '%'"), edgeID)
                         }
                     }
                     // open a new edge
@@ -512,7 +512,7 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
     writePreferences(into, preferred);
     // some further information
     if (speed == 0) {
-        WRITE_WARNINGF("Lane '%' has a maximum allowed speed of 0.", lID);
+        WRITE_WARNINGF(TL("Lane '%' has a maximum allowed speed of 0."), lID);
     } else if (speed < 0) {
         throw ProcessError("Negative allowed speed (" + toString(speed) + ") on lane '" + lID + "', use --speed.minimum to prevent this.");
     }

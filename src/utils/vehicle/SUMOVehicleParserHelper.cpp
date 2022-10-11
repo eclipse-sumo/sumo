@@ -868,7 +868,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
                         && OptionsCont::getOptions().exists("pedestrian.striping.stripe-width")
                         && OptionsCont::getOptions().getString("pedestrian.model") == "striping"
                         && OptionsCont::getOptions().getFloat("pedestrian.striping.stripe-width") < vType->width) {
-                    WRITE_WARNINGF("Pedestrian vType '%' width % is larger than pedestrian.striping.stripe-width and this may cause collisions with vehicles.", id, vType->width);
+                    WRITE_WARNINGF(TL("Pedestrian vType '%' width % is larger than pedestrian.striping.stripe-width and this may cause collisions with vehicles."), id, vType->width);
                 }
             }
         }

@@ -886,7 +886,7 @@ void
 NBLoadedSUMOTLDef::finalChecks() const {
     for (int i = 0; i < myTLLogic->getNumLinks(); i++) {
         if (!isUsed(i)) {
-            WRITE_WARNINGF("Unused state in tlLogic '%', program '%' at tl-index %", getID(), getProgramID(), i);
+            WRITE_WARNINGF(TL("Unused state in tlLogic '%', program '%' at tl-index %"), getID(), getProgramID(), i);
             break;
         }
     }

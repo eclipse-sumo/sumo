@@ -338,7 +338,7 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes& attrs
             tlDefs.insert(def);
             def->addNode(currentNode);
             if (def->getType() != type && attrs.hasAttribute(SUMO_ATTR_TLTYPE)) {
-                WRITE_WARNINGF("Changing traffic light type '%' to '%' for tl '%'.", toString(def->getType()), typeS, tlID);
+                WRITE_WARNINGF(TL("Changing traffic light type '%' to '%' for tl '%'."), toString(def->getType()), typeS, tlID);
                 def->setType(type);
                 if (type != TrafficLightType::STATIC && dynamic_cast<NBLoadedSUMOTLDef*>(def) != nullptr) {
                     dynamic_cast<NBLoadedSUMOTLDef*>(def)->guessMinMaxDuration();

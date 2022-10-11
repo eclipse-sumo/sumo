@@ -133,7 +133,7 @@ NBHeightMapper::getZ(const Position& geo) const {
             return triangle->getZ(geo);
         }
     }
-    WRITE_WARNINGF("Could not get height data for coordinate %", toString(geo));
+    WRITE_WARNINGF(TL("Could not get height data for coordinate %"), toString(geo));
     return 0;
 }
 
@@ -228,7 +228,7 @@ NBHeightMapper::loadShapeFile(const std::string& file) {
             addTriangle(corners);
             numFeatures++;
         } else {
-            WRITE_WARNINGF("Ignored heightmap feature type %", geom->getGeometryName());
+            WRITE_WARNINGF(TL("Ignored heightmap feature type %"), geom->getGeometryName());
         }
 
         /*

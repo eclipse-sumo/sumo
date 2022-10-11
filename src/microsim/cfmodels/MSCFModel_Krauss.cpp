@@ -55,7 +55,7 @@ MSCFModel_Krauss::MSCFModel_Krauss(const MSVehicleType* vtype) :
         } else {
             myDawdleStep += DELTA_T - rem;
         }
-        WRITE_WARNINGF("Rounding 'sigmaStep' to % for vType '%'", STEPS2TIME(myDawdleStep), vtype->getID());
+        WRITE_WARNINGF(TL("Rounding 'sigmaStep' to % for vType '%'"), STEPS2TIME(myDawdleStep), vtype->getID());
 
     }
 }

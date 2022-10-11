@@ -85,7 +85,7 @@ MSDispatch::addReservation(MSTransportable* person,
                     && res->fromPos == fromPos
                     && res->toPos == toPos) {
                 if (res->persons.size() > 0 && (*res->persons.begin())->isPerson() != person->isPerson()) {
-                    WRITE_WARNINGF("Mixing reservations of persons and containers with the same group is not supported for % and %",
+                    WRITE_WARNINGF(TL("Mixing reservations of persons and containers with the same group is not supported for % and %"),
                                    (*res->persons.begin())->getID(), person->getID());
                 }
                 if ((person->isPerson() && (int)res->persons.size() >= maxCapacity) ||

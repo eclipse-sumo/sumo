@@ -150,7 +150,7 @@ void
 EnergyParams::checkParam(const SumoXMLAttr paramKey, const std::string& id, const double lower, const double upper) {
     const auto& p = myMap.find(paramKey);
     if (p != myMap.end() && (p->second < lower || p->second > upper)) {
-        WRITE_WARNINGF("Vehicle device '%' doesn't have a valid value for parameter % (%).", id, toString(paramKey), p->second);
+        WRITE_WARNINGF(TL("Vehicle device '%' doesn't have a valid value for parameter % (%)."), id, toString(paramKey), p->second);
         setDouble(paramKey, EnergyParams::getDefault()->getDouble(paramKey));
     }
 }

@@ -664,7 +664,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             }
         }
         if (!lanesBuilt) {
-            WRITE_WARNINGF("Edge '%' has no lanes.", e->id);
+            WRITE_WARNINGF(TL("Edge '%' has no lanes."), e->id);
         }
     }
 
@@ -840,7 +840,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                     from = fromTo.first;
                     to = fromTo.second;
                     if (from == nullptr) {
-                        WRITE_WARNINGF("Could not find edge '%' for signal '%'.", fromID, signal.id);
+                        WRITE_WARNINGF(TL("Could not find edge '%' for signal '%'."), fromID, signal.id);
                         continue;
                     }
 
@@ -855,7 +855,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                             from = signalFromTo.first;
                             to = signalFromTo.second;
                             if (from == nullptr) {
-                                WRITE_WARNINGF("Could not find edge '%' for signal '%'.", fromID, signal.id);
+                                WRITE_WARNINGF(TL("Could not find edge '%' for signal '%'."), fromID, signal.id);
                                 continue;
                             }
                         }
@@ -877,7 +877,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                     //std::cout << "odrEdge=" << e->id << " fromID=" << fromID << " toID=" << toID << " from=" << from->getID() << " to=" << to->getID()
                     //    << " signal=" << signal.id << " minLane=" << signal.minLane << " maxLane=" << signal.maxLane << "\n";
                 } else {
-                    WRITE_WARNINGF("Found a traffic light signal on an unknown edge (original edge id='%').", e->id);
+                    WRITE_WARNINGF(TL("Found a traffic light signal on an unknown edge (original edge id='%')."), e->id);
                     continue;
                 }
             } else {
@@ -888,7 +888,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 }
                 NBEdge* edge = nb.getEdgeCont().retrieve(id);
                 if (edge == nullptr) {
-                    WRITE_WARNINGF("Could not find edge '%' for signal '%'.", id, signal.id);
+                    WRITE_WARNINGF(TL("Could not find edge '%' for signal '%'."), id, signal.id);
                     continue;
                 }
                 getTLSSecure(edge, nb);
@@ -1451,7 +1451,7 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
                 // this avoids geometry errors due to imprecision
                 if (!e.geom.back().almostSame(geom.front())) {
                     const int index = (int)(j - e.geometries.begin());
-                    WRITE_WARNINGF("Mismatched geometry for edge '%' between geometry segments % and %.", e.id, index - 1, index);
+                    WRITE_WARNINGF(TL("Mismatched geometry for edge '%' between geometry segments % and %."), e.id, index - 1, index);
                 }
                 e.geom.pop_back();
             }
@@ -1644,7 +1644,7 @@ NIImporter_OpenDrive::revisitLaneSections(const NBTypeCont& tc, std::map<std::st
             // keep all lane sections for connecting roads because they are
             // needed to establish connectivity (laneSectionsConnected)
             if (simlarToLast && !e.isInner) {
-                WRITE_WARNINGF("Almost duplicate s-value '%' for lane sections occurred at edge '%'; second entry was removed.",  toString(lastS), e.id);
+                WRITE_WARNINGF(TL("Almost duplicate s-value '%' for lane sections occurred at edge '%'; second entry was removed."),  toString(lastS), e.id);
                 j = laneSections.erase(j);
             } else {
                 ++j;
@@ -1687,7 +1687,7 @@ NIImporter_OpenDrive::geomFromSpiral(const OpenDriveEdge& e, const OpenDriveGeom
     try {
         double cDot = (curveEnd - curveStart) / g.length;
         if (cDot == 0 || g.length == 0) {
-            WRITE_WARNINGF("Could not compute spiral geometry for edge '%' (cDot=% length=%).", e.id, toString(cDot), toString(g.length));
+            WRITE_WARNINGF(TL("Could not compute spiral geometry for edge '%' (cDot=% length=%)."), e.id, toString(cDot), toString(g.length));
             ret.push_back(Position(g.x, g.y));
             return ret;
         }

@@ -134,7 +134,7 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
     while ((calibrateFlow || calibrateSpeed) && invalidJam()) {
         hadInvalidJam = true;
         if (!myHaveWarnedAboutClearingJam) {
-            WRITE_WARNINGF("Clearing jam at calibrator '%' at time=%.", getID(), time2string(currentTime));
+            WRITE_WARNINGF(TL("Clearing jam at calibrator '%' at time=%."), getID(), time2string(currentTime));
         }
         // remove one vehicle currently on the segment
         if (mySegment->vaporizeAnyCar(currentTime, this)) {
@@ -142,7 +142,7 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
         } else {
             if (!myHaveWarnedAboutClearingJam) {
                 // this frequenly happens for very short edges
-                WRITE_WARNINGF("Could not clear jam at calibrator '%' at time=%.", getID(), time2string(currentTime));
+                WRITE_WARNINGF(TL("Could not clear jam at calibrator '%' at time=%."), getID(), time2string(currentTime));
             }
             break;
         }
@@ -243,7 +243,7 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
     }
     //assert(!invalidJam());
     if (invalidJam()) {
-        WRITE_WARNINGF("DEBUG: Could not clear jam at calibrator '%' at time=%.", getID(), time2string(currentTime));
+        WRITE_WARNINGF(TL("DEBUG: Could not clear jam at calibrator '%' at time=%."), getID(), time2string(currentTime));
     }
     return myFrequency;
 }

@@ -898,7 +898,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
 
     // Check filter specification consistency
     if (disregardOppositeDirection && (s.activeFilters & SUBS_FILTER_NO_RTREE) == 0) {
-        WRITE_WARNINGF("Ignoring veh '%' no-opposite subscription filter for geographic range object collection. Consider using the 'lanes' filter.", v->getID())
+        WRITE_WARNINGF(TL("Ignoring veh '%' no-opposite subscription filter for geographic range object collection. Consider using the 'lanes' filter."), v->getID())
     }
     // TODO: Treat case, where ego vehicle is currently on opposite lane
 
@@ -1061,7 +1061,7 @@ void
 Helper::applySubscriptionFilterLanes(const Subscription& s, std::set<const SUMOTrafficObject*>& vehs, std::vector<int>& filterLanes, double downstreamDist,
                                      double upstreamDist, bool disregardOppositeDirection) {
     if (!s.isVehicleToVehicleContextSubscription()) {
-        WRITE_WARNINGF("Lanes filter is only feasible for context domain 'vehicle' (current is '%'), ignoring filter...", toHex(s.contextDomain, 2));
+        WRITE_WARNINGF(TL("Lanes filter is only feasible for context domain 'vehicle' (current is '%'), ignoring filter..."), toHex(s.contextDomain, 2));
         return;
     }
     assert(filterLanes.size() > 0);
@@ -1158,7 +1158,7 @@ Helper::applySubscriptionFilterLanes(const Subscription& s, std::set<const SUMOT
 void
 Helper::applySubscriptionFilterTurn(const Subscription& s, std::set<const SUMOTrafficObject*>& vehs) {
     if (!s.isVehicleToVehicleContextSubscription()) {
-        WRITE_WARNINGF("Turn filter is only feasible for context domain 'vehicle' (current is '%'), ignoring filter...", toHex(s.contextDomain, 2));
+        WRITE_WARNINGF(TL("Turn filter is only feasible for context domain 'vehicle' (current is '%'), ignoring filter..."), toHex(s.contextDomain, 2));
         return;
     }
     // Get upcoming junctions and vialanes within downstream distance, where foe links exist or at least the link direction is not straight
@@ -1223,7 +1223,7 @@ Helper::applySubscriptionFilterTurn(const Subscription& s, std::set<const SUMOTr
 void
 Helper::applySubscriptionFilterFieldOfVision(const Subscription& s, std::set<std::string>& objIDs) {
     if (s.filterFieldOfVisionOpeningAngle <= 0. || s.filterFieldOfVisionOpeningAngle >= 360.) {
-        WRITE_WARNINGF("Field of vision opening angle ('%') should be within interval (0, 360), ignoring filter...", s.filterFieldOfVisionOpeningAngle);
+        WRITE_WARNINGF(TL("Field of vision opening angle ('%') should be within interval (0, 360), ignoring filter..."), s.filterFieldOfVisionOpeningAngle);
         return;
     }
 

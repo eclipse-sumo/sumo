@@ -589,7 +589,7 @@ MSCalibrator::VehicleRemover::notifyEnter(SUMOTrafficObject& veh, Notification /
                         << " vaporizing " << vehicle->getID() << " to clear jam\n";
 #endif
             if (!myParent->myHaveWarnedAboutClearingJam) {
-                WRITE_WARNINGF("Clearing jam at calibrator '%' at time=%.", myParent->getID(), time2string(SIMSTEP));
+                WRITE_WARNINGF(TL("Clearing jam at calibrator '%' at time=%."), myParent->getID(), time2string(SIMSTEP));
                 myParent->myHaveWarnedAboutClearingJam = true;
             }
             if (myParent->scheduleRemoval(&veh)) {

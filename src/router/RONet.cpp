@@ -203,7 +203,7 @@ RONet::addJunctionTaz(ROAbstractEdgeBuilder& eb) {
     for (auto item : myNodes) {
         const std::string tazID = item.first;
         if (myDistricts.count(tazID) != 0) {
-            WRITE_WARNINGF("A TAZ with id '%' already exists. Not building junction TAZ.", tazID);
+            WRITE_WARNINGF(TL("A TAZ with id '%' already exists. Not building junction TAZ."), tazID);
             continue;
         }
         const std::string sourceID = tazID + "-source";

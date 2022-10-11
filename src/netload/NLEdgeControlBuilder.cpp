@@ -195,7 +195,7 @@ NLEdgeControlBuilder::build(double networkVersion) {
     // consistency check
     for (auto item : myOppositeLanes) {
         if (item.first->getOpposite() != nullptr && item.first->getOpposite()->getOpposite() != item.first) {
-            WRITE_WARNINGF("Asymmetrical neigh lane '%' for lane '%'", item.second, item.first->getID());
+            WRITE_WARNINGF(TL("Asymmetrical neigh lane '%' for lane '%'"), item.second, item.first->getID());
             item.first->getOpposite()->setOpposite(item.first);
         }
     }

@@ -120,7 +120,7 @@ MSPModel_Striping::MSPModel_Striping(const OptionsCont& oc, MSNet* net) :
     stripeWidth = oc.getFloat("pedestrian.striping.stripe-width");
     MSVehicleType* defaultPedType = MSNet::getInstance()->getVehicleControl().getVType(DEFAULT_PEDTYPE_ID, nullptr, true);
     if (defaultPedType != nullptr && defaultPedType->getWidth() > stripeWidth) {
-        WRITE_WARNINGF("Pedestrian vType '%' width % is larger than pedestrian.striping.stripe-width and this may cause collisions with vehicles.",
+        WRITE_WARNINGF(TL("Pedestrian vType '%' width % is larger than pedestrian.striping.stripe-width and this may cause collisions with vehicles."),
                        DEFAULT_PEDTYPE_ID, defaultPedType->getWidth());
     }
 

@@ -859,7 +859,7 @@ NLHandler::addPhase(const SUMOSAXAttributes& attrs) {
     }
 
     if (phase->maxDuration < phase->minDuration) {
-        WRITE_WARNINGF("maxDur % should not be smaller than minDir % in phase of tlLogic %", phase->maxDuration, phase->minDuration, id);
+        WRITE_WARNINGF(TL("maxDur % should not be smaller than minDir % in phase of tlLogic %"), phase->maxDuration, phase->minDuration, id);
         phase->maxDuration = phase->duration;
     }
 
@@ -1543,7 +1543,7 @@ NLHandler::addDistrict(const SUMOSAXAttributes& attrs) {
                 // overwrite junction taz
                 sink = MSEdge::dictionary(sinkID);
                 sink->resetTAZ(myNet.getJunctionControl().get(myCurrentDistrictID));
-                WRITE_WARNINGF("Replacing junction-taz '%' with loaded TAZ.", myCurrentDistrictID);
+                WRITE_WARNINGF(TL("Replacing junction-taz '%' with loaded TAZ."), myCurrentDistrictID);
             } else {
                 throw InvalidArgument("Another edge with the id '" + sinkID + "' exists.");
             }

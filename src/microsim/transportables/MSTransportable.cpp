@@ -249,7 +249,7 @@ MSTransportable::setAbortWaiting(const SUMOTime timeout) {
 
 SUMOTime
 MSTransportable::abortStage(SUMOTime step) {
-    WRITE_WARNINGF("Teleporting % '%'; waited too long, from edge '%', time=%.",
+    WRITE_WARNINGF(TL("Teleporting % '%'; waited too long, from edge '%', time=%."),
                    isPerson() ? "person" : "container", getID(), (*myStep)->getEdge()->getID(), time2string(step));
     (*myStep)->abort(this);
     if (!proceed(MSNet::getInstance(), step)) {
@@ -317,7 +317,7 @@ MSTransportable::replaceVehicleType(MSVehicleType* type) {
             && type->getVehicleClass() != myVType->getVehicleClass()
             && type->getVehicleClass() != SVC_PEDESTRIAN
             && !type->getParameter().wasSet(VTYPEPARS_VEHICLECLASS_SET)) {
-        WRITE_WARNINGF("Person '%' receives type '%' which implicitly uses unsuitable vClass '%'.", getID(), type->getID(), toString(type->getVehicleClass()));
+        WRITE_WARNINGF(TL("Person '%' receives type '%' which implicitly uses unsuitable vClass '%'."), getID(), type->getID(), toString(type->getVehicleClass()));
     }
     myVType = type;
 }

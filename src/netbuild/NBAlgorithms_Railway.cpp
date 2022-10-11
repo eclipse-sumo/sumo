@@ -193,7 +193,7 @@ NBRailwayTopologyAnalyzer::addBidiEdge(NBEdgeCont& ec, NBEdge* edge, bool update
                                 edge, edge->getGeometry().reverse());
         ec.insert(e2);
         if (ec.retrieve(id2) == nullptr) {
-            WRITE_WARNINGF("Bidi-edge '%' prevented by filtering rules.", id2);
+            WRITE_WARNINGF(TL("Bidi-edge '%' prevented by filtering rules."), id2);
             return nullptr;
         }
         if (update) {
@@ -207,7 +207,7 @@ NBRailwayTopologyAnalyzer::addBidiEdge(NBEdgeCont& ec, NBEdge* edge, bool update
         }
         return e2;
     } else {
-        WRITE_WARNINGF("Could not add bidi-edge '%'.", id2);
+        WRITE_WARNINGF(TL("Could not add bidi-edge '%'."), id2);
         return nullptr;
     }
 }
@@ -685,7 +685,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForBufferStops(NBEdgeCont& ec) {
     for (NBNode* node : railNodes) {
         if (StringUtils::toBool(node->getParameter("buffer_stop", "false"))) {
             if (node->getEdges().size() != 1) {
-                WRITE_WARNINGF("Ignoring buffer stop junction '%' with % edges.", node->getID(), node->getEdges().size());
+                WRITE_WARNINGF(TL("Ignoring buffer stop junction '%' with % edges."), node->getID(), node->getEdges().size());
                 continue;
             }
             int numAddedBidi = 0;
@@ -929,7 +929,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBEdgeCont& ec, NBPTLineCont& lc
             continue;
         }
         if (!line->isConsistent(stops)) {
-            WRITE_WARNINGF("Edge sequence is not consistent with stop sequence in line '%', not adding bidi edges.", item.first);
+            WRITE_WARNINGF(TL("Edge sequence is not consistent with stop sequence in line '%', not adding bidi edges."), item.first);
             continue;
         }
         for (auto it = stops.begin(); it + 1 != stops.end(); ++it) {
@@ -967,7 +967,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBEdgeCont& ec, NBPTLineCont& lc
                                     }
                                 } else {
                                     if (isStop) {
-                                        WRITE_WARNINGF("Stop on edge '%' can only be reached in reverse but edge has the wrong spreadType.", fromEdge->getID());
+                                        WRITE_WARNINGF(TL("Stop on edge '%' can only be reached in reverse but edge has the wrong spreadType."), fromEdge->getID());
                                     }
                                 }
                             }
@@ -975,7 +975,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBEdgeCont& ec, NBPTLineCont& lc
                     }
                 }
             } else {
-                WRITE_WARNINGF("No connection found between stops on edge '%' and edge '%'.", fromEdge->getID(), toEdge->getID());
+                WRITE_WARNINGF(TL("No connection found between stops on edge '%' and edge '%'."), fromEdge->getID(), toEdge->getID());
                 numDisconnected++;
             }
         }
@@ -1203,7 +1203,7 @@ NBRailwayTopologyAnalyzer::extendDirectionPriority(NBEdgeCont& ec, bool fromUniD
             }
         }
         if (bidiEdge == nullptr) {
-            WRITE_WARNINGF("Edge '%' was loaded with undefined priority (%) but has unambiguous main direction (no bidi edge)", edge->getID(), edge->getPriority());
+            WRITE_WARNINGF(TL("Edge '%' was loaded with undefined priority (%) but has unambiguous main direction (no bidi edge)"), edge->getID(), edge->getPriority());
         }
         if (edge->getPriority() >= 0) {
             bidiPrio = 0;

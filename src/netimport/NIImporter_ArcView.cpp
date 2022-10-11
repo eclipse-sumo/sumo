@@ -215,7 +215,7 @@ NIImporter_ArcView::load() {
             type = poFeature->GetFieldAsString("ST_TYP_AFT");
         }
         if ((type != "" || myOptions.isSet("shapefile.type-id")) && !myTypeCont.knows(type)) {
-            WRITE_WARNINGF("Unknown type '%' for edge '%'", type, id);
+            WRITE_WARNINGF(TL("Unknown type '%' for edge '%'"), type, id);
         }
         double width = myTypeCont.getEdgeTypeWidth(type);
         bool oneway = myTypeCont.knows(type) ? myTypeCont.getEdgeTypeIsOneWay(type) : false;
@@ -273,7 +273,7 @@ NIImporter_ArcView::load() {
         for (int j = 0; j < cgeom->getNumPoints(); j++) {
             Position pos(cgeom->getX(j), cgeom->getY(j), cgeom->getZ(j));
             if (!NBNetBuilder::transformCoordinate(pos)) {
-                WRITE_WARNINGF("Unable to project coordinates for edge '%'.", id);
+                WRITE_WARNINGF(TL("Unable to project coordinates for edge '%'."), id);
             }
             shape.push_back_noDoublePos(pos);
         }
@@ -308,7 +308,7 @@ NIImporter_ArcView::load() {
         }
 
         if (from == to) {
-            WRITE_WARNINGF("Edge '%' connects identical nodes, skipping.", id);
+            WRITE_WARNINGF(TL("Edge '%' connects identical nodes, skipping."), id);
             continue;
         }
 
@@ -334,7 +334,7 @@ NIImporter_ArcView::load() {
                 idPrefix = id;
                 id += "#" + toString(idIndex[id]);
                 if (warnNotUnique) {
-                    WRITE_WARNINGF("Edge '%' is not unique. Renaming subsequent edge to '%'.", idPrefix, id);
+                    WRITE_WARNINGF(TL("Edge '%' is not unique. Renaming subsequent edge to '%'."), idPrefix, id);
                     warnNotUnique = false;
                 }
             }

@@ -618,7 +618,7 @@ GUINet::EdgeFloatTimeLineRetriever_GUI::addEdgeWeight(const std::string& id,
     if (edge != nullptr) {
         myWeightStorage->addEffort(edge, begTime, endTime, value);
     } else {
-        WRITE_WARNINGF("Trying to set data value for the unknown edge '%'.", id);
+        WRITE_WARNINGF(TL("Trying to set data value for the unknown edge '%'."), id);
     }
 }
 
@@ -642,7 +642,7 @@ GUINet::EdgeFloatTimeLineRetriever_GUI::addEdgeRelWeight(const std::string& from
         }
     }
     if (!haveRel) {
-        WRITE_WARNINGF("Trying to set data value for the unknown relation from edge '%' to edge '%'.", from, to);
+        WRITE_WARNINGF(TL("Trying to set data value for the unknown relation from edge '%' to edge '%'."), from, to);
     }
 }
 

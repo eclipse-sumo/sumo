@@ -119,7 +119,7 @@ MSDevice_Taxi::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>
         myMaxCapacity = MAX2(myMaxCapacity, personCapacity);
         myMaxContainerCapacity = MAX2(myMaxContainerCapacity, containerCapacity);
         if (personCapacity < 1 && containerCapacity < 1) {
-            WRITE_WARNINGF("Vehicle '%' with personCapacity % and containerCapacity % is not usable as taxi.", v.getID(), toString(personCapacity), toString(containerCapacity));
+            WRITE_WARNINGF(TL("Vehicle '%' with personCapacity % and containerCapacity % is not usable as taxi."), v.getID(), toString(personCapacity), toString(containerCapacity));
         }
     }
 }
@@ -449,7 +449,7 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
         std::string error;
         myHolder.addStop(stop, error);
         if (error != "") {
-            WRITE_WARNINGF("Could not add taxi stop for vehicle '%' to %. time=% error=%.", myHolder.getID(), stop.actType, time2string(t), error)
+            WRITE_WARNINGF(TL("Could not add taxi stop for vehicle '%' to %. time=% error=%."), myHolder.getID(), stop.actType, time2string(t), error)
         }
     }
     SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = MSRoutingEngine::getRouterTT(myHolder.getRNGIndex(), myHolder.getVClass());
@@ -565,7 +565,7 @@ MSDevice_Taxi::updateMove(const SUMOTime traveltime, const double travelledDist)
                 myRoutingDevice->setActive(false);
             }
         } else if (!myReachedServiceEnd) {
-            WRITE_WARNINGF("Taxi '%' reaches scheduled end of service at time=%.", myHolder.getID(), time2string(SIMSTEP));
+            WRITE_WARNINGF(TL("Taxi '%' reaches scheduled end of service at time=%."), myHolder.getID(), time2string(SIMSTEP));
             myReachedServiceEnd = true;
         }
     } else if (myRoutingDevice != nullptr) {
@@ -641,7 +641,7 @@ MSDevice_Taxi::customerArrived(const MSTransportable* person) {
     if (myHolder.getPersonNumber() == 0 && myHolder.getContainerNumber() == 0) {
         myState &= ~OCCUPIED;
         if (myHolder.getStops().size() > 1 && (myState & PICKUP) == 0) {
-            WRITE_WARNINGF("All customers left vehicle '%' at time=% but there are % remaining stops",
+            WRITE_WARNINGF(TL("All customers left vehicle '%' at time=% but there are % remaining stops"),
                            myHolder.getID(), time2string(SIMSTEP), myHolder.getStops().size() - 1);
             while (myHolder.getStops().size() > 1) {
                 myHolder.abortNextStop(1);

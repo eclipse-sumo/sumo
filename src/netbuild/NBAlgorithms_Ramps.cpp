@@ -108,11 +108,11 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc, bool mayAddOrRe
         for (const std::string& i : edges) {
             NBEdge* e = ec.retrieve(i);
             if (noramps.count(i) != 0) {
-                WRITE_WARNINGF("Can not build ramp on edge '%' - the edge is unsuitable.", i);
+                WRITE_WARNINGF(TL("Can not build ramp on edge '%' - the edge is unsuitable."), i);
                 continue;
             }
             if (e == nullptr) {
-                WRITE_WARNINGF("Can not build on ramp on edge '%' - the edge is not known.", i);
+                WRITE_WARNINGF(TL("Can not build on ramp on edge '%' - the edge is not known."), i);
                 continue;
             }
             NBNode* from = e->getFromNode();
@@ -123,7 +123,7 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc, bool mayAddOrRe
             // load edge again to check offramps
             e = ec.retrieve(i);
             if (e == nullptr) {
-                WRITE_WARNINGF("Can not build off ramp on edge '%' - the edge is not known.", i);
+                WRITE_WARNINGF(TL("Can not build off ramp on edge '%' - the edge is not known."), i);
                 continue;
             }
             NBNode* to = e->getToNode();

@@ -747,7 +747,7 @@ MSBaseVehicle::calculateArrivalParams(bool onInit) {
     }
     const int arrivalEdgeIndex = MIN2(myParameter->arrivalEdge, (int)myRoute->getEdges().size() - 1);
     if (arrivalEdgeIndex != myParameter->arrivalEdge) {
-        WRITE_WARNINGF("Vehicle '%' ignores attribute arrivalEdge=% after rerouting at time=% (routeLength=%)",
+        WRITE_WARNINGF(TL("Vehicle '%' ignores attribute arrivalEdge=% after rerouting at time=% (routeLength=%)"),
                        getID(), myParameter->arrivalEdge, time2string(SIMSTEP), myRoute->getEdges().size() - 1);
     }
     const MSEdge* arrivalEdge = myParameter->arrivalEdge >= 0 ? myRoute->getEdges()[arrivalEdgeIndex] : myRoute->getLastEdge();
