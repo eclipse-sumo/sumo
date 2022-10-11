@@ -2128,7 +2128,7 @@ NIImporter_OpenStreetMap::extendRailwayDistances(Edge* e, NBTypeCont& tc) {
             // check for consistency
             for (int i = 1; i < (int)usablePositions.size(); i++) {
                 if ((usablePositions[i - 1] < usablePositions[i]) != forward) {
-                    WRITE_WARNINGF(TL("Inconsistent railway kilometrage direction for way '%': %s (skipping)"), id, toString(usablePositions));
+                    WRITE_WARNINGF(TL("Inconsistent railway kilometrage direction for way '%': % (skipping)"), id, toString(usablePositions));
                     return;
                 }
             }

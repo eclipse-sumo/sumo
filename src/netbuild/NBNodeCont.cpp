@@ -710,7 +710,7 @@ NBNodeCont::addCluster2Join(const std::set<std::string>& cluster, NBNode* node) 
         myJoined.insert(validCluster.begin(), validCluster.end());
         myClusters2Join.push_back(std::make_pair(validCluster, node));
     } else {
-        WRITE_WARNINGF(TL("Ignoring join-cluster '%s' because it has size '%'."), node->getID(), validCluster.size());
+        WRITE_WARNINGF(TL("Ignoring join-cluster '%' because it has size '%'."), node->getID(), validCluster.size());
     }
 }
 

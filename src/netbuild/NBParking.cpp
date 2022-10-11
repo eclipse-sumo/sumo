@@ -68,7 +68,7 @@ NBParking::write(OutputDevice& device, NBEdgeCont& ec) const {
         }
         device.closeTag();
     } else {
-        WRITE_WARNINGF(TL("could not find edge for parkingArea '%s'"), getID());
+        WRITE_WARNINGF(TL("Could not find edge for parkingArea '%'."), getID());
     }
     // XXX else: prevent edge merging via --geometry.remove
 }

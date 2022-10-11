@@ -4363,7 +4363,7 @@ NBEdge::hasRestrictedLane(SUMOVehicleClass vclass) const {
 void
 NBEdge::addRestrictedLane(double width, SUMOVehicleClass vclass) {
     if (hasRestrictedLane(vclass)) {
-        WRITE_WARNINGF(TL("Edge '%' already has a dedicated lane for %s. Not adding another one."), getID(), toString(vclass));
+        WRITE_WARNINGF(TL("Edge '%' already has a dedicated lane for %. Not adding another one."), getID(), toString(vclass));
         return;
     }
     if (myLaneSpreadFunction == LaneSpreadFunction::CENTER) {
@@ -4400,7 +4400,7 @@ void
 NBEdge::restoreRestrictedLane(SUMOVehicleClass vclass, std::vector<NBEdge::Lane> oldLanes, PositionVector oldGeometry, std::vector<NBEdge::Connection> oldConnections) {
     // check that previously lane was transformed
     if (myLanes[0].permissions != vclass) {
-        WRITE_WARNINGF(TL("Edge '%' doesn't have a dedicated lane for %s. Cannot be restored."), getID(), toString(vclass));
+        WRITE_WARNINGF(TL("Edge '%' doesn't have a dedicated lane for %. Cannot be restored."), getID(), toString(vclass));
         return;
     }
     // restore old values

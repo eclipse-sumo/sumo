@@ -466,17 +466,17 @@ GNEApplicationWindow::dependentBuild() {
     // build geo coordinates label
     auto requiereRecomputingFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
     myRequireRecomputingButton = new MFXButtonTooltip(requiereRecomputingFrame, myStaticTooltipMenu,
-        "Recomputing\t\tRecomputing is needed", nullptr, this, MID_GNE_RECOMPUTINGNEEDED, GUIDesignButtonStatusBarFixed);
+        TL("Recomputing\t\tRecomputing is needed"), nullptr, this, MID_GNE_RECOMPUTINGNEEDED, GUIDesignButtonStatusBarFixed);
     // build geo coordinates label
     myGeoFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-    myGeoCoordinate = new FXLabel(myGeoFrame, "N/A\t\tOriginal coordinate (before coordinate transformation in netconvert)", nullptr, GUIDesignLabelStatusBar);
+    myGeoCoordinate = new FXLabel(myGeoFrame, TL("N/A\t\tOriginal coordinate (before coordinate transformation in netconvert)"), nullptr, GUIDesignLabelStatusBar);
     // build cartesian coordinates label
     myCartesianFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-    myCartesianCoordinate = new FXLabel(myCartesianFrame, "N/A\t\tNetwork coordinate", nullptr, GUIDesignLabelStatusBar);
+    myCartesianCoordinate = new FXLabel(myCartesianFrame, TL("N/A\t\tNetwork coordinate"), nullptr, GUIDesignLabelStatusBar);
     // build test coordinates label (only if gui-testing is enabled)
     if (OptionsCont::getOptions().getBool("gui-testing")) {
         myTestFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-        myTestCoordinate = new FXLabel(myTestFrame, "N/A\t\tTest coordinate", nullptr, GUIDesignLabelStatusBar);
+        myTestCoordinate = new FXLabel(myTestFrame, TL("N/A\t\tTest coordinate"), nullptr, GUIDesignLabelStatusBar);
     }
     // make the window a mdi-window
     myMainSplitter = new FXSplitter(this, GUIDesignSplitter | SPLITTER_VERTICAL | SPLITTER_REVERSED);
@@ -726,7 +726,7 @@ GNEApplicationWindow::onCmdOpenForeign(FXObject*, FXSelector, void*) {
             }
 
             GUIDialog_Options* wizard =
-                new GUIDialog_Options(this, "Select Import Options", getWidth(), getHeight());
+                new GUIDialog_Options(this, TL("Select Import Options"), getWidth(), getHeight());
 
             if (wizard->execute()) {
                 NIFrame::checkOptions(); // needed to set projection parameters
@@ -1107,7 +1107,7 @@ GNEApplicationWindow::onCmdToolNetDiff(FXObject*, FXSelector, void*) {
             // extract folder
             const std::string secondNetFolder = getFolder(secondNet).text();
             // declare python command
-            std::string cmd = "cd " + secondNetFolder + "&" +  // folder to save diff files (the same of second net)
+            std::string cmd = "cd " + secondNetFolder + TL("&") +  // folder to save diff files (the same of second net)
                               "python " + netDiff +                           // netdiff.py
                               " " + oc.getString("output-file") +             // netA (current)
                               " " + secondNet +                               // net B
@@ -1422,7 +1422,7 @@ void
 GNEApplicationWindow::fillMenuBar() {
     // build file menu
     myFileMenu = new FXMenuPane(this, LAYOUT_FIX_HEIGHT);
-    GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "&File", nullptr, myFileMenu);
+    GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&File"), nullptr, myFileMenu);
     myFileMenuSUMOConfig = new FXMenuPane(this);
     myFileMenuTLS = new FXMenuPane(this);
     myFileMenuEdgeTypes = new FXMenuPane(this);
@@ -1435,11 +1435,11 @@ GNEApplicationWindow::fillMenuBar() {
     myMenuBarFile.buildRecentFiles(myFileMenu);
     new FXMenuSeparator(myFileMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myFileMenu,
-                                           "&Quit", "Ctrl+Q", "Quit the Application.",
+                                           TL("&Quit"), "Ctrl+Q", TL("Quit the Application."),
                                            nullptr, this, MID_HOTKEY_CTRL_Q_CLOSE);
     // build modes menu
     myModesMenu = new FXMenuPane(this);
-    myModesMenuTitle = GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "&Modes", nullptr, myModesMenu);
+    myModesMenuTitle = GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Modes"), nullptr, myModesMenu);
     myModesMenuTitle->setTarget(this);
     myModesMenuTitle->setSelector(MID_GNE_MODESMENUTITLE);
     // build Supermode commands and hide it
@@ -1451,7 +1451,7 @@ GNEApplicationWindow::fillMenuBar() {
     myModesMenuCommands.buildModesMenuCommands(myModesMenu);
     // build edit menu
     myEditMenu = new FXMenuPane(this);
-    GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "&Edit", nullptr, myEditMenu);
+    GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Edit"), nullptr, myEditMenu);
     // build edit menu commands
     myEditMenuCommands.buildUndoRedoMenuCommands(myEditMenu);
     // build separator
@@ -1476,42 +1476,42 @@ GNEApplicationWindow::fillMenuBar() {
     myEditMenuCommands.buildOpenSUMOMenuCommands(myEditMenu);
     // build lock menu
     myLockMenu = new FXMenuPane(this);
-    myLockMenuTitle = GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "L&ock", nullptr, myLockMenu);
+    myLockMenuTitle = GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("L&ock"), nullptr, myLockMenu);
     myLockMenuTitle->setTarget(this);
     myLockMenuTitle->setSelector(MID_GNE_LOCK_MENUTITLE);
     // build lock menu commands
     myLockMenuCommands.buildLockMenuCommands(myLockMenu);
     // build processing menu (trigger netbuild computations)
     myProcessingMenu = new FXMenuPane(this);
-    GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "&Processing", nullptr, myProcessingMenu);
+    GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Processing"), nullptr, myProcessingMenu);
     myProcessingMenuCommands.buildProcessingMenuCommands(myProcessingMenu);
     // build locate menu
     myLocatorMenu = new FXMenuPane(this);
-    GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "&Locate", nullptr, myLocatorMenu);
+    GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Locate"), nullptr, myLocatorMenu);
     myLocateMenuCommands.buildLocateMenuCommands(myLocatorMenu);
     // build tools menu
     myToolsMenu = new FXMenuPane(this);
-    GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "&Tools", nullptr, myToolsMenu);
+    GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Tools"), nullptr, myToolsMenu);
     myToolsMenuCommands.buildToolsMenuCommands(myToolsMenu);
     // build windows menu
     myWindowMenu = new FXMenuPane(this);
-    GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "&Window", nullptr, myWindowMenu);
+    GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Window"), nullptr, myWindowMenu);
     myWindowsMenuCommands.buildWindowsMenuCommands(myWindowMenu, myStatusbar, myMessageWindow);
     // build help menu
     myHelpMenu = new FXMenuPane(this);
-    GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "&Help", nullptr, myHelpMenu);
+    GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Help"), nullptr, myHelpMenu);
     // build help menu commands
-    GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, "&Online Documentation", "F1", "Open Online documentation.",
+    GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, TL("&Online Documentation"), "F1", TL("Open Online documentation."),
         nullptr, this, MID_HOTKEY_F1_ONLINEDOCUMENTATION); 
     new FXMenuSeparator(myEditMenu);
-    GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, "&Changelog", "", "Open Changelog.",
+    GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, TL("&Changelog"), "", TL("Open Changelog."),
         nullptr, this, MID_CHANGELOG);
-    GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, "&Hotkeys", "", "Open Hotkeys.",
+    GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, TL("&Hotkeys"), "", TL("Open Hotkeys."),
         nullptr, this, MID_HOTKEYS);
-    GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, "&Tutorial", "", "Open Tutorial.",
+    GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, TL("&Tutorial"), "", TL("Open Tutorial."),
         nullptr, this, MID_TUTORIAL);
     new FXMenuSeparator(myEditMenu);
-    GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, "&About", "F12", "About netedit.",
+    GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, TL("&About"), "F12", TL("About netedit."),
         GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), this, MID_HOTKEY_F12_ABOUT);
 }
 
@@ -1692,7 +1692,7 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
     // write warning if netedit is running in testing mode
     WRITE_DEBUG("Opening FXMessageBox 'Volatile Recomputing'");
     // open question dialog box
-    answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Recompute with volatile options",
+    answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, TL("Recompute with volatile options"),
                                     "Changes produced in the net due a recomputing with volatile options cannot be undone. Continue?");
     if (answer != 1) { //1:yes, 2:no, 4:esc
         // write warning if netedit is running in testing mode
@@ -1713,7 +1713,7 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
                 // write warning if netedit is running in testing mode
                 WRITE_DEBUG("Opening FXMessageBox 'Save additionals before recomputing'");
                 // open question dialog box
-                answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Save additionals before recomputing with volatile options",
+                answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, TL("Save additionals before recomputing with volatile options"),
                                                 "Would you like to save additionals before recomputing?");
                 if (answer != 1) { //1:yes, 2:no, 4:esc
                     // write warning if netedit is running in testing mode
@@ -1727,7 +1727,7 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
                     WRITE_DEBUG("Closed FXMessageBox 'Save additionals before recomputing' with 'Yes'");
                     // Open a dialog to set filename output
                     FXString file = MFXUtils::getFilename2Write(this,
-                                    "Save demand element file", ".xml",
+                                    TL("Save demand element file"), ".xml",
                                     GUIIconSubSys::getIcon(GUIIcon::MODETLS),
                                     gCurrentFolder).text();
                     // add xml extension
@@ -1742,9 +1742,9 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
                     }
                 }
             }
-            // Check if additional must be saved in a temporal directory, if user didn't define a directory for additionals
+            // Check if additional must be saved in a temporary directory, if user didn't define a directory for additionals
             if (oc.getString("additional-files") == "") {
-                // Obtain temporal directory provided by FXSystem::getCurrentDirectory()
+                // Obtain temporary directory provided by FXSystem::getCurrentDirectory()
                 additionalsSavePath = FXSystem::getTempDirectory().text() + std::string("/tmpAdditionalsNetedit.xml");
             }
             // Start saving additionals
@@ -1755,7 +1755,7 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
                 // write warning if netedit is running in testing mode
                 WRITE_DEBUG("Opening FXMessageBox 'Error saving additionals before recomputing'");
                 // open error message box
-                FXMessageBox::error(this, MBOX_OK, "Saving additionals in temporal folder failed!", "%s", e.what());
+                FXMessageBox::error(this, MBOX_OK, TL("Saving additionals in temporary folder failed!"), "%s", e.what());
                 // write warning if netedit is running in testing mode
                 WRITE_DEBUG("Closed FXMessageBox 'Error saving additionals before recomputing' with 'OK'");
             }
@@ -1775,7 +1775,7 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
                 // write warning if netedit is running in testing mode
                 WRITE_DEBUG("Opening FXMessageBox 'Save demand elements before recomputing'");
                 // open question dialog box
-                answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Save demand elements before recomputing with volatile options",
+                answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, TL("Save demand elements before recomputing with volatile options"),
                                                 "Would you like to save demand elements before recomputing?");
                 if (answer != 1) { //1:yes, 2:no, 4:esc
                     // write warning if netedit is running in testing mode
@@ -1789,7 +1789,7 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
                     WRITE_DEBUG("Closed FXMessageBox 'Save demand elements before recomputing' with 'Yes'");
                     // Open a dialog to set filename output
                     FXString file = MFXUtils::getFilename2Write(this,
-                                    "Save demand element file", ".rou.xml",
+                                    TL("Save demand element file"), ".rou.xml",
                                     GUIIconSubSys::getIcon(GUIIcon::MODETLS),
                                     gCurrentFolder).text();
                     // add xml extension
@@ -1804,9 +1804,9 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
                     }
                 }
             }
-            // Check if demand element must be saved in a temporal directory, if user didn't define a directory for demand elements
+            // Check if demand element must be saved in a temporary directory, if user didn't define a directory for demand elements
             if (oc.getString("route-files") == "") {
-                // Obtain temporal directory provided by FXSystem::getCurrentDirectory()
+                // Obtain temporary directory provided by FXSystem::getCurrentDirectory()
                 demandElementsSavePath = FXSystem::getTempDirectory().text() + std::string("/tmpDemandElementsNetedit.xml");
             }
             // Start saving demand elements
@@ -1817,7 +1817,7 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
                 // write warning if netedit is running in testing mode
                 WRITE_DEBUG("Opening FXMessageBox 'Error saving demand elements before recomputing'");
                 // open error message box
-                FXMessageBox::error(this, MBOX_OK, "Saving demand elements in temporal folder failed!", "%s", e.what());
+                FXMessageBox::error(this, MBOX_OK, TL("Saving demand elements in temporary folder failed!"), "%s", e.what());
                 // write warning if netedit is running in testing mode
                 WRITE_DEBUG("Closed FXMessageBox 'Error saving demand elements before recomputing' with 'OK'");
             }
@@ -1837,7 +1837,7 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
                 // write warning if netedit is running in testing mode
                 WRITE_DEBUG("Opening FXMessageBox 'Save data elements before recomputing'");
                 // open question dialog box
-                answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Save data elements before recomputing with volatile options",
+                answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, TL("Save data elements before recomputing with volatile options"),
                                                 "Would you like to save data elements before recomputing?");
                 if (answer != 1) { //1:yes, 2:no, 4:esc
                     // write warning if netedit is running in testing mode
@@ -1851,7 +1851,7 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
                     WRITE_DEBUG("Closed FXMessageBox 'Save data elements before recomputing' with 'Yes'");
                     // Open a dialog to set filename output
                     FXString file = MFXUtils::getFilename2Write(this,
-                                    "Save data element file", ".rou.xml",
+                                    TL("Save data element file"), ".rou.xml",
                                     GUIIconSubSys::getIcon(GUIIcon::MODETLS),
                                     gCurrentFolder).text();
                     // add xml extension
@@ -1866,9 +1866,9 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
                     }
                 }
             }
-            // Check if data element must be saved in a temporal directory, if user didn't define a directory for data elements
+            // Check if data element must be saved in a temporary directory, if user didn't define a directory for data elements
             if (oc.getString("data-files") == "") {
-                // Obtain temporal directory provided by FXSystem::getCurrentDirectory()
+                // Obtain temporary directory provided by FXSystem::getCurrentDirectory()
                 dataElementsSavePath = FXSystem::getTempDirectory().text() + std::string("/tmpDataElementsNetedit.xml");
             }
             // Start saving data elements
@@ -1879,7 +1879,7 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
                 // write warning if netedit is running in testing mode
                 WRITE_DEBUG("Opening FXMessageBox 'Error saving data elements before recomputing'");
                 // open error message box
-                FXMessageBox::error(this, MBOX_OK, "Saving data elements in temporal folder failed!", "%s", e.what());
+                FXMessageBox::error(this, MBOX_OK, TL("Saving data elements in temporary folder failed!"), "%s", e.what());
                 // write warning if netedit is running in testing mode
                 WRITE_DEBUG("Closed FXMessageBox 'Error saving data elements before recomputing' with 'OK'");
             }
@@ -2511,7 +2511,7 @@ GNEApplicationWindow::onCmdTutorial(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdOptions(FXObject*, FXSelector, void*) {
     GUIDialog_Options* wizard =
-        new GUIDialog_Options(this, "Configure Options", getWidth(), getHeight());
+        new GUIDialog_Options(this, TL("Configure Options"), getWidth(), getHeight());
 
     if (wizard->execute()) {
         NIFrame::checkOptions(); // needed to set projection parameters
@@ -2536,7 +2536,7 @@ GNEApplicationWindow::onCmdUndo(FXObject*, FXSelector, void*) {
         if ((myViewNet->getUndoList()->getUndoSupermode() != Supermode::DATA) &&
                 (myViewNet->getUndoList()->getUndoSupermode() != myViewNet->getEditModes().currentSupermode)) {
             // abort if user doesn't press "yes"
-            if (!myViewNet->aksChangeSupermode("Undo", myViewNet->getUndoList()->getUndoSupermode())) {
+            if (!myViewNet->aksChangeSupermode(TL("Undo"), myViewNet->getUndoList()->getUndoSupermode())) {
                 return 0;
             }
         }
@@ -2568,7 +2568,7 @@ GNEApplicationWindow::onCmdRedo(FXObject*, FXSelector, void*) {
         if ((myViewNet->getUndoList()->getRedoSupermode() != Supermode::DATA) &&
                 (myViewNet->getUndoList()->getRedoSupermode() != myViewNet->getEditModes().currentSupermode)) {
             // abort if user doesn't press "yes"
-            if (!myViewNet->aksChangeSupermode("Redo", myViewNet->getUndoList()->getRedoSupermode())) {
+            if (!myViewNet->aksChangeSupermode(TL("Redo"), myViewNet->getUndoList()->getRedoSupermode())) {
                 return 0;
             }
         }
@@ -2693,7 +2693,7 @@ GNEApplicationWindow::onCmdSaveAsNetwork(FXObject*, FXSelector, void*) {
     const std::string wildcard = (netExtension + "\n*" + zipNetExtension);
     // open dialog
     FXString file = MFXUtils::getFilename2Write(this,
-                    "Save Network as", wildcard.c_str(),
+                    TL("Save Network as"), wildcard.c_str(),
                     GUIIconSubSys::getIcon(GUIIcon::SAVE),
                     gCurrentFolder);
     // get file with extension
@@ -2734,7 +2734,7 @@ GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
     }
     // open dialog
     FXString file = MFXUtils::getFilename2Write(this,
-                    "Save plain-xml edge-file (other names will be deduced from this)", "",
+                    TL("Save plain-xml edge-file (other names will be deduced from this)"), "",
                     GUIIconSubSys::getIcon(GUIIcon::SAVE),
                     currentFolder);
     // check that file is valid (note: in this case we don't need to use function FileHelpers::addExtension)
@@ -2754,7 +2754,7 @@ GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox 'Error saving plainXML'");
             // open message box
-            FXMessageBox::error(this, MBOX_OK, "Saving plain xml failed!", "%s", e.what());
+            FXMessageBox::error(this, MBOX_OK, TL("Saving plain xml failed!"), "%s", e.what());
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'Error saving plainXML' with 'OK'");
         }
@@ -2781,7 +2781,7 @@ GNEApplicationWindow::onCmdSaveJoined(FXObject*, FXSelector, void*) {
     }
     // open dialog
     FXString file = MFXUtils::getFilename2Write(this,
-                    "Save joined-junctions", ".nod.xml",
+                    TL("Save joined-junctions"), ".nod.xml",
                     GUIIconSubSys::getIcon(GUIIcon::SAVE),
                     currentFolder);
     // add xml extension
@@ -2795,7 +2795,7 @@ GNEApplicationWindow::onCmdSaveJoined(FXObject*, FXSelector, void*) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox 'error saving joined'");
             // opening error message
-            FXMessageBox::error(this, MBOX_OK, "Saving joined junctions failed!", "%s", e.what());
+            FXMessageBox::error(this, MBOX_OK, TL("Saving joined junctions failed!"), "%s", e.what());
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'error saving joined' with 'OK'");
         }
@@ -3402,7 +3402,7 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox 'error saving network'");
             // open error message box
-            FXMessageBox::error(this, MBOX_OK, "Saving Network failed!", "%s", e.what());
+            FXMessageBox::error(this, MBOX_OK, TL("Saving Network failed!"), "%s", e.what());
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'error saving network' with 'OK'");
         }
@@ -3437,7 +3437,7 @@ GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject*, FXSelector, void*) {
             }
             // open dialog
             FXString file = MFXUtils::getFilename2Write(this,
-                            "Save SUMOConfig", ".sumocfg",
+                            TL("Save SUMOConfig"), ".sumocfg",
                             GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI),
                             currentFolder);
             // add xml extension
@@ -3481,7 +3481,7 @@ GNEApplicationWindow::onCmdSaveSUMOConfigAs(FXObject*, FXSelector, void*) {
     }
     // open dialog
     FXString file = MFXUtils::getFilename2Write(this,
-                    "Save SUMOConfig", ".sumocfg",
+                    TL("Save SUMOConfig"), ".sumocfg",
                     GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI),
                     currentFolder);
     // add xml extension
@@ -3535,7 +3535,7 @@ GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject*, FXSelector, void*) {
             }
             // open dialog
             FXString file = MFXUtils::getFilename2Write(this,
-                            "Save TLS Programs", ".xml",
+                            TL("Save TLS Programs"), ".xml",
                             GUIIconSubSys::getIcon(GUIIcon::MODETLS),
                             currentFolder);
             // add xml extension
@@ -3561,7 +3561,7 @@ GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject*, FXSelector, void*) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox 'error saving TLS Programs'");
             // open error message box
-            FXMessageBox::error(this, MBOX_OK, "Saving TLS Programs failed!", "%s", e.what());
+            FXMessageBox::error(this, MBOX_OK, TL("Saving TLS Programs failed!"), "%s", e.what());
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'error saving TLS Programs' with 'OK'");
         }
@@ -3605,7 +3605,7 @@ GNEApplicationWindow::onCmdSaveEdgeTypes(FXObject*, FXSelector, void*) {
             }
             // open dialog
             FXString file = MFXUtils::getFilename2Write(this,
-                            "Save edgeType file", ".xml",
+                            TL("Save edgeType file"), ".xml",
                             GUIIconSubSys::getIcon(GUIIcon::MODECREATEEDGE),
                             currentFolder);
             // add xml extension
@@ -3630,7 +3630,7 @@ GNEApplicationWindow::onCmdSaveEdgeTypes(FXObject*, FXSelector, void*) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox 'error saving edgeTypes'");
             // open error message box
-            FXMessageBox::error(this, MBOX_OK, "Saving edgeTypes failed!", "%s", e.what());
+            FXMessageBox::error(this, MBOX_OK, TL("Saving edgeTypes failed!"), "%s", e.what());
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'error saving edgeTypes' with 'OK'");
         }
@@ -3670,7 +3670,7 @@ GNEApplicationWindow::onCmdSaveTLSProgramsAs(FXObject*, FXSelector, void*) {
     }
     // Open window to select TLS Programs file
     FXString file = MFXUtils::getFilename2Write(this,
-                    "Save TLS Programs as", ".xml",
+                    TL("Save TLS Programs as"), ".xml",
                     GUIIconSubSys::getIcon(GUIIcon::MODETLS),
                     currentFolder);
     // add xml extension
@@ -3701,7 +3701,7 @@ GNEApplicationWindow::onCmdSaveEdgeTypesAs(FXObject*, FXSelector, void*) {
     }
     // Open window to select edgeType file
     FXString file = MFXUtils::getFilename2Write(this,
-                    "Save edgeType file as", ".xml",
+                    TL("Save edgeType file as"), ".xml",
                     GUIIconSubSys::getIcon(GUIIcon::MODECREATEEDGE),
                     currentFolder);
     // add xml extension
@@ -3855,7 +3855,7 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject*, FXSelector, void*) {
             }
             // open dialog
             FXString file = MFXUtils::getFilename2Write(this,
-                            "Save Additionals file", ".xml",
+                            TL("Save Additionals file"), ".xml",
                             GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL),
                             currentFolder);
             // add xml extension
@@ -3882,7 +3882,7 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject*, FXSelector, void*) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox 'error saving additionals'");
             // open error message box
-            FXMessageBox::error(this, MBOX_OK, "Saving additionals failed!", "%s", e.what());
+            FXMessageBox::error(this, MBOX_OK, TL("Saving additionals failed!"), "%s", e.what());
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'error saving additionals' with 'OK'");
         }
@@ -3910,7 +3910,7 @@ GNEApplicationWindow::onCmdSaveAdditionalsAs(FXObject*, FXSelector, void*) {
     }
     // Open window to select additional file
     FXString file = MFXUtils::getFilename2Write(this,
-                    "Save Additionals file as", ".xml",
+                    TL("Save Additionals file as"), ".xml",
                     GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL),
                     currentFolder);
     // add xml extension
@@ -4056,7 +4056,7 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject*, FXSelector, void*) {
             }
             // open dialog
             FXString file = MFXUtils::getFilename2Write(this,
-                            "Save demand element file", ".rou.xml",
+                            TL("Save demand element file"), ".rou.xml",
                             GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND),
                             currentFolder);
             // add xml extension
@@ -4081,7 +4081,7 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject*, FXSelector, void*) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox 'error saving demand elements'");
             // open error message box
-            FXMessageBox::error(this, MBOX_OK, "Saving demand elements failed!", "%s", e.what());
+            FXMessageBox::error(this, MBOX_OK, TL("Saving demand elements failed!"), "%s", e.what());
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'error saving demand elements' with 'OK'");
         }
@@ -4109,7 +4109,7 @@ GNEApplicationWindow::onCmdSaveDemandElementsAs(FXObject*, FXSelector, void*) {
     }
     // Open window to select additionasl file
     FXString file = MFXUtils::getFilename2Write(this,
-                    "Save demand element file as", ".rou.xml",
+                    TL("Save demand element file as"), ".rou.xml",
                     GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND),
                     currentFolder);
     // add xml extension
@@ -4148,7 +4148,7 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
         // check if open question dialog box
         if (opendialog.getFilename().text() == OptionsCont::getOptions().getString("data-files")) {
             // open question dialog box
-            const auto answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, "Load same data file",
+            const auto answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, TL("Load same data file"),
                                 "Selected data file was already loaded. Continue?");
             if (answer != 1) { //1:yes, 2:no, 4:esc
                 // write warning if netedit is running in testing mode
@@ -4265,7 +4265,7 @@ GNEApplicationWindow::onCmdSaveDataElements(FXObject*, FXSelector, void*) {
             }
             // open dialog
             FXString file = MFXUtils::getFilename2Write(this,
-                            "Save data element file", ".xml",
+                            TL("Save data element file"), ".xml",
                             GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA),
                             currentFolder);
             // add xml extension
@@ -4290,7 +4290,7 @@ GNEApplicationWindow::onCmdSaveDataElements(FXObject*, FXSelector, void*) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox 'error saving data elements'");
             // open error message box
-            FXMessageBox::error(this, MBOX_OK, "Saving data elements failed!", "%s", e.what());
+            FXMessageBox::error(this, MBOX_OK, TL("Saving data elements failed!"), "%s", e.what());
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'error saving data elements' with 'OK'");
         }
@@ -4318,7 +4318,7 @@ GNEApplicationWindow::onCmdSaveDataElementsAs(FXObject*, FXSelector, void*) {
     }
     // Open window to select additionasl file
     FXString file = MFXUtils::getFilename2Write(this,
-                    "Save data element file as", ".xml",
+                    TL("Save data element file as"), ".xml",
                     GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA),
                     currentFolder);
     // add xml extension

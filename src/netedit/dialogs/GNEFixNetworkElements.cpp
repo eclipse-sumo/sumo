@@ -50,7 +50,7 @@ FXIMPLEMENT(GNEFixNetworkElements, FXDialogBox, GNEFixNetworkElementsMap, ARRAYN
 // ---------------------------------------------------------------------------
 
 GNEFixNetworkElements::GNEFixNetworkElements(GNEViewNet* viewNet, const std::vector<GNENetworkElement*>& invalidNetworkElements) :
-    FXDialogBox(viewNet->getApp(), "Fix network elements problems", GUIDesignDialogBoxExplicitStretchable(600, 620)),
+    FXDialogBox(viewNet->getApp(), TL("Fix network elements problems"), GUIDesignDialogBoxExplicitStretchable(600, 620)),
     myViewNet(viewNet) {
     // set busStop icon for this dialog
     setIcon(GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND));
@@ -187,7 +187,7 @@ GNEFixNetworkElements::FixOptions::setInvalidElements(const std::vector<GNENetwo
 bool
 GNEFixNetworkElements::FixOptions::saveContents() const {
     const FXString file = MFXUtils::getFilename2Write(myTable,
-                          "Save list of conflicted items", ".txt",
+                          TL("Save list of conflicted items"), ".txt",
                           GUIIconSubSys::getIcon(GUIIcon::SAVE), gCurrentFolder);
     if (file == "") {
         return false;
@@ -204,14 +204,14 @@ GNEFixNetworkElements::FixOptions::saveContents() const {
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Opening FXMessageBox 'Saving list of conflicted items successfully'");
         // open message box error
-        FXMessageBox::information(myTable, MBOX_OK, "Saving successfully", "%s", "List of conflicted items was successfully saved");
+        FXMessageBox::information(myTable, MBOX_OK, TL("Saving successfully"), "%s", "List of conflicted items was successfully saved");
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Closed FXMessageBox 'Saving list of conflicted items successfully' with 'OK'");
     } catch (IOError& e) {
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Opening FXMessageBox 'error saving list of conflicted items'");
         // open message box error
-        FXMessageBox::error(myTable, MBOX_OK, "Saving list of conflicted items failed", "%s", e.what());
+        FXMessageBox::error(myTable, MBOX_OK, TL("Saving list of conflicted items failed"), "%s", e.what());
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Closed FXMessageBox 'error saving list of conflicted items' with 'OK'");
     }
@@ -225,13 +225,13 @@ GNEFixNetworkElements::FixOptions::saveContents() const {
 GNEFixNetworkElements::FixEdgeOptions::FixEdgeOptions(GNEFixNetworkElements* fixNetworkElementsParent, GNEViewNet* viewNet) :
     FixOptions(fixNetworkElementsParent->myLeftFrame, "Edges", viewNet) {
     // Remove invalid edges
-    removeInvalidEdges = new FXRadioButton(myLeftFrame, "Remove invalid edges",
+    removeInvalidEdges = new FXRadioButton(myLeftFrame, TL("Remove invalid edges"),
                                            fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Save invalid edges
-    saveInvalidEdges = new FXRadioButton(myLeftFrame, "Save invalid edges",
+    saveInvalidEdges = new FXRadioButton(myLeftFrame, TL("Save invalid edges"),
                                          fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Select invalid edges
-    selectInvalidEdgesAndCancel = new FXRadioButton(myRightFrame, "Select conflicted edges",
+    selectInvalidEdgesAndCancel = new FXRadioButton(myRightFrame, TL("Select conflicted edges"),
             fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // leave option "removeInvalidEdges" as default
     removeInvalidEdges->setCheck(true);
@@ -306,13 +306,13 @@ GNEFixNetworkElements::FixEdgeOptions::disableOptions() {
 GNEFixNetworkElements::FixCrossingOptions::FixCrossingOptions(GNEFixNetworkElements* fixNetworkElementsParent, GNEViewNet* viewNet) :
     FixOptions(fixNetworkElementsParent->myLeftFrame, "Crossings", viewNet) {
     // Remove invalid crossings
-    removeInvalidCrossings = new FXRadioButton(myLeftFrame, "Remove invalid crossings",
+    removeInvalidCrossings = new FXRadioButton(myLeftFrame, TL("Remove invalid crossings"),
             fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Save invalid crossings
-    saveInvalidCrossings = new FXRadioButton(myLeftFrame, "Save invalid crossings",
+    saveInvalidCrossings = new FXRadioButton(myLeftFrame, TL("Save invalid crossings"),
             fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Select invalid crossing
-    selectInvalidCrossingsAndCancel = new FXRadioButton(myRightFrame, "Select conflicted crossing",
+    selectInvalidCrossingsAndCancel = new FXRadioButton(myRightFrame, TL("Select conflicted crossing"),
             fixNetworkElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // by default remove invalid crossings
     removeInvalidCrossings->setCheck(TRUE);
@@ -387,8 +387,8 @@ GNEFixNetworkElements::FixCrossingOptions::disableOptions() {
 GNEFixNetworkElements::Buttons::Buttons(GNEFixNetworkElements* fixNetworkElementsParent) :
     FXHorizontalFrame(fixNetworkElementsParent->myMainFrame, GUIDesignHorizontalFrame) {
     new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myAcceptButton = new FXButton(this, FXWindow::tr("&Accept"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), fixNetworkElementsParent, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
-    myCancelButton = new FXButton(this, FXWindow::tr("&Cancel"), GUIIconSubSys::getIcon(GUIIcon::CANCEL), fixNetworkElementsParent, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
+    myAcceptButton = new FXButton(this, TL("&Accept"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), fixNetworkElementsParent, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
+    myCancelButton = new FXButton(this, TL("&Cancel"), GUIIconSubSys::getIcon(GUIIcon::CANCEL), fixNetworkElementsParent, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
     new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     // set focus in accept button
     myAcceptButton->setFocus();

@@ -20,6 +20,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <utils/common/MsgHandler.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -58,19 +59,19 @@ GUIDialog_AppSettings::GUIDialog_AppSettings(GUIMainWindow* parent)
       myLocateLinks(GUIMessageWindow::locateLinksEnabled()) {
     FXCheckButton* b = nullptr;
     FXVerticalFrame* f1 = new FXVerticalFrame(this, LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0);
-    b = new FXCheckButton(f1, "Quit on Simulation End", this, MID_QUITONSIMEND);
+    b = new FXCheckButton(f1, TL("Quit on Simulation End"), this, MID_QUITONSIMEND);
     b->setCheck(myAppQuitOnEnd);
-    b = new FXCheckButton(f1, "Autostart Simulation on Load and Reload", this, MID_AUTOSTART);
+    b = new FXCheckButton(f1, TL("Autostart Simulation on Load and Reload"), this, MID_AUTOSTART);
     b->setCheck(myAppAutoStart);
-    b = new FXCheckButton(f1, "Reload Simulation after finish (Demo mode)", this, MID_DEMO);
+    b = new FXCheckButton(f1, TL("Reload Simulation after finish (Demo mode)"), this, MID_DEMO);
     b->setCheck(myAppDemo);
-    b = new FXCheckButton(f1, "Locate elements when clicking on messages", this, MID_LOCATELINKS);
+    b = new FXCheckButton(f1, TL("Locate elements when clicking on messages"), this, MID_LOCATELINKS);
     b->setCheck(myLocateLinks);
 
     FXMatrix* m1 = new FXMatrix(f1, 2, (LAYOUT_FILL_X | LAYOUT_LEFT | MATRIX_BY_COLUMNS), 0, 0, 0, 0, 10, 10, 10, 10, 5, 5);
     myBreakPointOffset = new FXRealSpinner(m1, 5, this, MID_TIMELINK_BREAKPOINT, GUIDesignViewSettingsSpinDial2 | SPIN_NOMIN);
     myBreakPointOffset->setValue(STEPS2TIME(GUIMessageWindow::getBreakPointOffset()));
-    new FXLabel(m1, "Breakpoint offset when clicking on time message", nullptr, GUIDesignViewSettingsLabel1);
+    new FXLabel(m1, TL("Breakpoint offset when clicking on time message"), nullptr, GUIDesignViewSettingsLabel1);
 
     myTable = new FXTable(f1, this, MID_TABLE, GUIDesignBreakpointTable);
     const auto& onlineMaps = parent->getOnlineMaps();
@@ -95,11 +96,11 @@ GUIDialog_AppSettings::GUIDialog_AppSettings(GUIMainWindow* parent)
     }
 
     new FXHorizontalSeparator(f1, SEPARATOR_GROOVE | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X);
-    b = new FXCheckButton(f1, "Allow Textures", this, MID_ALLOWTEXTURES);
+    b = new FXCheckButton(f1, TL("Allow Textures"), this, MID_ALLOWTEXTURES);
     b->setCheck(myAllowTextures);
     FXHorizontalFrame* f2 = new FXHorizontalFrame(f1, LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | PACK_UNIFORM_WIDTH, 0, 0, 0, 0, 10, 10, 5, 5);
-    FXButton* initial = new FXButton(f2, "&OK", nullptr, this, MID_SETTINGS_OK, BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 30, 30, 4, 4);
-    new FXButton(f2, "&Cancel", nullptr, this, MID_SETTINGS_CANCEL, BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 30, 30, 4, 4);
+    FXButton* initial = new FXButton(f2, TL("&OK"), nullptr, this, MID_SETTINGS_OK, BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 30, 30, 4, 4);
+    new FXButton(f2, TL("&Cancel"), nullptr, this, MID_SETTINGS_CANCEL, BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, 30, 30, 4, 4);
     initial->setFocus();
     setIcon(GUIIconSubSys::getIcon(GUIIcon::EMPTY));
 }
