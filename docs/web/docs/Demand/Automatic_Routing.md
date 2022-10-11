@@ -7,8 +7,8 @@ title: Automatic Routing
 Routing dynamically in the running simulation may be adequate in the
 following situations:
 
-- there is not enough time / computing power to wait for the dynamic
-  user equilibrium
+- there is not enough time / computing power to wait for the [dynamic
+  user equilibrium](Dynamic_User_Assignment.md#iterative_assignment_dynamic_user_equilibrium)
 - changes to the net occur while the simulation is running
 - vehicles need to adapt their route while running
 
