@@ -2446,12 +2446,10 @@ class personPlan:
         lines = 5
 
     class inspectSelection:
-        type = 1
-        colorButton = 2
-        color = 3
-        departPos = 4
-        depart = 5
-        parameters = 8
+        arrivalPos = 1
+        vTypes = 2
+        modes = 3
+        lines = 4
 
 
 # Container

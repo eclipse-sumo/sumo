@@ -13,7 +13,7 @@ selection.lockSelectionNetwork.polygons
 selection.lockSelectionNetwork.POIs 
 modes
 modes.network
-modes.network.grid 
+modes. 
 modes.network.junctionShape 
 modes.network.spreadVehicle 
 modes.network.showDemandElements 

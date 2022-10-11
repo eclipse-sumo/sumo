@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-10-11 09:08:50 by Eclipse SUMO netedit Version v1_14_1+1563-f3c96901f69
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- VTypes -->
+    <vType id="customType"/>
+    <vType id="type1"/>
+    <vType id="type2"/>
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <person id="p_0" depart="0.00">
+        <walk from="gneE2" to="gneE2"/>
+        <personTrip to="gneE5" arrivalPos="7.00" modes="public" lines="Line1" vTypes="customType"/>
+        <personTrip to="gneE8" arrivalPos="7.00" modes="car" lines="Line2" vTypes="customType"/>
+    </person>
+</routes>

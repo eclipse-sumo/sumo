@@ -62,7 +62,7 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect personPlan
-netedit.leftClick(referencePosition, 158, 65)
+netedit.leftClick(referencePosition, 430, 65)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.personPlan.inspect.vTypes, "customType", False)
