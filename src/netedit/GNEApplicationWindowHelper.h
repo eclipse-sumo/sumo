@@ -808,7 +808,7 @@ struct GNEApplicationWindowHelper {
 
         /// @}
 
-        /// @brief menu check for lock selected elemetns
+        /// @brief menu check for lock selected elements
         MFXMenuCheckIcon* menuCheckLockSelectedElements;
 
     protected:
@@ -873,7 +873,7 @@ struct GNEApplicationWindowHelper {
         /// @brief FXMenuCommand for join selected junctions
         FXMenuCommand* joinJunctions;
 
-        /// @brief FXMenuCommand for clear invalid crosings
+        /// @brief FXMenuCommand for clear invalid crossings
         FXMenuCommand* clearInvalidCrossings;
         /// @}
 
@@ -1036,7 +1036,7 @@ struct GNEApplicationWindowHelper {
         const std::string myFilepath;
     };
 
-    /// @brief save SUMOConffig
+    /// @brief save SUMOConfig
     static void saveSUMOConfig();
 
     /// @brief toggle edit options Network menu commands (called in GNEApplicationWindow::onCmdToggleEditOptions)
