@@ -326,7 +326,7 @@ AGActivityGenHandler::parseStation(const SUMOSAXAttributes& attrs) {
             throw ProcessError();
         }
         if (myCity.statData.busStations.count(refID) == 0) {
-            throw ProcessError("Unknown bus station " + toString(refID));
+            THROWF(ProcessError, "Unknown bus station %.", refID);
         }
         if (!isRevStation) {
             currentBusLine->locateStation(myCity.statData.busStations.find(refID)->second);

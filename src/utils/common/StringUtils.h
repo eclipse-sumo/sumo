@@ -24,7 +24,10 @@
 #include <config.h>
 #include <string>
 #include <chrono>
+#include <sstream>
+#include <iomanip>
 #include <xercesc/util/XMLString.hpp>
+#include <utils/common/StdDefs.h>
 #include <utils/common/UtilExceptions.h>
 
 
@@ -160,8 +163,38 @@ public:
 
     /// @brief must be called when shutting down the xml subsystem
     static void resetTranscoder();
+
+    /// @brief adds a new formatted message
+    // variadic function
+    template<typename T, typename... Targs>
+    static const std::string format(const std::string& format, T value, Targs... Fargs) {
+        std::ostringstream os;
+        os << std::fixed << std::setprecision(gPrecision);
+        _format(format.c_str(), os, value, Fargs...);
+        return os.str();
+    }
+
+private:
+    static void _format(const char* format, std::ostringstream& os) {
+        os << format;
+    }
+
+    /// @brief adds a new formatted message
+    // variadic function
+    template<typename T, typename... Targs>
+    static void _format(const char* format, std::ostringstream& os, T value, Targs... Fargs) {
+        for (; *format != '\0'; format++) {
+            if (*format == '%') {
+                os << value;
+                _format(format + 1, os, Fargs...); // recursive call
+                return;
+            }
+            os << *format;
+        }
+    }
+
 private:
     static XERCES_CPP_NAMESPACE::XMLLCPTranscoder* myLCPTranscoder;
-
-
 };
+
+#define THROWF(ERROR, ...) throw ERROR(StringUtils::format(__VA_ARGS__));
