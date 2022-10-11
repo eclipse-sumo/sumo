@@ -499,7 +499,7 @@ class OSMImporterWebSocket(WebSocket):
                 builder.finalize()
 
                 self.sendMessage(u"zip " + data)
-        except ssl.SSLCertVerificationError:
+        except ssl.CertVerificationError:
             self.report("Error with SSL certificate, try 'pip install certifi'.")
         except Exception:
             print(traceback.format_exc())
