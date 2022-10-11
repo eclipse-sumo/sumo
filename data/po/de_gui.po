@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2022-10-11 10:52+0200\n"
+"POT-Creation-Date: 2022-10-11 16:54+0200\n"
 "PO-Revision-Date: 2022-10-09 17:46+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -17,15 +17,24 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\guisim_main.cpp:60
+#: /home/behr_mi/sumo/src/guisim_main.cpp:60
 msgid "GUI version of the microscopic, multi-modal traffic simulation SUMO."
 msgstr ""
 "Grafische Version der mikroskopischen, multimodalen Verkehrssimulation SUMO."
 
-#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\guisim_main.cpp:80
+#: /home/behr_mi/sumo/src/guisim_main.cpp:80
 msgid "This system has no OpenGL support. Exiting."
 msgstr "Dieses System hat keine OpenGL-Unterstützung. Ende."
 
-#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:437
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:437
 msgid "&File"
 msgstr "&Datei"
+
+#: /home/behr_mi/sumo/src/guisim/GUINet.cpp:621
+msgid "Trying to set data value for the unknown edge '%'."
+msgstr ""
+
+#: /home/behr_mi/sumo/src/guisim/GUINet.cpp:645
+msgid ""
+"Trying to set data value for the unknown relation from edge '%' to edge '%'."
+msgstr ""
