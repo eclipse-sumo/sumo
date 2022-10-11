@@ -39,5 +39,6 @@ export SUMO_BINARY="$SUMO_HOME/bin/sumo"
 export GUISIM_BINARY="$SUMO_HOME/bin/sumo-gui"
 export MAROUTER_BINARY="$SUMO_HOME/bin/marouter"
 export PYTHON="python"
+export LANG="C"
 
 texttest "$@"
