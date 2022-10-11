@@ -28,6 +28,9 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
+# force save additionals
+netedit.forceSaveAdditionals()
+
 # go to demand mode (For undo-redo)
 netedit.supermodeDemand()
 
@@ -40,6 +43,9 @@ netedit.redo(referencePosition, 1)
 
 # save routes
 netedit.saveRoutes(referencePosition)
+
+# save additionals
+netedit.saveAdditionals(referencePosition)
 
 # save network
 netedit.saveNetwork(referencePosition)

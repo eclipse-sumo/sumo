@@ -81,6 +81,7 @@ Debug: Adding person 'p_0' in GNEChange_DemandElement
 Debug: Adding walk: edge->edge 'p_0' in GNEChange_DemandElement
 Debug: Adding personTrip: edge->edge 'p_0' in GNEChange_DemandElement
 Debug: demand elements saved
+Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -10.00,-16.40,10.00,13.20
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 42.10,-16.40,76.40,14.70
