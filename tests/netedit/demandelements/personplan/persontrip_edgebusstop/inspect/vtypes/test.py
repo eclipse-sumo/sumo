@@ -43,13 +43,13 @@ netedit.leftClick(referencePosition, 274, 400)
 # press enter to create route
 netedit.typeEnter()
 
-# go to personTripEdgeBusStop mode
+# go to person plan mode
 netedit.personPlanMode()
 
 # select person
 netedit.leftClick(referencePosition, 92, 412)
 
-# go to personTripEdgeBusStop mode
+# go to person plan mode
 netedit.changePersonPlanMode("personTrip: edge->busStop")
 
 # create personTripEdgeBusStop

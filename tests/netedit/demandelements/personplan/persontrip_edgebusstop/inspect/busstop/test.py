@@ -31,14 +31,32 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 # go to demand mode
 netedit.supermodeDemand()
 
-# select two-way mode
-netedit.changeEditMode(netedit.attrs.modes.demand.showPersonPlans)
+# go to person mode
+netedit.personMode()
 
-# go to select mode
-netedit.selectMode()
+# change person plan
+netedit.changePersonPlan("walk: edge->edge", False)
 
-# select all using invert
-netedit.selectionInvert()
+# create route using two one
+netedit.leftClick(referencePosition, 274, 400)
+
+# press enter to create route
+netedit.typeEnter()
+
+# go to person plan mode
+netedit.personPlanMode()
+
+# select person
+netedit.leftClick(referencePosition, 92, 412)
+
+# go to person plan mode
+netedit.changePersonPlanMode("personTrip: edge->busStop")
+
+# create personTripEdgeBusStop
+netedit.leftClick(referencePosition, 295, 50)
+
+# press enter to create route
+netedit.typeEnter()
 
 # go to inspect mode
 netedit.inspectMode()
@@ -47,20 +65,14 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 430, 65)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personTripEdgeBusStop.inspectSelection.arrivalPos, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.personTripEdgeBusStop.inspect.to, "dummy", False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personTripEdgeBusStop.inspectSelection.arrivalPos, "", False)
-
-# change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personTripEdgeBusStop.inspectSelection.arrivalPos, "-6", False)
-
-# change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personTripEdgeBusStop.inspectSelection.arrivalPos, "2.5", False)
+netedit.modifyAttribute(netedit.attrs.personTripEdgeBusStop.inspect.to, "busStopB", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # save routes
 netedit.saveRoutes(referencePosition)

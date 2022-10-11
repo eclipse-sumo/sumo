@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, 274, 400)
 netedit.typeEnter()
 
 # go to personTripEdgeEdge mode
-netedit.personTripEdgeEdgeMode()
+netedit.personPlanMode()
 
 # select person
 netedit.leftClick(referencePosition, 92, 412)
