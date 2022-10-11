@@ -1,1 +1,1 @@
-Warning: Ignoring vehicle type 'type2' when routing person 'p_0' because it is not allowed on the start edge.
+Warning: Person 'p_0' aborted waiting for custom,line at edge 'gneE2'.
