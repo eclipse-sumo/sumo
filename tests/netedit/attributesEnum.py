@@ -2428,10 +2428,31 @@ class personFlow:
         spacingOption = 13
         parameters = 15
 
-# PersonPlan
+# PersonPlans
 
 
-class personPlan:
+class personTripEdgeEdge:
+    class create:
+        arrivalPos = 8
+        vTypes = 9
+        modes = 10
+        lines = 11
+
+    class inspect:
+        to = 1
+        arrivalPos = 2
+        vTypes = 3
+        modes = 4
+        lines = 5
+
+    class inspectSelection:
+        arrivalPos = 1
+        vTypes = 2
+        modes = 3
+        lines = 4
+
+
+class personTripEdgeBusStop:
     class create:
         arrivalPos = 8
         vTypes = 9
