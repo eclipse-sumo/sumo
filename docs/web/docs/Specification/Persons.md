@@ -163,7 +163,7 @@ They are child elements of plan definitions.
 | duration   | float(s)   | \>0                | \-      | override walk duration (otherwise determined by the person type and the pedestrian dynamics)         |
 | speed      | float(m/s) | \>0                | \-      | override walking speed (otherwise determined by the person type and individual speed factor)         |
 | arrivalPos | float(m)   |                    | middle of edge  | arrival position on the destination edge                                        |
-| departPosLat | float(m)   |                    | right side in walking direction  | custom lateral position on lane at departure |
+| departPosLat | float(m), string ("random", "left", "right", "center")   |        | right side in walking direction  | custom lateral position on lane at departure ([details](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#departposlat))|
 | busStop    | string     | valid bus stop ids | \-      | id of the destination stop                                                      |
 | parkingArea| string   | valid parkingArea ids              | \-      | id of the destination stop                        |
 | trainStop  | string   | valid trainStop ids              | \-      | id of the destination stop                        |
