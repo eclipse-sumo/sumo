@@ -1,6 +1,9 @@
 # Tests the constraint API
 getConstraints
 
+# Tests the constraint API
+getConstraints_types
+
 # reverse constraint-based train order and adapt other constraints to avoid deadlock
 swapConstraints
 
