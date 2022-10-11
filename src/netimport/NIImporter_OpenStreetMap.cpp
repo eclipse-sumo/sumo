@@ -422,7 +422,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     for (long long i : passed) {
         NIOSMNode* n = myOSMNodes.find(i)->second;
         // recheck permissions, maybe they got assigned to a strange edge, see #11656
-        if (n->ptStopPosition && (permissions & n->permissions) != 0) {
+        if (n->ptStopPosition && (n->permissions == 0 || (permissions & n->permissions) != 0)) {
             NBPTStop* existingPtStop = sc.get(toString(n->id));
             if (existingPtStop != nullptr) {
                 existingPtStop->registerAdditionalEdge(toString(e->id), id);

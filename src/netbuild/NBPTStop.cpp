@@ -263,7 +263,7 @@ NBPTStop::replaceEdge(const std::string& edgeID, const EdgeVector& replacement) 
         double bestDist = std::numeric_limits<double>::max();
         NBEdge* bestEdge = nullptr;
         for (NBEdge* cand : replacement) {
-            if ((cand->getPermissions() & myPermissions) != 0) {
+            if (myPermissions == 0 || (cand->getPermissions() & myPermissions) != 0) {
                 const double dist = cand->getGeometry().distance2D(myPosition) + MAX2(0., myPTStopLength - cand->getLoadedLength());
                 if (dist < bestDist) {
                     bestDist = dist;
