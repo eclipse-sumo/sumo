@@ -56,7 +56,7 @@ def main(args=None):
             print(f, file=pots[pot_file])
     for pot, sources in pots.items():
         sources.close()
-        subprocess.check_call([path + "xgettext", "--files-from=" + sources.name,
+        subprocess.check_call([path + "xgettext", "--files-from=" + sources.name, "--from-code=UTF-8",
                               "--keyword=TL", "--output=" + pot + ".new", "--package-name=sumo",
                                "--msgid-bugs-address=sumo-dev@eclipse.org"])
         os.remove(sources.name)
@@ -67,6 +67,7 @@ def main(args=None):
                 b = [s for s in new.readlines() if not s.startswith(("#", '"POT-Creation-Date:'))]
                 has_diff = list(difflib.unified_diff(a, b))
         if has_diff:
+            os.remove(pot)
             os.rename(pot + ".new", pot)
         else:
             os.remove(pot + ".new")

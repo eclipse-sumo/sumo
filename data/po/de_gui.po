@@ -7,21 +7,25 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2022-10-10 07:37+0200\n"
+"POT-Creation-Date: 2022-10-11 10:52+0200\n"
 "PO-Revision-Date: 2022-10-09 17:46+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ASCII\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: /home/micha/sumo/src/guisim_main.cpp:59
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\guisim_main.cpp:60
 msgid "GUI version of the microscopic, multi-modal traffic simulation SUMO."
 msgstr ""
 "Grafische Version der mikroskopischen, multimodalen Verkehrssimulation SUMO."
 
-#: /home/micha/sumo/src/gui/GUIApplicationWindow.cpp:437
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\guisim_main.cpp:80
+msgid "This system has no OpenGL support. Exiting."
+msgstr "Dieses System hat keine OpenGL-Unterstützung. Ende."
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:437
 msgid "&File"
 msgstr "&Datei"
