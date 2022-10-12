@@ -366,6 +366,9 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
         }
         case SUMO_TAG_PREDECESSOR: // intended fall-through
         case SUMO_TAG_INSERTION_PREDECESSOR:
+        case SUMO_TAG_FOE_INSERTION:
+        case SUMO_TAG_INSERTION_ORDER:
+        case SUMO_TAG_BIDI_PREDECESSOR:
             NLHandler::addPredecessorConstraint(element, attrs, myConstrainedSignal);
             break;
         case SUMO_TAG_TLLOGIC: {
