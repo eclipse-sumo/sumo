@@ -11,14 +11,14 @@ errors:Requested command not implemented (0xac): GUI
 errors:GUI is not running
 output:***Starting server on port
 output:TraCI {REPLACE Libsumo }
-output:via Libsumo {REPLACE }
+output:version .* started via libsumo {REPLACE started }
 output:legacy getNextStops
 output:Using libsumo as traci as requested by environment variable.
 output:FatalTraCIError 'Infeasible context domain \([0-9]*\)'{REPLACE FatalTraCIError 'connection closed by SUMO'}
 log:Error: Answered with error to command 0x[0-9a-f]*:
 log:***Starting server on port
 log:TraCI {REPLACE Libsumo }
-log:via Libsumo {REPLACE }
+log:version .* started via libsumo {REPLACE started }
 log:Requested command not implemented (0xac)
 log:traci.simulation.simulation_{REPLACE traci.simulation.}
 log:traci.simulation.step(0){REPLACE traci.simulationStep()}

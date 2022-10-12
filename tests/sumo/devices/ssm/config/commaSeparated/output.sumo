@@ -7,7 +7,7 @@ Vehicle 'ego' does not supply vehicle parameter 'device.ssm.file'. Using default
 Vehicle 'ego' does not supply vehicle parameter 'device.ssm.geo'. Using default of '0'.
 Vehicle 'ego' does not supply vehicle parameter 'device.ssm.write-positions'. Using default of '0'.
 Vehicle 'ego' does not supply vehicle parameter 'device.ssm.write-positions'. Using default of '0'.
-Simulation version v1_14_1+1272-a09785f06ab started with time: 0.00
+Simulation version v1_14_1+1272-a09785f06ab started with time: 0.00.
 Simulation ended at time: 16.00
 Reason: All vehicles have left the simulation.
 Performance: 
