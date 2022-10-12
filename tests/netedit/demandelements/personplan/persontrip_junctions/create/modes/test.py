@@ -46,26 +46,26 @@ netedit.leftClick(referencePosition, 274, 400)
 # press enter to create route
 netedit.typeEnter()
 
-# go to personTripEdgeEdge mode
+# go to personTripJunctions mode
 netedit.personPlanMode()
 
 # select person
 netedit.leftClick(referencePosition, 92, 412)
 
-# go to personTripEdgeEdge mode
-netedit.changePersonPlanMode("personTrip: edge->edge")
+# go to personTripJunctions mode
+netedit.changePersonPlanMode("personTrip: junctions")
 
-# create personTripEdgeEdge
-netedit.leftClick(referencePosition, 180, 55)
+# create personTripJunctions
+netedit.leftClick(referencePosition, 95, 72)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.personTripEdgeEdge.create.modes, "dummy")
+netedit.changeDefaultValue(netedit.attrs.personTripJunctions.create.modes, "dummy")
 
 # press enter to create route
 netedit.typeEnter()
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.personTripEdgeEdge.create.modes, "public")
+netedit.changeDefaultValue(netedit.attrs.personTripJunctions.create.modes, "public")
 
 # press enter to create route
 netedit.typeEnter()

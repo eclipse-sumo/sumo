@@ -46,17 +46,17 @@ netedit.leftClick(referencePosition, 274, 400)
 # press enter to create route
 netedit.typeEnter()
 
-# go to personTripEdgeEdge mode
+# go to personTripJunctions mode
 netedit.personPlanMode()
 
 # select person
 netedit.leftClick(referencePosition, 92, 412)
 
-# go to personTripEdgeEdge mode
-netedit.changePersonPlanMode("personTrip: edge->edge")
+# go to personTripJunctions mode
+netedit.changePersonPlanMode("personTrip: junctions")
 
-# create personTripEdgeEdge
-netedit.leftClick(referencePosition, 180, 55)
+# create personTripJunctions
+netedit.leftClick(referencePosition, 95, 72)
 
 # press enter to create route
 netedit.typeEnter()
@@ -64,7 +64,7 @@ netedit.typeEnter()
 # go to delete mode
 netedit.deleteMode()
 
-# delete personTripEdgeEdge
+# delete personTripJunctions
 netedit.leftClick(referencePosition, 158, 65)
 
 # Check undo redo

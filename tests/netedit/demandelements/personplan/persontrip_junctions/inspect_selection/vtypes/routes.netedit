@@ -11,7 +11,7 @@
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <person id="p_0" depart="0.00">
         <walk from="gneE2" to="gneE2"/>
-        <personTrip to="gneE5" arrivalPos="7.00" modes="public" lines="Line1" vTypes="customType"/>
-        <personTrip to="gneE8" arrivalPos="7.00" modes="car" lines="Line2" vTypes="customType"/>
+        <personTrip toJunction="gneJ7" arrivalPos="7.00" modes="public" lines="Line1" vTypes="customType"/>
+        <personTrip toJunction="gneE8" arrivalPos="7.00" modes="car" lines="Line2" vTypes="customType"/>
     </person>
 </routes>

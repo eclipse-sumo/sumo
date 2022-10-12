@@ -9,6 +9,6 @@
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <person id="p_0" depart="0.00">
         <walk from="gneE2" to="gneE2"/>
-        <personTrip to="gneE5" lines="ANY" vTypes="customType"/>
+        <personTrip toJunction="gneJ7" lines="ANY" vTypes="customType"/>
     </person>
 </routes>

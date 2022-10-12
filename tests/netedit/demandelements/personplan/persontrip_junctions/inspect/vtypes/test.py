@@ -46,17 +46,17 @@ netedit.leftClick(referencePosition, 274, 400)
 # press enter to create route
 netedit.typeEnter()
 
-# go to personTripEdgeEdge mode
+# go to personTripJunctions mode
 netedit.personPlanMode()
 
 # select person
 netedit.leftClick(referencePosition, 92, 412)
 
-# go to personTripEdgeEdge mode
-netedit.changePersonPlanMode("personTrip: edge->edge")
+# go to personTripJunctions mode
+netedit.changePersonPlanMode("personTrip: junctions")
 
-# create personTripEdgeEdge
-netedit.leftClick(referencePosition, 180, 55)
+# create personTripJunctions
+netedit.leftClick(referencePosition, 95, 72)
 
 # press enter to create route
 netedit.typeEnter()
@@ -64,11 +64,11 @@ netedit.typeEnter()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect personTripEdgeEdge
+# inspect personTripJunctions
 netedit.leftClick(referencePosition, 430, 65)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personTripEdgeEdge.inspect.vTypes, "customType", False)
+netedit.modifyAttribute(netedit.attrs.personTripJunctions.inspect.vTypes, "customType", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

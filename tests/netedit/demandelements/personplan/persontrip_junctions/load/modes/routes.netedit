@@ -7,10 +7,10 @@
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <person id="p_0" depart="0.00">
         <walk from="gneE2" to="gneE2"/>
-        <personTrip to="gneE5" lines="ANY"/>
+        <personTrip toJunction="gneJ7" lines="ANY"/>
     </person>
     <person id="p_1" depart="0.00">
         <walk from="gneE2" to="gneE2"/>
-        <personTrip to="gneE5" modes="car" lines="ANY"/>
+        <personTrip toJunction="gneJ7" modes="car" lines="ANY"/>
     </person>
 </routes>
