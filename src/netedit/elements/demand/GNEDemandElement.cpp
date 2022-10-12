@@ -776,8 +776,16 @@ GNEDemandElement::isPersonPlanValid() const {
         } else if (getTagProperty().getTag() == GNE_TAG_WALK_ROUTE) {
             firstEdge = getParentDemandElements().at(1)->getParentEdges().front();
         }
-        // compare both edges
-        if (previousEdge != firstEdge) {
+        // check junctions
+        if ((previousChild->getParentJunctions().size() > 0) && (getParentJunctions().size() > 0)) {
+            if (previousChild->getParentJunctions().back() != getParentJunctions().front()) {
+                return Problem::DISCONNECTED_PLAN;
+            } 
+        } else if (previousEdge && (getParentJunctions().size() > 0)) {
+            if (previousEdge->getToJunction() != getParentJunctions().front()) {
+                return Problem::DISCONNECTED_PLAN;
+            } 
+        } else if (previousEdge != firstEdge) {
             return Problem::DISCONNECTED_PLAN;
         }
     }
@@ -808,7 +816,19 @@ GNEDemandElement::isPersonPlanValid() const {
             lastEdge = getParentDemandElements().at(1)->getParentEdges().back();
         }
         // compare both edges
-        if (nextEdge != lastEdge) {
+        if ((nextChild->getParentJunctions().size() > 0) && (getParentJunctions().size() > 0)) {
+            if (nextChild->getParentJunctions().front() != getParentJunctions().back()) {
+                return Problem::DISCONNECTED_PLAN;
+            }
+        } else if (nextEdge && (getParentJunctions().size() > 0)) {
+            if (nextEdge->getFromJunction() != getParentJunctions().back()) {
+                return Problem::DISCONNECTED_PLAN;
+            }
+        } else if (lastEdge && (nextChild->getParentJunctions().size() > 0)) {
+            if (lastEdge->getToJunction() != nextChild->getParentJunctions().front()) {
+                return Problem::DISCONNECTED_PLAN;
+            } 
+        } else if (nextEdge != lastEdge) {
             return Problem::DISCONNECTED_PLAN;
         }
     }
@@ -845,8 +865,13 @@ GNEDemandElement::getPersonPlanProblem() const {
         } else if (getTagProperty().getTag() == GNE_TAG_WALK_ROUTE) {
             firstEdge = getParentDemandElements().at(1)->getParentEdges().front();
         }
-        // compare both edges
-        if (previousEdge && firstEdge && (previousEdge != firstEdge)) {
+        // compare elements
+        if ((previousChild->getParentJunctions().size() > 0) && (getParentJunctions().size() > 0)) {
+            return ("Junction '" + previousChild->getParentJunctions().back()->getID() + 
+                    "' is not consecutive with junction '" + getParentJunctions().front()->getID() + "'");
+        } else if (previousEdge && (getParentJunctions().size() > 0)) {
+            return ("edge '" + previousEdge->getID() + "' is not consecutive with junction '" + getParentJunctions().front()->getID() + "'");
+        } else if (previousEdge && firstEdge && (previousEdge != firstEdge)) {
             return "Edge '" + previousEdge->getID() + "' is not consecutive with edge '" + firstEdge->getID() + "'";
         }
     }
@@ -876,8 +901,15 @@ GNEDemandElement::getPersonPlanProblem() const {
         } else if (getTagProperty().getTag() == GNE_TAG_WALK_ROUTE) {
             lastEdge = getParentDemandElements().at(1)->getParentEdges().back();
         }
-        // compare both edges
-        if (nextEdge && lastEdge && (nextEdge != lastEdge)) {
+        // compare elements
+        if ((nextChild->getParentJunctions().size() > 0) && (getParentJunctions().size() > 0)) {
+            return ("Junction '" + nextChild->getParentJunctions().front()->getID() + 
+                    "' is not consecutive with junction '" + getParentJunctions().back()->getID() + "'");
+        } else if (nextEdge && (getParentJunctions().size() > 0)) {
+            return ("edge '" + nextEdge->getID() + "' is not consecutive with junction '" + getParentJunctions().back()->getID() + "'");
+        } else if (lastEdge && (nextChild->getParentJunctions().size() > 0)) {
+            return ("edge '" + lastEdge->getID() + "' is not consecutive with junction '" + nextChild->getParentJunctions().back()->getID() + "'");
+        } else if (nextEdge && lastEdge && (nextEdge != lastEdge)) {
             return "Edge '" + lastEdge->getID() + "' is not consecutive with edge '" + nextEdge->getID() + "'";
         }
     }
