@@ -47,16 +47,16 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect personTripJunctions
-netedit.leftClick(referencePosition, 171, 65)
+netedit.leftClick(referencePosition, 415, 65)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personTripJunctions.inspectSelection.modes, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.personTripJunctions.inspectSelection.modes, "dummy", True)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personTripJunctions.inspectSelection.modes, "", False)
+netedit.modifyAttribute(netedit.attrs.personTripJunctions.inspectSelection.modes, "", True)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personTripJunctions.inspectSelection.modes, "car", False)
+netedit.modifyAttribute(netedit.attrs.personTripJunctions.inspectSelection.modes, "car", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

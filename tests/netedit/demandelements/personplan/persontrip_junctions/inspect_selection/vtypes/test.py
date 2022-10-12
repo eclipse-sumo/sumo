@@ -47,10 +47,10 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect personTripJunctions
-netedit.leftClick(referencePosition, 171, 65)
+netedit.leftClick(referencePosition, 415, 65)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personTripJunctions.inspectSelection.vTypes, "customType", False)
+netedit.modifyAttribute(netedit.attrs.personTripJunctions.inspectSelection.vTypes, "customType", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)
