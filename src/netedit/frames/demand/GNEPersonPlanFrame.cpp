@@ -216,8 +216,12 @@ GNEPersonPlanFrame::tagSelected() {
             if (previousEdge) {
                 // set path creator mode
                 myPathCreator->showPathCreatorModule(personPlanTag, true, false);
-                // add previous edge
-                myPathCreator->addEdge(previousEdge, false, false);
+                // add previous edge or junction
+                if (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().hasAttribute(SUMO_ATTR_FROMJUNCTION)) {
+                    myPathCreator->addJunction(previousEdge->getToJunction(), false, false);
+                } else {
+                    myPathCreator->addEdge(previousEdge, false, false);
+                }
             } else {
                 // set path creator mode
                 myPathCreator->showPathCreatorModule(personPlanTag, false, false);
