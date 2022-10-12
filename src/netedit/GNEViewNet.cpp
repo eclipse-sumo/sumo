@@ -657,7 +657,7 @@ GNEViewNet::getEditNetworkElementShapes() const {
 
 void
 GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme& scheme, int active, GUIGlObjectType objectType,
-                              bool hide, double hideThreshold) {
+                              bool hide, double hideThreshold, bool hide2, double hideThreshold2) {
     assert(!scheme.isFixed());
     UNUSED_PARAMETER(s);
     double minValue = std::numeric_limits<double>::infinity();
@@ -726,6 +726,11 @@ GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme&
             const double rawRange = maxValue - minValue;
             minValue = MAX2(hideThreshold + MIN2(1.0, rawRange / 100.0), minValue);
             scheme.addColor(RGBColor(204, 204, 204), hideThreshold);
+        }
+        if (hide2) {
+            const double rawRange = maxValue - minValue;
+            maxValue = MIN2(hideThreshold2 - MIN2(1.0, rawRange / 100.0), maxValue);
+            scheme.addColor(RGBColor(204, 204, 204), hideThreshold2);
         }
         double range = maxValue - minValue;
         scheme.addColor(RGBColor::RED, (minValue));

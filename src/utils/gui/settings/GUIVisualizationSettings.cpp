@@ -532,6 +532,8 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     edgeData("speed"),
     edgeValueHideCheck(false),
     edgeValueHideThreshold(0),
+    edgeValueHideCheck2(false),
+    edgeValueHideThreshold2(200),
     vehicleQuality(0), showBlinker(true),
     drawLaneChangePreference(false),
     drawMinGap(false),
@@ -1707,6 +1709,8 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("edgeData", edgeData);
     dev.writeAttr("edgeValueHideCheck", edgeValueHideCheck);
     dev.writeAttr("edgeValueHideThreshold", edgeValueHideThreshold);
+    dev.writeAttr("edgeValueHideCheck2", edgeValueHideCheck2);
+    dev.writeAttr("edgeValueHideThreshold2", edgeValueHideThreshold2);
     dev.lf();
     dev << "               ";
     edgeName.print(dev, "edgeName");
@@ -2022,6 +2026,12 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (edgeValueHideThreshold != v2.edgeValueHideThreshold) {
+        return false;
+    }
+    if (edgeValueHideCheck2 != v2.edgeValueHideCheck2) {
+        return false;
+    }
+    if (edgeValueHideThreshold2 != v2.edgeValueHideThreshold2) {
         return false;
     }
     if (!(vehicleColorer == v2.vehicleColorer)) {

@@ -158,6 +158,8 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             mySettings.edgeData = attrs.getStringSecure("edgeData", mySettings.edgeData);
             mySettings.edgeValueHideCheck = StringUtils::toBool(attrs.getStringSecure("edgeValueHideCheck", toString(mySettings.edgeValueHideCheck)));
             mySettings.edgeValueHideThreshold = StringUtils::toDouble(attrs.getStringSecure("edgeValueHideThreshold", toString(mySettings.edgeValueHideThreshold)));
+            mySettings.edgeValueHideCheck2 = StringUtils::toBool(attrs.getStringSecure("edgeValueHideCheck2", toString(mySettings.edgeValueHideCheck2)));
+            mySettings.edgeValueHideThreshold2 = StringUtils::toDouble(attrs.getStringSecure("edgeValueHideThreshold2", toString(mySettings.edgeValueHideThreshold2)));
             myCurrentColorer = element;
             mySettings.edgeColorer.setActive(laneEdgeMode);
             mySettings.edgeScaler.setActive(laneEdgeScaleMode);

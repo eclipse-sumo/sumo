@@ -98,7 +98,8 @@ public:
 
     ///@brief recalibrate color scheme according to the current value range
     void buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme& scheme, int active, GUIGlObjectType objectType,
-                           bool hide = false, double hideThreshold = 0.);
+                           bool hide = false, double hideThreshold = 0,
+                           bool hide2 = false, double hideThreshold2 = 0);
 
     /// @brief return list of available edge parameters
     std::vector<std::string> getEdgeLaneParamKeys(bool edgeKeys) const;

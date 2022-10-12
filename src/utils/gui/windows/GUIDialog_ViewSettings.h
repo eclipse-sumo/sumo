@@ -300,6 +300,8 @@ protected:
     FXButton* myLaneColorRainbow = nullptr;
     FXCheckButton* myLaneColorRainbowCheck = nullptr;
     FXRealSpinner* myLaneColorRainbowThreshold = nullptr;
+    FXCheckButton* myLaneColorRainbowCheck2 = nullptr;
+    FXRealSpinner* myLaneColorRainbowThreshold2 = nullptr;
     FXButton* myJunctionColorRainbow = nullptr;
     FXComboBox* myParamKey = nullptr;
 
