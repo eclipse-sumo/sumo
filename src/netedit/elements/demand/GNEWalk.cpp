@@ -213,7 +213,9 @@ GNEWalk::updateGeometry() {
 
 Position
 GNEWalk::getPositionInView() const {
-    if (getParentEdges().size() > 0) {
+    if (getParentJunctions().size() > 0) {
+        return getParentJunctions().front()->getPositionInView();
+    } else if (getParentEdges().size() > 0) {
         return getParentEdges().front()->getPositionInView();
     } else {
         return getParentDemandElements().at(1)->getPositionInView();
@@ -281,7 +283,11 @@ GNEWalk::drawGL(const GUIVisualizationSettings& s) const {
 void
 GNEWalk::computePathElement() {
     // avoid calculate for junctions
-    if (getParentJunctions().empty()) {
+    // calculate path depending of parents
+    if (getParentJunctions().size() > 0) {
+        // calculate path
+        myNet->getPathManager()->calculatePathJunctions(this, getVClass(), getParentJunctions());
+    } else {
         // declare lane vector
         std::vector<GNELane*> lanes;
         // update lanes depending of walk tag

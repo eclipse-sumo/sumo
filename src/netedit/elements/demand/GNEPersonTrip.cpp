@@ -215,7 +215,11 @@ GNEPersonTrip::updateGeometry() {
 
 Position
 GNEPersonTrip::getPositionInView() const {
-    return getParentEdges().front()->getPositionInView();
+    if (getParentJunctions().size() > 0) {
+        return getParentJunctions().front()->getPositionInView();
+    } else {
+        return getParentEdges().front()->getPositionInView();
+    }
 }
 
 
@@ -270,8 +274,11 @@ GNEPersonTrip::drawGL(const GUIVisualizationSettings& s) const {
 
 void
 GNEPersonTrip::computePathElement() {
-    // avoid calculate for junctions
-    if (getParentJunctions().empty()) {
+    // calculate path depending of parents
+    if (getParentJunctions().size() > 0) {
+        // calculate path
+        myNet->getPathManager()->calculatePathJunctions(this, getVClass(), getParentJunctions());
+    } else {
         // calculate path
         myNet->getPathManager()->calculatePathLanes(this, SVC_PEDESTRIAN, {getFirstPathLane(), getLastPathLane()});
     }

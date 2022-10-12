@@ -370,9 +370,6 @@ private:
     /// @brief draw flow label
     void drawFlowLabel(const Position& vehiclePosition, const double vehicleRotation, const double width, const double length, const double exaggeration) const;
 
-    /// @brief draw line between junctions
-    void drawJunctionLine() const;
-
     /// @brief Invalidated copy constructor.
     GNEVehicle(const GNEVehicle&) = delete;
 

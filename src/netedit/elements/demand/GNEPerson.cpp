@@ -414,6 +414,12 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             }
             // pop matrix
             GLHelper::popMatrix();
+            // draw line between junctions if person plan isn't valid
+            for (const auto &personPlan : getChildDemandElements()) {
+                if (personPlan->getTagProperty().isPersonPlan() && (personPlan->getParentJunctions().size() > 0) && !myNet->getPathManager()->isPathValid(personPlan)) {
+                    drawJunctionLine(personPlan);
+                }
+            }
             // pop name
             GLHelper::popName();
             // draw name

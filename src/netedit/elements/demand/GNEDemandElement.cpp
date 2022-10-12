@@ -586,8 +586,6 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
         if (!s.drawForRectangleSelection) {
             drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
         }
-        // Pop name
-        GLHelper::popName();
         // check if this is the last segment
         if (segment->isLastSegment()) {
             // calculate circle width
@@ -642,6 +640,8 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
             // pop draw matrix
             GLHelper::popMatrix();
         }
+        // Pop name
+        GLHelper::popName();
         // declare trim geometry to draw
         const auto shape = (segment->isFirstSegment() || segment->isLastSegment()) ? personPlanGeometry.getShape() : lane->getLaneShape();
         // check if mouse is over element
@@ -667,7 +667,7 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
         }
     }
     // draw person parent if this is the edge first edge and this is the first plan
-    if ((getFirstPathLane()->getParentEdge() == lane->getParentEdge()) &&
+    if (getParentJunctions().empty() && (getFirstPathLane()->getParentEdge() == lane->getParentEdge()) &&
             (personParent->getChildDemandElements().front() == this)) {
         personParent->drawGL(s);
     }
@@ -883,6 +883,26 @@ GNEDemandElement::getPersonPlanProblem() const {
     }
     // undefined problem
     return "undefined problem";
+}
+
+
+void
+GNEDemandElement::drawJunctionLine(const GNEDemandElement* element) const {
+    // get two points
+    const Position posA = element->getParentJunctions().front()->getPositionInView();
+    const Position posB = element->getParentJunctions().back()->getPositionInView();
+    const double rot = ((double)atan2((posB.x() - posA.x()), (posA.y() - posB.y())) * (double) 180.0 / (double)M_PI);
+    const double len = posA.distanceTo2D(posB);
+    // push draw matrix
+    GLHelper::pushMatrix();
+    // Start with the drawing of the area traslating matrix to origin
+    myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, element->getType() + 0.1);
+    // set trip color
+    GLHelper::setColor(RGBColor::RED);
+    // draw line
+    GLHelper::drawBoxLine(posA, rot, len, 0.25);
+    // pop draw matrix
+    GLHelper::popMatrix();
 }
 
 

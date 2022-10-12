@@ -378,6 +378,9 @@ protected:
 
     /// @}
 
+    /// @brief draw line between junctions
+    void drawJunctionLine(const GNEDemandElement* element) const;
+
     /// @name replace parent elements
     /// @{
 

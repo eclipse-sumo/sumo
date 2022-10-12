@@ -418,6 +418,12 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
             }
             // pop matrix
             GLHelper::popMatrix();
+            // draw line between junctions if container plan isn't valid
+            for (const auto &containerPlan : getChildDemandElements()) {
+                if (containerPlan->getTagProperty().isContainerPlan() && (containerPlan->getParentJunctions().size() > 0) && !myNet->getPathManager()->isPathValid(containerPlan)) {
+                    drawJunctionLine(containerPlan);
+                }
+            }
             // pop name
             GLHelper::popName();
             // draw name

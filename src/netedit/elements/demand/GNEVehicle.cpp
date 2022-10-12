@@ -783,7 +783,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::popMatrix();
                 // draw line between junctions if path isn't valid
                 if ((getParentJunctions().size() > 0) && !myNet->getPathManager()->isPathValid(this)) {
-                    drawJunctionLine();
+                    drawJunctionLine(this);
                 }
                 // draw stack label
                 if ((myStackedLabelNumber > 0) && !drawSpreadVehicles) {
@@ -2323,26 +2323,6 @@ GNEVehicle::drawFlowLabel(const Position& vehiclePosition, const double vehicleR
     GLHelper::drawBoxLine(Position(0, -contourWidth), Position(0, -contourWidth), 0, (length * exaggeration) - (contourWidth * 2), (0.3 * exaggeration) - contourWidth);
     // draw stack label
     GLHelper::drawText("Flow", Position(0, length * exaggeration * -0.5), (.1 * exaggeration), (0.6 * exaggeration), RGBColor::BLACK, 90, 0, -1);
-    // pop draw matrix
-    GLHelper::popMatrix();
-}
-
-
-void
-GNEVehicle::drawJunctionLine() const {
-    // get two points
-    const Position posA = getParentJunctions().front()->getPositionInView();
-    const Position posB = getParentJunctions().back()->getPositionInView();
-    const double rot = ((double)atan2((posB.x() - posA.x()), (posA.y() - posB.y())) * (double) 180.0 / (double)M_PI);
-    const double len = posA.distanceTo2D(posB);
-    // push draw matrix
-    GLHelper::pushMatrix();
-    // Start with the drawing of the area traslating matrix to origin
-    myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType() + 0.1);
-    // set trip color
-    GLHelper::setColor(RGBColor::RED);
-    // draw line
-    GLHelper::drawBoxLine(posA, rot, len, 0.25);
     // pop draw matrix
     GLHelper::popMatrix();
 }
