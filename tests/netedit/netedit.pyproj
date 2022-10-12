@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{ab397194-5994-4651-8ad2-78c5cf8850e8}</ProjectGuid>
+    <ProjectGuid>{bfc30cf4-22e9-41e1-a684-f6869cd48420}</ProjectGuid>
     <ProjectHome />
     <StartupFile>attributesEnum.py</StartupFile>
     <SearchPath />
@@ -12,8 +12,6 @@
     <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <InterpreterId />
-    <Name>Netedit</Name>
-    <SuppressConfigureTestFrameworkPrompt>true</SuppressConfigureTestFrameworkPrompt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
@@ -1122,6 +1120,80 @@
     <Compile Include="demandelements\personflow\inspect_selection\type\test.py" />
     <Compile Include="demandelements\personflow\load\no_child\test.py" />
     <Compile Include="demandelements\personflow\load\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_edgebusstop\create\default\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_edgebusstop\create\lines\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_edgebusstop\create\modes\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_edgebusstop\create\vtypes\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_edgebusstop\delete\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_edgebusstop\inspect\busstop\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_edgebusstop\inspect\lines\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_edgebusstop\inspect\modes\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_edgebusstop\inspect\vtypes\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_edgebusstop\inspect_selection\lines\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_edgebusstop\inspect_selection\modes\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_edgebusstop\inspect_selection\vtypes\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_edgebusstop\load\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_edgeedge\create\arrivalpos\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_edgeedge\create\default\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_edgeedge\create\lines\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_edgeedge\create\modes\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_edgeedge\create\vtypes\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_edgeedge\delete\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_edgeedge\inspect\arrivalpos\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_edgeedge\inspect\lines\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_edgeedge\inspect\modes\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_edgeedge\inspect\to\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_edgeedge\inspect\vtypes\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_edgeedge\inspect_selection\arrivalpos\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_edgeedge\inspect_selection\lines\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_edgeedge\inspect_selection\modes\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_edgeedge\inspect_selection\vtypes\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_edgeedge\load\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_junctions\create\default\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_junctions\create\lines\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_junctions\create\modes\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_junctions\create\vtypes\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_junctions\delete\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_junctions\inspect\lines\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_junctions\inspect\modes\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_junctions\inspect\to\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_junctions\inspect\vtypes\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_junctions\inspect_selection\lines\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_junctions\inspect_selection\modes\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_junctions\inspect_selection\vtypes\test.py" />
+    <Compile Include="demandelements\personplan\persontrip_junctions\load\test.py" />
+    <Compile Include="demandelements\personplan\ride_edgebusstop\create\default\test.py" />
+    <Compile Include="demandelements\personplan\ride_edgebusstop\create\lines\test.py" />
+    <Compile Include="demandelements\personplan\ride_edgebusstop\delete\test.py" />
+    <Compile Include="demandelements\personplan\ride_edgebusstop\inspect\busstop\test.py" />
+    <Compile Include="demandelements\personplan\ride_edgebusstop\inspect\lines\test.py" />
+    <Compile Include="demandelements\personplan\ride_edgebusstop\inspect_selection\lines\test.py" />
+    <Compile Include="demandelements\personplan\ride_edgebusstop\load\test.py" />
+    <Compile Include="demandelements\personplan\ride_edgeedge\create\arrivalpos\test.py" />
+    <Compile Include="demandelements\personplan\ride_edgeedge\create\default\test.py" />
+    <Compile Include="demandelements\personplan\ride_edgeedge\create\lines\test.py" />
+    <Compile Include="demandelements\personplan\ride_edgeedge\delete\test.py" />
+    <Compile Include="demandelements\personplan\ride_edgeedge\inspect\arrivalpos\test.py" />
+    <Compile Include="demandelements\personplan\ride_edgeedge\inspect\lines\test.py" />
+    <Compile Include="demandelements\personplan\ride_edgeedge\inspect\to\test.py" />
+    <Compile Include="demandelements\personplan\ride_edgeedge\inspect_selection\arrivalpos\test.py" />
+    <Compile Include="demandelements\personplan\ride_edgeedge\inspect_selection\lines\test.py" />
+    <Compile Include="demandelements\personplan\ride_edgeedge\load\test.py" />
+    <Compile Include="demandelements\personplan\walk_edgebusstop\create\test.py" />
+    <Compile Include="demandelements\personplan\walk_edgebusstop\delete\test.py" />
+    <Compile Include="demandelements\personplan\walk_edgebusstop\inspect\test.py" />
+    <Compile Include="demandelements\personplan\walk_edgebusstop\load\test.py" />
+    <Compile Include="demandelements\personplan\walk_edgeedge\create\arrivalpos\test.py" />
+    <Compile Include="demandelements\personplan\walk_edgeedge\create\default\test.py" />
+    <Compile Include="demandelements\personplan\walk_edgeedge\delete\test.py" />
+    <Compile Include="demandelements\personplan\walk_edgeedge\inspect\arrivalpos\test.py" />
+    <Compile Include="demandelements\personplan\walk_edgeedge\inspect\to\test.py" />
+    <Compile Include="demandelements\personplan\walk_edgeedge\inspect_selection\test.py" />
+    <Compile Include="demandelements\personplan\walk_edgeedge\load\test.py" />
+    <Compile Include="demandelements\personplan\walk_junctions\create\test.py" />
+    <Compile Include="demandelements\personplan\walk_junctions\delete\test.py" />
+    <Compile Include="demandelements\personplan\walk_junctions\inspect\test.py" />
+    <Compile Include="demandelements\personplan\walk_junctions\load\test.py" />
     <Compile Include="demandelements\person\create\color\test.py" />
     <Compile Include="demandelements\person\create\default_ride\default_ride_busstop\test.py" />
     <Compile Include="demandelements\person\create\default_ride\default_ride_fromto\test.py" />
@@ -2691,7 +2763,6 @@
     <Compile Include="netelements\trafficlights\joined\create\copy\test.py" />
     <Compile Include="netelements\trafficlights\joined\create\disjoin\test.py" />
     <Compile Include="netelements\trafficlights\joined\create\id\test.py" />
-    <Compile Include="netelements\trafficlights\joined\create\overlapped\test.py" />
     <Compile Include="netelements\trafficlights\joined\create\type\test.py" />
     <Compile Include="netelements\trafficlights\joined\phases\actuated\buttons\addstates\test.py" />
     <Compile Include="netelements\trafficlights\joined\phases\actuated\buttons\add\default\test.py" />
@@ -4400,6 +4471,106 @@
     <Folder Include="demandelements\personflow\inspect_selection\type" />
     <Folder Include="demandelements\personflow\load" />
     <Folder Include="demandelements\personflow\load\no_child" />
+    <Folder Include="demandelements\personplan\" />
+    <Folder Include="demandelements\personplan\persontrip_edgebusstop\" />
+    <Folder Include="demandelements\personplan\persontrip_edgebusstop\create\" />
+    <Folder Include="demandelements\personplan\persontrip_edgebusstop\create\default" />
+    <Folder Include="demandelements\personplan\persontrip_edgebusstop\create\lines" />
+    <Folder Include="demandelements\personplan\persontrip_edgebusstop\create\modes" />
+    <Folder Include="demandelements\personplan\persontrip_edgebusstop\create\vtypes" />
+    <Folder Include="demandelements\personplan\persontrip_edgebusstop\delete" />
+    <Folder Include="demandelements\personplan\persontrip_edgebusstop\inspect\" />
+    <Folder Include="demandelements\personplan\persontrip_edgebusstop\inspect\busstop" />
+    <Folder Include="demandelements\personplan\persontrip_edgebusstop\inspect\lines" />
+    <Folder Include="demandelements\personplan\persontrip_edgebusstop\inspect\modes" />
+    <Folder Include="demandelements\personplan\persontrip_edgebusstop\inspect\vtypes" />
+    <Folder Include="demandelements\personplan\persontrip_edgebusstop\inspect_selection\" />
+    <Folder Include="demandelements\personplan\persontrip_edgebusstop\inspect_selection\lines" />
+    <Folder Include="demandelements\personplan\persontrip_edgebusstop\inspect_selection\modes" />
+    <Folder Include="demandelements\personplan\persontrip_edgebusstop\inspect_selection\vtypes" />
+    <Folder Include="demandelements\personplan\persontrip_edgebusstop\load" />
+    <Folder Include="demandelements\personplan\persontrip_edgeedge\" />
+    <Folder Include="demandelements\personplan\persontrip_edgeedge\create\" />
+    <Folder Include="demandelements\personplan\persontrip_edgeedge\create\arrivalpos" />
+    <Folder Include="demandelements\personplan\persontrip_edgeedge\create\default" />
+    <Folder Include="demandelements\personplan\persontrip_edgeedge\create\lines" />
+    <Folder Include="demandelements\personplan\persontrip_edgeedge\create\modes" />
+    <Folder Include="demandelements\personplan\persontrip_edgeedge\create\vtypes" />
+    <Folder Include="demandelements\personplan\persontrip_edgeedge\delete" />
+    <Folder Include="demandelements\personplan\persontrip_edgeedge\inspect\" />
+    <Folder Include="demandelements\personplan\persontrip_edgeedge\inspect\arrivalpos" />
+    <Folder Include="demandelements\personplan\persontrip_edgeedge\inspect\lines" />
+    <Folder Include="demandelements\personplan\persontrip_edgeedge\inspect\modes" />
+    <Folder Include="demandelements\personplan\persontrip_edgeedge\inspect\to" />
+    <Folder Include="demandelements\personplan\persontrip_edgeedge\inspect\vtypes" />
+    <Folder Include="demandelements\personplan\persontrip_edgeedge\inspect_selection\" />
+    <Folder Include="demandelements\personplan\persontrip_edgeedge\inspect_selection\arrivalpos" />
+    <Folder Include="demandelements\personplan\persontrip_edgeedge\inspect_selection\lines" />
+    <Folder Include="demandelements\personplan\persontrip_edgeedge\inspect_selection\modes" />
+    <Folder Include="demandelements\personplan\persontrip_edgeedge\inspect_selection\vtypes" />
+    <Folder Include="demandelements\personplan\persontrip_edgeedge\load" />
+    <Folder Include="demandelements\personplan\persontrip_junctions\" />
+    <Folder Include="demandelements\personplan\persontrip_junctions\create\" />
+    <Folder Include="demandelements\personplan\persontrip_junctions\create\default" />
+    <Folder Include="demandelements\personplan\persontrip_junctions\create\lines" />
+    <Folder Include="demandelements\personplan\persontrip_junctions\create\modes" />
+    <Folder Include="demandelements\personplan\persontrip_junctions\create\vtypes" />
+    <Folder Include="demandelements\personplan\persontrip_junctions\delete" />
+    <Folder Include="demandelements\personplan\persontrip_junctions\inspect\" />
+    <Folder Include="demandelements\personplan\persontrip_junctions\inspect\lines" />
+    <Folder Include="demandelements\personplan\persontrip_junctions\inspect\modes" />
+    <Folder Include="demandelements\personplan\persontrip_junctions\inspect\to" />
+    <Folder Include="demandelements\personplan\persontrip_junctions\inspect\vtypes" />
+    <Folder Include="demandelements\personplan\persontrip_junctions\inspect_selection\" />
+    <Folder Include="demandelements\personplan\persontrip_junctions\inspect_selection\lines" />
+    <Folder Include="demandelements\personplan\persontrip_junctions\inspect_selection\modes" />
+    <Folder Include="demandelements\personplan\persontrip_junctions\inspect_selection\vtypes" />
+    <Folder Include="demandelements\personplan\persontrip_junctions\load" />
+    <Folder Include="demandelements\personplan\ride_edgebusstop\" />
+    <Folder Include="demandelements\personplan\ride_edgebusstop\create\" />
+    <Folder Include="demandelements\personplan\ride_edgebusstop\create\default" />
+    <Folder Include="demandelements\personplan\ride_edgebusstop\create\lines" />
+    <Folder Include="demandelements\personplan\ride_edgebusstop\delete" />
+    <Folder Include="demandelements\personplan\ride_edgebusstop\inspect\" />
+    <Folder Include="demandelements\personplan\ride_edgebusstop\inspect\busstop" />
+    <Folder Include="demandelements\personplan\ride_edgebusstop\inspect\lines" />
+    <Folder Include="demandelements\personplan\ride_edgebusstop\inspect_selection\" />
+    <Folder Include="demandelements\personplan\ride_edgebusstop\inspect_selection\lines" />
+    <Folder Include="demandelements\personplan\ride_edgebusstop\load" />
+    <Folder Include="demandelements\personplan\ride_edgeedge\" />
+    <Folder Include="demandelements\personplan\ride_edgeedge\create\" />
+    <Folder Include="demandelements\personplan\ride_edgeedge\create\arrivalpos" />
+    <Folder Include="demandelements\personplan\ride_edgeedge\create\default" />
+    <Folder Include="demandelements\personplan\ride_edgeedge\create\lines" />
+    <Folder Include="demandelements\personplan\ride_edgeedge\delete" />
+    <Folder Include="demandelements\personplan\ride_edgeedge\inspect\" />
+    <Folder Include="demandelements\personplan\ride_edgeedge\inspect\arrivalpos" />
+    <Folder Include="demandelements\personplan\ride_edgeedge\inspect\lines" />
+    <Folder Include="demandelements\personplan\ride_edgeedge\inspect\to" />
+    <Folder Include="demandelements\personplan\ride_edgeedge\inspect_selection\" />
+    <Folder Include="demandelements\personplan\ride_edgeedge\inspect_selection\arrivalpos" />
+    <Folder Include="demandelements\personplan\ride_edgeedge\inspect_selection\lines" />
+    <Folder Include="demandelements\personplan\ride_edgeedge\load" />
+    <Folder Include="demandelements\personplan\walk_edgebusstop\" />
+    <Folder Include="demandelements\personplan\walk_edgebusstop\create" />
+    <Folder Include="demandelements\personplan\walk_edgebusstop\delete" />
+    <Folder Include="demandelements\personplan\walk_edgebusstop\inspect" />
+    <Folder Include="demandelements\personplan\walk_edgebusstop\load" />
+    <Folder Include="demandelements\personplan\walk_edgeedge\" />
+    <Folder Include="demandelements\personplan\walk_edgeedge\create\" />
+    <Folder Include="demandelements\personplan\walk_edgeedge\create\arrivalpos" />
+    <Folder Include="demandelements\personplan\walk_edgeedge\create\default" />
+    <Folder Include="demandelements\personplan\walk_edgeedge\delete" />
+    <Folder Include="demandelements\personplan\walk_edgeedge\inspect\" />
+    <Folder Include="demandelements\personplan\walk_edgeedge\inspect\arrivalpos" />
+    <Folder Include="demandelements\personplan\walk_edgeedge\inspect\to" />
+    <Folder Include="demandelements\personplan\walk_edgeedge\inspect_selection" />
+    <Folder Include="demandelements\personplan\walk_edgeedge\load" />
+    <Folder Include="demandelements\personplan\walk_junctions\" />
+    <Folder Include="demandelements\personplan\walk_junctions\create" />
+    <Folder Include="demandelements\personplan\walk_junctions\delete" />
+    <Folder Include="demandelements\personplan\walk_junctions\inspect" />
+    <Folder Include="demandelements\personplan\walk_junctions\load" />
     <Folder Include="demandelements\person\" />
     <Folder Include="demandelements\person\create\" />
     <Folder Include="demandelements\person\create\color" />
@@ -6199,7 +6370,6 @@
     <Folder Include="netelements\trafficlights\joined\create\copy" />
     <Folder Include="netelements\trafficlights\joined\create\disjoin" />
     <Folder Include="netelements\trafficlights\joined\create\id" />
-    <Folder Include="netelements\trafficlights\joined\create\overlapped" />
     <Folder Include="netelements\trafficlights\joined\create\type" />
     <Folder Include="netelements\trafficlights\joined\phases\" />
     <Folder Include="netelements\trafficlights\joined\phases\actuated\" />
