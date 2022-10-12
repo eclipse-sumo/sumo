@@ -103,8 +103,8 @@ def main(options):
             random.shuffle(places)
             places = places[:fleet_size]
         for idx, stopID in enumerate(places):
-            print(u'    <trip id="taxi_%s_%s" type="taxi" depart="0.00"><stop busStop="%s" triggered="person"/></trip>' %  # noqa
-                    (stopID, idx, stopID), file=fleet_out)
+            print(u'    <trip id="taxi_%s_%s" type="taxi" depart="0.00">' % (stopID, idx), end='', file=fleet_out)
+            print(u'<stop busStop="%s" triggered="person"/></trip>' % stopID, file=fleet_out)
         print(u"</additional>", file=fleet_out)
 
 

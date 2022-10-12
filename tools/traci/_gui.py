@@ -97,7 +97,7 @@ class GuiDomain(Domain):
         """
         self._setCmd(tc.VAR_ANGLE, viewID, "d", angle)
 
-    def addView(self, viewID, schemeName="", in3D=False ):
+    def addView(self, viewID, schemeName="", in3D=False):
         """addView(string, string, bool) -> None
         Adds new view and sets it to the given settings scheme (optionally as a 3D view)
         """

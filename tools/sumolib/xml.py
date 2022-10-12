@@ -67,9 +67,10 @@ DEFAULT_ATTR_CONVERSIONS = {
     'toLane': int,
 }
 
+
 def supports_comments():
     return sys.version_info[0] >= 3 and sys.version_info[1] >= 8
-    
+
 
 def _prefix_keyword(name, warn=False):
     result = name
@@ -172,7 +173,7 @@ def compound_object(element_name, attrnames, warn=False, sort=True):
             self._text = text
 
         def isComment(self):
-            return "function Comment" in str(self.name) 
+            return "function Comment" in str(self.name)
 
         def getComments(self):
             if not supports_comments:
@@ -223,7 +224,7 @@ def compound_object(element_name, attrnames, warn=False, sort=True):
                       '{' not in self._original_fields[i]]
             if self.isComment():
                 if withComments:
-                    return initialIndent + "<!-- %s -->\n" %  self._text
+                    return initialIndent + "<!-- %s -->\n" % self._text
                 else:
                     return ""
             if not self._child_dict and self._text is None:
@@ -257,6 +258,7 @@ def parselines(xmlline, element_name, element_attrs=None, attr_conversions=None,
                        heterogeneous, warn):
             yield x
 
+
 def parse(xmlfile, element_names, element_attrs=None, attr_conversions=None,
           heterogeneous=True, warn=False):
     """
@@ -289,7 +291,7 @@ def parse(xmlfile, element_names, element_attrs=None, attr_conversions=None,
     if attr_conversions is None:
         attr_conversions = {}
     element_types = {}
-    kwargs = {'parser' : ET.XMLParser(target=ET.TreeBuilder(insert_comments=True))} if supports_comments() else {}
+    kwargs = {'parser': ET.XMLParser(target=ET.TreeBuilder(insert_comments=True))} if supports_comments() else {}
     for _, parsenode in ET.iterparse(_open(xmlfile, None), **kwargs):
         if parsenode.tag in element_names:
             yield _get_compound_object(parsenode, element_types,
