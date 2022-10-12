@@ -544,13 +544,17 @@ GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoB
     GNEJunction* fromJunction = myNet->getAttributeCarriers()->retrieveJunction(fromJunctionID, false);
     GNEJunction* toJunction = myNet->getAttributeCarriers()->retrieveJunction(toJunctionID, false);
     GNEAdditional* toBusStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, toBusStopID, false);
-    // check from junction
+    // check from edge
     if ((fromEdge == nullptr) && previousEdge) {
         fromEdge = previousEdge;
     }
     // check from junction
-    if ((fromJunction == nullptr) && previousEdge) {
-        fromJunction = previousEdge->getToJunction();
+    if (fromJunction == nullptr) {
+        if (previousEdge) {
+            fromJunction = previousEdge->getToJunction();
+        } else {
+            fromJunction = getPreviousPlanJunction(true, sumoBaseObject);
+        }
     }
     // check conditions
     if (personParent) {
@@ -624,13 +628,17 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
     std::vector<GNEEdge*> edges = parseEdges(SUMO_TAG_WALK, edgeIDs);
     // avoid consecutive duplicated edges
     edges.erase(std::unique(edges.begin(), edges.end()), edges.end());
-    // check from junction
+    // check from edge
     if ((fromEdge == nullptr) && previousEdge) {
         fromEdge = previousEdge;
     }
     // check from junction
-    if ((fromJunction == nullptr) && previousEdge) {
-        fromJunction = previousEdge->getToJunction();
+    if (fromJunction == nullptr) {
+        if (previousEdge) {
+            fromJunction = previousEdge->getToJunction();
+        } else {
+            fromJunction = getPreviousPlanJunction(true, sumoBaseObject);
+        }
     }
     // check conditions
     if (personParent) {
@@ -722,11 +730,17 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
 void
 GNERouteHandler::buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& toEdgeID,
                            const std::string& toBusStopID, double arrivalPos, const std::vector<std::string>& lines) {
-    // first parse parents
+    // get previous plan edge
+    const auto previousEdge = getPreviousPlanEdge(true, sumoBaseObject);
+    // parse parents
     GNEDemandElement* personParent = getPersonParent(sumoBaseObject);
-    GNEEdge* fromEdge = fromEdgeID.empty() ? getPreviousPlanEdge(true, sumoBaseObject) : myNet->getAttributeCarriers()->retrieveEdge(fromEdgeID, false);
+    GNEEdge* fromEdge = myNet->getAttributeCarriers()->retrieveEdge(fromEdgeID, false);
     GNEEdge* toEdge = myNet->getAttributeCarriers()->retrieveEdge(toEdgeID, false);
     GNEAdditional* toBusStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, toBusStopID, false);
+    // check from edge
+    if ((fromEdge == nullptr) && previousEdge) {
+        fromEdge = previousEdge;
+    }
     // check conditions
     if (personParent && fromEdge) {
         if (toEdge) {
@@ -823,11 +837,17 @@ GNERouteHandler::buildContainerFlow(const CommonXMLStructure::SumoBaseObject* /*
 void
 GNERouteHandler::buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& toEdgeID,
                                 const std::string& toContainerStopID, const std::vector<std::string>& lines, const double arrivalPos) {
+    // get previous plan edge
+    const auto previousEdge = getPreviousPlanEdge(true, sumoBaseObject);
     // first parse parents
     GNEDemandElement* containerParent = getContainerParent(sumoBaseObject);
-    GNEEdge* fromEdge = fromEdgeID.empty() ? getPreviousPlanEdge(false, sumoBaseObject) : myNet->getAttributeCarriers()->retrieveEdge(fromEdgeID, false);
+    GNEEdge* fromEdge = myNet->getAttributeCarriers()->retrieveEdge(fromEdgeID, false);
     GNEEdge* toEdge = myNet->getAttributeCarriers()->retrieveEdge(toEdgeID, false);
     GNEAdditional* toContainerStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, toContainerStopID, false);
+    // check from edge
+    if ((fromEdge == nullptr) && previousEdge) {
+        fromEdge = previousEdge;
+    }
     // check conditions
     if (containerParent && fromEdge) {
         if (toEdge) {
@@ -870,14 +890,20 @@ GNERouteHandler::buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBa
 void
 GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& toEdgeID,
                                const std::string& toContainerStopID, const std::vector<std::string>& edgeIDs, const double speed, const double departPosition, const double arrivalPosition) {
+    // get previous plan edge
+    const auto previousEdge = getPreviousPlanEdge(true, sumoBaseObject);
     // first parse parents
     GNEDemandElement* containerParent = getContainerParent(sumoBaseObject);
-    GNEEdge* fromEdge = fromEdgeID.empty() ? getPreviousPlanEdge(false, sumoBaseObject) : myNet->getAttributeCarriers()->retrieveEdge(fromEdgeID, false);
+    GNEEdge* fromEdge = myNet->getAttributeCarriers()->retrieveEdge(fromEdgeID, false);
     GNEEdge* toEdge = myNet->getAttributeCarriers()->retrieveEdge(toEdgeID, false);
     GNEAdditional* toContainerStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, toContainerStopID, false);
     std::vector<GNEEdge*> edges = parseEdges(SUMO_TAG_WALK, edgeIDs);
     // avoid consecutive duplicated edges
     edges.erase(std::unique(edges.begin(), edges.end()), edges.end());
+    // check from edge
+    if ((fromEdge == nullptr) && previousEdge) {
+        fromEdge = previousEdge;
+    }
     // check conditions
     if (containerParent && (fromEdge || (edges.size() > 0))) {
         if (edges.size() > 0) {
@@ -2126,6 +2152,28 @@ GNERouteHandler::getPreviousPlanEdge(const bool person, const CommonXMLStructure
     return nullptr;
 }
 
+
+GNEJunction*
+GNERouteHandler::getPreviousPlanJunction(const bool person, const CommonXMLStructure::SumoBaseObject* obj) const {
+    if (obj->getParentSumoBaseObject() == nullptr) {
+        // no parent defined
+        return nullptr;
+    }
+    // get parent object
+    const CommonXMLStructure::SumoBaseObject* parentObject = obj->getParentSumoBaseObject();
+    // search previous child
+    const auto it = std::find(parentObject->getSumoBaseObjectChildren().begin(), parentObject->getSumoBaseObjectChildren().end(), obj);
+    if (it == parentObject->getSumoBaseObjectChildren().begin()) {
+        return nullptr;
+    }
+    // get last child
+    const CommonXMLStructure::SumoBaseObject* previousPersonPlan = *(it - 1);
+    // ends in an junction (only for stops)
+    if (previousPersonPlan->hasStringAttribute(SUMO_ATTR_TOJUNCTION)) {
+        return myNet->getAttributeCarriers()->retrieveJunction(previousPersonPlan->getStringAttribute(SUMO_ATTR_TOJUNCTION), false);
+    }
+    return nullptr;
+}
 
 
 bool 
