@@ -48,7 +48,7 @@ def main(args=None):
     options = get_args(args)
     pot_file = SUMO_HOME + "/data/po/sumo.pot"
     gui_pot_file = SUMO_HOME + "/data/po/gui.pot"
-    pots = {pot_file : open(pot_file + ".txt", "w"), gui_pot_file : open(gui_pot_file + ".txt", "w")}
+    pots = {pot_file: open(pot_file + ".txt", "w"), gui_pot_file: open(gui_pot_file + ".txt", "w")}
     for f in glob(SUMO_HOME + "/src/*.cpp") + glob(SUMO_HOME + "/src/*/*.cpp") + glob(SUMO_HOME + "/src/*/*/*.cpp"):
         if "gui" in f[len(SUMO_HOME):] or "netedit" in f[len(SUMO_HOME):]:
             print(f, file=pots[gui_pot_file])
