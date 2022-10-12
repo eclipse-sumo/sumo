@@ -12,6 +12,6 @@
 	
 	<person id="p_1" depart="0.00">
         <walk from="gneE2" to="gneE2"/>
-		<personTrip toJunction="gneE4" lines="ANY"/>
+		<personTrip toJunction="gneJ9" lines="ANY"/>
     </person>
 </routes>
