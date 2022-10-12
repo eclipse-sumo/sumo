@@ -94,13 +94,14 @@ Simulation::load(const std::vector<std::string>& args) {
 #endif
     close("Libsumo issued load command.");
     try {
+        OptionsCont::getOptions().setApplicationName("libsumo", "Eclipse SUMO libsumo Version " VERSION_STRING);
         gSimulation = true;
         XMLSubSys::init();
         OptionsIO::setArgs(args);
         if (NLBuilder::init(true) != nullptr) {
             const SUMOTime begin = string2time(OptionsCont::getOptions().getString("begin"));
             MSNet::getInstance()->setCurrentTimeStep(begin); // needed for state loading
-            WRITE_MESSAGE("Simulation started via Libsumo with time: " + time2string(begin));
+            WRITE_MESSAGEF(TL("Simulation version % started via libsumo with time: %."), VERSION_STRING, time2string(begin));
         }
     } catch (ProcessError& e) {
         throw TraCIException(e.what());
