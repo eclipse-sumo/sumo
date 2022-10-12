@@ -686,6 +686,9 @@ public:
         return myDistance;
     }
 
+    /// @brief get distance at the given offset
+    double getDistancAt(double pos) const;
+
     /** @brief Returns the offset to the destination node
      * @return The offset to the destination node
      */

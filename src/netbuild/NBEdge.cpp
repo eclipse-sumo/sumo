@@ -4667,4 +4667,10 @@ NBEdge::guessOpposite(bool reguess) {
     return opposite;
 }
 
+double
+NBEdge::getDistancAt(double pos) const {
+    // negative values of myDistances indicate descending kilometrage
+    return fabs(myDistance + pos);
+}
+
 /****************************************************************************/
