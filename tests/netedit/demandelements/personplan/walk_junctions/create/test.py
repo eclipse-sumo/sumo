@@ -61,15 +61,9 @@ netedit.leftClick(referencePosition, 95, 223)
 # press enter to create route
 netedit.typeEnter()
 
-# go to delete mode
-netedit.deleteMode()
-
-# delete walkJunctions
-netedit.leftClick(referencePosition, 171, 65)
-
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save routes
 netedit.saveRoutes(referencePosition)

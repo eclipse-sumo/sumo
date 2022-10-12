@@ -1,6 +1,6 @@
 <viewsettings>
     <scheme name="standard">
-        <opengl dither="0" fps="0" drawBoundaries="0" forceDrawPositionSelection="0" forceDrawRectangleSelection="0"/>
+        <opengl dither="0" fps="0" drawBoundaries="0" forceDrawPositionSelection="0" forceDrawRectangleSelection="0" geometryIndices_show="0" geometryIndices_size="50.00" geometryIndices_color="255,0,128" geometryIndices_bgColor="128,0,0,0" geometryIndices_constantSize="1" geometryIndices_onlySelected="0"/>
         <background backgroundColor="white" showGrid="0" gridXSize="100.00" gridYSize="100.00"/>
         <edges laneEdgeMode="0" scaleMode="0" laneShowBorders="1" showBikeMarkings="1" showLinkDecals="1" realisticLinkRules="0" showLinkRules="1" showRails="1" hideConnectors="0" widthExaggeration="1.00" minSize="0.00" showDirection="0" showSublanes="1" spreadSuperposed="0" edgeParam="EDGE_KEY" laneParam="LANE_KEY" vehicleParam="PARAM_NUMERICAL" vehicleScaleParam="PARAM_NUMERICAL" vehicleTextParam="PARAM_TEXT" edgeData="speed" edgeValueHideCheck="0" edgeValueHideThreshold="0.00"
                 edgeName_show="0" edgeName_size="60.00" edgeName_color="orange" edgeName_bgColor="128,0,0,0" edgeName_constantSize="1" edgeName_onlySelected="0"
@@ -131,7 +131,7 @@
                 <entry color="1.00"/>
             </scalingScheme>
         </vehicles>
-        <persons personMode="0" personQuality="0" person_minSize="1.00" person_exaggeration="1.00" person_constantSize="0" person_constantSizeSelected="0"
+        <persons personMode="0" personQuality="2" person_minSize="1.00" person_exaggeration="1.00" person_constantSize="0" person_constantSizeSelected="0"
                  personName_show="0" personName_size="60.00" personName_color="0,153,204" personName_bgColor="128,0,0,0" personName_constantSize="1" personName_onlySelected="0"
                   personValue_show="0" personValue_size="80.00" personValue_color="cyan" personValue_bgColor="128,0,0,0" personValue_constantSize="1" personValue_onlySelected="0">
             <colorScheme name="uniform">
@@ -145,8 +145,8 @@
             </colorScheme>
         </containers>
         <junctions junctionMode="0"
-                   drawLinkTLIndex_show="0" drawLinkTLIndex_size="65.00" drawLinkTLIndex_color="128,128,255" drawLinkTLIndex_bgColor="0,0,0,0" drawLinkTLIndex_constantSize="0" drawLinkTLIndex_onlySelected="0"
-                   drawLinkJunctionIndex_show="0" drawLinkJunctionIndex_size="65.00" drawLinkJunctionIndex_color="128,128,255" drawLinkJunctionIndex_bgColor="0,0,0,0" drawLinkJunctionIndex_constantSize="0" drawLinkJunctionIndex_onlySelected="0"
+                   drawLinkTLIndex_show="0" drawLinkTLIndex_size="65.00" drawLinkTLIndex_color="128,128,255" drawLinkTLIndex_bgColor="invisible" drawLinkTLIndex_constantSize="0" drawLinkTLIndex_onlySelected="0"
+                   drawLinkJunctionIndex_show="0" drawLinkJunctionIndex_size="65.00" drawLinkJunctionIndex_color="128,128,255" drawLinkJunctionIndex_bgColor="invisible" drawLinkJunctionIndex_constantSize="0" drawLinkJunctionIndex_onlySelected="0"
                    junctionID_show="0" junctionID_size="60.00" junctionID_color="0,255,128" junctionID_bgColor="128,0,0,0" junctionID_constantSize="1" junctionID_onlySelected="0"
                    junctionName_show="0" junctionName_size="60.00" junctionName_color="192,255,128" junctionName_bgColor="128,0,0,0" junctionName_constantSize="1" junctionName_onlySelected="0"
                    internalJunctionName_show="0" internalJunctionName_size="50.00" internalJunctionName_color="0,204,128" internalJunctionName_bgColor="128,0,0,0" internalJunctionName_constantSize="1" internalJunctionName_onlySelected="0"
@@ -212,7 +212,11 @@
             <colorScheme name="uniform">
                 <entry color="orange"/>
             </colorScheme>
+            <colorScheme name="random">
+                <entry color="yellow"/>
+            </colorScheme>
         </polys>
+        <view3D show3DTLSLinkMarkers="1" show3DTLSDomes="1" generate3DTLSModels="0"/>
         <legend showSizeLegend="1" showColorLegend="0" showVehicleColorLegend="0"/>
     </scheme>
     <viewport zoom="100.00" x="31.40" y="20.00" angle="0.00"/>

@@ -2528,7 +2528,11 @@ class walkEdgeEdge:
 
 
 class walkEdgeBusStop:
+    class inspect:
+        to = 1
 
+
+class walkJunctions:
     class inspect:
         to = 1
 
