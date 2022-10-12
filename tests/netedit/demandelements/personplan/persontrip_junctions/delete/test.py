@@ -65,7 +65,7 @@ netedit.typeEnter()
 netedit.deleteMode()
 
 # delete personTripJunctions
-netedit.leftClick(referencePosition, 158, 65)
+netedit.leftClick(referencePosition, 122, 74)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

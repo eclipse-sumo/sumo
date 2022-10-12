@@ -65,7 +65,7 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect personTripJunctions
-netedit.leftClick(referencePosition, 430, 65)
+netedit.leftClick(referencePosition, 122, 74)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.personTripJunctions.inspect.modes, "dummy", False)

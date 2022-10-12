@@ -2470,6 +2470,24 @@ class personTripEdgeBusStop:
         lines = 3
 
 
+class personTripJunctions:
+    class create:
+        vTypes = 8
+        modes = 9
+        lines = 10
+
+    class inspect:
+        to = 1
+        vTypes = 2
+        modes = 3
+        lines = 4
+
+    class inspectSelection:
+        vTypes = 1
+        modes = 2
+        lines = 3
+
+
 class rideEdgeEdge:
     class create:
         arrivalPos = 8
