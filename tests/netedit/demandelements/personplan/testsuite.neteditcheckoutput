@@ -4,10 +4,12 @@ persontrip_edgebusstop
 
 persontrip_junctions
 
-ride_edgeedge
-
-ride_edgebusstop
-
 walk_edgeedge
 
 walk_edgebusstop
+
+walk_junctions
+
+ride_edgeedge
+
+ride_edgebusstop
