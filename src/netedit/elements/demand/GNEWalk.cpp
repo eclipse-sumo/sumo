@@ -285,8 +285,16 @@ GNEWalk::computePathElement() {
     // avoid calculate for junctions
     // calculate path depending of parents
     if (getParentJunctions().size() > 0) {
+        // get previous personTrip
+        const auto previousParent = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
         // calculate path
-        myNet->getPathManager()->calculatePathJunctions(this, getVClass(), getParentJunctions());
+        if (previousParent == nullptr) {
+            myNet->getPathManager()->calculatePathJunctions(this, getVClass(), getParentJunctions());
+        } else if (previousParent->getParentJunctions().size() > 0) {
+            myNet->getPathManager()->calculatePathJunctions(this, getVClass(), {previousParent->getParentJunctions().front(), getParentJunctions().back()});
+        } else {
+            myNet->getPathManager()->calculatePathJunctions(this, getVClass(), {previousParent->getLastPathLane()->getParentEdge()->getToJunction(), getParentJunctions().back()});
+        }
     } else {
         // declare lane vector
         std::vector<GNELane*> lanes;
