@@ -1493,6 +1493,12 @@ MSEdge::inferEdgeType() {
 }
 
 
+double
+MSEdge::getDistanceAt(double pos) const {
+    // negative values of myDistances indicate descending kilometrage
+    return fabs(myDistance + pos);
+}
+
 void
 MSEdge::clearState() {
     myPersons.clear();

@@ -124,19 +124,14 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
                     }
                 }
                 if (writeDistance) {
-                    double distance = veh->getEdge()->getDistance();
-                    if (microVeh != nullptr) {
-                        if (microVeh->getLane()->isInternal()) {
-                            distance += microVeh->getRoute().getDistanceBetween(0, microVeh->getPositionOnLane(),
-                                    microVeh->getEdge(), &microVeh->getLane()->getEdge(), true, microVeh->getRoutePosition());
-                        } else {
-                            distance += microVeh->getPositionOnLane();
-                        }
+                    double pos;
+                    if (microVeh != nullptr && microVeh->getLane()->isInternal()) {
+                        pos = microVeh->getRoute().getDistanceBetween(0, microVeh->getPositionOnLane(),
+                                microVeh->getEdge(), &microVeh->getLane()->getEdge(), true, microVeh->getRoutePosition());
                     } else {
-                        distance += veh->getPositionOnLane();
+                        pos = veh->getPositionOnLane();
                     }
-                    // if the kilometrage runs counter to the edge direction edge->getDistance() is negative
-                    of.writeOptionalAttr(SUMO_ATTR_DISTANCE, fabs(distance), mask);
+                    of.writeOptionalAttr(SUMO_ATTR_DISTANCE, veh->getEdge()->getDistanceAt(pos), mask);
                 }
                 of.writeOptionalAttr(SUMO_ATTR_ODOMETER, veh->getOdometer(), mask);
                 of.writeOptionalAttr(SUMO_ATTR_POSITION_LAT, veh->getLateralPositionOnLane(), mask);

@@ -326,10 +326,19 @@ public:
         return myPriority;
     }
 
-    /** @brief Returns the kilometrage/mileage at the start of the edge
-     */
+    /** @brief Returns the kilometrage/mileage encoding at the start of the edge
+     * (negative values encode descending direction)
+    */
     double getDistance() const {
         return myDistance;
+    }
+
+    /** @brief Returns the kilometrage/mileage at the given offset along the edge
+     */
+    double getDistanceAt(double pos) const;
+
+    bool hasDistance() const {
+        return myDistance != 0;
     }
     /// @}
 
