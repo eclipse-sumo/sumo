@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-08-18 10:56:12 by Eclipse SUMO sumo Version v1_14_1+0393-5fe3351
+<!-- generated on 2022-10-12 13:23:36 by Eclipse SUMO sumo Version v1_14_1+1633-1cf61e4
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -29,7 +29,7 @@
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_14_1+0393-5fe3351" time="10.00" type="micro" constraints="1">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_14_1+1633-1cf61e4" time="10.00" type="micro" constraints="1">
     <route id="!between" state="0" edges="d e"/>
     <route id="!t0!var#1" state="0" edges="a b c"/>
     <route id="!t1" state="0" edges="d c c"/>
@@ -65,5 +65,6 @@
         <foeInsertion tripId="t42" tl="D" foes="t23" limit="3" active="0"/>
         <insertionPredecessor tripId="t43" tl="D" foes="t24"/>
         <insertionOrder tripId="t44" tl="D" foes="t25"/>
+        <bidiPredecessor tripId="t45" tl="D" foes="t26"/>
     </railSignalConstraints>
 </snapshot>
