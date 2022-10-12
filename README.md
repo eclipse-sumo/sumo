@@ -6,6 +6,7 @@ Eclipse SUMO - Simulation of Urban MObility
 [![Linux](https://github.com/eclipse/sumo/actions/workflows/build-linux.yml/badge.svg)](https://github.com/eclipse/sumo/actions/workflows/build-linux.yml)
 [![macOS](https://github.com/eclipse/sumo/actions/workflows/build-macos.yml/badge.svg)](https://github.com/eclipse/sumo/actions/workflows/build-macos.yml)
 [![sonarcloud security](https://sonarcloud.io/api/project_badges/measure?project=org.eclipse.sumo&metric=security_rating)](https://sonarcloud.io/summary/overall?id=org.eclipse.sumo)
+[![Translation status](https://hosted.weblate.org/widgets/eclipse-sumo/-/svg-badge.svg)](https://hosted.weblate.org/engage/eclipse-sumo/)
 ![Repo Size](https://img.shields.io/github/repo-size/eclipse/sumo.svg)
 
 What is SUMO
