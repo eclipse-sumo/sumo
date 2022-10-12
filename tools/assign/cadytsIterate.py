@@ -99,7 +99,7 @@ def main():
     options = argParser.parse_args()
     if not options.net or not options.routes or not options.detvals:
         argParser.error("--net-file, --routes and --detector-values have to be given!")
-    if not "cadyts" in options.classpath:
+    if "cadyts" not in options.classpath:
         print("""Warning! No cadyts.jar has been found or given. Please use the --classpath option
  to point to an existing jar file. You may also download it
  from https://sumo.dlr.de/daily/cadyts.jar and place it in %s/bin.""" % os.environ['SUMO_HOME'], file=sys.stderr)

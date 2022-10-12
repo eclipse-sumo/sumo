@@ -472,7 +472,7 @@ def main(args=None):
                 print(">>> End time: %s" % etime)
                 print(">>> Duration: %s" % (etime - btime))
                 print("<<")
-        #working on HDVs demand
+        # working on HDVs demand
         router_demands = input_demands_1
         simulation_demands = input_demands_1
         # demand files have regular names based on the basename and the step
