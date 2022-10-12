@@ -1,0 +1,4 @@
+Warning: No connection between edge 'N-sink' and edge 'E-sink' found.
+Warning: Invalid departPos 86.90 given for person 'p_0' walking from edge 'N-sink'. Using edge end instead.
+Error: No connection found between edge 'N-sink' and edge 'E-sink' for person 'p_0'.
+Quitting (on error).

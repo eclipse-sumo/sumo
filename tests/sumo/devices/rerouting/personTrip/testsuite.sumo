@@ -171,4 +171,7 @@ taz
 
 # last edge of the ride differs from first edge of the walk
 atJunction_ride_walk
+
+# see #11820
+toJunction_twice
 errors
