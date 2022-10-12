@@ -128,7 +128,7 @@ PollutantsInterface::Helper::getClassName(const SUMOEmissionClass c) const {
 
 bool
 PollutantsInterface::Helper::isSilent(const SUMOEmissionClass c) {
-    return (c & 0xffffffff & ~HEAVY_BIT) == 0;
+    return (c & (int)0xffffffff & ~HEAVY_BIT) == 0;
 }
 
 
