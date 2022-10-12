@@ -109,6 +109,10 @@ MSStageTrip::getEdgePos(SUMOTime /* now */) const {
 const std::string
 MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now, const bool vehicleArrived) {
     MSStage::setArrived(net, transportable, now, vehicleArrived);
+    if (myOrigin->isTazConnector() && myOrigin->getSuccessors().size() == 0 ) {
+        // previous stage ended at a taz sink-edge
+        myOrigin = transportable->getNextStage(-1)->getDestination();
+    }
     MSVehicleControl& vehControl = net->getVehicleControl();
     std::vector<SUMOVehicleParameter*> pars;
     for (StringTokenizer st(myVTypes); st.hasNext();) {
