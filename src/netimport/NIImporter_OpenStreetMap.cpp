@@ -1532,7 +1532,7 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element, const SUM
         } else if (key == "route") {
             std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentRelation).c_str(), ok, false);
             if (value == "train" || value == "subway" || value == "light_rail" || value == "monorail" || value == "tram" || value == "bus"
-                    || value == "trolleybus" || value == "arialway" || value == "ferry" || value == "share_taxi" || value == "minibus") {
+                    || value == "trolleybus" || value == "aerialway" || value == "ferry" || value == "share_taxi" || value == "minibus") {
                 myPTRouteType = value;
             }
 
