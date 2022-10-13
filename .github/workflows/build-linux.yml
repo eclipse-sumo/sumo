@@ -89,7 +89,7 @@ jobs:
 
     - name: Setting up SonarQube cache
       if: matrix.build_type == 'full' && github.repository == 'eclipse/sumo' && github.event_name == 'schedule' && matrix.compiler == 'gcc'
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: sumo/sonar-cache
         key: ${{ github.head_ref }}-${{ github.run_number }}
@@ -129,7 +129,7 @@ jobs:
         sumo/tests/runTests.sh -b ci -a tools.python2.ci
 
     - name: Uploading artifacts (SUMO binaries)
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v3
       with:
         name: Linux-${{ matrix.compiler }}-${{ matrix.build_type }}
         path: sumo/bin

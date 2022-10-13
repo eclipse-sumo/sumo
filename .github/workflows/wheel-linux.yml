@@ -35,7 +35,7 @@ jobs:
         python build/setup-traci.py bdist_wheel
 
     - name: Uploading artifacts (Helper wheels)
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v3
       with:
         name: helper-wheels
         path: tools/dist
@@ -46,7 +46,7 @@ jobs:
         entrypoint: tools/build/build_wheels.sh
 
     - name: Uploading artifacts (Python wheels)
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v3
       with:
         name: manylinux-wheels
         path: wheelhouse
@@ -83,7 +83,7 @@ jobs:
 
     - name: Uploading test results
       if: failure()
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: texttesttmp-${{ matrix.python }}
         path: ~/.texttest/tmp

@@ -80,13 +80,13 @@ jobs:
         make CTEST_OUTPUT_ON_FAILURE=1 examples test
 
     - name: Uploading artifacts (SUMO binaries)
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v3
       with:
         name: macOS
         path: sumo/bin
 
     - name: Uploading FMI 2.0 FMU artifacts
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v3
       with:
         name: sumo-fmi2-darwin64
         path: sumo/bin/sumo-fmi2-darwin64.fmu

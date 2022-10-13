@@ -54,7 +54,7 @@ jobs:
         architecture: x64
 
     - name: "Set up compiler cache"
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: C:\Users\runneradmin\AppData\Local\Mozilla\sccache\cache
         key: ${{ matrix.build_type }}-${{ matrix.python }}-${{ github.head_ref }}-${{ github.run_number }}
@@ -95,7 +95,7 @@ jobs:
         # we should rename the sumo wheel here
 
     - name: Uploading artifacts
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v3
       with:
         name: Py3-${{ matrix.build_type }}-wheels
         path: sumo/dist
@@ -112,7 +112,7 @@ jobs:
 
     - name: Uploading test results
       if: always()
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: texttesttmp-${{ matrix.build_type }}-${{ matrix.python }}
         path: D:/texttest

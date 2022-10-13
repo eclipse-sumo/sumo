@@ -44,7 +44,7 @@ jobs:
         path: sumolibraries
 
     - name: "Set up compiler cache"
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: C:\Users\runneradmin\AppData\Local\Mozilla\sccache\cache
         key: ${{ matrix.build_type }}-${{ github.head_ref }}-${{ github.run_number }}
@@ -81,7 +81,7 @@ jobs:
         cmake --build . --config Release --target traas
 
     - name: Uploading artifacts (SUMO binaries)
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: Windows-${{ matrix.build_type }}
         path: sumo/bin
@@ -118,7 +118,7 @@ jobs:
 
     - name: Uploading test results
       if: always() && github.repository == 'DLR-TS/sumo'
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: texttesttmp-${{ matrix.build_type }}
         path: D:/texttest/tt.zip

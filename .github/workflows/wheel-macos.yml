@@ -63,7 +63,7 @@ jobs:
         if [[ "${{ matrix.python_version }}" == "3.8" ]]; then mv dist/eclipse_sumo-* `echo dist/eclipse_sumo-* | sed 's/cp38-cp38/py2.py3-none/'`; fi
 
     - name: Uploading artifacts (Python wheels)
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v3
       with:
         name: python-wheels
         path: sumo/dist
