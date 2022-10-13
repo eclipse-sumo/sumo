@@ -151,13 +151,13 @@ const std::vector<NBEdge*>& NBPTLine::getRoute() const {
 }
 
 
-std::vector<NBEdge*>
+std::vector<std::pair<NBEdge*, std::string> >
 NBPTLine::getStopEdges(const NBEdgeCont& ec) const {
-    std::vector<NBEdge*> result;
+    std::vector<std::pair<NBEdge*, std::string> > result;
     for (NBPTStop* stop : myPTStops) {
         NBEdge* e = ec.retrieve(stop->getEdgeId());
         if (e != nullptr) {
-            result.push_back(e);
+            result.push_back({e, stop->getID()});
         }
     }
     return result;

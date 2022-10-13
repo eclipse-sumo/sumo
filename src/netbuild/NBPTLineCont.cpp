@@ -443,6 +443,7 @@ NBPTLineCont::fixBidiStops(const NBEdgeCont& ec) {
     types["train"] = SVC_RAIL;
     types["subway"] = SVC_RAIL_URBAN;
     types["light_rail"] = SVC_RAIL_URBAN;
+    types["monorail"] = SVC_RAIL_URBAN;
     types["ferry"] = SVC_SHIP;
 
     SUMOAbstractRouter<NBRouterEdge, NBVehicle>* const router = new DijkstraRouter<NBRouterEdge, NBVehicle>(

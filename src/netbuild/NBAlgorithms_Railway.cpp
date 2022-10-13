@@ -913,29 +913,36 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBEdgeCont& ec, NBPTLineCont& lc
     int numDisconnected = 0;
     std::set<NBEdge*, ComparatorIdLess> addBidiStops;
     std::set<NBEdge*, ComparatorIdLess> addBidiEdges;
-    std::set<std::pair<NBEdge*, NBEdge*> > visited;
+    std::set<std::pair<std::string, std::string> > visited;
     for (const auto& item : lc.getLines()) {
         NBPTLine* line = item.second;
-        std::vector<NBEdge*> stops = line->getStopEdges(ec);
+        std::vector<std::pair<NBEdge*, std::string> > stops = line->getStopEdges(ec);
         NBEdge* routeStart = line->getRouteStart(ec);
         NBEdge* routeEnd = line->getRouteEnd(ec);
         if (routeStart != nullptr) {
-            stops.insert(stops.begin(), routeStart);
+            stops.insert(stops.begin(), {routeStart, routeStart->getID()});
         }
         if (routeEnd != nullptr) {
-            stops.push_back(routeEnd);
+            stops.push_back({routeEnd, routeEnd->getID()});
         }
         if (stops.size() < 2) {
             continue;
         }
-        if (!line->isConsistent(stops)) {
+        std::vector<NBEdge*> stopEdges;
+        for (auto it : stops) {
+            stopEdges.push_back(it.first);
+        }
+        if (!line->isConsistent(stopEdges)) {
             WRITE_WARNINGF(TL("Edge sequence is not consistent with stop sequence in line '%', not adding bidi edges."), item.first);
             continue;
         }
         for (auto it = stops.begin(); it + 1 != stops.end(); ++it) {
-            NBEdge* fromEdge = *it;
-            NBEdge* toEdge = *(it + 1);
-            std::pair<NBEdge*, NBEdge*> trip(fromEdge, toEdge);
+            NBEdge* fromEdge = it->first;
+            NBEdge* toEdge = (it + 1)->first;
+            const std::string fromStop = it->second;
+            const std::string toStop = (it + 1)->second;
+            std::pair<std::string, std::string> trip(fromStop, toStop);
+            std::pair<std::string, std::string> reverseTrip(toStop, fromStop);
             //std::cout << " trip=" << Named::getIDSecure(fromEdge) << "->" << Named::getIDSecure(toEdge) << " visited=" << (visited.count(trip) != 0) << "\n";
             if (visited.count(trip) != 0) {
                 continue;
@@ -946,6 +953,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBEdgeCont& ec, NBPTLineCont& lc
                     || stopTracks.count(toEdge) == 0) {
                 continue;
             }
+            const bool needBidi = visited.count(reverseTrip) != 0;
             NBVehicle veh(line->getRef(), (SUMOVehicleClass)(fromEdge->getPermissions() & SVC_RAIL_CLASSES));
             std::vector<const Track*> route;
             router->compute(stopTracks[fromEdge].first, stopTracks[toEdge].second, &veh, 0, route);
@@ -955,7 +963,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBEdgeCont& ec, NBPTLineCont& lc
             if (route.size() > 0) {
                 assert(route.size() > 2);
                 for (int i = 1; i < (int)route.size() - 1; ++i) {
-                    if (route[i]->getNumericalID() >= numEdges) {
+                    if (route[i]->getNumericalID() >= numEdges || needBidi) {
                         NBEdge* edge = route[i]->edge;
                         if (addBidiEdges.count(edge) == 0) {
                             if (!edge->isBidiRail(true)) {
