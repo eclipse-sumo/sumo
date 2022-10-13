@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-13 21:58:22 by Eclipse SUMO netconvert Version v1_14_1+1695-1b7e84bb4ea
+<!-- generated on 2022-09-27 15:30:23 by Eclipse SUMO netconvert Version v1_14_1+1270-0739e3f28ba
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -57,7 +57,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="-604178.36,-5791036.72" convBoundary="0.00,0.00,772.20,423.58" origBoundary="10.526507,52.256981,10.540536,52.263596" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+    <location netOffset="-604178.36,-5791036.72" convBoundary="0.00,0.00,772.20,423.58" origBoundary="10.526507,52.256736,10.540536,52.263596" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <type id="highway.bridleway" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.bus_guideway" priority="1" numLanes="1" speed="27.78" allow="bus" oneway="1"/>
@@ -88,7 +88,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <type id="highway.unsurfaced" priority="1" numLanes="1" speed="8.33" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
     <type id="railway.highspeed" priority="21" numLanes="1" speed="69.44" allow="rail_fast" oneway="1"/>
     <type id="railway.light_rail" priority="19" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
-    <type id="railway.monorail" priority="18" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
     <type id="railway.preserved" priority="16" numLanes="1" speed="27.78" allow="rail" oneway="1"/>
     <type id="railway.rail" priority="20" numLanes="1" speed="44.44" allow="rail" oneway="1"/>
     <type id="railway.subway" priority="18" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
@@ -197,7 +196,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="35512808" type="priority" x="772.20" y="0.00" incLanes="23298006_0" intLanes=":35512808_0_0" shape="772.20,-0.00 771.41,-3.10 772.20,0.00">
+    <junction id="35512808" type="priority" x="772.20" y="0.00" incLanes="23298006_0" intLanes=":35512808_0_0" shape="772.20,-0.00 771.41,-3.10 772.20,-0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="50917845" type="dead_end" x="0.00" y="296.33" incLanes="309839196#1_0" intLanes="" shape="0.31,297.90 -0.31,294.76"/>

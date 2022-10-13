@@ -1,38 +1,38 @@
 Written configuration to 'osm.netccfg'
-Parsing types from '/home/kobo/dlr/sumo/data/typemap/osmNetconvert.typ.xml' ... done.
+Parsing types from '/home/behr_mi/sumo/data/typemap/osmNetconvert.typ.xml' ... done.
 Parsing nodes from osm-file 'osm_bbox.osm.xml' ... 
 Found and substituted 1 osm nodes.
-done (1652ms).
+done (380ms).
 Parsing edges from osm-file 'osm_bbox.osm.xml' ... 
-done (1214ms).
+done (293ms).
 Removing duplicate edges ... 
 Removed 3 duplicate osm edges.
 done.
 Adding new type 'highway.service|railway.tram' (first occurence for edge '388702047').
 Parsing relations from osm-file 'osm_bbox.osm.xml' ... 
-done (946ms).
+done (261ms).
  Removed 125 traffic lights before loading plain-XML
  Import done:
    3434 nodes loaded.
-   35 types loaded.
+   34 types loaded.
    5080 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
-Removing self-loops ... done (0ms).
+Removing self-loops ... done (1ms).
 Processing public transport stops ... 
-done (24ms).
+done (3ms).
 Revising public transport stops based on pt lines ... 
-done (35ms).
+done (5ms).
 Align pt stop id signs with corresponding edge id signs ... done (0ms).
 Joining junction clusters ... 
-done (40ms).
- Joined 105 junction cluster(s).
-Removing empty nodes and geometry nodes ... done (47ms).
-   819 nodes removed.
-Moving network to origin ... done (265ms).
-Computing turning directions ... 
 done (19ms).
-Assigning nodes to traffic lights ... done (7ms).
-Guessing and setting on-/off-ramps ... done (29ms).
+ Joined 105 junction cluster(s).
+Removing empty nodes and geometry nodes ... done (17ms).
+   819 nodes removed.
+Moving network to origin ... done (54ms).
+Computing turning directions ... 
+done (4ms).
+Assigning nodes to traffic lights ... done (2ms).
+Guessing and setting on-/off-ramps ... done (5ms).
 Removing sharp turn with radius 1.40 at the start of edge '144014242#1'.
 Removing sharp turn with radius 1.76 at the end of edge '153522299#3'.
 Removing sharp turn with radius 4.73 at the start of edge '167140670#3'.
@@ -42,27 +42,27 @@ Removing sharp turn with radius 8.03 at the end of edge '30123145#0'.
 Removing sharp turn with radius 4.29 at the start of edge '30123145#2'.
 Removing sharp turn with radius 0.01 at the start of edge '32590429'.
 Removing sharp turn with radius 0.01 at the end of edge '32590434#1'.
-Sorting nodes' edges ... done (8ms).
-Computing node shapes ... done (243ms).
-Computing edge shapes ... done (96ms).
-Computing node types ... done (4ms).
-Computing priorities ... done (5ms).
-Computing approached edges ... done (25ms).
-Guessing and setting roundabouts ... done (2ms).
-Computing approaching lanes ... done (38ms).
-Dividing of lanes on approached lanes ... done (23ms).
+Sorting nodes' edges ... done (5ms).
+Computing node shapes ... done (67ms).
+Computing edge shapes ... done (37ms).
+Computing node types ... done (3ms).
+Computing priorities ... done (3ms).
+Computing approached edges ... done (4ms).
+Guessing and setting roundabouts ... done (1ms).
+Computing approaching lanes ... done (10ms).
+Dividing of lanes on approached lanes ... done (9ms).
 Processing turnarounds ... done (2ms).
 Rechecking of lane endings ... done (2ms).
-Joining traffic light nodes ... done (20ms).
+Joining traffic light nodes ... done (3ms).
 Computing traffic light control information ... 
-done (10ms).
-Computing node logics ... done (71ms).
+done (1ms).
+Computing node logics ... done (21ms).
 Computing traffic light logics ... 
-done (18ms).
+done (6ms).
  57 traffic light(s) computed.
 Building inner edges ... 
-done (278ms).
-Find accesses for pt rail stops ... done (197ms).
+done (38ms).
+Find accesses for pt rail stops ... done (41ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
@@ -78,5 +78,5 @@ Summary:
   Applied offset     : -389937.80,-5819108.12
   Converted boundary : 0.00,0.00,2865.03,3342.17
 -----------------------------------------------------
-Writing network ... done (1154ms).
+Writing network ... done (288ms).
 Success.

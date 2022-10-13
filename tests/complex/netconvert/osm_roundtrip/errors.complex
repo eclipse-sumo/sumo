@@ -14,7 +14,7 @@ Warning: Minor green from edge '7727483#1' to edge '-7216737#3' exceeds 19.44m/s
 Warning: Minor green from edge '-24214694' to edge '24214693#0' exceeds 19.44m/s. Maybe a left-turn lane is missing.
 --- 
 +++ 
-@@ -950,7 +950,7 @@
+@@ -949,7 +949,7 @@
      <junction id="38919927" type="priority" x="297.39" y="446.01" incLanes="-6137233#0_0" intLanes="" shape="297.39,446.01 296.76,449.15 297.39,446.01">
          <request index="0" response="0" foes="0"/>
      </junction>
