@@ -3,10 +3,10 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 tranship: edge->edge
 TestFunctions: Clicked over position 578 - 568
-TestFunctions: Clicked over position 396 - 580
+TestFunctions: Clicked over position 384 - 578
 transport: edge->containerStop
-TestFunctions: Clicked over position 599 - 218
-TestFunctions: Clicked over position 734 - 233
+TestFunctions: Clicked over position 594 - 188
+TestFunctions: Clicked over position 734 - 226
 custom line
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
