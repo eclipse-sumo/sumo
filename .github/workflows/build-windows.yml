@@ -27,7 +27,7 @@ jobs:
 
     steps:
     - name: Cloning SUMO
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         path: sumo
         fetch-depth: 0
@@ -38,7 +38,7 @@ jobs:
         git fetch --tags --force
 
     - name: Cloning SUMO Libraries
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: DLR-TS/SUMOLibraries 
         path: sumolibraries

@@ -28,7 +28,7 @@ jobs:
 
     steps:
     - name: Cloning SUMO
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         path: sumo
         fetch-depth: 0
@@ -39,7 +39,7 @@ jobs:
         git fetch --tags --force
 
     - name: Set up Python ${{ matrix.python_version }}
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python_version }}
 

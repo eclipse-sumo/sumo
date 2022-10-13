@@ -14,7 +14,7 @@ jobs:
     
     steps:
       - name: Cloning repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Installing plantuml
         run: |
@@ -22,7 +22,7 @@ jobs:
           sudo apt-get install plantuml
 
       - name: Configuring Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: '3.x'
 
@@ -46,7 +46,7 @@ jobs:
      
      steps:
        - name: Cloning repository
-         uses: actions/checkout@v2
+         uses: actions/checkout@v3
 
        - name: Checking links in markdown files
          uses: gaurav-nelson/github-action-markdown-link-check@v1
