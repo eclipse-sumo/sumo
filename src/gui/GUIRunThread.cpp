@@ -97,13 +97,13 @@ GUIRunThread::init(GUINet* net, SUMOTime start, SUMOTime end) {
         if (std::string(e2.what()) != std::string("Process Error") && std::string(e2.what()) != std::string("")) {
             WRITE_ERROR(e2.what());
         }
-        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
+        MsgHandler::getErrorInstance()->inform(TL("Quitting (on error)."), false);
         myHalting = true;
         myOk = false;
         mySimulationInProgress = false;
 #ifndef _DEBUG
     } catch (...) {
-        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
+        MsgHandler::getErrorInstance()->inform(TL("Quitting (on error)."), false);
         myHalting = true;
         myOk = false;
         mySimulationInProgress = false;
@@ -262,7 +262,7 @@ GUIRunThread::singleStep() {
 void
 GUIRunThread::begin() {
     // report the begin when wished
-    WRITE_MESSAGE("Simulation started with time: " + time2string(mySimStartTime));
+    WRITE_MESSAGEF(TL("Simulation started with time: %."), time2string(mySimStartTime));
     myOk = true;
 }
 
