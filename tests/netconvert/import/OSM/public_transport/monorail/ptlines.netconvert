@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-13 21:58:18 by Eclipse SUMO netconvert Version v1_14_1+1695-1b7e84bb4ea
+<!-- generated on 2022-10-13 22:58:03 by Eclipse SUMO netconvert Version v1_14_1+1699-730f41c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -32,6 +32,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <no-internal-links value="true"/>
     </junctions>
 
+    <railway>
+        <railway.topology.repair value="true"/>
+    </railway>
+
     <report>
         <xml-validation value="never"/>
     </report>
@@ -42,11 +46,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
     <ptLine id="146380" name="Schwebebahn: Vohwinkel =&gt; Oberbarmen" line="60" type="monorail" vClass="rail_urban" color="cyan" completeness="0.25">
         <route edges="326203720"/>
-        <busStop id="380536713" name="Varresbecker Straße"/>
+        <busStop id="-380536713" name="Varresbecker Straße"/>
         <busStop id="1609100922" name="Westende"/>
-        <busStop id="271135646" name="Pestalozzistraße"/>
+        <busStop id="-271135646" name="Pestalozzistraße"/>
         <busStop id="271135683" name="Robert-Daum-Platz"/>
-        <busStop id="3125935756" name="Ohligsmühle"/>
+        <busStop id="-3125935756" name="Ohligsmühle"/>
     </ptLine>
     <ptLine id="2625869" name="Bus NE1: Engelshöhe =&gt; Hauptbahnhof" line="NE1" type="bus" vClass="bus" nightService="only" completeness="0.14">
         <route edges="307459757#0 307459757#1 307459757#2 307459757#3 307459757#4 5980164#0 5980164#1 5980164#2 5980164#3 5980164#4"/>
@@ -56,11 +60,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </ptLine>
     <ptLine id="2973510" name="Schwebebahn: Oberbarmen =&gt; Vohwinkel" line="60" type="monorail" vClass="rail_urban" color="cyan" completeness="0.25">
         <route edges="326203720"/>
-        <busStop id="3125935756" name="Ohligsmühle"/>
+        <busStop id="-3125935756" name="Ohligsmühle"/>
         <busStop id="271135683" name="Robert-Daum-Platz"/>
-        <busStop id="271135646" name="Pestalozzistraße"/>
+        <busStop id="-271135646" name="Pestalozzistraße"/>
         <busStop id="1609100922" name="Westende"/>
-        <busStop id="380536713" name="Varresbecker Straße"/>
+        <busStop id="-380536713" name="Varresbecker Straße"/>
     </ptLine>
     <ptLine id="3251211" name="Bus 600: Hauptbahnhof =&gt; Vohwinkel Schwebebahn" line="600" type="bus" vClass="bus" completeness="0.15">
         <route edges="-5980164#4 -5980164#3 -5980164#2 -5980164#1 -5980164#0 -307459757#4 -307459757#3 -307459757#2 -307459757#1 -307459757#0"/>
