@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-13 22:55:51 by Eclipse SUMO netconvert Version v1_14_1+1699-730f41c
+<!-- generated on 2022-10-14 00:57:31 by Eclipse SUMO netconvert Version v1_14_1+1705-e6429fb
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
+        <type-files value="/scr1/sumo/data/typemap/osmNetconvert.typ.xml,/scr1/sumo/data/typemap/osmNetconvertAerialway.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
@@ -47,6 +48,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <location netOffset="-367602.92,-5678365.23" convBoundary="0.00,0.00,3175.99,1535.47" origBoundary="7.103256,51.239083,7.148176,51.255803" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
+    <type id="aerialway.cable_car" priority="23" numLanes="1" speed="13.89" allow="rail_urban" oneway="1" width="0.50"/>
+    <type id="aerialway.gondola" priority="22" numLanes="1" speed="13.89" allow="rail_urban" oneway="1" width="0.50"/>
     <type id="highway.bridleway" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.bus_guideway" priority="1" numLanes="1" speed="27.78" allow="bus" oneway="1"/>
     <type id="highway.cycleway" priority="1" numLanes="1" speed="5.56" allow="bicycle" oneway="0" width="1.00"/>
