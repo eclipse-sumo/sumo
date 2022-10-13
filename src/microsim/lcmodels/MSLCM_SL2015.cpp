@@ -78,6 +78,7 @@
 // exponential averaging factor for expected sublane speeds
 #define SPEEDGAIN_MEMORY_FACTOR 0.5
 
+#define REACT_TO_STOPPED_DISTANCE 100
 
 
 // ===========================================================================
@@ -1272,6 +1273,7 @@ MSLCM_SL2015::_wantsChangeSublane(
 
     if (laneOffset != 0) {
         ret = checkStrategicChange(ret,
+                                   neighLane,
                                    laneOffset,
                                    leaders,
                                    neighLeaders,
@@ -2737,6 +2739,7 @@ MSLCM_SL2015::getLCA(int state, double latDist) {
 
 int
 MSLCM_SL2015::checkStrategicChange(int ret,
+                                   const MSLane& neighLane,
                                    int laneOffset,
                                    const MSLeaderDistanceInfo& leaders,
                                    const MSLeaderDistanceInfo& neighLeaders,
@@ -2815,7 +2818,16 @@ MSLCM_SL2015::checkStrategicChange(int ret,
             }
         }
 
-        if (!changeToBest && (currentDistDisallows(neighLeftPlace, abs(bestLaneOffset) + 2, laDist))) {
+        // handling reaction to stopped for opposite direction driving NYI
+        const bool noOpposites = &myVehicle.getLane()->getEdge() == &neighLane.getEdge();
+        if (laneOffset != 0 && myStrategicParam >= 0 && noOpposites && mustOvertakeStopped(neighLane, leaders, neighLeaders, forwardPos, neighDist, right, latLaneDist, currentDist, latDist)) {
+            if (latDist == 0) {
+                ret |= LCA_STAY | LCA_STRATEGIC;
+            } else {
+                ret |= LCA_STRATEGIC | LCA_URGENT;
+            }
+
+        } else if (!changeToBest && (currentDistDisallows(neighLeftPlace, abs(bestLaneOffset) + 2, laDist))) {
             // the opposite lane-changing direction should be done than the one examined herein
             //  we'll check whether we assume we could change anyhow and get back in time...
             //
@@ -2931,6 +2943,68 @@ MSLCM_SL2015::checkStrategicChange(int ret,
     }
 #endif
     return ret;
+}
+
+
+bool
+MSLCM_SL2015::mustOvertakeStopped(const MSLane& neighLane, const MSLeaderDistanceInfo& leaders, const MSLeaderDistanceInfo& neighLead,
+        double posOnLane, double neighDist, bool right, double latLaneDist, double& currentDist, double& latDist)
+{
+    bool mustOvertake = false;
+    const bool checkOverTakeRight = avoidOvertakeRight();
+    int rightmost;
+    int leftmost;
+    const bool curHasStopped = leaders.hasStoppedVehicle();
+    const MSLane* neighBeyond = neighLane.getParallelLane(latLaneDist < 0 ? -1 : 1);
+    const bool hasLaneBeyond = neighBeyond != nullptr && neighBeyond->allowsVehicleClass(myVehicle.getVClass());
+    if (curHasStopped) {
+        leaders.getSubLanes(&myVehicle, 0, rightmost, leftmost);
+        for (int i = rightmost; i <= leftmost; i++) {
+            const CLeaderDist& leader = leaders[i];
+            if (leader.first != 0 && leader.first->isStopped() && leader.second < REACT_TO_STOPPED_DISTANCE) {
+                const double overtakeDist = leader.second + myVehicle.getVehicleType().getLength() + leader.first->getVehicleType().getLengthWithGap();
+                if (// current destination leaves enough space to overtake the leader
+                        MIN2(neighDist, currentDist) - posOnLane > overtakeDist
+                        // maybe do not overtake on the right at high speed
+                        && (!checkOverTakeRight || !right)
+                        && (!neighLead.hasStoppedVehicle() || hasLaneBeyond)
+                        //&& (neighLead.first == 0 || !neighLead.first->isStopped()
+                        //    // neighboring stopped vehicle leaves enough space to overtake leader
+                        //    || neighLead.second > overtakeDist))
+                    ) {
+                        // avoid becoming stuck behind a stopped leader
+                        currentDist = myVehicle.getPositionOnLane() + leader.second;
+                        latDist = latLaneDist;
+                        mustOvertake = true;
+#ifdef DEBUG_WANTS_CHANGE
+                        if (DEBUG_COND) {
+                            std::cout << " veh=" << myVehicle.getID() << " overtake stopped leader=" << leader.first->getID()
+                                << " overtakeDist=" << overtakeDist
+                                << " remaining=" << MIN2(neighDist, currentDist) - posOnLane
+                                << "\n";
+                        }
+#endif
+                    }
+            }
+
+        }
+    }
+    if (!mustOvertake && !curHasStopped && neighLead.hasStoppedVehicle()) {
+        // #todo fix this if the neigh lane has a different width
+        const double offset = (latLaneDist < 0 ? -1 : 1) * myVehicle.getLane()->getWidth();
+        neighLead.getSubLanes(&myVehicle, offset, rightmost, leftmost);
+        for (int i = 0; i < neighLead.numSublanes(); i++) {
+            const CLeaderDist& leader = leaders[i];
+            if (leader.first != 0 && leader.first->isStopped() && leader.second < REACT_TO_STOPPED_DISTANCE) {
+                mustOvertake = true;
+                if (i >= rightmost && i <= leftmost) {
+                    latDist = myVehicle.getLateralOverlap() * (latLaneDist > 0 ? -1 : 1);
+                    break;
+                }
+            }
+        }
+    }
+    return mustOvertake;
 }
 
 

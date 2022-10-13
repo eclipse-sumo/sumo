@@ -276,6 +276,7 @@ protected:
     /// @brief compute strategic lane change actions
     /// TODO: Better documentation, refs #2
     int checkStrategicChange(int ret,
+                             const MSLane& neighLane,
                              int laneOffset,
                              const MSLeaderDistanceInfo& leaders,
                              const MSLeaderDistanceInfo& neighLeaders,
@@ -293,6 +294,9 @@ protected:
                              double& latDist
                             );
 
+
+    bool mustOvertakeStopped(const MSLane& neighLane, const MSLeaderDistanceInfo& leaders, const MSLeaderDistanceInfo& neighLead,
+        double posOnLane, double neighDist, bool right, double latLaneDist, double& currentDist, double& latDist); 
 
     /// @brief check whether lateral gap requirements are met override the current maneuver if necessary
     int keepLatGap(int state,
