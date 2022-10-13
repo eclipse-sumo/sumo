@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-04 09:25:48 by Eclipse SUMO netconvert Version v1_14_1+1404-60b7850a127
+<!-- generated on 2022-10-13 21:58:23 by Eclipse SUMO netconvert Version v1_14_1+1695-1b7e84bb4ea
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -81,6 +81,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <type id="highway.unsurfaced" priority="1" numLanes="1" speed="8.33" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
     <type id="railway.highspeed" priority="21" numLanes="1" speed="69.44" allow="rail_fast" oneway="1"/>
     <type id="railway.light_rail" priority="19" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
+    <type id="railway.monorail" priority="18" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
     <type id="railway.preserved" priority="16" numLanes="1" speed="27.78" allow="rail" oneway="1"/>
     <type id="railway.rail" priority="20" numLanes="1" speed="44.44" allow="rail" oneway="1"/>
     <type id="railway.subway" priority="18" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
@@ -442,7 +443,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="859066427#1_0" index="0" allow="tram" speed="13.89" length="12.34" shape="428.37,334.14 428.39,333.94"/>
     </edge>
     <edge id="859066427#2" from="cluster_3921110414_3921110415" to="8007877014" priority="17" type="railway.tram" spreadType="center" shape="428.72,330.84 436.96,253.46 454.74,67.85 458.28,0.00">
-        <lane id="859066427#2_0" index="0" allow="tram" speed="13.89" length="333.12" shape="429.20,326.39 436.96,253.46 454.74,67.85 458.28,-0.00"/>
+        <lane id="859066427#2_0" index="0" allow="tram" speed="13.89" length="333.12" shape="429.20,326.39 436.96,253.46 454.74,67.85 458.28,0.00"/>
     </edge>
     <edge id="859066429#0" from="8007877017" to="cluster_3921110414_3921110415" priority="17" type="railway.tram" spreadType="center" shape="436.82,283.67 433.31,318.15 432.10,328.05 431.58,332.52">
         <lane id="859066429#0_0" index="0" allow="tram" speed="13.89" length="48.68" shape="436.82,283.67 433.31,318.15 432.26,326.72"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-26 09:50:26.625043 by $Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $ v1_14_1+1238-9b9cc23eb8f
+<!-- generated on 2022-10-13 21:58:13.230600 by $Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $ v1_14_1+1695-1b7e84bb4ea
   options: <doubleminus>test-output test
 -->
 
@@ -10,7 +10,7 @@
     <vType id="pt_train" vClass="rail"/>
     <vType id="pt_subway" vClass="rail_urban"/>
     <vType id="pt_light_rail" vClass="rail_urban"/>
-    <vType id="pt_monorail" vClass="rail"/>
+    <vType id="pt_monorail" vClass="rail_urban"/>
     <vType id="pt_trolleybus" vClass="bus"/>
     <vType id="pt_minibus" vClass="bus"/>
     <vType id="pt_share_taxi" vClass="taxi"/>
