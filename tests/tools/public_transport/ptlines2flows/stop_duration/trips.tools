@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-07-07 11:20:38.013825 by $Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $ v1_13_0+1343-240e5d48340
+<!-- generated on 2022-10-13 23:35:13.106700 by $Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $ v1_14_1+1703-0d7ac1f
   options: -n net.net.xml -s input_additional.add.xml -l ptlines.xml -o out.flows.xml -p 600 <doubleminus>stop-duration 60 -v
 -->
 
@@ -10,7 +10,7 @@
     <vType id="train" vClass="rail"/>
     <vType id="subway" vClass="rail_urban"/>
     <vType id="light_rail" vClass="rail_urban"/>
-    <vType id="monorail" vClass="rail"/>
+    <vType id="monorail" vClass="rail_urban"/>
     <vType id="trolleybus" vClass="bus" speedFactor="0.95"/>
     <vType id="minibus" vClass="bus" speedFactor="0.95"/>
     <vType id="share_taxi" vClass="taxi" speedFactor="0.95"/>
