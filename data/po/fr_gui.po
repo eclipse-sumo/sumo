@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2022-10-11 18:40+0200\n"
+"POT-Creation-Date: 2022-10-13 07:46+0200\n"
 "PO-Revision-Date: 2022-10-11 10:52+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -23,6 +23,10 @@ msgstr ""
 
 #: /home/micha/sumo/src/guisim_main.cpp:80
 msgid "This system has no OpenGL support. Exiting."
+msgstr ""
+
+#: /home/micha/sumo/src/netedit/GNEApplicationWindow.cpp:453
+msgid "DEBUG: GNEApplicationWindow::dependentBuild called twice"
 msgstr ""
 
 #: /home/micha/sumo/src/netedit/GNEApplicationWindow.cpp:469
@@ -46,6 +50,10 @@ msgstr ""
 
 #: /home/micha/sumo/src/netedit/GNEApplicationWindow.cpp:729
 msgid "Select Import Options"
+msgstr ""
+
+#: /home/micha/sumo/src/netedit/GNEApplicationWindow.cpp:1401
+msgid "Reload successfully"
 msgstr ""
 
 #: /home/micha/sumo/src/netedit/GNEApplicationWindow.cpp:1425
@@ -483,6 +491,36 @@ msgstr ""
 msgid "&Data"
 msgstr ""
 
+#: /home/micha/sumo/src/netedit/GNEViewParent.cpp:460
+#: /home/micha/sumo/src/gui/GUISUMOViewParent.cpp:184
+msgid "No file extension was specified - saving Snapshot as PNG."
+msgstr ""
+
+#: /home/micha/sumo/src/netedit/GNEViewParent.cpp:471
+#: /home/micha/sumo/src/gui/GUISUMOViewParent.cpp:192
+msgid "Snapshot successfully saved!"
+msgstr ""
+
+#: /home/micha/sumo/src/netedit/GNELoadThread.cpp:92
+msgid "Invalid Options. Nothing loaded"
+msgstr ""
+
+#: /home/micha/sumo/src/netedit/GNELoadThread.cpp:104
+msgid "Could not build projection!"
+msgstr ""
+
+#: /home/micha/sumo/src/netedit/GNELoadThread.cpp:127
+msgid "Performing initial computation ...\n"
+msgstr ""
+
+#: /home/micha/sumo/src/netedit/GNELoadThread.cpp:162
+msgid "Failed to build network."
+msgstr ""
+
+#: /home/micha/sumo/src/netedit/GNELoadThread.cpp:446
+msgid "Failed to parse options."
+msgstr ""
+
 #: /home/micha/sumo/src/guisim/GUINet.cpp:621
 msgid "Trying to set data value for the unknown edge '%'."
 msgstr ""
@@ -490,6 +528,18 @@ msgstr ""
 #: /home/micha/sumo/src/guisim/GUINet.cpp:645
 msgid ""
 "Trying to set data value for the unknown relation from edge '%' to edge '%'."
+msgstr ""
+
+#: /home/micha/sumo/src/guisim/GUINet.cpp:663
+msgid "No data defined after simulation begin time."
+msgstr ""
+
+#: /home/micha/sumo/src/guisim/GUIBaseVehicle.cpp:300
+msgid "GUI-triggered stop not implemented for meso"
+msgstr ""
+
+#: /home/micha/sumo/src/gui/GUITLLogicPhasesTrackerWindow.cpp:336
+msgid "Overflow in time computation occurred."
 msgstr ""
 
 #: /home/micha/sumo/src/gui/GUIApplicationWindow.cpp:439
@@ -876,6 +926,15 @@ msgstr ""
 msgid "Simulation ended"
 msgstr ""
 
+#: /home/micha/sumo/src/gui/GUIRunThread.cpp:100
+#: /home/micha/sumo/src/gui/GUIRunThread.cpp:106
+msgid "Quitting (on error)."
+msgstr ""
+
+#: /home/micha/sumo/src/gui/GUIRunThread.cpp:265
+msgid "Simulation started with time: %."
+msgstr ""
+
 #: /home/micha/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:639
 #: /home/micha/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:390
 #: /home/micha/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:72
@@ -899,6 +958,24 @@ msgstr ""
 
 #: /home/micha/sumo/src/netedit/dialogs/GNEDemandElementDialog.cpp:66
 msgid "&Reset\t\treset to previous values"
+msgstr ""
+
+#: /home/micha/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:448
+#: /home/micha/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:447
+#: /home/micha/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:449
+msgid "Key of Parameter not defined"
+msgstr ""
+
+#: /home/micha/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:450
+#: /home/micha/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:449
+#: /home/micha/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:451
+msgid "Value of Parameter not defined"
+msgstr ""
+
+#: /home/micha/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:458
+#: /home/micha/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:457
+#: /home/micha/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:459
+msgid "Key of Parameter cannot be empty"
 msgstr ""
 
 #: /home/micha/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:53
@@ -939,6 +1016,51 @@ msgstr ""
 
 #: /home/micha/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:315
 msgid "Select conflicted crossing"
+msgstr ""
+
+#: /home/micha/sumo/src/netedit/dialogs/GNERerouterIntervalDialog.cpp:320
+msgid "There is no lanes in the network"
+msgstr ""
+
+#: /home/micha/sumo/src/netedit/dialogs/GNERerouterIntervalDialog.cpp:340
+#: /home/micha/sumo/src/netedit/dialogs/GNERerouterIntervalDialog.cpp:360
+msgid "There is no edges in the network"
+msgstr ""
+
+#: /home/micha/sumo/src/netedit/dialogs/GNERerouterIntervalDialog.cpp:397
+msgid "There is no parking areas in the network"
+msgstr ""
+
+#: /home/micha/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:134
+msgid "Invalid lane"
+msgstr ""
+
+#: /home/micha/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:151
+msgid "Lane path needs at least two lanes"
+msgstr ""
+
+#: /home/micha/sumo/src/netedit/frames/GNEPathCreator.cpp:379
+msgid "Double junctions aren't allowed"
+msgstr ""
+
+#: /home/micha/sumo/src/netedit/frames/GNEPathCreator.cpp:387
+msgid "Only two junctions are allowed"
+msgstr ""
+
+#: /home/micha/sumo/src/netedit/frames/GNEPathCreator.cpp:430
+msgid "Double edges aren't allowed"
+msgstr ""
+
+#: /home/micha/sumo/src/netedit/frames/GNEPathCreator.cpp:440
+msgid "Only consecutives edges are allowed"
+msgstr ""
+
+#: /home/micha/sumo/src/netedit/frames/GNEPathCreator.cpp:449
+msgid "Only two edges are allowed"
+msgstr ""
+
+#: /home/micha/sumo/src/netedit/frames/GNEPathCreator.cpp:524
+msgid "first select an edge"
 msgstr ""
 
 #: /home/micha/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:62

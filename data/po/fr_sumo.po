@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2022-10-11 18:52+0200\n"
+"POT-Creation-Date: 2022-10-13 07:46+0200\n"
 "PO-Revision-Date: 2022-10-09 17:46+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -36,6 +36,45 @@ msgstr ""
 
 #: /home/micha/sumo/src/sumo_main.cpp:126
 msgid "Quitting (on unknown error)."
+msgstr ""
+
+#: /home/micha/sumo/src/od2trips_main.cpp:194
+msgid "No TAZ input file (-n) specified."
+msgstr ""
+
+#: /home/micha/sumo/src/od2trips_main.cpp:198
+msgid "No input specified."
+msgstr ""
+
+#: /home/micha/sumo/src/od2trips_main.cpp:202
+msgid "No trip table output file (-o) or flow-output is specified."
+msgstr ""
+
+#: /home/micha/sumo/src/od2trips_main.cpp:206
+msgid "Only one of the the options 'pedestrians' and 'persontrips' may be set."
+msgstr ""
+
+#: /home/micha/sumo/src/duarouter/RODUAFrame.cpp:232
+msgid ""
+"The --logit option is deprecated, please use --route-choice-method logit."
+msgstr ""
+
+#: /home/micha/sumo/src/duarouter/RODUAFrame.cpp:244
+msgid "Cannot derive file name for alternatives output, skipping it."
+msgstr ""
+
+#: /home/micha/sumo/src/duarouter/RODUAFrame.cpp:251
+msgid ""
+"Option --write-trips.junctions takes no affect when --write-trips is "
+"disabled."
+msgstr ""
+
+#: /home/micha/sumo/src/traci-server/TraCIServer.cpp:313
+msgid "Starting TraCI without using internal lanes!"
+msgstr ""
+
+#: /home/micha/sumo/src/traci-server/TraCIServer.cpp:346
+msgid "  client connected"
 msgstr ""
 
 #: /home/micha/sumo/src/mesosim/MELoop.cpp:89
@@ -85,6 +124,14 @@ msgstr ""
 msgid "Changing traffic light type '%' to '%' for tl '%'."
 msgstr ""
 
+#: /home/micha/sumo/src/netimport/NILoader.cpp:125
+msgid " Import done:"
+msgstr ""
+
+#: /home/micha/sumo/src/netimport/NIImporter_MATSim.cpp:208
+msgid "Bogus capacity period format; requires 'hh:mm:ss'."
+msgstr ""
+
 #: /home/micha/sumo/src/netimport/NIXMLConnectionsHandler.cpp:89
 msgid ""
 "Target edge '%' is not connected with '%'; the connection cannot be reset."
@@ -96,6 +143,10 @@ msgstr ""
 
 #: /home/micha/sumo/src/netimport/NIXMLConnectionsHandler.cpp:287
 msgid "Could not set loaded connection from lane '%' to lane '%'."
+msgstr ""
+
+#: /home/micha/sumo/src/netimport/NIXMLPTHandler.cpp:244
+msgid "Found route outside line definition"
 msgstr ""
 
 #: /home/micha/sumo/src/netimport/NIImporter_DlrNavteq.cpp:240
@@ -134,6 +185,20 @@ msgstr ""
 msgid "Could not set loaded connection from '%' to '%'."
 msgstr ""
 
+#: /home/micha/sumo/src/netimport/NIImporter_VISUM.cpp:930
+msgid "Ignoring SIGNALGRUPPEZUFSABBIEGER because LsaNr is not known"
+msgstr ""
+
+#: /home/micha/sumo/src/netimport/NIImporter_VISUM.cpp:987
+msgid "Unknown edge in TEILFLAECHENELEMENT"
+msgstr ""
+
+#: /home/micha/sumo/src/netimport/NIImporter_VISUM.cpp:1069
+msgid ""
+"Ignoring lane-to-lane connection (not yet implemented for this format "
+"version)"
+msgstr ""
+
 #: /home/micha/sumo/src/netimport/NIImporter_VISUM.cpp:1162
 msgid "Ignoring stopping place '%' without edge id"
 msgstr ""
@@ -160,6 +225,29 @@ msgstr ""
 msgid "Unexpected to-node '%' for edge '%' of stopping place '%'"
 msgstr ""
 
+#: /home/micha/sumo/src/netimport/NIImporter_VISUM.cpp:1529
+msgid " The from-node was not found within the net"
+msgstr ""
+
+#: /home/micha/sumo/src/netimport/NIImporter_VISUM.cpp:1532
+msgid " The to-node was not found within the net"
+msgstr ""
+
+#: /home/micha/sumo/src/netimport/NIImporter_VISUM.cpp:1535
+msgid " Both nodes are the same"
+msgstr ""
+
+#: /home/micha/sumo/src/netimport/NIFrame.cpp:387
+msgid ""
+"Cannot import network data without PROJ-Library. Please install package proj "
+"before building sumo"
+msgstr ""
+
+#: /home/micha/sumo/src/netimport/NIFrame.cpp:412
+#: /home/micha/sumo/src/polyconvert/polyconvert_main.cpp:315
+msgid "Environment variable SUMO_HOME is not set, using built in type maps."
+msgstr ""
+
 #: /home/micha/sumo/src/netimport/NIImporter_SUMO.cpp:284
 #: /home/micha/sumo/src/netimport/NIImporter_SUMO.cpp:286
 #: /home/micha/sumo/src/netimport/NIImporter_SUMO.cpp:288
@@ -173,9 +261,17 @@ msgstr ""
 msgid "Edge '%' occurred at least twice in the input."
 msgstr ""
 
+#: /home/micha/sumo/src/netimport/NIImporter_SUMO.cpp:535
+msgid "Unmatched closing tag for tl-logic."
+msgstr ""
+
 #: /home/micha/sumo/src/netimport/NIImporter_SUMO.cpp:732
 #, c-format
 msgid "Junction '%' occurred at least twice in the input."
+msgstr ""
+
+#: /home/micha/sumo/src/netimport/NIImporter_SUMO.cpp:941
+msgid "found phase without tl-logic"
 msgstr ""
 
 #: /home/micha/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:235
@@ -197,6 +293,15 @@ msgstr ""
 
 #: /home/micha/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:532
 msgid "Skipping edge '%' because it has speed %."
+msgstr ""
+
+#: /home/micha/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:762
+msgid ""
+"Attribute 'id' in the definition of a node is not of type long long int."
+msgstr ""
+
+#: /home/micha/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:768
+msgid "Tag element on wrong XML hierarchy level."
 msgstr ""
 
 #: /home/micha/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:808
@@ -358,6 +463,16 @@ msgstr ""
 msgid "Unknown type '%' for edge '%'"
 msgstr ""
 
+#: /home/micha/sumo/src/netimport/NIImporter_ArcView.cpp:260
+#: /home/micha/sumo/src/polyconvert/PCLoaderArcView.cpp:90
+msgid "No coordinate system found and coordinates look already projected."
+msgstr ""
+
+#: /home/micha/sumo/src/netimport/NIImporter_ArcView.cpp:263
+#: /home/micha/sumo/src/polyconvert/PCLoaderArcView.cpp:93
+msgid "Could not find geo coordinate system, assuming WGS84."
+msgstr ""
+
 #: /home/micha/sumo/src/netimport/NIImporter_ArcView.cpp:276
 msgid "Unable to project coordinates for edge '%'."
 msgstr ""
@@ -371,9 +486,22 @@ msgstr ""
 msgid "Edge '%' is not unique. Renaming subsequent edge to '%'."
 msgstr ""
 
+#: /home/micha/sumo/src/netimport/NIImporter_ArcView.cpp:379
+#: /home/micha/sumo/src/polyconvert/PCLoaderArcView.cpp:326
+msgid "SUMO was compiled without GDAL support."
+msgstr ""
+
 #: /home/micha/sumo/src/netimport/NIImporter_OpenDrive.cpp:667
 #, c-format
 msgid "Edge '%' has no lanes."
+msgstr ""
+
+#: /home/micha/sumo/src/netimport/NIImporter_OpenDrive.cpp:813
+msgid "Ambiguous start of connection."
+msgstr ""
+
+#: /home/micha/sumo/src/netimport/NIImporter_OpenDrive.cpp:830
+msgid "Ambiguous end of connection."
 msgstr ""
 
 #: /home/micha/sumo/src/netimport/NIImporter_OpenDrive.cpp:843
@@ -404,8 +532,24 @@ msgstr ""
 msgid "Ignoring self-looped edge '%' at junction '%'"
 msgstr ""
 
+#: /home/micha/sumo/src/netimport/NIXMLEdgesHandler.cpp:465
+msgid "Ignoring 'split' because it cannot be assigned to an edge"
+msgstr ""
+
 #: /home/micha/sumo/src/activitygen/AGActivityGenHandler.cpp:329
 msgid "Unknown bus station '%'."
+msgstr ""
+
+#: /home/micha/sumo/src/activitygen/activitygen_main.cpp:117
+msgid ""
+"\n"
+"\t ---- begin AcitivtyGen ----\n"
+msgstr ""
+
+#: /home/micha/sumo/src/activitygen/activitygen_main.cpp:130
+msgid ""
+"\n"
+"\t ---- end of ActivityGen ----\n"
 msgstr ""
 
 #: /home/micha/sumo/src/polyconvert/PCLoaderOSM.cpp:157
@@ -427,6 +571,21 @@ msgstr ""
 msgid "Unable to project coordinates for POI '%'."
 msgstr ""
 
+#: /home/micha/sumo/src/polyconvert/PCLoaderDlrNavteq.cpp:224
+msgid "The name of a polygon is missing; it will be discarded."
+msgstr ""
+
+#: /home/micha/sumo/src/netwrite/NWWriter_DlrNavteq.cpp:91
+msgid ""
+"DlrNavteq node data will be written in (floating point) cartesian coordinates"
+msgstr ""
+
+#: /home/micha/sumo/src/netwrite/NWWriter_SUMO.cpp:231
+msgid ""
+"Embedding TAZ-data inside the network is deprecated. Use option --taz-output "
+"instead"
+msgstr ""
+
 #: /home/micha/sumo/src/netwrite/NWWriter_SUMO.cpp:351
 msgid "Could not find bidi-connection for edge '%'"
 msgstr ""
@@ -436,8 +595,44 @@ msgstr ""
 msgid "Lane '%' has a maximum allowed speed of 0."
 msgstr ""
 
+#: /home/micha/sumo/src/netwrite/NWFrame.cpp:143
+msgid "OpenDRIVE export needs internal links computation."
+msgstr ""
+
+#: /home/micha/sumo/src/netwrite/NWFrame.cpp:153
+msgid ""
+"OpenDRIVE cannot represent oblique lane cuts and should use option "
+"'rectangular-lane-cut'."
+msgstr ""
+
+#: /home/micha/sumo/src/netwrite/NWFrame.cpp:162
+msgid "public transport lines output requires 'ptstop-output' to be set"
+msgstr ""
+
+#: /home/micha/sumo/src/netwrite/NWFrame.cpp:166
+msgid ""
+"'ptline-clean-up' only works in conjunction with 'ptline-output'. Ignoring "
+"invalid option."
+msgstr ""
+
+#: /home/micha/sumo/src/router/ROLoader.cpp:285
+msgid "failed."
+msgstr ""
+
 #: /home/micha/sumo/src/router/RORouteHandler.cpp:302
 msgid "No probability for route %, using default."
+msgstr ""
+
+#: /home/micha/sumo/src/router/RORouteHandler.cpp:1019
+msgid "Cannot convert geo-positions because the network has no geo-reference"
+msgstr ""
+
+#: /home/micha/sumo/src/router/RORouteHandler.cpp:1141
+#: /home/micha/sumo/src/router/RORouteHandler.cpp:1259
+#: /home/micha/sumo/src/microsim/MSRouteHandler.cpp:1316
+msgid ""
+"The attribute departPos is no longer supported for walks, please use the "
+"person attribute, the arrivalPos of the previous step or explicit stops."
 msgstr ""
 
 #: /home/micha/sumo/src/router/ROEdge.cpp:202
@@ -452,10 +647,29 @@ msgid ""
 " Using edge's length / edge's speed."
 msgstr ""
 
+#: /home/micha/sumo/src/router/ROEdge.cpp:451
+msgid ""
+"Option weights.priority-factor does not take effect because all edges have "
+"the same priority."
+msgstr ""
+
 #: /home/micha/sumo/src/router/RONet.cpp:206
 #: /home/micha/sumo/src/netload/NLBuilder.cpp:184
 #, c-format
 msgid "A TAZ with id '%' already exists. Not building junction TAZ."
+msgstr ""
+
+#: /home/micha/sumo/src/router/ROFrame.cpp:233
+msgid "No output specified."
+msgstr ""
+
+#: /home/micha/sumo/src/router/ROFrame.cpp:238
+msgid "A positive number of alternatives must be enabled."
+msgstr ""
+
+#: /home/micha/sumo/src/router/ROFrame.cpp:243
+#: /home/micha/sumo/src/microsim/devices/MSDevice_Routing.cpp:120
+msgid "Parallel routing is only possible when compiled with Fox."
 msgstr ""
 
 #: /home/micha/sumo/src/libsumo/Helper.cpp:901
@@ -483,16 +697,378 @@ msgid ""
 "ignoring filter..."
 msgstr ""
 
+#: /home/micha/sumo/src/libsumo/GUI.cpp:300
+msgid ""
+"Libsumo on Windows does not work with GUI, falling back to plain libsumo."
+msgstr ""
+
+#: /home/micha/sumo/src/libsumo/GUI.cpp:367
+msgid "libsumo.load is not implemented for the GUI."
+msgstr ""
+
+#: /home/micha/sumo/src/libsumo/Simulation.cpp:104
+msgid "Simulation version % started via libsumo with time: %."
+msgstr ""
+
+#: /home/micha/sumo/src/libsumo/Vehicle.cpp:463
+msgid "getNextTLS not yet implemented for meso"
+msgstr ""
+
+#: /home/micha/sumo/src/libsumo/Vehicle.cpp:505
+msgid "getStopState not yet implemented for meso"
+msgstr ""
+
+#: /home/micha/sumo/src/libsumo/Vehicle.cpp:721
+msgid "getFollowSpeed not applicable for meso"
+msgstr ""
+
+#: /home/micha/sumo/src/libsumo/Vehicle.cpp:734
+msgid "getSecureGap not applicable for meso"
+msgstr ""
+
+#: /home/micha/sumo/src/libsumo/Vehicle.cpp:747
+msgid "getStopSpeed not applicable for meso"
+msgstr ""
+
+#: /home/micha/sumo/src/libsumo/Vehicle.cpp:1182
+msgid "rerouteParkingArea not yet implemented for meso"
+msgstr ""
+
+#: /home/micha/sumo/src/libsumo/Vehicle.cpp:1197
+msgid "resume not yet implemented for meso"
+msgstr ""
+
+#: /home/micha/sumo/src/libsumo/Vehicle.cpp:1249
+msgid "changeLane not applicable for meso"
+msgstr ""
+
+#: /home/micha/sumo/src/libsumo/Vehicle.cpp:1264
+msgid "changeLaneRelative not applicable for meso"
+msgstr ""
+
+#: /home/micha/sumo/src/libsumo/Vehicle.cpp:1289
+msgid "changeSublane not applicable for meso"
+msgstr ""
+
+#: /home/micha/sumo/src/libsumo/Vehicle.cpp:1458
+msgid "moveToXY not yet implemented for meso"
+msgstr ""
+
+#: /home/micha/sumo/src/libsumo/Vehicle.cpp:1577
+msgid "slowDown not applicable for meso"
+msgstr ""
+
+#: /home/micha/sumo/src/libsumo/Vehicle.cpp:1592
+msgid "openGap not applicable for meso"
+msgstr ""
+
+#: /home/micha/sumo/src/libsumo/Vehicle.cpp:1605
+msgid ""
+"Ignoring openGap(). New time headway must not be smaller than the original."
+msgstr ""
+
+#: /home/micha/sumo/src/libsumo/Vehicle.cpp:1616
+msgid "deactivateGapControl not applicable for meso"
+msgstr ""
+
+#: /home/micha/sumo/src/libsumo/Vehicle.cpp:1635
+msgid "setSpeed not yet implemented for meso"
+msgstr ""
+
+#: /home/micha/sumo/src/libsumo/Vehicle.cpp:1652
+msgid "setAcceleration not yet implemented for meso"
+msgstr ""
+
+#: /home/micha/sumo/src/libsumo/Vehicle.cpp:1668
+msgid "setPreviousSpeed not yet implemented for meso"
+msgstr ""
+
+#: /home/micha/sumo/src/libsumo/Vehicle.cpp:1682
+msgid "setSpeedMode not yet implemented for meso"
+msgstr ""
+
+#: /home/micha/sumo/src/libsumo/Vehicle.cpp:1694
+msgid "setLaneChangeMode not applicable for meso"
+msgstr ""
+
+#: /home/micha/sumo/src/libsumo/Vehicle.cpp:1778
+msgid "updateBestLanes not applicable for meso"
+msgstr ""
+
+#: /home/micha/sumo/src/libsumo/Vehicle.cpp:1867
+msgid "setSignals not applicable for meso"
+msgstr ""
+
+#: /home/micha/sumo/src/libsumo/Vehicle.cpp:1886
+msgid "moveTo not yet implemented for meso"
+msgstr ""
+
+#: /home/micha/sumo/src/libsumo/Vehicle.cpp:1964
+msgid ""
+"Invalid action step length (<0). Ignoring command setActionStepLength()."
+msgstr ""
+
+#: /home/micha/sumo/src/libsumo/Vehicle.cpp:1970
+msgid "setActionStepLength not applicable for meso"
+msgstr ""
+
+#: /home/micha/sumo/src/netgen/NGFrame.cpp:233
+msgid "You have to specify the type of network to generate."
+msgstr ""
+
+#: /home/micha/sumo/src/netgen/NGFrame.cpp:237
+msgid "You may specify only one type of network to generate at once."
+msgstr ""
+
+#: /home/micha/sumo/src/netgen/NGFrame.cpp:270
+msgid "Option 'random-type' takes no effect unless 'type-files' are loaded"
+msgstr ""
+
+#: /home/micha/sumo/src/netgen/netgen_main.cpp:119
+msgid "Spider networks need at least 3 arms."
+msgstr ""
+
+#: /home/micha/sumo/src/netgen/netgen_main.cpp:123
+msgid "Spider networks with many arms should use option ommit-center"
+msgstr ""
+
+#: /home/micha/sumo/src/netgen/netgen_main.cpp:126
+msgid "Spider networks need at least one circle."
+msgstr ""
+
+#: /home/micha/sumo/src/netgen/netgen_main.cpp:175
+msgid ""
+"The number of nodes must be positive and at least 2 in one direction if "
+"there are no attachments."
+msgstr ""
+
+#: /home/micha/sumo/src/netgen/netgen_main.cpp:267
+msgid " Generation done;"
+msgstr ""
+
+#: /home/micha/sumo/src/netload/NLTriggerBuilder.cpp:75
+msgid "Vaporizers are deprecated. Use rerouters instead."
+msgstr ""
+
+#: /home/micha/sumo/src/netload/NLTriggerBuilder.cpp:216
+msgid ""
+"Overhead wire solver (Eigen) not compiled in, expect errors in overhead wire "
+"simulation"
+msgstr ""
+
+#: /home/micha/sumo/src/netload/NLTriggerBuilder.cpp:386
+#: /home/micha/sumo/src/microsim/trigger/MSOverheadWire.cpp:354
+#: /home/micha/sumo/src/microsim/trigger/MSOverheadWire.cpp:409
+#: /home/micha/sumo/src/microsim/trigger/MSOverheadWire.cpp:454
+#: /home/micha/sumo/src/microsim/trigger/MSOverheadWire.cpp:471
+#: /home/micha/sumo/src/microsim/trigger/MSOverheadWire.cpp:492
+#: /home/micha/sumo/src/microsim/trigger/MSOverheadWire.cpp:518
+#: /home/micha/sumo/src/microsim/trigger/MSOverheadWire.cpp:544
+msgid ""
+"Overhead circuit solver requested, but solver support (Eigen) not compiled "
+"in."
+msgstr ""
+
+#: /home/micha/sumo/src/netload/NLTriggerBuilder.cpp:397
+msgid ""
+"Cannot check circuit, overhead circuit solver support (Eigen) not compiled "
+"in."
+msgstr ""
+
+#: /home/micha/sumo/src/netload/NLTriggerBuilder.cpp:469
+msgid ""
+"Not building overhead wire clamps, overhead wire solver support (Eigen) not "
+"compiled in."
+msgstr ""
+
+#: /home/micha/sumo/src/netload/NLTriggerBuilder.cpp:472
+msgid ""
+"Ignoring overhead wire clamps, they make no sense when overhead wire circuit "
+"solver is off."
+msgstr ""
+
+#: /home/micha/sumo/src/netload/NLDetectorBuilder.cpp:526
+msgid ""
+"The netstate type 'hbefa' is deprecated. Please use the type 'emissions' "
+"instead."
+msgstr ""
+
 #: /home/micha/sumo/src/netload/NLHandler.cpp:862
 msgid "maxDur % should not be smaller than minDir % in phase of tlLogic %"
+msgstr ""
+
+#: /home/micha/sumo/src/netload/NLHandler.cpp:989
+msgid ""
+"VTypeProbes are deprecated. Use fcd-output devices (assigned to the vType) "
+"instead."
+msgstr ""
+
+#: /home/micha/sumo/src/netload/NLHandler.cpp:1079
+msgid ""
+"Trying to specify detector's lane by the given id since the argument 'lane' "
+"is missing."
+msgstr ""
+
+#: /home/micha/sumo/src/netload/NLHandler.cpp:1518
+msgid ""
+"no valid geo projection loaded from network. fcd-output.geo will not work"
 msgstr ""
 
 #: /home/micha/sumo/src/netload/NLHandler.cpp:1546
 msgid "Replacing junction-taz '%' with loaded TAZ."
 msgstr ""
 
+#: /home/micha/sumo/src/netload/NLBuilder.cpp:132
+msgid ""
+"Network contains internal links which are ignored. Vehicles will 'jump' "
+"across junctions and thus underestimate route lengths and travel times."
+msgstr ""
+
+#: /home/micha/sumo/src/netload/NLBuilder.cpp:268
+msgid "Loading done."
+msgstr ""
+
 #: /home/micha/sumo/src/netload/NLEdgeControlBuilder.cpp:198
 msgid "Asymmetrical neigh lane '%' for lane '%'"
+msgstr ""
+
+#: /home/micha/sumo/src/dfrouter/RODFDetFlowLoader.cpp:76
+msgid "At least one value lies beyond given time boundaries."
+msgstr ""
+
+#: /home/micha/sumo/src/dfrouter/RODFDetFlowLoader.cpp:104
+msgid "At least one line does not contain the correct number of columns."
+msgstr ""
+
+#: /home/micha/sumo/src/dfrouter/RODFNet.cpp:142
+msgid "Computed detector types:"
+msgstr ""
+
+#: /home/micha/sumo/src/dfrouter/RODFNet.cpp:467
+msgid " Could not build list of previous flows."
+msgstr ""
+
+#: /home/micha/sumo/src/dfrouter/RODFNet.cpp:504
+msgid " Could not build list of latter flows."
+msgstr ""
+
+#: /home/micha/sumo/src/osgview/GUIOSGView.cpp:176
+msgid "Could not load traffic light files."
+msgstr ""
+
+#: /home/micha/sumo/src/marouter/marouter_main.cpp:239
+msgid ""
+"Deterministic user equilibrium ('UE') is not implemented yet, using "
+"stochastic method ('SUE')."
+msgstr ""
+
+#: /home/micha/sumo/src/marouter/marouter_main.cpp:377
+msgid "No districts loaded, will use edge ids!"
+msgstr ""
+
+#: /home/micha/sumo/src/marouter/ROMAFrame.cpp:247
+msgid ""
+"Contraction hierarchies do not work with k shortest path search (please use "
+"a different routing algorithm)!"
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/MSEventControl.cpp:79
+msgid "Command returned negative repeat number; will be deleted."
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/MSFrame.cpp:788
+msgid "No network file (-n) specified."
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/MSFrame.cpp:792
+msgid "Invalid scaling factor."
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/MSFrame.cpp:796
+msgid "A vehroute-output file is needed for exit times."
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/MSFrame.cpp:808
+msgid "You can either restart or quit on end."
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/MSFrame.cpp:813
+msgid ""
+"The option 'meso-junction-control.limited' implies 'meso-junction-control'."
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/MSFrame.cpp:831
+msgid "The begin time should not be negative."
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/MSFrame.cpp:841
+msgid "The end time should be after the begin time."
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/MSFrame.cpp:846
+msgid "the minimum step-length is 0.001"
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/MSFrame.cpp:873
+msgid ""
+"option movereminder-output.vehicles requires option movereminder-output to "
+"be set"
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/MSFrame.cpp:878
+msgid ""
+"The option 'sloppy-insert' is deprecated, because it is now activated by "
+"default, see the new option 'eager-insert'."
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/MSFrame.cpp:881
+msgid ""
+"Only one of the options 'lanechange.duration' or 'lateral-resolution' may be "
+"given."
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/MSFrame.cpp:885
+msgid "Sublane dynamics are not supported by mesoscopic simulation"
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/MSFrame.cpp:889
+msgid ""
+"The option 'ignore-accidents' is deprecated. Use 'collision.action none' "
+"instead."
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/MSFrame.cpp:902
+msgid ""
+"The option tripinfo-output.write-undeparted implies tripinfo-output.write-"
+"unfinished."
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/MSFrame.cpp:939
+msgid "You need a non-negative delay."
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/MSFrame.cpp:952
+msgid "Parallel simulation is only possible when compiled with Fox."
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/MSFrame.cpp:957
+msgid "You need at least one thread."
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/MSFrame.cpp:961
+msgid ""
+"Number of threads exceeds number of thread-rngs. Simulation runs with the "
+"same seed may produce different results"
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/MSFrame.cpp:964
+msgid "game.mode must be one of ['tls', 'drt']"
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/MSFrame.cpp:1030
+msgid ""
+"Integration method was set to 'ballistic', since a default action step "
+"length was specified."
 msgstr ""
 
 #: /home/micha/sumo/src/microsim/MSVehicleType.cpp:433
@@ -508,6 +1084,10 @@ msgid ""
 "Vehicle class '%' of vType '%' is set as ignored by option --meso-ignore-"
 "lanes-by-vclass to ensure default vehicle capacity. Set option --meso-lane-"
 "queue for multi-modal meso simulation"
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/MSRouteHandler.cpp:304
+msgid "Attribute 'period' is deprecated for route. Use 'cycleTime' instead."
 msgstr ""
 
 #: /home/micha/sumo/src/microsim/MSRouteHandler.cpp:754
@@ -586,6 +1166,15 @@ msgstr ""
 msgid "Vehicle '%' aborted waiting for a % that will never come."
 msgstr ""
 
+#: /home/micha/sumo/src/microsim/MSVehicle.cpp:306
+msgid ""
+"MSVehicle::Influencer::GapControlState::init(): No MSNet instance found!"
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/MSVehicle.cpp:319
+msgid "No gap control available for meso."
+msgstr ""
+
 #: /home/micha/sumo/src/microsim/MSVehicle.cpp:942
 msgid ""
 "Vehicle '%' moved by TraCI from % to % (dist %) with implied speed of % "
@@ -610,6 +1199,10 @@ msgstr ""
 msgid "Vehicle '%' ends teleporting on edge '%', time=%."
 msgstr ""
 
+#: /home/micha/sumo/src/microsim/MSNet.cpp:386
+msgid "Simulation version % started with time: %."
+msgstr ""
+
 #: /home/micha/sumo/src/netbuild/NBAlgorithms_Railway.cpp:196
 #, c-format
 msgid "Bidi-edge '%' prevented by filtering rules."
@@ -617,6 +1210,10 @@ msgstr ""
 
 #: /home/micha/sumo/src/netbuild/NBAlgorithms_Railway.cpp:210
 msgid "Could not add bidi-edge '%'."
+msgstr ""
+
+#: /home/micha/sumo/src/netbuild/NBAlgorithms_Railway.cpp:271
+msgid "Railway nodes by number of incoming,outgoing edges:"
 msgstr ""
 
 #: /home/micha/sumo/src/netbuild/NBAlgorithms_Railway.cpp:688
@@ -640,10 +1237,69 @@ msgstr ""
 msgid "No connection found between stops on edge '%' and edge '%'."
 msgstr ""
 
+#: /home/micha/sumo/src/netbuild/NBAlgorithms_Railway.cpp:1150
+msgid ""
+"Cannot extend track direction priority because there are no track edges with "
+"positive priority"
+msgstr ""
+
 #: /home/micha/sumo/src/netbuild/NBAlgorithms_Railway.cpp:1206
 msgid ""
 "Edge '%' was loaded with undefined priority (%) but has unambiguous main "
 "direction (no bidi edge)"
+msgstr ""
+
+#: /home/micha/sumo/src/netbuild/NBFrame.cpp:702
+msgid ""
+"only one of the options 'keep-edges.in-boundary' or 'keep-edges.in-geo-"
+"boundary' may be given"
+msgstr ""
+
+#: /home/micha/sumo/src/netbuild/NBFrame.cpp:706
+msgid ""
+"only one of the options 'no-internal-links' or 'crossings.guess' may be given"
+msgstr ""
+
+#: /home/micha/sumo/src/netbuild/NBFrame.cpp:710
+msgid "only one of the options 'no-internal-links' or 'walkareas' may be given"
+msgstr ""
+
+#: /home/micha/sumo/src/netbuild/NBFrame.cpp:714
+msgid ""
+"only one of the options 'tls.green.time' or 'tls.cycle.time' may be given"
+msgstr ""
+
+#: /home/micha/sumo/src/netbuild/NBFrame.cpp:718
+msgid "default.lanenumber must be at least 1"
+msgstr ""
+
+#: /home/micha/sumo/src/netbuild/NBFrame.cpp:726
+msgid ""
+"only one of the options 'default.disallow' or 'default.allow' may be given"
+msgstr ""
+
+#: /home/micha/sumo/src/netbuild/NBFrame.cpp:730
+msgid "junctions.internal-link-detail must >= 2"
+msgstr ""
+
+#: /home/micha/sumo/src/netbuild/NBFrame.cpp:735
+msgid ""
+"Option 'junctions.scurve-stretch' requires internal lanes to work. Option '--"
+"no-internal-links' will be disabled."
+msgstr ""
+
+#: /home/micha/sumo/src/netbuild/NBFrame.cpp:742
+msgid ""
+"option 'default.junctions.radius' is smaller than option 'junctions.small-"
+"radius'"
+msgstr ""
+
+#: /home/micha/sumo/src/netbuild/NBFrame.cpp:750
+msgid "tls.layout must be 'opposites', 'incoming' or 'alternateOneWay'"
+msgstr ""
+
+#: /home/micha/sumo/src/netbuild/NBFrame.cpp:759
+msgid "roundabouts.visibility-distance must be positive or -1"
 msgstr ""
 
 #: /home/micha/sumo/src/netbuild/NBNodeCont.cpp:323
@@ -696,8 +1352,33 @@ msgstr ""
 msgid "Could not build joined tls '%'."
 msgstr ""
 
+#: /home/micha/sumo/src/netbuild/NBNodeCont.cpp:2150
+msgid "Could not build guessed, joined tls."
+msgstr ""
+
+#: /home/micha/sumo/src/netbuild/NBNodeCont.cpp:2249
+msgid "Could not build a joined tls."
+msgstr ""
+
 #: /home/micha/sumo/src/netbuild/NBNodeCont.cpp:2266
 msgid "Building a tl-logic for junction '%' twice is not possible."
+msgstr ""
+
+#: /home/micha/sumo/src/netbuild/NBNodeCont.cpp:2348
+#: /home/micha/sumo/src/netbuild/NBNodeCont.cpp:2433
+msgid "-----------------------------------------------------"
+msgstr ""
+
+#: /home/micha/sumo/src/netbuild/NBNodeCont.cpp:2349
+msgid "Summary:"
+msgstr ""
+
+#: /home/micha/sumo/src/netbuild/NBNodeCont.cpp:2403
+msgid " Node type statistics:"
+msgstr ""
+
+#: /home/micha/sumo/src/netbuild/NBNodeCont.cpp:2429
+msgid " Network boundaries:"
 msgstr ""
 
 #: /home/micha/sumo/src/netbuild/NBTrafficLightLogicCont.cpp:353
@@ -809,6 +1490,11 @@ msgstr ""
 msgid "Could not avoid overlapping shape at node '%' for edge '%'."
 msgstr ""
 
+#: /home/micha/sumo/src/netbuild/NBEdgeCont.cpp:254
+msgid ""
+"Cannot prune edges using a geo-boundary because no projection has been loaded"
+msgstr ""
+
 #: /home/micha/sumo/src/netbuild/NBEdgeCont.cpp:845
 msgid "Moving opposite lane '%' from invalid lane '%' to lane index %."
 msgstr ""
@@ -869,12 +1555,33 @@ msgstr ""
 msgid "Ambiguous tram edges '%' and '%' for lane '%'."
 msgstr ""
 
+#: /home/micha/sumo/src/netbuild/NBHeightMapper.cpp:88
+msgid "Cannot supply height since no height data was loaded"
+msgstr ""
+
 #: /home/micha/sumo/src/netbuild/NBHeightMapper.cpp:136
 msgid "Could not get height data for coordinate %"
 msgstr ""
 
+#: /home/micha/sumo/src/netbuild/NBHeightMapper.cpp:204
+msgid ""
+"Could not create geocoordinates converter; check whether proj.4 is installed."
+msgstr ""
+
 #: /home/micha/sumo/src/netbuild/NBHeightMapper.cpp:231
 msgid "Ignored heightmap feature type %"
+msgstr ""
+
+#: /home/micha/sumo/src/netbuild/NBHeightMapper.cpp:276
+msgid "Cannot load shape file since SUMO was compiled without GDAL support."
+msgstr ""
+
+#: /home/micha/sumo/src/netbuild/NBHeightMapper.cpp:288
+msgid "Cannot load GeoTIFF file."
+msgstr ""
+
+#: /home/micha/sumo/src/netbuild/NBHeightMapper.cpp:348
+msgid "Cannot load GeoTIFF file since SUMO was compiled without GDAL support."
 msgstr ""
 
 #: /home/micha/sumo/src/netbuild/NBAlgorithms.cpp:119
@@ -990,6 +1697,10 @@ msgstr ""
 msgid "For junction '%': could not compute shape."
 msgstr ""
 
+#: /home/micha/sumo/src/netbuild/NBNode.cpp:1781
+msgid "Something went wrong during the building of a connection..."
+msgstr ""
+
 #: /home/micha/sumo/src/netbuild/NBNode.cpp:2747
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (no "
@@ -1075,6 +1786,13 @@ msgstr ""
 msgid "Could not determine direction for line '%' at stop '%'."
 msgstr ""
 
+#: /home/micha/sumo/src/netbuild/NBNetBuilder.cpp:671
+msgid ""
+"Network contains very large coordinates and will probably flicker in the "
+"GUI. Check for outlying nodes and make sure the network is shifted to the "
+"coordinate origin"
+msgstr ""
+
 #: /home/micha/sumo/src/netbuild/NBPTLine.cpp:183
 msgid "Could not retrieve edge '%' for first stop of line '%'."
 msgstr ""
@@ -1126,16 +1844,232 @@ msgstr ""
 msgid "Ignoring flow '%' without 'from'"
 msgstr ""
 
+#: /home/micha/sumo/src/utils/xml/XMLSubSys.cpp:89
+msgid ""
+"Environment variable SUMO_HOME is not set, XML validation will fail or use "
+"slow website lookups."
+msgstr ""
+
+#: /home/micha/sumo/src/utils/common/Parameterised.cpp:90
+msgid "Invalid conversion from string to double (empty value)"
+msgstr ""
+
+#: /home/micha/sumo/src/utils/common/Parameterised.cpp:112
+msgid "Invalid conversion from string to doubles (empty value)"
+msgstr ""
+
+#: /home/micha/sumo/src/utils/common/SUMOVehicleClass.cpp:187
+msgid "Simultaneous specification of vClasses and exceptions is not allowed"
+msgstr ""
+
+#: /home/micha/sumo/src/utils/common/SUMOVehicleClass.cpp:191
+msgid "StopOffset requires an offset value"
+msgstr ""
+
+#: /home/micha/sumo/src/utils/common/SUMOVehicleClass.cpp:382
+msgid ""
+"SVCPermissions must be specified either via 'allow' or 'disallow'. Ignoring "
+"'disallow'"
+msgstr ""
+
+#: /home/micha/sumo/src/utils/common/MsgHandler.cpp:236
+msgid ""
+"Environment variable SUMO_HOME is not set, could not find localized messages."
+msgstr ""
+
+#: /home/micha/sumo/src/utils/common/MsgHandler.cpp:242
+msgid "Could not find localized messages."
+msgstr ""
+
+#: /home/micha/sumo/src/utils/geom/GeoConvHelper.cpp:86
+msgid "Ignoring geoidgrids and vgridshift in projection"
+msgstr ""
+
+#: /home/micha/sumo/src/utils/geom/GeoConvHelper.cpp:231
+msgid "Inverse projection works only with explicit proj parameters."
+msgstr ""
+
+#: /home/micha/sumo/src/utils/geom/GeoConvHelper.cpp:236
+msgid "The projection method needs to be uniquely defined."
+msgstr ""
+
+#: /home/micha/sumo/src/utils/geom/GeomHelper.cpp:238
+msgid "GeomHelper::makeCircle() requires nPoints>=3"
+msgstr ""
+
+#: /home/micha/sumo/src/utils/geom/GeomHelper.cpp:255
+msgid "GeomHelper::makeRing() requires nPoints>=3"
+msgstr ""
+
+#: /home/micha/sumo/src/utils/geom/GeomHelper.cpp:258
+msgid "GeomHelper::makeRing() requires radius2>radius1"
+msgstr ""
+
 #: /home/micha/sumo/src/utils/geom/PositionVector.cpp:574
 msgid "Splitting vector close to end (pos: %, length: %)"
+msgstr ""
+
+#: /home/micha/sumo/src/utils/geom/PositionVector.cpp:1470
+#: /home/micha/sumo/src/utils/geom/PositionVector.cpp:1484
+msgid "Trying to substract PositionVectors of different lengths."
+msgstr ""
+
+#: /home/micha/sumo/src/utils/traction_wire/Circuit.cpp:239
+msgid "Index of renumbered node exceeded the reduced number of equations."
+msgstr ""
+
+#: /home/micha/sumo/src/utils/traction_wire/Circuit.cpp:250
+msgid "Index of renumbered element exceeded the reduced number of equations."
+msgstr ""
+
+#: /home/micha/sumo/src/utils/traction_wire/Circuit.cpp:257
+msgid "Structural error in reduced circuit matrix."
+msgstr ""
+
+#: /home/micha/sumo/src/utils/traction_wire/Circuit.cpp:288
+msgid "Initial solution x used during solving DC circuit is out of bounds.\n"
+msgstr ""
+
+#: /home/micha/sumo/src/utils/traction_wire/Circuit.cpp:312
+#: /home/micha/sumo/src/utils/traction_wire/Circuit.cpp:456
+msgid "wrongly assigned row of matrix A during solving the circuit"
+msgstr ""
+
+#: /home/micha/sumo/src/utils/traction_wire/Circuit.cpp:354
+#: /home/micha/sumo/src/utils/traction_wire/Circuit.cpp:479
+msgid "The negative node of current source is not the groud."
+msgstr ""
+
+#: /home/micha/sumo/src/utils/traction_wire/Circuit.cpp:508
+#: /home/micha/sumo/src/utils/traction_wire/Circuit.cpp:518
+#: /home/micha/sumo/src/utils/traction_wire/Circuit.cpp:526
+msgid "Results deployment during circuit evaluation was unsuccessfull."
+msgstr ""
+
+#: /home/micha/sumo/src/utils/traction_wire/Circuit.cpp:576
+msgid ""
+"Cannot assign unambigous electric current value to two voltage sources "
+"connected in parallel at the same node."
+msgstr ""
+
+#: /home/micha/sumo/src/utils/traction_wire/Circuit.cpp:798
+msgid ""
+"Trying to add resistor element into the overhead wire circuit with "
+"resistance < 1e-6. "
+msgstr ""
+
+#: /home/micha/sumo/src/utils/traction_wire/Circuit.cpp:800
+msgid ""
+"Trying to add resistor element into the overhead wire circuit with "
+"resistance < 0. "
+msgstr ""
+
+#: /home/micha/sumo/src/utils/traction_wire/Circuit.cpp:883
+#: /home/micha/sumo/src/microsim/devices/MSDevice_ElecHybrid.cpp:648
+msgid "The element or node with the last Id was not found in the circuit!"
 msgstr ""
 
 #: /home/micha/sumo/src/utils/emissions/EnergyParams.cpp:153
 msgid "Vehicle device '%' doesn't have a valid value for parameter % (%)."
 msgstr ""
 
+#: /home/micha/sumo/src/utils/emissions/HelpersEnergy.cpp:225
+msgid "An acceleration given by the power was not found."
+msgstr ""
+
+#: /home/micha/sumo/src/utils/shapes/ShapeHandler.cpp:84
+msgid "Error parsing key from shape generic parameter. Key cannot be empty"
+msgstr ""
+
+#: /home/micha/sumo/src/utils/shapes/ShapeHandler.cpp:86
+msgid ""
+"Error parsing key from shape generic parameter. Key contains invalid "
+"characters"
+msgstr ""
+
+#: /home/micha/sumo/src/utils/shapes/ShapeHandler.cpp:139
+msgid "Invalid characters for PoI ID"
+msgstr ""
+
+#: /home/micha/sumo/src/utils/shapes/ShapeHandler.cpp:209
+msgid "Invalid characters for Poly ID"
+msgstr ""
+
+#: /home/micha/sumo/src/utils/shapes/ShapeHandler.cpp:252
+msgid "Polygon's shape cannot be empty."
+msgstr ""
+
+#: /home/micha/sumo/src/utils/shapes/ShapeHandler.cpp:257
+msgid "Polygon's lineWidth must be greater than 0."
+msgstr ""
+
+#: /home/micha/sumo/src/utils/distribution/Distribution_Parameterized.cpp:76
+#: /home/micha/sumo/src/utils/distribution/Distribution_Parameterized.cpp:93
+msgid "Invalid format of distribution parameterized"
+msgstr ""
+
+#: /home/micha/sumo/src/utils/iodevices/OutputDevice.cpp:153
+msgid "Error on closing output devices."
+msgstr ""
+
+#: /home/micha/sumo/src/utils/handlers/DataHandler.cpp:111
+msgid "Data elements cannot load attributes as params"
+msgstr ""
+
+#: /home/micha/sumo/src/utils/handlers/ConfigHandler.cpp:66
+msgid "Network file cannot be empty"
+msgstr ""
+
+#: /home/micha/sumo/src/utils/handlers/ConfigHandler.cpp:68
+msgid "Network file must be loaded within a configuration"
+msgstr ""
+
+#: /home/micha/sumo/src/utils/handlers/ConfigHandler.cpp:87
+msgid "Additional files cannot be empty"
+msgstr ""
+
+#: /home/micha/sumo/src/utils/handlers/ConfigHandler.cpp:89
+msgid "Additional files must be loaded within a configuration"
+msgstr ""
+
+#: /home/micha/sumo/src/utils/handlers/ConfigHandler.cpp:108
+msgid "Route files cannot be empty"
+msgstr ""
+
+#: /home/micha/sumo/src/utils/handlers/ConfigHandler.cpp:110
+msgid "Route files must be loaded within a configuration"
+msgstr ""
+
+#: /home/micha/sumo/src/utils/handlers/ConfigHandler.cpp:129
+msgid "Data files cannot be empty"
+msgstr ""
+
+#: /home/micha/sumo/src/utils/handlers/ConfigHandler.cpp:131
+msgid "Data files must be loaded within a configuration"
+msgstr ""
+
+#: /home/micha/sumo/src/utils/options/OptionsCont.cpp:381
+msgid "Empty file name given; ignoring."
+msgstr ""
+
+#: /home/micha/sumo/src/utils/options/Option.cpp:324
+msgid ""
+"Please note that using ';' as list separator is deprecated and not accepted "
+"anymore."
+msgstr ""
+
 #: /home/micha/sumo/src/utils/vehicle/SUMORouteHandler.cpp:62
 msgid "Route file should be sorted by departure time, ignoring '%'!"
+msgstr ""
+
+#: /home/micha/sumo/src/utils/vehicle/SUMORouteHandler.cpp:222
+msgid "Invalid parsing embedded VType"
+msgstr ""
+
+#: /home/micha/sumo/src/utils/vehicle/SUMOVehicleParameter.cpp:695
+msgid ""
+"Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a "
+"boolean"
 msgstr ""
 
 #: /home/micha/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:871
@@ -1143,6 +2077,26 @@ msgstr ""
 msgid ""
 "Pedestrian vType '%' width % is larger than pedestrian.striping.stripe-width "
 "and this may cause collisions with vehicles."
+msgstr ""
+
+#: /home/micha/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:947
+msgid "Lane change model 'JE2013' is deprecated. Using default model instead."
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/cfmodels/MSCFModel.cpp:653
+msgid ""
+"passingTime(): given argument 'currentSpeed' is negative. This case is not "
+"handled yet."
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/cfmodels/MSCFModel_Rail.cpp:211
+msgid "function call not allowd for rail model. Exiting!"
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/cfmodels/MSCFModel_Rail.cpp:252
+msgid ""
+"Anything else than semi implicit euler update is not yet implemented. "
+"Exiting!"
 msgstr ""
 
 #: /home/micha/sumo/src/microsim/cfmodels/MSCFModel_Krauss.cpp:58
@@ -1188,9 +2142,34 @@ msgstr ""
 msgid "NEMA tlLogic '%' is not coordinated but an offset was set."
 msgstr ""
 
+#: /home/micha/sumo/src/microsim/traffic_lights/NEMAController.cpp:959
+msgid "I am starting in the coordinated phases"
+msgstr ""
+
 #: /home/micha/sumo/src/microsim/traffic_lights/MSRailSignalConstraint.cpp:147
 #, c-format
 msgid "Unknown tracker lane '%' in loaded state."
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/traffic_lights/MSSwarmTrafficLightLogic.cpp:57
+msgid "NO VALID POLICY LIST READ"
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/traffic_lights/MSSwarmTrafficLightLogic.cpp:81
+msgid "VEHICLE TYPES WEIGHT only works with phase policy, which is missing"
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/traffic_lights/MSSOTLTrafficLightLogic.cpp:172
+msgid "Listing output lanes"
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/traffic_lights/MSSOTLTrafficLightLogic.cpp:246
+#: /home/micha/sumo/src/microsim/traffic_lights/MSSOTLTrafficLightLogic.cpp:280
+msgid "Unrecognized traffic threshold calculation mode"
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/traffic_lights/MSSOTLTrafficLightLogic.cpp:446
+msgid "MSSOTLTrafficLightLogic::trySwitch()"
 msgstr ""
 
 #: /home/micha/sumo/src/microsim/traffic_lights/MSRailSignal.cpp:108
@@ -1214,10 +2193,46 @@ msgstr ""
 msgid "Teleporting % '%'; waited too long, from edge '%', time=%."
 msgstr ""
 
+#: /home/micha/sumo/src/microsim/transportables/MSTransportable.cpp:384
+msgid "parkingAreaReroute not support for containers"
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/devices/MSDevice_ElecHybrid.cpp:317
+msgid ""
+"pos_veh_node or neg_veh_node or veh_elem is not NULL (and they shoud be at "
+"the beginning of adding elecHybrid to the circuit)"
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/devices/MSDevice_ElecHybrid.cpp:354
+msgid "splitting element is not 'pos_tail_XXX'"
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/devices/MSDevice_ElecHybrid.cpp:432
+#: /home/micha/sumo/src/microsim/devices/MSDevice_ElecHybrid.cpp:528
+#: /home/micha/sumo/src/microsim/devices/MSDevice_ElecHybrid.cpp:711
+#: /home/micha/sumo/src/microsim/devices/MSDevice_ElecHybrid.cpp:848
+msgid ""
+"Overhead wire solver is on, but the Eigen library has not been compiled in!"
+msgstr ""
+
 #: /home/micha/sumo/src/microsim/devices/MSDispatch.cpp:88
 msgid ""
 "Mixing reservations of persons and containers with the same group is not "
 "supported for % and %"
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/devices/MSDevice_BTreceiver.cpp:247
+msgid "Nope, a circle cannot be crossed more often than twice by a line."
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/devices/MSRoutingEngine.cpp:96
+msgid "Rerouting is useless if the edge weights do not get updated!"
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/devices/MSRoutingEngine.cpp:152
+msgid ""
+"Option weights.priority-factor does not take effect because all edges have "
+"the same priority"
 msgstr ""
 
 #: /home/micha/sumo/src/microsim/devices/MSDevice_SSM.cpp:1055
@@ -1262,6 +2277,44 @@ msgid ""
 "All customers left vehicle '%' at time=% but there are % remaining stops"
 msgstr ""
 
+#: /home/micha/sumo/src/microsim/devices/MSDevice_ToC.cpp:161
+msgid "ToC device is not supported by the mesoscopic simulation."
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/devices/MSDevice_ToC.cpp:246
+msgid ""
+"If any openGap parameters for the ToC model are specified, then at least one "
+"of toc.ogNewTimeHeadway and toc.ogNewSpaceHeadway must be defined."
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/devices/MSDevice_ToC.cpp:933
+msgid ""
+"Setting device.toc.currentAwareness during automated mode has no effect."
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/devices/MSDevice_Routing.cpp:102
+msgid ""
+"Only one of the options 'device.rerouting.adaptation-steps' or 'device."
+"rerouting.adaptation-weight' may be given."
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/devices/MSDevice_Routing.cpp:106
+msgid "weights.random-factor cannot be less than 1"
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/devices/MSDevice_Routing.cpp:110
+msgid "Negative value for device.rerouting.adaptation-interval!"
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/devices/MSDevice_Routing.cpp:115
+msgid ""
+"The value for device.rerouting.adaptation-weight must be between 0 and 1!"
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/devices/MSDevice_Routing.cpp:125
+msgid "Adapting number of routing threads to number of simulation threads."
+msgstr ""
+
 #: /home/micha/sumo/src/microsim/devices/MSDevice_GLOSA.cpp:171
 msgid ""
 "Invalid value '%' for parameter 'device.glosa.range' of traffic light '%'"
@@ -1283,6 +2336,24 @@ msgstr ""
 msgid "Vehicle '%' ends stop on edge '%', time=% without entering the stop."
 msgstr ""
 
+#: /home/micha/sumo/src/microsim/output/MSE2Collector.cpp:120
+msgid ""
+"No valid detector length and start position given. Assuming startPos = 0 and "
+"length = end position"
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/output/MSE2Collector.cpp:124
+msgid ""
+"No valid detector length and end position given. Assuming endPos = lane "
+"length and length = endPos-startPos"
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/output/MSDetectorControl.cpp:176
+msgid ""
+"MSDetectorControl::addDetectorAndInterval: detector already in container. "
+"Ignoring."
+msgstr ""
+
 #: /home/micha/sumo/src/microsim/trigger/MSTriggeredRerouter.cpp:1105
 msgid ""
 "Invalid distance computation for vehicle '%' to parkingArea '%' at time=%."
@@ -1297,4 +2368,8 @@ msgstr ""
 msgid ""
 "ParkingArea '%' is targeted by rerouter '%' but doesn't have it's own "
 "rerouter. This may cause parking search to abort."
+msgstr ""
+
+#: /home/micha/sumo/src/microsim/trigger/MSOverheadWire.cpp:579
+msgid "Overhead circuit solver requested, but solver support not compiled in."
 msgstr ""
