@@ -33,7 +33,8 @@ jobs:
  
     - uses: actions/setup-java@v3
       with:
-        java-version: 1.8
+        distribution: 'temurin'
+        java-version: 11
 
     - name: Fetching SUMO tags
       run: |
