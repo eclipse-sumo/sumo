@@ -50,10 +50,10 @@ netedit.typeEnter()
 netedit.containerPlanMode()
 
 # select container
-netedit.leftClick(referencePosition, 92, 412)
+netedit.leftClick(referencePosition, 80, 410)
 
 # go to container plan mode
-netedit.changeContainerPlanMode("transport: edge->busStop")
+netedit.changeContainerPlanMode("transport: edge->containerStop")
 
 # create transportEdgeBusStop
 netedit.leftClick(referencePosition, 295, 50)

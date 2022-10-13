@@ -50,7 +50,7 @@ netedit.typeEnter()
 netedit.containerPlanMode()
 
 # select container
-netedit.leftClick(referencePosition, 92, 412)
+netedit.leftClick(referencePosition, 80, 410)
 
 # go to transportEdgeEdge mode
 netedit.changeContainerPlanMode("transport: edge->edge")

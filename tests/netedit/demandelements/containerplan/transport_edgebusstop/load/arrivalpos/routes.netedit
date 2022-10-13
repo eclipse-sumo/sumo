@@ -10,6 +10,6 @@
     </container>
     <container id="c_1" depart="0.00">
         <tranship from="gneE2" to="gneE2"/>
-        <transport busStop="busStopA" arrivalPos="2.50" lines="ANY"/>
+        <transport containerStop="containerStopA" arrivalPos="2.50" lines="ANY"/>
     </container>
 </routes>

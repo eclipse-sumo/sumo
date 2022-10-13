@@ -7,11 +7,11 @@
     <!-- Vehicles, containers and containers (sorted by depart) -->
     <container id="c_0" depart="0.00">
         <tranship from="gneE2" to="gneE2"/>
-        <transport busStop="busStopA" arrivalPos="dummy" lines="ANY"/>
+        <transport containerStop="containerStopA" arrivalPos="dummy" lines="ANY"/>
     </container>
 	
 	<container id="c_1" depart="0.00">
         <tranship from="gneE2" to="gneE2"/>
-		<transport busStop="busStopA" arrivalPos="2.50" lines="ANY"/>
+		<transport containerStop="containerStopA" arrivalPos="2.50" lines="ANY"/>
     </container>
 </routes>
