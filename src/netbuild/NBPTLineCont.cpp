@@ -584,6 +584,8 @@ NBPTLineCont::getCost(const NBEdgeCont& ec, SUMOAbstractRouter<NBRouterEdge, NBV
         } else {
             return std::numeric_limits<double>::max();
         }
+    } else if (fromEdge->getBidiEdge() == toEdge) {
+        return std::numeric_limits<double>::max();
     }
     std::vector<const NBRouterEdge*> route;
     router.compute(fromEdge, toEdge, veh, 0, route);
