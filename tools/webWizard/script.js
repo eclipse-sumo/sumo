@@ -114,6 +114,7 @@ on("ready", function(){
     categories["Railway"] = ["preserved", "tram", "subway", "light_rail", "rail", "highspeed"];
     categories["Aeroway"] = ["stopway", "parking_position", "taxiway", "taxilane", "runway", "highway_strip"]
     categories["Waterway"] = ["river", "canal"];
+    categories["Aerialway"] = ["cable_car", "gondola"];
     categories["Route"] = ["ferry"];
 
     var roadClasses = [];
