@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-13 14:25:36 by Eclipse SUMO netedit Version v1_14_1+1672-07ea34e7e93
+<!-- generated on 2022-10-13 14:23:30 by Eclipse SUMO netedit Version v1_14_1+1672-07ea34e7e93
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.2_from_13Oct141213.1460\netedit.gui\netelements\trafficlights\joined\programs\resetphase\input_net.net.xml"/>
+        <sumo-net-file value="D:\SUMO\tests\netedit\netelements\trafficlights\joined\programs\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.2_from_13Oct141213.1460\netedit.gui\netelements\trafficlights\joined\programs\resetphase\net.net.xml"/>
+        <output-file value="D:\SUMO\tests\netedit\netelements\trafficlights\joined\programs\input_net.net.xml"/>
     </output>
 
     <processing>
@@ -28,28 +28,6 @@
     <pedestrian>
         <walkingareas value="0"/>
     </pedestrian>
-
-    <netedit>
-        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.2_from_13Oct141213.1460\netedit.gui\netelements\trafficlights\joined\programs\resetphase\additionals.xml"/>
-        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.2_from_13Oct141213.1460\netedit.gui\netelements\trafficlights\joined\programs\resetphase\additionals.xml"/>
-        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.2_from_13Oct141213.1460\netedit.gui\netelements\trafficlights\joined\programs\resetphase\routes.xml"/>
-        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.2_from_13Oct141213.1460\netedit.gui\netelements\trafficlights\joined\programs\resetphase\routes.xml"/>
-        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.2_from_13Oct141213.1460\netedit.gui\netelements\trafficlights\joined\programs\resetphase\datas.xml"/>
-        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.2_from_13Oct141213.1460\netedit.gui\netelements\trafficlights\joined\programs\resetphase\datas.xml"/>
-    </netedit>
-
-    <visualisation>
-        <window-size value="936, 697"/>
-        <window-pos value="50,50"/>
-        <gui-testing value="true"/>
-        <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.2_from_13Oct141213.1460\netedit.gui\netelements\trafficlights\joined\programs\resetphase\guisettingsoutput.xml"/>
-    </visualisation>
-
-    <report>
-        <no-warnings value="true"/>
-        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.2_from_13Oct141213.1460\netedit.gui\netelements\trafficlights\joined\programs\resetphase\log.txt"/>
-    </report>
 
 </configuration>
 -->

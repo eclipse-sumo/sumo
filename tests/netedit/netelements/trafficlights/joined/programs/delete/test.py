@@ -41,7 +41,7 @@ netedit.selectTLSMode()
 netedit.leftClick(referencePosition, 320, 220)
 
 # delete TLS
-netedit.deleteJoinedTLS()
+netedit.deleteTLS(True)
 
 # type ESC (for undo-redo)
 netedit.typeEscape()
