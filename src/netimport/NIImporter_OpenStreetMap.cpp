@@ -2184,7 +2184,7 @@ NIImporter_OpenStreetMap::interpretTransportType(const std::string& type, NIOSMN
     SUMOVehicleClass result = SVC_IGNORING;
     if (type == "train") {
         result = SVC_RAIL;
-    } else if (type == "subway" || type == "light_rail") {
+    } else if (type == "subway" || type == "light_rail" || type == "monorail") {
         result = SVC_RAIL_URBAN;
     } else if (type == "share_taxi") {
         result = SVC_TAXI;

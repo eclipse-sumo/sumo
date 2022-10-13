@@ -124,7 +124,7 @@ def writeTypes(fout, prefix, options):
     <vType id="%strain" vClass="rail"%s/>
     <vType id="%ssubway" vClass="rail_urban"%s/>
     <vType id="%slight_rail" vClass="rail_urban"%s/>
-    <vType id="%smonorail" vClass="rail"%s/>
+    <vType id="%smonorail" vClass="rail_urban"%s/>
     <vType id="%strolleybus" vClass="bus"%s/>
     <vType id="%sminibus" vClass="bus"%s/>
     <vType id="%sshare_taxi" vClass="taxi"%s/>
