@@ -7,7 +7,7 @@ Loading net-file from '000/../input_net.net.xml' ... done (6ms).
 Loading additional-files from '000/../edgedata.add.xml' ... done (0ms).
 Loading additional-files from '000/../input_additional.add.xml' ... done (6ms).
 Loading done.
-Simulation version v1_14_1+1580-7c0c5dc started with time: 0.00
+Simulation version v1_14_1+1580-7c0c5dc started with time: 0.00.
 Warning: Teleporting vehicle 'p0_0'; waited too long (blocked), lane='e2_4', time=320.00.
 Warning: Vehicle 'p0_0' ends teleporting on edge 'e3', time=320.00.
 Simulation ended at time: 3467.00
@@ -37,7 +37,7 @@ Loading net-file from '001/../input_net.net.xml' ... done (6ms).
 Loading additional-files from '001/../edgedata.add.xml' ... done (0ms).
 Loading additional-files from '001/../input_additional.add.xml' ... done (5ms).
 Loading done.
-Simulation version v1_14_1+1580-7c0c5dc started with time: 0.00
+Simulation version v1_14_1+1580-7c0c5dc started with time: 0.00.
 Warning: Teleporting vehicle 'p1_0'; waited too long (blocked), lane='e2_4', time=321.00.
 Warning: Vehicle 'p1_0' ends teleporting on edge 'e3', time=321.00.
 Warning: Vehicle 'p0_0' aborted waiting for a person or container that will never come.
@@ -68,7 +68,7 @@ Loading net-file from '002/../input_net.net.xml' ... done (6ms).
 Loading additional-files from '002/../edgedata.add.xml' ... done (1ms).
 Loading additional-files from '002/../input_additional.add.xml' ... done (5ms).
 Loading done.
-Simulation version v1_14_1+1580-7c0c5dc started with time: 0.00
+Simulation version v1_14_1+1580-7c0c5dc started with time: 0.00.
 Warning: Vehicle 'p0_0' aborted waiting for a person or container that will never come.
 Warning: Vehicle 'p1_0' aborted waiting for a person or container that will never come.
 Simulation ended at time: 3467.00
@@ -97,7 +97,7 @@ Loading net-file from '003/../input_net.net.xml' ... done (5ms).
 Loading additional-files from '003/../edgedata.add.xml' ... done (1ms).
 Loading additional-files from '003/../input_additional.add.xml' ... done (5ms).
 Loading done.
-Simulation version v1_14_1+1580-7c0c5dc started with time: 0.00
+Simulation version v1_14_1+1580-7c0c5dc started with time: 0.00.
 Warning: Teleporting vehicle 'p1_0'; waited too long (blocked), lane='e2_4', time=321.00.
 Warning: Vehicle 'p1_0' ends teleporting on edge 'e3', time=321.00.
 Warning: Vehicle 'p0_0' aborted waiting for a person or container that will never come.
@@ -128,7 +128,7 @@ Loading net-file from '004/../input_net.net.xml' ... done (6ms).
 Loading additional-files from '004/../edgedata.add.xml' ... done (0ms).
 Loading additional-files from '004/../input_additional.add.xml' ... done (6ms).
 Loading done.
-Simulation version v1_14_1+1580-7c0c5dc started with time: 0.00
+Simulation version v1_14_1+1580-7c0c5dc started with time: 0.00.
 Warning: Vehicle 'p0_0' aborted waiting for a person or container that will never come.
 Warning: Vehicle 'p1_0' aborted waiting for a person or container that will never come.
 Simulation ended at time: 3467.00

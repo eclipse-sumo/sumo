@@ -1,12 +1,12 @@
-Loading net-file from 'net.net.xml' ... done (1ms).
+Loading net-file from 'net.net.xml' ... done (13ms).
 Loading done.
-Simulation version v1_14_1+0350-48d7f28 started with time: 0.00
+Simulation version v1_14_1+1669-6cb392621b9 started with time: 0.00.
 Simulation ended at time: 18.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 0.00s
- Real time factor: 4500
- UPS: 4250.000000
+ Duration: 0.07s
+ Real time factor: 246.575
+ UPS: 232.876712
 Vehicles: 
  Inserted: 1
  Running: 0
@@ -19,15 +19,15 @@ Statistics (avg of 1):
  TimeLoss: 1.57
  DepartDelay: 0.00
 
-Loading net-file from 'net.net.xml' ... done (1ms).
+Loading net-file from 'net.net.xml' ... done (29ms).
 Loading done.
-Simulation version v1_14_1+0350-48d7f28 started with time: 0.00
+Simulation version v1_14_1+1669-6cb392621b9 started with time: 0.00.
 Simulation ended at time: 74.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 0.00s
- Real time factor: 18500
- UPS: 18250.000000
+ Duration: 0.06s
+ Real time factor: 1298.25
+ UPS: 1280.701754
 Vehicles: 
  Inserted: 1
  Running: 0
@@ -40,15 +40,15 @@ Statistics (avg of 1):
  TimeLoss: 10.27
  DepartDelay: 0.00
 
-Loading net-file from 'net.net.xml' ... done (1ms).
+Loading net-file from 'net.net.xml' ... done (42ms).
 Loading done.
-Simulation version v1_14_1+0350-48d7f28 started with time: 0.00
+Simulation version v1_14_1+1669-6cb392621b9 started with time: 0.00.
 Simulation ended at time: 40.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 0.00s
- Real time factor: 10000
- UPS: 9750.000000
+ Duration: 0.06s
+ Real time factor: 701.754
+ UPS: 684.210526
 Vehicles: 
  Inserted: 1
  Running: 0
