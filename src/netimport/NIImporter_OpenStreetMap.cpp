@@ -1041,7 +1041,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
 
         if ((key == "highway" && value != "platform") || key == "railway" || key == "waterway" || key == "cycleway"
                 || key == "busway" || key == "route" || key == "sidewalk" || key == "highspeed"
-                || key == "aeroway" || key == "usage") {
+                || key == "aeroway" || key == "aerialway" || key == "usage") {
             // build type id
             std::string singleTypeID = key + "." + value;
             myCurrentEdge->myCurrentIsRoad = true;
@@ -2184,7 +2184,7 @@ NIImporter_OpenStreetMap::interpretTransportType(const std::string& type, NIOSMN
     SUMOVehicleClass result = SVC_IGNORING;
     if (type == "train") {
         result = SVC_RAIL;
-    } else if (type == "subway" || type == "light_rail" || type == "monorail") {
+    } else if (type == "subway" || type == "light_rail" || type == "monorail" || type == "aerialway") {
         result = SVC_RAIL_URBAN;
     } else if (type == "share_taxi") {
         result = SVC_TAXI;
