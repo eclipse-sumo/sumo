@@ -596,14 +596,14 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                 stopSeq = tuple([stop.stop_item_id for stop in stop_list.itertuples()])
                 if stopSeq not in seqs:
                     seqs[stopSeq] = row.trip_id
-                veh_attr = (row.route_short_name, row.trip_id, day,
+                veh_attr = (row.trip_id, day,
                             main_shape, row.route_id, seqs[stopSeq],
                             row.arrival_fixed.days + day,
                             str(row.arrival_fixed).split(' ')[2],
                             min(stop_index), max(stop_index), pt_type,
                             row.route_short_name,
                             sumolib.xml.quoteattr(row.trip_headsign, True))
-                output_file.write(u'    <vehicle id="%s_%s.%s" route="%s" line="%s_%s" depart="%s:%s" departEdge="%s" arrivalEdge="%s" type="%s"><!--%s %s-->\n' % veh_attr)  # noqa
+                output_file.write(u'    <vehicle id="%s.%s" route="%s" line="%s_%s" depart="%s:%s" departEdge="%s" arrivalEdge="%s" type="%s"><!--%s %s-->\n' % veh_attr)  # noqa
 
                 check_seq = -1
                 for stop in stop_list.itertuples():
