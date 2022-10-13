@@ -2601,6 +2601,35 @@ class containerFlow:
         spacingOption = 12
         parameters = 14
 
+# PersonPlans
+
+
+class transportEdgeEdge:
+    class create:
+        lines = 8
+        arrivalPos = 9
+
+    class inspect:
+        to = 1
+        lines = 2
+        arrivalPos = 3
+
+    class inspectSelection:
+        lines = 1
+        arrivalPos = 2
+
+
+class transportEdgeContainerStop:
+    class create:
+        lines = 8
+
+    class inspect:
+        to = 1
+        lines = 2
+
+    class inspectSelection:
+        lines = 1
+
 # --------------------------------
 # DATA ELEMENTS
 # --------------------------------

@@ -55,27 +55,15 @@ netedit.leftClick(referencePosition, 80, 410)
 # go to container plan mode
 netedit.changeContainerPlanMode("transport: edge->containerStop")
 
-# create transportEdgeBusStop
-netedit.leftClick(referencePosition, 295, 50)
+# create transportEdgeContainerStop
+netedit.leftClick(referencePosition, 290, 20)
 
 # press enter to create route
 netedit.typeEnter()
 
-# go to inspect mode
-netedit.inspectMode()
-
-# inspect transportEdgeBusStop
-netedit.leftClick(referencePosition, 430, 65)
-
-# change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.transportEdgeBusStop.inspect.to, "dummy", False)
-
-# change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.transportEdgeBusStop.inspect.to, "containerStopB", False)
-
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save routes
 netedit.saveRoutes(referencePosition)

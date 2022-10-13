@@ -34,27 +34,42 @@ netedit.forceSaveAdditionals()
 # go to demand mode
 netedit.supermodeDemand()
 
-# select two-way mode
-netedit.changeEditMode(netedit.attrs.modes.demand.showContainerPlans)
+# go to container mode
+netedit.containerMode()
 
-# go to select mode
-netedit.selectMode()
+# change container plan
+netedit.changeContainerPlan("tranship: edge->edge", False)
 
-# select all using invert
-netedit.selectionInvert()
+# create route using two one
+netedit.leftClick(referencePosition, 274, 400)
 
-# go to inspect mode
-netedit.inspectMode()
+# press enter to create route
+netedit.typeEnter()
 
-# inspect transportEdgeBusStop
-netedit.leftClick(referencePosition, 430, 65)
+# go to container plan mode
+netedit.containerPlanMode()
 
-# change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.transportEdgeBusStop.inspectSelection.lines, "custom line", False)
+# select container
+netedit.leftClick(referencePosition, 80, 410)
+
+# go to container plan mode
+netedit.changeContainerPlanMode("transport: edge->containerStop")
+
+# create transportEdgeContainerStop
+netedit.leftClick(referencePosition, 290, 20)
+
+# press enter to create route
+netedit.typeEnter()
+
+# go to delete mode
+netedit.deleteMode()
+
+# delete transportEdgeContainerStop
+netedit.leftClick(referencePosition, 430, 58)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # save routes
 netedit.saveRoutes(referencePosition)

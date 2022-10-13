@@ -1,15 +1,7 @@
-containertric_edgeedge
+transport_edgeedge
 
-containertric_edgebusstop
+transport_edgecontainerstop
 
-containertric_junctions
+transhic_edgeedge
 
-tranship_edgeedge
-
-tranship_edgebusstop
-
-tranship_junctions
-
-ride_edgeedge
-
-ride_edgebusstop
+transhic_edgecontainerstop

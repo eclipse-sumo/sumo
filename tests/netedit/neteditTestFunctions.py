@@ -1648,6 +1648,21 @@ def containerPlanMode():
     # wait for gl debug
     time.sleep(DELAY_CHANGEMODE)
 
+
+def changeContainerPlanMode(containerPlan):
+    """
+    @brief change containerPlan
+    """
+    # focus current frame
+    focusOnFrame()
+    # jump to container plan
+    for _ in range(5):
+        typeTab()
+    # paste the new containerPlan
+    pasteIntoTextField(containerPlan)
+    # type enter to save change
+    typeEnter()
+
 #################################################
 # stop elements
 #################################################

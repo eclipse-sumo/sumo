@@ -46,30 +46,27 @@ netedit.leftClick(referencePosition, 274, 400)
 # press enter to create route
 netedit.typeEnter()
 
-# go to container plan mode
+# go to containerPlanMode mode
 netedit.containerPlanMode()
 
 # select container
 netedit.leftClick(referencePosition, 80, 410)
 
-# go to container plan mode
+# go to containerPlanMode mode
 netedit.changeContainerPlanMode("transport: edge->containerStop")
 
-# create transportEdgeBusStop
-netedit.leftClick(referencePosition, 295, 50)
+# create transportEdgeContainerStop
+netedit.leftClick(referencePosition, 290, 20)
+
+# set invalid container number
+netedit.changeDefaultValue(netedit.attrs.transportEdgeContainerStop.create.lines, "custom line")
 
 # press enter to create route
 netedit.typeEnter()
 
-# go to delete mode
-netedit.deleteMode()
-
-# delete transportEdgeBusStop
-netedit.leftClick(referencePosition, 430, 65)
-
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save routes
 netedit.saveRoutes(referencePosition)
