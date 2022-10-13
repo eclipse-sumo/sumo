@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-10-13 21:14:16 by Eclipse SUMO netconvert Version v1_14_1+1693-786c04c
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="-2511338319" name="Westende" lane="-307459757#1_0" startPos="14.75" endPos="29.75" friendlyPos="true" lines="600 611"/>
+    <busStop id="-698362008" name="Löwer" lane="-307459757#1_0" startPos="378.11" endPos="393.11" friendlyPos="true" lines="600 611"/>
+    <busStop id="2511338319" name="Westende" lane="307459757#1_0" startPos="396.70" endPos="411.70" friendlyPos="true" lines="NE1 600 611"/>
+    <busStop id="704235124" name="Löwer" lane="307459757#0_0" startPos="191.54" endPos="206.54" friendlyPos="true" lines="NE1 600 611"/>
+    <busStop id="704235222" name="Pestalozzistraße" lane="5980164#3_0" startPos="11.98" endPos="26.98" friendlyPos="true" lines="NE1 600 611"/>
+</additional>
