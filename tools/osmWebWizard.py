@@ -60,6 +60,7 @@ typemaps = {
     "pedestrians": os.path.join(typemapdir, "osmNetconvertPedestrians.typ.xml"),
     "ships": os.path.join(typemapdir, "osmNetconvertShips.typ.xml"),
     "bicycles": os.path.join(typemapdir, "osmNetconvertBicycle.typ.xml"),
+    "aerialway": os.path.join(typemapdir, "osmNetconvertAerialway.typ.xml"),
 }
 
 # common parameters
@@ -233,6 +234,7 @@ class Builder(object):
             self.additionalFiles.append(self.files["stops"])
             self.routenames.append(self.files["ptroutes"])
             netconvertOptions += ",--railway.topology.repair"
+            typefiles.append(typemaps["aerialway"])
         if self.data["leftHand"]:
             netconvertOptions += ",--lefthand"
         if self.data["decal"]:
