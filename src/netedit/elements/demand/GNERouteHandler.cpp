@@ -2154,7 +2154,7 @@ GNERouteHandler::getPreviousPlanEdge(const bool person, const CommonXMLStructure
 
 
 GNEJunction*
-GNERouteHandler::getPreviousPlanJunction(const bool person, const CommonXMLStructure::SumoBaseObject* obj) const {
+GNERouteHandler::getPreviousPlanJunction(const bool /* person */, const CommonXMLStructure::SumoBaseObject* obj) const {
     if (obj->getParentSumoBaseObject() == nullptr) {
         // no parent defined
         return nullptr;
