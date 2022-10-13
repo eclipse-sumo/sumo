@@ -43,14 +43,26 @@ netedit.leftClick(referencePosition, 320, 220)
 # create TLS
 netedit.createTLS()
 
-# set invalid edge
-netedit.modifyAttribute(netedit.attrs.TLS.single.attributes.attributes.offset, "dummyOffset", False)
+# join TLS
+netedit.joinTSL()
+
+# select four corners
+netedit.leftClick(referencePosition, 150, 220)
+netedit.leftClick(referencePosition, 500, 220)
+netedit.leftClick(referencePosition, 320, 50)
+netedit.leftClick(referencePosition, 320, 400)
+
+# join tls
+netedit.typeEnter()
 
 # set invalid edge
-netedit.modifyAttribute(netedit.attrs.TLS.single.attributes.attributes.offset, "-20", False)
+netedit.modifyAttribute(netedit.attrs.TLS.join.attributes.offset, "dummyOffset", False)
 
 # set invalid edge
-netedit.modifyAttribute(netedit.attrs.TLS.single.attributes.attributes.offset, "13", False)
+netedit.modifyAttribute(netedit.attrs.TLS.join.attributes.offset, "-20", False)
+
+# set invalid edge
+netedit.modifyAttribute(netedit.attrs.TLS.join.attributes.offset, "13", False)
 
 # type enter to save changes
 netedit.typeEnter()
