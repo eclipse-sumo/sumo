@@ -297,7 +297,7 @@ GUI::start(const std::vector<std::string>& cmd) {
         return false;
     }
 #ifdef WIN32
-    WRITE_WARNING("Libsumo on Windows does not work with GUI, falling back to plain libsumo.");
+    WRITE_WARNING(TL("Libsumo on Windows does not work with GUI, falling back to plain libsumo."));
     return false;
 #else
     try {
@@ -364,7 +364,7 @@ GUI::start(const std::vector<std::string>& cmd) {
 bool
 GUI::load(const std::vector<std::string>& /* cmd */) {
     if (myWindow != nullptr) {
-        WRITE_ERROR("libsumo.load is not implemented for the GUI.");
+        WRITE_ERROR(TL("libsumo.load is not implemented for the GUI."));
         return true;
     }
     return false;

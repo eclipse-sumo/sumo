@@ -72,7 +72,7 @@ NLTriggerBuilder::setHandler(NLHandler* handler) {
 
 void
 NLTriggerBuilder::buildVaporizer(const SUMOSAXAttributes& attrs) {
-    WRITE_WARNING("Vaporizers are deprecated. Use rerouters instead.");
+    WRITE_WARNING(TL("Vaporizers are deprecated. Use rerouters instead."));
     bool ok = true;
     // get the id, throw if not given or empty...
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
@@ -213,7 +213,7 @@ NLTriggerBuilder::parseAndBuildOverheadWireSegment(MSNet& net, const SUMOSAXAttr
 #ifndef HAVE_EIGEN
     if (MSGlobals::gOverheadWireSolver && !myHaveWarnedAboutEigen) {
         myHaveWarnedAboutEigen = true;
-        WRITE_WARNING("Overhead wire solver (Eigen) not compiled in, expect errors in overhead wire simulation")
+        WRITE_WARNING(TL("Overhead wire solver (Eigen) not compiled in, expect errors in overhead wire simulation"))
     }
 #endif // !HAVE_EIGEN
 }
@@ -383,7 +383,7 @@ NLTriggerBuilder::parseAndBuildOverheadWireSection(MSNet& net, const SUMOSAXAttr
             }
         }
 #else
-        WRITE_WARNING("Overhead circuit solver requested, but solver support (Eigen) not compiled in.");
+        WRITE_WARNING(TL("Overhead circuit solver requested, but solver support (Eigen) not compiled in."));
 #endif
     }
 
@@ -394,7 +394,7 @@ NLTriggerBuilder::parseAndBuildOverheadWireSection(MSNet& net, const SUMOSAXAttr
         // check that the electric circuit makes sense
         segments[0]->getCircuit()->checkCircuit(substationId);
 #else
-        WRITE_WARNING("Cannot check circuit, overhead circuit solver support (Eigen) not compiled in.");
+        WRITE_WARNING(TL("Cannot check circuit, overhead circuit solver support (Eigen) not compiled in."));
 #endif
     }
 }
@@ -466,10 +466,10 @@ NLTriggerBuilder::parseAndBuildOverheadWireClamp(MSNet& /*net*/, const SUMOSAXAt
         }
 #else
         UNUSED_PARAMETER(attrs);
-        WRITE_WARNING("Not building overhead wire clamps, overhead wire solver support (Eigen) not compiled in.");
+        WRITE_WARNING(TL("Not building overhead wire clamps, overhead wire solver support (Eigen) not compiled in."));
 #endif
     } else {
-        WRITE_WARNING("Ignoring overhead wire clamps, they make no sense when overhead wire circuit solver is off.");
+        WRITE_WARNING(TL("Ignoring overhead wire clamps, they make no sense when overhead wire circuit solver is off."));
     }
 }
 

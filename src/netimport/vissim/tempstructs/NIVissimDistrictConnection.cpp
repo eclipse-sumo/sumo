@@ -375,14 +375,14 @@ NIVissimDistrictConnection::getRealSpeed(int distNo) const {
     Distribution* dist = DistributionCont::dictionary("speed", id);
     if (dist == nullptr) {
         WRITE_WARNING("The referenced speed distribution '" + id + "' is not known.");
-        WRITE_WARNING(". Using default.");
+        WRITE_WARNING(TL(". Using default."));
         return OptionsCont::getOptions().getFloat("vissim.default-speed");
     }
     assert(dist != 0);
     double speed = dist->getMax();
     if (speed < 0 || speed > 1000) {
         WRITE_WARNING(" False speed at district '" + id);
-        WRITE_WARNING(". Using default.");
+        WRITE_WARNING(TL(". Using default."));
         speed = OptionsCont::getOptions().getFloat("vissim.default-speed");
     }
     return speed;

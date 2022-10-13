@@ -1016,7 +1016,7 @@ void
 RORouteHandler::parseGeoEdges(const PositionVector& positions, bool geo,
                               ConstROEdgeVector& into, const std::string& rid, bool isFrom, bool& ok) {
     if (geo && !GeoConvHelper::getFinal().usingGeoProjection()) {
-        WRITE_ERROR("Cannot convert geo-positions because the network has no geo-reference");
+        WRITE_ERROR(TL("Cannot convert geo-positions because the network has no geo-reference"));
         return;
     }
     SUMOVehicleClass vClass = SVC_PASSENGER;
@@ -1138,7 +1138,7 @@ RORouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
                                    const ROPerson::PlanItem* const lastStage, bool& ok) {
     const std::string description = "walk or personTrip of '" + personID + "'.";
     if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)) {
-        WRITE_WARNING("The attribute departPos is no longer supported for walks, please use the person attribute, the arrivalPos of the previous step or explicit stops.");
+        WRITE_WARNING(TL("The attribute departPos is no longer supported for walks, please use the person attribute, the arrivalPos of the previous step or explicit stops."));
     }
     departPos = myVehicleParameter->departPos;
     if (lastStage != nullptr) {
@@ -1256,7 +1256,7 @@ RORouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
         double departPos = 0.;
         double arrivalPos = std::numeric_limits<double>::infinity();
         if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)) {
-            WRITE_WARNING("The attribute departPos is no longer supported for walks, please use the person attribute, the arrivalPos of the previous step or explicit stops.");
+            WRITE_WARNING(TL("The attribute departPos is no longer supported for walks, please use the person attribute, the arrivalPos of the previous step or explicit stops."));
         }
         if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
             arrivalPos = SUMOVehicleParserHelper::parseWalkPos(SUMO_ATTR_ARRIVALPOS, myHardFail, objId, myActiveRoute.back()->getLength(), attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, objId, ok));

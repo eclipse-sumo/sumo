@@ -944,7 +944,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             if (!ok) {
                 return handleVehicleTypeError(hardFail, vType);
             } else if (lcmS == "JE2013") {
-                WRITE_WARNING("Lane change model 'JE2013' is deprecated. Using default model instead.");
+                WRITE_WARNING(TL("Lane change model 'JE2013' is deprecated. Using default model instead."));
                 lcmS = "default";
             }
             if (SUMOXMLDefinitions::LaneChangeModels.hasString(lcmS)) {

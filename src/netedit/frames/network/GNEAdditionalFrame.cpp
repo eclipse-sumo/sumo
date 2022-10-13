@@ -149,7 +149,7 @@ GNEAdditionalFrame::createPath(const bool /* useLastRoute */) {
     if (tagProperty.getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) {
         // now check number of lanes
         if (myConsecutiveLaneSelector->getLanePath().size() < 2) {
-            WRITE_WARNING("E2 multilane detectors need at least two consecutive lanes");
+            WRITE_WARNING(TL("E2 multilane detectors need at least two consecutive lanes"));
         } else if (createBaseAdditionalObject(tagProperty)) {
             // get attributes and values
             myAdditionalAttributes->getAttributesAndValues(myBaseAdditional, true);
@@ -423,17 +423,17 @@ GNEAdditionalFrame::buildAdditionalOverView(const GNETagProperties& tagPropertie
             (tagProperties.getTag() == SUMO_TAG_CLOSING_LANE_REROUTE) ||
             (tagProperties.getTag() == SUMO_TAG_ROUTE_PROB_REROUTE) ||
             (tagProperties.getTag() == SUMO_TAG_PARKING_AREA_REROUTE)) {
-        WRITE_WARNING("Currently unsuported. Create rerouter elements using rerouter dialog");
+        WRITE_WARNING(TL("Currently unsuported. Create rerouter elements using rerouter dialog"));
         return false;
     }
     // disable steps (temporal)
     if (tagProperties.getTag() == SUMO_TAG_STEP) {
-        WRITE_WARNING("Currently unsuported. Create VSS steps using VSS dialog");
+        WRITE_WARNING(TL("Currently unsuported. Create VSS steps using VSS dialog"));
         return false;
     }
     // disable flows (temporal)
     if (tagProperties.getTag() == GNE_TAG_CALIBRATOR_FLOW) {
-        WRITE_WARNING("Currently unsuported. Create calibratorFlows using calibrator dialog");
+        WRITE_WARNING(TL("Currently unsuported. Create calibratorFlows using calibrator dialog"));
         return false;
     }
     // Check if ID has to be generated

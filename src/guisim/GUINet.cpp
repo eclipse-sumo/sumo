@@ -660,7 +660,7 @@ GUINet::loadEdgeData(const std::string& file) {
                   + ".\n    Found " + toString(attrs.size())
                   + " attributes: " + toString(attrs));
     if (discoveryHandler.lastIntervalEnd < string2time(OptionsCont::getOptions().getString("begin"))) {
-        WRITE_WARNING("No data defined after simulation begin time.");
+        WRITE_WARNING(TL("No data defined after simulation begin time."));
     }
     myEdgeDataEndTime = MAX2(myEdgeDataEndTime, discoveryHandler.lastIntervalEnd);
     // create a retriever for each attribute

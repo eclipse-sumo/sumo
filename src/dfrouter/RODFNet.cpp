@@ -139,7 +139,7 @@ RODFNet::computeTypes(RODFDetectorCon& detcont,
     }
     // print results
     PROGRESS_DONE_MESSAGE();
-    WRITE_MESSAGE("Computed detector types:");
+    WRITE_MESSAGE(TL("Computed detector types:"));
     WRITE_MESSAGE(" " + toString(mySourceNumber) + " source detectors");
     WRITE_MESSAGE(" " + toString(mySinkNumber) + " sink detectors");
     WRITE_MESSAGE(" " + toString(myInBetweenNumber) + " in-between detectors");
@@ -464,7 +464,7 @@ RODFNet::revalidateFlows(const RODFDetector* detector,
             }
         }
         if (maxDepthReached) {
-            WRITE_WARNING(" Could not build list of previous flows.");
+            WRITE_WARNING(TL(" Could not build list of previous flows."));
         }
     }
     // Edges with previous detectors are now in "previous";
@@ -501,7 +501,7 @@ RODFNet::revalidateFlows(const RODFDetector* detector,
             }
         }
         if (maxDepthReached) {
-            WRITE_WARNING(" Could not build list of latter flows.");
+            WRITE_WARNING(TL(" Could not build list of latter flows."));
             return;
         }
     }

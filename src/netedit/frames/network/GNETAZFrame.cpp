@@ -1611,7 +1611,7 @@ GNETAZFrame::shapeDrawed() {
     if (!myTAZParameters->isCurrentParametersValid()) {
         return false;
     } else if (myDrawingShape->getTemporalShape().size() < 3) {
-        WRITE_WARNING("TAZ shape needs at least three points");
+        WRITE_WARNING(TL("TAZ shape needs at least three points"));
         return false;
     } else {
         // get attributes and values

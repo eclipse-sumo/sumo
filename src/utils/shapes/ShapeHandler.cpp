@@ -81,9 +81,9 @@ ShapeHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                         const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
                         // show warnings if values are invalid
                         if (key.empty()) {
-                            WRITE_WARNING("Error parsing key from shape generic parameter. Key cannot be empty");
+                            WRITE_WARNING(TL("Error parsing key from shape generic parameter. Key cannot be empty"));
                         } else if (!SUMOXMLDefinitions::isValidParameterKey(key)) {
-                            WRITE_WARNING("Error parsing key from shape generic parameter. Key contains invalid characters");
+                            WRITE_WARNING(TL("Error parsing key from shape generic parameter. Key contains invalid characters"));
                         } else {
                             WRITE_DEBUG("Inserting generic parameter '" + key + "|" + val + "' into shape.");
                             myLastParameterised->setParameter(key, val);
@@ -136,7 +136,7 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
     const double height = attrs.getOpt<double>(SUMO_ATTR_HEIGHT, id.c_str(), ok, Shape::DEFAULT_IMG_HEIGHT);
     // check if ID is valid
     if (SUMOXMLDefinitions::isValidTypeID(id) == false) {
-        WRITE_WARNING("Invalid characters for PoI ID");
+        WRITE_WARNING(TL("Invalid characters for PoI ID"));
         ok = false;
     }
     // continue
@@ -206,7 +206,7 @@ ShapeHandler::addPoly(const SUMOSAXAttributes& attrs, const bool ignorePruning, 
     const std::string id = myPrefix + attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
     // check if ID is valid
     if (SUMOXMLDefinitions::isValidTypeID(id) == false) {
-        WRITE_WARNING("Invalid characters for Poly ID");
+        WRITE_WARNING(TL("Invalid characters for Poly ID"));
         ok = false;
     }
     // get the id, report an error if not given or empty...
@@ -249,12 +249,12 @@ ShapeHandler::addPoly(const SUMOSAXAttributes& attrs, const bool ignorePruning, 
         }
         // check that shape's size is valid
         if (shape.size() == 0) {
-            WRITE_ERROR("Polygon's shape cannot be empty.");
+            WRITE_ERROR(TL("Polygon's shape cannot be empty."));
             return;
         }
         // check that lineWidth is positive
         if (lineWidth <= 0) {
-            WRITE_ERROR("Polygon's lineWidth must be greater than 0.");
+            WRITE_ERROR(TL("Polygon's lineWidth must be greater than 0."));
             return;
         }
         // create polygon, or show an error if polygon already exists

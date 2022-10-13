@@ -99,30 +99,30 @@ bool
 MSDevice_Routing::checkOptions(OptionsCont& oc) {
     bool ok = true;
     if (!oc.isDefault("device.rerouting.adaptation-steps") && !oc.isDefault("device.rerouting.adaptation-weight")) {
-        WRITE_ERROR("Only one of the options 'device.rerouting.adaptation-steps' or 'device.rerouting.adaptation-weight' may be given.");
+        WRITE_ERROR(TL("Only one of the options 'device.rerouting.adaptation-steps' or 'device.rerouting.adaptation-weight' may be given."));
         ok = false;
     }
     if (oc.getFloat("weights.random-factor") < 1) {
-        WRITE_ERROR("weights.random-factor cannot be less than 1");
+        WRITE_ERROR(TL("weights.random-factor cannot be less than 1"));
         ok = false;
     }
     if (string2time(oc.getString("device.rerouting.adaptation-interval")) < 0) {
-        WRITE_ERROR("Negative value for device.rerouting.adaptation-interval!");
+        WRITE_ERROR(TL("Negative value for device.rerouting.adaptation-interval!"));
         ok = false;
     }
     if (oc.getFloat("device.rerouting.adaptation-weight") < 0.  ||
             oc.getFloat("device.rerouting.adaptation-weight") > 1.) {
-        WRITE_ERROR("The value for device.rerouting.adaptation-weight must be between 0 and 1!");
+        WRITE_ERROR(TL("The value for device.rerouting.adaptation-weight must be between 0 and 1!"));
         ok = false;
     }
 #ifndef HAVE_FOX
     if (oc.getInt("device.rerouting.threads") > 1) {
-        WRITE_ERROR("Parallel routing is only possible when compiled with Fox.");
+        WRITE_ERROR(TL("Parallel routing is only possible when compiled with Fox."));
         ok = false;
     }
 #endif
     if (oc.getInt("threads") > 1 && oc.getInt("device.rerouting.threads") > 1 && oc.getInt("threads") != oc.getInt("device.rerouting.threads")) {
-        WRITE_WARNING("Adapting number of routing threads to number of simulation threads.");
+        WRITE_WARNING(TL("Adapting number of routing threads to number of simulation threads."));
     }
     return ok;
 }

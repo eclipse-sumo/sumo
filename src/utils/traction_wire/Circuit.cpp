@@ -236,7 +236,7 @@ bool Circuit::solveEquationsNRmethod(double* eqn, double* vals, std::vector<int>
                 continue;
             } else {
                 if (j > numofeqs) {
-                    WRITE_ERROR("Index of renumbered node exceeded the reduced number of equations.");
+                    WRITE_ERROR(TL("Index of renumbered node exceeded the reduced number of equations."));
                     break;
                 }
                 tNode->setNumMatrixCol(j);
@@ -247,14 +247,14 @@ bool Circuit::solveEquationsNRmethod(double* eqn, double* vals, std::vector<int>
             tElem = getElement(i);
             if (tElem != nullptr) {
                 if (j > numofeqs) {
-                    WRITE_ERROR("Index of renumbered element exceeded the reduced number of equations.");
+                    WRITE_ERROR(TL("Index of renumbered element exceeded the reduced number of equations."));
                     break;
                 }
                 continue;
             }
         }
         // tNode == nullptr && tElem == nullptr
-        WRITE_ERROR("Structural error in reduced circuit matrix.");
+        WRITE_ERROR(TL("Structural error in reduced circuit matrix."));
     }
 
     // map 'vals' into vector b and initialize solution x
@@ -285,7 +285,7 @@ bool Circuit::solveEquationsNRmethod(double* eqn, double* vals, std::vector<int>
     bool x_best_exist = true;
 
     if (x.maxCoeff() > 10e6 || x.minCoeff() < -10e6) {
-        WRITE_ERROR("Initial solution x used during solving DC circuit is out of bounds.\n");
+        WRITE_ERROR(TL("Initial solution x used during solving DC circuit is out of bounds.\n"));
     }
 
     // Search for the suitable scaling value alpha
@@ -309,7 +309,7 @@ bool Circuit::solveEquationsNRmethod(double* eqn, double* vals, std::vector<int>
                     continue;
                 }
                 if (node->getNumMatrixRow() != i) {
-                    WRITE_ERROR("wrongly assigned row of matrix A during solving the circuit");
+                    WRITE_ERROR(TL("wrongly assigned row of matrix A during solving the circuit"));
                 }
                 // TODO: Range-based loop
                 // loop over all node's elements
@@ -351,7 +351,7 @@ bool Circuit::solveEquationsNRmethod(double* eqn, double* vals, std::vector<int>
                                 //Answer: sign before alpha is minus since we assume positive powerWanted if the current element behaves as load
                                 // (*it_element)->setCurrent(-alpha * (*it_element)->getPowerWanted() / diff_voltage);
                                 // Note: we should never reach this part of code since the authors assumes the negataive node of current source as the ground node
-                                WRITE_WARNING("The negative node of current source is not the groud.")
+                                WRITE_WARNING(TL("The negative node of current source is not the groud."))
                                 if (PosNode_NumACol != -1) {
                                     // -1* d_b/d_phiPos = -1* d(alpha*P/(phiPos-phiNeg) )/d_phiPos = -1* (-alpha*P/(phiPos-phiNeg)^2 )
                                     J(i, PosNode_NumACol) += alpha * (*it_element)->getPowerWanted() / diff_voltage / diff_voltage;
@@ -453,7 +453,7 @@ bool Circuit::solveEquationsNRmethod(double* eqn, double* vals, std::vector<int>
             continue;
         }
         if (node->getNumMatrixRow() != i) {
-            WRITE_ERROR("wrongly assigned row of matrix A during solving the circuit");
+            WRITE_ERROR(TL("wrongly assigned row of matrix A during solving the circuit"));
         }
         for (auto it_element = node->getElements()->begin(); it_element != node->getElements()->end(); it_element++) {
             if ((*it_element)->getType() == Element::ElementType::CURRENT_SOURCE_traction_wire) {
@@ -476,7 +476,7 @@ bool Circuit::solveEquationsNRmethod(double* eqn, double* vals, std::vector<int>
                         //Answer: sign before alpha is minus since we assume positive powerWanted if the current element behaves as load
                         // (*it_element)->setCurrent(-alphaBest * (*it_element)->getPowerWanted() / diff_voltage);
                         // Note: we should never reach this part of code since the authors assumes the negataive node of current source as the ground node
-                        WRITE_WARNING("The negative node of current source is not the groud.")
+                        WRITE_WARNING(TL("The negative node of current source is not the groud."))
                     }
                 }
             }
@@ -505,7 +505,7 @@ void Circuit::deployResults(double* vals, std::vector<int>* removable_ids) {
                 continue;
             } else {
                 if (j > numofeqs) {
-                    WRITE_ERROR("Results deployment during circuit evaluation was unsuccessfull.");
+                    WRITE_ERROR(TL("Results deployment during circuit evaluation was unsuccessfull."));
                     break;
                 }
                 tNode->setVoltage(vals[j]);
@@ -515,7 +515,7 @@ void Circuit::deployResults(double* vals, std::vector<int>* removable_ids) {
             tElem = getElement(i);
             if (tElem != nullptr) {
                 if (j > numofeqs) {
-                    WRITE_ERROR("Results deployment during circuit evaluation was unsuccessfull.");
+                    WRITE_ERROR(TL("Results deployment during circuit evaluation was unsuccessfull."));
                     break;
                 }
                 // tElem should be voltage source - the current through voltage source is computed in a loop below
@@ -523,7 +523,7 @@ void Circuit::deployResults(double* vals, std::vector<int>* removable_ids) {
                 continue;
             }
         }
-        WRITE_ERROR("Results deployment during circuit evaluation was unsuccessfull.");
+        WRITE_ERROR(TL("Results deployment during circuit evaluation was unsuccessfull."));
     }
 
     Element* el1 = nullptr;
@@ -573,7 +573,7 @@ void Circuit::deployResults(double* vals, std::vector<int>* removable_ids) {
                 //currentSum += el->getCurrent();
                 currentSum += (voltageSource->getPosNode()->getVoltage() - el->getTheOtherNode(voltageSource->getPosNode())->getVoltage()) / el->getResistance();
                 if (el->getType() == Element::ElementType::VOLTAGE_SOURCE_traction_wire) {
-                    WRITE_WARNING("Cannot assign unambigous electric current value to two voltage sources connected in parallel at the same node.");
+                    WRITE_WARNING(TL("Cannot assign unambigous electric current value to two voltage sources connected in parallel at the same node."));
                 }
             }
         }
@@ -795,9 +795,9 @@ Element* Circuit::addElement(std::string name, double value, Node* pNode, Node* 
         // RICE_TODO @20210409 This epsilon should be specified somewhere as a constant. Or should be a parameter.
         if (value > -1e-6) {
             value = 1e-6;
-            WRITE_WARNING("Trying to add resistor element into the overhead wire circuit with resistance < 1e-6. ")
+            WRITE_WARNING(TL("Trying to add resistor element into the overhead wire circuit with resistance < 1e-6. "))
         } else {
-            WRITE_ERROR("Trying to add resistor element into the overhead wire circuit with resistance < 0. ")
+            WRITE_ERROR(TL("Trying to add resistor element into the overhead wire circuit with resistance < 0. "))
             return nullptr;
         }
     }
@@ -880,7 +880,7 @@ void Circuit::replaceAndDeleteNode(Node* unusedNode, Node* newNode) {
             if (elem_last != nullptr) {
                 elem_last->setId(unusedNode->getId());
             } else {
-                WRITE_ERROR("The element or node with the last Id was not found in the circuit!");
+                WRITE_ERROR(TL("The element or node with the last Id was not found in the circuit!"));
             }
         }
     }

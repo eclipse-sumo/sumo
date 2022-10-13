@@ -650,7 +650,7 @@ MSCFModel::passingTime(const double lastPos, const double passedPos, const doubl
         const double extrapolated = passedPos > currentPos ? TS * (passedPos - lastPos) / lastCoveredDist : TS * (currentPos - passedPos) / lastCoveredDist;
         return extrapolated;
     } else if (currentSpeed < 0) {
-        WRITE_ERROR("passingTime(): given argument 'currentSpeed' is negative. This case is not handled yet.");
+        WRITE_ERROR(TL("passingTime(): given argument 'currentSpeed' is negative. This case is not handled yet."));
         return -1;
     }
 

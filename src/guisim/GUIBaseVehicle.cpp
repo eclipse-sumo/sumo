@@ -297,7 +297,7 @@ GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdToggleStop(FXObject*, FXSelector, 
             }
         }
     } else {
-        WRITE_WARNING("GUI-triggered stop not implemented for meso");
+        WRITE_WARNING(TL("GUI-triggered stop not implemented for meso"));
     }
     myParent->update();
     return 1;

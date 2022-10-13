@@ -1778,7 +1778,7 @@ NBNode::addSortedLinkFoes(const NBConnection& mayDrive,
             mustStop.getFrom() == nullptr ||
             mustStop.getTo() == nullptr) {
 
-        WRITE_WARNING("Something went wrong during the building of a connection...");
+        WRITE_WARNING(TL("Something went wrong during the building of a connection..."));
         return; // !!! mark to recompute connections
     }
     NBConnectionVector conn = myBlockedConnections[mustStop];

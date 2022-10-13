@@ -117,11 +117,11 @@ MSE2Collector::MSE2Collector(const std::string& id,
     if (lengthInvalid) {
         // assume that the detector is only located on a single lane
         if (posInvalid) {
-            WRITE_WARNING("No valid detector length and start position given. Assuming startPos = 0 and length = end position");
+            WRITE_WARNING(TL("No valid detector length and start position given. Assuming startPos = 0 and length = end position"));
             startPos = 0;
         }
         if (endPosInvalid) {
-            WRITE_WARNING("No valid detector length and end position given. Assuming endPos = lane length and length = endPos-startPos");
+            WRITE_WARNING(TL("No valid detector length and end position given. Assuming endPos = lane length and length = endPos-startPos"));
             endPos = lane->getLength();
         }
         endPos = endPos < 0 ? lane->getLength() + endPos : endPos;

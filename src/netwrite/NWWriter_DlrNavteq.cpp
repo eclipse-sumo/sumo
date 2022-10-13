@@ -88,7 +88,7 @@ NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, 
     const double geoScale = pow(10.0f, haveGeo ? 5 : 2); // see NIImporter_DlrNavteq::GEO_SCALE
     device.setPrecision(oc.getInt("dlr-navteq.precision"));
     if (!haveGeo) {
-        WRITE_WARNING("DlrNavteq node data will be written in (floating point) cartesian coordinates");
+        WRITE_WARNING(TL("DlrNavteq node data will be written in (floating point) cartesian coordinates"));
     }
     // write format specifier
     device << "# NODE_ID\tIS_BETWEEN_NODE\tamount_of_geocoordinates\tx1\ty1\t[x2 y2  ... xn  yn]\n";

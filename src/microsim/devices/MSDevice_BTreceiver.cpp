@@ -244,7 +244,7 @@ MSDevice_BTreceiver::BTreceiverUpdate::updateVisibility(MSDevice_BTreceiver::Veh
             }
             break;
         default:
-            WRITE_WARNING("Nope, a circle cannot be crossed more often than twice by a line.");
+            WRITE_WARNING(TL("Nope, a circle cannot be crossed more often than twice by a line."));
             break;
     }
 }

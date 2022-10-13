@@ -312,7 +312,7 @@ main(int argc, char** argv) {
         if (!oc.isSet("type-file")) {
             const char* sumoPath = std::getenv("SUMO_HOME");
             if (sumoPath == nullptr) {
-                WRITE_WARNING("Environment variable SUMO_HOME is not set, using built in type maps.");
+                WRITE_WARNING(TL("Environment variable SUMO_HOME is not set, using built in type maps."));
             } else {
                 const std::string path = sumoPath + std::string("/data/typemap/");
                 if (oc.isSet("dlr-navteq-poly-files")) {

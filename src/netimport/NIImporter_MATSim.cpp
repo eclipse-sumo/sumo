@@ -205,7 +205,7 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
         std::string capperiod = attrs.get<std::string>(MATSIM_ATTR_CAPPERIOD, "links", ok);
         StringTokenizer st(capperiod, ":");
         if (st.size() != 3) {
-            WRITE_ERROR("Bogus capacity period format; requires 'hh:mm:ss'.");
+            WRITE_ERROR(TL("Bogus capacity period format; requires 'hh:mm:ss'."));
             return;
         }
         try {

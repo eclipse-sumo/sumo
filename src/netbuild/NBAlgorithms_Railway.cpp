@@ -268,7 +268,7 @@ NBRailwayTopologyAnalyzer::getBrokenRailNodes(NBEdgeCont& ec, bool verbose) {
     int numBrokenD = 0;
     int numBufferStops = 0;
     if (verbose && types.size() > 0) {
-        WRITE_MESSAGE("Railway nodes by number of incoming,outgoing edges:")
+        WRITE_MESSAGE(TL("Railway nodes by number of incoming,outgoing edges:"))
     }
     device.openTag("legend");
     device.openTag("error");
@@ -1147,7 +1147,7 @@ NBRailwayTopologyAnalyzer::extendDirectionPriority(NBEdgeCont& ec, bool fromUniD
 
     if (uni.size() == 0) {
         if (bidi.size() != 0) {
-            WRITE_WARNING("Cannot extend track direction priority because there are no track edges with positive priority");
+            WRITE_WARNING(TL("Cannot extend track direction priority because there are no track edges with positive priority"));
         }
         return;
     }

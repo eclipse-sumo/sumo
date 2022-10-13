@@ -73,7 +73,7 @@ Distribution_Parameterized::parse(const std::string& description, const bool har
         if (hardFail) {
             throw ProcessError("Invalid format of distribution parameterized");
         } else {
-            WRITE_ERROR("Invalid format of distribution parameterized");
+            WRITE_ERROR(TL("Invalid format of distribution parameterized"));
         }
     }
 }
@@ -90,7 +90,7 @@ Distribution_Parameterized::isValidDescription(const std::string& description) {
         }
         return valid;
     } catch (...) {
-        WRITE_ERROR("Invalid format of distribution parameterized");
+        WRITE_ERROR(TL("Invalid format of distribution parameterized"));
         return false;
     }
 }

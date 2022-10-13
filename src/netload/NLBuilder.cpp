@@ -129,7 +129,7 @@ NLBuilder::build() {
     }
     // check whether the loaded net agrees with the simulation options
     if ((myOptions.getBool("no-internal-links") || myOptions.getBool("mesosim")) && myXMLHandler.haveSeenInternalEdge() && myXMLHandler.haveSeenDefaultLength()) {
-        WRITE_WARNING("Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.");
+        WRITE_WARNING(TL("Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times."));
     }
     buildNet();
     // @note on loading order constraints:
@@ -265,7 +265,7 @@ NLBuilder::build() {
     if (myOptions.getBool("tls.all-off")) {
         myNet.getTLSControl().switchOffAll();
     }
-    WRITE_MESSAGE("Loading done.");
+    WRITE_MESSAGE(TL("Loading done."));
     return true;
 }
 

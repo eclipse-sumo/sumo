@@ -423,7 +423,7 @@ GNEPoly::deleteGeometryPoint(const Position& pos, bool allowUndo) {
         }
         myTesselation.clear();
     } else {
-        WRITE_WARNING("Number of remaining points insufficient")
+        WRITE_WARNING(TL("Number of remaining points insufficient"))
     }
 }
 
@@ -450,7 +450,7 @@ GNEPoly::openPolygon(bool allowUndo) {
             updateGeometry();
         }
     } else {
-        WRITE_WARNING("Polygon already opened")
+        WRITE_WARNING(TL("Polygon already opened"))
     }
 }
 
@@ -471,7 +471,7 @@ GNEPoly::closePolygon(bool allowUndo) {
             updateGeometry();
         }
     } else {
-        WRITE_WARNING("Polygon already closed")
+        WRITE_WARNING(TL("Polygon already closed"))
     }
 }
 
@@ -482,7 +482,7 @@ GNEPoly::changeFirstGeometryPoint(int oldIndex, bool allowUndo) {
     if (oldIndex >= (int)myShape.size()) {
         throw InvalidArgument("Invalid old Index");
     } else if (oldIndex == 0) {
-        WRITE_WARNING("Selected point must be different of the first point")
+        WRITE_WARNING(TL("Selected point must be different of the first point"))
     } else {
         // Configure new shape
         PositionVector newShape;
@@ -547,7 +547,7 @@ GNEPoly::simplifyShape(bool allowUndo) {
         // change flag after setting simplified shape
         mySimplifiedShape = true;
     } else {
-        WRITE_WARNING("Polygon already simplified")
+        WRITE_WARNING(TL("Polygon already simplified"))
     }
 }
 

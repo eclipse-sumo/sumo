@@ -54,7 +54,7 @@ MSSwarmTrafficLightLogic::MSSwarmTrafficLightLogic(MSTLLogicControl& tlcontrol, 
     }
 
     if (myPolicies.empty()) {
-        WRITE_ERROR("NO VALID POLICY LIST READ");
+        WRITE_ERROR(TL("NO VALID POLICY LIST READ"));
     }
 
     mustChange = false;
@@ -78,7 +78,7 @@ MSSwarmTrafficLightLogic::MSSwarmTrafficLightLogic(MSTLLogicControl& tlcontrol, 
     congestion_steps = 0;
     m_useVehicleTypesWeights = getParameter("USE_VEHICLE_TYPES_WEIGHTS", "0") == "1";
     if (m_useVehicleTypesWeights && pols.find("phase") == std::string::npos) {
-        WRITE_ERROR("VEHICLE TYPES WEIGHT only works with phase policy, which is missing");
+        WRITE_ERROR(TL("VEHICLE TYPES WEIGHT only works with phase policy, which is missing"));
     }
 }
 

@@ -93,7 +93,7 @@ MSRoutingEngine::initWeightUpdate() {
             myEdgeWeightSettingCommand = new StaticCommand<MSRoutingEngine>(&MSRoutingEngine::adaptEdgeEfforts);
             MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(myEdgeWeightSettingCommand);
         } else if (period > 0) {
-            WRITE_WARNING("Rerouting is useless if the edge weights do not get updated!");
+            WRITE_WARNING(TL("Rerouting is useless if the edge weights do not get updated!"));
         }
         OutputDevice::createDeviceByOption("device.rerouting.output", "weights", "meandata_file.xsd");
     }
@@ -149,7 +149,7 @@ MSRoutingEngine::_initEdgeWeights(std::vector<double>& edgeSpeeds, std::vector<s
         }
         if (myPriorityFactor > 0) {
             if (myEdgePriorityRange == 0) {
-                WRITE_WARNING("Option weights.priority-factor does not take effect because all edges have the same priority");
+                WRITE_WARNING(TL("Option weights.priority-factor does not take effect because all edges have the same priority"));
                 myPriorityFactor = 0;
             }
         }

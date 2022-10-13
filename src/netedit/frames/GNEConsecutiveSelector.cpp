@@ -131,7 +131,7 @@ GNEConsecutiveSelector::addLane(GNELane* lane) {
     if ((myShowCandidateLanes->getCheck() == TRUE) && !lane->isPossibleCandidate()) {
         if (lane->isSpecialCandidate() || lane->isConflictedCandidate()) {
             // Write warning
-            WRITE_WARNING("Invalid lane");
+            WRITE_WARNING(TL("Invalid lane"));
             // abort add lane
             return false;
         }
@@ -148,7 +148,7 @@ GNEConsecutiveSelector::addLane(GNELane* lane) {
             myLanePath.push_back(std::make_pair(lane, posOverLane));
         } else {
             // Write warning
-            WRITE_WARNING("Lane path needs at least two lanes");
+            WRITE_WARNING(TL("Lane path needs at least two lanes"));
             // abort add lane
             return false;
         }

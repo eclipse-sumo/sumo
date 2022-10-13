@@ -450,7 +450,7 @@ void
 GNEApplicationWindow::dependentBuild() {
     // do this not twice
     if (myHadDependentBuild) {
-        WRITE_ERROR("DEBUG: GNEApplicationWindow::dependentBuild called twice");
+        WRITE_ERROR(TL("DEBUG: GNEApplicationWindow::dependentBuild called twice"));
         return;
     }
     myHadDependentBuild = true;
@@ -1065,14 +1065,14 @@ GNEApplicationWindow::onCmdToolNetDiff(FXObject*, FXSelector, void*) {
         // check that python folder is defined in PATH
         const char* path = getenv("PATH");
         if ((strstr(path, "Python") == nullptr) && (strstr(path, "python") == nullptr)) {
-            WRITE_ERROR("Python folder must be defined in PATH");
+            WRITE_ERROR(TL("Python folder must be defined in PATH"));
             return 0;
         }
     #endif
         // check that SUMO_HOME is defined
         const char* sumoPath = getenv("SUMO_HOME");
         if (sumoPath == nullptr) {
-            WRITE_ERROR("Enviroment variable SUMO_HOME must be defined");
+            WRITE_ERROR(TL("Enviroment variable SUMO_HOME must be defined"));
             return 0;
         }
         // get netdiff path
@@ -1398,7 +1398,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     }
     // write reload message
     if (myReloading) {
-        WRITE_MESSAGE("Reload successfully");
+        WRITE_MESSAGE(TL("Reload successfully"));
         myReloading = false;
     }
     // update app

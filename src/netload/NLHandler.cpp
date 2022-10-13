@@ -986,7 +986,7 @@ NLHandler::addInstantE1Detector(const SUMOSAXAttributes& attrs) {
 
 void
 NLHandler::addVTypeProbeDetector(const SUMOSAXAttributes& attrs) {
-    WRITE_WARNING("VTypeProbes are deprecated. Use fcd-output devices (assigned to the vType) instead.");
+    WRITE_WARNING(TL("VTypeProbes are deprecated. Use fcd-output devices (assigned to the vType) instead."));
     bool ok = true;
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
     SUMOTime period = attrs.getOptPeriod(id.c_str(), ok, SUMOTime_MAX_PERIOD);
@@ -1076,7 +1076,7 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
     bool laneGiven = lane != "";
     if (!(lanesGiven || laneGiven)) {
         // in absence of any lane-specification assume specification by id
-        WRITE_WARNING("Trying to specify detector's lane by the given id since the argument 'lane' is missing.")
+        WRITE_WARNING(TL("Trying to specify detector's lane by the given id since the argument 'lane' is missing."))
         lane = id;
         laneGiven = true;
     }
@@ -1490,7 +1490,7 @@ NLHandler::parseLinkState(const std::string& state) {
         return SUMOXMLDefinitions::LinkStates.get(state);
     } else {
         if (state == "t") { // legacy networks
-            // WRITE_WARNING("Obsolete link state 't'. Use 'o' instead");
+            // WRITE_WARNING(TL("Obsolete link state 't'. Use 'o' instead"));
             return LINKSTATE_TL_OFF_BLINKING;
         } else {
             throw InvalidArgument("Unrecognised link state '" + state + "'.");
@@ -1503,7 +1503,7 @@ NLHandler::parseLinkState(const std::string& state) {
 void
 NLHandler::setLocation(const SUMOSAXAttributes& attrs) {
     if (myNetIsLoaded) {
-        //WRITE_WARNING("POIs and Polygons should be loaded using option --po-files")
+        //WRITE_WARNING(TL("POIs and Polygons should be loaded using option --po-files"))
         return;
     }
     bool ok = true;
@@ -1515,7 +1515,7 @@ NLHandler::setLocation(const SUMOSAXAttributes& attrs) {
         Position networkOffset = s[0];
         GeoConvHelper::init(proj, networkOffset, origBoundary, convBoundary);
         if (OptionsCont::getOptions().getBool("fcd-output.geo") && !GeoConvHelper::getFinal().usingGeoProjection()) {
-            WRITE_WARNING("no valid geo projection loaded from network. fcd-output.geo will not work");
+            WRITE_WARNING(TL("no valid geo projection loaded from network. fcd-output.geo will not work"));
         }
     }
 }

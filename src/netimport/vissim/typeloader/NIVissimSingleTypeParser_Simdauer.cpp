@@ -46,7 +46,7 @@ NIVissimSingleTypeParser_Simdauer::parse(std::istream& from) {
     try {
         StringUtils::toDouble(duration);
     } catch (...) {
-        WRITE_ERROR("Simulation duration could not be parsed");
+        WRITE_ERROR(TL("Simulation duration could not be parsed"));
         return false;
     }
     return true;

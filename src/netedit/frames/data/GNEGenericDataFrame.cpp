@@ -137,11 +137,11 @@ GNEGenericDataFrame::DataSetSelector::onCmdCreateDataSet(FXObject*, FXSelector, 
     const std::string dataSetID = myNewDataSetIDTextField->getText().text();
     // check conditions
     if (myNewDataSetIDTextField->getTextColor() == FXRGB(255, 0, 0)) {
-        WRITE_WARNING("Invalid dataSet ID");
+        WRITE_WARNING(TL("Invalid dataSet ID"));
     } else if (dataSetID.empty()) {
-        WRITE_WARNING("Invalid empty dataSet ID");
+        WRITE_WARNING(TL("Invalid empty dataSet ID"));
     } else if (myGenericDataFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDataSet(dataSetID, false) != nullptr) {
-        WRITE_WARNING("Invalid duplicated dataSet ID");
+        WRITE_WARNING(TL("Invalid duplicated dataSet ID"));
     } else {
         // build data set
         GNEDataHandler dataHandler(myGenericDataFrameParent->getViewNet()->getNet(), "", true);

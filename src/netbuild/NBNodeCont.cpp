@@ -2147,7 +2147,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
             NBTrafficLightDefinition* tlDef = new NBOwnTLDef(id, nodes, 0, type);
             if (!tlc.insert(tlDef)) {
                 // actually, nothing should fail here
-                WRITE_WARNING("Could not build guessed, joined tls.");
+                WRITE_WARNING(TL("Could not build guessed, joined tls."));
                 delete tlDef;
                 return;
             }
@@ -2246,7 +2246,7 @@ NBNodeCont::joinTLS(NBTrafficLightLogicCont& tlc, double maxdist) {
         NBTrafficLightDefinition* tlDef = new NBOwnTLDef(id, nodes, 0, type);
         if (!tlc.insert(tlDef)) {
             // actually, nothing should fail here
-            WRITE_WARNING("Could not build a joined tls.");
+            WRITE_WARNING(TL("Could not build a joined tls."));
             delete tlDef;
             return;
         }
@@ -2345,8 +2345,8 @@ NBNodeCont::computeNodeShapes(double mismatchThreshold) {
 
 void
 NBNodeCont::printBuiltNodesStatistics() const {
-    WRITE_MESSAGE("-----------------------------------------------------");
-    WRITE_MESSAGE("Summary:");
+    WRITE_MESSAGE(TL("-----------------------------------------------------"));
+    WRITE_MESSAGE(TL("Summary:"));
 
     int numUnregulatedJunctions = 0;
     int numDeadEndJunctions = 0;
@@ -2400,7 +2400,7 @@ NBNodeCont::printBuiltNodesStatistics() const {
                 break;
         }
     }
-    WRITE_MESSAGE(" Node type statistics:");
+    WRITE_MESSAGE(TL(" Node type statistics:"));
     WRITE_MESSAGE("  Unregulated junctions       : " + toString(numUnregulatedJunctions));
     if (numDeadEndJunctions > 0) {
         WRITE_MESSAGE("  Dead-end junctions          : " + toString(numDeadEndJunctions));
@@ -2426,11 +2426,11 @@ NBNodeCont::printBuiltNodesStatistics() const {
         WRITE_MESSAGE("  District junctions      : " + toString(numDistrictJunctions));
     }
     const GeoConvHelper& geoConvHelper = GeoConvHelper::getProcessing();
-    WRITE_MESSAGE(" Network boundaries:");
+    WRITE_MESSAGE(TL(" Network boundaries:"));
     WRITE_MESSAGE("  Original boundary  : " + toString(geoConvHelper.getOrigBoundary()));
     WRITE_MESSAGE("  Applied offset     : " + toString(geoConvHelper.getOffsetBase()));
     WRITE_MESSAGE("  Converted boundary : " + toString(geoConvHelper.getConvBoundary()));
-    WRITE_MESSAGE("-----------------------------------------------------");
+    WRITE_MESSAGE(TL("-----------------------------------------------------"));
 }
 
 

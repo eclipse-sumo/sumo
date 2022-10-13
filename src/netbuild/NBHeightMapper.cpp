@@ -85,7 +85,7 @@ NBHeightMapper::ready() const {
 double
 NBHeightMapper::getZ(const Position& geo) const {
     if (!ready()) {
-        WRITE_WARNING("Cannot supply height since no height data was loaded");
+        WRITE_WARNING(TL("Cannot supply height since no height data was loaded"));
         return 0;
     }
     for (auto& item : myRasters) {
@@ -201,7 +201,7 @@ NBHeightMapper::loadShapeFile(const std::string& file) {
     sr_dest.SetWellKnownGeogCS("WGS84");
     OGRCoordinateTransformation* toWGS84 = OGRCreateCoordinateTransformation(sr_src, &sr_dest);
     if (toWGS84 == nullptr) {
-        WRITE_WARNING("Could not create geocoordinates converter; check whether proj.4 is installed.");
+        WRITE_WARNING(TL("Could not create geocoordinates converter; check whether proj.4 is installed."));
     }
 
     int numFeatures = 0;
@@ -237,27 +237,27 @@ NBHeightMapper::loadShapeFile(const std::string& file) {
                 break;
             }
             case wkbPoint: {
-                WRITE_WARNING("got wkbPoint");
+                WRITE_WARNING(TL("got wkbPoint"));
                 break;
             }
             case wkbLineString: {
-                WRITE_WARNING("got wkbLineString");
+                WRITE_WARNING(TL("got wkbLineString"));
                 break;
             }
             case wkbMultiPoint: {
-                WRITE_WARNING("got wkbMultiPoint");
+                WRITE_WARNING(TL("got wkbMultiPoint"));
                 break;
             }
             case wkbMultiLineString: {
-                WRITE_WARNING("got wkbMultiLineString");
+                WRITE_WARNING(TL("got wkbMultiLineString"));
                 break;
             }
             case wkbMultiPolygon: {
-                WRITE_WARNING("got wkbMultiPolygon");
+                WRITE_WARNING(TL("got wkbMultiPolygon"));
                 break;
             }
             default:
-                WRITE_WARNING("Unsupported shape type occurred");
+                WRITE_WARNING(TL("Unsupported shape type occurred"));
             break;
         }
         */
@@ -273,7 +273,7 @@ NBHeightMapper::loadShapeFile(const std::string& file) {
     return numFeatures;
 #else
     UNUSED_PARAMETER(file);
-    WRITE_ERROR("Cannot load shape file since SUMO was compiled without GDAL support.");
+    WRITE_ERROR(TL("Cannot load shape file since SUMO was compiled without GDAL support."));
     return 0;
 #endif
 }
@@ -285,7 +285,7 @@ NBHeightMapper::loadTiff(const std::string& file) {
     GDALAllRegister();
     GDALDataset* poDataset = (GDALDataset*)GDALOpen(file.c_str(), GA_ReadOnly);
     if (poDataset == 0) {
-        WRITE_ERROR("Cannot load GeoTIFF file.");
+        WRITE_ERROR(TL("Cannot load GeoTIFF file."));
         return 0;
     }
     Boundary boundary;
@@ -345,7 +345,7 @@ NBHeightMapper::loadTiff(const std::string& file) {
     }
 #else
     UNUSED_PARAMETER(file);
-    WRITE_ERROR("Cannot load GeoTIFF file since SUMO was compiled without GDAL support.");
+    WRITE_ERROR(TL("Cannot load GeoTIFF file since SUMO was compiled without GDAL support."));
     return 0;
 #endif
 }

@@ -664,11 +664,11 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
                                  const bool oppositeEdge, const bool chainEdge) {
     // first check if there is an edge template, an edge type (default or custom)
     if (!myEdgeTypeSelector->useDefaultEdgeType() && !myEdgeTypeSelector->useEdgeTemplate() && (myEdgeTypeSelector->getEdgeTypeSelected() == nullptr)) {
-        WRITE_WARNING("Select either default edgeType or a custom edgeType or template");
+        WRITE_WARNING(TL("Select either default edgeType or a custom edgeType or template"));
     } else if (!myEdgeTypeAttributes->areValuesValid()) {
-        WRITE_WARNING("Invalid edge attributes");
+        WRITE_WARNING(TL("Invalid edge attributes"));
     } else if (!myLaneTypeAttributes->areValuesValid()) {
-        WRITE_WARNING("Invalid lane attributes");
+        WRITE_WARNING(TL("Invalid lane attributes"));
     } else {
         // obtain junction depending of gridEnabled
         GNEJunction* junction = nullptr;

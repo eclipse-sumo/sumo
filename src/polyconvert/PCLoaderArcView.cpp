@@ -87,10 +87,10 @@ PCLoaderArcView::toShape(OGRLineString* geom, const std::string& tid) {
             }
         }
         if (2 * outOfRange > geom->getNumPoints()) {
-            WRITE_WARNING("No coordinate system found and coordinates look already projected.");
+            WRITE_WARNING(TL("No coordinate system found and coordinates look already projected."));
             GeoConvHelper::init("!", GeoConvHelper::getProcessing().getOffset(), GeoConvHelper::getProcessing().getOrigBoundary(), GeoConvHelper::getProcessing().getConvBoundary());
         } else {
-            WRITE_WARNING("Could not find geo coordinate system, assuming WGS84.");
+            WRITE_WARNING(TL("Could not find geo coordinate system, assuming WGS84."));
         }
         myWarnMissingProjection = false;
     }
@@ -323,7 +323,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
     UNUSED_PARAMETER(oc);
     UNUSED_PARAMETER(toFill);
     UNUSED_PARAMETER(tm);
-    WRITE_ERROR("SUMO was compiled without GDAL support.");
+    WRITE_ERROR(TL("SUMO was compiled without GDAL support."));
 #endif
 }
 

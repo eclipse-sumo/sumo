@@ -140,7 +140,7 @@ NWFrame::checkOptions() {
     }
     // some outputs need internal lanes
     if (oc.isSet("opendrive-output") && oc.getBool("no-internal-links")) {
-        WRITE_ERROR("OpenDRIVE export needs internal links computation.");
+        WRITE_ERROR(TL("OpenDRIVE export needs internal links computation."));
         ok = false;
     }
     if (oc.isSet("opendrive-output") && oc.isDefault("no-internal-links")) {
@@ -150,7 +150,7 @@ NWFrame::checkOptions() {
         oc.setDefault("rectangular-lane-cut", "true");
     }
     if (oc.isSet("opendrive-output") && !oc.getBool("rectangular-lane-cut")) {
-        WRITE_WARNING("OpenDRIVE cannot represent oblique lane cuts and should use option 'rectangular-lane-cut'.");
+        WRITE_WARNING(TL("OpenDRIVE cannot represent oblique lane cuts and should use option 'rectangular-lane-cut'."));
     }
     if (oc.isSet("dlr-navteq-output") && oc.isDefault("numerical-ids")) {
         oc.setDefault("numerical-ids", "true");
@@ -159,11 +159,11 @@ NWFrame::checkOptions() {
         oc.setDefault("osm.all-attributes", "true");
     }
     if (oc.exists("ptline-output") && oc.isSet("ptline-output") && !oc.isSet("ptstop-output")) {
-        WRITE_ERROR("public transport lines output requires 'ptstop-output' to be set");
+        WRITE_ERROR(TL("public transport lines output requires 'ptstop-output' to be set"));
         ok = false;
     }
     if (oc.exists("ptline-clean-up") && oc.getBool("ptline-clean-up") && !oc.isSet("ptline-output")) {
-        WRITE_WARNING("'ptline-clean-up' only works in conjunction with 'ptline-output'. Ignoring invalid option.");
+        WRITE_WARNING(TL("'ptline-clean-up' only works in conjunction with 'ptline-output'. Ignoring invalid option."));
     }
 
     return ok;

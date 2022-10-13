@@ -378,7 +378,7 @@ OptionsCont::isUsableFileList(const std::string& name) const {
                 WRITE_ERROR("File '" + *fileIt + "' is not accessible (" + std::strerror(errno) + ").");
                 ok = false;
             } else {
-                WRITE_WARNING("Empty file name given; ignoring.");
+                WRITE_WARNING(TL("Empty file name given; ignoring."));
             }
         }
     }

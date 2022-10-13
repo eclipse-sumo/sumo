@@ -446,9 +446,9 @@ GNEMultipleParametersDialog::ParametersOperations::GNEParameterHandler::myStartE
     if (element == SUMO_TAG_PARAM) {
         // Check that format of Parameter is correct
         if (!attrs.hasAttribute(SUMO_ATTR_KEY)) {
-            WRITE_WARNING("Key of Parameter not defined");
+            WRITE_WARNING(TL("Key of Parameter not defined"));
         } else if (!attrs.hasAttribute(SUMO_ATTR_VALUE)) {
-            WRITE_WARNING("Value of Parameter not defined");
+            WRITE_WARNING(TL("Value of Parameter not defined"));
         } else {
             // obtain Key and value
             const std::string key = attrs.getString(SUMO_ATTR_KEY);
@@ -456,7 +456,7 @@ GNEMultipleParametersDialog::ParametersOperations::GNEParameterHandler::myStartE
             // check that parsed values are correct
             if (!SUMOXMLDefinitions::isValidParameterKey(key)) {
                 if (key.size() == 0) {
-                    WRITE_WARNING("Key of Parameter cannot be empty");
+                    WRITE_WARNING(TL("Key of Parameter cannot be empty"));
                 } else {
                     WRITE_WARNING("Key '" + key + "' of Parameter contains invalid characters");
                 }

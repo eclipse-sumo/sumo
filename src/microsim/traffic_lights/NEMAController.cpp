@@ -956,7 +956,7 @@ NEMALogic::calculateInitialPhases170() {
 #ifdef DEBUG_NEMA
             const std::string error = "I can't find the correct phase for NEMA tlLogic '" + getID() + "' Ring " + toString(i) + " to start in.";
             WRITE_WARNING(error);
-            WRITE_WARNING("I am starting in the coordinated phases");
+            WRITE_WARNING(TL("I am starting in the coordinated phases"));
 #endif
             activePhases[0] = defaultBarrierPhases[0][0];
             activePhases[1] = defaultBarrierPhases[1][0];

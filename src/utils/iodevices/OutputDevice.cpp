@@ -150,7 +150,7 @@ OutputDevice::closeAll(bool keepErrorRetrievers) {
         try {
             dev->close();
         } catch (const IOError& e) {
-            WRITE_ERROR("Error on closing output devices.");
+            WRITE_ERROR(TL("Error on closing output devices."));
             WRITE_ERROR(e.what());
         }
     }

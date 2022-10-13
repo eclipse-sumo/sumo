@@ -236,7 +236,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
 #endif
         std::string assignMethod = oc.getString("assignment-method");
         if (assignMethod == "UE") {
-            WRITE_WARNING("Deterministic user equilibrium ('UE') is not implemented yet, using stochastic method ('SUE').");
+            WRITE_WARNING(TL("Deterministic user equilibrium ('UE') is not implemented yet, using stochastic method ('SUE')."));
             assignMethod = "SUE";
         }
         if (assignMethod == "incremental") {
@@ -374,7 +374,7 @@ main(int argc, char** argv) {
             }
         }
         if (net->getDistricts().empty()) {
-            WRITE_WARNING("No districts loaded, will use edge ids!");
+            WRITE_WARNING(TL("No districts loaded, will use edge ids!"));
         }
         // load districts
         ODDistrictCont districts;

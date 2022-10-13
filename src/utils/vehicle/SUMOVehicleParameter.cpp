@@ -692,7 +692,7 @@ SUMOVehicleParameter::parseStopTriggers(const std::vector<std::string>& triggers
             try {
                 stop.triggered = StringUtils::toBool(val);
             } catch (BoolFormatException&) {
-                WRITE_ERROR("Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a boolean");
+                WRITE_ERROR(TL("Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a boolean"));
             }
         }
     }

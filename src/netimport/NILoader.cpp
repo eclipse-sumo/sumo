@@ -122,7 +122,7 @@ NILoader::load(OptionsCont& oc) {
         throw ProcessError();
     }
     // report loaded structures
-    WRITE_MESSAGE(" Import done:");
+    WRITE_MESSAGE(TL(" Import done:"));
     if (myNetBuilder.getDistrictCont().size() > 0) {
         WRITE_MESSAGE("   " + toString(myNetBuilder.getDistrictCont().size()) + " districts loaded.");
     }

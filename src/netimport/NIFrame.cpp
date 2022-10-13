@@ -384,7 +384,7 @@ NIFrame::checkOptions() {
     }
 #else
     if ((oc.isSet("osm-files") || oc.isSet("dlr-navteq-prefix") || oc.isSet("shapefile-prefix")) && !oc.getBool("simple-projection")) {
-        WRITE_ERROR("Cannot import network data without PROJ-Library. Please install packages proj before building sumo");
+        WRITE_ERROR(TL("Cannot import network data without PROJ-Library. Please install package proj before building sumo"));
         ok = false;
     }
 #endif
@@ -409,7 +409,7 @@ NIFrame::checkOptions() {
     if (!oc.isSet("type-files")) {
         const char* sumoPath = std::getenv("SUMO_HOME");
         if (sumoPath == nullptr) {
-            WRITE_WARNING("Environment variable SUMO_HOME is not set, using built in type maps.");
+            WRITE_WARNING(TL("Environment variable SUMO_HOME is not set, using built in type maps."));
         } else {
             const std::string path = sumoPath + std::string("/data/typemap/");
             if (oc.isSet("osm-files")) {

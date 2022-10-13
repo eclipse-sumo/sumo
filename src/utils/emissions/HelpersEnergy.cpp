@@ -222,7 +222,7 @@ HelpersEnergy::acceleration(const SUMOEmissionClass /* c */, const PollutantsInt
         case 3:
             return MAX3(x1, x2, x3);
         default:
-            WRITE_ERROR("An acceleration given by the power was not found.");
+            WRITE_ERROR(TL("An acceleration given by the power was not found."));
             return 0;
     }
 

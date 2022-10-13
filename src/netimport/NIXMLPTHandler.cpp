@@ -241,7 +241,7 @@ NIXMLPTHandler::addPTLineFromFlow(const SUMOSAXAttributes& attrs) {
 void
 NIXMLPTHandler::addPTLineRoute(const SUMOSAXAttributes& attrs) {
     if (myCurrentLine == nullptr) {
-        WRITE_ERROR("Found route outside line definition");
+        WRITE_ERROR(TL("Found route outside line definition"));
         return;
     }
     bool ok = true;

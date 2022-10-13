@@ -810,7 +810,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                     for (std::vector<OpenDriveLink>::const_iterator l = e->links.begin(); l != e->links.end(); ++l) {
                         if ((*l).linkType == OPENDRIVE_LT_PREDECESSOR && (*l).elementType == OPENDRIVE_ET_ROAD) {
                             if (fromID != "") {
-                                WRITE_WARNING("Ambiguous start of connection.");
+                                WRITE_WARNING(TL("Ambiguous start of connection."));
                             }
                             const OpenDriveEdge* const ode = edges[(*l).elementID];
                             if ((*l).contactPoint == OPENDRIVE_CP_START) {
@@ -827,7 +827,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                         }
                         if ((*l).linkType == OPENDRIVE_LT_SUCCESSOR && (*l).elementType == OPENDRIVE_ET_ROAD) {
                             if (toID != "") {
-                                WRITE_WARNING("Ambiguous end of connection.");
+                                WRITE_WARNING(TL("Ambiguous end of connection."));
                             }
                             const OpenDriveEdge* const ode = edges[(*l).elementID];
                             toID = (*l).contactPoint == OPENDRIVE_CP_START ? ode->laneSections[0].sumoID : ode->laneSections.back().sumoID;
@@ -1961,14 +1961,14 @@ NIImporter_OpenDrive::OpenDriveLaneSection::getInnerConnections(OpenDriveXMLTag 
         }
         if (from != UNSET_CONNECTION && to != UNSET_CONNECTION) {
             if (ret.find(from) != ret.end()) {
-//        WRITE_WARNING("double connection");
+//        WRITE_WARNING(TL("double connection"));
             }
             if (dir == OPENDRIVE_TAG_LEFT) {
                 std::swap(from, to);
             }
             ret[from] = to;
         } else {
-//      WRITE_WARNING("missing connection");
+//      WRITE_WARNING(TL("missing connection"));
         }
     }
     return ret;

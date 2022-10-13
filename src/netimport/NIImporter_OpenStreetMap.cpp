@@ -759,13 +759,13 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
                 myToFill.emplace_hint(insertionIt, id, myCurrentNode);
             }
         } catch (FormatException&) {
-            WRITE_ERROR("Attribute 'id' in the definition of a node is not of type long long int.");
+            WRITE_ERROR(TL("Attribute 'id' in the definition of a node is not of type long long int."));
             return;
         }
     }
     if (element == SUMO_TAG_TAG && myCurrentNode != nullptr) {
         if (myHierarchyLevel != 3) {
-            WRITE_ERROR("Tag element on wrong XML hierarchy level.");
+            WRITE_ERROR(TL("Tag element on wrong XML hierarchy level."));
             return;
         }
         bool ok = true;

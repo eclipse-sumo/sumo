@@ -333,7 +333,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
             myLastTime += phase->duration;
         }
         if (myLastTime <= myBeginTime) {
-            WRITE_ERROR("Overflow in time computation occurred.");
+            WRITE_ERROR(TL("Overflow in time computation occurred."));
             return;
         }
     } else {

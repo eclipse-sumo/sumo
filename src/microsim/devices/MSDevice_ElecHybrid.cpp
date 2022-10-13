@@ -314,7 +314,7 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
 
                 // pos_veh_node and veh_elem shoud be NULL
                 if (pos_veh_node != nullptr || veh_elem != nullptr) {
-                    WRITE_WARNING("pos_veh_node or neg_veh_node or veh_elem is not NULL (and they shoud be at the beginning of adding elecHybrid to the circuit)");
+                    WRITE_WARNING(TL("pos_veh_node or neg_veh_node or veh_elem is not NULL (and they shoud be at the beginning of adding elecHybrid to the circuit)"));
                 }
 
                 // create pos and veh_elem
@@ -351,7 +351,7 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
                     element_pos = node_pos->getElements()->at(2);
                     resistance += element_pos->getResistance();
                     if (strncmp(element_pos->getName().c_str(), "pos_tail_", 9) != 0) {
-                        WRITE_WARNING("splitting element is not 'pos_tail_XXX'")
+                        WRITE_WARNING(TL("splitting element is not 'pos_tail_XXX'"))
                     }
                 }
 
@@ -429,7 +429,7 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
                 myActOverheadWireSegment->addChargeValueForOutput(0, this, false);
             }
 #else
-            WRITE_ERROR("Overhead wire solver is on, but the Eigen library has not been compiled in!")
+            WRITE_ERROR(TL("Overhead wire solver is on, but the Eigen library has not been compiled in!"))
 #endif
         } else {
             /*
@@ -525,7 +525,7 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
             */
             deleteVehicleFromCircuit(veh);
 #else
-            WRITE_ERROR("Overhead wire solver is on, but the Eigen library has not been compiled in!")
+            WRITE_ERROR(TL("Overhead wire solver is on, but the Eigen library has not been compiled in!"))
 #endif
         }
 
@@ -645,7 +645,7 @@ MSDevice_ElecHybrid::deleteVehicleFromCircuit(SUMOVehicle& veh) {
                     if (elem_last != nullptr) {
                         elem_last->setId(pos_veh_node->getId());
                     } else {
-                        WRITE_ERROR("The element or node with the last Id was not found in the circuit!");
+                        WRITE_ERROR(TL("The element or node with the last Id was not found in the circuit!"));
                     }
                 }
             }
@@ -708,7 +708,7 @@ MSDevice_ElecHybrid::notifyLeave(
         deleteVehicleFromCircuit(veh);
 #else
         UNUSED_PARAMETER(veh);
-        WRITE_ERROR("Overhead wire solver is on, but the Eigen library has not been compiled in!")
+        WRITE_ERROR(TL("Overhead wire solver is on, but the Eigen library has not been compiled in!"))
 #endif
     }
     // disable charging vehicle from overhead wire and segment and traction station
@@ -845,7 +845,7 @@ MSDevice_ElecHybrid::getCircuitAlpha() const {
             return owc->getAlphaBest() ;
         }
 #else
-        WRITE_ERROR("Overhead wire solver is on, but the Eigen library has not been compiled in!")
+        WRITE_ERROR(TL("Overhead wire solver is on, but the Eigen library has not been compiled in!"))
 #endif
     }
     return NAN;

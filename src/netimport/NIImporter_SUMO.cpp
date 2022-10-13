@@ -532,7 +532,7 @@ NIImporter_SUMO::myEndElement(int element) {
             break;
         case SUMO_TAG_TLLOGIC:
             if (!myCurrentTL) {
-                WRITE_ERROR("Unmatched closing tag for tl-logic.");
+                WRITE_ERROR(TL("Unmatched closing tag for tl-logic."));
             } else {
                 if (!myTLLCont.insert(myCurrentTL)) {
                     WRITE_WARNING("Could not add program '" + myCurrentTL->getProgramID() + "' for traffic light '" + myCurrentTL->getID() + "'");
@@ -938,7 +938,7 @@ NIImporter_SUMO::initTrafficLightLogic(const SUMOSAXAttributes& attrs, NBLoadedS
 void
 NIImporter_SUMO::addPhase(const SUMOSAXAttributes& attrs, NBLoadedSUMOTLDef* currentTL) {
     if (!currentTL) {
-        WRITE_ERROR("found phase without tl-logic");
+        WRITE_ERROR(TL("found phase without tl-logic"));
         return;
     }
     const std::string& id = currentTL->getID();

@@ -229,7 +229,7 @@ RODUAFrame::checkOptions() {
         return false;
     }
     if (oc.getBool("logit")) {
-        WRITE_WARNING("The --logit option is deprecated, please use --route-choice-method logit.");
+        WRITE_WARNING(TL("The --logit option is deprecated, please use --route-choice-method logit."));
         oc.set("route-choice-method", "logit");
     }
 
@@ -241,14 +241,14 @@ RODUAFrame::checkOptions() {
         } else if (len > 4 && filename.substr(len - 3) == ".gz") {
             oc.setDefault("alternatives-output", filename.substr(0, len - 3) + ".alt.gz");
         } else {
-            WRITE_WARNING("Cannot derive file name for alternatives output, skipping it.");
+            WRITE_WARNING(TL("Cannot derive file name for alternatives output, skipping it."));
         }
     }
     if (oc.getBool("write-trips.junctions")) {
         if (oc.isDefault("write-trips")) {
             oc.setDefault("write-trips", "true");
         } else if (!oc.getBool("write-trips")) {
-            WRITE_WARNING("Option --write-trips.junctions takes no affect when --write-trips is disabled.");
+            WRITE_WARNING(TL("Option --write-trips.junctions takes no affect when --write-trips is disabled."));
         }
     }
     return ok;

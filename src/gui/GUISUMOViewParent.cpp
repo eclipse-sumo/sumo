@@ -181,7 +181,7 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject* sender, FXSelector, void*) {
         std::string file = opendialog.getFilename().text();
         if (file.find(".") == std::string::npos) {
             file.append(".png");
-            WRITE_MESSAGE("No file extension was specified - saving Snapshot as PNG.");
+            WRITE_MESSAGE(TL("No file extension was specified - saving Snapshot as PNG."));
         }
         std::string error = myView->makeSnapshot(file);
         if (error == "video") {
@@ -189,7 +189,7 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject* sender, FXSelector, void*) {
         } else if (error != "") {
             FXMessageBox::error(this, MBOX_OK, "Saving failed.", "%s", error.c_str());
         } else {
-            WRITE_MESSAGE("Snapshot successfully saved!");
+            WRITE_MESSAGE(TL("Snapshot successfully saved!"));
         }
     }
     return 1;

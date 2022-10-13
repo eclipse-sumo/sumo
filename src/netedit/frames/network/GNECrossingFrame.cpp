@@ -491,7 +491,7 @@ GNECrossingFrame::CreateCrossing::onCmdCreateCrossing(FXObject*, FXSelector, voi
             // update default create edge option
             myCrossingFrameParent->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->enableCheckBoxDisablePedestrians();
         } else {
-            WRITE_WARNING("There is already another crossing with the same edges in the junction; Duplicated crossing aren't allowed.");
+            WRITE_WARNING(TL("There is already another crossing with the same edges in the junction; Duplicated crossing aren't allowed."));
         }
     }
     return 1;

@@ -63,9 +63,9 @@ ConfigHandler::parseNetFile(const SUMOSAXAttributes& attrs) {
     // continue if flag is ok
     if (parsedOk) {
         if (value.empty()) {
-            WRITE_ERROR("Network file cannot be empty");
+            WRITE_ERROR(TL("Network file cannot be empty"));
         } else if (myCommonXMLStructure.getCurrentSumoBaseObject() == nullptr) {
-            WRITE_ERROR("Network file must be loaded within a configuration");
+            WRITE_ERROR(TL("Network file must be loaded within a configuration"));
         } else {
             // add it in SUMOConfig parent
             myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_NETFILE, value);
@@ -84,9 +84,9 @@ ConfigHandler::parseAdditionalFiles(const SUMOSAXAttributes& attrs) {
     if (parsedOk) {
         // avoid empty files
         if (value.empty()) {
-            WRITE_ERROR("Additional files cannot be empty");
+            WRITE_ERROR(TL("Additional files cannot be empty"));
         } else if (myCommonXMLStructure.getCurrentSumoBaseObject() == nullptr) {
-            WRITE_ERROR("Additional files must be loaded within a configuration");
+            WRITE_ERROR(TL("Additional files must be loaded within a configuration"));
         } else {
             // add it in SUMOConfig parent
             myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ADDITIONALFILES, value);
@@ -105,9 +105,9 @@ ConfigHandler::parseRouteFiles(const SUMOSAXAttributes& attrs) {
     if (parsedOk) {
         // avoid empty files
         if (value.empty()) {
-            WRITE_ERROR("Route files cannot be empty");
+            WRITE_ERROR(TL("Route files cannot be empty"));
         } else if (myCommonXMLStructure.getCurrentSumoBaseObject() == nullptr) {
-            WRITE_ERROR("Route files must be loaded within a configuration");
+            WRITE_ERROR(TL("Route files must be loaded within a configuration"));
         } else {
             // add it in SUMOConfig parent
             myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ROUTEFILES, value);
@@ -126,9 +126,9 @@ ConfigHandler::parseDataFiles(const SUMOSAXAttributes& attrs) {
     if (parsedOk) {
         // avoid empty files
         if (value.empty()) {
-            WRITE_ERROR("Data files cannot be empty");
+            WRITE_ERROR(TL("Data files cannot be empty"));
         } else if (myCommonXMLStructure.getCurrentSumoBaseObject() == nullptr) {
-            WRITE_ERROR("Data files must be loaded within a configuration");
+            WRITE_ERROR(TL("Data files must be loaded within a configuration"));
         } else {
             // add it in SUMOConfig parent
             myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_DATAFILES, value);

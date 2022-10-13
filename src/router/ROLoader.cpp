@@ -282,7 +282,7 @@ ROLoader::loadWeights(RONet& net, const std::string& optionName,
         if (XMLSubSys::runParser(handler, *fileIt)) {
             PROGRESS_DONE_MESSAGE();
         } else {
-            WRITE_MESSAGE("failed.");
+            WRITE_MESSAGE(TL("failed."));
             return false;
         }
     }

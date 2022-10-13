@@ -230,11 +230,11 @@ NGFrame::checkOptions() {
         no++;
     }
     if (no == 0) {
-        WRITE_ERROR("You have to specify the type of network to generate.");
+        WRITE_ERROR(TL("You have to specify the type of network to generate."));
         ok = false;
     }
     if (no > 1) {
-        WRITE_ERROR("You may specify only one type of network to generate at once.");
+        WRITE_ERROR(TL("You may specify only one type of network to generate at once."));
         ok = false;
     }
     // check whether the junction type to use is properly set
@@ -267,7 +267,7 @@ NGFrame::checkOptions() {
         }
     }
     if (oc.getBool("random-type") && !oc.isSet("type-files")) {
-        WRITE_WARNING("Option 'random-type' takes no effect unless 'type-files' are loaded");
+        WRITE_WARNING(TL("Option 'random-type' takes no effect unless 'type-files' are loaded"));
     }
     return ok;
 }

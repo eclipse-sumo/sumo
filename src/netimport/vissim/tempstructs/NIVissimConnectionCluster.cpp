@@ -493,7 +493,7 @@ NIVissimConnectionCluster::buildNodeClusters() {
         }
         nodes = (*i)->myNodes;//NIVissimTL::getWithin((*i)->myBoundary, 5.0);
         if (nodes.size() > 1) {
-            WRITE_WARNING("NIVissimConnectionCluster:More than a single node");
+            WRITE_WARNING(TL("NIVissimConnectionCluster:More than a single node"));
             //          throw 1; // !!! eigentlich sollte hier nur eine Ampelanlage sein
         }
         if (nodes.size() > 0) {
@@ -659,7 +659,7 @@ NIVissimConnectionCluster::getPositionForEdge(int edgeid) const {
                     */
     }
     // what else?
-    WRITE_WARNING("NIVissimConnectionCluster: how to get an edge's position?");
+    WRITE_WARNING(TL("NIVissimConnectionCluster: how to get an edge's position?"));
     // !!!
     assert(myBoundary.xmin() <= myBoundary.xmax());
     NIVissimEdge* edge = NIVissimEdge::dictionary(edgeid);

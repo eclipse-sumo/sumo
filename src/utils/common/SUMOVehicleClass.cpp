@@ -184,11 +184,11 @@ StopOffset::StopOffset(const SUMOSAXAttributes& attrs, bool& ok) :
     myOffset(0) {
     // first check conditions
     if (attrs.hasAttribute(SUMO_ATTR_VCLASSES) && attrs.hasAttribute(SUMO_ATTR_EXCEPTIONS)) {
-        WRITE_ERROR("Simultaneous specification of vClasses and exceptions is not allowed");
+        WRITE_ERROR(TL("Simultaneous specification of vClasses and exceptions is not allowed"));
         ok = false;
     }
     if (!attrs.hasAttribute(SUMO_ATTR_VALUE)) {
-        WRITE_ERROR("StopOffset requires an offset value");
+        WRITE_ERROR(TL("StopOffset requires an offset value"));
         ok = false;
     }
     // parse elements
@@ -379,7 +379,7 @@ parseVehicleClasses(const std::string& allowedS, const std::string& disallowedS,
     if (allowedS.size() == 0 && disallowedS.size() == 0) {
         return SVCAll;
     } else if (allowedS.size() > 0 && disallowedS.size() > 0) {
-        WRITE_WARNING("SVCPermissions must be specified either via 'allow' or 'disallow'. Ignoring 'disallow'");
+        WRITE_WARNING(TL("SVCPermissions must be specified either via 'allow' or 'disallow'. Ignoring 'disallow'"));
         return parseVehicleClasses(allowedS);
     } else if (allowedS.size() > 0) {
         return parseVehicleClasses(allowedS);

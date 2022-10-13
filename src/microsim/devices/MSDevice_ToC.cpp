@@ -158,7 +158,7 @@ MSDevice_ToC::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>&
     OptionsCont& oc = OptionsCont::getOptions();
     if (equippedByDefaultAssignmentOptions(oc, "toc", v, false)) {
         if (MSGlobals::gUseMesoSim) {
-            WRITE_WARNING("ToC device is not supported by the mesoscopic simulation.");
+            WRITE_WARNING(TL("ToC device is not supported by the mesoscopic simulation."));
             return;
         }
         const std::string manualType = getStringParam(v, oc, "toc.manualType", DEFAULT_MANUAL_TYPE, true);
@@ -243,7 +243,7 @@ MSDevice_ToC::getOpenGapParams(const SUMOVehicle& v, const OptionsCont& oc) {
         specifiedAny = true;
     }
     if (specifiedAny && timegap == -1 && spacing == -1) {
-        WRITE_ERROR("If any openGap parameters for the ToC model are specified, then at least one of toc.ogNewTimeHeadway and toc.ogNewSpaceHeadway must be defined.")
+        WRITE_ERROR(TL("If any openGap parameters for the ToC model are specified, then at least one of toc.ogNewTimeHeadway and toc.ogNewSpaceHeadway must be defined."))
     }
     if (timegap == -1) {
         timegap = DEFAULT_OPENGAP_TIMEGAP;
@@ -930,7 +930,7 @@ MSDevice_ToC::setParameter(const std::string& key, const std::string& value) {
         if (isManuallyDriven()) {
             setAwareness(StringUtils::toDouble(value));
         } else {
-            WRITE_WARNING("Setting device.toc.currentAwareness during automated mode has no effect.")
+            WRITE_WARNING(TL("Setting device.toc.currentAwareness during automated mode has no effect."))
         }
     } else if (key == "mrmDecel") {
         myMRMDecel = StringUtils::toDouble(value);

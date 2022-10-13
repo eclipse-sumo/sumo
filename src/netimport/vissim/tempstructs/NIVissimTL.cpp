@@ -149,7 +149,7 @@ NIVissimTL::NIVissimTLSignal::addTo(NBEdgeCont& ec, NBLoadedTLDef* tl) const {
                 assignedConnections.push_back(NBConnection(edge, myLane - 1, conn.toEdge, conn.toLane));
             }
         } else {
-            WRITE_WARNING("Edge : Lanes were not assigned(!)");
+            WRITE_WARNING(TL("Edge : Lanes were not assigned(!)"));
             for (int j = 0; j < edge->getNumLanes(); j++) {
                 std::vector<NBEdge::Connection> connections = edge->getConnectionsFromLane(j);
                 for (std::vector<NBEdge::Connection>::iterator i = connections.begin(); i != connections.end(); i++) {

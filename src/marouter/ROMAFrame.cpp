@@ -244,7 +244,7 @@ ROMAFrame::checkOptions() {
         return false;
     }
     if (oc.getInt("paths") > 1 && (oc.getString("routing-algorithm") == "CH" || oc.getString("routing-algorithm") == "CHWrapper")) {
-        WRITE_WARNING("Contraction hierarchies do not work with k shortest path search (please use a different routing algorithm)!");
+        WRITE_WARNING(TL("Contraction hierarchies do not work with k shortest path search (please use a different routing algorithm)!"));
     }
     return true;
 }

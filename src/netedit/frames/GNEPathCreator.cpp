@@ -376,7 +376,7 @@ GNEPathCreator::addJunction(GNEJunction* junction, const bool /* shiftKeyPressed
         // check double junctions
         if (mySelectedJunctions.back() == junction) {
             // Write warning
-            WRITE_WARNING("Double junctions aren't allowed");
+            WRITE_WARNING(TL("Double junctions aren't allowed"));
             // abort add junction
             return false;
         }
@@ -384,7 +384,7 @@ GNEPathCreator::addJunction(GNEJunction* junction, const bool /* shiftKeyPressed
     // check number of junctions
     if (mySelectedJunctions.size() == 2 && (myCreationMode & Mode::ONLY_FROMTO)) {
         // Write warning
-        WRITE_WARNING("Only two junctions are allowed");
+        WRITE_WARNING(TL("Only two junctions are allowed"));
         // abort add junction
         return false;
     }
@@ -427,7 +427,7 @@ GNEPathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool co
         // check double edges
         if (mySelectedEdges.back() == edge) {
             // Write warning
-            WRITE_WARNING("Double edges aren't allowed");
+            WRITE_WARNING(TL("Double edges aren't allowed"));
             // abort add edge
             return false;
         }
@@ -437,7 +437,7 @@ GNEPathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool co
             const auto& outgoingEdges = mySelectedEdges.back()->getToJunction()->getGNEOutgoingEdges();
             if (std::find(outgoingEdges.begin(), outgoingEdges.end(), edge) == outgoingEdges.end()) {
                 // Write warning
-                WRITE_WARNING("Only consecutives edges are allowed");
+                WRITE_WARNING(TL("Only consecutives edges are allowed"));
                 // abort add edge
                 return false;
             }
@@ -446,7 +446,7 @@ GNEPathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool co
     // check number of edges
     if (mySelectedEdges.size() == 2 && (myCreationMode & Mode::ONLY_FROMTO)) {
         // Write warning
-        WRITE_WARNING("Only two edges are allowed");
+        WRITE_WARNING(TL("Only two edges are allowed"));
         // abort add edge
         return false;
     }
@@ -521,7 +521,7 @@ GNEPathCreator::addStoppingPlace(GNEAdditional* stoppingPlace, const bool /*shif
     }
     // avoid select first an stopping place
     if (((myCreationMode & START_EDGE) != 0) && mySelectedEdges.empty()) {
-        WRITE_WARNING("first select an edge");
+        WRITE_WARNING(TL("first select an edge"));
         return false;
     }
     // check if previously stopping place from was set

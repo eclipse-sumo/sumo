@@ -89,7 +89,7 @@ GNELoadThread::run() {
             NWFrame::checkOptions() &&
             SystemFrame::checkOptions())) {
         // options are not valid
-        WRITE_ERROR("Invalid Options. Nothing loaded");
+        WRITE_ERROR(TL("Invalid Options. Nothing loaded"));
         submitEndAndCleanup(net);
         return 0;
     }
@@ -101,7 +101,7 @@ GNELoadThread::run() {
 
     RandHelper::initRandGlobal();
     if (!GeoConvHelper::init(oc)) {
-        WRITE_ERROR("Could not build projection!");
+        WRITE_ERROR(TL("Could not build projection!"));
         submitEndAndCleanup(net);
         return 0;
     }
@@ -124,7 +124,7 @@ GNELoadThread::run() {
             nl.load(oc);
 
             if (!myLoadNet) {
-                WRITE_MESSAGE("Performing initial computation ...\n");
+                WRITE_MESSAGE(TL("Performing initial computation ...\n"));
                 // perform one-time processing (i.e. edge removal)
                 netBuilder->compute(oc);
                 // @todo remove one-time processing options!
@@ -159,7 +159,7 @@ GNELoadThread::run() {
             if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
                 WRITE_ERROR(e.what());
             }
-            WRITE_ERROR("Failed to build network.");
+            WRITE_ERROR(TL("Failed to build network."));
             // check if delete network
             if (net != nullptr) {
                 delete net;
@@ -443,7 +443,7 @@ GNELoadThread::initOptions() {
         if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
             WRITE_ERROR(e.what());
         }
-        WRITE_ERROR("Failed to parse options.");
+        WRITE_ERROR(TL("Failed to parse options."));
         return false;
     }
 }

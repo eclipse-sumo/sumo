@@ -169,7 +169,7 @@ MSSOTLTrafficLightLogic::init(NLDetectorBuilder& nb) {
                 LinkVectorVector links = getLinks();
 
 #ifdef SWARM_DEBUG
-                WRITE_MESSAGE("Listing output lanes");
+                WRITE_MESSAGE(TL("Listing output lanes"));
                 for (int i = 0; i < links.size(); i++) {
                     LinkVector oneLink = getLinksAt(i);
                     for (int j = 0; j < oneLink.size(); j++) {
@@ -243,7 +243,7 @@ MSSOTLTrafficLightLogic::updateCTS() {
                     mapIterator->second = countVehicles(getPhase(chain)); //QUEUE
                     break;
                 default:
-                    WRITE_ERROR("Unrecognized traffic threshold calculation mode");
+                    WRITE_ERROR(TL("Unrecognized traffic threshold calculation mode"));
             }
             std::ostringstream oss;
             oss << "MSSOTLTrafficLightLogic::updateCTS->TLC " << getID() << " chain " << chain << " oldVal " << oldVal << " newVal " << mapIterator->second;
@@ -277,7 +277,7 @@ MSSOTLTrafficLightLogic::countVehicles(MSPhaseDefinition phase) {
                 accumulator = MAX2((int)((MSSOTLE2Sensors*)mySensors)->getEstimateQueueLength(lane), accumulator);  //QUEUE
                 break;
             default:
-                WRITE_ERROR("Unrecognized traffic threshold calculation mode");
+                WRITE_ERROR(TL("Unrecognized traffic threshold calculation mode"));
         }
     }
     return accumulator;
@@ -443,7 +443,7 @@ MSSOTLTrafficLightLogic::decideNextPhase() {
 SUMOTime
 MSSOTLTrafficLightLogic::trySwitch() {
     if (MSNet::getInstance()->getCurrentTimeStep() % 1000 == 0) {
-        WRITE_MESSAGE("MSSOTLTrafficLightLogic::trySwitch()")
+        WRITE_MESSAGE(TL("MSSOTLTrafficLightLogic::trySwitch()"))
         // To check if decideNextPhase changes the step
         int previousStep = getCurrentPhaseIndex() ;
 #ifdef ANALYSIS_DEBUG

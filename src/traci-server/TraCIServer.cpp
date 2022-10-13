@@ -310,7 +310,7 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
 
     // display warning if internal lanes are not used
     if (!MSGlobals::gUsingInternalLanes && !MSGlobals::gUseMesoSim) {
-        WRITE_WARNING("Starting TraCI without using internal lanes!");
+        WRITE_WARNING(TL("Starting TraCI without using internal lanes!"));
         MsgHandler::getWarningInstance()->inform("Vehicles will jump over junctions.", false);
         MsgHandler::getWarningInstance()->inform("Use without option --no-internal-links to avoid unexpected behavior", false);
     }
@@ -343,7 +343,7 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
             mySockets[index]->transportableStateChanges[MSNet::TransportableState::CONTAINER_DEPARTED] = std::vector<std::string>();
             mySockets[index]->transportableStateChanges[MSNet::TransportableState::CONTAINER_ARRIVED] = std::vector<std::string>();
             if (numClients > 1) {
-                WRITE_MESSAGE("  client connected");
+                WRITE_MESSAGE(TL("  client connected"));
             }
         }
         // When got here, all clients have connected

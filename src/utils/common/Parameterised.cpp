@@ -87,7 +87,7 @@ Parameterised::getDouble(const std::string& key, const double defaultValue) cons
             WRITE_WARNING("Invalid conversion from string to double (" + i->second + ")");
             return defaultValue;
         } catch (EmptyData&) {
-            WRITE_WARNING("Invalid conversion from string to double (empty value)");
+            WRITE_WARNING(TL("Invalid conversion from string to double (empty value)"));
             return defaultValue;
         }
     }
@@ -109,7 +109,7 @@ Parameterised::getDoubles(const std::string& key, std::vector<double> defaultVal
             WRITE_WARNING("Invalid conversion from string to doubles (" + i->second + ")");
             return defaultValue;
         } catch (EmptyData&) {
-            WRITE_WARNING("Invalid conversion from string to doubles (empty value)");
+            WRITE_WARNING(TL("Invalid conversion from string to doubles (empty value)"));
             return defaultValue;
         }
     }

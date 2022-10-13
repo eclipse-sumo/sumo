@@ -173,7 +173,7 @@ GUIOSGView::GUIOSGView(
     myRedYellowLight = osgDB::readNodeFile("tlu.obj");
     myPoleBase = osgDB::readNodeFile("poleBase.obj");
     if (myGreenLight == 0 || myYellowLight == 0 || myRedLight == 0 || myRedYellowLight == 0 || myPoleBase == 0) {
-        WRITE_ERROR("Could not load traffic light files.");
+        WRITE_ERROR(TL("Could not load traffic light files."));
     }
     myRoot = GUIOSGBuilder::buildOSGScene(myGreenLight, myYellowLight, myRedLight, myRedYellowLight, myPoleBase);
     // add the stats handler

@@ -235,7 +235,7 @@ GeomHelper::legacyDegree(const double angle, const bool positive) {
 PositionVector
 GeomHelper::makeCircle(const double radius, const Position& center, unsigned int nPoints) {
     if (nPoints < 3) {
-        WRITE_ERROR("GeomHelper::makeCircle() requires nPoints>=3");
+        WRITE_ERROR(TL("GeomHelper::makeCircle() requires nPoints>=3"));
     }
     PositionVector circle;
     circle.push_back({radius, 0});
@@ -252,10 +252,10 @@ GeomHelper::makeCircle(const double radius, const Position& center, unsigned int
 PositionVector
 GeomHelper::makeRing(const double radius1, const double radius2, const Position& center, unsigned int nPoints) {
     if (nPoints < 3) {
-        WRITE_ERROR("GeomHelper::makeRing() requires nPoints>=3");
+        WRITE_ERROR(TL("GeomHelper::makeRing() requires nPoints>=3"));
     }
     if (radius1 >= radius2) {
-        WRITE_ERROR("GeomHelper::makeRing() requires radius2>radius1");
+        WRITE_ERROR(TL("GeomHelper::makeRing() requires radius2>radius1"));
     }
     PositionVector ring;
     ring.push_back({radius1, 0});

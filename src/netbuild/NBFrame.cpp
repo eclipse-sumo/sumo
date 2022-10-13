@@ -699,23 +699,23 @@ NBFrame::checkOptions() {
         ok = false;
     }
     if (oc.isSet("keep-edges.in-boundary") && oc.isSet("keep-edges.in-geo-boundary")) {
-        WRITE_ERROR("only one of the options 'keep-edges.in-boundary' or 'keep-edges.in-geo-boundary' may be given");
+        WRITE_ERROR(TL("only one of the options 'keep-edges.in-boundary' or 'keep-edges.in-geo-boundary' may be given"));
         ok = false;
     }
     if (oc.getBool("no-internal-links") && oc.getBool("crossings.guess")) {
-        WRITE_ERROR("only one of the options 'no-internal-links' or 'crossings.guess' may be given");
+        WRITE_ERROR(TL("only one of the options 'no-internal-links' or 'crossings.guess' may be given"));
         ok = false;
     }
     if (oc.getBool("no-internal-links") && oc.getBool("walkingareas")) {
-        WRITE_ERROR("only one of the options 'no-internal-links' or 'walkareas' may be given");
+        WRITE_ERROR(TL("only one of the options 'no-internal-links' or 'walkareas' may be given"));
         ok = false;
     }
     if (!oc.isDefault("tls.green.time") && !oc.isDefault("tls.cycle.time")) {
-        WRITE_ERROR("only one of the options 'tls.green.time' or 'tls.cycle.time' may be given");
+        WRITE_ERROR(TL("only one of the options 'tls.green.time' or 'tls.cycle.time' may be given"));
         ok = false;
     }
     if (oc.getInt("default.lanenumber") < 1) {
-        WRITE_ERROR("default.lanenumber must be at least 1");
+        WRITE_ERROR(TL("default.lanenumber must be at least 1"));
         ok = false;
     }
     if (!oc.isDefault("default.lanewidth") && oc.getFloat("default.lanewidth") < POSITION_EPS) {
@@ -723,23 +723,23 @@ NBFrame::checkOptions() {
         ok = false;
     }
     if (!oc.isDefault("default.disallow") && !oc.isDefault("default.allow")) {
-        WRITE_ERROR("only one of the options 'default.disallow' or 'default.allow' may be given");
+        WRITE_ERROR(TL("only one of the options 'default.disallow' or 'default.allow' may be given"));
         ok = false;
     }
     if (oc.getInt("junctions.internal-link-detail") < 2) {
-        WRITE_ERROR("junctions.internal-link-detail must >= 2");
+        WRITE_ERROR(TL("junctions.internal-link-detail must >= 2"));
         ok = false;
     }
     if (oc.getFloat("junctions.scurve-stretch") > 0) {
         if (oc.getBool("no-internal-links")) {
-            WRITE_WARNING("Option 'junctions.scurve-stretch' requires internal lanes to work. Option '--no-internal-links' will be disabled.");
+            WRITE_WARNING(TL("Option 'junctions.scurve-stretch' requires internal lanes to work. Option '--no-internal-links' will be disabled."));
         }
         // make sure the option is set so heuristics cannot ignore it
         oc.set("no-internal-links", "false");
     }
     if (oc.getFloat("junctions.small-radius") > oc.getFloat("default.junctions.radius") && oc.getFloat("default.junctions.radius") >= 0) {
         if (!oc.isDefault("junctions.small-radius")) {
-            WRITE_WARNING("option 'default.junctions.radius' is smaller than option 'junctions.small-radius'");
+            WRITE_WARNING(TL("option 'default.junctions.radius' is smaller than option 'junctions.small-radius'"));
         } else {
             oc.setDefault("junctions.small-radius", oc.getValueString("default.junctions.radius"));
         }
@@ -747,7 +747,7 @@ NBFrame::checkOptions() {
     if (oc.getString("tls.layout") != "opposites"
             && oc.getString("tls.layout") != "incoming"
             && oc.getString("tls.layout") != "alternateOneWay") {
-        WRITE_ERROR("tls.layout must be 'opposites', 'incoming' or 'alternateOneWay'");
+        WRITE_ERROR(TL("tls.layout must be 'opposites', 'incoming' or 'alternateOneWay'"));
         ok = false;
     }
     if (!oc.isDefault("default.right-of-way") &&
@@ -756,7 +756,7 @@ NBFrame::checkOptions() {
         ok = false;
     }
     if (oc.getFloat("roundabouts.visibility-distance") < 0 && oc.getFloat("roundabouts.visibility-distance") != NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE) {
-        WRITE_ERROR("roundabouts.visibility-distance must be positive or -1");
+        WRITE_ERROR(TL("roundabouts.visibility-distance must be positive or -1"));
         ok = false;
     }
     if (oc.isDefault("railway.topology.repair") && oc.getBool("railway.topology.repair.connect-straight")) {

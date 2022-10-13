@@ -282,9 +282,9 @@ GNEVehicleFrame::demandElementSelected() {
         myHelpCreation->showHelpCreation();
         // show warning if we have selected a vType oriented to pedestrians or containers
         if (myTypeSelector->getCurrentDemandElement()->getVClass() == SVC_PEDESTRIAN) {
-            WRITE_WARNING("VType with vClass == 'pedestrian' is oriented to pedestrians");
+            WRITE_WARNING(TL("VType with vClass == 'pedestrian' is oriented to pedestrians"));
         } else if (myTypeSelector->getCurrentDemandElement()->getVClass() == SVC_IGNORING) {
-            WRITE_WARNING("VType with vClass == 'ignoring' is oriented to containers");
+            WRITE_WARNING(TL("VType with vClass == 'ignoring' is oriented to containers"));
         }
     } else {
         // hide all moduls if selected item isn't valid

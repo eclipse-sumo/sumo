@@ -457,7 +457,7 @@ GNEViewParent::onCmdMakeSnapshot(FXObject*, FXSelector, void*) {
     std::string file = opendialog.getFilename().text();
     if (file.find(".") == std::string::npos) {
         file.append(".png");
-        WRITE_MESSAGE("No file extension was specified - saving Snapshot as PNG.");
+        WRITE_MESSAGE(TL("No file extension was specified - saving Snapshot as PNG."));
     }
     std::string error = myView->makeSnapshot(file);
     if (error != "") {
@@ -468,7 +468,7 @@ GNEViewParent::onCmdMakeSnapshot(FXObject*, FXSelector, void*) {
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Closed FXMessageBox 'error saving snapshot' with 'OK'");
     } else {
-        WRITE_MESSAGE("Snapshot successfully saved!");
+        WRITE_MESSAGE(TL("Snapshot successfully saved!"));
     }
     return 1;
 }

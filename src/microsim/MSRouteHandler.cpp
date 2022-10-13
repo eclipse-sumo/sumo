@@ -301,7 +301,7 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
                           // handle obsolete attribute name
                           attrs.getOptSUMOTimeReporting(SUMO_ATTR_PERIOD, myActiveRouteID.c_str(), ok, 0));
     if (attrs.hasAttribute(SUMO_ATTR_PERIOD)) {
-        WRITE_WARNING("Attribute 'period' is deprecated for route. Use 'cycleTime' instead.");
+        WRITE_WARNING(TL("Attribute 'period' is deprecated for route. Use 'cycleTime' instead."));
     }
     if (myActiveRouteRepeat > 0) {
         if (MSGlobals::gCheckRoutes) {
@@ -1313,7 +1313,7 @@ MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
         const std::string description = "person '" + personID + "' walking from edge '" + fromEdge->getID() + "'";
 
         if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)) {
-            WRITE_WARNING("The attribute departPos is no longer supported for walks, please use the person attribute, the arrivalPos of the previous step or explicit stops.");
+            WRITE_WARNING(TL("The attribute departPos is no longer supported for walks, please use the person attribute, the arrivalPos of the previous step or explicit stops."));
         }
         departPos = 0.;
         if (lastStage != nullptr) {

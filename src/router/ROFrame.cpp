@@ -230,17 +230,17 @@ bool
 ROFrame::checkOptions(OptionsCont& oc) {
     // check whether the output is valid and can be build
     if (!oc.isSet("output-file")) {
-        WRITE_ERROR("No output specified.");
+        WRITE_ERROR(TL("No output specified."));
         return false;
     }
     //
     if (oc.getInt("max-alternatives") < 1) {
-        WRITE_ERROR("A positive number of alternatives must be enabled.");
+        WRITE_ERROR(TL("A positive number of alternatives must be enabled."));
         return false;
     }
 #ifndef HAVE_FOX
     if (oc.getInt("routing-threads") > 1) {
-        WRITE_ERROR("Parallel routing is only possible when compiled with Fox.");
+        WRITE_ERROR(TL("Parallel routing is only possible when compiled with Fox."));
         return false;
     }
 #endif

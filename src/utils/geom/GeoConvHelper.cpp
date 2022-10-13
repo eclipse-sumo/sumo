@@ -83,7 +83,7 @@ GeoConvHelper::GeoConvHelper(const std::string& proj, const Position& offset,
             myProjString = std::regex_replace(proj, std::regex("\\+geoidgrids[^ ]*"), std::string(""));
             myProjString = std::regex_replace(myProjString, std::regex("\\+step \\+proj=vgridshift \\+grids[^ ]*"), std::string(""));
             if (myProjString != proj) {
-                WRITE_WARNING("Ignoring geoidgrids and vgridshift in projection");
+                WRITE_WARNING(TL("Ignoring geoidgrids and vgridshift in projection"));
                 initProj(myProjString);
             }
         }
@@ -228,12 +228,12 @@ GeoConvHelper::init(OptionsCont& oc) {
 
 #ifdef PROJ_API_FILE
     if (oc.getBool("proj.inverse") && oc.getString("proj") == "!") {
-        WRITE_ERROR("Inverse projection works only with explicit proj parameters.");
+        WRITE_ERROR(TL("Inverse projection works only with explicit proj parameters."));
         return false;
     }
     unsigned numProjections = oc.getBool("simple-projection") + oc.getBool("proj.utm") + oc.getBool("proj.dhdn") + oc.getBool("proj.dhdnutm") + (oc.getString("proj").length() > 1);
     if (numProjections > 1) {
-        WRITE_ERROR("The projection method needs to be uniquely defined.");
+        WRITE_ERROR(TL("The projection method needs to be uniquely defined."));
         return false;
     }
 

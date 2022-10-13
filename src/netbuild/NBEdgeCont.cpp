@@ -251,7 +251,7 @@ NBEdgeCont::ignoreFilterMatch(NBEdge* edge) {
                     GeoConvHelper::getLoaded().x2cartesian_const(myPruningBoundary[i]);
                 }
             } else {
-                WRITE_ERROR("Cannot prune edges using a geo-boundary because no projection has been loaded");
+                WRITE_ERROR(TL("Cannot prune edges using a geo-boundary because no projection has been loaded"));
             }
             myNeedGeoTransformedPruningBoundary = false;
         }

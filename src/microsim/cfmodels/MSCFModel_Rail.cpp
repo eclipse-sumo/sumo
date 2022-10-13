@@ -208,7 +208,7 @@ double MSCFModel_Rail::getSpeedAfterMaxDecel(double /* speed */) const {
 //    double a = 0;//trainParams.decl - gr/trainParams.rotWeight;
 //
 //    return speed + a * DELTA_T / 1000.;
-    WRITE_ERROR("function call not allowd for rail model. Exiting!");
+    WRITE_ERROR(TL("function call not allowd for rail model. Exiting!"));
     throw ProcessError();
 }
 
@@ -249,7 +249,7 @@ double MSCFModel_Rail::freeSpeed(const MSVehicle* const /* veh */, double /* spe
         const double fullSpeedGain = (yFull + (onInsertion ? 1. : 0.)) * ACCEL2SPEED(myTrainParams.decl);
         return DIST2SPEED(MAX2(0.0, dist - exactGap) / (yFull + 1)) + fullSpeedGain + targetSpeed;
     } else {
-        WRITE_ERROR("Anything else than semi implicit euler update is not yet implemented. Exiting!");
+        WRITE_ERROR(TL("Anything else than semi implicit euler update is not yet implemented. Exiting!"));
         throw ProcessError();
     }
 }

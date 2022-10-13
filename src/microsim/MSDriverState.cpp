@@ -638,7 +638,7 @@ MSSimpleDriverState::getPerceivedSpeedDifference(const double trueSpeedDifferenc
 //    }
 //    break;
 //    default:
-//        WRITE_WARNING("Unknown traffic item type!")
+//        WRITE_WARNING(TL("Unknown traffic item type!"))
 //        break;
 //    }
 //}
@@ -782,7 +782,7 @@ MSSimpleDriverState::getPerceivedSpeedDifference(const double trueSpeedDifferenc
 //    }
 //    break;
 //    default:
-//        WRITE_WARNING("Unknown traffic item type!")
+//        WRITE_WARNING(TL("Unknown traffic item type!"))
 //        break;
 //    }
 //}

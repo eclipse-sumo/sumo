@@ -448,7 +448,7 @@ ROEdge::initPriorityFactor(double priorityFactor) {
     }
     myEdgePriorityRange = maxEdgePriority - myMinEdgePriority;
     if (myEdgePriorityRange == 0) {
-        WRITE_WARNING("Option weights.priority-factor does not take effect because all edges have the same priority.");
+        WRITE_WARNING(TL("Option weights.priority-factor does not take effect because all edges have the same priority."));
         myPriorityFactor = 0;
         return false;
     }

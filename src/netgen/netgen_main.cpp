@@ -116,14 +116,14 @@ buildNetwork(NBNetBuilder& nb) {
         // check values
         bool hadError = false;
         if (oc.getInt("spider.arm-number") < 3) {
-            WRITE_ERROR("Spider networks need at least 3 arms.");
+            WRITE_ERROR(TL("Spider networks need at least 3 arms."));
             hadError = true;
         }
         if (oc.getInt("spider.arm-number") > 4 && oc.isDefault("spider.omit-center")) {
-            WRITE_WARNING("Spider networks with many arms should use option ommit-center");
+            WRITE_WARNING(TL("Spider networks with many arms should use option ommit-center"));
         }
         if (oc.getInt("spider.circle-number") < 1) {
-            WRITE_ERROR("Spider networks need at least one circle.");
+            WRITE_ERROR(TL("Spider networks need at least one circle."));
             hadError = true;
         }
         minLength = MAX2(minLength, laneWidth * 2 * MAX2(oc.getInt("spider.arm-number"), 3) / (2 * M_PI));
@@ -172,7 +172,7 @@ buildNetwork(NBNetBuilder& nb) {
         // check values
         bool hadError = false;
         if (xNo < 1 || yNo < 1 || (xAttachLength == 0 && yAttachLength == 0 && (xNo < 2 && yNo < 2))) {
-            WRITE_ERROR("The number of nodes must be positive and at least 2 in one direction if there are no attachments.");
+            WRITE_ERROR(TL("The number of nodes must be positive and at least 2 in one direction if there are no attachments."));
             hadError = true;
         }
         const double minAttachLength = minLength / 2 + POSITION_EPS / 2;
@@ -264,7 +264,7 @@ main(int argc, char** argv) {
         net->toNB();
         delete net;
         // report generated structures
-        WRITE_MESSAGE(" Generation done;");
+        WRITE_MESSAGE(TL(" Generation done;"));
         WRITE_MESSAGE("   " + toString<int>(nb.getNodeCont().size()) + " nodes generated.");
         WRITE_MESSAGE("   " + toString<int>(nb.getEdgeCont().size()) + " edges generated.");
         if (oc.getBool("tls.discard-simple")) {

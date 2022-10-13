@@ -219,7 +219,7 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                     if (myHardFail) {
                         throw ProcessError("Invalid parsing embedded VType");
                     } else {
-                        WRITE_ERROR("Invalid parsing embedded VType");
+                        WRITE_ERROR(TL("Invalid parsing embedded VType"));
                     }
                 }
             }

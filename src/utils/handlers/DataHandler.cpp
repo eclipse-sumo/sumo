@@ -108,7 +108,7 @@ DataHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 parseTAZRelationData(attrs);
                 break;
             case SUMO_TAG_PARAM:
-                WRITE_WARNING("Data elements cannot load attributes as params");
+                WRITE_WARNING(TL("Data elements cannot load attributes as params"));
                 break;
             default:
                 break;

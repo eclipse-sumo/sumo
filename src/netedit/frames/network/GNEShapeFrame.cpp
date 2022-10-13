@@ -160,7 +160,7 @@ GNEShapeFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) {
         std::string geoPosStr = myCoordinatesTextField->getText().text();
         if (geoPosStr.empty()) {
             // use clipboard
-            WRITE_WARNING("Using clipboard");
+            WRITE_WARNING(TL("Using clipboard"));
             geoPosStr = GUIUserIO::copyFromClipboard(*getApp());
             myCoordinatesTextField->setText(geoPosStr.c_str());
             // remove spaces, update cartesian value
@@ -411,7 +411,7 @@ GNEShapeFrame::shapeDrawed() {
         myShapeAttributes->showWarningMessage();
         return false;
     } else if (myDrawingShape->getTemporalShape().size() == 0) {
-        WRITE_WARNING("Polygon shape cannot be empty");
+        WRITE_WARNING(TL("Polygon shape cannot be empty"));
         return false;
     } else {
         // create baseShape object

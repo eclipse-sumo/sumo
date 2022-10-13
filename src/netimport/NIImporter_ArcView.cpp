@@ -257,10 +257,10 @@ NIImporter_ArcView::load() {
                 }
             }
             if (2 * outOfRange > cgeom->getNumPoints()) {
-                WRITE_WARNING("No coordinate system found and coordinates look already projected.");
+                WRITE_WARNING(TL("No coordinate system found and coordinates look already projected."));
                 GeoConvHelper::init("!", GeoConvHelper::getProcessing().getOffset(), GeoConvHelper::getProcessing().getOrigBoundary(), GeoConvHelper::getProcessing().getConvBoundary());
             } else {
-                WRITE_WARNING("Could not find geo coordinate system, assuming WGS84.");
+                WRITE_WARNING(TL("Could not find geo coordinate system, assuming WGS84."));
             }
             warnMissingProjection = false;
         }
@@ -376,7 +376,7 @@ NIImporter_ArcView::load() {
 #endif
     PROGRESS_DONE_MESSAGE();
 #else
-    WRITE_ERROR("SUMO was compiled without GDAL support.");
+    WRITE_ERROR(TL("SUMO was compiled without GDAL support."));
 #endif
 }
 

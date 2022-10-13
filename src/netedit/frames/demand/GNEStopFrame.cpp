@@ -186,7 +186,7 @@ bool
 GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed) {
     // first check stop type
     if (myStopTagSelector->getCurrentTemplateAC() == nullptr) {
-        WRITE_WARNING("Selected Stop type isn't valid.");
+        WRITE_WARNING(TL("Selected Stop type isn't valid."));
         return false;
     }
     // check if we're selecting a new stop parent
@@ -197,13 +197,13 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
             WRITE_WARNING("Selected " + objectsUnderCursor.getDemandElementFront()->getTagStr() + " '" + objectsUnderCursor.getDemandElementFront()->getID() + "' as stop parent.");
             return true;
         } else {
-            WRITE_WARNING("Selected Stop parent isn't valid.");
+            WRITE_WARNING(TL("Selected Stop parent isn't valid."));
             return false;
         }
     } else {
         // now check if stop parent selector is valid
         if (myStopParentSelector->getCurrentDemandElement() == nullptr) {
-            WRITE_WARNING("Current selected Stop parent isn't valid.");
+            WRITE_WARNING(TL("Current selected Stop parent isn't valid."));
             return false;
         }
         // create stop base object
@@ -234,7 +234,7 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
     SUMOVehicleParameter::Stop stop;
     // first check that current selected Stop is valid
     if (stopTag == SUMO_TAG_NOTHING) {
-        WRITE_WARNING("Current selected Stop type isn't valid.");
+        WRITE_WARNING(TL("Current selected Stop type isn't valid."));
         return false;
     } else if ((stopTag == SUMO_TAG_STOP_LANE) || (stopTag == GNE_TAG_WAYPOINT_LANE)) {
         if (lane) {
@@ -333,7 +333,7 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
             }
         }
         if (!found) {
-            WRITE_WARNING("Stop must be placed over a route's edge");
+            WRITE_WARNING(TL("Stop must be placed over a route's edge"));
             return false;
         }
     }
@@ -346,7 +346,7 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
             }
         }
         if (!found) {
-            WRITE_WARNING("Stop must be placed over an embeded route's edge");
+            WRITE_WARNING(TL("Stop must be placed over an embeded route's edge"));
             return false;
         }
     }

@@ -86,7 +86,7 @@ XMLSubSys::setValidation(const std::string& validationScheme, const std::string&
 #endif
         const char* sumoPath = std::getenv("SUMO_HOME");
         if (sumoPath == nullptr) {
-            WRITE_WARNING("Environment variable SUMO_HOME is not set, XML validation will fail or use slow website lookups.");
+            WRITE_WARNING(TL("Environment variable SUMO_HOME is not set, XML validation will fail or use slow website lookups."));
             return;
         }
         if (StringUtils::startsWith(sumoPath, "http:") || StringUtils::startsWith(sumoPath, "https:") || StringUtils::startsWith(sumoPath, "ftp:")) {

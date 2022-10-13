@@ -191,19 +191,19 @@ checkOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
     bool ok = true;
     if (!oc.isSet("taz-files")) {
-        WRITE_ERROR("No TAZ input file (-n) specified.");
+        WRITE_ERROR(TL("No TAZ input file (-n) specified."));
         ok = false;
     }
     if (!oc.isSet("od-matrix-files") && !oc.isSet("od-amitran-files") && !oc.isSet("tazrelation-files")) {
-        WRITE_ERROR("No input specified.");
+        WRITE_ERROR(TL("No input specified."));
         ok = false;
     }
     if (!oc.isSet("output-file") && !oc.isSet("flow-output")) {
-        WRITE_ERROR("No trip table output file (-o) or flow-output is specified.");
+        WRITE_ERROR(TL("No trip table output file (-o) or flow-output is specified."));
         ok = false;
     }
     if (oc.getBool("pedestrians") && oc.getBool("persontrips")) {
-        WRITE_ERROR("Only one of the the options 'pedestrians' and 'persontrips' may be set.");
+        WRITE_ERROR(TL("Only one of the the options 'pedestrians' and 'persontrips' may be set."));
         ok = false;
     }
     //

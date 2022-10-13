@@ -462,7 +462,7 @@ NIXMLEdgesHandler::addLane(const SUMOSAXAttributes& attrs) {
 void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
     if (myCurrentEdge == nullptr) {
         if (!OptionsCont::getOptions().isInStringVector("remove-edges.explicit", myCurrentID)) {
-            WRITE_WARNING("Ignoring 'split' because it cannot be assigned to an edge");
+            WRITE_WARNING(TL("Ignoring 'split' because it cannot be assigned to an edge"));
         }
         return;
     }

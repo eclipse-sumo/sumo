@@ -221,7 +221,7 @@ PCLoaderDlrNavteq::loadPolyFile(const std::string& file,
             continue;
         }
         if (id == "") {
-            WRITE_WARNING("The name of a polygon is missing; it will be discarded.");
+            WRITE_WARNING(TL("The name of a polygon is missing; it will be discarded."));
             continue;
         }
 

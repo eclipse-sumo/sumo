@@ -303,7 +303,7 @@ MSVehicle::Influencer::GapControlState::init() {
         MSNet::VehicleStateListener* vsl = dynamic_cast<MSNet::VehicleStateListener*>(&vehStateListener);
         MSNet::getInstance()->addVehicleStateListener(vsl);
     } else {
-        WRITE_ERROR("MSVehicle::Influencer::GapControlState::init(): No MSNet instance found!")
+        WRITE_ERROR(TL("MSVehicle::Influencer::GapControlState::init(): No MSNet instance found!"))
     }
 }
 
@@ -316,7 +316,7 @@ MSVehicle::Influencer::GapControlState::cleanup() {
 void
 MSVehicle::Influencer::GapControlState::activate(double tauOrig, double tauNew, double additionalGap, double dur, double rate, double decel, const MSVehicle* refVeh) {
     if (MSGlobals::gUseMesoSim) {
-        WRITE_ERROR("No gap control available for meso.")
+        WRITE_ERROR(TL("No gap control available for meso."))
     } else {
         // always deactivate control before activating (triggers clean-up of refVehMap)
 //        std::cout << "activate gap control with refVeh=" << (refVeh==nullptr? "NULL" : refVeh->getID()) << std::endl;
