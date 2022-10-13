@@ -41,7 +41,7 @@ netedit.selectTLSMode()
 netedit.leftClick(referencePosition, 320, 220)
 
 # reset single TLS phase
-netedit.resetSingleTLSPhases()
+netedit.resetSingleTLSPhases(False)
 
 # type ESC (for undo-redo)
 netedit.typeEscape()

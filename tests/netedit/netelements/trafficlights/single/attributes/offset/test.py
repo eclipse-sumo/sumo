@@ -44,13 +44,13 @@ netedit.leftClick(referencePosition, 320, 220)
 netedit.createTLS()
 
 # set invalid edge
-netedit.modifyAttribute(netedit.attrs.TLS.common.offset, "dummyOffset", False)
+netedit.modifyAttribute(netedit.attrs.TLS.single.attributes.offset, "dummyOffset", False)
 
 # set invalid edge
-netedit.modifyAttribute(netedit.attrs.TLS.common.offset, "-20", False)
+netedit.modifyAttribute(netedit.attrs.TLS.single.attributes.offset, "-20", False)
 
 # set invalid edge
-netedit.modifyAttribute(netedit.attrs.TLS.common.offset, "13", False)
+netedit.modifyAttribute(netedit.attrs.TLS.single.attributes.offset, "13", False)
 
 # type enter to save changes
 netedit.typeEnter()

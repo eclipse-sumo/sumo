@@ -2266,10 +2266,10 @@ def resetSingleTLSPhases(joined):
     focusOnFrame()
     # type tab 2 times to jump to create TLS button
     if (joined):
-        for _ in range(attrs.TLS.deleteJoined):
+        for _ in range(attrs.TLS.resetPhaseSingle):
             typeTab()
     else:
-        for _ in range(attrs.TLS.deleteSingle):
+        for _ in range(attrs.TLS.resetPhaseJoined):
             typeTab()
     # create TLS
     typeSpace()
