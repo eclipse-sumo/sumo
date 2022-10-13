@@ -11,7 +11,6 @@ errors:Requested command not implemented (0xac): GUI
 errors:GUI is not running
 output:***Starting server on port
 output:TraCI {REPLACE Libsumo }
-output:version .* started via libsumo {REPLACE started }
 output:legacy getNextStops
 output:Using libsumo as traci as requested by environment variable.
 output:FatalTraCIError 'Infeasible context domain \([0-9]*\)'{REPLACE FatalTraCIError 'connection closed by SUMO'}

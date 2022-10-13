@@ -108,6 +108,7 @@ output:function .* called at .*
 output:function .* finished after .*
 output:SUMO_HOME: .* --xml-validation{REPLACE SUMO_HOME: <SUMO_HOME> --xml-validation}
 output:Cannot read local schema .*,{REPLACE Cannot read local schema <schema>,}
+output:version .* started via libsumo {REPLACE started }
 log:Simulation.*started with{REPLACE Simulation started with}
 log:Starting server on port [0-9]*{REPLACE Starting server on port <PORT>}
 log:^Performance:{->}^Vehicles:
