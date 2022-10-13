@@ -70,9 +70,14 @@ MSStateHandler::MSStateTimeHandler::getTime(const std::string& fileName) {
     handler.setFileName(fileName);
     handler.myTime = -1;
     SUMOSAXReader* parser = XMLSubSys::getSAXReader(handler);
-    if (!parser->parseFirst(fileName)) {
+    try {
+        if (!parser->parseFirst(fileName)) {
+            delete parser;
+            throw ProcessError("Can not read XML-file '" + fileName + "'.");
+        }
+    } catch (ProcessError&) {
         delete parser;
-        throw ProcessError("Can not read XML-file '" + fileName + "'.");
+        throw;
     }
     // parse
     while (parser->parseNext() && handler.myTime != -1);
