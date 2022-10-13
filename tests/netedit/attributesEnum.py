@@ -2624,8 +2624,8 @@ class transportEdgeContainerStop:
         lines = 8
 
     class inspect:
-        to = 1
-        lines = 2
+        to = 2
+        lines = 1
 
     class inspectSelection:
         lines = 1
