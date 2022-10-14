@@ -16,7 +16,5 @@ Warning: ambiguous zip code '12489;12345' for edge '415852868'. (using first val
 Warning: ambiguous zip code '12489;12345' for edge '415852956'. (using first value)
 Warning: ambiguous zip code '12489;12345' for edge '415852957'. (using first value)
 Warning: ambiguous zip code '12489;12345;67890' for edge '415852979'. (using first value)
-Warning: ambiguous zip code '12489;12345;67890' for edge '415852980'. (using first value)
-Warning: ambiguous zip code '12489;12345;67890' for edge '415852981'. (using first value)
-Warning: ambiguous zip code '12487; 12345' for edge '415852982'. (using first value)
 Warning: 12 total messages of type: Discarding unknown compound '%' in type '%' (first occurence for edge '%').
+Warning: 8 total messages of type: ambiguous zip code '%' for edge '%'. (using first value)

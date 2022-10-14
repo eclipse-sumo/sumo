@@ -436,12 +436,12 @@ std::string
 NWWriter_DlrNavteq::getSinglePostalCode(const std::string& zipCode, const std::string edgeID) {
     // might be multiple codes
     if (zipCode.find_first_of(" ,;") != std::string::npos) {
-        WRITE_WARNING("ambiguous zip code '" + zipCode + "' for edge '" + edgeID + "'. (using first value)");
+        WRITE_WARNINGF("ambiguous zip code '%' for edge '%'. (using first value)", zipCode, edgeID);
         StringTokenizer st(zipCode, " ,;", true);
         std::vector<std::string> ret = st.getVector();
         return ret[0];
     } else if (zipCode.size() > 16) {
-        WRITE_WARNING("long zip code '" + zipCode + "' for edge '" + edgeID + "'");
+        WRITE_WARNINGF("long zip code '%' for edge '%'", zipCode, edgeID);
     }
     return zipCode;
 }
