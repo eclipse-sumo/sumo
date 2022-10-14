@@ -147,12 +147,18 @@ GNETranship::writeDemandElement(OutputDevice& device) const {
             device.writeAttr(SUMO_ATTR_TO, getParentEdges().back()->getID());
         }
     }
+    // only write departPos if is different of -1
+    if (myDepartPosition != -1) {
+        device.writeAttr(SUMO_ATTR_DEPARTPOS, myDepartPosition);
+    }
     // only write arrivalPos if is different of -1
     if (myArrivalPosition != -1) {
         device.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPosition);
     }
-    // write parameters
-    writeParams(device);
+    // only write speed if is different of 1.39
+    if (mySpeed != 1.39) {
+        device.writeAttr(SUMO_ATTR_SPEED, mySpeed);
+    }
     // close tag
     device.closeTag();
 }
