@@ -50,7 +50,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 430, 58)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.transhipEdgeContainerStop.inspectSelection.lines, "custom line", False)
+netedit.modifyAttribute(netedit.attrs.transhipEdgeContainerStop.inspectSelection.speed, "dummySpeed", False)
+
+# change depart with an invalid value
+netedit.modifyAttribute(netedit.attrs.transhipEdgeContainerStop.inspectSelection.speed, "12.3", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

@@ -59,7 +59,13 @@ netedit.changeContainerPlanMode("tranship: edge->containerStop")
 netedit.leftClick(referencePosition, 290, 20)
 
 # set invalid container number
-netedit.changeDefaultValue(netedit.attrs.transhipEdgeContainerStop.create.lines, "custom line")
+netedit.changeDefaultValue(netedit.attrs.transhipEdgeContainerStop.create.departPos, "dummyPos")
+
+# press enter to create route
+netedit.typeEnter()
+
+# set invalid container number
+netedit.changeDefaultValue(netedit.attrs.transhipEdgeContainerStop.create.departPos, "12.3")
 
 # press enter to create route
 netedit.typeEnter()

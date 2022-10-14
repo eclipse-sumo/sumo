@@ -68,7 +68,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 430, 58)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.transhipEdgeContainerStop.inspect.lines, "custom line", False)
+netedit.modifyAttribute(netedit.attrs.transhipEdgeContainerStop.inspect.departPos, "dummyDepartPos", False)
+
+# change depart with an invalid value
+netedit.modifyAttribute(netedit.attrs.transhipEdgeContainerStop.inspect.departPos, "7.3", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)
