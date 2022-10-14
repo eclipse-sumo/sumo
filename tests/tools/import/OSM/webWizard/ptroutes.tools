@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-14 01:11:12.687743 by $Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $ v1_14_1+1713-d43b24e5700
+<!-- generated on 2022-10-14 09:00:28.451895 by $Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $ v1_14_1+1726-34809a2e1c7
   options: <doubleminus>test-output test
 -->
 
@@ -14,7 +14,7 @@
     <vType id="pt_trolleybus" vClass="bus"/>
     <vType id="pt_minibus" vClass="bus"/>
     <vType id="pt_share_taxi" vClass="taxi"/>
-    <vType id="pt_aerialway" vClass="bus"/>
+    <vType id="pt_aerialway" vClass="rail_urban" length="2.5" width="2" personCapacity="4"/>
     <vType id="pt_ferry" vClass="ship"/>
     <route id="pt_light_rail_S1:0" color="212,116,174" edges="109444375" >
         <stop busStop="30353449" duration="20" until="69.0"/> <!-- S Oranienburger Straße -->
