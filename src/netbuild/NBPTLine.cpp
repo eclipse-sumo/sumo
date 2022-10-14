@@ -53,7 +53,8 @@ void NBPTLine::addPTStop(NBPTStop* pStop) {
     myPTStops.push_back(pStop);
 }
 
-std::vector<NBPTStop*> NBPTLine::getStops() {
+const std::vector<NBPTStop*>&
+NBPTLine::getStops() {
     return myPTStops;
 }
 

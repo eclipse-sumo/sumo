@@ -56,7 +56,7 @@ public:
         return myType;
     }
 
-    std::vector<NBPTStop*> getStops();
+    const std::vector<NBPTStop*>& getStops();
     void write(OutputDevice& device);
     void addWayNode(long long int way, long long int node);
 
