@@ -38,7 +38,7 @@ from sumolib.net.lane import is_vehicle_class  # noqa
 DUAROUTER = sumolib.checkBinary('duarouter')
 
 SOURCE_SUFFIX = ".src.xml"
-SINK_SUFFIX = ".dst.xml"
+DEST_SUFFIX = ".dst.xml"
 VIA_SUFFIX = ".via.xml"
 
 NET = None  # Used as a cache for the net throughout the whole script.
@@ -66,7 +66,7 @@ def get_options(args=None):
                     help="Store generated vehicle types in a separate file")
     op.add_argument("--weights-prefix", dest="weightsprefix",
                     help="loads probabilities for being source, destination and via-edge from the files named " +
-                    "<prefix>.src.xml, <prefix>.sink.xml and <prefix>.via.xml")
+                    "<prefix>.src.xml, <prefix>.dst.xml and <prefix>.via.xml")
     op.add_argument("--weights-output-prefix", dest="weights_outprefix",
                     help="generates weights files for visualisation")
     op.add_argument("--pedestrians", action="store_true",
@@ -252,6 +252,12 @@ def get_options(args=None):
                   file=sys.stderr)
             sys.exit(1)
 
+    if options.weightsprefix:
+        weight_files = [options.weightsprefix + s for s in (SOURCE_SUFFIX, DEST_SUFFIX, VIA_SUFFIX)]
+        if not any([os.path.isfile(w) for w in weight_files]):
+            print("Error: None of the weight files '%s' exists." % "', '".join(weight_files), file=sys.stderr)
+            sys.exit(1)
+
     if options.viaEdgeTypes:
         options.viaEdgeTypes = options.viaEdgeTypes.split(',')
     if options.fringe_speed_exponent is None:
@@ -426,9 +432,9 @@ def buildTripGenerator(net, options):
             if os.path.isfile(options.weightsprefix + SOURCE_SUFFIX):
                 source_generator = RandomEdgeGenerator(
                     net, LoadedProps(options.weightsprefix + SOURCE_SUFFIX))
-            if os.path.isfile(options.weightsprefix + SINK_SUFFIX):
+            if os.path.isfile(options.weightsprefix + DEST_SUFFIX):
                 sink_generator = RandomEdgeGenerator(
-                    net, LoadedProps(options.weightsprefix + SINK_SUFFIX))
+                    net, LoadedProps(options.weightsprefix + DEST_SUFFIX))
     except InvalidGenerator:
         print("Error: no valid edges for generating source or destination. Try using option --allow-fringe",
               file=sys.stderr)
@@ -807,7 +813,7 @@ def main(options):
             options.weights_outprefix + SOURCE_SUFFIX,
             idPrefix + "src", options.begin, options.end)
         trip_generator.sink_generator.write_weights(
-            options.weights_outprefix + SINK_SUFFIX,
+            options.weights_outprefix + DEST_SUFFIX,
             idPrefix + "dst", options.begin, options.end)
         if trip_generator.via_generator:
             trip_generator.via_generator.write_weights(
