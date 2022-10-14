@@ -829,6 +829,37 @@ NBRailwayTopologyAnalyzer::addBidiEdgesBetweenSwitches(NBEdgeCont& ec) {
 }
 
 
+std::set<NBPTLine*>
+NBRailwayTopologyAnalyzer::findBidiCandidates(NBPTLineCont& lc) {
+    std::set<NBPTLine*>  result;
+    std::set<std::pair<NBPTStop*, NBPTStop*> > visited;
+    for (const auto& item : lc.getLines()) {
+        const std::vector<NBPTStop*>& stops = item.second->getStops();
+        if (stops.size() > 1) {
+            for (auto it = stops.begin(); it + 1 != stops.end(); ++it) {
+                NBPTStop* fromStop = *it;
+                NBPTStop* toStop = *(it + 1);
+                visited.insert({fromStop, toStop});
+            }
+        }
+    }
+    for (const auto& item : lc.getLines()) {
+        const std::vector<NBPTStop*>& stops = item.second->getStops();
+        if (stops.size() > 1) {
+            for (auto it = stops.begin(); it + 1 != stops.end(); ++it) {
+                NBPTStop* fromStop = *it;
+                NBPTStop* toStop = *(it + 1);
+                std::pair<NBPTStop*, NBPTStop*> reverseTrip({toStop, fromStop});
+                if (visited.count(reverseTrip)) {
+                    result.insert(item.second);
+                    break;
+                }
+            }
+        }
+    }
+    return result;
+}
+
 int
 NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBEdgeCont& ec, NBPTLineCont& lc) {
     const bool minimal = OptionsCont::getOptions().getBool("railway.topology.repair.minimal");
@@ -914,6 +945,12 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBEdgeCont& ec, NBPTLineCont& lc
     std::set<NBEdge*, ComparatorIdLess> addBidiStops;
     std::set<NBEdge*, ComparatorIdLess> addBidiEdges;
     std::set<std::pair<std::string, std::string> > visited;
+
+    // the isConsistent heuristic may fail in some cases. If we observe that a
+    // specific sequence of stop ids in encoded in both directions, we take this
+    // as a reason to overrule the heuristic
+    std::set<NBPTLine*> requireBidi = findBidiCandidates(lc);
+
     for (const auto& item : lc.getLines()) {
         NBPTLine* line = item.second;
         std::vector<std::pair<NBEdge*, std::string> > stops = line->getStopEdges(ec);
@@ -932,7 +969,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBEdgeCont& ec, NBPTLineCont& lc
         for (auto it : stops) {
             stopEdges.push_back(it.first);
         }
-        if (!line->isConsistent(stopEdges)) {
+        if (!line->isConsistent(stopEdges) && requireBidi.count(line) == 0) {
             WRITE_WARNINGF(TL("Edge sequence is not consistent with stop sequence in line '%', not adding bidi edges."), item.first);
             continue;
         }
