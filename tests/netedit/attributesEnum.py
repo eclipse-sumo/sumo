@@ -2631,21 +2631,6 @@ class transportEdgeContainerStop:
         lines = 1
 
 
-class transportEdges:
-    class create:
-        arrivalPos = 8
-        lines = 9
-
-    class inspect:
-        edges = 1
-        arrivalPos = 2
-        lines = 3
-
-    class inspectSelection:
-        arrivalPos = 1
-        lines = 2
-
-
 class transhipEdgeEdge:
     class create:
         departPos = 8
@@ -2677,6 +2662,24 @@ class transhipEdgeContainerStop:
     class inspectSelection:
         departPos = 1
         speed = 2
+
+
+class transhipEdges:
+    class create:
+        departPos = 8
+        arrivalPos = 9
+        speed = 9
+
+    class inspect:
+        edges = 1
+        departPos = 2
+        arrivalPos = 3
+        speed = 4
+
+    class inspectSelection:
+        departPos = 1
+        arrivalPos = 2
+        speed = 3
 
 # --------------------------------
 # DATA ELEMENTS

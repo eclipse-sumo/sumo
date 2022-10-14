@@ -4,7 +4,8 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 tranship: edge->edge
 TestFunctions: Clicked over position 578 - 568
 TestFunctions: Clicked over position 384 - 578
-tranship: edge->edge
+tranship: edges
+TestFunctions: Clicked over position 864 - 408
 TestFunctions: Clicked over position 484 - 223
 dummySpeed
 12.45
