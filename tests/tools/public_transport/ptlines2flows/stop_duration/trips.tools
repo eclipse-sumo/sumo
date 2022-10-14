@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-13 23:35:13.106700 by $Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $ v1_14_1+1703-0d7ac1f
+<!-- generated on 2022-10-14 08:28:29.072325 by $Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $ v1_14_1+1719-6559bfb
   options: -n net.net.xml -s input_additional.add.xml -l ptlines.xml -o out.flows.xml -p 600 <doubleminus>stop-duration 60 -v
 -->
 
@@ -14,7 +14,7 @@
     <vType id="trolleybus" vClass="bus" speedFactor="0.95"/>
     <vType id="minibus" vClass="bus" speedFactor="0.95"/>
     <vType id="share_taxi" vClass="taxi" speedFactor="0.95"/>
-    <vType id="aerialway" vClass="bus"/>
+    <vType id="aerialway" vClass="rail_urban" length="2.5" width="2" personCapacity="4"/>
     <vType id="ferry" vClass="ship"/>
     <trip id="0_bus_104:0" type="bus" depart="0" departLane="best" from="110450334#1" to="391493954#3">
         <stop busStop="3959807221" duration="70.0"/>
