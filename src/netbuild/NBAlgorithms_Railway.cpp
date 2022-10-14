@@ -117,7 +117,7 @@ NBRailwayTopologyAnalyzer::repairTopology(NBEdgeCont& ec, NBPTStopCont& sc, NBPT
     addedBidi += addBidiEdgesForBufferStops(ec);
     addedBidi += addBidiEdgesBetweenSwitches(ec);
     if (lc.getLines().size() > 0) {
-        addedBidi += addBidiEdgesForStops(ec, lc);
+        addedBidi += addBidiEdgesForStops(ec, lc, sc);
     }
     if (OptionsCont::getOptions().getBool("railway.topology.repair.connect-straight")) {
         addedBidi += addBidiEdgesForStraightConnectivity(ec, true);
@@ -861,7 +861,7 @@ NBRailwayTopologyAnalyzer::findBidiCandidates(NBPTLineCont& lc) {
 }
 
 int
-NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBEdgeCont& ec, NBPTLineCont& lc) {
+NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBEdgeCont& ec, NBPTLineCont& lc, NBPTStopCont& sc) {
     const bool minimal = OptionsCont::getOptions().getBool("railway.topology.repair.minimal");
     // generate bidirectional routing graph
     std::vector<Track*> tracks;
@@ -1003,8 +1003,8 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBEdgeCont& ec, NBPTLineCont& lc
                     if (route[i]->getNumericalID() >= numEdges || needBidi) {
                         NBEdge* edge = route[i]->edge;
                         if (addBidiEdges.count(edge) == 0) {
+                            bool isStop = i == 1 || i == (int)route.size() - 2;
                             if (!edge->isBidiRail(true)) {
-                                bool isStop = i == 1 || i == (int)route.size() - 2;
                                 if (edge->getLaneSpreadFunction() == LaneSpreadFunction::CENTER) {
                                     addBidiEdges.insert(edge);
                                     if (isStop) {
@@ -1014,6 +1014,15 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBEdgeCont& ec, NBPTLineCont& lc
                                     if (isStop) {
                                         WRITE_WARNINGF(TL("Stop on edge '%' can only be reached in reverse but edge has the wrong spreadType."), fromEdge->getID());
                                     }
+                                }
+                            } else if (isStop && needBidi) {
+                                NBPTStop* fromReverse = sc.getReverseStop(sc.get(fromStop), ec);
+                                if (fromReverse) {
+                                    sc.insert(fromReverse);
+                                }
+                                NBPTStop* toReverse = sc.getReverseStop(sc.get(toStop), ec);
+                                if (toReverse) {
+                                    sc.insert(toReverse);
                                 }
                             }
                         }
