@@ -34,6 +34,7 @@ with open("failTests.txt", "w") as fp:
             lineStrip = lineStrip.replace("\t", " ")
             lineStrip = lineStrip.replace("(+)", " ")
             lineStrip = lineStrip.replace("ok", "")
+            lineStrip = lineStrip.replace("N/A", "")
             lineStrip = lineStrip.replace("ts-sim-build-ba", "")
             lineStrip = lineStrip.replace("errors different", "")
             lineStrip = lineStrip.replace("net different", "")
