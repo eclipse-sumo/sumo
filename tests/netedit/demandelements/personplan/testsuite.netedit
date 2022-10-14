@@ -10,6 +10,8 @@ walk_edgebusstop
 
 walk_junctions
 
+walk_edges
+
 ride_edgeedge
 
 ride_edgebusstop
