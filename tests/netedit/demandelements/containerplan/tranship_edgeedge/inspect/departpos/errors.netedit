@@ -75,7 +75,7 @@ Debug: Selected item 'c_0' in DemandElementSelector
 Debug: Selected item 'tranship: edge->edge' in GNETagSelector
 Debug: Key ENTER pressed
 Debug: Adding tranship: edge->edge 'c_0' in GNEChange_DemandElement
-Debug: Value 'dummy' for attribute arrivalPos of tranship: edge->edge isn't valid
+Debug: Value 'dummy' for attribute departPos of tranship: edge->edge isn't valid
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute

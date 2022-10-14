@@ -65,7 +65,7 @@ netedit.typeEnter()
 netedit.deleteMode()
 
 # delete transhipEdgeEdge
-netedit.leftClick(referencePosition, 158, 65)
+netedit.leftClick(referencePosition, 430, 58)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

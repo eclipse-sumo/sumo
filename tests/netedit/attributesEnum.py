@@ -2630,6 +2630,39 @@ class transportEdgeContainerStop:
     class inspectSelection:
         lines = 1
 
+
+class transhipEdgeEdge:
+    class create:
+        departPos = 8
+        arrivalPos = 9
+        speed = 9
+
+    class inspect:
+        to = 1
+        departPos = 2
+        arrivalPos = 3
+        speed = 4
+
+    class inspectSelection:
+        departPos = 1
+        arrivalPos = 2
+        speed = 3
+        
+
+class transhipEdgeContainerStop:
+    class create:
+        departPos = 8
+        speed = 9
+
+    class inspect:
+        to = 1
+        departPos = 2
+        speed = 3
+
+    class inspectSelection:
+        departPos = 1
+        speed = 2
+
 # --------------------------------
 # DATA ELEMENTS
 # --------------------------------

@@ -75,6 +75,7 @@ Debug: Selected item 'c_0' in DemandElementSelector
 Debug: Selected item 'tranship: edge->containerStop' in GNETagSelector
 Debug: Key ENTER pressed
 Debug: Adding tranship: edge->containerStop 'c_0' in GNEChange_DemandElement
+Debug: Value 'dummySpeed' for attribute speed of tranship: edge->containerStop isn't valid
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()

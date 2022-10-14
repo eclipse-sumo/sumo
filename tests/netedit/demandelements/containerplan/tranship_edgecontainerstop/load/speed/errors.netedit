@@ -17,9 +17,13 @@ GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
 Debug: Adding containerStop 'containerStopA' in GNEChange_Additional
 Debug: Adding containerStop 'containerStopB' in GNEChange_Additional
+Error: Attribute 'speed' in definition of a tranship Invalid Number Format (double) dummySpeed.
 Debug: Adding container 'c_0' in GNEChange_DemandElement
 Debug: Adding tranship: edge->edge 'c_0' in GNEChange_DemandElement
-Debug: Adding tranship: edge->containerStop 'c_0' in GNEChange_DemandElement
+Debug: Adding container 'c_1' in GNEChange_DemandElement
+Debug: Adding tranship: edge->edge 'c_1' in GNEChange_DemandElement
+Debug: Adding tranship: edge->containerStop 'c_1' in GNEChange_DemandElement
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.14Oct103313.1796\netedit.gui\demandelements\containerplan\tranship_edgecontainerstop\load\speed\input_routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00
@@ -69,14 +73,18 @@ Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing tranship: edge->containerStop 'c_0' in GNEChange_DemandElement
+Debug: Removing tranship: edge->containerStop 'c_1' in GNEChange_DemandElement
+Debug: Removing tranship: edge->edge 'c_1' in GNEChange_DemandElement
+Debug: Removing container 'c_1' in GNEChange_DemandElement
 Debug: Removing tranship: edge->edge 'c_0' in GNEChange_DemandElement
 Debug: Removing container 'c_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding container 'c_0' in GNEChange_DemandElement
 Debug: Adding tranship: edge->edge 'c_0' in GNEChange_DemandElement
-Debug: Adding tranship: edge->containerStop 'c_0' in GNEChange_DemandElement
+Debug: Adding container 'c_1' in GNEChange_DemandElement
+Debug: Adding tranship: edge->edge 'c_1' in GNEChange_DemandElement
+Debug: Adding tranship: edge->containerStop 'c_1' in GNEChange_DemandElement
 Debug: demand elements saved
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
@@ -117,6 +125,8 @@ GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
 Debug: network elements saved
 Debug: Deleting unreferenced tranship: edge->containerStop
+Debug: Deleting unreferenced tranship: edge->edge
+Debug: Deleting unreferenced container
 Debug: Deleting unreferenced tranship: edge->edge
 Debug: Deleting unreferenced container
 Debug: Deleting unreferenced containerStop
