@@ -1,3 +1,1 @@
-Warning: Ignoring arrivalPos for container 'c_0' transhiping from edge 'gneE2' because it is outside the given stop 'containerStop'.
-Warning: Ignoring arrivalPos for container 'c_0' transhiping from edge 'gneE5' because it is outside the given stop 'containerStop'.
-Warning: Ignoring vehicle type 'type2' when routing container 'c_0' because it is not allowed on the start edge.
+Warning: Container 'c_0' aborted waiting for custom,line at busStop 'containerStopA'.

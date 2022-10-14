@@ -1,1 +1,1 @@
-Warning: Container 'c_0' aborted waiting for custom,line at edge 'gneE2'.
+Warning: Invalid departPos 49.60 given for container getting transhipped from gneE4. Using edge end instead.
