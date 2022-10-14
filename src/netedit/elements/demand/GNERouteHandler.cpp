@@ -838,7 +838,7 @@ void
 GNERouteHandler::buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& toEdgeID,
                                 const std::string& toContainerStopID, const std::vector<std::string>& lines, const double arrivalPos) {
     // get previous plan edge
-    const auto previousEdge = getPreviousPlanEdge(true, sumoBaseObject);
+    const auto previousEdge = getPreviousPlanEdge(false, sumoBaseObject);
     // first parse parents
     GNEDemandElement* containerParent = getContainerParent(sumoBaseObject);
     GNEEdge* fromEdge = myNet->getAttributeCarriers()->retrieveEdge(fromEdgeID, false);
@@ -891,7 +891,7 @@ void
 GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& toEdgeID,
                                const std::string& toContainerStopID, const std::vector<std::string>& edgeIDs, const double speed, const double departPosition, const double arrivalPosition) {
     // get previous plan edge
-    const auto previousEdge = getPreviousPlanEdge(true, sumoBaseObject);
+    const auto previousEdge = getPreviousPlanEdge(false, sumoBaseObject);
     // first parse parents
     GNEDemandElement* containerParent = getContainerParent(sumoBaseObject);
     GNEEdge* fromEdge = myNet->getAttributeCarriers()->retrieveEdge(fromEdgeID, false);
@@ -2099,20 +2099,24 @@ GNERouteHandler::getPreviousPlanEdge(const bool person, const CommonXMLStructure
         return nullptr;
     }
     // get last children
-    const CommonXMLStructure::SumoBaseObject* previousPersonPlan = *(it - 1);
+    const CommonXMLStructure::SumoBaseObject* previousPlan = *(it - 1);
     // check conditions
-    if ((previousPersonPlan->getTag() != SUMO_TAG_WALK) && (previousPersonPlan->getTag() != SUMO_TAG_RIDE) &&
-            (previousPersonPlan->getTag() != SUMO_TAG_PERSONTRIP) && (previousPersonPlan->getTag() != SUMO_TAG_STOP)) {
+    if (person && (previousPlan->getTag() != SUMO_TAG_WALK) && (previousPlan->getTag() != SUMO_TAG_RIDE) &&
+            (previousPlan->getTag() != SUMO_TAG_PERSONTRIP) && (previousPlan->getTag() != SUMO_TAG_STOP)) {
+        // invalid last child
+        return nullptr;
+    }
+    if (!person && (previousPlan->getTag() != SUMO_TAG_TRANSPORT) && (previousPlan->getTag() != SUMO_TAG_TRANSHIP)) {
         // invalid last child
         return nullptr;
     }
     // ends in an edge (only for stops)
-    if (previousPersonPlan->hasStringAttribute(SUMO_ATTR_EDGE)) {
-        return myNet->getAttributeCarriers()->retrieveEdge(previousPersonPlan->getStringAttribute(SUMO_ATTR_EDGE), false);
+    if (previousPlan->hasStringAttribute(SUMO_ATTR_EDGE)) {
+        return myNet->getAttributeCarriers()->retrieveEdge(previousPlan->getStringAttribute(SUMO_ATTR_EDGE), false);
     }
     // ends in a lane (only for stops)
-    if (previousPersonPlan->hasStringAttribute(SUMO_ATTR_LANE)) {
-        const auto lane = myNet->getAttributeCarriers()->retrieveLane(previousPersonPlan->getStringAttribute(SUMO_ATTR_LANE), false);
+    if (previousPlan->hasStringAttribute(SUMO_ATTR_LANE)) {
+        const auto lane = myNet->getAttributeCarriers()->retrieveLane(previousPlan->getStringAttribute(SUMO_ATTR_LANE), false);
         if (lane) {
             return lane->getParentEdge();
         } else {
@@ -2120,9 +2124,9 @@ GNERouteHandler::getPreviousPlanEdge(const bool person, const CommonXMLStructure
         }
     }
     // ends in a route (walk)
-    if (previousPersonPlan->hasStringAttribute(SUMO_ATTR_ROUTE) &&
-            !previousPersonPlan->getStringAttribute(SUMO_ATTR_ROUTE).empty()) {
-        const auto route = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, previousPersonPlan->getStringAttribute(SUMO_ATTR_ROUTE), false);
+    if (previousPlan->hasStringAttribute(SUMO_ATTR_ROUTE) &&
+            !previousPlan->getStringAttribute(SUMO_ATTR_ROUTE).empty()) {
+        const auto route = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, previousPlan->getStringAttribute(SUMO_ATTR_ROUTE), false);
         if (route) {
             return route->getParentEdges().back();
         } else {
@@ -2130,21 +2134,31 @@ GNERouteHandler::getPreviousPlanEdge(const bool person, const CommonXMLStructure
         }
     }
     // ends in a list of edges (walk)
-    if (previousPersonPlan->hasStringListAttribute(SUMO_ATTR_EDGES) &&
-            !previousPersonPlan->getStringListAttribute(SUMO_ATTR_EDGES).empty()) {
-        return myNet->getAttributeCarriers()->retrieveEdge(previousPersonPlan->getStringListAttribute(SUMO_ATTR_EDGES).back(), false);
+    if (previousPlan->hasStringListAttribute(SUMO_ATTR_EDGES) &&
+            !previousPlan->getStringListAttribute(SUMO_ATTR_EDGES).empty()) {
+        return myNet->getAttributeCarriers()->retrieveEdge(previousPlan->getStringListAttribute(SUMO_ATTR_EDGES).back(), false);
     }
     // ends in a "to" edge
-    if (previousPersonPlan->hasStringAttribute(SUMO_ATTR_TO) &&
-            !previousPersonPlan->getStringAttribute(SUMO_ATTR_TO).empty()) {
-        return myNet->getAttributeCarriers()->retrieveEdge(previousPersonPlan->getStringAttribute(SUMO_ATTR_TO), false);
+    if (previousPlan->hasStringAttribute(SUMO_ATTR_TO) &&
+            !previousPlan->getStringAttribute(SUMO_ATTR_TO).empty()) {
+        return myNet->getAttributeCarriers()->retrieveEdge(previousPlan->getStringAttribute(SUMO_ATTR_TO), false);
     }
     // ends in a "busStop"
-    if (previousPersonPlan->hasStringAttribute(SUMO_ATTR_BUS_STOP) &&
-            !previousPersonPlan->getStringAttribute(SUMO_ATTR_BUS_STOP).empty()) {
-        const auto busStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, previousPersonPlan->getStringAttribute(SUMO_ATTR_BUS_STOP), false);
+    if (previousPlan->hasStringAttribute(SUMO_ATTR_BUS_STOP) &&
+            !previousPlan->getStringAttribute(SUMO_ATTR_BUS_STOP).empty()) {
+        const auto busStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, previousPlan->getStringAttribute(SUMO_ATTR_BUS_STOP), false);
         if (busStop) {
             return busStop->getParentLanes().front()->getParentEdge();
+        } else {
+            return nullptr;
+        }
+    }
+    // ends in a "containerStop"
+    if (previousPlan->hasStringAttribute(SUMO_ATTR_CONTAINER_STOP) &&
+            !previousPlan->getStringAttribute(SUMO_ATTR_CONTAINER_STOP).empty()) {
+        const auto containerStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, previousPlan->getStringAttribute(SUMO_ATTR_CONTAINER_STOP), false);
+        if (containerStop) {
+            return containerStop->getParentLanes().front()->getParentEdge();
         } else {
             return nullptr;
         }
