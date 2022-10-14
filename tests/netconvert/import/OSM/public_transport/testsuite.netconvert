@@ -44,5 +44,8 @@ bus_stop_mix_stops_platforms_lefthand
 # wuppertal monorail
 monorail
 
+# wuppertal monorail
+monorail_all
+
 # medellin aerialway
 aerialway
