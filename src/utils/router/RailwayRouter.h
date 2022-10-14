@@ -116,6 +116,18 @@ public:
                 break;
             }
             backDist -= prev->getLength();
+            if (prev->getSuccessors().size() > 1) {
+                bool foundSwitch = false;
+                for (const E* succ : prev->getSuccessors()) {
+                    if (succ != start && succ != prev->getBidiEdge()) {
+                        foundSwitch = true;
+                        break;
+                    }
+                }
+                if (foundSwitch) {
+                    break;
+                }
+            }
             backLengths.push_back(prev->getLength() + (backLengths.empty() ? from->getLength() : backLengths.back()));
             start = prev;
         }
@@ -141,7 +153,7 @@ public:
                 // skip the virtual back-edges
                 into.erase(into.begin() + intoSize, into.begin() + intoSize + backLengths.size());
 #ifdef RailwayRouter_DEBUG_ROUTES
-                std::cout << "RailRouter: backLengths=" << toString(backLengths) << " final result=" << toString(into) << "\n";
+                std::cout << "RailRouter: backLengths=" << toString(backLengths) << " intoSize=" << intoSize << " final result=" << toString(into) << "\n";
 #endif
                 if (*(into.begin() + intoSize) != from) {
                     WRITE_WARNING("Railway routing failure due to turn-around on short edge '" + from->getID()
