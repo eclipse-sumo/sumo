@@ -4253,7 +4253,7 @@ GNEAttributeCarrier::fillContainerTransportElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::CONTAINERPLAN | GNETagProperties::TRANSPORT,
-                                      GNETagProperties::CHILD,
+                                      GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS,
                                       GUIIcon::TRANSPORT_CONTAINERSTOP, SUMO_TAG_TRANSPORT, { SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW });
         // from edge
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
@@ -4283,7 +4283,7 @@ GNEAttributeCarrier::fillContainerTransportElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::CONTAINERPLAN | GNETagProperties::TRANSPORT,
-                                      GNETagProperties::CHILD,
+                                      GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS,
                                       GUIIcon::TRANSPORT_CONTAINERSTOP, SUMO_TAG_TRANSPORT, { SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW });
         // from edge
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
@@ -4315,7 +4315,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::CONTAINERPLAN | GNETagProperties::TRANSHIP,
-                                      GNETagProperties::CHILD,
+                                      GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS,
                                       GUIIcon::TRANSHIP_CONTAINERSTOP, SUMO_TAG_TRANSHIP, { SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW });
         // from edge
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
@@ -4351,7 +4351,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::CONTAINERPLAN | GNETagProperties::TRANSHIP,
-                                      GNETagProperties::CHILD,
+                                      GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS,
                                       GUIIcon::TRANSHIP_CONTAINERSTOP, SUMO_TAG_TRANSHIP, { SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW });
         // from edge
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
@@ -4381,7 +4381,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::CONTAINERPLAN | GNETagProperties::TRANSHIP,
-                                      GNETagProperties::CHILD,
+                                      GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS,
                                       GUIIcon::TRANSHIP_EDGES, SUMO_TAG_TRANSHIP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
         // edges
         attrProperty = GNEAttributeProperties(SUMO_ATTR_EDGES,
@@ -4502,7 +4502,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::PERSONTRIP,
-                                      GNETagProperties::CHILD,
+                                      GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS,
                                       GUIIcon::PERSONTRIP_FROMTO, SUMO_TAG_PERSONTRIP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
         // from edge
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
@@ -4542,7 +4542,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::PERSONTRIP,
-                                      GNETagProperties::CHILD,
+                                      GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS,
                                       GUIIcon::PERSONTRIP_BUSSTOP, SUMO_TAG_PERSONTRIP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
         // from edge
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
@@ -4576,7 +4576,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::PERSONTRIP,
-                                      GNETagProperties::CHILD,
+                                      GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS,
                                       GUIIcon::PERSONTRIP_JUNCTIONS, SUMO_TAG_PERSONTRIP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
         // from edge
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROMJUNCTION,
@@ -4618,7 +4618,7 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::WALK,
-                                      GNETagProperties::CHILD,
+                                      GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS,
                                       GUIIcon::WALK_FROMTO, SUMO_TAG_WALK, { SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW }, FXRGBA(240, 255, 205, 255));
         // from edge
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
@@ -4642,7 +4642,7 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::WALK,
-                                      GNETagProperties::CHILD,
+                                      GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS,
                                       GUIIcon::WALK_BUSSTOP, SUMO_TAG_WALK, { SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW }, FXRGBA(240, 255, 205, 255));
         // from edge
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
@@ -4660,7 +4660,7 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::WALK,
-                                      GNETagProperties::CHILD,
+                                      GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS,
                                       GUIIcon::WALK_EDGES, SUMO_TAG_WALK, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(240, 255, 205, 255));
         // edges
         attrProperty = GNEAttributeProperties(SUMO_ATTR_EDGES,
@@ -4679,7 +4679,7 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::WALK,
-                                      GNETagProperties::CHILD,
+                                      GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS,
                                       GUIIcon::WALK_ROUTE, SUMO_TAG_WALK, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(240, 255, 205, 255));
         // route
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ROUTE,
@@ -4699,7 +4699,7 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::WALK,
-                                      GNETagProperties::CHILD,
+                                      GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS,
                                       GUIIcon::WALK_JUNCTIONS, SUMO_TAG_WALK, { SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW }, FXRGBA(240, 255, 205, 255));
         // from edge
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROMJUNCTION,
@@ -4725,7 +4725,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::RIDE,
-                                      GNETagProperties::CHILD,
+                                      GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS,
                                       GUIIcon::RIDE_BUSSTOP, SUMO_TAG_RIDE, { SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW }, FXRGBA(210, 233, 255, 255));
         // from edge
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
@@ -4755,7 +4755,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::RIDE,
-                                      GNETagProperties::CHILD,
+                                      GNETagProperties::CHILD | GNETagProperties::NOPARAMETERS,
                                       GUIIcon::RIDE_BUSSTOP, SUMO_TAG_RIDE, { SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW }, FXRGBA(210, 233, 255, 255));
         // from edge
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,

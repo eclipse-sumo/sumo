@@ -328,8 +328,6 @@ GNETranship::getAttribute(SumoXMLAttr key) const {
             }
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
-        case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -385,7 +383,6 @@ GNETranship::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_ARRIVALPOS:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARENT:
-        case GNE_ATTR_PARAMETERS:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         // special case for "to" attributes
@@ -496,8 +493,6 @@ GNETranship::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
-        case GNE_ATTR_PARAMETERS:
-            return Parameterised::areParametersValid(value);
         case GNE_ATTR_PARENT:
             if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_CONTAINER, value, false) != nullptr) {
                 return true;
@@ -603,9 +598,6 @@ GNETranship::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 unselectAttributeCarrier();
             }
-            break;
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
             break;
         case GNE_ATTR_PARENT:
             if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_CONTAINER, value, false) != nullptr) {
