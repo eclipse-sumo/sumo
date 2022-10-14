@@ -124,6 +124,7 @@ void NBPTStopCont::assignLanes(NBEdgeCont& cont) {
 int
 NBPTStopCont::generateBidiStops(NBEdgeCont& ec) {
     //scnd pass set correct lane
+    int existingBidiStops = 0;
     std::vector<NBPTStop*> toAdd;
     for (auto i = myPTStops.begin(); i != myPTStops.end(); i++) {
         NBPTStop* stop = i->second;
@@ -154,6 +155,14 @@ NBPTStopCont::generateBidiStops(NBEdgeCont& ec) {
                 // should not happen
                 assert(false);
             }
+        } else if (edge != nullptr) {
+            NBEdge* bidiEdge = edge->getTurnDestination(true);
+            if (bidiEdge != nullptr) {
+                const std::string id = getReverseID(stop->getID());
+                if (myPTStops.count(id) > 0) {
+                    existingBidiStops++;
+                }
+            }
         }
     }
     for (NBPTStop* newStop : toAdd) {
@@ -162,7 +171,7 @@ NBPTStopCont::generateBidiStops(NBEdgeCont& ec) {
     if (toAdd.size() > 0) {
         WRITE_MESSAGE("Added " + toString(toAdd.size()) + " stops for superposed rail edges.");
     }
-    return (int)toAdd.size();
+    return (int)toAdd.size() + existingBidiStops;
 }
 
 

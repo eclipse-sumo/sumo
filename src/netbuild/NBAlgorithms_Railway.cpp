@@ -1016,13 +1016,17 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBEdgeCont& ec, NBPTLineCont& lc
                                     }
                                 }
                             } else if (isStop && needBidi) {
-                                NBPTStop* fromReverse = sc.getReverseStop(sc.get(fromStop), ec);
+                                NBPTStop* fs = sc.get(fromStop);
+                                NBPTStop* fromReverse = sc.getReverseStop(fs, ec);
                                 if (fromReverse) {
                                     sc.insert(fromReverse);
+                                    fs->setBidiStop(fromReverse);
                                 }
-                                NBPTStop* toReverse = sc.getReverseStop(sc.get(toStop), ec);
+                                NBPTStop* ts = sc.get(toStop);
+                                NBPTStop* toReverse = sc.getReverseStop(ts, ec);
                                 if (toReverse) {
                                     sc.insert(toReverse);
+                                    ts->setBidiStop(toReverse);
                                 }
                             }
                         }
