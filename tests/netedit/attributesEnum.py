@@ -2631,6 +2631,21 @@ class transportEdgeContainerStop:
         lines = 1
 
 
+class transportEdges:
+    class create:
+        arrivalPos = 8
+        lines = 9
+
+    class inspect:
+        edges = 1
+        arrivalPos = 2
+        lines = 3
+
+    class inspectSelection:
+        arrivalPos = 1
+        lines = 2
+
+
 class transhipEdgeEdge:
     class create:
         departPos = 8
