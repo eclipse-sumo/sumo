@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{bfc30cf4-22e9-41e1-a684-f6869cd48420}</ProjectGuid>
+    <ProjectGuid>{74e2413b-aedd-483b-b0cf-33eaa0f42086}</ProjectGuid>
     <ProjectHome />
     <StartupFile>attributesEnum.py</StartupFile>
     <SearchPath />
@@ -12,7 +12,6 @@
     <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <InterpreterId />
-    <SuppressConfigureTestFrameworkPrompt>true</SuppressConfigureTestFrameworkPrompt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
@@ -666,6 +665,59 @@
     <Compile Include="demandelements\containerflow\inspect_selection\type\test.py" />
     <Compile Include="demandelements\containerflow\load\no_child\test.py" />
     <Compile Include="demandelements\containerflow\load\test.py" />
+    <Compile Include="demandelements\containerplan\tranship_edgecontainerstop\create\default\test.py" />
+    <Compile Include="demandelements\containerplan\tranship_edgecontainerstop\create\departPos\test.py" />
+    <Compile Include="demandelements\containerplan\tranship_edgecontainerstop\create\speed\test.py" />
+    <Compile Include="demandelements\containerplan\tranship_edgecontainerstop\delete\test.py" />
+    <Compile Include="demandelements\containerplan\tranship_edgecontainerstop\inspect\containerstop\test.py" />
+    <Compile Include="demandelements\containerplan\tranship_edgecontainerstop\inspect\departpos\test.py" />
+    <Compile Include="demandelements\containerplan\tranship_edgecontainerstop\inspect\speed\test.py" />
+    <Compile Include="demandelements\containerplan\tranship_edgecontainerstop\inspect_selection\departpos\test.py" />
+    <Compile Include="demandelements\containerplan\tranship_edgecontainerstop\inspect_selection\speed\test.py" />
+    <Compile Include="demandelements\containerplan\tranship_edgecontainerstop\load\test.py" />
+    <Compile Include="demandelements\containerplan\tranship_edgeedge\create\arrivalpos\test.py" />
+    <Compile Include="demandelements\containerplan\tranship_edgeedge\create\default\test.py" />
+    <Compile Include="demandelements\containerplan\tranship_edgeedge\create\departpos\test.py" />
+    <Compile Include="demandelements\containerplan\tranship_edgeedge\create\speed\test.py" />
+    <Compile Include="demandelements\containerplan\tranship_edgeedge\delete\test.py" />
+    <Compile Include="demandelements\containerplan\tranship_edgeedge\inspect\arrivalpos\test.py" />
+    <Compile Include="demandelements\containerplan\tranship_edgeedge\inspect\departpos\test.py" />
+    <Compile Include="demandelements\containerplan\tranship_edgeedge\inspect\speed\test.py" />
+    <Compile Include="demandelements\containerplan\tranship_edgeedge\inspect\to\test.py" />
+    <Compile Include="demandelements\containerplan\tranship_edgeedge\inspect_selection\arrivalpos\test.py" />
+    <Compile Include="demandelements\containerplan\tranship_edgeedge\inspect_selection\departpos\test.py" />
+    <Compile Include="demandelements\containerplan\tranship_edgeedge\inspect_selection\speed\test.py" />
+    <Compile Include="demandelements\containerplan\tranship_edgeedge\load\test.py" />
+    <Compile Include="demandelements\containerplan\tranship_edges\create\arrivalpos\test.py" />
+    <Compile Include="demandelements\containerplan\tranship_edges\create\default\test.py" />
+    <Compile Include="demandelements\containerplan\tranship_edges\create\departpos\test.py" />
+    <Compile Include="demandelements\containerplan\tranship_edges\create\speed\test.py" />
+    <Compile Include="demandelements\containerplan\tranship_edges\delete\test.py" />
+    <Compile Include="demandelements\containerplan\tranship_edges\inspect\arrivalpos\test.py" />
+    <Compile Include="demandelements\containerplan\tranship_edges\inspect\departpos\test.py" />
+    <Compile Include="demandelements\containerplan\tranship_edges\inspect\edges\test.py" />
+    <Compile Include="demandelements\containerplan\tranship_edges\inspect\speed\test.py" />
+    <Compile Include="demandelements\containerplan\tranship_edges\inspect_selection\arrivalpos\test.py" />
+    <Compile Include="demandelements\containerplan\tranship_edges\inspect_selection\departpos\test.py" />
+    <Compile Include="demandelements\containerplan\tranship_edges\inspect_selection\speed\test.py" />
+    <Compile Include="demandelements\containerplan\tranship_edges\load\test.py" />
+    <Compile Include="demandelements\containerplan\transport_edgecontainerstop\create\default\test.py" />
+    <Compile Include="demandelements\containerplan\transport_edgecontainerstop\create\lines\test.py" />
+    <Compile Include="demandelements\containerplan\transport_edgecontainerstop\delete\test.py" />
+    <Compile Include="demandelements\containerplan\transport_edgecontainerstop\inspect\containerstop\test.py" />
+    <Compile Include="demandelements\containerplan\transport_edgecontainerstop\inspect\lines\test.py" />
+    <Compile Include="demandelements\containerplan\transport_edgecontainerstop\inspect_selection\test.py" />
+    <Compile Include="demandelements\containerplan\transport_edgecontainerstop\load\test.py" />
+    <Compile Include="demandelements\containerplan\transport_edgeedge\create\arrivalpos\test.py" />
+    <Compile Include="demandelements\containerplan\transport_edgeedge\create\default\test.py" />
+    <Compile Include="demandelements\containerplan\transport_edgeedge\create\lines\test.py" />
+    <Compile Include="demandelements\containerplan\transport_edgeedge\delete\test.py" />
+    <Compile Include="demandelements\containerplan\transport_edgeedge\inspect\arrivalpos\test.py" />
+    <Compile Include="demandelements\containerplan\transport_edgeedge\inspect\lines\test.py" />
+    <Compile Include="demandelements\containerplan\transport_edgeedge\inspect\to\test.py" />
+    <Compile Include="demandelements\containerplan\transport_edgeedge\inspect_selection\arrivalpos\test.py" />
+    <Compile Include="demandelements\containerplan\transport_edgeedge\inspect_selection\lines\test.py" />
+    <Compile Include="demandelements\containerplan\transport_edgeedge\load\test.py" />
     <Compile Include="demandelements\container\create\color\test.py" />
     <Compile Include="demandelements\container\create\default_stop\default_stop_containerstop\test.py" />
     <Compile Include="demandelements\container\create\default_stop\default_stop_lane\test.py" />
@@ -1191,6 +1243,13 @@
     <Compile Include="demandelements\personplan\walk_edgeedge\inspect\to\test.py" />
     <Compile Include="demandelements\personplan\walk_edgeedge\inspect_selection\test.py" />
     <Compile Include="demandelements\personplan\walk_edgeedge\load\test.py" />
+    <Compile Include="demandelements\personplan\walk_edges\create\arrivalpos\test.py" />
+    <Compile Include="demandelements\personplan\walk_edges\create\default\test.py" />
+    <Compile Include="demandelements\personplan\walk_edges\delete\test.py" />
+    <Compile Include="demandelements\personplan\walk_edges\inspect\arrivalpos\test.py" />
+    <Compile Include="demandelements\personplan\walk_edges\inspect\edges\test.py" />
+    <Compile Include="demandelements\personplan\walk_edges\inspect_selection\test.py" />
+    <Compile Include="demandelements\personplan\walk_edges\load\test.py" />
     <Compile Include="demandelements\personplan\walk_junctions\create\test.py" />
     <Compile Include="demandelements\personplan\walk_junctions\delete\test.py" />
     <Compile Include="demandelements\personplan\walk_junctions\inspect\test.py" />
@@ -3937,6 +3996,79 @@
     <Folder Include="demandelements\containerflow\inspect_selection\type" />
     <Folder Include="demandelements\containerflow\load" />
     <Folder Include="demandelements\containerflow\load\no_child" />
+    <Folder Include="demandelements\containerplan\" />
+    <Folder Include="demandelements\containerplan\tranship_edgecontainerstop\" />
+    <Folder Include="demandelements\containerplan\tranship_edgecontainerstop\create\" />
+    <Folder Include="demandelements\containerplan\tranship_edgecontainerstop\create\default" />
+    <Folder Include="demandelements\containerplan\tranship_edgecontainerstop\create\departPos" />
+    <Folder Include="demandelements\containerplan\tranship_edgecontainerstop\create\speed" />
+    <Folder Include="demandelements\containerplan\tranship_edgecontainerstop\delete" />
+    <Folder Include="demandelements\containerplan\tranship_edgecontainerstop\inspect\" />
+    <Folder Include="demandelements\containerplan\tranship_edgecontainerstop\inspect\containerstop" />
+    <Folder Include="demandelements\containerplan\tranship_edgecontainerstop\inspect\departpos" />
+    <Folder Include="demandelements\containerplan\tranship_edgecontainerstop\inspect\speed" />
+    <Folder Include="demandelements\containerplan\tranship_edgecontainerstop\inspect_selection\" />
+    <Folder Include="demandelements\containerplan\tranship_edgecontainerstop\inspect_selection\departpos" />
+    <Folder Include="demandelements\containerplan\tranship_edgecontainerstop\inspect_selection\speed" />
+    <Folder Include="demandelements\containerplan\tranship_edgecontainerstop\load" />
+    <Folder Include="demandelements\containerplan\tranship_edgeedge\" />
+    <Folder Include="demandelements\containerplan\tranship_edgeedge\create\" />
+    <Folder Include="demandelements\containerplan\tranship_edgeedge\create\arrivalpos" />
+    <Folder Include="demandelements\containerplan\tranship_edgeedge\create\default" />
+    <Folder Include="demandelements\containerplan\tranship_edgeedge\create\departpos" />
+    <Folder Include="demandelements\containerplan\tranship_edgeedge\create\speed" />
+    <Folder Include="demandelements\containerplan\tranship_edgeedge\delete" />
+    <Folder Include="demandelements\containerplan\tranship_edgeedge\inspect\" />
+    <Folder Include="demandelements\containerplan\tranship_edgeedge\inspect\arrivalpos" />
+    <Folder Include="demandelements\containerplan\tranship_edgeedge\inspect\departpos" />
+    <Folder Include="demandelements\containerplan\tranship_edgeedge\inspect\speed" />
+    <Folder Include="demandelements\containerplan\tranship_edgeedge\inspect\to" />
+    <Folder Include="demandelements\containerplan\tranship_edgeedge\inspect_selection\" />
+    <Folder Include="demandelements\containerplan\tranship_edgeedge\inspect_selection\arrivalpos" />
+    <Folder Include="demandelements\containerplan\tranship_edgeedge\inspect_selection\departpos" />
+    <Folder Include="demandelements\containerplan\tranship_edgeedge\inspect_selection\speed" />
+    <Folder Include="demandelements\containerplan\tranship_edgeedge\load" />
+    <Folder Include="demandelements\containerplan\tranship_edges\" />
+    <Folder Include="demandelements\containerplan\tranship_edges\create\" />
+    <Folder Include="demandelements\containerplan\tranship_edges\create\arrivalpos" />
+    <Folder Include="demandelements\containerplan\tranship_edges\create\default" />
+    <Folder Include="demandelements\containerplan\tranship_edges\create\departpos" />
+    <Folder Include="demandelements\containerplan\tranship_edges\create\speed" />
+    <Folder Include="demandelements\containerplan\tranship_edges\delete" />
+    <Folder Include="demandelements\containerplan\tranship_edges\inspect\" />
+    <Folder Include="demandelements\containerplan\tranship_edges\inspect\arrivalpos" />
+    <Folder Include="demandelements\containerplan\tranship_edges\inspect\departpos" />
+    <Folder Include="demandelements\containerplan\tranship_edges\inspect\edges" />
+    <Folder Include="demandelements\containerplan\tranship_edges\inspect\speed" />
+    <Folder Include="demandelements\containerplan\tranship_edges\inspect_selection\" />
+    <Folder Include="demandelements\containerplan\tranship_edges\inspect_selection\arrivalpos" />
+    <Folder Include="demandelements\containerplan\tranship_edges\inspect_selection\departpos" />
+    <Folder Include="demandelements\containerplan\tranship_edges\inspect_selection\speed" />
+    <Folder Include="demandelements\containerplan\tranship_edges\load" />
+    <Folder Include="demandelements\containerplan\transport_edgecontainerstop\" />
+    <Folder Include="demandelements\containerplan\transport_edgecontainerstop\create\" />
+    <Folder Include="demandelements\containerplan\transport_edgecontainerstop\create\default" />
+    <Folder Include="demandelements\containerplan\transport_edgecontainerstop\create\lines" />
+    <Folder Include="demandelements\containerplan\transport_edgecontainerstop\delete" />
+    <Folder Include="demandelements\containerplan\transport_edgecontainerstop\inspect\" />
+    <Folder Include="demandelements\containerplan\transport_edgecontainerstop\inspect\containerstop" />
+    <Folder Include="demandelements\containerplan\transport_edgecontainerstop\inspect\lines" />
+    <Folder Include="demandelements\containerplan\transport_edgecontainerstop\inspect_selection" />
+    <Folder Include="demandelements\containerplan\transport_edgecontainerstop\load" />
+    <Folder Include="demandelements\containerplan\transport_edgeedge\" />
+    <Folder Include="demandelements\containerplan\transport_edgeedge\create\" />
+    <Folder Include="demandelements\containerplan\transport_edgeedge\create\arrivalpos" />
+    <Folder Include="demandelements\containerplan\transport_edgeedge\create\default" />
+    <Folder Include="demandelements\containerplan\transport_edgeedge\create\lines" />
+    <Folder Include="demandelements\containerplan\transport_edgeedge\delete" />
+    <Folder Include="demandelements\containerplan\transport_edgeedge\inspect\" />
+    <Folder Include="demandelements\containerplan\transport_edgeedge\inspect\arrivalpos" />
+    <Folder Include="demandelements\containerplan\transport_edgeedge\inspect\lines" />
+    <Folder Include="demandelements\containerplan\transport_edgeedge\inspect\to" />
+    <Folder Include="demandelements\containerplan\transport_edgeedge\inspect_selection\" />
+    <Folder Include="demandelements\containerplan\transport_edgeedge\inspect_selection\arrivalpos" />
+    <Folder Include="demandelements\containerplan\transport_edgeedge\inspect_selection\lines" />
+    <Folder Include="demandelements\containerplan\transport_edgeedge\load" />
     <Folder Include="demandelements\container\" />
     <Folder Include="demandelements\container\create\" />
     <Folder Include="demandelements\container\create\color" />
@@ -4567,6 +4699,16 @@
     <Folder Include="demandelements\personplan\walk_edgeedge\inspect\to" />
     <Folder Include="demandelements\personplan\walk_edgeedge\inspect_selection" />
     <Folder Include="demandelements\personplan\walk_edgeedge\load" />
+    <Folder Include="demandelements\personplan\walk_edges\" />
+    <Folder Include="demandelements\personplan\walk_edges\create\" />
+    <Folder Include="demandelements\personplan\walk_edges\create\arrivalpos" />
+    <Folder Include="demandelements\personplan\walk_edges\create\default" />
+    <Folder Include="demandelements\personplan\walk_edges\delete" />
+    <Folder Include="demandelements\personplan\walk_edges\inspect\" />
+    <Folder Include="demandelements\personplan\walk_edges\inspect\arrivalpos" />
+    <Folder Include="demandelements\personplan\walk_edges\inspect\edges" />
+    <Folder Include="demandelements\personplan\walk_edges\inspect_selection" />
+    <Folder Include="demandelements\personplan\walk_edges\load" />
     <Folder Include="demandelements\personplan\walk_junctions\" />
     <Folder Include="demandelements\personplan\walk_junctions\create" />
     <Folder Include="demandelements\personplan\walk_junctions\delete" />

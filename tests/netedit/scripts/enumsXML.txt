@@ -2154,6 +2154,14 @@ walkEdgeEdge.inspect.to
 walkEdgeEdge.inspect.arrivalPos 
 walkEdgeEdge.inspectSelection
 walkEdgeEdge.inspectSelection.arrivalPos 
+walkEdges
+walkEdges.create
+walkEdges.create.arrivalPos 
+walkEdges.inspect
+walkEdges.inspect.edges 
+walkEdges.inspect.arrivalPos 
+walkEdges.inspectSelection
+walkEdges.inspectSelection.arrivalPos 
 walkEdgeBusStop
 walkEdgeBusStop.inspect
 walkEdgeBusStop.inspect.to 
