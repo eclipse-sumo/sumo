@@ -43,6 +43,8 @@ def get_options(args=None):
     optParser.add_option("-t", "--trips-file", dest="trips", default="trips.trips.xml", help="output trips file")
     optParser.add_option("-p", "--period", type=float, default=600,
                          help="the default service period (in seconds) to use if none is specified in the ptlines file")
+    optParser.add_option("--period-aerialway", type=float, default=60, dest="periodAerialway",
+                         help="the default service period (in seconds) to use for aerialways if none is specified in the ptlines file")
     optParser.add_option("-b", "--begin", type=float, default=0, help="start time")
     optParser.add_option("-e", "--end", type=float, default=3600, help="end time")
     optParser.add_option("--min-stops", type=int, default=2,
@@ -128,7 +130,7 @@ def writeTypes(fout, prefix, options):
     <vType id="%strolleybus" vClass="bus"%s/>
     <vType id="%sminibus" vClass="bus"%s/>
     <vType id="%sshare_taxi" vClass="taxi"%s/>
-    <vType id="%saerialway" vClass="bus"%s/>
+    <vType id="%saerialway" vClass="rail_urban"%s length="2.5" width="2" personCapacity="4"/>
     <vType id="%sferry" vClass="ship"%s/>""" % tuple(prefixes_and_sf), file=fout)
 
 
@@ -165,7 +167,10 @@ def createTrips(options):
         for trp_nr, line in enumerate(sumolib.output.parse(options.ptlines, 'ptLine', heterogeneous=True)):
             stop_ids = []
             if not line.hasAttribute("period"):
-                line.setAttribute("period", options.period)
+                if line.type == "aerialway":
+                    line.setAttribute("period", options.periodAerialway)
+                else:
+                    line.setAttribute("period", options.period)
             if line.busStop is not None:
                 for stop in line.busStop:
                     if stop.id not in stopsLanes:
