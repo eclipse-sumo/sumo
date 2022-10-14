@@ -53,9 +53,10 @@ netedit.personPlanMode()
 netedit.leftClick(referencePosition, 92, 412)
 
 # go to walkEdgeEdge mode
-netedit.changePersonPlanMode("walk: edge->edge")
+netedit.changePersonPlanMode("walk: edges")
 
 # create walkEdgeEdge
+netedit.leftClick(referencePosition, 560, 240)
 netedit.leftClick(referencePosition, 180, 55)
 
 # press enter to create route
@@ -68,10 +69,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 430, 65)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.walkEdgeEdge.inspect.to, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.walkEdges.inspect.edges, "dummy", False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.walkEdgeEdge.inspect.to, "gneE4", False)
+netedit.modifyAttribute(netedit.attrs.walkEdges.inspect.edges, "gneE2 gneE4", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

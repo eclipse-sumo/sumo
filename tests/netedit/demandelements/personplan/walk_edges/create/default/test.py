@@ -53,9 +53,10 @@ netedit.personPlanMode()
 netedit.leftClick(referencePosition, 92, 412)
 
 # go to walkEdgeEdge mode
-netedit.changePersonPlanMode("walk: edge->edge")
+netedit.changePersonPlanMode("walk: edges")
 
 # create walkEdgeEdge
+netedit.leftClick(referencePosition, 560, 240)
 netedit.leftClick(referencePosition, 180, 55)
 
 # press enter to create route

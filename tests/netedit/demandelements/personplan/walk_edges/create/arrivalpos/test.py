@@ -53,19 +53,20 @@ netedit.personPlanMode()
 netedit.leftClick(referencePosition, 92, 412)
 
 # go to walkEdgeEdge mode
-netedit.changePersonPlanMode("walk: edge->edge")
+netedit.changePersonPlanMode("walk: edges")
 
 # create walkEdgeEdge
+netedit.leftClick(referencePosition, 560, 240)
 netedit.leftClick(referencePosition, 180, 55)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.walkEdgeEdge.create.arrivalPos, "dummy")
+netedit.changeDefaultValue(netedit.attrs.walkEdges.create.arrivalPos, "dummy")
 
 # press enter to create route
 netedit.typeEnter()
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.walkEdgeEdge.create.arrivalPos, "12.5")
+netedit.changeDefaultValue(netedit.attrs.walkEdges.create.arrivalPos, "12.5")
 
 # press enter to create route
 netedit.typeEnter()
