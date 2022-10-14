@@ -78,3 +78,6 @@ ticket9701
 
 # crash when (always) processing pt stuff 
 ticket11803
+
+# crash when (always) processing pt stuff 
+ticket11839
