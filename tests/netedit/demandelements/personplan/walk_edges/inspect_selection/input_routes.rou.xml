@@ -4,14 +4,10 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <!-- VTypes -->
-    <vType id="type1"/>
-    <vType id="type2"/>
-	<vType id="customType"/>
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <person id="p_0" depart="0.00">
         <walk from="gneE2" to="gneE2"/>
-        <walk edges="gneE2 gneE4 gneE5" arrivalPos="7.00" modes="public" lines="Line1" vTypes="type1"/>
-        <walk edges="gneE5 gneE10" arrivalPos="5.00" modes="car" lines="Line2" vTypes="type2"/>
+        <walk edges="gneE2 gneE4 gneE5" arrivalPos="7.00"/>
+        <walk edges="gneE5 gneE10" arrivalPos="5.00"/>
     </person>
 </routes>
