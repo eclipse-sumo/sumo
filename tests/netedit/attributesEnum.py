@@ -2617,7 +2617,7 @@ class transportEdgeEdge:
     class inspectSelection:
         arrivalPos = 1
         lines = 2
-        
+
 
 class transportEdgeContainerStop:
     class create:
@@ -2647,7 +2647,7 @@ class transhipEdgeEdge:
         departPos = 1
         arrivalPos = 2
         speed = 3
-        
+
 
 class transhipEdgeContainerStop:
     class create:

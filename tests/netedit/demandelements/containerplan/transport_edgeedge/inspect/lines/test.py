@@ -58,15 +58,21 @@ netedit.changeContainerPlanMode("transport: edge->edge")
 # create transportEdgeEdge
 netedit.leftClick(referencePosition, 180, 55)
 
-# set invalid container number
-netedit.changeDefaultValue(netedit.attrs.transportEdgeEdge.create.vTypes, "customType")
-
 # press enter to create route
 netedit.typeEnter()
 
+# go to inspect mode
+netedit.inspectMode()
+
+# inspect transportEdgeEdge
+netedit.leftClick(referencePosition, 430, 58)
+
+# change depart with an invalid value
+netedit.modifyAttribute(netedit.attrs.transportEdgeEdge.inspect.lines, "custom Lines", False)
+
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # save routes
 netedit.saveRoutes(referencePosition)
