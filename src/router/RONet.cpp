@@ -458,7 +458,7 @@ RONet::getDeparture(const std::string& vehID) const {
 
 bool
 RONet::addFlow(SUMOVehicleParameter* flow, const bool randomize) {
-    if (randomize) {
+    if (randomize && flow->repetitionOffset >= 0) {
         myDepartures[flow->id].reserve(flow->repetitionNumber);
         for (int i = 0; i < flow->repetitionNumber; ++i) {
             myDepartures[flow->id].push_back(flow->depart + RandHelper::rand(flow->repetitionNumber * flow->repetitionOffset));
