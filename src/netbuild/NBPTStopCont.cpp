@@ -217,7 +217,9 @@ NBPTStopCont::assignAndCreatNewPTStopAsNeeded(NBPTStop* pStop, NBEdgeCont& cont)
 
     if (leftOfEdge && rightOfEdge) {
         NBPTStop* leftStop = getReverseStop(pStop, cont);
-        leftStop->setPTStopLength(left->getLength());
+        if (leftStop) {
+            leftStop->setPTStopLength(left->getLength());
+        }
         return leftStop;
     } else if (leftOfEdge) {
         NBEdge* reverse = getReverseEdge(edge);
