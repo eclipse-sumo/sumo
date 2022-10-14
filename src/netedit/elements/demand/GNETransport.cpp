@@ -135,8 +135,6 @@ GNETransport::writeDemandElement(OutputDevice& device) const {
     } else {
         device.writeAttr(SUMO_ATTR_LINES, myLines);
     }
-    // write parameters
-    writeParams(device);
     // close tag
     device.closeTag();
 }

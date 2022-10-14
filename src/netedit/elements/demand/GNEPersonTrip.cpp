@@ -167,8 +167,6 @@ GNEPersonTrip::writeDemandElement(OutputDevice& device) const {
     if (myVTypes.size() > 0) {
         device.writeAttr(SUMO_ATTR_VTYPES, myVTypes);
     }
-    // write parameters
-    writeParams(device);
     // close tag
     device.closeTag();
 }
