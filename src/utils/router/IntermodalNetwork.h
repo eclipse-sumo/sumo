@@ -613,7 +613,7 @@ public:
                         validStops.back().until = newUntil;
                         lastUntil = newUntil;
                     } else {
-                        WRITE_WARNING("Ignoring unordered stop at '" + stop.busstop + "' until " + time2string(stop.until) + "  for vehicle '" + pars.id + "'.");
+                        WRITE_WARNINGF(TL("Ignoring unordered stop at '%' until % for vehicle '%'."), stop.busstop, time2string(stop.until), pars.id);
                     }
                 }
             }
@@ -625,12 +625,12 @@ public:
                 lastUntil = stop.until;
             } else {
                 if (stop.busstop != "" && stop.until >= 0) {
-                    WRITE_WARNING("Ignoring stop at '" + stop.busstop + "' until " + time2string(stop.until) + "  for vehicle '" + pars.id + "'.");
+                    WRITE_WARNINGF(TL("Ignoring stop at '%' until % for vehicle '%'."), stop.busstop, time2string(stop.until), pars.id);
                 }
             }
         }
         if (validStops.size() < 2 && pars.line != "taxi") {
-            WRITE_WARNING("Not using public transport line '" + pars.line + "' for routing persons. It has less than two usable stops.");
+            WRITE_WARNINGF(TL("Not using public transport line '%' for routing persons. It has less than two usable stops."), pars.line);
             return;
         }
 

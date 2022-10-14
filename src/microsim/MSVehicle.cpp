@@ -4247,10 +4247,10 @@ MSVehicle::executeMove() {
 
     // Lanes, which the vehicle touched at some moment of the executed simstep
     std::vector<MSLane*> passedLanes;
-    // remeber previous lane (myLane is updated in processLaneAdvances)
+    // remember previous lane (myLane is updated in processLaneAdvances)
     const MSLane* oldLane = myLane;
     // Reason for a possible emergency stop
-    std::string emergencyReason = " for unknown reasons";
+    std::string emergencyReason = TL(" for unknown reasons");
     processLaneAdvances(passedLanes, emergencyReason);
 
     updateTimeLoss(vNext);
@@ -4258,11 +4258,9 @@ MSVehicle::executeMove() {
 
     if (!hasArrivedInternal() && !myLane->getEdge().isVaporizing()) {
         if (myState.myPos > myLane->getLength()) {
-            WRITE_WARNING("Vehicle '" + getID() + "' performs emergency stop at the end of lane '" + myLane->getID()
-                          + "'" + emergencyReason
-                          + " (decel=" + toString(myAcceleration - myState.mySpeed)
-                          + ", offset=" + toString(myState.myPos - myLane->getLength())
-                          + "), time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+            WRITE_WARNINGF(TL("Vehicle '%' performs emergency stop at the end of lane '%'% (decel=%, offset=%), time=%."),
+                           getID(), myLane->getID(), emergencyReason, myAcceleration - myState.mySpeed,
+                           myState.myPos - myLane->getLength(), time2string(SIMSTEP));
             MSNet::getInstance()->getVehicleControl().registerEmergencyStop();
             MSNet::getInstance()->informVehicleStateListener(this, MSNet::VehicleState::EMERGENCYSTOP);
             myState.myPos = myLane->getLength();
@@ -4332,8 +4330,8 @@ MSVehicle::executeMove() {
         if (newOpposite == nullptr) {
             if (!myLaneChangeModel->hasBlueLight()) {
                 // unusual overtaking at junctions is ok for emergency vehicles
-                WRITE_WARNING("Unexpected end of opposite lane for vehicle '" + getID() + "' at lane '" + myLane->getID() + "', time=" +
-                              time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+                WRITE_WARNINGF(TL("Unexpected end of opposite lane for vehicle '%' at lane '%', time=%."),
+                               getID(), myLane->getID(), time2string(SIMSTEP));
             }
             myLaneChangeModel->changedToOpposite();
             if (myState.myPos < getLength()) {
