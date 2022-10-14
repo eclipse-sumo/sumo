@@ -111,7 +111,7 @@ on("ready", function(){
         "living_street", "unsurfaced", "service", "raceway", "bus_guideway"];
     categories["Pedestrians"] = ["track", "footway", "pedestrian", "path", "bridleway", "cycleway", "step", "steps",
         "stairs"];              //"Pedestrians" has also the "highway" key in OSM, this will be transformed in startBuild()
-    categories["Railway"] = ["preserved", "tram", "subway", "light_rail", "rail", "highspeed"];
+    categories["Railway"] = ["preserved", "tram", "subway", "light_rail", "rail", "highspeed", "monorail"];
     categories["Aeroway"] = ["stopway", "parking_position", "taxiway", "taxilane", "runway", "highway_strip"]
     categories["Waterway"] = ["river", "canal"];
     categories["Aerialway"] = ["cable_car", "gondola"];
