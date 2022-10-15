@@ -295,7 +295,9 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
             && myParameter->departPos > myParameter->arrivalPos) {
         router.computeLooped(source, sink, this, t, edges, silent);
     } else {
-        router.compute(source, sink, this, t, edges, silent);
+        if (!router.compute(source, sink, this, t, edges, silent)) {
+            edges.clear();
+        }
     }
 
     // router.setHint(myCurrEdge, myRoute->end(), this, t);
