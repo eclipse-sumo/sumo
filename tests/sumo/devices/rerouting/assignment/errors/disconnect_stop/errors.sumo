@@ -1,0 +1,3 @@
+Warning: No connection between edge 'end' and edge 'middle' found.
+Error: stop for vehicle '0' on lane 'end_0' is not downstream the current route.
+Quitting (on error).
