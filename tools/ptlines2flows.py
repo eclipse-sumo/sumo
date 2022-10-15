@@ -44,7 +44,8 @@ def get_options(args=None):
     optParser.add_option("-p", "--period", type=float, default=600,
                          help="the default service period (in seconds) to use if none is specified in the ptlines file")
     optParser.add_option("--period-aerialway", type=float, default=60, dest="periodAerialway",
-                         help="the default service period (in seconds) to use for aerialways if none is specified in the ptlines file")
+                         help="the default service period (in seconds) to use for aerialways "
+                              "if none is specified in the ptlines file")
     optParser.add_option("-b", "--begin", type=float, default=0, help="start time")
     optParser.add_option("-e", "--end", type=float, default=3600, help="end time")
     optParser.add_option("--min-stops", type=int, default=2,
@@ -54,7 +55,7 @@ def get_options(args=None):
     optParser.add_option("--use-osm-routes", default=False, action="store_true",
                          dest='osmRoutes', help="use osm routes")
     optParser.add_option("--extend-to-fringe", default=False, action="store_true", dest='extendFringe',
-                         help="let routes of incomplete lines start/end at the network border " +
+                         help="let routes of incomplete lines start/end at the network border "
                               "if the route edges are known")
     optParser.add_option("--random-begin", default=False, action="store_true",
                          dest='randomBegin', help="randomize begin times within period")
