@@ -17,5 +17,9 @@ disconnect_via
 
 # trips as input, no connection, ignore error
 disconnect_ignore
+
+# trips as input, 
+# no connection from stop to destination
+disconnect_via_ignore
 unknown_taz
 empty_taz
