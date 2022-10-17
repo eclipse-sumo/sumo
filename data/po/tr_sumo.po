@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2022-10-14 15:47+0200\n"
+"POT-Creation-Date: 2022-10-17 14:37+0200\n"
 "PO-Revision-Date: 2022-10-14 15:47+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -348,19 +348,19 @@ msgid ""
 "'%'). Stop id '%' already in use by stop on edge '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBPTStopCont.cpp:272
+#: /home/behr_mi/sumo/src/netbuild/NBPTStopCont.cpp:274
 msgid "Could not determine cross product for edge '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBPTStopCont.cpp:326
+#: /home/behr_mi/sumo/src/netbuild/NBPTStopCont.cpp:328
 msgid "Removing pt stop '%' on non existing edge '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBPTStopCont.cpp:357
+#: /home/behr_mi/sumo/src/netbuild/NBPTStopCont.cpp:359
 msgid "Could not re-assign pt stop '%' after replacing edge '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBPTStopCont.cpp:446
+#: /home/behr_mi/sumo/src/netbuild/NBPTStopCont.cpp:448
 msgid ""
 "Could not find corresponding edge or compatible lane for free-floating pt "
 "stop '%' (%). Thus, it will be removed!"
@@ -1635,7 +1635,21 @@ msgstr ""
 msgid "Suspicious right_before_left junction '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSVehicle.cpp:4460
+#: /home/behr_mi/sumo/src/microsim/MSVehicle.cpp:4253
+msgid " for unknown reasons"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/microsim/MSVehicle.cpp:4261
+msgid ""
+"Vehicle '%' performs emergency stop at the end of lane '%'% (decel=%, "
+"offset=%), time=%."
+msgstr ""
+
+#: /home/behr_mi/sumo/src/microsim/MSVehicle.cpp:4333
+msgid "Unexpected end of opposite lane for vehicle '%' at lane '%', time=%."
+msgstr ""
+
+#: /home/behr_mi/sumo/src/microsim/MSVehicle.cpp:4458
 msgid ""
 "Vehicle '%' performs emergency braking on lane '%' with decel=%, wished=%, "
 "severity=%, time=%."
@@ -1963,6 +1977,10 @@ msgstr ""
 msgid ""
 "Pedestrian vType '%' width % is larger than pedestrian.striping.stripe-width "
 "and this may cause collisions with vehicles."
+msgstr ""
+
+#: /home/behr_mi/sumo/src/microsim/transportables/MSPModel_Striping.cpp:2048
+msgid "Person '%' is jammed on edge '%', time=%."
 msgstr ""
 
 #: /home/behr_mi/sumo/src/microsim/devices/MSDevice_ElecHybrid.cpp:317

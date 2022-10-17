@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2022-10-14 15:47+0200\n"
+"POT-Creation-Date: 2022-10-17 14:37+0200\n"
 "PO-Revision-Date: 2022-10-14 15:47+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -247,8 +247,33 @@ msgstr ""
 msgid "N/A\t\tTest coordinate"
 msgstr ""
 
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:634
+msgid "Open Netconvert Configuration"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:657
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:997
+msgid "Open Network"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:701
+msgid "Import Foreign Network"
+msgstr ""
+
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:729
 msgid "Select Import Options"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:746
+msgid "Open SUMOConfig file"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:818
+msgid "Open TLS Programs file"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:880
+msgid "Load edgeType file"
 msgstr ""
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1401
@@ -459,6 +484,10 @@ msgstr ""
 msgid "Save edgeType file as"
 msgstr ""
 
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3738
+msgid "Open Additionals file"
+msgstr ""
+
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3858
 msgid "Save Additionals file"
 msgstr ""
@@ -471,12 +500,20 @@ msgstr ""
 msgid "Save Additionals file as"
 msgstr ""
 
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3939
+msgid "Open demand element file"
+msgstr ""
+
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4084
 msgid "Saving demand elements failed!"
 msgstr ""
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4112
 msgid "Save demand element file as"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4138
+msgid "Open data element file"
 msgstr ""
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4151
@@ -511,9 +548,19 @@ msgstr ""
 msgid "Failed to parse options."
 msgstr ""
 
+#: /home/behr_mi/sumo/src/netedit/GNEViewParent.cpp:440
+#: /home/behr_mi/sumo/src/gui/GUISUMOViewParent.cpp:159
+msgid "Save Snapshot"
+msgstr ""
+
 #: /home/behr_mi/sumo/src/netedit/GNEViewParent.cpp:460
 #: /home/behr_mi/sumo/src/gui/GUISUMOViewParent.cpp:184
 msgid "No file extension was specified - saving Snapshot as PNG."
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/GNEViewParent.cpp:467
+#: /home/behr_mi/sumo/src/gui/GUISUMOViewParent.cpp:190
+msgid "Saving failed."
 msgstr ""
 
 #: /home/behr_mi/sumo/src/netedit/GNEViewParent.cpp:471
@@ -532,6 +579,10 @@ msgstr ""
 
 #: /home/behr_mi/sumo/src/gui/GUIRunThread.cpp:265
 msgid "Simulation started with time: %."
+msgstr ""
+
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:286
+msgid "TraCI"
 msgstr ""
 
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:439
@@ -781,6 +832,9 @@ msgid "Decrease simulation step delay."
 msgstr ""
 
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:593
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:285
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:289
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:284
 msgid "Save"
 msgstr ""
 
@@ -789,6 +843,9 @@ msgid "Save the current simulation state to a file."
 msgstr ""
 
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:596
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:284
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:288
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:283
 msgid "Load"
 msgstr ""
 
@@ -914,6 +971,30 @@ msgid ""
 "emergency vehicles"
 msgstr ""
 
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:977
+msgid "Open Simulation Configuration"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1017
+msgid "Open Shapes"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1047
+msgid "Open EdgeData"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1112
+msgid "Save SUMO Configuration"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1227
+msgid "Save Simulation State"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1248
+msgid "Load Simulation State"
+msgstr ""
+
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1903
 msgid "Simulation ended"
 msgstr ""
@@ -948,6 +1029,64 @@ msgstr ""
 msgid "&Cancel"
 msgstr ""
 
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVehicleTypeDialog.cpp:438
+msgid "Edit parameters"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVehicleTypeDialog.cpp:652
+msgid "Open Image"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVehicleTypeDialog.cpp:679
+msgid "Open OSG File"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:203
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:190
+msgid "Save list of conflicted items"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:282
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:286
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:281
+msgid "Sort"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:283
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:287
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:282
+#: /home/behr_mi/sumo/src/netedit/frames/GNENetworkSelector.cpp:55
+msgid "Clear"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:286
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:290
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:285
+#: /home/behr_mi/sumo/src/netedit/frames/GNEAttributesCreator.cpp:60
+msgid "Help"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:296
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:300
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:295
+msgid "Open Parameter Template"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:324
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:328
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:323
+msgid "Save Parameter Template file"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:412
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:416
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:411
+#: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:247
+#: /home/behr_mi/sumo/src/netedit/frames/GNEFrame.cpp:233
+#: /home/behr_mi/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:285
+msgid "OK\t\tclose"
+msgstr ""
+
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:448
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:449
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:447
@@ -966,6 +1105,24 @@ msgstr ""
 msgid "Key of Parameter cannot be empty"
 msgstr ""
 
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:691
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:650
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEAllowVClassesDialog.cpp:277
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:497
+msgid "accept\t\tclose"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:692
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:651
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEAllowVClassesDialog.cpp:278
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:498
+msgid "cancel\t\tclose"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEAbout.cpp:76
+msgid "&OK\t\t"
+msgstr ""
+
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNERerouterIntervalDialog.cpp:320
 msgid "There is no lanes in the network"
 msgstr ""
@@ -977,6 +1134,34 @@ msgstr ""
 
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNERerouterIntervalDialog.cpp:397
 msgid "There is no parking areas in the network"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEUndoListDialog.cpp:64
+msgid "OK\tclose dialog"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEAdditionalDialog.cpp:63
+msgid "accept\t\tclose accepting changes"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEAdditionalDialog.cpp:64
+msgid "cancel\t\tclose discarding changes"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEAdditionalDialog.cpp:65
+msgid "reset\t\treset to previous values"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEOverwriteElementsDialog.cpp:61
+msgid "accept\t\tload elements"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEOverwriteElementsDialog.cpp:62
+msgid "cancel\t\tcancel loading of elements"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEOverwriteElementsDialog.cpp:63
+msgid "overwrite\t\toverwrite elements"
 msgstr ""
 
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNEDemandElementDialog.cpp:64
@@ -993,10 +1178,6 @@ msgstr ""
 
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:53
 msgid "Fix network elements problems"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:190
-msgid "Save list of conflicted items"
 msgstr ""
 
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:207
@@ -1055,12 +1236,58 @@ msgstr ""
 msgid "first select an edge"
 msgstr ""
 
+#: /home/behr_mi/sumo/src/netedit/frames/GNENetworkSelector.cpp:56
+msgid "Use selected"
+msgstr ""
+
 #: /home/behr_mi/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:134
 msgid "Invalid lane"
 msgstr ""
 
 #: /home/behr_mi/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:151
 msgid "Lane path needs at least two lanes"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:60
+msgid "button"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:88
+msgid "&Load\t\t"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:90
+msgid "&Save\t\t"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:93
+msgid "Clea&r\t\t"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:96
+msgid "&Close\t\t"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:139
+msgid "Load Breakpoints"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:160
+msgid "Save Breakpoints"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:170
+msgid "Storing failed!"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:239
+#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:242
+msgid "Time format error"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_AboutSUMO.cpp:69
+#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_HallOfFame.cpp:57
+msgid "OK\t\t"
 msgstr ""
 
 #: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:62
