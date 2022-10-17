@@ -1137,7 +1137,7 @@ struct GNEViewNetHelper {
         int myTestingHeight;
     };
 
-    /// @brief struct used to group all variables related with common chekable Buttons
+    /// @brief struct used to group all variables related with common checkable Buttons
     struct CommonCheckableButtons {
 
         /// @brief default constructor
@@ -1158,13 +1158,13 @@ struct GNEViewNetHelper {
         /// @brief update Common checkable buttons
         void updateCommonCheckableButtons();
 
-        /// @brief chekable button for edit mode inspect
+        /// @brief checkable button for edit mode inspect
         MFXCheckableButton* inspectButton;
 
-        /// @brief chekable button for edit mode delete
+        /// @brief checkable button for edit mode delete
         MFXCheckableButton* deleteButton;
 
-        /// @brief chekable button for edit mode select
+        /// @brief checkable button for edit mode select
         MFXCheckableButton* selectButton;
 
     private:
@@ -1172,7 +1172,7 @@ struct GNEViewNetHelper {
         GNEViewNet* myViewNet;
     };
 
-    /// @brief struct used to group all variables related with Network chekable Buttons
+    /// @brief struct used to group all variables related with Network checkable Buttons
     struct NetworkCheckableButtons {
 
         /// @brief default constructor
@@ -1193,28 +1193,28 @@ struct GNEViewNetHelper {
         /// @brief update network checkable buttons
         void updateNetworkCheckableButtons();
 
-        /// @brief chekable button for edit mode "move network elements"
+        /// @brief checkable button for edit mode "move network elements"
         MFXCheckableButton* moveNetworkElementsButton;
 
-        /// @brief chekable button for edit mode create edge
+        /// @brief checkable button for edit mode create edge
         MFXCheckableButton* createEdgeButton;
 
-        /// @brief chekable button for edit mode connection
+        /// @brief checkable button for edit mode connection
         MFXCheckableButton* connectionButton;
 
-        /// @brief chekable button for edit mode traffic light
+        /// @brief checkable button for edit mode traffic light
         MFXCheckableButton* trafficLightButton;
 
-        /// @brief chekable button for edit mode additional
+        /// @brief checkable button for edit mode additional
         MFXCheckableButton* additionalButton;
 
-        /// @brief chekable button for edit mode crossing
+        /// @brief checkable button for edit mode crossing
         MFXCheckableButton* crossingButton;
 
-        /// @brief chekable button for edit mode TAZ
+        /// @brief checkable button for edit mode TAZ
         MFXCheckableButton* TAZButton;
 
-        /// @brief chekable button for edit mode shape
+        /// @brief checkable button for edit mode shape
         MFXCheckableButton* shapeButton;
 
         /// @brief checkable button for edit mode prohibition
@@ -1249,31 +1249,31 @@ struct GNEViewNetHelper {
         /// @brief update Demand checkable buttons
         void updateDemandCheckableButtons();
 
-        /// @brief chekable button for edit mode "move demand elements"
+        /// @brief checkable button for edit mode "move demand elements"
         MFXCheckableButton* moveDemandElementsButton;
 
-        /// @brief chekable button for edit mode create routes
+        /// @brief checkable button for edit mode create routes
         MFXCheckableButton* routeButton;
 
-        /// @brief chekable button for edit mode create vehicles
+        /// @brief checkable button for edit mode create vehicles
         MFXCheckableButton* vehicleButton;
 
-        /// @brief chekable button for edit mode create type
+        /// @brief checkable button for edit mode create type
         MFXCheckableButton* typeButton;
 
-        /// @brief chekable button for edit mode create stops
+        /// @brief checkable button for edit mode create stops
         MFXCheckableButton* stopButton;
 
-        /// @brief chekable button for edit mode create persons
+        /// @brief checkable button for edit mode create persons
         MFXCheckableButton* personButton;
 
-        /// @brief chekable button for edit mode create person plans
+        /// @brief checkable button for edit mode create person plans
         MFXCheckableButton* personPlanButton;
 
-        /// @brief chekable button for edit mode create containers
+        /// @brief checkable button for edit mode create containers
         MFXCheckableButton* containerButton;
 
-        /// @brief chekable button for edit mode create container plans
+        /// @brief checkable button for edit mode create container plans
         MFXCheckableButton* containerPlanButton;
 
     private:
@@ -1302,13 +1302,13 @@ struct GNEViewNetHelper {
         /// @brief update Data checkable buttons
         void updateDataCheckableButtons();
 
-        /// @brief chekable button for edit mode "edgeData"
+        /// @brief checkable button for edit mode "edgeData"
         MFXCheckableButton* edgeDataButton;
 
-        /// @brief chekable button for edit mode "edgeRelData"
+        /// @brief checkable button for edit mode "edgeRelData"
         MFXCheckableButton* edgeRelDataButton;
 
-        /// @brief chekable button for edit mode "TAZRelData"
+        /// @brief checkable button for edit mode "TAZRelData"
         MFXCheckableButton* TAZRelDataButton;
 
     private:

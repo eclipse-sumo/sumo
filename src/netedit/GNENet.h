@@ -268,7 +268,7 @@ public:
 
     /**@brief add reversed edge
      * @param[in] edge The edge of which to add the reverse
-     * @param[in] disconnected add edge reversed or disconnected pararell
+     * @param[in] disconnected add edge reversed or disconnected parallel
      * @return Return the new edge or 0
      */
     GNEEdge* addReversedEdge(GNEEdge* edge, const bool disconnected, GNEUndoList* undoList);
@@ -339,9 +339,9 @@ public:
      * param[in] window The window to inform about delay
      * param[in] force Whether to force recomputation even if not needed
      * param[in] volatileOptions enable or disable volatile options
-     * param[in] additionalPath path in wich additionals were saved before recomputing with volatile options
-     * param[in] demandPath path in wich demand elements were saved before recomputing with volatile options
-     * param[in] dataPath path in wich data elements were saved before recomputing with volatile options
+     * param[in] additionalPath path in which additionals were saved before recomputing with volatile options
+     * param[in] demandPath path in which demand elements were saved before recomputing with volatile options
+     * param[in] dataPath path in which data elements were saved before recomputing with volatile options
      */
     void computeNetwork(GNEApplicationWindow* window, bool force = false, bool volatileOptions = false, std::string additionalPath = "", std::string demandPath = "", std::string dataPath = "");
 
@@ -359,7 +359,7 @@ public:
      * @note difference to mergeJunctions:
      *  - can join more than 2
      *  - connected edges will keep their geometry (big junction shape is created)
-     *  - no hirarchy: if any junction has a traffic light than the resuling junction will
+     *  - no hierarchy: if any junction has a traffic light than the resulting junction will
      */
     bool joinSelectedJunctions(GNEUndoList* undoList);
 
@@ -429,7 +429,7 @@ public:
     void requireSaveAdditionals(bool value);
 
     /**@brief save additional elements of the network
-     * @param[in] filename name of the file in wich save additionals
+     * @param[in] filename name of the file in which save additionals
     */
     void saveAdditionals(const std::string& filename);
 
@@ -440,7 +440,7 @@ public:
     void requireSaveDemandElements(bool value);
 
     /**@brief save demand element elements of the network
-     * @param[in] filename name of the file in wich save demand elements
+     * @param[in] filename name of the file in which save demand elements
     */
     void saveDemandElements(const std::string& filename);
 
@@ -451,7 +451,7 @@ public:
     void requireSaveDataElements(bool value);
 
     /**@brief save data set elements of the network
-     * @param[in] filename name of the file in wich save data sets
+     * @param[in] filename name of the file in which save data sets
     */
     void saveDataElements(const std::string& filename);
 
@@ -468,7 +468,7 @@ public:
     void requireSaveTLSPrograms();
 
     /**@brief save TLS Programs elements of the network
-     * @param[in] filename name of the file in wich save TLS Programs
+     * @param[in] filename name of the file in which save TLS Programs
      */
     void saveTLSPrograms(const std::string& filename);
 
@@ -476,11 +476,11 @@ public:
     int getNumberOfTLSPrograms() const;
 
     /**@brief save edgeTypes elements of the network
-     * @param[in] filename name of the file in wich save edgeTypes
+     * @param[in] filename name of the file in which save edgeTypes
     */
     void saveEdgeTypes(const std::string& filename);
 
-    /// @name Functions related to Enable or disable update geometry of elements after insertio
+    /// @name Functions related to Enable or disable update geometry of elements after insertion
     /// @{
     /// @brief enable update geometry of elements after inserting or removing an element in net
     void enableUpdateGeometry();
@@ -510,7 +510,7 @@ protected:
     /// @brief the rtree which contains all GUIGlObjects (so named for historical reasons)
     SUMORTree myGrid;
 
-    /// @brief The net to be notofied of about changes
+    /// @brief The net to be notified of about changes
     GNEViewNet* myViewNet;
 
     /// @brief The internal netbuilder

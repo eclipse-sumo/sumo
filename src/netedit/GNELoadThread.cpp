@@ -417,7 +417,7 @@ GNELoadThread::setDefaultOptions(OptionsCont& oc) {
 bool
 GNELoadThread::initOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
-    // fill all optiones
+    // fill all options
     fillOptions(oc);
     // set manually the net file
     if (myFile != "") {
@@ -430,7 +430,7 @@ GNELoadThread::initOptions() {
     // set default options defined in GNELoadThread::setDefaultOptions(...)
     setDefaultOptions(oc);
     try {
-        // set all values writables, because certain attributes already setted can be updated throught console
+        // set all values writable, because certain attributes already setted can be updated through console
         oc.resetWritable();
         // load options from console
         OptionsIO::getOptions();

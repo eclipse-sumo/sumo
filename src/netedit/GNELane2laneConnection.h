@@ -42,7 +42,7 @@ public:
     /// @brief update
     void updateLane2laneConnection();
 
-    /// @brief check if exist a lane2lane geometry for the given tolane
+    /// @brief check if exist a lane2lane geometry for the given toLane
     bool exist(const GNELane* toLane) const;
 
     /// @brief get lane2lane geometry

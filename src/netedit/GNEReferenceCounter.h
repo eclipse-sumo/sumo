@@ -64,7 +64,7 @@ public:
         myCount--;
     }
 
-    /// @brief Increarse reference
+    /// @brief Increase reference
     void incRef(const std::string& debugMsg = "") {
         // debugMsg only used for print debugging
 #ifdef _DEBUG_REFERENCECOUNTER

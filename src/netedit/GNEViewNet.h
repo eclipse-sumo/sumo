@@ -38,7 +38,7 @@ class GNEViewParent;
 // ===========================================================================
 /**
  * @class GNEViewNet
- * Microsocopic view at the simulation
+ * Microscopic view at the simulation
  */
 class GNEViewNet : public GUISUMOAbstractView {
     /// @brief FOX-declaration
@@ -243,7 +243,7 @@ public:
     /// @brief set as first geometry point the closes geometry point
     long onCmdSetFirstGeometryPoint(FXObject*, FXSelector, void*);
 
-    /// @brief transform POI to POILane, and viceversa
+    /// @brief transform POI to POILane, and vice versa
     long onCmdTransformPOI(FXObject*, FXSelector, void*);
 
     /// @brief set custom geometry point
@@ -550,10 +550,10 @@ public:
     /// @brief ask about change supermode
     bool aksChangeSupermode(const std::string& operation, Supermode expectedSupermode);
 
-    /// @brief check if we're seleting detectors in TLS mode
+    /// @brief check if we're selecting detectors in TLS mode
     bool selectingDetectorsTLSMode() const;
 
-    /// @brief check if we're seleting juncitons in TLS mode
+    /// @brief check if we're selecting junctions in TLS mode
     bool selectingJunctionsTLSMode() const;
 
 protected:
@@ -743,7 +743,7 @@ private:
     /// @brief remove restricted lane
     bool removeRestrictedLane(SUMOVehicleClass vclass);
 
-    /// @brief Auxiliar function used by onLeftBtnPress(...)
+    /// @brief Auxiliary function used by onLeftBtnPress(...)
     void processClick(void* eventData);
 
     /// @brief update cursor after every click/key press/release

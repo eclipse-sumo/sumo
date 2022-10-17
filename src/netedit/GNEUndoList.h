@@ -127,7 +127,7 @@ public:
      */
     void begin(GUIIcon icon, const std::string& description);
 
-    /**@brief Begin undo command sub-group specifing supermode.
+    /**@brief Begin undo command sub-group specifying supermode.
      * This begins a new group of commands that
      * are treated as a single command.  Must eventually be followed by a
      * matching end() after recording the sub-commands. The new sub-group

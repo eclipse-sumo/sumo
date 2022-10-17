@@ -102,7 +102,7 @@ struct GNENetHelper {
         /// @{
 
         /**@brief get a single attribute carrier based on a GLID
-         * @param[in] ids the GL IDs for which to retrive the AC
+         * @param[in] ids the GL IDs for which to retrieve the AC
          * @param[in] hardFail Whether attempts to retrieve a nonexisting AttributeCarrier should result in an exception
          * @throws InvalidArgument if GL ID doesn't have a associated Attribute Carrier
          */
@@ -701,7 +701,7 @@ struct GNENetHelper {
         /// @brief constructor
         GNEChange_ReplaceEdgeInTLS(NBTrafficLightLogicCont& tllcont, NBEdge* replaced, NBEdge* by);
 
-        /// @bief destructor
+        /// @brief destructor
         ~GNEChange_ReplaceEdgeInTLS();
 
         /// @brief undo action

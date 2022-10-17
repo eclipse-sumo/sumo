@@ -381,12 +381,12 @@ GNEPathManager::PathCalculator::calculateReachability(const SUMOVehicleClass vCl
         std::vector<GNEEdge*> sucessors;
         // get sucessor edges
         for (const auto& sucessorEdge : edge->getToJunction()->getGNEOutgoingEdges()) {
-            // check if edge is connected with sucessor edge
+            // check if edge is connected with successor edge
             if (consecutiveEdgesConnected(vClass, edge, sucessorEdge)) {
                 sucessors.push_back(sucessorEdge);
             }
         }
-        // add sucessors to check vector
+        // add successors to check vector
         for (const auto& nextEdge : sucessors) {
             // revisit edge via faster path
             if ((reachableEdges.count(nextEdge) == 0) || (reachableEdges[nextEdge] > traveltime)) {

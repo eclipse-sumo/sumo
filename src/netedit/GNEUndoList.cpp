@@ -435,7 +435,7 @@ GNEUndoList::onUpdUndo(FXObject* sender, FXSelector, void*) {
     const FXButton* button = dynamic_cast<FXButton*>(sender);
     // enable or disable depending of "enable" flag
     if (button) {
-        // avoid unnnecesary enables/disables (due flickering)
+        // avoid unnecessary enables/disables (due flickering)
         if (enable && !button->isEnabled()) {
             sender->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE), nullptr);
             button->update();
@@ -482,7 +482,7 @@ GNEUndoList::onUpdRedo(FXObject* sender, FXSelector, void*) {
     const FXButton* button = dynamic_cast<FXButton*>(sender);
     // enable or disable depending of "enable" flag
     if (button) {
-        // avoid unnnecesary enables/disables (due flickering)
+        // avoid unnecessary enables/disables (due flickering)
         if (enable && !button->isEnabled()) {
             sender->handle(this, FXSEL(SEL_COMMAND, FXWindow::ID_ENABLE), nullptr);
             button->update();

@@ -380,11 +380,11 @@ GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
     while (junction->getGNECrossings().size() > 0) {
         deleteCrossing(junction->getGNECrossings().front(), undoList);
     }
-    // find all crossings of neightbour junctions that shares an edge of this junction
+    // find all crossings of neighbour junctions that shares an edge of this junction
     std::vector<GNECrossing*> crossingsToRemove;
     std::vector<GNEJunction*> junctionNeighbours = junction->getJunctionNeighbours();
     for (const auto& junctionNeighbour : junctionNeighbours) {
-        // iterate over crossing of neighbour juntion
+        // iterate over crossing of neighbour junction
         for (const auto& crossing : junctionNeighbour->getGNECrossings()) {
             // if at least one of the edges of junction to remove belongs to a crossing of the neighbour junction, delete it
             if (crossing->checkEdgeBelong(junctionNeighbour->getChildEdges())) {
@@ -1638,7 +1638,7 @@ GNENet::joinRoutes(GNEUndoList* undoList) {
             mySortedRoutes.insert(std::make_pair(GNEAttributeCarrier::parseIDs(route->getParentEdges()), route));
         }
     }
-    // now declare a matrix in which organice routes to be merged
+    // now declare a matrix in which organize routes to be merged
     std::vector<std::vector<GNEDemandElement*> > routesToMerge;
     auto index = mySortedRoutes.begin();
     // iterate over mySortedRoutes

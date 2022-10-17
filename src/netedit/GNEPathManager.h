@@ -249,7 +249,7 @@ public:
         /// @brief calculate reachability for given edge
         void calculateReachability(const SUMOVehicleClass vClass, GNEEdge* originEdge);
 
-        /// @brief check if exist a path between the two given consecutives edges for the given VClass
+        /// @brief check if exist a path between the two given consecutive edges for the given VClass
         bool consecutiveEdgesConnected(const SUMOVehicleClass vClass, const GNEEdge* from, const GNEEdge* to) const;
 
         /// @brief check if exist a path between the given busStop and edge (Either a valid lane or an acces) for pedestrians

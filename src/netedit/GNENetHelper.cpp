@@ -152,7 +152,7 @@ GNENetHelper::AttributeCarriers::remapJunctionAndEdgeIds() {
 
 bool
 GNENetHelper::AttributeCarriers::isNetworkElementAroundShape(GNEAttributeCarrier* AC, const PositionVector& shape) const {
-    // check what tipe of AC
+    // check what type of AC
     if (AC->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
         // Junction
         const GNEJunction* junction = myJunctions.at(AC->getID());
@@ -1402,7 +1402,7 @@ GNENetHelper::AttributeCarriers::clearDemandElements() {
             myNet->removeGLObjectFromGrid(demandElement);
         }
     }
-    // iterate over myDemandElements and clear all demand elemnts
+    // iterate over myDemandElements and clear all demand elements
     for (auto& demandElements : myDemandElements) {
         demandElements.second.clear();
     }
