@@ -1,0 +1,3 @@
+Warning: Ignoring arrivalPos for person 'p_0' walking from edge 'gneE2' because it is outside the given stop 'busStop'.
+Warning: Ignoring arrivalPos for person 'p_0' walking from edge 'gneE5' because it is outside the given stop 'busStop'.
+Warning: Ignoring vehicle type 'type2' when routing person 'p_0' because it is not allowed on the start edge.
