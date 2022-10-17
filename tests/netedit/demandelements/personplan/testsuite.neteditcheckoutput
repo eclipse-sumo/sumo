@@ -1,19 +1,5 @@
-persontrip_edgeedge
+persontrips
 
-persontrip_edgebusstop
+walks
 
-persontrip_junctions
-
-walk_edgeedge
-
-walk_edgebusstop
-
-walk_junctions
-
-walk_edges
-
-walk_route
-
-ride_edgeedge
-
-ride_edgebusstop
+rides
