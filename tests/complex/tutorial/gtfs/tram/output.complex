@@ -1,14 +1,14 @@
-function import_gtfs called at Thu, 14 Jul 2022 14:33:29 +0000
-function import_gtfs finished after 9.460137 seconds
+function import_gtfs called at Sat, 15 Oct 2022 12:15:17 +0000
+function import_gtfs finished after 9.458607 seconds
 Success.
 Success.
 Warning! No mapping library found, falling back to tracemapper.
-Warning! Disconnected route '62_257596', no path found. Keeping longer part.
-Warning! Disconnected route '62_257696.trimmed', no path found. Keeping longer part.
-Warning! Disconnected route '62_257768', no path found. Keeping longer part.
-Warning! Disconnected route '62_257791', no path found. Keeping longer part.
-Warning! Disconnected route '68_259570', no path found. Keeping longer part.
-Warning! Disconnected route '68_259578', no path found. Keeping longer part.
-Warning! Disconnected route '68_259634.trimmed', no path found. Keeping longer part.
-Warning! Disconnected route '68_68252', no path found. Keeping longer part.
-Warning! Disconnected route '68_68266', no path found. Keeping longer part.
+Warning! Disconnected route '257596', no path found. Keeping longer part.
+Warning! Disconnected route '257696.trimmed', no path found. Keeping longer part.
+Warning! Disconnected route '257768', no path found. Keeping longer part.
+Warning! Disconnected route '257791', no path found. Keeping longer part.
+Warning! Disconnected route '259570', no path found. Keeping longer part.
+Warning! Disconnected route '259578', no path found. Keeping longer part.
+Warning! Disconnected route '259634.trimmed', no path found. Keeping longer part.
+Warning! Disconnected route '68252', no path found. Keeping longer part.
+Warning! Disconnected route '68266', no path found. Keeping longer part.
