@@ -2539,6 +2539,18 @@ class walkEdges:
         arrivalPos = 1
 
 
+class walkRoute:
+    class create:
+        arrivalPos = 8
+
+    class inspect:
+        route = 1
+        arrivalPos = 2
+
+    class inspectSelection:
+        arrivalPos = 1
+
+
 class walkEdgeBusStop:
     class inspect:
         to = 1
