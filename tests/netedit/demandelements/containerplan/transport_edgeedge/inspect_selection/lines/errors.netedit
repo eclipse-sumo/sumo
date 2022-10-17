@@ -17,9 +17,6 @@ GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
 Debug: Adding containerStop 'containerStopA' in GNEChange_Additional
 Debug: Adding containerStop 'containerStopB' in GNEChange_Additional
-Debug: Adding vType 'type1' in GNEChange_DemandElement
-Debug: Adding vType 'type2' in GNEChange_DemandElement
-Debug: Adding vType 'customType' in GNEChange_DemandElement
 Debug: Adding container 'c_0' in GNEChange_DemandElement
 Debug: Adding tranship: edge->edge 'c_0' in GNEChange_DemandElement
 Debug: Adding transport: edge->edge 'c_0' in GNEChange_DemandElement
@@ -141,9 +138,6 @@ Debug: Deleting unreferenced transport: edge->edge
 Debug: Deleting unreferenced transport: edge->edge
 Debug: Deleting unreferenced tranship: edge->edge
 Debug: Deleting unreferenced container
-Debug: Deleting unreferenced vType
-Debug: Deleting unreferenced vType
-Debug: Deleting unreferenced vType
 Debug: Deleting unreferenced containerStop
 Debug: Deleting unreferenced containerStop
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
