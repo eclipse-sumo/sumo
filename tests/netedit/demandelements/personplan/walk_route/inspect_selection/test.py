@@ -50,16 +50,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 430, 65)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.walkRoute.inspectSelection.arrivalPos, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.walkRoute.inspectSelection.arrivalPos, "dummy", True)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.walkRoute.inspectSelection.arrivalPos, "", False)
+netedit.modifyAttribute(netedit.attrs.walkRoute.inspectSelection.arrivalPos, "", True)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.walkRoute.inspectSelection.arrivalPos, "-6", False)
+netedit.modifyAttribute(netedit.attrs.walkRoute.inspectSelection.arrivalPos, "-6", True)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.walkRoute.inspectSelection.arrivalPos, "2.5", False)
+netedit.modifyAttribute(netedit.attrs.walkRoute.inspectSelection.arrivalPos, "2.5", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

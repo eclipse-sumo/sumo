@@ -17,13 +17,14 @@ GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
 Debug: Adding busStop 'busStopA' in GNEChange_Additional
 Debug: Adding busStop 'busStopB' in GNEChange_Additional
+Debug: Adding route 'route_0' in GNEChange_DemandElement
 Error: Attribute 'arrivalPos' in definition of a walk Invalid Number Format (double) dummy.
 Debug: Adding person 'p_0' in GNEChange_DemandElement
-Debug: Adding walk: route 'p_0' in GNEChange_DemandElement
+Debug: Adding walk: edge->edge 'p_0' in GNEChange_DemandElement
 Debug: Adding person 'p_1' in GNEChange_DemandElement
+Debug: Adding walk: edge->edge 'p_1' in GNEChange_DemandElement
 Debug: Adding walk: route 'p_1' in GNEChange_DemandElement
-Debug: Adding walk: route 'p_1' in GNEChange_DemandElement
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Oct155651.5284\netedit.gui\demandelements\personplan\walk_edgeedge\load\arrivalpos\input_routes.rou.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.17Oct134044.7812\netedit.gui\demandelements\personplan\walk_route\load\arrivalpos\input_routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00
@@ -74,16 +75,18 @@ Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing walk: route 'p_1' in GNEChange_DemandElement
-Debug: Removing walk: route 'p_1' in GNEChange_DemandElement
+Debug: Removing walk: edge->edge 'p_1' in GNEChange_DemandElement
 Debug: Removing person 'p_1' in GNEChange_DemandElement
-Debug: Removing walk: route 'p_0' in GNEChange_DemandElement
+Debug: Removing walk: edge->edge 'p_0' in GNEChange_DemandElement
 Debug: Removing person 'p_0' in GNEChange_DemandElement
+Debug: Removing route 'route_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
+Debug: Adding route 'route_0' in GNEChange_DemandElement
 Debug: Adding person 'p_0' in GNEChange_DemandElement
-Debug: Adding walk: route 'p_0' in GNEChange_DemandElement
+Debug: Adding walk: edge->edge 'p_0' in GNEChange_DemandElement
 Debug: Adding person 'p_1' in GNEChange_DemandElement
-Debug: Adding walk: route 'p_1' in GNEChange_DemandElement
+Debug: Adding walk: edge->edge 'p_1' in GNEChange_DemandElement
 Debug: Adding walk: route 'p_1' in GNEChange_DemandElement
 Debug: demand elements saved
 Debug: Additionals saved
@@ -125,10 +128,11 @@ GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
 Debug: network elements saved
 Debug: Deleting unreferenced walk: route
-Debug: Deleting unreferenced walk: route
+Debug: Deleting unreferenced walk: edge->edge
 Debug: Deleting unreferenced person
-Debug: Deleting unreferenced walk: route
+Debug: Deleting unreferenced walk: edge->edge
 Debug: Deleting unreferenced person
+Debug: Deleting unreferenced route
 Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
