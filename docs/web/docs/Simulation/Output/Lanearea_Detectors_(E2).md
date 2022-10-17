@@ -81,7 +81,7 @@ The complete list of attributes is:
 | to             | id                      | The id of an outgoing lane that [triggers aggregation in conjunction with traffic light switching](../../Simulation/Output/Traffic_Lights.md#coupled_areal_detectors). This is only used together with *tl*.   |
 | timeThreshold  | float                   | The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting; *in s, default: 1s*.      |
 | speedThreshold | float                   | The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting; *in m/s, default: 5/3.6m/s*.   |
-| jamThreshold   | float                   | The minimum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam; *in m, default: 10m*.     |
+| jamThreshold   | float                   | The maximum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam; *in m, default: 10m*.     |
 | friendlyPos    | bool                    | If set, no error will be reported if the detector is placed behind the lane. Instead, the detector will be placed 0.1 meters from the lane's end or at position 0.1, if the position was negative and larger than the lane's length after multiplication with -1; *default: false*. |
 | vTypes         | string                  | space separated list of vehicle type ids to consider, "" means all; default "".  |
 | detectPersons   | string            | [detect persons instead of vehicles (pedestrians or passengers)](../Pedestrians.md#detectors_for_pedestrians)       |
