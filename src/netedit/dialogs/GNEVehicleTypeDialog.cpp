@@ -435,7 +435,7 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::VTypeAttributeRow(VType
     if ((rowAttrType == ROWTYPE_COLOR) || (rowAttrType == ROWTYPE_FILENAME)) {
         myButton = new FXButton(this, filterAttributeName(attr), nullptr, VTypeAtributesParent, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonRectangular150);
     } else if (rowAttrType == ROWTYPE_PARAMETERS) {
-        myButton = new FXButton(this, "Edit parameters", nullptr, VTypeAtributesParent, MID_GNE_OPEN_PARAMETERS_DIALOG, GUIDesignButtonRectangular150);
+        myButton = new FXButton(this, TL("Edit parameters"), nullptr, VTypeAtributesParent, MID_GNE_OPEN_PARAMETERS_DIALOG, GUIDesignButtonRectangular150);
     } else {
         new FXLabel(this, filterAttributeName(attr), nullptr, GUIDesignLabelAttribute150);
     }
@@ -649,7 +649,7 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::openColorDialog() {
 void
 GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::openImageFileDialog() {
     // get the new image file
-    FXFileDialog opendialog(this, "Open Image");
+    FXFileDialog opendialog(this, TL("Open Image"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::VTYPE));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("All files (*)");
@@ -676,7 +676,7 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::openImageFileDialog() {
 void
 GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::openOSGFileDialog() {
     // get the new file name
-    FXFileDialog opendialog(this, "Open OSG File");
+    FXFileDialog opendialog(this, TL("Open OSG File"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::VTYPE));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("OSG file (*.obj)");

@@ -437,7 +437,7 @@ GNEViewParent::setFrameAreaWidth(const int frameAreaWith) {
 long
 GNEViewParent::onCmdMakeSnapshot(FXObject*, FXSelector, void*) {
     // get the new file name
-    FXFileDialog opendialog(this, "Save Snapshot");
+    FXFileDialog opendialog(this, TL("Save Snapshot"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::CAMERA));
     opendialog.setSelectMode(SELECTFILE_ANY);
     opendialog.setPatternList("All Image Files (*.gif, *.bmp, *.xpm, *.pcx, *.ico, *.rgb, *.xbm, *.tga, *.png, *.jpg, *.jpeg, *.tif, *.tiff, *.ps, *.eps, *.pdf, *.svg, *.tex, *.pgf)\n"
@@ -464,7 +464,7 @@ GNEViewParent::onCmdMakeSnapshot(FXObject*, FXSelector, void*) {
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Opening FXMessageBox 'error saving snapshot'");
         // open message box
-        FXMessageBox::error(this, MBOX_OK, "Saving failed.", "%s", error.c_str());
+        FXMessageBox::error(this, MBOX_OK, TL("Saving failed."), "%s", error.c_str());
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Closed FXMessageBox 'error saving snapshot' with 'OK'");
     } else {

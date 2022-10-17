@@ -108,7 +108,7 @@ GUIDialog_Options::GUIDialog_Options(FXWindow* parent,  const char* titleName, i
         }
     }
     // ok-button
-    new FXButton(contentFrame, "OK\t\tAccept settings", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);
+    new FXButton(contentFrame, TL("OK\t\tAccept settings"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);
 }
 
 

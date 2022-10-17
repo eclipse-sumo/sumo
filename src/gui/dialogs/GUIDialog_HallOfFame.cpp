@@ -21,11 +21,13 @@
 /****************************************************************************/
 #include <config.h>
 
-#include "GUIDialog_HallOfFame.h"
-#include <utils/foxtools/MFXLinkLabel.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/StdDefs.h>
+#include <utils/foxtools/MFXLinkLabel.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include "GUIDialog_HallOfFame.h"
+
 
 // ===========================================================================
 // method definitions
@@ -52,7 +54,7 @@ GUIDialog_HallOfFame::GUIDialog_HallOfFame(FXWindow* parent) :
     // centered ok-button
     FXHorizontalFrame* buttonFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonFrame, GUIDesignAuxiliarHorizontalFrame);
-    new FXButton(buttonFrame, "OK\t\t", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);
+    new FXButton(buttonFrame, TL("OK\t\t"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(buttonFrame, GUIDesignAuxiliarHorizontalFrame);
 }
 

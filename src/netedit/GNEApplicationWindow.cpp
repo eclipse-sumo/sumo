@@ -631,7 +631,7 @@ GNEApplicationWindow::onCmdOpenConfiguration(FXObject*, FXSelector, void*) {
         return 1;
     } else {
         // get the new file name
-        FXFileDialog opendialog(this, "Open Netconvert Configuration");
+        FXFileDialog opendialog(this, TL("Open Netconvert Configuration"));
         opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG));
         opendialog.setSelectMode(SELECTFILE_EXISTING);
         opendialog.setPatternList(myConfigPattern.c_str());
@@ -654,7 +654,7 @@ GNEApplicationWindow::onCmdOpenConfiguration(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
     // get the new file name
-    FXFileDialog opendialog(this, "Open Network");
+    FXFileDialog opendialog(this, TL("Open Network"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_NET));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("SUMO nets (*.net.xml,*.net.xml.gz)\nAll files (*)");
@@ -698,7 +698,7 @@ GNEApplicationWindow::onCmdOpenForeign(FXObject*, FXSelector, void*) {
         return 1;
     } else {
         // get the new file name
-        FXFileDialog opendialog(this, "Import Foreign Network");
+        FXFileDialog opendialog(this, TL("Import Foreign Network"));
         opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_NET));
         opendialog.setSelectMode(SELECTFILE_EXISTING);
         FXString osmPattern("OSM net (*.osm.xml,*.osm)");
@@ -743,7 +743,7 @@ GNEApplicationWindow::onCmdOpenSUMOConfig(FXObject*, FXSelector, void*) {
     // write debug information
     WRITE_DEBUG("Open SUMOConfig dialog");
     // get the SUMOConfig file name
-    FXFileDialog opendialog(this, "Open SUMOConfig file");
+    FXFileDialog opendialog(this, TL("Open SUMOConfig file"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("SUMOConfig files (*.sumocfg)\nAll files (*)");
@@ -815,7 +815,7 @@ GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
     // write debug information
     WRITE_DEBUG("Open TLSProgram dialog");
     // get the TLSPrograms file name
-    FXFileDialog opendialog(this, "Open TLS Programs file");
+    FXFileDialog opendialog(this, TL("Open TLS Programs file"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::MODETLS));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("TLSProgram files (*.xml,*.xml.gz)\nAll files (*)");
@@ -877,7 +877,7 @@ GNEApplicationWindow::onUpdReloadTLSPrograms(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdOpenEdgeTypes(FXObject*, FXSelector, void*) {
     // open dialog
-    FXFileDialog opendialog(this, "Load edgeType file");
+    FXFileDialog opendialog(this, TL("Load edgeType file"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::MODECREATEEDGE));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("*.xml,*.xml.gz");
@@ -1090,7 +1090,7 @@ GNEApplicationWindow::onCmdToolNetDiff(FXObject*, FXSelector, void*) {
             }
         }
         // get the second network to ddiff
-        FXFileDialog opendialog(this, "Open diff Network");
+        FXFileDialog opendialog(this, TL("Open diff Network"));
         opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_NET));
         opendialog.setSelectMode(SELECTFILE_EXISTING);
         opendialog.setPatternList("SUMO nets (*.net.xml,*.net.xml.gz)\nAll files (*)");
@@ -3735,7 +3735,7 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
     // write debug information
     WRITE_DEBUG("Open additional dialog");
     // get the Additional file name
-    FXFileDialog opendialog(this, "Open Additionals file");
+    FXFileDialog opendialog(this, TL("Open Additionals file"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("XML files (*.xml,*.xml.gz)\nAll files (*)");
@@ -3936,7 +3936,7 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
     // write debug information
     WRITE_DEBUG("Open demand element dialog");
     // get the demand element file name
-    FXFileDialog opendialog(this, "Open demand element file");
+    FXFileDialog opendialog(this, TL("Open demand element file"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("XML files (*.xml,*.xml.gz)\nDemand files (*rou.xml,*rou.xml.gz)\nAll files (*)");
@@ -4135,7 +4135,7 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
     // write debug information
     WRITE_DEBUG("Open data element dialog");
     // get the data element file name
-    FXFileDialog opendialog(this, "Open data element file");
+    FXFileDialog opendialog(this, TL("Open data element file"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("XML files (*.xml,*.xml.gz)\nData files (*dat.xml,*dat.xml.gz)\nAll files (*)");

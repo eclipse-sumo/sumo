@@ -89,10 +89,10 @@ GNECreateEdgeFrame::EdgeTypeSelector::EdgeTypeSelector(GNECreateEdgeFrame* creat
     // create horizontal frame
     FXHorizontalFrame* horizontalFrameButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // create new edge type button
-    myAddEdgeTypeButton = new FXButton(horizontalFrameButtons, "Add\t\tAdd edge type", GUIIconSubSys::getIcon(GUIIcon::ADD),
+    myAddEdgeTypeButton = new FXButton(horizontalFrameButtons, TL("Add\t\tAdd edge type"), GUIIconSubSys::getIcon(GUIIcon::ADD),
         this, MID_GNE_CREATEEDGEFRAME_ADD, GUIDesignButton);
     // create delete edge type button
-    myDeleteEdgeTypeButton = new FXButton(horizontalFrameButtons, "Delete\t\tDelete edge type", GUIIconSubSys::getIcon(GUIIcon::REMOVE),
+    myDeleteEdgeTypeButton = new FXButton(horizontalFrameButtons, TL("Delete\t\tDelete edge type"), GUIIconSubSys::getIcon(GUIIcon::REMOVE),
         this, MID_GNE_CREATEEDGEFRAME_DELETE, GUIDesignButton);
     // create delete edge type button
     myCreateFromTemplate = new FXButton(getCollapsableFrame(), "Create from template\t\tCreate edgeType from template", GUIIconSubSys::getIcon(GUIIcon::EDGE),
@@ -433,10 +433,10 @@ GNECreateEdgeFrame::LaneTypeSelector::LaneTypeSelector(GNECreateEdgeFrame* creat
     // create horizontal frame
     FXHorizontalFrame* horizontalFrameButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // create new lane type button
-    myAddLaneTypeButton = new FXButton(horizontalFrameButtons, "Add\t\tAdd lane type", GUIIconSubSys::getIcon(GUIIcon::ADD),
+    myAddLaneTypeButton = new FXButton(horizontalFrameButtons, TL("Add\t\tAdd lane type"), GUIIconSubSys::getIcon(GUIIcon::ADD),
                                        this, MID_GNE_CREATEEDGEFRAME_ADD, GUIDesignButton);
     // create delete lane type button
-    myDeleteLaneTypeButton = new FXButton(horizontalFrameButtons, "Delete\t\tDelete lane type", GUIIconSubSys::getIcon(GUIIcon::REMOVE),
+    myDeleteLaneTypeButton = new FXButton(horizontalFrameButtons, TL("Delete\t\tDelete lane type"), GUIIconSubSys::getIcon(GUIIcon::REMOVE),
                                           this, MID_GNE_CREATEEDGEFRAME_DELETE, GUIDesignButton);
 }
 

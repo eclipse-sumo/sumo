@@ -23,11 +23,12 @@
 
 #include <string>
 #include <fstream>
-#include <utils/foxtools/MFXUtils.h>
-#include <utils/iodevices/OutputDevice.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/SUMOTime.h>
+#include <utils/foxtools/MFXUtils.h>
+#include <utils/iodevices/OutputDevice.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/div/GUIIOGlobals.h>
@@ -36,8 +37,8 @@
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <foreign/fontstash/fontstash.h>
-#include "GUIParameterTracker.h"
 #include <utils/gui/globjects/GLIncludes.h>
+#include "GUIParameterTracker.h"
 
 
 // ===========================================================================
@@ -215,7 +216,7 @@ GUIParameterTracker::onCmdChangeAggregation(FXObject*, FXSelector, void*) {
 
 long
 GUIParameterTracker::onCmdSave(FXObject*, FXSelector, void*) {
-    FXString file = MFXUtils::getFilename2Write(this, "Save Data", ".csv", GUIIconSubSys::getIcon(GUIIcon::EMPTY), gCurrentFolder);
+    FXString file = MFXUtils::getFilename2Write(this, TL("Save Data"), ".csv", GUIIconSubSys::getIcon(GUIIcon::EMPTY), gCurrentFolder);
     if (file == "") {
         return 1;
     }
@@ -254,7 +255,7 @@ GUIParameterTracker::onCmdSave(FXObject*, FXSelector, void*) {
         }
         dev.close();
     } catch (IOError& e) {
-        FXMessageBox::error(this, MBOX_OK, "Storing failed!", "%s", e.what());
+        FXMessageBox::error(this, MBOX_OK, TL("Storing failed!"), "%s", e.what());
     }
     return 1;
 }

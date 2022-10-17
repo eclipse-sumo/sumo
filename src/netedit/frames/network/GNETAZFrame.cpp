@@ -852,7 +852,7 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetZeroFringeProbabilities(FXObject
                                  "Set weight 0 in " + toString(sources.size()) + " sources and " +
                                  toString(sinks.size()) + " sinks from " + toString(TAZs.size()) + " TAZs?";
         // ask if continue
-        const FXuint answer = FXMessageBox::question(this, MBOX_YES_NO, "Set zero fringe probabilities", "%s", text.c_str());
+        const FXuint answer = FXMessageBox::question(this, MBOX_YES_NO, TL("Set zero fringe probabilities"), "%s", text.c_str());
         if (answer == 1) { // 1:yes, 2:no, 4:esc
             myTAZFrameParent->myViewNet->getUndoList()->begin(GUIIcon::TAZ, "set zero fringe probabilities");
             for (const auto& source : sources) {
@@ -865,7 +865,7 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetZeroFringeProbabilities(FXObject
         }
     } else {
         // show information box
-        FXMessageBox::information(this, MBOX_OK, "Set zero fringe probabilities", "No source/sinks to update.");
+        FXMessageBox::information(this, MBOX_OK, TL("Set zero fringe probabilities"), "No source/sinks to update.");
     }
     return 1;
 }

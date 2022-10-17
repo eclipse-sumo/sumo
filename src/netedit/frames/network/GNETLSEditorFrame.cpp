@@ -551,7 +551,7 @@ GNETLSEditorFrame::TLSAttributes::TLSAttributes(GNETLSEditorFrame* TLSEditorPare
     myOffsetTextField->disable();
     // create frame, label and TextField for parameters (By default disabled)
     horizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    myButtonEditParameters = new FXButton(horizontalFrame, "parameters", nullptr, this, MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERSDIALOG, GUIDesignButtonAttribute);
+    myButtonEditParameters = new FXButton(horizontalFrame, TL("parameters"), nullptr, this, MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERSDIALOG, GUIDesignButtonAttribute);
     myParametersTextField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_TLSFRAME_ATTRIBUTES_PARAMETERS, GUIDesignTextField);
     myButtonEditParameters->disable();
     myParametersTextField->disable();
@@ -1337,22 +1337,22 @@ GNETLSEditorFrame::TLSDefinition::TLSDefinition(GNETLSEditorFrame* TLSEditorPare
     FXVerticalFrame* verticalFrameAuxA = new FXVerticalFrame(horizontalFrameAux, GUIDesignAuxiliarHorizontalFrame);
     FXVerticalFrame* verticalFrameAuxB = new FXVerticalFrame(horizontalFrameAux, GUIDesignAuxiliarHorizontalFrame);
     // create create tlDef button
-    myCreateButton = new FXButton(verticalFrameAuxA, "Create TLS\t\tCreate a new traffic light program.",
+    myCreateButton = new FXButton(verticalFrameAuxA, TL("Create TLS\t\tCreate a new traffic light program."),
         GUIIconSubSys::getIcon(GUIIcon::MODETLS), this, MID_GNE_TLSFRAME_DEFINITION_CREATE, GUIDesignButton);
     // create delete tlDef button
-    new FXButton(verticalFrameAuxA, "Delete\t\tDelete a traffic light program. If all programs are deleted the junction turns into a priority junction.",
+    new FXButton(verticalFrameAuxA, TL("Delete\t\tDelete a traffic light program. If all programs are deleted the junction turns into a priority junction."),
         GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_TLSFRAME_DEFINITION_DELETE, GUIDesignButton);
     // create reset current tlDef button
-    new FXButton(verticalFrameAuxB, "Reset single\t\\Reset current TLS program.",
+    new FXButton(verticalFrameAuxB, TL("Reset single\t\\Reset current TLS program."),
         GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_TLSFRAME_DEFINITION_RESETCURRENT, GUIDesignButton);
     // create reset all tlDefs button
-    new FXButton(verticalFrameAuxB, "Reset all\t\tReset all TLS programs.",
+    new FXButton(verticalFrameAuxB, TL("Reset all\t\tReset all TLS programs."),
         GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_TLSFRAME_DEFINITION_RESETALL, GUIDesignButton);
     // create save modifications button
-    new FXButton(verticalFrameAuxA, "Save\t\tSave program modifications. (Enter)",
+    new FXButton(verticalFrameAuxA, TL("Save\t\tSave program modifications. (Enter)"),
         GUIIconSubSys::getIcon(GUIIcon::OK), this, MID_GNE_TLSFRAME_DEFINITION_SAVE, GUIDesignButton);
     // create discard modifications buttons
-    new FXButton(verticalFrameAuxB, "Cancel\t\tDiscard program modifications. (Esc)",
+    new FXButton(verticalFrameAuxB, TL("Cancel\t\tDiscard program modifications. (Esc)"),
         GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_TLSFRAME_DEFINITION_DISCARD, GUIDesignButton);
     // show GroupBox
     show();
@@ -2809,9 +2809,9 @@ GNETLSEditorFrame::TLSFile::TLSFile(GNETLSEditorFrame* TLSEditorParent) :
     myTLSEditorParent(TLSEditorParent) {
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // create create tlDef button
-    new FXButton(buttonsFrame, "Load\t\tLoad TLS program from additional file", GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, MID_GNE_TLSFRAME_FILE_LOADPROGRAM, GUIDesignButton);
+    new FXButton(buttonsFrame, TL("Load\t\tLoad TLS program from additional file"), GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, MID_GNE_TLSFRAME_FILE_LOADPROGRAM, GUIDesignButton);
     // create create tlDef button
-    new FXButton(buttonsFrame, "Save\t\tSave TLS program to additional file", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GNE_TLSFRAME_FILE_SAVEPROGRAM, GUIDesignButton);
+    new FXButton(buttonsFrame, TL("Save\t\tSave TLS program to additional file"), GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GNE_TLSFRAME_FILE_SAVEPROGRAM, GUIDesignButton);
     // show TLSFile
     show();
 }
@@ -2898,7 +2898,7 @@ GNETLSEditorFrame::TLSFile::onCmdLoadTLSProgram(FXObject*, FXSelector, void*) {
 long
 GNETLSEditorFrame::TLSFile::onCmdSaveTLSProgram(FXObject*, FXSelector, void*) {
     FXString file = MFXUtils::getFilename2Write(this,
-                    "Save TLS Program as", ".xml",
+                    TL("Save TLS Program as"), ".xml",
                     GUIIconSubSys::getIcon(GUIIcon::MODETLS),
                     gCurrentFolder);
     // check file

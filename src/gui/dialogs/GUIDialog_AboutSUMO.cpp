@@ -24,11 +24,13 @@
 #include <version.h>
 #endif
 
-#include "GUIDialog_AboutSUMO.h"
-#include <utils/foxtools/MFXLinkLabel.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/StdDefs.h>
+#include <utils/foxtools/MFXLinkLabel.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include "GUIDialog_AboutSUMO.h"
+
 
 // ===========================================================================
 // method definitions
@@ -64,7 +66,7 @@ GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent) :
     // centered ok-button
     FXHorizontalFrame* buttonFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonFrame, GUIDesignAuxiliarHorizontalFrame);
-    new FXButton(buttonFrame, "OK\t\t", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);
+    new FXButton(buttonFrame, TL("OK\t\t"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(buttonFrame, GUIDesignAuxiliarHorizontalFrame);
 }
 

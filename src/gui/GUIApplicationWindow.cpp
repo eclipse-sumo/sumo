@@ -283,7 +283,7 @@ GUIApplicationWindow::dependentBuild(const bool isLibsumo) {
     {
         // build TraCi info
         myTraCiFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-        auto button = new FXButton(myTraCiFrame, "TraCI", nullptr, this, MID_TRACI_STATUS, GUIDesignButtonStatusBarFixed);
+        auto button = new FXButton(myTraCiFrame, TL("TraCI"), nullptr, this, MID_TRACI_STATUS, GUIDesignButtonStatusBarFixed);
         button->setBackColor(FXRGBA(253, 255, 206, 255));
         if (TraCIServer::getInstance() == nullptr) {
             myTraCiFrame->hide();
@@ -974,7 +974,7 @@ GUIApplicationWindow::onCmdNewWindow(FXObject*, FXSelector, void*) {
 long
 GUIApplicationWindow::onCmdOpenConfiguration(FXObject*, FXSelector, void*) {
     // get the new file name
-    FXFileDialog opendialog(this, "Open Simulation Configuration");
+    FXFileDialog opendialog(this, TL("Open Simulation Configuration"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList(myConfigPattern.c_str());
@@ -994,7 +994,7 @@ GUIApplicationWindow::onCmdOpenConfiguration(FXObject*, FXSelector, void*) {
 long
 GUIApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
     // get the new file name
-    FXFileDialog opendialog(this, "Open Network");
+    FXFileDialog opendialog(this, TL("Open Network"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_NET));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("SUMO nets (*.net.xml,*.net.xml.gz)\nAll files (*)");
@@ -1014,7 +1014,7 @@ GUIApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
 long
 GUIApplicationWindow::onCmdOpenShapes(FXObject*, FXSelector, void*) {
     // get the shape file name
-    FXFileDialog opendialog(this, "Open Shapes");
+    FXFileDialog opendialog(this, TL("Open Shapes"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_SHAPES));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("Additional files (*.xml,*.xml.gz)\nAll files (*)");
@@ -1044,7 +1044,7 @@ GUIApplicationWindow::onCmdOpenShapes(FXObject*, FXSelector, void*) {
 long
 GUIApplicationWindow::onCmdOpenEdgeData(FXObject*, FXSelector, void*) {
     // get the shape file name
-    FXFileDialog opendialog(this, "Open EdgeData");
+    FXFileDialog opendialog(this, TL("Open EdgeData"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_NET));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("EdgeData files (*.xml,*.xml.gz)\nAll files (*)");
@@ -1109,7 +1109,7 @@ GUIApplicationWindow::onCmdOpenRecent(FXObject* /* sender */, FXSelector, void* 
 long
 GUIApplicationWindow::onCmdSaveConfig(FXObject*, FXSelector, void*) {
     // get the new file name
-    FXFileDialog opendialog(this, "Save SUMO Configuration");
+    FXFileDialog opendialog(this, TL("Save SUMO Configuration"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::SAVE));
     opendialog.setSelectMode(SELECTFILE_ANY);
     opendialog.setPatternList("Config (*.sumocfg)");
@@ -1224,7 +1224,7 @@ GUIApplicationWindow::onCmdStep(FXObject*, FXSelector, void*) {
 long
 GUIApplicationWindow::onCmdSaveState(FXObject*, FXSelector, void*) {
     // get the new file name
-    FXFileDialog opendialog(this, "Save Simulation State");
+    FXFileDialog opendialog(this, TL("Save Simulation State"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::SAVE));
     opendialog.setSelectMode(SELECTFILE_ANY);
     opendialog.setPatternList("GZipped State (*.xml.gz)\nXML State (*.xml)");
@@ -1245,7 +1245,7 @@ GUIApplicationWindow::onCmdSaveState(FXObject*, FXSelector, void*) {
 long
 GUIApplicationWindow::onCmdLoadState(FXObject*, FXSelector, void*) {
     // get the new file name
-    FXFileDialog opendialog(this, "Load Simulation State");
+    FXFileDialog opendialog(this, TL("Load Simulation State"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG));
     opendialog.setSelectMode(SELECTFILE_ANY);
     opendialog.setPatternList("GZipped State (*.xml.gz)\nXML State (*.xml)");

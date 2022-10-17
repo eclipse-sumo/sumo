@@ -156,7 +156,7 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject* sender, FXSelector, void*) {
             return 1;
         }
         // get the new file name
-        FXFileDialog opendialog(this, "Save Snapshot");
+        FXFileDialog opendialog(this, TL("Save Snapshot"));
         opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::CAMERA));
         opendialog.setSelectMode(SELECTFILE_ANY);
 #ifdef HAVE_FFMPEG
@@ -187,7 +187,7 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject* sender, FXSelector, void*) {
         if (error == "video") {
             button->setChecked(!button->amChecked());
         } else if (error != "") {
-            FXMessageBox::error(this, MBOX_OK, "Saving failed.", "%s", error.c_str());
+            FXMessageBox::error(this, MBOX_OK, TL("Saving failed."), "%s", error.c_str());
         } else {
             WRITE_MESSAGE(TL("Snapshot successfully saved!"));
         }

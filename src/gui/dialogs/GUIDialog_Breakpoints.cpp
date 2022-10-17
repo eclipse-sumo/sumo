@@ -85,15 +85,15 @@ GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIApplicationWindow* parent, std::
     FXVerticalFrame* layoutRight = new FXVerticalFrame(hbox, GUIDesignChooserLayoutRight);
     // create buttons ('&' in the label creates a hot key)
     // "Load"
-    new FXButton(layoutRight, "&Load\t\t", GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, MID_CHOOSEN_LOAD, GUIDesignChooserButtons);
+    new FXButton(layoutRight, TL("&Load\t\t"), GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, MID_CHOOSEN_LOAD, GUIDesignChooserButtons);
     // "Save"
-    new FXButton(layoutRight, "&Save\t\t", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_CHOOSEN_SAVE, GUIDesignChooserButtons);
+    new FXButton(layoutRight, TL("&Save\t\t"), GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_CHOOSEN_SAVE, GUIDesignChooserButtons);
     new FXHorizontalSeparator(layoutRight, GUIDesignHorizontalSeparator);
     // "Clear List"
-    new FXButton(layoutRight, "Clea&r\t\t", GUIIconSubSys::getIcon(GUIIcon::CLEANJUNCTIONS), this, MID_CHOOSEN_CLEAR, GUIDesignChooserButtons);
+    new FXButton(layoutRight, TL("Clea&r\t\t"), GUIIconSubSys::getIcon(GUIIcon::CLEANJUNCTIONS), this, MID_CHOOSEN_CLEAR, GUIDesignChooserButtons);
     new FXHorizontalSeparator(layoutRight, GUIDesignHorizontalSeparator);
     // "Close"
-    new FXButton(layoutRight, "&Close\t\t", GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_CANCEL, GUIDesignChooserButtons);
+    new FXButton(layoutRight, TL("&Close\t\t"), GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_CANCEL, GUIDesignChooserButtons);
     // add this dialog as child of GUIMainWindow parent
     myParent->addChild(this);
     create();
@@ -136,7 +136,7 @@ GUIDialog_Breakpoints::rebuildList() {
 
 long
 GUIDialog_Breakpoints::onCmdLoad(FXObject*, FXSelector, void*) {
-    FXFileDialog opendialog(this, "Load Breakpoints");
+    FXFileDialog opendialog(this, TL("Load Breakpoints"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::EMPTY));
     opendialog.setSelectMode(SELECTFILE_ANY);
     opendialog.setPatternList("*.txt");
@@ -157,7 +157,7 @@ GUIDialog_Breakpoints::onCmdLoad(FXObject*, FXSelector, void*) {
 
 long
 GUIDialog_Breakpoints::onCmdSave(FXObject*, FXSelector, void*) {
-    FXString file = MFXUtils::getFilename2Write(this, "Save Breakpoints", ".txt", GUIIconSubSys::getIcon(GUIIcon::EMPTY), gCurrentFolder);
+    FXString file = MFXUtils::getFilename2Write(this, TL("Save Breakpoints"), ".txt", GUIIconSubSys::getIcon(GUIIcon::EMPTY), gCurrentFolder);
     if (file == "") {
         return 1;
     }
@@ -167,7 +167,7 @@ GUIDialog_Breakpoints::onCmdSave(FXObject*, FXSelector, void*) {
         dev << content;
         dev.close();
     } catch (IOError& e) {
-        FXMessageBox::error(this, MBOX_OK, "Storing failed!", "%s", e.what());
+        FXMessageBox::error(this, MBOX_OK, TL("Storing failed!"), "%s", e.what());
     }
     return 1;
 }
@@ -236,10 +236,10 @@ GUIDialog_Breakpoints::onCmdEditTable(FXObject*, FXSelector, void* ptr) {
         }
     } catch (NumberFormatException&) {
         std::string msg = "The value must be a number, is:" + value;
-        FXMessageBox::error(this, MBOX_OK, "Time format error", "%s", msg.c_str());
+        FXMessageBox::error(this, MBOX_OK, TL("Time format error"), "%s", msg.c_str());
     } catch (ProcessError&) {
         std::string msg = "The value must be a number or a string of the form hh:mm:ss, is:" + value;
-        FXMessageBox::error(this, MBOX_OK, "Time format error", "%s", msg.c_str());
+        FXMessageBox::error(this, MBOX_OK, TL("Time format error"), "%s", msg.c_str());
     }
     rebuildList();
     return 1;
