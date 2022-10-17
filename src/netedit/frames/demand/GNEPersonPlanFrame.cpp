@@ -202,30 +202,25 @@ GNEPersonPlanFrame::tagSelected() {
         myPersonPlanAttributes->showAttributesCreatorModule(myPersonPlanTagSelector->getCurrentTemplateAC(), {});
         // get previous person plan
         GNEEdge* previousEdge = myPersonSelector->getPersonPlanPreviousEdge();
-        // show path creator depending of tag
-        if (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() == GNE_TAG_WALK_ROUTE) {
-            myPathCreator->hidePathCreatorModule();
+        // update VClass of myPathCreator depending if person is a ride
+        if (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isRide()) {
+            myPathCreator->setVClass(SVC_PASSENGER);
         } else {
-            // update VClass of myPathCreator depending if person is a ride
-            if (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isRide()) {
-                myPathCreator->setVClass(SVC_PASSENGER);
+            myPathCreator->setVClass(SVC_PEDESTRIAN);
+        }
+        // set path creator mode depending if previousEdge exist
+        if (previousEdge) {
+            // set path creator mode
+            myPathCreator->showPathCreatorModule(personPlanTag, true, false);
+            // add previous edge or junction
+            if (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().hasAttribute(SUMO_ATTR_FROMJUNCTION)) {
+                myPathCreator->addJunction(previousEdge->getToJunction(), false, false);
             } else {
-                myPathCreator->setVClass(SVC_PEDESTRIAN);
+                myPathCreator->addEdge(previousEdge, false, false);
             }
-            // set path creator mode depending if previousEdge exist
-            if (previousEdge) {
-                // set path creator mode
-                myPathCreator->showPathCreatorModule(personPlanTag, true, false);
-                // add previous edge or junction
-                if (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().hasAttribute(SUMO_ATTR_FROMJUNCTION)) {
-                    myPathCreator->addJunction(previousEdge->getToJunction(), false, false);
-                } else {
-                    myPathCreator->addEdge(previousEdge, false, false);
-                }
-            } else {
-                // set path creator mode
-                myPathCreator->showPathCreatorModule(personPlanTag, false, false);
-            }
+        } else {
+            // set path creator mode
+            myPathCreator->showPathCreatorModule(personPlanTag, false, false);
         }
         // show person hierarchy
         myPersonHierarchy->showHierarchicalElementTree(myPersonSelector->getCurrentDemandElement());
