@@ -79,6 +79,14 @@ def get_options(args=None):
                         help="Read departure counts from the given edgeData file attribute")
     parser.add_argument("--turn-attribute", dest="turnAttr", default="count",
                         help="Read turning counts from the given attribute")
+    parser.add_argument("--turn-ratio-attribute", dest="turnRatioAttr",
+                        help="Read turning ratios from the given attribute")
+    parser.add_argument("--turn-ratio-total", dest="turnRatioTotal", type=float, default=1,
+                        help="Set value for normalizing turning ratios (default 1)")
+    parser.add_argument("--turn-ratio-tolerance", dest="turnRatioTolerance", type=float,
+                        help="Set tolerance for error in resulting ratios (relative to turn-ratio-total)")
+    parser.add_argument("--turn-ratio-abs-tolerance", dest="turnRatioAbsTolerance", type=int, default=1,
+                        help="Set tolerance for error in resulting turning ratios as absolute count")
     parser.add_argument("--turn-max-gap", type=int, dest="turnMaxGap", default=0,
                         help="Allow at most a gap of INT edges between from-edge and to-edge")
     parser.add_argument("-o", "--output-file", dest="out", default="out.rou.xml",
@@ -168,17 +176,22 @@ def get_options(args=None):
 
 
 class CountData:
-    def __init__(self, count, edgeTuple, allRoutes, isOrigin, isDest, options):
+    def __init__(self, count, edgeTuple, allRoutes, isOrigin, isDest, isRatio, options):
         self.origCount = count
         self.count = count
         self.edgeTuple = edgeTuple
         self.isOrigin = isOrigin
         self.isDest = isDest
+        self.isRatio = isRatio
+        self.ratioSiblings = []
+        self.assignedCount = 0
         self.options = options  # multiprocessing had issue with sumolib.options.getOptions().turnMaxGap
         self.routeSet = set()
         for routeIndex, edges in enumerate(allRoutes.unique):
             if self.routePasses(edges,):
                 self.routeSet.add(routeIndex)
+        if isRatio:
+            self.count = options.turnRatioAbsTolerance
 
     def routePasses(self, edges):
 
@@ -198,6 +211,10 @@ class CountData:
             return False
         return True
 
+    def use(self):
+        self.count -= 1
+        self.assignedCount += 1
+
     def addCount(self, count):
         self.count += count
         self.origCount += count
@@ -213,6 +230,29 @@ class CountData:
             if seen >= x:
                 return route
         assert (False)
+
+    def updateTurnRatioCounts(self, openRoutes, updateSiblings=False):
+        if self.isRatio:
+            total = sum([cd2.assignedCount for cd2 in self.ratioSiblings])
+            permitted = total * self.origCount + self.options.turnRatioAbsTolerance
+            if permitted > self.assignedCount:
+                self.count += permitted - self.assignedCount
+                for rI in self.routeSet:
+                    if rI not in openRoutes:
+                        openRoutes.append(rI)
+                if updateSiblings:
+                    for cd2 in self.ratioSiblings:
+                        if cd2 != self:
+                            cd2.updateTurnRatioCounts(openRoutes)
+
+    def __repr__(self):
+        return "CountData(edges=%s, count=%s, origCount=%s%s%s%s%s)\n" % (
+                self.edgeTuple, self.count, self.origCount,
+                ", isOrigin=True" if self.isOrigin else "",
+                ", isDest=True" if self.isDest else "",
+                ", isRatio=True" if self.isRatio else "",
+                (", sibs=%s" % len(self.ratioSiblings)) if self.isRatio else ""
+                )
 
 
 def getIntervals(options):
@@ -266,7 +306,7 @@ def parseEdgeCounts(interval, attr, warn):
 
 
 def parseDataIntervals(parseFun, fnames, begin, end, allRoutes, attr, options,
-                       isOrigin=False, isDest=False, warn=False):
+                       isOrigin=False, isDest=False, isRatio=False, warn=False):
     locations = {}  # edges -> CountData
     result = []
     if attr is None or attr == "None":
@@ -285,12 +325,18 @@ def parseDataIntervals(parseFun, fnames, begin, end, allRoutes, attr, options,
                                   (attr, fname, ' '.join(edges)), file=sys.stderr)
                         continue
                     if edges not in locations:
-                        result.append(CountData(0, edges, allRoutes, isOrigin, isDest, options))
+                        result.append(CountData(0, edges, allRoutes, isOrigin, isDest, isRatio, options))
                         locations[edges] = result[-1]
                     elif (isOrigin and isDest) != (locations[edges].isOrigin and locations[edges].isDest):
                         print("Warning: Edge relation '%s' occurs as turn relation and also as OD-relation" %
                               ' '.join(edges), file=sys.stderr)
-                    locations[edges].addCount(int(value * overlap))
+                    elif isRatio != locations[edges].isRatio:
+                        print("Warning: Edge relation '%s' occurs as turn relation and also as turn-ratio" %
+                              ' '.join(edges), file=sys.stderr)
+                    value *= overlap
+                    if not isRatio:
+                        value = int(value)
+                    locations[edges].addCount(value)
     return result
 
 
@@ -310,7 +356,7 @@ def parseTimeRange(fnames):
 
 def hasCapacity(dataIndices, countData):
     for i in dataIndices:
-        if countData[i].count == 0:
+        if countData[i].count <= 0:
             return False
     return True
 
@@ -321,6 +367,9 @@ def updateOpenRoutes(openRoutes, routeUsage, countData):
 
 def updateOpenCounts(openCounts, countData, openRoutes):
     return list(filter(lambda i: countData[i].routeSet.intersection(openRoutes), openCounts))
+
+
+
 
 
 def optimize(options, countData, routes, usedRoutes, routeUsage):
@@ -470,12 +519,25 @@ class Routes:
         self.probabilities = np.array([self.edgeProbs[e] for e in self.unique], dtype=np.float64)
 
 
+def initTurnRatioSiblings(routes, countData):
+    # todo: use routes to complete incomplete sibling lists
+    ratioOrigins = defaultdict(list)
+    for cd in countData:
+        if cd.isRatio:
+            ratioOrigins[cd.edgeTuple[0]].append(cd)
+
+    for edge, cDs in ratioOrigins.items():
+        for cd in cDs:
+            cd.ratioSiblings = cDs
+
+
 def resetCounts(usedRoutes, routeUsage, countData):
     for cd in countData:
         cd.count = cd.origCount
+        cd.assignedCount = 0
     for r in usedRoutes:
         for i in routeUsage[r]:
-            countData[i].count -= 1
+            countData[i].use()
 
 
 def getRouteCounts(routes, usedRoutes):
@@ -509,6 +571,8 @@ def main(options):
     e = intervals[-1][-1]
     countData = (parseDataIntervals(parseTurnCounts, options.turnFiles, b, e,
                                     routes, options.turnAttr, options=options, warn=True)
+                 + parseDataIntervals(parseTurnCounts, options.turnFiles, b, e,
+                                    routes, options.turnRatioAttr, options=options, isRatio=True, warn=True)
                  + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, b, e,
                                       routes, options.edgeDataAttr, options=options, warn=True)
                  + parseDataIntervals(parseTurnCounts, options.odFiles, b, e,
@@ -632,6 +696,8 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
     # store which routes are passing each counting location (using route index)
     countData = (parseDataIntervals(parseTurnCounts, options.turnFiles, begin, end, routes, options.turnAttr,
                                     options=options)
+                 + parseDataIntervals(parseTurnCounts, options.turnFiles, begin, end,
+                                    routes, options.turnRatioAttr, options=options, isRatio=True)
                  + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, begin, end, routes,
                                       options.edgeDataAttr, options=options)
                  + parseDataIntervals(parseTurnCounts, options.odFiles, begin, end, routes, options.turnAttr,
@@ -641,6 +707,9 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                  + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, begin, end, routes,
                                       options.arrivalAttr, options=options, isDest=True)
                  )
+
+    if options.turnFiles and options.turnRatioAttr:
+        initTurnRatioSiblings(routes, countData)
 
     routeUsage = getRouteUsage(routes, countData)
     unrestricted = set([r for r, usage in enumerate(routeUsage) if len(usage) < options.minCount])
@@ -653,6 +722,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
 
     # pick a random counting location and select a new route that passes it until
     # all counts are satisfied or no routes can be used anymore
+
     openRoutes = updateOpenRoutes(range(0, routes.number), routeUsage, countData)
     openCounts = updateOpenCounts(range(0, len(countData)), countData, openRoutes)
     openRoutes = [r for r in openRoutes if r not in unrestricted]
@@ -673,7 +743,11 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                 routeIndex = rng.choice([r for r in openRoutes if r in cd.routeSet])
             usedRoutes.append(routeIndex)
             for dataIndex in routeUsage[routeIndex]:
-                countData[dataIndex].count -= 1
+                countData[dataIndex].use()
+            if options.turnFiles and options.turnRatioAttr:
+                for dataIndex in routeUsage[routeIndex]:
+                    countData[dataIndex].updateTurnRatioCounts(openRoutes, True)
+
             openRoutes = updateOpenRoutes(openRoutes, routeUsage, countData)
             openCounts = updateOpenCounts(openCounts, countData, openRoutes)
 
@@ -812,6 +886,8 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
     totalCount = 0
     totalOrigCount = 0
     for cd in countData:
+        if cd.isRatio:
+            continue
         localCount = cd.origCount - cd.count
         totalCount += localCount
         totalOrigCount += cd.origCount
