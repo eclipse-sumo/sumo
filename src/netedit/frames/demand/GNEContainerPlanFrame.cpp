@@ -156,8 +156,10 @@ GNEContainerPlanFrame::tagSelected() {
         if (previousEdge) {
             // set path creator mode
             myPathCreator->showPathCreatorModule(containerPlanTag, true, false);
-            // add previous edge
-            myPathCreator->addEdge(previousEdge, false, false);
+            // check if add previous edge
+             if (!myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopContainer()) {
+                myPathCreator->addEdge(previousEdge, false, false);
+            }
         } else {
             // set path creator mode
             myPathCreator->showPathCreatorModule(containerPlanTag, false, false);
