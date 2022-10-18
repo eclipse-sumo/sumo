@@ -50,6 +50,15 @@ Contributor Agreement (ECA) on file.
 For more information, please see the Eclipse Committer Handbook:
 https://www.eclipse.org/projects/handbook/#resources-commit
 
+## Translating
+
+If you want to help in translating SUMO please open an account at
+[Weblate](https://hosted.weblate.org/projects/eclipse-sumo/) and add your translation there.
+Concerning the license and the contributor agreement the same rules apply as for code
+and documentation (you need to agree to the ECA). If you want to add a new language
+please send a request to sumo-dev (see below) or follow 
+[these steps](https://sumo.dlr.de/docs/Developer/Translating.html#new_language).
+
 ## Contact
 
 Contact the project developers via the project's "dev" list.

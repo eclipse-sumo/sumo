@@ -75,8 +75,8 @@ There is also user documentation provided in the docs/ directory and on the
 homepage.
 
 
-Bugs
-----
+Improving SUMO
+--------------
 
 Please use for bugs and requests the [GitHub bug tracking tool](https://github.com/eclipse/sumo/issues)
 or file them to the list sumo-user@eclipse.org. Before
@@ -84,6 +84,9 @@ filing a bug, please consider to check with a current repository checkout
 whether the problem has already been fixed.
 
 We welcome patches, pull requests and other contributions! For details see [our contribution guidelines](CONTRIBUTING.md).
+
+We use [Weblate for translating SUMO](https://hosted.weblate.org/projects/eclipse-sumo/). If you
+want to add translation strings or a language, see [our contribution guidelines](CONTRIBUTING.md#translating).
 
 
 License
