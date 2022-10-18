@@ -55,11 +55,11 @@ netedit.leftClick(referencePosition, 92, 412)
 # go to personPlanMode mode
 netedit.changePersonPlanMode("personTrip: edge->busStop")
 
-# create personTripEdgeBusStop
+# create personStopBusStop
 netedit.leftClick(referencePosition, 295, 50)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.personTripEdgeBusStop.create.lines, "custom line")
+netedit.changeDefaultValue(netedit.attrs.personStopBusStop.create.lines, "custom line")
 
 # press enter to create route
 netedit.typeEnter()

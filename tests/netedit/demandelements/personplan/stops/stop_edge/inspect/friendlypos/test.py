@@ -42,21 +42,22 @@ netedit.changePersonPlan("walk: edge->edge", False)
 
 # create route using two one
 netedit.leftClick(referencePosition, 274, 400)
+netedit.leftClick(referencePosition, 180, 65)
 
 # press enter to create route
 netedit.typeEnter()
 
-# go to personTripEdgeEdge mode
+# go to personStopEdge mode
 netedit.personPlanMode()
 
 # select person
 netedit.leftClick(referencePosition, 92, 412)
 
-# go to personTripEdgeEdge mode
-netedit.changePersonPlanMode("personTrip: edge->edge")
+# go to personStopEdge mode
+netedit.changePersonPlanMode("stopPerson: edge")
 
-# create personTripEdgeEdge
-netedit.leftClick(referencePosition, 180, 55)
+# create personStopEdge
+netedit.leftClick(referencePosition, 180, 65)
 
 # press enter to create route
 netedit.typeEnter()
@@ -64,20 +65,20 @@ netedit.typeEnter()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect personTripEdgeEdge
+# inspect personStopEdge
 netedit.leftClick(referencePosition, 430, 65)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personTripEdgeEdge.inspect.arrivalPos, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.personStopEdge.inspect.arrivalPos, "dummy", False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personTripEdgeEdge.inspect.arrivalPos, "", False)
+netedit.modifyAttribute(netedit.attrs.personStopEdge.inspect.arrivalPos, "", False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personTripEdgeEdge.inspect.arrivalPos, "-6", False)
+netedit.modifyAttribute(netedit.attrs.personStopEdge.inspect.arrivalPos, "-6", False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personTripEdgeEdge.inspect.arrivalPos, "2.5", False)
+netedit.modifyAttribute(netedit.attrs.personStopEdge.inspect.arrivalPos, "2.5", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

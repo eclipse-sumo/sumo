@@ -2568,7 +2568,7 @@ class personStopEdge:
         duration = 10
         untilEnable = 11
         until = 12
-        actType = 13
+        actType = 12
 
     class inspect:
         edge = 1
@@ -2585,7 +2585,7 @@ class personStopEdge:
         duration = 3
         untilEnable = 4
         until = 5
-        actType = 6
+        actType = 5
 
 
 class personStopBusStop:
@@ -2594,21 +2594,21 @@ class personStopBusStop:
         duration = 9
         untilEnable = 10
         until = 11
-        actType = 12
+        actType = 11
 
     class inspect:
         durationEnable = 1
         duration = 2
         untilEnable = 3
         until = 4
-        actType = 5
+        actType = 4
 
     class inspectSelection:
         durationEnable = 1
         duration = 2
         untilEnable = 3
         until = 4
-        actType = 5
+        actType = 4
 
 # Container
 

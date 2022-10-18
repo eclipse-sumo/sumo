@@ -46,11 +46,11 @@ netedit.selectionInvert()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect personTripEdgeBusStop
+# inspect personStopBusStop
 netedit.leftClick(referencePosition, 430, 65)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personTripEdgeBusStop.inspectSelection.lines, "custom line", False)
+netedit.modifyAttribute(netedit.attrs.personStopBusStop.inspectSelection.lines, "custom line", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

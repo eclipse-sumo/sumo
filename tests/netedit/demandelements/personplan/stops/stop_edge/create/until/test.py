@@ -42,30 +42,31 @@ netedit.changePersonPlan("walk: edge->edge", False)
 
 # create route using two one
 netedit.leftClick(referencePosition, 274, 400)
+netedit.leftClick(referencePosition, 180, 65)
 
 # press enter to create route
 netedit.typeEnter()
 
-# go to personTripEdgeEdge mode
+# go to personStopEdge mode
 netedit.personPlanMode()
 
 # select person
 netedit.leftClick(referencePosition, 92, 412)
 
-# go to personTripEdgeEdge mode
-netedit.changePersonPlanMode("personTrip: edge->edge")
+# go to personStopEdge mode
+netedit.changePersonPlanMode("stopPerson: edge")
 
-# create personTripEdgeEdge
-netedit.leftClick(referencePosition, 180, 55)
+# create personStopEdge
+netedit.leftClick(referencePosition, 180, 65)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.personTripEdgeEdge.create.modes, "dummy")
+netedit.changeDefaultValue(netedit.attrs.personStopEdge.create.modes, "dummy")
 
 # press enter to create route
 netedit.typeEnter()
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.personTripEdgeEdge.create.modes, "public")
+netedit.changeDefaultValue(netedit.attrs.personStopEdge.create.modes, "public")
 
 # press enter to create route
 netedit.typeEnter()

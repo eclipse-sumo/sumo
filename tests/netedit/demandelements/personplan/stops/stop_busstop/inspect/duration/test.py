@@ -55,7 +55,7 @@ netedit.leftClick(referencePosition, 92, 412)
 # go to person plan mode
 netedit.changePersonPlanMode("personTrip: edge->busStop")
 
-# create personTripEdgeBusStop
+# create personStopBusStop
 netedit.leftClick(referencePosition, 295, 50)
 
 # press enter to create route
@@ -64,11 +64,11 @@ netedit.typeEnter()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect personTripEdgeBusStop
+# inspect personStopBusStop
 netedit.leftClick(referencePosition, 430, 65)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personTripEdgeBusStop.inspect.lines, "custom line", False)
+netedit.modifyAttribute(netedit.attrs.personStopBusStop.inspect.lines, "custom line", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

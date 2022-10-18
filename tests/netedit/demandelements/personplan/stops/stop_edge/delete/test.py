@@ -42,21 +42,22 @@ netedit.changePersonPlan("walk: edge->edge", False)
 
 # create route using two one
 netedit.leftClick(referencePosition, 274, 400)
+netedit.leftClick(referencePosition, 180, 65)
 
 # press enter to create route
 netedit.typeEnter()
 
-# go to personTripEdgeEdge mode
+# go to personStopEdge mode
 netedit.personPlanMode()
 
 # select person
 netedit.leftClick(referencePosition, 92, 412)
 
-# go to personTripEdgeEdge mode
-netedit.changePersonPlanMode("personTrip: edge->edge")
+# go to personStopEdge mode
+netedit.changePersonPlanMode("stopPerson: edge")
 
-# create personTripEdgeEdge
-netedit.leftClick(referencePosition, 180, 55)
+# create personStopEdge
+netedit.leftClick(referencePosition, 180, 65)
 
 # press enter to create route
 netedit.typeEnter()
@@ -64,7 +65,7 @@ netedit.typeEnter()
 # go to delete mode
 netedit.deleteMode()
 
-# delete personTripEdgeEdge
+# delete personStopEdge
 netedit.leftClick(referencePosition, 158, 65)
 
 # Check undo redo
