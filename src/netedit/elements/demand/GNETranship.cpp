@@ -152,7 +152,7 @@ GNETranship::writeDemandElement(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_DEPARTPOS, myDepartPosition);
     }
     // only write arrivalPos if is different of -1
-    if (myArrivalPosition != -1) {
+    if ((myTagProperty.getTag() != GNE_TAG_TRANSHIP_CONTAINERSTOP) && (myArrivalPosition != -1)) {
         device.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPosition);
     }
     // only write speed if is different of 1.39
