@@ -2560,6 +2560,56 @@ class walkJunctions:
     class inspect:
         to = 1
 
+
+class personStopEdge:
+    class create:
+        friendlyPos = 8
+        durationEnable = 9
+        duration = 10
+        untilEnable = 11
+        until = 12
+        actType = 13
+
+    class inspect:
+        edge = 1
+        friendlyPos = 2
+        durationEnable = 3
+        duration = 4
+        untilEnable = 5
+        until = 6
+        actType = 7
+
+    class inspectSelection:
+        friendlyPos = 1
+        durationEnable = 2
+        duration = 3
+        untilEnable = 4
+        until = 5
+        actType = 6
+
+
+class personStopBusStop:
+    class create:
+        durationEnable = 8
+        duration = 9
+        untilEnable = 10
+        until = 11
+        actType = 12
+
+    class inspect:
+        durationEnable = 1
+        duration = 2
+        untilEnable = 3
+        until = 4
+        actType = 5
+
+    class inspectSelection:
+        durationEnable = 1
+        duration = 2
+        untilEnable = 3
+        until = 4
+        actType = 5
+
 # Container
 
 
