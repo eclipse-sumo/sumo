@@ -97,9 +97,9 @@ GUIDialog_ChooserAbstract::GUIDialog_ChooserAbstract(GUIGlChildWindow* windowsPa
     new FXHorizontalSeparator(layoutRight, GUIDesignHorizontalSeparator);
     new FXButton(layoutRight, TL("&Close\t\t"), GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_CANCEL, GUIDesignChooserButtons);
     myCountLabel = new FXLabel(layoutRight, "placeholder", nullptr, LAYOUT_BOTTOM | LAYOUT_FILL_X | JUSTIFY_LEFT);
-    myCaseSensitive = new FXCheckButton(layoutRight, "case-sensitive search");
+    myCaseSensitive = new FXCheckButton(layoutRight, TL("case-sensitive search"));
     myCaseSensitive->setCheck(getApp()->reg().readIntEntry("LOCATOR", "caseSensitive", 0) == 1);
-    myInstantCenter = new FXCheckButton(layoutRight, "auto-center");
+    myInstantCenter = new FXCheckButton(layoutRight, TL("auto-center"));
     myInstantCenter->setCheck(getApp()->reg().readIntEntry("LOCATOR", "autoCenter", 0) == 1);
     refreshList(ids);
     // add child in windowsParent

@@ -45,13 +45,13 @@ FXIMPLEMENT(GNEDrawingShape,               MFXGroupBoxModule,     DrawingShapeMa
 // ===========================================================================
 
 GNEDrawingShape::GNEDrawingShape(GNEFrame* frameParent) :
-    MFXGroupBoxModule(frameParent, "Drawing"),
+    MFXGroupBoxModule(frameParent, TL("Drawing")),
     myFrameParent(frameParent),
     myDeleteLastCreatedPoint(false) {
     // create start and stop buttons
-    myStartDrawingButton = new FXButton(getCollapsableFrame(), "Start drawing", 0, this, MID_GNE_STARTDRAWING, GUIDesignButton);
-    myStopDrawingButton = new FXButton(getCollapsableFrame(), "Stop drawing", 0, this, MID_GNE_STOPDRAWING, GUIDesignButton);
-    myAbortDrawingButton = new FXButton(getCollapsableFrame(), "Abort drawing", 0, this, MID_GNE_ABORTDRAWING, GUIDesignButton);
+    myStartDrawingButton = new FXButton(getCollapsableFrame(), TL("Start drawing"), 0, this, MID_GNE_STARTDRAWING, GUIDesignButton);
+    myStopDrawingButton = new FXButton(getCollapsableFrame(), TL("Stop drawing"), 0, this, MID_GNE_STOPDRAWING, GUIDesignButton);
+    myAbortDrawingButton = new FXButton(getCollapsableFrame(), TL("Abort drawing"), 0, this, MID_GNE_ABORTDRAWING, GUIDesignButton);
     // create information label
     std::ostringstream information;
     information

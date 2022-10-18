@@ -66,10 +66,10 @@ FXIMPLEMENT(GNEGenericDataFrame::AttributeSelector, MFXGroupBoxModule, Attribute
 // ---------------------------------------------------------------------------
 
 GNEGenericDataFrame::DataSetSelector::DataSetSelector(GNEGenericDataFrame* genericDataFrameParent) :
-    MFXGroupBoxModule(genericDataFrameParent, "DataSet"),
+    MFXGroupBoxModule(genericDataFrameParent, TL("DataSet")),
     myGenericDataFrameParent(genericDataFrameParent) {
     // create check button for new data set
-    myNewDataSetCheckButton = new FXCheckButton(getCollapsableFrame(), "Create new dataSet", this, MID_GNE_SELECT, GUIDesignCheckButton);
+    myNewDataSetCheckButton = new FXCheckButton(getCollapsableFrame(), TL("Create new dataSet"), this, MID_GNE_SELECT, GUIDesignCheckButton);
     // Create FXComboBox
     myDataSetsComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_DATASET_SELECTED, GUIDesignComboBox);
     // create new id label
@@ -80,7 +80,7 @@ GNEGenericDataFrame::DataSetSelector::DataSetSelector(GNEGenericDataFrame* gener
     // hide horizontal frame
     myHorizontalFrameNewID->hide();
     // create dataSet button
-    myCreateDataSetButton = new FXButton(getCollapsableFrame(), "Create dataSet", GUIIconSubSys::getIcon(GUIIcon::DATASET), this, MID_GNE_CREATE, GUIDesignButton);
+    myCreateDataSetButton = new FXButton(getCollapsableFrame(), TL("Create dataSet"), GUIIconSubSys::getIcon(GUIIcon::DATASET), this, MID_GNE_CREATE, GUIDesignButton);
     myCreateDataSetButton->hide();
     // refresh interval selector
     refreshDataSetSelector(nullptr);
@@ -195,10 +195,10 @@ GNEGenericDataFrame::DataSetSelector::onCmdSelectCheckButton(FXObject*, FXSelect
 // ---------------------------------------------------------------------------
 
 GNEGenericDataFrame::IntervalSelector::IntervalSelector(GNEGenericDataFrame* genericDataFrameParent) :
-    MFXGroupBoxModule(genericDataFrameParent, "Interval"),
+    MFXGroupBoxModule(genericDataFrameParent, TL("Interval")),
     myGenericDataFrameParent(genericDataFrameParent) {
     // create check button for new interval
-    myNewIntervalCheckButton = new FXCheckButton(getCollapsableFrame(), "Create new interval", this, MID_GNE_SELECT, GUIDesignCheckButton);
+    myNewIntervalCheckButton = new FXCheckButton(getCollapsableFrame(), TL("Create new interval"), this, MID_GNE_SELECT, GUIDesignCheckButton);
     // create begin label
     myHorizontalFrameBegin = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(myHorizontalFrameBegin, toString(SUMO_ATTR_BEGIN).c_str(), nullptr, GUIDesignLabelAttribute);
@@ -216,7 +216,7 @@ GNEGenericDataFrame::IntervalSelector::IntervalSelector(GNEGenericDataFrame* gen
     // hide horizontal frame end
     myHorizontalFrameEnd->hide();
     // create interval button
-    myCreateIntervalButton = new FXButton(getCollapsableFrame(), "create interval", GUIIconSubSys::getIcon(GUIIcon::DATAINTERVAL), this, MID_GNE_CREATE, GUIDesignButton);
+    myCreateIntervalButton = new FXButton(getCollapsableFrame(), TL("create interval"), GUIIconSubSys::getIcon(GUIIcon::DATAINTERVAL), this, MID_GNE_CREATE, GUIDesignButton);
     myCreateIntervalButton->hide();
     // Create three list
     myIntervalsTreelist = new FXTreeList(getCollapsableFrame(), this, MID_GNE_DATAINTERVAL_SELECTED, GUIDesignTreeListFrame);
@@ -389,7 +389,7 @@ GNEGenericDataFrame::IntervalSelector::addIntervalItem(GNEDataInterval* dataInte
 // ---------------------------------------------------------------------------
 
 GNEGenericDataFrame::AttributeSelector::AttributeSelector(GNEGenericDataFrame* genericDataFrameParent, SumoXMLTag tag) :
-    MFXGroupBoxModule(genericDataFrameParent, "Data attributes"),
+    MFXGroupBoxModule(genericDataFrameParent, TL("Data attributes")),
     myGenericDataFrameParent(genericDataFrameParent),
     myMinMaxLabel(nullptr),
     myGenericDataTag(tag) {

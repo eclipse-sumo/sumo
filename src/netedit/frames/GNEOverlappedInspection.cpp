@@ -49,7 +49,7 @@ FXIMPLEMENT(GNEOverlappedInspection,       MFXGroupBoxModule,     OverlappedInsp
 // ===========================================================================
 
 GNEOverlappedInspection::GNEOverlappedInspection(GNEFrame* frameParent) :
-    MFXGroupBoxModule(frameParent, "Overlapped elements"),
+    MFXGroupBoxModule(frameParent, TL("Overlapped elements")),
     myFrameParent(frameParent),
     myFilteredTag(SUMO_TAG_NOTHING),
     myItemIndex(0) {
@@ -275,11 +275,11 @@ GNEOverlappedInspection::onCmdOverlappingHelp(FXObject*, FXSelector, void*) {
     FXDialogBox* helpDialog = new FXDialogBox(getCollapsableFrame(), "GEO attributes Help", GUIDesignDialogBox);
     std::ostringstream help;
     help
-            << " - Click in the same position\n"
-            << "   for inspect next element\n"
-            << " - Shift + Click in the same\n"
-            << "   position for inspect\n"
-            << "   previous element";
+            << TL(" - Click in the same position\n")
+            << TL("   for inspect next element\n")
+            << TL(" - Shift + Click in the same\n")
+            << TL("   position for inspect\n")
+            << TL("   previous element");
     new FXLabel(helpDialog, help.str().c_str(), nullptr, GUIDesignLabelFrameInformation);
     // "OK"
     new FXButton(helpDialog, TL("OK\t\tclose"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), helpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
@@ -315,7 +315,7 @@ GNEOverlappedInspection::buildFXElements() {
     // by default list of overlapped elements is hidden)
     myOverlappedElementList->hide();
     // Create help button
-    myHelpButton = new FXButton(getCollapsableFrame(), "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
+    myHelpButton = new FXButton(getCollapsableFrame(), TL("Help"), nullptr, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 /****************************************************************************/

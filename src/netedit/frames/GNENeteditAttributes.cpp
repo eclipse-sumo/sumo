@@ -46,7 +46,7 @@ FXIMPLEMENT(GNENeteditAttributes,  MFXGroupBoxModule,   NeteditAttributesMap,   
 // ===========================================================================
 
 GNENeteditAttributes::GNENeteditAttributes(GNEFrame* frameParent) :
-    MFXGroupBoxModule(frameParent, "Netedit attributes"),
+    MFXGroupBoxModule(frameParent, TL("Netedit attributes")),
     myFrameParent(frameParent),
     myCurrentLengthValid(true),
     myActualAdditionalReferencePoint(AdditionalReferencePoint::LEFT) {
@@ -63,14 +63,14 @@ GNENeteditAttributes::GNENeteditAttributes(GNEFrame* frameParent) :
     // Create Frame for block close polygon and checkBox (By default disabled)
     myCloseShapeFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(myCloseShapeFrame, "Close shape", 0, GUIDesignLabelAttribute);
-    myCloseShapeCheckButton = new FXCheckButton(myCloseShapeFrame, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myCloseShapeCheckButton = new FXCheckButton(myCloseShapeFrame, TL("false"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     // Create Frame for center element after creation (By default enabled)
     myCenterViewAfterCreationFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(myCenterViewAfterCreationFrame, "Center view", 0, GUIDesignLabelAttribute);
-    myCenterViewAfterCreationButton = new FXCheckButton(myCenterViewAfterCreationFrame, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myCenterViewAfterCreationButton = new FXCheckButton(myCenterViewAfterCreationFrame, TL("false"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myCenterViewAfterCreationButton->setCheck(true);
     // Create help button
-    helpReferencePoint = new FXButton(getCollapsableFrame(), "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
+    helpReferencePoint = new FXButton(getCollapsableFrame(), TL("Help"), 0, this, MID_HELP, GUIDesignButtonRectangular);
     // Set visible items
     myReferencePointMatchBox->setNumVisible((int)myReferencePointMatchBox->getNumItems());
 }
@@ -227,15 +227,15 @@ GNENeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
     // set help text
     std::ostringstream help;
     help
-            << "- Referece point: Mark the initial position of the additional element.\n"
-            << "  Example: If you want to create a busStop with a length of 30 in the point 100 of the lane:\n"
-            << "  - Reference Left will create it with startPos = 70 and endPos = 100.\n"
-            << "  - Reference Right will create it with startPos = 100 and endPos = 130.\n"
-            << "  - Reference Center will create it with startPos = 85 and endPos = 115.\n"
+            << TL("- Reference point: Mark the initial position of the additional element.\n")
+            << TL("  Example: If you want to create a busStop with a length of 30 in the point 100 of the lane:\n")
+            << TL("  - Reference Left will create it with startPos = 70 and endPos = 100.\n")
+            << TL("  - Reference Right will create it with startPos = 100 and endPos = 130.\n")
+            << TL("  - Reference Center will create it with startPos = 85 and endPos = 115.\n")
             << "\n"
-            << "- Block movement: if is enabled, the created additional element will be blocked. i.e. cannot be moved with\n"
+            << TL("- Block movement: if is enabled, the created additional element will be blocked. i.e. cannot be moved with\n")
             << "  the mouse. This option can be modified inspecting element.\n"
-            << "- Center view: if is enabled, view will be center over created element.";
+            << TL("- Center view: if is enabled, view will be center over created element.");
     // Create label with the help text
     new FXLabel(additionalNeteditAttributesHelpDialog, help.str().c_str(), 0, GUIDesignLabelFrameInformation);
     // Create horizontal separator
@@ -261,13 +261,13 @@ GNENeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
     return 1;
     /**********
     help from ShapeFrame
-            << "- Block movement: If enabled, the created polygon element will be blocked. i.e. cannot be moved with\n"
+            << TL("- Block movement: If enabled, the created polygon element will be blocked. i.e. cannot be moved with\n")
             << "  the mouse. This option can be modified inspecting element.\n"
             << "\n"
-            << "- Block shape: If enabled, the shape of created polygon element will be blocked. i.e. their geometry points\n"
+            << TL("- Block shape: If enabled, the shape of created polygon element will be blocked. i.e. their geometry points\n")
             << "  cannot be edited be moved with the mouse. This option can be modified inspecting element.\n"
             << "\n"
-            << "- Close shape: If enabled, the created polygon element will be closed. i.e. the last created geometry point\n"
+            << TL("- Close shape: If enabled, the created polygon element will be closed. i.e. the last created geometry point\n")
             << "  will be connected with the first geometry point automatically. This option can be modified inspecting element.";
 
     ****************/

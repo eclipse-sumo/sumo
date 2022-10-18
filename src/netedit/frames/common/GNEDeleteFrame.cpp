@@ -50,10 +50,10 @@ FXIMPLEMENT(GNEDeleteFrame::DeleteOptions,      MFXGroupBoxModule, DeleteOptions
 // ---------------------------------------------------------------------------
 
 GNEDeleteFrame::DeleteOptions::DeleteOptions(GNEDeleteFrame* deleteFrameParent) :
-    MFXGroupBoxModule(deleteFrameParent, "Options"),
+    MFXGroupBoxModule(deleteFrameParent, TL("Options")),
     myDeleteFrameParent(deleteFrameParent) {
     // Create checkbox for enable/disable delete only geomtery point(by default, disabled)
-    myDeleteOnlyGeometryPoints = new FXCheckButton(getCollapsableFrame(), "Delete geometry points", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myDeleteOnlyGeometryPoints = new FXCheckButton(getCollapsableFrame(), TL("Delete geometry points"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myDeleteOnlyGeometryPoints->setCheck(FALSE);
 }
 
@@ -227,18 +227,18 @@ GNEDeleteFrame::SubordinatedElements::openWarningDialog(const std::string& type,
 // ---------------------------------------------------------------------------
 
 GNEDeleteFrame::ProtectElements::ProtectElements(GNEDeleteFrame* deleteFrameParent) :
-    MFXGroupBoxModule(deleteFrameParent, "Protect Elements") {
+    MFXGroupBoxModule(deleteFrameParent, TL("Protect Elements")) {
     // Create checkbox for enable/disable delete only geomtery point(by default, disabled)
-    myProtectAdditionals = new FXCheckButton(getCollapsableFrame(), "Protect additional elements", deleteFrameParent, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myProtectAdditionals = new FXCheckButton(getCollapsableFrame(), TL("Protect additional elements"), deleteFrameParent, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myProtectAdditionals->setCheck(TRUE);
     // Create checkbox for enable/disable delete only geomtery point(by default, disabled)
-    myProtectTAZs = new FXCheckButton(getCollapsableFrame(), "Protect TAZ elements", deleteFrameParent, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myProtectTAZs = new FXCheckButton(getCollapsableFrame(), TL("Protect TAZ elements"), deleteFrameParent, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myProtectTAZs->setCheck(TRUE);
     // Create checkbox for enable/disable delete only geomtery point(by default, disabled)
-    myProtectDemandElements = new FXCheckButton(getCollapsableFrame(), "Protect demand elements", deleteFrameParent, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myProtectDemandElements = new FXCheckButton(getCollapsableFrame(), TL("Protect demand elements"), deleteFrameParent, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myProtectDemandElements->setCheck(TRUE);
     // Create checkbox for enable/disable delete only geomtery point(by default, disabled)
-    myProtectGenericDatas = new FXCheckButton(getCollapsableFrame(), "Protect data elements", deleteFrameParent, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myProtectGenericDatas = new FXCheckButton(getCollapsableFrame(), TL("Protect data elements"), deleteFrameParent, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myProtectGenericDatas->setCheck(TRUE);
 }
 

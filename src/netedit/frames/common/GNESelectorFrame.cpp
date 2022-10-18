@@ -74,7 +74,7 @@ FXIMPLEMENT(GNESelectorFrame::SelectionHierarchy,   MFXGroupBoxModule,   Selecti
 // ---------------------------------------------------------------------------
 
 GNESelectorFrame::SelectionInformation::SelectionInformation(GNESelectorFrame* selectorFrameParent) :
-    MFXGroupBoxModule(selectorFrameParent, "Selection information"),
+    MFXGroupBoxModule(selectorFrameParent, TL("Selection information")),
     mySelectorFrameParent(selectorFrameParent) {
     // information label
     myInformationLabel = new FXLabel(getCollapsableFrame(), "", nullptr, GUIDesignLabelFrameInformation);
@@ -146,16 +146,16 @@ GNESelectorFrame::SelectionInformation::updateInformationLabel(const std::string
 // ---------------------------------------------------------------------------
 
 GNESelectorFrame::ModificationMode::ModificationMode(GNESelectorFrame* selectorFrameParent) :
-    MFXGroupBoxModule(selectorFrameParent, "Modification Mode"),
+    MFXGroupBoxModule(selectorFrameParent, TL("Modification Mode")),
     myModificationModeType(Operation::ADD) {
     // Create all options buttons
-    myAddRadioButton = new FXRadioButton(getCollapsableFrame(), "add\t\tSelected objects are added to the previous selection",
+    myAddRadioButton = new FXRadioButton(getCollapsableFrame(), TL("add\t\tSelected objects are added to the previous selection"),
                                          this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    myRemoveRadioButton = new FXRadioButton(getCollapsableFrame(), "remove\t\tSelected objects are removed from the previous selection",
+    myRemoveRadioButton = new FXRadioButton(getCollapsableFrame(), TL("remove\t\tSelected objects are removed from the previous selection"),
                                             this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    myKeepRadioButton = new FXRadioButton(getCollapsableFrame(), "keep\t\tRestrict previous selection by the current selection",
+    myKeepRadioButton = new FXRadioButton(getCollapsableFrame(), TL("keep\t\tRestrict previous selection by the current selection"),
                                           this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    myReplaceRadioButton = new FXRadioButton(getCollapsableFrame(), "replace\t\tReplace previous selection by the current selection",
+    myReplaceRadioButton = new FXRadioButton(getCollapsableFrame(), TL("replace\t\tReplace previous selection by the current selection"),
             this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     myAddRadioButton->setCheck(true);
 }
@@ -210,7 +210,7 @@ GNESelectorFrame::ModificationMode::onCmdSelectModificationMode(FXObject* obj, F
 // ---------------------------------------------------------------------------
 
 GNESelectorFrame::VisualScaling::VisualScaling(GNESelectorFrame* selectorFrameParent) :
-    MFXGroupBoxModule(selectorFrameParent, "Visual Scaling"),
+    MFXGroupBoxModule(selectorFrameParent, TL("Visual Scaling")),
     mySelectorFrameParent(selectorFrameParent) {
     // Create spin button and configure it
     mySelectionScaling = new FXRealSpinner(getCollapsableFrame(), 7, this, MID_GNE_SELECTORFRAME_SELECTSCALE, GUIDesignSpinDial);
@@ -239,7 +239,7 @@ GNESelectorFrame::VisualScaling::onCmdScaleSelection(FXObject*, FXSelector, void
 // ---------------------------------------------------------------------------
 
 GNESelectorFrame::SelectionOperation::SelectionOperation(GNESelectorFrame* selectorFrameParent) :
-    MFXGroupBoxModule(selectorFrameParent, "Selection operations"),
+    MFXGroupBoxModule(selectorFrameParent, TL("Selection operations")),
     mySelectorFrameParent(selectorFrameParent) {
     // tabular buttons, see GNETLSEditorFrame
 
@@ -1109,7 +1109,7 @@ GNESelectorFrame::SelectionOperation::askContinueIfLock() const {
 // ---------------------------------------------------------------------------
 
 GNESelectorFrame::SelectionHierarchy::SelectionHierarchy(GNESelectorFrame* selectorFrameParent) :
-    MFXGroupBoxModule(selectorFrameParent, "Hierarchy operations"),
+    MFXGroupBoxModule(selectorFrameParent, TL("Hierarchy operations")),
     mySelectorFrameParent(selectorFrameParent),
     myCurrentSelectedParent(Selection::ALL),
     myCurrentSelectedChild(Selection::ALL) {
@@ -1345,7 +1345,7 @@ GNESelectorFrame::SelectionHierarchy::onCmdChildren(FXObject* obj, FXSelector, v
 // ---------------------------------------------------------------------------
 
 GNESelectorFrame::Information::Information(GNESelectorFrame* selectorFrameParent) :
-    MFXGroupBoxModule(selectorFrameParent, "Information") {
+    MFXGroupBoxModule(selectorFrameParent, TL("Information")) {
     // Create Selection Hint
     new FXLabel(getCollapsableFrame(), " - Hold <SHIFT> for \n   rectangle selection.\n - Press <DEL> to\n   delete selected objects.", nullptr, GUIDesignLabelFrameInformation);
 }

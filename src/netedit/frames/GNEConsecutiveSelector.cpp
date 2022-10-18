@@ -52,22 +52,22 @@ FXIMPLEMENT(GNEConsecutiveSelector, MFXGroupBoxModule, ConsecutiveLaneSelectorMa
 // ---------------------------------------------------------------------------
 
 GNEConsecutiveSelector::GNEConsecutiveSelector(GNEFrame* frameParent, const bool allowOneLane) :
-    MFXGroupBoxModule(frameParent, "Consecutive lane selector"),
+    MFXGroupBoxModule(frameParent, TL("Consecutive lane selector")),
     myFrameParent(frameParent),
     myAllowOneLane(allowOneLane) {
     // create label for route info
     myInfoPathLabel = new FXLabel(getCollapsableFrame(), "No lanes selected", 0, GUIDesignLabelFrameThicked);
     // create button for finish route creation
-    myFinishCreationButton = new FXButton(getCollapsableFrame(), "Finish path creation", nullptr, this, MID_GNE_FINISH, GUIDesignButton);
+    myFinishCreationButton = new FXButton(getCollapsableFrame(), TL("Finish path creation"), nullptr, this, MID_GNE_FINISH, GUIDesignButton);
     myFinishCreationButton->disable();
     // create button for abort route creation
-    myAbortCreationButton = new FXButton(getCollapsableFrame(), "Abort path creation", nullptr, this, MID_GNE_ABORT, GUIDesignButton);
+    myAbortCreationButton = new FXButton(getCollapsableFrame(), TL("Abort path creation"), nullptr, this, MID_GNE_ABORT, GUIDesignButton);
     myAbortCreationButton->disable();
     // create button for remove last inserted lane
-    myRemoveLastInsertedElement = new FXButton(getCollapsableFrame(), "Remove last lane", nullptr, this, MID_GNE_REMOVELAST, GUIDesignButton);
+    myRemoveLastInsertedElement = new FXButton(getCollapsableFrame(), TL("Remove last lane"), nullptr, this, MID_GNE_REMOVELAST, GUIDesignButton);
     myRemoveLastInsertedElement->disable();
     // create check button
-    myShowCandidateLanes = new FXCheckButton(getCollapsableFrame(), "Show candidate lanes", this, MID_GNE_SHOWCANDIDATES, GUIDesignCheckButton);
+    myShowCandidateLanes = new FXCheckButton(getCollapsableFrame(), TL("Show candidate lanes"), this, MID_GNE_SHOWCANDIDATES, GUIDesignCheckButton);
     myShowCandidateLanes->setCheck(TRUE);
     // create information label
     new FXLabel(this, "-BACKSPACE: undo click\n-ESC: Abort path creation", 0, GUIDesignLabelFrameInformation);
@@ -403,8 +403,8 @@ GNEConsecutiveSelector::updateInfoRouteLabel() {
         // declare ostringstream for label and fill it
         std::ostringstream information;
         information
-                << "- Selected lanes: " << toString(myLanePath.size()) << "\n"
-                << "- Length: " << toString(length);
+                << TL("- Selected lanes: ") << toString(myLanePath.size()) << "\n"
+                << TL("- Length: ") << toString(length);
         // set new label
         myInfoPathLabel->setText(information.str().c_str());
     } else {

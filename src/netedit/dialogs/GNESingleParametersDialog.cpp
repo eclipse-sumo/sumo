@@ -397,10 +397,10 @@ GNESingleParametersDialog::ParametersOperations::onCmdHelpParameter(FXObject*, F
     // set help text
     std::ostringstream help;
     help
-            << "- Parameters are defined by a Key and a Value.\n"
-            << "- In Netedit can be defined using format key1=parameter1|key2=parameter2|...\n"
-            << " - Duplicated and empty Keys aren't valid.\n"
-            << " - Certain characters aren't allowed (\t\n\r@$%^&/|\\....)\n";
+            << TL("- Parameters are defined by a Key and a Value.\n")
+            << TL("- In Netedit can be defined using format key1=parameter1|key2=parameter2|...\n")
+            << TL(" - Duplicated and empty Keys aren't valid.\n")
+            << TL(" - Whitespace and certain characters aren't allowed (@$%^&/|\\....)\n");
     // Create label with the help text
     new FXLabel(ParameterHelpDialog, help.str().c_str(), nullptr, GUIDesignLabelFrameInformation);
     // Create horizontal separator

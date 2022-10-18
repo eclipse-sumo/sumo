@@ -53,19 +53,19 @@ FXIMPLEMENT(GNEShapeFrame::GEOPOICreator,     MFXGroupBoxModule,     GEOPOICreat
 // ---------------------------------------------------------------------------
 
 GNEShapeFrame::GEOPOICreator::GEOPOICreator(GNEShapeFrame* polygonFrameParent) :
-    MFXGroupBoxModule(polygonFrameParent, "GEO POI Creator"),
+    MFXGroupBoxModule(polygonFrameParent, TL("GEO POI Creator")),
     myShapeFrameParent(polygonFrameParent) {
     // create RadioButtons for formats
-    myLonLatRadioButton = new FXRadioButton(getCollapsableFrame(), "Format: Lon-Lat", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    myLatLonRadioButton = new FXRadioButton(getCollapsableFrame(), "Format: Lat-Lon", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    myLonLatRadioButton = new FXRadioButton(getCollapsableFrame(), TL("Format: Lon-Lat"), this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    myLatLonRadioButton = new FXRadioButton(getCollapsableFrame(), TL("Format: Lat-Lon"), this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // set lat-lon as default
     myLatLonRadioButton->setCheck(TRUE);
     // create text field for coordinates
     myCoordinatesTextField = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // create checkBox
-    myCenterViewAfterCreationCheckButton = new FXCheckButton(getCollapsableFrame(), "Center View after creation", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myCenterViewAfterCreationCheckButton = new FXCheckButton(getCollapsableFrame(), TL("Center View after creation"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     // create button for create GEO POIs
-    myCreateGEOPOIButton = new FXButton(getCollapsableFrame(), "Create GEO POI (clipboard)", nullptr, this, MID_GNE_CREATE, GUIDesignButton);
+    myCreateGEOPOIButton = new FXButton(getCollapsableFrame(), TL("Create GEO POI (clipboard)"), nullptr, this, MID_GNE_CREATE, GUIDesignButton);
     // create information label
     myLabelCartesianPosition = new FXLabel(getCollapsableFrame(), "Cartesian equivalence:\n- X = give valid longitude\n- Y = give valid latitude", 0, GUIDesignLabelFrameInformation);
 }

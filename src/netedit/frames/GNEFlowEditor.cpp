@@ -45,7 +45,7 @@ FXIMPLEMENT(GNEFlowEditor,                   MFXGroupBoxModule,       FlowEditor
 // ===========================================================================
 
 GNEFlowEditor::GNEFlowEditor(GNEViewNet* viewNet, GNEFrame* frameParent) :
-    MFXGroupBoxModule(frameParent, "Flow attributes"),
+    MFXGroupBoxModule(frameParent, TL("Flow attributes")),
     myViewNet(viewNet) {
     // create comboBox for option A
     FXHorizontalFrame* auxiliarHorizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);

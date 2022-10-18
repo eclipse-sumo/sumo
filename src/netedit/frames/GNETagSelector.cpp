@@ -86,7 +86,7 @@ FXIMPLEMENT(GNETagSelector,                MFXGroupBoxModule,     TagSelectorMap
 // ===========================================================================
 
 GNETagSelector::GNETagSelector(GNEFrame* frameParent, GNETagProperties::TagType type, SumoXMLTag tag, bool onlyDrawables) :
-    MFXGroupBoxModule(frameParent, "Element"),
+    MFXGroupBoxModule(frameParent, TL("Element")),
     myFrameParent(frameParent),
     myTagType(type),
     myCurrentTemplateAC(nullptr) {

@@ -59,7 +59,7 @@ FXIMPLEMENT(GNEElementTree,    MFXGroupBoxModule,     HierarchicalElementTreeMap
 // ===========================================================================
 
 GNEElementTree::GNEElementTree(GNEFrame* frameParent) :
-    MFXGroupBoxModule(frameParent, "Hierarchy"),
+    MFXGroupBoxModule(frameParent, TL("Hierarchy")),
     myFrameParent(frameParent),
     myHE(nullptr),
     myClickedAC(nullptr),

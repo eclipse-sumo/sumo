@@ -65,7 +65,7 @@ FXIMPLEMENT(GNETypeFrame::VTypeDistributions,   MFXGroupBoxModule,  VTypeDistrib
 // ---------------------------------------------------------------------------
 
 GNETypeFrame::TypeSelector::TypeSelector(GNETypeFrame* typeFrameParent) :
-    MFXGroupBoxModule(typeFrameParent, "Current Type"),
+    MFXGroupBoxModule(typeFrameParent, TL("Current Type")),
     myTypeFrameParent(typeFrameParent),
     myCurrentType(nullptr) {
     // Create FXComboBox
@@ -218,14 +218,14 @@ GNETypeFrame::TypeSelector::onCmdSelectItem(FXObject*, FXSelector, void*) {
 // ---------------------------------------------------------------------------
 
 GNETypeFrame::TypeEditor::TypeEditor(GNETypeFrame* typeFrameParent) :
-    MFXGroupBoxModule(typeFrameParent, "Type Editor"),
+    MFXGroupBoxModule(typeFrameParent, TL("Type Editor")),
     myTypeFrameParent(typeFrameParent) {
     // Create new vehicle type
-    myCreateTypeButton = new FXButton(getCollapsableFrame(), "Create Type", GUIIconSubSys::getIcon(GUIIcon::VTYPE), this, MID_GNE_CREATE, GUIDesignButton);
+    myCreateTypeButton = new FXButton(getCollapsableFrame(), TL("Create Type"), GUIIconSubSys::getIcon(GUIIcon::VTYPE), this, MID_GNE_CREATE, GUIDesignButton);
     // Create delete/reset vehicle type
-    myDeleteResetTypeButton = new FXButton(getCollapsableFrame(), "Delete Type", GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), this, MID_GNE_DELETE, GUIDesignButton);
+    myDeleteResetTypeButton = new FXButton(getCollapsableFrame(), TL("Delete Type"), GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), this, MID_GNE_DELETE, GUIDesignButton);
     // Create copy vehicle type
-    myCopyTypeButton = new FXButton(getCollapsableFrame(), "Copy Type", GUIIconSubSys::getIcon(GUIIcon::COPY), this, MID_GNE_COPY, GUIDesignButton);
+    myCopyTypeButton = new FXButton(getCollapsableFrame(), TL("Copy Type"), GUIIconSubSys::getIcon(GUIIcon::COPY), this, MID_GNE_COPY, GUIDesignButton);
 }
 
 
@@ -411,10 +411,10 @@ GNETypeFrame::TypeEditor::deleteType() {
 // ---------------------------------------------------------------------------
 
 GNETypeFrame::VTypeDistributions::VTypeDistributions(GNETypeFrame* typeFrameParent) :
-    MFXGroupBoxModule(typeFrameParent, "VType Distributions"),
+    MFXGroupBoxModule(typeFrameParent, TL("VType Distributions")),
     myTypeFrameParent(typeFrameParent) {
     // Create open dialog button
-    new FXButton(getCollapsableFrame(), "Show VType Distributions", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButton);
+    new FXButton(getCollapsableFrame(), TL("Show VType Distributions"), nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButton);
     // create vType distribution dialog
     myVTypeDistributionsDialog = new GNEVTypeDistributionsDialog(typeFrameParent);
 }

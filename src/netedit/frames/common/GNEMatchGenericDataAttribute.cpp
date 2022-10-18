@@ -80,7 +80,7 @@ GNEMatchGenericDataAttribute::GNEMatchGenericDataAttribute(GNEElementSet* elemen
     // Create TextField for MatchGenericData string
     myMatchGenericDataString = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_PROCESSSTRING, GUIDesignTextField);
     // Create help button
-    new FXButton(getCollapsableFrame(), "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
+    new FXButton(getCollapsableFrame(), TL("Help"), nullptr, this, MID_HELP, GUIDesignButtonRectangular);
     // Fill list of sub-items (first element will be "edge")
     enableMatchGenericDataAttribute();
     // Set speed of edge as default attribute
@@ -456,26 +456,26 @@ GNEMatchGenericDataAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
     // set help text
     std::ostringstream help;
     help
-            << "- The 'MatchGenericData Attribute' controls allow to specify a set of objects which are then applied to the current selection\n"
-            << "  according to the current 'Modification Mode'.\n"
-            << "     1. Select an object type from the first input box\n"
-            << "     2. Select an attribute from the second input box\n"
-            << "     3. Enter a 'match expression' in the third input box and press <return>\n"
+            << TL("- The 'MatchGenericData Attribute' controls allow to specify a set of objects which are then applied to the current selection\n")
+            << TL("  according to the current 'Modification Mode'.\n")
+            << TL("     1. Select an object type from the first input box\n")
+            << TL("     2. Select an attribute from the second input box\n")
+            << TL("     3. Enter a 'match expression' in the third input box and press <return>\n")
             << "\n"
-            << "- The empty expression matches all objects\n"
-            << "- For numerical attributes the match expression must consist of a comparison operator ('<', '>', '=') and a number.\n"
-            << "- An object matches if the comparison between its attribute and the given number by the given operator evaluates to 'true'\n"
+            << TL("- The empty expression matches all objects\n")
+            << TL("- For numerical attributes the match expression must consist of a comparison operator ('<', '>', '=') and a number.\n")
+            << TL("- An object matches if the comparison between its attribute and the given number by the given operator evaluates to 'true'\n")
             << "\n"
-            << "- For string attributes the match expression must consist of a comparison operator ('', '=', '!', '^') and a string.\n"
-            << "     '' (no operator) matches if string is a substring of that object'ts attribute.\n"
-            << "     '=' matches if string is an exact match.\n"
-            << "     '!' matches if string is not a substring.\n"
-            << "     '^' matches if string is not an exact match.\n"
+            << TL("- For string attributes the match expression must consist of a comparison operator ('', '=', '!', '^') and a string.\n")
+            << TL("     '' (no operator) matches if string is a substring of that object'ts attribute.\n")
+            << TL("     '=' matches if string is an exact match.\n")
+            << TL("     '!' matches if string is not a substring.\n")
+            << TL("     '^' matches if string is not an exact match.\n")
             << "\n"
-            << "- Examples:\n"
-            << "     junction; id; 'foo' -> match all junctions that have 'foo' in their id\n"
-            << "     junction; type; '=priority' -> match all junctions of type 'priority', but not of type 'priority_stop'\n"
-            << "     edge; speed; '>10' -> match all edges with a speed above 10\n";
+            << TL("- Examples:\n")
+            << TL("     junction; id; 'foo' -> match all junctions that have 'foo' in their id\n")
+            << TL("     junction; type; '=priority' -> match all junctions of type 'priority', but not of type 'priority_stop'\n")
+            << TL("     edge; speed; '>10' -> match all edges with a speed above 10\n");
     // Create label with the help text
     new FXLabel(additionalNeteditAttributesHelpDialog, help.str().c_str(), nullptr, GUIDesignLabelFrameInformation);
     // Create horizontal separator

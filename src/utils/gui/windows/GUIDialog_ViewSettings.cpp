@@ -1664,9 +1664,9 @@ GUIDialog_ViewSettings::SizePanel::SizePanel(FXMatrix* parent, GUIDialog_ViewSet
         const GUIVisualizationSizeSettings& settings, GUIGlObjectType type):
     myDialogViewSettings(target),
     myType(type) {
-    myCheck = new FXCheckButton(parent, "Draw with constant size when zoomed out", this, MID_SIMPLE_VIEW_SIZECHANGE, GUIDesignCheckButtonViewSettings);
+    myCheck = new FXCheckButton(parent, TL("Draw with constant size when zoomed out"), this, MID_SIMPLE_VIEW_SIZECHANGE, GUIDesignCheckButtonViewSettings);
     myCheck->setCheck(settings.constantSize);
-    myCheckSelected = new FXCheckButton(parent, "Only for selected", this, MID_SIMPLE_VIEW_SIZECHANGE, GUIDesignCheckButtonViewSettings);
+    myCheckSelected = new FXCheckButton(parent, TL("Only for selected"), this, MID_SIMPLE_VIEW_SIZECHANGE, GUIDesignCheckButtonViewSettings);
     myCheckSelected->setCheck(settings.constantSizeSelected);
     FXMatrix* m1 = new FXMatrix(parent, 2, GUIDesignViewSettingsMatrix5);
     new FXLabel(m1, "Minimum Size", nullptr, GUIDesignViewSettingsLabel1);
@@ -1749,10 +1749,10 @@ GUIDialog_ViewSettings::buildHeader(FXVerticalFrame* contentFrame) {
 
     new FXVerticalSeparator(horizontalFrame);
     new FXLabel(horizontalFrame, "Export includes:", nullptr, GUIDesignViewSettingsLabel1);
-    mySaveViewPort = new FXCheckButton(horizontalFrame, "Viewport");
-    mySaveDelay = new FXCheckButton(horizontalFrame, "Delay");
-    mySaveDecals = new FXCheckButton(horizontalFrame, "Decals");
-    mySaveBreakpoints = new FXCheckButton(horizontalFrame, "Breakpoints");
+    mySaveViewPort = new FXCheckButton(horizontalFrame, TL("Viewport"));
+    mySaveDelay = new FXCheckButton(horizontalFrame, TL("Delay"));
+    mySaveDecals = new FXCheckButton(horizontalFrame, TL("Decals"));
+    mySaveBreakpoints = new FXCheckButton(horizontalFrame, TL("Breakpoints"));
     if (mySettings->netedit) {
         mySaveBreakpoints->disable();
     }
@@ -1781,7 +1781,7 @@ GUIDialog_ViewSettings::buildBackgroundFrame(FXTabBook* tabbook) {
     new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
 
     FXMatrix* matrixGrid = new FXMatrix(verticalFrame, 2, GUIDesignViewSettingsMatrix1);
-    myShowGrid = new FXCheckButton(matrixGrid, "Toggle grid", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+    myShowGrid = new FXCheckButton(matrixGrid, TL("Toggle grid"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
     myShowGrid->setCheck(mySettings->showGrid);
     new FXLabel(matrixGrid, "");
     FXMatrix* matrixGridX = new FXMatrix(matrixGrid, 2, GUIDesignViewSettingsMatrix2);
@@ -1807,7 +1807,7 @@ GUIDialog_ViewSettings::buildStreetsFrame(FXTabBook* tabbook) {
     FXMatrix* matrixColor = new FXMatrix(verticalFrameColor, 4, GUIDesignViewSettingsMatrix3);
     new FXLabel(matrixColor, "Color", nullptr, GUIDesignViewSettingsLabel1);
     myLaneEdgeColorMode = new MFXIconComboBox(matrixColor, 30, true, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
-    myLaneColorInterpolation = new FXCheckButton(matrixColor, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+    myLaneColorInterpolation = new FXCheckButton(matrixColor, TL("Interpolate"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
     myLaneColorSettingFrame = new FXVerticalFrame(verticalFrameColor, GUIDesignViewSettingsVerticalFrame4);
     myParamKey = new FXComboBox(matrixColor, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
     myParamKey->disable();
@@ -1817,11 +1817,11 @@ GUIDialog_ViewSettings::buildStreetsFrame(FXTabBook* tabbook) {
     FXMatrix* matrixRainbow = new FXMatrix(verticalFrameColor, 5, GUIDesignViewSettingsMatrix3);
     myLaneColorRainbow = new FXButton(matrixRainbow, TL("Recalibrate Rainbow"), nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE,
                                       (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
-    myLaneColorRainbowCheck = new FXCheckButton(matrixRainbow, "hide below", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+    myLaneColorRainbowCheck = new FXCheckButton(matrixRainbow, TL("hide below"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
     myLaneColorRainbowThreshold = new FXRealSpinner(matrixRainbow, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, REALSPIN_NOMIN | GUIDesignViewSettingsSpinDial2);
     myLaneColorRainbowThreshold->setRange(-std::numeric_limits<double>::max(), std::numeric_limits<double>::max());
     myLaneColorRainbowThreshold->setValue(mySettings->edgeValueHideThreshold);
-    myLaneColorRainbowCheck2 = new FXCheckButton(matrixRainbow, "hide above", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+    myLaneColorRainbowCheck2 = new FXCheckButton(matrixRainbow, TL("hide above"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
     myLaneColorRainbowThreshold2 = new FXRealSpinner(matrixRainbow, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, REALSPIN_NOMIN | GUIDesignViewSettingsSpinDial2);
     myLaneColorRainbowThreshold2->setRange(-std::numeric_limits<double>::max(), std::numeric_limits<double>::max());
     myLaneColorRainbowThreshold2->setValue(mySettings->edgeValueHideThreshold2);
@@ -1832,7 +1832,7 @@ GUIDialog_ViewSettings::buildStreetsFrame(FXTabBook* tabbook) {
     FXMatrix* matrixScale = new FXMatrix(verticalFrameScale, 3, GUIDesignViewSettingsMatrix3);
     new FXLabel(matrixScale, "Scale width", nullptr, GUIDesignViewSettingsLabel1);
     myLaneEdgeScaleMode = new MFXIconComboBox(matrixScale, 30, true, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
-    myLaneScaleInterpolation = new FXCheckButton(matrixScale, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+    myLaneScaleInterpolation = new FXCheckButton(matrixScale, TL("Interpolate"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
     myLaneScaleSettingFrame = new FXVerticalFrame(verticalFrameScale, GUIDesignViewSettingsVerticalFrame4);
 
     if (GUIVisualizationSettings::UseMesoSim) {
@@ -1850,32 +1850,32 @@ GUIDialog_ViewSettings::buildStreetsFrame(FXTabBook* tabbook) {
     new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
     FXMatrix* matrixLanes = new FXMatrix(verticalFrame, 2, GUIDesignViewSettingsMatrix1);
 
-    myShowLaneBorders = new FXCheckButton(matrixLanes, "Show lane borders", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myShowLaneBorders = new FXCheckButton(matrixLanes, TL("Show lane borders"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myShowLaneBorders->setCheck(mySettings->laneShowBorders);
-    myShowBikeMarkings = new FXCheckButton(matrixLanes, "Show bike markings", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myShowBikeMarkings = new FXCheckButton(matrixLanes, TL("Show bike markings"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myShowBikeMarkings->setCheck(mySettings->showBikeMarkings);
 
-    myShowLaneDecals = new FXCheckButton(matrixLanes, "Show turning arrows", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myShowLaneDecals = new FXCheckButton(matrixLanes, TL("Show turning arrows"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myShowLaneDecals->setCheck(mySettings->showLinkDecals);
     new FXLabel(matrixLanes, " ", nullptr, GUIDesignViewSettingsLabel1);
 
-    myShowLinkRules = new FXCheckButton(matrixLanes, "Show right-of-way rules", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myShowLinkRules = new FXCheckButton(matrixLanes, TL("Show right-of-way rules"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myShowLinkRules->setCheck(mySettings->showLinkRules);
-    myRealisticLinkRules = new FXCheckButton(matrixLanes, "Realistic stop line colors", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myRealisticLinkRules = new FXCheckButton(matrixLanes, TL("Realistic stop line colors"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myRealisticLinkRules->setCheck(mySettings->realisticLinkRules);
 
-    myShowRails = new FXCheckButton(matrixLanes, "Show rails", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myShowRails = new FXCheckButton(matrixLanes, TL("Show rails"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myShowRails->setCheck(mySettings->showRails);
     new FXLabel(matrixLanes, " ", nullptr, GUIDesignViewSettingsLabel1);
-    myHideMacroConnectors = new FXCheckButton(matrixLanes, "Hide macro connectors", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myHideMacroConnectors = new FXCheckButton(matrixLanes, TL("Hide macro connectors"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myHideMacroConnectors->setCheck(mySettings->hideConnectors);
     new FXLabel(matrixLanes, " ", nullptr, GUIDesignViewSettingsLabel1);
-    myShowLaneDirection = new FXCheckButton(matrixLanes, "Show lane direction", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myShowLaneDirection = new FXCheckButton(matrixLanes, TL("Show lane direction"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myShowLaneDirection->setCheck(mySettings->showLaneDirection);
     new FXLabel(matrixLanes, " ", nullptr, GUIDesignViewSettingsLabel1);
-    myShowSublanes = new FXCheckButton(matrixLanes, "Show sublanes", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myShowSublanes = new FXCheckButton(matrixLanes, TL("Show sublanes"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myShowSublanes->setCheck(mySettings->showSublanes);
-    mySpreadSuperposed = new FXCheckButton(matrixLanes, "Spread bidirectional railways/roads\t\tMake both directional edges for a bidirectional railways or roads visible", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    mySpreadSuperposed = new FXCheckButton(matrixLanes, TL("Spread bidirectional railways/roads\t\tMake both directional edges for a bidirectional railways or roads visible"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     mySpreadSuperposed->setCheck(mySettings->spreadSuperposed);
     new FXLabel(matrixLanes, "Exaggerate width by", nullptr, GUIDesignViewSettingsLabel1);
     myLaneWidthUpscaleDialer = new FXRealSpinner(matrixLanes, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial2);
@@ -1918,7 +1918,7 @@ GUIDialog_ViewSettings::buildVehiclesFrame(FXTabBook* tabbook) {
     myVehicleColorMode = new MFXIconComboBox(matrixColor, 20, true, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
     mySettings->vehicleColorer.fill(*myVehicleColorMode);
     myVehicleColorMode->setNumVisible((int)mySettings->vehicleColorer.size());
-    myVehicleColorInterpolation = new FXCheckButton(matrixColor, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+    myVehicleColorInterpolation = new FXCheckButton(matrixColor, TL("Interpolate"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
     myVehicleParamKey = new FXComboBox(matrixColor, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
     myVehicleParamKey->setEditable(true);
     myVehicleParamKey->disable();
@@ -1931,7 +1931,7 @@ GUIDialog_ViewSettings::buildVehiclesFrame(FXTabBook* tabbook) {
     FXMatrix* matrixScale = new FXMatrix(verticalFrameScale, 3, GUIDesignViewSettingsMatrix3);
     new FXLabel(matrixScale, "Scale size", nullptr, GUIDesignViewSettingsLabel1);
     myVehicleScaleMode = new MFXIconComboBox(matrixScale, 30, true, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
-    myVehicleScaleInterpolation = new FXCheckButton(matrixScale, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+    myVehicleScaleInterpolation = new FXCheckButton(matrixScale, TL("Interpolate"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
     myVehicleScaleSettingFrame = new FXVerticalFrame(verticalFrameScale, GUIDesignViewSettingsVerticalFrame4);
     mySettings->vehicleScaler.fill(*myVehicleScaleMode);
     myVehicleScaleMode->setNumVisible((int)mySettings->vehicleScaler.size());
@@ -1948,24 +1948,24 @@ GUIDialog_ViewSettings::buildVehiclesFrame(FXTabBook* tabbook) {
     //new FXHorizontalSeparator(verticalframe, GUIDesignHorizontalSeparator);
 
     FXMatrix* matrixShow = new FXMatrix(verticalframe, 2, GUIDesignMatrixViewSettings);
-    myShowBlinker = new FXCheckButton(matrixShow, "Show blinker / brake lights", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myShowBlinker = new FXCheckButton(matrixShow, TL("Show blinker / brake lights"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myShowBlinker->setCheck(mySettings->showBlinker);
-    myShowMinGap = new FXCheckButton(matrixShow, "Show minimum gap", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myShowMinGap = new FXCheckButton(matrixShow, TL("Show minimum gap"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myShowMinGap->setCheck(mySettings->drawMinGap);
-    myShowBrakeGap = new FXCheckButton(matrixShow, "Show brake gap", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myShowBrakeGap = new FXCheckButton(matrixShow, TL("Show brake gap"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myShowBrakeGap->setCheck(mySettings->drawBrakeGap);
-    myShowBTRange = new FXCheckButton(matrixShow, "Show Bluetooth range", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myShowBTRange = new FXCheckButton(matrixShow, TL("Show Bluetooth range"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myShowBTRange->setCheck(mySettings->showBTRange);
-    myShowRouteIndex = new FXCheckButton(matrixShow, "Show route index", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myShowRouteIndex = new FXCheckButton(matrixShow, TL("Show route index"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myShowRouteIndex->setCheck(mySettings->showRouteIndex);
-    myScaleLength = new FXCheckButton(matrixShow, "Scale length with geometry", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myScaleLength = new FXCheckButton(matrixShow, TL("Scale length with geometry"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myScaleLength->setCheck(mySettings->scaleLength);
-    myShowParkingInfo = new FXCheckButton(matrixShow, "Show parking info", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myShowParkingInfo = new FXCheckButton(matrixShow, TL("Show parking info"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myShowParkingInfo->setCheck(mySettings->showParkingInfo);
     //new FXLabel(matrixShow, " ", nullptr, GUIDesignViewSettingsLabel1);
-    //myShowLaneChangePreference = new FXCheckButton(matrixShow, "Show lane change preference", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    //myShowLaneChangePreference = new FXCheckButton(matrixShow, TL("Show lane change preference"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     //myShowLaneChangePreference->setCheck(mySettings->drawLaneChangePreference);
-    //tmpc = new FXCheckButton(matrixShow, "Show needed headway", 0 ,0);
+    //tmpc = new FXCheckButton(matrixShow, TL("Show needed headway"), 0 ,0);
     //tmpc->disable();
 
     //new FXHorizontalSeparator(frame3, GUIDesignHorizontalSeparator);

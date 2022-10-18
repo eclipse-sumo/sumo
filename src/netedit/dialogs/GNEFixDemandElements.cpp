@@ -238,16 +238,16 @@ GNEFixDemandElements::FixOptions::saveContents() const {
 GNEFixDemandElements::FixRouteOptions::FixRouteOptions(GNEFixDemandElements* fixDemandElementsParent, GNEViewNet* viewNet) :
     FixOptions(fixDemandElementsParent->myLeftFrame, "Routes", viewNet) {
     // Remove invalid routes
-    removeInvalidRoutes = new FXRadioButton(myLeftFrame, "Remove invalid routes",
+    removeInvalidRoutes = new FXRadioButton(myLeftFrame, TL("Remove invalid routes"),
                                             fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Save invalid routes
-    saveInvalidRoutes = new FXRadioButton(myLeftFrame, "Save invalid routes",
+    saveInvalidRoutes = new FXRadioButton(myLeftFrame, TL("Save invalid routes"),
                                           fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Select invalid routes
-    selectInvalidRoutesAndCancel = new FXRadioButton(myRightFrame, "Select conflicted routes",
+    selectInvalidRoutesAndCancel = new FXRadioButton(myRightFrame, TL("Select conflicted routes"),
             fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Remove stops out of route
-    removeStopsOutOfRoute = new FXCheckButton(myRightFrame, "Remove stops out of route",
+    removeStopsOutOfRoute = new FXCheckButton(myRightFrame, TL("Remove stops out of route"),
             fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignCheckButtonFix);
     // leave option "removeInvalidRoutes" as default
     removeInvalidRoutes->setCheck(true);
@@ -349,16 +349,16 @@ GNEFixDemandElements::FixRouteOptions::disableOptions() {
 GNEFixDemandElements::FixVehicleOptions::FixVehicleOptions(GNEFixDemandElements* fixDemandElementsParent, GNEViewNet* viewNet) :
     FixOptions(fixDemandElementsParent->myLeftFrame, "Vehicles", viewNet) {
     // Remove invalid vehicles
-    removeInvalidVehicles = new FXRadioButton(myLeftFrame, "Remove invalid vehicles",
+    removeInvalidVehicles = new FXRadioButton(myLeftFrame, TL("Remove invalid vehicles"),
             fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Save invalid vehicles
-    saveInvalidVehicles = new FXRadioButton(myLeftFrame, "Save invalid vehicles",
+    saveInvalidVehicles = new FXRadioButton(myLeftFrame, TL("Save invalid vehicles"),
                                             fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Select invalid vehicle
-    selectInvalidVehiclesAndCancel = new FXRadioButton(myRightFrame, "Select conflicted vehicle",
+    selectInvalidVehiclesAndCancel = new FXRadioButton(myRightFrame, TL("Select conflicted vehicle"),
             fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Remove stops out of route
-    removeStopsOutOfVehicle = new FXCheckButton(myRightFrame, "Remove stops out of vehicle's route",
+    removeStopsOutOfVehicle = new FXCheckButton(myRightFrame, TL("Remove stops out of vehicle's route"),
             fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignCheckButtonFix);
     // by default remove invalid vehicles
     removeInvalidVehicles->setCheck(TRUE);
@@ -455,16 +455,16 @@ GNEFixDemandElements::FixVehicleOptions::disableOptions() {
 GNEFixDemandElements::FixStopPositionOptions::FixStopPositionOptions(GNEFixDemandElements* fixDemandElementsParent, GNEViewNet* viewNet) :
     FixOptions(fixDemandElementsParent->myRightFrame, "Stop positions", viewNet) {
     // Activate friendlyPos and save
-    activateFriendlyPositionAndSave = new FXRadioButton(myLeftFrame, "Activate friendlyPos and save",
+    activateFriendlyPositionAndSave = new FXRadioButton(myLeftFrame, TL("Activate friendlyPos and save"),
             fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Save invalid position
-    saveInvalid = new FXRadioButton(myLeftFrame, "Save invalid positions",
+    saveInvalid = new FXRadioButton(myLeftFrame, TL("Save invalid positions"),
                                     fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Select invalid Stops
-    selectInvalidStopsAndCancel = new FXRadioButton(myRightFrame, "Select conflicted Stops",
+    selectInvalidStopsAndCancel = new FXRadioButton(myRightFrame, TL("Select conflicted Stops"),
             fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Fix positions and save
-    fixPositionsAndSave = new FXRadioButton(myRightFrame, "Fix positions and save",
+    fixPositionsAndSave = new FXRadioButton(myRightFrame, TL("Fix positions and save"),
                                             fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // leave option "activateFriendlyPositionAndSave" as default
     activateFriendlyPositionAndSave->setCheck(true);
@@ -555,13 +555,13 @@ GNEFixDemandElements::FixStopPositionOptions::disableOptions() {
 GNEFixDemandElements::FixPersonPlanOptions::FixPersonPlanOptions(GNEFixDemandElements* fixDemandElementsParent, GNEViewNet* viewNet) :
     FixOptions(fixDemandElementsParent->myRightFrame, "Person/container plans", viewNet) {
     // Delete person plan
-    deletePersonPlan = new FXRadioButton(myLeftFrame, "Delete person plan",
+    deletePersonPlan = new FXRadioButton(myLeftFrame, TL("Delete person plan"),
                                          fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Save invalid person plans
-    saveInvalid = new FXRadioButton(myLeftFrame, "Save invalid person plans",
+    saveInvalid = new FXRadioButton(myLeftFrame, TL("Save invalid person plans"),
                                     fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Select invalid person plans
-    selectInvalidPersonPlansAndCancel = new FXRadioButton(myRightFrame, "Select conflicted person plans",
+    selectInvalidPersonPlansAndCancel = new FXRadioButton(myRightFrame, TL("Select conflicted person plans"),
             fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // leave option "activateFriendlyPositionAndSave" as default
     deletePersonPlan->setCheck(true);

@@ -266,11 +266,11 @@ GUITLLogicPhasesTrackerWindow::initToolBar() {
     myGreenMode->appendItem("running");
     myGreenMode->setNumVisible(3);
 
-    myIndexMode = new FXCheckButton(myToolBar, "phase names", this, MID_SIMSTEP);
+    myIndexMode = new FXCheckButton(myToolBar, TL("phase names"), this, MID_SIMSTEP);
 
     if (myAmInTrackingMode) {
-        myDetectorMode = new FXCheckButton(myToolBar, "detectors", this, MID_SIMSTEP);
-        myConditionMode = new FXCheckButton(myToolBar, "conditions", this, MID_SIMSTEP);
+        myDetectorMode = new FXCheckButton(myToolBar, TL("detectors"), this, MID_SIMSTEP);
+        myConditionMode = new FXCheckButton(myToolBar, TL("conditions"), this, MID_SIMSTEP);
     } else {
         myDetectorMode = nullptr;
         myConditionMode = nullptr;

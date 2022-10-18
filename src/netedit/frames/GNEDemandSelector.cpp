@@ -62,7 +62,7 @@ mySelectingMultipleElements(false) {
 
 
 DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, const std::vector<GNETagProperties::TagType>& tagTypes) :
-    MFXGroupBoxModule(frameParent, "Parent element"),
+    MFXGroupBoxModule(frameParent, TL("Parent element")),
     myFrameParent(frameParent),
     myCurrentDemandElement(nullptr),
     mySelectingMultipleElements(false) {

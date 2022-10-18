@@ -47,7 +47,7 @@ FXIMPLEMENT(GNEAttributesCreator, MFXGroupBoxModule, AttributesCreatorMap, ARRAY
 // ===========================================================================
 
 GNEAttributesCreator::GNEAttributesCreator(GNEFrame* frameParent) :
-    MFXGroupBoxModule(frameParent, "Internal attributes"),
+    MFXGroupBoxModule(frameParent, TL("Internal attributes")),
     myFrameParent(frameParent),
     myTemplateAC(nullptr) {
     // resize myAttributesCreatorRows

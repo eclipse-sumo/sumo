@@ -149,7 +149,7 @@ GNETAZFrame::CurrentTAZ::TAZEdgeColor::TAZEdgeColor() :
 
 
 GNETAZFrame::CurrentTAZ::CurrentTAZ(GNETAZFrame* TAZFrameParent) :
-    MFXGroupBoxModule(TAZFrameParent, "TAZ"),
+    MFXGroupBoxModule(TAZFrameParent, TL("TAZ")),
     myTAZFrameParent(TAZFrameParent),
     myEditedTAZ(nullptr),
     myMaxSourcePlusSinkWeight(0),
@@ -342,7 +342,7 @@ GNETAZFrame::CurrentTAZ::addTAZChild(GNETAZSourceSink* sourceSink) {
 // ---------------------------------------------------------------------------
 
 GNETAZFrame::TAZCommonStatistics::TAZCommonStatistics(GNETAZFrame* TAZFrameParent) :
-    MFXGroupBoxModule(TAZFrameParent, "TAZ Statistics"),
+    MFXGroupBoxModule(TAZFrameParent, TL("TAZ Statistics")),
     myTAZFrameParent(TAZFrameParent) {
     // create label for statistics
     myStatisticsLabel = new FXLabel(getCollapsableFrame(), "Statistics", 0, GUIDesignLabelFrameInformation);
@@ -372,14 +372,14 @@ GNETAZFrame::TAZCommonStatistics::updateStatistics() {
         // declare ostringstream for statistics
         std::ostringstream information;
         information
-                << "- Number of edges: " << toString(myTAZFrameParent->myCurrentTAZ->getTAZ()->getChildAdditionals().size() / 2) << "\n"
-                << "- Min source: " << myTAZFrameParent->myCurrentTAZ->getTAZ()->getAttribute(GNE_ATTR_MIN_SOURCE) << "\n"
-                << "- Max source: " << myTAZFrameParent->myCurrentTAZ->getTAZ()->getAttribute(GNE_ATTR_MAX_SOURCE) << "\n"
-                << "- Average source: " << myTAZFrameParent->myCurrentTAZ->getTAZ()->getAttribute(GNE_ATTR_AVERAGE_SOURCE) << "\n"
+                << TL("- Number of edges: ") << toString(myTAZFrameParent->myCurrentTAZ->getTAZ()->getChildAdditionals().size() / 2) << "\n"
+                << TL("- Min source: ") << myTAZFrameParent->myCurrentTAZ->getTAZ()->getAttribute(GNE_ATTR_MIN_SOURCE) << "\n"
+                << TL("- Max source: ") << myTAZFrameParent->myCurrentTAZ->getTAZ()->getAttribute(GNE_ATTR_MAX_SOURCE) << "\n"
+                << TL("- Average source: ") << myTAZFrameParent->myCurrentTAZ->getTAZ()->getAttribute(GNE_ATTR_AVERAGE_SOURCE) << "\n"
                 << "\n"
-                << "- Min sink: " << myTAZFrameParent->myCurrentTAZ->getTAZ()->getAttribute(GNE_ATTR_MIN_SINK) << "\n"
-                << "- Max sink: " << myTAZFrameParent->myCurrentTAZ->getTAZ()->getAttribute(GNE_ATTR_MAX_SINK) << "\n"
-                << "- Average sink: " << myTAZFrameParent->myCurrentTAZ->getTAZ()->getAttribute(GNE_ATTR_AVERAGE_SINK);
+                << TL("- Min sink: ") << myTAZFrameParent->myCurrentTAZ->getTAZ()->getAttribute(GNE_ATTR_MIN_SINK) << "\n"
+                << TL("- Max sink: ") << myTAZFrameParent->myCurrentTAZ->getTAZ()->getAttribute(GNE_ATTR_MAX_SINK) << "\n"
+                << TL("- Average sink: ") << myTAZFrameParent->myCurrentTAZ->getTAZ()->getAttribute(GNE_ATTR_AVERAGE_SINK);
         // set new label
         myStatisticsLabel->setText(information.str().c_str());
     } else {
@@ -392,13 +392,13 @@ GNETAZFrame::TAZCommonStatistics::updateStatistics() {
 // ---------------------------------------------------------------------------
 
 GNETAZFrame::TAZSaveChanges::TAZSaveChanges(GNETAZFrame* TAZFrameParent) :
-    MFXGroupBoxModule(TAZFrameParent, "Modifications"),
+    MFXGroupBoxModule(TAZFrameParent, TL("Modifications")),
     myTAZFrameParent(TAZFrameParent) {
     // Create groupbox for save changes
-    mySaveChangesButton = new FXButton(getCollapsableFrame(), "Confirm changes", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_OK, GUIDesignButton);
+    mySaveChangesButton = new FXButton(getCollapsableFrame(), TL("Confirm changes"), GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_OK, GUIDesignButton);
     mySaveChangesButton->disable();
     // Create groupbox cancel changes
-    myCancelChangesButton = new FXButton(getCollapsableFrame(), "Cancel changes", GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_CANCEL, GUIDesignButton);
+    myCancelChangesButton = new FXButton(getCollapsableFrame(), TL("Cancel changes"), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_CANCEL, GUIDesignButton);
     myCancelChangesButton->disable();
 }
 
@@ -481,14 +481,14 @@ GNETAZFrame::TAZSaveChanges::onCmdCancelChanges(FXObject*, FXSelector, void*) {
 // ---------------------------------------------------------------------------
 
 GNETAZFrame::TAZChildDefaultParameters::TAZChildDefaultParameters(GNETAZFrame* TAZFrameParent) :
-    MFXGroupBoxModule(TAZFrameParent, "TAZ Sources/Sinks"),
+    MFXGroupBoxModule(TAZFrameParent, TL("TAZ Sources/Sinks")),
     myTAZFrameParent(TAZFrameParent),
     myDefaultTAZSourceWeight(1),
     myDefaultTAZSinkWeight(1) {
     // create checkbox for toggle membership
     myToggleMembershipFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(myToggleMembershipFrame, "Membership", 0, GUIDesignLabelAttribute);
-    myToggleMembership = new FXCheckButton(myToggleMembershipFrame, "Toggle", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myToggleMembership = new FXCheckButton(myToggleMembershipFrame, TL("Toggle"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     // by default enabled
     myToggleMembership->setCheck(TRUE);
     // create default TAZ Source weight
@@ -502,13 +502,13 @@ GNETAZFrame::TAZChildDefaultParameters::TAZChildDefaultParameters(GNETAZFrame* T
     myTextFieldDefaultValueTAZSinks = new FXTextField(myDefaultTAZSinkFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myTextFieldDefaultValueTAZSinks->setText("1");
     // Create button for use selected edges
-    myUseSelectedEdges = new FXButton(getCollapsableFrame(), "Use selected edges", nullptr, this, MID_GNE_SELECT, GUIDesignButton);
+    myUseSelectedEdges = new FXButton(getCollapsableFrame(), TL("Use selected edges"), nullptr, this, MID_GNE_SELECT, GUIDesignButton);
     // Create button for zero fringe probabilities
-    myZeroFringeProbabilities = new FXButton(getCollapsableFrame(), "Set zero fringe prob.", nullptr, this, MID_GNE_SET_ZEROFRINGEPROB, GUIDesignButton);
+    myZeroFringeProbabilities = new FXButton(getCollapsableFrame(), TL("Set zero fringe prob."), nullptr, this, MID_GNE_SET_ZEROFRINGEPROB, GUIDesignButton);
     // Create information label
     std::ostringstream information;
     information
-            << "- Toggle Membership:\n"
+            << TL("- Toggle Membership:\n")
             << "  Create new Sources/Sinks\n"
             << "  with given weights.";
     myInformationLabel = new FXLabel(getCollapsableFrame(), information.str().c_str(), 0, GUIDesignLabelFrameInformation);
@@ -643,7 +643,7 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetDefaultValues(FXObject* obj, FXS
             // update information label
             std::ostringstream information;
             information
-                    << "- Toggle Membership:\n"
+                    << TL("- Toggle Membership:\n")
                     << "  Create new Sources/Sinks\n"
                     << "  with given weights.";
             myInformationLabel->setText(information.str().c_str());
@@ -666,9 +666,9 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetDefaultValues(FXObject* obj, FXS
             // update information label
             std::ostringstream information;
             information
-                    << "- Keep Membership:\n"
+                    << TL("- Keep Membership:\n")
                     << "  Select Sources/Sinks.\n"
-                    << "- Press ESC to clear\n"
+                    << TL("- Press ESC to clear\n")
                     << "  current selection.";
             myInformationLabel->setText(information.str().c_str());
             // show TAZSelectionStatistics
@@ -875,7 +875,7 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetZeroFringeProbabilities(FXObject
 // ---------------------------------------------------------------------------
 
 GNETAZFrame::TAZSelectionStatistics::TAZSelectionStatistics(GNETAZFrame* TAZFrameParent) :
-    MFXGroupBoxModule(TAZFrameParent, "Selection Statistics"),
+    MFXGroupBoxModule(TAZFrameParent, TL("Selection Statistics")),
     myTAZFrameParent(TAZFrameParent) {
     // create default TAZ Source weight
     myTAZSourceFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
@@ -1134,13 +1134,13 @@ GNETAZFrame::TAZSelectionStatistics::updateStatistics() {
         // fill rest of information
         information
                 << edgeInformation << "\n"
-                << "- Min source: " << toString(minWeightSource) << "\n"
-                << "- Max source: " << toString(maxWeightSource) << "\n"
-                << "- Average source: " << toString(averageWeightSource) << "\n"
+                << TL("- Min source: ") << toString(minWeightSource) << "\n"
+                << TL("- Max source: ") << toString(maxWeightSource) << "\n"
+                << TL("- Average source: ") << toString(averageWeightSource) << "\n"
                 << "\n"
-                << "- Min sink: " << toString(minWeightSink) << "\n"
-                << "- Max sink: " << toString(maxWeightSink) << "\n"
-                << "- Average sink: " << toString(averageWeightSink);
+                << TL("- Min sink: ") << toString(minWeightSink) << "\n"
+                << TL("- Max sink: ") << toString(maxWeightSink) << "\n"
+                << TL("- Average sink: ") << toString(averageWeightSink);
         // set new label
         myStatisticsLabel->setText(information.str().c_str());
         // set TextFields (Text and color)
@@ -1162,7 +1162,7 @@ GNETAZFrame::TAZSelectionStatistics::updateStatistics() {
 // ---------------------------------------------------------------------------
 
 GNETAZFrame::TAZParameters::TAZParameters(GNETAZFrame* TAZFrameParent) :
-    MFXGroupBoxModule(TAZFrameParent, "TAZ parameters"),
+    MFXGroupBoxModule(TAZFrameParent, TL("TAZ parameters")),
     myTAZFrameParent(TAZFrameParent),
     myTAZTemplate(nullptr) {
     // create TAZ Template
@@ -1174,7 +1174,7 @@ GNETAZFrame::TAZParameters::TAZParameters(GNETAZFrame* TAZFrameParent) :
     // create Button and string textField for color and set blue as default color
     FXHorizontalFrame* fillParameter = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(fillParameter, toString(SUMO_ATTR_FILL).c_str(), 0, GUIDesignLabelAttribute);
-    myCheckButtonFill = new FXCheckButton(fillParameter, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myCheckButtonFill = new FXCheckButton(fillParameter, TL("false"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myCheckButtonFill->setCheck(FALSE);
     // create Button and string textField for color and set blue as default color
     FXHorizontalFrame* colorParameter = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
@@ -1188,10 +1188,10 @@ GNETAZFrame::TAZParameters::TAZParameters(GNETAZFrame* TAZFrameParent) :
     // create Label and CheckButton for use innen edges with true as default value
     FXHorizontalFrame* useInnenEdges = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(useInnenEdges, "Edges within", 0, GUIDesignLabelAttribute);
-    myAddEdgesWithinCheckButton = new FXCheckButton(useInnenEdges, "use", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myAddEdgesWithinCheckButton = new FXCheckButton(useInnenEdges, TL("use"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myAddEdgesWithinCheckButton->setCheck(true);
     // Create help button
-    myHelpTAZAttribute = new FXButton(getCollapsableFrame(), "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
+    myHelpTAZAttribute = new FXButton(getCollapsableFrame(), TL("Help"), 0, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 
@@ -1322,7 +1322,7 @@ GNETAZFrame::TAZParameters::onCmdHelp(FXObject*, FXSelector, void*) {
 // ---------------------------------------------------------------------------
 
 GNETAZFrame::TAZEdgesGraphic::TAZEdgesGraphic(GNETAZFrame* TAZFrameParent) :
-    MFXGroupBoxModule(TAZFrameParent, "Edges"),
+    MFXGroupBoxModule(TAZFrameParent, TL("Edges")),
     myTAZFrameParent(TAZFrameParent),
     myEdgeDefaultColor(RGBColor::GREY),
     myEdgeSelectedColor(RGBColor::MAGENTA) {
@@ -1336,13 +1336,13 @@ GNETAZFrame::TAZEdgesGraphic::TAZEdgesGraphic(GNETAZFrame* TAZFrameParent) :
     // build rainbow
     GNEFrame::buildRainbow(this);
     // create Radio button for show edges by source weight
-    myColorBySourceWeight = new FXRadioButton(getCollapsableFrame(), "Color by Source", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    myColorBySourceWeight = new FXRadioButton(getCollapsableFrame(), TL("Color by Source"), this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // create Radio button for show edges by sink weight
-    myColorBySinkWeight = new FXRadioButton(getCollapsableFrame(), "Color by Sink", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    myColorBySinkWeight = new FXRadioButton(getCollapsableFrame(), TL("Color by Sink"), this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // create Radio button for show edges by source + sink weight
-    myColorBySourcePlusSinkWeight = new FXRadioButton(getCollapsableFrame(), "Color by Source + Sink", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    myColorBySourcePlusSinkWeight = new FXRadioButton(getCollapsableFrame(), TL("Color by Source + Sink"), this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // create Radio button for show edges by source - sink weight
-    myColorBySourceMinusSinkWeight = new FXRadioButton(getCollapsableFrame(), "Color by Source - Sink", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    myColorBySourceMinusSinkWeight = new FXRadioButton(getCollapsableFrame(), TL("Color by Source - Sink"), this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // show by source as default
     myColorBySourceWeight->setCheck(true);
 }

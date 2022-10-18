@@ -68,20 +68,20 @@ FXIMPLEMENT(GNECreateEdgeFrame::LaneTypeSelector,       MFXGroupBoxModule,     L
 // ---------------------------------------------------------------------------
 
 GNECreateEdgeFrame::EdgeTypeSelector::EdgeTypeSelector(GNECreateEdgeFrame* createEdgeFrameParent) :
-    MFXGroupBoxModule(createEdgeFrameParent, "Template selector"),
+    MFXGroupBoxModule(createEdgeFrameParent, TL("Template selector")),
     myCreateEdgeFrameParent(createEdgeFrameParent),
     myDefaultEdgeType(new GNEEdgeType(createEdgeFrameParent)),
     myCurrentIndex(0) {
     // default edge radio button
-    myUseDefaultEdgeType = new FXRadioButton(getCollapsableFrame(), "Create default edge",
+    myUseDefaultEdgeType = new FXRadioButton(getCollapsableFrame(), TL("Create default edge"),
         this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
     // checkboxes
-    myNoPedestriansCheckButton = new FXCheckButton(getCollapsableFrame(), "Disallow for pedestrians",
+    myNoPedestriansCheckButton = new FXCheckButton(getCollapsableFrame(), TL("Disallow for pedestrians"),
         this, MID_GNE_CREATEEDGEFRAME_CHECKBUTTON, GUIDesignCheckButton);
-    myAddSidewalkCheckButton = new FXCheckButton(getCollapsableFrame(), "Add Sidewalk",
+    myAddSidewalkCheckButton = new FXCheckButton(getCollapsableFrame(), TL("Add Sidewalk"),
         this, MID_GNE_CREATEEDGEFRAME_CHECKBUTTON, GUIDesignCheckButton);
     // use custom edge radio button
-    myUseCustomEdgeType = new FXRadioButton(getCollapsableFrame(), "Use edgeType/template",
+    myUseCustomEdgeType = new FXRadioButton(getCollapsableFrame(), TL("Use edgeType/template"),
         this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
     // edge types combo box
     myEdgeTypesComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, 
@@ -95,7 +95,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::EdgeTypeSelector(GNECreateEdgeFrame* creat
     myDeleteEdgeTypeButton = new FXButton(horizontalFrameButtons, TL("Delete\t\tDelete edge type"), GUIIconSubSys::getIcon(GUIIcon::REMOVE),
         this, MID_GNE_CREATEEDGEFRAME_DELETE, GUIDesignButton);
     // create delete edge type button
-    myCreateFromTemplate = new FXButton(getCollapsableFrame(), "Create from template\t\tCreate edgeType from template", GUIIconSubSys::getIcon(GUIIcon::EDGE),
+    myCreateFromTemplate = new FXButton(getCollapsableFrame(), TL("Create from template\t\tCreate edgeType from template"), GUIIconSubSys::getIcon(GUIIcon::EDGE),
         this, MID_GNE_CREATEEDGEFRAME_CREATEFROMTEMPLATE, GUIDesignButton);
     // by default, create custom edge
     myUseDefaultEdgeType->setCheck(TRUE);
@@ -425,7 +425,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::fillComboBox() {
 // ---------------------------------------------------------------------------
 
 GNECreateEdgeFrame::LaneTypeSelector::LaneTypeSelector(GNECreateEdgeFrame* createEdgeFrameParent) :
-    MFXGroupBoxModule(createEdgeFrameParent, "LaneType selector"),
+    MFXGroupBoxModule(createEdgeFrameParent, TL("LaneType selector")),
     myCreateEdgeFrameParent(createEdgeFrameParent),
     myLaneIndex(0) {
     // lane types combo box
@@ -615,19 +615,18 @@ GNECreateEdgeFrame::LaneTypeSelector::updateComboBox() {
 // ---------------------------------------------------------------------------
 
 GNECreateEdgeFrame::Legend::Legend(GNECreateEdgeFrame* createEdgeFrameParent) :
-    MFXGroupBoxModule(createEdgeFrameParent, "Information") {
-    // crate information
+    MFXGroupBoxModule(createEdgeFrameParent, TL("Information")) {
     std::ostringstream information;
     // add label for shift+click
     information
-            << "- ESC:" << "\n"
-            << "  Deselect origin" << "\n"
-            << "- Control+Click:" << "\n"
-            << "  Move view" << "\n"
-            << "- Shift+Click:" << "\n"
-            << "  Splits edge in both directions" << "\n"
-            << "- Alt+Shift+Click:" << "\n"
-            << "  Splits edge in one direction";
+            << TL("- ESC:") << "\n"
+            << TL("  Deselect origin") << "\n"
+            << TL("- Control+Click:") << "\n"
+            << TL("  Move view") << "\n"
+            << TL("- Shift+Click:") << "\n"
+            << TL("  Splits edge in both directions") << "\n"
+            << TL("- Alt+Shift+Click:") << "\n"
+            << TL("  Splits edge in one direction");
     // create label
     new FXLabel(getCollapsableFrame(), information.str().c_str(), 0, GUIDesignLabelFrameInformation);
 }

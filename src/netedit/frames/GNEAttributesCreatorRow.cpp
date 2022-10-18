@@ -55,14 +55,14 @@ GNEAttributesCreatorRow::GNEAttributesCreatorRow(GNEAttributesCreator* Attribute
     // Create left visual elements
     myAttributeLabel = new FXLabel(this, "name", nullptr, GUIDesignLabelAttribute);
     myAttributeLabel->hide();
-    myEnableAttributeCheckButton = new FXCheckButton(this, "name", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
+    myEnableAttributeCheckButton = new FXCheckButton(this, TL("name"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
     myEnableAttributeCheckButton->hide();
     myAttributeButton = new FXButton(this, TL("button"), nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
     myAttributeButton->hide();
     // Create right visual elements
     myValueTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myValueTextField->hide();
-    myValueCheckButton = new FXCheckButton(this, "Disabled", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myValueCheckButton = new FXCheckButton(this, TL("Disabled"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myValueCheckButton->hide();
     myValueComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
     myValueComboBox->hide();

@@ -50,7 +50,7 @@ FXIMPLEMENT(GNEProhibitionFrame, FXVerticalFrame, GNEProhibitionFrameMap, ARRAYN
 // ---------------------------------------------------------------------------
 
 GNEProhibitionFrame::RelativeToConnection::RelativeToConnection(GNEProhibitionFrame* prohibitionFrameParent) :
-    MFXGroupBoxModule(prohibitionFrameParent, "Relative to connection"),
+    MFXGroupBoxModule(prohibitionFrameParent, TL("Relative to connection")),
     myProhibitionFrameParent(prohibitionFrameParent) {
     // Create label for current connection description and update it
     myConnDescriptionLabel = new FXLabel(getCollapsableFrame(), "", nullptr, GUIDesignLabelFrameInformation);
@@ -78,7 +78,7 @@ GNEProhibitionFrame::RelativeToConnection::updateDescription() const {
 // ---------------------------------------------------------------------------
 
 GNEProhibitionFrame::Legend::Legend(GNEProhibitionFrame* prohibitionFrameParent) :
-    MFXGroupBoxModule(prohibitionFrameParent, "Information"),
+    MFXGroupBoxModule(prohibitionFrameParent, TL("Information")),
     myUndefinedColor(RGBColor::GREY),
     myProhibitedColor(RGBColor(0, 179, 0)),
     myProhibitingColor(RGBColor::RED),
@@ -143,14 +143,14 @@ GNEProhibitionFrame::Legend::getMutualConflictColor() const {
 // ---------------------------------------------------------------------------
 
 GNEProhibitionFrame::Modifications::Modifications(GNEProhibitionFrame* prohibitionFrameParent) :
-    MFXGroupBoxModule(prohibitionFrameParent, "Modifications") {
+    MFXGroupBoxModule(prohibitionFrameParent, TL("Modifications")) {
 
     // Create "OK" button
-    mySaveButton = new FXButton(getCollapsableFrame(), "OK\t\tSave prohibition modifications (Enter)",
+    mySaveButton = new FXButton(getCollapsableFrame(), TL("OK\t\tSave prohibition modifications (Enter)"),
                                 GUIIconSubSys::getIcon(GUIIcon::ACCEPT), prohibitionFrameParent, MID_OK, GUIDesignButton);
 
     // Create "Cancel" button
-    myCancelButton = new FXButton(getCollapsableFrame(), "Cancel\t\tDiscard prohibition modifications (Esc)",
+    myCancelButton = new FXButton(getCollapsableFrame(), TL("Cancel\t\tDiscard prohibition modifications (Esc)"),
                                   GUIIconSubSys::getIcon(GUIIcon::CANCEL), prohibitionFrameParent, MID_CANCEL, GUIDesignButton);
 
     // Currently mySaveButton is disabled

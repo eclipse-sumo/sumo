@@ -45,7 +45,7 @@ FXIMPLEMENT(GNEElementSet, MFXGroupBoxModule, GNEElementSetMap, ARRAYNUMBER(GNEE
 
 GNEElementSet::GNEElementSet(GNESelectorFrame* selectorFrameParent, Supermode supermode,
                              SumoXMLTag defaultTag, SumoXMLAttr defaultAttr, const std::string& defaultValue) :
-    MFXGroupBoxModule(selectorFrameParent, "Element Set"),
+    MFXGroupBoxModule(selectorFrameParent, TL("Element Set")),
     mySelectorFrameParent(selectorFrameParent),
     myMatchAttribute(nullptr),
     myMatchGenericDataAttribute(nullptr),
