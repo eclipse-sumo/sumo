@@ -60,20 +60,14 @@ netedit.changePersonPlanMode("stopPerson: edge")
 netedit.leftClick(referencePosition, 180, 65)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.personStopEdge.create.arrivalPos, "dummy")
+netedit.changeDefaultBoolValue(netedit.attrs.personStopEdge.create.friendlyPos)
 
-# press enter to create route
-netedit.typeEnter()
-
-# set invalid person number
-netedit.changeDefaultValue(netedit.attrs.personStopEdge.create.arrivalPos, "12.5")
-
-# press enter to create route
-netedit.typeEnter()
+# create personStopEdge
+netedit.leftClick(referencePosition, 200, 65)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # save routes
 netedit.saveRoutes(referencePosition)

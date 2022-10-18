@@ -66,7 +66,7 @@ netedit.typeEnter()
 netedit.deleteMode()
 
 # delete personStopEdge
-netedit.leftClick(referencePosition, 158, 65)
+netedit.leftClick(referencePosition, 180, 45)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

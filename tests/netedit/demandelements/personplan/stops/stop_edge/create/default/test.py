@@ -59,9 +59,6 @@ netedit.changePersonPlanMode("stopPerson: edge")
 # create personStopEdge
 netedit.leftClick(referencePosition, 180, 65)
 
-# press enter to create route
-netedit.typeEnter()
-
 # Check undo redo
 netedit.undo(referencePosition, 2)
 netedit.redo(referencePosition, 2)
