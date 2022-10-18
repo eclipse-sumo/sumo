@@ -66,7 +66,7 @@ void
 GNEProhibitionFrame::RelativeToConnection::updateDescription() const {
     // update depending of myCurrentConn
     if (myProhibitionFrameParent->myCurrentConn == nullptr) {
-        myConnDescriptionLabel->setText("No Connection selected\n");
+        myConnDescriptionLabel->setText(TL("No Connection selected\n"));
     } else {
         myConnDescriptionLabel->setText(("from lane " + myProhibitionFrameParent->myCurrentConn->getLaneFrom()->getMicrosimID() +
                                          "\nto lane " + myProhibitionFrameParent->myCurrentConn->getLaneTo()->getMicrosimID()).c_str());
@@ -169,7 +169,7 @@ GNEProhibitionFrame::GNEProhibitionFrame(GNEViewParent *viewParent, GNEViewNet* 
     GNEFrame(viewParent, viewNet, "Prohibits"),
     myCurrentConn(nullptr) {
     // set frame header label
-    getFrameHeaderLabel()->setText("Prohibitions");
+    getFrameHeaderLabel()->setText(TL("Prohibitions"));
 
     // create RelativeToConnection
     myRelativeToConnection = new RelativeToConnection(this);

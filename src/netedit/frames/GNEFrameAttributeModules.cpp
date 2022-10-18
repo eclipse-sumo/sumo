@@ -215,10 +215,10 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                 // set check button
                 if ((booleanVector.size() > 0) && booleanVector.front()) {
                     myValueCheckButton->setCheck(true);
-                    myValueCheckButton->setText("true");
+                    myValueCheckButton->setText(TL("true"));
                 } else {
                     myValueCheckButton->setCheck(false);
-                    myValueCheckButton->setText("false");
+                    myValueCheckButton->setText(TL("false"));
                 }
                 // show check button
                 myValueCheckButton->show();
@@ -486,10 +486,10 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
         if (myValueCheckButton->shown()) {
             // Set true o false depending of the checkBox
             if (myValueCheckButton->getCheck()) {
-                myValueCheckButton->setText("true");
+                myValueCheckButton->setText(TL("true"));
                 newVal = "true";
             } else {
-                myValueCheckButton->setText("false");
+                myValueCheckButton->setText(TL("false"));
                 newVal = "false";
             }
         } else {

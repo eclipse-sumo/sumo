@@ -119,13 +119,13 @@ GNETAZRelDataFrame::Legend::setLabels(const GNETAZ* fromTAZ, const GNETAZ* toTAZ
     if (fromTAZ) {
         myFromTAZLabel->setText(("From TAZ: " + fromTAZ->getID()).c_str());
     } else {
-        myFromTAZLabel->setText("From TAZ");
+        myFromTAZLabel->setText(TL("From TAZ"));
     }
     // to TAZ
     if (toTAZ) {
         myToTAZLabel->setText(("To TAZ: " + toTAZ->getID()).c_str());
     } else {
-        myToTAZLabel->setText("To TAZ");
+        myToTAZLabel->setText(TL("To TAZ"));
     }
 }
 

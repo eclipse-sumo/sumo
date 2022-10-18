@@ -75,7 +75,7 @@ GNEConnectorFrame::CurrentLane::~CurrentLane() {}
 void
 GNEConnectorFrame::CurrentLane::updateCurrentLaneLabel(const std::string& laneID) {
     if (laneID.empty()) {
-        myCurrentLaneLabel->setText("No lane selected");
+        myCurrentLaneLabel->setText(TL("No lane selected"));
     } else {
         myCurrentLaneLabel->setText((std::string("Current Lane: ") + laneID).c_str());
     }

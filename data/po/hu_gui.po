@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2022-10-18 14:42+0200\n"
+"POT-Creation-Date: 2022-10-18 14:55+0200\n"
 "PO-Revision-Date: 2022-10-12 11:05+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -247,6 +247,11 @@ msgstr ""
 msgid "N/A\t\tTest coordinate"
 msgstr ""
 
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:493
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:326
+msgid "Ready."
+msgstr ""
+
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:634
 msgid "Open Netconvert Configuration"
 msgstr ""
@@ -274,6 +279,11 @@ msgstr ""
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:880
 msgid "Load edgeType file"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:968
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1100
+msgid "Already loading!"
 msgstr ""
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1401
@@ -378,6 +388,19 @@ msgstr ""
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1514
 msgid "About netedit."
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1598
+msgid "Press F5"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1633
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1634
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1636
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:2079
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:2080
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:2082
+msgid "N/A"
 msgstr ""
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1695
@@ -999,6 +1022,12 @@ msgstr ""
 msgid "Save SUMO Configuration"
 msgstr ""
 
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1185
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1211
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:2005
+msgid "No simulation loaded!"
+msgstr ""
+
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1227
 msgid "Save Simulation State"
 msgstr ""
@@ -1262,6 +1291,10 @@ msgstr ""
 msgid "&OK\t\t"
 msgstr ""
 
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNERerouterIntervalDialog.cpp:182
+msgid "Rerouter has more than one edge"
+msgstr ""
+
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNERerouterIntervalDialog.cpp:320
 msgid "There is no lanes in the network"
 msgstr ""
@@ -1275,14 +1308,35 @@ msgstr ""
 msgid "There is no parking areas in the network"
 msgstr ""
 
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNECalibratorDialog.cpp:473
+msgid "No routes defined"
+msgstr ""
+
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNEUndoListDialog.cpp:64
 msgid "OK\tclose dialog"
 msgstr ""
 
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNECalibratorFlowDialog.cpp:110
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNECalibratorFlowDialog.cpp:375
 #: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:66
 #: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:70
+#: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:172
+#: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:178
+#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:221
+#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:492
+#: /home/behr_mi/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:228
+#: /home/behr_mi/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:342
 msgid "false"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNECalibratorFlowDialog.cpp:372
+#: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:170
+#: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:176
+#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:218
+#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:489
+#: /home/behr_mi/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:225
+#: /home/behr_mi/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:339
+msgid "true"
 msgstr ""
 
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:479
@@ -1372,6 +1426,66 @@ msgstr ""
 msgid "Element"
 msgstr ""
 
+#: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:152
+msgid "network elements"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:155
+msgid "Additional elements"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:158
+msgid "Shape elements"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:161
+msgid "TAZ elements"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:164
+msgid "Wire elements"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:167
+msgid "Vehicles"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:170
+msgid "Stops"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:173
+msgid "Persons"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:176
+msgid "Person plans"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:179
+msgid "Container"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:182
+msgid "Container plans"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:185
+msgid "Person trips"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:188
+msgid "Walks"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:191
+msgid "Rides"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:194
+msgid "Person stops"
+msgstr ""
+
 #: /home/behr_mi/sumo/src/netedit/frames/GNEElementTree.cpp:62
 msgid "Hierarchy"
 msgstr ""
@@ -1449,12 +1563,24 @@ msgstr ""
 msgid "- Average speed: "
 msgstr ""
 
+#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:926
+msgid "No edges selected"
+msgstr ""
+
 #: /home/behr_mi/sumo/src/netedit/frames/GNENetworkSelector.cpp:49
 msgid "NetworkElements"
 msgstr ""
 
 #: /home/behr_mi/sumo/src/netedit/frames/GNENetworkSelector.cpp:56
 msgid "Use selected"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNENetworkSelector.cpp:65
+msgid "Edges"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNENetworkSelector.cpp:71
+msgid "Lanes"
 msgstr ""
 
 #: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:49
@@ -1573,8 +1699,17 @@ msgstr ""
 msgid "- Selected lanes: "
 msgstr ""
 
+#: /home/behr_mi/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:411
+msgid "No lanes selected"
+msgstr ""
+
 #: /home/behr_mi/sumo/src/netedit/frames/GNEFlowEditor.cpp:48
 msgid "Flow attributes"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNEFlowEditor.cpp:453
+#: /home/behr_mi/sumo/src/netedit/frames/GNEFlowEditor.cpp:576
+msgid "rate"
 msgstr ""
 
 #: /home/behr_mi/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:58

@@ -149,49 +149,49 @@ GNETagSelector::setCurrentTagType(GNETagProperties::TagType tagType, const bool 
     // change GNETagSelector text
     switch (myTagType) {
         case GNETagProperties::TagType::NETWORKELEMENT:
-            setText("network elements");
+            setText(TL("network elements"));
             break;
         case GNETagProperties::TagType::ADDITIONALELEMENT:
-            setText("Additional elements");
+            setText(TL("Additional elements"));
             break;
         case GNETagProperties::TagType::SHAPE:
-            setText("Shape elements");
+            setText(TL("Shape elements"));
             break;
         case GNETagProperties::TagType::TAZELEMENT:
-            setText("TAZ elements");
+            setText(TL("TAZ elements"));
             break;
         case GNETagProperties::TagType::WIRE:
-            setText("Wire elements");
+            setText(TL("Wire elements"));
             break;
         case GNETagProperties::TagType::VEHICLE:
-            setText("Vehicles");
+            setText(TL("Vehicles"));
             break;
         case GNETagProperties::TagType::STOP:
-            setText("Stops");
+            setText(TL("Stops"));
             break;
         case GNETagProperties::TagType::PERSON:
-            setText("Persons");
+            setText(TL("Persons"));
             break;
         case GNETagProperties::TagType::PERSONPLAN:
-            setText("Person plans");
+            setText(TL("Person plans"));
             break;
         case GNETagProperties::TagType::CONTAINER:
-            setText("Container");
+            setText(TL("Container"));
             break;
         case GNETagProperties::TagType::CONTAINERPLAN:
-            setText("Container plans");
+            setText(TL("Container plans"));
             break;
         case GNETagProperties::TagType::PERSONTRIP:
-            setText("Person trips");
+            setText(TL("Person trips"));
             break;
         case GNETagProperties::TagType::WALK:
-            setText("Walks");
+            setText(TL("Walks"));
             break;
         case GNETagProperties::TagType::RIDE:
-            setText("Rides");
+            setText(TL("Rides"));
             break;
         case GNETagProperties::TagType::STOPPERSON:
-            setText("Person stops");
+            setText(TL("Person stops"));
             break;
         default:
             throw ProcessError("invalid tag property");

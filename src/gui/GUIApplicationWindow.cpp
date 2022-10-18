@@ -323,7 +323,7 @@ GUIApplicationWindow::dependentBuild(const bool isLibsumo) {
     myLoadThread = new GUILoadThread(getApp(), this, myEvents, myLoadThreadEvent, isLibsumo);
     myRunThread = new GUIRunThread(getApp(), this, mySimDelay, myEvents, myRunThreadEvent);
     // set the status bar
-    myStatusbar->getStatusLine()->setText("Ready.");
+    myStatusbar->getStatusLine()->setText(TL("Ready."));
     // set the caption
     setTitle(MFXUtils::getTitleText("SUMO " VERSION_STRING));
 
@@ -1097,7 +1097,7 @@ GUIApplicationWindow::onCmdQuickReload(FXObject*, FXSelector, void*) {
 long
 GUIApplicationWindow::onCmdOpenRecent(FXObject* /* sender */, FXSelector, void* ptr) {
     if (myAmLoading) {
-        myStatusbar->getStatusLine()->setText("Already loading!");
+        myStatusbar->getStatusLine()->setText(TL("Already loading!"));
         return 1;
     }
     std::string file((const char*)ptr);
@@ -1182,7 +1182,7 @@ long
 GUIApplicationWindow::onCmdStart(FXObject*, FXSelector, void*) {
     // check whether a net was loaded successfully
     if (!myRunThread->simulationAvailable()) {
-        myStatusbar->getStatusLine()->setText("No simulation loaded!");
+        myStatusbar->getStatusLine()->setText(TL("No simulation loaded!"));
         return 1;
     }
     // check whether it was started before and paused;
@@ -1208,7 +1208,7 @@ long
 GUIApplicationWindow::onCmdStep(FXObject*, FXSelector, void*) {
     // check whether a net was loaded successfully
     if (!myRunThread->simulationAvailable()) {
-        myStatusbar->getStatusLine()->setText("No simulation loaded!");
+        myStatusbar->getStatusLine()->setText(TL("No simulation loaded!"));
         return 1;
     }
     // check whether it was started before and paused;
@@ -2002,7 +2002,7 @@ GUIApplicationWindow::loadConfigOrNet(const std::string& file) {
 GUISUMOAbstractView*
 GUIApplicationWindow::openNewView(GUISUMOViewParent::ViewType vt, std::string caption) {
     if (!myRunThread->simulationAvailable()) {
-        myStatusbar->getStatusLine()->setText("No simulation loaded!");
+        myStatusbar->getStatusLine()->setText(TL("No simulation loaded!"));
         return nullptr;
     }
     GUISUMOAbstractView* oldView = nullptr;
@@ -2076,10 +2076,10 @@ GUIApplicationWindow::closeAllWindows() {
     myMessageWindow->addSeparator();
     myTrackerLock.unlock();
     // remove coordinate information
-    myGeoCoordinate->setText("N/A");
-    myCartesianCoordinate->setText("N/A");
+    myGeoCoordinate->setText(TL("N/A"));
+    myCartesianCoordinate->setText(TL("N/A"));
     if (myTestCoordinate) {
-        myTestCoordinate->setText("N/A");
+        myTestCoordinate->setText(TL("N/A"));
     }
     //
     GUITexturesHelper::clearTextures();

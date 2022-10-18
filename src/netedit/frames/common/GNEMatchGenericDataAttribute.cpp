@@ -84,7 +84,7 @@ GNEMatchGenericDataAttribute::GNEMatchGenericDataAttribute(GNEElementSet* elemen
     // Fill list of sub-items (first element will be "edge")
     enableMatchGenericDataAttribute();
     // Set speed of edge as default attribute
-    myMatchGenericDataAttrComboBox->setText("speed");
+    myMatchGenericDataAttrComboBox->setText(TL("speed"));
     myCurrentAttribute = SUMO_ATTR_SPEED;
     // Set default value for MatchGenericData string
     myMatchGenericDataString->setText(defaultValue.c_str());

@@ -179,7 +179,7 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInte
     // disable add routeProbReroute Button and change label if the rerouter has multiple edges (random routes can only work from one edge)
     if (rerouterInterval->getParentAdditionals().at(0)->getChildEdges().size() > 1) {
         myAddRouteProbReroute->disable();
-        routeProbRerouteLabel->setText("Rerouter has more than one edge");
+        routeProbRerouteLabel->setText(TL("Rerouter has more than one edge"));
     }
 
     // update tables

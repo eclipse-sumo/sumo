@@ -941,14 +941,14 @@ GNETLSEditorFrame::TLSJunction::setCurrentJunction(GNEJunction* junction) {
 void
 GNETLSEditorFrame::TLSJunction::updateJunctionDescription() {
     // first reset junction label
-    myJunctionIDLabel->setText("Junction ID");
+    myJunctionIDLabel->setText(TL("Junction ID"));
     // clear selected junctions
     mySelectedJunctionIDs.clear();
     // disable joining junction mode
     disableJoiningJunctionMode();
     // continue depending of current junction
     if (myCurrentJunction == nullptr) {
-        myJunctionIDTextField->setText("no junction selected");
+        myJunctionIDTextField->setText(TL("no junction selected"));
     } else {
         const auto nbn = myCurrentJunction->getNBNode();
         // update junction ID text field
@@ -970,7 +970,7 @@ GNETLSEditorFrame::TLSJunction::updateJunctionDescription() {
             myJunctionIDTextField->setText(nodesStr.c_str());
             // update junction label
             if (NBNodes.size() > 1) {
-                myJunctionIDLabel->setText("Junction IDs");
+                myJunctionIDLabel->setText(TL("Junction IDs"));
             }
             // update TLS ID text field
             myTLSIDTextField->setText((*nbn->getControllingTLS().begin())->getID().c_str());
@@ -1531,11 +1531,11 @@ GNETLSEditorFrame::TLSDefinition::onUpdCreate(FXObject* sender, FXSelector, void
     }
     // update button text
     if (currentJunction == nullptr) {
-        myCreateButton->setText("Create");
+        myCreateButton->setText(TL("Create"));
     } else if (currentJunction->getNBNode()->isTLControlled()) {
-        myCreateButton->setText("Duplicate");
+        myCreateButton->setText(TL("Duplicate"));
     } else {
-        myCreateButton->setText("Create");
+        myCreateButton->setText(TL("Create"));
     }
     return 1;
 }

@@ -412,7 +412,7 @@ GNEGenericDataFrame::AttributeSelector::refreshAttributeSelector() {
     // first clear items
     myAttributesComboBox->clearItems();
     // restore myMinMaxLabel
-    myMinMaxLabel->setText("Scale: Min -> Max");
+    myMinMaxLabel->setText(TL("Scale: Min -> Max"));
     // fill myAttributesComboBox depending of data sets
     if (myGenericDataFrameParent->myDataSetSelector->getDataSet() == nullptr) {
         myAttributesComboBox->appendItem("<no dataSet selected>");
@@ -483,7 +483,7 @@ GNEGenericDataFrame::AttributeSelector::onCmdSelectAttribute(FXObject*, FXSelect
         myAttributesComboBox->setText("<all>");
     }
     if (myAttributesComboBox->getText() == "<all>") {
-        myMinMaxLabel->setText("Scale: Min -> Max");
+        myMinMaxLabel->setText(TL("Scale: Min -> Max"));
     }
     // update view
     myGenericDataFrameParent->getViewNet()->updateViewNet();

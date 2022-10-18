@@ -450,7 +450,7 @@ GNEFlowEditor::refreshSingleFlow() {
             // set first comboBox
             mySpacingComboBox->setCurrentItem(2),
                               // set label
-                              mySpacingLabel->setText("rate");
+                              mySpacingLabel->setText(TL("rate"));
             // set text fields
             mySpacingTextField->setText(getFlowAttribute(GNE_ATTR_POISSON).c_str());
         } else if (flow->isAttributeEnabled(SUMO_ATTR_PROB)) {
@@ -573,7 +573,7 @@ GNEFlowEditor::refreshMultipleFlows() {
                 // set first comboBox
                 mySpacingComboBox->setCurrentItem(2),
                                   // set label
-                                  mySpacingLabel->setText("rate");
+                                  mySpacingLabel->setText(TL("rate"));
                 // set text fields
                 mySpacingTextField->setText(getFlowAttribute(GNE_ATTR_POISSON).c_str());
             } else if (probability) {

@@ -62,13 +62,13 @@ GNENetworkSelector::GNENetworkSelector(GNEFrame* frameParent, const Type network
             new FXLabel(this,
                         "-Click over an edge to select\n-ESC to clear selection",
                         0, GUIDesignLabelFrameInformation);
-            setText("Edges");
+            setText(TL("Edges"));
             break;
         case Type::LANE:
             new FXLabel(this,
                         "-Click over a lane to select\n-ESC to clear selection",
                         0, GUIDesignLabelFrameInformation);
-            setText("Lanes");
+            setText(TL("Lanes"));
             break;
         default:
             throw ProcessError("Invalid NetworkElementType");

@@ -408,7 +408,7 @@ GNEConsecutiveSelector::updateInfoRouteLabel() {
         // set new label
         myInfoPathLabel->setText(information.str().c_str());
     } else {
-        myInfoPathLabel->setText("No lanes selected");
+        myInfoPathLabel->setText(TL("No lanes selected"));
     }
 }
 

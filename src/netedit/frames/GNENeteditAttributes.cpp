@@ -167,15 +167,15 @@ long
 GNENeteditAttributes::onCmdSetNeteditAttribute(FXObject* obj, FXSelector, void*) {
     if (obj == myCloseShapeCheckButton) {
         if (myCloseShapeCheckButton->getCheck()) {
-            myCloseShapeCheckButton->setText("true");
+            myCloseShapeCheckButton->setText(TL("true"));
         } else {
-            myCloseShapeCheckButton->setText("false");
+            myCloseShapeCheckButton->setText(TL("false"));
         }
     } else if (obj == myCenterViewAfterCreationButton) {
         if (myCenterViewAfterCreationButton->getCheck()) {
-            myCenterViewAfterCreationButton->setText("true");
+            myCenterViewAfterCreationButton->setText(TL("true"));
         } else {
-            myCenterViewAfterCreationButton->setText("false");
+            myCenterViewAfterCreationButton->setText(TL("false"));
         }
     } else if (obj == myLengthTextField) {
         // change color of text field depending of the input length

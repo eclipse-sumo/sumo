@@ -262,7 +262,7 @@ GNECrossingFrame::CrossingParameters::disableCrossingParameters() {
     // clear all values of parameters
     myCrossingEdges->setText("");
     myCrossingPriorityCheckButton->setCheck(false);
-    myCrossingPriorityCheckButton->setText("false");
+    myCrossingPriorityCheckButton->setText(TL("false"));
     myCrossingWidth->setText("");
     // Disable all elements of the crossing frames
     myCrossingEdgesLabel->disable();
@@ -429,9 +429,9 @@ GNECrossingFrame::CrossingParameters::onCmdSetAttribute(FXObject*, FXSelector, v
 
     // change label of crossing priority
     if (myCrossingPriorityCheckButton->getCheck()) {
-        myCrossingPriorityCheckButton->setText("true");
+        myCrossingPriorityCheckButton->setText(TL("true"));
     } else {
-        myCrossingPriorityCheckButton->setText("false");
+        myCrossingPriorityCheckButton->setText(TL("false"));
     }
 
     // Check width

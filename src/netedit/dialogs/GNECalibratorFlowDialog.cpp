@@ -369,10 +369,10 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // set reroute
     if (myRerouteCheckButton->getCheck()) {
         myEditedAdditional->setAttribute(SUMO_ATTR_REROUTE, "true", undoList);
-        myRerouteCheckButton->setText("true");
+        myRerouteCheckButton->setText(TL("true"));
     } else {
         myEditedAdditional->setAttribute(SUMO_ATTR_REROUTE, "false", undoList);
-        myRerouteCheckButton->setText("false");
+        myRerouteCheckButton->setText(TL("false"));
     }
     // set color of myTextFieldDepartPosLat, depending if current value is valid or not
     if (myEditedAdditional->isValid(SUMO_ATTR_DEPARTPOS_LAT, myTextFieldDepartPosLat->getText().text())) {

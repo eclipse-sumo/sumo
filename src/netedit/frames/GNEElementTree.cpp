@@ -336,25 +336,25 @@ GNEElementTree::createPopUpMenu(int X, int Y, GNEAttributeCarrier* clickedAC) {
             FXMenuCommand* moveDownMenuCommand = GUIDesigns::buildFXMenuCommand(pane, "Move down", GUIIconSubSys::getIcon(GUIIcon::ARROW_DOWN), this, MID_GNE_ACHIERARCHY_MOVEDOWN);
             // check if both commands has to be disabled
             if (myClickedDemandElement->getTagProperty().isStopPerson()) {
-                moveUpMenuCommand->setText("Move up (Stops cannot be moved)");
-                moveDownMenuCommand->setText("Move down (Stops cannot be moved)");
+                moveUpMenuCommand->setText(TL("Move up (Stops cannot be moved)"));
+                moveDownMenuCommand->setText(TL("Move down (Stops cannot be moved)"));
                 moveUpMenuCommand->disable();
                 moveDownMenuCommand->disable();
             } else {
                 // check if moveUpMenuCommand has to be disabled
                 if (myClickedDemandElement->getParentDemandElements().front()->getChildDemandElements().front() == myClickedDemandElement) {
-                    moveUpMenuCommand->setText("Move up (It's already the first element)");
+                    moveUpMenuCommand->setText(TL("Move up (It's already the first element)"));
                     moveUpMenuCommand->disable();
                 } else if (myClickedDemandElement->getParentDemandElements().front()->getPreviousChildDemandElement(myClickedDemandElement)->getTagProperty().isStopPerson()) {
-                    moveUpMenuCommand->setText("Move up (Previous element is a Stop)");
+                    moveUpMenuCommand->setText(TL("Move up (Previous element is a Stop)"));
                     moveUpMenuCommand->disable();
                 }
                 // check if moveDownMenuCommand has to be disabled
                 if (myClickedDemandElement->getParentDemandElements().front()->getChildDemandElements().back() == myClickedDemandElement) {
-                    moveDownMenuCommand->setText("Move down (It's already the last element)");
+                    moveDownMenuCommand->setText(TL("Move down (It's already the last element)"));
                     moveDownMenuCommand->disable();
                 } else if (myClickedDemandElement->getParentDemandElements().front()->getNextChildDemandElement(myClickedDemandElement)->getTagProperty().isStopPerson()) {
-                    moveDownMenuCommand->setText("Move down (Next element is a Stop)");
+                    moveDownMenuCommand->setText(TL("Move down (Next element is a Stop)"));
                     moveDownMenuCommand->disable();
                 }
             }

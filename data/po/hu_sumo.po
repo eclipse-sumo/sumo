@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2022-10-18 10:20+0200\n"
+"POT-Creation-Date: 2022-10-18 14:55+0200\n"
 "PO-Revision-Date: 2022-10-12 11:05+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -863,7 +863,7 @@ msgid ""
 "\t ---- end of ActivityGen ----\n"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/activitygen/AGActivityGenHandler.cpp:330
+#: /home/behr_mi/sumo/src/activitygen/AGActivityGenHandler.cpp:329
 msgid "Unknown bus station '%'."
 msgstr ""
 
@@ -980,6 +980,11 @@ msgstr ""
 
 #: /home/behr_mi/sumo/src/osgview/GUIOSGView.cpp:176
 msgid "Could not load traffic light files."
+msgstr ""
+
+#: /home/behr_mi/sumo/src/osgview/GUIOSGView.cpp:870
+#: /home/behr_mi/sumo/src/osgview/GUIOSGView.cpp:871
+msgid "N/A"
 msgstr ""
 
 #: /home/behr_mi/sumo/src/netwrite/NWFrame.cpp:143

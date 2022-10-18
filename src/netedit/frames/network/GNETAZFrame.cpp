@@ -201,7 +201,7 @@ GNETAZFrame::CurrentTAZ::setTAZ(GNETAZ* editedTAZ) {
         // hide save TAZ Edges
         myTAZFrameParent->myTAZSaveChanges->hideTAZSaveChangesModule();
         // restore label
-        myCurrentTAZLabel->setText("No TAZ selected");
+        myCurrentTAZLabel->setText(TL("No TAZ selected"));
         // clear selected edges
         mySelectedEdges.clear();
         // reset all weight values
@@ -383,7 +383,7 @@ GNETAZFrame::TAZCommonStatistics::updateStatistics() {
         // set new label
         myStatisticsLabel->setText(information.str().c_str());
     } else {
-        myStatisticsLabel->setText("No TAZ Selected");
+        myStatisticsLabel->setText(TL("No TAZ Selected"));
     }
 }
 
@@ -557,13 +557,13 @@ GNETAZFrame::TAZChildDefaultParameters::updateSelectEdgesButton() {
     if (myToggleMembership->getCheck() == TRUE) {
         // check if use selected edges has to be enabled
         if (myTAZFrameParent->myCurrentTAZ->getSelectedEdges().size() > 0) {
-            myUseSelectedEdges->setText("Use selected edges");
+            myUseSelectedEdges->setText(TL("Use selected edges"));
             myUseSelectedEdges->enable();
         } else if (myTAZFrameParent->myCurrentTAZ->getTAZEdges().size() > 0) {
-            myUseSelectedEdges->setText("Remove all edges");
+            myUseSelectedEdges->setText(TL("Remove all edges"));
             myUseSelectedEdges->enable();
         } else {
-            myUseSelectedEdges->setText("Use selected edges");
+            myUseSelectedEdges->setText(TL("Use selected edges"));
             myUseSelectedEdges->disable();
         }
     } else if (myTAZFrameParent->getCurrentTAZModule()->getTAZEdges().size() > 0) {
@@ -579,15 +579,15 @@ GNETAZFrame::TAZChildDefaultParameters::updateSelectEdgesButton() {
                 }
             }
             if (allSelected) {
-                myUseSelectedEdges->setText("Remove all edges from selection");
+                myUseSelectedEdges->setText(TL("Remove all edges from selection"));
             } else {
-                myUseSelectedEdges->setText("Add all edges to selection");
+                myUseSelectedEdges->setText(TL("Add all edges to selection"));
             }
         } else if (myTAZFrameParent->myTAZSelectionStatistics->getEdgeAndTAZChildrenSelected().size() == 1) {
             if (myTAZFrameParent->myTAZSelectionStatistics->getEdgeAndTAZChildrenSelected().front().edge->isAttributeCarrierSelected()) {
-                myUseSelectedEdges->setText("Remove edge from selection");
+                myUseSelectedEdges->setText(TL("Remove edge from selection"));
             } else {
-                myUseSelectedEdges->setText("Add edge to selection");
+                myUseSelectedEdges->setText(TL("Add edge to selection"));
             }
         } else {
             // check if all edges of TAZChildren selected are selected
@@ -636,7 +636,7 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetDefaultValues(FXObject* obj, FXS
         myTAZFrameParent->myTAZSelectionStatistics->clearSelectedEdges();
         // set text of myToggleMembership
         if (myToggleMembership->getCheck() == TRUE) {
-            myToggleMembership->setText("toggle");
+            myToggleMembership->setText(TL("toggle"));
             // show source/Sink Frames
             myDefaultTAZSourceFrame->show();
             myDefaultTAZSinkFrame->show();
@@ -651,15 +651,15 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetDefaultValues(FXObject* obj, FXS
             myTAZFrameParent->myTAZSelectionStatistics->hideTAZSelectionStatisticsModule();
             // check if use selected edges has to be enabled
             if (myTAZFrameParent->myCurrentTAZ->getSelectedEdges().size() > 0) {
-                myUseSelectedEdges->setText("Use selected edges");
+                myUseSelectedEdges->setText(TL("Use selected edges"));
             } else if (myTAZFrameParent->myCurrentTAZ->getTAZEdges().size() > 0) {
-                myUseSelectedEdges->setText("Remove all edges");
+                myUseSelectedEdges->setText(TL("Remove all edges"));
             } else {
-                myUseSelectedEdges->setText("Use selected edges");
+                myUseSelectedEdges->setText(TL("Use selected edges"));
                 myUseSelectedEdges->disable();
             }
         } else {
-            myToggleMembership->setText("keep");
+            myToggleMembership->setText(TL("keep"));
             // hide source/Sink Frames
             myDefaultTAZSourceFrame->hide();
             myDefaultTAZSinkFrame->hide();
@@ -1153,7 +1153,7 @@ GNETAZFrame::TAZSelectionStatistics::updateStatistics() {
         myTAZSourceFrame->hide();
         myTAZSinkFrame->hide();
         // hide myStatisticsLabel
-        myStatisticsLabel->setText("No edges selected");
+        myStatisticsLabel->setText(TL("No edges selected"));
     }
 }
 
@@ -1180,7 +1180,7 @@ GNETAZFrame::TAZParameters::TAZParameters(GNETAZFrame* TAZFrameParent) :
     FXHorizontalFrame* colorParameter = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     myColorEditor = new FXButton(colorParameter, toString(SUMO_ATTR_COLOR).c_str(), 0, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
     myTextFieldColor = new FXTextField(colorParameter, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    myTextFieldColor->setText("blue");
+    myTextFieldColor->setText(TL("blue"));
     // create Button and string textField for name and set blue as default name
     FXHorizontalFrame* nameParameter = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(nameParameter, toString(SUMO_ATTR_NAME).c_str(), 0, GUIDesignLabelAttribute);
@@ -1295,16 +1295,16 @@ GNETAZFrame::TAZParameters::onCmdSetAttribute(FXObject* obj, FXSelector, void*) 
     } else if (obj == myAddEdgesWithinCheckButton) {
         // change useInnenEdgesCheckButton text
         if (myAddEdgesWithinCheckButton->getCheck() == TRUE) {
-            myAddEdgesWithinCheckButton->setText("use");
+            myAddEdgesWithinCheckButton->setText(TL("use"));
         } else {
-            myAddEdgesWithinCheckButton->setText("not use");
+            myAddEdgesWithinCheckButton->setText(TL("not use"));
         }
     } else if (obj == myCheckButtonFill) {
         // change myCheckButtonFill text
         if (myCheckButtonFill->getCheck() == TRUE) {
-            myCheckButtonFill->setText("true");
+            myCheckButtonFill->setText(TL("true"));
         } else {
-            myCheckButtonFill->setText("false");
+            myCheckButtonFill->setText(TL("false"));
         }
     }
     return 0;

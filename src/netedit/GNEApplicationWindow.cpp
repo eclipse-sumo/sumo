@@ -490,7 +490,7 @@ GNEApplicationWindow::dependentBuild() {
     // build additional threads
     myLoadThread = new GNELoadThread(getApp(), this, myEvents, myLoadThreadEvent);
     // set the status bar
-    myStatusbar->getStatusLine()->setText("Ready.");
+    myStatusbar->getStatusLine()->setText(TL("Ready."));
     // set the caption
     setTitle(myTitlePrefix);
     // set Netedit ICON
@@ -965,7 +965,7 @@ GNEApplicationWindow::onCmdOpenRecent(FXObject*, FXSelector, void* fileData) {
     if (myViewNet && !onCmdClose(0, 0, 0)) {
         return 1;
     } else if (myAmLoading) {
-        myStatusbar->getStatusLine()->setText("Already loading!");
+        myStatusbar->getStatusLine()->setText(TL("Already loading!"));
         return 1;
     } else {
         // get filedata
@@ -1595,7 +1595,7 @@ GNEApplicationWindow::updateRecomputingLabel() {
             myRequireRecomputingButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::OK));
             myRequireRecomputingButton->setBackColor(FXRGBA(240, 255, 205, 255));
         } else {
-            myRequireRecomputingButton->setText("Press F5");
+            myRequireRecomputingButton->setText(TL("Press F5"));
             myRequireRecomputingButton->setTipText("Network requires recomputing");
             myRequireRecomputingButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::WARNING));
             myRequireRecomputingButton->setBackColor(FXRGBA(253, 255, 206, 255));
@@ -1630,10 +1630,10 @@ GNEApplicationWindow::closeAllWindows() {
     // unlock tracker
     myTrackerLock.unlock();
     // remove coordinate information
-    myGeoCoordinate->setText("N/A");
-    myCartesianCoordinate->setText("N/A");
+    myGeoCoordinate->setText(TL("N/A"));
+    myCartesianCoordinate->setText(TL("N/A"));
     if (myTestCoordinate) {
-        myTestCoordinate->setText("N/A");
+        myTestCoordinate->setText(TL("N/A"));
     }
     // check if net can be deleted
     if (myNet != nullptr) {

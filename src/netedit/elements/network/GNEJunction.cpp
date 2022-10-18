@@ -332,7 +332,7 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         }
         // check if we're handling a selection
         if (handlingSelection) {
-            mcResetCustomShape->setText("Reset junction shapes");
+            mcResetCustomShape->setText(TL("Reset junction shapes"));
         }
         // disable mcClearConnections if junction hasn't connections
         if (getGNEConnections().empty()) {

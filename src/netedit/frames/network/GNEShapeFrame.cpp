@@ -83,7 +83,7 @@ GNEShapeFrame::GEOPOICreator::showGEOPOICreatorModule() {
         myCoordinatesTextField->enable();
         myCreateGEOPOIButton->enable();
     } else  {
-        myCoordinatesTextField->setText("No geo-conversion defined");
+        myCoordinatesTextField->setText(TL("No geo-conversion defined"));
         myCoordinatesTextField->disable();
         myCreateGEOPOIButton->disable();
     }
@@ -112,9 +112,9 @@ GNEShapeFrame::GEOPOICreator::onCmdSetCoordinates(FXObject*, FXSelector, void*) 
         myCoordinatesTextField->setText(inputWithoutSpaces.c_str());
     }
     if (inputWithoutSpaces.size() > 0) {
-        myCreateGEOPOIButton->setText("Create GEO POI");
+        myCreateGEOPOIButton->setText(TL("Create GEO POI"));
     } else {
-        myCreateGEOPOIButton->setText("Create GEO POI (clipboard)");
+        myCreateGEOPOIButton->setText(TL("Create GEO POI (clipboard)"));
     }
     // simply check if given value can be parsed to Position
     if (GNEAttributeCarrier::canParse<Position>(myCoordinatesTextField->getText().text())) {
@@ -131,7 +131,7 @@ GNEShapeFrame::GEOPOICreator::onCmdSetCoordinates(FXObject*, FXSelector, void*) 
         myLabelCartesianPosition->setText(("Cartesian equivalence:\n- X = " + toString(geoPos.x()) + "\n- Y = " + toString(geoPos.y())).c_str());
     } else {
         myCoordinatesTextField->setTextColor(FXRGB(255, 0, 0));
-        myLabelCartesianPosition->setText("Cartesian equivalence:\n- X = give valid longitude\n- Y = give valid latitude");
+        myLabelCartesianPosition->setText(TL("Cartesian equivalence:\n- X = give valid longitude\n- Y = give valid latitude"));
     };
     return 1;
 }
@@ -167,7 +167,7 @@ GNEShapeFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) {
             onCmdSetCoordinates(0, 0, 0);
             geoPosStr = myCoordinatesTextField->getText().text();
             myCoordinatesTextField->setText("");
-            myCreateGEOPOIButton->setText("Create GEO POI (clipboard)");
+            myCreateGEOPOIButton->setText(TL("Create GEO POI (clipboard)"));
         }
         if (GNEAttributeCarrier::canParse<Position>(geoPosStr)) {
             // create baseShape object

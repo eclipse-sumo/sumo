@@ -923,7 +923,7 @@ GNEPathCreator::updateInfoRouteLabel() {
         // set new label
         myInfoRouteLabel->setText(information.str().c_str());
     } else {
-        myInfoRouteLabel->setText("No edges selected");
+        myInfoRouteLabel->setText(TL("No edges selected"));
     }
 }
 

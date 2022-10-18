@@ -470,7 +470,7 @@ GNECalibratorDialog::updateFlowAndLabelButton() {
     if (myEditedAdditional->getNet()->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).size() == 0) {
         myAddFlow->disable();
         myFlowList->disable();
-        myLabelFlow->setText("No routes defined");
+        myLabelFlow->setText(TL("No routes defined"));
     } else {
         myAddFlow->enable();
         myFlowList->enable();

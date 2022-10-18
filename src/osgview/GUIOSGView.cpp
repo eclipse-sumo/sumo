@@ -867,8 +867,8 @@ GUIOSGView::updatePositionInformation() const {
         }
     } else {
         // set placeholder
-        myApp->getCartesianLabel()->setText("N/A");
-        myApp->getGeoLabel()->setText("N/A");
+        myApp->getCartesianLabel()->setText(TL("N/A"));
+        myApp->getGeoLabel()->setText(TL("N/A"));
     }
 }
 

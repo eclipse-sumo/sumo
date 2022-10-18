@@ -256,7 +256,7 @@ GNETypeFrame::TypeEditor::refreshTypeEditorModule() {
         // enable copy button
         myCopyTypeButton->enable();
         // enable and set myDeleteTypeButton as "reset")
-        myDeleteResetTypeButton->setText("Reset Type");
+        myDeleteResetTypeButton->setText(TL("Reset Type"));
         myDeleteResetTypeButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::RESET));
         // check if reset default vehicle type button has to be enabled or disabled
         if (GNEAttributeCarrier::parse<bool>(myTypeFrameParent->myTypeSelector->getCurrentType()->getAttribute(GNE_ATTR_DEFAULT_VTYPE_MODIFIED))) {
@@ -268,7 +268,7 @@ GNETypeFrame::TypeEditor::refreshTypeEditorModule() {
         // enable copy button
         myCopyTypeButton->enable();
         // enable and set myDeleteTypeButton as "delete")
-        myDeleteResetTypeButton->setText("Delete Type");
+        myDeleteResetTypeButton->setText(TL("Delete Type"));
         myDeleteResetTypeButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::MODEDELETE));
         myDeleteResetTypeButton->enable();
     }
