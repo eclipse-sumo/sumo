@@ -126,27 +126,11 @@ GNEPersonFrame::addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnd
     }
     // add elements to path creator
     if (clickedACTag == SUMO_TAG_LANE) {
-        const bool result = myPathCreator->addEdge(objectsUnderCursor.getEdgeFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
-        // if we're creating a stop, create it immediately
-        if (result && myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopPerson()) {
-            createPath(false);
-        }
-        return result;
+        return myPathCreator->addEdge(objectsUnderCursor.getEdgeFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
     } else if (clickedACTag == SUMO_TAG_BUS_STOP) {
-        const bool result = myPathCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
-        // if we're creating a stop, create it immediately
-        if (result && myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopPerson()) {
-            createPath(false);
-        }
-        return result;
+        return myPathCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
     } else if (clickedACTag == SUMO_TAG_ROUTE) {
-        const bool result = myPathCreator->addRoute(objectsUnderCursor.getDemandElementFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
-        // if we're creating a walk route, create it immediately
-        if (result && (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() == GNE_TAG_WALK_ROUTE)) {
-            createPath(false);
-            myPathCreator->removeRoute();
-        }
-        return result;
+        return myPathCreator->addRoute(objectsUnderCursor.getDemandElementFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
     } else if (clickedACTag == SUMO_TAG_JUNCTION) {
         return myPathCreator->addJunction(objectsUnderCursor.getJunctionFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
     } else {
