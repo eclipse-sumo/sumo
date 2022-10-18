@@ -25,7 +25,7 @@ msgstr ""
 #: /home/behr_mi/sumo/src/guisim_main.cpp:80
 #: /home/micha/sumo/src/guisim_main.cpp:80
 msgid "This system has no OpenGL support. Exiting."
-msgstr ""
+msgstr "Ce système ne prend pas en charge OpenGL. Fermeture."
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:197
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:455
@@ -37,24 +37,24 @@ msgstr ""
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:330
 #: /home/micha/sumo/src/netedit/GNEApplicationWindowHelper.cpp:330
 msgid "&Inspect"
-msgstr ""
+msgstr "&Inspecter"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:333
 #: /home/micha/sumo/src/netedit/GNEApplicationWindowHelper.cpp:333
 msgid "&Delete"
-msgstr ""
+msgstr "&Supprimer"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:336
 #: /home/micha/sumo/src/netedit/GNEApplicationWindowHelper.cpp:336
 msgid "&Select"
-msgstr ""
+msgstr "&Sélectionner"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:393
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:474
 #: /home/micha/sumo/src/netedit/GNEApplicationWindowHelper.cpp:393
 #: /home/micha/sumo/src/netedit/GNEApplicationWindowHelper.cpp:474
 msgid "&Move"
-msgstr ""
+msgstr "&Déplacer"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:396
 #: /home/micha/sumo/src/netedit/GNEApplicationWindowHelper.cpp:396
