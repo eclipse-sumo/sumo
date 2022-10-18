@@ -134,9 +134,6 @@ public:
     /// @brief get route
     GNEDemandElement* getRoute() const;
 
-    /// @brief remove route
-    void removeRoute();
-
     /// @brief get path route
     const std::vector<Path>& getPath() const;
 
@@ -199,7 +196,7 @@ protected:
         END_EDGE                 = 1 << 3,   // Path ends in an edge
         START_JUNCTION           = 1 << 4,   // Path begins in an edge
         END_JUNCTION             = 1 << 5,   // Path ends in an edge
-        SINGLE_ELEMENT           = 1 << 6,   // Path only had one element
+        STOP                     = 1 << 6,   // Path is an stop
         ONLY_FROMTO              = 1 << 7,   // Path only had two elements (first and last)
         END_BUSSTOP              = 1 << 8,   // Path ends in a busStop
         END_CONTAINERSTOP        = 1 << 9,   // Path ends in a containerStop

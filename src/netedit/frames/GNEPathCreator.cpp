@@ -226,7 +226,6 @@ GNEPathCreator::showPathCreatorModule(SumoXMLTag element, const bool firstElemen
         case SUMO_TAG_VEHICLE:
         case GNE_TAG_FLOW_ROUTE:
         case GNE_TAG_WALK_ROUTE:
-            myCreationMode |= SINGLE_ELEMENT;
             myCreationMode |= ROUTE;
             // show use last inserted route
             myUseLastRoute->show();
@@ -300,16 +299,16 @@ GNEPathCreator::showPathCreatorModule(SumoXMLTag element, const bool firstElemen
             break;
         // stops (person and containers)
         case GNE_TAG_STOPPERSON_BUSSTOP:
-            myCreationMode |= SINGLE_ELEMENT;
+            myCreationMode |= STOP;
             myCreationMode |= END_BUSSTOP;
             break;
         case GNE_TAG_STOPCONTAINER_CONTAINERSTOP:
-            myCreationMode |= SINGLE_ELEMENT;
+            myCreationMode |= STOP;
             myCreationMode |= END_CONTAINERSTOP;
             break;
         case GNE_TAG_STOPPERSON_EDGE:
         case GNE_TAG_STOPCONTAINER_EDGE:
-            myCreationMode |= SINGLE_ELEMENT;
+            myCreationMode |= STOP;
             myCreationMode |= START_EDGE;
             break;
         // generic datas
@@ -367,10 +366,6 @@ GNEPathCreator::addJunction(GNEJunction* junction, const bool /* shiftKeyPressed
     if (((myCreationMode & START_JUNCTION) == 0) && ((myCreationMode & END_JUNCTION) == 0)) {
         return false;
     }
-    // check if only an junction is allowed
-    if ((myCreationMode & SINGLE_ELEMENT) && (mySelectedJunctions.size() == 1)) {
-        return false;
-    }
     // continue depending of number of selected edge
     if (mySelectedJunctions.size() > 0) {
         // check double junctions
@@ -416,10 +411,6 @@ bool
 GNEPathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool controlKeyPressed) {
     // check if edges are allowed
     if (((myCreationMode & START_EDGE) == 0) && ((myCreationMode & END_EDGE) == 0)) {
-        return false;
-    }
-    // check if only an edge is allowed
-    if ((myCreationMode & SINGLE_ELEMENT) && (mySelectedEdges.size() == 1)) {
         return false;
     }
     // continue depending of number of selected eges
@@ -488,6 +479,10 @@ GNEPathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool co
     updateInfoRouteLabel();
     // update edge colors
     updateEdgeColors();
+    // if is a stop, create inmediately
+    if (myCreationMode & STOP) {
+        createPath(false);
+    }
     return true;
 }
 
@@ -548,6 +543,10 @@ GNEPathCreator::addStoppingPlace(GNEAdditional* stoppingPlace, const bool /*shif
     updateInfoRouteLabel();
     // update stoppingPlace colors
     updateEdgeColors();
+    // if is a stop, create inmediately
+    if (myCreationMode & STOP) {
+        createPath(false);
+    }
     return true;
 }
 
@@ -572,24 +571,15 @@ GNEPathCreator::addRoute(GNEDemandElement* route, const bool /*shiftKeyPressed*/
     if (myRoute) {
         return false;
     }
-    // set route
+    // set route and create path
     myRoute = route;
-    // recalculate path
-    recalculatePath();
-    updateInfoRouteLabel();
-    updateEdgeColors();
-    return true;
-}
-
-
-void
-GNEPathCreator::removeRoute() {
-    // set route
+    createPath(false);
     myRoute = nullptr;
     // recalculate path
     recalculatePath();
     updateInfoRouteLabel();
     updateEdgeColors();
+    return true;
 }
 
 
