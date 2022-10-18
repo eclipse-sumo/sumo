@@ -6,7 +6,7 @@
         <route edges="3 3.180.00 27"/>
     </vehicle>
     <vehicle id="1" depart="8.00">
-        <route edges="3 3.180.00 71"/>
+        <route edges="3 3.180.00 -71"/>
     </vehicle>
     <vehicle id="2" depart="8.00">
         <route edges="3 3.180.00 -3"/>

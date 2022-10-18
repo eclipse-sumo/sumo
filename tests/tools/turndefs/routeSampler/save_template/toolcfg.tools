@@ -22,6 +22,10 @@
     <turn-attribute value="count" help="Read turning counts from the given attribute"/>
     <turn-files value="None" help="Input turn-count file"/>
     <turn-max-gap value="0" help="Allow at most a gap of INT edges between from-edge and to-edge"/>
+    <turn-ratio-abs-tolerance value="1" help="Set tolerance for error in resulting turning ratios as absolute count"/>
+    <turn-ratio-attribute value="None" help="Read turning ratios from the given attribute"/>
+    <turn-ratio-tolerance value="None" help="Set tolerance for error in resulting ratios (relative to turn-ratio-total)"/>
+    <turn-ratio-total value="1" help="Set value for normalizing turning ratios (default 1)"/>
     <attributes value="" help="additional vehicle attributes"/>
     <verbose value="False" help="tell me what you are doing"/>
     <verbose.histograms value="False" help="print histograms of edge numbers and detector passing count"/>
