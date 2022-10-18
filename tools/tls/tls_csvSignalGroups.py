@@ -661,8 +661,9 @@ def toCsv(options):
                 return
         tlLogicsTotal.extend(tlLogics)
     # write the csv format
+    prefix = options.output if len(options.output) > 0 else ''
     for tlLogic in tlLogicsTotal:
-        outputPath = "%s_%s.csv" % (tlLogic._id, tlLogic._programID)
+        outputPath = "%s%s_%s.csv" % (prefix, tlLogic._id, tlLogic._programID)
         with open(outputPath, "w") as f:
             tlLogic.csvOutput(f)
 
@@ -670,7 +671,7 @@ def toCsv(options):
 def getOptions():
     ap = argparse.ArgumentParser()
     ap.add_argument("-o", "--output", action="store", default="tls.add.xml",
-                    help="File path to tll output file (SUMO additional file)")
+                    help="File path to tll output file (SUMO additional file) / prefix for generated csv files")
     ap.add_argument("-i", "--input", action="store", default="",
                     help="File path to input csv or tll file(s). Multiple file paths have to be separated by ','.")
     ap.add_argument("-r", "--reverse", action="store_true", default=False,
@@ -698,6 +699,8 @@ def getOptions():
 if __name__ == "__main__":
     options = getOptions()
     if options.reverse:
+        if len(options.output) > 0 and options.output.endswith(".add.xml"):
+            options.output = ""
         if len(options.net) == 0:
             print("Cannot convert TL xml to csv due to missing network file.")
         elif not options.tlsFromNet and len(options.input) == 0:
