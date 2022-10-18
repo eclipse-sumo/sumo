@@ -75,7 +75,6 @@ Debug: Selected item 'p_0' in DemandElementSelector
 Debug: Selected item 'stopPerson: edge' in GNETagSelector
 Debug: Adding stopPerson: edge 'p_0' in GNEChange_DemandElement
 Debug: Adding stopPerson: edge 'p_0' in GNEChange_DemandElement
-Debug: Key ENTER pressed
 Debug: Adding stopPerson: edge 'p_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
