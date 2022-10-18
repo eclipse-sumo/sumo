@@ -1403,6 +1403,7 @@ GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerP
             // check if ride busStop->busStop can be created
             if (fromEdge) {
                 stopParameters.edge = fromEdge->getID();
+                stopParameters.endPos = fromEdge->getLanes().front()->getLaneShape().nearest_offset_to_point2D(myNet->getViewNet()->getPositionInformation());
                 buildStop(containerPlanObject, stopParameters);
             } else {
                 myNet->getViewNet()->setStatusBarText("A stop has to be placed over an edge");
