@@ -11,6 +11,9 @@ intervals
 
 # sample routes by probabilites or counts
 weighted
+
+# make use of turn-ratios in addition to counts
+ratios
 verbose
 
 # save configuration file

@@ -1,0 +1,6 @@
+-r input_routes.rou.xml --edgedata-file input_edgedata.xml 
+--edgedata-attribute count
+--turn-files input_turns.xml
+--turn-attribute None
+-f number
+-o out.rou.xml 
