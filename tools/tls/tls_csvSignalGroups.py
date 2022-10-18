@@ -346,11 +346,18 @@ class TlLogic(sumolib.net.TLSProgram):
             print("param;%s;%s" % (key, value), file=f)
         print("[links]", file=f)
         for id, sg in self._signalGroups.items():
-            edge2edge = [(conn.getFrom().getID(), conn.getTo().getID()) for conn in sg._connections]
-            edge2edge.sort(key=lambda t: t[1])
-            edge2edge.sort(key=lambda t: t[0])
-            # edge2edge = sorted(edge2edge, key=lambda t: (t[1], t[0]))
-            for entry in edge2edge:
+            inOutRelations = []
+            for conn in sg._connections:
+                outGoingConns = conn.getFrom().getOutgoing()[conn.getTo()]
+                # note lane IDs if there are links with same start and end edge not controlled this signal group
+                # edge IDs otherwise
+                if len(set([outConn.getTLLinkIndex() for outConn in outGoingConns])) > 1:      
+                    inOutRelations.append((conn.getFromLane().getID(), conn.getToLane().getID()))
+                else:
+                    inOutRelations.append((conn.getFrom().getID(), conn.getTo().getID()))
+            inOutRelations.sort(key=lambda t: t[1])
+            inOutRelations.sort(key=lambda t: t[0])
+            for entry in inOutRelations:
                 print("%s;%s;%s" % (id, entry[0], entry[1]), file=f)
         print("[signal groups]\nid;on1;off1;on2;off2;transOn;transOff", file=f)
         for id, sg in self._signalGroups.items():
