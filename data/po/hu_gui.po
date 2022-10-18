@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2022-10-17 14:37+0200\n"
+"POT-Creation-Date: 2022-10-18 14:42+0200\n"
 "PO-Revision-Date: 2022-10-12 11:05+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -568,6 +568,18 @@ msgstr ""
 msgid "Snapshot successfully saved!"
 msgstr ""
 
+#: /home/behr_mi/sumo/src/gui/GUITLLogicPhasesTrackerWindow.cpp:269
+msgid "phase names"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/gui/GUITLLogicPhasesTrackerWindow.cpp:272
+msgid "detectors"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/gui/GUITLLogicPhasesTrackerWindow.cpp:273
+msgid "conditions"
+msgstr ""
+
 #: /home/behr_mi/sumo/src/gui/GUITLLogicPhasesTrackerWindow.cpp:336
 msgid "Overflow in time computation occurred."
 msgstr ""
@@ -1029,6 +1041,44 @@ msgstr ""
 msgid "&Cancel"
 msgstr ""
 
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:258
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:334
+msgid ""
+"Activate friendlyPos and save\t\tFriendly pos parameter will be activated in "
+"all stopping places and E2 detectors"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:260
+msgid ""
+"Save invalid positions\t\tSave stopping places and E2 detectors with invalid "
+"positions"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:264
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:336
+msgid ""
+"Fix positions and save\t\tPosition of stopping places and E2 detectors will "
+"be fixed"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:266
+msgid ""
+"Select invalid additionals\t\tCancel saving of additionals and select "
+"invalid stopping places and E2 detectors"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:326
+msgid ""
+"Build connections between lanes\t\tNew connections will be created between "
+"non-connected lanes"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:328
+msgid ""
+"Remove invalid E2 detectors\t\tRemove Multilane E2 Detectors with non-"
+"connected lanes"
+msgstr ""
+
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNEVehicleTypeDialog.cpp:438
 msgid "Edit parameters"
 msgstr ""
@@ -1044,6 +1094,66 @@ msgstr ""
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:203
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:190
 msgid "Save list of conflicted items"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:241
+msgid "Remove invalid routes"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:244
+msgid "Save invalid routes"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:247
+msgid "Select conflicted routes"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:250
+msgid "Remove stops out of route"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:352
+msgid "Remove invalid vehicles"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:355
+msgid "Save invalid vehicles"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:358
+msgid "Select conflicted vehicle"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:361
+msgid "Remove stops out of vehicle's route"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:458
+msgid "Activate friendlyPos and save"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:461
+msgid "Save invalid positions"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:464
+msgid "Select conflicted Stops"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:467
+msgid "Fix positions and save"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:558
+msgid "Delete person plan"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:561
+msgid "Save invalid person plans"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:564
+msgid "Select conflicted person plans"
 msgstr ""
 
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:282
@@ -1063,6 +1173,9 @@ msgstr ""
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:290
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:285
 #: /home/behr_mi/sumo/src/netedit/frames/GNEAttributesCreator.cpp:60
+#: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:73
+#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:693
+#: /home/behr_mi/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:318
 msgid "Help"
 msgstr ""
 
@@ -1076,6 +1189,32 @@ msgstr ""
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:328
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:323
 msgid "Save Parameter Template file"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:400
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:404
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:399
+msgid "- Parameters are defined by a Key and a Value.\n"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:401
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:405
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:400
+msgid ""
+"- In Netedit can be defined using format key1=parameter1|"
+"key2=parameter2|...\n"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:402
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:406
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:401
+msgid " - Duplicated and empty Keys aren't valid.\n"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:403
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:407
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:402
+msgid " - Whitespace and certain characters aren't allowed (@$%^&/|\\....)\n"
 msgstr ""
 
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:412
@@ -1138,6 +1277,18 @@ msgstr ""
 
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNEUndoListDialog.cpp:64
 msgid "OK\tclose dialog"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNECalibratorFlowDialog.cpp:110
+#: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:66
+#: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:70
+msgid "false"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:479
+msgid ""
+"Only for\n"
+"existent keys"
 msgstr ""
 
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNEAdditionalDialog.cpp:63
@@ -1212,32 +1363,202 @@ msgstr ""
 msgid "Select conflicted crossing"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:379
+#: /home/behr_mi/sumo/src/netedit/frames/GNEAttributesCreator.cpp:50
+#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:683
+msgid "Internal attributes"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:89
+msgid "Element"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNEElementTree.cpp:62
+msgid "Hierarchy"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNESelectorParent.cpp:36
+msgid "Parent selector"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNEDemandSelector.cpp:65
+msgid "Parent element"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:145
+msgid "Route creator"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:154
+msgid "Use last route"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:157
+msgid "Finish route creation"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:160
+msgid "Abort route creation"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:163
+msgid "Remove last edge"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:166
+msgid "Show candidate edges"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:374
 msgid "Double junctions aren't allowed"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:387
+#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:382
 msgid "Only two junctions are allowed"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:430
+#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:421
 msgid "Double edges aren't allowed"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:440
+#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:431
 msgid "Only consecutives edges are allowed"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:449
+#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:440
 msgid "Only two edges are allowed"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:524
+#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:519
 msgid "first select an edge"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:919
+msgid "- Selected edges: "
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:920
+msgid "- Path edges: "
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:921
+#: /home/behr_mi/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:407
+msgid "- Length: "
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:922
+msgid "- Average speed: "
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNENetworkSelector.cpp:49
+msgid "NetworkElements"
 msgstr ""
 
 #: /home/behr_mi/sumo/src/netedit/frames/GNENetworkSelector.cpp:56
 msgid "Use selected"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:49
+msgid "Netedit attributes"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:230
+msgid ""
+"- Reference point: Mark the initial position of the additional element.\n"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:231
+msgid ""
+"  Example: If you want to create a busStop with a length of 30 in the point "
+"100 of the lane:\n"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:232
+msgid ""
+"  - Reference Left will create it with startPos = 70 and endPos = 100.\n"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:233
+msgid ""
+"  - Reference Right will create it with startPos = 100 and endPos = 130.\n"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:234
+msgid ""
+"  - Reference Center will create it with startPos = 85 and endPos = 115.\n"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:236
+msgid ""
+"- Block movement: if is enabled, the created additional element will be "
+"blocked. i.e. cannot be moved with\n"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:238
+msgid "- Center view: if is enabled, view will be center over created element."
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:87
+msgid "attributeCheckButton"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:904
+msgid "Extended attributes"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:907
+msgid "Open attributes editor"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:938
+msgid "Attributes"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:942
+msgid "Edit attributes"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:52
+msgid "Overlapped elements"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:278
+msgid " - Click in the same position\n"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:279
+msgid "   for inspect next element\n"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:280
+msgid " - Shift + Click in the same\n"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:281
+msgid "   position for inspect\n"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:282
+msgid "   previous element"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:55
+msgid "Consecutive lane selector"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:61
+msgid "Finish path creation"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:64
+msgid "Abort path creation"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:67
+msgid "Remove last lane"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:70
+msgid "Show candidate lanes"
 msgstr ""
 
 #: /home/behr_mi/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:134
@@ -1248,8 +1569,44 @@ msgstr ""
 msgid "Lane path needs at least two lanes"
 msgstr ""
 
+#: /home/behr_mi/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:406
+msgid "- Selected lanes: "
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNEFlowEditor.cpp:48
+msgid "Flow attributes"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:58
+msgid "name"
+msgstr ""
+
 #: /home/behr_mi/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:60
 msgid "button"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:65
+msgid "Disabled"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNEPathLegend.cpp:34
+msgid "Information"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNEDrawingShape.cpp:48
+msgid "Drawing"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNEDrawingShape.cpp:52
+msgid "Start drawing"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNEDrawingShape.cpp:53
+msgid "Stop drawing"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netedit/frames/GNEDrawingShape.cpp:54
+msgid "Abort drawing"
 msgstr ""
 
 #: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:88

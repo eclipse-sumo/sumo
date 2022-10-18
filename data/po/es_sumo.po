@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2022-10-17 14:37+0200\n"
+"POT-Creation-Date: 2022-10-18 10:20+0200\n"
 "PO-Revision-Date: 2022-10-11 11:53+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -863,7 +863,7 @@ msgid ""
 "\t ---- end of ActivityGen ----\n"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/activitygen/AGActivityGenHandler.cpp:329
+#: /home/behr_mi/sumo/src/activitygen/AGActivityGenHandler.cpp:330
 msgid "Unknown bus station '%'."
 msgstr ""
 
