@@ -47,7 +47,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect personStopEdge
-netedit.leftClick(referencePosition, 430, 65)
+netedit.leftClick(referencePosition, 180, 45)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.personStopEdge.inspectSelection.modes, "dummy", False)

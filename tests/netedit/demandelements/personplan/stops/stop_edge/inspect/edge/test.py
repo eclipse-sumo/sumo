@@ -66,13 +66,16 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect personStopEdge
-netedit.leftClick(referencePosition, 430, 65)
+netedit.leftClick(referencePosition, 180, 45)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personStopEdge.inspect.to, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.personStopEdge.inspect.edge, "dummy", False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personStopEdge.inspect.to, "gneE4", False)
+netedit.modifyAttribute(netedit.attrs.personStopEdge.inspect.edge, "gneE4", False)
+
+# change depart with an valid value
+netedit.modifyAttribute(netedit.attrs.personStopEdge.inspect.edge, "gneE5", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

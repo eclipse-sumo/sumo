@@ -66,23 +66,14 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect personStopEdge
-netedit.leftClick(referencePosition, 430, 65)
+netedit.leftClick(referencePosition, 180, 45)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personStopEdge.inspect.arrivalPos, "dummy", False)
-
-# change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personStopEdge.inspect.arrivalPos, "", False)
-
-# change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personStopEdge.inspect.arrivalPos, "-6", False)
-
-# change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personStopEdge.inspect.arrivalPos, "2.5", False)
+netedit.modifyBoolAttribute(netedit.attrs.personStopEdge.inspect.friendlyPos, False)
 
 # Check undo redo
-netedit.undo(referencePosition, 5)
-netedit.redo(referencePosition, 5)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # save routes
 netedit.saveRoutes(referencePosition)

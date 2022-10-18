@@ -2572,11 +2572,12 @@ class personStopEdge:
 
     class inspect:
         edge = 1
-        friendlyPos = 2
-        durationEnable = 3
-        duration = 4
-        untilEnable = 5
-        until = 6
+        endPos = 2
+        friendlyPos = 3
+        durationEnable = 4
+        duration = 5
+        untilEnable = 6
+        until = 7
         actType = 7
 
     class inspectSelection:

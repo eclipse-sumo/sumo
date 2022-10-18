@@ -75,24 +75,24 @@ Debug: Selected item 'p_0' in DemandElementSelector
 Debug: Selected item 'stopPerson: edge' in GNETagSelector
 Debug: Adding stopPerson: edge 'p_0' in GNEChange_DemandElement
 Debug: Key ENTER pressed
+Debug: Value 'dummy' for attribute endPos of stopPerson: edge isn't valid
+Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing stopPerson: edge 'p_0' in GNEChange_DemandElement
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing walk: edge->edge 'p_0' in GNEChange_DemandElement
-Debug: Removing person 'p_0' in GNEChange_DemandElement
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Adding person 'p_0' in GNEChange_DemandElement
-Debug: Adding walk: edge->edge 'p_0' in GNEChange_DemandElement
+Debug: Removing stopPerson: edge 'p_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding stopPerson: edge 'p_0' in GNEChange_DemandElement
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute

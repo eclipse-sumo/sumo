@@ -34,14 +34,33 @@ netedit.forceSaveAdditionals()
 # go to demand mode
 netedit.supermodeDemand()
 
-# select two-way mode
-netedit.changeEditMode(netedit.attrs.modes.demand.showPersonPlans)
+# go to person mode
+netedit.personMode()
 
-# go to select mode
-netedit.selectMode()
+# change person plan
+netedit.changePersonPlan("walk: edge->edge", False)
 
-# select all using invert
-netedit.selectionInvert()
+# create route using two one
+netedit.leftClick(referencePosition, 274, 400)
+netedit.leftClick(referencePosition, 180, 65)
+
+# press enter to create route
+netedit.typeEnter()
+
+# go to personStopEdge mode
+netedit.personPlanMode()
+
+# select person
+netedit.leftClick(referencePosition, 92, 412)
+
+# go to personStopEdge mode
+netedit.changePersonPlanMode("stopPerson: edge")
+
+# create personStopEdge
+netedit.leftClick(referencePosition, 180, 65)
+
+# press enter to create route
+netedit.typeEnter()
 
 # go to inspect mode
 netedit.inspectMode()
@@ -50,11 +69,17 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 180, 45)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personStopEdge.inspectSelection.vTypes, "customType", False)
+netedit.modifyAttribute(netedit.attrs.personStopEdge.inspect.endPos, "dummy", False)
+
+# change depart with an invalid value
+netedit.modifyAttribute(netedit.attrs.personStopEdge.inspect.endPos, "-40", False)
+
+# change depart with an valid value
+netedit.modifyAttribute(netedit.attrs.personStopEdge.inspect.endPos, "7.3", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # save routes
 netedit.saveRoutes(referencePosition)
