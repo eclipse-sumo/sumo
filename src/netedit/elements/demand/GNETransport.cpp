@@ -126,7 +126,7 @@ GNETransport::writeDemandElement(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_TO, getParentEdges().back()->getID());
     }
     // only write arrivalPos if is different of -1
-    if ((myTagProperty.getTag() != GNE_TAG_TRANSPORT_CONTAINERSTOP) && (myArrivalPosition != -1)) {
+    if ((myTagProperty.getTag() != GNE_TAG_TRANSPORT_CONTAINERSTOP) && (myArrivalPosition > 0)) {
         device.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPosition);
     }
     // write lines

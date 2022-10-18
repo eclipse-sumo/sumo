@@ -159,7 +159,7 @@ GNEWalk::writeDemandElement(OutputDevice& device) const {
         }
     }
     // avoid write arrival positions in walk to busStop
-    if (!(myTagProperty.getTag() == GNE_TAG_WALK_BUSSTOP) && (myArrivalPosition == -1)) {
+    if (!(myTagProperty.getTag() == GNE_TAG_WALK_BUSSTOP) && (myArrivalPosition > 0)) {
         device.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPosition);
     }
     // close tag
