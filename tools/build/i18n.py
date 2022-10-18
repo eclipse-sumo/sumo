@@ -57,7 +57,7 @@ def main(args=None):
     for pot, sources in pots.items():
         sources.close()
         subprocess.check_call([path + "xgettext", "--files-from=" + sources.name, "--from-code=UTF-8",
-                              "--keyword=TL", "--output=" + pot + ".new", "--package-name=sumo",
+                              "--keyword=TL", "--keyword=TLF", "--output=" + pot + ".new", "--package-name=sumo",
                                "--msgid-bugs-address=sumo-dev@eclipse.org"])
         os.remove(sources.name)
         has_diff = True

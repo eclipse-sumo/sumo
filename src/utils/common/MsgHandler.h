@@ -277,6 +277,8 @@ private:
 #define WRITE_GLDEBUG(msg) if(MsgHandler::writeDebugGLMessages()){MsgHandler::getGLDebugInstance()->inform(msg);};
 #ifdef HAVE_INTL
 #define TL(string) gettext(string)
+#define TLF(string, ...) StringUtils::format(gettext(string), __VA_ARGS__)
 #else
 #define TL(string) (string)
+#define TLF(string, ...) StringUtils::format(string, __VA_ARGS__)
 #endif

@@ -196,5 +196,3 @@ private:
 private:
     static XERCES_CPP_NAMESPACE::XMLLCPTranscoder* myLCPTranscoder;
 };
-
-#define THROWF(ERROR, ...) throw ERROR(StringUtils::format(__VA_ARGS__));
