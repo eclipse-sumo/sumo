@@ -593,9 +593,10 @@ GNEGenericDataFrame::intervalSelected() {
 }
 
 
-void
+bool
 GNEGenericDataFrame::createPath(const bool /*useLastRoute*/) {
     // this function has to be reimplemente in all child frames that uses a GNEPathCreator
+    return false;
 }
 
 /****************************************************************************/

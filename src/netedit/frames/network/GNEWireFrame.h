@@ -60,7 +60,7 @@ public:
     GNEConsecutiveSelector* getConsecutiveLaneSelector() const;
 
     /// @brief create path
-    void createPath(const bool useLastRoute);
+    bool createPath(const bool useLastRoute);
 
 protected:
     /// @brief SumoBaseObject used for create wire

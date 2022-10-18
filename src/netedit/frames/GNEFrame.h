@@ -105,7 +105,7 @@ public:
     virtual void selectedOverlappedElement(GNEAttributeCarrier* AC);
 
     /// @brief create path between two elements
-    virtual void createPath(const bool useLastRoute);
+    virtual bool createPath(const bool useLastRoute);
 
     /// @}
 

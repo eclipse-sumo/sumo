@@ -200,7 +200,7 @@ GNEContainerPlanFrame::demandElementSelected() {
 }
 
 
-void
+bool
 GNEContainerPlanFrame::createPath(const bool /*useLastRoute*/) {
     // first check that all attributes are valid
     if (!myContainerPlanAttributes->areValuesValid()) {
@@ -220,8 +220,12 @@ GNEContainerPlanFrame::createPath(const bool /*useLastRoute*/) {
             tagSelected();
             // refresh containerPlan attributes
             myContainerPlanAttributes->refreshAttributesCreator();
+            // enable show all person plans
+            myViewNet->getDemandViewOptions().menuCheckShowAllPersonPlans->setChecked(TRUE);
+            return true;
         }
     }
+    return false;
 }
 
 /****************************************************************************/

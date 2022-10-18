@@ -481,9 +481,21 @@ GNEPathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool co
     updateEdgeColors();
     // if is a stop, create inmediately
     if (myCreationMode & STOP) {
-        createPath(false);
+        if (createPath(false)) {
+            return true;
+        } else {
+            mySelectedEdges.pop_back();
+            // recalculate path again
+            recalculatePath();
+            // update info route label
+            updateInfoRouteLabel();
+            // update edge colors
+            updateEdgeColors();
+            return false;
+        }
+    } else {
+        return true;
     }
-    return true;
 }
 
 
@@ -545,9 +557,21 @@ GNEPathCreator::addStoppingPlace(GNEAdditional* stoppingPlace, const bool /*shif
     updateEdgeColors();
     // if is a stop, create inmediately
     if (myCreationMode & STOP) {
-        createPath(false);
+        if (createPath(false)) {
+            return true;
+        } else {
+            myToStoppingPlace = nullptr;
+            // recalculate path again
+            recalculatePath();
+            // update info route label
+            updateInfoRouteLabel();
+            // update stoppingPlace colors
+            updateEdgeColors();
+            return false;
+        }
+    } else {
+        return true;
     }
-    return true;
 }
 
 
@@ -778,10 +802,10 @@ GNEPathCreator::drawTemporalRoute(const GUIVisualizationSettings& s) const {
 }
 
 
-void
+bool
 GNEPathCreator::createPath(const bool useLastRoute) {
     // call create path implemented in frame parent
-    myFrameParent->createPath(useLastRoute);
+    return myFrameParent->createPath(useLastRoute);
 }
 
 
@@ -844,16 +868,14 @@ GNEPathCreator::removeLastElement() {
 long
 GNEPathCreator::onCmdCreatePath(FXObject*, FXSelector, void*) {
     // call create path
-    createPath(false);
-    return 1;
+    return createPath(false);
 }
 
 
 long
 GNEPathCreator::onCmdUseLastRoute(FXObject*, FXSelector, void*) {
     // call create path with useLastRoute = true
-    createPath(true);
-    return 1;
+    return createPath(true);
 }
 
 long

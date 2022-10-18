@@ -262,7 +262,7 @@ protected:
     void intervalSelected();
 
     /// @brief create path
-    virtual void createPath(const bool useLastRoute);
+    virtual bool createPath(const bool useLastRoute);
 
     /// @brief dataSet selector modul
     DataSetSelector* myDataSetSelector;

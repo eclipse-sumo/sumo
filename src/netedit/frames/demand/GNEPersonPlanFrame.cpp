@@ -253,11 +253,12 @@ GNEPersonPlanFrame::demandElementSelected() {
 }
 
 
-void
+bool
 GNEPersonPlanFrame::createPath(const bool /*useLastRoute*/) {
     // first check that all attributes are valid
     if (!myPersonPlanAttributes->areValuesValid()) {
         myViewNet->setStatusBarText("Invalid " + myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " parameters.");
+        return false;
     } else {
         // check if person plan can be created
         if (myRouteHandler.buildPersonPlan(
@@ -272,6 +273,11 @@ GNEPersonPlanFrame::createPath(const bool /*useLastRoute*/) {
             tagSelected();
             // refresh personPlan attributes
             myPersonPlanAttributes->refreshAttributesCreator();
+            // enable show all person plans
+            myViewNet->getDemandViewOptions().menuCheckShowAllPersonPlans->setChecked(TRUE);
+            return true;
+        } else {
+            return false;
         }
     }
 }

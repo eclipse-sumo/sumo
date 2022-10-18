@@ -107,7 +107,7 @@ GNEWireFrame::getConsecutiveLaneSelector() const {
 }
 
 
-void
+bool
 GNEWireFrame::createPath(const bool /* useLastRoute */) {
     // obtain tagproperty (only for improve code legibility)
     const auto& tagProperty = myWireTagSelector->getCurrentTemplateAC()->getTagProperty();
@@ -143,10 +143,12 @@ GNEWireFrame::createPath(const bool /* useLastRoute */) {
                     myConsecutiveLaneSelector->abortPathCreation();
                     // refresh additional attributes
                     myWireAttributes->refreshAttributesCreator();
+                    return true;
                 }
             }
         }
     }
+    return false;
 }
 
 

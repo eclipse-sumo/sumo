@@ -51,7 +51,7 @@ GNEEdgeRelDataFrame::addEdgeRelationData(const GNEViewNetHelper::ObjectsUnderCur
 }
 
 
-void
+bool
 GNEEdgeRelDataFrame::createPath(const bool /*useLastRoute*/) {
     // first check that we have at least two edges and parameters are valid
     if ((myPathCreator->getSelectedEdges().size() > 1) && (myGenericDataAttributes->areAttributesValid())) {
@@ -68,6 +68,9 @@ GNEEdgeRelDataFrame::createPath(const bool /*useLastRoute*/) {
         // abort path creation
         myPathCreator->abortPathCreation();
         delete dataIntervalObject;
+        return true;
+    } else {
+        return false;
     }
 }
 

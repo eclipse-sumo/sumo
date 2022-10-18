@@ -141,7 +141,7 @@ GNEAdditionalFrame::getConsecutiveLaneSelector() const {
 }
 
 
-void
+bool
 GNEAdditionalFrame::createPath(const bool /* useLastRoute */) {
     // obtain tagproperty (only for improve code legibility)
     const auto& tagProperty = myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty();
@@ -180,11 +180,13 @@ GNEAdditionalFrame::createPath(const bool /* useLastRoute */) {
                         myConsecutiveLaneSelector->abortPathCreation();
                         // refresh additional attributes
                         myAdditionalAttributes->refreshAttributesCreator();
+                        return true;
                     }
                 }
             }
         }
     }
+    return false;
 }
 
 

@@ -258,7 +258,7 @@ GNEPersonFrame::demandElementSelected() {
 }
 
 
-void
+bool
 GNEPersonFrame::createPath(const bool /*useLastRoute*/) {
     // first check that all attributes are valid
     if (!myPersonAttributes->areValuesValid()) {
@@ -287,11 +287,13 @@ GNEPersonFrame::createPath(const bool /*useLastRoute*/) {
             person->computePathElement();
             // enable show all person plans
             myViewNet->getDemandViewOptions().menuCheckShowAllPersonPlans->setChecked(TRUE);
+            return true;
         } else {
             // abort person creation
             myViewNet->getUndoList()->abortAllChangeGroups();
         }
     }
+    return false;
 }
 
 // ---------------------------------------------------------------------------

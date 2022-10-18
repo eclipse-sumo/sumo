@@ -156,7 +156,7 @@ public:
     void drawTemporalRoute(const GUIVisualizationSettings& s) const;
 
     /// @brief create path
-    void createPath(const bool useLastRoute);
+    bool createPath(const bool useLastRoute);
 
     /// @brief abort path creation
     void abortPathCreation();

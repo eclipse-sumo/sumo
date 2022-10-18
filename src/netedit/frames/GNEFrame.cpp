@@ -299,9 +299,10 @@ GNEFrame::selectedOverlappedElement(GNEAttributeCarrier* /* AC */) {
 }
 
 
-void
+bool
 GNEFrame::createPath(const bool /*useLastRoute*/) {
     // this function has to be reimplemente in all child frames that uses a path or consecutiveLanePath
+    return false;
 }
 
 

@@ -296,7 +296,7 @@ GNEVehicleFrame::demandElementSelected() {
 }
 
 
-void
+bool
 GNEVehicleFrame::createPath(const bool useLastRoute) {
     // first check if parameters are valid
     if (myVehicleAttributes->areValuesValid() && myTypeSelector->getCurrentDemandElement()) {
@@ -315,7 +315,7 @@ GNEVehicleFrame::createPath(const bool useLastRoute) {
         // check if use last route
         if (useLastRoute) {
             // build vehicle using last route
-            buildVehicleOverRoute(vehicleTag, myViewNet->getLastCreatedRoute());
+            return buildVehicleOverRoute(vehicleTag, myViewNet->getLastCreatedRoute());
         } else {
             // check number of edges
             if ((myPathCreator->getSelectedEdges().size() > 0) || (myPathCreator->getSelectedJunctions().size() > 0)) {
@@ -500,9 +500,11 @@ GNEVehicleFrame::createPath(const bool useLastRoute) {
                 myPathCreator->abortPathCreation();
                 // refresh myVehicleAttributes
                 myVehicleAttributes->refreshAttributesCreator();
+                return true;
             }
         }
     }
+    return false;
 }
 
 

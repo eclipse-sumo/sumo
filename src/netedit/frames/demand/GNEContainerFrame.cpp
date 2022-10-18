@@ -250,7 +250,7 @@ GNEContainerFrame::demandElementSelected() {
 }
 
 
-void
+bool
 GNEContainerFrame::createPath(const bool /* useLastRoute */) {
     // first check that all attributes are valid
     if (!myContainerAttributes->areValuesValid()) {
@@ -279,11 +279,13 @@ GNEContainerFrame::createPath(const bool /* useLastRoute */) {
             person->computePathElement();
             // enable show all person plans
             myViewNet->getDemandViewOptions().menuCheckShowAllContainerPlans->setChecked(TRUE);
+            return true;
         } else {
             // abort person creation
             myViewNet->getUndoList()->abortAllChangeGroups();
         }
     }
+    return false;
 }
 
 // ---------------------------------------------------------------------------

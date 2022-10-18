@@ -50,7 +50,7 @@ public:
 
 protected:
     /// @brief create path
-    void createPath(const bool useLastRoute);
+    bool createPath(const bool useLastRoute);
 
 private:
     /// @brief Invalidated copy constructor.
