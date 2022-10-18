@@ -1,9 +1,7 @@
 busstop
 
-arrivalpos
+duration
 
-vtypes
+until
 
-modes
-
-lines
+acttype

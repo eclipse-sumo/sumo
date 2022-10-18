@@ -1,9 +1,9 @@
 default
 
-arrivalpos
+friendlypos
 
-vtypes
+duration
 
-modes
+until
 
-lines
+acttype
