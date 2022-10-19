@@ -81,7 +81,9 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
     myACAttr(ACAttr),
     myACParent(ACParent) {
     // Create and hide label
-    myAttributeLabel = new FXLabel(this, "attributeLabel", nullptr, GUIDesignLabelAttribute);
+    myAttributeLabel = new MFXLabelTooltip(this,
+        attributeEditorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(), 
+        "attributeLabel", nullptr, GUIDesignLabelAttribute);
     myAttributeLabel->hide();
     // Create and hide check button
     myAttributeCheckButton = new FXCheckButton(this, TL("attributeCheckButton"), this, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButtonAttribute);
@@ -192,6 +194,7 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
         } else {
             // Show attribute Label
             myAttributeLabel->setText(myACAttr.getAttrStr().c_str());
+            myAttributeLabel->setTipText(myACAttr.getDefinition().c_str());
             myAttributeLabel->show();
         }
         // Set field depending of the type of value

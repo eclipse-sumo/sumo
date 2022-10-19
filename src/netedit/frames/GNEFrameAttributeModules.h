@@ -26,6 +26,7 @@
 #include <utils/foxtools/MFXGroupBoxModule.h>
 #include <utils/foxtools/MFXToggleButtonTooltip.h>
 #include <utils/foxtools/MFXTextFieldTooltip.h>
+#include <utils/foxtools/MFXLabelTooltip.h>
 #include <utils/xml/CommonXMLStructure.h>
 
 // ===========================================================================
@@ -106,7 +107,7 @@ public:
         const GNEAttributeProperties myACAttr;
 
         /// @brief pointer to attribute label
-        FXLabel* myAttributeLabel = nullptr;
+        MFXLabelTooltip* myAttributeLabel = nullptr;
 
         /// @brief pointer to attribute  menu check
         FXCheckButton* myAttributeCheckButton = nullptr;
