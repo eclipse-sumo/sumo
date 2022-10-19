@@ -1,2 +1,5 @@
 # count on one 1 edge and ratios for all outflows
 full
+
+# use a single ratio interval that covers multiple count intervals
+span_intervals
