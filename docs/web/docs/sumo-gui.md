@@ -878,16 +878,61 @@ viewing window is opened for each file at the start of the simulation.
 
 ## 3D Visualization
 
-When sumo-gui was compiled with [OSG
-(OpenSceneGraph)](http://www.openscenegraph.org/) support an additional
+When sumo-gui was compiled with [OpenSceneGraph 
+(OSG)](http://www.openscenegraph.org/) support an additional
 (![NewView3D.gif](images/NewView3D.gif "New 3D view"))-button is
-present which can be used to open a 3D-View.
-
-!!! caution
-    The 3D-Visualization is highly experimental
-
-An pre-compiled windows version for testing is available
+present to open a new 3D view. A pre-compiled Windows version for testing is available
 [here](https://sumo.dlr.de/daily/sumo-win64extra-git.zip).
+
+### 3D Viewport
+The view of the 3D scene can be changed using two methods: The camera can be moved by mouse actions 
+(LMB drag for translational movement, MMB drag for pitch and yaw rotation) or the view can be defined in the 
+viewport dialog. Open the viewport editor using the ![Open_viewport_editor.gif](images/Open_viewport_editor.gif
+"Open viewport editor") button. The camera position itself is listed in the left column wheras right "LookAt" coordinates define the 
+target to look at. "LookAt" coordinates are normalized to length 1 by OSG automatically.
+
+### Automatically generated 3D environment
+Only some of the regular network components have been ported to the 3D view (yet). Currently the following are displayed:
+
+- edges (with sidewalks curbs)
+- junctions
+ - pedestrian crossings
+- traffic lights
+
+Automatically generated traffic lights come in different variants and can be shown/hidden independently of each other 
+through the 3D part of the [GUI settings](#changing_the_appearancevisualisation_of_the_simulation):
+
+- bubbles above the stop line which change their color according to the connection they belong to
+- detailed model with pole(s) and signals (either a cantilever beam or a signal bridge for large roads; single pedestrian signals are placed across the street)
+
+### Semi-automatic 3D traffic light
+Alternatively to automatically generated traffic lights, there is the option to place a single traffic light on a pole 
+at a custom position and orientation in the network. The [decals table](#showing_background_images) interprets the following 
+*magic* entry in the file column to a single traffic light: `tl:<TL_ID>:<TLLINKINDEX>`. The current signal state is updated 
+accordingly to the *tlLinkIndex* `<TLLINKINDEX>` of the traffic light `<TL_ID>`.
+
+### Adding static 3D objects
+Loading individual 3D objects can be done through the [decals table](#showing_background_images) of the GUI settings.
+3D object files in file formats supported by OSG (e.g. obj, 3ds) are loaded in the scene and positioned with the 
+offset values from the decals table. For large scenes, it may be advantageous to build a single 3D object which 
+contains all elements (e.g. buildings) used in sumo-gui.
+
+Additionally, the same background images as in the 2D view can be loaded.
+
+### Vehicle models
+Some basic vehicle models are shipped with SUMO in the `data/3D` directory. Custom vehicle models can be specified 
+in the `osgFile` attribute of the respective vehicle type (see [vehicle types](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#available_vtype_attributes)). If the custom model 
+cannot be used, it is replaced by a cone shape pointing to the direction of travel.
+
+
+### Limitations
+!!! caution
+    The 3D-Visualization is still experimental
+    
+- no pedestrian and cyclist models
+- performance problems when simulating several vehicles
+- reload leaves previous 3D scene in place
+
 
 # Visualizing edge-related data
 
