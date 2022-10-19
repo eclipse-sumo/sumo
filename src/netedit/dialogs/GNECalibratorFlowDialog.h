@@ -34,7 +34,10 @@ class GNECalibratorFlow;
 
 /**
  * @class GNECalibratorFlowDialog
- * @brief Dialog for edit rerouter intervals
+ * @brief Dialog for editing calibrator flows
+ *
+ * This is a modal dialog which blocks in its constructor so it is save to delete it
+ *  directly after construction
  */
 
 class GNECalibratorFlowDialog : public GNEAdditionalDialog {

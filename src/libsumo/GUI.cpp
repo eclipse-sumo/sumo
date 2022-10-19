@@ -154,6 +154,7 @@ GUI::setSchema(const std::string& viewID, const std::string& schemeName) {
     getView(viewID)->setColorScheme(schemeName);
 }
 
+
 void
 GUI::addView(const std::string& viewID, const std::string& schemeName, bool in3D) {
     GUIMainWindow* const mw = GUIMainWindow::getInstance();
@@ -161,8 +162,10 @@ GUI::addView(const std::string& viewID, const std::string& schemeName, bool in3D
         throw TraCIException("GUI is not running, command not implemented in command line sumo");
     }
     // calling openNewView directly doesn't work from the traci/simulation thread
-    mw->sendBlockingEvent(new GUIEvent_AddView(viewID, schemeName, in3D));
+    mw->sendBlockingEvent(new GUIEvent_AddView(viewID, schemeName, in3D));  // NOSONAR
+    // sonar thinks here is a memory leak but the GUIApplicationWindow does the clean up
 }
+
 
 void
 GUI::removeView(const std::string& viewID) {
@@ -171,7 +174,8 @@ GUI::removeView(const std::string& viewID) {
         throw TraCIException("GUI is not running, command not implemented in command line sumo");
     }
     // calling removeViewByID directly doesn't work from the traci/simulation thread
-    mw->sendBlockingEvent(new GUIEvent_CloseView(viewID));
+    mw->sendBlockingEvent(new GUIEvent_CloseView(viewID));  // NOSONAR
+    // sonar thinks here is a memory leak but the GUIApplicationWindow does the clean up
 }
 
 

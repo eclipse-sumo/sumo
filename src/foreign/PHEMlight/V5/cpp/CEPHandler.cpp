@@ -87,19 +87,23 @@ namespace PHEMlightdllV5 {
         VEHPHEMLightJSON::VEH* Vehicle;
 
         if (!ReadVehicleFile(DataPath, emissionRep, Helper, fleetMix, Vehicle)) {
+            delete Vehicle;
             return false;
         }
 
         if (DataCor != nullptr) {
             if (!CalcCorrection(DataCor, Helper, Vehicle->getVehicleData())) {
+                delete Vehicle;
                 return false;
             }
         }
 
         if (!ReadEmissionData(true, DataPath, emissionRep, Helper, fleetMix, DataCor, headerFCvalues, matrixFCvalues, idlingValuesFCvalues)) {
+            delete Vehicle;
             return false;
         }
         if (!ReadEmissionData(false, DataPath, emissionRep, Helper, fleetMix, DataCor, headerPollutants, matrixPollutants, idlingValuesPollutants)) {
+            delete Vehicle;
             return false;
         }
 

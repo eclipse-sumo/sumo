@@ -34,7 +34,10 @@ class GNERoute;
 
 /**
  * @class GNERouteDialog
- * @brief Dialog for edit Calibrator Routes
+ * @brief Dialog for editing Calibrator Routes
+ *
+ * This is a modal dialog which blocks in its constructor so it is save to delete it
+ *  directly after construction
  */
 
 class GNERouteDialog : public GNEDemandElementDialog {

@@ -626,9 +626,9 @@ GUIApplicationWindow::fillMenuBar() {
     GUIDesigns::buildFXMenuCommandShortcut(myWindowMenu,
                                            TL("&Close"), "", "",
                                            nullptr, myMDIClient, FXMDIClient::ID_MDI_CLOSE);
-    sep1 = new FXMenuSeparator(myWindowMenu);
-    sep1->setTarget(myMDIClient);
-    sep1->setSelector(FXMDIClient::ID_MDI_ANY);
+    FXMenuSeparator* sep2 = new FXMenuSeparator(myWindowMenu);
+    sep2->setTarget(myMDIClient);
+    sep2->setSelector(FXMDIClient::ID_MDI_ANY);
     GUIDesigns::buildFXMenuCommand(myWindowMenu, "", nullptr, myMDIClient, FXMDIClient::ID_MDI_1);
     GUIDesigns::buildFXMenuCommand(myWindowMenu, "", nullptr, myMDIClient, FXMDIClient::ID_MDI_2);
     GUIDesigns::buildFXMenuCommand(myWindowMenu, "", nullptr, myMDIClient, FXMDIClient::ID_MDI_3);

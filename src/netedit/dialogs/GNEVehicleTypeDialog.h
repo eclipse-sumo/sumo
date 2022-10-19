@@ -37,7 +37,10 @@ class GNEVType;
 
 /**
  * @class GNEVehicleTypeDialog
- * @brief Dialog for edit rerouter intervals
+ * @brief Dialog for editing calibrator vehicle types
+ *
+ * This is a modal dialog which blocks in its constructor so it is save to delete it
+ *  directly after construction
  */
 
 class GNEVehicleTypeDialog : public GNEDemandElementDialog {

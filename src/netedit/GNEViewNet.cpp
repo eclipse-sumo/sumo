@@ -2525,8 +2525,8 @@ GNEViewNet::onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*) {
         const int index = edgeGeometry.indexOfClosest(getPositionInformation(), true);
         // get new position
         Position newPosition = edgeGeometry[index];
-        // edit using GNEGeometryPointDialog
-        GNEGeometryPointDialog(this, &newPosition);
+        // edit using modal GNEGeometryPointDialog
+        GNEGeometryPointDialog(this, &newPosition);  // NOSONAR
         // now check position
         if (newPosition != edgeGeometry[index]) {
             // update new position
@@ -2557,8 +2557,8 @@ GNEViewNet::onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*) {
         const int index = polygonGeometry.indexOfClosest(getPositionInformation(), true);
         // get new position
         Position newPosition = polygonGeometry[index];
-        // edit using GNEGeometryPointDialog
-        GNEGeometryPointDialog(this, &newPosition);
+        // edit using modal GNEGeometryPointDialog
+        GNEGeometryPointDialog(this, &newPosition);  // NOSONAR
         // now check position
         if (newPosition != polygonGeometry[index]) {
             // update new position
@@ -2577,8 +2577,8 @@ GNEViewNet::onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*) {
         const int index = TAZGeometry.indexOfClosest(getPositionInformation(), true);
         // get new position
         Position newPosition = TAZGeometry[index];
-        // edit using GNEGeometryPointDialog
-        GNEGeometryPointDialog(this, &newPosition);
+        // edit using modal GNEGeometryPointDialog
+        GNEGeometryPointDialog(this, &newPosition);  // NOSONAR
         // now check position
         if (newPosition != TAZGeometry[index]) {
             // update new position
