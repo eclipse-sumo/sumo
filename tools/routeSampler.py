@@ -313,7 +313,7 @@ def parseDataIntervals(parseFun, fnames, begin, end, allRoutes, attr, options,
         return result
     for fname in fnames:
         for interval in sumolib.xml.parse(fname, 'interval', heterogeneous=True):
-            overlap = getOverlap(begin, end, parseTime(interval.begin), parseTime(interval.end))
+            overlap = 1 if isRatio else getOverlap(begin, end, parseTime(interval.begin), parseTime(interval.end))
             if overlap > 0:
                 # print(begin, end, interval.begin, interval.end, "overlap:", overlap)
                 for edges, value in parseFun(interval, attr, warn):
