@@ -876,7 +876,7 @@ the *Windows* menu in the main menu bar.
 When passing multiple files to the [sumo](sumo.md)-option **--gui-settings-file**, one
 viewing window is opened for each file at the start of the simulation.
 
-## 3D Visualization
+# 3D Visualization
 
 When sumo-gui was compiled with [OpenSceneGraph 
 (OSG)](http://www.openscenegraph.org/) support an additional
@@ -885,14 +885,14 @@ present to open a new 3D view. A pre-compiled Windows version for testing is ava
 [here](https://sumo.dlr.de/daily/sumo-win64extra-git.zip). Optionally sumo-gui will open a 3D view already from the start by 
 supplying the command line option **--osg-view true**.
 
-### 3D Viewport
+## 3D Viewport
 The view of the 3D scene can be changed using two methods: The camera can be moved by mouse actions 
 (LMB drag for translational movement, MMB drag for pitch and yaw rotation) or the view can be defined in the 
 viewport dialog. Open the viewport editor using the ![Open_viewport_editor.gif](images/Open_viewport_editor.gif
 "Open viewport editor") button. The camera position itself is listed in the left column wheras right "LookAt" coordinates define the 
 target to look at. "LookAt" coordinates are normalized to length 1 by OSG automatically.
 
-### Automatically generated 3D environment
+## Automatically generated 3D environment
 Only some of the regular network components have been ported to the 3D view (yet). Currently the following are displayed:
 
 - edges (with sidewalks curbs)
@@ -912,7 +912,8 @@ at a custom position and orientation in the network. The [decals table](#showing
 *magic* entry in the file column to a single traffic light: `tl:<TL_ID>:<TLLINKINDEX>`. The current signal state is updated 
 accordingly to the *tlLinkIndex* `<TLLINKINDEX>` of the traffic light `<TL_ID>`.
 
-### Adding static 3D objects
+## Adding 3D objects
+### Static models
 Loading individual 3D objects can be done through the [decals table](#showing_background_images) of the GUI settings.
 3D object files in file formats supported by OSG (e.g. obj, 3ds) are loaded in the scene and positioned with the 
 offset values from the decals table. For large scenes, it may be advantageous to build a single 3D object which 
@@ -926,7 +927,7 @@ in the `osgFile` attribute of the respective vehicle type (see [vehicle types](D
 cannot be used, it is replaced by a cone shape pointing to the direction of travel.
 
 
-### Limitations
+## Limitations
 !!! caution
     The 3D-Visualization is still experimental
     
