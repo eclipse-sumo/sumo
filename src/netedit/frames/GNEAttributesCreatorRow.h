@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <utils/foxtools/MFXGroupBoxModule.h>
+#include <utils/foxtools/MFXLabelTooltip.h>
 
 // ===========================================================================
 // class declaration
@@ -106,7 +107,7 @@ private:
     std::string myInvalidValue;
 
     /// @brief Label with the name of the attribute
-    FXLabel* myAttributeLabel = nullptr;
+    MFXLabelTooltip* myAttributeLabel = nullptr;
 
     /// @brief check button to enable/disable Label attribute
     FXCheckButton* myEnableAttributeCheckButton = nullptr;

@@ -21,6 +21,8 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/dialogs/GNEAllowVClassesDialog.h>
 #include <netedit/dialogs/GNESingleParametersDialog.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -53,7 +55,9 @@ GNEAttributesCreatorRow::GNEAttributesCreatorRow(GNEAttributesCreator* Attribute
     myAttributesCreatorParent(AttributesCreatorParent),
     myAttrProperties(attrProperties) {
     // Create left visual elements
-    myAttributeLabel = new FXLabel(this, "name", nullptr, GUIDesignLabelAttribute);
+    myAttributeLabel = new MFXLabelTooltip(this, 
+        AttributesCreatorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(), 
+        "name", nullptr, GUIDesignLabelAttribute);
     myAttributeLabel->hide();
     myEnableAttributeCheckButton = new FXCheckButton(this, TL("name"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
     myEnableAttributeCheckButton->hide();
@@ -188,6 +192,7 @@ GNEAttributesCreatorRow::refreshRow() {
     if ((myAttrProperties.getAttr() == SUMO_ATTR_ID) && myAttrProperties.hasAutomaticID()) {
         // show label
         myAttributeLabel->setText(myAttrProperties.getAttrStr().c_str());
+        myAttributeLabel->setTipText(myAttrProperties.getDefinition().c_str());
         myAttributeLabel->show();
         // generate ID
         myValueTextField->setText(generateID().c_str());
@@ -216,6 +221,7 @@ GNEAttributesCreatorRow::refreshRow() {
         } else {
             // show label
             myAttributeLabel->setText(myAttrProperties.getAttrStr().c_str());
+            myAttributeLabel->setTipText(myAttrProperties.getDefinition().c_str());
             myAttributeLabel->show();
         }
         // right
