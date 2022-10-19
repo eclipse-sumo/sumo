@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <utils/foxtools/MFXGroupBoxModule.h>
+#include <utils/foxtools/MFXLabelTooltip.h>
 
 // ===========================================================================
 // class declaration
@@ -92,7 +93,7 @@ private:
     FXHorizontalFrame* myTerminateFrameTextField = nullptr;
 
     /// @brief Label for terminate definition
-    FXLabel* myTerminateLabel = nullptr;
+    MFXLabelTooltip* myTerminateLabel = nullptr;
 
     /// @brief textField for terminate attribute
     FXTextField* myTerminateTextField = nullptr;
@@ -107,7 +108,7 @@ private:
     FXHorizontalFrame* mySpacingFrameTextField = nullptr;
 
     /// @brief Label for spacing
-    FXLabel* mySpacingLabel = nullptr;
+    MFXLabelTooltip* mySpacingLabel = nullptr;
 
     /// @brief textField for spacing attribute
     FXTextField* mySpacingTextField = nullptr;
