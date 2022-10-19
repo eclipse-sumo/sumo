@@ -1314,7 +1314,7 @@ GNEVType::editVTypeDistribution(const std::string& vTypeDistributionID, GNEUndoL
                 // remove old vTypeDistribution
                 undoList->add(new GNEChange_DemandElement(vTypeDistributionParent, false), true);
                 // create newTypeDistribution
-                undoList->add(new GNEChange_DemandElement(new GNEVTypeDistribution(myNet, vTypeDistributionID), true), true);
+                undoList->add(new GNEChange_DemandElement(new GNEVTypeDistribution(myNet, vTypeDistributionID, -1), true), true);
                 // set new vTypeDistribution
                 undoList->changeAttribute(new GNEChange_Attribute(this, GNE_ATTR_VTYPE_DISTRIBUTION, vTypeDistributionID));
                 undoList->end();
@@ -1322,7 +1322,7 @@ GNEVType::editVTypeDistribution(const std::string& vTypeDistributionID, GNEUndoL
         } else {
             undoList->begin(GUIIcon::VTYPEDISTRIBUTION, "add " + toString(SUMO_TAG_VTYPE_DISTRIBUTION));
             // create newTypeDistribution
-            undoList->add(new GNEChange_DemandElement(new GNEVTypeDistribution(myNet, vTypeDistributionID), true), true);
+            undoList->add(new GNEChange_DemandElement(new GNEVTypeDistribution(myNet, vTypeDistributionID, -1), true), true);
             // set new vTypeDistribution
             undoList->changeAttribute(new GNEChange_Attribute(this, GNE_ATTR_VTYPE_DISTRIBUTION, vTypeDistributionID));
             undoList->end();

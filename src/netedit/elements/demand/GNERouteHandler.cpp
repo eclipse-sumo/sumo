@@ -94,7 +94,7 @@ GNERouteHandler::buildVType(const CommonXMLStructure::SumoBaseObject* sumoBaseOb
 
 void
 GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id,
-                                        const std::vector<std::string>& vTypes) {
+                                        const int deterministic, const std::vector<std::string>& vTypes) {
     // first check conditions
     if (!checkDuplicatedDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, id)) {
         writeError("There is another " + toString(SUMO_TAG_VTYPE) + " with the same ID='" + id + "'.");
@@ -121,7 +121,7 @@ GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject
         }
         // if all ok, then create vTypeDistribution
         if (checkVTypesOK) {
-            GNEVTypeDistribution* vTypeDistribution = new GNEVTypeDistribution(myNet, id);
+            GNEVTypeDistribution* vTypeDistribution = new GNEVTypeDistribution(myNet, id, deterministic);
             if (myAllowUndoRedo) {
                 myNet->getViewNet()->getUndoList()->begin(GUIIcon::VTYPEDISTRIBUTION, "add " + vTypeDistribution->getTagStr() + " '" + id + "'");
                 overwriteDemandElement();

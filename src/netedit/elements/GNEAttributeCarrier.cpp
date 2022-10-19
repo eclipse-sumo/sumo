@@ -3409,6 +3409,12 @@ GNEAttributeCarrier::fillDemandElements() {
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
                                               "The id of VehicleType distribution");
         myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_DETERMINISTIC,
+                                              GNEAttributeProperties::INT | GNEAttributeProperties::DEFAULTVALUE,
+                                              "makes number of assigned cars exact for any multiples of N",
+                                              "-1");
+        myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_VTYPE;
     {

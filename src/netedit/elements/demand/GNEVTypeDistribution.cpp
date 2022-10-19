@@ -36,9 +36,10 @@ GNEVTypeDistribution::GNEVTypeDistribution(GNENet* net) :
 }
 
 
-GNEVTypeDistribution::GNEVTypeDistribution(GNENet* net, const std::string& vTypeID) :
+GNEVTypeDistribution::GNEVTypeDistribution(GNENet* net, const std::string& vTypeID, const int deterministic) :
     GNEDemandElement(vTypeID, net, GLO_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION,  GUIIconSubSys::getIcon(GUIIcon::VTYPEDISTRIBUTION),
-    GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}) {
+    GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
+    myDeterministic(deterministic) {
 }
 
 
@@ -174,6 +175,12 @@ GNEVTypeDistribution::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getMicrosimID();
+        case SUMO_ATTR_DETERMINISTIC:
+            if (myDeterministic == -1) {
+                return "";
+            } else {
+                return toString(myDeterministic);
+            }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -199,9 +206,9 @@ GNEVTypeDistribution::setAttribute(SumoXMLAttr key, const std::string& value, GN
     }
     switch (key) {
         case SUMO_ATTR_ID:
+        case SUMO_ATTR_DETERMINISTIC:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
-
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -217,6 +224,12 @@ GNEVTypeDistribution::isValid(SumoXMLAttr key, const std::string& value) {
                 return true;
             } else {
                 return false;
+            }
+        case SUMO_ATTR_DETERMINISTIC:
+            if (value == "-1" || value.empty()) {
+                return true;
+            } else {
+                return canParse<int>(value) && (parse<int>(value) >= 0);
             }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -250,6 +263,13 @@ GNEVTypeDistribution::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             setMicrosimID(value);
+            break;
+        case SUMO_ATTR_DETERMINISTIC:
+            if (value.empty()) {
+                myDeterministic = -1;
+            } else {
+                myDeterministic = parse<int>(value);
+            }
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

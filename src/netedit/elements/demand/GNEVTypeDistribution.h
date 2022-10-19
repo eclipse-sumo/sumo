@@ -34,7 +34,7 @@ public:
     GNEVTypeDistribution(GNENet* net);
 
     /// @brief parameter constructor
-    GNEVTypeDistribution(GNENet* net, const std::string& vTypeID);
+    GNEVTypeDistribution(GNENet* net, const std::string& vTypeID, const int deterministic);
 
     /// @brief destructor
     ~GNEVTypeDistribution();
@@ -177,6 +177,10 @@ public:
 
     /// @brief get parameters map
     const Parameterised::Map& getACParametersMap() const;
+
+protected:
+    /// @brief deterministic attribute
+    int myDeterministic = -1;
 
 private:
     /// @brief method for setting the attribute and nothing else
