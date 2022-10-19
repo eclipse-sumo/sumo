@@ -433,6 +433,8 @@ enum {
     MID_CURSORDIALOG_MOVEUP,
     /// @brief move list down
     MID_CURSORDIALOG_MOVEDOWN,
+    /// @brief remove/select/mark front element
+    MID_CURSORDIALOG_FRONT,
 
     /// @}
 

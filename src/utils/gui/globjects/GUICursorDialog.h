@@ -67,6 +67,9 @@ public:
     /// @brief move list down
     long onCmdMoveListDown(FXObject*, FXSelector, void*);
 
+    /// @brief move list down
+    long onCmdProcessFront(FXObject*, FXSelector, void*);
+
     /// @brief unpost
     long onCmdUnpost(FXObject*, FXSelector, void* ptr);
 
@@ -75,6 +78,9 @@ public:
 protected:
     /// @brief FOX need this
     FOX_CONSTRUCTOR(GUICursorDialog)
+
+    /// @brief PopupType
+    GUIGLObjectPopupMenu::PopupType myType;
 
     /// @brief pointer to view
     GUISUMOAbstractView* myView;

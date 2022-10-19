@@ -414,8 +414,8 @@ protected:
     /// @brief performs the painting of the simulation
     void paintGL();
 
-    /// @brief update position information
-    virtual void updatePositionInformation() const;
+    /// @brief update position information labels
+    virtual void updatePositionInformationLabel() const;
 
     /// @brief paint GL
     virtual int doPaintGL(int /*mode*/, const Boundary& /*boundary*/);
@@ -504,13 +504,16 @@ protected:
     int myMouseHotspotX, myMouseHotspotY;
 
     /// @brief The current popup-menu
-    GUIGLObjectPopupMenu* myPopup;
+    GUIGLObjectPopupMenu* myPopup = nullptr;
+
+    /// @brief clicked poup position
+    Position myClickedPopupPosition = Position::INVALID;
+
+    /// @brief The current popup-menu position
+    Position myPopupPosition = Position(0, 0);
 
     /// @brief vector with current objects dialog 
     std::vector<GUIGlObject*> myCurrentObjectsDialog;
-
-    /// @brief The current popup-menu position
-    Position myPopupPosition;
 
     /// @brief visualization settings
     GUIVisualizationSettings* myVisualizationSettings;

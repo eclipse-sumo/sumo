@@ -42,6 +42,7 @@ FXDEFMAP(GUICursorDialog) GUICursorDialogMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_CURSORDIALOG_PROPERTIES,        GUICursorDialog::onCmdOpenPropertiesPopUp),
     FXMAPFUNC(SEL_COMMAND,  MID_CURSORDIALOG_MOVEUP,            GUICursorDialog::onCmdMoveListUp),
     FXMAPFUNC(SEL_COMMAND,  MID_CURSORDIALOG_MOVEDOWN,          GUICursorDialog::onCmdMoveListDown),
+    FXMAPFUNC(SEL_COMMAND,  MID_CURSORDIALOG_FRONT,             GUICursorDialog::onCmdProcessFront),
     FXMAPFUNC(SEL_COMMAND,  FXWindow::ID_UNPOST,                GUICursorDialog::onCmdUnpost),
 };
 
@@ -54,6 +55,7 @@ FXIMPLEMENT(GUICursorDialog, GUIGLObjectPopupMenu, GUICursorDialogMap, ARRAYNUMB
 
 GUICursorDialog::GUICursorDialog(GUIGLObjectPopupMenu::PopupType type, GUISUMOAbstractView* view, const std::vector<GUIGlObject*> &objects) :
     GUIGLObjectPopupMenu(view->getMainWindow(), view, type),
+    myType(type),
     myView(view) {
     // continue depending of properties
     if (type == GUIGLObjectPopupMenu::PopupType::PROPERTIES) {
@@ -145,6 +147,20 @@ GUICursorDialog::onCmdMoveListDown(FXObject*, FXSelector, void*) {
     myListIndex += NUM_VISIBLE_ITEMS;
     updateList();
     show();
+    return 0;
+}
+
+
+long
+GUICursorDialog::onCmdProcessFront(FXObject*, FXSelector, void*) {
+    // continue depending of properties
+    if (myType == GUIGLObjectPopupMenu::PopupType::DELETE_ELEMENT) {
+        myMenuCommandGLObjects.front().second->deleteGLObject();
+    } else if (myType == GUIGLObjectPopupMenu::PopupType::SELECT_ELEMENT) {
+        myMenuCommandGLObjects.front().second->selectGLObject();
+    } else if (myType == GUIGLObjectPopupMenu::PopupType::FRONT_ELEMENT) {
+        myMenuCommandGLObjects.front().second->markAsFrontElement();
+    }
     return 0;
 }
 
