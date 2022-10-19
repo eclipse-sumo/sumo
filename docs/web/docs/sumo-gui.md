@@ -892,6 +892,9 @@ viewport dialog. Open the viewport editor using the ![Open_viewport_editor.gif](
 "Open viewport editor") button. The camera position itself is listed in the left column wheras right "LookAt" coordinates define the 
 target to look at. "LookAt" coordinates are normalized to length 1 by OSG automatically.
 
+Interacting with network elements and vehicles works like in the 2D view: Context-dependent options are available by RMB click on the object 
+to inspect.
+
 ## Automatically generated 3D environment
 Only some of the regular network components have been ported to the 3D view (yet). Currently the following are displayed:
 
