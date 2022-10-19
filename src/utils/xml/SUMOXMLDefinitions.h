@@ -946,6 +946,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_ROUTES,
     SUMO_ATTR_VTYPES,
     SUMO_ATTR_NEXT_EDGES,
+    SUMO_ATTR_DETERMINISTIC,
     /// @}
 
     /// @name trip definition attributes
