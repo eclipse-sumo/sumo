@@ -882,7 +882,8 @@ When sumo-gui was compiled with [OpenSceneGraph
 (OSG)](http://www.openscenegraph.org/) support an additional
 (![NewView3D.gif](images/NewView3D.gif "New 3D view"))-button is
 present to open a new 3D view. A pre-compiled Windows version for testing is available
-[here](https://sumo.dlr.de/daily/sumo-win64extra-git.zip).
+[here](https://sumo.dlr.de/daily/sumo-win64extra-git.zip). Optionally sumo-gui will open a 3D view already from the start by 
+supplying the command line option **--osg-view true**.
 
 ### 3D Viewport
 The view of the 3D scene can be changed using two methods: The camera can be moved by mouse actions 
