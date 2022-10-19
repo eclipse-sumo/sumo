@@ -116,12 +116,12 @@ msgstr ""
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1134
 #: /home/micha/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1134
 msgid "&Lanes"
-msgstr ""
+msgstr "&Lignes"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1139
 #: /home/micha/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1139
 msgid "&Connections"
-msgstr ""
+msgstr "&Connexions"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1144
 #: /home/micha/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1144
@@ -151,7 +151,7 @@ msgstr ""
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1169
 #: /home/micha/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1169
 msgid "&Polygons"
-msgstr ""
+msgstr "&Polygones"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1174
 #: /home/micha/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1174
@@ -161,7 +161,7 @@ msgstr ""
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1179
 #: /home/micha/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1179
 msgid "&Routes"
-msgstr ""
+msgstr "&Routes"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1184
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1756
@@ -170,7 +170,7 @@ msgstr ""
 #: /home/micha/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1756
 #: /home/micha/sumo/src/gui/GUIApplicationWindow.cpp:542
 msgid "&Vehicles"
-msgstr ""
+msgstr "&Véhicules"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1189
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1759
@@ -179,7 +179,7 @@ msgstr ""
 #: /home/micha/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1759
 #: /home/micha/sumo/src/gui/GUIApplicationWindow.cpp:545
 msgid "&Persons"
-msgstr ""
+msgstr "&Personnes"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1194
 #: /home/micha/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1194
@@ -239,12 +239,12 @@ msgstr ""
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1762
 #: /home/micha/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1762
 msgid "&Route"
-msgstr ""
+msgstr "&Route"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1765
 #: /home/micha/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1765
 msgid "&Stops"
-msgstr ""
+msgstr "&Arrêts"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1768
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:551
@@ -275,7 +275,7 @@ msgstr ""
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1853
 #: /home/micha/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1853
 msgid "&Network"
-msgstr ""
+msgstr "&Réseau"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1856
 #: /home/micha/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1856
