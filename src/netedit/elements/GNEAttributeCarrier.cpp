@@ -1453,7 +1453,8 @@ GNEAttributeCarrier::fillNetworkElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_CONTPOS,
                                               GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
-                                              "If set to a more than 0 value, an internal junction will be built at this position (in m) from the start of the internal lane for this connection",
+                                              "If set to a more than 0 value, an internal junction will be built at this position (in m)/n"
+                                              "from the start of the internal lane for this connection",
                                               toString(NBEdge::UNSPECIFIED_CONTPOS));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -1597,7 +1598,9 @@ GNEAttributeCarrier::fillAdditionalElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              "If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1",
+                                              "If set, no error will be reported if element is placed behind the lane.\n" 
+                                              "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,\n"
+                                              "if the position was negative and larger than the lanes length after multiplication with - 1",
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -1659,7 +1662,9 @@ GNEAttributeCarrier::fillAdditionalElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              "If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1",
+                                              "If set, no error will be reported if element is placed behind the lane.\n" 
+                                              "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,\n"
+                                              "if the position was negative and larger than the lanes length after multiplication with - 1",
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -1713,7 +1718,9 @@ GNEAttributeCarrier::fillAdditionalElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              "If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1",
+                                              "If set, no error will be reported if element is placed behind the lane.\n" 
+                                              "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,\n"
+                                              "if the position was negative and larger than the lanes length after multiplication with - 1",
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -1753,7 +1760,9 @@ GNEAttributeCarrier::fillAdditionalElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              "If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1",
+                                              "If set, no error will be reported if element is placed behind the lane.\n" 
+                                              "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,\n"
+                                              "if the position was negative and larger than the lanes length after multiplication with - 1",
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -1814,7 +1823,9 @@ GNEAttributeCarrier::fillAdditionalElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              "If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1",
+                                              "If set, no error will be reported if element is placed behind the lane.\n" 
+                                              "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,\n"
+                                              "if the position was negative and larger than the lanes length after multiplication with - 1",
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -1895,7 +1906,9 @@ GNEAttributeCarrier::fillAdditionalElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              "If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1",
+                                              "If set, no error will be reported if element is placed behind the lane.\n" 
+                                              "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,\n"
+                                              "if the position was negative and larger than the lanes length after multiplication with - 1",
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -2004,7 +2017,9 @@ GNEAttributeCarrier::fillAdditionalElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              "If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1",
+                                              "If set, no error will be reported if element is placed behind the lane.\n" 
+                                              "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,\n"
+                                              "if the position was negative and larger than the lanes length after multiplication with - 1",
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
@@ -2083,7 +2098,9 @@ GNEAttributeCarrier::fillAdditionalElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              "If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1",
+                                              "If set, no error will be reported if element is placed behind the lane.\n" 
+                                              "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,\n"
+                                              "if the position was negative and larger than the lanes length after multiplication with - 1",
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
@@ -2161,7 +2178,9 @@ GNEAttributeCarrier::fillAdditionalElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              "If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1",
+                                              "If set, no error will be reported if element is placed behind the lane.\n" 
+                                              "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,\n"
+                                              "if the position was negative and larger than the lanes length after multiplication with - 1",
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -2238,7 +2257,9 @@ GNEAttributeCarrier::fillAdditionalElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              "If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1",
+                                              "If set, no error will be reported if element is placed behind the lane.\n" 
+                                              "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,\n"
+                                              "if the position was negative and larger than the lanes length after multiplication with - 1",
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -2263,7 +2284,9 @@ GNEAttributeCarrier::fillAdditionalElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              "If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1",
+                                              "If set, no error will be reported if element is placed behind the lane.\n" 
+                                              "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,\n"
+                                              "if the position was negative and larger than the lanes length after multiplication with - 1",
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -2308,7 +2331,9 @@ GNEAttributeCarrier::fillAdditionalElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              "If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1",
+                                              "If set, no error will be reported if element is placed behind the lane.\n" 
+                                              "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,\n"
+                                              "if the position was negative and larger than the lanes length after multiplication with - 1",
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -2973,7 +2998,9 @@ GNEAttributeCarrier::fillShapeElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              "If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1",
+                                              "If set, no error will be reported if element is placed behind the lane.\n" 
+                                              "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,\n"
+                                              "if the position was negative and larger than the lanes length after multiplication with - 1",
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -3278,7 +3305,9 @@ GNEAttributeCarrier::fillWireElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              "If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1",
+                                              "If set, no error will be reported if element is placed behind the lane.\n" 
+                                              "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,\n"
+                                              "if the position was negative and larger than the lanes length after multiplication with - 1",
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -3361,7 +3390,8 @@ GNEAttributeCarrier::fillDemandElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_CYCLETIME,
                                               GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
-                                              "When defining a repeating route with stops and those stops use the until attribute, the times will be shifted forward by 'cycleTime' on each repeat",
+                                              "When defining a repeating route with stops and those stops use the until attribute,\n"
+                                              "the times will be shifted forward by 'cycleTime' on each repeat",
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
@@ -3392,7 +3422,8 @@ GNEAttributeCarrier::fillDemandElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_CYCLETIME,
                                               GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
-                                              "When defining a repeating route with stops and those stops use the until attribute, the times will be shifted forward by 'cycleTime' on each repeat",
+                                              "When defining a repeating route with stops and those stops use the until attribute,\n"
+                                              "the times will be shifted forward by 'cycleTime' on each repeat",
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
@@ -3470,7 +3501,8 @@ GNEAttributeCarrier::fillDemandElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_DESIRED_MAXSPEED,
                                               GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE,
-                                              "The vehicles desired maximum velocity (interacts with speedFactor). Applicable when no speed Limit applies (bicycles, some motorways) [m/s]");
+                                              "The vehicles desired maximum velocity (interacts with speedFactor).\n"
+                                              "Applicable when no speed Limit applies (bicycles, some motorways) [m/s]");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_EMISSIONCLASS,
@@ -3979,7 +4011,9 @@ GNEAttributeCarrier::fillStopElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              "If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1",
+                                              "If set, no error will be reported if element is placed behind the lane.\n" 
+                                              "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,\n"
+                                              "if the position was negative and larger than the lanes length after multiplication with - 1",
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -4089,7 +4123,9 @@ GNEAttributeCarrier::fillWaypointElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              "If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1",
+                                              "If set, no error will be reported if element is placed behind the lane.\n" 
+                                              "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,\n"
+                                              "if the position was negative and larger than the lanes length after multiplication with - 1",
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -4442,7 +4478,9 @@ GNEAttributeCarrier::fillContainerStopElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              "If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1",
+                                              "If set, no error will be reported if element is placed behind the lane.\n" 
+                                              "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,\n"
+                                              "if the position was negative and larger than the lanes length after multiplication with - 1",
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -4809,7 +4847,9 @@ GNEAttributeCarrier::fillStopPersonElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              "If set, no error will be reported if element is placed behind the lane. Instead, it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1",
+                                              "If set, no error will be reported if element is placed behind the lane.\n" 
+                                              "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,\n"
+                                              "if the position was negative and larger than the lanes length after multiplication with - 1",
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -4968,31 +5008,36 @@ GNEAttributeCarrier::fillCommonFlowAttributes(SumoXMLTag currentTag, SumoXMLAttr
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_NUMBER,
                                           GNEAttributeProperties::INT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::FLOWDEFINITION,
-                                          "probability for emitting a " + toString(currentTag) + " each second (not together with vehsPerHour or period)",
+                                          "probability for emitting a " + toString(currentTag) + " each second\n"
+                                          "(not together with vehsPerHour or period)",
                                           "1800");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(perHour,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::FLOWDEFINITION,
-                                          "Number of " + toString(currentTag) + "s per hour, equally spaced (not together with period or probability or poisson)",
+                                          "Number of " + toString(currentTag) + "s per hour, equally spaced\n"
+                                          "(not together with period or probability or poisson)",
                                           "1800");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_PERIOD,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::FLOWDEFINITION,
-                                          "Insert equally spaced " + toString(currentTag) + "s at that period (not together with vehsPerHour or probability or poisson)",
+                                          "Insert equally spaced " + toString(currentTag) + "s at that period\n"
+                                          "(not together with vehsPerHour or probability or poisson)",
                                           "2");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_PROB,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::FLOWDEFINITION,
-                                          "probability for emitting a " + toString(currentTag) + " each second (not together with vehsPerHour or period or poisson)",
+                                          "probability for emitting a " + toString(currentTag) + " each second\n"
+                                          "(not together with vehsPerHour or period or poisson)",
                                           "0.5");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(GNE_ATTR_POISSON,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::FLOWDEFINITION,
-                                          "Insert " + toString(currentTag) + "s spaciated using a poisson distribution (not together with period or vehsPerHour or probability)",
+                                          "Insert " + toString(currentTag) + "s spaciated using a poisson distribution\n"
+                                          "(not together with period or vehsPerHour or probability)",
                                           "2");
     myTagProperties[currentTag].addAttribute(attrProperty);
 }
@@ -5279,7 +5324,8 @@ GNEAttributeCarrier::fillJunctionModelAttributes(SumoXMLTag currentTag) {
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_JM_IGNORE_FOE_SPEED,
                                           GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::EXTENDED,
-                                          "This value is used in conjunction with jmIgnoreFoeProb. Only vehicles with a speed below or equal to the given value may be ignored.",
+                                          "This value is used in conjunction with jmIgnoreFoeProb.\n"
+                                          "Only vehicles with a speed below or equal to the given value may be ignored.",
                                           "0.0");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -5334,7 +5380,8 @@ GNEAttributeCarrier::fillLaneChangingModelAttributes(SumoXMLTag currentTag) {
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_LCA_SUBLANE_PARAM,
                                           GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::EXTENDED,
-                                          "The eagerness for using the configured lateral alignment within the lane. Higher values result in increased willingness to sacrifice speed for alignment.",
+                                          "The eagerness for using the configured lateral alignment within the lane.\n"
+                                          "Higher values result in increased willingness to sacrifice speed for alignment.",
                                           "1.0");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -5406,7 +5453,8 @@ GNEAttributeCarrier::fillLaneChangingModelAttributes(SumoXMLTag currentTag) {
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_LCA_TURN_ALIGNMENT_DISTANCE,
                                           GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::EXTENDED,
-                                          "Distance to an upcoming turn on the vehicles route, below which the alignment should be dynamically adapted to match the turn direction.",
+                                          "Distance to an upcoming turn on the vehicles route, below which the alignment\n"
+                                          "should be dynamically adapted to match the turn direction.",
                                           "0.00");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
