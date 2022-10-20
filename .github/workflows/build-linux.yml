@@ -51,7 +51,7 @@ jobs:
 
     - name: Validate CITATION.cff
       if: matrix.build_type == 'full' && github.repository == 'DLR-TS/sumo'
-      uses: dieghernan/cff-validator@main
+      uses: dieghernan/cff-validator@v2
       with:
         citation-path: sumo/CITATION.cff
 
