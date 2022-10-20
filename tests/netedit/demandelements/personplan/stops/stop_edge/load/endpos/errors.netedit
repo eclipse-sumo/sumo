@@ -17,13 +17,14 @@ GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
 Debug: Adding busStop 'busStopA' in GNEChange_Additional
 Debug: Adding busStop 'busStopB' in GNEChange_Additional
+Error: Attribute 'endPos' in definition of a stop Invalid Number Format (double) dummy.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'gneE5'
 Debug: Adding person 'p_0' in GNEChange_DemandElement
 Debug: Adding walk: edge->edge 'p_0' in GNEChange_DemandElement
-Error: A stop requires only a stoppingPlace, edge or lane
 Debug: Adding person 'p_1' in GNEChange_DemandElement
 Debug: Adding walk: edge->edge 'p_1' in GNEChange_DemandElement
 Debug: Adding stopPerson: edge 'p_1' in GNEChange_DemandElement
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.20Oct103803.21028\netedit.gui\demandelements\personplan\stops\stop_edge\load\edge\input_routes.rou.xml failed.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.20Oct103803.21028\netedit.gui\demandelements\personplan\stops\stop_edge\load\endpos\input_routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00

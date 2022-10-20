@@ -17,13 +17,10 @@ GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
 Debug: Adding busStop 'busStopA' in GNEChange_Additional
 Debug: Adding busStop 'busStopB' in GNEChange_Additional
-Debug: Adding vType 'type1' in GNEChange_DemandElement
-Debug: Adding vType 'type2' in GNEChange_DemandElement
-Debug: Adding vType 'customType' in GNEChange_DemandElement
 Debug: Adding person 'p_0' in GNEChange_DemandElement
 Debug: Adding walk: edge->edge 'p_0' in GNEChange_DemandElement
-Debug: Adding personTrip: edge->edge 'p_0' in GNEChange_DemandElement
-Debug: Adding personTrip: edge->edge 'p_0' in GNEChange_DemandElement
+Debug: Adding stopPerson: edge 'p_0' in GNEChange_DemandElement
+Debug: Adding stopPerson: edge 'p_0' in GNEChange_DemandElement
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00
@@ -77,10 +74,8 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
-Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
@@ -96,7 +91,6 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: demand elements saved
 Debug: Additionals saved
@@ -137,13 +131,10 @@ GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary -10.00,-10.00,70.00,1
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
 Debug: network elements saved
-Debug: Deleting unreferenced personTrip: edge->edge
-Debug: Deleting unreferenced personTrip: edge->edge
+Debug: Deleting unreferenced stopPerson: edge
+Debug: Deleting unreferenced stopPerson: edge
 Debug: Deleting unreferenced walk: edge->edge
 Debug: Deleting unreferenced person
-Debug: Deleting unreferenced vType
-Debug: Deleting unreferenced vType
-Debug: Deleting unreferenced vType
 Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor

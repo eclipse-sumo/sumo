@@ -50,7 +50,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 180, 45)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personStopEdge.inspectSelection.lines, "custom line", False)
+netedit.modifyBoolAttribute(netedit.attrs.personStopEdge.inspectSelection.durationEnable, False)
+
+# change depart with an invalid value
+netedit.modifyBoolAttribute(netedit.attrs.personStopEdge.inspectSelection.durationEnable, False)
+
+# change depart with an invalid value
+netedit.modifyAttribute(netedit.attrs.personStopEdge.inspectSelection.duration, "dummy", False)
+
+# change depart with an invalid value
+netedit.modifyAttribute(netedit.attrs.personStopEdge.inspectSelection.duration, "20.15", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

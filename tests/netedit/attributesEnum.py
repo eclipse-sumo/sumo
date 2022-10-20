@@ -2586,7 +2586,7 @@ class personStopEdge:
         duration = 3
         untilEnable = 4
         until = 5
-        actType = 5
+        actType = 6
 
 
 class personStopBusStop:

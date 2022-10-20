@@ -50,7 +50,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 180, 45)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personStopEdge.inspectSelection.vTypes, "customType", False)
+netedit.modifyAttribute(netedit.attrs.personStopEdge.inspectSelection.actType, "singing", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)
