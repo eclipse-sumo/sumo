@@ -612,6 +612,8 @@ GNEAttributeCarrier::getAlternativeValueForDisabledAttributes(SumoXMLAttr key) c
                 return "TLS green minor (g)";
             } else if (state == "G") {
                 return "TLS green major (G)";
+            } else if (state == "Z") {
+                return "Zipper (Z)";
             } else {
                 return "undefined";
             }
