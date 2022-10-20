@@ -47,7 +47,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect containerStopEdge
-netedit.leftClick(referencePosition, 180, 45)
+netedit.leftClick(referencePosition, 156, 40)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.containerStopEdge.inspectSelection.actType, "singing", False)

@@ -7,10 +7,10 @@
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <person id="p_0" depart="0.00">
         <walk from="gneE2" to="gneE5"/>
-        <stop edge="gneE5" endPos="20.32" until="dummy"/>
+        <stop busstop="busStopB" until="dummy"/>
     </person>
 	<person id="p_1" depart="0.00">
         <walk from="gneE2" to="gneE5"/>
-        <stop edge="gneE5" endPos="40.32" until="50.20"/>
+        <stop busstop="busStopB" until="50.20"/>
     </person>
 </routes>

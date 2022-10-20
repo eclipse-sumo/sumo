@@ -47,7 +47,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect personStopBusStop
-netedit.leftClick(referencePosition, 180, 45)
+netedit.leftClick(referencePosition, 147, 40)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.personStopBusStop.inspectSelection.actType, "singing", False)

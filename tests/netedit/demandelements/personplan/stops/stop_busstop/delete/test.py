@@ -66,7 +66,7 @@ netedit.typeEnter()
 netedit.deleteMode()
 
 # delete personStopBusStop
-netedit.leftClick(referencePosition, 180, 45)
+netedit.leftClick(referencePosition, 147, 40)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)
