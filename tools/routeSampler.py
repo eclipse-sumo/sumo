@@ -188,7 +188,7 @@ class CountData:
         self.options = options  # multiprocessing had issue with sumolib.options.getOptions().turnMaxGap
         self.routeSet = set()
         for routeIndex, edges in enumerate(allRoutes.unique):
-            if self.routePasses(edges,):
+            if self.routePasses(edges,) is not None:
                 self.routeSet.add(routeIndex)
         if isRatio:
             self.count = options.turnRatioAbsTolerance
@@ -196,20 +196,25 @@ class CountData:
     def routePasses(self, edges):
 
         if self.isOrigin or self.isDest:
-            return ((not self.isOrigin or edges[0] == self.edgeTuple[0]) and
-                    (not self.isDest or edges[-1] == self.edgeTuple[-1]))
+            passes = ((not self.isOrigin or edges[0] == self.edgeTuple[0]) and
+                      (not self.isDest or edges[-1] == self.edgeTuple[-1]))
+            if not passes:
+                return None
+            else:
+                return 0 if self.isOrigin else len(edges) - 1
+        i = None
         try:
             i = edges.index(self.edgeTuple[0])
             maxDelta = self.options.turnMaxGap + 1
             for edge in self.edgeTuple[1:]:
                 i2 = edges.index(edge, i)
                 if i2 - i > maxDelta:
-                    return False
+                    return None
                 i = i2
         except ValueError:
             # first edge not in route
-            return False
-        return True
+            return None
+        return i
 
     def use(self):
         self.count -= 1
