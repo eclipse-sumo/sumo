@@ -909,6 +909,8 @@ through the 3D part of the [GUI settings](#changing_the_appearancevisualisation_
 - bubbles above the stop line which change their color according to the connection they belong to
 - detailed model with pole(s) and signals (either a cantilever beam or a signal bridge for large roads; single pedestrian signals are placed across the street)
 
+![OSGTrafficLights.png](images/OSGTrafficLights.png)
+
 ### Semi-automatic 3D traffic light
 Alternatively to automatically generated traffic lights, there is the option to place a single traffic light on a pole 
 at a custom position and orientation in the network. The [decals table](#showing_background_images) interprets the following 
