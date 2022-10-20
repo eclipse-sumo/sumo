@@ -3,11 +3,12 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 walk: edge->edge
 TestFunctions: Clicked over position 578 - 568
+TestFunctions: Clicked over position 484 - 233
 TestFunctions: Clicked over position 396 - 580
-personTrip: edge->busStop
-TestFunctions: Clicked over position 599 - 218
-TestFunctions: Clicked over position 734 - 233
-customType
+stopPerson: busStop
+TestFunctions: Clicked over position 484 - 233
+TestFunctions: Clicked over position 484 - 213
+singing
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168

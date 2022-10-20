@@ -72,28 +72,28 @@ Debug: Key ENTER pressed
 Debug: Adding person 'p_0' in GNEChange_DemandElement
 Debug: Adding walk: edge->edge 'p_0' in GNEChange_DemandElement
 Debug: Selected item 'p_0' in DemandElementSelector
-Debug: Selected item 'personTrip: edge->busStop' in GNETagSelector
+Debug: Selected item 'stopPerson: busStop' in GNETagSelector
+Debug: Adding stopPerson: busStop 'p_0' in GNEChange_DemandElement
 Debug: Key ENTER pressed
-Debug: Adding personTrip: edge->busStop 'p_0' in GNEChange_DemandElement
-Debug: Value 'dummy' for attribute modes of personTrip: edge->busStop isn't valid
+Debug: Setting new attribute into stopPerson: busStop 'p_0'
+Debug: Value 'dummy' for attribute until of stopPerson: busStop isn't valid
+Debug: Value '-7.3' for attribute until of stopPerson: busStop isn't valid
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing personTrip: edge->busStop 'p_0' in GNEChange_DemandElement
+Debug: Setting previous attribute into stopPerson: busStop 'p_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing walk: edge->edge 'p_0' in GNEChange_DemandElement
-Debug: Removing person 'p_0' in GNEChange_DemandElement
+Debug: Removing stopPerson: busStop 'p_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding person 'p_0' in GNEChange_DemandElement
-Debug: Adding walk: edge->edge 'p_0' in GNEChange_DemandElement
+Debug: Adding stopPerson: busStop 'p_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding personTrip: edge->busStop 'p_0' in GNEChange_DemandElement
+Debug: Setting new attribute into stopPerson: busStop 'p_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
@@ -136,7 +136,7 @@ GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary -10.00,-10.00,70.00,1
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
 Debug: network elements saved
-Debug: Deleting unreferenced personTrip: edge->busStop
+Debug: Deleting unreferenced stopPerson: busStop
 Debug: Deleting unreferenced walk: edge->edge
 Debug: Deleting unreferenced person
 Debug: Deleting unreferenced busStop

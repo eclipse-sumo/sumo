@@ -47,10 +47,19 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect personStopBusStop
-netedit.leftClick(referencePosition, 430, 65)
+netedit.leftClick(referencePosition, 180, 45)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.personStopBusStop.inspectSelection.lines, "custom line", False)
+netedit.modifyBoolAttribute(netedit.attrs.personStopBusStop.inspectSelection.durationEnable, False)
+
+# change depart with an invalid value
+netedit.modifyBoolAttribute(netedit.attrs.personStopBusStop.inspectSelection.durationEnable, False)
+
+# change depart with an invalid value
+netedit.modifyAttribute(netedit.attrs.personStopBusStop.inspectSelection.duration, "dummy", False)
+
+# change depart with an invalid value
+netedit.modifyAttribute(netedit.attrs.personStopBusStop.inspectSelection.duration, "20.15", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

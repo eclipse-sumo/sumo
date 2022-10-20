@@ -42,6 +42,7 @@ netedit.changePersonPlan("walk: edge->edge", False)
 
 # create route using two one
 netedit.leftClick(referencePosition, 274, 400)
+netedit.leftClick(referencePosition, 280, 60)
 
 # press enter to create route
 netedit.typeEnter()
@@ -52,14 +53,38 @@ netedit.personPlanMode()
 # select person
 netedit.leftClick(referencePosition, 92, 412)
 
-# go to personPlanMode mode
-netedit.changePersonPlanMode("personTrip: edge->busStop")
+# go to personStopBusStop mode
+netedit.changePersonPlanMode("stopPerson: busStop")
 
 # create personStopBusStop
-netedit.leftClick(referencePosition, 295, 50)
+netedit.leftClick(referencePosition, 180, 50)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.personStopBusStop.create.lines, "custom line")
+netedit.changeDefaultBoolValue(netedit.attrs.personStopBusStop.create.durationEnable)
+
+# create personStopBusStop
+netedit.leftClick(referencePosition, 182, 50)
+
+# set invalid person number
+netedit.changeDefaultBoolValue(netedit.attrs.personStopBusStop.create.durationEnable)
+
+# set invalid person number
+netedit.changeDefaultValue(netedit.attrs.personStopBusStop.create.duration, "dummy")
+
+# create personStopBusStop
+netedit.leftClick(referencePosition, 184, 50)
+
+# set invalid person number
+netedit.changeDefaultValue(netedit.attrs.personStopBusStop.create.duration, "-20")
+
+# create personStopBusStop
+netedit.leftClick(referencePosition, 186, 50)
+
+# set invalid person number
+netedit.changeDefaultValue(netedit.attrs.personStopBusStop.create.duration, "30.2")
+
+# create personStopBusStop
+netedit.leftClick(referencePosition, 188, 50)
 
 # press enter to create route
 netedit.typeEnter()

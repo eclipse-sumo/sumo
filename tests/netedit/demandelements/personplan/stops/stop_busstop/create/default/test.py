@@ -42,24 +42,22 @@ netedit.changePersonPlan("walk: edge->edge", False)
 
 # create route using two one
 netedit.leftClick(referencePosition, 274, 400)
+netedit.leftClick(referencePosition, 280, 60)
 
 # press enter to create route
 netedit.typeEnter()
 
-# go to person plan mode
+# go to personStopBusStop mode
 netedit.personPlanMode()
 
 # select person
 netedit.leftClick(referencePosition, 92, 412)
 
-# go to person plan mode
-netedit.changePersonPlanMode("personTrip: edge->busStop")
+# go to personStopBusStop mode
+netedit.changePersonPlanMode("stopPerson: busStop")
 
 # create personStopBusStop
-netedit.leftClick(referencePosition, 295, 50)
-
-# press enter to create route
-netedit.typeEnter()
+netedit.leftClick(referencePosition, 180, 50)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)
