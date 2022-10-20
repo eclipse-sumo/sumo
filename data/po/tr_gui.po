@@ -13,7 +13,7 @@ msgstr ""
 "Language-Team: none\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ASCII\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -23,59 +23,59 @@ msgstr ""
 
 #: /home/behr_mi/sumo/src/guisim_main.cpp:80
 msgid "This system has no OpenGL support. Exiting."
-msgstr ""
+msgstr "OpenGL desteği yoktur. Çıkılıyor."
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:197
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:455
 msgid "&Reload"
-msgstr ""
+msgstr "&Yenile"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:330
 msgid "&Inspect"
-msgstr ""
+msgstr "Dene&tle"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:333
 msgid "&Delete"
-msgstr ""
+msgstr "&Sil"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:336
 msgid "&Select"
-msgstr ""
+msgstr "&Seç"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:393
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:474
 msgid "&Move"
-msgstr ""
+msgstr "&Taşı"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:396
 msgid "&Edge"
-msgstr ""
+msgstr "&Kenar"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:399
 msgid "&Connection"
-msgstr ""
+msgstr "&Bağlantı"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:402
 msgid "Pro&hibition"
-msgstr ""
+msgstr "&Kısıtlı"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:408
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1771
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:554
 msgid "&Additional"
-msgstr ""
+msgstr "E&k"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:411
 msgid "C&rossing"
-msgstr ""
+msgstr "Kesi&t"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:414
 msgid "TA&Z"
-msgstr ""
+msgstr "TA&Z"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:420
 msgid "&Wire"
-msgstr ""
+msgstr "Te&l"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1124
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1747
@@ -95,7 +95,7 @@ msgstr ""
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1139
 msgid "&Connections"
-msgstr ""
+msgstr "Bağlantıla&r"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1144
 msgid "C&rossings"
