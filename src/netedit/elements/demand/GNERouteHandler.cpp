@@ -1333,6 +1333,18 @@ GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerP
     const double arrivalPos = containerPlanObject->hasDoubleAttribute(SUMO_ATTR_ARRIVALPOS) ? containerPlanObject->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS) : -1;
     // get stop parameters
     SUMOVehicleParameter::Stop stopParameters;
+    // fill stops parameters
+    if ((tag == GNE_TAG_STOPCONTAINER_EDGE) || (tag == GNE_TAG_STOPCONTAINER_CONTAINERSTOP)) {
+        stopParameters.actType = containerPlanObject->getStringAttribute(SUMO_ATTR_ACTTYPE);
+        if (containerPlanObject->hasTimeAttribute(SUMO_ATTR_DURATION)) {
+            stopParameters.duration = containerPlanObject->getTimeAttribute(SUMO_ATTR_DURATION);
+            stopParameters.parametersSet |= STOP_DURATION_SET;
+        }
+        if (containerPlanObject->hasTimeAttribute(SUMO_ATTR_UNTIL)) {
+            stopParameters.until = containerPlanObject->getTimeAttribute(SUMO_ATTR_UNTIL);
+            stopParameters.parametersSet |= STOP_UNTIL_SET;
+        }
+    }
     // get edges
     GNEEdge* fromEdge = (pathCreator->getSelectedEdges().size() > 0) ? pathCreator->getSelectedEdges().front() : nullptr;
     GNEEdge* toEdge = (pathCreator->getSelectedEdges().size() > 0) ? pathCreator->getSelectedEdges().back() : nullptr;
