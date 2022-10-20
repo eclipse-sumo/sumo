@@ -49,9 +49,9 @@ def get_options(args=None):
     ap.add_argument("-n", "--network", fix_path=True, required=True,
                     help="sumo network to use")
     ap.add_argument("--route-output",
-                    help="file to write the generated public transport vehicles to")  # noqa
+                    help="file to write the generated public transport vehicles to")
     ap.add_argument("--additional-output",
-                    help="file to write the generated public transport stops and routes to")  # noqa
+                    help="file to write the generated public transport stops and routes to")
     ap.add_argument("--duration", default=10,
                     type=int, help="minimum time to wait on a stop")
     ap.add_argument("--bus-stop-length", default=13, type=float,
@@ -73,14 +73,14 @@ def get_options(args=None):
     ap.add_argument("--mapperlib", default="lib/fcd-process-chain-2.2.2.jar",
                     help="mapping library to use")
     ap.add_argument("--map-output",
-                    help="directory to write the generated mapping files to")  # noqa
-    ap.add_argument("--map-output-config", default="conf/output_configuration_template.xml",  # noqa
-                    help="output configuration template for the mapper library")  # noqa
-    ap.add_argument("--map-input-config", default="conf/input_configuration_template.xml",  # noqa
+                    help="directory to write the generated mapping files to")
+    ap.add_argument("--map-output-config", default="conf/output_configuration_template.xml",
+                    help="output configuration template for the mapper library")
+    ap.add_argument("--map-input-config", default="conf/input_configuration_template.xml",
                     help="input configuration template for the mapper library")
     ap.add_argument("--map-parameter", default="conf/parameters_template.xml",
                     help="parameter template for the mapper library")
-    ap.add_argument("--poly-output", help="file to write the generated polygon files to")  # noqa
+    ap.add_argument("--poly-output", help="file to write the generated polygon files to")
     ap.add_argument("--fill-gaps", default=5000, type=float,
                     help="maximum distance between stops")
     ap.add_argument("--skip-fcd", action="store_true", default=False,
@@ -95,10 +95,10 @@ def get_options(args=None):
     ap.add_argument("--dua-repair-output",
                     help="file to write the osm routes with errors")
     ap.add_argument("--bbox",
-                    help="define the bounding box to filter the gtfs data, format: W,S,E,N")  # noqa
+                    help="define the bounding box to filter the gtfs data, format: W,S,E,N")
     ap.add_argument("--repair", help="repair osm routes", action='store_true')
     ap.add_argument("--min-stops", default=1, type=int,
-                    help="minimum number of stops a public transport line must have to be imported")  # noqa
+                    help="minimum number of stops a public transport line must have to be imported")
 
     options = ap.parse_args(args)
 
@@ -280,59 +280,35 @@ def map_stops(options, net, routes, rout):
                     continue
                 route = routes[rid] = routeFixed
                 fixed.add(rid)
-            p = typedNet.convertLonLat2XY(float(veh.x), float(veh.y))
             if railType == "bus":
                 stopLength = options.bus_stop_length
             elif railType == "tram":
                 stopLength = options.tram_stop_length
             else:
                 stopLength = options.train_stop_length
-            candidates = []
-            for edge, dist in typedNet.getNeighboringEdges(*p, r=200):
-                if edge.getID() in route[lastIndex:]:
-                    if edge.getLength() < stopLength:
-                        dist += stopLength - edge.getLength()  # penalty for short edges
-                    candidates.append((edge, dist))
-            found = False
-            for edge, dist in sorted(candidates, key=lambda i: i[1]):
-                pos = edge.getClosestLanePosDist(p)[1]
-                if edge.getID() != route[lastIndex] or pos > lastPos:
-                    lastIndex = route.index(edge.getID(), lastIndex)
-                    lastPos = pos
-                    origEdgeID = edge.getLanes()[0].getParam("origId", edge.getID())
-                    stop = "%s:%.2f" % (origEdgeID, pos)
-                    if stop not in stopDef:
-                        stopDef.add(stop)
-                        startPos = max(0, pos - stopLength)
-                        if railType == "bus":
-                            for rl in edge.getLanes():
-                                if rl.allows(railType):
-                                    break
-                            rout.write(u'    <busStop id="%s" lane="%s_%s" startPos="%.2f" endPos="%.2f"%s>\n%s' %
-                                       (stop, origEdgeID, rl.getIndex(),
-                                        startPos, pos + stopLength, addAttrs, params))
-                            rout.write(u'    </busStop>\n')
-                        else:
-                            rout.write(u'    <trainStop id="%s" lane="%s_0" startPos="%.2f" endPos="%.2f"%s>\n%s' %
-                                       (stop, origEdgeID, startPos, pos + stopLength, addAttrs, params))
-                            ap = net.convertLonLat2XY(float(veh.x), float(veh.y))
-                            numAccess = 0
-                            for accessEdge, _ in sorted(net.getNeighboringEdges(*ap, r=100), key=lambda i: i[1]):
-                                if accessEdge.getID() != edge.getID() and accessEdge.allows("pedestrian"):
-                                    _, accessPos, accessDist = accessEdge.getClosestLanePosDist(ap)
-                                    rout.write((u'        <access friendlyPos="true" ' +
-                                                u'lane="%s_0" pos="%.2f" length="%.2f"/>\n') %
-                                               (accessEdge.getID(), accessPos, 1.5 * accessDist))
-                                    numAccess += 1
-                                    if numAccess == 10:
-                                        break
-                            rout.write(u'    </trainStop>\n')
-                    stops[rid].append((stop, int(veh.until)))
-                    found = True
-                    break
-            if not found:
-                if candidates or options.warn_unmapped:
-                    print("Warning! No stop for coordinates %.2f, %.2f" % p, "on", veh)
+            result = gtfs2osm.getBestLane(typedNet, veh.x, veh.y, 200, stopLength,
+                                          route[lastIndex:], railType, lastPos)
+            if result is None:
+                if options.warn_unmapped:
+                    print("Warning! No stop for coordinates %.2f, %.2f" % (veh.x, veh.y), "on", veh)
+                continue
+            laneID, start, end = result
+            lane = typedNet.getLane(laneID)
+            edgeID = lane.getEdge().getID()
+            lastIndex = route.index(edgeID, lastIndex)
+            lastPos = end
+            origEdgeID = lane.getParam("origId", edgeID)
+            origLaneID = "%s_%s" % (origEdgeID, lane.getIndex())
+            stop = "%s:%.2f" % (origEdgeID, end)
+            if stop not in stopDef:
+                stopDef.add(stop)
+                typ = "busStop" if railType == "bus" else "trainStop"
+                rout.write(u'    <%s id="%s" lane="%s" startPos="%.2f" endPos="%.2f"%s>\n%s' %
+                           (typ, stop, origLaneID, start, end, addAttrs, params))
+                for a in gtfs2osm.getAccess(net, veh.x, veh.y, 100, origLaneID):
+                    rout.write(a)
+                rout.write(u'    </%s>\n' % typ)
+            stops[rid].append((stop, int(veh.until)))
     return stops
 
 

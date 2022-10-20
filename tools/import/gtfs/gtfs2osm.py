@@ -380,21 +380,40 @@ def _addToDataFrame(gtfs_data, row, shapes_dict, stop, edge):
                   "edge_id"] = edge
 
 
-def _getBestLane(net, row, radius, stop_length, edge_set, pt_class):
+def getBestLane(net, lon, lat, radius, stop_length, edge_set, pt_class, last_pos=-1):
     # get edges near stop location
-    x, y = net.convertLonLat2XY(row.stop_lon, row.stop_lat)
-    edges = net.getNeighboringEdges(x, y, radius, includeJunctions=False)
+    x, y = net.convertLonLat2XY(lon, lat)
+    edges = [e for e in net.getNeighboringEdges(x, y, radius, includeJunctions=False) if e[0].getID() in edge_set]
     # sort by distance but have edges longer than stop length first
-    edges.sort(key=lambda x: (x[0].getLength() <= stop_length, x[1]))
-    filtered = [edge[0] for edge in edges if edge[0].getID() in edge_set and edge[0].allows(pt_class)]
-    if filtered:
-        for lane in filtered[0].getLanes():
+    for edge, _ in sorted(edges, key=lambda x: (x[0].getLength() <= stop_length, x[1])):
+        for lane in edge.getLanes():
             if lane.allows(pt_class):
                 pos = lane.getClosestLanePosAndDist((x, y))[0]
-                start = max(0, pos - stop_length)
-                end = min(start + stop_length, lane.getLength())
-                return lane.getID(), start, end
+                if pos > last_pos or edge.getID() != edge_set[0]:
+                    start = max(0, pos - stop_length)
+                    end = min(start + stop_length, lane.getLength())
+                    return lane.getID(), start, end
     return None
+
+
+def getAccess(net, lon, lat, radius, lane_id, max_access=10):
+    x, y = net.convertLonLat2XY(lon, lat)
+    lane = net.getLane(lane_id)
+    access = []
+    if not lane.getEdge().allows("pedestrian"):
+        for access_edge, _ in sorted(net.getNeighboringEdges(x, y, radius), key=lambda i: i[1]):
+            if access_edge.allows("pedestrian"):
+                access_lane_idx, access_pos, access_dist = access_edge.getClosestLanePosDist((x, y))
+                if not access_edge.getLane(access_lane_idx).allows("pedestrian"):
+                    for idx, lane in enumerate(access_edge.getLanes()):
+                        if lane.allows("pedestrian"):
+                            access_lane_idx = idx
+                            break
+                access.append((u'        <access friendlyPos="true" lane="%s_%s" pos="%.2f" length="%.2f"/>\n') %
+                               (access_edge.getID(), access_lane_idx, access_pos, 1.5 * access_dist))
+                if len(access) == max_access:
+                    break
+    return access
 
 
 @benchmark
@@ -463,16 +482,17 @@ def map_gtfs_osm(options, net, osm_routes, gtfs_data, shapes, shapes_dict, filte
             if stop_edge in map_routes[row.shape_id][1]:
                 # if edge in route, the stops are the same
                 # intersect the edge set
-                map_stops[stop][5] = map_stops[stop][5] & set(map_routes[row.shape_id][1])
+                map_stops[stop][6] = map_stops[stop][6] & set(map_routes[row.shape_id][1])
             else:
                 # check if the wrong edge was adopted
-                edge_inter = set(map_routes[row.shape_id][1]) & map_stops[stop][5]
-                best = _getBestLane(net, row, radius, stop_length, edge_inter, pt_class)
+                edge_inter = set(map_routes[row.shape_id][1]) & map_stops[stop][6]
+                best = getBestLane(net, row.stop_lon, row.stop_lat, radius, stop_length, edge_inter, pt_class)
                 if best is None:
                     continue
                 # update the lane id, start and end and add shape
                 lane_id, start, end = best
-                map_stops[stop][1:6] = [lane_id, start, end, pt_type, edge_inter]
+                access = getAccess(net, row.stop_lon, row.stop_lat, 100, lane_id)
+                map_stops[stop][1:7] = [lane_id, start, end, access, pt_type, edge_inter]
                 # update edge in data frame
                 stop_edge = lane_id.split("_")[0]
                 gtfs_data.loc[gtfs_data["stop_item_id"] == stop, "edge_id"] = stop_edge
@@ -484,13 +504,14 @@ def map_gtfs_osm(options, net, osm_routes, gtfs_data, shapes, shapes_dict, filte
         # if stop not mapped
         if not stop_mapped:
             edge_inter = set(map_routes[row.shape_id][1])
-            best = _getBestLane(net, row, radius, stop_length, edge_inter, pt_class)
+            best = getBestLane(net, row.stop_lon, row.stop_lat, radius, stop_length, edge_inter, pt_class)
             if best is not None:
                 lane_id, start, end = best
+                access = getAccess(net, row.stop_lon, row.stop_lat, 100, lane_id)
                 stop_item_id = "%s_%s" % (row.stop_id, len(stop_items[row.stop_id]))
                 stop_items[row.stop_id].append(stop_item_id)
                 map_stops[stop_item_id] = [sumolib.xml.quoteattr(row.stop_name, True),
-                                           lane_id, start, end, pt_type, edge_inter]
+                                           lane_id, start, end, access, pt_type, edge_inter]
                 _addToDataFrame(gtfs_data, row, shapes_dict, stop_item_id, lane_id.split("_")[0])
                 stop_mapped = True
 
@@ -524,27 +545,14 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
     with io.open(options.additional_output, 'w', encoding="utf8") as output_file:
         sumolib.xml.writeHeader(output_file, root="additional")
         for stop, value in map_stops.items():
-            name, lane, start_pos, end_pos, v_type = value[:5]
-            if v_type == "bus":
-                output_file.write(u'    <busStop id="%s" lane="%s" startPos="%.2f" endPos="%.2f" name=%s friendlyPos="true"/>\n' %  # noqa
-                                  (stop, lane, start_pos, end_pos, name))
-            else:
-                # from gtfs2pt.py
-                output_file.write(u'    <trainStop id="%s" lane="%s" startPos="%.2f" endPos="%.2f" name=%s friendlyPos="true">\n' %  # noqa
-                                  (stop, lane, start_pos, end_pos, name))
-
-                ap = sumolib.geomhelper.positionAtShapeOffset(net.getLane(lane).getShape(), start_pos)
-                numAccess = 0
-                for accessEdge, _ in sorted(net.getNeighboringEdges(*ap, r=100), key=lambda i: i[1]):
-                    if accessEdge.getID() != stop.split("_")[0] and accessEdge.allows("pedestrian"):
-                        lane_id = [lane.getID() for lane in accessEdge.getLanes() if lane.allows("pedestrian")][0]
-                        _, accessPos, accessDist = accessEdge.getClosestLanePosDist(ap)
-                        output_file.write((u'        <access friendlyPos="true" lane="%s" pos="%.2f" length="%.2f"/>\n') %  # noqa
-                                          (lane_id, accessPos, 1.5 * accessDist))
-                        numAccess += 1
-                        if numAccess == 5:
-                            break
-                output_file.write(u'    </trainStop>\n')
+            name, lane, start_pos, end_pos, access, v_type = value[:6]
+            typ = "busStop" if v_type == "bus" else "trainStop"
+            output_file.write(u'    <%s id="%s" lane="%s" startPos="%.2f" endPos="%.2f" name=%s friendlyPos="true"%s>\n' %
+                              (typ, stop, lane, start_pos, end_pos, name, "" if access else "/"))
+            for a in access:
+                output_file.write(a)
+            if access:
+                output_file.write(u'    </%s>\n' % typ)
         output_file.write(u'</additional>\n')
 
     sequence_errors = []
