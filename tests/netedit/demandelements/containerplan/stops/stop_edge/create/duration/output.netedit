@@ -4,7 +4,7 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 tranship: edge->edge
 TestFunctions: Clicked over position 578 - 568
 TestFunctions: Clicked over position 484 - 233
-TestFunctions: Clicked over position 396 - 580
+TestFunctions: Clicked over position 384 - 578
 stopContainer: edge
 TestFunctions: Clicked over position 484 - 233
 TestFunctions: Clicked over position 504 - 233
