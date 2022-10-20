@@ -534,6 +534,7 @@ GNEViewNet::openObjectDialogAtCursor(const FXEvent* /*ev*/) {
                 filteredGLObjects.push_back(overlappedElement);
             }
             bool connections = false;
+            bool TLS = false;
             // fill filtered objects
             for (const auto &glObject : GLObjects) {
                 // always avoid edges
@@ -543,13 +544,28 @@ GNEViewNet::openObjectDialogAtCursor(const FXEvent* /*ev*/) {
                 if (glObject->getType() == GLO_CONNECTION) {
                     connections = true;
                 }
+                if (glObject->getType() == GLO_TLLOGIC) {
+                    TLS = true;
+                }
                 filteredGLObjects.push_back(glObject);
             }
-            // filter junctions if there are connections
+            auto it = filteredGLObjects.begin();
             if (connections) {
-                for (auto it = filteredGLObjects.begin(); it != filteredGLObjects.end(); it++) {
+                // filter junctions if there are connections
+                while (it != filteredGLObjects.end()) {
                     if ((*it)->getType() == GLO_JUNCTION) {
                         it = filteredGLObjects.erase(it);
+                    } else {
+                        it++;
+                    }
+                }
+            } else if (TLS) {
+                // filter all elements except TLLogi
+                while (it != filteredGLObjects.end()) {
+                    if ((*it)->getType() != GLO_TLLOGIC) {
+                        it = filteredGLObjects.erase(it);
+                    } else {
+                        it++;
                     }
                 }
             }
