@@ -2756,6 +2756,57 @@ class transhipEdges:
         arrivalPos = 2
         speed = 3
 
+
+class containerStopEdge:
+    class create:
+        friendlyPos = 8
+        durationEnable = 9
+        duration = 10
+        untilEnable = 11
+        until = 12
+        actType = 12
+
+    class inspect:
+        edge = 1
+        endPos = 2
+        friendlyPos = 3
+        durationEnable = 4
+        duration = 5
+        untilEnable = 6
+        until = 7
+        actType = 7
+
+    class inspectSelection:
+        friendlyPos = 1
+        durationEnable = 2
+        duration = 3
+        untilEnable = 4
+        until = 5
+        actType = 6
+
+
+class containerStopBusStop:
+    class create:
+        durationEnable = 8
+        duration = 9
+        untilEnable = 10
+        until = 11
+        actType = 11
+
+    class inspect:
+        durationEnable = 1
+        duration = 2
+        untilEnable = 3
+        until = 4
+        actType = 4
+
+    class inspectSelection:
+        durationEnable = 1
+        duration = 2
+        untilEnable = 3
+        until = 4
+        actType = 4
+
 # --------------------------------
 # DATA ELEMENTS
 # --------------------------------

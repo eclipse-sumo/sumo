@@ -1,5 +1,9 @@
 default
 
-arrivalpos
+friendlypos
 
-lines
+duration
+
+until
+
+acttype

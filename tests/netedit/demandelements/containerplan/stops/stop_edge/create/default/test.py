@@ -42,24 +42,22 @@ netedit.changeContainerPlan("tranship: edge->edge", False)
 
 # create route using two one
 netedit.leftClick(referencePosition, 274, 400)
+netedit.leftClick(referencePosition, 180, 65)
 
 # press enter to create route
 netedit.typeEnter()
 
-# go to transportEdgeEdge mode
+# go to containerStopEdge mode
 netedit.containerPlanMode()
 
 # select container
 netedit.leftClick(referencePosition, 80, 410)
 
-# go to transportEdgeEdge mode
-netedit.changeContainerPlanMode("transport: edge->edge")
+# go to containerStopEdge mode
+netedit.changeContainerPlanMode("stopContainer: edge")
 
-# create transportEdgeEdge
-netedit.leftClick(referencePosition, 180, 55)
-
-# press enter to create route
-netedit.typeEnter()
+# create containerStopEdge
+netedit.leftClick(referencePosition, 180, 65)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)
