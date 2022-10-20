@@ -49,11 +49,11 @@ jobs:
         sudo apt-get install openjdk-8-jdk maven ccache libv8-dev
         sudo pip3 install texttest
 
-    - name: Validate CITATION.cff
-      if: matrix.build_type == 'full' && github.repository == 'DLR-TS/sumo'
-      uses: dieghernan/cff-validator@main
-      with:
-        citation-path: sumo/CITATION.cff
+#    - name: Validate CITATION.cff
+#      if: matrix.build_type == 'full' && github.repository == 'DLR-TS/sumo'
+#      uses: dieghernan/cff-validator@main
+#      with:
+#        citation-path: sumo/CITATION.cff
 
     - name: ccache
       if: github.event_name != 'schedule'
