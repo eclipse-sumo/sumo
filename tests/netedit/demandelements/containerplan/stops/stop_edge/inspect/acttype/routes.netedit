@@ -8,7 +8,7 @@
     <vType id="customType"/>
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <container id="c_0" depart="0.00">
-        <tranship from="gneE2" to="gneE2" departPos="0.00"/>
+        <tranship from="gneE2" to="gneE5" departPos="0.00"/>
         <stop edge="gneE5" endPos="40.32" duration="60.00" actType="singing"/>
     </container>
 </routes>
