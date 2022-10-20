@@ -7,7 +7,7 @@
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <person id="p_0" depart="0.00">
         <walk from="gneE2" to="gneE5"/>
-        <stop busstop="busStopA" duration="30.20" until="10.20" actType="singing"/>
-        <stop busstop="busStopB" duration="20.20" until="50.20" actType="walking"/>
+        <stop busStop="busStopA" duration="30.20" until="10.20" actType="singing"/>
+        <stop busStop="busStopB" duration="20.20" until="50.20" actType="walking"/>
     </person>
 </routes>
