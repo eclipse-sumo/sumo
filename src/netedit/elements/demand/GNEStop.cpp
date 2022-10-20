@@ -480,9 +480,16 @@ GNEStop::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkEleme
 
 void
 GNEStop::drawGL(const GUIVisualizationSettings& s) const {
-    const bool draw = (getTagProperty().isStopPerson() || getTagProperty().isStopContainer()) ? drawPersonPlan() : canDrawVehicleStop();
+    bool drawStop = false;
+    if (getTagProperty().isStopPerson()) {
+        drawStop = drawPersonPlan();
+    } else if (getTagProperty().isStopContainer()) {
+        drawStop = drawContainerPlan();
+    } else {
+        drawStop = canDrawVehicleStop();
+    }
     // check if stop can be drawn
-    if (draw) {
+    if (drawStop) {
         // Obtain exaggeration of the draw
         const double exaggeration = getExaggeration(s);
         // check if draw an stop for person/containers or for vehicles/routes

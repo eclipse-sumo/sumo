@@ -473,6 +473,9 @@ GNEDemandElement::drawPersonPlan() const {
                myNet->getViewNet()->getDemandViewOptions().showAllPersonPlans()) {
         // show all person plans
         return true;
+    } else if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() && isAttributeCarrierSelected()) {
+        // show selected
+        return true;
     } else if (myNet->getViewNet()->isAttributeCarrierInspected(getParentDemandElements().front())) {
         // person parent is inspected
         return true;
@@ -508,6 +511,9 @@ GNEDemandElement::drawContainerPlan() const {
     } else if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
                myNet->getViewNet()->getDemandViewOptions().showAllContainerPlans()) {
         // show all container plans
+        return true;
+    } else if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() && isAttributeCarrierSelected()) {
+        // show selected
         return true;
     } else if (myNet->getViewNet()->isAttributeCarrierInspected(getParentDemandElements().front())) {
         // container parent is inspected
