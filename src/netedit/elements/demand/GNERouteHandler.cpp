@@ -1278,6 +1278,7 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
             if (fromEdge) {
                 stopParameters.edge = fromEdge->getID();
                 stopParameters.endPos = fromEdge->getLanes().front()->getLaneShape().nearest_offset_to_point2D(myNet->getViewNet()->getPositionInformation());
+                stopParameters.parametersSet |= STOP_END_SET;
                 buildStop(personPlanObject, stopParameters);
             } else {
                 myNet->getViewNet()->setStatusBarText("A stop has to be placed over an edge");
@@ -1404,6 +1405,7 @@ GNERouteHandler::buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerP
             if (fromEdge) {
                 stopParameters.edge = fromEdge->getID();
                 stopParameters.endPos = fromEdge->getLanes().front()->getLaneShape().nearest_offset_to_point2D(myNet->getViewNet()->getPositionInformation());
+                stopParameters.parametersSet |= STOP_END_SET;
                 buildStop(containerPlanObject, stopParameters);
             } else {
                 myNet->getViewNet()->setStatusBarText("A stop has to be placed over an edge");

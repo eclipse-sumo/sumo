@@ -368,7 +368,7 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
     // get stop attributes
     myStopAttributes->getAttributesAndValues(stopBaseObject, true);
     // add netedit values
-    if (!stop.lane.empty()) {
+    if (!stop.edge.empty() || !stop.lane.empty()) {
         myNeteditAttributes->getNeteditAttributesAndValues(stopBaseObject, lane);
         // check if start position can be parsed
         if (stopBaseObject->hasDoubleAttribute(SUMO_ATTR_STARTPOS)) {
