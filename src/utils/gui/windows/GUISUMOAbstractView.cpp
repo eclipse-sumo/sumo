@@ -104,24 +104,26 @@ const double GUISUMOAbstractView::SENSITIVITY = 0.1; // meters
  * GUISUMOAbstractView - FOX callback mapping
  * ----------------------------------------------------------------------- */
 FXDEFMAP(GUISUMOAbstractView) GUISUMOAbstractViewMap[] = {
-    FXMAPFUNC(SEL_CONFIGURE,            0,      GUISUMOAbstractView::onConfigure),
-    FXMAPFUNC(SEL_PAINT,                0,      GUISUMOAbstractView::onPaint),
-    FXMAPFUNC(SEL_LEFTBUTTONPRESS,      0,      GUISUMOAbstractView::onLeftBtnPress),
-    FXMAPFUNC(SEL_LEFTBUTTONRELEASE,    0,      GUISUMOAbstractView::onLeftBtnRelease),
-    FXMAPFUNC(SEL_MIDDLEBUTTONPRESS,    0,      GUISUMOAbstractView::onMiddleBtnPress),
-    FXMAPFUNC(SEL_MIDDLEBUTTONRELEASE,  0,      GUISUMOAbstractView::onMiddleBtnRelease),
-    FXMAPFUNC(SEL_RIGHTBUTTONPRESS,     0,      GUISUMOAbstractView::onRightBtnPress),
-    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   0,      GUISUMOAbstractView::onRightBtnRelease),
-    FXMAPFUNC(SEL_DOUBLECLICKED,        0,      GUISUMOAbstractView::onDoubleClicked),
-    FXMAPFUNC(SEL_MOUSEWHEEL,           0,      GUISUMOAbstractView::onMouseWheel),
-    FXMAPFUNC(SEL_MOTION,               0,      GUISUMOAbstractView::onMouseMove),
-    FXMAPFUNC(SEL_LEAVE,                0,      GUISUMOAbstractView::onMouseLeft),
-    FXMAPFUNC(SEL_KEYPRESS,             0,      GUISUMOAbstractView::onKeyPress),
-    FXMAPFUNC(SEL_KEYRELEASE,           0,      GUISUMOAbstractView::onKeyRelease),
-    FXMAPFUNC(SEL_COMMAND, MID_CLOSE_LANE,      GUISUMOAbstractView::onCmdCloseLane),
-    FXMAPFUNC(SEL_COMMAND, MID_CLOSE_EDGE,      GUISUMOAbstractView::onCmdCloseEdge),
-    FXMAPFUNC(SEL_COMMAND, MID_ADD_REROUTER,    GUISUMOAbstractView::onCmdAddRerouter),
-    FXMAPFUNC(SEL_COMMAND, MID_REACHABILITY,    GUISUMOAbstractView::onCmdShowReachability),
+    FXMAPFUNC(SEL_CONFIGURE,            0,               GUISUMOAbstractView::onConfigure),
+    FXMAPFUNC(SEL_PAINT,                0,               GUISUMOAbstractView::onPaint),
+    FXMAPFUNC(SEL_LEFTBUTTONPRESS,      0,               GUISUMOAbstractView::onLeftBtnPress),
+    FXMAPFUNC(SEL_LEFTBUTTONRELEASE,    0,               GUISUMOAbstractView::onLeftBtnRelease),
+    FXMAPFUNC(SEL_MIDDLEBUTTONPRESS,    0,               GUISUMOAbstractView::onMiddleBtnPress),
+    FXMAPFUNC(SEL_MIDDLEBUTTONRELEASE,  0,               GUISUMOAbstractView::onMiddleBtnRelease),
+    FXMAPFUNC(SEL_RIGHTBUTTONPRESS,     0,               GUISUMOAbstractView::onRightBtnPress),
+    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   0,               GUISUMOAbstractView::onRightBtnRelease),
+    FXMAPFUNC(SEL_DOUBLECLICKED,        0,               GUISUMOAbstractView::onDoubleClicked),
+    FXMAPFUNC(SEL_MOUSEWHEEL,           0,               GUISUMOAbstractView::onMouseWheel),
+    FXMAPFUNC(SEL_MOTION,               0,               GUISUMOAbstractView::onMouseMove),
+    FXMAPFUNC(SEL_LEAVE,                0,               GUISUMOAbstractView::onMouseLeft),
+    FXMAPFUNC(SEL_KEYPRESS,             0,               GUISUMOAbstractView::onKeyPress),
+    FXMAPFUNC(SEL_KEYRELEASE,           0,               GUISUMOAbstractView::onKeyRelease),
+    FXMAPFUNC(SEL_COMMAND, MID_CLOSE_LANE,               GUISUMOAbstractView::onCmdCloseLane),
+    FXMAPFUNC(SEL_COMMAND, MID_CLOSE_EDGE,               GUISUMOAbstractView::onCmdCloseEdge),
+    FXMAPFUNC(SEL_COMMAND, MID_ADD_REROUTER,             GUISUMOAbstractView::onCmdAddRerouter),
+    FXMAPFUNC(SEL_COMMAND, MID_REACHABILITY,             GUISUMOAbstractView::onCmdShowReachability),
+    FXMAPFUNC(SEL_COMMAND, MID_REACHABILITY,             GUISUMOAbstractView::onCmdShowReachability),
+    FXMAPFUNC(SEL_CHANGED,  MID_SIMPLE_VIEW_COLORCHANGE, GUISUMOAbstractView::onVisualizationChange),
 };
 
 
@@ -359,6 +361,12 @@ GUISUMOAbstractView::onCmdAddRerouter(FXObject*, FXSelector, void*) {
 
 long
 GUISUMOAbstractView::onCmdShowReachability(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+long
+GUISUMOAbstractView::onVisualizationChange(FXObject*, FXSelector, void*) {
     return 1;
 }
 

@@ -423,6 +423,10 @@ protected:
     FXCheckButton* myShow3DTLSLinkMarkers = nullptr;
     FXCheckButton* myShow3DTLSDomes = nullptr;
     FXCheckButton* myGenerate3DTLSModels = nullptr;
+    FXColorWell* myAmbient3DLight = nullptr;
+    FXColorWell* myDiffuse3DLight = nullptr;
+    FXColorWell* mySpecular3DLight = nullptr;
+    FXColorWell* myEmissive3DLight = nullptr;
 
     /// @brief openGL
     FXCheckButton* myDither = nullptr;

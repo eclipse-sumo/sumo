@@ -175,7 +175,14 @@ GUIOSGView::GUIOSGView(
     if (myGreenLight == 0 || myYellowLight == 0 || myRedLight == 0 || myRedYellowLight == 0 || myPoleBase == 0) {
         WRITE_ERROR(TL("Could not load traffic light files."));
     }
-    myRoot = GUIOSGBuilder::buildOSGScene(myGreenLight, myYellowLight, myRedLight, myRedYellowLight, myPoleBase);
+    myCommonMaterial = osg::ref_ptr<osg::Material>(new osg::Material());  
+    myCommonMaterial->setAmbient(osg::Material::FRONT, toOSGColorVector(myVisualizationSettings->ambient3DLight));
+    myCommonMaterial->setDiffuse(osg::Material::FRONT, toOSGColorVector(myVisualizationSettings->diffuse3DLight));
+    myCommonMaterial->setSpecular(osg::Material::FRONT, toOSGColorVector(myVisualizationSettings->specular3DLight));
+    myCommonMaterial->setEmission(osg::Material::FRONT, toOSGColorVector(myVisualizationSettings->emissive3DLight));
+    myCommonMaterial->setColorMode(osg::Material::OFF);
+
+    myRoot = GUIOSGBuilder::buildOSGScene(myCommonMaterial, myGreenLight, myYellowLight, myRedLight, myRedYellowLight, myPoleBase);
     // add the stats handler
     myViewer->addEventHandler(new osgViewer::StatsHandler());
     myViewer->setSceneData(myRoot);
@@ -956,6 +963,11 @@ GUIOSGView::zoom2Pos(Position& camera, Position& lookAt, double zoom) {
 
     myViewer->getCameraManipulator()->setHomePosition(cameraUpdate, lookAtUpdate, up);
     myViewer->home();
+}
+
+osg::Vec4 
+GUIOSGView::toOSGColorVector(RGBColor c) {
+    return osg::Vec4(c.red()/255., c.green()/255, c.blue()/255., c.alpha()/255.);
 }
 
 

@@ -675,6 +675,10 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.show3DTLSDomes = (myShow3DTLSDomes->getCheck() != FALSE);
     tmpSettings.show3DTLSLinkMarkers = (myShow3DTLSLinkMarkers->getCheck() != FALSE);
     tmpSettings.generate3DTLSModels = (myGenerate3DTLSModels->getCheck() != FALSE);
+    tmpSettings.ambient3DLight = MFXUtils::getRGBColor(myAmbient3DLight->getRGBA());
+    tmpSettings.diffuse3DLight = MFXUtils::getRGBColor(myDiffuse3DLight->getRGBA());
+    tmpSettings.specular3DLight = MFXUtils::getRGBColor(mySpecular3DLight->getRGBA());
+    tmpSettings.emissive3DLight = MFXUtils::getRGBColor(myEmissive3DLight->getRGBA());
 
     // lanes (colors)
     if (sender == myLaneColorRainbow) {
@@ -866,6 +870,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     if (doRebuildColorMatrices) {
         rebuildColorMatrices(true);
     }
+    myParent->handle(this, FXSEL(SEL_CHANGED, MID_SIMPLE_VIEW_COLORCHANGE), nullptr);
     myParent->forceRefresh();
     getApp()->forceRefresh();
     return 1;
@@ -2377,6 +2382,21 @@ GUIDialog_ViewSettings::build3DFrame(FXTabBook* tabbook) {
     FXMatrix* m84 = new FXMatrix(verticalFrame, 1, GUIDesignMatrixViewSettings);
     myGenerate3DTLSModels = new FXCheckButton(m84, "Show auto-generated TLS models", this, MID_SIMPLE_VIEW_COLORCHANGE);
     myGenerate3DTLSModels->setCheck(mySettings->generate3DTLSModels);
+
+    new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
+
+    FXMatrix* m2 = new FXMatrix(verticalFrame, 2, GUIDesignMatrixViewSettings);
+    new FXLabel(m2, "Material component", nullptr, GUIDesignViewSettingsLabel1);
+    new FXLabel(m2, "Light color", nullptr, GUIDesignViewSettingsLabel1);
+    new FXLabel(m2, "Ambient", nullptr, GUIDesignViewSettingsLabel1);
+    myAmbient3DLight = new FXColorWell(m2, MFXUtils::getFXColor(mySettings->ambient3DLight), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    new FXLabel(m2, "Diffuse", nullptr, GUIDesignViewSettingsLabel1);
+    myDiffuse3DLight = new FXColorWell(m2, MFXUtils::getFXColor(mySettings->diffuse3DLight), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    new FXLabel(m2, "Specular", nullptr, GUIDesignViewSettingsLabel1);
+    mySpecular3DLight = new FXColorWell(m2, MFXUtils::getFXColor(mySettings->specular3DLight), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    new FXLabel(m2, "Emissive", nullptr, GUIDesignViewSettingsLabel1);
+    myEmissive3DLight = new FXColorWell(m2, MFXUtils::getFXColor(mySettings->emissive3DLight), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+
 #ifdef HAVE_OSG
     UNUSED_PARAMETER(frame3D);
 #else

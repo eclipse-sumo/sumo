@@ -174,6 +174,9 @@ public:
     /// @brief highlight edges according to reachability
     virtual long onCmdShowReachability(FXObject*, FXSelector, void*);
 
+    /// @brief hook to react on change in visualization settings
+    virtual long  onVisualizationChange(FXObject*, FXSelector, void*);
+
     /// @brief open object dialog at the cursor position
     virtual void openObjectDialogAtCursor(const FXEvent* ev);
 

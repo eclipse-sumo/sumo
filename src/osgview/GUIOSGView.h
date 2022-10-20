@@ -222,6 +222,10 @@ public:
 
     // @brief get the new camera position given a zoom value
     void zoom2Pos(Position& camera, Position& lookAt, double zoom);
+
+    // @brief convert RGBColor 0..255 RGBA values to osg::Vec4 0..1 vector
+    static osg::Vec4 toOSGColorVector(RGBColor c);
+
 protected:
     /// @brief Store the normalized OSG window cursor coordinates
     void setWindowCursorPosition(float x, float y);
@@ -329,6 +333,8 @@ private:
     osg::ref_ptr<osg::Node> myRedLight;
     osg::ref_ptr<osg::Node> myRedYellowLight;
     osg::ref_ptr<osg::Node> myPoleBase;
+
+    osg::ref_ptr<osg::Material> myCommonMaterial;
 };
 
 #endif

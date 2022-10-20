@@ -57,14 +57,14 @@ std::map<std::string, osg::ref_ptr<osg::Node> > GUIOSGBuilder::myCars;
 // ===========================================================================
 
 osg::Group*
-GUIOSGBuilder::buildOSGScene(osg::Node* const tlg, osg::Node* const tly, osg::Node* const tlr, osg::Node* const tlu, osg::Node* const pole) {
+GUIOSGBuilder::buildOSGScene(osg::Material* const m, osg::Node* const tlg, osg::Node* const tly, osg::Node* const tlr, osg::Node* const tlu, osg::Node* const pole) {
     osgUtil::Tessellator tesselator;
     osg::Group* root = new osg::Group();
     GUINet* net = static_cast<GUINet*>(MSNet::getInstance());
     // build edges
     for (const MSEdge* e : net->getEdgeControl().getEdges()) {
         if (!e->isInternal()) {
-            buildOSGEdgeGeometry(*e, *root, tesselator);
+            buildOSGEdgeGeometry(m, *e, *root, tesselator);
         }
     }
     // build junctions
@@ -130,7 +130,7 @@ GUIOSGBuilder::buildLight(const GUISUMOAbstractView::Decal& d, osg::Group& addTo
 
 
 void
-GUIOSGBuilder::buildOSGEdgeGeometry(const MSEdge& edge,
+GUIOSGBuilder::buildOSGEdgeGeometry(osg::Material* const m, const MSEdge& edge,
                                     osg::Group& addTo,
                                     osgUtil::Tessellator& tessellator) {
     const std::vector<MSLane*>& lanes = edge.getLanes();
@@ -204,6 +204,7 @@ GUIOSGBuilder::buildOSGEdgeGeometry(const MSEdge& edge,
         osg::ref_ptr<osg::StateSet> ss = geode->getOrCreateStateSet();
         ss->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
         ss->setMode(GL_BLEND, osg::StateAttribute::OVERRIDE | osg::StateAttribute::PROTECTED | osg::StateAttribute::ON);
+        ss->setAttributeAndModes(m, osg::StateAttribute::OVERRIDE | osg::StateAttribute::ON);
 
         if (shape.size() > 2) {
             tessellator.retessellatePolygons(*geom);

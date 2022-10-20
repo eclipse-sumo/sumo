@@ -164,6 +164,14 @@ const RGBColor GUIVisualizationDottedContourSettings::firstFrontColor(0, 0, 235)
 const RGBColor GUIVisualizationDottedContourSettings::secondFrontColor(0, 255, 0);
 
 // -------------------------------------------------------------------------
+// 3D light presets
+// -------------------------------------------------------------------------
+const RGBColor OSG_color_ambient(255,255,255,64);
+const RGBColor OSG_color_diffuse(255,255,255,64);
+const RGBColor OSG_color_specular(255,255,255,64);
+const RGBColor OSG_color_emissive(255,255,255,64);
+
+// -------------------------------------------------------------------------
 // widths of certain NETEDIT objects
 // -------------------------------------------------------------------------
 
@@ -586,6 +594,10 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     show3DTLSLinkMarkers(true),
     show3DTLSDomes(true),
     generate3DTLSModels(false),
+    ambient3DLight(OSG_color_ambient),
+    diffuse3DLight(OSG_color_diffuse),
+    specular3DLight(OSG_color_specular),
+    emissive3DLight(OSG_color_emissive),
     showSizeLegend(true),
     showColorLegend(false),
     showVehicleColorLegend(false),
@@ -1907,6 +1919,18 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (generate3DTLSModels != v2.generate3DTLSModels) {
+        return false;
+    }
+    if (ambient3DLight != v2.ambient3DLight) {
+        return false;
+    }
+    if (diffuse3DLight != v2.diffuse3DLight) {
+        return false;
+    }
+    if (specular3DLight != v2.specular3DLight) {
+        return false;
+    }
+    if (emissive3DLight != v2.emissive3DLight) {
         return false;
     }
     if (dither != v2.dither) {

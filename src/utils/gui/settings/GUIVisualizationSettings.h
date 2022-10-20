@@ -940,6 +940,12 @@ public:
 
     /// @brief whether 3D TLS models should be generated automatically
     bool generate3DTLSModels;
+
+    /// @brief 3D material light components
+    RGBColor ambient3DLight;
+    RGBColor diffuse3DLight;
+    RGBColor specular3DLight;
+    RGBColor emissive3DLight;
     /// @}
 
 
