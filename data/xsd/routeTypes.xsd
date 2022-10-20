@@ -832,7 +832,7 @@
         </xsd:sequence>
         <xsd:attribute name="id" type="idType" use="required"/>
         <xsd:attribute name="vTypes" type="xsd:string" use="optional"/>
-        <xsd:attribute name="determnistic" type="xsd:int" use="optional"/>
+        <xsd:attribute name="deterministic" type="xsd:int" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="routeDistributionType">
