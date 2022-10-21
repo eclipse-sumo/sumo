@@ -17,6 +17,7 @@ GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
 Debug: Adding busStop 'busStopA' in GNEChange_Additional
 Debug: Adding busStop 'busStopB' in GNEChange_Additional
+Debug: Adding route 'route_0' in GNEChange_DemandElement
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00
@@ -67,14 +68,14 @@ Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'walk: route' in GNETagSelector
+Debug: Selected item 'walk: edge->edge' in GNETagSelector
 Debug: Key ENTER pressed
 Debug: Adding person 'p_0' in GNEChange_DemandElement
-Debug: Adding walk: route 'p_0' in GNEChange_DemandElement
+Debug: Adding walk: edge->edge 'p_0' in GNEChange_DemandElement
 Debug: Selected item 'p_0' in DemandElementSelector
 Debug: Selected item 'walk: route' in GNETagSelector
+Debug: Adding walk: route 'p_0' in GNEChange_DemandElement
 Debug: Key ENTER pressed
-Debug: Adding walk: route 'p_0' in GNEChange_DemandElement
 Debug: Removing walk: route 'p_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
@@ -84,12 +85,12 @@ Debug: Calling GNEUndoList::undo()
 Debug: Removing walk: route 'p_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing walk: route 'p_0' in GNEChange_DemandElement
+Debug: Removing walk: edge->edge 'p_0' in GNEChange_DemandElement
 Debug: Removing person 'p_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding person 'p_0' in GNEChange_DemandElement
-Debug: Adding walk: route 'p_0' in GNEChange_DemandElement
+Debug: Adding walk: edge->edge 'p_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding walk: route 'p_0' in GNEChange_DemandElement
@@ -136,8 +137,9 @@ GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
 Debug: network elements saved
 Debug: Deleting unreferenced walk: route
-Debug: Deleting unreferenced walk: route
+Debug: Deleting unreferenced walk: edge->edge
 Debug: Deleting unreferenced person
+Debug: Deleting unreferenced route
 Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor

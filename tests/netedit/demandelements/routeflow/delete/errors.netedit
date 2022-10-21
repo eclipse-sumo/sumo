@@ -74,15 +74,16 @@ Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Adding flowRoute 'f_0' in GNEChange_DemandElement
 Debug: Removing flowRoute 'f_0' in GNEChange_DemandElement
+Debug: Removing route 'r_0' in GNEChange_DemandElement
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Adding route 'r_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Adding flowRoute 'f_0' in GNEChange_DemandElement
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Removing flowRoute 'f_0' in GNEChange_DemandElement
 Debug: Opened FXMessageBox Problem deleting edge 'gneE2'
 Debug: Closed FXMessageBox Problem deleting edge 'gneE2'
-Debug: Deleting unreferenced flowRoute
+Debug: Removing flowRoute 'f_0' in GNEChange_DemandElement
 Debug: Removing route 'r_0' in GNEChange_DemandElement
 Debug: Removing route 'r_1' in GNEChange_DemandElement
 Debug: Removing connection 'gneE2_0->gneE4_1' from edge 'gneE2'
@@ -101,8 +102,10 @@ Debug: Adding connection 'gneE2_0->gneE4_1' into edge 'gneE2'
 Debug: Created connection 'fromgneE2_0togneE4_1' in retrieveGNEConnection()
 Debug: Adding route 'r_1' in GNEChange_DemandElement
 Debug: Adding route 'r_0' in GNEChange_DemandElement
+Debug: Adding flowRoute 'f_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
+Debug: Removing flowRoute 'f_0' in GNEChange_DemandElement
 Debug: Removing route 'r_0' in GNEChange_DemandElement
 Debug: Removing route 'r_1' in GNEChange_DemandElement
 Debug: Removing connection 'gneE2_0->gneE4_1' from edge 'gneE2'
@@ -149,6 +152,7 @@ GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31
 Debug: network elements saved
 Debug: Deleting unreferenced edge 'gneE2' GNEChange_Edge
 Debug: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
+Debug: Deleting unreferenced flowRoute
 Debug: Deleting unreferenced route
 Debug: Deleting unreferenced route
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor

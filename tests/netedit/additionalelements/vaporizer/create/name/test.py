@@ -34,12 +34,6 @@ netedit.additionalMode()
 # select vaporizer
 netedit.changeElement("vaporizer")
 
-# set invalid name
-netedit.changeDefaultValue(netedit.attrs.vaporizer.create.name, "%%$$$""")
-
-# try to create invalid vaporizer (show warning)
-netedit.leftClick(referencePosition, 200, 265)
-
 # set valid name
 netedit.changeDefaultValue(netedit.attrs.vaporizer.create.name, "customName")
 
