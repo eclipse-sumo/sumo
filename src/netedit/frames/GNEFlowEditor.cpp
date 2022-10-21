@@ -426,6 +426,7 @@ GNEFlowEditor::refreshSingleFlow() {
             myTerminateComboBox->setCurrentItem(0);
             // set label
             myTerminateLabel->setText(toString(SUMO_ATTR_END).c_str());
+            // set definition
             myTerminateLabel->setTipText(flow->getTagProperty().getAttributeProperties(SUMO_ATTR_END).getDefinition().c_str());
             // set text fields
             myTerminateTextField->setText(getFlowAttribute(SUMO_ATTR_END).c_str());
@@ -433,6 +434,8 @@ GNEFlowEditor::refreshSingleFlow() {
             // set first comboBox
             myTerminateComboBox->setCurrentItem(1);
             // set label
+            myTerminateLabel->setText(toString(SUMO_ATTR_NUMBER).c_str());
+            // set definition
             myTerminateLabel->setTipText(flow->getTagProperty().getAttributeProperties(SUMO_ATTR_NUMBER).getDefinition().c_str());
             // set text fields
             myTerminateTextField->setText(getFlowAttribute(SUMO_ATTR_NUMBER).c_str());
@@ -446,6 +449,7 @@ GNEFlowEditor::refreshSingleFlow() {
             mySpacingComboBox->setCurrentItem(0),
             // set label
             mySpacingLabel->setText(toString(myPerHourAttr).c_str());
+            // set tip text
             mySpacingLabel->setTipText(flow->getTagProperty().getAttributeProperties(myPerHourAttr).getDefinition().c_str());
             // set text fields
             mySpacingTextField->setText(getFlowAttribute(myPerHourAttr).c_str());
@@ -453,6 +457,8 @@ GNEFlowEditor::refreshSingleFlow() {
             // set first comboBox
             mySpacingComboBox->setCurrentItem(1);
             // set label
+            mySpacingLabel->setText(toString(SUMO_ATTR_PERIOD).c_str());
+            // set tip text
             mySpacingLabel->setTipText(flow->getTagProperty().getAttributeProperties(SUMO_ATTR_PERIOD).getDefinition().c_str());
             // set text fields
             mySpacingTextField->setText(getFlowAttribute(SUMO_ATTR_PERIOD).c_str());
@@ -461,7 +467,7 @@ GNEFlowEditor::refreshSingleFlow() {
             mySpacingComboBox->setCurrentItem(2);
             // set label
             mySpacingLabel->setText(TL("rate"));
-            // set label
+            // set definition
             mySpacingLabel->setTipText(flow->getTagProperty().getAttributeProperties(GNE_ATTR_POISSON).getDefinition().c_str());
             // set text fields
             mySpacingTextField->setText(getFlowAttribute(GNE_ATTR_POISSON).c_str());
@@ -470,7 +476,7 @@ GNEFlowEditor::refreshSingleFlow() {
             mySpacingComboBox->setCurrentItem(3);
             // set label
             mySpacingLabel->setText(toString(SUMO_ATTR_PROB).c_str());
-            // set label
+            // set tip text
             mySpacingLabel->setTipText(flow->getTagProperty().getAttributeProperties(SUMO_ATTR_PROB).getDefinition().c_str());
             // set text fields
             mySpacingTextField->setText(getFlowAttribute(SUMO_ATTR_PROB).c_str());
