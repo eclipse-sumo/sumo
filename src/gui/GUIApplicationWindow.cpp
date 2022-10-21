@@ -465,7 +465,7 @@ GUIApplicationWindow::fillMenuBar() {
                                            TL("Close"), "Ctrl+W", TL("Close the simulation."),
                                            GUIIconSubSys::getIcon(GUIIcon::CLOSE), this, MID_HOTKEY_CTRL_W_CLOSESIMULATION);
     // Recent files
-    FXMenuSeparator* sep1 = new FXMenuSeparator(myFileMenu);
+    FXMenuSeparator* sep1 = new FXMenuSeparator(myFileMenu);  // NOSONAR, Fox does the cleanup
     sep1->setSelector(FXRecentFiles::ID_ANYFILES);
     GUIDesigns::buildFXMenuCommandRecentFile(myFileMenu, "", &myRecentNetworksAndConfigs, FXRecentFiles::ID_FILE_1);
     GUIDesigns::buildFXMenuCommandRecentFile(myFileMenu, "", &myRecentNetworksAndConfigs, FXRecentFiles::ID_FILE_2);
@@ -626,7 +626,7 @@ GUIApplicationWindow::fillMenuBar() {
     GUIDesigns::buildFXMenuCommandShortcut(myWindowMenu,
                                            TL("&Close"), "", "",
                                            nullptr, myMDIClient, FXMDIClient::ID_MDI_CLOSE);
-    FXMenuSeparator* sep2 = new FXMenuSeparator(myWindowMenu);
+    FXMenuSeparator* sep2 = new FXMenuSeparator(myWindowMenu);  // NOSONAR, Fox does the cleanup
     sep2->setTarget(myMDIClient);
     sep2->setSelector(FXMDIClient::ID_MDI_ANY);
     GUIDesigns::buildFXMenuCommand(myWindowMenu, "", nullptr, myMDIClient, FXMDIClient::ID_MDI_1);

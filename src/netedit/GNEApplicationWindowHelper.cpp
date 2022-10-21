@@ -144,7 +144,7 @@ GNEApplicationWindowHelper::MenuBarFile::MenuBarFile(GNEApplicationWindow* GNEAp
 
 void
 GNEApplicationWindowHelper::MenuBarFile::buildRecentFiles(FXMenuPane* fileMenu) {
-    FXMenuSeparator* sep1 = new FXMenuSeparator(fileMenu);
+    FXMenuSeparator* sep1 = new FXMenuSeparator(fileMenu);  // NOSONAR, Fox does the cleanup
     sep1->setSelector(FXRecentFiles::ID_ANYFILES);
     GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentNetsAndConfigs, FXRecentFiles::ID_FILE_1);
     GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentNetsAndConfigs, FXRecentFiles::ID_FILE_2);

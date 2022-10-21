@@ -2542,7 +2542,7 @@ GNEViewNet::onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*) {
         // get new position
         Position newPosition = edgeGeometry[index];
         // edit using modal GNEGeometryPointDialog
-        GNEGeometryPointDialog(this, &newPosition);  // NOSONAR
+        GNEGeometryPointDialog(this, &newPosition);  // NOSONAR, constructor returns after dialog has been closed
         // now check position
         if (newPosition != edgeGeometry[index]) {
             // update new position
@@ -2574,7 +2574,7 @@ GNEViewNet::onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*) {
         // get new position
         Position newPosition = polygonGeometry[index];
         // edit using modal GNEGeometryPointDialog
-        GNEGeometryPointDialog(this, &newPosition);  // NOSONAR
+        GNEGeometryPointDialog(this, &newPosition);  // NOSONAR, constructor returns after dialog has been closed
         // now check position
         if (newPosition != polygonGeometry[index]) {
             // update new position
@@ -2594,7 +2594,7 @@ GNEViewNet::onCmdSetCustomGeometryPoint(FXObject*, FXSelector, void*) {
         // get new position
         Position newPosition = TAZGeometry[index];
         // edit using modal GNEGeometryPointDialog
-        GNEGeometryPointDialog(this, &newPosition);  // NOSONAR
+        GNEGeometryPointDialog(this, &newPosition);  // NOSONAR, constructor returns after dialog has been closed
         // now check position
         if (newPosition != TAZGeometry[index]) {
             // update new position

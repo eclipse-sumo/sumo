@@ -520,7 +520,7 @@ void
 GNETypeFrame::attributesEditorExtendedDialogOpened() {
     // open vehicle type dialog
     if (myTypeSelector->getCurrentType()) {
-        GNEVehicleTypeDialog(myTypeSelector->getCurrentType(), true);
+        GNEVehicleTypeDialog(myTypeSelector->getCurrentType(), true);  // NOSONAR, constructor returns after dialog has been closed
         // set myCurrentType as inspected element
         myTypeAttributesEditor->getFrameParent()->getViewNet()->setInspectedAttributeCarriers({myTypeSelector->getCurrentType()});
         // call "showAttributeEditorModule" to refresh attribute list

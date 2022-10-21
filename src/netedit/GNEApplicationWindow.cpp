@@ -1052,8 +1052,8 @@ GNEApplicationWindow::onCmdLocate(FXObject*, FXSelector sel, void*) {
 
 long
 GNEApplicationWindow::onCmdToolNetDiff(FXObject*, FXSelector, void*) {
-    // open a NetDiff tool dialog
-    GNEToolNetDiff(this);
+    // open a modal NetDiff tool dialog
+    GNEToolNetDiff(this);  // NOSONAR
 
     /*
         OptionsCont& oc = OptionsCont::getOptions();

@@ -123,8 +123,8 @@ GNERerouterDialog::onCmdReset(FXObject*, FXSelector, void*) {
 
 long
 GNERerouterDialog::onCmdAddInterval(FXObject*, FXSelector, void*) {
-    // create empty rerouter interval and configure it with GNERerouterIntervalDialog
-    GNERerouterIntervalDialog(new GNERerouterInterval(this), false);
+    // create empty rerouter interval and configure it with modal GNERerouterIntervalDialog
+    GNERerouterIntervalDialog(new GNERerouterInterval(this), false);  // NOSONAR, constructor returns after dialog has been closed
     // update interval table
     updateIntervalTable();
     return 1;
@@ -154,7 +154,7 @@ GNERerouterDialog::onCmdClickedInterval(FXObject*, FXSelector, void*) {
     for (int i = 0; i < (int)rerouterChildren.size(); i++) {
         if (myIntervalTable->getItem(i, 0)->hasFocus() || myIntervalTable->getItem(i, 1)->hasFocus()) {
             // edit interval
-            GNERerouterIntervalDialog(rerouterChildren.at(i), true);
+            GNERerouterIntervalDialog(rerouterChildren.at(i), true);  // NOSONAR, constructor returns after dialog has been closed
             // update interval table after editing
             updateIntervalTable();
             return 1;

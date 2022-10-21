@@ -162,9 +162,9 @@ GUI::addView(const std::string& viewID, const std::string& schemeName, bool in3D
         throw TraCIException("GUI is not running, command not implemented in command line sumo");
     }
     // calling openNewView directly doesn't work from the traci/simulation thread
-    mw->sendBlockingEvent(new GUIEvent_AddView(viewID, schemeName, in3D));  // NOSONAR
+    mw->sendBlockingEvent(new GUIEvent_AddView(viewID, schemeName, in3D));
     // sonar thinks here is a memory leak but the GUIApplicationWindow does the clean up
-}
+}  // NOSONAR
 
 
 void
@@ -174,9 +174,9 @@ GUI::removeView(const std::string& viewID) {
         throw TraCIException("GUI is not running, command not implemented in command line sumo");
     }
     // calling removeViewByID directly doesn't work from the traci/simulation thread
-    mw->sendBlockingEvent(new GUIEvent_CloseView(viewID));  // NOSONAR
+    mw->sendBlockingEvent(new GUIEvent_CloseView(viewID));
     // sonar thinks here is a memory leak but the GUIApplicationWindow does the clean up
-}
+}  // NOSONAR
 
 
 void
