@@ -2785,7 +2785,7 @@ class containerStopEdge:
         actType = 6
 
 
-class containerStopBusStop:
+class containerStopContainerStop:
     class create:
         durationEnable = 8
         duration = 9

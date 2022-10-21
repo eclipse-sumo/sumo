@@ -72,12 +72,11 @@ Debug: Key ENTER pressed
 Debug: Adding container 'c_0' in GNEChange_DemandElement
 Debug: Adding tranship: edge->edge 'c_0' in GNEChange_DemandElement
 Debug: Selected item 'c_0' in DemandElementSelector
-Debug: Selected item 'transport: edge->containerStop' in GNETagSelector
-Debug: Key ENTER pressed
-Debug: Adding transport: edge->containerStop 'c_0' in GNEChange_DemandElement
+Debug: Selected item 'stopContainer: containerStop' in GNETagSelector
+Debug: Adding stopContainer: containerStop 'c_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing transport: edge->containerStop 'c_0' in GNEChange_DemandElement
+Debug: Removing stopContainer: containerStop 'c_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing tranship: edge->edge 'c_0' in GNEChange_DemandElement
@@ -88,7 +87,7 @@ Debug: Adding container 'c_0' in GNEChange_DemandElement
 Debug: Adding tranship: edge->edge 'c_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding transport: edge->containerStop 'c_0' in GNEChange_DemandElement
+Debug: Adding stopContainer: containerStop 'c_0' in GNEChange_DemandElement
 Debug: demand elements saved
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
@@ -128,7 +127,7 @@ GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary -10.00,-10.00,70.00,1
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
 Debug: network elements saved
-Debug: Deleting unreferenced transport: edge->containerStop
+Debug: Deleting unreferenced stopContainer: containerStop
 Debug: Deleting unreferenced tranship: edge->edge
 Debug: Deleting unreferenced container
 Debug: Deleting unreferenced containerStop
