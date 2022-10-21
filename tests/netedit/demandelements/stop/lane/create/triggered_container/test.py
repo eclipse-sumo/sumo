@@ -50,19 +50,19 @@ netedit.leftClick(referencePosition, 400, 185)
 netedit.changeDefaultValue(netedit.attrs.stopLane.create.expected, ";;;;;;;;;;")
 
 # try to create stop
-netedit.leftClick(referencePosition, 405, 185)
+netedit.leftClick(referencePosition, 390, 185)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopLane.create.expected, "")
 
 # try to create stop
-netedit.leftClick(referencePosition, 410, 185)
+netedit.leftClick(referencePosition, 380, 185)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stopLane.create.expected, "containerID1 containerID2 containerID3")
 
 # create stop
-netedit.leftClick(referencePosition, 415, 185)
+netedit.leftClick(referencePosition, 370, 185)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

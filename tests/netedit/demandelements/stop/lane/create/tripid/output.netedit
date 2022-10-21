@@ -3,11 +3,11 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 stopLane
 ;;;;;;;;;;
-TestFunctions: Clicked over position 594 - 353
+TestFunctions: Clicked over position 704 - 353
 
-TestFunctions: Clicked over position 604 - 353
+TestFunctions: Clicked over position 694 - 353
 tripID
-TestFunctions: Clicked over position 609 - 353
+TestFunctions: Clicked over position 684 - 353
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
