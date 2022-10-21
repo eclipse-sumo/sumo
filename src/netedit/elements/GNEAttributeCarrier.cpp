@@ -4524,6 +4524,7 @@ GNEAttributeCarrier::fillContainerStopElements() {
                                               GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::ACTIVATABLE | GNEAttributeProperties::DEFAULTVALUE,
                                               "Minimum duration for stopping",
                                               "60");
+        attrProperty.setDefaultActivated(true);
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_UNTIL,
