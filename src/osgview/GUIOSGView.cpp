@@ -157,6 +157,10 @@ GUIOSGView::GUIOSGView(
     myViewer->setThreadingModel(osgViewer::Viewer::SingleThreaded);
     myViewer->addEventHandler(new PickHandler(this));
 
+    osg::Light* globalLight = myViewer->getLight();
+    globalLight->setAmbient(toOSGColorVector(myVisualizationSettings->ambient3DLight));
+    globalLight->setDiffuse(toOSGColorVector(myVisualizationSettings->diffuse3DLight));
+
     const char* sumoPath = getenv("SUMO_HOME");
     if (sumoPath != 0) {
         std::string newPath = std::string(sumoPath) + "/data/3D";
@@ -175,14 +179,12 @@ GUIOSGView::GUIOSGView(
     if (myGreenLight == 0 || myYellowLight == 0 || myRedLight == 0 || myRedYellowLight == 0 || myPoleBase == 0) {
         WRITE_ERROR(TL("Could not load traffic light files."));
     }
-    myCommonMaterial = osg::ref_ptr<osg::Material>(new osg::Material());  
-    myCommonMaterial->setAmbient(osg::Material::FRONT, toOSGColorVector(myVisualizationSettings->ambient3DLight));
-    myCommonMaterial->setDiffuse(osg::Material::FRONT, toOSGColorVector(myVisualizationSettings->diffuse3DLight));
-    myCommonMaterial->setSpecular(osg::Material::FRONT, toOSGColorVector(myVisualizationSettings->specular3DLight));
-    myCommonMaterial->setEmission(osg::Material::FRONT, toOSGColorVector(myVisualizationSettings->emissive3DLight));
-    myCommonMaterial->setColorMode(osg::Material::OFF);
 
-    myRoot = GUIOSGBuilder::buildOSGScene(myCommonMaterial, myGreenLight, myYellowLight, myRedLight, myRedYellowLight, myPoleBase);
+    myRoot = GUIOSGBuilder::buildOSGScene(myGreenLight, myYellowLight, myRedLight, myRedYellowLight, myPoleBase);
+
+    // adjust the main light
+    adoptViewSettings();
+
     // add the stats handler
     myViewer->addEventHandler(new osgViewer::StatsHandler());
     myViewer->setSceneData(myRoot);
@@ -211,6 +213,15 @@ GUIOSGView::~GUIOSGView() {
 void
 GUIOSGView::initChanger(const Boundary& viewPort) {
     myChanger = new GUIOSGPerspectiveChanger(*this, viewPort);
+}
+
+
+void
+GUIOSGView::adoptViewSettings() {
+    osg::Light* globalLight = myViewer->getLight();
+    globalLight->setAmbient(toOSGColorVector(myVisualizationSettings->ambient3DLight));
+    globalLight->setDiffuse(toOSGColorVector(myVisualizationSettings->diffuse3DLight));
+    myViewer->getCamera()->setClearColor(toOSGColorVector(myVisualizationSettings->skyColor));
 }
 
 
@@ -836,6 +847,13 @@ GUIOSGView::onCmdShowReachability(FXObject* menu, FXSelector selector, void*) {
 }
 
 
+long
+GUIOSGView::onVisualizationChange(FXObject*, FXSelector, void*) {
+    adoptViewSettings();
+    return 1;
+}
+
+
 void
 GUIOSGView::setWindowCursorPosition(float x, float y) {
     myOSGNormalizedCursorX = x;
@@ -965,9 +983,10 @@ GUIOSGView::zoom2Pos(Position& camera, Position& lookAt, double zoom) {
     myViewer->home();
 }
 
+
 osg::Vec4 
-GUIOSGView::toOSGColorVector(RGBColor c) {
-    return osg::Vec4(c.red()/255., c.green()/255, c.blue()/255., c.alpha()/255.);
+GUIOSGView::toOSGColorVector(RGBColor c, bool useAlpha) {
+    return osg::Vec4(c.red()/255., c.green()/255., c.blue()/255., (useAlpha)? c.alpha()/255. : 1.);
 }
 
 

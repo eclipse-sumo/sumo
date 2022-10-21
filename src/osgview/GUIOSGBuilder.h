@@ -55,7 +55,7 @@ class GUIJunctionWrapper;
  */
 class GUIOSGBuilder {
 public:
-    static osg::Group* buildOSGScene(osg::Material* const m, osg::Node* const tlg, osg::Node* const tly, osg::Node* const tlr, osg::Node* const tlu, osg::Node* const pole);
+    static osg::Group* buildOSGScene(osg::Node* const tlg, osg::Node* const tly, osg::Node* const tlr, osg::Node* const tlu, osg::Node* const pole);
 
     static void buildDecal(const GUISUMOAbstractView::Decal& d, osg::Group& addTo);
 
@@ -72,7 +72,7 @@ public:
 private:
     static osg::PositionAttitudeTransform* createTrafficLightState(const GUISUMOAbstractView::Decal& d, osg::Node* tl, const double withPole, const double size, osg::Vec4d color);
 
-    static void buildOSGEdgeGeometry(osg::Material* const m, const MSEdge& edge,
+    static void buildOSGEdgeGeometry(const MSEdge& edge,
                                      osg::Group& addTo, osgUtil::Tessellator& tessellator);
 
     static void buildOSGJunctionGeometry(GUIJunctionWrapper& junction,

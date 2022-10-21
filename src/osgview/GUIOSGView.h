@@ -220,11 +220,14 @@ public:
     /// @brief highlight edges according to reachability
     long onCmdShowReachability(FXObject*, FXSelector, void*);
 
+    /// @brief reset graphical settings when forced to refresh the view (triggered by ViewSettings)
+    long  onVisualizationChange(FXObject*, FXSelector, void*);
+
     // @brief get the new camera position given a zoom value
     void zoom2Pos(Position& camera, Position& lookAt, double zoom);
 
     // @brief convert RGBColor 0..255 RGBA values to osg::Vec4 0..1 vector
-    static osg::Vec4 toOSGColorVector(RGBColor c);
+    static osg::Vec4 toOSGColorVector(RGBColor c, bool useAlpha = false);
 
 protected:
     /// @brief Store the normalized OSG window cursor coordinates
@@ -245,6 +248,9 @@ protected:
 
     /// @brief create the GUIOSGPerspectiveChanegr instance
     void initChanger(const Boundary& viewPort);
+
+    /// @brief implement the current view settings in OSG
+    void adoptViewSettings();
 
 private:
     double calculateRotation(const osg::Vec3d& lookFrom, const osg::Vec3d& lookAt, const osg::Vec3d& up);
@@ -333,8 +339,6 @@ private:
     osg::ref_ptr<osg::Node> myRedLight;
     osg::ref_ptr<osg::Node> myRedYellowLight;
     osg::ref_ptr<osg::Node> myPoleBase;
-
-    osg::ref_ptr<osg::Material> myCommonMaterial;
 };
 
 #endif

@@ -166,10 +166,9 @@ const RGBColor GUIVisualizationDottedContourSettings::secondFrontColor(0, 255, 0
 // -------------------------------------------------------------------------
 // 3D light presets
 // -------------------------------------------------------------------------
-const RGBColor OSG_color_ambient(255,255,255,64);
-const RGBColor OSG_color_diffuse(255,255,255,64);
-const RGBColor OSG_color_specular(255,255,255,64);
-const RGBColor OSG_color_emissive(255,255,255,64);
+const RGBColor OSG_color_AMBIENT(32,32,32,255);
+const RGBColor OSG_color_DIFFUSE(64,64,64,255);
+const RGBColor OSG_color_SKY(51,51,102,255);
 
 // -------------------------------------------------------------------------
 // widths of certain NETEDIT objects
@@ -594,10 +593,9 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     show3DTLSLinkMarkers(true),
     show3DTLSDomes(true),
     generate3DTLSModels(false),
-    ambient3DLight(OSG_color_ambient),
-    diffuse3DLight(OSG_color_diffuse),
-    specular3DLight(OSG_color_specular),
-    emissive3DLight(OSG_color_emissive),
+    ambient3DLight(OSG_color_AMBIENT),
+    diffuse3DLight(OSG_color_DIFFUSE),
+    skyColor(OSG_color_SKY),
     showSizeLegend(true),
     showColorLegend(false),
     showVehicleColorLegend(false),
@@ -1894,10 +1892,13 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     polyType.print(dev, "polyType");
     polyColorer.save(dev);
     dev.closeTag();
+    // 3D
     dev.openTag(SUMO_TAG_VIEWSETTINGS_3D);
     dev.writeAttr("show3DTLSLinkMarkers", show3DTLSLinkMarkers);
     dev.writeAttr("show3DTLSDomes", show3DTLSDomes);
     dev.writeAttr("generate3DTLSModels", generate3DTLSModels);
+    dev.writeAttr("ambient3DLight", ambient3DLight);
+    dev.writeAttr("diffuse3DLight", diffuse3DLight);
     dev.closeTag();
     // legend
     dev.openTag(SUMO_TAG_VIEWSETTINGS_LEGEND);
@@ -1927,10 +1928,7 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
     if (diffuse3DLight != v2.diffuse3DLight) {
         return false;
     }
-    if (specular3DLight != v2.specular3DLight) {
-        return false;
-    }
-    if (emissive3DLight != v2.emissive3DLight) {
+    if (skyColor != v2.skyColor) {
         return false;
     }
     if (dither != v2.dither) {

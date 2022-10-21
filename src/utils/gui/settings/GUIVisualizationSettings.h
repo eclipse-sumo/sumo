@@ -944,8 +944,10 @@ public:
     /// @brief 3D material light components
     RGBColor ambient3DLight;
     RGBColor diffuse3DLight;
-    RGBColor specular3DLight;
-    RGBColor emissive3DLight;
+
+    /// @brief sky background color
+    RGBColor skyColor;
+
     /// @}
 
 

@@ -16,6 +16,7 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
+/// @author  Mirko Barthauer
 /// @date    Wed, 21. Dec 2005
 ///
 // The dialog to change the view (gui) settings.
@@ -130,7 +131,9 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
     // build openGL frame
     buildOpenGLFrame(tabbook);
     // build 3D frame
-    build3DFrame(tabbook);
+    if (!mySettings->netedit) {
+        build3DFrame(tabbook);
+    }
     // build buttons
     buildButtons(contentFrame);
     // rebuild color matrix
@@ -675,10 +678,10 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.show3DTLSDomes = (myShow3DTLSDomes->getCheck() != FALSE);
     tmpSettings.show3DTLSLinkMarkers = (myShow3DTLSLinkMarkers->getCheck() != FALSE);
     tmpSettings.generate3DTLSModels = (myGenerate3DTLSModels->getCheck() != FALSE);
-    tmpSettings.ambient3DLight = MFXUtils::getRGBColor(myAmbient3DLight->getRGBA());
-    tmpSettings.diffuse3DLight = MFXUtils::getRGBColor(myDiffuse3DLight->getRGBA());
-    tmpSettings.specular3DLight = MFXUtils::getRGBColor(mySpecular3DLight->getRGBA());
-    tmpSettings.emissive3DLight = MFXUtils::getRGBColor(myEmissive3DLight->getRGBA());
+    int lightFactor = myLight3DFactor->getValue();
+    tmpSettings.ambient3DLight.set(lightFactor/2, lightFactor/2, lightFactor/2, 255);
+    tmpSettings.diffuse3DLight.set(lightFactor, lightFactor, lightFactor, 255);
+    tmpSettings.skyColor = MFXUtils::getRGBColor(mySkyColor->getRGBA());
 
     // lanes (colors)
     if (sender == myLaneColorRainbow) {
@@ -2386,16 +2389,21 @@ GUIDialog_ViewSettings::build3DFrame(FXTabBook* tabbook) {
     new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
 
     FXMatrix* m2 = new FXMatrix(verticalFrame, 2, GUIDesignMatrixViewSettings);
-    new FXLabel(m2, "Material component", nullptr, GUIDesignViewSettingsLabel1);
-    new FXLabel(m2, "Light color", nullptr, GUIDesignViewSettingsLabel1);
+    new FXLabel(m2, "Sun brightness", nullptr, GUIDesignViewSettingsLabel1);
+    myLight3DFactor = new FXSpinner(m2, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial1);
+    myLight3DFactor->setRange(0, 255);
+    myLight3DFactor->setValue(mySettings->diffuse3DLight.red());
+    /*
     new FXLabel(m2, "Ambient", nullptr, GUIDesignViewSettingsLabel1);
     myAmbient3DLight = new FXColorWell(m2, MFXUtils::getFXColor(mySettings->ambient3DLight), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    myAmbient3DLight->setOpaqueOnly(true);
     new FXLabel(m2, "Diffuse", nullptr, GUIDesignViewSettingsLabel1);
     myDiffuse3DLight = new FXColorWell(m2, MFXUtils::getFXColor(mySettings->diffuse3DLight), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
-    new FXLabel(m2, "Specular", nullptr, GUIDesignViewSettingsLabel1);
-    mySpecular3DLight = new FXColorWell(m2, MFXUtils::getFXColor(mySettings->specular3DLight), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
-    new FXLabel(m2, "Emissive", nullptr, GUIDesignViewSettingsLabel1);
-    myEmissive3DLight = new FXColorWell(m2, MFXUtils::getFXColor(mySettings->emissive3DLight), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    myDiffuse3DLight->setOpaqueOnly(true);
+    */
+    new FXLabel(m2, "Sky color", nullptr, GUIDesignViewSettingsLabel1);
+    mySkyColor = new FXColorWell(m2, MFXUtils::getFXColor(mySettings->skyColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    mySkyColor->setOpaqueOnly(true);
 
 #ifdef HAVE_OSG
     UNUSED_PARAMETER(frame3D);
