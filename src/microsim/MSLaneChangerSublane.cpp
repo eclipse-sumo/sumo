@@ -470,7 +470,25 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
     // compute new angle of the vehicle from the x- and y-distances travelled within last time step
     // (should happen last because primaryLaneChanged() also triggers angle computation)
     // this part of the angle comes from the orientation of our current lane
-    double laneAngle = vehicle->getLane()->getShape().rotationAtOffset(vehicle->getLane()->interpolateLanePosToGeometryPos(vehicle->getPositionOnLane())) ;
+    const double posLat = -vehicle->myState.myPosLat; // @todo get rid of the '-'
+    const double lefthandSign = (MSGlobals::gLefthand ? -1 : 1);
+    Position p1 = vehicle->getLane()->geometryPositionAtOffset(vehicle->myState.myPos, lefthandSign * posLat);
+    Position p2 = vehicle->getBackPosition();
+    if (p2 == Position::INVALID) {
+        // Handle special case of vehicle's back reaching out of the network
+        if (vehicle->getFurtherLanes().size() > 0) {
+            p2 = vehicle->getFurtherLanes().back()->geometryPositionAtOffset(0, -vehicle->getFurtherLanesPosLat().back());
+            if (p2 == Position::INVALID) {
+                // unsuitable lane geometry
+                p2 = vehicle->getLane()->geometryPositionAtOffset(0, posLat);
+            }
+        } else {
+            p2 = vehicle->getLane()->geometryPositionAtOffset(0, posLat);
+        }
+    }
+    double laneAngle = (p1 != p2 ? p2.angleTo2D(p1) :
+        vehicle->getLane()->getShape().rotationAtOffset(vehicle->getLane()->interpolateLanePosToGeometryPos(vehicle->getPositionOnLane())));
+
     if (vehicle->getLane()->getShape().length2D() == 0) {
         if (vehicle->getFurtherLanes().size() == 0) {
             laneAngle = vehicle->getAngle();
@@ -479,15 +497,11 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
         }
     }
     // this part of the angle comes from the vehicle's lateral movement
-    double changeAngle = 0;
-    // avoid flicker
-    if (fabs(latDist) > NUMERICAL_EPS) {
-        // angle is between vehicle front and vehicle back (and depending on travelled distance)
-        changeAngle = atan2(DIST2SPEED(latDist), vehicle->getVehicleType().getLength() + vehicle->getSpeed());
-        if (MSGlobals::gLefthand) {
-            changeAngle *= -1;
-        }
+    double changeAngle = vehicle->getLaneChangeModel().calcAngleOffset();
+    if (MSGlobals::gLefthand) {
+        changeAngle *= -1;
     }
+
     if (vehicle->getLaneChangeModel().isOpposite()) {
         // reverse lane angle
         laneAngle += M_PI;

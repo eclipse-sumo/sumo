@@ -1076,6 +1076,7 @@ MSLCM_LC2013::prepareStep() {
             scaledDelta = deltaPosLat * myVehicle.getSpeed() / myVehicle.getLane()->getSpeedLimit();
         }
         myVehicle.setLateralPositionOnLane(oldPosLat + scaledDelta);
+        myVehicle.getLaneChangeModel().setSpeedLat(DIST2SPEED(scaledDelta));
     }
 }
 
@@ -1984,7 +1985,7 @@ MSLCM_LC2013::slowDownForBlocked(MSVehicle** blocked, int state) {
                 }
 #endif
             } /* else {
-            	// experimental else-branch...
+                // experimental else-branch...
                 state |= LCA_AMBACKBLOCKER;
                 myVSafes.push_back(getCarFollowModel().followSpeed(
                                        &myVehicle, myVehicle.getSpeed(),

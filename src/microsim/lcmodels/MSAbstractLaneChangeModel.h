@@ -468,7 +468,12 @@ public:
     int getShadowDirection() const;
 
     /// @brief return the angle offset during a continuous change maneuver
-    double getAngleOffset() const;
+    double calcAngleOffset();
+
+    /// @brief set the angle offset resulting from lane change and sigma
+    double getAngleOffset() const {
+        return myAngleOffset;
+    }
 
     /// @brief reset the flag whether a vehicle already moved to false
     inline bool alreadyChanged() const {
@@ -565,6 +570,11 @@ public:
         return myAccelerationLat;
     }
 
+    /// @brief return the factor for lane keeping imperfection
+    double getSigmaLat() const {
+        return mySigma;
+    }
+
     /// @brief set the lateral speed and update lateral acceleraton
     void setSpeedLat(double speedLat);
 
@@ -649,6 +659,9 @@ protected:
 
     /// @brief the current lateral acceleration
     double myAccelerationLat;
+
+    /// @brief the current angle offset resulting from lane change and sigma
+    double myAngleOffset;
 
     /// @brief the speed when committing to a change maneuver
     double myCommittedSpeed;

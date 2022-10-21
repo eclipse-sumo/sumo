@@ -1425,9 +1425,9 @@ MSVehicle::computeAngle() const {
     }
     double result = (p1 != p2 ? p2.angleTo2D(p1) :
                      myLane->getShape().rotationAtOffset(myLane->interpolateLanePosToGeometryPos(getPositionOnLane())));
-    if (myLaneChangeModel->isChangingLanes()) {
-        result += lefthandSign * DEG2RAD(myLaneChangeModel->getAngleOffset());
-    }
+
+    result += lefthandSign * myLaneChangeModel->calcAngleOffset();
+
 #ifdef DEBUG_FURTHER
     if (DEBUG_COND) {
         std::cout << SIMTIME << " computeAngle veh=" << getID() << " p1=" << p1 << " p2=" << p2 << " angle=" << RAD2DEG(result) << " naviDegree=" << GeomHelper::naviDegree(result) << "\n";
