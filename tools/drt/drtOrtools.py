@@ -21,6 +21,7 @@
 Prototype online DRT algorithm using ortools via TraCI.
 """
 from __future__ import print_function
+from enum import Enum
 
 import os
 import sys
@@ -41,12 +42,20 @@ import traci  # noqa
 
 verbose = False
 
+<<<<<<< HEAD
 
 def dispatch(reservations, fleet, time_limit, cost_type='distance', verbose=False):
+=======
+class CostType(Enum):
+    DISTANCE = 1
+    TIME = 2
+
+def dispatch(reservations, fleet, time_limit, cost_type, drf, verbose):
+>>>>>>> 05cbc7934bb (add direct route factor, ref. #11429)
     """Dispatch using ortools."""
     if verbose:
         print('Start creating the model.')
-    data = create_data_model(reservations, fleet, cost_type, verbose)
+    data = create_data_model(reservations, fleet, cost_type, drf, verbose)
     if verbose:
         print('Start solving the problem.')
     solution_ortools = ortools_pdp.main(data, time_limit, verbose)
@@ -56,7 +65,7 @@ def dispatch(reservations, fleet, time_limit, cost_type='distance', verbose=Fals
     return solution_requests
 
 
-def create_data_model(reservations, fleet, cost_type='distance', verbose=False):
+def create_data_model(reservations, fleet, cost_type, drf, verbose):
     """Creates the data for the problem."""
     n_vehicles = len(fleet)
     # use only reservations that haven't been picked up yet; reservation.state!=8 (not picked up)
@@ -75,22 +84,25 @@ def create_data_model(reservations, fleet, cost_type='distance', verbose=False):
     for reservation in dp_reservations:
         from_edge = reservation.fromEdge
         edges.append(from_edge)
-        reservation.from_node = len(edges) - 1
+        # add new attribute 'from_node' to the reservation
+        setattr(reservation, 'from_node', len(edges) - 1)
         if verbose:
             print('Reservation %s starts at edge %s' % (reservation.id, from_edge))
     for reservation in dp_reservations:
         to_edge = reservation.toEdge
         edges.append(to_edge)
-        reservation.to_node = len(edges) - 1
+        # add new attribute 'to_node' to the reservation
+        setattr(reservation, 'to_node', len(edges) - 1)
         if verbose:
             print('Reservation %s ends at edge %s' % (reservation.id, to_edge))
-    # dict for vehicle_ids with a list of drop off edges
-    dropoff_edges = dict()
-    for id_vehicle in fleet:
-        dropoff_edges[id_vehicle] = list()
+    for reservation in dp_reservations:
+        if reservation.state==1 | reservation.state==2:
+            setattr(reservation, 'is_new', True)
     for reservation in do_reservations:
         to_edge = reservation.toEdge
         edges.append(to_edge)
+        # add new attribute 'to_node' to the reservation
+        setattr(reservation, 'to_node', len(edges) - 1)
         if verbose:
             print('Drop-off of reservation %s at edge %s' % (reservation.id, to_edge))
 
@@ -111,6 +123,30 @@ def create_data_model(reservations, fleet, cost_type='distance', verbose=False):
         type_vehicle = types_vehicles_unique[0]
     cost_matrix = get_cost_matrix(edges, type_vehicle, cost_type)
 
+    # add "direct route cost" to the requests:
+    for res in reservations:
+        if hasattr(res, 'from_node'):
+            setattr(res, 'direct_route_cost', cost_matrix[res.from_node][res.to_node])
+        else:
+            direct_route_cost = traci.simulation.findRoute(res.fromEdge, res.toEdge, vType=type_vehicle)  # TODO: use 'historical data' from dict in get_cost_matrix instead
+            setattr(res, 'direct_route_cost', direct_route_cost)
+
+    # add "current route cost" to the already picked up reservations:
+    for res in do_reservations:
+        person_id = res.persons[0]
+        stage = traci.person.getStage(person_id, 0)
+        # stage type 3 is defined as 'driving'
+        assert(stage.type == 3)
+        #print("travel time: ", stage.travelTime)
+        #print("travel length: ", stage.length)
+        #print("travel cost: ", stage.cost)
+        if cost_type == CostType.DISTANCE:
+            setattr(res, 'current_route_cost', stage.length)
+        elif cost_type == CostType.TIME:
+            setattr(res, 'current_route_cost', stage.travelTime)
+        else:
+            raise ValueError("Cannot set given cost ('%s')." % (cost_type))
+
     # pd_nodes = list([from_node, to_node, is_new])
     # start from_node with 1 (0 is for depot)
     pd_nodes = [[ii+1, n_dp_reservations+ii+1, (dp_reservations[ii].state == 1 | dp_reservations[ii].state == 2)]
@@ -121,43 +157,30 @@ def create_data_model(reservations, fleet, cost_type='distance', verbose=False):
     # node to start from
     start_nodes = [jj for jj in range(ii, ii + n_vehicles)]
 
-#    for reservation in reservations:
-#        # if reservation.state=8 (picked up), use current edge of the occupied vehicle
-#        if reservation.state == 8:
-#            for id_vehicle in fleet:
-#                entered_persons = traci.vehicle.getPersonIDList(id_vehicle)
-#                if reservation.persons[0] in entered_persons:
-#                    dropoff_edges[id_vehicle].append(reservation.toEdge)
-
-    # array with dropoff node-ids for each vehicle (vehicle id == array index)
-    dropoffs = list()
+    # increase demand (load) of the vehicle for each outstanding drop off
+    veh_demand = [0] * n_vehicles
     for v_i, id_vehicle in enumerate(fleet):
-        dropoffs.append(list())
-        for i, reservation in enumerate(do_reservations):
-            r_i = do_nodes[i]
+        for reservation in do_reservations:
             entered_persons = traci.vehicle.getPersonIDList(id_vehicle)
             if reservation.persons[0] in entered_persons:
-                dropoffs[v_i].append((r_i, reservation.id))
-
-    # increase demand (load) of the vehicle for each outstanding drop off
-    vehicle_demand = [len(do) for do in dropoffs]
-#    vehicle_demand = n_vehicles * [0]
-#    for i, id_vehicle in enumerate(fleet):
-#        vehicle_demand[i] = len(dropoff_edges[id_vehicle])
+                veh_demand[v_i] += 1
+                setattr(reservation, 'vehicle', id_vehicle)  # id of assigned vehicle (from SUMO input)
+                setattr(reservation, 'vehicle_index', v_i)  # index of assigned vehicle [0, ..., n_v -1]
 
     data = {}
     data['cost_matrix'] = cost_matrix
-    data['pickups_deliveries'] = pd_nodes
-    data['dropoffs'] = dropoffs
+    data['pickups_deliveries'] = dp_reservations
+    data['dropoffs'] = do_reservations
     data['num_vehicles'] = n_vehicles
     data['starts'] = start_nodes
     data['ends'] = n_vehicles * [0]  # end at 'depot', which is is anywere
-    data['demands'] = [0] + n_dp_reservations*[1] + n_dp_reservations*[-1] + n_do_reservations*[-1] + vehicle_demand
+    data['demands'] = [0] + n_dp_reservations*[1] + n_dp_reservations*[-1] + n_do_reservations*[-1] + veh_demand
     data['vehicle_capacities'] = vehicle_capacities
+    data['drf'] = drf
     return data
 
 
-def get_cost_matrix(edges, type_vehicle, cost_type='distance'):
+def get_cost_matrix(edges, type_vehicle, cost_type=CostType.DISTANCE):
     """Get cost matrix between edges.
     Index in cost matrix is the same as the node index of the constraint solver."""
     n_edges = len(edges)
@@ -179,7 +202,7 @@ def get_cost_matrix(edges, type_vehicle, cost_type='distance'):
                 cost_matrix[ii][jj] = 0
                 continue
             route = traci.simulation.findRoute(edge_from, edge_to, vType=type_vehicle)
-            if cost_type == 'time':
+            if cost_type == CostType.TIME:
                 cost_matrix[ii][jj] = round(route.travelTime)
                 cost_dict[(edge_from, edge_to)] = round(route.travelTime)
             else:  # default is distance
@@ -196,6 +219,7 @@ def solution_by_requests(solution_ortools, reservations, data, verbose=False):
     dp_reservations = [res for res in reservations if res.state != 8]
 
     route2request = {}
+<<<<<<< HEAD
     for i_request, [i_pickup, i_delivery, _] in enumerate(data["pickups_deliveries"]):
         route2request[i_pickup] = dp_reservations[i_request].id
         route2request[i_delivery] = dp_reservations[i_request].id
@@ -203,6 +227,14 @@ def solution_by_requests(solution_ortools, reservations, data, verbose=False):
         for do in dropoffs:
             route2request[do[0]] = do[1]
 
+=======
+    for res in data["pickups_deliveries"]:
+        route2request[res.from_node] = res.id
+        route2request[res.to_node] = res.id
+    for res in data['dropoffs']:  # for each vehicle
+        route2request[res.to_node] = res.id
+        
+>>>>>>> 05cbc7934bb (add direct route factor, ref. #11429)
     solution_requests = {}
     for key in solution_ortools:  # key is the vehicle number (0,1,...)
         solution = [[], []]  # request order and costs
@@ -218,7 +250,7 @@ def solution_by_requests(solution_ortools, reservations, data, verbose=False):
     return solution_requests
 
 
-def run(end=90000, interval=30, time_limit=10, cost_type='distance', verbose=False):
+def run(end=90000, interval=30, time_limit=10, cost_type='distance', drf=1.5, verbose=False):
     """
     Execute the TraCI control loop and run the scenario.
 
@@ -242,6 +274,7 @@ def run(end=90000, interval=30, time_limit=10, cost_type='distance', verbose=Fal
 
         traci.simulationStep(timestep)
 
+        # termination condition
         if timestep > end:
             running = False
             continue
@@ -282,7 +315,7 @@ def run(end=90000, interval=30, time_limit=10, cost_type='distance', verbose=Fal
         if reservations_new:
             if verbose:
                 print("Solve CPDP")
-            solution_requests = dispatch(reservations_all, fleet, time_limit, cost_type, verbose)
+            solution_requests = dispatch(reservations_all, fleet, time_limit, cost_type, drf, verbose)
             if solution_requests is not None:
                 for index_vehicle in solution_requests:  # for each vehicle
                     id_vehicle = fleet[index_vehicle]
@@ -321,25 +354,40 @@ def get_arguments():
                                  help="time limit for solver in s")
     argument_parser.add_argument("-d", "--cost-type", default="distance",
                                  help="type of costs to minimize (distance or time)")
+    argument_parser.add_argument("-f", "--drf", type=float, default=1.5,
+                                 help="direct route factor (drf) to calculate maximum cost for a single dropoff-pickup route (set to -1, if you do not need it)")
     arguments = argument_parser.parse_args()
     return arguments
+
+def check_set_arguments(arguments):
+    if arguments.nogui:
+        arguments.sumoBinary = sumolib.checkBinary('sumo')
+    else:
+        arguments.sumoBinary = sumolib.checkBinary('sumo-gui')
+
+    # set cost type
+    if arguments.cost_type == "distance":
+        arguments.cost_type = CostType.DISTANCE
+    elif arguments.cost_type == "time":
+        arguments.cost_type = CostType.TIME
+    else:
+        raise ValueError("Wrong cost type '%s'. Only 'distance' and 'time' are allowed." % (arguments.cost_type))
+
+    if arguments.drf < 1:
+        if arguments.drf != -1:
+            raise ValueError("Wrong value for drf '%s'. Value must be equal or greater than 1. -1 means no drf is used.")
+
 
 
 if __name__ == "__main__":
 
     arguments = get_arguments()
-
+    check_set_arguments(arguments)
     # this script has been called from the command line. It will start sumo as a
     # server, then connect and run
-    if arguments.nogui:
-        sumoBinary = sumolib.checkBinary('sumo')
-    else:
-        sumoBinary = sumolib.checkBinary('sumo-gui')
 
     # this is the normal way of using traci. sumo is started as a
     # subprocess and then the python script connects and runs
-
-    traci.start([sumoBinary, "-c", arguments.sumo_config])
-
+    traci.start([arguments.sumoBinary, "-c", arguments.sumo_config])
     run(arguments.end, arguments.interval,
-        arguments.time_limit, arguments.cost_type, arguments.verbose)
+        arguments.time_limit, arguments.cost_type, arguments.drf, arguments.verbose)
