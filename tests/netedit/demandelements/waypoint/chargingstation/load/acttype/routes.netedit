@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-07 09:58:27 by Eclipse SUMO netedit Version v1_12_0+1177-f6b46b7e4a3
+<!-- generated on 2022-10-21 11:48:30 by Eclipse SUMO netedit Version v1_14_1+1872-d955e9abd09
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -9,9 +9,9 @@
         <stop chargingStation="chargingStation" speed="10.00"/>
     </flow>
     <flow id="flow_1" begin="0.00" from="gneE0" to="gneE1" end="36.00" number="18">
-        <stop chargingStation="chargingStation" speed="10.00"/>
+        <stop chargingStation="chargingStation" speed="10.00" actType=";;;;"/>
     </flow>
     <flow id="flow_2" begin="0.00" from="gneE0" to="gneE1" end="36.00" number="18">
-        <stop chargingStation="chargingStation" speed="10.00"/>
+        <stop chargingStation="chargingStation" speed="10.00" actType="waiting"/>
     </flow>
 </routes>

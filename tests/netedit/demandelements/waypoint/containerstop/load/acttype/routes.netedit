@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-07 10:00:01 by Eclipse SUMO netedit Version v1_12_0+1177-f6b46b7e4a3
+<!-- generated on 2022-10-21 11:35:27 by Eclipse SUMO netedit Version v1_14_1+1872-d955e9abd09
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -9,9 +9,9 @@
         <stop containerStop="containerStop" speed="10.00"/>
     </trip>
     <trip id="trip_1" depart="0.00" from="gneE0" to="gneE1">
-        <stop containerStop="containerStop" speed="10.00"/>
+        <stop containerStop="containerStop" speed="10.00" actType=";;;;"/>
     </trip>
     <trip id="trip_2" depart="0.00" from="gneE0" to="gneE1">
-        <stop containerStop="containerStop" speed="10.00"/>
+        <stop containerStop="containerStop" speed="10.00" actType="waiting"/>
     </trip>
 </routes>

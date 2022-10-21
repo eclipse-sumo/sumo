@@ -4,6 +4,7 @@ GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 13.00,-12.00,37.0
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,35.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,35.00,11.60
 Debug: Adding parkingArea 'parkingArea' in GNEChange_Additional
+Error: Attribute 'actType' in definition of a stop is empty.
 Debug: Adding vehicleWithRoute 'vehicle_0' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'vehicle_0' in GNEChange_DemandElement
 Debug: Adding stopParkingArea 'vehicle_0' in GNEChange_DemandElement
@@ -13,6 +14,7 @@ Debug: Adding stopParkingArea 'vehicle_1' in GNEChange_DemandElement
 Debug: Adding vehicleWithRoute 'vehicle_2' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'vehicle_2' in GNEChange_DemandElement
 Debug: Adding stopParkingArea 'vehicle_2' in GNEChange_DemandElement
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Oct094100.5428\netedit.gui\demandelements\stop\parkingarea\load\acttype\input_routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 13.00,-12.00,37.00,12.00

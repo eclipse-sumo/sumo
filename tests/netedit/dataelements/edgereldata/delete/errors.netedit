@@ -43,9 +43,6 @@ Debug: Created connection 'fromgneE12_1togneE16_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE12_2togneE16_2' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE12_2togneE15_2' in retrieveGNEConnection()
 Debug: network elements saved
-Debug: Deleting unreferenced edgeRelation
-Debug: Deleting unreferenced dataInterval [0.00, 3600.00] in ~GNEChange_DataInterval()
-Debug: Deleting unreferenced dataSet 'newDataSet'
 Debug: Deleting unreferenced edge '-gneE14' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-gneE14_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '-gneE14_1' in GNEEdge destructor
