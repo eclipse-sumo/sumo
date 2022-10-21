@@ -13,6 +13,7 @@ Start solving the problem.
  Register distance callback.
  Add distance constraints...
  Add pickup and delivery constraints...
+ Add direct route factor constraints...
  Add dropoff constraints...
  Add capacity constraints...
  Set solution heuristic...
@@ -27,11 +28,8 @@ Start interpreting the solution for SUMO.
 Dispatching v0 with ['0', '1', '1', '0']
 Costs for v0: 2235
 timestep:  30.0
-Reservations being picked up: ['1']
-Reservations en route: ['0']
+Reservations being picked up: ['0', '1']
 Taxis picking up: ('v0',)
-Taxis occupied: ('v0',)
-Taxis occupied and picking up: ('v0',)
 timestep:  60.0
 Reservations en route: ['0', '1']
 Taxis occupied: ('v0',)
@@ -45,52 +43,23 @@ timestep:  150.0
 Reservations en route: ['0', '1']
 Taxis occupied: ('v0',)
 timestep:  180.0
-Reservations waiting: ['2']
 Reservations en route: ['0']
 Taxis occupied: ('v0',)
-Solve CPDP
-Start creating the model.
-dp reservations: ['2']
-do reservations: ['0']
-Reservation 2 starts at edge C2C1
-Reservation 2 ends at edge D1D2
-Drop-off of reservation 0 at edge C1D1
-Start solving the problem.
- Register distance callback.
- Add distance constraints...
- Add pickup and delivery constraints...
- Add dropoff constraints...
-reservation 0 in veh v0 (0)
- Add capacity constraints...
- Set solution heuristic...
-Start solving the problem.
-Objective:  125240
-Route for vehicle 0:
- 4 (L: 1, C: 0) ->  1 (L: 2, C: 470) ->  3 (L: 1, C: 855) ->  2 (L: 0, C: 1240) -> 0 (L: 0, C: 1240)
-Costs of the route: 1240
-
-Total cost of the routes: 1240
-Start interpreting the solution for SUMO.
-Dispatching v0 with ['2', '0', '2']
-Costs for v0: 1240
 timestep:  210.0
-Reservations en route: ['0', '2']
+Reservations en route: ['0']
 Taxis occupied: ('v0',)
 timestep:  240.0
-Reservations en route: ['0', '2']
+Reservations en route: ['0']
 Taxis occupied: ('v0',)
 timestep:  270.0
-Reservations en route: ['0', '2']
+Reservations en route: ['0']
 Taxis occupied: ('v0',)
 timestep:  300.0
-Reservations en route: ['2']
-Taxis occupied: ('v0',)
+Taxis empty: ('v0',)
 timestep:  330.0
-Reservations en route: ['2']
-Taxis occupied: ('v0',)
+Taxis empty: ('v0',)
 timestep:  360.0
-Reservations en route: ['2']
-Taxis occupied: ('v0',)
+Taxis empty: ('v0',)
 timestep:  390.0
 Taxis empty: ('v0',)
 timestep:  420.0

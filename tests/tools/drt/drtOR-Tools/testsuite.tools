@@ -1,3 +1,9 @@
+# Test value of '1' for direct route factor.
+direct_route_factor_1
+
+# Set a value of 3 for the direct route factor.
+direct_route_factor_3
+
 # Add new request while taxi is already occupied and recalculate dispatch.
 oneTaxi_addNewReq
 
