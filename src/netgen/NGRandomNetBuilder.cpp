@@ -196,6 +196,7 @@ NGRandomNetBuilder::createNewNode(NGNode* baseNode, bool gridMode) {
         }
         return true;
     } else {
+        delete newLink;
         delete newNode;
         return false;
     }

@@ -166,9 +166,13 @@ RONet::addDistrict(const std::string id, ROEdge* source, ROEdge* sink) {
         return false;
     }
     sink->setFunction(SumoXMLEdgeFunc::CONNECTOR);
-    addEdge(sink);
+    if (!addEdge(sink)) {
+        return false;
+    }
     source->setFunction(SumoXMLEdgeFunc::CONNECTOR);
-    addEdge(source);
+    if (!addEdge(source)) {
+        return false;
+    }
     sink->setOtherTazConnector(source);
     source->setOtherTazConnector(sink);
     myDistricts[id] = std::make_pair(std::vector<std::string>(), std::vector<std::string>());
@@ -213,7 +217,9 @@ RONet::addJunctionTaz(ROAbstractEdgeBuilder& eb) {
         ROEdge* source = eb.buildEdge(sourceID, nullptr, nullptr, 0);
         sink->setOtherTazConnector(source);
         source->setOtherTazConnector(sink);
-        addDistrict(tazID, source, sink);
+        if (!addDistrict(tazID, source, sink)) {
+            continue;
+        }
         auto& district = myDistricts[tazID];
         const RONode* junction = item.second;
         for (const ROEdge* edge : junction->getIncoming()) {

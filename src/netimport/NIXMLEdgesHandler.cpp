@@ -655,14 +655,16 @@ NIXMLEdgesHandler::myEndElement(int element) {
         if (!myIsUpdate) {
             try {
                 if (!myEdgeCont.insert(myCurrentEdge)) {
-                    WRITE_ERROR("Duplicate edge occurred. ID='" + myCurrentID + "'");
+                    WRITE_ERRORF(TL("Duplicate edge '%' occurred."), myCurrentID);
                     delete myCurrentEdge;
+                    myCurrentEdge = nullptr;
+                    return;
                 }
             } catch (InvalidArgument& e) {
                 WRITE_ERROR(e.what());
                 throw;
             } catch (...) {
-                WRITE_ERROR("An important information is missing in edge '" + myCurrentID + "'.");
+                WRITE_ERRORF(TL("An important information is missing in edge '%'."), myCurrentID);
             }
         }
         myEdgeCont.processSplits(myCurrentEdge, mySplits, myNodeCont, myDistrictCont, myTLLogicCont);
@@ -684,7 +686,7 @@ NIXMLEdgesHandler::addRoundabout(const SUMOSAXAttributes& attrs) {
             NBEdge* edge = myEdgeCont.retrieve(eID);
             if (edge == nullptr) {
                 if (!myEdgeCont.wasIgnored(eID)) {
-                    WRITE_ERROR("Unknown edge '" + eID + "' in roundabout.");
+                    WRITE_ERRORF(TL("Unknown edge '%' in roundabout."), eID);
                 }
             } else {
                 roundabout.insert(edge);
