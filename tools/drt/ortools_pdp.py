@@ -116,16 +116,6 @@ def main(data, time_limit_seconds=10, verbose=False):
         pickup_index = manager.NodeToIndex(request.from_node)
         delivery_index = manager.NodeToIndex(request.to_node)
         routing.AddPickupAndDelivery(pickup_index, delivery_index)  # helps the solver
-<<<<<<< HEAD
-        # use same veh for pickup and dropoff
-        routing.solver().Add(routing.VehicleVar(pickup_index) == routing.VehicleVar(delivery_index))
-        routing.solver().Add(
-            distance_dimension.CumulVar(pickup_index) <=
-            distance_dimension.CumulVar(delivery_index))  # define order: first pickup then dropoff
-        if request[2]:  # is that a new request?
-            # allows to reject the order but gives penalty
-            routing.AddDisjunction([pickup_index, delivery_index], 100_000, 2)
-=======
         solver.Add(
             routing.VehicleVar(pickup_index) == routing.VehicleVar(delivery_index))  # use same veh for pickup and dropoff
         solver.Add(
@@ -133,7 +123,6 @@ def main(data, time_limit_seconds=10, verbose=False):
             distance_dimension.CumulVar(delivery_index))  # define order: first pickup then dropoff
         if hasattr(request, 'is_new') and request.is_new==True:  # is that a new request?
             routing.AddDisjunction([pickup_index, delivery_index], 100_000, 2)  # allows to reject the order but gives penalty
->>>>>>> 05cbc7934bb (add direct route factor, ref. #11429)
 
     # Set direct route factor.
     if data['drf'] != -1:
@@ -177,22 +166,10 @@ def main(data, time_limit_seconds=10, verbose=False):
     #        routing.SetAllowedVehiclesForIndex([veh_index],index)
     for res in data['dropoffs']:
         if verbose:
-<<<<<<< HEAD
-            print('vehicle %s with %s dropoffs' % (veh_index, len(do_list)))
-        for do in do_list:
-            index = manager.NodeToIndex(do[0])
-            # start node
-            veh_node = data['starts'][veh_index]
-            if verbose:
-                print('vehicle %s (%s), dropoff %s (%s), res_id %s' % (veh_index, veh_node, do[0], index, do[1]))
-            # routing.VehicleVar(index).SetValues([-1,veh_index])
-            routing.SetAllowedVehiclesForIndex([veh_index], index)
-=======
             print('reservation %s in veh %s (%s)' % (res.id, res.vehicle, res.vehicle_index))
         index = manager.NodeToIndex(res.to_node)
         routing.SetAllowedVehiclesForIndex([res.vehicle_index],index)
 
->>>>>>> 05cbc7934bb (add direct route factor, ref. #11429)
 
     # Add Capacity constraint.
     if verbose:

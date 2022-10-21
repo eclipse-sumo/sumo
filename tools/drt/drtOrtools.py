@@ -42,16 +42,11 @@ import traci  # noqa
 
 verbose = False
 
-<<<<<<< HEAD
-
-def dispatch(reservations, fleet, time_limit, cost_type='distance', verbose=False):
-=======
 class CostType(Enum):
     DISTANCE = 1
     TIME = 2
 
 def dispatch(reservations, fleet, time_limit, cost_type, drf, verbose):
->>>>>>> 05cbc7934bb (add direct route factor, ref. #11429)
     """Dispatch using ortools."""
     if verbose:
         print('Start creating the model.')
@@ -219,22 +214,12 @@ def solution_by_requests(solution_ortools, reservations, data, verbose=False):
     dp_reservations = [res for res in reservations if res.state != 8]
 
     route2request = {}
-<<<<<<< HEAD
-    for i_request, [i_pickup, i_delivery, _] in enumerate(data["pickups_deliveries"]):
-        route2request[i_pickup] = dp_reservations[i_request].id
-        route2request[i_delivery] = dp_reservations[i_request].id
-    for dropoffs in data['dropoffs']:  # for each vehicle
-        for do in dropoffs:
-            route2request[do[0]] = do[1]
-
-=======
     for res in data["pickups_deliveries"]:
         route2request[res.from_node] = res.id
         route2request[res.to_node] = res.id
     for res in data['dropoffs']:  # for each vehicle
         route2request[res.to_node] = res.id
         
->>>>>>> 05cbc7934bb (add direct route factor, ref. #11429)
     solution_requests = {}
     for key in solution_ortools:  # key is the vehicle number (0,1,...)
         solution = [[], []]  # request order and costs
