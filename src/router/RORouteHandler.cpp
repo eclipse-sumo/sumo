@@ -528,15 +528,16 @@ RORouteHandler::closeVehicle() {
         myErrorOutput->inform("The route of the vehicle '" + myVehicleParameter->id + "' is not known.");
         return;
     }
+    if (MsgHandler::getErrorInstance()->wasInformed()) {
+        return;
+    }
     if (route->getID()[0] != '!') {
         route = route->copy("!" + myVehicleParameter->id, myVehicleParameter->depart);
     }
     // build the vehicle
-    if (!MsgHandler::getErrorInstance()->wasInformed()) {
-        ROVehicle* veh = new ROVehicle(*myVehicleParameter, route, type, &myNet, myErrorOutput);
-        if (myNet.addVehicle(myVehicleParameter->id, veh)) {
-            registerLastDepart();
-        }
+    ROVehicle* veh = new ROVehicle(*myVehicleParameter, route, type, &myNet, myErrorOutput);
+    if (myNet.addVehicle(myVehicleParameter->id, veh)) {
+        registerLastDepart();
     }
 }
 
