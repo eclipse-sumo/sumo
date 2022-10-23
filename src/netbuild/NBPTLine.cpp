@@ -41,7 +41,9 @@ NBPTLine::NBPTLine(const std::string& id, const std::string& name, const std::st
     myVClass(vClass)
 { }
 
-void NBPTLine::addPTStop(NBPTStop* pStop) {
+
+void
+NBPTLine::addPTStop(NBPTStop* pStop) {
     if (!myPTStops.empty() && pStop->getName() != "" && myPTStops.back()->getName() == pStop->getName()) {
         // avoid duplicate stop when both platform and stop_position are given as nodes
         if (myPTStops.back()->isPlatform() && !pStop->isPlatform()) {
@@ -53,12 +55,15 @@ void NBPTLine::addPTStop(NBPTStop* pStop) {
     myPTStops.push_back(pStop);
 }
 
+
 const std::vector<NBPTStop*>&
 NBPTLine::getStops() {
     return myPTStops;
 }
 
-void NBPTLine::write(OutputDevice& device) {
+
+void
+NBPTLine::write(OutputDevice& device) {
     device.openTag(SUMO_TAG_PT_LINE);
     device.writeAttr(SUMO_ATTR_ID, myPTLineId);
     if (!myName.empty()) {
@@ -98,18 +103,19 @@ void NBPTLine::write(OutputDevice& device) {
 }
 
 
-void NBPTLine::addWayNode(long long int way, long long int node) {
+void
+NBPTLine::addWayNode(long long int way, long long int node) {
     std::string wayStr = toString(way);
     if (wayStr != myCurrentWay) {
         myCurrentWay = wayStr;
         myWays.push_back(wayStr);
     }
     myWaysNodes[wayStr].push_back(node);
-
 }
 
 
-std::vector<long long int>* NBPTLine::getWaysNodes(std::string wayId) {
+std::vector<long long int>*
+NBPTLine::getWaysNodes(std::string wayId) {
     if (myWaysNodes.find(wayId) != myWaysNodes.end()) {
         return &myWaysNodes[wayId];
     }
@@ -142,12 +148,14 @@ NBPTLine::setEdges(const std::vector<NBEdge*>& edges) {
 }
 
 
-void NBPTLine::setMyNumOfStops(int numStops) {
+void
+NBPTLine::setMyNumOfStops(int numStops) {
     myNumOfStops = numStops;
 }
 
 
-const std::vector<NBEdge*>& NBPTLine::getRoute() const {
+const std::vector<NBEdge*>&
+NBPTLine::getRoute() const {
     return myRoute;
 }
 
@@ -252,6 +260,7 @@ NBPTLine::replaceStop(NBPTStop* oldStop, NBPTStop* newStop) {
     }
 }
 
+
 void
 NBPTLine::replaceEdge(const std::string& edgeID, const EdgeVector& replacement) {
     EdgeVector oldRoute = myRoute;
@@ -269,6 +278,7 @@ NBPTLine::replaceEdge(const std::string& edgeID, const EdgeVector& replacement) 
     }
 }
 
+
 void
 NBPTLine::deleteInvalidStops(const NBEdgeCont& ec, const NBPTStopCont& sc) {
     // delete stops that are missing or have no edge
@@ -284,6 +294,7 @@ NBPTLine::deleteInvalidStops(const NBEdgeCont& ec, const NBPTStopCont& sc) {
 
     }
 }
+
 
 void
 NBPTLine::deleteDuplicateStops() {

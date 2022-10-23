@@ -64,7 +64,8 @@ NBPTLineCont::insert(NBPTLine* ptLine) {
 }
 
 
-void NBPTLineCont::process(NBEdgeCont& ec, NBPTStopCont& sc, bool routeOnly) {
+void
+NBPTLineCont::process(NBEdgeCont& ec, NBPTStopCont& sc, bool routeOnly) {
     for (auto& item : myPTLines) {
         NBPTLine* line = item.second;
         if (item.second->getWays().size() > 0) {

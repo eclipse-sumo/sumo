@@ -104,14 +104,15 @@ NBPTStopCont::localizePTStops(NBEdgeCont& cont) {
 }
 
 
-void NBPTStopCont::assignLanes(NBEdgeCont& cont) {
+void
+NBPTStopCont::assignLanes(NBEdgeCont& cont) {
     //scnd pass set correct lane
     for (auto i = myPTStops.begin(); i != myPTStops.end();) {
         NBPTStop* stop = i->second;
         if (!stop->findLaneAndComputeBusStopExtent(cont)) {
             WRITE_WARNINGF(TL("Could not find corresponding edge or compatible lane for pt stop '%' (%). Thus, it will be removed!"),
                            i->first, i->second->getName());
-            EdgeVector edgeVector = cont.getGeneratedFrom((*i).second->getOrigEdgeId());
+            //EdgeVector edgeVector = cont.getGeneratedFrom((*i).second->getOrigEdgeId());
             //std::cout << edgeVector.size() << std::endl;
             myPTStops.erase(i++);
         } else {
