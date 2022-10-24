@@ -1291,6 +1291,31 @@ GNESelectorFrame::SelectionHierarchy::onCmdChildren(FXObject* obj, FXSelector, v
                     HEToSelect.insert(HEToSelect.end(), HE->getChildEdges().begin(), HE->getChildEdges().end());
                 }
             }
+            // connections
+            if ((myCurrentSelectedChild == Selection::ALL) || (myCurrentSelectedChild == Selection::CONNECTION)) {
+                if (selectedAC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+                    // case for edges
+                    const auto edge = dynamic_cast<GNEEdge*>(selectedAC);
+                    // insert connections
+                    HEToSelect.insert(HEToSelect.end(), edge->getGNEConnections().begin(), edge->getGNEConnections().end());
+                } else if (selectedAC->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
+                    // case for junction
+                    const auto junction = dynamic_cast<GNEJunction*>(selectedAC);
+                    // get connections
+                    const auto connections = junction->getGNEConnections();
+                    // insert connections
+                    HEToSelect.insert(HEToSelect.end(), connections.begin(), connections.end());
+                }
+            }
+            // crossings
+            if ((myCurrentSelectedChild == Selection::ALL) || (myCurrentSelectedChild == Selection::CROSSING)) {
+                if (selectedAC->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
+                    // case for junction
+                    const auto junction = dynamic_cast<GNEJunction*>(selectedAC);
+                    // insert crossings
+                    HEToSelect.insert(HEToSelect.end(), junction->getGNECrossings().begin(), junction->getGNECrossings().end());
+                }
+            }
             // lanes
             if ((myCurrentSelectedChild == Selection::ALL) || (myCurrentSelectedChild == Selection::LANE)) {
                 HEToSelect.insert(HEToSelect.end(), HE->getChildLanes().begin(), HE->getChildLanes().end());
