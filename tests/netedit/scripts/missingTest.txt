@@ -14,12 +14,9 @@ containerFlow.create.number
 containerFlow.inspect.typeButton
 fix.demandElements.routes
 fix.demandElements.routes.removeStops
-flowEmbedded.create.insertionChecks
 flowEmbedded.inspect.arrivalEdge
 flowEmbedded.inspect.departEdge
-flowEmbedded.inspect.insertionChecks
 flowEmbedded.inspect.typeButton
-flowEmbedded.inspectSelection.insertionChecks
 flowFromToEdge.create.insertionChecks
 flowFromToEdge.inspect.insertionChecks
 flowFromToEdge.inspect.typeButton

@@ -38,7 +38,7 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- flow A -->
-    <flow id="flowA" departLane="0" departPos="2.00" departPosLat="2.00" departSpeed="12.00" arrivalLane="0" arrivalPos="3.00" arrivalPosLat="3.00" arrivalSpeed="12.00" color="red" line="line A" personNumber="1" containerNumber="5" begin="0.00" end="2600.00" number="14">
+    <flow id="flowA" departLane="0" departPos="2.00" departPosLat="2.00" departSpeed="12.00" arrivalLane="0" arrivalPos="3.00" arrivalPosLat="3.00" arrivalSpeed="12.00" color="red" line="line A" personNumber="1" containerNumber="5" begin="0.00" end="2600.00" number="14" insertionChecks="speedLimit pedestrian">
         <route edges="gneE2 gneE4 gneE5" color="orange"/>
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA3" value="valueA2"/>
@@ -46,7 +46,7 @@
     </flow>
 
     <!-- flow B -->
-    <flow id="flowB" departLane="free" departPos="random" departPosLat="random_free" departSpeed="speedLimit" arrivalLane="current" arrivalPos="random" arrivalPosLat="right" arrivalSpeed="current" color="blue" line="line B" personNumber="2" containerNumber="10" begin="5.00" end="3600.00" number="18">
+    <flow id="flowB" departLane="free" departPos="random" departPosLat="random_free" departSpeed="speedLimit" arrivalLane="current" arrivalPos="random" arrivalPosLat="right" arrivalSpeed="current" color="blue" line="line B" personNumber="2" containerNumber="10" begin="5.00" end="3600.00" number="18" insertionChecks="leaderGap junction speedLimit pedestrian">
         <route edges="gneE4 gneE5" color="red"/>
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB3" value="valueB2"/>
