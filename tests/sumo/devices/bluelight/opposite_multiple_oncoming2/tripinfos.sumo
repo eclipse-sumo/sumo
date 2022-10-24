@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-11 11:08:39 by Eclipse SUMO sumo Version v1_11_0+1019-d989646
+<!-- generated on 2022-10-24 23:32:33 by Eclipse SUMO sumo Version v1_14_1+1901-f5c11da
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -32,7 +37,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -40,18 +44,14 @@ SPDX-License-Identifier: EPL-2.0
         <device.bluelight.reactiondist value="100"/>
     </bluelight_device>
 
-    <gui_only>
-        <tracker-interval value="0.2"/>
-    </gui_only>
-
 </configuration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="case_1_engine" depart="20.00" departLane="edge_5_0" departPos="8.10" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="98.40" arrivalLane="edge_0_1" arrivalPos="488.32" arrivalPosLat="-0.69" arrivalSpeed="19.59" duration="78.40" routeLength="990.47" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="27.78" rerouteNo="0" devices="tripinfo_case_1_engine bluelight_case_1_engine" vType="engine" speedFactor="1.40" vaporized="">
+    <tripinfo id="case_1_engine" depart="20.00" departLane="edge_5_0" departPos="8.10" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="96.00" arrivalLane="edge_0_1" arrivalPos="488.32" arrivalPosLat="-0.69" arrivalSpeed="19.51" duration="76.00" routeLength="990.47" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="25.28" rerouteNo="0" devices="tripinfo_case_1_engine bluelight_case_1_engine" vType="engine" speedFactor="1.40" vaporized="">
         <bluelight/>
     </tripinfo>
-    <tripinfo id="case_1_ladder" depart="24.40" departLane="edge_5_0" departPos="10.10" departPosLat="0.00" departSpeed="0.00" departDelay="4.40" arrival="108.80" arrivalLane="edge_0_1" arrivalPos="488.32" arrivalPosLat="-0.73" arrivalSpeed="19.57" duration="84.40" routeLength="988.47" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="33.93" rerouteNo="0" devices="tripinfo_case_1_ladder bluelight_case_1_ladder" vType="ladder" speedFactor="1.40" vaporized="">
+    <tripinfo id="case_1_ladder" depart="24.40" departLane="edge_5_0" departPos="10.10" departPosLat="0.00" departSpeed="0.00" departDelay="4.40" arrival="106.80" arrivalLane="edge_0_1" arrivalPos="488.32" arrivalPosLat="-0.69" arrivalSpeed="19.52" duration="82.40" routeLength="988.47" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="31.80" rerouteNo="0" devices="tripinfo_case_1_ladder bluelight_case_1_ladder" vType="ladder" speedFactor="1.40" vaporized="">
         <bluelight/>
     </tripinfo>
 </tripinfos>
