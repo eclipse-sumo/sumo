@@ -615,6 +615,7 @@ MSDevice_SSM::createEncounters(FoeInfoMap& foes) {
     }
 }
 
+
 void
 MSDevice_SSM::resetEncounters() {
     // Call processEncounters() with empty vehicle set
@@ -622,6 +623,7 @@ MSDevice_SSM::resetEncounters() {
     // processEncounters with empty argument closes all encounters
     processEncounters(foes, true);
 }
+
 
 void
 MSDevice_SSM::processEncounters(FoeInfoMap& foes, bool forceClose) {
@@ -3243,9 +3245,14 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
 #endif
 
     // remove ego vehicle
-    foeCollector.erase(&veh);
+    const auto& it = foeCollector.find(&veh);
+    if (it != foeCollector.end()) {
+        delete it->second;
+        foeCollector.erase(it);
+    }
     gDebugFlag3 = false;
 }
+
 
 void
 MSDevice_SSM::getUpstreamVehicles(const UpstreamScanStartInfo& scanStart, FoeInfoMap& foeCollector, std::set<const MSLane*>& seenLanes, const std::set<const MSJunction*>& routeJunctions) {
