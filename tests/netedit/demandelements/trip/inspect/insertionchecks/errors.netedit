@@ -65,6 +65,7 @@ Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Key ENTER pressed
 Debug: Adding trip 't_0' in GNEChange_DemandElement
+Debug: Value 'dummy' for attribute insertionChecks of trip isn't valid
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()

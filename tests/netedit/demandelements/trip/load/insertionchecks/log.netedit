@@ -1,2 +1,2 @@
-Error: Attribute 'line' in definition of trip 'trip_1' is empty.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\demandelements\trip\load\line\input_routes.rou.xml failed.
+Error: Attribute 'insertionChecks' in definition of trip 'trip_0' is empty.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.24Oct155656.7128\netedit.gui\demandelements\trip\load\insertionchecks\input_routes.rou.xml failed.
