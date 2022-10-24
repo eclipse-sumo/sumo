@@ -782,7 +782,7 @@ GNEViewNet::autoSelectNodes() {
     if (myLockManager.isObjectLocked(GLO_JUNCTION, false)) {
         return false;
     } else {
-        return (myNetworkViewOptions.menuCheckExtendSelection->amChecked() == false);
+        return myNetworkViewOptions.menuCheckExtendSelection->amChecked();
     }
 }
 
