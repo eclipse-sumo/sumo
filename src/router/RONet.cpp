@@ -239,6 +239,7 @@ RONet::addJunctionTaz(ROAbstractEdgeBuilder& eb) {
     }
 }
 
+
 void
 RONet::setBidiEdges(const std::map<ROEdge*, std::string>& bidiMap) {
     for (const auto& item : bidiMap) {
@@ -250,6 +251,7 @@ RONet::setBidiEdges(const std::map<ROEdge*, std::string>& bidiMap) {
         myHasBidiEdges = true;
     }
 }
+
 
 void
 RONet::addNode(RONode* node) {
@@ -506,7 +508,7 @@ RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler) {
     for (const auto& i : myFlows) {
         SUMOVehicleParameter* const pars = i.second;
         if (pars->line != "" && !myDoPTRouting) {
-            return;
+            continue;
         }
         if (pars->repetitionProbability > 0) {
             if (pars->repetitionEnd > pars->depart && pars->repetitionsDone < pars->repetitionNumber) {
