@@ -2260,7 +2260,6 @@ GNEViewNetHelper::NetworkViewOptions::buildNetworkViewOptionsMenuChecks() {
             ("\tSelect edges or lanes\tToggle whether clicking should select edges or lanes."),
             GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_SELECTEDGES),
             myViewNet, MID_GNE_NETWORKVIEWOPTIONS_SELECTEDGES, GUIDesignMFXCheckableButtonSquare);
-    menuCheckSelectEdges->setChecked(true);
     menuCheckSelectEdges->create();
 
     menuCheckShowConnections = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
@@ -2300,7 +2299,6 @@ GNEViewNetHelper::NetworkViewOptions::buildNetworkViewOptionsMenuChecks() {
             ("\tAutomatic select junctions\tToggle whether selecting multiple edges should automatically select their junctions."),
             GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_AUTOSELECTJUNCTIONS),
             myViewNet, MID_GNE_NETWORKVIEWOPTIONS_EXTENDSELECTION, GUIDesignMFXCheckableButtonSquare);
-    menuCheckExtendSelection->setChecked(true);
     menuCheckExtendSelection->create();
 
     menuCheckChangeAllPhases = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
@@ -2313,15 +2311,14 @@ GNEViewNetHelper::NetworkViewOptions::buildNetworkViewOptionsMenuChecks() {
 
     menuCheckWarnAboutMerge = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
             myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-            ("\tConfirm merging junctino\tToggle ask for confirmation before merging junction."),
+            ("\tAutomatic merging junction\tToggle ask for confirmation before merging junction."),
             GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_ASKFORMERGE),
             myViewNet, MID_GNE_NETWORKVIEWOPTIONS_ASKFORMERGE, GUIDesignMFXCheckableButtonSquare);
-    menuCheckWarnAboutMerge->setChecked(true);
     menuCheckWarnAboutMerge->create();
 
     menuCheckShowJunctionBubble = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
             myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-            ("\tShow bubbels\tToggle show bubbles over junctions shapes."),
+            ("\tShow bubbles\tToggle show bubbles over junctions shapes."),
             GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_BUBBLES),
             myViewNet, MID_GNE_NETWORKVIEWOPTIONS_SHOWBUBBLES, GUIDesignMFXCheckableButtonSquare);
     menuCheckShowJunctionBubble->setChecked(false);
@@ -2453,7 +2450,7 @@ GNEViewNetHelper::NetworkViewOptions::showDemandElements() const {
 bool
 GNEViewNetHelper::NetworkViewOptions::selectEdges() const {
     if (menuCheckSelectEdges->shown()) {
-        return (menuCheckSelectEdges->amChecked() == TRUE);
+        return (menuCheckSelectEdges->amChecked() != TRUE);
     } else {
         // by default, if menuCheckSelectEdges isn't shown, always select edges
         return true;
@@ -2836,7 +2833,6 @@ GNEViewNetHelper::DataViewOptions::buildDataViewOptionsMenuChecks() {
             ("\tShow junction shapes\tToggle show junction shapes. (Ctrl+J)"),
             GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_TOGGLEDRAWJUNCTIONSHAPE),
             myViewNet, MID_GNE_DATAVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE, GUIDesignMFXCheckableButtonSquare);
-    menuCheckToggleDrawJunctionShape->setChecked(false);
     menuCheckToggleDrawJunctionShape->create();
 
     menuCheckShowAdditionals = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
@@ -2844,7 +2840,6 @@ GNEViewNetHelper::DataViewOptions::buildDataViewOptionsMenuChecks() {
             ("\tShow additionals\tToggle show additionals."),
             GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_SHOWADDITIONALS),
             myViewNet, MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS, GUIDesignMFXCheckableButtonSquare);
-    menuCheckShowAdditionals->setChecked(false);
     menuCheckShowAdditionals->create();
 
     menuCheckShowShapes = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
@@ -2852,7 +2847,6 @@ GNEViewNetHelper::DataViewOptions::buildDataViewOptionsMenuChecks() {
             ("\tShow shapes\tToggle show shapes (Polygons and POIs)."),
             GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_SHOWSHAPES),
             myViewNet, MID_GNE_DATAVIEWOPTIONS_SHOWSHAPES, GUIDesignMFXCheckableButtonSquare);
-    menuCheckShowShapes->setChecked(false);
     menuCheckShowShapes->create();
 
     menuCheckShowDemandElements = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
@@ -2860,7 +2854,6 @@ GNEViewNetHelper::DataViewOptions::buildDataViewOptionsMenuChecks() {
             ("\tShow demand elements\tToggle show demand elements."),
             GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_SHOWDEMANDELEMENTS),
             myViewNet, MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS, GUIDesignMFXCheckableButtonSquare);
-    menuCheckShowDemandElements->setChecked(false);
     menuCheckShowDemandElements->create();
 
     menuCheckToggleTAZRelDrawing = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
@@ -2868,31 +2861,27 @@ GNEViewNetHelper::DataViewOptions::buildDataViewOptionsMenuChecks() {
             ("\tDraw TAZREL drawing mode\tToggle draw TAZREL drawing mode."),
             GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_TAZRELDRAWING),
             myViewNet, MID_GNE_DATAVIEWOPTIONS_TAZRELDRAWING, GUIDesignMFXCheckableButtonSquare);
-    menuCheckToggleTAZRelDrawing->setChecked(true);
     menuCheckToggleTAZRelDrawing->create();
 
     menuCheckToggleTAZDrawFill = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
             myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-            ("\tDraw TAZ fill\tToggle draw TAZ fill"),
+            ("\tToggle draw TAZ fill\tToggle draw TAZ fill"),
             GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_TAZDRAWFILL),
             myViewNet, MID_GNE_DATAVIEWOPTIONS_TAZDRAWFILL, GUIDesignMFXCheckableButtonSquare);
-    menuCheckToggleTAZDrawFill->setChecked(false);
     menuCheckToggleTAZDrawFill->create();
 
     menuCheckToggleTAZRelOnlyFrom = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
             myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-            ("\tDraw TAZRel only from\tToggle draw TAZRel only from"),
+            ("\tToggle draw TAZRel only from\tToggle draw TAZRel only from"),
             GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_TAZRELONLYFROM),
             myViewNet, MID_GNE_DATAVIEWOPTIONS_TAZRELONLYFROM, GUIDesignMFXCheckableButtonSquare);
-    menuCheckToggleTAZRelOnlyFrom->setChecked(true);
     menuCheckToggleTAZRelOnlyFrom->create();
 
     menuCheckToggleTAZRelOnlyTo = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
             myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-            ("\tDraw TAZRel only to\tToggle draw TAZRel only to"),
+            ("\tToggle draw TAZRel only to\tToggle draw TAZRel only to"),
             GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_TAZRELONLYTO),
             myViewNet, MID_GNE_DATAVIEWOPTIONS_TAZRELONLYTO, GUIDesignMFXCheckableButtonSquare);
-    menuCheckToggleTAZRelOnlyTo->setChecked(true);
     menuCheckToggleTAZRelOnlyTo->create();
 
     // always recalc after creating new elements
@@ -2977,14 +2966,14 @@ GNEViewNetHelper::DataViewOptions::showDemandElements() const {
 
 bool
 GNEViewNetHelper::DataViewOptions::TAZRelDrawing() const {
-    return (menuCheckToggleTAZRelDrawing->amChecked() == TRUE);
+    return (menuCheckToggleTAZRelDrawing->amChecked() != TRUE);
 }
 
 
 bool
 GNEViewNetHelper::DataViewOptions::TAZDrawFill() const {
     if (menuCheckToggleTAZDrawFill->shown()) {
-        return (menuCheckToggleTAZDrawFill->amChecked() == TRUE);
+        return (menuCheckToggleTAZDrawFill->amChecked() != TRUE);
     } else {
         return false;
     }
@@ -2994,7 +2983,7 @@ GNEViewNetHelper::DataViewOptions::TAZDrawFill() const {
 bool
 GNEViewNetHelper::DataViewOptions::TAZRelOnlyFrom() const {
     if (menuCheckToggleTAZRelOnlyFrom->shown()) {
-        return (menuCheckToggleTAZRelOnlyFrom->amChecked() == TRUE);
+        return (menuCheckToggleTAZRelOnlyFrom->amChecked() != TRUE);
     } else {
         return false;
     }
@@ -3004,7 +2993,7 @@ GNEViewNetHelper::DataViewOptions::TAZRelOnlyFrom() const {
 bool
 GNEViewNetHelper::DataViewOptions::TAZRelOnlyTo() const {
     if (menuCheckToggleTAZRelOnlyTo->shown()) {
-        return (menuCheckToggleTAZRelOnlyTo->amChecked() == TRUE);
+        return (menuCheckToggleTAZRelOnlyTo->amChecked() != TRUE);
     } else {
         return false;
     }

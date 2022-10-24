@@ -782,7 +782,7 @@ GNEViewNet::autoSelectNodes() {
     if (myLockManager.isObjectLocked(GLO_JUNCTION, false)) {
         return false;
     } else {
-        return (myNetworkViewOptions.menuCheckExtendSelection->amChecked() != 0);
+        return (myNetworkViewOptions.menuCheckExtendSelection->amChecked() == false);
     }
 }
 
@@ -811,7 +811,7 @@ GNEViewNet::mergeJunctions(GNEJunction* movedJunction, GNEJunction* targetJuncti
             !movedJunction->isAttributeCarrierSelected() && !targetJunction->isAttributeCarrierSelected() &&
             (movedJunction != targetJunction)) {
         // optionally ask for confirmation
-        if (myNetworkViewOptions.menuCheckWarnAboutMerge->amChecked()) {
+        if (!myNetworkViewOptions.menuCheckWarnAboutMerge->amChecked()) {
             WRITE_DEBUG("Opening FXMessageBox 'merge junctions'");
             // open question box
             FXuint answer = FXMessageBox::question(this, MBOX_YES_NO,
