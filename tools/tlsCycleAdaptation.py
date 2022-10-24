@@ -30,8 +30,12 @@
 - If the critical flow or the sum of the critical flows is larger than 1,
  the optimal cycle length will be set to 120 sec.
 """
-from __future__ import absolute_import
-from __future__ import print_function
+
+# from __future__ import absolute_import
+# from __future__ import print_function
+import logging
+logging.basicConfig()
+logger = logging.getLogger(__name__)
 
 import collections
 
@@ -81,11 +85,30 @@ def get_options(args=None):
     return optParser.parse_args(args=args)
 
 
+
+def getEdges(veh, net, routes):
+    if isinstance(veh.route, str):
+        logger.debug(f'working with: {veh.route}')       
+        edges = routes[veh.route]
+    else:
+        edges = veh.route[0].edges
+    return [net.getEdge(e) for e in edges.split()]
+
+def getRoutes(files):
+    route_dict = {}
+    for file in files:
+        for route in sumolib.output.parse(file, 'route'):
+            logger.debug(route)
+            route_dict[route.id] = route.edges
+    return route_dict
+
+
 def getFlows(net, routeFiles, tlsList, begin, verbose, isSorted=False):
     tlsFlowsMap = {}
     end = begin + 3600
     for tls in tlsList:
         tlsFlowsMap[tls._id] = collections.defaultdict(lambda: collections.defaultdict(int))
+    route_dict = getRoutes(routeFiles.split(','))
     for file in routeFiles.split(','):
         if verbose:
             print("parsing route file:", file)
@@ -99,7 +122,8 @@ def getFlows(net, routeFiles, tlsList, begin, verbose, isSorted=False):
                     break
                 continue
             if sumolib.miscutils.parseTime(veh.depart) >= begin:
-                edgeList = [net.getEdge(e) for e in veh.route[0].edges.split()]
+                logger.debug(f'vehicles: {veh}')
+                edgeList = getEdges(veh, net, route_dict)
                 for idx, edge in enumerate(edgeList):
                     tls = None if edge.getToNode().getType() in ("rail_crossing", "rail_signal") else edge.getTLS()
                     if tls and idx < len(edgeList) - 1:
@@ -442,4 +466,8 @@ def main(options):
 
 if __name__ == "__main__":
     options = get_options()
+    if options.verbose:
+        logger.setLevel('DEBUG')
+    else:
+        logger.setLevel('INFO')
     main(options)
