@@ -28,60 +28,42 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
-# force save additionals
-netedit.forceSaveAdditionals()
-
 # go to demand mode
 netedit.supermodeDemand()
 
-# go to person mode
-netedit.personMode()
+# force save additionals
+netedit.forceSaveAdditionals()
 
-# change person plan
-netedit.changePersonPlan("walk: edge->edge", False)
+# go to select mode
+netedit.selectMode()
 
-# create route using two one
-netedit.leftClick(referencePosition, 274, 400)
-
-# press enter to create route
-netedit.typeEnter()
-
-# go to personTripJunctions mode
-netedit.personPlanMode()
-
-# select person
-netedit.leftClick(referencePosition, 92, 412)
-
-# go to personTripJunctions mode
-netedit.changePersonPlanMode("personTrip: junctions")
-
-# create personTripJunctions
-netedit.leftClick(referencePosition, 95, 223)
-
-# press enter to create route
-netedit.typeEnter()
+# select all using invert
+netedit.selectionInvert()
 
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect personTripJunctions
-netedit.leftClick(referencePosition, 171, 65)
+# inspect selection
+netedit.leftClick(referencePosition, 290, 195)
 
-# change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.walkJunctions.inspect.to, "dummy", False)
+# change value
+netedit.modifyAttribute(netedit.attrs.waypoint.inspectSelection.speed, ";;;;", False)
 
-# change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.walkJunctions.inspect.to, "gneJ6", False)
+# change value
+netedit.modifyAttribute(netedit.attrs.waypoint.inspectSelection.speed, "-7.3", False)
+
+# change value
+netedit.modifyAttribute(netedit.attrs.waypoint.inspectSelection.speed, "12.2", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
-
-# save routes
-netedit.saveRoutes(referencePosition)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)
+
+# save routes
+netedit.saveRoutes(referencePosition)
 
 # save network
 netedit.saveNetwork(referencePosition)

@@ -86,5 +86,3 @@ vehicleEmbedded.inspect.departEdge
 vehicleEmbedded.inspect.insertionChecks
 vehicleEmbedded.inspect.typeButton
 vehicleEmbedded.inspectSelection.insertionChecks
-walkJunctions.inspect.to
-waypoint.inspectSelection.speed
