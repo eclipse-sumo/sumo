@@ -2233,7 +2233,7 @@ GNEViewNetHelper::NetworkViewOptions::buildNetworkViewOptionsMenuChecks() {
 
     menuCheckToggleDrawJunctionShape = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
             myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-            ("\tToggle show junction shape\tToggle show junction shape. (Ctrl+J)"),
+            ("\tHide junction shape\tToggle hidding junction shape. (Ctrl+J)"),
             GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_TOGGLEDRAWJUNCTIONSHAPE),
             myViewNet, MID_GNE_NETWORKVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE, GUIDesignMFXCheckableButtonSquare);
     menuCheckToggleDrawJunctionShape->setChecked(false);
@@ -2544,7 +2544,7 @@ GNEViewNetHelper::DemandViewOptions::buildDemandViewOptionsMenuChecks() {
 
     menuCheckToggleDrawJunctionShape = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
             myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-            ("\tShow junction shape\tToggle show junction shape. (Ctrl+J)"),
+            ("\tHide junction shape\tToggle hidding junction shape. (Ctrl+J)"),
             GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_TOGGLEDRAWJUNCTIONSHAPE),
             myViewNet, MID_GNE_DEMANDVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE, GUIDesignMFXCheckableButtonSquare);
     menuCheckToggleDrawJunctionShape->setChecked(false);
@@ -2831,9 +2831,10 @@ GNEViewNetHelper::DataViewOptions::buildDataViewOptionsMenuChecks() {
     // create menu checks
     menuCheckToggleDrawJunctionShape = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
             myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-            ("\tShow junction shapes\tToggle show junction shapes. (Ctrl+J)"),
+            ("\tHide junction shape\tToggle hidding junction shape. (Ctrl+J)"),
             GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_TOGGLEDRAWJUNCTIONSHAPE),
             myViewNet, MID_GNE_DATAVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE, GUIDesignMFXCheckableButtonSquare);
+    menuCheckToggleDrawJunctionShape->setChecked(false);
     menuCheckToggleDrawJunctionShape->create();
 
     menuCheckShowAdditionals = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,

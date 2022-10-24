@@ -612,7 +612,7 @@ GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::buildNetworkVi
                           myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_TOGGLEGRID);
 
     menuCheckToggleDrawJunctionShape = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-                                       "Draw junction shape", "Ctrl+J or Alt+2", "",
+                                       "Hide junction shape", "Ctrl+J or Alt+2", "",
                                        GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_TOGGLEDRAWJUNCTIONSHAPE),
                                        myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE);
 
@@ -809,7 +809,7 @@ GNEApplicationWindowHelper::EditMenuCommands::DemandViewOptions::buildDemandView
                           myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID);
 
     menuCheckToggleDrawJunctionShape = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-                                       "Draw junction shape", "Ctrl+J or Alt+2", "",
+                                       "Hide junction shape", "Ctrl+J or Alt+2", "",
                                        GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_TOGGLEDRAWJUNCTIONSHAPE),
                                        myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE);
 
@@ -944,7 +944,7 @@ void
 GNEApplicationWindowHelper::EditMenuCommands::DataViewOptions::buildDataViewOptionsMenuChecks(FXMenuPane* editMenu) {
     // create menu checks
     menuCheckToggleDrawJunctionShape = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-                                       "Draw junction shape", "Ctrl+J or Alt+1", "",
+                                       "Hide junction shape", "Ctrl+J or Alt+1", "",
                                        GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_TOGGLEDRAWJUNCTIONSHAPE),
                                        myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE);
 

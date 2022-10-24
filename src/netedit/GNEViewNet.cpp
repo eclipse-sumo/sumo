@@ -281,9 +281,10 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myNetworkViewOptions.menuCheckToggleGrid->setChecked(myVisualizationSettings->showGrid);
     myDemandViewOptions.menuCheckToggleGrid->setChecked(myVisualizationSettings->showGrid);
     // update junction shape flags
-    myNetworkViewOptions.menuCheckToggleDrawJunctionShape->setChecked(myVisualizationSettings->drawJunctionShape);
-    myDemandViewOptions.menuCheckToggleDrawJunctionShape->setChecked(myVisualizationSettings->drawJunctionShape);
-    myDataViewOptions.menuCheckToggleDrawJunctionShape->setChecked(myVisualizationSettings->drawJunctionShape);
+    const bool hide = !myVisualizationSettings->drawJunctionShape;
+    myNetworkViewOptions.menuCheckToggleDrawJunctionShape->setChecked(hide);
+    myDemandViewOptions.menuCheckToggleDrawJunctionShape->setChecked(hide);
+    myDataViewOptions.menuCheckToggleDrawJunctionShape->setChecked(hide);
 }
 
 
@@ -3711,18 +3712,14 @@ GNEViewNet::onCmdToggleShowGrid(FXObject*, FXSelector sel, void*) {
 
 long
 GNEViewNet::onCmdToggleDrawJunctionShape(FXObject*, FXSelector sel, void*) {
-    // show or hide grid depending of myNetworkViewOptions.menuCheckToggleGrid
-    if (myVisualizationSettings->drawJunctionShape) {
-        myVisualizationSettings->drawJunctionShape = false;
-        myNetworkViewOptions.menuCheckToggleDrawJunctionShape->setChecked(false);
-        myDemandViewOptions.menuCheckToggleDrawJunctionShape->setChecked(false);
-        myDataViewOptions.menuCheckToggleDrawJunctionShape->setChecked(false);
-    } else {
-        myVisualizationSettings->drawJunctionShape = true;
-        myNetworkViewOptions.menuCheckToggleDrawJunctionShape->setChecked(true);
-        myDemandViewOptions.menuCheckToggleDrawJunctionShape->setChecked(true);
-        myDataViewOptions.menuCheckToggleDrawJunctionShape->setChecked(true);
-    }
+    // toggle state
+    myVisualizationSettings->drawJunctionShape = !myVisualizationSettings->drawJunctionShape;
+    // gui button has 'hide' semantics
+    const bool hide = !myVisualizationSettings->drawJunctionShape;
+    myNetworkViewOptions.menuCheckToggleDrawJunctionShape->setChecked(hide);
+    myDemandViewOptions.menuCheckToggleDrawJunctionShape->setChecked(hide);
+    myDataViewOptions.menuCheckToggleDrawJunctionShape->setChecked(hide);
+
     myNetworkViewOptions.menuCheckToggleDrawJunctionShape->update();
     myDemandViewOptions.menuCheckToggleDrawJunctionShape->update();
     myDataViewOptions.menuCheckToggleDrawJunctionShape->update();
