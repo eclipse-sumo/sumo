@@ -2640,7 +2640,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             break;
         }
 
-        if (ignoreRed(*link, canBrakeBeforeStopLine) && STEPS2TIME(t - (*link)->getLastStateChange()) > 2) {
+        const MSLink* entryLink = (*link)->getCorrespondingEntryLink();
+        if (entryLink->haveRed() && ignoreRed(*link, canBrakeBeforeStopLine) && STEPS2TIME(t - entryLink->getLastStateChange()) > 2) {
             // restrict speed when ignoring a red light
             const double redSpeed = MIN2(v, getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_DRIVE_RED_SPEED, v));
             const double va = MAX2(redSpeed, cfModel.freeSpeed(this, getSpeed(), seen, redSpeed));
@@ -2654,7 +2655,6 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                         << "\n";
 #endif
         }
-
 
         checkLinkLeaderCurrentAndParallel(*link, lane, seen, lastLink, v, vLinkPass, vLinkWait, setRequest);
 
