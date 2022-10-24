@@ -490,6 +490,7 @@ MSLaneChanger::continueChange(MSVehicle* vehicle, ChangerIt& from) {
     }
     if (!lcm.isChangingLanes()) {
         vehicle->myState.myPosLat = 0;
+        lcm.setSpeedLat(0.0);
         lcm.endLaneChangeManeuver();
     }
     lcm.updateShadowLane();

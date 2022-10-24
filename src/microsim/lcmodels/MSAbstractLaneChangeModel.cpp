@@ -108,6 +108,7 @@ MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v, const LaneCha
     mySpeedLat(0),
     myAccelerationLat(0),
     myAngleOffset(0),
+    myPreviousAngleOffset(0),
     myCommittedSpeed(0),
     myLaneChangeCompletion(1.0),
     myLaneChangeDirection(0),
@@ -726,11 +727,11 @@ MSAbstractLaneChangeModel::determineTargetLane(int& targetDir) const {
 double
 MSAbstractLaneChangeModel::calcAngleOffset() {
     double result = 0.;
-    if (!(fabs(mySpeedLat) < NUMERICAL_EPS && fabs(myAngleOffset * 180 / PI) < NUMERICAL_EPS)) {
+    if (!(fabs(mySpeedLat) < NUMERICAL_EPS && fabs(myPreviousAngleOffset * 180 / PI) < NUMERICAL_EPS)) {
         if (myVehicle.getLength() < sqrt(SPEED2DIST(mySpeedLat) * SPEED2DIST(mySpeedLat) + SPEED2DIST(myVehicle.getSpeed()) * SPEED2DIST(myVehicle.getSpeed()))) {
             result = atan2(mySpeedLat, myVehicle.getSpeed());
         } else {
-            result = myAngleOffset + asin((sin(PI / 2 - myAngleOffset) * (SPEED2DIST(mySpeedLat) - tan(myAngleOffset)*SPEED2DIST(myVehicle.getSpeed()))) / myVehicle.getLength());
+            result = myPreviousAngleOffset + asin((sin(PI / 2 - myPreviousAngleOffset) * (SPEED2DIST(mySpeedLat) - tan(myPreviousAngleOffset) * SPEED2DIST(myVehicle.getSpeed()))) / myVehicle.getLength());
         }
     }
 

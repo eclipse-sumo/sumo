@@ -4308,6 +4308,7 @@ MSVehicle::executeMove() {
             }
 #endif
         }
+        myLaneChangeModel->setPreviousAngleOffset(myLaneChangeModel->getAngleOffset());
         myAngle = computeAngle();
     }
 
