@@ -560,6 +560,9 @@ private:
     /// @brief whether to keep the the vtype distribution in output
     const bool myKeepVTypeDist;
 
+    /// @brief whether to calculate routes for public transport
+    const bool myDoPTRouting;
+
     /// @brief whether the network contains bidirectional railway edges
     bool myHasBidiEdges;
 

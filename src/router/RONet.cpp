@@ -73,6 +73,8 @@ RONet::RONet() :
                    && OptionsCont::getOptions().getBool("ignore-errors") ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
     myKeepVTypeDist(OptionsCont::getOptions().exists("keep-vtype-distributions")
                     && OptionsCont::getOptions().getBool("keep-vtype-distributions")),
+    myDoPTRouting(!OptionsCont::getOptions().exists("ptline-routing")
+                  || OptionsCont::getOptions().getBool("ptline-routing")),
     myHasBidiEdges(false) {
     if (myInstance != nullptr) {
         throw ProcessError("A network was already constructed.");
@@ -433,7 +435,7 @@ RONet::addVehicle(const std::string& id, ROVehicle* veh) {
             if (!veh->isPartOfFlow()) {
                 myPTVehicles.push_back(veh);
             }
-            if (OptionsCont::getOptions().exists("ptline-routing") && !OptionsCont::getOptions().getBool("ptline-routing")) {
+            if (!myDoPTRouting) {
                 return true;
             }
         }
@@ -502,7 +504,10 @@ void
 RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler) {
     myHaveActiveFlows = false;
     for (const auto& i : myFlows) {
-        SUMOVehicleParameter* pars = i.second;
+        SUMOVehicleParameter* const pars = i.second;
+        if (pars->line != "" && !myDoPTRouting) {
+            return;
+        }
         if (pars->repetitionProbability > 0) {
             if (pars->repetitionEnd > pars->depart && pars->repetitionsDone < pars->repetitionNumber) {
                 myHaveActiveFlows = true;
@@ -765,11 +770,13 @@ RONet::getEdgeForLaneID(const std::string& laneID) const {
     return getEdge(SUMOXMLDefinitions::getEdgeIDFromLane(laneID));
 }
 
+
 ROLane*
 RONet::getLane(const std::string& laneID) const {
     int laneIndex = SUMOXMLDefinitions::getIndexFromLane(laneID);
     return getEdgeForLaneID(laneID)->getLanes()[laneIndex];
 }
+
 
 void
 RONet::adaptIntermodalRouter(ROIntermodalRouter& router) {
