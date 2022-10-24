@@ -61,10 +61,7 @@ stopLane.inspectSelection.onDemad
 stopParking.create.onDemad
 stopParking.inspect.onDemad
 stopParking.inspectSelection.onDemad
-tripFromToEdge.create.insertionChecks
-tripFromToEdge.inspect.insertionChecks
 tripFromToEdge.inspect.typeButton
-tripFromToEdge.inspectSelection.insertionChecks
 tripFromToJunction.create.insertionChecks
 tripFromToJunction.inspect.insertionChecks
 tripFromToJunction.inspect.typeButton
