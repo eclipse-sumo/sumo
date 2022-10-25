@@ -48,8 +48,15 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ODMatrix::ODMatrix(const ODDistrictCont& dc)
-    : myDistricts(dc), myNumLoaded(0), myNumWritten(0), myNumDiscarded(0), myBegin(-1), myEnd(-1) {}
+ODMatrix::ODMatrix(const ODDistrictCont& dc, double scale) : 
+    myDistricts(dc),
+    myNumLoaded(0),
+    myNumWritten(0),
+    myNumDiscarded(0),
+    myBegin(-1),
+    myEnd(-1),
+    myScale(scale)
+{}
 
 
 ODMatrix::~ODMatrix() {
@@ -66,7 +73,8 @@ ODMatrix::~ODMatrix() {
 bool
 ODMatrix::add(double vehicleNumber, const std::pair<SUMOTime, SUMOTime>& beginEnd,
               const std::string& origin, const std::string& destination,
-              const std::string& vehicleType, const bool originIsEdge, const bool destinationIsEdge) {
+              const std::string& vehicleType, const bool originIsEdge, const bool destinationIsEdge,
+              bool noScaling) {
     myNumLoaded += vehicleNumber;
     if (!originIsEdge && !destinationIsEdge && myDistricts.get(origin) == nullptr && myDistricts.get(destination) == nullptr) {
         WRITE_WARNING("Missing origin '" + origin + "' and destination '" + destination + "' (" + toString(vehicleNumber) + " vehicles).");
@@ -100,7 +108,7 @@ ODMatrix::add(double vehicleNumber, const std::pair<SUMOTime, SUMOTime>& beginEn
     cell->origin = origin;
     cell->destination = destination;
     cell->vehicleType = vehicleType;
-    cell->vehicleNumber = vehicleNumber;
+    cell->vehicleNumber = vehicleNumber * (noScaling ? 1 : myScale);
     cell->originIsEdge = originIsEdge;
     cell->destinationIsEdge = destinationIsEdge;
     myContainer.push_back(cell);
@@ -135,8 +143,9 @@ ODMatrix::add(const std::string& id, const SUMOTime depart,
     if (cell == nullptr) {
         const SUMOTime interval = string2time(OptionsCont::getOptions().getString("aggregation-interval"));
         const int intervalIdx = (int)(depart / interval);
+        // single vehicles are already scaled 
         if (add(1., std::make_pair(intervalIdx * interval, (intervalIdx + 1) * interval),
-                fromTaz, toTaz, vehicleType, originIsEdge, destinationIsEdge)) {
+                fromTaz, toTaz, vehicleType, originIsEdge, destinationIsEdge, true)) {
             cell = myContainer.back();
             odList.push_back(cell);
         } else {
@@ -648,13 +657,13 @@ ODMatrix::loadMatrix(OptionsCont& oc) {
             if (type.find('N') != std::string::npos) {
                 throw ProcessError("'" + *i + "' does not contain the needed information about the time described.");
             }
-            readV(lr, oc.getFloat("scale"), oc.getString("vtype"), type.find('M') != std::string::npos);
+            readV(lr, 1, oc.getString("vtype"), type.find('M') != std::string::npos);
         } else if (type.length() > 1 && type[1] == 'O') {
             // process ptv's 'O'-matrices
             if (type.find('N') != std::string::npos) {
                 throw ProcessError("'" + *i + "' does not contain the needed information about the time described.");
             }
-            readO(lr, oc.getFloat("scale"), oc.getString("vtype"), type.find('M') != std::string::npos);
+            readO(lr, 1, oc.getString("vtype"), type.find('M') != std::string::npos);
         } else {
             throw ProcessError("'" + *i + "' uses an unknown matrix type '" + type + "'.");
         }

@@ -72,7 +72,7 @@ public:
      *
      * @param[in] dc The district container to obtain referenced districts from
      */
-    ODMatrix(const ODDistrictCont& dc);
+    ODMatrix(const ODDistrictCont& dc, double scale);
 
 
     /// Destructor
@@ -103,7 +103,8 @@ public:
     bool add(double vehicleNumber, const std::pair<SUMOTime, SUMOTime>& beginEnd,
              const std::string& origin, const std::string& destination,
              const std::string& vehicleType,
-             const bool originIsEdge = false, const bool destinationIsEdge = false);
+             const bool originIsEdge = false, const bool destinationIsEdge = false,
+             bool noScaling = false);
 
     /** @brief Adds a single vehicle with departure time
      *
@@ -380,6 +381,9 @@ private:
 
     /// @brief user-defined vType
     std::string myVType;
+
+    /// @brief the scaling factor for traffic
+    double myScale;
 
     /**
      * @class cell_by_begin_comparator

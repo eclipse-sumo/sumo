@@ -380,7 +380,7 @@ main(int argc, char** argv) {
         ODDistrictCont districts;
         districts.makeDistricts(net->getDistricts());
         // load the matrix
-        ODMatrix matrix(districts);
+        ODMatrix matrix(districts, oc.getFloat("scale"));
         matrix.loadMatrix(oc);
         ROMARouteHandler handler(matrix);
         matrix.loadRoutes(oc, handler);

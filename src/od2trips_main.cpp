@@ -278,7 +278,7 @@ main(int argc, char** argv) {
             throw ProcessError("No districts loaded.");
         }
         // load the matrix
-        ODMatrix matrix(districts);
+        ODMatrix matrix(districts, oc.getFloat("scale"));
         matrix.loadMatrix(oc);
         if (matrix.getNumLoaded() == 0) {
             throw ProcessError("No vehicles loaded.");
