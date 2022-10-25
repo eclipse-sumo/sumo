@@ -750,6 +750,13 @@ the color via [TraCI](TraCI.md) and setting the alpha-channel.
 All objects that have their color set (via input files or visualisation
 settings) support (Red,Green,Blue,Alpha) color values.
 
+## 3D-specific Settings
+The scene is illuminated by a directional light source ("the sun"). The light color originates from the grayscale range can be varied through the 3D-specific Visualization Settings. The **sun brightness** value ranges from 0 (=black) to 255 (=white) and represents the grayscale diffuse light. The ambient light value is half of the diffuse light.
+
+The 3D scene background color can be set to any RGB color. The OSG standard background color is _(51,51,102)_.
+
+Additionally, the visibility of traffic light related items can be set (see [automatically generated 3D environment](#automatically_generated_3d_environment)).
+
 # Configuration Files
 
 **sumo-gui** uses the same configuration files as
