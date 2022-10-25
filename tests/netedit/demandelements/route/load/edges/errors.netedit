@@ -23,7 +23,7 @@ Debug: Adding route 'route_3' in GNEChange_DemandElement
 Debug: Adding route 'route_4' in GNEChange_DemandElement
 Debug: Adding route 'route_5' in GNEChange_DemandElement
 Debug: Adding route 'route_6' in GNEChange_DemandElement
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.route.24Jun133819.22465/netedit.daily.demand.route/demandelements/route/load/edges/input_routes.rou.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.25Oct114541.2488\netedit.gui\demandelements\route\load\edges\input_routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00
@@ -72,8 +72,8 @@ Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Key F5 (Compute) pressed
-Debug: Removing route 'route_2' in GNEChange_DemandElement
 Debug: Removing route 'route_3' in GNEChange_DemandElement
+Debug: Removing route 'route_2' in GNEChange_DemandElement
 Debug: demand elements saved after dialog
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -10.00,-13.20,10.00,13.20
