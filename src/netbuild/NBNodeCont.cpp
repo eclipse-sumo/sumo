@@ -2353,6 +2353,7 @@ NBNodeCont::printBuiltNodesStatistics() const {
     int numTrafficLightJunctions = 0;
     int numPriorityJunctions = 0;
     int numRightBeforeLeftJunctions = 0;
+    int numLeftBeforeRightJunctions = 0;
     int numAllWayStopJunctions = 0;
     int numZipperJunctions = 0;
     int numDistrictJunctions = 0;
@@ -2377,6 +2378,9 @@ NBNodeCont::printBuiltNodesStatistics() const {
                 break;
             case SumoXMLNodeType::RIGHT_BEFORE_LEFT:
                 ++numRightBeforeLeftJunctions;
+                break;
+            case SumoXMLNodeType::LEFT_BEFORE_RIGHT:
+                ++numLeftBeforeRightJunctions;
                 break;
             case SumoXMLNodeType::ALLWAY_STOP:
                 ++numAllWayStopJunctions;
@@ -2407,6 +2411,9 @@ NBNodeCont::printBuiltNodesStatistics() const {
     }
     WRITE_MESSAGE("  Priority junctions          : " + toString(numPriorityJunctions));
     WRITE_MESSAGE("  Right-before-left junctions : " + toString(numRightBeforeLeftJunctions));
+    if (numLeftBeforeRightJunctions > 0) {
+        WRITE_MESSAGE("  Left-before-right junctions      : " + toString(numLeftBeforeRightJunctions));
+    }
     if (numTrafficLightJunctions > 0) {
         WRITE_MESSAGE("  Traffic light junctions      : " + toString(numTrafficLightJunctions));
     }

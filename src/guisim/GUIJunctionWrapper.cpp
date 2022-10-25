@@ -250,6 +250,8 @@ GUIJunctionWrapper::getColorValue(const GUIVisualizationSettings& /* s */, int a
                     return 11;
                 case SumoXMLNodeType::RAIL_CROSSING:
                     return 12;
+                case SumoXMLNodeType::LEFT_BEFORE_RIGHT:
+                    return 13;
                 default:
                     assert(false);
                     return 0;

@@ -103,6 +103,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("junctions.right-before-left.speed-threshold", new Option_Float(49 / 3.6));
     oc.addDescription("junctions.right-before-left.speed-threshold", "Junctions", "Allow building right-before-left junctions when the incoming edge speeds are below FLOAT (m/s)");
 
+    oc.doRegister("junctions.left-before-right", new Option_Bool(false));
+    oc.addDescription("junctions.left-before-right", "Junctions", "Build left-before-right junctions instead of right-before-left junctions");
+
     // register the data processing options
     oc.doRegister("no-internal-links", new Option_Bool(false)); // !!! not described
     oc.addDescription("no-internal-links", "Junctions", "Omits internal links");

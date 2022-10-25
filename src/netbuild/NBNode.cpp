@@ -877,7 +877,9 @@ NBNode::needsCont(const NBEdge* fromE, const NBEdge* otherFromE,
     const NBEdge* toE = c.toEdge;
     const NBEdge* otherToE = otherC.toEdge;
 
-    if (myType == SumoXMLNodeType::RIGHT_BEFORE_LEFT || myType == SumoXMLNodeType::ALLWAY_STOP) {
+    if (myType == SumoXMLNodeType::RIGHT_BEFORE_LEFT
+            || myType == SumoXMLNodeType::LEFT_BEFORE_RIGHT
+            || myType == SumoXMLNodeType::ALLWAY_STOP) {
         return false;
     }
     LinkDirection d1 = getDirection(fromE, toE);
@@ -2300,7 +2302,8 @@ NBNode::getLinkState(const NBEdge* incoming, NBEdge* outgoing, int fromlane, int
     if (outgoing == nullptr) { // always off
         return LINKSTATE_TL_OFF_NOSIGNAL;
     }
-    if (myType == SumoXMLNodeType::RIGHT_BEFORE_LEFT && mustBrake(incoming, outgoing, fromlane, toLane, true)) {
+    if ((myType == SumoXMLNodeType::RIGHT_BEFORE_LEFT || myType == SumoXMLNodeType::LEFT_BEFORE_RIGHT)
+            && mustBrake(incoming, outgoing, fromlane, toLane, true)) {
         return LINKSTATE_EQUAL; // all the same
     }
     if (myType == SumoXMLNodeType::ALLWAY_STOP) {
@@ -3502,7 +3505,7 @@ NBNode::geometryLike(const EdgeVector& incoming, const EdgeVector& outgoing) con
 
 void
 NBNode::setRoundabout() {
-    if (myType == SumoXMLNodeType::RIGHT_BEFORE_LEFT) {
+    if (myType == SumoXMLNodeType::RIGHT_BEFORE_LEFT || myType == SumoXMLNodeType::LEFT_BEFORE_RIGHT) {
         myType = SumoXMLNodeType::PRIORITY;
     }
 }

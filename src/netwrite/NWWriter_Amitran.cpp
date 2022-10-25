@@ -90,6 +90,9 @@ NWWriter_Amitran::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             case SumoXMLNodeType::RIGHT_BEFORE_LEFT:
                 device << "\" type=\"rightBeforeLeft";
                 break;
+            case SumoXMLNodeType::LEFT_BEFORE_RIGHT:
+                device << "\" type=\"leftBeforeRight";
+                break;
             case SumoXMLNodeType::ALLWAY_STOP:
                 device << "\" type=\"allwayStop";
                 break;

@@ -210,7 +210,7 @@ NBNodeTypeComputer::computeNodeTypes(NBNodeCont& nc, NBTrafficLightLogicCont& tl
             continue;
         }
         // determine the type
-        SumoXMLNodeType type = SumoXMLNodeType::RIGHT_BEFORE_LEFT;
+        SumoXMLNodeType type = oc.getBool("junctions.left-before-right") ? SumoXMLNodeType::LEFT_BEFORE_RIGHT : SumoXMLNodeType::RIGHT_BEFORE_LEFT;
         for (EdgeVector::const_iterator i = n->myIncomingEdges.begin(); i != n->myIncomingEdges.end(); i++) {
             for (EdgeVector::const_iterator j = i + 1; j != n->myIncomingEdges.end(); j++) {
                 // @todo "getOppositeIncoming" should probably be refactored into something the edge knows
@@ -315,7 +315,10 @@ NBEdgePriorityComputer::computeEdgePriorities(NBNodeCont& nc) {
             continue;
         }
         // compute the priorities on junction when needed
-        if (node.second->getType() != SumoXMLNodeType::RIGHT_BEFORE_LEFT && node.second->getType() != SumoXMLNodeType::ALLWAY_STOP && node.second->getType() != SumoXMLNodeType::NOJUNCTION) {
+        if (node.second->getType() != SumoXMLNodeType::RIGHT_BEFORE_LEFT
+                && node.second->getType() != SumoXMLNodeType::LEFT_BEFORE_RIGHT
+                && node.second->getType() != SumoXMLNodeType::ALLWAY_STOP
+                && node.second->getType() != SumoXMLNodeType::NOJUNCTION) {
             if (node.second->getRightOfWay() == RightOfWay::EDGEPRIORITY) {
                 for (NBEdge* e : node.second->getIncomingEdges()) {
                     e->setJunctionPriority(node.second, e->getPriority());

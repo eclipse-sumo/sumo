@@ -1606,7 +1606,8 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
         }
         case SUMO_ATTR_TYPE: {
             SumoXMLNodeType type = SUMOXMLDefinitions::NodeTypes.get(value);
-            if (myNBNode->getType() == SumoXMLNodeType::PRIORITY && type == SumoXMLNodeType::RIGHT_BEFORE_LEFT) {
+            if (myNBNode->getType() == SumoXMLNodeType::PRIORITY
+                    && (type == SumoXMLNodeType::RIGHT_BEFORE_LEFT || type == SumoXMLNodeType::LEFT_BEFORE_RIGHT)) {
                 myNet->getNetBuilder()->getEdgeCont().removeRoundabout(myNBNode);
             }
             myNBNode->reinit(myNBNode->getPosition(), type);
@@ -1779,6 +1780,8 @@ GNEJunction::getColorValue(const GUIVisualizationSettings& /* s */, int activeSc
                     return 11;
                 case SumoXMLNodeType::RAIL_CROSSING:
                     return 12;
+                case SumoXMLNodeType::LEFT_BEFORE_RIGHT:
+                    return 13;
                 default:
                     assert(false);
                     return 0;

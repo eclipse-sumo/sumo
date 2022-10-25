@@ -1255,7 +1255,8 @@ NBEdgeCont::guessRoundabouts() {
 #endif
             visited.insert(e);
             const EdgeVector& edges = e->getToNode()->getEdges();
-            if (e->getToNode()->getType() == SumoXMLNodeType::RIGHT_BEFORE_LEFT && !e->getToNode()->typeWasGuessed()) {
+            if ((e->getToNode()->getType() == SumoXMLNodeType::RIGHT_BEFORE_LEFT || e->getToNode()->getType() == SumoXMLNodeType::LEFT_BEFORE_RIGHT)
+                    && !e->getToNode()->typeWasGuessed()) {
                 doLoop = false;
 #ifdef DEBUG_GUESS_ROUNDABOUT
                 if (gDebugFlag1) {
@@ -1540,6 +1541,9 @@ NBEdgeCont::generateStreetSigns() {
                 break;
             case SumoXMLNodeType::RIGHT_BEFORE_LEFT:
                 e->addSign(NBSign(NBSign::SIGN_TYPE_RIGHT_BEFORE_LEFT, offset));
+                break;
+            case SumoXMLNodeType::LEFT_BEFORE_RIGHT:
+                e->addSign(NBSign(NBSign::SIGN_TYPE_LEFT_BEFORE_RIGHT, offset));
                 break;
             default:
                 break;

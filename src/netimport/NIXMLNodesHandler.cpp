@@ -187,7 +187,8 @@ NIXMLNodesHandler::processNodeType(const SUMOSAXAttributes& attrs, NBNode* node,
     } else {
         // patch information
         oldTLS = node->getControllingTLS();
-        if (node->getType() == SumoXMLNodeType::PRIORITY && type == SumoXMLNodeType::RIGHT_BEFORE_LEFT) {
+        if (node->getType() == SumoXMLNodeType::PRIORITY
+                && (type == SumoXMLNodeType::RIGHT_BEFORE_LEFT || type == SumoXMLNodeType::LEFT_BEFORE_RIGHT)) {
             ec.removeRoundabout(node);
         }
         node->reinit(position, type, updateEdgeGeometries);

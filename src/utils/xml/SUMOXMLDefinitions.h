@@ -1475,6 +1475,7 @@ enum class SumoXMLNodeType {
     PRIORITY,
     PRIORITY_STOP, // like priority but all minor links have stop signs
     RIGHT_BEFORE_LEFT,
+    LEFT_BEFORE_RIGHT,
     ALLWAY_STOP,
     ZIPPER,
     DISTRICT,

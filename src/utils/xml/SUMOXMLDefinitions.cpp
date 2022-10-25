@@ -1014,6 +1014,7 @@ StringBijection<SumoXMLNodeType>::Entry SUMOXMLDefinitions::sumoNodeTypeValues[]
     {"priority",                    SumoXMLNodeType::PRIORITY},
     {"priority_stop",               SumoXMLNodeType::PRIORITY_STOP},
     {"right_before_left",           SumoXMLNodeType::RIGHT_BEFORE_LEFT},
+    {"left_before_right",           SumoXMLNodeType::LEFT_BEFORE_RIGHT},
     {"allway_stop",                 SumoXMLNodeType::ALLWAY_STOP},
     {"zipper",                      SumoXMLNodeType::ZIPPER},
     {"district",                    SumoXMLNodeType::DISTRICT},

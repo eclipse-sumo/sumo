@@ -121,6 +121,7 @@ NLJunctionControlBuilder::closeJunction(const std::string& basePath) {
         case SumoXMLNodeType::TRAFFIC_LIGHT:
         case SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED:
         case SumoXMLNodeType::RIGHT_BEFORE_LEFT:
+        case SumoXMLNodeType::LEFT_BEFORE_RIGHT:
         case SumoXMLNodeType::PRIORITY:
         case SumoXMLNodeType::PRIORITY_STOP:
         case SumoXMLNodeType::ALLWAY_STOP:

@@ -1135,6 +1135,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor(172, 108, 44), 10, "zipper"); // brown, darker than the zipper link rule
     scheme.addColor(RGBColor(192, 255, 192), 11, "traffic_light_right_on_red"); // light green
     scheme.addColor(RGBColor(128, 0, 128), 12, "rail_crossing"); // dark purple
+    scheme.addColor(RGBColor(0, 0, 128), 13, "left_before_right"); // dark blue
     junctionColorer.addScheme(scheme);
     scheme = GUIColorScheme("by height", RGBColor::GREY);
     scheme.addColor(RGBColor::BLUE, -10.);
@@ -1581,6 +1582,7 @@ GUIVisualizationSettings::initNeteditDefaults() {
     scheme.addColor(RGBColor(172, 108, 44), 10, "zipper"); // brown, darker than the zipper link rule
     scheme.addColor(RGBColor(192, 255, 192), 11, "traffic_light_right_on_red");
     scheme.addColor(RGBColor(128, 0, 128), 12, "rail_crossing"); // dark purple
+    scheme.addColor(RGBColor(0, 0, 128), 13, "left_before_right"); // dark blue
     junctionColorer.addScheme(scheme);
     scheme = GUIColorScheme("by height", RGBColor::GREY);
     scheme.addColor(RGBColor::BLUE, -10.);
