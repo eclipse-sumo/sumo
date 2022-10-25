@@ -4,6 +4,10 @@ type
 
 color
 
+departedge
+
+arrivaledge
+
 departlane
 
 departpos
