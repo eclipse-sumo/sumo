@@ -22,17 +22,15 @@ Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Selected item 'trip' in DemandElementSelector
 Debug: Selected item 'stopContainerStop' in GNETagSelector
 Debug: Adding stopContainerStop 'trip' in GNEChange_DemandElement
-Debug: Adding stopContainerStop 'trip' in GNEChange_DemandElement
-Debug: Adding stopContainerStop 'trip' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing stopContainerStop 'trip' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing stopContainerStop 'trip' in GNEChange_DemandElement
+Debug: Removing trip 'trip' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding stopContainerStop 'trip' in GNEChange_DemandElement
+Debug: Adding trip 'trip' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding stopContainerStop 'trip' in GNEChange_DemandElement
@@ -51,8 +49,6 @@ GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,35.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,35.00,11.60
 Debug: network elements saved
-Debug: Deleting unreferenced stopContainerStop
-Debug: Deleting unreferenced stopContainerStop
 Debug: Deleting unreferenced stopContainerStop
 Debug: Deleting unreferenced trip
 Debug: Deleting unreferenced containerStop

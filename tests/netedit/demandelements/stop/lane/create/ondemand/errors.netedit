@@ -22,17 +22,17 @@ Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Selected item 'routeFlow' in DemandElementSelector
 Debug: Selected item 'stopLane' in GNETagSelector
 Debug: Adding stopLane 'routeFlow' in GNEChange_DemandElement
-Debug: Adding stopLane 'routeFlow' in GNEChange_DemandElement
-Debug: Adding stopLane 'routeFlow' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing stopLane 'routeFlow' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing stopLane 'routeFlow' in GNEChange_DemandElement
+Debug: Removing flowRoute 'routeFlow' in GNEChange_DemandElement
+Debug: Removing route 'route_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding stopLane 'routeFlow' in GNEChange_DemandElement
+Debug: Adding route 'route_0' in GNEChange_DemandElement
+Debug: Adding flowRoute 'routeFlow' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding stopLane 'routeFlow' in GNEChange_DemandElement
@@ -51,8 +51,6 @@ GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,35.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,35.00,11.60
 Debug: network elements saved
-Debug: Deleting unreferenced stopLane
-Debug: Deleting unreferenced stopLane
 Debug: Deleting unreferenced stopLane
 Debug: Deleting unreferenced flowRoute
 Debug: Deleting unreferenced route

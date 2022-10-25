@@ -23,17 +23,15 @@ Debug: Selected item 'routeFlow' in DemandElementSelector
 Debug: Selected item 'stopLane' in GNETagSelector
 Debug: Adding stopLane 'routeFlow' in GNEChange_DemandElement
 Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
+Debug: Removing stopLane 'routeFlow' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute
+Debug: Adding stopLane 'routeFlow' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute

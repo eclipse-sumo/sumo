@@ -4,9 +4,6 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 stopLane
 TestFunctions: Clicked over position 704 - 353
 TestFunctions: Clicked over position 569 - 356
-;;;;
-
-customLine
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168

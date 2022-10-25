@@ -24,17 +24,15 @@ Debug: Selected item 'vehicle_0' in DemandElementSelector
 Debug: Selected item 'stopParkingArea' in GNETagSelector
 Debug: Adding stopParkingArea 'vehicle_0' in GNEChange_DemandElement
 Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
+Debug: Removing stopParkingArea 'vehicle_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute
+Debug: Adding stopParkingArea 'vehicle_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute

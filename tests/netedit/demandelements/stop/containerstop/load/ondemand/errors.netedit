@@ -4,14 +4,12 @@ GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 13.00,-12.00,37.0
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,35.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,35.00,11.60
 Debug: Adding containerStop 'containerStop' in GNEChange_Additional
-Error: Attribute 'line' in definition of a stop is empty.
+Error: Attribute 'onDemand' in definition of a stop is empty.
 Debug: Adding trip 'trip_0' in GNEChange_DemandElement
 Debug: Adding stopContainerStop 'trip_0' in GNEChange_DemandElement
 Debug: Adding trip 'trip_1' in GNEChange_DemandElement
 Debug: Adding stopContainerStop 'trip_1' in GNEChange_DemandElement
-Debug: Adding trip 'trip_2' in GNEChange_DemandElement
-Debug: Adding stopContainerStop 'trip_2' in GNEChange_DemandElement
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.stopContainerStop.containerstop.24Jun133819.22481/netedit.daily.demand.stopContainerStop.containerstop/demandelements/stop/containerstop/load/line/input_routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.25Oct162854.13353/netedit.gui/demandelements/stop/containerstop/load/ondemand/input_routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 13.00,-12.00,37.00,12.00
@@ -42,8 +40,6 @@ GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,35.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,35.00,11.60
 Debug: network elements saved
-Debug: Deleting unreferenced stopContainerStop
-Debug: Deleting unreferenced trip
 Debug: Deleting unreferenced stopContainerStop
 Debug: Deleting unreferenced trip
 Debug: Deleting unreferenced stopContainerStop
