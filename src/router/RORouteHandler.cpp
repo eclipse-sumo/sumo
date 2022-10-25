@@ -79,6 +79,7 @@ RORouteHandler::RORouteHandler(RONet& net, const std::string& file,
 
 RORouteHandler::~RORouteHandler() {
     delete myLaneTree;
+    delete myCurrentAlternatives;
 }
 
 
