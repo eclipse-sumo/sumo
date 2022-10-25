@@ -65,7 +65,7 @@ def main(options):
             if options.value is not None:
                 # set new attribute (or modify existent)
                 node.set(options.attribute, options.value)
-            else:
+            elif options.attribute in node.attrib:
                 # delete attribute
                 del node.attrib[options.attribute]
     # write modified tree
