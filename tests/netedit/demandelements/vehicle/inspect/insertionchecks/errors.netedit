@@ -68,6 +68,7 @@ Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'vehicle (over route)' in GNETagSelector
 Debug: Adding vehicle 'v_0' in GNEChange_DemandElement
+Debug: Value 'dummy' for attribute insertionChecks of vehicle isn't valid
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()

@@ -65,30 +65,21 @@ Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'trip (from-to junctions)' in GNETagSelector
+Debug: Invalid input parameter of tripJunctions
+Debug: Invalid input parameter of tripJunctions
+Debug: Key ENTER pressed
 Debug: Key ENTER pressed
 Debug: Adding tripJunctions 't_0' in GNEChange_DemandElement
-Debug: Key ENTER pressed
-Debug: Adding tripJunctions 't_1' in GNEChange_DemandElement
-Debug: Key ENTER pressed
-Debug: Adding tripJunctions 't_2' in GNEChange_DemandElement
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Removing tripJunctions 't_2' in GNEChange_DemandElement
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Removing tripJunctions 't_1' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing tripJunctions 't_0' in GNEChange_DemandElement
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding tripJunctions 't_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Adding tripJunctions 't_1' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Adding tripJunctions 't_2' in GNEChange_DemandElement
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -10.00,-13.20,10.00,13.20
@@ -127,8 +118,6 @@ GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary -10.00,-10.00,70.00,1
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
 Debug: network elements saved
-Debug: Deleting unreferenced tripJunctions
-Debug: Deleting unreferenced tripJunctions
 Debug: Deleting unreferenced tripJunctions
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor

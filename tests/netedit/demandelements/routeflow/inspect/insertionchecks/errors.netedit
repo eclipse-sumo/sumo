@@ -68,6 +68,7 @@ Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'flow (over route)' in GNETagSelector
 Debug: Adding flowRoute 'f_0' in GNEChange_DemandElement
+Debug: Value 'Dummy' for attribute insertionChecks of flowRoute isn't valid
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
