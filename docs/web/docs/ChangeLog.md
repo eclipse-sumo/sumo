@@ -29,7 +29,9 @@ title: ChangeLog
   - Fixed deadlock between car and pedestrian on shared walkingarea. Issue #11734
   - Fixed error when a personTrip with toJunction is followed by another trip. Issue #11820
   - Fixed incorrect/delayed vehicle inserting on bidi-edge. Issue #11419
-  - Fixed collisions on bidi-edge. Issue #11477  - 
+  - Fixed collisions on bidi-edge. Issue #11477
+  - Fixed missing error after routing failure. Issue #11840
+  - Fixed invalid slow-down on intersections by vehicles equipped with bluelight device due to `driveRedSpeed`. Issue #11878
   - Fixed emergency braking when using carFollowModel IDM. Issue #11498, #11564, #11564
   - Fixed emergency braking when using carFollowModel CACC. Issue #11679, #11653
   - Fixed emergency braking and collisions when using carFollowModel ACC. Issue #4551
@@ -79,6 +81,8 @@ title: ChangeLog
   - Fixed crash when using the "undo/redo history" dialog. Issue #11370
   - Setting custom arrivalPos in personPlan frame is now working. Issue #11800
   - Continuous PersonPlans between Junctions can now be created. Issue #11813
+  - Walks over routes can now be created. Issue #11845
+  - Subsequent stops can now be created for personPlans and containerPlans. Issue #11848
   
 - sumo-gui
   - Fixed crash when opening busStop parameters after simulation end. Issue #11499 (regression in 1.13.0)
@@ -126,6 +130,10 @@ title: ChangeLog
 
 - od2trips
   - XML validation now permits taz-relation intervals with human readable times. Issue #11554
+  - Option **--scale** now works when loading tazrelation-files and amitran-files. Issue  #11853
+
+- marouter
+  - Option **--scale** now works when loading tazrelation-files and amitran-files. Issue  #11853
 
 - TraCI
   - Function vehicle.highlight is now tracking the vehicle again. Issue #11352 (regression in 1.13.0)
@@ -197,8 +205,9 @@ title: ChangeLog
   - Holding the middle button now allows panning the view (also in sumo-gui). Issue #11632
   - "Undo-Redo list" dialog now includes color codes and entity ids. Issue #4765
   - Using distinct walkingArea color to distinguish them from other objects. Issue #11724
-  - Every vClass has it's own icon now. Issue #9872
+  - Every vClass has it's own icon now. Issue #9872, #11801
   - Kilometrage at cursor position is now shown in the edge context menu. Issue #11815
+  - Add (optional) tooltips in attribute labels. Issue #11490
   - Traffic light mode:
     - phase table now permits moving phases up and down. Issue #10856
     - Added buttons reset either the current program or all programs of the current traffic light to their default. Issue #9072, #11357
@@ -239,7 +248,7 @@ title: ChangeLog
   - Joined ids are abbreviated with the scheme `"cluster_id0_id1_id2_id3_#5more"` if too many junctions / traffic lights are participating, see also **-max-join-ids**. Issue #10795
   - OSM: monorail import is now supported. Issue #11799
   - OSM: cable car (aerialway) import is now supported. Issue #11798
-  
+  - Added new junction type left_before_right (needed for right-hand traffic with special rules, i.e. Madagascar). Issue #11855
 
 - netgenerate
   - Now supports options **--geometry.remove** and **--tls.discard-simple**. Issue #11422
@@ -271,10 +280,12 @@ title: ChangeLog
   - osmWebWizard.py: Now prevents turn-arounds at the start and end of routes to improve traffic flow. Issue #10167
   - osmWebWizard.py: Now reliably generates trips in small networks. Issue #11563
   - osmWebWizard.py: Now aborts scenario building if when trying and failing to retrieve satellite data. Issue #11423
-  - attributeStats.py: Now includes `stdDev` in outputs. Issue #10869  
+  - attributeStats.py: Now includes `stdDev` in outputs. Issue #10869
+  - tls_csvSignalGroups.py: Can now extract csv descriptions from a .net.xml file. Issue #10756
   
   ### Miscellaneous
 
+- Translation efforts for the grahpical applications and command line messages have begun and contributions are welcome at [Weblate](https://hosted.weblate.org/projects/eclipse-sumo/#languages). Issue #11237
 - Added xsd-schema for battery-export. Issue #11173
 - [ACC model description](Car-Following-Models/ACC.md) now has additional information in platoon stability. Issue #11382
 - Github source download now includes all tests. Issue #11403
@@ -283,6 +294,8 @@ title: ChangeLog
 - Walk attribute departPosLat is now interpreted in the same coordinate system as used by the vehicles. For backward compatibility, the option **--pedestrian.striping.legacy-departposlat** may be set. Issue #11705
 - Added more entries to help menus of sumo-gui and netedit. Issue #11604
 - The new default **--xml-validation** mode is *local* which only reads the local schema file but does not do network access to prevent XXE attacks. Issue #11054
+- Cadyts-files can be downloaded again. Issue #11014
+- Fixed the default state of some netedit toggle buttons (but kept their default semantics. Issue #10066
 
 ## Version 1.14.1 (19.07.2022)
 
