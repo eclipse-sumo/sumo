@@ -41,7 +41,7 @@ netedit.stopMode()
 netedit.changeStopType("stopContainerStop")
 
 # change triggered
-netedit.changeDefaultValue(netedit.attrs.stop.create.triggered, "join")
+netedit.changeDefaultValue(netedit.attrs.stopContainerStop.create.triggered, "join")
 
 # create stop
 netedit.leftClick(referencePosition, 290, 155)

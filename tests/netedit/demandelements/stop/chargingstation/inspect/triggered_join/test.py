@@ -50,10 +50,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 290, 195)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stop.inspect.triggered, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.triggered, "dummy", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stop.inspect.triggered, "join", False)
+netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.triggered, "join", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

@@ -44,7 +44,7 @@ netedit.changeStopType("stopContainerStop")
 netedit.leftClick(referencePosition, 290, 155)
 
 # change parking
-netedit.changeDefaultValue(netedit.attrs.stop.create.parking, "true")
+netedit.changeDefaultValue(netedit.attrs.stopContainerStop.create.parking, "true")
 
 # create stop
 netedit.leftClick(referencePosition, 295, 155)

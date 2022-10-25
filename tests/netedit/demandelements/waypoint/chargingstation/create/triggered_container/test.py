@@ -41,25 +41,25 @@ netedit.stopMode()
 netedit.changeStopType("waypointChargingStation")
 
 # change triggered
-netedit.changeDefaultValue(netedit.attrs.waypoint.create.triggered, "container")
+netedit.changeDefaultValue(netedit.attrs.waypointChargingStation.create.triggered, "container")
 
 # try to create waypoint
 netedit.leftClick(referencePosition, 290, 195)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.waypoint.create.expected, ";;;;;;;;;;")
+netedit.changeDefaultValue(netedit.attrs.waypointChargingStation.create.expected, ";;;;;;;;;;")
 
 # try to create waypoint
 netedit.leftClick(referencePosition, 295, 195)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.waypoint.create.expected, "")
+netedit.changeDefaultValue(netedit.attrs.waypointChargingStation.create.expected, "")
 
 # try to create waypoint
 netedit.leftClick(referencePosition, 300, 195)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.waypoint.create.expected, "containerID1 containerID2 containerID3")
+netedit.changeDefaultValue(netedit.attrs.waypointChargingStation.create.expected, "containerID1 containerID2 containerID3")
 
 # create waypoint
 netedit.leftClick(referencePosition, 305, 195)

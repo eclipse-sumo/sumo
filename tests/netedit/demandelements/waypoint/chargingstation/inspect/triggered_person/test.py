@@ -50,13 +50,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 290, 195)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspect.triggered, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspect.triggered, "dummy", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspect.triggered, "person", False)
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspect.triggered, "person", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspect.expected, "personA personB", False)
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspect.expected, "personA personB", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

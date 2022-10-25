@@ -47,25 +47,25 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 290, 155)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.stop.inspectSelection.durationEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.stopContainerStop.inspectSelection.durationEnable, False)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.stop.inspectSelection.durationEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.stopContainerStop.inspectSelection.durationEnable, False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stop.inspectSelection.duration, "dummyValue", False)
+netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspectSelection.duration, "dummyValue", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stop.inspectSelection.duration, "", False)
+netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspectSelection.duration, "", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stop.inspectSelection.duration, "-5", False)
+netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspectSelection.duration, "-5", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stop.inspectSelection.duration, "0", False)
+netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspectSelection.duration, "0", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stop.inspectSelection.duration, "3.5", False)
+netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspectSelection.duration, "3.5", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

@@ -47,13 +47,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 290, 155)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stop.inspectSelection.triggered, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspectSelection.triggered, "dummy", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stop.inspectSelection.triggered, "person", False)
+netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspectSelection.triggered, "person", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stop.inspectSelection.expected, "personA personB", False)
+netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspectSelection.expected, "personA personB", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

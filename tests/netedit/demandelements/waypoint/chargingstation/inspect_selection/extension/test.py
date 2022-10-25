@@ -47,25 +47,25 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 290, 195)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.waypoint.inspectSelection.extensionEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.waypointChargingStation.inspectSelection.extensionEnable, False)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.waypoint.inspectSelection.extensionEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.waypointChargingStation.inspectSelection.extensionEnable, False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspectSelection.extension, "dummyValue", False)
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspectSelection.extension, "dummyValue", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspectSelection.extension, "", False)
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspectSelection.extension, "", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspectSelection.extension, "-5", False)
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspectSelection.extension, "-5", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspectSelection.extension, "0", False)
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspectSelection.extension, "0", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspectSelection.extension, "3.5", False)
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspectSelection.extension, "3.5", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

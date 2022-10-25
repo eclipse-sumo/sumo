@@ -50,13 +50,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 290, 155)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspect.tripID, ";;;;;;", False)
+netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspect.tripID, ";;;;;;", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspect.tripID, "", False)
+netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspect.tripID, "", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspect.tripID, "customType", False)
+netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspect.tripID, "customType", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

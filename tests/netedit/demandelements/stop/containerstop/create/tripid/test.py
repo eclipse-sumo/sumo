@@ -41,19 +41,19 @@ netedit.stopMode()
 netedit.changeStopType("stopContainerStop")
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stop.create.tripID, ";;;;;;;;;;")
+netedit.changeDefaultValue(netedit.attrs.stopContainerStop.create.tripID, ";;;;;;;;;;")
 
 # try to create stop
 netedit.leftClick(referencePosition, 290, 155)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stop.create.tripID, "")
+netedit.changeDefaultValue(netedit.attrs.stopContainerStop.create.tripID, "")
 
 # try to create stop
 netedit.leftClick(referencePosition, 295, 155)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.stop.create.tripID, "tripID")
+netedit.changeDefaultValue(netedit.attrs.stopContainerStop.create.tripID, "tripID")
 
 # create stop
 netedit.leftClick(referencePosition, 300, 155)

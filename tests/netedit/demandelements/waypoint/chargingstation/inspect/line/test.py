@@ -50,13 +50,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 290, 195)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspect.line, ";;;", False)
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspect.line, ";;;", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspect.line, "", False)
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspect.line, "", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspect.line, "customLine", False)
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspect.line, "customLine", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

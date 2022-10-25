@@ -20,7 +20,7 @@ Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop 
 Debug: Adding route 'route_4' in GNEChange_DemandElement
 Debug: Adding route 'route_5' in GNEChange_DemandElement
 Debug: Adding stopBusStop 'route_5' in GNEChange_DemandElement
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.stop.busstop.24Jun133819.22475/netedit.daily.demand.stop.busstop/demandelements/stop/busstop/load/parking/input_routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.stopBusStop.busstop.24Jun133819.22475/netedit.daily.demand.stopBusStop.busstop/demandelements/stop/busstop/load/parking/input_routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 13.00,-12.00,37.00,12.00

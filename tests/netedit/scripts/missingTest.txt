@@ -41,9 +41,15 @@ personFlow.create.number
 personFlow.inspect.typeButton
 routeflow.inspect.typeButton
 selection.lockSelectionNetwork.TAZs
-stop.create.onDemad
-stop.inspect.onDemad
-stop.inspectSelection.onDemad
+stopBusStop.create.onDemad
+stopBusStop.inspect.onDemad
+stopBusStop.inspectSelection.onDemad
+stopChargingStation.create.onDemad
+stopChargingStation.inspect.onDemad
+stopChargingStation.inspectSelection.onDemad
+stopContainerStop.create.onDemad
+stopContainerStop.inspect.onDemad
+stopContainerStop.inspectSelection.onDemad
 stopLane.create.onDemad
 stopLane.inspect.onDemad
 stopLane.inspectSelection.onDemad
@@ -58,3 +64,7 @@ type.editDialog.osgFileButton
 type.editDialog.parametersButton
 vehicle.inspect.typeButton
 vehicleEmbedded.inspect.typeButton
+waypointChargingStation.inspectSelection.line
+waypointChargingStation.inspectSelection.tripID
+waypointContainerStop.inspectSelection.line
+waypointContainerStop.inspectSelection.tripID

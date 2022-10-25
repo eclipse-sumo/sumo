@@ -50,13 +50,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 290, 195)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspect.tripID, ";;;;", False)
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspect.tripID, ";;;;", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspect.tripID, "", False)
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspect.tripID, "", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspect.tripID, "customID", False)
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspect.tripID, "customID", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

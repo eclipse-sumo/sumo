@@ -41,19 +41,19 @@ netedit.stopMode()
 netedit.changeStopType("stopContainerStop")
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stop.create.line, ";;;;;;;;;;")
+netedit.changeDefaultValue(netedit.attrs.stopContainerStop.create.line, ";;;;;;;;;;")
 
 # try to create stop
 netedit.leftClick(referencePosition, 290, 155)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stop.create.line, "")
+netedit.changeDefaultValue(netedit.attrs.stopContainerStop.create.line, "")
 
 # try to create stop
 netedit.leftClick(referencePosition, 295, 155)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.stop.create.line, "customLine")
+netedit.changeDefaultValue(netedit.attrs.stopContainerStop.create.line, "customLine")
 
 # create stop
 netedit.leftClick(referencePosition, 300, 155)

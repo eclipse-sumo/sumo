@@ -41,19 +41,19 @@ netedit.stopMode()
 netedit.changeStopType("waypointContainerStop")
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.waypoint.create.tripID, ";;;;;;;;;;")
+netedit.changeDefaultValue(netedit.attrs.waypointContainerStop.create.tripID, ";;;;;;;;;;")
 
 # try to create waypoint
 netedit.leftClick(referencePosition, 290, 155)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.waypoint.create.tripID, "")
+netedit.changeDefaultValue(netedit.attrs.waypointContainerStop.create.tripID, "")
 
 # try to create waypoint
 netedit.leftClick(referencePosition, 295, 155)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.waypoint.create.tripID, "tripID")
+netedit.changeDefaultValue(netedit.attrs.waypointContainerStop.create.tripID, "tripID")
 
 # create waypoint
 netedit.leftClick(referencePosition, 300, 155)

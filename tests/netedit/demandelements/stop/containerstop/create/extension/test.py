@@ -41,34 +41,34 @@ netedit.stopMode()
 netedit.changeStopType("stopContainerStop")
 
 # disable duration
-netedit.changeDefaultBoolValue(netedit.attrs.stop.create.durationEnable)
+netedit.changeDefaultBoolValue(netedit.attrs.stopContainerStop.create.durationEnable)
 
 # enable until
-netedit.changeDefaultBoolValue(netedit.attrs.stop.create.extensionEnable)
+netedit.changeDefaultBoolValue(netedit.attrs.stopContainerStop.create.extensionEnable)
 
 # create stop
 netedit.leftClick(referencePosition, 290, 155)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stop.create.extension, "dummyValue")
+netedit.changeDefaultValue(netedit.attrs.stopContainerStop.create.extension, "dummyValue")
 
 # try to create stop
 netedit.leftClick(referencePosition, 291, 155)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stop.create.extension, "-20")
+netedit.changeDefaultValue(netedit.attrs.stopContainerStop.create.extension, "-20")
 
 # try to create stop
 netedit.leftClick(referencePosition, 292, 155)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.stop.create.extension, "0")
+netedit.changeDefaultValue(netedit.attrs.stopContainerStop.create.extension, "0")
 
 # try to create stop
 netedit.leftClick(referencePosition, 293, 155)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.stop.create.extension, "22.33")
+netedit.changeDefaultValue(netedit.attrs.stopContainerStop.create.extension, "22.33")
 
 # try to create stop
 netedit.leftClick(referencePosition, 294, 155)

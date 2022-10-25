@@ -50,25 +50,25 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 290, 175)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.waypoint.inspect.durationEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.waypointBusStop.inspect.durationEnable, False)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.waypoint.inspect.untilEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.waypointBusStop.inspect.untilEnable, False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspect.until, "dummyValue", False)
+netedit.modifyAttribute(netedit.attrs.waypointBusStop.inspect.until, "dummyValue", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspect.until, "", False)
+netedit.modifyAttribute(netedit.attrs.waypointBusStop.inspect.until, "", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspect.until, "-5", False)
+netedit.modifyAttribute(netedit.attrs.waypointBusStop.inspect.until, "-5", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspect.until, "0", False)
+netedit.modifyAttribute(netedit.attrs.waypointBusStop.inspect.until, "0", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspect.until, "3.5", False)
+netedit.modifyAttribute(netedit.attrs.waypointBusStop.inspect.until, "3.5", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

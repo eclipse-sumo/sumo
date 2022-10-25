@@ -13,7 +13,7 @@ Debug: Adding route 'route_2' in GNEChange_DemandElement
 Debug: Adding waypointBusStop 'route_2' in GNEChange_DemandElement
 Debug: Adding route 'route_3' in GNEChange_DemandElement
 Debug: Adding waypointBusStop 'route_3' in GNEChange_DemandElement
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.waypoint.busstop.24Jun133819.22499/netedit.daily.demand.waypoint.busstop/demandelements/waypoint/busstop/load/expectedcontainers/input_routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.waypointBusStop.busstop.24Jun133819.22499/netedit.daily.demand.waypointBusStop.busstop/demandelements/waypoint/busstop/load/expectedcontainers/input_routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 13.00,-12.00,37.00,12.00

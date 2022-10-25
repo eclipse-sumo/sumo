@@ -41,19 +41,19 @@ netedit.stopMode()
 netedit.changeStopType("stopChargingStation")
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stop.create.line, ";;;;;;;;;;")
+netedit.changeDefaultValue(netedit.attrs.stopChargingStation.create.line, ";;;;;;;;;;")
 
 # try to create stop
 netedit.leftClick(referencePosition, 290, 195)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stop.create.line, "")
+netedit.changeDefaultValue(netedit.attrs.stopChargingStation.create.line, "")
 
 # try to create stop
 netedit.leftClick(referencePosition, 295, 195)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.stop.create.line, "customLine")
+netedit.changeDefaultValue(netedit.attrs.stopChargingStation.create.line, "customLine")
 
 # create stop
 netedit.leftClick(referencePosition, 300, 195)

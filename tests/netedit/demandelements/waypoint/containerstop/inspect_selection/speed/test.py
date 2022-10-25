@@ -47,13 +47,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 290, 155)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspectSelection.speed, ";;;;", False)
+netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspectSelection.speed, ";;;;", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspectSelection.speed, "-7.3", False)
+netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspectSelection.speed, "-7.3", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspectSelection.speed, "12.2", False)
+netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspectSelection.speed, "12.2", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

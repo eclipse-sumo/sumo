@@ -47,7 +47,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 290, 195)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspectSelection.permitted, "permitA permitB", False)
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspectSelection.permitted, "permitA permitB", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

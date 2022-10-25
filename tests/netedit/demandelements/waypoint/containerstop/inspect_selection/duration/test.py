@@ -47,25 +47,25 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 290, 155)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.waypoint.inspectSelection.durationEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.waypointContainerStop.inspectSelection.durationEnable, False)
 
 # change value
-netedit.modifyBoolAttribute(netedit.attrs.waypoint.inspectSelection.durationEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.waypointContainerStop.inspectSelection.durationEnable, False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspectSelection.duration, "dummyValue", False)
+netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspectSelection.duration, "dummyValue", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspectSelection.duration, "", False)
+netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspectSelection.duration, "", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspectSelection.duration, "-5", False)
+netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspectSelection.duration, "-5", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspectSelection.duration, "0", False)
+netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspectSelection.duration, "0", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspectSelection.duration, "3.5", False)
+netedit.modifyAttribute(netedit.attrs.waypointContainerStop.inspectSelection.duration, "3.5", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

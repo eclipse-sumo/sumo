@@ -4,11 +4,11 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.demand.waypoint.chargingstation.16Sep110503.20642/netedit.daily.demand.waypoint.chargingstation/demandelements/waypoint/chargingstation/volatilerecomputing/input_net.net.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.demand.waypointChargingStation.chargingstation.16Sep110503.20642/netedit.daily.demand.waypointChargingStation.chargingstation/demandelements/waypoint/chargingstation/volatilerecomputing/input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.demand.waypoint.chargingstation.16Sep110503.20642/netedit.daily.demand.waypoint.chargingstation/demandelements/waypoint/chargingstation/volatilerecomputing/net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.demand.waypointChargingStation.chargingstation.16Sep110503.20642/netedit.daily.demand.waypointChargingStation.chargingstation/demandelements/waypoint/chargingstation/volatilerecomputing/net.net.xml"/>
     </output>
 
     <processing>
@@ -33,27 +33,27 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.demand.waypoint.chargingstation.16Sep110503.20642/netedit.daily.demand.waypoint.chargingstation/demandelements/waypoint/chargingstation/volatilerecomputing/additionals.xml"/>
-        <additionals-output value="/home/palcraft/.texttest/tmp/netedit.daily.demand.waypoint.chargingstation.16Sep110503.20642/netedit.daily.demand.waypoint.chargingstation/demandelements/waypoint/chargingstation/volatilerecomputing/additionals.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.demand.waypoint.chargingstation.16Sep110503.20642/netedit.daily.demand.waypoint.chargingstation/demandelements/waypoint/chargingstation/volatilerecomputing/routes.xml"/>
-        <demandelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.demand.waypoint.chargingstation.16Sep110503.20642/netedit.daily.demand.waypoint.chargingstation/demandelements/waypoint/chargingstation/volatilerecomputing/routes.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.demand.waypoint.chargingstation.16Sep110503.20642/netedit.daily.demand.waypoint.chargingstation/demandelements/waypoint/chargingstation/volatilerecomputing/datas.xml"/>
-        <dataelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.demand.waypoint.chargingstation.16Sep110503.20642/netedit.daily.demand.waypoint.chargingstation/demandelements/waypoint/chargingstation/volatilerecomputing/datas.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.demand.waypointChargingStation.chargingstation.16Sep110503.20642/netedit.daily.demand.waypointChargingStation.chargingstation/demandelements/waypoint/chargingstation/volatilerecomputing/additionals.xml"/>
+        <additionals-output value="/home/palcraft/.texttest/tmp/netedit.daily.demand.waypointChargingStation.chargingstation.16Sep110503.20642/netedit.daily.demand.waypointChargingStation.chargingstation/demandelements/waypoint/chargingstation/volatilerecomputing/additionals.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.demand.waypointChargingStation.chargingstation.16Sep110503.20642/netedit.daily.demand.waypointChargingStation.chargingstation/demandelements/waypoint/chargingstation/volatilerecomputing/routes.xml"/>
+        <demandelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.demand.waypointChargingStation.chargingstation.16Sep110503.20642/netedit.daily.demand.waypointChargingStation.chargingstation/demandelements/waypoint/chargingstation/volatilerecomputing/routes.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.demand.waypointChargingStation.chargingstation.16Sep110503.20642/netedit.daily.demand.waypointChargingStation.chargingstation/demandelements/waypoint/chargingstation/volatilerecomputing/datas.xml"/>
+        <dataelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.demand.waypointChargingStation.chargingstation.16Sep110503.20642/netedit.daily.demand.waypointChargingStation.chargingstation/demandelements/waypoint/chargingstation/volatilerecomputing/datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.demand.waypoint.chargingstation.16Sep110503.20642/netedit.daily.demand.waypoint.chargingstation/demandelements/waypoint/chargingstation/volatilerecomputing/gui-settings.xml"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.demand.waypointChargingStation.chargingstation.16Sep110503.20642/netedit.daily.demand.waypointChargingStation.chargingstation/demandelements/waypoint/chargingstation/volatilerecomputing/gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.demand.waypoint.chargingstation.16Sep110503.20642/netedit.daily.demand.waypoint.chargingstation/demandelements/waypoint/chargingstation/volatilerecomputing/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.demand.waypointChargingStation.chargingstation.16Sep110503.20642/netedit.daily.demand.waypointChargingStation.chargingstation/demandelements/waypoint/chargingstation/volatilerecomputing/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.demand.waypoint.chargingstation.16Sep110503.20642/netedit.daily.demand.waypoint.chargingstation/demandelements/waypoint/chargingstation/volatilerecomputing/log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.demand.waypointChargingStation.chargingstation.16Sep110503.20642/netedit.daily.demand.waypointChargingStation.chargingstation/demandelements/waypoint/chargingstation/volatilerecomputing/log.txt"/>
     </report>
 
 </configuration>

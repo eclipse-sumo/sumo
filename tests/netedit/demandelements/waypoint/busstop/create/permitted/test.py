@@ -41,19 +41,19 @@ netedit.stopMode()
 netedit.changeStopType("waypointBusStop")
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.waypoint.create.permitted, ";;;;;;;;;;")
+netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.permitted, ";;;;;;;;;;")
 
 # try to create waypoint
 netedit.leftClick(referencePosition, 290, 175)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.waypoint.create.permitted, "")
+netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.permitted, "")
 
 # try to create waypoint
 netedit.leftClick(referencePosition, 295, 175)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.waypoint.create.permitted, "ID1 ID2 ID3")
+netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.permitted, "ID1 ID2 ID3")
 
 # create waypoint
 netedit.leftClick(referencePosition, 300, 175)

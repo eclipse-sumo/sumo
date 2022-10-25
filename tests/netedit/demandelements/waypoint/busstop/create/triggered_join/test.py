@@ -41,7 +41,7 @@ netedit.stopMode()
 netedit.changeStopType("waypointBusStop")
 
 # change triggered
-netedit.changeDefaultValue(netedit.attrs.waypoint.create.triggered, "join")
+netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.triggered, "join")
 
 # create waypoint
 netedit.leftClick(referencePosition, 290, 175)

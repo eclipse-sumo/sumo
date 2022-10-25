@@ -47,13 +47,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 290, 155)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stop.inspectSelection.triggered, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspectSelection.triggered, "dummy", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stop.inspectSelection.triggered, "container", False)
+netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspectSelection.triggered, "container", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.stop.inspectSelection.expected, "containerA containerB", False)
+netedit.modifyAttribute(netedit.attrs.stopContainerStop.inspectSelection.expected, "containerA containerB", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

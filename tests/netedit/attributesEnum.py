@@ -2033,10 +2033,10 @@ class flowEmbedded:
         spacingOption = 24
         parameters = 24
 
-# stop (over busStop/containerStop/chargingStation)
+# stop over bus stop
 
 
-class stop:
+class stopBusStop:
     class create:
         durationEnable = 8
         duration = 9
@@ -2085,7 +2085,110 @@ class stop:
         line = 15
         onDemad = 16
 
-# stop (over parkings)
+# stop over container stop
+
+class stopContainerStop:
+    class create:
+        durationEnable = 8
+        duration = 9
+        untilEnable = 9
+        until = 10
+        extensionEnable = 10
+        extension = 11
+        triggered = 12
+        expected = 14
+        permitted = 14
+        parking = 15
+        actType = 17
+        tripID = 18
+        line = 19
+        onDemad = 20
+
+    class inspect:
+        durationEnable = 1
+        duration = 2
+        untilEnable = 2
+        until = 3
+        extensionEnable = 3
+        extension = 4
+        triggered = 5
+        expected = 7
+        permitted = 7
+        parking = 8
+        actType = 10
+        tripID = 11
+        line = 12
+        onDemad = 13
+
+    class inspectSelection:
+        durationEnable = 1
+        duration = 2
+        untilEnable = 3
+        until = 4
+        extensionEnable = 5
+        extension = 6
+        triggered = 7
+        expected = 9
+        permitted = 10
+        parking = 11
+        actType = 13
+        tripID = 14
+        line = 15
+        onDemad = 16
+
+# stop over charging station
+
+
+class stopChargingStation:
+    class create:
+        durationEnable = 8
+        duration = 9
+        untilEnable = 9
+        until = 10
+        extensionEnable = 10
+        extension = 11
+        triggered = 12
+        expected = 14
+        permitted = 14
+        parking = 15
+        actType = 17
+        tripID = 18
+        line = 19
+        onDemad = 20
+
+    class inspect:
+        durationEnable = 1
+        duration = 2
+        untilEnable = 2
+        until = 3
+        extensionEnable = 3
+        extension = 4
+        triggered = 5
+        expected = 7
+        permitted = 7
+        parking = 8
+        actType = 10
+        tripID = 11
+        line = 12
+        onDemad = 13
+
+    class inspectSelection:
+        durationEnable = 1
+        duration = 2
+        untilEnable = 3
+        until = 4
+        extensionEnable = 5
+        extension = 6
+        triggered = 7
+        expected = 9
+        permitted = 10
+        parking = 11
+        actType = 13
+        tripID = 14
+        line = 15
+        onDemad = 16
+
+# stop over parkings
 
 
 class stopParking:
@@ -2134,7 +2237,7 @@ class stopParking:
         line = 13
         onDemad = 14
 
-# stop (over lane)
+# stop over lane
 
 
 class stopLane:
@@ -2195,10 +2298,10 @@ class stopLane:
         line = 17
         onDemad = 18
 
-# waypoint (over busStop/containerStop/chargingStation)
+# waypoint over bus stops
 
 
-class waypoint:
+class waypointBusStop:
     class create:
         durationEnable = 8
         duration = 9
@@ -2247,7 +2350,111 @@ class waypoint:
         line = 15
         speed = 16
 
-# waypoint (over parkings)
+# waypoint over container stops
+
+
+class waypointContainerStop:
+    class create:
+        durationEnable = 8
+        duration = 9
+        untilEnable = 9
+        until = 10
+        extensionEnable = 10
+        extension = 11
+        triggered = 12
+        expected = 14
+        permitted = 14
+        parking = 15
+        actType = 17
+        tripID = 18
+        line = 19
+        speed = 20
+
+    class inspect:
+        durationEnable = 1
+        duration = 2
+        untilEnable = 2
+        until = 3
+        extensionEnable = 3
+        extension = 4
+        triggered = 5
+        expected = 7
+        permitted = 7
+        parking = 8
+        actType = 10
+        tripID = 11
+        line = 12
+        speed = 13
+
+    class inspectSelection:
+        durationEnable = 1
+        duration = 2
+        untilEnable = 3
+        until = 4
+        extensionEnable = 5
+        extension = 6
+        triggered = 7
+        expected = 9
+        permitted = 10
+        parking = 11
+        actType = 13
+        tripID = 14
+        line = 15
+        speed = 16
+
+# waypoint over charging stations
+
+
+class waypointChargingStation:
+    class create:
+        durationEnable = 8
+        duration = 9
+        untilEnable = 9
+        until = 10
+        extensionEnable = 10
+        extension = 11
+        triggered = 12
+        expected = 14
+        permitted = 14
+        parking = 15
+        actType = 17
+        tripID = 18
+        line = 19
+        speed = 20
+
+    class inspect:
+        durationEnable = 1
+        duration = 2
+        untilEnable = 2
+        until = 3
+        extensionEnable = 3
+        extension = 4
+        triggered = 5
+        expected = 7
+        permitted = 7
+        parking = 8
+        actType = 10
+        tripID = 11
+        line = 12
+        speed = 13
+
+    class inspectSelection:
+        durationEnable = 1
+        duration = 2
+        untilEnable = 3
+        until = 4
+        extensionEnable = 5
+        extension = 6
+        triggered = 7
+        expected = 9
+        permitted = 10
+        parking = 11
+        actType = 13
+        tripID = 14
+        line = 15
+        speed = 16
+
+# waypoint over parkings
 
 
 class waypointParking:

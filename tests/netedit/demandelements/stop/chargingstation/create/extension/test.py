@@ -41,34 +41,34 @@ netedit.stopMode()
 netedit.changeStopType("stopChargingStation")
 
 # disable duration
-netedit.changeDefaultBoolValue(netedit.attrs.stop.create.durationEnable)
+netedit.changeDefaultBoolValue(netedit.attrs.stopChargingStation.create.durationEnable)
 
 # enable until
-netedit.changeDefaultBoolValue(netedit.attrs.stop.create.extensionEnable)
+netedit.changeDefaultBoolValue(netedit.attrs.stopChargingStation.create.extensionEnable)
 
 # create stop
 netedit.leftClick(referencePosition, 290, 195)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stop.create.extension, "dummyValue")
+netedit.changeDefaultValue(netedit.attrs.stopChargingStation.create.extension, "dummyValue")
 
 # try to create stop
 netedit.leftClick(referencePosition, 291, 195)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.stop.create.extension, "-20")
+netedit.changeDefaultValue(netedit.attrs.stopChargingStation.create.extension, "-20")
 
 # try to create stop
 netedit.leftClick(referencePosition, 292, 195)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.stop.create.extension, "0")
+netedit.changeDefaultValue(netedit.attrs.stopChargingStation.create.extension, "0")
 
 # try to create stop
 netedit.leftClick(referencePosition, 293, 195)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.stop.create.extension, "22.33")
+netedit.changeDefaultValue(netedit.attrs.stopChargingStation.create.extension, "22.33")
 
 # try to create stop
 netedit.leftClick(referencePosition, 294, 195)

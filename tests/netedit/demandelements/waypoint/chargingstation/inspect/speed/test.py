@@ -50,16 +50,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 290, 195)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspect.speed, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspect.speed, "dummy", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspect.speed, "", False)
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspect.speed, "", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspect.speed, "-42", False)
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspect.speed, "-42", False)
 
 # change value
-netedit.modifyAttribute(netedit.attrs.waypoint.inspect.speed, "1.15", False)
+netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspect.speed, "1.15", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

@@ -44,7 +44,7 @@ netedit.changeStopType("waypointChargingStation")
 netedit.leftClick(referencePosition, 290, 195)
 
 # change parking
-netedit.changeDefaultValue(netedit.attrs.waypoint.create.parking, "true")
+netedit.changeDefaultValue(netedit.attrs.waypointChargingStation.create.parking, "true")
 
 # create waypoint
 netedit.leftClick(referencePosition, 295, 195)

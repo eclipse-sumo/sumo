@@ -41,25 +41,25 @@ netedit.stopMode()
 netedit.changeStopType("waypointBusStop")
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.waypoint.create.actType, ";;;;;;;;;;")
+netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.actType, ";;;;;;;;;;")
 
 # try to create waypoint
 netedit.leftClick(referencePosition, 290, 175)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.waypoint.create.actType, "")
+netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.actType, "")
 
 # try to create waypoint
 netedit.leftClick(referencePosition, 295, 175)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.waypoint.create.actType, "dummy Act")
+netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.actType, "dummy Act")
 
 # create waypoint
 netedit.leftClick(referencePosition, 300, 175)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.waypoint.create.actType, "singing")
+netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.actType, "singing")
 
 # create waypoint
 netedit.leftClick(referencePosition, 305, 175)

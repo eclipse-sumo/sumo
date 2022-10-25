@@ -41,37 +41,37 @@ netedit.stopMode()
 netedit.changeStopType("waypointContainerStop")
 
 # disable duration
-netedit.changeDefaultBoolValue(netedit.attrs.waypoint.create.durationEnable)
+netedit.changeDefaultBoolValue(netedit.attrs.waypointContainerStop.create.durationEnable)
 
 # create waypoint
 netedit.leftClick(referencePosition, 290, 155)
 
 # enable duration
-netedit.changeDefaultBoolValue(netedit.attrs.waypoint.create.durationEnable)
+netedit.changeDefaultBoolValue(netedit.attrs.waypointContainerStop.create.durationEnable)
 
 # create waypoint
 netedit.leftClick(referencePosition, 291, 155)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.waypoint.create.duration, "dummyValue")
+netedit.changeDefaultValue(netedit.attrs.waypointContainerStop.create.duration, "dummyValue")
 
 # try to create waypoint
 netedit.leftClick(referencePosition, 292, 155)
 
 # set invalid value
-netedit.changeDefaultValue(netedit.attrs.waypoint.create.duration, "-20")
+netedit.changeDefaultValue(netedit.attrs.waypointContainerStop.create.duration, "-20")
 
 # try to create waypoint
 netedit.leftClick(referencePosition, 293, 155)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.waypoint.create.duration, "0")
+netedit.changeDefaultValue(netedit.attrs.waypointContainerStop.create.duration, "0")
 
 # try to create waypoint
 netedit.leftClick(referencePosition, 294, 155)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.waypoint.create.duration, "22.33")
+netedit.changeDefaultValue(netedit.attrs.waypointContainerStop.create.duration, "22.33")
 
 # try to create waypoint
 netedit.leftClick(referencePosition, 295, 155)
