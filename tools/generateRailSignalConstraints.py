@@ -1471,17 +1471,25 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
                                 # signal before vehID2 enters the conflict section (in the opposite direction)
                                 pSignal = findSignal(net, getEdges(stopRoute2, sI2, e2Start, False, noIndex=True), True)
 
-                                if pSignal != nSignal and pSignal and pStop.vehID != stop.vehID:
+                                if pStop.vehID != stop.vehID:
                                     if nSignal is None or pSignal is None:
-                                        error = ("Ignoring bidi conflict for %s and %s between stops '%s' and '%'" +
-                                                 "because no rail signal was found for %s before edge '%s'")
+                                        error = ("Ignoring bidi conflict for %s and %s between stops '%s' and '%s'" +
+                                                 " because no rail signal was found for %s before edge '%s'")
 
                                         if nSignal is None:
                                             print(error % (stop.prevTripId, pStop.prevTripId, busStop, pStop.busStop,
                                                            stop.prevTripId, e1Final), file=sys.stderr)
-                                        if pSignal is None:
+                                        elif pSignal is None:
                                             print(error % (stop.prevTripId, pStop.prevTripId, busStop, pStop.busStop,
                                                            pStop.prevTripId, e2Start), file=sys.stderr)
+                                        numIgnoredConflicts += 1
+                                        continue
+
+                                    if pSignal == nSignal:
+                                        error = ("Ignoring bidi conflict for %s and %s between stops '%s' and '%s'" +
+                                                 " because the found rail signals are the same ('%s')")
+                                        print(error % (stop.prevTripId, pStop.prevTripId, busStop, pStop.busStop,
+                                            stop.prevTripId, e1Final, pSignal), file=sys.stderr)
                                         numIgnoredConflicts += 1
                                         continue
 
