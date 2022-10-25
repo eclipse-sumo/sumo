@@ -7,3 +7,9 @@ simple
 # One of the trains has to drive much farther after the conflict section before reaching the next stop.
 # Comparing stop arrival time will not achieve the correct ordering.
 stop_far_beyond_bidi
+
+# 2 common bidi edges between stations
+no_signals
+
+# 2 common bidi edges between stations
+missing_signal
