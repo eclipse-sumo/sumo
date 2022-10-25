@@ -1748,7 +1748,7 @@ stopBusStop.create.parking
 stopBusStop.create.actType 
 stopBusStop.create.tripID 
 stopBusStop.create.line 
-stopBusStop.create.onDemad 
+stopBusStop.create.onDemand 
 stopBusStop.inspect
 stopBusStop.inspect.durationEnable 
 stopBusStop.inspect.duration 
@@ -1763,7 +1763,7 @@ stopBusStop.inspect.parking
 stopBusStop.inspect.actType 
 stopBusStop.inspect.tripID 
 stopBusStop.inspect.line 
-stopBusStop.inspect.onDemad 
+stopBusStop.inspect.onDemand 
 stopBusStop.inspectSelection
 stopBusStop.inspectSelection.durationEnable 
 stopBusStop.inspectSelection.duration 
@@ -1778,7 +1778,7 @@ stopBusStop.inspectSelection.parking
 stopBusStop.inspectSelection.actType 
 stopBusStop.inspectSelection.tripID 
 stopBusStop.inspectSelection.line 
-stopBusStop.inspectSelection.onDemad 
+stopBusStop.inspectSelection.onDemand 
 stopContainerStop
 stopContainerStop.create
 stopContainerStop.create.durationEnable 
@@ -1794,7 +1794,7 @@ stopContainerStop.create.parking
 stopContainerStop.create.actType 
 stopContainerStop.create.tripID 
 stopContainerStop.create.line 
-stopContainerStop.create.onDemad 
+stopContainerStop.create.onDemand 
 stopContainerStop.inspect
 stopContainerStop.inspect.durationEnable 
 stopContainerStop.inspect.duration 
@@ -1809,7 +1809,7 @@ stopContainerStop.inspect.parking
 stopContainerStop.inspect.actType 
 stopContainerStop.inspect.tripID 
 stopContainerStop.inspect.line 
-stopContainerStop.inspect.onDemad 
+stopContainerStop.inspect.onDemand 
 stopContainerStop.inspectSelection
 stopContainerStop.inspectSelection.durationEnable 
 stopContainerStop.inspectSelection.duration 
@@ -1824,7 +1824,7 @@ stopContainerStop.inspectSelection.parking
 stopContainerStop.inspectSelection.actType 
 stopContainerStop.inspectSelection.tripID 
 stopContainerStop.inspectSelection.line 
-stopContainerStop.inspectSelection.onDemad 
+stopContainerStop.inspectSelection.onDemand 
 stopChargingStation
 stopChargingStation.create
 stopChargingStation.create.durationEnable 
@@ -1840,7 +1840,7 @@ stopChargingStation.create.parking
 stopChargingStation.create.actType 
 stopChargingStation.create.tripID 
 stopChargingStation.create.line 
-stopChargingStation.create.onDemad 
+stopChargingStation.create.onDemand 
 stopChargingStation.inspect
 stopChargingStation.inspect.durationEnable 
 stopChargingStation.inspect.duration 
@@ -1855,7 +1855,7 @@ stopChargingStation.inspect.parking
 stopChargingStation.inspect.actType 
 stopChargingStation.inspect.tripID 
 stopChargingStation.inspect.line 
-stopChargingStation.inspect.onDemad 
+stopChargingStation.inspect.onDemand 
 stopChargingStation.inspectSelection
 stopChargingStation.inspectSelection.durationEnable 
 stopChargingStation.inspectSelection.duration 
@@ -1870,7 +1870,7 @@ stopChargingStation.inspectSelection.parking
 stopChargingStation.inspectSelection.actType 
 stopChargingStation.inspectSelection.tripID 
 stopChargingStation.inspectSelection.line 
-stopChargingStation.inspectSelection.onDemad 
+stopChargingStation.inspectSelection.onDemand 
 stopParking
 stopParking.create
 stopParking.create.durationEnable 
@@ -1885,7 +1885,7 @@ stopParking.create.permitted
 stopParking.create.actType 
 stopParking.create.tripID 
 stopParking.create.line 
-stopParking.create.onDemad 
+stopParking.create.onDemand 
 stopParking.inspect
 stopParking.inspect.durationEnable 
 stopParking.inspect.duration 
@@ -1899,7 +1899,7 @@ stopParking.inspect.permitted
 stopParking.inspect.actType 
 stopParking.inspect.tripID 
 stopParking.inspect.line 
-stopParking.inspect.onDemad 
+stopParking.inspect.onDemand 
 stopParking.inspectSelection
 stopParking.inspectSelection.durationEnable 
 stopParking.inspectSelection.duration 
@@ -1913,7 +1913,7 @@ stopParking.inspectSelection.permitted
 stopParking.inspectSelection.actType 
 stopParking.inspectSelection.tripID 
 stopParking.inspectSelection.line 
-stopParking.inspectSelection.onDemad 
+stopParking.inspectSelection.onDemand 
 stopLane
 stopLane.create
 stopLane.create.friendlyPos 
@@ -1931,7 +1931,7 @@ stopLane.create.parking
 stopLane.create.actType 
 stopLane.create.tripID 
 stopLane.create.line 
-stopLane.create.onDemad 
+stopLane.create.onDemand 
 stopLane.inspect
 stopLane.inspect.lane 
 stopLane.inspect.startPos 
@@ -1951,7 +1951,7 @@ stopLane.inspect.parking
 stopLane.inspect.actType 
 stopLane.inspect.tripID 
 stopLane.inspect.line 
-stopLane.inspect.onDemad 
+stopLane.inspect.onDemand 
 stopLane.inspectSelection
 stopLane.inspectSelection.friendlyPos 
 stopLane.inspectSelection.posLat 
@@ -1968,7 +1968,7 @@ stopLane.inspectSelection.parking
 stopLane.inspectSelection.actType 
 stopLane.inspectSelection.tripID 
 stopLane.inspectSelection.line 
-stopLane.inspectSelection.onDemad 
+stopLane.inspectSelection.onDemand 
 waypointBusStop
 waypointBusStop.create
 waypointBusStop.create.durationEnable 
