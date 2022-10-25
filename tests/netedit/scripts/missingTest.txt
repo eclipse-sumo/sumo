@@ -14,8 +14,6 @@ containerFlow.create.number
 containerFlow.inspect.typeButton
 fix.demandElements.routes
 fix.demandElements.routes.removeStops
-flowEmbedded.inspect.arrivalEdge
-flowEmbedded.inspect.departEdge
 flowEmbedded.inspect.typeButton
 flowFromToEdge.inspect.typeButton
 flowJunction.inspect.typeButton
@@ -59,6 +57,4 @@ type.editDialog.imgFileButton
 type.editDialog.osgFileButton
 type.editDialog.parametersButton
 vehicle.inspect.typeButton
-vehicleEmbedded.inspect.arrivalEdge
-vehicleEmbedded.inspect.departEdge
 vehicleEmbedded.inspect.typeButton

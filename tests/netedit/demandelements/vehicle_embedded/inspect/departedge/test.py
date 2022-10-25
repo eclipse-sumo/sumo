@@ -54,10 +54,10 @@ netedit.leftClick(referencePosition, 91, 392)
 netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.inspect.departEdge, "dummyEdge", False)
 
 # change edge
-netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.inspect.departEdge, "gneE8", False)
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.inspect.departEdge, "50", False)
 
 # change edge
-netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.inspect.departEdge, "gneE4", False)
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.inspect.departEdge, "1", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)
