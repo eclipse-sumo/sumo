@@ -12,7 +12,8 @@ title: ChangeLog
   - Taxi drop-off is no longer interrupted by new dispatch. Also, persons only continue their plan after the drop-off duration. Issue #11311  
   - Fixed bug where emergency vehicle fails to overtake. Issue #11345
   - Fixed bug where emergency vehicle performs invalid (unstrategic) lanechange. Issue #11337
-  - A persons individual speedFactor is now applied during access stage. Issue #11452  
+  - A persons individual speedFactor is now applied during access stage. Issue #11452
+  - Fixed invalid pedestrian routing when using the *striping* model to navigate within an intersection. Issue #11674
   - Fixed invalid parking maneuver times. Issue #11420  
   - Option **--scale** and vType attribute `scale` now apply evenly to all defined `<flow`> elements when set to values below 1. Issue #11441  
   - Fixed invalid braking at intersection in sublane simulation. Issue #11484
@@ -26,10 +27,12 @@ title: ChangeLog
   - Fixed invalid junction collision warning involving short approach edges. Issue #11609
   - Fixed crash on inconsistent opposite-direction edge definitions. Issue #11661
   - Fixed deadlock between car and pedestrian on shared walkingarea. Issue #11734
+  - Fixed error when a personTrip with toJunction is followed by another trip. Issue #11820
   - Fixed incorrect/delayed vehicle inserting on bidi-edge. Issue #11419
-  - Fixed collisions on bidi-edge. Issue #11477
+  - Fixed collisions on bidi-edge. Issue #11477  - 
   - Fixed emergency braking when using carFollowModel IDM. Issue #11498, #11564, #11564
   - Fixed emergency braking when using carFollowModel CACC. Issue #11679, #11653
+  - Fixed emergency braking and collisions when using carFollowModel ACC. Issue #4551
   - EIDM carFollowModel:
     - Fixed multiple EIDM issues related to imprecise driving at stop lines. #11242, #11182, #11183
     - Fixed bug where vehicles did not reach a defined stop. Issue #11364
@@ -43,6 +46,7 @@ title: ChangeLog
     - Fixed bug where car blocks itself during continuous laneChange after loading state. Issue #11394
     - Fixed invalid speed adaptations for lane changing while on an intersection. Issue #11507
     - Fixed strategic change happening despite lcStrategic=-1. Issue #11752
+    - A stopped leader now triggers strategic changing in the sublane model. Issue #11773
   - output
     - fcd-output now includes riding persons even if their vehicle is not equipped with fcd device. Issue #11454
     - fcd-output of persons now respects edge and shape filters. Issue #11455
@@ -53,6 +57,7 @@ title: ChangeLog
     - Fixed unsafe train insertion with oncoming vehicle. Issue #11384
     - Fixed invalid error when trying to insert train before red signal with high speed. Issue #11440
     - Fixed emergency braking due to unsuitable rail signal choice between rivaling trains. Issue #11442
+    - Fixed railway routing failure. Issue #11835
   
 - netedit
   - Fixed missing coordinate indicator in status bar. Issue #11230 (regression in 1.14.0)
@@ -72,6 +77,8 @@ title: ChangeLog
   - Ids of crossings and walkingareas can now be drawn. Issue #11664
   - Visual scaling for selected data elements now works. Issue #10937
   - Fixed crash when using the "undo/redo history" dialog. Issue #11370
+  - Setting custom arrivalPos in personPlan frame is now working. Issue #11800
+  - Continuous PersonPlans between Junctions can now be created. Issue #11813
   
 - sumo-gui
   - Fixed crash when opening busStop parameters after simulation end. Issue #11499 (regression in 1.13.0)
@@ -85,6 +92,7 @@ title: ChangeLog
   - Fixed insufficient precision when saving edge scaling scheme. Issue #11711
   - Fixed corrupted 3D view after window resize and minimize operation. Issue #11727
   - Initial camera coordinates are now matching for the 3D view. Issue #11742
+  - Fixed invalid displayed settings for asymmetrical background grid. Issue #11809
   
 - netconvert
   - Fixed invalid red phase at traffic lights with very low connection speeds. Issue #11307 (regression in 1.14.0)
@@ -103,9 +111,15 @@ title: ChangeLog
   - Activating option **--ptline-output** no longer modifies the network. Issue #10732
   - Fixed bug that caused inconsistent opposite-edge declarations to be written. Issue #11731
   - OSM import: fixed public transport stop assignment to edge without proper permissions. Issue #11656
+  - Fixed missing bidi edges on long rail edges with multiple stops after topology repair. Issue #11828
+  - OSM: Fixed invalid public transport route on bidirectional way. Issue #11829
+  - Fixed crash while processing public transport stops. Issue #11839
 
 - duarouter
   - vTypeDistributions with attribute `vTypes` now consider vType-probabilities. Issue #11376
+
+- jtrrouter
+  - Fixed infinite loop when loading poisson flow. Issue #11834
 
 - polyconvert
   - Option **--prune.in-net.offsets** can now specify all possible offsets. Also the interpretation was changed, so that positive values now cause enlargement on all sides. Issue #11438
@@ -117,10 +131,12 @@ title: ChangeLog
   - Function vehicle.highlight is now tracking the vehicle again. Issue #11352 (regression in 1.13.0)
   - Simpla: fixed rash due to unclear speed factor semantics. Issue #11223
   - Simpla: fixed invalid behavior when subsequent edges vary in lane number. Issue #11276
+  - Simpla: fixed input error handling. Issue #11789
   - traceFile no longer contains redundant calls to helper method `person.removeStages`. Issue #11418
   - Libsumo can now be compiled with having fox-toolkit installed. Issue #11115
   - Context subscription filters for vTypes and vClasses are now compatible with all other filters. Issue #11540
   - Function `simulation.getDistance2D(..., isGeo=True)` now works. Issue #11610
+  - Libsumo simulation outputs now include version information. Issue #11808
 
 - Tools
   - randomTrips.py and duaIterate.py now properly report unknown options again. Issue #11258 (regression in 1.14.1)
@@ -137,7 +153,8 @@ title: ChangeLog
   - osmWebWizard.py Now aborts early if the OSM download fails and no longer leaves empty directories behind. Issue #11722
   - osmWebWizard.py Now gives better feedback on certificate errors. Issue #10804
   - turnfile2EdgeRelations.py: Fixed invalid end element, preserving comments. Issue #11748
-  - gtfs2pt.py: Now handling empty timetable. Issue #11763  
+  - gtfs2pt.py: Now handling empty timetable. Issue #11763
+  - gtfs2pt.py: Fixed invalid route references in output. Issue #11797
 
 ### Enhancements
 
@@ -181,6 +198,7 @@ title: ChangeLog
   - "Undo-Redo list" dialog now includes color codes and entity ids. Issue #4765
   - Using distinct walkingArea color to distinguish them from other objects. Issue #11724
   - Every vClass has it's own icon now. Issue #9872
+  - Kilometrage at cursor position is now shown in the edge context menu. Issue #11815
   - Traffic light mode:
     - phase table now permits moving phases up and down. Issue #10856
     - Added buttons reset either the current program or all programs of the current traffic light to their default. Issue #9072, #11357
@@ -206,6 +224,8 @@ title: ChangeLog
   - If a car has a custom arrivalPos or arrivalLane, these are now indicated when 'show route' is active. Issue #11533
   - Opening a second breakpoint editor is now prevented. Issue #10365
   - An active traci-server is now indicated in the status bar. Issue #5054
+  - Kilometrage at cursor position is now shown in the lane context menu. Issue #11815
+  - Added 'hide above threshold' to rainbow calibrator. Issue #11814
 
 - netconvert
   - Input given via option **--ptline-files** is now filtered when reducing the network extent. Issue #11548
@@ -217,6 +237,8 @@ title: ChangeLog
   - Option **--fringe.guess** now detects more outer fringe nodes. Issue #11754
   - Node clusters and joint traffic lights get now similar ids of the form "cluster_id0_id1" or "joinedS_...", "joinedG_...". Issue #3871
   - Joined ids are abbreviated with the scheme `"cluster_id0_id1_id2_id3_#5more"` if too many junctions / traffic lights are participating, see also **-max-join-ids**. Issue #10795
+  - OSM: monorail import is now supported. Issue #11799
+  - OSM: cable car (aerialway) import is now supported. Issue #11798
   
 
 - netgenerate
