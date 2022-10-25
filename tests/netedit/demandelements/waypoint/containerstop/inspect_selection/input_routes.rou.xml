@@ -38,7 +38,7 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <trip id="trip" depart="0.00" from="gneE0" to="gneE1">
-        <stop containerStop="containerStopA" duration="70.00" until="12.00" extension="10.00" expected="perA perB" parking="1" permitted="A B" actType="walking" triggered="person" speed="10"/>
-        <stop containerStop="containerStopB" duration="60.00" until="20.00" extension="20.00" expected="conA conB" parking="0" permitted="C D" actType="singing" triggered="container" speed="22.5"/>
+        <stop containerStop="containerStopA" duration="70.00" until="12.00" extension="10.00" expected="perA perB" parking="1" permitted="A B" actType="walking" triggered="person" speed="10" tripId="tripA" line="lineA"/>
+        <stop containerStop="containerStopB" duration="60.00" until="20.00" extension="20.00" expected="conA conB" parking="0" permitted="C D" actType="singing" triggered="container" speed="22.5" tripId="tripB" line="lineB"/>
     </trip>
 </routes>
