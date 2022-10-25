@@ -74,6 +74,7 @@ vehicle.create.insertionChecks
 vehicle.inspect.insertionChecks
 vehicle.inspect.typeButton
 vehicle.inspectSelection.insertionChecks
+
 vehicleEmbedded.create.insertionChecks
 vehicleEmbedded.inspect.arrivalEdge
 vehicleEmbedded.inspect.departEdge
