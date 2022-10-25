@@ -64,7 +64,3 @@ type.editDialog.osgFileButton
 type.editDialog.parametersButton
 vehicle.inspect.typeButton
 vehicleEmbedded.inspect.typeButton
-waypointChargingStation.inspectSelection.line
-waypointChargingStation.inspectSelection.tripID
-waypointContainerStop.inspectSelection.line
-waypointContainerStop.inspectSelection.tripID
