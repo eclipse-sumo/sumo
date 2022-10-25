@@ -17,10 +17,7 @@ fix.demandElements.routes.removeStops
 flowEmbedded.inspect.arrivalEdge
 flowEmbedded.inspect.departEdge
 flowEmbedded.inspect.typeButton
-flowFromToEdge.create.insertionChecks
-flowFromToEdge.inspect.insertionChecks
 flowFromToEdge.inspect.typeButton
-flowFromToEdge.inspectSelection.insertionChecks
 flowJunction.inspect.typeButton
 junction.inspectSelectionTLS.tl
 junction.inspectSelectionTLS.tlLayout
