@@ -8,7 +8,8 @@ SUMO uses the [gettext tooling](https://www.gnu.org/software/gettext/) to mainta
 a list of translated strings. The main work of translation is done by the community using
 [Weblate](https://hosted.weblate.org/projects/eclipse-sumo/).
 Every change at Weblate creates a commit into their clone of the SUMO repository which will
-be merged (currently manually) into the main line after review.
+be merged (currently manually) into the main line after review. The weblate repository gets
+updated automatically by a webhook installed by Eclipse at the main repo.
 
 So if you want to add translation strings open an account at
 [Weblate](https://hosted.weblate.org/projects/eclipse-sumo/) and start.
@@ -19,7 +20,7 @@ In the code every string which needs translation should be marked with the `TL` 
 this: `TL("String to be translated")`. We decided against the often used `_` macro for readability.
 
 The macro is defined in `src/utils/common/MsgHandler.h` which needs to be included (but often
-already is). If you have strings which are concatenated using `+` you should consider using the
+already is). If you have strings which are concatenated using `+` you should replace them using the
 `TLF` macro like `TLF("The vehicle '%' has a message.", id)` or one of
 the formatting versions of our `WRITE_MESSAGE` macros.
 So instead of `WRITE_MESSAGE("The vehicle '" + id "' has a problem.");`
