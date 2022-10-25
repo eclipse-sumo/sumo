@@ -100,7 +100,7 @@ This Documentation is continuously updated and always refers to the latest devel
 - [Public Transport](Simulation/Public_Transport.md)
 - [Variable Speed Signs](Simulation/Variable_Speed_Signs.md)
 - [Rerouter / Alternative Route Signage](Simulation/Rerouter.md)
-- [Vaporizer](Simulation/Vaporizer.md) (deprecated, use Calibrator instead)
+- [Vaporizer](Simulation/Vaporizer.md) (deprecated, use [Calibrator](Simulation/Calibrator.md) instead)
 - [Dynamic calibration of flow and speed and type](Simulation/Calibrator.md)
 - [Parking areas](Simulation/ParkingArea.md)
 - [Turnarounds](Simulation/Turnarounds.md)
