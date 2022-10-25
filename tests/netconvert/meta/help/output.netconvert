@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_14_1+1425-e57389e
+Eclipse SUMO netconvert Version v1_14_1+1919-6e355cb
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -383,6 +383,8 @@ Junctions Options:
                                         right-before-left junctions when the
                                         incoming edge speeds are below FLOAT
                                         (m/s)
+  --junctions.left-before-right        Build left-before-right junctions
+                                        instead of right-before-left junctions
   --no-internal-links                  Omits internal links
   --no-turnarounds                     Disables building turnarounds
   --no-turnarounds.tls                 Disables building turnarounds at

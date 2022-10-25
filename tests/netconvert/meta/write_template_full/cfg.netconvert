@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-04 15:37:06 by Eclipse SUMO netconvert Version v1_14_1+1425-e57389e
+<!-- generated on 2022-10-25 15:17:55 by Eclipse SUMO netconvert Version v1_14_1+1919-6e355cb
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -224,6 +224,7 @@
 
     <junctions>
         <junctions.right-before-left.speed-threshold value="13.6111" type="FLOAT" help="Allow building right-before-left junctions when the incoming edge speeds are below FLOAT (m/s)"/>
+        <junctions.left-before-right value="false" type="BOOL" help="Build left-before-right junctions instead of right-before-left junctions"/>
         <no-internal-links value="false" type="BOOL" help="Omits internal links"/>
         <no-turnarounds value="false" type="BOOL" help="Disables building turnarounds"/>
         <no-turnarounds.tls value="false" synonymes="no-tls-turnarounds" type="BOOL" help="Disables building turnarounds at tls-controlled junctions"/>

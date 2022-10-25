@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-04 20:09:04 by Eclipse SUMO netgenerate Version v1_14_1+1441-4c9df32
+<!-- generated on 2022-10-25 15:17:56 by Eclipse SUMO netgenerate Version v1_14_1+1919-6e355cb
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -345,7 +345,7 @@
         <!-- The default algorithm for computing right of way rules (&apos;default&apos;, &apos;edgePriority&apos;) -->
         <default.right-of-way value="default" type="STR"/>
 
-        <!-- [traffic_light|priority|right_before_left|traffic_light_right_on_red|priority_stop|allway_stop|...] Determines junction type (see wiki/Networks/PlainXML#Node_types) -->
+        <!-- [traffic_light|priority|right_before_left|left_before_right|traffic_light_right_on_red|priority_stop|allway_stop|...] Determines junction type (see wiki/Networks/PlainXML#Node_types) -->
         <default-junction-type value="" synonymes="j junctions" type="STR"/>
 
     </building_defaults>
@@ -494,6 +494,9 @@
     <junctions>
         <!-- Allow building right-before-left junctions when the incoming edge speeds are below FLOAT (m/s) -->
         <junctions.right-before-left.speed-threshold value="13.6111" type="FLOAT"/>
+
+        <!-- Build left-before-right junctions instead of right-before-left junctions -->
+        <junctions.left-before-right value="false" type="BOOL"/>
 
         <!-- Omits internal links -->
         <no-internal-links value="false" type="BOOL"/>
