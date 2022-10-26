@@ -1234,7 +1234,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             stop.startPos = attrs.getOpt<double>(SUMO_ATTR_STARTPOS, nullptr, ok, MAX2(0., stop.endPos - MIN_STOP_LENGTH));
             if (!myAmLoadingState) {
                 const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, nullptr, ok, !attrs.hasAttribute(SUMO_ATTR_STARTPOS) && !attrs.hasAttribute(SUMO_ATTR_ENDPOS));
-                if (!ok || (checkStopPos(stop.startPos, stop.endPos, edge->getLength(), NUMERICAL_EPS, friendlyPos) != StopPos::STOPPOS_VALID)) {
+                if (!ok || (checkStopPos(stop.startPos, stop.endPos, edge->getLength(), 0, friendlyPos) != StopPos::STOPPOS_VALID)) {
                     WRITE_ERROR("Invalid start or end position for stop on "
                                 + (stop.lane != ""
                                    ? ("lane '" + stop.lane)
