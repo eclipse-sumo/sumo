@@ -11,7 +11,7 @@
     <!-- Vehicles, containers and containers (sorted by depart) -->
     <container id="c_0" depart="0.00">
         <tranship from="gneE2" to="gneE2"/>
-        <tranship containerStop="containerStopA" speed="12" lines="16.5"/>
-        <tranship containerStop="containerStopB" speed="10.3" lines="14.5"/>
+        <tranship containerStop="containerStopA" speed="12"/>
+        <tranship containerStop="containerStopB" speed="10.3"/>
     </container>
 </routes>
