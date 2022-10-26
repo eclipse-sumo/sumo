@@ -334,13 +334,13 @@ PositionVector::slopeDegreeAtOffset(double pos) const {
         const Position& p2 = *(i + 1);
         const double nextLength = p1.distanceTo(p2);
         if (seenLength + nextLength > pos) {
-            return RAD2DEG(atan2(p2.z() - p1.z(), p1.distanceTo2D(p2)));
+            return RAD2DEG(p1.slopeTo2D(p2));
         }
         seenLength += nextLength;
     } while (++i != end() - 1);
     const Position& p1 = (*this)[-2];
     const Position& p2 = back();
-    return RAD2DEG(atan2(p2.z() - p1.z(), p1.distanceTo2D(p2)));
+    return RAD2DEG(p1.slopeTo2D(p2));
 }
 
 

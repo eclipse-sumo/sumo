@@ -1183,9 +1183,22 @@ MSVehicle::getSlope() const {
     if (myLane == nullptr) {
         return 0;
     }
-    const double lp = getPositionOnLane();
-    const double gp = myLane->interpolateLanePosToGeometryPos(lp);
-    return myLane->getShape().slopeDegreeAtOffset(gp);
+    const double posLat = myState.myPosLat; // @todo get rid of the '-'
+    Position p1 = getPosition();
+    Position p2 = getBackPosition();
+    if (p2 == Position::INVALID) {
+        // Handle special case of vehicle's back reaching out of the network
+        if (myFurtherLanes.size() > 0) {
+            p2 = myFurtherLanes.back()->geometryPositionAtOffset(0, -myFurtherLanesPosLat.back());
+            if (p2 == Position::INVALID) {
+                // unsuitable lane geometry
+                p2 = myLane->geometryPositionAtOffset(0, posLat);
+            }
+        } else {
+            p2 = myLane->geometryPositionAtOffset(0, posLat);
+        }
+    }
+    return (p1 != p2 ? p1.slopeTo2D(p2) : myLane->getShape().slopeDegreeAtOffset(myLane->interpolateLanePosToGeometryPos(getPositionOnLane())));
 }
 
 

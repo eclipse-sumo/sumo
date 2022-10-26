@@ -263,6 +263,11 @@ public:
         return atan2(other.myY - myY, other.myX - myX);
     }
 
+    /// @brief returns the slope of the vector pointing from here to the other position
+    inline double slopeTo2D(const Position& other) const {
+        return atan2(other.myZ - myZ, distanceTo2D(other));
+    }
+
     /// @brief returns the cross product between this point and the second one
     Position crossProduct(const Position& pos) {
         return Position(
