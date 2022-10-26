@@ -45,9 +45,8 @@ GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType
                              const std::vector<GNEAdditional*>& additionalParents,
                              const std::vector<GNEDemandElement*>& demandElementParents,
                              const std::vector<GNEGenericData*>& genericDataParents) :
-    GUIGlObject(type, id, icon),
+    GNEPathManager::PathElement(type, id, icon, GNEPathManager::PathElement::Options::ADDITIONAL_ELEMENT),
     GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, demandElementParents, genericDataParents),
-    GNEPathManager::PathElement(this, GNEPathManager::PathElement::Options::ADDITIONAL_ELEMENT),
     myAdditionalName(additionalName) {
     // check if is template
     myIsTemplate = (id == "");
@@ -61,9 +60,8 @@ GNEAdditional::GNEAdditional(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, 
                              const std::vector<GNEAdditional*>& additionalParents,
                              const std::vector<GNEDemandElement*>& demandElementParents,
                              const std::vector<GNEGenericData*>& genericDataParents) :
-    GUIGlObject(type, additionalParents.front()->getID(), icon),
+    GNEPathManager::PathElement(type, additionalParents.front()->getID(), icon, GNEPathManager::PathElement::Options::ADDITIONAL_ELEMENT),
     GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, demandElementParents, genericDataParents),
-    GNEPathManager::PathElement(this, GNEPathManager::PathElement::Options::ADDITIONAL_ELEMENT),
     myAdditionalName(additionalName) {
 }
 

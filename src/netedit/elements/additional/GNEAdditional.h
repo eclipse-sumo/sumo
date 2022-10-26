@@ -45,7 +45,7 @@ class GUIGLObjectPopupMenu;
  * @class GNEAdditional
  * @brief An Element which don't belong to GNENet but has influence in the simulation
  */
-class GNEAdditional : public GUIGlObject, public GNEHierarchicalElement, public GNEMoveElement, public GNEPathManager::PathElement {
+class GNEAdditional : public GNEPathManager::PathElement, public GNEHierarchicalElement, public GNEMoveElement {
 
 public:
     /**@brief Constructor

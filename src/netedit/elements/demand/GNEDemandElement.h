@@ -50,7 +50,7 @@ class GNEJunction;
  * @class GNEDemandElement
  * @brief An Element which don't belong to GNENet but has influence in the simulation
  */
-class GNEDemandElement : public GUIGlObject, public GNEHierarchicalElement, public GNEMoveElement, public GNEPathManager::PathElement {
+class GNEDemandElement : public GNEPathManager::PathElement, public GNEHierarchicalElement, public GNEMoveElement {
 
 public:
     /// @brief friend declaration (needed for vTypes)

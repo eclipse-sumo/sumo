@@ -190,19 +190,13 @@ GNEPathManager::Segment::Segment() :
 // GNEPathManager::PathElement - methods
 // ---------------------------------------------------------------------------
 
-GNEPathManager::PathElement::PathElement(GUIGlObject* GLObject, const int options) :
-    myGLObject(GLObject),
+GNEPathManager::PathElement::PathElement(GUIGlObjectType type, const std::string& microsimID, FXIcon *icon, const int options) :
+    GUIGlObject(type, microsimID, icon),
     myOption(options) {
 }
 
 
 GNEPathManager::PathElement::~PathElement() {}
-
-
-GUIGlObject* 
-GNEPathManager::PathElement::getPathGUIGlObject() {
-    return myGLObject;
-}
 
 
 bool
@@ -232,12 +226,6 @@ GNEPathManager::PathElement::isDataElement() const {
 bool
 GNEPathManager::PathElement::isRoute() const {
     return (myOption & PathElement::Options::ROUTE) != 0;
-}
-
-
-GNEPathManager::PathElement::PathElement() :
-    myGLObject(nullptr),
-    myOption(PathElement::Options::NETWORK_ELEMENT) {
 }
 
 // ---------------------------------------------------------------------------
@@ -665,7 +653,7 @@ GNEPathManager::calculatePathEdges(PathElement* pathElement, SUMOVehicleClass vC
         // remove path element from myPaths
         myPaths.erase(pathElement);
         // also remove from GLObjects
-        myGLObjects.erase(pathElement->getPathGUIGlObject());
+        myGLObjects.erase(pathElement);
     }
     // continue depending of number of edges
     if (edges.size() > 0) {
@@ -724,7 +712,7 @@ GNEPathManager::calculatePathEdges(PathElement* pathElement, SUMOVehicleClass vC
         // add segment in path
         myPaths[pathElement] = segments;
         // and also in GLObjects
-        myGLObjects[pathElement->getPathGUIGlObject()] = pathElement;
+        myGLObjects[pathElement] = pathElement;
     }
 }
 
@@ -818,7 +806,7 @@ GNEPathManager::calculateConsecutivePathLanes(PathElement* pathElement, const st
         // add segment in path
         myPaths[pathElement] = segments;
         // and also in GLObjects
-        myGLObjects[pathElement->getPathGUIGlObject()] = pathElement;
+        myGLObjects[pathElement] = pathElement;
     }
 }
 

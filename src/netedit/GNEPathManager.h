@@ -23,6 +23,7 @@
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBVehicle.h>
 #include <utils/router/SUMOAbstractRouter.h>
+#include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
 
 
@@ -143,7 +144,7 @@ public:
     };
 
     /// @brief class used for path elements
-    class PathElement {
+    class PathElement : public GUIGlObject {
 
     public:
         enum Options {
@@ -155,13 +156,10 @@ public:
         };
 
         /// @brief constructor
-        PathElement(GUIGlObject* GLObject, const int options);
+        PathElement(GUIGlObjectType type, const std::string& microsimID, FXIcon *icon, const int options);
 
         /// @brief destructor
         virtual ~PathElement();
-
-        /// @brief get GUIGlObject associated with this Path
-        GUIGlObject* getPathGUIGlObject();
 
         /// @brief check if pathElement is a network element
         bool isNetworkElement() const;
@@ -217,14 +215,17 @@ public:
         virtual Position getPathElementArrivalPos() const = 0;
 
     private:
-        /// @brief default constructor
-        PathElement();
-
-        /// @brief GLObject associated with this Path
-        GUIGlObject* myGLObject;
-
         /// @brief pathElement option
         const int myOption;
+
+        /// @brief invalidate default constructor
+        PathElement() = delete;
+
+        /// @brief Invalidated copy constructor.
+        PathElement(const PathElement&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        PathElement& operator=(const PathElement&) = delete;
     };
 
     /// @brief class used to calculate paths in nets
