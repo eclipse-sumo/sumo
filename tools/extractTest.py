@@ -15,6 +15,7 @@
 # @author  Daniel Krajzewicz
 # @author  Jakob Erdmann
 # @author  Michael Behrisch
+# @author  Mirko Barthauer
 # @date    2009-07-08
 
 """
@@ -280,6 +281,10 @@ for d, p in [
             oldWorkDir = os.getcwd()
             os.chdir(testPath)
             haveConfig = False
+            # look for python executable
+            pythonPath = os.environ["PYTHON"] if "PYTHON" in os.environ else os.environ.get("PYTHON_HOME", "python")
+            if os.path.isdir(pythonPath):
+                pythonPath = os.path.join(pythonPath, "python")
             if app in ["dfrouter", "duarouter", "jtrrouter", "marouter", "netconvert",
                        "netgen", "netgenerate", "od2trips", "polyconvert", "sumo", "activitygen"]:
                 if app == "netgen":
@@ -300,7 +305,7 @@ for d, p in [
                 for i, a in enumerate(appOptions):
                     if a.endswith(".py"):
                         del appOptions[i:i+1]
-                        appOptions[0:0] = [os.environ.get("PYTHON", "python"), '"$SUMO_HOME/%s"' % a]
+                        appOptions[0:0] = [pythonPath, '"$SUMO_HOME/%s"' % a]
                         break
                     if a.endswith(".jar"):
                         del appOptions[i:i+1]
@@ -314,7 +319,7 @@ for d, p in [
                         else:
                             a = '"$SUMO_HOME/%s"' % a
                         del appOptions[i:i+1]
-                        appOptions[0:0] = [os.environ.get("PYTHON", "python"), a]
+                        appOptions[0:0] = [pythonPath, a]
                         break
             if not haveConfig:
                 if options.verbose:
