@@ -51,7 +51,6 @@ SUMORouteHandler::SUMORouteHandler(const std::string& file, const std::string& e
 
 
 SUMORouteHandler::~SUMORouteHandler() {
-    delete myVehicleParameter;
     delete myCurrentVType;
 }
 
