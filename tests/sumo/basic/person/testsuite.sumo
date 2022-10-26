@@ -34,6 +34,12 @@ stop_duration
 # person stops for a given duration
 stop_duration0
 
+# person stops for a given duration
+stop_duration0_twice
+
+# person stops 
+stop_no_duration
+
 # person stops for a given duration, specified via attribute edge
 stop_edge
 
