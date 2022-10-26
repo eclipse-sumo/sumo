@@ -1,3 +1,6 @@
+# moveXY after aborting stop with setStop
+ticket11870
+
 # trafficlight.setCompleteRedYellowGreenDefinition
 ticket1010
 
