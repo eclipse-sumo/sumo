@@ -540,6 +540,8 @@ RORouteHandler::closeVehicle() {
     if (myNet.addVehicle(myVehicleParameter->id, veh)) {
         registerLastDepart();
     }
+    delete myVehicleParameter;
+    myVehicleParameter = nullptr;
 }
 
 
