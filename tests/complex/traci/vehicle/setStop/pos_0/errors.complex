@@ -1,4 +1,0 @@
-Error: Answered with error to command 0xc4: Position on lane must not be negative.
-traci.exceptions.TraCIException: Position on lane must not be negative.
-Error: tcpip::Socket::recvAndCheck @ recv: peer shutdown
-Quitting (on error).
