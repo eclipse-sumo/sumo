@@ -1352,6 +1352,9 @@ class TAZ:
 
 
 class type:
+
+    color = 6
+
     class buttons:
         create = 2
         delete = 3
