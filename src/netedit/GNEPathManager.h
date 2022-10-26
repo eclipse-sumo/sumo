@@ -391,9 +391,6 @@ protected:
     /// @brief map with junction segments
     std::map<const GNEJunction*, std::set<Segment*> > myJunctionSegments;
 
-    /// @brief map with GLObject and their associated path
-    std::map<const GUIGlObject*, const PathElement*> myGLObjects;
-
 private:
     /// @brief Invalidated copy constructor.
     GNEPathManager(const GNEPathManager&) = delete;

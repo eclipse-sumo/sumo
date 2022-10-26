@@ -600,11 +600,18 @@ GNEPathManager::getPathCalculator() {
 
 const GNEPathManager::PathElement*
 GNEPathManager::getPathElement(const GUIGlObject* GLObject) const {
-    auto it = myGLObjects.find(GLObject);
-    if (it == myGLObjects.end()) {
+    // first parse pathElement
+    const auto pathElement = dynamic_cast<const GNEPathManager::PathElement*>(GLObject);
+    if (pathElement == nullptr) {
         return nullptr;
     } else {
-        return it->second;
+        // find it in paths
+        auto it = myPaths.find(pathElement);
+        if (it == myPaths.end()) {
+            return nullptr;
+        } else {
+            return it->first;
+        }
     }
 }
 
@@ -652,8 +659,6 @@ GNEPathManager::calculatePathEdges(PathElement* pathElement, SUMOVehicleClass vC
         }
         // remove path element from myPaths
         myPaths.erase(pathElement);
-        // also remove from GLObjects
-        myGLObjects.erase(pathElement);
     }
     // continue depending of number of edges
     if (edges.size() > 0) {
@@ -711,8 +716,6 @@ GNEPathManager::calculatePathEdges(PathElement* pathElement, SUMOVehicleClass vC
         }
         // add segment in path
         myPaths[pathElement] = segments;
-        // and also in GLObjects
-        myGLObjects[pathElement] = pathElement;
     }
 }
 
@@ -805,8 +808,6 @@ GNEPathManager::calculateConsecutivePathLanes(PathElement* pathElement, const st
         laneSegments.at(laneSegmentIndex)->markSegmentLabel();
         // add segment in path
         myPaths[pathElement] = segments;
-        // and also in GLObjects
-        myGLObjects[pathElement] = pathElement;
     }
 }
 
