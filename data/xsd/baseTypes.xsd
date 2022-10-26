@@ -306,6 +306,7 @@
         <xsd:restriction base="xsd:string">
             <xsd:enumeration value="traffic_light"/>
             <xsd:enumeration value="right_before_left"/>
+            <xsd:enumeration value="left_before_right"/>
             <xsd:enumeration value="priority"/>
             <xsd:enumeration value="dead_end"/>
             <xsd:enumeration value="unregulated"/>
