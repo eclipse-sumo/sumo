@@ -1545,7 +1545,7 @@ bool
 MSVehicle::keepStopping(bool afterProcessing) const {
     if (isStopped()) {
         // when coming out of vehicleTransfer we must shift the time forward
-        return (myStops.front().duration - (afterProcessing ? DELTA_T : 0) > 0 || isStoppedTriggered() || myStops.front().collision
+        return (myStops.front().duration - (afterProcessing ? DELTA_T : 0) > 0 || isStoppedTriggered() || myStops.front().pars.collision
                 || (myStops.front().getSpeed() > 0 && myState.myPos < MIN2(myStops.front().pars.endPos, myStops.front().lane->getLength() - POSITION_EPS)));
     } else {
         return false;
@@ -1564,7 +1564,7 @@ MSVehicle::remainingStopDuration() const {
 
 SUMOTime
 MSVehicle::collisionStopTime() const {
-    return (myStops.empty() || !myStops.front().collision) ? myCollisionImmunity : MAX2((SUMOTime)0, myStops.front().duration);
+    return (myStops.empty() || !myStops.front().pars.collision) ? myCollisionImmunity : MAX2((SUMOTime)0, myStops.front().duration);
 }
 
 
@@ -6726,7 +6726,7 @@ MSVehicle::resumeFromStopping() {
         if (MSStopOut::active()) {
             MSStopOut::getInstance()->stopEnded(this, stop.pars, stop.lane->getID());
         }
-        if (stop.collision && MSLane::getCollisionAction() == MSLane::COLLISION_ACTION_WARN) {
+        if (stop.pars.collision && MSLane::getCollisionAction() == MSLane::COLLISION_ACTION_WARN) {
             myCollisionImmunity = TIME2STEPS(5); // leave the conflict area
         }
         if (stop.pars.posLat != INVALID_DOUBLE && MSGlobals::gLateralResolution <= 0) {

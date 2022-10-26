@@ -805,7 +805,7 @@ GUIVehicle::getStopInfo() const {
         result += ", triggered";
     } else if (myStops.front().pars.containerTriggered) {
         result += ", containerTriggered";
-    } else if (myStops.front().collision) {
+    } else if (myStops.front().pars.collision) {
         result += ", collision";
     } else if (myStops.front().pars.until != -1) {
         result += ", until=" + time2string(myStops.front().pars.until);

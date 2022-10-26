@@ -81,8 +81,6 @@ public:
     SUMOTime timeToBoardNextPerson = 0;
     /// @brief The time at which the vehicle is able to load another container
     SUMOTime timeToLoadNextContainer = 0;
-    /// @brief Whether this stop was triggered by a collision
-    bool collision = false;
     /// @brief the maximum time at which persons may board this vehicle
     SUMOTime endBoarding = SUMOTime_MAX;
     /// @brief whether this an opposite-direction stop

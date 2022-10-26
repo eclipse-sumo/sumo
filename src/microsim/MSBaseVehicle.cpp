@@ -968,7 +968,7 @@ MSBaseVehicle::interpretOppositeStop(SUMOVehicleParameter::Stop& stop) {
 }
 
 bool
-MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& errorMsg, SUMOTime untilOffset, bool collision,
+MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& errorMsg, SUMOTime untilOffset,
                        MSRouteIterator* searchStart) {
     MSStop stop(stopPar);
     if (stopPar.lane == "") {
@@ -1012,7 +1012,6 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
     if (stopPar.arrival != -1) {
         const_cast<SUMOVehicleParameter::Stop&>(stop.pars).arrival += untilOffset;
     }
-    stop.collision = collision;
     std::string stopType = "stop";
     std::string stopID = "";
     if (stop.busstop != nullptr) {
@@ -1130,7 +1129,7 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
     if (prevStopEdge > stop.edge ||
             // a collision-stop happens after vehicle movement and may move the
             // vehicle backwards on it's lane (prevStopPos is the vehicle position)
-            (tooClose && !collision)
+            (tooClose && !stop.pars.collision)
             || (stop.lane->getEdge().isInternal() && stop.lane->getNextNormal() != *(stop.edge + 1))) {
         // check if the edge occurs again later in the route
         //std::cout << " could not add stop " << errorMsgStart << " prevStops=" << myStops.size() << " searchStart=" << (*searchStart - myRoute->begin()) << " route=" << toString(myRoute->getEdges())  << "\n";
@@ -1138,7 +1137,7 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
             errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stop.pars.lane + "' is too close to brake.";
         }
         MSRouteIterator next = stop.edge + 1;
-        return addStop(stopPar, errorMsg, untilOffset, collision, &next);
+        return addStop(stopPar, errorMsg, untilOffset, &next);
     }
     if (wasTooClose) {
         errorMsg = "";
@@ -1147,7 +1146,7 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
     //if (!stop.parking && (myCurrEdge == stop.edge && myState.myPos > stop.endPos - getCarFollowModel().brakeGap(myState.mySpeed))) {
     const double endPosOffset = stop.lane->getEdge().isInternal() ? (*stop.edge)->getLength() : 0;
     const double distToStop = stop.pars.endPos + endPosOffset - getPositionOnLane();
-    if (collision && !handleCollisionStop(stop, distToStop)) {
+    if (stop.pars.collision && !handleCollisionStop(stop, distToStop)) {
         return false;
     }
     if (!hasDeparted() && myCurrEdge == stop.edge) {
@@ -1165,7 +1164,7 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
             if (stop.edge != myRoute->end()) {
                 // check if the edge occurs again later in the route
                 MSRouteIterator next = stop.edge + 1;
-                return addStop(stopPar, errorMsg, untilOffset, collision, &next);
+                return addStop(stopPar, errorMsg, untilOffset, &next);
             }
             errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stop.lane->getID() + "' is before departPos.";
             return false;
@@ -1215,7 +1214,7 @@ MSBaseVehicle::addStops(const bool ignoreStopErrors, MSRouteIterator* searchStar
     if (addRouteStops) {
         for (const SUMOVehicleParameter::Stop& stop : myRoute->getStops()) {
             std::string errorMsg;
-            if (!addStop(stop, errorMsg, myParameter->depart, stop.startPos == stop.endPos, searchStart) && !ignoreStopErrors) {
+            if (!addStop(stop, errorMsg, myParameter->depart, searchStart) && !ignoreStopErrors) {
                 throw ProcessError(errorMsg);
             }
             if (errorMsg != "") {
@@ -1226,7 +1225,7 @@ MSBaseVehicle::addStops(const bool ignoreStopErrors, MSRouteIterator* searchStar
     const SUMOTime untilOffset = myParameter->repetitionOffset > 0 ? myParameter->repetitionsDone * myParameter->repetitionOffset : 0;
     for (const SUMOVehicleParameter::Stop& stop : myParameter->stops) {
         std::string errorMsg;
-        if (!addStop(stop, errorMsg, untilOffset, stop.startPos == stop.endPos, searchStart) && !ignoreStopErrors) {
+        if (!addStop(stop, errorMsg, untilOffset, searchStart) && !ignoreStopErrors) {
             throw ProcessError(errorMsg);
         }
         if (errorMsg != "") {

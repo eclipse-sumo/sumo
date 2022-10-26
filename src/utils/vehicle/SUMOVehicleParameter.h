@@ -450,6 +450,9 @@ public:
         /// @brief Information for the output which parameter were set
         int parametersSet = 0;
 
+        /// @brief Whether this stop was triggered by a collision
+        bool collision = false;
+
         /// @brief return flags as per Vehicle::getStops
         int getFlags() const;
     };
