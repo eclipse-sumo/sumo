@@ -1298,6 +1298,15 @@ GNESelectorFrame::SelectionHierarchy::onCmdChildren(FXObject* obj, FXSelector, v
                     const auto edge = dynamic_cast<GNEEdge*>(selectedAC);
                     // insert connections
                     HEToSelect.insert(HEToSelect.end(), edge->getGNEConnections().begin(), edge->getGNEConnections().end());
+                } else if (selectedAC->getTagProperty().getTag() == SUMO_TAG_LANE) {
+                    // case for lanes
+                    const auto lane = dynamic_cast<GNELane*>(selectedAC);
+                    // insert connections
+                    for (const auto &connection : lane->getParentEdge()->getGNEConnections()) {
+                        if (connection->getAttribute(SUMO_ATTR_FROM_LANE) == lane->getAttribute(SUMO_ATTR_INDEX)) {
+                            HEToSelect.push_back(connection);
+                        }
+                    }
                 } else if (selectedAC->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
                     // case for junction
                     const auto junction = dynamic_cast<GNEJunction*>(selectedAC);
