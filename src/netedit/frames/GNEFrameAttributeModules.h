@@ -68,7 +68,7 @@ public:
         void destroy();
 
         /// @brief refresh current row
-        void refreshAttributesEditorRow(const std::string& value, const bool forceRefresh, const bool attributeEnabled, const bool computed);
+        void refreshAttributesEditorRow(const std::string& value, const bool forceRefresh, const bool attributeEnabled, const bool computed, GNEAttributeCarrier* ACParent);
 
         /// @brief check if current attribute of TextField/ComboBox is valid
         bool isAttributesEditorRowValid() const;

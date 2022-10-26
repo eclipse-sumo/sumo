@@ -317,7 +317,10 @@ GNEFrameAttributeModules::AttributesEditorRow::destroy() {
 
 void
 GNEFrameAttributeModules::AttributesEditorRow::refreshAttributesEditorRow(const std::string& value,
-        const bool forceRefresh, const bool attributeEnabled, const bool computed) {
+        const bool forceRefresh, const bool attributeEnabled, const bool computed, GNEAttributeCarrier *ACParent) {
+    if (ACParent) {
+        myACParent = ACParent;
+    }
     // start enabling all elements, depending if attribute is enabled
     if (attributeEnabled == false) {
         myValueTextField->disable();
@@ -865,13 +868,17 @@ GNEFrameAttributeModules::AttributesEditor::refreshAttributeEditor(bool forceRef
                 const bool computed = (ACs.size() > 1) ? false : ACs.front()->isAttributeComputed(attrProperty.getAttr());
                 // Check if Position or Shape refresh has to be forced
                 if ((attrProperty.getAttr() == SUMO_ATTR_SHAPE) && forceRefreshShape) {
-                    myAttributesEditorRows[attrProperty.getPositionListed()]->refreshAttributesEditorRow(value, true, attributeEnabled, computed);
+                    myAttributesEditorRows[attrProperty.getPositionListed()]->refreshAttributesEditorRow(value, true, attributeEnabled, computed, nullptr);
                 } else if ((attrProperty.getAttr()  == SUMO_ATTR_POSITION) && forceRefreshPosition) {
-                    // Refresh attributes maintain invalid values
-                    myAttributesEditorRows[attrProperty.getPositionListed()]->refreshAttributesEditorRow(value, true, attributeEnabled, computed);
+                    myAttributesEditorRows[attrProperty.getPositionListed()]->refreshAttributesEditorRow(value, true, attributeEnabled, computed, nullptr);
+                } else if (attrProperty.getAttr()  == SUMO_ATTR_TYPE && (attrProperty.getTagPropertyParent().isVehicle() || attrProperty.getTagPropertyParent().isPerson() || 
+                    attrProperty.getTagPropertyParent().isContainer())) {
+                    // update vType parent
+                    auto vTypeParent = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, ACs.front()->getAttribute(SUMO_ATTR_TYPE), false);
+                    myAttributesEditorRows[attrProperty.getPositionListed()]->refreshAttributesEditorRow(value, false, attributeEnabled, computed, vTypeParent);
                 } else {
                     // Refresh attributes maintain invalid values
-                    myAttributesEditorRows[attrProperty.getPositionListed()]->refreshAttributesEditorRow(value, false, attributeEnabled, computed);
+                    myAttributesEditorRows[attrProperty.getPositionListed()]->refreshAttributesEditorRow(value, false, attributeEnabled, computed, nullptr);
                 }
             }
         }
