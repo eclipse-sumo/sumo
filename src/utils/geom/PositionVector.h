@@ -98,6 +98,7 @@ public:
 
     /// @brief clear all elements of position vector
     using vp::clear;
+
     /// @brief returns size of position vector
     using vp::size;
 
@@ -149,11 +150,12 @@ public:
     /// @brief ensures that the last position equals the first
     void closePolygon();
 
-    /// @brief returns the constat position at the given index
-    /// @ToDo !!! exceptions?
+    /// @brief returns the constant position at the given index, negative indices are interpreted python style
+    /// @throws OutOfBoundsException if index >= size or index < -size 
     const Position& operator[](int index) const;
 
-    /// @brief returns the position at the given index
+    /// @brief returns the position at the given index, negative indices are interpreted python style
+    /// @throws OutOfBoundsException if index >= size or index < -size 
     Position& operator[](int index);
 
     /// @brief Returns the position at the given length

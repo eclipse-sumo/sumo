@@ -984,9 +984,9 @@ GUIOSGView::zoom2Pos(Position& camera, Position& lookAt, double zoom) {
 }
 
 
-osg::Vec4 
+osg::Vec4d
 GUIOSGView::toOSGColorVector(RGBColor c, bool useAlpha) {
-    return osg::Vec4(c.red()/255., c.green()/255., c.blue()/255., (useAlpha)? c.alpha()/255. : 1.);
+    return osg::Vec4d(c.red()/255., c.green()/255., c.blue()/255., (useAlpha)? c.alpha()/255. : 1.);
 }
 
 

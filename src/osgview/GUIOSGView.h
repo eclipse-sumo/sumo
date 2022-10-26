@@ -227,7 +227,7 @@ public:
     void zoom2Pos(Position& camera, Position& lookAt, double zoom);
 
     // @brief convert RGBColor 0..255 RGBA values to osg::Vec4 0..1 vector
-    static osg::Vec4 toOSGColorVector(RGBColor c, bool useAlpha = false);
+    static osg::Vec4d toOSGColorVector(RGBColor c, bool useAlpha = false);
 
 protected:
     /// @brief Store the normalized OSG window cursor coordinates
