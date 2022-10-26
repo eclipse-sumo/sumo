@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-10 12:26:45 by Eclipse SUMO sumo Version v1_14_1+1544-909a280
+<!-- generated on 2022-10-26 14:40:13 by Eclipse SUMO sumo Version v1_14_1+1967-19660f9
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -65,6 +65,7 @@
         <vtk-output value="" type="FILE" help="Save complete vehicle positions inclusive speed values in the VTK Format (usage: /path/out will produce /path/out_$TIMESTEP$.vtp files)"/>
         <amitran-output value="" type="FILE" help="Save the vehicle trajectories in the Amitran format"/>
         <summary-output value="" synonymes="summary" type="FILE" help="Save aggregated vehicle departure info into FILE"/>
+        <summary-output.period value="-1" type="TIME" help="Save summary-output with the given period"/>
         <person-summary-output value="" type="FILE" help="Save aggregated person counts into FILE"/>
         <tripinfo-output value="" synonymes="tripinfo" type="FILE" help="Save single vehicle trip info into FILE"/>
         <tripinfo-output.write-unfinished value="false" type="BOOL" help="Write tripinfo output for vehicles which have not arrived at simulation end"/>

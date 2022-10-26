@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-10 12:26:45 by Eclipse SUMO sumo Version v1_14_1+1544-909a280
+<!-- generated on 2022-10-26 14:40:13 by Eclipse SUMO sumo Version v1_14_1+1967-19660f9
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -170,6 +170,9 @@
 
         <!-- Save aggregated vehicle departure info into FILE -->
         <summary-output value="" synonymes="summary" type="FILE"/>
+
+        <!-- Save summary-output with the given period -->
+        <summary-output.period value="-1" type="TIME"/>
 
         <!-- Save aggregated person counts into FILE -->
         <person-summary-output value="" type="FILE"/>
