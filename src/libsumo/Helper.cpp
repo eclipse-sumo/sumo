@@ -603,7 +603,7 @@ Helper::buildStopParameters(const std::string& edgeOrStoppingPlaceID,
         }
     } else {
         if (startPos == INVALID_DOUBLE_VALUE) {
-            startPos = pos - POSITION_EPS;
+            startPos = MAX2(0.0, pos - POSITION_EPS);
         }
         if (startPos < 0.) {
             throw TraCIException("Position on lane must not be negative.");
