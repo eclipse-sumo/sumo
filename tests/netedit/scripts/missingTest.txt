@@ -37,11 +37,9 @@ person.inspect.typeButton
 personFlow.inspect.typeButton
 routeflow.inspect.typeButton
 selection.lockSelectionNetwork.TAZs
-tripFromToEdge.inspect.typeButton
 tripFromToJunction.inspect.typeButton
 type.editDialog.colorButton
 type.editDialog.imgFileButton
 type.editDialog.osgFileButton
 type.editDialog.parametersButton
-vehicle.inspect.typeButton
 vehicleEmbedded.inspect.typeButton

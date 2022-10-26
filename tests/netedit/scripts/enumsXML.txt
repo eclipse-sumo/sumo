@@ -1111,6 +1111,7 @@ TAZ.inspectSelection.color
 TAZ.inspectSelection.name 
 TAZ.inspectSelection.parameters 
 type
+type.color 
 type.buttons
 type.buttons.create 
 type.buttons.delete 
