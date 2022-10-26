@@ -170,7 +170,7 @@ void
 MSTransportableControl::setWaitEnd(const SUMOTime time, MSTransportable* transportable) {
     const SUMOTime step = time % DELTA_T == 0 ? time : (time / DELTA_T + 1) * DELTA_T;
     // avoid double registration
-    const TransportableVector& transportables = myWaiting4Departure[step];
+    const TransportableVector& transportables = myWaitingUntil[step];
     if (std::find(transportables.begin(), transportables.end(), transportable) == transportables.end()) {
         myWaitingUntil[step].push_back(transportable);
         myWaitingUntilNumber++;
@@ -209,15 +209,15 @@ MSTransportableControl::checkWaiting(MSNet* net, const SUMOTime time) {
         myWaiting4Departure.erase(time);
     }
     while (myWaitingUntil.find(time) != myWaitingUntil.end()) {
-        const TransportableVector& transportables = myWaitingUntil[time];
-        // we cannot use an iterator here because there might be additions to the vector while proceeding
-        for (int i = 0; i < (int)transportables.size(); ++i) {
+        // make a copy because 0-duration stops might modify the vector
+        const TransportableVector transportables = myWaitingUntil[time];
+        myWaitingUntil.erase(time);
+        for (MSTransportable* t : transportables) {
             myWaitingUntilNumber--;
-            if (!transportables[i]->proceed(net, time)) {
-                erase(transportables[i]);
+            if (!t->proceed(net, time)) {
+                erase(t);
             }
         }
-        myWaitingUntil.erase(time);
     }
 }
 
