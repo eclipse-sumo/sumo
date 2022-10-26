@@ -1824,11 +1824,22 @@ GNELane::buildEdgeOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* 
     }
     // create menu commands for all edge operations
     GUIDesigns::buildFXMenuCommand(edgeOperations, "Split edge here", nullptr, &parent, MID_GNE_EDGE_SPLIT);
+    auto splitBothDirections = GUIDesigns::buildFXMenuCommand(edgeOperations, "Split edge in both directions here (no simmetric opposite edge)", nullptr, &parent, MID_GNE_EDGE_SPLIT_BIDI);
     // check if allow split edge in both directions
-    const auto opossiteEdges = myParentEdge->getOppositeEdges();
-    auto splitBothDirections = GUIDesigns::buildFXMenuCommand(edgeOperations, "Split edge in both directions here", nullptr, &parent, MID_GNE_EDGE_SPLIT_BIDI);
-
-    
+    splitBothDirections->disable();
+    const auto oppositeEdges = myParentEdge->getOppositeEdges();
+    if (oppositeEdges.size() == 0) {
+        splitBothDirections->setText("Split edge in both directions here (no opposite edge)");
+    } else {
+        for (const auto &oppositeEdge : oppositeEdges) {
+            // get reverse inner geometry
+            const auto reverseGeometry = oppositeEdge->getNBEdge()->getInnerGeometry().reverse();
+            if (reverseGeometry == myParentEdge->getNBEdge()->getInnerGeometry()) {
+                splitBothDirections->enable();
+                splitBothDirections->setText("Split edge in both directions here");
+            }
+        }
+    }
     GUIDesigns::buildFXMenuCommand(edgeOperations, "Set geometry endpoint here (shift-click)", nullptr, &parent, MID_GNE_EDGE_EDIT_ENDPOINT);
     // restore geometry points depending of selection status
     if (myParentEdge->isAttributeCarrierSelected()) {

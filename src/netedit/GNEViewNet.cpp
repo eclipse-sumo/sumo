@@ -2066,7 +2066,14 @@ GNEViewNet::onCmdSplitEdgeBidi(FXObject*, FXSelector, void*) {
         const auto oppositeEdges = edge->getOppositeEdges();
         // check that reverse edge works
         if (oppositeEdges.size() > 0) {
-            myNet->splitEdgesBidi(edge, oppositeEdges.front(), edge->getSplitPos(getPopupPosition()), myUndoList);
+            for (const auto &oppositeEdge : oppositeEdges) {
+                // get reverse inner geometry
+                const auto reverseGeometry = oppositeEdge->getNBEdge()->getInnerGeometry().reverse();
+                if (reverseGeometry == edge->getNBEdge()->getInnerGeometry()) {
+                    myNet->splitEdgesBidi(edge, oppositeEdge, edge->getSplitPos(getPopupPosition()), myUndoList);
+                    return 1;
+                }
+            }
         }
     }
     return 1;
