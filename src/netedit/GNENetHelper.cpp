@@ -665,23 +665,19 @@ GNENetHelper::AttributeCarriers::retrieveEdge(const std::string& id, bool hardFa
 }
 
 
-GNEEdge*
-GNENetHelper::AttributeCarriers::retrieveEdge(GNEJunction* from, GNEJunction* to, bool hardFail) const {
+std::vector<GNEEdge*>
+GNENetHelper::AttributeCarriers::retrieveEdges(GNEJunction* from, GNEJunction* to) const {
     if ((from == nullptr) || (to == nullptr)) {
         throw UnknownElement("Junctions cannot be nullptr");
     }
+    std::vector<GNEEdge*> edges;
     // iterate over Junctions
     for (const auto& edge : myEdges) {
         if ((edge.second->getFromJunction() == from) && (edge.second->getToJunction() == to)) {
-            return edge.second;
+            edges.push_back(edge.second);
         }
     }
-    // if edge wasn't found, throw exception or return nullptr
-    if (hardFail) {
-        throw UnknownElement("Edge with from='" + from->getID() + "' and to='" + to->getID() + "'");
-    } else {
-        return nullptr;
-    }
+    return edges;
 }
 
 

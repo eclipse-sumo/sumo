@@ -242,16 +242,16 @@ GNENet::createEdge(GNEJunction* src, GNEJunction* dest, GNEEdge* edgeTemplate, G
         }
     }
     // check if exist opposite edge
-    const GNEEdge* oppositeEdge = myAttributeCarriers->retrieveEdge(dest, src, false);
+    const auto oppositeEdges = myAttributeCarriers->retrieveEdges(dest, src);
     // declare edge id
     std::string edgeID;
     // update id
-    if (oppositeEdge) {
+    if (oppositeEdges.size() > 0) {
         // avoid ids with "--..."
-        if ((oppositeEdge->getID().size() > 1) && (oppositeEdge->getID().front() == '-')) {
-            edgeID = oppositeEdge->getID().substr(1);
+        if ((oppositeEdges.front()->getID().size() > 1) && (oppositeEdges.front()->getID().front() == '-')) {
+            edgeID = oppositeEdges.front()->getID().substr(1);
         } else {
-            edgeID = "-" + oppositeEdge->getID();
+            edgeID = "-" + oppositeEdges.front()->getID();
         }
         // check if already exist an edge with edgeID
         if (myAttributeCarriers->getEdges().count(edgeID) > 0) {
@@ -1118,7 +1118,7 @@ GNENet::createRoundabout(GNEJunction* junction, GNEUndoList* undoList) {
             newJunction = newJunctions.back();
         }
         //std::cout << " edge=" << edge->getID() << " prevOpposite=" << Named::getIDSecure(prevOpposite) << " newJunction=" << Named::getIDSecure(newJunction) << "\n";
-        prevOpposite = edge->getOppositeEdge();
+        prevOpposite = edge->getOppositeEdges().front();
         const double geomLength = edge->getNBEdge()->getGeometry().length2D();
         const double splitOffset = (edge->getToJunction() == junction
                                     ? MAX2(POSITION_EPS, geomLength - radius)

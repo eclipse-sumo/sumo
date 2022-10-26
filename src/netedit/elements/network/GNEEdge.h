@@ -162,8 +162,8 @@ public:
     /// @brief returns the internal NBEdge
     NBEdge* getNBEdge() const;
 
-    /// @brief get opposite edge
-    GNEEdge* getOppositeEdge() const;
+    /// @brief get opposite edges
+    std::vector<GNEEdge*> getOppositeEdges() const;
 
     /// @brief makes pos the new geometry endpoint at the appropriate end, or remove current existent endpoint
     void editEndpoint(Position pos, GNEUndoList* undoList);

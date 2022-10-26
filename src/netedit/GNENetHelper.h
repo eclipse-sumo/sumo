@@ -237,12 +237,12 @@ struct GNENetHelper {
          */
         GNEEdge* retrieveEdge(const std::string& id, bool hardFail = true) const;
 
-        /**@brief get edge by from and to GNEJunction
+        /**@brief get all edges by from and to GNEJunction
          * @param[in] id The id of the desired edge
          * @param[in] hardFail Whether attempts to retrieve a nonexisting edge should result in an exception
          * @throws UnknownElement
          */
-        GNEEdge* retrieveEdge(GNEJunction* from, GNEJunction* to, bool hardFail = true) const;
+        std::vector<GNEEdge*> retrieveEdges(GNEJunction* from, GNEJunction* to) const;
 
         /// @brief map with the ID and pointer to edges of net
         const std::map<std::string, GNEEdge*>& getEdges() const;

@@ -2063,10 +2063,10 @@ GNEViewNet::onCmdSplitEdgeBidi(FXObject*, FXSelector, void*) {
     GNEEdge* edge = getEdgeAtPopupPosition();
     if (edge != nullptr) {
         // obtain reverse edge
-        GNEEdge* reverseEdge = edge->getOppositeEdge();
+        const auto oppositeEdges = edge->getOppositeEdges();
         // check that reverse edge works
-        if (reverseEdge != nullptr) {
-            myNet->splitEdgesBidi(edge, reverseEdge, edge->getSplitPos(getPopupPosition()), myUndoList);
+        if (oppositeEdges.size() > 0) {
+            myNet->splitEdgesBidi(edge, oppositeEdges.front(), edge->getSplitPos(getPopupPosition()), myUndoList);
         }
     }
     return 1;
@@ -5386,12 +5386,12 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 GNEEdge* edge = myObjectsUnderCursor.getEdgeFront();
                 if (edge) {
                     // obtain reverse edge
-                    GNEEdge* reverseEdge = edge->getOppositeEdge();
+                    const auto oppositeEdges = edge->getOppositeEdges();
                     // check if we're split one or both edges
                     if (myMouseButtonKeyPressed.altKeyPressed()) {
                         myNet->splitEdge(edge, edge->getSplitPos(getPositionInformation()), myUndoList);
-                    } else if (reverseEdge) {
-                        myNet->splitEdgesBidi(edge, reverseEdge, edge->getSplitPos(getPositionInformation()), myUndoList);
+                    } else if (oppositeEdges.size() > 0) {
+                        myNet->splitEdgesBidi(edge, oppositeEdges.front(), edge->getSplitPos(getPositionInformation()), myUndoList);
                     } else {
                         myNet->splitEdge(edge, edge->getSplitPos(getPositionInformation()), myUndoList);
                     }
