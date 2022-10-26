@@ -199,6 +199,9 @@ MSFrame::fillOptions() {
     oc.addSynonyme("summary-output", "summary");
     oc.addDescription("summary-output", "Output", "Save aggregated vehicle departure info into FILE");
 
+    oc.doRegister("summary-output.period", new Option_String("-1", "TIME"));
+    oc.addDescription("summary-output.period", "Output", "Save summary-output with the given period");
+
     oc.doRegister("person-summary-output", new Option_FileName());
     oc.addDescription("person-summary-output", "Output", "Save aggregated person counts into FILE");
 

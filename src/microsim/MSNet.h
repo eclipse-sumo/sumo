@@ -281,6 +281,9 @@ public:
     /// @brief write statistic output to (xml) file
     void writeStatistics() const;
 
+    /// @brief write summary-output to (xml) file
+    void writeSummaryOutput();
+
     /** @brief Closes the simulation (all files, connections, etc.)
      *
      * Writes also performance output
