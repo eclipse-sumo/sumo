@@ -1177,7 +1177,7 @@ MSVehicle::adaptLaneEntering2MoveReminder(const MSLane& enteredLane) {
 // ------------ Other getter methods
 double
 MSVehicle::getSlope() const {
-    if (!isOnRoad() && isParking() && getStops().begin()->parkingarea != nullptr) {
+    if (isParking() && getStops().begin()->parkingarea != nullptr) {
         return getStops().begin()->parkingarea->getVehicleSlope(*this);
     }
     if (myLane == nullptr) {
