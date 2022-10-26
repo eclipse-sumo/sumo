@@ -1387,7 +1387,7 @@ MSBaseVehicle::addTraciStop(SUMOVehicleParameter::Stop stop, std::string& errorM
     for (std::list<MSStop>::iterator iter = myStops.begin(); iter != myStops.end(); iter++) {
         if (iter->lane->getID() == stop.lane && fabs(iter->pars.endPos - stop.endPos) < POSITION_EPS) {
             // update existing stop
-            if (stop.duration == 0 && stop.until < 0) {
+            if (stop.duration == 0 && stop.until < 0 && !iter->reached) {
                 myStops.erase(iter);
                 myParameter->stops.erase(myParameter->stops.begin() + index);
             } else {
