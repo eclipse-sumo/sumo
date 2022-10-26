@@ -473,6 +473,11 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
     const double posLat = -vehicle->myState.myPosLat; // @todo get rid of the '-'
     const double lefthandSign = (MSGlobals::gLefthand ? -1 : 1);
     Position p1 = vehicle->getLane()->geometryPositionAtOffset(vehicle->myState.myPos, lefthandSign * posLat);
+    if (p1 == Position::INVALID && vehicle->getLane()->getShape().length2D() == 0. && vehicle->getLane()->isInternal()) {
+        // workaround: extrapolate the preceding lane shape
+        MSLane* predecessorLane = vehicle->getLane()->getCanonicalPredecessorLane();
+        p1 = predecessorLane->geometryPositionAtOffset(predecessorLane->getLength() + vehicle->myState.myPos, lefthandSign * posLat);
+    }
     Position p2 = vehicle->getBackPosition();
     if (p2 == Position::INVALID) {
         // Handle special case of vehicle's back reaching out of the network
