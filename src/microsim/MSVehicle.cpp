@@ -1198,7 +1198,7 @@ MSVehicle::getSlope() const {
             p2 = myLane->geometryPositionAtOffset(0, posLat);
         }
     }
-    return (p1 != p2 ? p1.slopeTo2D(p2) : myLane->getShape().slopeDegreeAtOffset(myLane->interpolateLanePosToGeometryPos(getPositionOnLane())));
+    return (p1 != p2 ? RAD2DEG(p2.slopeTo2D(p1)) : myLane->getShape().slopeDegreeAtOffset(myLane->interpolateLanePosToGeometryPos(getPositionOnLane())));
 }
 
 
