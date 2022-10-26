@@ -9,8 +9,6 @@ TLS.single.actuatedPhase
 TLS.single.attributes
 TLS.single.delayBasedPhase
 TLS.single.staticPhase
-containerFlow.create.end
-containerFlow.create.number
 containerFlow.inspect.typeButton
 fix.demandElements.routes
 fix.demandElements.routes.removeStops
@@ -36,8 +34,6 @@ modes.network.junctionShape
 modes.network.showSubAdditionals
 modes.network.spreadVehicle
 person.inspect.typeButton
-personFlow.create.end
-personFlow.create.number
 personFlow.inspect.typeButton
 routeflow.inspect.typeButton
 selection.lockSelectionNetwork.TAZs
