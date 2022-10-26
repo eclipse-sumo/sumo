@@ -322,8 +322,8 @@ GNEFrame::buildRainbow(FXComposite* parent) {
         FXLabel* colorLabel = new FXLabel(horizontalFrameColors, "", nullptr, GUIDesignLabelLeft);
         colorLabel->setBackColor(MFXUtils::getFXColor(color));
     }
-    // return label
     return label;
-}
+    // for whatever reason, sonar complains in the next line that horizontalFrameColors may leak, but fox does the cleanup
+}  // NOSONAR
 
 /****************************************************************************/

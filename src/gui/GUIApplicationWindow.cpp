@@ -465,9 +465,10 @@ GUIApplicationWindow::fillMenuBar() {
                                            TL("Close"), "Ctrl+W", TL("Close the simulation."),
                                            GUIIconSubSys::getIcon(GUIIcon::CLOSE), this, MID_HOTKEY_CTRL_W_CLOSESIMULATION);
     // Recent files
-    FXMenuSeparator* sep1 = new FXMenuSeparator(myFileMenu);  // NOSONAR, Fox does the cleanup
+    FXMenuSeparator* sep1 = new FXMenuSeparator(myFileMenu);
     sep1->setSelector(FXRecentFiles::ID_ANYFILES);
-    GUIDesigns::buildFXMenuCommandRecentFile(myFileMenu, "", &myRecentNetworksAndConfigs, FXRecentFiles::ID_FILE_1);
+    // for whatever reason, sonar complains in the next line that sep1 may leak, but fox does the cleanup
+    GUIDesigns::buildFXMenuCommandRecentFile(myFileMenu, "", &myRecentNetworksAndConfigs, FXRecentFiles::ID_FILE_1);  // NOSONAR
     GUIDesigns::buildFXMenuCommandRecentFile(myFileMenu, "", &myRecentNetworksAndConfigs, FXRecentFiles::ID_FILE_2);
     GUIDesigns::buildFXMenuCommandRecentFile(myFileMenu, "", &myRecentNetworksAndConfigs, FXRecentFiles::ID_FILE_3);
     GUIDesigns::buildFXMenuCommandRecentFile(myFileMenu, "", &myRecentNetworksAndConfigs, FXRecentFiles::ID_FILE_4);
@@ -626,10 +627,11 @@ GUIApplicationWindow::fillMenuBar() {
     GUIDesigns::buildFXMenuCommandShortcut(myWindowMenu,
                                            TL("&Close"), "", "",
                                            nullptr, myMDIClient, FXMDIClient::ID_MDI_CLOSE);
-    FXMenuSeparator* sep2 = new FXMenuSeparator(myWindowMenu);  // NOSONAR, Fox does the cleanup
+    FXMenuSeparator* sep2 = new FXMenuSeparator(myWindowMenu);
     sep2->setTarget(myMDIClient);
     sep2->setSelector(FXMDIClient::ID_MDI_ANY);
-    GUIDesigns::buildFXMenuCommand(myWindowMenu, "", nullptr, myMDIClient, FXMDIClient::ID_MDI_1);
+    // for whatever reason, sonar complains in the next line that sep2 may leak, but fox does the cleanup
+    GUIDesigns::buildFXMenuCommand(myWindowMenu, "", nullptr, myMDIClient, FXMDIClient::ID_MDI_1);  // NOSONAR
     GUIDesigns::buildFXMenuCommand(myWindowMenu, "", nullptr, myMDIClient, FXMDIClient::ID_MDI_2);
     GUIDesigns::buildFXMenuCommand(myWindowMenu, "", nullptr, myMDIClient, FXMDIClient::ID_MDI_3);
     GUIDesigns::buildFXMenuCommand(myWindowMenu, "", nullptr, myMDIClient, FXMDIClient::ID_MDI_4);

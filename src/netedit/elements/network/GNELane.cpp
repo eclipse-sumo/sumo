@@ -1962,7 +1962,8 @@ GNELane::buildLaneOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* 
     if (!edgeHasSidewalk && !edgeHasBikelane && !edgeHasBuslane && !isRestricted(SVC_IGNORING)) {
         cascadeRemoveSpecialLane->disable();
     }
-}
+    // for whatever reason, sonar complains in the next line that cascadeRemoveSpecialLane may leak, but fox does the cleanup
+}  // NOSONAR
 
 
 void

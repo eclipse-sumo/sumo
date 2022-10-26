@@ -177,13 +177,15 @@ GNERerouterIntervalDialog::GNERerouterIntervalDialog(GNEAdditional* rerouterInte
     }
 
     // disable add routeProbReroute Button and change label if the rerouter has multiple edges (random routes can only work from one edge)
-    if (rerouterInterval->getParentAdditionals().at(0)->getChildEdges().size() > 1) {
+    // for whatever reason, sonar complains in the next line that parkingAreaRerouteLabel may leak, but fox does the cleanup
+    if (rerouterInterval->getParentAdditionals().at(0)->getChildEdges().size() > 1) {  // NOSONAR
         myAddRouteProbReroute->disable();
         routeProbRerouteLabel->setText(TL("Rerouter has more than one edge"));
     }
 
     // update tables
-    updateClosingLaneReroutesTable();
+    // for whatever reason, sonar complains in the next line that routeProbRerouteLabel may leak, but fox does the cleanup
+    updateClosingLaneReroutesTable();  // NOSONAR
     updateClosingReroutesTable();
     updateDestProbReroutesTable();
     updateRouteProbReroutesTable();

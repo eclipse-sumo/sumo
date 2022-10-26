@@ -146,7 +146,8 @@ void
 GNEApplicationWindowHelper::MenuBarFile::buildRecentFiles(FXMenuPane* fileMenu) {
     FXMenuSeparator* sep1 = new FXMenuSeparator(fileMenu);  // NOSONAR, Fox does the cleanup
     sep1->setSelector(FXRecentFiles::ID_ANYFILES);
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentNetsAndConfigs, FXRecentFiles::ID_FILE_1);
+    // for whatever reason, sonar complains in the next line that sep1 may leak, but fox does the cleanup
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentNetsAndConfigs, FXRecentFiles::ID_FILE_1);  // NOSONAR
     GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentNetsAndConfigs, FXRecentFiles::ID_FILE_2);
     GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentNetsAndConfigs, FXRecentFiles::ID_FILE_3);
     GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentNetsAndConfigs, FXRecentFiles::ID_FILE_4);
