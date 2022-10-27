@@ -202,12 +202,12 @@ MSStageWaiting::loadState(MSTransportable* transportable, std::istringstream& st
     }
     if (myDeparted >= 0) {
         myDestination->addTransportable(transportable);
-    }
-    MSNet* net = MSNet::getInstance();
-    if (transportable->isPerson()) {
-        net->getPersonControl().setWaitEnd(until, transportable);
-    } else {
-        net->getContainerControl().setWaitEnd(until, transportable);
+        MSNet* net = MSNet::getInstance();
+        if (transportable->isPerson()) {
+            net->getPersonControl().setWaitEnd(until, transportable);
+        } else {
+            net->getContainerControl().setWaitEnd(until, transportable);
+        }
     }
 }
 
