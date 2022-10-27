@@ -377,7 +377,6 @@ def get_prob_fun(options, fringe_bonus, fringe_forbidden, max_length):
         else:
             prob *= (edge.getSpeed() ** options.speed_exponent)
         if (options.fringe_factor != 1.0 and
-                not options.pedestrians and
                 fringe_bonus is not None and
                 edge.getSpeed() > options.fringe_threshold and
                 edge.is_fringe(bonus_connections, checkJunctions=options.fringeJunctions)):
