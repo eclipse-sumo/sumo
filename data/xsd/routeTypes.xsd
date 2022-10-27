@@ -824,6 +824,8 @@
         <!-- save-state backward compatibility -->
         <xsd:attribute name="actualArrival" type="timeType"/>
         <xsd:attribute name="depart" type="timeType"/>
+        <!-- save-state  -->
+        <xsd:attribute name="collision" type="boolType"/>
     </xsd:complexType>
 
     <xsd:complexType name="vTypeDistributionType">

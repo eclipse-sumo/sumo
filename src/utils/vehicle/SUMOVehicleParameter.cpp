@@ -289,6 +289,9 @@ SUMOVehicleParameter::Stop::write(OutputDevice& dev, const bool close, const boo
     if ((parametersSet & STOP_ONDEMAND_SET) != 0) {
         dev.writeAttr(SUMO_ATTR_ONDEMAND, onDemand);
     }
+    if (collision) {
+        dev.writeAttr(SUMO_ATTR_COLLISION, collision);
+    }
     // only write friendly position if is true
     if (friendlyPos == true) {
         dev.writeAttr(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
