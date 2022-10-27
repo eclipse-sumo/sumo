@@ -852,6 +852,8 @@ MSVehicle::Influencer::postProcessRemoteControl(MSVehicle* v) {
                   << " newRouteEdge=" << myRemoteRoute[myRemoteEdgeOffset]->getID()
                   << "\n";
 #endif
+        // clear any prior stops because they cannot apply to the new route
+        const_cast<SUMOVehicleParameter&>(v->getParameter()).stops.clear();
         v->replaceRouteEdges(myRemoteRoute, -1, 0, "traci:moveToXY", true);
     }
     v->myCurrEdge = v->getRoute().begin() + myRemoteEdgeOffset;
