@@ -13,9 +13,6 @@ edge.contextualMenu.addReverseDirectionDisconnected
 edge.contextualMenu.resetLenght
 fix.demandElements.routes
 fix.demandElements.routes.removeStops
-flowEmbedded.inspect.typeButton
-flowFromToEdge.inspect.typeButton
-flowJunction.inspect.typeButton
 junction.inspectSelectionTLS.tl
 junction.inspectSelectionTLS.tlLayout
 junction.inspectSelectionTLS.tlType
