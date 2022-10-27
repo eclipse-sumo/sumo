@@ -796,6 +796,14 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
 
     totalMismatch = sum([cd.count for cd in countData])
 
+    if totalMismatch > 0 and options.optimize is not None:
+        if options.verbose:
+            print("Starting optimization for interval [%s, %s] (mismatch %s)" % (
+                begin, end, totalMismatch))
+        optimize(options, countData, routes, usedRoutes, routeUsage)
+        resetCounts(usedRoutes, routeUsage, countData)
+        numSampled = len(usedRoutes)
+
     if intervalCount is not None and numSampled < intervalCount:
       if unrestricted:
         while numSampled < intervalCount:
@@ -808,12 +816,6 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
       else:
         print("Cannot fulfill total interval count of %s due to lack of unrestricted routes" % intervalCount, file=sys.stderr)
 
-    if totalMismatch > 0 and options.optimize is not None:
-        if options.verbose:
-            print("Starting optimization for interval [%s, %s] (mismatch %s)" % (
-                begin, end, totalMismatch))
-        optimize(options, countData, routes, usedRoutes, routeUsage)
-        resetCounts(usedRoutes, routeUsage, countData)
     # avoid bias from sampling order / optimization
     rng.shuffle(usedRoutes)
 
