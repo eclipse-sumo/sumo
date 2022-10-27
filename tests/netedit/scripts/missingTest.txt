@@ -11,6 +11,17 @@ TLS.single.delayBasedPhase
 TLS.single.staticPhase
 fix.demandElements.routes
 fix.demandElements.routes.removeStops
+junction.contextualMenu.addJoinedTLS
+junction.contextualMenu.addTLS
+junction.contextualMenu.clearConnections
+junction.contextualMenu.converToRoundAbout
+junction.contextualMenu.replaceJunctionByGeometryPoint
+junction.contextualMenu.resetConnections
+junction.contextualMenu.resetEdgeEndPoints
+junction.contextualMenu.resetJunctionShape
+junction.contextualMenu.setCustomJunctionShape
+junction.contextualMenu.splitJunction
+junction.contextualMenu.splitJunctionAndReconnect
 junction.inspectSelectionTLS.tl
 junction.inspectSelectionTLS.tlLayout
 junction.inspectSelectionTLS.tlType

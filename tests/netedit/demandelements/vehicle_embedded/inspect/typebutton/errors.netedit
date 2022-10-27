@@ -69,9 +69,11 @@ Debug: Selected item 'vehicle (embedded route)' in GNETagSelector
 Debug: Key ENTER pressed
 Debug: Adding vehicleWithRoute 'v_0' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'v_0' in GNEChange_DemandElement
-Debug: Value ';;;;' for attribute type of vehicleWithRoute isn't valid
-Debug: Value 'dummyVType' for attribute type of vehicleWithRoute isn't valid
 Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
@@ -79,16 +81,13 @@ Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing routeEmbedded 'v_0' in GNEChange_DemandElement
 Debug: Removing vehicleWithRoute 'v_0' in GNEChange_DemandElement
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Removing vType 'custom_vType' in GNEChange_DemandElement
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Adding vType 'custom_vType' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding vehicleWithRoute 'v_0' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'v_0' in GNEChange_DemandElement
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute

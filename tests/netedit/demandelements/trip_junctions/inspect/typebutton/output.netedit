@@ -5,10 +5,8 @@ trip (from-to junctions)
 TestFunctions: Clicked over position 384 - 528
 TestFunctions: Clicked over position 389 - 245
 TestFunctions: Clicked over position 384 - 528
-
-;;;;
-dummyVType
 custom_vType
+12,13,14
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
