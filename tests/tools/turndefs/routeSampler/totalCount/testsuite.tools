@@ -4,6 +4,15 @@ lower
 # set total count to increase demand with unrestricted routes
 higher
 
+# set total count to increase demand with unrestricted routes
+higher_intervals
+
+# set total count to increase demand with unrestricted routes
+higher_intervals_proportial
+
+# set total count to increase demand with unrestricted routes
+higher_intervals_mismatch
+
 # set total count to increase demand with unrestricted routes (but there are none)
 higher_no_unrestricted
 
