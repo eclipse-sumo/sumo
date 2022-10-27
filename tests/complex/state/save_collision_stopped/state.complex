@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-04 12:52:37 by Eclipse SUMO sumo Version v1_12_0+1914-2b49265
+<!-- generated on 2022-10-27 10:32:13 by Eclipse SUMO sumo Version v1_14_1+1999-59f18b4
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -34,16 +34,16 @@
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_12_0+1914-2b49265" time="50.00" type="micro">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_14_1+1999-59f18b4" time="50.00" type="micro">
     <route id="always_right" state="1" edges="3si 2o"/>
     <route id="horizontal" state="1" edges="1si 2o"/>
     <delay number="26" begin="100" end="0" depart="468.000" time="0.000"/>
     <vType id="SUMO_DEFAULT_TYPE" length="3.000" minGap="2.000" maxSpeed="70.000" accel="0.8" decel="4.5" sigma="0"/>
     <vehicle id="always_right.0" type="SUMO_DEFAULT_TYPE" depart="0.00" route="always_right" distance="250 0" speedFactor="1.0000" state="2210 0 1 3.10 0 9.44 49000 1 0" pos="19.830 16.830 0.000" speed="0.000 0.000" angle="90.000" posLat="0.000" waitingTime="100000 0">
-        <stop lane="2o_0" startPos="17.580" endPos="17.580" duration="31.00" started="30.00"/>
+        <stop lane="2o_0" startPos="17.580" endPos="17.580" duration="31.00" collision="1" started="30.00"/>
     </vehicle>
     <vehicle id="always_right.1" type="SUMO_DEFAULT_TYPE" depart="1.00" route="always_right" distance="250 0" speedFactor="1.0000" state="2210 4000 1 3.10 0 9.89 49000 1 0" pos="14.829 11.829 0.000" speed="0.000 0.000" angle="90.000" posLat="0.000" waitingTime="100000 0">
-        <stop lane="2o_0" startPos="12.579" endPos="12.579" duration="35.00" started="34.00"/>
+        <stop lane="2o_0" startPos="12.579" endPos="12.579" duration="35.00" collision="1" started="34.00"/>
     </vehicle>
     <vehicle id="always_right.10" type="SUMO_DEFAULT_TYPE" depart="10.00" route="always_right" distance="0 0" speedFactor="1.0000" state="2210 40000 0 3.10 0 6.41 49000 0 0" pos="39.100 36.100 7.200" speed="7.200 6.400" angle="0.000" posLat="0.000" waitingTime="100000 0"/>
     <vehicle id="always_right.11" type="SUMO_DEFAULT_TYPE" depart="11.00" route="always_right" distance="0 0" speedFactor="1.0000" state="2210 44000 0 3.10 0 4.14 49000 0 0" pos="15.100 12.100 4.000" speed="4.000 3.200" angle="0.000" posLat="0.000" waitingTime="100000 0"/>
@@ -56,7 +56,7 @@
     <vehicle id="always_right.18" type="SUMO_DEFAULT_TYPE" depart="18.00" route="always_right" distance="0 0" speedFactor="1.0000" state="2210 9223372036854775807 0 -1.00 0 0.00 0 0 0" pos="0.000 0.000 0.000" speed="0.000 0.000" angle="90.000" posLat="0.000" waitingTime="100000 0"/>
     <vehicle id="always_right.19" type="SUMO_DEFAULT_TYPE" depart="19.00" route="always_right" distance="0 0" speedFactor="1.0000" state="2210 9223372036854775807 0 -1.00 0 0.00 0 0 0" pos="0.000 0.000 0.000" speed="0.000 0.000" angle="90.000" posLat="0.000" waitingTime="100000 0"/>
     <vehicle id="always_right.2" type="SUMO_DEFAULT_TYPE" depart="2.00" route="always_right" distance="250 0" speedFactor="1.0000" state="2210 8000 1 3.10 0 9.32 49000 1 0" pos="9.828 6.828 0.000" speed="0.000 0.000" angle="90.000" posLat="0.000" waitingTime="100000 0">
-        <stop lane="2o_0" startPos="7.578" endPos="7.578" duration="38.00" started="37.00"/>
+        <stop lane="2o_0" startPos="7.578" endPos="7.578" duration="38.00" collision="1" started="37.00"/>
     </vehicle>
     <vehicle id="always_right.20" type="SUMO_DEFAULT_TYPE" depart="20.00" route="always_right" distance="0 0" speedFactor="1.0000" state="2210 9223372036854775807 0 -1.00 0 0.00 0 0 0" pos="0.000 0.000 0.000" speed="0.000 0.000" angle="90.000" posLat="0.000" waitingTime="100000 0"/>
     <vehicle id="always_right.21" type="SUMO_DEFAULT_TYPE" depart="21.00" route="always_right" distance="0 0" speedFactor="1.0000" state="2210 9223372036854775807 0 -1.00 0 0.00 0 0 0" pos="0.000 0.000 0.000" speed="0.000 0.000" angle="90.000" posLat="0.000" waitingTime="100000 0"/>
@@ -69,7 +69,7 @@
     <vehicle id="always_right.28" type="SUMO_DEFAULT_TYPE" depart="28.00" route="always_right" distance="0 0" speedFactor="1.0000" state="2210 9223372036854775807 0 -1.00 0 0.00 0 0 0" pos="0.000 0.000 0.000" speed="0.000 0.000" angle="90.000" posLat="0.000" waitingTime="100000 0"/>
     <vehicle id="always_right.29" type="SUMO_DEFAULT_TYPE" depart="29.00" route="always_right" distance="0 0" speedFactor="1.0000" state="2210 9223372036854775807 0 -1.00 0 0.00 0 0 0" pos="0.000 0.000 0.000" speed="0.000 0.000" angle="90.000" posLat="0.000" waitingTime="100000 0"/>
     <vehicle id="always_right.3" type="SUMO_DEFAULT_TYPE" depart="3.00" route="always_right" distance="250 0" speedFactor="1.0000" state="2210 12000 1 3.10 0 8.88 49000 1 0" pos="2.577 249.577 0.000" speed="0.000 0.000" angle="29.084" posLat="0.000" waitingTime="100000 0">
-        <stop lane="2o_0" startPos="2.577" endPos="2.577" duration="41.00" started="40.00"/>
+        <stop lane="2o_0" startPos="2.577" endPos="2.577" duration="41.00" collision="1" started="40.00"/>
     </vehicle>
     <vehicle id="always_right.30" type="SUMO_DEFAULT_TYPE" depart="30.00" route="always_right" distance="0 0" speedFactor="1.0000" state="2210 9223372036854775807 0 -1.00 0 0.00 0 0 0" pos="0.000 0.000 0.000" speed="0.000 0.000" angle="90.000" posLat="0.000" waitingTime="100000 0"/>
     <vehicle id="always_right.31" type="SUMO_DEFAULT_TYPE" depart="31.00" route="always_right" distance="0 0" speedFactor="1.0000" state="2210 9223372036854775807 0 -1.00 0 0.00 0 0 0" pos="0.000 0.000 0.000" speed="0.000 0.000" angle="90.000" posLat="0.000" waitingTime="100000 0"/>
@@ -98,10 +98,10 @@
     <vehicle id="always_right.8" type="SUMO_DEFAULT_TYPE" depart="8.00" route="always_right" distance="0 0" speedFactor="1.0000" state="2210 32000 0 3.10 0 8.19 49000 0 0" pos="125.500 122.500 13.600" speed="13.600 12.800" angle="0.000" posLat="0.000" waitingTime="100000 0"/>
     <vehicle id="always_right.9" type="SUMO_DEFAULT_TYPE" depart="9.00" route="always_right" distance="0 0" speedFactor="1.0000" state="2210 36000 0 3.10 0 7.76 49000 0 0" pos="75.900 72.900 10.400" speed="10.400 9.600" angle="0.000" posLat="0.000" waitingTime="100000 0"/>
     <vehicle id="horizontal.0" type="SUMO_DEFAULT_TYPE" depart="0.00" route="horizontal" distance="250 0" speedFactor="1.0000" state="2210 0 1 3.10 0 9.44 49000 1 0" pos="19.830 16.830 0.000" speed="0.000 0.000" angle="90.000" posLat="0.000" waitingTime="100000 0">
-        <stop lane="2o_0" startPos="19.830" endPos="19.830" duration="31.00" started="30.00"/>
+        <stop lane="2o_0" startPos="19.830" endPos="19.830" duration="31.00" collision="1" started="30.00"/>
     </vehicle>
     <vehicle id="horizontal.1" type="SUMO_DEFAULT_TYPE" depart="1.00" route="horizontal" distance="250 0" speedFactor="1.0000" state="2210 4000 1 3.10 0 9.89 49000 1 0" pos="14.829 11.829 0.000" speed="0.000 0.000" angle="90.000" posLat="0.000" waitingTime="100000 0">
-        <stop lane="2o_0" startPos="14.829" endPos="14.829" duration="35.00" started="34.00"/>
+        <stop lane="2o_0" startPos="14.829" endPos="14.829" duration="35.00" collision="1" started="34.00"/>
     </vehicle>
     <vehicle id="horizontal.10" type="SUMO_DEFAULT_TYPE" depart="10.00" route="horizontal" distance="0 0" speedFactor="1.0000" state="2210 40000 0 3.10 0 6.41 49000 0 0" pos="39.100 36.100 7.200" speed="7.200 6.400" angle="90.000" posLat="0.000" waitingTime="100000 0"/>
     <vehicle id="horizontal.11" type="SUMO_DEFAULT_TYPE" depart="11.00" route="horizontal" distance="0 0" speedFactor="1.0000" state="2210 44000 0 3.10 0 4.14 49000 0 0" pos="15.100 12.100 4.000" speed="4.000 3.200" angle="90.000" posLat="0.000" waitingTime="100000 0"/>
@@ -114,7 +114,7 @@
     <vehicle id="horizontal.18" type="SUMO_DEFAULT_TYPE" depart="18.00" route="horizontal" distance="0 0" speedFactor="1.0000" state="2210 9223372036854775807 0 -1.00 0 0.00 0 0 0" pos="0.000 0.000 0.000" speed="0.000 0.000" angle="90.000" posLat="0.000" waitingTime="100000 0"/>
     <vehicle id="horizontal.19" type="SUMO_DEFAULT_TYPE" depart="19.00" route="horizontal" distance="0 0" speedFactor="1.0000" state="2210 9223372036854775807 0 -1.00 0 0.00 0 0 0" pos="0.000 0.000 0.000" speed="0.000 0.000" angle="90.000" posLat="0.000" waitingTime="100000 0"/>
     <vehicle id="horizontal.2" type="SUMO_DEFAULT_TYPE" depart="2.00" route="horizontal" distance="250 0" speedFactor="1.0000" state="2210 8000 1 3.10 0 9.32 49000 1 0" pos="9.828 6.828 0.000" speed="0.000 0.000" angle="90.000" posLat="0.000" waitingTime="100000 0">
-        <stop lane="2o_0" startPos="9.828" endPos="9.828" duration="38.00" started="37.00"/>
+        <stop lane="2o_0" startPos="9.828" endPos="9.828" duration="38.00" collision="1" started="37.00"/>
     </vehicle>
     <vehicle id="horizontal.20" type="SUMO_DEFAULT_TYPE" depart="20.00" route="horizontal" distance="0 0" speedFactor="1.0000" state="2210 9223372036854775807 0 -1.00 0 0.00 0 0 0" pos="0.000 0.000 0.000" speed="0.000 0.000" angle="90.000" posLat="0.000" waitingTime="100000 0"/>
     <vehicle id="horizontal.21" type="SUMO_DEFAULT_TYPE" depart="21.00" route="horizontal" distance="0 0" speedFactor="1.0000" state="2210 9223372036854775807 0 -1.00 0 0.00 0 0 0" pos="0.000 0.000 0.000" speed="0.000 0.000" angle="90.000" posLat="0.000" waitingTime="100000 0"/>
@@ -127,7 +127,7 @@
     <vehicle id="horizontal.28" type="SUMO_DEFAULT_TYPE" depart="28.00" route="horizontal" distance="0 0" speedFactor="1.0000" state="2210 9223372036854775807 0 -1.00 0 0.00 0 0 0" pos="0.000 0.000 0.000" speed="0.000 0.000" angle="90.000" posLat="0.000" waitingTime="100000 0"/>
     <vehicle id="horizontal.29" type="SUMO_DEFAULT_TYPE" depart="29.00" route="horizontal" distance="0 0" speedFactor="1.0000" state="2210 9223372036854775807 0 -1.00 0 0.00 0 0 0" pos="0.000 0.000 0.000" speed="0.000 0.000" angle="90.000" posLat="0.000" waitingTime="100000 0"/>
     <vehicle id="horizontal.3" type="SUMO_DEFAULT_TYPE" depart="3.00" route="horizontal" distance="250 0" speedFactor="1.0000" state="2210 12000 1 3.10 0 9.74 49000 1 0" pos="4.827 1.827 0.000" speed="0.000 0.000" angle="90.000" posLat="0.000" waitingTime="100000 0">
-        <stop lane="2o_0" startPos="4.827" endPos="4.827" duration="42.00" started="41.00"/>
+        <stop lane="2o_0" startPos="4.827" endPos="4.827" duration="42.00" collision="1" started="41.00"/>
     </vehicle>
     <vehicle id="horizontal.30" type="SUMO_DEFAULT_TYPE" depart="30.00" route="horizontal" distance="0 0" speedFactor="1.0000" state="2210 9223372036854775807 0 -1.00 0 0.00 0 0 0" pos="0.000 0.000 0.000" speed="0.000 0.000" angle="90.000" posLat="0.000" waitingTime="100000 0"/>
     <vehicle id="horizontal.31" type="SUMO_DEFAULT_TYPE" depart="31.00" route="horizontal" distance="0 0" speedFactor="1.0000" state="2210 9223372036854775807 0 -1.00 0 0.00 0 0 0" pos="0.000 0.000 0.000" speed="0.000 0.000" angle="90.000" posLat="0.000" waitingTime="100000 0"/>
