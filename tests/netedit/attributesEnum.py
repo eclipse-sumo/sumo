@@ -211,23 +211,23 @@ class edge:
         create = 33
         copy = 34
         clear = 35
-    
+
     class contextualMenu:
-        splitEdge = 1;
-        splitEdgeBothDirection = 2;
-        setGeometryPoint = 2;
-        restoreGeometryPoint = 3;
-        reverseEdge = 4;
-        addReverseDirection = 5;
-        addReverseDirectionDisconnected = 6;
-        resetLenght = 7;
-        straighteen = 8;
-        smooth = 9;
-        straighteenElevation = 10;
-        smoothElevation = 11;
-    
-    contextualMenuEdgeA = 10;
-    contextualMenuEdgeB = 11;
+        splitEdge = 1
+        splitEdgeBothDirection = 2
+        setGeometryPoint = 2
+        restoreGeometryPoint = 3
+        reverseEdge = 4
+        addReverseDirection = 5
+        addReverseDirectionDisconnected = 6
+        resetLenght = 7
+        straighteen = 8
+        smooth = 9
+        straighteenElevation = 10
+        smoothElevation = 11
+
+    contextualMenuEdgeA = 10
+    contextualMenuEdgeB = 11
 
 # lane
 

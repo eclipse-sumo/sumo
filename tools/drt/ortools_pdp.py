@@ -116,19 +116,20 @@ def main(data, time_limit_seconds=10, verbose=False):
         pickup_index = manager.NodeToIndex(request.from_node)
         delivery_index = manager.NodeToIndex(request.to_node)
         routing.AddPickupAndDelivery(pickup_index, delivery_index)  # helps the solver
-        solver.Add(
-            routing.VehicleVar(pickup_index) == routing.VehicleVar(delivery_index))  # use same veh for pickup and dropoff
+        # use same veh for pickup and dropoff
+        solver.Add(routing.VehicleVar(pickup_index) == routing.VehicleVar(delivery_index))
         solver.Add(
             distance_dimension.CumulVar(pickup_index) <=
             distance_dimension.CumulVar(delivery_index))  # define order: first pickup then dropoff
-        if hasattr(request, 'is_new') and request.is_new==True:  # is that a new request?
-            routing.AddDisjunction([pickup_index, delivery_index], 100_000, 2)  # allows to reject the order but gives penalty
+        if hasattr(request, 'is_new') and request.is_new:  # is that a new request?
+            # allows to reject the order but gives penalty
+            routing.AddDisjunction([pickup_index, delivery_index], 100_000, 2)
 
     # Set direct route factor.
     if data['drf'] != -1:
         if verbose:
-            print(' Add direct route factor constraints...')        
-        for request in data['pickups_deliveries']: # if the costs changed and cannot hold anymore? --> see 'dropoffs'
+            print(' Add direct route factor constraints...')
+        for request in data['pickups_deliveries']:  # if the costs changed and cannot hold anymore? --> see 'dropoffs'
             pickup_index = manager.NodeToIndex(request.from_node)
             delivery_index = manager.NodeToIndex(request.to_node)
             # let the route cost be less or equal the direct route cost times drf
@@ -143,17 +144,15 @@ def main(data, time_limit_seconds=10, verbose=False):
         for request in data['dropoffs']:  # TODO: not sure that it works, test needed!
             direct_route_cost_drf = solver.IntConst(round(direct_route_cost * data['drf']))
             delivery_index = manager.NodeToIndex(request.to_node)
-            route_cost = ( distance_dimension.CumulVar(delivery_index) +  # cost from veh start to dropoff node
-                solver.IntConst(round(request.current_route_cost)) )  # cost from pickup to veh start
-            #objective_to_minimize = solver.Minimize(solver.Max(route_cost, direct_route_cost_drf), 10)
+            route_cost = (distance_dimension.CumulVar(delivery_index) +  # cost from veh start to dropoff node
+                          solver.IntConst(round(request.current_route_cost)))  # cost from pickup to veh start
+            # objective_to_minimize = solver.Minimize(solver.Max(route_cost, direct_route_cost_drf), 10)
             routing.AddVariableMinimizedByFinalizer(solver.Max(route_cost, direct_route_cost_drf).Var())
-        
-
 
     # Force the vehicle to drop-off the reservations it already picked up
     if verbose:
         print(' Add dropoff constraints...')
-    #for veh_index, do_list in enumerate(data['dropoffs']):
+    # for veh_index, do_list in enumerate(data['dropoffs']):
     #    if verbose:
     #        print('vehicle %s with %s dropoffs' % (veh_index, len(do_list)))
     #    for do in do_list:
@@ -168,8 +167,7 @@ def main(data, time_limit_seconds=10, verbose=False):
         if verbose:
             print('reservation %s in veh %s (%s)' % (res.id, res.vehicle, res.vehicle_index))
         index = manager.NodeToIndex(res.to_node)
-        routing.SetAllowedVehiclesForIndex([res.vehicle_index],index)
-
+        routing.SetAllowedVehiclesForIndex([res.vehicle_index], index)
 
     # Add Capacity constraint.
     if verbose:

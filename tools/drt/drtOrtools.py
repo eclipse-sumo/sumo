@@ -42,9 +42,11 @@ import traci  # noqa
 
 verbose = False
 
+
 class CostType(Enum):
     DISTANCE = 1
     TIME = 2
+
 
 def dispatch(reservations, fleet, time_limit, cost_type, drf, verbose):
     """Dispatch using ortools."""
@@ -91,7 +93,7 @@ def create_data_model(reservations, fleet, cost_type, drf, verbose):
         if verbose:
             print('Reservation %s ends at edge %s' % (reservation.id, to_edge))
     for reservation in dp_reservations:
-        if reservation.state==1 | reservation.state==2:
+        if reservation.state == 1 | reservation.state == 2:
             setattr(reservation, 'is_new', True)
     for reservation in do_reservations:
         to_edge = reservation.toEdge
@@ -123,7 +125,8 @@ def create_data_model(reservations, fleet, cost_type, drf, verbose):
         if hasattr(res, 'from_node'):
             setattr(res, 'direct_route_cost', cost_matrix[res.from_node][res.to_node])
         else:
-            direct_route_cost = traci.simulation.findRoute(res.fromEdge, res.toEdge, vType=type_vehicle)  # TODO: use 'historical data' from dict in get_cost_matrix instead
+            # TODO: use 'historical data' from dict in get_cost_matrix instead
+            direct_route_cost = traci.simulation.findRoute(res.fromEdge, res.toEdge, vType=type_vehicle)
             setattr(res, 'direct_route_cost', direct_route_cost)
 
     # add "current route cost" to the already picked up reservations:
@@ -132,9 +135,9 @@ def create_data_model(reservations, fleet, cost_type, drf, verbose):
         stage = traci.person.getStage(person_id, 0)
         # stage type 3 is defined as 'driving'
         assert(stage.type == 3)
-        #print("travel time: ", stage.travelTime)
-        #print("travel length: ", stage.length)
-        #print("travel cost: ", stage.cost)
+        # print("travel time: ", stage.travelTime)
+        # print("travel length: ", stage.length)
+        # print("travel cost: ", stage.cost)
         if cost_type == CostType.DISTANCE:
             setattr(res, 'current_route_cost', stage.length)
         elif cost_type == CostType.TIME:
@@ -144,10 +147,10 @@ def create_data_model(reservations, fleet, cost_type, drf, verbose):
 
     # pd_nodes = list([from_node, to_node, is_new])
     # start from_node with 1 (0 is for depot)
-    pd_nodes = [[ii+1, n_dp_reservations+ii+1, (dp_reservations[ii].state == 1 | dp_reservations[ii].state == 2)]
-                for ii in range(0, n_dp_reservations)]
+    # pd_nodes = [[ii+1, n_dp_reservations+ii+1, (dp_reservations[ii].state == 1 | dp_reservations[ii].state == 2)]
+    #             for ii in range(0, n_dp_reservations)]
     # do_node = list(dropoff_node)
-    do_nodes = [ii + 1 + 2*n_dp_reservations for ii in range(0, n_do_reservations)]
+    # do_nodes = [ii + 1 + 2*n_dp_reservations for ii in range(0, n_do_reservations)]
     ii = 1 + 2*n_dp_reservations + n_do_reservations
     # node to start from
     start_nodes = [jj for jj in range(ii, ii + n_vehicles)]
@@ -211,7 +214,7 @@ def solution_by_requests(solution_ortools, reservations, data, verbose=False):
     if solution_ortools is None:
         return None
 
-    dp_reservations = [res for res in reservations if res.state != 8]
+    # dp_reservations = [res for res in reservations if res.state != 8]
 
     route2request = {}
     for res in data["pickups_deliveries"]:
@@ -219,7 +222,7 @@ def solution_by_requests(solution_ortools, reservations, data, verbose=False):
         route2request[res.to_node] = res.id
     for res in data['dropoffs']:  # for each vehicle
         route2request[res.to_node] = res.id
-        
+
     solution_requests = {}
     for key in solution_ortools:  # key is the vehicle number (0,1,...)
         solution = [[], []]  # request order and costs
@@ -340,9 +343,11 @@ def get_arguments():
     argument_parser.add_argument("-d", "--cost-type", default="distance",
                                  help="type of costs to minimize (distance or time)")
     argument_parser.add_argument("-f", "--drf", type=float, default=1.5,
-                                 help="direct route factor (drf) to calculate maximum cost for a single dropoff-pickup route (set to -1, if you do not need it)")
+                                 help="direct route factor to calculate maximum cost "
+                                      "for a single dropoff-pickup route (set to -1, if you do not need it)")
     arguments = argument_parser.parse_args()
     return arguments
+
 
 def check_set_arguments(arguments):
     if arguments.nogui:
@@ -358,10 +363,8 @@ def check_set_arguments(arguments):
     else:
         raise ValueError("Wrong cost type '%s'. Only 'distance' and 'time' are allowed." % (arguments.cost_type))
 
-    if arguments.drf < 1:
-        if arguments.drf != -1:
-            raise ValueError("Wrong value for drf '%s'. Value must be equal or greater than 1. -1 means no drf is used.")
-
+    if arguments.drf < 1 and arguments.drf != -1:
+        raise ValueError("Wrong value for drf '%s'. Value must be equal or greater than 1. -1 means no drf is used.")
 
 
 if __name__ == "__main__":
