@@ -195,8 +195,12 @@ MSRailSignalConstraint_Predecessor::getDescription() const {
     if (passedIDs.size() > 0) {
         passedIDs2 = " (" + toString(passedIDs) + ")";
     }
+    std::string params = "";
+    for (auto item : getParametersMap()) {
+        params += ("\n  key=" + item.first + " value=" + item.second);
+    }
     return (toString(getTag()) + "  " + myTripId + vehID + " at signal " + myTrackers.front()->getLane()->getEdge().getFromJunction()->getID()
-            + " passed=" + StringUtils::prune(toString(myTrackers.front()->myPassed)) + passedIDs2);
+            + " passed=" + StringUtils::prune(toString(myTrackers.front()->myPassed)) + passedIDs2 + params);
 }
 
 // ===========================================================================

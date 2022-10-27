@@ -257,7 +257,12 @@ GUIParameterTableWindow::closeBuilding(const Parameterised* p) {
         }
     }
     const int rows = (int)myItems.size() + 1;
-    setHeight(rows * 20 + 40);
+    int height = rows * 20 + 40;
+    // adjust size in case there are higher (multi-line) rows
+    for (int i = 0; i < (int)myItems.size(); i++) {
+        height += MAX2(0, myTable->getRowHeight(i) - 20);
+    }
+    setHeight(height);
     myTable->fitColumnsToContents(1);
     setWidth(myTable->getContentWidth() + 40);
     myTable->setVisibleRows(rows);

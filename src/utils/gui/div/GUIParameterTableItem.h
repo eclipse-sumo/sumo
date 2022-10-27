@@ -155,6 +155,10 @@ public:
         } else {
             myTable->setItemIcon(myTablePosition, 2, GUIIconSubSys::getIcon(GUIIcon::NO));
         }
+        int lineBreaks = std::count(value.begin(), value.end(), '\n');
+        if (lineBreaks > 0) {
+            myTable->setRowHeight(myTablePosition, myTable->getRowHeight(myTablePosition) * (lineBreaks + 1));
+        }
         myTable->setItemJustify(myTablePosition, 2, FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
     }
 
