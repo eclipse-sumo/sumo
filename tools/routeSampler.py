@@ -631,7 +631,7 @@ def main(options):
           countSums = []
           for begin, end in intervals:
             countData = parseCounts(options, routes, begin, end)
-            countSums.append(cd.origCount for cd in countData)
+            countSums.append(sum(cd.origCount for cd in countData))
           countSumTotal = sum(countSums)
           options.totalCount = [int(ceil(options.totalCount[0] * s / countSumTotal)) for s in countSums]
         else:
