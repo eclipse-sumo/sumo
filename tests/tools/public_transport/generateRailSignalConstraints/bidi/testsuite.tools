@@ -13,3 +13,6 @@ no_signals
 
 # 2 common bidi edges between stations
 missing_signal
+
+# store comments as params
+comment_params
