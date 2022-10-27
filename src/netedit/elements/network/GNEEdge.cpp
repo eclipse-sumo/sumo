@@ -1093,13 +1093,7 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
             if (value == getFromJunction()->getID()) {
                 return true;
             } else if (SUMOXMLDefinitions::isValidNetID(value) && (value != getToJunction()->getID())) {
-                GNEJunction* junctionFrom = myNet->getAttributeCarriers()->retrieveJunction(value, false);
-                // check that there isn't already another edge with the same From and To Edge
-                if ((junctionFrom != nullptr) && (myNet->getAttributeCarriers()->retrieveEdge(junctionFrom, getToJunction(), false) == nullptr)) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return true;
             } else {
                 return false;
             }
@@ -1109,13 +1103,7 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
             if (value == getToJunction()->getID()) {
                 return true;
             } else if (SUMOXMLDefinitions::isValidNetID(value) && (value != getFromJunction()->getID())) {
-                GNEJunction* junctionTo = myNet->getAttributeCarriers()->retrieveJunction(value, false);
-                // check that there isn't already another edge with the same From and To Edge
-                if ((junctionTo != nullptr) && (myNet->getAttributeCarriers()->retrieveEdge(getFromJunction(), junctionTo, false) == nullptr)) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return true;
             } else {
                 return false;
             }
