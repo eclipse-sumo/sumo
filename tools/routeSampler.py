@@ -184,6 +184,7 @@ def get_options(args=None):
 
 class CountData:
     def __init__(self, count, edgeTuple, allRoutes, isOrigin, isDest, isRatio, options):
+        self.index = None
         self.origCount = count
         self.count = count
         self.edgeTuple = edgeTuple
@@ -243,19 +244,21 @@ class CountData:
                 return route
         assert (False)
 
-    def updateTurnRatioCounts(self, openRoutes, updateSiblings=False):
+    def updateTurnRatioCounts(self, openRoutes, openCounts, updateSiblings=False):
         if self.isRatio:
             total = sum([cd2.assignedCount for cd2 in self.ratioSiblings])
             permitted = total * self.origCount + self.options.turnRatioAbsTolerance
             if permitted > self.assignedCount:
-                self.count += permitted - self.assignedCount
+                self.count = permitted - self.assignedCount
                 for rI in self.routeSet:
                     if rI not in openRoutes:
                         openRoutes.append(rI)
-                if updateSiblings:
-                    for cd2 in self.ratioSiblings:
-                        if cd2 != self:
-                            cd2.updateTurnRatioCounts(openRoutes)
+                if self.index not in openCounts:
+                    openCounts.append(self.index)
+            if updateSiblings:
+                for cd2 in self.ratioSiblings:
+                    if cd2 != self:
+                        cd2.updateTurnRatioCounts(openRoutes, openCounts)
 
     def __repr__(self):
         return "CountData(edges=%s, count=%s, origCount=%s%s%s%s%s)\n" % (
@@ -532,15 +535,18 @@ class Routes:
 
 
 def initTurnRatioSiblings(routes, countData):
+    ratioIndices = set()
     # todo: use routes to complete incomplete sibling lists
     ratioOrigins = defaultdict(list)
     for cd in countData:
         if cd.isRatio:
             ratioOrigins[cd.edgeTuple[0]].append(cd)
+            ratioIndices.add(cd.index)
 
     for edge, cDs in ratioOrigins.items():
         for cd in cDs:
             cd.ratioSiblings = cDs
+    return ratioIndices
 
 
 def resetCounts(usedRoutes, routeUsage, countData):
@@ -722,28 +728,17 @@ def parseCounts(options, routes, b, e, warn=False):
                  + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, b, e,
                                       routes, options.arrivalAttr, options=options, isDest=True, warn=warn)
                  )
+    for i, cd in enumerate(countData):
+        cd.index = i
     return countData
 
 
 def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, rng, intervalCount):
     countData = parseCounts(options, routes, begin, end)
-    # store which routes are passing each counting location (using route index)
-    countData = (parseDataIntervals(parseTurnCounts, options.turnFiles, begin, end, routes, options.turnAttr,
-                                    options=options)
-                 + parseDataIntervals(parseTurnCounts, options.turnFiles, begin, end,
-                                    routes, options.turnRatioAttr, options=options, isRatio=True)
-                 + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, begin, end, routes,
-                                      options.edgeDataAttr, options=options)
-                 + parseDataIntervals(parseTurnCounts, options.odFiles, begin, end, routes, options.turnAttr,
-                                      options=options, isOrigin=True, isDest=True)
-                 + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, begin, end, routes,
-                                      options.departAttr, options=options, isOrigin=True)
-                 + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, begin, end, routes,
-                                      options.arrivalAttr, options=options, isDest=True)
-                 )
 
+    ratioIndices = None
     if options.turnFiles and options.turnRatioAttr:
-        initTurnRatioSiblings(routes, countData)
+        ratioIndices = initTurnRatioSiblings(routes, countData)
 
     routeUsage = getRouteUsage(routes, countData)
     unrestricted_list = [r for r, usage in enumerate(routeUsage) if len(usage) < options.minCount]
@@ -769,6 +764,14 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
     else:
         numSampled = 0
         while openCounts:
+            if ratioIndices and intervalCount is None:
+                realCounts = [cdi for cdi in openCounts if not cdi in ratioIndices]
+                if not realCounts:
+                   print("Stopped sampling routes because only ratios are still open."
+                       + " Set option --total-count to sample ratios without local counts",
+                       file=sys.stderr)
+                   break
+
             if options.weighted:
                 routeIndex = _sample_skewed(openRoutes, rng, routes.probabilities)
             else:
@@ -781,9 +784,9 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
             usedRoutes.append(routeIndex)
             for dataIndex in routeUsage[routeIndex]:
                 countData[dataIndex].use()
-            if options.turnFiles and options.turnRatioAttr:
+            if ratioIndices:
                 for dataIndex in routeUsage[routeIndex]:
-                    countData[dataIndex].updateTurnRatioCounts(openRoutes, True)
+                    countData[dataIndex].updateTurnRatioCounts(openRoutes, openCounts, True)
 
             openRoutes = updateOpenRoutes(openRoutes, routeUsage, countData)
             openCounts = updateOpenCounts(openCounts, countData, openRoutes)
