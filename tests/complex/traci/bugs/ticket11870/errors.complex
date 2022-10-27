@@ -1,0 +1,14 @@
+Error: stop for vehicle 'ego' on lane 'SC_0' is not downstream the current route.
+Quitting (on error).
+Traceback (most recent call last):
+  File "/home/erdm_ja/scr1/sumo/tests/../tests/complex/traci/bugs/ticket11870/runner.py", line 48, in <module>
+    traci.simulationStep()
+  File "/scr1/sumo/tools/traci/main.py", line 207, in simulationStep
+    return _connections[""].simulationStep(step)
+  File "/scr1/sumo/tools/traci/connection.py", line 327, in simulationStep
+    result = self._sendCmd(tc.CMD_SIMSTEP, None, None, "D", step)
+  File "/scr1/sumo/tools/traci/connection.py", line 189, in _sendCmd
+    return self._sendExact()
+  File "/scr1/sumo/tools/traci/connection.py", line 99, in _sendExact
+    raise FatalTraCIError("connection closed by SUMO")
+traci.exceptions.FatalTraCIError: connection closed by SUMO

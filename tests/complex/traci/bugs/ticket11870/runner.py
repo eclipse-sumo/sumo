@@ -33,6 +33,8 @@ sumoBinary = sumolib.checkBinary('sumo')
 traci.start([sumoBinary,
              "-n", "input_net2.net.xml",
              "-r", "input_routes.rou.xml",
+             "--vehroute-output", "vehroutes.xml",
+             "--stop-output", "stops.xml",
              "--no-step-log"
              ] + sys.argv[1:])
 
@@ -42,6 +44,6 @@ traci.vehicle.setStop(vehID, "SC", 60, duration=7)
 while traci.simulation.getMinExpectedNumber() > 0:
     if traci.vehicle.isStopped(vehID):
         traci.vehicle.setStop(vehID, "SC", 60, duration=0)
-        traci.vehicle.moveToXY(vehID, "", -1, 104.86, 30.80, keepRoute=2)
+        traci.vehicle.moveToXY(vehID, "", -1, 150.47,94.99, keepRoute=2)
     traci.simulationStep()
 traci.close()
