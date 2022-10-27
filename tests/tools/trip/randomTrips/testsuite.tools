@@ -70,6 +70,9 @@ viaEdgeType
 # Test for having the options "additional-files" and "vtype-output" and vClass
 additional_and_vClass
 
+# only permit fringe origins/destinations
+fringe_factor_max
+
 # This test suite checks that argument forwarding to duarouter works correctly.
 duarouter_options
 
