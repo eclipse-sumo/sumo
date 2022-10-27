@@ -43,6 +43,7 @@ VIA_SUFFIX = ".via.xml"
 
 NET = None  # Used as a cache for the net throughout the whole script.
 
+MAXIMIZE_FACTOR = "max"
 
 def get_network(options):
     global NET
@@ -109,8 +110,9 @@ def get_options(args=None):
                     help="weight edge probability by angle [0-360] relative to the network center")
     op.add_argument("--angle-factor", type=float, dest="angle_weight",
                     default=1.0, help="maximum weight factor for angle")
-    op.add_argument("--fringe-factor", type=float, dest="fringe_factor",
-                    default=1.0, help="multiply weight of fringe edges by <FLOAT> (default 1")
+    op.add_argument("--fringe-factor", dest="fringe_factor",
+                    default="1.0", help="multiply weight of fringe edges by <FLOAT> (default 1)" +
+                    " or set value 'max' to force all traffic to start/end at the fringe.")
     op.add_argument("--fringe-threshold", type=float, dest="fringe_threshold", default=0.0,
                     help="only consider edges with speed above <FLOAT> as fringe edges (default 0)")
     op.add_argument("--allow-fringe", dest="allow_fringe", action="store_true", default=False,
@@ -263,6 +265,18 @@ def get_options(args=None):
     if options.fringe_speed_exponent is None:
         options.fringe_speed_exponent = options.speed_exponent
 
+    if options.fringe_factor.lower() == MAXIMIZE_FACTOR:
+        options.fringe_factor = MAXIMIZE_FACTOR
+    else:
+        try:
+            options.fringe_factor = float(options.fringe_factor)
+            if options.fringe_factor < 0:
+                print("Error: --fringe-factor argument may not be negative", file=sys.stderr)
+                sys.exit(1)
+        except ValueError:
+            print("Error: --fringe-factor argument must be a float or 'max'", file=sys.stderr)
+            sys.exit(1)
+
     return options
 
 
@@ -376,11 +390,13 @@ def get_prob_fun(options, fringe_bonus, fringe_forbidden, max_length):
             prob *= (edge.getSpeed() ** options.fringe_speed_exponent)
         else:
             prob *= (edge.getSpeed() ** options.speed_exponent)
-        if (options.fringe_factor != 1.0 and
-                fringe_bonus is not None and
-                edge.getSpeed() > options.fringe_threshold and
-                edge.is_fringe(bonus_connections, checkJunctions=options.fringeJunctions)):
-            prob *= options.fringe_factor
+        if options.fringe_factor != 1.0 and fringe_bonus is not None:
+            isFringe = (edge.getSpeed() > options.fringe_threshold and
+                        edge.is_fringe(bonus_connections, checkJunctions=options.fringeJunctions))
+            if isFringe and options.fringe_factor != MAXIMIZE_FACTOR:
+                prob *= options.fringe_factor
+            elif not isFringe and options.fringe_factor == MAXIMIZE_FACTOR:
+                prob = 0
         if options.edgeParam is not None:
             prob *= float(edge.getParam(options.edgeParam, 1.0))
         if options.angle_weight != 1.0 and fringe_bonus is not None:
