@@ -42,6 +42,6 @@ traci.vehicle.setStop(vehID, "SC", 60, duration=7)
 while traci.simulation.getMinExpectedNumber() > 0:
     if traci.vehicle.isStopped(vehID):
         traci.vehicle.setStop(vehID, "SC", 60, duration=0)
-        traci.vehicle.moveToXY(vehID, "",-1, 104.86, 30.80, keepRoute=2)
+        traci.vehicle.moveToXY(vehID, "", -1, 104.86, 30.80, keepRoute=2)
     traci.simulationStep()
 traci.close()
