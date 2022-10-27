@@ -3,3 +3,6 @@ full
 
 # use a single ratio interval that covers multiple count intervals
 span_intervals
+
+# ratios for all outflows but no absolute counts
+no_counts
