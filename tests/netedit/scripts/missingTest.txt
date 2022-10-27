@@ -9,7 +9,6 @@ TLS.single.actuatedPhase
 TLS.single.attributes
 TLS.single.delayBasedPhase
 TLS.single.staticPhase
-containerFlow.inspect.typeButton
 edge.contextualMenu.addReverseDirectionDisconnected
 edge.contextualMenu.resetLenght
 fix.demandElements.routes
@@ -35,8 +34,6 @@ modes.network.grid
 modes.network.junctionShape
 modes.network.showSubAdditionals
 modes.network.spreadVehicle
-person.inspect.typeButton
-personFlow.inspect.typeButton
 routeflow.inspect.typeButton
 selection.lockSelectionNetwork.TAZs
 tripFromToJunction.inspect.typeButton

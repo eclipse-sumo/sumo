@@ -2427,7 +2427,7 @@ container.create.color
 container.create.depart 
 container.inspect
 container.inspect.id 
-container.inspect.type 
+container.inspect.typeButton 
 container.inspect.type 
 container.inspect.colorButton 
 container.inspect.color 

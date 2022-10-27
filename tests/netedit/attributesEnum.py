@@ -2851,7 +2851,7 @@ class container:
 
     class inspect:
         id = 1
-        type = 2
+        typeButton = 2
         type = 3
         colorButton = 4
         color = 5
