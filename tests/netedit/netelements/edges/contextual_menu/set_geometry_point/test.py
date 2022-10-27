@@ -38,7 +38,9 @@ netedit.forceSaveAdditionals()
 netedit.inspectMode()
 
 # set geometry point
-netedit.contextualMenuOperation(referencePosition, 250, 260, netedit.attrs.edge.contextualMenuEdgeA, netedit.attrs.edge.contextualMenu.setGeometryPoint);
+netedit.contextualMenuOperation(referencePosition, 250, 260, 
+    netedit.attrs.edge.contextualMenuEdgeA,
+    netedit.attrs.edge.contextualMenu.setGeometryPoint);
 
 # recompute
 netedit.rebuildNetwork()

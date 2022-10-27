@@ -21,16 +21,16 @@ import scandir
 
 
 def removeFrom(line):
-    while ((len(line) > 0) and (line[0] != '(')):
-        line = line[1:]
-    if (len(line) > 0):
-        line = line[1:]
-    return line
+    index = line.find('netedit.attrs.')
+    if index != -1:
+        return line[index:]
+    else:
+        return line
 
 
 def removeTo(line):
     solution = ""
-    while ((len(line) > 0) and (line[0] != ',')):
+    while ((len(line) > 0) and ((line[0] == '.') or line[0].isalpha() or line[0].isnumeric())):
         solution += line[0]
         line = line[1:]
     return solution
@@ -82,6 +82,8 @@ for reference in references:
         reference = reference.replace(')', '')
         # replace extra characters
         reference = reference.replace(':', '')
+        # replace extra characters
+        reference = reference.replace(';', '')
         # replace extra characters
         reference = reference.replace('netedit.attrs.', '')
         if (len(reference) > 0):
