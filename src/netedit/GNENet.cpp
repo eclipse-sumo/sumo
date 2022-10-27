@@ -80,12 +80,17 @@ const std::map<SumoXMLAttr, std::string> GNENet::EMPTY_HEADER;
 // member method definitions
 // ===========================================================================
 
+#ifdef _MSC_VER
+#pragma warning(push)
+/* Disable warning about using "this" in the constructor */
+#pragma warning(disable: 4355)
+#endif
 GNENet::GNENet(NBNetBuilder* netBuilder) :
     GUIGlObject(GLO_NETWORK, "", nullptr),
     myViewNet(nullptr),
     myNetBuilder(netBuilder),
     myAttributeCarriers(new GNENetHelper::AttributeCarriers(this)),
-    myPathManager(new GNEPathManager(this)),
+    myPathManager(new GNEPathManager(this)), // TODO a little dangerous to use "this" here, it makes access to the net and the netBuilder
     myJunctionIDCounter(0),
     myEdgeIDCounter(0),
     myNeedRecompute(true),
@@ -108,6 +113,9 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     }
 
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GNENet::~GNENet() {
