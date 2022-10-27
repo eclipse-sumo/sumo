@@ -124,14 +124,12 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
                     }
                 }
                 if (writeDistance) {
-                    double pos;
+                    double lanePos = veh->getPositionOnLane();
                     if (microVeh != nullptr && microVeh->getLane()->isInternal()) {
-                        pos = microVeh->getRoute().getDistanceBetween(0, microVeh->getPositionOnLane(),
-                                microVeh->getEdge(), &microVeh->getLane()->getEdge(), true, microVeh->getRoutePosition());
-                    } else {
-                        pos = veh->getPositionOnLane();
+                        lanePos = microVeh->getRoute().getDistanceBetween(0, lanePos, microVeh->getEdge(), &microVeh->getLane()->getEdge(),
+                                                                          true, microVeh->getRoutePosition());
                     }
-                    of.writeOptionalAttr(SUMO_ATTR_DISTANCE, veh->getEdge()->getDistanceAt(pos), mask);
+                    of.writeOptionalAttr(SUMO_ATTR_DISTANCE, veh->getEdge()->getDistanceAt(lanePos), mask);
                 }
                 of.writeOptionalAttr(SUMO_ATTR_ODOMETER, veh->getOdometer(), mask);
                 of.writeOptionalAttr(SUMO_ATTR_POSITION_LAT, veh->getLateralPositionOnLane(), mask);

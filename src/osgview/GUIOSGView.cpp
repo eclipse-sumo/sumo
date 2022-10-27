@@ -683,11 +683,11 @@ GUIOSGView::getCurrentTimeStep() const {
 
 long GUIOSGView::onConfigure(FXObject* sender, FXSelector sel, void* ptr) {
     // update the window dimensions, in case the window has been resized.
-    int width = getWidth();
-    int height = getHeight();
-    if (width > 0 && height > 0) {
-        myAdapter->getEventQueue()->windowResize(0, 0, width, height);
-        myAdapter->resized(0, 0, width, height);
+    const int w = getWidth();
+    const int h = getHeight();
+    if (w > 0 && h > 0) {
+        myAdapter->getEventQueue()->windowResize(0, 0, w, h);
+        myAdapter->resized(0, 0, w, h);
     }
     return FXGLCanvas::onConfigure(sender, sel, ptr);
 }

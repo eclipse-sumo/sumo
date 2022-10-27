@@ -96,6 +96,7 @@ NBSign::writeAsPOI(OutputDevice& into, const NBEdge* edge) const {
             into.writeAttr(SUMO_ATTR_COLOR, RGBColor::YELLOW);
             break;
         case SIGN_TYPE_RIGHT_BEFORE_LEFT:
+        case SIGN_TYPE_LEFT_BEFORE_RIGHT:
             into.writeAttr(SUMO_ATTR_COLOR, RGBColor(255, 153, 0, 255));
             break;
         case SIGN_TYPE_ROUNDABOUT:
