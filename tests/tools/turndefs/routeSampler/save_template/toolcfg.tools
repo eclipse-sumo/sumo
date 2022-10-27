@@ -19,6 +19,7 @@
     <route-files value="None" help="Input route file"/>
     <seed value="42" help="random seed"/>
     <threads value="1" help="If parallelization is desired, enter the number of CPUs to use. Set to a value >> then your machines CPUs if you want to utilize all CPUs (Default is 1)"/>
+    <total-count value="None" help="Set a total count that should be reached (either as single value that is split  proportionally among all intervals or as a list of counts per interval)"/>
     <turn-attribute value="count" help="Read turning counts from the given attribute"/>
     <turn-files value="None" help="Input turn-count file"/>
     <turn-max-gap value="0" help="Allow at most a gap of INT edges between from-edge and to-edge"/>
