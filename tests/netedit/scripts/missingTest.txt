@@ -9,8 +9,6 @@ TLS.single.actuatedPhase
 TLS.single.attributes
 TLS.single.delayBasedPhase
 TLS.single.staticPhase
-edge.contextualMenu.addReverseDirectionDisconnected
-edge.contextualMenu.resetLenght
 fix.demandElements.routes
 fix.demandElements.routes.removeStops
 junction.inspectSelectionTLS.tl
@@ -31,11 +29,8 @@ modes.network.grid
 modes.network.junctionShape
 modes.network.showSubAdditionals
 modes.network.spreadVehicle
-routeflow.inspect.typeButton
 selection.lockSelectionNetwork.TAZs
-tripFromToJunction.inspect.typeButton
 type.editDialog.colorButton
 type.editDialog.imgFileButton
 type.editDialog.osgFileButton
 type.editDialog.parametersButton
-vehicleEmbedded.inspect.typeButton
