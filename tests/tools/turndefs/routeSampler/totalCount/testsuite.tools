@@ -4,5 +4,8 @@ lower
 # set total count to increase demand with unrestricted routes
 higher
 
+# set total count to increase demand with unrestricted routes (but there are none)
+higher_no_unrestricted
+
 # use only ration together with total-count
 ratio_no_counts
