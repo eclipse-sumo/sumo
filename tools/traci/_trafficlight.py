@@ -96,7 +96,7 @@ def _readLogics(result):
 
 
 class Constraint:
-    def __init__(self, signalId, tripId, foeId, foeSignal, limit, type, mustWait, active=True):
+    def __init__(self, signalId, tripId, foeId, foeSignal, limit, type, mustWait, active=True, param={}):
         self.signalId = signalId
         self.tripId = tripId
         self.foeId = foeId
@@ -105,11 +105,20 @@ class Constraint:
         self.type = type
         self.mustWait = mustWait
         self.active = active
+        self.param = param
+
+    def getParameters(self):
+        return self.param
+
+    def getParameter(self, key, default=None):
+        return self.param.get(key, default)
+
 
     def __repr__(self):
-        return ("Constraint(signalId=%s tripId=%s, foeId=%s, foeSignal=%s, limit=%s, type=%s, mustWait=%s, active=%s)" %
+        param = " param=%s" % '|'.join(["%s=%s" % (k, self.param[k]) for k in sorted(self.param.keys())]) if self.param else ""
+        return ("Constraint(signalId=%s tripId=%s, foeId=%s, foeSignal=%s, limit=%s, type=%s, mustWait=%s, active=%s%s)" %
                 (self.signalId, self.tripId, self.foeId, self.foeSignal,
-                 self.limit, self.type, self.mustWait, self.active))
+                 self.limit, self.type, self.mustWait, self.active, param))
 
 
 def _readLinks(result):
@@ -143,7 +152,11 @@ def _readConstraints(result):
         type = result.readTypedInt()
         mustWait = bool(result.readTypedByte())
         active = bool(result.readTypedByte())
-        constraints.append(Constraint(signalId, tripId, foeId, foeSignal, limit, type, mustWait, active))
+        paramItems = result.readTypedStringList()
+        param = {}
+        for i in range(0, len(paramItems), 2):
+            param[paramItems[i]] = paramItems[i + 1]
+        constraints.append(Constraint(signalId, tripId, foeId, foeSignal, limit, type, mustWait, active, param))
     return constraints
 
 

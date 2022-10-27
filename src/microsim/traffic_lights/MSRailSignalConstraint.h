@@ -20,6 +20,7 @@
 #pragma once
 #include <config.h>
 
+#include <utils/common/Parameterised.h>
 #include <microsim/MSMoveReminder.h>
 
 // ===========================================================================
@@ -36,7 +37,7 @@ class SUMOSAXAttributes;
  * @class MSRailSignalConstraint
  * @brief A base class for constraints
  */
-class MSRailSignalConstraint {
+class MSRailSignalConstraint : public Parameterised {
 public:
 
     enum ConstraintType {

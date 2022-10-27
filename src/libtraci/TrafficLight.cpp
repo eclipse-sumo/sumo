@@ -203,6 +203,10 @@ TrafficLight::getConstraints(const std::string& tlsID, const std::string& tripId
         c.type = StoHelp::readTypedInt(ret);
         c.mustWait = StoHelp::readTypedByte(ret) != 0;
         c.active = StoHelp::readTypedByte(ret) != 0;
+        std::vector<std::string> paramItems = StoHelp::readTypedStringList(ret);
+        for (int i = 0; i < (int)paramItems.size(); i += 2) {
+            c.param[paramItems[i]] = paramItems[i + 1];
+        }
         result.push_back(c);
     }
     return result;
@@ -228,6 +232,10 @@ TrafficLight::getConstraintsByFoe(const std::string& foeSignal, const std::strin
         c.type = StoHelp::readTypedInt(ret);
         c.mustWait = StoHelp::readTypedByte(ret) != 0;
         c.active = StoHelp::readTypedByte(ret) != 0;
+        std::vector<std::string> paramItems = StoHelp::readTypedStringList(ret);
+        for (int i = 0; i < (int)paramItems.size(); i += 2) {
+            c.param[paramItems[i]] = paramItems[i + 1];
+        }
         result.push_back(c);
     }
     return result;
@@ -316,6 +324,11 @@ TrafficLight::swapConstraints(const std::string& tlsID, const std::string& tripI
         c.limit = StoHelp::readTypedInt(ret);
         c.type = StoHelp::readTypedInt(ret);
         c.mustWait = StoHelp::readTypedByte(ret) != 0;
+        c.active = StoHelp::readTypedByte(ret) != 0;
+        std::vector<std::string> paramItems = StoHelp::readTypedStringList(ret);
+        for (int i = 0; i < (int)paramItems.size(); i += 2) {
+            c.param[paramItems[i]] = paramItems[i + 1];
+        }
         result.push_back(c);
     }
     return result;

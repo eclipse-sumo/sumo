@@ -282,9 +282,9 @@ NLHandler::myStartElement(int element,
             case SUMO_TAG_PREDECESSOR: // intended fall-through
             case SUMO_TAG_FOE_INSERTION: // intended fall-through
             case SUMO_TAG_INSERTION_PREDECESSOR: // intended fall-through
-            case SUMO_TAG_INSERTION_ORDER:
+            case SUMO_TAG_INSERTION_ORDER: // intended fall-through
             case SUMO_TAG_BIDI_PREDECESSOR:
-                addPredecessorConstraint(element, attrs, myConstrainedSignal);
+                myLastParameterised.push_back(addPredecessorConstraint(element, attrs, myConstrainedSignal));
                 break;
             default:
                 break;
@@ -367,6 +367,13 @@ NLHandler::myEndElement(int element) {
         case SUMO_TAG_CONTAINER_STOP:
         case SUMO_TAG_CHARGING_STATION:
             myTriggerBuilder.endStoppingPlace();
+            myLastParameterised.pop_back();
+            break;
+        case SUMO_TAG_PREDECESSOR: // intended fall-through
+        case SUMO_TAG_FOE_INSERTION: // intended fall-through
+        case SUMO_TAG_INSERTION_PREDECESSOR: // intended fall-through
+        case SUMO_TAG_INSERTION_ORDER: // intended fall-through
+        case SUMO_TAG_BIDI_PREDECESSOR:
             myLastParameterised.pop_back();
             break;
         case SUMO_TAG_NET:
@@ -1710,7 +1717,7 @@ NLShapeHandler::getLanePos(const std::string& poiID, const std::string& laneID, 
 }
 
 
-void
+Parameterised*
 NLHandler::addPredecessorConstraint(int element, const SUMOSAXAttributes& attrs, MSRailSignal* rs) {
     if (rs == nullptr) {
         throw InvalidArgument("Rail signal '" + toString((SumoXMLTag)element) + "' constraint must occur within a railSignalConstraints element");
@@ -1750,12 +1757,16 @@ NLHandler::addPredecessorConstraint(int element, const SUMOSAXAttributes& attrs,
         default:
             throw InvalidArgument("Unsupported rail signal constraint '" + toString((SumoXMLTag)element) + "'");
     }
+    Parameterised* result = nullptr;
     if (ok) {
         for (const std::string& foe : foes) {
             MSRailSignalConstraint* c = new MSRailSignalConstraint_Predecessor(type, signal, foe, limit, active);
             rs->addConstraint(tripId, c);
+            // XXX if there are multiple foes, only one constraint will receive the parameters
+            result = c;
         }
     }
+    return result;
 }
 
 

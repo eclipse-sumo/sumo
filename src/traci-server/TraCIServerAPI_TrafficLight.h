@@ -24,6 +24,7 @@
 #include "TraCIServer.h"
 #include <foreign/tcpip/storage.h>
 
+class TraCISignalConstraint;
 
 // ===========================================================================
 // class definitions
@@ -52,7 +53,8 @@ public:
      */
     static bool processSet(TraCIServer& server, tcpip::Storage& inputStorage,
                            tcpip::Storage& outputStorage);
-
+private:
+    static void writeConstraint(TraCIServer& server, const libsumo::TraCISignalConstraint& c); 
 
 private:
     /// @brief invalidated copy constructor

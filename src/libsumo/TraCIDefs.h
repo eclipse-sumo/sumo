@@ -626,6 +626,8 @@ struct TraCISignalConstraint {
     bool mustWait;
     /// @brief whether this constraint is active
     bool active;
+    /// @brief additional parameters
+    std::map<std::string, std::string> param;
 
     std::string getString() const {
         std::ostringstream os;

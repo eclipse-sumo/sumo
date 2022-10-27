@@ -859,6 +859,7 @@ TrafficLight::buildConstraint(const std::string& tlsID, const std::string& tripI
         c.type = pc->getType();
         c.mustWait = !pc->cleared() && pc->isActive();
         c.active = pc->isActive();
+        c.param = constraint->getParametersMap();
     }
     return c;
 }

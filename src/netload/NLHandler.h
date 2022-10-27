@@ -128,7 +128,7 @@ public:
         return myNetworkVersion;
     }
 
-    static void addPredecessorConstraint(int element, const SUMOSAXAttributes& attrs, MSRailSignal* rs);
+    static Parameterised* addPredecessorConstraint(int element, const SUMOSAXAttributes& attrs, MSRailSignal* rs);
 
 protected:
     /// @name inherited from GenericSAXHandler

@@ -305,6 +305,7 @@ MSRailSignalConstraint_Predecessor::write(OutputDevice& out, const std::string& 
     if (!myAmActive) {
         out.writeAttr(SUMO_ATTR_ACTIVE, myAmActive);
     }
+    writeParams(out);
     out.closeTag();
 }
 
