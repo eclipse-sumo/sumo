@@ -90,7 +90,7 @@ def get_merged_data(options):
     return pd.merge(stops_merged, trips_routes_merged,
                     on='trip_id')[['trip_id', 'route_id', 'route_short_name', 'route_type',
                                    'stop_id', 'stop_name', 'stop_lat', 'stop_lon', 'stop_sequence',
-                                   'fare_zone', 'fare_token', 'start_char',
+                                   'fare_zone', 'fare_token', 'start_char', 'trip_headsign',
                                    'arrival_time', 'departure_time']].drop_duplicates()
 
 
@@ -145,8 +145,9 @@ def main(options):
                     seqs[s] = trip_id
                     fcdFile[mode].write(buf)
                     timeIndex = arrivalSec
-                tripFile[mode].write(u'    <vehicle id="%s" route="%s" type="%s" depart="%s" line="%s_%s"/>\n' %
-                                     (trip_id, seqs[s], mode, firstDep, d.route_short_name.replace(" ", "_"), seqs[s]))
+                comment = sumolib.xml.quoteattr(u"%s %s" % (d.route_short_name, d.trip_headsign), True)
+                tripFile[mode].write(u'    <vehicle id="%s" route="%s" type="%s" depart="%s" line="%s" comment=%s/>\n' %
+                                     (trip_id, seqs[s], mode, firstDep, seqs[s], comment))
                 seenModes.add(mode)
     if options.gpsdat:
         if not os.path.exists(options.gpsdat):

@@ -321,7 +321,7 @@ def filter_trips(options, routes, stops, outfile, begin, end):
         if options.sort:
             vehs = defaultdict(lambda: "")
         for inp in glob.glob(os.path.join(options.fcd, "*.rou.xml")):
-            for veh in sumolib.xml.parse_fast(inp, "vehicle", ("id", "route", "type", "depart", "line")):
+            for veh in sumolib.xml.parse_fast(inp, "vehicle", ("id", "route", "type", "depart", "line", "comment")):
                 if len(routes.get(veh.route, [])) > 0 and len(stops.get(veh.route, [])) > 1:
                     until = stops[veh.route][0][1]
                     for d in range(numDays):
@@ -330,8 +330,8 @@ def filter_trips(options, routes, stops, outfile, begin, end):
                             if d != 0 and veh.id.endswith(".trimmed"):
                                 # only add trimmed trips the first day
                                 continue
-                            line = (u'    <vehicle id="%s.%s" route="%s" type="%s" depart="%s" line="%s"/>\n' %
-                                    (veh.id, d, veh.route, veh.type, depart, veh.line))
+                            line = (u'    <vehicle id="%s.%s" route="%s" type="%s" depart="%s" line="%s"/><!--%s-->\n' %
+                                    (veh.id, d, veh.route, veh.type, depart, veh.line, veh.comment))
                             if options.sort:
                                 vehs[depart] += line
                             else:
