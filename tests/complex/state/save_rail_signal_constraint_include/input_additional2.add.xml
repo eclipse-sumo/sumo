@@ -8,6 +8,8 @@
         <foeInsertion tripId="t42" tl="D" foes="t23" limit="3" active="false"/>
         <insertionPredecessor tripId="t43" tl="D" foes="t24"/>
         <insertionOrder tripId="t44" tl="D" foes="t25"/>
-        <bidiPredecessor tripId="t45" tl="D" foes="t26"/>
+        <bidiPredecessor tripId="t45" tl="D" foes="t26">
+            <param key="k0" value="v0"/>
+        </bidiPredecessor>
     </railSignalConstraints>
 </additional>
