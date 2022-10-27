@@ -131,8 +131,8 @@ class junction:
         fringe = 7
         name = 9
         tlType = 10
-        tlLayout = 11
-        tl = 12
+        tlLayout = 12
+        tl = 14
         parameters = 17
 
     class contextualMenu:
