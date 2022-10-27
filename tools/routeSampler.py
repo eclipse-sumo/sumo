@@ -28,6 +28,7 @@ from collections import defaultdict
 # multiprocessing imports
 import multiprocessing
 import numpy as np
+from math import ceil
 
 try:
     from StringIO import StringIO
@@ -89,6 +90,9 @@ def get_options(args=None):
                         help="Set tolerance for error in resulting turning ratios as absolute count")
     parser.add_argument("--turn-max-gap", type=int, dest="turnMaxGap", default=0,
                         help="Allow at most a gap of INT edges between from-edge and to-edge")
+    parser.add_argument("--total-count", dest="totalCount",
+                        help="Set a total count that should be reached (either as single value that is split "
+                             + " proportionally among all intervals or as a list of counts per interval)")
     parser.add_argument("-o", "--output-file", dest="out", default="out.rou.xml",
                         help="Output route file")
     parser.add_argument("--prefix", dest="prefix", default="",
@@ -171,6 +175,9 @@ def get_options(args=None):
     if options.threads > 1 and sys.version_info[0] < 3:
         print("Using multiple cpus is only supported for python 3", file=sys.stderr)
         sys.exit(1)
+
+    if options.totalCount:
+        options.totalCount = list(map(int, options.totalCount.split(',')))
 
     return options
 
@@ -574,20 +581,7 @@ def main(options):
     # preliminary integrity check for the whole time range
     b = intervals[0][0]
     e = intervals[-1][-1]
-    countData = (parseDataIntervals(parseTurnCounts, options.turnFiles, b, e,
-                                    routes, options.turnAttr, options=options, warn=True)
-                 + parseDataIntervals(parseTurnCounts, options.turnFiles, b, e,
-                                    routes, options.turnRatioAttr, options=options, isRatio=True, warn=True)
-                 + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, b, e,
-                                      routes, options.edgeDataAttr, options=options, warn=True)
-                 + parseDataIntervals(parseTurnCounts, options.odFiles, b, e,
-                                      routes, options.turnAttr, options=options,
-                                      isOrigin=True, isDest=True, warn=True)
-                 + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, b, e,
-                                      routes, options.departAttr, options=options, isOrigin=True, warn=True)
-                 + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, b, e,
-                                      routes, options.arrivalAttr, options=options, isDest=True, warn=True)
-                 )
+    countData = parseCounts(options, routes, b, e, True)
     routeUsage = getRouteUsage(routes, countData)
 
     for cd in countData:
@@ -624,6 +618,21 @@ def main(options):
         sumolib.writeXMLHeader(mismatchf, "$Id$", options=options)  # noqa
         mismatchf.write('<data>\n')
 
+    if options.totalCount:
+      if len(options.totalCount) != len(intervals):
+        if len(options.totalCount) == 1:
+          # split proportionally
+          countSums = []
+          for begin, end in intervals:
+            countData = parseCounts(options, routes, begin, end)
+            countSums.append(cd.origCount for cd in countData)
+          countSumTotal = sum(countSums)
+          options.totalCount = [int(ceil(options.totalCount[0] * s / countSumTotal)) for s in countSums]
+        else:
+          sys.stderr.write("Error: --total-count must be a single value of or match the number of data intervals (%s)"
+              % len(intervals))
+          sys.exit()
+
     underflowSummary = sumolib.miscutils.Statistics("avg interval underflow")
     overflowSummary = sumolib.miscutils.Statistics("avg interval overflow")
     gehSummary = sumolib.miscutils.Statistics("avg interval GEH%")
@@ -645,10 +654,11 @@ def main(options):
                     inputCountSummary.add(result[4][i], begin)
                     usedRoutesSummary.add(result[5][i], begin)
         else:
-            for begin, end in intervals:
+            for i, (begin, end) in enumerate(intervals):
                 intervalPrefix = "" if len(intervals) == 1 else "%s_" % int(begin)
+                intervalCount = options.totalCount[i] if options.totalCount else None
                 uFlow, oFlow, gehOK, inputCount, usedRoutes, _ = solveInterval(options, routes, begin, end,
-                                                                               intervalPrefix, outf, mismatchf, rng)
+                                                                               intervalPrefix, outf, mismatchf, rng, intervalCount)
                 underflowSummary.add(uFlow, begin)
                 overflowSummary.add(oFlow, begin)
                 gehSummary.add(gehOK, begin)
@@ -684,20 +694,39 @@ def _sample_skewed(sampleSet, rng, probabilityMap):
 def _solveIntervalMP(options, routes, interval, cpuIndex):
     output_list = []
     rng = np.random.RandomState(options.seed + cpuIndex)
-    for begin, end in interval:
+    for i, (begin, end) in enumerate(interval):
         local_outf = StringIO()
         local_mismatch_outf = StringIO() if options.mismatchOut else None
         intervalPrefix = "%s_" % int(begin)
+        intervalCount = options.totalCount[i] if options.totalCount else None
         uFlow, oFlow, gehOKNum, inputCount, usedRoutes, local_outf = solveInterval(
-            options, routes, begin, end, intervalPrefix, local_outf, local_mismatch_outf, rng=rng)
+            options, routes, begin, end, intervalPrefix, local_outf, local_mismatch_outf, rng, intervalCount )
 
         output_list.append([begin, uFlow, oFlow, gehOKNum, inputCount, usedRoutes, local_outf.getvalue(),
                             local_mismatch_outf.getvalue() if options.mismatchOut else None])
     output_lst = list(zip(*output_list))
     return output_lst
 
+def parseCounts(options, routes, b, e, warn=False):
+    countData = (parseDataIntervals(parseTurnCounts, options.turnFiles, b, e,
+                                    routes, options.turnAttr, options=options, warn=warn)
+                 + parseDataIntervals(parseTurnCounts, options.turnFiles, b, e,
+                                    routes, options.turnRatioAttr, options=options, isRatio=True, warn=warn)
+                 + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, b, e,
+                                      routes, options.edgeDataAttr, options=options, warn=warn)
+                 + parseDataIntervals(parseTurnCounts, options.odFiles, b, e,
+                                      routes, options.turnAttr, options=options,
+                                      isOrigin=True, isDest=True, warn=warn)
+                 + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, b, e,
+                                      routes, options.departAttr, options=options, isOrigin=True, warn=warn)
+                 + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, b, e,
+                                      routes, options.arrivalAttr, options=options, isDest=True, warn=warn)
+                 )
+    return countData
 
-def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, rng):
+
+def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, rng, intervalCount):
+    countData = parseCounts(options, routes, begin, end)
     # store which routes are passing each counting location (using route index)
     countData = (parseDataIntervals(parseTurnCounts, options.turnFiles, begin, end, routes, options.turnAttr,
                                     options=options)
@@ -717,7 +746,8 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
         initTurnRatioSiblings(routes, countData)
 
     routeUsage = getRouteUsage(routes, countData)
-    unrestricted = set([r for r, usage in enumerate(routeUsage) if len(usage) < options.minCount])
+    unrestricted_list = [r for r, usage in enumerate(routeUsage) if len(usage) < options.minCount]
+    unrestricted = set(unrestricted_list)
     if options.verbose and len(unrestricted) > 0:
         if options.minCount == 1:
             print("Ignored %s routes which do not pass any counting location" % len(unrestricted))
@@ -737,6 +767,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
         usedRoutes = [routes.edges2index[e] for e in routes.all]
         resetCounts(usedRoutes, routeUsage, countData)
     else:
+        numSampled = 0
         while openCounts:
             if options.weighted:
                 routeIndex = _sample_skewed(openRoutes, rng, routes.probabilities)
@@ -746,6 +777,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                 # route probabilities
                 cd = countData[rng.choice(openCounts)]
                 routeIndex = rng.choice([r for r in openRoutes if r in cd.routeSet])
+                numSampled += 1
             usedRoutes.append(routeIndex)
             for dataIndex in routeUsage[routeIndex]:
                 countData[dataIndex].use()
@@ -756,7 +788,23 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
             openRoutes = updateOpenRoutes(openRoutes, routeUsage, countData)
             openCounts = updateOpenCounts(openCounts, countData, openRoutes)
 
+            if intervalCount is not None and numSampled >= intervalCount:
+                break
+
     totalMismatch = sum([cd.count for cd in countData])
+
+    if intervalCount is not None and numSampled < intervalCount:
+      if unrestricted:
+        while numSampled < intervalCount:
+          if options.weighted:
+            routeIndex = _sample_skewed(unrestricted, rng, routes.probabilities)
+          else:
+            routeIndex = rng.choice(unrestricted_list)
+          usedRoutes.append(routeIndex)
+          numSampled += 1
+      else:
+        print("Cannot fulfill total interval count of %s due to lack of unrestricted routes" % intervalCount, file=sys.stderr)
+
     if totalMismatch > 0 and options.optimize is not None:
         if options.verbose:
             print("Starting optimization for interval [%s, %s] (mismatch %s)" % (
