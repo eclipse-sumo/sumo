@@ -1659,7 +1659,12 @@ GUIApplicationWindow::eventOccurred() {
                 GUIEvent_AddView* ave = dynamic_cast<GUIEvent_AddView*>(e);
                 auto v = openNewView(ave->in3D() ? GUISUMOViewParent::VIEW_3D_OSG : GUISUMOViewParent::VIEW_2D_OPENGL, ave->getCaption());
                 if (ave->getSchemeName() != "") {
-                    v->setColorScheme(ave->getCaption());
+                    FXComboBox* sCombo = v->getColoringSchemesCombo();
+                    int index = sCombo->findItem(ave->getSchemeName().c_str());
+                    if (index >= 0) {
+                        sCombo->setCurrentItem(index);
+                    }
+                    v->setColorScheme(ave->getSchemeName());
                 }
                 break;
             }
