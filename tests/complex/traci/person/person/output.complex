@@ -66,7 +66,7 @@ examining bla
 recovering from exception after asking for unknown person
 step 6.0
 getIDList ('detour', 'detour2', 'horiz', 'newPerson', 'tripTest')
-numVehs=0, numPersons=5, minExpected=6
+numVehs=0, numPersons=5, minExpected=5
 step 7.0
 {0: ('detour', 'detour2', 'horiz', 'newPerson', 'tripTest')}
 step 8.0
