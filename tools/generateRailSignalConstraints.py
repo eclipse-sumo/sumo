@@ -176,6 +176,8 @@ def get_options(args=None):
                         help="add timing information for the constraint")
     parser.add_argument("--comment.all", action="store_true", dest="commentAll", default=False,
                         help="add all comments")
+    parser.add_argument("--params", action="store_true", dest="commentParams", default=False,
+                        help="stores comments as params")
     parser.add_argument("-v", "--verbose", action="store_true", default=False,
                         help="tell me what you are doing")
     parser.add_argument("--debug-switch", dest="debugSwitch",
@@ -1565,30 +1567,50 @@ def findDivergence(net, arrivals, backwardGen, forwardGen, stopRoute2, sI2, e2St
 def writeConstraint(options, outf, tag, c):
     if c.tag is not None:
         tag = c.tag
+    close = "/>"
     comment = ""
     limit = c.limit + options.limit
+    commentParams = []
     if options.commentLine:
         if c.line != "":
             comment += "line=%s " % c.line
+            commentParams.append(("line", c.line))
         if c.otherLine != "":
             comment += "foeLine=%s " % c.otherLine
+            commentParams.append(("foeLine", c.otherLine))
     if options.commentId:
         if c.vehID != c.tripID:
             comment += "vehID=%s " % c.vehID
+            commentParams.append(("vehID", c.vehID))
         if c.otherVehID != c.otherTripID:
             comment += "foeID=%s " % c.otherVehID
+            commentParams.append(("foeID", c.otherVehID))
     if options.commentSwitch and c.switch is not None:
         comment += "switch=%s " % c.switch
+        commentParams.append(("switch", c.switch))
     if options.commentStop:
         comment += "busStop=%s " % c.busStop
+        commentParams.append(("busStop", c.busStop))
         if c.busStop2 is not None:
             comment += "busStop2=%s " % c.busStop2
+            commentParams.append(("busStop2", c.busStop2))
     if options.commentTime:
         comment += c.conflictTime
+        for t in c.conflictTime.split():
+            k, v = t.split('=')
+            commentParams.append((k, v))
     if c.info != "":
         comment += "(%s) " % c.info
+        commentParams.append(("info", c.info))
     if comment != "":
-        comment = "   <!-- %s -->" % comment
+        if options.commentParams:
+            close = ">"
+            comment = ""
+            for k, v in commentParams:
+                comment += '\n            <param key="%s" value="%s"/>' % (k, v)
+            comment += '\n        </%s>\n' % tag
+        else:
+            comment = "   <!-- %s -->" % comment
     if limit == 1:
         limit = ""
     else:
@@ -1596,8 +1618,9 @@ def writeConstraint(options, outf, tag, c):
     active = ""
     if not c.active:
         active = ' active="false"'
-    outf.write('        <%s tripId="%s" tl="%s" foes="%s"%s%s/>%s\n' % (
-        tag, c.tripID, c.otherSignal, c.otherTripID, limit, active, comment))
+
+    outf.write('        <%s tripId="%s" tl="%s" foes="%s"%s%s%s%s\n' % (
+        tag, c.tripID, c.otherSignal, c.otherTripID, limit, active, close, comment))
 
 
 def main(options):
