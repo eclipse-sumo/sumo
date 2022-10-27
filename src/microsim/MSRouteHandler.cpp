@@ -614,11 +614,10 @@ MSRouteHandler::closeVehicle() {
         try {
             vehicle = vehControl.buildVehicle(myVehicleParameter, route, vtype, !MSGlobals::gCheckRoutes, true, !myAmLoadingState);
         } catch (const ProcessError& e) {
+            myVehicleParameter = nullptr;
             if (!MSGlobals::gCheckRoutes) {
                 WRITE_WARNING(e.what());
                 vehControl.fixVehicleCounts();
-                myVehicleParameter = nullptr;
-                vehicle = nullptr;
                 return;
             } else {
                 throw e;
