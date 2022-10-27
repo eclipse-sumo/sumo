@@ -646,12 +646,13 @@ NIImporter_DlrNavteq::TimeRestrictionsHandler::printSummary() {
 int
 NIImporter_DlrNavteq::readPrefixedInt(const std::string& s, const std::string& prefix, int fallBack) {
     int result = fallBack;
-    size_t pos = s.find(prefix);
+    const size_t pos = s.find(prefix);
     if (pos != std::string::npos) {
-        sscanf(s.substr(pos).c_str(), (prefix + "%i").c_str(), &result);
+        sscanf(s.substr(pos + prefix.size()).c_str(), "%i", &result);
     }
     return result;
 }
+
 
 time_t
 NIImporter_DlrNavteq::readTimeRec(const std::string& start, const std::string& duration) {
