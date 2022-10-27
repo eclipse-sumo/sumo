@@ -22,12 +22,6 @@ junction.contextualMenu.resetJunctionShape
 junction.contextualMenu.setCustomJunctionShape
 junction.contextualMenu.splitJunction
 junction.contextualMenu.splitJunctionAndReconnect
-junction.inspectSelectionTLS.tl
-junction.inspectSelectionTLS.tlLayout
-junction.inspectSelectionTLS.tlType
-junction.inspectTLS.tl
-junction.inspectTLS.tlLayout
-junction.inspectTLS.tlType
 modes.data.junctionShape
 modes.demand.grid
 modes.demand.junctionShape

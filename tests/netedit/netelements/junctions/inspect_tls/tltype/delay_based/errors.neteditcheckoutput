@@ -1,0 +1,4 @@
+Warning: Cannot build detector of length 100 because no further continuation lane was found for lane '6_1'! Truncated detector at length 39.6.
+Warning: Cannot build detector of length 100 because no further continuation lane was found for lane '8_1'! Truncated detector at length 39.6.
+Warning: Cannot build detector of length 100 because no further continuation lane was found for lane '5_1'! Truncated detector at length 39.6.
+Warning: Cannot build detector of length 100 because no further continuation lane was found for lane '7_1'! Truncated detector at length 39.6.
