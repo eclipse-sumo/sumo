@@ -38,7 +38,9 @@ netedit.forceSaveAdditionals()
 netedit.inspectMode()
 
 # duplicate lane
-netedit.contextualMenuOperation(referencePosition, 250, 150, 11, 1)
+netedit.contextualMenuOperation(referencePosition, 250, 150, 
+    netedit.attrs.lane.contextualMenuLane, 
+    netedit.attrs.lane.contextualMenu.duplicateLane)
 
 # recompute
 netedit.rebuildNetwork()

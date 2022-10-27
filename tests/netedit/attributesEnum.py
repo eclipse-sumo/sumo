@@ -288,6 +288,24 @@ class lane:
         stopOffsetException = 16
         parameters = 19
 
+    class contextualMenu:
+        duplicateLane = 1;
+        setCustomLaneShape = 2;
+        resetCustomLaneShape = 3;
+        resetOppositeLaneShape = 4;
+        addRestrictedLane = 3
+        removeRestrictedLane = 4
+        transformRestrictedLane = 4
+
+    class restrictedLanes:
+        sidewalk = 1;
+        bikelane = 2;
+        buslane = 3;
+        greenvergeFront = 4;
+        greenvergeBack = 4;
+
+    contextualMenuLane = 11
+
 # connection
 
 

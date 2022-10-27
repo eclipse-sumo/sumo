@@ -38,7 +38,10 @@ netedit.forceSaveAdditionals()
 netedit.inspectMode()
 
 # transform to restricted lane
-netedit.contextualMenuOperation(referencePosition, 250, 150, 11, 4, 4)
+netedit.contextualMenuOperation(referencePosition, 250, 150, 
+    netedit.attrs.lane.contextualMenuLane, 
+    netedit.attrs.lane.contextualMenu.transformRestrictedLane, 
+    netedit.attrs.lane.restrictedLanes.greenvergeFront)
 
 # recompute
 netedit.rebuildNetwork()

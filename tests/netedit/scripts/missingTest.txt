@@ -22,6 +22,9 @@ junction.contextualMenu.resetJunctionShape
 junction.contextualMenu.setCustomJunctionShape
 junction.contextualMenu.splitJunction
 junction.contextualMenu.splitJunctionAndReconnect
+lane.contextualMenu.resetCustomLaneShape
+lane.contextualMenu.resetOppositeLaneShape
+lane.contextualMenu.setCustomLaneShape
 modes.data.junctionShape
 modes.demand.grid
 modes.demand.junctionShape

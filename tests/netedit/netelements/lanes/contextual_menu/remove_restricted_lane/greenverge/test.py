@@ -38,7 +38,10 @@ netedit.forceSaveAdditionals()
 netedit.inspectMode()
 
 # remove restricted lane
-netedit.contextualMenuOperation(referencePosition, 250, 150, 11, 4, 1)
+netedit.contextualMenuOperation(referencePosition, 250, 150, 
+    netedit.attrs.lane.contextualMenuLane, 
+    netedit.attrs.lane.contextualMenu.removeRestrictedLane, 
+    netedit.attrs.lane.restrictedLanes.greenvergeFront)
 
 # recompute
 netedit.rebuildNetwork()
