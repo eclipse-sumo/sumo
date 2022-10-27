@@ -155,7 +155,7 @@ public:
         } else {
             myTable->setItemIcon(myTablePosition, 2, GUIIconSubSys::getIcon(GUIIcon::NO));
         }
-        int lineBreaks = std::count(value.begin(), value.end(), '\n');
+        const int lineBreaks = (int)std::count(value.begin(), value.end(), '\n');
         if (lineBreaks > 0) {
             myTable->setRowHeight(myTablePosition, myTable->getRowHeight(myTablePosition) * (lineBreaks + 1));
         }
