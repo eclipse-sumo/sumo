@@ -38,7 +38,7 @@ netedit.forceSaveAdditionals()
 netedit.inspectMode()
 
 # smooth edge
-netedit.contextualMenuOperation(referencePosition, 250, 260, 10, 9)
+netedit.contextualMenuOperation(referencePosition, 250, 260, netedit.attrs.edge.contextualMenuEdgeA, netedit.attrs.edge.contextualMenu.smooth);
 
 # recompute
 netedit.rebuildNetwork()

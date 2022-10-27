@@ -38,7 +38,7 @@ netedit.forceSaveAdditionals()
 netedit.inspectMode()
 
 # reverse edge in both directions
-netedit.contextualMenuOperation(referencePosition, 250, 260, 10, 6)
+netedit.contextualMenuOperation(referencePosition, 250, 260, netedit.attrs.edge.contextualMenuEdgeA, netedit.attrs.edge.contextualMenu.addReverseDirection);
 
 # recompute
 netedit.rebuildNetwork()

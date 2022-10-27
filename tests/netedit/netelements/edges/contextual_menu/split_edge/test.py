@@ -38,7 +38,7 @@ netedit.forceSaveAdditionals()
 netedit.inspectMode()
 
 # split edge
-netedit.contextualMenuOperation(referencePosition, 250, 260, 10, 1)
+netedit.contextualMenuOperation(referencePosition, 250, 260, netedit.attrs.edge.contextualMenuEdgeA, netedit.attrs.edge.contextualMenu.splitEdge);
 
 # recompute
 netedit.rebuildNetwork()

@@ -24,7 +24,7 @@ Error: a route must be defined either within a vehicle/flow or with an ID attrib
 Error: Invalid vehicle type 'id with invalid characters' used in vehicle 'vehicle_3'.
 Debug: Adding vehicleWithRoute 'vehicle_4' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'vehicle_4' in GNEChange_DemandElement
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.vehicle_embedded.24Jun133819.22493/netedit.daily.demand.vehicle_embedded/demandelements/vehicle_embedded/load/vtype/input_routes.rou.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.27Oct081901.8656\netedit.gui\demandelements\vehicle_embedded\load\type\input_routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00
