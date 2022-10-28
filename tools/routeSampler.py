@@ -387,7 +387,7 @@ def updateOpenCounts(openCounts, countData, openRoutes):
 
 
 
-def optimize(options, countData, routes, usedRoutes, routeUsage):
+def optimize(options, countData, routes, usedRoutes, routeUsage, intervalCount):
     """ use relaxtion of the ILP problem for picking the number of times that each route is used
     x = usageCount vector (count for each route index)
     c = weight vector (vector of 1s)
@@ -441,6 +441,16 @@ def optimize(options, countData, routes, usedRoutes, routeUsage):
     # set x to prior counts and slack to deficit (otherwise solver may fail to find any solution
     x0 = priorRelevantRouteCounts + [cd.origCount - cd.count for cd in countData]
 
+    A_ub = None
+    b_ub = None
+
+    if intervalCount is not None:
+        # add inequality to ensure that we stay below intervalCount
+        # sum of routes < intervalCount
+        # A_ub * x <= b_ub
+        A_ub = np.concatenate((np.ones((1, k)), np.zeros((1, m))), 1)
+        b_ub = np.asarray([intervalCount])
+
     # print("k=%s" % k)
     # print("m=%s" % m)
     # print("A_eq (%s) %s" % (A_eq.shape, A_eq))
@@ -454,12 +464,12 @@ def optimize(options, countData, routes, usedRoutes, routeUsage):
         linProgOpts["disp"] = True
 
     try:
-        res = opt.linprog(c, A_eq=A_eq, b_eq=b, bounds=bounds, x0=x0, options=linProgOpts)
+        res = opt.linprog(c, A_ub=A_ub, b_ub=b_ub, A_eq=A_eq, b_eq=b, bounds=bounds, x0=x0, options=linProgOpts)
     except TypeError:
         if options.verbose:
             print("Warning: Scipy version %s does not support initial guess for opt.linprog. Optimization may fail"
                   % scipy.version.version, file=sys.stderr)
-        res = opt.linprog(c, A_eq=A_eq, b_eq=b, bounds=bounds, options=linProgOpts)
+        res = opt.linprog(c, A_ub=A_ub, b_ub=b_ub, A_eq=A_eq, b_eq=b, bounds=bounds, options=linProgOpts)
 
     if res.success:
         print("Optimization succeeded")
@@ -800,7 +810,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
         if options.verbose:
             print("Starting optimization for interval [%s, %s] (mismatch %s)" % (
                 begin, end, totalMismatch))
-        optimize(options, countData, routes, usedRoutes, routeUsage)
+        optimize(options, countData, routes, usedRoutes, routeUsage, intervalCount)
         resetCounts(usedRoutes, routeUsage, countData)
         numSampled = len(usedRoutes)
 
