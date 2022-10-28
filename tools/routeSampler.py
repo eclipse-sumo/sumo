@@ -856,12 +856,18 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
 
     if intervalCount is not None and numSampled < intervalCount:
         if unrestricted:
+            if options.minCount != 1:
+                # ensure that we only sample from routes that do not pass any counting locations
+                unrestricted_list = [r for r, usage in enumerate(routeUsage) if len(usage) == 0]
+                unrestricted = set(unrestricted_list)
+
             while numSampled < intervalCount:
                 if options.weighted:
                     routeIndex = _sample_skewed(unrestricted, rng, routes.probabilities)
                 else:
                     routeIndex = rng.choice(unrestricted_list)
                 usedRoutes.append(routeIndex)
+                assert(len(routeUsage[routeIndex]) == 0)
                 numSampled += 1
         else:
           print("Cannot fulfill total interval count of %s due to lack of unrestricted routes" % intervalCount, file=sys.stderr)
