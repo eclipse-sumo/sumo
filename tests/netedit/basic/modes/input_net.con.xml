@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-10-28 11:55:08 by Eclipse SUMO netedit Version v1_14_1+2054-970e9063e66
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <output>
+        <output-file value="D:\SUMO\tests\netedit\basic\modes\input_net.net.xml"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+    <netedit>
+        <additional-files value="D:\SUMO\tests\netedit\basic\modes\input_additionals.xml"/>
+    </netedit>
+
+</configuration>
+-->
+
+<connections version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="-E0" to="-E3" fromLane="1" toLane="1"/>
+
+    <connection from="-E1" to="-E0" fromLane="1" toLane="1"/>
+
+    <connection from="-E2" to="-E1" fromLane="1" toLane="1"/>
+
+    <connection from="-E3" to="-E2" fromLane="1" toLane="1"/>
+
+    <connection from="E0" to="E1" fromLane="1" toLane="1"/>
+
+    <connection from="E1" to="E2" fromLane="1" toLane="1"/>
+
+    <connection from="E2" to="E3" fromLane="1" toLane="1"/>
+
+    <connection from="E3" to="E0" fromLane="1" toLane="1"/>
+
+</connections>
