@@ -314,7 +314,35 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
         case SUMOVehicleShape::BUS_FLEXIBLE:
         case SUMOVehicleShape::RAIL:
         case SUMOVehicleShape::RAIL_CAR:
-        case SUMOVehicleShape::RAIL_CARGO:
+        case SUMOVehicleShape::RAIL_CARGO: {
+            // generic rail carriage (see GUIVehicle::drawAction_drawCarriageClass)
+            glRotated(-90, 0, 0, 1);
+            const double xCornerCut = 0.3 / width;
+            const double yCornerCut = 0.4 / length;
+            const double drawnCarriageLength = 1;
+            const double halfWidth = 0.5;
+            glBegin(GL_TRIANGLE_FAN);
+            glVertex2d(-halfWidth + xCornerCut, 0);
+            glVertex2d(-halfWidth, yCornerCut);
+            glVertex2d(-halfWidth, drawnCarriageLength - yCornerCut);
+            glVertex2d(-halfWidth + xCornerCut, drawnCarriageLength);
+            glVertex2d(halfWidth - xCornerCut, drawnCarriageLength);
+            glVertex2d(halfWidth, drawnCarriageLength - yCornerCut);
+            glVertex2d(halfWidth, yCornerCut);
+            glVertex2d(halfWidth - xCornerCut, 0);
+            glEnd();
+            // assume we are only rendering the head of the train (carriage rendering was disabled via param)
+            glTranslated(0, 0, 0.1);
+            glColor3d(0, 0, 0);
+            glBegin(GL_TRIANGLE_FAN);
+            glVertex2d(-halfWidth + 2 * xCornerCut, yCornerCut);
+            glVertex2d(-halfWidth + xCornerCut, 3 * yCornerCut);
+            glVertex2d(halfWidth - xCornerCut, 3 * yCornerCut);
+            glVertex2d(halfWidth - 2 * xCornerCut, yCornerCut);
+            glEnd();
+        }
+        break;
+
         case SUMOVehicleShape::E_VEHICLE:
             drawPoly(vehiclePoly_EVehicleBody, 4);
             glColor3d(0, 0, 0);
