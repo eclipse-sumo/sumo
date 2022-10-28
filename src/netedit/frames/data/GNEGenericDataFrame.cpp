@@ -409,7 +409,9 @@ GNEGenericDataFrame::AttributeSelector::~AttributeSelector() {}
 
 void
 GNEGenericDataFrame::AttributeSelector::refreshAttributeSelector() {
-    // first clear items
+    // save current attribute
+    const auto currentAttribute = myAttributesComboBox->getText();
+    // clear items
     myAttributesComboBox->clearItems();
     // restore myMinMaxLabel
     myMinMaxLabel->setText(TL("Scale: Min -> Max"));
@@ -446,6 +448,12 @@ GNEGenericDataFrame::AttributeSelector::refreshAttributeSelector() {
             myAttributesComboBox->setNumVisible(myAttributesComboBox->getNumItems());
         } else {
             myAttributesComboBox->setNumVisible(10);
+        }
+        // set current item
+        for (int i = 0; i < myAttributesComboBox->getNumItems(); i++) {
+            if (myAttributesComboBox->getItem(i).text() == currentAttribute) {
+                myAttributesComboBox->setCurrentItem(i, TRUE);
+            }
         }
     }
     // recalc frame
