@@ -41,7 +41,7 @@ netedit.forceSaveDataElements()
 netedit.moveMode()
 
 # toggle option
-netedit.changeEditMode(netedit.attrs.modes.network.junctionShape)
+netedit.changeEditMode(netedit.attrs.modes.network.mergingJunction)
 
 # save network
 netedit.saveNetwork(referencePosition)
