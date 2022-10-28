@@ -1,15 +1,4 @@
 POIGEO.create.lonLat
-TLS.join.NEMAPhase
-TLS.join.actuatedPhase
-TLS.join.attributes
-TLS.join.delayBasedPhase
-TLS.join.staticPhase
-TLS.single.NEMAPhase
-TLS.single.actuatedPhase
-TLS.single.attributes
-TLS.single.delayBasedPhase
-TLS.single.staticPhase
-fix.demandElements.routes
 fix.demandElements.routes.removeStops
 junction.contextualMenu.addJoinedTLS
 junction.contextualMenu.addTLS

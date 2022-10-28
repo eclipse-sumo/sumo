@@ -74,16 +74,8 @@ for reference in references:
     if ('.' in line):
         # remove first element all until (
         reference = removeFrom(reference)
-        # remove "referencePosition, "
-        reference = reference.replace("referencePosition, ", "")
         # remove last element until ,
         reference = removeTo(reference)
-        # replace extra characters
-        reference = reference.replace(')', '')
-        # replace extra characters
-        reference = reference.replace(':', '')
-        # replace extra characters
-        reference = reference.replace(';', '')
         # replace extra characters
         reference = reference.replace('netedit.attrs.', '')
         if (len(reference) > 0):
