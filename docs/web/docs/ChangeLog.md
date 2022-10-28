@@ -32,6 +32,7 @@ title: ChangeLog
   - Fixed collisions on bidi-edge. Issue #11477
   - Fixed missing error after routing failure. Issue #11840
   - Fixed invalid slow-down on intersections by vehicles equipped with bluelight device due to `driveRedSpeed`. Issue #11878
+  - Fixed bug where person/container stop does not terminate. Issue #11900
   - Fixed emergency braking when using carFollowModel IDM. Issue #11498, #11564, #11564
   - Fixed emergency braking when using carFollowModel CACC. Issue #11679, #11653
   - Fixed emergency braking and collisions when using carFollowModel ACC. Issue #4551
@@ -83,6 +84,7 @@ title: ChangeLog
   - Continuous PersonPlans between Junctions can now be created. Issue #11813
   - Walks over routes can now be created. Issue #11845
   - Subsequent stops can now be created for personPlans and containerPlans. Issue #11848
+  - Fixed invalid geometry when splitting edge and there is a parallel edge connection the same junctions. Issue #11837
   
 - sumo-gui
   - Fixed crash when opening busStop parameters after simulation end. Issue #11499 (regression in 1.13.0)
@@ -145,10 +147,14 @@ title: ChangeLog
   - Context subscription filters for vTypes and vClasses are now compatible with all other filters. Issue #11540
   - Function `simulation.getDistance2D(..., isGeo=True)` now works. Issue #11610
   - Libsumo simulation outputs now include version information. Issue #11808
+  - Fixed error after Canceling stop via TraCI and then calling moveToXY. Issue #11870
+  - Stops may now be defined at position=0. Issue #11891
+  - Fixed bug where CACC model had invalid speed while activating [ToC](ToC_Device.md). Issue #6192
 
 - Tools
   - randomTrips.py and duaIterate.py now properly report unknown options again. Issue #11258 (regression in 1.14.1)
   - randomTrips.py: fixed error when combining options **--additional-files, --vtype-output, --vehicle-class**. Issue #11431
+  - randomTrips.py: Option **--fringe-factor** is now applied for pedestrians. Issue #11909
   - tlsCoordinator.py: Now handles rail crossings. Issue #11250
   - tlsCycleAdaptation.py: Now handles unsorted route files. Issue #11251
   - plot_net_dump.py: Fixed invalid error message when closing figure window. Issue #11280
@@ -163,6 +169,7 @@ title: ChangeLog
   - turnfile2EdgeRelations.py: Fixed invalid end element, preserving comments. Issue #11748
   - gtfs2pt.py: Now handling empty timetable. Issue #11763
   - gtfs2pt.py: Fixed invalid route references in output. Issue #11797
+  - routeSampler.py: Fixed error when using --min-count. Issue #11915
 
 ### Enhancements
 
@@ -182,6 +189,9 @@ title: ChangeLog
   - Option **--devices.ssm.measures** now supports comma-separated values. Issue #10478
   - When using the special string 'TIME' in file names, all written files now use the same time stamp. Issue #10346
   - Added option **--pedestrian.striping.walkingarea-detail INT** to increase the smoothness of pedestrian trajectories. Issue #8797
+  - Added option **--summary-output.period** to reduce the frequency of summary output. Issue #2445
+  - The slope of a vehicle now takes into account it's length. Issue #8802
+  - Rail signal constraints now support loading generic parameters. Issue #11880
 
 - netedit
   - Saved detector names use descriptive tags instead of the 'E1,E2, ...' tags. Issue #11028
@@ -208,6 +218,8 @@ title: ChangeLog
   - Every vClass has it's own icon now. Issue #9872, #11801
   - Kilometrage at cursor position is now shown in the edge context menu. Issue #11815
   - Add (optional) tooltips in attribute labels. Issue #11490
+  - Hierarchical selection can now select connections and crossings as children. Issue #11863
+  - In data mode, the visualized attribute now remains active when changing between intervals. Issue #11881
   - Traffic light mode:
     - phase table now permits moving phases up and down. Issue #10856
     - Added buttons reset either the current program or all programs of the current traffic light to their default. Issue #9072, #11357
@@ -266,14 +278,16 @@ title: ChangeLog
   - person.getTaxiReservation parameter stateFilter now supports setting multiple bits. Issue #11501
   - Added function `traci.trafficlight.updateConstraints` for automated updating of rail signal constraints after rerouting. Issue #10134
   - Added function `traci.gui.setAngle` to change viewport angle. Issue #11239
-  - Added functions `traci.gui.addView`, `traci.gui.removeView` to add/remove view windows. Issue #11760
-  - Fixed bug where CACC model had invalid speed while activating [ToC](ToC_Device.md). Issue #6192
+  - Added functions `traci.gui.addView`, `traci.gui.removeView` to add/remove view windows. Issue #11760  
+  - TraCISignalConstraint now includes param data. Issue #11880
 
 - tools
   - routeSampler.py: now supports options **--depart-attribute**, **--arrival-attribute** to set extra constraints. Issue #6727
   - routeSampler.py: added more statistics on processed intervals. Issue #11328
+  - routeSampler.py: Added option **--total-count** to set the total number of desired vehicles. Setting this to `input` reproduces counts from the loaded route files. Issue #11895, #11911
   - countEdgeUsage.py: Can now load multiple route files. Issue #11338  
-  - generateRailSignalConstraints.py: added constraints for vehicles inserted at the same stop. Issue #11378  
+  - generateRailSignalConstraints.py: added constraints for vehicles inserted at the same stop. Issue #11378
+  - generateRailSignalConstraints.py: added option **--params** to make all comment information accessible as generic parameters (i.e. and see them in the gui). Issue #11880
   - drtonline.py: now supports option **--tracefile** to allow for quick replication of a simulation. Issue #11414
   - Added new tool [drtOrtools.py](Tools/Drt.md#drtortoolspy) to solve DRT problems with the [ortools package](https://developers.google.com/optimization). Issue #11413
   - randomTrips.py: New option **--min-dist-fringe** which allows short fringe-to-fringe trips if trip generation with **--min-dist** fails repeatedly. Issue #10592
@@ -282,6 +296,8 @@ title: ChangeLog
   - osmWebWizard.py: Now aborts scenario building if when trying and failing to retrieve satellite data. Issue #11423
   - attributeStats.py: Now includes `stdDev` in outputs. Issue #10869
   - tls_csvSignalGroups.py: Can now extract csv descriptions from a .net.xml file. Issue #10756
+  - changeAttribute.py Now handles missing attributes when removing attribute. Issue #11888
+  - randomTrips.py: Option **--fringe-factor** now supports value `max` to force all departures and arrivals onto the fringe. Issue #11894
   
   ### Miscellaneous
 
