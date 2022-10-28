@@ -136,17 +136,17 @@ class junction:
         parameters = 17
 
     class contextualMenu:
-        addTLS = 0;
-        addJoinedTLS = 0;
-        resetEdgeEndPoints = 0;
-        setCustomJunctionShape = 0;
-        resetJunctionShape = 0;
-        replaceJunctionByGeometryPoint = 0;
-        splitJunction = 0;
-        splitJunctionAndReconnect = 0;
-        converToRoundAbout = 0;
-        clearConnections = 0;
-        resetConnections = 0;
+        addTLS = 0
+        addJoinedTLS = 0
+        resetEdgeEndPoints = 0
+        setCustomJunctionShape = 0
+        resetJunctionShape = 0
+        replaceJunctionByGeometryPoint = 0
+        splitJunction = 0
+        splitJunctionAndReconnect = 0
+        converToRoundAbout = 0
+        clearConnections = 0
+        resetConnections = 0
 
     contextualMenuTLS = 10
 
@@ -289,20 +289,20 @@ class lane:
         parameters = 19
 
     class contextualMenu:
-        duplicateLane = 1;
-        setCustomLaneShape = 2;
-        resetCustomLaneShape = 3;
-        resetOppositeLaneShape = 4;
+        duplicateLane = 1
+        setCustomLaneShape = 2
+        resetCustomLaneShape = 3
+        resetOppositeLaneShape = 4
         addRestrictedLane = 3
         removeRestrictedLane = 4
         transformRestrictedLane = 4
 
     class restrictedLanes:
-        sidewalk = 1;
-        bikelane = 2;
-        buslane = 3;
-        greenvergeFront = 4;
-        greenvergeBack = 4;
+        sidewalk = 1
+        bikelane = 2
+        buslane = 3
+        greenvergeFront = 4
+        greenvergeBack = 4
 
     contextualMenuLane = 11
 

@@ -31,11 +31,11 @@ import traci  # noqa
 import sumolib  # noqa
 
 traci.start([sumolib.checkBinary('sumo-gui'),
-            "-S", "-Q",
-            "-c", "sumo.sumocfg",
-            "--delay", "1",
-            "--window-size", "500,500",
-            "--window-pos", "50,50"],
+             "-S", "-Q",
+             "-c", "sumo.sumocfg",
+             "--delay", "1",
+             "--window-size", "500,500",
+             "--window-pos", "50,50"],
             stdout=sys.stdout)
 for step in range(3):
     print("step", step)
