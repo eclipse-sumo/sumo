@@ -299,7 +299,7 @@ title: ChangeLog
   - changeAttribute.py Now handles missing attributes when removing attribute. Issue #11888
   - randomTrips.py: Option **--fringe-factor** now supports value `max` to force all departures and arrivals onto the fringe. Issue #11894
   
-  ### Miscellaneous
+### Miscellaneous
 
 - Translation efforts for the grahpical applications and command line messages have begun and contributions are welcome at [Weblate](https://hosted.weblate.org/projects/eclipse-sumo/#languages). Issue #11237
 - Added xsd-schema for battery-export. Issue #11173
