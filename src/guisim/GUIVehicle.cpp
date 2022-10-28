@@ -360,7 +360,9 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
     Position front, back;
     double angle = 0.;
     // position parking vehicle beside the road or track
-    const double lateralOffset = isParking() ? (SUMO_const_laneWidth * (MSGlobals::gLefthand ? -1 : 1)) : 0;
+    const double lateralOffset = (isParking() && getNextStopParameter()->posLat == INVALID_DOUBLE
+        ? (getLane()->getWidth() * (MSGlobals::gLefthand ? -1 : 1))
+        : -getLateralPositionOnLane());
 
     // draw individual carriages
     double curCLength = firstCarriageLength;
