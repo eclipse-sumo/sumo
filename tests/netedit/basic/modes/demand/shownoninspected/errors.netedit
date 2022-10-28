@@ -1,0 +1,323 @@
+GLDebug: initJunctionsAndEdges function called in GNENet constructor
+GLDebug: 	Inserted junction:J0 into SUMORTree with boundary -12.00,48.00,12.00,72.00
+GLDebug: 	Inserted junction:J1 into SUMORTree with boundary 58.00,48.00,82.00,72.00
+GLDebug: 	Inserted junction:J2 into SUMORTree with boundary 58.00,8.00,82.00,32.00
+GLDebug: 	Inserted junction:J3 into SUMORTree with boundary -12.00,8.00,12.00,32.00
+GLDebug: 	Inserted edge:-E0 into SUMORTree with boundary -10.00,50.00,80.00,74.80
+GLDebug: 	Inserted edge:-E1 into SUMORTree with boundary 60.00,10.00,84.80,70.00
+GLDebug: 	Inserted edge:-E2 into SUMORTree with boundary -10.00,5.20,80.00,30.00
+GLDebug: 	Inserted edge:-E3 into SUMORTree with boundary -14.80,10.00,10.00,70.00
+GLDebug: 	Inserted edge:E0 into SUMORTree with boundary -10.00,45.20,80.00,70.00
+GLDebug: 	Inserted edge:E1 into SUMORTree with boundary 55.20,10.00,80.00,70.00
+GLDebug: 	Inserted edge:E2 into SUMORTree with boundary -10.00,10.00,80.00,34.80
+GLDebug: 	Inserted edge:E3 into SUMORTree with boundary -10.00,10.00,14.80,70.00
+Debug: Adding busStop 'bs_0' in GNEChange_Additional
+Debug: Adding inductionLoop 'e1_0' in GNEChange_Additional
+Debug: Adding rerouter 'rr_0' in GNEChange_Additional
+GLDebug: 	Inserted rerouter:rr_0 into SUMORTree with boundary 10.00,30.00,30.00,50.00
+Debug: Adding rerouterSymbol 'E3' in GNEChange_Additional
+Debug: Adding rerouterSymbol '-E3' in GNEChange_Additional
+Debug: Adding rerouterSymbol 'E1' in GNEChange_Additional
+Debug: Adding rerouterSymbol '-E1' in GNEChange_Additional
+GLDebug: 	Removed object rerouter:rr_0 from SUMORTree with boundary 10.00,30.00,30.00,50.00
+GLDebug: 	Inserted rerouter:rr_0 into SUMORTree with boundary -11.60,16.00,81.60,64.00
+Debug: Adding interval 'rr_0' in GNEChange_Additional
+GLDebug: 	Removed object rerouter:rr_0 from SUMORTree with boundary -11.60,16.00,81.60,64.00
+GLDebug: 	Inserted rerouter:rr_0 into SUMORTree with boundary -11.60,16.00,81.60,64.00
+Debug: Adding closingLaneReroute 'rr_0' in GNEChange_Additional
+GLDebug: 	Removed object rerouter:rr_0 from SUMORTree with boundary -11.60,16.00,81.60,64.00
+GLDebug: 	Inserted rerouter:rr_0 into SUMORTree with boundary -11.60,16.00,81.60,64.00
+Debug: Adding closingReroute 'rr_0' in GNEChange_Additional
+GLDebug: 	Removed object rerouter:rr_0 from SUMORTree with boundary -11.60,16.00,81.60,64.00
+GLDebug: 	Inserted rerouter:rr_0 into SUMORTree with boundary -11.60,16.00,81.60,64.00
+Debug: Adding destProbReroute 'rr_0' in GNEChange_Additional
+Debug: Adding variableSpeedSign 'vs_0' in GNEChange_Additional
+GLDebug: 	Inserted variableSpeedSign:vs_0 into SUMORTree with boundary 40.00,30.00,60.00,50.00
+Debug: Adding variableSpeedSignSymbol 'E2_1' in GNEChange_Additional
+Debug: Adding variableSpeedSignSymbol '-E2_1' in GNEChange_Additional
+Debug: Adding variableSpeedSignSymbol '-E0_1' in GNEChange_Additional
+Debug: Adding variableSpeedSignSymbol 'E0_1' in GNEChange_Additional
+Debug: Adding poly 'po_0' in GNEChange_Additional
+GLDebug: 	Inserted polygon:po_0 into SUMORTree with boundary -30.00,10.00,0.00,70.00
+Debug: Adding poly 'po_1' in GNEChange_Additional
+GLDebug: 	Inserted polygon:po_1 into SUMORTree with boundary 70.00,10.00,100.00,70.00
+Debug: Adding poi 'poi_0' in GNEChange_Additional
+GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -0.50,59.50,20.50,80.50
+Debug: Adding poi 'poi_1' in GNEChange_Additional
+GLDebug: 	Inserted poi:poi_1 into SUMORTree with boundary 49.50,59.50,70.50,80.50
+Debug: Adding poi 'poi_2' in GNEChange_Additional
+GLDebug: 	Inserted poi:poi_2 into SUMORTree with boundary -0.50,-0.50,20.50,20.50
+Debug: Adding poi 'poi_3' in GNEChange_Additional
+GLDebug: 	Inserted poi:poi_3 into SUMORTree with boundary 49.50,-0.50,70.50,20.50
+Debug: Adding taz 'taz_0' in GNEChange_Additional
+GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary 10.00,0.00,60.00,40.00
+Debug: Adding tazSink 'taz_0' in GNEChange_Additional
+Debug: Adding tazSource 'taz_0' in GNEChange_Additional
+Debug: Setting new attribute
+Debug: Adding tazSink 'taz_0' in GNEChange_Additional
+Debug: Adding tazSource 'taz_0' in GNEChange_Additional
+Debug: Setting new attribute
+Debug: Adding taz 'taz_1' in GNEChange_Additional
+GLDebug: 	Inserted taz:taz_1 into SUMORTree with boundary 10.00,40.00,60.00,80.00
+Debug: Adding tazSink 'taz_1' in GNEChange_Additional
+Debug: Adding tazSource 'taz_1' in GNEChange_Additional
+Debug: Setting new attribute
+Debug: Adding tazSink 'taz_1' in GNEChange_Additional
+Debug: Adding tazSource 'taz_1' in GNEChange_Additional
+Debug: Setting new attribute
+Debug: Adding route 'r_0' in GNEChange_DemandElement
+Debug: Adding stopLane 'r_0' in GNEChange_DemandElement
+Debug: Adding stopLane 'r_0' in GNEChange_DemandElement
+Debug: Adding trip 't_0' in GNEChange_DemandElement
+Debug: Adding vehicle 'v_0' in GNEChange_DemandElement
+Debug: Adding flow 'f_0' in GNEChange_DemandElement
+Debug: Adding person 'p_0' in GNEChange_DemandElement
+Debug: Adding personTrip: edge->edge 'p_0' in GNEChange_DemandElement
+Debug: Adding person 'p_1' in GNEChange_DemandElement
+Debug: Adding personTrip: edge->busStop 'p_1' in GNEChange_DemandElement
+Debug: Adding personTrip: edge->edge 'p_1' in GNEChange_DemandElement
+Debug: Adding personTrip: edge->edge 'p_1' in GNEChange_DemandElement
+Debug: Adding personFlow 'pf_0' in GNEChange_DemandElement
+Debug: Adding walk: edge->edge 'pf_0' in GNEChange_DemandElement
+Debug: Adding container 'c_0' in GNEChange_DemandElement
+Debug: Adding tranship: edge->edge 'c_0' in GNEChange_DemandElement
+Debug: Adding flowRoute 'f_1' in GNEChange_DemandElement
+Debug: Adding dataSet 'Data1' in GNEChange_DataSet
+Debug: adding dataInterval [0.00, 3600.00] in GNEChange_DataInterval
+Debug: Adding edgeRelation 'Data1[0.00,3600.00]:-E0' in GNEChange_GenericData
+Debug: Adding edgeRelation 'Data1[0.00,3600.00]:-E2' in GNEChange_GenericData
+Debug: Adding edgeRelation 'Data1[0.00,3600.00]:E2' in GNEChange_GenericData
+Debug: Adding edgeRelation 'Data1[0.00,3600.00]:E0' in GNEChange_GenericData
+Debug: Adding edgeData 'Data1[0.00,3600.00]:-E0' in GNEChange_GenericData
+Debug: Adding edgeData 'Data1[0.00,3600.00]:-E3' in GNEChange_GenericData
+Debug: Adding tazRelation 'Data1[0.00,3600.00]:taz_1->taz_0' in GNEChange_GenericData
+GLDebug: 	Inserted TAZRelData:Data1 into SUMORTree with boundary -10000000020.00,-10000000020.00,10000000020.00,10000000020.00
+GLDebug: 	Removed object TAZRelData:Data1 from SUMORTree with boundary -10000000020.00,-10000000020.00,10000000020.00,10000000020.00
+GLDebug: 	Inserted TAZRelData:Data1 into SUMORTree with boundary 14.50,0.00,54.50,80.00
+Debug: Adding tazRelation 'Data1[0.00,3600.00]:taz_0->taz_1' in GNEChange_GenericData
+GLDebug: 	Inserted TAZRelData:Data1 into SUMORTree with boundary -10000000020.00,-10000000020.00,10000000020.00,10000000020.00
+GLDebug: 	Removed object TAZRelData:Data1 from SUMORTree with boundary -10000000020.00,-10000000020.00,10000000020.00,10000000020.00
+GLDebug: 	Inserted TAZRelData:Data1 into SUMORTree with boundary 15.50,0.00,55.50,80.00
+Debug: adding dataInterval [3600.00, 7200.00] in GNEChange_DataInterval
+Debug: Adding edgeData 'Data1[3600.00,7200.00]:-E2' in GNEChange_GenericData
+Debug: Adding edgeData 'Data1[3600.00,7200.00]:-E1' in GNEChange_GenericData
+GLDebug: Removing junctions during recomputing
+GLDebug: 	Removed object junction:J0 from SUMORTree with boundary -12.00,48.00,12.00,72.00
+GLDebug: 	Removed object junction:J1 from SUMORTree with boundary 58.00,48.00,82.00,72.00
+GLDebug: 	Removed object junction:J2 from SUMORTree with boundary 58.00,8.00,82.00,32.00
+GLDebug: 	Removed object junction:J3 from SUMORTree with boundary -12.00,8.00,12.00,32.00
+GLDebug: Removing edges during recomputing
+GLDebug: 	Removed object edge:-E0 from SUMORTree with boundary -10.00,50.00,80.00,74.80
+GLDebug: 	Removed object edge:-E1 from SUMORTree with boundary 60.00,10.00,84.80,70.00
+GLDebug: 	Removed object edge:-E2 from SUMORTree with boundary -10.00,5.20,80.00,30.00
+GLDebug: 	Removed object edge:-E3 from SUMORTree with boundary -14.80,10.00,10.00,70.00
+GLDebug: 	Removed object edge:E0 from SUMORTree with boundary -10.00,45.20,80.00,70.00
+GLDebug: 	Removed object edge:E1 from SUMORTree with boundary 55.20,10.00,80.00,70.00
+GLDebug: 	Removed object edge:E2 from SUMORTree with boundary -10.00,10.00,80.00,34.80
+GLDebug: 	Removed object edge:E3 from SUMORTree with boundary -10.00,10.00,14.80,70.00
+GLDebug: Add junctions during recomputing after calling myNetBuilder->compute(...)
+GLDebug: 	Inserted junction:J0 into SUMORTree with boundary -15.20,44.80,15.20,75.20
+GLDebug: 	Inserted junction:J1 into SUMORTree with boundary 54.80,44.80,85.20,75.20
+GLDebug: 	Inserted junction:J2 into SUMORTree with boundary 54.80,4.80,85.20,35.20
+GLDebug: 	Inserted junction:J3 into SUMORTree with boundary -15.20,4.80,15.20,35.20
+GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
+GLDebug: 	Inserted edge:-E0 into SUMORTree with boundary -10.00,50.00,80.00,74.80
+GLDebug: 	Inserted edge:-E1 into SUMORTree with boundary 60.00,10.00,84.80,70.00
+GLDebug: 	Inserted edge:-E2 into SUMORTree with boundary -10.00,5.20,80.00,30.00
+GLDebug: 	Inserted edge:-E3 into SUMORTree with boundary -14.80,10.00,10.00,70.00
+GLDebug: 	Inserted edge:E0 into SUMORTree with boundary -10.00,45.20,80.00,70.00
+GLDebug: 	Inserted edge:E1 into SUMORTree with boundary 55.20,10.00,80.00,70.00
+GLDebug: 	Inserted edge:E2 into SUMORTree with boundary -10.00,10.00,80.00,34.80
+GLDebug: 	Inserted edge:E3 into SUMORTree with boundary -10.00,10.00,14.80,70.00
+Debug: Created connection 'from-E0_1to-E3_1' in retrieveGNEConnection()
+Debug: Created connection 'from-E1_1to-E0_1' in retrieveGNEConnection()
+Debug: Created connection 'from-E2_1to-E1_1' in retrieveGNEConnection()
+Debug: Created connection 'from-E3_1to-E2_1' in retrieveGNEConnection()
+Debug: Created connection 'fromE0_1toE1_1' in retrieveGNEConnection()
+Debug: Created connection 'fromE1_1toE2_1' in retrieveGNEConnection()
+Debug: Created connection 'fromE2_1toE3_1' in retrieveGNEConnection()
+Debug: Created connection 'fromE3_1toE0_1' in retrieveGNEConnection()
+Debug: Created crossing ':J0_c0' in retrieveGNECrossing()
+Debug: Created walkingArea ':J0_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':J0_w1' in retrieveGNEWalkingArea()
+Debug: Created crossing ':J1_c0' in retrieveGNECrossing()
+Debug: Created walkingArea ':J1_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':J1_w1' in retrieveGNEWalkingArea()
+Debug: Created crossing ':J2_c0' in retrieveGNECrossing()
+Debug: Created walkingArea ':J2_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':J2_w1' in retrieveGNEWalkingArea()
+Debug: Created crossing ':J3_c0' in retrieveGNECrossing()
+Debug: Created walkingArea ':J3_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':J3_w1' in retrieveGNEWalkingArea()
+GLDebug: Removing junctions during recomputing
+GLDebug: 	Removed object junction:J0 from SUMORTree with boundary -15.20,44.80,15.20,75.20
+GLDebug: 	Removed object junction:J1 from SUMORTree with boundary 54.80,44.80,85.20,75.20
+GLDebug: 	Removed object junction:J2 from SUMORTree with boundary 54.80,4.80,85.20,35.20
+GLDebug: 	Removed object junction:J3 from SUMORTree with boundary -15.20,4.80,15.20,35.20
+GLDebug: Removing edges during recomputing
+GLDebug: 	Removed object edge:-E0 from SUMORTree with boundary -10.00,50.00,80.00,74.80
+GLDebug: 	Removed object edge:-E1 from SUMORTree with boundary 60.00,10.00,84.80,70.00
+GLDebug: 	Removed object edge:-E2 from SUMORTree with boundary -10.00,5.20,80.00,30.00
+GLDebug: 	Removed object edge:-E3 from SUMORTree with boundary -14.80,10.00,10.00,70.00
+GLDebug: 	Removed object edge:E0 from SUMORTree with boundary -10.00,45.20,80.00,70.00
+GLDebug: 	Removed object edge:E1 from SUMORTree with boundary 55.20,10.00,80.00,70.00
+GLDebug: 	Removed object edge:E2 from SUMORTree with boundary -10.00,10.00,80.00,34.80
+GLDebug: 	Removed object edge:E3 from SUMORTree with boundary -10.00,10.00,14.80,70.00
+GLDebug: Add junctions during recomputing after calling myNetBuilder->compute(...)
+GLDebug: 	Inserted junction:J0 into SUMORTree with boundary -15.20,44.80,15.20,75.20
+GLDebug: 	Inserted junction:J1 into SUMORTree with boundary 54.80,44.80,85.20,75.20
+GLDebug: 	Inserted junction:J2 into SUMORTree with boundary 54.80,4.80,85.20,35.20
+GLDebug: 	Inserted junction:J3 into SUMORTree with boundary -15.20,4.80,15.20,35.20
+GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
+GLDebug: 	Inserted edge:-E0 into SUMORTree with boundary -10.00,50.00,80.00,74.20
+GLDebug: 	Inserted edge:-E1 into SUMORTree with boundary 60.00,10.00,84.20,70.00
+GLDebug: 	Inserted edge:-E2 into SUMORTree with boundary -10.00,5.80,80.00,30.00
+GLDebug: 	Inserted edge:-E3 into SUMORTree with boundary -14.20,10.00,10.00,70.00
+GLDebug: 	Inserted edge:E0 into SUMORTree with boundary -10.00,45.80,80.00,70.00
+GLDebug: 	Inserted edge:E1 into SUMORTree with boundary 55.80,10.00,80.00,70.00
+GLDebug: 	Inserted edge:E2 into SUMORTree with boundary -10.00,10.00,80.00,34.20
+GLDebug: 	Inserted edge:E3 into SUMORTree with boundary -10.00,10.00,14.20,70.00
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Created walkingArea ':J0_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':J0_w1' in retrieveGNEWalkingArea()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Created walkingArea ':J1_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':J1_w1' in retrieveGNEWalkingArea()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Created walkingArea ':J2_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':J2_w1' in retrieveGNEWalkingArea()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Created walkingArea ':J3_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':J3_w1' in retrieveGNEWalkingArea()
+Debug: network elements saved
+Debug: Additionals saved
+Debug: demand elements saved
+Debug: data sets saved
+Debug: Deleting unreferenced edgeData
+Debug: Deleting unreferenced edgeData
+Debug: Deleting unreferenced dataInterval [3600.00, 7200.00] in ~GNEChange_DataInterval()
+Debug: Deleting unreferenced tazRelation
+GLDebug: 	Removed object TAZRelData:Data1 from SUMORTree with boundary 15.50,0.00,55.50,80.00
+Debug: Deleting unreferenced tazRelation
+GLDebug: 	Removed object TAZRelData:Data1 from SUMORTree with boundary 14.50,0.00,54.50,80.00
+Debug: Deleting unreferenced edgeData
+Debug: Deleting unreferenced edgeData
+Debug: Deleting unreferenced edgeRelation
+Debug: Deleting unreferenced edgeRelation
+Debug: Deleting unreferenced edgeRelation
+Debug: Deleting unreferenced edgeRelation
+Debug: Deleting unreferenced dataInterval [0.00, 3600.00] in ~GNEChange_DataInterval()
+Debug: Deleting unreferenced dataSet 'Data1'
+Debug: Deleting unreferenced flowRoute
+Debug: Deleting unreferenced tranship: edge->edge
+Debug: Deleting unreferenced container
+Debug: Deleting unreferenced walk: edge->edge
+Debug: Deleting unreferenced personFlow
+Debug: Deleting unreferenced personTrip: edge->edge
+Debug: Deleting unreferenced personTrip: edge->edge
+Debug: Deleting unreferenced personTrip: edge->busStop
+Debug: Deleting unreferenced person
+Debug: Deleting unreferenced personTrip: edge->edge
+Debug: Deleting unreferenced person
+Debug: Deleting unreferenced flow
+Debug: Deleting unreferenced vehicle
+Debug: Deleting unreferenced trip
+Debug: Deleting unreferenced stopLane
+Debug: Deleting unreferenced stopLane
+Debug: Deleting unreferenced route
+Debug: Deleting unreferenced tazSource
+Debug: Deleting unreferenced tazSink
+Debug: Deleting unreferenced tazSource
+Debug: Deleting unreferenced tazSink
+Debug: Deleting unreferenced taz
+GLDebug: 	Removed object taz:taz_1 from SUMORTree with boundary 10.00,40.00,60.00,80.00
+Debug: Deleting unreferenced tazSource
+Debug: Deleting unreferenced tazSink
+Debug: Deleting unreferenced tazSource
+Debug: Deleting unreferenced tazSink
+Debug: Deleting unreferenced taz
+GLDebug: 	Removed object taz:taz_0 from SUMORTree with boundary 10.00,0.00,60.00,40.00
+Debug: Deleting unreferenced poi
+GLDebug: 	Removed object poi:poi_3 from SUMORTree with boundary 49.50,-0.50,70.50,20.50
+Debug: Deleting unreferenced poi
+GLDebug: 	Removed object poi:poi_2 from SUMORTree with boundary -0.50,-0.50,20.50,20.50
+Debug: Deleting unreferenced poi
+GLDebug: 	Removed object poi:poi_1 from SUMORTree with boundary 49.50,59.50,70.50,80.50
+Debug: Deleting unreferenced poi
+GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -0.50,59.50,20.50,80.50
+Debug: Deleting unreferenced poly
+GLDebug: 	Removed object polygon:po_1 from SUMORTree with boundary 70.00,10.00,100.00,70.00
+Debug: Deleting unreferenced poly
+GLDebug: 	Removed object polygon:po_0 from SUMORTree with boundary -30.00,10.00,0.00,70.00
+Debug: Deleting unreferenced variableSpeedSignSymbol
+Debug: Deleting unreferenced variableSpeedSignSymbol
+Debug: Deleting unreferenced variableSpeedSignSymbol
+Debug: Deleting unreferenced variableSpeedSignSymbol
+Debug: Deleting unreferenced variableSpeedSign
+GLDebug: 	Removed object variableSpeedSign:vs_0 from SUMORTree with boundary 40.00,30.00,60.00,50.00
+Debug: Deleting unreferenced destProbReroute
+Debug: Deleting unreferenced closingReroute
+Debug: Deleting unreferenced closingLaneReroute
+Debug: Deleting unreferenced interval
+Debug: Deleting unreferenced rerouterSymbol
+Debug: Deleting unreferenced rerouterSymbol
+Debug: Deleting unreferenced rerouterSymbol
+Debug: Deleting unreferenced rerouterSymbol
+Debug: Deleting unreferenced rerouter
+GLDebug: 	Removed object rerouter:rr_0 from SUMORTree with boundary -11.60,16.00,81.60,64.00
+Debug: Deleting unreferenced inductionLoop
+Debug: Deleting unreferenced busStop
+Debug: Deleting unreferenced edge '-E0' in AttributeCarriers destructor
+Debug: Deleting unreferenced lane '-E0_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane '-E0_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from-E0_1to-E3_1' in GNEEdge destructor
+Debug: Deleting unreferenced edge '-E1' in AttributeCarriers destructor
+Debug: Deleting unreferenced lane '-E1_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane '-E1_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from-E1_1to-E0_1' in GNEEdge destructor
+Debug: Deleting unreferenced edge '-E2' in AttributeCarriers destructor
+Debug: Deleting unreferenced lane '-E2_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane '-E2_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from-E2_1to-E1_1' in GNEEdge destructor
+Debug: Deleting unreferenced edge '-E3' in AttributeCarriers destructor
+Debug: Deleting unreferenced lane '-E3_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane '-E3_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from-E3_1to-E2_1' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'E0' in AttributeCarriers destructor
+Debug: Deleting unreferenced lane 'E0_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane 'E0_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromE0_1toE1_1' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'E1' in AttributeCarriers destructor
+Debug: Deleting unreferenced lane 'E1_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane 'E1_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromE1_1toE2_1' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'E2' in AttributeCarriers destructor
+Debug: Deleting unreferenced lane 'E2_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane 'E2_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromE2_1toE3_1' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'E3' in AttributeCarriers destructor
+Debug: Deleting unreferenced lane 'E3_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane 'E3_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromE3_1toE0_1' in GNEEdge destructor
+Debug: Deleting unreferenced junction 'J0' in AttributeCarriers destructor
+Debug: Deleting unreferenced crossing ':J0_c0' in GNEJunction destructor
+Debug: Deleting unreferenced walkingArea ':J0_w0' in GNEJunction destructor
+Debug: Deleting unreferenced walkingArea ':J0_w1' in GNEJunction destructor
+Debug: Deleting unreferenced junction 'J1' in AttributeCarriers destructor
+Debug: Deleting unreferenced crossing ':J1_c0' in GNEJunction destructor
+Debug: Deleting unreferenced walkingArea ':J1_w0' in GNEJunction destructor
+Debug: Deleting unreferenced walkingArea ':J1_w1' in GNEJunction destructor
+Debug: Deleting unreferenced junction 'J2' in AttributeCarriers destructor
+Debug: Deleting unreferenced crossing ':J2_c0' in GNEJunction destructor
+Debug: Deleting unreferenced walkingArea ':J2_w0' in GNEJunction destructor
+Debug: Deleting unreferenced walkingArea ':J2_w1' in GNEJunction destructor
+Debug: Deleting unreferenced junction 'J3' in AttributeCarriers destructor
+Debug: Deleting unreferenced crossing ':J3_c0' in GNEJunction destructor
+Debug: Deleting unreferenced walkingArea ':J3_w0' in GNEJunction destructor
+Debug: Deleting unreferenced walkingArea ':J3_w1' in GNEJunction destructor
+Debug: Deleting net builder in GNENet destructor
+GLDebug: Number of objects in SUMORTree during call of the destructor: 12

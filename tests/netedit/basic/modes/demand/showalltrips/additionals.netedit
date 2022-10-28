@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-10-28 12:26:12 by Eclipse SUMO netedit Version v1_14_1+2055-74a51289cd1
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- StoppingPlaces -->
+    <busStop id="bs_0" lane="-E0_1" startPos="24.80" endPos="34.80"/>
+    <!-- Detectors -->
+    <inductionLoop id="e1_0" lane="-E3_1" pos="14.80" period="300.00" file="e1_0.xml"/>
+    <!-- Other additionals -->
+    <rerouter id="rr_0" edges="E3 -E3 E1 -E1" pos="20.00,40.00">
+        <interval begin="0.00" end="3600.00">
+            <closingLaneReroute id="-E0_0" allow="all"/>
+            <closingReroute id="-E0" allow="all"/>
+            <destProbReroute id="-E0" probability="1.00"/>
+        </interval>
+    </rerouter>
+    <variableSpeedSign id="vs_0" lanes="E2_1 -E2_1 -E0_1 E0_1" pos="50.00,40.00"/>
+    <!-- Shapes -->
+    <poly id="po_0" color="red" fill="1" layer="0.00" shape="-20.000000,60.000000 -20.000000,20.000000 -10.000000,20.000000 -10.000000,60.000000 -20.000000,60.000000"/>
+    <poly id="po_1" color="red" fill="0" layer="0.00" shape="90.000000,60.000000 80.000000,60.000000 80.000000,20.000000 90.000000,20.000000 90.000000,60.000000"/>
+    <poi id="poi_0" color="red" layer="202.00" x="10.00" y="70.00"/>
+    <poi id="poi_1" color="red" layer="202.00" x="60.00" y="70.00"/>
+    <poi id="poi_2" color="red" layer="202.00" x="10.00" y="10.00"/>
+    <poi id="poi_3" color="red" layer="202.00" x="60.00" y="10.00"/>
+    <!-- TAZs -->
+    <taz id="taz_0" shape="20.00,30.00 20.00,10.00 50.00,10.00 50.00,30.00 20.00,30.00" color="blue">
+        <tazSource id="-E2" weight="1.00"/>
+        <tazSink id="-E2" weight="1.00"/>
+        <tazSource id="E2" weight="1.00"/>
+        <tazSink id="E2" weight="1.00"/>
+    </taz>
+    <taz id="taz_1" shape="20.00,50.00 50.00,50.00 50.00,70.00 20.00,70.00 20.00,50.00" color="blue">
+        <tazSource id="-E0" weight="1.00"/>
+        <tazSink id="-E0" weight="1.00"/>
+        <tazSource id="E0" weight="1.00"/>
+        <tazSink id="E0" weight="1.00"/>
+    </taz>
+</additional>
