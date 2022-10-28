@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-12 14:56:00 by Eclipse SUMO netconvert Version v1_14_1+1648-5ffae7ec9dd
+<!-- generated on 2022-10-28 15:35:35 by Eclipse SUMO netconvert Version v1_14_1+2076-67fbe0b3845
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value=".\netedit\netelements\lanes\contextual_menu\add_restricted_lane\greenverge\input_net.nod.xml"/>
-        <edge-files value=".\netedit\netelements\lanes\contextual_menu\add_restricted_lane\greenverge\input_net.edg.xml"/>
-        <connection-files value=".\netedit\netelements\lanes\contextual_menu\add_restricted_lane\greenverge\input_net.con.xml"/>
+        <node-files value=".\netedit\netelements\lanes\contextual_menu\add_restricted_lane\greenvergefront\input_net.nod.xml"/>
+        <edge-files value=".\netedit\netelements\lanes\contextual_menu\add_restricted_lane\greenvergefront\input_net.edg.xml"/>
+        <connection-files value=".\netedit\netelements\lanes\contextual_menu\add_restricted_lane\greenvergefront\input_net.con.xml"/>
     </input>
 
     <output>
-        <output-file value=".\netedit\netelements\lanes\contextual_menu\add_restricted_lane\greenverge\input_net.net.xml"/>
+        <output-file value=".\netedit\netelements\lanes\contextual_menu\add_restricted_lane\greenvergefront\input_net.net.xml"/>
     </output>
 
     <report>
