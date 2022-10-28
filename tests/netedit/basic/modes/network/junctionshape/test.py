@@ -37,6 +37,9 @@ netedit.forceSaveDemandElements()
 # force save data elements
 netedit.forceSaveDataElements()
 
+# toggle option
+netedit.changeEditMode(netedit.attrs.modes.network.junctionShape)
+
 # save network
 netedit.saveNetwork(referencePosition)
 

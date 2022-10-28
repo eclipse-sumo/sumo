@@ -37,6 +37,12 @@ netedit.forceSaveDemandElements()
 # force save data elements
 netedit.forceSaveDataElements()
 
+# change to TLS mode
+netedit.selectTLSMode()
+
+# toggle option
+netedit.changeEditMode(netedit.attrs.modes.network.applyAllPhases)
+
 # save network
 netedit.saveNetwork(referencePosition)
 

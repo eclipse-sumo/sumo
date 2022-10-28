@@ -101,6 +101,15 @@ GLDebug: 	Inserted TAZRelData:Data1 into SUMORTree with boundary 15.50,0.00,55.5
 Debug: adding dataInterval [3600.00, 7200.00] in GNEChange_DataInterval
 Debug: Adding edgeData 'Data1[3600.00,7200.00]:-E2' in GNEChange_GenericData
 Debug: Adding edgeData 'Data1[3600.00,7200.00]:-E1' in GNEChange_GenericData
+Debug: Enabled show connections throught alt + 6
+Debug: Created connection 'from-E0_1to-E3_1' in retrieveGNEConnection()
+Debug: Created connection 'from-E1_1to-E0_1' in retrieveGNEConnection()
+Debug: Created connection 'from-E2_1to-E1_1' in retrieveGNEConnection()
+Debug: Created connection 'from-E3_1to-E2_1' in retrieveGNEConnection()
+Debug: Created connection 'fromE0_1toE1_1' in retrieveGNEConnection()
+Debug: Created connection 'fromE1_1toE2_1' in retrieveGNEConnection()
+Debug: Created connection 'fromE2_1toE3_1' in retrieveGNEConnection()
+Debug: Created connection 'fromE3_1toE0_1' in retrieveGNEConnection()
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:J0 from SUMORTree with boundary -12.00,48.00,12.00,72.00
 GLDebug: 	Removed object junction:J1 from SUMORTree with boundary 58.00,48.00,82.00,72.00
@@ -129,14 +138,6 @@ GLDebug: 	Inserted edge:E0 into SUMORTree with boundary -10.00,45.20,80.00,70.00
 GLDebug: 	Inserted edge:E1 into SUMORTree with boundary 55.20,10.00,80.00,70.00
 GLDebug: 	Inserted edge:E2 into SUMORTree with boundary -10.00,10.00,80.00,34.80
 GLDebug: 	Inserted edge:E3 into SUMORTree with boundary -10.00,10.00,14.80,70.00
-Debug: Created connection 'from-E0_1to-E3_1' in retrieveGNEConnection()
-Debug: Created connection 'from-E1_1to-E0_1' in retrieveGNEConnection()
-Debug: Created connection 'from-E2_1to-E1_1' in retrieveGNEConnection()
-Debug: Created connection 'from-E3_1to-E2_1' in retrieveGNEConnection()
-Debug: Created connection 'fromE0_1toE1_1' in retrieveGNEConnection()
-Debug: Created connection 'fromE1_1toE2_1' in retrieveGNEConnection()
-Debug: Created connection 'fromE2_1toE3_1' in retrieveGNEConnection()
-Debug: Created connection 'fromE3_1toE0_1' in retrieveGNEConnection()
 Debug: Created crossing ':J0_c0' in retrieveGNECrossing()
 Debug: Created walkingArea ':J0_w0' in retrieveGNEWalkingArea()
 Debug: Created walkingArea ':J0_w1' in retrieveGNEWalkingArea()

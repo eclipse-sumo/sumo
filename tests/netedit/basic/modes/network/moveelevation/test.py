@@ -37,6 +37,12 @@ netedit.forceSaveDemandElements()
 # force save data elements
 netedit.forceSaveDataElements()
 
+# change to move mode
+netedit.moveMode()
+
+# toggle option
+netedit.changeEditMode(netedit.attrs.modes.network.moveElevation)
+
 # save network
 netedit.saveNetwork(referencePosition)
 

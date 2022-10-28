@@ -37,6 +37,15 @@ netedit.forceSaveDemandElements()
 # force save data elements
 netedit.forceSaveDataElements()
 
+# change to createEdge mode
+netedit.createEdgeMode()
+
+# toggle option
+netedit.changeEditMode(netedit.attrs.modes.network.chainMode)
+
+# change to inspect mode
+netedit.inspectMode()
+
 # save network
 netedit.saveNetwork(referencePosition)
 

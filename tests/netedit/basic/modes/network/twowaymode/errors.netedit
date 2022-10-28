@@ -101,6 +101,7 @@ GLDebug: 	Inserted TAZRelData:Data1 into SUMORTree with boundary 15.50,0.00,55.5
 Debug: adding dataInterval [3600.00, 7200.00] in GNEChange_DataInterval
 Debug: Adding edgeData 'Data1[3600.00,7200.00]:-E2' in GNEChange_GenericData
 Debug: Adding edgeData 'Data1[3600.00,7200.00]:-E1' in GNEChange_GenericData
+Debug: Enabled auto opposite edge throught alt + 6
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:J0 from SUMORTree with boundary -12.00,48.00,12.00,72.00
 GLDebug: 	Removed object junction:J1 from SUMORTree with boundary 58.00,48.00,82.00,72.00

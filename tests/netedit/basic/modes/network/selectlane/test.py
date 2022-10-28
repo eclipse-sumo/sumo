@@ -37,6 +37,9 @@ netedit.forceSaveDemandElements()
 # force save data elements
 netedit.forceSaveDataElements()
 
+# toggle select lanes
+netedit.changeEditMode(netedit.attrs.modes.network.selectLane)
+
 # save network
 netedit.saveNetwork(referencePosition)
 
