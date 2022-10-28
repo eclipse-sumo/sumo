@@ -6,6 +6,7 @@ lower_optimize
 
 # set total count to increase demand with unrestricted routes
 higher
+higher_min_count2
 
 # set total count to increase demand with unrestricted routes
 higher_optimize
