@@ -384,9 +384,6 @@ def updateOpenCounts(openCounts, countData, openRoutes):
     return list(filter(lambda i: countData[i].routeSet.intersection(openRoutes), openCounts))
 
 
-
-
-
 def optimize(options, countData, routes, usedRoutes, routeUsage, intervalCount):
     """ use relaxtion of the ILP problem for picking the number of times that each route is used
     x = usageCount vector (count for each route index)
@@ -635,19 +632,19 @@ def main(options):
         mismatchf.write('<data>\n')
 
     if options.totalCount:
-      if len(options.totalCount) != len(intervals):
-        if len(options.totalCount) == 1:
-          # split proportionally
-          countSums = []
-          for begin, end in intervals:
-            countData = parseCounts(options, routes, begin, end)
-            countSums.append(sum(cd.origCount for cd in countData))
-          countSumTotal = sum(countSums)
-          options.totalCount = [int(ceil(options.totalCount[0] * s / countSumTotal)) for s in countSums]
-        else:
-          sys.stderr.write("Error: --total-count must be a single value of or match the number of data intervals (%s)"
-              % len(intervals))
-          sys.exit()
+        if len(options.totalCount) != len(intervals):
+            if len(options.totalCount) == 1:
+                # split proportionally
+                countSums = []
+                for begin, end in intervals:
+                    countData = parseCounts(options, routes, begin, end)
+                    countSums.append(sum(cd.origCount for cd in countData))
+                countSumTotal = sum(countSums)
+                options.totalCount = [int(ceil(options.totalCount[0] * s / countSumTotal)) for s in countSums]
+            else:
+                sys.stderr.write("Error: --total-count must be a single value" +
+                                 " or match the number of data intervals (%s)" % len(intervals))
+                sys.exit()
 
     underflowSummary = sumolib.miscutils.Statistics("avg interval underflow")
     overflowSummary = sumolib.miscutils.Statistics("avg interval overflow")
@@ -815,16 +812,16 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
         numSampled = len(usedRoutes)
 
     if intervalCount is not None and numSampled < intervalCount:
-      if unrestricted:
-        while numSampled < intervalCount:
-          if options.weighted:
-            routeIndex = _sample_skewed(unrestricted, rng, routes.probabilities)
-          else:
-            routeIndex = rng.choice(unrestricted_list)
-          usedRoutes.append(routeIndex)
-          numSampled += 1
-      else:
-        print("Cannot fulfill total interval count of %s due to lack of unrestricted routes" % intervalCount, file=sys.stderr)
+        if unrestricted:
+            while numSampled < intervalCount:
+                if options.weighted:
+                    routeIndex = _sample_skewed(unrestricted, rng, routes.probabilities)
+                else:
+                    routeIndex = rng.choice(unrestricted_list)
+                usedRoutes.append(routeIndex)
+                numSampled += 1
+        else:
+          print("Cannot fulfill total interval count of %s due to lack of unrestricted routes" % intervalCount, file=sys.stderr)
 
     # avoid bias from sampling order / optimization
     rng.shuffle(usedRoutes)
