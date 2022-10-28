@@ -128,12 +128,13 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
     }
     // build legend frame
     buildLegendFrame(tabbook);
+    // build 3D frame
+    build3DFrame(tabbook);
+    if (mySettings->netedit) {
+        myFrame3D->disable();
+    }
     // build openGL frame
     buildOpenGLFrame(tabbook);
-    // build 3D frame
-    if (!mySettings->netedit) {
-        build3DFrame(tabbook);
-    }
     // build buttons
     buildButtons(contentFrame);
     // rebuild color matrix
@@ -2372,7 +2373,7 @@ GUIDialog_ViewSettings::buildOpenGLFrame(FXTabBook* tabbook) {
 
 void
 GUIDialog_ViewSettings::build3DFrame(FXTabBook* tabbook) {
-    FXTabItem* frame3D = new FXTabItem(tabbook, "3D", nullptr, GUIDesignViewSettingsTabItemBook1);
+    myFrame3D = new FXTabItem(tabbook, "3D view", nullptr, GUIDesignViewSettingsTabItemBook1);
     FXScrollWindow* scrollWindow = new FXScrollWindow(tabbook);
     FXVerticalFrame* verticalFrame = new FXVerticalFrame(scrollWindow, GUIDesignViewSettingsVerticalFrame2);
 
@@ -2406,7 +2407,7 @@ GUIDialog_ViewSettings::build3DFrame(FXTabBook* tabbook) {
     mySkyColor->setOpaqueOnly(true);
 
 #ifdef HAVE_OSG
-    UNUSED_PARAMETER(frame3D);
+    UNUSED_PARAMETER(myFrame3D);
 #else
     frame3D->disable();
 #endif

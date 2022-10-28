@@ -483,6 +483,9 @@ protected:
 
     /// @}
 
+    /// @brief Frame3D
+    FXTabItem* myFrame3D = nullptr;
+
     /// @brief update color ranges
     bool updateColorRanges(FXObject* sender, std::vector<FXColorWell*>::const_iterator colIt,
                            std::vector<FXColorWell*>::const_iterator colEnd,
