@@ -804,8 +804,8 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
     # all counts are satisfied or no routes can be used anymore
 
     openRoutes = updateOpenRoutes(range(0, routes.number), routeUsage, countData)
-    openCounts = updateOpenCounts(range(0, len(countData)), countData, openRoutes)
     openRoutes = [r for r in openRoutes if r not in unrestricted]
+    openCounts = updateOpenCounts(range(0, len(countData)), countData, openRoutes)
 
     usedRoutes = []
     if options.optimizeInput:
