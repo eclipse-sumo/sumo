@@ -576,12 +576,64 @@ def getRouteCounts(routes, usedRoutes):
 
 
 def getRouteUsage(routes, countData):
-    # store which counting locations are used by each route (using countData index)
+    """store which counting locations are used by each route (using countData index)"""
     routeUsage = [set() for r in routes.unique]
     for i, cd in enumerate(countData):
         for routeIndex in cd.routeSet:
             routeUsage[routeIndex].add(i)
     return routeUsage
+
+def initTotalCounts(options, routes, intervals, b, e):
+    """initialize time line for options.totalCount if the number of input vehicles/persons should be preserved
+    or in case a single value was given for multiple intervals
+    """
+    if options.totalCount == PRESERVE_INPUT_COUNT:
+        element = 'person' if options.pedestrians else 'vehicle'
+        options.totalCount = [0] * len(intervals)
+        interval = e - b if len(intervals) == 1 else intervals[0][1] - intervals[0][0]
+        numVehs = 0
+        numExcluded = 0
+        for routefile in options.routeFiles:
+            for veh in sumolib.xml.parse(routefile, [element], heterogeneous=True):
+                numVehs += 1
+                depart = parseTime(veh.depart)
+                if depart >= b and depart <= e:
+                    iIndex = int((depart - b) / interval)
+                    if depart == e:
+                        iIndex -= 1
+                    assert(iIndex) < len(options.totalCount)
+                    options.totalCount[iIndex] += 1
+                else:
+                    numExcluded += 1
+        if options.verbose:
+            if len(intervals) == 1:
+                print("Using total count of %s corresponding to input %s count" % (
+                      numVehs - numExcluded, element))
+            else:
+                print("Using total count of %s in proportion to input %s counts: %s" % (
+                      numVehs - numExcluded, element, ','.join(map(str, options.totalCount))))
+        if numExcluded > 0:
+            print("Ignored %s %ss because they depart outside the configured time range [%s, %s]" %
+                    (numExcluded, element, humanReadableTime(b), humanReadableTime(e)),
+                  file=sys.stderr)
+
+    elif len(options.totalCount) != len(intervals):
+        if len(options.totalCount) == 1:
+            # split proportionally
+            countSums = []
+            for begin, end in intervals:
+                countData = parseCounts(options, routes, begin, end)
+                countSums.append(sum(cd.origCount for cd in countData))
+            countSumTotal = sum(countSums)
+            origTotal = options.totalCount[0]
+            options.totalCount = [int(ceil(origTotal * s / countSumTotal)) for s in countSums]
+            if options.verbose:
+                print("Splitting total count of %s in proportion to interval counting data: %s" % (
+                    origTotal, ','.join(map(str, options.totalCount))))
+        else:
+            sys.stderr.write("Error: --total-count must be a single value" +
+                             " or match the number of data intervals (%s)" % len(intervals))
+            sys.exit()
 
 
 def main(options):
@@ -635,53 +687,7 @@ def main(options):
         mismatchf.write('<data>\n')
 
     if options.totalCount:
-        if options.totalCount == PRESERVE_INPUT_COUNT:
-            element = 'person' if options.pedestrians else 'vehicle'
-            options.totalCount = [0] * len(intervals)
-            interval = e - b if len(intervals) == 1 else intervals[0][1] - intervals[0][0]
-            numVehs = 0
-            numExcluded = 0
-            for routefile in options.routeFiles:
-                for veh in sumolib.xml.parse(routefile, [element], heterogeneous=True):
-                    numVehs += 1
-                    depart = parseTime(veh.depart)
-                    if depart >= b and depart <= e:
-                        iIndex = int((depart - b) / interval)
-                        if depart == e:
-                            iIndex -= 1
-                        assert(iIndex) < len(options.totalCount)
-                        options.totalCount[iIndex] += 1
-                    else:
-                        numExcluded += 1
-            if options.verbose:
-                if len(intervals) == 1:
-                    print("Using total count of %s corresponding to input %s count" % (
-                          numVehs - numExcluded, element))
-                else:
-                    print("Using total count of %s in proportion to input %s counts: %s" % (
-                          numVehs - numExcluded, element, ','.join(map(str, options.totalCount))))
-            if numExcluded > 0:
-                print("Ignored %s %ss because they depart outside the configured time range [%s, %s]" %
-                        (numExcluded, element, humanReadableTime(b), humanReadableTime(e)),
-                      file=sys.stderr)
-
-        elif len(options.totalCount) != len(intervals):
-            if len(options.totalCount) == 1:
-                # split proportionally
-                countSums = []
-                for begin, end in intervals:
-                    countData = parseCounts(options, routes, begin, end)
-                    countSums.append(sum(cd.origCount for cd in countData))
-                countSumTotal = sum(countSums)
-                origTotal = options.totalCount[0]
-                options.totalCount = [int(ceil(origTotal * s / countSumTotal)) for s in countSums]
-                if options.verbose:
-                    print("Splitting total count of %s in proportion to interval counting data: %s" % (
-                        origTotal, ','.join(map(str, options.totalCount))))
-            else:
-                sys.stderr.write("Error: --total-count must be a single value" +
-                                 " or match the number of data intervals (%s)" % len(intervals))
-                sys.exit()
+        initTotalCounts(options, routes, intervals, b, e)
 
     underflowSummary = sumolib.miscutils.Statistics("avg interval underflow")
     overflowSummary = sumolib.miscutils.Statistics("avg interval overflow")
