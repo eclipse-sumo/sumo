@@ -511,16 +511,16 @@ GNEViewNet::openObjectDialogAtCursor(const FXEvent* /*ev*/) {
     // make network current
     if (isEnabled() && myAmInitialised && makeCurrent()) {
         // get GLObjects under cursor
-        const auto GLObjects = getGUIGlObjectsUnderCursor();
+        myObjectsUnderCursor.updateObjectUnderCursor(getGUIGlObjectsUnderCursor());
         // check if we're cliking while alt button is pressed
         if (myMouseButtonKeyPressed.altKeyPressed()) {
             // set clicked popup position
             myClickedPopupPosition = getPositionInformation();
             // create cursor popup dialog for mark front element
-            myPopup = new GUICursorDialog(GUIGLObjectPopupMenu::PopupType::FRONT_ELEMENT, this, GLObjects);
+            myPopup = new GUICursorDialog(GUIGLObjectPopupMenu::PopupType::FRONT_ELEMENT, this, myObjectsUnderCursor.getClickedGLObjects());
             // open popup dialog
             openPopupDialog();
-        } else if (GLObjects.empty()) {
+        } else if (myObjectsUnderCursor.getClickedGLObjects().empty()) {
             openObjectDialog({myNet});
         } else {
             // declare filtered objects
@@ -537,7 +537,7 @@ GNEViewNet::openObjectDialogAtCursor(const FXEvent* /*ev*/) {
             bool connections = false;
             bool TLS = false;
             // fill filtered objects
-            for (const auto &glObject : GLObjects) {
+            for (const auto &glObject : myObjectsUnderCursor.getClickedGLObjects()) {
                 // always avoid edges
                 if (glObject->getType() == GLO_EDGE) {
                     continue;
