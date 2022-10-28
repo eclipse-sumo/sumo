@@ -1,0 +1,5 @@
+Loaded 100 routes (100 distinct)
+Using total count of 100 corresponding to input person count
+Ignored 99 routes which do not pass any counting location
+Wrote 100 routes (58 distinct) achieving total count 13 (40.62%) at 4 locations. GEH<5 for 25.00%
+Warning: underflow locations: count 3, min 1.00 (('-92.180.00', '-60')), max 12.00 (('-23.80.00', '-11')), mean 6.33, Q1 1.00, median 6.00, Q3 12.00 (total 19)
