@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/home/erdm_ja/scr1/sumo/tests/../tools/routeSampler.py", line 1058, in <module>
+    main(get_options())
+  File "/home/erdm_ja/scr1/sumo/tests/../tools/routeSampler.py", line 717, in main
+    intervalPrefix, outf, mismatchf, rng, intervalCount)
+  File "/home/erdm_ja/scr1/sumo/tests/../tools/routeSampler.py", line 835, in solveInterval
+    routeIndex = rng.choice([r for r in openRoutes if r in cd.routeSet])
+  File "mtrand.pyx", line 908, in numpy.random.mtrand.RandomState.choice
+ValueError: 'a' cannot be empty unless no samples are taken
