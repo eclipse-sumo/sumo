@@ -157,10 +157,6 @@ GUIOSGView::GUIOSGView(
     myViewer->setThreadingModel(osgViewer::Viewer::SingleThreaded);
     myViewer->addEventHandler(new PickHandler(this));
 
-    osg::Light* globalLight = myViewer->getLight();
-    globalLight->setAmbient(toOSGColorVector(myVisualizationSettings->ambient3DLight));
-    globalLight->setDiffuse(toOSGColorVector(myVisualizationSettings->diffuse3DLight));
-
     const char* sumoPath = getenv("SUMO_HOME");
     if (sumoPath != 0) {
         std::string newPath = std::string(sumoPath) + "/data/3D";
