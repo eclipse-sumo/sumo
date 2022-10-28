@@ -49,6 +49,12 @@ class modes:
         # create edge
         chainMode = '5'
         twoWayMode = '6'
+        # TLS mode
+        applyAllPhases = '5'
+        # move mode
+        mergingJunction = '5'
+        showBubbles = '6'
+        moveElevation = '7'
 
     class demand:
         grid = '1'
@@ -60,9 +66,18 @@ class modes:
         lockPerson = '7'
         showContainerPlans = '8'
         lockContainer = '9'
+        showNonInspected = '10'
+        showOverlappedRoutes = '11'
 
     class data:
         junctionShape = '1'
+        showAdditionals = '2'
+        showShapes = '3'
+        showDemandElements = '4'
+        TAZRelDrawingMode = '5'
+        TAZFill = '6'
+        TAZRelOnlyFrom = '7'
+        TAZRelOnlyTo = '8'
 
 
 class frames:

@@ -17,6 +17,10 @@ modes.network.showConnections
 modes.network.showSubAdditionals 
 modes.network.chainMode 
 modes.network.twoWayMode 
+modes.network.applyAllPhases 
+modes.network.mergingJunction 
+modes.network.showBubbles 
+modes.network.moveElevation 
 modes.demand.grid 
 modes.demand.junctionShape 
 modes.demand.spreadVehicle 
@@ -26,7 +30,16 @@ modes.demand.showPersonPlans
 modes.demand.lockPerson 
 modes.demand.showContainerPlans 
 modes.demand.lockContainer 
+modes.demand.showNonInspected 
+modes.demand.showOverlappedRoutes 
 modes.data.junctionShape 
+modes.data.showAdditionals 
+modes.data.showShapes 
+modes.data.showDemandElements 
+modes.data.TAZRelDrawingMode 
+modes.data.TAZFill 
+modes.data.TAZRelOnlyFrom 
+modes.data.TAZRelOnlyTo 
 frames.route.create 
 frames.route.abort 
 frames.route.removeLastInsertedEdge 
