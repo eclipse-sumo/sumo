@@ -2409,7 +2409,7 @@ GUIDialog_ViewSettings::build3DFrame(FXTabBook* tabbook) {
 #ifdef HAVE_OSG
     UNUSED_PARAMETER(myFrame3D);
 #else
-    frame3D->disable();
+    myFrame3D->disable();
 #endif
 }
 
