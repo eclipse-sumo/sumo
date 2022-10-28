@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-28 11:56:36 by Eclipse SUMO netconvert Version v1_14_1+2055-74a51289cd1
+<!-- generated on 2022-10-28 15:28:07 by Eclipse SUMO netconvert Version v1_14_1+2076-67fbe0b3845
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -35,8 +35,8 @@
 <nodes version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
     <location netOffset="0.00,0.00" convBoundary="0.00,20.00,70.00,60.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
-    <node id="J0" x="0.00" y="60.00" type="priority"/>
-    <node id="J1" x="70.00" y="60.00" type="priority"/>
-    <node id="J2" x="70.00" y="20.00" type="priority"/>
-    <node id="J3" x="0.00" y="20.00" type="priority"/>
+    <node id="J0" x="0.00" y="60.00" type="traffic_light" tl="J0"/>
+    <node id="J1" x="70.00" y="60.00" type="traffic_light" tl="J1"/>
+    <node id="J2" x="70.00" y="20.00" type="traffic_light" tl="J2"/>
+    <node id="J3" x="0.00" y="20.00" type="traffic_light" tl="J3"/>
 </nodes>

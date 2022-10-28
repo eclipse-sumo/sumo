@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-28 11:56:36 by Eclipse SUMO netconvert Version v1_14_1+2055-74a51289cd1
+<!-- generated on 2022-10-28 15:28:07 by Eclipse SUMO netconvert Version v1_14_1+2076-67fbe0b3845
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -49,4 +49,8 @@
 
     <connection from="E3" to="E0" fromLane="1" toLane="1"/>
 
+    <crossing node="J0" edges="E0 -E0" priority="1" width="4.00" linkIndex="2"/>
+    <crossing node="J1" edges="-E0 E0" priority="1" width="4.00" linkIndex="2"/>
+    <crossing node="J2" edges="E2 -E2" priority="1" width="4.00" linkIndex="2"/>
+    <crossing node="J3" edges="-E2 E2" priority="1" width="4.00" linkIndex="2"/>
 </connections>
