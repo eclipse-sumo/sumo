@@ -32,5 +32,9 @@ input_count
 # set total count to the number of vehicles found in the input
 input_count_intervals
 
+# set total count to the number of vehicles found in the input
+# input data intervals are irregular
+input_count_intervals_irregular
+
 # set total count to the number of persons found in the input
 input_count_persons
