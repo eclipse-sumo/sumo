@@ -16,7 +16,7 @@
 # @date    2022-10-20
 
 """
-Compare counting data (edge counts or turn counts) 
+Compare counting data (edge counts or turn counts)
 to counts obtained from a simulation (--vehroute-output, with exit-times).
 """
 
@@ -25,15 +25,6 @@ from __future__ import print_function
 
 import os
 import sys
-from collections import defaultdict
-# multiprocessing imports
-import multiprocessing
-import numpy as np
-
-try:
-    from StringIO import StringIO
-except ImportError:
-    from io import StringIO
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
@@ -43,8 +34,7 @@ else:
 
 import sumolib  # noqa
 from sumolib.miscutils import parseTime  # noqa
-from routeSampler import CountData, getIntervals, getOverlap, parseTurnCounts, parseEdgeCounts, parseDataIntervals
-from routeSampler import parseTimeRange
+from routeSampler import getIntervals, parseTurnCounts, parseEdgeCounts, parseDataIntervals  # noqa
 
 
 def get_options(args=None):
@@ -109,6 +99,7 @@ class Routes:
     """dummy class to allow using the same methods as routeSampler.py"""
     def __init__(self):
         self.unique = []
+
 
 def main(options):
     intervals = getIntervals(options)
@@ -188,8 +179,7 @@ def checkInterval(options, begin, end, intervalPrefix, mismatchf):
                     if et < begin or et >= end:
                         continue
                     cd.use()
-                    #print(begin, end, vehicle.id, depart, et, i, cd.edgeTuple)
-                    usedRoutes.append(edges)
+            usedRoutes.append(edges)
 
     totalMismatch = sum([cd.count for cd in countData])
 
