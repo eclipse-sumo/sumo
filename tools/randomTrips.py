@@ -45,6 +45,7 @@ NET = None  # Used as a cache for the net throughout the whole script.
 
 MAXIMIZE_FACTOR = "max"
 
+
 def get_network(options):
     global NET
     if NET is None:

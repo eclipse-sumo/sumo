@@ -410,7 +410,7 @@ def getAccess(net, lon, lat, radius, lane_id, max_access=10):
                             access_lane_idx = idx
                             break
                 access.append((u'        <access friendlyPos="true" lane="%s_%s" pos="%.2f" length="%.2f"/>\n') %
-                               (access_edge.getID(), access_lane_idx, access_pos, 1.5 * access_dist))
+                              (access_edge.getID(), access_lane_idx, access_pos, 1.5 * access_dist))
                 if len(access) == max_access:
                     break
     return access
@@ -547,7 +547,7 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
         for stop, value in map_stops.items():
             name, lane, start_pos, end_pos, access, v_type = value[:6]
             typ = "busStop" if v_type == "bus" else "trainStop"
-            output_file.write(u'    <%s id="%s" lane="%s" startPos="%.2f" endPos="%.2f" name=%s friendlyPos="true"%s>\n' %
+            output_file.write(u'    <%s id="%s" lane="%s" startPos="%.2f" endPos="%.2f" name=%s friendlyPos="true"%s>\n' %  # noqa
                               (typ, stop, lane, start_pos, end_pos, name, "" if access else "/"))
             for a in access:
                 output_file.write(a)

@@ -42,6 +42,7 @@ from sumolib.miscutils import parseTime,humanReadableTime  # noqa
 
 PRESERVE_INPUT_COUNT = 'input'
 
+
 def _run_func(args):
     func, interval, kwargs, num = args
     kwargs["cpuIndex"] = num
@@ -583,6 +584,7 @@ def getRouteUsage(routes, countData):
             routeUsage[routeIndex].add(i)
     return routeUsage
 
+
 def initTotalCounts(options, routes, intervals, b, e):
     """initialize time line for options.totalCount if the number of input vehicles/persons should be preserved
     or in case a single value was given for multiple intervals
@@ -614,7 +616,7 @@ def initTotalCounts(options, routes, intervals, b, e):
                       numVehs - numExcluded, element, ','.join(map(str, options.totalCount))))
         if numExcluded > 0:
             print("Ignored %s %ss because they depart outside the configured time range [%s, %s]" %
-                    (numExcluded, element, humanReadableTime(b), humanReadableTime(e)),
+                  (numExcluded, element, humanReadableTime(b), humanReadableTime(e)),
                   file=sys.stderr)
 
     elif len(options.totalCount) != len(intervals):
@@ -714,7 +716,8 @@ def main(options):
                 intervalPrefix = "" if len(intervals) == 1 else "%s_" % int(begin)
                 intervalCount = options.totalCount[i] if options.totalCount else None
                 uFlow, oFlow, gehOK, inputCount, usedRoutes, _ = solveInterval(options, routes, begin, end,
-                                                                               intervalPrefix, outf, mismatchf, rng, intervalCount)
+                                                                               intervalPrefix, outf, mismatchf, rng,
+                                                                               intervalCount)
                 underflowSummary.add(uFlow, begin)
                 overflowSummary.add(oFlow, begin)
                 gehSummary.add(gehOK, begin)
@@ -756,18 +759,19 @@ def _solveIntervalMP(options, routes, interval, cpuIndex):
         intervalPrefix = "%s_" % int(begin)
         intervalCount = options.totalCount[i] if options.totalCount else None
         uFlow, oFlow, gehOKNum, inputCount, usedRoutes, local_outf = solveInterval(
-            options, routes, begin, end, intervalPrefix, local_outf, local_mismatch_outf, rng, intervalCount )
+            options, routes, begin, end, intervalPrefix, local_outf, local_mismatch_outf, rng, intervalCount)
 
         output_list.append([begin, uFlow, oFlow, gehOKNum, inputCount, usedRoutes, local_outf.getvalue(),
                             local_mismatch_outf.getvalue() if options.mismatchOut else None])
     output_lst = list(zip(*output_list))
     return output_lst
 
+
 def parseCounts(options, routes, b, e, warn=False):
     countData = (parseDataIntervals(parseTurnCounts, options.turnFiles, b, e,
                                     routes, options.turnAttr, options=options, warn=warn)
                  + parseDataIntervals(parseTurnCounts, options.turnFiles, b, e,
-                                    routes, options.turnRatioAttr, options=options, isRatio=True, warn=warn)
+                                      routes, options.turnRatioAttr, options=options, isRatio=True, warn=warn)
                  + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, b, e,
                                       routes, options.edgeDataAttr, options=options, warn=warn)
                  + parseDataIntervals(parseTurnCounts, options.odFiles, b, e,
