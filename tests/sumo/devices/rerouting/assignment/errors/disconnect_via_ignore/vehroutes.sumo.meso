@@ -1,35 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 09/24/15 14:14:17 by SUMO Version dev-SVN-r18913
+<!-- generated on 2022-10-29 03:08:07 by Eclipse SUMO sumo Version v1_14_1+2087-e274d38
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
-        <additional-files value="input_districts.taz.xml,input_trips.trips.xml"/>
+        <route-files value="input_trips.trips.xml"/>
     </input>
 
     <output>
+        <write-license value="true"/>
         <vehroute-output value="vehroutes.xml"/>
     </output>
 
-    <time>
-        <begin value="0"/>
-    </time>
-
-    <routing>
-        <device.rerouting.probability value="1"/>
-        <device.rerouting.adaptation-weight value="0.4"/>
-        <device.rerouting.with-taz value="true"/>
-    </routing>
+    <processing>
+        <ignore-route-errors value="true"/>
+        <default.speeddev value="0"/>
+    </processing>
 
     <report>
         <xml-validation value="never"/>
-        <no-duration-log value="true"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -41,4 +42,8 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="0" depart="0.00" arrival="127.00">
+        <route edges="left end middle"/>
+    </vehicle>
+
 </routes>
