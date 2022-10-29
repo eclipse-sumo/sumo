@@ -1399,7 +1399,7 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
                     vehID = stop.vehID
                     stopRoute = vehicleStopRoutes[vehID]
                     stopIndex = stopRoute.index((edgesBefore, stop))
-                    arrivals = defaultdict(list) # (bidiStart, bidiEnd) -> (pArrival, pStop, sIb, sI2)
+                    arrivals = defaultdict(list)  # (bidiStart, bidiEnd) -> (pArrival, pStop, sIb, sI2)
                     for route in oRoutes:
                         for vehID2 in uniqueRoutes[route]:
                             if vehID2 == vehID:
@@ -1441,85 +1441,96 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
                                 if sI2b is None:
                                     # no divergence found
                                     break
-                    if arrivals:
-                        for (e2Start, e2end), arrivalList in arrivals.items():
-                            nStopArrival = getArrivalSecure(stop)
-                            e1Final = getBidiID(net, e2Start)
-                            # time of reaching the end of the conflict section
-                            nArrival = nStopArrival - getTravelTimeToStop(net, e1Final, edgesBefore, stop, True)
-                            # we want to find the latest arrival that comes before nArrival (and optionally earlier ones)
-                            arrivalList.sort(reverse=True, key=itemgetter(0))
-                            # print("found oppositeArrivals", [a[0] for a in arrivals])
-                            conflictArrival = None
-                            for pArrival, pStop, sIb, sI2 in arrivalList:
-                                if pArrival >= nArrival:
-                                    continue
-                                if conflictArrival:
-                                    if options.redundant >= 0:
-                                        if conflictArrival - pArrival > options.redundant:
-                                            break
-                                    else:
-                                        break
 
-                                if pStop.busStop == stop.busStop:
-                                    # most likely a small reversal loop. There may
-                                    # be some value in keeping the conflict (but
-                                    # probably not strictly necessary)
-                                    continue
-
-                                stopRoute2 = vehicleStopRoutes[pStop.vehID]
-                                # signal before vehID enters the conflict section
-                                nSignal = findSignal(net, getEdges(stopRoute, sIb, e1Final, False, noIndex=True), True)
-                                # signal before vehID2 enters the conflict section (in the opposite direction)
-                                pSignal = findSignal(net, getEdges(stopRoute2, sI2, e2Start, False, noIndex=True), True)
-
-                                if pStop.vehID != stop.vehID:
-                                    if nSignal is None or pSignal is None:
-                                        error = ("Ignoring bidi conflict for %s and %s between stops '%s' and '%s'" +
-                                                 " because no rail signal was found for %s before edge '%s'")
-
-                                        if nSignal is None:
-                                            print(error % (stop.prevTripId, pStop.prevTripId, busStop, pStop.busStop,
-                                                           stop.prevTripId, e1Final), file=sys.stderr)
-                                        elif pSignal is None:
-                                            print(error % (stop.prevTripId, pStop.prevTripId, busStop, pStop.busStop,
-                                                           pStop.prevTripId, e2Start), file=sys.stderr)
-                                        numIgnoredConflicts += 1
-                                        continue
-
-                                    if pSignal == nSignal:
-                                        error = ("Ignoring bidi conflict for %s and %s between stops '%s' and '%s'" +
-                                                 " because the found rail signals are the same ('%s')")
-                                        print(error % (stop.prevTripId, pStop.prevTripId, busStop, pStop.busStop, pSignal), file=sys.stderr)
-                                        numIgnoredConflicts += 1
-                                        continue
-
-                                    numConflicts += 1
-                                    limit = 1
-                                    times = "arrival=%s foeArrival=%s stopArrival=%s foeStopArrival=%s" % (
-                                        humanReadableTime(nArrival), humanReadableTime(pArrival),
-                                        humanReadableTime(getArrivalSecure(stop)),
-                                        humanReadableTime(getArrivalSecure(pStop)))
-                                    info = ""
-                                    active = not stop.getAttributeSecure(
-                                        "invalid", False) and not pStop.getAttributeSecure("invalid", False)
-
-                                    if conflictArrival is None:
-                                        conflictArrival = pArrival
-                                    conflicts[nSignal].append(Conflict(stop.prevTripId, pSignal, pStop.prevTripId, limit,
-                                                                       # attributes for adding comments
-                                                                       stop.prevLine, pStop.prevLine,
-                                                                       stop.vehID, pStop.vehID,
-                                                                       times, None,
-                                                                       stop.busStop,
-                                                                       info, active,
-                                                                       busStop2=pStop.busStop))
+                    for item in collectBidiConflicts(net, vehicleStopRoutes, stop, stopRoute, edgesBefore, arrivals):
+                        if item is None:
+                            numIgnoredConflicts += 1
+                        else:
+                            nSignal, conflict = item
+                            conflicts[nSignal].append(conflict)
+                            numConflicts += 1
 
     if numConflicts > 0:
         print("Found %s bidi conflicts" % numConflicts)
     if numIgnoredConflicts > 0:
         print("Ignored %s bidi conflicts" % (numIgnoredConflicts))
     return conflicts
+
+
+def collectBidiConflicts(net, vehicleStopRoutes, stop, stopRoute, edgesBefore, arrivals):
+    for (e2Start, e2end), arrivalList in arrivals.items():
+        nStopArrival = getArrivalSecure(stop)
+        e1Final = getBidiID(net, e2Start)
+        # time of reaching the end of the conflict section
+        nArrival = nStopArrival - getTravelTimeToStop(net, e1Final, edgesBefore, stop, True)
+        # we want to find the latest arrival that comes before nArrival (and optionally earlier ones)
+        arrivalList.sort(reverse=True, key=itemgetter(0))
+        # print("found oppositeArrivals", [a[0] for a in arrivals])
+        conflictArrival = None
+        for pArrival, pStop, sIb, sI2 in arrivalList:
+            if pArrival >= nArrival:
+                continue
+            if conflictArrival:
+                if options.redundant >= 0:
+                    if conflictArrival - pArrival > options.redundant:
+                        break
+                else:
+                    break
+
+            if pStop.busStop == stop.busStop:
+                # most likely a small reversal loop. There may
+                # be some value in keeping the conflict (but
+                # probably not strictly necessary)
+                continue
+
+            stopRoute2 = vehicleStopRoutes[pStop.vehID]
+            # signal before vehID enters the conflict section
+            nSignal = findSignal(net, getEdges(stopRoute, sIb, e1Final, False, noIndex=True), True)
+            # signal before vehID2 enters the conflict section (in the opposite direction)
+            pSignal = findSignal(net, getEdges(stopRoute2, sI2, e2Start, False, noIndex=True), True)
+
+            if pStop.vehID != stop.vehID:
+                if nSignal is None or pSignal is None:
+                    error = ("Ignoring bidi conflict for %s and %s between stops '%s' and '%s'" +
+                             " because no rail signal was found for %s before edge '%s'")
+
+                    if nSignal is None:
+                        print(error % (stop.prevTripId, pStop.prevTripId, stop.busStop, pStop.busStop,
+                                       stop.prevTripId, e1Final), file=sys.stderr)
+                    elif pSignal is None:
+                        print(error % (stop.prevTripId, pStop.prevTripId, stop.busStop, pStop.busStop,
+                                       pStop.prevTripId, e2Start), file=sys.stderr)
+                    yield None
+                    continue
+
+                if pSignal == nSignal:
+                    error = ("Ignoring bidi conflict for %s and %s between stops '%s' and '%s'" +
+                             " because the found rail signals are the same ('%s')")
+                    print(error % (stop.prevTripId, pStop.prevTripId, stop.busStop, pStop.busStop, pSignal), file=sys.stderr)
+                    yield None
+                    continue
+
+                limit = 1
+                times = "arrival=%s foeArrival=%s stopArrival=%s foeStopArrival=%s" % (
+                    humanReadableTime(nArrival), humanReadableTime(pArrival),
+                    humanReadableTime(getArrivalSecure(stop)),
+                    humanReadableTime(getArrivalSecure(pStop)))
+                info = ""
+                active = not stop.getAttributeSecure(
+                    "invalid", False) and not pStop.getAttributeSecure("invalid", False)
+
+                if conflictArrival is None:
+                    conflictArrival = pArrival
+
+                conflict = Conflict(stop.prevTripId, pSignal, pStop.prevTripId, limit,
+                                # attributes for adding comments
+                                stop.prevLine, pStop.prevLine,
+                                stop.vehID, pStop.vehID,
+                                times, None,
+                                stop.busStop,
+                                info, active,
+                                busStop2=pStop.busStop)
+                yield nSignal, conflict
 
 
 def getEdges(stopRoute, index, startEdge, forward, noIndex=False):
