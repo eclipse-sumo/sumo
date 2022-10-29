@@ -175,6 +175,7 @@ always use the latest version of SUMO.
   may allow us to diagnose the problem at a single glance). When sending screenshots of sumo-gui, please include the whole screen so the application version and simulation time are visible.
 - the complete input files for reproducing the error (i.e. a .sumocfg
   and all files referenced therein) in a zip-archive.
+- if your use case involves [TraCI](TraCI.md), please reduce your script to the bare minimum that is needed to show the problem. Then either include the script itself or [generate a log of all traci commands](TraCI/Interfacing_TraCI_from_Python.md#generating_a_log_of_all_traci_commands) and include this.
 - Please remove
   unnecessary inputs (i.e. only 2 vehicles instead of 2000) and try to
   find the minimum input example which still shows the problem. This includes
