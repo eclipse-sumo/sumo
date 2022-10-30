@@ -450,8 +450,10 @@ MSMeanData::init() {
             }
         }
     }
+    int index = 0;
     for (MSEdge* edge : myEdges) {
         myMeasures.push_back(std::vector<MeanDataValues*>());
+        myEdgeIndex[edge] = index++;
         const std::vector<MSLane*>& lanes = edge->getLanes();
         if (MSGlobals::gUseMesoSim) {
             MeanDataValues* data;
@@ -738,17 +740,12 @@ MSMeanData::initWrittenAttributes(const std::string writeAttributes, const std::
 
 const std::vector<MSMeanData::MeanDataValues*>*
 MSMeanData::getEdgeValues(const MSEdge* edge) const {
-    if (!myDumpInternal && edge->isInternal()) {
+    auto it = myEdgeIndex.find(edge);
+    if (it != myEdgeIndex.end()) {
+        return &myMeasures[it->second];
+    } else {
         return nullptr;
     }
-    MSEdgeVector::const_iterator edge_it = myEdges.begin();
-    // @todo use a map to find the MeanDataValues faster
-    for (std::vector<std::vector<MeanDataValues*> >::const_iterator i = myMeasures.begin(); i != myMeasures.end(); ++i, ++edge_it) {
-        if (*edge_it == edge) {
-            return &*i;
-        }
-    }
-    return nullptr;
 }
 
 /****************************************************************************/

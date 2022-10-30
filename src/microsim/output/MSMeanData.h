@@ -489,6 +489,9 @@ private:
     /// @brief The corresponding first edges
     MSEdgeVector myEdges;
 
+    /// @brief The index in myEdges / myMeasures
+    std::map<const MSEdge*, int> myEdgeIndex;
+
     /// @brief Whether empty lanes/edges shall be written
     const bool myPrintDefaults;
 
