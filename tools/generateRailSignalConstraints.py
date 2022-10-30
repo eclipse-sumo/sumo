@@ -1442,7 +1442,7 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
                                     # no divergence found
                                     break
 
-                    for item in collectBidiConflicts(net, vehicleStopRoutes, stop, stopRoute, edgesBefore, arrivals):
+                    for item in collectBidiConflicts(options, net, vehicleStopRoutes, stop, stopRoute, edgesBefore, arrivals):
                         if item is None:
                             numIgnoredConflicts += 1
                         else:
@@ -1457,7 +1457,7 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
     return conflicts
 
 
-def collectBidiConflicts(net, vehicleStopRoutes, stop, stopRoute, edgesBefore, arrivals):
+def collectBidiConflicts(options, net, vehicleStopRoutes, stop, stopRoute, edgesBefore, arrivals):
     for (e2Start, e2end), arrivalList in arrivals.items():
         nStopArrival = getArrivalSecure(stop)
         e1Final = getBidiID(net, e2Start)
