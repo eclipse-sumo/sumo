@@ -16,3 +16,6 @@ missing_signal
 
 # store comments as params
 comment_params
+
+# 2 common bidi edges between stations
+redundant
