@@ -584,6 +584,18 @@ GUINet::getEdgeData(const MSEdge* edge, const std::string& attr) {
 }
 
 
+double
+GUINet::getMeanData(const MSLane* lane, const std::string& id, const std::string& attr) {
+    auto item = myDetectorControl->getMeanData().find(id);
+    if (item != myDetectorControl->getMeanData().end() && !item->second.empty()) {
+        SumoXMLAttr a = (SumoXMLAttr)SUMOXMLDefinitions::Attrs.get(attr);
+        return item->second.front()->getAttributeValue(lane, a, GUIVisualizationSettings::MISSING_DATA);
+    } else {
+        return GUIVisualizationSettings::MISSING_DATA;
+    }
+}
+
+
 void
 GUINet::DiscoverAttributes::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     if (element == SUMO_TAG_EDGE || element == SUMO_TAG_LANE) {
@@ -686,6 +698,29 @@ GUINet::getEdgeDataAttrs() const {
     }
     return result;
 }
+
+
+std::vector<std::string>
+GUINet::getMeanDataIDs() const {
+    std::vector<std::string> result;
+
+    for (auto item : myDetectorControl->getMeanData()) {
+        result.push_back(item.first);
+    }
+    std::sort(result.begin(), result.end());
+    return result;
+}
+
+std::vector<std::string>
+GUINet::getMeanDataAttrs(const std::string& meanDataID) const {
+    auto item = myDetectorControl->getMeanData().find(meanDataID);
+    if (item != myDetectorControl->getMeanData().end() && !item->second.empty()) {
+        return item->second.front()->getAttributeNames();
+    } else {
+        return std::vector<std::string>();
+    }
+}
+
 
 bool
 GUINet::isSelected(const MSTrafficLightLogic* tll) const {

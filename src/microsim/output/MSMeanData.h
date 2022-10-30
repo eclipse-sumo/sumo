@@ -157,6 +157,15 @@ public:
             return travelledDistance;
         }
 
+        /// @brief return attribute value
+        virtual double getAttributeValue(SumoXMLAttr a, const SUMOTime period, const double numLanes, const double speedLimit) const {
+            UNUSED_PARAMETER(a);
+            UNUSED_PARAMETER(period);
+            UNUSED_PARAMETER(numLanes);
+            UNUSED_PARAMETER(speedLimit);
+            return 0;
+        }
+
     protected:
         /// @brief The meandata parent
         const MSMeanData* const myParent;
@@ -364,6 +373,17 @@ public:
         return myAmEdgeBased;
     }
 
+    /// @brief return all attributes that are (potentially) written by this output
+    virtual std::vector<std::string> getAttributeNames() const {
+        return std::vector<std::string>();
+    }
+
+    /// @brief return attribute value for the given lane
+    virtual double getAttributeValue(const MSLane* lane, SumoXMLAttr a, double defaultValue) const {
+        UNUSED_PARAMETER(lane);
+        UNUSED_PARAMETER(a);
+        return defaultValue;
+    }
 
 protected:
     /** @brief Create an instance of MeanDataValues
@@ -437,6 +457,10 @@ protected:
     virtual bool writePrefix(OutputDevice& dev, const MeanDataValues& values,
                              const SumoXMLTag tag, const std::string id) const;
 
+
+protected:
+    const std::vector<MeanDataValues*>* getEdgeValues(const MSEdge* edge) const;
+
 protected:
     /// @brief the minimum sample seconds
     const double myMinSamples;
@@ -450,11 +474,11 @@ protected:
     /// @brief Whether empty lanes/edges shall be written
     const bool myDumpEmpty;
 
-private:
-    static long long int initWrittenAttributes(const std::string writeAttributes, const std::string& id);
-
     /// @brief Information whether the output shall be edge-based (not lane-based)
     const bool myAmEdgeBased;
+
+private:
+    static long long int initWrittenAttributes(const std::string writeAttributes, const std::string& id);
 
     /// @brief The first and the last time step to write information (-1 indicates always)
     const SUMOTime myDumpBegin, myDumpEnd;

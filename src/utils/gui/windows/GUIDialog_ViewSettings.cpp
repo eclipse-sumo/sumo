@@ -573,6 +573,8 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
             tmpSettings.laneParam = myParamKey->getText().text();
         } else if (tmpSettings.getLaneEdgeScheme().getName() == GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_NUMERICAL) {
             tmpSettings.edgeData = myParamKey->getText().text();
+        } else if (tmpSettings.getLaneEdgeScheme().getName() == GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_LIVE) {
+            tmpSettings.edgeData = myParamKey->getText().text();
         }
     } else if (sender == myVehicleParamKey) {
         if (tmpSettings.vehicleColorer.getScheme().getName() == GUIVisualizationSettings::SCHEME_NAME_PARAM_NUMERICAL) {
@@ -590,6 +592,8 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
         updatePOIParams();
     } else if (sender == myPOITextParamKey) {
         tmpSettings.poiTextParam = myPOITextParamKey->getText().text();
+    } else if (sender == myMeanDataID) {
+        tmpSettings.edgeDataID = myMeanDataID->getText().text();
     }
     tmpSettings.edgeValueHideCheck = (myLaneColorRainbowCheck->getCheck() != FALSE);
     tmpSettings.edgeValueHideThreshold = myLaneColorRainbowThreshold->getValue();
@@ -1359,6 +1363,8 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
     }
     std::string activeSchemeName = myLaneEdgeColorMode->getText().text();
     myParamKey->clearItems();
+    myMeanDataID->clearItems();
+    myMeanDataID->hide();
     if (activeSchemeName == GUIVisualizationSettings::SCHEME_NAME_EDGE_PARAM_NUMERICAL) {
         myParamKey->appendItem(mySettings->edgeParam.c_str());
         for (const std::string& attr : myParent->getEdgeLaneParamKeys(true)) {
@@ -1384,6 +1390,32 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
         }
         myParamKey->enable();
         myParamKey->setEditable(false);
+    } else if (activeSchemeName == GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_LIVE) {
+        if (mySettings->edgeDataID != "") {
+            myMeanDataID->appendItem(mySettings->edgeDataID.c_str());
+        }
+        for (const std::string& attr : myParent->getMeanDataIDs()) {
+            if (attr != mySettings->edgeDataID) {
+                myMeanDataID->appendItem(attr.c_str());
+            }
+        }
+        if (myMeanDataID->getNumItems() > 0) {
+            if (mySettings->edgeDataID == "") {
+                mySettings->edgeDataID = myMeanDataID->getItemText(0).text();
+            }
+            myMeanDataID->enable();
+            myMeanDataID->setEditable(false);
+            myMeanDataID->show();
+            myMeanDataID->setNumVisible(myMeanDataID->getNumItems());
+            myParamKey->appendItem(mySettings->edgeData.c_str());
+            for (const std::string& attr : myParent->getMeanDataAttrs(mySettings->edgeDataID)) {
+                if (attr != mySettings->edgeData) {
+                    myParamKey->appendItem(attr.c_str());
+                }
+            }
+            myParamKey->enable();
+            myParamKey->setEditable(false);
+        }
     } else {
         myParamKey->disable();
     }
@@ -1813,11 +1845,15 @@ GUIDialog_ViewSettings::buildStreetsFrame(FXTabBook* tabbook) {
     FXVerticalFrame* verticalFrame = new FXVerticalFrame(scrollWindow, GUIDesignViewSettingsVerticalFrame2);
     //  ... color settings
     FXVerticalFrame* verticalFrameColor = new FXVerticalFrame(verticalFrame, GUIDesignViewSettingsVerticalFrame6);
-    FXMatrix* matrixColor = new FXMatrix(verticalFrameColor, 4, GUIDesignViewSettingsMatrix3);
+    FXMatrix* matrixColor = new FXMatrix(verticalFrameColor, 5, GUIDesignViewSettingsMatrix3);
     new FXLabel(matrixColor, "Color", nullptr, GUIDesignViewSettingsLabel1);
     myLaneEdgeColorMode = new MFXIconComboBox(matrixColor, 30, true, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
     myLaneColorInterpolation = new FXCheckButton(matrixColor, TL("Interpolate"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
     myLaneColorSettingFrame = new FXVerticalFrame(verticalFrameColor, GUIDesignViewSettingsVerticalFrame4);
+    myMeanDataID = new FXComboBox(matrixColor, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+    myMeanDataID->disable();
+    myMeanDataID->hide();
+    myMeanDataID->setEditable(false);
     myParamKey = new FXComboBox(matrixColor, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
     myParamKey->disable();
     myParamKey->setEditable(true);

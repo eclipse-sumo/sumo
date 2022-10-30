@@ -91,6 +91,12 @@ public:
     /// @brief return list of loaded edgeData attributes
     std::vector<std::string> getEdgeDataAttrs() const;
 
+    /// @brief return list of loaded edgeData ids (being computed in the current simulation)
+    std::vector<std::string> getMeanDataIDs() const;
+
+    /// @brief return list of available attributes for the given meanData id
+    std::vector<std::string> getMeanDataAttrs(const std::string& meanDataID) const;
+
     /// @brief return list of available edge parameters
     std::vector<std::string> getEdgeLaneParamKeys(bool edgeKeys) const;
 

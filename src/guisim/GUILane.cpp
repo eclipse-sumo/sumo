@@ -1354,6 +1354,10 @@ GUILane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
             }
             return capacity;
         }
+        case 39: {
+            // by live edge data value
+            return GUINet::getGUIInstance()->getMeanData(this, s.edgeDataID, s.edgeData);
+        }
     }
     return 0;
 }

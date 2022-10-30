@@ -736,5 +736,19 @@ MSMeanData::initWrittenAttributes(const std::string writeAttributes, const std::
     return result;
 }
 
+const std::vector<MSMeanData::MeanDataValues*>*
+MSMeanData::getEdgeValues(const MSEdge* edge) const {
+    if (!myDumpInternal && edge->isInternal()) {
+        return nullptr;
+    }
+    MSEdgeVector::const_iterator edge_it = myEdges.begin();
+    // @todo use a map to find the MeanDataValues faster
+    for (std::vector<std::vector<MeanDataValues*> >::const_iterator i = myMeasures.begin(); i != myMeasures.end(); ++i, ++edge_it) {
+        if (*edge_it == edge) {
+            return &*i;
+        }
+    }
+    return nullptr;
+}
 
 /****************************************************************************/

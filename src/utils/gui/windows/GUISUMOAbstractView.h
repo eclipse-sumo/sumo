@@ -257,6 +257,17 @@ public:
         return std::vector<std::string>();
     }
 
+    /// @brief return list of loaded edgeData ids (being computed in the current simulation)
+    virtual std::vector<std::string> getMeanDataIDs() const {
+        return std::vector<std::string>();
+    }
+
+    /// @brief return list of available attributes for the given meanData id
+    virtual std::vector<std::string> getMeanDataAttrs(const std::string& meanDataID) const {
+        UNUSED_PARAMETER(meanDataID);
+        return std::vector<std::string>();
+    }
+
     /// @brief return list of loaded edgeRelation and tazRelation attributes
     virtual std::vector<std::string> getRelDataAttrs() const {
         return std::vector<std::string>();

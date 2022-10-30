@@ -279,6 +279,23 @@ GUIViewTraffic::getEdgeDataAttrs() const {
 
 
 std::vector<std::string>
+GUIViewTraffic::getMeanDataIDs() const {
+    if (GUINet::getGUIInstance() != nullptr) {
+        return GUINet::getGUIInstance()->getMeanDataIDs();
+    }
+    return std::vector<std::string>();
+}
+
+std::vector<std::string>
+GUIViewTraffic::getMeanDataAttrs(const std::string& meanDataID) const {
+    if (GUINet::getGUIInstance() != nullptr) {
+        return GUINet::getGUIInstance()->getMeanDataAttrs(meanDataID);
+    }
+    return std::vector<std::string>();
+}
+
+
+std::vector<std::string>
 GUIViewTraffic::getEdgeLaneParamKeys(bool edgeKeys) const {
     std::set<std::string> keys;
     for (const MSEdge* e : MSEdge::getAllEdges()) {

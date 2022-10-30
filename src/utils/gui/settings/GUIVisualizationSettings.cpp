@@ -214,6 +214,7 @@ const std::string GUIVisualizationSettings::SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL
 const std::string GUIVisualizationSettings::SCHEME_NAME_SELECTION("by selection");
 const std::string GUIVisualizationSettings::SCHEME_NAME_TYPE("by type");
 const std::string GUIVisualizationSettings::SCHEME_NAME_PERMISSION_CODE("by permission code");
+const std::string GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_LIVE("by live edgeData");
 
 const double GUIVisualizationSettings::MISSING_DATA(std::numeric_limits<double>::max());
 
@@ -537,6 +538,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     vehicleScaleParam("PARAM_NUMERICAL"),
     vehicleTextParam("PARAM_TEXT"),
     edgeData("speed"),
+    edgeDataID(""),
     edgeValueHideCheck(false),
     edgeValueHideThreshold(0),
     edgeValueHideCheck2(false),
@@ -868,6 +870,9 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::YELLOW, 10.);
     scheme.addColor(RGBColor::GREEN, 100.);
     scheme.addColor(RGBColor::BLUE, 1000.);
+    laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme(SCHEME_NAME_EDGEDATA_LIVE, RGBColor(204, 204, 204), "missing data", false, MISSING_DATA, COL_SCHEME_DYNAMIC);
+    scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
 
     /// add vehicle coloring schemes
@@ -1719,6 +1724,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("vehicleScaleParam", vehicleScaleParam);
     dev.writeAttr("vehicleTextParam", vehicleTextParam);
     dev.writeAttr("edgeData", edgeData);
+    dev.writeAttr("edgeDataID", edgeDataID);
     dev.writeAttr("edgeValueHideCheck", edgeValueHideCheck);
     dev.writeAttr("edgeValueHideThreshold", edgeValueHideThreshold);
     dev.writeAttr("edgeValueHideCheck2", edgeValueHideCheck2);
@@ -2044,6 +2050,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (edgeData != v2.edgeData) {
+        return false;
+    }
+    if (edgeDataID != v2.edgeDataID) {
         return false;
     }
     if (edgeValueHideCheck != v2.edgeValueHideCheck) {

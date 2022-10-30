@@ -126,6 +126,9 @@ public:
                    const double numLanes, const double speedLimit, const double defaultTravelTime,
                    const int numVehicles = -1) const;
 
+        /// @brief return attribute value
+        double getAttributeValue(SumoXMLAttr a, const SUMOTime period, const double numLanes, const double speedLimit) const;
+
     protected:
         /** @brief Internal notification about the vehicle moves
          *  @see MSMoveReminder::notifyMoveInternal
@@ -230,6 +233,12 @@ public:
 
     /// @brief Destructor
     virtual ~MSMeanData_Net();
+
+    /// @brief return all attributes that are (potentially) written by this output
+    std::vector<std::string> getAttributeNames() const;
+
+    /// @brief return attribute value for the given lane
+    double getAttributeValue(const MSLane* lane, SumoXMLAttr a, double defaultValue) const;
 
 protected:
     /** @brief Create an instance of MeanDataValues

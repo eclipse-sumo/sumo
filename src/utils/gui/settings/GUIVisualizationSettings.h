@@ -747,6 +747,8 @@ public:
 
     /// @brief key for coloring by edgeData
     std::string edgeData;
+    /// @brief id for coloring by live edgeData
+    std::string edgeDataID;
 
     /// @brief threshold below which edge data value should not be rendered
     bool edgeValueHideCheck;
@@ -1008,6 +1010,7 @@ public:
     static const std::string SCHEME_NAME_SELECTION;
     static const std::string SCHEME_NAME_TYPE;
     static const std::string SCHEME_NAME_PERMISSION_CODE;
+    static const std::string SCHEME_NAME_EDGEDATA_LIVE;
 
     static const double MISSING_DATA;
 
