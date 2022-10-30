@@ -34,7 +34,7 @@ else:
 
 import sumolib  # noqa
 from sumolib.miscutils import parseTime  # noqa
-from routeSampler import getIntervals, parseTurnCounts, parseEdgeCounts, parseDataIntervals  # noqa
+from routeSampler import getIntervals, parseCounts  # noqa
 
 
 def get_options(args=None):
@@ -140,22 +140,12 @@ def main(options):
 
 def checkInterval(options, begin, end, intervalPrefix, mismatchf):
     routes = Routes()
-    # store which routes are passing each counting location (using route index)
-    countData = (parseDataIntervals(parseTurnCounts, options.turnFiles, begin, end, routes, options.turnAttr,
-                                    options=options)
-                 + parseDataIntervals(parseTurnCounts, options.turnFiles, begin, end,
-                                    routes, options.turnRatioAttr, options=options, isRatio=True)
-                 + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, begin, end, routes,
-                                      options.edgeDataAttr, options=options)
-                 + parseDataIntervals(parseTurnCounts, options.odFiles, begin, end, routes, options.turnAttr,
-                                      options=options, isOrigin=True, isDest=True)
-                 + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, begin, end, routes,
-                                      options.departAttr, options=options, isOrigin=True)
-                 + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, begin, end, routes,
-                                      options.arrivalAttr, options=options, isDest=True)
-                 )
+    countData = parseCounts(options, routes, begin, end)
 
+    edgeCount = sumolib.miscutils.Statistics("route edge count", histogram=True)
+    detectorCount = sumolib.miscutils.Statistics("route detector count", histogram=True)
     usedRoutes = []
+
     for routeFile in options.routeFiles:
         for vehicle in sumolib.xml.parse(routeFile, "vehicle"):
             if options.type and vehicle.type != options.type:
@@ -172,16 +162,18 @@ def checkInterval(options, begin, end, intervalPrefix, mismatchf):
             else:
                 exitTimes = [depart] * len(edges)
 
+            numPassedDets = 0
             for cd in countData:
                 i = cd.routePasses(edges)
                 if i is not None:
+                    numPassedDets += 1
                     et = exitTimes[i]
                     if et < begin or et >= end:
                         continue
                     cd.use()
             usedRoutes.append(edges)
-
-    totalMismatch = sum([cd.count for cd in countData])
+            edgeCount.add(len(edges), vehicle.id)
+            detectorCount.add(numPassedDets, vehicle.id)
 
     underflow = sumolib.miscutils.Statistics("underflow locations")
     overflow = sumolib.miscutils.Statistics("overflow locations")
@@ -219,11 +211,6 @@ def checkInterval(options, begin, end, intervalPrefix, mismatchf):
         options.gehOk, gehOK))
 
     if options.verboseHistogram:
-        edgeCount = sumolib.miscutils.Statistics("route edge count", histogram=True)
-        detectorCount = sumolib.miscutils.Statistics("route detector count", histogram=True)
-        for i, r in enumerate(usedRoutes):
-            edgeCount.add(len(routes.unique[r]), i)
-            detectorCount.add(len(routeUsage[r]), i)
         print("result %s" % edgeCount)
         print("result %s" % detectorCount)
         print(gehStats)
