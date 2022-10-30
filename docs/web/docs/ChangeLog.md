@@ -71,8 +71,7 @@ title: ChangeLog
   - Fixed bug that prevented bidi-edges from being defined. Issue #11397
   - Fixed bugs related to object locking (via the lock menu). Issue #10863
   - Additional object chooser no longer lists POIs and polygons. Issue #11580
-  - Fixed invalid context menu after clicking on overlapped lanes. Issue #11577
-  - Context menus on ambiguously overlapping objects now gives a choice of object. Holding ALT always gives all choices. Issue #10916
+  - Fixed invalid context menu after clicking on overlapped lanes. Issue #11577  
   - Junctions covered by a walkingarea can now be moved. Issue #11622
   - In tls mode, icons are now drawn on top of walkingarea shapes. Issue #11302
   - Setting a numerical value for departPosLat is now working. Issue #11694
@@ -112,7 +111,7 @@ title: ChangeLog
   - Lane types are now preserved after `<split>`s. Issue #11592
   - Tram edge merging now preserves origId. Issue #11582
   - Fixed bug where tram stop was assigned to street instead of rail. Issue #11645
-  - Fixed invalid bidi edges with ptline-output. Issue #11497
+  - Fixed invalid bidi edges with **--ptline-output**. Issue #11497
   - Invalid state string length now always triggers a warning. Issue #11637
   - Activating option **--ptline-output** no longer modifies the network. Issue #10732
   - Fixed bug that caused inconsistent opposite-edge declarations to be written. Issue #11731
@@ -139,14 +138,14 @@ title: ChangeLog
 
 - TraCI
   - Function vehicle.highlight is now tracking the vehicle again. Issue #11352 (regression in 1.13.0)
-  - Simpla: fixed rash due to unclear speed factor semantics. Issue #11223
+  - Simpla: fixed crash due to unclear speed factor semantics. Issue #11223
   - Simpla: fixed invalid behavior when subsequent edges vary in lane number. Issue #11276
   - Simpla: fixed input error handling. Issue #11789
   - traceFile no longer contains redundant calls to helper method `person.removeStages`. Issue #11418
-  - Libsumo can now be compiled with having fox-toolkit installed. Issue #11115
-  - Context subscription filters for vTypes and vClasses are now compatible with all other filters. Issue #11540
-  - Function `simulation.getDistance2D(..., isGeo=True)` now works. Issue #11610
+  - Libsumo can now be compiled without having fox-toolkit installed. Issue #11115
   - Libsumo simulation outputs now include version information. Issue #11808
+  - Context subscription filters for vTypes and vClasses are now compatible with all other filters. Issue #11540
+  - Function `simulation.getDistance2D(..., isGeo=True)` now works. Issue #11610  
   - Fixed error after Canceling stop via TraCI and then calling moveToXY. Issue #11870
   - Stops may now be defined at position=0. Issue #11891
   - Fixed bug where CACC model had invalid speed while activating [ToC](ToC_Device.md). Issue #6192
@@ -162,21 +161,20 @@ title: ChangeLog
   - generateRailSignalConstraints.py: Fixed missing inactive insertion constraints when **--write-inactive** is set. Issue #11375
   - generateRailSignalConstraints.py: Added missing constraints from bidirectional stop usage. Issue #11371
   - generateRailSignalConstraints.py: now detecting swapped ended times. Issue #11687, #11741   
-  - Fixed use of `gapPenalty` parameter in function `sumolib.route.mapTrace`. Issue #11292
-  - plotXMLAttributes.py: Now support plotting by rank (by specifying attribute `@RANK`). Issue #11605
+  - Fixed use of `gapPenalty` parameter in function `sumolib.route.mapTrace`. Issue #11292  
   - osmWebWizard.py Now aborts early if the OSM download fails and no longer leaves empty directories behind. Issue #11722
   - osmWebWizard.py Now gives better feedback on certificate errors. Issue #10804
   - turnfile2EdgeRelations.py: Fixed invalid end element, preserving comments. Issue #11748
   - gtfs2pt.py: Now handling empty timetable. Issue #11763
   - gtfs2pt.py: Fixed invalid route references in output. Issue #11797
-  - routeSampler.py: Fixed error when using --min-count. Issue #11915
+  - routeSampler.py: Fixed error when using **--min-count**. Issue #11915
 
 ### Enhancements
 
 - Simulation
   - Added option **--tls.actuated.detector-length** to set the default length of actuation detectors. Issue #11335
   - Verbose output and **--statistic-output** now always include the count of vehicles for the trip statistics. Issue #11366
-  - carFollowModel *ACC* can now be configured with vType attribute 'collisionAvoidanceOverride' (previously hard-coded to *2*). Issue #11383
+  - carFollowModels *ACC* and *CACC* can now be configured with vType attribute 'collisionAvoidanceOverride' (previously hard-coded to *2*). Issue #11383
   - Tripinfo-output for persons now includes the individual speedFactor (in personInfo). Issue #11450
   - The new vType attribute [`desiredMaxSpeed`](Simulation/VehicleSpeed.md#desiredmaxspeed) can be used to configure speed distributions for vehicles that are not constrained by the road speed limit (i.e. bicycles). Issue #11102
   - Bicycles speeds now follow a speed distribution by default (centered on 20km/h, configurable with `desiredMaxSpeed`). Issue #11102
@@ -194,11 +192,12 @@ title: ChangeLog
   - Rail signal constraints now support loading generic parameters. Issue #11880
 
 - netedit
+  - Context menus on ambiguously overlapping objects now gives a choice of object. Holding ALT always gives all choices. Issue #10916
   - Saved detector names use descriptive tags instead of the 'E1,E2, ...' tags. Issue #11028
   - Hovering over an attribute now displays it's full value in a tooltip if field is too narrow. Issue #11194
   - Added button to inspect vTypes/vTypeDistributions during vehicle inspection. Issue #10041
   - Added edge color legend in vehicle mode. Issue #10866
-  - Now using distinct default id-prefix for `flow`, `personFlow` and `containerFlow. Issue #11077
+  - Now using distinct default id-prefix for `flow`, `personFlow` and `containerFlow`. Issue #11077
   - Adding network-recomputation status in the lower right corner. Issue #4725
   - Adding a reverse edge now supports adding an edge with the same or with shifted geometry for all spreadType values. Issue #11046
   - Add shortcut to open current location in Google Maps and OSM map to context menu. Issue #10506
@@ -217,7 +216,7 @@ title: ChangeLog
   - Using distinct walkingArea color to distinguish them from other objects. Issue #11724
   - Every vClass has it's own icon now. Issue #9872, #11801
   - Kilometrage at cursor position is now shown in the edge context menu. Issue #11815
-  - Add (optional) tooltips in attribute labels. Issue #11490
+  - Added (optional) tooltips in attribute labels. Issue #11490
   - Hierarchical selection can now select connections and crossings as children. Issue #11863
   - In data mode, the visualized attribute now remains active when changing between intervals. Issue #11881
   - Traffic light mode:
@@ -226,11 +225,11 @@ title: ChangeLog
     - phase table now shows index of each phase. Issue #11343
     - phase table has additional options when inserting a phase (i.e. *duplicate*, *all green*). Issue #10672, #3419  
     - traffic lights can be renamed. Issue #11386
-    - the list of programs by is sorted by ID. Issue #11358
+    - the list of programs is sorted by programID. Issue #11358
     - phase table shows cumulative time when hovering over the duration column. Issue #7962
     - tlType can now be changed directly. Issue #10757
     - Detectors for actuated traffic lights can now be customized visually. Issue #9598
-    - Add new mode for visually creating and changing joined traffic lights. Issue #11367
+    - Add buttons for visually creating and changing joined traffic lights. Issue #11367
 
 - sumo-gui
   - 3D view now permits clicking on more objects (lanes, junctions, traffic lights). Issue #10882
@@ -256,7 +255,7 @@ title: ChangeLog
   - OSM import now support more symbolic speed restrictions. Issue #11682, #11683
   - OSM import now sets the fringe type of nodes for dead-ends. Issue #6623
   - Option **--fringe.guess** now detects more outer fringe nodes. Issue #11754
-  - Node clusters and joint traffic lights get now similar ids of the form "cluster_id0_id1" or "joinedS_...", "joinedG_...". Issue #3871
+  - Node clusters and joint traffic lights now get similar ids of the form "cluster_id0_id1" or "joinedS_...", "joinedG_...". Issue #3871
   - Joined ids are abbreviated with the scheme `"cluster_id0_id1_id2_id3_#5more"` if too many junctions / traffic lights are participating, see also **-max-join-ids**. Issue #10795
   - OSM: monorail import is now supported. Issue #11799
   - OSM: cable car (aerialway) import is now supported. Issue #11798
@@ -269,7 +268,7 @@ title: ChangeLog
   - Edges are now checked for their permissions before being used for passenger cars origin / destination. Issue #11445
 
 - polyconvert
-  - Warning messages are now aggregated by default warning. Issue #11585
+  - Warning messages are now aggregated by default. Issue #11585
 
 - TraCI
   - Simpla: Added additional platooning criteria via new attributes 'edgeLookAhead', 'distLookAhead' and 'lcMinDist'. Issue #9252, #11236 (Thanks to Jörg Schweizer)
@@ -289,21 +288,22 @@ title: ChangeLog
   - generateRailSignalConstraints.py: added constraints for vehicles inserted at the same stop. Issue #11378
   - generateRailSignalConstraints.py: added option **--params** to make all comment information accessible as generic parameters (i.e. and see them in the gui). Issue #11880
   - drtonline.py: now supports option **--tracefile** to allow for quick replication of a simulation. Issue #11414
-  - Added new tool [drtOrtools.py](Tools/Drt.md#drtortoolspy) to solve DRT problems with the [ortools package](https://developers.google.com/optimization). Issue #11413
-  - randomTrips.py: New option **--min-dist-fringe** which allows short fringe-to-fringe trips if trip generation with **--min-dist** fails repeatedly. Issue #10592
+  - Added new tool [drtOrtools.py](Tools/Drt.md#drtortoolspy) to solve DRT problems with the [ortools package](https://developers.google.com/optimization). Issue #11413  
   - osmWebWizard.py: Now prevents turn-arounds at the start and end of routes to improve traffic flow. Issue #10167
   - osmWebWizard.py: Now reliably generates trips in small networks. Issue #11563
   - osmWebWizard.py: Now aborts scenario building if when trying and failing to retrieve satellite data. Issue #11423
   - attributeStats.py: Now includes `stdDev` in outputs. Issue #10869
   - tls_csvSignalGroups.py: Can now extract csv descriptions from a .net.xml file. Issue #10756
   - changeAttribute.py Now handles missing attributes when removing attribute. Issue #11888
+  - randomTrips.py: New option **--min-dist-fringe** which allows short fringe-to-fringe trips if trip generation with **--min-dist** fails repeatedly. Issue #10592
   - randomTrips.py: Option **--fringe-factor** now supports value `max` to force all departures and arrivals onto the fringe. Issue #11894
+  - plotXMLAttributes.py: Now support plotting by rank (by specifying attribute `@RANK`). Issue #11605
   
 ### Miscellaneous
 
 - Translation efforts for the grahpical applications and command line messages have begun and contributions are welcome at [Weblate](https://hosted.weblate.org/projects/eclipse-sumo/#languages). Issue #11237
 - Added xsd-schema for battery-export. Issue #11173
-- [ACC model description](Car-Following-Models/ACC.md) now has additional information in platoon stability. Issue #11382
+- [ACC model description](Car-Following-Models/ACC.md) now has additional information on platoon stability. Issue #11382
 - Github source download now includes all tests. Issue #11403
 - All applications now support [appending list-type options](Basics/Using_the_Command_Line_Applications.md#options) in a configuration file with extra items via the command line. Issue #405
 - osmWebWizard.py now stores network files as `.net.xml.gz` to conserve space. Issue #7713
@@ -311,7 +311,7 @@ title: ChangeLog
 - Added more entries to help menus of sumo-gui and netedit. Issue #11604
 - The new default **--xml-validation** mode is *local* which only reads the local schema file but does not do network access to prevent XXE attacks. Issue #11054
 - Cadyts-files can be downloaded again. Issue #11014
-- Fixed the default state of some netedit toggle buttons (but kept their default semantics. Issue #10066
+- Fixed the default state of some netedit toggle buttons (but kept their default semantics). Issue #10066
 
 ## Version 1.14.1 (19.07.2022)
 
