@@ -1013,6 +1013,7 @@ public:
     static const std::string SCHEME_NAME_EDGEDATA_LIVE;
 
     static const double MISSING_DATA;
+    static RGBColor COL_MISSING_DATA;
 
     /// @brief color settings
     GUIVisualizationColorSettings colorSettings;

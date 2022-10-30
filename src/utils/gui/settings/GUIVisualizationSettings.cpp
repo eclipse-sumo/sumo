@@ -217,6 +217,7 @@ const std::string GUIVisualizationSettings::SCHEME_NAME_PERMISSION_CODE("by perm
 const std::string GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_LIVE("by live edgeData");
 
 const double GUIVisualizationSettings::MISSING_DATA(std::numeric_limits<double>::max());
+RGBColor GUIVisualizationSettings::COL_MISSING_DATA(225, 225, 225);
 
 // color constants for scheme background
 #define COL_SCHEME_EMISSION RGBColor(255,255,210)
@@ -844,7 +845,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme = GUIColorScheme(SCHEME_NAME_LANE_PARAM_NUMERICAL, RGBColor(204, 204, 204));
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(SCHEME_NAME_EDGEDATA_NUMERICAL, RGBColor(204, 204, 204), "missing data", false, MISSING_DATA);
+    scheme = GUIColorScheme(SCHEME_NAME_EDGEDATA_NUMERICAL, COL_MISSING_DATA, "missing data", false, MISSING_DATA);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme("by distance (kilometrage)", RGBColor(204, 204, 204));
@@ -871,7 +872,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::GREEN, 100.);
     scheme.addColor(RGBColor::BLUE, 1000.);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(SCHEME_NAME_EDGEDATA_LIVE, RGBColor(204, 204, 204), "missing data", false, MISSING_DATA, COL_SCHEME_DYNAMIC);
+    scheme = GUIColorScheme(SCHEME_NAME_EDGEDATA_LIVE, COL_MISSING_DATA, "missing data", false, MISSING_DATA, COL_SCHEME_DYNAMIC);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
 
@@ -1342,7 +1343,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme = GUIColorScheme(SCHEME_NAME_EDGE_PARAM_NUMERICAL, RGBColor(204, 204, 204));
     scheme.setAllowsNegativeValues(true);
     edgeColorer.addScheme(scheme);
-    scheme = GUIColorScheme(SCHEME_NAME_EDGEDATA_NUMERICAL, RGBColor(204, 204, 204), "missing data", false, MISSING_DATA);
+    scheme = GUIColorScheme(SCHEME_NAME_EDGEDATA_NUMERICAL, COL_MISSING_DATA, "missing data", false, MISSING_DATA);
     scheme.setAllowsNegativeValues(true);
     edgeColorer.addScheme(scheme);
 
@@ -1570,7 +1571,7 @@ GUIVisualizationSettings::initNeteditDefaults() {
     scheme.addColor(RGBColor::RED, 1.);
     scheme.setAllowsNegativeValues(false);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme(SCHEME_NAME_EDGEDATA_NUMERICAL, RGBColor(204, 204, 204), "missing data", false, MISSING_DATA);
+    scheme = GUIColorScheme(SCHEME_NAME_EDGEDATA_NUMERICAL, COL_MISSING_DATA, "missing data", false, MISSING_DATA);
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
 
@@ -1636,7 +1637,7 @@ GUIVisualizationSettings::initNeteditDefaults() {
     dataColorer.addScheme(scheme);
     dataColorer.addScheme(GUIColorScheme("by origin taz", RGBColor::ORANGE, "", true));
     dataColorer.addScheme(GUIColorScheme("by destination taz", RGBColor::ORANGE, "", true));
-    scheme = GUIColorScheme(SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL, RGBColor(204, 204, 204), "missing data", false, MISSING_DATA);
+    scheme = GUIColorScheme(SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL, COL_MISSING_DATA, "missing data", false, MISSING_DATA);
     scheme.setAllowsNegativeValues(true);
     dataColorer.addScheme(scheme);
 

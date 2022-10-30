@@ -685,6 +685,7 @@ GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme&
     double minValue = std::numeric_limits<double>::infinity();
     double maxValue = -std::numeric_limits<double>::infinity();
     // retrieve range
+    bool hasMissingData = false;
     if (objectType == GLO_LANE) {
         // XXX (see #3409) multi-colors are not currently handled. this is a quick hack
         if (active == 9) {
@@ -695,6 +696,7 @@ GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme&
         for (const auto& lane : myNet->getAttributeCarriers()->getLanes()) {
             const double val = lane->getColorValue(s, active);
             if (val == s.MISSING_DATA) {
+                hasMissingData = true;
                 continue;
             }
             minValue = MIN2(minValue, val);
@@ -762,6 +764,9 @@ GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme&
         scheme.addColor(RGBColor::CYAN, (minValue + range * 4 / 6.0));
         scheme.addColor(RGBColor::BLUE, (minValue + range * 5 / 6.0));
         scheme.addColor(RGBColor::MAGENTA, (maxValue));
+        if (hasMissingData) {
+            scheme.addColor(s.COL_MISSING_DATA, s.MISSING_DATA);
+        }
     }
 }
 

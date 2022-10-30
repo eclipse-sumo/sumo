@@ -178,6 +178,7 @@ GUIViewTraffic::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorSch
     double minValue = std::numeric_limits<double>::infinity();
     double maxValue = -std::numeric_limits<double>::infinity();
     // retrieve range
+    bool hasMissingData = false;
     if (objectType == GLO_LANE) {
         // XXX (see #3409) multi-colors are not currently handled. this is a quick hack
         if (active == 22) {
@@ -190,6 +191,7 @@ GUIViewTraffic::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorSch
             if (MSGlobals::gUseMesoSim) {
                 const double val = static_cast<GUIEdge*>(*it)->getColorValue(s, active);
                 if (val == s.MISSING_DATA) {
+                    hasMissingData = true;
                     continue;
                 }
                 minValue = MIN2(minValue, val);
@@ -199,6 +201,7 @@ GUIViewTraffic::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorSch
                 for (std::vector<MSLane*>::const_iterator it_l = lanes.begin(); it_l != lanes.end(); it_l++) {
                     const double val = static_cast<GUILane*>(*it_l)->getColorValue(s, active);
                     if (val == s.MISSING_DATA) {
+                        hasMissingData = true;
                         continue;
                     }
                     minValue = MIN2(minValue, val);
@@ -265,6 +268,9 @@ GUIViewTraffic::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorSch
         scheme.addColor(RGBColor::CYAN, (minValue + range * 4 / 6.0));
         scheme.addColor(RGBColor::BLUE, (minValue + range * 5 / 6.0));
         scheme.addColor(RGBColor::MAGENTA, (maxValue));
+        if (hasMissingData) {
+            scheme.addColor(s.COL_MISSING_DATA, s.MISSING_DATA);
+        }
     }
 }
 
