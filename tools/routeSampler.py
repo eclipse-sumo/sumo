@@ -822,12 +822,12 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                 break
 
             if ratioIndices and intervalCount is None:
-                realCounts = [cdi for cdi in openCounts if not cdi in ratioIndices]
+                realCounts = [cdi for cdi in openCounts if cdi not in ratioIndices]
                 if not realCounts:
-                   print("Stopped sampling routes because only ratios are still open."
-                       + " Set option --total-count to sample ratios without local counts",
-                       file=sys.stderr)
-                   break
+                    print("Stopped sampling routes because only ratios are still open."
+                          + " Set option --total-count to sample ratios without local counts",
+                          file=sys.stderr)
+                    break
 
             if options.weighted:
                 routeIndex = _sample_skewed(openRoutes, rng, routes.probabilities)
@@ -874,7 +874,8 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                 assert(len(routeUsage[routeIndex]) == 0)
                 numSampled += 1
         else:
-          print("Cannot fulfill total interval count of %s due to lack of unrestricted routes" % intervalCount, file=sys.stderr)
+            print("Cannot fulfill total interval count of %s due to lack of unrestricted routes" % intervalCount,
+                  file=sys.stderr)
 
     # avoid bias from sampling order / optimization
     rng.shuffle(usedRoutes)

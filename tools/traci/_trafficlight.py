@@ -113,10 +113,12 @@ class Constraint:
     def getParameter(self, key, default=None):
         return self.param.get(key, default)
 
-
     def __repr__(self):
-        param = " param=%s" % '|'.join(["%s=%s" % (k, self.param[k]) for k in sorted(self.param.keys())]) if self.param else ""
-        return ("Constraint(signalId=%s tripId=%s, foeId=%s, foeSignal=%s, limit=%s, type=%s, mustWait=%s, active=%s%s)" %
+        param = ""
+        if self.param:
+            kvs = ["%s=%s" % (k, self.param[k]) for k in sorted(self.param.keys())]
+            param = " param=%s" % '|'.join(kvs)
+        return ("Constraint(signalId=%s tripId=%s, foeId=%s, foeSignal=%s, limit=%s, type=%s, mustWait=%s, active=%s%s)" %  # noqa
                 (self.signalId, self.tripId, self.foeId, self.foeSignal,
                  self.limit, self.type, self.mustWait, self.active, param))
 

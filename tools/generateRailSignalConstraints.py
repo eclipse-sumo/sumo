@@ -1506,7 +1506,8 @@ def collectBidiConflicts(options, net, vehicleStopRoutes, stop, stopRoute, edges
                 if pSignal == nSignal:
                     error = ("Ignoring bidi conflict for %s and %s between stops '%s' and '%s'" +
                              " because the found rail signals are the same ('%s')")
-                    print(error % (stop.prevTripId, pStop.prevTripId, stop.busStop, pStop.busStop, pSignal), file=sys.stderr)
+                    print(error % (stop.prevTripId, pStop.prevTripId, stop.busStop, pStop.busStop, pSignal),
+                          file=sys.stderr)
                     yield None
                     continue
 
@@ -1523,13 +1524,13 @@ def collectBidiConflicts(options, net, vehicleStopRoutes, stop, stopRoute, edges
                     conflictArrival = pArrival
 
                 conflict = Conflict(stop.prevTripId, pSignal, pStop.prevTripId, limit,
-                                # attributes for adding comments
-                                stop.prevLine, pStop.prevLine,
-                                stop.vehID, pStop.vehID,
-                                times, None,
-                                stop.busStop,
-                                info, active,
-                                busStop2=pStop.busStop)
+                                    # attributes for adding comments
+                                    stop.prevLine, pStop.prevLine,
+                                    stop.vehID, pStop.vehID,
+                                    times, None,
+                                    stop.busStop,
+                                    info, active,
+                                    busStop2=pStop.busStop)
                 yield nSignal, conflict
 
 

@@ -351,7 +351,7 @@ class TlLogic(sumolib.net.TLSProgram):
                 outGoingConns = conn.getFrom().getOutgoing()[conn.getTo()]
                 # note lane IDs if there are links with same start and end edge not controlled this signal group
                 # edge IDs otherwise
-                if len(set([outConn.getTLLinkIndex() for outConn in outGoingConns])) > 1:      
+                if len(set([outConn.getTLLinkIndex() for outConn in outGoingConns])) > 1:
                     inOutRelations.append((conn.getFromLane().getID(), conn.getToLane().getID()))
                 else:
                     inOutRelations.append((conn.getFrom().getID(), conn.getTo().getID()))
