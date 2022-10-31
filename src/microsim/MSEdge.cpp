@@ -92,6 +92,8 @@ MSEdge::MSEdge(const std::string& id, int numericalID,
 
 MSEdge::~MSEdge() {
     delete myLaneChanger;
+    delete myReversedRoutingEdge;
+    delete myRailwayRoutingEdge;
 }
 
 

@@ -58,6 +58,11 @@ public:
         myViaSuccessors.push_back(std::make_pair(turnEnd->getRailwayRoutingEdge(), nullptr));
     }
 
+    /// @brief Destructor.
+    virtual ~RailEdge() {
+        delete myTurnaround;
+    }
+
     void update(double maxTrainLength, const std::vector<const E*>& replacementEdges) {
         if (maxTrainLength > myMaxLength) {
             myMaxLength = maxTrainLength;
