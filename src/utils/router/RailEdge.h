@@ -90,7 +90,7 @@ public:
                 continue;
             }
             const E* bidi = prev->getBidiEdge();
-            if (backward->isConnectedTo(*bidi, SVC_IGNORING)) {
+            if (bidi != nullptr && backward->isConnectedTo(*bidi, SVC_IGNORING)) {
                 _RailEdge* prevRailEdge = prev->getRailwayRoutingEdge();
                 if (prevRailEdge->myTurnaround == nullptr) {
                     prevRailEdge->myTurnaround = new _RailEdge(prev, bidi, numericalID++);
