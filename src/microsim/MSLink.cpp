@@ -531,15 +531,17 @@ MSLink::getApproaching(const SUMOVehicle* veh) const {
     }
 }
 
+
 void
 MSLink::clearState() {
     myApproachingVehicles.clear();
 }
 
+
 SUMOTime
 MSLink::getLeaveTime(const SUMOTime arrivalTime, const double arrivalSpeed,
                      const double leaveSpeed, const double vehicleLength) const {
-    return arrivalTime + TIME2STEPS((getLength() + vehicleLength) / MAX2(0.5 * (arrivalSpeed + leaveSpeed), NUMERICAL_EPS));
+    return arrivalTime == SUMOTime_MAX ? SUMOTime_MAX : arrivalTime + TIME2STEPS((getLength() + vehicleLength) / MAX2(0.5 * (arrivalSpeed + leaveSpeed), NUMERICAL_EPS));
 }
 
 
