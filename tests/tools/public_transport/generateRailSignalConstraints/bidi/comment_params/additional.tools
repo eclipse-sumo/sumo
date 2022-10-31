@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-31 12:33:06.716999 by generateRailSignalConstraints.py v1_14_1+2106-1b82ec0becc
+<!-- generated on 2022-10-31 16:04:16.133330 by generateRailSignalConstraints.py v1_14_1+2119-e2c09648265
 <configuration>
     <additional-file value="input_additional.add.xml"/>
     <bidi-conflicts value="True"/>
@@ -17,8 +17,8 @@
         <bidiPredecessor tripId="t0" tl="J1" foes="t1">
             <param key="busStop" value="f"/>
             <param key="busStop2" value="-a2"/>
-            <param key="prioStop" value="a"/>
-            <param key="prioStop2" value="-f2"/>
+            <param key="priorStop" value="a"/>
+            <param key="priorStop2" value="-f2"/>
             <param key="arrival" value="00:02:05"/>
             <param key="foeArrival" value="00:01:24"/>
             <param key="stopArrival" value="00:02:20"/>
