@@ -1461,9 +1461,10 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
 def collectBidiConflicts(options, net, vehicleStopRoutes, stop, stopRoute, edgesBefore, arrivals):
     for (e2Start, e2end), arrivalList in arrivals.items():
         nStopArrival = getArrivalSecure(stop)
-        e1Final = getBidiID(net, e2Start)
+        e1End = getBidiID(net, e2Start)
+        e1Start = getBidiID(net, e2end)
         # time of reaching the end of the conflict section
-        nArrival = nStopArrival - getTravelTimeToStop(net, e1Final, edgesBefore, stop, True)
+        nArrival = nStopArrival - getTravelTimeToStop(net, e1End, edgesBefore, stop, True)
         # we want to find the latest arrival that comes before nArrival (and optionally earlier ones)
         arrivalList.sort(reverse=True, key=itemgetter(0))
         # print("found oppositeArrivals", [a[0] for a in arrivals])
@@ -1486,7 +1487,7 @@ def collectBidiConflicts(options, net, vehicleStopRoutes, stop, stopRoute, edges
 
             stopRoute2 = vehicleStopRoutes[pStop.vehID]
             # signal before vehID enters the conflict section
-            nSignal = findSignal(net, getEdges(stopRoute, sIb, e1Final, False, noIndex=True), True)
+            nSignal = findSignal(net, getEdges(stopRoute, sIb, e1Start, False, noIndex=True), True)
             # signal before vehID2 enters the conflict section (in the opposite direction)
             pSignal = findSignal(net, getEdges(stopRoute2, sI2, e2Start, False, noIndex=True), True)
 
@@ -1497,7 +1498,7 @@ def collectBidiConflicts(options, net, vehicleStopRoutes, stop, stopRoute, edges
 
                     if nSignal is None:
                         print(error % (stop.prevTripId, pStop.prevTripId, stop.busStop, pStop.busStop,
-                                       stop.prevTripId, e1Final), file=sys.stderr)
+                                       stop.prevTripId, e1Start), file=sys.stderr)
                     elif pSignal is None:
                         print(error % (stop.prevTripId, pStop.prevTripId, stop.busStop, pStop.busStop,
                                        pStop.prevTripId, e2Start), file=sys.stderr)
@@ -1568,6 +1569,7 @@ def getEdges(stopRoute, index, startEdge, forward, noIndex=False):
 
 def findDivergence(net, arrivals, backwardGen, forwardGen, stopRoute2, sI2, e2Start, ignoreConflict, visited=None):
     e1prev = None
+    e2prev = None
     for (e1, sIb), (e2, sI2b) in zip(backwardGen, forwardGen):
         if visited is not None:
             visited.append(e2)
@@ -1579,9 +1581,11 @@ def findDivergence(net, arrivals, backwardGen, forwardGen, stopRoute2, sI2, e2St
             edgesBefore, stop2b = stopRoute2[sI2b]
             arrival = getArrivalSecure(stop2b)
             arrivalConflictEnd = arrival - getTravelTimeToStop(net, e2, edgesBefore, stop2b, False)
-            arrivals[(e2Start, e2)].append((arrivalConflictEnd, stop2b, sIb, sI2))
+            # both e2Start and e2Prev are part of the bidi section (e2 is already diverged)
+            arrivals[(e2Start, e2prev)].append((arrivalConflictEnd, stop2b, sIb, sI2))
             return sI2
         e1prev = e1
+        e2prev = e2
     return None
 
 
