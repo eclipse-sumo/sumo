@@ -150,6 +150,7 @@ MSBaseVehicle::~MSBaseVehicle() {
         delete dev;
     }
     delete myParameter;
+    delete myEnergyParams;
     delete myParkingMemory;
 }
 
