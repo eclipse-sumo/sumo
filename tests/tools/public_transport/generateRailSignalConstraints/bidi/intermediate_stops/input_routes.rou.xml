@@ -31,7 +31,7 @@
         <stop busStop="f" arrival="140.00" duration="20.00" until="160.00"/>
     </vehicle>
     <vehicle id="t1" type="train" depart="20.00" departSpeed="max">
-        <route edges="-f2 -e2 -d -c -c.150 -b2 -a2"/>
+        <route edges="-f2 -e2 -d -c.150 -c -b2 -a2"/>
         <stop busStop="-f2" arrival="30.00" duration="20.00" until="50.00"/>
         <stop busStop="-c"  arrival="50.00" duration="20.00" until="70.00"/>
         <stop busStop="-a2" arrival="100.00" duration="20.00" until="120.00"/>
