@@ -1442,7 +1442,8 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
                                     # no divergence found
                                     break
 
-                    for item in collectBidiConflicts(options, net, vehicleStopRoutes, stop, stopRoute, edgesBefore, arrivals):
+                    for item in collectBidiConflicts(options, net, vehicleStopRoutes, stop,
+                                                     stopRoute, edgesBefore, arrivals):
                         if item is None:
                             numIgnoredConflicts += 1
                         else:
@@ -1523,6 +1524,14 @@ def collectBidiConflicts(options, net, vehicleStopRoutes, stop, stopRoute, edges
                 if conflictArrival is None:
                     conflictArrival = pArrival
 
+                # bidi conflicts can profit from additional comments/params
+                busStop2 = [("busStop2", pStop.busStop)]
+                # record stops preceeding the conflict section for ego and foe vehicle
+                if sIb > 0:
+                    busStop2.append(("prioStop", stopRoute[sIb - 1][1].busStop))
+                if sI2 > 0:
+                    busStop2.append(("prioStop2", stopRoute2[sI2 - 1][1].busStop))
+
                 conflict = Conflict(stop.prevTripId, pSignal, pStop.prevTripId, limit,
                                     # attributes for adding comments
                                     stop.prevLine, pStop.prevLine,
@@ -1530,7 +1539,7 @@ def collectBidiConflicts(options, net, vehicleStopRoutes, stop, stopRoute, edges
                                     times, None,
                                     stop.busStop,
                                     info, active,
-                                    busStop2=pStop.busStop)
+                                    busStop2=busStop2)
                 yield nSignal, conflict
 
 
@@ -1604,8 +1613,13 @@ def writeConstraint(options, outf, tag, c):
         comment += "busStop=%s " % c.busStop
         commentParams.append(("busStop", c.busStop))
         if c.busStop2 is not None:
-            comment += "busStop2=%s " % c.busStop2
-            commentParams.append(("busStop2", c.busStop2))
+            if type(c.busStop2) == list:
+                for k,v in c.busStop2:
+                    comment += "%s=%s " % (k, v)
+                    commentParams.append((k, v))
+            else:
+                comment += "busStop2=%s " % c.busStop2
+                commentParams.append(("busStop2", c.busStop2))
     if options.commentTime:
         comment += c.conflictTime
         for t in c.conflictTime.split():
