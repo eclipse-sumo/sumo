@@ -1529,9 +1529,9 @@ def collectBidiConflicts(options, net, vehicleStopRoutes, stop, stopRoute, edges
                 busStop2 = [("busStop2", pStop.busStop)]
                 # record stops preceeding the conflict section for ego and foe vehicle
                 if sIb > 0:
-                    busStop2.append(("prioStop", stopRoute[sIb - 1][1].busStop))
+                    busStop2.append(("priorStop", stopRoute[sIb - 1][1].busStop))
                 if sI2 > 0:
-                    busStop2.append(("prioStop2", stopRoute2[sI2 - 1][1].busStop))
+                    busStop2.append(("priorStop2", stopRoute2[sI2 - 1][1].busStop))
 
                 conflict = Conflict(stop.prevTripId, pSignal, pStop.prevTripId, limit,
                                     # attributes for adding comments
