@@ -84,9 +84,11 @@ ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, int index, const
 
 
 ROEdge::~ROEdge() {
-    for (std::vector<ROLane*>::iterator i = myLanes.begin(); i != myLanes.end(); ++i) {
-        delete (*i);
+    for (ROLane* const lane : myLanes) {
+        delete lane;
     }
+    delete myReversedRoutingEdge;
+    delete myRailwayRoutingEdge;
 }
 
 
