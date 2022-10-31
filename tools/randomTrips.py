@@ -430,8 +430,9 @@ def buildTripGenerator(net, options):
                 sink_generator = RandomEdgeGenerator(
                     net, LoadedProps(options.weightsprefix + SINK_SUFFIX))
     except InvalidGenerator:
-        print("Error: no valid edges for generating source or destination. Try using option --allow-fringe",
-              file=sys.stderr)
+        if options.verbose:
+            print("Error: no valid edges for generating source or destination. Try using option --allow-fringe",
+                  file=sys.stderr)
         return None
 
     try:
@@ -442,8 +443,8 @@ def buildTripGenerator(net, options):
                 net, LoadedProps(options.weightsprefix + VIA_SUFFIX))
     except InvalidGenerator:
         if options.intermediate > 0:
-            print(
-                "Error: no valid edges for generating intermediate points", file=sys.stderr)
+            if options.verbose:
+                print("Error: no valid edges for generating intermediate points", file=sys.stderr)
             return None
         else:
             via_generator = None
@@ -482,7 +483,7 @@ def is_vehicle_attribute(attr):
     return False
 
 
-def split_trip_attributes(tripattrs, pedestrians, hasType):
+def split_trip_attributes(tripattrs, pedestrians, hasType, verbose):
     # handle attribute values with a space
     # assume that no attribute value includes an '=' sign
     allattrs = []
@@ -491,7 +492,8 @@ def split_trip_attributes(tripattrs, pedestrians, hasType):
             allattrs.append(a)
         else:
             if len(allattrs) == 0:
-                print("Warning: invalid trip-attribute '%s'" % a)
+                if verbose:
+                    print("Warning: invalid trip-attribute '%s'" % a)
             else:
                 allattrs[-1] += ' ' + a
 
@@ -547,9 +549,9 @@ def main(options):
     if options.min_distance > net.getBBoxDiameter() * (options.intermediate + 1):
         options.intermediate = int(
             math.ceil(options.min_distance / net.getBBoxDiameter())) - 1
-        print(("Warning: setting number of intermediate waypoints to %s to achieve a minimum trip length of " +
-               "%s in a network with diameter %.2f.") % (
-            options.intermediate, options.min_distance, net.getBBoxDiameter()))
+        if options.verbose:
+            print(("Warning: setting number of intermediate waypoints to %s to achieve a minimum trip length of " + 
+                   "%s in a network with diameter %.2f.") % (options.intermediate, options.min_distance, net.getBBoxDiameter()))
 
     if options.angle_weight != 1:
         xmin, ymin, xmax, ymax = net.getBoundary()
@@ -559,7 +561,7 @@ def main(options):
     idx = 0
 
     vtypeattrs, options.tripattrs, personattrs, otherattrs = split_trip_attributes(
-        options.tripattrs, options.pedestrians, options.vehicle_class)
+        options.tripattrs, options.pedestrians, options.vehicle_class, options.verbose)
 
     vias = {}
 
@@ -653,7 +655,8 @@ def main(options):
                     generate_one_trip(label, combined_attrs, departureTime)
 
         except Exception as exc:
-            print(exc, file=sys.stderr)
+            if options.verbose:
+                print(exc, file=sys.stderr)
 
         return idx + 1
 
@@ -709,7 +712,8 @@ def main(options):
                                 origin, destination, intermediate = generate_origin_destination(trip_generator, options)
                                 idx = generate_one(idx, time, arrivalTime, period, origin, destination, intermediate)
                             except Exception as exc:
-                                print(exc, file=sys.stderr)
+                                if options.verbose:
+                                    print(exc, file=sys.stderr)
                     else:
                         time = departureTime
                         while time < arrivalTime:
@@ -724,7 +728,8 @@ def main(options):
                                         idx = generate_one(idx, time, arrivalTime, period,
                                                            origin, destination, intermediate)
                                     except Exception as exc:
-                                        print(exc, file=sys.stderr)
+                                        if options.verbose:
+                                            print(exc, file=sys.stderr)
                             time += 1.0
             else:
                 try:
@@ -738,7 +743,8 @@ def main(options):
                             origin, destination, intermediate = origins_destinations[j]
                             generate_one(j, departureTime, arrivalTime, period, origin, destination, intermediate, i)
                 except Exception as exc:
-                    print(exc, file=sys.stderr)
+                    if options.verbose:
+                        print(exc, file=sys.stderr)
 
         fouttrips.write("</routes>\n")
 
@@ -779,8 +785,9 @@ def main(options):
 
     if options.routefile:
         args2 = args + ['-o', options.routefile]
-        print("calling", " ".join(args2))
-        sys.stdout.flush()
+        if options.verbose:
+            print("calling", " ".join(args2))
+            sys.stdout.flush()
         subprocess.call(args2)
         sys.stdout.flush()
         sumolib.xml.insertOptionsHeader(options.routefile, options)
@@ -791,15 +798,16 @@ def main(options):
         args2 = args + ['-o', tmpTrips, '--write-trips']
         if options.junctionTaz:
             args2 += ['--write-trips.junctions']
-        print("calling", " ".join(args2))
-        sys.stdout.flush()
+        if options.verbose:
+            print("calling", " ".join(args2))
+            sys.stdout.flush()
         subprocess.call(args2)
         sys.stdout.flush()
         os.remove(options.tripfile)  # on windows, rename does not overwrite
         os.rename(tmpTrips, options.tripfile)
         sumolib.xml.insertOptionsHeader(options.tripfile, options)
 
-    if options.weights_outprefix:
+    if trip_generator and options.weights_outprefix:
         idPrefix = ""
         if options.tripprefix:
             idPrefix = options.tripprefix + "."
@@ -820,4 +828,5 @@ def main(options):
 
 if __name__ == "__main__":
     if not main(get_options()):
+        print("Trips couldn't be generated as requested. Try the --verbose option to output more details on the failure.")
         sys.exit(1)
