@@ -17,6 +17,9 @@ missing_signal
 # 2 common bidi edges between stations, extra signals in the bidi section
 intermediate_signals
 
+# 2 common bidi edges between stations, extra stop in between
+intermediate_stops
+
 # store comments as params
 comment_params
 
