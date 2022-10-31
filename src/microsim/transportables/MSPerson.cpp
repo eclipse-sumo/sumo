@@ -516,6 +516,7 @@ MSPerson::MSPerson(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTra
 
 
 MSPerson::~MSPerson() {
+    delete myInfluencer;
 }
 
 
