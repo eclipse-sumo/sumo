@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-31 12:17:34.494319 by generateRailSignalConstraints.py v1_14_1+2106-1b82ec0becc
+<!-- generated on 2022-10-31 12:33:06.717999 by generateRailSignalConstraints.py v1_14_1+2106-1b82ec0becc
 <configuration>
     <additional-file value="input_additional.add.xml"/>
     <bidi-conflicts value="True"/>
@@ -13,6 +13,6 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <railSignalConstraints id="J4">
-        <bidiPredecessor tripId="t0" tl="J1" foes="t1"/>   <!-- busStop=f busStop2=-a2 arrival=00:02:05 foeArrival=00:01:24 stopArrival=00:02:20 foeStopArrival=00:01:40 -->
+        <bidiPredecessor tripId="t0" tl="J1" foes="t1"/>   <!-- busStop=f busStop2=-a2 prioStop=a prioStop2=-f2 arrival=00:02:05 foeArrival=00:01:24 stopArrival=00:02:20 foeStopArrival=00:01:40 -->
     </railSignalConstraints>
 </additional>
