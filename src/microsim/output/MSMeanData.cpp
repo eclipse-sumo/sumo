@@ -313,6 +313,7 @@ void
 MSMeanData::MeanDataValueTracker::reset(bool afterWrite) {
     if (afterWrite) {
         if (myCurrentData.begin() != myCurrentData.end()) {
+            delete myCurrentData.front();
             myCurrentData.pop_front();
         }
     } else {

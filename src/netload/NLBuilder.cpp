@@ -336,6 +336,7 @@ NLBuilder::init(const bool isLibsumo) {
     throw ProcessError();
 }
 
+
 void
 NLBuilder::initRandomness() {
     RandHelper::initRandGlobal();
@@ -346,6 +347,7 @@ NLBuilder::initRandomness() {
     RandHelper::initRandGlobal(MSDevice_BTreceiver::getRecognitionRNG());
     MSLane::initRNGs(OptionsCont::getOptions());
 }
+
 
 void
 NLBuilder::buildNet() {
@@ -379,13 +381,9 @@ NLBuilder::buildNet() {
                 stateDumpFiles.push_back(prefix + "_" + timeStamp + suffix);
             }
         }
-    } catch (IOError& e) {
-        delete edges;
-        delete junctions;
-        delete routeLoaders;
-        delete tlc;
-        throw ProcessError(e.what());
     } catch (ProcessError&) {
+        MSEdge::clear();
+        MSLane::clear();
         delete edges;
         delete junctions;
         delete routeLoaders;
