@@ -776,26 +776,8 @@ TraCIServer::removeCurrentSocket() {
     std::cout << "       Removing socket " << myCurrentSocket->second->socket
               << " (order " << myCurrentSocket->first << ")" << std::endl;
 #endif
-
-    if (mySockets.size() == 1) {
-        // Last client has disconnected
-        delete myCurrentSocket->second->socket;
-        mySockets.clear();
-        myCurrentSocket = mySockets.end();
-        return myCurrentSocket;
-    }
-
-    const int currOrder = myCurrentSocket->first;
-    delete myCurrentSocket->second->socket;
-    myCurrentSocket++;
-    if (myCurrentSocket != mySockets.end()) {
-        const int nextOrder = myCurrentSocket->first;
-        mySockets.erase(currOrder);
-        myCurrentSocket = mySockets.find(nextOrder);
-    } else {
-        mySockets.erase(currOrder);
-        myCurrentSocket = mySockets.end();
-    }
+    delete myCurrentSocket->second;
+    myCurrentSocket = mySockets.erase(myCurrentSocket);
     return myCurrentSocket;
 }
 
