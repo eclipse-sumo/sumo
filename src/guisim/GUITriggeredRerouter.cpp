@@ -83,13 +83,11 @@ FXIMPLEMENT(GUITriggeredRerouter::GUIManip_TriggeredRerouter, GUIManipulator, GU
  * GUITriggeredRerouter::GUIManip_TriggeredRerouter - methods
  * ----------------------------------------------------------------------- */
 GUITriggeredRerouter::GUIManip_TriggeredRerouter::GUIManip_TriggeredRerouter(
-    GUIMainWindow& app,
-    const std::string& name, GUITriggeredRerouter& o,
-    int /*xpos*/, int /*ypos*/)
-    : GUIManipulator(app, name, 0, 0), myParent(&app),
-      myChosenValue(0), myChosenTarget(myChosenValue, nullptr, MID_OPTION),
-      myUsageProbability(o.getProbability()), myUsageProbabilityTarget(myUsageProbability),
-      myObject(&o) {
+    GUIMainWindow& app, const std::string& name, GUITriggeredRerouter& o) : 
+        GUIManipulator(app, name, 0, 0), myParent(&app),
+        myChosenValue(0), myChosenTarget(myChosenValue, nullptr, MID_OPTION),
+        myUsageProbability(o.getProbability()), myUsageProbabilityTarget(myUsageProbability),
+        myObject(&o) {
     myChosenTarget.setTarget(this);
     FXVerticalFrame* f1 =
         new FXVerticalFrame(this, LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0);
@@ -345,10 +343,9 @@ GUITriggeredRerouter::getExaggeration(const GUIVisualizationSettings& s) const {
 GUIManipulator*
 GUITriggeredRerouter::openManipulator(GUIMainWindow& app,
                                       GUISUMOAbstractView&) {
-    GUIManip_TriggeredRerouter* gui =
-        new GUIManip_TriggeredRerouter(app, getFullName(), *this, 0, 0);
+    GUIManip_TriggeredRerouter* gui = new GUIManip_TriggeredRerouter(app, getFullName(), *this);
     gui->create();
-    gui->show();
+    gui->show(PLACEMENT_SCREEN);
     return gui;
 }
 

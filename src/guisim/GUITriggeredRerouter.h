@@ -247,14 +247,11 @@ public:
             ID_LAST
         };
         /// Constructor
-        GUIManip_TriggeredRerouter(GUIMainWindow& app,
-                                   const std::string& name, GUITriggeredRerouter& o,
-                                   int xpos, int ypos);
+        GUIManip_TriggeredRerouter(GUIMainWindow& app, const std::string& name, GUITriggeredRerouter& o);
 
         /// Destructor
         virtual ~GUIManip_TriggeredRerouter();
 
-        long onCmdOverride(FXObject*, FXSelector, void*);
         long onCmdClose(FXObject*, FXSelector, void*);
         long onCmdUserDef(FXObject*, FXSelector, void*);
         long onUpdUserDef(FXObject*, FXSelector, void*);
