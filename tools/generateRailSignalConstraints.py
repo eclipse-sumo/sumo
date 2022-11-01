@@ -1618,7 +1618,7 @@ def writeConstraint(options, outf, tag, c):
         commentParams.append(("busStop", c.busStop))
         if c.busStop2 is not None:
             if type(c.busStop2) == list:
-                for k,v in c.busStop2:
+                for k, v in c.busStop2:
                     comment += "%s=%s " % (k, v)
                     commentParams.append((k, v))
             else:
