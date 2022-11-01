@@ -479,6 +479,9 @@ protected:
     /// @brief returns the ids of all objects in the given boundary
     std::vector<GUIGlID> getObjectsInBoundary(Boundary bound, bool singlePosition);
 
+    /// @brief filter internal lanes in Objects under cursor
+    std::vector<GUIGlObject*> filterInernalLanes(const std::vector<GUIGlObject*> &objects) const;
+
     /// @brief invokes the tooltip for the given object
     bool showToolTipFor(const GUIGlID idToolTip);
 

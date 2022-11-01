@@ -547,6 +547,34 @@ GUISUMOAbstractView::getObjectsInBoundary(Boundary bound, bool singlePosition) {
 }
 
 
+std::vector<GUIGlObject*>
+GUISUMOAbstractView::filterInernalLanes(const std::vector<GUIGlObject*> &objects) const {
+    // if no draw junction shape, nothing to filter
+    if (!myVisualizationSettings->drawJunctionShape) {
+        return objects;
+    }
+    // check if there is junctions in list
+    bool junction = false;
+    for (const auto &object : objects) {
+        if (object->getType() == GLO_JUNCTION) {
+            junction = true;
+        }
+    }
+    if (!junction) {
+        return objects;
+    }
+    // filter internal lanes
+    std::vector<GUIGlObject*> filteredObjects;
+    for (const auto &object : objects) {
+        if ((object->getType() == GLO_LANE) && (object->getMicrosimID().find(':') != std::string::npos)) {
+            continue;
+        }
+        filteredObjects.push_back(object);
+    }
+    return filteredObjects;
+}
+
+
 bool
 GUISUMOAbstractView::showToolTipFor(const GUIGlID idToolTip) {
     if (idToolTip != GUIGlObject::INVALID_ID) {
@@ -1172,11 +1200,6 @@ GUISUMOAbstractView::openObjectDialogAtCursor(const FXEvent* ev) {
             if (GLObject->getType() == GLO_EDGE) {
                 // avoid edges
                 continue;
-            } 
-            if ((GLObject->getType() == GLO_LANE) && (GLObject->getMicrosimID().find(':') != std::string::npos) && 
-                myVisualizationSettings->drawJunctionShape){
-                // avoid internal lanes if junction shape is drawn
-                continue;
             }
             if (std::find(filteredObjectsUnderCursor.begin(), filteredObjectsUnderCursor.end(), GLObject) != filteredObjectsUnderCursor.end()) {
                 // avoid duplicated lanes
@@ -1195,6 +1218,9 @@ GUISUMOAbstractView::openObjectDialogAtCursor(const FXEvent* ev) {
             }
             filteredObjectsUnderCursor.push_back(GLObject);
         }
+        // filter internal lanes
+        filteredObjectsUnderCursor = filterInernalLanes(filteredObjectsUnderCursor);
+        // continue depending of number of objects
         if (filteredObjectsUnderCursor.empty()) {
             // if filteredObjectsUnderCursor, inspect net
             openObjectDialog({GUIGlObjectStorage::gIDStorage.getNetObject()});
