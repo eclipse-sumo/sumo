@@ -31,8 +31,8 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 # go to demand mode
 netedit.supermodeDemand()
 
-# go to route mode
-netedit.routeMode()
+# go to vehicle mode
+netedit.vehicleMode()
 
 # select vehicle with embedded route
 netedit.changeElement("vehicle (embedded route)")

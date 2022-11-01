@@ -1585,11 +1585,11 @@ class tripFromToEdge:
     class transform:
         vehicle = 1
         vehicleEmbedded = 2
-        routeflow = 3
+        routeFlow = 3
         routeFlowEmbedded = 4
         flow = 5
 
-    transformTo = 8;
+    transformTo = 9;
 
 # trip (from-to junctions)
 
@@ -1659,12 +1659,12 @@ class tripFromToJunction:
     class transform:
         vehicle = 1
         vehicleEmbedded = 2
-        routeflow = 3
+        routeFlow = 3
         routeFlowEmbedded = 4
         trip = 5
         flow = 6
 
-    transformTo = 8;
+    transformTo = 9;
 
 # vehicle (over route)
 
@@ -1734,12 +1734,12 @@ class vehicle:
 
     class transform:
         vehicleEmbedded = 1
-        routeflow = 2
+        routeFlow = 2
         routeFlowEmbedded = 3
         trip = 4
         flow = 5
 
-    transformTo = 8;
+    transformTo = 9;
 
 # vehicle (embedded route)
 
@@ -1808,12 +1808,12 @@ class vehicleEmbedded:
 
     class transform:
         vehicle = 1
-        routeflow = 2
+        routeFlow = 2
         routeFlowEmbedded = 3
         trip = 4
         flow = 5
 
-    transformTo = 8;
+    transformTo = 9;
 
 # flow (from-to edges)
 
@@ -1899,11 +1899,11 @@ class flowFromToEdge:
     class transform:
         vehicle = 1
         vehicleEmbedded = 2
-        routeflow = 3
+        routeFlow = 3
         routeFlowEmbedded = 4
         trip = 5
 
-    transformTo = 8;
+    transformTo = 9;
 
 # flow (from-to junctions)
 
@@ -1988,17 +1988,17 @@ class flowJunction:
     class transform:
         vehicle = 1
         vehicleEmbedded = 2
-        routeflow = 3
+        routeFlow = 3
         routeFlowEmbedded = 4
         trip = 5
         flow = 6
 
-    transformTo = 8;
+    transformTo = 9;
 
 # flow (over route)
 
 
-class routeflow:
+class routeFlow:
     class create:
         type = 5
         id = 8
@@ -2083,7 +2083,7 @@ class routeflow:
         trip = 4
         flow = 5
 
-    transformTo = 8;
+    transformTo = 9;
 
 # flow (embedded route)
 
@@ -2168,11 +2168,11 @@ class flowEmbedded:
     class transform:
         vehicle = 1
         vehicleEmbedded = 2
-        routeflow = 3
+        routeFlow = 3
         trip = 4
         flow = 5
 
-    transformTo = 8;
+    transformTo = 9;
 
 # stop over bus stop
 

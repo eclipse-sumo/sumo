@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.supermodeDemand()
 
 # go to route mode
-netedit.routeMode()
+netedit.vehicleMode()
 
 # create trip
 netedit.leftClick(referencePosition, 274, 392)
@@ -42,8 +42,8 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 # transform
 netedit.contextualMenuOperation(referencePosition, 91, 392,
-    netedit.attrs.trip.transformTo, 
-    netedit.attrs.trip.transform.routeFlowEmbedded)
+    netedit.attrs.tripFromToEdge.transformTo, 
+    netedit.attrs.tripFromToEdge.transform.routeFlowEmbedded)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

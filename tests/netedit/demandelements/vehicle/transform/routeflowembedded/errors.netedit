@@ -69,12 +69,12 @@ Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'vehicle (over route)' in GNETagSelector
 Debug: Adding vehicle 'v_0' in GNEChange_DemandElement
 Debug: Removing vehicle 'v_0' in GNEChange_DemandElement
-Debug: Removing route 'r_0' in GNEChange_DemandElement
-Debug: Adding flow 'v_0' in GNEChange_DemandElement
+Debug: Adding flowWithRoute 'v_0' in GNEChange_DemandElement
+Debug: Adding routeEmbedded 'v_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing flow 'v_0' in GNEChange_DemandElement
-Debug: Adding route 'r_0' in GNEChange_DemandElement
+Debug: Removing routeEmbedded 'v_0' in GNEChange_DemandElement
+Debug: Removing flowWithRoute 'v_0' in GNEChange_DemandElement
 Debug: Adding vehicle 'v_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
@@ -91,8 +91,8 @@ Debug: Adding vehicle 'v_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Removing vehicle 'v_0' in GNEChange_DemandElement
-Debug: Removing route 'r_0' in GNEChange_DemandElement
-Debug: Adding flow 'v_0' in GNEChange_DemandElement
+Debug: Adding flowWithRoute 'v_0' in GNEChange_DemandElement
+Debug: Adding routeEmbedded 'v_0' in GNEChange_DemandElement
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -10.00,-13.20,10.00,13.20
@@ -131,7 +131,8 @@ GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary -10.00,-10.00,70.00,1
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
 Debug: network elements saved
-Debug: Deleting unreferenced flow
+Debug: Deleting unreferenced routeEmbedded
+Debug: Deleting unreferenced flowWithRoute
 Debug: Deleting unreferenced vehicle
 Debug: Deleting unreferenced route
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
