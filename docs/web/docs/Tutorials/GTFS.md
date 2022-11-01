@@ -47,7 +47,7 @@ transit agency. [Some examples from Germany](https://gist.github.com/highsource/
 - [Aggregated data for a lot of German regions](https://gtfs.de/en/)
 - [Berlin and Brandenburg (VBB)](https://www.vbb.de/vbb-services/api-open-data/datensaetze/)
 - [Lower Saxony and Bremen](https://www.vbn.de/service/entwicklerinfos/)
-- [Hamburg](https://suche.transparenz.hamburg.de/?q=gtfs)
+- [Hamburg](https://suche.transparenz.hamburg.de/?q=gtfs&sort=score+desc%2Ctitle_sort+asc&esq_not_all_versions=true)
 
 This tutorial uses the [June 2019 dataset by VBB](https://sumo.dlr.de/daily/GTFS_VBB_Juni-Dezember-2019.zip).
 You can either download the data or give the URL of the file directly to the script.
