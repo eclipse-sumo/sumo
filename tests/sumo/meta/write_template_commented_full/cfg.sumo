@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-26 14:40:13 by Eclipse SUMO sumo Version v1_14_1+1967-19660f9
+<!-- generated on 2022-11-01 14:44:45 by Eclipse SUMO sumo Version v1_14_1+2149-ab3f80b
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -260,6 +260,12 @@
 
         <!-- Write collision information into FILE -->
         <collision-output value="" type="FILE"/>
+
+        <!-- Write aggregated traffic statistics for all edges into FILE -->
+        <edgedata-output value="" type="FILE"/>
+
+        <!-- Write aggregated traffic statistics for all lanes into FILE -->
+        <lanedata-output value="" type="FILE"/>
 
         <!-- Write overall statistics into FILE -->
         <statistic-output value="" synonymes="statistics-output" type="FILE"/>

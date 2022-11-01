@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_14_1+1967-19660f9
+Eclipse SUMO sumo Version v1_14_1+2149-ab3f80b
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -154,6 +154,10 @@ Output Options:
   --stop-output.write-unfinished       Write stop output for stops which have
                                         not ended at simulation end
   --collision-output FILE              Write collision information into FILE
+  --edgedata-output FILE               Write aggregated traffic statistics for
+                                        all edges into FILE
+  --lanedata-output FILE               Write aggregated traffic statistics for
+                                        all lanes into FILE
   --statistic-output FILE              Write overall statistics into FILE
   --save-state.times STR[]             Use TIME[] as times at which a network
                                         state written

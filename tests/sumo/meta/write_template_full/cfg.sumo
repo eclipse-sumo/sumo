@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-26 14:40:13 by Eclipse SUMO sumo Version v1_14_1+1967-19660f9
+<!-- generated on 2022-11-01 14:44:45 by Eclipse SUMO sumo Version v1_14_1+2149-ab3f80b
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -95,6 +95,8 @@
         <stop-output value="" type="FILE" help="Record stops and loading/unloading of passenger and containers for all vehicles into FILE"/>
         <stop-output.write-unfinished value="false" type="BOOL" help="Write stop output for stops which have not ended at simulation end"/>
         <collision-output value="" type="FILE" help="Write collision information into FILE"/>
+        <edgedata-output value="" type="FILE" help="Write aggregated traffic statistics for all edges into FILE"/>
+        <lanedata-output value="" type="FILE" help="Write aggregated traffic statistics for all lanes into FILE"/>
         <statistic-output value="" synonymes="statistics-output" type="FILE" help="Write overall statistics into FILE"/>
         <save-state.times value="" type="STR[]" help="Use TIME[] as times at which a network state written"/>
         <save-state.period value="-1" type="TIME" help="save state repeatedly after TIME period"/>
