@@ -250,6 +250,16 @@ vehicle only once but they include/exclude some special cases.
   `end=""`. All of them may have
   identical ids and write to the same output file.
 
+## Visualiaztion / Plotting
+
+- [sumo-gui](sumo-gui.md#visualizing_edge-related_data) can load edgeData files and color network edges/lanes according to any of it's attributes
+- [sumo-gui](sumo-gui.md#edgelane_visualisation_settings) can color edges/lanes by any of the attributse being collected while the simulation is running
+- [netedit](Netedit/editModesData.md) can be used to load/view/edit edgeData files
+- The [mpl_dump_onNet.py](../../Tools/Visualization.md#mpl_dump_onnetpy)
+  script can display values of this output as a colored net (and
+  further [visualization tools](../../Tools/Visualization.md)
+  exist).
+
 ## See Also
 
 - [edge/lane-based vehicular pollutant emission
@@ -257,10 +267,5 @@ vehicle only once but they include/exclude some special cases.
   and [edge/lane-based vehicular noise emission
   output](../../Simulation/Output/Lane-_or_Edge-based_Noise_Measures.md)
   which have similar formats
-- The
-  [mpl_dump_onNet.py](../../Tools/Visualization.md#mpl_dump_onnetpy)
-  script can display values of this output as a colored net (and
-  further [visualization tools](../../Tools/Visualization.md)
-  exist).
 - You can generate mean data definitions automatically. See [output
   tools](../../Tools/Output.md) for more information.
