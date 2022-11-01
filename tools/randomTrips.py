@@ -356,7 +356,7 @@ class RandomTripGenerator:
                         and (not junctionTaz or source_edge.getFromNode() != sink_edge.getToNode())
                         and (max_distance is None or distance < max_distance)):
                     return source_edge, sink_edge, intermediate
-        raise Exception("no trip found after %s tries" % maxtries)
+        raise Exception("Warning: no trip found after %s tries" % maxtries)
 
 
 def get_prob_fun(options, fringe_bonus, fringe_forbidden, max_length):
@@ -569,7 +569,7 @@ def main(options):
         options.intermediate = int(
             math.ceil(options.min_distance / net.getBBoxDiameter())) - 1
         print(("Warning: setting number of intermediate waypoints to %s to achieve a minimum trip length of " + 
-               "%s in a network with diameter %.2f.") % (options.intermediate, options.min_distance, net.getBBoxDiameter()))
+               "%s in a network with diameter %.2f.") % (options.intermediate, options.min_distance, net.getBBoxDiameter()), file=sys.stderr)
 
     if options.angle_weight != 1:
         xmin, ymin, xmax, ymax = net.getBoundary()
