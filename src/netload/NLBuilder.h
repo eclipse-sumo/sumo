@@ -130,6 +130,8 @@ protected:
      */
     void buildNet();
 
+    /// @brief build meanData definition based on option
+    void buildDefaultMeanData(const std::string& optionName, const std::string& id, bool useLanes); 
 
     /**
      * @class EdgeFloatTimeLineRetriever_EdgeTravelTime

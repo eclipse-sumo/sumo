@@ -207,6 +207,10 @@ NLBuilder::build() {
         }
         MSTriggeredRerouter::checkParkingRerouteConsistency();
     }
+    // declare meandata set by options
+    buildDefaultMeanData("edgedata-output", "DEFAULT_EDGEDATA", false);
+    buildDefaultMeanData("lanedata-output", "DEFAULT_LANEDATA", true);
+
     if (stateBeginMismatch && myNet.getVehicleControl().getLoadedVehicleNo() > 0) {
         throw ProcessError("Loading vehicles ahead of a state file is not supported. Correct --begin option or load vehicles with option --route-files");
     }
@@ -436,5 +440,20 @@ NLBuilder::buildRouteLoaderControl(const OptionsCont& oc) {
     return loaders;
 }
 
+
+void
+NLBuilder::buildDefaultMeanData(const std::string& optionName, const std::string& id, bool useLanes) {
+    if (OptionsCont::getOptions().isSet(optionName)) {
+        try {
+            myDetectorBuilder.createEdgeLaneMeanData(id, -1, 0, -1, "traffic", useLanes, false, false,
+                    false, false, false, 100000, 0, SUMO_const_haltingSpeed, "", "", std::vector<MSEdge*>(), false,
+                    OptionsCont::getOptions().getString(optionName));
+        } catch (InvalidArgument& e) {
+            WRITE_ERROR(e.what());
+        } catch (IOError& e) {
+            WRITE_ERROR(e.what());
+        }
+    }
+}
 
 /****************************************************************************/

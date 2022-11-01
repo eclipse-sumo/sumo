@@ -297,6 +297,11 @@ MSFrame::fillOptions() {
     oc.doRegister("collision-output", new Option_FileName());
     oc.addDescription("collision-output", "Output", "Write collision information into FILE");
 
+    oc.doRegister("edgedata-output", new Option_FileName());
+    oc.addDescription("edgedata-output", "Output", "Write aggregated traffic statistics for all edges into FILE");
+    oc.doRegister("lanedata-output", new Option_FileName());
+    oc.addDescription("lanedata-output", "Output", "Write aggregated traffic statistics for all lanes into FILE");
+
     oc.doRegister("statistic-output", new Option_FileName());
     oc.addSynonyme("statistic-output", "statistics-output");
     oc.addDescription("statistic-output", "Output", "Write overall statistics into FILE");
