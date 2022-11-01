@@ -2109,6 +2109,7 @@ person.inspectSelection.color
 person.inspectSelection.departPos 
 person.inspectSelection.depart 
 person.inspectSelection.parameters 
+person.transformTo 
 personFlow.create.id 
 personFlow.create.colorButton 
 personFlow.create.color 
@@ -2143,6 +2144,7 @@ personFlow.inspectSelection.spacing
 personFlow.inspectSelection.terminateOption 
 personFlow.inspectSelection.spacingOption 
 personFlow.inspectSelection.parameters 
+personFlow.transformTo 
 personTripEdgeEdge.create.arrivalPos 
 personTripEdgeEdge.create.vTypes 
 personTripEdgeEdge.create.modes 
@@ -2252,6 +2254,7 @@ container.inspectSelection.colorButton
 container.inspectSelection.color 
 container.inspectSelection.depart 
 container.inspectSelection.parameters 
+container.transformTo 
 containerFlow.create.id 
 containerFlow.create.colorButton 
 containerFlow.create.color 
@@ -2283,6 +2286,7 @@ containerFlow.inspectSelection.spacing
 containerFlow.inspectSelection.terminateOption 
 containerFlow.inspectSelection.spacingOption 
 containerFlow.inspectSelection.parameters 
+containerFlow.transformTo 
 transportEdgeEdge.create.arrivalPos 
 transportEdgeEdge.create.lines 
 transportEdgeEdge.inspect.to 

@@ -2735,6 +2735,8 @@ class person:
         depart = 5
         parameters = 8
 
+    transformTo = 8;
+
 
 class personFlow:
     class create:
@@ -2776,6 +2778,8 @@ class personFlow:
         terminateOption = 12
         spacingOption = 13
         parameters = 15
+
+    transformTo = 8;
 
 # PersonPlans
 
@@ -2986,6 +2990,7 @@ class container:
         depart = 4
         parameters = 7
 
+    transformTo = 8;
 
 class containerFlow:
     class create:
@@ -3024,6 +3029,8 @@ class containerFlow:
         terminateOption = 11
         spacingOption = 12
         parameters = 14
+
+    transformTo = 8;
 
 # ContainerPlans
 
