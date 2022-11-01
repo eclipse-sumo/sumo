@@ -427,6 +427,9 @@ public:
     /// @brief called if the user selects help->Tutorial
     long onCmdTutorial(FXObject* sender, FXSelector sel, void* ptr);
 
+    /// @brief called when toogle checkbox compute network when swichting between supermodes
+    long onCmdToogleComputeNetworkData(FXObject*, FXSelector, void*);
+
     /// @brief called if the user selects Processing->Configure Options
     long onCmdOptions(FXObject*, FXSelector, void*);
 

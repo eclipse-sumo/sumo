@@ -311,7 +311,9 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_F7_ADJUST_PERSON_PLANS,                GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS,    GNEApplicationWindow::onCmdProcessButton),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS,    GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOGGLE_COMPUTE_NETWORK_DATA,                    GNEApplicationWindow::onCmdToogleComputeNetworkData),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F10_OPTIONSMENU,                             GNEApplicationWindow::onCmdOptions),
+
 
     // Toolbar locate
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEJUNCTION,     GNEApplicationWindow::onCmdLocate),
@@ -2498,6 +2500,16 @@ long
 GNEApplicationWindow::onCmdHotkeys(FXObject*, FXSelector, void*) {
     MFXLinkLabel::fxexecute("https://sumo.dlr.de/docs/sumo-gui.html#keyboard_shortcuts");
     return 1;
+}
+
+
+long 
+GNEApplicationWindow::onCmdToogleComputeNetworkData(FXObject*, FXSelector, void*) {
+    if (myProcessingMenuCommands.menuCheckRecomputeDataMode->getCheck() == TRUE) {
+        return getApp()->reg().writeBoolEntry("NETEDIT", "RecomputeData", true);
+    } else {
+        return getApp()->reg().writeBoolEntry("NETEDIT", "RecomputeData", false);
+    }
 }
 
 

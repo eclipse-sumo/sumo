@@ -1611,7 +1611,9 @@ GNEApplicationWindowHelper::ProcessingMenuCommands::buildProcessingMenuCommands(
     // add checkBox for recomputing in data mode
     menuCheckRecomputeDataMode = GUIDesigns::buildFXMenuCheckboxIcon(processingMenu,
                                  "Recompute Network in Data Mode", "", "",
-                                 GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA), myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_TOGGLEGRID);
+                                 GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA), myGNEApp, MID_GNE_TOGGLE_COMPUTE_NETWORK_DATA);
+    // set default value
+    menuCheckRecomputeDataMode->setCheck(myGNEApp->getApp()->reg().readBoolEntry("NETEDIT", "RecomputeData", true));
     // build demand  processing menu commands
     computeDemand = GUIDesigns::buildFXMenuCommandShortcut(processingMenu,
                     "Compute demand", "F5", "Computes demand elements.",
