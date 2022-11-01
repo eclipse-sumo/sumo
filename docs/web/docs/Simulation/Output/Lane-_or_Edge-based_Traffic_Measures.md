@@ -19,7 +19,7 @@ possibilities to constrain the outputs are given.
 
 ### Meandata Definition
 
-An edge-based state dump is defined within an {{AdditionalFile}} added to the sumo config as following:
+An edge-based state dump is defined within an {{AdditionalFile}}:
 
 ```xml
 <additional>
@@ -34,6 +34,8 @@ For a lane based dump simply write:
     <laneData id="<MEASUREMENT_ID>" file="<OUTPUT_FILE>" .../>
 </additional>
 ```
+
+The define dfile can either be loaded with sumo option **--additional-files FILENAME** or declared in a *.sumocfg* file with `<additional-files value="FILENAME"/>`
 
 !!! note
     attribute 'id' is only used to distinguish outputs if there are multiple edgeData definitions. The value is otherwise arbitrary and does not influence written outputs.
@@ -60,6 +62,16 @@ For additional attributes see the table below.
 | edges  | string list                  | restrict output to the given list of edge ids        |
 | edgesFile  | filename                 | restrict output to the given the list of edges given in file (either one edgeID per line or an id prefixed with 'edge:' as in a [selection file](../../Netedit/editModesCommon.md#selection_operations)        |
 | aggregate  | bool    | Whether the traffic statistic of all edges shall be aggregated into a single value (edge id will be `AGGREGATED`).  |
+
+
+### Simplified definition
+
+If none of the addional attributes listed above are needed, a meandata definition can be declared without defining an additional file by setting one of the following options:
+
+- **--edgedata-output** FILENAME
+- **--lanedata-output** FILENAME
+
+The generated definitions will be named *DEFAULT_EDGEDATA* and *DEFAULT_LANEDATA* respectively and will aggregate their values over the whole length of the simulation (edges without traffic will not be included in the output).
 
 ## Generated Output
 
