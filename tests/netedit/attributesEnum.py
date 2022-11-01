@@ -1582,6 +1582,15 @@ class tripFromToEdge:
         depart = 16
         parameters = 19
 
+    class transform:
+        vehicle = 1
+        vehicleEmbedded = 2
+        routeflow = 3
+        routeFlowEmbedded = 4
+        flow = 5
+
+    transformTo = 8;
+
 # trip (from-to junctions)
 
 
@@ -1646,6 +1655,16 @@ class tripFromToJunction:
         insertionChecks = 15
         depart = 16
         parameters = 19
+
+    class transform:
+        vehicle = 1
+        vehicleEmbedded = 2
+        routeflow = 3
+        routeFlowEmbedded = 4
+        trip = 5
+        flow = 6
+
+    transformTo = 8;
 
 # vehicle (over route)
 
@@ -1713,6 +1732,15 @@ class vehicle:
         depart = 16
         parameters = 19
 
+    class transform:
+        vehicleEmbedded = 1
+        routeflow = 2
+        routeFlowEmbedded = 3
+        trip = 4
+        flow = 5
+
+    transformTo = 8;
+
 # vehicle (embedded route)
 
 
@@ -1777,6 +1805,15 @@ class vehicleEmbedded:
         insertionChecks = 15
         depart = 16
         parameters = 19
+
+    class transform:
+        vehicle = 1
+        routeflow = 2
+        routeFlowEmbedded = 3
+        trip = 4
+        flow = 5
+
+    transformTo = 8;
 
 # flow (from-to edges)
 
@@ -1859,6 +1896,14 @@ class flowFromToEdge:
         spacingOption = 24
         parameters = 24
 
+    class transform:
+        vehicle = 1
+        vehicleEmbedded = 2
+        routeflow = 3
+        routeFlowEmbedded = 4
+        trip = 5
+
+    transformTo = 8;
 
 # flow (from-to junctions)
 
@@ -1939,6 +1984,16 @@ class flowJunction:
         terminateOption = 23
         spacingOption = 24
         parameters = 24
+
+    class transform:
+        vehicle = 1
+        vehicleEmbedded = 2
+        routeflow = 3
+        routeFlowEmbedded = 4
+        trip = 5
+        flow = 6
+
+    transformTo = 8;
 
 # flow (over route)
 
@@ -2021,6 +2076,15 @@ class routeflow:
         spacingOption = 24
         parameters = 24
 
+    class transform:
+        vehicle = 1
+        vehicleEmbedded = 2
+        routeFlowEmbedded = 3
+        trip = 4
+        flow = 5
+
+    transformTo = 8;
+
 # flow (embedded route)
 
 
@@ -2100,6 +2164,15 @@ class flowEmbedded:
         terminateOption = 23
         spacingOption = 24
         parameters = 24
+
+    class transform:
+        vehicle = 1
+        vehicleEmbedded = 2
+        routeflow = 3
+        trip = 4
+        flow = 5
+
+    transformTo = 8;
 
 # stop over bus stop
 
