@@ -519,6 +519,9 @@ public:
     /// @brief clear undo list
     void clearUndoList();
 
+    /// @brief get processing Menu Commands
+    const GNEApplicationWindowHelper::ProcessingMenuCommands &getProcessingMenuCommands() const;
+
 protected:
     /// @brief FOX needs this for static members
     GNEApplicationWindow();

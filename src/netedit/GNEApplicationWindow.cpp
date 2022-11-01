@@ -4672,6 +4672,12 @@ GNEApplicationWindow::clearUndoList() {
     myUndoList->clear();
 }
 
+
+const GNEApplicationWindowHelper::ProcessingMenuCommands&
+GNEApplicationWindow::getProcessingMenuCommands() const {
+    return myProcessingMenuCommands;
+}
+
 // ---------------------------------------------------------------------------
 // GNEApplicationWindow - protected methods
 // ---------------------------------------------------------------------------

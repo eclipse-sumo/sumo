@@ -1584,59 +1584,54 @@ GNEApplicationWindowHelper::LockMenuCommands::parseHotKey(const FXwchar characte
 // ---------------------------------------------------------------------------
 
 GNEApplicationWindowHelper::ProcessingMenuCommands::ProcessingMenuCommands(GNEApplicationWindow* GNEApp) :
-    computeNetwork(nullptr),
-    computeNetworkVolatile(nullptr),
-    cleanJunctions(nullptr),
-    joinJunctions(nullptr),
-    clearInvalidCrossings(nullptr),
-    computeDemand(nullptr),
-    cleanRoutes(nullptr),
-    joinRoutes(nullptr),
-    adjustPersonPlans(nullptr),
-    clearInvalidDemandElements(nullptr),
-    optionMenus(nullptr),
     myGNEApp(GNEApp) {
 }
 
 
 void
-GNEApplicationWindowHelper::ProcessingMenuCommands::buildProcessingMenuCommands(FXMenuPane* fileMenu) {
+GNEApplicationWindowHelper::ProcessingMenuCommands::buildProcessingMenuCommands(FXMenuPane* processingMenu) {
     // build network processing menu commands
-    computeNetwork = GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
+    computeNetwork = GUIDesigns::buildFXMenuCommandShortcut(processingMenu,
                      "Compute Junctions", "F5", "Compute junction shape and logic.",
                      GUIIconSubSys::getIcon(GUIIcon::COMPUTEJUNCTIONS), myGNEApp, MID_HOTKEY_F5_COMPUTE_NETWORK_DEMAND);
-    computeNetworkVolatile = GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
+    computeNetworkVolatile = GUIDesigns::buildFXMenuCommandShortcut(processingMenu,
                              "Compute Junctions with volatile options", "Shift+F5", "Compute junction shape and logic using volatile junctions.",
                              GUIIconSubSys::getIcon(GUIIcon::COMPUTEJUNCTIONS), myGNEApp, MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE);
-    cleanJunctions = GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
+    cleanJunctions = GUIDesigns::buildFXMenuCommandShortcut(processingMenu,
                      "Clean Junctions", "F6", "Remove solitary junctions.",
                      GUIIconSubSys::getIcon(GUIIcon::CLEANJUNCTIONS), myGNEApp, MID_HOTKEY_F6_CLEAN_SOLITARYJUNCTIONS_UNUSEDROUTES);
-    joinJunctions = GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
+    joinJunctions = GUIDesigns::buildFXMenuCommandShortcut(processingMenu,
                     "Join Selected Junctions", "F7", "Join selected junctions into a single junction.",
                     GUIIconSubSys::getIcon(GUIIcon::JOINJUNCTIONS), myGNEApp, MID_HOTKEY_F7_JOIN_SELECTEDJUNCTIONS_ROUTES);
-    clearInvalidCrossings = GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
+    clearInvalidCrossings = GUIDesigns::buildFXMenuCommandShortcut(processingMenu,
                             "Clean invalid crossings", "F8", "Clear invalid crossings.",
                             GUIIconSubSys::getIcon(GUIIcon::CLEANJUNCTIONS), myGNEApp, MID_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS);
+    // add separator for checkBox
+    mySeparatorCheckBox = new FXMenuSeparator(processingMenu);
+    // add checkBox for recomputing in data mode
+    menuCheckRecomputeDataMode = GUIDesigns::buildFXMenuCheckboxIcon(processingMenu,
+                                 "Recompute Network in Data Mode", "", "",
+                                 GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA), myGNEApp, MID_GNE_NETWORKVIEWOPTIONS_TOGGLEGRID);
     // build demand  processing menu commands
-    computeDemand = GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
+    computeDemand = GUIDesigns::buildFXMenuCommandShortcut(processingMenu,
                     "Compute demand", "F5", "Computes demand elements.",
                     GUIIconSubSys::getIcon(GUIIcon::COMPUTEDEMAND), myGNEApp, MID_HOTKEY_F5_COMPUTE_NETWORK_DEMAND);
-    cleanRoutes = GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
+    cleanRoutes = GUIDesigns::buildFXMenuCommandShortcut(processingMenu,
                   "Clean routes", "F6", "Removes routes without vehicles.",
                   GUIIconSubSys::getIcon(GUIIcon::CLEANROUTES), myGNEApp, MID_HOTKEY_F6_CLEAN_SOLITARYJUNCTIONS_UNUSEDROUTES);
-    joinRoutes = GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
+    joinRoutes = GUIDesigns::buildFXMenuCommandShortcut(processingMenu,
                  "Join routes", "F7", "Joins routes with the same edges.",
                  GUIIconSubSys::getIcon(GUIIcon::JOINROUTES), myGNEApp, MID_HOTKEY_F7_JOIN_SELECTEDJUNCTIONS_ROUTES);
-    adjustPersonPlans = GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
+    adjustPersonPlans = GUIDesigns::buildFXMenuCommandShortcut(processingMenu,
                         "Adjust person plans", "Shift+F7", "Adjust person plans (start/end positions, arrival positions, etc.)",
                         GUIIconSubSys::getIcon(GUIIcon::ADJUSTPERSONPLANS), myGNEApp, MID_HOTKEY_SHIFT_F7_ADJUST_PERSON_PLANS);
-    clearInvalidDemandElements = GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
+    clearInvalidDemandElements = GUIDesigns::buildFXMenuCommandShortcut(processingMenu,
                                  "Clean invalid route elements", "F8", "Clear elements with an invalid path (routes, Trips, Flows...).",
                                  GUIIconSubSys::getIcon(GUIIcon::CLEANJUNCTIONS), myGNEApp, MID_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS);
     // create separator
-    mySeparator = new FXMenuSeparator(fileMenu);
+    myOptionsSeparator = new FXMenuSeparator(processingMenu);
     // create optionmenus
-    optionMenus = GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
+    optionMenus = GUIDesigns::buildFXMenuCommandShortcut(processingMenu,
                   "Options", "F10", "Configure Processing Options.",
                   GUIIconSubSys::getIcon(GUIIcon::OPTIONS), myGNEApp, MID_HOTKEY_F10_OPTIONSMENU);
 }
@@ -1650,12 +1645,16 @@ GNEApplicationWindowHelper::ProcessingMenuCommands::showNetworkProcessingMenuCom
     cleanJunctions->enable();
     joinJunctions->enable();
     clearInvalidCrossings->enable();
+    mySeparatorCheckBox->enable();
+    menuCheckRecomputeDataMode->enable();
     // now show it
     computeNetwork->show();
     computeNetworkVolatile->show();
     cleanJunctions->show();
     joinJunctions->show();
     clearInvalidCrossings->show();
+    mySeparatorCheckBox->show();
+    menuCheckRecomputeDataMode->show();
 }
 
 
@@ -1721,15 +1720,16 @@ GNEApplicationWindowHelper::ProcessingMenuCommands::hideDataProcessingMenuComman
     // currently nothing to hide
 }
 
+
 void
 GNEApplicationWindowHelper::ProcessingMenuCommands::showSeparator() {
-    mySeparator->show();
+    myOptionsSeparator->show();
 }
 
 
 void
 GNEApplicationWindowHelper::ProcessingMenuCommands::hideSeparator() {
-    mySeparator->hide();
+    myOptionsSeparator->hide();
 }
 
 // ---------------------------------------------------------------------------

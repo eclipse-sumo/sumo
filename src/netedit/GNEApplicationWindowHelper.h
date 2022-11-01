@@ -833,7 +833,7 @@ struct GNEApplicationWindowHelper {
         ProcessingMenuCommands(GNEApplicationWindow* GNEApp);
 
         /// @brief build menu commands
-        void buildProcessingMenuCommands(FXMenuPane* editMenu);
+        void buildProcessingMenuCommands(FXMenuPane* processingMenu);
 
         /// @brief show network processing menu commands
         void showNetworkProcessingMenuCommands();
@@ -862,37 +862,41 @@ struct GNEApplicationWindowHelper {
         /// @name Processing FXMenuCommands for Network mode
         /// @{
         /// @brief FXMenuCommand for compute network
-        FXMenuCommand* computeNetwork;
+        FXMenuCommand* computeNetwork = nullptr;
 
         /// @brief FXMenuCommand for compute network with volatile options
-        FXMenuCommand* computeNetworkVolatile;
+        FXMenuCommand* computeNetworkVolatile = nullptr;
 
         /// @brief FXMenuCommand for clean junctions without edges
-        FXMenuCommand* cleanJunctions;
+        FXMenuCommand* cleanJunctions = nullptr;
 
         /// @brief FXMenuCommand for join selected junctions
-        FXMenuCommand* joinJunctions;
+        FXMenuCommand* joinJunctions = nullptr;
 
         /// @brief FXMenuCommand for clear invalid crossings
-        FXMenuCommand* clearInvalidCrossings;
+        FXMenuCommand* clearInvalidCrossings = nullptr;
+
+        /// @brief checkBox for recomputing when changing data mode
+        MFXMenuCheckIcon* menuCheckRecomputeDataMode = nullptr;
+
         /// @}
 
         /// @name Processing FXMenuCommands for Demand mode
         /// @{
         /// @brief FXMenuCommand for compute demand elements
-        FXMenuCommand* computeDemand;
+        FXMenuCommand* computeDemand = nullptr;
 
         /// @brief FXMenuCommand for clean routes without vehicles
-        FXMenuCommand* cleanRoutes;
+        FXMenuCommand* cleanRoutes = nullptr;
 
         /// @brief FXMenuCommand for join routes
-        FXMenuCommand* joinRoutes;
+        FXMenuCommand* joinRoutes = nullptr;
 
         /// @brief FXMenuCommand for adjust person plans
-        FXMenuCommand* adjustPersonPlans;
+        FXMenuCommand* adjustPersonPlans = nullptr;
 
         /// @brief FXMenuCommand for clear invalid demand elements
-        FXMenuCommand* clearInvalidDemandElements;
+        FXMenuCommand* clearInvalidDemandElements = nullptr;
         /// @}
 
         /// @name Processing FXMenuCommands for Data mode
@@ -901,14 +905,17 @@ struct GNEApplicationWindowHelper {
         /// @}
 
         /// @brief FXMenuCommand for open option menus
-        FXMenuCommand* optionMenus;
+        FXMenuCommand* optionMenus = nullptr;
 
     private:
         /// @brief pointer to current GNEApplicationWindows
         GNEApplicationWindow* myGNEApp;
 
         /// @brief separator for optionsMenu
-        FXMenuSeparator* mySeparator;
+        FXMenuSeparator* myOptionsSeparator = nullptr;
+
+        /// @brief separator for checkBox
+        FXMenuSeparator* mySeparatorCheckBox = nullptr;
 
         /// @brief Invalidated copy constructor.
         ProcessingMenuCommands(const ProcessingMenuCommands&) = delete;
