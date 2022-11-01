@@ -58,19 +58,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 91, 392)
 
 # change arrivalSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspect.arrivalSpeed, "", True)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.arrivalSpeed, "", True)
 
 # change arrivalSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspect.arrivalSpeed, "dummySpeed", True)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.arrivalSpeed, "dummySpeed", True)
 
 # change departColor with a valid value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspect.arrivalSpeed, "500", True)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.arrivalSpeed, "500", True)
 
 # change arrivalSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspect.arrivalSpeed, "-10", True)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.arrivalSpeed, "-10", True)
 
 # change arrivalSpeed with a valid value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspect.arrivalSpeed, "15.5", True)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.arrivalSpeed, "15.5", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

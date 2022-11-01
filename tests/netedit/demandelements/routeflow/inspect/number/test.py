@@ -58,19 +58,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 91, 392)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspect.terminate, "dummyTerminate", True)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.terminate, "dummyTerminate", True)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspect.terminate, "number", True)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.terminate, "number", True)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspect.terminateOption, "dummyEnd", True)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.terminateOption, "dummyEnd", True)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspect.terminateOption, "12.5", True)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.terminateOption, "12.5", True)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspect.terminateOption, "26", True)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.terminateOption, "26", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

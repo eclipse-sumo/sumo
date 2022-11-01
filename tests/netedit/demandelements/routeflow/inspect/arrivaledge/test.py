@@ -58,19 +58,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 91, 392)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspect.arrivalEdge, "", True)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.arrivalEdge, "", True)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspect.arrivalEdge, "dummy", True)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.arrivalEdge, "dummy", True)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspect.arrivalEdge, "500", True)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.arrivalEdge, "500", True)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspect.arrivalEdge, "-30", True)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.arrivalEdge, "-30", True)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspect.arrivalEdge, "1", True)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.arrivalEdge, "1", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

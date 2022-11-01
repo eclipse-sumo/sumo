@@ -49,13 +49,13 @@ netedit.vehicleMode()
 netedit.changeElement("flow (over route)")
 
 # set invalid insertionchecks
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.insertionChecks, "%%%%%%")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.insertionChecks, "%%%%%%")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set valid Line
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.insertionChecks, "leaderGap junction speedLimit pedestrian")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.insertionChecks, "leaderGap junction speedLimit pedestrian")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 392)

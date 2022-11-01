@@ -49,31 +49,31 @@ netedit.vehicleMode()
 netedit.changeElement("flow (over route)")
 
 # set invalid depart speed
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.departSpeed, "dummySpeed")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.departSpeed, "dummySpeed")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set invalid depart speed
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.departSpeed, "-12")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.departSpeed, "-12")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set invalid depart speed
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.departSpeed, "5000")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.departSpeed, "5000")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set valid depart speed
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.departSpeed, "max")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.departSpeed, "max")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set valid depart speed
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.departSpeed, "20")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.departSpeed, "20")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 392)

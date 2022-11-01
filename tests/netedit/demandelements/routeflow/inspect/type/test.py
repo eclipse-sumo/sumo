@@ -58,16 +58,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 91, 392)
 
 # change vType with an invalid value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspect.type, "", True)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.type, "", True)
 
 # change vType with an invalid value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspect.type, ";;;;", True)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.type, ";;;;", True)
 
 # change vType with an invalid value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspect.type, "dummyVType", True)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.type, "dummyVType", True)
 
 # change vType with a valid value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspect.type, "custom_vType", True)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.type, "custom_vType", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

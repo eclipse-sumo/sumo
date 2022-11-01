@@ -49,25 +49,25 @@ netedit.vehicleMode()
 netedit.changeElement("flow (over route)")
 
 # set invalid personNumber
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.personNumber, "dummycontainerNumber")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.personNumber, "dummycontainerNumber")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set invalid personNumber
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.personNumber, "-12")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.personNumber, "-12")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set invalid personNumber
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.personNumber, "3.5")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.personNumber, "3.5")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set valid personNumber
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.personNumber, "13")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.personNumber, "13")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 392)

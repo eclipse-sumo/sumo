@@ -49,31 +49,31 @@ netedit.vehicleMode()
 netedit.changeElement("flow (over route)")
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.spacing, "dummySpacing")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.spacing, "dummySpacing")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.spacing, "poisson")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.spacing, "poisson")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.spacingOption, "dummy")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.spacingOption, "dummy")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.spacingOption, "-30")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.spacingOption, "-30")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.spacingOption, "2.5")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.spacingOption, "2.5")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)

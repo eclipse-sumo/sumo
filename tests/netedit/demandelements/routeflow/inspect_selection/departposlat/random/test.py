@@ -44,13 +44,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 330, 150)
 
 # change departPosLat with an invalid value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.departPosLat, "", True)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.departPosLat, "", True)
 
 # change departPosLat with an invalid value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.departPosLat, "dummyPosLat", True)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.departPosLat, "dummyPosLat", True)
 
 # change departPosLat with an valid value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.departPosLat, "random", True)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.departPosLat, "random", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

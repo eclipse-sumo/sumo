@@ -58,16 +58,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 91, 392)
 
 # change departLane with an invalid value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspect.departPos, "", True)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.departPos, "", True)
 
 # change departLane with an invalid value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspect.departPos, "dummyPos", True)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.departPos, "dummyPos", True)
 
 # change departLane with an invalid value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspect.departPos, "500", True)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.departPos, "500", True)
 
 # change departLane with a valid value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspect.departPos, "random_free", True)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.departPos, "random_free", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

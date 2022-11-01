@@ -44,13 +44,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 330, 150)
 
 # change departSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.departSpeed, "", True)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.departSpeed, "", True)
 
 # change departSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.departSpeed, "dummySpeed", True)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.departSpeed, "dummySpeed", True)
 
 # change departSpeed with a valid value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.departSpeed, "max", True)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.departSpeed, "max", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

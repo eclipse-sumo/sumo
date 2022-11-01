@@ -52,25 +52,25 @@ netedit.changeElement("flow (over route)")
 netedit.leftClick(referencePosition, 274, 392)
 
 # set invalid id
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.id, "%%;;%%%%")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.id, "%%;;%%%%")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set valid id
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.id, "")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.id, "")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set empty id
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.id, "f_0")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.id, "f_0")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set empty id
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.id, "customID")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.id, "customID")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 392)

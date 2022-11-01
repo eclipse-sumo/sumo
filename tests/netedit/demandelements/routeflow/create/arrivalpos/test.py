@@ -49,25 +49,25 @@ netedit.vehicleMode()
 netedit.changeElement("flow (over route)")
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.arrivalPos, "dummyPos")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.arrivalPos, "dummyPos")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.arrivalPos, "-12")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.arrivalPos, "-12")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.arrivalPos, "random_free")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.arrivalPos, "random_free")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.arrivalPos, "20")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.arrivalPos, "20")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 392)

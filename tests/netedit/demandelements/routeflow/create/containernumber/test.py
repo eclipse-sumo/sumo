@@ -49,25 +49,25 @@ netedit.vehicleMode()
 netedit.changeElement("flow (over route)")
 
 # set invalid containerNumber
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.containerNumber, "dummyContainerNumber")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.containerNumber, "dummyContainerNumber")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set invalid containerNumber
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.containerNumber, "-12")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.containerNumber, "-12")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set invalid containerNumber
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.containerNumber, "3.5")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.containerNumber, "3.5")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set valid containerNumber
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.containerNumber, "13")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.containerNumber, "13")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 392)

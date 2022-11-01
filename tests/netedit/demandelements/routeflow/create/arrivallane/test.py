@@ -49,25 +49,25 @@ netedit.vehicleMode()
 netedit.changeElement("flow (over route)")
 
 # set invalid arrival lane
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.arrivalLane, "dummyLane")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.arrivalLane, "dummyLane")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set invalid arrival lane
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.arrivalLane, "-12")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.arrivalLane, "-12")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set valid arrival lane
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.arrivalLane, "random")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.arrivalLane, "random")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set valid arrival lane
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.arrivalLane, "20")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.arrivalLane, "20")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 392)

@@ -49,25 +49,25 @@ netedit.vehicleMode()
 netedit.changeElement("flow (over route)")
 
 # set invalid depart pos
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.departPos, "dummyPos")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.departPos, "dummyPos")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set invalid depart pos
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.departPos, "-12")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.departPos, "-12")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set valid depart pos
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.departPos, "random_free")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.departPos, "random_free")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 392)
 
 # set valid depart pos
-netedit.changeDefaultValue(netedit.attrs.routeflow.create.departPos, "20")
+netedit.changeDefaultValue(netedit.attrs.routeFlow.create.departPos, "20")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 392)

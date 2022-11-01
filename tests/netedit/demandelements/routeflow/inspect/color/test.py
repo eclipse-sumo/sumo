@@ -58,19 +58,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 91, 392)
 
 # change color using dialog
-netedit.modifyColorAttribute(netedit.attrs.routeflow.inspect.colorButton, 5, True)
+netedit.modifyColorAttribute(netedit.attrs.routeFlow.inspect.colorButton, 5, True)
 
 # change color with an invalid value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspect.color, "", True)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.color, "", True)
 
 # change color with an invalid value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspect.color, "dummyColor", True)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.color, "dummyColor", True)
 
 # change color with an valid value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspect.color, "cyan", True)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.color, "cyan", True)
 
 # change color with a valid value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspect.color, "12,13,14", True)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.color, "12,13,14", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 4)

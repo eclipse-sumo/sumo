@@ -44,22 +44,22 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 330, 150)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.terminate, "end", True)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.terminate, "end", True)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.spacing, "dummyTerminate", True)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.spacing, "dummyTerminate", True)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.spacing, "vehsPerHour", True)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.spacing, "vehsPerHour", True)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.spacingOption, "dummy", True)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.spacingOption, "dummy", True)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.spacingOption, "12.5", True)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.spacingOption, "12.5", True)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.routeflow.inspectSelection.spacingOption, "26", True)
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspectSelection.spacingOption, "26", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)
