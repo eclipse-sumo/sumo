@@ -38,7 +38,7 @@ netedit.vehicleMode()
 netedit.changeElement("flow (from-to edges)")
 
 # set color using dialog
-netedit.changeColorUsingDialog(netedit.attrs.flowFromToEdge.create.colorButton, 5)
+netedit.changeColorUsingDialog(netedit.attrs.flow.create.colorButton, 5)
 
 # try to create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set invalid color
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.color, "dummyColor")
+netedit.changeDefaultValue(netedit.attrs.flow.create.color, "dummyColor")
 
 # try to create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid color
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.color, "cyan")
+netedit.changeDefaultValue(netedit.attrs.flow.create.color, "cyan")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid color
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.color, "12,13,14")
+netedit.changeDefaultValue(netedit.attrs.flow.create.color, "12,13,14")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)

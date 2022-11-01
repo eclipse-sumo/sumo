@@ -51,19 +51,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 91, 392)
 
 # change from with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspect.via, "", False)
+netedit.modifyAttribute(netedit.attrs.flow.inspect.via, "", False)
 
 # change from with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspect.via, "dummyEdge", False)
+netedit.modifyAttribute(netedit.attrs.flow.inspect.via, "dummyEdge", False)
 
 # change from with an valid value
-netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspect.via, "gneE8", False)
+netedit.modifyAttribute(netedit.attrs.flow.inspect.via, "gneE8", False)
 
 # change from with an valid value
-netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspect.via, "gneE9", False)
+netedit.modifyAttribute(netedit.attrs.flow.inspect.via, "gneE9", False)
 
 # change from with an valid value
-netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspect.via, "gneE8 gneE9", False)
+netedit.modifyAttribute(netedit.attrs.flow.inspect.via, "gneE8 gneE9", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

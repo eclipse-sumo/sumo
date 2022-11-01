@@ -38,7 +38,7 @@ netedit.vehicleMode()
 netedit.changeElement("flow (from-to edges)")
 
 # set invalid personNumber
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.personNumber, "dummypersonNumber")
+netedit.changeDefaultValue(netedit.attrs.flow.create.personNumber, "dummypersonNumber")
 
 # try to create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set invalid personNumber
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.personNumber, "-12")
+netedit.changeDefaultValue(netedit.attrs.flow.create.personNumber, "-12")
 
 # try to create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set invalid personNumber
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.personNumber, "3.5")
+netedit.changeDefaultValue(netedit.attrs.flow.create.personNumber, "3.5")
 
 # try to create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid personNumber
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.personNumber, "13")
+netedit.changeDefaultValue(netedit.attrs.flow.create.personNumber, "13")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)

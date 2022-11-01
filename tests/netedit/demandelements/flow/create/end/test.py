@@ -38,7 +38,7 @@ netedit.vehicleMode()
 netedit.changeElement("flow (from-to edges)")
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.terminate, "dummyTerminate")
+netedit.changeDefaultValue(netedit.attrs.flow.create.terminate, "dummyTerminate")
 
 # try to create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.terminate, "end")
+netedit.changeDefaultValue(netedit.attrs.flow.create.terminate, "end")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.terminateOption, "dummy")
+netedit.changeDefaultValue(netedit.attrs.flow.create.terminateOption, "dummy")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.terminateOption, "-30")
+netedit.changeDefaultValue(netedit.attrs.flow.create.terminateOption, "-30")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -78,7 +78,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.terminateOption, "20.5")
+netedit.changeDefaultValue(netedit.attrs.flow.create.terminateOption, "20.5")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -88,7 +88,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.terminateOption, "22")
+netedit.changeDefaultValue(netedit.attrs.flow.create.terminateOption, "22")
 
 # Check undo redo
 netedit.undo(referencePosition, 4)

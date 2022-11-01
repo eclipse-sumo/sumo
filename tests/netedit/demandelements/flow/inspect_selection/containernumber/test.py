@@ -44,19 +44,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 330, 150)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspectSelection.containerNumber, "", False)
+netedit.modifyAttribute(netedit.attrs.flow.inspectSelection.containerNumber, "", False)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspectSelection.containerNumber, "dummyNumber", False)
+netedit.modifyAttribute(netedit.attrs.flow.inspectSelection.containerNumber, "dummyNumber", False)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspectSelection.containerNumber, "-5", False)
+netedit.modifyAttribute(netedit.attrs.flow.inspectSelection.containerNumber, "-5", False)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspectSelection.containerNumber, "2.5", False)
+netedit.modifyAttribute(netedit.attrs.flow.inspectSelection.containerNumber, "2.5", False)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspectSelection.containerNumber, "3", False)
+netedit.modifyAttribute(netedit.attrs.flow.inspectSelection.containerNumber, "3", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

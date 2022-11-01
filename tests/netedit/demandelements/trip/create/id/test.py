@@ -45,7 +45,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set invalid id
-netedit.changeDefaultValue(netedit.attrs.tripFromToEdge.create.id, "%%%;;%%%")
+netedit.changeDefaultValue(netedit.attrs.trip.create.id, "%%%;;%%%")
 
 # try to create trip
 netedit.leftClick(referencePosition, 274, 392)
@@ -55,7 +55,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid id
-netedit.changeDefaultValue(netedit.attrs.tripFromToEdge.create.id, "")
+netedit.changeDefaultValue(netedit.attrs.trip.create.id, "")
 
 # create trip
 netedit.leftClick(referencePosition, 274, 392)
@@ -65,7 +65,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set empty id
-netedit.changeDefaultValue(netedit.attrs.tripFromToEdge.create.id, "t_0")
+netedit.changeDefaultValue(netedit.attrs.trip.create.id, "t_0")
 
 # create trip
 netedit.leftClick(referencePosition, 274, 392)
@@ -75,7 +75,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set empty id
-netedit.changeDefaultValue(netedit.attrs.tripFromToEdge.create.id, "customID")
+netedit.changeDefaultValue(netedit.attrs.trip.create.id, "customID")
 
 # create trip
 netedit.leftClick(referencePosition, 274, 392)

@@ -1,4 +1,5 @@
 -tp appdata=netedit.gui
+-tp/appdata=netedit.gui
 bugs/crossings/ticket3288
 demandelements/routeflow/delete
 demandelements/routeflow/inspect_selection/parameters

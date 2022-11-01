@@ -51,13 +51,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 91, 392)
 
 # change departSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToEdge.inspect.departSpeed, "", False)
+netedit.modifyAttribute(netedit.attrs.trip.inspect.departSpeed, "", False)
 
 # change departSpeed with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToEdge.inspect.departSpeed, "dummySpeed", False)
+netedit.modifyAttribute(netedit.attrs.trip.inspect.departSpeed, "dummySpeed", False)
 
 # change departSpeed with a valid value
-netedit.modifyAttribute(netedit.attrs.tripFromToEdge.inspect.departSpeed, "max", False)
+netedit.modifyAttribute(netedit.attrs.trip.inspect.departSpeed, "max", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

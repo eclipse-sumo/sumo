@@ -38,7 +38,7 @@ netedit.vehicleMode()
 netedit.changeElement("flow (from-to edges)")
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.spacing, "dummySpacing")
+netedit.changeDefaultValue(netedit.attrs.flow.create.spacing, "dummySpacing")
 
 # try to create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.spacing, "probability")
+netedit.changeDefaultValue(netedit.attrs.flow.create.spacing, "probability")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.spacingOption, "dummy")
+netedit.changeDefaultValue(netedit.attrs.flow.create.spacingOption, "dummy")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.spacingOption, "-30")
+netedit.changeDefaultValue(netedit.attrs.flow.create.spacingOption, "-30")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -78,7 +78,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.spacingOption, "20.5")
+netedit.changeDefaultValue(netedit.attrs.flow.create.spacingOption, "20.5")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -88,7 +88,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.spacingOption, "0.6")
+netedit.changeDefaultValue(netedit.attrs.flow.create.spacingOption, "0.6")
 
 # Check undo redo
 netedit.undo(referencePosition, 4)

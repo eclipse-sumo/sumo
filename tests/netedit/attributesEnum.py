@@ -1519,7 +1519,7 @@ class route:
 # trip (from-to edges)
 
 
-class tripFromToEdge:
+class trip:
     class create:
         type = 5
         id = 8
@@ -1818,7 +1818,7 @@ class vehicleEmbedded:
 # flow (from-to edges)
 
 
-class flowFromToEdge:
+class flow:
     class create:
         type = 5
         id = 8

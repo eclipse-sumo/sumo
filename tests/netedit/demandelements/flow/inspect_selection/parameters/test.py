@@ -44,7 +44,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 330, 150)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.flowFromToEdge.inspectSelection.parameters, False)
+netedit.checkParameters(referencePosition, netedit.attrs.flow.inspectSelection.parameters, False)
 
 # save routes
 netedit.saveRoutes(referencePosition)

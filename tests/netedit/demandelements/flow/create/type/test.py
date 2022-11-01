@@ -38,7 +38,7 @@ netedit.vehicleMode()
 netedit.changeElement("flow (from-to edges)")
 
 # set invalid vType
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.type, "blue")
+netedit.changeDefaultValue(netedit.attrs.flow.create.type, "blue")
 
 # try to create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid vType
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.type, "custom_vType")
+netedit.changeDefaultValue(netedit.attrs.flow.create.type, "custom_vType")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)

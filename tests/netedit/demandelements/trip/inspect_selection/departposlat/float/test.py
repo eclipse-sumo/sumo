@@ -44,16 +44,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 330, 150)
 
 # change departPosLat with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToEdge.inspectSelection.departPosLat, "", False)
+netedit.modifyAttribute(netedit.attrs.trip.inspectSelection.departPosLat, "", False)
 
 # change departPosLat with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToEdge.inspectSelection.departPosLat, "dummyPosLat", False)
+netedit.modifyAttribute(netedit.attrs.trip.inspectSelection.departPosLat, "dummyPosLat", False)
 
 # change departPosLat with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToEdge.inspectSelection.departPosLat, "-5", False)
+netedit.modifyAttribute(netedit.attrs.trip.inspectSelection.departPosLat, "-5", False)
 
 # change departPosLat with an invalid value
-netedit.modifyAttribute(netedit.attrs.tripFromToEdge.inspectSelection.departPosLat, "5.6", False)
+netedit.modifyAttribute(netedit.attrs.trip.inspectSelection.departPosLat, "5.6", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

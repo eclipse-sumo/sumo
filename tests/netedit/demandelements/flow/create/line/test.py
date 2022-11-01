@@ -38,7 +38,7 @@ netedit.vehicleMode()
 netedit.changeElement("flow (from-to edges)")
 
 # set invalid line
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.line, "%%%%%%")
+netedit.changeDefaultValue(netedit.attrs.flow.create.line, "%%%%%%")
 
 # try to create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid Line
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.line, "ownLine")
+netedit.changeDefaultValue(netedit.attrs.flow.create.line, "ownLine")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set empty line
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.line, "")
+netedit.changeDefaultValue(netedit.attrs.flow.create.line, "")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)

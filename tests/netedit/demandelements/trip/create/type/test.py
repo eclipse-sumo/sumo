@@ -38,7 +38,7 @@ netedit.vehicleMode()
 # netedit.changeElement("trip")
 
 # set invalid vType
-netedit.changeDefaultValue(netedit.attrs.tripFromToEdge.create.type, "blue")
+netedit.changeDefaultValue(netedit.attrs.trip.create.type, "blue")
 
 # try to create trip
 netedit.leftClick(referencePosition, 274, 392)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid vType
-netedit.changeDefaultValue(netedit.attrs.tripFromToEdge.create.type, "custom_vType")
+netedit.changeDefaultValue(netedit.attrs.trip.create.type, "custom_vType")
 
 # create trip
 netedit.leftClick(referencePosition, 274, 392)

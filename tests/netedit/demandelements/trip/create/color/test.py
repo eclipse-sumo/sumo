@@ -38,7 +38,7 @@ netedit.vehicleMode()
 # netedit.changeElement("trip")
 
 # set color using dialog color
-netedit.changeColorUsingDialog(netedit.attrs.tripFromToEdge.create.colorButton, 5)
+netedit.changeColorUsingDialog(netedit.attrs.trip.create.colorButton, 5)
 
 # create trip
 netedit.leftClick(referencePosition, 274, 392)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set invalid color
-netedit.changeDefaultValue(netedit.attrs.tripFromToEdge.create.color, "dummyColor")
+netedit.changeDefaultValue(netedit.attrs.trip.create.color, "dummyColor")
 
 # try to create trip
 netedit.leftClick(referencePosition, 274, 392)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid color
-netedit.changeDefaultValue(netedit.attrs.tripFromToEdge.create.color, "cyan")
+netedit.changeDefaultValue(netedit.attrs.trip.create.color, "cyan")
 
 # create trip
 netedit.leftClick(referencePosition, 274, 392)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid color
-netedit.changeDefaultValue(netedit.attrs.tripFromToEdge.create.color, "12,13,14")
+netedit.changeDefaultValue(netedit.attrs.trip.create.color, "12,13,14")
 
 # create trip
 netedit.leftClick(referencePosition, 274, 392)

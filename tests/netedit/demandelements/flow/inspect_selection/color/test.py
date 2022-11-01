@@ -44,19 +44,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 330, 150)
 
 # change color using dialog
-netedit.modifyColorAttribute(netedit.attrs.flowFromToEdge.inspectSelection.colorButton, 5, False)
+netedit.modifyColorAttribute(netedit.attrs.flow.inspectSelection.colorButton, 5, False)
 
 # change color with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspectSelection.color, "", False)
+netedit.modifyAttribute(netedit.attrs.flow.inspectSelection.color, "", False)
 
 # change color with an invalid value
-netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspectSelection.color, "dummyColor", False)
+netedit.modifyAttribute(netedit.attrs.flow.inspectSelection.color, "dummyColor", False)
 
 # change color with an valid value
-netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspectSelection.color, "cyan", False)
+netedit.modifyAttribute(netedit.attrs.flow.inspectSelection.color, "cyan", False)
 
 # change color with a valid value
-netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspectSelection.color, "12,13,14", False)
+netedit.modifyAttribute(netedit.attrs.flow.inspectSelection.color, "12,13,14", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

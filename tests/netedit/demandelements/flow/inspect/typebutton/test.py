@@ -51,10 +51,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 91, 392)
 
 # change vType with a valid value
-netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspect.type, "custom_vType", False)
+netedit.modifyAttribute(netedit.attrs.flow.inspect.type, "custom_vType", False)
 
 # inspect vtype
-netedit.modifyBoolAttribute(netedit.attrs.flowFromToEdge.inspect.typeButton, False)
+netedit.modifyBoolAttribute(netedit.attrs.flow.inspect.typeButton, False)
 
 # change color with a valid value
 netedit.modifyAttribute(netedit.attrs.type.color, "12,13,14", False)

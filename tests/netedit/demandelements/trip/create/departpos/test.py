@@ -38,7 +38,7 @@ netedit.vehicleMode()
 # netedit.changeElement("trip")
 
 # set invalid depart pos
-netedit.changeDefaultValue(netedit.attrs.tripFromToEdge.create.departPos, "dummyPos")
+netedit.changeDefaultValue(netedit.attrs.trip.create.departPos, "dummyPos")
 
 # try to create trip
 netedit.leftClick(referencePosition, 274, 392)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set invalid depart pos
-netedit.changeDefaultValue(netedit.attrs.tripFromToEdge.create.departPos, "-12")
+netedit.changeDefaultValue(netedit.attrs.trip.create.departPos, "-12")
 
 # create trip
 netedit.leftClick(referencePosition, 274, 392)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid depart pos
-netedit.changeDefaultValue(netedit.attrs.tripFromToEdge.create.departPos, "random_free")
+netedit.changeDefaultValue(netedit.attrs.trip.create.departPos, "random_free")
 
 # create trip
 netedit.leftClick(referencePosition, 274, 392)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid depart pos
-netedit.changeDefaultValue(netedit.attrs.tripFromToEdge.create.departPos, "20")
+netedit.changeDefaultValue(netedit.attrs.trip.create.departPos, "20")
 
 # create trip
 netedit.leftClick(referencePosition, 274, 392)

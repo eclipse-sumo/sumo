@@ -38,7 +38,7 @@ netedit.vehicleMode()
 netedit.changeElement("flow (from-to edges)")
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.terminate, "dummyTerminate")
+netedit.changeDefaultValue(netedit.attrs.flow.create.terminate, "dummyTerminate")
 
 # try to create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.terminate, "end-number")
+netedit.changeDefaultValue(netedit.attrs.flow.create.terminate, "end-number")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.end, "dummy")
+netedit.changeDefaultValue(netedit.attrs.flow.create.end, "dummy")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.end, "-30")
+netedit.changeDefaultValue(netedit.attrs.flow.create.end, "-30")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -78,7 +78,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.end, "20.5")
+netedit.changeDefaultValue(netedit.attrs.flow.create.end, "20.5")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -88,10 +88,10 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.end, "22")
+netedit.changeDefaultValue(netedit.attrs.flow.create.end, "22")
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.number, "dummy")
+netedit.changeDefaultValue(netedit.attrs.flow.create.number, "dummy")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -101,7 +101,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.number, "-30")
+netedit.changeDefaultValue(netedit.attrs.flow.create.number, "-30")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -111,7 +111,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.number, "20.5")
+netedit.changeDefaultValue(netedit.attrs.flow.create.number, "20.5")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -121,7 +121,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.number, "51")
+netedit.changeDefaultValue(netedit.attrs.flow.create.number, "51")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)

@@ -38,7 +38,7 @@ netedit.vehicleMode()
 netedit.changeElement("flow (from-to edges)")
 
 # set invalid depart speed
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.departSpeed, "dummySpeed")
+netedit.changeDefaultValue(netedit.attrs.flow.create.departSpeed, "dummySpeed")
 
 # try to create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set invalid depart speed
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.departSpeed, "-12")
+netedit.changeDefaultValue(netedit.attrs.flow.create.departSpeed, "-12")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid depart speed
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.departSpeed, "max")
+netedit.changeDefaultValue(netedit.attrs.flow.create.departSpeed, "max")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid depart speed
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.departSpeed, "20")
+netedit.changeDefaultValue(netedit.attrs.flow.create.departSpeed, "20")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)

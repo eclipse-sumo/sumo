@@ -38,7 +38,7 @@ netedit.vehicleMode()
 netedit.changeElement("flow (from-to edges)")
 
 # set invalid depart pos
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.departPosLat, "dummyPos")
+netedit.changeDefaultValue(netedit.attrs.flow.create.departPosLat, "dummyPos")
 
 # try to create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set invalid depart pos
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.departPosLat, "-12")
+netedit.changeDefaultValue(netedit.attrs.flow.create.departPosLat, "-12")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid depart pos
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.departPosLat, "random_free")
+netedit.changeDefaultValue(netedit.attrs.flow.create.departPosLat, "random_free")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid depart pos
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.departPosLat, "20")
+netedit.changeDefaultValue(netedit.attrs.flow.create.departPosLat, "20")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)

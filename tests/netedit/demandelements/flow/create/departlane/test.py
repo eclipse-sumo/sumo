@@ -38,7 +38,7 @@ netedit.vehicleMode()
 netedit.changeElement("flow (from-to edges)")
 
 # set invalid depart lane
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.departLane, "dummyLane")
+netedit.changeDefaultValue(netedit.attrs.flow.create.departLane, "dummyLane")
 
 # try to create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set invalid depart lane
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.departLane, "-12")
+netedit.changeDefaultValue(netedit.attrs.flow.create.departLane, "-12")
 
 # try to create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid depart lane
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.departLane, "random")
+netedit.changeDefaultValue(netedit.attrs.flow.create.departLane, "random")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid depart lane
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.departLane, "20")
+netedit.changeDefaultValue(netedit.attrs.flow.create.departLane, "20")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)

@@ -38,7 +38,7 @@ netedit.vehicleMode()
 netedit.changeElement("flow (from-to edges)")
 
 # set invalid containerNumber
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.containerNumber, "dummyContainerNumber")
+netedit.changeDefaultValue(netedit.attrs.flow.create.containerNumber, "dummyContainerNumber")
 
 # try to create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set invalid containerNumber
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.containerNumber, "-12")
+netedit.changeDefaultValue(netedit.attrs.flow.create.containerNumber, "-12")
 
 # try to create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set invalid containerNumber
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.containerNumber, "3.5")
+netedit.changeDefaultValue(netedit.attrs.flow.create.containerNumber, "3.5")
 
 # try to create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid containerNumber
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.containerNumber, "13")
+netedit.changeDefaultValue(netedit.attrs.flow.create.containerNumber, "13")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)

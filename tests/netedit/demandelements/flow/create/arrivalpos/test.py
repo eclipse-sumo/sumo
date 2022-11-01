@@ -38,7 +38,7 @@ netedit.vehicleMode()
 netedit.changeElement("flow (from-to edges)")
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.arrivalPos, "dummyPos")
+netedit.changeDefaultValue(netedit.attrs.flow.create.arrivalPos, "dummyPos")
 
 # try to create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set invalid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.arrivalPos, "-12")
+netedit.changeDefaultValue(netedit.attrs.flow.create.arrivalPos, "-12")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.arrivalPos, "random_free")
+netedit.changeDefaultValue(netedit.attrs.flow.create.arrivalPos, "random_free")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid arrival pos
-netedit.changeDefaultValue(netedit.attrs.flowFromToEdge.create.arrivalPos, "20")
+netedit.changeDefaultValue(netedit.attrs.flow.create.arrivalPos, "20")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 392)

@@ -51,28 +51,28 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 91, 392)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspect.terminate, "dummyTerminate", False)
+netedit.modifyAttribute(netedit.attrs.flow.inspect.terminate, "dummyTerminate", False)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspect.terminate, "end-number", False)
+netedit.modifyAttribute(netedit.attrs.flow.inspect.terminate, "end-number", False)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspect.spacing, "dummyEnd", False)
+netedit.modifyAttribute(netedit.attrs.flow.inspect.spacing, "dummyEnd", False)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspect.spacing, "23", False)
+netedit.modifyAttribute(netedit.attrs.flow.inspect.spacing, "23", False)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspect.end, "dummyNumber", False)
+netedit.modifyAttribute(netedit.attrs.flow.inspect.end, "dummyNumber", False)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspect.end, "12.3", False)
+netedit.modifyAttribute(netedit.attrs.flow.inspect.end, "12.3", False)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspect.end, "-30", False)
+netedit.modifyAttribute(netedit.attrs.flow.inspect.end, "-30", False)
 
 # change flow value
-netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspect.end, "81", False)
+netedit.modifyAttribute(netedit.attrs.flow.inspect.end, "81", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)
