@@ -452,9 +452,8 @@ def buildTripGenerator(net, options):
                 sink_generator = RandomEdgeGenerator(
                     net, LoadedProps(options.weightsprefix + DEST_SUFFIX))
     except InvalidGenerator:
-        if options.verbose:
-            print("Error: no valid edges for generating source or destination. Try using option --allow-fringe",
-                  file=sys.stderr)
+        print("Error: no valid edges for generating source or destination. Try using option --allow-fringe",
+              file=sys.stderr)
         return None
 
     try:
@@ -513,8 +512,7 @@ def split_trip_attributes(tripattrs, pedestrians, hasType, verbose):
             allattrs.append(a)
         else:
             if len(allattrs) == 0:
-                if verbose:
-                    print("Warning: invalid trip-attribute '%s'" % a)
+                print("Warning: invalid trip-attribute '%s'" % a)
             else:
                 allattrs[-1] += ' ' + a
 
