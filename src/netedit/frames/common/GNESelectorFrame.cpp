@@ -1240,12 +1240,18 @@ GNESelectorFrame::SelectionHierarchy::onCmdParents(FXObject* obj, FXSelector, vo
         }
         // select HE
         if (HEToSelect.size() > 0) {
+            if (HEToSelect.size() > 1) {
+                mySelectorFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::SELECT, "select parents");
+            }
             for (const auto& HE : HEToSelect) {
                 if (obj == mySelectParentsButton) {
                     HE->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
                 } else {
                     HE->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->getViewNet()->getUndoList());
                 }
+            }
+                if (HEToSelect.size() > 1) {
+                mySelectorFrameParent->getViewNet()->getUndoList()->end();
             }
         }
         // update information label
@@ -1358,12 +1364,18 @@ GNESelectorFrame::SelectionHierarchy::onCmdChildren(FXObject* obj, FXSelector, v
         }
         // select HE
         if (HEToSelect.size() > 0) {
+            if (HEToSelect.size() > 1) {
+                mySelectorFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::SELECT, "select children");
+            }
             for (const auto& HE : HEToSelect) {
                 if (obj == mySelectChildrenButton) {
                     HE->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
                 } else {
                     HE->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->getViewNet()->getUndoList());
                 }
+            }
+            if (HEToSelect.size() > 1) {
+                mySelectorFrameParent->getViewNet()->getUndoList()->end();
             }
         }
         // update information label
