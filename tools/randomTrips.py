@@ -430,9 +430,8 @@ def buildTripGenerator(net, options):
                 sink_generator = RandomEdgeGenerator(
                     net, LoadedProps(options.weightsprefix + SINK_SUFFIX))
     except InvalidGenerator:
-        if options.verbose:
-            print("Error: no valid edges for generating source or destination. Try using option --allow-fringe",
-                  file=sys.stderr)
+        print("Error: no valid edges for generating source or destination. Try using option --allow-fringe",
+              file=sys.stderr)
         return None
 
     try:
@@ -443,8 +442,7 @@ def buildTripGenerator(net, options):
                 net, LoadedProps(options.weightsprefix + VIA_SUFFIX))
     except InvalidGenerator:
         if options.intermediate > 0:
-            if options.verbose:
-                print("Error: no valid edges for generating intermediate points", file=sys.stderr)
+            print("Error: no valid edges for generating intermediate points", file=sys.stderr)
             return None
         else:
             via_generator = None
@@ -492,8 +490,7 @@ def split_trip_attributes(tripattrs, pedestrians, hasType, verbose):
             allattrs.append(a)
         else:
             if len(allattrs) == 0:
-                if verbose:
-                    print("Warning: invalid trip-attribute '%s'" % a)
+                print("Warning: invalid trip-attribute '%s'" % a)
             else:
                 allattrs[-1] += ' ' + a
 
@@ -549,9 +546,8 @@ def main(options):
     if options.min_distance > net.getBBoxDiameter() * (options.intermediate + 1):
         options.intermediate = int(
             math.ceil(options.min_distance / net.getBBoxDiameter())) - 1
-        if options.verbose:
-            print(("Warning: setting number of intermediate waypoints to %s to achieve a minimum trip length of " + 
-                   "%s in a network with diameter %.2f.") % (options.intermediate, options.min_distance, net.getBBoxDiameter()))
+        print(("Warning: setting number of intermediate waypoints to %s to achieve a minimum trip length of " + 
+               "%s in a network with diameter %.2f.") % (options.intermediate, options.min_distance, net.getBBoxDiameter()))
 
     if options.angle_weight != 1:
         xmin, ymin, xmax, ymax = net.getBoundary()
@@ -828,5 +824,5 @@ def main(options):
 
 if __name__ == "__main__":
     if not main(get_options()):
-        print("Trips couldn't be generated as requested. Try the --verbose option to output more details on the failure.")
+        print("Error: Trips couldn't be generated as requested. Try the --verbose option to output more details on the failure.")
         sys.exit(1)
