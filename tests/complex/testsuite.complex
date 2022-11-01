@@ -29,6 +29,9 @@ state
 # emission tools, especially emissionDrivingCycleemissions
 emissions
 
+# emission tools, especially emissionDrivingCycleemissions
+emissionsMap
+
 # scenario generation
 scenario_generation
 unit_tests
