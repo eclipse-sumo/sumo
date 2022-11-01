@@ -730,8 +730,7 @@ def main(options):
                                 origin, destination, intermediate = generate_origin_destination(trip_generator, options)
                                 idx = generate_one(idx, time, arrivalTime, period, origin, destination, intermediate)
                             except Exception as exc:
-                                if options.verbose:
-                                    print(exc, file=sys.stderr)
+                                print(exc, file=sys.stderr)
                     else:
                         time = departureTime
                         while time < arrivalTime:
