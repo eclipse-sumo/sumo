@@ -6,3 +6,6 @@ unified_flows
 
 # unsorted route file
 unsorted
+
+# one route file and only one traffic light with traffic volumes
+named_routes
