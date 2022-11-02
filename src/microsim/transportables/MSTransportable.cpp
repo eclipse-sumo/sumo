@@ -310,11 +310,12 @@ MSTransportable::setSpeed(double speed) {
 
 void
 MSTransportable::replaceVehicleType(MSVehicleType* type) {
+    const SUMOVehicleClass oldVClass = myVType->getVehicleClass();
     if (myVType->isVehicleSpecific()) {
         MSNet::getInstance()->getVehicleControl().removeVType(myVType);
     }
     if (isPerson()
-            && type->getVehicleClass() != myVType->getVehicleClass()
+            && type->getVehicleClass() != oldVClass
             && type->getVehicleClass() != SVC_PEDESTRIAN
             && !type->getParameter().wasSet(VTYPEPARS_VEHICLECLASS_SET)) {
         WRITE_WARNINGF(TL("Person '%' receives type '%' which implicitly uses unsuitable vClass '%'."), getID(), type->getID(), toString(type->getVehicleClass()));

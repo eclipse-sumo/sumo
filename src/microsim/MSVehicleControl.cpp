@@ -346,7 +346,7 @@ MSVehicleControl::addVType(MSVehicleType* vehType) {
 
 void
 MSVehicleControl::removeVType(const MSVehicleType* vehType) {
-    assert(vehType != 0);
+    assert(vehType != nullptr);
     assert(myVTypeDict.find(vehType->getID()) != myVTypeDict.end());
     myVTypeDict.erase(vehType->getID());
     if (myVTypeToDist.find(vehType->getID()) != myVTypeToDist.end()) {
