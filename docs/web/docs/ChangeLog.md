@@ -50,6 +50,7 @@ title: ChangeLog
     - Fixed invalid speed adaptations for lane changing while on an intersection. Issue #11507
     - Fixed strategic change happening despite lcStrategic=-1. Issue #11752
     - A stopped leader now triggers strategic changing in the sublane model. Issue #11773
+    - Fixed bug lane-changing deadlock-avoidance caused excessive braking. Issue #11695
   - output
     - fcd-output now includes riding persons even if their vehicle is not equipped with fcd device. Issue #11454
     - fcd-output of persons now respects edge and shape filters. Issue #11455
@@ -98,7 +99,9 @@ title: ChangeLog
   - Fixed corrupted 3D view after window resize and minimize operation. Issue #11727
   - Initial camera coordinates are now matching for the 3D view. Issue #11742
   - Fixed invalid displayed settings for asymmetrical background grid. Issue #11809
-  
+  - Fixed appearance of guiShape=rail when applied to "normal" cars. Issue #11919
+  - Fixed invalid lateral rendering position of vehicles with potential carriages (i.e. 'trailer'). Issue #11901
+
 - netconvert
   - Fixed invalid red phase at traffic lights with very low connection speeds. Issue #11307 (regression in 1.14.0)
   - Fixed invalid turn-around connection at roundabout with unusual geometry. Issue #11344
@@ -149,6 +152,7 @@ title: ChangeLog
   - Fixed error after Canceling stop via TraCI and then calling moveToXY. Issue #11870
   - Stops may now be defined at position=0. Issue #11891
   - Fixed bug where CACC model had invalid speed while activating [ToC](ToC_Device.md). Issue #6192
+  - View boundaries returned for a 3D view now better match the actual field of vision. Issue 11471
 
 - Tools
   - randomTrips.py and duaIterate.py now properly report unknown options again. Issue #11258 (regression in 1.14.1)
@@ -190,6 +194,7 @@ title: ChangeLog
   - Added option **--summary-output.period** to reduce the frequency of summary output. Issue #2445
   - The slope of a vehicle now takes into account it's length. Issue #8802
   - Rail signal constraints now support loading generic parameters. Issue #11880
+  - Added optinos **--edgedata-output FILE** and **--lanedata-output FILE** to configure a very basic meanData output without the need for additional files. Issue #11939
 
 - netedit
   - Context menus on ambiguously overlapping objects now gives a choice of object. Holding ALT always gives all choices. Issue #10916
@@ -218,7 +223,9 @@ title: ChangeLog
   - Kilometrage at cursor position is now shown in the edge context menu. Issue #11815
   - Added (optional) tooltips in attribute labels. Issue #11490
   - Hierarchical selection can now select connections and crossings as children. Issue #11863
+  - Hierarchical selection now uses undo-group. Issue #11917
   - In data mode, the visualized attribute now remains active when changing between intervals. Issue #11881
+  - By default, network geometry is now computed before entering data mode (to improve visualization of turn counts). To improve performance in large networks, this can be disabled with a (persistent) setting in the Processing menu. Issue #11918
   - Traffic light mode:
     - phase table now permits moving phases up and down. Issue #10856
     - Added buttons reset either the current program or all programs of the current traffic light to their default. Issue #9072, #11357
@@ -232,6 +239,7 @@ title: ChangeLog
     - Add buttons for visually creating and changing joined traffic lights. Issue #11367
 
 - sumo-gui
+  - EdgeData and laneData values recorded by the current simulation can now be used [for live edge coloring](sumo-gui.md#edgelane_visualisation_settings). Issue #9756
   - 3D view now permits clicking on more objects (lanes, junctions, traffic lights). Issue #10882
   - 3D view now supports realistic drawing of traffic signals for cars and pedestrians. Issue #10913, #11162
   - Stopped two-wheelers are now drawn without rider. Issue #10917
@@ -246,6 +254,7 @@ title: ChangeLog
   - An active traci-server is now indicated in the status bar. Issue #5054
   - Kilometrage at cursor position is now shown in the lane context menu. Issue #11815
   - Added 'hide above threshold' to rainbow calibrator. Issue #11814
+  - Generated color rainbow now includes MISSING_DATA color if data is missing. Issue #11927
 
 - netconvert
   - Input given via option **--ptline-files** is now filtered when reducing the network extent. Issue #11548
@@ -287,6 +296,7 @@ title: ChangeLog
   - countEdgeUsage.py: Can now load multiple route files. Issue #11338  
   - generateRailSignalConstraints.py: added constraints for vehicles inserted at the same stop. Issue #11378
   - generateRailSignalConstraints.py: added option **--params** to make all comment information accessible as generic parameters (i.e. and see them in the gui). Issue #11880
+  - generateRailSignalConstraints.py: Added option **--bidi-conflicts** to generated conflicts for bidirectional track use. Issue #11709
   - drtonline.py: now supports option **--tracefile** to allow for quick replication of a simulation. Issue #11414
   - Added new tool [drtOrtools.py](Tools/Drt.md#drtortoolspy) to solve DRT problems with the [ortools package](https://developers.google.com/optimization). Issue #11413  
   - osmWebWizard.py: Now prevents turn-arounds at the start and end of routes to improve traffic flow. Issue #10167
@@ -298,6 +308,8 @@ title: ChangeLog
   - randomTrips.py: New option **--min-dist-fringe** which allows short fringe-to-fringe trips if trip generation with **--min-dist** fails repeatedly. Issue #10592
   - randomTrips.py: Option **--fringe-factor** now supports value `max` to force all departures and arrivals onto the fringe. Issue #11894
   - plotXMLAttributes.py: Now support plotting by rank (by specifying attribute `@RANK`). Issue #11605
+  - Added new tool [vehrouteCountValidation.py](Tools/Output.md#vehroutecountvalidationpy) to evaluate the differenced between counting data (edge counts, turn counts, ...) and traffic recorded by a simulation (**--vehroute-output** with **exit-times**).
+  - tlsCycleAdaptation.py: Now supports loading input with named routes. Issue #11879
   
 ### Miscellaneous
 
@@ -312,6 +324,7 @@ title: ChangeLog
 - The new default **--xml-validation** mode is *local* which only reads the local schema file but does not do network access to prevent XXE attacks. Issue #11054
 - Cadyts-files can be downloaded again. Issue #11014
 - Fixed the default state of some netedit toggle buttons (but kept their default semantics). Issue #10066
+- Improved documentation for [3D-Visualization](sumo-gui.html#3d_visualization). Issue #10926
 
 ## Version 1.14.1 (19.07.2022)
 
