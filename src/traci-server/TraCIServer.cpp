@@ -359,10 +359,10 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
 
 
 TraCIServer::~TraCIServer() {
-    for (myCurrentSocket = mySockets.begin(); myCurrentSocket != mySockets.end(); ++myCurrentSocket) {
-        delete myCurrentSocket->second;
+    for (const auto& socket : mySockets) {
+        delete socket.second;
     }
-    cleanup();
+    // there is no point in calling cleanup() here, it does not free any pointers and will only modify members which get deleted anyway
 }
 
 
