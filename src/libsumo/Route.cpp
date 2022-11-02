@@ -97,7 +97,9 @@ Route::add(const std::string& routeID, const std::vector<std::string>& edgeIDs) 
         edges.push_back(edge);
     }
     const std::vector<SUMOVehicleParameter::Stop> stops;
-    if (!MSRoute::dictionary(routeID, new MSRoute(routeID, edges, true, nullptr, stops))) {
+    MSRoute* route = new MSRoute(routeID, edges, true, nullptr, stops);
+    if (!MSRoute::dictionary(routeID, route)) {
+        delete route;
         throw TraCIException("Could not add route '" + routeID + "'.");
     }
 }
