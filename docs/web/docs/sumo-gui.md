@@ -626,9 +626,9 @@ Each text can be configured with regard to it's size color and background color.
 | by segment inclination                   | %       | By the average change in height between start and end of each geometry segment                                                                                         |
 | by average speed                         | m/s     | By the average speed of vehicles on the lane                                                                                                                           |
 | by average relative speed                | %       | By the average speed of vehicles on the lane as percentage of the allowed speed      |
-| by routing device assumed speed          | m/s   | The averaged speed [computed by the rerouting device](Demand/Automatic_Routing.html#edge_weights) |
+| by routing device assumed speed          | m/s   | The averaged speed [computed by the rerouting device](Demand/Automatic_Routing.md#edge_weights) |
 | by insertion backlog                     |       | The number of cars currently delayed for insertion on the lane     |
-| by TAZ                                   |       | By the color of the TAZ to whish this edge belongs (if [TAZs](Demand/Importing_O/D_Matrices.html#describing_the_taz) with colors are loaded) |
+| by TAZ                                   |       | By the color of the TAZ to whish this edge belongs (if [TAZs](Demand/Importing_O/D_Matrices.md#describing_the_taz) with colors are loaded) |
 | by param (numerical, streetwise)         |       | By the edge parameter configured in the drop-down list of all known edge parameters.  |
 | by param (numerical, lanewise)           |       | By the lane parameter configured in the drop-down list of all known lane parameters.  |
 | by edgeData (numerical, streetwise)      |       | By the edgeData attribute configured in the drop-down list of all loaded edgeData attributes.  |
