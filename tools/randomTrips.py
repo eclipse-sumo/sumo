@@ -566,10 +566,10 @@ def main(options):
 
     net = get_network(options)
     if options.min_distance > net.getBBoxDiameter() * (options.intermediate + 1):
-        options.intermediate = int(
-            math.ceil(options.min_distance / net.getBBoxDiameter())) - 1
-        print(("Warning: setting number of intermediate waypoints to %s to achieve a minimum trip length of " + 
-               "%s in a network with diameter %.2f.") % (options.intermediate, options.min_distance, net.getBBoxDiameter()), file=sys.stderr)
+        options.intermediate = int(math.ceil(options.min_distance / net.getBBoxDiameter())) - 1
+        print(("Warning: Using %s intermediate waypoints to achieve a minimum trip length of %s in a network "
+               "with diameter %.2f.") % (options.intermediate, options.min_distance, net.getBBoxDiameter()),
+              file=sys.stderr)
 
     if options.angle_weight != 1:
         xmin, ymin, xmax, ymax = net.getBoundary()
@@ -612,7 +612,7 @@ def main(options):
             attrFrom = ' from="%s"' % origin.getID()
             attrTo = ' to="%s"' % destination.getID()
         via = ""
-        if len(intermediate) > 0:
+        if intermediate:
             via = ' via="%s" ' % ' '.join(
                 [e.getID() for e in intermediate])
             if options.validate:
@@ -845,5 +845,6 @@ def main(options):
 
 if __name__ == "__main__":
     if not main(get_options()):
-        print("Error: Trips couldn't be generated as requested. Try the --verbose option to output more details on the failure.")
+        print("Error: Trips couldn't be generated as requested. "
+              "Try the --verbose option to output more details on the failure.")
         sys.exit(1)
