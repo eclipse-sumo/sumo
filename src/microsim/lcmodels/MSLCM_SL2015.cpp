@@ -2171,9 +2171,37 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int
                 const PersonDist pedLeader = lane->nextBlocking(myVehicle.getPositionOnLane() - myVehicle.getVehicleType().getLength(), foeRight, foeLeft);
                 if (pedLeader.first != 0) {
                     const double pedGap = pedLeader.second - myVehicle.getVehicleType().getMinGap() - myVehicle.getVehicleType().getLength();
-                    // we do not know the walking direction here so we take the pedestrian speeda s 0
+                    // we do not know the walking direction here so we take the pedestrian speed as 0
                     vSafe = MIN2(getCarFollowModel().stopSpeed(&myVehicle, vMax, pedGap),
                                  forecastAverageSpeed(vSafe, vMax, pedGap, 0));
+#ifdef DEBUG_EXPECTED_SLSPEED
+                    if (DEBUG_COND) {
+                        std::cout << "   updateExpectedSublaneSpeeds edgeSublane=" << edgeSublane << " pedLeader=" << pedLeader.first->getID() << " gap=" << pedGap << " vSafe=" << vSafe << "\n";
+                    }
+#endif
+                }
+            }
+            // take bidi pedestrians into account
+            if (bidi != nullptr && bidi->getEdge().getPersons().size() > 0 && bidi->hasPedestrians()) {
+                /// XXX this could be done faster by checking all sublanes at once (but would complicate the MSPModel API)
+                double foeRight, foeLeft;
+                ahead.getSublaneBorders(sublane, 0, foeRight, foeLeft);
+                const double foeRightBidi = bidi->getWidth() - foeLeft;
+                const double foeLeftBidi = bidi->getWidth() - foeRight;
+                // get all leaders ahead or overlapping
+                const double relativeBackPos = myVehicle.getLane()->getLength() - myVehicle.getPositionOnLane() + myVehicle.getLength();
+                const double stopTime = ceil(myVehicle.getSpeed() / myVehicle.getCarFollowModel().getMaxDecel());
+                PersonDist pedLeader = bidi->nextBlocking(relativeBackPos, foeRightBidi, foeLeftBidi, stopTime, true);
+                if (pedLeader.first != 0) {
+                    const double pedGap = pedLeader.second - myVehicle.getVehicleType().getMinGap() - myVehicle.getVehicleType().getLength();
+                    // we do not know the walking direction here so we take the pedestrian speed as 0
+                    vSafe = MIN2(getCarFollowModel().stopSpeed(&myVehicle, vMax, pedGap),
+                                 forecastAverageSpeed(vSafe, vMax, pedGap, 0));
+#ifdef DEBUG_EXPECTED_SLSPEED
+                    if (DEBUG_COND) {
+                        std::cout << "   updateExpectedSublaneSpeeds edgeSublane=" << edgeSublane << " pedLeader=" << pedLeader.first->getID() << " (bidi) gap=" << pedGap << " vSafe=" << vSafe << "\n";
+                    }
+#endif
                 }
             }
             vSafe = MIN2(vMax, vSafe);
