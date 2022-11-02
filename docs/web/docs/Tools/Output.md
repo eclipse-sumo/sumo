@@ -154,6 +154,18 @@ usage:
 python vehrouteDiff.py routes1.rou.xml routes2.rou.xml result.xml
 ```
 
+## vehrouteCountValidation.py
+
+Computes the mismatch between counting datay (in the same format as used by [routeSampler.py](../Turns.md#routesamplerpy))
+and **--vehroute-output** files. If the vehroute-output was generated with option **--vehroute-output.exit-times**, then time of passing the respective edges is used for the validation of counting data time lines (counting data with multiple time intervals).
+Since typically, the total count of vehicles provided in the simulation **--route-files** passes the desired edges, the main value of this tools lies in evaluating the impact of delays (or delayed insertion) on replicating time-dependent counting data.
+
+usage (with turn counts):
+
+```
+python vehrouteCountValidation.py -r routes.rou.xml -t input_turns.xml
+```
+
 ## tripinfoDiff.py
 
 Computes the difference in travel times, route length, time loss,
