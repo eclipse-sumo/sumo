@@ -1,5 +1,6 @@
-#intersection connected to normal and bidi edges;  peds run on the right hand side on the normal road or sidewalk, but run in the middle righ after entering bidi
+# intersection connected to normal and bidi edges;  peds run on the right hand side on the normal road or sidewalk, but run in the middle righ after entering bidi
 ped_run_middle
+
 # intersection connected to normal and bidi edges; Bike makes emergency braking while a veh is inserted to the neighboring edge
 bikeUnneededEmergencyBraking
 
@@ -49,6 +50,9 @@ bikePreferOvertakeRight
 
 # When a bike approaches a ped, the ped runs to the direction to bike, and his trajectories are weird.
 pedRunToBike
+
+# Pedestrians must be taken into account beyond the current edge. (#11483)
+pedestrian_beyond_junction
 
 # bike does not overtake the ped in front of him, although there is space; instead of overtaking it makes emergency braking.
 bikeNotOvertake
