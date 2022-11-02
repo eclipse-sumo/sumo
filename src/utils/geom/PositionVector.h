@@ -151,11 +151,11 @@ public:
     void closePolygon();
 
     /// @brief returns the constant position at the given index, negative indices are interpreted python style
-    /// @throws OutOfBoundsException if index >= size or index < -size 
+    /// @throws OutOfBoundsException if index >= size or index < -size
     const Position& operator[](int index) const;
 
     /// @brief returns the position at the given index, negative indices are interpreted python style
-    /// @throws OutOfBoundsException if index >= size or index < -size 
+    /// @throws OutOfBoundsException if index >= size or index < -size
     Position& operator[](int index);
 
     /// @brief Returns the position at the given length

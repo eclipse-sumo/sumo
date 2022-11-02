@@ -47,8 +47,8 @@ public:
      * @param[in] parameters generic parameters
      */
     GNEInstantInductionLoopDetector(const std::string& id, GNELane* lane, GNENet* net, const double pos, const std::string& filename,
-                         const std::vector<std::string>& vehicleTypes, const std::string& name, const bool friendlyPos,
-                         const Parameterised::Map& parameters);
+                                    const std::vector<std::string>& vehicleTypes, const std::string& name, const bool friendlyPos,
+                                    const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEInstantInductionLoopDetector();

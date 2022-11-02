@@ -288,12 +288,12 @@ main(int argc, char** argv) {
             bool ok = true;
             // !!! no proper error handling
             Boundary offsets = GeomConvHelper::parseBoundaryReporting(
-                    oc.getString("prune.in-net.offsets"), "--prune.on-net.offsets", nullptr, ok, true, true);
+                                   oc.getString("prune.in-net.offsets"), "--prune.on-net.offsets", nullptr, ok, true, true);
             pruningBoundary.setOffsets(
-                                  pruningBoundary.xmin() - offsets.xmin(),
-                                  pruningBoundary.ymin() - offsets.ymin(),
-                                  pruningBoundary.xmax() + offsets.xmax(),
-                                  pruningBoundary.ymax() + offsets.ymax());
+                pruningBoundary.xmin() - offsets.xmin(),
+                pruningBoundary.ymin() - offsets.ymin(),
+                pruningBoundary.xmax() + offsets.xmax(),
+                pruningBoundary.ymax() + offsets.ymax());
             prune = true;
         }
         if (oc.isSet("prune.boundary")) {

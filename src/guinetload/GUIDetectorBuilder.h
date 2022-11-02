@@ -90,7 +90,7 @@ public:
      * @param[in] od The output device the loop shall use
      */
     virtual MSDetectorFileOutput* createInstantInductLoop(const std::string& id,
-            MSLane* lane, double pos, const std::string& od, const std::string name, 
+            MSLane* lane, double pos, const std::string& od, const std::string name,
             const std::string& vTypes, const std::string& nextEdges) override;
 
     /** @brief Creates a GUIE2Collector instance, overrides MSE2Collector::createE2Detector()

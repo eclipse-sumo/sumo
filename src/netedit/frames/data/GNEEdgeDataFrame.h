@@ -37,7 +37,7 @@ public:
      * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEEdgeDataFrame
      */
-    GNEEdgeDataFrame(GNEViewParent *viewParent, GNEViewNet* viewNet);
+    GNEEdgeDataFrame(GNEViewParent* viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNEEdgeDataFrame();

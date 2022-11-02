@@ -668,7 +668,7 @@ AdditionalHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) 
 }
 
 
-bool 
+bool
 AdditionalHandler::isErrorCreatingElement() const {
     return myErrorCreatingElement;
 }

@@ -56,7 +56,7 @@ struct GUIVisualizationTextSettings;
 
 #ifdef HAVE_OSG
 namespace osg {
-    class Node;
+class Node;
 }
 #endif
 
@@ -77,10 +77,10 @@ public:
      *
      * @param[in] type The GUIGlObjectType type
      * @param[in] microsimID unique ID
-     * @param[in] icon optional icon associated with this GUIGLObject 
+     * @param[in] icon optional icon associated with this GUIGLObject
      * @see GUIGlObjectStorage
      */
-    GUIGlObject(GUIGlObjectType type, const std::string& microsimID, FXIcon *icon);
+    GUIGlObject(GUIGlObjectType type, const std::string& microsimID, FXIcon* icon);
 
     /// @brief Destructor
     virtual ~GUIGlObject();
@@ -104,7 +104,7 @@ public:
     }
 
     /// @brief get icon associated with this GL Object
-    FXIcon *getGLIcon() const;
+    FXIcon* getGLIcon() const;
 
     /// @}
 
@@ -303,11 +303,11 @@ protected:
     void mouseWithinGeometry(const PositionVector shape, const double width) const;
 
     /// @brief check if mouse is within elements geometry (for edges)
-    void mouseWithinGeometry(const PositionVector shape, const double width, GUIGlObject *parent) const;
+    void mouseWithinGeometry(const PositionVector shape, const double width, GUIGlObject* parent) const;
 
     /// @brief check if mouse is within elements geometry (for rectangles)
-    void mouseWithinGeometry(const Position& pos, const double width, const double height, 
-                               const double offsetX, const double offsetY, const double rot) const;
+    void mouseWithinGeometry(const Position& pos, const double width, const double height,
+                             const double offsetX, const double offsetY, const double rot) const;
 
 private:
     /// @brief The numerical id of the object
@@ -323,7 +323,7 @@ private:
     std::string myFullName;
 
     /// @brief icon associatd with this GL Object
-    FXIcon *myIcon;
+    FXIcon* myIcon;
 
     /// @brief whether the object can be deleted
     bool myAmBlocked;

@@ -81,7 +81,7 @@ public:
         void toggleJunctionSelected(const GNEJunction* junction);
 
         /// @brief get selected junction IDs
-        const std::vector<std::string> &getSelectedJunctionIDs() const;
+        const std::vector<std::string>& getSelectedJunctionIDs() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -308,7 +308,7 @@ public:
         bool toggleE1DetectorSelection(const GNEAdditional* E1);
 
         /// @brief get E1 detectors vinculated with this TLS
-        const std::map<std::string, std::string> &getE1Detectors() const;
+        const std::map<std::string, std::string>& getE1Detectors() const;
 
         /// @brief disable detector mode
         void disableE1DetectorMode();
@@ -326,18 +326,18 @@ public:
 
         /// @brief Called when user press edit parameters button
         long onCmdParametersDialog(FXObject*, FXSelector, void* ptr);
-        
+
         /// @brief Called when the offset is updated
         long onUpdParameters(FXObject*, FXSelector, void*);
 
         /// @brief Called when user toggle set detector mode
         long onCmdToggleDetectorMode(FXObject*, FXSelector, void* ptr);
-        
+
         /// @brief Called when occurs an update of set detector mode
         long onUpdSetDetectorMode(FXObject*, FXSelector, void*);
 
         /// @}
-    
+
     protected:
         /// @brief FOX needs this
         FOX_CONSTRUCTOR(TLSAttributes)
@@ -398,7 +398,7 @@ public:
         void initPhaseTable();
 
         /// @brief change phase value (state, name, next, etc.)
-        bool changePhaseValue(const int col, const int row, const std::string &value);
+        bool changePhaseValue(const int col, const int row, const std::string& value);
 
         /// @brief add phase
         void addPhase(const int row, const char c = ' ');
@@ -467,37 +467,37 @@ public:
         int buildDefaultPhase(const int row);
 
         /// @brief set duration
-        bool setDuration(const int col, const int row, const std::string &value);
+        bool setDuration(const int col, const int row, const std::string& value);
 
         /// @brief set state
-        bool setState(const int col, const int row, const std::string &value);
+        bool setState(const int col, const int row, const std::string& value);
 
         /// @brief set next
-        bool setNext(const int col, const int row, const std::string &value);
+        bool setNext(const int col, const int row, const std::string& value);
 
         /// @brief set name
-        bool setName(const int row, const std::string &value);
+        bool setName(const int row, const std::string& value);
 
         /// @brief set minDur
-        bool setMinDur(const int row, const std::string &value);
+        bool setMinDur(const int row, const std::string& value);
 
         /// @brief set maxDur
-        bool setMaxDur(const int row, const std::string &value);
+        bool setMaxDur(const int row, const std::string& value);
 
         /// @brief set earliestEnd
-        bool setEarliestEnd(const int row, const std::string &value);
+        bool setEarliestEnd(const int row, const std::string& value);
 
         /// @brief set latestEnd
-        bool setLatestEnd(const int row, const std::string &value);
+        bool setLatestEnd(const int row, const std::string& value);
 
         /// @brief set vehExt
-        bool setVehExt(const int row, const std::string &value);
+        bool setVehExt(const int row, const std::string& value);
 
         /// @brief set yellow
-        bool setYellow(const int row, const std::string &value);
+        bool setYellow(const int row, const std::string& value);
 
         /// @brief set red
-        bool setRed(const int row, const std::string &value);
+        bool setRed(const int row, const std::string& value);
 
         /// @brief recomputes cycle duration and updates label
         void updateCycleDuration(const int col);
@@ -561,7 +561,7 @@ public:
      * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNETLSEditorFrame(GNEViewParent *viewParent, GNEViewNet* viewNet);
+    GNETLSEditorFrame(GNEViewParent* viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNETLSEditorFrame();
@@ -606,7 +606,7 @@ public:
 
     /// @brief get module for TLS Definition
     GNETLSEditorFrame::TLSDefinition* getTLSDefinition() const;
-    
+
     /// @brief get module for TLS attributes
     GNETLSEditorFrame::TLSAttributes* getTLSAttributes() const;
 

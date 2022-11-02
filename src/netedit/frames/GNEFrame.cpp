@@ -41,7 +41,7 @@ FXFont* GNEFrame::myFrameHeaderFont = nullptr;
 // method definitions
 // ===========================================================================
 
-GNEFrame::GNEFrame(GNEViewParent *viewParent, GNEViewNet* viewNet, const std::string& frameLabel) :
+GNEFrame::GNEFrame(GNEViewParent* viewParent, GNEViewNet* viewNet, const std::string& frameLabel) :
     FXVerticalFrame(viewParent->getFramesArea(), GUIDesignAuxiliarFrame),
     myViewNet(viewNet) {
 
@@ -170,7 +170,7 @@ GNEFrame::getFrameHeaderFont() const {
 }
 
 
-int 
+int
 GNEFrame::getScrollBarWidth() const {
     if (myScrollWindowsContents->verticalScrollBar()->shown()) {
         return myScrollWindowsContents->verticalScrollBar()->getWidth();

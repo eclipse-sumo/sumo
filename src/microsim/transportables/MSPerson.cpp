@@ -169,7 +169,7 @@ MSPerson::isJammed() const {
 double
 MSPerson::MSPersonStage_Walking::walkDistance(bool partial) const {
     double length = 0;
-    auto endIt = partial && myArrived < 0 ? myRouteStep + 1: myRoute.end();
+    auto endIt = partial && myArrived < 0 ? myRouteStep + 1 : myRoute.end();
     for (ConstMSEdgeVector::const_iterator i = myRoute.begin(); i != endIt; ++i) {
         length += (*i)->getLength();
     }

@@ -132,7 +132,7 @@ public:
 class OutOfBoundsException : public ProcessError {
 public:
     /// @brief constructor
-    OutOfBoundsException(const std::string& msg="Out Of Bounds")
+    OutOfBoundsException(const std::string& msg = "Out Of Bounds")
         : ProcessError(msg) {}
 };
 

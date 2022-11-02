@@ -43,7 +43,7 @@
 // GNEGenericData - methods
 // ---------------------------------------------------------------------------
 
-GNEGenericData::GNEGenericData(const SumoXMLTag tag, FXIcon *icon, const GUIGlObjectType type, GNEDataInterval* dataIntervalParent,
+GNEGenericData::GNEGenericData(const SumoXMLTag tag, FXIcon* icon, const GUIGlObjectType type, GNEDataInterval* dataIntervalParent,
                                const Parameterised::Map& parameters,
                                const std::vector<GNEJunction*>& junctionParents,
                                const std::vector<GNEEdge*>& edgeParents,
@@ -161,13 +161,13 @@ GNEGenericData::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& /* p
 }
 
 
-void 
-GNEGenericData::deleteGLObject(){
+void
+GNEGenericData::deleteGLObject() {
     myNet->deleteGenericData(this, myNet->getViewNet()->getUndoList());
 }
 
 
-void 
+void
 GNEGenericData::selectGLObject() {
     if (isAttributeCarrierSelected()) {
         unselectAttributeCarrier();

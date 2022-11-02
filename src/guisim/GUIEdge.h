@@ -156,7 +156,7 @@ public:
     /** @brief Returns this edge's persons set; locks it for microsimulation
      *  @brief Avoids the creation of new vector as in getSortedPersons
      *
-     * @return 
+     * @return
      * Please note that it is necessary to release the person container
      *  afterwards using "releasePersons".
      * @return This edge's persons.

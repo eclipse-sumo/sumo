@@ -32,7 +32,7 @@
 // method definitions
 // ===========================================================================
 
-GNEEdgeDataFrame::GNEEdgeDataFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+GNEEdgeDataFrame::GNEEdgeDataFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEGenericDataFrame(viewParent, viewNet, SUMO_TAG_MEANDATA_EDGE, false) {
 }
 

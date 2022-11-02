@@ -1250,7 +1250,7 @@ GNESelectorFrame::SelectionHierarchy::onCmdParents(FXObject* obj, FXSelector, vo
                     HE->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->getViewNet()->getUndoList());
                 }
             }
-                if (HEToSelect.size() > 1) {
+            if (HEToSelect.size() > 1) {
                 mySelectorFrameParent->getViewNet()->getUndoList()->end();
             }
         }
@@ -1308,7 +1308,7 @@ GNESelectorFrame::SelectionHierarchy::onCmdChildren(FXObject* obj, FXSelector, v
                     // case for lanes
                     const auto lane = dynamic_cast<GNELane*>(selectedAC);
                     // insert connections
-                    for (const auto &connection : lane->getParentEdge()->getGNEConnections()) {
+                    for (const auto& connection : lane->getParentEdge()->getGNEConnections()) {
                         if (connection->getAttribute(SUMO_ATTR_FROM_LANE) == lane->getAttribute(SUMO_ATTR_INDEX)) {
                             HEToSelect.push_back(connection);
                         }
@@ -1403,7 +1403,7 @@ GNESelectorFrame::Information::~Information() {}
 // GNESelectorFrame - methods
 // ---------------------------------------------------------------------------
 
-GNESelectorFrame::GNESelectorFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+GNESelectorFrame::GNESelectorFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, "Selection") {
     // create selection information
     mySelectionInformation = new SelectionInformation(this);
@@ -1473,7 +1473,7 @@ GNESelectorFrame::clearCurrentSelection() const {
 }
 
 
-bool 
+bool
 GNESelectorFrame::selectAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // get front AC
     auto AC = objectsUnderCursor.getAttributeCarrierFront();
@@ -1486,8 +1486,8 @@ GNESelectorFrame::selectAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCur
         return false;
     }
     // check modes
-    if ((AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement()) && 
-        !myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
+    if ((AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement()) &&
+            !myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
         return false;
     }
     if (AC->getTagProperty().isDemandElement() && !myViewNet->getEditModes().isCurrentSupermodeDemand()) {

@@ -114,7 +114,7 @@ public:
     /// @brief Returns the vehicle's maximum speed
     inline double getMaxSpeed() const {
         return MIN2(getType()->maxSpeed,
-                getType()->desiredMaxSpeed * getType()->speedFactor.getParameter()[0]);
+                    getType()->desiredMaxSpeed * getType()->speedFactor.getParameter()[0]);
     }
 
     virtual const ROEdge* getDepartEdge() const = 0;

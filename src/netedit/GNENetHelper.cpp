@@ -1324,13 +1324,13 @@ GNENetHelper::AttributeCarriers::generateDemandElementID(SumoXMLTag tag) const {
         prefix = oc.getString("vehicle-prefix");
     } else if (tagProperty.isPerson()) {
         if (tagProperty.isFlow()) {
-            prefix = oc.getString("personflow-prefix"); 
+            prefix = oc.getString("personflow-prefix");
         } else {
             prefix = oc.getString("person-prefix");
         }
     } else if (tagProperty.isContainer()) {
         if (tagProperty.isFlow()) {
-            prefix = oc.getString("containerflow-prefix"); 
+            prefix = oc.getString("containerflow-prefix");
         } else {
             prefix = oc.getString("container-prefix");
         }

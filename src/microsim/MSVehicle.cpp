@@ -2331,7 +2331,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                 const double stopTime = ceil(getSpeed() / cfModel.getMaxDecel());
                 const double leftSideOnLane = bidiLane->getWidth() - getRightSideOnLane(lane);
                 PersonDist leader = bidiLane->nextBlocking(relativePos,
-                        leftSideOnLane - getVehicleType().getWidth(), leftSideOnLane, stopTime, true);
+                                    leftSideOnLane - getVehicleType().getWidth(), leftSideOnLane, stopTime, true);
                 if (leader.first != 0) {
                     const double stopSpeed = cfModel.stopSpeed(this, getSpeed(), leader.second - getVehicleType().getMinGap());
                     v = MIN2(v, stopSpeed);
@@ -2482,9 +2482,9 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                 || ((*link)->getViaLane() == nullptr
                     && MSGlobals::gSublane
                     && getLateralOverlap(getLateralPositionOnLane()
-                        // account for future shift
-                        + (lane != myLane && lane->isInternal() ? lane->getIncomingLanes()[0].viaLink->getLateralShift() : 0),
-                        lane) > POSITION_EPS
+                                         // account for future shift
+                                         + (lane != myLane && lane->isInternal() ? lane->getIncomingLanes()[0].viaLink->getLateralShift() : 0),
+                                         lane) > POSITION_EPS
                     // do not get stuck on narrow edges
                     && getVehicleType().getWidth() <= lane->getEdge().getWidth()
                     // this is the exit link of a junction. The normal edge should support the shadow
@@ -2894,7 +2894,9 @@ MSVehicle::adaptToLeaders(const MSLeaderInfo& ahead, double latOffset,
                 // try to avoid collision in the next second
                 const double predMaxDist = pred->getSpeed() + pred->getCarFollowModel().getMaxAccel();
 #ifdef DEBUG_PLAN_MOVE
-                if (DEBUG_COND) std::cout << "    fixedGap=" << gap << " predMaxDist=" << predMaxDist << "\n";
+                if (DEBUG_COND) {
+                    std::cout << "    fixedGap=" << gap << " predMaxDist=" << predMaxDist << "\n";
+                }
 #endif
                 if (gap < predMaxDist + getSpeed() || pred->getLane() == lane->getBidiLane()) {
                     gap -= predMaxDist;
@@ -2904,7 +2906,7 @@ MSVehicle::adaptToLeaders(const MSLeaderInfo& ahead, double latOffset,
                 // when computing followSpeed, the distance of the vehicle is
                 // interpreted with the wrong sign. We increase the gap to compensate
                 gap -= pred->getSpeed() + ACCEL2SPEED(pred->getCarFollowModel().getMaxAccel())
-                    * (getSpeed() + ACCEL2SPEED(getCarFollowModel().getMaxAccel())) / getCarFollowModel().getMaxAccel();
+                       * (getSpeed() + ACCEL2SPEED(getCarFollowModel().getMaxAccel())) / getCarFollowModel().getMaxAccel();
                 gap = MAX2(0.0, gap);
             }
 #ifdef DEBUG_PLAN_MOVE
@@ -3001,7 +3003,9 @@ MSVehicle::adaptToLeader(const std::pair<const MSVehicle*, double> leaderInfo,
             const double futureVSafe = cfModel.followSpeed(this, lastLink->accelV, leaderInfo.second, leaderInfo.first->getSpeed(), leaderInfo.first->getCurrentApparentDecel(), leaderInfo.first, MSCFModel::CalcReason::FUTURE);
             lastLink->adaptLeaveSpeed(futureVSafe);
 #ifdef DEBUG_PLAN_MOVE
-            if (DEBUG_COND) std::cout << "   vlinkpass=" << lastLink->myVLinkPass << " futureVSafe=" << futureVSafe << "\n";
+            if (DEBUG_COND) {
+                std::cout << "   vlinkpass=" << lastLink->myVLinkPass << " futureVSafe=" << futureVSafe << "\n";
+            }
 #endif
         }
         v = MIN2(v, vsafeLeader);
@@ -3522,7 +3526,7 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
         if (canBrakeVSafeMin && vSafe < getSpeed()) {
             // cannot drive across a link so we need to stop before it
             vSafe = MIN2(vSafe, MAX2(getCarFollowModel().minNextSpeed(getSpeed(), this),
-                        getCarFollowModel().stopSpeed(this, getSpeed(), vSafeMinDist)));
+                                     getCarFollowModel().stopSpeed(this, getSpeed(), vSafeMinDist)));
             vSafeMin = 0;
             myHaveToWaitOnNextLink = true;
 #ifdef DEBUG_CHECKREWINDLINKLANES

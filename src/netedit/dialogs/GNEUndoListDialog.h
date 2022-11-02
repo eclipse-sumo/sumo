@@ -107,7 +107,7 @@ protected:
         ~GUIRow();
 
         /// @brief update row
-        void update(const UndoListRow &row);
+        void update(const UndoListRow& row);
 
         /// @brief get index
         int getIndex() const;
@@ -133,7 +133,7 @@ protected:
 
         /// @brief label with icon
         FXLabel* myIcon = nullptr;
-        
+
         /// @brief textField tooltip
         MFXTextFieldTooltip* myTextFieldTooltip = nullptr;
     };

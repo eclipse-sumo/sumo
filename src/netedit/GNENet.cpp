@@ -331,7 +331,7 @@ GNENet::createEdge(GNEJunction* src, GNEJunction* dest, GNEEdge* edgeTemplate, G
 }
 
 
-void 
+void
 GNENet::deleteNetworkElement(GNENetworkElement* networkElement, GNEUndoList* undoList) {
     if (networkElement->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
         // get junction (note: could be already removed if is a child, then hardfail=false)
@@ -1095,11 +1095,11 @@ void
 GNENet::createRoundabout(GNEJunction* junction, GNEUndoList* undoList) {
     undoList->begin(GUIIcon::JUNCTION, "create roundabout");
     // reset shape end from incoming edges
-    for (const auto &incomingEdge : junction->getGNEIncomingEdges()) {
+    for (const auto& incomingEdge : junction->getGNEIncomingEdges()) {
         incomingEdge->setAttribute(GNE_ATTR_SHAPE_END, "", undoList);
     }
     // reset shape start from outgoing edges
-    for (const auto &outgoingEdge : junction->getGNEOutgoingEdges()) {
+    for (const auto& outgoingEdge : junction->getGNEOutgoingEdges()) {
         outgoingEdge->setAttribute(GNE_ATTR_SHAPE_START, "", undoList);
     }
     junction->getNBNode()->updateSurroundingGeometry();

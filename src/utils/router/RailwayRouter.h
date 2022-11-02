@@ -166,7 +166,7 @@ private:
         bool success = myInternalRouter->compute(start->getRailwayRoutingEdge(), to->getRailwayRoutingEdge(), vehicle, msTime, intoTmp, silent);
 #ifdef RailwayRouter_DEBUG_ROUTES
         std::cout << "RailRouter veh=" << vehicle->getID() << " from=" << from->getID() << " to=" << to->getID() << " t=" << time2string(msTime)
-            << " safe=" << avoidUnsafeBackTracking << " success=" << success << " into=" << toString(into) << "\n";
+                  << " safe=" << avoidUnsafeBackTracking << " success=" << success << " into=" << toString(into) << "\n";
 #endif
         if (success) {
             const size_t intoSize = into.size();
@@ -194,7 +194,7 @@ private:
                         return _compute(from, to, vehicle, msTime, into, silent, true);
                     } else {
                         WRITE_WARNING("Railway routing failure due to turn-around on short edge '" + from->getID()
-                                + "' for vehicle '" + vehicle->getID() + "' time=" + time2string(msTime) + ".");
+                                      + "' for vehicle '" + vehicle->getID() + "' time=" + time2string(msTime) + ".");
                     }
                 }
             }

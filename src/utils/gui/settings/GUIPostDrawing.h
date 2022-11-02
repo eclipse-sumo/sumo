@@ -46,7 +46,7 @@ public:
     bool isElementUnderCursor(const GUIGlObject* GLObject) const;
 
     /// @brief get all elements under cursor
-    const std::vector<const GUIGlObject*> &getElementUnderCursor() const;
+    const std::vector<const GUIGlObject*>& getElementUnderCursor() const;
 
     /// @brief elements marked for drawing remove contour (used in NETEDIT)
     std::vector<const GUIGlObject*> elementsMarkedToRemove;

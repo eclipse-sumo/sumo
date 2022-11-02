@@ -142,7 +142,7 @@ GUIOSGView::GUIOSGView(
     //m_gwFox = new GraphicsWindowFOX(this, glVisual, NULL, NULL, LAYOUT_FILL_X|LAYOUT_FILL_Y, x, y, w, h );
 
     if (myChanger != nullptr) {
-        delete(myChanger);
+        delete (myChanger);
     }
     myChanger = new GUIOSGPerspectiveChanger(*this, *myGrid);
 
@@ -385,8 +385,7 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
                     myRoot->addChild(myVehicles[veh].pos);
                     myVehicles[veh].pos->setName("vehicle:" + veh->getID());
                     veh->setNode(myVehicles[veh].pos);
-                }
-                else {
+                } else {
                     itVeh->second.active = true;
                 }
                 osg::PositionAttitudeTransform* n = myVehicles[veh].pos;
@@ -394,8 +393,8 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
                 const double dir = veh->getAngle() + M_PI / 2.;
                 const double slope = -veh->getSlope();
                 n->setAttitude(osg::Quat(osg::DegreesToRadians(slope), osg::Vec3(1, 0, 0),
-                    0, osg::Vec3(0, 1, 0),
-                    dir, osg::Vec3(0, 0, 1)));
+                                         0, osg::Vec3(0, 1, 0),
+                                         dir, osg::Vec3(0, 0, 1)));
                 /*
                 osg::ref_ptr<osg::AnimationPath> path = new osg::AnimationPath;
                 // path->setLoopMode( osg::AnimationPath::NO_LOOPING );
@@ -463,8 +462,7 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
             if (itPers == myPersons.end()) {
                 myPersons[person] = GUIOSGBuilder::buildMovable(person->getVehicleType());
                 myRoot->addChild(myPersons[person].pos);
-            }
-            else {
+            } else {
                 itPers->second.active = true;
             }
             osg::PositionAttitudeTransform* n = myPersons[person].pos;
@@ -982,7 +980,7 @@ GUIOSGView::zoom2Pos(Position& camera, Position& lookAt, double zoom) {
 
 osg::Vec4d
 GUIOSGView::toOSGColorVector(RGBColor c, bool useAlpha) {
-    return osg::Vec4d(c.red()/255., c.green()/255., c.blue()/255., (useAlpha)? c.alpha()/255. : 1.);
+    return osg::Vec4d(c.red() / 255., c.green() / 255., c.blue() / 255., (useAlpha) ? c.alpha() / 255. : 1.);
 }
 
 
@@ -1060,7 +1058,7 @@ GUIOSGView::PickHandler::handle(const osgGA::GUIEventAdapter& ea, osgGA::GUIActi
             if (myParent->makeCurrent()) {
                 std::vector<GUIGlObject*> objects = myParent->getGUIGlObjectsUnderCursor();
                 if (objects.size() > 0) {
-                    myParent->openObjectDialog(objects);                   
+                    myParent->openObjectDialog(objects);
                 }
                 myParent->makeNonCurrent();
             }

@@ -537,7 +537,7 @@ GNEViewNet::openObjectDialogAtCursor(const FXEvent* /*ev*/) {
             bool connections = false;
             bool TLS = false;
             // fill filtered objects
-            for (const auto &glObject : myObjectsUnderCursor.getClickedGLObjects()) {
+            for (const auto& glObject : myObjectsUnderCursor.getClickedGLObjects()) {
                 // always avoid edges
                 if (glObject->getType() == GLO_EDGE) {
                     continue;
@@ -578,7 +578,7 @@ GNEViewNet::openObjectDialogAtCursor(const FXEvent* /*ev*/) {
 
 
 void
-GNEViewNet::openDeleteDialogAtCursor(const std::vector<GUIGlObject*> &GLObjects) {
+GNEViewNet::openDeleteDialogAtCursor(const std::vector<GUIGlObject*>& GLObjects) {
     if (myPopup) {
         destroyPopup();
     }
@@ -593,7 +593,7 @@ GNEViewNet::openDeleteDialogAtCursor(const std::vector<GUIGlObject*> &GLObjects)
 
 
 void
-GNEViewNet::openSelectDialogAtCursor(const std::vector<GUIGlObject*> &GLObjects) {
+GNEViewNet::openSelectDialogAtCursor(const std::vector<GUIGlObject*>& GLObjects) {
     if (myPopup) {
         destroyPopup();
     }
@@ -777,7 +777,7 @@ GNEViewNet::setStatusBarText(const std::string& text) {
 }
 
 
-void 
+void
 GNEViewNet::resetLastClickedPosition() {
     myLastClickedPosition = Position::INVALID;
 }
@@ -877,7 +877,7 @@ GNEViewNet::aksChangeSupermode(const std::string& operation, Supermode expectedS
 }
 
 
-bool 
+bool
 GNEViewNet::selectingDetectorsTLSMode() const {
     // separate conditions for code legibly
     const bool TLSMode = (myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_TLS));
@@ -886,7 +886,7 @@ GNEViewNet::selectingDetectorsTLSMode() const {
 }
 
 
-bool 
+bool
 GNEViewNet::selectingJunctionsTLSMode() const {
     // separate conditions for code legibly
     const bool TLSMode = (myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_TLS));
@@ -1690,14 +1690,14 @@ GNEViewNet::drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, do
 bool
 GNEViewNet::drawDeleteContour(const GUIGlObject* GLObject, const GNEAttributeCarrier* AC) const {
     // check if we're in the correct mode and supermode
-    if ((AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement()) && 
-        !(myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_DELETE))) {
+    if ((AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement()) &&
+            !(myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_DELETE))) {
         return false;
-    } else if (AC->getTagProperty().isDemandElement() && 
-        !(myEditModes.isCurrentSupermodeDemand() && (myEditModes.demandEditMode == DemandEditMode::DEMAND_DELETE))) {
+    } else if (AC->getTagProperty().isDemandElement() &&
+               !(myEditModes.isCurrentSupermodeDemand() && (myEditModes.demandEditMode == DemandEditMode::DEMAND_DELETE))) {
         return false;
-    } else if (AC->getTagProperty().isDataElement() && 
-        !(myEditModes.isCurrentSupermodeData() && (myEditModes.dataEditMode == DataEditMode::DATA_DELETE))) {
+    } else if (AC->getTagProperty().isDataElement() &&
+               !(myEditModes.isCurrentSupermodeData() && (myEditModes.dataEditMode == DataEditMode::DATA_DELETE))) {
         return false;
     }
     // check if we're in post drawing
@@ -1722,14 +1722,14 @@ GNEViewNet::drawDeleteContour(const GUIGlObject* GLObject, const GNEAttributeCar
 bool
 GNEViewNet::drawSelectContour(const GUIGlObject* GLObject, const GNEAttributeCarrier* AC) const {
     // check if we're in the correct mode and supermode
-    if ((AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement()) && 
-        !(myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_SELECT))) {
+    if ((AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement()) &&
+            !(myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_SELECT))) {
         return false;
-    } else if (AC->getTagProperty().isDemandElement() && 
-        !(myEditModes.isCurrentSupermodeDemand() && (myEditModes.demandEditMode == DemandEditMode::DEMAND_SELECT))) {
+    } else if (AC->getTagProperty().isDemandElement() &&
+               !(myEditModes.isCurrentSupermodeDemand() && (myEditModes.demandEditMode == DemandEditMode::DEMAND_SELECT))) {
         return false;
-    } else if (AC->getTagProperty().isDataElement() && 
-        !(myEditModes.isCurrentSupermodeData() && (myEditModes.dataEditMode == DataEditMode::DATA_SELECT))) {
+    } else if (AC->getTagProperty().isDataElement() &&
+               !(myEditModes.isCurrentSupermodeData() && (myEditModes.dataEditMode == DataEditMode::DATA_SELECT))) {
         return false;
     }
     // check if we're in post drawing
@@ -2071,7 +2071,7 @@ GNEViewNet::onCmdSplitEdgeBidi(FXObject*, FXSelector, void*) {
         const auto oppositeEdges = edge->getOppositeEdges();
         // check that reverse edge works
         if (oppositeEdges.size() > 0) {
-            for (const auto &oppositeEdge : oppositeEdges) {
+            for (const auto& oppositeEdge : oppositeEdges) {
                 // get reverse inner geometry
                 const auto reverseGeometry = oppositeEdge->getNBEdge()->getInnerGeometry().reverse();
                 if (reverseGeometry == edge->getNBEdge()->getInnerGeometry()) {
@@ -3185,7 +3185,7 @@ GNEViewNet::updateCursor() {
 }
 
 
-long 
+long
 GNEViewNet::onCmdResetEdgeEndPoints(FXObject*, FXSelector, void*) {
     // Obtain junction under mouse
     GNEJunction* junction = getJunctionAtPopupPosition();
@@ -3196,21 +3196,21 @@ GNEViewNet::onCmdResetEdgeEndPoints(FXObject*, FXSelector, void*) {
             const auto selectedJunctions = myNet->getAttributeCarriers()->getSelectedJunctions();
             for (const auto& selectedJunction : selectedJunctions) {
                 // reset shape end from incoming edges
-                for (const auto &incomingEdge : selectedJunction->getGNEIncomingEdges()) {
+                for (const auto& incomingEdge : selectedJunction->getGNEIncomingEdges()) {
                     incomingEdge->setAttribute(GNE_ATTR_SHAPE_END, "", myUndoList);
                 }
                 // reset shape start from outgoing edges
-                for (const auto &outgoingEdge : selectedJunction->getGNEOutgoingEdges()) {
+                for (const auto& outgoingEdge : selectedJunction->getGNEOutgoingEdges()) {
                     outgoingEdge->setAttribute(GNE_ATTR_SHAPE_START, "", myUndoList);
                 }
             }
         } else {
             // reset shape end from incoming edges
-            for (const auto &incomingEdge : junction->getGNEIncomingEdges()) {
+            for (const auto& incomingEdge : junction->getGNEIncomingEdges()) {
                 incomingEdge->setAttribute(GNE_ATTR_SHAPE_END, "", myUndoList);
             }
             // reset shape start from outgoing edges
-            for (const auto &outgoingEdge : junction->getGNEOutgoingEdges()) {
+            for (const auto& outgoingEdge : junction->getGNEOutgoingEdges()) {
                 outgoingEdge->setAttribute(GNE_ATTR_SHAPE_START, "", myUndoList);
             }
         }
@@ -3337,7 +3337,7 @@ GNEViewNet::onCmdConvertRoundabout(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEViewNet::onEnterConvertRoundabout(FXObject*, FXSelector, void*) {
     myDrawPreviewRoundabout = true;
     update();
@@ -3417,7 +3417,7 @@ GNEViewNet::onCmdResetConnections(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEViewNet::onCmdAddTLS(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction != nullptr) {
@@ -3425,7 +3425,7 @@ GNEViewNet::onCmdAddTLS(FXObject*, FXSelector, void*) {
         if (junction->isAttributeCarrierSelected()) {
             const auto selectedJunctions = myNet->getAttributeCarriers()->getSelectedJunctions();
             myNet->getViewNet()->getUndoList()->begin(GUIIcon::MODETLS, "add TLS in multiple junctions");
-            for (const auto &selectedJunction : selectedJunctions) {
+            for (const auto& selectedJunction : selectedJunctions) {
                 selectedJunction->setAttribute(SUMO_ATTR_TYPE, "traffic_light", myUndoList);
             }
             myNet->getViewNet()->getUndoList()->end();
@@ -3445,7 +3445,7 @@ GNEViewNet::onCmdAddTLS(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEViewNet::onCmdAddJoinTLS(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction != nullptr) {
@@ -3459,7 +3459,7 @@ GNEViewNet::onCmdAddJoinTLS(FXObject*, FXSelector, void*) {
         if (junction->getAttribute(SUMO_ATTR_TLID).size() > 0) {
             const auto selectedJunctions = myNet->getAttributeCarriers()->getSelectedJunctions();
             // iterate over all selected junctions
-            for (const auto &selectedJunction : selectedJunctions) {
+            for (const auto& selectedJunction : selectedJunctions) {
                 // check that doesn't have a TL
                 if (selectedJunction->getNBNode()->getControllingTLS().empty()) {
                     selectedJunction->setAttribute(SUMO_ATTR_TYPE, "traffic_light", myUndoList);
@@ -5190,7 +5190,7 @@ GNEViewNet::drawTemporalSplitJunction() const {
 }
 
 
-void 
+void
 GNEViewNet::drawTemporalRoundabout() const {
     // check conditions
     if ((myCurrentObjectsDialog.size() > 0) && (myCurrentObjectsDialog.front()->getType() == GLO_JUNCTION) && myDrawPreviewRoundabout) {
@@ -5207,7 +5207,7 @@ GNEViewNet::drawTemporalRoundabout() const {
         // set color
         GLHelper::setColor(RGBColor::GREEN);
         // draw outline circle
-        const double circleWidth = (junction->getNBNode()->getRadius() < 0)? 4.0 : junction->getNBNode()->getRadius();
+        const double circleWidth = (junction->getNBNode()->getRadius() < 0) ? 4.0 : junction->getNBNode()->getRadius();
         GLHelper::drawOutlineCircle(circleWidth * 1.30, circleWidth, myVisualizationSettings->getCircleResolution());
         // pop junction matrix
         GLHelper::popMatrix();
@@ -5217,7 +5217,7 @@ GNEViewNet::drawTemporalRoundabout() const {
 }
 
 
-void 
+void
 GNEViewNet::drawTemporalE1TLSLines() const {
     // check conditions
     if (selectingDetectorsTLSMode() && (myViewParent->getTLSEditorFrame()->getTLSJunction()->getCurrentJunction() != nullptr)) {
@@ -5228,7 +5228,7 @@ GNEViewNet::drawTemporalE1TLSLines() const {
         // translate to TLLogic
         glTranslated(0, 0, GLO_TEMPORALSHAPE);
         // iterate over all E1 detectors
-        for (const auto &E1ID : myViewParent->getTLSEditorFrame()->getTLSAttributes()->getE1Detectors()) {
+        for (const auto& E1ID : myViewParent->getTLSEditorFrame()->getTLSAttributes()->getE1Detectors()) {
             // first check if E1 exists
             const auto E1 = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_INDUCTION_LOOP, E1ID.second, false);
             if (E1) {
@@ -5247,7 +5247,7 @@ GNEViewNet::drawTemporalE1TLSLines() const {
 }
 
 
-void 
+void
 GNEViewNet::drawTemporalJunctionTLSLines() const {
     // check conditions
     if (selectingJunctionsTLSMode() && (myViewParent->getTLSEditorFrame()->getTLSJunction()->getCurrentJunction() != nullptr)) {
@@ -5258,14 +5258,14 @@ GNEViewNet::drawTemporalJunctionTLSLines() const {
         // translate to TLLogic
         glTranslated(0, 0, GLO_TEMPORALSHAPE);
         // iterate over all Junction detectors
-        for (const auto &selectedJunctionID : myViewParent->getTLSEditorFrame()->getTLSJunction()->getSelectedJunctionIDs()) {
+        for (const auto& selectedJunctionID : myViewParent->getTLSEditorFrame()->getTLSJunction()->getSelectedJunctionIDs()) {
             // get junction
             const auto selectedJunction = myNet->getAttributeCarriers()->retrieveJunction(selectedJunctionID);
             // push line matrix
             GLHelper::pushMatrix();
             // draw line between junction and Junction
             GUIGeometry::drawChildLine(*myVisualizationSettings, junctionPos, selectedJunction->getPositionInView(),
-                                        myVisualizationSettings->additionalSettings.TLSConnectionColor, true, 0.25);
+                                       myVisualizationSettings->additionalSettings.TLSConnectionColor, true, 0.25);
             // pop line matrix
             GLHelper::popMatrix();
         }

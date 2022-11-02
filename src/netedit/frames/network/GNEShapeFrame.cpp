@@ -215,7 +215,7 @@ GNEShapeFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) {
 // GNEShapeFrame - methods
 // ---------------------------------------------------------------------------
 
-GNEShapeFrame::GNEShapeFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+GNEShapeFrame::GNEShapeFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, "Shapes"),
     myBaseShape(nullptr) {
 

@@ -402,7 +402,7 @@ public:
 
     /// @brief update label for requiere recomputing
     long onUpdRequireRecomputing(FXObject* sender, FXSelector sel, void* ptr);
-    
+
     /// @brief called if the user press key combination Ctrl + G to toggle grid
     long onCmdToggleGrid(FXObject*, FXSelector, void*);
 
@@ -523,7 +523,7 @@ public:
     void clearUndoList();
 
     /// @brief get processing Menu Commands
-    const GNEApplicationWindowHelper::ProcessingMenuCommands &getProcessingMenuCommands() const;
+    const GNEApplicationWindowHelper::ProcessingMenuCommands& getProcessingMenuCommands() const;
 
 protected:
     /// @brief FOX needs this for static members
@@ -539,21 +539,21 @@ protected:
     bool myReloading = false;
 
     /// @brief the submenus
-    FXMenuPane *myFileMenu = nullptr,
-               *myFileMenuSUMOConfig = nullptr,
-               *myFileMenuTLS = nullptr,
-               *myFileMenuEdgeTypes = nullptr,
-               *myFileMenuAdditionals = nullptr,
-               *myFileMenuDemandElements = nullptr,
-               *myFileMenuDataElements = nullptr,
-               *myModesMenu = nullptr,
-               *myEditMenu = nullptr,
-               *myLockMenu = nullptr,
-               *myProcessingMenu = nullptr,
-               *myLocatorMenu = nullptr,
-               *myToolsMenu = nullptr,
-               *myWindowMenu = nullptr,
-               *myHelpMenu = nullptr;
+    FXMenuPane* myFileMenu = nullptr,
+                *myFileMenuSUMOConfig = nullptr,
+                 *myFileMenuTLS = nullptr,
+                  *myFileMenuEdgeTypes = nullptr,
+                   *myFileMenuAdditionals = nullptr,
+                    *myFileMenuDemandElements = nullptr,
+                     *myFileMenuDataElements = nullptr,
+                      *myModesMenu = nullptr,
+                       *myEditMenu = nullptr,
+                        *myLockMenu = nullptr,
+                         *myProcessingMenu = nullptr,
+                          *myLocatorMenu = nullptr,
+                           *myToolsMenu = nullptr,
+                            *myWindowMenu = nullptr,
+                             *myHelpMenu = nullptr;
 
     /// @brief menu title for modes
     FXMenuTitle* myModesMenuTitle = nullptr;

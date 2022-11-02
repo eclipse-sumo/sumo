@@ -84,8 +84,7 @@ MSCFModel_ACC::MSCFModel_ACC(const MSVehicleType* vtype) :
     myGapControlGainSpace(vtype->getParameter().getCFParam(SUMO_ATTR_GC_GAIN_SPACE, DEFAULT_GC_GAIN_SPACE)),
     myCollisionAvoidanceGainSpeed(vtype->getParameter().getCFParam(SUMO_ATTR_CA_GAIN_SPEED, DEFAULT_CA_GAIN_SPEED)),
     myCollisionAvoidanceGainSpace(vtype->getParameter().getCFParam(SUMO_ATTR_CA_GAIN_SPACE, DEFAULT_CA_GAIN_SPACE)),
-    myEmergencyThreshold(vtype->getParameter().getCFParam(SUMO_ATTR_CA_OVERRIDE, DEFAULT_EMERGENCY_OVERRIDE_THRESHOLD))
-{
+    myEmergencyThreshold(vtype->getParameter().getCFParam(SUMO_ATTR_CA_OVERRIDE, DEFAULT_EMERGENCY_OVERRIDE_THRESHOLD)) {
     // ACC does not drive very precise and often violates minGap
     myCollisionMinGapFactor = vtype->getParameter().getCFParam(SUMO_ATTR_COLLISION_MINGAP_FACTOR, 0.1);
 }
@@ -178,19 +177,19 @@ double MSCFModel_ACC::accelGapControl(const MSVehicle* const veh, const double g
     double L = veh->getLength();
 
 // see dynamic gap margin definition from (Xiao et. al, 2018)[3]
-    if (speed < 10.8){
-    	spacingErr = spacingErr - L - 2;
-    } else if (speed <= 15.0 && speed >= 10.8){
-    	spacingErr = spacingErr - L - (75/speed -5);
-	} else {
-    	spacingErr = spacingErr - L;
-	}
+    if (speed < 10.8) {
+        spacingErr = spacingErr - L - 2;
+    } else if (speed <= 15.0 && speed >= 10.8) {
+        spacingErr = spacingErr - L - (75 / speed - 5);
+    } else {
+        spacingErr = spacingErr - L;
+    }
 
 
     if (fabs(spacingErr) < 0.2 && fabs(vErr) < 0.1) {
         // gap mode
         gclAccel = myGapControlGainSpeed * deltaVel + myGapControlGainSpace * spacingErr;
-#ifdef DEBUG_ACC        
+#ifdef DEBUG_ACC
         if (DEBUG_COND) {
             std::cout << "        applying gap control:  spacingErr=" << spacingErr << " speedErr=" << vErr << std::endl;
         }
@@ -198,7 +197,7 @@ double MSCFModel_ACC::accelGapControl(const MSVehicle* const veh, const double g
     } else if (spacingErr < 0)  {
         // collision avoidance mode
         gclAccel = myCollisionAvoidanceGainSpeed * deltaVel + myCollisionAvoidanceGainSpace * spacingErr;
-#ifdef DEBUG_ACC        
+#ifdef DEBUG_ACC
         if (DEBUG_COND) {
             std::cout << "        applying collision avoidance:  spacingErr=" << spacingErr << " speedErr=" << vErr << std::endl;
         }

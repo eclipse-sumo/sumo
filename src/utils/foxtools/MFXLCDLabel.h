@@ -113,7 +113,7 @@ public:
     virtual FXint getDefaultHeight();
 
     /// @brief set tooltip text
-    void setToolTipText(const FXString &text);
+    void setToolTipText(const FXString& text);
 
     /// @brief save resources
     virtual void save(FXStream& store) const;
@@ -129,10 +129,10 @@ public:
 
     /// @brief called when mouse leaves in MFXMenuButtonTooltip
     long onLeave(FXObject* obj, FXSelector sel, void* ptr);
-    
+
     /// @brief called when mouse motion in MFXMenuButtonTooltip
     long onMotion(FXObject* obj, FXSelector sel, void* ptr);
-    
+
     /// @brief Update value from a message
     long onCmdSetValue(FXObject*, FXSelector, void* ptr);
 
@@ -169,9 +169,9 @@ protected:
 
     /// @brief The currently shown label
     FXString myLabel;
-    
+
     /// @brief The number of shown figuresi, greater than zero
-    FXint myNFigures;    
+    FXint myNFigures;
 
     /// @brief pointer to staticToolTip
     MFXStaticToolTip* myStaticToolTip;

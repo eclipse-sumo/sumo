@@ -1440,7 +1440,7 @@ MSLCM_LC2013::_wantsChange(
                    && ((myStrategicParam >= 0 && neighDist < TURN_LANE_DIST)
                        // lane changing cannot possibly help
                        || (myStrategicParam < 0 && currFreeUntilNeighEnd))
-                   ) {
+                  ) {
             // VARIANT_21 (stayOnBest)
             // we do not want to leave the best lane for a lane which leads elsewhere
             // unless our leader is stopped or we are approaching a roundabout
@@ -2183,7 +2183,7 @@ MSLCM_LC2013::setParameter(const std::string& key, const std::string& value) {
         myMaxSpeedLatFactor = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_MAXDISTLATSTANDING)) {
         myMaxDistLatStanding = doubleValue;
-    // access to internal state
+        // access to internal state
     } else if (key == "speedGainProbabilityRight") {
         mySpeedGainProbability = -doubleValue;
     } else if (key == "speedGainProbabilityLeft") {

@@ -43,8 +43,8 @@ public:
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] parameters generic parameters
      */
-    GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon *icon, GNELane* lane, 
-                     const double startPos, const double endPos, const std::string& name, bool friendlyPosition, 
+    GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, GNELane* lane,
+                     const double startPos, const double endPos, const std::string& name, bool friendlyPosition,
                      const Parameterised::Map& parameters);
 
     /// @brief Destructor

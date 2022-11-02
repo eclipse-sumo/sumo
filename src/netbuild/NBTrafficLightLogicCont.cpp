@@ -405,8 +405,8 @@ NBTrafficLightLogicCont::rename(NBTrafficLightDefinition* tlDef, const std::stri
 }
 
 
- int 
- NBTrafficLightLogicCont::getNumExtracted() const {
+int
+NBTrafficLightLogicCont::getNumExtracted() const {
     return (int)myExtracted.size();
 }
 

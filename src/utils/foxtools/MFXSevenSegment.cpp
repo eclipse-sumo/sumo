@@ -51,13 +51,13 @@ FXIMPLEMENT(MFXSevenSegment, FXFrame, MFXSevenSegmentMap, ARRAYNUMBER(MFXSevenSe
 // ===========================================================================
 
 MFXSevenSegment::MFXSevenSegment(FXComposite* p, FXObject* tgt, FXSelector sel, FXuint opts, FXint pl, FXint pr, FXint pt, FXint pb) :
-    FXFrame(p, opts, 0, 0, 0, 0, pl, pr, pt, pb), 
-    myValue(' '), 
-    myLCDTextColor(FXRGB(0, 255, 0)), 
-    myBackGroundColor(FXRGB(0, 0, 0)), 
-    myHorizontalSegmentLength(8), 
-    myVerticalSegmentLength(8), 
-    mySegmentThickness(3), 
+    FXFrame(p, opts, 0, 0, 0, 0, pl, pr, pt, pb),
+    myValue(' '),
+    myLCDTextColor(FXRGB(0, 255, 0)),
+    myBackGroundColor(FXRGB(0, 0, 0)),
+    myHorizontalSegmentLength(8),
+    myVerticalSegmentLength(8),
+    mySegmentThickness(3),
     myGroove(1) {
     setTarget(tgt);
     setSelector(sel);

@@ -58,7 +58,7 @@ public:
      * @param[in] tlDef The traffic light definition (may be 0 on creation)
      * @param[in] newID new TL ID
      */
-    GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tlDef, const std::string &newID);
+    GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tlDef, const std::string& newID);
 
     /// @brief Destructor
     ~GNEChange_TLS();

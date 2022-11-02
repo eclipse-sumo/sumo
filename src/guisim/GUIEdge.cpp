@@ -333,7 +333,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
                             && color.alpha() != 0
                             && (!s.edgeValueHideCheck || doubleValue > s.edgeValueHideThreshold)
                             && (!s.edgeValueHideCheck2 || doubleValue < s.edgeValueHideThreshold2)
-                            ) {
+                       ) {
                         value = toString(doubleValue);
                     }
                 }

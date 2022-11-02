@@ -30,7 +30,7 @@
 // method definitions
 // ===========================================================================
 
-GNEAdditionalFrame::GNEAdditionalFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+GNEAdditionalFrame::GNEAdditionalFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, "Additionals"),
     myBaseAdditional(nullptr) {
 

@@ -1738,7 +1738,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                                 for (const PositionVector& otherShape : otherShapes) {
                                     const bool secondIntersection = con.indirectLeft && this == i2 && con.fromLane == k2.fromLane;
                                     const double minDV = firstIntersection(shape, otherShape, width1OppositeLeft, width2,
-                                            "Could not compute intersection of conflicting internal lanes at node '" + myTo->getID() + "'", secondIntersection);
+                                                                           "Could not compute intersection of conflicting internal lanes at node '" + myTo->getID() + "'", secondIntersection);
                                     if (minDV < shape.length() - POSITION_EPS && minDV > POSITION_EPS) { // !!!?
                                         assert(minDV >= 0);
                                         if (crossingPositions.first < 0 || crossingPositions.first > minDV) {
@@ -1762,7 +1762,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                         otherShapes.push_back(otherShape);
                         const bool secondIntersection = con.indirectLeft && this == i2 && con.fromLane == k2.fromLane;
                         const double minDV = firstIntersection(shape, otherShape, width1, width2,
-                                "Could not compute intersection of conflicting internal lanes at node '" + myTo->getID() + "'", secondIntersection);
+                                                               "Could not compute intersection of conflicting internal lanes at node '" + myTo->getID() + "'", secondIntersection);
                         if (minDV < shape.length() - POSITION_EPS && minDV > POSITION_EPS) { // !!!?
                             assert(minDV >= 0);
                             if (crossingPositions.first < 0 || crossingPositions.first > minDV) {
@@ -1771,7 +1771,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                         }
                     }
                     const bool rightTurnConflict = NBNode::rightTurnConflict(
-                            this, con.toEdge, con.fromLane, i2, k2.toEdge, k2.fromLane);
+                                                       this, con.toEdge, con.fromLane, i2, k2.toEdge, k2.fromLane);
                     const bool indirectTurnConflit = con.indirectLeft && this == i2 && dir2 == LinkDirection::STRAIGHT;
                     const bool mergeConflict = myTo->mergeConflict(this, con, i2, k2, true);
                     // compute foe internal lanes
@@ -1788,7 +1788,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                             && n.getType() != SumoXMLNodeType::NOJUNCTION
                        ) {
                         WRITE_WARNINGF(TL("Intersecting left turns at junction '%' from lane '%' and lane '%' (increase junction radius to avoid this)."),
-                                n.getID(), getLaneID(con.fromLane), i2->getLaneID(k2.fromLane));
+                                       n.getID(), getLaneID(con.fromLane), i2->getLaneID(k2.fromLane));
                     }
                     // compute foe incoming lanes
                     const bool signalised = hasSignalisedConnectionTo(con.toEdge);

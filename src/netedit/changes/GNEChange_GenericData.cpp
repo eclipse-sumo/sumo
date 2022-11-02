@@ -49,9 +49,9 @@ GNEChange_GenericData::GNEChange_GenericData(GNEGenericData* genericData, bool f
 GNEChange_GenericData::~GNEChange_GenericData() {
     assert(myGenericData);
     myGenericData->decRef("GNEChange_GenericData");
-    if (myGenericData->unreferenced() && 
-        myGenericData->getNet()->getAttributeCarriers()->retrieveDataInterval(myDataIntervalParent, false) &&
-        myGenericData->getNet()->getAttributeCarriers()->retrieveGenericData(myGenericData, false)) {
+    if (myGenericData->unreferenced() &&
+            myGenericData->getNet()->getAttributeCarriers()->retrieveDataInterval(myDataIntervalParent, false) &&
+            myGenericData->getNet()->getAttributeCarriers()->retrieveGenericData(myGenericData, false)) {
         // show extra information for tests
         WRITE_DEBUG("Deleting unreferenced " + myGenericData->getTagStr());
         // delete generic data from interval parent

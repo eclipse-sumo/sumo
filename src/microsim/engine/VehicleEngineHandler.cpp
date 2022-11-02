@@ -80,7 +80,7 @@ StringBijection<int>::Entry VehicleEngineHandler::engineAttrs[] = {
 // ===========================================================================
 VehicleEngineHandler::VehicleEngineHandler(const std::string& toLoad)
     : GenericSAXHandler(engineTags, ENGINE_TAG_NOTHING, engineAttrs, ENGINE_ATTR_NOTHING, "vehicles"),
-    skip(false), currentGear(1) {
+      skip(false), currentGear(1) {
     vehicleToLoad = toLoad;
 }
 

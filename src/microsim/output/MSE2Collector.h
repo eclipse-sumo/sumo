@@ -364,7 +364,7 @@ public:
     /// @}
 
     /// @brief get name
-    const std::string & getName() {
+    const std::string& getName() {
         return myName;
     }
 

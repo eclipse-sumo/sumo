@@ -83,11 +83,11 @@ FXIMPLEMENT(GUITriggeredRerouter::GUIManip_TriggeredRerouter, GUIManipulator, GU
  * GUITriggeredRerouter::GUIManip_TriggeredRerouter - methods
  * ----------------------------------------------------------------------- */
 GUITriggeredRerouter::GUIManip_TriggeredRerouter::GUIManip_TriggeredRerouter(
-    GUIMainWindow& app, const std::string& name, GUITriggeredRerouter& o) : 
-        GUIManipulator(app, name, 0, 0), myParent(&app),
-        myChosenValue(0), myChosenTarget(myChosenValue, nullptr, MID_OPTION),
-        myUsageProbability(o.getProbability()), myUsageProbabilityTarget(myUsageProbability),
-        myObject(&o) {
+    GUIMainWindow& app, const std::string& name, GUITriggeredRerouter& o) :
+    GUIManipulator(app, name, 0, 0), myParent(&app),
+    myChosenValue(0), myChosenTarget(myChosenValue, nullptr, MID_OPTION),
+    myUsageProbability(o.getProbability()), myUsageProbabilityTarget(myUsageProbability),
+    myObject(&o) {
     myChosenTarget.setTarget(this);
     FXVerticalFrame* f1 =
         new FXVerticalFrame(this, LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0);

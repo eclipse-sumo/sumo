@@ -1992,7 +1992,7 @@ MSBaseVehicle::getPrefixedParameter(const std::string& key, std::string& error) 
             return "";
         }
         return hasDevice(tok.get(1)) ? "true" : "false";
-    // parking related parameters start here
+        // parking related parameters start here
     } else if (key == "parking.rerouteCount") {
         return toString(getNumberParkingReroutes());
     } else if (StringUtils::startsWith(key, "parking.memory.")) {

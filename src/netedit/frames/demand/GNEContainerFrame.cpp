@@ -35,7 +35,7 @@
 // GNEContainerFrame - methods
 // ---------------------------------------------------------------------------
 
-GNEContainerFrame::GNEContainerFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+GNEContainerFrame::GNEContainerFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, "Containers"),
     myRouteHandler("", viewNet->getNet(), true, false),
     myContainerBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {

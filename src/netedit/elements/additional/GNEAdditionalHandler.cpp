@@ -2030,8 +2030,8 @@ GNEAdditionalHandler::parseLanes(const SumoXMLTag tag, const std::vector<std::st
 }
 
 
-bool 
-GNEAdditionalHandler::checkDuplicatedAdditional(const SumoXMLTag tag, const std::string &id) {
+bool
+GNEAdditionalHandler::checkDuplicatedAdditional(const SumoXMLTag tag, const std::string& id) {
     // retrieve additional
     auto additional = myNet->getAttributeCarriers()->retrieveAdditional(tag, id, false);
     // if additional exist, check if overwrite (delete)
@@ -2054,7 +2054,7 @@ GNEAdditionalHandler::checkDuplicatedAdditional(const SumoXMLTag tag, const std:
 }
 
 
-void 
+void
 GNEAdditionalHandler::overwriteAdditional() {
     if (myAdditionalToOverwrite) {
         // remove element

@@ -43,7 +43,7 @@ GUIDottedGeometry::DottedGeometryColor::DottedGeometryColor(const GUIVisualizati
 
 const RGBColor
 GUIDottedGeometry::DottedGeometryColor::getColor(DottedContourType type) {
-    switch(type) {
+    switch (type) {
         case DottedContourType::INSPECT:
         case DottedContourType::INSPECT_SMALL:
             if (myColorFlag) {
@@ -255,11 +255,11 @@ GUIDottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, Posit
 
 
 void
-GUIDottedGeometry::drawDottedGeometry(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type, 
-        DottedGeometryColor& dottedGeometryColor, const double customWidth) const {
+GUIDottedGeometry::drawDottedGeometry(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
+                                      DottedGeometryColor& dottedGeometryColor, const double customWidth) const {
     // set segment width
     double width = s.dottedContourSettings.segmentWidthLarge;
-    switch(type) {
+    switch (type) {
         case DottedContourType::INSPECT_SMALL:
         case DottedContourType::FRONT_SMALL:
         case DottedContourType::REMOVE:
@@ -338,7 +338,7 @@ GUIDottedGeometry::drawDottedContourClosedShape(const GUIVisualizationSettings& 
 
 
 void
-GUIDottedGeometry::drawDottedContourShape(const GUIVisualizationSettings& s, const DottedContourType type, 
+GUIDottedGeometry::drawDottedContourShape(const GUIVisualizationSettings& s, const DottedContourType type,
         const PositionVector& shape, const double width, const double exaggeration, const bool drawFirstExtrem,
         const bool drawLastExtrem) {
     if (s.drawDottedContour(exaggeration)) {

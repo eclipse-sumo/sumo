@@ -48,7 +48,7 @@
 GNEEdgeRelData::GNEEdgeRelData(GNEDataInterval* dataIntervalParent, GNEEdge* fromEdge, GNEEdge* toEdge,
                                const Parameterised::Map& parameters) :
     GNEGenericData(SUMO_TAG_EDGEREL, GUIIconSubSys::getIcon(GUIIcon::EDGERELDATA), GLO_EDGERELDATA,
-    dataIntervalParent, parameters, {}, {fromEdge, toEdge}, {}, {}, {}, {}) {
+                   dataIntervalParent, parameters, {}, {fromEdge, toEdge}, {}, {}, {}, {}) {
 }
 
 
@@ -178,7 +178,7 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
         for (const auto& laneEdge : lane->getParentEdge()->getLanes()) {
             // get lane width
             const double laneWidth = s.addSize.getExaggeration(s, laneEdge) * s.edgeRelWidthExaggeration *
-                (laneEdge->getParentEdge()->getNBEdge()->getLaneWidth(laneEdge->getIndex()) * 0.5);
+                                     (laneEdge->getParentEdge()->getNBEdge()->getLaneWidth(laneEdge->getIndex()) * 0.5);
             // Add a draw matrix
             GLHelper::pushMatrix();
             // Start with the drawing of the area translating matrix to origin
@@ -186,21 +186,21 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
             GLHelper::setColor(RGBColor::BLACK);
             // draw box lines
             GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(),
-                laneEdge->getLaneShape(), laneEdge->getShapeRotations(),
-                laneEdge->getShapeLengths(), {}, laneWidth, onlyDrawContour);
+                                          laneEdge->getLaneShape(), laneEdge->getShapeRotations(),
+                                          laneEdge->getShapeLengths(), {}, laneWidth, onlyDrawContour);
             // translate to top
             glTranslated(0, 0, 0.01);
             setColor(s);
             // draw interne box lines
             GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(),
-                laneEdge->getLaneShape(), laneEdge->getShapeRotations(),
-                laneEdge->getShapeLengths(), {}, laneWidth - 0.1, onlyDrawContour);
+                                          laneEdge->getLaneShape(), laneEdge->getShapeRotations(),
+                                          laneEdge->getShapeLengths(), {}, laneWidth - 0.1, onlyDrawContour);
             // Pop last matrix
             GLHelper::popMatrix();
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
             // check if mouse is over element
-            for (const auto &laneEdgeParent : laneEdge->getParentEdge()->getLanes()) {
+            for (const auto& laneEdgeParent : laneEdge->getParentEdge()->getLanes()) {
                 // get lane drawing constants
                 GNELane::LaneDrawingConstants laneDrawingConstants(s, laneEdgeParent);
                 mouseWithinGeometry(laneEdgeParent->getLaneShape(), laneDrawingConstants.halfWidth * s.edgeRelWidthExaggeration);
@@ -208,28 +208,28 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
             // draw filtered attribute
             if (getParentEdges().front()->getLanes().front() == laneEdge) {
                 drawFilteredAttribute(s, laneEdge->getLaneShape(),
-                    myNet->getViewNet()->getViewParent()->getEdgeRelDataFrame()->getAttributeSelector()->getFilteredAttribute(),
-                    myNet->getViewNet()->getViewParent()->getEdgeRelDataFrame()->getIntervalSelector()->getDataInterval());
+                                      myNet->getViewNet()->getViewParent()->getEdgeRelDataFrame()->getAttributeSelector()->getFilteredAttribute(),
+                                      myNet->getViewNet()->getViewParent()->getEdgeRelDataFrame()->getIntervalSelector()->getDataInterval());
             }
             // inspect contour
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 GNEEdge::drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::INSPECT,
-                    laneEdge->getParentEdge(), true, true, s.edgeRelWidthExaggeration);
+                                               laneEdge->getParentEdge(), true, true, s.edgeRelWidthExaggeration);
             }
             // front contour
             if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
                 GNEEdge::drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::FRONT,
-                    laneEdge->getParentEdge(), true, true, s.edgeRelWidthExaggeration);
+                                               laneEdge->getParentEdge(), true, true, s.edgeRelWidthExaggeration);
             }
             // delete contour
             if (myNet->getViewNet()->drawDeleteContour(this, this)) {
                 GNEEdge::drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::REMOVE,
-                    laneEdge->getParentEdge(), true, true, s.edgeRelWidthExaggeration);
+                                               laneEdge->getParentEdge(), true, true, s.edgeRelWidthExaggeration);
             }
             // delete contour
             if (myNet->getViewNet()->drawSelectContour(this, this)) {
                 GNEEdge::drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::SELECT,
-                    laneEdge->getParentEdge(), true, true, s.edgeRelWidthExaggeration);
+                                               laneEdge->getParentEdge(), true, true, s.edgeRelWidthExaggeration);
             }
         }
         // Pop name
@@ -261,9 +261,9 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
                 const GNELane* to = (index < toLanes.size()) ? toLanes.at(index) : toLanes.back();
                 // get lane widths
                 const double laneWidthFrom = s.addSize.getExaggeration(s, from) * s.edgeRelWidthExaggeration *
-                    (from->getParentEdge()->getNBEdge()->getLaneWidth(from->getIndex()) * 0.5);
+                                             (from->getParentEdge()->getNBEdge()->getLaneWidth(from->getIndex()) * 0.5);
                 const double laneWidthTo = s.addSize.getExaggeration(s, to) * s.edgeRelWidthExaggeration *
-                    (to->getParentEdge()->getNBEdge()->getLaneWidth(to->getIndex()) * 0.5);
+                                           (to->getParentEdge()->getNBEdge()->getLaneWidth(to->getIndex()) * 0.5);
                 const double laneWidth = (laneWidthFrom < laneWidthTo) ? laneWidthFrom : laneWidthTo;
                 // Add a draw matrix
                 GLHelper::pushMatrix();

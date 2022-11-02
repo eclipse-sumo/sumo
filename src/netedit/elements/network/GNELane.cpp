@@ -92,12 +92,12 @@ GNELane::LaneDrawingConstants::LaneDrawingConstants() :
 #endif
 GNELane::GNELane(GNEEdge* edge, const int index) :
     GNENetworkElement(edge->getNet(), edge->getNBEdge()->getLaneID(index), GLO_LANE, SUMO_TAG_LANE,
-    GUIIconSubSys::getIcon(GUIIcon::LANE), {}, {}, {}, {}, {}, {}),
-    myParentEdge(edge),
-    myIndex(index),
-    mySpecialColor(nullptr),
-    mySpecialColorValue(-1),
-    myLane2laneConnections(this) {
+                      GUIIconSubSys::getIcon(GUIIcon::LANE), {}, {}, {}, {}, {}, {}),
+                                myParentEdge(edge),
+                                myIndex(index),
+                                mySpecialColor(nullptr),
+                                mySpecialColorValue(-1),
+myLane2laneConnections(this) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -105,12 +105,12 @@ GNELane::GNELane(GNEEdge* edge, const int index) :
 
 GNELane::GNELane() :
     GNENetworkElement(nullptr, "dummyConstructorGNELane", GLO_LANE, SUMO_TAG_LANE,
-    GUIIconSubSys::getIcon(GUIIcon::LANE), {}, {}, {}, {}, {}, {}),
-    myParentEdge(nullptr),
-    myIndex(-1),
-    mySpecialColor(nullptr),
-    mySpecialColorValue(-1),
-    myLane2laneConnections(this) {
+                      GUIIconSubSys::getIcon(GUIIcon::LANE), {}, {}, {}, {}, {}, {}),
+myParentEdge(nullptr),
+myIndex(-1),
+mySpecialColor(nullptr),
+mySpecialColorValue(-1),
+myLane2laneConnections(this) {
 }
 #ifdef _MSC_VER
 #pragma warning(pop)
@@ -1839,7 +1839,7 @@ GNELane::buildEdgeOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* 
     if (oppositeEdges.size() == 0) {
         splitBothDirections->setText("Split edge in both directions here (no opposite edge)");
     } else {
-        for (const auto &oppositeEdge : oppositeEdges) {
+        for (const auto& oppositeEdge : oppositeEdges) {
             // get reverse inner geometry
             const auto reverseGeometry = oppositeEdge->getNBEdge()->getInnerGeometry().reverse();
             if (reverseGeometry == myParentEdge->getNBEdge()->getInnerGeometry()) {

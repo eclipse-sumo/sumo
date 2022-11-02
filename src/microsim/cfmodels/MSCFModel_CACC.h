@@ -134,9 +134,9 @@ public:
     void setHeadwayTime(double headwayTime) {
         myHeadwayTime = headwayTime;
         myHeadwayTimeACC = headwayTime;
-        acc_CFM.setHeadwayTime(headwayTime);       
+        acc_CFM.setHeadwayTime(headwayTime);
     }
-    
+
     /**
      * @brief try to get the given parameter for this carFollowingModel
      *

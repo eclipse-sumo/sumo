@@ -253,7 +253,7 @@ protected:
      * @brief tag generic data tag
      * @brief pathCreator flag to create pathCreator
      */
-    GNEGenericDataFrame(GNEViewParent *viewParent, GNEViewNet* viewNet, SumoXMLTag tag, const bool pathCreator);
+    GNEGenericDataFrame(GNEViewParent* viewParent, GNEViewNet* viewNet, SumoXMLTag tag, const bool pathCreator);
 
     /// @brief Destructor
     ~GNEGenericDataFrame();

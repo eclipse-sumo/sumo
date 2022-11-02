@@ -67,7 +67,7 @@ GNEVehicleTypeDialog::VTypeAtributes::VClassRow::VClassRow(VTypeAtributes* VType
     // create FXComboBox for VClass
     new FXLabel(verticalFrameLabelAndComboBox, toString(SUMO_ATTR_VCLASS).c_str(), nullptr, GUIDesignLabelAttribute150);
     myComboBoxVClass = new MFXIconComboBox(verticalFrameLabelAndComboBox, GUIDesignComboBoxNCol, true,
-                                      VTypeAtributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
+                                           VTypeAtributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
     myComboBoxVClassLabelImage = new FXLabel(this, "", nullptr, GUIDesignLabelTickedIcon180x46);
     myComboBoxVClassLabelImage->setBackColor(FXRGBA(255, 255, 255, 255));
     // fill combo Box with all allowed VClass for the current edited VType
@@ -279,7 +279,7 @@ GNEVehicleTypeDialog::VTypeAtributes::VShapeRow::VShapeRow(VTypeAtributes* VType
     myComboBoxShapeLabelImage->setBackColor(FXRGBA(255, 255, 255, 255));
     // fill combo Box with all vehicle shapes
     std::vector<std::string> VShapeStrings = SumoVehicleShapeStrings.getStrings();
-    for (const auto &VShapeString : VShapeStrings) {
+    for (const auto& VShapeString : VShapeStrings) {
         if (VShapeString != SumoVehicleShapeStrings.getString(SUMOVehicleShape::UNKNOWN)) {
             myComboBoxShape->appendIconItem(VShapeString.c_str(), nullptr);
         }
@@ -312,14 +312,14 @@ GNEVehicleTypeDialog::VTypeAtributes::VShapeRow::updateValues() {
 }
 
 
-void 
+void
 GNEVehicleTypeDialog::VTypeAtributes::VShapeRow::updateValue(SUMOVehicleClass vClass) {
     // create new VClassDefaultValues using the new VClass
     SUMOVTypeParameter::VClassDefaultValues newVClass(vClass);
     myComboBoxShape->setText(SumoVehicleShapeStrings.getString(newVClass.shape).c_str());
     myComboBoxShape->setTextColor(FXRGB(0, 0, 0));
     myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_GUISHAPE, myComboBoxShape->getText().text(),
-        myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getNet()->getViewNet()->getUndoList());
+            myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getNet()->getViewNet()->getUndoList());
     setVShapeLabelImage();
 }
 
@@ -1259,7 +1259,7 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelParameters(G
 
     // fill combo Box with all Car following models
     std::vector<std::string> CFModels = SUMOXMLDefinitions::CarFollowModels.getStrings();
-    for (const auto &CFModel : CFModels) {
+    for (const auto& CFModel : CFModels) {
         myComboBoxCarFollowModel->appendIconItem(CFModel.c_str(), nullptr);
     }
     myComboBoxCarFollowModel->setNumVisible(10);
@@ -1671,7 +1671,7 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::onCmdSetVariable(FXObject*, F
 // ---------------------------------------------------------------------------
 
 GNEVehicleTypeDialog::GNEVehicleTypeDialog(GNEDemandElement* editedVehicleType, bool updatingElement) :
-    GNEDemandElementDialog(editedVehicleType, updatingElement,1372, 575),
+    GNEDemandElementDialog(editedVehicleType, updatingElement, 1372, 575),
     myVehicleTypeValid(true),
     myInvalidAttr(SUMO_ATTR_NOTHING) {
 

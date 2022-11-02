@@ -1666,7 +1666,7 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
             ptLine->setMyNumOfStops((int)myStops.size());
             bool hadGap = false;
             for (long long ref : myStops) {
-                const auto& nodeIt =myOSMNodes.find(ref);
+                const auto& nodeIt = myOSMNodes.find(ref);
                 if (nodeIt == myOSMNodes.end()) {
                     if (!ptLine->getStops().empty() && !hadGap) {
                         hadGap = true;

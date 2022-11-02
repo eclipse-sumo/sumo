@@ -38,7 +38,7 @@ public:
      * @brief viewNet viewNet that uses this GNEFrame
      * @brief frameLabel label of the frame
      */
-    GNEFrame(GNEViewParent *viewParent, GNEViewNet* viewNet, const std::string& frameLabel);
+    GNEFrame(GNEViewParent* viewParent, GNEViewNet* viewNet, const std::string& frameLabel);
 
     /// @brief destructor
     ~GNEFrame();

@@ -36,7 +36,7 @@
 // GNEContainerPlanFrame - methods
 // ---------------------------------------------------------------------------
 
-GNEContainerPlanFrame::GNEContainerPlanFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+GNEContainerPlanFrame::GNEContainerPlanFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, "ContainerPlans"),
     myRouteHandler("", viewNet->getNet(), true, false) {
 
@@ -157,7 +157,7 @@ GNEContainerPlanFrame::tagSelected() {
             // set path creator mode
             myPathCreator->showPathCreatorModule(containerPlanTag, true, false);
             // check if add previous edge
-             if (!myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopContainer()) {
+            if (!myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopContainer()) {
                 myPathCreator->addEdge(previousEdge, false, false);
             }
         } else {

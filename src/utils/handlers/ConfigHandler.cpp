@@ -45,7 +45,7 @@ ConfigHandler::parse() {
 }
 
 
-void 
+void
 ConfigHandler::parseConfigFile() {
     // open SUMOBaseOBject and set tag
     myCommonXMLStructure.openSUMOBaseOBject();
@@ -74,7 +74,7 @@ ConfigHandler::parseNetFile(const SUMOSAXAttributes& attrs) {
 }
 
 
-void 
+void
 ConfigHandler::parseAdditionalFiles(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;

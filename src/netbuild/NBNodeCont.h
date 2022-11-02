@@ -133,7 +133,7 @@ public:
      * @param[in] prefix The cluster prefix
      * @return the generated id
      */
-    std::string createClusterId(const NodeSet& cluster, const std::string& prefix="cluster_") {
+    std::string createClusterId(const NodeSet& cluster, const std::string& prefix = "cluster_") {
         std::set<std::string> clusterIds;
         for (NBNode* j : cluster) {
             clusterIds.insert(j->getID());
@@ -146,7 +146,7 @@ public:
      * @param[in] prefix The cluster prefix
      * @return the generated id
      */
-    std::string createClusterId(const std::set<std::string>& cluster, const std::string& prefix="cluster_");
+    std::string createClusterId(const std::set<std::string>& cluster, const std::string& prefix = "cluster_");
 
     /** @brief add ids of nodes which shall be joined into a single node
      * @param[in] cluster The cluster to add
@@ -377,7 +377,7 @@ private:
     void pruneClusterFringe(NodeSet& cluster) const;
 
     /// @brief avoid removal of long edges when joining junction clusters
-    static int pruneLongEdges(NodeSet& cluster, double maxDist, const bool dryRun=false);
+    static int pruneLongEdges(NodeSet& cluster, double maxDist, const bool dryRun = false);
 
     /// @brief remove nodes that form a slip lane from cluster
     void pruneSlipLaneNodes(NodeSet& cluster) const;

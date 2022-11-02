@@ -220,7 +220,7 @@ struct GNEViewNetHelper {
         void swapLane2Edge();
 
         /// @brief filter locked elements
-        void filterLockedElements(const GNEViewNetHelper::LockManager &lockManager, std::vector<GUIGlObjectType> forcedIgnoredTiped = {});
+        void filterLockedElements(const GNEViewNetHelper::LockManager& lockManager, std::vector<GUIGlObjectType> forcedIgnoredTiped = {});
 
         /// @brief get front GUI GL ID or a pointer to nullptr
         GUIGlID getGlIDFront() const;
@@ -1371,7 +1371,7 @@ struct GNEViewNetHelper {
     static const RGBColor& getRainbowScaledColor(const double min, const double max, const double value);
 
     /// @brief filter elements based on the layer
-    static std::vector<GUIGlObject*> filterElementsByLayer(const std::vector<GUIGlObject*> &GLObjects);
+    static std::vector<GUIGlObject*> filterElementsByLayer(const std::vector<GUIGlObject*>& GLObjects);
 
 private:
     /// @brief scale (rainbow) colors

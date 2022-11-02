@@ -36,9 +36,9 @@ FXDEFMAP(MFXMenuButtonTooltip) MFXMenuButtonTooltipMap[] = {
 FXIMPLEMENT(MFXMenuButtonTooltip, FXMenuButton, MFXMenuButtonTooltipMap, ARRAYNUMBER(MFXMenuButtonTooltipMap))
 
 
-MFXMenuButtonTooltip::MFXMenuButtonTooltip(FXComposite* p, MFXStaticToolTip* staticToolTip, const FXString& text, FXIcon* ic, 
-                                           FXPopup* pup, FXObject* optionalTarget, FXuint opts, 
-                                           FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) :
+MFXMenuButtonTooltip::MFXMenuButtonTooltip(FXComposite* p, MFXStaticToolTip* staticToolTip, const FXString& text, FXIcon* ic,
+        FXPopup* pup, FXObject* optionalTarget, FXuint opts,
+        FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) :
     FXMenuButton(p, text, ic, pup, opts, x, y, w, h, pl, pr, pt, pb),
     myStaticToolTip(staticToolTip),
     myOptionalTarget(optionalTarget) {
@@ -64,7 +64,7 @@ MFXMenuButtonTooltip::onLeave(FXObject* sender, FXSelector sel, void* ptr) {
 }
 
 
-long 
+long
 MFXMenuButtonTooltip::onMotion(FXObject* sender, FXSelector sel, void* ptr) {
     // update static tooltip
     myStaticToolTip->onUpdate(sender, sel, ptr);
@@ -93,7 +93,7 @@ MFXMenuButtonTooltip::onKeyPress(FXObject* sender, FXSelector sel, void* ptr) {
 }
 
 
-long 
+long
 MFXMenuButtonTooltip::onCmdPost(FXObject* sender, FXSelector sel, void* ptr) {
     // inform optional target
     if (myOptionalTarget) {

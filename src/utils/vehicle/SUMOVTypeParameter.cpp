@@ -59,7 +59,7 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
     switch (vclass) {
         case SVC_PEDESTRIAN:
             minGap = 0.25;
-            maxSpeed = 37.58/ 3.6; // Usain Bolt
+            maxSpeed = 37.58 / 3.6; // Usain Bolt
             desiredMaxSpeed = DEFAULT_PEDESTRIAN_SPEED;
             width = 0.478;
             height = 1.719;

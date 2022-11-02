@@ -166,9 +166,9 @@ const RGBColor GUIVisualizationDottedContourSettings::secondFrontColor(0, 255, 0
 // -------------------------------------------------------------------------
 // 3D light presets
 // -------------------------------------------------------------------------
-const RGBColor OSG_color_AMBIENT(32,32,32,255);
-const RGBColor OSG_color_DIFFUSE(64,64,64,255);
-const RGBColor OSG_color_SKY(51,51,102,255);
+const RGBColor OSG_color_AMBIENT(32, 32, 32, 255);
+const RGBColor OSG_color_DIFFUSE(64, 64, 64, 255);
+const RGBColor OSG_color_SKY(51, 51, 102, 255);
 
 // -------------------------------------------------------------------------
 // widths of certain NETEDIT objects

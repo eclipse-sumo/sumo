@@ -32,7 +32,7 @@ FXDEFMAP(MFXButtonTooltip) MFXButtonTooltipMap[] = {
 // Object implementation
 FXIMPLEMENT(MFXButtonTooltip, FXButton, MFXButtonTooltipMap, ARRAYNUMBER(MFXButtonTooltipMap))
 
-MFXButtonTooltip::MFXButtonTooltip(FXComposite* p, MFXStaticToolTip* staticToolTip, 
+MFXButtonTooltip::MFXButtonTooltip(FXComposite* p, MFXStaticToolTip* staticToolTip,
                                    const FXString& text, FXIcon* ic,
                                    FXObject* tgt, FXSelector sel, FXuint opts,
                                    FXint x, FXint y, FXint w, FXint h,
@@ -61,7 +61,7 @@ MFXButtonTooltip::onLeave(FXObject* sender, FXSelector sel, void* ptr) {
 }
 
 
-long 
+long
 MFXButtonTooltip::onMotion(FXObject* sender, FXSelector sel, void* ptr) {
     // update static tooltip
     myStaticToolTip->onUpdate(sender, sel, ptr);

@@ -862,7 +862,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             bool isInsertionOrder;
             if (MSRailSignal::hasInsertionConstraint(*link, aVehicle, constraintInfo, isInsertionOrder)) {
                 setParameter((isInsertionOrder ? "insertionOrder" : "insertionConstraint:")
-                        + aVehicle->getID(), constraintInfo);
+                             + aVehicle->getID(), constraintInfo);
 #ifdef DEBUG_INSERTION
                 if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
                     std::cout << " insertion constraint at link " << (*link)->getDescription() << " not cleared \n";
@@ -1624,7 +1624,7 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
 #ifdef DEBUG_PEDESTRIAN_COLLISIONS
             if (DEBUG_COND && DEBUG_COND2(v)) {
                 std::cout << SIMTIME << " back=" << back << " right=" << right << " person=" << Named::getIDSecure(leader.first)
-                    << " dist=" << leader.second << " jammed=" << leader.first->isJammed() << "\n";
+                          << " dist=" << leader.second << " jammed=" << leader.first->isJammed() << "\n";
             }
 #endif
             if (leader.first != 0 && leader.second < length && !leader.first->isJammed()) {

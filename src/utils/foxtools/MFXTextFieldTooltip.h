@@ -41,7 +41,7 @@ public:
     ~MFXTextFieldTooltip();
 
     /// @brief set toolTip
-    void setToolTipText(const FXString &toolTip);
+    void setToolTipText(const FXString& toolTip);
 
     /// @name FOX callbacks
     /// @{

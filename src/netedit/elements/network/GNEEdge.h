@@ -323,7 +323,7 @@ public:
     bool hasSuccessors() const;
 
     /// @brief get reverse edge (if exist)
-    GNEEdge *getReverseEdge() const;
+    GNEEdge* getReverseEdge() const;
 
 protected:
     /// @brief the underlying NBEdge

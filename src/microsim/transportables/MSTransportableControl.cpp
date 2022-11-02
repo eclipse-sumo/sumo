@@ -148,7 +148,7 @@ MSTransportableControl::erase(MSTransportable* transportable) {
                 OutputDevice_String od(1);
                 transportable->routeOutput(od, oc.getBool("vehroute-output.route-length"));
                 MSDevice_Vehroutes::writeSortedOutput(&myRouteInfos,
-                        departure, transportable->getID(), od.getString());
+                                                      departure, transportable->getID(), od.getString());
             } else {
                 transportable->routeOutput(*myRouteInfos.routeOut, oc.getBool("vehroute-output.route-length"));
             }

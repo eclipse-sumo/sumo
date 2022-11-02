@@ -343,7 +343,7 @@ MSMeanData_Net::MSLaneMeanDataValues::getAttributeValue(SumoXMLAttr a,
     switch (a) {
         case SUMO_ATTR_DENSITY:
             return MIN2(sampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength,
-                                    1000. * numLanes / MAX2(minimalVehicleLength, NUMERICAL_EPS));
+                        1000. * numLanes / MAX2(minimalVehicleLength, NUMERICAL_EPS));
         case SUMO_ATTR_LANEDENSITY: {
             const double density = MIN2(sampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength,
                                         1000. * numLanes / MAX2(minimalVehicleLength, NUMERICAL_EPS));

@@ -548,14 +548,14 @@ GUISUMOAbstractView::getObjectsInBoundary(Boundary bound, bool singlePosition) {
 
 
 std::vector<GUIGlObject*>
-GUISUMOAbstractView::filterInernalLanes(const std::vector<GUIGlObject*> &objects) const {
+GUISUMOAbstractView::filterInernalLanes(const std::vector<GUIGlObject*>& objects) const {
     // if no draw junction shape, nothing to filter
     if (!myVisualizationSettings->drawJunctionShape) {
         return objects;
     }
     // check if there is junctions in list
     bool junction = false;
-    for (const auto &object : objects) {
+    for (const auto& object : objects) {
         if (object->getType() == GLO_JUNCTION) {
             junction = true;
         }
@@ -565,7 +565,7 @@ GUISUMOAbstractView::filterInernalLanes(const std::vector<GUIGlObject*> &objects
     }
     // filter internal lanes
     std::vector<GUIGlObject*> filteredObjects;
-    for (const auto &object : objects) {
+    for (const auto& object : objects) {
         if ((object->getType() == GLO_LANE) && (object->getMicrosimID().find(':') != std::string::npos)) {
             continue;
         }
@@ -997,7 +997,7 @@ GUISUMOAbstractView::destroyPopup() {
 }
 
 
-void 
+void
 GUISUMOAbstractView::replacePopup(GUIGLObjectPopupMenu* popUp) {
     // use the same position of old popUp
     popUp->move(myPopup->getX(), myPopup->getY());
@@ -1153,9 +1153,9 @@ GUISUMOAbstractView::onMouseMove(FXObject*, FXSelector, void* ptr) {
     // check if popup exist
     if (myPopup) {
         // check if handle front element
-         if (myPopupPosition == getPositionInformation()) {
+        if (myPopupPosition == getPositionInformation()) {
             myPopupPosition = Position::INVALID;
-            myPopup->handle(this,FXSEL(SEL_COMMAND, MID_CURSORDIALOG_FRONT), nullptr);
+            myPopup->handle(this, FXSEL(SEL_COMMAND, MID_CURSORDIALOG_FRONT), nullptr);
             destroyPopup();
         } else if (myPopup->shown() == false) {
             destroyPopup();
@@ -1196,7 +1196,7 @@ GUISUMOAbstractView::openObjectDialogAtCursor(const FXEvent* ev) {
         std::vector<GUIGlObject*> filteredObjectsUnderCursor;
         std::vector<GUIGlObject*> filteredVehiclesUnderCursor;
         std::vector<GUIGlObject*> filteredTLSUnderCursor;
-        for (const auto &GLObject : objectsUnderCursor) {
+        for (const auto& GLObject : objectsUnderCursor) {
             if (GLObject->getType() == GLO_EDGE) {
                 // avoid edges
                 continue;
@@ -1206,9 +1206,9 @@ GUISUMOAbstractView::openObjectDialogAtCursor(const FXEvent* ev) {
                 continue;
             }
             if ((GLObject->getType() == GLO_VEHICLE) || (GLObject->getType() == GLO_TRIP) ||
-                (GLObject->getType() == GLO_FLOW) || (GLObject->getType() == GLO_ROUTEFLOW) ||
-                (GLObject->getType() == GLO_CONTAINER) || (GLObject->getType() == GLO_CONTAINERFLOW) ||
-                (GLObject->getType() == GLO_PERSON) || (GLObject->getType() == GLO_PERSONFLOW)) {
+                    (GLObject->getType() == GLO_FLOW) || (GLObject->getType() == GLO_ROUTEFLOW) ||
+                    (GLObject->getType() == GLO_CONTAINER) || (GLObject->getType() == GLO_CONTAINERFLOW) ||
+                    (GLObject->getType() == GLO_PERSON) || (GLObject->getType() == GLO_PERSONFLOW)) {
                 // filter vehicles, person and containers
                 filteredVehiclesUnderCursor.push_back(GLObject);
             }
@@ -1244,7 +1244,7 @@ GUISUMOAbstractView::openObjectDialogAtCursor(const FXEvent* ev) {
 
 
 void
-GUISUMOAbstractView::openObjectDialog(const std::vector<GUIGlObject*> &objects) {
+GUISUMOAbstractView::openObjectDialog(const std::vector<GUIGlObject*>& objects) {
     if (objects.size() > 0) {
         // create cursor popup dialog
         if (objects.size() == 1) {
@@ -1253,7 +1253,7 @@ GUISUMOAbstractView::openObjectDialog(const std::vector<GUIGlObject*> &objects) 
             // declare filtered objects
             std::vector<GUIGlObject*> filteredGLObjects;
             // fill filtered objects
-            for (const auto &glObject : objects) {
+            for (const auto& glObject : objects) {
                 // compare type with first eleement type
                 if (glObject->getType() == objects.front()->getType()) {
                     filteredGLObjects.push_back(glObject);
@@ -1787,7 +1787,7 @@ GUISUMOAbstractView::drawDecals() {
 }
 
 
-void 
+void
 GUISUMOAbstractView::openPopupDialog() {
     int x, y;
     FXuint b;

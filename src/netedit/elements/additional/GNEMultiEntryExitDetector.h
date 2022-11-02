@@ -48,7 +48,7 @@ public:
      * @param[in] parameters generic parameters
      */
     GNEMultiEntryExitDetector(const std::string& id, GNENet* net, const Position pos, const SUMOTime freq, const std::string& filename, const std::vector<std::string>& vehicleTypes,
-                  const std::string& name, SUMOTime timeThreshold, double speedThreshold, const Parameterised::Map& parameters);
+                              const std::string& name, SUMOTime timeThreshold, double speedThreshold, const Parameterised::Map& parameters);
 
     /// @brief GNEMultiEntryExitDetector Destructor
     ~GNEMultiEntryExitDetector();

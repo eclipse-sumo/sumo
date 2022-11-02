@@ -156,7 +156,7 @@ public:
         };
 
         /// @brief constructor
-        PathElement(GUIGlObjectType type, const std::string& microsimID, FXIcon *icon, const int options);
+        PathElement(GUIGlObjectType type, const std::string& microsimID, FXIcon* icon, const int options);
 
         /// @brief destructor
         virtual ~PathElement();

@@ -55,7 +55,7 @@ static const double vehiclePoly_PassengerVanRightGlass[] = { 0.36, -.43,  0.20, 
 static const double vehiclePoly_PassengerVanLeftGlass[] = { 0.36, .43,  0.20, .47,  0.98, .47,  0.91, .37,  0.31, .37,  0.20, .47,  -10000 };
 static const double vehiclePoly_PassengerVanBackGlass[] = { 0.95, 0,  0.94, 0,  0.94, 0.3,  0.98, 0.4,  0.98, -.4,  0.94, -.3,  0.94, 0,  -10000 };
 
-static const double vehiclePoly_TaxiSign[] = { .56, .241,  .56, -.241,  .49, -.241,  .49, .241,    -10000 }; 
+static const double vehiclePoly_TaxiSign[] = { .56, .241,  .56, -.241,  .49, -.241,  .49, .241,    -10000 };
 
 static const double vehiclePoly_DeliveryMediumRightGlass[] = { 0.21, -.43,  0.20, -.47,  0.38, -.47,  0.38, -.37,  0.31, -.37,  0.20, -.47,  -10000 };
 static const double vehiclePoly_DeliveryMediumLeftGlass[] = { 0.21, .43,  0.20, .47,  0.38, .47,  0.38, .37,  0.31, .37,  0.20, .47,  -10000 };
@@ -586,7 +586,7 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
             drawPoly(vehiclePoly_PassengerSedanRightGlass, 4.5);
             drawPoly(vehiclePoly_PassengerSedanLeftGlass, 4.5);
             drawPoly(vehiclePoly_PassengerSedanBackGlass, 4.5);
-            
+
             glTranslated(0, 0, 6);
             glColor3d(0, 0, 0);
             // square-pattern in front

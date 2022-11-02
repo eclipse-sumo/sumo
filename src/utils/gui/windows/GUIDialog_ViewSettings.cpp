@@ -684,7 +684,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.show3DTLSLinkMarkers = (myShow3DTLSLinkMarkers->getCheck() != FALSE);
     tmpSettings.generate3DTLSModels = (myGenerate3DTLSModels->getCheck() != FALSE);
     const unsigned char lightFactor = (unsigned char)myLight3DFactor->getValue();
-    tmpSettings.ambient3DLight.set(lightFactor/2, lightFactor/2, lightFactor/2, 255);
+    tmpSettings.ambient3DLight.set(lightFactor / 2, lightFactor / 2, lightFactor / 2, 255);
     tmpSettings.diffuse3DLight.set(lightFactor, lightFactor, lightFactor, 255);
     tmpSettings.skyColor = MFXUtils::getRGBColor(mySkyColor->getRGBA());
 

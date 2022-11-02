@@ -590,8 +590,8 @@ GUIViewTraffic::showLaneReachability(GUILane* lane, FXObject* menu, FXSelector) 
             traveltime += e->getLength() / MIN2(e->getSpeedLimit(), defaultMaxSpeed);
             for (MSEdge* const nextEdge : e->getSuccessors(svc)) {
                 if (reachableEdges.count(nextEdge) == 0 ||
-                    // revisit edge via faster path
-                    reachableEdges[nextEdge] > traveltime) {
+                        // revisit edge via faster path
+                        reachableEdges[nextEdge] > traveltime) {
                     reachableEdges[nextEdge] = traveltime;
                     check.push_back(nextEdge);
                 }

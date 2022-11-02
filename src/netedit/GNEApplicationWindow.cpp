@@ -468,7 +468,7 @@ GNEApplicationWindow::dependentBuild() {
     // build geo coordinates label
     auto requiereRecomputingFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
     myRequireRecomputingButton = new MFXButtonTooltip(requiereRecomputingFrame, myStaticTooltipMenu,
-        TL("Recomputing\t\tRecomputing is needed"), nullptr, this, MID_GNE_RECOMPUTINGNEEDED, GUIDesignButtonStatusBarFixed);
+            TL("Recomputing\t\tRecomputing is needed"), nullptr, this, MID_GNE_RECOMPUTINGNEEDED, GUIDesignButtonStatusBarFixed);
     // build geo coordinates label
     myGeoFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
     myGeoCoordinate = new FXLabel(myGeoFrame, TL("N/A\t\tOriginal coordinate (before coordinate transformation in netconvert)"), nullptr, GUIDesignLabelStatusBar);
@@ -740,7 +740,7 @@ GNEApplicationWindow::onCmdOpenForeign(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEApplicationWindow::onCmdOpenSUMOConfig(FXObject*, FXSelector, void*) {
     // write debug information
     WRITE_DEBUG("Open SUMOConfig dialog");
@@ -781,7 +781,7 @@ GNEApplicationWindow::onCmdOpenSUMOConfig(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEApplicationWindow::onCmdReloadSUMOConfig(FXObject*, FXSelector, void*) {
     const auto file = OptionsCont::getOptions().getString("SUMOConfig-output");
     if (file.size() > 0) {
@@ -801,7 +801,7 @@ GNEApplicationWindow::onCmdReloadSUMOConfig(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEApplicationWindow::onUpdReloadSUMOConfig(FXObject*, FXSelector, void*) {
     // check if file exist
     if (myViewNet && !OptionsCont::getOptions().getString("SUMOConfig-output").empty()) {
@@ -1270,7 +1270,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         // begin undolist
         myUndoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, "loading additionals and shapes from '" + toString(additionalFiles) + "'");
         // flag for check if there is error creating elements
-        bool errorCreatingElement = false;   
+        bool errorCreatingElement = false;
         // iterate over every additional file
         for (const auto& additionalFile : additionalFiles) {
             WRITE_MESSAGE("loading additionals and shapes from '" + additionalFile + "'");
@@ -1309,7 +1309,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         // begin undolist
         myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, "loading demand elements from '" + toString(demandElementsFiles) + "'");
         // flag for check if there is error creating elements
-        bool errorCreatingElement = false;         
+        bool errorCreatingElement = false;
         // iterate over every route file
         for (const auto& demandElementsFile : demandElementsFiles) {
             WRITE_MESSAGE("Loading demand elements from '" + demandElementsFile + "'");
@@ -1431,8 +1431,8 @@ GNEApplicationWindow::fillMenuBar() {
     myFileMenuAdditionals = new FXMenuPane(this);
     myFileMenuDemandElements = new FXMenuPane(this);
     myFileMenuDataElements = new FXMenuPane(this);
-    myFileMenuCommands.buildFileMenuCommands(myFileMenu, myFileMenuSUMOConfig, myFileMenuTLS, myFileMenuEdgeTypes, 
-                                             myFileMenuAdditionals, myFileMenuDemandElements, myFileMenuDataElements);
+    myFileMenuCommands.buildFileMenuCommands(myFileMenu, myFileMenuSUMOConfig, myFileMenuTLS, myFileMenuEdgeTypes,
+            myFileMenuAdditionals, myFileMenuDemandElements, myFileMenuDataElements);
     // build recent files
     myMenuBarFile.buildRecentFiles(myFileMenu);
     new FXMenuSeparator(myFileMenu);
@@ -1504,17 +1504,17 @@ GNEApplicationWindow::fillMenuBar() {
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&Help"), nullptr, myHelpMenu);
     // build help menu commands
     GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, TL("&Online Documentation"), "F1", TL("Open Online documentation."),
-        nullptr, this, MID_HOTKEY_F1_ONLINEDOCUMENTATION); 
+                                           nullptr, this, MID_HOTKEY_F1_ONLINEDOCUMENTATION);
     new FXMenuSeparator(myEditMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, TL("&Changelog"), "", TL("Open Changelog."),
-        nullptr, this, MID_CHANGELOG);
+                                           nullptr, this, MID_CHANGELOG);
     GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, TL("&Hotkeys"), "", TL("Open Hotkeys."),
-        nullptr, this, MID_HOTKEYS);
+                                           nullptr, this, MID_HOTKEYS);
     GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, TL("&Tutorial"), "", TL("Open Tutorial."),
-        nullptr, this, MID_TUTORIAL);
+                                           nullptr, this, MID_TUTORIAL);
     new FXMenuSeparator(myEditMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, TL("&About"), "F12", TL("About netedit."),
-        GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), this, MID_HOTKEY_F12_ABOUT);
+                                           GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), this, MID_HOTKEY_F12_ABOUT);
 }
 
 
@@ -1668,7 +1668,7 @@ GNEApplicationWindow::loadOptionOnStartup() {
 }
 
 
-void 
+void
 GNEApplicationWindow::loadNet(const std::string& file) {
     loadConfigOrNet(file, true);
 }
@@ -2359,7 +2359,7 @@ GNEApplicationWindow::onUpdRequireViewNet(FXObject* sender, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEApplicationWindow::onUpdRequireRecomputing(FXObject*, FXSelector, void*) {
     updateRecomputingLabel();
     return 1;
@@ -2503,7 +2503,7 @@ GNEApplicationWindow::onCmdHotkeys(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEApplicationWindow::onCmdToogleComputeNetworkData(FXObject*, FXSelector, void*) {
     if (myProcessingMenuCommands.menuCheckRecomputeDataMode->getCheck() == TRUE) {
         return getApp()->reg().writeBoolEntry("NETEDIT", "RecomputeData", true);
@@ -2846,7 +2846,7 @@ GNEApplicationWindow::onUpdNeedsNetwork(FXObject* sender, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEApplicationWindow::onUpdNeedsNetworkElement(FXObject* sender, FXSelector, void*) {
     // check if at least there is one edge in the network
     if (myNet && (myNet->getAttributeCarriers()->getEdges().size() > 0)) {
@@ -3518,7 +3518,7 @@ GNEApplicationWindow::onCmdSaveSUMOConfigAs(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEApplicationWindow::onUpdSaveSUMOConfig(FXObject* sender, FXSelector, void*) {
     // check if net exist and there is junctions
     if (myNet) {

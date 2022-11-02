@@ -133,7 +133,7 @@ GNETAZRelDataFrame::Legend::setLabels(const GNETAZ* fromTAZ, const GNETAZ* toTAZ
 // GNETAZRelDataFrame - methods
 // ------------------------------------------------------------------------
 
-GNETAZRelDataFrame::GNETAZRelDataFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+GNETAZRelDataFrame::GNETAZRelDataFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEGenericDataFrame(viewParent, viewNet, SUMO_TAG_TAZREL, false) {
     // create confirm TAZ Relation
     myConfirmTAZRelation = new ConfirmTAZRelation(this);

@@ -58,7 +58,7 @@ GUIPostDrawing::markGLObjectToUpdate(GUIGlObject* GLObject) {
 }
 
 
-void 
+void
 GUIPostDrawing::addElementUnderCursor(const GUIGlObject* GLObject) {
     myElementsUnderCursor.push_back(GLObject);
 }

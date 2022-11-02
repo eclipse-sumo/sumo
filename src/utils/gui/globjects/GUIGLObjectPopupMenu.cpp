@@ -84,7 +84,7 @@ GUIGLObjectPopupMenu::GUIGLObjectPopupMenu(GUIMainWindow* app, GUISUMOAbstractVi
 
 GUIGLObjectPopupMenu::~GUIGLObjectPopupMenu() {
     // Delete MenuPane children
-    for (const auto &pane : myMenuPanes) {
+    for (const auto& pane : myMenuPanes) {
         delete pane;
     }
     // remove popup menu from object
@@ -101,7 +101,7 @@ GUIGLObjectPopupMenu::insertMenuPaneChild(FXMenuPane* child) {
         throw ProcessError("MenuPaneChild cannot be NULL");
     }
     // Check that MenuPaneChild wasn't already inserted
-    for (const auto &pane : myMenuPanes) {
+    for (const auto& pane : myMenuPanes) {
         if (pane == child) {
             throw ProcessError("MenuPaneChild already inserted");
         }

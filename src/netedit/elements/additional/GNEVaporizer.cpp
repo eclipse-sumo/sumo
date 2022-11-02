@@ -34,9 +34,9 @@
 
 GNEVaporizer::GNEVaporizer(GNENet* net) :
     GNEAdditional("", net, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, GUIIconSubSys::getIcon(GUIIcon::VAPORIZER), "",
-    {}, {}, {}, {}, {}, {}),
-    myBegin(0),
-    myEnd(0) {
+{}, {}, {}, {}, {}, {}),
+myBegin(0),
+myEnd(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -45,10 +45,10 @@ GNEVaporizer::GNEVaporizer(GNENet* net) :
 GNEVaporizer::GNEVaporizer(GNENet* net, GNEEdge* edge, SUMOTime from, SUMOTime end, const std::string& name,
                            const Parameterised::Map& parameters) :
     GNEAdditional(edge->getID(), net, GLO_VAPORIZER, SUMO_TAG_VAPORIZER,  GUIIconSubSys::getIcon(GUIIcon::VAPORIZER), name,
-    {}, {edge}, {}, {}, {}, {}),
-    Parameterised(parameters),
-    myBegin(from),
-    myEnd(end) {
+{}, {edge}, {}, {}, {}, {}),
+Parameterised(parameters),
+myBegin(from),
+myEnd(end) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }

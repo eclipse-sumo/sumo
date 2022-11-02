@@ -36,18 +36,20 @@
 // ===========================================================================
 
 GNEInductionLoopDetector::GNEInductionLoopDetector(GNENet* net) :
-    GNEDetector("", net, GLO_E1DETECTOR, SUMO_TAG_INDUCTION_LOOP, GUIIconSubSys::getIcon(GUIIcon::E1), 0, 
-    0, {}, "", {}, "", false, Parameterised::Map()) {
+    GNEDetector("", net, GLO_E1DETECTOR, SUMO_TAG_INDUCTION_LOOP, GUIIconSubSys::getIcon(GUIIcon::E1), 0,
+                0, {}, "", {}, "", false, Parameterised::Map()) {
     // reset default values
     resetDefaultValues();
 }
 
 
-GNEInductionLoopDetector::GNEInductionLoopDetector(const std::string& id, GNELane* lane, GNENet* net, const double pos, 
+GNEInductionLoopDetector::GNEInductionLoopDetector(const std::string& id, GNELane* lane, GNENet* net, const double pos,
         const SUMOTime freq, const std::string& filename, const std::vector<std::string>& vehicleTypes,
         const std::string& name, bool friendlyPos, const Parameterised::Map& parameters) :
-    GNEDetector(id, net, GLO_E1DETECTOR, SUMO_TAG_INDUCTION_LOOP, GUIIconSubSys::getIcon(GUIIcon::E1), pos, 
-    freq, {lane}, filename, vehicleTypes, name, friendlyPos, parameters) {
+    GNEDetector(id, net, GLO_E1DETECTOR, SUMO_TAG_INDUCTION_LOOP, GUIIconSubSys::getIcon(GUIIcon::E1), pos,
+                freq, {
+    lane
+}, filename, vehicleTypes, name, friendlyPos, parameters) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -182,33 +184,33 @@ GNEInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const {
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), E1Exaggeration);
             // check if mouse is over element
-            mouseWithinGeometry(myAdditionalGeometry.getShape().front(), 
-                    2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front());
+            mouseWithinGeometry(myAdditionalGeometry.getShape().front(),
+                                2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front());
             // inspect contour
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myAdditionalGeometry.getShape().front(), 
-                    2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1Exaggeration);
+                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::INSPECT, myAdditionalGeometry.getShape().front(),
+                        2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1Exaggeration);
             }
             // front contour
             if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::FRONT, myAdditionalGeometry.getShape().front(), 
-                    2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1Exaggeration);
+                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::FRONT, myAdditionalGeometry.getShape().front(),
+                        2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1Exaggeration);
             }
             // delete contour
             if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myAdditionalGeometry.getShape().front(), 
-                    2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1Exaggeration);
+                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::REMOVE, myAdditionalGeometry.getShape().front(),
+                        2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1Exaggeration);
             }
             // select contour
             if (myNet->getViewNet()->drawSelectContour(this, this)) {
-                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::SELECT, myAdditionalGeometry.getShape().front(), 
-                    2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1Exaggeration);
+                GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::SELECT, myAdditionalGeometry.getShape().front(),
+                        2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1Exaggeration);
             }
-            const auto &TLSAttributes = myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->getTLSAttributes();
+            const auto& TLSAttributes = myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->getTLSAttributes();
             // check if orange dotted contour must be drawn
-            if (myNet->getViewNet()->selectingDetectorsTLSMode() && 
-                (TLSAttributes->getE1Detectors().count(getParentLanes().front()->getID()) > 0) &&
-                (TLSAttributes->getE1Detectors().at(getParentLanes().front()->getID()) == getID())) {
+            if (myNet->getViewNet()->selectingDetectorsTLSMode() &&
+                    (TLSAttributes->getE1Detectors().count(getParentLanes().front()->getID()) > 0) &&
+                    (TLSAttributes->getE1Detectors().at(getParentLanes().front()->getID()) == getID())) {
                 GUIDottedGeometry::drawDottedSquaredShape(s, GUIDottedGeometry::DottedContourType::GREEN, myAdditionalGeometry.getShape().front(), 2, 1, 0, 0, myAdditionalGeometry.getShapeRotations().front(), E1Exaggeration);
             }
         }

@@ -1600,7 +1600,7 @@ GNEAttributeCarrier::fillAdditionalElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              "If set, no error will be reported if element is placed behind the lane.\n" 
+                                              "If set, no error will be reported if element is placed behind the lane.\n"
                                               "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,\n"
                                               "if the position was negative and larger than the lanes length after multiplication with - 1",
                                               "0");
@@ -1664,7 +1664,7 @@ GNEAttributeCarrier::fillAdditionalElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              "If set, no error will be reported if element is placed behind the lane.\n" 
+                                              "If set, no error will be reported if element is placed behind the lane.\n"
                                               "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,\n"
                                               "if the position was negative and larger than the lanes length after multiplication with - 1",
                                               "0");
@@ -1720,7 +1720,7 @@ GNEAttributeCarrier::fillAdditionalElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              "If set, no error will be reported if element is placed behind the lane.\n" 
+                                              "If set, no error will be reported if element is placed behind the lane.\n"
                                               "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,\n"
                                               "if the position was negative and larger than the lanes length after multiplication with - 1",
                                               "0");
@@ -1762,7 +1762,7 @@ GNEAttributeCarrier::fillAdditionalElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              "If set, no error will be reported if element is placed behind the lane.\n" 
+                                              "If set, no error will be reported if element is placed behind the lane.\n"
                                               "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,\n"
                                               "if the position was negative and larger than the lanes length after multiplication with - 1",
                                               "0");
@@ -1825,7 +1825,7 @@ GNEAttributeCarrier::fillAdditionalElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              "If set, no error will be reported if element is placed behind the lane.\n" 
+                                              "If set, no error will be reported if element is placed behind the lane.\n"
                                               "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,\n"
                                               "if the position was negative and larger than the lanes length after multiplication with - 1",
                                               "0");
@@ -1908,7 +1908,7 @@ GNEAttributeCarrier::fillAdditionalElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              "If set, no error will be reported if element is placed behind the lane.\n" 
+                                              "If set, no error will be reported if element is placed behind the lane.\n"
                                               "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,\n"
                                               "if the position was negative and larger than the lanes length after multiplication with - 1",
                                               "0");
@@ -2019,7 +2019,7 @@ GNEAttributeCarrier::fillAdditionalElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              "If set, no error will be reported if element is placed behind the lane.\n" 
+                                              "If set, no error will be reported if element is placed behind the lane.\n"
                                               "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,\n"
                                               "if the position was negative and larger than the lanes length after multiplication with - 1",
                                               "0");
@@ -2100,7 +2100,7 @@ GNEAttributeCarrier::fillAdditionalElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              "If set, no error will be reported if element is placed behind the lane.\n" 
+                                              "If set, no error will be reported if element is placed behind the lane.\n"
                                               "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,\n"
                                               "if the position was negative and larger than the lanes length after multiplication with - 1",
                                               "0");
@@ -2180,7 +2180,7 @@ GNEAttributeCarrier::fillAdditionalElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              "If set, no error will be reported if element is placed behind the lane.\n" 
+                                              "If set, no error will be reported if element is placed behind the lane.\n"
                                               "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,\n"
                                               "if the position was negative and larger than the lanes length after multiplication with - 1",
                                               "0");
@@ -2259,7 +2259,7 @@ GNEAttributeCarrier::fillAdditionalElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              "If set, no error will be reported if element is placed behind the lane.\n" 
+                                              "If set, no error will be reported if element is placed behind the lane.\n"
                                               "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,\n"
                                               "if the position was negative and larger than the lanes length after multiplication with - 1",
                                               "0");
@@ -2286,7 +2286,7 @@ GNEAttributeCarrier::fillAdditionalElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              "If set, no error will be reported if element is placed behind the lane.\n" 
+                                              "If set, no error will be reported if element is placed behind the lane.\n"
                                               "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,\n"
                                               "if the position was negative and larger than the lanes length after multiplication with - 1",
                                               "0");
@@ -2333,7 +2333,7 @@ GNEAttributeCarrier::fillAdditionalElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              "If set, no error will be reported if element is placed behind the lane.\n" 
+                                              "If set, no error will be reported if element is placed behind the lane.\n"
                                               "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,\n"
                                               "if the position was negative and larger than the lanes length after multiplication with - 1",
                                               "0");
@@ -3000,7 +3000,7 @@ GNEAttributeCarrier::fillShapeElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              "If set, no error will be reported if element is placed behind the lane.\n" 
+                                              "If set, no error will be reported if element is placed behind the lane.\n"
                                               "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,\n"
                                               "if the position was negative and larger than the lanes length after multiplication with - 1",
                                               "0");
@@ -3307,7 +3307,7 @@ GNEAttributeCarrier::fillWireElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              "If set, no error will be reported if element is placed behind the lane.\n" 
+                                              "If set, no error will be reported if element is placed behind the lane.\n"
                                               "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,\n"
                                               "if the position was negative and larger than the lanes length after multiplication with - 1",
                                               "0");
@@ -4015,7 +4015,7 @@ GNEAttributeCarrier::fillStopElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              "If set, no error will be reported if element is placed behind the lane.\n" 
+                                              "If set, no error will be reported if element is placed behind the lane.\n"
                                               "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,\n"
                                               "if the position was negative and larger than the lanes length after multiplication with - 1",
                                               "0");
@@ -4127,7 +4127,7 @@ GNEAttributeCarrier::fillWaypointElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              "If set, no error will be reported if element is placed behind the lane.\n" 
+                                              "If set, no error will be reported if element is placed behind the lane.\n"
                                               "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,\n"
                                               "if the position was negative and larger than the lanes length after multiplication with - 1",
                                               "0");
@@ -4482,7 +4482,7 @@ GNEAttributeCarrier::fillContainerStopElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              "If set, no error will be reported if element is placed behind the lane.\n" 
+                                              "If set, no error will be reported if element is placed behind the lane.\n"
                                               "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,\n"
                                               "if the position was negative and larger than the lanes length after multiplication with - 1",
                                               "0");
@@ -4852,7 +4852,7 @@ GNEAttributeCarrier::fillStopPersonElements() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              "If set, no error will be reported if element is placed behind the lane.\n" 
+                                              "If set, no error will be reported if element is placed behind the lane.\n"
                                               "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,\n"
                                               "if the position was negative and larger than the lanes length after multiplication with - 1",
                                               "0");

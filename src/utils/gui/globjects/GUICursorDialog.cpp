@@ -53,7 +53,7 @@ FXIMPLEMENT(GUICursorDialog, GUIGLObjectPopupMenu, GUICursorDialogMap, ARRAYNUMB
 // member method definitions
 // ===========================================================================
 
-GUICursorDialog::GUICursorDialog(GUIGLObjectPopupMenu::PopupType type, GUISUMOAbstractView* view, const std::vector<GUIGlObject*> &objects) :
+GUICursorDialog::GUICursorDialog(GUIGLObjectPopupMenu::PopupType type, GUISUMOAbstractView* view, const std::vector<GUIGlObject*>& objects) :
     GUIGLObjectPopupMenu(view->getMainWindow(), view, type),
     myType(type),
     myView(view) {
@@ -72,7 +72,7 @@ GUICursorDialog::GUICursorDialog(GUIGLObjectPopupMenu::PopupType type, GUISUMOAb
 
 GUICursorDialog::~GUICursorDialog() {
     // delete all menu commands
-    for (const auto &GLObject : myMenuCommandGLObjects) {
+    for (const auto& GLObject : myMenuCommandGLObjects) {
         delete GLObject.first;
     }
 }
@@ -81,7 +81,7 @@ GUICursorDialog::~GUICursorDialog() {
 long
 GUICursorDialog::onCmdSetFrontElement(FXObject* obj, FXSelector, void*) {
     // search element in myGLObjects
-    for (const auto &GLObject : myMenuCommandGLObjects) {
+    for (const auto& GLObject : myMenuCommandGLObjects) {
         if (GLObject.first == obj) {
             GLObject.second->markAsFrontElement();
         }
@@ -95,7 +95,7 @@ GUICursorDialog::onCmdSetFrontElement(FXObject* obj, FXSelector, void*) {
 long
 GUICursorDialog::onCmdDeleteElement(FXObject* obj, FXSelector, void*) {
     // search element in myGLObjects
-    for (const auto &GLObject : myMenuCommandGLObjects) {
+    for (const auto& GLObject : myMenuCommandGLObjects) {
         if (GLObject.first == obj) {
             GLObject.second->deleteGLObject();
         }
@@ -109,7 +109,7 @@ GUICursorDialog::onCmdDeleteElement(FXObject* obj, FXSelector, void*) {
 long
 GUICursorDialog::onCmdSelectElement(FXObject* obj, FXSelector, void*) {
     // search element in myGLObjects
-    for (const auto &GLObject : myMenuCommandGLObjects) {
+    for (const auto& GLObject : myMenuCommandGLObjects) {
         if (GLObject.first == obj) {
             GLObject.second->selectGLObject();
         }
@@ -120,10 +120,10 @@ GUICursorDialog::onCmdSelectElement(FXObject* obj, FXSelector, void*) {
 }
 
 
-long 
+long
 GUICursorDialog::onCmdOpenPropertiesPopUp(FXObject* obj, FXSelector, void*) {
     // search element in myGLObjects
-    for (const auto &GLObject : myMenuCommandGLObjects) {
+    for (const auto& GLObject : myMenuCommandGLObjects) {
         if (GLObject.first == obj) {
             myView->replacePopup(GLObject.second->getPopUpMenu(*myView->getMainWindow(), *myView));
             return 1;
@@ -172,7 +172,7 @@ GUICursorDialog::onCmdUnpost(FXObject* obj, FXSelector, void* ptr) {
         return 1;
     }
     if (grabowner) {
-        grabowner->handle(this,FXSEL(SEL_COMMAND,ID_UNPOST),ptr);
+        grabowner->handle(this, FXSEL(SEL_COMMAND, ID_UNPOST), ptr);
     } else {
         popdown();
         if (grabbed()) {
@@ -186,7 +186,7 @@ GUICursorDialog::onCmdUnpost(FXObject* obj, FXSelector, void* ptr) {
 void
 GUICursorDialog::updateList() {
     // first hide all menu commands
-    for (const auto &GLObject : myMenuCommandGLObjects) {
+    for (const auto& GLObject : myMenuCommandGLObjects) {
         GLObject.first->hide();
     }
     // check if disable menu command up
@@ -213,7 +213,7 @@ GUICursorDialog::updateList() {
 
 
 void
-GUICursorDialog::buildDialogElements(GUISUMOAbstractView* view, const FXString text, GUIIcon icon, FXSelector sel, const std::vector<GUIGlObject*> &objects) {
+GUICursorDialog::buildDialogElements(GUISUMOAbstractView* view, const FXString text, GUIIcon icon, FXSelector sel, const std::vector<GUIGlObject*>& objects) {
     // create header
     myMenuHeader = new MFXMenuHeader(this, view->getMainWindow()->getBoldFont(), text, GUIIconSubSys::getIcon(icon), nullptr, 0);
     new FXMenuSeparator(this);
@@ -223,7 +223,7 @@ GUICursorDialog::buildDialogElements(GUISUMOAbstractView* view, const FXString t
         new FXMenuSeparator(this);
     }
     // create a menu command for every object
-    for (const auto &GLObject : objects) {
+    for (const auto& GLObject : objects) {
         myMenuCommandGLObjects.push_back(std::make_pair(GUIDesigns::buildFXMenuCommand(this, GLObject->getMicrosimID(), GLObject->getGLIcon(), this, sel), GLObject));
     }
     // check if create move down menu command

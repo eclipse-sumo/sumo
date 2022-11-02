@@ -353,7 +353,7 @@ public:
      * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief net net that uses this GNEFrame
      */
-    GNEInspectorFrame(GNEViewParent *viewParent, GNEViewNet* viewNet);
+    GNEInspectorFrame(GNEViewParent* viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNEInspectorFrame();

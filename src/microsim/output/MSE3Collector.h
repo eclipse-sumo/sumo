@@ -382,7 +382,7 @@ protected:
 protected:
     /// @brief name
     std::string myName;
-    
+
     /// @brief The detector's entrys
     CrossSectionVector myEntries;
 

@@ -47,7 +47,7 @@ class GUIGLObjectPopupMenu : public FXMenuPane {
     FXDECLARE(GUIGLObjectPopupMenu)
 
 public:
-    
+
     /// @name cursor dialog type
     enum class PopupType {
         ATTRIBUTES,

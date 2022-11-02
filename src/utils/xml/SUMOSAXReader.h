@@ -76,7 +76,7 @@ public:
      *
      * @param[in] validationScheme The validation scheme (one of "never", "local", "auto", or "always")
      */
-    void setValidation(std::string validationScheme="");
+    void setValidation(std::string validationScheme = "");
 
     /**
      * @brief Parse the given file completely by calling parse of myXMLReader

@@ -514,7 +514,7 @@ GNEVTypeDistributionsDialog::openDialog() {
 }
 
 
-void 
+void
 GNEVTypeDistributionsDialog::closeDialog() {
     // hide
     hide();

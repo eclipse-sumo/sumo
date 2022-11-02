@@ -420,7 +420,7 @@ GNETypeFrame::VTypeDistributions::VTypeDistributions(GNETypeFrame* typeFramePare
 }
 
 
-GNETypeFrame::VTypeDistributions::~VTypeDistributions () {}
+GNETypeFrame::VTypeDistributions::~VTypeDistributions() {}
 
 
 GNETypeFrame*
@@ -460,7 +460,7 @@ GNETypeFrame::VTypeDistributions::onCmdOpenDialog(FXObject*, FXSelector, void*) 
 // GNETypeFrame - methods
 // ---------------------------------------------------------------------------
 
-GNETypeFrame::GNETypeFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+GNETypeFrame::GNETypeFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, "Types") {
 
     // create module for edit vehicle types (Create, copy, etc.)

@@ -53,8 +53,8 @@ public:
      * @param[in] parameters generic parameters
      */
     GNELaneAreaDetector(const std::string& id, GNELane* lane, GNENet* net, double pos, double length, const SUMOTime freq, const std::string& trafficLight,
-                  const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold,
-                  double jamThreshold, bool friendlyPos, const Parameterised::Map& parameters);
+                        const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold,
+                        double jamThreshold, bool friendlyPos, const Parameterised::Map& parameters);
 
     /**@brief Constructor for Multi-Lane detectors
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
@@ -74,8 +74,8 @@ public:
      * @param[in] parameters generic parameters
      */
     GNELaneAreaDetector(const std::string& id, std::vector<GNELane*> lanes, GNENet* net, double pos, double endPos, const SUMOTime freq, const std::string& trafficLight,
-                  const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, double jamThreshold,
-                  bool friendlyPos, const Parameterised::Map& parameters);
+                        const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, double jamThreshold,
+                        bool friendlyPos, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNELaneAreaDetector();

@@ -100,7 +100,7 @@ protected:
 private:
     /// @brief common XML Structure
     CommonXMLStructure myCommonXMLStructure;
-    
+
     /// @brief flag for check if a element wasn't created
     bool myErrorCreatingElement = false;
 

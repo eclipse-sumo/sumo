@@ -48,7 +48,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ODMatrix::ODMatrix(const ODDistrictCont& dc, double scale) : 
+ODMatrix::ODMatrix(const ODDistrictCont& dc, double scale) :
     myDistricts(dc),
     myNumLoaded(0),
     myNumWritten(0),
@@ -143,7 +143,7 @@ ODMatrix::add(const std::string& id, const SUMOTime depart,
     if (cell == nullptr) {
         const SUMOTime interval = string2time(OptionsCont::getOptions().getString("aggregation-interval"));
         const int intervalIdx = (int)(depart / interval);
-        // single vehicles are already scaled 
+        // single vehicles are already scaled
         if (add(1., std::make_pair(intervalIdx * interval, (intervalIdx + 1) * interval),
                 fromTaz, toTaz, vehicleType, originIsEdge, destinationIsEdge, true)) {
             cell = myContainer.back();

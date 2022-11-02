@@ -103,7 +103,7 @@ public:
     static void removeRetrieverFromAllInstances(OutputDevice* out);
 
     ///@brief set up gettext stuff
-    static void setupI18n(const std::string& locale="");
+    static void setupI18n(const std::string& locale = "");
 
     ///@brief init output options
     static void initOutputOptions();

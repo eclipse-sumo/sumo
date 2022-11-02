@@ -41,11 +41,11 @@ class MSRailSignalConstraint : public Parameterised {
 public:
 
     enum ConstraintType {
-       PREDECESSOR = 0, // swaps to PREDECESSOR
-       INSERTION_PREDECESSOR = 1, // swaps to FOE_INSERTION
-       FOE_INSERTION = 2, // swaps to INSERTION_PREDECESSOR
-       INSERTION_ORDER = 3, // swaps to INSERTION_ORDER
-       BIDI_PREDECESSOR = 4 // swaps to BIDI_PREDECESSOR
+        PREDECESSOR = 0, // swaps to PREDECESSOR
+        INSERTION_PREDECESSOR = 1, // swaps to FOE_INSERTION
+        FOE_INSERTION = 2, // swaps to INSERTION_PREDECESSOR
+        INSERTION_ORDER = 3, // swaps to INSERTION_ORDER
+        BIDI_PREDECESSOR = 4 // swaps to BIDI_PREDECESSOR
     };
 
     /** @brief Constructor

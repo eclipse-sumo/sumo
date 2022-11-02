@@ -350,7 +350,7 @@ GNEConnectorFrame::Legend::~Legend() {}
 // GNEConnectorFrame - methods
 // ---------------------------------------------------------------------------
 
-GNEConnectorFrame::GNEConnectorFrame(GNEViewParent *viewParent, GNEViewNet* viewNet):
+GNEConnectorFrame::GNEConnectorFrame(GNEViewParent* viewParent, GNEViewNet* viewNet):
     GNEFrame(viewParent, viewNet, "Edit Connections"),
     myCurrentEditedLane(0),
     myNumChanges(0) {

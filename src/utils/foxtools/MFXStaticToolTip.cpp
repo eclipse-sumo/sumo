@@ -69,14 +69,14 @@ MFXStaticToolTip::enableStaticToolTip(const bool value) {
 }
 
 
-bool 
+bool
 MFXStaticToolTip::isStaticToolTipEnabled() const {
     return myEnableStaticTooltip;
 }
 
 
-void 
-MFXStaticToolTip::showStaticToolTip(const FXString &toolTipText) {
+void
+MFXStaticToolTip::showStaticToolTip(const FXString& toolTipText) {
     if (!myEnableStaticTooltip || toolTipText.empty()) {
         hideStaticToolTip();
     } else {
@@ -90,7 +90,7 @@ MFXStaticToolTip::showStaticToolTip(const FXString &toolTipText) {
 }
 
 
-void 
+void
 MFXStaticToolTip::hideStaticToolTip() {
     // clear text
     setText("");
@@ -110,7 +110,7 @@ MFXStaticToolTip::onPaint(FXObject* sender, FXSelector sel, void* obj) {
 }
 
 
-long 
+long
 MFXStaticToolTip::onUpdate(FXObject* sender, FXSelector sel, void* ptr) {
     // Regular GUI update
     FXWindow::onUpdate(sender, sel, ptr);
@@ -120,7 +120,7 @@ MFXStaticToolTip::onUpdate(FXObject* sender, FXSelector sel, void* ptr) {
         hide();
     } else {
         popped = TRUE;
-        FXint x,y; 
+        FXint x, y;
         FXuint state;
         getRoot()->getCursorPosition(x, y, state);
         place(x, y);

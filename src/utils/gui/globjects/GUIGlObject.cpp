@@ -149,7 +149,7 @@ const GUIGlID GUIGlObject::INVALID_ID = 0;
 // method definitionsas
 // ===========================================================================
 
-GUIGlObject::GUIGlObject(GUIGlObjectType type, const std::string& microsimID, FXIcon *icon) :
+GUIGlObject::GUIGlObject(GUIGlObjectType type, const std::string& microsimID, FXIcon* icon) :
 #ifdef _MSC_VER
 #pragma warning(push)
     /* Disable warning about using "this" in the constructor */
@@ -201,7 +201,7 @@ GUIGlObject::getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& par
 }
 
 
-bool 
+bool
 GUIGlObject::isGLObjectLocked() {
     // by default unlocked
     return false;
@@ -420,7 +420,7 @@ GUIGlObject::buildAdditionalsPopupOptions(GUIMainWindow& app, GUIGLObjectPopupMe
 }
 
 
-void 
+void
 GUIGlObject::mouseWithinGeometry(const Position center, const double radius) const {
     if (gPostDrawing.mousePos.distanceSquaredTo2D(center) <= (radius * radius)) {
         gPostDrawing.addElementUnderCursor(this);
@@ -428,7 +428,7 @@ GUIGlObject::mouseWithinGeometry(const Position center, const double radius) con
 }
 
 
-void 
+void
 GUIGlObject::mouseWithinGeometry(const PositionVector shape) const {
     if (shape.around(gPostDrawing.mousePos)) {
         gPostDrawing.addElementUnderCursor(this);
@@ -436,7 +436,7 @@ GUIGlObject::mouseWithinGeometry(const PositionVector shape) const {
 }
 
 
-void 
+void
 GUIGlObject::mouseWithinGeometry(const PositionVector shape, const double width) const {
     if (shape.distance2D(gPostDrawing.mousePos) <= width) {
         gPostDrawing.addElementUnderCursor(this);
@@ -444,17 +444,17 @@ GUIGlObject::mouseWithinGeometry(const PositionVector shape, const double width)
 }
 
 
-void 
-GUIGlObject::mouseWithinGeometry(const PositionVector shape, const double width, GUIGlObject *parent) const {
+void
+GUIGlObject::mouseWithinGeometry(const PositionVector shape, const double width, GUIGlObject* parent) const {
     if (shape.distance2D(gPostDrawing.mousePos) <= width) {
         gPostDrawing.addElementUnderCursor(parent);
     }
 }
 
 
-void 
-GUIGlObject::mouseWithinGeometry(const Position& pos, const double width, const double height, 
-        const double offsetX, const double offsetY, const double rot) const {
+void
+GUIGlObject::mouseWithinGeometry(const Position& pos, const double width, const double height,
+                                 const double offsetX, const double offsetY, const double rot) const {
     // create shape
     PositionVector shape;
     // make rectangle

@@ -52,7 +52,7 @@ public:
      * @return Whether the parsing was successfull
      * @exception InvalidArgument If a performed setting of an option failed (see Option::set)
      */
-    static bool parse(const std::vector<std::string>& args, const bool ignoreAppenders=false);
+    static bool parse(const std::vector<std::string>& args, const bool ignoreAppenders = false);
 
 private:
     /** @brief parses the previous arguments

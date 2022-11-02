@@ -31,7 +31,7 @@
 // ===========================================================================
 
 
-GNEWireFrame::GNEWireFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+GNEWireFrame::GNEWireFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEFrame(viewParent, viewNet, "Wires") {
 
     // create item Selector modul for wires

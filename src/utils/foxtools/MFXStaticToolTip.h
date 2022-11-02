@@ -42,7 +42,7 @@ public:
     bool isStaticToolTipEnabled() const;
 
     /// @brief show static toolTip
-    void showStaticToolTip(const FXString &toolTipText);
+    void showStaticToolTip(const FXString& toolTipText);
 
     /// @brief hide static toolTip
     void hideStaticToolTip();
@@ -51,9 +51,9 @@ public:
     /// @{
     /// @brief draw MFXStaticToolTip
     long onPaint(FXObject* obj, FXSelector sel, void* ptr);
-    
+
     /// @brief called when tooltip is updated
-    long onUpdate(FXObject* sender,FXSelector sel,void* ptr);
+    long onUpdate(FXObject* sender, FXSelector sel, void* ptr);
 
     /// @}
 

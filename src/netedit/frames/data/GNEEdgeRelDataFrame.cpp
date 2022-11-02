@@ -31,7 +31,7 @@
 // method definitions
 // ===========================================================================
 
-GNEEdgeRelDataFrame::GNEEdgeRelDataFrame(GNEViewParent *viewParent, GNEViewNet* viewNet) :
+GNEEdgeRelDataFrame::GNEEdgeRelDataFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     GNEGenericDataFrame(viewParent, viewNet, SUMO_TAG_EDGEREL, true) {
 }
 

@@ -814,21 +814,21 @@ Helper::collectObjectsInRange(int domain, const PositionVector& shape, double ra
     const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
     switch (domain) {
         case libsumo::CMD_GET_BUSSTOP_VARIABLE:
-            for (const auto& stop: MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_BUS_STOP)) {
+            for (const auto& stop : MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_BUS_STOP)) {
                 if (shape.distance2D(stop.second->getCenterPos()) <= range) {
                     into.insert(stop.second);
                 }
             }
             break;
         case libsumo::CMD_GET_CHARGINGSTATION_VARIABLE:
-            for (const auto& stop: MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_CHARGING_STATION)) {
+            for (const auto& stop : MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_CHARGING_STATION)) {
                 if (shape.distance2D(stop.second->getCenterPos()) <= range) {
                     into.insert(stop.second);
                 }
             }
             break;
         case libsumo::CMD_GET_CALIBRATOR_VARIABLE:
-            for (const auto& calib: MSCalibrator::getInstances()) {
+            for (const auto& calib : MSCalibrator::getInstances()) {
                 if (shape.distance2D(calib.second->getLane()->getShape()[0]) <= range) {
                     into.insert(calib.second);
                 }
@@ -844,7 +844,7 @@ Helper::collectObjectsInRange(int domain, const PositionVector& shape, double ra
             LaneArea::getTree()->Search(cmin, cmax, Named::StoringVisitor(into));
             break;
         case libsumo::CMD_GET_PARKINGAREA_VARIABLE: {
-            for (const auto& stop: MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_PARKING_AREA)) {
+            for (const auto& stop : MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_PARKING_AREA)) {
                 if (shape.distance2D(stop.second->getCenterPos()) <= range) {
                     into.insert(stop.second);
                 }

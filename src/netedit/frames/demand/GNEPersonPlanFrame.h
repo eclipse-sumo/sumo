@@ -42,7 +42,7 @@ public:
      * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNEPersonPlanFrame(GNEViewParent *viewParent, GNEViewNet* viewNet);
+    GNEPersonPlanFrame(GNEViewParent* viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNEPersonPlanFrame();

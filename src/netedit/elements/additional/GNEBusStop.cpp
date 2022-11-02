@@ -205,8 +205,8 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             }
             // draw child demand elements
             for (const auto& demandElement : getChildDemandElements()) {
-                if (!demandElement->getTagProperty().isPlacedInRTree() && 
-                    (!demandElement->getTagProperty().isPersonPlan() || demandElement->getTagProperty().isStopPerson())) {
+                if (!demandElement->getTagProperty().isPlacedInRTree() &&
+                        (!demandElement->getTagProperty().isPersonPlan() || demandElement->getTagProperty().isStopPerson())) {
                     demandElement->drawGL(s);
                 }
             }

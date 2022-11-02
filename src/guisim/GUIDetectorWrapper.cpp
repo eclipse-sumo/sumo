@@ -43,7 +43,7 @@ FXIMPLEMENT(GUIDetectorWrapper::PopupMenu, GUIGLObjectPopupMenu, GUIDetectorWrap
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-GUIDetectorWrapper::GUIDetectorWrapper(GUIGlObjectType type, const std::string& id, FXIcon *icon) :
+GUIDetectorWrapper::GUIDetectorWrapper(GUIGlObjectType type, const std::string& id, FXIcon* icon) :
     GUIGlObject_AbstractAdd(type, id, icon),
     mySupportsOverride(false)
 {}

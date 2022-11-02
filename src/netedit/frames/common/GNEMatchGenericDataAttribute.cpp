@@ -256,13 +256,13 @@ GNEMatchGenericDataAttribute::onCmdSetEnd(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEMatchGenericDataAttribute::onCmdSetFromTAZ(FXObject*, FXSelector, void*) {
     if (myFromTAZComboBox->getText() == "<from TAZ>") {
         myFromTAZComboBox->setTextColor(FXRGB(128, 128, 128));
         return 1;
     } else {
-        for (const auto &TAZ : myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {
+        for (const auto& TAZ : myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {
             if (TAZ->getID().c_str() == myFromTAZComboBox->getText()) {
                 myFromTAZComboBox->setTextColor(FXRGB(0, 0, 0));
                 return 1;
@@ -280,7 +280,7 @@ GNEMatchGenericDataAttribute::onCmdSetToTAZ(FXObject*, FXSelector, void*) {
         myFromTAZComboBox->setTextColor(FXRGB(128, 128, 128));
         return 1;
     } else {
-        for (const auto &TAZ : myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {
+        for (const auto& TAZ : myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {
             if (TAZ->getID().c_str() == myToTAZComboBox->getText()) {
                 myToTAZComboBox->setTextColor(FXRGB(0, 0, 0));
                 return 1;
@@ -377,13 +377,13 @@ GNEMatchGenericDataAttribute::onCmdProcessString(FXObject*, FXSelector, void*) {
     bool valid = true;
     // get all Generic datas
     auto genericDatas = myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->retrieveGenericDatas(myCurrentTag,
-                              GNEAttributeCarrier::parse<double>(myBegin->getText().text()),
-                              GNEAttributeCarrier::parse<double>(myEnd->getText().text()));
+                        GNEAttributeCarrier::parse<double>(myBegin->getText().text()),
+                        GNEAttributeCarrier::parse<double>(myEnd->getText().text()));
     // extra filter for TAZ rel datas
     if (myCurrentTag == SUMO_TAG_TAZREL) {
         std::vector<GNEGenericData*> TAZReldatasFrom, TAZReldatasTo;
         // filter from TAZs
-        for (const auto &TAZRelData : genericDatas) {
+        for (const auto& TAZRelData : genericDatas) {
             if (myFromTAZComboBox->getTextColor() == FXRGB(128, 128, 128)) {
                 TAZReldatasFrom.push_back(TAZRelData);
             } else if ((myFromTAZComboBox->getTextColor() == FXRGB(0, 0, 0)) && (TAZRelData->getAttribute(SUMO_ATTR_FROM) == myFromTAZComboBox->getText().text())) {
@@ -391,7 +391,7 @@ GNEMatchGenericDataAttribute::onCmdProcessString(FXObject*, FXSelector, void*) {
             }
         }
         // filter to TAZs
-        for (const auto &TAZRelData : TAZReldatasFrom) {
+        for (const auto& TAZRelData : TAZReldatasFrom) {
             if (myToTAZComboBox->getTextColor() == FXRGB(128, 128, 128)) {
                 TAZReldatasTo.push_back(TAZRelData);
             } else if ((myToTAZComboBox->getTextColor() == FXRGB(0, 0, 0)) && (TAZRelData->getAttribute(SUMO_ATTR_TO) == myToTAZComboBox->getText().text())) {
@@ -502,7 +502,7 @@ GNEMatchGenericDataAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
 }
 
 
-void 
+void
 GNEMatchGenericDataAttribute::updateTAZComboBox() {
     // clear fromTAZComboBox
     myFromTAZComboBox->clearItems();
@@ -511,7 +511,7 @@ GNEMatchGenericDataAttribute::updateTAZComboBox() {
     myFromTAZComboBox->appendItem("<from TAZ>");
     myToTAZComboBox->appendItem("<to TAZ>");
     // add all TAZs
-    for (const auto &TAZ : myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {
+    for (const auto& TAZ : myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {
         myFromTAZComboBox->appendItem(TAZ->getID().c_str());
         myToTAZComboBox->appendItem(TAZ->getID().c_str());
     }

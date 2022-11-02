@@ -210,7 +210,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) 
                     }
                     if (length > mergeRelationsThreshold) {
                         WRITE_WARNINGF(TL("Could not import polygon from relation '%' (name:% reason: found gap of %m to way '%')\n Total length of remaining ways: %m."),
-                                rel->id, e->name, minDist, minEdge->id, length);
+                                       rel->id, e->name, minDist, minEdge->id, length);
                         ok = false;
                     }
                     break;

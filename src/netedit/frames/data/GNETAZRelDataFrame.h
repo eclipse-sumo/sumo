@@ -53,7 +53,7 @@ public:
 
         /// @brief called when TAZ Relation button is updated
         long onUpdConfirmTAZRelation(FXObject*, FXSelector, void*);
-        
+
         /// @brief called when user press clear TAZ Relation button
         long onCmdClearSelection(FXObject*, FXSelector, void*);
 
@@ -100,7 +100,7 @@ public:
      * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNETAZRelDataFrame
      */
-    GNETAZRelDataFrame(GNEViewParent *viewParent, GNEViewNet* viewNet);
+    GNETAZRelDataFrame(GNEViewParent* viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNETAZRelDataFrame();

@@ -114,7 +114,7 @@ public:
     void updateDottedGeometry(const GUIVisualizationSettings& s, PositionVector shape, const bool closeShape);
 
     /// @brief draw inspected dottedShape
-    void drawDottedGeometry(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type, 
+    void drawDottedGeometry(const GUIVisualizationSettings& s, GUIDottedGeometry::DottedContourType type,
                             DottedGeometryColor& dottedGeometryColor, const double customWidth = 1) const;
 
     /// @brief move shape to side

@@ -452,7 +452,7 @@ MSRailSignal::hasOncomingRailTraffic(MSLink* link, const MSVehicle* ego, bool& b
 #endif
                     // yield to all foeLinks beyond switch
                     Approaching approaching(ego,
-                            MSLink::ApproachingVehicleInformation(SUMOTime_MAX, 0, 0, 0, false, -1, 0, std::numeric_limits<double>::max(), 0 ,0));
+                                            MSLink::ApproachingVehicleInformation(SUMOTime_MAX, 0, 0, 0, false, -1, 0, std::numeric_limits<double>::max(), 0, 0));
                     for (MSLink* const switchLink : dw.myProtectingSwitchesBidi) {
                         myBlockingVehicles.clear();
                         myRivalVehicles.clear();

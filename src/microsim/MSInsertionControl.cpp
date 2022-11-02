@@ -222,14 +222,14 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
         double scale = vehControl.getScale() * typeScale;
         bool tryEmitByProb = pars->repetitionProbability > 0;
         while (scale > 0 && ((pars->repetitionProbability < 0
-                && pars->repetitionsDone < pars->repetitionNumber * scale
-                && pars->depart + pars->repetitionTotalOffset <= time)
-                || (tryEmitByProb
-                    && pars->depart <= time
-                    && pars->repetitionEnd > time
-                    // only call rand if all other conditions are met
-                    && RandHelper::rand(&myFlowRNG) < (pars->repetitionProbability * TS))
-              )) {
+                              && pars->repetitionsDone < pars->repetitionNumber * scale
+                              && pars->depart + pars->repetitionTotalOffset <= time)
+                             || (tryEmitByProb
+                                 && pars->depart <= time
+                                 && pars->repetitionEnd > time
+                                 // only call rand if all other conditions are met
+                                 && RandHelper::rand(&myFlowRNG) < (pars->repetitionProbability * TS))
+                            )) {
             tryEmitByProb = false; // only emit one per step
             SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
             newPars->id = pars->id + "." + toString(i->index);

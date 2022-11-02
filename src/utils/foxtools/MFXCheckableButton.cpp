@@ -34,7 +34,7 @@ FXDEFMAP(MFXCheckableButton) MFXCheckableButtonMap[] = {
 // Object implementation
 FXIMPLEMENT(MFXCheckableButton, FXButton, MFXCheckableButtonMap, ARRAYNUMBER(MFXCheckableButtonMap))
 
-MFXCheckableButton::MFXCheckableButton(bool amChecked, FXComposite* p, MFXStaticToolTip* staticToolTip, 
+MFXCheckableButton::MFXCheckableButton(bool amChecked, FXComposite* p, MFXStaticToolTip* staticToolTip,
                                        const FXString& text, FXIcon* ic, FXObject* tgt, FXSelector sel,
                                        FXuint opts, FXint x, FXint y, FXint w, FXint h,
                                        FXint pl, FXint pr, FXint pt, FXint pb) :

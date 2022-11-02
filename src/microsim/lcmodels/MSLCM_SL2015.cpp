@@ -2173,7 +2173,7 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int
                     const double pedGap = pedLeader.second - myVehicle.getVehicleType().getMinGap() - myVehicle.getVehicleType().getLength();
                     // we do not know the walking direction here so we take the pedestrian speeda s 0
                     vSafe = MIN2(getCarFollowModel().stopSpeed(&myVehicle, vMax, pedGap),
-                            forecastAverageSpeed(vSafe, vMax, pedGap, 0));
+                                 forecastAverageSpeed(vSafe, vMax, pedGap, 0));
                 }
             }
             vSafe = MIN2(vMax, vSafe);
@@ -2948,8 +2948,7 @@ MSLCM_SL2015::checkStrategicChange(int ret,
 
 bool
 MSLCM_SL2015::mustOvertakeStopped(const MSLane& neighLane, const MSLeaderDistanceInfo& leaders, const MSLeaderDistanceInfo& neighLead,
-        double posOnLane, double neighDist, bool right, double latLaneDist, double& currentDist, double& latDist)
-{
+                                  double posOnLane, double neighDist, bool right, double latLaneDist, double& currentDist, double& latDist) {
     bool mustOvertake = false;
     const bool checkOverTakeRight = avoidOvertakeRight();
     int rightmost;
@@ -2964,27 +2963,27 @@ MSLCM_SL2015::mustOvertakeStopped(const MSLane& neighLane, const MSLeaderDistanc
             if (leader.first != 0 && leader.first->isStopped() && leader.second < REACT_TO_STOPPED_DISTANCE) {
                 const double overtakeDist = leader.second + myVehicle.getVehicleType().getLength() + leader.first->getVehicleType().getLengthWithGap();
                 if (// current destination leaves enough space to overtake the leader
-                        MIN2(neighDist, currentDist) - posOnLane > overtakeDist
-                        // maybe do not overtake on the right at high speed
-                        && (!checkOverTakeRight || !right)
-                        && (!neighLead.hasStoppedVehicle() || hasLaneBeyond)
-                        //&& (neighLead.first == 0 || !neighLead.first->isStopped()
-                        //    // neighboring stopped vehicle leaves enough space to overtake leader
-                        //    || neighLead.second > overtakeDist))
-                    ) {
-                        // avoid becoming stuck behind a stopped leader
-                        currentDist = myVehicle.getPositionOnLane() + leader.second;
-                        latDist = latLaneDist;
-                        mustOvertake = true;
+                    MIN2(neighDist, currentDist) - posOnLane > overtakeDist
+                    // maybe do not overtake on the right at high speed
+                    && (!checkOverTakeRight || !right)
+                    && (!neighLead.hasStoppedVehicle() || hasLaneBeyond)
+                    //&& (neighLead.first == 0 || !neighLead.first->isStopped()
+                    //    // neighboring stopped vehicle leaves enough space to overtake leader
+                    //    || neighLead.second > overtakeDist))
+                ) {
+                    // avoid becoming stuck behind a stopped leader
+                    currentDist = myVehicle.getPositionOnLane() + leader.second;
+                    latDist = latLaneDist;
+                    mustOvertake = true;
 #ifdef DEBUG_WANTS_CHANGE
-                        if (DEBUG_COND) {
-                            std::cout << " veh=" << myVehicle.getID() << " overtake stopped leader=" << leader.first->getID()
-                                << " overtakeDist=" << overtakeDist
-                                << " remaining=" << MIN2(neighDist, currentDist) - posOnLane
-                                << "\n";
-                        }
-#endif
+                    if (DEBUG_COND) {
+                        std::cout << " veh=" << myVehicle.getID() << " overtake stopped leader=" << leader.first->getID()
+                                  << " overtakeDist=" << overtakeDist
+                                  << " remaining=" << MIN2(neighDist, currentDist) - posOnLane
+                                  << "\n";
                     }
+#endif
+                }
             }
 
         }

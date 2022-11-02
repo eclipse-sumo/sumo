@@ -173,7 +173,7 @@ GNEApplicationWindowHelper::FileMenuCommands::FileMenuCommands(GNEApplicationWin
 
 
 void
-GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* fileMenu, FXMenuPane* fileMenuSUMOConfig, FXMenuPane* fileMenuTLS, 
+GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* fileMenu, FXMenuPane* fileMenuSUMOConfig, FXMenuPane* fileMenuTLS,
         FXMenuPane* fileMenuEdgeTypes, FXMenuPane* fileMenuAdditionals, FXMenuPane* fileMenuDemandElements, FXMenuPane* fileMenuDataElements) {
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
                                            "&New Network", "Ctrl+N", "Create a new network.",
@@ -214,11 +214,11 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
                                            GUIIconSubSys::getIcon(GUIIcon::SAVEALLELEMENTS), myGNEApp, MID_GNE_SAVEALLELEMENTS);
     // create SUMOConfig menu options
     reloadSUMOConfig = GUIDesigns::buildFXMenuCommandShortcut(fileMenuSUMOConfig,
-                                                              "Reload SUMOConfig", "", "Reload SUMOConfig.",
-                                                              GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_SUMOCONFIG);
+                       "Reload SUMOConfig", "", "Reload SUMOConfig.",
+                       GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_SUMOCONFIG);
     saveSUMOConfig = GUIDesigns::buildFXMenuCommandShortcut(fileMenuSUMOConfig,
-                                                            "Save SUMOConfig", "Ctrl+Shift+M", "Save sumo config.",
-                                                            GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_HOTKEY_CTRL_SHIFT_M_SAVESUMOCONFIG);
+                     "Save SUMOConfig", "Ctrl+Shift+M", "Save sumo config.",
+                     GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_HOTKEY_CTRL_SHIFT_M_SAVESUMOCONFIG);
     saveSUMOConfig->disable();
     GUIDesigns::buildFXMenuCommandShortcut(fileMenuSUMOConfig,
                                            "Save SUMOConfig As...", "", "Save sumo config in a new file.",
@@ -1880,7 +1880,7 @@ GNEApplicationWindowHelper::GNEConfigHandler::~GNEConfigHandler() {}
 void
 GNEApplicationWindowHelper::GNEConfigHandler::loadConfig(CommonXMLStructure::SumoBaseObject* configObj) {
     // get net file
-    const auto netFile = configObj->hasStringAttribute(SUMO_ATTR_NETFILE)? configObj->getStringAttribute(SUMO_ATTR_NETFILE) : "";
+    const auto netFile = configObj->hasStringAttribute(SUMO_ATTR_NETFILE) ? configObj->getStringAttribute(SUMO_ATTR_NETFILE) : "";
     // first check if there is a network to load
     if (netFile.size() > 0) {
         OptionsCont& oc = OptionsCont::getOptions();
@@ -1934,7 +1934,7 @@ GNEApplicationWindowHelper::GNEConfigHandler::loadConfig(CommonXMLStructure::Sum
 // ---------------------------------------------------------------------------
 
 
-void 
+void
 GNEApplicationWindowHelper::saveSUMOConfig() {
     // obtain option container
     OptionsCont& oc = OptionsCont::getOptions();
@@ -1954,13 +1954,13 @@ GNEApplicationWindowHelper::saveSUMOConfig() {
             device.writeAttr(SUMO_ATTR_VALUE, oc.getString("additional-files"));
             device.closeTag();
         }
-        // check if write route elements    
+        // check if write route elements
         if (oc.getString("route-files").size() > 0) {
             device.openTag(SUMO_TAG_ROUTEFILES);
             device.writeAttr(SUMO_ATTR_VALUE, oc.getString("route-files"));
             device.closeTag();
         }
-        // check if write data elements    
+        // check if write data elements
         if (oc.getString("data-files").size() > 0) {
             device.openTag(SUMO_TAG_DATAFILES);
             device.writeAttr(SUMO_ATTR_VALUE, oc.getString("data-files"));

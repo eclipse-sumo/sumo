@@ -119,7 +119,7 @@ public:
     }
 
     /// @brief interpret custom depart lane
-    static const MSLane* checkDepartLane(const MSEdge* edge, SUMOVehicleClass svc, int laneIndex, const std::string& id); 
+    static const MSLane* checkDepartLane(const MSEdge* edge, SUMOVehicleClass svc, int laneIndex, const std::string& id);
 
 protected:
     /// @brief state that is to be manipulated by MSPModel

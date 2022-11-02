@@ -166,7 +166,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     int detEdgeIndex = -1;
     int detLaneIndex = 0;
     const double detDefaultLength = StringUtils::toDouble(getParameter("detector-length",
-                OptionsCont::getOptions().getValueString("tls.actuated.detector-length")));
+                                    OptionsCont::getOptions().getValueString("tls.actuated.detector-length")));
     MSEdge* prevDetEdge = nullptr;
     for (LaneVector& lanes : myLanes) {
         for (MSLane* lane : lanes) {

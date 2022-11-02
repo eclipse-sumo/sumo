@@ -181,7 +181,7 @@ public:
     virtual void openObjectDialogAtCursor(const FXEvent* ev);
 
     /// @brief open object dialog for the given object
-    void openObjectDialog(const std::vector<GUIGlObject*> &objects);
+    void openObjectDialog(const std::vector<GUIGlObject*>& objects);
 
     /// @brief A method that updates the tooltip
     void updateToolTip();
@@ -480,7 +480,7 @@ protected:
     std::vector<GUIGlID> getObjectsInBoundary(Boundary bound, bool singlePosition);
 
     /// @brief filter internal lanes in Objects under cursor
-    std::vector<GUIGlObject*> filterInernalLanes(const std::vector<GUIGlObject*> &objects) const;
+    std::vector<GUIGlObject*> filterInernalLanes(const std::vector<GUIGlObject*>& objects) const;
 
     /// @brief invokes the tooltip for the given object
     bool showToolTipFor(const GUIGlID idToolTip);
@@ -529,7 +529,7 @@ protected:
     /// @brief The current popup-menu position
     Position myPopupPosition = Position(0, 0);
 
-    /// @brief vector with current objects dialog 
+    /// @brief vector with current objects dialog
     std::vector<GUIGlObject*> myCurrentObjectsDialog;
 
     /// @brief visualization settings

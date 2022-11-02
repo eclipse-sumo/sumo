@@ -2205,8 +2205,8 @@ GNERouteHandler::getPreviousPlanJunction(const bool /* person */, const CommonXM
 }
 
 
-bool 
-GNERouteHandler::checkDuplicatedDemandElement(const SumoXMLTag tag, const std::string &id) {
+bool
+GNERouteHandler::checkDuplicatedDemandElement(const SumoXMLTag tag, const std::string& id) {
     // retrieve demand element
     auto demandElement = myNet->getAttributeCarriers()->retrieveDemandElement(tag, id, false);
     // if demand exist, check if overwrite (delete)
@@ -2229,7 +2229,7 @@ GNERouteHandler::checkDuplicatedDemandElement(const SumoXMLTag tag, const std::s
 }
 
 
-void 
+void
 GNERouteHandler::overwriteDemandElement() {
     if (myDemandToOverwrite) {
         // remove element

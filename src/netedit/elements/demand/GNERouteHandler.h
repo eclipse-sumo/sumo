@@ -221,7 +221,7 @@ protected:
     GNEJunction* getPreviousPlanJunction(const bool person, const CommonXMLStructure::SumoBaseObject* obj) const;
 
     /// @brief check if given ID correspond to a duplicated demand element
-    bool checkDuplicatedDemandElement(const SumoXMLTag tag, const std::string &id);
+    bool checkDuplicatedDemandElement(const SumoXMLTag tag, const std::string& id);
 
     /// @brief remove overwrited demand element
     void overwriteDemandElement();

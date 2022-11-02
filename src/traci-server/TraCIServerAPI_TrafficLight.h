@@ -54,7 +54,7 @@ public:
     static bool processSet(TraCIServer& server, tcpip::Storage& inputStorage,
                            tcpip::Storage& outputStorage);
 private:
-    static void writeConstraint(TraCIServer& server, const libsumo::TraCISignalConstraint& c); 
+    static void writeConstraint(TraCIServer& server, const libsumo::TraCISignalConstraint& c);
 
 private:
     /// @brief invalidated copy constructor

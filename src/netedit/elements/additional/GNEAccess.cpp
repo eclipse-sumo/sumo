@@ -38,9 +38,9 @@
 
 GNEAccess::GNEAccess(GNENet* net) :
     GNEAdditional("", net, GLO_ACCESS, SUMO_TAG_ACCESS, GUIIconSubSys::getIcon(GUIIcon::ACCESS), "", {}, {}, {}, {}, {}, {}),
-    myPositionOverLane(0),
-    myLength(0),
-    myFriendlyPosition(false) {
+              myPositionOverLane(0),
+              myLength(0),
+myFriendlyPosition(false) {
     // reset default values
     resetDefaultValues();
 }
@@ -49,10 +49,10 @@ GNEAccess::GNEAccess(GNENet* net) :
 GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, GNENet* net, double pos, const double length, bool friendlyPos,
                      const Parameterised::Map& parameters) :
     GNEAdditional(net, GLO_ACCESS, SUMO_TAG_ACCESS, GUIIconSubSys::getIcon(GUIIcon::ACCESS), "", {}, {}, {lane}, {busStop}, {}, {}),
-    Parameterised(parameters),
-    myPositionOverLane(pos),
-    myLength(length),
-    myFriendlyPosition(friendlyPos) {
+Parameterised(parameters),
+myPositionOverLane(pos),
+myLength(length),
+myFriendlyPosition(friendlyPos) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }

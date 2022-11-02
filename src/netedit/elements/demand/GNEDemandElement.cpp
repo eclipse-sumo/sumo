@@ -46,7 +46,7 @@ const double GNEDemandElement::myPersonPlanArrivalPositionDiameter = SUMO_const_
 // GNEDemandElement - methods
 // ---------------------------------------------------------------------------
 
-GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon *icon, const int options,
+GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, const int options,
                                    const std::vector<GNEJunction*>& junctionParents,
                                    const std::vector<GNEEdge*>& edgeParents,
                                    const std::vector<GNELane*>& laneParents,
@@ -61,7 +61,7 @@ GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, GUIGlObje
 }
 
 
-GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon *icon, const int options,
+GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, FXIcon* icon, const int options,
                                    const std::vector<GNEJunction*>& junctionParents,
                                    const std::vector<GNEEdge*>& edgeParents,
                                    const std::vector<GNELane*>& laneParents,
@@ -221,7 +221,7 @@ GNEDemandElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
 }
 
 
-bool 
+bool
 GNEDemandElement::isGLObjectLocked() {
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
         return myNet->getViewNet()->getLockManager().isObjectLocked(getType(), isAttributeCarrierSelected());
@@ -237,7 +237,7 @@ GNEDemandElement::markAsFrontElement() {
 }
 
 
-void 
+void
 GNEDemandElement::deleteGLObject() {
     // we need an special checks due hierarchies
     if (myTagProperty.isPersonPlan() || myTagProperty.isContainerPlan()) {
@@ -258,7 +258,7 @@ GNEDemandElement::deleteGLObject() {
 }
 
 
-void 
+void
 GNEDemandElement::selectGLObject() {
     if (isAttributeCarrierSelected()) {
         unselectAttributeCarrier();
@@ -784,11 +784,11 @@ GNEDemandElement::isPersonPlanValid() const {
         if ((previousChild->getParentJunctions().size() > 0) && (getParentJunctions().size() > 0)) {
             if (previousChild->getParentJunctions().back() != getParentJunctions().front()) {
                 return Problem::DISCONNECTED_PLAN;
-            } 
+            }
         } else if (previousEdge && (getParentJunctions().size() > 0)) {
             if (previousEdge->getToJunction() != getParentJunctions().front()) {
                 return Problem::DISCONNECTED_PLAN;
-            } 
+            }
         } else if (previousEdge != firstEdge) {
             return Problem::DISCONNECTED_PLAN;
         }
@@ -831,7 +831,7 @@ GNEDemandElement::isPersonPlanValid() const {
         } else if (lastEdge && (nextChild->getParentJunctions().size() > 0)) {
             if (lastEdge->getToJunction() != nextChild->getParentJunctions().front()) {
                 return Problem::DISCONNECTED_PLAN;
-            } 
+            }
         } else if (nextEdge != lastEdge) {
             return Problem::DISCONNECTED_PLAN;
         }
@@ -871,7 +871,7 @@ GNEDemandElement::getPersonPlanProblem() const {
         }
         // compare elements
         if ((previousChild->getParentJunctions().size() > 0) && (getParentJunctions().size() > 0)) {
-            return ("Junction '" + previousChild->getParentJunctions().back()->getID() + 
+            return ("Junction '" + previousChild->getParentJunctions().back()->getID() +
                     "' is not consecutive with junction '" + getParentJunctions().front()->getID() + "'");
         } else if (previousEdge && (getParentJunctions().size() > 0)) {
             return ("edge '" + previousEdge->getID() + "' is not consecutive with junction '" + getParentJunctions().front()->getID() + "'");
@@ -907,7 +907,7 @@ GNEDemandElement::getPersonPlanProblem() const {
         }
         // compare elements
         if ((nextChild->getParentJunctions().size() > 0) && (getParentJunctions().size() > 0)) {
-            return ("Junction '" + nextChild->getParentJunctions().front()->getID() + 
+            return ("Junction '" + nextChild->getParentJunctions().front()->getID() +
                     "' is not consecutive with junction '" + getParentJunctions().back()->getID() + "'");
         } else if (nextEdge && (getParentJunctions().size() > 0)) {
             return ("edge '" + nextEdge->getID() + "' is not consecutive with junction '" + getParentJunctions().back()->getID() + "'");

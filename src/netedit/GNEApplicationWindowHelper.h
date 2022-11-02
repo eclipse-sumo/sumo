@@ -145,13 +145,13 @@ struct GNEApplicationWindowHelper {
         FileMenuCommands(GNEApplicationWindow* GNEApp);
 
         /// @brief build menu commands
-        void buildFileMenuCommands(FXMenuPane* fileMenu, FXMenuPane* fileMenuSUMOConfig, FXMenuPane* fileMenuTLS, 
+        void buildFileMenuCommands(FXMenuPane* fileMenu, FXMenuPane* fileMenuSUMOConfig, FXMenuPane* fileMenuTLS,
                                    FXMenuPane* fileMenuEdgeTypes, FXMenuPane* fileMenuAdditionals,
                                    FXMenuPane* fileMenuDemandElements, FXMenuPane* fileMenuDataElements);
 
         /// @brief FXMenuCascade for SUMOConfig
         FXMenuCascade* SUMOConfigMenuCascade = nullptr;
-        
+
         /// @brief FXMenuCascade for TLS
         FXMenuCascade* TLSMenuCascade = nullptr;
 

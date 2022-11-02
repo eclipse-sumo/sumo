@@ -163,7 +163,7 @@ NBFrame::fillOptions(bool forNetgen) {
 
     oc.doRegister("geometry.remove.keep-edges.input-file", new Option_FileName());
     oc.addDescription("geometry.remove.keep-edges.input-file", "Processing",
-            "Ensure that the edges in FILE are not modified (Each id on a single line. Selection files from sumo-gui are also supported)");
+                      "Ensure that the edges in FILE are not modified (Each id on a single line. Selection files from sumo-gui are also supported)");
 
     if (!forNetgen) {
         oc.doRegister("geometry.remove.keep-ptstops", new Option_Bool(false));
@@ -172,11 +172,11 @@ NBFrame::fillOptions(bool forNetgen) {
 
     oc.doRegister("geometry.remove.min-length", new Option_Float(0));
     oc.addDescription("geometry.remove.min-length", "Processing",
-            "Allow merging edges with differing attributes when their length is below min-length");
+                      "Allow merging edges with differing attributes when their length is below min-length");
 
     oc.doRegister("geometry.remove.width-tolerance", new Option_Float(0));
     oc.addDescription("geometry.remove.width-tolerance", "Processing",
-            "Allow merging edges with differing lane widths if the difference is below FLOAT");
+                      "Allow merging edges with differing lane widths if the difference is below FLOAT");
 
     oc.doRegister("geometry.max-segment-length", new Option_Float(0));
     oc.addDescription("geometry.max-segment-length", "Processing", "splits geometry to restrict segment length");

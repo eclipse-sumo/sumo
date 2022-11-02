@@ -190,7 +190,7 @@ GNEPathManager::Segment::Segment() :
 // GNEPathManager::PathElement - methods
 // ---------------------------------------------------------------------------
 
-GNEPathManager::PathElement::PathElement(GUIGlObjectType type, const std::string& microsimID, FXIcon *icon, const int options) :
+GNEPathManager::PathElement::PathElement(GUIGlObjectType type, const std::string& microsimID, FXIcon* icon, const int options) :
     GUIGlObject(type, microsimID, icon),
     myOption(options) {
 }

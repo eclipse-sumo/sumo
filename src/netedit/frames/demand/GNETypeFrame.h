@@ -145,12 +145,12 @@ public:
     };
 
     // ===========================================================================
-    // class VTypeDistributions 
+    // class VTypeDistributions
     // ===========================================================================
 
     class VTypeDistributions  : public MFXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNETypeFrame::VTypeDistributions )
+        FXDECLARE(GNETypeFrame::VTypeDistributions)
 
     public:
         /// @brief constructor
@@ -179,7 +179,7 @@ public:
 
     protected:
         /// @brief FOX need this
-        FOX_CONSTRUCTOR(VTypeDistributions )
+        FOX_CONSTRUCTOR(VTypeDistributions)
 
     private:
         /// @brief pointer to type frame Parent
@@ -193,7 +193,7 @@ public:
      * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNETypeFrame(GNEViewParent *viewParent, GNEViewNet* viewNet);
+    GNETypeFrame(GNEViewParent* viewParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
     ~GNETypeFrame();

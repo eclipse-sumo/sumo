@@ -111,9 +111,9 @@ GNEUndoListDialog::onCmdClose(FXObject*, FXSelector, void*) {
 
 long
 GNEUndoListDialog::onCmdSelectRow(FXObject* obj, FXSelector, void*) {
-    int index =0;
+    int index = 0;
     // search button
-    for (const auto &row : myGUIRows) {
+    for (const auto& row : myGUIRows) {
         if (row->getRadioButton() == obj) {
             index = row->getIndex();
         }
@@ -179,7 +179,7 @@ GNEUndoListDialog::updateList() {
 void
 GNEUndoListDialog::recalcList() {
     // first clear rows
-    for (auto &GUIRow : myGUIRows) {
+    for (auto& GUIRow : myGUIRows) {
         delete GUIRow;
     }
     myGUIRows.clear();
@@ -230,8 +230,8 @@ GNEUndoListDialog::GUIRow::~GUIRow() {
 }
 
 
-void 
-GNEUndoListDialog::GUIRow::update(const UndoListRow &row) {
+void
+GNEUndoListDialog::GUIRow::update(const UndoListRow& row) {
     myIndex = row.index;
     myIcon->setIcon(row.icon);
     // check if text must be trimmed

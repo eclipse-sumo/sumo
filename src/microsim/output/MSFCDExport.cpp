@@ -127,7 +127,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
                     double lanePos = veh->getPositionOnLane();
                     if (microVeh != nullptr && microVeh->getLane()->isInternal()) {
                         lanePos = microVeh->getRoute().getDistanceBetween(0, lanePos, microVeh->getEdge(), &microVeh->getLane()->getEdge(),
-                                                                          true, microVeh->getRoutePosition());
+                                  true, microVeh->getRoutePosition());
                     }
                     of.writeOptionalAttr(SUMO_ATTR_DISTANCE, veh->getEdge()->getDistanceAt(lanePos), mask);
                 }
@@ -219,8 +219,8 @@ MSFCDExport::hasOwnOutput(const MSTransportable* p, bool filter, bool shapeFilte
 
 void
 MSFCDExport::writeTransportable(OutputDevice& of, const MSEdge* e, MSTransportable* p, const SUMOVehicle* v,
-        bool filter, bool shapeFilter, bool inRadius,
-        SumoXMLTag tag, bool useGeo, bool elevation, long long int mask) {
+                                bool filter, bool shapeFilter, bool inRadius,
+                                SumoXMLTag tag, bool useGeo, bool elevation, long long int mask) {
     if (!hasOwnOutput(p, filter, shapeFilter, inRadius)) {
         return;
     }

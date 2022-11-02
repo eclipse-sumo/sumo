@@ -39,7 +39,7 @@ class GUIGlObject_AbstractAdd : public GUIGlObject {
 
 public:
     /// @brief constructor
-    GUIGlObject_AbstractAdd(GUIGlObjectType type, const std::string& id, FXIcon *icon);
+    GUIGlObject_AbstractAdd(GUIGlObjectType type, const std::string& id, FXIcon* icon);
 
     /// @brief destructor
     ~GUIGlObject_AbstractAdd();

@@ -296,7 +296,7 @@ protected:
 
 
     bool mustOvertakeStopped(const MSLane& neighLane, const MSLeaderDistanceInfo& leaders, const MSLeaderDistanceInfo& neighLead,
-        double posOnLane, double neighDist, bool right, double latLaneDist, double& currentDist, double& latDist); 
+                             double posOnLane, double neighDist, bool right, double latLaneDist, double& currentDist, double& latDist);
 
     /// @brief check whether lateral gap requirements are met override the current maneuver if necessary
     int keepLatGap(int state,

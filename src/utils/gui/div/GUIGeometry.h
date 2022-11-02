@@ -108,7 +108,7 @@ public:
                                const RGBColor& hintColor, const double radius, const double exaggeration);
 
     /// @brief draw line between parent and children (used in NETEDIT)
-    static void drawParentLine(const GUIVisualizationSettings& s, const Position& parent, const Position& child, 
+    static void drawParentLine(const GUIVisualizationSettings& s, const Position& parent, const Position& child,
                                const RGBColor& color, const bool drawEntire, const double lineWidth);
 
     /// @brief draw line between child and parent (used in NETEDIT)

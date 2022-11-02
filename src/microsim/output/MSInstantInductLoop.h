@@ -152,7 +152,7 @@ protected:
 
 protected:
     /// @brief name
-    const std::string myName; 
+    const std::string myName;
 
     /// @brief The output device to use
     OutputDevice& myOutputDevice;
