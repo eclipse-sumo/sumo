@@ -55,9 +55,6 @@ public:
     static bool processSet(TraCIServer& server, tcpip::Storage& inputStorage,
                            tcpip::Storage& outputStorage);
 
-    static void writeStage(tcpip::Storage& outputStorage, const libsumo::TraCIStage& stage);
-    static libsumo::TraCIStage* readStage(TraCIServer& server, tcpip::Storage& inputStorage);
-
 private:
     /**
      * Converts a road map position to a cartesian position

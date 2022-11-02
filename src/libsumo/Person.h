@@ -84,9 +84,7 @@ public:
 
     LIBSUMO_SUBSCRIPTION_API
 
-#ifdef LIBTRACI
-    static void writeStage(const libsumo::TraCIStage& stage, tcpip::Storage& content);
-#else
+#ifndef LIBTRACI
 #ifndef SWIG
     /** @brief Saves the shape of the requested object in the given container
      *  @param id The id of the poi to retrieve

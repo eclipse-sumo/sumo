@@ -335,42 +335,9 @@ Person::add(const std::string& personID, const std::string& edgeID, double pos, 
 
 
 void
-Person::writeStage(const libsumo::TraCIStage& stage, tcpip::Storage& content) {
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(13);
-    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
-    content.writeInt(stage.type);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(stage.vType);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(stage.line);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(stage.destStop);
-    content.writeUnsignedByte(libsumo::TYPE_STRINGLIST);
-    content.writeStringList(stage.edges);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(stage.travelTime);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(stage.cost);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(stage.length);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(stage.intended);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(stage.depart);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(stage.departPos);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(stage.arrivalPos);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(stage.description);
-}
-
-
-void
 Person::appendStage(const std::string& personID, const libsumo::TraCIStage& stage) {
     tcpip::Storage content;
-    writeStage(stage, content);
+    libsumo::StorageHelper::writeStage(content, stage);
     Dom::set(libsumo::APPEND_STAGE, personID, &content);
 }
 
@@ -382,7 +349,7 @@ Person::replaceStage(const std::string& personID, const int stageIndex, const li
     content.writeInt(2);
     content.writeUnsignedByte(libsumo::TYPE_INTEGER);
     content.writeInt(stageIndex);
-    writeStage(stage, content);
+    libsumo::StorageHelper::writeStage(content, stage);
     Dom::set(libsumo::REPLACE_STAGE, personID, &content);
 }
 
