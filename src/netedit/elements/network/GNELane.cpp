@@ -101,9 +101,6 @@ GNELane::GNELane(GNEEdge* edge, const int index) :
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
 
 
 GNELane::GNELane() :
@@ -115,6 +112,9 @@ GNELane::GNELane() :
     mySpecialColorValue(-1),
     myLane2laneConnections(this) {
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GNELane::~GNELane() {}

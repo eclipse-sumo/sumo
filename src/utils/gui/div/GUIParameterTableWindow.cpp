@@ -257,12 +257,12 @@ GUIParameterTableWindow::closeBuilding(const Parameterised* p) {
         }
     }
     const int rows = (int)myItems.size() + 1;
-    int height = rows * 20 + 40;
+    int h = rows * 20 + 40;
     // adjust size in case there are higher (multi-line) rows
     for (int i = 0; i < (int)myItems.size(); i++) {
-        height += MAX2(0, myTable->getRowHeight(i) - 20);
+        h += MAX2(0, myTable->getRowHeight(i) - 20);
     }
-    setHeight(height);
+    setHeight(h);
     myTable->fitColumnsToContents(1);
     setWidth(myTable->getContentWidth() + 40);
     myTable->setVisibleRows(rows);
@@ -270,6 +270,7 @@ GUIParameterTableWindow::closeBuilding(const Parameterised* p) {
     create();
     show();
 }
+
 
 void
 GUIParameterTableWindow::checkFont(const std::string& text) {
