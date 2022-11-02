@@ -69,7 +69,7 @@ The values are described in the following table.
 | id                | id                   | The id of the detector                                                  |
 | nVehContrib       | \#vehicles           | The number of vehicles that have completely passed the detector within the interval               |
 | flow              | \#vehicles/hour      | The number of contributing vehicles extrapolated to an hour                    |
-| occupancy         | %                    | The percentage (0-100%) of the time a vehicle was at the detector.               |
+| occupancy         | %                    | The percentage (0-100%) of the time a vehicle was at the detector. If multiple vehicles are on the detector simulataneously (due to its length or in sublane simulation), values above 100 are possible)    |
 | speed             | m/s                  | The arithmetic mean of the velocities of all completely collected vehicles (-1 indicates that no vehicles were collected). This gives the time mean speed.      |
 | harmonicMeanSpeed | m/s                  | The harmonic mean of the velocities of all completely collected vehicles (-1 indicates that no vehicles were collected). This gives the space mean speed.       |
 | length            | m                    | The mean length of all completely collected vehicles (-1 indicates that no vehicles were collected).          |
