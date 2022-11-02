@@ -52,7 +52,7 @@ netedit.setZoom("0", "-6", "5")
 
 # transform
 netedit.contextualMenuOperation(referencePosition, 310, 140,
-    netedit.attrs.container.transformTo, 1)
+                                netedit.attrs.container.transformTo, 1)
 
 # Check undo
 netedit.undo(referencePosition, 2)

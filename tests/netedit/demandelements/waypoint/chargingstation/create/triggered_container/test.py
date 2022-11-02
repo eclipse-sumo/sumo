@@ -59,7 +59,8 @@ netedit.changeDefaultValue(netedit.attrs.waypointChargingStation.create.expected
 netedit.leftClick(referencePosition, 300, 195)
 
 # set valid value
-netedit.changeDefaultValue(netedit.attrs.waypointChargingStation.create.expected, "containerID1 containerID2 containerID3")
+netedit.changeDefaultValue(netedit.attrs.waypointChargingStation.create.expected,
+                           "containerID1 containerID2 containerID3")
 
 # create waypoint
 netedit.leftClick(referencePosition, 305, 195)

@@ -53,8 +53,8 @@ netedit.leftClick(referencePosition, 274, 392)
 
 # transform
 netedit.contextualMenuOperation(referencePosition, 91, 392,
-    netedit.attrs.vehicle.transformTo, 
-    netedit.attrs.vehicle.transform.trip)
+                                netedit.attrs.vehicle.transformTo,
+                                netedit.attrs.vehicle.transform.trip)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

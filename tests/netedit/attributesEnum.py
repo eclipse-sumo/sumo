@@ -1589,7 +1589,7 @@ class trip:
         routeFlowEmbedded = 4
         flow = 5
 
-    transformTo = 9;
+    transformTo = 9
 
 # trip (from-to junctions)
 
@@ -1664,7 +1664,7 @@ class tripFromToJunction:
         trip = 5
         flow = 6
 
-    transformTo = 9;
+    transformTo = 9
 
 # vehicle (over route)
 
@@ -1739,7 +1739,7 @@ class vehicle:
         trip = 4
         flow = 5
 
-    transformTo = 9;
+    transformTo = 9
 
 # vehicle (embedded route)
 
@@ -1813,7 +1813,7 @@ class vehicleEmbedded:
         trip = 4
         flow = 5
 
-    transformTo = 9;
+    transformTo = 9
 
 # flow (from-to edges)
 
@@ -1903,7 +1903,7 @@ class flow:
         routeFlowEmbedded = 4
         trip = 5
 
-    transformTo = 9;
+    transformTo = 9
 
 # flow (from-to junctions)
 
@@ -1993,7 +1993,7 @@ class flowJunction:
         trip = 5
         flow = 6
 
-    transformTo = 9;
+    transformTo = 9
 
 # flow (over route)
 
@@ -2083,7 +2083,7 @@ class routeFlow:
         trip = 4
         flow = 5
 
-    transformTo = 9;
+    transformTo = 9
 
 # flow (embedded route)
 
@@ -2172,7 +2172,7 @@ class flowEmbedded:
         trip = 4
         flow = 5
 
-    transformTo = 9;
+    transformTo = 9
 
 # stop over bus stop
 
@@ -2735,7 +2735,7 @@ class person:
         depart = 5
         parameters = 8
 
-    transformTo = 8;
+    transformTo = 8
 
 
 class personFlow:
@@ -2779,7 +2779,7 @@ class personFlow:
         spacingOption = 13
         parameters = 15
 
-    transformTo = 8;
+    transformTo = 8
 
 # PersonPlans
 
@@ -2990,7 +2990,8 @@ class container:
         depart = 4
         parameters = 7
 
-    transformTo = 8;
+    transformTo = 8
+
 
 class containerFlow:
     class create:
@@ -3030,7 +3031,7 @@ class containerFlow:
         spacingOption = 12
         parameters = 14
 
-    transformTo = 8;
+    transformTo = 8
 
 # ContainerPlans
 

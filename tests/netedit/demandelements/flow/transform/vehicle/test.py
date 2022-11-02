@@ -46,8 +46,8 @@ netedit.typeEnter()
 
 # transform
 netedit.contextualMenuOperation(referencePosition, 91, 392,
-    netedit.attrs.flow.transformTo, 
-    netedit.attrs.flow.transform.vehicle)
+                                netedit.attrs.flow.transformTo,
+                                netedit.attrs.flow.transform.vehicle)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)
