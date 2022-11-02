@@ -135,14 +135,12 @@ public:
         return *myRoute;
     }
 
-
     /** @brief Returns the vehicle's type definition
      * @return The vehicle's type definition
      */
     inline const MSVehicleType& getVehicleType() const  {
         return *myType;
     }
-
 
     /** @brief Returns the vehicle's access class
      * @return The vehicle's access class
@@ -155,7 +153,6 @@ public:
      * @return The vehicle's maximum speed
      */
     double getMaxSpeed() const;
-
 
     /** @brief Returns the nSuccs'th successor of edge the vehicle is currently at
      *
@@ -327,9 +324,7 @@ public:
     }
 
     /** @brief Returns the depart delay */
-    SUMOTime getDepartDelay() const {
-        return getDeparture() - getParameter().depart;
-    }
+    SUMOTime getDepartDelay() const;
 
     /** @brief Returns the estimated public transport stop (departure) delay in seconds
      */
@@ -381,7 +376,9 @@ public:
 
     /** @brief Returns whether this vehicle has already departed
      */
-    bool hasDeparted() const;
+    inline bool hasDeparted() const {
+        return myDeparture != NOT_YET_DEPARTED;
+    }
 
     /** @brief Returns whether this vehicle has already arived
      * (by default this is true if the vehicle has reached its final edge)

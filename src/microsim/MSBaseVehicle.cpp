@@ -549,9 +549,13 @@ MSBaseVehicle::onDepart() {
 }
 
 
-bool
-MSBaseVehicle::hasDeparted() const {
-    return myDeparture != NOT_YET_DEPARTED;
+SUMOTime
+MSBaseVehicle:: getDepartDelay() const {
+    const SUMOTime dep = getParameter().depart;
+    if (dep < 0) {
+        return 0;
+    }
+    return hasDeparted() ? getDeparture() - dep : SIMSTEP - dep;
 }
 
 
