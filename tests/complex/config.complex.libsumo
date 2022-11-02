@@ -19,6 +19,7 @@ log:***Starting server on port
 log:TraCI {REPLACE Libsumo }
 log:version .* started via libsumo {REPLACE started }
 log:Requested command not implemented (0xac)
+log:traci.person.person_{REPLACE traci.person.}
 log:traci.simulation.simulation_{REPLACE traci.simulation.}
 log:traci.simulation.step(0){REPLACE traci.simulationStep()}
 log:traci.simulation.close(){REPLACE traci.close()}
