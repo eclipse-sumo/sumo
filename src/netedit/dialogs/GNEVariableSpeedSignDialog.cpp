@@ -17,7 +17,6 @@
 ///
 // A class for edit phases of Variable Speed Signals
 /****************************************************************************/
-#include <config.h>
 
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>

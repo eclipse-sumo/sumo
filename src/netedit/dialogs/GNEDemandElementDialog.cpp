@@ -17,7 +17,6 @@
 ///
 // A abstract class for editing additional elements
 /****************************************************************************/
-#include <config.h>
 
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>

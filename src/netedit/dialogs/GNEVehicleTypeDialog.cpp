@@ -17,13 +17,11 @@
 ///
 // Dialog for edit vehicleTypes
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
-#include <utils/common/SUMOVehicleClass.h>
 #include <netedit/dialogs/GNESingleParametersDialog.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/gui/div/GUIDesigns.h>

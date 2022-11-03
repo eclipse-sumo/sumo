@@ -17,7 +17,6 @@
 ///
 // Dialog for edit allow VClass attribute
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNEViewNet.h>
 #include <netedit/elements/GNEAttributeCarrier.h>

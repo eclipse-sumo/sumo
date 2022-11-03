@@ -17,7 +17,6 @@
 ///
 // Dialog used to fix additional elements
 /****************************************************************************/
-#include <config.h>
 
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>

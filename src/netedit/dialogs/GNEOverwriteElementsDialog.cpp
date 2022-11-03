@@ -17,10 +17,8 @@
 ///
 // Dialog used to ask user if overwrite elements during loading
 /****************************************************************************/
-#include <config.h>
 
 #include <utils/common/MsgHandler.h>
-#include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <netedit/GNEApplicationWindow.h>
 

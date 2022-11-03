@@ -17,7 +17,6 @@
 ///
 // Dialog for edit parameters
 /****************************************************************************/
-#include <config.h>
 
 #include <netbuild/NBLoadedSUMOTLDef.h>
 #include <netedit/GNENet.h>

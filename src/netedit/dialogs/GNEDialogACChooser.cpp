@@ -17,7 +17,6 @@
 ///
 // Class for the window that allows to choose a street, junction or vehicle
 /****************************************************************************/
-#include <config.h>
 
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <netedit/GNENet.h>

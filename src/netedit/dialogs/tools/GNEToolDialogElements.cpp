@@ -17,7 +17,6 @@
 ///
 // Elements used in GNEToolDialog
 /****************************************************************************/
-#include <config.h>
 
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/images/GUIIconSubSys.h>

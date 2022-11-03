@@ -17,11 +17,8 @@
 ///
 // Dialog for edit VType distributions
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/frames/demand/GNETypeFrame.h>
-#include <netedit/GNENet.h>
-#include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>

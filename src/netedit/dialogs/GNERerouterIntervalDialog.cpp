@@ -17,7 +17,6 @@
 ///
 // Dialog for edit rerouter intervals
 /****************************************************************************/
-#include <config.h>
 
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>

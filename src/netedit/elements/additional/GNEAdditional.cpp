@@ -17,7 +17,6 @@
 ///
 // A abstract class for representation of additional elements
 /****************************************************************************/
-#include <config.h>
 
 #include <foreign/fontstash/fontstash.h>
 #include <netedit/GNENet.h>
@@ -28,9 +27,7 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
-#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEAdditional.h"
 

@@ -17,7 +17,6 @@
 ///
 // Attribute creator
 /****************************************************************************/
-#include <config.h>
 
 #include <netedit/GNEViewNet.h>
 #include <netedit/dialogs/GNESingleParametersDialog.h>
