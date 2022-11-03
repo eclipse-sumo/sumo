@@ -21,6 +21,8 @@
 #include <config.h>
 
 #include <utils/foxtools/MFXTextFieldTooltip.h>
+#include <vector>
+#include <string>
 
 
 // ===========================================================================

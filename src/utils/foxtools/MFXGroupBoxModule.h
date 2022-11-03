@@ -23,6 +23,8 @@
 
 #include "fxheader.h"
 
+#include <string>
+
 /// @brief class declaration
 class GNEFrame;
 

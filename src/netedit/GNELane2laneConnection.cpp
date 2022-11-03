@@ -17,7 +17,6 @@
 ///
 // File for lane2lane geometry classes and functions
 /****************************************************************************/
-#include <utils/geom/GeomHelper.h>
 
 #include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/network/GNELane.h>

@@ -17,8 +17,7 @@
 ///
 // TextField similar to FXTextField but with the possibility of showing tooltips
 /****************************************************************************/
-#ifndef MFXTextFieldTooltip_h
-#define MFXTextFieldTooltip_h
+#pragma once
 #include <config.h>
 
 #include "fxheader.h"
@@ -73,6 +72,3 @@ private:
     /// @brief Invalidated assignment operator.
     MFXTextFieldTooltip& operator=(const MFXTextFieldTooltip&) = delete;
 };
-
-
-#endif

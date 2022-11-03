@@ -22,7 +22,6 @@
 /****************************************************************************/
 
 #include <netedit/dialogs/GNEDialogACChooser.h>
-#include <netedit/elements/additional/GNEAdditional.h>
 #include <netedit/elements/network/GNEWalkingArea.h>
 #include <netedit/frames/common/GNEDeleteFrame.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
@@ -48,7 +47,6 @@
 #include <netedit/frames/network/GNEWireFrame.h>
 #include <netedit/frames/network/GNETAZFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
-#include <utils/foxtools/MFXButtonTooltip.h>
 #include <utils/foxtools/MFXMenuButtonTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
 

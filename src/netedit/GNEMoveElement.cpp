@@ -17,7 +17,6 @@
 ///
 // Class used for move shape elements
 /****************************************************************************/
-#include <netedit/elements/network/GNEEdge.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNEViewNet.h>
 

@@ -28,7 +28,6 @@
 #include <netedit/elements/GNEGeneralHandler.h>
 #include <netedit/elements/data/GNEDataHandler.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
-#include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <netedit/frames/network/GNETAZFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
@@ -47,11 +46,9 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIUserIO.h>
 #include <utils/gui/events/GUIEvent_Message.h>
-#include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/settings/GUISettingsHandler.h>
 #include <utils/gui/shortcuts/GUIShortcutsSubSys.h>
-#include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIDialog_Options.h>
 #include <utils/gui/windows/GUIPerspectiveChanger.h>
 #include <utils/options/OptionsCont.h>

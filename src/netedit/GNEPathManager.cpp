@@ -18,7 +18,6 @@
 // Manager for paths in NETEDIT (routes, trips, flows...)
 /****************************************************************************/
 
-#include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBNetBuilder.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>

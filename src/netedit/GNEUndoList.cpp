@@ -20,10 +20,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/dialogs/GNEUndoListDialog.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
-#include <utils/gui/images/GUIIconSubSys.h>
-#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEApplicationWindow.h"
 #include "GNEUndoList.h"

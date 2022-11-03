@@ -24,7 +24,6 @@
 #include <netimport/NILoader.h>
 #include <netwrite/NWFrame.h>
 #include <utils/common/MsgRetrievingFunction.h>
-#include <utils/common/RandHelper.h>
 #include <utils/common/SystemFrame.h>
 #include <utils/gui/events/GUIEvent_Message.h>
 #include <utils/options/OptionsCont.h>
