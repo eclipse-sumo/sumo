@@ -290,7 +290,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
                     if (flowParameter->repetitionNumber < 0) {
                         return handleVehicleError(hardFail, flowParameter, "Negative repetition number in the definition of " + toString(tag) + " '" + id + "'.");
                     }
-                    if (flowParameter->repetitionOffset < 0) {
+                    if (flowParameter->repetitionOffset < 0 && !hasProb) {
                         if (poissonFlow) {
                             flowParameter->repetitionEnd = SUMOTime_MAX;
                         } else {
