@@ -17,10 +17,8 @@
 ///
 // The Widget for editing connection prohibits
 /****************************************************************************/
-#include <config.h>
 
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/windows/GUIAppEnum.h>
 #include <netedit/elements/network/GNELane.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNEEdge.h>
@@ -30,6 +28,7 @@
 #include <netedit/GNEApplicationWindow.h>
 
 #include "GNEProhibitionFrame.h"
+
 
 // ===========================================================================
 // FOX callback mapping
@@ -74,7 +73,7 @@ GNEProhibitionFrame::RelativeToConnection::updateDescription() const {
         myConnDescriptionLabel->setText(
             ("- Junction: " + myProhibitionFrameParent->myCurrentConn->getEdgeFrom()->getToJunction()->getID() + "\n" + 
              "- From lane: " + myProhibitionFrameParent->myCurrentConn->getLaneFrom()->getMicrosimID() + "\n" + 
-             "- Fo lane: " + myProhibitionFrameParent->myCurrentConn->getLaneTo()->getMicrosimID()).c_str());
+             "- To lane: " + myProhibitionFrameParent->myCurrentConn->getLaneTo()->getMicrosimID()).c_str());
     }
 }
 
@@ -282,7 +281,7 @@ GNEProhibitionFrame::buildProhibition(GNEConnection* conn, bool /* mayDefinitely
 
         // determine prohibition status of all other connections with respect to the selected one
         GNEJunction* junction = myCurrentConn->getEdgeFrom()->getToJunction();
-        std::vector<GNEConnection*> allConns = junction->getGNEConnections();
+        std::vector<GNEConnection*> connections = junction->getGNEConnections();
         NBNode* node = junction->getNBNode();
         NBEdge* currentConnFrom = myCurrentConn->getEdgeFrom()->getNBEdge();
 
@@ -292,10 +291,10 @@ GNEProhibitionFrame::buildProhibition(GNEConnection* conn, bool /* mayDefinitely
         std::reverse(currentFoesString.begin(), currentFoesString.end());
         std::reverse(currentResponseString.begin(), currentResponseString.end());
         // iterate over all connections
-        for (const auto& i : allConns) {
-            if (i != myCurrentConn) {
-                NBEdge* otherConnFrom = i->getEdgeFrom()->getNBEdge();
-                const int linkIndex = node->getConnectionIndex(otherConnFrom, i->getNBEdgeConnection());
+        for (const auto& connection : connections) {
+            if (connection != myCurrentConn) {
+                NBEdge* otherConnFrom = connection->getEdgeFrom()->getNBEdge();
+                const int linkIndex = node->getConnectionIndex(otherConnFrom, connection->getNBEdgeConnection());
                 std::string responseString = node->getResponse(linkIndex);
                 std::reverse(responseString.begin(), responseString.end());
                 // determine the prohibition status
@@ -303,19 +302,19 @@ GNEProhibitionFrame::buildProhibition(GNEConnection* conn, bool /* mayDefinitely
                 bool forbids = ((int)responseString.size() > currentLinkIndex) && (responseString[currentLinkIndex] == '1');
                 bool forbidden = ((int)currentResponseString.size() > linkIndex) && (currentResponseString[linkIndex] == '1');
                 // insert in myConcernedConns
-                myConcernedConns.insert(i);
+                myConcernedConns.insert(connection);
                 // change color depending of prohibition status
                 if (!foes) {
-                    i->setSpecialColor(&myLegend->getUndefinedColor());
+                    connection->setSpecialColor(&myLegend->getUndefinedColor());
                 } else {
                     if (forbids && forbidden) {
-                        i->setSpecialColor(&myLegend->getMutualConflictColor());
+                        connection->setSpecialColor(&myLegend->getMutualConflictColor());
                     } else if (forbids) {
-                        i->setSpecialColor(&myLegend->getProhibitedColor());
+                        connection->setSpecialColor(&myLegend->getProhibitedColor());
                     } else if (forbidden) {
-                        i->setSpecialColor(&myLegend->getProhibitingColor());
+                        connection->setSpecialColor(&myLegend->getProhibitingColor());
                     } else {
-                        i->setSpecialColor(&myLegend->getUnregulatedConflictColor());
+                        connection->setSpecialColor(&myLegend->getUnregulatedConflictColor());
                     }
                 }
             }
