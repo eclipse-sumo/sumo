@@ -1773,7 +1773,13 @@ GNETLSEditorFrame::TLSDefinition::createTLS(GNEJunction* junction) {
         // remove new logic
         delete newLogic;
         // add it using GNEChange_TLS
-        myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(junction, newDef, true, true), true);
+        myTLSEditorParent->getViewNet()->getUndoList()->begin(GUIIcon::MODETLS, TLF("duplicate program '%' of traffic light '%'", tpl->getProgramID(), tpl->getID()));
+        for (NBNode* node : newDef->getNodes()) {
+            GNEJunction* j = myTLSEditorParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveJunction(node->getID());
+            // not forcing insertion because we already ensured a new id and multiple junctions will attempt insertion
+            myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(j, newDef, true, false), true);
+        }
+        myTLSEditorParent->getViewNet()->getUndoList()->end();
     } else {
         // for some reason the traffic light was not built, try again
         myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(junction, nullptr, true, true), true);
