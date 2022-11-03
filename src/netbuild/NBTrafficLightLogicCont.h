@@ -201,6 +201,13 @@ public:
     typedef std::vector<NBTrafficLightDefinition*> Definitions;
     Definitions getDefinitions() const;
 
+    /** @brief Returns a new (unused) programID for the given traffic light
+     *
+     * @param[in] id The id of the traffic light
+     * @return A new programID that isn't jet used by that traffic light
+     */
+    std::string getNextProgramID(const std::string& id) const;
+
 private:
     /// @brief Definition of internal the container types
     typedef std::map<std::string, NBTrafficLightLogic*> Program2Logic;

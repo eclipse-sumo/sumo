@@ -1768,6 +1768,8 @@ GNETLSEditorFrame::TLSDefinition::createTLS(GNEJunction* junction) {
         NBTrafficLightLogic* newLogic = tpl->compute(OptionsCont::getOptions());
         // create new TLDef
         NBLoadedSUMOTLDef* newDef = new NBLoadedSUMOTLDef(*tpl, *newLogic);
+        NBTrafficLightLogicCont& tllCont = myTLSEditorParent->getViewNet()->getNet()->getTLLogicCont();
+        newDef->setProgramID(tllCont.getNextProgramID(newDef->getID()));
         // remove new logic
         delete newLogic;
         // add it using GNEChange_TLS

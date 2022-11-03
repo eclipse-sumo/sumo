@@ -69,18 +69,26 @@ NBTrafficLightLogicCont::applyOptions(OptionsCont& oc) {
 }
 
 
+std::string
+NBTrafficLightLogicCont::getNextProgramID(const std::string& id) const {
+    IDSupplier idS("", 0);
+    if (myDefinitions.count(id)) {
+        const Program2Def& programs = myDefinitions.find(id)->second;
+        for (auto item : programs) {
+            idS.avoid(item.first);
+        }
+    }
+    return idS.getNext();
+}
+
+
 bool
 NBTrafficLightLogicCont::insert(NBTrafficLightDefinition* logic, bool forceInsert) {
     myExtracted.erase(logic);
     if (myDefinitions.count(logic->getID())) {
         if (myDefinitions[logic->getID()].count(logic->getProgramID())) {
             if (forceInsert) {
-                const Program2Def& programs = myDefinitions[logic->getID()];
-                IDSupplier idS("", 0);
-                for (Program2Def::const_iterator it_prog = programs.begin(); it_prog != programs.end(); it_prog++) {
-                    idS.avoid(it_prog->first);
-                }
-                logic->setProgramID(idS.getNext());
+                logic->setProgramID(getNextProgramID(logic->getID()));
             } else {
                 return false;
             }
