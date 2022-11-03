@@ -212,6 +212,9 @@ private:
     /// @brief manage change of tlLinkindices
     void changeTLIndex(SumoXMLAttr key, int tlIndex, int tlIndex2, GNEUndoList* undoList);
 
+    /// @brief draw arrows over connections
+    void drawConnectionArrows(const GUIVisualizationSettings& s) const;
+
     /// @brief Invalidated copy constructor.
     GNEConnection(const GNEConnection&) = delete;
 
