@@ -105,7 +105,6 @@ GLDebug: 	Removed object TAZRelData:Data1 from SUMORTree with boundary 15.50,0.0
 GLDebug: 	Inserted TAZRelData:Data1 into SUMORTree with boundary 16.00,0.00,56.00,80.00
 GLDebug: 	Removed object TAZRelData:Data1 from SUMORTree with boundary 14.50,0.00,54.50,80.00
 GLDebug: 	Inserted TAZRelData:Data1 into SUMORTree with boundary 14.00,0.00,54.00,80.00
-Debug: Enabled toggle TAZ draw fill throught alt + 6
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:J0 from SUMORTree with boundary -12.00,48.00,12.00,72.00
 GLDebug: 	Removed object junction:J1 from SUMORTree with boundary 58.00,48.00,82.00,72.00
@@ -152,6 +151,51 @@ Debug: Created crossing ':J2_c0' in retrieveGNECrossing()
 Debug: Created walkingArea ':J2_w0' in retrieveGNEWalkingArea()
 Debug: Created walkingArea ':J2_w1' in retrieveGNEWalkingArea()
 Debug: Created crossing ':J3_c0' in retrieveGNECrossing()
+Debug: Created walkingArea ':J3_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':J3_w1' in retrieveGNEWalkingArea()
+Debug: Enabled toggle TAZ draw fill throught alt + 6
+GLDebug: Removing junctions during recomputing
+GLDebug: 	Removed object junction:J0 from SUMORTree with boundary -15.20,44.80,15.20,75.20
+GLDebug: 	Removed object junction:J1 from SUMORTree with boundary 54.80,44.80,85.20,75.20
+GLDebug: 	Removed object junction:J2 from SUMORTree with boundary 54.80,4.80,85.20,35.20
+GLDebug: 	Removed object junction:J3 from SUMORTree with boundary -15.20,4.80,15.20,35.20
+GLDebug: Removing edges during recomputing
+GLDebug: 	Removed object edge:-E0 from SUMORTree with boundary -10.00,50.00,80.00,74.80
+GLDebug: 	Removed object edge:-E1 from SUMORTree with boundary 60.00,10.00,84.80,70.00
+GLDebug: 	Removed object edge:-E2 from SUMORTree with boundary -10.00,5.20,80.00,30.00
+GLDebug: 	Removed object edge:-E3 from SUMORTree with boundary -14.80,10.00,10.00,70.00
+GLDebug: 	Removed object edge:E0 from SUMORTree with boundary -10.00,45.20,80.00,70.00
+GLDebug: 	Removed object edge:E1 from SUMORTree with boundary 55.20,10.00,80.00,70.00
+GLDebug: 	Removed object edge:E2 from SUMORTree with boundary -10.00,10.00,80.00,34.80
+GLDebug: 	Removed object edge:E3 from SUMORTree with boundary -10.00,10.00,14.80,70.00
+GLDebug: Add junctions during recomputing after calling myNetBuilder->compute(...)
+GLDebug: 	Inserted junction:J0 into SUMORTree with boundary -15.20,44.80,15.20,75.20
+GLDebug: 	Inserted junction:J1 into SUMORTree with boundary 54.80,44.80,85.20,75.20
+GLDebug: 	Inserted junction:J2 into SUMORTree with boundary 54.80,4.80,85.20,35.20
+GLDebug: 	Inserted junction:J3 into SUMORTree with boundary -15.20,4.80,15.20,35.20
+GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
+GLDebug: 	Inserted edge:-E0 into SUMORTree with boundary -10.00,50.00,80.00,74.20
+GLDebug: 	Inserted edge:-E1 into SUMORTree with boundary 60.00,10.00,84.20,70.00
+GLDebug: 	Inserted edge:-E2 into SUMORTree with boundary -10.00,5.80,80.00,30.00
+GLDebug: 	Inserted edge:-E3 into SUMORTree with boundary -14.20,10.00,10.00,70.00
+GLDebug: 	Inserted edge:E0 into SUMORTree with boundary -10.00,45.80,80.00,70.00
+GLDebug: 	Inserted edge:E1 into SUMORTree with boundary 55.80,10.00,80.00,70.00
+GLDebug: 	Inserted edge:E2 into SUMORTree with boundary -10.00,10.00,80.00,34.20
+GLDebug: 	Inserted edge:E3 into SUMORTree with boundary -10.00,10.00,14.20,70.00
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Created walkingArea ':J0_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':J0_w1' in retrieveGNEWalkingArea()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Created walkingArea ':J1_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':J1_w1' in retrieveGNEWalkingArea()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Created walkingArea ':J2_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':J2_w1' in retrieveGNEWalkingArea()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Created walkingArea ':J3_w0' in retrieveGNEWalkingArea()
 Debug: Created walkingArea ':J3_w1' in retrieveGNEWalkingArea()
 Debug: network elements saved

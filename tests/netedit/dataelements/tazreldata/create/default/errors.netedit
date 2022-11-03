@@ -1,17 +1,6 @@
 Debug: Adding taz 'taz_0' in GNEChange_Additional
 Debug: Adding taz 'taz_1' in GNEChange_Additional
 Debug: Adding taz 'taz_2' in GNEChange_Additional
-Debug: Adding dataSet 'newDataSet' in GNEChange_DataSet
-Debug: adding dataInterval [0.00, 3600.00] in GNEChange_DataInterval
-Debug: Key ENTER pressed
-Debug: Adding tazRelation 'newDataSet[0.00,3600.00]:taz_0->taz_1' in GNEChange_GenericData
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Removing tazRelation 'newDataSet[0.00,3600.00]:taz_0->taz_1' in GNEChange_GenericData
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Adding tazRelation 'newDataSet[0.00,3600.00]:taz_0->taz_1' in GNEChange_GenericData
-Debug: data sets saved
 Debug: Created connection 'from-gneE14_0togneE16_0' in retrieveGNEConnection()
 Debug: Created connection 'from-gneE14_0togneE15_0' in retrieveGNEConnection()
 Debug: Created connection 'from-gneE14_1togneE15_1' in retrieveGNEConnection()
@@ -32,6 +21,17 @@ Debug: Created connection 'fromgneE12_0togneE16_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE12_1togneE16_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE12_2togneE16_2' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE12_2togneE15_2' in retrieveGNEConnection()
+Debug: Adding dataSet 'newDataSet' in GNEChange_DataSet
+Debug: adding dataInterval [0.00, 3600.00] in GNEChange_DataInterval
+Debug: Key ENTER pressed
+Debug: Adding tazRelation 'newDataSet[0.00,3600.00]:taz_0->taz_1' in GNEChange_GenericData
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Removing tazRelation 'newDataSet[0.00,3600.00]:taz_0->taz_1' in GNEChange_GenericData
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Adding tazRelation 'newDataSet[0.00,3600.00]:taz_0->taz_1' in GNEChange_GenericData
+Debug: data sets saved
 Debug: network elements saved
 Debug: Additionals saved
 Debug: Deleting unreferenced tazRelation
