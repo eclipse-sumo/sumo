@@ -259,35 +259,35 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
             }
             assert(viaEdge != 0);
             if (!viaEdge->isTazConnector() && viaEdge->allowedLanes(getVClass()) == nullptr) {
-                throw ProcessError("Vehicle '" + getID() + "' is not allowed on any lane of via edge '" + viaEdge->getID() + "'.");
+                throw ProcessError(TLF("Vehicle '%' is not allowed on any lane of via edge '%'.", getID(), viaEdge->getID()));
             }
             stops.push_back(viaEdge);
         }
     }
 
-    for (MSRouteIterator s = stops.begin(); s != stops.end(); ++s) {
+    for (const MSEdge* const stopEdge : stops) {
         // !!! need to adapt t here
         ConstMSEdgeVector into;
-        router.computeLooped(source, *s, this, t, into, silent);
+        router.computeLooped(source, stopEdge, this, t, into, silent);
         //std::cout << SIMTIME << " reroute veh=" << getID() << " source=" << source->getID() << " target=" << (*s)->getID() << " edges=" << toString(into) << "\n";
         if (into.size() > 0) {
             into.pop_back();
             edges.insert(edges.end(), into.begin(), into.end());
-            if ((*s)->isTazConnector()) {
+            if (stopEdge->isTazConnector()) {
                 source = into.back();
                 edges.pop_back();
             } else {
-                source = *s;
+                source = stopEdge;
             }
         } else {
-            std::string error = "Vehicle '" + getID() + "' has no valid route from edge '" + source->getID() + "' to stop edge '" + (*s)->getID() + "'.";
+            std::string error = TLF("Vehicle '%' has no valid route from edge '%' to stop edge '%'.", getID(), source->getID(), stopEdge->getID());
             if (MSGlobals::gCheckRoutes || silent) {
                 throw ProcessError(error);
             } else {
                 WRITE_WARNING(error);
                 edges.push_back(source);
             }
-            source = *s;
+            source = stopEdge;
         }
     }
     if (stops.empty() && source == sink && onInit
@@ -324,9 +324,9 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
     if (onInit) {
         if (edges.empty()) {
             if (MSGlobals::gCheckRoutes) {
-                throw ProcessError("Vehicle '" + getID() + "' has no valid route.");
+                throw ProcessError(TLF("Vehicle '%' has no valid route.", getID()));
             } else if (source->isTazConnector()) {
-                WRITE_WARNING("Removing vehicle '" + getID() + "' which has no valid route.");
+                WRITE_WARNINGF(TL("Removing vehicle '%' which has no valid route."), getID());
                 MSNet::getInstance()->getInsertionControl().descheduleDeparture(this);
                 return;
             }
@@ -340,7 +340,7 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
 bool
 MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, double cost, double savings, const std::string& info, bool onInit, bool check, bool removeStops, std::string* msgReturn) {
     if (edges.empty()) {
-        WRITE_WARNING("No route for vehicle '" + getID() + "' found.");
+        WRITE_WARNINGF(TL("No route for vehicle '%' found."), getID());
         if (msgReturn != nullptr) {
             *msgReturn = "No route found";
         }
@@ -384,7 +384,7 @@ MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, double cost, double s
 
     std::string msg;
     if (check && !hasValidRoute(msg, newRoute)) {
-        WRITE_WARNING("Invalid route replacement for vehicle '" + getID() + "'. " + msg);
+        WRITE_WARNINGF(TL("Invalid route replacement for vehicle '%'. %"), getID(), msg);
         if (MSGlobals::gCheckRoutes) {
             newRoute->addReference();
             newRoute->release();
@@ -413,7 +413,7 @@ MSBaseVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bo
         MSRouteIterator newCurrEdge = std::find(edges.begin() + offset, edges.end(), *myCurrEdge);
         if (newCurrEdge == edges.end()) {
             if (msgReturn != nullptr) {
-                *msgReturn = "current edge '" + (*myCurrEdge)->getID() + "' not found in new route";
+                *msgReturn = TLF("current edge '%' not found in new route", (*myCurrEdge)->getID());
             }
 #ifdef DEBUG_REPLACE_ROUTE
             if (DEBUG_COND) {
@@ -426,7 +426,7 @@ MSBaseVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bo
             if (getLane()->getEdge().isInternal() && (
                         (newCurrEdge + 1) == edges.end() || (*(newCurrEdge + 1)) != &(getLane()->getOutgoingViaLanes().front().first->getEdge()))) {
                 if (msgReturn != nullptr) {
-                    *msgReturn = "Vehicle is on junction-internal edge leading elsewhere";
+                    *msgReturn = TL("Vehicle is on junction-internal edge leading elsewhere");
                 }
 #ifdef DEBUG_REPLACE_ROUTE
                 if (DEBUG_COND) {
@@ -439,7 +439,7 @@ MSBaseVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bo
                        && (newCurrEdge + 1) != edges.end()
                        && *(myCurrEdge + 1) != *(newCurrEdge + 1)) {
                 if (msgReturn != nullptr) {
-                    *msgReturn = "Vehicle is moving past junction and committed to move to another successor edge";
+                    *msgReturn = TL("Vehicle is moving past junction and committed to move to another successor edge");
                 }
 #ifdef DEBUG_REPLACE_ROUTE
                 if (DEBUG_COND) {
@@ -511,7 +511,7 @@ MSBaseVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bo
 #endif
             if (iter->edge == edges.end()) {
                 if (!removeStops) {
-                    WRITE_ERROR("Vehicle '" + getID() + "' could not assign stop '" + iter->getDescription() + "' after rerouting (" + info + ") at time=" + time2string(SIMSTEP) + ".");
+                    WRITE_ERRORF(TL("Vehicle '%' could not assign stop '%' after rerouting (%) at time=%."), getID(), iter->getDescription(), info, time2string(SIMSTEP));
                 }
                 iter = myStops.erase(iter);
                 continue;
@@ -639,7 +639,7 @@ MSBaseVehicle::hasValidRoute(std::string& msg, const MSRoute* route) const {
     // check connectivity, first
     for (MSRouteIterator e = start; e != last; ++e) {
         if ((*e)->allowedLanes(**(e + 1), myType->getVehicleClass()) == nullptr) {
-            msg = "No connection between edge '" + (*e)->getID() + "' and edge '" + (*(e + 1))->getID() + "'.";
+            msg = TLF("No connection between edge '%' and edge '%'.", (*e)->getID(), (*(e + 1))->getID());
             return false;
         }
     }
@@ -647,7 +647,7 @@ MSBaseVehicle::hasValidRoute(std::string& msg, const MSRoute* route) const {
     // check usable lanes, then
     for (MSRouteIterator e = start; e != last; ++e) {
         if ((*e)->prohibits(this)) {
-            msg = "Edge '" + (*e)->getID() + "' prohibits.";
+            msg = TLF("Edge '%' prohibits.", (*e)->getID());
             return false;
         }
     }
@@ -661,7 +661,7 @@ MSBaseVehicle::hasValidRouteStart(std::string& msg) {
         myRouteValidity &= ~ROUTE_START_INVALID_PERMISSIONS;
         return true;
     } else {
-        msg = "Vehicle '" + getID() + "' is not allowed to depart on its first edge.";
+        msg = TLF("Vehicle '%' is not allowed to depart on its first edge.", getID());
         myRouteValidity |= ROUTE_START_INVALID_PERMISSIONS;
         return false;
     }
@@ -691,7 +691,7 @@ MSBaseVehicle::getRouteValidity(bool update, bool silent, std::string* msgReturn
             && (!myParameter->wasSet(VEHPARS_FORCE_REROUTE))) {
         if (!hasValidRoute(msg, myRoute)) {
             myRouteValidity |= ROUTE_INVALID;
-            throw ProcessError("Vehicle '" + getID() + "' has no valid route. " + msg);
+            throw ProcessError(TLF("Vehicle '%' has no valid route. %", getID(), msg));
         }
     }
     myRouteValidity &= ~ROUTE_UNCHECKED;
