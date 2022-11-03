@@ -154,7 +154,7 @@ GNERouteHandler::buildRoute(const CommonXMLStructure::SumoBaseObject* /*sumoBase
     // check conditions
     if (!checkDuplicatedDemandElement(SUMO_TAG_ROUTE, id)) {
         writeError("There is another " + toString(SUMO_TAG_ROUTE) + " with the same ID='" + id + "'.");
-    } else {
+    } else if (edges.size() > 0) {
         // create GNERoute
         GNEDemandElement* route = new GNERoute(myNet, id, vClass, edges, color, repeat, cycleTime, routeParameters);
         if (myAllowUndoRedo) {
