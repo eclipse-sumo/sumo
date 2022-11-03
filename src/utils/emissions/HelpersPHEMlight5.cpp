@@ -41,6 +41,13 @@ HelpersPHEMlight5::HelpersPHEMlight5() :
 }
 
 
+HelpersPHEMlight5::~HelpersPHEMlight5() {
+    for (const auto& cep : myCEPs) {
+        delete cep.second;
+    }
+}
+
+
 SUMOEmissionClass
 HelpersPHEMlight5::getClassByName(const std::string& eClass, const SUMOVehicleClass vc) {
     if (eClass == "unknown" && !myEmissionClassStrings.hasString("unknown")) {

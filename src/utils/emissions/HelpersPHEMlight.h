@@ -52,8 +52,12 @@ public:
      */
     HelpersPHEMlight();
 
+    /** @brief Destructor
+     */
+    virtual ~HelpersPHEMlight();
+
 protected:
-    /** @brief Constructorfor subclasses
+    /** @brief Constructor for subclasses
      * @param[in] name the name of the model (string before the '/' in the emission class attribute)
      */
     HelpersPHEMlight(std::string name, const int baseIndex, const int defaultClass)
