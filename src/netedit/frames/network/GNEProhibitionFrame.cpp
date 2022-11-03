@@ -275,7 +275,10 @@ GNEProhibitionFrame::getSelectionModul() const {
 
 void
 GNEProhibitionFrame::buildProhibition(GNEConnection* conn, bool /* mayDefinitelyPass */, bool /* allowConflict */, bool /* toggle */) {
-    if (myCurrentConn == nullptr) {
+    if (myCurrentConn != nullptr) {
+        mySelectionModul->onCmdCancel(nullptr, 0, nullptr);
+    }
+    if (conn != nullptr){
         myCurrentConn = conn;
         myCurrentConn->setSpecialColor(&myViewNet->getVisualisationSettings().colorSettings.selectedProhibitionColor);
 

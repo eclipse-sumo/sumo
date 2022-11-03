@@ -682,7 +682,7 @@ GNEConnection::changeTLIndex(SumoXMLAttr key, int tlIndex, int tlIndex2, GNEUndo
 
 void
 GNEConnection::drawConnectionArrows(const GUIVisualizationSettings& s) const {
-    if (s.showLane2Lane) {
+    if (s.showLaneDirection) {
         for (int i = 1; i < (int)myConnectionGeometry.getShape().size(); i++) {
             const auto posA = myConnectionGeometry.getShape()[i-1];
             const auto posB = myConnectionGeometry.getShape()[i];

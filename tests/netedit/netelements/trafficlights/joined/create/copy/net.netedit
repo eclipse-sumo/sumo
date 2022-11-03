@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-14 15:57:02 by Eclipse SUMO netedit Version v1_14_1+1757-dea40b50d78
+<!-- generated on 2022-11-03 16:03:52 by Eclipse SUMO netedit Version v1_14_1+2210-b8d3eb2c6a3
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.14Oct155601.5140\netedit.gui\netelements\trafficlights\joined\create\copy\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Nov160252.20484\netedit.gui\netelements\trafficlights\joined\create\copy\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.14Oct155601.5140\netedit.gui\netelements\trafficlights\joined\create\copy\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Nov160252.20484\netedit.gui\netelements\trafficlights\joined\create\copy\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,12 +30,12 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.14Oct155601.5140\netedit.gui\netelements\trafficlights\joined\create\copy\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.14Oct155601.5140\netedit.gui\netelements\trafficlights\joined\create\copy\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.14Oct155601.5140\netedit.gui\netelements\trafficlights\joined\create\copy\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.14Oct155601.5140\netedit.gui\netelements\trafficlights\joined\create\copy\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.14Oct155601.5140\netedit.gui\netelements\trafficlights\joined\create\copy\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.14Oct155601.5140\netedit.gui\netelements\trafficlights\joined\create\copy\datas.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Nov160252.20484\netedit.gui\netelements\trafficlights\joined\create\copy\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Nov160252.20484\netedit.gui\netelements\trafficlights\joined\create\copy\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Nov160252.20484\netedit.gui\netelements\trafficlights\joined\create\copy\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Nov160252.20484\netedit.gui\netelements\trafficlights\joined\create\copy\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Nov160252.20484\netedit.gui\netelements\trafficlights\joined\create\copy\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Nov160252.20484\netedit.gui\netelements\trafficlights\joined\create\copy\datas.xml"/>
     </netedit>
 
     <visualisation>
@@ -43,12 +43,12 @@
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.14Oct155601.5140\netedit.gui\netelements\trafficlights\joined\create\copy\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Nov160252.20484\netedit.gui\netelements\trafficlights\joined\create\copy\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.14Oct155601.5140\netedit.gui\netelements\trafficlights\joined\create\copy\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Nov160252.20484\netedit.gui\netelements\trafficlights\joined\create\copy\log.txt"/>
     </report>
 
 </configuration>
@@ -194,7 +194,7 @@
         <phase duration="6"  state="GGGgggggGGGgggggGGGGGGGG"/>
         <phase duration="3"  state="yyyyyyyyyyyyyyyyyyyyyyyy"/>
     </tlLogic>
-    <tlLogic id="J0" type="static" programID="2" offset="0">
+    <tlLogic id="J0" type="static" programID="1" offset="0">
         <phase duration="31" state="GGGgggggGGGgggggGGGGGGGG"/>
         <phase duration="3"  state="yyygggggyyygggggyyyyyyyy"/>
         <phase duration="6"  state="GGGgggggGGGgggggGGGGGGGG"/>
