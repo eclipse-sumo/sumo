@@ -1534,6 +1534,7 @@ GUISUMOAbstractView::showViewschemeEditor() {
     } else {
         myVisualizationChanger->setCurrent(myVisualizationSettings);
     }
+    setFocus();
     myVisualizationChanger->show();
 }
 
