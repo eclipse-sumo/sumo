@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-11-01 14:44:45 by Eclipse SUMO sumo Version v1_14_1+2149-ab3f80b
+<!-- generated on 2022-11-03 18:39:55 by Eclipse SUMO sumo Version v1_14_1+2205-02cde80
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -731,6 +731,24 @@
 
         <!-- The &apos;btsender&apos; devices are set deterministic using a fraction of 1000 -->
         <device.btsender.deterministic value="false" type="BOOL"/>
+
+        <!-- The probability for a person to have a &apos;btsender&apos; device -->
+        <person-device.btsender.probability value="-1" type="FLOAT"/>
+
+        <!-- Assign a &apos;btsender&apos; device to named persons -->
+        <person-device.btsender.explicit value="" synonymes="person-device.btsender.knownveh" type="STR[]"/>
+
+        <!-- The &apos;btsender&apos; devices are set deterministic using a fraction of 1000 -->
+        <person-device.btsender.deterministic value="false" type="BOOL"/>
+
+        <!-- The probability for a person to have a &apos;btreceiver&apos; device -->
+        <person-device.btreceiver.probability value="-1" type="FLOAT"/>
+
+        <!-- Assign a &apos;btreceiver&apos; device to named persons -->
+        <person-device.btreceiver.explicit value="" synonymes="person-device.btreceiver.knownveh" type="STR[]"/>
+
+        <!-- The &apos;btreceiver&apos; devices are set deterministic using a fraction of 1000 -->
+        <person-device.btreceiver.deterministic value="false" type="BOOL"/>
 
     </communication>
 
