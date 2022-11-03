@@ -53,7 +53,7 @@ FXIMPLEMENT(GNEProhibitionFrame::Selection, FXVerticalFrame, SelectionMap, ARRAY
 // ---------------------------------------------------------------------------
 
 GNEProhibitionFrame::RelativeToConnection::RelativeToConnection(GNEProhibitionFrame* prohibitionFrameParent) :
-    MFXGroupBoxModule(prohibitionFrameParent, TL("Relative to connection")),
+    MFXGroupBoxModule(prohibitionFrameParent, TL("Selected connection")),
     myProhibitionFrameParent(prohibitionFrameParent) {
     // Create label for current connection description and update it
     myConnDescriptionLabel = new FXLabel(getCollapsableFrame(), "", nullptr, GUIDesignLabelFrameInformation);
@@ -71,8 +71,10 @@ GNEProhibitionFrame::RelativeToConnection::updateDescription() const {
     if (myProhibitionFrameParent->myCurrentConn == nullptr) {
         myConnDescriptionLabel->setText(TL("No Connection selected\n"));
     } else {
-        myConnDescriptionLabel->setText(("from lane " + myProhibitionFrameParent->myCurrentConn->getLaneFrom()->getMicrosimID() +
-                                         "\nto lane " + myProhibitionFrameParent->myCurrentConn->getLaneTo()->getMicrosimID()).c_str());
+        myConnDescriptionLabel->setText(
+            ("- Junction: " + myProhibitionFrameParent->myCurrentConn->getEdgeFrom()->getToJunction()->getID() + "\n" + 
+             "- From lane: " + myProhibitionFrameParent->myCurrentConn->getLaneFrom()->getMicrosimID() + "\n" + 
+             "- Fo lane: " + myProhibitionFrameParent->myCurrentConn->getLaneTo()->getMicrosimID()).c_str());
     }
 }
 
@@ -88,23 +90,41 @@ GNEProhibitionFrame::Legend::Legend(GNEProhibitionFrame* prohibitionFrameParent)
     myUnregulatedConflictColor(RGBColor::ORANGE),
     myMutualConflictColor(RGBColor::CYAN) {
     // Create labels for color legend
-    FXLabel* legendLabel = new FXLabel(getCollapsableFrame(), "Selected", nullptr, GUIDesignLabelFrameInformation);
+    MFXLabelTooltip* legendLabel = new MFXLabelTooltip(getCollapsableFrame(),
+        prohibitionFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+        "Selected", nullptr, GUIDesignLabelFrameInformation);
+    legendLabel->setTipText("Current selected connection");
     legendLabel->setTextColor(MFXUtils::getFXColor(RGBColor::WHITE));
     legendLabel->setBackColor(MFXUtils::getFXColor(prohibitionFrameParent->myViewNet->getVisualisationSettings().colorSettings.selectedProhibitionColor));
     // label for conflicts
-    legendLabel = new FXLabel(getCollapsableFrame(), "No conflict", nullptr, GUIDesignLabelFrameInformation);
+    legendLabel = new MFXLabelTooltip(getCollapsableFrame(), 
+        prohibitionFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+        "No conflict", nullptr, GUIDesignLabelFrameInformation);
+    legendLabel->setTipText("No conflict with the selected connection");
     legendLabel->setBackColor(MFXUtils::getFXColor(myUndefinedColor));
     // label for yields
-    legendLabel = new FXLabel(getCollapsableFrame(), "Yields", nullptr, GUIDesignLabelFrameInformation);
+    legendLabel = new MFXLabelTooltip(getCollapsableFrame(), 
+        prohibitionFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+        "Yields", nullptr, GUIDesignLabelFrameInformation);
+    legendLabel->setTipText("Connection yields the selected connection");
     legendLabel->setBackColor(MFXUtils::getFXColor(myProhibitedColor));
     // label for right of way
-    legendLabel = new FXLabel(getCollapsableFrame(), "Has right of way", nullptr, GUIDesignLabelFrameInformation);
+    legendLabel = new MFXLabelTooltip(getCollapsableFrame(),
+        prohibitionFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+        "Has right of way", nullptr, GUIDesignLabelFrameInformation);
+    legendLabel->setTipText("Connection has right of way with the selected connection");
     legendLabel->setBackColor(MFXUtils::getFXColor(myProhibitingColor));
     // label for unregulated conflict
-    legendLabel = new FXLabel(getCollapsableFrame(), "Unregulated conflict", nullptr, GUIDesignLabelFrameInformation);
+    legendLabel = new MFXLabelTooltip(getCollapsableFrame(),
+        prohibitionFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+        "Unregulated conflict", nullptr, GUIDesignLabelFrameInformation);
+    legendLabel->setTipText("Connection has a unregulated conflict with the selected connection");
     legendLabel->setBackColor(MFXUtils::getFXColor(myUnregulatedConflictColor));
     // label for mutual conflict
-    legendLabel = new FXLabel(getCollapsableFrame(), "Mutual conflict", nullptr, GUIDesignLabelFrameInformation);
+    legendLabel = new MFXLabelTooltip(getCollapsableFrame(),
+        prohibitionFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+        "Mutual conflict", nullptr, GUIDesignLabelFrameInformation);
+    legendLabel->setTipText("Connection has a mutual conflict with the selected connection");
     legendLabel->setBackColor(MFXUtils::getFXColor(myMutualConflictColor));
 }
 
@@ -148,24 +168,18 @@ GNEProhibitionFrame::Legend::getMutualConflictColor() const {
 GNEProhibitionFrame::Selection::Selection(GNEProhibitionFrame* prohibitionFrameParent) :
     MFXGroupBoxModule(prohibitionFrameParent, TL("Selection")),
     myProhibitionFrameParent(prohibitionFrameParent) {
-
-        // Create labels for color legend
-    FXLabel* legendLabel = new FXLabel(getCollapsableFrame(), "Selected", nullptr, GUIDesignLabelFrameInformation);
-
     // Create "OK" button
     mySaveButton = new MFXButtonTooltip(getCollapsableFrame(),
         prohibitionFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
         TL("OK"),
         GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_OK, GUIDesignButton);
     mySaveButton->setTipText("Save prohibition modifications (Enter)");
-
     // Create "Cancel" button
     myCancelButton = new MFXButtonTooltip(getCollapsableFrame(),
         prohibitionFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
         TL("Unselect connection"),
         GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_CANCEL, GUIDesignButton);
     myCancelButton->setTipText("Unselect connection (Esc)");
-
     // Currently mySaveButton is hidden
     mySaveButton->hide();
 }
