@@ -101,6 +101,10 @@ MSTransportable::proceed(MSNet* net, SUMOTime time, const bool vehicleArrived) {
     bool accessToStop = false;
     if (prior->getStageType() == MSStageType::WALKING || prior->getStageType() == MSStageType::DRIVING) {
         accessToStop = checkAccess(prior);
+    } else if (prior->getStageType() == MSStageType::WAITING_FOR_DEPART) {
+        for (MSTransportableDevice* const dev : myDevices) {
+            dev->notifyEnter(*this, MSMoveReminder::NOTIFICATION_DEPARTED, nullptr);
+        }
     }
     if (!accessToStop && (myStep == myPlan->end()
                           || ((*myStep)->getStageType() != MSStageType::DRIVING

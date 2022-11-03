@@ -203,7 +203,7 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 RandHelper::loadState(attrs.getString(SUMO_ATTR_RNG_DEVICE), MSDevice::getEquipmentRNG());
             }
             if (attrs.hasAttribute(SUMO_ATTR_RNG_DEVICE_BT)) {
-                RandHelper::loadState(attrs.getString(SUMO_ATTR_RNG_DEVICE_BT), MSDevice_BTreceiver::getEquipmentRNG());
+                RandHelper::loadState(attrs.getString(SUMO_ATTR_RNG_DEVICE_BT), MSVehicleDevice_BTreceiver::getEquipmentRNG());
             }
             if (attrs.hasAttribute(SUMO_ATTR_RNG_DRIVERSTATE)) {
                 RandHelper::loadState(attrs.getString(SUMO_ATTR_RNG_DRIVERSTATE), OUProcess::getRNG());

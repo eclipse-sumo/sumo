@@ -126,6 +126,9 @@ public:
      */
     virtual const MSLane* getLane() const = 0;
 
+    /// @brief return index of edge within route
+    virtual int getRoutePosition() const = 0;
+
     /** @brief Returns the slope of the road at object's position in degrees
      * @return The slope
      */

@@ -70,8 +70,8 @@ void
 MSDevice::insertOptions(OptionsCont& oc) {
     MSDevice_Routing::insertOptions(oc);
     MSDevice_Emissions::insertOptions(oc);
-    MSDevice_BTreceiver::insertOptions(oc);
-    MSDevice_BTsender::insertOptions(oc);
+    MSVehicleDevice_BTreceiver::insertOptions(oc);
+    MSVehicleDevice_BTsender::insertOptions(oc);
     MSDevice_Example::insertOptions(oc);
     MSDevice_Battery::insertOptions(oc);
     MSDevice_SSM::insertOptions(oc);
@@ -88,6 +88,8 @@ MSDevice::insertOptions(OptionsCont& oc) {
 
     MSTransportableDevice_Routing::insertOptions(oc);
     MSTransportableDevice_FCD::insertOptions(oc);
+    MSTransportableDevice_BTsender::insertOptions(oc);
+    MSTransportableDevice_BTreceiver::insertOptions(oc);
 }
 
 
@@ -105,8 +107,8 @@ MSDevice::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& int
     MSDevice_Tripinfo::buildVehicleDevices(v, into);
     MSDevice_Routing::buildVehicleDevices(v, into);
     MSDevice_Emissions::buildVehicleDevices(v, into);
-    MSDevice_BTreceiver::buildVehicleDevices(v, into);
-    MSDevice_BTsender::buildVehicleDevices(v, into);
+    MSVehicleDevice_BTreceiver::buildVehicleDevices(v, into);
+    MSVehicleDevice_BTsender::buildVehicleDevices(v, into);
     MSDevice_Example::buildVehicleDevices(v, into);
     MSDevice_Battery::buildVehicleDevices(v, into);
     MSDevice_SSM::buildVehicleDevices(v, into);
@@ -125,6 +127,8 @@ void
 MSDevice::buildTransportableDevices(MSTransportable& p, std::vector<MSTransportableDevice*>& into) {
     MSTransportableDevice_Routing::buildDevices(p, into);
     MSTransportableDevice_FCD::buildDevices(p, into);
+    MSTransportableDevice_BTsender::buildDevices(p, into);
+    MSTransportableDevice_BTreceiver::buildDevices(p, into);
 }
 
 

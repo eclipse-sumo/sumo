@@ -521,10 +521,12 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
             glVertex2d(.5, brakeGap);
             glEnd();
         }
-        MSDevice_BTreceiver* dev = static_cast<MSDevice_BTreceiver*>(myVehicle.getDevice(typeid(MSDevice_BTreceiver)));
-        if (dev != nullptr && s.showBTRange) {
-            glColor3d(1., 0., 0.);
-            GLHelper::drawOutlineCircle(dev->getRange(), dev->getRange() - .2, 32);
+        if (s.showBTRange) {
+            MSVehicleDevice_BTreceiver* dev = static_cast<MSVehicleDevice_BTreceiver*>(myVehicle.getDevice(typeid(MSVehicleDevice_BTreceiver)));
+            if (dev != nullptr) {
+                glColor3d(1., 0., 0.);
+                GLHelper::drawOutlineCircle(dev->getRange(), dev->getRange() - .2, 32);
+            }
         }
         // draw the blinker and brakelights if wished
         if (s.showBlinker) {

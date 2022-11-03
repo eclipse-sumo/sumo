@@ -47,7 +47,7 @@ class MSTransportable;
  *  may be overwritten by real devices:
  * @arg Retrieval of the person that holds the device
  */
-class MSTransportableDevice : public MSDevice {
+class MSTransportableDevice : public MSDevice, public MSMoveReminder {
 public:
     /** @brief Constructor
      *
@@ -55,7 +55,7 @@ public:
      * @param[in] id The ID of the device
      */
     MSTransportableDevice(MSTransportable& holder, const std::string& id) :
-        MSDevice(id), myHolder(holder) {
+        MSDevice(id), MSMoveReminder(id), myHolder(holder) {
     }
 
 
