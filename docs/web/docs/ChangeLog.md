@@ -324,7 +324,7 @@ title: ChangeLog
 - The new default **--xml-validation** mode is *local* which only reads the local schema file but does not do network access to prevent XXE attacks. Issue #11054
 - Cadyts-files can be downloaded again. Issue #11014
 - Fixed the default state of some netedit toggle buttons (but kept their default semantics). Issue #10066
-- Improved documentation for [3D-Visualization](sumo-gui.html#3d_visualization). Issue #10926
+- Improved documentation for [3D-Visualization](sumo-gui.md#3d_visualization). Issue #10926
 
 ## Version 1.14.1 (19.07.2022)
 
