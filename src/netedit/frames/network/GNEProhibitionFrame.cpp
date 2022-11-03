@@ -26,6 +26,8 @@
 #include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/network/GNEJunction.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 
 #include "GNEProhibitionFrame.h"
 
@@ -33,13 +35,14 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEProhibitionFrame) GNEProhibitionFrameMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_CANCEL,     GNEProhibitionFrame::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,  MID_OK,         GNEProhibitionFrame::onCmdOK)
+FXDEFMAP(GNEProhibitionFrame::Selection) SelectionMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_OK,         GNEProhibitionFrame::Selection::onCmdOK),
+    FXMAPFUNC(SEL_COMMAND,  MID_CANCEL,     GNEProhibitionFrame::Selection::onCmdCancel),
+    FXMAPFUNC(SEL_UPDATE,   MID_CANCEL,     GNEProhibitionFrame::Selection::onCmdRequiereConnection),
 };
 
 // Object implementation
-FXIMPLEMENT(GNEProhibitionFrame, FXVerticalFrame, GNEProhibitionFrameMap, ARRAYNUMBER(GNEProhibitionFrameMap))
+FXIMPLEMENT(GNEProhibitionFrame::Selection, FXVerticalFrame, SelectionMap, ARRAYNUMBER(SelectionMap))
 
 // ===========================================================================
 // method definitions
@@ -139,27 +142,71 @@ GNEProhibitionFrame::Legend::getMutualConflictColor() const {
 }
 
 // ---------------------------------------------------------------------------
-// GNEProhibitionFrame::Modifications - methods
+// GNEProhibitionFrame::Selection - methods
 // ---------------------------------------------------------------------------
 
-GNEProhibitionFrame::Modifications::Modifications(GNEProhibitionFrame* prohibitionFrameParent) :
-    MFXGroupBoxModule(prohibitionFrameParent, TL("Modifications")) {
+GNEProhibitionFrame::Selection::Selection(GNEProhibitionFrame* prohibitionFrameParent) :
+    MFXGroupBoxModule(prohibitionFrameParent, TL("Selection")),
+    myProhibitionFrameParent(prohibitionFrameParent) {
+
+        // Create labels for color legend
+    FXLabel* legendLabel = new FXLabel(getCollapsableFrame(), "Selected", nullptr, GUIDesignLabelFrameInformation);
 
     // Create "OK" button
-    mySaveButton = new FXButton(getCollapsableFrame(), TL("OK\t\tSave prohibition modifications (Enter)"),
-                                GUIIconSubSys::getIcon(GUIIcon::ACCEPT), prohibitionFrameParent, MID_OK, GUIDesignButton);
+    mySaveButton = new MFXButtonTooltip(getCollapsableFrame(),
+        prohibitionFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+        TL("OK"),
+        GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_OK, GUIDesignButton);
+    mySaveButton->setTipText("Save prohibition modifications (Enter)");
 
     // Create "Cancel" button
-    myCancelButton = new FXButton(getCollapsableFrame(), TL("Cancel\t\tDiscard prohibition modifications (Esc)"),
-                                  GUIIconSubSys::getIcon(GUIIcon::CANCEL), prohibitionFrameParent, MID_CANCEL, GUIDesignButton);
+    myCancelButton = new MFXButtonTooltip(getCollapsableFrame(),
+        prohibitionFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+        TL("Unselect connection"),
+        GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_CANCEL, GUIDesignButton);
+    myCancelButton->setTipText("Unselect connection (Esc)");
 
-    // Currently mySaveButton is disabled
-    mySaveButton->disable();
+    // Currently mySaveButton is hidden
     mySaveButton->hide();
 }
 
 
-GNEProhibitionFrame::Modifications::~Modifications() {}
+GNEProhibitionFrame::Selection::~Selection() {}
+
+
+long
+GNEProhibitionFrame::Selection::onCmdOK(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+long
+GNEProhibitionFrame::Selection::onCmdCancel(FXObject*, FXSelector, void*) {
+    if (myProhibitionFrameParent->myCurrentConn != nullptr) {
+        for (const auto &conn : myProhibitionFrameParent->myConcernedConns) {
+            conn->setSpecialColor(nullptr);
+        }
+        myProhibitionFrameParent->myCurrentConn->setSpecialColor(nullptr);
+        myProhibitionFrameParent->myCurrentConn = nullptr;
+        myProhibitionFrameParent->myConcernedConns.clear();
+        myProhibitionFrameParent->myRelativeToConnection->updateDescription();
+        myProhibitionFrameParent->myViewNet->updateViewNet();
+    }
+    return 1;
+}
+
+
+long
+GNEProhibitionFrame::Selection::onCmdRequiereConnection(FXObject*, FXSelector, void*) {
+    if (myProhibitionFrameParent->myCurrentConn) {
+        mySaveButton->enable();
+        myCancelButton->enable();
+    } else {
+        mySaveButton->disable();
+        myCancelButton->disable();
+    }
+    return 1;
+}
 
 // ---------------------------------------------------------------------------
 // GNEProhibitionFrame - methods
@@ -177,8 +224,8 @@ GNEProhibitionFrame::GNEProhibitionFrame(GNEViewParent* viewParent, GNEViewNet* 
     // create legend
     myLegend = new Legend(this);
 
-    // create Modifications
-    myModifications = new Modifications(this);
+    // create Selection modul
+    mySelectionModul = new Selection(this);
 }
 
 
@@ -204,25 +251,9 @@ GNEProhibitionFrame::hide() {
 }
 
 
-long
-GNEProhibitionFrame::onCmdCancel(FXObject*, FXSelector, void*) {
-    if (myCurrentConn != nullptr) {
-        for (auto conn : myConcernedConns) {
-            conn->setSpecialColor(nullptr);
-        }
-        myCurrentConn->setSpecialColor(nullptr);
-        myCurrentConn = nullptr;
-        myConcernedConns.clear();
-        myRelativeToConnection->updateDescription();
-        myViewNet->updateViewNet();
-    }
-    return 1;
-}
-
-
-long
-GNEProhibitionFrame::onCmdOK(FXObject*, FXSelector, void*) {
-    return 1;
+GNEProhibitionFrame::Selection*
+GNEProhibitionFrame::getSelectionModul() const {
+    return mySelectionModul;
 }
 
 // ---------------------------------------------------------------------------

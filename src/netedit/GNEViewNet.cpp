@@ -1372,7 +1372,7 @@ GNEViewNet::abortOperation(bool clearSelection) {
                 myViewParent->getTAZFrame()->getCurrentTAZModule()->setTAZ(nullptr);
             }
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_PROHIBITION) {
-            myViewParent->getProhibitionFrame()->onCmdCancel(nullptr, 0, nullptr);
+            myViewParent->getProhibitionFrame()->getSelectionModul()->onCmdCancel(nullptr, 0, nullptr);
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL) {
             // abort both network elements selections
             myViewParent->getAdditionalFrame()->getEdgesSelector()->clearSelection();
