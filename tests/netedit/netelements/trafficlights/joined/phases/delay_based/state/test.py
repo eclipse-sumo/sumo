@@ -47,7 +47,7 @@ netedit.modifyAttribute(netedit.attrs.TLS.join.delayBasedPhase.state, "dummyDur"
 netedit.modifyAttribute(netedit.attrs.TLS.join.delayBasedPhase.state, "", False)
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.join.delayBasedPhase.state, "ryryryryryryryryryryryryryryryryryryryry", False)
+netedit.modifyAttribute(netedit.attrs.TLS.join.delayBasedPhase.state, "ryryryryryryryryryryryry", False)
 
 # type enter to save changes
 netedit.typeEnter()
