@@ -40,27 +40,6 @@ netedit.selectTLSMode()
 # select junction
 netedit.leftClick(referencePosition, 320, 220)
 
-# create TLS
-netedit.createTLS()
-
-# join TLS
-netedit.joinTSL()
-
-# select four corners
-netedit.leftClick(referencePosition, 150, 220)
-netedit.leftClick(referencePosition, 500, 220)
-netedit.leftClick(referencePosition, 320, 50)
-netedit.leftClick(referencePosition, 320, 400)
-
-# join tls
-netedit.typeEnter()
-
-# change type
-netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "delay_based", False)
-
-# type enter to save changes
-netedit.typeEnter()
-
 # set attribute
 netedit.modifyAttribute(netedit.attrs.TLS.join.delayBasedPhase.state, "dummyDur", False)
 
@@ -68,13 +47,13 @@ netedit.modifyAttribute(netedit.attrs.TLS.join.delayBasedPhase.state, "dummyDur"
 netedit.modifyAttribute(netedit.attrs.TLS.join.delayBasedPhase.state, "", False)
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.join.delayBasedPhase.state, "ryyggrggyyyggrggyyyyryyy", False)
+netedit.modifyAttribute(netedit.attrs.TLS.join.delayBasedPhase.state, "ryryryryryryryryryryryryryryryryryryryry", False)
 
 # type enter to save changes
 netedit.typeEnter()
 
-# type ESC (for undo-redo)
-netedit.typeEscape()
+# go to inspect mode
+netedit.inspectMode()
 
 # Check undo
 netedit.undo(referencePosition, 1)
