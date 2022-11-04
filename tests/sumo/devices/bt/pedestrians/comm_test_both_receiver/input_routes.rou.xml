@@ -1,4 +1,4 @@
-<walks xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 	<person id="right" depart="0">
 		<walk edges="beg beg2right right right2end end rend"/>
 	</person>
@@ -6,4 +6,4 @@
 		<walk edges="beg beg2left left left2end end rend"/>
 	</person>
 
-</walks>
+</routes>

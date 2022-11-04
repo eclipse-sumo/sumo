@@ -1,4 +1,4 @@
-<walks xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 	<person id="1" depart="0" departPos="4890">
 		<walk edges="1o" arrivalPos="4990"/>
 	</person>
@@ -6,4 +6,4 @@
 		<walk edges="1i" arrivalPos="110"/>
 	</person>
 
-</walks>
+</routes>
