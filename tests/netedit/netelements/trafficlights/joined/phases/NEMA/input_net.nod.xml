@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-12 14:53:15 by Eclipse SUMO netconvert Version v1_14_1+1648-5ffae7ec9dd
+<!-- generated on 2022-11-04 09:37:50 by Eclipse SUMO netedit Version v1_14_1+2222-c0b312538fe
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:/SUMO/tests/netedit\netelements\trafficlights\joined\phases\NEMA/input_net.net.xml"/>
+        <sumo-net-file value="D:\SUMO\tests\netedit\netelements\trafficlights\joined\phases\NEMA\input_net.net.xml"/>
     </input>
 
     <output>
-        <plain-output-prefix value="D:/SUMO/tests/netedit\netelements\trafficlights\joined\phases\NEMA/input_net"/>
+        <output-file value="D:\SUMO\tests\netedit\netelements\trafficlights\joined\phases\NEMA\input_net.net.xml"/>
     </output>
 
     <processing>
@@ -33,19 +33,19 @@
 -->
 
 <nodes version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
-    <location netOffset="0.00,0.00" convBoundary="-40.00,10.00,40.00,90.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+    <location netOffset="40.00,-10.00" convBoundary="0.00,0.00,80.00,80.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
-    <node id="J0" x="0.00" y="50.00" type="priority"/>
-    <node id="J1" x="-30.00" y="50.00" type="priority"/>
-    <node id="J10" x="20.00" y="90.00" type="dead_end"/>
-    <node id="J11" x="40.00" y="30.00" type="dead_end"/>
-    <node id="J13" x="20.00" y="10.00" type="dead_end"/>
-    <node id="J2" x="30.00" y="50.00" type="priority"/>
-    <node id="J3" x="0.00" y="80.00" type="priority"/>
-    <node id="J4" x="0.00" y="20.00" type="priority"/>
-    <node id="J5" x="-40.00" y="30.00" type="dead_end"/>
-    <node id="J6" x="-20.00" y="10.00" type="dead_end"/>
-    <node id="J7" x="40.00" y="70.00" type="dead_end"/>
-    <node id="J8" x="-20.00" y="90.00" type="dead_end"/>
-    <node id="J9" x="-40.00" y="70.00" type="dead_end"/>
+    <node id="J0" x="40.00" y="40.00" type="traffic_light" tl="J0" tlType="NEMA" controlledInner="-E0 -E1 -E2 -E3 E0 E1 E2 E3"/>
+    <node id="J1" x="10.00" y="40.00" type="traffic_light" tl="J0" tlType="NEMA" controlledInner="-E0 -E1 -E2 -E3 E0 E1 E2 E3"/>
+    <node id="J10" x="60.00" y="80.00" type="dead_end"/>
+    <node id="J11" x="80.00" y="20.00" type="dead_end"/>
+    <node id="J13" x="60.00" y="0.00" type="dead_end"/>
+    <node id="J2" x="70.00" y="40.00" type="traffic_light" tl="J0" tlType="NEMA" controlledInner="-E0 -E1 -E2 -E3 E0 E1 E2 E3"/>
+    <node id="J3" x="40.00" y="70.00" type="traffic_light" tl="J0" tlType="NEMA" controlledInner="-E0 -E1 -E2 -E3 E0 E1 E2 E3"/>
+    <node id="J4" x="40.00" y="10.00" type="traffic_light" tl="J0" tlType="NEMA" controlledInner="-E0 -E1 -E2 -E3 E0 E1 E2 E3"/>
+    <node id="J5" x="0.00" y="20.00" type="dead_end"/>
+    <node id="J6" x="20.00" y="0.00" type="dead_end"/>
+    <node id="J7" x="80.00" y="60.00" type="dead_end"/>
+    <node id="J8" x="20.00" y="80.00" type="dead_end"/>
+    <node id="J9" x="0.00" y="60.00" type="dead_end"/>
 </nodes>
