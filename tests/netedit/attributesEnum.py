@@ -551,14 +551,14 @@ class TLS:
             state = 18 + (1 * 2)
             nxt = 18 + (2 * 2)
             name = 18 + (3 * 2)
-            addButton = 18 + (4 * 2)
-            deleteButton = 18 + (5 * 2)
-            moveUp = 18 + (6 * 2)
-            moveDown = 18 + (7 * 2)
-            cleanStates = 18 + (8 * 2)
-            groupSignal = 18 + (8 * 2)
-            addStates = 18 + (8 * 2)
-            ungroupSignal = 18 + (8 * 2)
+            addButton = 18 + (5 * 2)
+            deleteButton = 18 + (6 * 2)
+            moveUp = 18 + (7 * 2)
+            moveDown = 18 + (8 * 2)
+            cleanStates = 18 + (9 * 2)
+            groupSignal = 18 + (9 * 2) + 1
+            addStates = 18 + (9 * 2) + 2
+            ungroupSignal = 18 + (8 * 2) + 3
 
         class actuatedPhase:
             dur = 19 + (0 * 2)
@@ -569,14 +569,14 @@ class TLS:
             latestEnd = 19 + (5 * 2)
             nxt = 19 + (6 * 2) + 6
             name = 19 + (7 * 2)
-            addButton = 19 + (8 * 2)
-            deleteButton = 19 + (9 * 2)
-            moveUp = 19 + (10 * 2)
-            moveDown = 19 + (11 * 2)
-            cleanStates = 19 + (12 * 2)
-            groupSignal = 19 + (12 * 2)
-            addStates = 19 + (12 * 2)
-            ungroupSignal = 19 + (12 * 2)
+            addButton = 19 + (9 * 2)
+            deleteButton = 19 + (10 * 2)
+            moveUp = 19 + (11 * 2)
+            moveDown = 19 + (12 * 2)
+            cleanStates = 19 + (13 * 2)
+            groupSignal = 19 + (13 * 2) + 1
+            addStates = 19 + (13 * 2) + 2
+            ungroupSignal = 19 + (13 * 2) + 3
 
         class delayBasedPhase:
             dur = 19 + (0 * 2)

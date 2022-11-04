@@ -62,38 +62,44 @@ Debug: Created connection 'fromE3_2to-E3_2' in retrieveGNEConnection()
 Debug: Created connection 'fromE9_1to-E3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromE9_1to-E3_2' in retrieveGNEConnection()
 Debug: Created connection 'fromE9_2toE5_2' in retrieveGNEConnection()
-Debug: Adding TLS into junction 'J0'
-Debug: Setting new attribute
-Debug: Key ENTER pressed
-Debug: Adding TLS into junction 'J1'
-Debug: Setting new attribute
-Debug: Deleting TLS from junction 'J1'
-Debug: Adding TLS into junction 'J1'
-Debug: Adding TLS into junction 'J2'
-Debug: Setting new attribute
-Debug: Deleting TLS from junction 'J2'
-Debug: Adding TLS into junction 'J2'
-Debug: Adding TLS into junction 'J3'
-Debug: Setting new attribute
-Debug: Deleting TLS from junction 'J3'
-Debug: Adding TLS into junction 'J3'
-Debug: Adding TLS into junction 'J4'
-Debug: Setting new attribute
-Debug: Deleting TLS from junction 'J4'
-Debug: Adding TLS into junction 'J4'
-Debug: Setting new attribute
-Debug: Key ENTER pressed
 Debug: Invalid state
 Debug: Valid state
-Debug: Invalid state
-Debug: Invalid state
-Debug: Key ESC (abort) pressed
+Debug: Valid state
+Debug: Key ENTER pressed
+Debug: Deleting TLS from junction 'J0'
+Debug: Adding TLS into junction 'J0'
+Debug: Deleting TLS from junction 'J1'
+Debug: Adding TLS into junction 'J1'
+Debug: Deleting TLS from junction 'J2'
+Debug: Adding TLS into junction 'J2'
+Debug: Deleting TLS from junction 'J3'
+Debug: Adding TLS into junction 'J3'
+Debug: Deleting TLS from junction 'J4'
+Debug: Adding TLS into junction 'J4'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
+Debug: Removing TLS from junction 'J4'
+Debug: Adding TLS into junction 'J4'
+Debug: Removing TLS from junction 'J3'
+Debug: Adding TLS into junction 'J3'
+Debug: Removing TLS from junction 'J2'
+Debug: Adding TLS into junction 'J2'
+Debug: Removing TLS from junction 'J1'
+Debug: Adding TLS into junction 'J1'
+Debug: Removing TLS from junction 'J0'
+Debug: Adding TLS into junction 'J0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute
+Debug: Deleting TLS from junction 'J0'
+Debug: Adding TLS into junction 'J0'
+Debug: Deleting TLS from junction 'J1'
+Debug: Adding TLS into junction 'J1'
+Debug: Deleting TLS from junction 'J2'
+Debug: Adding TLS into junction 'J2'
+Debug: Deleting TLS from junction 'J3'
+Debug: Adding TLS into junction 'J3'
+Debug: Deleting TLS from junction 'J4'
+Debug: Adding TLS into junction 'J4'
 Debug: network elements saved
 Debug: Additionals saved
 Debug: demand elements saved
