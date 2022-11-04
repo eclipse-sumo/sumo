@@ -46,7 +46,7 @@ Debug: Created connection 'fromE2_1to-E2_1' in retrieveGNEConnection()
 Debug: Created connection 'fromE2_2to-E2_2' in retrieveGNEConnection()
 Debug: Created connection 'fromE3_1to-E3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromE3_2to-E3_2' in retrieveGNEConnection()
-Debug: Group states
+Debug: Add unused states
 Debug: Key ENTER pressed
 Debug: Deleting TLS from junction 'J0'
 Debug: Adding TLS into junction 'J0'

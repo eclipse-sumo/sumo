@@ -555,10 +555,10 @@ class TLS:
             deleteButton = 18 + (6 * 2)
             moveUp = 18 + (7 * 2)
             moveDown = 18 + (8 * 2)
-            cleanStates = 18 + (9 * 2)
-            groupSignal = 18 + (9 * 2) + 1
-            addStates = 18 + (9 * 2) + 2
-            ungroupSignal = 18 + (9 * 2) + 3
+            cleanStates = 18 + (8 * 2) + 1
+            groupSignal = 18 + (8 * 2) + 2
+            addStates = 18 + (8 * 2) + 3
+            ungroupSignal = 18 + (8 * 2) + 4
 
         class actuatedPhase:
             dur = 19 + (0 * 2)
@@ -573,10 +573,10 @@ class TLS:
             deleteButton = 19 + (10 * 2)
             moveUp = 19 + (11 * 2)
             moveDown = 19 + (12 * 2)
-            cleanStates = 19 + (13 * 2)
-            groupSignal = 19 + (13 * 2) + 1
-            addStates = 19 + (13 * 2) + 2
-            ungroupSignal = 19 + (13 * 2) + 3
+            cleanStates = 19 + (12 * 2) + 1
+            groupSignal = 19 + (12 * 2) + 2
+            addStates = 19 + (12* 2) + 3
+            ungroupSignal = 19 + (12 * 2) + 4
 
         class delayBasedPhase:
             dur = 19 + (0 * 2)
@@ -589,10 +589,10 @@ class TLS:
             deleteButton = 19 + (8 * 2)
             moveUp = 19 + (9 * 2)
             moveDown = 19 + (10 * 2)
-            cleanStates = 19 + (11 * 2)
-            groupSignal = 19 + (10 * 2) + 1
-            addStates = 19 + (10 * 2) + 2
-            ungroupSignal = 19 + (10 * 2) + 3
+            cleanStates = 19 + (10 * 2) + 1
+            groupSignal = 19 + (10 * 2) + 2
+            addStates = 19 + (10 * 2) + 3
+            ungroupSignal = 19 + (10 * 2) + 4
 
         class NEMAPhase:
             dur = 19 + (0 * 2) 
@@ -608,10 +608,10 @@ class TLS:
             deleteButton = 19 + (11 * 2)
             moveUp = 19 + (12 * 2)
             moveDown = 19 + (13 * 2)
-            cleanStates = 19 + (14 * 2)
-            groupSignal = 19 + (14 * 2) + 1
-            addStates = 19 + (14 * 2) + 2
-            ungroupSignal = 19 + (14 * 2) + 3
+            cleanStates = 19 + (13 * 2) + 1
+            groupSignal = 19 + (13 * 2) + 2
+            addStates = 19 + (13 * 2) + 3
+            ungroupSignal = 19 + (13 * 2) + 4
 
     create = 3
     createOverlapped = 4
