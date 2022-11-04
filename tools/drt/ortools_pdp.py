@@ -68,18 +68,7 @@ def get_solution(data, manager, routing, solution, verbose):
     return solution_dict
 
 
-def main(data, time_limit_seconds=10, verbose=False):
-    """Entry point of the program."""
-    # Create the routing index manager.
-    manager = pywrapcp.RoutingIndexManager(
-        len(data['cost_matrix']), data['num_vehicles'],
-        data['starts'], data['ends'])
-
-    # Create Routing Model.
-    routing = pywrapcp.RoutingModel(manager)
-    # get solver
-    solver = routing.solver()
-
+def set_travel_cost(data: dict, routing: pywrapcp.RoutingModel, manager: pywrapcp.RoutingIndexManager, verbose: bool):
     # Create and register a transit callback.
     def distance_callback(from_index, to_index):
         """Returns the distance between the two nodes."""
@@ -95,6 +84,10 @@ def main(data, time_limit_seconds=10, verbose=False):
     # Define cost of each arc.
     routing.SetArcCostEvaluatorOfAllVehicles(transit_callback_index)
 
+    return transit_callback_index
+
+
+def add_cost_constraint(data, routing, transit_callback_index, verbose):
     # Add costs/distance constraint.
     if verbose:
         print(' Add distance constraints...')
@@ -108,8 +101,10 @@ def main(data, time_limit_seconds=10, verbose=False):
         dimension_name)
     distance_dimension = routing.GetDimensionOrDie(dimension_name)
     distance_dimension.SetGlobalSpanCostCoefficient(100)
+    return distance_dimension
 
-    # Define Transportation Requests.
+
+def add_transportation_requests_constraint(data, routing, manager, solver, distance_dimension, verbose):
     if verbose:
         print(' Add pickup and delivery constraints...')
     for request in data['pickups_deliveries']:
@@ -125,7 +120,8 @@ def main(data, time_limit_seconds=10, verbose=False):
             # allows to reject the order but gives penalty
             routing.AddDisjunction([pickup_index, delivery_index], 100_000, 2)
 
-    # Set direct route factor.
+
+def add_direct_route_factor_constraint(data, routing, manager, solver, distance_dimension, verbose):
     if data['drf'] != -1:
         if verbose:
             print(' Add direct route factor constraints...')
@@ -149,7 +145,8 @@ def main(data, time_limit_seconds=10, verbose=False):
             # objective_to_minimize = solver.Minimize(solver.Max(route_cost, direct_route_cost_drf), 10)
             routing.AddVariableMinimizedByFinalizer(solver.Max(route_cost, direct_route_cost_drf).Var())
 
-    # Force the vehicle to drop-off the reservations it already picked up
+
+def add_dropoff_constraint(data, routing, manager, verbose):
     if verbose:
         print(' Add dropoff constraints...')
     # for veh_index, do_list in enumerate(data['dropoffs']):
@@ -169,7 +166,8 @@ def main(data, time_limit_seconds=10, verbose=False):
         index = manager.NodeToIndex(res.to_node)
         routing.SetAllowedVehiclesForIndex([res.vehicle_index], index)
 
-    # Add Capacity constraint.
+
+def add_capacity_constraint(data, routing, manager, verbose):
     if verbose:
         print(' Add capacity constraints...')
 
@@ -186,12 +184,47 @@ def main(data, time_limit_seconds=10, verbose=False):
         True,  # start cumul to zero
         'Capacity')
 
-    # Setting first solution heuristic.
+
+def set_first_solution_heuristic(time_limit_seconds, verbose):
     if verbose:
         print(' Set solution heuristic...')
     search_parameters = pywrapcp.DefaultRoutingSearchParameters()
     search_parameters.first_solution_strategy = (routing_enums_pb2.FirstSolutionStrategy.PATH_MOST_CONSTRAINED_ARC)
     search_parameters.time_limit.FromSeconds(time_limit_seconds)
+    return search_parameters
+
+
+def main(data, time_limit_seconds=10, verbose=False):
+    """Entry point of the program."""
+    # Create the routing index manager.
+    manager = pywrapcp.RoutingIndexManager(
+        len(data['cost_matrix']), data['num_vehicles'],
+        data['starts'], data['ends'])
+
+    # Create Routing Model.
+    routing = pywrapcp.RoutingModel(manager)
+    # get solver
+    solver = routing.solver()
+
+    # define transit_callback and set travel cost
+    transit_callback_index = set_travel_cost(data, routing, manager, verbose)
+    # Add costs/distance constraint.
+    distance_dimension = add_cost_constraint(data, routing, transit_callback_index, verbose)
+
+    # Define Transportation Requests.
+    add_transportation_requests_constraint(data, routing, manager, solver, distance_dimension, verbose)
+
+    # Set direct route factor.
+    add_direct_route_factor_constraint(data, routing, manager, solver, distance_dimension, verbose)
+
+    # Force the vehicle to drop-off the reservations it already picked up
+    add_dropoff_constraint(data, routing, manager, verbose)
+
+    # Add Capacity constraint.
+    add_capacity_constraint(data, routing, manager, verbose)
+
+    # Setting first solution heuristic.
+    search_parameters = set_first_solution_heuristic(time_limit_seconds, verbose)
 
     # Solve the problem.
     if verbose:
