@@ -393,10 +393,10 @@ as output (person-device.fcd) or behavior (person-device.rerouting).
 The following device names are supported and can be used for the
 placeholder `<DEVICENAME>` below:
 
-- [btreiver](Simulation/Bluetooth.md)
-- [btsender](Simulation/Bluetooth.md)
-- [rerouting](Demand/Automatic_Routing.md)
-- [fcd](Simulation/Output/FCDOutput.md)
+- [btreiver](../Simulation/Bluetooth.md)
+- [btsender](../Simulation/Bluetooth.md)
+- [rerouting](../Demand/Automatic_Routing.md)
+- [fcd](../Simulation/Output/FCDOutput.md)
 
 Assignment of devices via simulation options works the same [as for vehicles](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#assignment_by_global_options) except for the fact that all options are prefixed with
 **--person-device.DEVICENAME** instead of **--device.DEVICENAME**.
