@@ -2294,7 +2294,7 @@ def resetAllTLSPhases(joined):
 
 def pressTLSPhaseButton(position):
     """
-    @brief add defaiñt `jase
+    @brief add default phase
     """
     # focus current frame
     focusOnFrame()
@@ -2313,7 +2313,7 @@ def pressTLSPhaseButton(position):
 
 def addDefaultPhase(position):
     """
-    @brief add defaiñt `jase
+    @brief add default phase
     """
     # focus current frame
     focusOnFrame()
@@ -2332,7 +2332,7 @@ def addDefaultPhase(position):
 
 def addDuplicatePhase(position):
     """
-    @brief add defaiñt `jase
+    @brief duplicate phase
     """
     # focus current frame
     focusOnFrame()
@@ -2353,7 +2353,7 @@ def addDuplicatePhase(position):
 
 def addRedPhase(position):
     """
-    @brief add defaiñt `jase
+    @brief add red phase
     """
     # focus current frame
     focusOnFrame()
@@ -2375,7 +2375,7 @@ def addRedPhase(position):
 
 def addYellowPhase(position):
     """
-    @brief add defaiñt `jase
+    @brief add yellow phase
     """
     # focus current frame
     focusOnFrame()
@@ -2397,7 +2397,7 @@ def addYellowPhase(position):
 
 def addGreenPhase(position):
     """
-    @brief add defaiñt `jase
+    @brief add green phase
     """
     # focus current frame
     focusOnFrame()
@@ -2419,7 +2419,7 @@ def addGreenPhase(position):
 
 def addGreenPriorityPhase(position):
     """
-    @brief add defaiñt `jase
+    @brief add priority phase
     """
     # focus current frame
     focusOnFrame()
