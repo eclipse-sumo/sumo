@@ -46,8 +46,8 @@ netedit.pressTLSPhaseButton(netedit.attrs.TLS.join.staticPhase.cleanStates)
 # type enter to save changes
 netedit.typeEnter()
 
-# type ESC (for undo-redo)
-netedit.typeEscape()
+# go to inspect mode
+netedit.inspectMode()
 
 # Check undo
 netedit.undo(referencePosition, 1)
