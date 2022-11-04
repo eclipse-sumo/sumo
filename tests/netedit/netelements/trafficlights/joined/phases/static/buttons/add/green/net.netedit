@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-13 13:39:28 by Eclipse SUMO netedit Version v1_14_1+1672-07ea34e7e93
+<!-- generated on 2022-11-04 12:50:36 by Eclipse SUMO netedit Version v1_14_1+2222-c0b312538fe
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.13Oct132101.7380\netedit.gui\netelements\trafficlights\joined\phases\static\buttons\add\green\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.04Nov124507.2008\netedit.gui\netelements\trafficlights\joined\phases\static\buttons\add\green\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.13Oct132101.7380\netedit.gui\netelements\trafficlights\joined\phases\static\buttons\add\green\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.04Nov124507.2008\netedit.gui\netelements\trafficlights\joined\phases\static\buttons\add\green\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,12 +30,12 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.13Oct132101.7380\netedit.gui\netelements\trafficlights\joined\phases\static\buttons\add\green\additionals.xml"/>
-        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.13Oct132101.7380\netedit.gui\netelements\trafficlights\joined\phases\static\buttons\add\green\additionals.xml"/>
-        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.13Oct132101.7380\netedit.gui\netelements\trafficlights\joined\phases\static\buttons\add\green\routes.xml"/>
-        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.13Oct132101.7380\netedit.gui\netelements\trafficlights\joined\phases\static\buttons\add\green\routes.xml"/>
-        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.13Oct132101.7380\netedit.gui\netelements\trafficlights\joined\phases\static\buttons\add\green\datas.xml"/>
-        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.13Oct132101.7380\netedit.gui\netelements\trafficlights\joined\phases\static\buttons\add\green\datas.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.04Nov124507.2008\netedit.gui\netelements\trafficlights\joined\phases\static\buttons\add\green\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.04Nov124507.2008\netedit.gui\netelements\trafficlights\joined\phases\static\buttons\add\green\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.04Nov124507.2008\netedit.gui\netelements\trafficlights\joined\phases\static\buttons\add\green\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.04Nov124507.2008\netedit.gui\netelements\trafficlights\joined\phases\static\buttons\add\green\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.04Nov124507.2008\netedit.gui\netelements\trafficlights\joined\phases\static\buttons\add\green\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.04Nov124507.2008\netedit.gui\netelements\trafficlights\joined\phases\static\buttons\add\green\datas.xml"/>
     </netedit>
 
     <visualisation>
@@ -43,12 +43,12 @@
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.13Oct132101.7380\netedit.gui\netelements\trafficlights\joined\phases\static\buttons\add\green\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.04Nov124507.2008\netedit.gui\netelements\trafficlights\joined\phases\static\buttons\add\green\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.13Oct132101.7380\netedit.gui\netelements\trafficlights\joined\phases\static\buttons\add\green\log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.04Nov124507.2008\netedit.gui\netelements\trafficlights\joined\phases\static\buttons\add\green\log.txt"/>
     </report>
 
 </configuration>
@@ -169,31 +169,9 @@
     </edge>
 
     <tlLogic id="J0" type="static" programID="0" offset="0">
-        <phase duration="31" state="GGGgggggGGGgggggGGGGGGGG"/>
-        <phase duration="3"  state="yyygggggyyygggggyyyyyyyy"/>
-        <phase duration="6"  state="GGGgggggGGGgggggGGGGGGGG"/>
-        <phase duration="3"  state="yyyyyyyyyyyyyyyyyyyyyyyy"/>
-        <phase duration="2"  state="gggggggggggggggggggggggg"/>
-        <phase duration="31" state="GGGgggggGGGgggggGGGGGGGG"/>
-        <phase duration="3"  state="yyygggggyyygggggyyyyyyyy"/>
-        <phase duration="6"  state="GGGgggggGGGgggggGGGGGGGG"/>
-        <phase duration="3"  state="yyyyyyyyyyyyyyyyyyyyyyyy"/>
-        <phase duration="31" state="GGGgggggGGGgggggGGGGGGGG"/>
-        <phase duration="3"  state="yyygggggyyygggggyyyyyyyy"/>
-        <phase duration="6"  state="GGGgggggGGGgggggGGGGGGGG"/>
-        <phase duration="3"  state="yyyyyyyyyyyyyyyyyyyyyyyy"/>
-        <phase duration="31" state="GGGgggggGGGgggggGGGGGGGG"/>
-        <phase duration="3"  state="yyygggggyyygggggyyyyyyyy"/>
-        <phase duration="6"  state="GGGgggggGGGgggggGGGGGGGG"/>
-        <phase duration="3"  state="yyyyyyyyyyyyyyyyyyyyyyyy"/>
-        <phase duration="31" state="GGGgggggGGGgggggGGGGGGGG"/>
-        <phase duration="3"  state="yyygggggyyygggggyyyyyyyy"/>
-        <phase duration="6"  state="GGGgggggGGGgggggGGGGGGGG"/>
-        <phase duration="3"  state="yyyyyyyyyyyyyyyyyyyyyyyy"/>
-        <phase duration="31" state="GGGgggggGGGgggggGGGGGGGG"/>
-        <phase duration="3"  state="yyygggggyyygggggyyyyyyyy"/>
-        <phase duration="6"  state="GGGgggggGGGgggggGGGGGGGG"/>
-        <phase duration="3"  state="yyyyyyyyyyyyyyyyyyyyyyyy"/>
+        <phase duration="31" state="rgrgrgrgrgrgrgrgrgrgrgrg"/>
+        <phase duration="3"  state="grgrgrgrgrgrgrgrgrgrgrgr"/>
+        <phase duration="3"  state="gggggggggggggggggggggggg"/>
     </tlLogic>
 
     <junction id="J0" type="traffic_light" x="30.00" y="30.00" incLanes="-E2_0 -E2_1 -E2_2 -E1_0 -E1_1 -E1_2 -E3_0 -E3_1 -E3_2 -E0_0 -E0_1 -E0_2" intLanes=":J0_0_0 :J0_0_1 :J0_2_0 :J0_16_0 :J0_4_0 :J0_4_1 :J0_6_0 :J0_17_0 :J0_8_0 :J0_8_1 :J0_10_0 :J0_18_0 :J0_12_0 :J0_12_1 :J0_14_0 :J0_19_0" shape="20.40,41.10 39.60,41.10 39.77,40.27 39.98,39.98 40.27,39.77 40.64,39.64 41.10,39.60 41.10,20.40 40.27,20.23 39.98,20.02 39.77,19.73 39.64,19.36 39.60,18.90 20.40,18.90 20.23,19.73 20.02,20.02 19.73,20.23 19.36,20.36 18.90,20.40 18.90,39.60 19.73,39.77 20.02,39.98 20.23,40.27 20.36,40.64">

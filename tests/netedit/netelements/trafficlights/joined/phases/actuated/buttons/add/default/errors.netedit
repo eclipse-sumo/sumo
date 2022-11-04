@@ -46,29 +46,8 @@ Debug: Created connection 'fromE2_1to-E2_1' in retrieveGNEConnection()
 Debug: Created connection 'fromE2_2to-E2_2' in retrieveGNEConnection()
 Debug: Created connection 'fromE3_1to-E3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromE3_2to-E3_2' in retrieveGNEConnection()
-Debug: Adding TLS into junction 'J0'
-Debug: Setting new attribute
-Debug: Key ENTER pressed
-Debug: Adding TLS into junction 'J1'
-Debug: Setting new attribute
-Debug: Deleting TLS from junction 'J1'
-Debug: Adding TLS into junction 'J1'
-Debug: Adding TLS into junction 'J2'
-Debug: Setting new attribute
-Debug: Deleting TLS from junction 'J2'
-Debug: Adding TLS into junction 'J2'
-Debug: Adding TLS into junction 'J3'
-Debug: Setting new attribute
-Debug: Deleting TLS from junction 'J3'
-Debug: Adding TLS into junction 'J3'
-Debug: Adding TLS into junction 'J4'
-Debug: Setting new attribute
-Debug: Deleting TLS from junction 'J4'
-Debug: Adding TLS into junction 'J4'
-Debug: Setting new attribute
-Debug: Key ENTER pressed
 Debug: Add default phase
-Debug: Add default phase in row 7
+Debug: Add default phase in row 1
 Debug: Key ENTER pressed
 Debug: Deleting TLS from junction 'J0'
 Debug: Adding TLS into junction 'J0'
@@ -80,7 +59,6 @@ Debug: Deleting TLS from junction 'J3'
 Debug: Adding TLS into junction 'J3'
 Debug: Deleting TLS from junction 'J4'
 Debug: Adding TLS into junction 'J4'
-Debug: Key ESC (abort) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing TLS from junction 'J4'

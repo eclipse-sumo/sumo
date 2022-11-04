@@ -555,10 +555,10 @@ class TLS:
             deleteButton = 18 + (6 * 2)
             moveUp = 18 + (7 * 2)
             moveDown = 18 + (8 * 2)
-            cleanStates = 18 + (9 * 2)
-            groupSignal = 18 + (9 * 2) + 1
-            addStates = 18 + (9 * 2) + 2
-            ungroupSignal = 18 + (8 * 2) + 3
+            cleanStates = 36
+            groupSignal = 37
+            addStates = 38
+            ungroupSignal = 39
 
         class actuatedPhase:
             dur = 19 + (0 * 2)
@@ -567,7 +567,7 @@ class TLS:
             state = 19 + (3 * 2)
             earlyEnd = 19 + (4 * 2)
             latestEnd = 19 + (5 * 2)
-            nxt = 19 + (6 * 2) + 6
+            nxt = 19 + (6 * 2)
             name = 19 + (7 * 2)
             addButton = 19 + (9 * 2)
             deleteButton = 19 + (10 * 2)
