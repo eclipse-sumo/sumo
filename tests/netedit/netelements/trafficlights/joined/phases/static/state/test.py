@@ -40,21 +40,6 @@ netedit.selectTLSMode()
 # select junction
 netedit.leftClick(referencePosition, 320, 220)
 
-# create TLS
-netedit.createTLS()
-
-# join TLS
-netedit.joinTSL()
-
-# select four corners
-netedit.leftClick(referencePosition, 150, 220)
-netedit.leftClick(referencePosition, 500, 220)
-netedit.leftClick(referencePosition, 320, 50)
-netedit.leftClick(referencePosition, 320, 400)
-
-# join tls
-netedit.typeEnter()
-
 # set attribute
 netedit.modifyAttribute(netedit.attrs.TLS.join.staticPhase.state, "dummyDur", False)
 
@@ -62,7 +47,7 @@ netedit.modifyAttribute(netedit.attrs.TLS.join.staticPhase.state, "dummyDur", Fa
 netedit.modifyAttribute(netedit.attrs.TLS.join.staticPhase.state, "", False)
 
 # set attribute
-netedit.modifyAttribute(netedit.attrs.TLS.join.staticPhase.state, "ryyggrggyyyggrggyyyyryyy", False)
+netedit.modifyAttribute(netedit.attrs.TLS.join.staticPhase.state, "ryryryryryryryryryryryryryryryryryryryry", False)
 
 # type enter to save changes
 netedit.typeEnter()

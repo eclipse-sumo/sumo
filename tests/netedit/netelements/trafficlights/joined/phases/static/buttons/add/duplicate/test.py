@@ -40,21 +40,6 @@ netedit.selectTLSMode()
 # select junction
 netedit.leftClick(referencePosition, 320, 220)
 
-# create TLS
-netedit.createTLS()
-
-# join TLS
-netedit.joinTSL()
-
-# select four corners
-netedit.leftClick(referencePosition, 150, 220)
-netedit.leftClick(referencePosition, 500, 220)
-netedit.leftClick(referencePosition, 320, 50)
-netedit.leftClick(referencePosition, 320, 400)
-
-# join tls
-netedit.typeEnter()
-
 # add phase
 netedit.addDuplicatePhase(netedit.attrs.TLS.join.staticPhase.addButton)
 
