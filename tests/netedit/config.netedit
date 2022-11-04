@@ -76,6 +76,8 @@ errors:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
 errors:\\{REPLACE /}
 log:{INTERNAL writedir}{REPLACE <TEXTTEST_SANDBOX>}
 log:\\{REPLACE /}
+log:Discarding invalid crossing{LINES 1}
+log:Invalid pedestrian topology{LINES 1}
 
 [floating_point_tolerance]
 net:0.0101

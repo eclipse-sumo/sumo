@@ -18,12 +18,11 @@ GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31
 Error: Attribute 'edges' is missing in definition of route 'route_0'.
 Error: Attribute 'edges' in definition of route 'route_1' is empty.
 Error: Could not build route in netedit; edge doesn't exist.
-Debug: Adding route 'route_2' in GNEChange_DemandElement
 Debug: Adding route 'route_3' in GNEChange_DemandElement
 Debug: Adding route 'route_4' in GNEChange_DemandElement
 Debug: Adding route 'route_5' in GNEChange_DemandElement
 Debug: Adding route 'route_6' in GNEChange_DemandElement
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.25Oct114541.2488\netedit.gui\demandelements\route\load\edges\input_routes.rou.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.04Nov150819.8328\netedit.gui\demandelements\route\load\edges\input_routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00
@@ -73,7 +72,6 @@ Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Key F5 (Compute) pressed
 Debug: Removing route 'route_3' in GNEChange_DemandElement
-Debug: Removing route 'route_2' in GNEChange_DemandElement
 Debug: demand elements saved after dialog
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -10.00,-13.20,10.00,13.20
@@ -112,7 +110,6 @@ GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary -10.00,-10.00,70.00,1
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
 Debug: network elements saved
-Debug: Deleting unreferenced route
 Debug: Deleting unreferenced route
 Debug: Deleting unreferenced route
 Debug: Deleting unreferenced route
