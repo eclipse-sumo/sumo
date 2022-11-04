@@ -53,6 +53,8 @@ OutputDevice_File::OutputDevice_File(const std::string& fullName, const bool com
     if (compressed) {
         try {
             myFileStream = new zstr::ofstream(localName.c_str(), std::ios_base::out);
+        } catch (strict_fstream::Exception& e) {
+            throw IOError("Could not build output file '" + fullName + "' (" + e.what() + ").");
         } catch (zstr::Exception& e) {
             throw IOError("Could not build output file '" + fullName + "' (" + e.what() + ").");
         }

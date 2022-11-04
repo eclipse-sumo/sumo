@@ -1,17 +1,10 @@
-#ifndef __STRICT_FSTREAM_HPP
-#define __STRICT_FSTREAM_HPP
+#pragma once
 
-#define __STDC_WANT_LIB_EXT1__ 1
 #include <cassert>
 #include <fstream>
 #include <cstring>
 #include <string>
-
-#ifndef _MSC_VER
-#define NOEXCEPT noexcept
-#else
-#define NOEXCEPT
-#endif
+#include <vector>
 
 /**
  * This namespace defines wrappers for std::ifstream, std::ofstream, and
@@ -24,24 +17,66 @@
 namespace strict_fstream
 {
 
-/// Overload of error-reporting function, to enable use with VS.
-/// Ref: http://stackoverflow.com/a/901316/717706
+// Help people out a bit, it seems like this is a common recommenation since
+// musl breaks all over the place.
+#if defined(__NEED_size_t) && !defined(__MUSL__)
+#warning "It seems to be recommended to patch in a define for __MUSL__ if you use musl globally: https://www.openwall.com/lists/musl/2013/02/10/5"
+#define __MUSL__
+#endif
+
+// Workaround for broken musl implementation
+// Since musl insists that they are perfectly compatible, ironically enough,
+// they don't officially have a __musl__ or similar. But __NEED_size_t is defined in their
+// relevant header (and not in working implementations), so we can use that.
+#ifdef __MUSL__
+#warning "Working around broken strerror_r() implementation in musl, remove when musl is fixed"
+#endif
+
+// Non-gnu variants of strerror_* don't necessarily null-terminate if
+// truncating, so we have to do things manually.
+inline std::string trim_to_null(const std::vector<char> &buff)
+{
+    std::string ret(buff.begin(), buff.end());
+
+    const std::string::size_type pos = ret.find('\0');
+    if (pos == std::string::npos) {
+        ret += " [...]"; // it has been truncated
+    } else {
+        ret.resize(pos);
+    }
+    return ret;
+}
+
+/// Overload of error-reporting function, to enable use with VS and non-GNU
+/// POSIX libc's
+/// Ref:
+///   - http://stackoverflow.com/a/901316/717706
 static std::string strerror()
 {
-    std::string buff(80, '\0');
-#if defined _WIN32 || defined __STDC_LIB_EXT1__
-    if (strerror_s(&buff[0], buff.size(), errno) != 0)
-    {
-        buff = "Unknown error";
+    // Can't use std::string since we're pre-C++17
+    std::vector<char> buff(256, '\0');
+
+#ifdef _WIN32
+    // Since strerror_s might set errno itself, we need to store it.
+    const int err_num = errno;
+    if (strerror_s(buff.data(), buff.size(), err_num) != 0) {
+        return trim_to_null(buff);
+    } else {
+        return "Unknown error (" + std::to_string(err_num) + ")";
+    }
+#elif ((_POSIX_C_SOURCE >= 200112L || _XOPEN_SOURCE >= 600 || defined(__APPLE__)) && ! _GNU_SOURCE) || defined(__MUSL__)
+// XSI-compliant strerror_r()
+    const int err_num = errno; // See above
+    if (strerror_r(err_num, buff.data(), buff.size()) == 0) {
+        return trim_to_null(buff);
+    } else {
+        return "Unknown error (" + std::to_string(err_num) + ")";
     }
 #else
-    if (strerror_r(errno, &buff[0], buff.size()) != 0)
-    {
-        buff = "Unknown error";
-    }
+// GNU-specific strerror_r()
+    char * p = strerror_r(errno, &buff[0], buff.size());
+    return std::string(p, std::strlen(p));
 #endif
-    buff.resize(buff.find('\0'));
-    return buff;
 }
 
 /// Exception class thrown by failed operations.
@@ -50,7 +85,7 @@ class Exception
 {
 public:
     Exception(const std::string& msg) : _msg(msg) {}
-    const char * what() const NOEXCEPT { return _msg.c_str(); }
+    const char * what() const noexcept { return _msg.c_str(); }
 private:
     std::string _msg;
 }; // class Exception
@@ -126,7 +161,7 @@ struct static_method_holder
             is_p->peek();
             peek_failed = is_p->fail();
         }
-        catch (std::ios_base::failure&) {}
+        catch (const std::ios_base::failure &) {}
         if (peek_failed)
         {
             throw Exception(std::string("strict_fstream: open('")
@@ -200,4 +235,3 @@ public:
 
 } // namespace strict_fstream
 
-#endif

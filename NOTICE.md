@@ -100,6 +100,12 @@ JSON for Modern C++ (3.10.5)
 * Project: https://json.nlohmann.me/
 * Source: https://github.com/nlohmann/json/releases/tag/v3.10.5
 
+A C++ ZLib wrapper (1.0.6)
+
+* License: MIT
+* Project: https://github.com/mateidavid/zstr
+* Source: https://github.com/mateidavid/zstr/releases/tag/v1.0.6
+
 ## Cryptography
 
 Content may contain encryption software. The country in which you are currently
