@@ -401,7 +401,7 @@ placeholder `<DEVICENAME>` below:
 Assignment of devices via simulation options works the same [as for vehicles](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#assignment_by_global_options) except for the fact that all options are prefixed with
 **--person-device.DEVICENAME** instead of **--device.DEVICENAME**.
 
-Assignmet of devices via `<vType>` or `<person>`-parameters works in the samw way [as it does for vehicles](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#assignment_by_generic_parameters).
+Assignment of devices via `<vType>` or `<person>`-parameters works in the same way [as it does for vehicles](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#assignment_by_generic_parameters).
 
 
 # Planned features
