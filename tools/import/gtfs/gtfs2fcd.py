@@ -145,9 +145,13 @@ def main(options):
                     seqs[s] = trip_id
                     fcdFile[mode].write(buf)
                     timeIndex = arrivalSec
-                comment = sumolib.xml.quoteattr(u"%s %s" % (d.route_short_name, d.trip_headsign), True)
-                tripFile[mode].write(u'    <vehicle id="%s" route="%s" type="%s" depart="%s" line="%s" comment=%s/>\n' %
-                                     (trip_id, seqs[s], mode, firstDep, seqs[s], comment))
+                tripFile[mode].write(u'    <vehicle id="%s" route="%s" type="%s" depart="%s" line="%s">\n' %
+                                     (trip_id, seqs[s], mode, firstDep, seqs[s]))
+                tripFile[mode].write(u'        <param key="gtfs.route_short_name" value=%s/>\n' %
+                                     sumolib.xml.quoteattr(str(d.route_short_name), True))
+                tripFile[mode].write(u'        <param key="gtfs.trip_headsign" value=%s/>\n' %
+                                     sumolib.xml.quoteattr(str(d.trip_headsign), True))
+                tripFile[mode].write(u'    </vehicle>\n')
                 seenModes.add(mode)
     if options.gpsdat:
         if not os.path.exists(options.gpsdat):

@@ -462,7 +462,7 @@ def map_gtfs_osm(options, net, osm_routes, gtfs_data, shapes, shapes_dict, filte
                 map_routes[row.shape_id] = (osm_id, edges.split())
             else:
                 # no osm route found, do not map stops of route
-                missing_lines.append((pt_line_name, sumolib.xml.quoteattr(row.trip_headsign, True)))
+                missing_lines.append((pt_line_name, sumolib.xml.quoteattr(str(row.trip_headsign), True)))
                 continue
 
         # set stop's type, class and length
@@ -608,11 +608,12 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                             main_shape, row.route_id, seqs[stopSeq],
                             row.arrival_fixed.days + day,
                             str(row.arrival_fixed).split(' ')[2],
-                            min(stop_index), max(stop_index), pt_type,
-                            row.route_short_name,
-                            sumolib.xml.quoteattr(row.trip_headsign, True))
-                output_file.write(u'    <vehicle id="%s.%s" route="%s" line="%s_%s" depart="%s:%s" departEdge="%s" arrivalEdge="%s" type="%s"><!--%s %s-->\n' % veh_attr)  # noqa
-
+                            min(stop_index), max(stop_index), pt_type)
+                output_file.write(u'    <vehicle id="%s.%s" route="%s" line="%s_%s" depart="%s:%s" departEdge="%s" arrivalEdge="%s" type="%s">\n' % veh_attr)  # noqa
+                output_file.write(u'        <param key="gtfs.route_short_name" value=%s/>\n' %
+                                     sumolib.xml.quoteattr(str(row.route_short_name), True))
+                output_file.write(u'        <param key="gtfs.trip_headsign" value=%s/>\n' %
+                                     sumolib.xml.quoteattr(str(row.trip_headsign), True))
                 check_seq = -1
                 for stop in stop_list.itertuples():
                     if not stop.stop_item_id:
@@ -632,7 +633,7 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                         # stop not downstream
                         sequence_errors.append((stop.stop_item_id,
                                                 row.route_short_name,
-                                                sumolib.xml.quoteattr(row.trip_headsign, True),
+                                                sumolib.xml.quoteattr(str(row.trip_headsign), True),
                                                 stop.trip_id))
 
                 output_file.write(u'    </vehicle>\n')
