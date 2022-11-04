@@ -40,35 +40,14 @@ netedit.selectTLSMode()
 # select junction
 netedit.leftClick(referencePosition, 320, 220)
 
-# create TLS
-netedit.createTLS()
-
-# join TLS
-netedit.joinTSL()
-
-# select four corners
-netedit.leftClick(referencePosition, 190, 220)
-netedit.leftClick(referencePosition, 460, 220)
-netedit.leftClick(referencePosition, 320, 85)
-netedit.leftClick(referencePosition, 320, 350)
-
-# join tls
-netedit.typeEnter()
-
-# change type
-netedit.modifyAttribute(netedit.attrs.TLS.common.TLType, "NEMA", False)
-
-# type enter to save changes
-netedit.typeEnter()
-
 # ungroup signal
 netedit.pressTLSPhaseButton(netedit.attrs.TLS.join.NEMAPhase.ungroupSignal)
 
 # type enter to save changes
 netedit.typeEnter()
 
-# type ESC (for undo-redo)
-netedit.typeEscape()
+# go to inspect mode
+netedit.inspectMode()
 
 # Check undo
 netedit.undo(referencePosition, 1)
