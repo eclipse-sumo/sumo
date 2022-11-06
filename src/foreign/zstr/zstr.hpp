@@ -423,10 +423,10 @@ public:
     void close() {
         _fs.close();
     }
-    void open(const std::string filename, std::ios_base::openmode mode = std::ios_base::in) {
-        _fs.open(filename, mode);
-        std::istream::operator=(std::istream(new istreambuf(_fs.rdbuf())));
-    }
+    // void open(const std::string filename, std::ios_base::openmode mode = std::ios_base::in) {
+    //     _fs.open(filename, mode);
+    //     std::istream::operator=(std::istream(new istreambuf(_fs.rdbuf())));
+    // }
     bool is_open() const {
         return _fs.is_open();
     }
@@ -460,11 +460,11 @@ public:
         std::ostream::flush();
         _fs.close();
     }
-    void open(const std::string filename, std::ios_base::openmode mode = std::ios_base::out, int level = Z_DEFAULT_COMPRESSION) {
-        flush();
-        _fs.open(filename, mode | std::ios_base::binary);
-        std::ostream::operator=(std::ostream(new ostreambuf(_fs.rdbuf(), default_buff_size, level)));
-    }
+    // void open(const std::string filename, std::ios_base::openmode mode = std::ios_base::out, int level = Z_DEFAULT_COMPRESSION) {
+    //     flush();
+    //     _fs.open(filename, mode | std::ios_base::binary);
+    //     std::ostream::operator=(std::ostream(new ostreambuf(_fs.rdbuf(), default_buff_size, level)));
+    // }
     bool is_open() const {
         return _fs.is_open();
     }
