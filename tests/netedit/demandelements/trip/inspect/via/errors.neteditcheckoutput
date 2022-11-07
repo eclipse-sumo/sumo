@@ -1,1 +1,4 @@
 Warning: No connection between edge 'gneE9' and edge 'gneE5' found.
+Warning: No route for vehicle 't_0' found.
+Error: Vehicle 't_0' has no valid route.
+Quitting (on error).
