@@ -153,7 +153,8 @@ title: ChangeLog
   - Fixed error after Canceling stop via TraCI and then calling moveToXY. Issue #11870
   - Stops may now be defined at position=0. Issue #11891
   - Fixed bug where CACC model had invalid speed while activating [ToC](ToC_Device.md). Issue #6192
-  - View boundaries returned for a 3D view now better match the actual field of vision. Issue 11471
+  - View boundaries returned for a 3D view now better match the actual field of vision. Issue #11471
+  - Fixed memory leak when closing the last connection
 
 - Tools
   - randomTrips.py and duaIterate.py now properly report unknown options again. Issue #11258 (regression in 1.14.1)
