@@ -91,7 +91,7 @@ title: ChangeLog
   - Lane menu functions *select reachable*, *close lane*, *add rerouter* are now working again. Issue #11448 (regression in 1.14.0)
   - Directional arrows are now drawn on top of detectors. Issue #11380
   - 3D view now updates lane colors after updating of selected lanes. Issue #10908
-  - Fixed invalid occupancy values caused by vehicles vehicles that are partially on a lane (i.e. with the sublane model). Issue #11404
+  - Fixed invalid occupancy values caused by vehicles that are partially on a lane (i.e. with the sublane model). Issue #11404
   - Opening the object chooser now brings existing dialogs into focus. Issue #11579
   - Detector names are now shown in the parameter dialog. Issue #11029
   - TAZs parameters are now loaded. Issue #7479
@@ -196,7 +196,7 @@ title: ChangeLog
   - Added option **--summary-output.period** to reduce the frequency of summary output. Issue #2445
   - The slope of a vehicle now takes into account it's length. Issue #8802
   - Rail signal constraints now support loading generic parameters. Issue #11880
-  - Added optinos **--edgedata-output FILE** and **--lanedata-output FILE** to configure a very basic meanData output without the need for additional files. Issue #11939
+  - Added options **--edgedata-output FILE** and **--lanedata-output FILE** to configure a very basic meanData output without the need for additional files. Issue #11939
   - [Wireless simulation](Simulation/Bluetooth.md) (btsender and btreciever devices) can now be enabled for persons. Issue #11950
 
 - netedit
