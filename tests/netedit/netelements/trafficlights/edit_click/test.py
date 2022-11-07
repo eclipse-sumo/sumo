@@ -46,7 +46,7 @@ netedit.leftClick(referencePosition, 320, 220)
 netedit.createTLS()
 
 # obtain clicked position
-clickedPosition = [referencePosition[0] + 299, referencePosition[1] + 214]
+clickedPosition = [referencePosition[0] + 227, referencePosition[1] + 181]
 
 # click relative to offset
 pyautogui.rightClick(clickedPosition)
