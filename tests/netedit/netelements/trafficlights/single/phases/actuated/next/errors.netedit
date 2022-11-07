@@ -54,13 +54,17 @@ Debug: Invalid next
 Debug: Valid next
 Debug: Valid next
 Debug: Key ENTER pressed
+Debug: Deleting TLS from junction 'J0'
+Debug: Adding TLS into junction 'J0'
 Debug: Key ESC (abort) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
+Debug: Removing TLS from junction 'J0'
+Debug: Adding TLS into junction 'J0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute
+Debug: Deleting TLS from junction 'J0'
+Debug: Adding TLS into junction 'J0'
 Debug: network elements saved
 Debug: Additionals saved
 Debug: demand elements saved

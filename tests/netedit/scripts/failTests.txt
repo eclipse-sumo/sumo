@@ -1,9 +1,10 @@
 -tp appdata=netedit.gui
-bugs/crossings/ticket3288
-dataelements/edgereldata/inspect_selection/parameters
-demandelements/route/load/edges
 demandelements/routeflow/delete
-demandelements/routeflow/inspect_selection/parametersTIMEOUT
-demandelements/routeflow/transform/flow
+demandelements/routeflow/inspect_selection/number
+demandelements/routeflow/inspect_selection/parameters
+demandelements/routeflow/inspect_selection/poisson
+demandelements/routeflow/inspect_selection/probability
+demandelements/routeflow/transform/routeflow_embedded
 demandelements/routeflow/transform/vehicle_embedded
 demandelements/vehicle/delete
+demandelements/waypoint/busstop/inspect_selection/speed

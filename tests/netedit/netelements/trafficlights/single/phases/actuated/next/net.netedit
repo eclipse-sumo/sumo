@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-11-04 14:09:58 by Eclipse SUMO netedit Version v1_14_1+2237-b7b0265549d
+<!-- generated on 2022-11-07 08:50:36 by Eclipse SUMO netedit Version v1_14_1+2245-8aa96d847b0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.04Nov135843.6314/netedit.gui/netelements/trafficlights/single/phases/actuated/next/input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Nov084849.8368\netedit.gui\netelements\trafficlights\single\phases\actuated\next\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.04Nov135843.6314/netedit.gui/netelements/trafficlights/single/phases/actuated/next/net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Nov084849.8368\netedit.gui\netelements\trafficlights\single\phases\actuated\next\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,12 +30,12 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.04Nov135843.6314/netedit.gui/netelements/trafficlights/single/phases/actuated/next/additionals.xml"/>
-        <additionals-output value="/home/palcraft/.texttest/tmp/netedit.gui.04Nov135843.6314/netedit.gui/netelements/trafficlights/single/phases/actuated/next/additionals.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.04Nov135843.6314/netedit.gui/netelements/trafficlights/single/phases/actuated/next/routes.xml"/>
-        <demandelements-output value="/home/palcraft/.texttest/tmp/netedit.gui.04Nov135843.6314/netedit.gui/netelements/trafficlights/single/phases/actuated/next/routes.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.04Nov135843.6314/netedit.gui/netelements/trafficlights/single/phases/actuated/next/datas.xml"/>
-        <dataelements-output value="/home/palcraft/.texttest/tmp/netedit.gui.04Nov135843.6314/netedit.gui/netelements/trafficlights/single/phases/actuated/next/datas.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Nov084849.8368\netedit.gui\netelements\trafficlights\single\phases\actuated\next\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Nov084849.8368\netedit.gui\netelements\trafficlights\single\phases\actuated\next\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Nov084849.8368\netedit.gui\netelements\trafficlights\single\phases\actuated\next\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Nov084849.8368\netedit.gui\netelements\trafficlights\single\phases\actuated\next\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Nov084849.8368\netedit.gui\netelements\trafficlights\single\phases\actuated\next\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Nov084849.8368\netedit.gui\netelements\trafficlights\single\phases\actuated\next\datas.xml"/>
     </netedit>
 
     <visualisation>
@@ -43,12 +43,12 @@
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.04Nov135843.6314/netedit.gui/netelements/trafficlights/single/phases/actuated/next/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Nov084849.8368\netedit.gui\netelements\trafficlights\single\phases\actuated\next\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.04Nov135843.6314/netedit.gui/netelements/trafficlights/single/phases/actuated/next/log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Nov084849.8368\netedit.gui\netelements\trafficlights\single\phases\actuated\next\log.txt"/>
     </report>
 
 </configuration>
@@ -171,7 +171,7 @@
     <tlLogic id="J0" type="actuated" programID="0" offset="0">
         <phase duration="42" state="GGGgrrrrGGGgrrrr" minDur="5" maxDur="50"/>
         <phase duration="3"  state="yyyyrrrryyyyrrrr"/>
-        <phase duration="42" state="rrrrGGGgrrrrGGGg" minDur="5" maxDur="50"/>
+        <phase duration="42" state="rrrrGGGgrrrrGGGg" minDur="5" maxDur="50" next="1"/>
         <phase duration="3"  state="rrrryyyyrrrryyyy"/>
     </tlLogic>
 
