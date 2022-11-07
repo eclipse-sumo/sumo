@@ -197,6 +197,7 @@ title: ChangeLog
   - The slope of a vehicle now takes into account it's length. Issue #8802
   - Rail signal constraints now support loading generic parameters. Issue #11880
   - Added optinos **--edgedata-output FILE** and **--lanedata-output FILE** to configure a very basic meanData output without the need for additional files. Issue #11939
+  - [Wireless simulation](Simulation/Bluetooth.md) (btsender and btreciever devices) can now be enabled for persons. Issue #11950
 
 - netedit
   - Context menus on ambiguously overlapping objects now gives a choice of object. Holding ALT always gives all choices. Issue #10916
@@ -244,6 +245,7 @@ title: ChangeLog
   - EdgeData and laneData values recorded by the current simulation can now be used [for live edge coloring](sumo-gui.md#edgelane_visualisation_settings). Issue #9756
   - 3D view now permits clicking on more objects (lanes, junctions, traffic lights). Issue #10882
   - 3D view now supports realistic drawing of traffic signals for cars and pedestrians. Issue #10913, #11162
+  - 3D view brightness can now be configured. Issue #11865
   - Stopped two-wheelers are now drawn without rider. Issue #10917
   - The front of the first rail carriage is now indicated by a black window in 'simple shape' mode. Issue #11369
   - Vehicle class 'taxi' is now indicated by additional decorations in *simple shapes* mode. Issue #11424
