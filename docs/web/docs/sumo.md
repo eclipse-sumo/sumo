@@ -110,6 +110,7 @@ configuration:
 | **--vtk-output** {{DT_FILE}} | Save complete vehicle positions inclusive speed values in the VTK Format (usage: /path/out will produce /path/out_$TIMESTEP$.vtp files) |
 | **--amitran-output** {{DT_FILE}} | Save the vehicle trajectories in the Amitran format |
 | **--summary-output** {{DT_FILE}} | Save aggregated vehicle departure info into FILE |
+| **--summary-output.period** {{DT_TIME}} | Save summary-output with the given period; *default:* **-1** |
 | **--person-summary-output** {{DT_FILE}} | Save aggregated person counts into FILE |
 | **--tripinfo-output** {{DT_FILE}} | Save single vehicle trip info into FILE |
 | **--tripinfo-output.write-unfinished** {{DT_BOOL}} | Write tripinfo output for vehicles which have not arrived at simulation end; *default:* **false** |
@@ -139,6 +140,8 @@ configuration:
 | **--stop-output** {{DT_FILE}} | Record stops and loading/unloading of passenger and containers for all vehicles into FILE |
 | **--stop-output.write-unfinished** {{DT_BOOL}} | Write stop output for stops which have not ended at simulation end; *default:* **false** |
 | **--collision-output** {{DT_FILE}} | Write collision information into FILE |
+| **--edgedata-output** {{DT_FILE}} | Write aggregated traffic statistics for all edges into FILE |
+| **--lanedata-output** {{DT_FILE}} | Write aggregated traffic statistics for all lanes into FILE |
 | **--statistic-output** {{DT_FILE}} | Write overall statistics into FILE |
 | **--save-state.times** {{DT_STR[]}} | Use TIME[] as times at which a network state written |
 | **--save-state.period** {{DT_TIME}} | save state repeatedly after TIME period; *default:* **-1** |
@@ -318,6 +321,12 @@ configuration:
 | **--device.btsender.probability** {{DT_FLOAT}} | The probability for a vehicle to have a 'btsender' device; *default:* **-1** |
 | **--device.btsender.explicit** {{DT_STR[]}} | Assign a 'btsender' device to named vehicles |
 | **--device.btsender.deterministic** {{DT_BOOL}} | The 'btsender' devices are set deterministic using a fraction of 1000; *default:* **false** |
+| **--person-device.btsender.probability** {{DT_FLOAT}} | The probability for a person to have a 'btsender' device; *default:* **-1** |
+| **--person-device.btsender.explicit** {{DT_STR[]}} | Assign a 'btsender' device to named persons |
+| **--person-device.btsender.deterministic** {{DT_BOOL}} | The 'btsender' devices are set deterministic using a fraction of 1000; *default:* **false** |
+| **--person-device.btreceiver.probability** {{DT_FLOAT}} | The probability for a person to have a 'btreceiver' device; *default:* **-1** |
+| **--person-device.btreceiver.explicit** {{DT_STR[]}} | Assign a 'btreceiver' device to named persons |
+| **--person-device.btreceiver.deterministic** {{DT_BOOL}} | The 'btreceiver' devices are set deterministic using a fraction of 1000; *default:* **false** |
 
 ### Battery
 
