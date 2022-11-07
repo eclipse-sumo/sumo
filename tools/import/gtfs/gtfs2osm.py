@@ -611,9 +611,9 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                             min(stop_index), max(stop_index), pt_type)
                 output_file.write(u'    <vehicle id="%s.%s" route="%s" line="%s_%s" depart="%s:%s" departEdge="%s" arrivalEdge="%s" type="%s">\n' % veh_attr)  # noqa
                 output_file.write(u'        <param key="gtfs.route_short_name" value=%s/>\n' %
-                                     sumolib.xml.quoteattr(str(row.route_short_name), True))
+                                  sumolib.xml.quoteattr(str(row.route_short_name), True))
                 output_file.write(u'        <param key="gtfs.trip_headsign" value=%s/>\n' %
-                                     sumolib.xml.quoteattr(str(row.trip_headsign), True))
+                                  sumolib.xml.quoteattr(str(row.trip_headsign), True))
                 check_seq = -1
                 for stop in stop_list.itertuples():
                     if not stop.stop_item_id:
