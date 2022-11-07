@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-04 10:26:42 by Eclipse SUMO netgenerate Version v1_14_1+1405-b752ca57d78
+<!-- generated on 2022-11-07 16:56:46 by Eclipse SUMO netgenerate Version v1_14_1+2254-abbc76d4ea0
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -136,6 +136,7 @@
             <xsd:element name="opposites.guess" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="opposites.guess.fix-lengths" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="fringe.guess" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="fringe.guess.speed-threshold" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="lefthand" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="edges.join" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
@@ -225,6 +226,7 @@
     <xsd:complexType name="junctionsTopicType">
         <xsd:all>
             <xsd:element name="junctions.right-before-left.speed-threshold" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="junctions.left-before-right" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="no-internal-links" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="no-turnarounds" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="no-turnarounds.tls" type="boolOptionType" minOccurs="0"/>

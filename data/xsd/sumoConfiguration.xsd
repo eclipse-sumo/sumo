@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-04 10:26:42 by Eclipse SUMO sumo Version v1_14_1+1405-b752ca57d78
+<!-- generated on 2022-11-07 16:56:46 by Eclipse SUMO sumo Version v1_14_1+2254-abbc76d4ea0
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -92,6 +92,7 @@
             <xsd:element name="vtk-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="amitran-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="summary-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="summary-output.period" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="person-summary-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="tripinfo-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="tripinfo-output.write-unfinished" type="boolOptionType" minOccurs="0"/>
@@ -121,6 +122,8 @@
             <xsd:element name="stop-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="stop-output.write-unfinished" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="collision-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="edgedata-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="lanedata-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="statistic-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="save-state.times" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="save-state.period" type="timeOptionType" minOccurs="0"/>
@@ -300,6 +303,12 @@
             <xsd:element name="device.btsender.probability" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.btsender.explicit" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="device.btsender.deterministic" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="person-device.btsender.probability" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="person-device.btsender.explicit" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="person-device.btsender.deterministic" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="person-device.btreceiver.probability" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="person-device.btreceiver.explicit" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="person-device.btreceiver.deterministic" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
