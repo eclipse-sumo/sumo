@@ -2,13 +2,13 @@
 title: ChangeLog
 ---
 
-## Git Main
+## Version 1.15.0 (08.11.2022)
 
 ### Bugfixes
 
 - Simulation
   - Fixed crash when using bluelight vehicle and SSM device. Issue #11336 (regression in 1.12.0)
-  - Rerouter attribute `timeTreshold` is working again after a vehicle has changed lanes. Issue #11405 (regression in 1.14.0)
+  - Rerouter attribute `timeThreshold` is working again after a vehicle has changed lanes. Issue #11405 (regression in 1.14.0)
   - Taxi drop-off is no longer interrupted by new dispatch. Also, persons only continue their plan after the drop-off duration. Issue #11311  
   - Fixed bug where emergency vehicle fails to overtake. Issue #11345
   - Fixed bug where emergency vehicle performs invalid (unstrategic) lanechange. Issue #11337
@@ -122,6 +122,7 @@ title: ChangeLog
   - Fixed missing bidi edges on long rail edges with multiple stops after topology repair. Issue #11828
   - OSM: Fixed invalid public transport route on bidirectional way. Issue #11829
   - Fixed crash while processing public transport stops. Issue #11839
+  - Filtering access from ptstops input. Issue #11963
 
 - duarouter
   - vTypeDistributions with attribute `vTypes` now consider vType-probabilities. Issue #11376
