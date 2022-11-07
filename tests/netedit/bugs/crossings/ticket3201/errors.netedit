@@ -32,12 +32,10 @@ Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Created walkingArea ':C_w0' in retrieveGNEWalkingArea()
 Debug: Created walkingArea ':Center_w0' in retrieveGNEWalkingArea()
 Debug: Created walkingArea ':Center_w1' in retrieveGNEWalkingArea()
-Debug: Created walkingArea ':Center_w2' in retrieveGNEWalkingArea()
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: removing crossing from junction 'Center'
 Debug: Deleting unreferenced crossing in rebuildGNECrossings()
-Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Keys Ctrl+Z (Undo) pressed
@@ -60,11 +58,16 @@ Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding crossing into junction 'Center'
 Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
+Debug: Removing crossing from junction 'Center'
+Debug: Deleting unreferenced crossing in rebuildGNECrossings()
+Debug: Removing crossing from junction 'Center'
+Debug: Deleting unreferenced crossing in rebuildGNECrossings()
+Debug: Changed flag netBuilder::haveNetworkCrossings from 'true' to 'false'
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Created walkingArea ':C_w0' in retrieveGNEWalkingArea()
 Debug: Created walkingArea ':Center_w0' in retrieveGNEWalkingArea()
 Debug: Created walkingArea ':Center_w1' in retrieveGNEWalkingArea()
-Debug: Created walkingArea ':Center_w2' in retrieveGNEWalkingArea()
+Debug: network elements saved after dialog
 Debug: Deleting unreferenced edge '1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '1_1' in GNEEdge destructor
@@ -114,10 +117,7 @@ Debug: Deleting unreferenced junction 'B' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'C' in AttributeCarriers destructor
 Debug: Deleting unreferenced walkingArea ':C_w0' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'Center' in AttributeCarriers destructor
-Debug: Deleting unreferenced crossing ':Center_c1' in GNEJunction destructor
-Debug: Deleting unreferenced crossing ':Center_c0' in GNEJunction destructor
 Debug: Deleting unreferenced walkingArea ':Center_w0' in GNEJunction destructor
 Debug: Deleting unreferenced walkingArea ':Center_w1' in GNEJunction destructor
-Debug: Deleting unreferenced walkingArea ':Center_w2' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'D' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor

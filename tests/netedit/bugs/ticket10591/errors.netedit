@@ -242,7 +242,7 @@ Debug: Created connection 'from97206934#0_0to998166558_1' in retrieveGNEConnecti
 Debug: Created connection 'from97206934#0_1to998166558_2' in retrieveGNEConnection()
 Debug: Created connection 'from998166558_1to472236111#0_0' in retrieveGNEConnection()
 Debug: Created connection 'from998166558_2to472236111#0_1' in retrieveGNEConnection()
-Debug: Disabled select edges throught alt + 5
+Debug: Enabled select edges throught alt + 5
 Debug: Removing connection '26547171#2_0->26547172#0_0' from edge '26547171#2'
 Debug: Deleting unreferenced connection 'from26547171#2_0to26547172#0_0' in removeConnection()
 Debug: Removing connection '26547172#0_0->22917233#0_0' from edge '26547172#0'
