@@ -277,10 +277,10 @@
         <phase duration="90" state="rgrgrgrgrgrgrgrgrgrgrgrgrgrgrgrgrgrgrgrg" name="1"/>
         <phase duration="90" state="grgrgrgrgrgrgrgrgrgrgrgrgrgrgrgrgrgrgrgr" name="2"/>
         <phase duration="90" state="gggggggggggggggggggggggggggggggggggggggg" minDur="5" maxDur="50" vehext="2" yellow="3" red="2" name="1"/>
-        <param key="barrier2Phases" value="2,6"/>
-        <param key="barrierPhases" value="4,8"/>
-        <param key="ring1" value="0,2,0,4"/>
-        <param key="ring2" value="0,6,0,8"/>
+        <param key="barrier2Phases" value="1,2"/>
+        <param key="barrierPhases" value="2,1"/>
+        <param key="ring1" value="0,1,0,2"/>
+        <param key="ring2" value="0,2,0,1"/>
     </tlLogic>
 
     <junction id="J0" type="traffic_light" x="40.00" y="40.00" incLanes="-E2_0 -E2_1 -E2_2 -E1_0 -E1_1 -E1_2 -E3_0 -E3_1 -E3_2 -E0_0 -E0_1 -E0_2" intLanes=":J0_0_0 :J0_0_1 :J0_2_0 :J0_16_0 :J0_4_0 :J0_4_1 :J0_6_0 :J0_17_0 :J0_8_0 :J0_8_1 :J0_10_0 :J0_18_0 :J0_12_0 :J0_12_1 :J0_14_0 :J0_19_0" shape="30.40,51.10 49.60,51.10 49.77,50.27 49.98,49.98 50.27,49.77 50.64,49.64 51.10,49.60 51.10,30.40 50.27,30.23 49.98,30.02 49.77,29.73 49.64,29.36 49.60,28.90 30.40,28.90 30.23,29.73 30.02,30.02 29.73,30.23 29.36,30.36 28.90,30.40 28.90,49.60 29.73,49.77 30.02,49.98 30.23,50.27 30.36,50.64">
