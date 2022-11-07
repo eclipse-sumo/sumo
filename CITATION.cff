@@ -105,6 +105,7 @@ authors:
   - name: "Pablo Alvarez Lopez"
   - name: "Peter Mieth"
   - name: "Peter Wagner"
+  - name: "Philip Ritzer"
   - name: "Pieter Loof"
   - name: "Piotr Woznica"
   - name: "Qichao Wang"
@@ -142,8 +143,8 @@ keywords:
   - simulation
   - microscopic
   - traffic
-date-released: "2022-07-19"
-version: 1.14.1
+date-released: "2022-11-08"
+version: 1.15.0
 repository-code: "https://github.com/eclipse/sumo"
 type: software
 url: "https://www.eclipse.org/sumo/"

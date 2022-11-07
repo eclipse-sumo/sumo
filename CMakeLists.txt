@@ -29,7 +29,7 @@ if (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
 endif ()
 
 project(SUMO CXX C)
-set(PACKAGE_VERSION "git")
+set(PACKAGE_VERSION "1.15.0")
 cmake_minimum_required(VERSION 3.4)
 
 # Check if libraries have to be found, depending on SUMO_LIBRARIES
