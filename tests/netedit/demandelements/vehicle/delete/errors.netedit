@@ -15,7 +15,6 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary -10.00,28.40,70.00,50
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary -10.00,-10.00,70.00,11.60
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
-Debug: Adding route 'r_0' in GNEChange_DemandElement
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00
@@ -64,7 +63,7 @@ Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Key ENTER pressed
-Debug: Adding route 'r_1' in GNEChange_DemandElement
+Debug: Adding route 'r_0' in GNEChange_DemandElement
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'vehicle (over route)' in GNETagSelector
@@ -85,7 +84,6 @@ Debug: Opened FXMessageBox Problem deleting edge 'gneE2'
 Debug: Closed FXMessageBox Problem deleting edge 'gneE2'
 Debug: Removing vehicle 'v_0' in GNEChange_DemandElement
 Debug: Removing route 'r_0' in GNEChange_DemandElement
-Debug: Removing route 'r_1' in GNEChange_DemandElement
 Debug: Removing connection 'gneE2_0->gneE4_1' from edge 'gneE2'
 Debug: Deleting unreferenced connection 'fromgneE2_0togneE4_1' in removeConnection()
 Debug: Removing connection 'gneE2_0->gneE4_0' from edge 'gneE2'
@@ -100,14 +98,12 @@ Debug: Adding connection 'gneE2_0->gneE4_0' into edge 'gneE2'
 Debug: Created connection 'fromgneE2_0togneE4_0' in retrieveGNEConnection()
 Debug: Adding connection 'gneE2_0->gneE4_1' into edge 'gneE2'
 Debug: Created connection 'fromgneE2_0togneE4_1' in retrieveGNEConnection()
-Debug: Adding route 'r_1' in GNEChange_DemandElement
 Debug: Adding route 'r_0' in GNEChange_DemandElement
 Debug: Adding vehicle 'v_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Removing vehicle 'v_0' in GNEChange_DemandElement
 Debug: Removing route 'r_0' in GNEChange_DemandElement
-Debug: Removing route 'r_1' in GNEChange_DemandElement
 Debug: Removing connection 'gneE2_0->gneE4_1' from edge 'gneE2'
 Debug: Deleting unreferenced connection 'fromgneE2_0togneE4_1' in removeConnection()
 Debug: Removing connection 'gneE2_0->gneE4_0' from edge 'gneE2'
@@ -153,7 +149,6 @@ Debug: network elements saved
 Debug: Deleting unreferenced edge 'gneE2' GNEChange_Edge
 Debug: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
 Debug: Deleting unreferenced vehicle
-Debug: Deleting unreferenced route
 Debug: Deleting unreferenced route
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor

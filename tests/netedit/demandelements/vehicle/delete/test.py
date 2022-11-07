@@ -66,7 +66,6 @@ netedit.deleteMode()
 # delete vehicle and edge
 netedit.leftClick(referencePosition, 90, 392)
 netedit.leftClick(referencePosition, 90, 392)
-netedit.leftClick(referencePosition, 90, 392)
 
 # Check undo
 netedit.undo(referencePosition, 2)
