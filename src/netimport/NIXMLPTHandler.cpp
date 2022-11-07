@@ -188,10 +188,19 @@ NIXMLPTHandler::addAccess(const SUMOSAXAttributes& attrs) {
         }
     }
     bool ok = true;
-    const std::string lane = attrs.get<std::string>(SUMO_ATTR_LANE, "access", ok);
+    const std::string laneID = attrs.get<std::string>(SUMO_ATTR_LANE, "access", ok);
+    const std::string edgeID = SUMOXMLDefinitions::getEdgeIDFromLane(laneID);
+    if (myEdgeCont.retrieve(edgeID) == nullptr) {
+        if (!myEdgeCont.wasIgnored(edgeID)) {
+            WRITE_ERROR("Edge '" + edgeID + "' for access to stop '" + myCurrentStop->getID() + "' not found");
+        }
+        return;
+    }
     const double pos = attrs.get<double>(SUMO_ATTR_POSITION, "access", ok);
     const double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, "access", ok, -1);
-    myCurrentStop->addAccess(lane, pos, length);
+    if (ok) {
+        myCurrentStop->addAccess(laneID, pos, length);
+    }
 }
 
 
