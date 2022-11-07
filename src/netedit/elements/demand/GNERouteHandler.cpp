@@ -1502,7 +1502,7 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
     const bool inspectAfterTransform = net->getViewNet()->isAttributeCarrierInspected(originalVehicle);
     // declare route handler
     GNERouteHandler routeHandler("", net, true, false);
-    // obtain vehicle parameters
+    // make a copy of the vehicle parameters
     SUMOVehicleParameter vehicleParameters = *originalVehicle;
     // obtain vClass
     const auto vClass = originalVehicle->getVClass();
