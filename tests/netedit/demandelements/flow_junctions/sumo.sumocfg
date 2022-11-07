@@ -9,4 +9,9 @@
 
     <junction-taz value="true"/>
 
+	<time>
+        <begin value="0"/>
+		<end value="3600"/>
+    </time>
+	
 </configuration>

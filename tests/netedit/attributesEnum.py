@@ -575,7 +575,7 @@ class TLS:
             moveDown = 19 + (12 * 2)
             cleanStates = 19 + (12 * 2) + 1
             groupSignal = 19 + (12 * 2) + 2
-            addStates = 19 + (12* 2) + 3
+            addStates = 19 + (12 * 2) + 3
             ungroupSignal = 19 + (12 * 2) + 4
 
         class delayBasedPhase:
@@ -595,7 +595,7 @@ class TLS:
             ungroupSignal = 19 + (10 * 2) + 4
 
         class NEMAPhase:
-            dur = 19 + (0 * 2) 
+            dur = 19 + (0 * 2)
             minD = 19 + (1 * 2)
             maxD = 19 + (2 * 2)
             state = 19 + (3 * 2)

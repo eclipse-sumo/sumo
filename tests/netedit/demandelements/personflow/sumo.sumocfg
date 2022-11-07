@@ -6,5 +6,10 @@
         <net-file value="net.netedit"/>
         <route-files value="routes.netedit"/>
     </input>
+	
+	<time>
+        <begin value="0"/>
+		<end value="3600"/>
+    </time>
 
 </configuration>
