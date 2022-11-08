@@ -162,6 +162,9 @@ public:
         /// @brief optional exit time tracking for vehroute output
         std::vector<SUMOTime>* myExitTimes;
 
+        /// @brief distance walked on non-normal edges (i.e. walkingareas)
+        double myInternalDistance;
+
     private:
         /// @brief Invalidated copy constructor.
         MSPersonStage_Walking(const MSPersonStage_Walking&);

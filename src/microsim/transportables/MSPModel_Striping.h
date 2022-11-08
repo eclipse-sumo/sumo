@@ -289,6 +289,7 @@ protected:
         /// @brief whether the transportable is jammed
         bool isJammed() const;
         const MSLane* getLane() const;
+        double getPathLength() const;
         /// @}
 
         PState(MSPerson* person, MSStageMoving* stage, const MSLane* lane);

@@ -2430,6 +2430,15 @@ MSPModel_Striping::PState::getLane() const {
 }
 
 double
+MSPModel_Striping::PState::getPathLength() const {
+    if (myWalkingAreaPath != nullptr) {
+        return myWalkingAreaPath->length;
+    } else {
+        return 0;
+    }
+}
+
+double
 MSPModel_Striping::PState::distanceTo(const Obstacle& obs, const bool includeMinGap) const {
     // check for overlap
     const double maxX = getMaxX(includeMinGap);

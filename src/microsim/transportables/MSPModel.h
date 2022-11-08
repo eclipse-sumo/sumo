@@ -206,6 +206,11 @@ public:
         return nullptr;
     }
 
+    /// @brief return the total length of the current lane (in particular for on a walkingarea)
+    virtual double getPathLength() const {
+        return 0;
+    }
+
     /** @brief Saves the current state into the given stream
      */
     virtual void saveState(std::ostringstream& out) {
