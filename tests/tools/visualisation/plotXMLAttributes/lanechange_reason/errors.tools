@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "C:\erdm_ja\sumo-dev\tools\visualization\plotXMLAttributes.py", line 330, in <module>
+    main(getOptions())
+  File "C:\erdm_ja\sumo-dev\tools\visualization\plotXMLAttributes.py", line 287, in main
+    x = parseTime(x)
+  File "C:\erdm_ja\sumo-dev\tests\..\tools/visualization\..\sumolib\miscutils.py", line 235, in parseTime
+    days, hours, minutes, seconds = ([0] + list(map(float, t.split(':'))))[-4:]
+ValueError: could not convert string to float: 'keepRight'

@@ -10,3 +10,6 @@ summary_no_id
 
 # plot summary output which doesn't have an id attribute
 summary_no_id_explicit
+
+# plot categorial data
+lanechange_reason
