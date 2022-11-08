@@ -75,21 +75,21 @@ def addPlotOptions(optParser):
     optParser.add_option("--ygrid", dest="ygrid", action="store_true",
                          default=False, help="Enable grid on y-axis")
     optParser.add_option("--xticksorientation", dest="xticksorientation",
-                         type="float", default=None, help="Set the orientation of the x-axis ticks")
+                         type=float, default=None, help="Set the orientation of the x-axis ticks")
     optParser.add_option("--yticksorientation", dest="yticksorientation",
-                         type="float", default=None, help="Set the orientation of the x-axis ticks")
+                         type=float, default=None, help="Set the orientation of the x-axis ticks")
     optParser.add_option("--xlabel", dest="xlabel",
                          default=None, help="Set the x-axis label")
     optParser.add_option("--ylabel", dest="ylabel",
                          default=None, help="Set the y-axis label")
     optParser.add_option("--xlabelsize", dest="xlabelsize",
-                         type="int", default=16, help="Set the size of the x-axis label")
+                         type=int, default=16, help="Set the size of the x-axis label")
     optParser.add_option("--ylabelsize", dest="ylabelsize",
-                         type="int", default=16, help="Set the size of the x-axis label")
+                         type=int, default=16, help="Set the size of the x-axis label")
     optParser.add_option("--title", dest="title",
                          default=None, help="Set the title")
     optParser.add_option("--titlesize", dest="titlesize",
-                         type="int", default=16, help="Set the title size")
+                         type=int, default=16, help="Set the title size")
     optParser.add_option("--adjust", dest="adjust",
                          default=None, help="Adjust the subplots <LEFT>,<BOTTOM> or <LEFT>,<BOTTOM>,<RIGHT>,<TOP>")
     optParser.add_option("-s", "--size", dest="size",
@@ -98,7 +98,7 @@ def addPlotOptions(optParser):
                          default=False, help="Disables the legend")
     optParser.add_option("--legend-position", dest="legendposition",
                          default=None, help="Sets the legend position")
-    optParser.add_option("--dpi", dest="dpi", type="float",
+    optParser.add_option("--dpi", dest="dpi", type=float,
                          default=None, help="Define dpi resolution for figures")
 
 
@@ -111,7 +111,7 @@ def addInteractionOptions(optParser):
 
 def addNetOptions(optParser):
     optParser.add_option("-w", "--default-width", dest="defaultWidth",
-                         type="float", default=.1, help="Defines the default edge width")
+                         type=float, default=.1, help="Defines the default edge width")
     optParser.add_option("-c", "--default-color", dest="defaultColor",
                          default='k', help="Defines the default edge color")
 
