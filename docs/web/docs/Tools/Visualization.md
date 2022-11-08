@@ -376,6 +376,17 @@ the measure (vehicles) that fall into a bin.
 <code> -l mon,tue-thu,fri,sat,sun --adjust .14,.1 --xlim 0,3600</code></p>
 <p>The example shows the travel time distribution for the vehicles of different week day classes (Braunschweig scenario). "mo.xml", "dido.xml", "fr.xml", "sa.xml", and "so.xml" are <a href="../Simulation/Output/TripInfo.html" title="wikilink">tripinfo-files</a> resulting from simulations of the weekday-types Monday, Tuesday-Thursday, Friday, Saturday, and Sunday, respectively.</p></td>
 </tr>
+<tr class="even">
+<td><figure>
+<img src="../images/stopCountDist.png" title="stopCountDist.png" width="500" alt="" />
+</figure></td>
+<td><p><code>python plot_tripinfo_distributions.py -i tripinfo.xml -o stopCountDist.png \</code><br/>
+<code> --measure waitingCount --bins 10 --maxV 10 \</code><br/>
+<code> --xlabel "number of stops [-]" --ylabel "count [-]" \</code><br/>
+<code> --title "distribution of number of stops" --colors blue -b --no-legend</code></p>
+<p>The example shows the distribution of stops the vehicles had to make during their trip. Vehicles with more than 10 stops are added to the last bin of the histogram.
+</p></td>
+</tr>
 </tbody>
 </table>
 

@@ -164,3 +164,7 @@ Aggregated output for key tripinfo-output attributes can be obtained by setting
 the option [**--statistic-output**](StatisticOutput.md).
 
 For further aggregation see [attributeStats.py](../../Tools/Output.md#attributestatspy) and [Tools/Xml\#xml2csv.py](../../Tools/Xml.md#xml2csvpy).
+
+## Visualization Examples
+
+The TripInfo output can be used as input for several visualization tools shipped with SUMO. Some example plots created with [plot_tripinfo_distributions.py](../../tools/Visualization.md#plot_tripinfo_distributions.py) are available at the Visualization section.
