@@ -46,3 +46,11 @@ The following output attributes are generated:
 | containerStop      | id (optional) | The id of the containerStop if this stop took place at a named `<containerStop/>` |
 | parkingArea        | id (optional) | The id of the parkingArea if this stop took place at a named  `<parkingArea/>`    |
 | chargingStation    | id (optional) | The id of the chargingStation if this stop took place at a named `<chargingStation/>`  |
+
+### boarding passengers vs delay for each station
+
+Input is [stop-output](../Simulation/Output/StopOutput.md)
+
+Call: `python tools/visualization/plotXMLAttributes.py stopinfos.xml -i busStop -x loadedPersons -y delay -s --scatterplot --legend`
+
+![plotAttrs_boardingDelay.png](../images/plotAttrs_boardingDelay.png "plotAttrs_boardingDelay.png")
