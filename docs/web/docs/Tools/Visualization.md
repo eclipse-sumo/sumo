@@ -100,6 +100,13 @@ Call: `python tools/visualization/plotXMLAttributes.py -x time -y running -i run
 
 <img src="../images/plot-running.png" width="500px"/>
 
+### Depart delay over time from TripInfo data
+The plot is created out of [TripInfo](../Simulation/Output/TripInfo.md) output data:
+
+Call `python tools/visualization/plotXMLAttributes.py -i id -x depart -y departDelay --scatterplot --xlabel "depart time [s]" --ylabel "depart delay [s]" --ylim 0,40 --xticks 0,1200,200,10 --yticks 0,40,5,10 --xgrid --ygrid --title "depart delay over depart time" --titlesize 16  tripInfo.xml`
+
+<img src="../images/departDelayScatter.png" width="500px"/>
+
 ## plot_trajectories.py
 
 Create plot of all trajectories in a given **--fcd-output** file. This tool in particular is located in {{SUMO}}/tools.
