@@ -1,6 +1,0 @@
-Traceback (most recent call last):
-  File "C:\erdm_ja\sumo-dev\tools\visualization\plotXMLAttributes.py", line 337, in <module>
-    main(getOptions())
-  File "C:\erdm_ja\sumo-dev\tools\visualization\plotXMLAttributes.py", line 313, in main
-    minY = min(minY, min(d[ydata]))
-TypeError: '<' not supported between instances of 'float' and 'str'
