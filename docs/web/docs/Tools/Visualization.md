@@ -384,7 +384,7 @@ the measure (vehicles) that fall into a bin.
 <code> --measure waitingCount --bins 10 --maxV 10 \</code><br/>
 <code> --xlabel "number of stops [-]" --ylabel "count [-]" \</code><br/>
 <code> --title "distribution of number of stops" --colors blue -b --no-legend</code></p>
-<p>The example shows the distribution of stops the vehicles had to make during their trip. Vehicles with more than 10 stops are added to the last bin of the histogram.
+<p>The example shows the distribution of stops the vehicles had to make during their trip. Vehicles with more than 9 stops are added to the last bin of the histogram.
 </p></td>
 </tr>
 </tbody>
