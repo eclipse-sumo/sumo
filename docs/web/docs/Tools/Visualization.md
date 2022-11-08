@@ -66,6 +66,14 @@ Call: `python tools/visualization/plotXMLAttributes.py data.xml -x begin -y spee
 
 <img src="../images/plotAttrs_detector.png" width="500px"/>
 
+### Lane Area Detectors over nVehEntered
+
+Input is [laneareadetectors-output](../Simulation/Output/Lane_Area_Detectors_(E2).md) with 30s aggregation from 6 detectors
+
+Call: `python tools/visualization/plotXMLAttributes.py -x begin -y maxOccupancy -o plot-maxOccupancy.png --legend e2_output.xml --filter-ids e2_0,e2_5,e2_10,e2_15,e2_20,e2_25`
+
+<img src="../images/plot-nVehEntered.png" width="500px"/>
+
 ### boarding passengers vs delay for each station
 
 Input is [stop-output](../Simulation/Output/StopOutput.md)
