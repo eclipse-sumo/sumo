@@ -105,5 +105,5 @@ python plotXMLAttributes.py -x speed -y leaderGap -s -o lc.png langchange.xml -i
 
 where -x is the attribute for the x axis; -y is the attribute for the y axis; -s is to show the plot; -o is the output file name; -i is the filtered attribute name; --filter-ids are the values of the filtered attribute name.
 
-The resultant plot is illustrated below.
+The resultant plot is illustrated below. [coming soon]
 
