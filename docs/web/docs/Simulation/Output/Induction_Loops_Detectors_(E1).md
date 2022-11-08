@@ -89,12 +89,18 @@ collected for the vehicles correspond to
 
 ## Visualisation
 
-![induction_loops.svg](../../images/Induction_loops.svg "induction_loops.svg")
-**Figure: A scenario with induction loops**
+<table style="border: 0 !important"><thead><tr><td style="border: none; vertical-align:middle; text-align:center;">
+<figure>
+<img src="../../images/Induction_loops.svg" alt="" />
+<figcaption>A scenario with induction loops</figcaption>
+</figure>
+</td><td style="border: none; vertical-align:middle; text-align:center;">
+<figure>
+<img src="../../images/Induction_loop_closeup.svg" alt="" />
+<figcaption>A close-up view at an induction loop</figcaption>
+</figure>
+</td></tr></thead></table>
 
-![induction_loop_closeup.svg](../../images/Induction_loop_closeup.svg
-"induction_loop_closeup.svg") **Figure: A close-up view at an induction
-loop**
 
 ## Further Notes
 
