@@ -69,7 +69,7 @@ values would not be known.
 Single devices may choose to add further output to the tripinfo file.
 This is currently the case for the "emissions" device which is
 instantiated using one of the options **--device.emissions.probability** {{DT_FLOAT}} or **--device.emissions.explicit** [***<ID\>\[,<ID\>\]\****](../../Basics/Notation.md#referenced_data_types). The written emissions depend
-on the chose emission class of the vehicle (see [Definition of Vehicles,
+on the chosen emission class of the vehicle (see [Definition of Vehicles,
 Vehicle Types, and
 Routes](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md)
 and [Models/Emissions](../../Models/Emissions.md)). The output
