@@ -68,7 +68,7 @@ Call: `python tools/visualization/plotXMLAttributes.py data.xml -x begin -y spee
 
 ### Lane Area Detectors over nVehEntered
 
-Input is [laneareadetectors-output](../Simulation/Output/LaneArea_Detectors_(E2).md) with 30s aggregation from 6 detectors
+Input is [laneareadetectors-output](../Simulation/Output/Lanearea_Detectors_(E2).md) with 30s aggregation from 6 detectors
 
 Call: `python tools/visualization/plotXMLAttributes.py -x begin -y maxOccupancy -o plot-maxOccupancy.png --legend e2_output.xml --filter-ids e2_0,e2_5,e2_10,e2_15,e2_20,e2_25`
 
