@@ -84,6 +84,8 @@ def getOptions(args=None):
                          default=False, help="Invert the Y-Axis")
     optParser.add_option("--scatterplot", action="store_true",
                          default=False, help="Draw a scatterplot instead of lines")
+    optParser.add_option("--marker", help="marker for single points (default 'o' for scatter, None otherwise)")
+    optParser.add_option("--linestyle", default="-", help="plot line style (default '-')")
     optParser.add_option("--legend", action="store_true", default=False, help="Add legend")
     optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
     optParser.add_argument("files", nargs='+', help="List of XML files to plot")
@@ -305,8 +307,7 @@ def main(options):
             data[dataID][ydata].append(y * options.yfactor)
             filteredIDs += 1
         if totalIDs == 0 or filteredIDs == 0 or options.verbose:
-            print("Found %s datapoints in %s and kept %s" % (
-                totalIDs, datafile, filteredIDs))
+            print("Found %s datapoints in %s and kept %s" % (totalIDs, datafile, filteredIDs))
 
     if filteredIDs == 0:
         sys.exit()
@@ -323,10 +324,10 @@ def main(options):
         minX = min(minX, min(d[xdata]))
         maxX = max(maxX, max(d[xdata]))
 
-        if options.scatterplot:
-            plt.scatter(d[xdata], d[ydata], picker=True, label=dataID)
-        else:
-            plt.plot(d[xdata], d[ydata], picker=True, label=dataID)
+        if options.scatterplot or (min(d[ydata]) == max(d[ydata]) and min(d[xdata]) == max(d[xdata])):
+            options.linestyle=''
+            options.marker='o'
+        plt.plot(d[xdata], d[ydata], linestyle=options.linestyle, marker=options.marker, picker=True, label=dataID)
 
     if options.invertYAxis:
         plt.axis([minX, maxX, maxY, minY])
