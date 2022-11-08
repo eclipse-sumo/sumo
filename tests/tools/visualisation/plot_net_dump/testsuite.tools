@@ -1,5 +1,8 @@
 # Copy of plain
 plain
+
+# only plot a single measure as color
+constant_widths
 internal
 verbose
 
