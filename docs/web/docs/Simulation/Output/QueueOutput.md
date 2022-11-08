@@ -52,7 +52,7 @@ communications.
 
 ## Visualisation example
 The user-selected attributes can be plotted with use of plotXMLAttributes.py. The scenario acosta, one of the published sumo scenarios, is used as example (https://github.com/DLR-TS/sumo-scenarios/tree/main/bologna/acosta). 
-### Generating the lanechange output
+### Generating the output
 ```
 sumo -c run.sumocfg --queue-output queue.xml
 ```
