@@ -224,7 +224,7 @@ def main(args=None):
         if options.verbose:
             print("Width values are between %s and %s" %
                   (minWidthValue, maxWidthValue))
-        if minWidthValue is None or maxWidthValue is None:
+        if hw and (minWidthValue is None or maxWidthValue is None):
             print("Skipping interval %s without data" % t)
             continue
 
