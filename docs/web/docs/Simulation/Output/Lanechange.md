@@ -89,15 +89,20 @@ report the gaps recorded at the initialization of the corresponding
 lanechange.
 
 ## Visualisation example
-The user-selected attributes can be plotted with use of plotXMLAttributes.py. The scenario acosta, one of the published sumo scenarios, is used as example (https://github.com/DLR-TS/sumo-scenarios/tree/main/bologna/acosta). 
+The user-selected attributes can be plotted with use of plotXMLAttributes.py. The [acosta scenario](https://github.com/DLR-TS/sumo-scenarios/tree/main/bologna/acosta), one of the published sumo scenarios, is used as example.
+
 ### Generating the lanechange output
+
 ```
 sumo run.sumocfg --lanechange-output lanechange.xml
 ```
+
 ### Example call for plotting
+
 ```
 python plotXMLAttributes.py -x speed -y leaderGap -s -o lc.png langchange.xml -i reason --filter-ids speedGain
 ```
+
 where -x is the attribute for the x axis; -y is the attribute for the y axis; -s is to show the plot; -o is the output file name; -i is the filtered attribute name; --filter-ids are the values of the filtered attribute name.
 
 The resultant plot is illustrated below.
