@@ -57,10 +57,10 @@ is given in the table below.
 
 ## Usage example
 
-In Acosta scenario, we generate a summary adding option <summary value="summary.xml"/> in run.sumocfg. After running scenario, we obtain a big file with all summary output. We can obtain a graphical representation of summary output file using script plotXMLAttributes.py. For example, calling:
-
+In Acosta scenario, we generate a summary adding option ```<summary value="summary.xml"/>``` in run.sumocfg. After running scenario, we obtain a big file with all summary output. We can obtain a graphical representation of summary output file using script plotXMLAttributes.py. For example, calling:
+```
 python D:\SUMO\tools\visualization\plotXMLAttributes.py -x time -y running -i running -o plot-running.png --scatterplot summary.xml
-
+```
 We obtain the representation of attribute "running" over time:
 
 ![plot-running](https://user-images.githubusercontent.com/8238561/200547977-b128f0bc-3a32-4394-8327-d2bea5e835c3.png)
