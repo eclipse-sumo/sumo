@@ -13,3 +13,6 @@ summary_no_id_explicit
 
 # plot categorial data
 lanechange_reason
+
+# plot optional values
+lanechange_missing_data
