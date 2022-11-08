@@ -257,6 +257,12 @@ def getDataStream(options):
     else:
         sys.exit("Found attributes at elements %s but at most 2 elements are supported" % allElems)
 
+def interpretValue(value):
+    try:
+        return parseTime(value)
+    except ValueError:
+        # use as category
+        return value
 
 def main(options):
 
@@ -273,6 +279,7 @@ def main(options):
     ydata = 1
 
     data = defaultdict(lambda: tuple(([] for i in range(2))))
+
     for fileIndex, datafile in enumerate(options.files):
         totalIDs = 0
         filteredIDs = 0
@@ -284,8 +291,8 @@ def main(options):
                 suffix = shortFileNames[fileIndex]
                 if len(suffix) > 0:
                     dataID += "#" + suffix
-            x = parseTime(x)
-            y = parseTime(y)
+            x = interpretValue(x)
+            y = interpretValue(y)
             data[dataID][xdata].append(x * options.xfactor)
             data[dataID][ydata].append(y * options.yfactor)
             filteredIDs += 1
