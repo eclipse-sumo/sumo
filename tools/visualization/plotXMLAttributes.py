@@ -273,6 +273,24 @@ def interpretValue(value):
         # use as category
         return value
 
+
+def isnumeric(value):
+    return type(value) == int or type(value) == float
+
+
+def keepNumeric(d, xyIndex):
+    res_x = []
+    res_y = []
+    for i in range(len(d[xyIndex])):
+        if isnumeric(d[xyIndex][i]):
+            res_x.append(d[0][i])
+            res_y.append(d[1][i])
+    d[0].clear()
+    d[0].extend(res_x)
+    d[1].clear()
+    d[1].extend(res_y)
+
+
 def main(options):
 
     dataStream = getDataStream(options)
@@ -289,6 +307,11 @@ def main(options):
 
     data = defaultdict(lambda: tuple(([] for i in range(2))))
 
+    numericXCount = 0
+    stringXCount = 0
+    numericYCount = 0
+    stringYCount = 0
+
     for fileIndex, datafile in enumerate(options.files):
         totalIDs = 0
         filteredIDs = 0
@@ -302,8 +325,19 @@ def main(options):
                     dataID += "#" + suffix
             x = interpretValue(x)
             y = interpretValue(y)
-            data[dataID][xdata].append(x * options.xfactor)
-            data[dataID][ydata].append(y * options.yfactor)
+            if isnumeric(x):
+                numericXCount += 1
+                x *= options.xfactor
+            else:
+                stringXCount += 1
+            if isnumeric(y):
+                numericYCount += 1
+                y *= options.yfactor
+            else:
+                stringYCount += 1
+
+            data[dataID][xdata].append(x)
+            data[dataID][ydata].append(y)
             filteredIDs += 1
         if totalIDs == 0 or filteredIDs == 0 or options.verbose:
             print("Found %s datapoints in %s and kept %s" % (totalIDs, datafile, filteredIDs))
@@ -318,15 +352,26 @@ def main(options):
 
     for dataID, d in data.items():
 
-        minY = min(minY, min(d[ydata]))
-        maxY = max(maxY, max(d[ydata]))
-        minX = min(minX, min(d[xdata]))
-        maxX = max(maxX, max(d[xdata]))
+        if numericXCount > 0 and stringXCount > 0:
+            keepNumeric(d, xdata)
+        if numericYCount > 0 and stringYCount > 0:
+            keepNumeric(d, ydata)
 
-        if options.scatterplot or (min(d[ydata]) == max(d[ydata]) and min(d[xdata]) == max(d[xdata])):
+        xvalues = d[xdata]
+        yvalues = d[ydata]
+        if len(xvalues) == 0:
+            assert(len(yvalues) == 0)
+            continue
+
+        minY = min(minY, min(yvalues))
+        maxY = max(maxY, max(yvalues))
+        minX = min(minX, min(xvalues))
+        maxX = max(maxX, max(xvalues))
+
+        if options.scatterplot or (min(yvalues) == max(yvalues) and min(xvalues) == max(xvalues)):
             options.linestyle=''
             options.marker='o'
-        plt.plot(d[xdata], d[ydata], linestyle=options.linestyle, marker=options.marker, picker=True, label=dataID)
+        plt.plot(xvalues, yvalues, linestyle=options.linestyle, marker=options.marker, picker=True, label=dataID)
 
     if options.invertYAxis:
         plt.axis([minX, maxX, maxY, minY])
