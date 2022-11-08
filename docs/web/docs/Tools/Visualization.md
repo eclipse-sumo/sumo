@@ -64,15 +64,15 @@ Input is [inductionloop-output](../Simulation/Output/Induction_Loops_Detectors_(
 
 Call: `python tools/visualization/plotXMLAttributes.py data.xml -x begin -y speed -s`
 
-![plotAttrs_detector.png](../images/plotAttrs_detector.png "plotAttrs_detector.png")
+<img src="../images/plotAttrs_detector.png" width="500px"/>
 
 ### boarding passengers vs delay for each station
 
 Input is [stop-output](../Simulation/Output/StopOutput.md)
 
 Call: `python tools/visualization/plotXMLAttributes.py stopinfos.xml -i busStop -x loadedPersons -y delay -s --scatterplot --legend`
-
-![plotAttrs_boardingDelay.png](../images/plotAttrs_boardingDelay.png "plotAttrs_boardingDelay.png")
+                                                                                                  
+<img src="../images/plotAttrs_boardingDelay.png" width="500px"/>
 
 ### Fundamental Diagram from edgeData
 
@@ -82,7 +82,7 @@ Call: `python tools/visualization/plotXMLAttributes.py data.xml -i id -x density
 
 Each color gives encodes a different edge-id. Option **--factor 60** is used to convert from vehicles per 60s (edgeData-period 60) to vehicles per hour.
 
-![plotAttrs_fundamental.png](../images/plotAttrs_fundamental.png "plotAttrs_fundamental.png")
+<img src="../images/plotAttrs_fundamental.png" width="500px"/>
 
 ### Running from Summary
 
@@ -90,7 +90,7 @@ Input is [summary](../Simulation/Output/Summary.md):
 
 Call: `python tools/visualization/plotXMLAttributes.py -x time -y running -i running -o plot-running.png --scatterplot summary.xml`
 
-![plot-running](../images/plot-running.png)
+<img src="../images/plot-running.png" width="500px"/>
 
 ## plot_trajectories.py
 
@@ -126,7 +126,7 @@ The option **-t (--trajectory-type)** supports different attributes that can be 
 - **xy**: Spatial plot of driving path
 - **kt**: kilometrage vs time (combine with option **--invert-yaxis** to get a classic railway diagram).
 
-![plot_trajectories.png](../images/Plot_trajectories.png "plot_trajectories.png")
+<img src="../images/Plot_trajectories.png" width="500px"/>
 
 ### Interactive Plot
 
@@ -586,7 +586,7 @@ To visualize the flow on an intersection with line widths according to the amoun
 
         sumo-gui -n NET -a flows.poly.xml
 
-![](../images/Route2poly_intersectionFlow.png)
+<img src="../images/Route2poly_intersectionFlow.png" width="400px"/>
 
 # Outdated
 
