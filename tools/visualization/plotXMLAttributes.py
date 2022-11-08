@@ -48,6 +48,8 @@ from sumolib.miscutils import uMin, uMax, parseTime  # noqa
 from sumolib.options import ArgumentParser, RawDescriptionHelpFormatter  # noqa
 
 RANK_ATTR = "@RANK"
+NONE_ATTR = "@NONE"
+NONE_ATTR_DEFAULT = 0
 
 
 def getOptions(args=None):
@@ -169,18 +171,24 @@ def getDataStream(options):
         for a in attrOptions:
             attr = getattr(options, a)
             if attr not in attr2elem:
+                lvlElem = [(lv, el) for el, lv in elem2level.items()]
+                minLevelElem = sorted(lvlElem)[0][1]
                 if attr == RANK_ATTR:
-                    lvlElem = [(lv, el) for el, lv in elem2level.items()]
-                    minLevelElem = sorted(lvlElem)[0][1]
                     attr2elem[attr] = minLevelElem
                 else:
-                    sys.exit("%s '%s' not found in %s" % (a, attr, options.files[0]))
+                    msg = "%s '%s' not found in %s" % (a, attr, options.files[0])
+                    if a == 'idattr':
+                        if attr != NONE_ATTR:
+                            print(msg, file=sys.stderr)
+                            options.idattr = NONE_ATTR
+                        attr2elem[attr] = minLevelElem
+                    else:
+                        sys.exit("Mandatory " + msg)
 
     allElems = list(set(attr2elem.values()))
     attrs = [getattr(options, a) for a in attrOptions]
 
     # we don't know the order of the elements and we cannot get it from our xml parser
-
     if len(allElems) == 2:
         def datastream(xmlfile):
             skippedLines = defaultdict(int)
@@ -206,6 +214,8 @@ def getDataStream(options):
                             values[a] = m.groups()[0]
                         elif a == RANK_ATTR:
                             values[a] = index
+                        elif a == NONE_ATTR:
+                            values[a] = NONE_ATTR_DEFAULT
                         else:
                             skip = True
                             skippedLines[a] += 1
@@ -231,6 +241,8 @@ def getDataStream(options):
                     for a, r in zip(attrs, mAs):
                         if a == RANK_ATTR:
                             values.append(index)
+                        elif a == NONE_ATTR:
+                            values.append(NONE_ATTR_DEFAULT)
                         else:
                             m = r.search(line)
                             if m:
