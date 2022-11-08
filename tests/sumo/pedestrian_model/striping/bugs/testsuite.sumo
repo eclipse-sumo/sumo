@@ -40,3 +40,6 @@ ticket8417
 
 # invalid arrivalPos interpretation
 ticket11674
+
+# invalid distance output
+ticket11983
