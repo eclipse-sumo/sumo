@@ -63,16 +63,17 @@ def getOptions(args=None):
              'Example\n'
              '  plotXMLAttributes.py -x started -y initialPersons -s stopout.xml\n'
              '    plots passengers over time for vehicles from SUMO stop output',
-             formatter_class=RawDescriptionHelpFormatter)
+             formatter_class=RawDescriptionHelpFormatter,conflict_handler='resolve')
 
+    sumolib.visualization.helpers.addPlotOptions(optParser)
+    sumolib.visualization.helpers.addInteractionOptions(optParser)
     optParser.add_option("-x", "--xattr",  help="attribute for x-axis")
     optParser.add_option("-y", "--yattr",  help="attribute for y-axis")
     optParser.add_option("-i", "--idattr",  default="id", help="attribute for grouping data points into lines")
     optParser.add_option("--xelem",  help="element for x-axis")
     optParser.add_option("--yelem",  help="element for y-axis")
     optParser.add_option("--idelem",  help="element for grouping data points into lines")
-    optParser.add_option("--show", action="store_true", default=False, help="show plot directly")
-    #optParser.add_option("-o", "--output", help="outputfile for saving plots", default="plot.png") # no default file name in common opt
+    optParser.add_option("-s", "--show", action="store_true", default=False, help="show plot directly")
     optParser.add_option("--csv-output", dest="csv_output", help="write plot as csv", metavar="FILE")
     optParser.add_option("--filter-ids", dest="filterIDs", help="only plot data points from the given list of ids")
     optParser.add_option("-p", "--pick-distance", dest="pickDist", type=float, default=1,
@@ -89,8 +90,6 @@ def getOptions(args=None):
     optParser.add_option("--legend", action="store_true", default=False, help="Add legend")
     optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
     optParser.add_argument("files", nargs='+', help="List of XML files to plot")
-    sumolib.visualization.helpers.addPlotOptions(optParser)
-    sumolib.visualization.helpers.addInteractionOptions(optParser)
 
     options = optParser.parse_args(args=args)
 
