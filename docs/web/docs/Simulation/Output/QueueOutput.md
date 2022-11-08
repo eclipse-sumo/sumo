@@ -49,3 +49,19 @@ The generated XML file looks like this:
 This output option should offer some information about the queues in
 front of the junctions, which can be used in cases of routing or V2X
 communications.
+
+## Visualisation example
+The user-selected attributes can be plotted with use of plotXMLAttributes.py. The scenario acosta, one of the published sumo scenarios, is used as example (https://github.com/DLR-TS/sumo-scenarios/tree/main/bologna/acosta). 
+### Generating the lanechange output
+```
+sumo -c run.sumocfg --queue-output queue.xml
+```
+### Example call for plotting
+```
+python plotXMLAttributes.py -x timestep -y queueing_time -s -o queue.png queue.xml -i id --filter-ids 121_0
+```
+where -x is the attribute for the x axis; -y is the attribute for the y axis; -s is to show the plot; -o is the output file name; -i is the filtered attribute name; --filter-ids are the value(s) of the filtered attribute name.
+
+The resultant plot is illustrated below.
+
+<img src="../../images/queue_out.png" width="500px"/>
