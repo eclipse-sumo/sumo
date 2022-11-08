@@ -84,6 +84,14 @@ Each color gives encodes a different edge-id. Option **--factor 60** is used to 
 
 ![plotAttrs_fundamental.png](../images/plotAttrs_fundamental.png "plotAttrs_fundamental.png")
 
+### Running from Summary
+
+Input is [summary](../Simulation/Output/Summary.md):
+
+Call: `python tools/visualization/plotXMLAttributes.py -x time -y running -i running -o plot-running.png --scatterplot summary.xml`
+
+
+![plot-running](https://user-images.githubusercontent.com/8238561/200547977-b128f0bc-3a32-4394-8327-d2bea5e835c3.png)
 
 
 ## plot_trajectories.py
