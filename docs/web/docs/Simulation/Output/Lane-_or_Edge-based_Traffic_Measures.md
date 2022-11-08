@@ -35,7 +35,7 @@ For a lane based dump simply write:
 </additional>
 ```
 
-The define dfile can either be loaded with sumo option **--additional-files FILENAME** or declared in a *.sumocfg* file with `<additional-files value="FILENAME"/>`
+The defined file can either be loaded with sumo option **--additional-files FILENAME** or declared in a *.sumocfg* file with `<additional-files value="FILENAME"/>`
 
 !!! note
     attribute 'id' is only used to distinguish outputs if there are multiple edgeData definitions. The value is otherwise arbitrary and does not influence written outputs.
