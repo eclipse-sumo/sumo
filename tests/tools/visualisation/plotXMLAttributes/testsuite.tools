@@ -4,3 +4,6 @@ edgeData_speeds
 # tripinfos contain vehicle trips and person rides
 tripinfo_mixed_depart_routeLength
 tripinfo_rank_depart
+
+# plot summary output which doesn't have an id attribute
+summary_no_id
