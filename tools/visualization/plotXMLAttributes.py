@@ -13,6 +13,7 @@
 
 # @file    plotXMLAttributes.py
 # @author  Jakob Erdmann
+# @author  Mirko Barthauer
 # @date    2021-11-05
 
 """
@@ -46,6 +47,7 @@ sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 from sumolib.xml import _open  # noqa
 from sumolib.miscutils import uMin, uMax, parseTime  # noqa
 from sumolib.options import ArgumentParser, RawDescriptionHelpFormatter  # noqa
+import sumolib.visualization.helpers
 
 RANK_ATTR = "@RANK"
 NONE_ATTR = "@NONE"
@@ -69,15 +71,13 @@ def getOptions(args=None):
     optParser.add_option("--xelem",  help="element for x-axis")
     optParser.add_option("--yelem",  help="element for y-axis")
     optParser.add_option("--idelem",  help="element for grouping data points into lines")
-    optParser.add_option("-s", "--show", action="store_true", default=False, help="show plot directly")
-    optParser.add_option("-o", "--output", help="outputfile for saving plots", default="plot.png")
+    optParser.add_option("--show", action="store_true", default=False, help="show plot directly")
+    #optParser.add_option("-o", "--output", help="outputfile for saving plots", default="plot.png") # no default file name in common opt
     optParser.add_option("--csv-output", dest="csv_output", help="write plot as csv", metavar="FILE")
     optParser.add_option("--filter-ids", dest="filterIDs", help="only plot data points from the given list of ids")
     optParser.add_option("-p", "--pick-distance", dest="pickDist", type=float, default=1,
                          help="pick lines within the given distance in interactive plot mode")
     optParser.add_option("--label", help="plot label (default input file name")
-    optParser.add_option("--xlabel", help="plot label (default xattr)")
-    optParser.add_option("--ylabel", help="plot label (default yattr)")
     optParser.add_option("--xfactor", help="multiplier for x-data", type=float, default=1)
     optParser.add_option("--yfactor", help="multiplier for y-data", type=float, default=1)
     optParser.add_option("--invert-yaxis", dest="invertYAxis", action="store_true",
@@ -87,6 +87,8 @@ def getOptions(args=None):
     optParser.add_option("--legend", action="store_true", default=False, help="Add legend")
     optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
     optParser.add_argument("files", nargs='+', help="List of XML files to plot")
+    sumolib.visualization.helpers.addPlotOptions(optParser)
+    sumolib.visualization.helpers.addInteractionOptions(optParser)
 
     options = optParser.parse_args(args=args)
 
@@ -104,7 +106,13 @@ def getOptions(args=None):
         options.xlabel = options.xattr
     if options.ylabel is None:
         options.ylabel = options.yattr
-
+    
+    # keep old presets before integration of common options
+    options.nolegend = not options.legend
+    options.blind = not options.show
+    if options.output is None:
+        options.output = "plot.png"
+    
     return options
 
 
@@ -322,16 +330,12 @@ def main(options):
 
     if options.invertYAxis:
         plt.axis([minX, maxX, maxY, minY])
-
-    if options.legend > 0:
-        plt.legend()
-
-    plt.savefig(options.output)
+    
     if options.csv_output is not None:
         write_csv(data, options.csv_output)
-    if options.show:
-        plt.show()
-
+    
+    ax = fig.axes[0]
+    sumolib.visualization.helpers.closeFigure(fig, ax, options)
 
 if __name__ == "__main__":
     main(getOptions())
