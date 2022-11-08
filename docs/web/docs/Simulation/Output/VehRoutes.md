@@ -105,3 +105,20 @@ For example, setting the option **--device.vehroute.probability 0.25** will equi
 - **--vehroute-output.stop-edges**:   Include information about edges between stops
 - **--vehroute-output.speedfactor**:   Include information vehicle specific speedFactor in output (defaults to 'true' if the vehicle had it's departSpeed set)
 - **--vehroute-output.internal**:   Include internal edges in the output. Note, that such routes are not suitable for being loaded by sumo or duarouter!
+
+## Visualization example
+The user-selected attributes can be plotted with use of [plotXMLAttributes.py](../../Tools/Visualization.md#plotxmlattributespy). The scenario acosta, one of the published sumo scenarios, is used as example [acosta scenario](https://github.com/DLR-TS/sumo-scenarios/tree/main/bologna/acosta). 
+
+### Generating the output
+```
+sumo -c run.sumocfg --vehroute-output vehroute.xml
+```
+### Example call for plotting
+```
+python plotXMLAttributes.py -x depart -y arrival -s -o vehroute.png vehroute.xml --scatterplot
+```
+where -x is the attribute for the x axis; -y is the attribute for the y axis; -s is to show the plot; -o is the output file name; -scatterplot is to make a scatter plot instead of a line plot.
+
+The resultant plot is illustrated below.
+
+<img src="../../images/vehroute_output.png" width="500px"/>
