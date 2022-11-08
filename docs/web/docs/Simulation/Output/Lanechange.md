@@ -88,8 +88,8 @@ In case of activating the option **--lanechange.duration**, the change-elements 
 report the gaps recorded at the initialization of the corresponding
 lanechange.
 
-## Visualisation example
-The user-selected attributes can be plotted with use of plotXMLAttributes.py. The [acosta scenario](https://github.com/DLR-TS/sumo-scenarios/tree/main/bologna/acosta), one of the published sumo scenarios, is used as example.
+## Visualization example
+The user-selected attributes can be plotted with use of [plotXMLAttributes.py](../../Tools/Visualization.md#plotxmlattributespy). The [acosta scenario](https://github.com/DLR-TS/sumo-scenarios/tree/main/bologna/acosta), one of the published sumo scenarios, is used as example.
 
 ### Generating the lanechange output
 
