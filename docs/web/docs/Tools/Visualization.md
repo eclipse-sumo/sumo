@@ -96,9 +96,12 @@ Each color gives encodes a different edge-id. Option **--factor 60** is used to 
 
 Input is [summary](../Simulation/Output/Summary.md):
 
-Call: `python tools/visualization/plotXMLAttributes.py -x time -y running -i running -o plot-running.png --scatterplot summary.xml`
+Call: `python tools/visualization/plotXMLAttributes.py -x time -y running -o plot-running.png --scatterplot summary.xml`
 
 <img src="../images/plot-running.png" width="500px"/>
+
+!!! caution
+    In version 1.15.0 and lower, the id-attribute must be provided so you need to provide a dummy value (i.e. with `-i running`)
 
 ### Depart delay over time from TripInfo data
 The plot is created out of [TripInfo](../Simulation/Output/TripInfo.md) output data:
