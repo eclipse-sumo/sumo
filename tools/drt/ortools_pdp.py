@@ -51,8 +51,8 @@ def get_solution(data, manager, routing, solution, verbose):
             route_load += data['demands'][current_node]
             time_var = time_dimension.CumulVar(index)
             if verbose:
-                plan_output += ' %s (L: %s, C: %s, T: (%s,%s))\n -> ' % (current_node, route_load, route_cost, solution.Min(time_var),
-                solution.Max(time_var))
+                plan_output += (' %s (L: %s, C: %s, T: (%s,%s))\n -> ' %
+                                (current_node, route_load, route_cost, solution.Min(time_var), solution.Max(time_var)))
             route.append(current_node)
             previous_index = index
             index = solution.Value(routing.NextVar(index))
@@ -62,8 +62,8 @@ def get_solution(data, manager, routing, solution, verbose):
         time_var = time_dimension.CumulVar(index)
         route.append(last_node)
         if verbose:
-            plan_output += ' %s (L: %s, C: %s, T: (%s,%s))\n' % (last_node, route_load, route_cost, solution.Min(time_var),
-                solution.Max(time_var))
+            plan_output += (' %s (L: %s, C: %s, T: (%s,%s))\n' %
+                            (last_node, route_load, route_cost, solution.Min(time_var), solution.Max(time_var)))
             plan_output += 'Costs of the route: %s\n' % route_cost
             print(plan_output)
         total_cost += route_cost
@@ -202,7 +202,7 @@ def set_first_solution_heuristic(time_limit_seconds, verbose):
 def add_time_windows_constraint(data, routing, manager, verbose):
     if verbose:
         print(' Add time windows constraints...')
-    
+
     def time_callback(from_index, to_index):
         """Returns the travel time between the two nodes."""
         # Convert from routing variable Index to time matrix NodeIndex.
@@ -211,7 +211,7 @@ def add_time_windows_constraint(data, routing, manager, verbose):
         return data['time_matrix'][from_node][to_node]
 
     time_callback_index = routing.RegisterTransitCallback(time_callback)
-    #routing.SetArcCostEvaluatorOfAllVehicles(time_callback_index)
+    # routing.SetArcCostEvaluatorOfAllVehicles(time_callback_index)
     matrix_times = int(np.sum(data['time_matrix']))
     dimension_name = 'Time'
     routing.AddDimension(
@@ -223,13 +223,13 @@ def add_time_windows_constraint(data, routing, manager, verbose):
     time_dimension = routing.GetDimensionOrDie(dimension_name)
     # Add time window constraints for each location except depot.
     for location_idx, time_window in enumerate(data['time_windows']):
-        #if location_idx == data['depot']:
-        #if location_idx in data['starts'] or location_idx == 0:
+        # if location_idx == data['depot']:
+        # if location_idx in data['starts'] or location_idx == 0:
         if location_idx == 0:
             continue
         index = manager.NodeToIndex(location_idx)
-        time_dimension.CumulVar(index).SetRange(time_window[0], time_window[1])  #TODO: check if set, else ignore it
-    #TODO: check if the followwing is needed
+        time_dimension.CumulVar(index).SetRange(time_window[0], time_window[1])  # TODO: check if set, else ignore it
+    # TODO: check if the followwing is needed
     # # Add time window constraints for each vehicle start node.
     # depot_idx = data['depot']
     # for vehicle_id in range(data['num_vehicles']):

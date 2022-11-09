@@ -35,7 +35,6 @@ if 'matplotlib.backends' not in sys.modules:
     if 'TEXTTEST_SANDBOX' in os.environ or (os.name == 'posix' and 'DISPLAY' not in os.environ):
         matplotlib.use('Agg')
 import matplotlib.pyplot as plt  # noqa
-import math  # noqa
 
 try:
     import xml.etree.cElementTree as ET
@@ -47,7 +46,7 @@ sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 from sumolib.xml import _open  # noqa
 from sumolib.miscutils import uMin, uMax, parseTime  # noqa
 from sumolib.options import ArgumentParser, RawDescriptionHelpFormatter  # noqa
-import sumolib.visualization.helpers
+import sumolib.visualization.helpers  # noqa
 
 RANK_ATTR = "@RANK"
 NONE_ATTR = "@NONE"
@@ -56,14 +55,14 @@ NONE_ATTR_DEFAULT = 0
 
 def getOptions(args=None):
     optParser = ArgumentParser(
-      description='Plot arbitrary attributes from xml files',
-      epilog='Individual trajectories can be clicked in interactive mode to print the data Id on the console\n'
-             'selects two attributs for x and y axis and optionally a third (id-attribute)\n'
-             'for grouping of data points into lines\n\n'
-             'Example\n'
-             '  plotXMLAttributes.py -x started -y initialPersons -s stopout.xml\n'
-             '    plots passengers over time for vehicles from SUMO stop output',
-             formatter_class=RawDescriptionHelpFormatter,conflict_handler='resolve')
+        description='Plot arbitrary attributes from xml files',
+        epilog='Individual trajectories can be clicked in interactive mode to print the data Id on the console\n'
+        'selects two attributs for x and y axis and optionally a third (id-attribute)\n'
+        'for grouping of data points into lines\n\n'
+        'Example\n'
+        '  plotXMLAttributes.py -x started -y initialPersons -s stopout.xml\n'
+        '    plots passengers over time for vehicles from SUMO stop output',
+        formatter_class=RawDescriptionHelpFormatter, conflict_handler='resolve')
 
     sumolib.visualization.helpers.addPlotOptions(optParser)
     sumolib.visualization.helpers.addInteractionOptions(optParser)
@@ -111,7 +110,7 @@ def getOptions(args=None):
     options.blind = not options.show
     if options.output is None:
         options.output = "plot.png"
-    
+
     return options
 
 
@@ -264,6 +263,7 @@ def getDataStream(options):
     else:
         sys.exit("Found attributes at elements %s but at most 2 elements are supported" % allElems)
 
+
 def interpretValue(value):
     try:
         return parseTime(value)
@@ -376,12 +376,13 @@ def main(options):
 
     if options.invertYAxis:
         plt.axis([minX, maxX, maxY, minY])
-    
+
     if options.csv_output is not None:
         write_csv(data, options.csv_output)
-    
+
     ax = fig.axes[0]
     sumolib.visualization.helpers.closeFigure(fig, ax, options)
+
 
 if __name__ == "__main__":
     main(getOptions())

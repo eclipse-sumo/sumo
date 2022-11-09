@@ -236,13 +236,15 @@ def get_max_time():
         return max_sim_time
 
 
-def get_cost_matrix(edges, type_vehicle, cost_type, pickup_indices, dropoff_indices):  #TODO: If cost_type is TIME, remove cost_matrix and cost_dict.
+# TODO: If cost_type is TIME, remove cost_matrix and cost_dict.
+def get_cost_matrix(edges, type_vehicle, cost_type, pickup_indices, dropoff_indices):
     """Get cost matrix between edges.
     Index in cost matrix is the same as the node index of the constraint solver."""
-    
+
     id_vehicle = traci.vehicle.getTaxiFleet(-1)[0]  # take a vehicle
-    id_vtype = traci.vehicle.getTypeID(id_vehicle)  # take its vtype
-    boardingDuration_param = ''  # TODO: use traci.vehicletype.getBoardingDuration(id_vtype) as soon as it was added to traci
+    # id_vtype = traci.vehicle.getTypeID(id_vehicle)  # take its vtype
+    # TODO: use traci.vehicletype.getBoardingDuration(id_vtype) as soon as it was added to traci
+    boardingDuration_param = ''
     boardingDuration = 0 if boardingDuration_param == '' else round(float(boardingDuration_param))
     pickUpDuration_param = traci.vehicle.getParameter(id_vehicle, 'device.taxi.pickUpDuration')
     pickUpDuration = 0 if pickUpDuration_param == '' else round(float(pickUpDuration_param))

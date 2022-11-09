@@ -39,7 +39,7 @@ import math  # noqa
 from sumolib.xml import parse_fast_nested  # noqa
 from sumolib.miscutils import uMin, uMax, parseTime  # noqa
 from sumolib.options import ArgumentParser  # noqa
-from sumolib.visualization import helpers # noqa
+from sumolib.visualization import helpers  # noqa
 
 KEYS = {
     't': 'Time',
@@ -83,18 +83,18 @@ def getOptions(args=None):
                          default=False, help="Invert the Y-Axis")
     optParser.add_option("--legend", action="store_true", default=False, help="Add legend")
     optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
-    
+
     options, args = optParser.parse_known_args(args=args)
     if len(args) < 1:
         sys.exit("mandatory argument FCD_FILE missing")
     options.fcdfiles = args
-    
+
     # keep old presets from before integration of common options
     options.nolegend = not options.legend
     options.blind = not options.show
     if options.output is None:
         options.output = "plot.png"
-    
+
     if options.filterRoute is not None:
         options.filterRoute = options.filterRoute.split(',')
     if options.filterEdges is not None:
@@ -240,11 +240,11 @@ def main(options):
     maxY = uMin
     minX = uMax
     maxX = uMin
-    
-    addArgs = {"picker":line_picker, "linestyle": options.linestyle}
+
+    addArgs = {"picker": line_picker, "linestyle": options.linestyle}
     if options.marker is not None:
         addArgs["marker"] = options.marker
-    
+
     for vehID, d in data.items():
         if options.filterRoute is not None:
             skip = False
@@ -271,7 +271,7 @@ def main(options):
     if options.invertYAxis:
         plt.axis([minX, maxX, maxY, minY])
     if options.csv_output is not None:
-        write_csv(data, options.csv_output)    
+        write_csv(data, options.csv_output)
     helpers.closeFigure(fig, fig.axes[0], options)
 
 

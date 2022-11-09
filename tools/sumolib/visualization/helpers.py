@@ -86,9 +86,9 @@ def addPlotOptions(optParser):
                          type=int, default=16, help="Set the size of the x-axis label")
     optParser.add_option("--ylabelsize", dest="ylabelsize",
                          type=int, default=16, help="Set the size of the x-axis label")
-    optParser.add_option("--marker", dest="marker", default=None, 
+    optParser.add_option("--marker", dest="marker", default=None,
                          help="marker for single points (default 'o' for scatter, None otherwise)")
-    optParser.add_option("--linestyle", dest="linestyle", default="-", 
+    optParser.add_option("--linestyle", dest="linestyle", default="-",
                          help="plot line style (default '-')")
     optParser.add_option("--title", dest="title",
                          default=None, help="Set the title")

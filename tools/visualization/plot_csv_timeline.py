@@ -89,7 +89,7 @@ def main(args=None):
         if options.columns is not None:
             ci = options.columns.index(i)
         c = helpers.getColor(options, ci, len(nums))
-        addArgs = {"linestyle":options.linestyle, "color":c}
+        addArgs = {"linestyle": options.linestyle, "color": c}
         if options.marker is not None:
             addArgs["marker"] = options.marker
         plt.plot(ts[0:len(v)], v, label=helpers.getLabel(str(i), ci, options), **addArgs)
