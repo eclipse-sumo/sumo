@@ -103,8 +103,8 @@ RONet::RONet() :
 
 
 RONet::~RONet() {
-    for (RoutablesMap::iterator routables = myRoutables.begin(); routables != myRoutables.end(); ++routables) {
-        for (RORoutable* const r : routables->second) {
+    for (const auto& routables : myRoutables) {
+        for (RORoutable* const r : routables.second) {
             const ROVehicle* const veh = dynamic_cast<const ROVehicle*>(r);
             // delete routes and the vehicle
             if (veh != nullptr && veh->getRouteDefinition()->getID()[0] == '!') {
@@ -126,6 +126,9 @@ RONet::~RONet() {
         delete r;
     }
     myRoutables.clear();
+    for (const auto& vTypeDist : myVTypeDistDict) {
+        delete vTypeDist.second;
+    }
 }
 
 
