@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-11-08 10:46:37 by Eclipse SUMO GUI Version v1_14_1+1305-9284caf83e4
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="C:\Users\coue_be\Data\Networks\acosta\acosta_buslanes.net.xml"/>
+        <route-files value="C:\Users\coue_be\Data\Networks\acosta\acosta.rou.xml,C:\Users\coue_be\Data\Networks\acosta\acosta_busses.rou.xml"/>
+        <additional-files value="C:\Users\coue_be\Data\Networks\acosta\acosta_vtypes.add.xml,C:\Users\coue_be\Data\Networks\acosta\acosta_detectors.add.xml,C:\Users\coue_be\Data\Networks\acosta\acosta_bus_stops.add.xml,C:\Users\coue_be\Data\Networks\acosta\acosta_tls.add.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="C:\Users\coue_be\Data\Networks\acosta\tripinfos.xml"/>
+    </output>
+
+    <report>
+        <log value="C:\Users\coue_be\Data\Networks\acosta\sumo_log.txt"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <ssm_device>
+        <device.ssm.deterministic value="true"/>
+        <device.ssm.measures value="TTC"/>
+        <device.ssm.file value="ssm.xml"/>
+    </ssm_device>
+
+    <gui_only>
+        <gui-settings-file value="C:\Users\coue_be\Data\Networks\acosta\settings.gui.xml"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<SSMLog>
+    <conflict begin="8.00" end="58.00" ego="bus_91_0" foe="bus_81_0">
+        <minTTC time="29.00" position="1546.08,1038.20" type="2" value="1.05"/>
+    </conflict>
+    <conflict begin="26.00" end="53.00" ego="bus_91_0" foe="bus_13_0">
+        <minTTC time="27.00" position="1532.42,1044.50" type="2" value="2.61"/>
+    </conflict>
+    <conflict begin="4.00" end="60.00" ego="bus_130_0" foe="bus_810_0">
+        <minTTC time="28.00" position="1031.06,1244.71" type="3" value="0.89"/>
+    </conflict>
+    <conflict begin="29.00" end="57.00" ego="bus_130_0" foe="bus_860_0">
+        <minTTC time="29.00" position="1031.06,1244.71" type="3" value="2.80"/>
+    </conflict>
+    <conflict begin="4.00" end="60.00" ego="bus_810_0" foe="bus_130_0">
+        <minTTC time="28.00" position="1031.06,1244.71" type="2" value="0.89"/>
+    </conflict>
+    <conflict begin="40.00" end="63.00" ego="bus_14_0" foe="XXI_Aprile_94_3">
+        <minTTC time="44.00" position="459.64,521.94" type="6" value="2.08"/>
+    </conflict>
+    <conflict begin="42.00" end="55.00" ego="bus_14_0" foe="XXI_Aprile_113_4">
+        <minTTC time="44.00" position="459.64,521.94" type="6" value="2.39"/>
+    </conflict>
+    <conflict begin="12.00" end="67.00" ego="bus_910_0" foe="bus_860_0">
+        <minTTC time="34.00" position="1003.22,1256.25" type="2" value="0.86"/>
+    </conflict>
+    <conflict begin="31.00" end="62.00" ego="bus_910_0" foe="bus_810_0">
+        <minTTC time="33.00" position="1017.08,1250.51" type="2" value="2.57"/>
+    </conflict>
+    <conflict begin="4.00" end="75.00" ego="bus_13_0" foe="bus_81_0">
+        <minTTC time="26.00" position="1532.42,1044.50" type="3" value="0.83"/>
+    </conflict>
+    <conflict begin="4.00" end="75.00" ego="bus_81_0" foe="bus_13_0">
+        <minTTC time="26.00" position="1532.42,1044.50" type="2" value="0.83"/>
+    </conflict>
+    <conflict begin="26.00" end="82.00" ego="bus_13_0" foe="bus_91_0">
+        <minTTC time="27.00" position="1532.42,1044.50" type="3" value="2.61"/>
+    </conflict>
+    <conflict begin="8.00" end="82.00" ego="bus_81_0" foe="bus_91_0">
+        <minTTC time="29.00" position="1546.08,1038.20" type="3" value="1.05"/>
+    </conflict>
+    <conflict begin="78.00" end="87.00" ego="bus_86_60" foe="bus_91_0">
+        <minTTC time="80.00" position="1528.14,1046.48" type="2" value="2.28"/>
+    </conflict>
+    <conflict begin="78.00" end="91.00" ego="bus_91_0" foe="bus_86_60">
+        <minTTC time="80.00" position="1528.14,1046.48" type="3" value="2.28"/>
+    </conflict>
+    <conflict begin="69.00" end="103.00" ego="bus_130_0" foe="bus_810_0">
+        <minTTC time="74.00" position="1261.53,1149.19" type="3" value="0.79"/>
+    </conflict>
+    <conflict begin="73.00" end="101.00" ego="bus_130_0" foe="bus_860_0">
+        <minTTC time="74.00" position="1261.53,1149.19" type="3" value="2.84"/>
+    </conflict>
+    <conflict begin="14.00" end="104.00" ego="Silvani_7_5" foe="Silvani_3_6">
+        <minTTC time="51.00" position="1454.45,1104.25" type="3" value="0.75"/>
+    </conflict>
+    <conflict begin="30.00" end="103.00" ego="Silvani_7_5" foe="Silvani_7_7">
+        <minTTC time="48.00" position="1454.55,1104.32" type="3" value="0.73"/>
+    </conflict>
+    <conflict begin="25.00" end="105.00" ego="Silvani_7_10" foe="Silvani_7_11">
+        <minTTC time="59.00" position="1459.82,1108.21" type="2" value="0.81"/>
+    </conflict>
+    <conflict begin="81.00" end="104.00" ego="XXI_Aprile_12_23" foe="XXI_Aprile_1_17">
+        <minTTC time="86.00" position="307.77,186.13" type="2" value="2.40"/>
+    </conflict>
+    <conflict begin="25.00" end="106.00" ego="Silvani_7_11" foe="Silvani_7_10">
+        <minTTC time="59.00" position="1459.82,1108.21" type="3" value="0.81"/>
+    </conflict>
+    <conflict begin="25.00" end="106.00" ego="Silvani_7_3" foe="Silvani_11_1">
+        <minTTC time="45.00" position="1452.15,1106.53" type="2" value="0.64"/>
+    </conflict>
+    <conflict begin="34.00" end="105.00" ego="Silvani_7_3" foe="Silvani_3_6">
+        <minTTC time="47.00" position="1457.38,1110.39" type="3" value="0.58"/>
+    </conflict>
+    <conflict begin="40.00" end="103.00" ego="Silvani_7_3" foe="Silvani_11_0">
+        <minTTC time="43.00" position="1447.72,1103.26" type="2" value="1.71"/>
+    </conflict>
+    <conflict begin="85.00" end="106.00" ego="XXI_Aprile_94_24" foe="XXI_Aprile_1_18">
+        <minTTC time="89.00" position="305.62,180.99" type="2" value="3.00"/>
+    </conflict>
+    <conflict begin="53.00" end="105.00" ego="Silvani_7_11" foe="Silvani_3_6">
+        <minTTC time="54.00" position="1459.68,1108.10" type="2" value="2.56"/>
+    </conflict>
+    <conflict begin="21.00" end="109.00" ego="Togliatti_9_13" foe="Togliatti_10_12">
+        <minTTC time="49.00" position="557.35,850.35" type="2" value="1.18"/>
+    </conflict>
+    <conflict begin="24.00" end="109.00" ego="Togliatti_71_17" foe="Togliatti_9_13">
+        <minTTC time="53.00" position="550.88,850.67" type="2" value="0.41"/>
+    </conflict>
+    <conflict begin="47.00" end="109.00" ego="Silvani_7_19" foe="Silvani_7_20">
+        <minTTC time="84.00" position="1470.15,1115.82" type="2" value="1.92"/>
+    </conflict>
+    <conflict begin="49.00" end="109.00" ego="Silvani_7_21" foe="Silvani_7_20">
+        <minTTC time="79.00" position="1476.47,1120.48" type="2" value="2.23"/>
+    </conflict>
+    <conflict begin="54.00" end="107.00" ego="Silvani_7_10" foe="Silvani_11_8">
+        <minTTC time="56.00" position="1462.61,1114.25" type="2" value="2.07"/>
+    </conflict>
+    <conflict begin="54.00" end="108.00" ego="Silvani_7_10" foe="Silvani_11_9">
+        <minTTC time="56.00" position="1467.85,1118.11" type="2" value="1.52"/>
+    </conflict>
+    <conflict begin="55.00" end="105.00" ego="Silvani_7_10" foe="Silvani_7_3">
+        <minTTC time="56.00" position="1457.38,1110.39" type="2" value="2.63"/>
+    </conflict>
+    <conflict begin="79.00" end="175.00" ego="Silvani_11_32" foe="Silvani_11_33">
+        <minTTC time="106.00" position="1513.72,1151.94" type="3" value="0.50"/>
+    </conflict>
+    <conflict begin="100.00" end="168.00" ego="Silvani_11_32" foe="Silvani_11_24">
+        <minTTC time="103.00" position="1503.66,1144.52" type="2" value="1.49"/>
+    </conflict>
+    <conflict begin="100.00" end="173.00" ego="Silvani_11_32" foe="Silvani_11_27">
+        <minTTC time="104.00" position="1508.49,1148.09" type="2" value="0.41"/>
+    </conflict>
+    <conflict begin="101.00" end="119.00" ego="Silvani_11_32" foe="Silvani_11_17">
+        <minTTC time="102.00" position="1493.20,1136.81" type="2" value="2.73"/>
+    </conflict>
+    <conflict begin="101.00" end="122.00" ego="Silvani_11_32" foe="Silvani_11_23">
+        <minTTC time="102.00" position="1498.43,1140.66" type="2" value="2.17"/>
+    </conflict>
+    <conflict begin="104.00" end="115.00" ego="Silvani_11_32" foe="Silvani_7_35">
+        <minTTC time="105.00" position="1513.72,1151.94" type="3" value="2.61"/>
+    </conflict>
+    <conflict begin="107.00" end="119.00" ego="Silvani_11_32" foe="Silvani_7_36">
+        <minTTC time="109.00" position="1513.72,1151.94" type="3" value="1.52"/>
+    </conflict>
+    <conflict begin="111.00" end="134.00" ego="Silvani_11_32" foe="Silvani_11_34">
+        <minTTC time="114.00" position="1513.04,1151.44" type="3" value="1.83"/>
+    </conflict>
+    <conflict begin="144.00" end="156.00" ego="Silvani_7_7" foe="XXI_Aprile_7_0">
+        <minTTC time="147.00" position="1576.34,463.66" type="6" value="2.00"/>
+    </conflict>
+    <conflict begin="102.00" end="175.00" ego="Costa_700_16" foe="Togliatti_72_5">
+        <minTTC time="104.00" position="755.70,607.08" type="2" value="2.39"/>
+    </conflict>
+</SSMLog>
