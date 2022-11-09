@@ -86,6 +86,10 @@ def addPlotOptions(optParser):
                          type=int, default=16, help="Set the size of the x-axis label")
     optParser.add_option("--ylabelsize", dest="ylabelsize",
                          type=int, default=16, help="Set the size of the x-axis label")
+    optParser.add_option("--marker", dest="marker", default=None, 
+                         help="marker for single points (default 'o' for scatter, None otherwise)")
+    optParser.add_option("--linestyle", dest="linestyle", default="-", 
+                         help="plot line style (default '-')")
     optParser.add_option("--title", dest="title",
                          default=None, help="Set the title")
     optParser.add_option("--titlesize", dest="titlesize",
@@ -201,7 +205,7 @@ def plotNet(net, colors, widths, options):
         else:
             w.append(options.defaultWidth)
 
-    line_segments = LineCollection(shapes, linewidths=w, colors=c)
+    line_segments = LineCollection(shapes, linewidths=w, colors=c, linestyles=options.linestyle)
     ax = plt.gca()
     ax.add_collection(line_segments)
     ax.set_xmargin(0.1)

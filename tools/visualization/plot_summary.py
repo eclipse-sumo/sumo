@@ -65,7 +65,10 @@ def main(args=None):
             t.append(sumolib.miscutils.parseTime(time))
             v.append(float(val))
         c = helpers.getColor(options, i, len(files))
-        plt.plot(t, v, label=helpers.getLabel(f, i, options), color=c)
+        addArgs = {"linestyle":options.linestyle, "color":c}
+        if options.marker is not None:
+            addArgs["marker"] = options.marker       
+        plt.plot(t, v, label=helpers.getLabel(f, i, options), **addArgs)
     helpers.closeFigure(fig, ax, options)
 
 

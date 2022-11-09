@@ -85,8 +85,6 @@ def getOptions(args=None):
                          default=False, help="Invert the Y-Axis")
     optParser.add_option("--scatterplot", action="store_true",
                          default=False, help="Draw a scatterplot instead of lines")
-    optParser.add_option("--marker", help="marker for single points (default 'o' for scatter, None otherwise)")
-    optParser.add_option("--linestyle", default="-", help="plot line style (default '-')")
     optParser.add_option("--legend", action="store_true", default=False, help="Add legend")
     optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
     optParser.add_argument("files", nargs='+', help="List of XML files to plot")
@@ -107,8 +105,8 @@ def getOptions(args=None):
         options.xlabel = options.xattr
     if options.ylabel is None:
         options.ylabel = options.yattr
-    
-    # keep old presets before integration of common options
+
+    # keep old presets from before integration of common options
     options.nolegend = not options.legend
     options.blind = not options.show
     if options.output is None:
