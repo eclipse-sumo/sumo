@@ -56,6 +56,9 @@ class MFXMenuCheckIcon;
 /// @brief text field with thick frame and width 50
 #define GUIDesignTextFielWidth50        (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 50, GUIDesignHeight, 2, 2, 2, 2
 
+/// @brief text field with thick frame and width 70
+#define GUIDesignTextFielWidth70        (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 70, GUIDesignHeight, 2, 2, 2, 2
+
 /// @brief text field with thick frame and width 50 and limited to doubles
 #define GUIDesignTextFielWidth50Real    (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | TEXTFIELD_REAL), 0, 0, 50, GUIDesignHeight, 2, 2, 2, 2
 

@@ -43,7 +43,7 @@ FXIMPLEMENT(GNEUndoListDialog, FXTopWindow, GNEUndoListDialogMap, ARRAYNUMBER(GN
 // ===========================================================================
 
 GNEUndoListDialog::GNEUndoListDialog(GNEApplicationWindow* GNEApp) :
-    FXTopWindow(GNEApp->getApp(), "Undo/Redo history", GUIIconSubSys::getIcon(GUIIcon::UNDOLIST), GUIIconSubSys::getIcon(GUIIcon::UNDOLIST), GUIDesignDialogBoxExplicit(500, 400)),
+    FXTopWindow(GNEApp->getApp(), "Undo/Redo history", GUIIconSubSys::getIcon(GUIIcon::UNDOLIST), GUIIconSubSys::getIcon(GUIIcon::UNDOLIST), GUIDesignDialogBoxExplicit(560, 400)),
     myGNEApp(GNEApp) {
     // create main frame
     auto mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
@@ -195,10 +195,10 @@ GNEUndoListDialog::recalcList() {
 }
 
 
-GNEUndoListDialog::UndoListRow::UndoListRow(const int index_, FXIcon* icon_, const std::string text_, const std::string timestamp_) :
+GNEUndoListDialog::UndoListRow::UndoListRow(const int index_, FXIcon* icon_, const std::string description_, const std::string timestamp_) :
     index(index_),
     icon(icon_),
-    text(text_),
+    description(description_),
     timestamp(timestamp_) {}
 
 
@@ -208,20 +208,25 @@ GNEUndoListDialog::GUIRow::GUIRow(GNEUndoListDialog* undoListDialog, FXVerticalF
     myRadioButton = new FXRadioButton(horizontalFrame, "", undoListDialog, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonSquared);
     // build icon label
     myIcon = new FXLabel(horizontalFrame, "", nullptr, GUIDesignLabelIconThick);
+    // build description label
+    myTextFieldDescription = new MFXTextFieldTooltip(horizontalFrame, staticToolTip, GUIDesignTextFieldNCol, undoListDialog, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myTextFieldDescription->setEditable(false);
     // build text label
-    myTextFieldTooltip = new MFXTextFieldTooltip(horizontalFrame, staticToolTip, GUIDesignTextFieldNCol, undoListDialog, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    myTextFieldTooltip->setEditable(false);
+    myTextFieldTimeStamp = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, undoListDialog, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFielWidth70);
+    myTextFieldTimeStamp->setEditable(false);
     // create elements
     horizontalFrame->create();
     myIcon->create();
-    myTextFieldTooltip->create();
+    myTextFieldDescription->create();
+    myTextFieldTimeStamp->create();
 }
 
 
 GNEUndoListDialog::GUIRow::~GUIRow() {
     delete myRadioButton;
     delete myIcon;
-    delete myTextFieldTooltip;
+    delete myTextFieldDescription;
+    delete myTextFieldTimeStamp;
 }
 
 
@@ -230,18 +235,19 @@ GNEUndoListDialog::GUIRow::update(const UndoListRow& row) {
     myIndex = row.index;
     myIcon->setIcon(row.icon);
     // check if text must be trimmed
-    if (row.text.size() > 57) {
+    if (row.description.size() > 57) {
         std::string textFieldTrimmed;
         for (int i = 0; i < 57; i++) {
-            textFieldTrimmed.push_back(row.text.at(i));
+            textFieldTrimmed.push_back(row.description.at(i));
         }
         textFieldTrimmed.append("...");
-        myTextFieldTooltip->setText(textFieldTrimmed.c_str());
-        myTextFieldTooltip->setToolTipText(row.text.c_str());
+        myTextFieldDescription->setText(textFieldTrimmed.c_str());
+        myTextFieldDescription->setToolTipText(row.description.c_str());
     } else {
-        myTextFieldTooltip->setText(row.text.c_str());
-        myTextFieldTooltip->setToolTipText("");
+        myTextFieldDescription->setText(row.description.c_str());
+        myTextFieldDescription->setToolTipText("");
     }
+    myTextFieldTimeStamp->setText(row.timestamp.c_str());
 }
 
 

@@ -86,7 +86,7 @@ protected:
     /// @struct class for keep every row value
     struct UndoListRow {
         /// @brief constructor
-        UndoListRow(const int index_, FXIcon* icon_, const std::string text_, const std::string timestamp_);
+        UndoListRow(const int index_, FXIcon* icon_, const std::string description_, const std::string timestamp_);
 
         /// @brief index uses for count undo/redos
         int index = 0;
@@ -95,7 +95,7 @@ protected:
         FXIcon* icon = nullptr;
 
         /// @brief definition of undo/redo operation
-        std::string text;
+        std::string description;
 
         /// @brief timestamp
         std::string timestamp;
@@ -139,8 +139,11 @@ protected:
         /// @brief label with icon
         FXLabel* myIcon = nullptr;
 
-        /// @brief textField tooltip
-        MFXTextFieldTooltip* myTextFieldTooltip = nullptr;
+        /// @brief textField description
+        MFXTextFieldTooltip* myTextFieldDescription = nullptr;
+
+        /// @brief textField timeStamp
+        FXTextField* myTextFieldTimeStamp = nullptr;
     };
 
     /// @brief pointer to GNEApplicationWindow
