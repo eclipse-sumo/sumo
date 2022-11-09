@@ -27,6 +27,7 @@ title: ChangeLog
 ### Miscellaneous
 
 - Added exemplary plots to many simulation-output documentation pages (with linked example commands to create them).
+- Updated Windows MSVC runtime libraries and Xerces-C to 3.2.4
 
 ## Version 1.15.0 (08.11.2022)
 
