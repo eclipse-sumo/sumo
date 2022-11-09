@@ -160,3 +160,6 @@ ticket11590
 
 # crash during roundabout processing
 ticket11779
+
+# missing foes at internal junction
+ticket11988
