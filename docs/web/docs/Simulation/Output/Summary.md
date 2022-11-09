@@ -61,5 +61,5 @@ is given in the table below.
 
 ![plot-running](../../images/plot-running.png)
 
-Generated with [plotXMLAttributes](../../Tools/Visualization.md#running_from_summary].
+Generated with [plotXMLAttributes.py](../../Tools/Visualization.md#running_from_summary).
 
