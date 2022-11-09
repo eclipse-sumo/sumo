@@ -118,7 +118,9 @@ def create_data_model(reservations, fleet, cost_type, drf, verbose):
         # TODO support more than one vehicle type
     else:
         type_vehicle = types_vehicles_unique[0]
-    cost_matrix = get_cost_matrix(edges, type_vehicle, cost_type)
+    pickup_indices = range(1, 1 + n_dp_reservations)
+    dropoff_indices = range(1 + n_dp_reservations, 1 + 2*n_dp_reservations + n_do_reservations)
+    cost_matrix, time_matrix = get_cost_matrix(edges, type_vehicle, cost_type, pickup_indices, dropoff_indices)
 
     # add "direct route cost" to the requests:
     for res in reservations:
@@ -165,8 +167,12 @@ def create_data_model(reservations, fleet, cost_type, drf, verbose):
                 setattr(reservation, 'vehicle', id_vehicle)  # id of assigned vehicle (from SUMO input)
                 setattr(reservation, 'vehicle_index', v_i)  # index of assigned vehicle [0, ..., n_v -1]
 
+    # get time windows
+    time_windows = get_time_windows(reservations, fleet)
+
     data = {}
     data['cost_matrix'] = cost_matrix
+    data['time_matrix'] = time_matrix
     data['pickups_deliveries'] = dp_reservations
     data['dropoffs'] = do_reservations
     data['num_vehicles'] = n_vehicles
@@ -175,38 +181,111 @@ def create_data_model(reservations, fleet, cost_type, drf, verbose):
     data['demands'] = [0] + n_dp_reservations*[1] + n_dp_reservations*[-1] + n_do_reservations*[-1] + veh_demand
     data['vehicle_capacities'] = vehicle_capacities
     data['drf'] = drf
+    data['time_windows'] = time_windows
     return data
 
 
-def get_cost_matrix(edges, type_vehicle, cost_type=CostType.DISTANCE):
+def get_time_windows(reservations, fleet):
+    """returns a list of pairs with earliest and latest time"""
+    # order must be the same as for the cost_matrix and demands
+    # edges: [depot_id, res_from_id, ..., res_to_id, ..., res_dropoff_id, ..., veh_start_id, ...]
+    time_windows = []
+    # start at depot should be the current simulation time:
+    current_time = round(traci.simulation.getTime())
+    max_time = get_max_time()
+    time_windows.append((current_time, current_time))
+    # use reservations that haven't been picked up yet; reservation.state!=8 (not picked up)
+    dp_reservations = [res for res in reservations if res.state != 8]
+    for res in dp_reservations:
+        person_id = res.persons[0]
+        pickup_earliest = traci.person.getParameter(person_id, "pickup_earliest")
+        if pickup_earliest:
+            pickup_earliest = round(float(pickup_earliest))
+        else:
+            pickup_earliest = current_time
+        time_windows.append((pickup_earliest, max_time))
+    for res in dp_reservations:
+        person_id = res.persons[0]
+        dropoff_latest = traci.person.getParameter(person_id, "dropoff_latest")
+        if dropoff_latest:
+            dropoff_latest = round(float(dropoff_latest))
+        else:
+            dropoff_latest = max_time
+        time_windows.append((current_time, dropoff_latest))
+    # use reservations that already haven been picked up; reservation.state==8 (picked up)
+    do_reservations = [res for res in reservations if res.state == 8]
+    for res in do_reservations:
+        person_id = res.persons[0]
+        dropoff_latest = traci.person.getParameter(person_id, "dropoff_latest")
+        if dropoff_latest:
+            dropoff_latest = round(float(dropoff_latest))
+        else:
+            dropoff_latest = max_time
+        time_windows.append((current_time, dropoff_latest))
+    # start point of the vehicles (TODO: is that needed?)
+    for _ in fleet:
+        time_windows.append((current_time, current_time))
+    return time_windows
+
+
+def get_max_time():
+    max_sim_time = traci.simulation.getEndTime()
+    if max_sim_time == -1:
+        return 90000
+    else:
+        return max_sim_time
+
+
+def get_cost_matrix(edges, type_vehicle, cost_type, pickup_indices, dropoff_indices):  #TODO: If cost_type is TIME, remove cost_matrix and cost_dict.
     """Get cost matrix between edges.
     Index in cost matrix is the same as the node index of the constraint solver."""
+    
+    id_vehicle = traci.vehicle.getTaxiFleet(-1)[0]  # take a vehicle
+    id_vtype = traci.vehicle.getTypeID(id_vehicle)  # take its vtype
+    boardingDuration_param = ''  # TODO: use traci.vehicletype.getBoardingDuration(id_vtype) as soon as it was added to traci
+    boardingDuration = 0 if boardingDuration_param == '' else round(float(boardingDuration_param))
+    pickUpDuration_param = traci.vehicle.getParameter(id_vehicle, 'device.taxi.pickUpDuration')
+    pickUpDuration = 0 if pickUpDuration_param == '' else round(float(pickUpDuration_param))
+    dropOffDuration_param = traci.vehicle.getParameter(id_vehicle, 'device.taxi.dropOffDuration')
+    dropOffDuration = 0 if dropOffDuration_param == '' else round(float(dropOffDuration_param))
     n_edges = len(edges)
+    time_matrix = np.zeros([n_edges, n_edges], dtype=int)
     cost_matrix = np.zeros([n_edges, n_edges], dtype=int)
+    time_dict = {}
     cost_dict = {}
-    # TODO initialize cost_dict in run() and update for speed improvement
+    # TODO initialize cost_dict and time_dict{} in run() and update for speed improvement
     for ii, edge_from in enumerate(edges):
         for jj, edge_to in enumerate(edges):
             if (edge_from, edge_to) in cost_dict:
                 # get costs from previous call
+                time_matrix[ii][jj] = time_dict[(edge_from, edge_to)]
                 cost_matrix[ii][jj] = cost_dict[(edge_from, edge_to)]
                 continue
             # cost to depot should be always 0
             # (means there is no way to depot in the end)
             if edge_from == 'depot' or edge_to == 'depot':
+                time_matrix[ii][jj] = 0
                 cost_matrix[ii][jj] = 0
                 continue
             if ii == jj:
+                time_matrix[ii][jj] = 0
                 cost_matrix[ii][jj] = 0
                 continue
             route = traci.simulation.findRoute(edge_from, edge_to, vType=type_vehicle)
+            time_matrix[ii][jj] = round(route.travelTime)
+            if ii in pickup_indices:
+                time_matrix[ii][jj] += pickUpDuration  # add pickup_duration
+                time_matrix[ii][jj] += boardingDuration  # add boarding_duration
+            if jj in dropoff_indices:
+                time_matrix[ii][jj] += dropOffDuration  # add dropoff_duration
+            time_dict[(edge_from, edge_to)] = time_matrix[ii][jj]
             if cost_type == CostType.TIME:
-                cost_matrix[ii][jj] = round(route.travelTime)
-                cost_dict[(edge_from, edge_to)] = round(route.travelTime)
-            else:  # default is distance
+                cost_matrix[ii][jj] = time_matrix[ii][jj]
+                cost_dict[(edge_from, edge_to)] = time_dict[(edge_from, edge_to)]
+            elif cost_type == CostType.DISTANCE:
                 cost_matrix[ii][jj] = round(route.length)
                 cost_dict[(edge_from, edge_to)] = round(route.length)
-    return cost_matrix.tolist()
+    return cost_matrix.tolist(), time_matrix.tolist()
 
 
 def solution_by_requests(solution_ortools, reservations, data, verbose=False):

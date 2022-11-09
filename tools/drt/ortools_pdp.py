@@ -36,29 +36,34 @@ def get_solution(data, manager, routing, solution, verbose):
     route (list of nodes) and costs."""
     if verbose:
         print('Objective: ', solution.ObjectiveValue())
+    time_dimension = routing.GetDimensionOrDie('Time')
     solution_dict = {}
     total_cost = 0
     for vehicle_id in range(data['num_vehicles']):
         route = []
         index = routing.Start(vehicle_id)
         if verbose:
-            plan_output = 'Route for vehicle %s:\n' % vehicle_id
+            plan_output = 'Route for vehicle %s:\n    ' % vehicle_id
         route_cost = 0
         route_load = 0
         while not routing.IsEnd(index):
             current_node = manager.IndexToNode(index)
             route_load += data['demands'][current_node]
+            time_var = time_dimension.CumulVar(index)
             if verbose:
-                plan_output += ' %s (L: %s, C: %s) -> ' % (current_node, route_load, route_cost)
+                plan_output += ' %s (L: %s, C: %s, T: (%s,%s))\n -> ' % (current_node, route_load, route_cost, solution.Min(time_var),
+                solution.Max(time_var))
             route.append(current_node)
             previous_index = index
             index = solution.Value(routing.NextVar(index))
             route_cost += routing.GetArcCostForVehicle(previous_index, index, vehicle_id)
         last_node = manager.IndexToNode(index)
         route_load += data['demands'][last_node]
+        time_var = time_dimension.CumulVar(index)
         route.append(last_node)
         if verbose:
-            plan_output += '%s (L: %s, C: %s)\n' % (last_node, route_load, route_cost)
+            plan_output += ' %s (L: %s, C: %s, T: (%s,%s))\n' % (last_node, route_load, route_cost, solution.Min(time_var),
+                solution.Max(time_var))
             plan_output += 'Costs of the route: %s\n' % route_cost
             print(plan_output)
         total_cost += route_cost
@@ -194,6 +199,51 @@ def set_first_solution_heuristic(time_limit_seconds, verbose):
     return search_parameters
 
 
+def add_time_windows_constraint(data, routing, manager, verbose):
+    if verbose:
+        print(' Add time windows constraints...')
+    
+    def time_callback(from_index, to_index):
+        """Returns the travel time between the two nodes."""
+        # Convert from routing variable Index to time matrix NodeIndex.
+        from_node = manager.IndexToNode(from_index)
+        to_node = manager.IndexToNode(to_index)
+        return data['time_matrix'][from_node][to_node]
+
+    time_callback_index = routing.RegisterTransitCallback(time_callback)
+    #routing.SetArcCostEvaluatorOfAllVehicles(time_callback_index)
+    matrix_times = int(np.sum(data['time_matrix']))
+    dimension_name = 'Time'
+    routing.AddDimension(
+        time_callback_index,
+        matrix_times,  # allow waiting time
+        matrix_times,  # maximum time per vehicle
+        False,  # Don't force start cumul to zero.
+        dimension_name)
+    time_dimension = routing.GetDimensionOrDie(dimension_name)
+    # Add time window constraints for each location except depot.
+    for location_idx, time_window in enumerate(data['time_windows']):
+        #if location_idx == data['depot']:
+        if location_idx in data['starts'] or location_idx == 0:
+        #if location_idx == 0:
+            continue
+        index = manager.NodeToIndex(location_idx)
+        time_dimension.CumulVar(index).SetRange(time_window[0], time_window[1])  #TODO: check if set, else ignore it
+    #TODO: check if the followwing is needed
+    # # Add time window constraints for each vehicle start node.
+    # depot_idx = data['depot']
+    # for vehicle_id in range(data['num_vehicles']):
+    #     index = routing.Start(vehicle_id)
+    #     time_dimension.CumulVar(index).SetRange(
+    #         data['time_windows'][depot_idx][0],
+    #         data['time_windows'][depot_idx][1])
+    # for i in range(data['num_vehicles']):
+    #     routing.AddVariableMinimizedByFinalizer(
+    #         time_dimension.CumulVar(routing.Start(i)))
+    #     routing.AddVariableMinimizedByFinalizer(
+    #         time_dimension.CumulVar(routing.End(i)))
+
+
 def main(data, time_limit_seconds=10, verbose=False):
     """Entry point of the program."""
     # Create the routing index manager.
@@ -223,6 +273,9 @@ def main(data, time_limit_seconds=10, verbose=False):
     # Add Capacity constraint.
     add_capacity_constraint(data, routing, manager, verbose)
 
+    # Add time window constraints.
+    add_time_windows_constraint(data, routing, manager, verbose)
+    print('## Done')
     # Setting first solution heuristic.
     search_parameters = set_first_solution_heuristic(time_limit_seconds, verbose)
 
