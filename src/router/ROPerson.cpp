@@ -51,8 +51,8 @@ ROPerson::ROPerson(const SUMOVehicleParameter& pars, const SUMOVTypeParameter* t
 
 
 ROPerson::~ROPerson() {
-    for (std::vector<PlanItem*>::const_iterator it = myPlan.begin(); it != myPlan.end(); ++it) {
-        delete *it;
+    for (PlanItem* const it : myPlan) {
+        delete it;
     }
 }
 
@@ -85,9 +85,9 @@ ROPerson::addTrip(std::vector<PlanItem*>& plan, const std::string& id,
         trip->addVehicle(new ROVehicle(pars, new RORouteDef("!" + pars.id, 0, false, false), type, net));
         // update modeset with routing-category vClass
         if (type->vehicleClass == SVC_BICYCLE) {
-            trip->updateMOdes(SVC_BICYCLE);
+            trip->updateModes(SVC_BICYCLE);
         } else {
-            trip->updateMOdes(SVC_PASSENGER);
+            trip->updateModes(SVC_PASSENGER);
         }
     }
     if (trip->getVehicles().empty()) {
@@ -389,9 +389,9 @@ ROPerson::computeRoute(const RORouterProvider& provider,
                        const bool /* removeLoops */, MsgHandler* errorHandler) {
     myRoutingSuccess = true;
     SUMOTime time = getParameter().depart;
-    for (std::vector<PlanItem*>::iterator it = myPlan.begin(); it != myPlan.end(); ++it) {
-        if ((*it)->needsRouting()) {
-            PersonTrip* trip = static_cast<PersonTrip*>(*it);
+    for (PlanItem* const it : myPlan) {
+        if (it->needsRouting()) {
+            PersonTrip* trip = static_cast<PersonTrip*>(it);
             std::vector<ROVehicle*>& vehicles = trip->getVehicles();
             if (vehicles.empty()) {
                 computeIntermodal(time, provider, trip, nullptr, errorHandler);
@@ -405,7 +405,7 @@ ROPerson::computeRoute(const RORouterProvider& provider,
                 }
             }
         }
-        time += (*it)->getDuration();
+        time += it->getDuration();
     }
 }
 

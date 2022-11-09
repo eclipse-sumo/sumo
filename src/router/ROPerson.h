@@ -298,12 +298,12 @@ public:
             from(_from), to(_to), modes(modeSet), dep(departPos), arr(arrivalPos), stopOrigin(_stopOrigin), stopDest(_stopDest), walkFactor(_walkFactor), group(_group) { }
         /// @brief Destructor
         virtual ~PersonTrip() {
-            for (std::vector<TripItem*>::const_iterator it = myTripItems.begin(); it != myTripItems.end(); ++it) {
-                delete *it;
+            for (TripItem* const it : myTripItems) {
+                delete it;
             }
-            for (std::vector<ROVehicle*>::const_iterator it = myVehicles.begin(); it != myVehicles.end(); ++it) {
-                delete (*it)->getRouteDefinition();
-                delete *it;
+            for (ROVehicle* const v : myVehicles) {
+                delete v->getRouteDefinition();
+                delete v;
             }
         }
 
@@ -340,7 +340,7 @@ public:
         SVCPermissions getModes() const {
             return modes;
         }
-        void updateMOdes(SVCPermissions additionalModes) {
+        void updateModes(SVCPermissions additionalModes) {
             modes |= additionalModes;
         }
 
