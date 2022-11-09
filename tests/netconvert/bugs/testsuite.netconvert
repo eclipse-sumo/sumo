@@ -164,5 +164,8 @@ ticket11779
 # missing foes at internal junction
 ticket11988
 
+# missing foes at internal junction
+ticket11988b
+
 # invalid node shape (for uncommen edge shapes)
 ticket11996
