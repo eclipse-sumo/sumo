@@ -9,3 +9,9 @@ oneTaxi_addNewReq
 
 # test ortools
 twoTaxis
+
+# Test, whether the pickup_earliest and dropoff_latest are hold influence the result.
+time_window1
+
+# Test, whether the pickup_earliest and dropoff_latest are hold influence the result.
+time_window2

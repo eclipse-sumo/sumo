@@ -193,7 +193,7 @@ def get_time_windows(reservations, fleet):
     # start at depot should be the current simulation time:
     current_time = round(traci.simulation.getTime())
     max_time = get_max_time()
-    time_windows.append((current_time, current_time))
+    time_windows.append((current_time, max_time))
     # use reservations that haven't been picked up yet; reservation.state!=8 (not picked up)
     dp_reservations = [res for res in reservations if res.state != 8]
     for res in dp_reservations:
@@ -224,7 +224,7 @@ def get_time_windows(reservations, fleet):
         time_windows.append((current_time, dropoff_latest))
     # start point of the vehicles (TODO: is that needed?)
     for _ in fleet:
-        time_windows.append((current_time, current_time))
+        time_windows.append((current_time, max_time))
     return time_windows
 
 

@@ -224,8 +224,8 @@ def add_time_windows_constraint(data, routing, manager, verbose):
     # Add time window constraints for each location except depot.
     for location_idx, time_window in enumerate(data['time_windows']):
         #if location_idx == data['depot']:
-        if location_idx in data['starts'] or location_idx == 0:
-        #if location_idx == 0:
+        #if location_idx in data['starts'] or location_idx == 0:
+        if location_idx == 0:
             continue
         index = manager.NodeToIndex(location_idx)
         time_dimension.CumulVar(index).SetRange(time_window[0], time_window[1])  #TODO: check if set, else ignore it
