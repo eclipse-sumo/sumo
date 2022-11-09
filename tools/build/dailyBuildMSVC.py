@@ -176,6 +176,8 @@ def main(options, platform="x64"):
                 shutil.copy(os.path.join(options.remoteDir, "cadyts.jar"), os.path.join(installDir, "bin"))
             shutil.copytree(os.path.join(SUMO_HOME, "docs"), os.path.join(installDir, "docs"),
                             ignore=shutil.ignore_patterns('web'))
+            for lib in ("libsumo", "libtraci"):
+                shutil.rmtree(os.path.join(installDir, "tools", lib), ignore_errors=True)
             shutil.copy(os.path.join(buildDir, "src", "version.h"), os.path.join(installDir, "include"))
             status.printLog("Creating sumo.zip.")
             shutil.make_archive(binaryZip, 'zip', buildDir, installBase)
