@@ -167,8 +167,14 @@ For further aggregation see [attributeStats.py](../../Tools/Output.md#attributes
 
 ## Visualization Examples
 
-The TripInfo output can be used as input for several visualization tools shipped with SUMO. Some example plots here below have been created with and [plotXMLAttributes.py](../../tools/Visualization.md#Depart_delay_over_time_from_TripInfo_data) and [plot_tripinfo_distributions.py](../../tools/Visualization.md#plot_tripinfo_distributions.py).
+The TripInfo output can be used as input for several visualization tools shipped with SUMO. Some example plots are shown below.
 
-<img src="../images/departDelayScatter.png" title="departDelayScatter.png" width="500"/>
+### Depart delays over time
 
-<img src="../images/stopCountDist.png" title="stopCountDist.png" width="500"/>
+<img src="../../images/departDelayScatter.png" title="departDelayScatter.png" width="500"/>
+Generated with [plotXMLAttributes.py](../../Tools/Visualization.md#depart_delay_over_time_from_tripinfo_data).
+
+### Histogram of the number of stops
+
+<img src="../../images/stopCountDist.png" title="stopCountDist.png" width="500"/>
+Generated with [plot_tripinfo_distributions.py](../../Tools/Visualization.md#plot_tripinfo_distributionspy).
