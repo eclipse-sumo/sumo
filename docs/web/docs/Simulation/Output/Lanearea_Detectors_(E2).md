@@ -159,11 +159,11 @@ The values are described in the following table.
 
 # Visualization
 
-Output  can be represented using [plotXMLAttributes](../../Tools/Visualization.md):
+Output can be represented using [plotXMLAttributes](../../Tools/Visualization.md#plotxmlattributespy):
 
 Call: `python tools/visualization/plotXMLAttributes.py -x begin -y maxOccupancy -o plot-maxOccupancy.png --legend e2_output.xml --filter-ids e2_0,e2_5,e2_10,e2_15,e2_20,e2_25`
 
-<img src="../images/plot-nVehEntered.png" width="500px"/>
+<img src="../../images/plot-nVehEntered.png" width="500px"/>
 
 # Further notes
 

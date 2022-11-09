@@ -105,6 +105,14 @@ in the following table.
 | meanIntervalDurationWithin        | s                    | The mean duration within the area of those vehicles that have entered, but not yet left the area, collected during the written interval. Averaged over the vehicles.                                                           |
 | meanTimeLossWithin                | s                    | The average time loss collected by vehicles that have entered but not yet left the area during the written interval.                                                                                          |
 
+# Visualization
+
+Output can be represented using [plotXMLAttributes](../../Tools/Visualization.md#plotxmlattributespy):
+
+Call: `python tools/visualization/plotXMLAttributes.py -x begin -y meanSpeed detector.xml --legend --xlim 100,5000`
+
+<img src="../../images/plot_meme_speed.png" width="500px"/>
+
 ## Further Notes
 
 - All measurements concerning durations refer to the end of the

@@ -74,6 +74,14 @@ Call: `python tools/visualization/plotXMLAttributes.py -x begin -y maxOccupancy 
 
 <img src="../images/plot-nVehEntered.png" width="500px"/>
 
+### Multi-Entry-Exit Detectors Mean Speed over Time
+
+Input is [multi-entry-exit-detector-output](../Simulation/Output/Multi-Entry-Exit_Detectors_(E3).md) with 30s aggregation and a cutoff at begin and end
+
+Call: `python tools/visualization/plotXMLAttributes.py -x begin -y meanSpeed detector.xml --legend --xlim 100,5000`
+
+<img src="../images/plot_meme_speed.png" width="500px"/>
+
 ### boarding passengers vs delay for each station
 
 Input is [stop-output](../Simulation/Output/StopOutput.md)
