@@ -18,13 +18,15 @@ title: ChangeLog
 ### Enhancements
 
 - Tools
-  - plotXMLAttributes.py: can now plot data without assigning ids to the data points. Issue #11969
-  - plotXMLAttributes.py: can now plot categorical (non-numerical) data and also a mix of data types. Issue #11970, #11976
-  - plotXMLAttributes: now supporting additional visualization options (linestyle, grids, ...). Issue #11972
+  - plotXMLAttributes.py
+    - can now plot data without assigning ids to the data points. Issue #11969
+    - can now plot categorical (non-numerical) data and also a mix of data types. Issue #11970, #11976
+    - now supporting additional visualization options (linestyle, markers, grids, ...). Issue #11972
+    - plots a marker on a single point if the input data is only one point. Issue #11974
 
 ### Miscellaneous
 
-- Added examplary plots many simulation-output documentation pages (with linked example commands to create them).
+- Added exemplary plots to many simulation-output documentation pages (with linked example commands to create them).
 
 ## Version 1.15.0 (08.11.2022)
 
