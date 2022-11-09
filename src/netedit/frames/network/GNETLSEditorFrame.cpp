@@ -30,6 +30,7 @@
 #include <netedit/dialogs/GNESingleParametersDialog.h>
 #include <netedit/elements/network/GNEInternalLane.h>
 #include <netedit/elements/network/GNEJunction.h>
+#include <netedit/elements/network/GNEConnection.h>
 #include <netedit/frames/GNEOverlappedInspection.h>
 #include <netedit/frames/GNETLSTable.h>
 #include <netimport/NIXMLTrafficLightsHandler.h>
@@ -1483,24 +1484,54 @@ GNETLSEditorFrame::TLSDefinition::onCmdCreate(FXObject*, FXSelector, void*) {
     GNEJunction* currentJunction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
     // abort because we onCmdOk assumes we wish to save an edited definition
     discardChanges(false);
-    // check that current junction has two or more edges
-    if ((currentJunction->getGNEIncomingEdges().size() > 0) && (currentJunction->getGNEOutgoingEdges().size() > 0)) {
-        // create TLS in junction
-        createTLS(currentJunction);
-        // edit junction
-        myTLSEditorParent->editJunction(currentJunction);
-        // switch to the last program
-        myProgramComboBox->setCurrentItem(myProgramComboBox->getNumItems() - 1, TRUE);
-    } else {
+    // check number of edges
+    if (currentJunction->getGNEIncomingEdges().empty() && currentJunction->getGNEOutgoingEdges().empty()) {
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Opening warning FXMessageBox 'invalid TLS'");
         // open question box
         FXMessageBox::warning(this, MBOX_OK,
                               "TLS cannot be created", "%s",
-                              "Traffic Light cannot be created because junction must have\n at least one incoming edge and one outgoing edge.");
+                              "Traffic Light cannot be created because junction must have\nat least one incoming edge and one outgoing edge.");
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Closed FXMessageBox 'invalid TLS'");
+        return 1;
     }
+    // check number of connections
+    if (currentJunction->getGNEConnections().empty()) {
+        // write warning if netedit is running in testing mode
+        WRITE_DEBUG("Opening warning FXMessageBox 'invalid TLS'");
+        // open question box
+        FXMessageBox::warning(this, MBOX_OK,
+                              "TLS cannot be created", "%s",
+                              "Traffic Light cannot be created because junction\nmust have at least one connection.");
+        // write warning if netedit is running in testing mode
+        WRITE_DEBUG("Closed FXMessageBox 'invalid TLS'");
+        return 1;
+    }
+    // check uncontrolled connections
+    bool connectionControlled = false;
+    for (const auto &connection : currentJunction->getGNEConnections()) {
+        if (!connection->getNBEdgeConnection().uncontrolled) {
+            connectionControlled = true;
+        }
+    }
+    if (connectionControlled == false) {
+        // write warning if netedit is running in testing mode
+        WRITE_DEBUG("Opening warning FXMessageBox 'invalid TLS'");
+        // open question box
+        FXMessageBox::warning(this, MBOX_OK,
+                              "TLS cannot be created", "%s",
+                              "Traffic Light cannot be created because junction must\nhave at least one controlled connection.");
+        // write warning if netedit is running in testing mode
+        WRITE_DEBUG("Closed FXMessageBox 'invalid TLS'");
+        return 1;
+    }
+    // all checks ok, then create TLS in junction
+    createTLS(currentJunction);
+    // edit junction
+    myTLSEditorParent->editJunction(currentJunction);
+    // switch to the last program
+    myProgramComboBox->setCurrentItem(myProgramComboBox->getNumItems() - 1, TRUE);
     return 1;
 }
 
