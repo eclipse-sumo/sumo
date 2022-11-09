@@ -172,9 +172,11 @@ The TripInfo output can be used as input for several visualization tools shipped
 ### Depart delays over time
 
 <img src="../../images/departDelayScatter.png" title="departDelayScatter.png" width="500"/>
+
 Generated with [plotXMLAttributes.py](../../Tools/Visualization.md#depart_delay_over_time_from_tripinfo_data).
 
 ### Histogram of the number of stops
 
 <img src="../../images/stopCountDist.png" title="stopCountDist.png" width="500"/>
+
 Generated with [plot_tripinfo_distributions.py](../../Tools/Visualization.md#plot_tripinfo_distributionspy).
