@@ -366,10 +366,13 @@ def main(options):
         minX = min(minX, min(xvalues))
         maxX = max(maxX, max(xvalues))
 
+        linestyle = options.linestyle
+        marker = options.marker
         if options.scatterplot or (min(yvalues) == max(yvalues) and min(xvalues) == max(xvalues)):
-            options.linestyle=''
-            options.marker='o'
-        plt.plot(xvalues, yvalues, linestyle=options.linestyle, marker=options.marker, picker=True, label=dataID)
+            linestyle = ''
+            if marker is None:
+                marker = 'o'
+        plt.plot(xvalues, yvalues, linestyle=linestyle, marker=marker, picker=True, label=dataID)
 
     if options.invertYAxis:
         plt.axis([minX, maxX, maxY, minY])
