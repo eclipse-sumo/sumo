@@ -1711,7 +1711,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                     }
                     const bool foes = n.foes(this, con.toEdge, i2, k2.toEdge);
                     LinkDirection dir2 = n.getDirection(i2, k2.toEdge);
-                    bool needsCont = !isRailway(conPermissions) && n.needsCont(this, i2, con, k2);
+                    bool needsCont = !isRailway(conPermissions) && (n.needsCont(this, i2, con, k2) || (con.contPos != UNSPECIFIED_CONTPOS && !con.indirectLeft));
                     const bool avoidIntersectCandidate = !foes && bothLeftTurns(dir, i2, dir2);
                     bool oppositeLeftIntersect = avoidIntersectCandidate && haveIntersection(n, shape, i2, k2, numPoints, width1OppositeLeft, width2);
                     int shapeFlag = 0;
@@ -1774,6 +1774,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                                                        this, con.toEdge, con.fromLane, i2, k2.toEdge, k2.fromLane);
                     const bool indirectTurnConflit = con.indirectLeft && this == i2 && dir2 == LinkDirection::STRAIGHT;
                     const bool mergeConflict = myTo->mergeConflict(this, con, i2, k2, true);
+                    const bool mergeResponse = myTo->mergeConflict(this, con, i2, k2, false);
                     // compute foe internal lanes
                     if (foes || rightTurnConflict || oppositeLeftIntersect || mergeConflict || indirectTurnConflit) {
                         foeInternalLinks.push_back(index);
@@ -1792,7 +1793,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                     }
                     // compute foe incoming lanes
                     const bool signalised = hasSignalisedConnectionTo(con.toEdge);
-                    if ((n.forbids(i2, k2.toEdge, this, con.toEdge, signalised) || rightTurnConflict || indirectTurnConflit)
+                    if ((n.forbids(i2, k2.toEdge, this, con.toEdge, signalised) || rightTurnConflict || indirectTurnConflit || mergeResponse)
                             && (needsCont || dir == LinkDirection::TURN || (!signalised && this != i2 && !con.indirectLeft))) {
                         tmpFoeIncomingLanes.insert(i2->getID() + "_" + toString(k2.fromLane));
                     }
