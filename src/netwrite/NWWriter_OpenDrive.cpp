@@ -1007,12 +1007,12 @@ NWWriter_OpenDrive::writeSignals(OutputDevice& device, const NBEdge* e, double l
                 device.writeAttr("height", 0.78);
                 device.writeAttr("width", 0.26);
             }
-            device.openTag("validity");
             for (int lane : signalLanes[id].first) {
+                device.openTag("validity");
                 device.writeAttr("fromLane", lane);
                 device.writeAttr("toLane", lane);
+                device.closeTag();
             }
-            device.closeTag();
             device.closeTag();
         }
     }
