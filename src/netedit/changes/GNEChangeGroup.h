@@ -59,6 +59,9 @@ public:
     /// @brief get description
     const std::string& getDescription();
 
+    /// @brief get timeStamp
+    const std::string& getTimeStamp();
+
     /// @brief get supermode associated with this ChangeGroup
     Supermode getGroupSupermode() const;
 
@@ -79,7 +82,7 @@ protected:
     const Supermode myGroupSupermode;
 
     /// @brief icon associated with this ChangeGroup
-    GUIIcon myIcon;
+    const GUIIcon myIcon;
 
 private:
     /// @brief undo list command (can be access by GNEUndoList)
@@ -90,6 +93,9 @@ private:
 
     /// @brief group (can be access by GNEUndoList)
     GNEChangeGroup* group;
+
+    /// @brief timeStamp HH:MM:SS
+    std::string myTimeStamp;
 
     /// @brief invalidate copy constructor
     GNEChangeGroup(const GNEChangeGroup&);

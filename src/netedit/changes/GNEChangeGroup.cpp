@@ -44,6 +44,14 @@ GNEChangeGroup::GNEChangeGroup(Supermode groupSupermode, GUIIcon icon, const std
     undoList(nullptr),
     redoList(nullptr),
     group(nullptr) {
+    // get current time
+    const auto time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+    // extract localTime
+    const auto local_time = *localtime(&time);
+    // convert localtime to HH:MM:SS
+    myTimeStamp = toString(local_time.tm_hour) + ":" + 
+        ((local_time.tm_min <= 9)? "0" : "") + toString(local_time.tm_min) + ":" +
+        ((local_time.tm_sec <= 9)? "0" : "") + toString(local_time.tm_sec);
 }
 
 
@@ -66,6 +74,12 @@ GNEChangeGroup::~GNEChangeGroup() {
 const std::string&
 GNEChangeGroup::getDescription() {
     return myDescription;
+}
+
+
+const std::string&
+GNEChangeGroup::getTimeStamp() {
+    return myTimeStamp;
 }
 
 
@@ -141,6 +155,7 @@ GNEChangeGroup::size() const {
 
 GNEChangeGroup::GNEChangeGroup() :
     myGroupSupermode(Supermode::NETWORK),
+    myIcon(GUIIcon::UNDO),
     undoList(nullptr),
     redoList(nullptr),
     group(nullptr)
