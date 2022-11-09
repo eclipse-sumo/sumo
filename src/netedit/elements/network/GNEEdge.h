@@ -438,6 +438,9 @@ private:
     /// @brief draw TAZElements
     void drawTAZElements(const GUIVisualizationSettings& s) const;
 
+    /// @brief draw edge shape (only one line)
+    void drawEdgeShape() const;
+
     /// @brief check if given stacked positions are overlapped
     bool areStackPositionOverlapped(const GNEEdge::StackPosition& vehicleA, const GNEEdge::StackPosition& vehicleB) const;
 
