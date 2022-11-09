@@ -24,6 +24,8 @@ title: ChangeLog
 
 ### Miscellaneous
 
+- Added examplary plots many simulation-output documentation pages (with linked example commands to create them).
+
 ## Version 1.15.0 (08.11.2022)
 
 ### Bugfixes
