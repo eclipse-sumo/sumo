@@ -986,6 +986,9 @@ public:
     /// @brief flag to force draw for rectangle selection (see drawForRectangleSelection)
     bool forceDrawForRectangleSelection;
 
+    /// @brief flag for disable dotted contours in NETEDIT
+    bool disableDottedContours;
+
     // Setting bundles for optional drawing geometry point indices
     GUIVisualizationTextSettings geometryIndices;
 

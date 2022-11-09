@@ -609,6 +609,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     drawForRectangleSelection(false),
     forceDrawForPositionSelection(false),
     forceDrawForRectangleSelection(false),
+    disableDottedContours(false),
     geometryIndices(false, 50, RGBColor(255, 0, 128, 255)),
     lefthand(false),
     disableLaneIcons(false) {
@@ -1694,6 +1695,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("fps", fps);
     dev.writeAttr("drawBoundaries", drawBoundaries);
     dev.writeAttr("forceDrawPositionSelection", forceDrawForPositionSelection);
+    dev.writeAttr("disableDottedContours", disableDottedContours);
     dev.writeAttr("forceDrawRectangleSelection", forceDrawForRectangleSelection);
     geometryIndices.print(dev, "geometryIndices");
     dev.closeTag();
@@ -1948,6 +1950,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (forceDrawForPositionSelection != v2.forceDrawForPositionSelection) {
+        return false;
+    }
+    if (disableDottedContours != v2.disableDottedContours) {
         return false;
     }
     if (forceDrawForRectangleSelection != v2.forceDrawForRectangleSelection) {

@@ -435,6 +435,7 @@ protected:
     FXCheckButton* myDrawBoundaries = nullptr;
     FXCheckButton* myForceDrawForPositionSelection = nullptr;
     FXCheckButton* myForceDrawForRectangleSelection = nullptr;
+    FXCheckButton* myDisableDottedContours = nullptr;
     FXButton* myRecalculateBoundaries = nullptr;
 
     /// @brief name panels
