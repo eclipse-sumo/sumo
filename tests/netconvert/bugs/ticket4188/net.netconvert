@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-27 23:56:52 by Eclipse SUMO netconvert Version v1_12_0+0084-0d8fc346dad
+<!-- generated on 2022-11-09 22:44:56 by Eclipse SUMO netconvert Version v1_15_0+0083-092bfa1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -21,23 +26,22 @@ SPDX-License-Identifier: EPL-2.0
         <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
+        <lefthand value="0"/>
     </processing>
 
     <junctions>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="0"/>
-        <junctions.limit-turn-speed value="-1"/>
-        <rectangular-lane-cut value="false"/>
+        <junctions.limit-turn-speed value="-1.00"/>
+        <rectangular-lane-cut value="0"/>
     </junctions>
 
     <pedestrian>
-        <walkingareas value="false"/>
+        <walkingareas value="0"/>
     </pedestrian>
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -208,12 +212,12 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="gneJ6" type="dead_end" x="360.47" y="0.00" incLanes="" intLanes="" shape="360.47,0.00 366.96,0.27"/>
     <junction id="gneJ9" type="dead_end" x="600.07" y="166.42" incLanes="WE2_0 WE2_1" intLanes="" shape="600.23,161.42 600.07,166.42"/>
 
-    <junction id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_21_0" type="internal" x="350.80" y="166.79" incLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_2_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_16_0 WE1_0 WE1_1" intLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_26_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_28_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_4_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_5_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_8_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9_1 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_11_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_12_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_14_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_15_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_16_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_19_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_20_0"/>
+    <junction id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_21_0" type="internal" x="350.80" y="166.79" incLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_2_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_16_0 EW1_1 EW1_2 WE1_0 WE1_1" intLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_26_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_28_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_4_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_5_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_8_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9_1 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_11_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_12_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_14_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_15_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_16_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_19_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_20_0"/>
     <junction id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_22_0" type="internal" x="365.49" y="165.37" incLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_3_0 EW1_0" intLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_0_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_1_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_2_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_8_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_16_0"/>
     <junction id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_23_0" type="internal" x="371.31" y="159.82" incLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_5_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0 WE1_0 WE1_1" intLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_26_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_2_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_8_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9_1 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_11_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_12_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_14_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_15_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_19_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_20_0"/>
     <junction id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_24_0" type="internal" x="353.92" y="152.10" incLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9_0 NS1_0 NS1_1" intLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_1_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_2_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_4_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_5_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_12_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_15_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_16_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_17_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_17_1 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_19_0"/>
     <junction id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_25_0" type="internal" x="355.33" y="148.05" incLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9_1 NS1_0 NS1_1" intLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_1_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_2_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_4_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_5_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_12_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_15_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_16_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_17_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_17_1 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_19_0"/>
-    <junction id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_26_0" type="internal" x="361.70" y="152.29" incLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0 EW1_0 EW1_1" intLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_0_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_1_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_2_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_3_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_4_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_5_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_8_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9_1 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_15_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_16_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_19_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_20_0"/>
+    <junction id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_26_0" type="internal" x="361.70" y="152.29" incLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0 EW1_0 EW1_1 WE1_1 WE1_2" intLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_0_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_1_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_2_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_3_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_4_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_5_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_8_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9_1 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_15_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_16_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_19_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_20_0"/>
     <junction id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_27_0" type="internal" x="344.80" y="153.86" incLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_14_0 WE1_0" intLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_2_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_5_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_11_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_12_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_19_0"/>
     <junction id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_28_0" type="internal" x="345.12" y="159.95" incLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_16_0 EW1_0 EW1_1" intLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_0_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_1_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_2_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_3_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_4_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_8_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_9_1 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_19_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_20_0"/>
     <junction id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_29_0" type="internal" x="355.61" y="170.63" incLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_20_0 SN1_1" intLanes=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_1_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_2_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_4_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_5_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_6_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_6_1 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_8_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_12_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_13_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_15_0 :_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_16_0"/>

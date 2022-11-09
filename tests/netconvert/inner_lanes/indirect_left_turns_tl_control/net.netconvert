@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-07 16:20:38 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
+<!-- generated on 2022-11-09 23:00:04 by Eclipse SUMO netconvert Version v1_15_0+0083-092bfa1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -21,23 +26,22 @@ SPDX-License-Identifier: EPL-2.0
         <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
+        <lefthand value="0"/>
     </processing>
 
     <junctions>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="0"/>
-        <junctions.limit-turn-speed value="-1"/>
-        <rectangular-lane-cut value="false"/>
+        <junctions.limit-turn-speed value="-1.00"/>
+        <rectangular-lane-cut value="0"/>
     </junctions>
 
     <pedestrian>
-        <walkingareas value="false"/>
+        <walkingareas value="0"/>
     </pedestrian>
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -282,8 +286,8 @@ SPDX-License-Identifier: EPL-2.0
         <request index="10" response="10100000001000100000000100100" foes="10101000001110110000000111110" cont="0"/>
         <request index="11" response="01100110101000100000000100000" foes="01100110101110110000000111000" cont="1"/>
         <request index="12" response="01100000100000000000000000000" foes="01100000100000000000000000000" cont="1"/>
-        <request index="13" response="01010110100000000111111000000" foes="01010110100001000111111100000" cont="0"/>
-        <request index="14" response="11001110100110000111010011111" foes="11001110100111000111010111111" cont="1"/>
+        <request index="13" response="01010110100000000111111000000" foes="01010110100001100111111100000" cont="0"/>
+        <request index="14" response="11001110100110010111010011111" foes="11001110100111010111010111111" cont="1"/>
         <request index="15" response="01100110100000110000000000000" foes="01100110100000110000000000000" cont="1"/>
         <request index="16" response="01011110100000000111110000000" foes="01011110100000100111110100000" cont="0"/>
         <request index="17" response="01011110100000000111110000000" foes="01011110100000100111110100000" cont="0"/>
@@ -319,7 +323,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id=":C_29_0" type="internal" x="111.81" y="105.01" incLanes=":C_8_0 EC_2" intLanes=":C_7_0 :C_13_0 :C_16_0 :C_16_1 :C_24_0 :C_c0_0 :C_c1_0"/>
     <junction id=":C_30_0" type="internal" x="108.67" y="100.89" incLanes=":C_11_0 WC_2 WC_3 WC_4" intLanes=":C_1_0 :C_3_0 :C_3_1 :C_5_0 :C_13_0 :C_14_0 :C_16_0 :C_16_1 :C_18_0 :C_19_0 :C_20_0 :C_21_0 :C_22_0 :C_22_1 :C_c1_0 :C_c2_0"/>
     <junction id=":C_31_0" type="internal" x="108.90" y="91.54" incLanes=":C_12_0" intLanes=":C_5_0 :C_20_0 :C_22_0 :C_22_1 :C_c1_0 :C_c2_0"/>
-    <junction id=":C_32_0" type="internal" x="106.95" y="106.81" incLanes=":C_14_0 NC_2 NC_3 NC_4" intLanes=":C_0_0 :C_1_0 :C_2_0 :C_3_0 :C_3_1 :C_5_0 :C_7_0 :C_9_0 :C_9_1 :C_11_0 :C_16_0 :C_16_1 :C_20_0 :C_22_0 :C_22_1 :C_24_0 :C_c2_0 :C_c3_0"/>
+    <junction id=":C_32_0" type="internal" x="106.95" y="106.81" incLanes=":C_14_0 NC_2 NC_3 NC_4 SC_2 SC_3 SC_4" intLanes=":C_0_0 :C_1_0 :C_2_0 :C_3_0 :C_3_1 :C_5_0 :C_7_0 :C_9_0 :C_9_1 :C_11_0 :C_13_0 :C_16_0 :C_16_1 :C_20_0 :C_22_0 :C_22_1 :C_24_0 :C_c2_0 :C_c3_0"/>
     <junction id=":C_33_0" type="internal" x="105.01" y="87.43" incLanes=":C_15_0 SC_2" intLanes=":C_5_0 :C_13_0 :C_14_0 :C_20_0 :C_22_0 :C_22_1 :C_c1_0 :C_c2_0"/>
     <junction id=":C_34_0" type="internal" x="100.89" y="91.06" incLanes=":C_18_0 NC_2 NC_3 NC_4" intLanes=":C_0_0 :C_1_0 :C_2_0 :C_3_0 :C_3_1 :C_7_0 :C_9_0 :C_9_1 :C_11_0 :C_20_0 :C_22_0 :C_22_1 :C_24_0 :C_c2_0 :C_c3_0"/>
     <junction id=":C_35_0" type="internal" x="91.98" y="90.35" incLanes=":C_19_0" intLanes=":C_1_0 :C_3_0 :C_3_1 :C_11_0 :C_c2_0 :C_c3_0"/>
@@ -344,7 +348,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="NC" to="CE" fromLane="4" toLane="4" via=":C_5_0" tl="C" linkIndex="5" dir="l" state="o"/>
     <connection from="SC" to="CE" fromLane="2" toLane="2" via=":C_12_0" tl="C" linkIndex="12" dir="r" state="o"/>
     <connection from="SC" to="CN" fromLane="2" toLane="2" via=":C_13_0" tl="C" linkIndex="13" dir="s" state="o"/>
-    <connection from="SC" to="CW" fromLane="2" toLane="2" contPos="22.50" shape="106.90,85.85 108.24,88.62 108.19,106.80 86.60,106.90" via=":C_14_0" tl="C" linkIndex="14" linkIndex2="7" dir="l" state="o"/>
+    <connection from="SC" to="CW" fromLane="2" toLane="2" contPos="22.50" shape="106.90,85.85 108.24,88.62 108.19,106.80 86.60,106.90" indirect="1" via=":C_14_0" tl="C" linkIndex="14" linkIndex2="7" dir="l" state="o"/>
     <connection from="SC" to="CE" fromLane="3" toLane="3" via=":C_15_0" tl="C" linkIndex="15" dir="r" state="o"/>
     <connection from="SC" to="CN" fromLane="3" toLane="3" via=":C_16_0" tl="C" linkIndex="16" dir="s" state="o"/>
     <connection from="SC" to="CN" fromLane="4" toLane="4" via=":C_16_1" tl="C" linkIndex="17" dir="s" state="o"/>
