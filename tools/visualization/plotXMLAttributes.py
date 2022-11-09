@@ -36,6 +36,7 @@ if 'matplotlib.backends' not in sys.modules:
         matplotlib.use('Agg')
 import matplotlib.pyplot as plt  # noqa
 import math  # noqa
+import fnmatch
 
 try:
     import xml.etree.cElementTree as ET
@@ -315,8 +316,18 @@ def main(options):
         filteredIDs = 0
         for dataID, x, y in dataStream(datafile):
             totalIDs += 1
-            if options.filterIDs and dataID not in options.filterIDs:
-                continue
+            if options.filterIDs:
+                # Try for regular strings.
+                flag1 = dataID not in options.filterIDs
+                # Try for wildcards.
+                flag2 = False
+                for filterID in options.filterIDs:
+                    if '*' in filterID:
+                        if not fnmatch.fnmatch(dataID, filterID):
+                            continue
+                        flag2 = True
+                if flag1 and not flag2:
+                    continue
             if len(options.files) > 1:
                 suffix = shortFileNames[fileIndex]
                 if len(suffix) > 0:
