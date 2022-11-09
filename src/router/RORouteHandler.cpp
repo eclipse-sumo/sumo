@@ -642,6 +642,9 @@ RORouteHandler::closePersonFlow() {
     }
     delete myVehicleParameter;
     myVehicleParameter = nullptr;
+    for (ROPerson::PlanItem* const it : *myActivePlan) {
+        delete it;
+    }
     delete myActivePlan;
     myActivePlan = nullptr;
 }
@@ -663,6 +666,7 @@ RORouteHandler::addFlowPerson(SUMOVTypeParameter* type, SUMOTime depart, const s
     }
 }
 
+
 void
 RORouteHandler::closeContainer() {
     myActiveContainerPlan->closeTag();
@@ -679,6 +683,7 @@ RORouteHandler::closeContainer() {
     myActiveContainerPlan = nullptr;
     myActiveContainerPlanSize = 0;
 }
+
 
 void RORouteHandler::closeContainerFlow() {
     myActiveContainerPlan->closeTag();
@@ -749,6 +754,7 @@ RORouteHandler::closeTrip() {
     closeRoute(true);
     closeVehicle();
 }
+
 
 const SUMOVehicleParameter::Stop*
 RORouteHandler::retrieveStoppingPlace(const SUMOSAXAttributes& attrs, const std::string& errorSuffix, std::string& id, const SUMOVehicleParameter::Stop* stopParam) {

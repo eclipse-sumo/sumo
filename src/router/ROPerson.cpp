@@ -398,6 +398,8 @@ ROPerson::computeRoute(const RORouterProvider& provider,
             } else {
                 for (std::vector<ROVehicle*>::iterator v = vehicles.begin(); v != vehicles.end();) {
                     if (!computeIntermodal(time, provider, trip, *v, errorHandler)) {
+                        delete (*v)->getRouteDefinition();
+                        delete *v;
                         v = vehicles.erase(v);
                     } else {
                         ++v;
