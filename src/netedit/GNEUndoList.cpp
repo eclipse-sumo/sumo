@@ -77,6 +77,12 @@ GNEUndoList::Iterator::getDescription() const {
 }
 
 
+const std::string 
+GNEUndoList::Iterator::getTimeStamp() const {
+    return dynamic_cast<GNEChangeGroup*>(myCurrentChange)->getTimeStamp();
+}
+
+
 FXIcon*
 GNEUndoList::Iterator::getIcon() const {
     const GNEChangeGroup* changeGroup = dynamic_cast<GNEChangeGroup*>(myCurrentChange);

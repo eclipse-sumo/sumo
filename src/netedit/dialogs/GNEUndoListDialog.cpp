@@ -138,7 +138,7 @@ GNEUndoListDialog::updateList() {
     int index = 1;
     // fill undoListRows rows with elements to redo (in inverse)
     while (!itRedo.end()) {
-        undoListRows.push_back(UndoListRow(index, itRedo.getIcon(), itRedo.getDescription()));
+        undoListRows.push_back(UndoListRow(index, itRedo.getIcon(), itRedo.getDescription(), itRedo.getTimeStamp()));
         // update counters
         itRedo++;
         index++;
@@ -151,7 +151,7 @@ GNEUndoListDialog::updateList() {
     index = 0;
     // fill undoListRows with elements to undo
     while (!itUndo.end()) {
-        undoListRows.push_back(UndoListRow(index, itUndo.getIcon(), itUndo.getDescription()));
+        undoListRows.push_back(UndoListRow(index, itUndo.getIcon(), itUndo.getDescription(), itUndo.getTimeStamp()));
         // update counters
         itUndo++;
         index--;
@@ -195,10 +195,11 @@ GNEUndoListDialog::recalcList() {
 }
 
 
-GNEUndoListDialog::UndoListRow::UndoListRow(const int index_, FXIcon* icon_, const std::string text_) :
+GNEUndoListDialog::UndoListRow::UndoListRow(const int index_, FXIcon* icon_, const std::string text_, const std::string timestamp_) :
     index(index_),
     icon(icon_),
-    text(text_) {}
+    text(text_),
+    timestamp(timestamp_) {}
 
 
 GNEUndoListDialog::GUIRow::GUIRow(GNEUndoListDialog* undoListDialog, FXVerticalFrame* mainFrame, MFXStaticToolTip* staticToolTip) {

@@ -86,7 +86,7 @@ protected:
     /// @struct class for keep every row value
     struct UndoListRow {
         /// @brief constructor
-        UndoListRow(const int index_, FXIcon* icon_, const std::string text_);
+        UndoListRow(const int index_, FXIcon* icon_, const std::string text_, const std::string timestamp_);
 
         /// @brief index uses for count undo/redos
         int index = 0;
@@ -96,6 +96,9 @@ protected:
 
         /// @brief definition of undo/redo operation
         std::string text;
+
+        /// @brief timestamp
+        std::string timestamp;
     };
 
     /// @brief row used for show GUI row elements

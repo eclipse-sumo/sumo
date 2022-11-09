@@ -60,6 +60,9 @@ public:
         /// @brief get description
         const std::string getDescription() const;
 
+        /// @brief get timeStamp
+        const std::string getTimeStamp() const;
+
         /// @brief get icon
         FXIcon* getIcon() const;
 
