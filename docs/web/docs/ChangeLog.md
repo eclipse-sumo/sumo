@@ -2,6 +2,28 @@
 title: ChangeLog
 ---
 
+## Git Main
+
+### Bugfixes
+
+- Simulation 
+  - Fixed invalid walking distance output related to lengths of crossings and walkingArea paths. Issue #11983
+
+- netconvert
+  - Fixed invalid OpenDRIVE output when writting traffic signals with signal groups. Issue #11980
+
+- Tools
+  - plot_net_dump_file.py: plotting a single measure is working again. Issue #11975 (regression in 1.15.0)
+
+### Enhancements
+
+- Tools
+  - plotXMLAttributes.py: can now plot data without assigning ids to the data points. Issue #11969
+  - plotXMLAttributes.py: can now plot categorical (non-numerical) data and also a mix of data types. Issue #11970, #11976
+  - plotXMLAttributes: now supporting additional visualization options (linestyle, grids, ...). Issue #11972
+
+### Miscellaneous
+
 ## Version 1.15.0 (08.11.2022)
 
 ### Bugfixes
