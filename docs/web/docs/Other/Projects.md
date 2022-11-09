@@ -23,8 +23,6 @@ title: Projects
   intermodal routing engine
 - [HubChain (german)](http://komob.de/projekte/hub-chain/) simulating
   autonomous public transport in rural areas
-- [MENDEL](http://mendel-projekt.de/en/home-2/) modeling electric
-  buses and optimizing charging with respect to grid load
 
 ### Past Projects
 
@@ -54,6 +52,8 @@ title: Projects
   demonstrator is included with SUMO.
 - [DRIVE C2X](https://web.archive.org/web/20170311043037/http://www.drive-c2x.eu/project) Driving implementation
   and evaluation of C2X communication technology
+- [MENDEL](https://www.busundbahn.de/fileadmin/user_upload/Dossiers/Elektrobusse/DNV_2019_12_Naumann_FA_WA.pdf) modeling electric
+  buses and optimizing charging with respect to grid load
 
 ## At other Institutions
 
