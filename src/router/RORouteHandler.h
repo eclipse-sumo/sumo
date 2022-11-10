@@ -70,6 +70,8 @@ public:
     bool checkLastDepart();
 
 protected:
+    void deleteActivePlanAndVehicleParameter();
+
     /// @name inherited from GenericSAXHandler
     //@{
 
