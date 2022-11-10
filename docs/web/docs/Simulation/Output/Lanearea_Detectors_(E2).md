@@ -157,13 +157,10 @@ The values are described in the following table.
 | meanVehicleNumber           | \#                   | The mean number of vehicles that were on the detector (averaged over the interval duration).                                                                                                                |
 | maxVehicleNumber            | \#                   | The maximum number of vehicles that were on the detector area during the interval.                                                                                                                          |
 
+
 # Visualization
-
-Output can be represented using [plotXMLAttributes](../../Tools/Visualization.md#plotxmlattributespy):
-
-Call: `python tools/visualization/plotXMLAttributes.py -x begin -y maxOccupancy -o plot-maxOccupancy.png --legend e2_output.xml --filter-ids e2_0,e2_5,e2_10,e2_15,e2_20,e2_25`
-
-<img src="../../images/plot-nVehEntered.png" width="500px"/>
+<img src="../../images/plot-nVehEntered.png" align="right" width="200px"/>
+Output can be represented using [plotXMLAttributes](../../Tools/Visualization.md#plotxmlattributespy), see there for details.
 
 # Further notes
 
