@@ -242,6 +242,8 @@ dualog:(.*ms)
 dualog:Simulation.*started with{REPLACE Simulation started with}
 dualog:.*'-c',{REPLACE '-c',}
 dualog:\\\\{REPLACE /}
+dualog:Suppressions used:{[->]}--------------------------------------------
+dualog:--------------------------------------------{LINES 2}
 tracefile:traci.start(.*){REPLACE traci.start(...)}
 trips:<!-- generated on{[->]}-->
 vehtypes:<!-- generated on{[->]}-->
