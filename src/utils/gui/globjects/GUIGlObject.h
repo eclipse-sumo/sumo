@@ -294,19 +294,19 @@ protected:
     void buildAdditionalsPopupOptions(GUIMainWindow& app, GUIGLObjectPopupMenu* ret, const std::string& type);
 
     /// @brief check if mouse is within elements geometry (for circles)
-    void mouseWithinGeometry(const Position center, const double radius) const;
+    bool mouseWithinGeometry(const Position center, const double radius) const;
 
     /// @brief check if mouse is within elements geometry (for filled shapes)
-    void mouseWithinGeometry(const PositionVector shape) const;
+    bool mouseWithinGeometry(const PositionVector shape) const;
 
     /// @brief check if mouse is within elements geometry (for shapes)
-    void mouseWithinGeometry(const PositionVector shape, const double width) const;
+    bool mouseWithinGeometry(const PositionVector shape, const double width) const;
 
     /// @brief check if mouse is within elements geometry (for edges)
-    void mouseWithinGeometry(const PositionVector shape, const double width, GUIGlObject* parent) const;
+    bool mouseWithinGeometry(const PositionVector shape, const double width, GUIGlObject* parent) const;
 
     /// @brief check if mouse is within elements geometry (for rectangles)
-    void mouseWithinGeometry(const Position& pos, const double width, const double height,
+    bool mouseWithinGeometry(const Position& pos, const double width, const double height,
                              const double offsetX, const double offsetY, const double rot) const;
 
 private:

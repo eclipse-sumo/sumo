@@ -412,39 +412,51 @@ GUIGlObject::buildAdditionalsPopupOptions(GUIMainWindow& app, GUIGLObjectPopupMe
 }
 
 
-void
+bool
 GUIGlObject::mouseWithinGeometry(const Position center, const double radius) const {
     if (gPostDrawing.mousePos.distanceSquaredTo2D(center) <= (radius * radius)) {
         gPostDrawing.addElementUnderCursor(this);
+        return true;
+    } else {
+        return false;
     }
 }
 
 
-void
+bool
 GUIGlObject::mouseWithinGeometry(const PositionVector shape) const {
     if (shape.around(gPostDrawing.mousePos)) {
         gPostDrawing.addElementUnderCursor(this);
+        return true;
+    } else {
+        return false;
     }
 }
 
 
-void
+bool
 GUIGlObject::mouseWithinGeometry(const PositionVector shape, const double width) const {
     if (shape.distance2D(gPostDrawing.mousePos) <= width) {
         gPostDrawing.addElementUnderCursor(this);
+        return true;
+    } else {
+        return false;
     }
 }
 
 
-void
+bool
 GUIGlObject::mouseWithinGeometry(const PositionVector shape, const double width, GUIGlObject* parent) const {
     if (shape.distance2D(gPostDrawing.mousePos) <= width) {
         gPostDrawing.addElementUnderCursor(parent);
+        return true;
+    } else {
+        return false;
     }
 }
 
 
-void
+bool
 GUIGlObject::mouseWithinGeometry(const Position& pos, const double width, const double height,
                                  const double offsetX, const double offsetY, const double rot) const {
     // create shape
@@ -463,6 +475,9 @@ GUIGlObject::mouseWithinGeometry(const Position& pos, const double width, const 
     // check if mouse is within new geometry
     if (shape.around(gPostDrawing.mousePos)) {
         gPostDrawing.addElementUnderCursor(this);
+        return true;
+    } else {
+        return false;
     }
 }
 
