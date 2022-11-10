@@ -375,6 +375,7 @@ private:
 
         virtual ~WorkerThread() {
             delete myRouter;
+            delete myReversedRouter;
         }
 
         const std::pair<double, double> compute(const E* src, const E* dest, const double costOff) {

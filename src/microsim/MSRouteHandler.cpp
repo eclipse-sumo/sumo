@@ -75,10 +75,9 @@ MSRouteHandler::~MSRouteHandler() {}
 
 void
 MSRouteHandler::deleteActivePlanAndVehicleParameter() {
-    MSTransportable::MSTransportablePlan::iterator i;
     if (myActiveTransportablePlan != nullptr) {
-        for (i = myActiveTransportablePlan->begin(); i != myActiveTransportablePlan->end(); i++) {
-            delete *i;
+        for (MSStage* const s : *myActiveTransportablePlan) {
+            delete s;
         }
         delete myActiveTransportablePlan;
     }

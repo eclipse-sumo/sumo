@@ -108,7 +108,8 @@ def import_gtfs(options, gtfsZip):
     calendar_dates = pd.read_csv(gtfsZip.open('calendar_dates.txt'), dtype=str)
     calendar = pd.read_csv(gtfsZip.open('calendar.txt'), dtype=str)
 
-    stop_times['stop_sequence'] = stop_times['stop_sequence'].astype(float)
+    # for some obscure reason there are GTFS files which have the sequence index as a float
+    stop_times['stop_sequence'] = stop_times['stop_sequence'].astype(float, copy=False)
 
     # filter trips within given begin and end time
     # first adapt stop times to a single day (from 00:00:00 to 23:59:59)
