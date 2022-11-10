@@ -305,8 +305,11 @@ protected:
     mutable double myExaggeration;
 
 private:
+    /// @brief check if draw junction as bubble
+    bool drawAsBubble(const GUIVisualizationSettings& s) const;
+
     /// @brief draw junction as bubble
-    bool drawJunctionAsBubble(const GUIVisualizationSettings& s, 
+    void drawJunctionAsBubble(const GUIVisualizationSettings& s, 
         const double junctionExaggeration, const Position mousePosition) const;
 
     /// @brief draw junction as bubble
@@ -320,7 +323,7 @@ private:
     void drawJunctionChildren(const GUIVisualizationSettings& s) const;
 
     /// @brief draw dotted contours (bubble)
-    void drawDottedContoursBubble(const GUIVisualizationSettings& s, const double junctionExaggeration, const double bubbleRadius) const;
+    void drawDottedContoursBubble(const GUIVisualizationSettings& s, const double junctionExaggeration) const;
 
     /// @brief draw dotted contours (shape)
     void drawDottedContoursShape(const GUIVisualizationSettings& s, const double junctionExaggeration) const;

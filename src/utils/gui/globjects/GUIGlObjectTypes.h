@@ -250,8 +250,8 @@ enum GUIGlObjectType {
     /// @brief text element (used in NETEDIT)
     GLO_TEXTNAME = 1010,
 
-    /// @brief dotted contour front element (used in NETEDIT)
-    GLO_DOTTEDCONTOUR_FRONT = 1020,
+    /// @brief front element (used in NETEDIT)
+    GLO_FRONTELEMENT = 1020,
 
     /// @brief dotted contour inspected element (used in NETEDIT)
     GLO_DOTTEDCONTOUR_INSPECTED = 1030,

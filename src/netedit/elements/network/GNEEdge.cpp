@@ -1492,14 +1492,8 @@ GNEEdge::drawDottedContourEdge(const GUIVisualizationSettings& s, const GUIDotte
         GUIDottedGeometry extremes(s, dottedGeometryTop, drawFrontExtreme, dottedGeometryBot, drawBackExtreme);
         // Push draw matrix
         GLHelper::pushMatrix();
-        // draw inspect or front dotted contour
-        if (type == GUIDottedGeometry::DottedContourType::FRONT) {
-            // translate to front
-            glTranslated(0, 0, GLO_DOTTEDCONTOUR_FRONT);
-        } else {
-            // translate to front
-            glTranslated(0, 0, GLO_DOTTEDCONTOUR_INSPECTED);
-        }
+        // translate to front
+        glTranslated(0, 0, GLO_DOTTEDCONTOUR_INSPECTED);
         // draw top dotted geometry
         dottedGeometryTop.drawDottedGeometry(s, type, dottedGeometryColor);
         // reset color
@@ -2369,7 +2363,7 @@ GNEEdge::drawLaneStopOffset(const GUIVisualizationSettings& s) const {
     GLHelper::pushMatrix();
     // translate to front (note: Special case)
     if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-        glTranslated(0, 0, GLO_DOTTEDCONTOUR_FRONT);
+        glTranslated(0, 0, GLO_FRONTELEMENT);
     } else {
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_LANE);
     }
@@ -2424,7 +2418,7 @@ GNEEdge::drawTAZElements(const GUIVisualizationSettings& s) const {
                 GLHelper::pushMatrix();
                 // translate to front (note: Special case)
                 if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                    glTranslated(0, 0, GLO_DOTTEDCONTOUR_FRONT);
+                    glTranslated(0, 0, GLO_FRONTELEMENT);
                 } else if (lane->getLaneShape().length2D() <= (s.neteditSizeSettings.junctionBubbleRadius * 2)) {
                     myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_JUNCTION + 0.5);
                 } else {

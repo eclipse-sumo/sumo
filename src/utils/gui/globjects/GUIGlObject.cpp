@@ -132,7 +132,7 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     //
     {"lockIcon",                GLO_LOCKICON},
     {"textName",                GLO_TEXTNAME},
-    {"frontElement",            GLO_DOTTEDCONTOUR_FRONT},
+    {"frontElement",            GLO_FRONTELEMENT},
     {"dottedContour",           GLO_DOTTEDCONTOUR_INSPECTED},
     {"temporalShape",           GLO_TEMPORALSHAPE},
     {"rectangleSelection",      GLO_RECTANGLESELECTION},

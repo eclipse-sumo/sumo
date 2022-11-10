@@ -505,7 +505,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     GLHelper::pushMatrix();
     // translate to front (note: Special case)
     if (myNet->getViewNet()->getFrontAttributeCarrier() == myParentEdge) {
-        glTranslated(0, 0, GLO_DOTTEDCONTOUR_FRONT);
+        glTranslated(0, 0, GLO_FRONTELEMENT);
     } else if (myLaneGeometry.getShape().length2D() <= (s.neteditSizeSettings.junctionBubbleRadius * 2)) {
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_JUNCTION + 0.5);
     } else {
@@ -579,7 +579,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::pushMatrix();
             // translate to front (note: Special case)
             if (myNet->getViewNet()->getFrontAttributeCarrier() == myParentEdge) {
-                glTranslated(0, 0, GLO_DOTTEDCONTOUR_FRONT);
+                glTranslated(0, 0, GLO_FRONTELEMENT);
             } else {
                 myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_LANEARROWS);
             }

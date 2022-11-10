@@ -321,14 +321,8 @@ GUIDottedGeometry::drawDottedContourClosedShape(const GUIVisualizationSettings& 
         GUIDottedGeometry dottedGeometry(s, scaledShape, true);
         // Push draw matrix
         GLHelper::pushMatrix();
-        // draw inspect or front dotted contour
-        if (type == DottedContourType::FRONT) {
-            // translate to front
-            glTranslated(0, 0, GLO_DOTTEDCONTOUR_FRONT);
-        } else {
-            // translate to front
-            glTranslated(0, 0, GLO_DOTTEDCONTOUR_INSPECTED);
-        }
+        // translate to front
+        glTranslated(0, 0, GLO_DOTTEDCONTOUR_INSPECTED);
         // draw dotted geometry
         dottedGeometry.drawDottedGeometry(s, type, dottedGeometryColor, customWidth);
         // pop matrix
@@ -359,13 +353,7 @@ GUIDottedGeometry::drawDottedContourShape(const GUIVisualizationSettings& s, con
         // Push draw matrix
         GLHelper::pushMatrix();
         // translate to front
-        if (type == DottedContourType::FRONT) {
-            // translate to front
-            glTranslated(0, 0, GLO_DOTTEDCONTOUR_FRONT);
-        } else {
-            // translate to front
-            glTranslated(0, 0, GLO_DOTTEDCONTOUR_INSPECTED);
-        }
+        glTranslated(0, 0, GLO_DOTTEDCONTOUR_INSPECTED);
         // draw top dotted geometry
         topDottedGeometry.drawDottedGeometry(s, type, dottedGeometryColor);
         // reset color
