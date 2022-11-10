@@ -2,3 +2,6 @@ left_turn
 
 # wider vehicles
 left_turn_width2
+
+# two left turns with internal junctions coming from the same edge merge
+left_turns_merge

@@ -107,11 +107,9 @@ in the following table.
 
 # Visualization
 
-Output can be represented using [plotXMLAttributes](../../Tools/Visualization.md#plotxmlattributespy):
+<img src="../../images/plot_meme_speed.png" align="right" width="200px"/>
 
-Call: `python tools/visualization/plotXMLAttributes.py -x begin -y meanSpeed detector.xml --legend --xlim 100,5000`
-
-<img src="../../images/plot_meme_speed.png" width="500px"/>
+Output can be represented using [plotXMLAttributes](../../Tools/Visualization.md#plotxmlattributespy), see there for details.
 
 ## Further Notes
 
