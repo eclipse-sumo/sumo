@@ -92,11 +92,12 @@ MSInternalJunction::postloadInit() {
     }
     for (std::vector<MSLane*>::const_iterator i = myIncomingLanes.begin() + 1; i != myIncomingLanes.end(); ++i) {
         for (MSLink* const link : (*i)->getLinkCont()) {
-            MSLane* via = link->getViaLane();
-            if (std::find(myInternalLanes.begin(), myInternalLanes.end(), via) == myInternalLanes.end()) {
-                continue;
+            // link indices of internal junctions may not be initialized yet
+            int linkIndex = link->getCorrespondingEntryLink()->getIndex();
+            // links that target a shared walkingarea always have index -1
+            if (linkIndex != -1 && response.test(linkIndex)) {
+                myInternalLinkFoes.push_back(link);
             }
-            myInternalLinkFoes.push_back(link);
         }
     }
     // thisLinks is itself an exitLink of the preceding internal lane
