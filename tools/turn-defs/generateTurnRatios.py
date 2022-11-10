@@ -107,7 +107,8 @@ def getFlows(options):
     if options.interval is None:
         yield intervalEdgePairFlowsMap[0], minDepart, maxDepart
     else:
-        for begin, edgePairFlowsMap in intervalEdgePairFlowsMap.items():
+        for begin in sorted(intervalEdgePairFlowsMap.keys()):
+            edgePairFlowsMap = intervalEdgePairFlowsMap[begin]
             yield edgePairFlowsMap, begin, begin + interval
 
 
