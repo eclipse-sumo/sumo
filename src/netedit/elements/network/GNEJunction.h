@@ -305,14 +305,25 @@ protected:
     mutable double myExaggeration;
 
 private:
+    /// @brief draw junction as bubble
+    bool drawJunctionAsBubble(const GUIVisualizationSettings& s, 
+        const double junctionExaggeration, const Position mousePosition) const;
+
+    /// @brief draw junction as bubble
+    void drawJunctionAsShape(const GUIVisualizationSettings& s, 
+        const double junctionExaggeration, const Position mousePosition) const;
+
     /// @brief draw TLS icon
     void drawTLSIcon(const GUIVisualizationSettings& s) const;
 
     /// @brief draw junction childs
     void drawJunctionChildren(const GUIVisualizationSettings& s) const;
 
-    /// @brief draw dotted contours
-    void drawDottedContours(const GUIVisualizationSettings& s, const bool drawShape, const bool drawBubble, const double junctionExaggeration, const double bubbleRadius) const;
+    /// @brief draw dotted contours (bubble)
+    void drawDottedContoursBubble(const GUIVisualizationSettings& s, const double junctionExaggeration, const double bubbleRadius) const;
+
+    /// @brief draw dotted contours (shape)
+    void drawDottedContoursShape(const GUIVisualizationSettings& s, const double junctionExaggeration) const;
 
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);
