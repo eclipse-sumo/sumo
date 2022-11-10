@@ -332,3 +332,9 @@ The following values can be retrieved for equipped vehicles if they have enabled
 - traci.vehicle.getParameter(vehID, "device.ssm.maxDRAC")
 
 The values correspond to the current min/max for all currently active encounters.
+
+## Visualization Examples
+
+The SSM output file can be used as input to [plotXMLAttributes.py](https://sumo.dlr.de/docs/Tools/Visualization.html#time_to_collision_over_simulation_time). Here is an example:
+
+<img src="../../images/plot_ttc.png" title="plot_ttc.png" width=600px/>
