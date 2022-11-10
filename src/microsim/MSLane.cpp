@@ -261,15 +261,7 @@ MSLane::MSLane(const std::string& id, double maxSpeed, double friction, double l
     myNeedsCollisionCheck(false),
     myOpposite(nullptr),
 #ifdef HAVE_FOX
-#ifdef _MSC_VER
-#pragma warning(push)
-    /* Disable warning about using "this" in the constructor */
-#pragma warning(disable: 4355)
-#endif
     mySimulationTask(*this, 0),
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
 #endif
     myStopWatch(3) {
     // initialized in MSEdge::initialize

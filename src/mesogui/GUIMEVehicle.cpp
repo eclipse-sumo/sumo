@@ -39,19 +39,12 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-#ifdef _MSC_VER
-#pragma warning(push)
-/* Disable warning about using "this" in the constructor */
-#pragma warning(disable: 4355)
-#endif
+
 GUIMEVehicle::GUIMEVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
                            MSVehicleType* type, const double speedFactor) :
     MEVehicle(pars, route, type, speedFactor),
     GUIBaseVehicle((MSBaseVehicle&) * this) {
 }
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
 
 
 GUIMEVehicle::~GUIMEVehicle() { }

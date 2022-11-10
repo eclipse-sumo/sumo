@@ -85,11 +85,6 @@ GNELane::LaneDrawingConstants::LaneDrawingConstants() :
 // GNELane - methods
 // ---------------------------------------------------------------------------
 
-#ifdef _MSC_VER
-#pragma warning(push)
-/* Disable warning about using "this" in the constructor */
-#pragma warning(disable: 4355)
-#endif
 GNELane::GNELane(GNEEdge* edge, const int index) :
     GNENetworkElement(edge->getNet(), edge->getNBEdge()->getLaneID(index), GLO_LANE, SUMO_TAG_LANE,
                       GUIIconSubSys::getIcon(GUIIcon::LANE), {}, {}, {}, {}, {}, {}),
@@ -112,9 +107,6 @@ mySpecialColor(nullptr),
 mySpecialColorValue(-1),
 myLane2laneConnections(this) {
 }
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
 
 
 GNELane::~GNELane() {}

@@ -150,15 +150,7 @@ const GUIGlID GUIGlObject::INVALID_ID = 0;
 // ===========================================================================
 
 GUIGlObject::GUIGlObject(GUIGlObjectType type, const std::string& microsimID, FXIcon* icon) :
-#ifdef _MSC_VER
-#pragma warning(push)
-    /* Disable warning about using "this" in the constructor */
-#pragma warning(disable: 4355)
-#endif
     myGlID(GUIGlObjectStorage::gIDStorage.registerObject(this)),
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
     myGLObjectType(type),
     myMicrosimID(microsimID),
     myIcon(icon),

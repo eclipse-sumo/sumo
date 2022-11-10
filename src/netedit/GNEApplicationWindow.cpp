@@ -408,11 +408,6 @@ FXIMPLEMENT(GNEApplicationWindow, FXMainWindow, GNEApplicationWindowMap, ARRAYNU
 // GNEApplicationWindow method definitions
 // ===========================================================================
 
-#ifdef _MSC_VER
-#pragma warning(push)
-/* Disable warning about using "this" in the constructor */
-#pragma warning(disable: 4355)
-#endif
 GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPattern) :
     GUIMainWindow(a),
     myUndoList(new GNEUndoList(this)),
@@ -440,10 +435,6 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     a->setTooltipTime(1000000000);
     a->setTooltipPause(1000000000);
 }
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
-
 
 void
 GNEApplicationWindow::dependentBuild() {
@@ -4691,11 +4682,6 @@ GNEApplicationWindow::getProcessingMenuCommands() const {
 // GNEApplicationWindow - protected methods
 // ---------------------------------------------------------------------------
 
-#ifdef _MSC_VER
-#pragma warning(push)
-/* Disable warning about using "this" in the constructor */
-#pragma warning(disable: 4355)
-#endif
 GNEApplicationWindow::GNEApplicationWindow() :
     myToolbarsGrip(this),
     myMenuBarFile(this),
@@ -4709,9 +4695,6 @@ GNEApplicationWindow::GNEApplicationWindow() :
     myWindowsMenuCommands(this),
     mySupermodeCommands(this) {
 }
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
 
 
 long

@@ -26,12 +26,7 @@
 #ifdef __clang__
 #pragma clang system_header
 #endif
-
-#pragma warning(push, 0)
 #include <fx.h>
-#pragma warning(pop)
-// ignore warning about not overwritten virtual members
-#pragma warning(disable:4266)
 #else
 #include <fx.h>
 #endif

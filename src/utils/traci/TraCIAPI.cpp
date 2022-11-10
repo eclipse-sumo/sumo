@@ -30,21 +30,15 @@
 // ---------------------------------------------------------------------------
 // TraCIAPI-methods
 // ---------------------------------------------------------------------------
-#ifdef _MSC_VER
-/* Disable "decorated name length exceeded, name was truncated" warnings for the whole file. */
-#pragma warning(disable: 4503)
-#pragma warning(push)
-/* Disable warning about using "this" in the constructor */
-#pragma warning(disable: 4355)
-#endif
-TraCIAPI::TraCIAPI()
-    : edge(*this), gui(*this), inductionloop(*this),
-      junction(*this), lane(*this), lanearea(*this), multientryexit(*this),
-      person(*this), poi(*this), polygon(*this),
-      rerouter(*this), route(*this), routeprobe(*this),
-      simulation(*this), trafficlights(*this),
-      vehicle(*this), vehicletype(*this),
-      mySocket(nullptr) {
+
+TraCIAPI::TraCIAPI() : 
+        edge(*this), gui(*this), inductionloop(*this),
+        junction(*this), lane(*this), lanearea(*this), multientryexit(*this),
+        person(*this), poi(*this), polygon(*this),
+        rerouter(*this), route(*this), routeprobe(*this),
+        simulation(*this), trafficlights(*this),
+        vehicle(*this), vehicletype(*this),
+        mySocket(nullptr) {
     myDomains[libsumo::RESPONSE_SUBSCRIBE_EDGE_VARIABLE] = &edge;
     myDomains[libsumo::RESPONSE_SUBSCRIBE_GUI_VARIABLE] = &gui;
     myDomains[libsumo::RESPONSE_SUBSCRIBE_JUNCTION_VARIABLE] = &junction;
@@ -62,9 +56,6 @@ TraCIAPI::TraCIAPI()
     myDomains[libsumo::RESPONSE_SUBSCRIBE_VEHICLE_VARIABLE] = &vehicle;
     myDomains[libsumo::RESPONSE_SUBSCRIBE_VEHICLETYPE_VARIABLE] = &vehicletype;
 }
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
 
 
 TraCIAPI::~TraCIAPI() {

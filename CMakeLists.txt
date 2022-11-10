@@ -16,6 +16,9 @@ set(CCACHE_SUPPORT ON CACHE BOOL "Enable ccache support if installed")
 set(TCMALLOC ON CACHE BOOL "Use tcmalloc if installed")
 # disable warnings
 option(DISABLEWARNING_C5264 "'const' variable is not used" true)
+option(DISABLEWARNING_C4355 "'this' : used in base member initializer list" true)
+option(DISABLEWARNING_C4266 "'function' : no override available for virtual member function from base 'type'" true)
+
 option(DISABLEWARNING_C26495 "'variable' is uninitialized. Always initialize a member variable" true)
 # Set a default build type if none was specified
 # you may use -DCMAKE_BUILD_TYPE:STRING=Debug from the command line
@@ -112,6 +115,12 @@ elseif (MSVC)
 	# check if disable warnings
 	if (DISABLEWARNING_C5264)
 		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd5264")
+	endif ()
+	if (DISABLEWARNING_C4355)
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4355")
+	endif ()
+	if (DISABLEWARNING_C4266)
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4266")
 	endif ()
 	if (DISABLEWARNING_C26495)
 		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd26495")
