@@ -2167,14 +2167,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 #ifdef PARALLEL_STOPWATCH
     myLane->getStopWatch()[0].start();
 #endif
-#ifdef _MSC_VER
-#pragma warning(push)
-#pragma warning(disable: 4127) // do not warn about constant conditional expression
-#endif
     while (true) {
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
         // check leader on lane
         //  leader is given for the first edge only
         if (opposite &&
@@ -4364,14 +4357,7 @@ MSVehicle::executeMove() {
                     myState.myBackPos = getLength() - myState.myPos;
                     myAngle = computeAngle();
                 } else {
-#ifdef _MSC_VER
-#pragma warning(push)
-#pragma warning(disable: 4127) // do not warn about constant conditional expression
-#endif
                     SOFT_ASSERT(false);
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
                 }
             }
         } else {
@@ -4706,14 +4692,7 @@ MSVehicle::getBackPositionOnLane(const MSLane* lane, bool calledByGetPosition) c
         }
         WRITE_WARNING("Request backPos of vehicle '" + getID() + "' for invalid lane '" + Named::getIDSecure(lane)
                       + "' time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".")
-#ifdef _MSC_VER
-#pragma warning(push)
-#pragma warning(disable: 4127) // do not warn about constant conditional expression
-#endif
         SOFT_ASSERT(false);
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
         return  myState.myBackPos;
     }
 }

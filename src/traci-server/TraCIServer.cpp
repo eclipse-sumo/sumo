@@ -441,14 +441,7 @@ TraCIServer::checkClientOrdering() {
         std::cout << "  Socket " << myCurrentSocket->second->socket << ":" << std::endl;
 #endif
 //        bool clientUnordered = true;
-#ifdef _MSC_VER
-#pragma warning(push)
-#pragma warning(disable: 4127) // do not warn about constant conditional expression
-#endif
         while (true) {
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
             myInputStorage.reset();
             myCurrentSocket->second->socket->receiveExact(myInputStorage);
             int commandStart, commandLength;

@@ -2219,14 +2219,7 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                         }
 #endif
                         MSLane* lane = egoEntryLink->getViaLane();
-#ifdef _MSC_VER
-#pragma warning(push)
-#pragma warning(disable: 4127) // do not warn about constant conditional expression
-#endif
                         while (true) {
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
                             // Find first of egoLane and foeLane while crossing the junction (this dertermines who's the follower)
                             // Then set the conflict lane to the lane of the leader and adapt the follower's distance to conflict
                             if (egoLane == lane) {
