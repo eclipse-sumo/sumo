@@ -118,6 +118,25 @@ Call `python tools/visualization/plotXMLAttributes.py -i id -x depart -y departD
 
 <img src="../images/departDelayScatter.png" width="500px"/>
 
+### Time to collision over simulation time
+
+The plot is created from the output file of a SUMO simulation for which a global [SSM device](https://sumo.dlr.de/docs/Simulation/Output/SSM_Device.html) has been added. For this example, starting from the [Bologna "acosta" scenario](https://github.com/DLR-TS/sumo-scenarios/tree/main/bologna/acosta), the SUMO configuration file had been modified in order to compute time to collision:
+```
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+	
+	<device.ssm.deterministic value="true"/>
+	<device.ssm.file value="ssm.xml"/>
+    <device.ssm.measures value="TTC"/>
+
+</configuration>
+```
+After the simulation has finished to run, a XML file `ssm.xml` has been produced. Using this file we can extract and plot the TTC values by using the command line:
+```
+python.exe .\plotXMLAttributes.py ssm.xml -x time --xlabel "Time [s]" -y value --ylabel "TTC [s]" -i ego --filter-ids bus_* --title "time to collision over simulation time" --scatterplot
+```
+
+<img src="../images/plot_ttc.png" title="plot_ttc.png" width=600px/>
+
 ## plot_trajectories.py
 
 Create plot of all trajectories in a given **--fcd-output** file. This tool in particular is located in {{SUMO}}/tools.
