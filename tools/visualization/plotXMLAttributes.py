@@ -146,51 +146,65 @@ def getDataStream(options):
     attr2elem = {}
     elem2level = {}
 
+    # handle attribute lists
+    allAttrs = set() 
+    attr2parts = {}
+    for a in attrOptions:
+        attr = getattr(options, a)
+        parts = attr.split(',')
+        allAttrs.update(parts)
+        attr2parts[attr] = parts
+
     level = 0
     for event, elem in ET.iterparse(_open(options.files[0]), ("start", "end")):
         if event == "start":
             level += 1
             for a, e in zip(attrOptions, options.attrElems):
-                attr = getattr(options, a)
-                if attr in elem.keys():
-                    if e is not None and e != elem.tag:
-                        # print("skipping attribute '%s' in element '%s' (required elem '%s'" % (attr, elem.tag, e))
-                        continue
-                    elem2level[elem.tag] = level
-                    if attr in attr2elem:
-                        oldTag = attr2elem[attr]
-                        if oldTag != elem.tag:
-                            if elem2level[oldTag] < level:
-                                attr2elem[attr] = elem.tag
-                            print("Warning: found %s '%s' in element '%s' (level %s) and element '%s' (level %s)."
-                                  " Using '%s'." % (
-                                      a, attr, oldTag, elem2level[oldTag],
-                                      elem.tag, level, attr2elem[attr]))
-                    else:
-                        attr2elem[attr] = elem.tag
-            if len(attr2elem) == 3:
+                attrOrig = getattr(options, a)
+                for attr in attr2parts[attrOrig]:
+                    if attr in elem.keys():
+                        if e is not None and e != elem.tag:
+                            # print("skipping attribute '%s' in element '%s' (required elem '%s'" % (attr, elem.tag, e))
+                            continue
+                        elem2level[elem.tag] = level
+                        if attr in attr2elem:
+                            oldTag = attr2elem[attr]
+                            if oldTag != elem.tag:
+                                if elem2level[oldTag] < level:
+                                    attr2elem[attr] = elem.tag
+                                print("Warning: found %s '%s' in element '%s' (level %s) and element '%s' (level %s)."
+                                      " Using '%s'." % (
+                                          a, attr, oldTag, elem2level[oldTag],
+                                          elem.tag, level, attr2elem[attr]))
+                        else:
+                            attr2elem[attr] = elem.tag
+            if len(attr2elem) == len(allAttrs):
                 # all attributes have been seen
                 break
         elif event == "end":
             level -= 1
 
-    if len(attr2elem) != 3:
+    if len(attr2elem) != len(allAttrs):
         for a in attrOptions:
-            attr = getattr(options, a)
-            if attr not in attr2elem:
-                lvlElem = [(lv, el) for el, lv in elem2level.items()]
-                minLevelElem = sorted(lvlElem)[0][1]
-                if attr == RANK_ATTR:
-                    attr2elem[attr] = minLevelElem
-                else:
-                    msg = "%s '%s' not found in %s" % (a, attr, options.files[0])
-                    if a == 'idattr':
-                        if attr != NONE_ATTR:
-                            print(msg, file=sys.stderr)
-                            options.idattr = NONE_ATTR
+            attrOrig = getattr(options, a)
+            for attr in attr2parts[attrOrig]:
+                if attr not in attr2elem:
+                    lvlElem = [(lv, el) for el, lv in elem2level.items()]
+                    minLevelElem = sorted(lvlElem)[0][1]
+                    if attr == RANK_ATTR:
                         attr2elem[attr] = minLevelElem
                     else:
-                        sys.exit("Mandatory " + msg)
+                        msg = "%s '%s' not found in %s" % (a, attr, options.files[0])
+                        if a == 'idattr':
+                            if attr != NONE_ATTR:
+                                print(msg, file=sys.stderr)
+                                options.idattr = NONE_ATTR
+                            attr2elem[attr] = minLevelElem
+                            allAttrs.remove(attr)
+                            allAttrs.add(NONE_ATTR)
+                            attr2parts[NONE_ATTR] = [NONE_ATTR]
+                        else:
+                            sys.exit("Mandatory " + msg)
 
     allElems = list(set(attr2elem.values()))
     attrs = [getattr(options, a) for a in attrOptions]
@@ -202,8 +216,8 @@ def getDataStream(options):
             elems = sorted(allElems, key=lambda e: elem2level[e])
             mE0 = "<%s " % elems[0]
             mE1 = "<%s " % elems[1]
-            attrs0 = [a for a in attrs if attr2elem[a] == elems[0]]
-            attrs1 = [a for a in attrs if attr2elem[a] == elems[1]]
+            attrs0 = [a for a in allAttrs if attr2elem[a] == elems[0]]
+            attrs1 = [a for a in allAttrs if attr2elem[a] == elems[1]]
             mAs0 = [(a, re.compile('%s="([^"]*)"' % a)) for a in attrs0]
             mAs1 = [(a, re.compile('%s="([^"]*)"' % a)) for a in attrs1]
 
@@ -227,7 +241,13 @@ def getDataStream(options):
                             skip = True
                             skippedLines[a] += 1
                     if not skip:
-                        yield [values[a] for a in attrs]
+                        toYield = []
+                        for a in attrs:
+                            if len(attr2parts[a]) == 1:
+                                toYield.append(values[a])
+                            else:
+                                toYield.append('|'.join([values[ap] for ap in attr2parts[a]]))
+                        yield toYield
                         index += 1
 
             for attr, count in skippedLines.items():
@@ -239,25 +259,31 @@ def getDataStream(options):
     elif len(allElems) == 1:
         def datastream(xmlfile):
             mE = "<%s " % allElems[0]
-            mAs = [re.compile('%s="([^"]*)"' % a) for a in attrs]
+            mAs = [re.compile('%s="([^"]*)"' % a) for a in allAttrs]
             index = 0
             for line in _open(xmlfile):
                 if mE in line:
                     skip = False
-                    values = []
-                    for a, r in zip(attrs, mAs):
+                    values = {}  # attr -> value
+                    for a, r in zip(allAttrs, mAs):
                         if a == RANK_ATTR:
-                            values.append(index)
+                            values[a] = index
                         elif a == NONE_ATTR:
-                            values.append(NONE_ATTR_DEFAULT)
+                            values[a] = NONE_ATTR_DEFAULT
                         else:
                             m = r.search(line)
                             if m:
-                                values.append(m.groups()[0])
+                                values[a] = m.groups()[0]
                             else:
                                 skip = True
                     if not skip:
-                        yield values
+                        toYield = []
+                        for a in attrs:
+                            if len(attr2parts[a]) == 1:
+                                toYield.append(values[a])
+                            else:
+                                toYield.append('|'.join([values[ap] for ap in attr2parts[a]]))
+                        yield toYield
                         index += 1
         return datastream
 
@@ -325,6 +351,8 @@ def main(options):
                     if '*' in filterID:
                         if not fnmatch.fnmatch(dataID, filterID):
                             continue
+                        if "25" in dataID:
+                            print(dataID, filterID)
                         flag2 = True
                 if flag1 and not flag2:
                     continue
