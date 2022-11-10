@@ -13,7 +13,7 @@ features are a charging station (which can be placed on any lane in the
 network) and a new output option **--battery-output** {{DT_FILE}}.
 
 You can find a test case for these implementations at
-[\[1\]](http://sumo.dlr.de/trac.wsgi/browser/trunk/sumo/tests/sumo/extended/electric/braunschweig)
+[\[1\]](https://github.com/eclipse/sumo/tree/main/tests/sumo/devices/battery/braunschweig)
 
 # Defining Electric Vehicles
 
