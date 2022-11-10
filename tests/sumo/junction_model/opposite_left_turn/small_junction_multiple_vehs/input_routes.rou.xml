@@ -1,0 +1,21 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+
+    <flow id="SW" begin="0" period="2" number="3" departPos="-20">
+        <route edges="bottom0A0 A0left0"/>
+    </flow>
+
+    <flow id="NE" begin="0" period="2" number="3" departPos="-20">
+        <route edges="top0A0 A0right0"/>
+    </flow>
+
+    <flow id="WN" begin="100" period="2" number="3" departPos="-20">
+        <route edges="left0A0 A0top0"/>
+    </flow>
+
+    <flow id="ES" begin="100" period="2" number="3" departPos="-20">
+        <route edges="right0A0 A0bottom0"/>
+    </flow>
+
+</routes>
