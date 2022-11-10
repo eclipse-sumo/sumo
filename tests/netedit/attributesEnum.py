@@ -174,11 +174,10 @@ class edge:
         speed = 8
         allowButton = 9
         allow = 10
-        disallowButton = 11
-        disallow = 12
-        spreadType = 13
-        priority = 15
-        width = 16
+        disallow = 11
+        spreadType = 12
+        priority = 14
+        width = 15
 
     class createLane:
         add = 22
@@ -186,9 +185,8 @@ class edge:
         speed = 24
         allowButton = 25
         allow = 26
-        disallowButton = 27
-        disallow = 28
-        width = 29
+        disallow = 27
+        width = 28
 
     class inspect:
         id = 1
@@ -267,41 +265,39 @@ class lane:
         speed = 1
         allowButton = 2
         allow = 3
-        disallowButton = 4
-        disallow = 5
-        width = 6
-        endOffset = 7
-        acceleration = 8
-        customShape = 9
-        opposite = 10
-        changeLeftButton = 11
-        changeLeft = 12
-        changeRightButton = 13
-        changeRight = 14
-        type = 15
-        stopOffset = 16
-        stopOffsetExceptionButton = 17
-        stopOffsetException = 18
-        parameters = 21
+        disallow = 4
+        width = 5
+        endOffset = 6
+        acceleration = 7
+        customShape = 8
+        opposite = 9
+        changeLeftButton = 10
+        changeLeft = 11
+        changeRightButton = 12
+        changeRight = 13
+        type = 14
+        stopOffset = 15
+        stopOffsetExceptionButton = 16
+        stopOffsetException = 17
+        parameters = 20
 
     class inspectSelection:
         speed = 1
         allowButton = 2
         allow = 3
-        disallowButton = 4
-        disallow = 5
-        width = 6
-        endOffset = 7
-        acceleration = 8
-        changeLeftButton = 9
-        changeLeft = 10
-        changeRightButton = 11
-        changeRight = 12
-        type = 13
-        stopOffset = 14
-        stopOffsetExceptionButton = 15
-        stopOffsetException = 16
-        parameters = 19
+        disallow = 4
+        width = 5
+        endOffset = 6
+        acceleration = 7
+        changeLeftButton = 8
+        changeLeft = 9
+        changeRightButton = 10
+        changeRight = 11
+        type = 12
+        stopOffset = 13
+        stopOffsetExceptionButton = 14
+        stopOffsetException = 15
+        parameters = 18
 
     class contextualMenu:
         duplicateLane = 1
@@ -333,18 +329,17 @@ class connection:
         visibility = 5
         allowButton = 6
         allow = 7
-        disallowButton = 8
-        disallow = 9
-        speed = 10
-        length = 11
-        customShape = 12
-        changeLeftButton = 13
-        changeLeft = 14
-        changeRightButton = 15
-        changeRight = 16
-        indirect = 17
-        type = 18
-        parameters = 21
+        disallow = 8
+        speed = 9
+        length = 10
+        customShape = 11
+        changeLeftButton = 12
+        changeLeft = 13
+        changeRightButton = 14
+        changeRight = 15
+        indirect = 16
+        type = 17
+        parameters = 20
 
     class inspectTLS:
         passC = 1
@@ -356,18 +351,17 @@ class connection:
         linkIndex2 = 7
         allowButton = 8
         allow = 9
-        disallowButton = 10
-        disallow = 11
-        speed = 12
-        length = 13
-        customShape = 14
-        changeLeftButton = 15
-        changeLeft = 16
-        changeRightButton = 17
-        changeRight = 18
-        indirect = 19
-        type = 20
-        parameters = 23
+        disallow = 10
+        speed = 11
+        length = 12
+        customShape = 13
+        changeLeftButton = 14
+        changeLeft = 15
+        changeRightButton = 16
+        changeRight = 17
+        indirect = 18
+        type = 19
+        parameters = 22
 
     class inspectSelection:
         passC = 1
@@ -377,17 +371,16 @@ class connection:
         visibility = 5
         allowButton = 6
         allow = 7
-        disallowButton = 8
-        disallow = 9
-        speed = 10
-        length = 11
-        changeLeftButton = 12
-        changeLeft = 13
-        changeRightButton = 14
-        changeRight = 15
-        indirect = 16
-        type = 17
-        parameters = 20
+        disallow = 8
+        speed = 9
+        length = 10
+        changeLeftButton = 11
+        changeLeft = 12
+        changeRightButton = 13
+        changeRight = 14
+        indirect = 15
+        type = 16
+        parameters = 19
 
     class inspectSelectionTLS:
         passC = 1
@@ -399,17 +392,16 @@ class connection:
         linkIndex2 = 7
         allowButton = 8
         allow = 9
-        disallowButton = 10
-        disallow = 11
-        speed = 12
-        length = 13
-        changeLeftButton = 14
-        changeLeft = 15
-        changeRightButton = 16
-        changeRight = 17
-        indirect = 18
-        type = 19
-        parameters = 22
+        disallow = 10
+        speed = 11
+        length = 12
+        changeLeftButton = 13
+        changeLeft = 14
+        changeRightButton = 15
+        changeRight = 16
+        indirect = 17
+        type = 18
+        parameters = 21
 
     saveConnections = 4
 

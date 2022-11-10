@@ -55,9 +55,6 @@ netedit.modifyAttribute(netedit.attrs.lane.inspect.disallow, "authority  army, p
 # Change parameter 2 with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.lane.inspect.disallow, "", True)
 
-# Change parameter 8 with a valid value (empty)
-netedit.modifyAllowDisallowValue(netedit.attrs.lane.inspect.disallowButton, True)
-
 # Change parameter 2 with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.lane.inspect.disallow,
                         "emergency authority army vip passenger hov bus coach tram rail_urban rail " +

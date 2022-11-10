@@ -102,7 +102,6 @@ edge.create.numLanes
 edge.create.speed 
 edge.create.allowButton 
 edge.create.allow 
-edge.create.disallowButton 
 edge.create.disallow 
 edge.create.spreadType 
 edge.create.priority 
@@ -112,7 +111,6 @@ edge.createLane.remove
 edge.createLane.speed 
 edge.createLane.allowButton 
 edge.createLane.allow 
-edge.createLane.disallowButton 
 edge.createLane.disallow 
 edge.createLane.width 
 edge.inspect.id 
@@ -178,7 +176,6 @@ edge.contextualMenuEdgeB
 lane.inspect.speed 
 lane.inspect.allowButton 
 lane.inspect.allow 
-lane.inspect.disallowButton 
 lane.inspect.disallow 
 lane.inspect.width 
 lane.inspect.endOffset 
@@ -197,7 +194,6 @@ lane.inspect.parameters
 lane.inspectSelection.speed 
 lane.inspectSelection.allowButton 
 lane.inspectSelection.allow 
-lane.inspectSelection.disallowButton 
 lane.inspectSelection.disallow 
 lane.inspectSelection.width 
 lane.inspectSelection.endOffset 
@@ -231,7 +227,6 @@ connection.inspect.uncontrolled
 connection.inspect.visibility 
 connection.inspect.allowButton 
 connection.inspect.allow 
-connection.inspect.disallowButton 
 connection.inspect.disallow 
 connection.inspect.speed 
 connection.inspect.length 
@@ -252,7 +247,6 @@ connection.inspectTLS.linkIndex
 connection.inspectTLS.linkIndex2 
 connection.inspectTLS.allowButton 
 connection.inspectTLS.allow 
-connection.inspectTLS.disallowButton 
 connection.inspectTLS.disallow 
 connection.inspectTLS.speed 
 connection.inspectTLS.length 
@@ -271,7 +265,6 @@ connection.inspectSelection.uncontrolled
 connection.inspectSelection.visibility 
 connection.inspectSelection.allowButton 
 connection.inspectSelection.allow 
-connection.inspectSelection.disallowButton 
 connection.inspectSelection.disallow 
 connection.inspectSelection.speed 
 connection.inspectSelection.length 
@@ -291,7 +284,6 @@ connection.inspectSelectionTLS.linkIndex
 connection.inspectSelectionTLS.linkIndex2 
 connection.inspectSelectionTLS.allowButton 
 connection.inspectSelectionTLS.allow 
-connection.inspectSelectionTLS.disallowButton 
 connection.inspectSelectionTLS.disallow 
 connection.inspectSelectionTLS.speed 
 connection.inspectSelectionTLS.length 

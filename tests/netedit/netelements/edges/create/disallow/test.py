@@ -52,13 +52,6 @@ netedit.changeDefaultValue(netedit.attrs.edge.create.disallow, "all")
 netedit.leftClick(referencePosition, 80, 250)
 netedit.leftClick(referencePosition, 500, 250)
 
-# set attribute
-netedit.changeDefaultAllowDisallowValue(netedit.attrs.edge.create.disallowButton)
-
-# Create two nodes
-netedit.leftClick(referencePosition, 80, 325)
-netedit.leftClick(referencePosition, 500, 325)
-
 # Check undo and redo
 netedit.undo(referencePosition, 3)
 netedit.redo(referencePosition, 3)

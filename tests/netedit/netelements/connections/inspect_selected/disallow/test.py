@@ -60,9 +60,6 @@ netedit.modifyAttribute(netedit.attrs.connection.inspectSelection.disallow,
 netedit.modifyAttribute(netedit.attrs.connection.inspectSelection.disallow, "", True)
 
 # Change parameter 8 with a valid value (empty)
-netedit.modifyAllowDisallowValue(netedit.attrs.connection.inspectSelection.disallowButton, True)
-
-# Change parameter 8 with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.connection.inspectSelection.disallow,
                         "authority army vip passenger hov taxi bus coach tram bicycle", True)
 
