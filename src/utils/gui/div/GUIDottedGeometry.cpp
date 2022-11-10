@@ -324,7 +324,7 @@ GUIDottedGeometry::drawDottedContourClosedShape(const GUIVisualizationSettings& 
         // draw inspect or front dotted contour
         if (type == DottedContourType::FRONT) {
             // translate to front
-            glTranslated(0, 0, GLO_DOTTEDCONTOUR_INSPECTED);
+            glTranslated(0, 0, GLO_DOTTEDCONTOUR_FRONT);
         } else {
             // translate to front
             glTranslated(0, 0, GLO_DOTTEDCONTOUR_INSPECTED);

@@ -1485,57 +1485,55 @@ GNEJunction::drawJunctionChildren(const GUIVisualizationSettings& s) const {
 
 void
 GNEJunction::drawDottedContoursBubble(const GUIVisualizationSettings& s, const double junctionExaggeration, const double bubbleRadius) const {
-    // calculate width
-    const double witdh = (junctionExaggeration >= 1) ? junctionExaggeration : 1;
+    // get inspected ACs
+    const auto& inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
     // check if mouse is over junction
     mouseWithinGeometry(myNBNode->getPosition(), bubbleRadius);
-    // check if inspected dotted contour has to be drawn
+    // declare dotted contour type
+    auto dottedContourType = GUIDottedGeometry::DottedContourType::NOTHING;
+    // check conditions 
     if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-        GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::INSPECT, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, witdh);
-    }
-    // check if front dotted contour has to be drawn
-    if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
-        GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::FRONT, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, witdh);
-    }
-    // check if TLS dotted contour has to be drawn
-    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() && (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_TLS) &&
-            myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->getTLSJunction()->isJoiningJunctions() &&
-            myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->getTLSJunction()->isJunctionSelected(this)) {
-        GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::GREEN, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, witdh);
-    }
-    // draw dotted contours regarding create edge mode
-    if (myAmCreateEdgeSource) {
-        GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::GREEN, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, witdh);
-    } else if ((gPostDrawing.markedNode == nullptr) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-               (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_CREATE_EDGE)) {
-        // get dotted contour type
-        const auto dottedContourType = myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getJunctionSource() ? GUIDottedGeometry::DottedContourType::MAGENTA : GUIDottedGeometry::DottedContourType::GREEN;
-        // mark this node
-        gPostDrawing.markedNode = this;
-        // draw dotted contour
-        GUIDottedGeometry::drawDottedContourCircle(s, dottedContourType, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, witdh);
-    }
-    // draw dotted contours regarding inspect vehicles over junctions
-    const auto& inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
-    if ((inspectedACs.size() == 1) &&
-        ((inspectedACs.front()->getTagProperty().getTag() == GNE_TAG_TRIP_JUNCTIONS) ||
-         (inspectedACs.front()->getTagProperty().getTag() == GNE_TAG_FLOW_JUNCTIONS))) {
+        dottedContourType = GUIDottedGeometry::DottedContourType::INSPECT;
+    } else if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+        dottedContourType = GUIDottedGeometry::DottedContourType::FRONT;
+    } else if (myAmCreateEdgeSource) {
+        dottedContourType = GUIDottedGeometry::DottedContourType::GREEN;
+    } else if ((inspectedACs.size() == 1) && ((inspectedACs.front()->getTagProperty().getTag() == GNE_TAG_TRIP_JUNCTIONS) || 
+               (inspectedACs.front()->getTagProperty().getTag() == GNE_TAG_FLOW_JUNCTIONS))) {
         // get vehicle
-        const auto vehicle = myNet->getAttributeCarriers()->retrieveDemandElement(inspectedACs.front());
+        const auto vehicleOverJunctions = myNet->getAttributeCarriers()->retrieveDemandElement(inspectedACs.front());
         // check parent junctions
-        if (vehicle->getParentJunctions().front() == this) {
-            GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::GREEN, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, witdh);
-        } else if (vehicle->getParentJunctions().back() == this) {
-            GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::MAGENTA, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, witdh);
+        if (vehicleOverJunctions->getParentJunctions().front() == this) {
+            dottedContourType = GUIDottedGeometry::DottedContourType::GREEN;
+        } else if (vehicleOverJunctions->getParentJunctions().back() == this) {
+            dottedContourType = GUIDottedGeometry::DottedContourType::MAGENTA;
+        }
+    } else if (myNet->getViewNet()->drawDeleteContour(this, this)) {
+        dottedContourType = GUIDottedGeometry::DottedContourType::REMOVE;
+    } else if (myNet->getViewNet()->drawSelectContour(this, this)) {
+        dottedContourType = GUIDottedGeometry::DottedContourType::SELECT;
+    } else if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+        // get TLS junction
+        const auto TLSJunction = myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->getTLSJunction();
+        if ((myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_TLS) && 
+             TLSJunction->isJoiningJunctions() && TLSJunction->isJunctionSelected(this)) {
+            dottedContourType = GUIDottedGeometry::DottedContourType::GREEN;
+        } else if ((myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_CREATE_EDGE) && 
+                   (gPostDrawing.markedNode == nullptr)) {
+            // get dotted contour type
+            if (myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getJunctionSource()) {
+                dottedContourType = GUIDottedGeometry::DottedContourType::MAGENTA;
+            } else {
+                dottedContourType = GUIDottedGeometry::DottedContourType::GREEN;
+            }
+            // mark this node
+            gPostDrawing.markedNode = this;
         }
     }
-    // delete contour
-    if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-        GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::REMOVE, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, witdh);
-    }
-    // select contour
-    if (myNet->getViewNet()->drawSelectContour(this, this)) {
-        GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::SELECT, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, witdh);
+    // check if draw dotted contour
+    if (dottedContourType != GUIDottedGeometry::DottedContourType::NOTHING) {
+        GUIDottedGeometry::drawDottedContourCircle(s, dottedContourType, myNBNode->getCenter(), 
+            s.neteditSizeSettings.junctionBubbleRadius, (junctionExaggeration >= 1) ? junctionExaggeration : 1);
     }
 }
 
