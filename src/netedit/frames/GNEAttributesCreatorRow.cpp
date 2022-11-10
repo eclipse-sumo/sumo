@@ -202,7 +202,7 @@ GNEAttributesCreatorRow::refreshRow() {
         myValueTextField->show();
     } else {
         // left
-        if (myAttrProperties.isColor() || (myAttrProperties.getAttr() == SUMO_ATTR_ALLOW) || (myAttrProperties.getAttr() == SUMO_ATTR_DISALLOW)) {
+        if (myAttrProperties.isColor() || (myAttrProperties.getAttr() == SUMO_ATTR_ALLOW)) {
             // show color button
             myAttributeButton->setTextColor(FXRGB(0, 0, 0));
             myAttributeButton->killFocus();
@@ -438,16 +438,6 @@ GNEAttributesCreatorRow::onCmdOpenAttributeDialog(FXObject*, FXSelector, void*) 
         if (acceptChanges) {
             // update text field
             myValueTextField->setText(allow.c_str(), TRUE);
-        }
-    } else if (myAttrProperties.getAttr() == SUMO_ATTR_DISALLOW) {
-        // transform disallow to allow
-        std::string allow = getVehicleClassNames(~parseVehicleClasses(myValueTextField->getText().text()));
-        // opena allowDisallow dialog
-        GNEAllowVClassesDialog(myAttributesCreatorParent->getFrameParent()->getViewNet(), &allow, &acceptChanges).execute();
-        // continue depending of acceptChanges
-        if (acceptChanges) {
-            // update text field
-            myValueTextField->setText(getVehicleClassNames(~parseVehicleClasses(allow)).c_str(), TRUE);
         }
     }
     return 0;

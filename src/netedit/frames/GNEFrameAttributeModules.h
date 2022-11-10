@@ -112,8 +112,8 @@ public:
         /// @brief pointer to attribute  menu check
         FXCheckButton* myAttributeCheckButton = nullptr;
 
-        /// @brief pointer to buttonCombinableChoices
-        MFXButtonTooltip* myAttributeButtonCombinableChoices = nullptr;
+        /// @brief pointer to attributeAllowButton
+        MFXButtonTooltip* myAttributeAllowButton = nullptr;
 
         /// @brief Button for open color editor
         MFXButtonTooltip* myAttributeColorButton = nullptr;
@@ -125,7 +125,7 @@ public:
         MFXTextFieldTooltip* myValueTextField = nullptr;
 
         /// @brief pointer to combo box choices
-        MFXIconComboBox* myValueComboBoxChoices = nullptr;
+        MFXIconComboBox* myValueChoicesComboBox = nullptr;
 
         /// @brief pointer to menu check
         FXCheckButton* myValueCheckButton = nullptr;
