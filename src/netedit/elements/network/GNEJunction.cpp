@@ -1501,7 +1501,7 @@ GNEJunction::drawDottedContoursBubble(const GUIVisualizationSettings& s, const d
     // get inspected ACs
     const auto& inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
     // check if mouse is over junction
-    mouseWithinGeometry(myNBNode->getPosition(), s.neteditSizeSettings.junctionBubbleRadius * junctionExaggeration);
+    const bool mouseWithin = mouseWithinGeometry(myNBNode->getPosition(), s.neteditSizeSettings.junctionBubbleRadius * junctionExaggeration);
     // declare dotted contour type
     auto dottedContourType = GUIDottedGeometry::DottedContourType::NOTHING;
     // check conditions 
@@ -1532,14 +1532,14 @@ GNEJunction::drawDottedContoursBubble(const GUIVisualizationSettings& s, const d
              TLSJunction->isJoiningJunctions() && TLSJunction->isJunctionSelected(this)) {
             dottedContourType = GUIDottedGeometry::DottedContourType::GREEN;
         } else if ((myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_CREATE_EDGE) && 
-                   (gPostDrawing.markedNode == nullptr)) {
+                   (gPostDrawing.markedNode == nullptr) && mouseWithin) {
             // get dotted contour type
             if (myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getJunctionSource()) {
                 dottedContourType = GUIDottedGeometry::DottedContourType::MAGENTA;
             } else {
                 dottedContourType = GUIDottedGeometry::DottedContourType::GREEN;
             }
-            // mark this node
+            // mark this node (to avoid mark another junctions)
             gPostDrawing.markedNode = this;
         }
     }
@@ -1557,7 +1557,7 @@ GNEJunction::drawDottedContoursShape(const GUIVisualizationSettings& s, const do
     // get inspected ACs
     const auto& inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
     // check if mouse is over junction
-    mouseWithinGeometry(myNBNode->getShape());
+    const bool mouseWithin = mouseWithinGeometry(myNBNode->getShape());
     // declare dotted contour type
     auto dottedContourType = GUIDottedGeometry::DottedContourType::NOTHING;
     // check conditions 
@@ -1588,14 +1588,14 @@ GNEJunction::drawDottedContoursShape(const GUIVisualizationSettings& s, const do
              TLSJunction->isJoiningJunctions() && TLSJunction->isJunctionSelected(this)) {
             dottedContourType = GUIDottedGeometry::DottedContourType::GREEN;
         } else if ((myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_CREATE_EDGE) && 
-                   (gPostDrawing.markedNode == nullptr)) {
+                   (gPostDrawing.markedNode == nullptr) && mouseWithin) {
             // get dotted contour type
             if (myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getJunctionSource()) {
                 dottedContourType = GUIDottedGeometry::DottedContourType::MAGENTA;
             } else {
                 dottedContourType = GUIDottedGeometry::DottedContourType::GREEN;
             }
-            // mark this node
+            // mark this node (to avoid mark another junctions)
             gPostDrawing.markedNode = this;
         }
     }
