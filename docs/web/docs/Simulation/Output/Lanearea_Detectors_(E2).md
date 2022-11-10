@@ -163,7 +163,7 @@ The values are described in the following table.
 
 <img src="../../images/plot-nVehEntered.png" align="right" width="200px"/>
 Output can be represented using [plotXMLAttributes](../../Tools/Visualization.md#plotxmlattributespy), see there for details.
-   </br></br></br>
+</br></br></br></br>
 
 
 # Further notes
