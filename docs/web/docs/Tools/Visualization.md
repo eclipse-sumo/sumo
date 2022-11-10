@@ -50,9 +50,9 @@ python  tools/visualization/plotXMLAttributes.py -x x -y y -s fcd.xml fcd2.xml
 
 The above example draws the paths of all vehicles through the network based on fcd-output. (It is a special case that can also be accomplished with  [plot_trajectoriespy](#plot_trajectoriespy))
 
-When option **--show** is set, a interactive plot is opened that allows identifying data points vehicles by clicking on the plot (dataID is printed on the console)
+When option **--show** is set, a interactive plot is opened that allows identifying data points vehicles by clicking on the plot (dataID is printed on the console).
 
-Option **--filter-ids ID1,ID2,...** allows restricting the plot to the given data element ids
+Option **--filter-ids ID1,ID2,...** allows restricting the plot to the given data element ids. You can use a wildcard to filter out ids that follow some pattern; for instance **--filter-ids bus_*** will filter out all ids that begin with the four characters "bus_".
 
 By setting the special attribute key `@RANK` then the index of the elements within the input file is used.
 
