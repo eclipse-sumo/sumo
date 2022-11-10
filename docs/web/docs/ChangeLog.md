@@ -8,26 +8,49 @@ title: ChangeLog
 
 - Simulation 
   - Fixed invalid walking distance output related to lengths of crossings and walkingArea paths. Issue #11983
+  - Fixed invalid braking at internal junction. Issue #12000
+  - Fixed invalid right of way rules when for two conflicting connections with internal junctions. Issue #11988
+
+- netedit
+  - Fixed bug where during creation of new edge, sometimes, the candidate "to" junction isn't draw wit magenta dotted contour. Issue #12013 (regression in 1.15.0)
 
 - netconvert
   - Fixed invalid OpenDRIVE output when writting traffic signals with signal groups. Issue #11980
+  - Fixed invalid right of way rules when connections from the same edge merge and both have internal junctions. Issue #11988
 
 - Tools
   - plot_net_dump_file.py: plotting a single measure is working again. Issue #11975 (regression in 1.15.0)
+  - generateTurnRatios.py: fixed unsorted intervals in output when using python2. Issue #12019
+
+- All Applications: Fixed crash if gzipped outputfile cannot be opened. Issue #11954
 
 ### Enhancements
 
+- netedit
+  - Added TimeStamp in Undo-Redo list. Issue #11744
+  - Now drawing red line between edge geometry points (if the points are not along the edge). Issue #11530
+  - Can now disable drawing dotted countours in visualization settings. Issue #11662
+  - Now showing a warning dialog if user tries to create a TLS in a junction with all connections set as uncontrolled. Issue #6382
+  - Removed dialog-button for permission 'disallow' attribute to avoid confusion. Issue #11940
+
 - Tools
+  - gtfs2pt.py: Now writing short route id and headsign as params. Issue #11819
+  - plot_trajectories.py: Now support common visualization options. Issue #11991
+  - Many visualization tools can now configure linestyle and marker style. Issue #11985
+  - countEdgeUsage.py: Now permits loading named routes. Issue #12010
   - plotXMLAttributes.py
     - can now plot data without assigning ids to the data points. Issue #11969
     - can now plot categorical (non-numerical) data and also a mix of data types. Issue #11970, #11976
     - now supporting additional visualization options (linestyle, markers, grids, ...). Issue #11972
     - plots a marker on a single point if the input data is only one point. Issue #11974
+    - Added the possibility to use wildcards with optin **--filter-ids**. Issue #11982
+    - Attribute options now permit setting a list of attributes. Issue #12015
 
 ### Miscellaneous
 
 - Added exemplary plots to many simulation-output documentation pages (with linked example commands to create them).
 - Updated Windows MSVC runtime libraries and Xerces-C to 3.2.4
+- Improved pydoc for TraCI functions that modify vType attributes. Issue #11943
 
 ## Version 1.15.0 (08.11.2022)
 
