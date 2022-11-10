@@ -14,7 +14,9 @@ set(BINARY_SUFFIX "" CACHE STRING "Append the suffix to every generated binary")
 set(COMPILE_DEFINITIONS "" CACHE STRING "Macros or defines to add when compiling")
 set(CCACHE_SUPPORT ON CACHE BOOL "Enable ccache support if installed")
 set(TCMALLOC ON CACHE BOOL "Use tcmalloc if installed")
-
+# disable warnings
+option(DISABLEWARNING_C5264 "'const' variable is not used" true)
+option(DISABLEWARNING_C26495 "'variable' is uninitialized. Always initialize a member variable" true)
 # Set a default build type if none was specified
 # you may use -DCMAKE_BUILD_TYPE:STRING=Debug from the command line
 set(default_build_type "Release")
@@ -107,6 +109,13 @@ if (GNU_COMPILER OR CLANG_COMPILER)
         set(ENABLED_FEATURES "${ENABLED_FEATURES} Coverage")
     endif ()
 elseif (MSVC)
+	# check if disable warnings
+	if (DISABLEWARNING_C5264)
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd5264")
+	endif ()
+	if (DISABLEWARNING_C26495)
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd26495")
+	endif ()
     # enabling /WX is not possible due to warnings in external headers
     if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         # this is a workaround to disable lots of warnings for replacing /W3 with /W4 in VS 2019
