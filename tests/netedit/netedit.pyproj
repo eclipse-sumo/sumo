@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{d41ff6c8-7dc8-41c7-b0d2-7950d1f36713}</ProjectGuid>
+    <ProjectGuid>{c5f26013-23f8-433f-8d28-29ffe963dcd3}</ProjectGuid>
     <ProjectHome />
     <StartupFile>attributesEnum.py</StartupFile>
     <SearchPath />
@@ -12,7 +12,7 @@
     <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <InterpreterId />
-    <SuppressConfigureTestFrameworkPrompt>true</SuppressConfigureTestFrameworkPrompt>
+    <Name>netedit</Name>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
@@ -3036,6 +3036,7 @@
     <Compile Include="netelements\lanes\select_vtypes\disallowed\tram\test.py" />
     <Compile Include="netelements\lanes\select_vtypes\disallowed\truck\test.py" />
     <Compile Include="netelements\lanes\select_vtypes\disallowed\vip\test.py" />
+    <Compile Include="netelements\trafficlights\edit_click\test.py" />
     <Compile Include="netelements\trafficlights\joined\attributes\offset\test.py" />
     <Compile Include="netelements\trafficlights\joined\attributes\parameters\test.py" />
     <Compile Include="netelements\trafficlights\joined\create\basic\test.py" />
@@ -6983,6 +6984,7 @@
     <Folder Include="netelements\lanes\select_vtypes\disallowed\truck" />
     <Folder Include="netelements\lanes\select_vtypes\disallowed\vip" />
     <Folder Include="netelements\trafficlights\" />
+    <Folder Include="netelements\trafficlights\edit_click" />
     <Folder Include="netelements\trafficlights\joined\" />
     <Folder Include="netelements\trafficlights\joined\attributes\" />
     <Folder Include="netelements\trafficlights\joined\attributes\offset" />
