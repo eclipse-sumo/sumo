@@ -41,10 +41,6 @@ std::map<const std::string, Connection*> Connection::myConnections;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-#ifdef _MSC_VER
-/* Disable "decorated name length exceeded, name was truncated" warnings for the whole file. */
-#pragma warning(disable: 4503)
-#endif
 Connection::Connection(const std::string& host, int port, int numRetries, const std::string& label, FILE* const pipe) :
     myLabel(label), myProcessPipe(pipe), myProcessReader(nullptr), mySocket(host, port) {
     if (pipe != nullptr) {
