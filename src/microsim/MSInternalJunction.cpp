@@ -97,6 +97,11 @@ MSInternalJunction::postloadInit() {
             // links that target a shared walkingarea always have index -1
             if (linkIndex != -1 && response.test(linkIndex)) {
                 myInternalLinkFoes.push_back(link);
+                const MSLane* via = link->getViaLane();
+                if (via != nullptr && via->getLinkCont().front()->getViaLane() != nullptr) {
+                    // we added the entry link, also use the internalJunctionLink that follows
+                    myInternalLinkFoes.push_back(via->getLinkCont().front());
+                }
             }
         }
     }
