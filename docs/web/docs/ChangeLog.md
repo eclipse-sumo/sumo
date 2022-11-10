@@ -256,6 +256,7 @@ title: ChangeLog
   - Hierarchical selection now uses undo-group. Issue #11917
   - In data mode, the visualized attribute now remains active when changing between intervals. Issue #11881
   - By default, network geometry is now computed before entering data mode (to improve visualization of turn counts). To improve performance in large networks, this can be disabled with a (persistent) setting in the Processing menu. Issue #11918
+  - Can now set and apply edge templates via context menu. Issue #2353
   - Traffic light mode:
     - phase table now permits moving phases up and down. Issue #10856
     - Added buttons reset either the current program or all programs of the current traffic light to their default. Issue #9072, #11357
