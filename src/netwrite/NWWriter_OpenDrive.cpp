@@ -337,7 +337,7 @@ NWWriter_OpenDrive::addPedestrianConnection(const NBEdge* inEdge, const NBEdge* 
             && (parallel.empty()
                 || parallel.front().fromLane != 0
                 || parallel.front().toLane != 0)) {
-        parallel.insert(parallel.begin(), NBEdge::Connection(0, const_cast<NBEdge*>(outEdge), 0, false));
+        parallel.insert(parallel.begin(), NBEdge::Connection(0, const_cast<NBEdge*>(outEdge), 0));
         parallel.front().vmax = (inEdge->getLanes()[0].speed + outEdge->getLanes()[0].speed) / (double) 2.0;
     }
 }

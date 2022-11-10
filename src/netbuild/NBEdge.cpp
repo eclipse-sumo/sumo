@@ -97,58 +97,14 @@ NBEdge::Connection::getDescription(const NBEdge* parent) const {
 }
 
 
-NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_) :
+NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, const bool mayDefinitelyPass_) :
     fromLane(fromLane_),
     toEdge(toEdge_),
     toLane(toLane_),
-    tlLinkIndex(-1),
-    tlLinkIndex2(-1),
-    mayDefinitelyPass(false),
-    keepClear(KEEPCLEAR_UNSPECIFIED),
-    contPos(UNSPECIFIED_CONTPOS),
-    visibility(UNSPECIFIED_VISIBILITY_DISTANCE),
-    speed(UNSPECIFIED_SPEED),
-    friction(UNSPECIFIED_FRICTION),
-    customLength(myDefaultConnectionLength),
-    permissions(SVC_UNSPECIFIED),
-    changeLeft(SVC_UNSPECIFIED),
-    changeRight(SVC_UNSPECIFIED),
-    indirectLeft(false),
-    id(toEdge_ == nullptr ? "" : toEdge->getFromNode()->getID()),
-    haveVia(false),
-    internalLaneIndex(UNSPECIFIED_INTERNAL_LANE_INDEX),
-    uncontrolled(false) {
-}
-
-
-NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool mayDefinitelyPass_, KeepClear keepClear_, double contPos_,
-                               double visibility_, double speed_, double friction_, double length_, bool haveVia_, bool uncontrolled_, const PositionVector& customShape_,
-                               SVCPermissions permissions_, bool indirectLeft_, const std::string& edgeType_,
-                               SVCPermissions changeLeft_, SVCPermissions changeRight_) :
-    fromLane(fromLane_),
-    toEdge(toEdge_),
-    toLane(toLane_),
-    tlLinkIndex(-1),
-    tlLinkIndex2(-1),
     mayDefinitelyPass(mayDefinitelyPass_),
-    keepClear(keepClear_),
-    contPos(contPos_),
-    visibility(visibility_),
-    speed(speed_),
-    friction(friction_),
-    customLength(length_),
-    customShape(customShape_),
-    permissions(permissions_),
-    changeLeft(changeLeft_),
-    changeRight(changeRight_),
-    indirectLeft(indirectLeft_),
-    edgeType(edgeType_),
-    id(toEdge_ == nullptr ? "" : toEdge->getFromNode()->getID()),
-    vmax(UNSPECIFIED_SPEED),
-    haveVia(haveVia_),
-    internalLaneIndex(UNSPECIFIED_INTERNAL_LANE_INDEX),
-    uncontrolled(uncontrolled_)
-{ }
+    customLength(myDefaultConnectionLength),
+    id(toEdge_ == nullptr ? "" : toEdge->getFromNode()->getID()) {
+}
 
 
 NBEdge::Lane::Lane(NBEdge* e, const std::string& origID_) :

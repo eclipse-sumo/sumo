@@ -204,24 +204,7 @@ public:
          * @param[in] toEdge_ The edge the connections yields in
          * @param[in] toLane_ The lane the connections yields in
          */
-        Connection(int fromLane_, NBEdge* toEdge_, int toLane_);
-
-        /// @brief constructor with more parameters
-        Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool mayDefinitelyPass_,
-                   KeepClear keepClear_ = KEEPCLEAR_UNSPECIFIED,
-                   double contPos_ = UNSPECIFIED_CONTPOS,
-                   double visibility_ = UNSPECIFIED_VISIBILITY_DISTANCE,
-                   double speed_ = UNSPECIFIED_SPEED,
-                   double friction_ = UNSPECIFIED_FRICTION,
-                   double length_ = myDefaultConnectionLength,
-                   bool haveVia_ = false,
-                   bool uncontrolled_ = false,
-                   const PositionVector& customShape_ = PositionVector::EMPTY,
-                   SVCPermissions permissions = SVC_UNSPECIFIED,
-                   bool indirectLeft = false,
-                   const std::string& edgeType = "",
-                   SVCPermissions changeLeft_ = SVC_UNSPECIFIED,
-                   SVCPermissions changeRight_ = SVC_UNSPECIFIED);
+        Connection(int fromLane_, NBEdge* toEdge_, int toLane_, const bool mayDefinitelyPass_ = false);
 
         /// @brief The lane the connections starts at
         int fromLane;
@@ -236,28 +219,28 @@ public:
         std::string tlID;
 
         /// @brief The index of this connection within the controlling traffic light
-        int tlLinkIndex;
+        int tlLinkIndex = -1;
 
         /// @brief The index of the internal junction within the controlling traffic light (optional)
-        int tlLinkIndex2;
+        int tlLinkIndex2 = -1;
 
         /// @brief Information about being definitely free to drive (on-ramps)
         bool mayDefinitelyPass;
 
         /// @brief whether the junction must be kept clear when using this connection
-        KeepClear keepClear;
+        KeepClear keepClear = KEEPCLEAR_UNSPECIFIED;
 
         /// @brief custom position for internal junction on this connection
-        double contPos;
+        double contPos = UNSPECIFIED_CONTPOS;
 
         /// @brief custom foe visiblity for connection
-        double visibility;
+        double visibility = UNSPECIFIED_VISIBILITY_DISTANCE;
 
         /// @brief custom speed for connection
-        double speed;
+        double speed = UNSPECIFIED_SPEED;
 
         // @brief custom friction for connection
-        double friction;
+        double friction = UNSPECIFIED_FRICTION;
 
         /// @brief custom length for connection
         double customLength;
@@ -266,16 +249,16 @@ public:
         PositionVector customShape;
 
         /// @brief List of vehicle types that are allowed on this connection
-        SVCPermissions permissions;
+        SVCPermissions permissions = SVC_UNSPECIFIED;
 
         /// @brief List of vehicle types that are allowed to change Left from this connections internal lane(s)
-        SVCPermissions changeLeft;
+        SVCPermissions changeLeft = SVC_UNSPECIFIED;
 
         /// @brief List of vehicle types that are allowed to change right from this connections internal lane(s)
-        SVCPermissions changeRight;
+        SVCPermissions changeRight = SVC_UNSPECIFIED;
 
         /// @brief Whether this connection is an indirect left turn
-        bool indirectLeft;
+        bool indirectLeft = false;
 
         /// @brief optional type of Connection
         std::string edgeType;
@@ -287,10 +270,10 @@ public:
         PositionVector shape;
 
         /// @brief maximum velocity
-        double vmax;
+        double vmax = UNSPECIFIED_SPEED;
 
         /// @brief check if Connection have a Via
-        bool haveVia;
+        bool haveVia = false;
 
         /// @brief if Connection have a via, ID of it
         std::string viaID;
@@ -299,7 +282,7 @@ public:
         PositionVector viaShape;
 
         /// @brief the length of the via shape (maybe customized)
-        double viaLength;
+        double viaLength = 0.;
 
         /// @brief FOE Internal links
         std::vector<int> foeInternalLinks;
@@ -308,10 +291,10 @@ public:
         std::vector<std::string> foeIncomingLanes;
 
         /// @brief The lane index of this internal lane within the internal edge
-        int internalLaneIndex;
+        int internalLaneIndex = UNSPECIFIED_INTERNAL_LANE_INDEX;
 
         /// @brief check if Connection is uncontrolled
-        bool uncontrolled;
+        bool uncontrolled = false;
 
         /// @brief get ID of internal lane
         std::string getInternalLaneID() const;
@@ -320,7 +303,7 @@ public:
         std::string getDescription(const NBEdge* parent) const;
 
         /// @brief computed length (average of all internal lane shape lengths that share an internal edge)
-        double length;
+        double length = UNSPECIFIED_LOADED_LENGTH;
 
         /// @name NBRouterEdge interface
         /// @{
