@@ -553,13 +553,16 @@ RORouteHandler::closeVehicle() {
     if (MsgHandler::getErrorInstance()->wasInformed()) {
         return;
     }
-    if (route->getID()[0] != '!') {
+    const bool needCopy = route->getID()[0] != '!';
+    if (needCopy) {
         route = route->copy("!" + myVehicleParameter->id, myVehicleParameter->depart);
     }
     // build the vehicle
     ROVehicle* veh = new ROVehicle(*myVehicleParameter, route, type, &myNet, myErrorOutput);
     if (myNet.addVehicle(myVehicleParameter->id, veh)) {
         registerLastDepart();
+    } else if (needCopy) {
+        delete route;
     }
     delete myVehicleParameter;
     myVehicleParameter = nullptr;
@@ -761,6 +764,7 @@ RORouteHandler::closeFlow() {
             registerLastDepart();
         } else {
             myErrorOutput->inform("Another flow with the id '" + myVehicleParameter->id + "' exists.");
+            delete myVehicleParameter;
         }
     } else {
         delete myVehicleParameter;
