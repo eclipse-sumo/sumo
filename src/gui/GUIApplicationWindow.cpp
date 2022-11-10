@@ -394,6 +394,7 @@ GUIApplicationWindow::~GUIApplicationWindow() {
     delete myGLVisual;
     // delete some non-parented windows
     delete myToolBarDrag1;
+    delete mySimDelayTarget;
     //
     delete myRunThread;
     delete myFileMenu;
