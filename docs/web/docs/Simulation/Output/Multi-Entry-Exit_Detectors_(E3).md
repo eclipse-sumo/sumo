@@ -109,7 +109,8 @@ in the following table.
 
 <img src="../../images/plot_meme_speed.png" align="right" width="200px"/>
 
-Output can be represented using [plotXMLAttributes](../../Tools/Visualization.md#plotxmlattributespy), see there for details.
+Output can be represented using [plotXMLAttributes](../../Tools/Visualization.md#multi-entry-exit_detectors_mean_speed_over_time), see there for details.
+<br /><br /><br /><br />
 
 ## Further Notes
 
