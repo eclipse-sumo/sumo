@@ -434,6 +434,12 @@ GNETagProperties::isGenericData() const {
 
 
 bool
+GNETagProperties::isMeanData() const {
+    return (myTagType & MEANDATA) != 0;
+}
+
+
+bool
 GNETagProperties::isChild() const {
     return (myTagProperty & CHILD) != 0;
 }
