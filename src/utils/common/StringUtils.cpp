@@ -86,13 +86,13 @@ std::string
 StringUtils::latin1_to_utf8(std::string str) {
     // inspired by http://stackoverflow.com/questions/4059775/convert-iso-8859-1-strings-to-utf-8-in-c-c
     std::string result;
-    for (int i = 0; i < (int)str.length(); i++) {
-        const unsigned char c = str[i];
-        if (c < 128) {
-            result += c;
+    for (const auto& c : str) {
+        const unsigned char uc = (unsigned char)c;
+        if (uc < 128) {
+            result += uc;
         } else {
-            result += (char)(0xc2 + (c > 0xbf));
-            result += (char)((c & 0x3f) + 0x80);
+            result += (char)(0xc2 + (uc > 0xbf));
+            result += (char)((uc & 0x3f) + 0x80);
         }
     }
     return result;
