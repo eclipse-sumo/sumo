@@ -35,6 +35,7 @@
 #include <netedit/changes/GNEChange_DataInterval.h>
 #include <netedit/changes/GNEChange_GenericData.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
+#include <netedit/changes/GNEChange_MeanData.h>
 #include <netedit/changes/GNEChange_Edge.h>
 #include <netedit/changes/GNEChange_Junction.h>
 #include <netedit/changes/GNEChange_Lane.h>
@@ -727,29 +728,8 @@ GNENet::deleteGenericData(GNEGenericData* genericData, GNEUndoList* undoList) {
 void
 GNENet::deleteMeanData(GNEMeanData* meanData, GNEUndoList* undoList) {
     undoList->begin(GUIIcon::MODEDELETE, "delete " + meanData->getTagStr());
-    // remove all child demand elements of this demandElement calling this function recursively
-    while (meanData->getChildDemandElements().size() > 0) {
-        deleteDemandElement(meanData->getChildDemandElements().front(), undoList);
-    }
-    // remove all mean data children of this additional deleteMeanData this function recursively
-    while (meanData->getChildMeanDatas().size() > 0) {
-        deleteMeanData(meanData->getChildMeanDatas().front(), undoList);
-    }
-    // get pointer to dataInterval and dataSet
-    GNEDataInterval* dataInterval = meanData->getDataIntervalParent();
-    GNEDataSet* dataSet = dataInterval->getDataSetParent();
     // remove mean data
     undoList->add(new GNEChange_MeanData(meanData, false), true);
-    // check if data interval is empty
-    if (dataInterval->getMeanDataChildren().empty()) {
-        // remove data interval
-        undoList->add(new GNEChange_DataInterval(meanData->getDataIntervalParent(), false), true);
-        // now check if data set is empty
-        if (dataSet->getDataIntervalChildren().empty()) {
-            // remove data set
-            undoList->add(new GNEChange_DataSet(meanData->getDataIntervalParent()->getDataSetParent(), false), true);
-        }
-    }
     undoList->end();
 }
 
@@ -2237,6 +2217,37 @@ GNENet::getDataSetIntervalMaximumEnd() const {
 
 
 void
+GNENet::requireSaveMeanDatas(bool value) {
+    myMeanDatasSaved = !value;
+    if (myViewNet != nullptr) {
+        if (myMeanDatasSaved) {
+            myViewNet->getViewParent()->getGNEAppWindows()->disableSaveMeanDatasMenu();
+        } else {
+            myViewNet->getViewParent()->getGNEAppWindows()->enableSaveMeanDatasMenu();
+        }
+    }
+}
+
+
+void
+GNENet::saveMeanDatas(const std::string& filename) {
+    if (filename.size() > 0) {
+        saveMeanDatasConfirmed(filename);
+        // change value of flag
+        myMeanDatasSaved = true;
+        // show debug information
+        WRITE_DEBUG("MeanDatas saved");
+    }
+}
+
+
+bool
+GNENet::isMeanDatasSaved() const {
+    return myMeanDatasSaved;
+}
+
+
+void
 GNENet::saveAdditionalsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
     // open header
@@ -2333,6 +2344,22 @@ GNENet::saveDataElementsConfirmed(const std::string& filename) {
     for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
         dataSet->writeDataSet(device);
     }
+    // close device
+    device.close();
+}
+
+
+void
+GNENet::saveMeanDatasConfirmed(const std::string& filename) {
+    OutputDevice& device = OutputDevice::getDevice(filename);
+    // open header
+    device.writeXMLHeader("meanData", "meanData_file.xsd", EMPTY_HEADER, false);
+/*
+    writeWireComment(device);
+    writeMeanDataByType(device, {SUMO_TAG_TRACTION_SUBSTATION});
+    writeMeanDataByType(device, {SUMO_TAG_OVERHEAD_WIRE_SECTION});
+    writeMeanDataByType(device, {SUMO_TAG_OVERHEAD_WIRE_CLAMP});
+*/
     // close device
     device.close();
 }

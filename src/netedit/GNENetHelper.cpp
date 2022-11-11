@@ -66,7 +66,7 @@ GNENetHelper::AttributeCarriers::AttributeCarriers(GNENet* net) :
         myGenericDatas.insert(std::make_pair(genericDataElementTag.getTag(), std::set<GNEGenericData*>()));
     }
     // fill meanDatas with tags
-    auto meanDataTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::MEANDATAELEMENT);
+    auto meanDataTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::MEANDATA);
     for (const auto& meanDataTag : meanDataTags) {
         myMeanDatas.insert(std::make_pair(meanDataTag.getTag(), std::set<GNEMeanData*>()));
     }
@@ -273,7 +273,7 @@ GNENetHelper::AttributeCarriers::retrieveAttributeCarriers(SumoXMLTag tag) {
         for (const auto& genericData : myGenericDatas.at(tag)) {
             result.push_back(genericData);
         }
-    } else if ((tag == SUMO_TAG_NOTHING) || (GNEAttributeCarrier::getTagProperty(tag).isMeanDataElement())) {
+    } else if ((tag == SUMO_TAG_NOTHING) || (GNEAttributeCarrier::getTagProperty(tag).isMeanData())) {
         for (const auto& meanData : myMeanDatas.at(tag)) {
             result.push_back(meanData);
         }

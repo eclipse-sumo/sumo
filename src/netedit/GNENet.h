@@ -470,6 +470,17 @@ public:
     /// @brief get maximum interval
     double getDataSetIntervalMaximumEnd() const;
 
+    /// @brief inform that meanDatas has to be saved
+    void requireSaveMeanDatas(bool value);
+
+    /**@brief save meanData elements of the network
+     * @param[in] filename name of the file in which save meanDatas
+    */
+    void saveMeanDatas(const std::string& filename);
+
+    /// @brief check if meanDatas are saved
+    bool isMeanDatasSaved() const;
+
     /// @brief inform that TLS Programs has to be saved
     void requireSaveTLSPrograms();
 
@@ -555,6 +566,9 @@ protected:
     /// @brief Flag to check if data elements has to be saved
     bool myDataElementsSaved;
 
+    /// @brief Flag to check if meanDatas has to be saved
+    bool myMeanDatasSaved;
+
     /// @brief Flag to enable or disable update geometry of elements after inserting or removing element in net
     bool myUpdateGeometryEnabled;
 
@@ -576,6 +590,9 @@ private:
 
     /// @brief save data elements after confirming invalid objects
     void saveDataElementsConfirmed(const std::string& filename);
+
+    /// @brief save meanDatas
+    void saveMeanDatasConfirmed(const std::string& filename);
 
     /// @brief write additional element by type and sorted by ID
     void writeAdditionalByType(OutputDevice& device, const std::vector<SumoXMLTag> tags) const;

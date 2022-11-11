@@ -84,6 +84,7 @@ struct GNENetHelper {
         friend class GNEChange_DataSet;
         friend class GNEChange_DataInterval;
         friend class GNEChange_GenericData;
+        friend class GNEChange_MeanData;
 
     public:
         /// @brief constructor
