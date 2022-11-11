@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-20 16:21:34.594992 by gtfs2pt.py v1_14_1+1830-8ff74451964
+<!-- generated on 2022-11-11 11:40:38.075368 by gtfs2pt.py v1_15_0+0172-9d9bbfa8cc6
   options: -n data/eichwalde.net.xml.gz <doubleminus>modes tram <doubleminus>gtfs https://sumo.dlr.de/daily/GTFS_VBB_Juni-Dezember-2016.zip <doubleminus>date 20160713
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <trainStop id="171419641:225.64" lane="171419641_0" startPos="165.64" endPos="225.64" friendlyPos="true" name="Wendenschloß (Berlin)">
+    <trainStop id="171419641:225.65" lane="171419641_0" startPos="165.65" endPos="225.65" friendlyPos="true" name="Wendenschloß (Berlin)">
         <access friendlyPos="true" lane="-32204604#1_0" pos="18.47" length="0.38"/>
         <access friendlyPos="true" lane="32204604#1_0" pos="9.44" length="4.41"/>
         <access friendlyPos="true" lane="445947587_0" pos="3.42" length="16.44"/>
@@ -57,7 +57,7 @@
         <access friendlyPos="true" lane="445947592_0" pos="0.00" length="39.73"/>
         <access friendlyPos="true" lane="-23532795#0_0" pos="29.69" length="121.00"/>
     </trainStop>
-    <trainStop id="180390329#0:243.47" lane="180390329#0_0" startPos="183.47" endPos="243.47" friendlyPos="true" name="Wassersportallee (Berlin)">
+    <trainStop id="180390329#0:243.46" lane="180390329#0_0" startPos="183.46" endPos="243.46" friendlyPos="true" name="Wassersportallee (Berlin)">
         <access friendlyPos="true" lane="-52153733#1_0" pos="6.75" length="0.78"/>
         <access friendlyPos="true" lane="52153733#1_0" pos="47.54" length="5.59"/>
         <access friendlyPos="true" lane="-17272871_0" pos="0.00" length="22.83"/>
@@ -65,9 +65,9 @@
         <access friendlyPos="true" lane="17272871_0" pos="189.33" length="27.00"/>
         <access friendlyPos="true" lane="52153733#2_0" pos="0.00" length="32.18"/>
         <access friendlyPos="true" lane="-561573547_0" pos="48.46" length="76.99"/>
+        <access friendlyPos="true" lane="-52153733#0_0" pos="0.00" length="85.53"/>
         <access friendlyPos="true" lane="528662942_0" pos="30.71" length="85.70"/>
         <access friendlyPos="true" lane="561573547_0" pos="0.00" length="81.69"/>
-        <access friendlyPos="true" lane="-52153733#0_0" pos="0.00" length="85.53"/>
     </trainStop>
     <trainStop id="180390329#2:60.00" lane="180390329#2_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="S Grünau (Berlin) [Adlergestell]">
         <access friendlyPos="true" lane="442574982#4_0" pos="46.78" length="4.69"/>
@@ -81,7 +81,7 @@
         <access friendlyPos="true" lane="16343847#5_0" pos="0.00" length="43.22"/>
         <access friendlyPos="true" lane="442574982#1_0" pos="0.00" length="43.22"/>
     </trainStop>
-    <trainStop id="180390329#11:60.00" lane="180390329#11_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="Regattatribünen (Berlin)">
+    <trainStop id="180390329#10:133.36" lane="180390329#10_0" startPos="73.36" endPos="133.36" friendlyPos="true" name="Regattatribünen (Berlin)">
         <access friendlyPos="true" lane="180392324#4_0" pos="27.20" length="6.94"/>
         <access friendlyPos="true" lane="-180392324#4_0" pos="17.79" length="11.74"/>
         <access friendlyPos="true" lane="-151627030#15_0" pos="19.05" length="18.90"/>
@@ -90,18 +90,18 @@
         <access friendlyPos="true" lane="4912480#4_0" pos="0.00" length="45.15"/>
         <access friendlyPos="true" lane="318951470_0" pos="0.00" length="50.33"/>
         <access friendlyPos="true" lane="-379044639_0" pos="6.29" length="75.75"/>
-        <access friendlyPos="true" lane="301687321_0" pos="0.00" length="67.84"/>
+        <access friendlyPos="true" lane="151627029#17_0" pos="82.39" length="75.42"/>
         <access friendlyPos="true" lane="-151627029#17_0" pos="0.00" length="77.18"/>
     </trainStop>
-    <trainStop id="180390329#15:292.91" lane="180390329#15_0" startPos="232.91" endPos="292.91" friendlyPos="true" name="Regattastr./Sportpromenade (Berlin)">
+    <trainStop id="180390329#15:284.25" lane="180390329#15_0" startPos="224.25" endPos="284.25" friendlyPos="true" name="Regattastr./Sportpromenade (Berlin)">
         <access friendlyPos="true" lane="151627030#3_0" pos="44.92" length="1.28"/>
         <access friendlyPos="true" lane="-151627030#3_0" pos="0.24" length="3.53"/>
-        <access friendlyPos="true" lane="-151627030#4_0" pos="243.05" length="8.68"/>
-        <access friendlyPos="true" lane="151627030#4_0" pos="0.00" length="8.06"/>
         <access friendlyPos="true" lane="416587113#0_0" pos="0.00" length="9.15"/>
+        <access friendlyPos="true" lane="151627030#4_0" pos="0.00" length="8.06"/>
+        <access friendlyPos="true" lane="-151627030#4_0" pos="243.05" length="8.68"/>
         <access friendlyPos="true" lane="-702592792#1_0" pos="0.00" length="74.76"/>
-        <access friendlyPos="true" lane="-151627030#2_0" pos="0.00" length="81.49"/>
         <access friendlyPos="true" lane="151627030#2_0" pos="100.45" length="81.40"/>
+        <access friendlyPos="true" lane="-151627030#2_0" pos="0.00" length="81.49"/>
         <access friendlyPos="true" lane="702592792#1_0" pos="62.50" length="79.35"/>
         <access friendlyPos="true" lane="151627040#6_0" pos="113.19" length="109.43"/>
     </trainStop>
@@ -117,7 +117,7 @@
         <access friendlyPos="true" lane="8418405#2_0" pos="104.32" length="26.94"/>
         <access friendlyPos="true" lane="180438651_0" pos="60.75" length="45.34"/>
     </trainStop>
-    <trainStop id="180390329#22:63.65" lane="180390329#22_0" startPos="3.65" endPos="63.65" friendlyPos="true" name="Bammelecke (Berlin)">
+    <trainStop id="180390329#22:60.00" lane="180390329#22_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="Bammelecke (Berlin)">
         <access friendlyPos="true" lane="10671506#3_0" pos="112.37" length="43.24"/>
         <access friendlyPos="true" lane="-693953491_0" pos="75.08" length="98.08"/>
         <access friendlyPos="true" lane="693953490#1_0" pos="0.20" length="100.01"/>
@@ -127,13 +127,13 @@
         <access friendlyPos="true" lane="10671506#4_0" pos="0.00" length="111.13"/>
         <access friendlyPos="true" lane="64282776_0" pos="180.72" length="108.50"/>
     </trainStop>
-    <trainStop id="180390329#24:109.99" lane="180390329#24_0" startPos="49.99" endPos="109.99" friendlyPos="true" name="Richtershorn (Berlin)">
+    <trainStop id="180390329#24:107.47" lane="180390329#24_0" startPos="47.47" endPos="107.47" friendlyPos="true" name="Richtershorn (Berlin)">
         <access friendlyPos="true" lane="24032488#2_0" pos="0.00" length="13.08"/>
         <access friendlyPos="true" lane="-10671504#1_0" pos="38.34" length="11.72"/>
         <access friendlyPos="true" lane="-24032488#2_0" pos="89.83" length="18.45"/>
-        <access friendlyPos="true" lane="10671504#1_0" pos="5.44" length="16.52"/>
         <access friendlyPos="true" lane="-10671504#0_0" pos="0.00" length="25.32"/>
         <access friendlyPos="true" lane="176187635#2_0" pos="413.33" length="27.82"/>
+        <access friendlyPos="true" lane="10671504#1_0" pos="5.44" length="16.52"/>
         <access friendlyPos="true" lane="317244747_0" pos="0.00" length="65.55"/>
         <access friendlyPos="true" lane="-317244747_0" pos="43.19" length="70.21"/>
         <access friendlyPos="true" lane="-10671504#2_0" pos="9.58" length="72.59"/>
@@ -151,7 +151,7 @@
         <access friendlyPos="true" lane="-317683529#0_0" pos="0.00" length="34.71"/>
         <access friendlyPos="true" lane="416587114#0_0" pos="0.00" length="51.01"/>
     </trainStop>
-    <trainStop id="170799109#3:158.78" lane="170799109#3_0" startPos="98.78" endPos="158.78" friendlyPos="true" name="Lübbenauer Weg (Berlin)">
+    <trainStop id="170799109#3:151.40" lane="170799109#3_0" startPos="91.40" endPos="151.40" friendlyPos="true" name="Lübbenauer Weg (Berlin)">
         <access friendlyPos="true" lane="-116171834#3_0" pos="153.58" length="3.23"/>
         <access friendlyPos="true" lane="116171834#3_0" pos="27.93" length="8.04"/>
         <access friendlyPos="true" lane="301687326#3_0" pos="27.70" length="12.13"/>
@@ -159,8 +159,8 @@
         <access friendlyPos="true" lane="21721173#4_0" pos="55.87" length="51.42"/>
         <access friendlyPos="true" lane="-21721173#4_0" pos="0.00" length="56.20"/>
         <access friendlyPos="true" lane="-301687326#2_0" pos="0.00" length="69.26"/>
-        <access friendlyPos="true" lane="-116171834#2_0" pos="0.00" length="66.97"/>
-        <access friendlyPos="true" lane="116171834#2_0" pos="43.38" length="67.26"/>
+        <access friendlyPos="true" lane="301687326#2_0" pos="42.29" length="68.20"/>
+        <access friendlyPos="true" lane="21721173#8_0" pos="0.00" length="60.44"/>
         <access friendlyPos="true" lane="-21721173#8_0" pos="88.51" length="64.62"/>
     </trainStop>
     <trainStop id="169008810#2:60.00" lane="169008810#2_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="Adlergestell/Vetschauer Allee (Berlin)">
@@ -179,13 +179,13 @@
         <access friendlyPos="true" lane="240539089#4_0" pos="8.44" length="4.19"/>
         <access friendlyPos="true" lane="421209091#0_1" pos="5.27" length="2.76"/>
         <access friendlyPos="true" lane="197671091#1_0" pos="0.00" length="21.14"/>
-        <access friendlyPos="true" lane="-197671091#1_0" pos="5.04" length="25.24"/>
         <access friendlyPos="true" lane="240539089#3_0" pos="15.85" length="27.03"/>
+        <access friendlyPos="true" lane="-197671091#1_0" pos="5.04" length="25.24"/>
         <access friendlyPos="true" lane="421209091#1_1" pos="0.00" length="26.87"/>
         <access friendlyPos="true" lane="-197671091#3_0" pos="7.62" length="24.84"/>
         <access friendlyPos="true" lane="176187644#0_0" pos="0.00" length="28.96"/>
-        <access friendlyPos="true" lane="350351302#5_0" pos="0.20" length="34.06"/>
-        <access friendlyPos="true" lane="28925245#3_0" pos="25.13" length="37.77"/>
+        <access friendlyPos="true" lane="-176187644#0_0" pos="101.95" length="32.29"/>
+        <access friendlyPos="true" lane="176187579#0_0" pos="0.00" length="36.19"/>
     </trainStop>
     <trainStop id="169008810#15:61.08" lane="169008810#15_0" startPos="1.08" endPos="61.08" friendlyPos="true" name="Alt-Schmöckwitz. (Berlin)">
         <access friendlyPos="true" lane="680724865_0" pos="10.45" length="13.72"/>
@@ -199,7 +199,7 @@
         <access friendlyPos="true" lane="-421209092_0" pos="92.93" length="72.86"/>
         <access friendlyPos="true" lane="524196491_0" pos="0.00" length="74.36"/>
     </trainStop>
-    <trainStop id="158512978#1:44.46" lane="158512978#1_0" startPos="0.00" endPos="44.46" friendlyPos="true" name="Alt--Schmöckwitz (Berlin)">
+    <trainStop id="158512978#1:24.35" lane="158512978#1_0" startPos="0.00" endPos="24.35" friendlyPos="true" name="Alt--Schmöckwitz (Berlin)">
         <access friendlyPos="true" lane="-13376682#1_0" pos="75.40" length="27.59"/>
         <access friendlyPos="true" lane="421231594#0_0" pos="0.00" length="29.92"/>
         <access friendlyPos="true" lane="421231594#1_0" pos="0.00" length="32.16"/>
@@ -223,7 +223,7 @@
         <access friendlyPos="true" lane="441960334#0_0" pos="0.20" length="54.19"/>
         <access friendlyPos="true" lane="565669872#1_0" pos="0.00" length="58.23"/>
     </trainStop>
-    <trainStop id="263108169#3:60.00" lane="263108169#3_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="Alt-Schmöckwitz (Berlin)">
+    <trainStop id="263108169#2:39.76" lane="263108169#2_0" startPos="0.00" endPos="39.76" friendlyPos="true" name="Alt-Schmöckwitz (Berlin)">
         <access friendlyPos="true" lane="-4463781#1_0" pos="18.11" length="6.39"/>
         <access friendlyPos="true" lane="4463781#1_0" pos="11.83" length="11.19"/>
         <access friendlyPos="true" lane="441961566#6_0" pos="26.14" length="17.79"/>
@@ -235,17 +235,17 @@
         <access friendlyPos="true" lane="-4463781#2_0" pos="14.86" length="35.93"/>
         <access friendlyPos="true" lane="4463781#2_0" pos="0.00" length="36.97"/>
     </trainStop>
-    <trainStop id="263108169#6:119.35" lane="263108169#6_0" startPos="59.35" endPos="119.35" friendlyPos="true" name="Zum Seeblick (Berlin)">
+    <trainStop id="263108169#6:103.50" lane="263108169#6_0" startPos="43.50" endPos="103.50" friendlyPos="true" name="Zum Seeblick (Berlin)">
         <access friendlyPos="true" lane="240539089#4_0" pos="8.44" length="4.19"/>
         <access friendlyPos="true" lane="421209091#0_1" pos="5.27" length="2.76"/>
         <access friendlyPos="true" lane="197671091#1_0" pos="0.00" length="21.14"/>
-        <access friendlyPos="true" lane="-197671091#1_0" pos="5.04" length="25.24"/>
         <access friendlyPos="true" lane="240539089#3_0" pos="15.85" length="27.03"/>
+        <access friendlyPos="true" lane="-197671091#1_0" pos="5.04" length="25.24"/>
         <access friendlyPos="true" lane="421209091#1_1" pos="0.00" length="26.87"/>
         <access friendlyPos="true" lane="-197671091#3_0" pos="7.62" length="24.84"/>
         <access friendlyPos="true" lane="176187644#0_0" pos="0.00" length="28.96"/>
-        <access friendlyPos="true" lane="350351302#5_0" pos="0.20" length="34.06"/>
-        <access friendlyPos="true" lane="28925245#3_0" pos="25.13" length="37.77"/>
+        <access friendlyPos="true" lane="-176187644#0_0" pos="101.95" length="32.29"/>
+        <access friendlyPos="true" lane="176187579#0_0" pos="0.00" length="36.19"/>
     </trainStop>
     <trainStop id="263108169#16:60.00" lane="263108169#16_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="Adlergestell/Vetschauer Allee (Berlin)">
         <access friendlyPos="true" lane="511575457#0_0" pos="0.00" length="14.94"/>
@@ -267,11 +267,11 @@
         <access friendlyPos="true" lane="21721173#4_0" pos="55.87" length="51.42"/>
         <access friendlyPos="true" lane="-21721173#4_0" pos="0.00" length="56.20"/>
         <access friendlyPos="true" lane="-301687326#2_0" pos="0.00" length="69.26"/>
-        <access friendlyPos="true" lane="-116171834#2_0" pos="0.00" length="66.97"/>
-        <access friendlyPos="true" lane="116171834#2_0" pos="43.38" length="67.26"/>
+        <access friendlyPos="true" lane="301687326#2_0" pos="42.29" length="68.20"/>
+        <access friendlyPos="true" lane="21721173#8_0" pos="0.00" length="60.44"/>
         <access friendlyPos="true" lane="-21721173#8_0" pos="88.51" length="64.62"/>
     </trainStop>
-    <trainStop id="263108169#22:68.67" lane="263108169#22_0" startPos="8.67" endPos="68.67" friendlyPos="true" name="Schappachstr. (Berlin)">
+    <trainStop id="263108169#22:60.25" lane="263108169#22_0" startPos="0.25" endPos="60.25" friendlyPos="true" name="Schappachstr. (Berlin)">
         <access friendlyPos="true" lane="-116171834#7_0" pos="12.49" length="0.16"/>
         <access friendlyPos="true" lane="116171834#7_0" pos="31.43" length="4.96"/>
         <access friendlyPos="true" lane="-317683529#1_0" pos="31.43" length="20.44"/>
@@ -287,15 +287,15 @@
         <access friendlyPos="true" lane="24032488#2_0" pos="0.00" length="13.08"/>
         <access friendlyPos="true" lane="-10671504#1_0" pos="38.34" length="11.72"/>
         <access friendlyPos="true" lane="-24032488#2_0" pos="89.83" length="18.45"/>
-        <access friendlyPos="true" lane="10671504#1_0" pos="5.44" length="16.52"/>
         <access friendlyPos="true" lane="-10671504#0_0" pos="0.00" length="25.32"/>
         <access friendlyPos="true" lane="176187635#2_0" pos="413.33" length="27.82"/>
+        <access friendlyPos="true" lane="10671504#1_0" pos="5.44" length="16.52"/>
         <access friendlyPos="true" lane="317244747_0" pos="0.00" length="65.55"/>
         <access friendlyPos="true" lane="-317244747_0" pos="43.19" length="70.21"/>
         <access friendlyPos="true" lane="-10671504#2_0" pos="9.58" length="72.59"/>
         <access friendlyPos="true" lane="10671504#2_0" pos="0.00" length="73.52"/>
     </trainStop>
-    <trainStop id="263108169#27:115.56" lane="263108169#27_0" startPos="55.56" endPos="115.56" friendlyPos="true" name="Bammelecke (Berlin)">
+    <trainStop id="263108169#27:109.36" lane="263108169#27_0" startPos="49.36" endPos="109.36" friendlyPos="true" name="Bammelecke (Berlin)">
         <access friendlyPos="true" lane="10671506#3_0" pos="112.37" length="43.24"/>
         <access friendlyPos="true" lane="-693953491_0" pos="75.08" length="98.08"/>
         <access friendlyPos="true" lane="693953490#1_0" pos="0.20" length="100.01"/>
@@ -305,7 +305,7 @@
         <access friendlyPos="true" lane="10671506#4_0" pos="0.00" length="111.13"/>
         <access friendlyPos="true" lane="64282776_0" pos="180.72" length="108.50"/>
     </trainStop>
-    <trainStop id="263108169#31:129.70" lane="263108169#31_0" startPos="69.70" endPos="129.70" friendlyPos="true" name="Strandbad Grünau (Berlin)">
+    <trainStop id="263108169#31:121.87" lane="263108169#31_0" startPos="61.87" endPos="121.87" friendlyPos="true" name="Strandbad Grünau (Berlin)">
         <access friendlyPos="true" lane="-8418405#3_0" pos="0.00" length="7.28"/>
         <access friendlyPos="true" lane="-8418405#4_0" pos="24.22" length="6.96"/>
         <access friendlyPos="true" lane="-670181877_0" pos="0.00" length="10.89"/>
@@ -320,16 +320,16 @@
     <trainStop id="263108169#34:60.00" lane="263108169#34_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="Regattastr./Sportpromenade (Berlin)">
         <access friendlyPos="true" lane="151627030#3_0" pos="44.92" length="1.28"/>
         <access friendlyPos="true" lane="-151627030#3_0" pos="0.24" length="3.53"/>
-        <access friendlyPos="true" lane="-151627030#4_0" pos="243.05" length="8.68"/>
-        <access friendlyPos="true" lane="151627030#4_0" pos="0.00" length="8.06"/>
         <access friendlyPos="true" lane="416587113#0_0" pos="0.00" length="9.15"/>
+        <access friendlyPos="true" lane="151627030#4_0" pos="0.00" length="8.06"/>
+        <access friendlyPos="true" lane="-151627030#4_0" pos="243.05" length="8.68"/>
         <access friendlyPos="true" lane="-702592792#1_0" pos="0.00" length="74.76"/>
-        <access friendlyPos="true" lane="-151627030#2_0" pos="0.00" length="81.49"/>
         <access friendlyPos="true" lane="151627030#2_0" pos="100.45" length="81.40"/>
+        <access friendlyPos="true" lane="-151627030#2_0" pos="0.00" length="81.49"/>
         <access friendlyPos="true" lane="702592792#1_0" pos="62.50" length="79.35"/>
         <access friendlyPos="true" lane="151627040#6_0" pos="113.19" length="109.43"/>
     </trainStop>
-    <trainStop id="263108169#38:60.00" lane="263108169#38_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="Regattatribünen (Berlin)">
+    <trainStop id="263108169#39:60.00" lane="263108169#39_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="Regattatribünen (Berlin)">
         <access friendlyPos="true" lane="180392324#4_0" pos="27.20" length="6.94"/>
         <access friendlyPos="true" lane="-180392324#4_0" pos="17.79" length="11.74"/>
         <access friendlyPos="true" lane="-151627030#15_0" pos="19.05" length="18.90"/>
@@ -338,7 +338,7 @@
         <access friendlyPos="true" lane="4912480#4_0" pos="0.00" length="45.15"/>
         <access friendlyPos="true" lane="318951470_0" pos="0.00" length="50.33"/>
         <access friendlyPos="true" lane="-379044639_0" pos="6.29" length="75.75"/>
-        <access friendlyPos="true" lane="301687321_0" pos="0.00" length="67.84"/>
+        <access friendlyPos="true" lane="151627029#17_0" pos="82.39" length="75.42"/>
         <access friendlyPos="true" lane="-151627029#17_0" pos="0.00" length="77.18"/>
     </trainStop>
     <trainStop id="263108169#47:60.00" lane="263108169#47_0" startPos="0.00" endPos="60.00" friendlyPos="true" name="S Grünau (Berlin) [Adlergestell]">
@@ -353,7 +353,7 @@
         <access friendlyPos="true" lane="16343847#5_0" pos="0.00" length="43.22"/>
         <access friendlyPos="true" lane="442574982#1_0" pos="0.00" length="43.22"/>
     </trainStop>
-    <trainStop id="205681252#2:315.44" lane="205681252#2_0" startPos="255.44" endPos="315.44" friendlyPos="true" name="Wassersportallee (Berlin)">
+    <trainStop id="205681252#2:317.94" lane="205681252#2_0" startPos="257.94" endPos="317.94" friendlyPos="true" name="Wassersportallee (Berlin)">
         <access friendlyPos="true" lane="-52153733#1_0" pos="6.75" length="0.78"/>
         <access friendlyPos="true" lane="52153733#1_0" pos="47.54" length="5.59"/>
         <access friendlyPos="true" lane="-17272871_0" pos="0.00" length="22.83"/>
@@ -361,18 +361,18 @@
         <access friendlyPos="true" lane="17272871_0" pos="189.33" length="27.00"/>
         <access friendlyPos="true" lane="52153733#2_0" pos="0.00" length="32.18"/>
         <access friendlyPos="true" lane="-561573547_0" pos="48.46" length="76.99"/>
+        <access friendlyPos="true" lane="-52153733#0_0" pos="0.00" length="85.53"/>
         <access friendlyPos="true" lane="528662942_0" pos="30.71" length="85.70"/>
         <access friendlyPos="true" lane="561573547_0" pos="0.00" length="81.69"/>
-        <access friendlyPos="true" lane="-52153733#0_0" pos="0.00" length="85.53"/>
     </trainStop>
     <trainStop id="461452916:293.64" lane="461452916_0" startPos="233.64" endPos="293.64" friendlyPos="true" name="Regattastr./Schule (Berlin)">
     </trainStop>
-    <trainStop id="461452916:819.86" lane="461452916_0" startPos="759.86" endPos="819.86" friendlyPos="true" name="Friedrich-Wolf-Str. (Berlin)">
+    <trainStop id="461452916:819.87" lane="461452916_0" startPos="759.87" endPos="819.87" friendlyPos="true" name="Friedrich-Wolf-Str. (Berlin)">
     </trainStop>
-    <trainStop id="461452916:1205.90" lane="461452916_0" startPos="1145.90" endPos="1205.90" friendlyPos="true" name="Betonwerk (Berlin)">
+    <trainStop id="461452916:1205.90" lane="461452916_0" startPos="1145.91" endPos="1205.90" friendlyPos="true" name="Betonwerk (Berlin)">
     </trainStop>
     <route id="257252" edges="171419641 319292807">
-        <stop busStop="171419641:225.64" duration="10" until="0"/>
+        <stop busStop="171419641:225.65" duration="10" until="0"/>
         <stop busStop="319292807:97.87" duration="10" until="60"/>
         <stop busStop="319292807:460.19" duration="10" until="120"/>
         <stop busStop="319292807:844.67" duration="10" until="180"/>
@@ -382,7 +382,7 @@
         <stop busStop="319292807:2090.24" duration="10" until="420"/>
     </route>
     <route id="257260" edges="171419641 319292807">
-        <stop busStop="171419641:225.64" duration="10" until="0"/>
+        <stop busStop="171419641:225.65" duration="10" until="0"/>
         <stop busStop="319292807:97.87" duration="10" until="60"/>
         <stop busStop="319292807:460.19" duration="10" until="120"/>
         <stop busStop="319292807:844.67" duration="10" until="180"/>
@@ -397,7 +397,7 @@
         <stop busStop="319292807:2090.24" duration="10" until="120"/>
     </route>
     <route id="257456" edges="171419641 319292807">
-        <stop busStop="171419641:225.64" duration="10" until="0"/>
+        <stop busStop="171419641:225.65" duration="10" until="0"/>
         <stop busStop="319292807:97.87" duration="10" until="60"/>
         <stop busStop="319292807:460.19" duration="10" until="120"/>
         <stop busStop="319292807:844.67" duration="10" until="180"/>
@@ -431,7 +431,7 @@
         <stop busStop="110800148:60.00" duration="10" until="180"/>
     </route>
     <route id="67827" edges="171419641 319292807">
-        <stop busStop="171419641:225.64" duration="10" until="0"/>
+        <stop busStop="171419641:225.65" duration="10" until="0"/>
         <stop busStop="319292807:97.87" duration="10" until="60"/>
         <stop busStop="319292807:460.19" duration="10" until="120"/>
         <stop busStop="319292807:844.67" duration="10" until="180"/>
@@ -441,162 +441,162 @@
         <stop busStop="319292807:2090.24" duration="10" until="420"/>
     </route>
     <route id="259570" edges="180390329#0 180390329#1 180390329#2 180390329#3 180390329#4 180390329#5 180390329#6 180390329#7 180390329#8 180390329#9 180390329#10 180390329#11 180390329#12 180390329#13 180390329#14 180390329#15 180390329#16 180390329#17 180390329#18 180390329#19 180390329#20 180390329#21 180390329#22 180390329#23 180390329#24 180390329#25 180390329#26 180390329#27 180390329#28 170799109#0 170799109#1 170799109#2 170799109#3 158537642#0 158537642#1 158537642#2 158537642#3 158537642#4 169008810#0 169008810#2 169008810#3 169008810#4 169008810#5 169008810#6 169008810#7 169008810#8 169008810#9 169008810#10 169008810#12 169008810#13 169008810#14 169008810#15 169008810#17 158512978#0 158512978#1">
-        <stop busStop="180390329#0:243.47" duration="10" until="0"/>
+        <stop busStop="180390329#0:243.46" duration="10" until="0"/>
         <stop busStop="180390329#2:60.00" duration="10" until="60"/>
-        <stop busStop="180390329#11:60.00" duration="10" until="180"/>
-        <stop busStop="180390329#15:292.91" duration="10" until="240"/>
+        <stop busStop="180390329#10:133.36" duration="10" until="180"/>
+        <stop busStop="180390329#15:284.25" duration="10" until="240"/>
         <stop busStop="180390329#18:60.00" duration="10" until="300"/>
-        <stop busStop="180390329#22:63.65" duration="10" until="420"/>
-        <stop busStop="180390329#24:109.99" duration="10" until="480"/>
+        <stop busStop="180390329#22:60.00" duration="10" until="420"/>
+        <stop busStop="180390329#24:107.47" duration="10" until="480"/>
         <stop busStop="170799109#1:60.00" duration="10" until="540"/>
-        <stop busStop="170799109#3:158.78" duration="10" until="600"/>
+        <stop busStop="170799109#3:151.40" duration="10" until="600"/>
         <stop busStop="169008810#2:60.00" duration="10" until="660"/>
         <stop busStop="169008810#10:60.00" duration="10" until="780"/>
         <stop busStop="169008810#15:61.08" duration="10" until="840"/>
-        <stop busStop="158512978#1:44.46" duration="10" until="900"/>
+        <stop busStop="158512978#1:24.35" duration="10" until="900"/>
     </route>
     <route id="259578" edges="180390329#0 180390329#1 180390329#2 180390329#3 180390329#4 180390329#5 180390329#6 180390329#7 180390329#8 180390329#9 180390329#10 180390329#11 180390329#12 180390329#13 180390329#14 180390329#15 180390329#16 180390329#17 180390329#18 180390329#19 180390329#20 180390329#21 180390329#22 180390329#23 180390329#24 180390329#25 180390329#26 180390329#27 180390329#28 170799109#0 170799109#1 170799109#2 170799109#3 158537642#0 158537642#1 158537642#2 158537642#3 158537642#4 169008810#0 169008810#2 169008810#3 169008810#4 169008810#5 169008810#6 169008810#7 169008810#8 169008810#9 169008810#10 169008810#12 169008810#13 169008810#14 169008810#15 169008810#17 158512978#0 158512978#1">
-        <stop busStop="180390329#0:243.47" duration="10" until="0"/>
+        <stop busStop="180390329#0:243.46" duration="10" until="0"/>
         <stop busStop="180390329#2:60.00" duration="10" until="120"/>
-        <stop busStop="180390329#11:60.00" duration="10" until="240"/>
-        <stop busStop="180390329#15:292.91" duration="10" until="300"/>
+        <stop busStop="180390329#10:133.36" duration="10" until="240"/>
+        <stop busStop="180390329#15:284.25" duration="10" until="300"/>
         <stop busStop="180390329#18:60.00" duration="10" until="360"/>
-        <stop busStop="180390329#22:63.65" duration="10" until="480"/>
-        <stop busStop="180390329#24:109.99" duration="10" until="540"/>
+        <stop busStop="180390329#22:60.00" duration="10" until="480"/>
+        <stop busStop="180390329#24:107.47" duration="10" until="540"/>
         <stop busStop="170799109#1:60.00" duration="10" until="600"/>
-        <stop busStop="170799109#3:158.78" duration="10" until="720"/>
+        <stop busStop="170799109#3:151.40" duration="10" until="720"/>
         <stop busStop="169008810#2:60.00" duration="10" until="780"/>
         <stop busStop="169008810#10:60.00" duration="10" until="900"/>
         <stop busStop="169008810#15:61.08" duration="10" until="1020"/>
-        <stop busStop="158512978#1:44.46" duration="10" until="1080"/>
+        <stop busStop="158512978#1:24.35" duration="10" until="1080"/>
     </route>
     <route id="259632.trimmed" edges="170799109#3 158537642#0 158537642#1 158537642#2 158537642#3 158537642#4 169008810#0 169008810#2 169008810#3 169008810#4 169008810#5 169008810#6 169008810#7 169008810#8 169008810#9 169008810#10 169008810#12 169008810#13 169008810#14 169008810#15 169008810#17 158512978#0 158512978#1">
-        <stop busStop="170799109#3:158.78" duration="10" until="0"/>
+        <stop busStop="170799109#3:151.40" duration="10" until="0"/>
         <stop busStop="169008810#2:60.00" duration="10" until="60"/>
         <stop busStop="169008810#10:60.00" duration="10" until="180"/>
         <stop busStop="169008810#15:61.08" duration="10" until="240"/>
-        <stop busStop="158512978#1:44.46" duration="10" until="300"/>
+        <stop busStop="158512978#1:24.35" duration="10" until="300"/>
     </route>
     <route id="259634.trimmed" edges="180390329#0 180390329#1 180390329#2 180390329#3 180390329#4 180390329#5 180390329#6 180390329#7 180390329#8 180390329#9 180390329#10 180390329#11 180390329#12 180390329#13 180390329#14 180390329#15 180390329#16 180390329#17 180390329#18 180390329#19 180390329#20 180390329#21 180390329#22 180390329#23 180390329#24 180390329#25 180390329#26 180390329#27 180390329#28 170799109#0 170799109#1 170799109#2 170799109#3 158537642#0 158537642#1 158537642#2 158537642#3 158537642#4 169008810#0 169008810#2 169008810#3 169008810#4 169008810#5 169008810#6 169008810#7 169008810#8 169008810#9 169008810#10 169008810#12 169008810#13 169008810#14 169008810#15 169008810#17 158512978#0 158512978#1">
-        <stop busStop="180390329#0:243.47" duration="10" until="0"/>
+        <stop busStop="180390329#0:243.46" duration="10" until="0"/>
         <stop busStop="180390329#2:60.00" duration="10" until="60"/>
-        <stop busStop="180390329#11:60.00" duration="10" until="180"/>
-        <stop busStop="180390329#15:292.91" duration="10" until="240"/>
+        <stop busStop="180390329#10:133.36" duration="10" until="180"/>
+        <stop busStop="180390329#15:284.25" duration="10" until="240"/>
         <stop busStop="180390329#18:60.00" duration="10" until="300"/>
-        <stop busStop="180390329#22:63.65" duration="10" until="420"/>
-        <stop busStop="180390329#24:109.99" duration="10" until="480"/>
+        <stop busStop="180390329#22:60.00" duration="10" until="420"/>
+        <stop busStop="180390329#24:107.47" duration="10" until="480"/>
         <stop busStop="170799109#1:60.00" duration="10" until="540"/>
-        <stop busStop="170799109#3:158.78" duration="10" until="600"/>
+        <stop busStop="170799109#3:151.40" duration="10" until="600"/>
         <stop busStop="169008810#2:60.00" duration="10" until="660"/>
         <stop busStop="169008810#10:60.00" duration="10" until="780"/>
         <stop busStop="169008810#15:61.08" duration="10" until="840"/>
-        <stop busStop="158512978#1:44.46" duration="10" until="900"/>
+        <stop busStop="158512978#1:24.35" duration="10" until="900"/>
     </route>
     <route id="259780" edges="158512978#1 158512978#2 158512978#3 158512978#4 263108169#0 263108169#1 263108169#2 263108169#3 263108169#4 263108169#6 263108169#7 263108169#8 263108169#9 263108169#10 263108169#11 263108169#12 263108169#13 263108169#14 263108169#16 263108169#17 263108169#18 263108169#19 263108169#20 263108169#21 263108169#22 263108169#23 263108169#24 263108169#25 263108169#26 263108169#27 263108169#28 263108169#29 263108169#30 263108169#31 263108169#32 263108169#33 263108169#34 263108169#35 263108169#36 263108169#37 263108169#38 263108169#39 263108169#40 263108169#41 263108169#42 263108169#43 263108169#44 263108169#45 263108169#46 263108169#47 263108169#48 205681252#0 205681252#1 205681252#2 461452916">
         <stop busStop="263108169#1:60.00" duration="10" until="0"/>
-        <stop busStop="263108169#3:60.00" duration="10" until="60"/>
-        <stop busStop="263108169#6:119.35" duration="10" until="120"/>
+        <stop busStop="263108169#2:39.76" duration="10" until="60"/>
+        <stop busStop="263108169#6:103.50" duration="10" until="120"/>
         <stop busStop="263108169#16:60.00" duration="10" until="240"/>
         <stop busStop="263108169#20:60.00" duration="10" until="300"/>
-        <stop busStop="263108169#22:68.67" duration="10" until="360"/>
+        <stop busStop="263108169#22:60.25" duration="10" until="360"/>
         <stop busStop="263108169#25:60.00" duration="10" until="420"/>
-        <stop busStop="263108169#27:115.56" duration="10" until="480"/>
-        <stop busStop="263108169#31:129.70" duration="10" until="600"/>
+        <stop busStop="263108169#27:109.36" duration="10" until="480"/>
+        <stop busStop="263108169#31:121.87" duration="10" until="600"/>
         <stop busStop="263108169#34:60.00" duration="10" until="660"/>
-        <stop busStop="263108169#38:60.00" duration="10" until="720"/>
+        <stop busStop="263108169#39:60.00" duration="10" until="720"/>
         <stop busStop="263108169#47:60.00" duration="10" until="840"/>
-        <stop busStop="205681252#2:315.44" duration="10" until="900"/>
+        <stop busStop="205681252#2:317.94" duration="10" until="900"/>
         <stop busStop="461452916:293.64" duration="10" until="960"/>
-        <stop busStop="461452916:819.86" duration="10" until="1020"/>
+        <stop busStop="461452916:819.87" duration="10" until="1020"/>
         <stop busStop="461452916:1205.90" duration="10" until="1080"/>
     </route>
     <route id="259865" edges="158512978#1 158512978#2 158512978#3 158512978#4 263108169#0 263108169#1 263108169#2 263108169#3 263108169#4 263108169#6 263108169#7 263108169#8 263108169#9 263108169#10 263108169#11 263108169#12 263108169#13 263108169#14 263108169#16 263108169#17 263108169#18 263108169#19 263108169#20 263108169#21 263108169#22 263108169#23 263108169#24 263108169#25 263108169#26 263108169#27 263108169#28 263108169#29 263108169#30 263108169#31 263108169#32 263108169#33 263108169#34 263108169#35 263108169#36 263108169#37 263108169#38 263108169#39 263108169#40 263108169#41 263108169#42 263108169#43 263108169#44 263108169#45 263108169#46 263108169#47 263108169#48 205681252#0 205681252#1 205681252#2 461452916">
         <stop busStop="263108169#1:60.00" duration="10" until="0"/>
-        <stop busStop="263108169#3:60.00" duration="10" until="60"/>
-        <stop busStop="263108169#6:119.35" duration="10" until="120"/>
+        <stop busStop="263108169#2:39.76" duration="10" until="60"/>
+        <stop busStop="263108169#6:103.50" duration="10" until="120"/>
         <stop busStop="263108169#16:60.00" duration="10" until="240"/>
         <stop busStop="263108169#20:60.00" duration="10" until="300"/>
-        <stop busStop="263108169#22:68.67" duration="10" until="360"/>
+        <stop busStop="263108169#22:60.25" duration="10" until="360"/>
         <stop busStop="263108169#25:60.00" duration="10" until="420"/>
-        <stop busStop="263108169#27:115.56" duration="10" until="480"/>
-        <stop busStop="263108169#31:129.70" duration="10" until="600"/>
+        <stop busStop="263108169#27:109.36" duration="10" until="480"/>
+        <stop busStop="263108169#31:121.87" duration="10" until="600"/>
         <stop busStop="263108169#34:60.00" duration="10" until="660"/>
-        <stop busStop="263108169#38:60.00" duration="10" until="720"/>
+        <stop busStop="263108169#39:60.00" duration="10" until="720"/>
         <stop busStop="263108169#47:60.00" duration="10" until="840"/>
-        <stop busStop="205681252#2:315.44" duration="10" until="900"/>
+        <stop busStop="205681252#2:317.94" duration="10" until="900"/>
         <stop busStop="461452916:293.64" duration="10" until="960"/>
-        <stop busStop="461452916:819.86" duration="10" until="1020"/>
+        <stop busStop="461452916:819.87" duration="10" until="1020"/>
         <stop busStop="461452916:1205.90" duration="10" until="1080"/>
     </route>
     <route id="259895.trimmed" edges="263108169#34 263108169#35 263108169#36 263108169#37 263108169#38 263108169#39 263108169#40 263108169#41 263108169#42 263108169#43 263108169#44 263108169#45 263108169#46 263108169#47 263108169#48 205681252#0 205681252#1 205681252#2 461452916">
         <stop busStop="263108169#34:60.00" duration="10" until="0"/>
-        <stop busStop="263108169#38:60.00" duration="10" until="60"/>
+        <stop busStop="263108169#39:60.00" duration="10" until="60"/>
         <stop busStop="263108169#47:60.00" duration="10" until="180"/>
-        <stop busStop="205681252#2:315.44" duration="10" until="240"/>
+        <stop busStop="205681252#2:317.94" duration="10" until="240"/>
         <stop busStop="461452916:293.64" duration="10" until="300"/>
-        <stop busStop="461452916:819.86" duration="10" until="360"/>
+        <stop busStop="461452916:819.87" duration="10" until="360"/>
         <stop busStop="461452916:1205.90" duration="10" until="420"/>
     </route>
     <route id="68252" edges="180390329#0 180390329#1 180390329#2 180390329#3 180390329#4 180390329#5 180390329#6 180390329#7 180390329#8 180390329#9 180390329#10 180390329#11 180390329#12 180390329#13 180390329#14 180390329#15 180390329#16 180390329#17 180390329#18 180390329#19 180390329#20 180390329#21 180390329#22 180390329#23 180390329#24 180390329#25 180390329#26 180390329#27 180390329#28 170799109#0 170799109#1 170799109#2 170799109#3 158537642#0 158537642#1 158537642#2 158537642#3 158537642#4 169008810#0 169008810#2 169008810#3 169008810#4 169008810#5 169008810#6 169008810#7 169008810#8 169008810#9 169008810#10 169008810#12 169008810#13 169008810#14 169008810#15">
-        <stop busStop="180390329#0:243.47" duration="10" until="0"/>
+        <stop busStop="180390329#0:243.46" duration="10" until="0"/>
         <stop busStop="180390329#2:60.00" duration="10" until="120"/>
-        <stop busStop="180390329#11:60.00" duration="10" until="240"/>
-        <stop busStop="180390329#15:292.91" duration="10" until="300"/>
+        <stop busStop="180390329#10:133.36" duration="10" until="240"/>
+        <stop busStop="180390329#15:284.25" duration="10" until="300"/>
         <stop busStop="180390329#18:60.00" duration="10" until="360"/>
-        <stop busStop="180390329#22:63.65" duration="10" until="480"/>
-        <stop busStop="180390329#24:109.99" duration="10" until="540"/>
+        <stop busStop="180390329#22:60.00" duration="10" until="480"/>
+        <stop busStop="180390329#24:107.47" duration="10" until="540"/>
         <stop busStop="170799109#1:60.00" duration="10" until="600"/>
-        <stop busStop="170799109#3:158.78" duration="10" until="720"/>
+        <stop busStop="170799109#3:151.40" duration="10" until="720"/>
         <stop busStop="169008810#2:60.00" duration="10" until="780"/>
         <stop busStop="169008810#10:60.00" duration="10" until="900"/>
         <stop busStop="169008810#15:61.08" duration="10" until="1020"/>
     </route>
     <route id="68266" edges="180390329#0 180390329#1 180390329#2 180390329#3 180390329#4 180390329#5 180390329#6 180390329#7 180390329#8 180390329#9 180390329#10 180390329#11 180390329#12 180390329#13 180390329#14 180390329#15 180390329#16 180390329#17 180390329#18 180390329#19 180390329#20 180390329#21 180390329#22 180390329#23 180390329#24 180390329#25 180390329#26 180390329#27 180390329#28 170799109#0 170799109#1 170799109#2 170799109#3 158537642#0 158537642#1 158537642#2 158537642#3 158537642#4 169008810#0 169008810#2 169008810#3 169008810#4 169008810#5 169008810#6 169008810#7 169008810#8 169008810#9 169008810#10 169008810#12 169008810#13 169008810#14 169008810#15">
-        <stop busStop="180390329#0:243.47" duration="10" until="0"/>
+        <stop busStop="180390329#0:243.46" duration="10" until="0"/>
         <stop busStop="180390329#2:60.00" duration="10" until="120"/>
-        <stop busStop="180390329#11:60.00" duration="10" until="240"/>
-        <stop busStop="180390329#15:292.91" duration="10" until="300"/>
+        <stop busStop="180390329#10:133.36" duration="10" until="240"/>
+        <stop busStop="180390329#15:284.25" duration="10" until="300"/>
         <stop busStop="180390329#18:60.00" duration="10" until="360"/>
-        <stop busStop="180390329#22:63.65" duration="10" until="480"/>
-        <stop busStop="180390329#24:109.99" duration="10" until="540"/>
+        <stop busStop="180390329#22:60.00" duration="10" until="480"/>
+        <stop busStop="180390329#24:107.47" duration="10" until="540"/>
         <stop busStop="170799109#1:60.00" duration="10" until="600"/>
-        <stop busStop="170799109#3:158.78" duration="10" until="720"/>
+        <stop busStop="170799109#3:151.40" duration="10" until="720"/>
         <stop busStop="169008810#2:60.00" duration="10" until="780"/>
         <stop busStop="169008810#10:60.00" duration="10" until="900"/>
         <stop busStop="169008810#15:61.08" duration="10" until="1020"/>
     </route>
     <route id="68332" edges="263108169#0 263108169#1 263108169#2 263108169#3 263108169#4 263108169#6 263108169#7 263108169#8 263108169#9 263108169#10 263108169#11 263108169#12 263108169#13 263108169#14 263108169#16 263108169#17 263108169#18 263108169#19 263108169#20 263108169#21 263108169#22 263108169#23 263108169#24 263108169#25 263108169#26 263108169#27 263108169#28 263108169#29 263108169#30 263108169#31 263108169#32 263108169#33 263108169#34 263108169#35 263108169#36 263108169#37 263108169#38 263108169#39 263108169#40 263108169#41 263108169#42 263108169#43 263108169#44 263108169#45 263108169#46 263108169#47 263108169#48 205681252#0 205681252#1 205681252#2 461452916">
         <stop busStop="263108169#1:60.00" duration="10" until="0"/>
-        <stop busStop="263108169#6:119.35" duration="10" until="60"/>
+        <stop busStop="263108169#6:103.50" duration="10" until="60"/>
         <stop busStop="263108169#16:60.00" duration="10" until="240"/>
         <stop busStop="263108169#20:60.00" duration="10" until="300"/>
-        <stop busStop="263108169#22:68.67" duration="10" until="360"/>
+        <stop busStop="263108169#22:60.25" duration="10" until="360"/>
         <stop busStop="263108169#25:60.00" duration="10" until="420"/>
-        <stop busStop="263108169#27:115.56" duration="10" until="480"/>
-        <stop busStop="263108169#31:129.70" duration="10" until="600"/>
+        <stop busStop="263108169#27:109.36" duration="10" until="480"/>
+        <stop busStop="263108169#31:121.87" duration="10" until="600"/>
         <stop busStop="263108169#34:60.00" duration="10" until="660"/>
-        <stop busStop="263108169#38:60.00" duration="10" until="720"/>
+        <stop busStop="263108169#39:60.00" duration="10" until="720"/>
         <stop busStop="263108169#47:60.00" duration="10" until="840"/>
-        <stop busStop="205681252#2:315.44" duration="10" until="960"/>
+        <stop busStop="205681252#2:317.94" duration="10" until="960"/>
         <stop busStop="461452916:293.64" duration="10" until="1080"/>
-        <stop busStop="461452916:819.86" duration="10" until="1140"/>
+        <stop busStop="461452916:819.87" duration="10" until="1140"/>
         <stop busStop="461452916:1205.90" duration="10" until="1200"/>
     </route>
     <route id="68397" edges="263108169#0 263108169#1 263108169#2 263108169#3 263108169#4 263108169#6 263108169#7 263108169#8 263108169#9 263108169#10 263108169#11 263108169#12 263108169#13 263108169#14 263108169#16 263108169#17 263108169#18 263108169#19 263108169#20 263108169#21 263108169#22 263108169#23 263108169#24 263108169#25 263108169#26 263108169#27 263108169#28 263108169#29 263108169#30 263108169#31 263108169#32 263108169#33 263108169#34 263108169#35 263108169#36 263108169#37 263108169#38 263108169#39 263108169#40 263108169#41 263108169#42 263108169#43 263108169#44 263108169#45 263108169#46 263108169#47 263108169#48 205681252#0 205681252#1 205681252#2 461452916">
         <stop busStop="263108169#1:60.00" duration="10" until="0"/>
-        <stop busStop="263108169#6:119.35" duration="10" until="60"/>
+        <stop busStop="263108169#6:103.50" duration="10" until="60"/>
         <stop busStop="263108169#16:60.00" duration="10" until="240"/>
         <stop busStop="263108169#20:60.00" duration="10" until="300"/>
-        <stop busStop="263108169#22:68.67" duration="10" until="360"/>
+        <stop busStop="263108169#22:60.25" duration="10" until="360"/>
         <stop busStop="263108169#25:60.00" duration="10" until="420"/>
-        <stop busStop="263108169#27:115.56" duration="10" until="480"/>
-        <stop busStop="263108169#31:129.70" duration="10" until="600"/>
+        <stop busStop="263108169#27:109.36" duration="10" until="480"/>
+        <stop busStop="263108169#31:121.87" duration="10" until="600"/>
         <stop busStop="263108169#34:60.00" duration="10" until="660"/>
-        <stop busStop="263108169#38:60.00" duration="10" until="720"/>
+        <stop busStop="263108169#39:60.00" duration="10" until="720"/>
         <stop busStop="263108169#47:60.00" duration="10" until="840"/>
-        <stop busStop="205681252#2:315.44" duration="10" until="960"/>
+        <stop busStop="205681252#2:317.94" duration="10" until="960"/>
         <stop busStop="461452916:293.64" duration="10" until="1080"/>
-        <stop busStop="461452916:819.86" duration="10" until="1140"/>
+        <stop busStop="461452916:819.87" duration="10" until="1140"/>
         <stop busStop="461452916:1205.90" duration="10" until="1200"/>
     </route>
 </additional>
