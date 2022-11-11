@@ -351,8 +351,6 @@ def main(options):
                     if '*' in filterID:
                         if not fnmatch.fnmatch(dataID, filterID):
                             continue
-                        if "25" in dataID:
-                            print(dataID, filterID)
                         flag2 = True
                 if flag1 and not flag2:
                     continue
