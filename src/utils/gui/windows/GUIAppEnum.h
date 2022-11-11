@@ -53,8 +53,8 @@ enum {
     MID_HOTKEY_H_MODE_PROHIBITION_CONTAINERPLAN,
     /// @brief hotkey for mode inspecting object attributes
     MID_HOTKEY_I_MODE_INSPECT,
-    /// @brief hotkey for mode moving element
-    MID_HOTKEY_M_MODE_MOVE,
+    /// @brief hotkey for mode moving element AND mean data
+    MID_HOTKEY_M_MODE_MOVE_MEANDATA,
     /// @brief hotkey for mode creating polygons
     MID_HOTKEY_P_MODE_POLYGON_PERSON,
     /// @brief hotkey for mode selecting objects
