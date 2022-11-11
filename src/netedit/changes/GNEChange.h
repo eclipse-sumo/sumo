@@ -41,14 +41,8 @@
 // ===========================================================================
 class GNEHierarchicalElement;
 class GNEAttributeCarrier;
-class GNEAdditional;
 class GNEDataSet;
-class GNEDemandElement;
-class GNEGenericData;
-class GNEMeanData;
 class GNEDataInterval;
-class GNEEdge;
-class GNELane;
 class GNENet;
 class GNEViewNet;
 
@@ -147,6 +141,9 @@ protected:
         for (const auto& genericData : myOriginalHierarchicalContainer.getParents<std::vector<GNEGenericData*> >()) {
             genericData->addChildElement(element);
         }
+        for (const auto& meanData : myOriginalHierarchicalContainer.getParents<std::vector<GNEMeanData*> >()) {
+            meanData->addChildElement(element);
+        }
         // add element in children
         for (const auto& junction : myOriginalHierarchicalContainer.getChildren<std::vector<GNEJunction*> >()) {
             junction->addParentElement(element);
@@ -165,6 +162,9 @@ protected:
         }
         for (const auto& genericData : myOriginalHierarchicalContainer.getChildren<std::vector<GNEGenericData*> >()) {
             genericData->addParentElement(element);
+        }
+        for (const auto& meanData : myOriginalHierarchicalContainer.getChildren<std::vector<GNEMeanData*> >()) {
+            meanData->addParentElement(element);
         }
     }
 
@@ -190,6 +190,9 @@ protected:
         for (const auto& genericData : myOriginalHierarchicalContainer.getParents<std::vector<GNEGenericData*> >()) {
             genericData->removeChildElement(element);
         }
+        for (const auto& meanData : myOriginalHierarchicalContainer.getParents<std::vector<GNEMeanData*> >()) {
+            meanData->removeChildElement(element);
+        }
         // Remove element from children
         for (const auto& junction : myOriginalHierarchicalContainer.getChildren<std::vector<GNEJunction*> >()) {
             junction->removeParentElement(element);
@@ -208,6 +211,9 @@ protected:
         }
         for (const auto& genericData : myOriginalHierarchicalContainer.getChildren<std::vector<GNEGenericData*> >()) {
             genericData->removeParentElement(element);
+        }
+        for (const auto& meanData : myOriginalHierarchicalContainer.getChildren<std::vector<GNEMeanData*> >()) {
+            meanData->removeParentElement(element);
         }
     }
 
