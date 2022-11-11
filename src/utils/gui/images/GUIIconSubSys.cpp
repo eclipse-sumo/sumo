@@ -235,6 +235,7 @@
 #include "modeedgedata.xpm"
 #include "modeedgereldata.xpm"
 #include "modetazreldata.xpm"
+#include "modemeandata.xpm"
 
 #include "tlsphasedefault.xpm"
 #include "tlsphasecopy.xpm"
@@ -671,6 +672,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::MODEEDGEDATA] = new FXXPMIcon(a, modeedgedata_xpm);
     myIcons[GUIIcon::MODEEDGERELDATA] = new FXXPMIcon(a, modeedgereldata_xpm);
     myIcons[GUIIcon::MODETAZRELDATA] = new FXXPMIcon(a, modetazreldata_xpm);
+    myIcons[GUIIcon::MODEMEANDATA] = new FXXPMIcon(a, modemeandata_xpm);
 
     myIcons[GUIIcon::COMPUTEJUNCTIONS] = new FXXPMIcon(a, computejunctions_xpm);
     myIcons[GUIIcon::CLEANJUNCTIONS] = new FXXPMIcon(a, cleanjunctions_xpm);

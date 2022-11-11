@@ -344,6 +344,7 @@ enum class GUIIcon {
     MODEEDGEDATA,
     MODEEDGERELDATA,
     MODETAZRELDATA,
+    MODEMEANDATA,
     /// @}
 
     /// @name NETEDIT processing icons
