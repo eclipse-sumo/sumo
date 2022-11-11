@@ -30,6 +30,7 @@
 #include <netedit/elements/additional/GNEAdditional.h>
 #include <netedit/elements/demand/GNEDemandElement.h>
 #include <netedit/elements/data/GNEGenericData.h>
+#include <netedit/elements/data/GNEMeanData.h>
 #include <utils/foxtools/fxheader.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
@@ -44,6 +45,7 @@ class GNEAdditional;
 class GNEDataSet;
 class GNEDemandElement;
 class GNEGenericData;
+class GNEMeanData;
 class GNEDataInterval;
 class GNEEdge;
 class GNELane;
