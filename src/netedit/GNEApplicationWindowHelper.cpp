@@ -296,16 +296,18 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
         "Save Data Elements As...", "", "Save data elements to another file.",
         GUIIconSubSys::getIcon(GUIIcon::SAVEDATAELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEDATA_AS);
     saveDataElementsAs->disable();
+    // add separator
+    new FXMenuSeparator(fileMenuDataElements);
     // create MeanDatas menu options
     GUIDesigns::buildFXMenuCommandShortcut(fileMenuDataElements,
-        "Load MeanDatas...", "Ctrl+A", "Load meanDatas and shapes.",
+        "Load MeanDatas...", "", "Load meanDatas and shapes.",
         GUIIconSubSys::getIcon(GUIIcon::OPEN_MEANDATAS), myGNEApp, MID_GNE_TOOLBARFILE_OPENMEANDATAS);
     reloadMeanDatas = GUIDesigns::buildFXMenuCommandShortcut(fileMenuDataElements,
         "Reload MeanDatas", "", "Reload meanDatas.",
         GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_MEANDATAS);
     reloadMeanDatas->disable();
     saveMeanDatas = GUIDesigns::buildFXMenuCommandShortcut(fileMenuDataElements,
-        "Save MeanDatas", "Ctrl+Shift+A", "Save meanDatas and shapes.",
+        "Save MeanDatas", "", "Save meanDatas and shapes.",
         GUIIconSubSys::getIcon(GUIIcon::SAVEMEANDATAELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEMEANDATAS);
     saveMeanDatas->disable();
     saveMeanDatasAs = GUIDesigns::buildFXMenuCommandShortcut(fileMenuDataElements,

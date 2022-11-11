@@ -4398,7 +4398,7 @@ GNEApplicationWindow::onCmdOpenMeanDatas(FXObject*, FXSelector, void*) {
         // declare overwrite flag
         bool overwriteElements = false;
         // check if open question dialog box
-        if (opendialog.getFilename().text() == OptionsCont::getOptions().getString("meanData-files")) {
+        if (opendialog.getFilename().text() == OptionsCont::getOptions().getString("meandata-files")) {
             // open overwrite dialog
             GNEOverwriteElementsDialog overwriteDialog(this, "meanData");
             // continue depending of result
@@ -4440,10 +4440,10 @@ GNEApplicationWindow::onCmdOpenMeanDatas(FXObject*, FXSelector, void*) {
         myNet->requireSaveMeanDatas(requireSaveMeanDatas);
         myNet->requireSaveDemandElements(requireSaveDemandElements);
         myNet->requireSaveDataElements(requireSaveDataElements);
-        // change value of "meanData-files"
+        // change value of "meandata-files"
         OptionsCont& oc = OptionsCont::getOptions();
         oc.resetWritable();
-        oc.set("meanData-files", opendialog.getFilename().text());
+        oc.set("meandata-files", opendialog.getFilename().text());
     } else {
         // write debug information
         WRITE_DEBUG("Cancel meanData dialog");
@@ -4455,7 +4455,7 @@ GNEApplicationWindow::onCmdOpenMeanDatas(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdReloadMeanDatas(FXObject*, FXSelector, void*) {
     // get file
-    const std::string file = OptionsCont::getOptions().getString("meanData-files");
+    const std::string file = OptionsCont::getOptions().getString("meandata-files");
     // disable validation for meanDatas
     XMLSubSys::setValidation("never", "auto", "auto");
     // Create general handler
@@ -4480,7 +4480,7 @@ GNEApplicationWindow::onCmdReloadMeanDatas(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onUpdReloadMeanDatas(FXObject*, FXSelector, void*) {
     // check if file exist
-    if (myViewNet && OptionsCont::getOptions().getString("meanData-files").empty()) {
+    if (myViewNet && OptionsCont::getOptions().getString("meandata-files").empty()) {
         return myFileMenuCommands.reloadMeanDatas->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
         return myFileMenuCommands.reloadMeanDatas->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
@@ -4495,7 +4495,7 @@ GNEApplicationWindow::onCmdSaveMeanDatas(FXObject*, FXSelector, void*) {
     // check if save meanData menu is enabled
     if (myFileMenuCommands.saveMeanDatas->isEnabled()) {
         // Check if meanDatas file was already set at start of netedit or with a previous save
-        if (oc.getString("meanData-files").empty()) {
+        if (oc.getString("meandata-files").empty()) {
             // declare current folder
             FXString currentFolder = gCurrentFolder;
             // check if there is a saved network
@@ -4512,9 +4512,9 @@ GNEApplicationWindow::onCmdSaveMeanDatas(FXObject*, FXSelector, void*) {
             std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
             // check tat file is valid
             if (fileWithExtension != "") {
-                // change value of "meanData-files"
+                // change value of "meandata-files"
                 oc.resetWritable();
-                oc.set("meanData-files", fileWithExtension);
+                oc.set("meandata-files", fileWithExtension);
             } else {
                 // None meanDatas file was selected, then stop function
                 return 0;
@@ -4525,8 +4525,8 @@ GNEApplicationWindow::onCmdSaveMeanDatas(FXObject*, FXSelector, void*) {
         try {
             // compute before saving (for detectors positions)
             myNet->computeNetwork(this);
-            myNet->saveMeanDatas(oc.getString("meanData-files"));
-            myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "MeanDatas saved in " + oc.getString("meanData-files") + ".\n");
+            myNet->saveMeanDatas(oc.getString("meandata-files"));
+            myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "MeanDatas saved in " + oc.getString("meandata-files") + ".\n");
             myFileMenuCommands.saveMeanDatas->disable();
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
@@ -4569,8 +4569,8 @@ GNEApplicationWindow::onCmdSaveMeanDatasAs(FXObject*, FXSelector, void*) {
     if (fileWithExtension != "") {
         // reset writtable flag
         OptionsCont::getOptions().resetWritable();
-        // change value of "meanData-files"
-        OptionsCont::getOptions().set("meanData-files", fileWithExtension);
+        // change value of "meandata-files"
+        OptionsCont::getOptions().set("meandata-files", fileWithExtension);
         // change flag of menu command for save meanDatas
         myFileMenuCommands.saveMeanDatas->enable();
         // save meanDatas
