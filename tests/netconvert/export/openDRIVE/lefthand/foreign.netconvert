@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-12 20:04:43 by Eclipse SUMO netconvert Version v1_12_0+1350-5f742b5
+<!-- generated on 2022-11-11 15:57:53 by Eclipse SUMO netconvert Version v1_15_0+0194-3a3c64a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -27,31 +27,28 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="true"/>
+        <lefthand value="1"/>
     </processing>
 
     <junctions>
-        <no-internal-links value="false"/>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="0"/>
-        <junctions.limit-turn-speed value="-1"/>
-        <rectangular-lane-cut value="true"/>
+        <junctions.limit-turn-speed value="-1.00"/>
     </junctions>
 
     <pedestrian>
-        <walkingareas value="false"/>
+        <walkingareas value="0"/>
     </pedestrian>
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Sat Mar 12 20:04:43 2022" north="200.00" south="0.00" east="200.00" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Fri Nov 11 15:57:53 2022" north="200.00" south="0.00" east="200.00" west="0.00"/>
     <road name="" length="89.60000000" id="50" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -487,8 +484,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <right>
                     <lane id="-1" type="driving" level="true">
                         <link>
-                            <predecessor id="-1"/>
-                            <successor id="-1"/>
+                            <predecessor id="-2"/>
+                            <successor id="-2"/>
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
@@ -526,8 +523,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <right>
                     <lane id="-1" type="driving" level="true">
                         <link>
-                            <predecessor id="-1"/>
-                            <successor id="-1"/>
+                            <predecessor id="-2"/>
+                            <successor id="-2"/>
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
@@ -565,8 +562,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <right>
                     <lane id="-1" type="driving" level="true">
                         <link>
-                            <predecessor id="-2"/>
-                            <successor id="-2"/>
+                            <predecessor id="-1"/>
+                            <successor id="-1"/>
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="broken" weight="standard" color="standard" width="0.13"/>
@@ -574,8 +571,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     </lane>
                     <lane id="-2" type="driving" level="true">
                         <link>
-                            <predecessor id="-1"/>
-                            <successor id="-1"/>
+                            <predecessor id="-2"/>
+                            <successor id="-2"/>
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="broken" weight="standard" color="standard" width="0.13"/>
@@ -613,8 +610,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <right>
                     <lane id="-1" type="driving" level="true">
                         <link>
-                            <predecessor id="-2"/>
-                            <successor id="-2"/>
+                            <predecessor id="-1"/>
+                            <successor id="-1"/>
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
@@ -652,8 +649,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <right>
                     <lane id="-1" type="driving" level="true">
                         <link>
-                            <predecessor id="-1"/>
-                            <successor id="-1"/>
+                            <predecessor id="-2"/>
+                            <successor id="-2"/>
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
@@ -691,8 +688,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <right>
                     <lane id="-1" type="driving" level="true">
                         <link>
-                            <predecessor id="-1"/>
-                            <successor id="-1"/>
+                            <predecessor id="-2"/>
+                            <successor id="-2"/>
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
@@ -730,8 +727,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <right>
                     <lane id="-1" type="driving" level="true">
                         <link>
-                            <predecessor id="-2"/>
-                            <successor id="-2"/>
+                            <predecessor id="-1"/>
+                            <successor id="-1"/>
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="broken" weight="standard" color="standard" width="0.13"/>
@@ -739,8 +736,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     </lane>
                     <lane id="-2" type="driving" level="true">
                         <link>
-                            <predecessor id="-1"/>
-                            <successor id="-1"/>
+                            <predecessor id="-2"/>
+                            <successor id="-2"/>
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="broken" weight="standard" color="standard" width="0.13"/>
@@ -778,8 +775,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <right>
                     <lane id="-1" type="driving" level="true">
                         <link>
-                            <predecessor id="-2"/>
-                            <successor id="-2"/>
+                            <predecessor id="-1"/>
+                            <successor id="-1"/>
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
@@ -817,8 +814,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <right>
                     <lane id="-1" type="driving" level="true">
                         <link>
-                            <predecessor id="-1"/>
-                            <successor id="-1"/>
+                            <predecessor id="-2"/>
+                            <successor id="-2"/>
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
@@ -856,8 +853,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <right>
                     <lane id="-1" type="driving" level="true">
                         <link>
-                            <predecessor id="-1"/>
-                            <successor id="-1"/>
+                            <predecessor id="-2"/>
+                            <successor id="-2"/>
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
@@ -895,8 +892,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <right>
                     <lane id="-1" type="driving" level="true">
                         <link>
-                            <predecessor id="-2"/>
-                            <successor id="-2"/>
+                            <predecessor id="-1"/>
+                            <successor id="-1"/>
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="broken" weight="standard" color="standard" width="0.13"/>
@@ -904,8 +901,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     </lane>
                     <lane id="-2" type="driving" level="true">
                         <link>
-                            <predecessor id="-1"/>
-                            <successor id="-1"/>
+                            <predecessor id="-2"/>
+                            <successor id="-2"/>
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="broken" weight="standard" color="standard" width="0.13"/>
@@ -943,8 +940,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <right>
                     <lane id="-1" type="driving" level="true">
                         <link>
-                            <predecessor id="-2"/>
-                            <successor id="-2"/>
+                            <predecessor id="-1"/>
+                            <successor id="-1"/>
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
@@ -982,8 +979,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <right>
                     <lane id="-1" type="driving" level="true">
                         <link>
-                            <predecessor id="-1"/>
-                            <successor id="-1"/>
+                            <predecessor id="-2"/>
+                            <successor id="-2"/>
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
@@ -1021,8 +1018,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <right>
                     <lane id="-1" type="driving" level="true">
                         <link>
-                            <predecessor id="-1"/>
-                            <successor id="-1"/>
+                            <predecessor id="-2"/>
+                            <successor id="-2"/>
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
@@ -1060,8 +1057,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <right>
                     <lane id="-1" type="driving" level="true">
                         <link>
-                            <predecessor id="-2"/>
-                            <successor id="-2"/>
+                            <predecessor id="-1"/>
+                            <successor id="-1"/>
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="broken" weight="standard" color="standard" width="0.13"/>
@@ -1069,8 +1066,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     </lane>
                     <lane id="-2" type="driving" level="true">
                         <link>
-                            <predecessor id="-1"/>
-                            <successor id="-1"/>
+                            <predecessor id="-2"/>
+                            <successor id="-2"/>
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="broken" weight="standard" color="standard" width="0.13"/>
@@ -1108,8 +1105,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <right>
                     <lane id="-1" type="driving" level="true">
                         <link>
-                            <predecessor id="-2"/>
-                            <successor id="-2"/>
+                            <predecessor id="-1"/>
+                            <successor id="-1"/>
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
@@ -1147,8 +1144,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <right>
                     <lane id="-1" type="driving" level="true">
                         <link>
-                            <predecessor id="-1"/>
-                            <successor id="-1"/>
+                            <predecessor id="-2"/>
+                            <successor id="-2"/>
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
@@ -1186,8 +1183,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <right>
                     <lane id="-1" type="driving" level="true">
                         <link>
-                            <predecessor id="-1"/>
-                            <successor id="-1"/>
+                            <predecessor id="-2"/>
+                            <successor id="-2"/>
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
@@ -1225,8 +1222,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <right>
                     <lane id="-1" type="driving" level="true">
                         <link>
-                            <predecessor id="-1"/>
-                            <successor id="-1"/>
+                            <predecessor id="-2"/>
+                            <successor id="-2"/>
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
@@ -1264,8 +1261,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <right>
                     <lane id="-1" type="driving" level="true">
                         <link>
-                            <predecessor id="-1"/>
-                            <successor id="-1"/>
+                            <predecessor id="-2"/>
+                            <successor id="-2"/>
                         </link>
                         <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
                         <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
@@ -1302,76 +1299,76 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </controller>
     <junction name="C" id="1">
         <connection id="0" incomingRoad="57" connectingRoad="58" contactPoint="start">
-            <laneLink from="-1" to="-1"/>
+            <laneLink from="-2" to="-1"/>
         </connection>
         <connection id="1" incomingRoad="57" connectingRoad="59" contactPoint="start">
-            <laneLink from="-1" to="-1"/>
+            <laneLink from="-2" to="-1"/>
         </connection>
         <connection id="2" incomingRoad="57" connectingRoad="60" contactPoint="start">
-            <laneLink from="-2" to="-1"/>
-            <laneLink from="-1" to="-2"/>
+            <laneLink from="-1" to="-1"/>
+            <laneLink from="-2" to="-2"/>
         </connection>
         <connection id="4" incomingRoad="57" connectingRoad="61" contactPoint="start">
-            <laneLink from="-2" to="-1"/>
+            <laneLink from="-1" to="-1"/>
         </connection>
         <connection id="5" incomingRoad="55" connectingRoad="62" contactPoint="start">
-            <laneLink from="-1" to="-1"/>
+            <laneLink from="-2" to="-1"/>
         </connection>
         <connection id="6" incomingRoad="55" connectingRoad="63" contactPoint="start">
-            <laneLink from="-1" to="-1"/>
+            <laneLink from="-2" to="-1"/>
         </connection>
         <connection id="7" incomingRoad="55" connectingRoad="64" contactPoint="start">
-            <laneLink from="-2" to="-1"/>
-            <laneLink from="-1" to="-2"/>
+            <laneLink from="-1" to="-1"/>
+            <laneLink from="-2" to="-2"/>
         </connection>
         <connection id="9" incomingRoad="55" connectingRoad="65" contactPoint="start">
-            <laneLink from="-2" to="-1"/>
+            <laneLink from="-1" to="-1"/>
         </connection>
         <connection id="10" incomingRoad="54" connectingRoad="66" contactPoint="start">
-            <laneLink from="-1" to="-1"/>
+            <laneLink from="-2" to="-1"/>
         </connection>
         <connection id="11" incomingRoad="54" connectingRoad="67" contactPoint="start">
-            <laneLink from="-1" to="-1"/>
+            <laneLink from="-2" to="-1"/>
         </connection>
         <connection id="12" incomingRoad="54" connectingRoad="68" contactPoint="start">
-            <laneLink from="-2" to="-1"/>
-            <laneLink from="-1" to="-2"/>
+            <laneLink from="-1" to="-1"/>
+            <laneLink from="-2" to="-2"/>
         </connection>
         <connection id="14" incomingRoad="54" connectingRoad="69" contactPoint="start">
-            <laneLink from="-2" to="-1"/>
+            <laneLink from="-1" to="-1"/>
         </connection>
         <connection id="15" incomingRoad="56" connectingRoad="70" contactPoint="start">
-            <laneLink from="-1" to="-1"/>
+            <laneLink from="-2" to="-1"/>
         </connection>
         <connection id="16" incomingRoad="56" connectingRoad="71" contactPoint="start">
-            <laneLink from="-1" to="-1"/>
+            <laneLink from="-2" to="-1"/>
         </connection>
         <connection id="17" incomingRoad="56" connectingRoad="72" contactPoint="start">
-            <laneLink from="-2" to="-1"/>
-            <laneLink from="-1" to="-2"/>
+            <laneLink from="-1" to="-1"/>
+            <laneLink from="-2" to="-2"/>
         </connection>
         <connection id="19" incomingRoad="56" connectingRoad="73" contactPoint="start">
-            <laneLink from="-2" to="-1"/>
+            <laneLink from="-1" to="-1"/>
         </connection>
     </junction>
     <junction name="E" id="2">
         <connection id="0" incomingRoad="50" connectingRoad="74" contactPoint="start">
-            <laneLink from="-1" to="-1"/>
+            <laneLink from="-2" to="-1"/>
         </connection>
     </junction>
     <junction name="N" id="3">
         <connection id="0" incomingRoad="51" connectingRoad="75" contactPoint="start">
-            <laneLink from="-1" to="-1"/>
+            <laneLink from="-2" to="-1"/>
         </connection>
     </junction>
     <junction name="S" id="4">
         <connection id="0" incomingRoad="52" connectingRoad="76" contactPoint="start">
-            <laneLink from="-1" to="-1"/>
+            <laneLink from="-2" to="-1"/>
         </connection>
     </junction>
     <junction name="W" id="5">
         <connection id="0" incomingRoad="53" connectingRoad="77" contactPoint="start">
-            <laneLink from="-1" to="-1"/>
+            <laneLink from="-2" to="-1"/>
         </connection>
     </junction>
 </OpenDRIVE>
