@@ -408,6 +408,9 @@ public:
     /// @brief clear data elements
     void clearDataElements(GNEUndoList* undoList);
 
+    /// @brief clear meanDatas
+    void clearMeanDataElements(GNEUndoList* undoList);
+
     /**@brief trigger recomputation of junction shape and logic
      * param[in] window The window to inform about delay
      */

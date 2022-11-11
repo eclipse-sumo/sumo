@@ -1977,6 +1977,19 @@ GNENet::clearDataElements(GNEUndoList* undoList) {
 
 
 void
+GNENet::clearMeanDataElements(GNEUndoList* undoList) {
+    undoList->begin(GUIIcon::MODEADDITIONAL, "clear meanData elements");
+    // clear meanDatas
+    for (const auto& meanDataMap : myAttributeCarriers->getMeanDatas()) {
+        while (meanDataMap.second.size() > 0) {
+            deleteMeanData(*meanDataMap.second.begin(), undoList);
+        }
+    }
+    undoList->end();
+}
+
+
+void
 GNENet::changeEdgeEndpoints(GNEEdge* edge, const std::string& newSource, const std::string& newDest) {
     NBNode* from = myAttributeCarriers->retrieveJunction(newSource)->getNBNode();
     NBNode* to = myAttributeCarriers->retrieveJunction(newDest)->getNBNode();
