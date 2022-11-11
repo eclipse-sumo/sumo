@@ -13,6 +13,8 @@ set(netedit_elements_data_SRCS
    GNEEdgeRelData.cpp
    GNETAZRelData.h
    GNETAZRelData.cpp
+   GNEMeanData.h
+   GNEMeanData.cpp
    )
 
 add_library(netedit_elements_data STATIC ${netedit_elements_data_SRCS})
