@@ -32,16 +32,11 @@
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEMeanData.h"
-#include "GNEDataInterval.h"
 
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-
-// ---------------------------------------------------------------------------
-// GNEMeanData - methods
-// ---------------------------------------------------------------------------
 
 GNEMeanData::GNEMeanData(GNENet *net, GNEEdge* edge, const std::string &file) :
     GUIGlObject(GLO_MEANDATAEDGE, edge->getID(), nullptr),
@@ -64,8 +59,15 @@ GNEMeanData::getGUIGlObject() {
 }
 
 
+void
+GNEMeanData::updateGeometry() {
+    // nothing to update
+}
+
+
 Position 
 GNEMeanData::getPositionInView() const {
+    //if (getParen
     return Position();
 }
 
@@ -134,13 +136,55 @@ GNEMeanData::selectGLObject() {
 
 void
 GNEMeanData::updateGLObject() {
-    updateGeometry();
+    // nothing to do
+}
+
+
+std::string
+GNEMeanData::getAttribute(SumoXMLAttr key) const {
+    return "";
+}
+
+
+double
+GNEMeanData::getAttributeDouble(SumoXMLAttr key) const {
+    return 1;
+}
+
+
+void
+GNEMeanData::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+
+}
+
+
+bool
+GNEMeanData::isValid(SumoXMLAttr key, const std::string& value) {
+    return false;
+}
+
+
+std::string
+GNEMeanData::getPopUpID() const {
+    return "";
+}
+
+
+std::string
+GNEMeanData::getHierarchyName() const {
+    return "";
 }
 
 
 const Parameterised::Map&
 GNEMeanData::getACParametersMap() const {
     return GNEAttributeCarrier::PARAMETERS_EMPTY;
+}
+
+
+void
+GNEMeanData::setAttribute(SumoXMLAttr key, const std::string& value) {
+
 }
 
 /****************************************************************************/

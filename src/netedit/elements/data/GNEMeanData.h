@@ -60,7 +60,7 @@ public:
     GUIGlObject* getGUIGlObject();
 
     /// @brief update pre-computed geometry information
-    void updateGeometry() {}
+    void updateGeometry();
 
     /// @brief Returns element position in view
     Position getPositionInView() const;
@@ -89,7 +89,7 @@ public:
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
-    virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
+    void drawGL(const GUIVisualizationSettings& s) const;
 
     /// @brief delete element
     void deleteGLObject();
@@ -101,10 +101,10 @@ public:
     void updateGLObject();
 
     /// @brief return exaggeration associated with this GLObject
-    virtual double getExaggeration(const GUIVisualizationSettings& s) const = 0;
+    double getExaggeration(const GUIVisualizationSettings& s) const;
 
     //// @brief Returns the boundary to which the view shall be centered in order to show the object
-    virtual Boundary getCenteringBoundary() const = 0;
+    Boundary getCenteringBoundary() const;
 
     /// @}
 
@@ -114,33 +114,33 @@ public:
      * @param[in] key The attribute key
      * @return string with the value associated to key
      */
-    virtual std::string getAttribute(SumoXMLAttr key) const = 0;
+    std::string getAttribute(SumoXMLAttr key) const;
 
     /* @brief method for getting the Attribute of an XML key in double format (to avoid unnecessary parse<double>(...) for certain attributes)
      * @param[in] key The attribute key
      * @return double with the value associated to key
      */
-    virtual double getAttributeDouble(SumoXMLAttr key) const = 0;
+    double getAttributeDouble(SumoXMLAttr key) const;
 
     /**@brief method for setting the attribute and letting the object perform data set changes
      * @param[in] key The attribute key
      * @param[in] value The new value
      * @param[in] undoList The undoList on which to register changes
      */
-    virtual void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) = 0;
+    void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
 
     /**@brief method for checking if the key and their conrrespond attribute are valids
      * @param[in] key The attribute key
      * @param[in] value The value associated to key key
      * @return true if the value is valid, false in other case
      */
-    virtual bool isValid(SumoXMLAttr key, const std::string& value) = 0;
+    bool isValid(SumoXMLAttr key, const std::string& value);
 
     /// @brief get PopPup ID (Used in AC Hierarchy)
-    virtual std::string getPopUpID() const = 0;
+    std::string getPopUpID() const;
 
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
-    virtual std::string getHierarchyName() const = 0;
+    std::string getHierarchyName() const;
     /// @}
 
     /// @brief get parameters map
@@ -148,7 +148,7 @@ public:
 
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
-    virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
+    void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief Invalidated copy constructor.
     GNEMeanData(const GNEMeanData&) = delete;
