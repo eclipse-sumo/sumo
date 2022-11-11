@@ -707,6 +707,14 @@ enum {
     MID_GNE_TOOLBARFILE_SAVEDATA_AS,
     /// @brief reload data elements
     MID_GNE_TOOLBARFILE_RELOAD_DATAELEMENTS,
+    /// @brief open meanData file
+    MID_GNE_TOOLBARFILE_OPENMEANDATAS,
+    /// @brief save meanDatas
+    MID_GNE_TOOLBARFILE_SAVEMEANDATAS,
+    /// @brief save meanDatas as
+    MID_GNE_TOOLBARFILE_SAVEMEANDATAS_AS,
+    /// @brief reload meanDatas
+    MID_GNE_TOOLBARFILE_RELOAD_MEANDATAS,
 
     /// @}
 
