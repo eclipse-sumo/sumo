@@ -146,8 +146,12 @@ def applyPlotOptions(fig, ax, options):
             raise ValueError(
                 "Error: ticks must be given as one float (<SIZE>) or four floats (<MIN>,<MAX>,<STEP>,<SIZE>)")
     if options.xtime0:
+        if max(ax.get_xticks()) < 3600:
+            print("Warning: x ticks not suited for hh format.")
         ax.xaxis.set_major_formatter(ff(m2hm0))   
     if options.xtime1:
+        if max(ax.get_yticks()) < 60:
+            print("Warning: x ticks not suited for hh:mm format.")
         ax.xaxis.set_major_formatter(ff(m2hm1))
     if options.xtime2:
         ax.xaxis.set_major_formatter(ff(m2hm2))
@@ -174,8 +178,12 @@ def applyPlotOptions(fig, ax, options):
             raise ValueError(
                 "Error: ticks must be given as one float (<SIZE>) or four floats (<MIN>,<MAX>,<STEP>,<SIZE>)")
     if options.ytime0:
+        if max(ax.get_yticks()) < 3600:
+            print("Warning: y ticks not suited for hh format.")
         ax.yaxis.set_major_formatter(ff(m2hm0))  
     if options.ytime1:
+        if max(ax.get_yticks()) < 60:
+            print("Warning: y ticks not suited for hh:mm format.")
         ax.yaxis.set_major_formatter(ff(m2hm1))
     if options.ytime2:
         ax.yaxis.set_major_formatter(ff(m2hm2))
