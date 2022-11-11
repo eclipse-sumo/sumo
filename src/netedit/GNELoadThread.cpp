@@ -252,6 +252,13 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.doRegister("dataelements-output", new Option_String());
     oc.addDescription("dataelements-output", "Netedit", "file in which data elements must be saved");
 
+    oc.doRegister("meandata-files", 'm', new Option_FileName());
+    oc.addSynonyme("meandata-files", "meandata");
+    oc.addDescription("meandata-files", "Netedit", "Load meanData descriptions from FILE(s)");
+
+    oc.doRegister("meandatas-output", new Option_String());
+    oc.addDescription("meandatas-output", "Netedit", "file in which meandatas must be saved");
+
     oc.doRegister("TLSPrograms-output", new Option_String());
     oc.addDescription("TLSPrograms-output", "Netedit", "file in which TLS Programs must be saved");
 
