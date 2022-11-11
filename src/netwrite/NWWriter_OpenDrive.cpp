@@ -160,7 +160,8 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                                                          inEdgeID,
                                                          getID(outEdge->getID(), edgeMap, edgeID),
                                                          connectionID,
-                                                         parallel, isOuterEdge, straightThresh, centerMark, signalLanes);
+                                                         parallel, isOuterEdge, straightThresh, centerMark, lefthand,
+                                                         signalLanes);
                         parallel.clear();
                         isOuterEdge = false;
                     }
@@ -181,7 +182,8 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                                                  inEdgeID,
                                                  getID(outEdge->getID(), edgeMap, edgeID),
                                                  connectionID,
-                                                 parallel, isOuterEdge, straightThresh, centerMark, signalLanes);
+                                                 parallel, isOuterEdge, straightThresh, centerMark,lefthand,
+                                                 signalLanes);
                 parallel.clear();
             }
         }
@@ -351,6 +353,7 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
                                       const bool isOuterEdge,
                                       const double straightThresh,
                                       const std::string& centerMark,
+                                      bool lefthand,
                                       SignalLanes& signalLanes) {
     assert(parallel.size() != 0);
     const NBEdge::Connection& cLeft = parallel.back();
@@ -440,8 +443,12 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
     for (int j = (int)parallel.size(); --j >= 0;) {
         toIndexInternal--;
         const NBEdge::Connection& c = parallel[j];
-        const int fromIndex = c.fromLane - inEdge->getNumLanes();
-        const int toIndex = c.toLane - outEdge->getNumLanes();
+        int fromIndex = c.fromLane - inEdge->getNumLanes();
+        int toIndex = c.toLane - outEdge->getNumLanes();
+        if (lefthand) {
+            fromIndex = -c.fromLane - 1;
+            toIndex = -c.toLane - 1;
+        }
         device << "                    <lane id=\"-" << parallel.size() - j << "\" type=\"" << getLaneType(outEdge->getPermissions(c.toLane)) << "\" level=\"true\">\n";
         device << "                        <link>\n";
         device << "                            <predecessor id=\"" << fromIndex << "\"/>\n";
