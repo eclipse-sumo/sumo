@@ -43,17 +43,15 @@
 // GNEMeanData - methods
 // ---------------------------------------------------------------------------
 
-GNEMeanData::GNEMeanData(const SumoXMLTag tag, FXIcon* icon, const GUIGlObjectType type, GNEDataInterval* dataIntervalParent,
-                               const Parameterised::Map& parameters,
-                               const std::vector<GNEJunction*>& junctionParents,
-                               const std::vector<GNEEdge*>& edgeParents,
-                               const std::vector<GNELane*>& laneParents,
-                               const std::vector<GNEAdditional*>& additionalParents,
-                               const std::vector<GNEDemandElement*>& demandElementParents,
-                               const std::vector<GNEMeanData*>& genericDataParents) :
-    GUIGlObject(),
-    Parameterised(parameters),
-    GNEHierarchicalElement(dataIntervalParent->getNet(), tag, junctionParents, edgeParents, laneParents, additionalParents, demandElementParents, genericDataParents) {
+GNEMeanData::GNEMeanData(GNENet *net, GNEEdge* edge, const std::string &file) :
+    GUIGlObject(GLO_MEANDATAEDGE, edge->getID(), nullptr),
+    GNEHierarchicalElement(net, SUMO_TAG_MEANDATA_EDGE, {}, {edge}, {}, {}, {}, {}) {
+}
+
+
+GNEMeanData::GNEMeanData(GNENet *net, GNELane* lane, const std::string &file) :
+    GUIGlObject(GLO_MEANDATALANE, lane->getID(), nullptr),
+    GNEHierarchicalElement(net, SUMO_TAG_MEANDATA_LANE, {}, {}, {lane}, {}, {}, {}) {
 }
 
 
@@ -63,6 +61,12 @@ GNEMeanData::~GNEMeanData() {}
 GUIGlObject*
 GNEMeanData::getGUIGlObject() {
     return this;
+}
+
+
+Position 
+GNEMeanData::getPositionInView() const {
+    return Position();
 }
 
 
@@ -136,7 +140,7 @@ GNEMeanData::updateGLObject() {
 
 const Parameterised::Map&
 GNEMeanData::getACParametersMap() const {
-    return getParametersMap();
+    return GNEAttributeCarrier::PARAMETERS_EMPTY;
 }
 
 /****************************************************************************/

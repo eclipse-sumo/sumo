@@ -36,29 +36,22 @@
  * @class GNEMeanData
  * @brief An Element which don't belong to GNENet but has influence in the simulation
  */
-class GNEMeanData : public GUIGlObject, public GNEHierarchicalElement, public Parameterised {
+class GNEMeanData : public GUIGlObject, public GNEHierarchicalElement {
 
 public:
-    /**@brief Constructor
-     * @param[in] tag generic data Tag (edgeData, laneData, etc.)
-     * @param[in] GLType GUIGlObjectType associated to this Mean Data
-     * @param[in] dataIntervalParent pointer to data interval parent
-     * @param[in] parameters parameters map
-     * @param[in] junctionParents vector of junction parents
-     * @param[in] edgeParents vector of edge parents
-     * @param[in] laneParents vector of lane parents
-     * @param[in] additionalParents vector of additional parents
-     * @param[in] demandElementParents vector of demand element parents
-     * @param[in] genericDataParents vector of generic data parents
+    /**@brief Constructor for edge mean data
+     * @param[in] net pointer to net
+     * @param[in] edge edge associated with this meanData
+     * @param[in] file output file
      */
-    GNEMeanData(const SumoXMLTag tag, FXIcon* icon, const GUIGlObjectType type, GNEDataInterval* dataIntervalParent,
-                   const Parameterised::Map& parameters,
-                   const std::vector<GNEJunction*>& junctionParents,
-                   const std::vector<GNEEdge*>& edgeParents,
-                   const std::vector<GNELane*>& laneParents,
-                   const std::vector<GNEAdditional*>& additionalParents,
-                   const std::vector<GNEDemandElement*>& demandElementParents,
-                   const std::vector<GNEMeanData*>& genericDataParents);
+    GNEMeanData(GNENet *net, GNEEdge* edge, const std::string &file);
+
+    /**@brief Constructor for edge mean data
+     * @param[in] net pointer to net
+     * @param[in] lane lane associated with this meanData
+     * @param[in] file output file
+     */
+    GNEMeanData(GNENet *net, GNELane* lane, const std::string &file);
 
     /// @brief Destructor
     ~GNEMeanData();
@@ -70,7 +63,7 @@ public:
     void updateGeometry() {}
 
     /// @brief Returns element position in view
-    Position getPositionInView() const {}
+    Position getPositionInView() const;
 
     /// @name inherited from GUIGlObject
     /// @{
