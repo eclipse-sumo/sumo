@@ -1938,6 +1938,20 @@ GNEApplicationWindow::disableSaveDataElementsMenu() {
 }
 
 
+void
+GNEApplicationWindow::enableSaveMeanDatasMenu() {
+    myFileMenuCommands.saveMeanDatas->enable();
+    myFileMenuCommands.saveMeanDatasAs->enable();
+}
+
+
+void
+GNEApplicationWindow::disableSaveMeanDatasMenu() {
+    myFileMenuCommands.saveMeanDatas->disable();
+    myFileMenuCommands.saveMeanDatasAs->disable();
+}
+
+
 long
 GNEApplicationWindow::onCmdSetSuperMode(FXObject* sender, FXSelector sel, void* ptr) {
     // check that currently there is a View

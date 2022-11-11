@@ -90,6 +90,12 @@ public:
     /// @brief disable save data elements
     void disableSaveDataElementsMenu();
 
+    /// @brief enable save meanDatas
+    void enableSaveMeanDatasMenu();
+
+    /// @brief disable save meanDatas
+    void disableSaveMeanDatasMenu();
+
     /// @name Inter-thread event handling
     /// @{
     /// @brief called when an event occurred
