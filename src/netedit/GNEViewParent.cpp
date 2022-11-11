@@ -30,6 +30,7 @@
 #include <netedit/frames/data/GNEEdgeDataFrame.h>
 #include <netedit/frames/data/GNEEdgeRelDataFrame.h>
 #include <netedit/frames/data/GNETAZRelDataFrame.h>
+#include <netedit/frames/data/GNEMeanDataFrame.h>
 #include <netedit/frames/demand/GNEContainerFrame.h>
 #include <netedit/frames/demand/GNEContainerPlanFrame.h>
 #include <netedit/frames/demand/GNEPersonFrame.h>
@@ -327,6 +328,12 @@ GNEViewParent::getEdgeRelDataFrame() const {
 GNETAZRelDataFrame*
 GNEViewParent::getTAZRelDataFrame() const {
     return myDataFrames.TAZRelDataFrame;
+}
+
+
+GNEMeanDataFrame*
+GNEViewParent::getMeanDataFrame() const {
+    return myDataFrames.meanDataFrame;
 }
 
 
@@ -1007,10 +1014,7 @@ GNEViewParent::DemandFrames::getCurrentShownFrame() const {
 // GNEViewParent::DataFrames - methods
 // ---------------------------------------------------------------------------
 
-GNEViewParent::DataFrames::DataFrames() :
-    edgeDataFrame(nullptr),
-    edgeRelDataFrame(nullptr),
-    TAZRelDataFrame(nullptr) {
+GNEViewParent::DataFrames::DataFrames() {
 }
 
 
@@ -1019,6 +1023,7 @@ GNEViewParent::DataFrames::buildDataFrames(GNEViewParent* viewParent, GNEViewNet
     edgeDataFrame = new GNEEdgeDataFrame(viewParent, viewNet);
     edgeRelDataFrame = new GNEEdgeRelDataFrame(viewParent, viewNet);
     TAZRelDataFrame = new GNETAZRelDataFrame(viewParent, viewNet);
+    meanDataFrame = new GNEMeanDataFrame(viewParent, viewNet);
 }
 
 
@@ -1027,6 +1032,7 @@ GNEViewParent::DataFrames::hideDataFrames() {
     edgeDataFrame->hide();
     edgeRelDataFrame->hide();
     TAZRelDataFrame->hide();
+    meanDataFrame->hide();
 }
 
 
@@ -1036,6 +1042,7 @@ GNEViewParent::DataFrames::setDataFramesWidth(int frameWidth) {
     edgeDataFrame->setFrameWidth(frameWidth);
     edgeRelDataFrame->setFrameWidth(frameWidth);
     TAZRelDataFrame->setFrameWidth(frameWidth);
+    meanDataFrame->setFrameWidth(frameWidth);
 }
 
 
@@ -1047,6 +1054,8 @@ GNEViewParent::DataFrames::isDataFrameShown() const {
     } else if (edgeRelDataFrame->shown()) {
         return true;
     } else if (TAZRelDataFrame->shown()) {
+        return true;
+    } else if (meanDataFrame->shown()) {
         return true;
     } else {
         return false;
@@ -1063,6 +1072,8 @@ GNEViewParent::DataFrames::getCurrentShownFrame() const {
         return edgeRelDataFrame;
     } else if (TAZRelDataFrame->shown()) {
         return TAZRelDataFrame;
+    } else if (meanDataFrame->shown()) {
+        return meanDataFrame;
     } else {
         return nullptr;
     }

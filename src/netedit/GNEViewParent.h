@@ -66,6 +66,7 @@ class GNEGenericDataFrame;
 class GNEEdgeDataFrame;
 class GNEEdgeRelDataFrame;
 class GNETAZRelDataFrame;
+class GNEMeanDataFrame;
 
 
 // ===========================================================================
@@ -187,6 +188,9 @@ public:
 
     /// @brief get frame for DATA_TAZRELDATA
     GNETAZRelDataFrame* getTAZRelDataFrame() const;
+
+    /// @brief get frame for DATA_TAZRELDATA
+    GNEMeanDataFrame* getMeanDataFrame() const;
 
     /// @brief show frames area if at least a GNEFrame is showed
     /// @note this function is called in GNEFrame::Show();
@@ -396,13 +400,16 @@ protected:
         GNEFrame* getCurrentShownFrame() const;
 
         /// @brief frame for DATA_EDGEDATA
-        GNEEdgeDataFrame* edgeDataFrame;
+        GNEEdgeDataFrame* edgeDataFrame = nullptr;
 
         /// @brief frame for DATA_EDGERELDATA
-        GNEEdgeRelDataFrame* edgeRelDataFrame;
+        GNEEdgeRelDataFrame* edgeRelDataFrame = nullptr;
 
         /// @brief frame for DATA_TAZRELDATA
-        GNETAZRelDataFrame* TAZRelDataFrame;
+        GNETAZRelDataFrame* TAZRelDataFrame = nullptr;
+
+        /// @brief frame for DATA_MEANDATA
+        GNEMeanDataFrame* meanDataFrame = nullptr;
     };
 
     /// @brief struct for ACChoosers dialog
