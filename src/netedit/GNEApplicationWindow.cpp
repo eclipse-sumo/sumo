@@ -154,6 +154,15 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS,           GNEApplicationWindow::onUpdSaveDataElements),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEDATA_AS,                    GNEApplicationWindow::onCmdSaveDataElementsAs),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEDATA_AS,                    GNEApplicationWindow::onUpdSaveDataElementsAs),
+    // meanDatas
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_OPENMEANDATAS,      GNEApplicationWindow::onCmdOpenMeanDatas),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_OPENMEANDATAS,      GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_RELOAD_MEANDATAS,   GNEApplicationWindow::onCmdReloadMeanDatas),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_RELOAD_MEANDATAS,   GNEApplicationWindow::onUpdReloadMeanDatas),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEMEANDATAS,      GNEApplicationWindow::onCmdSaveMeanDatas),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEMEANDATAS,      GNEApplicationWindow::onUpdSaveMeanDatas),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEMEANDATAS_AS,   GNEApplicationWindow::onCmdSaveMeanDatasAs),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEMEANDATAS_AS,   GNEApplicationWindow::onUpdSaveMeanDatasAs),
     // other
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS,             GNEApplicationWindow::onCmdSaveTLSProgramsAs),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS,             GNEApplicationWindow::onUpdSaveTLSPrograms),
@@ -2951,6 +2960,24 @@ GNEApplicationWindow::onUpdSaveDataElementsAs(FXObject* sender, FXSelector, void
 
 
 long
+GNEApplicationWindow::onUpdSaveMeanDatas(FXObject* sender, FXSelector, void*) {
+    if (myNet == nullptr) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else if (myNet->getViewNet()->getViewParent()->getTAZFrame()->getTAZSaveChangesModule()->isChangesPending()) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else {
+        return sender->handle(this, myNet->isMeanDatasSaved() ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    }
+}
+
+
+long
+GNEApplicationWindow::onUpdSaveMeanDatasAs(FXObject* sender, FXSelector, void*) {
+    return sender->handle(this, ((myNet == nullptr) || (myNet->getAttributeCarriers()->getNumberOfMeanDatas() == 0)) ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+}
+
+
+long
 GNEApplicationWindow::onUpdUndo(FXObject* obj, FXSelector sel, void* ptr) {
     return myUndoList->onUpdUndo(obj, sel, ptr);
 }
@@ -4347,6 +4374,207 @@ GNEApplicationWindow::onCmdSaveDataElementsAs(FXObject*, FXSelector, void*) {
         myFileMenuCommands.saveDataElements->enable();
         // save data elements
         return onCmdSaveDataElements(nullptr, 0, nullptr);
+    } else {
+        return 1;
+    }
+}
+
+
+long
+GNEApplicationWindow::onCmdOpenMeanDatas(FXObject*, FXSelector, void*) {
+    // write debug information
+    WRITE_DEBUG("Open meanData dialog");
+    // get the MeanData file name
+    FXFileDialog opendialog(this, TL("Open MeanDatas file"));
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::MODEMEANDATA));
+    opendialog.setSelectMode(SELECTFILE_EXISTING);
+    opendialog.setPatternList("XML files (*.xml,*.xml.gz)\nAll files (*)");
+    if (gCurrentFolder.length() != 0) {
+        opendialog.setDirectory(gCurrentFolder);
+    }
+    if (opendialog.execute()) {
+        // close meanData dialog
+        WRITE_DEBUG("Close meanData dialog");
+        // declare overwrite flag
+        bool overwriteElements = false;
+        // check if open question dialog box
+        if (opendialog.getFilename().text() == OptionsCont::getOptions().getString("meanData-files")) {
+            // open overwrite dialog
+            GNEOverwriteElementsDialog overwriteDialog(this, "meanData");
+            // continue depending of result
+            if (overwriteDialog.getResult() == GNEOverwriteElementsDialog::Result::CANCEL) {
+                // abort load
+                return 0;
+            } else if (overwriteDialog.getResult() == GNEOverwriteElementsDialog::Result::OVERWRITE) {
+                // enable overwriteElements
+                overwriteElements = true;
+            }
+        }
+        // save previous status save
+        const bool requireSaveMeanDatas = !myNet->isMeanDatasSaved();
+        const bool requireSaveDemandElements = !myNet->isDemandElementsSaved();
+        const bool requireSaveDataElements = !myNet->isDataElementsSaved();
+        // udpate current folder
+        gCurrentFolder = opendialog.getDirectory();
+        std::string file = opendialog.getFilename().text();
+        // disable validation for meanDatas
+        XMLSubSys::setValidation("never", "auto", "auto");
+        // Create meanData handler
+        GNEGeneralHandler generalHandler(myNet, file, true, overwriteElements);
+        // begin undoList operation
+        myUndoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, "reloading meanDatas from '" + file + "'");
+        // Run parser
+        if (!generalHandler.parse()) {
+            WRITE_ERROR("Loading of " + file + " failed.");
+        }
+        // enable demand elements if there is an error creating element
+        if (generalHandler.isErrorCreatingElement()) {
+            myNet->requireSaveMeanDatas(true);
+        }
+        // end undoList operation and update view
+        myUndoList->end();
+        update();
+        // restore validation for meanDatas
+        XMLSubSys::setValidation("auto", "auto", "auto");
+        // update require save meanData elements
+        myNet->requireSaveMeanDatas(requireSaveMeanDatas);
+        myNet->requireSaveDemandElements(requireSaveDemandElements);
+        myNet->requireSaveDataElements(requireSaveDataElements);
+        // change value of "meanData-files"
+        OptionsCont& oc = OptionsCont::getOptions();
+        oc.resetWritable();
+        oc.set("meanData-files", opendialog.getFilename().text());
+    } else {
+        // write debug information
+        WRITE_DEBUG("Cancel meanData dialog");
+    }
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onCmdReloadMeanDatas(FXObject*, FXSelector, void*) {
+    // get file
+    const std::string file = OptionsCont::getOptions().getString("meanData-files");
+    // disable validation for meanDatas
+    XMLSubSys::setValidation("never", "auto", "auto");
+    // Create general handler
+    GNEGeneralHandler generalHandler(myNet, file, true, true);
+    // begin undoList operation
+    myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODENETWORK, "reloading meanDatas from '" + file + "'");
+    // clear meanDatas
+    myNet->clearMeanDataElements(myUndoList);
+    // Run parser
+    if (!generalHandler.parse()) {
+        WRITE_ERROR("Reloading of " + file + " failed.");
+    }
+    // end undoList operation and update view
+    myUndoList->end();
+    update();
+    // restore validation for meanDatas
+    XMLSubSys::setValidation("auto", "auto", "auto");
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onUpdReloadMeanDatas(FXObject*, FXSelector, void*) {
+    // check if file exist
+    if (myViewNet && OptionsCont::getOptions().getString("meanData-files").empty()) {
+        return myFileMenuCommands.reloadMeanDatas->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else {
+        return myFileMenuCommands.reloadMeanDatas->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    }
+}
+
+
+long
+GNEApplicationWindow::onCmdSaveMeanDatas(FXObject*, FXSelector, void*) {
+    // obtain option container
+    OptionsCont& oc = OptionsCont::getOptions();
+    // check if save meanData menu is enabled
+    if (myFileMenuCommands.saveMeanDatas->isEnabled()) {
+        // Check if meanDatas file was already set at start of netedit or with a previous save
+        if (oc.getString("meanData-files").empty()) {
+            // declare current folder
+            FXString currentFolder = gCurrentFolder;
+            // check if there is a saved network
+            if (oc.getString("output-file").size() > 0) {
+                // extract folder
+                currentFolder = getFolder(oc.getString("output-file"));
+            }
+            // open dialog
+            FXString file = MFXUtils::getFilename2Write(this,
+                            TL("Save MeanDatas file"), ".xml",
+                            GUIIconSubSys::getIcon(GUIIcon::MODEMEANDATA),
+                            currentFolder);
+            // add xml extension
+            std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
+            // check tat file is valid
+            if (fileWithExtension != "") {
+                // change value of "meanData-files"
+                oc.resetWritable();
+                oc.set("meanData-files", fileWithExtension);
+            } else {
+                // None meanDatas file was selected, then stop function
+                return 0;
+            }
+        }
+        // Start saving meanDatas
+        getApp()->beginWaitCursor();
+        try {
+            // compute before saving (for detectors positions)
+            myNet->computeNetwork(this);
+            myNet->saveMeanDatas(oc.getString("meanData-files"));
+            myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "MeanDatas saved in " + oc.getString("meanData-files") + ".\n");
+            myFileMenuCommands.saveMeanDatas->disable();
+        } catch (IOError& e) {
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Opening FXMessageBox 'error saving meanDatas'");
+            // open error message box
+            FXMessageBox::error(this, MBOX_OK, TL("Saving meanDatas failed!"), "%s", e.what());
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Closed FXMessageBox 'error saving meanDatas' with 'OK'");
+        }
+        myMessageWindow->addSeparator();
+        getApp()->endWaitCursor();
+        // restore focus
+        setFocus();
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+
+long
+GNEApplicationWindow::onCmdSaveMeanDatasAs(FXObject*, FXSelector, void*) {
+    // obtain option container
+    OptionsCont& oc = OptionsCont::getOptions();
+    // declare current folder
+    FXString currentFolder = gCurrentFolder;
+    // check if there is a saved network
+    if (oc.getString("output-file").size() > 0) {
+        // extract folder
+        currentFolder = getFolder(oc.getString("output-file"));
+    }
+    // Open window to select meanData file
+    FXString file = MFXUtils::getFilename2Write(this,
+                    TL("Save MeanDatas file as"), ".xml",
+                    GUIIconSubSys::getIcon(GUIIcon::MODEMEANDATA),
+                    currentFolder);
+    // add xml extension
+    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
+    // check tat file is valid
+    if (fileWithExtension != "") {
+        // reset writtable flag
+        OptionsCont::getOptions().resetWritable();
+        // change value of "meanData-files"
+        OptionsCont::getOptions().set("meanData-files", fileWithExtension);
+        // change flag of menu command for save meanDatas
+        myFileMenuCommands.saveMeanDatas->enable();
+        // save meanDatas
+        return onCmdSaveMeanDatas(nullptr, 0, nullptr);
     } else {
         return 1;
     }

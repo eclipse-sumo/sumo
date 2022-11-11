@@ -254,6 +254,21 @@ public:
     /// @brief called when the command/FXCall save data elements as is executed
     long onCmdSaveDataElementsAs(FXObject*, FXSelector, void*);
 
+    /// @brief called when the command/FXCall open meanDatas is executed
+    long onCmdOpenMeanDatas(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall reload meanDatas is executed
+    long onCmdReloadMeanDatas(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall reload meanDatas is updated
+    long onUpdReloadMeanDatas(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save meanDatas is executed
+    long onCmdSaveMeanDatas(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save meanDatas as is executed
+    long onCmdSaveMeanDatasAs(FXObject*, FXSelector, void*);
+
     /// @brief called when the command/FXCall save network as is executed
     long onCmdSaveAsNetwork(FXObject*, FXSelector, void*);
 
@@ -292,6 +307,12 @@ public:
 
     /// @brief called when the update/FXCall save data elements as is executed
     long onUpdSaveDataElementsAs(FXObject*, FXSelector, void*);
+
+    /// @brief called when the update/FXCall save meanDatas is executed
+    long onUpdSaveMeanDatas(FXObject*, FXSelector, void*);
+
+    /// @brief called when the update/FXCall save meanDatas as is executed
+    long onUpdSaveMeanDatasAs(FXObject*, FXSelector, void*);
 
     /// @brief called when the update/FXCall undo is executed
     long onUpdUndo(FXObject* obj, FXSelector sel, void* ptr);

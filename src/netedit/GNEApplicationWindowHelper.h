@@ -212,6 +212,15 @@ struct GNEApplicationWindowHelper {
         /// @brief FXMenuCommand for reload data elements
         FXMenuCommand* reloadDataElements = nullptr;
 
+        /// @brief FXMenuCommand for enable or disable save meanDatas
+        FXMenuCommand* saveMeanDatas = nullptr;
+
+        /// @brief FXMenuCommand for enable or disable save meanDatas As
+        FXMenuCommand* saveMeanDatasAs = nullptr;
+
+        /// @brief FXMenuCommand for reload meanDatas
+        FXMenuCommand* reloadMeanDatas = nullptr;
+
     private:
         /// @brief pointer to current GNEApplicationWindows
         GNEApplicationWindow* myGNEApp;

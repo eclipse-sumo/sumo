@@ -168,140 +168,156 @@ void
 GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* fileMenu, FXMenuPane* fileMenuSUMOConfig, FXMenuPane* fileMenuTLS,
         FXMenuPane* fileMenuEdgeTypes, FXMenuPane* fileMenuAdditionals, FXMenuPane* fileMenuDemandElements, FXMenuPane* fileMenuDataElements) {
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-                                           "&New Network", "Ctrl+N", "Create a new network.",
-                                           GUIIconSubSys::getIcon(GUIIcon::NEW_NET), myGNEApp, MID_HOTKEY_CTRL_N_NEWNETWORK);
+        "&New Network", "Ctrl+N", "Create a new network.",
+        GUIIconSubSys::getIcon(GUIIcon::NEW_NET), myGNEApp, MID_HOTKEY_CTRL_N_NEWNETWORK);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-                                           "New Window", "Ctrl+Shift+N", "Open a new netedit window.",
-                                           nullptr, myGNEApp, MID_HOTKEY_CTRL_SHIFT_N_NEWWINDOW);
+        "New Window", "Ctrl+Shift+N", "Open a new netedit window.",
+        nullptr, myGNEApp, MID_HOTKEY_CTRL_SHIFT_N_NEWWINDOW);
     new FXMenuSeparator(fileMenu);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-                                           "&Open Network...", "Ctrl+O", "Open a SUMO network.",
-                                           GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), myGNEApp, MID_OPEN_NETWORK);
+        "&Open Network...", "Ctrl+O", "Open a SUMO network.",
+        GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), myGNEApp, MID_OPEN_NETWORK);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-                                           "Open Netconvert Configura&tion...", "Ctrl+Shift+O", "Open a configuration file with NETCONVERT options.",
-                                           GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), myGNEApp, MID_OPEN_CONFIG);
+        "Open Netconvert Configura&tion...", "Ctrl+Shift+O", "Open a configuration file with NETCONVERT options.",
+        GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), myGNEApp, MID_OPEN_CONFIG);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-                                           "Load SUMOConfig...", "Ctrl+M", "Load programs for traffic lights in the current net.",
-                                           GUIIconSubSys::getIcon(GUIIcon::OPEN_SUMOCONFIG), myGNEApp, MID_HOTKEY_CTRL_M_OPENSUMOCONFIG);
+        "Load SUMOConfig...", "Ctrl+M", "Load programs for traffic lights in the current net.",
+        GUIIconSubSys::getIcon(GUIIcon::OPEN_SUMOCONFIG), myGNEApp, MID_HOTKEY_CTRL_M_OPENSUMOCONFIG);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-                                           "Import &Foreign Network...", "", "Import a foreign network such as OSM.",
-                                           GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), myGNEApp, MID_GNE_TOOLBARFILE_OPENFOREIGN);
+        "Import &Foreign Network...", "", "Import a foreign network such as OSM.",
+        GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), myGNEApp, MID_GNE_TOOLBARFILE_OPENFOREIGN);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-                                           TL("&Reload"), "Ctrl+R", "Reload the network.",
-                                           GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_HOTKEY_CTRL_R_RELOAD);
+        TL("&Reload"), "Ctrl+R", "Reload the network.",
+        GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_HOTKEY_CTRL_R_RELOAD);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-                                           "&Save Network", "Ctrl+S", "Save the network.",
-                                           GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK);
+        "&Save Network", "Ctrl+S", "Save the network.",
+        GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-                                           "Save Net&work As...", "Ctrl+Shift+S", "Save the network to another file.",
-                                           GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORK_AS);
+        "Save Net&work As...", "Ctrl+Shift+S", "Save the network to another file.",
+        GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORK_AS);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-                                           "Save Plain XM&L...", "Ctrl+L", "Save plain XML representation the network.",
-                                           GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_HOTKEY_CTRL_L_SAVEASPLAINXML);
+        "Save Plain XM&L...", "Ctrl+L", "Save plain XML representation the network.",
+        GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_HOTKEY_CTRL_L_SAVEASPLAINXML);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-                                           "Save &Joined Junctions...", "", "Save log of joined junctions (allows reproduction of joins).",
-                                           GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_GNE_SAVEJOINEDJUNCTIONS);
+        "Save &Joined Junctions...", "", "Save log of joined junctions (allows reproduction of joins).",
+        GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_GNE_SAVEJOINEDJUNCTIONS);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-                                           "Save All Elements", "", "Save all elements (network, additional, demand and data)",
-                                           GUIIconSubSys::getIcon(GUIIcon::SAVEALLELEMENTS), myGNEApp, MID_GNE_SAVEALLELEMENTS);
+        "Save All Elements", "", "Save all elements (network, additional, demand and data)",
+        GUIIconSubSys::getIcon(GUIIcon::SAVEALLELEMENTS), myGNEApp, MID_GNE_SAVEALLELEMENTS);
     // create SUMOConfig menu options
     reloadSUMOConfig = GUIDesigns::buildFXMenuCommandShortcut(fileMenuSUMOConfig,
-                       "Reload SUMOConfig", "", "Reload SUMOConfig.",
-                       GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_SUMOCONFIG);
+        "Reload SUMOConfig", "", "Reload SUMOConfig.",
+        GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_SUMOCONFIG);
     saveSUMOConfig = GUIDesigns::buildFXMenuCommandShortcut(fileMenuSUMOConfig,
-                     "Save SUMOConfig", "Ctrl+Shift+M", "Save sumo config.",
-                     GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_HOTKEY_CTRL_SHIFT_M_SAVESUMOCONFIG);
+        "Save SUMOConfig", "Ctrl+Shift+M", "Save sumo config.",
+        GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_HOTKEY_CTRL_SHIFT_M_SAVESUMOCONFIG);
     saveSUMOConfig->disable();
     GUIDesigns::buildFXMenuCommandShortcut(fileMenuSUMOConfig,
-                                           "Save SUMOConfig As...", "", "Save sumo config in a new file.",
-                                           GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_GNE_TOOLBARFILE_SAVESUMOCONFIG_AS);
+        "Save SUMOConfig As...", "", "Save sumo config in a new file.",
+        GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_GNE_TOOLBARFILE_SAVESUMOCONFIG_AS);
     SUMOConfigMenuCascade = new FXMenuCascade(fileMenu, "SUMOConfig", GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI), fileMenuSUMOConfig);
     // create TLS menu options
     GUIDesigns::buildFXMenuCommandShortcut(fileMenuTLS,
-                                           "Load TLS Programs...", "Ctrl+K", "Load programs for traffic lights in the current net.",
-                                           GUIIconSubSys::getIcon(GUIIcon::OPEN_TLSPROGRAMS), myGNEApp, MID_HOTKEY_CTRL_K_OPENTLSPROGRAMS);
+        "Load TLS Programs...", "Ctrl+K", "Load programs for traffic lights in the current net.",
+        GUIIconSubSys::getIcon(GUIIcon::OPEN_TLSPROGRAMS), myGNEApp, MID_HOTKEY_CTRL_K_OPENTLSPROGRAMS);
     reloadTLSPrograms = GUIDesigns::buildFXMenuCommandShortcut(fileMenuTLS,
-                        "Reload TLS Programs", "", "Reload TLS Programs.",
-                        GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_TLSPROGRAMS);
+        "Reload TLS Programs", "", "Reload TLS Programs.",
+        GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_TLSPROGRAMS);
     saveTLSPrograms = GUIDesigns::buildFXMenuCommandShortcut(fileMenuTLS,
-                      "Save TLS Programs", "Ctrl+Shift+K", "Save all traffic light programs of the current net.",
-                      GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_HOTKEY_CTRL_SHIFT_K_SAVETLS);
+        "Save TLS Programs", "Ctrl+Shift+K", "Save all traffic light programs of the current net.",
+        GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_HOTKEY_CTRL_SHIFT_K_SAVETLS);
     saveTLSPrograms->disable();
     GUIDesigns::buildFXMenuCommandShortcut(fileMenuTLS,
-                                           "Save TLS Programs As...", "", "Save all traffic light programs of the current net to another file.",
-                                           GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS);
+        "Save TLS Programs As...", "", "Save all traffic light programs of the current net to another file.",
+        GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS);
     TLSMenuCascade = new FXMenuCascade(fileMenu, "Traffic Lights", GUIIconSubSys::getIcon(GUIIcon::MODETLS), fileMenuTLS);
     // create edgeTypes menu options
     GUIDesigns::buildFXMenuCommandShortcut(fileMenuEdgeTypes,
-                                           "Load Edge Types...", "Ctrl+H", "Load edge types in the current net.",
-                                           GUIIconSubSys::getIcon(GUIIcon::OPEN_TLSPROGRAMS), myGNEApp, MID_HOTKEY_CTRL_H_OPENEDGETYPES);
+        "Load Edge Types...", "Ctrl+H", "Load edge types in the current net.",
+        GUIIconSubSys::getIcon(GUIIcon::OPEN_TLSPROGRAMS), myGNEApp, MID_HOTKEY_CTRL_H_OPENEDGETYPES);
     reloadEdgeTypes = GUIDesigns::buildFXMenuCommandShortcut(fileMenuEdgeTypes,
-                      "Reload edge types", "", "Reload edge types.",
-                      GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_EDGETYPES);
+        "Reload edge types", "", "Reload edge types.",
+        GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_EDGETYPES);
     saveEdgeTypes = GUIDesigns::buildFXMenuCommandShortcut(fileMenuEdgeTypes,
-                    "Save Edge Types", "Ctrl+Shift+H", "Save edge types of the current net.",
-                    GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_HOTKEY_CTRL_SHIFT_H_SAVEEDGETYPES);
+        "Save Edge Types", "Ctrl+Shift+H", "Save edge types of the current net.",
+        GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_HOTKEY_CTRL_SHIFT_H_SAVEEDGETYPES);
     saveEdgeTypes->disable();
     GUIDesigns::buildFXMenuCommandShortcut(fileMenuEdgeTypes,
-                                           "Save Edge Types As...", "", "Save edge types of the current net to another file.",
-                                           GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_GNE_TOOLBARFILE_SAVEEDGETYPES_AS);
+        "Save Edge Types As...", "", "Save edge types of the current net to another file.",
+        GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_GNE_TOOLBARFILE_SAVEEDGETYPES_AS);
     edgeTypesMenuCascade = new FXMenuCascade(fileMenu, "Edge Types", GUIIconSubSys::getIcon(GUIIcon::MODECREATEEDGE), fileMenuEdgeTypes);
     // create Additionals menu options
     GUIDesigns::buildFXMenuCommandShortcut(fileMenuAdditionals,
-                                           "Load Additionals...", "Ctrl+A", "Load additionals and shapes.",
-                                           GUIIconSubSys::getIcon(GUIIcon::OPEN_ADDITIONALS), myGNEApp, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS);
+        "Load Additionals...", "Ctrl+A", "Load additionals and shapes.",
+        GUIIconSubSys::getIcon(GUIIcon::OPEN_ADDITIONALS), myGNEApp, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS);
     reloadAdditionals = GUIDesigns::buildFXMenuCommandShortcut(fileMenuAdditionals,
-                        "Reload Additionals", "", "Reload additionals.",
-                        GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_ADDITIONALS);
+        "Reload Additionals", "", "Reload additionals.",
+        GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_ADDITIONALS);
     reloadAdditionals->disable();
     saveAdditionals = GUIDesigns::buildFXMenuCommandShortcut(fileMenuAdditionals,
-                      "Save Additionals", "Ctrl+Shift+A", "Save additionals and shapes.",
-                      GUIIconSubSys::getIcon(GUIIcon::SAVEADDITIONALELEMENTS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS);
+        "Save Additionals", "Ctrl+Shift+A", "Save additionals and shapes.",
+        GUIIconSubSys::getIcon(GUIIcon::SAVEADDITIONALELEMENTS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS);
     saveAdditionals->disable();
     saveAdditionalsAs = GUIDesigns::buildFXMenuCommandShortcut(fileMenuAdditionals,
-                        "Save Additionals As...", "", "Save additional elements to another file.",
-                        GUIIconSubSys::getIcon(GUIIcon::SAVEADDITIONALELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS);
+        "Save Additionals As...", "", "Save additional elements to another file.",
+        GUIIconSubSys::getIcon(GUIIcon::SAVEADDITIONALELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS);
     saveAdditionalsAs->disable();
     additionalMenuCascade = new FXMenuCascade(fileMenu, "Additionals and Shapes", GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL), fileMenuAdditionals);
     // create DemandElements menu options
     GUIDesigns::buildFXMenuCommandShortcut(fileMenuDemandElements,
-                                           "Load Demand Elements...", "Ctrl+D", "Load demand elements.",
-                                           GUIIconSubSys::getIcon(GUIIcon::OPEN_ADDITIONALS), myGNEApp, MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMANDELEMENTS);
+        "Load Demand Elements...", "Ctrl+D", "Load demand elements.",
+        GUIIconSubSys::getIcon(GUIIcon::OPEN_ADDITIONALS), myGNEApp, MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMANDELEMENTS);
     reloadDemandElements = GUIDesigns::buildFXMenuCommandShortcut(fileMenuDemandElements,
-                           "Reload Demand Elements", "", "Reload demand elements.",
-                           GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_DEMANDELEMENTS);
+        "Reload Demand Elements", "", "Reload demand elements.",
+        GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_DEMANDELEMENTS);
     reloadDemandElements->disable();
     saveDemandElements = GUIDesigns::buildFXMenuCommandShortcut(fileMenuDemandElements,
-                         "Save Demand Elements", "Ctrl+Shift+D", "Save demand elements.",
-                         GUIIconSubSys::getIcon(GUIIcon::SAVEDEMANDELEMENTS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS);
+        "Save Demand Elements", "Ctrl+Shift+D", "Save demand elements.",
+        GUIIconSubSys::getIcon(GUIIcon::SAVEDEMANDELEMENTS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS);
     saveDemandElements->disable();
     saveDemandElementsAs = GUIDesigns::buildFXMenuCommandShortcut(fileMenuDemandElements,
-                           "Save Demand Elements As...", "", "Save demand elements to another file.",
-                           GUIIconSubSys::getIcon(GUIIcon::SAVEDEMANDELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEDEMAND_AS);
+        "Save Demand Elements As...", "", "Save demand elements to another file.",
+        GUIIconSubSys::getIcon(GUIIcon::SAVEDEMANDELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEDEMAND_AS);
     saveDemandElementsAs->disable();
     demandMenuCascade = new FXMenuCascade(fileMenu, "Demand Elements", GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND), fileMenuDemandElements);
     // create DataElements menu options
     GUIDesigns::buildFXMenuCommandShortcut(fileMenuDataElements,
-                                           "Load Data Elements...", "Ctrl+B", "Load data elements.",
-                                           GUIIconSubSys::getIcon(GUIIcon::OPEN_ADDITIONALS), myGNEApp, MID_HOTKEY_CTRL_B_EDITBREAKPOINT_OPENDATAELEMENTS);
+        "Load Data Elements...", "Ctrl+B", "Load data elements.",
+        GUIIconSubSys::getIcon(GUIIcon::OPEN_ADDITIONALS), myGNEApp, MID_HOTKEY_CTRL_B_EDITBREAKPOINT_OPENDATAELEMENTS);
     reloadDataElements = GUIDesigns::buildFXMenuCommandShortcut(fileMenuDataElements,
-                         "Reload Data Elements", "", "Reload data elements.",
-                         GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_DATAELEMENTS);
+        "Reload Data Elements", "", "Reload data elements.",
+        GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_DATAELEMENTS);
     reloadDataElements->disable();
     saveDataElements = GUIDesigns::buildFXMenuCommandShortcut(fileMenuDataElements,
-                       "Save Data Elements", "Ctrl+Shift+B", "Save data elements.",
-                       GUIIconSubSys::getIcon(GUIIcon::SAVEDATAELEMENTS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS);
+        "Save Data Elements", "Ctrl+Shift+B", "Save data elements.",
+        GUIIconSubSys::getIcon(GUIIcon::SAVEDATAELEMENTS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS);
     saveDataElements->disable();
     saveDataElementsAs = GUIDesigns::buildFXMenuCommandShortcut(fileMenuDataElements,
-                         "Save Data Elements As...", "", "Save data elements to another file.",
-                         GUIIconSubSys::getIcon(GUIIcon::SAVEDATAELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEDATA_AS);
+        "Save Data Elements As...", "", "Save data elements to another file.",
+        GUIIconSubSys::getIcon(GUIIcon::SAVEDATAELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEDATA_AS);
     saveDataElementsAs->disable();
+    // create MeanDatas menu options
+    GUIDesigns::buildFXMenuCommandShortcut(fileMenuDataElements,
+        "Load MeanDatas...", "Ctrl+A", "Load meanDatas and shapes.",
+        GUIIconSubSys::getIcon(GUIIcon::OPEN_MEANDATAS), myGNEApp, MID_GNE_TOOLBARFILE_OPENMEANDATAS);
+    reloadMeanDatas = GUIDesigns::buildFXMenuCommandShortcut(fileMenuDataElements,
+        "Reload MeanDatas", "", "Reload meanDatas.",
+        GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_MEANDATAS);
+    reloadMeanDatas->disable();
+    saveMeanDatas = GUIDesigns::buildFXMenuCommandShortcut(fileMenuDataElements,
+        "Save MeanDatas", "Ctrl+Shift+A", "Save meanDatas and shapes.",
+        GUIIconSubSys::getIcon(GUIIcon::SAVEMEANDATAELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEMEANDATAS);
+    saveMeanDatas->disable();
+    saveMeanDatasAs = GUIDesigns::buildFXMenuCommandShortcut(fileMenuDataElements,
+        "Save MeanDatas As...", "", "Save meanData elements to another file.",
+        GUIIconSubSys::getIcon(GUIIcon::SAVEMEANDATAELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEMEANDATAS_AS);
+    saveMeanDatasAs->disable();
     dataMenuCascade = new FXMenuCascade(fileMenu, "Data Elements", GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA), fileMenuDataElements);
     // close network
     new FXMenuSeparator(fileMenu);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-                                           "Close", "Ctrl+W", "Close the network.",
-                                           GUIIconSubSys::getIcon(GUIIcon::CLOSE), myGNEApp, MID_HOTKEY_CTRL_W_CLOSESIMULATION);
+        "Close", "Ctrl+W", "Close the network.",
+        GUIIconSubSys::getIcon(GUIIcon::CLOSE), myGNEApp, MID_HOTKEY_CTRL_W_CLOSESIMULATION);
 }
 
 // ---------------------------------------------------------------------------
