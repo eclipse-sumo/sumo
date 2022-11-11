@@ -115,7 +115,7 @@ def getEdges(elem, taz, routeDict):
     if elem.edges:
         edges = elem.edges.split()
     if elem.route:
-        if type(elem.route) != list: 
+        if type(elem.route) != list:
             # named route
             edges = routeDict.get(elem.route, [])
             if not edges:
@@ -182,7 +182,7 @@ def parseSimple(outf, options):
                     print(("Warning: Cannot handle named routes in file '%s'." +
                            " Use option --elements vehicle,flows instead") % routefile,
                           file=sys.stderr)
-                    break;
+                    break
             for route in parse_fast(routefile, element, ['edges']):
                 edges = route.edges.split()
                 if not hasSubpart(edges, options.subparts):
@@ -234,12 +234,12 @@ def parseTimed(outf, options):
     period = options.period if options.period else options.end
     begin = options.begin
     periodEnd = options.period if options.period else options.end
-    routeDict = {} # routeID -> edges
+    routeDict = {}  # routeID -> edges
 
     # parse named routes
     for routefile in options.routefiles:
         for elem in parse(routefile, 'route'):
-            if elem.id: 
+            if elem.id:
                 src, dst, edges = getEdges(elem, False, None)
                 routeDict[elem.id] = edges
 
