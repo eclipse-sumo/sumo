@@ -41,6 +41,7 @@ enum class GUIIcon {
     OPEN_NET,
     OPEN_SHAPES,
     OPEN_ADDITIONALS,
+    OPEN_MEANDATAS,
     OPEN_TLSPROGRAMS,
     OPEN_SUMOCONFIG,
     NEW_NET,
@@ -301,6 +302,7 @@ enum class GUIIcon {
     SAVEADDITIONALELEMENTS,
     SAVEDEMANDELEMENTS,
     SAVEDATAELEMENTS,
+    SAVEMEANDATAELEMENTS,
     /// @}
 
     /// @name netedit supermode icons

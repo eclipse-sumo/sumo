@@ -204,6 +204,7 @@
 #include "saveaditionalelements.xpm"
 #include "savedemandelements.xpm"
 #include "savedataelements.xpm"
+#include "savemeandataelements.xpm"
 
 #include "supermodenetwork.xpm"
 #include "supermodedemand.xpm"
@@ -465,6 +466,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::OPEN_NET] = new FXXPMIcon(a, netopen_xpm);
     myIcons[GUIIcon::OPEN_SHAPES] = new FXXPMIcon(a, shapeopen_xpm);
     myIcons[GUIIcon::OPEN_ADDITIONALS] = new FXXPMIcon(a, shapeopen_xpm);
+    myIcons[GUIIcon::OPEN_MEANDATAS] = new FXXPMIcon(a, shapeopen_xpm);
     myIcons[GUIIcon::OPEN_TLSPROGRAMS] = new FXXPMIcon(a, shapeopen_xpm);
     myIcons[GUIIcon::OPEN_SUMOCONFIG] = new FXXPMIcon(a, fileopen_xpm);
     myIcons[GUIIcon::NEW_NET] = new FXXPMIcon(a, newnet_xpm);
@@ -641,6 +643,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::SAVEADDITIONALELEMENTS] = new FXXPMIcon(a, saveadditionalelements_xpm);
     myIcons[GUIIcon::SAVEDEMANDELEMENTS] = new FXXPMIcon(a, savedemandelements_xpm);
     myIcons[GUIIcon::SAVEDATAELEMENTS] = new FXXPMIcon(a, savedataelements_xpm);
+    myIcons[GUIIcon::SAVEMEANDATAELEMENTS] = new FXXPMIcon(a, savemeandataelements_xpm);
 
     myIcons[GUIIcon::SUPERMODENETWORK] = new FXXPMIcon(a, supermodenetwork_xpm);
     myIcons[GUIIcon::SUPERMODEDEMAND] = new FXXPMIcon(a, supermodedemand_xpm);
