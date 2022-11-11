@@ -34,6 +34,11 @@ from matplotlib.collections import LineCollection  # noqa
 # http://datadebrief.blogspot.de/2010/10/plotting-sunrise-sunset-times-in-python.html
 
 
+def m2hm0(x, i):
+    h = int(x / 3600)
+    return '%(h)02d' % {'h': h}
+
+
 def m2hm1(x, i):
     h = int(x / 3600)
     m = int((x % 3600) / 60)
@@ -62,6 +67,10 @@ def addPlotOptions(optParser):
                          default=None, help="Set x-axis ticks <XMIN>,<XMAX>,<XSTEP>,<XSIZE> or <XSIZE>")
     optParser.add_option("--yticks", dest="yticks",
                          default=None, help="Set y-axis ticks <YMIN>,<YMAX>,<YSTEP>,<YSIZE> or <YSIZE>")
+    optParser.add_option("--xtime0", dest="xtime0", action="store_true",
+                         default=False, help="Use a time formatter for x-ticks (hh)")
+    optParser.add_option("--ytime0", dest="ytime0", action="store_true",
+                         default=False, help="Use a time formatter for y-ticks (hh)")
     optParser.add_option("--xtime1", dest="xtime1", action="store_true",
                          default=False, help="Use a time formatter for x-ticks (hh:mm)")
     optParser.add_option("--ytime1", dest="ytime1", action="store_true",
@@ -136,6 +145,8 @@ def applyPlotOptions(fig, ax, options):
         else:
             raise ValueError(
                 "Error: ticks must be given as one float (<SIZE>) or four floats (<MIN>,<MAX>,<STEP>,<SIZE>)")
+    if options.xtime0:
+        ax.xaxis.set_major_formatter(ff(m2hm0))   
     if options.xtime1:
         ax.xaxis.set_major_formatter(ff(m2hm1))
     if options.xtime2:
@@ -162,6 +173,8 @@ def applyPlotOptions(fig, ax, options):
         else:
             raise ValueError(
                 "Error: ticks must be given as one float (<SIZE>) or four floats (<MIN>,<MAX>,<STEP>,<SIZE>)")
+    if options.ytime0:
+        ax.yaxis.set_major_formatter(ff(m2hm0))  
     if options.ytime1:
         ax.yaxis.set_major_formatter(ff(m2hm1))
     if options.ytime2:
