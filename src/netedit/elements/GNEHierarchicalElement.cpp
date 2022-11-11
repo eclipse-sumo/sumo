@@ -143,6 +143,12 @@ GNEHierarchicalElement::getParentGenericDatas() const {
 }
 
 
+const std::vector<GNEMeanData*>&
+GNEHierarchicalElement::getParentMeanDatas() const {
+    return myHierarchicalContainer.getParents<std::vector<GNEMeanData*> >();
+}
+
+
 const std::vector<GNEJunction*>&
 GNEHierarchicalElement::getChildJunctions() const {
     return myHierarchicalContainer.getChildren<std::vector<GNEJunction*> >();
@@ -176,6 +182,12 @@ GNEHierarchicalElement::getChildDemandElements() const {
 const std::vector<GNEGenericData*>&
 GNEHierarchicalElement::getChildGenericDatas() const {
     return myHierarchicalContainer.getChildren<std::vector<GNEGenericData*> >();
+}
+
+
+const std::vector<GNEMeanData*>&
+GNEHierarchicalElement::getChildMeanDatas() const {
+    return myHierarchicalContainer.getChildren<std::vector<GNEMeanData*> >();
 }
 
 
@@ -386,25 +398,25 @@ bool
 GNEHierarchicalElement::checkChildAdditionalsOverlapping() const {
     // declare a vector to keep sorted children
     std::vector<std::pair<std::pair<double, double>, GNEAdditional*> > sortedChildren;
-    // iterate over child additional
-    for (const auto& additional : getChildAdditionals()) {
-        sortedChildren.push_back(std::make_pair(std::make_pair(0., 0.), additional));
+    // iterate over child meanData
+    for (const auto& meanData : getChildAdditionals()) {
+        sortedChildren.push_back(std::make_pair(std::make_pair(0., 0.), meanData));
         // set begin/start attribute
-        if (additional->getTagProperty().hasAttribute(SUMO_ATTR_TIME) && GNEAttributeCarrier::canParse<double>(additional->getAttribute(SUMO_ATTR_TIME))) {
-            sortedChildren.back().first.first = additional->getAttributeDouble(SUMO_ATTR_TIME);
-        } else if (additional->getTagProperty().hasAttribute(SUMO_ATTR_BEGIN) && GNEAttributeCarrier::canParse<double>(additional->getAttribute(SUMO_ATTR_BEGIN))) {
-            sortedChildren.back().first.first = additional->getAttributeDouble(SUMO_ATTR_BEGIN);
+        if (meanData->getTagProperty().hasAttribute(SUMO_ATTR_TIME) && GNEAttributeCarrier::canParse<double>(meanData->getAttribute(SUMO_ATTR_TIME))) {
+            sortedChildren.back().first.first = meanData->getAttributeDouble(SUMO_ATTR_TIME);
+        } else if (meanData->getTagProperty().hasAttribute(SUMO_ATTR_BEGIN) && GNEAttributeCarrier::canParse<double>(meanData->getAttribute(SUMO_ATTR_BEGIN))) {
+            sortedChildren.back().first.first = meanData->getAttributeDouble(SUMO_ATTR_BEGIN);
         }
         // set end attribute
-        if (additional->getTagProperty().hasAttribute(SUMO_ATTR_END) && GNEAttributeCarrier::canParse<double>(additional->getAttribute(SUMO_ATTR_END))) {
-            sortedChildren.back().first.second = additional->getAttributeDouble(SUMO_ATTR_END);
+        if (meanData->getTagProperty().hasAttribute(SUMO_ATTR_END) && GNEAttributeCarrier::canParse<double>(meanData->getAttribute(SUMO_ATTR_END))) {
+            sortedChildren.back().first.second = meanData->getAttributeDouble(SUMO_ATTR_END);
         } else {
             sortedChildren.back().first.second = sortedChildren.back().first.first;
         }
     }
     // sort children
     std::sort(sortedChildren.begin(), sortedChildren.end());
-    // make sure that number of sorted children is the same as the child additional
+    // make sure that number of sorted children is the same as the child meanData
     if (sortedChildren.size() == getChildAdditionals().size()) {
         if (sortedChildren.size() <= 1) {
             return true;
@@ -418,7 +430,7 @@ GNEHierarchicalElement::checkChildAdditionalsOverlapping() const {
         }
         return true;
     } else {
-        throw ProcessError("Some child additional were lost during sorting");
+        throw ProcessError("Some child meanData were lost during sorting");
     }
 }
 
