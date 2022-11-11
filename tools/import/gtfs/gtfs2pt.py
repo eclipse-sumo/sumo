@@ -229,7 +229,7 @@ def generate_polygons(net, routes, outfile):
         outf.write('</polygons>\n')
 
 
-def map_stops(options, net, routes, rout):
+def map_stops(options, net, routes, rout, edgeMap):
     stops = defaultdict(list)
     stopDef = set()
     rid = None
@@ -243,7 +243,7 @@ def map_stops(options, net, routes, rout):
             print("Reading", typedNetFile)
         typedNet = sumolib.net.readNet(typedNetFile)
         seen = set()
-        fixed = set()
+        fixed = {}
         for veh in sumolib.xml.parse_fast(inp, "vehicle", ("id", "x", "y", "until", "name",
                                                            "fareZone", "fareSymbol", "startFare")):
             addAttrs = ' friendlyPos="true" name="%s"' % veh.attr_name
@@ -261,15 +261,14 @@ def map_stops(options, net, routes, rout):
                     print("Warning! Not mapped", rid)
                     seen.add(rid)
                 continue
-            route = routes[rid]
             if rid not in fixed:
-                routeFixed = [route[0]]
-                for routeEdgeID in route[1:]:
+                routeFixed = [routes[rid][0]]
+                for routeEdgeID in routes[rid][1:]:
                     path, _ = typedNet.getShortestPath(typedNet.getEdge(routeFixed[-1]), typedNet.getEdge(routeEdgeID))
                     if path is None or len(path) > options.fill_gaps + 2:
                         error = "no path found" if path is None else "path too long (%s)" % len(path)
                         print("Warning! Disconnected route '%s', %s. Keeping longer part." % (rid, error))
-                        if len(routeFixed) > len(route) // 2:
+                        if len(routeFixed) > len(routes[rid]) // 2:
                             break
                         routeFixed = [routeEdgeID]
                     else:
@@ -278,34 +277,32 @@ def map_stops(options, net, routes, rout):
                         routeFixed += [e.getID() for e in path[1:]]
                 if rid not in routes:
                     continue
-                route = routes[rid] = routeFixed
-                fixed.add(rid)
+                routes[rid] = routeFixed
+                fixed[rid] = [edgeMap[e] for e in routeFixed]
+            route = fixed[rid]
             if railType == "bus":
                 stopLength = options.bus_stop_length
             elif railType == "tram":
                 stopLength = options.tram_stop_length
             else:
                 stopLength = options.train_stop_length
-            result = gtfs2osm.getBestLane(typedNet, veh.x, veh.y, 200, stopLength,
+            result = gtfs2osm.getBestLane(net, veh.x, veh.y, 200, stopLength,
                                           route[lastIndex:], railType, lastPos)
             if result is None:
                 if options.warn_unmapped:
                     print("Warning! No stop for coordinates %.2f, %.2f" % (veh.x, veh.y), "on", veh)
                 continue
             laneID, start, end = result
-            lane = typedNet.getLane(laneID)
-            edgeID = lane.getEdge().getID()
+            edgeID = laneID.rsplit("_", 1)[0]
             lastIndex = route.index(edgeID, lastIndex)
             lastPos = end
-            origEdgeID = lane.getParam("origId", edgeID)
-            origLaneID = "%s_%s" % (origEdgeID, lane.getIndex())
-            stop = "%s:%.2f" % (origEdgeID, end)
+            stop = "%s:%.2f" % (edgeID, end)
             if stop not in stopDef:
                 stopDef.add(stop)
                 typ = "busStop" if railType == "bus" else "trainStop"
                 rout.write(u'    <%s id="%s" lane="%s" startPos="%.2f" endPos="%.2f"%s>\n%s' %
-                           (typ, stop, origLaneID, start, end, addAttrs, params))
-                for a in gtfs2osm.getAccess(net, veh.x, veh.y, 100, origLaneID):
+                           (typ, stop, laneID, start, end, addAttrs, params))
+                for a in gtfs2osm.getAccess(net, veh.x, veh.y, 100, laneID):
                     rout.write(a)
                 rout.write(u'    </%s>\n' % typ)
             stops[rid].append((stop, int(veh.until)))
@@ -408,7 +405,7 @@ def main(options):
             generate_polygons(net, routes, options.poly_output)
         with io.open(options.additional_output, 'w', encoding="utf8") as rout:
             sumolib.xml.writeHeader(rout, os.path.basename(__file__), "additional")
-            stops = map_stops(options, net, routes, rout)
+            stops = map_stops(options, net, routes, rout, edgeMap)
             for vehID, edges in routes.items():
                 if edges:
                     rout.write(u'    <route id="%s" edges="%s">\n' % (vehID, " ".join([edgeMap[e] for e in edges])))

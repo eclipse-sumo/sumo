@@ -108,6 +108,11 @@ def import_gtfs(options, gtfsZip):
     calendar_dates = pd.read_csv(gtfsZip.open('calendar_dates.txt'), dtype=str)
     calendar = pd.read_csv(gtfsZip.open('calendar.txt'), dtype=str)
 
+    if 'trip_headsign' not in trips:
+        trips['trip_headsign'] = ''
+    if 'route_short_name' not in routes:
+        routes['route_short_name'] = routes['route_long_name']
+
     # for some obscure reason there are GTFS files which have the sequence index as a float
     stop_times['stop_sequence'] = stop_times['stop_sequence'].astype(float, copy=False)
 
@@ -479,7 +484,7 @@ def map_gtfs_osm(options, net, osm_routes, gtfs_data, shapes, shapes_dict, filte
         stop_mapped = False
         for stop in stop_items[row.stop_id]:
             # for item of mapped stop
-            stop_edge = map_stops[stop][1].split("_")[0]
+            stop_edge = map_stops[stop][1].rsplit("_", 1)[0]
             if stop_edge in map_routes[row.shape_id][1]:
                 # if edge in route, the stops are the same
                 # intersect the edge set
@@ -495,7 +500,7 @@ def map_gtfs_osm(options, net, osm_routes, gtfs_data, shapes, shapes_dict, filte
                 access = getAccess(net, row.stop_lon, row.stop_lat, 100, lane_id)
                 map_stops[stop][1:7] = [lane_id, start, end, access, pt_type, edge_inter]
                 # update edge in data frame
-                stop_edge = lane_id.split("_")[0]
+                stop_edge = lane_id.rsplit("_", 1)[0]
                 gtfs_data.loc[gtfs_data["stop_item_id"] == stop, "edge_id"] = stop_edge
             # add to data frame
             _addToDataFrame(gtfs_data, row, shapes_dict, stop, stop_edge)
@@ -611,10 +616,11 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                             str(row.arrival_fixed).split(' ')[2],
                             min(stop_index), max(stop_index), pt_type)
                 output_file.write(u'    <vehicle id="%s.%s" route="%s" line="%s_%s" depart="%s:%s" departEdge="%s" arrivalEdge="%s" type="%s">\n' % veh_attr)  # noqa
-                output_file.write(u'        <param key="gtfs.route_short_name" value=%s/>\n' %
+                output_file.write(u'        <param key="gtfs.route_name" value=%s/>\n' %
                                   sumolib.xml.quoteattr(str(row.route_short_name), True))
-                output_file.write(u'        <param key="gtfs.trip_headsign" value=%s/>\n' %
-                                  sumolib.xml.quoteattr(str(row.trip_headsign), True))
+                if row.trip_headsign:
+                    output_file.write(u'        <param key="gtfs.trip_headsign" value=%s/>\n' %
+                                      sumolib.xml.quoteattr(str(row.trip_headsign), True))
                 check_seq = -1
                 for stop in stop_list.itertuples():
                     if not stop.stop_item_id:

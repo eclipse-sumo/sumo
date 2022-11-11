@@ -147,10 +147,11 @@ def main(options):
                     timeIndex = arrivalSec
                 tripFile[mode].write(u'    <vehicle id="%s" route="%s" type="%s" depart="%s" line="%s">\n' %
                                      (trip_id, seqs[s], mode, firstDep, seqs[s]))
-                tripFile[mode].write(u'        <param key="gtfs.route_short_name" value=%s/>\n' %
+                tripFile[mode].write(u'        <param key="gtfs.route_name" value=%s/>\n' %
                                      sumolib.xml.quoteattr(str(d.route_short_name), True))
-                tripFile[mode].write(u'        <param key="gtfs.trip_headsign" value=%s/>\n' %
-                                     sumolib.xml.quoteattr(str(d.trip_headsign), True))
+                if d.trip_headsign:
+                    tripFile[mode].write(u'        <param key="gtfs.trip_headsign" value=%s/>\n' %
+                                         sumolib.xml.quoteattr(str(d.trip_headsign), True))
                 tripFile[mode].write(u'    </vehicle>\n')
                 seenModes.add(mode)
     if options.gpsdat:
