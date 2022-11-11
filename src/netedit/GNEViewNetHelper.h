@@ -117,7 +117,9 @@ enum class DataEditMode {
     /// @brief mode for create edgeRelData elements
     DATA_EDGERELDATA,
     /// @brief mode for create TAZRelData elements
-    DATA_TAZRELDATA
+    DATA_TAZRELDATA,
+    /// @brief mode for create meanData elements
+    DATA_MEANDATA
 };
 
 // ===========================================================================
@@ -1303,13 +1305,16 @@ struct GNEViewNetHelper {
         void updateDataCheckableButtons();
 
         /// @brief checkable button for edit mode "edgeData"
-        MFXCheckableButton* edgeDataButton;
+        MFXCheckableButton* edgeDataButton = nullptr;
 
         /// @brief checkable button for edit mode "edgeRelData"
-        MFXCheckableButton* edgeRelDataButton;
+        MFXCheckableButton* edgeRelDataButton = nullptr;
 
         /// @brief checkable button for edit mode "TAZRelData"
-        MFXCheckableButton* TAZRelDataButton;
+        MFXCheckableButton* TAZRelDataButton = nullptr;
+        
+        /// @brief checkable button for edit mode "meanData"
+        MFXCheckableButton* meanDataButton = nullptr;
 
     private:
         /// @brief pointer to net

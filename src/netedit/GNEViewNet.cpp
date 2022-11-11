@@ -37,6 +37,7 @@
 #include <netedit/frames/data/GNEEdgeDataFrame.h>
 #include <netedit/frames/data/GNEEdgeRelDataFrame.h>
 #include <netedit/frames/data/GNETAZRelDataFrame.h>
+#include <netedit/frames/data/GNEMeanDataFrame.h>
 #include <netedit/frames/demand/GNEContainerFrame.h>
 #include <netedit/frames/demand/GNEContainerPlanFrame.h>
 #include <netedit/frames/demand/GNEPersonFrame.h>
@@ -90,7 +91,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_D_MODE_DELETE,                        GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_E_MODE_EDGE_EDGEDATA,                 GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_I_MODE_INSPECT,                       GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_M_MODE_MOVE,                          GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_M_MODE_MOVE_MEANDATA,                 GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_P_MODE_POLYGON_PERSON,                GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA,    GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_S_MODE_SELECT,                        GNEViewNet::onCmdSetMode),
@@ -1947,7 +1948,7 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
             case MID_HOTKEY_S_MODE_SELECT:
                 myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_SELECT);
                 break;
-            case MID_HOTKEY_M_MODE_MOVE:
+            case MID_HOTKEY_M_MODE_MOVE_MEANDATA:
                 myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_MOVE);
                 break;
             case MID_HOTKEY_E_MODE_EDGE_EDGEDATA:
@@ -1998,7 +1999,7 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
             case MID_HOTKEY_S_MODE_SELECT:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_SELECT);
                 break;
-            case MID_HOTKEY_M_MODE_MOVE:
+            case MID_HOTKEY_M_MODE_MOVE_MEANDATA:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_MOVE);
                 break;
             case MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA:
@@ -2042,6 +2043,9 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
                 break;
             case MID_HOTKEY_Z_MODE_TAZ_TAZREL:
                 myEditModes.setDataEditMode(DataEditMode::DATA_TAZRELDATA);
+                break;
+            case MID_HOTKEY_M_MODE_MOVE_MEANDATA:
+                myEditModes.setDataEditMode(DataEditMode::DATA_MEANDATA);
                 break;
         }
     }
@@ -4860,6 +4864,13 @@ GNEViewNet::updateDataModeSpecificControls() {
             menuChecks.menuCheckToggleTAZRelOnlyFrom->show();
             menuChecks.menuCheckToggleTAZRelOnlyTo->show();
             break;
+        case DataEditMode::DATA_MEANDATA:
+            myViewParent->getMeanDataFrame()->show();
+            myViewParent->getMeanDataFrame()->focusUpperElement();
+            myCurrentFrame = myViewParent->getMeanDataFrame();
+            // set checkable button
+            myDataCheckableButtons.meanDataButton->setChecked(true);
+            break;
         default:
             break;
     }
@@ -5902,6 +5913,14 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
                     // update view to show the new TAZ data
                     updateViewNet();
                 }
+            }
+            // process click
+            processClick(eventData);
+            break;
+        case DataEditMode::DATA_MEANDATA:
+            // avoid create TAZData if control key is pressed
+            if (!myMouseButtonKeyPressed.controlKeyPressed()) {
+                //
             }
             // process click
             processClick(eventData);
