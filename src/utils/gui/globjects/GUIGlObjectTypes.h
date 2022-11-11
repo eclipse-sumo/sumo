@@ -238,6 +238,10 @@ enum GUIGlObjectType {
     GLO_EDGERELDATA = 501,
     /// @brief TAZ relation data
     GLO_TAZRELDATA = 502,
+    /// @brief MeanData over edges
+    GLO_MEANDATAEDGE = 550,
+    /// @brief MeanData over lanes
+    GLO_MEANDATALANE = 551,
 
     /// @}
 
