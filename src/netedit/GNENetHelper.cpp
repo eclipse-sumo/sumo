@@ -65,6 +65,11 @@ GNENetHelper::AttributeCarriers::AttributeCarriers(GNENet* net) :
     for (const auto& genericDataElementTag : genericDataElementTags) {
         myGenericDatas.insert(std::make_pair(genericDataElementTag.getTag(), std::set<GNEGenericData*>()));
     }
+    // fill meanDatas with tags
+    auto meanDataTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::MEANDATAELEMENT);
+    for (const auto& meanDataTag : meanDataTags) {
+        myMeanDatas.insert(std::make_pair(meanDataTag.getTag(), std::set<GNEMeanData*>()));
+    }
 }
 
 
@@ -124,6 +129,16 @@ GNENetHelper::AttributeCarriers::~AttributeCarriers() {
         // show extra information for tests
         WRITE_DEBUG("Deleting unreferenced " + dataSet->getTagStr() + " in AttributeCarriers destructor");
         delete dataSet;
+    }
+    // Drop MeanDatas (Only used for meanDatas that were inserted without using GNEChange_MeanData)
+    for (const auto& meanDataTag : myMeanDatas) {
+        for (const auto& meanData : meanDataTag.second) {
+            // decrease reference manually (because it was increased manually in GNEMeanDataHandler)
+            meanData->decRef();
+            // show extra information for tests
+            WRITE_DEBUG("Deleting unreferenced " + meanData->getTagStr() + " in AttributeCarriers destructor");
+            delete meanData;
+        }
     }
 }
 
@@ -258,6 +273,10 @@ GNENetHelper::AttributeCarriers::retrieveAttributeCarriers(SumoXMLTag tag) {
         for (const auto& genericData : myGenericDatas.at(tag)) {
             result.push_back(genericData);
         }
+    } else if ((tag == SUMO_TAG_NOTHING) || (GNEAttributeCarrier::getTagProperty(tag).isMeanDataElement())) {
+        for (const auto& meanData : myMeanDatas.at(tag)) {
+            result.push_back(meanData);
+        }
     }
     return result;
 }
@@ -324,6 +343,13 @@ GNENetHelper::AttributeCarriers::retrieveAttributeCarriers(Supermode supermode, 
             for (const auto& genericData : genericDataSet.second) {
                 if (!onlySelected || genericData->isAttributeCarrierSelected()) {
                     result.push_back(genericData);
+                }
+            }
+        }
+        for (const auto& meanDataSet : myMeanDatas) {
+            for (const auto& meanData : meanDataSet.second) {
+                if (!onlySelected || meanData->isAttributeCarrierSelected()) {
+                    result.push_back(meanData);
                 }
             }
         }
@@ -2032,6 +2058,100 @@ GNENetHelper::AttributeCarriers::retrieveGenericDataParameters(const std::string
 }
 
 
+GNEMeanData*
+GNENetHelper::AttributeCarriers::retrieveMeanData(SumoXMLTag type, const std::string& id, bool hardFail) const {
+    for (const auto& meanData : myMeanDatas.at(type)) {
+        if (meanData->getID() == id) {
+            return meanData;
+        }
+    }
+    if (hardFail) {
+        throw ProcessError("Attempted to retrieve non-existant meanData (string)");
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNEMeanData*
+GNENetHelper::AttributeCarriers::retrieveMeanData(GNEAttributeCarrier* AC, bool hardFail) const {
+    // cast meanData
+    GNEMeanData* meanData = dynamic_cast<GNEMeanData*>(AC);
+    if (meanData && (myMeanDatas.at(AC->getTagProperty().getTag()).count(meanData) > 0)) {
+        return meanData;
+    } else if (hardFail) {
+        throw ProcessError("Attempted to retrieve non-existant meanData (AttributeCarrier)");
+    } else {
+        return nullptr;
+    }
+}
+
+
+const std::map<SumoXMLTag, std::set<GNEMeanData*> >&
+GNENetHelper::AttributeCarriers::getMeanDatas() const {
+    return myMeanDatas;
+}
+
+
+std::vector<GNEMeanData*>
+GNENetHelper::AttributeCarriers::getSelectedMeanDatas() const {
+    std::vector<GNEMeanData*> result;
+    // returns meanDatas depending of selection
+    for (const auto& meanDatasTags : myMeanDatas) {
+        for (const auto& meanData : meanDatasTags.second) {
+            if (meanData->isAttributeCarrierSelected()) {
+                result.push_back(meanData);
+            }
+        }
+    }
+    return result;
+}
+
+
+int
+GNENetHelper::AttributeCarriers::getNumberOfMeanDatas() const {
+    int counter = 0;
+    for (const auto& meanDatasTag : myMeanDatas) {
+        counter += (int)meanDatasTag.second.size();
+    }
+    return counter;
+}
+
+
+void
+GNENetHelper::AttributeCarriers::clearMeanDatas() {
+    // clear elements in grid
+    for (const auto& meanDatasTags : myMeanDatas) {
+        for (const auto& meanData : meanDatasTags.second) {
+            myNet->removeGLObjectFromGrid(meanData);
+        }
+    }
+    // iterate over myMeanDatas and clear all meanDatas
+    for (auto& meanDatas : myMeanDatas) {
+        meanDatas.second.clear();
+    }
+}
+
+
+std::string
+GNENetHelper::AttributeCarriers::generateMeanDataID(SumoXMLTag tag) const {
+    // obtain option container
+    OptionsCont& oc = OptionsCont::getOptions();
+    // get prefix
+    std::string prefix;
+    if (tag == SUMO_TAG_BUS_STOP) {
+        prefix = oc.getString("busStop-prefix");
+    } else if (tag == SUMO_TAG_TRAIN_STOP) {
+        prefix = oc.getString("trainStop-prefix");
+    }
+    int counter = 0;
+    while (retrieveMeanData(tag, prefix + "_" + toString(counter), false) != nullptr) {
+        counter++;
+    }
+    return (prefix + "_" + toString(counter));
+}
+
+
 void
 GNENetHelper::AttributeCarriers::insertJunction(GNEJunction* junction) {
     myNet->getNetBuilder()->getNodeCont().insert(junction->getNBNode());
@@ -2292,6 +2412,61 @@ GNENetHelper::AttributeCarriers::deleteDataSet(GNEDataSet* dataSet) {
     myNet->requireSaveDataElements(true);
     // mark interval toolbar for update
     myNet->getViewNet()->getIntervalBar().markForUpdate();
+}
+
+
+bool
+GNENetHelper::AttributeCarriers::meanDataExist(const GNEMeanData* meanData) const {
+    // first check that meanData pointer is valid
+    if (meanData) {
+        // get vector with this meanData element type
+        const auto& meanDataElementTag = myMeanDatas.at(meanData->getTagProperty().getTag());
+        // find demanElement in meanDataElementTag
+        return std::find(meanDataElementTag.begin(), meanDataElementTag.end(), meanData) != meanDataElementTag.end();
+    } else {
+        throw ProcessError("Invalid meanData pointer");
+    }
+}
+
+
+void
+GNENetHelper::AttributeCarriers::insertMeanData(GNEMeanData* meanData) {
+    // insert meanData
+    if (myMeanDatas.at(meanData->getTagProperty().getTag()).insert(meanData).second == false) {
+        throw ProcessError(meanData->getTagStr() + " with ID='" + meanData->getID() + "' already exist");
+    }
+    // add element in grid
+    if (meanData->getTagProperty().isPlacedInRTree()) {
+        myNet->addGLObjectIntoGrid(meanData);
+    }
+    // update geometry after insertion of meanDatas if myUpdateGeometryEnabled is enabled
+    if (myNet->isUpdateGeometryEnabled()) {
+        meanData->updateGeometry();
+    }
+    // meanDatas has to be saved
+    myNet->requireSaveMeanDatas(true);
+}
+
+
+void
+GNENetHelper::AttributeCarriers::deleteMeanData(GNEMeanData* meanData) {
+    // find demanElement in meanDataTag
+    auto itFind = myMeanDatas.at(meanData->getTagProperty().getTag()).find(meanData);
+    // check if meanData was previously inserted
+    if (itFind == myMeanDatas.at(meanData->getTagProperty().getTag()).end()) {
+        throw ProcessError(meanData->getTagStr() + " with ID='" + meanData->getID() + "' wasn't previously inserted");
+    }
+    // remove it from inspected elements and GNEElementTree
+    myNet->getViewNet()->removeFromAttributeCarrierInspected(meanData);
+    myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(meanData);
+    // remove from container
+    myMeanDatas.at(meanData->getTagProperty().getTag()).erase(itFind);
+    // remove element from grid
+    if (meanData->getTagProperty().isPlacedInRTree()) {
+        myNet->removeGLObjectFromGrid(meanData);
+    }
+    // meanDatas has to be saved
+    myNet->requireSaveMeanDatas(true);
 }
 
 // ---------------------------------------------------------------------------

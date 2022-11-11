@@ -725,6 +725,36 @@ GNENet::deleteGenericData(GNEGenericData* genericData, GNEUndoList* undoList) {
 
 
 void
+GNENet::deleteMeanData(GNEMeanData* meanData, GNEUndoList* undoList) {
+    undoList->begin(GUIIcon::MODEDELETE, "delete " + meanData->getTagStr());
+    // remove all child demand elements of this demandElement calling this function recursively
+    while (meanData->getChildDemandElements().size() > 0) {
+        deleteDemandElement(meanData->getChildDemandElements().front(), undoList);
+    }
+    // remove all mean data children of this additional deleteMeanData this function recursively
+    while (meanData->getChildMeanDatas().size() > 0) {
+        deleteMeanData(meanData->getChildMeanDatas().front(), undoList);
+    }
+    // get pointer to dataInterval and dataSet
+    GNEDataInterval* dataInterval = meanData->getDataIntervalParent();
+    GNEDataSet* dataSet = dataInterval->getDataSetParent();
+    // remove mean data
+    undoList->add(new GNEChange_MeanData(meanData, false), true);
+    // check if data interval is empty
+    if (dataInterval->getMeanDataChildren().empty()) {
+        // remove data interval
+        undoList->add(new GNEChange_DataInterval(meanData->getDataIntervalParent(), false), true);
+        // now check if data set is empty
+        if (dataSet->getDataIntervalChildren().empty()) {
+            // remove data set
+            undoList->add(new GNEChange_DataSet(meanData->getDataIntervalParent()->getDataSetParent(), false), true);
+        }
+    }
+    undoList->end();
+}
+
+
+void
 GNENet::duplicateLane(GNELane* lane, GNEUndoList* undoList, bool recomputeConnections) {
     undoList->begin(GUIIcon::LANE, "duplicate " + toString(SUMO_TAG_LANE));
     GNEEdge* edge = lane->getParentEdge();

@@ -555,6 +555,39 @@ struct GNENetHelper {
 
         /// @}
 
+        /// @name function for meanDatas
+        /// @{
+        /**@brief Returns the named meanData
+         * @param[in] id The attribute carrier related with the meanData element
+         * @param[in] type tag with the type of meanData
+         * @param[in] id The id of the meanData to return.
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting meanData should result in an exception
+         */
+        GNEMeanData* retrieveMeanData(SumoXMLTag type, const std::string& id, bool hardFail = true) const;
+
+        /**@brief Returns the named meanData
+         * @param[in] id The attribute carrier related with the meanData element
+         * @param[in] hardFail Whether attempts to retrieve a nonexisting meanData should result in an exception
+         */
+        GNEMeanData* retrieveMeanData(GNEAttributeCarrier* AC, bool hardFail = true) const;
+
+        /// @brief get meanDatas
+        const std::map<SumoXMLTag, std::set<GNEMeanData*> >& getMeanDatas() const;
+
+        /// @brief get selected meanDatas
+        std::vector<GNEMeanData*> getSelectedMeanDatas() const;
+
+        /// @brief get number of meanDatas
+        int getNumberOfMeanDatas() const;
+
+        /// @brief clear meanDatas
+        void clearMeanDatas();
+
+        /// @brief generate meanData id
+        std::string generateMeanDataID(SumoXMLTag type) const;
+
+        /// @}
+
     protected:
         /// @name Insertion and erasing of GNEJunctions
         /// @{
@@ -643,6 +676,24 @@ struct GNENetHelper {
 
         /// @}
 
+        /// @name Insertion and erasing of GNEMeanDatas items
+        /// @{
+
+        /// @brief return true if given meanData exist
+        bool meanDataExist(const GNEMeanData* meanData) const;
+
+        /**@brief Insert a meanData element int GNENet container.
+         * @throw processError if route was already inserted
+         */
+        void insertMeanData(GNEMeanData* meanData);
+
+        /**@brief delete meanData element of GNENet container
+         * @throw processError if meanData wasn't previously inserted
+         */
+        void deleteMeanData(GNEMeanData* meanData);
+
+        /// @}
+
     private:
         /// @brief pointer to net
         GNENet* myNet;
@@ -685,6 +736,9 @@ struct GNENetHelper {
 
         /// @brief map with the tag and pointer to all generic datas
         std::map<SumoXMLTag, std::set<GNEGenericData*> > myGenericDatas;
+
+        /// @brief map with the tag and pointer to meanData elements of net
+        std::map<SumoXMLTag, std::set<GNEMeanData*> > myMeanDatas;
 
         /// @brief Invalidated copy constructor.
         AttributeCarriers(const AttributeCarriers&) = delete;

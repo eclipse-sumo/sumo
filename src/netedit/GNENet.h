@@ -212,6 +212,12 @@ public:
      */
     void deleteGenericData(GNEGenericData* genericData, GNEUndoList* undoList);
 
+    /**@brief remove generic data
+     * @param[in] genericData The generic data to be removed
+     * @param[in] undoList The undolist in which to mark changes
+     */
+    void deleteMeanData(GNEMeanData* meanData, GNEUndoList* undoList);
+
     /**@brief duplicates lane
      * @param[in] lane The lane to be duplicated
      * @param[in] undoList The undolist in which to mark changes
