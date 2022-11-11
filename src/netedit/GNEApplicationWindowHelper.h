@@ -380,13 +380,16 @@ struct GNEApplicationWindowHelper {
             void hideDataMenuCommands();
 
             /// @brief menu command for edge mode
-            FXMenuCommand* edgeData;
+            FXMenuCommand* edgeData = nullptr;
 
             /// @brief menu command for edge rel mode
-            FXMenuCommand* edgeRelData;
+            FXMenuCommand* edgeRelData = nullptr;
 
             /// @brief menu command for TAZ rel mode
-            FXMenuCommand* TAZRelData;
+            FXMenuCommand* TAZRelData = nullptr;
+
+            /// @brief menu command for mean data
+            FXMenuCommand* meanData = nullptr;
 
         private:
             /// @brief reference to ModesMenuCommands
