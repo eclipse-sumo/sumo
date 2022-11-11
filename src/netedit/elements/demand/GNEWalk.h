@@ -22,6 +22,7 @@
 #include "GNEDemandElement.h"
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
+
 // ===========================================================================
 // class declarations
 // ===========================================================================
@@ -29,12 +30,11 @@ class GNEEdge;
 class GNEConnection;
 class GNEVehicle;
 
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
-
 class GNEWalk : public GNEDemandElement, public Parameterised {
-
 public:
     /// @brief default constructor
     GNEWalk(SumoXMLTag tag, GNENet* net);
@@ -139,9 +139,6 @@ public:
      * @return This object's parent id
      */
     std::string getParentName() const;
-
-    /// @brief return exaggeration associated with this GLObject
-    double getExaggeration(const GUIVisualizationSettings& s) const;
 
     /**@brief Returns the boundary to which the view shall be centered in order to show the object
      * @return The boundary the object is within

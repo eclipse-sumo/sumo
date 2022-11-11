@@ -38,13 +38,13 @@
 // member method definitions
 // ===========================================================================
 
-GNEMeanData::GNEMeanData(GNENet *net, GNEEdge* edge, const std::string &file) :
+GNEMeanData::GNEMeanData(GNENet *net, GNEEdge* edge, const std::string& /* file */) :
     GUIGlObject(GLO_MEANDATAEDGE, edge->getID(), nullptr),
     GNEHierarchicalElement(net, SUMO_TAG_MEANDATA_EDGE, {}, {edge}, {}, {}, {}, {}) {
 }
 
 
-GNEMeanData::GNEMeanData(GNENet *net, GNELane* lane, const std::string &file) :
+GNEMeanData::GNEMeanData(GNENet *net, GNELane* lane, const std::string& /* file */) :
     GUIGlObject(GLO_MEANDATALANE, lane->getID(), nullptr),
     GNEHierarchicalElement(net, SUMO_TAG_MEANDATA_LANE, {}, {}, {lane}, {}, {}, {}) {
 }
@@ -117,6 +117,12 @@ GNEMeanData::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& /* pare
 
 
 void
+GNEMeanData::drawGL(const GUIVisualizationSettings& /* s */) const {
+    // Nothing to draw
+}
+
+
+void
 GNEMeanData::deleteGLObject() {
     myNet->deleteMeanData(this, myNet->getViewNet()->getUndoList());
 }
@@ -140,26 +146,32 @@ GNEMeanData::updateGLObject() {
 }
 
 
+Boundary
+GNEMeanData::getCenteringBoundary() const {
+    return getParentEdges().front()->getCenteringBoundary();
+}
+
+
 std::string
-GNEMeanData::getAttribute(SumoXMLAttr key) const {
+GNEMeanData::getAttribute(SumoXMLAttr /* key */) const {
     return "";
 }
 
 
 double
-GNEMeanData::getAttributeDouble(SumoXMLAttr key) const {
+GNEMeanData::getAttributeDouble(SumoXMLAttr /* key */) const {
     return 1;
 }
 
 
 void
-GNEMeanData::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+GNEMeanData::setAttribute(SumoXMLAttr /* key */, const std::string& /* value */, GNEUndoList* /* undoList */) {
 
 }
 
 
 bool
-GNEMeanData::isValid(SumoXMLAttr key, const std::string& value) {
+GNEMeanData::isValid(SumoXMLAttr /* key */, const std::string& /* value */) {
     return false;
 }
 
@@ -183,7 +195,7 @@ GNEMeanData::getACParametersMap() const {
 
 
 void
-GNEMeanData::setAttribute(SumoXMLAttr key, const std::string& value) {
+GNEMeanData::setAttribute(SumoXMLAttr /* key */, const std::string& /* value */) {
 
 }
 

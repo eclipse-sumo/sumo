@@ -113,12 +113,6 @@ GNEVTypeDistribution::getParentName() const {
 }
 
 
-double
-GNEVTypeDistribution::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
-    return 1;
-}
-
-
 Boundary
 GNEVTypeDistribution::getCenteringBoundary() const {
     // VehicleType distribution doesn't have boundaries

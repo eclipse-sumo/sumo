@@ -528,12 +528,6 @@ GUINet::getCenteringBoundary() const {
 }
 
 
-double
-GUINet::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
-    return 1;
-}
-
-
 GUINet*
 GUINet::getGUIInstance() {
     GUINet* net = dynamic_cast<GUINet*>(MSNet::getInstance());

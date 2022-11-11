@@ -20,24 +20,17 @@
 #pragma once
 #include <config.h>
 
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-#include <config.h>
-
 #include <netedit/elements/GNEHierarchicalElement.h>
+
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-
 /**
  * @class GNEMeanData
  * @brief An Element which don't belong to GNENet but has influence in the simulation
  */
 class GNEMeanData : public GUIGlObject, public GNEHierarchicalElement {
-
 public:
     /**@brief Constructor for edge mean data
      * @param[in] net pointer to net
@@ -99,9 +92,6 @@ public:
 
     /// @brief update GLObject (geometry, ID, etc.)
     void updateGLObject();
-
-    /// @brief return exaggeration associated with this GLObject
-    double getExaggeration(const GUIVisualizationSettings& s) const;
 
     //// @brief Returns the boundary to which the view shall be centered in order to show the object
     Boundary getCenteringBoundary() const;

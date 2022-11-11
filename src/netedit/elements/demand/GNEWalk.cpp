@@ -226,12 +226,6 @@ GNEWalk::getParentName() const {
 }
 
 
-double
-GNEWalk::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
-    return 1;
-}
-
-
 Boundary
 GNEWalk::getCenteringBoundary() const {
     Boundary walkBoundary;

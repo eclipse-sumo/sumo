@@ -226,12 +226,6 @@ GNEPersonTrip::getParentName() const {
 }
 
 
-double
-GNEPersonTrip::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
-    return 1;
-}
-
-
 Boundary
 GNEPersonTrip::getCenteringBoundary() const {
     Boundary personTripBoundary;

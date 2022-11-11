@@ -24,13 +24,12 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-
 #include "GNEGenericData.h"
+
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-
 /**
  * @class GNEEdgeRelData
  * @brief An Element which don't belong to GNENet but has influence in the simulation
@@ -89,9 +88,6 @@ public:
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const;
-
-    /// @brief return exaggeration associated with this GLObject
-    double getExaggeration(const GUIVisualizationSettings& s) const;
 
     //// @brief Returns the boundary to which the view shall be centered in order to show the object
     Boundary getCenteringBoundary() const;

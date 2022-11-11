@@ -152,12 +152,6 @@ GNEEdgeRelData::drawGL(const GUIVisualizationSettings& /*s*/) const {
 }
 
 
-double
-GNEEdgeRelData::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
-    return 1;
-}
-
-
 void
 GNEEdgeRelData::computePathElement() {
     // calculate path

@@ -27,17 +27,15 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-
 class GNELaneType;
 class GNEEdgeTemplate;
 class GNECreateEdgeFrame;
 
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
-
 class GNEEdgeType : public GNENetworkElement, public Parameterised, public NBTypeCont::EdgeTypeDefinition {
-
 public:
     /// @brief GNECreateEdgeFrame need access to setAttribute
     friend class GNECreateEdgeFrame;
@@ -109,9 +107,6 @@ public:
      * @see GUIGlObject::getPopUpMenu
      */
     GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
-
-    /// @brief return exaggeration associated with this GLObject
-    double getExaggeration(const GUIVisualizationSettings& s) const;
 
     /// @brief update centering boundary (implies change in RTREE)
     void updateCenteringBoundary(const bool updateGrid);

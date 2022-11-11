@@ -38,6 +38,7 @@ class MESegment;
 class MSBaseVehicle;
 class GUILane;
 
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -119,9 +120,6 @@ public:
      * @return The built parameter window
      */
     GUIParameterTableWindow* getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
-
-    /// @brief return exaggeration associated with this GLObject
-    double getExaggeration(const GUIVisualizationSettings& s) const override;
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *

@@ -235,12 +235,6 @@ GNEWalkingArea::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 }
 
 
-double
-GNEWalkingArea::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
-    return 1;
-}
-
-
 void
 GNEWalkingArea::updateCenteringBoundary(const bool /*updateGrid*/) {
     // in other case use boundary of parent junction

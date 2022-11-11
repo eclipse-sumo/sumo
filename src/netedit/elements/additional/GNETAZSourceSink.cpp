@@ -92,12 +92,6 @@ GNETAZSourceSink::getPositionInView() const {
 }
 
 
-double
-GNETAZSourceSink::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
-    return 1;
-}
-
-
 Boundary
 GNETAZSourceSink::getCenteringBoundary() const {
     return getParentEdges().front()->getCenteringBoundary();

@@ -100,12 +100,6 @@ GNELaneType::getPopUpMenu(GUIMainWindow& /*app*/, GUISUMOAbstractView& /*parent*
 }
 
 
-double
-GNELaneType::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
-    return 1;
-}
-
-
 void
 GNELaneType::updateCenteringBoundary(const bool /*updateGrid*/) {
     // nothing to do

@@ -156,12 +156,6 @@ GNEVType::getParentName() const {
 }
 
 
-double
-GNEVType::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
-    return 1;
-}
-
-
 Boundary
 GNEVType::getCenteringBoundary() const {
     // Vehicle Types doesn't have boundaries

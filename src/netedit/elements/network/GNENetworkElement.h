@@ -30,16 +30,14 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-
 class GNEAdditional;
 class GNEDemandElement;
+
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-
 class GNENetworkElement : public GUIGlObject, public GNEHierarchicalElement, public GNEMoveElement {
-
 public:
     /**@brief Constructor.
      * @param[in] net The net to inform about gui updates
@@ -113,9 +111,6 @@ public:
      * @see GUIGlObject::getPopUpMenu
      */
     virtual GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) = 0;
-
-    /// @brief return exaggeration associated with this GLObject
-    virtual double getExaggeration(const GUIVisualizationSettings& s) const = 0;
 
     /// @brief Returns the boundary to which the view shall be centered in order to show the object
     Boundary getCenteringBoundary() const;

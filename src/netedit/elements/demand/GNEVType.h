@@ -27,9 +27,7 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-
 class GNEVType : public GNEDemandElement, public SUMOVTypeParameter {
-
 public:
     /// @brief default constructor
     GNEVType(GNENet* net);
@@ -90,9 +88,6 @@ public:
      * @return This object's parent id
      */
     std::string getParentName() const;
-
-    /// @brief return exaggeration associated with this GLObject
-    double getExaggeration(const GUIVisualizationSettings& s) const;
 
     /**@brief Returns the boundary to which the view shall be centered in order to show the object
      * @return The boundary the object is within

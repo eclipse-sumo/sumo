@@ -191,12 +191,6 @@ GNETransport::getParentName() const {
 }
 
 
-double
-GNETransport::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
-    return 1;
-}
-
-
 Boundary
 GNETransport::getCenteringBoundary() const {
     Boundary transportBoundary;

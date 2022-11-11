@@ -24,8 +24,6 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include <config.h>
-
 #include <netedit/elements/GNEHierarchicalElement.h>
 #include <utils/gui/div/GUIGeometry.h>
 #include <netedit/GNEPathManager.h>
@@ -36,23 +34,22 @@
 #include <netbuild/NBVehicle.h>
 #include <netbuild/NBEdge.h>
 
+
 // ===========================================================================
 // class declarations
 // ===========================================================================
-
 class GNEViewNet;
 class GNEDataInterval;
+
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-
 /**
  * @class GNEGenericData
  * @brief An Element which don't belong to GNENet but has influence in the simulation
  */
 class GNEGenericData : public GNEPathManager::PathElement, public Parameterised, public GNEHierarchicalElement {
-
 public:
     /**@brief Constructor
      * @param[in] tag generic data Tag (edgeData, laneData, etc.)
@@ -147,9 +144,6 @@ public:
 
     /// @brief update GLObject (geometry, ID, etc.)
     void updateGLObject();
-
-    /// @brief return exaggeration associated with this GLObject
-    virtual double getExaggeration(const GUIVisualizationSettings& s) const = 0;
 
     //// @brief Returns the boundary to which the view shall be centered in order to show the object
     virtual Boundary getCenteringBoundary() const = 0;

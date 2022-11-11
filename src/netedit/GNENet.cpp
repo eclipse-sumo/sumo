@@ -177,12 +177,6 @@ GNENet::drawGL(const GUIVisualizationSettings& /*s*/) const {
 }
 
 
-double
-GNENet::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
-    return 1;
-}
-
-
 Boundary
 GNENet::getCenteringBoundary() const {
     return getBoundary();
