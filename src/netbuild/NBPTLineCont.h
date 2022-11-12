@@ -32,14 +32,11 @@
 // ===========================================================================
 class NBPTLineCont {
 public:
-    /// @brief constructor
-    NBPTLineCont();
-
     /// @brief destructor
     ~NBPTLineCont();
 
     /// @brief insert new line
-    void insert(NBPTLine* ptLine);
+    bool insert(NBPTLine* ptLine);
 
     const std::map<std::string, NBPTLine*>& getLines() const {
         return myPTLines;

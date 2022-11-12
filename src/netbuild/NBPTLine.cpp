@@ -115,14 +115,14 @@ NBPTLine::addWayNode(long long int way, long long int node) {
         myCurrentWay = wayStr;
         myWays.push_back(wayStr);
     }
-    myWaysNodes[wayStr].push_back(node);
+    myWayNodes[wayStr].push_back(node);
 }
 
 
-std::vector<long long int>*
-NBPTLine::getWaysNodes(std::string wayId) {
-    if (myWaysNodes.find(wayId) != myWaysNodes.end()) {
-        return &myWaysNodes[wayId];
+const std::vector<long long int>*
+NBPTLine::getWayNodes(std::string wayId) {
+    if (myWayNodes.find(wayId) != myWayNodes.end()) {
+        return &myWayNodes[wayId];
     }
     return nullptr;
 }

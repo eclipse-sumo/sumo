@@ -111,13 +111,13 @@ public:
         return myWays;
     }
 
-    std::vector<long long int>* getWaysNodes(std::string wayId);
+    const std::vector<long long int>* getWayNodes(std::string wayId);
 
 private:
     std::string myName;
     std::string myType;
     std::vector<std::shared_ptr<NBPTStop> > myPTStops;
-    std::map<std::string, std::vector<long long int> > myWaysNodes;
+    std::map<std::string, std::vector<long long int> > myWayNodes;
     std::vector<std::string> myWays;
     std::string myCurrentWay;
     std::string myPTLineId;

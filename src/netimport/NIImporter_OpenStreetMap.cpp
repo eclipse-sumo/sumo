@@ -202,26 +202,18 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
      * geometry only */
     std::map<long long int, int> nodeUsage;
     // Mark which nodes are used by edges (begin and end)
-    for (std::map<long long int, Edge*>::const_iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
-        Edge* e = (*i).second;
-        assert(e->myCurrentIsRoad);
-        for (std::vector<long long int>::const_iterator j = e->myCurrentNodes.begin();
-                j != e->myCurrentNodes.end();
-                ++j) {
-            if (nodeUsage.find(*j) == nodeUsage.end()) {
-                nodeUsage[*j] = 0;
-            }
-            nodeUsage[*j] = nodeUsage[*j] + 1;
+    for (const auto& edgeIt : myEdges) {
+        assert(edgeIt.second->myCurrentIsRoad);
+        for (const long long int node : edgeIt.second->myCurrentNodes) {
+            nodeUsage[node]++;
         }
     }
     // Mark which nodes are used by traffic lights
-    for (std::map<long long int, NIOSMNode*>::const_iterator nodesIt = myOSMNodes.begin();
-            nodesIt != myOSMNodes.end();
-            ++nodesIt) {
-        if (nodesIt->second->tlsControlled || nodesIt->second->railwaySignal /* || nodesIt->second->railwayCrossing*/) {
+    for (const auto& nodesIt : myOSMNodes) {
+        if (nodesIt.second->tlsControlled || nodesIt.second->railwaySignal /* || nodesIt->second->railwayCrossing*/) {
             // If the key is not found in the map, the value is automatically
             // initialized with 0.
-            nodeUsage[nodesIt->first] += 1;
+            nodeUsage[nodesIt.first]++;
         }
     }
 
@@ -230,8 +222,8 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
      * one edge are instantiated. Other nodes are considered as geometry nodes. */
     NBNodeCont& nc = nb.getNodeCont();
     NBTrafficLightLogicCont& tlsc = nb.getTLLogicCont();
-    for (auto& myEdge : myEdges) {
-        Edge* e = myEdge.second;
+    for (const auto& edgeIt : myEdges) {
+        Edge* const e = edgeIt.second;
         assert(e->myCurrentIsRoad);
         if (e->myCurrentNodes.size() < 2) {
             WRITE_WARNINGF(TL("Discarding way '%' because it has only % node(s)"), e->id, e->myCurrentNodes.size());
@@ -241,8 +233,8 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
         // build nodes;
         //  - the from- and to-nodes must be built in any case
         //  - the in-between nodes are only built if more than one edge references them
-        NBNode* first = insertNodeChecking(*e->myCurrentNodes.begin(), nc, tlsc);
-        NBNode* last = insertNodeChecking(*(e->myCurrentNodes.end() - 1), nc, tlsc);
+        NBNode* first = insertNodeChecking(e->myCurrentNodes.front(), nc, tlsc);
+        NBNode* last = insertNodeChecking(e->myCurrentNodes.back(), nc, tlsc);
         NBNode* currentFrom = first;
         int running = 0;
         std::vector<long long int> passed;
@@ -1375,9 +1367,21 @@ void
 NIImporter_OpenStreetMap::EdgesHandler::myEndElement(int element) {
     if (element == SUMO_TAG_WAY && myCurrentEdge != nullptr) {
         if (myCurrentEdge->myCurrentIsRoad) {
-            myEdgeMap[myCurrentEdge->id] = myCurrentEdge;
+            const auto insertionIt = myEdgeMap.lower_bound(myCurrentEdge->id);
+            if (insertionIt == myEdgeMap.end() || insertionIt->first != myCurrentEdge->id) {
+                // assume we are loading multiple files, so we won't report duplicate edges
+                myEdgeMap.emplace_hint(insertionIt, myCurrentEdge->id, myCurrentEdge);
+            } else {
+                delete myCurrentEdge;
+            }
         } else if (myCurrentEdge->myCurrentIsPlatform) {
-            myPlatformShapesMap[myCurrentEdge->id] = myCurrentEdge;
+            const auto insertionIt = myPlatformShapesMap.lower_bound(myCurrentEdge->id);
+            if (insertionIt == myPlatformShapesMap.end() || insertionIt->first != myCurrentEdge->id) {
+                // assume we are loading multiple files, so we won't report duplicate platforms
+                myPlatformShapesMap.emplace_hint(insertionIt, myCurrentEdge->id, myCurrentEdge);
+            } else {
+                delete myCurrentEdge;
+            }
         } else {
             delete myCurrentEdge;
         }
@@ -1713,9 +1717,7 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                 resetValues();
                 return;
             }
-            if (myNBPTLineCont->getLines().count(ptLine->getLineID()) == 0) {
-                myNBPTLineCont->insert(ptLine);
-            } else {
+            if (!myNBPTLineCont->insert(ptLine)) {
                 WRITE_WARNINGF(TL("Ignoring duplicate PT line '%'."), myCurrentRelation);
                 delete ptLine;
             }

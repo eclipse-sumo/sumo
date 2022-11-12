@@ -218,7 +218,10 @@ NIXMLPTHandler::addPTLine(const SUMOSAXAttributes& attrs) {
     myCurrentCompletion = StringUtils::toDouble(attrs.getStringSecure("completeness", "1"));
     if (ok) {
         myCurrentLine = new NBPTLine(id, name, type, line, intervalS / 60, nightService, vClass, color);
-        myLineCont.insert(myCurrentLine);
+        if (!myLineCont.insert(myCurrentLine)) {
+            WRITE_WARNINGF(TL("Ignoring duplicate PT line '%'."), id);
+            delete myCurrentLine;
+        }
     }
 }
 
