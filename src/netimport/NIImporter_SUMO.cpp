@@ -515,6 +515,10 @@ NIImporter_SUMO::myEndElement(int element) {
             if (myCurrentEdge != nullptr) {
                 if (myEdges.find(myCurrentEdge->id) != myEdges.end()) {
                     WRITE_WARNINGF(TL("Edge '%' occurred at least twice in the input."), myCurrentEdge->id);
+                    for (LaneAttrs* const lane : myCurrentEdge->lanes) {
+                        delete lane;
+                    }
+                    delete myCurrentEdge;
                 } else {
                     myEdges[myCurrentEdge->id] = myCurrentEdge;
                 }
@@ -531,7 +535,7 @@ NIImporter_SUMO::myEndElement(int element) {
             myCurrentLane = nullptr;
             break;
         case SUMO_TAG_TLLOGIC:
-            if (!myCurrentTL) {
+            if (myCurrentTL == nullptr) {
                 WRITE_ERROR(TL("Unmatched closing tag for tl-logic."));
             } else {
                 if (!myTLLCont.insert(myCurrentTL)) {
@@ -563,7 +567,7 @@ void
 NIImporter_SUMO::addEdge(const SUMOSAXAttributes& attrs) {
     // get the id, report an error if not given or empty...
     bool ok = true;
-    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
     if (!ok) {
         return;
     }
@@ -617,7 +621,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
     if (!ok) {
         return;
     }
-    if (!myCurrentEdge) {
+    if (myCurrentEdge == nullptr) {
         WRITE_ERROR("Found lane '" + id  + "' not within edge element.");
         return;
     }
