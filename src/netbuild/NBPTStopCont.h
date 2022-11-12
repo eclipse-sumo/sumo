@@ -51,18 +51,17 @@ public:
     * @param[in] floating whether the stop is not referenced by a way or relation
     * @return Whether the pt stop could be added
     */
-    bool insert(NBPTStop* ptStop, bool floating = false);
+    bool insert(std::shared_ptr<NBPTStop> ptStop, bool floating = false);
 
     /// @brief Retrieve a previously inserted pt stop
-    NBPTStop* get(std::string id) const;
+    std::shared_ptr<NBPTStop> get(std::string id) const;
 
     /** @brief Returns an unmodifiable reference to the stored pt stops
      * @return The stored pt stops
      */
-    const std::map<std::string, NBPTStop*>& getStops() const {
+    const std::map<std::string, std::shared_ptr<NBPTStop> >& getStops() const {
         return myPTStops;
     }
-
 
     /** @brief remove stops on non existing (removed) edges
      *
@@ -90,26 +89,26 @@ public:
     void replaceEdge(const std::string& edgeID, const std::vector<NBEdge*>& replacement);
 
 
-    NBPTStop* findStop(const std::string& origEdgeID, Position pos, double threshold = 1) const;
+    std::shared_ptr<NBPTStop> findStop(const std::string& origEdgeID, Position pos, double threshold = 1) const;
 
-    NBPTStop* getReverseStop(NBPTStop* pStop, const NBEdgeCont& ec);
+    std::shared_ptr<NBPTStop> getReverseStop(std::shared_ptr<NBPTStop> pStop, const NBEdgeCont& ec);
 
 private:
     /// @brief Definition of the map of names to pt stops
-    typedef std::map<std::string, NBPTStop*> PTStopsCont;
+    typedef std::map<std::string, std::shared_ptr<NBPTStop> > PTStopsCont;
 
     /// @brief The map of names to pt stops
     PTStopsCont myPTStops;
 
     /// @brief The map of edge ids to stops
-    std::map<std::string, std::vector<NBPTStop*> > myPTStopLookup;
+    std::map<std::string, std::vector<std::shared_ptr<NBPTStop> > > myPTStopLookup;
 
-    std::vector<NBPTStop*> myFloatingStops;
+    std::vector<std::shared_ptr<NBPTStop> > myFloatingStops;
 
 
-    void assignPTStopToEdgeOfClosestPlatform(NBPTStop* pStop, NBEdgeCont& cont);
-    const NBPTPlatform* getClosestPlatformToPTStopPosition(NBPTStop* pStop);
-    NBPTStop* assignAndCreatNewPTStopAsNeeded(NBPTStop* pStop, NBEdgeCont& cont);
+    void assignPTStopToEdgeOfClosestPlatform(std::shared_ptr<NBPTStop> pStop, NBEdgeCont& cont);
+    const NBPTPlatform* getClosestPlatformToPTStopPosition(std::shared_ptr<NBPTStop> pStop);
+    std::shared_ptr<NBPTStop> assignAndCreatNewPTStopAsNeeded(std::shared_ptr<NBPTStop> pStop, NBEdgeCont& cont);
     double computeCrossProductEdgePosition(const NBEdge* edge, const Position& closestPlatform) const;
 
     static std::string getReverseID(const std::string& id);

@@ -1192,7 +1192,7 @@ void NIImporter_VISUM::parse_stopPoints() {
         Position pos = edge->getGeometry().positionAtOffset(edge->getLength() * relPos);
 
         const double length = OptionsCont::getOptions().getFloat("osm.stop-output.length");
-        NBPTStop* ptStop = new NBPTStop(id, pos, edge->getID(), edge->getID(), length, name, permissions);
+        std::shared_ptr<NBPTStop> ptStop = std::make_shared<NBPTStop>(id, pos, edge->getID(), edge->getID(), length, name, permissions);
         myNetBuilder.getPTStopCont().insert(ptStop);
     }
 }

@@ -1632,7 +1632,7 @@ NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& pref
         }
     }
 
-    std::map<std::string, std::vector<NBPTStop*> > stopsOnEdge;
+    std::map<std::string, std::vector<std::shared_ptr<NBPTStop> > > stopsOnEdge;
     for (const auto& item : sc.getStops()) {
         stopsOnEdge[item.second->getEdgeId()].push_back(item.second);
     }
@@ -1648,7 +1648,7 @@ NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& pref
         }
         edge->setID(idSupplier.getNext());
         myEdges[edge->getID()] = edge;
-        for (NBPTStop* stop : stopsOnEdge[origID]) {
+        for (std::shared_ptr<NBPTStop> stop : stopsOnEdge[origID]) {
             stop->setEdgeId(prefix + edge->getID(), *this);
         }
     }

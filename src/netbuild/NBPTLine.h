@@ -21,28 +21,32 @@
 #pragma once
 #include <config.h>
 
-
+#include <memory>
+#include <map>
 #include <string>
 #include <vector>
-#include <map>
-#include "NBEdge.h" // Cherednychek
+
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class OutputDevice;
-class NBPTStop;
+class NBEdge;
 class NBEdgeCont;
+class NBPTStop;
 class NBPTStopCont;
 
-class NBPTLine {
 
+// ===========================================================================
+// class definitions
+// ===========================================================================
+class NBPTLine {
 public:
     NBPTLine(const std::string& id, const std::string& name,
              const std::string& type, const std::string& ref, int interval, const std::string& nightService,
              SUMOVehicleClass vClass, RGBColor color);
 
-    void addPTStop(NBPTStop* pStop);
+    void addPTStop(std::shared_ptr<NBPTStop> pStop);
 
     const std::string& getLineID() const {
         return myPTLineId;
@@ -56,7 +60,7 @@ public:
         return myType;
     }
 
-    const std::vector<NBPTStop*>& getStops();
+    const std::vector<std::shared_ptr<NBPTStop> >& getStops();
     void write(OutputDevice& device);
     void addWayNode(long long int way, long long int node);
 
@@ -67,7 +71,7 @@ public:
         return myRef;
     }
 
-    void replaceStops(std::vector<NBPTStop*> stops) {
+    void replaceStops(std::vector<std::shared_ptr<NBPTStop> > stops) {
         myPTStops = stops;
     }
     /// @brief get stop edges and stop ids
@@ -87,10 +91,10 @@ public:
     }
 
     /// @brief replace the given stop
-    void replaceStop(NBPTStop* oldStop, NBPTStop* newStop);
+    void replaceStop(std::shared_ptr<NBPTStop> oldStop, std::shared_ptr<NBPTStop> newStop);
 
     /// @brief replace the edge with the given edge list
-    void replaceEdge(const std::string& edgeID, const EdgeVector& replacement);
+    void replaceEdge(const std::string& edgeID, const std::vector<NBEdge*>& replacement);
 
     /// @brief remove invalid stops from the line
     void deleteInvalidStops(const NBEdgeCont& ec, const NBPTStopCont& sc);
@@ -112,7 +116,7 @@ public:
 private:
     std::string myName;
     std::string myType;
-    std::vector<NBPTStop*> myPTStops;
+    std::vector<std::shared_ptr<NBPTStop> > myPTStops;
     std::map<std::string, std::vector<long long int> > myWaysNodes;
     std::vector<std::string> myWays;
     std::string myCurrentWay;
@@ -138,5 +142,3 @@ private:
 
     int myNumOfStops;
 };
-
-

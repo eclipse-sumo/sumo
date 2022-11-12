@@ -33,22 +33,23 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/common/FileHelpers.h>
+#include <utils/geom/GeoConvHelper.h>
+#include <utils/geom/GeomConvHelper.h>
+#include <utils/options/OptionsCont.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOSAXReader.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
+#include <utils/xml/XMLSubSys.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBNode.h>
 #include <netbuild/NBNodeCont.h>
 #include <netbuild/NBNetBuilder.h>
 #include <netbuild/NBOwnTLDef.h>
-#include <utils/xml/SUMOXMLDefinitions.h>
-#include <utils/geom/GeoConvHelper.h>
-#include <utils/geom/GeomConvHelper.h>
-#include <utils/options/OptionsCont.h>
-#include <utils/common/FileHelpers.h>
-#include <utils/xml/XMLSubSys.h>
 #include <netbuild/NBPTLine.h>
 #include <netbuild/NBPTLineCont.h>
+#include <netbuild/NBPTPlatform.h>
 #include <netbuild/NBPTStop.h>
 #include "NILoader.h"
 #include "NIImporter_OpenStreetMap.h"
@@ -298,7 +299,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
             if (!NBNetBuilder::transformCoordinate(ptPos)) {
                 WRITE_ERROR("Unable to project coordinates for node '" + toString(n->id) + "'.");
             }
-            NBPTStop* ptStop = new NBPTStop(toString(n->id), ptPos, "", "", n->ptStopLength, n->name, n->permissions);
+            std::shared_ptr<NBPTStop> ptStop = std::make_shared<NBPTStop>(toString(n->id), ptPos, "", "", n->ptStopLength, n->name, n->permissions);
             nb.getPTStopCont().insert(ptStop, true);
         }
     }
@@ -419,12 +420,12 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         distanceStart = 0;
         distanceEnd = 0;
     }
-    std::vector<NBPTStop*> ptStops;
+    std::vector<std::shared_ptr<NBPTStop> > ptStops;
     for (long long i : passed) {
         NIOSMNode* n = myOSMNodes.find(i)->second;
         // recheck permissions, maybe they got assigned to a strange edge, see #11656
         if (n->ptStopPosition && (n->permissions == 0 || (permissions & n->permissions) != 0)) {
-            NBPTStop* existingPtStop = sc.get(toString(n->id));
+            std::shared_ptr<NBPTStop> existingPtStop = sc.get(toString(n->id));
             if (existingPtStop != nullptr) {
                 existingPtStop->registerAdditionalEdge(toString(e->id), id);
             } else {
@@ -432,7 +433,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                 if (!NBNetBuilder::transformCoordinate(ptPos)) {
                     WRITE_ERROR("Unable to project coordinates for node '" + toString(n->id) + "'.");
                 }
-                ptStops.push_back(new NBPTStop(toString(n->id), ptPos, id, toString(e->id), n->ptStopLength, n->name, n->permissions));
+                ptStops.push_back(std::make_shared<NBPTStop>(toString(n->id), ptPos, id, toString(e->id), n->ptStopLength, n->name, n->permissions));
                 sc.insert(ptStops.back());
             }
         }
@@ -1603,7 +1604,7 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                 }
 
                 NIOSMNode* n = myOSMNodes.find(ref)->second;
-                NBPTStop* ptStop = myNBPTStopCont->get(toString(n->id));
+                std::shared_ptr<NBPTStop> ptStop = myNBPTStopCont->get(toString(n->id));
                 if (ptStop == nullptr) {
                     //WRITE_WARNING(
                     //    "Relation '" + toString(myCurrentRelation) + "' refers to a non existing pt stop at node: '"
@@ -1680,14 +1681,14 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                 }
 
                 const NIOSMNode* const n = nodeIt->second;
-                NBPTStop* ptStop = myNBPTStopCont->get(toString(n->id));
+                std::shared_ptr<NBPTStop> ptStop = myNBPTStopCont->get(toString(n->id));
                 if (ptStop == nullptr) {
                     // loose stop, which must later be mapped onto a line way
                     Position ptPos(n->lon, n->lat, n->ele);
                     if (!NBNetBuilder::transformCoordinate(ptPos)) {
                         WRITE_ERROR("Unable to project coordinates for node '" + toString(n->id) + "'.");
                     }
-                    ptStop = new NBPTStop(toString(n->id), ptPos, "", "", n->ptStopLength, n->name, n->permissions);
+                    ptStop = std::make_shared<NBPTStop>(toString(n->id), ptPos, "", "", n->ptStopLength, n->name, n->permissions);
                     myNBPTStopCont->insert(ptStop);
                     if (myStopAreas.count(n->id)) {
                         ptStop->setIsMultipleStopPositions(false, myStopAreas[n->id]);

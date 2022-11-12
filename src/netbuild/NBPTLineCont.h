@@ -17,18 +17,20 @@
 ///
 // Container for NBPTLine during netbuild
 /****************************************************************************/
-
 #pragma once
 #include <config.h>
 
-
 #include <vector>
 #include "utils/router/SUMOAbstractRouter.h"
-#include "NBPTLine.h"
 #include "NBEdgeCont.h"
+#include "NBPTLine.h"
+#include "NBVehicle.h"
 
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
 class NBPTLineCont {
-
 public:
     /// @brief constructor
     NBPTLineCont();
@@ -73,14 +75,14 @@ private:
 
     /* @brief find way element corresponding to the stop
      * @note: if the edge id is updated, the stop extent is recomputed */
-    NBPTStop* findWay(NBPTLine* line, NBPTStop* stop, const NBEdgeCont& ec, NBPTStopCont& sc) const;
+    std::shared_ptr<NBPTStop> findWay(NBPTLine* line, std::shared_ptr<NBPTStop> stop, const NBEdgeCont& ec, NBPTStopCont& sc) const;
 
     void constructRoute(NBPTLine* myPTLine, const NBEdgeCont& cont);
 
     std::set<std::string> myServedPTStops;
 
     static double getCost(const NBEdgeCont& ec, SUMOAbstractRouter<NBRouterEdge, NBVehicle>& router,
-                          const NBPTStop* from, const NBPTStop* to, const NBVehicle* veh);
+                          const std::shared_ptr<NBPTStop> from, const std::shared_ptr<NBPTStop> to, const NBVehicle* veh);
 
     static std::string getWayID(const std::string& edgeID);
 

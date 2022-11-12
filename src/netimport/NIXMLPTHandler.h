@@ -134,7 +134,7 @@ private:
     NBPTLineCont& myLineCont;
 
     /// @brief The currently processed stop
-    NBPTStop* myCurrentStop;
+    std::shared_ptr<NBPTStop> myCurrentStop;
 
     /// @brief The currently processed line
     NBPTLine* myCurrentLine;
@@ -149,7 +149,7 @@ private:
     std::vector<Parameterised*> myLastParameterised;
 
     /// @brief stand-alone route information
-    std::map<std::string, std::vector<NBPTStop*> >  myRouteStops;
+    std::map<std::string, std::vector<std::shared_ptr<NBPTStop> > >  myRouteStops;
     std::map<std::string, EdgeVector >  myRouteEdges;
 
     /// @brief whether the current stop should be discarded

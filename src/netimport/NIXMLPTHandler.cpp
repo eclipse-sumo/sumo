@@ -168,7 +168,7 @@ NIXMLPTHandler::addPTStop(const SUMOSAXAttributes& attrs) {
     }
     if (ok) {
         Position pos = edge->geometryPositionAtOffset((startPos + endPos) / 2);
-        myCurrentStop = new NBPTStop(id, pos, edgeID, edgeID, endPos - startPos, name, permissions, parkingLength, color, startPos);
+        myCurrentStop = std::make_shared<NBPTStop>(id, pos, edgeID, edgeID, endPos - startPos, name, permissions, parkingLength, color, startPos);
         if (!myStopCont.insert(myCurrentStop)) {
             WRITE_ERROR("Could not add public transport stop '" + id + "' (already exists)");
         }
@@ -236,7 +236,7 @@ NIXMLPTHandler::addPTLineFromFlow(const SUMOSAXAttributes& attrs) {
     if (ok) {
         myCurrentLine = new NBPTLine(id, "", type, line, intervalS / 60, "", vClass, color);
         myCurrentLine->setEdges(myRouteEdges[route]);
-        for (NBPTStop* stop : myRouteStops[route]) {
+        for (std::shared_ptr<NBPTStop> stop : myRouteStops[route]) {
             myCurrentLine->addPTStop(stop);
         }
         myLineCont.insert(myCurrentLine);
@@ -293,7 +293,7 @@ NIXMLPTHandler::addPTLineStop(const SUMOSAXAttributes& attrs) {
     const std::string id = attrs.hasAttribute(SUMO_ATTR_ID)
                            ? attrs.get<std::string>(SUMO_ATTR_ID, "ptLine", ok)
                            : attrs.get<std::string>(SUMO_ATTR_BUS_STOP, "ptline", ok);
-    NBPTStop* stop = myStopCont.get(id);
+    std::shared_ptr<NBPTStop> stop = myStopCont.get(id);
     if (stop == nullptr) {
         if (!NBPTStopCont::wasIgnored(id)) {
             WRITE_ERROR("Stop '" + id + "' within line '" + toString(myCurrentLine->getLineID()) + "' not found");
@@ -310,7 +310,7 @@ NIXMLPTHandler::addRouteStop(const SUMOSAXAttributes& attrs) {
     const std::string id = attrs.hasAttribute(SUMO_ATTR_ID)
                            ? attrs.get<std::string>(SUMO_ATTR_ID, "ptLine", ok)
                            : attrs.get<std::string>(SUMO_ATTR_BUS_STOP, "ptline", ok);
-    NBPTStop* stop = myStopCont.get(id);
+    std::shared_ptr<NBPTStop> stop = myStopCont.get(id);
     if (stop == nullptr) {
         WRITE_ERROR("Stop '" + id + "' within route '" + toString(myCurrentRouteID) + "' not found");
         return;

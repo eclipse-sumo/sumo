@@ -21,9 +21,10 @@
 
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/StringUtils.h>
-#include "NBPTStop.h"
 #include "NBEdge.h"
 #include "NBEdgeCont.h"
+#include "NBPTPlatform.h"
+#include "NBPTStop.h"
 
 
 // ===========================================================================

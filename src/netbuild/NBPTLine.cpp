@@ -24,11 +24,16 @@
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>
+#include "NBEdge.h"
 #include "NBEdgeCont.h"
+#include "NBPTStop.h"
 #include "NBPTStopCont.h"
 #include "NBPTLine.h"
-#include "NBPTStop.h"
 
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
 NBPTLine::NBPTLine(const std::string& id, const std::string& name, const std::string& type, const std::string& ref, int interval, const std::string& nightService,
                    SUMOVehicleClass vClass, RGBColor color) :
     myName(name),
@@ -43,7 +48,7 @@ NBPTLine::NBPTLine(const std::string& id, const std::string& name, const std::st
 
 
 void
-NBPTLine::addPTStop(NBPTStop* pStop) {
+NBPTLine::addPTStop(std::shared_ptr<NBPTStop> pStop) {
     if (!myPTStops.empty() && pStop->getName() != "" && myPTStops.back()->getName() == pStop->getName()) {
         // avoid duplicate stop when both platform and stop_position are given as nodes
         if (myPTStops.back()->isPlatform() && !pStop->isPlatform()) {
@@ -56,7 +61,7 @@ NBPTLine::addPTStop(NBPTStop* pStop) {
 }
 
 
-const std::vector<NBPTStop*>&
+const std::vector<std::shared_ptr<NBPTStop> >&
 NBPTLine::getStops() {
     return myPTStops;
 }
@@ -163,7 +168,7 @@ NBPTLine::getRoute() const {
 std::vector<std::pair<NBEdge*, std::string> >
 NBPTLine::getStopEdges(const NBEdgeCont& ec) const {
     std::vector<std::pair<NBEdge*, std::string> > result;
-    for (NBPTStop* stop : myPTStops) {
+    for (std::shared_ptr<NBPTStop> stop : myPTStops) {
         NBEdge* e = ec.retrieve(stop->getEdgeId());
         if (e != nullptr) {
             result.push_back({e, stop->getID()});
@@ -252,7 +257,7 @@ NBPTLine::isConsistent(const std::vector<NBEdge*>& stops) const {
 
 
 void
-NBPTLine::replaceStop(NBPTStop* oldStop, NBPTStop* newStop) {
+NBPTLine::replaceStop(std::shared_ptr<NBPTStop> oldStop, std::shared_ptr<NBPTStop> newStop) {
     for (int i = 0; i < (int)myPTStops.size(); i++) {
         if (myPTStops[i] == oldStop) {
             myPTStops[i] = newStop;
@@ -283,7 +288,7 @@ void
 NBPTLine::deleteInvalidStops(const NBEdgeCont& ec, const NBPTStopCont& sc) {
     // delete stops that are missing or have no edge
     for (auto it = myPTStops.begin(); it != myPTStops.end();) {
-        NBPTStop* stop = *it;
+        std::shared_ptr<NBPTStop> stop = *it;
         if (sc.get(stop->getID()) == nullptr ||
                 ec.getByID(stop->getEdgeId()) == nullptr) {
             WRITE_WARNINGF(TL("Removed invalid stop '%' from line '%'."), stop->getID(), getLineID());
@@ -302,7 +307,7 @@ NBPTLine::deleteDuplicateStops() {
     long long int lastAreaID = -1;
     std::string lastName = "";
     for (auto it = myPTStops.begin(); it != myPTStops.end();) {
-        NBPTStop* stop = *it;
+        std::shared_ptr<NBPTStop> stop = *it;
         if (lastAreaID != -1 && stop->getAreaID() == lastAreaID) {
             WRITE_WARNINGF(TL("Removed duplicate stop '%' at area '%' from line '%'."), stop->getID(), toString(lastAreaID), getLineID());
             it = myPTStops.erase(it);

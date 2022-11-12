@@ -79,7 +79,7 @@ NBPTLineCont::process(NBEdgeCont& ec, NBPTStopCont& sc, bool routeOnly) {
         }
         line->deleteInvalidStops(ec, sc);
         //line->deleteDuplicateStops();
-        for (NBPTStop* stop : line->getStops()) {
+        for (std::shared_ptr<NBPTStop> stop : line->getStops()) {
             myServedPTStops.insert(stop->getID());
         }
     }
@@ -101,8 +101,8 @@ NBPTLineCont::reviseStops(NBPTLine* line, const NBEdgeCont& ec, NBPTStopCont& sc
         WRITE_WARNINGF(TL("Cannot revise pt stop localization for pt line '%', which has no route edges. Ignoring!"), line->getLineID());
         return;
     }
-    std::vector<NBPTStop*> stops = line->getStops();
-    for (NBPTStop* stop : stops) {
+    std::vector<std::shared_ptr<NBPTStop> > stops = line->getStops();
+    for (std::shared_ptr<NBPTStop> stop : stops) {
         //get the corresponding and one of the two adjacent ways
         stop = findWay(line, stop, ec, sc);
         if (stop == nullptr) {
@@ -166,7 +166,7 @@ NBPTLineCont::reviseStops(NBPTLine* line, const NBEdgeCont& ec, NBPTStopCont& sc
                 continue;
             }
             if (stop->getLines().size() > 0) {
-                NBPTStop* reverseStop = sc.getReverseStop(stop, ec);
+                std::shared_ptr<NBPTStop> reverseStop = sc.getReverseStop(stop, ec);
                 sc.insert(reverseStop);
                 line->replaceStop(stop, reverseStop);
                 stop = reverseStop;
@@ -182,7 +182,7 @@ NBPTLineCont::reviseStops(NBPTLine* line, const NBEdgeCont& ec, NBPTStopCont& sc
 
 void NBPTLineCont::reviseSingleWayStops(NBPTLine* line, const NBEdgeCont& ec, NBPTStopCont& sc) {
     const std::vector<std::string>& waysIds = line->getWays();
-    for (NBPTStop* stop : line->getStops()) {
+    for (std::shared_ptr<NBPTStop> stop : line->getStops()) {
         //get the corresponding and one of the two adjacent ways
         stop = findWay(line, stop, ec, sc);
         if (stop == nullptr) {
@@ -199,8 +199,8 @@ void NBPTLineCont::reviseSingleWayStops(NBPTLine* line, const NBEdgeCont& ec, NB
 
 }
 
-NBPTStop*
-NBPTLineCont::findWay(NBPTLine* line, NBPTStop* stop, const NBEdgeCont& ec, NBPTStopCont& sc) const {
+std::shared_ptr<NBPTStop>
+NBPTLineCont::findWay(NBPTLine* line, std::shared_ptr<NBPTStop> stop, const NBEdgeCont& ec, NBPTStopCont& sc) const {
     const std::vector<std::string>& waysIds = line->getWays();
 #ifdef DEBUG_FIND_WAY
     if (stop->getID() == DEBUGSTOPID) {
@@ -232,10 +232,10 @@ NBPTLineCont::findWay(NBPTLine* line, NBPTStop* stop, const NBEdgeCont& ec, NBPT
                 stop->setOrigEdgeId(wayID);
             } else if (stop->getEdgeId() != best->getID()) {
                 // stop is used by multiple lines and mapped to different edges.
-                // check if an alterantive stop already exists
-                NBPTStop* newStop = sc.findStop(wayID, stop->getPosition());
+                // check if an alternative stop already exists
+                std::shared_ptr<NBPTStop> newStop = sc.findStop(wayID, stop->getPosition());
                 if (newStop == nullptr) {
-                    newStop = new NBPTStop(stop->getID() + "@" + line->getLineID(), stop->getPosition(), best->getID(), wayID, stop->getLength(), stop->getName(), stop->getPermissions());
+                    newStop = std::make_shared<NBPTStop>(stop->getID() + "@" + line->getLineID(), stop->getPosition(), best->getID(), wayID, stop->getLength(), stop->getName(), stop->getPermissions());
                     newStop->setEdgeId(best->getID(), ec);  // trigger lane assignment
                     sc.insert(newStop);
                 }
@@ -453,7 +453,7 @@ NBPTLineCont::fixBidiStops(const NBEdgeCont& ec) {
 
     for (auto& item : myPTLines) {
         NBPTLine* line = item.second;
-        std::vector<NBPTStop*> stops = line->getStops();
+        std::vector<std::shared_ptr<NBPTStop> > stops = line->getStops();
         if (stops.size() < 2) {
             continue;
         }
@@ -462,18 +462,18 @@ NBPTLineCont::fixBidiStops(const NBEdgeCont& ec) {
             continue;
         }
         NBVehicle veh(line->getRef(), types[line->getType()]);
-        std::vector<NBPTStop*> newStops;
-        NBPTStop* from = nullptr;
+        std::vector<std::shared_ptr<NBPTStop> > newStops;
+        std::shared_ptr<NBPTStop> from = nullptr;
         for (auto it = stops.begin(); it != stops.end(); ++it) {
-            NBPTStop* to = *it;
-            NBPTStop* used = *it;
+            std::shared_ptr<NBPTStop> to = *it;
+            std::shared_ptr<NBPTStop> used = *it;
             if (to->getBidiStop() != nullptr) {
                 double best = std::numeric_limits<double>::max();
-                NBPTStop* to2 = to->getBidiStop();
+                std::shared_ptr<NBPTStop> to2 = to->getBidiStop();
                 if (from == nullptr) {
                     if ((it + 1) != stops.end()) {
                         from = to;
-                        NBPTStop* from2 = to2;
+                        std::shared_ptr<NBPTStop> from2 = to2;
                         to = *(it + 1);
                         const double c1 = getCost(ec, *router, from, to, &veh);
                         const double c2 = getCost(ec, *router, from2, to, &veh);
@@ -575,7 +575,7 @@ NBPTLineCont::fixPermissions() {
 
 double
 NBPTLineCont::getCost(const NBEdgeCont& ec, SUMOAbstractRouter<NBRouterEdge, NBVehicle>& router,
-                      const NBPTStop* from, const NBPTStop* to, const NBVehicle* veh) {
+                      const std::shared_ptr<NBPTStop> from, const std::shared_ptr<NBPTStop> to, const NBVehicle* veh) {
     NBEdge* fromEdge = ec.getByID(from->getEdgeId());
     NBEdge* toEdge = ec.getByID(to->getEdgeId());
     if (fromEdge == nullptr || toEdge == nullptr) {
