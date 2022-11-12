@@ -1714,6 +1714,7 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
             }
             if (ptLine->getStops().empty()) {
                 WRITE_WARNINGF(TL("PT line in relation % with no stops ignored. Probably OSM file is incomplete."), myCurrentRelation);
+                delete ptLine;
                 resetValues();
                 return;
             }
