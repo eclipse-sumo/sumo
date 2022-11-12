@@ -21,15 +21,17 @@
 #pragma once
 #include <config.h>
 
+#include <set>
 #include <vector>
-#include "NBEdge.h"
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
+class NBEdge;
 class NBEdgeCont;
 class NBPTStopCont;
+class NBPTLine;
 class NBPTLineCont;
 class OptionsCont;
 class NBVehicle;

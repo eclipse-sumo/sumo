@@ -49,6 +49,7 @@
 #include <utils/xml/XMLSubSys.h>
 #include <netbuild/NBPTLine.h>
 #include <netbuild/NBPTLineCont.h>
+#include <netbuild/NBPTStop.h>
 #include "NILoader.h"
 #include "NIImporter_OpenStreetMap.h"
 

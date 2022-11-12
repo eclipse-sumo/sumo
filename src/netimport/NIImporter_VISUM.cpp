@@ -30,8 +30,8 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <netbuild/NBDistrict.h>
-
 #include <netbuild/NBNetBuilder.h>
+#include <netbuild/NBPTStop.h>
 #include "NILoader.h"
 #include "NIImporter_VISUM.h"
 
@@ -1196,17 +1196,6 @@ void NIImporter_VISUM::parse_stopPoints() {
         myNetBuilder.getPTStopCont().insert(ptStop);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 double

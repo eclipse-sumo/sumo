@@ -49,6 +49,7 @@
 #include "NBEdgeCont.h"
 #include "NBTrafficLightLogicCont.h"
 #include "NBOwnTLDef.h"
+#include "NBPTStop.h"
 #include "NBNodeCont.h"
 #include "NBPTStopCont.h"
 #include "NBPTLineCont.h"
@@ -749,8 +750,8 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
     NodeClusters clusters;
     std::map<const NBNode*, std::vector<NBNode*> > ptStopEnds;
     // check for stop edges within the cluster
-    for (auto it = sc.begin(); it != sc.end(); it++) {
-        NBEdge* edge = ec.retrieve(it->second->getEdgeId());
+    for (const auto& stopIt : sc.getStops()) {
+        NBEdge* edge = ec.retrieve(stopIt.second->getEdgeId());
         if (edge != nullptr) {
             ptStopEnds[edge->getFromNode()].push_back(edge->getToNode());
         }

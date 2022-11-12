@@ -17,28 +17,28 @@
 ///
 // Container for pt stops during the netbuilding process
 /****************************************************************************/
-
-
+#include <config.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/geom/Boundary.h>
+#include <utils/geom/Position.h>
 #include <utils/options/OptionsCont.h>
 #include <microsim/MSLane.h>
-#include "NBPTStopCont.h"
 #include "NBEdgeCont.h"
 #include "NBEdge.h"
 #include "NBNode.h"
-#include <utils/geom/Position.h>
+#include "NBPTStop.h"
+#include "NBPTStopCont.h"
+
 
 // ===========================================================================
 // static members
 // ===========================================================================
 std::set<std::string> NBPTStopCont::myIgnoredStops;
 
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
-
-
 NBPTStopCont::~NBPTStopCont() {
     for (auto& myPTStop : myPTStops) {
         delete myPTStop.second;

@@ -23,22 +23,22 @@
 #include <config.h>
 #include <algorithm>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/ToString.h>
+#include <utils/common/StringUtils.h>
+#include <utils/options/OptionsCont.h>
+#include <utils/iodevices/OutputDevice.h>
+#include <utils/geom/GeoConvHelper.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBNode.h>
 #include <netbuild/NBNodeCont.h>
 #include <netbuild/NBNetBuilder.h>
 #include <netbuild/NBPTLineCont.h>
+#include <netbuild/NBPTStop.h>
 #include <netbuild/NBParking.h>
-#include <utils/common/ToString.h>
-#include <utils/common/StringUtils.h>
-#include <utils/options/OptionsCont.h>
-#include <utils/iodevices/OutputDevice.h>
-#include <utils/geom/GeoConvHelper.h>
 #include "NWFrame.h"
 #include "NWWriter_SUMO.h"
 #include "NWWriter_XML.h"
-
 
 
 // ===========================================================================
@@ -448,8 +448,8 @@ void
 NWWriter_XML::writePTStops(const OptionsCont& oc, NBPTStopCont& sc) {
     OutputDevice& device = OutputDevice::getDevice(oc.getString("ptstop-output"));
     device.writeXMLHeader("additional", "additional_file.xsd");
-    for (std::map<std::string, NBPTStop*>::const_iterator i = sc.begin(); i != sc.end(); ++i) {
-        i->second->write(device);
+    for (const auto& stopIt : sc.getStops()) {
+        stopIt.second->write(device);
     }
     device.close();
 }

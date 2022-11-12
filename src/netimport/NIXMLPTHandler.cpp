@@ -23,14 +23,7 @@
 #include <iostream>
 #include <map>
 #include <cmath>
-#include <xercesc/sax/HandlerBase.hpp>
-#include <xercesc/sax/AttributeList.hpp>
-#include <xercesc/sax/SAXParseException.hpp>
-#include <xercesc/sax/SAXException.hpp>
 #include <utils/xml/SUMOSAXHandler.h>
-#include <netbuild/NBNodeCont.h>
-#include <netbuild/NBTypeCont.h>
-#include <netbuild/NBNetBuilder.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>
@@ -39,6 +32,10 @@
 #include <utils/common/ToString.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/geom/GeoConvHelper.h>
+#include <netbuild/NBNodeCont.h>
+#include <netbuild/NBTypeCont.h>
+#include <netbuild/NBNetBuilder.h>
+#include <netbuild/NBPTStop.h>
 #include "NIImporter_OpenStreetMap.h"
 #include "NIXMLNodesHandler.h"
 #include "NIXMLPTHandler.h"

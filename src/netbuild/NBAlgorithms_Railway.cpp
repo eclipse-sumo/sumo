@@ -34,6 +34,7 @@
 #include "NBEdgeCont.h"
 #include "NBNode.h"
 #include "NBEdge.h"
+#include "NBPTStop.h"
 #include "NBVehicle.h"
 #include "NBAlgorithms_Railway.h"
 

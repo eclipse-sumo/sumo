@@ -15,21 +15,33 @@
 /// @author  Gregor Laemmel
 /// @date    Tue, 20 Mar 2017
 ///
-// Container for pt stops during the netbuilding process
+// Container for public transport stops during the net building process
 /****************************************************************************/
-
 #pragma once
 #include <config.h>
 
 #include <string>
 #include <map>
-#include "NBPTStop.h"
 
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class NBEdge;
 class NBEdgeCont;
+class NBPTPlatform;
+class NBPTStop;
 
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
+/**
+ * @class NBPTStopCont
+ * @brief Container for public transport stops during the net building process
+ *
+ */
 class NBPTStopCont {
-
 public:
 
     ~NBPTStopCont();
@@ -44,25 +56,9 @@ public:
     /// @brief Retrieve a previously inserted pt stop
     NBPTStop* get(std::string id) const;
 
-    /// @brief Returns the number of pt stops stored in this container
-    int size() const {
-        return (int) myPTStops.size();
-    }
-
-    /** @brief Returns the pointer to the begin of the stored pt stops
-    * @return The iterator to the beginning of stored pt stops
-    */
-    std::map<std::string, NBPTStop*>::const_iterator begin() const {
-        return myPTStops.begin();
-    }
-
-    /** @brief Returns the pointer to the end of the stored pt stops
-     * @return The iterator to the end of stored pt stops
+    /** @brief Returns an unmodifiable reference to the stored pt stops
+     * @return The stored pt stops
      */
-    std::map<std::string, NBPTStop*>::const_iterator end() const {
-        return myPTStops.end();
-    }
-
     const std::map<std::string, NBPTStop*>& getStops() const {
         return myPTStops;
     }
@@ -91,7 +87,7 @@ public:
     void addEdges2Keep(const OptionsCont& oc, std::set<std::string>& into);
 
     /// @brief replace the edge with the closes edge on the given edge list in all stops
-    void replaceEdge(const std::string& edgeID, const EdgeVector& replacement);
+    void replaceEdge(const std::string& edgeID, const std::vector<NBEdge*>& replacement);
 
 
     NBPTStop* findStop(const std::string& origEdgeID, Position pos, double threshold = 1) const;

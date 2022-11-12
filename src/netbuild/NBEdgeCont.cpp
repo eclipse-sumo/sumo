@@ -44,6 +44,7 @@
 #include "NBEdgeCont.h"
 #include "NBNodeCont.h"
 #include "NBPTLineCont.h"
+#include "NBPTStop.h"
 #include "NBHelpers.h"
 #include "NBCont.h"
 #include "NBTrafficLightLogicCont.h"
