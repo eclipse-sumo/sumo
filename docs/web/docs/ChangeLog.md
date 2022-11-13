@@ -100,7 +100,7 @@ title: ChangeLog
     - Fixed invalid speed adaptations for lane changing while on an intersection. Issue #11507
     - Fixed strategic change happening despite lcStrategic=-1. Issue #11752
     - A stopped leader now triggers strategic changing in the sublane model. Issue #11773
-    - Fixed bug lane-changing deadlock-avoidance caused excessive braking. Issue #11695
+    - Fixed bug where lane-changing deadlock-avoidance caused excessive braking. Issue #11695
   - output
     - fcd-output now includes riding persons even if their vehicle is not equipped with fcd device. Issue #11454
     - fcd-output of persons now respects edge and shape filters. Issue #11455
