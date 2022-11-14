@@ -148,6 +148,16 @@ where -x is the attribute for the x axis; -y is the attribute for the y axis; -s
 
 <img src="../images/queue_out.png" width="500px"/>
 
+### Departure times versus arrival times
+Input is [vehroutes-output](../Simulation/Output/VehRoutes.md). The scenario acosta, one of the published sumo scenarios, is used as example (https://github.com/DLR-TS/sumo-scenarios/tree/main/bologna/acosta).
+
+Call to generate the plot:
+```
+python plotXMLAttributes.py -x depart -y arrival -s -o vehroute.png vehroute.xml --scatterplot
+```
+where -x is the attribute for the x axis; -y is the attribute for the y axis; -s is to show the plot; -o is the output file name; -scatterplot is to make a scatter plot instead of a line plot.
+
+<img src="../images/vehroute_output.png" width="500px"/>
 
 ## plot_trajectories.py
 
