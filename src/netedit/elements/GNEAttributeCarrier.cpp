@@ -825,6 +825,14 @@ GNEAttributeCarrier::getTagPropertiesByType(const int tagPropertyCategory) {
             }
         }
     }
+    if (tagPropertyCategory & GNETagProperties::MEANDATA) {
+        // fill generic data tags
+        for (const auto& tagProperty : myTagProperties) {
+            if (tagProperty.second.isMeanData()) {
+                allowedTags.push_back(tagProperty.second);
+            }
+        }
+    }
     if (tagPropertyCategory & GNETagProperties::CONTAINER) {
         // fill container tags
         for (const auto& tagProperty : myTagProperties) {
@@ -5674,13 +5682,13 @@ GNEAttributeCarrier::fillDataElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     // fill edge data element
-    currentTag = SUMO_TAG_MEANDATA_EDGE;
+    currentTag = GNE_TAG_EDGEREL_SINGLE;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DATAELEMENT | GNETagProperties::GENERICDATA,
-                                      GNETagProperties::CHILD,
-                                      GUIIcon::EDGEDATA, currentTag, {SUMO_TAG_DATAINTERVAL});
+                                      0,
+                                      GUIIcon::EDGEDATA, currentTag);
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -5693,8 +5701,8 @@ GNEAttributeCarrier::fillDataElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DATAELEMENT | GNETagProperties::GENERICDATA,
-                                      GNETagProperties::CHILD,
-                                      GUIIcon::EDGERELDATA, currentTag, {SUMO_TAG_DATAINTERVAL});
+                                      0,
+                                      GUIIcon::EDGERELDATA, currentTag);
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
