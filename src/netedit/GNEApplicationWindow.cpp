@@ -1373,6 +1373,39 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         // enable update data
         myViewNet->getNet()->enableUpdateData();
     }
+    // check if meanData elements has to be loaded at start
+    if (oc.isSet("meandata-files") && !oc.getString("meandata-files").empty() && myNet) {
+        // obtain vector of meanData files
+        std::vector<std::string> meanDataElementsFiles = oc.getStringVector("meandata-files");
+        // begin undolist
+        myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, "loading meanData elements from '" + toString(meanDataElementsFiles) + "'");
+        // disable save meanData elements (because meanData elements were loaded through console)
+        myNet->requireSaveMeanDatas(false);
+        // iterate over every meanData file
+        for (const auto& meanDataElementsFile : meanDataElementsFiles) {
+            WRITE_MESSAGE("Loading meanData elements from '" + meanDataElementsFile + "'");
+            GNEMeanDataHandler meanDataHandler(myNet, meanDataElementsFile, true);
+            // disable validation for meanData elements
+            XMLSubSys::setValidation("never", "auto", "auto");
+            if (!meanDataHandler.parse()) {
+                WRITE_ERROR("Loading of " + meanDataElementsFile + " failed.");
+            } else {
+                // set first meanDataElementsFiles as default file
+                oc.resetWritable();
+                oc.set("meandata-files", meanDataElementsFile);
+            }
+            // disable validation for meanData elements
+            XMLSubSys::setValidation("auto", "auto", "auto");
+            // enable demand elements if there is an error creating element
+            if (meanDataHandler.isErrorCreatingElement()) {
+                myNet->requireSaveMeanDatas(true);
+            } else {
+                myNet->requireSaveMeanDatas(false);
+            }
+        }
+        // end undolist
+        myUndoList->end();
+    }
     // check if additionals output must be changed
     if (oc.isSet("additionals-output")) {
         // overwrite "additional-files" with value "additionals-output"
@@ -1390,6 +1423,12 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         // overwrite "data-files" with value "dataelements-output"
         oc.resetWritable();
         oc.set("data-files", oc.getString("dataelements-output"));
+    }
+    // check if meanData elements output must be changed
+    if (oc.isSet("meandatas-output")) {
+        // overwrite "meandata-files" with value "meanDataelements-output"
+        oc.resetWritable();
+        oc.set("meandata-files", oc.getString("meandatas-output"));
     }
     // after loading net shouldn't be saved
     if (myNet) {
@@ -1688,6 +1727,7 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
     std::string additionalsSavePath = oc.getString("additional-files");
     std::string demandElementsSavePath = oc.getString("route-files");
     std::string dataElementsSavePath = oc.getString("data-files");
+    std::string meanDatasSavePath = oc.getString("meandata-files");
     // write warning if netedit is running in testing mode
     WRITE_DEBUG("Opening FXMessageBox 'Volatile Recomputing'");
     // open question dialog box
@@ -1890,6 +1930,68 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
         } else {
             // clear data element path
             dataElementsSavePath = "";
+        }
+        // Check if there are meanDatas in our net
+        if (myNet->getAttributeCarriers()->getNumberOfMeanDatas() > 0) {
+            // ask user if want to save meanDatas if weren't saved previously
+            if (oc.getString("meandata-files") == "") {
+                // write warning if netedit is running in testing mode
+                WRITE_DEBUG("Opening FXMessageBox 'Save meanDatas before recomputing'");
+                // open question dialog box
+                answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, TL("Save meanDatas before recomputing with volatile options"),
+                                                "Would you like to save meanDatas before recomputing?");
+                if (answer != 1) { //1:yes, 2:no, 4:esc
+                    // write warning if netedit is running in testing mode
+                    if (answer == 2) {
+                        WRITE_DEBUG("Closed FXMessageBox 'Save meanDatas before recomputing' with 'No'");
+                    } else if (answer == 4) {
+                        WRITE_DEBUG("Closed FXMessageBox 'Save meanDatas before recomputing' with 'ESC'");
+                    }
+                } else {
+                    // write warning if netedit is running in testing mode
+                    WRITE_DEBUG("Closed FXMessageBox 'Save meanDatas before recomputing' with 'Yes'");
+                    // Open a dialog to set filename output
+                    FXString file = MFXUtils::getFilename2Write(this,
+                                    TL("Save demand element file"), ".xml",
+                                    GUIIconSubSys::getIcon(GUIIcon::MODETLS),
+                                    gCurrentFolder).text();
+                    // add xml extension
+                    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".rou.xml");
+                    // check that file is valid
+                    if (fileWithExtension != "") {
+                        // update meanData files
+                        oc.resetWritable();
+                        oc.set("meandata-files", fileWithExtension);
+                        // set obtanied filename output into meanDatasSavePath (can be "")
+                        meanDatasSavePath = oc.getString("meandata-files");
+                    }
+                }
+            }
+            // Check if meanData must be saved in a temporary directory, if user didn't define a directory for meanDatas
+            if (oc.getString("meandata-files") == "") {
+                // Obtain temporary directory provided by FXSystem::getCurrentDirectory()
+                meanDatasSavePath = FXSystem::getTempDirectory().text() + std::string("/tmpMeanDatasNetedit.xml");
+            }
+            // Start saving meanDatas
+            getApp()->beginWaitCursor();
+            try {
+                myNet->saveMeanDatas(meanDatasSavePath);
+            } catch (IOError& e) {
+                // write warning if netedit is running in testing mode
+                WRITE_DEBUG("Opening FXMessageBox 'Error saving meanDatas before recomputing'");
+                // open error message box
+                FXMessageBox::error(this, MBOX_OK, TL("Saving meanDatas in temporary folder failed!"), "%s", e.what());
+                // write warning if netedit is running in testing mode
+                WRITE_DEBUG("Closed FXMessageBox 'Error saving meanDatas before recomputing' with 'OK'");
+            }
+            // end saving meanDatas
+            myMessageWindow->addSeparator();
+            getApp()->endWaitCursor();
+            // restore focus
+            setFocus();
+        } else {
+            // clear meanData path
+            meanDatasSavePath = "";
         }
         // compute with volatile options
         myNet->computeNetwork(this, true, true, additionalsSavePath, demandElementsSavePath, dataElementsSavePath);

@@ -1925,6 +1925,16 @@ GNEApplicationWindowHelper::GNEConfigHandler::loadConfig(CommonXMLStructure::Sum
                 oc.set("data-files", myFilepath + file);
             }
         }
+        // set meanData files
+        if (configObj->hasStringAttribute(SUMO_ATTR_MEANDATAFILES)) {
+            const auto file = configObj->getStringAttribute(SUMO_ATTR_MEANDATAFILES);
+            oc.resetWritable();
+            if (FileHelpers::isAbsolute(file)) {
+                oc.set("meanData-files", file);
+            } else {
+                oc.set("meanData-files", myFilepath + file);
+            }
+        }
         // set SUMOConfig-files
         oc.resetWritable();
         oc.set("SUMOConfig-output", configObj->getStringAttribute(SUMO_ATTR_CONFIGFILE));
@@ -1968,6 +1978,12 @@ GNEApplicationWindowHelper::saveSUMOConfig() {
         if (oc.getString("data-files").size() > 0) {
             device.openTag(SUMO_TAG_DATAFILES);
             device.writeAttr(SUMO_ATTR_VALUE, oc.getString("data-files"));
+            device.closeTag();
+        }
+        // check if write meanDatas
+        if (oc.getString("meandata-files").size() > 0) {
+            device.openTag(SUMO_TAG_MEANDATAFILES);
+            device.writeAttr(SUMO_ATTR_VALUE, oc.getString("meandata-files"));
             device.closeTag();
         }
         // close device
