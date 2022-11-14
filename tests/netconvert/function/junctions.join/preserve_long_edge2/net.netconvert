@@ -50,35 +50,35 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <net version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="0.00,0.00" convBoundary="-7.77,-5.19,177.16,73.86" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+    <location netOffset="0.00,0.00" convBoundary="-7.77,-5.19,177.16,69.26" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
-    <edge id="gneE10" from="cluster_gneJ2_gneJ3_gneJ4" to="gneJ1" priority="1" spreadType="center" shape="83.93,6.61 84.71,73.86 72.05,73.86 72.51,6.61">
-        <lane id="gneE10_0" index="0" speed="13.89" length="20.18" shape="72.47,12.35 72.47,12.24"/>
+    <edge id="gneE10" from="cluster_gneJ2_gneJ3_gneJ4" to="gneJ1" priority="1" spreadType="center" shape="83.93,6.61 109.77,45.81 78.49,69.26 48.11,47.19 72.51,6.61">
+        <lane id="gneE10_0" index="0" speed="13.89" length="177.29" shape="87.76,12.42 109.77,45.81 78.49,69.26 48.11,47.19 68.95,12.53"/>
     </edge>
     <edge id="gneE11" from="gneJ1" to="gneJ12" priority="1" spreadType="center">
-        <lane id="gneE11_0" index="0" speed="13.89" length="79.83" shape="66.83,6.75 -7.30,8.54"/>
+        <lane id="gneE11_0" index="0" speed="13.89" length="76.21" shape="65.60,6.78 -7.30,8.54"/>
     </edge>
     <edge id="gneE13" from="gneJ1" to="cluster_gneJ2_gneJ3_gneJ4" priority="1" spreadType="center" shape="72.51,6.61 71.82,-3.00">
-        <lane id="gneE13_0" index="0" speed="13.89" length="10.34" shape="72.52,6.74 72.51,6.54"/>
+        <lane id="gneE13_0" index="0" speed="13.89" length="14.30" shape="72.17,1.82 72.15,1.62"/>
     </edge>
     <edge id="gneE6" from="gneJ5" to="cluster_gneJ2_gneJ3_gneJ4" priority="1" spreadType="center" shape="-7.77,-1.91 71.82,-3.00">
         <lane id="gneE6_0" index="0" speed="13.89" length="88.30" shape="-7.77,-1.91 66.31,-2.92"/>
     </edge>
     <edge id="gneE8" from="cluster_gneJ2_gneJ3_gneJ4" to="gneJ8" priority="1" spreadType="center" shape="84.82,-3.20 177.01,-5.19">
-        <lane id="gneE8_0" index="0" speed="13.89" length="97.47" shape="89.30,-3.30 177.01,-5.19"/>
+        <lane id="gneE8_0" index="0" speed="13.89" length="97.40" shape="90.64,-3.33 177.01,-5.19"/>
     </edge>
     <edge id="gneE9" from="gneJ9" to="cluster_gneJ2_gneJ3_gneJ4" priority="1" spreadType="center" shape="177.16,6.20 83.93,6.61">
-        <lane id="gneE9_0" index="0" speed="13.89" length="98.98" shape="177.16,6.20 89.51,6.59"/>
+        <lane id="gneE9_0" index="0" speed="13.89" length="98.77" shape="177.16,6.20 90.86,6.58"/>
     </edge>
 
-    <junction id="cluster_gneJ2_gneJ3_gneJ4" type="priority" x="80.19" y="0.14" incLanes="gneE13_0 gneE9_0 gneE6_0" intLanes="" shape="71.32,12.36 85.59,12.20 89.55,8.19 89.27,-4.90 66.29,-4.52 66.33,-1.32">
+    <junction id="cluster_gneJ2_gneJ3_gneJ4" type="priority" x="80.19" y="0.14" incLanes="gneE13_0 gneE9_0 gneE6_0" intLanes="" shape="70.62,2.61 73.81,2.38 86.42,13.30 89.09,11.54 90.89,8.18 90.61,-4.93 66.29,-4.52 66.33,-1.32">
         <request index="0" response="11000" foes="11000"/>
         <request index="1" response="10100" foes="10100"/>
         <request index="2" response="00000" foes="10010"/>
         <request index="3" response="00000" foes="00001"/>
         <request index="4" response="00100" foes="00111"/>
     </junction>
-    <junction id="gneJ1" type="priority" x="72.51" y="6.61" incLanes="gneE10_0" intLanes="" shape="73.70,0.83 70.51,1.06 66.80,5.15 66.87,8.35 70.87,12.25 74.07,12.27">
+    <junction id="gneJ1" type="priority" x="72.51" y="6.61" incLanes="gneE10_0" intLanes="" shape="73.70,0.83 70.51,1.06 65.56,5.18 65.64,8.38 67.58,11.71 70.32,13.36">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
