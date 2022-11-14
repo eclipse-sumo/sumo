@@ -1254,6 +1254,9 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
             for (std::string codeList : values) {
                 const std::vector<std::string> codes = StringTokenizer(codeList, ";").getVector();
                 int turnCode = 0;
+                if (codes.size() == 0) {
+                    turnCode = (int)LinkDirection::STRAIGHT;
+                }
                 for (std::string code : codes) {
                     if (code == "" || code == "none" || code == "through") {
                         turnCode |= (int)LinkDirection::STRAIGHT;
