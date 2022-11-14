@@ -418,6 +418,8 @@ enum SumoXMLTag {
 
     /// @name NETEDIT elements
     /// @{
+    /// @brief edge rel (defined in a single lane)
+    GNE_TAG_EDGEREL_SINGLE,
     /// @brief internal lane
     GNE_TAG_INTERNAL_LANE,
     /// @brief Point of interest over Lane

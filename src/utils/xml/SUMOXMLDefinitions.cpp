@@ -252,6 +252,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "entrance",                       AGEN_TAG_ENTRANCE },
     { "parameters",                     AGEN_TAG_PARAM },
     // NETEDIT
+    { "edgeRelSingle",                  GNE_TAG_EDGEREL_SINGLE },
     { "internalLane",                   GNE_TAG_INTERNAL_LANE },
     { "poiLane",                        GNE_TAG_POILANE },
     { "poiGeo",                         GNE_TAG_POIGEO },

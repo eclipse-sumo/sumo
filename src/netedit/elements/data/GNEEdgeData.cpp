@@ -46,7 +46,7 @@
 // ---------------------------------------------------------------------------
 
 GNEEdgeData::GNEEdgeData(GNEDataInterval* dataIntervalParent, GNEEdge* edgeParent, const Parameterised::Map& parameters) :
-    GNEGenericData(SUMO_TAG_MEANDATA_EDGE, GUIIconSubSys::getIcon(GUIIcon::EDGEDATA), GLO_EDGEDATA, dataIntervalParent, parameters,
+    GNEGenericData(GNE_TAG_EDGEREL_SINGLE, GUIIconSubSys::getIcon(GUIIcon::EDGEDATA), GLO_EDGEDATA, dataIntervalParent, parameters,
 {}, {edgeParent}, {}, {}, {}, {}) {
 }
 

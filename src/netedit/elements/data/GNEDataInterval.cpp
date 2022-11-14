@@ -58,7 +58,7 @@ GNEDataInterval::updateGenericDataIDs() {
     if (myNet->isUpdateDataEnabled()) {
         // iterate over generic data childrens
         for (const auto& genericData : myGenericDataChildren) {
-            if (genericData->getTagProperty().getTag() == SUMO_TAG_MEANDATA_EDGE) {
+            if (genericData->getTagProperty().getTag() == GNE_TAG_EDGEREL_SINGLE) {
                 // {dataset}[{begin}m{end}]{edge}
                 genericData->setMicrosimID(myDataSetParent->getID() + "[" + toString(myBegin) + "," + toString(myEnd) + "]" +
                                            genericData->getParentEdges().front()->getID());

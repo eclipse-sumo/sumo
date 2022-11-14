@@ -1563,7 +1563,7 @@ GNEApplicationWindowHelper::LockMenuCommands::editLocking(const GNEAttributeCarr
         menuCheckLockTranships->setCheck(value);
     } else if (AC->getTagProperty().isStop() || AC->getTagProperty().isStopPerson()) {
         menuCheckLockStops->setCheck(value);
-    } else if (AC->getTagProperty().getTag() == SUMO_TAG_MEANDATA_EDGE) {
+    } else if (AC->getTagProperty().getTag() == GNE_TAG_EDGEREL_SINGLE) {
         menuCheckLockEdgeDatas->setCheck(value);
     } else if (AC->getTagProperty().getTag() == SUMO_TAG_EDGEREL) {
         menuCheckLockEdgeRelDatas->setCheck(value);

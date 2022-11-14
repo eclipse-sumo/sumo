@@ -3029,7 +3029,7 @@ GNEViewNetHelper::IntervalBar::buildIntervalBarElements() {
     myGenericDataTypesComboBox->create();
     // fill combo box
     myGenericDataTypesComboBox->appendItem("<all>");
-    myGenericDataTypesComboBox->appendItem(toString(SUMO_TAG_MEANDATA_EDGE).c_str());
+    myGenericDataTypesComboBox->appendItem(toString(GNE_TAG_EDGEREL_SINGLE).c_str());
     myGenericDataTypesComboBox->appendItem(toString(SUMO_TAG_EDGEREL).c_str());
     myGenericDataTypesComboBox->appendItem(toString(SUMO_TAG_TAZREL).c_str());
     myGenericDataTypesComboBox->setNumVisible(myGenericDataTypesComboBox->getNumItems());
@@ -3192,8 +3192,8 @@ GNEViewNetHelper::IntervalBar::markForUpdate() {
 SumoXMLTag
 GNEViewNetHelper::IntervalBar::getGenericDataType() const {
     if (myGenericDataTypesComboBox->isEnabled() && (myGenericDataTypesComboBox->getTextColor() == FXRGB(0, 0, 0))) {
-        if (myGenericDataTypesComboBox->getText() == toString(SUMO_TAG_MEANDATA_EDGE).c_str()) {
-            return SUMO_TAG_MEANDATA_EDGE;
+        if (myGenericDataTypesComboBox->getText() == toString(GNE_TAG_EDGEREL_SINGLE).c_str()) {
+            return GNE_TAG_EDGEREL_SINGLE;
         } else if (myGenericDataTypesComboBox->getText() == toString(SUMO_TAG_EDGEREL).c_str()) {
             return SUMO_TAG_EDGEREL;
         } else if (myGenericDataTypesComboBox->getText() == toString(SUMO_TAG_TAZREL).c_str()) {
@@ -3251,7 +3251,7 @@ GNEViewNetHelper::IntervalBar::getParameter() const {
 void
 GNEViewNetHelper::IntervalBar::setGenericDataType() {
     if ((myGenericDataTypesComboBox->getText() == "<all>") ||
-            (myGenericDataTypesComboBox->getText() == toString(SUMO_TAG_MEANDATA_EDGE).c_str()) ||
+            (myGenericDataTypesComboBox->getText() == toString(GNE_TAG_EDGEREL_SINGLE).c_str()) ||
             (myGenericDataTypesComboBox->getText() == toString(SUMO_TAG_EDGEREL).c_str()) ||
             (myGenericDataTypesComboBox->getText() == toString(SUMO_TAG_TAZREL).c_str())) {
         myGenericDataTypesComboBox->setTextColor(FXRGB(0, 0, 0));
