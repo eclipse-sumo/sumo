@@ -52,6 +52,8 @@ public:
     /// @brief parse SumoBaseObject (it's called recursivelly)
     void parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj);
 
+    /// @name build functions
+    /// @{
     /**@brief Builds edgeMeanData
      * @param[in] sumoBaseObject sumo base object used for build
      * @param[in] edgeID edge id
