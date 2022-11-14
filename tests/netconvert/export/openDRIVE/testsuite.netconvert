@@ -19,5 +19,8 @@ forbiddenlane
 # convert sumo network to xodr
 lefthand
 
+# convert sumo network to xodr
+lefthand_sidewalk
+
 # test exporting signal groups
 signalGroups
