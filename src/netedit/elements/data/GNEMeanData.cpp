@@ -124,8 +124,72 @@ GNEMeanData::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& /* pare
 
 
 void
-GNEMeanData::drawGL(const GUIVisualizationSettings& /* s */) const {
-    // Nothing to draw
+GNEMeanData::drawGL(const GUIVisualizationSettings& s) const {
+    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
+        // first push GL ID
+        GLHelper::pushName(getGlID());
+        // get lanes to draw
+        std::vector<GNELane*> lanes;
+        if (getParentLanes().size() > 0) {
+            lanes.push_back(getParentLanes().front());
+        } else {
+            lanes = getParentEdges().front()->getLanes();
+        }
+        // draw over all lanes
+        for (const auto& lane : lanes) {
+            // get lane width
+            const double laneWidth = s.addSize.getExaggeration(s, lane) * s.edgeRelWidthExaggeration *
+                                     (lane->getParentEdge()->getNBEdge()->getLaneWidth(lane->getIndex()) * 0.5);
+            // Add a draw matrix
+            GLHelper::pushMatrix();
+            // Start with the drawing of the area translating matrix to origin
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_EDGEDATA, 0);
+            GLHelper::setColor(RGBColor::BLACK);
+            // draw box lines
+            GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(),
+                                          lane->getLaneShape(), lane->getShapeRotations(),
+                                          lane->getShapeLengths(), {}, laneWidth, false);
+            // translate to top
+            glTranslated(0, 0, 0.01);
+            GLHelper::setColor(RGBColor::RED);
+            // draw interne box lines
+            GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(),
+                                          lane->getLaneShape(), lane->getShapeRotations(),
+                                          lane->getShapeLengths(), {}, (laneWidth - 0.1), false);
+            // Pop last matrix
+            GLHelper::popMatrix();
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
+            // check if mouse is over element
+            for (const auto& laneParent : lane->getParentEdge()->getLanes()) {
+                // get lane drawing constants
+                GNELane::LaneDrawingConstants laneDrawingConstants(s, laneParent);
+                mouseWithinGeometry(laneParent->getLaneShape(), laneDrawingConstants.halfWidth * s.edgeRelWidthExaggeration);
+            }
+            // inspect contour
+            if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+                GNEEdge::drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::INSPECT,
+                                               lane->getParentEdge(), true, true, s.edgeRelWidthExaggeration);
+            }
+            // front contour
+            if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+                GNEEdge::drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::FRONT,
+                                               lane->getParentEdge(), true, true, s.edgeRelWidthExaggeration);
+            }
+            // delete contour
+            if (myNet->getViewNet()->drawDeleteContour(this, this)) {
+                GNEEdge::drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::REMOVE,
+                                               lane->getParentEdge(), true, true, s.edgeRelWidthExaggeration);
+            }
+            // select contour
+            if (myNet->getViewNet()->drawSelectContour(this, this)) {
+                GNEEdge::drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::SELECT,
+                                               lane->getParentEdge(), true, true, s.edgeRelWidthExaggeration);
+            }
+        }
+        // Pop name
+        GLHelper::popName();
+    }
 }
 
 
