@@ -151,7 +151,11 @@ GNEMeanData::drawGL(const GUIVisualizationSettings& s) const {
                                           lane->getShapeLengths(), {}, laneWidth, false);
             // translate to top
             glTranslated(0, 0, 0.01);
-            GLHelper::setColor(RGBColor::RED);
+            if (getParentLanes().size() > 0) {
+                GLHelper::setColor(RGBColor::ORANGE);
+            } else {
+                GLHelper::setColor(RGBColor::CYAN);
+            }
             // draw interne box lines
             GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(),
                                           lane->getLaneShape(), lane->getShapeRotations(),
@@ -226,10 +230,12 @@ GNEMeanData::getCenteringBoundary() const {
 std::string
 GNEMeanData::getAttribute(SumoXMLAttr key) const {
     switch (key) {
-        case SUMO_ATTR_EDGE:
-            return getParentEdges().front()->getID();
-        case SUMO_ATTR_LANE:
-            return getParentLanes().front()->getID();
+        case SUMO_ATTR_ID:
+            if (getParentLanes().size() > 0) {
+                return getParentLanes().front()->getID();
+            } else {
+                return getParentEdges().front()->getID();
+            }
         case SUMO_ATTR_FILE:
             return myFile;
         default:
@@ -247,8 +253,7 @@ GNEMeanData::getAttributeDouble(SumoXMLAttr key) const {
 bool
 GNEMeanData::isAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {
-        case SUMO_ATTR_EDGE:
-        case SUMO_ATTR_LANE:
+        case SUMO_ATTR_ID:
             return false;
         default:
             return true;

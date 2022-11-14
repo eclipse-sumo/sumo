@@ -83,7 +83,7 @@ GNEMeanDataHandler::buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* 
             laneMeanData->incRef("buildLaneMeanData");
         }
     } else {
-        writeError("Could not build " + toString(SUMO_TAG_MEANDATA_EDGE) + "; lane " + laneID + " doesn't exist");
+        writeError("Could not build " + toString(SUMO_TAG_MEANDATA_LANE) + "; lane " + laneID + " doesn't exist");
     }
 }
 

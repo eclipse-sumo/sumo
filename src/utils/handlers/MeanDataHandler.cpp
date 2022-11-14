@@ -51,12 +51,12 @@ MeanDataHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
     switch (obj->getTag()) {
         case SUMO_TAG_MEANDATA_EDGE:
             buildEdgeMeanData(obj,
-                obj->getStringAttribute(SUMO_ATTR_EDGE),
+                obj->getStringAttribute(SUMO_ATTR_ID),
                 obj->getStringAttribute(SUMO_ATTR_FILE));
             break;
         case SUMO_TAG_MEANDATA_LANE:
-            buildEdgeMeanData(obj,
-                obj->getStringAttribute(SUMO_ATTR_EDGE),
+            buildLaneMeanData(obj,
+                obj->getStringAttribute(SUMO_ATTR_ID),
                 obj->getStringAttribute(SUMO_ATTR_FILE));
             break;
         default:
@@ -136,14 +136,14 @@ MeanDataHandler::parseEdgeMeanData(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
-    const std::string edgeID = attrs.get<std::string>(SUMO_ATTR_EDGE, "", parsedOk);
+    const std::string edgeID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, "", parsedOk);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_MEANDATA_EDGE);
         // add all attributes
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_EDGE, edgeID);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, edgeID);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FILE, file);
     }
 }
@@ -154,14 +154,14 @@ MeanDataHandler::parseLaneMeanData(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
     // needed attributes
-    const std::string laneID = attrs.get<std::string>(SUMO_ATTR_LANE, "", parsedOk);
+    const std::string laneID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, "", parsedOk);
     // continue if flag is ok
     if (parsedOk) {
         // set tag
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_MEANDATA_LANE);
         // add all attributes
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_LANE, laneID);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, laneID);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FILE, file);
     }
 }

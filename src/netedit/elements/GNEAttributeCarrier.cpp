@@ -5744,7 +5744,7 @@ GNEAttributeCarrier::fillDataElements() {
                                       GUIIcon::DATASET, currentTag);
 
         // set values of attributes
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_EDGE,
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
                                               "The id of edge in the simulation network");
         myTagProperties[currentTag].addAttribute(attrProperty);
@@ -5764,7 +5764,7 @@ GNEAttributeCarrier::fillDataElements() {
                                       GUIIcon::DATASET, currentTag);
 
         // set values of attributes
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_LANE,
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
                                               "The id of lane in the simulation network");
         myTagProperties[currentTag].addAttribute(attrProperty);
