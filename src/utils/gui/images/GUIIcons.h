@@ -466,6 +466,8 @@ enum class GUIIcon {
     EDGEDATA,
     EDGERELDATA,
     TAZRELDATA,
+    MEANDATAEDGE,
+    MEANDATALANE,
     /// @}
 
     /// @name NETEDIT icons used in GNETLSTable
