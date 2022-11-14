@@ -690,16 +690,20 @@ GNELane::updateGLObject() {
 
 void
 GNELane::drawChildren(const GUIVisualizationSettings& s) const {
-    // draw child additional
+    // draw additional children
     for (const auto& additional : getChildAdditionals()) {
         // check that ParkingAreas aren't draw two times
         additional->drawGL(s);
     }
-    // draw child demand elements
+    // draw demand element children
     for (const auto& demandElement : getChildDemandElements()) {
         if (!demandElement->getTagProperty().isPlacedInRTree()) {
             demandElement->drawGL(s);
         }
+    }
+    // draw meanData children
+    for (const auto& meanData : getChildMeanDatas()) {
+        meanData->drawGL(s);
     }
 }
 
