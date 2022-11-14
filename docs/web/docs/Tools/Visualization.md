@@ -137,6 +137,18 @@ python.exe .\plotXMLAttributes.py ssm.xml -x time --xlabel "Time [s]" -y value -
 
 <img src="../images/plot_ttc.png" title="plot_ttc.png" width=600px/>
 
+### Queuing times over time
+Input is [stop-output](../Simulation/Output/QueueOutput.md). The scenario acosta, one of the published sumo scenarios, is used as example (https://github.com/DLR-TS/sumo-scenarios/tree/main/bologna/acosta).
+
+Call to generate the plot:
+```
+python plotXMLAttributes.py -x timestep -y queueing_time -s -o queue.png queue.xml -i id --filter-ids 121_0
+```
+where -x is the attribute for the x axis; -y is the attribute for the y axis; -s is to show the plot; -o is the output file name; -i is the filtered attribute name; --filter-ids are the value(s) of the filtered attribute name.
+
+<img src="../images/queue_out.png" width="500px"/>
+
+
 ## plot_trajectories.py
 
 Create plot of all trajectories in a given **--fcd-output** file. This tool in particular is located in {{SUMO}}/tools.
