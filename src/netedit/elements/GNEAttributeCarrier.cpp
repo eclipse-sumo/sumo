@@ -5726,6 +5726,47 @@ GNEAttributeCarrier::fillDataElements() {
                                               "The name of the TAZ the " + toString(currentTag) + " ends at");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
+
+    currentTag = SUMO_TAG_MEANDATA_EDGE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::DATAELEMENT | GNETagProperties::MEANDATA,
+                                      GNETagProperties::NOPARAMETERS,
+                                      GUIIcon::DATASET, currentTag);
+
+        // set values of attributes
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_EDGE,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              "The id of edge in the simulation network");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_FILE,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::FILENAME | GNEAttributeProperties::DEFAULTVALUE,
+                                              "The path to the output file");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+    }
+    currentTag = SUMO_TAG_MEANDATA_LANE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::DATAELEMENT | GNETagProperties::MEANDATA,
+                                      GNETagProperties::NOPARAMETERS,
+                                      GUIIcon::DATASET, currentTag);
+
+        // set values of attributes
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_LANE,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              "The id of lane in the simulation network");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_FILE,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::FILENAME | GNEAttributeProperties::DEFAULTVALUE,
+                                              "The path to the output file");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+    }
 }
 
 /****************************************************************************/
