@@ -125,7 +125,7 @@ public:
     }
 
     std::shared_ptr<NBPTStop> getBidiStop() const {
-        return myBidiStop;
+        return myBidiStop.lock();
     }
 
     bool isLoose() const {
@@ -178,7 +178,7 @@ private:
     /// @brief list of public transport lines (for displaying)
     std::vector<std::string> myLines;
 
-    std::shared_ptr<NBPTStop> myBidiStop;
+    std::weak_ptr<NBPTStop> myBidiStop;
 
     /// @brief whether the stop was not part of the road network and must be mapped
     bool myIsLoose;
