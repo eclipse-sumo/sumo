@@ -46,7 +46,7 @@ visually in [netedit](../Netedit/index.md#traffic_lights).
   default. To have each green phase preceded by an all-red phase, the
   option **--tls.allred.time** can be used.
 - It is also possible to generate
-  [\#Actuated_Traffic_Lights](#actuated_traffic_lights)
+  [Actuated Traffic Lights](#type_actuated)
   by setting the option **--tls.default-type**. This will generated the same signal plans as
   above but with green phases that have a variable length of 5s-50s
   (both values can be set using the options **--tls.min-dur, --tls.max-dur**).
