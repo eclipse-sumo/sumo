@@ -119,6 +119,12 @@ MeanDataHandler::myEndElement(int element) {
 }
 
 
+bool
+MeanDataHandler::isErrorCreatingElement() const {
+    return true;
+}
+
+
 void
 MeanDataHandler::writeError(const std::string& error) {
     WRITE_ERROR(error);
