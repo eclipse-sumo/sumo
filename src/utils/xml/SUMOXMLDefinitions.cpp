@@ -301,6 +301,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "additional-files",               SUMO_TAG_ADDITIONALFILES },
     { "route-files",                    SUMO_TAG_ROUTEFILES },
     { "data-files",                     SUMO_TAG_DATAFILES },
+    { "meandata-files",                 SUMO_TAG_MEANDATAFILES },
     // Last element
     { "",                               SUMO_TAG_NOTHING }  // -> must be the last one
 };
@@ -942,6 +943,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "additional-files",   SUMO_ATTR_ADDITIONALFILES },
     { "route-files",        SUMO_ATTR_ROUTEFILES },
     { "data-files",         SUMO_ATTR_DATAFILES },
+    { "meandata-files",     SUMO_ATTR_MEANDATAFILES },
 
     // NETEDIT Attributes
     { "selected",                           GNE_ATTR_SELECTED },

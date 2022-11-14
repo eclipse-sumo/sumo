@@ -90,6 +90,9 @@ private:
     /// @brief parse data files attribute
     void parseDataFiles(const SUMOSAXAttributes& attrs);
 
+    /// @brief parse additional files attribute
+    void parseMeanDataFiles(const SUMOSAXAttributes& attrs);
+
     /// @}
 
     /// @brief invalidate copy constructor
