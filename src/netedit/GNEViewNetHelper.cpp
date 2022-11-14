@@ -83,6 +83,8 @@ GNEViewNetHelper::LockManager::LockManager(GNEViewNet* viewNet) :
     myLockedElements[GLO_EDGEDATA] = OperationLocked(Supermode::DATA);
     myLockedElements[GLO_EDGERELDATA] = OperationLocked(Supermode::DATA);
     myLockedElements[GLO_TAZRELDATA] = OperationLocked(Supermode::DATA);
+    myLockedElements[GLO_MEANDATAEDGE] = OperationLocked(Supermode::DATA);
+    myLockedElements[GLO_MEANDATALANE] = OperationLocked(Supermode::DATA);
 }
 
 
