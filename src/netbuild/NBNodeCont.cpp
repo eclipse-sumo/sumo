@@ -478,7 +478,6 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
             sc.addEdges2Keep(oc, edges2keep);
         }
     }
-    std::vector<NBNode*> toRemove;
 
     std::map<NBEdge*, std::set<NBTrafficLightDefinition*> > tlsLookup;
     for (auto it = ec.begin(); it != ec.end(); it++) {
@@ -489,7 +488,7 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
         }
     }
 
-
+    std::vector<NBNode*> toRemove;
     for (const auto& i : myNodes) {
         NBNode* const current = i.second;
         bool remove = false;
