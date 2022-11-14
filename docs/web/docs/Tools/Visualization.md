@@ -138,7 +138,7 @@ python.exe .\plotXMLAttributes.py ssm.xml -x time --xlabel "Time [s]" -y value -
 <img src="../images/plot_ttc.png" title="plot_ttc.png" width=600px/>
 
 ### Queuing times over time
-Input is [stop-output](../Simulation/Output/QueueOutput.md). The scenario acosta, one of the published sumo scenarios, is used as example (https://github.com/DLR-TS/sumo-scenarios/tree/main/bologna/acosta).
+Input is [queue-output](../Simulation/Output/QueueOutput.md). The scenario acosta, one of the published sumo scenarios, is used as example (https://github.com/DLR-TS/sumo-scenarios/tree/main/bologna/acosta).
 
 Call to generate the plot:
 ```
