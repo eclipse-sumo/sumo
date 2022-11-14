@@ -9,6 +9,8 @@ set(utils_handlers_STAT_SRCS
    GeneralHandler.cpp
    RouteHandler.h
    RouteHandler.cpp
+   MeanDataHandler.h
+   MeanDataHandler.cpp
 )
 
 add_library(utils_handlers STATIC ${utils_handlers_STAT_SRCS})
