@@ -822,10 +822,23 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
             }
         }
         // avoid removal of long edges (must have been added via an alternative path).
-        pruneLongEdges(cluster, maxDist);
+        const int numPruned = pruneLongEdges(cluster, maxDist);
         if (cluster.size() < 2) {
             WRITE_WARNINGF(TL("Not joining junctions % (%)."), origCluster, "long edge");
             continue;
+        }
+        // after pruning long edges we have to recheck
+        if (numPruned > 0) {
+            pruneClusterFringe(cluster);
+            if (cluster.size() < 2) {
+                WRITE_WARNINGF(TL("Not joining junctions % (%)."), origCluster, "long edge");
+                continue;
+            }
+            pruneSlipLaneNodes(cluster);
+            if (cluster.size() < 2) {
+                WRITE_WARNINGF(TL("Not joining junctions % (%)."), origCluster, "slip lane");
+                continue;
+            }
         }
         origCluster = joinNamedToString(cluster, ',');
         feasible = feasibleCluster(cluster, ptStopEnds, origReason);
@@ -1033,8 +1046,8 @@ NBNodeCont::pruneLongEdges(NodeSet& cluster, double maxDist, const bool dryRun) 
                 // we found an edge that should not be removed. Maybe we can
                 // still keep the start or end in the cluster
                 // (keep the start if the end can be removed and vice versa)
-                const bool keepStart = getClusterNeighbors(passed.back(), cluster).size() == 1;
-                const bool keepEnd = !keepStart && getClusterNeighbors(n, cluster).size() == 1;
+                const bool keepStart = getClusterNeighbors(passed.back(), longThreshold, cluster).size() == 1;
+                const bool keepEnd = !keepStart && getClusterNeighbors(n, longThreshold, cluster).size() == 1;
 #ifdef DEBUG_JOINJUNCTIONS
                 if (gDebugFlag1) {
                     std::cout << "node=" << n->getID() << " long edge " << edge->getID() << " (" << length << ", passed=" << toString(passed) << ", max=" << longThreshold << ") keepStart=" << keepStart << " keepEnd=" << keepEnd << "\n";
@@ -1061,9 +1074,12 @@ NBNodeCont::pruneLongEdges(NodeSet& cluster, double maxDist, const bool dryRun) 
 
 
 NodeSet
-NBNodeCont::getClusterNeighbors(const NBNode* n, NodeSet& cluster) {
+NBNodeCont::getClusterNeighbors(const NBNode* n, double longThreshold, NodeSet& cluster) {
     NodeSet result;
     for (NBEdge* e : n->getEdges()) {
+        if (e->getLength() > longThreshold) {
+            continue;
+        }
         NBNode* neighbor = e->getFromNode() == n ? e->getToNode() : e->getFromNode();
         if (cluster.count(neighbor) != 0) {
             result.insert(neighbor);
@@ -1104,7 +1120,7 @@ NBNodeCont::pruneSlipLaneNodes(NodeSet& cluster) const {
                 NBNode* cont = contEdge->getToNode();
                 NodeSet cands;
                 cands.insert(n);
-                while (cont->getIncomingEdges().size() == 1 && cont->getOutgoingEdges().size() == 1 && slipLength < MAX_SLIPLANE_LENGTH) {
+                while (isSlipLaneContinuation(cont) && slipLength < MAX_SLIPLANE_LENGTH) {
                     if (cands.count(cont) != 0) {
                         break; // circle, should not happen
                     }
@@ -1190,7 +1206,7 @@ NBNodeCont::pruneSlipLaneNodes(NodeSet& cluster) const {
                 NBNode* cont = contEdge->getFromNode();
                 NodeSet cands;
                 cands.insert(n);
-                while (cont->getIncomingEdges().size() == 1 && cont->getOutgoingEdges().size() == 1 && slipLength < MAX_SLIPLANE_LENGTH) {
+                while (isSlipLaneContinuation(cont) && slipLength < MAX_SLIPLANE_LENGTH) {
                     if (cands.count(cont) != 0) {
                         break; // circle, should not happen
                     }
@@ -1277,23 +1293,31 @@ NBNodeCont::pruneSlipLaneNodes(NodeSet& cluster) const {
 
 
 bool
+NBNodeCont::isSlipLaneContinuation(const NBNode* cont) {
+    return cont->getPassengerEdges(true).size() == 1 && cont->getPassengerEdges(false).size() == 1;
+}
+
+
+bool
 NBNodeCont::maybeSlipLaneStart(const NBNode* n, EdgeVector& outgoing, double& inAngle) const {
-    if (n->getIncomingEdges().size() == 1 && n->getOutgoingEdges().size() == 2) {
-        outgoing.insert(outgoing.begin(), n->getOutgoingEdges().begin(), n->getOutgoingEdges().end());
-        inAngle = n->getIncomingEdges().front()->getAngleAtNode(n);
+    EdgeVector inPE = n->getPassengerEdges(true);
+    EdgeVector outPE = n->getPassengerEdges(false);
+    if (inPE.size() == 1 && outPE.size() == 2) {
+        outgoing.insert(outgoing.begin(), outPE.begin(), outPE.end());
+        inAngle = inPE.front()->getAngleAtNode(n);
         return true;
-    } else if (n->getIncomingEdges().size() >= 2 && n->getOutgoingEdges().size() == 3) {
+    } else if (inPE.size() >= 2 && outPE.size() == 3) {
         // check if the incoming edges are going in opposite directions and then
         // use the incoming edge that has 2 almost-straight outgoing edges
-        const double inRelAngle = fabs(NBHelpers::relAngle(n->getIncomingEdges().front()->getAngleAtNode(n), n->getIncomingEdges().back()->getAngleAtNode(n)));
+        const double inRelAngle = fabs(NBHelpers::relAngle(inPE.front()->getAngleAtNode(n), inPE.back()->getAngleAtNode(n)));
         //std::cout << "n=" << n->getID() << " inRelAngle=" << inRelAngle << "\n";
         if (inRelAngle < 135) {
             return false; // not opposite incoming
         }
-        for (NBEdge* in : n->getIncomingEdges()) {
+        for (NBEdge* in : inPE) {
             EdgeVector straight;
             int numReverse = 0;
-            for (NBEdge* out : n->getOutgoingEdges()) {
+            for (NBEdge* out : outPE) {
                 const double outRelAngle = fabs(NBHelpers::relAngle(in->getAngleAtNode(n), out->getAngleAtNode(n)));
                 if (outRelAngle <= 45) {
                     straight.push_back(out);
@@ -1314,22 +1338,24 @@ NBNodeCont::maybeSlipLaneStart(const NBNode* n, EdgeVector& outgoing, double& in
 
 bool
 NBNodeCont::maybeSlipLaneEnd(const NBNode* n, EdgeVector& incoming, double& outAngle) const {
-    if (n->getIncomingEdges().size() == 2 && n->getOutgoingEdges().size() == 1) {
-        incoming.insert(incoming.begin(), n->getIncomingEdges().begin(), n->getIncomingEdges().end());
-        outAngle = n->getOutgoingEdges().front()->getAngleAtNode(n);
+    EdgeVector inPE = n->getPassengerEdges(true);
+    EdgeVector outPE = n->getPassengerEdges(false);
+    if (inPE.size() == 2 && outPE.size() == 1) {
+        incoming.insert(incoming.begin(), inPE.begin(), inPE.end());
+        outAngle = outPE.front()->getAngleAtNode(n);
         return true;
-    } else if (n->getIncomingEdges().size() == 3 && n->getOutgoingEdges().size() >= 2) {
+    } else if (inPE.size() == 3 && outPE.size() >= 2) {
         // check if the outgoing edges are going in opposite directions and then
         // use the outgoing edge that has 2 almost-straight incoming edges
-        const double outRelAngle = fabs(NBHelpers::relAngle(n->getOutgoingEdges().front()->getAngleAtNode(n), n->getOutgoingEdges().back()->getAngleAtNode(n)));
+        const double outRelAngle = fabs(NBHelpers::relAngle(outPE.front()->getAngleAtNode(n), outPE.back()->getAngleAtNode(n)));
         //std::cout << "n=" << n->getID() << " outRelAngle=" << outRelAngle << "\n";
         if (outRelAngle < 135) {
             return false; // not opposite outgoing
         }
-        for (NBEdge* out : n->getOutgoingEdges()) {
+        for (NBEdge* out : outPE) {
             EdgeVector straight;
             int numReverse = 0;
-            for (NBEdge* in : n->getIncomingEdges()) {
+            for (NBEdge* in : inPE) {
                 const double inRelAngle = fabs(NBHelpers::relAngle(in->getAngleAtNode(n), out->getAngleAtNode(n)));
                 if (inRelAngle <= 45) {
                     straight.push_back(in);

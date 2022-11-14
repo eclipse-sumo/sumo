@@ -861,6 +861,9 @@ private:
     /// @brief check whether the candidate edge is more likely to be the straight continuation
     bool isStraighter(const NBEdge* const incoming, const double angle, const SVCPermissions vehPerm, const int modeLanes, const NBEdge* const candidate) const;
 
+    /// @brief return edges that permit passengers (either incoming or outgoing)
+    EdgeVector getPassengerEdges(bool incoming) const;
+
 private:
     /// @brief The position the node lies at
     Position myPosition;

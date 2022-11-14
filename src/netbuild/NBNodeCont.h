@@ -163,7 +163,10 @@ public:
     int joinSameJunctions(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc);
 
     /// @brief return all cluster neighbors for the given node
-    static NodeSet getClusterNeighbors(const NBNode* n, NodeSet& cluster);
+    static NodeSet getClusterNeighbors(const NBNode* n, double longThreshold, NodeSet& cluster);
+
+    /// @brief whether the given node may continue a slip lane
+    static bool isSlipLaneContinuation(const NBNode* cont);
 
     /// @brief check whether the given node maybe the start of a slip lane
     bool maybeSlipLaneStart(const NBNode* n, EdgeVector& outgoing, double& inAngle) const;

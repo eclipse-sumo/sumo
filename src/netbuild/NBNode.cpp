@@ -2224,6 +2224,16 @@ NBNode::isStraighter(const NBEdge* const incoming, const double angle, const SVC
     return false;
 }
 
+EdgeVector
+NBNode::getPassengerEdges(bool incoming) const {
+    EdgeVector result;
+    for (NBEdge* e : (incoming ? myIncomingEdges : myOutgoingEdges)) {
+        if ((e->getPermissions() & SVC_PASSENGER) != 0) {
+            result.push_back(e);
+        }
+    }
+    return result;
+}
 
 LinkDirection
 NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing, bool leftHand) const {
