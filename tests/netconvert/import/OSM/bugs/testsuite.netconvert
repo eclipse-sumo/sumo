@@ -81,3 +81,6 @@ ticket11803
 
 # crash when (always) processing pt stuff 
 ticket11839
+
+# interpretation of empty osm.turn-lanes value
+ticket12042
