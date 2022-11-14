@@ -28,6 +28,7 @@
 #include <utils/handlers/GeneralHandler.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
 #include <netedit/elements/demand/GNERouteHandler.h>
+#include <netedit/elements/data/GNEMeanDataHandler.h>
 
 // ===========================================================================
 // class declarations
@@ -58,8 +59,9 @@ public:
 private:
     /// @brief tagType
     struct TagType {
+
         /// @brief constructor
-        TagType(SumoXMLTag tag, const bool network, const bool additional, const bool demand);
+        TagType(SumoXMLTag tag, const bool network, const bool additional, const bool demand, const bool meanData);
 
         /// @brief tag related with this TagType
         const SumoXMLTag tag;
@@ -72,6 +74,9 @@ private:
 
         /// @brief tagType is demand
         const bool demand;
+
+        /// @brief tagType is a meanData
+        const bool meanData;
     };
 
     /// @brief queue with the inserted tags
@@ -82,6 +87,9 @@ private:
 
     /// @brief demand handler
     GNERouteHandler myDemandHandler;
+
+    /// @brief meanData handler
+    GNERouteHandler myMeanDataHandler;
 
     /// @brief start element
     void beginTag(SumoXMLTag tag, const SUMOSAXAttributes& attrs);
