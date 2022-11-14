@@ -64,6 +64,7 @@ protected:
                                 const bool origNames,
                                 const double straightThresh,
                                 const ShapeContainer& shc,
+                                bool lefthand,
                                 SignalLanes& signalLanes);
 
     /// @brief write internal edge to device, return next connectionID
@@ -109,7 +110,7 @@ protected:
     static PositionVector getRightLaneBorder(const NBEdge* edge, int laneIndex = -1);
 
     /// @brief check if the lane geometries are compatible with OpenDRIVE assumptions (colinear stop line)
-    static void checkLaneGeometries(const NBEdge* e);
+    static void checkLaneGeometries(const NBEdge* e, bool lefthand);
 
     /// @brief write road objects referenced as edge parameters
     static void writeRoadObjects(OutputDevice& device, const NBEdge* e, const ShapeContainer& shc);

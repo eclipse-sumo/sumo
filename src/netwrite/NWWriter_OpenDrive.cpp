@@ -119,6 +119,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                         fromNodeID, toNodeID,
                         origNames, straightThresh,
                         nb.getShapeCont(),
+                        lefthand,
                         signalLanes);
     }
     device.lf();
@@ -226,6 +227,7 @@ NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
                                     const bool origNames,
                                     const double straightThresh,
                                     const ShapeContainer& shc,
+                                    bool lefthand,
                                     SignalLanes& signalLanes) {
     // buffer output because some fields are computed out of order
     OutputDevice_String elevationOSS(3);
@@ -287,12 +289,15 @@ NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
     const std::string centerMark = e->getPermissions(e->getNumLanes() - 1) == 0 ? "none" : "solid";
     writeEmptyCenterLane(device, centerMark, 0.13);
     device << "                <right>\n";
-    for (int j = e->getNumLanes(); --j >= 0;) {
+    for (int jRH = e->getNumLanes(); --jRH >= 0;) {
+        // XODR always has the lanes left to right (by default this is
+        // inner-to-outer but in LH networks its outer-to-inner)
+        const int j = lefthand ? e->getNumLanes() - 1 - jRH : jRH;
         std::string laneType = e->getLaneStruct(j).type;
         if (laneType == "") {
             laneType = getLaneType(e->getPermissions(j));
         }
-        device << "                    <lane id=\"-" << e->getNumLanes() - j << "\" type=\"" << laneType << "\" level=\"true\">\n";
+        device << "                    <lane id=\"-" << e->getNumLanes() - jRH << "\" type=\"" << laneType << "\" level=\"true\">\n";
         device << "                        <link/>\n";
         // this could be used for geometry-link junctions without u-turn,
         // predecessor and sucessors would be lane indices,
@@ -326,7 +331,7 @@ NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
         device << "        <userData code=\"sumoId\" value=\"" << e->getID() << "\"/>\n";
     }
     device.closeTag();
-    checkLaneGeometries(e);
+    checkLaneGeometries(e, lefthand);
 }
 
 void
@@ -869,7 +874,7 @@ NWWriter_OpenDrive::writeElevationProfile(const PositionVector& shape, OutputDev
 
 
 void
-NWWriter_OpenDrive::checkLaneGeometries(const NBEdge* e) {
+NWWriter_OpenDrive::checkLaneGeometries(const NBEdge* e, bool lefthand) {
     if (e->getNumLanes() > 1) {
         // compute 'stop line' of rightmost lane
         const PositionVector shape0 = e->getLaneShape(0);
@@ -878,7 +883,7 @@ NWWriter_OpenDrive::checkLaneGeometries(const NBEdge* e) {
         const Position& to = shape0[-1];
         PositionVector stopLine;
         stopLine.push_back(to);
-        stopLine.push_back(to - PositionVector::sideOffset(from, to, -1000.0));
+        stopLine.push_back(to - PositionVector::sideOffset(from, to, lefthand ? 1000 : -1000));
         // endpoints of all other lanes should be on the stop line
         for (int lane = 1; lane < e->getNumLanes(); ++lane) {
             const double dist = stopLine.distance2D(e->getLaneShape(lane)[-1]);
