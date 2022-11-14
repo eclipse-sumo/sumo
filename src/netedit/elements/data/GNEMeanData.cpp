@@ -20,8 +20,10 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
+#include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/elements/data/GNEMeanData.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/data/GNEEdgeDataFrame.h>
@@ -38,15 +40,17 @@
 // member method definitions
 // ===========================================================================
 
-GNEMeanData::GNEMeanData(GNENet *net, GNEEdge* edge, const std::string& /* file */) :
+GNEMeanData::GNEMeanData(GNENet *net, GNEEdge* edge, const std::string &file) :
     GUIGlObject(GLO_MEANDATAEDGE, edge->getID(), nullptr),
-    GNEHierarchicalElement(net, SUMO_TAG_MEANDATA_EDGE, {}, {edge}, {}, {}, {}, {}) {
+    GNEHierarchicalElement(net, SUMO_TAG_MEANDATA_EDGE, {}, {edge}, {}, {}, {}, {}),
+    myFile(file) {
 }
 
 
-GNEMeanData::GNEMeanData(GNENet *net, GNELane* lane, const std::string& /* file */) :
+GNEMeanData::GNEMeanData(GNENet *net, GNELane* lane, const std::string &file) :
     GUIGlObject(GLO_MEANDATALANE, lane->getID(), nullptr),
-    GNEHierarchicalElement(net, SUMO_TAG_MEANDATA_LANE, {}, {}, {lane}, {}, {}, {}) {
+    GNEHierarchicalElement(net, SUMO_TAG_MEANDATA_LANE, {}, {}, {lane}, {}, {}, {}),
+    myFile(file) {
 }
 
 
@@ -67,8 +71,11 @@ GNEMeanData::updateGeometry() {
 
 Position 
 GNEMeanData::getPositionInView() const {
-    //if (getParen
-    return Position();
+    if (getParentLanes().size() > 0) {
+        return getParentLanes().front()->getPositionInView();
+    } else {
+        return getParentEdges().front()->getPositionInView();
+    }
 }
 
 
@@ -153,38 +160,74 @@ GNEMeanData::getCenteringBoundary() const {
 
 
 std::string
-GNEMeanData::getAttribute(SumoXMLAttr /* key */) const {
-    return "";
+GNEMeanData::getAttribute(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_EDGE:
+            return getParentEdges().front()->getID();
+        case SUMO_ATTR_LANE:
+            return getParentLanes().front()->getID();
+        case SUMO_ATTR_FILE:
+            return myFile;
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
 
 
 double
-GNEMeanData::getAttributeDouble(SumoXMLAttr /* key */) const {
-    return 1;
-}
-
-
-void
-GNEMeanData::setAttribute(SumoXMLAttr /* key */, const std::string& /* value */, GNEUndoList* /* undoList */) {
-
+GNEMeanData::getAttributeDouble(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
 }
 
 
 bool
-GNEMeanData::isValid(SumoXMLAttr /* key */, const std::string& /* value */) {
-    return false;
+GNEMeanData::isAttributeEnabled(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_EDGE:
+        case SUMO_ATTR_LANE:
+            return false;
+        default:
+            return true;
+    }
+}
+
+
+void
+GNEMeanData::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+    switch (key) {
+        case SUMO_ATTR_FILE:
+            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+bool
+GNEMeanData::isValid(SumoXMLAttr key , const std::string& value) {
+    switch (key) {
+        case SUMO_ATTR_FILE:
+            return SUMOXMLDefinitions::isValidFilename(value);
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
 
 
 std::string
 GNEMeanData::getPopUpID() const {
-    return "";
+    return getTagStr();
 }
 
 
 std::string
 GNEMeanData::getHierarchyName() const {
-    return "";
+    if (getParentLanes().size() > 0) {
+        return getTagStr() + ": " + getParentLanes().front()->getID();
+    } else {
+        return getTagStr() + ": " + getParentEdges().front()->getID();
+    }
+    
 }
 
 
@@ -195,8 +238,14 @@ GNEMeanData::getACParametersMap() const {
 
 
 void
-GNEMeanData::setAttribute(SumoXMLAttr /* key */, const std::string& /* value */) {
-
+GNEMeanData::setAttribute(SumoXMLAttr key, const std::string& value) {
+    switch (key) {
+        case SUMO_ATTR_FILE:
+            myFile = value;
+            break;
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
 
 /****************************************************************************/

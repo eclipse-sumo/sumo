@@ -31,6 +31,7 @@
  * @brief An Element which don't belong to GNENet but has influence in the simulation
  */
 class GNEMeanData : public GUIGlObject, public GNEHierarchicalElement {
+
 public:
     /**@brief Constructor for edge mean data
      * @param[in] net pointer to net
@@ -112,6 +113,11 @@ public:
      */
     double getAttributeDouble(SumoXMLAttr key) const;
 
+    /* @brief method for check if the value for certain attribute is set
+     * @param[in] key The attribute key
+     */
+    bool isAttributeEnabled(SumoXMLAttr key) const;
+
     /**@brief method for setting the attribute and letting the object perform data set changes
      * @param[in] key The attribute key
      * @param[in] value The new value
@@ -136,7 +142,13 @@ public:
     /// @brief get parameters map
     const Parameterised::Map& getACParametersMap() const;
 
+protected:
+    
+    /// @brief file
+    std::string myFile;
+
 private:
+
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
