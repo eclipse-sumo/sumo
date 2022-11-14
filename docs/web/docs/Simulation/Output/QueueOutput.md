@@ -51,18 +51,9 @@ front of the junctions, which can be used in cases of routing or V2X
 communications.
 
 ## Visualization example
-The user-selected attributes can be plotted with use of [plotXMLAttributes.py](../../Tools/Visualization.md#plotxmlattributespy). The scenario acosta, one of the published sumo scenarios, is used as example (https://github.com/DLR-TS/sumo-scenarios/tree/main/bologna/acosta). 
 
-### Generating the output
-```
-sumo -c run.sumocfg --queue-output queue.xml
-```
-### Example call for plotting
-```
-python plotXMLAttributes.py -x timestep -y queueing_time -s -o queue.png queue.xml -i id --filter-ids 121_0
-```
-where -x is the attribute for the x axis; -y is the attribute for the y axis; -s is to show the plot; -o is the output file name; -i is the filtered attribute name; --filter-ids are the value(s) of the filtered attribute name.
-
-The resultant plot is illustrated below.
+### Queuing times over time
 
 <img src="../../images/queue_out.png" width="500px"/>
+
+Generated with [plotXMLAttributes.py](../../Tools/Visualization.md#queuing_times_over_time).
