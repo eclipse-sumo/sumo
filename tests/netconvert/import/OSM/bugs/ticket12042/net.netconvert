@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-11-14 23:06:21 by Eclipse SUMO netconvert Version v1_15_0+0248-77d427e
+<!-- generated on 2022-11-14 23:08:03 by Eclipse SUMO netconvert Version v1_15_0+0249-35433d9
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -74,6 +74,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <type id="railway.subway" priority="18" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
     <type id="railway.tram" priority="17" numLanes="1" speed="13.89" allow="tram" oneway="1"/>
 
+    <edge id=":674098902_0" function="internal">
+        <lane id=":674098902_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="8.58" shape="24.89,7.40 27.37,6.86 29.04,6.31 30.58,5.48 32.69,4.06"/>
+    </edge>
+
     <edge id="53275982" from="674098902" to="300901455" priority="10" type="highway.tertiary" spreadType="center">
         <lane id="53275982_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="7.13" shape="32.69,4.06 38.55,0.00"/>
     </edge>
@@ -84,6 +88,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <junction id="300900428" type="dead_end" x="0.00" y="14.20" incLanes="" intLanes="" shape="0.65,17.33 -0.65,11.06"/>
     <junction id="300901455" type="dead_end" x="38.55" y="0.00" incLanes="53275982_0" intLanes="" shape="37.63,-1.32 39.46,1.32"/>
-    <junction id="674098902" type="dead_end" x="25.76" y="8.85" incLanes="8143580_0 8143580_1" intLanes="" shape="33.60,5.37 31.77,2.74 29.33,4.36 28.40,4.83 27.43,5.18 26.21,5.48 24.57,5.83 25.87,12.10 27.89,11.44 29.17,10.54 30.03,9.44 30.84,8.18 31.91,6.81"/>
+    <junction id="674098902" type="priority" x="25.76" y="8.85" incLanes="8143580_0 8143580_1" intLanes=":674098902_0_0" shape="33.60,5.37 31.77,2.74 29.33,4.36 28.40,4.83 27.43,5.18 26.21,5.48 24.57,5.83 25.87,12.10 27.89,11.44 29.17,10.54 30.03,9.44 30.84,8.18 31.91,6.81">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+
+    <connection from="8143580" to="53275982" fromLane="0" toLane="0" via=":674098902_0_0" dir="s" state="M"/>
+
+    <connection from=":674098902_0" to="53275982" fromLane="0" toLane="0" dir="s" state="M"/>
 
 </net>
