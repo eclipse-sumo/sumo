@@ -1,37 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-12 23:54:47 by Eclipse SUMO netedit Version v1_10_0+2239-a6d3983
+<!-- generated on 2022-11-15 18:14:16 by Eclipse SUMO netedit Version v1_15_0+0302-a0662b1
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="SB_ramp.net.xml"/>
+        <sumo-net-file value="net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="SB_ramp.net.xml"/>
+        <output-file value="net.net.xml"/>
     </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
+        <lefthand value="0"/>
     </processing>
 
     <junctions>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
     </junctions>
 
     <pedestrian>
-        <walkingareas value="false"/>
+        <walkingareas value="0"/>
     </pedestrian>
-
-    <report>
-        <aggregate-warnings value="5"/>
-    </report>
 
 </configuration>
 -->
@@ -75,14 +71,14 @@
         <lane id=":2881_5_1" index="1" speed="17.88" length="25.48" shape="28753.45,30528.68,220.75 28746.33,30531.14,220.81 28741.22,30532.11,220.86 28736.10,30533.08,220.90 28728.98,30535.53,220.97"/>
     </edge>
     <edge id=":2881_7" function="internal">
-        <lane id=":2881_7_0" index="0" speed="11.82" length="17.14" shape="28752.20,30525.73,220.75 28744.15,30527.91,220.77 28737.20,30527.18,220.79 28735.67,30526.22,220.80"/>
-        <lane id=":2881_7_1" index="1" speed="10.86" length="12.42" shape="28750.96,30522.78,220.75 28744.18,30524.63,220.77 28738.81,30524.07,220.79"/>
+        <lane id=":2881_7_0" index="0" speed="11.82" length="16.00" shape="28752.20,30525.73,220.75 28744.15,30527.91,220.77 28737.20,30527.18,220.79 28736.63,30526.82,220.80"/>
+        <lane id=":2881_7_1" index="1" speed="10.86" length="11.00" shape="28750.96,30522.78,220.75 28744.18,30524.63,220.77 28740.22,30524.22,220.79"/>
     </edge>
     <edge id=":2881_12" function="internal">
-        <lane id=":2881_12_0" index="0" speed="11.82" length="13.14" shape="28735.67,30526.22,220.80 28731.38,30523.53,220.82 28726.66,30516.97,220.84"/>
+        <lane id=":2881_12_0" index="0" speed="11.82" length="14.28" shape="28736.63,30526.82,220.80 28731.38,30523.53,220.82 28726.66,30516.97,220.84"/>
     </edge>
     <edge id=":2881_13" function="internal">
-        <lane id=":2881_13_0" index="0" speed="10.86" length="12.99" shape="28738.81,30524.07,220.79 28738.34,30524.03,220.79 28733.45,30520.98,220.82 28729.50,30515.50,220.84"/>
+        <lane id=":2881_13_0" index="0" speed="10.86" length="14.41" shape="28740.22,30524.22,220.79 28738.34,30524.03,220.79 28733.45,30520.98,220.82 28729.50,30515.50,220.84"/>
     </edge>
     <edge id=":2881_9" function="internal">
         <lane id=":2881_9_0" index="0" speed="7.00" length="11.26" shape="28725.26,30526.68,220.97 28727.33,30525.24,220.94 28728.25,30523.14,220.91 28728.03,30520.39,220.88 28726.66,30516.97,220.84"/>
@@ -223,8 +219,8 @@
     <junction id="3702" type="dead_end" x="28654.20" y="30563.25" z="221.84" incLanes="16951_0 16951_1 16951_2" intLanes="" shape="28654.20,30563.25,221.84 28658.14,30572.00,221.84 28655.51,30566.17,221.84"/>
     <junction id="gneJ3" type="dead_end" x="28636.67" y="30310.61" z="216.42" incLanes="-16037_0 -16037_1" intLanes="" shape="28633.80,30312.03,216.42 28639.54,30309.19,216.42"/>
 
-    <junction id=":2881_12_0" type="internal" x="28735.67" y="30526.22" z="220.80" incLanes=":2881_7_0 -16480_0 -16480_1" intLanes=":2881_1_0 :2881_1_1 :2881_3_0 :2881_3_1 :2881_9_0 :2881_10_0 :2881_10_1"/>
-    <junction id=":2881_13_0" type="internal" x="28738.81" y="30524.07" z="220.79" incLanes=":2881_7_1 -16480_0 -16480_1" intLanes=":2881_1_0 :2881_1_1 :2881_3_0 :2881_3_1 :2881_9_0 :2881_10_0 :2881_10_1"/>
+    <junction id=":2881_12_0" type="internal" x="28736.63" y="30526.82" z="220.80" incLanes=":2881_7_0 -16480_0 -16480_1" intLanes=":2881_1_0 :2881_1_1 :2881_3_0 :2881_3_1 :2881_9_0 :2881_10_0 :2881_10_1"/>
+    <junction id=":2881_13_0" type="internal" x="28740.22" y="30524.22" z="220.79" incLanes=":2881_7_1 -16480_0 -16480_1" intLanes=":2881_1_0 :2881_1_1 :2881_3_0 :2881_3_1 :2881_9_0 :2881_10_0 :2881_10_1"/>
 
     <connection from="-16480" to="-16037" fromLane="0" toLane="0" via=":2881_9_0" tl="2881" linkIndex="9" dir="r" state="o"/>
     <connection from="-16480" to="-17276" fromLane="0" toLane="0" via=":2881_10_0" tl="2881" linkIndex="10" dir="s" state="o"/>
