@@ -160,6 +160,12 @@ Earth](http://earth.google.com).
 
 ## Visualization example
 
+### Accelerations versus distances
+
+<img src="../../images/Plot_trajectories.png" width="500px"/>
+
+Generated with [plot_trajectories.py](../../Tools/Visualization.md#accelerations_versus_distances).
+
 ### All trajectories over time
 
 <img src="../../images/allXY_output.png" width="500px"/>
