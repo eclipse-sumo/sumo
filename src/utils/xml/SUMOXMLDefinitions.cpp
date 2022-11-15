@@ -1054,6 +1054,7 @@ StringBijection<ParkingType>::Entry SUMOXMLDefinitions::parkingTypeValues[] = {
 
 StringBijection<RightOfWay>::Entry SUMOXMLDefinitions::rightOfWayValuesInitializer[] = {
     {"edgePriority", RightOfWay::EDGEPRIORITY },
+    {"allwayStop",   RightOfWay::ALLWAYSTOP }, // only used for setting the fall-back behavior of TLS-off
     {"default",      RightOfWay::DEFAULT } // default (must be the last one)
 };
 

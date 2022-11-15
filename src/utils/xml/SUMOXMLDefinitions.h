@@ -1536,7 +1536,8 @@ enum class ParkingType {
 /// @brief algorithms for computing right of way
 enum class RightOfWay {
     DEFAULT,
-    EDGEPRIORITY
+    EDGEPRIORITY,
+    ALLWAYSTOP,
 };
 
 /// @brief classifying boundary nodes
