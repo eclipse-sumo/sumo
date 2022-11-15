@@ -67,6 +67,8 @@
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
 #include <utils/options/OptionsCont.h>
 
+#include <unordered_set>
+
 #include "GNENet.h"
 #include "GNEUndoList.h"
 #include "GNEViewNet.h"
@@ -559,6 +561,16 @@ GNEViewNet::openObjectDialogAtCursor(const FXEvent* /*ev*/) {
                     }
                 }
             }
+            // remove duplicated elements using an unordered set
+            auto itDuplicated = filteredGLObjects.begin();
+            std::unordered_set<GUIGlObject*> unorderedSet;
+            for (auto itElement = filteredGLObjects.begin(); itElement != filteredGLObjects.end(); itElement++) {
+                if (unorderedSet.insert(*itElement).second) {
+                    *itDuplicated++ = *itElement;
+                }
+            }
+            filteredGLObjects.erase(itDuplicated, filteredGLObjects.end());
+            // open object dialog
             openObjectDialog(filteredGLObjects);
         }
         makeNonCurrent();

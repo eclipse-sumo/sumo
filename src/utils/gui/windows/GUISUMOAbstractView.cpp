@@ -60,6 +60,8 @@
 #include <foreign/fontstash/fontstash.h>
 #include <utils/gui/cursors/GUICursorSubSys.h>
 
+#include <unordered_set>
+
 #include "GUISUMOAbstractView.h"
 #include "GUIMainWindow.h"
 #include "GUIGlChildWindow.h"
@@ -1220,6 +1222,15 @@ GUISUMOAbstractView::openObjectDialogAtCursor(const FXEvent* ev) {
         }
         // filter internal lanes
         filteredObjectsUnderCursor = filterInernalLanes(filteredObjectsUnderCursor);
+        // remove duplicated elements using an unordered set
+        auto itDuplicated = filteredObjectsUnderCursor.begin();
+        std::unordered_set<GUIGlObject*> unorderedSet;
+        for (auto itElement = filteredObjectsUnderCursor.begin(); itElement != filteredObjectsUnderCursor.end(); itElement++) {
+            if (unorderedSet.insert(*itElement).second) {
+                *itDuplicated++ = *itElement;
+            }
+        }
+        filteredObjectsUnderCursor.erase(itDuplicated, filteredObjectsUnderCursor.end());
         // continue depending of number of objects
         if (filteredObjectsUnderCursor.empty()) {
             // if filteredObjectsUnderCursor, inspect net
