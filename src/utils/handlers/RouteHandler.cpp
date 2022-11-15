@@ -230,11 +230,10 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
                 buildTrip(obj,
                           obj->getVehicleParameter(),
                           obj->getStringAttribute(SUMO_ATTR_FROM),
-                          obj->getStringAttribute(SUMO_ATTR_TO),
-                          obj->getStringListAttribute(SUMO_ATTR_VIA));
+                          obj->getStringAttribute(SUMO_ATTR_TO));
             } else {
                 // build trip with from-to junctions
-                buildTrip(obj,
+                buildTripJunctions(obj,
                           obj->getVehicleParameter(),
                           obj->getStringAttribute(SUMO_ATTR_FROMJUNCTION),
                           obj->getStringAttribute(SUMO_ATTR_TOJUNCTION));
@@ -258,15 +257,14 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
                 buildFlow(obj,
                           obj->getVehicleParameter(),
                           obj->getStringAttribute(SUMO_ATTR_FROM),
-                          obj->getStringAttribute(SUMO_ATTR_TO),
-                          obj->getStringListAttribute(SUMO_ATTR_VIA));
+                          obj->getStringAttribute(SUMO_ATTR_TO));
             } else if (obj->hasStringAttribute(SUMO_ATTR_FROMJUNCTION) &&
                        obj->hasStringAttribute(SUMO_ATTR_TOJUNCTION)) {
                 // build flow with from-to junctions
-                buildFlow(obj,
-                          obj->getVehicleParameter(),
-                          obj->getStringAttribute(SUMO_ATTR_FROMJUNCTION),
-                          obj->getStringAttribute(SUMO_ATTR_TOJUNCTION));
+                buildFlowJunctions(obj,
+                                   obj->getVehicleParameter(),
+                                   obj->getStringAttribute(SUMO_ATTR_FROMJUNCTION),
+                                   obj->getStringAttribute(SUMO_ATTR_TOJUNCTION));
             }
             break;
         // persons

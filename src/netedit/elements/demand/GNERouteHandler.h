@@ -90,19 +90,19 @@ public:
 
     /// @brief build trip
     void buildTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
-                   const std::string& fromEdgeID, const std::string& toEdgeID, const std::vector<std::string>& viaIDs);
+                   const std::string& fromEdgeID, const std::string& toEdgeID);
 
-    /// @brief build trip
-    void buildTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
-                   const std::string& fromJunctionID, const std::string& toJunctionID);
-
-    /// @brief build flow
-    void buildFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
-                   const std::string& fromEdgeID, const std::string& toEdgeID, const std::vector<std::string>& viaIDs);
+    /// @brief build trip over junctions
+    void buildTripJunctions(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
+                            const std::string& fromJunctionID, const std::string& toJunctionID);
 
     /// @brief build flow
     void buildFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
-                   const std::string& fromJunctionID, const std::string& toJunctionID);
+                   const std::string& fromEdgeID, const std::string& toEdgeIDs);
+
+    /// @brief build flow over junctions
+    void buildFlowJunctions(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
+                            const std::string& fromJunctionID, const std::string& toJunctionID);
 
     /// @brief build person
     void buildPerson(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& personParameters);
