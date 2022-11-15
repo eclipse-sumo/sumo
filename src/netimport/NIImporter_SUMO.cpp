@@ -343,25 +343,25 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
     }
     if (!oc.getBool("no-internal-links")) {
         // add loaded crossings
-        for (std::map<std::string, std::vector<Crossing> >::const_iterator it = myPedestrianCrossings.begin(); it != myPedestrianCrossings.end(); ++it) {
-            NBNode* node = myNodeCont.retrieve((*it).first);
-            for (std::vector<Crossing>::const_iterator it_c = (*it).second.begin(); it_c != (*it).second.end(); ++it_c) {
-                const Crossing& crossing = (*it_c);
+        for (const auto& crossIt : myPedestrianCrossings) {
+            NBNode* const node = myNodeCont.retrieve(crossIt.first);
+            for (const Crossing& crossing : crossIt.second) {
                 EdgeVector edges;
-                for (std::vector<std::string>::const_iterator it_e = crossing.crossingEdges.begin(); it_e != crossing.crossingEdges.end(); ++it_e) {
-                    NBEdge* edge = myNetBuilder.getEdgeCont().retrieve(*it_e);
+                for (const std::string& edgeID : crossing.crossingEdges) {
+                    NBEdge* edge = myNetBuilder.getEdgeCont().retrieve(edgeID);
                     // edge might have been removed due to options
                     if (edge != nullptr) {
                         edges.push_back(edge);
                     }
                 }
-                if (edges.size() > 0) {
-                    node->addCrossing(edges, crossing.width, crossing.priority, crossing.customTLIndex, crossing.customTLIndex2, crossing.customShape, true);
+                if (!edges.empty()) {
+                    node->addCrossing(edges, crossing.width, crossing.priority,
+                                      crossing.customTLIndex, crossing.customTLIndex2, crossing.customShape, true);
                 }
             }
         }
         // add walking area custom shapes
-        for (auto item : myWACustomShapes) {
+        for (const auto& item : myWACustomShapes) {
             std::string nodeID = SUMOXMLDefinitions::getJunctionIDFromInternalEdge(item.first);
             NBNode* node = myNodeCont.retrieve(nodeID);
             std::vector<std::string> edgeIDs;
@@ -377,7 +377,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                 edgeIDs = item.second.toEdges;
             }
             EdgeVector edges;
-            for (std::string edgeID : edgeIDs) {
+            for (const std::string& edgeID : edgeIDs) {
                 NBEdge* edge = myNetBuilder.getEdgeCont().retrieve(edgeID);
                 // edge might have been removed due to options
                 if (edge != nullptr) {
@@ -390,13 +390,13 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
         }
     }
     // add roundabouts
-    for (std::vector<std::vector<std::string> >::const_iterator it = myRoundabouts.begin(); it != myRoundabouts.end(); ++it) {
+    for (const std::vector<std::string>& ra : myRoundabouts) {
         EdgeSet roundabout;
-        for (std::vector<std::string>::const_iterator it_r = it->begin(); it_r != it->end(); ++it_r) {
-            NBEdge* edge = myNetBuilder.getEdgeCont().retrieve(*it_r);
+        for (const std::string& edgeID : ra) {
+            NBEdge* edge = myNetBuilder.getEdgeCont().retrieve(edgeID);
             if (edge == nullptr) {
-                if (!myNetBuilder.getEdgeCont().wasIgnored(*it_r)) {
-                    WRITE_ERROR("Unknown edge '" + (*it_r) + "' in roundabout");
+                if (!myNetBuilder.getEdgeCont().wasIgnored(edgeID)) {
+                    WRITE_ERROR("Unknown edge '" + (edgeID) + "' in roundabout");
                 }
             } else {
                 roundabout.insert(edge);
@@ -405,7 +405,6 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
         myNetBuilder.getEdgeCont().addRoundabout(roundabout);
     }
 }
-
 
 
 void
