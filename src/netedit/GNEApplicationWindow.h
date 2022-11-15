@@ -685,6 +685,18 @@ private:
     /// @brief warns about unsaved changes in data elements and gives the user the option to abort
     bool continueWithUnsavedDataElementChanges(const std::string& operation);
 
+    /// @brief load additional at start
+    void loadAdditionalElementsAtStart(OptionsCont& oc);
+
+    /// @brief load demand elements at start
+    void loadDemandElementsAtStart(OptionsCont& oc);
+
+    /// @brief load data elements at start
+    void loadDataElementsAtStart(OptionsCont& oc);
+
+    /// @brief load mean data elements at start
+    void loadMeanDataElementsAtStart(OptionsCont& oc);
+
     /// @brief extract folder
     FXString getFolder(const std::string& folder) const;
 
