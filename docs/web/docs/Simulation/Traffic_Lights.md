@@ -756,7 +756,10 @@ The rules for configuring the priority direction in the off-state are the same a
 
 ### All-way-stop when 'off'
 
-By setting junction (node) attribute `rightOfWay="allwayStop"`, when building / editing the network file, the behavior when switched off will correspond to that of junction type `allway_stop`. 
+By setting junction (node) attribute `rightOfWay="allwayStop"`, when building / editing the network file, the behavior when switched off will correspond to that of junction type `allway_stop`.
+
+!!! note
+    Traffic lights with `tlType="NEMA"` will default to `allwayStop` behavior when switched off.  To change this, the attribute `rightOfWay="mixedPriority"` can be used.
 
 # Tools for Importing TLS Programs
 
