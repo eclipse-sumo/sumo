@@ -353,7 +353,15 @@ GUILane::drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, cons
         glTranslated(end.x(), end.y(), 0);
         glRotated(rot, 0, 0, 1);
         // select glID
+
         switch (link->getState()) {
+            case LINKSTATE_ALLWAY_STOP:
+            case LINKSTATE_STOP: {
+                // might be a traffic light link
+                int tlID = net.getLinkTLID(link);
+                GLHelper::pushName(tlID != 0 ? tlID : getGlID());
+                break;
+            }
             case LINKSTATE_TL_GREEN_MAJOR:
             case LINKSTATE_TL_GREEN_MINOR:
             case LINKSTATE_TL_RED:
