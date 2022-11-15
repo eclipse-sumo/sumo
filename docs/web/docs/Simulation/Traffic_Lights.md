@@ -744,11 +744,19 @@ giving the `programID` the value
 <tlLogic id="0" type="static" programID="off"/>
 ```
 
+!!! note: The 'off' program can always be used from [TraCI](#switching_between_pre-defined_programs).
+
 An alternative way to switch all traffic lights to the 'off' program is to set sumo option **--tls.all-off**.
+
+### Default behavior when 'off'
 
 Once a traffic light has been switched off, it's lights will change to to values of `O` (off, no signal) and `o` (off, blinking) and it will behave like a priority intersection. The connections (links) with state `O` will have priority whereas the connections `o` will yield.
 
 The rules for configuring the priority direction in the off-state are the same as for [an intersection without a traffic light](../Networks/PlainXML.md#right-of-way).
+
+### All-way-stop when 'off'
+
+By setting junction (node) attribute `rightOfWay="allwayStop"`, when building / editing the network file, the behavior when switched off will correspond to that of junction type `allway_stop`. 
 
 # Tools for Importing TLS Programs
 
