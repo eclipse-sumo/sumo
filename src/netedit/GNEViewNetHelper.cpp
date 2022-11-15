@@ -150,6 +150,8 @@ GNEViewNetHelper::LockManager::updateFlags() {
     myLockedElements[GLO_EDGEDATA].lock = lockMenuCommands.menuCheckLockEdgeDatas->getCheck() == TRUE;
     myLockedElements[GLO_EDGERELDATA].lock = lockMenuCommands.menuCheckLockEdgeRelDatas->getCheck() == TRUE;
     myLockedElements[GLO_TAZRELDATA].lock = lockMenuCommands.menuCheckLockEdgeTAZRels->getCheck() == TRUE;
+    myLockedElements[GLO_MEANDATAEDGE].lock = lockMenuCommands.menuCheckLockMeanDataEdge->getCheck() == TRUE;
+    myLockedElements[GLO_MEANDATALANE].lock = lockMenuCommands.menuCheckLockMeanDataLane->getCheck() == TRUE;
 }
 
 
