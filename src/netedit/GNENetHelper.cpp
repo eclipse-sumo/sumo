@@ -29,6 +29,7 @@
 #include <netedit/elements/network/GNEWalkingArea.h>
 #include <netedit/elements/network/GNEEdgeTemplate.h>
 #include <netedit/elements/network/GNEEdgeType.h>
+#include <netedit/elements/data/GNEMeanData.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/demand/GNEPersonPlanFrame.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>

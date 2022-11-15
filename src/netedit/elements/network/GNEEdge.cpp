@@ -437,10 +437,6 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
             vehicle->drawGL(s);
         }
     }
-    // draw meanData edges
-    for (const auto& meanData : getChildMeanDatas()) {
-        meanData->drawGL(s);
-    }
     // draw edge stopOffset
     drawLaneStopOffset(s);
     // draw TAZ elements

@@ -24,7 +24,7 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
-#include <netedit/elements/data/GNEDataInterval.h>
+#include <netedit/elements/data/GNEMeanData.h>
 
 #include "GNEChange_MeanData.h"
 
@@ -71,8 +71,6 @@ GNEChange_MeanData::undo() {
         }
         // delete meanData from net
         myMeanData->getNet()->getAttributeCarriers()->deleteMeanData(myMeanData);
-        // restore container
-        restoreHierarchicalContainers();
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myMeanData->getTagStr() + " '" + myMeanData->getID() + "' in GNEChange_MeanData");
@@ -82,8 +80,6 @@ GNEChange_MeanData::undo() {
         }
         // insert meanData into net
         myMeanData->getNet()->getAttributeCarriers()->insertMeanData(myMeanData);
-        // restore container
-        restoreHierarchicalContainers();
     }
     // require always save elements
     myMeanData->getNet()->requireSaveDataElements(true);
@@ -101,8 +97,6 @@ GNEChange_MeanData::redo() {
         }
         // insert meanData into net
         myMeanData->getNet()->getAttributeCarriers()->insertMeanData(myMeanData);
-        // add meanData in parents and children
-        addElementInParentsAndChildren(myMeanData);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myMeanData->getTagStr() + " '" + myMeanData->getID() + "' in GNEChange_MeanData");
@@ -112,8 +106,6 @@ GNEChange_MeanData::redo() {
         }
         // delete meanData from net
         myMeanData->getNet()->getAttributeCarriers()->deleteMeanData(myMeanData);
-        // remove meanData from parents and children
-        removeElementFromParentsAndChildren(myMeanData);
     }
     // require always save elements
     myMeanData->getNet()->requireSaveDataElements(true);

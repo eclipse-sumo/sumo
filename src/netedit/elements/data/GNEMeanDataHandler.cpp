@@ -59,7 +59,6 @@ GNEMeanDataHandler::buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* 
             myNet->getViewNet()->getUndoList()->add(new GNEChange_MeanData(edgeMeanData, true), true);
             myNet->getViewNet()->getUndoList()->end();
         } else {
-            edge->addChildElement(edgeMeanData);
             edgeMeanData->incRef("buildEdgeMeanData");
         }
     } else {
@@ -79,7 +78,6 @@ GNEMeanDataHandler::buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* 
             myNet->getViewNet()->getUndoList()->add(new GNEChange_MeanData(laneMeanData, true), true);
             myNet->getViewNet()->getUndoList()->end();
         } else {
-            lane->addChildElement(laneMeanData);
             laneMeanData->incRef("buildLaneMeanData");
         }
     } else {

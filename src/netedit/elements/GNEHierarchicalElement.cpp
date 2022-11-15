@@ -143,12 +143,6 @@ GNEHierarchicalElement::getParentGenericDatas() const {
 }
 
 
-const std::vector<GNEMeanData*>&
-GNEHierarchicalElement::getParentMeanDatas() const {
-    return myHierarchicalContainer.getParents<std::vector<GNEMeanData*> >();
-}
-
-
 const std::vector<GNEJunction*>&
 GNEHierarchicalElement::getChildJunctions() const {
     return myHierarchicalContainer.getChildren<std::vector<GNEJunction*> >();
@@ -182,12 +176,6 @@ GNEHierarchicalElement::getChildDemandElements() const {
 const std::vector<GNEGenericData*>&
 GNEHierarchicalElement::getChildGenericDatas() const {
     return myHierarchicalContainer.getChildren<std::vector<GNEGenericData*> >();
-}
-
-
-const std::vector<GNEMeanData*>&
-GNEHierarchicalElement::getChildMeanDatas() const {
-    return myHierarchicalContainer.getChildren<std::vector<GNEMeanData*> >();
 }
 
 
@@ -228,13 +216,6 @@ GNEHierarchicalElement::addParentElement(GNEDemandElement* element) {
 
 template<> void
 GNEHierarchicalElement::addParentElement(GNEGenericData* element) {
-    // add parent element into container
-    myHierarchicalContainer.addParentElement(this, element);
-}
-
-
-template<> void
-GNEHierarchicalElement::addParentElement(GNEMeanData* element) {
     // add parent element into container
     myHierarchicalContainer.addParentElement(this, element);
 }
@@ -283,13 +264,6 @@ GNEHierarchicalElement::removeParentElement(GNEGenericData* element) {
 
 
 template<> void
-GNEHierarchicalElement::removeParentElement(GNEMeanData* element) {
-    // remove parent element from container
-    myHierarchicalContainer.removeParentElement(this, element);
-}
-
-
-template<> void
 GNEHierarchicalElement::addChildElement(GNEJunction* element) {
     // add child element into container
     myHierarchicalContainer.addChildElement(this, element);
@@ -332,13 +306,6 @@ GNEHierarchicalElement::addChildElement(GNEGenericData* element) {
 
 
 template<> void
-GNEHierarchicalElement::addChildElement(GNEMeanData* element) {
-    // add child element into container
-    myHierarchicalContainer.addChildElement(this, element);
-}
-
-
-template<> void
 GNEHierarchicalElement::removeChildElement(GNEJunction* element) {
     // remove child element from container
     myHierarchicalContainer.removeChildElement(this, element);
@@ -375,13 +342,6 @@ GNEHierarchicalElement::removeChildElement(GNEDemandElement* element) {
 
 template<> void
 GNEHierarchicalElement::removeChildElement(GNEGenericData* element) {
-    // remove child element from container
-    myHierarchicalContainer.removeChildElement(this, element);
-}
-
-
-template<> void
-GNEHierarchicalElement::removeChildElement(GNEMeanData* element) {
     // remove child element from container
     myHierarchicalContainer.removeChildElement(this, element);
 }

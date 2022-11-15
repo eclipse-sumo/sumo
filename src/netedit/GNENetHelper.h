@@ -53,6 +53,7 @@ class GNECrossing;
 class GNEJunction;
 class GNEEdgeType;
 class GNELaneType;
+class GNEMeanData;
 class GNEEdge;
 class GNELane;
 class GNENetworkElement;

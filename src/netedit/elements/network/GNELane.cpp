@@ -701,10 +701,6 @@ GNELane::drawChildren(const GUIVisualizationSettings& s) const {
             demandElement->drawGL(s);
         }
     }
-    // draw meanData children
-    for (const auto& meanData : getChildMeanDatas()) {
-        meanData->drawGL(s);
-    }
 }
 
 

@@ -59,14 +59,12 @@ GNEHierarchicalContainer::getContainerSize() const {
                myParentAdditionals.size() +
                myParentDemandElements.size() +
                myParentGenericDatas.size() +
-               myParentMeanDatas.size() +
                myChildJunctions.size() +
                myChildEdges.size() +
                myChildLanes.size() +
                myChildAdditionals.size() +
                myChildDemandElements.size() +
-               myChildGenericDatas.size() + 
-               myChildMeanDatas.size()
+               myChildGenericDatas.size()
            );
 }
 
@@ -133,17 +131,6 @@ GNEHierarchicalContainer::addParentElement(const GNEHierarchicalElement* hierarc
         throw ProcessError(genericData->getTagStr() + " with ID='" + genericData->getID() + "' was already inserted in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
     } else {
         myParentGenericDatas.push_back(genericData);
-    }
-}
-
-
-template <> void
-GNEHierarchicalContainer::addParentElement(const GNEHierarchicalElement* hierarchicalElement, GNEMeanData* meanData) {
-    // check meanData
-    if (checkContainer && (std::find(myParentMeanDatas.begin(), myParentMeanDatas.end(), meanData) != myParentMeanDatas.end())) {
-        throw ProcessError(meanData->getTagStr() + " with ID='" + meanData->getID() + "' was already inserted in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
-    } else {
-        myParentMeanDatas.push_back(meanData);
     }
 }
 
@@ -221,18 +208,6 @@ GNEHierarchicalContainer::removeParentElement(const GNEHierarchicalElement* hier
 
 
 template <> void
-GNEHierarchicalContainer::removeParentElement(const GNEHierarchicalElement* hierarchicalElement, GNEMeanData* meanData) {
-    // check meanData
-    auto it = std::find(myParentMeanDatas.begin(), myParentMeanDatas.end(), meanData);
-    if (checkContainer && (it == myParentMeanDatas.end())) {
-        throw ProcessError(meanData->getTagStr() + " with ID='" + meanData->getID() + "' doesn't exist in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
-    } else {
-        myParentMeanDatas.erase(it);
-    }
-}
-
-
-template <> void
 GNEHierarchicalContainer::addChildElement(const GNEHierarchicalElement* hierarchicalElement, GNEJunction* junction) {
     // check junction
     if (checkContainer && (std::find(myChildJunctions.begin(), myChildJunctions.end(), junction) != myChildJunctions.end())) {
@@ -299,17 +274,6 @@ GNEHierarchicalContainer::addChildElement(const GNEHierarchicalElement* hierarch
         throw ProcessError(genericData->getTagStr() + " with ID='" + genericData->getID() + "' was already inserted in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
     } else {
         myChildGenericDatas.push_back(genericData);
-    }
-}
-
-
-template <> void
-GNEHierarchicalContainer::addChildElement(const GNEHierarchicalElement* hierarchicalElement, GNEMeanData* meanData) {
-    // check meanData
-    if (checkContainer && (std::find(myChildMeanDatas.begin(), myChildMeanDatas.end(), meanData) != myChildMeanDatas.end())) {
-        throw ProcessError(meanData->getTagStr() + " with ID='" + meanData->getID() + "' was already inserted in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
-    } else {
-        myChildMeanDatas.push_back(meanData);
     }
 }
 
@@ -386,18 +350,6 @@ GNEHierarchicalContainer::removeChildElement(const GNEHierarchicalElement* hiera
 }
 
 
-template <> void
-GNEHierarchicalContainer::removeChildElement(const GNEHierarchicalElement* hierarchicalElement, GNEMeanData* meanData) {
-    // check meanData
-    auto it = std::find(myChildMeanDatas.begin(), myChildMeanDatas.end(), meanData);
-    if (checkContainer && (it == myChildMeanDatas.end())) {
-        throw ProcessError(meanData->getTagStr() + " with ID='" + meanData->getID() + "' doesn't exist in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
-    } else {
-        myChildMeanDatas.erase(it);
-    }
-}
-
-
 template<> const std::vector<GNEJunction*>&
 GNEHierarchicalContainer::getParents() const {
     return myParentJunctions;
@@ -431,12 +383,6 @@ GNEHierarchicalContainer::getParents() const {
 template<> const std::vector<GNEGenericData*>&
 GNEHierarchicalContainer::getParents() const {
     return myParentGenericDatas;
-}
-
-
-template<> const std::vector<GNEMeanData*>&
-GNEHierarchicalContainer::getParents() const {
-    return myParentMeanDatas;
 }
 
 
@@ -476,12 +422,6 @@ GNEHierarchicalContainer::setParents(const std::vector<GNEGenericData*>& newPare
 }
 
 
-template<> void
-GNEHierarchicalContainer::setParents(const std::vector<GNEMeanData*>& newParents) {
-    myParentMeanDatas = newParents;
-}
-
-
 template<> const std::vector<GNEJunction*>&
 GNEHierarchicalContainer::getChildren() const {
     return myChildJunctions;
@@ -518,12 +458,6 @@ GNEHierarchicalContainer::getChildren() const {
 }
 
 
-template<> const std::vector<GNEMeanData*>&
-GNEHierarchicalContainer::getChildren() const {
-    return myChildMeanDatas;
-}
-
-
 template<> void
 GNEHierarchicalContainer::setChildren(const std::vector<GNEJunction*>& newChildren) {
     myChildJunctions = newChildren;
@@ -557,12 +491,6 @@ GNEHierarchicalContainer::setChildren(const std::vector<GNEDemandElement*>& newC
 template<> void
 GNEHierarchicalContainer::setChildren(const std::vector<GNEGenericData*>& newChildren) {
     myChildGenericDatas = newChildren;
-}
-
-
-template<> void
-GNEHierarchicalContainer::setChildren(const std::vector<GNEMeanData*>& newChildren) {
-    myChildMeanDatas = newChildren;
 }
 
 /****************************************************************************/

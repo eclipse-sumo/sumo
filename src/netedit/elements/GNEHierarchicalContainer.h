@@ -32,7 +32,6 @@ class GNELane;
 class GNEAdditional;
 class GNEDemandElement;
 class GNEGenericData;
-class GNEMeanData;
 class GNEHierarchicalElement;
 
 // ===========================================================================
@@ -109,9 +108,6 @@ private:
     /// @brief vector of parent generic datas
     std::vector<GNEGenericData*> myParentGenericDatas;
 
-    /// @brief vector of parent meanDatas
-    std::vector<GNEMeanData*> myParentMeanDatas;
-
     /// @brief vector with the child junctions
     std::vector<GNEJunction*> myChildJunctions;
 
@@ -129,9 +125,6 @@ private:
 
     /// @brief vector with the generic child data elements
     std::vector<GNEGenericData*> myChildGenericDatas;
-
-    /// @brief vector with the child meanData
-    std::vector<GNEMeanData*> myChildMeanDatas;
 
     /// @brief flag for enable/disable check duplicate elements (only used for debug purposes)
     static const bool checkContainer;

@@ -106,9 +106,6 @@ public:
     /// @brief get parent demand elements
     const std::vector<GNEGenericData*>& getParentGenericDatas() const;
 
-    /// @brief get parent meanDatas
-    const std::vector<GNEMeanData*>& getParentMeanDatas() const;
-
     /// @brief get child junctions
     const std::vector<GNEJunction*>& getChildJunctions() const;
 
@@ -126,9 +123,6 @@ public:
 
     /// @brief return child generic data elements
     const std::vector<GNEGenericData*>& getChildGenericDatas() const;
-    
-    /// @brief return child meanDatas
-    const std::vector<GNEMeanData*>& getChildMeanDatas() const;
     /// @}
 
     /// @name common generic add/remove functions
