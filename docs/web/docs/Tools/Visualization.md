@@ -142,7 +142,7 @@ Input is [queue-output](../Simulation/Output/QueueOutput.md).
 
 Call to generate the plot:
 ```
-python plotXMLAttributes.py -x timestep -y queueing_time -s -o queue.png queue.xml -i id --filter-ids 121_0
+python tools/visualization/plotXMLAttributes.py -x timestep -y queueing_time -s -o queue.png queue.xml -i id --filter-ids 121_0
 ```
 where -x is the attribute for the x axis; -y is the attribute for the y axis; -s is to show the plot; -o is the output file name; -i is the filtered attribute name (lane id in this case); --filter-ids are the value(s) of the filtered attribute name (id = 121_0 in this case).
 
@@ -153,9 +153,9 @@ Input is [vehroutes-output](../Simulation/Output/VehRoutes.md).
 
 Call to generate the plot:
 ```
-python plotXMLAttributes.py -x depart -y arrival -s -o vehroute.png vehroute.xml --scatterplot
+python tools/visualization/plotXMLAttributes.py -x depart -y arrival -s -o vehroute.png vehroute.xml --scatterplot
 ```
-where -x is the attribute for the x axis; -y is the attribute for the y axis; -s is to show the plot; -o is the output file name; -scatterplot is to make a scatter plot instead of a line plot.
+where -x is the attribute for the x axis; -y is the attribute for the y axis; -s is to show the plot; -o is the output file name; --scatterplot is to make a scatter plot instead of a line plot.
 
 <img src="../images/vehroute_output.png" width="500px"/>
 
@@ -164,20 +164,31 @@ Input is [langechange-output](../Simulation/Output/Lanechange.md).
 
 Call to generate the plot:
 ```
-python plotXMLAttributes.py -x speed -y leaderGap -s -o lc.png langchange.xml -i reason --filter-ids speedGain
+python tools/visualization/plotXMLAttributes.py -x speed -y leaderGap -s -o lc.png langchange.xml -i reason --filter-ids speedGain
 ```
 where -x is the attribute for the x axis; -y is the attribute for the y axis; -s is to show the plot; -o is the output file name; -i is the filtered attribute name (reason for lane changing in this case); --filter-ids are the values of the filtered attribute name (reason = speedGain in this case).
 
 <img src="../images/lanechange_output.png" width="500px"/>
 
-### Vehicle trajectories over time
+### All trajectories over time 1
 Input is [fcd_output](../Simulation/Output/FCDOutput.md).
 
 Call to generate the plot:
 ```
-python plotXMLAttributes.py -x x -y y -s -o vehLocations_output.png fcd.xml -i id --filter-ids Audinot_7_0 --scatterplot --legend
+python tools/visualization/plotXMLAttributes.py -x x -y y -s -o allXY_output.png fcd.xml --scatterplot
 ```
-where -x is the attribute for the x axis; -y is the attribute for the y axis; -s is to show the plot; -o is the output file name; -i is the filtered attribute name (vehicle id in this case); --filter-ids are the values of the filtered attribute name (vehicle id = Audinot_7_0 in this case).
+where -x is the attribute for the x axis; -y is the attribute for the y axis; -s is to show the plot; -o is the output file name; --scatterplot is to make a scatter plot instead of a line plot..
+
+<img src="../images/allXY_output.png" width="500px"/>
+
+### Selected trajectories over time 1
+Input is [fcd_output](../Simulation/Output/FCDOutput.md).
+
+Call to generate the plot:
+```
+python tools/visualization/plotXMLAttributes.py -x x -y y -s -o vehLocations_output.png fcd.xml -i id --filter-ids Audinot_7_0 --scatterplot --legend
+```
+where -x is the attribute for the x axis; -y is the attribute for the y axis; -s is to show the plot; -o is the output file name; -i is the filtered attribute name (vehicle id in this case); --filter-ids are the values of the filtered attribute name (vehicle id = Audinot_7_0 in this case); --scatterplot is to make a scatter plot instead of a line plot; --legend is to show the legend.
 
 <img src="../images/vehLocations_output.png" width="500px"/>
 
@@ -215,7 +226,49 @@ The option **-t (--trajectory-type)** supports different attributes that can be 
 - **xy**: Spatial plot of driving path
 - **kt**: kilometrage vs time (combine with option **--invert-yaxis** to get a classic railway diagram).
 
+### Accelerations versus distances
+Input is [fcd-output](../Simulation/Output/FCDOutput.md).
+
+Call to generate the plot:
+```
+python tools/plot_trajectories.py -t da -o Plot_trajectories.png fcd.xml
+```
+where -t is the aforementioned trajectory type; -o is the output file name.
+
 <img src="../images/Plot_trajectories.png" width="500px"/>
+
+### All trajectories over time 2
+Input is [fcd-output](../Simulation/Output/FCDOutput.md).
+
+Call to generate the plot:
+```
+python tools/plot_trajectories.py -t xy -o allLocations_output.png fcd.xml
+```
+where -t is the aforementioned trajectory type; -o is the output file name.
+
+<img src="../images/allLocations_output.png" width="500px"/>
+
+### Selected trajectories over time 2
+Input is [fcd-output](../Simulation/Output/FCDOutput.md).
+
+Call to generate the plot:
+```
+python tools/plot_trajectories.py -t xy -o selectXY_output.png fcd.xml --filter-ids Audinot_7_0
+```
+where -t is the aforementioned trajectory type; -o is the output file name;--filter-ids are the value(s) of the filtered attributes (id = Audinot_7_0 in this case).
+
+<img src="../images/selectXY_output.png" width="500px"/>
+
+### FCD based Speeds over time
+Input is [fcd-output](../Simulation/Output/FCDOutput.md).
+
+Call to generate the plot:
+```
+python tools/plot_trajectories.py -t ts -o timeSpeed_output.png fcd.xml --filter-ids Audinot_7_0,Costa_12_0,Pepoli_3_0,Silvani_11_0,XXI_APRILE_7_0 --legend
+```
+where -t is the aforementioned trajectory type; -o is the output file name; --filter-ids are the value(s) of the filtered attributes (id in [Audinot_7_0, Costa_12_0, Pepoli_3_0, Silvani_11_0, XXI_APRILE_7_0] in this case); --legend is to show the legend
+
+<img src="../images/timeSpeed_output.png" width="500px"/>
 
 ### Interactive Plot
 
