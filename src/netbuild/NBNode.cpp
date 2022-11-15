@@ -2307,6 +2307,9 @@ NBNode::getLinkState(const NBEdge* incoming, NBEdge* outgoing, int fromlane, int
         return LINKSTATE_MAJOR; // the trains must run on time
     }
     if (tlID != "") {
+        if (getRightOfWay() == RightOfWay::ALLWAYSTOP) {
+            return LINKSTATE_ALLWAY_STOP;
+        }
         return mustBrake(incoming, outgoing, fromlane, toLane, true) ? LINKSTATE_TL_OFF_BLINKING : LINKSTATE_TL_OFF_NOSIGNAL;
     }
     if (outgoing == nullptr) { // always off
