@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-05-17 13:17:11 by Eclipse SUMO netconvert Version v1_13_0+0276-8159c4e
+<!-- generated on 2022-11-15 18:07:31 by Eclipse SUMO netconvert Version v1_15_0+0300-ac8d5f6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -166,7 +166,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="ring2" value="5,6,7,8"/>
     </tlLogic>
 
-    <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 EC_0 EC_1 SC_0 SC_1 WC_0 WC_1" intLanes=":C_0_0 :C_1_0 :C_16_0 :C_17_0 :C_4_0 :C_5_0 :C_18_0 :C_19_0 :C_8_0 :C_9_0 :C_20_0 :C_21_0 :C_12_0 :C_13_0 :C_22_0 :C_23_0" shape="93.60,110.40 103.20,110.40 104.00,108.18 105.00,107.40 106.40,106.84 108.20,106.51 110.40,106.40 110.40,96.80 108.18,96.00 107.40,95.00 106.84,93.60 106.51,91.80 106.40,89.60 96.80,89.60 96.00,91.82 95.00,92.60 93.60,93.16 91.80,93.49 89.60,93.60 89.60,103.20 91.82,104.00 92.60,105.00 93.16,106.40 93.49,108.20">
+    <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 EC_0 EC_1 SC_0 SC_1 WC_0 WC_1" intLanes=":C_0_0 :C_1_0 :C_16_0 :C_17_0 :C_4_0 :C_5_0 :C_18_0 :C_19_0 :C_8_0 :C_9_0 :C_20_0 :C_21_0 :C_12_0 :C_13_0 :C_22_0 :C_23_0" shape="93.60,110.40 103.20,110.40 104.00,108.18 105.00,107.40 106.40,106.84 108.20,106.51 110.40,106.40 110.40,96.80 108.18,96.00 107.40,95.00 106.84,93.60 106.51,91.80 106.40,89.60 96.80,89.60 96.00,91.82 95.00,92.60 93.60,93.16 91.80,93.49 89.60,93.60 89.60,103.20 91.82,104.00 92.60,105.00 93.16,106.40 93.49,108.20" rightOfWay="allwayStop">
         <request index="0"  response="0000000000100000" foes="1000010000100000" cont="0"/>
         <request index="1"  response="0111000001100000" foes="0111110001100000" cont="0"/>
         <request index="2"  response="0110001101100000" foes="0110001111100000" cont="1"/>
@@ -210,22 +210,22 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="CN" to="NC" fromLane="0" toLane="1" via=":N_0_0" dir="t" state="M"/>
     <connection from="CS" to="SC" fromLane="0" toLane="1" via=":S_0_0" dir="t" state="M"/>
     <connection from="CW" to="WC" fromLane="0" toLane="1" via=":W_0_0" dir="t" state="M"/>
-    <connection from="EC" to="CN" fromLane="0" toLane="0" via=":C_4_0" tl="C" linkIndex="4" dir="r" state="O"/>
-    <connection from="EC" to="CW" fromLane="0" toLane="0" via=":C_5_0" tl="C" linkIndex="5" dir="s" state="O"/>
-    <connection from="EC" to="CS" fromLane="1" toLane="0" via=":C_6_0" tl="C" linkIndex="6" dir="l" state="o"/>
-    <connection from="EC" to="CE" fromLane="1" toLane="0" via=":C_7_0" tl="C" linkIndex="7" dir="t" state="o"/>
-    <connection from="NC" to="CW" fromLane="0" toLane="0" via=":C_0_0" tl="C" linkIndex="0" dir="r" state="o"/>
-    <connection from="NC" to="CS" fromLane="0" toLane="0" via=":C_1_0" tl="C" linkIndex="1" dir="s" state="o"/>
-    <connection from="NC" to="CE" fromLane="1" toLane="0" via=":C_2_0" tl="C" linkIndex="2" dir="l" state="o"/>
-    <connection from="NC" to="CN" fromLane="1" toLane="0" via=":C_3_0" tl="C" linkIndex="3" dir="t" state="o"/>
-    <connection from="SC" to="CE" fromLane="0" toLane="0" via=":C_8_0" tl="C" linkIndex="8" dir="r" state="o"/>
-    <connection from="SC" to="CN" fromLane="0" toLane="0" via=":C_9_0" tl="C" linkIndex="9" dir="s" state="o"/>
-    <connection from="SC" to="CW" fromLane="1" toLane="0" via=":C_10_0" tl="C" linkIndex="10" dir="l" state="o"/>
-    <connection from="SC" to="CS" fromLane="1" toLane="0" via=":C_11_0" tl="C" linkIndex="11" dir="t" state="o"/>
-    <connection from="WC" to="CS" fromLane="0" toLane="0" via=":C_12_0" tl="C" linkIndex="12" dir="r" state="O"/>
-    <connection from="WC" to="CE" fromLane="0" toLane="0" via=":C_13_0" tl="C" linkIndex="13" dir="s" state="O"/>
-    <connection from="WC" to="CN" fromLane="1" toLane="0" via=":C_14_0" tl="C" linkIndex="14" dir="l" state="o"/>
-    <connection from="WC" to="CW" fromLane="1" toLane="0" via=":C_15_0" tl="C" linkIndex="15" dir="t" state="o"/>
+    <connection from="EC" to="CN" fromLane="0" toLane="0" via=":C_4_0" tl="C" linkIndex="4" dir="r" state="w"/>
+    <connection from="EC" to="CW" fromLane="0" toLane="0" via=":C_5_0" tl="C" linkIndex="5" dir="s" state="w"/>
+    <connection from="EC" to="CS" fromLane="1" toLane="0" via=":C_6_0" tl="C" linkIndex="6" dir="l" state="w"/>
+    <connection from="EC" to="CE" fromLane="1" toLane="0" via=":C_7_0" tl="C" linkIndex="7" dir="t" state="w"/>
+    <connection from="NC" to="CW" fromLane="0" toLane="0" via=":C_0_0" tl="C" linkIndex="0" dir="r" state="w"/>
+    <connection from="NC" to="CS" fromLane="0" toLane="0" via=":C_1_0" tl="C" linkIndex="1" dir="s" state="w"/>
+    <connection from="NC" to="CE" fromLane="1" toLane="0" via=":C_2_0" tl="C" linkIndex="2" dir="l" state="w"/>
+    <connection from="NC" to="CN" fromLane="1" toLane="0" via=":C_3_0" tl="C" linkIndex="3" dir="t" state="w"/>
+    <connection from="SC" to="CE" fromLane="0" toLane="0" via=":C_8_0" tl="C" linkIndex="8" dir="r" state="w"/>
+    <connection from="SC" to="CN" fromLane="0" toLane="0" via=":C_9_0" tl="C" linkIndex="9" dir="s" state="w"/>
+    <connection from="SC" to="CW" fromLane="1" toLane="0" via=":C_10_0" tl="C" linkIndex="10" dir="l" state="w"/>
+    <connection from="SC" to="CS" fromLane="1" toLane="0" via=":C_11_0" tl="C" linkIndex="11" dir="t" state="w"/>
+    <connection from="WC" to="CS" fromLane="0" toLane="0" via=":C_12_0" tl="C" linkIndex="12" dir="r" state="w"/>
+    <connection from="WC" to="CE" fromLane="0" toLane="0" via=":C_13_0" tl="C" linkIndex="13" dir="s" state="w"/>
+    <connection from="WC" to="CN" fromLane="1" toLane="0" via=":C_14_0" tl="C" linkIndex="14" dir="l" state="w"/>
+    <connection from="WC" to="CW" fromLane="1" toLane="0" via=":C_15_0" tl="C" linkIndex="15" dir="t" state="w"/>
 
     <connection from=":C_0" to="CW" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":C_1" to="CS" fromLane="0" toLane="0" dir="s" state="M"/>
