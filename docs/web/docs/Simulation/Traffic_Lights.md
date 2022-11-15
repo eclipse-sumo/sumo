@@ -734,6 +734,8 @@ Assuming the program as defined above is put in a file called
 sumo -a tls.add.xml ...<other options for network and routes>
 ```
 
+## Switching TLS 'off'
+
 It is also possible to load a program which switches the tls off by
 giving the `programID` the value
 "`off`".
@@ -741,6 +743,10 @@ giving the `programID` the value
 ```
 <tlLogic id="0" type="static" programID="off"/>
 ```
+
+An alternative way to switch all traffic lights to the 'off' program is to set sumo option **--tls.all-off**.
+
+Once a traffic light has been switched off, it's lights will change to to values of `O` (off, no signal) and `o` (off, blinking) and it will behave like a priority intersection. The connections (links) with state `O` will have priority whereas the connections `o` will yield.
 
 # Tools for Importing TLS Programs
 
