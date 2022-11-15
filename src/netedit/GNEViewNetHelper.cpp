@@ -83,8 +83,6 @@ GNEViewNetHelper::LockManager::LockManager(GNEViewNet* viewNet) :
     myLockedElements[GLO_EDGEDATA] = OperationLocked(Supermode::DATA);
     myLockedElements[GLO_EDGERELDATA] = OperationLocked(Supermode::DATA);
     myLockedElements[GLO_TAZRELDATA] = OperationLocked(Supermode::DATA);
-    myLockedElements[GLO_MEANDATAEDGE] = OperationLocked(Supermode::DATA);
-    myLockedElements[GLO_MEANDATALANE] = OperationLocked(Supermode::DATA);
 }
 
 
@@ -150,8 +148,6 @@ GNEViewNetHelper::LockManager::updateFlags() {
     myLockedElements[GLO_EDGEDATA].lock = lockMenuCommands.menuCheckLockEdgeDatas->getCheck() == TRUE;
     myLockedElements[GLO_EDGERELDATA].lock = lockMenuCommands.menuCheckLockEdgeRelDatas->getCheck() == TRUE;
     myLockedElements[GLO_TAZRELDATA].lock = lockMenuCommands.menuCheckLockEdgeTAZRels->getCheck() == TRUE;
-    myLockedElements[GLO_MEANDATAEDGE].lock = lockMenuCommands.menuCheckLockMeanDataEdge->getCheck() == TRUE;
-    myLockedElements[GLO_MEANDATALANE].lock = lockMenuCommands.menuCheckLockMeanDataLane->getCheck() == TRUE;
 }
 
 

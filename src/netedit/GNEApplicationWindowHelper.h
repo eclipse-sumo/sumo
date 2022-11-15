@@ -818,12 +818,6 @@ struct GNEApplicationWindowHelper {
         /// @brief menu check to lock edgeTAZRels
         MFXMenuCheckIcon* menuCheckLockEdgeTAZRels;
 
-        /// @brief menu check to lock meanDataEdges
-        MFXMenuCheckIcon* menuCheckLockMeanDataEdge;
-
-        /// @brief menu check to lock meanDataLanes
-        MFXMenuCheckIcon* menuCheckLockMeanDataLane;
-
         /// @}
 
         /// @brief menu check for lock selected elements

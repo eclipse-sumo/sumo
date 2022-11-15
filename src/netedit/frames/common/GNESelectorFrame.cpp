@@ -120,8 +120,6 @@ GNESelectorFrame::SelectionInformation::updateInformationLabel() {
         updateInformationLabel("EdgeDatas", ACs->getNumberOfSelectedEdgeDatas());
         updateInformationLabel("EdgeRelDatas", ACs->getNumberOfSelectedEdgeRelDatas());
         updateInformationLabel("EdgeTAZRel", ACs->getNumberOfSelectedEdgeTAZRel());
-        updateInformationLabel("MeanDataEdge", ACs->getNumberOfSelectedMeanDataEdges());
-        updateInformationLabel("MeanDataLane", ACs->getNumberOfSelectedMeanDataLanes());
     }
     // adjust format
     const auto numberLines = std::count(myInformation.begin(), myInformation.end(), ':');
@@ -1084,36 +1082,6 @@ GNESelectorFrame::SelectionOperation::processDataElementSelection(const bool onl
                 }
             }
         }
-    }
-    // check if meanDataEdges selection is locked
-    if (ignoreLocking || !locks.isObjectLocked(GLO_MEANDATAEDGE, false)) {
-        for (const auto& meanDataEdge : ACs->getMeanDatas().at(SUMO_TAG_MEANDATA_EDGE)) {
-            if (onlyCount) {
-                return true;
-            } else if (onlyUnselect || meanDataEdge->isAttributeCarrierSelected()) {
-                meanDataEdge->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-            } else {
-                meanDataEdge->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-            }
-        }
-    } else if (onlyCount) {
-        ignoreLocking = askContinueIfLock();
-        return true;
-    }
-    // check if meanDataLanes selection is locked
-    if (ignoreLocking || !locks.isObjectLocked(GLO_MEANDATALANE, false)) {
-        for (const auto& meanDataLane : ACs->getMeanDatas().at(SUMO_TAG_MEANDATA_LANE)) {
-            if (onlyCount) {
-                return true;
-            } else if (onlyUnselect || meanDataLane->isAttributeCarrierSelected()) {
-                meanDataLane->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-            } else {
-                meanDataLane->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
-            }
-        }
-    } else if (onlyCount) {
-        ignoreLocking = askContinueIfLock();
-        return true;
     }
     return false;
 }

@@ -80,140 +80,32 @@ GNEMeanData::getPositionInView() const {
 
 
 GUIGLObjectPopupMenu*
-GNEMeanData::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
-    // build header
-    buildPopupHeader(ret, app);
-    // build menu command for center button and copy cursor position to clipboard
-    buildCenterPopupEntry(ret);
-    buildPositionCopyEntry(ret, app);
-    // buld menu commands for names
-    GUIDesigns::buildFXMenuCommand(ret, "Copy " + getTagStr() + " name to clipboard", nullptr, ret, MID_COPY_NAME);
-    GUIDesigns::buildFXMenuCommand(ret, "Copy " + getTagStr() + " typed name to clipboard", nullptr, ret, MID_COPY_TYPED_NAME);
-    new FXMenuSeparator(ret);
-    // build selection and show parameters menu
-    buildShowParamsPopupEntry(ret);
-    // show option to open additional dialog
-    if (myTagProperty.hasDialog()) {
-        GUIDesigns::buildFXMenuCommand(ret, ("Open " + getTagStr() + " Dialog").c_str(), getACIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
-        new FXMenuSeparator(ret);
-    } else {
-        GUIDesigns::buildFXMenuCommand(ret, ("Cursor position in view: " + toString(getPositionInView().x()) + "," + toString(getPositionInView().y())).c_str(), nullptr, nullptr, 0);
-    }
-    return ret;
+GNEMeanData::getPopUpMenu(GUIMainWindow& /*app*/, GUISUMOAbstractView& /*parent*/) {
+    return nullptr;
 }
 
 
 GUIParameterTableWindow*
-GNEMeanData::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& /* parent */) {
-    // Create table
-    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
-    // Iterate over attributes
-    for (const auto& tagProperty : myTagProperty) {
-        // Add attribute and set it dynamic if aren't unique
-        if (tagProperty.isUnique()) {
-            ret->mkItem(tagProperty.getAttrStr().c_str(), false, getAttribute(tagProperty.getAttr()));
-        } else {
-            ret->mkItem(tagProperty.getAttrStr().c_str(), true, getAttribute(tagProperty.getAttr()));
-        }
-    }
-    // close building
-    ret->closeBuilding();
-    return ret;
+GNEMeanData::getParameterWindow(GUIMainWindow& /*app*/, GUISUMOAbstractView& /*parent*/) {
+    return nullptr;
 }
 
 
 void
-GNEMeanData::drawGL(const GUIVisualizationSettings& s) const {
-    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
-        // first push GL ID
-        GLHelper::pushName(getGlID());
-        // get lanes to draw
-        std::vector<GNELane*> lanes;
-        if (getParentLanes().size() > 0) {
-            lanes.push_back(getParentLanes().front());
-        } else {
-            lanes = getParentEdges().front()->getLanes();
-        }
-        // draw over all lanes
-        for (const auto& lane : lanes) {
-            // get lane width
-            const double laneWidth = s.addSize.getExaggeration(s, lane) * s.edgeRelWidthExaggeration *
-                                     (lane->getParentEdge()->getNBEdge()->getLaneWidth(lane->getIndex()) * 0.5);
-            // Add a draw matrix
-            GLHelper::pushMatrix();
-            // Start with the drawing of the area translating matrix to origin
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_EDGEDATA, 0);
-            GLHelper::setColor(RGBColor::BLACK);
-            // draw box lines
-            GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(),
-                                          lane->getLaneShape(), lane->getShapeRotations(),
-                                          lane->getShapeLengths(), {}, laneWidth, false);
-            // translate to top
-            glTranslated(0, 0, 0.01);
-            if (isAttributeCarrierSelected()) {
-                GLHelper::setColor(RGBColor::BLUE);
-            } else if (getParentLanes().size() > 0) {
-                GLHelper::setColor(RGBColor::ORANGE);
-            } else {
-                GLHelper::setColor(RGBColor::CYAN);
-            }
-            // draw interne box lines
-            GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(),
-                                          lane->getLaneShape(), lane->getShapeRotations(),
-                                          lane->getShapeLengths(), {}, (laneWidth - 0.1), false);
-            // Pop last matrix
-            GLHelper::popMatrix();
-            // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
-            // check if mouse is over element
-            for (const auto& laneParent : lane->getParentEdge()->getLanes()) {
-                // get lane drawing constants
-                GNELane::LaneDrawingConstants laneDrawingConstants(s, laneParent);
-                mouseWithinGeometry(laneParent->getLaneShape(), laneDrawingConstants.halfWidth * s.edgeRelWidthExaggeration);
-            }
-            // inspect contour
-            if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GNEEdge::drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::INSPECT,
-                                               lane->getParentEdge(), true, true, s.edgeRelWidthExaggeration);
-            }
-            // front contour
-            if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                GNEEdge::drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::FRONT,
-                                               lane->getParentEdge(), true, true, s.edgeRelWidthExaggeration);
-            }
-            // delete contour
-            if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-                GNEEdge::drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::REMOVE,
-                                               lane->getParentEdge(), true, true, s.edgeRelWidthExaggeration);
-            }
-            // select contour
-            if (myNet->getViewNet()->drawSelectContour(this, this)) {
-                GNEEdge::drawDottedContourEdge(s, GUIDottedGeometry::DottedContourType::SELECT,
-                                               lane->getParentEdge(), true, true, s.edgeRelWidthExaggeration);
-            }
-        }
-        // Pop name
-        GLHelper::popName();
-    }
+GNEMeanData::drawGL(const GUIVisualizationSettings& /*s*/) const {
+    // nothing to draw
 }
 
 
 void
 GNEMeanData::deleteGLObject() {
-    myNet->deleteMeanData(this, myNet->getViewNet()->getUndoList());
+    // nothing to delete
 }
 
 
 void
 GNEMeanData::selectGLObject() {
-    if (isAttributeCarrierSelected()) {
-        unselectAttributeCarrier();
-    } else {
-        selectAttributeCarrier();
-    }
-    // update information label
-    myNet->getViewNet()->getViewParent()->getSelectorFrame()->getSelectionInformation()->updateInformationLabel();
+    // nothing to select
 }
 
 
@@ -240,8 +132,6 @@ GNEMeanData::getAttribute(SumoXMLAttr key) const {
             }
         case SUMO_ATTR_FILE:
             return myFile;
-        case GNE_ATTR_SELECTED:
-            return toString(isAttributeCarrierSelected());
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -269,7 +159,6 @@ void
 GNEMeanData::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
         case SUMO_ATTR_FILE:
-        case GNE_ATTR_SELECTED:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -283,8 +172,6 @@ GNEMeanData::isValid(SumoXMLAttr key , const std::string& value) {
     switch (key) {
         case SUMO_ATTR_FILE:
             return SUMOXMLDefinitions::isValidFilename(value);
-        case GNE_ATTR_SELECTED:
-            return canParse<bool>(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -319,13 +206,6 @@ GNEMeanData::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_FILE:
             myFile = value;
-            break;
-        case GNE_ATTR_SELECTED:
-            if (parse<bool>(value)) {
-                selectAttributeCarrier();
-            } else {
-                unselectAttributeCarrier();
-            }
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

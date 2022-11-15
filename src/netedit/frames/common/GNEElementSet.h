@@ -46,7 +46,6 @@ public:
         TAZ,
         DEMAND,
         GENERICDATA,
-        MEANDATA,
         INVALID,
     };
 

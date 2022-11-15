@@ -2094,31 +2094,6 @@ GNENetHelper::AttributeCarriers::getMeanDatas() const {
 
 
 int
-GNENetHelper::AttributeCarriers::getNumberOfSelectedMeanDataEdges() const {
-    int counter = 0;
-    // returns meanDatas depending of selection
-    for (const auto& meanData : myMeanDatas.at(SUMO_TAG_MEANDATA_EDGE)) {
-        if (meanData->isAttributeCarrierSelected()) {
-            counter++;
-        }
-    }
-    return counter;
-}
-
-
-int
-GNENetHelper::AttributeCarriers::getNumberOfSelectedMeanDataLanes() const {
-    int counter = 0;
-    for (const auto& meanData : myMeanDatas.at(SUMO_TAG_MEANDATA_LANE)) {
-        if (meanData->isAttributeCarrierSelected()) {
-            counter++;
-        }
-    }
-    return counter;
-}
-
-
-int
 GNENetHelper::AttributeCarriers::getNumberOfMeanDatas() const {
     int counter = 0;
     for (const auto& meanDatasTag : myMeanDatas) {

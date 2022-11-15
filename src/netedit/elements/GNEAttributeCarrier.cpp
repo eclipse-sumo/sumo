@@ -5734,13 +5734,12 @@ GNEAttributeCarrier::fillDataElements() {
                                               "The name of the TAZ the " + toString(currentTag) + " ends at");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
-
     currentTag = SUMO_TAG_MEANDATA_EDGE;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DATAELEMENT | GNETagProperties::MEANDATA,
-                                      GNETagProperties::NOPARAMETERS,
+                                      GNETagProperties::NOTDRAWABLE | GNETagProperties::NOPARAMETERS | GNETagProperties::NOTSELECTABLE,
                                       GUIIcon::DATASET, currentTag);
 
         // set values of attributes
@@ -5760,7 +5759,7 @@ GNEAttributeCarrier::fillDataElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DATAELEMENT | GNETagProperties::MEANDATA,
-                                      GNETagProperties::NOPARAMETERS,
+                                      GNETagProperties::NOTDRAWABLE | GNETagProperties::NOPARAMETERS | GNETagProperties::NOTSELECTABLE,
                                       GUIIcon::DATASET, currentTag);
 
         // set values of attributes

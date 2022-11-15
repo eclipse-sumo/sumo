@@ -69,7 +69,6 @@ GNEElementSet::GNEElementSet(GNESelectorFrame* selectorFrameParent, Supermode su
     } else if (supermode == Supermode::DATA) {
         // append elements
         mySetComboBox->appendIconItem("GenericDatas", GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA));
-        mySetComboBox->appendIconItem("MeanDatas", GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA));
         // set default set
         myCurrentSet = Type::GENERICDATA;
     } else {
@@ -165,8 +164,6 @@ GNEElementSet::onCmdSelectElementSet(FXObject*, FXSelector, void*) {
     } else if (mySelectorFrameParent->getViewNet()->getEditModes().isCurrentSupermodeData()) {
         if (mySetComboBox->getText() == "GenericDatas") {
             myCurrentSet = Type::GENERICDATA;
-        } else if (mySetComboBox->getText() == "MeanDatas") {
-            myCurrentSet = Type::MEANDATA;
         } else {
             myCurrentSet = Type::INVALID;
         }

@@ -1245,16 +1245,6 @@ GNEApplicationWindowHelper::LockMenuCommands::buildLockMenuCommands(FXMenuPane* 
                                GUIIconSubSys::getIcon(GUIIcon::TAZRELDATA),
                                myGNEApp, MID_GNE_LOCK_ELEMENT);
 
-    menuCheckLockMeanDataEdge = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
-                               TL("&MeanDataEdge"), "", "",
-                               GUIIconSubSys::getIcon(GUIIcon::MEANDATAEDGE),
-                               myGNEApp, MID_GNE_LOCK_ELEMENT);
-    
-    menuCheckLockMeanDataLane = GUIDesigns::buildFXMenuCheckboxIcon(fileMenu,
-                               TL("MeanData&Lane"), "", "",
-                               GUIIconSubSys::getIcon(GUIIcon::MEANDATALANE),
-                               myGNEApp, MID_GNE_LOCK_ELEMENT);
-
     // separator
     new FXMenuSeparator(fileMenu);
 
@@ -1304,8 +1294,6 @@ GNEApplicationWindowHelper::LockMenuCommands::removeHotkeys() {
     menuCheckLockEdgeDatas->remHotKey(parseHotKey('e'));
     menuCheckLockEdgeRelDatas->remHotKey(parseHotKey('d'));
     menuCheckLockEdgeTAZRels->remHotKey(parseHotKey('t'));
-    menuCheckLockMeanDataEdge->remHotKey(parseHotKey('m'));
-    menuCheckLockMeanDataLane->remHotKey(parseHotKey('l'));
 }
 
 void
@@ -1448,20 +1436,14 @@ GNEApplicationWindowHelper::LockMenuCommands::showDataLockMenuCommands() {
     menuCheckLockEdgeDatas->enable();
     menuCheckLockEdgeRelDatas->enable();
     menuCheckLockEdgeTAZRels->enable();
-    menuCheckLockMeanDataEdge->enable();
-    menuCheckLockMeanDataLane->enable();
     // set accels
     menuCheckLockEdgeDatas->addHotKey(parseHotKey('e'));
     menuCheckLockEdgeRelDatas->addHotKey(parseHotKey('d'));
     menuCheckLockEdgeTAZRels->addHotKey(parseHotKey('t'));
-    menuCheckLockMeanDataEdge->addHotKey(parseHotKey('m'));
-    menuCheckLockMeanDataLane->addHotKey(parseHotKey('l'));
     // now show it
     menuCheckLockEdgeDatas->show();
     menuCheckLockEdgeRelDatas->show();
     menuCheckLockEdgeTAZRels->show();
-    menuCheckLockMeanDataEdge->show();
-    menuCheckLockMeanDataLane->show();
 }
 
 
@@ -1471,14 +1453,10 @@ GNEApplicationWindowHelper::LockMenuCommands::hideDataLockMenuCommands() {
     menuCheckLockEdgeDatas->disable();
     menuCheckLockEdgeRelDatas->disable();
     menuCheckLockEdgeTAZRels->disable();
-    menuCheckLockMeanDataEdge->disable();
-    menuCheckLockMeanDataLane->disable();
     // now hide it
     menuCheckLockEdgeDatas->hide();
     menuCheckLockEdgeRelDatas->hide();
     menuCheckLockEdgeTAZRels->hide();
-    menuCheckLockMeanDataEdge->hide();
-    menuCheckLockMeanDataLane->hide();
 }
 
 
@@ -1508,8 +1486,6 @@ GNEApplicationWindowHelper::LockMenuCommands::lockAll() {
     menuCheckLockEdgeDatas->setCheck(TRUE);
     menuCheckLockEdgeRelDatas->setCheck(TRUE);
     menuCheckLockEdgeTAZRels->setCheck(TRUE);
-    menuCheckLockMeanDataEdge->setCheck(TRUE);
-    menuCheckLockMeanDataLane->setCheck(TRUE);
 }
 
 
@@ -1539,8 +1515,6 @@ GNEApplicationWindowHelper::LockMenuCommands::unlockAll() {
     menuCheckLockEdgeDatas->setCheck(FALSE);
     menuCheckLockEdgeRelDatas->setCheck(FALSE);
     menuCheckLockEdgeTAZRels->setCheck(FALSE);
-    menuCheckLockMeanDataEdge->setCheck(FALSE);
-    menuCheckLockMeanDataLane->setCheck(FALSE);
 }
 
 
@@ -1595,10 +1569,6 @@ GNEApplicationWindowHelper::LockMenuCommands::editLocking(const GNEAttributeCarr
         menuCheckLockEdgeRelDatas->setCheck(value);
     } else if (AC->getTagProperty().getTag() == SUMO_TAG_TAZREL) {
         menuCheckLockEdgeTAZRels->setCheck(value);
-    } else if (AC->getTagProperty().getTag() == SUMO_TAG_MEANDATA_EDGE) {
-        menuCheckLockMeanDataEdge->setCheck(value);
-    } else if (AC->getTagProperty().getTag() == SUMO_TAG_MEANDATA_LANE) {
-        menuCheckLockMeanDataLane->setCheck(value);
     }
 }
 
