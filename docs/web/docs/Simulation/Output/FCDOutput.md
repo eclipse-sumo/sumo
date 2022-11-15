@@ -181,9 +181,9 @@ Generated with [plotXMLAttributes.py](../../Tools/Visualization.md#selected_traj
 Generated with [plot_trajectories.py](../../Tools/Visualization.md#selected_trajectories_over_time_2).
 
 
-### FCD based Speeds over time
+### FCD based speeds over time
 
 <img src="../../images/timeSpeed_output.png" width="500px"/>
 
-Generated with [plot_trajectories.py](../../Tools/Visualization.md#fcd_based_speed_over_time).
+Generated with [plot_trajectories.py](../../Tools/Visualization.md#fcd_based_speeds_over_time).
 
