@@ -259,7 +259,7 @@ where -t is the aforementioned trajectory type; -o is the output file name;--fil
 
 <img src="../images/selectXY_output.png" width="500px"/>
 
-### FCD based Speeds over time
+### FCD based speeds over time
 Input is [fcd-output](../Simulation/Output/FCDOutput.md).
 
 Call to generate the plot:
