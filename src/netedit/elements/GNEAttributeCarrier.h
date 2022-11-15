@@ -394,6 +394,9 @@ private:
     /// @brief fill Data elements
     static void fillDataElements();
 
+    /// @brief fill stop person attributes
+    static void fillCommonMeanDataAttributes(SumoXMLTag currentTag);
+
     /// @brief map with the tags properties
     static std::map<SumoXMLTag, GNETagProperties> myTagProperties;
 

@@ -5743,15 +5743,7 @@ GNEAttributeCarrier::fillDataElements() {
                                       GUIIcon::DATASET, currentTag);
 
         // set values of attributes
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                                              "The id of edge in the simulation network");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_FILE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::FILENAME | GNEAttributeProperties::DEFAULTVALUE,
-                                              "The path to the output file");
-        myTagProperties[currentTag].addAttribute(attrProperty);
+        fillCommonMeanDataAttributes(currentTag);
 
     }
     currentTag = SUMO_TAG_MEANDATA_LANE;
@@ -5763,17 +5755,24 @@ GNEAttributeCarrier::fillDataElements() {
                                       GUIIcon::DATASET, currentTag);
 
         // set values of attributes
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-                                              "The id of lane in the simulation network");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_FILE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::FILENAME | GNEAttributeProperties::DEFAULTVALUE,
-                                              "The path to the output file");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
+        fillCommonMeanDataAttributes(currentTag);
     }
+}
+
+
+void
+GNEAttributeCarrier::fillCommonMeanDataAttributes(SumoXMLTag currentTag) {
+    GNEAttributeProperties attrProperty;
+    // fill all meanData attributes
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
+                                            GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                            "The id of this set of measurements");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_FILE,
+                                            GNEAttributeProperties::STRING | GNEAttributeProperties::FILENAME | GNEAttributeProperties::DEFAULTVALUE,
+                                            "The path to the output file. The path may be relative");
+    myTagProperties[currentTag].addAttribute(attrProperty);
 }
 
 /****************************************************************************/
