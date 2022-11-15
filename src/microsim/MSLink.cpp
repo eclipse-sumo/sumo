@@ -100,6 +100,7 @@ MSLink::MSLink(MSLane* predLane, MSLane* succLane, MSLane* via, LinkDirection di
     myMesoTLSPenalty(0),
     myGreenFraction(1),
     myLateralShift(0),
+    myOffFoeLinks(nullptr),
     myWalkingAreaFoe(nullptr),
     myWalkingAreaFoeExit(nullptr),
     myHavePedestrianCrossingFoe(false),
@@ -132,7 +133,9 @@ MSLink::MSLink(MSLane* predLane, MSLane* succLane, MSLane* via, LinkDirection di
 }
 
 
-MSLink::~MSLink() {}
+MSLink::~MSLink() {
+    delete myOffFoeLinks;
+}
 
 
 void
@@ -164,6 +167,21 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
         //    // this is the link to a pedestrian crossing. compute crossing points with all foeLanes
         //    // @note not currently used by pedestrians
         //    lane = myLane;
+    }
+    const MSLink* entryLink = getCorrespondingEntryLink();
+    if (entryLink->getOffState() == LinkState::LINKSTATE_ALLWAY_STOP && entryLink->getTLLogic() != nullptr) {
+        // TLS has "normal" right of way rules but all conflicting links are foes when switching TLS off
+        // (unless it's an internal junction link which should ignore all foes and should be ignored by all foes
+        myOffFoeLinks = new std::vector<MSLink*>();
+        if (isEntryLink()) {
+            for (MSLane* foeLane : foeLanes) {
+                assert(foeLane->isInternal());
+                MSLink* viaLink = foeLane->getIncomingLanes().front().viaLink;
+                if (viaLink->getLaneBefore()->isNormal()) {
+                    myOffFoeLinks->push_back(viaLink);
+                }
+            }
+        }
     }
 #ifdef MSLink_DEBUG_CROSSING_POINTS
     std::cout << "link " << myIndex << " to " << getViaLaneOrLane()->getID() << " internalLaneBefore=" << (lane == 0 ? "NULL" : lane->getID()) << " has foes: " << toString(foeLanes) << "\n";
@@ -644,9 +662,10 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
         return false;
     }
 
+    const std::vector<MSLink*>& foeLinks = (myOffFoeLinks == nullptr || getCorrespondingEntryLink()->getState() != LINKSTATE_ALLWAY_STOP) ? myFoeLinks : *myOffFoeLinks;
 #ifdef MSLink_DEBUG_OPENED
     if (gDebugFlag1) {
-        std::cout << SIMTIME << " opened link=" << getViaLaneOrLane()->getID() << " foeLinks=" << myFoeLinks.size() << "\n";
+        std::cout << SIMTIME << " opened link=" << getViaLaneOrLane()->getID() << " foeLinks=" << foeLinks.size() << "\n";
     }
 #endif
 
@@ -654,7 +673,7 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
         return true;
     }
     const bool lastWasContRed = lastWasContState(LINKSTATE_TL_RED);
-    for (const MSLink* const link : myFoeLinks) {
+    for (const MSLink* const link : foeLinks) {
         if (MSGlobals::gUseMesoSim) {
             if (link->haveRed()) {
                 continue;

@@ -708,6 +708,11 @@ private:
     std::vector<MSLink*> myFoeLinks;
     std::vector<const MSLane*> myFoeLanes;
 
+    /* prioritized links when the traffic light is switched off (only needed for RightOfWay::ALLWAYSTOP)
+     * @note stored as a pointer to save space since it won't be used in most cases
+     */
+    std::vector<MSLink*>* myOffFoeLinks;
+
     /// @brief walkingArea that must be checked when entering the intersection
     const MSLane* myWalkingAreaFoe;
     /// @brief walkingArea that must be checked when leaving the intersection
