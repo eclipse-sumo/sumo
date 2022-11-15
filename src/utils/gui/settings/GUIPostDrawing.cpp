@@ -42,6 +42,7 @@ GUIPostDrawing::executePostDrawingTasks() {
     elementsMarkedToRemove.clear();
     elementsMarkedToSelect.clear();
     // reset marked elements
+    myTopElement = nullptr;
     markedNode = nullptr;
     markedEdge = nullptr;
     markedLane = nullptr;
@@ -61,14 +62,27 @@ GUIPostDrawing::markGLObjectToUpdate(GUIGlObject* GLObject) {
 void
 GUIPostDrawing::addElementUnderCursor(const GUIGlObject* GLObject) {
     myElementsUnderCursor.push_back(GLObject);
+    if (myTopElement == nullptr) {
+        myTopElement = GLObject;
+    } else if (GLObject->getType() > myTopElement->getType()) {
+        myTopElement = GLObject;
+    }
 }
 
 
 bool
 GUIPostDrawing::isElementUnderCursor(const GUIGlObject* GLObject) const {
-    return std::find(myElementsUnderCursor.begin(), myElementsUnderCursor.end(), GLObject) != myElementsUnderCursor.end();
+    return (std::find(myElementsUnderCursor.begin(), myElementsUnderCursor.end(), GLObject) != myElementsUnderCursor.end());
 }
 
+bool
+GUIPostDrawing::isTopElementUnderCursor(const GUIGlObject* GLObject) const {
+    if (myTopElement) {
+        return (GLObject->getType() >= myTopElement->getType());
+    } else {
+        return false;
+    }
+}
 
 const std::vector<const GUIGlObject*>&
 GUIPostDrawing::getElementUnderCursor() const {
