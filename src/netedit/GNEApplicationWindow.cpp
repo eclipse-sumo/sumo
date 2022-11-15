@@ -780,7 +780,7 @@ GNEApplicationWindow::onCmdOpenSUMOConfig(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdReloadSUMOConfig(FXObject*, FXSelector, void*) {
-    const auto file = OptionsCont::getOptions().getString("SUMOConfig-output");
+    const auto file = OptionsCont::getOptions().getString("SUMOcfg-file");
     if (file.size() > 0) {
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
@@ -801,7 +801,7 @@ GNEApplicationWindow::onCmdReloadSUMOConfig(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onUpdReloadSUMOConfig(FXObject*, FXSelector, void*) {
     // check if file exist
-    if (myViewNet && !OptionsCont::getOptions().getString("SUMOConfig-output").empty()) {
+    if (myViewNet && !OptionsCont::getOptions().getString("SUMOcfg-output").empty()) {
         return myFileMenuCommands.reloadSUMOConfig->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else {
         return myFileMenuCommands.reloadSUMOConfig->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
@@ -1260,9 +1260,8 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     }
     getApp()->endWaitCursor();
     myMessageWindow->registerMsgHandlers();
-
     // check if we have to load an entire sumo config
-
+    loadSUMOConfigAtStart(oc);
     // check if additionals/shapes has to be loaded at start
     loadAdditionalElementsAtStart(oc);
     // check if demand elements has to be loaded at start
@@ -3435,7 +3434,7 @@ GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject*, FXSelector, void*) {
     // check if save additional menu is enabled
     if (myFileMenuCommands.saveSUMOConfig->isEnabled()) {
         // Check if SUMOConfig file was already set at start of netedit or with a previous save
-        if (oc.getString("SUMOConfig-output").empty()) {
+        if (oc.getString("SUMOcfg-output").empty()) {
             // declare current folder
             FXString currentFolder = gCurrentFolder;
             // check if there is a saved network
@@ -3455,9 +3454,9 @@ GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject*, FXSelector, void*) {
                 // None SUMOConfig file was selected, then stop function
                 return 0;
             } else {
-                // change value of "SUMOConfig-output"
+                // change value of "SUMOcfg-output"
                 oc.resetWritable();
-                oc.set("SUMOConfig-output", fileWithExtension);
+                oc.set("SUMOcfg-output", fileWithExtension);
             }
         }
         // Start saving SUMOConfig
@@ -3499,9 +3498,9 @@ GNEApplicationWindow::onCmdSaveSUMOConfigAs(FXObject*, FXSelector, void*) {
         // None SUMOConfig file was selected, then stop function
         return 0;
     } else {
-        // change value of "SUMOConfig-output"
+        // change value of "SUMOcfg-output"
         oc.resetWritable();
-        oc.set("SUMOConfig-output", fileWithExtension);
+        oc.set("SUMOcfg-output", fileWithExtension);
     }
     // Start saving SUMOConfig
     getApp()->beginWaitCursor();
@@ -4737,6 +4736,26 @@ GNEApplicationWindow::continueWithUnsavedDataElementChanges(const std::string& o
         // nothing to save, return true
         return true;
     }
+}
+
+
+void
+GNEApplicationWindow::loadSUMOConfigAtStart(OptionsCont& oc) {
+
+    if (oc.isSet("sumocfg-file") && !oc.getString("sumocfg-file").empty()) {
+        // disable validation for additionals
+        XMLSubSys::setValidation("never", "auto", "auto");
+        // Create additional handler
+        GNEApplicationWindowHelper::GNEConfigHandler confighandler(this, oc.getString("sumocfg-file"));
+        // Run parser
+        if (!confighandler.parse()) {
+            WRITE_ERROR("Loading of " + oc.getString("sumocfg-file") + " failed.");
+        }
+        update();
+        // restore validation for additionals
+        XMLSubSys::setValidation("auto", "auto", "auto");
+    }
+
 }
 
 

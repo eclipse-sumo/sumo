@@ -72,7 +72,7 @@ GNELoadThread::run() {
 
     // try to load the given configuration
     OptionsCont& oc = OptionsCont::getOptions();
-    if (oc.getString("SUMOConfig-output").empty() && (myFile != "" || oc.getString("sumo-net-file") != "")) {
+    if (oc.getString("sumocfg-file").empty() && (myFile != "" || oc.getString("sumo-net-file") != "")) {
         oc.clear();
         if (!initOptions()) {
             submitEndAndCleanup(net);
@@ -227,9 +227,12 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.addDescription("new", "Input", "Start with a new network");
 
     // files
+    oc.doRegister("sumocfg-file", new Option_FileName());
+    oc.addSynonyme("sumocfg-file", "sumocfg");
+    oc.addDescription("sumocfg-file", "Netedit", "Load sumocfg");
 
-    oc.doRegister("SUMOConfig-output", new Option_String());
-    oc.addDescription("SUMOConfig-output", "Netedit", "file in which SUMOCOnfig must be saved");
+    oc.doRegister("SUMOcfg-output", new Option_String());
+    oc.addDescription("SUMOcfg-output", "Netedit", "file in which SUMOCOnfig must be saved");
 
     oc.doRegister("additional-files", 'a', new Option_FileName());
     oc.addSynonyme("additional-files", "additional");

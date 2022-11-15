@@ -1930,14 +1930,14 @@ GNEApplicationWindowHelper::GNEConfigHandler::loadConfig(CommonXMLStructure::Sum
             const auto file = configObj->getStringAttribute(SUMO_ATTR_MEANDATAFILES);
             oc.resetWritable();
             if (FileHelpers::isAbsolute(file)) {
-                oc.set("meanData-files", file);
+                oc.set("meandata-files", file);
             } else {
-                oc.set("meanData-files", myFilepath + file);
+                oc.set("meandata-files", myFilepath + file);
             }
         }
         // set SUMOConfig-files
         oc.resetWritable();
-        oc.set("SUMOConfig-output", configObj->getStringAttribute(SUMO_ATTR_CONFIGFILE));
+        oc.set("SUMOcfg-output", configObj->getStringAttribute(SUMO_ATTR_CONFIGFILE));
         // load network
         myApplicationWindow->loadNet("");
     }
@@ -1953,9 +1953,9 @@ GNEApplicationWindowHelper::saveSUMOConfig() {
     // obtain option container
     OptionsCont& oc = OptionsCont::getOptions();
     // check SUMOConfig-outpout
-    if (oc.getString("SUMOConfig-output").size() > 0) {
+    if (oc.getString("SUMOcfg-output").size() > 0) {
         // open output device
-        OutputDevice& device = OutputDevice::getDevice(oc.getString("SUMOConfig-output"));
+        OutputDevice& device = OutputDevice::getDevice(oc.getString("SUMOcfg-output"));
         // open configuration tag
         device.openTag(SUMO_TAG_CONFIGURATION);
         // save network

@@ -685,6 +685,9 @@ private:
     /// @brief warns about unsaved changes in data elements and gives the user the option to abort
     bool continueWithUnsavedDataElementChanges(const std::string& operation);
 
+    /// @brief load sumoConfig at start
+    void loadSUMOConfigAtStart(OptionsCont& oc);
+
     /// @brief load additional at start
     void loadAdditionalElementsAtStart(OptionsCont& oc);
 

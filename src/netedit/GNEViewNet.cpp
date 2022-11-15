@@ -1694,6 +1694,10 @@ GNEViewNet::drawDeleteContour(const GUIGlObject* GLObject, const GNEAttributeCar
     if (myVisualizationSettings->disableDottedContours) {
         return false;
     }
+    // only draw for top element under cursor
+    if (!gPostDrawing.isTopElementUnderCursor(GLObject)) {
+        return false;
+    }
     // check if we're in the correct mode and supermode
     if ((AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement()) &&
             !(myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_DELETE))) {
@@ -1728,6 +1732,10 @@ bool
 GNEViewNet::drawSelectContour(const GUIGlObject* GLObject, const GNEAttributeCarrier* AC) const {
     // first check disableDottedContours flag
     if (myVisualizationSettings->disableDottedContours) {
+        return false;
+    }
+    // only draw for top element under cursor
+    if (!gPostDrawing.isTopElementUnderCursor(GLObject)) {
         return false;
     }
     // check if we're in the correct mode and supermode
