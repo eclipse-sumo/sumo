@@ -293,10 +293,10 @@ class Builder(object):
                 tileGet.get(tileOptions)
                 self.report("Success.")
                 self.decalError = False
-            except Exception:
+            except Exception as e:
                 os.chdir(self.tmp)
                 shutil.rmtree("background_images", ignore_errors=True)
-                self.report("Error while downloading background images")
+                self.report("Error while downloading background images: %s" % e)
                 self.decalError = True
 
         if self.data["vehicles"] or ptOptions:
