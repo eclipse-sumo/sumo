@@ -105,9 +105,10 @@ protected:
 
     static std::string getLaneType(SVCPermissions permissions);
 
-    /// @brief get the left border of the given lane (the leftmost one by default)
-    static PositionVector getLeftLaneBorder(const NBEdge* edge, int laneIndex = -1, double widthOffset = 0);
-    static PositionVector getRightLaneBorder(const NBEdge* edge, int laneIndex = -1);
+    /// @brief get the lane border that is closer to the reference line (center line of the edge)
+    static PositionVector getInnerLaneBorder(bool lefthand, const NBEdge* edge, int laneIndex = -1, double widthOffset = 0);
+    /// @brief get the lane border that is further away from the reference line (center line of the edge)
+    static PositionVector getOuterLaneBorder(bool lefthand, const NBEdge* edge, int laneIndex = -1);
 
     /// @brief check if the lane geometries are compatible with OpenDRIVE assumptions (colinear stop line)
     static void checkLaneGeometries(const NBEdge* e, bool lefthand);
@@ -117,4 +118,7 @@ protected:
 
     /// @brief write signal record for traffic light
     static void writeSignals(OutputDevice& device, const NBEdge* e, double length, SignalLanes& signalLanes);
+
+    /// @brief convert sumo lane index to xodr lane index
+    static int s2x(bool lefthand, int sumoIndex, int numLanes);
 };
