@@ -1060,10 +1060,14 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
 
 bool
 GNESelectorFrame::SelectionOperation::processDataElementSelection(const bool onlyCount, const bool onlyUnselect, bool& ignoreLocking) {
-    // obtan locks (only for improve code legibly)
+    // get locks (only for improve code legibly)
     const auto& locks = mySelectorFrameParent->getViewNet()->getLockManager();
-    // invert dataSets
-    for (const auto& genericDataTag : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getGenericDatas()) {
+    // get undoRedo (only for improve code legibly)
+    const auto undoList = mySelectorFrameParent->myViewNet->getUndoList();
+    // get ACs (only for improve code legibly)
+    const auto &ACs = mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers();
+    // invert generic datas
+    for (const auto& genericDataTag : ACs->getGenericDatas()) {
         for (const auto& genericData : genericDataTag.second) {
             if (onlyCount && locks.isObjectLocked(genericData->getType(), false)) {
                 ignoreLocking = askContinueIfLock();
@@ -1074,12 +1078,42 @@ GNESelectorFrame::SelectionOperation::processDataElementSelection(const bool onl
                 if (onlyCount) {
                     return true;
                 } else if (onlyUnselect || genericData->isAttributeCarrierSelected()) {
-                    genericData->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->myViewNet->getUndoList());
+                    genericData->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
                 } else {
-                    genericData->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->myViewNet->getUndoList());
+                    genericData->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
                 }
             }
         }
+    }
+    // check if meanDataEdges selection is locked
+    if (ignoreLocking || !locks.isObjectLocked(GLO_MEANDATAEDGE, false)) {
+        for (const auto& meanDataEdge : ACs->getMeanDatas().at(SUMO_TAG_MEANDATA_EDGE)) {
+            if (onlyCount) {
+                return true;
+            } else if (onlyUnselect || meanDataEdge->isAttributeCarrierSelected()) {
+                meanDataEdge->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else {
+                meanDataEdge->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            }
+        }
+    } else if (onlyCount) {
+        ignoreLocking = askContinueIfLock();
+        return true;
+    }
+    // check if meanDataLanes selection is locked
+    if (ignoreLocking || !locks.isObjectLocked(GLO_MEANDATALANE, false)) {
+        for (const auto& meanDataLane : ACs->getMeanDatas().at(SUMO_TAG_MEANDATA_LANE)) {
+            if (onlyCount) {
+                return true;
+            } else if (onlyUnselect || meanDataLane->isAttributeCarrierSelected()) {
+                meanDataLane->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+            } else {
+                meanDataLane->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+            }
+        }
+    } else if (onlyCount) {
+        ignoreLocking = askContinueIfLock();
+        return true;
     }
     return false;
 }
