@@ -915,7 +915,7 @@ MSLink::setTLState(LinkState state, SUMOTime t) {
 bool
 MSLink::isCont() const {
     // when a traffic light is switched off minor roads have their cont status revoked
-    return myState != LINKSTATE_TL_OFF_BLINKING ? myAmCont : myAmContOff;
+    return (myState == LINKSTATE_TL_OFF_BLINKING || myState == LINKSTATE_ALLWAY_STOP) ? myAmContOff : myAmCont;
 }
 
 
