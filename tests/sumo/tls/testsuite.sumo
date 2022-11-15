@@ -42,6 +42,9 @@ off
 # switch all tls off with option
 all_off
 
+# switch all tls off with option,
+# the tls are configured to use allwayStop in this case
+all_off_allwayStop
+
 # Tests for error handling
 errors
-
