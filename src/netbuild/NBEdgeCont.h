@@ -715,8 +715,11 @@ private:
     /// @brief The instance of the dictionary (id->edge)
     EdgeCont myEdges;
 
-    /// @brief The extracted nodes which are kept for reference
+    /// @brief The extracted edges which are kept for reference
     EdgeCont myExtractedEdges;
+
+    /// @brief The edges which got extracted twice but may still be referenced somewhere TODO smart_ptr?
+    EdgeVector myEdgeCemetery;
 
     /// @brief The ids of ignored edges
     std::set<std::string> myIgnoredEdges;

@@ -161,14 +161,18 @@ NBEdgeCont::applyOptions(OptionsCont& oc) {
 
 void
 NBEdgeCont::clear() {
-    for (EdgeCont::iterator i = myEdges.begin(); i != myEdges.end(); i++) {
-        delete ((*i).second);
+    for (const auto& i : myEdges) {
+        delete i.second;
     }
     myEdges.clear();
-    for (EdgeCont::iterator i = myExtractedEdges.begin(); i != myExtractedEdges.end(); i++) {
-        delete ((*i).second);
+    for (const auto& i : myExtractedEdges) {
+        delete i.second;
     }
     myExtractedEdges.clear();
+    for (NBEdge* const e : myEdgeCemetery) {
+        delete e;
+    }
+    myEdgeCemetery.clear();
 }
 
 
@@ -411,7 +415,13 @@ NBEdgeCont::erase(NBDistrictCont& dc, NBEdge* edge) {
 void
 NBEdgeCont::extract(NBDistrictCont& dc, NBEdge* edge, bool remember) {
     if (remember) {
-        myExtractedEdges[edge->getID()] = edge;
+        const auto& prevExtracted = myExtractedEdges.find(edge->getID());
+        if (prevExtracted != myExtractedEdges.end()) {
+            myEdgeCemetery.push_back(prevExtracted->second);
+            prevExtracted->second = edge;
+        } else {
+            myExtractedEdges[edge->getID()] = edge;
+        }
     }
     myEdges.erase(edge->getID());
     edge->myFrom->removeEdge(edge);
