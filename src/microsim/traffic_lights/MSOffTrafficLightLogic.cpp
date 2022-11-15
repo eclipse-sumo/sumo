@@ -68,12 +68,15 @@ MSOffTrafficLightLogic::rebuildPhase() {
     for (int i = 0; i < no; ++i) {
         bool foundMajor = false;
         bool foundMinor = false;
+        bool foundAllwayStop = false;
         for (const MSLink* l : myLinks[i]) {
             /// @note. all links for the same index should have the same
-            if (l->getOffState() == 'o') {
+            if (l->getOffState() == LINKSTATE_TL_OFF_BLINKING) {
                 foundMinor = true;
-            } else if (l->getOffState() == 'O') {
+            } else if (l->getOffState() == LINKSTATE_TL_OFF_NOSIGNAL) {
                 foundMajor = true;
+            } else if (l->getOffState() == LINKSTATE_ALLWAY_STOP) {
+                foundAllwayStop = true;
             } else {
                 WRITE_WARNING("Invalid 'off'-state for link " + toString(l->getIndex()) + " at junction '" + l->getJunction()->getID() + "'");
             }
@@ -81,7 +84,7 @@ MSOffTrafficLightLogic::rebuildPhase() {
         if (foundMajor && foundMinor) {
             WRITE_WARNING("Inconsistent 'off'-states for linkIndex " + toString(i) + " at tlLogic '" + getID() + "'");
         }
-        state += foundMinor ? 'o' : 'O';
+        state += foundAllwayStop ? LINKSTATE_ALLWAY_STOP : (foundMinor ? LINKSTATE_TL_OFF_BLINKING : LINKSTATE_TL_OFF_NOSIGNAL);
     }
     for (MSTrafficLightLogic::Phases::const_iterator i = myPhaseDefinition.begin(); i != myPhaseDefinition.end(); ++i) {
         delete *i;
