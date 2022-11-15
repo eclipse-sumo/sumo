@@ -39,7 +39,7 @@
 
 
 bool
-NITypeLoader::load(SUMOSAXHandler* handler, const std::vector<std::string>& files,
+NITypeLoader::load(SUMOSAXHandler& handler, const std::vector<std::string>& files,
                    const std::string& type, const bool stringParse) {
     // build parser
     std::string exceptMsg = "";
@@ -52,8 +52,8 @@ NITypeLoader::load(SUMOSAXHandler* handler, const std::vector<std::string>& file
             fileName = *file;
             if (stringParse) {
                 fileName = "built in type map";
-                handler->setFileName(fileName);
-                SUMOSAXReader* reader = XMLSubSys::getSAXReader(*handler);
+                handler.setFileName(fileName);
+                SUMOSAXReader* reader = XMLSubSys::getSAXReader(handler);
                 reader->parseString(*file);
                 delete reader;
                 continue;
@@ -63,7 +63,7 @@ NITypeLoader::load(SUMOSAXHandler* handler, const std::vector<std::string>& file
                 return false;
             }
             PROGRESS_BEGIN_MESSAGE("Parsing " + type + " from '" + fileName + "'");
-            ok &= XMLSubSys::runParser(*handler, fileName);
+            ok &= XMLSubSys::runParser(handler, fileName);
             PROGRESS_DONE_MESSAGE();
         }
     } catch (const XERCES_CPP_NAMESPACE::XMLException& toCatch) {
@@ -75,7 +75,6 @@ NITypeLoader::load(SUMOSAXHandler* handler, const std::vector<std::string>& file
     } catch (...) {
         raise = true;
     }
-    delete handler;
     if (raise) {
         throw ProcessError(exceptMsg + "The " + type + " could not be loaded from '" + fileName + "'.");
     }

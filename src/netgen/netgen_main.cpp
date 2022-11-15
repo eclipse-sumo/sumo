@@ -253,7 +253,7 @@ main(int argc, char** argv) {
         NBNetBuilder nb;
         nb.applyOptions(oc);
         if (oc.isSet("type-files")) {
-            NIXMLTypesHandler* handler = new NIXMLTypesHandler(nb.getTypeCont());
+            NIXMLTypesHandler handler(nb.getTypeCont());
             NITypeLoader::load(handler, oc.getStringVector("type-files"), "types");
         }
         // build the netgen-network description

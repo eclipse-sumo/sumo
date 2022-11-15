@@ -887,7 +887,7 @@ GNEApplicationWindow::onCmdOpenEdgeTypes(FXObject*, FXSelector, void*) {
         // declare type container
         NBTypeCont typeContainerAux;
         // declare type handler
-        NIXMLTypesHandler* handler = new NIXMLTypesHandler(typeContainerAux);
+        NIXMLTypesHandler handler(typeContainerAux);
         // load edge types
         NITypeLoader::load(handler, {opendialog.getFilename().text()}, "types");
         // write information
@@ -920,7 +920,7 @@ GNEApplicationWindow::onCmdReloadEdgeTypes(FXObject*, FXSelector, void*) {
     // declare type container
     NBTypeCont typeContainerAux;
     // declare type handler
-    NIXMLTypesHandler* handler = new NIXMLTypesHandler(typeContainerAux);
+    NIXMLTypesHandler handler(typeContainerAux);
     // load edge types
     NITypeLoader::load(handler, {OptionsCont::getOptions().getString("edgeTypes-output")}, "types");
     // write information
