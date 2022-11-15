@@ -45,7 +45,8 @@ public:
         SHAPE,
         TAZ,
         DEMAND,
-        DATA,
+        GENERICDATA,
+        MEANDATA,
         INVALID,
     };
 

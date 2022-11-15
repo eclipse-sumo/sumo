@@ -106,8 +106,10 @@ GNEMatchAttribute::showMatchAttribute(const GNEElementSet::Type type) {
         tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::TAZELEMENT);
     } else if (type == GNEElementSet::Type::DEMAND) {
         tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP);
-    } else if (type == GNEElementSet::Type::DATA) {
+    } else if (type == GNEElementSet::Type::GENERICDATA) {
         tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::GENERICDATA);
+    } else if (type == GNEElementSet::Type::MEANDATA) {
+        tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::MEANDATA);
     } else {
         throw ProcessError(TL("Unknown set"));
     }
