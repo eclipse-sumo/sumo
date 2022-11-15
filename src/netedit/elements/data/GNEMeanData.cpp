@@ -151,7 +151,9 @@ GNEMeanData::drawGL(const GUIVisualizationSettings& s) const {
                                           lane->getShapeLengths(), {}, laneWidth, false);
             // translate to top
             glTranslated(0, 0, 0.01);
-            if (getParentLanes().size() > 0) {
+            if (isAttributeCarrierSelected()) {
+                GLHelper::setColor(RGBColor::BLUE);
+            } else if (getParentLanes().size() > 0) {
                 GLHelper::setColor(RGBColor::ORANGE);
             } else {
                 GLHelper::setColor(RGBColor::CYAN);
@@ -238,6 +240,8 @@ GNEMeanData::getAttribute(SumoXMLAttr key) const {
             }
         case SUMO_ATTR_FILE:
             return myFile;
+        case GNE_ATTR_SELECTED:
+            return toString(isAttributeCarrierSelected());
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -265,7 +269,9 @@ void
 GNEMeanData::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
         case SUMO_ATTR_FILE:
+        case GNE_ATTR_SELECTED:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+            break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -277,6 +283,8 @@ GNEMeanData::isValid(SumoXMLAttr key , const std::string& value) {
     switch (key) {
         case SUMO_ATTR_FILE:
             return SUMOXMLDefinitions::isValidFilename(value);
+        case GNE_ATTR_SELECTED:
+            return canParse<bool>(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -311,6 +319,13 @@ GNEMeanData::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_FILE:
             myFile = value;
+            break;
+        case GNE_ATTR_SELECTED:
+            if (parse<bool>(value)) {
+                selectAttributeCarrier();
+            } else {
+                unselectAttributeCarrier();
+            }
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
