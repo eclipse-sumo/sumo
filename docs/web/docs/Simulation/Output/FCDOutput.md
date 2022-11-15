@@ -157,3 +157,11 @@ In combination with the given geometry of the vehicles (shapes) you can
 build some nice animations, e.g [NASA
 WorldWind](http://worldwind.arc.nasa.gov/java/) or [Google
 Earth](http://earth.google.com).
+
+## Visualization example
+
+### Vehicle trajectories over time
+
+<img src="../../images/vehLocations_output.png" width="500px"/>
+
+Generated with [plotXMLAttributes.py](../../Tools/Visualization.md#vehicle_trajectories_over_time).
