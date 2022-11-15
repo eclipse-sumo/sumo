@@ -391,9 +391,6 @@ protected:
     /// @brief replace the first parent edge
     void replaceFirstParentEdge(const std::string& value);
 
-    /// @brief replace middle (via) parent edges
-    void replaceMiddleParentEdges(const std::string& value, const bool updateChildReferences);
-
     /// @brief replace the last parent edge
     void replaceLastParentEdge(const std::string& value);
 

@@ -982,21 +982,6 @@ GNEDemandElement::replaceFirstParentEdge(const std::string& value) {
 
 
 void
-GNEDemandElement::replaceMiddleParentEdges(const std::string& value, const bool updateChildReferences) {
-    std::vector<GNEEdge*> middleEdges = parse<std::vector<GNEEdge*> >(getNet(), value);
-    middleEdges.insert(middleEdges.begin(), getParentEdges().front());
-    middleEdges.push_back(getParentEdges().back());
-    // check if we have to update references in all childs, or simply update parent edges vector
-    if (updateChildReferences) {
-        // replace parent edges
-        replaceParentElements(this, middleEdges);
-    } else {
-        myHierarchicalContainer.setParents<std::vector<GNEEdge*> >(middleEdges);
-    }
-}
-
-
-void
 GNEDemandElement::replaceLastParentEdge(const std::string& value) {
     std::vector<GNEEdge*> parentEdges = getParentEdges();
     parentEdges[(int)parentEdges.size() - 1] = myNet->getAttributeCarriers()->retrieveEdge(value);

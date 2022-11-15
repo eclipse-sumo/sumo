@@ -253,11 +253,10 @@ GNEHierarchicalContainer::addChildElement(const GNEHierarchicalElement* hierarch
 
 template <> void
 GNEHierarchicalContainer::addChildElement(const GNEHierarchicalElement* /*hierarchicalElement*/, GNEDemandElement* demandElement) {
-    // disabled due VIA Attributes
     /*
     // check demand element
     if (checkContainer && (std::find(myChildDemandElements.begin(), myChildDemandElements.end(), demandElement) != myChildDemandElements.end())) {
-        throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' was already inserted in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
+        throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' was already inserted in " + demandElement->getTagStr() + " with ID='" + demandElement->getID() + "'");
     } else {
         myChildDemandElements.push_back(demandElement);
     }
