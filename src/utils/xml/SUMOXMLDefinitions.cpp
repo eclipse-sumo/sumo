@@ -1053,9 +1053,10 @@ StringBijection<ParkingType>::Entry SUMOXMLDefinitions::parkingTypeValues[] = {
 };
 
 StringBijection<RightOfWay>::Entry SUMOXMLDefinitions::rightOfWayValuesInitializer[] = {
-    {"edgePriority", RightOfWay::EDGEPRIORITY },
-    {"allwayStop",   RightOfWay::ALLWAYSTOP }, // only used for setting the fall-back behavior of TLS-off
-    {"default",      RightOfWay::DEFAULT } // default (must be the last one)
+    {"edgePriority",  RightOfWay::EDGEPRIORITY }, // use only edge priority values
+    {"mixedPriority", RightOfWay::MIXEDPRIORITY }, // use the default behavior but encode this explicitly (only needed for overriding the NEMA fallback behavior)
+    {"allwayStop",    RightOfWay::ALLWAYSTOP }, // only used for setting the fall-back behavior of TLS-off
+    {"default",       RightOfWay::DEFAULT } // default (must be the last one)
 };
 
 StringBijection<FringeType>::Entry SUMOXMLDefinitions::fringeTypeValuesInitializer[] = {

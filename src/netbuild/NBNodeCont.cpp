@@ -2666,4 +2666,24 @@ NBNodeCont::paretoCheck(NBNode* node, NodeSet& frontier, int xSign, int ySign) {
 }
 
 
+void
+NBNodeCont::applyConditionalDefaults() {
+    for (const auto& item : myNodes) {
+        NBNode* n = item.second;
+        if (n->isTLControlled() && n->getRightOfWay() == RightOfWay::DEFAULT) {
+            bool hasNEMA = false;
+            for (NBTrafficLightDefinition* tl : n->getControllingTLS()) {
+                if (tl->getType() == TrafficLightType::NEMA) {
+                    hasNEMA = true;
+                    break;
+                }
+            }
+            if (hasNEMA) {
+                // NEMA controller defaults to allway_stop behavior when switched off
+                n->setRightOfWay(RightOfWay::ALLWAYSTOP);
+            }
+        }
+    }
+}
+
 /****************************************************************************/

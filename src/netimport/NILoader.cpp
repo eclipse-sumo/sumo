@@ -120,6 +120,8 @@ NILoader::load(OptionsCont& oc) {
     if (!ok && !oc.getBool("ignore-errors")) {
         throw ProcessError();
     }
+    // configure default values that depend on other values
+    myNetBuilder.getNodeCont().applyConditionalDefaults();
     // report loaded structures
     WRITE_MESSAGE(TL(" Import done:"));
     if (myNetBuilder.getDistrictCont().size() > 0) {

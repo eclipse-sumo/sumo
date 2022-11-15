@@ -1537,6 +1537,7 @@ enum class ParkingType {
 enum class RightOfWay {
     DEFAULT,
     EDGEPRIORITY,
+    MIXEDPRIORITY,
     ALLWAYSTOP,
 };
 

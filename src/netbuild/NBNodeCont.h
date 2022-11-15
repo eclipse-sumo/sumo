@@ -362,6 +362,9 @@ public:
     /// @brief guess and mark fringe nodes
     int guessFringe();
 
+    /// @brief apply default values after loading
+    void applyConditionalDefaults();
+
 private:
 
     /// @name Helper methods for for joining nodes
