@@ -160,8 +160,30 @@ Earth](http://earth.google.com).
 
 ## Visualization example
 
-### Vehicle trajectories over time
+### All trajectories over time
+
+<img src="../../images/allXY_output.png" width="500px"/>
+
+Generated with [plotXMLAttributes.py](../../Tools/Visualization.md#all_trajectories_over_time_1).
+
+<img src="../../images/allLocations_output.png" width="500px"/>
+
+Generated with [plot_trajectories.py](../../Tools/Visualization.md#all_trajectories_over_time_2).
+
+### Selected trajectories over time
 
 <img src="../../images/vehLocations_output.png" width="500px"/>
 
-Generated with [plotXMLAttributes.py](../../Tools/Visualization.md#vehicle_trajectories_over_time).
+Generated with [plotXMLAttributes.py](../../Tools/Visualization.md#selected_trajectories_over_time_1).
+
+<img src="../../images/selectXY_output.png" width="500px"/>
+
+Generated with [plot_trajectories.py](../../Tools/Visualization.md#selected_trajectories_over_time_2).
+
+
+### FCD based Speeds over time
+
+<img src="../../images/timeSpeed_output.png" width="500px"/>
+
+Generated with [plot_trajectories.py](../../Tools/Visualization.md#fcd_based_speed_over_time).
+
