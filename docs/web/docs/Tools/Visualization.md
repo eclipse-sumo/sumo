@@ -56,7 +56,7 @@ Option **--filter-ids ID1,ID2,...** allows restricting the plot to the given dat
 
 By setting the special attribute key `@RANK` then the index of the elements within the input file is used.
 
-Further examples are shown below...
+Further examples are shown below. Some of them are generated with the scenario acosta, one of the published sumo scenarios (https://github.com/DLR-TS/sumo-scenarios/tree/main/bologna/acosta).
 
 ### Inductionloop Speed over Time
 
@@ -138,18 +138,18 @@ python.exe .\plotXMLAttributes.py ssm.xml -x time --xlabel "Time [s]" -y value -
 <img src="../images/plot_ttc.png" title="plot_ttc.png" width=600px/>
 
 ### Queuing times over time
-Input is [queue-output](../Simulation/Output/QueueOutput.md). The scenario acosta, one of the published sumo scenarios, is used as example (https://github.com/DLR-TS/sumo-scenarios/tree/main/bologna/acosta).
+Input is [queue-output](../Simulation/Output/QueueOutput.md).
 
 Call to generate the plot:
 ```
 python plotXMLAttributes.py -x timestep -y queueing_time -s -o queue.png queue.xml -i id --filter-ids 121_0
 ```
-where -x is the attribute for the x axis; -y is the attribute for the y axis; -s is to show the plot; -o is the output file name; -i is the filtered attribute name; --filter-ids are the value(s) of the filtered attribute name.
+where -x is the attribute for the x axis; -y is the attribute for the y axis; -s is to show the plot; -o is the output file name; -i is the filtered attribute name (lane id in this case); --filter-ids are the value(s) of the filtered attribute name (id = 121_0 in this case).
 
 <img src="../images/queue_out.png" width="500px"/>
 
 ### Departure times versus arrival times
-Input is [vehroutes-output](../Simulation/Output/VehRoutes.md). The scenario acosta, one of the published sumo scenarios, is used as example (https://github.com/DLR-TS/sumo-scenarios/tree/main/bologna/acosta).
+Input is [vehroutes-output](../Simulation/Output/VehRoutes.md).
 
 Call to generate the plot:
 ```
@@ -160,15 +160,26 @@ where -x is the attribute for the x axis; -y is the attribute for the y axis; -s
 <img src="../images/vehroute_output.png" width="500px"/>
 
 ### Leader gaps versus speeds
-Input is [langechange-output](../Simulation/Output/Lanechange.md). The scenario acosta, one of the published sumo scenarios, is used as example (https://github.com/DLR-TS/sumo-scenarios/tree/main/bologna/acosta).
+Input is [langechange-output](../Simulation/Output/Lanechange.md).
 
 Call to generate the plot:
 ```
 python plotXMLAttributes.py -x speed -y leaderGap -s -o lc.png langchange.xml -i reason --filter-ids speedGain
 ```
-where -x is the attribute for the x axis; -y is the attribute for the y axis; -s is to show the plot; -o is the output file name; -i is the filtered attribute name; --filter-ids are the values of the filtered attribute name.
+where -x is the attribute for the x axis; -y is the attribute for the y axis; -s is to show the plot; -o is the output file name; -i is the filtered attribute name (reason for lane changing in this case); --filter-ids are the values of the filtered attribute name (reason = speedGain in this case).
 
 <img src="../images/lanechange_output.png" width="500px"/>
+
+### Vehicle trajectories over time
+Input is [fcd_output](../Simulation/Output/FCDOutput.md).
+
+Call to generate the plot:
+```
+python plotXMLAttributes.py -x x -y y -s -o vehLocations_output.png fcd.xml -i id --filter-ids Audinot_7_0 --scatterplot --legend
+```
+where -x is the attribute for the x axis; -y is the attribute for the y axis; -s is to show the plot; -o is the output file name; -i is the filtered attribute name (vehicle id in this case); --filter-ids are the values of the filtered attribute name (vehicle id = Audinot_7_0 in this case).
+
+<img src="../images/vehLocations_output.png" width="500px"/>
 
 ## plot_trajectories.py
 
