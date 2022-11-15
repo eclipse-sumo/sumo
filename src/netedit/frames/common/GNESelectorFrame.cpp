@@ -120,6 +120,8 @@ GNESelectorFrame::SelectionInformation::updateInformationLabel() {
         updateInformationLabel("EdgeDatas", ACs->getNumberOfSelectedEdgeDatas());
         updateInformationLabel("EdgeRelDatas", ACs->getNumberOfSelectedEdgeRelDatas());
         updateInformationLabel("EdgeTAZRel", ACs->getNumberOfSelectedEdgeTAZRel());
+        updateInformationLabel("MeanDataEdge", ACs->getNumberOfSelectedMeanDataEdges());
+        updateInformationLabel("MeanDataLane", ACs->getNumberOfSelectedMeanDataLanes());
     }
     // adjust format
     const auto numberLines = std::count(myInformation.begin(), myInformation.end(), ':');

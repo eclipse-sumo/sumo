@@ -2093,18 +2093,28 @@ GNENetHelper::AttributeCarriers::getMeanDatas() const {
 }
 
 
-std::vector<GNEMeanData*>
-GNENetHelper::AttributeCarriers::getSelectedMeanDatas() const {
-    std::vector<GNEMeanData*> result;
+int
+GNENetHelper::AttributeCarriers::getNumberOfSelectedMeanDataEdges() const {
+    int counter = 0;
     // returns meanDatas depending of selection
-    for (const auto& meanDatasTags : myMeanDatas) {
-        for (const auto& meanData : meanDatasTags.second) {
-            if (meanData->isAttributeCarrierSelected()) {
-                result.push_back(meanData);
-            }
+    for (const auto& meanData : myMeanDatas.at(SUMO_TAG_MEANDATA_EDGE)) {
+        if (meanData->isAttributeCarrierSelected()) {
+            counter++;
         }
     }
-    return result;
+    return counter;
+}
+
+
+int
+GNENetHelper::AttributeCarriers::getNumberOfSelectedMeanDataLanes() const {
+    int counter = 0;
+    for (const auto& meanData : myMeanDatas.at(SUMO_TAG_MEANDATA_LANE)) {
+        if (meanData->isAttributeCarrierSelected()) {
+            counter++;
+        }
+    }
+    return counter;
 }
 
 

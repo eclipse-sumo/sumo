@@ -575,8 +575,11 @@ struct GNENetHelper {
         /// @brief get meanDatas
         const std::map<SumoXMLTag, std::set<GNEMeanData*> >& getMeanDatas() const;
 
-        /// @brief get selected meanDatas
-        std::vector<GNEMeanData*> getSelectedMeanDatas() const;
+        /// @brief get number of meanData edges
+        int getNumberOfSelectedMeanDataEdges() const;
+
+        /// @brief get number of meanData lanes
+        int getNumberOfSelectedMeanDataLanes() const;
 
         /// @brief get number of meanDatas
         int getNumberOfMeanDatas() const;
