@@ -49,6 +49,11 @@ GNEChange_MeanData::~GNEChange_MeanData() {
     if (myMeanData->unreferenced()) {
         // show extra information for tests
         WRITE_DEBUG("Deleting unreferenced " + myMeanData->getTagStr());
+        // make sure that MeanData isn't in net before removing
+        if (myMeanData->getNet()->getAttributeCarriers()->meanDataExist(myMeanData)) {
+            // delete MeanData from net
+            myMeanData->getNet()->getAttributeCarriers()->deleteMeanData(myMeanData);
+        }
         // delete mean data
         delete myMeanData;
     }
