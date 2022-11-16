@@ -199,11 +199,10 @@ GNERoute::writeDemandElement(OutputDevice& device) const {
     }
     // write sorted stops
     if (myTagProperty.getTag() == SUMO_TAG_ROUTE) {
-        // write sorted stops
-        const auto edgeStopIndex = getEdgeStopIndex();
-        for (const auto& edgeStop : edgeStopIndex) {
-            for (const auto &stop : edgeStop.stops) {
-                stop->writeDemandElement(device);
+        // write stops
+        for (const auto &demandElement : getChildDemandElements()) {
+            if (demandElement->getTagProperty().isStop() || demandElement->getTagProperty().isWaypoint()) {
+                demandElement->writeDemandElement(device);
             }
         }
     }

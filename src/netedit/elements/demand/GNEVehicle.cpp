@@ -463,11 +463,10 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
         if (getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED) {
             // write embedded route
             getChildDemandElements().front()->writeDemandElement(device);
-            // write sorted stops
-            const auto edgeStopIndex = getEdgeStopIndex();
-            for (const auto& edgeStop : edgeStopIndex) {
-                for (const auto &stop : edgeStop.stops) {
-                    stop->writeDemandElement(device);
+            // write stops
+            for (const auto &demandElement : getChildDemandElements()) {
+                if (demandElement->getTagProperty().isStop() || demandElement->getTagProperty().isWaypoint()) {
+                    demandElement->writeDemandElement(device);
                 }
             }
         } else {

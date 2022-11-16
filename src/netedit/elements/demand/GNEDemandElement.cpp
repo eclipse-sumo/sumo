@@ -998,19 +998,23 @@ GNEDemandElement::getEdgeStopIndex() const {
     std::vector<GNEDemandElement::EdgeStopIndex> edgeStopIndex;
     // first check that this stop has parent
     if (getParentDemandElements().size() > 0) {
-        // get last parent edge
-        const auto lastEdge = getParentDemandElements().front()->getParentEdges().back();
-        bool stop = false;
-        // get path edges
+        // get path edges depending of parent
         std::vector<GNEEdge*> pathEdges;
-        const auto &pathElementSegments = myNet->getPathManager()->getPathElementSegments(getParentDemandElements().front());
-        // extract all edges from pathElement parent
-        for (auto it = pathElementSegments.begin(); (it != pathElementSegments.end()) && !stop; it++) {
-            if ((*it)->getLane()) {
-                pathEdges.push_back((*it)->getLane()->getParentEdge());
-                // stop if path correspond to last edge
-                if (pathEdges.back() == lastEdge) {
-                    stop = true;
+        if (getParentDemandElements().front()->getTagProperty().hasAttribute(SUMO_ATTR_EDGES)) {
+            pathEdges = getParentDemandElements().front()->getParentEdges();
+        } else {
+            // get last parent edge
+            const auto lastEdge = getParentDemandElements().front()->getParentEdges().back();
+            bool stop = false;
+            const auto &pathElementSegments = myNet->getPathManager()->getPathElementSegments(getParentDemandElements().front());
+            // extract all edges from pathElement parent
+            for (auto it = pathElementSegments.begin(); (it != pathElementSegments.end()) && !stop; it++) {
+                if ((*it)->getLane()) {
+                    pathEdges.push_back((*it)->getLane()->getParentEdge());
+                    // stop if path correspond to last edge
+                    if (pathEdges.back() == lastEdge) {
+                        stop = true;
+                    }
                 }
             }
         }
