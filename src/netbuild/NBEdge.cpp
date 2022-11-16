@@ -2809,8 +2809,9 @@ NBEdge::recheckLanes() {
                                 // check if a connection to the right has a usable target to the left of its target
                                 std::vector<Connection> rightCons = getConnectionsFromLane(i - 1);
                                 if (rightCons.size() > 0) {
-                                    NBEdge* to = rightCons.back().toEdge;
-                                    int toLane = rightCons.back().toLane + 1;
+                                    const Connection& rc = rightCons.back();
+                                    NBEdge* to = rc.toEdge;
+                                    int toLane = rc.toLane + 1;
                                     if (toLane < to->getNumLanes()
                                             && (getPermissions(i) & ~SVC_PEDESTRIAN & to->getPermissions(toLane)) != 0
                                             && !hasConnectionTo(to, toLane)) {
@@ -2818,6 +2819,21 @@ NBEdge::recheckLanes() {
                                         hasDeadEnd = false;
                                         sortOutgoingConnectionsByAngle();
                                         sortOutgoingConnectionsByIndex();
+                                    }
+                                    if (hasDeadEnd) {
+                                        // check if a connection to the right has a usable target to the right of its target
+                                        toLane = rc.toLane - 1;
+                                        if (toLane >= 0
+                                                && (getPermissions(i) & ~SVC_PEDESTRIAN & to->getPermissions(rc.toLane)) != 0
+                                                && (getPermissions(rc.fromLane) & ~SVC_PEDESTRIAN & to->getPermissions(toLane)) != 0
+                                                && !hasConnectionTo(to, toLane)) {
+                                            // shift the right lane connection target right and connect the dead lane to the old target
+                                            getConnectionRef(rc.fromLane, to, rc.toLane).toLane = toLane;
+                                            setConnection(i, to, toLane + 1, Lane2LaneInfoType::COMPUTED);
+                                            hasDeadEnd = false;
+                                            sortOutgoingConnectionsByAngle();
+                                            sortOutgoingConnectionsByIndex();
+                                        }
                                     }
                                 }
                             }
