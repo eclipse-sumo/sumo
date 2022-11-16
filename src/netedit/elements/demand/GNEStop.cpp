@@ -1769,78 +1769,65 @@ GNEStop::drawGeometryPoints(const GUIVisualizationSettings& s, const RGBColor& b
 }
 
 
-struct test {
-    std::vector<GNEDemandElement*> stops;
-    GNEEdge* edge = nullptr;
-    int index = -1;
-
-};
-
-
 int
 GNEStop::getPathStopIndex() const {
-    if (getParentDemandElements().size() > 0) {
-        const auto lastID = getParentDemandElements().front()->getAttribute(SUMO_ATTR_TO);
-        bool stop = false;
-        // get stop parent's segments
-        std::vector<GNEEdge*> segments;
-        const auto &pathElementSegments = myNet->getPathManager()->getPathElementSegments(getParentDemandElements().front());
-        for (auto it = pathElementSegments.begin(); it != pathElementSegments.end() && !stop; it++) {
-            if ((*it)->getLane()) {
-                segments.push_back((*it)->getLane()->getParentEdge());
-                if (segments.back()->getID() == lastID) {
-                    stop = true;
-                }
+    // first check that this stop has parent
+    if (getParentDemandElements().empty()) {
+        return -1;
+    }
+    const auto lastID = getParentDemandElements().front()->getAttribute(SUMO_ATTR_TO);
+    bool stop = false;
+    // get stop parent's segments
+    std::vector<GNEEdge*> segments;
+    const auto &pathElementSegments = myNet->getPathManager()->getPathElementSegments(getParentDemandElements().front());
+    for (auto it = pathElementSegments.begin(); it != pathElementSegments.end() && !stop; it++) {
+        if ((*it)->getLane()) {
+            segments.push_back((*it)->getLane()->getParentEdge());
+            if (segments.back()->getID() == lastID) {
+                stop = true;
             }
         }
-        // get all parent's stops and waypoints sorted by position
-        std::vector<test> stops;
-        for (const auto &demandElement : getParentDemandElements().front()->getChildDemandElements()) {
-            if (demandElement->getTagProperty().isStop() || demandElement->getTagProperty().isWaypoint()) {
-                GNEEdge* edge = nullptr;
-                if (demandElement->getParentAdditionals().size() > 0) {
-                    edge = demandElement->getParentAdditionals().front()->getParentLanes().front()->getParentEdge();
-                } else {
-                    edge = demandElement->getParentLanes().front()->getParentEdge();
-                }
-                if ((stops.size() > 0) && (stops.back().edge == edge)) {
-                    stops.back().stops.push_back(demandElement);
-                } else {
-                    test t;
-                    t.edge = edge;
-                    t.stops.push_back(demandElement);
-                    stops.push_back(t);
-                }
-            }
-        }
-
-
-        int edgeIndex = 0;
-        int currentStop = 0;
-        while ((edgeIndex < (int)segments.size()) && (currentStop < (int)stops.size())) {
-            if (stops[currentStop].edge == segments.at(edgeIndex)) {
-                stops[currentStop].index = edgeIndex;
-                currentStop++;
+    }
+    // get all parent's stops and waypoints sorted by position
+    std::vector<edgeStopIndex> stops;
+    for (const auto &demandElement : getParentDemandElements().front()->getChildDemandElements()) {
+        if (demandElement->getTagProperty().isStop() || demandElement->getTagProperty().isWaypoint()) {
+            GNEEdge* edge = nullptr;
+            if (demandElement->getParentAdditionals().size() > 0) {
+                edge = demandElement->getParentAdditionals().front()->getParentLanes().front()->getParentEdge();
             } else {
-                bool next = false;
-                for (int i = (edgeIndex + 1); i < (int)segments.size(); i++) {
-                    if (stops[currentStop].edge == segments.at(i)) {
-                        next = true;
-                    }
-                }
-                if (next) {
-                    ;//edgeIndex++;
-                } else {
-                    currentStop++;
+                edge = demandElement->getParentLanes().front()->getParentEdge();
+            }
+            if ((stops.size() > 0) && (stops.back().edge == edge)) {
+                stops.back().stops.push_back(demandElement);
+            } else {
+                stops.push_back(edgeStopIndex(edge, demandElement));
+            }
+        }
+    }
+
+    int currentStop = 0;
+    for (int i = 0; (i < (int)segments.size()) && (currentStop < (int)stops.size()); i++) {
+        if (stops[currentStop].edge == segments.at(i)) {
+            stops[currentStop].stopIndex = i;
+            currentStop++;
+        } else {
+            bool next = false;
+            for (int j = (i + 1); j < (int)segments.size(); j++) {
+                if (stops[currentStop].edge == segments.at(j)) {
+                    next = true;
                 }
             }
-            edgeIndex++;
+            if (!next) {
+                // ignore current stops (because is out of path)
+                currentStop++;
+            }
         }
-        for (const auto &stop : stops) {
-            for (const auto &j : stop.stops) {
-                if (j == this) {
-                    return stop.index;
-                }
+    }
+    for (const auto &stop : stops) {
+        for (const auto &j : stop.stops) {
+            if (j == this) {
+                return stop.stopIndex;
             }
         }
     }
