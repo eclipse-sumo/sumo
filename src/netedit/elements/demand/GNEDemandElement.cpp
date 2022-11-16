@@ -1068,6 +1068,9 @@ GNEDemandElement::getSortedStops(const std::vector<GNEEdge*>& edges) const {
             }
         }
     }
+    // set eine Index
+    // next oder gleiche index Stop
+
     // finally return sorted stops
     std::vector<const GNEDemandElement*> solution;
     for (const auto& sortedStop : sortedStops) {

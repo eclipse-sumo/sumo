@@ -2465,7 +2465,7 @@ GNEEdge::drawTAZElements(const GUIVisualizationSettings& s) const {
 void
 GNEEdge::drawEdgeShape(const GUIVisualizationSettings& s) const {
     /// @brief whether to draw this lane as a railway
-    if(!myLanes.front()->drawAsRailway(s)) {
+    if((s.laneWidthExaggeration >= 1) && !myLanes.front()->drawAsRailway(s)) {
         // push draw matrix
         GLHelper::pushMatrix();
         // Start with the drawing of the area traslating matrix to origin
