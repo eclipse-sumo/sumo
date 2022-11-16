@@ -110,8 +110,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 
     SignalLanes signalLanes;
 
-    const double maxMatchDist = OptionsCont::getOptions().getFloat("opendrive-output.shape-match-dist");
-    mapmatchRoadObjects(nb.getShapeCont(), ec, maxMatchDist);
+    mapmatchRoadObjects(nb.getShapeCont(), ec);
 
     // write normal edges (road)
     for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
@@ -1001,8 +1000,12 @@ NWWriter_OpenDrive::s2x(bool lefthand, int sumoIndex, int numLanes) {
 
 
 void
-NWWriter_OpenDrive::mapmatchRoadObjects(const ShapeContainer& shc,  const NBEdgeCont& ec, double maxDist) {
-    if (maxDist < 0 || (shc.getPolygons().size() == 0 && shc.getPOIs().size() == 0)) {
+NWWriter_OpenDrive::mapmatchRoadObjects(const ShapeContainer& shc,  const NBEdgeCont& ec) {
+    if (shc.getPolygons().size() == 0 && shc.getPOIs().size() == 0) {
+        return;
+    }
+    const double maxDist = OptionsCont::getOptions().getFloat("opendrive-output.shape-match-dist");
+    if (maxDist < 0) {
         return;
     }
     // register custom assignements

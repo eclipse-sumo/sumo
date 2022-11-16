@@ -119,8 +119,10 @@ NWFrame::fillOptions(bool forNetgen) {
     oc.doRegister("opendrive-output.straight-threshold", new Option_Float(0.00000001)); // matching the angular output precision in NWWriter_OpenDrive
     oc.addDescription("opendrive-output.straight-threshold", "Output", "Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees");
 
-    oc.doRegister("opendrive-output.shape-match-dist", new Option_Float(-1));
-    oc.addDescription("opendrive-output.shape-match-dist", "Output", "Match loaded shapes to the closest edge within FLOAT and export as road objects");
+    if (!forNetgen) {
+        oc.doRegister("opendrive-output.shape-match-dist", new Option_Float(-1));
+        oc.addDescription("opendrive-output.shape-match-dist", "Output", "Match loaded shapes to the closest edge within FLOAT and export as road objects");
+    }
 }
 
 
