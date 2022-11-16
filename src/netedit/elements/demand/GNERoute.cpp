@@ -199,9 +199,12 @@ GNERoute::writeDemandElement(OutputDevice& device) const {
     }
     // write sorted stops
     if (myTagProperty.getTag() == SUMO_TAG_ROUTE) {
-        const auto sortedStops = getSortedStops(getParentEdges());
-        for (const auto& stop : sortedStops) {
-            stop->writeDemandElement(device);
+        // write sorted stops
+        const auto edgeStopIndex = getEdgeStopIndex();
+        for (const auto& edgeStop : edgeStopIndex) {
+            for (const auto &stop : edgeStop.stops) {
+                stop->writeDemandElement(device);
+            }
         }
     }
     // write parameters
@@ -220,8 +223,7 @@ GNERoute::isDemandElementValid() const {
             stops.push_back(routeChild);
         }
     }
-    const auto sortedStops = getSortedStops(getParentEdges());
-    if (sortedStops.size() != stops.size()) {
+    if (getInvalidStops().size() > 0) {
         return Problem::STOP_DOWNSTREAM;
     }
     // check parent edges
@@ -250,9 +252,9 @@ GNERoute::getDemandElementProblem() const {
             stops.push_back(routeChild);
         }
     }
-    const auto sortedStops = getSortedStops(getParentEdges());
-    if (sortedStops.size() != stops.size()) {
-        return toString(stops.size() - sortedStops.size()) + " stops are outside of route (downstream)";
+    const auto invalidStops = getInvalidStops();
+    if (invalidStops.size() > 0) {
+        return toString(invalidStops.size()) + " stops are outside of route (downstream)";
     }
     // return string with the problem obtained from isRouteValid
     return isRouteValid(getParentEdges());

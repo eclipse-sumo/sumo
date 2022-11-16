@@ -464,9 +464,11 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
             // write embedded route
             getChildDemandElements().front()->writeDemandElement(device);
             // write sorted stops
-            const auto sortedStops = getSortedStops(getChildDemandElements().front()->getParentEdges());
-            for (const auto& stop : sortedStops) {
-                stop->writeDemandElement(device);
+            const auto edgeStopIndex = getEdgeStopIndex();
+            for (const auto& edgeStop : edgeStopIndex) {
+                for (const auto &stop : edgeStop.stops) {
+                    stop->writeDemandElement(device);
+                }
             }
         } else {
             for (const auto& route : getChildDemandElements()) {
@@ -493,24 +495,6 @@ GNEVehicle::isDemandElementValid() const {
     } else if (getParentDemandElements().size() == 2) {
         // check if exist a valid path using route parent edges
         if (myNet->getPathManager()->getPathCalculator()->calculateDijkstraPath(getParentDemandElements().at(0)->getVClass(), getParentDemandElements().at(1)->getParentEdges()).size() > 0) {
-            return Problem::OK;
-        } else {
-            return Problem::INVALID_PATH;
-        }
-    } else if (getChildDemandElements().size() > 0 && (getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED)) {
-        // get sorted stops and check number
-        std::vector<GNEDemandElement*> embeddedRouteStopWaypoints;
-        for (const auto& routeChild : getChildDemandElements()) {
-            if (routeChild->getTagProperty().isStop() || routeChild->getTagProperty().isWaypoint()) {
-                embeddedRouteStopWaypoints.push_back(routeChild);
-            }
-        }
-        const auto sortedStops = getSortedStops(getChildDemandElements().front()->getParentEdges());
-        if (sortedStops.size() != embeddedRouteStopWaypoints.size()) {
-            return Problem::STOP_DOWNSTREAM;
-        }
-        // check if exist a valid path using embedded route edges
-        if (myNet->getPathManager()->getPathCalculator()->calculateDijkstraPath(getParentDemandElements().at(0)->getVClass(), getChildDemandElements().front()->getParentEdges()).size() > 0) {
             return Problem::OK;
         } else {
             return Problem::INVALID_PATH;
@@ -542,28 +526,6 @@ GNEVehicle::getDemandElementProblem() const {
         for (int i = 1; i < (int)routeEdges.size(); i++) {
             if (myNet->getPathManager()->getPathCalculator()->consecutiveEdgesConnected(getParentDemandElements().at(0)->getVClass(), routeEdges.at((int)i - 1), routeEdges.at(i)) == false) {
                 return ("There is no valid path between route edges '" + routeEdges.at((int)i - 1)->getID() + "' and '" + routeEdges.at(i)->getID() + "'");
-            }
-        }
-        // if there are connections between all edges, then all is ok
-        return "";
-    } else if (getChildDemandElements().size() > 0 && (getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED)) {
-        // get sorted stops and check number
-        std::vector<GNEDemandElement*> embeddedRouteStopWaypoints;
-        for (const auto& routeChild : getChildDemandElements()) {
-            if (routeChild->getTagProperty().isStop() || routeChild->getTagProperty().isWaypoint()) {
-                embeddedRouteStopWaypoints.push_back(routeChild);
-            }
-        }
-        const auto sortedStops = getSortedStops(getChildDemandElements().front()->getParentEdges());
-        if (sortedStops.size() != embeddedRouteStopWaypoints.size()) {
-            return toString(embeddedRouteStopWaypoints.size() - embeddedRouteStopWaypoints.size()) + " stops are outside of embedded route (downstream)";
-        }
-        // get embedded route edges
-        const std::vector<GNEEdge*>& routeEdges = getChildDemandElements().front()->getParentEdges();
-        // check if exist at least a connection between every edge
-        for (int i = 1; i < (int)routeEdges.size(); i++) {
-            if (myNet->getPathManager()->getPathCalculator()->consecutiveEdgesConnected(getParentDemandElements().at(0)->getVClass(), routeEdges.at((int)i - 1), routeEdges.at(i)) == false) {
-                return ("There is no valid path between embedded route edges '" + routeEdges.at((int)i - 1)->getID() + "' and '" + routeEdges.at(i)->getID() + "'");
             }
         }
         // if there are connections between all edges, then all is ok

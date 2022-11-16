@@ -251,28 +251,6 @@ protected:
     bool drawIndex() const;
 
 private:
-    /// @brief auxiliar struct used for calculate pathStopIndex
-    struct edgeStopIndex {
-
-        /// @brief constructor
-        edgeStopIndex(GNEEdge* edge_, GNEDemandElement* stop) :
-            edge(edge_),
-            stops({stop}) {}
-
-        /// @brief edge (obtained from segment)
-        const GNEEdge* edge = nullptr;
-
-        /// @brief list of stops placed in the edge
-        std::vector<GNEDemandElement*> stops;
-        
-        /// @brief stopIndex (-1 menans out of route)
-        int stopIndex = -1;
-
-    private:
-        /// @brief default constructor (disabled)
-        edgeStopIndex() {}
-    };
-
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
 

@@ -218,7 +218,9 @@ GNEStop::writeDemandElement(OutputDevice& device) const {
 
 GNEDemandElement::Problem
 GNEStop::isDemandElementValid() const {
-    if (myTagProperty.isStopPerson() || myTagProperty.isStopContainer()) {
+    if (getPathStopIndex() == -1) {
+        return Problem::STOP_DOWNSTREAM;
+    } else if (myTagProperty.isStopPerson() || myTagProperty.isStopContainer()) {
         // get lane
         const GNELane* firstLane = getFirstAllowedLane();
         // only Stops placed over lanes can be invalid
@@ -274,7 +276,9 @@ GNEStop::isDemandElementValid() const {
 
 std::string
 GNEStop::getDemandElementProblem() const {
-    if (myTagProperty.isStopPerson() || myTagProperty.isStopContainer()) {
+    if (getPathStopIndex() == -1) {
+        return ("Downstream stop");
+    } else if (myTagProperty.isStopPerson() || myTagProperty.isStopContainer()) {
         if (friendlyPos) {
             return getPersonPlanProblem();
         } else {
@@ -1771,71 +1775,13 @@ GNEStop::drawGeometryPoints(const GUIVisualizationSettings& s, const RGBColor& b
 
 int
 GNEStop::getPathStopIndex() const {
-    // first check that this stop has parent
-    if (getParentDemandElements().empty()) {
-        return -1;
-    }
-    // get last parent edge
-    const auto lastEdge = getParentDemandElements().front()->getParentEdges().back();
-    bool stop = false;
-    // get path edges
-    std::vector<GNEEdge*> pathEdges;
-    const auto &pathElementSegments = myNet->getPathManager()->getPathElementSegments(getParentDemandElements().front());
-    // extract all edges from pathElement parent
-    for (auto it = pathElementSegments.begin(); (it != pathElementSegments.end()) && !stop; it++) {
-        if ((*it)->getLane()) {
-            pathEdges.push_back((*it)->getLane()->getParentEdge());
-            // stop if path correspond to last edge
-            if (pathEdges.back() == lastEdge) {
-                stop = true;
-            }
-        }
-    }
-    // get all parent's stops and waypoints sorted by position
-    std::vector<edgeStopIndex> edgeStopIndexes;
-    for (const auto &demandElement : getParentDemandElements().front()->getChildDemandElements()) {
-        if (demandElement->getTagProperty().isStop() || demandElement->getTagProperty().isWaypoint()) {
-            // get stop/waypoint edge
-            GNEEdge* edge = nullptr;
-            if (demandElement->getParentAdditionals().size() > 0) {
-                edge = demandElement->getParentAdditionals().front()->getParentLanes().front()->getParentEdge();
-            } else {
-                edge = demandElement->getParentLanes().front()->getParentEdge();
-            }
-            // check if add a new edgeStopIndex or update last
-            if ((edgeStopIndexes.size() > 0) && (edgeStopIndexes.back().edge == edge)) {
-                edgeStopIndexes.back().stops.push_back(demandElement);
-            } else {
-                edgeStopIndexes.push_back(edgeStopIndex(edge, demandElement));
-            }
-        }
-    }
-    // declare index for current stop
-    int currentEdgeStopIndex = 0;
-    for (int i = 0; (i < (int)pathEdges.size()) && (currentEdgeStopIndex < (int)edgeStopIndexes.size()); i++) {
-        // check if current edge stop index is in the path
-        if (edgeStopIndexes[currentEdgeStopIndex].edge == pathEdges.at(i)) {
-            edgeStopIndexes[currentEdgeStopIndex].stopIndex = i;
-            currentEdgeStopIndex++;
-        } else {
-            // check if edge exist in the rest of the path
-            bool next = false;
-            for (int j = (i + 1); j < (int)pathEdges.size(); j++) {
-                if (edgeStopIndexes[currentEdgeStopIndex].edge == pathEdges.at(j)) {
-                    next = true;
-                }
-            }
-            if (!next) {
-                // ignore current stops (because is out of path)
-                currentEdgeStopIndex++;
-            }
-        }
-    }
+    // get edge stop indexes
+    const auto edgeStopIndex = getEdgeStopIndex();
     // finally find stopIndex in edgeStopIndexes
-    for (const auto &edgeStopIndex : edgeStopIndexes) {
-        for (const auto &j : edgeStopIndex.stops) {
+    for (const auto &edgeStop : edgeStopIndex) {
+        for (const auto &j : edgeStop.stops) {
             if (j == this) {
-                return edgeStopIndex.stopIndex;
+                return edgeStop.stopIndex;
             }
         }
     }
