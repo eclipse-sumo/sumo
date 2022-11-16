@@ -35,6 +35,8 @@ class PositionVector;
 class OutputDevice;
 class OutputDevice_String;
 class ShapeContainer;
+class PointOfInterest;
+class SUMOPolygon;
 
 
 // ===========================================================================
@@ -121,4 +123,11 @@ protected:
 
     /// @brief convert sumo lane index to xodr lane index
     static int s2x(bool lefthand, int sumoIndex, int numLanes);
+
+    /// @brief map pois and polygons to the closes edge
+    static void mapmatchRoadObjects(const ShapeContainer& shc,  const NBEdgeCont& ec, double maxDist);
+
+    static void writeRoadObjectPOI(OutputDevice& device, const NBEdge* e, const PositionVector& roadShape, const PointOfInterest* poi);
+
+    static void writeRoadObjectPoly(OutputDevice& device, const NBEdge* e, const PositionVector& roadShape, const SUMOPolygon* p);
 };

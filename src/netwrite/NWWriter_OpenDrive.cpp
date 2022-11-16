@@ -43,6 +43,7 @@
 
 #define MIN_TURN_DIAMETER 2.0
 
+#define ROAD_OBJECTS "roadObjects"
 
 // ===========================================================================
 // method definitions
@@ -108,6 +109,9 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     device.closeTag();
 
     SignalLanes signalLanes;
+
+    const double maxMatchDist = OptionsCont::getOptions().getFloat("opendrive-output.shape-match-dist");
+    mapmatchRoadObjects(nb.getShapeCont(), ec, maxMatchDist);
 
     // write normal edges (road)
     for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
@@ -885,55 +889,22 @@ NWWriter_OpenDrive::checkLaneGeometries(const NBEdge* e, bool lefthand) {
 
 void
 NWWriter_OpenDrive::writeRoadObjects(OutputDevice& device, const NBEdge* e, const ShapeContainer& shc) {
-    if (e->knowsParameter("roadObjects")) {
+    if (e->knowsParameter(ROAD_OBJECTS)) {
         const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
         device.openTag("objects");
         device.setPrecision(8); // geometry hdg requires higher precision
         PositionVector road = getInnerLaneBorder(lefthand, e);
-        for (std::string id : StringTokenizer(e->getParameter("roadObjects", "")).getVector()) {
+        for (std::string id : StringTokenizer(e->getParameter(ROAD_OBJECTS, "")).getVector()) {
             SUMOPolygon* p = shc.getPolygons().get(id);
             if (p == nullptr) {
-                WRITE_WARNING("Road object polygon '" + id + "' not found for edge '" + e->getID() + "'");
-            } else if (p->getShape().size() != 4) {
-                WRITE_WARNING("Cannot convert road object polygon '" + id + "' with " + toString(p->getShape().size()) + " points for edge '" + e->getID() + "'");
+                PointOfInterest* poi = shc.getPOIs().get(id);
+                if (poi == nullptr) {
+                    WRITE_WARNINGF("Road object polygon or POI '%' not found for edge '%'", id, e->getID());
+                } else {
+                    writeRoadObjectPOI(device, e, road, poi);
+                }
             } else {
-                const PositionVector& shape = p->getShape();
-                device.openTag("object");
-                Position center = shape.getPolygonCenter();
-                PositionVector sideline = shape.getSubpartByIndex(0, 2);
-                PositionVector ortholine = shape.getSubpartByIndex(1, 2);
-                const double absAngle = sideline.angleAt2D(0);
-                const double length = sideline.length2D();
-                const double width = ortholine.length2D();
-                const double edgeOffset = road.nearest_offset_to_point2D(center);
-                if (edgeOffset == GeomHelper::INVALID_OFFSET) {
-                    WRITE_WARNING("Cannot map road object polygon '" + id + "' with center " + toString(center) + " onto edge '" + e->getID() + "'");
-                    continue;
-                }
-                Position edgePos = road.positionAtOffset2D(edgeOffset);
-                const double edgeAngle = road.rotationAtOffset(edgeOffset);
-                const double relAngle = absAngle - edgeAngle;
-                double sideOffset = center.distanceTo2D(edgePos);
-                // determine sign of sideOffset
-                PositionVector tmp = road.getSubpart2D(MAX2(0.0, edgeOffset - 1), MIN2(road.length2D(), edgeOffset + 1));
-                tmp.move2side(sideOffset);
-                if (tmp.distance2D(center) < sideOffset) {
-                    sideOffset *= -1;
-                }
-                //std::cout << " id=" << id
-                //    << " shape=" << shape
-                //    << " center=" << center
-                //    << " edgeOffset=" << edgeOffset
-                //    << "\n";
-                device.writeAttr("id", id);
-                device.writeAttr("type", p->getShapeType());
-                device.writeAttr("name", p->getParameter("name", ""));
-                device.writeAttr("s", edgeOffset);
-                device.writeAttr("t", sideOffset);
-                device.writeAttr("width", width);
-                device.writeAttr("length", length);
-                device.writeAttr("hdg", relAngle);
-                device.closeTag();
+                writeRoadObjectPoly(device, e, road, p);
             }
         }
         device.setPrecision(gPrecision);
@@ -1026,6 +997,184 @@ NWWriter_OpenDrive::s2x(bool lefthand, int sumoIndex, int numLanes) {
     return (lefthand
             ? numLanes - sumoIndex
             : sumoIndex - numLanes);
+}
+
+
+void
+NWWriter_OpenDrive::mapmatchRoadObjects(const ShapeContainer& shc,  const NBEdgeCont& ec, double maxDist) {
+    if (maxDist < 0 || (shc.getPolygons().size() == 0 && shc.getPOIs().size() == 0)) {
+        return;
+    }
+    // register custom assignements
+    std::set<std::string> assigned;
+    for (auto it = ec.begin(); it != ec.end(); ++it) {
+        NBEdge* e = it->second;
+        if (e->knowsParameter(ROAD_OBJECTS)) {
+            for (std::string id : StringTokenizer(e->getParameter(ROAD_OBJECTS, "")).getVector()) {
+                assigned.insert(id);
+            }
+        }
+    }
+    // build rtree for edges
+    NamedRTree r;
+    for (auto it = ec.begin(); it != ec.end(); ++it) {
+        NBEdge* edge = it->second;
+        Boundary bound = edge->getGeometry().getBoxBoundary();
+        bound.grow(maxDist);
+        float min[2] = { static_cast<float>(bound.xmin()), static_cast<float>(bound.ymin()) };
+        float max[2] = { static_cast<float>(bound.xmax()), static_cast<float>(bound.ymax()) };
+        r.Insert(min, max, edge);
+    }
+
+    for (auto itPoly = shc.getPolygons().begin(); itPoly != shc.getPolygons().end(); itPoly++) {
+        SUMOPolygon* p = itPoly->second;
+        Boundary bound = p->getShape().getBoxBoundary();
+        float min[2] = { static_cast<float>(bound.xmin()), static_cast<float>(bound.ymin()) };
+        float max[2] = { static_cast<float>(bound.xmax()), static_cast<float>(bound.ymax()) };
+        std::set<const Named*> edges;
+        Named::StoringVisitor visitor(edges);
+        r.Search(min, max, visitor);
+        std::vector<std::pair<double, NBEdge*> > nearby;
+        for (const Named* namedEdge : edges) {
+            NBEdge* e = const_cast<NBEdge*>(dynamic_cast<const NBEdge*>(namedEdge));
+            const double distance = VectorHelper<double>::minValue(p->getShape().distances(e->getGeometry(), true));
+            if (distance <= maxDist) {
+                nearby.push_back(std::make_pair(distance, e));
+                //std::cout << " poly=" << p->getID() << " e=" << e->getID() << " dist=" << distance << "\n";
+            }
+        }
+        if (nearby.size() > 0) {
+            std::sort(nearby.begin(), nearby.end());
+            NBEdge* closest = nearby.front().second;
+            std::string objects = closest->getParameter(ROAD_OBJECTS, "");
+            if (objects != "") {
+                objects += " ";
+            }
+            objects += p->getID();
+            closest->setParameter(ROAD_OBJECTS, objects);
+            //std::cout << "poly=" << p->getID() << " closest=" << closest->getID() << "\n";
+        }
+    }
+    for (auto itPoi = shc.getPOIs().begin(); itPoi != shc.getPOIs().end(); itPoi++) {
+        PointOfInterest* p = itPoi->second;
+        float min[2] = { static_cast<float>(p->x()), static_cast<float>(p->y()) };
+        float max[2] = { static_cast<float>(p->x()), static_cast<float>(p->y()) };
+        std::set<const Named*> edges;
+        Named::StoringVisitor visitor(edges);
+        r.Search(min, max, visitor);
+        std::vector<std::pair<double, NBEdge*> > nearby;
+        for (const Named* namedEdge : edges) {
+            NBEdge* e = const_cast<NBEdge*>(dynamic_cast<const NBEdge*>(namedEdge));
+            const double distance = e->getGeometry().distance2D(*p, true);
+            if (distance != GeomHelper::INVALID_OFFSET && distance <= maxDist) {
+                nearby.push_back(std::make_pair(distance, e));
+                //if (p->getID() == "1275468911") {
+                //    std::cout << " poly=" << p->getID() << " e=" << e->getID() << " dist=" << distance << "\n";
+                //}
+            }
+        }
+        if (nearby.size() > 0) {
+            std::sort(nearby.begin(), nearby.end());
+            NBEdge* closest = nearby.front().second;
+            std::string objects = closest->getParameter(ROAD_OBJECTS, "");
+            if (objects != "") {
+                objects += " ";
+            }
+            objects += p->getID();
+            closest->setParameter(ROAD_OBJECTS, objects);
+            //std::cout << "poly=" << p->getID() << " closest=" << closest->getID() << "\n";
+        }
+    }
+}
+
+
+void
+NWWriter_OpenDrive::writeRoadObjectPOI(OutputDevice& device, const NBEdge* e, const PositionVector& roadShape, const PointOfInterest* poi) {
+    Position center = *poi;
+    const double edgeOffset = roadShape.nearest_offset_to_point2D(center, false);
+    if (edgeOffset == GeomHelper::INVALID_OFFSET) {
+        WRITE_WARNINGF("Cannot map road object POI '%' with center % onto edge '%'", poi->getID(), center, e->getID());
+        return;
+    }
+    Position edgePos = roadShape.positionAtOffset2D(edgeOffset);
+    double sideOffset = center.distanceTo2D(edgePos);
+    // determine sign of sideOffset
+    PositionVector tmp = roadShape.getSubpart2D(MAX2(0.0, edgeOffset - 1), MIN2(roadShape.length2D(), edgeOffset + 1));
+    tmp.move2side(sideOffset);
+    if (tmp.distance2D(center) < sideOffset) {
+        sideOffset *= -1;
+    }
+    device.openTag("object");
+    device.writeAttr("id", poi->getID());
+    device.writeAttr("type", poi->getShapeType());
+    device.writeAttr("name", StringUtils::escapeXML(poi->getParameter("name", ""), true));
+    device.writeAttr("s", edgeOffset);
+    device.writeAttr("t", sideOffset);
+    device.writeAttr("hdg", 0);
+    device.closeTag();
+}
+
+void
+NWWriter_OpenDrive::writeRoadObjectPoly(OutputDevice& device, const NBEdge* e, const PositionVector& roadShape, const SUMOPolygon* p) {
+    PositionVector shape = p->getShape();
+    Position center = shape.getPolygonCenter();
+
+    const double edgeOffset = roadShape.nearest_offset_to_point2D(center, false);
+    if (edgeOffset == GeomHelper::INVALID_OFFSET) {
+        WRITE_WARNINGF("Cannot map road object polygon '%' with center % onto edge '%'", p->getID(), center, e->getID());
+        return;
+    }
+    Position edgePos = roadShape.positionAtOffset2D(edgeOffset);
+    const double edgeAngle = roadShape.rotationAtOffset(edgeOffset);
+    double sideOffset = center.distanceTo2D(edgePos);
+    // determine sign of sideOffset
+    PositionVector tmp = roadShape.getSubpart2D(MAX2(0.0, edgeOffset - 1), MIN2(roadShape.length2D(), edgeOffset + 1));
+    tmp.move2side(sideOffset);
+    if (tmp.distance2D(center) < sideOffset) {
+        sideOffset *= -1;
+    }
+    //std::cout << " id=" << id
+    //    << " shape=" << shape
+    //    << " center=" << center
+    //    << " edgeOffset=" << edgeOffset
+    //    << "\n";
+    device.openTag("object");
+    device.writeAttr("id", p->getID());
+    device.writeAttr("type", p->getShapeType());
+    device.writeAttr("name", StringUtils::escapeXML(p->getParameter("name", ""), true));
+    device.writeAttr("s", edgeOffset);
+    device.writeAttr("t", sideOffset);
+    device.writeAttr("hdg", -edgeAngle);
+
+    //device.openTag("outlines");
+    device.openTag("outline");
+    device.writeAttr("id", 0);
+    device.writeAttr("fillType", "concrete");
+    device.writeAttr("outer", "true");
+    device.writeAttr("closed", p->getShape().isClosed() ? "true" : "false");
+    device.writeAttr("laneType", "border");
+
+    double height = 0;
+    try {
+        height = StringUtils::toDoubleSecure(p->getParameter("height", ""), 0);
+    } catch (NumberFormatException&) {}
+
+    shape.sub(center);
+    int i = 0;
+    for (Position pos : shape) {
+        device.openTag("cornerLocal");
+        device.writeAttr("u", pos.x());
+        device.writeAttr("v", pos.y());
+        device.writeAttr("z", MAX2(0.0, p->getShapeLayer()));
+        device.writeAttr("height", height);
+        device.writeAttr("id", i++);
+        device.closeTag();
+    }
+
+
+    //device.closeTag();
+    device.closeTag();
+    device.closeTag();
 }
 
 /****************************************************************************/
