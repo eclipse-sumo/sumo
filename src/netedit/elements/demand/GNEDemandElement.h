@@ -132,9 +132,6 @@ public:
     /// @brief get next child demand element to the given demand element
     GNEDemandElement* getNextChildDemandElement(const GNEDemandElement* demandElement) const;
 
-    /// @brief get middle (via) parent edges
-    std::vector<GNEEdge*> getViaEdges() const;
-
     /// @brief update element stacked geometry (stacked)
     void updateDemandElementGeometry(const GNELane* lane, const double posOverLane);
 

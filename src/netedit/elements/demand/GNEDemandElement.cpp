@@ -131,22 +131,6 @@ GNEDemandElement::getNextChildDemandElement(const GNEDemandElement* demandElemen
 }
 
 
-std::vector<GNEEdge*>
-GNEDemandElement::getViaEdges() const {
-    std::vector<GNEEdge*> middleEdges;
-    // there are only middle edges if there is more than two edges
-    if (getParentEdges().size() > 2) {
-        // reserve middleEdges
-        middleEdges.reserve(getParentEdges().size() - 2);
-        // iterate over second and previous last parent edge
-        for (auto i = (getParentEdges().begin() + 1); i != (getParentEdges().end() - 1); i++) {
-            middleEdges.push_back(*i);
-        }
-    }
-    return middleEdges;
-}
-
-
 void
 GNEDemandElement::updateDemandElementGeometry(const GNELane* lane, const double posOverLane) {
     myDemandElementGeometry.updateGeometry(lane->getLaneShape(), posOverLane, myMoveElementLateralOffset);
