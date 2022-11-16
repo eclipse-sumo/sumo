@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-11-16 09:29:17 by Eclipse SUMO netconvert Version v1_15_0+0304-40756f0
+<!-- generated on 2022-11-16 10:01:29 by Eclipse SUMO netconvert Version v1_15_0+0310-26d55dc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -97,17 +97,17 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":Gueldenstr_12_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="11.11" length="36.55" shape="77.67,110.34 102.62,137.05"/>
     </edge>
     <edge id=":Gueldenstr_13" function="internal">
-        <lane id=":Gueldenstr_13_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="19.12" shape="75.07,112.34 76.77,119.08 76.26,127.26 75.17,131.09"/>
+        <lane id=":Gueldenstr_13_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="21.48" shape="75.07,112.34 77.60,120.54 77.82,129.46 76.99,133.35"/>
+        <lane id=":Gueldenstr_13_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="16.23" shape="72.48,114.35 74.62,121.55 74.68,129.56 74.52,130.25"/>
     </edge>
-    <edge id=":Gueldenstr_14" function="internal">
-        <lane id=":Gueldenstr_14_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="6.54" length="8.94" shape="72.48,114.35 72.89,120.35 71.27,123.71 69.83,123.99"/>
-        <lane id=":Gueldenstr_14_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="4.90" length="8.94" shape="69.88,116.35 70.09,119.43 69.26,121.15 67.61,121.47"/>
+    <edge id=":Gueldenstr_15" function="internal">
+        <lane id=":Gueldenstr_15_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="4.90" length="6.67" shape="69.88,116.35 70.09,119.43 69.26,121.15 67.61,121.47"/>
     </edge>
     <edge id=":Gueldenstr_25" function="internal">
-        <lane id=":Gueldenstr_25_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="18.19" shape="75.17,131.09 73.51,136.90 68.55,147.98"/>
+        <lane id=":Gueldenstr_25_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="17.10" shape="76.99,133.35 75.76,139.09 71.39,149.44"/>
     </edge>
     <edge id=":Gueldenstr_26" function="internal">
-        <lane id=":Gueldenstr_26_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="6.54" length="8.28" shape="69.83,123.99 67.61,124.43 61.91,122.50"/>
+        <lane id=":Gueldenstr_26_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="18.78" shape="74.52,130.25 72.66,138.37 68.55,147.98"/>
     </edge>
     <edge id=":Gueldenstr_27" function="internal">
         <lane id=":Gueldenstr_27_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="4.90" length="3.31" shape="67.61,121.47 67.39,121.52 64.47,120.53"/>
@@ -199,7 +199,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="6"  state="rrrrrrrGGGrrrrrrrrrGG" minDur="5" maxDur="50"/>
         <phase duration="3"  state="rrrrrrryyyrrrrrrrrryy"/>
         <phase duration="2"  state="rrrrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="20" state="rrrGrrrrrrGGrGggGrrrr" minDur="5" maxDur="50"/>
+        <phase duration="20" state="rrrGrrrrrrGGrGGgGrrrr" minDur="5" maxDur="50"/>
         <phase duration="3"  state="rrryrrrrrryyryyyyrrrr"/>
     </tlLogic>
 
@@ -219,39 +219,39 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="Gueldenstr" type="traffic_light" x="86.88" y="131.94" incLanes="5134789#0_0 320399276_0 320399276_1 320399276_2 320399276_3 292614141#5_0 376743572#0_0 376743572#0_1 376743572#0_2 376743572#0_3 376743572#0_4 60922609#0_0 60922609#0_1 60922609#0_2 60922609#0_3" intLanes=":Gueldenstr_0_0 :Gueldenstr_1_0 :Gueldenstr_21_0 :Gueldenstr_3_0 :Gueldenstr_4_0 :Gueldenstr_5_0 :Gueldenstr_5_1 :Gueldenstr_22_0 :Gueldenstr_23_0 :Gueldenstr_24_0 :Gueldenstr_10_0 :Gueldenstr_11_0 :Gueldenstr_12_0 :Gueldenstr_25_0 :Gueldenstr_26_0 :Gueldenstr_27_0 :Gueldenstr_16_0 :Gueldenstr_17_0 :Gueldenstr_17_1 :Gueldenstr_28_0 :Gueldenstr_29_0" shape="84.56,147.56 86.61,145.10 101.24,136.20 103.99,137.91 105.43,136.43 106.76,135.69 108.50,134.94 110.65,134.18 113.21,133.42 109.79,121.08 108.65,120.45 101.58,106.81 96.49,109.16 92.10,110.61 88.41,111.15 85.43,110.79 83.14,109.51 81.56,107.34 60.63,123.49 61.43,125.68 61.41,126.66 61.13,127.58 60.58,128.42 59.75,129.20 67.56,139.34 70.19,138.16 70.46,139.00 70.04,140.80 68.93,143.54 67.12,147.25 72.82,150.17 80.20,147.94 83.40,148.10 83.53,147.37 83.69,147.21 83.91,147.19 84.20,147.31">
-        <request index="0"  response="000000000000000000000" foes="000000000010001100000" cont="0"/>
+        <request index="0"  response="000000000000000000000" foes="000000110010001100000" cont="0"/>
         <request index="1"  response="010000000000110000000" foes="011101110010111100000" cont="0"/>
         <request index="2"  response="010000001000110000000" foes="011100001011111100000" cont="1"/>
         <request index="3"  response="010000001000000000000" foes="010000001000000010000" cont="0"/>
         <request index="4"  response="000000001000000001000" foes="010000001000000001000" cont="0"/>
-        <request index="5"  response="000000011000000000111" foes="110000011010000000111" cont="0"/>
-        <request index="6"  response="000000011000000000111" foes="110000011010000000111" cont="0"/>
-        <request index="7"  response="001110011000000000110" foes="001111111010000000110" cont="1"/>
-        <request index="8"  response="001110011000000000110" foes="001111111010000000110" cont="1"/>
+        <request index="5"  response="000000111000000000111" foes="110000111010000000111" cont="0"/>
+        <request index="6"  response="000000111000000000111" foes="110000111010000000111" cont="0"/>
+        <request index="7"  response="001110111000000000110" foes="001111111010000000110" cont="1"/>
+        <request index="8"  response="001110111000000000110" foes="001111111010000000110" cont="1"/>
         <request index="9"  response="001100000010000000100" foes="001100000010000000100" cont="1"/>
         <request index="10" response="010000001000111100111" foes="010000001001111100111" cont="0"/>
         <request index="11" response="000000000000000000000" foes="001100000000000000000" cont="0"/>
         <request index="12" response="010000000000110000000" foes="011100000010111111100" cont="0"/>
-        <request index="13" response="110000000000110000010" foes="111100000000111100010" cont="1"/>
-        <request index="14" response="000010000000110000010" foes="000010000000110000010" cont="1"/>
-        <request index="15" response="000010000000110000010" foes="000010000000110000010" cont="1"/>
-        <request index="16" response="000000000000000000000" foes="000001100000110000000" cont="0"/>
-        <request index="17" response="000000011100000000110" foes="000000011101110000110" cont="0"/>
-        <request index="18" response="000000011100000000110" foes="000000011101110000110" cont="0"/>
-        <request index="19" response="000000011010001111110" foes="000000011010001111110" cont="1"/>
-        <request index="20" response="000000010000001100000" foes="000000010000001100000" cont="1"/>
+        <request index="13" response="110000000000110000011" foes="111100000000111100011" cont="1"/>
+        <request index="14" response="110000000000110000011" foes="111100000000111100011" cont="1"/>
+        <request index="15" response="000000000000110000010" foes="000000000000110000010" cont="1"/>
+        <request index="16" response="000000000000000000000" foes="000000000000110000000" cont="0"/>
+        <request index="17" response="000000111100000000110" foes="000000111101110000110" cont="0"/>
+        <request index="18" response="000000111100000000110" foes="000000111101110000110" cont="0"/>
+        <request index="19" response="000000111010001111110" foes="000000111010001111110" cont="1"/>
+        <request index="20" response="000000110000001100000" foes="000000110000001100000" cont="1"/>
     </junction>
     <junction id="cluster_28201752_3801334753" type="dead_end" x="40.64" y="0.13" incLanes="" intLanes="" shape="40.49,0.10 56.26,2.82"/>
 
     <junction id=":Gueldenstr_21_0" type="internal" x="85.78" y="123.34" incLanes=":Gueldenstr_2_0 376743572#0_0 376743572#0_1" intLanes=":Gueldenstr_5_0 :Gueldenstr_5_1 :Gueldenstr_7_0 :Gueldenstr_7_1 :Gueldenstr_9_0 :Gueldenstr_10_0 :Gueldenstr_11_0 :Gueldenstr_12_0 :Gueldenstr_17_0 :Gueldenstr_17_1 :Gueldenstr_19_0"/>
-    <junction id=":Gueldenstr_22_0" type="internal" x="76.74" y="125.73" incLanes=":Gueldenstr_7_0 60922609#0_0 60922609#0_1" intLanes=":Gueldenstr_1_0 :Gueldenstr_2_0 :Gueldenstr_10_0 :Gueldenstr_12_0 :Gueldenstr_13_0 :Gueldenstr_14_0 :Gueldenstr_14_1 :Gueldenstr_16_0 :Gueldenstr_17_0 :Gueldenstr_17_1"/>
-    <junction id=":Gueldenstr_23_0" type="internal" x="80.96" y="123.53" incLanes=":Gueldenstr_7_1 60922609#0_0 60922609#0_1" intLanes=":Gueldenstr_1_0 :Gueldenstr_2_0 :Gueldenstr_10_0 :Gueldenstr_12_0 :Gueldenstr_13_0 :Gueldenstr_14_0 :Gueldenstr_14_1 :Gueldenstr_16_0 :Gueldenstr_17_0 :Gueldenstr_17_1"/>
+    <junction id=":Gueldenstr_22_0" type="internal" x="76.74" y="125.73" incLanes=":Gueldenstr_7_0 60922609#0_0 60922609#0_1" intLanes=":Gueldenstr_1_0 :Gueldenstr_2_0 :Gueldenstr_10_0 :Gueldenstr_12_0 :Gueldenstr_13_0 :Gueldenstr_13_1 :Gueldenstr_15_0 :Gueldenstr_16_0 :Gueldenstr_17_0 :Gueldenstr_17_1"/>
+    <junction id=":Gueldenstr_23_0" type="internal" x="80.96" y="123.53" incLanes=":Gueldenstr_7_1 60922609#0_0 60922609#0_1" intLanes=":Gueldenstr_1_0 :Gueldenstr_2_0 :Gueldenstr_10_0 :Gueldenstr_12_0 :Gueldenstr_13_0 :Gueldenstr_13_1 :Gueldenstr_15_0 :Gueldenstr_16_0 :Gueldenstr_17_0 :Gueldenstr_17_1"/>
     <junction id=":Gueldenstr_24_0" type="internal" x="102.28" y="114.01" incLanes=":Gueldenstr_9_0 292614141#5_0 376743572#0_0 5134789#0_0 60922609#0_0 60922609#0_1" intLanes=":Gueldenstr_2_0 :Gueldenstr_10_0 :Gueldenstr_11_0 :Gueldenstr_17_0 :Gueldenstr_17_1"/>
-    <junction id=":Gueldenstr_25_0" type="internal" x="75.17" y="131.09" incLanes=":Gueldenstr_13_0 5134789#0_0" intLanes=":Gueldenstr_0_0 :Gueldenstr_1_0 :Gueldenstr_5_0 :Gueldenstr_5_1 :Gueldenstr_7_0 :Gueldenstr_7_1 :Gueldenstr_17_0 :Gueldenstr_17_1 :Gueldenstr_19_0 :Gueldenstr_20_0"/>
-    <junction id=":Gueldenstr_26_0" type="internal" x="69.83" y="123.99" incLanes=":Gueldenstr_14_0 320399276_2 320399276_3 5134789#0_0 60922609#0_0" intLanes=":Gueldenstr_1_0 :Gueldenstr_7_0 :Gueldenstr_7_1 :Gueldenstr_16_0"/>
-    <junction id=":Gueldenstr_27_0" type="internal" x="67.61" y="121.47" incLanes=":Gueldenstr_14_1 320399276_2 320399276_3 5134789#0_0 60922609#0_0" intLanes=":Gueldenstr_1_0 :Gueldenstr_7_0 :Gueldenstr_7_1 :Gueldenstr_16_0"/>
-    <junction id=":Gueldenstr_28_0" type="internal" x="89.50" y="131.43" incLanes=":Gueldenstr_19_0 320399276_0 320399276_1 320399276_2" intLanes=":Gueldenstr_1_0 :Gueldenstr_2_0 :Gueldenstr_3_0 :Gueldenstr_4_0 :Gueldenstr_5_0 :Gueldenstr_5_1 :Gueldenstr_10_0 :Gueldenstr_12_0 :Gueldenstr_13_0"/>
-    <junction id=":Gueldenstr_29_0" type="internal" x="69.26" y="144.71" incLanes=":Gueldenstr_20_0 320399276_1 320399276_2" intLanes=":Gueldenstr_0_0 :Gueldenstr_5_0 :Gueldenstr_5_1 :Gueldenstr_13_0"/>
+    <junction id=":Gueldenstr_25_0" type="internal" x="76.99" y="133.35" incLanes=":Gueldenstr_13_0 5134789#0_0" intLanes=":Gueldenstr_0_0 :Gueldenstr_1_0 :Gueldenstr_5_0 :Gueldenstr_5_1 :Gueldenstr_7_0 :Gueldenstr_7_1 :Gueldenstr_17_0 :Gueldenstr_17_1 :Gueldenstr_19_0 :Gueldenstr_20_0"/>
+    <junction id=":Gueldenstr_26_0" type="internal" x="74.52" y="130.25" incLanes=":Gueldenstr_13_1 5134789#0_0" intLanes=":Gueldenstr_0_0 :Gueldenstr_1_0 :Gueldenstr_5_0 :Gueldenstr_5_1 :Gueldenstr_7_0 :Gueldenstr_7_1 :Gueldenstr_17_0 :Gueldenstr_17_1 :Gueldenstr_19_0 :Gueldenstr_20_0"/>
+    <junction id=":Gueldenstr_27_0" type="internal" x="67.61" y="121.47" incLanes=":Gueldenstr_15_0 320399276_2 320399276_3 5134789#0_0 60922609#0_0" intLanes=":Gueldenstr_1_0 :Gueldenstr_7_0 :Gueldenstr_7_1 :Gueldenstr_16_0"/>
+    <junction id=":Gueldenstr_28_0" type="internal" x="89.50" y="131.43" incLanes=":Gueldenstr_19_0 320399276_0 320399276_1 320399276_2" intLanes=":Gueldenstr_1_0 :Gueldenstr_2_0 :Gueldenstr_3_0 :Gueldenstr_4_0 :Gueldenstr_5_0 :Gueldenstr_5_1 :Gueldenstr_10_0 :Gueldenstr_12_0 :Gueldenstr_13_0 :Gueldenstr_13_1"/>
+    <junction id=":Gueldenstr_29_0" type="internal" x="69.26" y="144.71" incLanes=":Gueldenstr_20_0 320399276_1 320399276_2" intLanes=":Gueldenstr_0_0 :Gueldenstr_5_0 :Gueldenstr_5_1 :Gueldenstr_13_0 :Gueldenstr_13_1"/>
 
     <connection from="-39140174#4" to="5134789#0" fromLane="0" toLane="0" via=":468444799_0_0" dir="s" state="M"/>
     <connection from="292614141#5" to="292614141#12" fromLane="0" toLane="0" via=":Gueldenstr_10_0" tl="Gueldenstr" linkIndex="10" dir="r" state="o"/>
@@ -263,9 +263,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="320399276" to="31414016#0" fromLane="3" toLane="1" via=":Gueldenstr_9_0" tl="Gueldenstr" linkIndex="9" dir="t" state="o"/>
     <connection from="376743572#0" to="31414016#0" fromLane="0" toLane="0" via=":Gueldenstr_11_0" tl="Gueldenstr" linkIndex="11" dir="r" state="O"/>
     <connection from="376743572#0" to="515351950#0" fromLane="1" toLane="0" via=":Gueldenstr_12_0" tl="Gueldenstr" linkIndex="12" dir="L" state="O"/>
-    <connection from="376743572#0" to="30424335#0" fromLane="2" toLane="1" via=":Gueldenstr_13_0" tl="Gueldenstr" linkIndex="13" dir="l" state="o"/>
-    <connection from="376743572#0" to="320399275#0" fromLane="3" toLane="0" via=":Gueldenstr_14_0" tl="Gueldenstr" linkIndex="14" dir="t" state="o"/>
-    <connection from="376743572#0" to="320399275#0" fromLane="4" toLane="1" via=":Gueldenstr_14_1" tl="Gueldenstr" linkIndex="15" dir="t" state="o"/>
+    <connection from="376743572#0" to="30424335#0" fromLane="2" toLane="0" via=":Gueldenstr_13_0" tl="Gueldenstr" linkIndex="13" dir="l" state="o"/>
+    <connection from="376743572#0" to="30424335#0" fromLane="3" toLane="1" via=":Gueldenstr_13_1" tl="Gueldenstr" linkIndex="14" dir="l" state="o"/>
+    <connection from="376743572#0" to="320399275#0" fromLane="4" toLane="1" via=":Gueldenstr_15_0" tl="Gueldenstr" linkIndex="15" dir="t" state="o"/>
     <connection from="39140174#0" to="-39140174#4" fromLane="0" toLane="0" via=":5689801350_0_0" dir="t" state="M"/>
     <connection from="5134789#0" to="30424335#0" fromLane="0" toLane="0" via=":Gueldenstr_0_0" tl="Gueldenstr" linkIndex="0" dir="r" state="O"/>
     <connection from="5134789#0" to="320399275#0" fromLane="0" toLane="1" via=":Gueldenstr_1_0" tl="Gueldenstr" linkIndex="1" dir="s" state="O"/>
@@ -298,11 +298,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from=":Gueldenstr_10" to="292614141#12" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":Gueldenstr_11" to="31414016#0" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":Gueldenstr_12" to="515351950#0" fromLane="0" toLane="0" dir="L" state="M"/>
-    <connection from=":Gueldenstr_13" to="30424335#0" fromLane="0" toLane="1" via=":Gueldenstr_25_0" dir="l" state="m"/>
-    <connection from=":Gueldenstr_25" to="30424335#0" fromLane="0" toLane="1" dir="l" state="M"/>
-    <connection from=":Gueldenstr_14" to="320399275#0" fromLane="0" toLane="0" via=":Gueldenstr_26_0" dir="t" state="m"/>
-    <connection from=":Gueldenstr_26" to="320399275#0" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from=":Gueldenstr_14" to="320399275#0" fromLane="1" toLane="1" via=":Gueldenstr_27_0" dir="t" state="m"/>
+    <connection from=":Gueldenstr_13" to="30424335#0" fromLane="0" toLane="0" via=":Gueldenstr_25_0" dir="l" state="m"/>
+    <connection from=":Gueldenstr_25" to="30424335#0" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":Gueldenstr_13" to="30424335#0" fromLane="1" toLane="1" via=":Gueldenstr_26_0" dir="l" state="m"/>
+    <connection from=":Gueldenstr_26" to="30424335#0" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":Gueldenstr_15" to="320399275#0" fromLane="0" toLane="1" via=":Gueldenstr_27_0" dir="t" state="m"/>
     <connection from=":Gueldenstr_27" to="320399275#0" fromLane="0" toLane="1" dir="t" state="M"/>
     <connection from=":Gueldenstr_16" to="320399275#0" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":Gueldenstr_17" to="31414016#0" fromLane="0" toLane="0" dir="s" state="M"/>
