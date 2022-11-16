@@ -1775,62 +1775,71 @@ GNEStop::getPathStopIndex() const {
     if (getParentDemandElements().empty()) {
         return -1;
     }
-    const auto lastID = getParentDemandElements().front()->getAttribute(SUMO_ATTR_TO);
+    // get last parent edge
+    const auto lastEdge = getParentDemandElements().front()->getParentEdges().back();
     bool stop = false;
-    // get stop parent's segments
-    std::vector<GNEEdge*> segments;
+    // get path edges
+    std::vector<GNEEdge*> pathEdges;
     const auto &pathElementSegments = myNet->getPathManager()->getPathElementSegments(getParentDemandElements().front());
-    for (auto it = pathElementSegments.begin(); it != pathElementSegments.end() && !stop; it++) {
+    // extract all edges from pathElement parent
+    for (auto it = pathElementSegments.begin(); (it != pathElementSegments.end()) && !stop; it++) {
         if ((*it)->getLane()) {
-            segments.push_back((*it)->getLane()->getParentEdge());
-            if (segments.back()->getID() == lastID) {
+            pathEdges.push_back((*it)->getLane()->getParentEdge());
+            // stop if path correspond to last edge
+            if (pathEdges.back() == lastEdge) {
                 stop = true;
             }
         }
     }
     // get all parent's stops and waypoints sorted by position
-    std::vector<edgeStopIndex> stops;
+    std::vector<edgeStopIndex> edgeStopIndexes;
     for (const auto &demandElement : getParentDemandElements().front()->getChildDemandElements()) {
         if (demandElement->getTagProperty().isStop() || demandElement->getTagProperty().isWaypoint()) {
+            // get stop/waypoint edge
             GNEEdge* edge = nullptr;
             if (demandElement->getParentAdditionals().size() > 0) {
                 edge = demandElement->getParentAdditionals().front()->getParentLanes().front()->getParentEdge();
             } else {
                 edge = demandElement->getParentLanes().front()->getParentEdge();
             }
-            if ((stops.size() > 0) && (stops.back().edge == edge)) {
-                stops.back().stops.push_back(demandElement);
+            // check if add a new edgeStopIndex or update last
+            if ((edgeStopIndexes.size() > 0) && (edgeStopIndexes.back().edge == edge)) {
+                edgeStopIndexes.back().stops.push_back(demandElement);
             } else {
-                stops.push_back(edgeStopIndex(edge, demandElement));
+                edgeStopIndexes.push_back(edgeStopIndex(edge, demandElement));
             }
         }
     }
-
-    int currentStop = 0;
-    for (int i = 0; (i < (int)segments.size()) && (currentStop < (int)stops.size()); i++) {
-        if (stops[currentStop].edge == segments.at(i)) {
-            stops[currentStop].stopIndex = i;
-            currentStop++;
+    // declare index for current stop
+    int currentEdgeStopIndex = 0;
+    for (int i = 0; (i < (int)pathEdges.size()) && (currentEdgeStopIndex < (int)edgeStopIndexes.size()); i++) {
+        // check if current edge stop index is in the path
+        if (edgeStopIndexes[currentEdgeStopIndex].edge == pathEdges.at(i)) {
+            edgeStopIndexes[currentEdgeStopIndex].stopIndex = i;
+            currentEdgeStopIndex++;
         } else {
+            // check if edge exist in the rest of the path
             bool next = false;
-            for (int j = (i + 1); j < (int)segments.size(); j++) {
-                if (stops[currentStop].edge == segments.at(j)) {
+            for (int j = (i + 1); j < (int)pathEdges.size(); j++) {
+                if (edgeStopIndexes[currentEdgeStopIndex].edge == pathEdges.at(j)) {
                     next = true;
                 }
             }
             if (!next) {
                 // ignore current stops (because is out of path)
-                currentStop++;
+                currentEdgeStopIndex++;
             }
         }
     }
-    for (const auto &stop : stops) {
-        for (const auto &j : stop.stops) {
+    // finally find stopIndex in edgeStopIndexes
+    for (const auto &edgeStopIndex : edgeStopIndexes) {
+        for (const auto &j : edgeStopIndex.stops) {
             if (j == this) {
-                return stop.stopIndex;
+                return edgeStopIndex.stopIndex;
             }
         }
     }
+    // not found, then return -1
     return -1;
 }
 
