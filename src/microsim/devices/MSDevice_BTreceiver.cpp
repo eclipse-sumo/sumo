@@ -138,7 +138,7 @@ MSDevice_BTreceiver::BTreceiverUpdate::~BTreceiverUpdate() {
 SUMOTime
 MSDevice_BTreceiver::BTreceiverUpdate::execute(SUMOTime /*currentTime*/) {
     // loop over equipped persons to update their positions
-    if (myHasPersons) {
+    if (myHasPersons && MSNet::getInstance()->hasPersons()) {  // the check whether the net has persons is only important in the final cleanup
         MSTransportableControl& c = MSNet::getInstance()->getPersonControl();
         for (MSTransportableControl::constVehIt i = c.loadedBegin(); i != c.loadedEnd(); ++i) {
             MSTransportable* t = i->second;

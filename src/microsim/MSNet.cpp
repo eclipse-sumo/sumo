@@ -300,9 +300,11 @@ MSNet::~MSNet() {
     delete myRouteLoaders;
     if (myPersonControl != nullptr) {
         delete myPersonControl;
+        myPersonControl = nullptr; // just to have that clear for later cleanups
     }
     if (myContainerControl != nullptr) {
         delete myContainerControl;
+        myContainerControl = nullptr; // just to have that clear for later cleanups
     }
     delete myVehicleControl; // must happen after deleting transportables
     // delete events late so that vehicles can get rid of references first
