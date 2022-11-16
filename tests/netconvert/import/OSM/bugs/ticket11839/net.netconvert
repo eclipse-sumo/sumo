@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-14 22:24:56 by Eclipse SUMO netconvert Version v1_14_1+1768-0347bd0
+<!-- generated on 2022-11-16 11:39:28 by Eclipse SUMO netconvert Version v1_15_0+0315-be5f1a2
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -1123,10 +1123,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="5"  state="rr"/>
     </tlLogic>
     <tlLogic id="815343324" type="static" programID="0" offset="0">
-        <phase duration="42" state="rGG"/>
-        <phase duration="3"  state="ryy"/>
-        <phase duration="42" state="Grr"/>
-        <phase duration="3"  state="yrr"/>
+        <phase duration="82" state="gGG"/>
+        <phase duration="3"  state="yyy"/>
+        <phase duration="5"  state="rrr"/>
     </tlLogic>
     <tlLogic id="815343355" type="static" programID="0" offset="0">
         <phase duration="82" state="GG"/>
