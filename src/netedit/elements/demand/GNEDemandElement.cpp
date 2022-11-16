@@ -1058,6 +1058,25 @@ GNEDemandElement::getEdgeStopIndex() const {
             }
         }
     }
+    // sort stops by position
+    for (auto &edgeStop : edgeStopIndex) {
+        if (edgeStop.stops.size() > 1) {
+            // copy all stops to a map to sort it by endPos
+            std::map<double, std::vector<GNEDemandElement*> > sortedStops;
+            for (const auto &stop : edgeStop.stops) {
+                if (sortedStops.count(stop->getAttributeDouble(SUMO_ATTR_ENDPOS)) == 0) {
+                    sortedStops[stop->getAttributeDouble(SUMO_ATTR_ENDPOS)] = {stop};
+                } else {
+                    sortedStops[stop->getAttributeDouble(SUMO_ATTR_ENDPOS)].push_back(stop);
+                }
+            }
+            // update stops with sorted stops
+            edgeStop.stops.clear();
+            for (const auto &sortedStop : sortedStops) {
+                edgeStop.stops.insert(edgeStop.stops.end(), sortedStop.second.begin(), sortedStop.second.end());
+            }
+        }
+    }
     return edgeStopIndex;
 }
 
