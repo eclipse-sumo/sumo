@@ -706,6 +706,8 @@ GNEStop::getAttributeDouble(SumoXMLAttr key) const {
             }
             return 0;
         }
+        case GNE_ATTR_PATHSTOPINDEX:
+            return 0;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }

@@ -1414,8 +1414,10 @@ enum SumoXMLAttr {
     GNE_ATTR_VTYPE_DISTRIBUTION,
     /// @brief poisson definition (used in flow)
     GNE_ATTR_POISSON,
-    /// @brief stop index
+    /// @brief stop index (position in the parent's children
     GNE_ATTR_STOPINDEX,
+    /// @brief stop index (position in the parent's path)
+    GNE_ATTR_PATHSTOPINDEX,
 
     // @}
 
