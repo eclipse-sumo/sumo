@@ -24,3 +24,6 @@ lefthand_sidewalk
 
 # test exporting signal groups
 signalGroups
+
+# test exporting pois and polygons
+roadObjects
