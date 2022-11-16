@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_14_1+1919-6e355cb
+Eclipse SUMO netconvert Version v1_15_0+0319-d3d8dcf
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -90,6 +90,9 @@ Output Options:
   --opendrive-output.straight-threshold FLOAT  Builds parameterized curves
                                         whenever the angular change  between
                                         straight segments exceeds FLOAT degrees
+  --opendrive-output.shape-match-dist FLOAT  Match loaded shapes to the closest
+                                        edge within FLOAT and export as road
+                                        objects
 
 Projection Options:
   --simple-projection                  Uses a simple method for projection

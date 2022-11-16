@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-25 15:17:55 by Eclipse SUMO netconvert Version v1_14_1+1919-6e355cb
+<!-- generated on 2022-11-16 15:49:51 by Eclipse SUMO netconvert Version v1_15_0+0319-d3d8dcf
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -62,6 +62,7 @@
         <railway.topology.output value="" type="FILE" help="Analyze topology of the railway network"/>
         <polygon-output value="" synonymes="taz-output" type="FILE" help="Write shapes that are embedded in the network input and that are not supported by polyconvert (OpenDRIVE)"/>
         <opendrive-output.straight-threshold value="1e-08" type="FLOAT" help="Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees"/>
+        <opendrive-output.shape-match-dist value="-1" type="FLOAT" help="Match loaded shapes to the closest edge within FLOAT and export as road objects"/>
     </output>
 
     <projection>
