@@ -114,6 +114,7 @@ MSTransportableDevice_BTreceiver::buildDevices(MSTransportable& t, std::vector<M
     }
 }
 
+
 // ---------------------------------------------------------------------------
 // MSDevice_BTreceiver::BTreceiverUpdate-methods
 // ---------------------------------------------------------------------------
@@ -123,13 +124,13 @@ MSDevice_BTreceiver::BTreceiverUpdate::BTreceiverUpdate() {
 
 
 MSDevice_BTreceiver::BTreceiverUpdate::~BTreceiverUpdate() {
-    for (std::map<std::string, MSDevice_BTsender::VehicleInformation*>::const_iterator i = MSDevice_BTsender::sVehicles.begin(); i != MSDevice_BTsender::sVehicles.end(); ++i) {
-        (*i).second->amOnNet = false;
-        (*i).second->haveArrived = true;
+    for (const auto& vehicleInfo : MSDevice_BTsender::sVehicles) {
+        vehicleInfo.second->amOnNet = false;
+        vehicleInfo.second->haveArrived = true;
     }
-    for (std::map<std::string, MSDevice_BTreceiver::VehicleInformation*>::const_iterator i = MSDevice_BTreceiver::sVehicles.begin(); i != MSDevice_BTreceiver::sVehicles.end(); ++i) {
-        (*i).second->amOnNet = false;
-        (*i).second->haveArrived = true;
+    for (const auto& vehicleInfo : MSDevice_BTreceiver::sVehicles) {
+        vehicleInfo.second->amOnNet = false;
+        vehicleInfo.second->haveArrived = true;
     }
     execute(MSNet::getInstance()->getCurrentTimeStep());
 }
@@ -332,35 +333,6 @@ MSDevice_BTreceiver::BTreceiverUpdate::leaveRange(VehicleInformation& receiverIn
 }
 
 
-double
-MSDevice_BTreceiver::inquiryDelaySlots(const int backoffLimit) {
-    const int phaseOffset = RandHelper::rand(2047, &sRecognitionRNG);
-    const bool interlaced = RandHelper::rand(&sRecognitionRNG) < 0.7;
-    const double delaySlots = RandHelper::rand(&sRecognitionRNG) * 15;
-    const int backoff = RandHelper::rand(backoffLimit, &sRecognitionRNG);
-    if (interlaced) {
-        return RandHelper::rand(&sRecognitionRNG) * 31 + backoff;
-    }
-    if (RandHelper::rand(31, &sRecognitionRNG) < 16) {
-        // correct train for f0
-        return delaySlots + backoff;
-    }
-    if (RandHelper::rand(30, &sRecognitionRNG) < 16) {
-        // correct train for f1
-        return 2048 - phaseOffset + delaySlots + backoff;
-    }
-    if (RandHelper::rand(29, &sRecognitionRNG) < 16) {
-        // f2 is in train A but has overlap with both trains
-        if (2 * 2048 - phaseOffset + backoff < 4096) {
-            return 2 * 2048 - phaseOffset + delaySlots + backoff;
-        }
-        // the following is wrong but should only happen in about 3% of the non-interlaced cases
-        return 2 * 2048 - phaseOffset + delaySlots + backoff;
-    }
-    return 2 * 2048 + delaySlots + backoff;
-}
-
-
 void
 MSDevice_BTreceiver::BTreceiverUpdate::addRecognitionPoint(const double tEnd, const MSDevice_BTsender::VehicleState& receiverState,
         const MSDevice_BTsender::VehicleState& senderState,
@@ -418,12 +390,9 @@ MSDevice_BTreceiver::BTreceiverUpdate::writeOutput(const std::string& id, const 
 }
 
 
-
-
 // ---------------------------------------------------------------------------
 // MSDevice_BTreceiver-methods
 // ---------------------------------------------------------------------------
-
 MSDevice_BTreceiver::~MSDevice_BTreceiver() {
 }
 
@@ -477,6 +446,35 @@ MSDevice_BTreceiver::notifyLeave(SUMOTrafficObject& veh, double /* lastPos */, M
         sVehicles[veh.getID()]->haveArrived = true;
     }
     return true;
+}
+
+
+double
+MSDevice_BTreceiver::inquiryDelaySlots(const int backoffLimit) {
+    const int phaseOffset = RandHelper::rand(2047, &sRecognitionRNG);
+    const bool interlaced = RandHelper::rand(&sRecognitionRNG) < 0.7;
+    const double delaySlots = RandHelper::rand(&sRecognitionRNG) * 15;
+    const int backoff = RandHelper::rand(backoffLimit, &sRecognitionRNG);
+    if (interlaced) {
+        return RandHelper::rand(&sRecognitionRNG) * 31 + backoff;
+    }
+    if (RandHelper::rand(31, &sRecognitionRNG) < 16) {
+        // correct train for f0
+        return delaySlots + backoff;
+    }
+    if (RandHelper::rand(30, &sRecognitionRNG) < 16) {
+        // correct train for f1
+        return 2048 - phaseOffset + delaySlots + backoff;
+    }
+    if (RandHelper::rand(29, &sRecognitionRNG) < 16) {
+        // f2 is in train A but has overlap with both trains
+        if (2 * 2048 - phaseOffset + backoff < 4096) {
+            return 2 * 2048 - phaseOffset + delaySlots + backoff;
+        }
+        // the following is wrong but should only happen in about 3% of the non-interlaced cases
+        return 2 * 2048 - phaseOffset + delaySlots + backoff;
+    }
+    return 2 * 2048 + delaySlots + backoff;
 }
 
 
