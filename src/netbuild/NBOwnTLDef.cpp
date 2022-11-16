@@ -370,6 +370,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
         bool groupTram = false;
         bool groupOther = false;
         std::pair<NBEdge*, NBEdge*> chosen;
+        std::set<const NBEdge*> chosenSet;
         if (groupOpposites) {
             if (incoming.size() == 2) {
                 // if there are only 2 incoming edges we need to decide whether they are a crossing or a "continuation"
@@ -424,11 +425,37 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
         }
 #endif
         chosenList.push_back(chosen);
+        chosenSet.insert(chosen.first);
+        if (chosen.second != nullptr) {
+            chosenSet.insert(chosen.second);
+        }
+        // find parallel bike edge for the chosen (passenger) edges
+        for (const NBEdge* e : chosenSet) {
+            if ((e->getPermissions() & SVC_PASSENGER) != 0) {
+                std::vector<NBEdge*> parallelBikeEdges;
+                for (NBEdge* cand : toProc) {
+                    if ((cand->getPermissions() & ~SVC_PEDESTRIAN) == SVC_BICYCLE) {
+                        double angle = fabs(NBHelpers::relAngle(e->getAngleAtNode(e->getToNode()), cand->getAngleAtNode(cand->getToNode())));
+                        if (angle < 30) {
+                            // roughly parallel
+                            parallelBikeEdges.push_back(cand);
+                        }
+                    }
+                }
+                for (NBEdge* be : parallelBikeEdges) {
+#ifdef DEBUG_PHASES
+                    if (DEBUGCOND) std::cout << " chosen=" << e->getID() << " be=" << be->getID() << "\n";
+#endif
+                    chosenSet.insert(be);
+                    toProc.erase(std::find(toProc.begin(), toProc.end(), be));
+                }
+            }
+        }
         // plain straight movers
         double maxSpeed = 0;
         bool haveGreen = false;
         for (const NBEdge* const fromEdge : incoming) {
-            const bool inChosen = fromEdge == chosen.first || fromEdge == chosen.second; //chosen.find(fromEdge)!=chosen.end();
+            const bool inChosen = chosenSet.count(fromEdge) != 0;
             const int numLanes = fromEdge->getNumLanes();
             for (int i2 = 0; i2 < numLanes; i2++) {
                 for (const NBEdge::Connection& approached : fromEdge->getConnectionsFromLane(i2)) {
