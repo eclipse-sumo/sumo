@@ -5630,6 +5630,11 @@ GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag, const bool 
                                               "false");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
+
+    attrProperty = GNEAttributeProperties(GNE_ATTR_PATHSTOPINDEX,
+                                          GNEAttributeProperties::STRING,
+                                          "New line attribute to be set on the vehicle when reaching this stop (for cyclical public transport route)");
+    myTagProperties[currentTag].addAttribute(attrProperty);
 }
 
 

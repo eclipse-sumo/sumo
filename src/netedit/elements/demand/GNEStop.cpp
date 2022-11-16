@@ -1769,49 +1769,78 @@ GNEStop::drawGeometryPoints(const GUIVisualizationSettings& s, const RGBColor& b
 }
 
 
+struct test {
+    std::vector<GNEDemandElement*> stops;
+    GNEEdge* edge = nullptr;
+    int index = -1;
+
+};
+
+
 int
 GNEStop::getPathStopIndex() const {
     if (getParentDemandElements().size() > 0) {
+        const auto lastID = getParentDemandElements().front()->getAttribute(SUMO_ATTR_TO);
+        bool stop = false;
         // get stop parent's segments
-        const auto &segments = myNet->getPathManager()->getPathElementSegments(getParentDemandElements().front());
-        // get all parent's stops and waypoints sorted by position
-        std::vector<std::pair<GNEDemandElement*, GNELane*> > stopsLane;
-        std::vector<std::pair<GNEDemandElement*, int> > stopsIndex;
-        for (const auto &demandElement : getParentDemandElements().front()->getChildDemandElements()) {
-            if (demandElement->getTagProperty().isStop() || demandElement->getTagProperty().isWaypoint()) {
-                if (demandElement->getParentAdditionals().size() > 0) {
-                    stopsLane.push_back(std::make_pair(demandElement, demandElement->getParentAdditionals().front()->getParentLanes().front()));
-                    stopsIndex.push_back(std::make_pair(demandElement, -1));
-                } else {
-                    stopsLane.push_back(std::make_pair(demandElement, demandElement->getParentLanes().front()));
-                    stopsIndex.push_back(std::make_pair(demandElement, -1));
+        std::vector<GNEEdge*> segments;
+        const auto &pathElementSegments = myNet->getPathManager()->getPathElementSegments(getParentDemandElements().front());
+        for (auto it = pathElementSegments.begin(); it != pathElementSegments.end() && !stop; it++) {
+            if ((*it)->getLane()) {
+                segments.push_back((*it)->getLane()->getParentEdge());
+                if (segments.back()->getID() == lastID) {
+                    stop = true;
                 }
             }
         }
-        int laneIndex = 0;
-        int temporalIndex = 0;
+        // get all parent's stops and waypoints sorted by position
+        std::vector<test> stops;
+        for (const auto &demandElement : getParentDemandElements().front()->getChildDemandElements()) {
+            if (demandElement->getTagProperty().isStop() || demandElement->getTagProperty().isWaypoint()) {
+                GNEEdge* edge = nullptr;
+                if (demandElement->getParentAdditionals().size() > 0) {
+                    edge = demandElement->getParentAdditionals().front()->getParentLanes().front()->getParentEdge();
+                } else {
+                    edge = demandElement->getParentLanes().front()->getParentEdge();
+                }
+                if ((stops.size() > 0) && (stops.back().edge == edge)) {
+                    stops.back().stops.push_back(demandElement);
+                } else {
+                    test t;
+                    t.edge = edge;
+                    t.stops.push_back(demandElement);
+                    stops.push_back(t);
+                }
+            }
+        }
+
+
+        int edgeIndex = 0;
         int currentStop = 0;
-        while (laneIndex < (int)segments.size() && (currentStop < stopsLane.size())) {
-            if (stopsLane[currentStop].second == segments.at(laneIndex)->getLane()) {
-                stopsIndex[currentStop].second = laneIndex;
+        while ((edgeIndex < (int)segments.size()) && (currentStop < (int)stops.size())) {
+            if (stops[currentStop].edge == segments.at(edgeIndex)) {
+                stops[currentStop].index = edgeIndex;
                 currentStop++;
             } else {
                 bool next = false;
-                for (int i = laneIndex; i < (int)segments.size(); i++) {
-                    if (stopsLane[currentStop].second == segments.at(i)->getLane()) {
+                for (int i = (edgeIndex + 1); i < (int)segments.size(); i++) {
+                    if (stops[currentStop].edge == segments.at(i)) {
                         next = true;
                     }
                 }
                 if (next) {
-                    laneIndex++;
+                    ;//edgeIndex++;
                 } else {
                     currentStop++;
                 }
             }
+            edgeIndex++;
         }
-        for (const auto &stopIndex : stopsIndex) {
-            if (stopIndex.first == this) {
-                return stopIndex.second;
+        for (const auto &stop : stops) {
+            for (const auto &j : stop.stops) {
+                if (j == this) {
+                    return stop.index;
+                }
             }
         }
     }
