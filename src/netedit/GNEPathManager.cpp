@@ -615,6 +615,16 @@ GNEPathManager::getPathElement(const GUIGlObject* GLObject) const {
 }
 
 
+const std::vector<GNEPathManager::Segment*>&
+GNEPathManager::getPathElementSegments(GNEPathManager::PathElement* pathElement) const {
+    if (myPaths.count(pathElement) > 0) {
+        return myPaths.at(pathElement);
+    } else {
+        return myEmptySegments;
+    }
+}
+
+
 GNEPathManager::PathDraw*
 GNEPathManager::getPathDraw() {
     return myPathDraw;

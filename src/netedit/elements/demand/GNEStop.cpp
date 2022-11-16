@@ -660,6 +660,8 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
             }
             return "invalid index";
         }
+        case GNE_ATTR_PATHSTOPINDEX:
+            return toString(getPathStopIndex());
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -707,7 +709,7 @@ GNEStop::getAttributeDouble(SumoXMLAttr key) const {
             return 0;
         }
         case GNE_ATTR_PATHSTOPINDEX:
-            return 0;
+            return (double)getPathStopIndex();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }
@@ -1764,6 +1766,56 @@ GNEStop::drawGeometryPoints(const GUIVisualizationSettings& s, const RGBColor& b
         // pop draw matrix
         GLHelper::popMatrix();
     }
+}
+
+
+int
+GNEStop::getPathStopIndex() const {
+    if (getParentDemandElements().size() > 0) {
+        // get stop parent's segments
+        const auto &segments = myNet->getPathManager()->getPathElementSegments(getParentDemandElements().front());
+        // get all parent's stops and waypoints sorted by position
+        std::vector<std::pair<GNEDemandElement*, GNELane*> > stopsLane;
+        std::vector<std::pair<GNEDemandElement*, int> > stopsIndex;
+        for (const auto &demandElement : getParentDemandElements().front()->getChildDemandElements()) {
+            if (demandElement->getTagProperty().isStop() || demandElement->getTagProperty().isWaypoint()) {
+                if (demandElement->getParentAdditionals().size() > 0) {
+                    stopsLane.push_back(std::make_pair(demandElement, demandElement->getParentAdditionals().front()->getParentLanes().front()));
+                    stopsIndex.push_back(std::make_pair(demandElement, -1));
+                } else {
+                    stopsLane.push_back(std::make_pair(demandElement, demandElement->getParentLanes().front()));
+                    stopsIndex.push_back(std::make_pair(demandElement, -1));
+                }
+            }
+        }
+        int laneIndex = 0;
+        int temporalIndex = 0;
+        int currentStop = 0;
+        while (laneIndex < (int)segments.size() && (currentStop < stopsLane.size())) {
+            if (stopsLane[currentStop].second == segments.at(laneIndex)->getLane()) {
+                stopsIndex[currentStop].second = laneIndex;
+                currentStop++;
+            } else {
+                bool next = false;
+                for (int i = laneIndex; i < (int)segments.size(); i++) {
+                    if (stopsLane[currentStop].second == segments.at(i)->getLane()) {
+                        next = true;
+                    }
+                }
+                if (next) {
+                    laneIndex++;
+                } else {
+                    currentStop++;
+                }
+            }
+        }
+        for (const auto &stopIndex : stopsIndex) {
+            if (stopIndex.first == this) {
+                return stopIndex.second;
+            }
+        }
+    }
+    return -1;
 }
 
 /****************************************************************************/
