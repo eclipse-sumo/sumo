@@ -71,8 +71,8 @@ public:
     static MSDevice_Vehroutes* buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into, int maxRoutes = std::numeric_limits<int>::max());
 
 
-    /// @brief generate vehroute output for vehicles which are still in the network
-    static void generateOutputForUnfinished();
+    /// @brief generate vehroute output for pending vehicles at sim end, either due to sorting or because they are still in the net
+    static void writePendingOutput(const bool includeUnfinished);
 
 
 public:

@@ -269,6 +269,10 @@ public:
     /// @brief Resets transportables when quick-loading state
     void clearState();
 
+    const MSDevice_Vehroutes::SortedRouteInfo& getRouteInfo() {
+        return myRouteInfos;
+    }
+
 protected:
     /// all currently created transportables by id
     std::map<std::string, MSTransportable*> myTransportables;

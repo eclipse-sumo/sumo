@@ -625,9 +625,7 @@ MSNet::closeSimulation(SUMOTime start, const std::string& reason) {
     if (MSStopOut::active() && OptionsCont::getOptions().getBool("stop-output.write-unfinished")) {
         MSStopOut::getInstance()->generateOutputForUnfinished();
     }
-    if (OptionsCont::getOptions().getBool("vehroute-output.write-unfinished")) {
-        MSDevice_Vehroutes::generateOutputForUnfinished();
-    }
+    MSDevice_Vehroutes::writePendingOutput(OptionsCont::getOptions().getBool("vehroute-output.write-unfinished"));
     if (OptionsCont::getOptions().getBool("tripinfo-output.write-unfinished")) {
         MSDevice_Tripinfo::generateOutputForUnfinished();
     }
