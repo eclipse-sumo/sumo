@@ -10,13 +10,21 @@ title: ChangeLog
   - Fixed invalid walking distance output related to lengths of crossings and walkingArea paths. Issue #11983
   - Fixed invalid braking at internal junction. Issue #12000
   - Fixed invalid right of way rules when for two conflicting connections with internal junctions. Issue #11988
+  - Fixed incomplete vehroute-output when using option **--vehroute-output.sorted** and some cars or vehicle do not finish their journey. Issue #12049
 
 - netedit
-  - Fixed bug where during creation of new edge, sometimes, the candidate "to" junction isn't draw wit magenta dotted contour. Issue #12013 (regression in 1.15.0)
+  - Fixed bug where stops on looped routes where saved in an invalid order. Issue #12054 (regression in 1.12.0)
+  - Fixed bug where during creation of new edge, sometimes, the candidate "to" junction isn't draw wit magenta dotted contour. Issue #12013 (regression in 1.15.0)  
+  - Fixed invalid selection outline. Issue #12033
+  - Fixed bug where right-click object-choice-menu lists the same object twice. Issue #12034
 
 - netconvert
+  - Fixed unnecessary dead-end lanes at large intersections. Issue #2472
   - Fixed invalid OpenDRIVE output when writting traffic signals with signal groups. Issue #11980
   - Fixed invalid right of way rules when connections from the same edge merge and both have internal junctions. Issue #11988
+  - Fixed invalid OpenDrive output for lefthand networks. Issue #11995, #12038, #12047
+  - Fixed bug where **--junctions.join** failed in intermodal networks. Issue #6495
+  - Fixed invalid dead-end when using option **--osm.turn-lanes**. Issue #12042
 
 - Tools
   - plot_net_dump_file.py: plotting a single measure is working again. Issue #11975 (regression in 1.15.0)
@@ -25,6 +33,11 @@ title: ChangeLog
 - All Applications: Fixed crash if gzipped outputfile cannot be opened. Issue #11954
 
 ### Enhancements
+
+- netconvert
+  - The right-of-way rules to take effect when switching a traffic light off, can now be configured as 'allway_stop'. This is the new default for NEMA-type controllers. Issue #12043
+  - Improve traffic light programs in networks with separated bicycle paths. Issue #10039
+  - OpenDRIVE outputs now suppots export of loaded POIs and polygons as road objects. Issue #12060
 
 - netedit
   - Added TimeStamp in Undo-Redo list. Issue #11744
