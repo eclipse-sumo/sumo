@@ -413,7 +413,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::drawBoundary(getCenteringBoundary());
     }
     // draw edge shape (a red line only visible if lane shape is strange)
-    drawEdgeShape();
+    drawEdgeShape(s);
     // draw lanes
     for (const auto& lane : myLanes) {
         lane->drawGL(s);
@@ -2463,28 +2463,31 @@ GNEEdge::drawTAZElements(const GUIVisualizationSettings& s) const {
 
 
 void
-GNEEdge::drawEdgeShape() const {
-    // push draw matrix
-    GLHelper::pushMatrix();
-    // Start with the drawing of the area traslating matrix to origin
-    myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_LANE);
-    // move back
-    glTranslated(0, 0, -0.1);
-    // Set red color
-    if (isAttributeCarrierSelected()) {
-        GLHelper::setColor(RGBColor::BLUE);
-    } else {
-        GLHelper::setColor(RGBColor::RED);
+GNEEdge::drawEdgeShape(const GUIVisualizationSettings& s) const {
+    /// @brief whether to draw this lane as a railway
+    if(!myLanes.front()->drawAsRailway(s)) {
+        // push draw matrix
+        GLHelper::pushMatrix();
+        // Start with the drawing of the area traslating matrix to origin
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_LANE);
+        // move back
+        glTranslated(0, 0, -0.1);
+        // Set red color
+        if (isAttributeCarrierSelected()) {
+            GLHelper::setColor(RGBColor::BLUE);
+        } else {
+            GLHelper::setColor(RGBColor::RED);
+        }
+        // iterate over NBEdge geometry
+        for (int i = 1; i < (int)myNBEdge->getGeometry().size(); i++) {
+            PositionVector line = {myNBEdge->getGeometry()[i-1], myNBEdge->getGeometry()[i]};
+            line.move2side(0.2);
+            // draw box line
+            GLHelper::drawBoxLine(line[1], RAD2DEG(line[0].angleTo2D(line[1])) - 90, line[0].distanceTo2D(line[1]), .1);
+        }
+        // pop draw matrix
+        GLHelper::popMatrix();
     }
-    // iterate over NBEdge geometry
-    for (int i = 1; i < (int)myNBEdge->getGeometry().size(); i++) {
-        PositionVector line = {myNBEdge->getGeometry()[i-1], myNBEdge->getGeometry()[i]};
-        line.move2side(0.2);
-        // draw box line
-        GLHelper::drawBoxLine(line[1], RAD2DEG(line[0].angleTo2D(line[1])) - 90, line[0].distanceTo2D(line[1]), .1);
-    }
-    // pop draw matrix
-    GLHelper::popMatrix();
 }
 
 
