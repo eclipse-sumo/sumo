@@ -41,7 +41,7 @@ public:
         SUMOTime begin, SUMOTime end, const bool trackVehicles, const std::vector<std::string> &writtenAttributes,
         const bool aggregate, const std::vector<std::string> &edges, const std::string &edgeFile, 
         std::string excludeEmpty, const bool withInternal, const std::vector<std::string> &detectPersons, 
-        const double minSamples, const double maxTravelTime, const std::vector<std::string> &vTypes, const double speedThreshold),
+        const double minSamples, const double maxTravelTime, const std::vector<std::string> &vTypes, const double speedThreshold);
 
     /// @brief Destructor
     ~GNEMeanData();
