@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-27 23:56:29 by Eclipse SUMO netconvert Version v1_12_0+0084-0d8fc346dad
+<!-- generated on 2022-11-17 14:48:46 by Eclipse SUMO netconvert Version v1_15_0+0361-a79ac28
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -29,7 +34,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -307,18 +311,18 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="8008611#1_0" index="0" allow="pedestrian bicycle" speed="2.78" length="38.68" shape="1340.98,179.26 1328.85,174.98 1303.69,169.17"/>
     </edge>
     <edge id="8008611#2" from="3719169604" to="3612453893" priority="1" type="highway.path" spreadType="center" shape="1300.60,168.45 1293.00,166.81 1270.25,162.07 1249.66,161.98 1224.23,165.24 1200.98,169.23 1170.92,177.70 1142.17,188.15 1037.10,228.24 995.73,243.73 690.93,359.36 598.40,393.87 587.46,398.06 513.90,426.28 396.34,470.36 276.73,514.92 203.62,544.75 126.21,565.15 65.70,581.21 40.14,586.86 31.18,584.52 9.20,587.55 0.00,581.84">
-        <lane id="8008611#2_0" index="0" allow="pedestrian bicycle" speed="2.78" length="1374.75" shape="1297.62,167.81 1293.00,166.81 1270.25,162.07 1249.66,161.98 1224.23,165.24 1200.98,169.23 1170.92,177.70 1142.17,188.15 1037.10,228.24 995.73,243.73 690.93,359.36 598.40,393.87 587.46,398.06 513.90,426.28 396.34,470.36 276.73,514.92 203.62,544.75 126.21,565.15 65.70,581.21 40.14,586.86 31.18,584.52 9.20,587.55 0.00,581.84"/>
+        <lane id="8008611#2_0" index="0" allow="pedestrian bicycle" speed="2.78" length="1374.75" shape="1297.62,167.81 1293.00,166.81 1270.25,162.07 1249.66,161.98 1224.23,165.24 1200.98,169.23 1170.92,177.70 1142.17,188.15 1037.10,228.24 995.73,243.73 690.93,359.36 598.40,393.87 587.46,398.06 513.90,426.28 396.34,470.36 276.73,514.92 203.62,544.75 126.21,565.15 65.70,581.21 40.14,586.86 31.18,584.52 9.20,587.55 -0.00,581.84"/>
     </edge>
 
     <tlLogic id="28095228" type="static" programID="0" offset="0">
         <phase duration="18" state="rrrrrrrrrrrrrGGGG"/>
         <phase duration="3"  state="rrrrrrrrrrrrryyyy"/>
-        <phase duration="20" state="rrrrGGGrrrrrrrrrr"/>
-        <phase duration="3"  state="rrrryyyrrrrrrrrrr"/>
-        <phase duration="20" state="rrrrrrrGGGGGGrrrr"/>
-        <phase duration="3"  state="rrrrrrryyyyyyrrrr"/>
         <phase duration="20" state="GGGgGrrrrrrrrrrrr"/>
         <phase duration="3"  state="yyyyyrrrrrrrrrrrr"/>
+        <phase duration="20" state="rrrrrrrGGGGGGrrrr"/>
+        <phase duration="3"  state="rrrrrrryyyyyyrrrr"/>
+        <phase duration="20" state="rrrrGGGrrrrrrrrrr"/>
+        <phase duration="3"  state="rrrryyyrrrrrrrrrr"/>
     </tlLogic>
     <tlLogic id="28095233" type="static" programID="0" offset="0">
         <phase duration="27" state="GrrgrrrrrrrrGGGg"/>
@@ -396,7 +400,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="28095671" type="priority" x="1397.58" y="351.61" incLanes="-155605283_0" intLanes=":28095671_0_0" shape="1397.58,351.61 1400.78,351.60 1397.58,351.61">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="28097073" type="priority" x="1427.58" y="0.00" incLanes="155605282_0" intLanes=":28097073_0_0" shape="1427.58,0.00 1424.42,-0.52 1427.58,-0.00">
+    <junction id="28097073" type="priority" x="1427.58" y="0.00" incLanes="155605282_0" intLanes=":28097073_0_0" shape="1427.58,-0.00 1424.42,-0.52 1427.58,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="2850661648" type="dead_end" x="1189.52" y="147.73" incLanes="" intLanes="" shape="1189.84,149.29 1189.19,146.16"/>
