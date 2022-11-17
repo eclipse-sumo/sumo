@@ -129,9 +129,6 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"edgeData",                GLO_EDGEDATA},
     {"edgeRelData",             GLO_EDGERELDATA},
     {"TAZRelData",              GLO_TAZRELDATA},
-
-    {"meanDataEdge",            GLO_MEANDATAEDGE},
-    {"meanDataLane",            GLO_MEANDATALANE},
     //
     {"lockIcon",                GLO_LOCKICON},
     {"textName",                GLO_TEXTNAME},
