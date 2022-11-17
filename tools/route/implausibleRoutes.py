@@ -45,6 +45,12 @@ else:
 def get_options():
     USAGE = "Usage " + sys.argv[0] + " [options] <net.xml> <rou.xml>"
     optParser = ArgumentParser(usage=USAGE)
+    optParser.add_option("--additional-files", default=None, dest='additional',
+                         help="additional files to pass through duarouter e.g. vehicle type definitions")
+    optParser.add_option("--unsorted-input", default=False, dest='unsortedinput',action="store_true",
+                         help="If the provided route file has unsorted departure times")
+    optParser.add_option("--ignore-errors", default=False, dest='duaroutererrors',action="store_true",
+                         help="Ignore errors when calling duarouter")
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="Give more output")
     optParser.add_option("--threshold", type=float, default=2.5,
@@ -215,6 +221,13 @@ def main():
                    '-r', duarouterInput, '-o', duarouterOutput,
                    '--no-step-log', '--routing-threads', str(options.threads),
                    '--routing-algorithm', 'astar', '--aggregate-warnings',  '1']
+        if options.additional is not None:
+        	command+=['--additional-files',options.additional]
+        if options.unsortedinput is not False:
+        	command+=['--unsorted-input','1']
+        if options.duaroutererrors is not False:
+        	command+=['--ignore-errors','1']
+        	
         if options.verbose:
             command += ["-v"]
         if options.verbose:
