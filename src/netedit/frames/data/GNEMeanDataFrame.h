@@ -52,11 +52,8 @@ public:
         /// @brief get current MeanData
         const GNETagProperties &getCurrentMeanData() const;
 
-        /// @brief refresh vehicle type selector
+        /// @brief refresh meanData selector
         void refreshMeanDataTypeSelector();
-
-        /// @brief refresh vehicle type selector (only IDs, without refreshing attributes)
-        void refreshMeanDataTypeSelectorIDs();
 
         /// @name FOX-callbacks
         /// @{
@@ -82,6 +79,66 @@ public:
         GNETagProperties myInvalidMeanData;
     };
 
+    // ===========================================================================
+    // class MeanDataEditor
+    // ===========================================================================
+
+    class MeanDataEditor : public MFXGroupBoxModule {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEMeanDataFrame::MeanDataEditor)
+
+    public:
+        /// @brief constructor
+        MeanDataEditor(GNEMeanDataFrame* meanDataFrameParent);
+
+        /// @brief destructor
+        ~MeanDataEditor();
+
+        /// @brief show MeanDataEditor modul
+        void showMeanDataEditorModule();
+
+        /// @brief hide MeanDataEditor box
+        void hideMeanDataEditorModule();
+
+        /// @brief update MeanDataEditor modul
+        void refreshMeanDataEditorModule();
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when "Vreate Vehicle Type" button is clicked
+        long onCmdCreateType(FXObject*, FXSelector, void*);
+
+        /// @brief Called when "Delete/Reset Vehicle Type" button is clicked
+        long onCmdDeleteResetType(FXObject*, FXSelector, void*);
+
+        /// @brief Called when "Copy Vehicle Type" button is clicked
+        long onCmdCopyType(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX needs this
+        FOX_CONSTRUCTOR(MeanDataEditor)
+
+        /// @brief reset type
+        void resetType();
+
+        /// @brief delete type
+        void deleteType();
+
+    private:
+        /// @brief pointer to meanData Frame Parent
+        GNEMeanDataFrame* myMeanDataFrameParent;
+
+        /// @brief "create meanData" button
+        FXButton* myCreateTypeButton;
+
+        /// @brief "delete/reset meanData" button
+        FXButton* myDeleteResetTypeButton;
+
+        /// @brief "copy meanData"
+        FXButton* myCopyTypeButton;
+    };
+
     /**@brief Constructor (protected due GNEMeanDataFrame is abtract)
      * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet GNEViewNet that uses this GNEFrame
@@ -103,6 +160,9 @@ public:
 protected:
     /// @brief meanData type selector
     MeanDataTypeSelector* myMeanDataTypeSelector = nullptr;
+    
+    /// @brief meanData editor
+    MeanDataEditor* myMeanDataEditor = nullptr;
 
 private:
     /// @brief Invalidated copy constructor.
