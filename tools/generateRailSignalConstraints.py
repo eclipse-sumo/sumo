@@ -1453,7 +1453,8 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
                             conflicts[conflict.signal].append(conflict)
                             numConflicts += 1
 
-    numConflicts -= checkBidiConsistency(conflicts)
+    numRemoved = checkBidiConsistency(conflicts, options.verbose)
+    numConflicts -= numRemoved
 
     if numConflicts > 0:
         print("Found %s bidi conflicts" % numConflicts)
@@ -1550,7 +1551,7 @@ def collectBidiConflicts(options, net, vehicleStopRoutes, stop, stopRoute, edges
                 yield conflict
 
 
-def checkBidiConsistency(conflicts):
+def checkBidiConsistency(conflicts, verbose):
     # if the bidi section between two stops has an intermediate non-bidi section,
     # inconsistent constraints may be generated (#12075)
     # instead of trying to identify these cases beforehand we filter them out in a post-processing step
@@ -1560,8 +1561,9 @@ def checkBidiConsistency(conflicts):
 
     for signal in sorted(conflicts.keys()):
         for c in conflicts[signal]:
-            key = (c.tripID, c.otherTripID)
-            rkey = (c.otherTripID, c.tripID)
+            busStop2 = c.busStop2[0][1]
+            key = (c.tripID, c.otherTripID, c.busStop, busStop2)
+            rkey = (c.otherTripID, c.tripID, busStop2, c.busStop)
             if key in tfcMap:
                 print("Duplicate conflict between '%s' and '%s'" % key, file=sys.stderr)
             tfcMap[key].append(c)
@@ -1577,9 +1579,14 @@ def checkBidiConsistency(conflicts):
                 for c in tfcMap[keyToRemove]:
                     numRemoved += 1
                     conflicts[c.signal].remove(c)
+                    if verbose:
+                        print("Found symmetrical bidi conflict (tripId=%s, foeId=%s, busStop=%s busStop2=%s)." % keyToRemove)
                     if not conflicts[c.signal]:
                         del conflicts[c.signal]
                 del tfcMap[keyToRemove]
+
+    if numRemoved > 0 and verbose:
+        print("Removed %s symmetrical bidi conflicts" % numRemoved)
 
     return numRemoved;
 
