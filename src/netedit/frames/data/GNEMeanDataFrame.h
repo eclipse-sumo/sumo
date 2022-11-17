@@ -21,8 +21,13 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
-#include <netedit/frames/GNEPathCreator.h>
 
+
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEMeanData;
 
 // ===========================================================================
 // class definitions
@@ -105,14 +110,14 @@ public:
 
         /// @name FOX-callbacks
         /// @{
-        /// @brief Called when "Vreate Vehicle Type" button is clicked
-        long onCmdCreateType(FXObject*, FXSelector, void*);
+        /// @brief Called when "Vreate Vehicle MeanData" button is clicked
+        long onCmdCreateMeanData(FXObject*, FXSelector, void*);
 
-        /// @brief Called when "Delete/Reset Vehicle Type" button is clicked
-        long onCmdDeleteResetType(FXObject*, FXSelector, void*);
+        /// @brief Called when "Delete/Reset Vehicle MeanData" button is clicked
+        long onCmdDeleteResetMeanData(FXObject*, FXSelector, void*);
 
-        /// @brief Called when "Copy Vehicle Type" button is clicked
-        long onCmdCopyType(FXObject*, FXSelector, void*);
+        /// @brief Called when "Copy Vehicle MeanData" button is clicked
+        long onCmdCopyMeanData(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
@@ -120,23 +125,70 @@ public:
         FOX_CONSTRUCTOR(MeanDataEditor)
 
         /// @brief reset type
-        void resetType();
+        void resetMeanData();
 
         /// @brief delete type
-        void deleteType();
+        void deleteMeanData();
 
     private:
         /// @brief pointer to meanData Frame Parent
         GNEMeanDataFrame* myMeanDataFrameParent;
 
         /// @brief "create meanData" button
-        FXButton* myCreateTypeButton;
+        FXButton* myCreateMeanDataButton;
 
         /// @brief "delete/reset meanData" button
-        FXButton* myDeleteResetTypeButton;
+        FXButton* myDeleteResetMeanDataButton;
 
         /// @brief "copy meanData"
-        FXButton* myCopyTypeButton;
+        FXButton* myCopyMeanDataButton;
+    };
+
+    // ===========================================================================
+    // class MeanDataSelector
+    // ===========================================================================
+
+    class MeanDataSelector : public MFXGroupBoxModule {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEMeanDataFrame::MeanDataSelector)
+
+    public:
+        /// @brief constructor
+        MeanDataSelector(GNEMeanDataFrame* typeFrameParent);
+
+        /// @brief destructor
+        ~MeanDataSelector();
+
+        /// @brief get current Vehicle MeanData
+        GNEMeanData* getCurrentMeanData() const;
+
+        /// @brief set current Vehicle MeanData
+        void setCurrentMeanData(GNEMeanData* vMeanData);
+
+        /// @brief refresh meanData selector
+        void refreshMeanDataSelector();
+
+        /// @brief refresh meanData selector (only IDs, without refreshing attributes)
+        void refreshMeanDataSelectorIDs();
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when the user select another element in ComboBox
+        long onCmdSelectItem(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        FOX_CONSTRUCTOR(MeanDataSelector)
+
+    private:
+        /// @brief pointer to Frame Parent
+        GNEMeanDataFrame* myMeanDataFrameParent;
+
+        /// @brief pointer to current meanData
+        GNEMeanData* myCurrentMeanData;
+
+        /// @brief comboBox with the list of meanDatas
+        MFXIconComboBox* myMeanDataComboBox;
     };
 
     /**@brief Constructor (protected due GNEMeanDataFrame is abtract)
@@ -163,6 +215,9 @@ protected:
     
     /// @brief meanData editor
     MeanDataEditor* myMeanDataEditor = nullptr;
+
+    /// @brief meanData selector
+    MeanDataSelector* myMeanDataSelector = nullptr;
 
 private:
     /// @brief Invalidated copy constructor.
