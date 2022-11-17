@@ -49,11 +49,17 @@ GNEMeanDataHandler::~GNEMeanDataHandler() {}
 
 
 void
-GNEMeanDataHandler::buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, 
-        const std::string& edgeID, const std::string& file) {
-    GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(edgeID, false);
-    if (edge) {
-        GNEMeanData* edgeMeanData = new GNEMeanData(myNet, SUMO_TAG_MEANDATA_EDGE, edgeID);
+GNEMeanDataHandler::buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string &ID, 
+        const std::string &file, SUMOTime period, SUMOTime begin, SUMOTime end, const bool trackVehicles, 
+        const std::vector<std::string> &writtenAttributes, const bool aggregate, const std::vector<std::string> &edges, 
+        const std::string &edgeFile, std::string excludeEmpty, const bool withInternal, 
+        const std::vector<std::string> &detectPersons, const double minSamples, const double maxTravelTime, 
+        const std::vector<std::string> &vTypes, const double speedThreshold) {
+    // check if meanData edge exists
+    if (myNet->getAttributeCarriers()->retrieveMeanData(SUMO_TAG_MEANDATA_EDGE, ID, false) == nullptr) {
+        GNEMeanData* edgeMeanData = new GNEMeanData(myNet, SUMO_TAG_MEANDATA_EDGE, ID, file, period, begin, end,
+            trackVehicles, writtenAttributes,  aggregate, edges, edgeFile, excludeEmpty,  withInternal, 
+            detectPersons, minSamples, maxTravelTime, vTypes, speedThreshold);
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(GUIIcon::MEANDATAEDGE, "add " + toString(SUMO_TAG_MEANDATA_EDGE));
             myNet->getViewNet()->getUndoList()->add(new GNEChange_MeanData(edgeMeanData, true), true);
@@ -62,26 +68,32 @@ GNEMeanDataHandler::buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* 
             edgeMeanData->incRef("buildEdgeMeanData");
         }
     } else {
-        writeError("Could not build " + toString(SUMO_TAG_MEANDATA_EDGE) + "; edge " + edgeID + " doesn't exist");
+        writeError("Could not build " + toString(SUMO_TAG_MEANDATA_LANE) + "; " + ID + " already exist");
     }
 }
 
 
 void
-GNEMeanDataHandler::buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, 
-        const std::string& laneID, const std::string& file) {
-    GNELane* lane = myNet->getAttributeCarriers()->retrieveLane(laneID, false);
-    if (lane) {
-        GNEMeanData* laneMeanData = new GNEMeanData(myNet, SUMO_TAG_MEANDATA_LANE, file);
+GNEMeanDataHandler::buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string &ID, 
+        const std::string &file, SUMOTime period, SUMOTime begin, SUMOTime end, const bool trackVehicles, 
+        const std::vector<std::string> &writtenAttributes, const bool aggregate, const std::vector<std::string> &edges, 
+        const std::string &edgeFile, std::string excludeEmpty, const bool withInternal, 
+        const std::vector<std::string> &detectPersons, const double minSamples, const double maxTravelTime, 
+        const std::vector<std::string> &vTypes, const double speedThreshold) {
+    // check if meanData lane exists
+    if (myNet->getAttributeCarriers()->retrieveMeanData(SUMO_TAG_MEANDATA_LANE, ID, false) == nullptr) {
+        GNEMeanData* laneMeanData = new GNEMeanData(myNet, SUMO_TAG_MEANDATA_LANE, ID, file, period, begin, end,
+            trackVehicles, writtenAttributes,  aggregate, edges, edgeFile, excludeEmpty,  withInternal, 
+            detectPersons, minSamples, maxTravelTime, vTypes, speedThreshold);
         if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->begin(GUIIcon::MEANDATALANE, "add " + toString(SUMO_TAG_MEANDATA_EDGE));
+            myNet->getViewNet()->getUndoList()->begin(GUIIcon::MEANDATALANE, "add " + toString(SUMO_TAG_MEANDATA_LANE));
             myNet->getViewNet()->getUndoList()->add(new GNEChange_MeanData(laneMeanData, true), true);
             myNet->getViewNet()->getUndoList()->end();
         } else {
             laneMeanData->incRef("buildLaneMeanData");
         }
     } else {
-        writeError("Could not build " + toString(SUMO_TAG_MEANDATA_LANE) + "; lane " + laneID + " doesn't exist");
+        writeError("Could not build " + toString(SUMO_TAG_MEANDATA_LANE) + "; " + ID + " already exist");
     }
 }
 

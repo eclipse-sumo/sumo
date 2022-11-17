@@ -44,21 +44,21 @@ public:
 
     /// @name build functions
     /// @{
-    /**@brief Builds edgeMeanData
-     * @param[in] sumoBaseObject sumo base object used for build
-     * @param[in] edgeID edge id
-     * @param[in] file path to file output
-     */
-    void buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, 
-        const std::string& edgeID, const std::string& file);
+    /// @brief Builds edgeMeanData
+    void buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &ID, 
+        const std::string &file, SUMOTime period, SUMOTime begin, SUMOTime end, const bool trackVehicles, 
+        const std::vector<std::string> &writtenAttributes, const bool aggregate, const std::vector<std::string> &edges, 
+        const std::string &edgeFile, std::string excludeEmpty, const bool withInternal, 
+        const std::vector<std::string> &detectPersons, const double minSamples, const double maxTravelTime, 
+        const std::vector<std::string> &vTypes, const double speedThreshold);
 
-    /**@brief Builds laneMeanData
-     * @param[in] sumoBaseObject sumo base object used for build
-     * @param[in] laneID lane id
-     * @param[in] file path to file output
-     */
-    void buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, 
-        const std::string& laneID, const std::string& file);
+    /// @brief Builds laneMeanData
+    void buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &ID, 
+        const std::string &file, SUMOTime period, SUMOTime begin, SUMOTime end, const bool trackVehicles, 
+        const std::vector<std::string> &writtenAttributes, const bool aggregate, const std::vector<std::string> &edges, 
+        const std::string &edgeFile, std::string excludeEmpty, const bool withInternal, 
+        const std::vector<std::string> &detectPersons, const double minSamples, const double maxTravelTime, 
+        const std::vector<std::string> &vTypes, const double speedThreshold);
 
     /// @}
 
