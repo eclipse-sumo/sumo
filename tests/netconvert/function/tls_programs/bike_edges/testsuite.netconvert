@@ -6,3 +6,9 @@
 
 # extra bike edges along 3 arms
 3arm_EWS
+
+# Berlin, 52.505107, 13.581557
+4arm_rw
+
+# Berlin, 52.506293, 13.568857
+3arm_rw
