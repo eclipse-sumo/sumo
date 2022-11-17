@@ -34,6 +34,54 @@
 class GNEMeanDataFrame : public GNEFrame {
 
 public:
+    // ===========================================================================
+    // class MeanDataTypeSelector
+    // ===========================================================================
+
+    class MeanDataTypeSelector : public MFXGroupBoxModule {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEMeanDataFrame::MeanDataTypeSelector)
+
+    public:
+        /// @brief constructor
+        MeanDataTypeSelector(GNEMeanDataFrame* meanDataFrameParent);
+
+        /// @brief destructor
+        ~MeanDataTypeSelector();
+
+        /// @brief get current MeanData
+        const GNETagProperties &getCurrentMeanData() const;
+
+        /// @brief refresh vehicle type selector
+        void refreshMeanDataTypeSelector();
+
+        /// @brief refresh vehicle type selector (only IDs, without refreshing attributes)
+        void refreshMeanDataTypeSelectorIDs();
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when the user select another element in ComboBox
+        long onCmdSelectItem(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        /// @brief FOX need this
+        FOX_CONSTRUCTOR(MeanDataTypeSelector)
+
+    private:
+        /// @brief pointer to Frame Parent
+        GNEMeanDataFrame* myMeanDataFrameParent;
+
+        /// @brief CurrentMeanData selected
+        GNETagProperties myCurrentMeanData;
+
+        /// @brief comboBox with the list of vTypes
+        MFXIconComboBox* myTypeComboBox;
+
+        /// @brief invalidMeanData
+        GNETagProperties myInvalidMeanData;
+    };
+
     /**@brief Constructor (protected due GNEMeanDataFrame is abtract)
      * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet GNEViewNet that uses this GNEFrame
@@ -51,6 +99,10 @@ public:
 
     /// @brief function called after undo/redo in the current frame
     void updateFrameAfterUndoRedo();
+
+protected:
+    /// @brief meanData type selector
+    MeanDataTypeSelector* myMeanDataTypeSelector = nullptr;
 
 private:
     /// @brief Invalidated copy constructor.
