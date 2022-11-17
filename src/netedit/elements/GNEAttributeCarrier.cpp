@@ -5820,7 +5820,7 @@ GNEAttributeCarrier::fillCommonMeanDataAttributes(SumoXMLTag currentTag) {
                                             "0.1");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
-    attrProperty = GNEAttributeProperties(SUMO_ATTR_LINES,
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_VTYPES,
                                             GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
                                             "space separated list of vehicle type ids to consider");
     myTagProperties[currentTag].addAttribute(attrProperty);
