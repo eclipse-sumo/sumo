@@ -40,16 +40,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEMeanData::GNEMeanData(GNENet *net, GNEEdge* edge, const std::string &file) :
-    GUIGlObject(GLO_MEANDATAEDGE, edge->getID(), nullptr),
-    GNEHierarchicalElement(net, SUMO_TAG_MEANDATA_EDGE, {}, {edge}, {}, {}, {}, {}),
-    myFile(file) {
-}
-
-
-GNEMeanData::GNEMeanData(GNENet *net, GNELane* lane, const std::string &file) :
-    GUIGlObject(GLO_MEANDATALANE, lane->getID(), nullptr),
-    GNEHierarchicalElement(net, SUMO_TAG_MEANDATA_LANE, {}, {}, {lane}, {}, {}, {}),
+GNEMeanData::GNEMeanData(GNENet *net, SumoXMLTag tag, const std::string &file) :
+    GNEHierarchicalElement(net, tag, {}, {}, {}, {}, {}, {}),
     myFile(file) {
 }
 
@@ -59,7 +51,7 @@ GNEMeanData::~GNEMeanData() {}
 
 GUIGlObject*
 GNEMeanData::getGUIGlObject() {
-    return this;
+    return nullptr;
 }
 
 
@@ -69,55 +61,9 @@ GNEMeanData::updateGeometry() {
 }
 
 
-Position 
+Position
 GNEMeanData::getPositionInView() const {
-    if (getParentLanes().size() > 0) {
-        return getParentLanes().front()->getPositionInView();
-    } else {
-        return getParentEdges().front()->getPositionInView();
-    }
-}
-
-
-GUIGLObjectPopupMenu*
-GNEMeanData::getPopUpMenu(GUIMainWindow& /*app*/, GUISUMOAbstractView& /*parent*/) {
-    return nullptr;
-}
-
-
-GUIParameterTableWindow*
-GNEMeanData::getParameterWindow(GUIMainWindow& /*app*/, GUISUMOAbstractView& /*parent*/) {
-    return nullptr;
-}
-
-
-void
-GNEMeanData::drawGL(const GUIVisualizationSettings& /*s*/) const {
-    // nothing to draw
-}
-
-
-void
-GNEMeanData::deleteGLObject() {
-    // nothing to delete
-}
-
-
-void
-GNEMeanData::selectGLObject() {
-    // nothing to select
-}
-
-
-void
-GNEMeanData::updateGLObject() {
-    // nothing to do
-}
-
-
-Boundary
-GNEMeanData::getCenteringBoundary() const {
-    return getParentEdges().front()->getCenteringBoundary();
+    return Position();
 }
 
 
@@ -125,11 +71,7 @@ std::string
 GNEMeanData::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            if (getParentLanes().size() > 0) {
-                return getParentLanes().front()->getID();
-            } else {
-                return getParentEdges().front()->getID();
-            }
+            return "";
         case SUMO_ATTR_FILE:
             return myFile;
         default:
@@ -186,12 +128,7 @@ GNEMeanData::getPopUpID() const {
 
 std::string
 GNEMeanData::getHierarchyName() const {
-    if (getParentLanes().size() > 0) {
-        return getTagStr() + ": " + getParentLanes().front()->getID();
-    } else {
-        return getTagStr() + ": " + getParentEdges().front()->getID();
-    }
-    
+    return getTagStr();
 }
 
 

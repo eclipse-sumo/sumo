@@ -53,7 +53,7 @@ GNEMeanDataHandler::buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* 
         const std::string& edgeID, const std::string& file) {
     GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(edgeID, false);
     if (edge) {
-        GNEMeanData* edgeMeanData = new GNEMeanData(myNet, edge, file);
+        GNEMeanData* edgeMeanData = new GNEMeanData(myNet, SUMO_TAG_MEANDATA_EDGE, file);
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(GUIIcon::MEANDATAEDGE, "add " + toString(SUMO_TAG_MEANDATA_EDGE));
             myNet->getViewNet()->getUndoList()->add(new GNEChange_MeanData(edgeMeanData, true), true);
@@ -72,7 +72,7 @@ GNEMeanDataHandler::buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* 
         const std::string& laneID, const std::string& file) {
     GNELane* lane = myNet->getAttributeCarriers()->retrieveLane(laneID, false);
     if (lane) {
-        GNEMeanData* laneMeanData = new GNEMeanData(myNet, lane, file);
+        GNEMeanData* laneMeanData = new GNEMeanData(myNet, SUMO_TAG_MEANDATA_LANE, file);
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(GUIIcon::MEANDATALANE, "add " + toString(SUMO_TAG_MEANDATA_EDGE));
             myNet->getViewNet()->getUndoList()->add(new GNEChange_MeanData(laneMeanData, true), true);

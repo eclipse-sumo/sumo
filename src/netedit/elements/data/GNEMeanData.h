@@ -30,22 +30,15 @@
  * @class GNEMeanData
  * @brief An Element which don't belong to GNENet but has influence in the simulation
  */
-class GNEMeanData : public GUIGlObject, public GNEHierarchicalElement {
+class GNEMeanData : public GNEHierarchicalElement {
 
 public:
     /**@brief Constructor for edge mean data
      * @param[in] net pointer to net
-     * @param[in] edge edge associated with this meanData
+     * @param[in] tag meanData tag
      * @param[in] file output file
      */
-    GNEMeanData(GNENet *net, GNEEdge* edge, const std::string &file);
-
-    /**@brief Constructor for edge mean data
-     * @param[in] net pointer to net
-     * @param[in] lane lane associated with this meanData
-     * @param[in] file output file
-     */
-    GNEMeanData(GNENet *net, GNELane* lane, const std::string &file);
+    GNEMeanData(GNENet *net, SumoXMLTag tag, const std::string &file);
 
     /// @brief Destructor
     ~GNEMeanData();
@@ -58,46 +51,6 @@ public:
 
     /// @brief Returns element position in view
     Position getPositionInView() const;
-
-    /// @name inherited from GUIGlObject
-    /// @{
-    /**@brief Returns an own popup-menu
-     *
-     * @param[in] app The application needed to build the popup-menu
-     * @param[in] parent The parent window needed to build the popup-menu
-     * @return The built popup-menu
-     * @see GUIGlObject::getPopUpMenu
-     */
-    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
-
-    /**@brief Returns an own parameter window
-     *
-     * @param[in] app The application needed to build the parameter window
-     * @param[in] parent The parent window needed to build the parameter window
-     * @return The built parameter window
-     * @see GUIGlObject::getParameterWindow
-     */
-    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
-
-    /**@brief Draws the object
-     * @param[in] s The settings for the current view (may influence drawing)
-     * @see GUIGlObject::drawGL
-     */
-    void drawGL(const GUIVisualizationSettings& s) const;
-
-    /// @brief delete element
-    void deleteGLObject();
-
-    /// @brief select element
-    void selectGLObject();
-
-    /// @brief update GLObject (geometry, ID, etc.)
-    void updateGLObject();
-
-    //// @brief Returns the boundary to which the view shall be centered in order to show the object
-    Boundary getCenteringBoundary() const;
-
-    /// @}
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
@@ -143,12 +96,10 @@ public:
     const Parameterised::Map& getACParametersMap() const;
 
 protected:
-    
     /// @brief file
     std::string myFile;
 
 private:
-
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
