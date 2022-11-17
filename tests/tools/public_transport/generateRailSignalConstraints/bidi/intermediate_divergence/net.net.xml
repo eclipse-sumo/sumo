@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-11-17 17:46:06 by Eclipse SUMO netedit Version v1_15_0+0371-9d085b1
+<!-- generated on 2022-11-17 19:48:57 by Eclipse SUMO netedit Version v1_15_0+0377-aef0d3b
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -29,10 +29,6 @@
     <pedestrian>
         <walkingareas value="0"/>
     </pedestrian>
-
-    <netedit>
-        <additional-files value="/home/erdm_ja/scr1/sumo/tests/tools/public_transport/generateRailSignalConstraints/bidi/intermediate_divergence/input_additional.add.xml"/>
-    </netedit>
 
 </configuration>
 -->
@@ -65,17 +61,17 @@
     <edge id="-e2" from="J1" to="gneJ4" priority="-1" spreadType="center" bidi="e2">
         <lane id="-e2_0" index="0" allow="rail" speed="13.89" length="70.71" shape="699.53,49.53 653.79,3.79"/>
     </edge>
-    <edge id="-f" from="J3" to="J0" priority="-1" spreadType="center" bidi="f">
-        <lane id="-f_0" index="0" allow="rail" speed="13.89" length="200.00" shape="900.00,0.00 700.00,0.00"/>
+    <edge id="-f" from="J3" to="J0" priority="-1" spreadType="center" length="300.00" bidi="f">
+        <lane id="-f_0" index="0" allow="rail" speed="13.89" length="300.00" shape="900.00,0.00 700.00,0.00"/>
     </edge>
-    <edge id="-f2" from="J2" to="J1" priority="-1" spreadType="center" bidi="f2">
-        <lane id="-f2_0" index="0" allow="rail" speed="13.89" length="200.00" shape="899.34,50.00 700.66,50.00"/>
+    <edge id="-f2" from="J2" to="J1" priority="-1" spreadType="center" length="300.00" bidi="f2">
+        <lane id="-f2_0" index="0" allow="rail" speed="13.89" length="300.00" shape="899.34,50.00 700.66,50.00"/>
     </edge>
-    <edge id="-g" from="J5" to="J3" priority="-1" spreadType="center" length="2000.00" bidi="g">
-        <lane id="-g_0" index="0" allow="rail" speed="10.00" length="2000.00" shape="944.64,0.00 900.00,0.00"/>
+    <edge id="-g" from="J5" to="J3" priority="-1" spreadType="center" bidi="g">
+        <lane id="-g_0" index="0" allow="rail" speed="10.00" length="50.00" shape="944.64,0.00 900.00,0.00"/>
     </edge>
-    <edge id="-g2" from="J5" to="J2" priority="-1" spreadType="center" length="2000.00" bidi="g2">
-        <lane id="-g2_0" index="0" allow="rail" speed="10.00" length="2000.00" shape="946.21,3.79 900.47,49.53"/>
+    <edge id="-g2" from="J5" to="J2" priority="-1" spreadType="center" bidi="g2">
+        <lane id="-g2_0" index="0" allow="rail" speed="10.00" length="70.71" shape="946.21,3.79 900.47,49.53"/>
     </edge>
     <edge id="-h" from="J7" to="J5" priority="-1" spreadType="center" bidi="h">
         <lane id="-h_0" index="0" allow="rail" speed="13.89" length="200.00" shape="1147.84,0.00 952.16,0.00"/>
@@ -116,17 +112,17 @@
     <edge id="e2" from="gneJ4" to="J1" priority="-1" spreadType="center" bidi="-e2">
         <lane id="e2_0" index="0" allow="rail" speed="13.89" length="70.71" shape="653.79,3.79 699.53,49.53"/>
     </edge>
-    <edge id="f" from="J0" to="J3" priority="-1" spreadType="center" bidi="-f">
-        <lane id="f_0" index="0" allow="rail" speed="13.89" length="200.00" shape="700.00,0.00 900.00,0.00"/>
+    <edge id="f" from="J0" to="J3" priority="-1" spreadType="center" length="300.00" bidi="-f">
+        <lane id="f_0" index="0" allow="rail" speed="13.89" length="300.00" shape="700.00,0.00 900.00,0.00"/>
     </edge>
-    <edge id="f2" from="J1" to="J2" priority="-1" spreadType="center" bidi="-f2">
-        <lane id="f2_0" index="0" allow="rail" speed="13.89" length="200.00" shape="700.66,50.00 899.34,50.00"/>
+    <edge id="f2" from="J1" to="J2" priority="-1" spreadType="center" length="300.00" bidi="-f2">
+        <lane id="f2_0" index="0" allow="rail" speed="13.89" length="300.00" shape="700.66,50.00 899.34,50.00"/>
     </edge>
-    <edge id="g" from="J3" to="J5" priority="-1" spreadType="center" length="2000.00" bidi="-g">
-        <lane id="g_0" index="0" allow="rail" speed="10.00" length="2000.00" shape="900.00,0.00 944.64,0.00"/>
+    <edge id="g" from="J3" to="J5" priority="-1" spreadType="center" bidi="-g">
+        <lane id="g_0" index="0" allow="rail" speed="10.00" length="50.00" shape="900.00,0.00 944.64,0.00"/>
     </edge>
-    <edge id="g2" from="J2" to="J5" priority="-1" spreadType="center" length="2000.00" bidi="-g2">
-        <lane id="g2_0" index="0" allow="rail" speed="10.00" length="2000.00" shape="900.47,49.53 946.21,3.79"/>
+    <edge id="g2" from="J2" to="J5" priority="-1" spreadType="center" bidi="-g2">
+        <lane id="g2_0" index="0" allow="rail" speed="10.00" length="70.71" shape="900.47,49.53 946.21,3.79"/>
     </edge>
     <edge id="h" from="J5" to="J7" priority="-1" spreadType="center" bidi="-h">
         <lane id="h_0" index="0" allow="rail" speed="13.89" length="200.00" shape="952.16,0.00 1147.84,0.00"/>
