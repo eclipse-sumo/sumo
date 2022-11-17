@@ -40,9 +40,35 @@
 // member method definitions
 // ===========================================================================
 
-GNEMeanData::GNEMeanData(GNENet *net, SumoXMLTag tag, const std::string &file) :
+GNEMeanData::GNEMeanData(GNENet *net, SumoXMLTag tag, const std::string& id) :
     GNEHierarchicalElement(net, tag, {}, {}, {}, {}, {}, {}),
-    myFile(file) {
+    myID(id) {
+}
+
+
+GNEMeanData::GNEMeanData(GNENet *net, SumoXMLTag tag, std::string ID, std::string file, SUMOTime period,
+        SUMOTime begin, SUMOTime end, const bool trackVehicles, const std::vector<std::string> &writtenAttributes,
+        const bool aggregate, const std::vector<std::string> &edges, const std::vector<std::string> &edgeFile, 
+        std::string excludeEmpty, const bool withInternal, const std::vector<std::string> &detectPersons, 
+        const float minSamples, const float maxTravelTime, const std::vector<std::string> &vTypes, const float speedThreshold) :
+    GNEHierarchicalElement(net, tag, {}, {}, {}, {}, {}, {}),
+    myID(ID), 
+    myFile(file),
+    myPeriod(period),
+    myBegin(begin),  
+    myEnd(end), 
+    myTrackVehicles(trackVehicles),
+    myWrittenAttributes(writtenAttributes),
+    myAggregate(aggregate),
+    myEdges(edges),
+    myEdgeFile(edgeFile),
+    myExcludeEmpty(excludeEmpty),
+    myWithInternal(withInternal),
+    myDetectPersons(detectPersons), 
+    myMinSamples(minSamples),
+    myMaxTravelTime(maxTravelTime),
+    myVTypes(vTypes), 
+    mySpeedThreshold(speedThreshold) {
 }
 
 
@@ -74,6 +100,24 @@ GNEMeanData::getAttribute(SumoXMLAttr key) const {
             return "";
         case SUMO_ATTR_FILE:
             return myFile;
+
+        case SUMO_ATTR_PERIOD:
+        case SUMO_ATTR_BEGIN:
+        case SUMO_ATTR_END:
+        case SUMO_ATTR_EXCLUDE_EMPTY:
+        case SUMO_ATTR_WITH_INTERNAL:
+        case SUMO_ATTR_MAX_TRAVELTIME:
+        case SUMO_ATTR_MIN_SAMPLES:
+        case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
+        case SUMO_ATTR_VTYPES:
+        case SUMO_ATTR_TRACK_VEHICLES:
+        case SUMO_ATTR_DETECT_PERSONS:
+        case SUMO_ATTR_WRITE_ATTRIBUTES:
+        case SUMO_ATTR_EDGES:
+        case SUMO_ATTR_EDGESFILE:
+        case SUMO_ATTR_AGGREGATE:
+            return "";
+
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -86,21 +130,26 @@ GNEMeanData::getAttributeDouble(SumoXMLAttr key) const {
 }
 
 
-bool
-GNEMeanData::isAttributeEnabled(SumoXMLAttr key) const {
-    switch (key) {
-        case SUMO_ATTR_ID:
-            return false;
-        default:
-            return true;
-    }
-}
-
-
 void
 GNEMeanData::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
+        case SUMO_ATTR_ID:
         case SUMO_ATTR_FILE:
+        case SUMO_ATTR_PERIOD:
+        case SUMO_ATTR_BEGIN:
+        case SUMO_ATTR_END:
+        case SUMO_ATTR_EXCLUDE_EMPTY:
+        case SUMO_ATTR_WITH_INTERNAL:
+        case SUMO_ATTR_MAX_TRAVELTIME:
+        case SUMO_ATTR_MIN_SAMPLES:
+        case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
+        case SUMO_ATTR_VTYPES:
+        case SUMO_ATTR_TRACK_VEHICLES:
+        case SUMO_ATTR_DETECT_PERSONS:
+        case SUMO_ATTR_WRITE_ATTRIBUTES:
+        case SUMO_ATTR_EDGES:
+        case SUMO_ATTR_EDGESFILE:
+        case SUMO_ATTR_AGGREGATE:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         default:
@@ -112,7 +161,23 @@ GNEMeanData::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
 bool
 GNEMeanData::isValid(SumoXMLAttr key , const std::string& value) {
     switch (key) {
+        case SUMO_ATTR_ID:
         case SUMO_ATTR_FILE:
+        case SUMO_ATTR_PERIOD:
+        case SUMO_ATTR_BEGIN:
+        case SUMO_ATTR_END:
+        case SUMO_ATTR_EXCLUDE_EMPTY:
+        case SUMO_ATTR_WITH_INTERNAL:
+        case SUMO_ATTR_MAX_TRAVELTIME:
+        case SUMO_ATTR_MIN_SAMPLES:
+        case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
+        case SUMO_ATTR_VTYPES:
+        case SUMO_ATTR_TRACK_VEHICLES:
+        case SUMO_ATTR_DETECT_PERSONS:
+        case SUMO_ATTR_WRITE_ATTRIBUTES:
+        case SUMO_ATTR_EDGES:
+        case SUMO_ATTR_EDGESFILE:
+        case SUMO_ATTR_AGGREGATE:
             return SUMOXMLDefinitions::isValidFilename(value);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -141,7 +206,23 @@ GNEMeanData::getACParametersMap() const {
 void
 GNEMeanData::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
+        case SUMO_ATTR_ID:
         case SUMO_ATTR_FILE:
+        case SUMO_ATTR_PERIOD:
+        case SUMO_ATTR_BEGIN:
+        case SUMO_ATTR_END:
+        case SUMO_ATTR_EXCLUDE_EMPTY:
+        case SUMO_ATTR_WITH_INTERNAL:
+        case SUMO_ATTR_MAX_TRAVELTIME:
+        case SUMO_ATTR_MIN_SAMPLES:
+        case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
+        case SUMO_ATTR_VTYPES:
+        case SUMO_ATTR_TRACK_VEHICLES:
+        case SUMO_ATTR_DETECT_PERSONS:
+        case SUMO_ATTR_WRITE_ATTRIBUTES:
+        case SUMO_ATTR_EDGES:
+        case SUMO_ATTR_EDGESFILE:
+        case SUMO_ATTR_AGGREGATE:
             myFile = value;
             break;
         default:

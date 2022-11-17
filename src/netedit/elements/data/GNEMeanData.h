@@ -33,12 +33,15 @@
 class GNEMeanData : public GNEHierarchicalElement {
 
 public:
-    /**@brief Constructor for edge mean data
-     * @param[in] net pointer to net
-     * @param[in] tag meanData tag
-     * @param[in] file output file
-     */
-    GNEMeanData(GNENet *net, SumoXMLTag tag, const std::string &file);
+    /// @brief Default constructor
+    GNEMeanData(GNENet *net, SumoXMLTag tag, const std::string& id);
+
+    /// @brief Parameter constructor
+    GNEMeanData(GNENet *net, SumoXMLTag tag, std::string ID, std::string file, SUMOTime period,
+        SUMOTime begin, SUMOTime end, const bool trackVehicles, const std::vector<std::string> &writtenAttributes,
+        const bool aggregate, const std::vector<std::string> &edges, const std::vector<std::string> &edgeFile, 
+        std::string excludeEmpty, const bool withInternal, const std::vector<std::string> &detectPersons, 
+        const float minSamples, const float maxTravelTime, const std::vector<std::string> &vTypes, const float speedThreshold),
 
     /// @brief Destructor
     ~GNEMeanData();
@@ -66,11 +69,6 @@ public:
      */
     double getAttributeDouble(SumoXMLAttr key) const;
 
-    /* @brief method for check if the value for certain attribute is set
-     * @param[in] key The attribute key
-     */
-    bool isAttributeEnabled(SumoXMLAttr key) const;
-
     /**@brief method for setting the attribute and letting the object perform data set changes
      * @param[in] key The attribute key
      * @param[in] value The new value
@@ -96,8 +94,56 @@ public:
     const Parameterised::Map& getACParametersMap() const;
 
 protected:
-    /// @brief file
-    std::string myFile;
+    /// @brief id
+    std::string myID;
+
+    /// @brief filename
+    std::string myFile; 
+
+    /// @brief period
+    SUMOTime myPeriod = 0;
+
+    /// @brief begin
+    SUMOTime myBegin = 0;
+
+    /// @brief end
+    SUMOTime myEnd = 0;
+
+    /// @brief Whether vehicles are tracked
+    bool myTrackVehicles = false;
+
+    /// @brief bit mask for checking attributes to be written
+    std::vector<std::string> myWrittenAttributes;
+
+    /// @brief whether the data for all edges shall be aggregated
+    bool myAggregate = false;
+
+    /// @brief list of edges
+    std::vector<std::string> myEdges;
+
+    /// @brief edge file
+    std::vector<std::string> myEdgeFile;
+
+    /// @brief exclude empty
+    std::string myExcludeEmpty;
+
+    /// @brief width internal
+    bool myWithInternal = false;
+
+    /// @brief detect persons
+    std::vector<std::string> myDetectPersons;
+
+    /// @brief minSamples
+    float myMinSamples = 0;
+
+    /// @brief max travel time
+    float myMaxTravelTime = 0;
+
+    /// @brief VTypes
+    std::vector<std::string> myVTypes;
+
+    /// @brief speed treshold
+    float mySpeedThreshold = 0;
 
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
