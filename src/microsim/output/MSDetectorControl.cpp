@@ -65,7 +65,9 @@ MSDetectorControl::close(SUMOTime step) {
 void
 MSDetectorControl::add(SumoXMLTag type, MSDetectorFileOutput* d, const std::string& device, SUMOTime interval, SUMOTime begin) {
     if (!myDetectors[type].add(d->getID(), d)) {
-        throw ProcessError(toString(type) + " detector '" + d->getID() + "' could not be build (declared twice?).");
+        const std::string id = d->getID();
+        delete d;
+        throw ProcessError(toString(type) + " detector '" + id + "' could not be built (declared twice?).");
     }
     addDetectorAndInterval(d, &OutputDevice::getDevice(device), interval, begin);
 }
@@ -74,7 +76,9 @@ MSDetectorControl::add(SumoXMLTag type, MSDetectorFileOutput* d, const std::stri
 void
 MSDetectorControl::add(SumoXMLTag type, MSDetectorFileOutput* d) {
     if (!myDetectors[type].add(d->getID(), d)) {
-        throw ProcessError(toString(type) + " detector '" + d->getID() + "' could not be build (declared twice?).");
+        const std::string id = d->getID();
+        delete d;
+        throw ProcessError(toString(type) + " detector '" + id + "' could not be built (declared twice?).");
     }
 }
 
