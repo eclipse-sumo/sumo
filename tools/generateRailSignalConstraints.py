@@ -1372,7 +1372,8 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
         if getBidiID(net, edge) in edge2Route:
             usedBidi.add(edge)
 
-    for busStop, stops in stopRoutes.items():
+    for busStop in sorted(stopRoutes.keys()):
+        stops = stopRoutes[busStop]
         # group all approaches via the same edges
         approaches = defaultdict(list)  # edgesBefore -> [stop, stop2, ...]
         for edgesBefore, stop in stops:
@@ -1380,7 +1381,8 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
                 continue
             approaches[edgesBefore].append(stop)
 
-        for edgesBefore, stops in approaches.items():
+        for edgesBefore in sorted(approaches.keys()):
+            stops = approaches[edgesBefore]
             oRoutes = set()
             stopBidi = getBidiID(net, edgesBefore[-1])
             for edge in edgesBefore:
@@ -1401,7 +1403,7 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
                     stopRoute = vehicleStopRoutes[vehID]
                     stopIndex = stopRoute.index((edgesBefore, stop))
                     arrivals = defaultdict(list)  # (bidiStart, bidiEnd) -> (pArrival, pStop, sIb, sI2)
-                    for route in oRoutes:
+                    for route in sorted(oRoutes):
                         for vehID2 in uniqueRoutes[route]:
                             if vehID2 == vehID:
                                 continue
@@ -1460,7 +1462,8 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
 
 
 def collectBidiConflicts(options, net, vehicleStopRoutes, stop, stopRoute, edgesBefore, arrivals):
-    for (e2Start, e2end), arrivalList in arrivals.items():
+    for (e2Start, e2end) in sorted(arrivals.keys()):
+        arrivalList = arrivals[(e2Start, e2end)]
         nStopArrival = getArrivalSecure(stop)
         e1End = getBidiID(net, e2Start)
         e1Start = getBidiID(net, e2end)
