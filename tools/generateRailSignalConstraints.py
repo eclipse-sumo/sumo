@@ -1445,14 +1445,15 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
                                     # no divergence found
                                     break
 
-                    for item in collectBidiConflicts(options, net, vehicleStopRoutes, stop,
+                    for conflict in collectBidiConflicts(options, net, vehicleStopRoutes, stop,
                                                      stopRoute, edgesBefore, arrivals):
-                        if item is None:
+                        if conflict is None:
                             numIgnoredConflicts += 1
                         else:
-                            nSignal, conflict = item
-                            conflicts[nSignal].append(conflict)
+                            conflicts[conflict.signal].append(conflict)
                             numConflicts += 1
+
+    numConflicts -= checkBidiConsistency(conflicts)
 
     if numConflicts > 0:
         print("Found %s bidi conflicts" % numConflicts)
@@ -1545,7 +1546,42 @@ def collectBidiConflicts(options, net, vehicleStopRoutes, stop, stopRoute, edges
                                     stop.busStop,
                                     info, active,
                                     busStop2=busStop2)
-                yield nSignal, conflict
+                conflict.signal = nSignal
+                yield conflict
+
+
+def checkBidiConsistency(conflicts):
+    # if the bidi section between two stops has an intermediate non-bidi section,
+    # inconsistent constraints may be generated (#12075)
+    # instead of trying to identify these cases beforehand we filter them out in a post-processing step
+
+    tfcMap = defaultdict(list) # (tripId, foeId) -> [conflict, ...]
+    numRemoved = 0
+
+    for signal in sorted(conflicts.keys()):
+        for c in conflicts[signal]:
+            key = (c.tripID, c.otherTripID)
+            rkey = (c.otherTripID, c.tripID)
+            if key in tfcMap:
+                print("Duplicate conflict between '%s' and '%s'" % key, file=sys.stderr)
+            tfcMap[key].append(c)
+            if rkey in tfcMap:
+                keyToRemove = None
+                # decide which of the two conflicts to keep
+                times = dict([t.split('=') for t in c.conflictTime.split()])
+                if parseTime(times['foeStopArrival']) < parseTime(times['stopArrival']):
+                    keyToRemove = rkey
+                else:
+                    keyToRemove = key
+
+                for c in tfcMap[keyToRemove]:
+                    numRemoved += 1
+                    conflicts[c.signal].remove(c)
+                    if not conflicts[c.signal]:
+                        del conflicts[c.signal]
+                del tfcMap[keyToRemove]
+
+    return numRemoved;
 
 
 def getEdges(stopRoute, index, startEdge, forward, noIndex=False):
