@@ -369,19 +369,27 @@ def optimizeGreenTime(tl, groupFlowsMap, phaseLaneIndexMap, currentLength, optio
 
     # adjust the green times if minimal green times are applied for keeping the defined maximal cycle length.
     if minGreenPhasesList and totalLength > options.maxcycle and options.restrict:
+        totalLength = lostTime
         if options.verbose:
             print("Re-allocate the green splits!")
         adjustGreenTimes = totalGreenTimes - len(minGreenPhasesList) * options.mingreen
         for i in groupFlowsMap:
             if i not in minGreenPhasesList:
-                groupFlowsMap[i][0] = int((groupFlowsMap[i][0] / float(subtotalGreenTimes)) * adjustGreenTimes)
+                groupFlowsMap[i][0] = int(round((groupFlowsMap[i][0] / float(subtotalGreenTimes)) * adjustGreenTimes))
+            totalLength += groupFlowsMap[i][0]
+
+    if options.unicycle and totalLength != optCycle:
+        diff = optCycle - totalLength
+        secs_to_distribute = [diff / abs(diff)] * abs(diff)
+        for i, s in enumerate(secs_to_distribute):
+            groupFlowsMap[groupFlowsMap.keys()[i % len(groupFlowsMap)]][0] += s
 
     if options.verbose:
         totalLength = lostTime
         for i in groupFlowsMap:
             totalLength += groupFlowsMap[i][0]
             print("Green time for phase %s: %s" % (i, groupFlowsMap[i][0]))
-        print("the optimal cycle length:%s" % totalLength)
+        print("the optimal cycle length:%s\n" % totalLength)
 
     return groupFlowsMap
 
