@@ -48,7 +48,7 @@ GNEMeanData::GNEMeanData(GNENet *net, SumoXMLTag tag, const std::string& id) :
 
 GNEMeanData::GNEMeanData(GNENet *net, SumoXMLTag tag, std::string ID, std::string file, SUMOTime period,
         SUMOTime begin, SUMOTime end, const bool trackVehicles, const std::vector<std::string> &writtenAttributes,
-        const bool aggregate, const std::vector<std::string> &edges, const std::vector<std::string> &edgeFile, 
+        const bool aggregate, const std::vector<std::string> &edges, const std::string &edgeFile, 
         std::string excludeEmpty, const bool withInternal, const std::vector<std::string> &detectPersons, 
         const double minSamples, const double maxTravelTime, const std::vector<std::string> &vTypes, const double speedThreshold) :
     GNEHierarchicalElement(net, tag, {}, {}, {}, {}, {}, {}),
@@ -127,7 +127,7 @@ GNEMeanData::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_EDGES:
             return toString(myEdges);
         case SUMO_ATTR_EDGESFILE:
-            return toString(myEdgeFile);
+            return myEdgeFile;
         case SUMO_ATTR_AGGREGATE:
             return toString(myAggregate);
         default:
@@ -263,7 +263,7 @@ GNEMeanData::setAttribute(SumoXMLAttr key, const std::string& value) {
             myEdges = parse<std::vector<std::string> >(value);
             break;
         case SUMO_ATTR_EDGESFILE:
-            myEdgeFile = parse<std::vector<std::string> >(value);
+            myEdgeFile = value;
             break;
         case SUMO_ATTR_AGGREGATE:
             myAggregate = parse<bool>(value);
