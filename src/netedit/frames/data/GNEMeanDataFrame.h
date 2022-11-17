@@ -219,6 +219,9 @@ protected:
     /// @brief meanData selector
     MeanDataSelector* myMeanDataSelector = nullptr;
 
+    /// @brief meanData attributes editor
+    GNEFrameAttributeModules::AttributesEditor* myMeanDataAttributesEditor = nullptr;
+
 private:
     /// @brief Invalidated copy constructor.
     GNEMeanDataFrame(const GNEMeanDataFrame&) = delete;

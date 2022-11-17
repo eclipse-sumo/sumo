@@ -201,18 +201,6 @@ GNEMeanDataFrame::MeanDataEditor::refreshMeanDataEditorModule() {
         // disable buttons
         myDeleteResetMeanDataButton->disable();
         myCopyMeanDataButton->disable();
-    } else if (GNEAttributeCarrier::parse<bool>(myMeanDataFrameParent->myMeanDataSelector->getCurrentMeanData()->getAttribute(GNE_ATTR_DEFAULT_VTYPE))) {
-        // enable copy button
-        myCopyMeanDataButton->enable();
-        // enable and set myDeleteMeanDataButton as "reset")
-        myDeleteResetMeanDataButton->setText(TL("Reset MeanData"));
-        myDeleteResetMeanDataButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::RESET));
-        // check if reset default meanData button has to be enabled or disabled
-        if (GNEAttributeCarrier::parse<bool>(myMeanDataFrameParent->myMeanDataSelector->getCurrentMeanData()->getAttribute(GNE_ATTR_DEFAULT_VTYPE_MODIFIED))) {
-            myDeleteResetMeanDataButton->enable();
-        } else {
-            myDeleteResetMeanDataButton->disable();
-        }
     } else {
         // enable copy button
         myCopyMeanDataButton->enable();
@@ -416,9 +404,7 @@ GNEMeanDataFrame::MeanDataSelector::refreshMeanDataSelector() {
     // set myCurrentMeanData as inspected element
     myMeanDataFrameParent->getViewNet()->setInspectedAttributeCarriers({myCurrentMeanData});
     // show modules
-/*
     myMeanDataFrameParent->myMeanDataAttributesEditor->showAttributeEditorModule(false, true);
-*/
 }
 
 
@@ -446,9 +432,7 @@ GNEMeanDataFrame::MeanDataSelector::onCmdSelectItem(FXObject*, FXSelector, void*
             // set myCurrentMeanData as inspected element
             myMeanDataFrameParent->getViewNet()->setInspectedAttributeCarriers({myCurrentMeanData});
             // show modules if selected item is valid
-/*
             myMeanDataFrameParent->myMeanDataAttributesEditor->showAttributeEditorModule(false, true);
-*/
             // Write Warning in console if we're in testing mode
             WRITE_DEBUG(("Selected item '" + myMeanDataComboBox->getText() + "' in MeanDataSelector").text());
             // update viewNet
@@ -460,9 +444,7 @@ GNEMeanDataFrame::MeanDataSelector::onCmdSelectItem(FXObject*, FXSelector, void*
     // refresh meanData editor module
     myMeanDataFrameParent->myMeanDataEditor->refreshMeanDataEditorModule();
     // hide all modules if selected item isn't valid
-/*
     myMeanDataFrameParent->myMeanDataAttributesEditor->hideAttributesEditorModule();
-*/
     // set color of myMeanDataMatchBox to red (invalid)
     myMeanDataComboBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode
@@ -484,6 +466,8 @@ GNEMeanDataFrame::GNEMeanDataFrame(GNEViewParent* viewParent, GNEViewNet* viewNe
     myMeanDataEditor = new MeanDataEditor(this);
     // build meanData selector
     myMeanDataSelector = new MeanDataSelector(this);
+    // build meanData attributes editor
+    myMeanDataAttributesEditor = new GNEFrameAttributeModules::AttributesEditor(this);
 }
 
 
