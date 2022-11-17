@@ -821,6 +821,9 @@ public:
     /** Returns whether the lane pertains to a normal edge*/
     bool isNormal() const;
 
+    /** Returns whether the lane pertains to a crossing edge*/
+    bool isCrossing() const;
+
     /// @brief returns the last vehicle for which this lane is responsible or 0
     MSVehicle* getLastFullVehicle() const;
 
