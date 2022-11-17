@@ -380,7 +380,7 @@ def optimizeGreenTime(tl, groupFlowsMap, phaseLaneIndexMap, currentLength, optio
 
     if options.unicycle and totalLength != optCycle:
         diff = optCycle - totalLength
-        secs_to_distribute = [diff / abs(diff)] * abs(diff)
+        secs_to_distribute = [int(diff / abs(diff))] * abs(diff)
         keys = list(groupFlowsMap.keys())
         for i, s in enumerate(secs_to_distribute):
             groupFlowsMap[keys[i % len(groupFlowsMap)]][0] += s
@@ -390,7 +390,7 @@ def optimizeGreenTime(tl, groupFlowsMap, phaseLaneIndexMap, currentLength, optio
         for i in groupFlowsMap:
             totalLength += groupFlowsMap[i][0]
             print("Green time for phase %s: %s" % (i, groupFlowsMap[i][0]))
-        print("the optimal cycle length:%s\n" % totalLength)
+        print("The optimal cycle length:%s\n" % totalLength)
 
     return groupFlowsMap
 
