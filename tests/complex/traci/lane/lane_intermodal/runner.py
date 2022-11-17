@@ -32,9 +32,11 @@ traci.start([sumolib.checkBinary('sumo'), "-n", "input_net3.net.xml",
 traci.simulationStep()
 
 print("foes", traci.lane.getFoes("SC_3", "CN_3"))
-try:
-    print("internal foes", traci.lane.getInternalFoes(":C_15_0"))
-except traci.TraCIException:
-    pass
+
+for iLane in [":C_15_0", ":C_c0_0"]:
+    try:
+        print("internal foes for %s:" % iLane, traci.lane.getInternalFoes(iLane))
+    except traci.TraCIException:
+        pass
 
 traci.close()
