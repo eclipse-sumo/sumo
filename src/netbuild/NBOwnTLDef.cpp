@@ -45,8 +45,8 @@
 //#define DEBUG_PHASES
 //#define DEBUGCOND (getID() == "cluster_251050941_280598736_280598739_28902891_3142549227_3142550438")
 //#define DEBUGEDGE(edge) (edge->getID() == "23209153#1" || edge->getID() == "319583927#0")
-//#define DEBUGCOND (true)
-//#define DEBUGEDGE(edge) (true)
+#define DEBUGCOND (true)
+#define DEBUGEDGE(edge) (true)
 
 // ===========================================================================
 // static members
@@ -126,11 +126,13 @@ NBOwnTLDef::computeUnblockedWeightedStreamNumber(const NBEdge* const e1, const N
                                          || forbids(e2, (*e2c).toEdge, e1, (*e1c).toEdge, true)) ? -1 : 1;
                     double w1;
                     double w2;
-                    if (e1->getJunctionPriority(e1->getToNode()) == e2->getJunctionPriority(e2->getToNode())) {
+                    const int prio1 = e1->getJunctionPriority(e1->getToNode());
+                    const int prio2 = e2->getJunctionPriority(e2->getToNode());
+                    if (prio1 == prio2) {
                         w1 = getDirectionalWeight(e1->getToNode()->getDirection(e1, (*e1c).toEdge));
                         w2 = getDirectionalWeight(e2->getToNode()->getDirection(e2, (*e2c).toEdge));
                     } else {
-                        if (e1->getJunctionPriority(e1->getToNode()) > e2->getJunctionPriority(e2->getToNode())) {
+                        if (prio1 > prio2) {
                             w1 = HEIGH_WEIGHT;
                             w2 = LOW_WEIGHT;
                         } else {
