@@ -53,7 +53,7 @@ GNEMeanDataHandler::buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* 
         const std::string& edgeID, const std::string& file) {
     GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(edgeID, false);
     if (edge) {
-        GNEMeanData* edgeMeanData = new GNEMeanData(myNet, SUMO_TAG_MEANDATA_EDGE, file);
+        GNEMeanData* edgeMeanData = new GNEMeanData(myNet, SUMO_TAG_MEANDATA_EDGE, edgeID);
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(GUIIcon::MEANDATAEDGE, "add " + toString(SUMO_TAG_MEANDATA_EDGE));
             myNet->getViewNet()->getUndoList()->add(new GNEChange_MeanData(edgeMeanData, true), true);

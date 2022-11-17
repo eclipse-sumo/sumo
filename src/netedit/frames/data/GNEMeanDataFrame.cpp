@@ -222,7 +222,7 @@ GNEMeanDataFrame::MeanDataEditor::onCmdCreateMeanData(FXObject*, FXSelector, voi
     const std::string typeID = myMeanDataFrameParent->myViewNet->getNet()->getAttributeCarriers()->generateMeanDataID(meanDataTag);
     // create new meanData
     GNEMeanData* meanData = new GNEMeanData(myMeanDataFrameParent->myViewNet->getNet(), 
-        myMeanDataFrameParent->myMeanDataTypeSelector->getCurrentMeanData().getTag(), "");
+        myMeanDataFrameParent->myMeanDataTypeSelector->getCurrentMeanData().getTag(), typeID);
     // add it using undoList (to allow undo-redo)
     myMeanDataFrameParent->myViewNet->getUndoList()->begin(GUIIcon::VTYPE, "create meanData");
     myMeanDataFrameParent->myViewNet->getUndoList()->add(new GNEChange_MeanData(meanData, true), true);
@@ -259,7 +259,7 @@ GNEMeanDataFrame::MeanDataEditor::onCmdCopyMeanData(FXObject*, FXSelector, void*
     if (meanData) {
         // create a new MeanData based on the current selected meanData
         GNEMeanData* typeCopy = new GNEMeanData(myMeanDataFrameParent->myViewNet->getNet(),
-            myMeanDataFrameParent->myMeanDataTypeSelector->getCurrentMeanData().getTag(), "");
+            myMeanDataFrameParent->myMeanDataTypeSelector->getCurrentMeanData().getTag(), typeID);
         // begin undo list operation
         myMeanDataFrameParent->myViewNet->getUndoList()->begin(GUIIcon::VTYPE, "copy meanData");
         // add it using undoList (to allow undo-redo)
