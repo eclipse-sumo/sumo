@@ -41,7 +41,7 @@ public:
         SUMOTime begin, SUMOTime end, const bool trackVehicles, const std::vector<std::string> &writtenAttributes,
         const bool aggregate, const std::vector<std::string> &edges, const std::vector<std::string> &edgeFile, 
         std::string excludeEmpty, const bool withInternal, const std::vector<std::string> &detectPersons, 
-        const float minSamples, const float maxTravelTime, const std::vector<std::string> &vTypes, const float speedThreshold),
+        const double minSamples, const double maxTravelTime, const std::vector<std::string> &vTypes, const double speedThreshold),
 
     /// @brief Destructor
     ~GNEMeanData();
@@ -134,16 +134,16 @@ protected:
     std::vector<std::string> myDetectPersons;
 
     /// @brief minSamples
-    float myMinSamples = 0;
+    double myMinSamples = 0;
 
     /// @brief max travel time
-    float myMaxTravelTime = 0;
+    double myMaxTravelTime = 0;
 
     /// @brief VTypes
     std::vector<std::string> myVTypes;
 
     /// @brief speed treshold
-    float mySpeedThreshold = 0;
+    double mySpeedThreshold = 0;
 
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)

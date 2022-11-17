@@ -50,7 +50,7 @@ GNEMeanData::GNEMeanData(GNENet *net, SumoXMLTag tag, std::string ID, std::strin
         SUMOTime begin, SUMOTime end, const bool trackVehicles, const std::vector<std::string> &writtenAttributes,
         const bool aggregate, const std::vector<std::string> &edges, const std::vector<std::string> &edgeFile, 
         std::string excludeEmpty, const bool withInternal, const std::vector<std::string> &detectPersons, 
-        const float minSamples, const float maxTravelTime, const std::vector<std::string> &vTypes, const float speedThreshold) :
+        const double minSamples, const double maxTravelTime, const std::vector<std::string> &vTypes, const double speedThreshold) :
     GNEHierarchicalElement(net, tag, {}, {}, {}, {}, {}, {}),
     myID(ID), 
     myFile(file),
@@ -97,27 +97,39 @@ std::string
 GNEMeanData::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return "";
+            return myID;
         case SUMO_ATTR_FILE:
             return myFile;
-
         case SUMO_ATTR_PERIOD:
+            return time2string(myPeriod);
         case SUMO_ATTR_BEGIN:
+            return time2string(myBegin);
         case SUMO_ATTR_END:
+            return time2string(myEnd);
         case SUMO_ATTR_EXCLUDE_EMPTY:
+            return myExcludeEmpty;
         case SUMO_ATTR_WITH_INTERNAL:
+            return toString(myWithInternal);
         case SUMO_ATTR_MAX_TRAVELTIME:
+            return toString(myMaxTravelTime);
         case SUMO_ATTR_MIN_SAMPLES:
+            return toString(myMinSamples);
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
+            return toString(mySpeedThreshold);
         case SUMO_ATTR_VTYPES:
+            return toString(myVTypes);
         case SUMO_ATTR_TRACK_VEHICLES:
+            return toString(myTrackVehicles);
         case SUMO_ATTR_DETECT_PERSONS:
+            return toString(myDetectPersons);
         case SUMO_ATTR_WRITE_ATTRIBUTES:
+            return toString(myWrittenAttributes);
         case SUMO_ATTR_EDGES:
+            return toString(myEdges);
         case SUMO_ATTR_EDGESFILE:
+            return toString(myEdgeFile);
         case SUMO_ATTR_AGGREGATE:
-            return "";
-
+            return toString(myAggregate);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -207,23 +219,54 @@ void
 GNEMeanData::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
+            myID = value;
         case SUMO_ATTR_FILE:
-        case SUMO_ATTR_PERIOD:
-        case SUMO_ATTR_BEGIN:
-        case SUMO_ATTR_END:
-        case SUMO_ATTR_EXCLUDE_EMPTY:
-        case SUMO_ATTR_WITH_INTERNAL:
-        case SUMO_ATTR_MAX_TRAVELTIME:
-        case SUMO_ATTR_MIN_SAMPLES:
-        case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
-        case SUMO_ATTR_VTYPES:
-        case SUMO_ATTR_TRACK_VEHICLES:
-        case SUMO_ATTR_DETECT_PERSONS:
-        case SUMO_ATTR_WRITE_ATTRIBUTES:
-        case SUMO_ATTR_EDGES:
-        case SUMO_ATTR_EDGESFILE:
-        case SUMO_ATTR_AGGREGATE:
             myFile = value;
+            break;
+        case SUMO_ATTR_PERIOD:
+            myPeriod = string2time(value);
+            break;
+        case SUMO_ATTR_BEGIN:
+            myBegin = string2time(value);
+            break;
+        case SUMO_ATTR_END:
+            myEnd = string2time(value);
+            break;
+        case SUMO_ATTR_EXCLUDE_EMPTY:
+            myExcludeEmpty = value;
+            break;
+        case SUMO_ATTR_WITH_INTERNAL:
+            myWithInternal = parse<bool>(value);
+            break;
+        case SUMO_ATTR_MAX_TRAVELTIME:
+            myMaxTravelTime = parse<double>(value);
+            break;
+        case SUMO_ATTR_MIN_SAMPLES:
+            myMinSamples = parse<double>(value);
+            break;
+        case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
+            mySpeedThreshold = parse<double>(value);
+            break;
+        case SUMO_ATTR_VTYPES:
+            myVTypes = parse<std::vector<std::string> >(value);
+            break;
+        case SUMO_ATTR_TRACK_VEHICLES:
+            myTrackVehicles = parse<bool>(value);
+            break;
+        case SUMO_ATTR_DETECT_PERSONS:
+            myDetectPersons = parse<std::vector<std::string> >(value);
+            break;
+        case SUMO_ATTR_WRITE_ATTRIBUTES:
+            myWrittenAttributes = parse<std::vector<std::string> >(value);
+            break;
+        case SUMO_ATTR_EDGES:
+            myEdges = parse<std::vector<std::string> >(value);
+            break;
+        case SUMO_ATTR_EDGESFILE:
+            myEdgeFile = parse<std::vector<std::string> >(value);
+            break;
+        case SUMO_ATTR_AGGREGATE:
+            myAggregate = parse<bool>(value);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
