@@ -58,7 +58,7 @@ public:
      * @param[in] speedFactor The factor for driven lane's speed limits
      * @exception ProcessError If a value is wrong
      */
-    GUIMEVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
+    GUIMEVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
                  MSVehicleType* type, const double speedFactor);
 
 
@@ -107,7 +107,7 @@ public:
     /** @brief Draws the route
      * @param[in] r The route to draw
      */
-    void drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r, bool future, bool noLoop, const RGBColor& col) const;
+    void drawRouteHelper(const GUIVisualizationSettings& s, ConstMSRoutePtr r, bool future, bool noLoop, const RGBColor& col) const;
 
     /// @brief retrieve information about the current stop state
     std::string getStopInfo() const;

@@ -99,7 +99,7 @@ public:
         /// The distributions of new destinations to use
         RandomDistributor<MSEdge*> edgeProbs;
         /// The distributions of new routes to use
-        RandomDistributor<const MSRoute*> routeProbs;
+        RandomDistributor<ConstMSRoutePtr> routeProbs;
         /// The permissions to use
         SVCPermissions permissions;
         /// The distributions of new parking areas to use as destinations
@@ -260,7 +260,7 @@ protected:
     /// new destinations with probabilities
     RandomDistributor<MSEdge*> myCurrentEdgeProb;
     /// new routes with probabilities
-    RandomDistributor<const MSRoute*> myCurrentRouteProb;
+    RandomDistributor<ConstMSRoutePtr> myCurrentRouteProb;
     //@}
 
 

@@ -48,6 +48,8 @@ class MSVehicleType;
 class OutputDevice;
 class MSEdge;
 
+typedef std::shared_ptr<const MSRoute> ConstMSRoutePtr;
+
 
 // ===========================================================================
 // class definitions
@@ -95,7 +97,7 @@ public:
      * @param[in] fromRouteFile whether we are just reading the route file or creating via trigger, traci, ...
      * @return The built vehicle (MSVehicle instance)
      */
-    virtual SUMOVehicle* buildVehicle(SUMOVehicleParameter* defs, const MSRoute* route,
+    virtual SUMOVehicle* buildVehicle(SUMOVehicleParameter* defs, ConstMSRoutePtr route,
                                       MSVehicleType* type,
                                       const bool ignoreStopErrors, const bool fromRouteFile = true,
                                       bool addRouteStops = true);

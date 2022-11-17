@@ -61,7 +61,7 @@ SUMOTime MSRoutingEngine::myLastAdaptation = -1;
 bool MSRoutingEngine::myWithTaz;
 bool MSRoutingEngine::myBikeSpeeds;
 MSRoutingEngine::MSRouterProvider* MSRoutingEngine::myRouterProvider = nullptr;
-std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*> MSRoutingEngine::myCachedRoutes;
+std::map<std::pair<const MSEdge*, const MSEdge*>, ConstMSRoutePtr> MSRoutingEngine::myCachedRoutes;
 double MSRoutingEngine::myPriorityFactor(0);
 double MSRoutingEngine::myMinEdgePriority(std::numeric_limits<double>::max());
 double MSRoutingEngine::myEdgePriorityRange(0);
@@ -222,10 +222,6 @@ MSRoutingEngine::adaptEdgeEfforts(SUMOTime currentTime) {
     if (MSNet::getInstance()->getVehicleControl().getDepartedVehicleNo() == 0) {
         return myAdaptationInterval;
     }
-    std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*>::iterator it = myCachedRoutes.begin();
-    for (; it != myCachedRoutes.end(); ++it) {
-        it->second->release();
-    }
     myCachedRoutes.clear();
     const MSEdgeVector& edges = MSNet::getInstance()->getEdgeControl().getEdges();
     const double newWeightFactor = (double)(1. - myAdaptationWeight);
@@ -363,7 +359,7 @@ MSRoutingEngine::patchSpeedForTurns(const MSEdge* edge, double currSpeed) {
 }
 
 
-const MSRoute*
+ConstMSRoutePtr
 MSRoutingEngine::getCachedRoute(const std::pair<const MSEdge*, const MSEdge*>& key) {
     auto routeIt = myCachedRoutes.find(key);
     if (routeIt != myCachedRoutes.end()) {
@@ -582,8 +578,7 @@ MSRoutingEngine::RoutingTask::run(MFXWorkerThread* context) {
         const std::pair<const MSEdge*, const MSEdge*> key = std::make_pair(source, dest);
         FXMutexLock lock(myRouteCacheMutex);
         if (MSRoutingEngine::myCachedRoutes.find(key) == MSRoutingEngine::myCachedRoutes.end()) {
-            MSRoutingEngine::myCachedRoutes[key] = &myVehicle.getRoute();
-            myVehicle.getRoute().addReference();
+            MSRoutingEngine::myCachedRoutes[key] = myVehicle.getRoutePtr();
         }
     }
 }

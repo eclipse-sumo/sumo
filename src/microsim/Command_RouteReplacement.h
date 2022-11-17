@@ -45,7 +45,7 @@ public:
      * @param[in] tlls The logic to write state of
      * @param[in] od The output device to write the state into
      */
-    Command_RouteReplacement(const std::string& vehID, const MSRoute* route);
+    Command_RouteReplacement(const std::string& vehID, ConstMSRoutePtr route);
 
     /// @brief Destructor
     ~Command_RouteReplacement();
@@ -71,7 +71,7 @@ private:
     std::string myVehID;
 
     /// @brief The replacement route
-    const MSRoute* myRoute;
+    ConstMSRoutePtr myRoute;
 
 
 private:

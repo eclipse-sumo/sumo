@@ -191,7 +191,7 @@ MSTriggeredRerouter::myStartElement(int element,
         if (routeStr == "") {
             throw ProcessError("MSTriggeredRerouter " + getID() + ": No route id given.");
         }
-        const MSRoute* route = MSRoute::dictionary(routeStr);
+        ConstMSRoutePtr route = MSRoute::dictionary(routeStr);
         if (route == nullptr) {
             throw ProcessError("MSTriggeredRerouter " + getID() + ": Route '" + routeStr + "' does not exist.");
         }
@@ -473,7 +473,7 @@ MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Not
     }
 
     // get rerouting params
-    const MSRoute* newRoute = rerouteDef->routeProbs.getOverallProb() > 0 ? rerouteDef->routeProbs.get() : 0;
+    ConstMSRoutePtr newRoute = rerouteDef->routeProbs.getOverallProb() > 0 ? rerouteDef->routeProbs.get() : 0;
     // we will use the route if given rather than calling our own dijsktra...
     if (newRoute != nullptr) {
 #ifdef DEBUG_REROUTER

@@ -218,7 +218,7 @@ protected:
     std::string myCurrentVTypeDistributionID;
 
     /// @brief The currently parsed distribution of routes (probability->route)
-    RandomDistributor<const MSRoute*>* myCurrentRouteDistribution;
+    RandomDistributor<ConstMSRoutePtr>* myCurrentRouteDistribution;
 
     /// @brief The id of the currently parsed route distribution
     std::string myCurrentRouteDistributionID;
@@ -254,7 +254,7 @@ private:
     double interpretDepartPosLat(const std::string& value, int departLane, const std::string& element);
 
     /// @brief adapt implicit route (edges derived from stops) to additional vehicle-stops
-    MSRoute* addVehicleStopsToImplicitRoute(const MSRoute* route, bool isPermanent);
+    ConstMSRoutePtr addVehicleStopsToImplicitRoute(ConstMSRoutePtr route, bool isPermanent);
 
     /// @brief Invalidated copy constructor
     MSRouteHandler(const MSRouteHandler& s) = delete;

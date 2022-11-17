@@ -31,10 +31,9 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-Command_RouteReplacement::Command_RouteReplacement(const std::string& vehID, const MSRoute* route) :
+Command_RouteReplacement::Command_RouteReplacement(const std::string& vehID, ConstMSRoutePtr route) :
     myVehID(vehID),
     myRoute(route) {
-    myRoute->addReference();
 }
 
 
@@ -61,8 +60,8 @@ Command_RouteReplacement::execute(SUMOTime /*currentTime*/) {
             throw ProcessError(errorPrefix + " (" + errorMsg + ").");
         }
     }
-    myRoute->release();
     return 0;
 }
+
 
 /****************************************************************************/

@@ -24,6 +24,7 @@
 
 #include <vector>
 #include <typeinfo>
+#include <memory>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/Named.h>
 #include <utils/router/SUMOAbstractRouter.h>
@@ -48,6 +49,7 @@ class SUMOSAXAttributes;
 class EnergyParams;
 
 typedef std::vector<const MSEdge*> ConstMSEdgeVector;
+typedef std::shared_ptr<const MSRoute> ConstMSRoutePtr;
 
 
 // ===========================================================================
@@ -80,6 +82,9 @@ public:
     /// Returns the current route
     virtual const MSRoute& getRoute() const = 0;
 
+    /// Returns the current route
+    virtual ConstMSRoutePtr getRoutePtr() const = 0;
+
     /** @brief Returns the nSuccs'th successor of edge the vehicle is currently at
      *
      * If the rest of the route (counted from the current edge) than nSuccs,
@@ -111,7 +116,7 @@ public:
     virtual bool replaceRouteEdges(ConstMSEdgeVector& edges, double cost, double savings, const std::string& info, bool onInit = false, bool check = false, bool removeStops = true, std::string* msgReturn = nullptr) = 0;
 
     /// Replaces the current route by the given one
-    virtual bool replaceRoute(const MSRoute* route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true, std::string* msgReturn = nullptr) = 0;
+    virtual bool replaceRoute(ConstMSRoutePtr route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true, std::string* msgReturn = nullptr) = 0;
 
     /** @brief Performs a rerouting using the given router
      *
@@ -129,7 +134,7 @@ public:
      * @param[in] route The route to check (or 0 if the current route shall be checked)
      * @return Whether the vehicle's current route is valid
      */
-    virtual bool hasValidRoute(std::string& msg, const MSRoute* route = 0) const = 0;
+    virtual bool hasValidRoute(std::string& msg, ConstMSRoutePtr route = 0) const = 0;
     /// @brief checks wether the vehicle can depart on the first edge
     virtual bool hasValidRouteStart(std::string& msg) = 0;
 

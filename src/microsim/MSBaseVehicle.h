@@ -85,7 +85,7 @@ public:
      * @param[in] speedFactor The factor for driven lane's speed limits
      * @exception ProcessError If a value is wrong
      */
-    MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
+    MSBaseVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
                   MSVehicleType* type, const double speedFactor);
 
 
@@ -133,6 +133,13 @@ public:
      */
     inline const MSRoute& getRoute() const {
         return *myRoute;
+    }
+
+    /** @brief Returns the current route
+     * @return The route the vehicle uses
+     */
+    inline ConstMSRoutePtr getRoutePtr() const {
+        return myRoute;
     }
 
     /** @brief Returns the vehicle's type definition
@@ -299,7 +306,7 @@ public:
      * @param[in] removeStops Whether stops should be removed if they do not fit onto the new route
      * @return Whether the new route was accepted
      */
-    virtual bool replaceRoute(const MSRoute* route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true,
+    virtual bool replaceRoute(ConstMSRoutePtr route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true,
                               std::string* msgReturn = nullptr);
 
     /** @brief Returns the vehicle's acceleration
@@ -460,7 +467,7 @@ public:
      * @param[in] route The route to check (or 0 if the current route shall be checked)
      * @return Whether the vehicle's current route is valid
      */
-    bool hasValidRoute(std::string& msg, const MSRoute* route = 0) const;
+    bool hasValidRoute(std::string& msg, ConstMSRoutePtr route = 0) const;
 
     /// @brief checks wether the vehicle can depart on the first edge
     virtual bool hasValidRouteStart(std::string& msg);
@@ -912,7 +919,7 @@ protected:
     const SUMOVehicleParameter* myParameter;
 
     /// @brief This vehicle's route.
-    const MSRoute* myRoute;
+    ConstMSRoutePtr myRoute;
 
     /// @brief This vehicle's type.
     MSVehicleType* myType;

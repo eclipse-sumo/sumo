@@ -402,7 +402,7 @@ MSCalibrator::execute(SUMOTime currentTime) {
         MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
         while (wishedNum > adaptedNum + insertionSlack) {
             SUMOVehicleParameter* pars = myCurrentStateInterval->vehicleParameter;
-            const MSRoute* route = myProbe != nullptr ? myProbe->sampleRoute() : nullptr;
+            ConstMSRoutePtr route = myProbe != nullptr ? myProbe->sampleRoute() : nullptr;
             if (route == nullptr) {
                 route = MSRoute::dictionary(pars->routeid);
             }

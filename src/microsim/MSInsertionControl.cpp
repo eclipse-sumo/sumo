@@ -238,7 +238,7 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
             //std::cout << SIMTIME << " flow=" << pars->id << " done=" << pars->repetitionsDone << " totalOffset=" << STEPS2TIME(pars->repetitionTotalOffset) << "\n";
             // try to build the vehicle
             if (vehControl.getVehicle(newPars->id) == nullptr) {
-                const MSRoute* const route = MSRoute::dictionary(pars->routeid);
+                ConstMSRoutePtr const route = MSRoute::dictionary(pars->routeid);
                 if (vtype == nullptr) {
                     vtype = vehControl.getVType(pars->vtypeid, MSRouteHandler::getParsingRNG());
                 }
@@ -364,7 +364,7 @@ MSInsertionControl::adaptIntermodalRouter(MSNet::MSIntermodalRouter& router) con
     // fill the public transport router with pre-parsed public transport lines
     for (const Flow& f : myFlows) {
         if (f.pars->line != "") {
-            const MSRoute* const route = MSRoute::dictionary(f.pars->routeid);
+            ConstMSRoutePtr const route = MSRoute::dictionary(f.pars->routeid);
             router.getNetwork()->addSchedule(*f.pars, route == nullptr ? nullptr : &route->getStops());
         }
     }

@@ -46,7 +46,7 @@ GUIVehicleControl::~GUIVehicleControl() {
 
 SUMOVehicle*
 GUIVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
-                                const MSRoute* route, MSVehicleType* type,
+                                ConstMSRoutePtr route, MSVehicleType* type,
                                 const bool ignoreStopErrors, const bool fromRouteFile,
                                 bool addRouteStops) {
     MSVehicle* built = new GUIVehicle(defs, route, type, type->computeChosenSpeedDeviation(fromRouteFile ? MSRouteHandler::getParsingRNG() : nullptr));
