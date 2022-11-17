@@ -145,6 +145,16 @@ NBOwnTLDef::computeUnblockedWeightedStreamNumber(const NBEdge* const e1, const N
                             w2 *= 2;
                         }
                     }
+                    if (isRailway(e1->getPermissions()) != isRailway(e2->getPermissions())) {
+                        w1 *= 0.1;
+                        w2 *= 0.1;
+                    }
+                    if ((e1->getPermissions() & SVC_PASSENGER) == 0) {
+                        w1 *= 0.1;
+                    }
+                    if ((e2->getPermissions() & SVC_PASSENGER) == 0) {
+                        w2 *= 0.1;
+                    }
                     val += sign * w1;
                     val += sign * w2;
 #ifdef DEBUG_STREAM_ORDERING
