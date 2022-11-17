@@ -203,8 +203,10 @@ NBOwnTLDef::getBestCombination(const EdgeVector& edges) {
     }
     if (bestValue <= 0) {
         // do not group edges
+        if (bestPair.first->getPriority() < bestPair.second->getPriority()) {
+            std::swap(bestPair.first, bestPair.second);
+        }
         bestPair.second = nullptr;
-
     }
 #ifdef DEBUG_STREAM_ORDERING
     if (DEBUGCOND) {
