@@ -454,9 +454,9 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
     }
     const std::string side = lefthand ? "left" : "right";
     device << "                <" << side << ">\n";
-    const int numLanes = parallel.size();
+    const int numLanes = (int)parallel.size();
     for (int jRH = numLanes; --jRH >= 0;) {
-        const int j = lefthand ? parallel.size() - 1 - jRH : jRH;
+        const int j = lefthand ? (int)parallel.size() - 1 - jRH : jRH;
         const int xJ = s2x(lefthand, j, numLanes);
         const NBEdge::Connection& c = parallel[j];
         const int fromIndex = s2x(lefthand, c.fromLane, inEdge->getNumLanes());

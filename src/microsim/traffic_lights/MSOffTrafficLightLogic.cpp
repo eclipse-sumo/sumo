@@ -84,7 +84,7 @@ MSOffTrafficLightLogic::rebuildPhase() {
         if (foundMajor && foundMinor) {
             WRITE_WARNING("Inconsistent 'off'-states for linkIndex " + toString(i) + " at tlLogic '" + getID() + "'");
         }
-        state += foundAllwayStop ? LINKSTATE_ALLWAY_STOP : (foundMinor ? LINKSTATE_TL_OFF_BLINKING : LINKSTATE_TL_OFF_NOSIGNAL);
+        state += toString(foundAllwayStop ? LINKSTATE_ALLWAY_STOP : (foundMinor ? LINKSTATE_TL_OFF_BLINKING : LINKSTATE_TL_OFF_NOSIGNAL));
     }
     for (MSTrafficLightLogic::Phases::const_iterator i = myPhaseDefinition.begin(); i != myPhaseDefinition.end(); ++i) {
         delete *i;
