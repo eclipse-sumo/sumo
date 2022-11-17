@@ -976,7 +976,9 @@ GUIBaseVehicle::drawStopLabels(const GUIVisualizationSettings& s, bool noLoop, c
                 }
             }
         }
-        if (stop.pars.until >= 0) {
+        if (stop.pars.ended >= 0 && MSGlobals::gUseStopEnded) {
+            label += " ended:" + time2string(stop.pars.ended);
+        } else if (stop.pars.until >= 0) {
             label += " until:" + time2string(stop.pars.until);
         }
         if (stop.duration >= 0 || stop.pars.duration > 0) {
