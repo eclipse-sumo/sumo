@@ -683,7 +683,8 @@ def updateStartedEnded(options, net, stopEdges, stopRoutes, vehicleStopRoutes):
     numConflicts = 0
 
     maxShift = 0
-    for busStop, stops in stopRoutes.items():
+    for busStop in sorted(stopRoutes.keys()):
+        stops = stopRoutes[busStop]
         latestKnownTime = 0
         shift = 0
         stopEdge = stopEdges[busStop]
