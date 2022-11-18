@@ -316,6 +316,27 @@ def keepNumeric(d, xyIndex):
     d[1].extend(res_y)
 
 
+def applyTicks(d, xyIndex, ticksFile):
+    offsets, labels = sumolib.visualization.helpers.parseTicks(ticksFile)
+    l2o = dict(zip(labels, offsets))
+
+    points = [] # (offset, x, y)
+    for i in range(len(d[xyIndex])):
+        val = d[xyIndex][i]
+        if val in l2o:
+            point = [l2o[val], d[0][i], d[1][i]]
+            point[xyIndex + 1] = point[0]
+            points.append(point)
+
+    points.sort()
+    res_x = [p[1] for p in points]
+    res_y = [p[2] for p in points]
+    d[0].clear()
+    d[0].extend(res_x)
+    d[1].clear()
+    d[1].extend(res_y)
+
+
 def main(options):
 
     dataStream = getDataStream(options)
@@ -392,8 +413,14 @@ def main(options):
         if numericYCount > 0 and stringYCount > 0:
             keepNumeric(d, ydata)
 
+        if options.xticksFile:
+            applyTicks(d, xdata, options.xticksFile)
+        if options.yticksFile:
+            applyTicks(d, ydata, options.yticksFile)
+
         xvalues = d[xdata]
         yvalues = d[ydata]
+
         if len(xvalues) == 0:
             assert(len(yvalues) == 0)
             continue
