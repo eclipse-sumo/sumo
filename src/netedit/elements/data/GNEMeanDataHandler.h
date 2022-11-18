@@ -47,7 +47,7 @@ public:
     /// @brief Builds edgeMeanData
     void buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &ID, 
         const std::string &file, SUMOTime period, SUMOTime begin, SUMOTime end, const bool trackVehicles, 
-        const std::vector<std::string> &writtenAttributes, const bool aggregate, const std::vector<std::string> &edges, 
+        const std::vector<std::string> &writtenAttributes, const bool aggregate, const std::vector<std::string> &edgeIDs, 
         const std::string &edgeFile, std::string excludeEmpty, const bool withInternal, 
         const std::vector<std::string> &detectPersons, const double minSamples, const double maxTravelTime, 
         const std::vector<std::string> &vTypes, const double speedThreshold);
@@ -55,7 +55,7 @@ public:
     /// @brief Builds laneMeanData
     void buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &ID, 
         const std::string &file, SUMOTime period, SUMOTime begin, SUMOTime end, const bool trackVehicles, 
-        const std::vector<std::string> &writtenAttributes, const bool aggregate, const std::vector<std::string> &edges, 
+        const std::vector<std::string> &writtenAttributes, const bool aggregate, const std::vector<std::string> &edgeIDs, 
         const std::string &edgeFile, std::string excludeEmpty, const bool withInternal, 
         const std::vector<std::string> &detectPersons, const double minSamples, const double maxTravelTime, 
         const std::vector<std::string> &vTypes, const double speedThreshold);
@@ -68,6 +68,12 @@ protected:
 
     /// @brief allow undo/redo
     const bool myAllowUndoRedo;
+
+    /// @brief parse edges
+    std::vector<GNEEdge*> parseEdges(const SumoXMLTag tag, const std::vector<std::string>& edgeIDs);
+
+    /// @brief parse attributes
+    std::vector<SumoXMLAttr> parseAttributes(const SumoXMLTag tag, const std::vector<std::string>& attrStrs);
 
 private:
     /// @brief invalidate copy constructor

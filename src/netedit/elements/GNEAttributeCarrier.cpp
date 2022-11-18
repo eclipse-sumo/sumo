@@ -314,7 +314,7 @@ GNEAttributeCarrier::parse(const std::string& value) {
         if (SUMOXMLDefinitions::Tags.hasString(attributeStr)) {
             attributes.push_back(static_cast<SumoXMLAttr>(SUMOXMLDefinitions::Attrs.get(attributeStr)));
         } else {
-            throw FormatException("Error parsing attributes. Attribute '" + attributeStr + "'  doesn't exist");
+            throw InvalidArgument("Error parsing attributes. Attribute '" + attributeStr + "'  doesn't exist");
         }
     }
     return attributes;
