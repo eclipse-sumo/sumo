@@ -336,18 +336,18 @@ GNEMeanDataFrame::MeanDataSelector::~MeanDataSelector() {}
 
 void
 GNEMeanDataFrame::MeanDataSelector::showMeanDataSelector() {
-    if (myCurrentMeanData != nullptr) {
-        myMeanDataFrameParent->myMeanDataAttributesEditor->showAttributeEditorModule(true, true);
-    } else {
-        myMeanDataFrameParent->myMeanDataAttributesEditor->hideAttributesEditorModule();
-    }
+    // refresh mean data selector
+    refreshMeanDataSelector();
+    // show
     show();
 }
 
 
 void
 GNEMeanDataFrame::MeanDataSelector::hideMeanDataSelector() {
+    // hide attributes editor
     myMeanDataFrameParent->myMeanDataAttributesEditor->hideAttributesEditorModule();
+    // hide
     hide();
 }
 
@@ -369,20 +369,16 @@ void
 GNEMeanDataFrame::MeanDataSelector::refreshMeanDataSelector() {
     // get current meanData type
     SumoXMLTag meanDataTag = myMeanDataFrameParent->myMeanDataTypeSelector->getCurrentMeanData().getTag();
-    bool valid = false;
+    // get mean datas sorted by ID
+    std::map<std::string, GNEMeanData*> sortedMeanDatas;
+    for (const auto &meanData : myMeanDataFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getMeanDatas().at(meanDataTag)) {
+        sortedMeanDatas[meanData->getID()] = meanData;
+    }
     // clear items
     myMeanDataComboBox->clearItems();
-    // add default Vehicle an Bike types in the first and second positions
-    for (const auto& vMeanData : myMeanDataFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getMeanDatas().at(meanDataTag)) {
-        if (DEFAULT_VTYPES.count(vMeanData->getID()) != 0) {
-            myMeanDataComboBox->appendIconItem(vMeanData->getID().c_str(), vMeanData->getACIcon(), FXRGB(255, 255, 200));
-        }
-    }
-    // fill myMeanDataMatchBox with list of VMeanDatas IDs
-    for (const auto& vMeanData : myMeanDataFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getMeanDatas().at(meanDataTag)) {
-        if (DEFAULT_VTYPES.count(vMeanData->getID()) == 0) {
-            myMeanDataComboBox->appendIconItem(vMeanData->getID().c_str(), vMeanData->getACIcon());
-        }
+    // fill myMeanDataMatchBox with meanDatas
+    for (const auto &sortedMeanData : sortedMeanDatas) {
+        myMeanDataComboBox->appendIconItem(sortedMeanData.first.c_str(), sortedMeanData.second->getACIcon());
     }
     // Set visible items
     if (myMeanDataComboBox->getNumItems() <= 20) {
@@ -390,30 +386,32 @@ GNEMeanDataFrame::MeanDataSelector::refreshMeanDataSelector() {
     } else {
         myMeanDataComboBox->setNumVisible(20);
     }
-    // make sure that tag is in myMeanDataMatchBox
-    if (myCurrentMeanData) {
+    // make sure that mean data exists
+    if (myMeanDataFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveMeanData(myCurrentMeanData, false)) {
+        bool validMeanData = false;
         for (int i = 0; i < (int)myMeanDataComboBox->getNumItems(); i++) {
             if (myMeanDataComboBox->getItem(i).text() == myCurrentMeanData->getID()) {
                 myMeanDataComboBox->setCurrentItem(i);
-                valid = true;
+                validMeanData = true;
             }
         }
+        if (validMeanData) {
+            myCurrentMeanData = nullptr;
+        }
+    } else {
+        myCurrentMeanData = nullptr;
     }
-    // Check that give vMeanData type is valid
-    if (!valid) {
-        // refresh myMeanDataMatchBox again
-        for (int i = 0; i < (int)myMeanDataComboBox->getNumItems(); i++) {
-            if (myMeanDataComboBox->getItem(i).text() == myCurrentMeanData->getID()) {
-                myMeanDataComboBox->setCurrentItem(i);
-            }
-        }
+    if ((myCurrentMeanData == nullptr) && (sortedMeanDatas.size() > 0)) {
+        myCurrentMeanData = sortedMeanDatas.begin()->second;
     }
     // refresh meanData editor module
     myMeanDataFrameParent->myMeanDataEditor->refreshMeanDataEditorModule();
-    // set myCurrentMeanData as inspected element
-    myMeanDataFrameParent->getViewNet()->setInspectedAttributeCarriers({myCurrentMeanData});
-    // show modules
-    myMeanDataFrameParent->myMeanDataAttributesEditor->showAttributeEditorModule(false, true);
+    // check if show attribute editor
+    if (myCurrentMeanData) {
+        myMeanDataFrameParent->myMeanDataAttributesEditor->showAttributeEditorModule(false, true);
+    } else {
+        myMeanDataFrameParent->myMeanDataAttributesEditor->hideAttributesEditorModule();
+    }
 }
 
 
@@ -486,7 +484,8 @@ GNEMeanDataFrame::~GNEMeanDataFrame() {
 
 void
 GNEMeanDataFrame::show() {
-
+    // refresh meanData type selector
+    myMeanDataTypeSelector->refreshMeanDataTypeSelector();
     // show frame
     GNEFrame::show();
 }
