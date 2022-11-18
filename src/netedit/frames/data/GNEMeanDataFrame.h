@@ -113,8 +113,8 @@ public:
         /// @brief Called when "Vreate Vehicle MeanData" button is clicked
         long onCmdCreateMeanData(FXObject*, FXSelector, void*);
 
-        /// @brief Called when "Delete/Reset Vehicle MeanData" button is clicked
-        long onCmdDeleteResetMeanData(FXObject*, FXSelector, void*);
+        /// @brief Called when "Delete Vehicle MeanData" button is clicked
+        long onCmdDeletetMeanData(FXObject*, FXSelector, void*);
 
         /// @brief Called when "Copy Vehicle MeanData" button is clicked
         long onCmdCopyMeanData(FXObject*, FXSelector, void*);
@@ -124,12 +124,6 @@ public:
         /// @brief FOX needs this
         FOX_CONSTRUCTOR(MeanDataEditor)
 
-        /// @brief reset type
-        void resetMeanData();
-
-        /// @brief delete type
-        void deleteMeanData();
-
     private:
         /// @brief pointer to meanData Frame Parent
         GNEMeanDataFrame* myMeanDataFrameParent;
@@ -137,8 +131,8 @@ public:
         /// @brief "create meanData" button
         FXButton* myCreateMeanDataButton;
 
-        /// @brief "delete/reset meanData" button
-        FXButton* myDeleteResetMeanDataButton;
+        /// @brief "delete meanData" button
+        FXButton* myDeleteMeanDataButton;
 
         /// @brief "copy meanData"
         FXButton* myCopyMeanDataButton;

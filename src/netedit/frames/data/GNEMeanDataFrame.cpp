@@ -42,7 +42,7 @@ FXDEFMAP(GNEMeanDataFrame::MeanDataTypeSelector) meanDataSelectorMap[] = {
 
 FXDEFMAP(GNEMeanDataFrame::MeanDataEditor) meanDataEditorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATE,    GNEMeanDataFrame::MeanDataEditor::onCmdCreateMeanData),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_DELETE,    GNEMeanDataFrame::MeanDataEditor::onCmdDeleteResetMeanData),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_DELETE,    GNEMeanDataFrame::MeanDataEditor::onCmdDeletetMeanData),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_COPY,      GNEMeanDataFrame::MeanDataEditor::onCmdCopyMeanData)
 };
 
@@ -161,11 +161,14 @@ GNEMeanDataFrame::MeanDataEditor::MeanDataEditor(GNEMeanDataFrame* meanDataFrame
     MFXGroupBoxModule(meanDataFrameParent, TL("MeanData Editor")),
     myMeanDataFrameParent(meanDataFrameParent) {
     // Create new meanData
-    myCreateMeanDataButton = new FXButton(getCollapsableFrame(), TL("Create MeanData"), GUIIconSubSys::getIcon(GUIIcon::MEANDATAEDGE), this, MID_GNE_CREATE, GUIDesignButton);
+    myCreateMeanDataButton = new FXButton(getCollapsableFrame(), TL("Create MeanData"),
+        GUIIconSubSys::getIcon(GUIIcon::MEANDATAEDGE), this, MID_GNE_CREATE, GUIDesignButton);
     // Create delete/reset meanData
-    myDeleteResetMeanDataButton = new FXButton(getCollapsableFrame(), TL("Delete MeanData"), GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), this, MID_GNE_DELETE, GUIDesignButton);
+    myDeleteMeanDataButton = new FXButton(getCollapsableFrame(), TL("Delete MeanData"),
+        GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), this, MID_GNE_DELETE, GUIDesignButton);
     // Create copy meanData
-    myCopyMeanDataButton = new FXButton(getCollapsableFrame(), TL("Copy MeanData"), GUIIconSubSys::getIcon(GUIIcon::COPY), this, MID_GNE_COPY, GUIDesignButton);
+    myCopyMeanDataButton = new FXButton(getCollapsableFrame(), TL("Copy MeanData"),
+        GUIIconSubSys::getIcon(GUIIcon::COPY), this, MID_GNE_COPY, GUIDesignButton);
 }
 
 
@@ -190,15 +193,12 @@ GNEMeanDataFrame::MeanDataEditor::refreshMeanDataEditorModule() {
     // first check if selected VMeanData is valid
     if (myMeanDataFrameParent->myMeanDataSelector->getCurrentMeanData() == nullptr) {
         // disable buttons
-        myDeleteResetMeanDataButton->disable();
+        myDeleteMeanDataButton->disable();
         myCopyMeanDataButton->disable();
     } else {
-        // enable copy button
+        // enable buttons
+        myDeleteMeanDataButton->enable();
         myCopyMeanDataButton->enable();
-        // enable and set myDeleteMeanDataButton as "delete")
-        myDeleteResetMeanDataButton->setText(TL("Delete MeanData"));
-        myDeleteResetMeanDataButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::MODEDELETE));
-        myDeleteResetMeanDataButton->enable();
     }
     // update module
     recalc();
@@ -220,20 +220,21 @@ GNEMeanDataFrame::MeanDataEditor::onCmdCreateMeanData(FXObject*, FXSelector, voi
     myMeanDataFrameParent->myViewNet->getUndoList()->end();
     // set created meanData in selector
     myMeanDataFrameParent->myMeanDataSelector->setCurrentMeanData(meanData);
-    // refresh MeanData Editor Module
-    myMeanDataFrameParent->myMeanDataEditor->refreshMeanDataEditorModule();
     return 1;
 }
 
 
 long
-GNEMeanDataFrame::MeanDataEditor::onCmdDeleteResetMeanData(FXObject*, FXSelector, void*) {
-    // continue depending of current mode
-    if (myDeleteResetMeanDataButton->getIcon() == GUIIconSubSys::getIcon(GUIIcon::MODEDELETE)) {
-        deleteMeanData();
-    } else {
-        resetMeanData();
-    }
+GNEMeanDataFrame::MeanDataEditor::onCmdDeletetMeanData(FXObject*, FXSelector, void*) {
+    // begin undo list operation
+    myMeanDataFrameParent->myViewNet->getUndoList()->begin(GUIIcon::VTYPE, "delete meanData");
+    // remove meanData (and all of their children)
+    myMeanDataFrameParent->myViewNet->getNet()->deleteMeanData(myMeanDataFrameParent->myMeanDataSelector->getCurrentMeanData(),
+            myMeanDataFrameParent->myViewNet->getUndoList());
+    // end undo list operation
+    myMeanDataFrameParent->myViewNet->getUndoList()->end();
+    // set created meanData in selector
+    myMeanDataFrameParent->myMeanDataSelector->refreshMeanDataSelector();
     return 1;
 }
 
@@ -265,38 +266,6 @@ GNEMeanDataFrame::MeanDataEditor::onCmdCopyMeanData(FXObject*, FXSelector, void*
         myMeanDataFrameParent->myMeanDataEditor->refreshMeanDataEditorModule();
     }
     return 1;
-}
-
-
-void
-GNEMeanDataFrame::MeanDataEditor::resetMeanData() {
-    // begin reset default meanData values
-    myMeanDataFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::VTYPE, "reset default meanData values");
-    // reset all values of default meanData
-    for (const auto& attrProperty : myMeanDataFrameParent->myMeanDataTypeSelector->getCurrentMeanData()) {
-        // change all attributes with "" to reset it (except ID and vClass)
-        if ((attrProperty.getAttr() != SUMO_ATTR_ID) && (attrProperty.getAttr() != SUMO_ATTR_VCLASS)) {
-            myMeanDataFrameParent->myMeanDataSelector->getCurrentMeanData()->setAttribute(attrProperty.getAttr(), "", myMeanDataFrameParent->myViewNet->getUndoList());
-        }
-    }
-    // change special attribute GNE_ATTR_DEFAULT_VTYPE_MODIFIED
-    myMeanDataFrameParent->myMeanDataSelector->getCurrentMeanData()->setAttribute(GNE_ATTR_DEFAULT_VTYPE_MODIFIED, "false", myMeanDataFrameParent->myViewNet->getUndoList());
-    // finish reset default meanData values
-    myMeanDataFrameParent->getViewNet()->getUndoList()->end();
-    // refresh MeanDataSelector
-    myMeanDataFrameParent->myMeanDataSelector->refreshMeanDataSelector();
-}
-
-
-void
-GNEMeanDataFrame::MeanDataEditor::deleteMeanData() {
-    // begin undo list operation
-    myMeanDataFrameParent->myViewNet->getUndoList()->begin(GUIIcon::VTYPE, "delete meanData");
-    // remove meanData (and all of their children)
-    myMeanDataFrameParent->myViewNet->getNet()->deleteMeanData(myMeanDataFrameParent->myMeanDataSelector->getCurrentMeanData(),
-            myMeanDataFrameParent->myViewNet->getUndoList());
-    // end undo list operation
-    myMeanDataFrameParent->myViewNet->getUndoList()->end();
 }
 
 // ---------------------------------------------------------------------------
@@ -395,17 +364,21 @@ GNEMeanDataFrame::MeanDataSelector::refreshMeanDataSelector() {
                 validMeanData = true;
             }
         }
-        if (validMeanData) {
+        if (!validMeanData) {
             myCurrentMeanData = nullptr;
         }
     } else {
         myCurrentMeanData = nullptr;
     }
-    if ((myCurrentMeanData == nullptr) && (sortedMeanDatas.size() > 0)) {
-        enable();
-        myCurrentMeanData = sortedMeanDatas.begin()->second;
+    // check if enable or disable comboBox
+    if (sortedMeanDatas.size() > 0) {
+        myMeanDataComboBox->enable();
+        // check ifupdate myCurrentMeanData
+        if (myCurrentMeanData == nullptr) {
+            myCurrentMeanData = sortedMeanDatas.begin()->second;
+        }
     } else {
-        disable();
+        myMeanDataComboBox->disable();
     }
     // refresh meanData editor module
     myMeanDataFrameParent->myMeanDataEditor->refreshMeanDataEditorModule();
