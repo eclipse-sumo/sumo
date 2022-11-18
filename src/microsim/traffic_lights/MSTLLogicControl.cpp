@@ -578,31 +578,29 @@ MSTLLogicControl::getAllTLIds() const {
 bool
 MSTLLogicControl::add(const std::string& id, const std::string& programID,
                       MSTrafficLightLogic* logic, bool newDefault) {
-    if (myLogics.find(id) == myLogics.end()) {
-        myLogics[id] = new TLSLogicVariants();
+    std::map<std::string, TLSLogicVariants*>::iterator it = myLogics.find(id);
+    TLSLogicVariants* tlmap;
+    if (it == myLogics.end()) {
+        tlmap = myLogics[id] = new TLSLogicVariants();
+    } else {
+        tlmap = it->second;
     }
-    std::map<std::string, TLSLogicVariants*>::iterator i = myLogics.find(id);
-    TLSLogicVariants* tlmap = (*i).second;
     return tlmap->addLogic(programID, logic, myNetWasLoaded, newDefault);
 }
 
 
 bool
 MSTLLogicControl::knows(const std::string& id) const {
-    std::map<std::string, TLSLogicVariants*>::const_iterator i = myLogics.find(id);
-    if (i == myLogics.end()) {
-        return false;
-    }
-    return true;
+    return myLogics.count(id) != 0;
 }
 
 
 bool
 MSTLLogicControl::closeNetworkReading() {
     bool hadErrors = false;
-    for (std::map<std::string, TLSLogicVariants*>::iterator i = myLogics.begin(); i != myLogics.end(); ++i) {
-        hadErrors |= !(*i).second->checkOriginalTLS();
-        (*i).second->saveInitialStates();
+    for (const auto& it : myLogics) {
+        hadErrors |= !it.second->checkOriginalTLS();
+        it.second->saveInitialStates();
     }
     myNetWasLoaded = true;
     return !hadErrors;

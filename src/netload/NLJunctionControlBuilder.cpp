@@ -210,8 +210,9 @@ NLJunctionControlBuilder::closeTrafficLightLogic(const std::string& basePath) {
         if (myAbsDuration > 0) {
             throw InvalidArgument("The off program for TLS '" + myActiveKey + "' has phases.");
         }
-        if (!getTLLogicControlToUse().add(myActiveKey, myActiveProgram,
-                                          new MSOffTrafficLightLogic(getTLLogicControlToUse(), myActiveKey))) {
+        MSOffTrafficLightLogic* off = new MSOffTrafficLightLogic(getTLLogicControlToUse(), myActiveKey);
+        if (!getTLLogicControlToUse().add(myActiveKey, myActiveProgram, off)) {
+            delete off;
             throw InvalidArgument("Another logic with id '" + myActiveKey + "' and programID '" + myActiveProgram + "' exists.");
         }
         return;

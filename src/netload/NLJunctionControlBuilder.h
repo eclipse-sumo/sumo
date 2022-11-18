@@ -148,7 +148,6 @@ public:
     void addLogicItem(int request, const std::string& response,
                       const std::string& foes, bool cont);
 
-
     /** @brief Begins the reading of a traffic lights logic
      *
      * @param[in] id The id of the tls
@@ -160,7 +159,6 @@ public:
      */
     void initTrafficLightLogic(const std::string& id, const std::string& programID,
                                TrafficLightType type, SUMOTime offset);
-
 
     /** @brief Adds a phase to the currently built traffic lights logic
      *
@@ -199,9 +197,7 @@ public:
      * @return The named logic
      * @exception InvalidArgument If the named tls logic was not built before
      */
-    MSTLLogicControl::TLSLogicVariants& getTLLogic(const std::string& id)
-    const;
-
+    MSTLLogicControl::TLSLogicVariants& getTLLogic(const std::string& id) const;
 
     /** @brief Returns the built tls-logic control
      *
@@ -214,7 +210,6 @@ public:
      */
     MSTLLogicControl* buildTLLogics();
 
-
     /** @brief Ends the building of a traffic lights logic
      *
      * Builds the correct type of a MSTrafficLightLogic using the stored information.
@@ -224,7 +219,6 @@ public:
      * @exception InvalidArgument If another tls logic with the same name as the currently built was loaded before
      */
     virtual void closeTrafficLightLogic(const std::string& basePath);
-
 
     /** @brief Ends the building of a junction logic (row-logic)
      *
@@ -238,7 +232,6 @@ public:
      */
     void closeJunctionLogic();
 
-
     /** @brief Adds a parameter
      *
      * @param[in] key The key of the parameter
@@ -248,18 +241,15 @@ public:
      */
     void addParam(const std::string& key, const std::string& value);
 
-
     /** @brief Returns the active key
      * @return The active key
      */
     const std::string& getActiveKey() const;
 
-
     /** @brief Returns the active sub key
      * @return The active sub key
      */
     const std::string& getActiveSubKey() const;
-
 
     /** @brief Returns the used tls control
      *
@@ -276,11 +266,10 @@ public:
     /// @brief try to retrieve junction by id
     MSJunction* retrieve(const std::string id);
 
-    /// @brief return the number of phases loaded so far (for error reporting)
-    int getNumberOfLoadedPhases() const {
-        return (int)myActivePhases.size();
+    /// @brief return the phases loaded so far (for error reporting and cleanup)
+    const MSSimpleTrafficLightLogic::Phases& getLoadedPhases() const {
+        return myActivePhases;
     }
-
 
 protected:
     /** @brief Returns the current junction logic
@@ -294,7 +283,6 @@ protected:
      */
     MSJunctionLogic* getJunctionLogicSecure();
 
-
 protected:
     /// @name Factory methods, virtual so that other versions of the structures can be built
     /// @{
@@ -307,7 +295,6 @@ protected:
      */
     virtual MSJunction* buildNoLogicJunction();
 
-
     /** @brief Builds a junction with a logic
      *
      * Builds a MSRightOfWayJunction. Throws an exception if the logic was not built
@@ -318,7 +305,6 @@ protected:
      */
     virtual MSJunction* buildLogicJunction();
 
-
     /** @brief Builds an internal junction
      *
      * Builds a MSInternalJunction
@@ -327,7 +313,6 @@ protected:
      */
     virtual MSJunction* buildInternalJunction();
     /// @}
-
 
 protected:
     /// @brief The net to use
@@ -405,10 +390,8 @@ protected:
     /// @brief The container for information which junctions shall be initialised using which values
     std::vector<MSTrafficLightLogic*> myLogics2PostLoadInit;
 
-
     /// @brief The tls control to use (0 if net's tls control shall be used)
     mutable MSTLLogicControl* myLogicControl;
-
 
     /// @brief Definition of a parameter map (key->value)
     typedef Parameterised::Map StringParameterMap;
@@ -416,13 +399,11 @@ protected:
     /// @brief Parameter map (key->value)
     StringParameterMap myAdditionalParameter;
 
-
     /// @brief Map of loaded junction logics
     std::map<std::string, MSJunctionLogic*> myLogics;
 
     /// @brief Information whether the current logic had an error
     bool myCurrentHasError;
-
 
 private:
     /** @brief invalidated copy operator */
