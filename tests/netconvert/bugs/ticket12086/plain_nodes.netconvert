@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-11-18 09:02:48 by Eclipse SUMO netconvert Version v1_15_0+0390-fb84ae9
+<!-- generated on 2022-11-18 09:05:44 by Eclipse SUMO netconvert Version v1_15_0+0391-a035927
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -81,7 +81,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <node id="Dn21" x="380.89" y="354.88" type="unregulated"/>
     <node id="Dn22" x="385.51" y="364.53" type="unregulated" shape="386.65,363.36 384.23,364.61 384.79,365.74 386.72,364.83 386.65,363.36"/>
     <node id="Dn23" x="379.09" y="374.24" type="unregulated"/>
-    <node id="Dn24" x="393.89" y="342.96" type="internal"/>
+    <node id="Dn24" x="393.89" y="342.96" type="priority"/>
     <node id="Dn25" x="398.62" y="352.14" type="unregulated"/>
     <node id="Dn26" x="458.11" y="338.67" type="unregulated"/>
     <node id="Dn27" x="294.04" y="473.27" type="unregulated"/>
