@@ -45,6 +45,10 @@ GNEMeanData::GNEMeanData(GNENet *net, SumoXMLTag tag, const std::string& id) :
     myID(id) {
     // reset default values
     resetDefaultValues();
+    // set file
+    if (myFile.empty()) {
+        myFile = (myID + ".xml");
+    }
 }
 
 
@@ -71,6 +75,10 @@ GNEMeanData::GNEMeanData(GNENet *net, SumoXMLTag tag, std::string ID, std::strin
     myMaxTravelTime(maxTravelTime),
     myVTypes(vTypes), 
     mySpeedThreshold(speedThreshold) {
+    // set file
+    if (myFile.empty()) {
+        myFile = (myID + ".xml");
+    }
 }
 
 
@@ -84,50 +92,50 @@ GNEMeanData::writeMeanData(OutputDevice& device) const {
     device.writeAttr(SUMO_ATTR_ID, getID());
     device.writeAttr(SUMO_ATTR_FILE, myFile);
     // write optional attributes
-    if (getAttribute(SUMO_ATTR_PERIOD) != myTagProperty.getDefaultValue(SUMO_ATTR_PERIOD)) {
-        device.writeAttr(SUMO_ATTR_PERIOD, getAttribute(SUMO_ATTR_PERIOD));
+    if (myPeriod != -1) {
+        device.writeAttr(SUMO_ATTR_PERIOD, myPeriod);
     }
-    if (getAttribute(SUMO_ATTR_BEGIN) != myTagProperty.getDefaultValue(SUMO_ATTR_BEGIN)) {
-        device.writeAttr(SUMO_ATTR_BEGIN, getAttribute(SUMO_ATTR_BEGIN));
+    if (myBegin != -1) {
+        device.writeAttr(SUMO_ATTR_BEGIN, myBegin);
     }
-    if (getAttribute(SUMO_ATTR_END) != myTagProperty.getDefaultValue(SUMO_ATTR_END)) {
-        device.writeAttr(SUMO_ATTR_END, getAttribute(SUMO_ATTR_END));
+    if (myEnd != -1) {
+        device.writeAttr(SUMO_ATTR_END, myEnd);
     }
-    if (getAttribute(SUMO_ATTR_EXCLUDE_EMPTY) != myTagProperty.getDefaultValue(SUMO_ATTR_EXCLUDE_EMPTY)) {
-        device.writeAttr(SUMO_ATTR_EXCLUDE_EMPTY, getAttribute(SUMO_ATTR_EXCLUDE_EMPTY));
+    if (myExcludeEmpty != "default") {
+        device.writeAttr(SUMO_ATTR_EXCLUDE_EMPTY, myExcludeEmpty);
     }
-    if (getAttribute(SUMO_ATTR_WITH_INTERNAL) != myTagProperty.getDefaultValue(SUMO_ATTR_WITH_INTERNAL)) {
-        device.writeAttr(SUMO_ATTR_WITH_INTERNAL, getAttribute(SUMO_ATTR_WITH_INTERNAL));
+    if (myWithInternal) {
+        device.writeAttr(SUMO_ATTR_WITH_INTERNAL, true);
     }
-    if (getAttribute(SUMO_ATTR_MAX_TRAVELTIME) != myTagProperty.getDefaultValue(SUMO_ATTR_MAX_TRAVELTIME)) {
-        device.writeAttr(SUMO_ATTR_MAX_TRAVELTIME, getAttribute(SUMO_ATTR_MAX_TRAVELTIME));
+    if (myMaxTravelTime != 100000) {
+        device.writeAttr(SUMO_ATTR_MAX_TRAVELTIME, myMaxTravelTime);
     }
-    if (getAttribute(SUMO_ATTR_MIN_SAMPLES) != myTagProperty.getDefaultValue(SUMO_ATTR_MIN_SAMPLES)) {
-        device.writeAttr(SUMO_ATTR_MIN_SAMPLES, getAttribute(SUMO_ATTR_MIN_SAMPLES));
+    if (myMinSamples != 1) {
+        device.writeAttr(SUMO_ATTR_MIN_SAMPLES, myMinSamples);
     }
-    if (getAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD) != myTagProperty.getDefaultValue(SUMO_ATTR_HALTING_SPEED_THRESHOLD)) {
-        device.writeAttr(SUMO_ATTR_HALTING_SPEED_THRESHOLD, getAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD));
+    if (mySpeedThreshold != 0.1) {
+        device.writeAttr(SUMO_ATTR_HALTING_SPEED_THRESHOLD, mySpeedThreshold);
     }
-    if (getAttribute(SUMO_ATTR_VTYPES) != myTagProperty.getDefaultValue(SUMO_ATTR_VTYPES)) {
+    if (myVTypes.size() > 0) {
         device.writeAttr(SUMO_ATTR_VTYPES, getAttribute(SUMO_ATTR_VTYPES));
     }
-    if (getAttribute(SUMO_ATTR_TRACK_VEHICLES) != myTagProperty.getDefaultValue(SUMO_ATTR_TRACK_VEHICLES)) {
-        device.writeAttr(SUMO_ATTR_TRACK_VEHICLES, getAttribute(SUMO_ATTR_TRACK_VEHICLES));
+    if (!myTrackVehicles) {
+        device.writeAttr(SUMO_ATTR_TRACK_VEHICLES, false);
     }
-    if (getAttribute(SUMO_ATTR_DETECT_PERSONS) != myTagProperty.getDefaultValue(SUMO_ATTR_DETECT_PERSONS)) {
-        device.writeAttr(SUMO_ATTR_DETECT_PERSONS, getAttribute(SUMO_ATTR_DETECT_PERSONS));
+    if (myDetectPersons.size() > 0) {
+        device.writeAttr(SUMO_ATTR_DETECT_PERSONS, myDetectPersons);
     }
-    if (getAttribute(SUMO_ATTR_WRITE_ATTRIBUTES) != myTagProperty.getDefaultValue(SUMO_ATTR_WRITE_ATTRIBUTES)) {
+    if (myWrittenAttributes.size() > 0) {
         device.writeAttr(SUMO_ATTR_WRITE_ATTRIBUTES, getAttribute(SUMO_ATTR_WRITE_ATTRIBUTES));
     }
-    if (getAttribute(SUMO_ATTR_EDGES) != myTagProperty.getDefaultValue(SUMO_ATTR_EDGES)) {
-        device.writeAttr(SUMO_ATTR_EDGES, getAttribute(SUMO_ATTR_EDGES));
+    if (myEdges.size() > 0) {
+        device.writeAttr(SUMO_ATTR_EDGES, myEdges);
     }
-    if (getAttribute(SUMO_ATTR_EDGESFILE) != myTagProperty.getDefaultValue(SUMO_ATTR_EDGESFILE)) {
-        device.writeAttr(SUMO_ATTR_EDGESFILE, getAttribute(SUMO_ATTR_EDGESFILE));
+    if (myEdgeFile.size() > 0) {
+        device.writeAttr(SUMO_ATTR_EDGESFILE, myEdgeFile);
     }
-    if (getAttribute(SUMO_ATTR_AGGREGATE) != myTagProperty.getDefaultValue(SUMO_ATTR_AGGREGATE)) {
-        device.writeAttr(SUMO_ATTR_AGGREGATE, getAttribute(SUMO_ATTR_AGGREGATE));
+    if (myAggregate) {
+        device.writeAttr(SUMO_ATTR_AGGREGATE, true);
     }
     device.closeTag();
 }
