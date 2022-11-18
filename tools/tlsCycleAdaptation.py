@@ -29,6 +29,9 @@
 
 - If the critical flow or the sum of the critical flows is larger than 1,
  the optimal cycle length will be set to 120 sec.
+ 
+- Duration for all-red and yellow phase will be adjusted according to
+  the defined option values
 """
 
 from __future__ import absolute_import
@@ -316,6 +319,7 @@ def getMaxOptimizedCycle(groupFlowsMap, phaseLaneIndexMap, currentLength, cycleL
 def optimizeGreenTime(tl, groupFlowsMap, phaseLaneIndexMap, currentLength, options):
     lostTime = len(groupFlowsMap) * options.losttime + options.allred
     satFlows = 3600. / options.satheadway
+    numGreenPhases = 0
     # calculate the critical flow ratios and the respective sum
     criticalFlowRateMap = {}
     for i in groupFlowsMap:   # [duration. groupFlow1, groupFlow2...]
@@ -330,6 +334,7 @@ def optimizeGreenTime(tl, groupFlowsMap, phaseLaneIndexMap, currentLength, optio
             criticalFlowRateMap[i] = (maxFlow / float((len(phaseLaneIndexMap[i][index])))) / satFlows
         else:
             criticalFlowRateMap[i] = 0.
+        numGreenPhases += 1
     sumCriticalFlows = sum(criticalFlowRateMap.values())
     if options.write_critical_flows:
         print(tl.getID(), criticalFlowRateMap)
@@ -386,7 +391,7 @@ def optimizeGreenTime(tl, groupFlowsMap, phaseLaneIndexMap, currentLength, optio
             groupFlowsMap[keys[i % len(groupFlowsMap)]][0] += s
 
     if options.verbose:
-        totalLength = lostTime
+        totalLength = numGreenPhases*options.yellowtime
         for i in groupFlowsMap:
             totalLength += groupFlowsMap[i][0]
             print("Green time for phase %s: %s" % (i, groupFlowsMap[i][0]))
@@ -460,6 +465,16 @@ def main(options):
                     duration = p.duration
                     if i in groupFlowsMap:
                         duration = groupFlowsMap[i][0]
+                    # the all-red phase
+                    elif 'y' not in p.state and 'r' in p.state:
+                        duration = options.allred
+                    # the yellow phase
+                    elif 'y' in p.state and 'r' in p.state and options.losttime <= options.yellowtime:
+                        duration = options.yellowtime
+                    elif 'y' in p.state and 'r' in p.state and options.losttime > options.yellowtime:
+                        duration = options.yellowtime
+                    else:
+                        print("Duration for Phase %s is from the input file." %i)
                     outf.write('        <phase duration="%s" state="%s"/>\n' % (duration, p.state))
                 outf.write('    </tlLogic>\n')
         else:
