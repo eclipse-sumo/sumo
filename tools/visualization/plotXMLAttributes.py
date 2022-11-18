@@ -320,17 +320,16 @@ def applyTicks(d, xyIndex, ticksFile):
     offsets, labels = sumolib.visualization.helpers.parseTicks(ticksFile)
     l2o = dict(zip(labels, offsets))
 
-    points = [] # (offset, x, y)
+    res_x = []
+    res_y = []
     for i in range(len(d[xyIndex])):
         val = d[xyIndex][i]
         if val in l2o:
-            point = [l2o[val], d[0][i], d[1][i]]
-            point[xyIndex + 1] = point[0]
-            points.append(point)
+            point = [d[0][i], d[1][i]]
+            point[xyIndex] = l2o[val]
+            res_x.append(point[0])
+            res_y.append(point[1])
 
-    points.sort()
-    res_x = [p[1] for p in points]
-    res_y = [p[2] for p in points]
     d[0].clear()
     d[0].extend(res_x)
     d[1].clear()
