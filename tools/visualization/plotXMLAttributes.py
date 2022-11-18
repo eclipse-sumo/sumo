@@ -79,6 +79,8 @@ def getOptions(args=None):
     optParser.add_option("-p", "--pick-distance", dest="pickDist", type=float, default=1,
                          help="pick lines within the given distance in interactive plot mode")
     optParser.add_option("--label", help="plot label (default input file name")
+    optParser.add_option("--split-attrs", action="store_true", dest="splitAttrs", default=False,
+                         help="if x,y or idattr are a list, turn each attr into a separate data point")
     optParser.add_option("--xfactor", help="multiplier for x-data", type=float, default=1)
     optParser.add_option("--yfactor", help="multiplier for y-data", type=float, default=1)
     optParser.add_option("--invert-yaxis", dest="invertYAxis", action="store_true",
@@ -241,14 +243,9 @@ def getDataStream(options):
                             skip = True
                             skippedLines[a] += 1
                     if not skip:
-                        toYield = []
-                        for a in attrs:
-                            if len(attr2parts[a]) == 1:
-                                toYield.append(values[a])
-                            else:
-                                toYield.append('|'.join([values[ap] for ap in attr2parts[a]]))
-                        yield toYield
-                        index += 1
+                        for toYield in combineValues(attrs, attr2parts, values, options.splitAttrs):
+                            yield toYield
+                            index += 1
 
             for attr, count in skippedLines.items():
                 print("Warning: Skipped %s lines because of missing attributes '%s'." % (
@@ -277,18 +274,42 @@ def getDataStream(options):
                             else:
                                 skip = True
                     if not skip:
-                        toYield = []
-                        for a in attrs:
-                            if len(attr2parts[a]) == 1:
-                                toYield.append(values[a])
-                            else:
-                                toYield.append('|'.join([values[ap] for ap in attr2parts[a]]))
-                        yield toYield
-                        index += 1
+                        for toYield in combineValues(attrs, attr2parts, values, options.splitAttrs):
+                            yield toYield
+                            index += 1
         return datastream
 
     else:
         sys.exit("Found attributes at elements %s but at most 2 elements are supported" % allElems)
+
+
+def combineValues(attrs, attr2parts, values, splitAttrs):
+    toYield = []
+    needSplit = False
+    for a in attrs:
+        if len(attr2parts[a]) == 1:
+            if splitAttrs:
+                toYield.append([values[a]])
+            else:
+                toYield.append(values[a])
+        else:
+            if splitAttrs:
+                toYield.append([values[ap] for ap in attr2parts[a]])
+                needSplit = True
+            else:
+                toYield.append('|'.join([values[ap] for ap in attr2parts[a]]))
+    if needSplit:
+        assert(len(toYield) == 3)
+        splitIndex = 0
+        for i in toYield[0]:
+            for x in toYield[1]:
+                for y in toYield[2]:
+                    if attrs[0] == NONE_ATTR:
+                        i = splitIndex
+                    yield [i, x, y]
+                    splitIndex += 1
+    else:
+        yield toYield
 
 
 def interpretValue(value):
