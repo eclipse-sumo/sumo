@@ -192,6 +192,28 @@ where -x is the attribute for the x axis; -y is the attribute for the y axis; -s
 
 <img src="../images/vehLocations_output.png" width="500px"/>
 
+### Public transport schedule
+
+In this type of plot time is on the y-axis running from top to bottom. Input is route file of a [public transport schedule](../Simulation/Public_Transport.md#public_transport_schedules) where each vehicle is modelled individually.
+
+
+Call to generate the plot:
+```
+python tools/visualization/plotXMLAttributes.py -x busStop -y until route.plot.xml --idelem trip --ytime1 --legend --xticks-file stoplist.txt --invert-yaxis --marker o
+```
+
+<img src="../images/schedule_until.png" width="500px"/>
+
+The file stoplist.txt is used to define the ordering of the stops (corresponding to their ordering along a transport line) and looks like this:
+
+```
+WLA
+KI
+MM
+KX
+LHG
+```
+
 ## plot_trajectories.py
 
 Create plot of all trajectories in a given **--fcd-output** file. This tool in particular is located in {{SUMO}}/tools.
