@@ -169,3 +169,6 @@ ticket11988b
 
 # invalid node shape (for uncommen edge shapes)
 ticket11996
+
+# invalid plain output
+ticket12086
