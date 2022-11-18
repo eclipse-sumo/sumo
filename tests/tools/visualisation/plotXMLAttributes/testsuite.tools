@@ -14,6 +14,9 @@ summary_no_id
 # plot summary output which doesn't have an id attribute
 summary_no_id_explicit
 
+# plot summary output which doesn't have an id attribute, running and halting
+summary_multi_y_split
+
 # plot categorial data
 lanechange_reason
 
