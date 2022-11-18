@@ -65,7 +65,7 @@ FXIMPLEMENT(GNEMeanDataFrame::MeanDataSelector,     MFXGroupBoxModule,  meanData
 // ---------------------------------------------------------------------------
 
 GNEMeanDataFrame::MeanDataTypeSelector::MeanDataTypeSelector(GNEMeanDataFrame* meanDataFrameParent) :
-    MFXGroupBoxModule(meanDataFrameParent, TL("Current MeanData")),
+    MFXGroupBoxModule(meanDataFrameParent, TL("MeanData Type")),
     myMeanDataFrameParent(meanDataFrameParent) {
     // Create FXComboBox
     myTypeComboBox = new MFXIconComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, true, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
@@ -114,11 +114,8 @@ GNEMeanDataFrame::MeanDataTypeSelector::refreshMeanDataTypeSelector() {
     // refresh meanData editor module
     myMeanDataFrameParent->myMeanDataEditor->refreshMeanDataEditorModule();
     // show modules
-/*
-    myMeanDataFrameParent->myTypeAttributesEditor->showAttributeEditorModule(false, true);
-    myMeanDataFrameParent->myAttributesEditorExtended->showAttributesEditorExtendedModule();
-    myMeanDataFrameParent->myVTypeDistributions->showVTypeDistributionsModule();
-*/
+    myMeanDataFrameParent->myMeanDataEditor->showMeanDataEditorModule();
+    myMeanDataFrameParent->myMeanDataSelector->showMeanDataSelector();
 }
 
 
@@ -136,11 +133,8 @@ GNEMeanDataFrame::MeanDataTypeSelector::onCmdSelectItem(FXObject*, FXSelector, v
             // refresh meanData editor module
             myMeanDataFrameParent->myMeanDataEditor->refreshMeanDataEditorModule();
             // show modules if selected item is valid
-/*
-            myMeanDataFrameParent->myTypeAttributesEditor->showAttributeEditorModule(false, true);
-            myMeanDataFrameParent->myAttributesEditorExtended->showAttributesEditorExtendedModule();
-            myMeanDataFrameParent->myVTypeDistributions->showVTypeDistributionsModule();
-*/
+            myMeanDataFrameParent->myMeanDataEditor->showMeanDataEditorModule();
+            myMeanDataFrameParent->myMeanDataSelector->showMeanDataSelector();
             // Write Warning in console if we're in testing mode
             WRITE_DEBUG(("Selected item '" + myTypeComboBox->getText() + "' in MeanDataTypeSelector").text());
             return 1;
@@ -150,11 +144,8 @@ GNEMeanDataFrame::MeanDataTypeSelector::onCmdSelectItem(FXObject*, FXSelector, v
     // refresh meanData editor module
     myMeanDataFrameParent->myMeanDataEditor->refreshMeanDataEditorModule();
     // hide all modules if selected item isn't valid
-/*
-    myMeanDataFrameParent->myTypeAttributesEditor->hideAttributesEditorModule();
-    myMeanDataFrameParent->myAttributesEditorExtended->hideAttributesEditorExtendedModule();
-    myMeanDataFrameParent->myVTypeDistributions->hideVTypeDistributionsModule();
-*/
+    myMeanDataFrameParent->myMeanDataEditor->hideMeanDataEditorModule();
+    myMeanDataFrameParent->myMeanDataSelector->hideMeanDataSelector();
     // set color of myTypeMatchBox to red (invalid)
     myTypeComboBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode
@@ -341,6 +332,24 @@ GNEMeanDataFrame::MeanDataSelector::MeanDataSelector(GNEMeanDataFrame* typeFrame
 
 
 GNEMeanDataFrame::MeanDataSelector::~MeanDataSelector() {}
+
+
+void
+GNEMeanDataFrame::MeanDataSelector::showMeanDataSelector() {
+    if (myCurrentMeanData != nullptr) {
+        myMeanDataFrameParent->myMeanDataAttributesEditor->showAttributeEditorModule(true, true);
+    } else {
+        myMeanDataFrameParent->myMeanDataAttributesEditor->hideAttributesEditorModule();
+    }
+    show();
+}
+
+
+void
+GNEMeanDataFrame::MeanDataSelector::hideMeanDataSelector() {
+    myMeanDataFrameParent->myMeanDataAttributesEditor->hideAttributesEditorModule();
+    hide();
+}
 
 
 GNEMeanData*

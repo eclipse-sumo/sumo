@@ -159,6 +159,12 @@ public:
         /// @brief destructor
         ~MeanDataSelector();
 
+        /// @brief show MeanDataSelector
+        void showMeanDataSelector();
+
+        /// @brief hide MeanDataSelector
+        void hideMeanDataSelector();
+
         /// @brief get current Vehicle MeanData
         GNEMeanData* getCurrentMeanData() const;
 
