@@ -17,6 +17,15 @@ summary_no_id_explicit
 # plot categorial data
 lanechange_reason
 
+# plot categorial data
+lanechange_reason_sort
+
+# plot categorial data
+lanechange_reason_sort_reposition
+
+# plot categorial data
+lanechange_reason_filter
+
 # plot optional values
 lanechange_missing_data
 
