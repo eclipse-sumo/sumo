@@ -1564,8 +1564,8 @@ def checkBidiConsistency(conflicts, verbose):
             busStop2 = c.busStop2[0][1]
             key = (c.tripID, c.otherTripID, c.busStop, busStop2)
             rkey = (c.otherTripID, c.tripID, busStop2, c.busStop)
-            if key in tfcMap:
-                print("Duplicate conflict between '%s' and '%s'" % key, file=sys.stderr)
+            if key in tfcMap and verbose:
+                print("Duplicate conflict between '%s' and '%s' between busStops '%s' and '%s'" % key, file=sys.stderr)
             tfcMap[key].append(c)
             if rkey in tfcMap:
                 keyToRemove = None
