@@ -220,17 +220,6 @@ public:
      */
     virtual void closeTrafficLightLogic(const std::string& basePath);
 
-    /** @brief Ends the building of a junction logic (row-logic)
-     *
-     * Rechecks values for the request and builds a MSJunctionLogic using these values.
-     *  Throws an InvalidArgument if the values are invalid (error message is included).
-     * Tries to add the built logic to the internal container "myLogics". If another
-     *  logic with the same id exists, an InvalidArgument is thrown.
-     *
-     * @exception InvalidArgument If the logic's values are false or another logic with the same id was built before
-     */
-    void closeJunctionLogic();
-
     /** @brief Adds a parameter
      *
      * @param[in] key The key of the parameter
@@ -289,7 +278,7 @@ protected:
      * @return The built junction
      * @exception InvalidArgument If the logic of the junction was not built before
      */
-    virtual MSJunction* buildLogicJunction();
+    virtual MSJunction* buildLogicJunction(MSJunctionLogic* const logic);
 
     /** @brief Builds an internal junction
      *
@@ -384,9 +373,6 @@ protected:
 
     /// @brief Parameter map (key->value)
     StringParameterMap myAdditionalParameter;
-
-    /// @brief Map of loaded junction logics
-    std::map<std::string, MSJunctionLogic*> myLogics;
 
     /// @brief Information whether the current logic had an error
     bool myCurrentHasError;

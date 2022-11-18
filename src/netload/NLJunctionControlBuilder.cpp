@@ -70,10 +70,9 @@ NLJunctionControlBuilder::NLJunctionControlBuilder(MSNet& net, NLDetectorBuilder
     myNet(net),
     myDetectorBuilder(db),
     myOffset(0),
-    myJunctions(nullptr),
+    myJunctions(new MSJunctionControl()),
     myNetIsLoaded(false) {
     myLogicControl = new MSTLLogicControl();
-    myJunctions = new MSJunctionControl();
 }
 
 
@@ -106,6 +105,13 @@ NLJunctionControlBuilder::openJunction(const std::string& id,
 
 void
 NLJunctionControlBuilder::closeJunction(const std::string& basePath) {
+    if (myCurrentHasError) {
+        // had an error before...
+        return;
+    }
+    if (myRequestSize != NO_REQUEST_SIZE && myRequestItemNumber != myRequestSize) {
+        throw InvalidArgument("The description for the junction logic '" + myActiveKey + "' is malicious.");
+    }
     if (myJunctions == nullptr) {
         throw ProcessError("Information about the number of nodes was missing.");
     }
@@ -116,6 +122,9 @@ NLJunctionControlBuilder::closeJunction(const std::string& basePath) {
         case SumoXMLNodeType::DEAD_END_DEPRECATED:
         case SumoXMLNodeType::DISTRICT:
         case SumoXMLNodeType::TRAFFIC_LIGHT_NOJUNCTION:
+            if (!myActiveLogic.empty()) {
+                WRITE_WARNINGF(TL("Ignoring junction logic for junction '%'."), myActiveID)
+            }
             junction = buildNoLogicJunction();
             break;
         case SumoXMLNodeType::TRAFFIC_LIGHT:
@@ -126,10 +135,13 @@ NLJunctionControlBuilder::closeJunction(const std::string& basePath) {
         case SumoXMLNodeType::PRIORITY_STOP:
         case SumoXMLNodeType::ALLWAY_STOP:
         case SumoXMLNodeType::ZIPPER:
-            junction = buildLogicJunction();
+            junction = buildLogicJunction(new MSBitsetLogic(myRequestSize, myActiveLogic, myActiveFoes, myActiveConts));
             break;
         case SumoXMLNodeType::INTERNAL:
             if (MSGlobals::gUsingInternalLanes) {
+                if (!myActiveLogic.empty()) {
+                    WRITE_WARNINGF(TL("Ignoring junction logic for junction '%'."), myActiveID)
+                }
                 junction = buildInternalJunction();
             }
             break;
@@ -140,7 +152,7 @@ NLJunctionControlBuilder::closeJunction(const std::string& basePath) {
             myActiveProgram = "0";
             myLogicType = myType == SumoXMLNodeType::RAIL_SIGNAL ? TrafficLightType::RAIL_SIGNAL : TrafficLightType::RAIL_CROSSING;
             closeTrafficLightLogic(basePath);
-            junction = buildLogicJunction();
+            junction = buildLogicJunction(new MSBitsetLogic(myRequestSize, myActiveLogic, myActiveFoes, myActiveConts));
             break;
         default:
             throw InvalidArgument("False junction logic type.");
@@ -170,17 +182,9 @@ NLJunctionControlBuilder::buildNoLogicJunction() {
 
 
 MSJunction*
-NLJunctionControlBuilder::buildLogicJunction() {
-    // get and check the junction logic
-    const auto logicIt = myLogics.find(myActiveID);
-    if (logicIt == myLogics.end()) {
-        throw InvalidArgument("Missing junction logic '" + myActiveID + "'.");
-    }
-    // build the junction
+NLJunctionControlBuilder::buildLogicJunction(MSJunctionLogic* const logic) {
     return new MSRightOfWayJunction(myActiveID, myType, myPosition, myShape, myActiveName,
-                                    myActiveIncomingLanes,
-                                    myActiveInternalLanes,
-                                    logicIt->second);
+                                    myActiveIncomingLanes, myActiveInternalLanes, logic);
 }
 
 
@@ -459,26 +463,6 @@ NLJunctionControlBuilder::closeFunction() {
     myActiveFunctions[myActiveFunction.id] = myActiveFunction;
     myActiveFunction.id = "";
     myActiveFunction.assignments.clear();
-}
-
-
-void
-NLJunctionControlBuilder::closeJunctionLogic() {
-    if (myRequestSize == NO_REQUEST_SIZE) {
-        // We have a legacy network. junction element did not contain logicitems; read the logic later
-        return;
-    }
-    if (myCurrentHasError) {
-        // had an error before...
-        return;
-    }
-    if (myRequestItemNumber != myRequestSize) {
-        throw InvalidArgument("The description for the junction logic '" + myActiveKey + "' is malicious.");
-    }
-    if (myLogics.count(myActiveKey) > 0) {
-        throw InvalidArgument("Junction logic '" + myActiveKey + "' was defined twice.");
-    }
-    myLogics[myActiveKey] = new MSBitsetLogic(myRequestSize, myActiveLogic, myActiveFoes, myActiveConts);
 }
 
 

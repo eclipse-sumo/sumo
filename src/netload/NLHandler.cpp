@@ -315,7 +315,6 @@ NLHandler::myEndElement(int element) {
         case SUMO_TAG_JUNCTION:
             if (!myCurrentIsBroken) {
                 try {
-                    myJunctionControlBuilder.closeJunctionLogic();
                     myJunctionControlBuilder.closeJunction(getFileName());
                 } catch (InvalidArgument& e) {
                     WRITE_ERROR(e.what());
