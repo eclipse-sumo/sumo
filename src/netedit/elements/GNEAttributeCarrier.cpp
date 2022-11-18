@@ -5759,7 +5759,7 @@ GNEAttributeCarrier::fillDataElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DATAELEMENT | GNETagProperties::MEANDATA,
                                       GNETagProperties::NOTDRAWABLE | GNETagProperties::NOPARAMETERS | GNETagProperties::NOTSELECTABLE,
-                                      GUIIcon::DATASET, currentTag);
+                                      GUIIcon::MEANDATAEDGE, currentTag);
 
         // set values of attributes
         fillCommonMeanDataAttributes(currentTag);
@@ -5771,7 +5771,7 @@ GNEAttributeCarrier::fillDataElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DATAELEMENT | GNETagProperties::MEANDATA,
                                       GNETagProperties::NOTDRAWABLE | GNETagProperties::NOPARAMETERS | GNETagProperties::NOTSELECTABLE,
-                                      GUIIcon::DATASET, currentTag);
+                                      GUIIcon::MEANDATALANE, currentTag);
 
         // set values of attributes
         fillCommonMeanDataAttributes(currentTag);
