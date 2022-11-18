@@ -2362,12 +2362,12 @@ GNENet::saveMeanDatasConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
     // open header
     device.writeXMLHeader("meanData", "meanData_file.xsd", EMPTY_HEADER, false);
-/*
-    writeWireComment(device);
-    writeMeanDataByType(device, {SUMO_TAG_TRACTION_SUBSTATION});
-    writeMeanDataByType(device, {SUMO_TAG_OVERHEAD_WIRE_SECTION});
-    writeMeanDataByType(device, {SUMO_TAG_OVERHEAD_WIRE_CLAMP});
-*/
+    // MeanDataEdges
+    writeMeanDataEdgeComment(device);
+    writeMeanDatas(device, SUMO_TAG_MEANDATA_EDGE);
+    // MeanDataLanes
+    writeMeanDataLaneComment(device);
+    writeMeanDatas(device, SUMO_TAG_MEANDATA_LANE);
     // close device
     device.close();
 }
@@ -2450,6 +2450,21 @@ GNENet::writeVTypes(OutputDevice& device, const bool additionalFile) const {
     }
 }
 
+
+void
+GNENet::writeMeanDatas(OutputDevice& device, SumoXMLTag tag) const {
+    std::map<std::string, GNEMeanData*> sortedMeanDatas;
+    for (const auto& meanData : myAttributeCarriers->getMeanDatas().at(tag)) {
+        if (sortedMeanDatas.count(meanData->getID()) == 0) {
+            sortedMeanDatas[meanData->getID()] = meanData;
+        } else {
+            throw ProcessError("Duplicated ID");
+        }
+    }
+    for (const auto& additional : sortedMeanDatas) {
+        additional.second->writeMeanData(device);
+    }
+}
 
 bool
 GNENet::writeVTypeComment(OutputDevice& device, const bool additionalFile) const {
@@ -2587,6 +2602,26 @@ bool
 GNENet::writeWireComment(OutputDevice& device) const {
     if (myAttributeCarriers->getAdditionals().at(SUMO_TAG_TRACTION_SUBSTATION).size() > 0) {
         device << ("    <!-- Wires -->\n");
+        return true;
+    }
+    return false;
+}
+
+
+bool
+GNENet::writeMeanDataEdgeComment(OutputDevice& device) const {
+    if (myAttributeCarriers->getMeanDatas().at(SUMO_TAG_MEANDATA_EDGE).size() > 0) {
+        device << ("    <!-- MeanDataEdges -->\n");
+        return true;
+    }
+    return false;
+}
+
+
+bool
+GNENet::writeMeanDataLaneComment(OutputDevice& device) const {
+    if (myAttributeCarriers->getMeanDatas().at(SUMO_TAG_MEANDATA_LANE).size() > 0) {
+        device << ("    <!-- MeanDataLanes -->\n");
         return true;
     }
     return false;
