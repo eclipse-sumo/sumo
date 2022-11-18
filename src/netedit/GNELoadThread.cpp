@@ -365,12 +365,12 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
 
     // additional prefixes
 
-    oc.doRegister("meanDataEdge-prefix", new Option_String("de"));
+    oc.doRegister("meanDataEdge-prefix", new Option_String("ed"));
     oc.addDescription("meanDataEdge-prefix", "Netedit", "prefix for meanDataEdge naming");
 
     // additional prefixes
 
-    oc.doRegister("meanDataLane-prefix", new Option_String("dl"));
+    oc.doRegister("meanDataLane-prefix", new Option_String("ld"));
     oc.addDescription("meanDataLane-prefix", "Netedit", "prefix for meanDataLane naming");
 
     // drawing
