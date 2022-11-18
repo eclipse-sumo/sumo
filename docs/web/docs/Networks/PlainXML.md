@@ -214,7 +214,7 @@ error and will yield in a program stop:
   any phase whenever it is safe to do so (after stopping once). This
   behavior is known as
   [right-turn-on-red](https://en.wikipedia.org/wiki/Right_turn_on_red).
-- `dead_end`: There are no connections at this node. This type is assigned automatically (will trigger guessing the type of given as input).
+- `dead_end`: There are no connections at this node. This type is assigned automatically. Using this as input will trigger guessing the type.
 
 ## Right-of-way
 
