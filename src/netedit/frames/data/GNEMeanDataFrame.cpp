@@ -402,14 +402,21 @@ GNEMeanDataFrame::MeanDataSelector::refreshMeanDataSelector() {
         myCurrentMeanData = nullptr;
     }
     if ((myCurrentMeanData == nullptr) && (sortedMeanDatas.size() > 0)) {
+        enable();
         myCurrentMeanData = sortedMeanDatas.begin()->second;
+    } else {
+        disable();
     }
     // refresh meanData editor module
     myMeanDataFrameParent->myMeanDataEditor->refreshMeanDataEditorModule();
     // check if show attribute editor
     if (myCurrentMeanData) {
+        // set myCurrentMeanData as inspected element (needed for attribute editor)
+        myMeanDataFrameParent->getViewNet()->setInspectedAttributeCarriers({myCurrentMeanData});
         myMeanDataFrameParent->myMeanDataAttributesEditor->showAttributeEditorModule(false, true);
     } else {
+    // set myCurrentMeanData as inspected element (needed for attribute editor)
+        myMeanDataFrameParent->getViewNet()->setInspectedAttributeCarriers({});
         myMeanDataFrameParent->myMeanDataAttributesEditor->hideAttributesEditorModule();
     }
 }

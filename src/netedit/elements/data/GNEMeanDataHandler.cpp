@@ -62,7 +62,7 @@ GNEMeanDataHandler::buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* 
     // check if meanData edge exists
     if (myNet->getAttributeCarriers()->retrieveMeanData(SUMO_TAG_MEANDATA_EDGE, ID, false) != nullptr) {
         writeError("Could not build " + toString(SUMO_TAG_MEANDATA_LANE) + "; " + ID + " already exist");
-    } else if ((edges.size() != edgeIDs.size()) || (attributes.size() != writtenAttributes.size())) {
+    } else if ((edges.size() == edgeIDs.size()) && (attributes.size() == writtenAttributes.size())) {
         GNEMeanData* edgeMeanData = new GNEMeanData(myNet, SUMO_TAG_MEANDATA_EDGE, ID, file, period, begin, end,
             trackVehicles, attributes,  aggregate, edgeIDs, edgeFile, excludeEmpty,  withInternal, 
             detectPersons, minSamples, maxTravelTime, vTypes, speedThreshold);
@@ -91,7 +91,7 @@ GNEMeanDataHandler::buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* 
     // check if meanData edge exists
     if (myNet->getAttributeCarriers()->retrieveMeanData(SUMO_TAG_MEANDATA_LANE, ID, false) != nullptr) {
         writeError("Could not build " + toString(SUMO_TAG_MEANDATA_LANE) + "; " + ID + " already exist");
-    } else if ((edges.size() != edgeIDs.size()) || (attributes.size() != writtenAttributes.size())) {
+    } else if ((edges.size() == edgeIDs.size()) && (attributes.size() == writtenAttributes.size())) {
         GNEMeanData* edgeMeanData = new GNEMeanData(myNet, SUMO_TAG_MEANDATA_LANE, ID, file, period, begin, end,
             trackVehicles, attributes,  aggregate, edgeIDs, edgeFile, excludeEmpty,  withInternal, 
             detectPersons, minSamples, maxTravelTime, vTypes, speedThreshold);
