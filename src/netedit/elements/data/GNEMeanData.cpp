@@ -43,6 +43,8 @@
 GNEMeanData::GNEMeanData(GNENet *net, SumoXMLTag tag, const std::string& id) :
     GNEHierarchicalElement(net, tag, {}, {}, {}, {}, {}, {}),
     myID(id) {
+    // reset default values
+    resetDefaultValues();
 }
 
 
@@ -101,11 +103,23 @@ GNEMeanData::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_FILE:
             return myFile;
         case SUMO_ATTR_PERIOD:
-            return time2string(myPeriod);
+            if (myPeriod == -1) {
+                return "";
+            } else {
+                return time2string(myPeriod);
+            }
         case SUMO_ATTR_BEGIN:
-            return time2string(myBegin);
+            if (myBegin == -1) {
+                return "";
+            } else {
+                return time2string(myBegin);
+            }
         case SUMO_ATTR_END:
-            return time2string(myEnd);
+            if (myEnd == -1) {
+                return "";
+            } else {
+                return time2string(myEnd);
+            }
         case SUMO_ATTR_EXCLUDE_EMPTY:
             return myExcludeEmpty;
         case SUMO_ATTR_WITH_INTERNAL:
@@ -144,6 +158,9 @@ GNEMeanData::getAttributeDouble(SumoXMLAttr key) const {
 
 void
 GNEMeanData::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+    if (value == getAttribute(key)) {
+        return; //avoid needless changes, later logic relies on the fact that attributes have changed
+    }
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_FILE:
@@ -174,23 +191,53 @@ bool
 GNEMeanData::isValid(SumoXMLAttr key , const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
+            return (myNet->getAttributeCarriers()->retrieveMeanData(myTagProperty.getTag(), value, false) == nullptr);
         case SUMO_ATTR_FILE:
+            return SUMOXMLDefinitions::isValidFilename(value);
         case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_BEGIN:
         case SUMO_ATTR_END:
+            if (value.empty()) {
+                return true;
+            } else {
+                return (canParse<double>(value) && (parse<double>(value) >= 0));
+            }
         case SUMO_ATTR_EXCLUDE_EMPTY:
+            if (canParse<bool>(value)) {
+                return true;
+            } else {
+                return (value == "default");
+            }
         case SUMO_ATTR_WITH_INTERNAL:
+            return (canParse<bool>(value));
         case SUMO_ATTR_MAX_TRAVELTIME:
+            if (value.empty()) {
+                return true;
+            } else {
+                return (canParse<double>(value) && (parse<double>(value) >= 0));
+            }
         case SUMO_ATTR_MIN_SAMPLES:
+            return (canParse<double>(value) && (parse<double>(value) >= 0));
         case SUMO_ATTR_HALTING_SPEED_THRESHOLD:
+            return (canParse<double>(value) && (parse<double>(value) >= 0));
         case SUMO_ATTR_VTYPES:
+            return true;
         case SUMO_ATTR_TRACK_VEHICLES:
+            return (canParse<bool>(value));
         case SUMO_ATTR_DETECT_PERSONS:
+            if (value.empty()) {
+                return true;
+            } else {
+                return (value == "walk");
+            }
         case SUMO_ATTR_WRITE_ATTRIBUTES:
+            return canParse<std::vector<SumoXMLAttr> >(value);
         case SUMO_ATTR_EDGES:
+            return canParse<std::vector<GNEEdge*> >(myNet, value, false);
         case SUMO_ATTR_EDGESFILE:
-        case SUMO_ATTR_AGGREGATE:
             return SUMOXMLDefinitions::isValidFilename(value);
+        case SUMO_ATTR_AGGREGATE:
+            return (canParse<bool>(value));
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -224,13 +271,25 @@ GNEMeanData::setAttribute(SumoXMLAttr key, const std::string& value) {
             myFile = value;
             break;
         case SUMO_ATTR_PERIOD:
-            myPeriod = string2time(value);
+            if (value.empty()) {
+                myPeriod = -1;
+            } else {
+                myPeriod = string2time(value);
+            }
             break;
         case SUMO_ATTR_BEGIN:
-            myBegin = string2time(value);
+            if (value.empty()) {
+                myBegin = -1;
+            } else {
+                myBegin = string2time(value);
+            }
             break;
         case SUMO_ATTR_END:
-            myEnd = string2time(value);
+            if (value.empty()) {
+                myEnd = -1;
+            } else {
+                myEnd = string2time(value);
+            }
             break;
         case SUMO_ATTR_EXCLUDE_EMPTY:
             myExcludeEmpty = value;
@@ -239,7 +298,11 @@ GNEMeanData::setAttribute(SumoXMLAttr key, const std::string& value) {
             myWithInternal = parse<bool>(value);
             break;
         case SUMO_ATTR_MAX_TRAVELTIME:
-            myMaxTravelTime = parse<double>(value);
+            if (value.empty()) {
+                myMaxTravelTime = 100000;
+            } else {
+                myMaxTravelTime = parse<double>(value);
+            }
             break;
         case SUMO_ATTR_MIN_SAMPLES:
             myMinSamples = parse<double>(value);

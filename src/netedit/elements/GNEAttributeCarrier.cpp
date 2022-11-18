@@ -304,18 +304,36 @@ GNEAttributeCarrier::parse(const std::string& string) {
 }
 
 
+template<> std::vector<SumoXMLAttr>
+GNEAttributeCarrier::parse(const std::string& value) {
+    // Declare string vector
+    std::vector<std::string> attributesStr = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
+    std::vector<SumoXMLAttr> attributes;
+    // Iterate over lanes IDs, retrieve Lanes and add it into parsedLanes
+    for (const auto& attributeStr : attributesStr) {
+        if (SUMOXMLDefinitions::Tags.hasString(attributeStr)) {
+            attributes.push_back(static_cast<SumoXMLAttr>(SUMOXMLDefinitions::Attrs.get(attributeStr)));
+        } else {
+            throw FormatException("Error parsing attributes. Attribute '" + attributeStr + "'  doesn't exist");
+        }
+    }
+    return attributes;
+}
+
+
 template<> std::vector<GNEEdge*>
 GNEAttributeCarrier::parse(GNENet* net, const std::string& value) {
     // Declare string vector
     std::vector<std::string> edgeIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
     std::vector<GNEEdge*> parsedEdges;
     // Iterate over edges IDs, retrieve Edges and add it into parsedEdges
-    for (const auto& i : edgeIds) {
-        GNEEdge* retrievedEdge = net->getAttributeCarriers()->retrieveEdge(i, false);
+    for (const auto& edgeID : edgeIds) {
+        GNEEdge* retrievedEdge = net->getAttributeCarriers()->retrieveEdge(edgeID, false);
         if (retrievedEdge) {
-            parsedEdges.push_back(net->getAttributeCarriers()->retrieveEdge(i));
+            parsedEdges.push_back(net->getAttributeCarriers()->retrieveEdge(edgeID));
         } else {
-            throw FormatException("Error parsing parameter " + toString(SUMO_ATTR_EDGES) + ". " + toString(SUMO_TAG_EDGE) + " '" + i + "' doesn't exist");
+            throw FormatException("Error parsing parameter " + toString(SUMO_ATTR_EDGES) + ". " + 
+                toString(SUMO_TAG_EDGE) + " '" + edgeID + "' doesn't exist");
         }
     }
     return parsedEdges;
@@ -328,12 +346,13 @@ GNEAttributeCarrier::parse(GNENet* net, const std::string& value) {
     std::vector<std::string> laneIds = GNEAttributeCarrier::parse<std::vector<std::string> > (value);
     std::vector<GNELane*> parsedLanes;
     // Iterate over lanes IDs, retrieve Lanes and add it into parsedLanes
-    for (const auto& i : laneIds) {
-        GNELane* retrievedLane = net->getAttributeCarriers()->retrieveLane(i, false);
+    for (const auto& laneID : laneIds) {
+        GNELane* retrievedLane = net->getAttributeCarriers()->retrieveLane(laneID, false);
         if (retrievedLane) {
-            parsedLanes.push_back(net->getAttributeCarriers()->retrieveLane(i));
+            parsedLanes.push_back(net->getAttributeCarriers()->retrieveLane(laneID));
         } else {
-            throw FormatException("Error parsing parameter " + toString(SUMO_ATTR_LANES) + ". " + toString(SUMO_TAG_LANE) + " '" + i + "'  doesn't exist");
+            throw FormatException("Error parsing parameter " + toString(SUMO_ATTR_LANES) + ". " + 
+                toString(SUMO_TAG_LANE) + " '" + laneID + "'  doesn't exist");
         }
     }
     return parsedLanes;
@@ -5792,7 +5811,7 @@ GNEAttributeCarrier::fillCommonMeanDataAttributes(SumoXMLTag currentTag) {
     attrProperty = GNEAttributeProperties(SUMO_ATTR_EXCLUDE_EMPTY,
                                             GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
                                             "If set to true, edges/lanes which were not use by a vehicle during this period will not be written",
-                                            "false");
+                                            "default");
     attrProperty.setDiscreteValues({"true", "false", "default"});
     myTagProperties[currentTag].addAttribute(attrProperty);
 
