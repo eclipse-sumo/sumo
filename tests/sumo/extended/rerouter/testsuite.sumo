@@ -84,3 +84,6 @@ closingLane_with_rerouting
 
 # closing 3 lanes rom a 3-lane road 
 closingLane_all
+
+# using the same id twice
+duplicate_id
