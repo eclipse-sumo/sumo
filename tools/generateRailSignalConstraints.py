@@ -1464,6 +1464,8 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
 
 
 def collectBidiConflicts(options, net, vehicleStopRoutes, stop, stopRoute, edgesBefore, arrivals):
+    if stop.busStop == options.debugStop:
+        print("findBidiConflicts at stop %s" % options.debugStop)
     for (e2Start, e2end) in sorted(arrivals.keys()):
         arrivalList = arrivals[(e2Start, e2end)]
         nStopArrival = getArrivalSecure(stop)
@@ -1475,6 +1477,12 @@ def collectBidiConflicts(options, net, vehicleStopRoutes, stop, stopRoute, edges
         arrivalList.sort(reverse=True, key=itemgetter(0))
         # print("found oppositeArrivals", [a[0] for a in arrivals])
         conflictArrival = None
+        if options.verbose and stop.busStop == options.debugStop:
+            print("%s (%s) n: %s %s start: %s end: %s" % (
+                  humanReadableTime(nArrival),
+                  humanReadableTime(nStopArrival),
+                  stop.tripId, stop.vehID, e1Start, e1End))
+
         for pArrival, pStop, sIb, sI2 in arrivalList:
             if pArrival >= nArrival:
                 continue
@@ -1496,6 +1504,12 @@ def collectBidiConflicts(options, net, vehicleStopRoutes, stop, stopRoute, edges
             nSignal = findSignal(net, getEdges(stopRoute, sIb, e1Start, False, noIndex=True), True)
             # signal before vehID2 enters the conflict section (in the opposite direction)
             pSignal = findSignal(net, getEdges(stopRoute2, sI2, e2Start, False, noIndex=True), True)
+
+            if options.verbose and stop.busStop == options.debugStop:
+                print("  %s (%s) p: %s %s start: %s end: %s" % (
+                      humanReadableTime(pArrival),
+                      humanReadableTime(parseTime(pStop.arrival)),
+                      pStop.tripId, pStop.vehID, e2Start, e2end))
 
             if pStop.vehID != stop.vehID:
                 if nSignal is None or pSignal is None:
