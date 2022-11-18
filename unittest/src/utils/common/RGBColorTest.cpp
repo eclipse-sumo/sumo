@@ -58,10 +58,10 @@ TEST(RGBColor, test_parseColor) {
 
 /* Test the method 'parseColor' with thrown EmptyData Exception*/
 TEST(RGBColor, test_parseColor_with_a_short_string) {
-    ASSERT_THROW(RGBColor::parseColor(""), InvalidArgument) << "Expect an EmptyData exception.";
-    ASSERT_THROW(RGBColor::parseColor("1,2"), InvalidArgument) << "Expect an EmptyData exception.";
-    ASSERT_THROW(RGBColor::parseColor("test"), InvalidArgument) << "Expect an EmptyData exception.";
-    ASSERT_THROW(RGBColor::parseColor("1,2,3,5,432test"), InvalidArgument) << "Expect an EmptyData exception.";
+    ASSERT_THROW(RGBColor::parseColor(""), FormatException) << "Expected a FormatException.";
+    ASSERT_THROW(RGBColor::parseColor("1,2"), FormatException) << "Expected a FormatException.";
+    ASSERT_THROW(RGBColor::parseColor("test"), FormatException) << "Expected a FormatException.";
+    ASSERT_THROW(RGBColor::parseColor("1,2,3,5,432test"), FormatException) << "Expected a FormatException.";
 }
 
 /* Test the method 'interpolate'*/
