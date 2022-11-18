@@ -77,6 +77,62 @@ GNEMeanData::GNEMeanData(GNENet *net, SumoXMLTag tag, std::string ID, std::strin
 GNEMeanData::~GNEMeanData() {}
 
 
+void
+GNEMeanData::writeMeanData(OutputDevice& device) const {
+    device.openTag(getTagProperty().getTag());
+    // write needed attributes
+    device.writeAttr(SUMO_ATTR_ID, getID());
+    device.writeAttr(SUMO_ATTR_FILE, myFile);
+    // write optional attributes
+    if (getAttribute(SUMO_ATTR_PERIOD) != myTagProperty.getDefaultValue(SUMO_ATTR_PERIOD)) {
+        device.writeAttr(SUMO_ATTR_PERIOD, getAttribute(SUMO_ATTR_PERIOD));
+    }
+    if (getAttribute(SUMO_ATTR_BEGIN) != myTagProperty.getDefaultValue(SUMO_ATTR_BEGIN)) {
+        device.writeAttr(SUMO_ATTR_BEGIN, getAttribute(SUMO_ATTR_BEGIN));
+    }
+    if (getAttribute(SUMO_ATTR_END) != myTagProperty.getDefaultValue(SUMO_ATTR_END)) {
+        device.writeAttr(SUMO_ATTR_END, getAttribute(SUMO_ATTR_END));
+    }
+    if (getAttribute(SUMO_ATTR_EXCLUDE_EMPTY) != myTagProperty.getDefaultValue(SUMO_ATTR_EXCLUDE_EMPTY)) {
+        device.writeAttr(SUMO_ATTR_EXCLUDE_EMPTY, getAttribute(SUMO_ATTR_EXCLUDE_EMPTY));
+    }
+    if (getAttribute(SUMO_ATTR_WITH_INTERNAL) != myTagProperty.getDefaultValue(SUMO_ATTR_WITH_INTERNAL)) {
+        device.writeAttr(SUMO_ATTR_WITH_INTERNAL, getAttribute(SUMO_ATTR_WITH_INTERNAL));
+    }
+    if (getAttribute(SUMO_ATTR_MAX_TRAVELTIME) != myTagProperty.getDefaultValue(SUMO_ATTR_MAX_TRAVELTIME)) {
+        device.writeAttr(SUMO_ATTR_MAX_TRAVELTIME, getAttribute(SUMO_ATTR_MAX_TRAVELTIME));
+    }
+    if (getAttribute(SUMO_ATTR_MIN_SAMPLES) != myTagProperty.getDefaultValue(SUMO_ATTR_MIN_SAMPLES)) {
+        device.writeAttr(SUMO_ATTR_MIN_SAMPLES, getAttribute(SUMO_ATTR_MIN_SAMPLES));
+    }
+    if (getAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD) != myTagProperty.getDefaultValue(SUMO_ATTR_HALTING_SPEED_THRESHOLD)) {
+        device.writeAttr(SUMO_ATTR_HALTING_SPEED_THRESHOLD, getAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD));
+    }
+    if (getAttribute(SUMO_ATTR_VTYPES) != myTagProperty.getDefaultValue(SUMO_ATTR_VTYPES)) {
+        device.writeAttr(SUMO_ATTR_VTYPES, getAttribute(SUMO_ATTR_VTYPES));
+    }
+    if (getAttribute(SUMO_ATTR_TRACK_VEHICLES) != myTagProperty.getDefaultValue(SUMO_ATTR_TRACK_VEHICLES)) {
+        device.writeAttr(SUMO_ATTR_TRACK_VEHICLES, getAttribute(SUMO_ATTR_TRACK_VEHICLES));
+    }
+    if (getAttribute(SUMO_ATTR_DETECT_PERSONS) != myTagProperty.getDefaultValue(SUMO_ATTR_DETECT_PERSONS)) {
+        device.writeAttr(SUMO_ATTR_DETECT_PERSONS, getAttribute(SUMO_ATTR_DETECT_PERSONS));
+    }
+    if (getAttribute(SUMO_ATTR_WRITE_ATTRIBUTES) != myTagProperty.getDefaultValue(SUMO_ATTR_WRITE_ATTRIBUTES)) {
+        device.writeAttr(SUMO_ATTR_WRITE_ATTRIBUTES, getAttribute(SUMO_ATTR_WRITE_ATTRIBUTES));
+    }
+    if (getAttribute(SUMO_ATTR_EDGES) != myTagProperty.getDefaultValue(SUMO_ATTR_EDGES)) {
+        device.writeAttr(SUMO_ATTR_EDGES, getAttribute(SUMO_ATTR_EDGES));
+    }
+    if (getAttribute(SUMO_ATTR_EDGESFILE) != myTagProperty.getDefaultValue(SUMO_ATTR_EDGESFILE)) {
+        device.writeAttr(SUMO_ATTR_EDGESFILE, getAttribute(SUMO_ATTR_EDGESFILE));
+    }
+    if (getAttribute(SUMO_ATTR_AGGREGATE) != myTagProperty.getDefaultValue(SUMO_ATTR_AGGREGATE)) {
+        device.writeAttr(SUMO_ATTR_AGGREGATE, getAttribute(SUMO_ATTR_AGGREGATE));
+    }
+    device.closeTag();
+}
+
+
 GUIGlObject*
 GNEMeanData::getGUIGlObject() {
     return nullptr;
@@ -267,6 +323,7 @@ GNEMeanData::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             myID = value;
+            break;
         case SUMO_ATTR_FILE:
             myFile = value;
             break;

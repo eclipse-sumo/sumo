@@ -46,6 +46,11 @@ public:
     /// @brief Destructor
     ~GNEMeanData();
 
+    /**@brief write meanData element into a xml file
+     * @param[in] device device in which write parameters of meanData element
+     */
+    void writeMeanData(OutputDevice& device) const;
+
     /// @brief get GUIGlObject associated with this AttributeCarrier
     GUIGlObject* getGUIGlObject();
 
