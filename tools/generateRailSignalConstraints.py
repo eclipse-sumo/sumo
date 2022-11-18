@@ -1419,6 +1419,7 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
                                     if e in bidiBefore:
                                         # if the opposite train enters the conflict section with a reversal
                                         # this doesn't provide for a useful entry signal
+                                        # (we still call findDivergence to advance sI2b)
                                         ignoreConflict = prevEdge == getBidiID(net, e)
 
                                         # found the start of the conflict zone, now we need to find the end
