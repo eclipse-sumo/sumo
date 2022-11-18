@@ -361,6 +361,18 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.doRegister("containerflow-prefix", new Option_String("cf"));
     oc.addDescription("containerflow-prefix", "Netedit", "prefix for containerFlow naming");
 
+    // data prefixes
+
+    // additional prefixes
+
+    oc.doRegister("meanDataEdge-prefix", new Option_String("de"));
+    oc.addDescription("meanDataEdge-prefix", "Netedit", "prefix for meanDataEdge naming");
+
+    // additional prefixes
+
+    oc.doRegister("meanDataLane-prefix", new Option_String("dl"));
+    oc.addDescription("meanDataLane-prefix", "Netedit", "prefix for meanDataLane naming");
+
     // drawing
 
     oc.doRegister("disable-laneIcons", new Option_Bool(false));

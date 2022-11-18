@@ -2125,10 +2125,10 @@ GNENetHelper::AttributeCarriers::generateMeanDataID(SumoXMLTag tag) const {
     OptionsCont& oc = OptionsCont::getOptions();
     // get prefix
     std::string prefix;
-    if (tag == SUMO_TAG_BUS_STOP) {
-        prefix = oc.getString("busStop-prefix");
-    } else if (tag == SUMO_TAG_TRAIN_STOP) {
-        prefix = oc.getString("trainStop-prefix");
+    if (tag == SUMO_TAG_MEANDATA_EDGE) {
+        prefix = oc.getString("meanDataEdge-prefix");
+    } else if (tag == SUMO_TAG_MEANDATA_LANE) {
+        prefix = oc.getString("meanDataLane-prefix");
     }
     int counter = 0;
     while (retrieveMeanData(tag, prefix + "_" + toString(counter), false) != nullptr) {
