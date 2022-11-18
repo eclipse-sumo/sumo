@@ -171,12 +171,16 @@ NLJunctionControlBuilder::buildNoLogicJunction() {
 
 MSJunction*
 NLJunctionControlBuilder::buildLogicJunction() {
-    MSJunctionLogic* jtype = getJunctionLogicSecure();
+    // get and check the junction logic
+    const auto logicIt = myLogics.find(myActiveID);
+    if (logicIt == myLogics.end()) {
+        throw InvalidArgument("Missing junction logic '" + myActiveID + "'.");
+    }
     // build the junction
     return new MSRightOfWayJunction(myActiveID, myType, myPosition, myShape, myActiveName,
                                     myActiveIncomingLanes,
                                     myActiveInternalLanes,
-                                    jtype);
+                                    logicIt->second);
 }
 
 
@@ -185,16 +189,6 @@ NLJunctionControlBuilder::buildInternalJunction() {
     // build the junction
     return new MSInternalJunction(myActiveID, myType, myPosition, myShape, myActiveIncomingLanes,
                                   myActiveInternalLanes);
-}
-
-
-MSJunctionLogic*
-NLJunctionControlBuilder::getJunctionLogicSecure() {
-    // get and check the junction logic
-    if (myLogics.find(myActiveID) == myLogics.end()) {
-        throw InvalidArgument("Missing junction logic '" + myActiveID + "'.");
-    }
-    return myLogics[myActiveID];
 }
 
 
@@ -459,12 +453,14 @@ NLJunctionControlBuilder::addFunction(const std::string& id, int nArgs) {
     myActiveFunction.nArgs = nArgs;
 }
 
+
 void
 NLJunctionControlBuilder::closeFunction() {
     myActiveFunctions[myActiveFunction.id] = myActiveFunction;
     myActiveFunction.id = "";
     myActiveFunction.assignments.clear();
 }
+
 
 void
 NLJunctionControlBuilder::closeJunctionLogic() {
@@ -482,11 +478,7 @@ NLJunctionControlBuilder::closeJunctionLogic() {
     if (myLogics.count(myActiveKey) > 0) {
         throw InvalidArgument("Junction logic '" + myActiveKey + "' was defined twice.");
     }
-    MSJunctionLogic* logic = new MSBitsetLogic(myRequestSize,
-            new MSBitsetLogic::Logic(myActiveLogic),
-            new MSBitsetLogic::Foes(myActiveFoes),
-            myActiveConts);
-    myLogics[myActiveKey] = logic;
+    myLogics[myActiveKey] = new MSBitsetLogic(myRequestSize, myActiveLogic, myActiveFoes, myActiveConts);
 }
 
 

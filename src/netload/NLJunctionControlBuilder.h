@@ -223,8 +223,7 @@ public:
     /** @brief Ends the building of a junction logic (row-logic)
      *
      * Rechecks values for the request and builds a MSJunctionLogic using these values.
-     *  Throws and InvalidArgument if the values are invalid (error message is
-     *  included).
+     *  Throws an InvalidArgument if the values are invalid (error message is included).
      * Tries to add the built logic to the internal container "myLogics". If another
      *  logic with the same id exists, an InvalidArgument is thrown.
      *
@@ -272,18 +271,6 @@ public:
     }
 
 protected:
-    /** @brief Returns the current junction logic
-     *
-     * "Current" means the one with "myActiveID". If it is not built yet
-     *  (not within "myLogics") an InvalidArgument is thrown.
-     *
-     * @return The current tls logic
-     * @exception InvalidArgument If the logic was not built before
-     * @todo Where is this used?
-     */
-    MSJunctionLogic* getJunctionLogicSecure();
-
-protected:
     /// @name Factory methods, virtual so that other versions of the structures can be built
     /// @{
 
@@ -297,8 +284,7 @@ protected:
 
     /** @brief Builds a junction with a logic
      *
-     * Builds a MSRightOfWayJunction. Throws an exception if the logic was not built
-     *  (see getJunctionLogicSecure).
+     * Builds a MSRightOfWayJunction. Throws an exception if the logic was not built.
      *
      * @return The built junction
      * @exception InvalidArgument If the logic of the junction was not built before
