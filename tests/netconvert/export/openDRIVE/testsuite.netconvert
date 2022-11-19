@@ -15,6 +15,7 @@ split
 
 # roadmark test
 forbiddenlane
+multimodal
 
 # convert sumo network to xodr
 lefthand
