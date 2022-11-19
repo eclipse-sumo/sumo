@@ -1,5 +1,6 @@
-[Reported by erdm_ja at 09May12:23:29]
-search_string:cluster
+
+[Reported by erdm_ja at 19Nov18:02:59]
+search_string:<request index="5"  response="000101010111000101" foes="000111111111000101" cont="0"/>
 search_file:net
-full_description:mutual conflict between bike and car
+full_description:invalid mutual conflict
 brief_description:see #5609
