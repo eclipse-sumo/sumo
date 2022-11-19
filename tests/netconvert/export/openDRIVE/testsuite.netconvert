@@ -19,8 +19,14 @@ forbiddenlane
 # convert sumo network to xodr
 lefthand
 
+# convert lefthand sumo network to xodr (writing left lanes)
+lefthand_LHLL
+
 # convert sumo network to xodr
 lefthand_sidewalk
+
+# convert sumo network to xodr (writing left lanes)
+lefthand_sidewalk_LHLL
 
 # test exporting signal groups
 signalGroups
