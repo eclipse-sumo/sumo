@@ -66,7 +66,6 @@ protected:
                                 const bool origNames,
                                 const double straightThresh,
                                 const ShapeContainer& shc,
-                                bool lefthand,
                                 SignalLanes& signalLanes);
 
     /// @brief write internal edge to device, return next connectionID
@@ -78,7 +77,6 @@ protected:
                                  const bool isOuterEdge,
                                  const double straightThresh,
                                  const std::string& centerMark,
-                                 bool lefthand,
                                  SignalLanes& signalLanes);
 
     static void addPedestrianConnection(const NBEdge* inEdge, const NBEdge* outEdge, std::vector<NBEdge::Connection>& parallel);
@@ -108,12 +106,12 @@ protected:
     static std::string getLaneType(SVCPermissions permissions);
 
     /// @brief get the lane border that is closer to the reference line (center line of the edge)
-    static PositionVector getInnerLaneBorder(bool lefthand, const NBEdge* edge, int laneIndex = -1, double widthOffset = 0);
+    static PositionVector getInnerLaneBorder(const NBEdge* edge, int laneIndex = -1, double widthOffset = 0);
     /// @brief get the lane border that is further away from the reference line (center line of the edge)
-    static PositionVector getOuterLaneBorder(bool lefthand, const NBEdge* edge, int laneIndex = -1);
+    static PositionVector getOuterLaneBorder(const NBEdge* edge, int laneIndex = -1);
 
     /// @brief check if the lane geometries are compatible with OpenDRIVE assumptions (colinear stop line)
-    static void checkLaneGeometries(const NBEdge* e, bool lefthand);
+    static void checkLaneGeometries(const NBEdge* e);
 
     /// @brief write road objects referenced as edge parameters
     static void writeRoadObjects(OutputDevice& device, const NBEdge* e, const ShapeContainer& shc);
@@ -122,7 +120,7 @@ protected:
     static void writeSignals(OutputDevice& device, const NBEdge* e, double length, SignalLanes& signalLanes);
 
     /// @brief convert sumo lane index to xodr lane index
-    static int s2x(bool lefthand, int sumoIndex, int numLanes);
+    static int s2x(int sumoIndex, int numLanes);
 
     /// @brief map pois and polygons to the closes edge
     static void mapmatchRoadObjects(const ShapeContainer& shc,  const NBEdgeCont& ec);
@@ -130,4 +128,13 @@ protected:
     static void writeRoadObjectPOI(OutputDevice& device, const NBEdge* e, const PositionVector& roadShape, const PointOfInterest* poi);
 
     static void writeRoadObjectPoly(OutputDevice& device, const NBEdge* e, const PositionVector& roadShape, const SUMOPolygon* p);
+
+protected:
+    /// @brief whether a lefthand network is being written
+    static bool lefthand;
+
+    /* @brief whether a the lanes in a lefthand network shall be written to the
+     * left of the reference line (positive indices */
+    static bool LHLL;
+
 };
