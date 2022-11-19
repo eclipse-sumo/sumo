@@ -50,6 +50,7 @@
 // ===========================================================================
 bool NWWriter_OpenDrive::lefthand(false);
 bool NWWriter_OpenDrive::LHLL(false);
+bool NWWriter_OpenDrive::LHRL(false);
 
 // ===========================================================================
 // method definitions
@@ -68,6 +69,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     const bool origNames = oc.getBool("output.original-names");
     lefthand = oc.getBool("lefthand");
     LHLL = lefthand && oc.getBool("opendrive-output.lefthand-left");
+    LHRL = lefthand && !LHLL;
     const double straightThresh = DEG2RAD(oc.getFloat("opendrive-output.straight-threshold"));
     // some internal mapping containers
     int nodeID = 1;
@@ -301,7 +303,7 @@ NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
     for (int jRH = numLanes; --jRH >= 0;) {
         // XODR always has the lanes left to right (by default this is
         // inner-to-outer but in LH networks its outer-to-inner)
-        const int j = LHLL ? numLanes - 1 - jRH : jRH;
+        const int j = lefthand ? numLanes - 1 - jRH : jRH;
         std::string laneType = e->getLaneStruct(j).type;
         if (laneType == "") {
             laneType = getLaneType(e->getPermissions(j));
@@ -317,15 +319,25 @@ NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
         //device << "                        </link>\n";
         device << "                        <width sOffset=\"0\" a=\"" << e->getLaneWidth(j) << "\" b=\"0\" c=\"0\" d=\"0\"/>\n";
         std::string markType = "broken";
-        if (j == 0) {
-            markType = "solid";
-        } else if (j > 0
-                   && (e->getPermissions(j - 1) & ~(SVC_PEDESTRIAN | SVC_BICYCLE)) == 0) {
-            // solid road mark to the left of sidewalk or bicycle lane
-            markType = "solid";
-        } else if (e->getPermissions(j) == 0) {
-            // solid road mark to the right of a forbidden lane
-            markType = "solid";
+        if (LHRL) {
+            if (j == numLanes - 1) {
+                // solid road mark in the middle of the road
+                markType = "solid";
+            } else if ((e->getPermissions(j) & ~(SVC_PEDESTRIAN | SVC_BICYCLE)) == 0) {
+                // solid road mark to the right of sidewalk or bicycle lane
+                markType = "solid";
+            }
+        } else {
+            if (j == 0) {
+                markType = "solid";
+            } else if (j > 0
+                    && (e->getPermissions(j - 1) & ~(SVC_PEDESTRIAN | SVC_BICYCLE)) == 0) {
+                // solid road mark to the left of sidewalk or bicycle lane
+                markType = "solid";
+            } else if (e->getPermissions(j) == 0) {
+                // solid road mark to the right of a forbidden lane
+                markType = "solid";
+            }
         }
         device << "                        <roadMark sOffset=\"0\" type=\"" << markType << "\" weight=\"standard\" color=\"standard\" width=\"0.13\"/>\n";
         device << "                        <speed sOffset=\"0\" max=\"" << lanes[j].speed << "\"/>\n";
@@ -372,7 +384,7 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
                                       const std::string& centerMark,
                                       SignalLanes& signalLanes) {
     assert(parallel.size() != 0);
-    const NBEdge::Connection& cLeft = (lefthand && !LHLL) ? parallel.front() : parallel.back();
+    const NBEdge::Connection& cLeft = LHRL ? parallel.front() : parallel.back();
     const NBEdge* outEdge = cLeft.toEdge;
     PositionVector begShape = getInnerLaneBorder(inEdge, cLeft.fromLane);
     PositionVector endShape = getInnerLaneBorder(outEdge, cLeft.toLane);
@@ -460,7 +472,7 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
     device << "                <" << side << ">\n";
     const int numLanes = (int)parallel.size();
     for (int jRH = numLanes; --jRH >= 0;) {
-        const int j = LHLL ? numLanes - 1 - jRH : jRH;
+        const int j = lefthand ? numLanes - 1 - jRH : jRH;
         const int xJ = s2x(j, numLanes);
         const NBEdge::Connection& c = parallel[j];
         const int fromIndex = s2x(c.fromLane, inEdge->getNumLanes());
@@ -599,7 +611,7 @@ NWWriter_OpenDrive::getInnerLaneBorder(const NBEdge* edge, int laneIndex, double
     if (laneIndex == -1) {
         // innermost lane
         laneIndex = (int)edge->getNumLanes() - 1;
-        if (lefthand && !LHLL) {
+        if (LHRL) {
             laneIndex = 0;
         }
     }

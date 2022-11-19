@@ -139,4 +139,7 @@ protected:
      * */
     static bool LHLL;
 
+    // lefthand but lanes written as right lanes
+    static bool LHRL;
+
 };
