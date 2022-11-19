@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-11-16 15:49:51 by Eclipse SUMO netconvert Version v1_15_0+0319-d3d8dcf
+<!-- generated on 2022-11-19 16:04:44 by Eclipse SUMO netconvert Version v1_15_0+0438-c73efba
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -161,6 +161,9 @@
 
         <!-- Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees -->
         <opendrive-output.straight-threshold value="1e-08" type="FLOAT"/>
+
+        <!-- Write lanes in lefthand networks on the left side (positive indices) -->
+        <opendrive-output.lefthand-left value="false" type="BOOL"/>
 
         <!-- Match loaded shapes to the closest edge within FLOAT and export as road objects -->
         <opendrive-output.shape-match-dist value="-1" type="FLOAT"/>
