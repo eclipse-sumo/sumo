@@ -235,7 +235,7 @@ with appropriate acceleration / deceleration parameters.
 
 # Train Schedules
 
-Train schedules are defined in the same way as for any other type of [public transport](Public_Transport.nd#public_transport_schedules).
+Train schedules are defined in the same way as for any other type of [public transport](Public_Transport.mnd#public_transport_schedules).
 
 <img src="../images/schedule_until.png" width="500px"/>
 
