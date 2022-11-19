@@ -254,6 +254,9 @@ public:
     /// @brief recheck myGuessedTLS after node logics are computed
     void recheckGuessedTLS(NBTrafficLightLogicCont& tlc);
 
+    /// @brief check whether a specific guessed tls should keep its type
+    bool recheckTLSThreshold(NBNode* node); 
+
     /// @brief compute keepClear status for all connections
     void computeKeepClear();
 
@@ -404,7 +407,7 @@ private:
      * @param[in] laneSpeedThreshold threshold for determining whether a node or cluster should be tls controlled
      * @return Whether this node cluster shall be controlled by a tls
      */
-    bool shouldBeTLSControlled(const NodeSet& c, double laneSpeedThreshold) const;
+    bool shouldBeTLSControlled(const NodeSet& c, double laneSpeedThreshold, bool recheck = false) const;
 
     /// @brief check wheter the set of nodes only contains pedestrian crossings
     bool onlyCrossings(const NodeSet& c) const;

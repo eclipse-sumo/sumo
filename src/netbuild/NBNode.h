@@ -393,6 +393,9 @@ public:
     /// @brief whether there are conflicting streams of traffic at this node
     bool hasConflict() const;
 
+    /// @brief whether the given edge has a conflicting stream of traffic at this node
+    bool hasConflict(const NBEdge* e) const;
+
     /// @brief Returns something like the most unused direction Should only be used to add source or sink nodes
     Position getEmptyDir() const;
 

@@ -1063,6 +1063,22 @@ NBNode::hasConflict() const {
     }
 }
 
+
+bool
+NBNode::hasConflict(const NBEdge* e) const {
+    if (myRequest == nullptr) {
+        return false;
+    }
+    for (const auto& con : e->getConnections()) {
+        const int index = getConnectionIndex(e, con);
+        if (myRequest->hasConflictAtLink(index)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
 void
 NBNode::updateSurroundingGeometry() {
     NBTurningDirectionsComputer::computeTurnDirectionsForNode(this, false);

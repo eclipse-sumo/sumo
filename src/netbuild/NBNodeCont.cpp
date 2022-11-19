@@ -1890,20 +1890,25 @@ NBNodeCont::analyzeCluster(NodeSet cluster, std::string& id, Position& pos,
 
 // ----------- (Helper) methods for guessing/computing traffic lights
 bool
-NBNodeCont::shouldBeTLSControlled(const NodeSet& c, double laneSpeedThreshold) const {
+NBNodeCont::shouldBeTLSControlled(const NodeSet& c, double laneSpeedThreshold, bool recheck) const {
     bool tooFast = false;
     double laneSpeedSum = 0;
     std::set<NBEdge*> seen;
     for (NBNode* j : c) {
-        const EdgeVector& edges = j->getEdges();
-        for (EdgeVector::const_iterator k = edges.begin(); k != edges.end(); ++k) {
-            if (c.find((*k)->getFromNode()) != c.end() && c.find((*k)->getToNode()) != c.end()) {
+        for (const NBEdge* e : j->getEdges()) {
+            if (c.find(e->getFromNode()) != c.end() && c.find(e->getToNode()) != c.end()) {
+                // edges fully within the cluster do not count
                 continue;
             }
-            if (j->hasIncoming(*k)) {
-                laneSpeedSum += (double)(*k)->getNumLanes() * (*k)->getLaneSpeed(0);
+            if (j->hasIncoming(e)) {
+                if (recheck && !j->hasConflict(e)) {
+                    // edges without conflict do not count
+                    // we can only check this after connections have been computed
+                    continue;
+                }
+                laneSpeedSum += (double)e->getNumLanes() * e->getLaneSpeed(0);
             }
-            if ((*k)->getLaneSpeed(0) * 3.6 > 79) {
+            if (e->getLaneSpeed(0) * 3.6 > 79) {
                 tooFast = true;
             }
         }
@@ -2204,10 +2209,11 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
 }
 
 
-void NBNodeCont::recheckGuessedTLS(NBTrafficLightLogicCont& tlc) {
+void
+NBNodeCont::recheckGuessedTLS(NBTrafficLightLogicCont& tlc) {
     std::set<NBTrafficLightDefinition*> recompute;
     for (NBNode* node : myGuessedTLS) {
-        if (!node->hasConflict()) {
+        if (!node->hasConflict() || !recheckTLSThreshold(node)) {
             const std::set<NBTrafficLightDefinition*>& tlDefs = node->getControllingTLS();
             recompute.insert(tlDefs.begin(), tlDefs.end());
             node->removeTrafficLights(true);
@@ -2225,6 +2231,22 @@ void NBNodeCont::recheckGuessedTLS(NBTrafficLightLogicCont& tlc) {
             tlc.computeSingleLogic(OptionsCont::getOptions(), def);
         }
     }
+}
+
+
+bool
+NBNodeCont::recheckTLSThreshold(NBNode* node) {
+    if (!node->isTLControlled()) {
+        return false;
+    }
+    if ((*node->getControllingTLS().begin())->getNodes().size() != 1) {
+        // unable to perform check for a joined tls
+        return true;
+    }
+    NodeSet c;
+    c.insert(node);
+    const double laneSpeedThreshold = OptionsCont::getOptions().getFloat("tls.guess.threshold");
+    return shouldBeTLSControlled(c, laneSpeedThreshold, true);
 }
 
 
