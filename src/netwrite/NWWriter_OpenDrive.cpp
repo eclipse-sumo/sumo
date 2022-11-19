@@ -49,6 +49,7 @@
 // static members
 // ===========================================================================
 bool NWWriter_OpenDrive::lefthand(false);
+bool NWWriter_OpenDrive::LHLL(false);
 
 // ===========================================================================
 // method definitions
@@ -66,6 +67,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     const NBEdgeCont& ec = nb.getEdgeCont();
     const bool origNames = oc.getBool("output.original-names");
     lefthand = oc.getBool("lefthand");
+    LHLL = lefthand && oc.getBool("opendrive-output.lefthand-left");
     const double straightThresh = DEG2RAD(oc.getFloat("opendrive-output.straight-threshold"));
     // some internal mapping containers
     int nodeID = 1;
@@ -290,16 +292,16 @@ NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
     device << "        <lanes>\n";
     device << "            <laneSection s=\"0\">\n";
     const std::string centerMark = e->getPermissions(e->getNumLanes() - 1) == 0 ? "none" : "solid";
-    if (!lefthand) {
+    if (!LHLL) {
         writeEmptyCenterLane(device, centerMark, 0.13);
     }
-    const std::string side = lefthand ? "left" : "right";
+    const std::string side = LHLL ? "left" : "right";
     device << "                <" << side << ">\n";
     const int numLanes = e->getNumLanes();
     for (int jRH = numLanes; --jRH >= 0;) {
         // XODR always has the lanes left to right (by default this is
         // inner-to-outer but in LH networks its outer-to-inner)
-        const int j = lefthand ? numLanes - 1 - jRH : jRH;
+        const int j = LHLL ? numLanes - 1 - jRH : jRH;
         std::string laneType = e->getLaneStruct(j).type;
         if (laneType == "") {
             laneType = getLaneType(e->getPermissions(j));
@@ -330,7 +332,7 @@ NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
         device << "                    </lane>\n";
     }
     device << "                 </" << side << ">\n";
-    if (lefthand) {
+    if (LHLL) {
         writeEmptyCenterLane(device, centerMark, 0.13);
     }
     device << "            </laneSection>\n";
@@ -370,7 +372,7 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
                                       const std::string& centerMark,
                                       SignalLanes& signalLanes) {
     assert(parallel.size() != 0);
-    const NBEdge::Connection& cLeft = parallel.back();
+    const NBEdge::Connection& cLeft = (lefthand && !LHLL) ? parallel.front() : parallel.back();
     const NBEdge* outEdge = cLeft.toEdge;
     PositionVector begShape = getInnerLaneBorder(inEdge, cLeft.fromLane);
     PositionVector endShape = getInnerLaneBorder(outEdge, cLeft.toLane);
@@ -458,7 +460,7 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
     device << "                <" << side << ">\n";
     const int numLanes = (int)parallel.size();
     for (int jRH = numLanes; --jRH >= 0;) {
-        const int j = lefthand ? (int)parallel.size() - 1 - jRH : jRH;
+        const int j = LHLL ? numLanes - 1 - jRH : jRH;
         const int xJ = s2x(j, numLanes);
         const NBEdge::Connection& c = parallel[j];
         const int fromIndex = s2x(c.fromLane, inEdge->getNumLanes());
@@ -597,9 +599,12 @@ NWWriter_OpenDrive::getInnerLaneBorder(const NBEdge* edge, int laneIndex, double
     if (laneIndex == -1) {
         // innermost lane
         laneIndex = (int)edge->getNumLanes() - 1;
+        if (lefthand && !LHLL) {
+            laneIndex = 0;
+        }
     }
     PositionVector result = edge->getLaneShape(laneIndex);
-    widthOffset -= (lefthand ? -1 : 1) * edge->getLaneWidth(laneIndex) / 2;
+    widthOffset -= (LHLL ? -1 : 1) * edge->getLaneWidth(laneIndex) / 2;
     try {
         result.move2side(widthOffset);
     } catch (InvalidArgument&) { }
@@ -994,8 +999,14 @@ NWWriter_OpenDrive::writeSignals(OutputDevice& device, const NBEdge* e, double l
 
 int
 NWWriter_OpenDrive::s2x(int sumoIndex, int numLanes) {
+    // sumo lanes:     0, 1, 2  (0 being the outermost lane)
+    // XODR:          -3,-2,-1  (written in reverse order)
+    // LHLL:           3, 2, 1  (written in reverse order)
+    // lefthand (old):-1,-2,-3   
     return (lefthand
-            ? numLanes - sumoIndex
+            ? (LHLL
+                ? numLanes - sumoIndex
+                : - sumoIndex - 1)
             : sumoIndex - numLanes);
 }
 
