@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-11-16 15:44:08 by Eclipse SUMO netconvert Version v1_15_0+0317-e3f2241
+<!-- generated on 2022-11-20 11:30:45 by Eclipse SUMO netconvert Version v1_15_0+0455-3682dd7
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -51,7 +51,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Wed Nov 16 15:44:08 2022" north="2335.16" south="1844.07" east="2701.86" west="2090.59">
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Sun Nov 20 11:30:45 2022" north="2335.16" south="1844.07" east="2701.86" west="2090.59">
         <geoReference>
  <![CDATA[
  +proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs
@@ -110,9 +110,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                  </right>
             </laneSection>
         </lanes>
-        <objects>
-            <object id="5520189248" type="natural.tree" name="" s="8.34802316" t="10.58471051" hdg="0"/>
-        </objects>
+        <objects/>
         <signals/>
         <userData code="sumoId" value="-136571494#7"/>
     </road>
@@ -208,47 +206,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                  </right>
             </laneSection>
         </lanes>
-        <objects>
-            <object id="23853220" type="building.yes" name="" s="0.00000000" t="-8.02273454" hdg="0.70669009">
-                <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
-                    <cornerLocal u="-8.22308800" v="-12.48642400" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="-5.86430100" v="-9.55621600" z="0.00000000" height="0.00000000" id="1"/>
-                    <cornerLocal u="-3.40933400" v="-11.50199900" z="0.00000000" height="0.00000000" id="2"/>
-                    <cornerLocal u="-0.21478400" v="-14.07609500" z="0.00000000" height="0.00000000" id="3"/>
-                    <cornerLocal u="23.23478300" v="15.11784000" z="0.00000000" height="0.00000000" id="4"/>
-                    <cornerLocal u="16.83818400" v="20.23278500" z="0.00000000" height="0.00000000" id="5"/>
-                    <cornerLocal u="15.23061700" v="21.51449000" z="0.00000000" height="0.00000000" id="6"/>
-                    <cornerLocal u="8.96360700" v="13.71861700" z="0.00000000" height="0.00000000" id="7"/>
-                    <cornerLocal u="5.70850300" v="16.31629600" z="0.00000000" height="0.00000000" id="8"/>
-                    <cornerLocal u="-4.98330000" v="3.00964500" z="0.00000000" height="0.00000000" id="9"/>
-                    <cornerLocal u="-2.47529000" v="1.00705600" z="0.00000000" height="0.00000000" id="10"/>
-                    <cornerLocal u="-1.24486800" v="0.16763000" z="0.00000000" height="0.00000000" id="11"/>
-                    <cornerLocal u="-0.81237700" v="-0.84338000" z="0.00000000" height="0.00000000" id="12"/>
-                    <cornerLocal u="-1.02349200" v="-2.10727100" z="0.00000000" height="0.00000000" id="13"/>
-                    <cornerLocal u="-2.16750100" v="-2.58280200" z="0.00000000" height="0.00000000" id="14"/>
-                    <cornerLocal u="-3.93298200" v="-1.99864800" z="0.00000000" height="0.00000000" id="15"/>
-                    <cornerLocal u="-7.31993100" v="-7.23186100" z="0.00000000" height="0.00000000" id="16"/>
-                    <cornerLocal u="-8.75674600" v="-6.20984500" z="0.00000000" height="0.00000000" id="17"/>
-                    <cornerLocal u="-11.32461200" v="-10.00339400" z="0.00000000" height="0.00000000" id="18"/>
-                    <cornerLocal u="-8.22308800" v="-12.48642400" z="0.00000000" height="0.00000000" id="19"/>
-                </outline>
-            </object>
-            <object id="574993701" type="landuse.grass" name="" s="0.00000000" t="27.39177658" hdg="0.70669009">
-                <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
-                    <cornerLocal u="-13.36526245" v="1.96369473" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="3.31541155" v="17.21916473" z="0.00000000" height="0.00000000" id="1"/>
-                    <cornerLocal u="13.73492455" v="6.77444773" z="0.00000000" height="0.00000000" id="2"/>
-                    <cornerLocal u="9.74681355" v="1.36531273" z="0.00000000" height="0.00000000" id="3"/>
-                    <cornerLocal u="6.29130255" v="3.80050473" z="0.00000000" height="0.00000000" id="4"/>
-                    <cornerLocal u="4.88107555" v="3.56452073" z="0.00000000" height="0.00000000" id="5"/>
-                    <cornerLocal u="-2.85217745" v="-6.39113727" z="0.00000000" height="0.00000000" id="6"/>
-                    <cornerLocal u="0.69784355" v="-10.69784927" z="0.00000000" height="0.00000000" id="7"/>
-                    <cornerLocal u="-0.80465545" v="-12.65657127" z="0.00000000" height="0.00000000" id="8"/>
-                    <cornerLocal u="-8.28001345" v="-6.90578227" z="0.00000000" height="0.00000000" id="9"/>
-                    <cornerLocal u="-13.36526245" v="1.96369473" z="0.00000000" height="0.00000000" id="10"/>
-                </outline>
-            </object>
-        </objects>
+        <objects/>
         <signals/>
         <userData code="sumoId" value="-263821578"/>
     </road>
@@ -456,7 +414,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <object id="2418372191" type="man_made.surveillance" name="" s="46.57380900" t="-28.65815436" hdg="0"/>
             <object id="2589577521" type="tourism.artwork" name="Alex 35" s="56.07845015" t="-25.16215714" hdg="0"/>
             <object id="3379224620" type="shop.bakery" name="Thürmann" s="48.69311871" t="-6.85813082" hdg="0"/>
-            <object id="4945782407" type="natural.tree" name="" s="44.56689087" t="10.96971941" hdg="0"/>
             <object id="4948143723" type="amenity.bar" name="203 Bar im Fernsehturm" s="49.17822205" t="-41.10911146" hdg="0"/>
             <object id="863057757" type="amenity.cafe" name="Starbucks" s="10.96064745" t="-8.12663896" hdg="0"/>
         </objects>
@@ -746,14 +703,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id="565537150" type="amenity.bench" name="" s="0.00000000" t="10.33739742" hdg="2.29153654">
-                <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
-                    <cornerLocal u="1.98235000" v="4.40735500" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="3.36150700" v="-6.62818200" z="0.00000000" height="0.00000000" id="1"/>
-                    <cornerLocal u="-7.32620700" v="-2.18652800" z="0.00000000" height="0.00000000" id="2"/>
-                    <cornerLocal u="1.98235000" v="4.40735500" z="0.00000000" height="0.00000000" id="3"/>
-                </outline>
-            </object>
             <object id="308410291" type="amenity.fast_food" name="Subway" s="11.46124701" t="-7.75258064" hdg="0"/>
         </objects>
         <signals/>
@@ -793,18 +742,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id="554841836" type="amenity.bench" name="" s="25.46412392" t="19.11899775" hdg="2.26557841">
-                <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
-                    <cornerLocal u="-5.32264600" v="2.25929000" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="5.32264600" v="-2.25929000" z="0.00000000" height="0.00000000" id="1"/>
-                </outline>
-            </object>
-            <object id="554841837" type="amenity.bench" name="" s="21.86343976" t="19.76413687" hdg="2.26557841">
-                <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
-                    <cornerLocal u="-5.28267350" v="2.22502350" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="5.28267350" v="-2.22502350" z="0.00000000" height="0.00000000" id="1"/>
-                </outline>
-            </object>
             <object id="89274704" type="amenity.bank" name="Commerzbank" s="8.24464822" t="-8.03395307" hdg="0"/>
         </objects>
         <signals/>
@@ -963,7 +900,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                  </right>
             </laneSection>
         </lanes>
-        <objects/>
+        <objects>
+            <object id="5520189248" type="natural.tree" name="" s="86.51623307" t="-10.58471051" hdg="0"/>
+        </objects>
         <signals>
             <signal id="joinedS_2480337678_4566145597_cluster_21487209_3831343134_cluster_4566145593_4566145594_5747234975_768074054_10" s="94.86" t="-1.60" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="20" height="0.78" width="0.26">
                 <validity fromLane="1" toLane="1"/>
@@ -1024,19 +963,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                  </right>
             </laneSection>
         </lanes>
-        <objects>
-            <object id="171826996" type="landuse.grass" name="" s="12.06152805" t="0.44286881" hdg="0.91656968">
-                <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
-                    <cornerLocal u="45.73311257" v="-48.84715200" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="37.96346457" v="-54.57303800" z="0.00000000" height="0.00000000" id="1"/>
-                    <cornerLocal u="-11.07575843" v="9.70478600" z="0.00000000" height="0.00000000" id="2"/>
-                    <cornerLocal u="-14.12159643" v="7.94721900" z="0.00000000" height="0.00000000" id="3"/>
-                    <cornerLocal u="-57.42974843" v="64.59881400" z="0.00000000" height="0.00000000" id="4"/>
-                    <cornerLocal u="-46.80258643" v="70.01652300" z="0.00000000" height="0.00000000" id="5"/>
-                    <cornerLocal u="45.73311257" v="-48.84715200" z="0.00000000" height="0.00000000" id="6"/>
-                </outline>
-            </object>
-        </objects>
+        <objects/>
         <signals/>
         <userData code="sumoId" value="144014234#1"/>
     </road>
@@ -1178,29 +1105,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                  </right>
             </laneSection>
         </lanes>
-        <objects>
-            <object id="171826989" type="landuse.grass" name="" s="206.36754668" t="-0.33680918" hdg="2.47259407">
-                <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
-                    <cornerLocal u="-38.81061388" v="-27.73285047" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="-35.91847288" v="-25.24850147" z="0.00000000" height="0.00000000" id="1"/>
-                    <cornerLocal u="-37.89903388" v="-22.72331447" z="0.00000000" height="0.00000000" id="2"/>
-                    <cornerLocal u="-32.87179388" v="-18.83952647" z="0.00000000" height="0.00000000" id="3"/>
-                    <cornerLocal u="-27.47611488" v="-16.09888347" z="0.00000000" height="0.00000000" id="4"/>
-                    <cornerLocal u="32.80765512" v="31.35366053" z="0.00000000" height="0.00000000" id="5"/>
-                    <cornerLocal u="90.70045012" v="76.93457653" z="0.00000000" height="0.00000000" id="6"/>
-                    <cornerLocal u="147.29344012" v="121.48767853" z="0.00000000" height="0.00000000" id="7"/>
-                    <cornerLocal u="152.93949112" v="114.35283953" z="0.00000000" height="0.00000000" id="8"/>
-                    <cornerLocal u="-21.82335688" v="-23.23407347" z="0.00000000" height="0.00000000" id="9"/>
-                    <cornerLocal u="-25.30103788" v="-27.02968347" z="0.00000000" height="0.00000000" id="10"/>
-                    <cornerLocal u="-29.14342688" v="-30.12732847" z="0.00000000" height="0.00000000" id="11"/>
-                    <cornerLocal u="-31.59660388" v="-32.09837847" z="0.00000000" height="0.00000000" id="12"/>
-                    <cornerLocal u="-33.20003388" v="-30.01549747" z="0.00000000" height="0.00000000" id="13"/>
-                    <cornerLocal u="-34.97188188" v="-31.25604247" z="0.00000000" height="0.00000000" id="14"/>
-                    <cornerLocal u="-35.91805188" v="-31.99182447" z="0.00000000" height="0.00000000" id="15"/>
-                    <cornerLocal u="-38.81061388" v="-27.73285047" z="0.00000000" height="0.00000000" id="16"/>
-                </outline>
-            </object>
-        </objects>
+        <objects/>
         <signals/>
         <userData code="sumoId" value="150394035#0"/>
     </road>
@@ -1256,20 +1161,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
-            <object id="171829341" type="landuse.grass" name="" s="34.78268783" t="1.45410001" hdg="2.47921899">
-                <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
-                    <cornerLocal u="29.94801510" v="17.95828670" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="-24.05776090" v="-24.23525930" z="0.00000000" height="0.00000000" id="1"/>
-                    <cornerLocal u="-26.14022290" v="-22.94296030" z="0.00000000" height="0.00000000" id="2"/>
-                    <cornerLocal u="-27.85311590" v="-23.04977330" z="0.00000000" height="0.00000000" id="3"/>
-                    <cornerLocal u="-29.64247490" v="-20.47314830" z="0.00000000" height="0.00000000" id="4"/>
-                    <cornerLocal u="-20.09299090" v="-13.45120430" z="0.00000000" height="0.00000000" id="5"/>
-                    <cornerLocal u="21.50637910" v="21.13803070" z="0.00000000" height="0.00000000" id="6"/>
-                    <cornerLocal u="21.83127110" v="22.63307870" z="0.00000000" height="0.00000000" id="7"/>
-                    <cornerLocal u="24.55288510" v="24.46466270" z="0.00000000" height="0.00000000" id="8"/>
-                    <cornerLocal u="29.94801510" v="17.95828670" z="0.00000000" height="0.00000000" id="9"/>
-                </outline>
-            </object>
             <object id="173278836" type="amenity.shelter" name="" s="50.66202076" t="-5.36013704" hdg="2.47921899">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="-4.38864260" v="-2.74948080" z="0.00000000" height="0.00000000" id="0"/>
@@ -1392,6 +1283,17 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
+            <object id="171826996" type="landuse.grass" name="" s="66.88448377" t="-0.21029504" hdg="-2.22808344">
+                <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
+                    <cornerLocal u="45.73311257" v="-48.84715200" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="37.96346457" v="-54.57303800" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="-11.07575843" v="9.70478600" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="-14.12159643" v="7.94721900" z="0.00000000" height="0.00000000" id="3"/>
+                    <cornerLocal u="-57.42974843" v="64.59881400" z="0.00000000" height="0.00000000" id="4"/>
+                    <cornerLocal u="-46.80258643" v="70.01652300" z="0.00000000" height="0.00000000" id="5"/>
+                    <cornerLocal u="45.73311257" v="-48.84715200" z="0.00000000" height="0.00000000" id="6"/>
+                </outline>
+            </object>
             <object id="1827996461" type="natural.tree" name="" s="12.46261367" t="-4.68036843" hdg="0"/>
         </objects>
         <signals/>
@@ -1467,7 +1369,22 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                  </right>
             </laneSection>
         </lanes>
-        <objects/>
+        <objects>
+            <object id="171829341" type="landuse.grass" name="" s="35.62472112" t="-1.97215340" hdg="-0.66961734">
+                <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
+                    <cornerLocal u="29.94801510" v="17.95828670" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="-24.05776090" v="-24.23525930" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="-26.14022290" v="-22.94296030" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="-27.85311590" v="-23.04977330" z="0.00000000" height="0.00000000" id="3"/>
+                    <cornerLocal u="-29.64247490" v="-20.47314830" z="0.00000000" height="0.00000000" id="4"/>
+                    <cornerLocal u="-20.09299090" v="-13.45120430" z="0.00000000" height="0.00000000" id="5"/>
+                    <cornerLocal u="21.50637910" v="21.13803070" z="0.00000000" height="0.00000000" id="6"/>
+                    <cornerLocal u="21.83127110" v="22.63307870" z="0.00000000" height="0.00000000" id="7"/>
+                    <cornerLocal u="24.55288510" v="24.46466270" z="0.00000000" height="0.00000000" id="8"/>
+                    <cornerLocal u="29.94801510" v="17.95828670" z="0.00000000" height="0.00000000" id="9"/>
+                </outline>
+            </object>
+        </objects>
         <signals/>
         <userData code="sumoId" value="167523653#1"/>
     </road>
@@ -1515,7 +1432,29 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                  </right>
             </laneSection>
         </lanes>
-        <objects/>
+        <objects>
+            <object id="171826989" type="landuse.grass" name="" s="48.35781330" t="-0.71906056" hdg="-0.66033874">
+                <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
+                    <cornerLocal u="-38.81061388" v="-27.73285047" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="-35.91847288" v="-25.24850147" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="-37.89903388" v="-22.72331447" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="-32.87179388" v="-18.83952647" z="0.00000000" height="0.00000000" id="3"/>
+                    <cornerLocal u="-27.47611488" v="-16.09888347" z="0.00000000" height="0.00000000" id="4"/>
+                    <cornerLocal u="32.80765512" v="31.35366053" z="0.00000000" height="0.00000000" id="5"/>
+                    <cornerLocal u="90.70045012" v="76.93457653" z="0.00000000" height="0.00000000" id="6"/>
+                    <cornerLocal u="147.29344012" v="121.48767853" z="0.00000000" height="0.00000000" id="7"/>
+                    <cornerLocal u="152.93949112" v="114.35283953" z="0.00000000" height="0.00000000" id="8"/>
+                    <cornerLocal u="-21.82335688" v="-23.23407347" z="0.00000000" height="0.00000000" id="9"/>
+                    <cornerLocal u="-25.30103788" v="-27.02968347" z="0.00000000" height="0.00000000" id="10"/>
+                    <cornerLocal u="-29.14342688" v="-30.12732847" z="0.00000000" height="0.00000000" id="11"/>
+                    <cornerLocal u="-31.59660388" v="-32.09837847" z="0.00000000" height="0.00000000" id="12"/>
+                    <cornerLocal u="-33.20003388" v="-30.01549747" z="0.00000000" height="0.00000000" id="13"/>
+                    <cornerLocal u="-34.97188188" v="-31.25604247" z="0.00000000" height="0.00000000" id="14"/>
+                    <cornerLocal u="-35.91805188" v="-31.99182447" z="0.00000000" height="0.00000000" id="15"/>
+                    <cornerLocal u="-38.81061388" v="-27.73285047" z="0.00000000" height="0.00000000" id="16"/>
+                </outline>
+            </object>
+        </objects>
         <signals/>
         <userData code="sumoId" value="167523653#2"/>
     </road>
@@ -1548,43 +1487,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                  </right>
             </laneSection>
         </lanes>
-        <objects>
-            <object id="574993715" type="landuse.residential" name="" s="60.46664858" t="39.35412849" hdg="2.52205139">
-                <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
-                    <cornerLocal u="-7.82534190" v="-68.37965319" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="-5.76877990" v="-71.16238119" z="0.00000000" height="0.00000000" id="1"/>
-                    <cornerLocal u="-5.35310290" v="-71.70566919" z="0.00000000" height="0.00000000" id="2"/>
-                    <cornerLocal u="-4.77769290" v="-72.08556619" z="0.00000000" height="0.00000000" id="3"/>
-                    <cornerLocal u="-4.12225390" v="-72.22242219" z="0.00000000" height="0.00000000" id="4"/>
-                    <cornerLocal u="-3.50065890" v="-72.04695919" z="0.00000000" height="0.00000000" id="5"/>
-                    <cornerLocal u="76.88771310" v="-9.70181519" z="0.00000000" height="0.00000000" id="6"/>
-                    <cornerLocal u="77.27918110" v="-9.18744519" z="0.00000000" height="0.00000000" id="7"/>
-                    <cornerLocal u="77.73252410" v="-8.32948419" z="0.00000000" height="0.00000000" id="8"/>
-                    <cornerLocal u="77.85529410" v="-7.68679119" z="0.00000000" height="0.00000000" id="9"/>
-                    <cornerLocal u="77.86982910" v="-6.71901419" z="0.00000000" height="0.00000000" id="10"/>
-                    <cornerLocal u="77.79510510" v="-6.10535219" z="0.00000000" height="0.00000000" id="11"/>
-                    <cornerLocal u="77.52124710" v="-5.28700619" z="0.00000000" height="0.00000000" id="12"/>
-                    <cornerLocal u="77.28704110" v="-4.82561619" z="0.00000000" height="0.00000000" id="13"/>
-                    <cornerLocal u="15.38053110" v="73.43023381" z="0.00000000" height="0.00000000" id="14"/>
-                    <cornerLocal u="14.56603810" v="74.04907881" z="0.00000000" height="0.00000000" id="15"/>
-                    <cornerLocal u="13.47868510" v="74.60717481" z="0.00000000" height="0.00000000" id="16"/>
-                    <cornerLocal u="12.24247910" v="74.87923581" z="0.00000000" height="0.00000000" id="17"/>
-                    <cornerLocal u="10.34178010" v="74.87663081" z="0.00000000" height="0.00000000" id="18"/>
-                    <cornerLocal u="8.71296110" v="73.96669881" z="0.00000000" height="0.00000000" id="19"/>
-                    <cornerLocal u="-63.77456090" v="17.73544281" z="0.00000000" height="0.00000000" id="20"/>
-                    <cornerLocal u="-64.92496890" v="16.35874981" z="0.00000000" height="0.00000000" id="21"/>
-                    <cornerLocal u="-65.52882790" v="15.44848381" z="0.00000000" height="0.00000000" id="22"/>
-                    <cornerLocal u="-66.25016290" v="13.82864581" z="0.00000000" height="0.00000000" id="23"/>
-                    <cornerLocal u="-66.81928890" v="12.33898081" z="0.00000000" height="0.00000000" id="24"/>
-                    <cornerLocal u="-66.96138990" v="10.20562281" z="0.00000000" height="0.00000000" id="25"/>
-                    <cornerLocal u="-66.79947490" v="8.62193581" z="0.00000000" height="0.00000000" id="26"/>
-                    <cornerLocal u="-66.31001290" v="6.80847081" z="0.00000000" height="0.00000000" id="27"/>
-                    <cornerLocal u="-65.49536990" v="4.96557581" z="0.00000000" height="0.00000000" id="28"/>
-                    <cornerLocal u="-62.91317990" v="1.70386781" z="0.00000000" height="0.00000000" id="29"/>
-                    <cornerLocal u="-7.82534190" v="-68.37965319" z="0.00000000" height="0.00000000" id="30"/>
-                </outline>
-            </object>
-        </objects>
+        <objects/>
         <signals/>
         <userData code="sumoId" value="169195164"/>
     </road>
@@ -1618,6 +1521,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
+            <object id="554841836" type="amenity.bench" name="" s="19.76707914" t="-22.79507857" hdg="0.86768830">
+                <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
+                    <cornerLocal u="-5.32264600" v="2.25929000" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="5.32264600" v="-2.25929000" z="0.00000000" height="0.00000000" id="1"/>
+                </outline>
+            </object>
+            <object id="2667343940" type="amenity.restaurant" name="Momotaro Tavern" s="6.25083268" t="-60.87009255" hdg="0"/>
             <object id="5354336481" type="natural.tree" name="" s="17.19594748" t="-8.53516576" hdg="0"/>
             <object id="5354336482" type="natural.tree" name="" s="14.73955855" t="-14.10873315" hdg="0"/>
             <object id="5354336483" type="natural.tree" name="" s="23.36423431" t="-10.46003914" hdg="0"/>
@@ -1885,7 +1795,23 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                  </right>
             </laneSection>
         </lanes>
-        <objects/>
+        <objects>
+            <object id="574993701" type="landuse.grass" name="" s="46.91028526" t="-43.10575644" hdg="-0.67432623">
+                <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
+                    <cornerLocal u="-13.36526245" v="1.96369473" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="3.31541155" v="17.21916473" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="13.73492455" v="6.77444773" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="9.74681355" v="1.36531273" z="0.00000000" height="0.00000000" id="3"/>
+                    <cornerLocal u="6.29130255" v="3.80050473" z="0.00000000" height="0.00000000" id="4"/>
+                    <cornerLocal u="4.88107555" v="3.56452073" z="0.00000000" height="0.00000000" id="5"/>
+                    <cornerLocal u="-2.85217745" v="-6.39113727" z="0.00000000" height="0.00000000" id="6"/>
+                    <cornerLocal u="0.69784355" v="-10.69784927" z="0.00000000" height="0.00000000" id="7"/>
+                    <cornerLocal u="-0.80465545" v="-12.65657127" z="0.00000000" height="0.00000000" id="8"/>
+                    <cornerLocal u="-8.28001345" v="-6.90578227" z="0.00000000" height="0.00000000" id="9"/>
+                    <cornerLocal u="-13.36526245" v="1.96369473" z="0.00000000" height="0.00000000" id="10"/>
+                </outline>
+            </object>
+        </objects>
         <signals/>
         <userData code="sumoId" value="171826984#5"/>
     </road>
@@ -2735,22 +2661,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                  </right>
             </laneSection>
         </lanes>
-        <objects>
-            <object id="26037504" type="landuse.village_green" name="" s="1.70556439" t="50.32307464" hdg="0.32407074">
-                <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
-                    <cornerLocal u="51.38718180" v="36.49610540" z="0.00000000" height="0.00000000" id="0"/>
-                    <cornerLocal u="8.17454980" v="56.76597640" z="0.00000000" height="0.00000000" id="1"/>
-                    <cornerLocal u="-52.70246920" v="11.04988640" z="0.00000000" height="0.00000000" id="2"/>
-                    <cornerLocal u="-94.19573120" v="-21.50646060" z="0.00000000" height="0.00000000" id="3"/>
-                    <cornerLocal u="-52.58307620" v="-53.70406860" z="0.00000000" height="0.00000000" id="4"/>
-                    <cornerLocal u="-4.26000020" v="-21.70967160" z="0.00000000" height="0.00000000" id="5"/>
-                    <cornerLocal u="5.08649680" v="-33.43275160" z="0.00000000" height="0.00000000" id="6"/>
-                    <cornerLocal u="33.69824680" v="-12.46481060" z="0.00000000" height="0.00000000" id="7"/>
-                    <cornerLocal u="54.00761980" v="2.00968940" z="0.00000000" height="0.00000000" id="8"/>
-                    <cornerLocal u="51.38718180" v="36.49610540" z="0.00000000" height="0.00000000" id="9"/>
-                </outline>
-            </object>
-        </objects>
+        <objects/>
         <signals/>
         <userData code="sumoId" value="202157013#0"/>
     </road>
@@ -3274,6 +3185,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
+            <object id="5518191308" type="natural.tree" name="" s="3.02099329" t="-13.08361771" hdg="0"/>
             <object id="5518191309" type="natural.tree" name="" s="9.93972870" t="-12.82886208" hdg="0"/>
         </objects>
         <signals/>
@@ -3312,7 +3224,32 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                  </right>
             </laneSection>
         </lanes>
-        <objects/>
+        <objects>
+            <object id="23853220" type="building.yes" name="" s="22.14438605" t="8.02273454" hdg="-2.43490257">
+                <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
+                    <cornerLocal u="-8.22308800" v="-12.48642400" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="-5.86430100" v="-9.55621600" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="-3.40933400" v="-11.50199900" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="-0.21478400" v="-14.07609500" z="0.00000000" height="0.00000000" id="3"/>
+                    <cornerLocal u="23.23478300" v="15.11784000" z="0.00000000" height="0.00000000" id="4"/>
+                    <cornerLocal u="16.83818400" v="20.23278500" z="0.00000000" height="0.00000000" id="5"/>
+                    <cornerLocal u="15.23061700" v="21.51449000" z="0.00000000" height="0.00000000" id="6"/>
+                    <cornerLocal u="8.96360700" v="13.71861700" z="0.00000000" height="0.00000000" id="7"/>
+                    <cornerLocal u="5.70850300" v="16.31629600" z="0.00000000" height="0.00000000" id="8"/>
+                    <cornerLocal u="-4.98330000" v="3.00964500" z="0.00000000" height="0.00000000" id="9"/>
+                    <cornerLocal u="-2.47529000" v="1.00705600" z="0.00000000" height="0.00000000" id="10"/>
+                    <cornerLocal u="-1.24486800" v="0.16763000" z="0.00000000" height="0.00000000" id="11"/>
+                    <cornerLocal u="-0.81237700" v="-0.84338000" z="0.00000000" height="0.00000000" id="12"/>
+                    <cornerLocal u="-1.02349200" v="-2.10727100" z="0.00000000" height="0.00000000" id="13"/>
+                    <cornerLocal u="-2.16750100" v="-2.58280200" z="0.00000000" height="0.00000000" id="14"/>
+                    <cornerLocal u="-3.93298200" v="-1.99864800" z="0.00000000" height="0.00000000" id="15"/>
+                    <cornerLocal u="-7.31993100" v="-7.23186100" z="0.00000000" height="0.00000000" id="16"/>
+                    <cornerLocal u="-8.75674600" v="-6.20984500" z="0.00000000" height="0.00000000" id="17"/>
+                    <cornerLocal u="-11.32461200" v="-10.00339400" z="0.00000000" height="0.00000000" id="18"/>
+                    <cornerLocal u="-8.22308800" v="-12.48642400" z="0.00000000" height="0.00000000" id="19"/>
+                </outline>
+            </object>
+        </objects>
         <signals/>
         <userData code="sumoId" value="263821578"/>
     </road>
@@ -3349,7 +3286,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                  </right>
             </laneSection>
         </lanes>
-        <objects/>
+        <objects>
+            <object id="4945782407" type="natural.tree" name="" s="14.54211371" t="-10.96971941" hdg="0"/>
+        </objects>
         <signals/>
         <userData code="sumoId" value="304987178#0"/>
     </road>
@@ -3605,9 +3544,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                  </right>
             </laneSection>
         </lanes>
-        <objects>
-            <object id="2468502495" type="historic.stone" name="" s="0.00000000" t="4.35333087" hdg="0"/>
-        </objects>
+        <objects/>
         <signals/>
         <userData code="sumoId" value="312392967#0"/>
     </road>
@@ -3653,6 +3590,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     <cornerLocal u="-0.09033520" v="-18.66343740" z="0.00000000" height="0.00000000" id="4"/>
                 </outline>
             </object>
+            <object id="2468502495" type="historic.stone" name="" s="1.99257263" t="12.15746190" hdg="0"/>
         </objects>
         <signals/>
         <userData code="sumoId" value="312392967#1"/>
@@ -4034,7 +3972,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 </outline>
             </object>
             <object id="1818862981" type="shop.supermarket" name="Asia-Mekong" s="55.80127412" t="33.46902797" hdg="0"/>
-            <object id="2667343940" type="amenity.restaurant" name="Momotaro Tavern" s="91.96109509" t="-4.32587844" hdg="0"/>
             <object id="4713534381" type="amenity.restaurant" name="Sphere Restaurant im Berliner Fernsehturm" s="83.75727299" t="-40.36482777" hdg="0"/>
             <object id="4826062336" type="shop.bicycle" name="Fat Tire Tours" s="80.07820710" t="-33.37175692" hdg="0"/>
             <object id="5367726678" type="man_made.surveillance" name="" s="83.75727299" t="-33.22500757" hdg="0"/>
@@ -4389,6 +4326,20 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </laneSection>
         </lanes>
         <objects>
+            <object id="26037504" type="landuse.village_green" name="" s="22.11656303" t="37.37090717" hdg="-2.97550677">
+                <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
+                    <cornerLocal u="51.38718180" v="36.49610540" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="8.17454980" v="56.76597640" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="-52.70246920" v="11.04988640" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="-94.19573120" v="-21.50646060" z="0.00000000" height="0.00000000" id="3"/>
+                    <cornerLocal u="-52.58307620" v="-53.70406860" z="0.00000000" height="0.00000000" id="4"/>
+                    <cornerLocal u="-4.26000020" v="-21.70967160" z="0.00000000" height="0.00000000" id="5"/>
+                    <cornerLocal u="5.08649680" v="-33.43275160" z="0.00000000" height="0.00000000" id="6"/>
+                    <cornerLocal u="33.69824680" v="-12.46481060" z="0.00000000" height="0.00000000" id="7"/>
+                    <cornerLocal u="54.00761980" v="2.00968940" z="0.00000000" height="0.00000000" id="8"/>
+                    <cornerLocal u="51.38718180" v="36.49610540" z="0.00000000" height="0.00000000" id="9"/>
+                </outline>
+            </object>
             <object id="263824801" type="leisure.pitch" name="" s="22.11656303" t="-26.33502141" hdg="-2.97550677">
                 <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
                     <cornerLocal u="-8.46513120" v="7.79337600" z="0.00000000" height="0.00000000" id="0"/>
@@ -5167,7 +5118,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                  </right>
             </laneSection>
         </lanes>
-        <objects/>
+        <objects>
+            <object id="4036963790" type="man_made.monitoring_station" name="Q 0901902: Spandauer Straße nördl. Karl-Liebknecht-Straße" s="8.83298663" t="2.31497171" hdg="0"/>
+        </objects>
         <signals/>
         <userData code="sumoId" value="473149641"/>
     </road>
@@ -5367,9 +5320,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                  </right>
             </laneSection>
         </lanes>
-        <objects>
-            <object id="4036963790" type="man_made.monitoring_station" name="Q 0901902: Spandauer Straße nördl. Karl-Liebknecht-Straße" s="5.26962063" t="-3.19326002" hdg="0"/>
-        </objects>
+        <objects/>
         <signals/>
         <userData code="sumoId" value="4773465#1"/>
     </road>
@@ -5445,7 +5396,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     <cornerLocal u="-36.25207945" v="-26.42723975" z="0.00000000" height="0.00000000" id="19"/>
                 </outline>
             </object>
-            <object id="5518191308" type="natural.tree" name="" s="114.16825488" t="-6.58641181" hdg="0"/>
         </objects>
         <signals/>
         <userData code="sumoId" value="492027387"/>
@@ -7033,7 +6983,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                  </right>
             </laneSection>
         </lanes>
-        <objects/>
+        <objects>
+            <object id="565537150" type="amenity.bench" name="" s="19.81042893" t="-10.33739742" hdg="-0.85005611">
+                <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
+                    <cornerLocal u="1.98235000" v="4.40735500" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="3.36150700" v="-6.62818200" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="-7.32620700" v="-2.18652800" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="1.98235000" v="4.40735500" z="0.00000000" height="0.00000000" id="3"/>
+                </outline>
+            </object>
+        </objects>
         <signals/>
         <userData code="sumoId" value="72157169#0"/>
     </road>
@@ -7070,7 +7029,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                  </right>
             </laneSection>
         </lanes>
-        <objects/>
+        <objects>
+            <object id="554841837" type="amenity.bench" name="" s="5.16627044" t="-19.76413960" hdg="-0.87601412">
+                <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
+                    <cornerLocal u="-5.28267350" v="2.22502350" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="5.28267350" v="-2.22502350" z="0.00000000" height="0.00000000" id="1"/>
+                </outline>
+            </object>
+        </objects>
         <signals/>
         <userData code="sumoId" value="72157169#1"/>
     </road>
@@ -7125,7 +7091,43 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                  </right>
             </laneSection>
         </lanes>
-        <objects/>
+        <objects>
+            <object id="574993715" type="landuse.residential" name="" s="0.00000000" t="-72.80536717" hdg="-2.24230590">
+                <outline id="0" fillType="concrete" outer="true" closed="true" laneType="border">
+                    <cornerLocal u="-7.82534190" v="-68.37965319" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="-5.76877990" v="-71.16238119" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="-5.35310290" v="-71.70566919" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="-4.77769290" v="-72.08556619" z="0.00000000" height="0.00000000" id="3"/>
+                    <cornerLocal u="-4.12225390" v="-72.22242219" z="0.00000000" height="0.00000000" id="4"/>
+                    <cornerLocal u="-3.50065890" v="-72.04695919" z="0.00000000" height="0.00000000" id="5"/>
+                    <cornerLocal u="76.88771310" v="-9.70181519" z="0.00000000" height="0.00000000" id="6"/>
+                    <cornerLocal u="77.27918110" v="-9.18744519" z="0.00000000" height="0.00000000" id="7"/>
+                    <cornerLocal u="77.73252410" v="-8.32948419" z="0.00000000" height="0.00000000" id="8"/>
+                    <cornerLocal u="77.85529410" v="-7.68679119" z="0.00000000" height="0.00000000" id="9"/>
+                    <cornerLocal u="77.86982910" v="-6.71901419" z="0.00000000" height="0.00000000" id="10"/>
+                    <cornerLocal u="77.79510510" v="-6.10535219" z="0.00000000" height="0.00000000" id="11"/>
+                    <cornerLocal u="77.52124710" v="-5.28700619" z="0.00000000" height="0.00000000" id="12"/>
+                    <cornerLocal u="77.28704110" v="-4.82561619" z="0.00000000" height="0.00000000" id="13"/>
+                    <cornerLocal u="15.38053110" v="73.43023381" z="0.00000000" height="0.00000000" id="14"/>
+                    <cornerLocal u="14.56603810" v="74.04907881" z="0.00000000" height="0.00000000" id="15"/>
+                    <cornerLocal u="13.47868510" v="74.60717481" z="0.00000000" height="0.00000000" id="16"/>
+                    <cornerLocal u="12.24247910" v="74.87923581" z="0.00000000" height="0.00000000" id="17"/>
+                    <cornerLocal u="10.34178010" v="74.87663081" z="0.00000000" height="0.00000000" id="18"/>
+                    <cornerLocal u="8.71296110" v="73.96669881" z="0.00000000" height="0.00000000" id="19"/>
+                    <cornerLocal u="-63.77456090" v="17.73544281" z="0.00000000" height="0.00000000" id="20"/>
+                    <cornerLocal u="-64.92496890" v="16.35874981" z="0.00000000" height="0.00000000" id="21"/>
+                    <cornerLocal u="-65.52882790" v="15.44848381" z="0.00000000" height="0.00000000" id="22"/>
+                    <cornerLocal u="-66.25016290" v="13.82864581" z="0.00000000" height="0.00000000" id="23"/>
+                    <cornerLocal u="-66.81928890" v="12.33898081" z="0.00000000" height="0.00000000" id="24"/>
+                    <cornerLocal u="-66.96138990" v="10.20562281" z="0.00000000" height="0.00000000" id="25"/>
+                    <cornerLocal u="-66.79947490" v="8.62193581" z="0.00000000" height="0.00000000" id="26"/>
+                    <cornerLocal u="-66.31001290" v="6.80847081" z="0.00000000" height="0.00000000" id="27"/>
+                    <cornerLocal u="-65.49536990" v="4.96557581" z="0.00000000" height="0.00000000" id="28"/>
+                    <cornerLocal u="-62.91317990" v="1.70386781" z="0.00000000" height="0.00000000" id="29"/>
+                    <cornerLocal u="-7.82534190" v="-68.37965319" z="0.00000000" height="0.00000000" id="30"/>
+                </outline>
+            </object>
+        </objects>
         <signals/>
         <userData code="sumoId" value="72157172"/>
     </road>
