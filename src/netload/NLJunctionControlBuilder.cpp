@@ -210,7 +210,6 @@ NLJunctionControlBuilder::closeTrafficLightLogic(const std::string& basePath) {
         }
         MSOffTrafficLightLogic* off = new MSOffTrafficLightLogic(getTLLogicControlToUse(), myActiveKey);
         if (!getTLLogicControlToUse().add(myActiveKey, myActiveProgram, off)) {
-            delete off;
             throw InvalidArgument("Another logic with id '" + myActiveKey + "' and programID '" + myActiveProgram + "' exists.");
         }
         return;
@@ -343,7 +342,6 @@ NLJunctionControlBuilder::closeTrafficLightLogic(const std::string& basePath) {
             }
         } else {
             WRITE_ERROR("Another logic with id '" + myActiveKey + "' and programID '" + myActiveProgram + "' exists.");
-            delete tlLogic;
         }
     }
 }

@@ -800,7 +800,13 @@ TrafficLight::setProgramLogic(const std::string& tlsID, const TraCILogic& logic)
             default:
                 throw TraCIException("Unsupported traffic light type '" + toString(logic.type) + "'");
         }
-        vars.addLogic(logic.programID, tlLogic, true, true);
+        try {
+            if (!vars.addLogic(logic.programID, tlLogic, true, true)) {
+                throw TraCIException("Could not add traffic light logic '" + logic.programID + "'");
+            }
+        } catch (const ProcessError& e) {
+            throw TraCIException(e.what());
+        }
         // XXX pass GUIDetectorBuilder when running with gui
         NLDetectorBuilder db(*MSNet::getInstance());
         tlLogic->init(db);

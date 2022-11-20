@@ -104,17 +104,22 @@ bool
 MSTLLogicControl::TLSLogicVariants::addLogic(const std::string& programID,
         MSTrafficLightLogic* logic, bool netWasLoaded, bool isNewDefault) {
     if (myVariants.find(programID) != myVariants.end()) {
+        delete logic;
         return false;
     }
     // assert the links are set
     if (netWasLoaded) {
         // this one has not yet its links set
         if (myCurrentProgram == nullptr) {
-            throw ProcessError("No initial signal plan loaded for tls '" + logic->getID() + "'.");
+            const std::string id = logic->getID();
+            delete logic;
+            throw ProcessError("No initial signal plan loaded for tls '" + id + "'.");
         }
         logic->adaptLinkInformationFrom(*myCurrentProgram);
         if (logic->getLinks().size() > logic->getPhase(0).getState().size()) {
-            throw ProcessError("Mismatching phase size in tls '" + logic->getID() + "', program '" + programID + "'.");
+            const std::string id = logic->getID();
+            delete logic;
+            throw ProcessError("Mismatching phase size in tls '" + id + "', program '" + programID + "'.");
         }
     }
     // add to the list of active
@@ -148,12 +153,12 @@ MSTLLogicControl::TLSLogicVariants::getLogic(const std::string& programID) const
 
 
 MSTrafficLightLogic*
-MSTLLogicControl::TLSLogicVariants::getLogicInstantiatingOff(MSTLLogicControl& tlc,
-        const std::string& programID) {
+MSTLLogicControl::TLSLogicVariants::getLogicInstantiatingOff(MSTLLogicControl& tlc, const std::string& programID) {
     if (myVariants.find(programID) == myVariants.end()) {
         if (programID == "off") {
             // build an off-tll if this switch indicates it
-            if (!addLogic("off", new MSOffTrafficLightLogic(tlc, myCurrentProgram->getID()), true, true)) {
+            MSTrafficLightLogic* tlLogic = new MSOffTrafficLightLogic(tlc, myCurrentProgram->getID());
+            if (!addLogic("off", tlLogic, true, true)) {
                 // inform the user if this fails
                 throw ProcessError("Could not build an off-state for tls '" + myCurrentProgram->getID() + "'.");
             }
@@ -178,8 +183,9 @@ MSTLLogicControl::TLSLogicVariants::setStateInstantiatingOnline(MSTLLogicControl
         logic = new MSSimpleTrafficLightLogic(tlc, myCurrentProgram->getID(), TRACI_PROGRAM, 0, TrafficLightType::STATIC, phases, 0,
                                               MSNet::getInstance()->getCurrentTimeStep() + DELTA_T,
                                               Parameterised::Map());
-        addLogic(TRACI_PROGRAM, logic, true, true);
-        MSNet::getInstance()->createTLWrapper(logic);
+        if (addLogic(TRACI_PROGRAM, logic, true, true)) {
+            MSNet::getInstance()->createTLWrapper(logic);
+        }
     } else {
         MSPhaseDefinition nphase(DELTA_T, state);
         *(dynamic_cast<MSSimpleTrafficLightLogic*>(logic)->getPhases()[0]) = nphase;
@@ -819,7 +825,7 @@ MSTLLogicControl::getPhaseDef(const std::string& tlid) const {
 void
 MSTLLogicControl::switchOffAll() {
     for (const auto& logic : myLogics) {
-        logic.second->addLogic("off",  new MSOffTrafficLightLogic(*this, logic.first), true, true);
+        logic.second->addLogic("off", new MSOffTrafficLightLogic(*this, logic.first), true, true);
     }
 }
 
