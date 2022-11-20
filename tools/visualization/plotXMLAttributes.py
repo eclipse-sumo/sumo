@@ -302,10 +302,17 @@ def combineValues(attrs, attr2parts, values, splitAttrs):
         assert(len(toYield) == 3)
         splitIndex = 0
         for i in toYield[0]:
-            for x in toYield[1]:
-                for y in toYield[2]:
+            for ix, x in enumerate(toYield[1]):
+                for iy, y in enumerate(toYield[2]):
                     if attrs[0] == NONE_ATTR:
-                        i = splitIndex
+                        # build label from x or y parts
+                        i = ""
+                        if len(attr2parts[attrs[1]]) > 1:
+                            i += attr2parts[attrs[1]][ix]
+                        if len(attr2parts[attrs[2]]) > 1:
+                            if i != "":
+                                i += "|"
+                            i += attr2parts[attrs[2]][iy]
                     yield [i, x, y]
                     splitIndex += 1
     else:
