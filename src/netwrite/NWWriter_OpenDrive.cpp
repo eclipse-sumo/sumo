@@ -1061,18 +1061,19 @@ NWWriter_OpenDrive::mapmatchRoadObjects(const ShapeContainer& shc,  const NBEdge
         std::set<const Named*> edges;
         Named::StoringVisitor visitor(edges);
         r.Search(min, max, visitor);
-        std::vector<std::pair<double, NBEdge*> > nearby;
+        std::vector<std::pair<double, std::string> > nearby;
         for (const Named* namedEdge : edges) {
             NBEdge* e = const_cast<NBEdge*>(dynamic_cast<const NBEdge*>(namedEdge));
-            const double distance = VectorHelper<double>::minValue(p->getShape().distances(e->getGeometry(), true));
+            const double distance = VectorHelper<double>::minValue(p->getShape().distances(e->getLaneShape(0), true));
             if (distance <= maxDist) {
-                nearby.push_back(std::make_pair(distance, e));
+                // sort by distance and ID to stabilize results
+                nearby.push_back(std::make_pair(distance, e->getID()));
                 //std::cout << " poly=" << p->getID() << " e=" << e->getID() << " dist=" << distance << "\n";
             }
         }
         if (nearby.size() > 0) {
             std::sort(nearby.begin(), nearby.end());
-            NBEdge* closest = nearby.front().second;
+            NBEdge* closest = ec.retrieve(nearby.front().second);
             std::string objects = closest->getParameter(ROAD_OBJECTS, "");
             if (objects != "") {
                 objects += " ";
@@ -1089,12 +1090,13 @@ NWWriter_OpenDrive::mapmatchRoadObjects(const ShapeContainer& shc,  const NBEdge
         std::set<const Named*> edges;
         Named::StoringVisitor visitor(edges);
         r.Search(min, max, visitor);
-        std::vector<std::pair<double, NBEdge*> > nearby;
+        std::vector<std::pair<double, std::string> > nearby;
         for (const Named* namedEdge : edges) {
             NBEdge* e = const_cast<NBEdge*>(dynamic_cast<const NBEdge*>(namedEdge));
-            const double distance = e->getGeometry().distance2D(*p, true);
+            const double distance = e->getLaneShape(0).distance2D(*p, true);
             if (distance != GeomHelper::INVALID_OFFSET && distance <= maxDist) {
-                nearby.push_back(std::make_pair(distance, e));
+                // sort by distance and ID to stabilize results
+                nearby.push_back(std::make_pair(distance, e->getID()));
                 //if (p->getID() == "1275468911") {
                 //    std::cout << " poly=" << p->getID() << " e=" << e->getID() << " dist=" << distance << "\n";
                 //}
@@ -1102,7 +1104,7 @@ NWWriter_OpenDrive::mapmatchRoadObjects(const ShapeContainer& shc,  const NBEdge
         }
         if (nearby.size() > 0) {
             std::sort(nearby.begin(), nearby.end());
-            NBEdge* closest = nearby.front().second;
+            NBEdge* closest = ec.retrieve(nearby.front().second);
             std::string objects = closest->getParameter(ROAD_OBJECTS, "");
             if (objects != "") {
                 objects += " ";
