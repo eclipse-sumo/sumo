@@ -788,7 +788,7 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
         std::string reason;
         std::string origReason;
         // pruneLongEdges might remove too much, so we check first to have a fallback with the circles
-        bool feasible = feasibleCluster(cluster, ptStopEnds, origReason);
+        bool feasible = feasibleCluster(cluster, ptStopEnds, maxDist, origReason);
         if (feasible && ((int)cluster.size() - pruneLongEdges(cluster, maxDist, true) < 2)) {
             origReason = "long edge";
             feasible = false;
@@ -800,7 +800,7 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
             }
 #endif
             if (reduceToCircle(cluster, 4, cluster)) {
-                feasible = feasibleCluster(cluster, ptStopEnds, reason);
+                feasible = feasibleCluster(cluster, ptStopEnds, maxDist, reason);
                 if (feasible) {
                     WRITE_WARNINGF(TL("Reducing junction cluster % (%)."), origCluster, origReason);
                 }
@@ -814,7 +814,7 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
 #endif
             origCluster = joinNamedToString(cluster, ',');
             if (reduceToCircle(cluster, 2, cluster)) {
-                feasible = feasibleCluster(cluster, ptStopEnds, reason);
+                feasible = feasibleCluster(cluster, ptStopEnds, maxDist, reason);
                 if (feasible) {
                     WRITE_WARNINGF(TL("Reducing junction cluster % (%)."), origCluster, origReason);
                 }
@@ -840,7 +840,7 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
             }
         }
         origCluster = joinNamedToString(cluster, ',');
-        feasible = feasibleCluster(cluster, ptStopEnds, origReason);
+        feasible = feasibleCluster(cluster, ptStopEnds, maxDist, origReason);
         if (!feasible) {
             WRITE_WARNINGF(TL("Not joining junctions % (%)."), origCluster, origReason);
             continue;
@@ -1373,24 +1373,25 @@ NBNodeCont::maybeSlipLaneEnd(const NBNode* n, EdgeVector& incoming, double& outA
 }
 
 bool
-NBNodeCont::feasibleCluster(const NodeSet& cluster, const std::map<const NBNode*, std::vector<NBNode*> >& ptStopEnds, std::string& reason) const {
+NBNodeCont::feasibleCluster(const NodeSet& cluster, const std::map<const NBNode*, std::vector<NBNode*> >& ptStopEnds,
+        double maxDist, std::string& reason) const {
     // check for clusters which are to complex and probably won't work very well
     // we count the incoming edges of the final junction
-    std::map<std::string, double> finalIncomingAngles;
-    std::map<std::string, double> finalOutgoingAngles;
-    for (NodeSet::const_iterator j = cluster.begin(); j != cluster.end(); ++j) {
-        for (EdgeVector::const_iterator it_edge = (*j)->getIncomingEdges().begin(); it_edge != (*j)->getIncomingEdges().end(); ++it_edge) {
+    std::map<NBEdge*, double, ComparatorIdLess> finalIncomingAngles;
+    std::map<NBEdge*, double, ComparatorIdLess> finalOutgoingAngles;
+    for (NBNode* n : cluster) {
+        for (EdgeVector::const_iterator it_edge = n->getIncomingEdges().begin(); it_edge != n->getIncomingEdges().end(); ++it_edge) {
             NBEdge* edge = *it_edge;
             if (cluster.count(edge->getFromNode()) == 0 && (edge->getPermissions() & SVC_PASSENGER) != 0) {
                 // incoming edge, does not originate in the cluster
-                finalIncomingAngles[edge->getID()] = edge->getAngleAtNode(edge->getToNode());
+                finalIncomingAngles[edge] = edge->getAngleAtNode(edge->getToNode());
             }
         }
-        for (EdgeVector::const_iterator it_edge = (*j)->getOutgoingEdges().begin(); it_edge != (*j)->getOutgoingEdges().end(); ++it_edge) {
+        for (EdgeVector::const_iterator it_edge = n->getOutgoingEdges().begin(); it_edge != n->getOutgoingEdges().end(); ++it_edge) {
             NBEdge* edge = *it_edge;
             if (cluster.count(edge->getToNode()) == 0 && (edge->getPermissions() & SVC_PASSENGER) != 0) {
                 // outgoing edge, does not end in the cluster
-                finalOutgoingAngles[edge->getID()] = edge->getAngleAtNode(edge->getFromNode());
+                finalOutgoingAngles[edge] = edge->getAngleAtNode(edge->getFromNode());
             }
         }
 
@@ -1410,23 +1411,50 @@ NBNodeCont::feasibleCluster(const NodeSet& cluster, const std::map<const NBNode*
         return false;
     }
     // check for incoming parallel edges
-    const double PARALLEL_INCOMING_THRESHOLD = 10.0;
+    const double PARALLEL_THRESHOLD_SAME_NODE = 10;
+    const double PARALLEL_THRESHOLD_DIFF_NODE = 30;
     bool foundParallel = false;
-    for (std::map<std::string, double>::const_iterator j = finalIncomingAngles.begin(); j != finalIncomingAngles.end() && !foundParallel; ++j) {
-        std::map<std::string, double>::const_iterator k = j;
+    for (auto j = finalIncomingAngles.begin(); j != finalIncomingAngles.end() && !foundParallel; ++j) {
+        auto k = j;
         for (++k; k != finalIncomingAngles.end() && !foundParallel; ++k) {
-            if (fabs(j->second - k->second) < PARALLEL_INCOMING_THRESHOLD) {
-                reason = "parallel incoming " + j->first + "," + k->first;
+            const double angleDiff = fabs(j->second - k->second);
+            if (angleDiff < PARALLEL_THRESHOLD_DIFF_NODE) {
+                // for edge targeting the same node, permit a narrower angle
+                const double edgeDist = j->first->getLaneShape(0).back().distanceTo2D(k->first->getLaneShape(0).back());
+#ifdef DEBUG_JOINJUNCTIONS
+                if (DEBUGCOND(j->first->getToNode())) {
+                    std::cout << " angleDiff=" << angleDiff << " shapeDist=" << edgeDist << "\n";
+                }
+#endif
+                if (angleDiff >= PARALLEL_THRESHOLD_SAME_NODE && (
+                            (j->first->getToNode() == k->first->getToNode()
+                             || (edgeDist  < maxDist)))) {
+                    continue;
+                }
+                reason = "parallel incoming " + j->first->getID() + "," + k->first->getID();
                 return false;
             }
         }
     }
     // check for outgoing parallel edges
-    for (std::map<std::string, double>::const_iterator j = finalOutgoingAngles.begin(); j != finalOutgoingAngles.end() && !foundParallel; ++j) {
-        std::map<std::string, double>::const_iterator k = j;
+    for (auto j = finalOutgoingAngles.begin(); j != finalOutgoingAngles.end() && !foundParallel; ++j) {
+        auto k = j;
         for (++k; k != finalOutgoingAngles.end() && !foundParallel; ++k) {
-            if (fabs(j->second - k->second) < PARALLEL_INCOMING_THRESHOLD) {
-                reason = "parallel outgoing " + j->first + "," + k->first;
+            const double angleDiff = fabs(j->second - k->second);
+            if (angleDiff < PARALLEL_THRESHOLD_DIFF_NODE) {
+                // for edge leaving the same node, permit a narrower angle
+                const double edgeDist = j->first->getLaneShape(0).front().distanceTo2D(k->first->getLaneShape(0).front());
+#ifdef DEBUG_JOINJUNCTIONS
+                if (DEBUGCOND(j->first->getFromNode())) {
+                    std::cout << " angleDiff=" << angleDiff << " shapeDist=" << edgeDist << "\n";
+                }
+#endif
+                if (angleDiff >= PARALLEL_THRESHOLD_SAME_NODE && (
+                            (j->first->getFromNode() == k->first->getFromNode()
+                             || (edgeDist < maxDist)))) {
+                    continue;
+                }
+                reason = "parallel outgoing " + j->first->getID() + "," + k->first->getID();
                 return false;
             }
         }
