@@ -25,10 +25,19 @@ title: ChangeLog
   - Fixed invalid OpenDrive output for lefthand networks. Issue #11995, #12038, #12047
   - Fixed bug where **--junctions.join** failed in intermodal networks. Issue #6495
   - Fixed invalid dead-end when using option **--osm.turn-lanes**. Issue #12042
+  - Fixed invalid plain xml output (after reading an invalid network). Issue #12086
+  - Fixed invalid right of way rules causing mutual conflict at multimodal priority-junction. Issue #5609
+
+- TraCI
+  - Fixed moveToXY failure at parallel internal junction. Issue #12065
+  - Foe lanes for crossings can now be trieved. Issue #12059
 
 - Tools
   - plot_net_dump_file.py: plotting a single measure is working again. Issue #11975 (regression in 1.15.0)
   - generateTurnRatios.py: fixed unsorted intervals in output when using python2. Issue #12019
+  - tlsCycleAdaptation.py: Fixed bug where controllers differed in cycle length when setting option **--unified-cycle**. Issue #12045
+  - tlsCycleAdaptation.py: Fixed mismatch between optimal and actual cycle duration. Issue #12068
+  - generateRailSignalConstraints.py: Fixed inconsistent bidiPredecessors. Issue #12075
 
 - All Applications: Fixed crash if gzipped outputfile cannot be opened. Issue #11954
 
@@ -38,6 +47,7 @@ title: ChangeLog
   - The right-of-way rules to take effect when switching a traffic light off, can now be configured as 'allway_stop'. This is the new default for NEMA-type controllers. Issue #12043
   - Improve traffic light programs in networks with separated bicycle paths. Issue #10039
   - OpenDRIVE outputs now suppots export of loaded POIs and polygons as road objects. Issue #12060
+  - When setting optin **--tls.guess** roads without conflict are excluded from the threshold-heuristic. Issue #6513
 
 - netedit
   - Added TimeStamp in Undo-Redo list. Issue #11744
@@ -46,14 +56,19 @@ title: ChangeLog
   - Now showing a warning dialog if user tries to create a TLS in a junction with all connections set as uncontrolled. Issue #6382
   - Removed dialog-button for permission 'disallow' attribute to avoid confusion. Issue #11940
 
+- sumo-gui
+  - Wne option **--use-stop-ended** is set, show-route mode now labels the 'ended' time of stops. Issue #11833
+
 - Tools
   - gtfs2pt.py: Now writing short route id and headsign as params. Issue #11819
   - plot_trajectories.py: Now support common visualization options. Issue #11991
   - Many visualization tools can now configure linestyle and marker style. Issue #11985
   - countEdgeUsage.py: Now permits loading named routes. Issue #12010
+  - implausibleRoutes.py: Added options **--additional-file**, **--unsorted-input** and **--ignore-errors** which are passed to duarouter when needed. Issue #12090
   - plotXMLAttributes.py
     - can now plot data without assigning ids to the data points. Issue #11969
     - can now plot categorical (non-numerical) data and also a mix of data types. Issue #11970, #11976
+    - categorical labels can be sorted and filtered by loading a list of labels with option **--xticks-file** and **--yticks-file**. Issue #12091
     - now supporting additional visualization options (linestyle, markers, grids, ...). Issue #11972
     - plots a marker on a single point if the input data is only one point. Issue #11974
     - Added the possibility to use wildcards with optin **--filter-ids**. Issue #11982
