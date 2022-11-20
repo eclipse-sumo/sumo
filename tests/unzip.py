@@ -23,4 +23,4 @@ with gzip.open(sys.argv[1], 'r') as f:
     if sys.version_info[0] < 3:
         sys.stdout.write(f.read())
     else:
-        sys.stdout.write(f.read().decode("utf8"))
+        sys.stdout.buffer.write(f.read())
