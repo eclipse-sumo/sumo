@@ -2473,35 +2473,38 @@ NBEdge::computeEdge2Edges(bool noLeftMovers) {
     if (myStep >= EdgeBuildingStep::EDGE2EDGES) {
         return true;
     }
-    const EdgeVector& o = myTo->getOutgoingEdges();
     const bool fromRail = isRailway(getPermissions());
-    for (EdgeVector::const_iterator i = o.begin(); i != o.end(); ++i) {
-        if (noLeftMovers && myTo->isLeftMover(this, *i)) {
+    for (NBEdge* out : myTo->getOutgoingEdges()) {
+        if (noLeftMovers && myTo->isLeftMover(this, out)) {
             continue;
         }
         // avoid sharp railway turns
-        if (fromRail && isRailway((*i)->getPermissions())) {
-            const double angle = fabs(NBHelpers::normRelAngle(getAngleAtNode(myTo), (*i)->getAngleAtNode(myTo)));
+        if (fromRail && isRailway(out->getPermissions())) {
+            const double angle = fabs(NBHelpers::normRelAngle(getAngleAtNode(myTo), out->getAngleAtNode(myTo)));
             if (angle > 150) {
                 continue;
             } else if (angle > 90) {
                 // possibly the junction is large enough to achieve a plausible radius:
                 const PositionVector& fromShape = myLanes.front().shape;
-                const PositionVector& toShape = (*i)->getLanes().front().shape;
-                PositionVector shape = myTo->computeSmoothShape(fromShape, toShape, 5, getTurnDestination() == *i, 5, 5);
+                const PositionVector& toShape = out->getLanes().front().shape;
+                PositionVector shape = myTo->computeSmoothShape(fromShape, toShape, 5, getTurnDestination() == out, 5, 5);
                 const double radius = shape.length2D() / DEG2RAD(angle);
                 const double minRadius = (getPermissions() & SVC_TRAM) != 0 ? 20 : 80;
-                //std::cout << getID() << " to=" << (*i)->getID() << " radius=" << radius << " minRadius=" << minRadius << "\n";
+                //std::cout << getID() << " to=" << out->getID() << " radius=" << radius << " minRadius=" << minRadius << "\n";
                 if (radius < minRadius) {
                     continue;
                 }
             }
         }
-        if (*i == myTurnDestination) {
+        if (out == myTurnDestination) {
             // will be added by appendTurnaround
             continue;
         }
-        myConnections.push_back(Connection(-1, *i, -1));
+        if ((getPermissions() & out->getPermissions() & ~SVC_PEDESTRIAN) == 0) {
+            // no common permissions
+            continue;
+        }
+        myConnections.push_back(Connection(-1, out, -1));
     }
     myStep = EdgeBuildingStep::EDGE2EDGES;
     return true;
