@@ -57,7 +57,7 @@ is given in the table below.
 
 ## Visualization examples
 
-### Number of running vehicles over time
+### Number of running and halting vehicles over time
 
 ![plot-running](../../images/plot-running.png)
 

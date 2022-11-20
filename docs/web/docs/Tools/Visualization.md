@@ -100,16 +100,18 @@ Each color gives encodes a different edge-id. Option **--factor 60** is used to 
 
 <img src="../images/plotAttrs_fundamental.png" width="500px"/>
 
-### Running from Summary
+### Running and halting vehicles over time from Summary-output
 
 Input is [summary](../Simulation/Output/Summary.md):
 
-Call: `python tools/visualization/plotXMLAttributes.py -x time -y running -o plot-running.png --scatterplot summary.xml`
+Call: `python tools/visualization/plotXMLAttributes.py -x time -y running,halting -o plot-running.png summary.xml, --legend`
 
 <img src="../images/plot-running.png" width="500px"/>
 
 !!! caution
-    In version 1.15.0 and lower, the id-attribute must be provided so you need to provide a dummy value (i.e. with `-i running`)
+    In version 1.15.0 and lower, the id-attribute must be provided so you need
+    to provide a dummy value (i.e. with `-i collisions`) and only a single value is
+    permitted for the x and y attribute.
 
 ### Depart delay over time from TripInfo data
 The plot is created out of [TripInfo](../Simulation/Output/TripInfo.md) output data:
