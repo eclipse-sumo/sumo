@@ -1,3 +1,4 @@
 input_data.xml -o image.png --csv-output out.csv 
 -i @NONE -x from,to -y count
+--join-attrs
 tools/visualization/plotXMLAttributes.py
