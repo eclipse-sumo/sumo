@@ -79,8 +79,10 @@ def getOptions(args=None):
     optParser.add_option("-p", "--pick-distance", dest="pickDist", type=float, default=1,
                          help="pick lines within the given distance in interactive plot mode")
     optParser.add_option("--label", help="plot label (default input file name")
-    optParser.add_option("--join-attrs", action="store_true", dest="joinAttrs", default=False,
-                         help="if x,y or idattr are a list, concatenate both values into a category")
+    optParser.add_option("--join-x", action="store_true", dest="joinx", default=False,
+                         help="if --xattr is a list concatenate the values")
+    optParser.add_option("--join-y", action="store_true", dest="joiny", default=False,
+                         help="if --yattr is a list concatenate the values")
     optParser.add_option("--xfactor", help="multiplier for x-data", type=float, default=1)
     optParser.add_option("--yfactor", help="multiplier for y-data", type=float, default=1)
     optParser.add_option("--invert-yaxis", dest="invertYAxis", action="store_true",
@@ -151,15 +153,14 @@ def getDataStream(options):
     # handle attribute lists
     allAttrs = set()
     attr2parts = {}
-    needSplit = False
     for a in attrOptions:
         attr = getattr(options, a)
         parts = attr.split(',')
         allAttrs.update(parts)
         attr2parts[attr] = parts
-        needSplit |= len(parts) > 1
-    if options.joinAttrs:
-        needSplit = False
+
+    splitX = len(attr2parts[options.xattr]) > 1 and not options.joinx
+    splitY = len(attr2parts[options.yattr]) > 1 and not options.joiny
 
     level = 0
     for event, elem in ET.iterparse(_open(options.files[0]), ("start", "end")):
@@ -247,7 +248,7 @@ def getDataStream(options):
                             skip = True
                             skippedLines[a] += 1
                     if not skip:
-                        for toYield in combineValues(attrs, attr2parts, values, needSplit):
+                        for toYield in combineValues(attrs, attr2parts, values, splitX, splitY):
                             yield toYield
                             index += 1
 
@@ -278,7 +279,7 @@ def getDataStream(options):
                             else:
                                 skip = True
                     if not skip:
-                        for toYield in combineValues(attrs, attr2parts, values, needSplit):
+                        for toYield in combineValues(attrs, attr2parts, values, splitX, splitY):
                             yield toYield
                             index += 1
         return datastream
@@ -287,19 +288,24 @@ def getDataStream(options):
         sys.exit("Found attributes at elements %s but at most 2 elements are supported" % allElems)
 
 
-def combineValues(attrs, attr2parts, values, needSplit):
+def combineValues(attrs, attr2parts, values, splitX, splitY):
+    needSplit = splitX or splitY
     toYield = []
-    for a in attrs:
+    for a, split in zip(attrs, [False, splitX, splitY]):
         if len(attr2parts[a]) == 1:
             if needSplit:
                 toYield.append([values[a]])
             else:
                 toYield.append(values[a])
         else:
-            if needSplit:
-                toYield.append([values[ap] for ap in attr2parts[a]])
+            v = [values[ap] for ap in attr2parts[a]]
+            if needSplit and split:
+                toYield.append(v)
+            elif needSplit:
+                toYield.append(['|'.join(v)])
             else:
-                toYield.append('|'.join([values[ap] for ap in attr2parts[a]]))
+                toYield.append('|'.join(v))
+
     if needSplit:
         assert(len(toYield) == 3)
         splitIndex = 0
