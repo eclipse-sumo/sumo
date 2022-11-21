@@ -101,10 +101,11 @@ Each color gives encodes a different edge-id. Option **--factor 60** is used to 
 <img src="../images/plotAttrs_fundamental.png" width="500px"/>
 
 ### Multiple timelines from summary-output
+Input is [summary](../Simulation/Output/Summary.md).
+This plot demonstrates using a list of attributes generate multiple data points from the same input xml input element. 
+In the absence of an id-attribute, the respective attribute name is used to "identify" and group the data points.
 
-Input is [summary](../Simulation/Output/Summary.md):
-
-Call: `python tools/visualization/plotXMLAttributes.py -x time -y running,halting -o plot-running.png summary.xml, --legend`
+Call: `python tools/visualization/plotXMLAttributes.py summary.xml -x time -y running,halting -o plot-running.png --legend`
 
 <img src="../images/plot-running.png" width="500px"/>
 
@@ -215,6 +216,17 @@ MM
 KX
 LHG
 ```
+
+### Turn-counts over time
+
+This plot uses an attribute list for the value id (`-i from,to`) to reflect the fact that a turning relation is uniquely identified by the combination of two attributes. It also demonstrates flexible filtering to show all traffic that passes over edge `-40` or edge `36`.
+
+Call to generate the plot:
+```
+python tools/visualization/plotXMLAttributes.py turnCounts.xml -i from,to -x begin -y count --xtime0 --legend  --filter-ids="-40|*,36|*"
+```
+
+<img src="../images/turn-counts.png" width="500px"/>
 
 ## plot_trajectories.py
 
