@@ -102,7 +102,7 @@ Each color gives encodes a different edge-id. Option **--factor 60** is used to 
 
 ### Multiple timelines from summary-output
 Input is [summary](../Simulation/Output/Summary.md).
-This plot demonstrates using a list of attributes generate multiple data points from the same input xml input element. 
+This plot demonstrates using a list of attributes to generate multiple data points from the same xml input element.
 In the absence of an id-attribute, the respective attribute name is used to "identify" and group the data points.
 
 Call: `python tools/visualization/plotXMLAttributes.py summary.xml -x time -y running,halting -o plot-running.png --legend`
