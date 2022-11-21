@@ -81,7 +81,12 @@ if test -e $SUMO_BINDIR/sumo -a $SUMO_BINDIR/sumo -nt build/$FILEPREFIX/Makefile
     fi
   fi
   tests/runTests.sh -b $FILEPREFIX -name $TESTLABEL -coll >> $TESTLOG 2>&1
-  echo "batchreport" >> $STATUSLOG
+  if test -e build/$FILEPREFIX/src/CMakeFiles/sumo.dir/sumo_main.cpp.gcda; then
+    echo "lcov/html" >> $STATUSLOG
+    echo "Coverage report" >> $STATUSLOG
+  else
+    echo "batchreport" >> $STATUSLOG
+  fi
 fi
 
 if test -e build/$FILEPREFIX/src/CMakeFiles/sumo.dir/sumo_main.cpp.gcda; then
