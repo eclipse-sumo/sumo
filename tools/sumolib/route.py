@@ -160,7 +160,9 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
                 newPaths[(edge,)] = (d * d, base)
         if not newPaths:
             if paths:
-                result += _getMinPath(paths)
+                minPath = _getMinPath(paths)
+                if len(result) == 0 or minPath[0] != result[-1]:
+                    result += minPath
         paths = newPaths
         lastPos = pos
     if paths:
