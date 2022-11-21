@@ -5377,6 +5377,8 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             }
             // check that we have clicked over network element element
             if (AC) {
+                // now filter locked elements forcing excluding walkingAreas
+                myObjectsUnderCursor.filterLockedElements(myLockManager, {GLO_WALKINGAREA});
                 // now check if we want only delete geometry points
                 if (myViewParent->getDeleteFrame()->getDeleteOptions()->deleteOnlyGeometryPoints()) {
                     // only remove geometry point
