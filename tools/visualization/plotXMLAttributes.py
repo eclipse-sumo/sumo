@@ -352,17 +352,34 @@ def keepNumeric(d, xyIndex):
     d[1].extend(res_y)
 
 
+def useWildcards(labels):
+    for label in labels:
+        if "*" in label or "?" in label or ("[" in label and "]" in label):
+            return True
+    return False
+
 def applyTicks(d, xyIndex, ticksFile):
     offsets, labels = sumolib.visualization.helpers.parseTicks(ticksFile)
     l2o = dict(zip(labels, offsets))
+    if useWildcards(labels):
+        def getOffset(val):
+            for label in labels:
+                if fnmatch.fnmatch(val, label):
+                    return l2o[label]
+            return None
+
+    else:
+        def getOffset(val):
+            return l2o.get(val)
 
     res_x = []
     res_y = []
     for i in range(len(d[xyIndex])):
         val = d[xyIndex][i]
-        if val in l2o:
+        o = getOffset(val)
+        if o is not None:
             point = [d[0][i], d[1][i]]
-            point[xyIndex] = l2o[val]
+            point[xyIndex] = o
             res_x.append(point[0])
             res_y.append(point[1])
 
