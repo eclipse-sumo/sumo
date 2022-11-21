@@ -52,5 +52,10 @@ The following output attributes are generated:
 
 ### boarding passengers vs delay for each station
 
-![plotAttrs_boardingDelay.png](../../images/plotAttrs_boardingDelay.png "plotAttrs_boardingDelay.png")
+<img src="../images/plotAttrs_boardingDelay.png" width="500px"/>
 Generated with [plotXMLAttributes.py](../../Tools/Visualization.md#boarding_passengers_vs_delay_for_each_station)
+
+### Public transport schedule
+
+<img src="../images/schedule_until.png" width="500px"/>
+Generated with [plotXMLAttributes.py](../../Tools/Visualization.md#public_transport_schedule)
