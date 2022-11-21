@@ -370,6 +370,12 @@ protected:
     /// @brief draw line between junctions
     void drawJunctionLine(const GNEDemandElement* element) const;
 
+    /// @brief draw stack label
+    void drawStackLabel(const std::string &element, const Position& position, const double rotation, const double width, const double length, const double exaggeration) const;
+
+    /// @brief draw flow label
+    void drawFlowLabel(const Position& position, const double rotation, const double width, const double length, const double exaggeration) const;
+
     /// @name replace parent elements
     /// @{
 

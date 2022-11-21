@@ -744,7 +744,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 }
                 // draw stack label
                 if ((myStackedLabelNumber > 0) && !drawSpreadVehicles) {
-                    drawStackLabel(vehiclePosition, vehicleRotation, width, length, exaggeration);
+                    drawStackLabel("Vehicle", vehiclePosition, vehicleRotation, width, length, exaggeration);
                 }
                 // draw flow label
                 if (myTagProperty.isFlow()) {
@@ -2235,54 +2235,6 @@ GNEVehicle::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoLi
     }
     // end change attribute
     undoList->end();
-}
-
-
-void
-GNEVehicle::drawStackLabel(const Position& vehiclePosition, const double vehicleRotation, const double width, const double length, const double exaggeration) const {
-    // declare contour width
-    const double contourWidth = (0.05 * exaggeration);
-    // Push matrix
-    GLHelper::pushMatrix();
-    // Traslate to vehicle top
-    glTranslated(vehiclePosition.x(), vehiclePosition.y(), GLO_ROUTE + getType() + 0.1 + GLO_PERSONFLOW);
-    glRotated(vehicleRotation, 0, 0, -1);
-    glTranslated((width * exaggeration * 0.5) + (0.35 * exaggeration), 0, 0);
-    // draw external box
-    GLHelper::setColor(RGBColor::GREY);
-    GLHelper::drawBoxLine(Position(), 0, (length * exaggeration), 0.3 * exaggeration);
-    // draw internal box
-    glTranslated(0, 0, 0.1);
-    GLHelper::setColor(RGBColor(0, 128, 0));
-    GLHelper::drawBoxLine(Position(0, -contourWidth), Position(0, -contourWidth), 0, (length * exaggeration) - (contourWidth * 2), (0.3 * exaggeration) - contourWidth);
-    // draw stack label
-    GLHelper::drawText("vehicles stacked: " + toString(myStackedLabelNumber), Position(0, length * exaggeration * -0.5), (.1 * exaggeration), (0.6 * exaggeration), RGBColor::WHITE, 90, 0, -1);
-    // pop draw matrix
-    GLHelper::popMatrix();
-}
-
-
-void
-GNEVehicle::drawFlowLabel(const Position& vehiclePosition, const double vehicleRotation, const double width, const double length, const double exaggeration) const {
-    // declare contour width
-    const double contourWidth = (0.05 * exaggeration);
-    // Push matrix
-    GLHelper::pushMatrix();
-    // Traslate to vehicle bot
-    glTranslated(vehiclePosition.x(), vehiclePosition.y(), GLO_ROUTE + getType() + 0.1 + GLO_PERSONFLOW);
-    glRotated(vehicleRotation, 0, 0, -1);
-    glTranslated(-1 * ((width * 0.5 * exaggeration) + (0.35 * exaggeration)), 0, 0);
-    // draw external box
-    GLHelper::setColor(RGBColor::GREY);
-    GLHelper::drawBoxLine(Position(), Position(), 0, (length * exaggeration), 0.3 * exaggeration);
-    // draw internal box
-    glTranslated(0, 0, 0.1);
-    GLHelper::setColor(RGBColor::CYAN);
-    GLHelper::drawBoxLine(Position(0, -contourWidth), Position(0, -contourWidth), 0, (length * exaggeration) - (contourWidth * 2), (0.3 * exaggeration) - contourWidth);
-    // draw stack label
-    GLHelper::drawText("Flow", Position(0, length * exaggeration * -0.5), (.1 * exaggeration), (0.6 * exaggeration), RGBColor::BLACK, 90, 0, -1);
-    // pop draw matrix
-    GLHelper::popMatrix();
 }
 
 /****************************************************************************/

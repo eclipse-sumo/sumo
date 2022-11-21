@@ -911,6 +911,54 @@ GNEDemandElement::drawJunctionLine(const GNEDemandElement* element) const {
 
 
 void
+GNEDemandElement::drawStackLabel(const std::string &element, const Position& position, const double rotation, const double width, const double length, const double exaggeration) const {
+    // declare contour width
+    const double contourWidth = (0.05 * exaggeration);
+    // Push matrix
+    GLHelper::pushMatrix();
+    // Traslate to  top
+    glTranslated(position.x(), position.y(), GLO_ROUTE + getType() + 0.1 + GLO_PERSONFLOW);
+    glRotated(rotation, 0, 0, -1);
+    glTranslated((width * exaggeration * 0.5) + (0.35 * exaggeration), 0, 0);
+    // draw external box
+    GLHelper::setColor(RGBColor::GREY);
+    GLHelper::drawBoxLine(Position(), 0, (length * exaggeration), 0.3 * exaggeration);
+    // draw internal box
+    glTranslated(0, 0, 0.1);
+    GLHelper::setColor(RGBColor(0, 128, 0));
+    GLHelper::drawBoxLine(Position(0, -contourWidth), Position(0, -contourWidth), 0, (length * exaggeration) - (contourWidth * 2), (0.3 * exaggeration) - contourWidth);
+    // draw stack label
+    GLHelper::drawText(element + "s stacked: " + toString(myStackedLabelNumber), Position(0, length * exaggeration * -0.5), (.1 * exaggeration), (0.6 * exaggeration), RGBColor::WHITE, 90, 0, -1);
+    // pop draw matrix
+    GLHelper::popMatrix();
+}
+
+
+void
+GNEDemandElement::drawFlowLabel(const Position& position, const double rotation, const double width, const double length, const double exaggeration) const {
+    // declare contour width
+    const double contourWidth = (0.05 * exaggeration);
+    // Push matrix
+    GLHelper::pushMatrix();
+    // Traslate to  bot
+    glTranslated(position.x(), position.y(), GLO_ROUTE + getType() + 0.1 + GLO_PERSONFLOW);
+    glRotated(rotation, 0, 0, -1);
+    glTranslated(-1 * ((width * 0.5 * exaggeration) + (0.35 * exaggeration)), 0, 0);
+    // draw external box
+    GLHelper::setColor(RGBColor::GREY);
+    GLHelper::drawBoxLine(Position(), Position(), 0, (length * exaggeration), 0.3 * exaggeration);
+    // draw internal box
+    glTranslated(0, 0, 0.1);
+    GLHelper::setColor(RGBColor::CYAN);
+    GLHelper::drawBoxLine(Position(0, -contourWidth), Position(0, -contourWidth), 0, (length * exaggeration) - (contourWidth * 2), (0.3 * exaggeration) - contourWidth);
+    // draw stack label
+    GLHelper::drawText("Flow", Position(0, length * exaggeration * -0.5), (.1 * exaggeration), (0.6 * exaggeration), RGBColor::BLACK, 90, 0, -1);
+    // pop draw matrix
+    GLHelper::popMatrix();
+}
+
+
+void
 GNEDemandElement::replaceDemandParentEdges(const std::string& value) {
     replaceParentElements(this, parse<std::vector<GNEEdge*> >(getNet(), value));
 }
