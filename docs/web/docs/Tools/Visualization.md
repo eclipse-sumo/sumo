@@ -100,7 +100,7 @@ Each color gives encodes a different edge-id. Option **--factor 60** is used to 
 
 <img src="../images/plotAttrs_fundamental.png" width="500px"/>
 
-### Running and halting vehicles over time from Summary-output
+### Multiple timelines from summary-output
 
 Input is [summary](../Simulation/Output/Summary.md):
 
