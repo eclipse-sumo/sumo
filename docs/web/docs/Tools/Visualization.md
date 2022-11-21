@@ -202,19 +202,20 @@ In this type of plot time is on the y-axis running from top to bottom. Input is 
 
 Call to generate the plot:
 ```
-python tools/visualization/plotXMLAttributes.py -x busStop -y until route.plot.xml --idelem trip --ytime1 --legend --xticks-file stoplist.txt --invert-yaxis --marker o
+python tools/visualization/plotXMLAttributes.py -x busStop -y until route.rou.xml --idelem trip --ytime1 --legend --xticks-file stoplist.txt --invert-yaxis --marker o
 ```
 
 <img src="../images/schedule_until.png" width="500px"/>
 
-The file stoplist.txt is used to define the ordering of the stops (corresponding to their ordering along a transport line) and looks like this:
+The file stoplist.txt is used to define the ordering of the stops (corresponding to their ordering along a transport line) and is shown below.
+In order to group busStops that belong to different tracks of the same train station, they were named with a common suffix in their id and the stoplist.txt file uses wildcards (`*`) to match them.
 
 ```
-WLA
-KI
-MM
-KX
-LHG
+*WLA
+*KI
+*MM
+*KX
+*LHG
 ```
 
 ### Turn-counts over time
