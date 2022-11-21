@@ -426,6 +426,16 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
             }
             // pop name
             GLHelper::popName();
+            // calculate label positions
+            Position labelPosition = Position(containerPosition.x() - 1, containerPosition.y() - 4.25);
+            // draw stack label
+            if (myStackedLabelNumber > 0) {
+                drawStackLabel("person", labelPosition, -90, 1.8, 2, getExaggeration(s));
+            }
+            // draw flow label
+            if (myTagProperty.isFlow()) {
+                drawFlowLabel(labelPosition, -90, 1.8, 2, getExaggeration(s));
+            }
             // draw name
             drawName(containerPosition, s.scale, s.containerName, s.angle);
             if (s.personValue.show(this)) {

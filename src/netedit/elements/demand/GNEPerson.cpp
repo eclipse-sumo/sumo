@@ -418,7 +418,7 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             Position labelPosition = Position(personPosition.x() - 1, personPosition.y() - 0.25);
             // draw stack label
             if (myStackedLabelNumber > 0) {
-                drawStackLabel("person", labelPosition, -90, width, length, getExaggeration(s));
+                drawStackLabel("person", labelPosition, -90, 1.8, 2, getExaggeration(s));
             }
             // draw flow label
             if (myTagProperty.isFlow()) {
