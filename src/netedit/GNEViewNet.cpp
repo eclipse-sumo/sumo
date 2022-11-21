@@ -462,6 +462,12 @@ GNEViewNet::getObjectsUnderCursor() const {
 }
 
 
+void
+GNEViewNet::updateObjectsUnderCursor(const Position &pos) {
+    myObjectsUnderCursor.updateObjectUnderCursor(getGUIGlObjectsAtPosition(pos, 0.1));
+}
+
+
 const GNEViewNetHelper::MoveMultipleElementValues&
 GNEViewNet::getMoveMultipleElementValues() const {
     return myMoveMultipleElementValues;

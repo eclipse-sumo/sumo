@@ -296,6 +296,9 @@ struct GNEViewNetHelper {
         /// @brief get vector with clicked ACs
         const std::vector<GNEAttributeCarrier*>& getClickedAttributeCarriers() const;
 
+        /// @brief get vector with clicked junctions
+        const std::vector<GNEJunction*>& getClickedJunctions() const;
+
         /// @brief get vector with clicked Demand Elements
         const std::vector<GNEDemandElement*>& getClickedDemandElements() const;
 

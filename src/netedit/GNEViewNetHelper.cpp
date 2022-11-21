@@ -667,6 +667,16 @@ GNEViewNetHelper::ObjectsUnderCursor::getClickedAttributeCarriers() const {
 }
 
 
+const std::vector<GNEJunction*>&
+GNEViewNetHelper::ObjectsUnderCursor::getClickedJunctions() const {
+    if (mySwapLane2edge) {
+        return myEdgeObjects.junctions;
+    } else {
+        return myLaneObjects.junctions;
+    }
+}
+
+
 const std::vector<GNEDemandElement*>&
 GNEViewNetHelper::ObjectsUnderCursor::getClickedDemandElements() const {
     if (mySwapLane2edge) {
