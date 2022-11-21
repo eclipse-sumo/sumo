@@ -260,11 +260,16 @@ struct GNENetHelper {
         /// @brief clear edges
         void clearEdges();
 
+        /// @brief add prefix to all edges
+        void addEdgePrefix(const std::string& prefix);
+
         /// @brief update edge ID in container
         void updateEdgeID(GNEEdge* edge, const std::string& newID);
 
         /// @brief get number of selected edges
         int getNumberOfSelectedEdges() const;
+
+        /// @}
 
         /// @name function for lanes
         /// @{

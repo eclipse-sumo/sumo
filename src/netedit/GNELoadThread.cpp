@@ -145,6 +145,9 @@ GNELoadThread::run() {
                     // force initial geometry computation without volatile options because the net will look strange otherwise
                     net->computeAndUpdate(oc, false);
                 }
+                if (oc.getString("prefix").size() > 0) {
+                    net->getAttributeCarriers()->addEdgePrefix(oc.getString("prefix"));
+                }
             }
             if (myFile == "") {
                 if (oc.isSet("configuration-file")) {

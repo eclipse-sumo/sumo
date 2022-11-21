@@ -744,8 +744,25 @@ GNENetHelper::AttributeCarriers::registerEdge(GNEEdge* edge) {
 }
 
 
-void GNENetHelper::AttributeCarriers::clearEdges() {
+void
+GNENetHelper::AttributeCarriers::clearEdges() {
     myEdges.clear();
+}
+
+
+void
+GNENetHelper::AttributeCarriers::addEdgePrefix(const std::string& prefix) {
+    // make a copy of edges
+    std::map<std::string, GNEEdge*> edgeCopy = myEdges;
+    // clear edges
+    myEdges.clear();
+    // fill edges again
+    for (const auto &edge : myEdges) {
+        // update microsim ID
+        edge.second->setMicrosimID(prefix + edge.first);
+        // insert in myEdges again
+        myEdges[prefix + edge.first] = edge.second;
+    }
 }
 
 
