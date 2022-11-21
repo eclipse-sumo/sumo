@@ -25,6 +25,7 @@
 
 #include "GNEApplicationWindow.h"
 #include "GNEViewNet.h"
+#include "GNENet.h"
 
 // ===========================================================================
 // GNEApplicationWindowHelper::ToolbarsGrip method definitions
@@ -1956,6 +1957,8 @@ GNEApplicationWindowHelper::saveSUMOConfig() {
     if (oc.getString("SUMOcfg-output").size() > 0) {
         // open output device
         OutputDevice& device = OutputDevice::getDevice(oc.getString("SUMOcfg-output"));
+        // open header
+        device.writeXMLHeader(toString(SUMO_TAG_CONFIGURATION), "sumoConfiguration.xsd", GNENet::EMPTY_HEADER, true);
         // open configuration tag
         device.openTag(SUMO_TAG_CONFIGURATION);
         // save network
