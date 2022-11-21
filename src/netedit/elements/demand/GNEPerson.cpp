@@ -414,6 +414,16 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             }
             // pop matrix
             GLHelper::popMatrix();
+            // calculate label positions
+            Position labelPosition = Position(personPosition.x() - 1, personPosition.y() - 0.25);
+            // draw stack label
+            if (myStackedLabelNumber > 0) {
+                drawStackLabel("person", labelPosition, -90, width, length, getExaggeration(s));
+            }
+            // draw flow label
+            if (myTagProperty.isFlow()) {
+                drawFlowLabel(labelPosition, -90, 1.8, 2, getExaggeration(s));
+            }
             // draw line between junctions if person plan isn't valid
             for (const auto& personPlan : getChildDemandElements()) {
                 if (personPlan->getTagProperty().isPersonPlan() && (personPlan->getParentJunctions().size() > 0) && !myNet->getPathManager()->isPathValid(personPlan)) {
