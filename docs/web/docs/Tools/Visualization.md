@@ -198,11 +198,12 @@ where -x is the attribute for the x axis; -y is the attribute for the y axis; -s
 ### Public transport schedule
 
 In this type of plot time is on the y-axis running from top to bottom. Input is route file of a [public transport schedule](../Simulation/Public_Transport.md#public_transport_schedules) where each vehicle is modelled individually.
+A similar plot could also be generated from [stop-output](../Simulation/Output/StopOutput.md) by using attribute `started` or `ended` (or `started,ended`) instead of `until`.
 
 
 Call to generate the plot:
 ```
-python tools/visualization/plotXMLAttributes.py -x busStop -y until route.rou.xml --idelem trip --ytime1 --legend --xticks-file stoplist.txt --invert-yaxis --marker o
+python tools/visualization/plotXMLAttributes.py route.rou.xml -x busStop -y until --ytime1 --legend --xticks-file stoplist.txt --invert-yaxis --marker o
 ```
 
 <img src="../images/schedule_until.png" width="500px"/>
@@ -217,6 +218,9 @@ In order to group busStops that belong to different tracks of the same train sta
 *KX
 *LHG
 ```
+
+!!! note
+    When plotting stops from a route file that also defines `<vType>` elements, then the option **--idelem** must be used to declare where the id attribute must be loaded from (i.e. **--idelem trip**).
 
 ### Turn-counts over time
 
