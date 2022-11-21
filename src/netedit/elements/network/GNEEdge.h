@@ -306,6 +306,12 @@ public:
     // @brief update vehicle geometries
     void updateVehicleStackLabels();
 
+    // @brief update person geometries
+    void updatePersonStackLabels();
+
+    // @brief update vehicle geometries
+    void updateContainerStackLabels();
+
     /// @brief draw edge geometry points (note: This function is called by GNELane::drawGL(...)
     void drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane* lane) const;
 
@@ -428,6 +434,12 @@ private:
 
     /// @brief get vehicles a that start over this edge
     const std::map<const GNELane*, std::vector<GNEDemandElement*> > getVehiclesOverEdgeMap() const;
+
+    /// @brief get persons a that start over this edge
+    const std::map<const GNELane*, std::vector<GNEDemandElement*> > getPersonsOverEdgeMap() const;
+
+    /// @brief get containers a that start over this edge
+    const std::map<const GNELane*, std::vector<GNEDemandElement*> > getContainersOverEdgeMap() const;
 
     /// @brief draw edge name
     void drawEdgeName(const GUIVisualizationSettings& s) const;
