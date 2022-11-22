@@ -1606,6 +1606,18 @@ NBEdgeCont::updateAllChangeRestrictions(SVCPermissions ignoring) {
 }
 
 
+void
+NBEdgeCont::addPrefix(const std::string &prefix) {
+    // make a copy of node containers
+    const auto nodeContainerCopy = myEdges;
+    myEdges.clear();
+    for (const auto &node : nodeContainerCopy) {
+        node.second->setID(prefix + node.second->getID());
+        myEdges[node.second->getID()] = node.second;
+    }
+}
+
+
 int
 NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& prefix, NBPTStopCont& sc) {
     bool startGiven = !OptionsCont::getOptions().isDefault("numerical-ids.edge-start");
