@@ -282,8 +282,8 @@ GNEFrame::shapeDrawed() {
 
 
 void
-GNEFrame::attributeUpdated() {
-    // this function has to be reimplemente in all child frames that uses a GNETagSelector modul
+GNEFrame::attributeUpdated(SumoXMLAttr attribute) {
+    // this function has to be reimplemente in all child frames that uses a AttributeEditor modul
 }
 
 

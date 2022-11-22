@@ -473,15 +473,20 @@ GNEMeanDataFrame::show() {
 
 void
 GNEMeanDataFrame::hide() {
-
     // hide frame
     GNEFrame::hide();
 }
 
 
 void
-GNEMeanDataFrame::updateFrameAfterUndoRedo() {
+GNEMeanDataFrame::attributeUpdated(SumoXMLAttr attribute) {
 
+}
+
+
+void
+GNEMeanDataFrame::updateFrameAfterUndoRedo() {
+    myMeanDataSelector->refreshMeanDataSelector();
 }
 
 /****************************************************************************/

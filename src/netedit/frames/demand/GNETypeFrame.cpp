@@ -508,7 +508,7 @@ GNETypeFrame::getTypeSelector() const {
 
 
 void
-GNETypeFrame::attributeUpdated() {
+GNETypeFrame::attributeUpdated(SumoXMLAttr attribute) {
     // after changing an attribute myTypeSelector, we need to update the list of typeSelector, because ID could be changed
     myTypeSelector->refreshTypeSelectorIDs();
     //... and typeEditor (due reset)

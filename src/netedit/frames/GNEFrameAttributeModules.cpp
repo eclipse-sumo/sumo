@@ -465,7 +465,7 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject
                 viewNet->getUndoList()->end();
             }
             // update frame parent after attribute successfully set
-            myAttributesEditorParent->getFrameParent()->attributeUpdated();
+            myAttributesEditorParent->getFrameParent()->attributeUpdated(myACAttr.getAttr());
         }
         return 1;
     } else {
@@ -591,7 +591,7 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
                 myValueTextField->killFocus();
             }
             // update frame parent after attribute successfully set
-            myAttributesEditorParent->getFrameParent()->attributeUpdated();
+            myAttributesEditorParent->getFrameParent()->attributeUpdated(myACAttr.getAttr());
         }
     } else {
         // If value of TextField isn't valid, change color to Red depending of type

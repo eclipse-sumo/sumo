@@ -206,6 +206,9 @@ public:
     /// @brief hide Frame
     void hide();
 
+    /// @brief function called after set a valid attribute in AttributeCreator/AttributeEditor/ParametersEditor/...
+    void attributeUpdated(SumoXMLAttr attribute);
+
     /// @brief function called after undo/redo in the current frame
     void updateFrameAfterUndoRedo();
 
