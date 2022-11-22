@@ -146,7 +146,12 @@ GNELoadThread::run() {
                     net->computeAndUpdate(oc, false);
                 }
                 if (oc.getString("prefix").size() > 0) {
-                    net->getAttributeCarriers()->addEdgePrefix(oc.getString("prefix"));
+                    // change prefixes in attributeCarriers
+                    net->getAttributeCarriers()->addPrefixToEdges(oc.getString("prefix"));
+                    net->getAttributeCarriers()->addPrefixToJunctions(oc.getString("prefix"));
+                    // change prefix in containers
+                    net->getNetBuilder()->getNodeCont().addPrefix(oc.getString("prefix"));
+                    net->getNetBuilder()->getEdgeCont().addPrefix(oc.getString("prefix"));
                 }
             }
             if (myFile == "") {

@@ -449,16 +449,16 @@ GNENetHelper::AttributeCarriers::clearJunctions() {
 
 void
 GNENetHelper::AttributeCarriers::addPrefixToJunctions(const std::string& prefix) {
-    // make a copy of edges
-    std::map<std::string, GNEJunction*> edgeCopy = myJunctions;
-    // clear edges
+    // make a copy of junctions
+    std::map<std::string, GNEJunction*> junctionCopy = myJunctions;
+    // clear junctions
     myJunctions.clear();
-    // fill edges again
-    for (const auto &edge : myJunctions) {
+    // fill junctions again
+    for (const auto &junction : junctionCopy) {
         // update microsim ID
-        edge.second->setMicrosimID(prefix + edge.first);
+        junction.second->setMicrosimID(prefix + junction.first);
         // insert in myJunctions again
-        myJunctions[prefix + edge.first] = edge.second;
+        myJunctions[prefix + junction.first] = junction.second;
     }
 }
 
@@ -773,7 +773,7 @@ GNENetHelper::AttributeCarriers::addPrefixToEdges(const std::string& prefix) {
     // clear edges
     myEdges.clear();
     // fill edges again
-    for (const auto &edge : myEdges) {
+    for (const auto &edge : edgeCopy) {
         // update microsim ID
         edge.second->setMicrosimID(prefix + edge.first);
         // insert in myEdges again
