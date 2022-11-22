@@ -12,6 +12,7 @@
 
 # @file    route.py
 # @author  Michael Behrisch
+# @author  Mirko Barthauer
 # @date    2013-10-23
 
 from __future__ import print_function
@@ -90,7 +91,7 @@ def _getMinPath(paths):
 
 
 def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapPenalty=-1,
-             debug=False, direction=False):
+             debug=False, direction=False, vClass=None):
     """
     matching a list of 2D positions to consecutive edges in a network.
     The positions are assumed to be dense (i.e. covering each edge of the route) and in the correct order.
@@ -110,6 +111,8 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
             print("Found no candidate edges for %s,%s" % pos)
 
         for edge, d in candidates:
+            if vClass is not None and not edge.allows(vClass):
+                continue
             base = polygonOffsetWithMinimumDistanceToPoint(pos, edge.getShape())
             if paths:
                 advance = euclidean(lastPos, pos)  # should become a vector

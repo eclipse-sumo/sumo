@@ -13,6 +13,7 @@
 
 # @file    tracemapper.py
 # @author  Michael Behrisch
+# @author  Mirko Barthauer
 # @date    2013-10-23
 
 
@@ -85,6 +86,8 @@ if __name__ == "__main__":
                          default=False, help="read trace with geo-coordinates")
     optParser.add_option("--direction", action="store_true",
                          default=False, help="try to use direction of consecutive points when mapping")
+    optParser.add_option("--vehicle-class", default=None,
+                         help="filters the edges by the vehicle class the route is meant for")    
     optParser.add_option("--fill-gaps", default=0., type=float,
                          help="repair disconnected routes bridging gaps of up to x meters")
     optParser.add_option("-g", "--gap-penalty", default=-1, type="float",
@@ -145,7 +148,7 @@ if __name__ == "__main__":
             else:
                 traces = readLines(t, net, options.geo)
             mapOpts = (options.delta, options.verbose, options.air_dist_factor,
-                       options.fill_gaps, options.gap_penalty, options.debug, options.direction)
+                       options.fill_gaps, options.gap_penalty, options.debug, options.direction, options.vehicle_class)
             for tid, trace in traces:
                 if poiOut is not None:
                     for idx, pos in enumerate(trace):
