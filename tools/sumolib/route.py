@@ -161,8 +161,10 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
         if not newPaths:
             if paths:
                 minPath = _getMinPath(paths)
-                if len(result) == 0 or minPath[0] != result[-1]:
-                    result += minPath
+                if len(result) > 0 and minPath[0] in result:
+                    cropIndex = max([i for i in range(len(minPath)) if minPath[i] in result])
+                    minPath = minPath[cropIndex+1:]
+                result += minPath
         paths = newPaths
         lastPos = pos
     if paths:
