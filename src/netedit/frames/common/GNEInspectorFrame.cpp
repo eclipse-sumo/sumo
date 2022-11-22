@@ -1381,7 +1381,7 @@ GNEInspectorFrame::inspectClickedElement(const GNEViewNetHelper::ObjectsUnderCur
 
 
 void
-GNEInspectorFrame::attributeUpdated(SumoXMLAttr attribute) {
+GNEInspectorFrame::attributeUpdated(SumoXMLAttr /*attribute*/) {
     myAttributesEditor->refreshAttributeEditor(false, false);
     myNeteditAttributesEditor->refreshNeteditAttributesEditor(true);
     myGEOAttributesEditor->refreshGEOAttributesEditor(true);
