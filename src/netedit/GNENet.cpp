@@ -208,7 +208,7 @@ GNENet::addZValueInBoundary(const double z) {
 GNEJunction*
 GNENet::createJunction(const Position& pos, GNEUndoList* undoList) {
     // get junction prefix
-    const std::string junctionPrefix = OptionsCont::getOptions().getString("node-prefix");
+    const std::string junctionPrefix = OptionsCont::getOptions().getString("prefix") + OptionsCont::getOptions().getString("node-prefix");
     // generate new ID
     while (myAttributeCarriers->getJunctions().count(junctionPrefix + toString(myJunctionIDCounter)) != 0) {
         myJunctionIDCounter++;
@@ -225,7 +225,7 @@ GNEEdge*
 GNENet::createEdge(GNEJunction* src, GNEJunction* dest, GNEEdge* edgeTemplate, GNEUndoList* undoList,
                    const std::string& suggestedName, bool wasSplit, bool allowDuplicateGeom, bool recomputeConnections) {
     // get edge prefix
-    const std::string edgePrefix = OptionsCont::getOptions().getString("edge-prefix");
+    const std::string edgePrefix = OptionsCont::getOptions().getString("prefix") + OptionsCont::getOptions().getString("edge-prefix");
     // get edge infix
     std::string edgeInfix = OptionsCont::getOptions().getString("edge-infix");
     // prevent duplicate edge (same geometry)
