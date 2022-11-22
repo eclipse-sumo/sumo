@@ -234,7 +234,7 @@ GNEMeanDataFrame::MeanDataEditor::onCmdDeletetMeanData(FXObject*, FXSelector, vo
     // end undo list operation
     myMeanDataFrameParent->myViewNet->getUndoList()->end();
     // set created meanData in selector
-    myMeanDataFrameParent->myMeanDataSelector->refreshMeanDataSelector();
+    myMeanDataFrameParent->myMeanDataSelector->refreshMeanDataSelector(false);
     return 1;
 }
 
@@ -259,7 +259,7 @@ GNEMeanDataFrame::MeanDataEditor::onCmdCopyMeanData(FXObject*, FXSelector, void*
         // end undo list operation
         myMeanDataFrameParent->myViewNet->getUndoList()->end();
         // refresh MeanData Selector (to show the new VMeanData)
-        myMeanDataFrameParent->myMeanDataSelector->refreshMeanDataSelector();
+        myMeanDataFrameParent->myMeanDataSelector->refreshMeanDataSelector(false);
         // set created meanData in selector
         myMeanDataFrameParent->myMeanDataSelector->setCurrentMeanData(typeCopy);
         // refresh MeanData Editor Module
@@ -306,7 +306,7 @@ GNEMeanDataFrame::MeanDataSelector::~MeanDataSelector() {}
 void
 GNEMeanDataFrame::MeanDataSelector::showMeanDataSelector() {
     // refresh mean data selector
-    refreshMeanDataSelector();
+    refreshMeanDataSelector(false);
     // show
     show();
 }
@@ -330,12 +330,12 @@ GNEMeanDataFrame::MeanDataSelector::getCurrentMeanData() const {
 void
 GNEMeanDataFrame::MeanDataSelector::setCurrentMeanData(GNEMeanData* vMeanData) {
     myCurrentMeanData = vMeanData;
-    refreshMeanDataSelector();
+    refreshMeanDataSelector(false);
 }
 
 
 void
-GNEMeanDataFrame::MeanDataSelector::refreshMeanDataSelector() {
+GNEMeanDataFrame::MeanDataSelector::refreshMeanDataSelector(bool afterChangingID) {
     // get current meanData type
     SumoXMLTag meanDataTag = myMeanDataFrameParent->myMeanDataTypeSelector->getCurrentMeanData().getTag();
     // get mean datas sorted by ID
@@ -383,14 +383,16 @@ GNEMeanDataFrame::MeanDataSelector::refreshMeanDataSelector() {
     // refresh meanData editor module
     myMeanDataFrameParent->myMeanDataEditor->refreshMeanDataEditorModule();
     // check if show attribute editor
-    if (myCurrentMeanData) {
-        // set myCurrentMeanData as inspected element (needed for attribute editor)
-        myMeanDataFrameParent->getViewNet()->setInspectedAttributeCarriers({myCurrentMeanData});
-        myMeanDataFrameParent->myMeanDataAttributesEditor->showAttributeEditorModule(false, true);
-    } else {
-    // set myCurrentMeanData as inspected element (needed for attribute editor)
-        myMeanDataFrameParent->getViewNet()->setInspectedAttributeCarriers({});
-        myMeanDataFrameParent->myMeanDataAttributesEditor->hideAttributesEditorModule();
+    if (!afterChangingID) {
+        if (myCurrentMeanData) {
+            // set myCurrentMeanData as inspected element (needed for attribute editor)
+            myMeanDataFrameParent->getViewNet()->setInspectedAttributeCarriers({myCurrentMeanData});
+            myMeanDataFrameParent->myMeanDataAttributesEditor->showAttributeEditorModule(false, true);
+        } else {
+            // set myCurrentMeanData as inspected element (needed for attribute editor)
+            myMeanDataFrameParent->getViewNet()->setInspectedAttributeCarriers({});
+            myMeanDataFrameParent->myMeanDataAttributesEditor->hideAttributesEditorModule();
+        }
     }
 }
 
@@ -480,13 +482,14 @@ GNEMeanDataFrame::hide() {
 
 void
 GNEMeanDataFrame::attributeUpdated(SumoXMLAttr attribute) {
-
+    if (attribute == SUMO_ATTR_ID) {
+        myMeanDataSelector->refreshMeanDataSelector(true);
+    }
 }
 
 
 void
 GNEMeanDataFrame::updateFrameAfterUndoRedo() {
-    myMeanDataSelector->refreshMeanDataSelector();
 }
 
 /****************************************************************************/

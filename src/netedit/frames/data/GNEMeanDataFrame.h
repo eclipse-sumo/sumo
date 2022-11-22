@@ -166,7 +166,7 @@ public:
         void setCurrentMeanData(GNEMeanData* vMeanData);
 
         /// @brief refresh meanData selector
-        void refreshMeanDataSelector();
+        void refreshMeanDataSelector(bool afterChangingID);
 
         /// @brief refresh meanData selector (only IDs, without refreshing attributes)
         void refreshMeanDataSelectorIDs();
