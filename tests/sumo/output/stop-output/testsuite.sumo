@@ -6,3 +6,6 @@ early_end_write
 
 # used attribute 'ended'
 use_ended
+
+# used attribute 'ended' and load started values
+use_ended_started
