@@ -448,6 +448,22 @@ GNENetHelper::AttributeCarriers::clearJunctions() {
 
 
 void
+GNENetHelper::AttributeCarriers::addPrefixToJunctions(const std::string& prefix) {
+    // make a copy of edges
+    std::map<std::string, GNEJunction*> edgeCopy = myJunctions;
+    // clear edges
+    myJunctions.clear();
+    // fill edges again
+    for (const auto &edge : myJunctions) {
+        // update microsim ID
+        edge.second->setMicrosimID(prefix + edge.first);
+        // insert in myJunctions again
+        myJunctions[prefix + edge.first] = edge.second;
+    }
+}
+
+
+void
 GNENetHelper::AttributeCarriers::updateJunctionID(GNEJunction* junction, const std::string& newID) {
     if (myJunctions.count(junction->getID()) == 0) {
         throw ProcessError(junction->getTagStr() + " with ID='" + junction->getID() + "' doesn't exist in AttributeCarriers.junction");
@@ -751,7 +767,7 @@ GNENetHelper::AttributeCarriers::clearEdges() {
 
 
 void
-GNENetHelper::AttributeCarriers::addEdgePrefix(const std::string& prefix) {
+GNENetHelper::AttributeCarriers::addPrefixToEdges(const std::string& prefix) {
     // make a copy of edges
     std::map<std::string, GNEEdge*> edgeCopy = myEdges;
     // clear edges

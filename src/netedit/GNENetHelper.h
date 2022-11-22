@@ -144,6 +144,9 @@ struct GNENetHelper {
         /// @brief clear junctions
         void clearJunctions();
 
+        /// @brief add prefix to all junctions
+        void addPrefixToJunctions(const std::string& prefix);
+
         /// @brief update junction ID in container
         void updateJunctionID(GNEJunction* junction, const std::string& newID);
 
@@ -261,7 +264,7 @@ struct GNENetHelper {
         void clearEdges();
 
         /// @brief add prefix to all edges
-        void addEdgePrefix(const std::string& prefix);
+        void addPrefixToEdges(const std::string& prefix);
 
         /// @brief update edge ID in container
         void updateEdgeID(GNEEdge* edge, const std::string& newID);
