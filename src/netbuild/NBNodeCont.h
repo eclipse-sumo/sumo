@@ -55,6 +55,7 @@ class NBPTStopCont;
  * @brief Container for nodes during the netbuilding process
  */
 class NBNodeCont {
+
 public:
     /// @brief Definition of a node cluster container
     typedef std::vector<NodeSet> NodeClusters;
@@ -277,12 +278,13 @@ public:
     void setAsTLControlled(NBNode* node, NBTrafficLightLogicCont& tlc, TrafficLightType type, std::string id = "");
     /// @}
 
-    /** @brief Returns whether the node with the id was deleted explicitly
-     */
+    /// @brief Returns whether the node with the id was deleted explicitly
     bool wasRemoved(std::string id) const {
         return myExtractedNodes.count(id) != 0;
     }
 
+    /// @brief add prefix to all nodes
+    void addPrefix(const std::string &prefix); 
 
     /// @brief Renames the node. Throws exception if newID already exists
     void rename(NBNode* node, const std::string& newID);
@@ -345,8 +347,7 @@ public:
      */
     void discardTrafficLights(NBTrafficLightLogicCont& tlc, bool geometryLike, bool guessSignals);
 
-    /* @brief discards rail signals
-     */
+    /// @brief discards rail signals
     void discardRailSignals();
 
     /// @brief mark a node as being created form a split
@@ -420,7 +421,6 @@ private:
     /// @brief update pareto frontier with the given node
     void paretoCheck(NBNode* node, NodeSet& frontier, int xSign, int ySign);
 
-private:
     /// @brief The running internal id
     int myInternalID;
 
@@ -460,11 +460,9 @@ private:
     /// @brief network components that must be removed if not connected to the road network via stop access
     std::vector<std::vector<std::string> > myRailComponents;
 
-private:
     /// @brief invalidated copy constructor
-    NBNodeCont(const NBNodeCont& s);
+    NBNodeCont(const NBNodeCont& s) = delete;
 
     /// @brief invalidated assignment operator
-    NBNodeCont& operator=(const NBNodeCont& s);
-
+    NBNodeCont& operator=(const NBNodeCont& s) = delete;
 };

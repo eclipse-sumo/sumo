@@ -2528,6 +2528,18 @@ NBNodeCont::getAllNames() const {
 
 
 void
+NBNodeCont::addPrefix(const std::string &prefix) {
+    // make a copy of node containers
+    const auto nodeContainerCopy = myNodes;
+    myNodes.clear();
+    for (const auto &node : nodeContainerCopy) {
+        node.second->setID(prefix + node.second->getID());
+        myNodes[node.second->getID()] = node.second;
+    }
+}
+
+
+void
 NBNodeCont::rename(NBNode* node, const std::string& newID) {
     if (myNodes.count(newID) != 0) {
         throw ProcessError("Attempt to rename node using existing id '" + newID + "'");
