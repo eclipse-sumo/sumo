@@ -1760,7 +1760,7 @@ MSVehicle::processNextStop(double currentVelocity) {
                     && (!MSGlobals::gModelParkingManoeuver || myManoeuvre.entryManoeuvreIsComplete(this))) {
                 // ok, we may stop (have reached the stop)  and either we are not modelling manoeuvering or have completed entry
                 stop.reached = true;
-                if (stop.pars.started == -1) { // if not we are probably loading a state
+                if (!stop.startedFromState) {
                     stop.pars.started = time;
                 }
 #ifdef DEBUG_STOPS
@@ -7112,6 +7112,7 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     dis >> myOdometer >> myNumberReroutes;
     myWaitingTimeCollector.setState(attrs.getString(SUMO_ATTR_WAITINGTIME));
     if (stopped) {
+        myStops.front().startedFromState = true;
         myStopDist = 0;
     }
     myLaneChangeModel->loadState(attrs);

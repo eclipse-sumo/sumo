@@ -87,6 +87,8 @@ public:
     bool isOpposite = false;
     /// @brief whether the decision to skip this stop has been made
     bool skipOnDemand = false;
+    /// @brief whether the 'started' value was loaded from simulaton state
+    bool startedFromState = false;
 
     /// @brief Write the current stop configuration (used for state saving)
     void write(OutputDevice& dev) const;
