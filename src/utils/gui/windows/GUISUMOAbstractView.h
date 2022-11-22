@@ -181,7 +181,7 @@ public:
     virtual void openObjectDialogAtCursor(const FXEvent* ev);
 
     /// @brief open object dialog for the given object
-    void openObjectDialog(const std::vector<GUIGlObject*>& objects);
+    void openObjectDialog(const std::vector<GUIGlObject*>& objects, const bool filter = true);
 
     /// @brief A method that updates the tooltip
     void updateToolTip();

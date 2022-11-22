@@ -1234,19 +1234,19 @@ GUISUMOAbstractView::openObjectDialogAtCursor(const FXEvent* ev) {
         // continue depending of number of objects
         if (filteredObjectsUnderCursor.empty()) {
             // if filteredObjectsUnderCursor, inspect net
-            openObjectDialog({GUIGlObjectStorage::gIDStorage.getNetObject()});
+            openObjectDialog({GUIGlObjectStorage::gIDStorage.getNetObject()}, true);
         } else if (altKeyPressed) {
             // inspect all objects under cusror
-            openObjectDialog(filteredObjectsUnderCursor);
+            openObjectDialog(filteredObjectsUnderCursor, false);
         } else if (filteredVehiclesUnderCursor.size() > 0) {
             // inspect only vehicles
-            openObjectDialog(filteredVehiclesUnderCursor);
+            openObjectDialog(filteredVehiclesUnderCursor, true);
         } else if (filteredTLSUnderCursor.size() > 0) {
             // inspect only TLSs
-            openObjectDialog(filteredTLSUnderCursor);
+            openObjectDialog(filteredTLSUnderCursor, true);
         } else {
             // inspect objects under cursor
-            openObjectDialog(filteredObjectsUnderCursor);
+            openObjectDialog(filteredObjectsUnderCursor, true);
         }
         // Make OpenGL context non current
         makeNonCurrent();
@@ -1255,12 +1255,12 @@ GUISUMOAbstractView::openObjectDialogAtCursor(const FXEvent* ev) {
 
 
 void
-GUISUMOAbstractView::openObjectDialog(const std::vector<GUIGlObject*>& objects) {
+GUISUMOAbstractView::openObjectDialog(const std::vector<GUIGlObject*>& objects, const bool filter) {
     if (objects.size() > 0) {
         // create cursor popup dialog
         if (objects.size() == 1) {
             myCurrentObjectsDialog = objects;
-        } else {
+        } else if (filter) {
             // declare filtered objects
             std::vector<GUIGlObject*> filteredGLObjects;
             // fill filtered objects
@@ -1271,6 +1271,8 @@ GUISUMOAbstractView::openObjectDialog(const std::vector<GUIGlObject*>& objects) 
                 }
             }
             myCurrentObjectsDialog = filteredGLObjects;
+        } else {
+            myCurrentObjectsDialog = objects;
         }
         if (myCurrentObjectsDialog.size() > 1) {
             myPopup = new GUICursorDialog(GUIGLObjectPopupMenu::PopupType::PROPERTIES, this, myCurrentObjectsDialog);

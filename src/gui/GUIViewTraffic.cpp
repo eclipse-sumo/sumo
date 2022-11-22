@@ -349,8 +349,9 @@ GUIViewTraffic::getPOIParamKeys() const {
 
 int
 GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
-    // (uncomment the next line to check select mode)
-    //myVisualizationSettings->drawForPositionSelection = true;
+    if (!myVisualizationSettings->drawForPositionSelection && myVisualizationSettings->forceDrawForPositionSelection) {
+        myVisualizationSettings->drawForPositionSelection = true;
+    }
     // init view settings
     glRenderMode(mode);
     glMatrixMode(GL_MODELVIEW);
