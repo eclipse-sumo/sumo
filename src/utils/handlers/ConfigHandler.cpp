@@ -174,15 +174,13 @@ ConfigHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 break;
             case SUMO_TAG_ADDITIONALFILES:
                 parseAdditionalFiles(attrs);
+                parseMeanDataFiles(attrs);
                 break;
             case SUMO_TAG_ROUTEFILES:
                 parseRouteFiles(attrs);
                 break;
             case SUMO_TAG_DATAFILES:
                 parseDataFiles(attrs);
-                break;
-            case SUMO_TAG_MEANDATAFILES:
-                parseMeanDataFiles(attrs);
                 break;
             default:
                 // tag cannot be parsed in ConfigHandler

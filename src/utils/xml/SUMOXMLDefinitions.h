@@ -414,8 +414,6 @@ enum SumoXMLTag {
     SUMO_TAG_ROUTEFILES,
     /// @brief data files
     SUMO_TAG_DATAFILES,
-    /// @brief mean data files
-    SUMO_TAG_MEANDATAFILES,
     ///@}
 
     /// @name NETEDIT elements

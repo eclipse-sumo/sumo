@@ -1965,10 +1965,17 @@ GNEApplicationWindowHelper::saveSUMOConfig() {
         device.openTag(SUMO_TAG_NETFILE);
         device.writeAttr(SUMO_ATTR_VALUE, oc.getString("output-file"));
         device.closeTag();
-        // check if write additionals
-        if (oc.getString("additional-files").size() > 0) {
+        // check if write additionals and meanData files
+        if ((oc.getString("additional-files").size() > 0) || (oc.getString("meandata-files").size() > 0)) {
             device.openTag(SUMO_TAG_ADDITIONALFILES);
-            device.writeAttr(SUMO_ATTR_VALUE, oc.getString("additional-files"));
+            // write additional and meanData together
+            if ((oc.getString("additional-files").size() > 0) && (oc.getString("meandata-files").size() > 0)) {
+                device.writeAttr(SUMO_ATTR_VALUE, oc.getString("additional-files") + "," + oc.getString("meandata-files"));
+            } else if (oc.getString("additional-files").size() > 0) {
+                device.writeAttr(SUMO_ATTR_VALUE, oc.getString("additional-files"));
+            } else {
+                device.writeAttr(SUMO_ATTR_VALUE, oc.getString("meandata-files"));
+            }
             device.closeTag();
         }
         // check if write route elements
@@ -1981,12 +1988,6 @@ GNEApplicationWindowHelper::saveSUMOConfig() {
         if (oc.getString("data-files").size() > 0) {
             device.openTag(SUMO_TAG_DATAFILES);
             device.writeAttr(SUMO_ATTR_VALUE, oc.getString("data-files"));
-            device.closeTag();
-        }
-        // check if write meanDatas
-        if (oc.getString("meandata-files").size() > 0) {
-            device.openTag(SUMO_TAG_MEANDATAFILES);
-            device.writeAttr(SUMO_ATTR_VALUE, oc.getString("meandata-files"));
             device.closeTag();
         }
         // close device

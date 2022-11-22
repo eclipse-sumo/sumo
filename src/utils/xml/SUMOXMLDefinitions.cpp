@@ -301,7 +301,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "additional-files",               SUMO_TAG_ADDITIONALFILES },
     { "route-files",                    SUMO_TAG_ROUTEFILES },
     { "data-files",                     SUMO_TAG_DATAFILES },
-    { "meandata-files",                 SUMO_TAG_MEANDATAFILES },
     // Last element
     { "",                               SUMO_TAG_NOTHING }  // -> must be the last one
 };
