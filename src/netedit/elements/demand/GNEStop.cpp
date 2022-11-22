@@ -218,9 +218,7 @@ GNEStop::writeDemandElement(OutputDevice& device) const {
 
 GNEDemandElement::Problem
 GNEStop::isDemandElementValid() const {
-    if (getPathStopIndex() == -1) {
-        return Problem::STOP_DOWNSTREAM;
-    } else if (myTagProperty.isStopPerson() || myTagProperty.isStopContainer()) {
+    if (myTagProperty.isStopPerson() || myTagProperty.isStopContainer()) {
         // get lane
         const GNELane* firstLane = getFirstAllowedLane();
         // only Stops placed over lanes can be invalid
@@ -243,6 +241,8 @@ GNEStop::isDemandElementValid() const {
         } else {
             return Problem::INVALID_ELEMENT;
         }
+    } else if (getPathStopIndex() == -1) {
+        return Problem::STOP_DOWNSTREAM;
     } else {
         // only Stops placed over lanes can be invalid
         if (myTagProperty.getTag() != SUMO_TAG_STOP_LANE) {
@@ -276,9 +276,7 @@ GNEStop::isDemandElementValid() const {
 
 std::string
 GNEStop::getDemandElementProblem() const {
-    if (getPathStopIndex() == -1) {
-        return ("Downstream stop");
-    } else if (myTagProperty.isStopPerson() || myTagProperty.isStopContainer()) {
+    if (myTagProperty.isStopPerson() || myTagProperty.isStopContainer()) {
         if (friendlyPos) {
             return getPersonPlanProblem();
         } else {
@@ -295,6 +293,8 @@ GNEStop::getDemandElementProblem() const {
                 return getPersonPlanProblem();
             }
         }
+    } else if (getPathStopIndex() == -1) {
+        return ("Downstream stop");
     } else {
         // declare a copy of start and end positions
         double startPosCopy = startPos;
@@ -1779,8 +1779,8 @@ GNEStop::getPathStopIndex() const {
     const auto edgeStopIndex = getEdgeStopIndex();
     // finally find stopIndex in edgeStopIndexes
     for (const auto &edgeStop : edgeStopIndex) {
-        for (const auto &j : edgeStop.stops) {
-            if (j == this) {
+        for (const auto &stop : edgeStop.stops) {
+            if (stop == this) {
                 return edgeStop.stopIndex;
             }
         }

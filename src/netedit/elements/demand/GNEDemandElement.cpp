@@ -411,19 +411,23 @@ GNEDemandElement::getBeginPosition(const double pedestrianDepartPos) const {
 
 std::vector<GNEDemandElement*>
 GNEDemandElement::getInvalidStops() const {
-    // get stops
-    std::vector<GNEDemandElement*> invalidStops;
-    // get edge stop index
-    const auto edgeStopIndex = getEdgeStopIndex();
-    // take all stops/waypoints with index = -1
-    for (const auto &edgeStop : edgeStopIndex) {
-        if (edgeStop.stopIndex == -1) {
-            for (const auto &stop : edgeStop.stops) {
-                invalidStops.push_back(stop);
+    if (myTagProperty.isStop() || myTagProperty.isWaypoint()) {
+        // get stops
+        std::vector<GNEDemandElement*> invalidStops;
+        // get edge stop index
+        const auto edgeStopIndex = getEdgeStopIndex();
+        // take all stops/waypoints with index = -1
+        for (const auto &edgeStop : edgeStopIndex) {
+            if (edgeStop.stopIndex == -1) {
+                for (const auto &stop : edgeStop.stops) {
+                    invalidStops.push_back(stop);
+                }
             }
         }
+        return invalidStops;
+    } else {
+        return {};
     }
-    return invalidStops;
 }
 
 
@@ -1048,13 +1052,22 @@ GNEDemandElement::getEdgeStopIndex() const {
     if (getParentDemandElements().size() > 0) {
         // get path edges depending of parent
         std::vector<GNEEdge*> pathEdges;
-        if (getParentDemandElements().front()->getTagProperty().hasAttribute(SUMO_ATTR_EDGES)) {
-            pathEdges = getParentDemandElements().front()->getParentEdges();
+        // get parent demand element
+        const auto parent = getParentDemandElements().front();
+        // continue depending of parent
+        if (parent->getTagProperty().hasAttribute(SUMO_ATTR_EDGES)) {
+            pathEdges = parent->getParentEdges();
+        } else if (parent->getTagProperty().hasAttribute(SUMO_ATTR_ROUTE)) {
+            // get route edges
+            pathEdges = parent->getParentDemandElements().front()->getParentEdges();
+        } else if (parent->getTagProperty().hasEmbeddedRoute()) {
+            // get embedded route edges
+            pathEdges = parent->getChildDemandElements().front()->getParentEdges();
         } else {
             // get last parent edge
-            const auto lastEdge = getParentDemandElements().front()->getParentEdges().back();
+            const auto lastEdge = parent->getParentEdges().back();
             bool stop = false;
-            const auto &pathElementSegments = myNet->getPathManager()->getPathElementSegments(getParentDemandElements().front());
+            const auto &pathElementSegments = myNet->getPathManager()->getPathElementSegments(parent);
             // extract all edges from pathElement parent
             for (auto it = pathElementSegments.begin(); (it != pathElementSegments.end()) && !stop; it++) {
                 if ((*it)->getLane()) {
@@ -1067,7 +1080,7 @@ GNEDemandElement::getEdgeStopIndex() const {
             }
         }
         // get all parent's stops and waypoints sorted by position
-        for (const auto &demandElement : getParentDemandElements().front()->getChildDemandElements()) {
+        for (const auto &demandElement : parent->getChildDemandElements()) {
             if (demandElement->getTagProperty().isStop() || demandElement->getTagProperty().isWaypoint()) {
                 // get stop/waypoint edge
                 GNEEdge* edge = nullptr;
