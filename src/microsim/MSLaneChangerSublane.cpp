@@ -281,6 +281,7 @@ MSLaneChangerSublane::abortLCManeuver(MSVehicle* vehicle) {
     vehicle->getLaneChangeModel().setSpeedLat(0);
     vehicle->getLaneChangeModel().setManeuverDist(0.);
     vehicle->getLaneChangeModel().updateTargetLane();
+    //vehicle->computeAngle();
 }
 
 

@@ -1076,6 +1076,7 @@ MSLCM_LC2013::prepareStep() {
             scaledDelta = deltaPosLat * myVehicle.getSpeed() / myVehicle.getLane()->getSpeedLimit();
         }
         myVehicle.setLateralPositionOnLane(oldPosLat + scaledDelta);
+        setSpeedLat(DIST2SPEED(scaledDelta));
     }
 }
 

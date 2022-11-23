@@ -560,6 +560,10 @@ public:
         return mySpeedLat;
     }
 
+    /* @brief reset the angle (in case no lane changing happens in this step
+     * and the maneuver was finished in the previous step) */
+    virtual void resetSpeedLat();
+
     /// @brief return the lateral speed of the current lane change maneuver
     double getAccelerationLat() const {
         return myAccelerationLat;

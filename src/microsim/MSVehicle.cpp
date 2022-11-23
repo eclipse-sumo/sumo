@@ -4308,6 +4308,8 @@ MSVehicle::executeMove() {
         if (myType->getVehicleClass() == SVC_EMERGENCY) {
             setEmergencyBlueLight(MSNet::getInstance()->getCurrentTimeStep());
         }
+        // must be done before angle computation
+        myLaneChangeModel->resetSpeedLat();
         // State needs to be reset for all vehicles before the next call to MSEdgeControl::changeLanes
         if (myActionStep) {
             // check (#2681): Can this be skipped?

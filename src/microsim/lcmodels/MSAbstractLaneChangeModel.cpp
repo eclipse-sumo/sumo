@@ -426,6 +426,15 @@ MSAbstractLaneChangeModel::setSpeedLat(double speedLat) {
     mySpeedLat = speedLat;
 }
 
+
+void
+MSAbstractLaneChangeModel::resetSpeedLat() {
+    if (MSGlobals::gLaneChangeDuration > 0 && !isChangingLanes()) {
+        setSpeedLat(0);
+    }
+}
+
+
 bool
 MSAbstractLaneChangeModel::updateCompletion() {
     const bool pastBefore = pastMidpoint();
