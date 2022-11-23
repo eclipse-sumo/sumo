@@ -40,11 +40,11 @@ public:
     enum {
         CLICKED_SAVE = FXDialogBox::ID_LAST,
         CLICKED_DISCARD,
-        CLICKED_CANCEL,
+        CLICKED_ABORT,
     };
 
     /// @brief Construct free floating message box with given caption, icon, and message text
-    GUISaveDialog(FXApp* app, const FXString &caption, const FXString &text, FXIcon* ic=NULL, FXuint opts=0, FXint x=0, FXint y=0);
+    GUISaveDialog(FXApp* app, const FXString &caption, const FXString &text, FXIcon* ic);
 
     /// @brief called when user click over button
     long onCmdClicked(FXObject*, FXSelector, void*);

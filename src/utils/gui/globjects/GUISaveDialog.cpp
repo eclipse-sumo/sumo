@@ -20,26 +20,25 @@
 
 #include "GUISaveDialog.h"
 
+#include <utils/gui/div/GUIDesigns.h>
+
 // Padding for message box buttons
 #define HORZ_PAD 30
 #define VERT_PAD 2
-
-#define MBOX_BUTTON_MASK   (MBOX_OK | MBOX_OK_CANCEL | MBOX_YES_NO | MBOX_YES_NO_CANCEL | MBOX_QUIT_CANCEL | MBOX_QUIT_SAVE_CANCEL | MBOX_SAVE_CANCEL_DONTSAVE)
 
 // Map
 FXDEFMAP(GUISaveDialog) GUISaveDialogMap[] = {
     FXMAPFUNC(SEL_COMMAND,  GUISaveDialog::CLICKED_SAVE,    GUISaveDialog::onCmdClicked), 
     FXMAPFUNC(SEL_COMMAND,  GUISaveDialog::CLICKED_DISCARD, GUISaveDialog::onCmdClicked), 
-    FXMAPFUNC(SEL_COMMAND,  GUISaveDialog::CLICKED_CANCEL,  GUISaveDialog::onCmdCancel), 
+    FXMAPFUNC(SEL_COMMAND,  GUISaveDialog::CLICKED_ABORT,   GUISaveDialog::onCmdCancel), 
 };
-
 
 // Object implementation
 FXIMPLEMENT(GUISaveDialog, FXDialogBox, GUISaveDialogMap, ARRAYNUMBER(GUISaveDialogMap))
 
 
-GUISaveDialog::GUISaveDialog(FXApp* a, const FXString &caption, const FXString &text, FXIcon* ic, FXuint opts, FXint x, FXint y):
-    FXDialogBox(a, caption, opts | DECOR_TITLE | DECOR_BORDER, x, y, 0, 0, 0, 0, 0, 0, 4, 4) {
+GUISaveDialog::GUISaveDialog(FXApp* a, const FXString &caption, const FXString &text, FXIcon* ic):
+    FXDialogBox(a, caption, DECOR_TITLE | DECOR_BORDER, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4) {
     initialize(text, ic);
 }
 
@@ -51,7 +50,7 @@ GUISaveDialog::onCmdClicked(FXObject*, FXSelector sel, void*) {
     } else if (sel == FXSEL(SEL_COMMAND, GUISaveDialog::CLICKED_DISCARD)) {
         getApp()->stopModal(this, GUISaveDialog::CLICKED_DISCARD);
     } else {
-        getApp()->stopModal(this, GUISaveDialog::CLICKED_CANCEL);
+        getApp()->stopModal(this, GUISaveDialog::CLICKED_ABORT);
     }
     hide();
     return 1;
@@ -83,14 +82,10 @@ GUISaveDialog::initialize(const FXString &text, FXIcon* ic) {
     new FXLabel(info, text, NULL, JUSTIFY_LEFT | ICON_BEFORE_TEXT | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y);
     new FXHorizontalSeparator(content, SEPARATOR_GROOVE | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X);
     FXHorizontalFrame* buttons = new FXHorizontalFrame(content, LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | PACK_UNIFORM_WIDTH, 0, 0, 0, 0, 10, 10, 5, 5);
-
     buttons->setPackingHints(PACK_NORMAL);
-    FXButton *saveChanges = new FXButton(buttons, tr("&Save changes"), NULL, this, CLICKED_SAVE, 
-        BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_CENTER_X, 0, 0, 0, 0, 15, 15, VERT_PAD, VERT_PAD);
-    new FXButton(buttons, tr("&Discard changes"), NULL, this, CLICKED_DISCARD, 
-        BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_CENTER_X, 0, 0, 0, 0, 15, 15, VERT_PAD, VERT_PAD);
-    new FXButton(buttons, tr("&Cancel"), NULL, this, CLICKED_CANCEL, 
-        BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_CENTER_X, 0, 0, 0, 0, 15, 15, VERT_PAD, VERT_PAD);
+    FXButton *saveChanges = new FXButton(buttons, tr("&Save changes"), NULL, this, CLICKED_SAVE, GUIDesignSaveDialogButtonInitial);
+    new FXButton(buttons, tr("&Don't save"), NULL, this, CLICKED_DISCARD, GUIDesignSaveDialogButton);
+    new FXButton(buttons, tr("&Abort"), NULL, this, CLICKED_ABORT, GUIDesignSaveDialogButton);
     saveChanges->setFocus();
 }
 
