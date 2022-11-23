@@ -490,7 +490,7 @@ GNELane::drawLane2LaneConnections() const {
 void
 GNELane::drawGL(const GUIVisualizationSettings& s) const {
     // get lane drawing constants
-    LaneDrawingConstants laneDrawingConstants(s, this);
+    const LaneDrawingConstants laneDrawingConstants(s, this);
     // get lane color
     const RGBColor color = setLaneColor(s);
     // get flag for draw lane as railway
@@ -588,27 +588,8 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             // Pop layer matrix
             GLHelper::popMatrix();
         }
-
-        // if shape is being edited, draw point and green line
-        if (myShapeEdited) {
-            // push shape edited matrix
-            GLHelper::pushMatrix();
-            // translate
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_JUNCTION + 1);
-            // set selected edge color
-            GLHelper::setColor(s.colorSettings.editShapeColor);
-            // draw again to show the selected edge
-            GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), {}, 0.25);
-            // move front
-            glTranslated(0, 0, 1);
-            // color
-            const RGBColor darkerColor = s.colorSettings.editShapeColor.changedBrightness(-32);
-            // draw geometry points
-            GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry.getShape(), darkerColor, RGBColor::BLACK,
-                                            s.neteditSizeSettings.laneGeometryPointRadius, 1, myNet->getViewNet()->getNetworkViewOptions().editingElevation(), true);
-            // Pop shape edited matrix
-            GLHelper::popMatrix();
-        }
+        // draw shape edited
+        drawShapeEdited(s);
         // Pop lane Name
         GLHelper::popName();
         // Pop edge Name
@@ -1190,6 +1171,31 @@ GNELane::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList)
     undoList->begin(GUIIcon::LANE, "moving " + toString(SUMO_ATTR_CUSTOMSHAPE) + " of " + getTagStr());
     undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(moveResult.shapeToUpdate)));
     undoList->end();
+}
+
+
+void
+GNELane::drawShapeEdited(const GUIVisualizationSettings& s) const {
+    // if shape is being edited, draw point and green line
+    if (myShapeEdited) {
+        // push shape edited matrix
+        GLHelper::pushMatrix();
+        // translate
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_JUNCTION + 1);
+        // set selected edge color
+        GLHelper::setColor(s.colorSettings.editShapeColor);
+        // draw again to show the selected edge
+        GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), {}, 0.25);
+        // move front
+        glTranslated(0, 0, 1);
+        // color
+        const RGBColor darkerColor = s.colorSettings.editShapeColor.changedBrightness(-32);
+        // draw geometry points
+        GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry.getShape(), darkerColor, RGBColor::BLACK,
+                                        s.neteditSizeSettings.laneGeometryPointRadius, 1, myNet->getViewNet()->getNetworkViewOptions().editingElevation(), true);
+        // Pop shape edited matrix
+        GLHelper::popMatrix();
+    }
 }
 
 
