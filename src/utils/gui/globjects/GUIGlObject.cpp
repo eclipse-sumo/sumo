@@ -58,7 +58,8 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"crossing",                GLO_CROSSING},
     {"walkingArea",             GLO_WALKINGAREA},
     {"tlLogic",                 GLO_TLLOGIC},
-    {"type",                    GLO_TYPE},
+    {"edgeType",                GLO_EDGETYPE},
+    {"laneType",                GLO_LANETYPE},
     //
     {"parentChildLine",         GLO_PARENTCHILDLINE},
     //

@@ -57,8 +57,10 @@ enum GUIGlObjectType {
     GLO_CROSSING = 7,
     /// @brief a tl-logic
     GLO_TLLOGIC = 8,
-    /// @brief an edge_type
-    GLO_TYPE = 9,
+    /// @brief an edgeType
+    GLO_EDGETYPE = 9,
+    /// @brief a laneType
+    GLO_LANETYPE = 10,
 
     /// @}
 
