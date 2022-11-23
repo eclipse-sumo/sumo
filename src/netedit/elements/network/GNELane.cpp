@@ -276,80 +276,72 @@ GNELane::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoLi
 
 void
 GNELane::drawLinkNo(const GUIVisualizationSettings& s) const {
-    // first check that drawLinkJunctionIndex must be drawn
-    if (s.drawLinkJunctionIndex.show(myParentEdge->getToJunction())) {
-        // get connections
-        const std::vector<NBEdge::Connection>& cons = myParentEdge->getNBEdge()->getConnectionsFromLane(myIndex);
-        // get number of links
-        const int noLinks = (int)cons.size();
-        // only continue if there is links
-        if (noLinks > 0) {
-            // push link matrix
-            GLHelper::pushMatrix();
-            // move front
-            glTranslated(0, 0, GLO_TEXTNAME);
-            // calculate width
-            const double width = myParentEdge->getNBEdge()->getLaneWidth(myIndex) / (double) noLinks;
-            // get X1
-            double x1 = myParentEdge->getNBEdge()->getLaneWidth(myIndex) / 2;
-            // iterate over links
-            for (int i = noLinks; --i >= 0;) {
-                // calculate x2
-                const double x2 = x1 - (double)(width / 2.);
-                // get link index
-                const int linkIndex = myParentEdge->getNBEdge()->getToNode()->getConnectionIndex(myParentEdge->getNBEdge(),
-                                      cons[s.lefthand ? noLinks - 1 - i : i]);
-                // draw link index
-                GLHelper::drawTextAtEnd(toString(linkIndex), myLaneGeometry.getShape(), x2, s.drawLinkJunctionIndex, s.scale);
-                // update x1
-                x1 -= width;
+    // only draw links number depending of the scale and if isn't being drawn for selecting
+    if ((s.scale >= 10) && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
+        // first check that drawLinkJunctionIndex must be drawn
+        if (s.drawLinkJunctionIndex.show(myParentEdge->getToJunction())) {
+            // get connections
+            const std::vector<NBEdge::Connection>& cons = myParentEdge->getNBEdge()->getConnectionsFromLane(myIndex);
+            // get number of links
+            const int noLinks = (int)cons.size();
+            // only continue if there is links
+            if (noLinks > 0) {
+                // push link matrix
+                GLHelper::pushMatrix();
+                // move front
+                glTranslated(0, 0, GLO_TEXTNAME);
+                // calculate width
+                const double width = myParentEdge->getNBEdge()->getLaneWidth(myIndex) / (double) noLinks;
+                // get X1
+                double x1 = myParentEdge->getNBEdge()->getLaneWidth(myIndex) / 2;
+                // iterate over links
+                for (int i = noLinks; --i >= 0;) {
+                    // calculate x2
+                    const double x2 = x1 - (double)(width / 2.);
+                    // get link index
+                    const int linkIndex = myParentEdge->getNBEdge()->getToNode()->getConnectionIndex(myParentEdge->getNBEdge(),
+                                          cons[s.lefthand ? noLinks - 1 - i : i]);
+                    // draw link index
+                    GLHelper::drawTextAtEnd(toString(linkIndex), myLaneGeometry.getShape(), x2, s.drawLinkJunctionIndex, s.scale);
+                    // update x1
+                    x1 -= width;
+                }
+                // pop link matrix
+                GLHelper::popMatrix();
             }
-            // pop link matrix
-            GLHelper::popMatrix();
+        }
+        // draw TLSLink No
+        if (s.drawLinkTLIndex.show(myParentEdge->getToJunction()) && (myParentEdge->getToJunction()->getNBNode()->getControllingTLS().size() > 0)) {
+            // get connections
+            const std::vector<NBEdge::Connection>& cons = myParentEdge->getNBEdge()->getConnectionsFromLane(myIndex);
+            // get numer of links
+            const int noLinks = (int)cons.size();
+            // only continue if there are links
+            if (noLinks > 0) {
+                // push link matrix
+                GLHelper::pushMatrix();
+                // move t front
+                glTranslated(0, 0, GLO_TEXTNAME);
+                // calculate width
+                const double w = myParentEdge->getNBEdge()->getLaneWidth(myIndex) / (double) noLinks;
+                // calculate x1
+                double x1 = myParentEdge->getNBEdge()->getLaneWidth(myIndex) / 2;
+                // iterate over links
+                for (int i = noLinks; --i >= 0;) {
+                    // calculate x2
+                    const double x2 = x1 - (double)(w / 2.);
+                    // get link number
+                    const int linkNo = cons[s.lefthand ? noLinks - 1 - i : i].tlLinkIndex;
+                    // draw link number
+                    GLHelper::drawTextAtEnd(toString(linkNo), myLaneGeometry.getShape(), x2, s.drawLinkTLIndex, s.scale);
+                    // update x1
+                    x1 -= w;
+                }
+                // pop link matrix
+                GLHelper::popMatrix();
+            }
         }
     }
-}
-
-
-void
-GNELane::drawTLSLinkNo(const GUIVisualizationSettings& s) const {
-    // first check that drawLinkTLIndex must be drawn
-    if (s.drawLinkTLIndex.show(myParentEdge->getToJunction()) && (myParentEdge->getToJunction()->getNBNode()->getControllingTLS().size() > 0)) {
-        // get connections
-        const std::vector<NBEdge::Connection>& cons = myParentEdge->getNBEdge()->getConnectionsFromLane(myIndex);
-        // get numer of links
-        const int noLinks = (int)cons.size();
-        // only continue if there are links
-        if (noLinks > 0) {
-            // push link matrix
-            GLHelper::pushMatrix();
-            // move t front
-            glTranslated(0, 0, GLO_TEXTNAME);
-            // calculate width
-            const double w = myParentEdge->getNBEdge()->getLaneWidth(myIndex) / (double) noLinks;
-            // calculate x1
-            double x1 = myParentEdge->getNBEdge()->getLaneWidth(myIndex) / 2;
-            // iterate over links
-            for (int i = noLinks; --i >= 0;) {
-                // calculate x2
-                const double x2 = x1 - (double)(w / 2.);
-                // get link number
-                const int linkNo = cons[s.lefthand ? noLinks - 1 - i : i].tlLinkIndex;
-                // draw link number
-                GLHelper::drawTextAtEnd(toString(linkNo), myLaneGeometry.getShape(), x2, s.drawLinkTLIndex, s.scale);
-                // update x1
-                x1 -= w;
-            }
-            // pop link matrix
-            GLHelper::popMatrix();
-        }
-    }
-}
-
-
-void
-GNELane::drawLinkRules(const GUIVisualizationSettings& /*s*/) const {
-    // currently unused
 }
 
 
@@ -573,34 +565,16 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         }
         // Pop layer matrix
         GLHelper::popMatrix();
-        // only draw details depending of the scale and if isn't being drawn for selecting
-        if (((s.scale * laneDrawingConstants.exaggeration) >= 1.) && (s.scale >= 10) && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
-            // Push layer matrix
-            GLHelper::pushMatrix();
-            // translate to front (note: Special case)
-            if (myNet->getViewNet()->getFrontAttributeCarrier() == myParentEdge) {
-                glTranslated(0, 0, GLO_FRONTELEMENT);
-            } else {
-                myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_LANEARROWS);
-            }
-            // draw arrows
-            drawArrows(s, spreadSuperposed);
-            // Pop layer matrix
-            GLHelper::popMatrix();
-        }
+        // draw lane arrows
+        drawLaneArrows(s, laneDrawingConstants.exaggeration, spreadSuperposed);
         // draw shape edited
         drawShapeEdited(s);
         // Pop lane Name
         GLHelper::popName();
         // Pop edge Name
         GLHelper::popName();
-        // only draw links number depending of the scale and if isn't being drawn for selecting
-        if ((s.scale >= 10) && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
-            // draw link number
-            drawLinkNo(s);
-            // draw TLS link number
-            drawTLSLinkNo(s);
-        }
+        // draw link numbers
+        drawLinkNo(s);
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
         // check if mouse is over element
@@ -1171,6 +1145,26 @@ GNELane::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList)
     undoList->begin(GUIIcon::LANE, "moving " + toString(SUMO_ATTR_CUSTOMSHAPE) + " of " + getTagStr());
     undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(moveResult.shapeToUpdate)));
     undoList->end();
+}
+
+
+void
+GNELane::drawLaneArrows(const GUIVisualizationSettings& s, const double exaggeration, const bool spreadSuperposed) const {
+    // only draw details depending of the scale and if isn't being drawn for selecting
+    if (((s.scale * exaggeration) >= 1.) && (s.scale >= 10) && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
+        // Push layer matrix
+        GLHelper::pushMatrix();
+        // translate to front (note: Special case)
+        if (myNet->getViewNet()->getFrontAttributeCarrier() == myParentEdge) {
+            glTranslated(0, 0, GLO_FRONTELEMENT);
+        } else {
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_LANEARROWS);
+        }
+        // draw arrows
+        drawArrows(s, spreadSuperposed);
+        // Pop layer matrix
+        GLHelper::popMatrix();
+    }
 }
 
 
