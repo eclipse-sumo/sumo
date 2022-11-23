@@ -485,6 +485,10 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     const LaneDrawingConstants laneDrawingConstants(s, this);
     // get lane color
     const RGBColor color = setLaneColor(s);
+    // avoid draw invisible elements
+    if (color.alpha() == 0) {
+        return;
+    }
     // get flag for draw lane as railway
     const bool drawRailway = drawAsRailway(s);
     // we draw the lanes with reduced width so that the lane markings below are visible (this avoids artifacts at geometry corners without having to)
