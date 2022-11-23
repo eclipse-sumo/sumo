@@ -991,6 +991,7 @@ GUISUMOAbstractView::getPopupPosition() const {
 void
 GUISUMOAbstractView::destroyPopup() {
     if (myPopup != nullptr) {
+        myPopup->removePopupFromObject();
         delete myPopup;
         myPopupPosition.set(0, 0);
         myPopup = nullptr;
@@ -1004,6 +1005,7 @@ GUISUMOAbstractView::replacePopup(GUIGLObjectPopupMenu* popUp) {
     // use the same position of old popUp
     popUp->move(myPopup->getX(), myPopup->getY());
     // delete and replace popup
+    myPopup->removePopupFromObject();
     delete myPopup;
     myPopup = popUp;
     // create and show popUp

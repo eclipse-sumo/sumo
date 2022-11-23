@@ -76,6 +76,9 @@ public:
     /// @brief Insert a sub-menu pane in this GUIGLObjectPopupMenu
     void insertMenuPaneChild(FXMenuPane* child);
 
+    // @brief remove popup menu from objects
+    void removePopupFromObject();
+
     /// @brief return the real owner of this popup
     GUISUMOAbstractView* getParentView();
 
