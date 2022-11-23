@@ -622,49 +622,10 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         }
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
-        // check if mark lane (and their parent edge)
-        if ((gPostDrawing.markedLane == nullptr) &&
-                (myLaneGeometry.getShape().distance2D(myNet->getViewNet()->getPositionInformation()) <= laneDrawingConstants.halfWidth)) {
-            // mark lane and their parent edge
-            gPostDrawing.markedLane = this;
-            gPostDrawing.markedEdge = myParentEdge;
-        }
         // check if mouse is over element
-        if (myParentEdge->getLanes().size() == 1) {
-            mouseWithinGeometry(getLaneShape(), laneDrawingConstants.halfWidth);
-        } else if (myNet->getViewNet()->getNetworkViewOptions().selectEdges() && !myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
-            mouseWithinGeometry(getLaneShape(), laneDrawingConstants.halfWidth, myParentEdge->getGUIGlObject());
-        } else if (!myNet->getViewNet()->getNetworkViewOptions().selectEdges() && myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
-            mouseWithinGeometry(getLaneShape(), laneDrawingConstants.halfWidth, myParentEdge->getGUIGlObject());
-        } else {
-            mouseWithinGeometry(getLaneShape(), laneDrawingConstants.halfWidth);
-        }
-        // check if dotted contours has to be drawn
-        if (!drawRailway) {
-            // inspect contour
-            if (myNet->getViewNet()->isAttributeCarrierInspected(this) ||
-                    ((myNet->getViewNet()->isAttributeCarrierInspected(myParentEdge) && (myParentEdge->getLanes().size() == 1)))) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, getLaneShape(), laneDrawingConstants.halfWidth, 1, true, true);
-            }
-            // front contour
-            if ((myNet->getViewNet()->getFrontAttributeCarrier() == this) ||
-                    ((myNet->getViewNet()->getFrontAttributeCarrier() == myParentEdge) && (myParentEdge->getLanes().size() == 1))) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, getLaneShape(), laneDrawingConstants.halfWidth, 1, true, true);
-            }
-            // orange contour
-            if (myNet->getViewNet()->getViewParent()->getAdditionalFrame()->getLanesSelector()->isNetworkElementSelected(this) ||
-                    (myNet->getViewNet()->getViewParent()->getAdditionalFrame()->getEdgesSelector()->isNetworkElementSelected(myParentEdge) && (myParentEdge->getLanes().size() == 1))) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::ORANGE, getLaneShape(), laneDrawingConstants.halfWidth, 1, true, true);
-            }
-            // delete contour
-            if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, getLaneShape(), laneDrawingConstants.halfWidth, 1, true, true);
-            }
-            // select contour
-            if (myNet->getViewNet()->drawSelectContour(this, this)) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, getLaneShape(), laneDrawingConstants.halfWidth, 1, true, true);
-            }
-        }
+        checkMouseOverLane(laneDrawingConstants.halfWidth);
+        // draw dotted contours
+        drawDottedContours(s, drawRailway, laneDrawingConstants.halfWidth);
         // draw children
         drawChildren(s);
         // draw path additional elements
@@ -1229,6 +1190,58 @@ GNELane::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList)
     undoList->begin(GUIIcon::LANE, "moving " + toString(SUMO_ATTR_CUSTOMSHAPE) + " of " + getTagStr());
     undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(moveResult.shapeToUpdate)));
     undoList->end();
+}
+
+
+void
+GNELane::checkMouseOverLane(const double laneWidth) const {
+    bool withinGeometry = false;
+    if (myParentEdge->getLanes().size() == 1) {
+        withinGeometry = mouseWithinGeometry(getLaneShape(), laneWidth);
+    } else if (myNet->getViewNet()->getNetworkViewOptions().selectEdges() && !myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
+        withinGeometry = mouseWithinGeometry(getLaneShape(), laneWidth, myParentEdge->getGUIGlObject());
+    } else if (!myNet->getViewNet()->getNetworkViewOptions().selectEdges() && myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
+        withinGeometry = mouseWithinGeometry(getLaneShape(), laneWidth, myParentEdge->getGUIGlObject());
+    } else {
+        withinGeometry = mouseWithinGeometry(getLaneShape(), laneWidth);
+    }
+    // check if mark lane (and their parent edge)
+    if (withinGeometry && (gPostDrawing.markedLane == nullptr)) {
+        // mark lane and their parent edge
+        gPostDrawing.markedLane = this;
+        gPostDrawing.markedEdge = myParentEdge;
+    }
+}
+
+
+void
+GNELane::drawDottedContours(const GUIVisualizationSettings& s, const bool drawRailway, const double laneWidth) const {
+    // check if dotted contours has to be drawn
+    if (!drawRailway) {
+        // inspect contour
+        if (myNet->getViewNet()->isAttributeCarrierInspected(this) ||
+                ((myNet->getViewNet()->isAttributeCarrierInspected(myParentEdge) && (myParentEdge->getLanes().size() == 1)))) {
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, getLaneShape(), laneWidth, 1, true, true);
+        }
+        // front contour
+        if ((myNet->getViewNet()->getFrontAttributeCarrier() == this) ||
+                ((myNet->getViewNet()->getFrontAttributeCarrier() == myParentEdge) && (myParentEdge->getLanes().size() == 1))) {
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, getLaneShape(), laneWidth, 1, true, true);
+        }
+        // orange contour
+        if (myNet->getViewNet()->getViewParent()->getAdditionalFrame()->getLanesSelector()->isNetworkElementSelected(this) ||
+                (myNet->getViewNet()->getViewParent()->getAdditionalFrame()->getEdgesSelector()->isNetworkElementSelected(myParentEdge) && (myParentEdge->getLanes().size() == 1))) {
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::ORANGE, getLaneShape(), laneWidth, 1, true, true);
+        }
+        // delete contour
+        if (myNet->getViewNet()->drawDeleteContour(this, this)) {
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, getLaneShape(), laneWidth, 1, true, true);
+        }
+        // select contour
+        if (myNet->getViewNet()->drawSelectContour(this, this)) {
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, getLaneShape(), laneWidth, 1, true, true);
+        }
+    }
 }
 
 

@@ -291,6 +291,12 @@ private:
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
+    /// @brief check if mouse is over lane
+    void checkMouseOverLane(const double laneWidth) const;
+
+    /// @brief draw dotted contours
+    void drawDottedContours(const GUIVisualizationSettings& s, const bool drawRailway, const double laneWidth) const;
+
     /// @brief draw children
     void drawChildren(const GUIVisualizationSettings& s) const;
 
