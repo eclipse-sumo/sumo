@@ -84,3 +84,6 @@ ticket11839
 
 # interpretation of empty osm.turn-lanes value
 ticket12042
+
+# spreadType in typemap
+ticket12141
