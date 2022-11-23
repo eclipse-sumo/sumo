@@ -73,9 +73,6 @@ public:
     /// @brief Destructor
     virtual ~GUIGLObjectPopupMenu();
 
-    /// @brief Hide popup
-    void hide();
-
     /// @brief Insert a sub-menu pane in this GUIGLObjectPopupMenu
     void insertMenuPaneChild(FXMenuPane* child);
 

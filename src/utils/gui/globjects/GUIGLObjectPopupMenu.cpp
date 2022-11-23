@@ -95,16 +95,6 @@ GUIGLObjectPopupMenu::~GUIGLObjectPopupMenu() {
 
 
 void
-GUIGLObjectPopupMenu::hide() {
-    // remove popup menu from object
-    if (myObject) {
-        myObject->removedPopupMenu();
-    }
-    myObject = nullptr;
-}
-
-
-void
 GUIGLObjectPopupMenu::insertMenuPaneChild(FXMenuPane* child) {
     // Check that MenuPaneChild isn't NULL
     if (child == nullptr) {
