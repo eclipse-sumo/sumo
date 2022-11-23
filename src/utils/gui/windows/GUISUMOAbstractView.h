@@ -575,6 +575,27 @@ protected:
     long myFrameDrawTime;
 
 private:
+    /// @brief struct used for sorting objects by layer
+    struct LayerObject : public std::pair<double, std::pair<GUIGlObjectType, std::string> > {
+    
+    public:
+        /// @brief constructor for shapes
+        LayerObject(double layer, GUIGlObject* object);
+
+        /// @brief constructor for non-shape elements
+        LayerObject(GUIGlObject* object);
+
+        /// @brief get GLObject
+        GUIGlObject* getGLObject() const;
+
+    private:
+        /// @brief GLObject
+        GUIGlObject* myGLObject;
+    };
+
+    /// @fbrief filter elements by layer
+    std::vector<GUIGlObject*> filterGUIGLObjectsByLayer(const std::vector<GUIGlObject*> &objects) const;
+
     // @brief sensitivity for "<>AtPosition(...) functions
     static const double SENSITIVITY;
 };
