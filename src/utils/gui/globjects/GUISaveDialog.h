@@ -53,7 +53,7 @@ public:
     long onCmdCancel(FXObject*, FXSelector, void*);
 
     /// @brief Show modal question message, in free floating window.
-    static FXuint question(FXApp* app, FXuint opts, const char* caption, const char* message, ...);
+    static FXuint question(FXApp* app, const char* caption, const char* message, ...);
 
 protected:
     /// @brief FOX need this

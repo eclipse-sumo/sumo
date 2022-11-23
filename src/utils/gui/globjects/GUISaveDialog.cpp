@@ -65,11 +65,11 @@ GUISaveDialog::onCmdCancel(FXObject* sender, FXSelector, void* ptr) {
 
 
 FXuint
-GUISaveDialog::question(FXApp* app, FXuint opts, const char* caption, const char* message, ...) {
+GUISaveDialog::question(FXApp* app, const char* caption, const char* message, ...) {
     FXGIFIcon icon(app, myQuestionIcon);
     va_list arguments;
     va_start(arguments, message);
-    GUISaveDialog box(app, caption, FXStringVFormat(message, arguments), &icon, opts | DECOR_TITLE | DECOR_BORDER);
+    GUISaveDialog box(app, caption, FXStringVFormat(message, arguments), &icon);
     va_end(arguments);
     return box.execute(PLACEMENT_SCREEN);
 }

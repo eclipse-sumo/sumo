@@ -4555,9 +4555,8 @@ GNEApplicationWindow::continueWithUnsavedChanges(const std::string& operation) {
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Opening FXMessageBox 'Confirm " + operation + " network'");
         // open question box
-        answer = GUISaveDialog::question(getApp(), MBOX_QUIT_SAVE_CANCEL,
-            ("Confirm " + operation + " Network").c_str(), "%s",
-            ("You have unsaved changes in the network. Do you wish to " + operation + " and discard all changes?").c_str());
+        answer = GUISaveDialog::question(getApp(), ("Confirm " + operation + " Network").c_str(), "%s",
+            ("You have unsaved changes in the network.\nDo you wish to " + operation + " and discard all changes?").c_str());
         // restore focus to view net
         myViewNet->setFocus();
         // if user close dialog box, check additionals and demand elements
@@ -4617,7 +4616,7 @@ GNEApplicationWindow::continueWithUnsavedAdditionalChanges(const std::string& op
     if (myViewNet && myFileMenuCommands.saveAdditionals->isEnabled()) {
         WRITE_DEBUG("Opening FXMessageBox 'Save additionals before " + operation + "'");
         // open question box
-        FXuint answer = GUISaveDialog::question(getApp(), MBOX_QUIT_SAVE_CANCEL,
+        FXuint answer = GUISaveDialog::question(getApp(),
             ("Save additionals before " + operation).c_str(), "%s",
             ("You have unsaved additionals. Do you wish to " + operation + " and discard all changes?").c_str());
         // restore focus to view net
@@ -4660,9 +4659,8 @@ GNEApplicationWindow::continueWithUnsavedDemandElementChanges(const std::string&
     if (myViewNet && myFileMenuCommands.saveDemandElements->isEnabled()) {
         WRITE_DEBUG("Opening FXMessageBox 'Save demand elements before " + operation + "'");
         // open question box
-        FXuint answer = GUISaveDialog::question(getApp(), MBOX_QUIT_SAVE_CANCEL,
-            ("Save demand elements before " + operation).c_str(), "%s",
-            ("You have unsaved demand elements. Do you wish to " + operation + " and discard all changes?").c_str());
+        FXuint answer = GUISaveDialog::question(getApp(), ("Save demand elements before " + operation).c_str(), "%s",
+            ("You have unsaved demand elements.\nDo you wish to " + operation + " and discard all changes?").c_str());
         // restore focus to view net
         myViewNet->setFocus();
         // if answer was affirmative, but there was an error during saving demand elements, return false to stop closing/reloading
@@ -4703,9 +4701,8 @@ GNEApplicationWindow::continueWithUnsavedDataElementChanges(const std::string& o
     if (myViewNet && myFileMenuCommands.saveDataElements->isEnabled()) {
         WRITE_DEBUG("Opening FXMessageBox 'Save data elements before " + operation + "'");
         // open question box
-        FXuint answer = GUISaveDialog::question(getApp(), MBOX_QUIT_SAVE_CANCEL,
-            ("Save data elements before " + operation).c_str(), "%s",
-            ("You have unsaved data elements. Do you wish to " + operation + " and discard all changes?").c_str());
+        FXuint answer = GUISaveDialog::question(getApp(), ("Save data elements before " + operation).c_str(), "%s",
+            ("You have unsaved data elements.\nDo you wish to " + operation + " and discard all changes?").c_str());
         // restore focus to view net
         myViewNet->setFocus();
         // if answer was affirmative, but there was an error during saving data elements, return false to stop closing/reloading
