@@ -278,7 +278,12 @@ MSLaneChangerSublane::abortLCManeuver(MSVehicle* vehicle) {
 #endif
         outputLCEnded(vehicle, myCandi, myCandi, priorDirection);
     }
-    vehicle->getLaneChangeModel().setSpeedLat(0);
+    if (vehicle->getLaneChangeModel().getSpeedLat() != 0) {
+        vehicle->getLaneChangeModel().setSpeedLat(0);
+        // compute new angle here
+    } else {
+        vehicle->getLaneChangeModel().setSpeedLat(0);
+    }
     vehicle->getLaneChangeModel().setManeuverDist(0.);
     vehicle->getLaneChangeModel().updateTargetLane();
 }
@@ -821,7 +826,12 @@ MSLaneChangerSublane::checkChangeOpposite(
         vehicle->getLaneChangeModel().setOwnState(state);
         return startChangeSublane(vehicle, myCandi, latDist, maneuverDist);
     } else {
-        vehicle->getLaneChangeModel().setSpeedLat(0);
+        if (vehicle->getLaneChangeModel().getSpeedLat() != 0) {
+            vehicle->getLaneChangeModel().setSpeedLat(0);
+            // compute new angle here
+        } else {
+            vehicle->getLaneChangeModel().setSpeedLat(0);
+        }
         return false;
     }
 }

@@ -4313,6 +4313,9 @@ MSVehicle::executeMove() {
             // check (#2681): Can this be skipped?
             myLaneChangeModel->prepareStep();
         } else {
+            if (MSGlobals::gLaneChangeDuration > 0 && !myLaneChangeModel->isChangingLanes() && !(myLaneChangeModel->getSigmaLat() > 0)) {
+                myLaneChangeModel->setSpeedLat(0);
+            }
 #ifdef DEBUG_ACTIONSTEPS
             if (DEBUG_COND) {
                 std::cout << SIMTIME << " veh '" << getID() << "' skips LCM->prepareStep()." << std::endl;

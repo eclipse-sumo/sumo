@@ -565,6 +565,11 @@ public:
         return myAccelerationLat;
     }
 
+    /// @brief return the factor for lane keeping imperfection
+    double getSigmaLat() const {
+        return mySigma;
+    }
+
     /// @brief set the lateral speed and update lateral acceleraton
     void setSpeedLat(double speedLat);
 
