@@ -60,22 +60,8 @@ enum {
 class GUISaveDialog : public FXDialogBox {
     FXDECLARE(GUISaveDialog)
 
-protected:
-    GUISaveDialog() {}
-
-private:
-    GUISaveDialog(const GUISaveDialog&);
-
-    GUISaveDialog &operator=(const GUISaveDialog&) = delete;
-
-    void initialize(const FXString &text, FXIcon* ic, FXuint whichbuttons);
-
 public:
-    long onCmdClicked(FXObject*, FXSelector, void*);
-
-    long onCmdCancel(FXObject*, FXSelector, void*);
-
-    enum{
+    enum {
         ID_CLICKED_YES=FXDialogBox::ID_LAST, 
         ID_CLICKED_NO, 
         ID_CLICKED_OK, 
@@ -93,47 +79,32 @@ public:
     /// Construct free floating message box with given caption, icon, and message text
     GUISaveDialog(FXApp* app, const FXString &caption, const FXString &text, FXIcon* ic=NULL, FXuint opts=0, FXint x=0, FXint y=0);
 
-    /**
-    * Show a modal error message.
-    * The text message may contain printf-tyle formatting commands.
-    */
-    static FXuint error(FXWindow* owner, FXuint opts, const char* caption, const char* message, ...) FX_PRINTF(4, 5) ;
+    /// @brief called when user click over button
+    long onCmdClicked(FXObject*, FXSelector, void*);
 
-    /**
-    * Show modal error message, in free floating window.
-    */
-    static FXuint error(FXApp* app, FXuint opts, const char* caption, const char* message, ...) FX_PRINTF(4, 5) ;
+    /// @brief called when user press cancel
+    long onCmdCancel(FXObject*, FXSelector, void*);
 
-    /**
-    * Show a modal warning message
-    * The text message may contain printf-tyle formatting commands.
-    */
-    static FXuint warning(FXWindow* owner, FXuint opts, const char* caption, const char* message, ...) FX_PRINTF(4, 5) ;
+    /// @brief Show a modal question dialog
+    static FXuint question(FXWindow* owner, FXuint opts, const char* caption, const char* message);
 
-    /**
-    * Show modal warning message, in free floating window.
-    */
-    static FXuint warning(FXApp* app, FXuint opts, const char* caption, const char* message, ...) FX_PRINTF(4, 5) ;
+    /// @brief Show modal question message, in free floating window.
+    static FXuint question(FXApp* app, FXuint opts, const char* caption, const char* message);
 
-    /**
-    * Show a modal question dialog
-    * The text message may contain printf-tyle formatting commands.
-    */
-    static FXuint question(FXWindow* owner, FXuint opts, const char* caption, const char* message, ...) FX_PRINTF(4, 5) ;
+protected:
+    /// @brief FOX need this
+    GUISaveDialog() {}
 
-    /**
-    * Show modal question message, in free floating window.
-    */
-    static FXuint question(FXApp* app, FXuint opts, const char* caption, const char* message, ...) FX_PRINTF(4, 5) ;
+private:
+    /// @brief initialize save dialog
+    void initialize(const FXString &text, FXIcon* ic, FXuint whichbuttons);
 
-    /**
-    * Show a modal information dialog
-    * The text message may contain printf-tyle formatting commands.
-    */
-    static FXuint information(FXWindow* owner, FXuint opts, const char* caption, const char* message, ...) FX_PRINTF(4, 5) ;
+    /// @brief question icon
+    static const unsigned char myQuestionIcon[];
 
-    /**
-    * Show modal information message, in free floating window.
-    */
-    static FXuint information(FXApp* app, FXuint opts, const char* caption, const char* message, ...) FX_PRINTF(4, 5) ;
+    /// @brief invalidate default constructor
+    GUISaveDialog(const GUISaveDialog&) = delete;
+
+    /// @brief invalidate copy operator
+    GUISaveDialog &operator=(const GUISaveDialog&) = delete;
 };
