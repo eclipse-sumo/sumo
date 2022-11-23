@@ -28,8 +28,9 @@
 
 // Map
 FXDEFMAP(GUISaveDialog) GUISaveDialogMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  GUISaveDialog::ID_CANCEL,       GUISaveDialog::onCmdCancel), 
-    FXMAPFUNCS(SEL_COMMAND, GUISaveDialog::ID_CLICKED_YES,  GUISaveDialog::ID_CLICKED_SKIPALL, GUISaveDialog::onCmdClicked), 
+    FXMAPFUNC(SEL_COMMAND,  GUISaveDialog::CLICKED_SAVE,    GUISaveDialog::onCmdClicked), 
+    FXMAPFUNC(SEL_COMMAND,  GUISaveDialog::CLICKED_DISCARD, GUISaveDialog::onCmdClicked), 
+    FXMAPFUNC(SEL_COMMAND,  GUISaveDialog::CLICKED_CANCEL,  GUISaveDialog::onCmdCancel), 
 };
 
 
@@ -37,21 +38,21 @@ FXDEFMAP(GUISaveDialog) GUISaveDialogMap[] = {
 FXIMPLEMENT(GUISaveDialog, FXDialogBox, GUISaveDialogMap, ARRAYNUMBER(GUISaveDialogMap))
 
 
-GUISaveDialog::GUISaveDialog(FXWindow* owner, const FXString &caption, const FXString &text, FXIcon* ic, FXuint opts, FXint x, FXint y):
-    FXDialogBox(owner, caption, opts | DECOR_TITLE | DECOR_BORDER, x, y, 0, 0, 0, 0, 0, 0, 4, 4) {
-    initialize(text, ic, opts & MBOX_BUTTON_MASK);
-}
-
-
 GUISaveDialog::GUISaveDialog(FXApp* a, const FXString &caption, const FXString &text, FXIcon* ic, FXuint opts, FXint x, FXint y):
     FXDialogBox(a, caption, opts | DECOR_TITLE | DECOR_BORDER, x, y, 0, 0, 0, 0, 0, 0, 4, 4) {
-    initialize(text, ic, opts & MBOX_BUTTON_MASK);
+    initialize(text, ic);
 }
 
 
 long
 GUISaveDialog::onCmdClicked(FXObject*, FXSelector sel, void*) {
-    getApp()->stopModal(this, MBOX_CLICKED_YES + (FXSELID(sel)-ID_CLICKED_YES));
+    if (sel == FXSEL(SEL_COMMAND, GUISaveDialog::CLICKED_SAVE)) {
+        getApp()->stopModal(this, GUISaveDialog::CLICKED_SAVE);
+    } else if (sel == FXSEL(SEL_COMMAND, GUISaveDialog::CLICKED_DISCARD)) {
+        getApp()->stopModal(this, GUISaveDialog::CLICKED_DISCARD);
+    } else {
+        getApp()->stopModal(this, GUISaveDialog::CLICKED_CANCEL);
+    }
     hide();
     return 1;
 }
@@ -59,23 +60,12 @@ GUISaveDialog::onCmdClicked(FXObject*, FXSelector sel, void*) {
 
 long
 GUISaveDialog::onCmdCancel(FXObject* sender, FXSelector, void* ptr) {
-    return GUISaveDialog::onCmdClicked(sender, FXSEL(SEL_COMMAND, ID_CLICKED_CANCEL), ptr);
+    return GUISaveDialog::onCmdClicked(sender, FXSEL(SEL_COMMAND, FXMessageBox::ID_CLICKED_CANCEL), ptr);
 }
 
 
 FXuint
-GUISaveDialog::question(FXWindow* owner, FXuint opts, const char* caption, const char* message) {
-    FXGIFIcon icon(owner->getApp(), myQuestionIcon);
-    va_list arguments;
-    va_start(arguments, message);
-    GUISaveDialog box(owner, caption, FXStringVFormat(message, arguments), &icon, opts | DECOR_TITLE | DECOR_BORDER);
-    va_end(arguments);
-    return box.execute(PLACEMENT_OWNER);
-}
-
-
-FXuint
-GUISaveDialog::question(FXApp* app, FXuint opts, const char* caption, const char* message) {
+GUISaveDialog::question(FXApp* app, FXuint opts, const char* caption, const char* message, ...) {
     FXGIFIcon icon(app, myQuestionIcon);
     va_list arguments;
     va_start(arguments, message);
@@ -86,57 +76,27 @@ GUISaveDialog::question(FXApp* app, FXuint opts, const char* caption, const char
 
 
 void
-GUISaveDialog::initialize(const FXString &text, FXIcon* ic, FXuint whichbuttons) {
-    FXButton *initial;
+GUISaveDialog::initialize(const FXString &text, FXIcon* ic) {
     FXVerticalFrame* content = new FXVerticalFrame(this, LAYOUT_FILL_X | LAYOUT_FILL_Y);
     FXHorizontalFrame* info = new FXHorizontalFrame(content, LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 10, 10, 10, 10);
     new FXLabel(info, FXString::null, ic, ICON_BEFORE_TEXT | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y);
     new FXLabel(info, text, NULL, JUSTIFY_LEFT | ICON_BEFORE_TEXT | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FILL_Y);
     new FXHorizontalSeparator(content, SEPARATOR_GROOVE | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X);
     FXHorizontalFrame* buttons = new FXHorizontalFrame(content, LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_FILL_X | PACK_UNIFORM_WIDTH, 0, 0, 0, 0, 10, 10, 5, 5);
-    if (whichbuttons == MBOX_OK) {
-        initial = new FXButton(buttons, tr("&OK"), NULL, this, ID_CLICKED_OK, BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, HORZ_PAD, HORZ_PAD, VERT_PAD, VERT_PAD);
-        initial->setFocus();
-    } else if (whichbuttons == MBOX_OK_CANCEL) {
-        initial = new FXButton(buttons, tr("&OK"), NULL, this, ID_CLICKED_OK, BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, HORZ_PAD, HORZ_PAD, VERT_PAD, VERT_PAD);
-        new FXButton(buttons, tr("&Cancel"), NULL, this, ID_CLICKED_CANCEL, BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, HORZ_PAD, HORZ_PAD, VERT_PAD, VERT_PAD);
-        initial->setFocus();
-    } else if (whichbuttons == MBOX_YES_NO) {
-        initial = new FXButton(buttons, tr("&Yes"), NULL, this, ID_CLICKED_YES, BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, HORZ_PAD, HORZ_PAD, VERT_PAD, VERT_PAD);
-        new FXButton(buttons, tr("&No"), NULL, this, ID_CLICKED_NO, BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, HORZ_PAD, HORZ_PAD, VERT_PAD, VERT_PAD);
-        initial->setFocus();
-    } else if (whichbuttons == MBOX_YES_NO_CANCEL) {
-        initial = new FXButton(buttons, tr("&Yes"), NULL, this, ID_CLICKED_YES, BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, HORZ_PAD, HORZ_PAD, VERT_PAD, VERT_PAD);
-        new FXButton(buttons, tr("&No"), NULL, this, ID_CLICKED_NO, BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, HORZ_PAD, HORZ_PAD, VERT_PAD, VERT_PAD);
-        new FXButton(buttons, tr("&Cancel"), NULL, this, ID_CLICKED_CANCEL, BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, HORZ_PAD, HORZ_PAD, VERT_PAD, VERT_PAD);
-        initial->setFocus();
-    } else if (whichbuttons == MBOX_QUIT_CANCEL) {
-        initial = new FXButton(buttons, tr("&Quit"), NULL, this, ID_CLICKED_QUIT, BUTTON_INITIAL | BUTTON_DEFAULT | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, HORZ_PAD, HORZ_PAD, VERT_PAD, VERT_PAD);
-        new FXButton(buttons, tr("&Cancel"), NULL, this, ID_CLICKED_CANCEL, BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, HORZ_PAD, HORZ_PAD, VERT_PAD, VERT_PAD);
-        initial->setFocus();
-    } else if (whichbuttons == MBOX_QUIT_SAVE_CANCEL) {
-        new FXButton(buttons, tr("&Quit"), NULL, this, ID_CLICKED_QUIT, BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, HORZ_PAD, HORZ_PAD, VERT_PAD, VERT_PAD);
-        initial = new FXButton(buttons, tr("&Save"), NULL, this, ID_CLICKED_SAVE, BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, HORZ_PAD, HORZ_PAD, VERT_PAD, VERT_PAD);
-        new FXButton(buttons, tr("&Cancel"), NULL, this, ID_CLICKED_CANCEL, BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, HORZ_PAD, HORZ_PAD, VERT_PAD, VERT_PAD);
-        initial->setFocus();
-    } else if (whichbuttons == MBOX_SKIP_SKIPALL_CANCEL) {
-        initial = new FXButton(buttons, tr("&Skip"), NULL, this, ID_CLICKED_SKIP, BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, HORZ_PAD, HORZ_PAD, VERT_PAD, VERT_PAD);
-        new FXButton(buttons, tr("Skip &All"), NULL, this, ID_CLICKED_SKIPALL, BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, HORZ_PAD, HORZ_PAD, VERT_PAD, VERT_PAD);
-        new FXButton(buttons, tr("&Cancel"), NULL, this, ID_CLICKED_CANCEL, BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT | LAYOUT_CENTER_X, 0, 0, 0, 0, HORZ_PAD, HORZ_PAD, VERT_PAD, VERT_PAD);
-        initial->setFocus();
-    } else if (whichbuttons == MBOX_SAVE_CANCEL_DONTSAVE) {
-        buttons->setPackingHints(PACK_NORMAL);
-        new FXButton(buttons, tr("&Don't Save"), NULL, this, ID_CLICKED_NO, BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_CENTER_X, 0, 0, 0, 0, 15, 15, VERT_PAD, VERT_PAD);
-        FXHorizontalFrame *buttons3 = new FXHorizontalFrame(buttons, LAYOUT_RIGHT | PACK_UNIFORM_WIDTH, 0, 0, 0, 0, 0, 0, 0, 0);
-        new FXButton(buttons3, tr("&Cancel"), NULL, this, ID_CLICKED_CANCEL, BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT, 0, 0, 0, 0, 15, 15, VERT_PAD, VERT_PAD);
-        initial = new FXButton(buttons3, tr("&Save"), NULL, this, ID_CLICKED_SAVE, BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT, 0, 0, 0, 0, 15, 15, VERT_PAD, VERT_PAD);
-        initial->setFocus();
-    }
+
+    buttons->setPackingHints(PACK_NORMAL);
+    FXButton *saveChanges = new FXButton(buttons, tr("&Save changes"), NULL, this, CLICKED_SAVE, 
+        BUTTON_INITIAL | BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_CENTER_X, 0, 0, 0, 0, 15, 15, VERT_PAD, VERT_PAD);
+    new FXButton(buttons, tr("&Discard changes"), NULL, this, CLICKED_DISCARD, 
+        BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_CENTER_X, 0, 0, 0, 0, 15, 15, VERT_PAD, VERT_PAD);
+    new FXButton(buttons, tr("&Cancel"), NULL, this, CLICKED_CANCEL, 
+        BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_CENTER_X, 0, 0, 0, 0, 15, 15, VERT_PAD, VERT_PAD);
+    saveChanges->setFocus();
 }
 
 
 const unsigned char 
-GUISaveDialog::myQuestionIcon[]  =  {
+GUISaveDialog::myQuestionIcon[] = {
     0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x20, 0x00, 0x20, 0x00, 0xf2, 0x00, 0x00, 0x80, 0x80, 0x80, 
     0xc0, 0xc0, 0xc0, 0xff, 0xff, 0xff, 0x00, 0x00, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x2c, 0x00, 0x00, 0x00, 0x00, 0x20, 0x00, 0x20, 0x00, 0x00, 0x03, 
