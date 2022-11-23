@@ -32,7 +32,7 @@ enum {
     MBOX_QUIT_CANCEL          = 0x50000000, /// Message box has QUIT and CANCEL buttons
     MBOX_QUIT_SAVE_CANCEL     = 0x60000000, /// Message box has QUIT, SAVE, and CANCEL buttons
     MBOX_SKIP_SKIPALL_CANCEL  = 0x70000000, /// Message box has SKIP, SKIP ALL, and CANCEL buttons
-    MBOX_SAVE_CANCEL_DONTSAVE = 0x80000000  /// Message box has DON'T SAVE,CANCEL and SAVE buttons
+    MBOX_SAVE_CANCEL_DONTSAVE = 0x80000000  /// Message box has DON'T SAVE, CANCEL and SAVE buttons
 };
 
 // Return values
@@ -61,79 +61,79 @@ class GUISaveDialog : public FXDialogBox {
     FXDECLARE(GUISaveDialog)
 
 protected:
-    GUISaveDialog(){}
+    GUISaveDialog() {}
 
 private:
     GUISaveDialog(const GUISaveDialog&);
 
     GUISaveDialog &operator=(const GUISaveDialog&) = delete;
 
-    void initialize(const FXString& text,FXIcon* ic,FXuint whichbuttons);
+    void initialize(const FXString &text, FXIcon* ic, FXuint whichbuttons);
 
 public:
-    long onCmdClicked(FXObject*,FXSelector,void*);
+    long onCmdClicked(FXObject*, FXSelector, void*);
 
-    long onCmdCancel(FXObject*,FXSelector,void*);
+    long onCmdCancel(FXObject*, FXSelector, void*);
 
     enum{
-        ID_CLICKED_YES=FXDialogBox::ID_LAST,
-        ID_CLICKED_NO,
-        ID_CLICKED_OK,
-        ID_CLICKED_CANCEL,
-        ID_CLICKED_QUIT,
-        ID_CLICKED_SAVE,
-        ID_CLICKED_SKIP,
-        ID_CLICKED_SKIPALL,
+        ID_CLICKED_YES=FXDialogBox::ID_LAST, 
+        ID_CLICKED_NO, 
+        ID_CLICKED_OK, 
+        ID_CLICKED_CANCEL, 
+        ID_CLICKED_QUIT, 
+        ID_CLICKED_SAVE, 
+        ID_CLICKED_SKIP, 
+        ID_CLICKED_SKIPALL, 
         ID_LAST
     };
 
     /// Construct message box with given caption, icon, and message text
-    GUISaveDialog(FXWindow* owner,const FXString& caption,const FXString& text,FXIcon* ic=NULL,FXuint opts=0,FXint x=0,FXint y=0);
+    GUISaveDialog(FXWindow* owner, const FXString &caption, const FXString &text, FXIcon* ic=NULL, FXuint opts=0, FXint x=0, FXint y=0);
 
     /// Construct free floating message box with given caption, icon, and message text
-    GUISaveDialog(FXApp* app,const FXString& caption,const FXString& text,FXIcon* ic=NULL,FXuint opts=0,FXint x=0,FXint y=0);
+    GUISaveDialog(FXApp* app, const FXString &caption, const FXString &text, FXIcon* ic=NULL, FXuint opts=0, FXint x=0, FXint y=0);
 
     /**
     * Show a modal error message.
     * The text message may contain printf-tyle formatting commands.
     */
-    static FXuint error(FXWindow* owner,FXuint opts,const char* caption,const char* message,...) FX_PRINTF(4,5) ;
+    static FXuint error(FXWindow* owner, FXuint opts, const char* caption, const char* message, ...) FX_PRINTF(4, 5) ;
 
     /**
     * Show modal error message, in free floating window.
     */
-    static FXuint error(FXApp* app,FXuint opts,const char* caption,const char* message,...) FX_PRINTF(4,5) ;
+    static FXuint error(FXApp* app, FXuint opts, const char* caption, const char* message, ...) FX_PRINTF(4, 5) ;
 
     /**
     * Show a modal warning message
     * The text message may contain printf-tyle formatting commands.
     */
-    static FXuint warning(FXWindow* owner,FXuint opts,const char* caption,const char* message,...) FX_PRINTF(4,5) ;
+    static FXuint warning(FXWindow* owner, FXuint opts, const char* caption, const char* message, ...) FX_PRINTF(4, 5) ;
 
     /**
     * Show modal warning message, in free floating window.
     */
-    static FXuint warning(FXApp* app,FXuint opts,const char* caption,const char* message,...) FX_PRINTF(4,5) ;
+    static FXuint warning(FXApp* app, FXuint opts, const char* caption, const char* message, ...) FX_PRINTF(4, 5) ;
 
     /**
     * Show a modal question dialog
     * The text message may contain printf-tyle formatting commands.
     */
-    static FXuint question(FXWindow* owner,FXuint opts,const char* caption,const char* message,...) FX_PRINTF(4,5) ;
+    static FXuint question(FXWindow* owner, FXuint opts, const char* caption, const char* message, ...) FX_PRINTF(4, 5) ;
 
     /**
     * Show modal question message, in free floating window.
     */
-    static FXuint question(FXApp* app,FXuint opts,const char* caption,const char* message,...) FX_PRINTF(4,5) ;
+    static FXuint question(FXApp* app, FXuint opts, const char* caption, const char* message, ...) FX_PRINTF(4, 5) ;
 
     /**
     * Show a modal information dialog
     * The text message may contain printf-tyle formatting commands.
     */
-    static FXuint information(FXWindow* owner,FXuint opts,const char* caption,const char* message,...) FX_PRINTF(4,5) ;
+    static FXuint information(FXWindow* owner, FXuint opts, const char* caption, const char* message, ...) FX_PRINTF(4, 5) ;
 
     /**
     * Show modal information message, in free floating window.
     */
-    static FXuint information(FXApp* app,FXuint opts,const char* caption,const char* message,...) FX_PRINTF(4,5) ;
+    static FXuint information(FXApp* app, FXuint opts, const char* caption, const char* message, ...) FX_PRINTF(4, 5) ;
 };
