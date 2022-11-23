@@ -604,6 +604,10 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         if (addBackward && lsf == LaneSpreadFunction::RIGHT && OptionsCont::getOptions().getString("default.spreadtype") == toString(LaneSpreadFunction::ROADCENTER)) {
             lsf = LaneSpreadFunction::ROADCENTER;
         }
+        if (tc.getEdgeTypeSpreadType(type) != LaneSpreadFunction::RIGHT) {
+            // user defined value overrides defaults
+            lsf = tc.getEdgeTypeSpreadType(type);
+        }
 
         id = StringUtils::escapeXML(id);
         const std::string reverseID = "-" + id;
