@@ -36,3 +36,6 @@ strategic_change_before_prohibition_blocked
 
 # prohibitions on changing should be taken into account for strategic lane changing
 strategic_change_before_prohibition_blocked2
+
+# prohibitions on changing should be taken into account for strategic lane changing
+strategic_change_before_prohibition_blocked3
