@@ -559,6 +559,7 @@ GNEApplicationWindow::~GNEApplicationWindow() {
     delete myFileMenuAdditionals;
     delete myFileMenuDemandElements;
     delete myFileMenuDataElements;
+    delete myFileMenuRecentFiles;
     delete myFileMenu;
     delete myModesMenu;
     delete myEditMenu;
@@ -1332,10 +1333,13 @@ GNEApplicationWindow::fillMenuBar() {
     myFileMenuAdditionals = new FXMenuPane(this);
     myFileMenuDemandElements = new FXMenuPane(this);
     myFileMenuDataElements = new FXMenuPane(this);
+    myFileMenuRecentFiles = new FXMenuPane(this);
     myFileMenuCommands.buildFileMenuCommands(myFileMenu, myFileMenuSUMOConfig, myFileMenuTLS, myFileMenuEdgeTypes,
             myFileMenuAdditionals, myFileMenuDemandElements, myFileMenuDataElements);
+    // add separator for recent files
+    new FXMenuSeparator(myFileMenu);
     // build recent files
-    myMenuBarFile.buildRecentFiles(myFileMenu);
+    myMenuBarFile.buildRecentFiles(myFileMenu, myFileMenuRecentFiles);
     new FXMenuSeparator(myFileMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myFileMenu,
                                            TL("&Quit"), "Ctrl+Q", TL("Quit the Application."),

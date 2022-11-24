@@ -122,7 +122,7 @@ struct GNEApplicationWindowHelper {
         MenuBarFile(GNEApplicationWindow* GNEApp);
 
         /// @brief build recent files
-        void buildRecentFiles(FXMenuPane* fileMenu);
+        void buildRecentFiles(FXMenuPane* fileMenu, FXMenuPane* myFileMenuRecentFiles);
 
         /// @brief List of recent nets and config files
         MFXRecentNetworks myRecentNetsAndConfigs;
