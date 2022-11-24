@@ -30,3 +30,6 @@ strategic_change_before_prohibition
 
 # prohibitions on changing should be taken into account for strategic lane changing (changing prohibited on arrival edge but required for arrivalLane)
 strategic_change_before_prohibition_arrivalLane
+
+# prohibitions on changing should be taken into account for strategic lane changing
+strategic_change_before_prohibition_blocked
