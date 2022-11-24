@@ -137,7 +137,7 @@ GNEInstantInductionLoopDetector::updateGeometry() {
 
 
 void
-GNEInstantInductionLoopDetector::drawGLX(const GUIVisualizationSettings& s) const {
+GNEInstantInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const {
     // check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals() && !myNet->getViewNet()->selectingDetectorsTLSMode()) {
         // Obtain exaggeration of the draw

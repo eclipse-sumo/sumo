@@ -129,7 +129,7 @@ GNERouteProbe::getParentName() const {
 
 
 void
-GNERouteProbe::drawGLX(const GUIVisualizationSettings& s) const {
+GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double routeProbeExaggeration = getExaggeration(s);
     // first check if additional has to be drawn

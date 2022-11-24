@@ -274,7 +274,7 @@ GNELaneAreaDetector::updateGeometry() {
 
 
 void
-GNELaneAreaDetector::drawGLX(const GUIVisualizationSettings& s) const {
+GNELaneAreaDetector::drawGL(const GUIVisualizationSettings& s) const {
     // check if additional has to be drawn
     if ((myTagProperty.getTag() == SUMO_TAG_LANE_AREA_DETECTOR) && myNet->getViewNet()->getDataViewOptions().showAdditionals() &&
             !myNet->getViewNet()->selectingDetectorsTLSMode()) {
