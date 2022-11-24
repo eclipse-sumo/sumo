@@ -3,22 +3,4 @@ Warning: Vehicle 'straight.1' arrived inside e3Detector 'straight'.
 Warning: Vehicle 'right.1' arrived inside e3Detector 'right'.
 Warning: Vehicle 'left.1' arrived inside e3Detector 'left'.
 Warning: Vehicle 'straight.2' arrived inside e3Detector 'straight'.
-Warning: Vehicle 'right.2' arrived inside e3Detector 'right'.
-Warning: Vehicle 'left.2' arrived inside e3Detector 'left'.
-Warning: Vehicle 'straight.3' arrived inside e3Detector 'straight'.
-Warning: Vehicle 'right.3' arrived inside e3Detector 'right'.
-Warning: Vehicle 'left.3' arrived inside e3Detector 'left'.
-Warning: Vehicle 'straight.4' arrived inside e3Detector 'straight'.
-Warning: Vehicle 'right.4' arrived inside e3Detector 'right'.
-Warning: Vehicle 'left.4' arrived inside e3Detector 'left'.
-Warning: Vehicle 'straight.5' arrived inside e3Detector 'straight'.
-Warning: Vehicle 'right.5' arrived inside e3Detector 'right'.
-Warning: Vehicle 'right.7' arrived inside e3Detector 'right'.
-Warning: Vehicle 'straight.8' arrived inside e3Detector 'straight'.
-Warning: Vehicle 'right.8' arrived inside e3Detector 'right'.
-Warning: Vehicle 'straight.9' arrived inside e3Detector 'straight'.
-Warning: Vehicle 'straight.10' arrived inside e3Detector 'straight'.
-Warning: Vehicle 'straight.12' arrived inside e3Detector 'straight'.
-Warning: Vehicle 'straight.14' arrived inside e3Detector 'straight'.
-Warning: Vehicle 'straight.15' arrived inside e3Detector 'straight'.
-Warning: Vehicle 'straight.18' arrived inside e3Detector 'straight'.
+Warning: 24 total messages of type: Vehicle '%' arrived inside % '%'.
