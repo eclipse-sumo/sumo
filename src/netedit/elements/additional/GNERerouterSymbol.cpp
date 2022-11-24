@@ -129,7 +129,7 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
         if (getParentAdditionals().front()->isAttributeCarrierSelected()) {
             color = s.colorSettings.selectedAdditionalColor;
         } else {
-            color = RGBColor(1, .8f, 0);
+            color = FXRGB(1, .8f, 0);
         }
         // avoid draw invisible elements
         if (color.alpha() != 0) {

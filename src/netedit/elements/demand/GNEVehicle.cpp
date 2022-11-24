@@ -658,7 +658,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
         const double width = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_WIDTH);
         const double length = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH);
         const double vehicleSizeSquared = (width * width) * (length * length) * (exaggeration * exaggeration);
-        const auto color = setColor(s);
+        const auto vehicleColor = setColor(s);
         // obtain Position an rotation (depending of draw spread vehicles)
         if (drawSpreadVehicles && mySpreadGeometry.getShape().size() == 0) {
             return;
@@ -666,7 +666,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
         const Position vehiclePosition = drawSpreadVehicles ? mySpreadGeometry.getShape().front() : myDemandElementGeometry.getShape().front();
         const double vehicleRotation = drawSpreadVehicles ? mySpreadGeometry.getShapeRotations().front() : myDemandElementGeometry.getShapeRotations().front();
         // check that position is valid
-        if ((color.alpha() != 0) && (vehiclePosition != Position::INVALID)) {
+        if ((vehicleColor.alpha() != 0) && (vehiclePosition != Position::INVALID)) {
             // first push name
             GLHelper::pushName(getGlID());
             // first check if if mouse is enough near to this vehicle to draw it
@@ -695,7 +695,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 // extra translation needed to draw vehicle over edge (to avoid selecting problems)
                 glTranslated(0, (-1) * length * exaggeration, 0);
                 // set lane color
-                GLHelper::setColor(color);
+                GLHelper::setColor(vehicleColor);
                 double upscaleLength = exaggeration;
                 if ((exaggeration > 1) && (length > 5)) {
                     // reduce the length/width ratio because this is not useful at high zoom

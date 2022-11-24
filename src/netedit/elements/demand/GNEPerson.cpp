@@ -801,9 +801,12 @@ GNEPerson::getACParametersMap() const {
 RGBColor
 GNEPerson::setColor(const GUIVisualizationSettings& s) const {
     const GUIColorer& c = s.personColorer;
+/*
     if (!setFunctionalColor(c.getActive())) {
         return c.getScheme().getColor(getColorValue(s, c.getActive()));
     }
+*/
+    return c.getScheme().getColor(getColorValue(s, c.getActive()));
 }
 
 
