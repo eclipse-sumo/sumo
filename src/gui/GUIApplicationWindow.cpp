@@ -440,6 +440,12 @@ GUIApplicationWindow::detach() {
 
 
 void
+GUIApplicationWindow::addToWindowsMenu(FXMenuPane* /*menuPane*/) {
+    // unused, implement in children
+}
+
+
+void
 GUIApplicationWindow::fillMenuBar() {
     // build file menu
     myFileMenu = new FXMenuPane(this);
@@ -2007,6 +2013,7 @@ GUIApplicationWindow::checkGamingEventsDRT() {
     myTotalDistanceLabel->setText(toString(myTotalDistance / 100).c_str());
 }
 
+
 void
 GUIApplicationWindow::loadConfigOrNet(const std::string& file) {
     if (!myAmLoading) {
@@ -2203,12 +2210,6 @@ GUIApplicationWindow::addHotkey(int key, Command* press, Command* release) {
     if (release != nullptr) {
         myHotkeyRelease[key] = release;
     }
-}
-
-
-void
-GUIApplicationWindow::addToWindowsMenu(FXMenuPane* /*menuPane*/) {
-    // unused, implement in children
 }
 
 

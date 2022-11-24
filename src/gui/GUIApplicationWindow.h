@@ -69,7 +69,6 @@ public:
     /// @brief Destructor
     virtual ~GUIApplicationWindow();
 
-
     /// @name FOX-interactions
     /// {
 
@@ -78,6 +77,7 @@ public:
 
     /// @brief Detaches the tool/menu bar
     virtual void detach();
+
     /// @}
 
     /// @brief config or net on startup
@@ -305,6 +305,7 @@ public:
 
     /// @brief called when a key is released
     long onKeyRelease(FXObject* o, FXSelector sel, void* data);
+
     /// @}
 
     /// @brief Returns the simulation delay in miliseconds
@@ -329,34 +330,11 @@ public:
     void addHotkey(int key, Command* press, Command* release);
 
 protected:
-    /// @brief add the given menuPane to windows Menu
-    virtual void addToWindowsMenu(FXMenuPane* menuPane);
-
-private:
-    /// @brief starts to load a simulation
-    void loadConfigOrNet(const std::string& file);
-
-    /// @brief this method closes all windows and deletes the current simulation
-    void closeAllWindows();
-
-    /// @brief updates the simulation time display
-    void updateTimeLCD(SUMOTime time);
-
-    /// @brief update LCD timer tooltip
-    void updateTimeLCDTooltip();
-
-    /// @brief opens a new simulation display
-    GUISUMOAbstractView* openNewView(GUISUMOViewParent::ViewType vt = GUISUMOViewParent::VIEW_2D_OPENGL, std::string caption = "");
-
-    /// @brief handles additional game-related events
-    void checkGamingEvents();
-
-    /// @brief handles additional game-related events (DRT)
-    void checkGamingEventsDRT();
-
-protected:
     /// @brief FOX need this
     FOX_CONSTRUCTOR(GUIApplicationWindow)
+
+    /// @brief add the given menuPane to windows Menu
+    virtual void addToWindowsMenu(FXMenuPane* menuPane);
 
     /// Builds the menu bar
     virtual void fillMenuBar();
@@ -562,4 +540,32 @@ protected:
 
     /// @brief breakpoint dialog
     GUIDialog_Breakpoints* myBreakpointDialog = nullptr;
+
+private:
+    /// @brief starts to load a simulation
+    void loadConfigOrNet(const std::string& file);
+
+    /// @brief this method closes all windows and deletes the current simulation
+    void closeAllWindows();
+
+    /// @brief updates the simulation time display
+    void updateTimeLCD(SUMOTime time);
+
+    /// @brief update LCD timer tooltip
+    void updateTimeLCDTooltip();
+
+    /// @brief opens a new simulation display
+    GUISUMOAbstractView* openNewView(GUISUMOViewParent::ViewType vt = GUISUMOViewParent::VIEW_2D_OPENGL, std::string caption = "");
+
+    /// @brief handles additional game-related events
+    void checkGamingEvents();
+
+    /// @brief handles additional game-related events (DRT)
+    void checkGamingEventsDRT();
+
+    /// @brief invalidate copy constructor
+    GUIApplicationWindow(const GUIApplicationWindow& s) = delete;
+
+    /// @brief invalidate assignment operator
+    GUIApplicationWindow& operator=(const GUIApplicationWindow& s) = delete;
 };
