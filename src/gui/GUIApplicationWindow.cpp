@@ -56,7 +56,7 @@
 #include <utils/gui/settings/GUISettingsHandler.h>
 #include <utils/gui/shortcuts/GUIShortcutsSubSys.h>
 #include <utils/gui/windows/GUIPerspectiveChanger.h>
-#include <utils/xml/XMLSubSys.h>"
+#include <utils/xml/XMLSubSys.h>
 
 #include "GUIApplicationWindow.h"
 #include "GUIEvent_SimulationEnded.h"
@@ -204,11 +204,11 @@ std::mt19937 GUIApplicationWindow::myGamingRNG;
 // ===========================================================================
 GUIApplicationWindow::GUIApplicationWindow(FXApp* a, const std::string& configPattern) :
     GUIMainWindow(a),
+    myFileMenuRecentFiles(new FXMenuPane(this)),
     myRecentNetworksAndConfigs(a, "files"),
     myConfigPattern(configPattern),
-    // game specific
-    myLastStepEventMillis(SysUtils::getCurrentMillis() - MIN_DRAW_DELAY),
-    myFileMenuRecentFiles(new FXMenuPane(this)) {
+    myLastStepEventMillis(SysUtils::getCurrentMillis() - MIN_DRAW_DELAY)
+{
     // init icons
     GUIIconSubSys::initIcons(a);
     // init cursors
