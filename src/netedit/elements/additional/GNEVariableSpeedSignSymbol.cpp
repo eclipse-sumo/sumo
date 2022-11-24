@@ -114,39 +114,43 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
         // scale
         glScaled(VSSExaggeration, VSSExaggeration, 1);
         // set color
+        RGBColor color;
         if (getParentAdditionals().front()->isAttributeCarrierSelected()) {
-            GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
+            color = s.colorSettings.selectedAdditionalColor;
         } else {
-            GLHelper::setColor(RGBColor::RED);
+            color = RGBColor::RED;
         }
-        // draw circle
-        GLHelper::drawFilledCircle((double) 1.3, s.getCircleResolution());
-        // draw details
-        if (!s.forceDrawForPositionSelection && (s.scale >= 5)) {
-            // move to front
-            glTranslated(0, 0, 0.1);
-            // set color
-            if (getParentAdditionals().front()->isAttributeCarrierSelected()) {
-                GLHelper::setColor(s.colorSettings.selectedAdditionalColor.changedBrightness(-32));
-            } else {
-                GLHelper::setColor(RGBColor::BLACK);
+        // avoid draw invisible elements
+        if (color.alpha() != 0) {
+            // draw circle
+            GLHelper::drawFilledCircle((double) 1.3, s.getCircleResolution());
+            // draw details
+            if (!s.forceDrawForPositionSelection && (s.scale >= 5)) {
+                // move to front
+                glTranslated(0, 0, 0.1);
+                // set color
+                if (getParentAdditionals().front()->isAttributeCarrierSelected()) {
+                    GLHelper::setColor(s.colorSettings.selectedAdditionalColor.changedBrightness(-32));
+                } else {
+                    GLHelper::setColor(RGBColor::BLACK);
+                }
+                // draw another circle
+                GLHelper::drawFilledCircle((double) 1.1, s.getCircleResolution());
+                // move to front
+                glTranslated(0, 0, 0.1);
+                // draw speed
+                if (getParentAdditionals().front()->isAttributeCarrierSelected()) {
+                    GLHelper::drawText("S", Position(0, 0), .1, 1.2, s.colorSettings.selectedAdditionalColor, 180);
+                } else {
+                    GLHelper::drawText("S", Position(0, 0), .1, 1.2, RGBColor::YELLOW, 180);
+                }
             }
-            // draw another circle
-            GLHelper::drawFilledCircle((double) 1.1, s.getCircleResolution());
-            // move to front
-            glTranslated(0, 0, 0.1);
-            // draw speed
-            if (getParentAdditionals().front()->isAttributeCarrierSelected()) {
-                GLHelper::drawText("S", Position(0, 0), .1, 1.2, s.colorSettings.selectedAdditionalColor, 180);
-            } else {
-                GLHelper::drawText("S", Position(0, 0), .1, 1.2, RGBColor::YELLOW, 180);
+            // Pop symbol matrix
+            GLHelper::popMatrix();
+            // Pop VSS name
+            if (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE) {
+                GLHelper::popName();
             }
-        }
-        // Pop symbol matrix
-        GLHelper::popMatrix();
-        // Pop VSS name
-        if (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE) {
-            GLHelper::popName();
         }
         // check if dotted contour has to be drawn
         if (myNet->getViewNet()->isAttributeCarrierInspected(getParentAdditionals().front())) {

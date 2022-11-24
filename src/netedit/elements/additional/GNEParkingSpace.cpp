@@ -198,40 +198,43 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         // get colors
         const RGBColor baseColor = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.colorSettings.parkingSpaceColor;
         const RGBColor contourColor = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.colorSettings.parkingSpaceColorContour;
-        // draw parent and child lines
-        drawParentChildLines(s, s.additionalSettings.connectionColor);
-        // push name
-        GLHelper::pushName(getGlID());
-        // push later matrix
-        GLHelper::pushMatrix();
-        // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_PARKING_SPACE);
-        // set contour color
-        GLHelper::setColor(contourColor);
-        // draw extern
-        GLHelper::drawBoxLines(myShapeLength, width);
-        // make a copy of myShapeLength and scale
-        PositionVector shapeLengthInner = myShapeLength;
-        shapeLengthInner.scaleAbsolute(-0.1);
-        // draw intern
-        if (!s.drawForRectangleSelection) {
-            // Traslate to front
-            glTranslated(0, 0, 0.1);
-            // set base color
-            GLHelper::setColor(baseColor);
-            //draw intern
-            GLHelper::drawBoxLines(shapeLengthInner, width - 0.1);
+        // avoid draw invisible elements
+        if (baseColor.alpha() != 0) {
+            // draw parent and child lines
+            drawParentChildLines(s, s.additionalSettings.connectionColor);
+            // push name
+            GLHelper::pushName(getGlID());
+            // push later matrix
+            GLHelper::pushMatrix();
+            // translate to front
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_PARKING_SPACE);
+            // set contour color
+            GLHelper::setColor(contourColor);
+            // draw extern
+            GLHelper::drawBoxLines(myShapeLength, width);
+            // make a copy of myShapeLength and scale
+            PositionVector shapeLengthInner = myShapeLength;
+            shapeLengthInner.scaleAbsolute(-0.1);
+            // draw intern
+            if (!s.drawForRectangleSelection) {
+                // Traslate to front
+                glTranslated(0, 0, 0.1);
+                // set base color
+                GLHelper::setColor(baseColor);
+                //draw intern
+                GLHelper::drawBoxLines(shapeLengthInner, width - 0.1);
+            }
+            // draw geometry points
+            drawUpGeometryPoint(myNet->getViewNet(), myShapeLength.back(), angle, contourColor);
+            drawLeftGeometryPoint(myNet->getViewNet(), myShapeWidth.back(), angle - 90, contourColor);
+            drawRightGeometryPoint(myNet->getViewNet(), myShapeWidth.front(), angle - 90, contourColor);
+            // pop layer matrix
+            GLHelper::popMatrix();
+            // pop name
+            GLHelper::popName();
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myShapeLength.getPolygonCenter(), parkingAreaExaggeration);
         }
-        // draw geometry points
-        drawUpGeometryPoint(myNet->getViewNet(), myShapeLength.back(), angle, contourColor);
-        drawLeftGeometryPoint(myNet->getViewNet(), myShapeWidth.back(), angle - 90, contourColor);
-        drawRightGeometryPoint(myNet->getViewNet(), myShapeWidth.front(), angle - 90, contourColor);
-        // pop layer matrix
-        GLHelper::popMatrix();
-        // pop name
-        GLHelper::popName();
-        // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myShapeLength.getPolygonCenter(), parkingAreaExaggeration);
         // check if mouse is over element
         mouseWithinGeometry(myShapeLength, width);
         // inspect contour

@@ -274,7 +274,7 @@ GNELaneAreaDetector::updateGeometry() {
 
 
 void
-GNELaneAreaDetector::drawGL(const GUIVisualizationSettings& s) const {
+GNELaneAreaDetector::drawGLX(const GUIVisualizationSettings& s) const {
     // check if additional has to be drawn
     if ((myTagProperty.getTag() == SUMO_TAG_LANE_AREA_DETECTOR) && myNet->getViewNet()->getDataViewOptions().showAdditionals() &&
             !myNet->getViewNet()->selectingDetectorsTLSMode()) {
@@ -292,32 +292,35 @@ GNELaneAreaDetector::drawGL(const GUIVisualizationSettings& s) const {
                 E2Color = s.detectorSettings.E2Color;
                 textColor = RGBColor::BLACK;
             }
-            // draw parent and child lines
-            drawParentChildLines(s, s.additionalSettings.connectionColor);
-            // Start drawing adding an gl identificator
-            GLHelper::pushName(getGlID());
-            // push layer matrix
-            GLHelper::pushMatrix();
-            // translate to front
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E2DETECTOR);
-            // set color
-            GLHelper::setColor(E2Color);
-            // draw geometry
-            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, s.detectorSettings.E2Width * E2Exaggeration);
-            // Check if the distance is enought to draw details
-            if (s.drawDetail(s.detailSettings.detectorDetails, E2Exaggeration)) {
-                // draw E2 Logo
-                drawDetectorLogo(s, E2Exaggeration, "E2", textColor);
+            // avoid draw invisible elements
+            if (E2Color.alpha() != 0) {
+                // draw parent and child lines
+                drawParentChildLines(s, s.additionalSettings.connectionColor);
+                // Start drawing adding an gl identificator
+                GLHelper::pushName(getGlID());
+                // push layer matrix
+                GLHelper::pushMatrix();
+                // translate to front
+                myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E2DETECTOR);
+                // set color
+                GLHelper::setColor(E2Color);
+                // draw geometry
+                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, s.detectorSettings.E2Width * E2Exaggeration);
+                // Check if the distance is enought to draw details
+                if (s.drawDetail(s.detailSettings.detectorDetails, E2Exaggeration)) {
+                    // draw E2 Logo
+                    drawDetectorLogo(s, E2Exaggeration, "E2", textColor);
+                }
+                // draw geometry points
+                drawLeftGeometryPoint(myNet->getViewNet(), myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), E2Color);
+                drawRightGeometryPoint(myNet->getViewNet(), myAdditionalGeometry.getShape().back(), myAdditionalGeometry.getShapeRotations().back(), E2Color);
+                // pop layer matrix
+                GLHelper::popMatrix();
+                // Pop name
+                GLHelper::popName();
+                // draw lock icon
+                GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), E2Exaggeration);
             }
-            // draw geometry points
-            drawLeftGeometryPoint(myNet->getViewNet(), myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), E2Color);
-            drawRightGeometryPoint(myNet->getViewNet(), myAdditionalGeometry.getShape().back(), myAdditionalGeometry.getShapeRotations().back(), E2Color);
-            // pop layer matrix
-            GLHelper::popMatrix();
-            // Pop name
-            GLHelper::popName();
-            // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), E2Exaggeration);
             // check if mouse is over element
             mouseWithinGeometry(myAdditionalGeometry.getShape(), s.detectorSettings.E2Width);
             // inspect contour
