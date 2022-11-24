@@ -11,6 +11,7 @@ on:
   pull_request:    # run on pull requests
     paths-ignore:  # but ignore everything in the docs subfolder 
       - 'docs/**'
+  workflow_dispatch:
   schedule:
     - cron:  '5 1 * * *'
 
@@ -90,7 +91,7 @@ jobs:
         if-no-files-found: warn
 
   publish-wheels:
-    if: github.repository == 'eclipse/sumo' && (github.event_name == 'schedule' || startsWith(github.ref, 'refs/tags'))
+    if: github.repository == 'eclipse/sumo' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags'))
     needs: [test-wheels]
     runs-on: ubuntu-latest
 
@@ -98,7 +99,7 @@ jobs:
     - name: Downloading Wheels artifact
       uses: actions/download-artifact@v3
 
-    # this step removes the pypy versions until someone needs them to save some space
+    # this step removes the pypy versions to save some space (can be reenabled if someone needs them)
     - name: Moving artifacts
       run: |
         ls -lR
