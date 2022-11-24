@@ -48,7 +48,7 @@ public:
     ~GNEEdgeData();
 
     /// @brief get edge data color
-    void setColor(const GUIVisualizationSettings& s) const;
+    RGBColor setColor(const GUIVisualizationSettings& s) const;
 
     double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
 

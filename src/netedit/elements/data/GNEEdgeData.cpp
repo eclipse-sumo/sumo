@@ -54,7 +54,7 @@ GNEEdgeData::GNEEdgeData(GNEDataInterval* dataIntervalParent, GNEEdge* edgeParen
 GNEEdgeData::~GNEEdgeData() {}
 
 
-void
+RGBColor
 GNEEdgeData::setColor(const GUIVisualizationSettings& s) const {
     // set default color
     RGBColor col = RGBColor::RED;
@@ -81,7 +81,7 @@ GNEEdgeData::setColor(const GUIVisualizationSettings& s) const {
             }
         }
     }
-    GLHelper::setColor(col);
+    return col;
 }
 
 
@@ -201,7 +201,9 @@ GNEEdgeData::computePathElement() {
 
 void
 GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* /*segment*/, const double offsetFront) const {
-    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
+    // get color
+    const auto color = setColor(s);
+    if ((color.alpha() != 0) && myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
         // get flag for only draw contour
         const bool onlyDrawContour = !isGenericDataVisible();
         // Start drawing adding an gl identificator
@@ -224,7 +226,7 @@ GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lan
                                           laneEdge->getShapeLengths(), {}, laneWidth, onlyDrawContour);
             // translate to top
             glTranslated(0, 0, 0.01);
-            setColor(s);
+            GLHelper::setColor(color);
             // draw interne box lines
             GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(),
                                           laneEdge->getLaneShape(), laneEdge->getShapeRotations(),
