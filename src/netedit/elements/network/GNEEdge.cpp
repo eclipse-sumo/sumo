@@ -1481,7 +1481,7 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane
         }
         GLHelper::setColor(color);
         // recognize full transparency and simply don't draw
-        if (color.alpha() > 0) {
+        if (color.alpha() != 0) {
             // add edge layer matrix
             GLHelper::pushMatrix();
             // translate to front
