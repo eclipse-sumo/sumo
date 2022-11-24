@@ -26,73 +26,48 @@
 #include <version.h>
 #endif
 
-#include <string>
-#include <sstream>
-#include <algorithm>
-#include <iomanip>
 #include <fxkeys.h>
 
-#include <guisim/GUINet.h>
 #include <guisim/GUILane.h>
-#include <netload/NLHandler.h>
-#include <traci-server/TraCIServer.h>
-#include <microsim/MSGlobals.h>
-#include <microsim/MSEdge.h>
-#include <microsim/MSVehicle.h>
-#include <microsim/MSStateHandler.h>
-#include <microsim/MSVehicleControl.h>
+#include <guisim/GUINet.h>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSInsertionControl.h>
+#include <microsim/MSStateHandler.h>
 #include <microsim/transportables/MSTransportableControl.h>
-
-#include "GUISUMOViewParent.h"
-#include "GUILoadThread.h"
-#include "GUIRunThread.h"
-#include "GUIApplicationWindow.h"
-#include "GUIEvent_SimulationLoaded.h"
-#include "GUIEvent_SimulationEnded.h"
-
-#include <utils/common/ToString.h>
-#include <utils/common/RandHelper.h>
-#include <utils/common/Command.h>
+#include <netload/NLHandler.h>
+#include <traci-server/TraCIServer.h>
 #include <utils/foxtools/MFXButtonTooltip.h>
-#include <utils/foxtools/MFXUtils.h>
 #include <utils/foxtools/MFXLCDLabel.h>
-#include <utils/foxtools/MFXThreadEvent.h>
 #include <utils/foxtools/MFXLinkLabel.h>
 #include <utils/foxtools/MFXRealSpinner.h>
-
-#include <utils/xml/XMLSubSys.h>
-#include <utils/gui/images/GUITexturesHelper.h>
-#include <utils/gui/events/GUIEvent_SimulationStep.h>
-#include <utils/gui/events/GUIEvent_Message.h>
+#include <utils/gui/cursors/GUICursorSubSys.h>
+#include <utils/gui/div/GLHelper.h>
+#include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/div/GUIDialog_GLChosenEditor.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/gui/div/GUIMessageWindow.h>
+#include <utils/gui/div/GUIUserIO.h>
 #include <utils/gui/events/GUIEvent_AddView.h>
 #include <utils/gui/events/GUIEvent_CloseView.h>
-#include <utils/gui/div/GUIMessageWindow.h>
-#include <utils/gui/div/GUIDialog_GLChosenEditor.h>
-#include <utils/gui/tracker/GUIParameterTracker.h>
-#include <utils/gui/div/GUIParameterTableWindow.h>
-#include <utils/gui/images/GUIIconSubSys.h>
-#include <utils/gui/cursors/GUICursorSubSys.h>
-#include <utils/gui/shortcuts/GUIShortcutsSubSys.h>
-#include <utils/gui/div/GUIIOGlobals.h>
-#include <utils/gui/div/GUIUserIO.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/settings/GUICompleteSchemeStorage.h>
-#include <utils/gui/globjects/GUIGlObjectStorage.h>
+#include <utils/gui/events/GUIEvent_Message.h>
 #include <utils/gui/globjects/GUIShapeContainer.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
-#include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/images/GUITexturesHelper.h>
+#include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/settings/GUISettingsHandler.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
+#include <utils/gui/shortcuts/GUIShortcutsSubSys.h>
 #include <utils/gui/windows/GUIPerspectiveChanger.h>
-#include <utils/options/OptionsCont.h>
+#include <utils/xml/XMLSubSys.h>"
+
+#include "GUIApplicationWindow.h"
+#include "GUIEvent_SimulationEnded.h"
+#include "GUIEvent_SimulationLoaded.h"
 #include "GUIGlobals.h"
+#include "GUILoadThread.h"
+#include "GUIRunThread.h"
 #include "dialogs/GUIDialog_AboutSUMO.h"
-#include "dialogs/GUIDialog_HallOfFame.h"
 #include "dialogs/GUIDialog_AppSettings.h"
 #include "dialogs/GUIDialog_Breakpoints.h"
+#include "dialogs/GUIDialog_HallOfFame.h"
 
 
 #define MIN_DRAW_DELAY 20
