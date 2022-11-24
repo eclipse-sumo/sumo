@@ -100,9 +100,9 @@
 //#define DEBUG_REVERSE_BIDI
 //#define DEBUG_EXTRAPOLATE_DEPARTPOS
 //#define DEBUG_REMOTECONTROL
-//#define DEBUG_COND (getID() == "ego")
+#define DEBUG_COND (getID() == "mustChangeLeft")
 //#define DEBUG_COND (true)
-#define DEBUG_COND (isSelected())
+//#define DEBUG_COND (isSelected())
 //#define DEBUG_COND2(obj) (obj->getID() == "ego")
 #define DEBUG_COND2(obj) (obj->isSelected())
 
@@ -5605,7 +5605,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
                                                 || requiredChangeRightForbidden)) {
                     // this lane and all further lanes to the left cannot be used
                     requiredChangeRightForbidden = true;
-                    (*j).length -= (*j).currentLength;
+                    (*j).length = 0;
                 } else if ((*j).bestLaneOffset > 0 && (!(*j).lane->allowsChangingLeft(getVClass())
                                                        || !(*j).lane->getParallelLane(1, false)->allowsVehicleClass(getVClass()))) {
                     // this lane and all previous lanes to the right cannot be used
@@ -5614,7 +5614,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
             }
         }
         for (int i = requireChangeToLeftForbidden; i >= 0; i--) {
-            last[i].length -= last[i].currentLength;
+            last[i].length = 0;
         }
 #ifdef DEBUG_BESTLANES
         if (DEBUG_COND) {
@@ -5667,7 +5667,9 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
                     }
                     (*j).bestLaneOffset = bestConnectedNext.bestLaneOffset;
                 }
-                copy(bestConnectedNext.bestContinuations.begin(), bestConnectedNext.bestContinuations.end(), back_inserter((*j).bestContinuations));
+                if (bestConnectedNext.allowsContinuation || bestConnectedNext.length > 0) {
+                    copy(bestConnectedNext.bestContinuations.begin(), bestConnectedNext.bestContinuations.end(), back_inserter((*j).bestContinuations));
+                }
                 if (clanes[bestThisIndex].length < (*j).length
                         || (clanes[bestThisIndex].length == (*j).length && abs(clanes[bestThisIndex].bestLaneOffset) > abs((*j).bestLaneOffset))
                         || (clanes[bestThisIndex].length == (*j).length && abs(clanes[bestThisIndex].bestLaneOffset) == abs((*j).bestLaneOffset) &&
@@ -5771,7 +5773,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
             std::cout << "   edge=" << cE.getID() << " (bestIndex=" << bestThisIndex << " bestMaxIndex=" << bestThisMaxIndex << "):\n";
             std::vector<LaneQ>& laneQs = clanes;
             for (std::vector<LaneQ>::iterator j = laneQs.begin(); j != laneQs.end(); ++j) {
-                std::cout << "     lane=" << (*j).lane->getID() << " length=" << (*j).length << " bestOffset=" << (*j).bestLaneOffset << "\n";
+                std::cout << "     lane=" << (*j).lane->getID() << " length=" << (*j).length << " bestOffset=" << (*j).bestLaneOffset << " allowCont=" << (*j).allowsContinuation << "\n";
             }
         }
 #endif
