@@ -282,6 +282,7 @@ errors:Matplotlib is building the font cache; this may take a moment.
 errors:apport/report.py:13: DeprecationWarning: the imp{LINES 2}
 errors:schemaCheck.py
 errors:site-packages/ortools.*DeprecationWarning:
+errors:[remaining_args ...]
 omnet:<!-- generated on
 shawn:<!-- generated on
 gpsdat:r[0-9]
