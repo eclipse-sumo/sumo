@@ -33,6 +33,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 class Command;
 class GUILoadThread;
 class GUIRunThread;
@@ -349,10 +350,10 @@ protected:
     std::string myName;
 
     /// @brief  the thread that loads simulations
-    GUILoadThread* myLoadThread;
+    GUILoadThread* myLoadThread = nullptr;
 
     /// @brief  the thread that runs simulations
-    GUIRunThread* myRunThread;
+    GUIRunThread* myRunThread = nullptr;
 
     /// @brief  the information whether the simulation was started before
     bool myWasStarted = false;
@@ -361,13 +362,13 @@ protected:
     int myViewNumber;
 
     /// @brief information whether the gui is currently loading and the load-options shall be greyed out
-    bool myAmLoading;
+    bool myAmLoading = false;
 
     /// @brief whether we are reloading the simulation
-    bool myIsReload;
+    bool myIsReload = false;
 
     /// @brief last modification time of the gui setting file
-    long long  myGuiSettingsFileMTime;
+    long long  myGuiSettingsFileMTime = -2;
 
     /// @brief the submenus
     FXMenuPane *myFileMenu = nullptr, 
@@ -419,7 +420,7 @@ protected:
     FXRealSpinner* myDemandScaleSpinner = nullptr;
 
     /// @brief The alternate simulation delay in milliseconds for toggling
-    double myAlternateSimDelay;
+    double myAlternateSimDelay = 0;
 
     /// @brief List of got requests
     MFXSynchQue<GUIEvent*> myEvents;
@@ -454,13 +455,13 @@ protected:
     std::string myConfigPattern;
 
     /// @brief flag to mark if GUIApplicationWIndow has depend build
-    bool hadDependentBuild;
+    bool hadDependentBuild = false;
 
     /// @brief whether to show time as hour:minute:second
-    bool myShowTimeAsHMS;
+    bool myShowTimeAsHMS = false;
 
     /// @brief whether the simulation end was already announced
-    bool myHaveNotifiedAboutSimEnd;
+    bool myHaveNotifiedAboutSimEnd = false;
 
     /// @brief the mutex for the waiting semaphore
     FXMutex myEventMutex;
@@ -481,40 +482,40 @@ protected:
     RandomDistributor<std::string> myCollisionSounds;
 
     /// @brief waiting time after which vehicles trigger jam sounds
-    double myJamSoundTime;
+    double myJamSoundTime = 60;
 
     /// @brief A random number generator used to choose a gaming sound
     static std::mt19937 myGamingRNG;
 
     /// @brief previous collision number
-    int myPreviousCollisionNumber;
+    int myPreviousCollisionNumber = 0;
 
-    /// @brief current game mode
-    bool myTLSGame;
+    /// @brief flag for enable TLS gameMode
+    bool myTLSGame = false;
 
     /// @brief waiting time label
     MFXLCDLabel* myWaitingTimeLabel = nullptr;
     
     /// @brief waiting time
-    SUMOTime myWaitingTime;
+    SUMOTime myWaitingTime = 0;
 
     /// @brief time loss label
     MFXLCDLabel* myTimeLossLabel = nullptr;
 
     /// @brief time loss
-    SUMOTime myTimeLoss;
+    SUMOTime myTimeLoss = 0;
 
     /// @brief total distance label
     MFXLCDLabel* myTotalDistanceLabel = nullptr;
 
     /// @brief total distance
-    double myTotalDistance;
+    double myTotalDistance = 0;
 
     /// @brief emergency vehicle label
     MFXLCDLabel* myEmergencyVehicleLabel = nullptr;
 
     /// @brief emergency vehicle count
-    SUMOTime myEmergencyVehicleCount;
+    SUMOTime myEmergencyVehicleCount = 0;
 
     /// @brief toolbars used in game
     FXToolBar *myToolBar6 = nullptr, 
