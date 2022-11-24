@@ -645,7 +645,7 @@ GNEApplicationWindow::onCmdOpenConfiguration(FXObject*, FXSelector, void*) {
             // load config
             loadConfigOrNet(file, false);
             // add it into recent configs
-            myMenuBarFile.myRecentNetsAndConfigs.appendFile(file.c_str());
+            myMenuBarFile.myRecentNetworksAndConfigs.appendFile(file.c_str());
         }
         return 1;
     }
@@ -681,7 +681,7 @@ GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
             // load network
             loadConfigOrNet(file, true);
             // add it into recent nets
-            myMenuBarFile.myRecentNetsAndConfigs.appendFile(file.c_str());
+            myMenuBarFile.myRecentNetworksAndConfigs.appendFile(file.c_str());
             // when a net is loaded, save additionals and TLSPrograms are disabled
             disableSaveAdditionalsMenu();
             myFileMenuCommands.saveTLSPrograms->disable();
@@ -3420,7 +3420,7 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
         }
         myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "Network saved in " + oc.getString("output-file") + ".\n");
         // After saving a net successfully, add it into Recent Nets list.
-        myMenuBarFile.myRecentNetsAndConfigs.appendFile(oc.getString("output-file").c_str());
+        myMenuBarFile.myRecentNetworksAndConfigs.appendFile(oc.getString("output-file").c_str());
         myMessageWindow->addSeparator();
         getApp()->endWaitCursor();
         // update view
