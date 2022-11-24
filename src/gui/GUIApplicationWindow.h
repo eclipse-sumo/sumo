@@ -58,14 +58,13 @@ class MFXLCDLabel;
 class GUIApplicationWindow : public GUIMainWindow, public MFXInterThreadEventClient {
     // FOX-declarations
     FXDECLARE(GUIApplicationWindow)
-public:
 
+public:
     /** @brief Constructor
      * @param[in] a The FOX application
      * @param[in] configPattern The pattern used for loading configurations
      */
     GUIApplicationWindow(FXApp* a, const std::string& configPattern);
-
 
     /// @brief Destructor
     virtual ~GUIApplicationWindow();
@@ -81,38 +80,52 @@ public:
     virtual void detach();
     /// @}
 
+    /// @brief config or net on startup
     void loadOnStartup(const bool wait = false);
 
-    GUIRunThread* getRunner() {
-        return myRunThread;
-    }
+    /// @brief get run thread
+    GUIRunThread* getRunner();
 
+    /// @brief build dependt
     void dependentBuild(const bool isLibsumo);
 
+    /// @brief set status bar text
     void setStatusBarText(const std::string& text);
 
+    /// @brief add recent file to recent file list
     void addRecentFile(const FX::FXString& f);
 
+    /// @brief get build GLCanvas
     FXGLCanvas* getBuildGLCanvas() const;
+
+    /// @brief get current simulation time
     SUMOTime getCurrentSimTime() const;
+
+    /// @brief get tracker interval
     double getTrackerInterval() const;
 
+    /// @brief get default cursor
     FXCursor* getDefaultCursor();
-
-
-
 
     /// @name Inter-thread event handling
     /// @{
 
+    /// @brief a certaint event ocurred
     virtual void eventOccurred();
+
+    /// @brief called when event "simulation loaded" ocurred
     void handleEvent_SimulationLoaded(GUIEvent* e);
+
+    /// @brief called when event "simulation step" ocurred
     void handleEvent_SimulationStep(GUIEvent* e);
+
+    /// @brief called when event "message" ocurred
     void handleEvent_Message(GUIEvent* e);
+
+    /// @brief called when event "simulation ended" ocurred
     void handleEvent_SimulationEnded(GUIEvent* e);
+
     /// @}
-
-
 
     /// @name FOX-callbacks
     /// @{
@@ -147,9 +160,7 @@ public:
     /// @brief Called on menu File->Close
     long onCmdClose(FXObject*, FXSelector, void*);
 
-    /** @brief Called by FOX if the application shall be closed
-     *
-     * Called either by FileMenu->Quit, the normal close-menu or SIGINT */
+    /// @brief Called by FOX if the application shall be closed (Called either by FileMenu->Quit, the normal close-menu or SIGINT)
     long onCmdQuit(FXObject*, FXSelector, void*);
 
     /// @brief Called on menu Edit->Edit Chosen
@@ -289,64 +300,58 @@ public:
     /// @brief Somebody wants our clipped text
     long onClipboardRequest(FXObject* sender, FXSelector sel, void* ptr);
 
-    /// @brief handle keys
+    /// @brief called when a key is pressed
     long onKeyPress(FXObject* o, FXSelector sel, void* data);
+
+    /// @brief called when a key is released
     long onKeyRelease(FXObject* o, FXSelector sel, void* data);
     /// @}
 
+    /// @brief Returns the simulation delay in miliseconds
+    virtual double getDelay() const;
 
-    /** @brief Returns the simulation delay
-     * @return delay in milliseconds
-     */
-    virtual double getDelay() const {
-        return mySimDelay;
-    }
+    /// @brief Sets the delay of the parent application in milliseconds
+    virtual void setDelay(double delay);
 
-    /** @brief Sets the delay of the parent application
-     * @param delay the new delay in milliseconds
-     */
-    virtual void setDelay(double delay) {
-        mySimDelay = delay;
-    }
-
-    /** @brief Sets the breakpoints of the parent application
-     */
+    /// @brief Sets the breakpoints of the parent application
     virtual void setBreakpoints(const std::vector<SUMOTime>& breakpoints);
 
-    /** @brief Sends an event from the application thread to the GUI and waits until it is handled
-     * @param event the event to send
-     */
+    /// @brief Sends an event from the application thread to the GUI and waits until it is handled
     virtual void sendBlockingEvent(GUIEvent* event);
 
+    /// @brief retrieve list of breakpoints
     const std::vector<SUMOTime> retrieveBreakpoints() const;
 
-    void eraseBreakpointDialog() {
-        myBreakpointDialog = nullptr;
-    }
+    /// @brief erase current breakpoint dialog
+    void eraseBreakpointDialog();
 
     /// @brief register custom hotkey action
     void addHotkey(int key, Command* press, Command* release);
 
 protected:
-    virtual void addToWindowsMenu(FXMenuPane*) { }
+    /// @brief add the given menuPane to windows Menu
+    virtual void addToWindowsMenu(FXMenuPane* menuPane);
 
 private:
-    /** starts to load a simulation */
+    /// @brief starts to load a simulation
     void loadConfigOrNet(const std::string& file);
 
-    /** this method closes all windows and deletes the current simulation */
+    /// @brief this method closes all windows and deletes the current simulation
     void closeAllWindows();
 
     /// @brief updates the simulation time display
     void updateTimeLCD(SUMOTime time);
 
+    /// @brief update LCD timer tooltip
     void updateTimeLCDTooltip();
 
-    /** opens a new simulation display */
+    /// @brief opens a new simulation display
     GUISUMOAbstractView* openNewView(GUISUMOViewParent::ViewType vt = GUISUMOViewParent::VIEW_2D_OPENGL, std::string caption = "");
 
     /// @brief handles additional game-related events
     void checkGamingEvents();
+
+    /// @brief handles additional game-related events (DRT)
     void checkGamingEventsDRT();
 
 protected:
@@ -387,9 +392,17 @@ protected:
     long long  myGuiSettingsFileMTime;
 
     /// @brief the submenus
-    FXMenuPane* myFileMenu = nullptr, *myEditMenu = nullptr, *mySelectByPermissions = nullptr, *mySettingsMenu = nullptr,
-                *myLocatorMenu, *myControlMenu = nullptr,
-                                 *myWindowMenu, *myHelpMenu = nullptr;
+    FXMenuPane *myFileMenu = nullptr, 
+               *myEditMenu = nullptr, 
+               *mySelectByPermissions = nullptr, 
+               *mySettingsMenu = nullptr,
+               *myLocatorMenu = nullptr, 
+               *myControlMenu = nullptr,          
+               *myWindowMenu = nullptr, 
+               *myHelpMenu = nullptr;
+
+    /// @brief FXMenu pane for recent files
+    FXMenuPane *myFileMenuRecentFiles = nullptr;
 
     /// @brief the menu cascades
     FXMenuCascade* mySelectLanesMenuCascade = nullptr;
@@ -404,14 +417,24 @@ protected:
     FXSplitter* myMainSplitter = nullptr;
 
     /// @brief for some menu detaching fun
-    FXToolBarShell* myToolBarDrag1 = nullptr, *myToolBarDrag2 = nullptr, *myToolBarDrag3 = nullptr,
-                    *myToolBarDrag4 = nullptr, *myToolBarDrag5 = nullptr, *myMenuBarDrag = nullptr,
-                     *myToolBarDrag8 = nullptr;
+    FXToolBarShell *myToolBarDrag1 = nullptr, 
+                   *myToolBarDrag2 = nullptr, 
+                   *myToolBarDrag3 = nullptr,
+                   *myToolBarDrag4 = nullptr, 
+                   *myToolBarDrag5 = nullptr, 
+                   *myMenuBarDrag = nullptr,
+                   *myToolBarDrag8 = nullptr;
 
     /// @brief the simulation delay in milliseconds
     double mySimDelay = 0.;
+
+    /// @brief Simulation delay target
     FXDataTarget* mySimDelayTarget = nullptr;
+
+    /// @brief Simulation delay spinner
     FXRealSpinner* mySimDelaySpinner = nullptr;
+
+    /// @brief Simulation delay slider
     FXSlider* mySimDelaySlider = nullptr;
 
     /// @brief the demand scale
@@ -430,7 +453,12 @@ protected:
     FXMenuBar* myMenuBar = nullptr;
 
     /// @brief The application tool bar
-    FXToolBar* myToolBar1 = nullptr, *myToolBar2 = nullptr, *myToolBar3 = nullptr, *myToolBar4 = nullptr, *myToolBar5 = nullptr, *myToolBar8 = nullptr;
+    FXToolBar *myToolBar1 = nullptr, 
+              *myToolBar2 = nullptr, 
+              *myToolBar3 = nullptr, 
+              *myToolBar4 = nullptr, 
+              *myToolBar5 = nullptr, 
+              *myToolBar8 = nullptr;
 
     /// @brief the simulation step display
     MFXLCDLabel* myLCDLabel = nullptr;
@@ -447,6 +475,7 @@ protected:
     /// @brief Input file pattern
     std::string myConfigPattern;
 
+    /// @brief flag to mark if GUIApplicationWIndow has depend build
     bool hadDependentBuild;
 
     /// @brief whether to show time as hour:minute:second
@@ -466,38 +495,71 @@ protected:
 
     /// @name game related things
     /// {
+
+    /// @brief random list of jam sounds
     RandomDistributor<std::string> myJamSounds;
+
+    /// @brief random list of collision sounds
     RandomDistributor<std::string> myCollisionSounds;
+
     /// @brief waiting time after which vehicles trigger jam sounds
     double myJamSoundTime;
+
     /// @brief A random number generator used to choose a gaming sound
     static std::mt19937 myGamingRNG;
+
+    /// @brief previous collision number
     int myPreviousCollisionNumber;
+
     /// @brief current game mode
     bool myTLSGame;
 
-    /// @brief performance indicators
+    /// @brief waiting time label
     MFXLCDLabel* myWaitingTimeLabel = nullptr;
-    MFXLCDLabel* myTimeLossLabel = nullptr;
-    MFXLCDLabel* myTotalDistanceLabel = nullptr;
-    MFXLCDLabel* myEmergencyVehicleLabel = nullptr;
+    
+    /// @brief waiting time
     SUMOTime myWaitingTime;
+
+    /// @brief time loss label
+    MFXLCDLabel* myTimeLossLabel = nullptr;
+
+    /// @brief time loss
     SUMOTime myTimeLoss;
-    SUMOTime myEmergencyVehicleCount;
+
+    /// @brief total distance label
+    MFXLCDLabel* myTotalDistanceLabel = nullptr;
+
+    /// @brief total distance
     double myTotalDistance;
-    FXToolBar* myToolBar6 = nullptr, *myToolBar7 = nullptr, *myToolBar9 = nullptr, *myToolBar10 = nullptr;
-    FXToolBarShell* myToolBarDrag6 = nullptr, *myToolBarDrag7 = nullptr, *myToolBarDrag9 = nullptr, *myToolBarDrag10 = nullptr;
+
+    /// @brief emergency vehicle label
+    MFXLCDLabel* myEmergencyVehicleLabel = nullptr;
+
+    /// @brief emergency vehicle count
+    SUMOTime myEmergencyVehicleCount;
+
+    /// @brief toolbars used in game
+    FXToolBar *myToolBar6 = nullptr, 
+              *myToolBar7 = nullptr, 
+              *myToolBar9 = nullptr, 
+              *myToolBar10 = nullptr;
+
+    /// @brief toolbars shell used in game
+    FXToolBarShell *myToolBarDrag6 = nullptr, 
+                   *myToolBarDrag7 = nullptr, 
+                   *myToolBarDrag9 = nullptr, 
+                   *myToolBarDrag10 = nullptr;
     ////}
 
-    /// last time the simulation view was redrawn due to a simStep
+    /// @brief last time the simulation view was redrawn due to a simStep
     long myLastStepEventMillis;
 
-    /// @brief custom hotkeys
+    /// @brief custom hotkeys pressed
     std::map<int, Command*> myHotkeyPress;
+
+    /// @brief custom hotkeys released
     std::map<int, Command*> myHotkeyRelease;
 
+    /// @brief breakpoint dialog
     GUIDialog_Breakpoints* myBreakpointDialog = nullptr;
-
-    /// @brief FXMenu pane for recent files
-    FXMenuPane *myFileMenuRecentFiles = nullptr;
 };

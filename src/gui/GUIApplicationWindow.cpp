@@ -257,6 +257,12 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a, const std::string& configPa
 }
 
 
+GUIRunThread*
+GUIApplicationWindow::getRunner() {
+    return myRunThread;
+}
+
+
 void
 GUIApplicationWindow::dependentBuild(const bool isLibsumo) {
     // don't do this twice
@@ -2199,6 +2205,13 @@ GUIApplicationWindow::addHotkey(int key, Command* press, Command* release) {
     }
 }
 
+
+void
+GUIApplicationWindow::addToWindowsMenu(FXMenuPane* /*menuPane*/) {
+    // unused, implement in children
+}
+
+
 long
 GUIApplicationWindow::onKeyPress(FXObject* o, FXSelector sel, void* ptr) {
     FXEvent* e = (FXEvent*) ptr;
@@ -2247,6 +2260,18 @@ GUIApplicationWindow::onKeyRelease(FXObject* o, FXSelector sel, void* ptr) {
 }
 
 
+double
+GUIApplicationWindow::getDelay() const {
+    return mySimDelay;
+}
+
+
+void
+GUIApplicationWindow::setDelay(double delay) {
+    mySimDelay = delay;
+}
+
+
 void
 GUIApplicationWindow::sendBlockingEvent(GUIEvent* event) {
     myEventMutex.lock();
@@ -2274,5 +2299,10 @@ GUIApplicationWindow::retrieveBreakpoints() const {
     return result;
 }
 
+
+void
+GUIApplicationWindow::eraseBreakpointDialog() {
+    myBreakpointDialog = nullptr;
+}
 
 /****************************************************************************/
