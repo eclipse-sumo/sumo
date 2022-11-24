@@ -359,16 +359,18 @@ private:
     void checkGamingEventsDRT();
 
 protected:
+    /// @brief FOX need this
     FOX_CONSTRUCTOR(GUIApplicationWindow)
 
-protected:
     /// Builds the menu bar
     virtual void fillMenuBar();
 
     /// Builds the tool bar
     virtual void buildToolBars();
 
-protected:
+    /// @brief build recent files
+    void buildRecentFiles(FXMenuPane* fileMenu, FXMenuPane* fileMenuRecentFiles);
+
     /// @brief  the name of the simulation
     std::string myName;
 
@@ -504,4 +506,7 @@ protected:
     std::map<int, Command*> myHotkeyRelease;
 
     GUIDialog_Breakpoints* myBreakpointDialog = nullptr;
+
+    /// @brief FXMenu pane for recent files
+    FXMenuPane *myFileMenuRecentFiles = nullptr;
 };
