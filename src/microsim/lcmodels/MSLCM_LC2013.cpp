@@ -70,7 +70,6 @@
 #define TURN_LANE_DIST 200.0 // the distance at which a lane leading elsewhere is considered to be a turn-lane that must be avoided
 
 #define LC_RESOLUTION_SPEED_LAT 0.5 // the lateral speed (in m/s) for a standing vehicle which was unable to finish a continuous LC in time (in case mySpeedLatStanding==0), see #3771
-#define LC_ASSUMED_DECEL 1.0 // the minimal constant deceleration assumed to estimate the duration of a continuous lane-change at its initiation.
 
 #define REACT_TO_STOPPED_DISTANCE 100
 
@@ -2046,10 +2045,6 @@ MSLCM_LC2013::computeSpeedLat(double latDist, double& maneuverDist, bool urgent)
     return result;
 }
 
-double
-MSLCM_LC2013::getAssumedDecelForLaneChangeDuration() const {
-    return MAX2(LC_ASSUMED_DECEL, -myVehicle.getAcceleration());
-}
 
 double
 MSLCM_LC2013::getSafetyFactor() const {
