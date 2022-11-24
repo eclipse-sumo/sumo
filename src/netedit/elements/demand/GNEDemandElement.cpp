@@ -517,7 +517,7 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
     // get person parent
     const GNEDemandElement* personParent = getParentDemandElements().front();
     // check if draw person plan element can be drawn
-    if (drawPlan && myNet->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, lane, myTagProperty.getTag())) {
+    if ((personPlanColor.alpha() != 0) && drawPlan && myNet->getPathManager()->getPathDraw()->drawPathGeometry(dottedElement, lane, myTagProperty.getTag())) {
         // get inspected attribute carriers
         const auto& inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
         // get inspected person plan
@@ -656,7 +656,7 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
     // get inspected and front flags
     const bool dottedElement = myNet->getViewNet()->isAttributeCarrierInspected(this) || (myNet->getViewNet()->getFrontAttributeCarrier() == this);
     // check if draw person plan elements can be drawn
-    if (drawPlan && myNet->getPathManager()->getPathDraw()->drawPathGeometry(false, fromLane, toLane, myTagProperty.getTag())) {
+    if ((personPlanColor.alpha() != 0) && drawPlan && myNet->getPathManager()->getPathDraw()->drawPathGeometry(false, fromLane, toLane, myTagProperty.getTag())) {
         // get inspected attribute carriers
         const auto& inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
         // get person parent

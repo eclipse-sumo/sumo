@@ -367,7 +367,9 @@ void
 GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
     bool drawContainer = true;
     // check if container can be drawn
-    if (!myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
+    if (color.alpha() == 0) {
+        drawContainer = false;
+    } else if (!myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
         drawContainer = false;
     } else if (!myNet->getViewNet()->getDataViewOptions().showDemandElements()) {
         drawContainer = false;

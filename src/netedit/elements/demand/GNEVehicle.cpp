@@ -658,6 +658,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
         const double width = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_WIDTH);
         const double length = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH);
         const double vehicleSizeSquared = (width * width) * (length * length) * (exaggeration * exaggeration);
+        const auto color = setColor(s);
         // obtain Position an rotation (depending of draw spread vehicles)
         if (drawSpreadVehicles && mySpreadGeometry.getShape().size() == 0) {
             return;
@@ -665,7 +666,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
         const Position vehiclePosition = drawSpreadVehicles ? mySpreadGeometry.getShape().front() : myDemandElementGeometry.getShape().front();
         const double vehicleRotation = drawSpreadVehicles ? mySpreadGeometry.getShapeRotations().front() : myDemandElementGeometry.getShapeRotations().front();
         // check that position is valid
-        if (vehiclePosition != Position::INVALID) {
+        if ((color.alpha() != 0) && (vehiclePosition != Position::INVALID)) {
             // first push name
             GLHelper::pushName(getGlID());
             // first check if if mouse is enough near to this vehicle to draw it
@@ -694,7 +695,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 // extra translation needed to draw vehicle over edge (to avoid selecting problems)
                 glTranslated(0, (-1) * length * exaggeration, 0);
                 // set lane color
-                setColor(s);
+                GLHelper::setColor(color);
                 double upscaleLength = exaggeration;
                 if ((exaggeration > 1) && (length > 5)) {
                     // reduce the length/width ratio because this is not useful at high zoom
@@ -1726,11 +1727,11 @@ GNEVehicle::getACParametersMap() const {
 // protected
 // ===========================================================================
 
-void
+RGBColor
 GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
     // change color
     if (drawUsingSelectColor()) {
-        GLHelper::setColor(s.colorSettings.selectedVehicleColor);
+        return s.colorSettings.selectedVehicleColor;
     } else {
         // obtain vehicle color
         const GUIColorer& c = s.vehicleColorer;
@@ -1739,56 +1740,48 @@ GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
             case 0: {
                 // test for emergency vehicle
                 if (getParentDemandElements().at(0)->getAttribute(SUMO_ATTR_GUISHAPE) == "emergency") {
-                    GLHelper::setColor(RGBColor::WHITE);
-                    break;
+                    return RGBColor::WHITE;
                 }
                 // test for firebrigade
                 if (getParentDemandElements().at(0)->getAttribute(SUMO_ATTR_GUISHAPE) == "firebrigade") {
-                    GLHelper::setColor(RGBColor::RED);
-                    break;
+                    return RGBColor::RED;
                 }
                 // test for police car
                 if (getParentDemandElements().at(0)->getAttribute(SUMO_ATTR_GUISHAPE) == "police") {
-                    GLHelper::setColor(RGBColor::BLUE);
-                    break;
+                    return RGBColor::BLUE;
                 }
                 if (getParentDemandElements().at(0)->getAttribute(SUMO_ATTR_GUISHAPE) == "scooter") {
-                    GLHelper::setColor(RGBColor::WHITE);
-                    break;
+                    return RGBColor::WHITE;
                 }
                 // check if color was set
                 if (wasSet(VEHPARS_COLOR_SET)) {
-                    GLHelper::setColor(color);
-                    break;
+                    return color;
                 } else {
                     // take their parent's color)
-                    GLHelper::setColor(getParentDemandElements().at(0)->getColor());
-                    break;
+                    return getParentDemandElements().at(0)->getColor();
                 }
             }
             case 2: {
                 if (wasSet(VEHPARS_COLOR_SET)) {
-                    GLHelper::setColor(color);
+                    return color;
                 } else {
-                    GLHelper::setColor(c.getScheme().getColor(0));
+                    return c.getScheme().getColor(0);
                 }
-                break;
             }
             case 3: {
                 if (getParentDemandElements().at(0)->isAttributeEnabled(SUMO_ATTR_COLOR)) {
-                    GLHelper::setColor(getParentDemandElements().at(0)->getColor());
+                    return getParentDemandElements().at(0)->getColor();
                 } else {
-                    GLHelper::setColor(c.getScheme().getColor(0));
+                    return c.getScheme().getColor(0);
                 }
                 break;
             }
             case 4: {
                 if (getParentDemandElements().at(1)->getColor() != RGBColor::DEFAULT_COLOR) {
-                    GLHelper::setColor(getParentDemandElements().at(1)->getColor());
+                    return getParentDemandElements().at(1)->getColor();
                 } else {
-                    GLHelper::setColor(c.getScheme().getColor(0));
+                    return c.getScheme().getColor(0);
                 }
-                break;
             }
             case 5: {
                 Position p = getParentDemandElements().at(1)->getParentEdges().at(0)->getLanes().at(0)->getLaneShape()[0];
@@ -1796,8 +1789,7 @@ GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
                 Position center = b.getCenter();
                 double hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / M_PI;
                 double sat = p.distanceTo(center) / center.distanceTo(Position(b.xmin(), b.ymin()));
-                GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
-                break;
+                return RGBColor::fromHSV(hue, sat, 1.);
             }
             case 6: {
                 Position p = getParentDemandElements().at(1)->getParentEdges().back()->getLanes().at(0)->getLaneShape()[-1];
@@ -1805,8 +1797,7 @@ GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
                 Position center = b.getCenter();
                 double hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / M_PI;
                 double sat = p.distanceTo(center) / center.distanceTo(Position(b.xmin(), b.ymin()));
-                GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
-                break;
+                return RGBColor::fromHSV(hue, sat, 1.);
             }
             case 7: {
                 Position pb = getParentDemandElements().at(1)->getParentEdges().at(0)->getLanes().at(0)->getLaneShape()[0];
@@ -1816,18 +1807,16 @@ GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
                 Position minp(b.xmin(), b.ymin());
                 Position maxp(b.xmax(), b.ymax());
                 double sat = pb.distanceTo(pe) / minp.distanceTo(maxp);
-                GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
-                break;
+                return RGBColor::fromHSV(hue, sat, 1.);
             }
             case 29: { // color randomly (by pointer hash)
                 std::hash<const GNEVehicle*> ptr_hash;
                 const double hue = (double)(ptr_hash(this) % 360); // [0-360]
                 const double sat = (double)((ptr_hash(this) / 360) % 67) / 100. + 0.33; // [0.33-1]
-                GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
-                break;
+                return RGBColor::fromHSV(hue, sat, 1.);
             }
             default: {
-                GLHelper::setColor(c.getScheme().getColor(0));
+                return c.getScheme().getColor(0);
             }
         }
     }

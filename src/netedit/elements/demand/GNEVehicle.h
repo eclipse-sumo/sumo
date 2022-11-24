@@ -346,7 +346,7 @@ public:
 
 protected:
     /// @brief sets the color according to the currente settings
-    void setColor(const GUIVisualizationSettings& s) const;
+    RGBColor setColor(const GUIVisualizationSettings& s) const;
 
 private:
     /// @brief vehicle arrival position radius
