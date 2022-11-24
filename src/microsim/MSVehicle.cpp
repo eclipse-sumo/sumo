@@ -5669,6 +5669,8 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
                 }
                 if (bestConnectedNext.allowsContinuation || bestConnectedNext.length > 0) {
                     copy(bestConnectedNext.bestContinuations.begin(), bestConnectedNext.bestContinuations.end(), back_inserter((*j).bestContinuations));
+                } else {
+                    (*j).allowsContinuation = false;
                 }
                 if (clanes[bestThisIndex].length < (*j).length
                         || (clanes[bestThisIndex].length == (*j).length && abs(clanes[bestThisIndex].bestLaneOffset) > abs((*j).bestLaneOffset))
