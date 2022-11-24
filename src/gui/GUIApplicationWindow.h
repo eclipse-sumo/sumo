@@ -23,19 +23,10 @@
 #pragma once
 #include <config.h>
 
-#include <string>
-#include <vector>
-#include <iostream>
-#include <utils/foxtools/fxheader.h>
-#include <utils/foxtools/MFXSynchQue.h>
-#include <utils/foxtools/MFXThreadEvent.h>
-#include <utils/foxtools/MFXInterThreadEventClient.h>
-#include <utils/foxtools/MFXLCDLabel.h>
 #include <utils/foxtools/MFXRecentNetworks.h>
+#include <utils/foxtools/MFXInterThreadEventClient.h>
 #include <utils/gui/windows/GUIMainWindow.h>
-#include <utils/common/ValueRetriever.h>
-#include <utils/common/ValueSource.h>
-#include <utils/distribution/RandomDistributor.h>
+
 #include "GUISUMOViewParent.h"
 
 
@@ -50,6 +41,7 @@ class GUIEvent;
 class GUIParameterTracker;
 class GUIParameterTableWindow;
 class GUIDialog_Breakpoints;
+class MFXLCDLabel;
 
 
 // ===========================================================================
@@ -63,8 +55,7 @@ class GUIDialog_Breakpoints;
  * may also have some further views (children) assigned which are stored
  * within a separate list.
  */
-class GUIApplicationWindow :
-    public GUIMainWindow, public MFXInterThreadEventClient {
+class GUIApplicationWindow : public GUIMainWindow, public MFXInterThreadEventClient {
     // FOX-declarations
     FXDECLARE(GUIApplicationWindow)
 public:
