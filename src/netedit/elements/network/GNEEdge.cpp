@@ -2395,10 +2395,8 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s) const {
             }
             // draw line geometry, start and end points if shapeStart or shape end is edited, and depending of drawForRectangleSelection
             if (drawBigGeometryPoints) {
-                // start point
-                drawExtremeGeometryPoint(s, getFromJunction()->getNBNode()->getPosition(), myNBEdge->getGeometry().front(), circleWidth, exaggeration, "S");
-                // end point
-                drawExtremeGeometryPoint(s, getToJunction()->getNBNode()->getPosition(), myNBEdge->getGeometry().back(), circleWidth, exaggeration, "E");
+                drawStartGeometryPoint(s, circleWidth, exaggeration);
+                drawEndGeometryPoint(s, circleWidth, exaggeration);
             }
             // pop edge layer matrix
             GLHelper::popMatrix();
@@ -2410,39 +2408,64 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s) const {
 
 
 void
-GNEEdge::drawExtremeGeometryPoint(const GUIVisualizationSettings& s, const Position &junctionPosition, const Position &geometryPointPosition,
-        const double exaggeration, const double circleWidth, const std::string &symbol) const {
-    // calculate distance between mouse and geometry point
-    const double mouseNearGeometryPoint = (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryPointPosition) <= ((circleWidth * circleWidth) + 2));
-    // get terance
-    const bool tolerance = (geometryPointPosition.distanceSquaredTo2D(junctionPosition) > ENDPOINT_TOLERANCE);
-    // check conditions
-    if (tolerance && (!s.drawForRectangleSelection || mouseNearGeometryPoint)) {
+GNEEdge::drawStartGeometryPoint(const GUIVisualizationSettings& s, const double circleWidth, const double exaggeration) const {
+    if ((myNBEdge->getGeometry().front().distanceSquaredTo2D(getFromJunction()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) &&
+            (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBEdge->getGeometry().front()) <= ((circleWidth * circleWidth) + 2)))) {
         // calculate angle
-        const double angle = RAD2DEG(geometryPointPosition.angleTo2D(myNBEdge->getGeometry()[1])) * -1;
+        const double angle = RAD2DEG(myNBEdge->getGeometry().front().angleTo2D(myNBEdge->getGeometry()[1])) * -1;
         GLHelper::pushMatrix();
-        glTranslated(geometryPointPosition.x(), geometryPointPosition.y(), 0.1);
+        glTranslated(myNBEdge->getGeometry().front().x(), myNBEdge->getGeometry().front().y(), 0.1);
         // resolution of drawn circle depending of the zoom (To improve smoothness)
         GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution(), angle + 90, angle + 270);
         GLHelper::popMatrix();
         // draw a "s" over last point depending of drawForRectangleSelection
         if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
             GLHelper::pushMatrix();
-            glTranslated(geometryPointPosition.x(), geometryPointPosition.y(), 0.2);
-            GLHelper::drawText(symbol, Position(), 0, circleWidth, RGBColor(0, 50, 255));
+            glTranslated(myNBEdge->getGeometry().front().x(), myNBEdge->getGeometry().front().y(), 0.2);
+            GLHelper::drawText("S", Position(), 0, circleWidth, RGBColor(0, 50, 255));
             GLHelper::popMatrix();
             // draw line between Junction and point
             GLHelper::pushMatrix();
             glTranslated(0, 0, 0.1);
             glLineWidth(4);
-            GLHelper::drawLine(geometryPointPosition, junctionPosition);
+            GLHelper::drawLine(myNBEdge->getGeometry().front(), getFromJunction()->getNBNode()->getPosition());
             // draw line between begin point of last lane shape and the first edge shape point
-            GLHelper::drawLine(geometryPointPosition, myNBEdge->getLanes().back().shape.front());
+            GLHelper::drawLine(myNBEdge->getGeometry().front(), myNBEdge->getLanes().back().shape.front());
             GLHelper::popMatrix();
         }
     }
 }
 
+
+void
+GNEEdge::drawEndGeometryPoint(const GUIVisualizationSettings& s, const double circleWidth, const double exaggeration) const {
+
+    if ((myNBEdge->getGeometry().back().distanceSquaredTo2D(getToJunction()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) &&
+            (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBEdge->getGeometry().back()) <= ((circleWidth * circleWidth) + 2)))) {
+        // calculate angle
+        const double angle = RAD2DEG(myNBEdge->getGeometry()[-1].angleTo2D(myNBEdge->getGeometry()[-2])) * -1;
+        GLHelper::pushMatrix();
+        glTranslated(myNBEdge->getGeometry().back().x(), myNBEdge->getGeometry().back().y(), 0.1);
+        // resolution of drawn circle depending of the zoom (To improve smoothness)
+        GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution(), angle - 90, angle + 90);
+        GLHelper::popMatrix();
+        // draw a "e" over last point depending of drawForRectangleSelection
+        if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
+            GLHelper::pushMatrix();
+            glTranslated(myNBEdge->getGeometry().back().x(), myNBEdge->getGeometry().back().y(), 0.2);
+            GLHelper::drawText("E", Position(), 0, circleWidth, RGBColor(0, 50, 255));
+            GLHelper::popMatrix();
+            // draw line between Junction and point
+            GLHelper::pushMatrix();
+            glTranslated(0, 0, 0.1);
+            glLineWidth(4);
+            GLHelper::drawLine(myNBEdge->getGeometry().back(), getToJunction()->getNBNode()->getPosition());
+            // draw line between last point of first lane shape and the last edge shape point
+            GLHelper::drawLine(myNBEdge->getGeometry().back(), myNBEdge->getLanes().back().shape.back());
+            GLHelper::popMatrix();
+        }
+    }
+}
 
 void
 GNEEdge::drawEdgeName(const GUIVisualizationSettings& s) const {
