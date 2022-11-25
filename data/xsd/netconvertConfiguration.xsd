@@ -80,6 +80,7 @@
             <xsd:element name="railway.topology.output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="polygon-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="opendrive-output.straight-threshold" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="opendrive-output.osm-divider-tag" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 

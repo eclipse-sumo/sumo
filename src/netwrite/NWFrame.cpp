@@ -119,6 +119,10 @@ NWFrame::fillOptions(bool forNetgen) {
     oc.doRegister("opendrive-output.straight-threshold", new Option_Float(0.00000001)); // matching the angular output precision in NWWriter_OpenDrive
     oc.addDescription("opendrive-output.straight-threshold", "Output", "Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees");
 
+    // register opendrive osm divider tag option
+    oc.doRegister("opendrive-output.osm-divider-tag", new Option_Bool(false));
+    oc.addDescription("opendrive-output.osm-divider-tag", "Output", "Renders the provided divider tag (OSM) to the lanesection center roadmark type (OpenDrive)");
+
     if (!forNetgen) {
         oc.doRegister("opendrive-output.lefthand-left", new Option_Bool(false));
         oc.addDescription("opendrive-output.lefthand-left", "Output", "Write lanes in lefthand networks on the left side (positive indices)");

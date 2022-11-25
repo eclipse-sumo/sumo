@@ -34,3 +34,6 @@ signalGroups
 
 # test exporting pois and polygons
 roadObjects
+
+# OSM divider tag to OpenDrive export
+osm_divider

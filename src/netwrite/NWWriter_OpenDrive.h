@@ -60,11 +60,15 @@ protected:
     /// @brief signalID -> (lanes, dirs)
     typedef std::map<std::string, std::pair<std::set<int>, std::set<LinkDirection> > > SignalLanes;
 
+    /// @brief retrieve divider type
+    static std::string getDividerType(const NBEdge* e);
+
     /// @brief write normal edge to device
     static void writeNormalEdge(OutputDevice& device, const NBEdge* e,
                                 int edgeID, int fromNodeID, int toNodeID,
                                 const bool origNames,
                                 const double straightThresh,
+                                const bool outputCenterMark,
                                 const ShapeContainer& shc,
                                 SignalLanes& signalLanes);
 
