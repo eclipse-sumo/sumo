@@ -5474,8 +5474,9 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
             }
         }
         assert(false); // should always find the next edge
-    }
+    } 
     // start rebuilding
+    myLastBestLanesInternalLane = nullptr;
     myLastBestLanesEdge = &startLane->getEdge();
     myBestLanes.clear();
 
