@@ -117,3 +117,6 @@ turn-lanes2
 # import key junction=circular
 junction_circular
 bugs
+
+# handle width:lanes information
+width_lane
