@@ -235,6 +235,9 @@ protected:
         /// @brief turning direction (arrows printed on the road)
         std::vector<int> myTurnSignsForward;
         std::vector<int> myTurnSignsBackward;
+        /// @brief Information on lane width
+        std::vector<double> myWidthLanesForward;
+        std::vector<double> myWidthLanesBackward;
 
     private:
         /// invalidated assignment operator
