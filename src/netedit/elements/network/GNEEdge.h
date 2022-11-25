@@ -441,6 +441,10 @@ private:
     /// @brief draw edge geometry points (note: This function is called by GNELane::drawGL(...)
     void drawEdgeGeometryPoints(const GUIVisualizationSettings& s) const;
 
+    /// @brief draw extreme geometry point
+    void drawExtremeGeometryPoint(const GUIVisualizationSettings& s, const Position &junctionPosition, const Position &geometryPointPosition,
+                                  const double exaggeration, const double circleWidth, const std::string &symbol) const;
+
     /// @brief draw edge name
     void drawEdgeName(const GUIVisualizationSettings& s) const;
 
