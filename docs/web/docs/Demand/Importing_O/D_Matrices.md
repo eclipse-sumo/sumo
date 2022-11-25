@@ -104,9 +104,9 @@ destination lists are normalized after loading.
 ## Creating TAZ files
 
 - TAZ definitions can be created directly in
-  [netedit](../../Netedit/index.md#taz_traffic_analysis_zones)
+  [netedit](../../Netedit/editModesNetwork.md#taz_traffic_analysis_zones)
 - TAZ definitions can be created by drawing polygons in
-  [netedit](../../Netedit/index.md#pois_and_polygons), then using the tool
+  [netedit](../../Netedit/editModesNetwork.md#shapes), then using the tool
   [edgesInDistricts.py](../../Tools/District.md#edgesindistrictspy)
   for converting polygons to TAZ.
 
