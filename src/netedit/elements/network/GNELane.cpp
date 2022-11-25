@@ -559,8 +559,6 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             drawTextures(s, laneDrawingConstants);
             // draw start end shape points
             drawStartEndShapePoints(s);
-            // draw edge geometry points
-            myParentEdge->drawEdgeGeometryPoints(s, this);
         }
         // draw stopOffsets
         const auto& laneStopOffset = myParentEdge->getNBEdge()->getLaneStruct(myIndex).laneStopOffset;

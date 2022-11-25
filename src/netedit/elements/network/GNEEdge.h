@@ -312,9 +312,6 @@ public:
     // @brief update vehicle geometries
     void updateContainerStackLabels();
 
-    /// @brief draw edge geometry points (note: This function is called by GNELane::drawGL(...)
-    void drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane* lane) const;
-
     /// @brief draw dotted contour for the given dottedGeometries
     static void drawDottedContourEdge(const GUIVisualizationSettings& s, const GUIDottedGeometry::DottedContourType type, const GNEEdge* edge,
                                       const bool drawFrontExtreme, const bool drawBackExtreme, const double exaggeration = 1);
@@ -441,11 +438,17 @@ private:
     /// @brief get containers a that start over this edge
     const std::map<const GNELane*, std::vector<GNEDemandElement*> > getContainersOverEdgeMap() const;
 
+    /// @brief draw edge geometry points (note: This function is called by GNELane::drawGL(...)
+    void drawEdgeGeometryPoints(const GUIVisualizationSettings& s) const;
+
     /// @brief draw edge name
     void drawEdgeName(const GUIVisualizationSettings& s) const;
 
     /// @brief draw edgeStopOffset
     void drawLaneStopOffset(const GUIVisualizationSettings& s) const;
+
+    /// @brief draw children
+    void drawChildrens(const GUIVisualizationSettings& s) const;
 
     /// @brief draw TAZElements
     void drawTAZElements(const GUIVisualizationSettings& s) const;
