@@ -418,12 +418,13 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
     } else {
         length = init.bezier(12).length2D();
     }
+    double roadLength = MAX2(POSITION_EPS, length);
 
     junctionDevice << "        <connection id=\"" << connectionID << "\" incomingRoad=\"" << inEdgeID << "\" connectingRoad=\"" << edgeID << "\" contactPoint=\"start\">\n";
     device.openTag("road");
     device.writeAttr("name", cLeft.id);
     device.setPrecision(8); // length requires higher precision
-    device.writeAttr("length", MAX2(POSITION_EPS, length));
+    device.writeAttr("length", roadLength);
     device.setPrecision(gPrecision);
     device.writeAttr("id", edgeID);
     device.writeAttr("junction", nodeID);
@@ -477,12 +478,21 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
         const NBEdge::Connection& c = parallel[j];
         const int fromIndex = s2x(c.fromLane, inEdge->getNumLanes());
         const int toIndex = s2x(c.toLane, outEdge->getNumLanes());
+
+        double inEdgeWidth = inEdge->getLaneWidth(c.fromLane);
+        double outEdgeWidth = outEdge->getLaneWidth(c.toLane);
+        // Ideally a polynomial function of third order would be needed for more precision.
+        // This is obtained by specifying c and d coefficients, keeping it simple and linear
+        // as we only know final and initial width.
+        double bCoefficient = (outEdgeWidth - inEdgeWidth) / roadLength;
+        double cCoefficient = 0;
+        double dCoefficient = 0;
         device << "                    <lane id=\"" << xJ << "\" type=\"" << getLaneType(outEdge->getPermissions(c.toLane)) << "\" level=\"true\">\n";
         device << "                        <link>\n";
         device << "                            <predecessor id=\"" << fromIndex << "\"/>\n";
         device << "                            <successor id=\"" << toIndex << "\"/>\n";
         device << "                        </link>\n";
-        device << "                        <width sOffset=\"0\" a=\"" << outEdge->getLaneWidth(c.toLane) << "\" b=\"0\" c=\"0\" d=\"0\"/>\n";
+        device << "                        <width sOffset=\"0\" a=\"" << inEdgeWidth << "\" b=\""<< bCoefficient << "\" c=\"" << cCoefficient << "\" d=\"" << dCoefficient << "\"/>\n";
         std::string markType = "broken";
         if (inEdge->isTurningDirectionAt(outEdge)) {
             markType = "none";
