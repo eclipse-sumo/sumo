@@ -598,7 +598,8 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
 
     const std::string origID = OptionsCont::getOptions().getBool("output.original-names") ? toString(e->id) : "";
     if (ok) {
-        const int offsetFactor = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
+        const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
+        const int offsetFactor = lefthand ? -1 : 1;
         LaneSpreadFunction lsf = (addBackward || OptionsCont::getOptions().getBool("osm.oneway-spread-right")) &&
                                  e->myRailDirection == WAY_UNKNOWN ? LaneSpreadFunction::RIGHT : LaneSpreadFunction::CENTER;
         if (addBackward && lsf == LaneSpreadFunction::RIGHT && OptionsCont::getOptions().getString("default.spreadtype") == toString(LaneSpreadFunction::ROADCENTER)) {
@@ -648,7 +649,8 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                     for (size_t i = 0; i < noOfForwardLanesFromWidthKey; i++)
                     {
                         double actualWidth = e->myWidthLanesForward[i] <= 0 ? forwardWidth : e->myWidthLanesForward[i];
-                        nbe->setLaneWidth(i, actualWidth);
+                        int laneIndex = lefthand ? i : noOfForwardLanesFromWidthKey - i - 1;
+                        nbe->setLaneWidth(laneIndex, actualWidth);
                     }
                 }
             }
@@ -685,16 +687,17 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             nbe->setDistance(distanceEnd);
 
             // process backward lanes width
-            size_t noOfBackwarddLanesFromWidthKey = e->myWidthLanesBackward.size();
-            if (noOfBackwarddLanesFromWidthKey > 0) {
-                if (nbe->getLanes().size() != noOfBackwarddLanesFromWidthKey) {
-                    WRITE_WARNINGF(TL("Backward lanes count for edge '%' ('%') is not matching the number of lanes defined in width:lanes:backward key ('%'). Using default width values."), id, nbe->getLanes().size(), noOfBackwarddLanesFromWidthKey);
+            size_t noOfBackwardLanesFromWidthKey = e->myWidthLanesBackward.size();
+            if (noOfBackwardLanesFromWidthKey > 0) {
+                if (nbe->getLanes().size() != noOfBackwardLanesFromWidthKey) {
+                    WRITE_WARNINGF(TL("Backward lanes count for edge '%' ('%') is not matching the number of lanes defined in width:lanes:backward key ('%'). Using default width values."), id, nbe->getLanes().size(), noOfBackwardLanesFromWidthKey);
                 }
                 else {
-                    for (size_t i = 0; i < noOfBackwarddLanesFromWidthKey; i++)
+                    for (size_t i = 0; i < noOfBackwardLanesFromWidthKey; i++)
                     {
                         double actualWidth = e->myWidthLanesBackward[i] <= 0 ? backwardWidth : e->myWidthLanesBackward[i];
-                        nbe->setLaneWidth(i, actualWidth);
+                        int laneIndex = lefthand ? i : noOfBackwardLanesFromWidthKey - i - 1;
+                        nbe->setLaneWidth(laneIndex, actualWidth);
                     }
                 }
             }
