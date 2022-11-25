@@ -1,0 +1,11 @@
+<routes>
+    <vType id="vehDistCyc" vClass="bicycle" />
+    <vType id="car" sigma="0"/>
+    <flow id="b_r"  begin="0" end="100" number="5"  from="gneE4b" to="gneE2" type="vehDistCyc" departPos="-20" color="red"/>
+    <flow id="b_s" begin="0" end="100" number="15" from="gneE4b" to="gneE1" type="vehDistCyc" departPos="-20" color="green"/>
+    <flow id="b_l" begin="0" end="100" number="8"  from="gneE4b" to="gneE5" type="vehDistCyc" departPos="-20" color="blue"/>
+
+    <flow id="c_r" begin="0" end="100" number="5"  from="gneE4b" to="gneE2" color="red"/>
+    <flow id="c_s" begin="0" end="100" number="15" from="gneE4b" to="gneE1" color="green"/>
+    <flow id="c_l" begin="0" end="100" number="8"  from="gneE4b" to="gneE5" color="blue"/>
+</routes>
