@@ -90,6 +90,9 @@ Output Options:
   --opendrive-output.straight-threshold FLOAT  Builds parameterized curves
                                         whenever the angular change  between
                                         straight segments exceeds FLOAT degrees
+  --opendrive-output.osm-divider-tag   Renders the provided divider tag (OSM)
+                                        to the lanesection center roadmark type
+                                        (OpenDrive)
   --opendrive-output.lefthand-left     Write lanes in lefthand networks on the
                                         left side (positive indices)
   --opendrive-output.shape-match-dist FLOAT  Match loaded shapes to the closest
