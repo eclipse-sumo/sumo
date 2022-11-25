@@ -637,6 +637,22 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             }
             nbe->updateParameters(e->getParametersMap());
             nbe->setDistance(distanceStart);
+
+            // process forward lanes width
+            size_t noOfForwardLanesFromWidthKey = e->myWidthLanesForward.size();
+            if (noOfForwardLanesFromWidthKey > 0) {
+                if (nbe->getLanes().size() != noOfForwardLanesFromWidthKey) {
+                    WRITE_WARNINGF(TL("Forward lanes count for edge '%' ('%') is not matching the number of lanes defined in width:lanes:forward key ('%'). Using default width values."), id, nbe->getLanes().size(), noOfForwardLanesFromWidthKey);
+                }
+                else {
+                    for (size_t i = 0; i < noOfForwardLanesFromWidthKey; i++)
+                    {
+                        double actualWidth = e->myWidthLanesForward[i] <= 0 ? forwardWidth : e->myWidthLanesForward[i];
+                        nbe->setLaneWidth(i, actualWidth);
+                    }
+                }
+            }
+
             if (!ec.insert(nbe)) {
                 delete nbe;
                 throw ProcessError("Could not add edge '" + id + "'.");
@@ -667,6 +683,22 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             }
             nbe->updateParameters(e->getParametersMap());
             nbe->setDistance(distanceEnd);
+
+            // process backward lanes width
+            size_t noOfBackwarddLanesFromWidthKey = e->myWidthLanesBackward.size();
+            if (noOfBackwarddLanesFromWidthKey > 0) {
+                if (nbe->getLanes().size() != noOfBackwarddLanesFromWidthKey) {
+                    WRITE_WARNINGF(TL("Backward lanes count for edge '%' ('%') is not matching the number of lanes defined in width:lanes:backward key ('%'). Using default width values."), id, nbe->getLanes().size(), noOfBackwarddLanesFromWidthKey);
+                }
+                else {
+                    for (size_t i = 0; i < noOfBackwarddLanesFromWidthKey; i++)
+                    {
+                        double actualWidth = e->myWidthLanesBackward[i] <= 0 ? backwardWidth : e->myWidthLanesBackward[i];
+                        nbe->setLaneWidth(i, actualWidth);
+                    }
+                }
+            }
+
             if (!ec.insert(nbe)) {
                 delete nbe;
                 throw ProcessError("Could not add edge '-" + id + "'.");
@@ -1031,6 +1063,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 && key != "foot"
                 && key != "bicycle"
                 && key != "oneway:bicycle"
+                && !StringUtils::startsWith(key, "width:lanes")
                 && !StringUtils::startsWith(key, "turn:lanes")
                 && key != "public_transport") {
             return;
@@ -1111,8 +1144,36 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 }
             } catch (const BoolFormatException&) {
                 myCurrentEdge->myExtraAllowed |= SVC_BUS;
-            }
-        } else if (key == "foot") {
+			}
+		}
+		else if (StringUtils::startsWith(key, "width:lanes")) {
+			try
+			{
+                const std::vector<std::string> values = StringTokenizer(value, "|").getVector();
+                std::vector<double> widthLanes;
+                for (std::string width : values) {
+                    double parsedWidth = width == "" 
+                        ? -1
+                        : StringUtils::toDouble(width);
+                    widthLanes.push_back(parsedWidth);
+                }
+
+				if (key == "width:lanes" || key == "width:lanes:forward") {
+                    myCurrentEdge->myWidthLanesForward = widthLanes;
+                }
+                else if (key == "width:lanes:backward") {
+                    myCurrentEdge->myWidthLanesBackward = widthLanes;
+                }
+				else {
+					WRITE_WARNINGF(TL("Using default lane width for edge '%' as key '%' could not be parsed."), toString(myCurrentEdge->id), key);
+				}
+			}
+			catch (const NumberFormatException&)
+			{
+                WRITE_WARNINGF(TL("Using default lane width for edge '%' as value '%' could not be parsed."), toString(myCurrentEdge->id), value);
+			}
+		}
+        else if (key == "foot") {
             if (value == "use_sidepath" || value == "no") {
                 myCurrentEdge->myExtraDisallowed |= SVC_PEDESTRIAN;
             } else if (value == "yes" || value == "designated" || value == "permissive") {
