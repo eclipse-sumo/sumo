@@ -123,7 +123,7 @@ GNEGeneralHandler::endTag() {
         myMeanDataHandler.endParseAttributes();
     } else {
         WRITE_ERROR(toString(myQueue.back().tag) + " cannot be processed either " + 
-            "with additional handler nor with demand handler nor with meanData hanlder");
+            "with additional handler nor with demand handler nor with meanData handler");
     }
 }
 
