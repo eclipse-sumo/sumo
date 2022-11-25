@@ -54,7 +54,7 @@ jobs:
 
     # required for CMake to find Ninja
     - name: "Set up MSVC Developer Command Prompt"
-      uses: seanmiddleditch/gha-setup-vsdevenv@v3
+      uses: seanmiddleditch/gha-setup-vsdevenv@v4
 
     - name: Building SUMO plain
       if: matrix.build_type == 'plain'
