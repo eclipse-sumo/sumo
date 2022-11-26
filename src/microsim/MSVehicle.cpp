@@ -1627,6 +1627,7 @@ MSVehicle::processNextStop(double currentVelocity) {
                 myArrivalPos = getPositionOnLane();
             }
         }
+        boardTransportables(stop);
         if (!keepStopping() && isOnRoad()) {
 #ifdef DEBUG_STOPS
             if (DEBUG_COND) {
@@ -1645,8 +1646,6 @@ MSVehicle::processNextStop(double currentVelocity) {
                 }
             }
         } else {
-            boardTransportables(stop);
-
             if (stop.triggered && !myAmRegisteredAsWaiting) {
                 if (getVehicleType().getPersonCapacity() == getPersonNumber()) {
                     WRITE_WARNING("Vehicle '" + getID() + "' ignores triggered stop on lane '" + stop.lane->getID() + "' due to capacity constraints.");
