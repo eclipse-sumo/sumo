@@ -14,7 +14,8 @@ by the PTV Group](https://www.youtube.com/watch?v=IpaNLxrtHOs).
 
 # Building the Net
 
-<img src="../images/sumolympics_netedit_1.png" width="1000" align=”left”/><p>Open [netedit](../Netedit/index.md) and create a new network and add a single
+<img src="../images/sumolympics_netedit_1.PNG" width="1000" align="left"/>
+<p>Open [netedit](../Netedit/index.md) and create a new network and add a single
 edge by pressing `e` for entering the edge creation mode and clicking on
 two different locations in the editing area. Change to inspection mode
 (press `i`) and click on the starting point of the edge (at the location
@@ -79,7 +80,7 @@ definitions:
 
 Take a look at the [vehicle type attributes
 description](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_types)
-for details on these definitions, as well as [this page](../Specification/Persons.html) for persons.
+for details on these definitions, as well as [this page](../Specification/Persons.md) for persons.
 
 For each vehicle type, we schedule and position vehicle flows by adding the following `<flow .../>` elements just below the
 vType definitions (within the `<routes>` element\!):
@@ -98,7 +99,7 @@ vType definitions (within the `<routes>` element\!):
 ```
 
 Notice that the pedestrian flow (`personFlow` element above) has a slightly different syntax. For details on the meaning of the attributes of the flows, see the
-section [Flow Definitions](../Demand/Shortest_or_Optimal_Path_Routing.md#flow_definitions) and [Person Flows](../Specification/Persons.html#repeated_persons_personflows).
+section [Flow Definitions](../Demand/Shortest_or_Optimal_Path_Routing.md#flow_definitions) and [Person Flows](../Specification/Persons.md#repeated_persons_personflows).
 
 To prepare the simulation, create a SUMO configuration file (name it
 `sumolympics.sumocfg`):
