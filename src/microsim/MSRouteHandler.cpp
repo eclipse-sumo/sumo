@@ -1012,7 +1012,7 @@ MSRouteHandler::addRideOrTransport(const SUMOSAXAttributes& attrs, const SumoXML
         const std::string aid = myVehicleParameter->id;
         bool ok = true;
         const MSEdge* from = nullptr;
-        const std::string desc = attrs.get<std::string>(SUMO_ATTR_LINES, aid.c_str(), ok);
+        const std::string desc = attrs.getOpt<std::string>(SUMO_ATTR_LINES, aid.c_str(), ok, "ANY");
         StringTokenizer st(desc);
         MSStoppingPlace* s = retrieveStoppingPlace(attrs, "in " + agent + " '" + aid + "'");
         MSEdge* to = nullptr;
