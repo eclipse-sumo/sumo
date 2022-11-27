@@ -41,8 +41,15 @@ jobs:
         name: helper-wheels
         path: tools/dist
 
-    - name: Building Python wheels
+    - name: Building Python wheels (fixed manylinux docker)
+      if: github.repository == 'eclipse/sumo'
       uses: docker://quay.io/pypa/manylinux2014_x86_64:2022-11-14-1226cfc
+      with:
+        entrypoint: tools/build/build_wheels.sh
+
+    - name: Building Python wheels (latest manylinux docker)
+      if: github.repository == 'DLR-TS/sumo'
+      uses: docker://quay.io/pypa/manylinux2014_x86_64
       with:
         entrypoint: tools/build/build_wheels.sh
 
@@ -58,7 +65,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python: [3.7, 3.8, 3.9, '3.10']
+        python: [3.7, 3.8, 3.9, '3.10', 3.11]
 
     steps:
     - name: Cloning SUMO
