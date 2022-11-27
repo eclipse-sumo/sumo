@@ -113,7 +113,7 @@ public:
     /// @brief replace the vehicle parameter (deleting the old one)
     void replaceParameter(const SUMOVehicleParameter* newParameter);
 
-    /// @brief check whether the vehicle is equiped with a device of the given type
+    /// @brief check whether the vehicle is equiped with a device of the given name
     bool hasDevice(const std::string& deviceName) const;
 
     /// @brief create device of the given type
@@ -533,7 +533,7 @@ public:
         myChosenSpeedFactor = factor;
     }
 
-    /// @brief Returns a device of the given type if it exists or 0
+    /// @brief Returns a device of the given type if it exists, nullptr otherwise
     MSVehicleDevice* getDevice(const std::type_info& type) const;
 
 

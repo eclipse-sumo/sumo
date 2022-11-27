@@ -5635,12 +5635,12 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
         int index = 0;
         double bestConnectedLength = -1;
         double bestLength = -1;
-        for (std::vector<LaneQ>::iterator j = nextLanes.begin(); j != nextLanes.end(); ++j, ++index) {
-            if ((*j).lane->isApproachedFrom(&cE) && bestConnectedLength < (*j).length) {
-                bestConnectedLength = (*j).length;
+        for (const LaneQ& j : nextLanes) {
+            if (j.lane->isApproachedFrom(&cE) && bestConnectedLength < j.length) {
+                bestConnectedLength = j.length;
             }
-            if (bestLength < (*j).length) {
-                bestLength = (*j).length;
+            if (bestLength < j.length) {
+                bestLength = j.length;
             }
         }
         // compute index of the best lane (highest length and least offset from the best next lane)
@@ -5648,53 +5648,55 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
         int bestThisMaxIndex = 0;
         if (bestConnectedLength > 0) {
             index = 0;
-            for (std::vector<LaneQ>::iterator j = clanes.begin(); j != clanes.end(); ++j, ++index) {
+            for (LaneQ& j : clanes) {
                 LaneQ bestConnectedNext;
                 bestConnectedNext.length = -1;
-                if ((*j).allowsContinuation) {
-                    for (std::vector<LaneQ>::const_iterator m = nextLanes.begin(); m != nextLanes.end(); ++m) {
-                        if (((*m).lane->allowsVehicleClass(getVClass()) || (*m).lane->hadPermissionChanges())
-                                && (*m).lane->isApproachedFrom(&cE, (*j).lane)) {
-                            if (bestConnectedNext.length < (*m).length || (bestConnectedNext.length == (*m).length && abs(bestConnectedNext.bestLaneOffset) > abs((*m).bestLaneOffset))) {
-                                bestConnectedNext = *m;
+                if (j.allowsContinuation) {
+                    for (const LaneQ& m : nextLanes) {
+                        if ((m.lane->allowsVehicleClass(getVClass()) || m.lane->hadPermissionChanges())
+                                && m.lane->isApproachedFrom(&cE, j.lane)) {
+                            if (bestConnectedNext.length < m.length || (bestConnectedNext.length == m.length && abs(bestConnectedNext.bestLaneOffset) > abs(m.bestLaneOffset))) {
+                                bestConnectedNext = m;
                             }
                         }
                     }
                     if (bestConnectedNext.length == bestConnectedLength && abs(bestConnectedNext.bestLaneOffset) < 2) {
-                        (*j).length += bestLength;
+                        j.length += bestLength;
                     } else {
-                        (*j).length += bestConnectedNext.length;
+                        j.length += bestConnectedNext.length;
                     }
-                    (*j).bestLaneOffset = bestConnectedNext.bestLaneOffset;
+                    j.bestLaneOffset = bestConnectedNext.bestLaneOffset;
                 }
                 if (bestConnectedNext.allowsContinuation || bestConnectedNext.length > 0) {
-                    copy(bestConnectedNext.bestContinuations.begin(), bestConnectedNext.bestContinuations.end(), back_inserter((*j).bestContinuations));
+                    copy(bestConnectedNext.bestContinuations.begin(), bestConnectedNext.bestContinuations.end(), back_inserter(j.bestContinuations));
                 } else {
-                    (*j).allowsContinuation = false;
+                    j.allowsContinuation = false;
                 }
-                if (clanes[bestThisIndex].length < (*j).length
-                        || (clanes[bestThisIndex].length == (*j).length && abs(clanes[bestThisIndex].bestLaneOffset) > abs((*j).bestLaneOffset))
-                        || (clanes[bestThisIndex].length == (*j).length && abs(clanes[bestThisIndex].bestLaneOffset) == abs((*j).bestLaneOffset) &&
-                            nextLinkPriority(clanes[bestThisIndex].bestContinuations) < nextLinkPriority((*j).bestContinuations))
+                if (clanes[bestThisIndex].length < j.length
+                        || (clanes[bestThisIndex].length == j.length && abs(clanes[bestThisIndex].bestLaneOffset) > abs(j.bestLaneOffset))
+                        || (clanes[bestThisIndex].length == j.length && abs(clanes[bestThisIndex].bestLaneOffset) == abs(j.bestLaneOffset) &&
+                            nextLinkPriority(clanes[bestThisIndex].bestContinuations) < nextLinkPriority(j.bestContinuations))
                    ) {
                     bestThisIndex = index;
                     bestThisMaxIndex = index;
-                } else if (clanes[bestThisIndex].length == (*j).length
-                           && abs(clanes[bestThisIndex].bestLaneOffset) == abs((*j).bestLaneOffset)
-                           && nextLinkPriority(clanes[bestThisIndex].bestContinuations) == nextLinkPriority((*j).bestContinuations)) {
+                } else if (clanes[bestThisIndex].length == j.length
+                           && abs(clanes[bestThisIndex].bestLaneOffset) == abs(j.bestLaneOffset)
+                           && nextLinkPriority(clanes[bestThisIndex].bestContinuations) == nextLinkPriority(j.bestContinuations)) {
                     bestThisMaxIndex = index;
                 }
+                index++;
             }
 
             //vehicle with elecHybrid device prefers running under an overhead wire
-            if (static_cast<MSDevice_ElecHybrid*>(getDevice(typeid(MSDevice_ElecHybrid))) != 0) {
+            if (getDevice(typeid(MSDevice_ElecHybrid)) != nullptr) {
                 index = 0;
-                for (std::vector<LaneQ>::iterator j = clanes.begin(); j != clanes.end(); ++j, ++index) {
-                    std::string overheadWireSegmentID = MSNet::getInstance()->getStoppingPlaceID((*j).lane, ((*j).currentLength) / 2, SUMO_TAG_OVERHEAD_WIRE_SEGMENT);
+                for (const LaneQ& j : clanes) {
+                    std::string overheadWireSegmentID = MSNet::getInstance()->getStoppingPlaceID(j.lane, j.currentLength / 2., SUMO_TAG_OVERHEAD_WIRE_SEGMENT);
                     if (overheadWireSegmentID != "") {
                         bestThisIndex = index;
                         bestThisMaxIndex = index;
                     }
+                    index++;
                 }
             }
 
