@@ -526,28 +526,6 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         WRITE_WARNINGF(TL("Skipping edge '%' because it has speed %."), id, speed);
         ok = false;
     }
-
-    // Apply default permissions. Forward and backward permissions may be changed in the following code...
-    forwardPermissions = defaultPermissions;
-    backwardPermissions = defaultPermissions;
-
-    // Fill e->myLaneUseForward and ...Backward with default permissions
-    for (int i = 0; i < e->myNoLanesForward; i++) {
-        if (i > ((int)e->myLaneUseForward.size()) - 1) {
-            e->myLaneUseForward.push_back(forwardPermissions);
-        } else {
-            e->myLaneUseForward[i] = forwardPermissions;
-        }
-        WRITE_WARNING("Forward Lanes gefuellt");
-    }
-    for (int i = 0; i < (e->myNoLanes - e->myNoLanesForward); i++) {
-        if (i > ((int)e->myLaneUseBackward.size()) - 1) {
-            e->myLaneUseBackward.push_back(backwardPermissions);
-        } else {
-            e->myLaneUseBackward[i] = backwardPermissions;
-        }
-    }
-
     // deal with cycleways that run in the opposite direction of a one-way street
     WayType cyclewayType = e->myCyclewayType; // make a copy because we do some temporary modifications
     if (addBikeLane) {
@@ -1390,22 +1368,16 @@ NIImporter_OpenStreetMap::EdgesHandler::interpretLaneUse(const std::string& valu
     const std::vector<std::string> values = StringTokenizer(value, "|").getVector();
     int i = 0;
     for (const std::string& val : values) {
-        // add another element to vector in case it isn't long enough
-        while (i >= (int)result.size()) {
-            result.push_back(SVC_IGNORING);
-            WRITE_WARNING("Pushed back!");
-        } 
-        if (val == "yes") {
-            // add svc to permissible classes
-            result[i] |= svc;
-        } else if (val == "lane" || val == "designated") {
-            // add svc to permissible classes and delete other classes's permissions
-            result[i] = svc;
-        } else if (val == "no") {
-            // delete class permission
-            result[i] &= ~svc;
+        SVCPermissions use = SVC_IGNORING;
+        if (val == "yes" || val == "lane" || val == "designated") {
+            use = svc;
+        } else if (val != "no") {
+            WRITE_WARNINGF(TL("Unknown lane use specifier '%' treated as 'no' for way '%'"), val, myCurrentEdge->id);
+        }
+        if (i >= (int)result.size()) {
+            result.push_back(use);
         } else {
-            WRITE_WARNINGF(TL("Unknown lane use specifier '%' for way '%'"), val, myCurrentEdge->id);
+            result[i] |= use;
         }
         i++;
     }
