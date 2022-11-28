@@ -162,7 +162,7 @@ GNEMeanDataFrame::MeanDataEditor::MeanDataEditor(GNEMeanDataFrame* meanDataFrame
     myMeanDataFrameParent(meanDataFrameParent) {
     // Create new meanData
     myCreateMeanDataButton = new FXButton(getCollapsableFrame(), TL("Create MeanData"),
-        GUIIconSubSys::getIcon(GUIIcon::MEANDATAEDGE), this, MID_GNE_CREATE, GUIDesignButton);
+        GUIIconSubSys::getIcon(GUIIcon::MODEMEANDATA), this, MID_GNE_CREATE, GUIDesignButton);
     // Create delete/reset meanData
     myDeleteMeanDataButton = new FXButton(getCollapsableFrame(), TL("Delete MeanData"),
         GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), this, MID_GNE_DELETE, GUIDesignButton);
