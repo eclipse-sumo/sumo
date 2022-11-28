@@ -640,16 +640,15 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             nbe->setDistance(distanceStart);
 
             // process forward lanes width
-            size_t noOfForwardLanesFromWidthKey = e->myWidthLanesForward.size();
-            if (noOfForwardLanesFromWidthKey > 0) {
-                if (nbe->getLanes().size() != noOfForwardLanesFromWidthKey) {
-                    WRITE_WARNINGF(TL("Forward lanes count for edge '%' ('%') is not matching the number of lanes defined in width:lanes:forward key ('%'). Using default width values."), id, nbe->getLanes().size(), noOfForwardLanesFromWidthKey);
-                }
-                else {
-                    for (size_t i = 0; i < noOfForwardLanesFromWidthKey; i++)
-                    {
-                        double actualWidth = e->myWidthLanesForward[i] <= 0 ? forwardWidth : e->myWidthLanesForward[i];
-                        int laneIndex = lefthand ? i : noOfForwardLanesFromWidthKey - i - 1;
+            const int numForwardLanesFromWidthKey = (int)e->myWidthLanesForward.size();
+            if (numForwardLanesFromWidthKey > 0) {
+                if ((int)nbe->getLanes().size() != numForwardLanesFromWidthKey) {
+                    WRITE_WARNINGF(TL("Forward lanes count for edge '%' ('%') is not matching the number of lanes defined in width:lanes:forward key ('%'). Using default width values."),
+                                   id, nbe->getLanes().size(), numForwardLanesFromWidthKey);
+                } else {
+                    for (int i = 0; i < numForwardLanesFromWidthKey; i++) {
+                        const double actualWidth = e->myWidthLanesForward[i] <= 0 ? forwardWidth : e->myWidthLanesForward[i];
+                        const int laneIndex = lefthand ? i : numForwardLanesFromWidthKey - i - 1;
                         nbe->setLaneWidth(laneIndex, actualWidth);
                     }
                 }
@@ -687,16 +686,15 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             nbe->setDistance(distanceEnd);
 
             // process backward lanes width
-            size_t noOfBackwardLanesFromWidthKey = e->myWidthLanesBackward.size();
-            if (noOfBackwardLanesFromWidthKey > 0) {
-                if (nbe->getLanes().size() != noOfBackwardLanesFromWidthKey) {
-                    WRITE_WARNINGF(TL("Backward lanes count for edge '%' ('%') is not matching the number of lanes defined in width:lanes:backward key ('%'). Using default width values."), id, nbe->getLanes().size(), noOfBackwardLanesFromWidthKey);
-                }
-                else {
-                    for (size_t i = 0; i < noOfBackwardLanesFromWidthKey; i++)
-                    {
-                        double actualWidth = e->myWidthLanesBackward[i] <= 0 ? backwardWidth : e->myWidthLanesBackward[i];
-                        int laneIndex = lefthand ? i : noOfBackwardLanesFromWidthKey - i - 1;
+            const int numBackwardLanesFromWidthKey = (int)e->myWidthLanesBackward.size();
+            if (numBackwardLanesFromWidthKey > 0) {
+                if ((int)nbe->getLanes().size() != numBackwardLanesFromWidthKey) {
+                    WRITE_WARNINGF(TL("Backward lanes count for edge '%' ('%') is not matching the number of lanes defined in width:lanes:backward key ('%'). Using default width values."),
+                                   id, nbe->getLanes().size(), numBackwardLanesFromWidthKey);
+                } else {
+                    for (int i = 0; i < numBackwardLanesFromWidthKey; i++) {
+                        const double actualWidth = e->myWidthLanesBackward[i] <= 0 ? backwardWidth : e->myWidthLanesBackward[i];
+                        const int laneIndex = lefthand ? i : numBackwardLanesFromWidthKey - i - 1;
                         nbe->setLaneWidth(laneIndex, actualWidth);
                     }
                 }
