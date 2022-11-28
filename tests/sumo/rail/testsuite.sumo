@@ -36,6 +36,9 @@ bidi_conflict_insertion
 
 # train insertion should try to prevent a frontal collision (example where insertion is safe)
 bidi_noconflict_insertion
+
+# train insertion should try to prevent a frontal collision (example where insertion is safe)
+bidi_noconflict_insertion2
 crossing_tracks
 
 # rerouting trains that pass each other in a complex network
