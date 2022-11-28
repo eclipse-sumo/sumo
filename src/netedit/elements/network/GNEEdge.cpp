@@ -416,12 +416,12 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     }
     // draw edge shape (a red line only visible if lane shape is strange)
     drawEdgeShape(s);
+    // draw edge geometry points (always before lanes)
+    drawEdgeGeometryPoints(s);
     // draw lanes
     for (const auto& lane : myLanes) {
         lane->drawGL(s);
     }
-    // draw edge geometry points
-    drawEdgeGeometryPoints(s);
     // draw edge stopOffset
     drawLaneStopOffset(s);
     // draw childrens
@@ -2338,18 +2338,12 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s) const {
     const bool elevationMode = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() && myNet->getViewNet()->getNetworkViewOptions().editingElevation();
     // first check conditions
     if (myLanes.size() > 0 && (validScale || elevationMode) && !myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
+        // check if draw geometry points
+        const bool bigGeometryPoints = drawBigGeometryPoints();
         // Obtain exaggeration of the draw
         const double exaggeration = getExaggeration(s);
         // get circle width
-        bool drawBigGeometryPoints = false;
-        if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
-            drawBigGeometryPoints = true;
-        }
-        if ((myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_DELETE) &&
-                (myNet->getViewNet()->getViewParent()->getDeleteFrame()->getDeleteOptions()->deleteOnlyGeometryPoints())) {
-            drawBigGeometryPoints = true;
-        }
-        const double circleWidth = drawBigGeometryPoints ? SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration) : 0.5;
+        const double circleWidth = bigGeometryPoints ? SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration) : 0.5;
         const double circleWidthSquared = circleWidth * circleWidth;
         // obtain color
         RGBColor geometryPointColor = s.junctionColorer.getSchemes()[0].getColor(2);
@@ -2364,7 +2358,7 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s) const {
             // Push lane name
             GLHelper::pushName(getGlID());
             // translate to front depending of big points
-            if (drawBigGeometryPoints) {
+            if (bigGeometryPoints) {
                 glTranslated(0, 0, GLO_GEOMETRYPOINT);
             } else {
                 glTranslated(0, 0, GLO_LANE + 1);
@@ -2375,7 +2369,7 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s) const {
             for (int i = 1; i < (int)myNBEdge->getGeometry().size() - 1; i++) {
                 const auto geometryPointPos = myNBEdge->getGeometry()[i];
                 // check if mouse is near of geometry point in drawForRectangleSelection mode
-                if (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryPointPos) <= (circleWidthSquared + 2))) {
+                if (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryPointPos) <= circleWidthSquared)) {
                     // push geometry point drawing matrix
                     GLHelper::pushMatrix();
                     // move to geometryPointPos
@@ -2394,7 +2388,7 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s) const {
                 }
             }
             // draw line geometry, start and end points if shapeStart or shape end is edited, and depending of drawForRectangleSelection
-            if (drawBigGeometryPoints) {
+            if (bigGeometryPoints) {
                 drawStartGeometryPoint(s, circleWidth, exaggeration);
                 drawEndGeometryPoint(s, circleWidth, exaggeration);
             }
@@ -2670,8 +2664,12 @@ GNEEdge::drawEdgeShape(const GUIVisualizationSettings& s) const {
     if((s.laneWidthExaggeration >= 1) && !myLanes.front()->drawAsRailway(s)) {
         // push draw matrix
         GLHelper::pushMatrix();
-        // Start with the drawing of the area traslating matrix to origin
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_EDGE);
+        // translate to front depending of big points
+        if (drawBigGeometryPoints()) {
+            glTranslated(0, 0, GLO_GEOMETRYPOINT - 1);
+        } else {
+            glTranslated(0, 0, GLO_EDGE);
+        }
         // Set red color
         if (isAttributeCarrierSelected()) {
             GLHelper::setColor(RGBColor::BLUE);
@@ -2688,6 +2686,21 @@ GNEEdge::drawEdgeShape(const GUIVisualizationSettings& s) const {
         }
         // pop draw matrix
         GLHelper::popMatrix();
+    }
+}
+
+
+bool
+GNEEdge::drawBigGeometryPoints() const {
+    if (!myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+        return false;
+    } else if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
+        return true;
+    } else if ((myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_DELETE) &&
+            (myNet->getViewNet()->getViewParent()->getDeleteFrame()->getDeleteOptions()->deleteOnlyGeometryPoints())) {
+        return true;
+    } else {
+        return false;
     }
 }
 

@@ -462,6 +462,9 @@ private:
     /// @brief draw edge shape (only one line)
     void drawEdgeShape(const GUIVisualizationSettings& s) const;
 
+    /// @brief check if draw big geometry points
+    bool drawBigGeometryPoints() const;
+
     /// @brief check if given stacked positions are overlapped
     bool areStackPositionOverlapped(const GNEEdge::StackPosition& vehicleA, const GNEEdge::StackPosition& vehicleB) const;
 
