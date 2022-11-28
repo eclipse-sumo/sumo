@@ -543,13 +543,13 @@ void
 GNEApplicationWindowHelper::ModesMenuCommands::DataMenuCommands::buildDataMenuCommands(FXMenuPane* modesMenu) {
     // build every FXMenuCommand giving it a shortcut
     edgeData = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-        "EdgeData Mode", "E", "Create edgeData elements.",
+        "&EdgeData", "E", "Create edgeData elements.",
         GUIIconSubSys::getIcon(GUIIcon::MODEEDGEDATA), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_E_MODE_EDGE_EDGEDATA);
     edgeRelData = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-        "EdgeRelation Mode", "R", "Create edgeRelation elements.",
+        "Edge&Relation", "R", "Create edgeRelation elements.",
         GUIIconSubSys::getIcon(GUIIcon::MODEEDGERELDATA), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA);
     TAZRelData = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-        "TAZRelation Mode", "Z", "Create TAZRelation elements.",
+        "TA&ZRelation", "Z", "Create TAZRelation elements.",
         GUIIconSubSys::getIcon(GUIIcon::MODETAZRELDATA), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_Z_MODE_TAZ_TAZREL);
     meanData = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
         TL("&MeanData"), "M", "create MeanData edge/lanes.",
