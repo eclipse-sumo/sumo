@@ -78,6 +78,9 @@ public:
     /// @brief marked Route (used in create vehicle mode)
     const GUIGlObject* markedRoute = nullptr;
 
+    /// @brief marked geometry point (used for moving/delete geometry points)
+    const GUIGlObject* markedGeometryPoint = nullptr;
+
 protected:
     /// @brief GLObjects to update
     std::vector<GUIGlObject*> myGLObjectsToUpdate;

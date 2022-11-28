@@ -34,6 +34,7 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/gui/div/GUIGlobalPostDrawing.h>
 
 #include "GNEConnection.h"
 #include "GNECrossing.h"
@@ -2363,13 +2364,22 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s) const {
             } else {
                 glTranslated(0, 0, GLO_LANE + 1);
             }
-            // set color
-            GLHelper::setColor(geometryPointColor);
             // draw geometry points expect initial and final
             for (int i = 1; i < (int)myNBEdge->getGeometry().size() - 1; i++) {
                 const auto geometryPointPos = myNBEdge->getGeometry()[i];
                 // check if mouse is near of geometry point in drawForRectangleSelection mode
                 if (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryPointPos) <= circleWidthSquared)) {
+                    // set color depending if mouse is over geometry point
+                    if (gPostDrawing.markedGeometryPoint == nullptr) {
+                        if (mouseWithinGeometry(geometryPointPos, circleWidth)) {
+                            gPostDrawing.markedGeometryPoint = this;
+                            GLHelper::setColor(RGBColor::ORANGE);
+                        } else {
+                            GLHelper::setColor(geometryPointColor);
+                        }
+                    } else {
+                        GLHelper::setColor(geometryPointColor);
+                    }
                     // push geometry point drawing matrix
                     GLHelper::pushMatrix();
                     // move to geometryPointPos
@@ -2403,11 +2413,31 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s) const {
 
 void
 GNEEdge::drawStartGeometryPoint(const GUIVisualizationSettings& s, const double circleWidth, const double exaggeration) const {
+    // check drawing conditions
     if ((myNBEdge->getGeometry().front().distanceSquaredTo2D(getFromJunction()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) &&
             (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBEdge->getGeometry().front()) <= ((circleWidth * circleWidth) + 2)))) {
         // calculate angle
         const double angle = RAD2DEG(myNBEdge->getGeometry().front().angleTo2D(myNBEdge->getGeometry()[1])) * -1;
+        // obtain color
+        RGBColor geometryPointColor = s.junctionColorer.getSchemes()[0].getColor(2);
+        if (drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
+            // override with special colors (unless the color scheme is based on selection)
+            geometryPointColor = s.colorSettings.selectedEdgeColor.changedBrightness(-20);
+        }
+        // set color depending if mouse is over geometry point
+        if (gPostDrawing.markedGeometryPoint == nullptr) {
+            if (mouseWithinGeometry(myNBEdge->getGeometry().front(), circleWidth)) {
+                gPostDrawing.markedGeometryPoint = this;
+                GLHelper::setColor(RGBColor::ORANGE);
+            } else {
+                GLHelper::setColor(geometryPointColor);
+            }
+        } else {
+            GLHelper::setColor(geometryPointColor);
+        }
+        // push drawing matrix
         GLHelper::pushMatrix();
+        // move to point position
         glTranslated(myNBEdge->getGeometry().front().x(), myNBEdge->getGeometry().front().y(), 0.1);
         // resolution of drawn circle depending of the zoom (To improve smoothness)
         GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution(), angle + 90, angle + 270);
@@ -2433,12 +2463,31 @@ GNEEdge::drawStartGeometryPoint(const GUIVisualizationSettings& s, const double 
 
 void
 GNEEdge::drawEndGeometryPoint(const GUIVisualizationSettings& s, const double circleWidth, const double exaggeration) const {
-
+    // check drawing condition
     if ((myNBEdge->getGeometry().back().distanceSquaredTo2D(getToJunction()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) &&
             (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBEdge->getGeometry().back()) <= ((circleWidth * circleWidth) + 2)))) {
         // calculate angle
         const double angle = RAD2DEG(myNBEdge->getGeometry()[-1].angleTo2D(myNBEdge->getGeometry()[-2])) * -1;
+        // obtain color
+        RGBColor geometryPointColor = s.junctionColorer.getSchemes()[0].getColor(2);
+        if (drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
+            // override with special colors (unless the color scheme is based on selection)
+            geometryPointColor = s.colorSettings.selectedEdgeColor.changedBrightness(-20);
+        }
+        // set color depending if mouse is over geometry point
+        if (gPostDrawing.markedGeometryPoint == nullptr) {
+            if (mouseWithinGeometry(myNBEdge->getGeometry().back(), circleWidth)) {
+                gPostDrawing.markedGeometryPoint = this;
+                GLHelper::setColor(RGBColor::ORANGE);
+            } else {
+                GLHelper::setColor(geometryPointColor);
+            }
+        } else {
+            GLHelper::setColor(geometryPointColor);
+        }
+        // push drawing matrix
         GLHelper::pushMatrix();
+        // move to point position
         glTranslated(myNBEdge->getGeometry().back().x(), myNBEdge->getGeometry().back().y(), 0.1);
         // resolution of drawn circle depending of the zoom (To improve smoothness)
         GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution(), angle - 90, angle + 90);

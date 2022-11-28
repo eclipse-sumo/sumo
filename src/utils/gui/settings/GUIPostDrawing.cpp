@@ -48,6 +48,7 @@ GUIPostDrawing::executePostDrawingTasks() {
     markedLane = nullptr;
     markedTAZ = nullptr;
     markedRoute = nullptr;
+    markedGeometryPoint = nullptr;
 }
 
 
@@ -75,6 +76,7 @@ GUIPostDrawing::isElementUnderCursor(const GUIGlObject* GLObject) const {
     return (std::find(myElementsUnderCursor.begin(), myElementsUnderCursor.end(), GLObject) != myElementsUnderCursor.end());
 }
 
+
 bool
 GUIPostDrawing::isTopElementUnderCursor(const GUIGlObject* GLObject) const {
     if (myTopElement) {
@@ -83,6 +85,7 @@ GUIPostDrawing::isTopElementUnderCursor(const GUIGlObject* GLObject) const {
         return false;
     }
 }
+
 
 const std::vector<const GUIGlObject*>&
 GUIPostDrawing::getElementUnderCursor() const {
