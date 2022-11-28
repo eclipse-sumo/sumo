@@ -77,6 +77,10 @@ vehicletype = _vehicletype.VehicleTypeDomain()
 
 
 def setConnectHook(hookFunc):
+    """
+    Set a function which is called whenever a new connection has been established.
+    The function should take a single parameter which is the connection object.
+    """
     connection._connectHook = hookFunc
 
 
@@ -179,6 +183,9 @@ def load(args):
 
 
 def isLoaded():
+    """
+    Returns whether there is an active connection.
+    """
     return connection.has("")
 
 
@@ -239,14 +246,26 @@ def close(wait=True):
 
 
 def switch(label):
+    """
+    Switch the current connection to the one given by the label.
+    Throws a TraCIException if no such connection exists.
+    """
     connection.switch(label)
 
 
 def getLabel():
+    """
+    Return the label of the current connection.
+    Throws a FatalTraCIError if no connection exists.
+    """
     return connection.check().getLabel()
 
 
 def getConnection(label="default"):
+    """
+    Return the connection associated with the given label.
+    Throws a TraCIException if no such connection exists.
+    """
     return connection.get(label)
 
 
