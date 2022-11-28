@@ -393,7 +393,7 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
     dev.openTag(SUMO_TAG_VTYPE);
     // write ID (always needed)
     dev.writeAttr(SUMO_ATTR_ID, id);
-    // write parametes depending if is set
+    // write parameters depending if is set
     if (wasSet(VTYPEPARS_LENGTH_SET)) {
         dev.writeAttr(SUMO_ATTR_LENGTH, length);
     }
