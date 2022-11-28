@@ -186,7 +186,7 @@ errors:getNextStops
 output:0.0001
 net:0.0101
 vss:0.0001
-results:0.00101
+results:0.0101
 tripinfo:0.0101
 fcd:0.0101
 log:0.0101
