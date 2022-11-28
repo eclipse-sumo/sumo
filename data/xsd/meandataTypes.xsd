@@ -52,7 +52,7 @@
         <xsd:attribute name="PMx_abs" use="optional" type="nonNegativeFloatType"/>
         <xsd:attribute name="NOx_abs" use="optional" type="nonNegativeFloatType"/>
         <xsd:attribute name="fuel_abs" use="optional" type="nonNegativeFloatType"/>
-        <xsd:attribute name="electricity_abs" use="optional" type="nonNegativeFloatType"/>
+        <xsd:attribute name="electricity_abs" use="optional" type="xsd:float"/>
 
         <xsd:attribute name="CO_normed" use="optional" type="nonNegativeFloatType"/>
         <xsd:attribute name="CO2_normed" use="optional" type="nonNegativeFloatType"/>
@@ -60,7 +60,7 @@
         <xsd:attribute name="PMx_normed" use="optional" type="nonNegativeFloatType"/>
         <xsd:attribute name="NOx_normed" use="optional" type="nonNegativeFloatType"/>
         <xsd:attribute name="fuel_normed" use="optional" type="nonNegativeFloatType"/>
-        <xsd:attribute name="electricity_normed" use="optional" type="nonNegativeFloatType"/>
+        <xsd:attribute name="electricity_normed" use="optional" type="xsd:float"/>
 
         <xsd:attribute name="CO_perVeh" use="optional" type="nonNegativeFloatType"/>
         <xsd:attribute name="CO2_perVeh" use="optional" type="nonNegativeFloatType"/>
@@ -68,7 +68,7 @@
         <xsd:attribute name="PMx_perVeh" use="optional" type="nonNegativeFloatType"/>
         <xsd:attribute name="NOx_perVeh" use="optional" type="nonNegativeFloatType"/>
         <xsd:attribute name="fuel_perVeh" use="optional" type="nonNegativeFloatType"/>
-        <xsd:attribute name="electricity_perVeh" use="optional" type="nonNegativeFloatType"/>
+        <xsd:attribute name="electricity_perVeh" use="optional" type="xsd:float"/>
 
         <xsd:attribute name="noise" use="optional" type="nonNegativeFloatType"/>
     </xsd:complexType>
