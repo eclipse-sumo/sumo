@@ -2413,20 +2413,22 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s) const {
 
 void
 GNEEdge::drawStartGeometryPoint(const GUIVisualizationSettings& s, const double circleWidth, const double exaggeration) const {
+    // get first geometry point
+    const auto &geometryPoint = myNBEdge->getGeometry().front();
     // check drawing conditions
-    if ((myNBEdge->getGeometry().front().distanceSquaredTo2D(getFromJunction()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) &&
-            (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBEdge->getGeometry().front()) <= ((circleWidth * circleWidth) + 2)))) {
+    if ((geometryPoint.distanceSquaredTo2D(getFromJunction()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) &&
+            (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryPoint) <= ((circleWidth * circleWidth) + 2)))) {
         // calculate angle
-        const double angle = RAD2DEG(myNBEdge->getGeometry().front().angleTo2D(myNBEdge->getGeometry()[1])) * -1;
+        const double angle = RAD2DEG(geometryPoint.angleTo2D(myNBEdge->getGeometry()[1])) * -1;
         // obtain color
         RGBColor geometryPointColor = s.junctionColorer.getSchemes()[0].getColor(2);
+        // override with special colors (unless the color scheme is based on selection)
         if (drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
-            // override with special colors (unless the color scheme is based on selection)
             geometryPointColor = s.colorSettings.selectedEdgeColor.changedBrightness(-20);
         }
         // set color depending if mouse is over geometry point
         if (gPostDrawing.markedGeometryPoint == nullptr) {
-            if (mouseWithinGeometry(myNBEdge->getGeometry().front(), circleWidth)) {
+            if (mouseWithinGeometry(geometryPoint, circleWidth)) {
                 gPostDrawing.markedGeometryPoint = this;
                 GLHelper::setColor(RGBColor::ORANGE);
             } else {
@@ -2438,23 +2440,30 @@ GNEEdge::drawStartGeometryPoint(const GUIVisualizationSettings& s, const double 
         // push drawing matrix
         GLHelper::pushMatrix();
         // move to point position
-        glTranslated(myNBEdge->getGeometry().front().x(), myNBEdge->getGeometry().front().y(), 0.1);
+        glTranslated(geometryPoint.x(), geometryPoint.y(), 0.1);
         // resolution of drawn circle depending of the zoom (To improve smoothness)
         GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution(), angle + 90, angle + 270);
+        // pop drawing matrix
         GLHelper::popMatrix();
         // draw a "s" over last point depending of drawForRectangleSelection
         if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
+            // push drawing matrix
             GLHelper::pushMatrix();
-            glTranslated(myNBEdge->getGeometry().front().x(), myNBEdge->getGeometry().front().y(), 0.2);
-            GLHelper::drawText("S", Position(), 0, circleWidth, RGBColor(0, 50, 255));
+            // move top
+            glTranslated(0, 0, 0.2);
+            // draw S
+            GLHelper::drawText("S", geometryPoint, 0, circleWidth, RGBColor(0, 50, 255));
+            // pop drawing matrix
             GLHelper::popMatrix();
-            // draw line between Junction and point
+            // push drawing matrix
             GLHelper::pushMatrix();
-            glTranslated(0, 0, 0.1);
+            // set line width
             glLineWidth(4);
-            GLHelper::drawLine(myNBEdge->getGeometry().front(), getFromJunction()->getNBNode()->getPosition());
+            // draw line
+            GLHelper::drawLine(geometryPoint, getFromJunction()->getNBNode()->getPosition());
             // draw line between begin point of last lane shape and the first edge shape point
-            GLHelper::drawLine(myNBEdge->getGeometry().front(), myNBEdge->getLanes().back().shape.front());
+            GLHelper::drawLine(geometryPoint, myNBEdge->getLanes().back().shape.front());
+            // pop drawing matrix
             GLHelper::popMatrix();
         }
     }
@@ -2463,20 +2472,22 @@ GNEEdge::drawStartGeometryPoint(const GUIVisualizationSettings& s, const double 
 
 void
 GNEEdge::drawEndGeometryPoint(const GUIVisualizationSettings& s, const double circleWidth, const double exaggeration) const {
+    // get last geometry point
+    const auto &geometryPoint = myNBEdge->getGeometry().back();
     // check drawing condition
-    if ((myNBEdge->getGeometry().back().distanceSquaredTo2D(getToJunction()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) &&
-            (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBEdge->getGeometry().back()) <= ((circleWidth * circleWidth) + 2)))) {
+    if ((geometryPoint.distanceSquaredTo2D(getToJunction()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) &&
+            (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryPoint) <= ((circleWidth * circleWidth) + 2)))) {
         // calculate angle
         const double angle = RAD2DEG(myNBEdge->getGeometry()[-1].angleTo2D(myNBEdge->getGeometry()[-2])) * -1;
         // obtain color
         RGBColor geometryPointColor = s.junctionColorer.getSchemes()[0].getColor(2);
+        // override with special colors (unless the color scheme is based on selection)
         if (drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
-            // override with special colors (unless the color scheme is based on selection)
             geometryPointColor = s.colorSettings.selectedEdgeColor.changedBrightness(-20);
         }
         // set color depending if mouse is over geometry point
         if (gPostDrawing.markedGeometryPoint == nullptr) {
-            if (mouseWithinGeometry(myNBEdge->getGeometry().back(), circleWidth)) {
+            if (mouseWithinGeometry(geometryPoint, circleWidth)) {
                 gPostDrawing.markedGeometryPoint = this;
                 GLHelper::setColor(RGBColor::ORANGE);
             } else {
@@ -2488,23 +2499,30 @@ GNEEdge::drawEndGeometryPoint(const GUIVisualizationSettings& s, const double ci
         // push drawing matrix
         GLHelper::pushMatrix();
         // move to point position
-        glTranslated(myNBEdge->getGeometry().back().x(), myNBEdge->getGeometry().back().y(), 0.1);
+        glTranslated(geometryPoint.x(), geometryPoint.y(), 0.1);
         // resolution of drawn circle depending of the zoom (To improve smoothness)
         GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution(), angle - 90, angle + 90);
+        // pop drawing matrix
         GLHelper::popMatrix();
         // draw a "e" over last point depending of drawForRectangleSelection
         if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
+            // push drawing matrix
             GLHelper::pushMatrix();
-            glTranslated(myNBEdge->getGeometry().back().x(), myNBEdge->getGeometry().back().y(), 0.2);
-            GLHelper::drawText("E", Position(), 0, circleWidth, RGBColor(0, 50, 255));
+            // move top
+            glTranslated(0, 0, 0.2);
+            // draw S
+            GLHelper::drawText("E", geometryPoint, 0, circleWidth, RGBColor(0, 50, 255));
+            // pop drawing matrix
             GLHelper::popMatrix();
-            // draw line between Junction and point
+            // push drawing matrix
             GLHelper::pushMatrix();
-            glTranslated(0, 0, 0.1);
+            // set line width
             glLineWidth(4);
-            GLHelper::drawLine(myNBEdge->getGeometry().back(), getToJunction()->getNBNode()->getPosition());
+            // draw line
+            GLHelper::drawLine(geometryPoint, getToJunction()->getNBNode()->getPosition());
             // draw line between last point of first lane shape and the last edge shape point
-            GLHelper::drawLine(myNBEdge->getGeometry().back(), myNBEdge->getLanes().back().shape.back());
+            GLHelper::drawLine(geometryPoint, myNBEdge->getLanes().back().shape.back());
+            // pop drawing matrix
             GLHelper::popMatrix();
         }
     }
