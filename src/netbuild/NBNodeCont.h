@@ -62,7 +62,7 @@ public:
     typedef std::pair<NBNode*, double> NodeAndDist;
 
     /// @brief Constructor
-    NBNodeCont();
+    NBNodeCont() {}
 
     /// @brief Destructor
     ~NBNodeCont();
@@ -420,9 +420,6 @@ private:
 
     /// @brief update pareto frontier with the given node
     void paretoCheck(NBNode* node, NodeSet& frontier, int xSign, int ySign);
-
-    /// @brief The running internal id
-    int myInternalID;
 
     /// @brief Definition of the map of names to nodes
     typedef std::map<std::string, NBNode*> NodeCont;
