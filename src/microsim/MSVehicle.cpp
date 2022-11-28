@@ -5631,12 +5631,12 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
     for (std::vector<std::vector<LaneQ> >::reverse_iterator i = myBestLanes.rbegin() + 1; i != myBestLanes.rend(); ++i) {
         std::vector<LaneQ>& nextLanes = (*(i - 1));
         std::vector<LaneQ>& clanes = (*i);
-        MSEdge& cE = clanes[0].lane->getEdge();
+        MSEdge* const cE = &clanes[0].lane->getEdge();
         int index = 0;
         double bestConnectedLength = -1;
         double bestLength = -1;
         for (const LaneQ& j : nextLanes) {
-            if (j.lane->isApproachedFrom(&cE) && bestConnectedLength < j.length) {
+            if (j.lane->isApproachedFrom(cE) && bestConnectedLength < j.length) {
                 bestConnectedLength = j.length;
             }
             if (bestLength < j.length) {
@@ -5649,26 +5649,27 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
         if (bestConnectedLength > 0) {
             index = 0;
             for (LaneQ& j : clanes) {
-                LaneQ bestConnectedNext;
-                bestConnectedNext.length = -1;
+                const LaneQ* bestConnectedNext = nullptr;
                 if (j.allowsContinuation) {
                     for (const LaneQ& m : nextLanes) {
                         if ((m.lane->allowsVehicleClass(getVClass()) || m.lane->hadPermissionChanges())
-                                && m.lane->isApproachedFrom(&cE, j.lane)) {
-                            if (bestConnectedNext.length < m.length || (bestConnectedNext.length == m.length && abs(bestConnectedNext.bestLaneOffset) > abs(m.bestLaneOffset))) {
-                                bestConnectedNext = m;
+                                && m.lane->isApproachedFrom(cE, j.lane)) {
+                            if (bestConnectedNext == nullptr || bestConnectedNext->length < m.length ||
+                                    (bestConnectedNext->length == m.length && abs(bestConnectedNext->bestLaneOffset) > abs(m.bestLaneOffset))) {
+                                bestConnectedNext = &m;
                             }
                         }
                     }
-                    if (bestConnectedNext.length == bestConnectedLength && abs(bestConnectedNext.bestLaneOffset) < 2) {
+                    assert(bestConnectedNext != nullptr);
+                    if (bestConnectedNext->length == bestConnectedLength && abs(bestConnectedNext->bestLaneOffset) < 2) {
                         j.length += bestLength;
                     } else {
-                        j.length += bestConnectedNext.length;
+                        j.length += bestConnectedNext->length;
                     }
-                    j.bestLaneOffset = bestConnectedNext.bestLaneOffset;
+                    j.bestLaneOffset = bestConnectedNext->bestLaneOffset;
                 }
-                if (bestConnectedNext.allowsContinuation || bestConnectedNext.length > 0) {
-                    copy(bestConnectedNext.bestContinuations.begin(), bestConnectedNext.bestContinuations.end(), back_inserter(j.bestContinuations));
+                if (bestConnectedNext != nullptr && (bestConnectedNext->allowsContinuation || bestConnectedNext->length > 0)) {
+                    copy(bestConnectedNext->bestContinuations.begin(), bestConnectedNext->bestContinuations.end(), back_inserter(j.bestContinuations));
                 } else {
                     j.allowsContinuation = false;
                 }
@@ -5709,7 +5710,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
                 if ((*j).allowsContinuation) {
                     int nextIndex = 0;
                     for (std::vector<LaneQ>::const_iterator m = nextLanes.begin(); m != nextLanes.end(); ++m, ++nextIndex) {
-                        if ((*m).lane->isApproachedFrom(&cE, (*j).lane)) {
+                        if ((*m).lane->isApproachedFrom(cE, (*j).lane)) {
                             if (bestDistToNeeded > abs((*m).bestLaneOffset)) {
                                 bestDistToNeeded = abs((*m).bestLaneOffset);
                                 bestThisIndex = index;
