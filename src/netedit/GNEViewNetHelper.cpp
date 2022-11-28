@@ -220,8 +220,10 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
     // clear elements
     myEdgeObjects.clearElements();
     myLaneObjects.clearElements();
+    // filter duplicated objects
+    const auto filteredObjects = filterDuplicatedObjects(GUIGlObjects);
     // sort GUIGLObjects
-    sortGUIGlObjects(GUIGlObjects);
+    sortGUIGlObjects(filteredObjects);
     // process GUIGLObjects using myEdgeObjects.GUIGlObjects and myLaneObjects.GUIGlObjects
     processGUIGlObjects();
 }
@@ -711,6 +713,22 @@ GNEViewNetHelper::ObjectsUnderCursor::ObjectsContainer::clearElements() {
     genericDatas.clear();
     edgeDatas.clear();
     edgeRelDatas.clear();
+}
+
+
+std::vector<GUIGlObject*>
+GNEViewNetHelper::ObjectsUnderCursor::filterDuplicatedObjects(const std::vector<GUIGlObject*>& GUIGlObjects) const {
+    // declare vector for filter objects
+    std::vector<GUIGlObject*> filteredGUIGlObjects;
+    // iterate over GUIGlObjects
+    for (const auto &GLObject : GUIGlObjects) {
+        // find GLObject in filteredGUIGlObjects
+        const auto it = std::find(filteredGUIGlObjects.begin(), filteredGUIGlObjects.end(), GLObject);
+        if (it == filteredGUIGlObjects.end()) {
+            filteredGUIGlObjects.push_back(GLObject);
+        }
+    }
+    return filteredGUIGlObjects;
 }
 
 

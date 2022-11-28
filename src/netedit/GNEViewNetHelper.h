@@ -388,6 +388,9 @@ struct GNEViewNetHelper {
         bool mySwapLane2edge;
 
     private:
+        /// @brief filter duplicated objects
+        std::vector<GUIGlObject*> filterDuplicatedObjects(const std::vector<GUIGlObject*>& GUIGlObjects) const;
+
         /// @brief sort by altitude and update GUIGlObjects
         void sortGUIGlObjects(const std::vector<GUIGlObject*>& GUIGlObjects);
 
