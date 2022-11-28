@@ -48,7 +48,8 @@ GUIPostDrawing::executePostDrawingTasks() {
     markedLane = nullptr;
     markedTAZ = nullptr;
     markedRoute = nullptr;
-    markedGeometryPoint = nullptr;
+    markedFirstGeometryPoint = nullptr;
+    markedSecondGeometryPoint = nullptr;
 }
 
 

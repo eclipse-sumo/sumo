@@ -78,8 +78,11 @@ public:
     /// @brief marked Route (used in create vehicle mode)
     const GUIGlObject* markedRoute = nullptr;
 
-    /// @brief marked geometry point (used for moving/delete geometry points)
-    const GUIGlObject* markedGeometryPoint = nullptr;
+    /// @brief marked first geometry point (used for moving/delete geometry points)
+    const GUIGlObject* markedFirstGeometryPoint = nullptr;
+
+    /// @brief marked first geometry point (used for moving/delete geometry points)
+    const GUIGlObject* markedSecondGeometryPoint = nullptr;
 
 protected:
     /// @brief GLObjects to update

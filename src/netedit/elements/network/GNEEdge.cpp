@@ -2369,14 +2369,9 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s) const {
                 const auto geometryPointPos = myNBEdge->getGeometry()[i];
                 // check if mouse is near of geometry point in drawForRectangleSelection mode
                 if (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryPointPos) <= circleWidthSquared)) {
-                    // set color depending if mouse is over geometry point
-                    if (gPostDrawing.markedGeometryPoint == nullptr) {
-                        if (mouseWithinGeometry(geometryPointPos, circleWidth)) {
-                            gPostDrawing.markedGeometryPoint = this;
-                            GLHelper::setColor(RGBColor::ORANGE);
-                        } else {
-                            GLHelper::setColor(geometryPointColor);
-                        }
+                    // set geometry point color depending of bigGeometryPoints
+                    if (bigGeometryPoints) {
+                        setGeometryPointColor(geometryPointPos, circleWidth, geometryPointColor);
                     } else {
                         GLHelper::setColor(geometryPointColor);
                     }
@@ -2397,7 +2392,7 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s) const {
                     GLHelper::popMatrix();
                 }
             }
-            // draw line geometry, start and end points if shapeStart or shape end is edited, and depending of drawForRectangleSelection
+            // draw start and end points
             if (bigGeometryPoints) {
                 drawStartGeometryPoint(s, circleWidth, exaggeration);
                 drawEndGeometryPoint(s, circleWidth, exaggeration);
@@ -2414,33 +2409,24 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s) const {
 void
 GNEEdge::drawStartGeometryPoint(const GUIVisualizationSettings& s, const double circleWidth, const double exaggeration) const {
     // get first geometry point
-    const auto &geometryPoint = myNBEdge->getGeometry().front();
+    const auto &geometryPointPos = myNBEdge->getGeometry().front();
     // check drawing conditions
-    if ((geometryPoint.distanceSquaredTo2D(getFromJunction()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) &&
-            (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryPoint) <= ((circleWidth * circleWidth) + 2)))) {
+    if ((geometryPointPos.distanceSquaredTo2D(getFromJunction()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) &&
+            (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryPointPos) <= ((circleWidth * circleWidth) + 2)))) {
         // calculate angle
-        const double angle = RAD2DEG(geometryPoint.angleTo2D(myNBEdge->getGeometry()[1])) * -1;
+        const double angle = RAD2DEG(geometryPointPos.angleTo2D(myNBEdge->getGeometry()[1])) * -1;
         // obtain color
         RGBColor geometryPointColor = s.junctionColorer.getSchemes()[0].getColor(2);
         // override with special colors (unless the color scheme is based on selection)
         if (drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
             geometryPointColor = s.colorSettings.selectedEdgeColor.changedBrightness(-20);
         }
-        // set color depending if mouse is over geometry point
-        if (gPostDrawing.markedGeometryPoint == nullptr) {
-            if (mouseWithinGeometry(geometryPoint, circleWidth)) {
-                gPostDrawing.markedGeometryPoint = this;
-                GLHelper::setColor(RGBColor::ORANGE);
-            } else {
-                GLHelper::setColor(geometryPointColor);
-            }
-        } else {
-            GLHelper::setColor(geometryPointColor);
-        }
+        // set geometry point color
+        setGeometryPointColor(geometryPointPos, circleWidth, geometryPointColor);
         // push drawing matrix
         GLHelper::pushMatrix();
         // move to point position
-        glTranslated(geometryPoint.x(), geometryPoint.y(), 0.1);
+        glTranslated(geometryPointPos.x(), geometryPointPos.y(), 0.1);
         // resolution of drawn circle depending of the zoom (To improve smoothness)
         GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution(), angle + 90, angle + 270);
         // pop drawing matrix
@@ -2452,7 +2438,7 @@ GNEEdge::drawStartGeometryPoint(const GUIVisualizationSettings& s, const double 
             // move top
             glTranslated(0, 0, 0.2);
             // draw S
-            GLHelper::drawText("S", geometryPoint, 0, circleWidth, RGBColor(0, 50, 255));
+            GLHelper::drawText("S", geometryPointPos, 0, circleWidth, RGBColor(0, 50, 255));
             // pop drawing matrix
             GLHelper::popMatrix();
             // push drawing matrix
@@ -2460,9 +2446,9 @@ GNEEdge::drawStartGeometryPoint(const GUIVisualizationSettings& s, const double 
             // set line width
             glLineWidth(4);
             // draw line
-            GLHelper::drawLine(geometryPoint, getFromJunction()->getNBNode()->getPosition());
+            GLHelper::drawLine(geometryPointPos, getFromJunction()->getNBNode()->getPosition());
             // draw line between begin point of last lane shape and the first edge shape point
-            GLHelper::drawLine(geometryPoint, myNBEdge->getLanes().back().shape.front());
+            GLHelper::drawLine(geometryPointPos, myNBEdge->getLanes().back().shape.front());
             // pop drawing matrix
             GLHelper::popMatrix();
         }
@@ -2473,10 +2459,10 @@ GNEEdge::drawStartGeometryPoint(const GUIVisualizationSettings& s, const double 
 void
 GNEEdge::drawEndGeometryPoint(const GUIVisualizationSettings& s, const double circleWidth, const double exaggeration) const {
     // get last geometry point
-    const auto &geometryPoint = myNBEdge->getGeometry().back();
+    const auto &geometryPointPos = myNBEdge->getGeometry().back();
     // check drawing condition
-    if ((geometryPoint.distanceSquaredTo2D(getToJunction()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) &&
-            (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryPoint) <= ((circleWidth * circleWidth) + 2)))) {
+    if ((geometryPointPos.distanceSquaredTo2D(getToJunction()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) &&
+            (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryPointPos) <= ((circleWidth * circleWidth) + 2)))) {
         // calculate angle
         const double angle = RAD2DEG(myNBEdge->getGeometry()[-1].angleTo2D(myNBEdge->getGeometry()[-2])) * -1;
         // obtain color
@@ -2485,21 +2471,12 @@ GNEEdge::drawEndGeometryPoint(const GUIVisualizationSettings& s, const double ci
         if (drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
             geometryPointColor = s.colorSettings.selectedEdgeColor.changedBrightness(-20);
         }
-        // set color depending if mouse is over geometry point
-        if (gPostDrawing.markedGeometryPoint == nullptr) {
-            if (mouseWithinGeometry(geometryPoint, circleWidth)) {
-                gPostDrawing.markedGeometryPoint = this;
-                GLHelper::setColor(RGBColor::ORANGE);
-            } else {
-                GLHelper::setColor(geometryPointColor);
-            }
-        } else {
-            GLHelper::setColor(geometryPointColor);
-        }
+        // set geometry point color
+        setGeometryPointColor(geometryPointPos, circleWidth, geometryPointColor);
         // push drawing matrix
         GLHelper::pushMatrix();
         // move to point position
-        glTranslated(geometryPoint.x(), geometryPoint.y(), 0.1);
+        glTranslated(geometryPointPos.x(), geometryPointPos.y(), 0.1);
         // resolution of drawn circle depending of the zoom (To improve smoothness)
         GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution(), angle - 90, angle + 90);
         // pop drawing matrix
@@ -2511,7 +2488,7 @@ GNEEdge::drawEndGeometryPoint(const GUIVisualizationSettings& s, const double ci
             // move top
             glTranslated(0, 0, 0.2);
             // draw S
-            GLHelper::drawText("E", geometryPoint, 0, circleWidth, RGBColor(0, 50, 255));
+            GLHelper::drawText("E", geometryPointPos, 0, circleWidth, RGBColor(0, 50, 255));
             // pop drawing matrix
             GLHelper::popMatrix();
             // push drawing matrix
@@ -2519,9 +2496,9 @@ GNEEdge::drawEndGeometryPoint(const GUIVisualizationSettings& s, const double ci
             // set line width
             glLineWidth(4);
             // draw line
-            GLHelper::drawLine(geometryPoint, getToJunction()->getNBNode()->getPosition());
+            GLHelper::drawLine(geometryPointPos, getToJunction()->getNBNode()->getPosition());
             // draw line between last point of first lane shape and the last edge shape point
-            GLHelper::drawLine(geometryPoint, myNBEdge->getLanes().back().shape.back());
+            GLHelper::drawLine(geometryPointPos, myNBEdge->getLanes().back().shape.back());
             // pop drawing matrix
             GLHelper::popMatrix();
         }
@@ -2754,6 +2731,26 @@ GNEEdge::drawEdgeShape(const GUIVisualizationSettings& s) const {
         // pop draw matrix
         GLHelper::popMatrix();
     }
+}
+
+
+void
+GNEEdge::setGeometryPointColor(const Position &geometryPointPos, const double circleWidth, const RGBColor &geometryPointColor) const {
+    // by default use geometryPointColor
+    RGBColor color = geometryPointColor; 
+    // set color depending if mouse is over geometry point
+    if (gPostDrawing.markedFirstGeometryPoint == nullptr) {
+        if (mouseWithinGeometry(geometryPointPos, circleWidth)) {
+            gPostDrawing.markedFirstGeometryPoint = this;
+            color = RGBColor::ORANGE;
+        }
+    } else if (gPostDrawing.markedSecondGeometryPoint == nullptr) {
+        if (mouseWithinGeometry(geometryPointPos, circleWidth)) {
+            gPostDrawing.markedSecondGeometryPoint = this;
+            color = RGBColor::CYAN;
+        }
+    }
+    GLHelper::setColor(color);
 }
 
 
