@@ -867,6 +867,9 @@ private:
     /// @brief return edges that permit passengers (either incoming or outgoing)
     EdgeVector getPassengerEdges(bool incoming) const;
 
+    /// @brief detect explict rail turns with potential geometry problem
+    static bool isExplicitRailNoBidi(const NBEdge* incoming, const NBEdge* outgoing);
+
 private:
     /// @brief The position the node lies at
     Position myPosition;

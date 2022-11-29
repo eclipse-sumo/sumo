@@ -2281,6 +2281,9 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
     }
     // turning direction
     if (incoming->isTurningDirectionAt(outgoing)) {
+        if (isExplicitRailNoBidi(incoming, outgoing)) {
+            return LinkDirection::STRAIGHT;
+        }
         return leftHand ? LinkDirection::TURN_LEFTHAND : LinkDirection::TURN;
     }
     // get the angle between incoming/outgoing at the junction
@@ -2321,6 +2324,9 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
     } else {
         // check whether any other edge goes further to the left
         if (angle < -170 && incoming->getGeometry().reverse() == outgoing->getGeometry()) {
+            if (isExplicitRailNoBidi(incoming, outgoing)) {
+                return LinkDirection::STRAIGHT;
+            }
             return leftHand ? LinkDirection::TURN_LEFTHAND : LinkDirection::TURN;
         } else if (angle < -90) {
             return LinkDirection::LEFT;
@@ -2332,6 +2338,18 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
             return LinkDirection::LEFT;
         }
     }
+}
+
+
+bool
+NBNode::isExplicitRailNoBidi(const NBEdge* incoming, const NBEdge* outgoing) {
+    // assume explicit connections at sharp turn-arounds are either for reversal or due to a geometry glitch
+    // (but should not have been guessed)
+    // @note this function is also called from NBAlgorithms when there aren't any connections ready
+    return (incoming->getStep() >= NBEdge::EdgeBuildingStep::LANES2LANES_RECHECK
+            && isRailway(incoming->getPermissions())
+            && isRailway(outgoing->getPermissions())
+            && incoming->getBidiEdge() != outgoing);
 }
 
 
