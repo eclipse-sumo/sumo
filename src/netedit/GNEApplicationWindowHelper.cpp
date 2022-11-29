@@ -1959,7 +1959,7 @@ GNEApplicationWindowHelper::saveSUMOConfig() {
         // open output device
         OutputDevice& device = OutputDevice::getDevice(oc.getString("SUMOcfg-output"));
         // open header
-        device.writeXMLHeader(toString(SUMO_TAG_CONFIGURATION), "sumoConfiguration.xsd", GNENet::EMPTY_HEADER, true);
+        device.writeXMLHeader(toString(SUMO_TAG_CONFIGURATION), "sumoConfiguration.xsd", GNENet::EMPTY_HEADER, false);
         // open configuration tag
         device.openTag(SUMO_TAG_CONFIGURATION);
         // save network
