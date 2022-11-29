@@ -5829,8 +5829,8 @@ GNEAttributeCarrier::fillCommonMeanDataAttributes(SumoXMLTag currentTag) {
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_MIN_SAMPLES,
                                             GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
-                                            "The minimum total number of seconds vehicles have to be on the edge / lane to consider it",
-                                            "1");
+                                            "Consider an edge/lane unused if it has at most this many sampled seconds",
+                                            "0");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_HALTING_SPEED_THRESHOLD,
