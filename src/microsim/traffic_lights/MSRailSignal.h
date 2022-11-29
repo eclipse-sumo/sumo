@@ -395,9 +395,6 @@ protected:
 
         MSLink* myLink;
 
-        /// @brief whether there is only a single DriveWay following this link
-        bool myUniqueDriveWay;
-
         /// @brief all driveways immediately following this link
         std::vector<DriveWay> myDriveways;
 

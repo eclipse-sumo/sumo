@@ -555,7 +555,6 @@ MSRailSignal::LinkInfo::LinkInfo(MSLink* link):
 
 void
 MSRailSignal::LinkInfo::reset() {
-    myUniqueDriveWay = false;
     myLastRerouteTime = -1;
     myLastRerouteVehicle = nullptr;
     myDriveways.clear();
@@ -574,9 +573,6 @@ MSRailSignal::LinkInfo::getID() const {
 
 MSRailSignal::DriveWay&
 MSRailSignal::LinkInfo::getDriveWay(const SUMOVehicle* veh) {
-    if (myUniqueDriveWay) {
-        return myDriveways.front();
-    }
     MSEdge* first = &myLink->getLane()->getEdge();
     MSRouteIterator firstIt = std::find(veh->getCurrentRouteEdge(), veh->getRoute().end(), first);
     if (firstIt == veh->getRoute().end()) {
