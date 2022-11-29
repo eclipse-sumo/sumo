@@ -1,3 +1,10 @@
+# to build this image run the following command
+# $ docker build -t sumo:fedorarawhide - < Dockerfile.fedora
+# to use it run (GUI applications won't work)
+# $ docker run -it sumo:fedorarawhide bash
+# now you have a bash inside a docker container and can for instance run
+# $ cd sumo; bin/sumo -c docs/examples/sumo/busses/test.sumocfg
+
 FROM fedora:rawhide
 
 RUN dnf -y upgrade

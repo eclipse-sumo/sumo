@@ -7,24 +7,72 @@ title: ChangeLog
 ### Bugfixes
 
 - Simulation 
+  - Fixed crash when defining ride without lines. Issue #12167 (regression in 1.11.0)
   - Fixed invalid walking distance output related to lengths of crossings and walkingArea paths. Issue #11983
   - Fixed invalid braking at internal junction. Issue #12000
   - Fixed invalid right of way rules when for two conflicting connections with internal junctions. Issue #11988
+  - Fixed incomplete vehroute-output when using option **--vehroute-output.sorted** and some cars or vehicle do not finish their journey. Issue #12049
+  - stop-output contains now always contains the correct 'started' values even if other values were part of the input. Issue #12125
+  - Fixed error when trying to use laneChangeModel *DK2008* with continous lane change model. Issue #12144
+  - Fixed invalid lane choice in the presence of lane change restrictins. Issue #12118
+  - Fixed crash in public transport scenario with looped routes. Issue #12150
+  - Fixed bug where vehicle with short boardingDuration fails to board passengers after deboarding. Issue #12168
+  - Fixed invalid error when loading edgeData with negative electricity consumption. Issue #12172
 
 - netedit
-  - Fixed bug where during creation of new edge, sometimes, the candidate "to" junction isn't draw wit magenta dotted contour. Issue #12013 (regression in 1.15.0)
+  - Fixed bug where stops on looped routes where saved in an invalid order. Issue #12054 (regression in 1.12.0)
+  - Right click on elements above a polygon now selects now acts on the top element again. Issue #12111 (regression in 1.14.1)
+  - Fixed bug where during creation of new edge, sometimes, the candidate "to" junction isn't draw wit magenta dotted contour. Issue #12013 (regression in 1.15.0)  
+  - Fixed invalid selection outline. Issue #12033
+  - Fixed bug where right-click object-choice-menu lists the same object twice. Issue #12034
+  - Junctions can now be deleted when convered by a walkingarea. Issue #12070
+  - Junctions can be merged by moving when the background grid is active. Issue #12080
+  - Fixed crash when using option **--prefix**. Issue #12024
+  - Fixed bug that permitted invalid combination of stops and and via attribute. Issue #11961
+  - The grouping of inspected overlapped elements no longer includes invisble elements. Issue #12126
 
 - netconvert
+  - Fixed unnecessary dead-end lanes at large intersections. Issue #2472
   - Fixed invalid OpenDRIVE output when writting traffic signals with signal groups. Issue #11980
   - Fixed invalid right of way rules when connections from the same edge merge and both have internal junctions. Issue #11988
+  - Fixed invalid OpenDrive output for lefthand networks. Issue #11995, #12038, #12047
+  - Fixed bug where **--junctions.join** failed in multimodal networks. Issue #6495
+  - Fixed bug where **--junctions.join** joins to much. Issue #10589
+  - Fixed invalid dead-end when using option **--osm.turn-lanes**. Issue #12042
+  - Fixed invalid plain xml output (after reading an invalid network). Issue #12086
+  - Fixed invalid right of way rules causing mutual conflict at multimodal priority-junction. Issue #5609
+  - Fixed invalid guessed connections. Issue #10771, #10978, #2472
+  - Fixed missing bidi edges in generated network. Issue #12127
+  - OSM import no longer ignores spreadType in typemap. Issue #12141
+  
+- polyconvert
+  - Fixed invalid polygon output for some line based inputs. Issue #12161
+    
+- TraCI
+  - Fixed moveToXY failure at parallel internal junction. Issue #12065
+  - Foe lanes for crossings can now be trieved. Issue #12059
+  - Connection.close() now closes simulation. Issue #12133
 
 - Tools
   - plot_net_dump_file.py: plotting a single measure is working again. Issue #11975 (regression in 1.15.0)
   - generateTurnRatios.py: fixed unsorted intervals in output when using python2. Issue #12019
+  - tlsCycleAdaptation.py: Fixed bug where controllers differed in cycle length when setting option **--unified-cycle**. Issue #12045
+  - tlsCycleAdaptation.py: Fixed mismatch between optimal and actual cycle duration. Issue #12068
+  - generateRailSignalConstraints.py: Fixed inconsistent bidiPredecessors. Issue #12075
+  - tracemapper.py: Fixed duplicate consecutive edges in route. Issue #12094
 
 - All Applications: Fixed crash if gzipped outputfile cannot be opened. Issue #11954
 
 ### Enhancements
+
+- netconvert
+  - The right-of-way rules to take effect when switching a traffic light off, can now be configured as 'allway_stop'. This is the new default for NEMA-type controllers. Issue #12043
+  - Improve traffic light programs in networks with separated bicycle paths. Issue #10039
+  - OpenDRIVE outputs now suppots export of loaded POIs and polygons as road objects. Issue #12060
+  - When setting optin **--tls.guess** roads without conflict are excluded from the threshold-heuristic. Issue #6513
+  - Improved heuristic for generating rail connections at sharp angles. Issue #12119
+  - Warnings of E3 detectors and from the SSM device can now be aggregated. Issue #12149
+  - Individual lane widths are now import from OpenStreetMap. Issue #12162
 
 - netedit
   - Added TimeStamp in Undo-Redo list. Issue #11744
@@ -32,23 +80,36 @@ title: ChangeLog
   - Can now disable drawing dotted countours in visualization settings. Issue #11662
   - Now showing a warning dialog if user tries to create a TLS in a junction with all connections set as uncontrolled. Issue #6382
   - Removed dialog-button for permission 'disallow' attribute to avoid confusion. Issue #11940
+  - Saved sumocfg now includes version data. Issue #11294
+  - Multiple persons or personFlows in the same location are now indicated. Issue #10724
+  - Added MeanData mode to create and modify `<edgeData>` and `<laneData>` definitions. Issue #11897
+  - Recently used files are now in a sub-menu. Issue #12025
+  - Geometry points are now drawn above everything else in move mode. Issue #11725
+
+- sumo-gui
+  - Wne option **--use-stop-ended** is set, show-route mode now labels the 'ended' time of stops. Issue #11833
 
 - Tools
   - gtfs2pt.py: Now writing short route id and headsign as params. Issue #11819
   - plot_trajectories.py: Now support common visualization options. Issue #11991
   - Many visualization tools can now configure linestyle and marker style. Issue #11985
   - countEdgeUsage.py: Now permits loading named routes. Issue #12010
+  - implausibleRoutes.py: Added options **--additional-file**, **--unsorted-input** and **--ignore-errors** which are passed to duarouter when needed. Issue #12090
+  - tracemapper.py: Added option **--vehicle-class** to guide edge mapping. Issue #12117
   - plotXMLAttributes.py
     - can now plot data without assigning ids to the data points. Issue #11969
     - can now plot categorical (non-numerical) data and also a mix of data types. Issue #11970, #11976
+    - categorical labels can be sorted and filtered by loading a list of labels with option **--xticks-file** and **--yticks-file**. Issue #12091
     - now supporting additional visualization options (linestyle, markers, grids, ...). Issue #11972
     - plots a marker on a single point if the input data is only one point. Issue #11974
-    - Added the possibility to use wildcards with optin **--filter-ids**. Issue #11982
+    - Added the possibility to use wildcards with option **--filter-ids**. Issue #11981
     - Attribute options now permit setting a list of attributes. Issue #12015
+    - Can now display times as hours by setting **--xtime0** and **--ytime0** (also applies to other plotting tools). Issue #12011
 
 ### Miscellaneous
 
 - Added exemplary plots to many simulation-output documentation pages (with linked example commands to create them).
+- Netconvert options for writing polygons are now documented. Issue #12135
 - Updated Windows MSVC runtime libraries and Xerces-C to 3.2.4
 - Improved pydoc for TraCI functions that modify vType attributes. Issue #11943
 

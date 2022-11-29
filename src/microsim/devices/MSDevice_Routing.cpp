@@ -246,7 +246,7 @@ MSDevice_Routing::preInsertionReroute(const SUMOTime currentTime) {
     const MSEdge* source = *myHolder.getRoute().begin();
     const MSEdge* dest = myHolder.getRoute().getLastEdge();
     if (source->isTazConnector() && dest->isTazConnector()) {
-        const MSRoute* cached = MSRoutingEngine::getCachedRoute(std::make_pair(source, dest));
+        ConstMSRoutePtr cached = MSRoutingEngine::getCachedRoute(std::make_pair(source, dest));
         if (cached != nullptr && cached->size() > 2) {
             myHolder.replaceRoute(cached, "device.rerouting", true);
             return myPreInsertionPeriod;

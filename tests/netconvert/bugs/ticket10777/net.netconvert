@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-04 09:40:11 by Eclipse SUMO netconvert Version v1_14_1+1405-b752ca57d78
+<!-- generated on 2022-11-17 14:48:52 by Eclipse SUMO netconvert Version v1_15_0+0361-a79ac28
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -437,7 +437,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </lane>
     </edge>
     <edge id="561742170" from="5414385984" to="5416200780" priority="1" type="highway.footway" spreadType="center" shape="83.64,307.00 81.19,286.28 76.10,243.75 63.30,186.46 45.05,128.85 26.21,90.03 0.00,29.11">
-        <lane id="561742170_0" index="0" allow="pedestrian" speed="2.78" length="292.30" width="2.00" shape="83.64,307.00 81.19,286.28 76.10,243.75 63.30,186.46 45.05,128.85 26.21,90.03 -0.00,29.11">
+        <lane id="561742170_0" index="0" allow="pedestrian" speed="2.78" length="292.30" width="2.00" shape="83.64,307.00 81.19,286.28 76.10,243.75 63.30,186.46 45.05,128.85 26.21,90.03 0.00,29.11">
             <param key="origId" value="561742170"/>
         </lane>
     </edge>
@@ -470,7 +470,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="origFrom" value="318617386"/>
     </edge>
     <edge id="875611587#2" from="cluster_28114806_286726503_2952513732_2952513733_#2more" to="2166437547" priority="17" type="railway.tram" spreadType="center" shape="48.81,62.33 27.83,17.65 27.72,17.42 27.15,16.20 26.14,14.17 24.07,10.03 21.71,5.28 19.23,0.00">
-        <lane id="875611587#2_0" index="0" allow="tram" speed="13.89" length="64.34" shape="46.83,58.12 27.83,17.65 27.72,17.42 27.15,16.20 26.14,14.17 24.07,10.03 21.71,5.28 19.23,0.00">
+        <lane id="875611587#2_0" index="0" allow="tram" speed="13.89" length="64.34" shape="46.83,58.12 27.83,17.65 27.72,17.42 27.15,16.20 26.14,14.17 24.07,10.03 21.71,5.28 19.23,-0.00">
             <param key="origId" value="875611587"/>
         </lane>
         <param key="origFrom" value="2952513733"/>
@@ -519,20 +519,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="3"  state="ryyyrrrrrrr"/>
     </tlLogic>
     <tlLogic id="joinedS_cluster_251025052_5416202331_cluster_282514172_286726504_3287948381_57749942" type="actuated" programID="0" offset="0">
-        <phase duration="12" state="rrrgggGGgggggrrrrGGGGGGrrrrrrgg" minDur="5" maxDur="50"/>
-        <phase duration="3"  state="rrrgggyyyggggrrrryyyyyyrrrrrrgg"/>
-        <phase duration="6"  state="rrrgggGGgGGGGrrrrrrrrrrrrrrrrGG" minDur="5" maxDur="50"/>
-        <phase duration="3"  state="rrryyyyyyyyyyrrrrrrrrrrrrrrrryy"/>
-        <phase duration="13" state="GGggggGggGGGGrrrrrrrrrrrrrrrrGG" minDur="5" maxDur="50"/>
-        <phase duration="3"  state="yyyyyyyyyyyyyrrrrrrrrrrrrrrrryy"/>
-        <phase duration="13" state="rrrgggGGgGgggGGGgrrrrrrrrrrrrGG" minDur="5" maxDur="50"/>
-        <phase duration="3"  state="rrrgggyyyygggyyyyrrrrrrrrrrrryy"/>
-        <phase duration="6"  state="rrrgggGGgGGGGrrrrrrrrrrrrrrrrGG" minDur="5" maxDur="50"/>
-        <phase duration="3"  state="rrryyyyyyyyyyrrrrrrrrrrrrrrrryy"/>
-        <phase duration="13" state="rrrgggGGgggggrrrrrrrrrrgGggggGG" minDur="5" maxDur="50"/>
+        <phase duration="21" state="rrrgggGGgggggggggGGGGGGrrrrrrgg" minDur="5" maxDur="50"/>
+        <phase duration="3"  state="rrrgggyyyggggggggyyyyyyrrrrrrgg"/>
+        <phase duration="6"  state="rrrgggGGgGgggGGGgrrrrrrrrrrrrGG" minDur="5" maxDur="50"/>
+        <phase duration="3"  state="rrryyyyyyyyyyyyyyrrrrrrrrrrrryy"/>
+        <phase duration="21" state="rrrgggGGgggggrrrrrrrrrrgGggggGG" minDur="5" maxDur="50"/>
         <phase duration="3"  state="rrrgggyyyggggrrrrrrrrrrgyggggyy"/>
         <phase duration="6"  state="rrrgggGGgGgggrrrrrrrrrrgrggggGG" minDur="5" maxDur="50"/>
         <phase duration="3"  state="rrryyyyyyyyyyrrrrrrrrrryryyyyyy"/>
+        <phase duration="21" state="GGggggGggGGGGrrrrrrrrrrrrrrrrGG" minDur="5" maxDur="50"/>
+        <phase duration="3"  state="yyyyyyyyyyyyyrrrrrrrrrrrrrrrryy"/>
     </tlLogic>
 
     <junction id="2166437547" type="dead_end" x="19.23" y="0.00" incLanes="875611587#2_0" intLanes="" shape="17.78,0.68 20.68,-0.68"/>

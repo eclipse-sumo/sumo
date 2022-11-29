@@ -59,6 +59,8 @@ bool MSAbstractLaneChangeModel::myLCEndedOutput(false);
 bool MSAbstractLaneChangeModel::myLCXYOutput(false);
 const double MSAbstractLaneChangeModel::NO_NEIGHBOR(std::numeric_limits<double>::max());
 
+#define LC_ASSUMED_DECEL 1.0 // the minimal constant deceleration assumed to estimate the duration of a continuous lane-change at its initiation.
+
 /* -------------------------------------------------------------------------
  * MSAbstractLaneChangeModel-methods
  * ----------------------------------------------------------------------- */
@@ -417,7 +419,7 @@ MSAbstractLaneChangeModel::computeSpeedLat(double /*latDist*/, double& maneuverD
 
 double
 MSAbstractLaneChangeModel::getAssumedDecelForLaneChangeDuration() const {
-    throw ProcessError("Method getAssumedDecelForLaneChangeDuration() not implemented by model " + toString(myModel));
+    return MAX2(LC_ASSUMED_DECEL, -myVehicle.getAcceleration());
 }
 
 void
@@ -425,6 +427,15 @@ MSAbstractLaneChangeModel::setSpeedLat(double speedLat) {
     myAccelerationLat = SPEED2ACCEL(speedLat - mySpeedLat);
     mySpeedLat = speedLat;
 }
+
+
+void
+MSAbstractLaneChangeModel::resetSpeedLat() {
+    if (MSGlobals::gLaneChangeDuration > 0 && !isChangingLanes()) {
+        setSpeedLat(0);
+    }
+}
+
 
 bool
 MSAbstractLaneChangeModel::updateCompletion() {

@@ -397,9 +397,13 @@ The output is a standard sumo route file
 </routes>
 ```
 
-The option --geo enables the conversion of the input coordinates with
-the parameters given in the network. The mapping algorithm is also
-available in the python library function sumolib.route.mapTrace.
+The option **--geo** enables the conversion of the input coordinates with
+the parameters given in the network. If a [vehicle class](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#abstract_vehicle_class) is supplied using 
+the option **--vehicle-class**, the mapping algorithm will consider only edges where 
+this vehicle class is allowed. If the network contains many multi-lane edges, it 
+may be beneficial to increase the accepted **--delta** distance between trace points and 
+the edge reference line. The mapping algorithm is also available in the 
+python library function sumolib.route.mapTrace.
 
 # tlsCycleAdaptation.py
 

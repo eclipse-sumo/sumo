@@ -25,6 +25,7 @@
 
 #include "GNEApplicationWindow.h"
 #include "GNEViewNet.h"
+#include "GNENet.h"
 
 // ===========================================================================
 // GNEApplicationWindowHelper::ToolbarsGrip method definitions
@@ -129,30 +130,31 @@ GNEApplicationWindowHelper::ToolbarsGrip::destroyParentToolbarsGrips() {
 // ===========================================================================
 
 GNEApplicationWindowHelper::MenuBarFile::MenuBarFile(GNEApplicationWindow* GNEApp) :
-    myRecentNetsAndConfigs(GNEApp->getApp(), "nets"),
+    myRecentNetworksAndConfigs(GNEApp->getApp(), "nets"),
     myGNEApp(GNEApp)
 { }
 
 
 void
-GNEApplicationWindowHelper::MenuBarFile::buildRecentFiles(FXMenuPane* fileMenu) {
-    FXMenuSeparator* sep1 = new FXMenuSeparator(fileMenu);  // NOSONAR, Fox does the cleanup
-    sep1->setSelector(FXRecentFiles::ID_ANYFILES);
+GNEApplicationWindowHelper::MenuBarFile::buildRecentFiles(FXMenuPane* fileMenu, FXMenuPane* fileMenuRecentFiles) {
     // for whatever reason, sonar complains in the next line that sep1 may leak, but fox does the cleanup
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentNetsAndConfigs, FXRecentFiles::ID_FILE_1);  // NOSONAR
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentNetsAndConfigs, FXRecentFiles::ID_FILE_2);
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentNetsAndConfigs, FXRecentFiles::ID_FILE_3);
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentNetsAndConfigs, FXRecentFiles::ID_FILE_4);
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentNetsAndConfigs, FXRecentFiles::ID_FILE_5);
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentNetsAndConfigs, FXRecentFiles::ID_FILE_6);
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentNetsAndConfigs, FXRecentFiles::ID_FILE_7);
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentNetsAndConfigs, FXRecentFiles::ID_FILE_8);
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentNetsAndConfigs, FXRecentFiles::ID_FILE_9);
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenu, "", &myRecentNetsAndConfigs, FXRecentFiles::ID_FILE_10);
-    GUIDesigns::buildFXMenuCommand(fileMenu, "Cl&ear Recent Files", nullptr, &myRecentNetsAndConfigs, FXRecentFiles::ID_CLEAR);
-    GUIDesigns::buildFXMenuCommand(fileMenu, "No Recent Files", nullptr, &myRecentNetsAndConfigs, MFXRecentNetworks::ID_NOFILES);
-    myRecentNetsAndConfigs.setTarget(myGNEApp);
-    myRecentNetsAndConfigs.setSelector(MID_RECENTFILE);
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentFiles, "", &myRecentNetworksAndConfigs, FXRecentFiles::ID_FILE_1);
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentFiles, "", &myRecentNetworksAndConfigs, FXRecentFiles::ID_FILE_2);
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentFiles, "", &myRecentNetworksAndConfigs, FXRecentFiles::ID_FILE_3);
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentFiles, "", &myRecentNetworksAndConfigs, FXRecentFiles::ID_FILE_4);
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentFiles, "", &myRecentNetworksAndConfigs, FXRecentFiles::ID_FILE_5);
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentFiles, "", &myRecentNetworksAndConfigs, FXRecentFiles::ID_FILE_6);
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentFiles, "", &myRecentNetworksAndConfigs, FXRecentFiles::ID_FILE_7);
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentFiles, "", &myRecentNetworksAndConfigs, FXRecentFiles::ID_FILE_8);
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentFiles, "", &myRecentNetworksAndConfigs, FXRecentFiles::ID_FILE_9);
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentFiles, "", &myRecentNetworksAndConfigs, FXRecentFiles::ID_FILE_10);
+    new FXMenuSeparator(fileMenuRecentFiles);  // NOSONAR, Fox does the cleanup
+    GUIDesigns::buildFXMenuCommand(fileMenuRecentFiles, "Cl&ear Recent Files", nullptr, &myRecentNetworksAndConfigs, FXRecentFiles::ID_CLEAR);
+    GUIDesigns::buildFXMenuCommand(fileMenuRecentFiles, "No Recent Files", nullptr, &myRecentNetworksAndConfigs, MFXRecentNetworks::ID_NOFILES);
+    // set target
+    myRecentNetworksAndConfigs.setTarget(myGNEApp);
+    myRecentNetworksAndConfigs.setSelector(MID_RECENTFILE);
+    new FXMenuCascade(fileMenu, "Recent Files", nullptr, fileMenuRecentFiles);
 }
 
 // ---------------------------------------------------------------------------
@@ -541,16 +543,16 @@ void
 GNEApplicationWindowHelper::ModesMenuCommands::DataMenuCommands::buildDataMenuCommands(FXMenuPane* modesMenu) {
     // build every FXMenuCommand giving it a shortcut
     edgeData = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-        "EdgeData Mode", "E", "Create edgeData elements.",
+        "&EdgeData", "E", "Create edgeData elements.",
         GUIIconSubSys::getIcon(GUIIcon::MODEEDGEDATA), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_E_MODE_EDGE_EDGEDATA);
     edgeRelData = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-        "EdgeRelation Mode", "R", "Create edgeRelation elements.",
+        "Edge&Relation", "R", "Create edgeRelation elements.",
         GUIIconSubSys::getIcon(GUIIcon::MODEEDGERELDATA), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA);
     TAZRelData = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-        "TAZRelation Mode", "Z", "Create TAZRelation elements.",
+        "TA&ZRelation", "Z", "Create TAZRelation elements.",
         GUIIconSubSys::getIcon(GUIIcon::MODETAZRELDATA), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_Z_MODE_TAZ_TAZREL);
     meanData = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-        TL("&MeanData"), "M", "create MeanData edge/lanes.",
+        TL("&MeanData"), "M", "Create MeanData edge/lanes.",
         GUIIconSubSys::getIcon(GUIIcon::MODEMEANDATA), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_M_MODE_MOVE_MEANDATA);
 }
 
@@ -1956,16 +1958,25 @@ GNEApplicationWindowHelper::saveSUMOConfig() {
     if (oc.getString("SUMOcfg-output").size() > 0) {
         // open output device
         OutputDevice& device = OutputDevice::getDevice(oc.getString("SUMOcfg-output"));
+        // open header
+        device.writeXMLHeader(toString(SUMO_TAG_CONFIGURATION), "sumoConfiguration.xsd", GNENet::EMPTY_HEADER, false);
         // open configuration tag
         device.openTag(SUMO_TAG_CONFIGURATION);
         // save network
         device.openTag(SUMO_TAG_NETFILE);
         device.writeAttr(SUMO_ATTR_VALUE, oc.getString("output-file"));
         device.closeTag();
-        // check if write additionals
-        if (oc.getString("additional-files").size() > 0) {
+        // check if write additionals and meanData files
+        if ((oc.getString("additional-files").size() > 0) || (oc.getString("meandata-files").size() > 0)) {
             device.openTag(SUMO_TAG_ADDITIONALFILES);
-            device.writeAttr(SUMO_ATTR_VALUE, oc.getString("additional-files"));
+            // write additional and meanData together
+            if ((oc.getString("additional-files").size() > 0) && (oc.getString("meandata-files").size() > 0)) {
+                device.writeAttr(SUMO_ATTR_VALUE, oc.getString("additional-files") + "," + oc.getString("meandata-files"));
+            } else if (oc.getString("additional-files").size() > 0) {
+                device.writeAttr(SUMO_ATTR_VALUE, oc.getString("additional-files"));
+            } else {
+                device.writeAttr(SUMO_ATTR_VALUE, oc.getString("meandata-files"));
+            }
             device.closeTag();
         }
         // check if write route elements
@@ -1978,12 +1989,6 @@ GNEApplicationWindowHelper::saveSUMOConfig() {
         if (oc.getString("data-files").size() > 0) {
             device.openTag(SUMO_TAG_DATAFILES);
             device.writeAttr(SUMO_ATTR_VALUE, oc.getString("data-files"));
-            device.closeTag();
-        }
-        // check if write meanDatas
-        if (oc.getString("meandata-files").size() > 0) {
-            device.openTag(SUMO_TAG_MEANDATAFILES);
-            device.writeAttr(SUMO_ATTR_VALUE, oc.getString("meandata-files"));
             device.closeTag();
         }
         // close device

@@ -115,7 +115,7 @@ definitions.
 
 | Attribute  | Type     | Range                              | Default | Remark                                            |
 | ---------- | -------- | ---------------------------------- | ------- | ------------------------------------------------- |
-| **lines**  | list     | valid line or vehicle ids or *ANY* | \-      | list of vehicle alternatives to take for the ride |
+| lines  | list     | valid line or vehicle ids or *ANY* | ANY      | list of vehicle alternatives to take for the ride |
 | from       | string   | valid edge ids                     | \-      | id of the start edge (optional, if it is a subsequent movement or [starts in a vehicle](Persons.md#starting_the_simulation_in_a_vehicle)) |
 | to         | string   | valid edge ids                     | \-      | id of the destination edge (optional, if a busStop or other stopping place is given)  |
 | arrivalPos | float(m) |                                    | end of edge  | arrival position on the destination edge          |
@@ -148,6 +148,9 @@ arrival position. If an arrival position is given nevertheless it has to
 be inside the range of the stop.
 
 The positions of persons in a vehicle depend on the 'guiShape' parameter of the vehicle as well as it's dimensions. The offset between the front of the vehicle and the first passenger placement can be configured by adding `<param key="frontSeatPos" value="3.14"/>`to the vType definition of the vehicle.
+
+!!! note
+    up to version 1.15.0 attribute 'lines' was mandatory.
 
 ## Walks
 

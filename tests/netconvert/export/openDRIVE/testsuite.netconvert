@@ -15,12 +15,25 @@ split
 
 # roadmark test
 forbiddenlane
+multimodal
 
 # convert sumo network to xodr
 lefthand
 
+# convert lefthand sumo network to xodr (writing left lanes)
+lefthand_LHLL
+
 # convert sumo network to xodr
 lefthand_sidewalk
 
+# convert sumo network to xodr (writing left lanes)
+lefthand_sidewalk_LHLL
+
 # test exporting signal groups
 signalGroups
+
+# test exporting pois and polygons
+roadObjects
+
+# OSM divider tag to OpenDrive export
+osm_divider

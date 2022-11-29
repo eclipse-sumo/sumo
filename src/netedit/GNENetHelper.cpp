@@ -448,6 +448,22 @@ GNENetHelper::AttributeCarriers::clearJunctions() {
 
 
 void
+GNENetHelper::AttributeCarriers::addPrefixToJunctions(const std::string& prefix) {
+    // make a copy of junctions
+    std::map<std::string, GNEJunction*> junctionCopy = myJunctions;
+    // clear junctions
+    myJunctions.clear();
+    // fill junctions again
+    for (const auto &junction : junctionCopy) {
+        // update microsim ID
+        junction.second->setMicrosimID(prefix + junction.first);
+        // insert in myJunctions again
+        myJunctions[prefix + junction.first] = junction.second;
+    }
+}
+
+
+void
 GNENetHelper::AttributeCarriers::updateJunctionID(GNEJunction* junction, const std::string& newID) {
     if (myJunctions.count(junction->getID()) == 0) {
         throw ProcessError(junction->getTagStr() + " with ID='" + junction->getID() + "' doesn't exist in AttributeCarriers.junction");
@@ -744,8 +760,25 @@ GNENetHelper::AttributeCarriers::registerEdge(GNEEdge* edge) {
 }
 
 
-void GNENetHelper::AttributeCarriers::clearEdges() {
+void
+GNENetHelper::AttributeCarriers::clearEdges() {
     myEdges.clear();
+}
+
+
+void
+GNENetHelper::AttributeCarriers::addPrefixToEdges(const std::string& prefix) {
+    // make a copy of edges
+    std::map<std::string, GNEEdge*> edgeCopy = myEdges;
+    // clear edges
+    myEdges.clear();
+    // fill edges again
+    for (const auto &edge : edgeCopy) {
+        // update microsim ID
+        edge.second->setMicrosimID(prefix + edge.first);
+        // insert in myEdges again
+        myEdges[prefix + edge.first] = edge.second;
+    }
 }
 
 
@@ -2125,10 +2158,10 @@ GNENetHelper::AttributeCarriers::generateMeanDataID(SumoXMLTag tag) const {
     OptionsCont& oc = OptionsCont::getOptions();
     // get prefix
     std::string prefix;
-    if (tag == SUMO_TAG_BUS_STOP) {
-        prefix = oc.getString("busStop-prefix");
-    } else if (tag == SUMO_TAG_TRAIN_STOP) {
-        prefix = oc.getString("trainStop-prefix");
+    if (tag == SUMO_TAG_MEANDATA_EDGE) {
+        prefix = oc.getString("meanDataEdge-prefix");
+    } else if (tag == SUMO_TAG_MEANDATA_LANE) {
+        prefix = oc.getString("meanDataLane-prefix");
     }
     int counter = 0;
     while (retrieveMeanData(tag, prefix + "_" + toString(counter), false) != nullptr) {

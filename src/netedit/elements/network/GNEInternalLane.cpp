@@ -138,26 +138,31 @@ void
 GNEInternalLane::drawGL(const GUIVisualizationSettings& s) const {
     // only draw if we're not selecting E1 detectors in TLS Mode
     if (!myNet->getViewNet()->selectingDetectorsTLSMode()) {
-        // push name
-        GLHelper::pushName(getGlID());
-        // push layer matrix
-        GLHelper::pushMatrix();
-        // translate to front
-        myEditor->getViewNet()->drawTranslateFrontAttributeCarrier(myJunctionParent, GLO_TLLOGIC);
-        // move front again
-        glTranslated(0, 0, 0.5);
-        // set color
-        GLHelper::setColor(colorForLinksState(myState));
-        // draw lane checking whether it is not too small
-        if (s.scale < 1.) {
-            GLHelper::drawLine(myInternalLaneGeometry.getShape());
-        } else {
-            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myInternalLaneGeometry, 0.2);
+        // get link state color
+        const auto linkStateColor = colorForLinksState(myState);
+        // avoid draw invisible elements
+        if (linkStateColor.alpha() != 0) {
+            // push name
+            GLHelper::pushName(getGlID());
+            // push layer matrix
+            GLHelper::pushMatrix();
+            // translate to front
+            myEditor->getViewNet()->drawTranslateFrontAttributeCarrier(myJunctionParent, GLO_TLLOGIC);
+            // move front again
+            glTranslated(0, 0, 0.5);
+            // set color
+            GLHelper::setColor(linkStateColor);
+            // draw lane checking whether it is not too small
+            if (s.scale < 1.) {
+                GLHelper::drawLine(myInternalLaneGeometry.getShape());
+            } else {
+                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myInternalLaneGeometry, 0.2);
+            }
+            // pop layer matrix
+            GLHelper::popMatrix();
+            // pop name
+            GLHelper::popName();
         }
-        // pop layer matrix
-        GLHelper::popMatrix();
-        // pop name
-        GLHelper::popName();
     }
 }
 

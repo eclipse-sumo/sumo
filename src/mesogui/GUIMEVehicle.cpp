@@ -40,7 +40,7 @@
 // method definitions
 // ===========================================================================
 
-GUIMEVehicle::GUIMEVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
+GUIMEVehicle::GUIMEVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
                            MSVehicleType* type, const double speedFactor) :
     MEVehicle(pars, route, type, speedFactor),
     GUIBaseVehicle((MSBaseVehicle&) * this) {
@@ -205,14 +205,14 @@ GUIMEVehicle::getColorValue(const GUIVisualizationSettings& /* s */, int activeS
 
 
 void
-GUIMEVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r, bool future, bool noLoop, const RGBColor& col) const {
+GUIMEVehicle::drawRouteHelper(const GUIVisualizationSettings& s, ConstMSRoutePtr r, bool future, bool noLoop, const RGBColor& col) const {
     const double exaggeration = getExaggeration(s);
-    MSRouteIterator start = future ? myCurrEdge : r.begin();
+    MSRouteIterator start = future ? myCurrEdge : r->begin();
     MSRouteIterator i = start;
     std::map<const MSLane*, int> repeatLane; // count repeated occurrences of the same edge
     const double textSize = s.vehicleName.size / s.scale;
-    const int indexDigits = (int)toString(r.size()).size();
-    for (; i != r.end(); ++i) {
+    const int indexDigits = (int)toString(r->size()).size();
+    for (; i != r->end(); ++i) {
         const GUILane* lane = static_cast<GUILane*>((*i)->getLanes()[0]);
         GLHelper::drawBoxLines(lane->getShape(), lane->getShapeRotations(), lane->getShapeLengths(), exaggeration);
         if (s.showRouteIndex) {

@@ -145,6 +145,14 @@ GNELoadThread::run() {
                     // force initial geometry computation without volatile options because the net will look strange otherwise
                     net->computeAndUpdate(oc, false);
                 }
+                if (oc.getString("prefix").size() > 0) {
+                    // change prefixes in attributeCarriers
+                    net->getAttributeCarriers()->addPrefixToEdges(oc.getString("prefix"));
+                    net->getAttributeCarriers()->addPrefixToJunctions(oc.getString("prefix"));
+                    // change prefix in containers
+                    net->getNetBuilder()->getNodeCont().addPrefix(oc.getString("prefix"));
+                    net->getNetBuilder()->getEdgeCont().addPrefix(oc.getString("prefix"));
+                }
             }
             if (myFile == "") {
                 if (oc.isSet("configuration-file")) {
@@ -360,6 +368,18 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
 
     oc.doRegister("containerflow-prefix", new Option_String("cf"));
     oc.addDescription("containerflow-prefix", "Netedit", "prefix for containerFlow naming");
+
+    // data prefixes
+
+    // additional prefixes
+
+    oc.doRegister("meanDataEdge-prefix", new Option_String("ed"));
+    oc.addDescription("meanDataEdge-prefix", "Netedit", "prefix for meanDataEdge naming");
+
+    // additional prefixes
+
+    oc.doRegister("meanDataLane-prefix", new Option_String("ld"));
+    oc.addDescription("meanDataLane-prefix", "Netedit", "prefix for meanDataLane naming");
 
     // drawing
 

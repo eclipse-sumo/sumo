@@ -463,10 +463,11 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
         if (getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED) {
             // write embedded route
             getChildDemandElements().front()->writeDemandElement(device);
-            // write sorted stops
-            const auto sortedStops = getSortedStops(getChildDemandElements().front()->getParentEdges());
-            for (const auto& stop : sortedStops) {
-                stop->writeDemandElement(device);
+            // write stops
+            for (const auto &demandElement : getChildDemandElements()) {
+                if (demandElement->getTagProperty().isStop() || demandElement->getTagProperty().isWaypoint()) {
+                    demandElement->writeDemandElement(device);
+                }
             }
         } else {
             for (const auto& route : getChildDemandElements()) {
@@ -493,24 +494,6 @@ GNEVehicle::isDemandElementValid() const {
     } else if (getParentDemandElements().size() == 2) {
         // check if exist a valid path using route parent edges
         if (myNet->getPathManager()->getPathCalculator()->calculateDijkstraPath(getParentDemandElements().at(0)->getVClass(), getParentDemandElements().at(1)->getParentEdges()).size() > 0) {
-            return Problem::OK;
-        } else {
-            return Problem::INVALID_PATH;
-        }
-    } else if (getChildDemandElements().size() > 0 && (getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED)) {
-        // get sorted stops and check number
-        std::vector<GNEDemandElement*> embeddedRouteStopWaypoints;
-        for (const auto& routeChild : getChildDemandElements()) {
-            if (routeChild->getTagProperty().isStop() || routeChild->getTagProperty().isWaypoint()) {
-                embeddedRouteStopWaypoints.push_back(routeChild);
-            }
-        }
-        const auto sortedStops = getSortedStops(getChildDemandElements().front()->getParentEdges());
-        if (sortedStops.size() != embeddedRouteStopWaypoints.size()) {
-            return Problem::STOP_DOWNSTREAM;
-        }
-        // check if exist a valid path using embedded route edges
-        if (myNet->getPathManager()->getPathCalculator()->calculateDijkstraPath(getParentDemandElements().at(0)->getVClass(), getChildDemandElements().front()->getParentEdges()).size() > 0) {
             return Problem::OK;
         } else {
             return Problem::INVALID_PATH;
@@ -542,28 +525,6 @@ GNEVehicle::getDemandElementProblem() const {
         for (int i = 1; i < (int)routeEdges.size(); i++) {
             if (myNet->getPathManager()->getPathCalculator()->consecutiveEdgesConnected(getParentDemandElements().at(0)->getVClass(), routeEdges.at((int)i - 1), routeEdges.at(i)) == false) {
                 return ("There is no valid path between route edges '" + routeEdges.at((int)i - 1)->getID() + "' and '" + routeEdges.at(i)->getID() + "'");
-            }
-        }
-        // if there are connections between all edges, then all is ok
-        return "";
-    } else if (getChildDemandElements().size() > 0 && (getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED)) {
-        // get sorted stops and check number
-        std::vector<GNEDemandElement*> embeddedRouteStopWaypoints;
-        for (const auto& routeChild : getChildDemandElements()) {
-            if (routeChild->getTagProperty().isStop() || routeChild->getTagProperty().isWaypoint()) {
-                embeddedRouteStopWaypoints.push_back(routeChild);
-            }
-        }
-        const auto sortedStops = getSortedStops(getChildDemandElements().front()->getParentEdges());
-        if (sortedStops.size() != embeddedRouteStopWaypoints.size()) {
-            return toString(embeddedRouteStopWaypoints.size() - embeddedRouteStopWaypoints.size()) + " stops are outside of embedded route (downstream)";
-        }
-        // get embedded route edges
-        const std::vector<GNEEdge*>& routeEdges = getChildDemandElements().front()->getParentEdges();
-        // check if exist at least a connection between every edge
-        for (int i = 1; i < (int)routeEdges.size(); i++) {
-            if (myNet->getPathManager()->getPathCalculator()->consecutiveEdgesConnected(getParentDemandElements().at(0)->getVClass(), routeEdges.at((int)i - 1), routeEdges.at(i)) == false) {
-                return ("There is no valid path between embedded route edges '" + routeEdges.at((int)i - 1)->getID() + "' and '" + routeEdges.at(i)->getID() + "'");
             }
         }
         // if there are connections between all edges, then all is ok
@@ -697,6 +658,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
         const double width = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_WIDTH);
         const double length = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH);
         const double vehicleSizeSquared = (width * width) * (length * length) * (exaggeration * exaggeration);
+        const auto vehicleColor = setColor(s);
         // obtain Position an rotation (depending of draw spread vehicles)
         if (drawSpreadVehicles && mySpreadGeometry.getShape().size() == 0) {
             return;
@@ -704,7 +666,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
         const Position vehiclePosition = drawSpreadVehicles ? mySpreadGeometry.getShape().front() : myDemandElementGeometry.getShape().front();
         const double vehicleRotation = drawSpreadVehicles ? mySpreadGeometry.getShapeRotations().front() : myDemandElementGeometry.getShapeRotations().front();
         // check that position is valid
-        if (vehiclePosition != Position::INVALID) {
+        if ((vehicleColor.alpha() != 0) && (vehiclePosition != Position::INVALID)) {
             // first push name
             GLHelper::pushName(getGlID());
             // first check if if mouse is enough near to this vehicle to draw it
@@ -733,7 +695,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 // extra translation needed to draw vehicle over edge (to avoid selecting problems)
                 glTranslated(0, (-1) * length * exaggeration, 0);
                 // set lane color
-                setColor(s);
+                GLHelper::setColor(vehicleColor);
                 double upscaleLength = exaggeration;
                 if ((exaggeration > 1) && (length > 5)) {
                     // reduce the length/width ratio because this is not useful at high zoom
@@ -783,7 +745,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 }
                 // draw stack label
                 if ((myStackedLabelNumber > 0) && !drawSpreadVehicles) {
-                    drawStackLabel(vehiclePosition, vehicleRotation, width, length, exaggeration);
+                    drawStackLabel("Vehicle", vehiclePosition, vehicleRotation, width, length, exaggeration);
                 }
                 // draw flow label
                 if (myTagProperty.isFlow()) {
@@ -1765,11 +1727,11 @@ GNEVehicle::getACParametersMap() const {
 // protected
 // ===========================================================================
 
-void
+RGBColor
 GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
     // change color
     if (drawUsingSelectColor()) {
-        GLHelper::setColor(s.colorSettings.selectedVehicleColor);
+        return s.colorSettings.selectedVehicleColor;
     } else {
         // obtain vehicle color
         const GUIColorer& c = s.vehicleColorer;
@@ -1778,56 +1740,48 @@ GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
             case 0: {
                 // test for emergency vehicle
                 if (getParentDemandElements().at(0)->getAttribute(SUMO_ATTR_GUISHAPE) == "emergency") {
-                    GLHelper::setColor(RGBColor::WHITE);
-                    break;
+                    return RGBColor::WHITE;
                 }
                 // test for firebrigade
                 if (getParentDemandElements().at(0)->getAttribute(SUMO_ATTR_GUISHAPE) == "firebrigade") {
-                    GLHelper::setColor(RGBColor::RED);
-                    break;
+                    return RGBColor::RED;
                 }
                 // test for police car
                 if (getParentDemandElements().at(0)->getAttribute(SUMO_ATTR_GUISHAPE) == "police") {
-                    GLHelper::setColor(RGBColor::BLUE);
-                    break;
+                    return RGBColor::BLUE;
                 }
                 if (getParentDemandElements().at(0)->getAttribute(SUMO_ATTR_GUISHAPE) == "scooter") {
-                    GLHelper::setColor(RGBColor::WHITE);
-                    break;
+                    return RGBColor::WHITE;
                 }
                 // check if color was set
                 if (wasSet(VEHPARS_COLOR_SET)) {
-                    GLHelper::setColor(color);
-                    break;
+                    return color;
                 } else {
                     // take their parent's color)
-                    GLHelper::setColor(getParentDemandElements().at(0)->getColor());
-                    break;
+                    return getParentDemandElements().at(0)->getColor();
                 }
             }
             case 2: {
                 if (wasSet(VEHPARS_COLOR_SET)) {
-                    GLHelper::setColor(color);
+                    return color;
                 } else {
-                    GLHelper::setColor(c.getScheme().getColor(0));
+                    return c.getScheme().getColor(0);
                 }
-                break;
             }
             case 3: {
                 if (getParentDemandElements().at(0)->isAttributeEnabled(SUMO_ATTR_COLOR)) {
-                    GLHelper::setColor(getParentDemandElements().at(0)->getColor());
+                    return getParentDemandElements().at(0)->getColor();
                 } else {
-                    GLHelper::setColor(c.getScheme().getColor(0));
+                    return c.getScheme().getColor(0);
                 }
                 break;
             }
             case 4: {
                 if (getParentDemandElements().at(1)->getColor() != RGBColor::DEFAULT_COLOR) {
-                    GLHelper::setColor(getParentDemandElements().at(1)->getColor());
+                    return getParentDemandElements().at(1)->getColor();
                 } else {
-                    GLHelper::setColor(c.getScheme().getColor(0));
+                    return c.getScheme().getColor(0);
                 }
-                break;
             }
             case 5: {
                 Position p = getParentDemandElements().at(1)->getParentEdges().at(0)->getLanes().at(0)->getLaneShape()[0];
@@ -1835,8 +1789,7 @@ GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
                 Position center = b.getCenter();
                 double hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / M_PI;
                 double sat = p.distanceTo(center) / center.distanceTo(Position(b.xmin(), b.ymin()));
-                GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
-                break;
+                return RGBColor::fromHSV(hue, sat, 1.);
             }
             case 6: {
                 Position p = getParentDemandElements().at(1)->getParentEdges().back()->getLanes().at(0)->getLaneShape()[-1];
@@ -1844,8 +1797,7 @@ GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
                 Position center = b.getCenter();
                 double hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / M_PI;
                 double sat = p.distanceTo(center) / center.distanceTo(Position(b.xmin(), b.ymin()));
-                GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
-                break;
+                return RGBColor::fromHSV(hue, sat, 1.);
             }
             case 7: {
                 Position pb = getParentDemandElements().at(1)->getParentEdges().at(0)->getLanes().at(0)->getLaneShape()[0];
@@ -1855,18 +1807,16 @@ GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
                 Position minp(b.xmin(), b.ymin());
                 Position maxp(b.xmax(), b.ymax());
                 double sat = pb.distanceTo(pe) / minp.distanceTo(maxp);
-                GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
-                break;
+                return RGBColor::fromHSV(hue, sat, 1.);
             }
             case 29: { // color randomly (by pointer hash)
                 std::hash<const GNEVehicle*> ptr_hash;
                 const double hue = (double)(ptr_hash(this) % 360); // [0-360]
                 const double sat = (double)((ptr_hash(this) / 360) % 67) / 100. + 0.33; // [0.33-1]
-                GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
-                break;
+                return RGBColor::fromHSV(hue, sat, 1.);
             }
             default: {
-                GLHelper::setColor(c.getScheme().getColor(0));
+                return c.getScheme().getColor(0);
             }
         }
     }
@@ -2274,54 +2224,6 @@ GNEVehicle::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoLi
     }
     // end change attribute
     undoList->end();
-}
-
-
-void
-GNEVehicle::drawStackLabel(const Position& vehiclePosition, const double vehicleRotation, const double width, const double length, const double exaggeration) const {
-    // declare contour width
-    const double contourWidth = (0.05 * exaggeration);
-    // Push matrix
-    GLHelper::pushMatrix();
-    // Traslate to vehicle top
-    glTranslated(vehiclePosition.x(), vehiclePosition.y(), GLO_ROUTE + getType() + 0.1 + GLO_PERSONFLOW);
-    glRotated(vehicleRotation, 0, 0, -1);
-    glTranslated((width * exaggeration * 0.5) + (0.35 * exaggeration), 0, 0);
-    // draw external box
-    GLHelper::setColor(RGBColor::GREY);
-    GLHelper::drawBoxLine(Position(), 0, (length * exaggeration), 0.3 * exaggeration);
-    // draw internal box
-    glTranslated(0, 0, 0.1);
-    GLHelper::setColor(RGBColor(0, 128, 0));
-    GLHelper::drawBoxLine(Position(0, -contourWidth), Position(0, -contourWidth), 0, (length * exaggeration) - (contourWidth * 2), (0.3 * exaggeration) - contourWidth);
-    // draw stack label
-    GLHelper::drawText("vehicles stacked: " + toString(myStackedLabelNumber), Position(0, length * exaggeration * -0.5), (.1 * exaggeration), (0.6 * exaggeration), RGBColor::WHITE, 90, 0, -1);
-    // pop draw matrix
-    GLHelper::popMatrix();
-}
-
-
-void
-GNEVehicle::drawFlowLabel(const Position& vehiclePosition, const double vehicleRotation, const double width, const double length, const double exaggeration) const {
-    // declare contour width
-    const double contourWidth = (0.05 * exaggeration);
-    // Push matrix
-    GLHelper::pushMatrix();
-    // Traslate to vehicle bot
-    glTranslated(vehiclePosition.x(), vehiclePosition.y(), GLO_ROUTE + getType() + 0.1 + GLO_PERSONFLOW);
-    glRotated(vehicleRotation, 0, 0, -1);
-    glTranslated(-1 * ((width * 0.5 * exaggeration) + (0.35 * exaggeration)), 0, 0);
-    // draw external box
-    GLHelper::setColor(RGBColor::GREY);
-    GLHelper::drawBoxLine(Position(), Position(), 0, (length * exaggeration), 0.3 * exaggeration);
-    // draw internal box
-    glTranslated(0, 0, 0.1);
-    GLHelper::setColor(RGBColor::CYAN);
-    GLHelper::drawBoxLine(Position(0, -contourWidth), Position(0, -contourWidth), 0, (length * exaggeration) - (contourWidth * 2), (0.3 * exaggeration) - contourWidth);
-    // draw stack label
-    GLHelper::drawText("Flow", Position(0, length * exaggeration * -0.5), (.1 * exaggeration), (0.6 * exaggeration), RGBColor::BLACK, 90, 0, -1);
-    // pop draw matrix
-    GLHelper::popMatrix();
 }
 
 /****************************************************************************/

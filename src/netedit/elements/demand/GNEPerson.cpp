@@ -366,8 +366,11 @@ GNEPerson::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkEle
 void
 GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
     bool drawPerson = true;
+    const auto personColor = setColor(s);
     // check if person can be drawn
-    if (!myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
+    if (personColor.alpha() == 0) {
+        drawPerson = false;
+    } else if (!myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
         drawPerson = false;
     } else if (!myNet->getViewNet()->getDataViewOptions().showDemandElements()) {
         drawPerson = false;
@@ -401,7 +404,7 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             glTranslated(personPosition.x(), personPosition.y(), 0);
             glRotated(90, 0, 0, 1);
             // set person color
-            setColor(s);
+            GLHelper::setColor(personColor);
             // set scale
             glScaled(exaggeration, exaggeration, 1);
             // draw person depending of detail level
@@ -414,6 +417,14 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             }
             // pop matrix
             GLHelper::popMatrix();
+            // draw stack label
+            if (myStackedLabelNumber > 0) {
+                drawStackLabel("person", Position(personPosition.x() - 2.5, personPosition.y()), -90, 1.3, 5, getExaggeration(s));
+            }
+            // draw flow label
+            if (myTagProperty.isFlow()) {
+                drawFlowLabel(Position(personPosition.x() - 1, personPosition.y() - 0.25), -90, 1.8, 2, getExaggeration(s));
+            }
             // draw line between junctions if person plan isn't valid
             for (const auto& personPlan : getChildDemandElements()) {
                 if (personPlan->getTagProperty().isPersonPlan() && (personPlan->getParentJunctions().size() > 0) && !myNet->getPathManager()->isPathValid(personPlan)) {
@@ -787,12 +798,15 @@ GNEPerson::getACParametersMap() const {
 // protected
 // ===========================================================================
 
-void
+RGBColor
 GNEPerson::setColor(const GUIVisualizationSettings& s) const {
     const GUIColorer& c = s.personColorer;
+/*
     if (!setFunctionalColor(c.getActive())) {
-        GLHelper::setColor(c.getScheme().getColor(getColorValue(s, c.getActive())));
+        return c.getScheme().getColor(getColorValue(s, c.getActive()));
     }
+*/
+    return c.getScheme().getColor(getColorValue(s, c.getActive()));
 }
 
 

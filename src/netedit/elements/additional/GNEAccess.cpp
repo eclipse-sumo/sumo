@@ -166,40 +166,43 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
     // first check if additional has to be drawn
     if (s.drawAdditionals(accessExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // get color
-        RGBColor color;
+        RGBColor accessColor;
         if (drawUsingSelectColor()) {
-            color = s.colorSettings.selectedAdditionalColor;
+            accessColor = s.colorSettings.selectedAdditionalColor;
         } else if (!getParentAdditionals().front()->getAttribute(SUMO_ATTR_COLOR).empty()) {
-            color = parse<RGBColor>(getParentAdditionals().front()->getAttribute(SUMO_ATTR_COLOR));
+            accessColor = parse<RGBColor>(getParentAdditionals().front()->getAttribute(SUMO_ATTR_COLOR));
         } else {
-            color = s.colorSettings.busStopColor;
+            accessColor = s.colorSettings.busStopColor;
         }
-        // draw parent and child lines
-        drawParentChildLines(s, color);
-        // Start drawing adding an gl identificator
-        GLHelper::pushName(getGlID());
-        // push layer matrix
-        GLHelper::pushMatrix();
-        // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_ACCESS);
-        // set color
-        GLHelper::setColor(color);
-        // translate to geometry position
-        glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
-        // draw circle
-        if (s.drawForRectangleSelection) {
-            GLHelper::drawFilledCircle(radius * accessExaggeration, 8);
-        } else {
-            GLHelper::drawFilledCircle(radius * accessExaggeration, 16);
+        // avoid draw invisible elements
+        if (accessColor.alpha() != 0) {
+            // draw parent and child lines
+            drawParentChildLines(s, accessColor);
+            // Start drawing adding an gl identificator
+            GLHelper::pushName(getGlID());
+            // push layer matrix
+            GLHelper::pushMatrix();
+            // translate to front
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_ACCESS);
+            // set color
+            GLHelper::setColor(accessColor);
+            // translate to geometry position
+            glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
+            // draw circle
+            if (s.drawForRectangleSelection) {
+                GLHelper::drawFilledCircle(radius * accessExaggeration, 8);
+            } else {
+                GLHelper::drawFilledCircle(radius * accessExaggeration, 16);
+            }
+            // pop layer matrix
+            GLHelper::popMatrix();
+            // pop gl identificator
+            GLHelper::popName();
+            // check if mouse is over access
+            mouseWithinGeometry(myAdditionalGeometry.getShape().front(), (radius * accessExaggeration));
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().front(), accessExaggeration, 0.3);
         }
-        // pop layer matrix
-        GLHelper::popMatrix();
-        // pop gl identificator
-        GLHelper::popName();
-        // check if mouse is over access
-        mouseWithinGeometry(myAdditionalGeometry.getShape().front(), (radius * accessExaggeration));
-        // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().front(), accessExaggeration, 0.3);
         // inspect contour
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             GUIDottedGeometry::drawDottedContourCircle(s, GUIDottedGeometry::DottedContourType::INSPECT, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);

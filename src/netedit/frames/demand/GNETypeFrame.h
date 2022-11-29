@@ -206,7 +206,7 @@ public:
 
 protected:
     /// @brief function called after set a valid attribute in AttributeCreator/AttributeEditor/ParametersEditor/...
-    void attributeUpdated();
+    void attributeUpdated(SumoXMLAttr attribute);
 
     /// @brief open GNEAttributesCreator extended dialog (used for editing advance attributes of Vehicle Types)
     void attributesEditorExtendedDialogOpened();

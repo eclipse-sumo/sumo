@@ -157,7 +157,7 @@ MSE3Collector::MSE3EntryReminder::notifyLeave(SUMOTrafficObject& veh, double, MS
         ScopedLocker<> lock(myCollector.myContainerMutex, MSGlobals::gNumSimThreads > 1);
 #endif
         if (myCollector.myEnteredContainer.erase(&veh) > 0) {
-            WRITE_WARNING("Vehicle '" + veh.getID() + "' arrived inside " + toString(SUMO_TAG_E3DETECTOR) + " '" + myCollector.getID() + "'.");
+            WRITE_WARNINGF("Vehicle '%' arrived inside % '%'.", veh.getID(), toString(SUMO_TAG_E3DETECTOR), myCollector.getID());
         }
         return false;
     }
@@ -281,13 +281,13 @@ MSE3Collector::MSE3LeaveReminder::notifyLeave(SUMOTrafficObject&  veh, double /*
     ScopedLocker<> lock(myCollector.myContainerMutex, MSGlobals::gNumSimThreads > 1);
 #endif
     if (reason == MSMoveReminder::NOTIFICATION_TELEPORT) {
-        WRITE_WARNING("Vehicle '" + veh.getID() + "' teleported from " + toString(SUMO_TAG_E3DETECTOR) + " '" + myCollector.getID() + "'.");
+        WRITE_WARNINGF("Vehicle '%' teleported from % '%'.", veh.getID(), toString(SUMO_TAG_E3DETECTOR), myCollector.getID());
         myCollector.myEnteredContainer.erase(&veh);
         return false;
     }
     if (reason >= MSMoveReminder::NOTIFICATION_ARRIVED) {
         if (myCollector.myEnteredContainer.erase(&veh) > 0) {
-            WRITE_WARNING("Vehicle '" + veh.getID() + "' arrived inside " + toString(SUMO_TAG_E3DETECTOR) + " '" + myCollector.getID() + "'.");
+            WRITE_WARNINGF("Vehicle '%' arrived inside % '%'.", veh.getID(), toString(SUMO_TAG_E3DETECTOR), myCollector.getID());
         }
         return false;
     }
@@ -361,7 +361,7 @@ MSE3Collector::enter(const SUMOTrafficObject& veh, const double entryTimestep, c
         return;
     }
     if (myEnteredContainer.find(&veh) != myEnteredContainer.end()) {
-        WRITE_WARNING("Vehicle '" + veh.getID() + "' reentered " + toString(SUMO_TAG_E3DETECTOR) + " '" + getID() + "'.");
+        WRITE_WARNINGF("Vehicle '%' reentered % '%'.", veh.getID(), toString(SUMO_TAG_E3DETECTOR), getID());
         return;
     }
 #ifdef DEBUG_E3_NOTIFY_ENTER
@@ -407,7 +407,7 @@ MSE3Collector::leaveFront(const SUMOTrafficObject& veh, const double leaveTimest
     }
     if (myEnteredContainer.find(&veh) == myEnteredContainer.end()) {
         if (!myOpenEntry && veh.isVehicle()) {
-            WRITE_WARNING("Vehicle '" + veh.getID() + "' left " + toString(SUMO_TAG_E3DETECTOR) + " '" + getID() + "' without entering it.");
+            WRITE_WARNINGF("Vehicle '%' left % '%' without entering it.", veh.getID(), toString(SUMO_TAG_E3DETECTOR), getID());
         }
     } else {
         myEnteredContainer[&veh].frontLeaveTime = leaveTimestep;
@@ -435,7 +435,7 @@ MSE3Collector::leave(const SUMOTrafficObject& veh, const double leaveTimestep, c
     }
     if (myEnteredContainer.find(&veh) == myEnteredContainer.end()) {
         if (!myOpenEntry && veh.isVehicle()) {
-            WRITE_WARNING("Vehicle '" + veh.getID() + "' left " + toString(SUMO_TAG_E3DETECTOR) + " '" + getID() + "' without entering it.");
+            WRITE_WARNINGF("Vehicle '%' left % '%' without entering it.", veh.getID(), toString(SUMO_TAG_E3DETECTOR), getID());
         }
     } else {
         E3Values values = myEnteredContainer[&veh];

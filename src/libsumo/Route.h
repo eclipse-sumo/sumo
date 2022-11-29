@@ -29,6 +29,7 @@
 // ===========================================================================
 #ifndef LIBTRACI
 class MSRoute;
+typedef std::shared_ptr<const MSRoute> ConstMSRoutePtr;
 #endif
 
 
@@ -57,7 +58,7 @@ public:
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);
 
 private:
-    static const MSRoute* getRoute(const std::string& id);
+    static ConstMSRoutePtr getRoute(const std::string& id);
 
 private:
     static SubscriptionResults mySubscriptionResults;

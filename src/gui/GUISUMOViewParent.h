@@ -23,14 +23,10 @@
 #pragma once
 #include <config.h>
 
-#include <string>
-#include <vector>
-#include <utils/foxtools/fxheader.h>
-#include <utils/geom/Position.h>
-#include <utils/geom/Boundary.h>
-#include <utils/gui/globjects/GUIGlObjectTypes.h>
 #include <utils/gui/windows/GUIGlChildWindow.h>
-
+#include <utils/distribution/RandomDistributor.h>
+#include <utils/foxtools/MFXSynchQue.h>
+#include <utils/foxtools/MFXThreadEvent.h>
 
 // ===========================================================================
 // class declarations

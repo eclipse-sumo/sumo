@@ -285,96 +285,97 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         const RGBColor color = GUIPolygon::setColor(s, this, this, drawUsingSelectColor(), -1);
         const RGBColor invertedColor = color.invertedColor();
         const RGBColor darkerColor = color.changedBrightness(-32);
-        // push name (needed for getGUIGlObjectsUnderCursor(...)
-        GLHelper::pushName(GNEAdditional::getGlID());
-        // push layer matrix
-        GLHelper::pushMatrix();
-        // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getShapeLayer());
-        // check if we're drawing a polygon or a polyline
-        if (getFill() || myNet->getViewNet()->getDataViewOptions().TAZDrawFill()) {
-            if (s.drawForPositionSelection) {
-                // check if mouse is within geometry
-                if (myAdditionalGeometry.getShape().around(mousePosition)) {
-                    // push matrix
-                    GLHelper::pushMatrix();
-                    // move to mouse position
-                    glTranslated(mousePosition.x(), mousePosition.y(), 0);
-                    // set color
-                    GLHelper::setColor(color);
-                    // draw circle
-                    GLHelper::drawFilledCircle(1, s.getCircleResolution());
-                    // pop matrix
-                    GLHelper::popMatrix();
-                }
-            } else {
-                // draw inner polygon
-                const int alphaOverride = myNet->getViewNet()->getDataViewOptions().TAZDrawFill() ? 128 : -1;
-                GUIPolygon::drawInnerPolygon(s, this, this, myAdditionalGeometry.getShape(), 0, drawFill, drawUsingSelectColor(), alphaOverride, true);
-            }
-        } else {
-            // push matrix
-            GLHelper::pushMatrix();
-            // set color
-            GLHelper::setColor(color);
-            // draw geometry (polyline)
-            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
-            // pop matrix
-            GLHelper::popMatrix();
-        }
-        // draw contour if shape isn't blocked
-        if (!myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
-            // push contour matrix
+        // avoid draw invisible elements
+        if (color.alpha() != 0) {
+            // push name (needed for getGUIGlObjectsUnderCursor(...)
+            GLHelper::pushName(GNEAdditional::getGlID());
+            // push layer matrix
             GLHelper::pushMatrix();
             // translate to front
-            glTranslated(0, 0, 0.1);
-            // set color
-            GLHelper::setColor(darkerColor);
-            // draw polygon contour
-            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, s.neteditSizeSettings.polygonContourWidth * TAZExaggeration);
-            // pop contour matrix
-            GLHelper::popMatrix();
-            // draw shape points only in Network supemode
-            if (s.drawMovingGeometryPoint(TAZExaggeration, s.neteditSizeSettings.polygonGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
-                // check move mode flag
-                const bool moveMode = (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE);
-                // draw geometry points
-                GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry.getShape(), darkerColor, invertedColor,
-                                                s.neteditSizeSettings.polygonGeometryPointRadius * (moveMode ? 1 : 0.5), TAZExaggeration,
-                                                myNet->getViewNet()->getNetworkViewOptions().editingElevation(), drawExtremeSymbols);
-                // draw moving hint points
-                if (!myNet->getViewNet()->getLockManager().isObjectLocked(GLO_TAZ, isAttributeCarrierSelected()) && moveMode) {
-                    GUIGeometry::drawMovingHint(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry.getShape(), invertedColor,
-                                                s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration);
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getShapeLayer());
+            // check if we're drawing a polygon or a polyline
+            if (getFill() || myNet->getViewNet()->getDataViewOptions().TAZDrawFill()) {
+                if (s.drawForPositionSelection) {
+                    // check if mouse is within geometry
+                    if (myAdditionalGeometry.getShape().around(mousePosition)) {
+                        // push matrix
+                        GLHelper::pushMatrix();
+                        // move to mouse position
+                        glTranslated(mousePosition.x(), mousePosition.y(), 0);
+                        // set color
+                        GLHelper::setColor(color);
+                        // draw circle
+                        GLHelper::drawFilledCircle(1, s.getCircleResolution());
+                        // pop matrix
+                        GLHelper::popMatrix();
+                    }
+                } else {
+                    // draw inner polygon
+                    const int alphaOverride = myNet->getViewNet()->getDataViewOptions().TAZDrawFill() ? 128 : -1;
+                    GUIPolygon::drawInnerPolygon(s, this, this, myAdditionalGeometry.getShape(), 0, drawFill, drawUsingSelectColor(), alphaOverride, true);
+                }
+            } else {
+                // push matrix
+                GLHelper::pushMatrix();
+                // set color
+                GLHelper::setColor(color);
+                // draw geometry (polyline)
+                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
+                // pop matrix
+                GLHelper::popMatrix();
+            }
+            // draw contour if shape isn't blocked
+            if (!myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
+                // push contour matrix
+                GLHelper::pushMatrix();
+                // translate to front
+                glTranslated(0, 0, 0.1);
+                // set color
+                GLHelper::setColor(darkerColor);
+                // draw polygon contour
+                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, s.neteditSizeSettings.polygonContourWidth * TAZExaggeration);
+                // pop contour matrix
+                GLHelper::popMatrix();
+                // draw shape points only in Network supemode
+                if (s.drawMovingGeometryPoint(TAZExaggeration, s.neteditSizeSettings.polygonGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+                    // check move mode flag
+                    const bool moveMode = (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE);
+                    // draw geometry points
+                    GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry.getShape(), darkerColor, invertedColor,
+                                                    s.neteditSizeSettings.polygonGeometryPointRadius * (moveMode ? 1 : 0.5), TAZExaggeration,
+                                                    myNet->getViewNet()->getNetworkViewOptions().editingElevation(), drawExtremeSymbols);
+                    // draw moving hint points
+                    if (!myNet->getViewNet()->getLockManager().isObjectLocked(GLO_TAZ, isAttributeCarrierSelected()) && moveMode) {
+                        GUIGeometry::drawMovingHint(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry.getShape(), invertedColor,
+                                                    s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration);
+                    }
                 }
             }
+            // draw center
+            const double centerRadius = s.neteditSizeSettings.polygonGeometryPointRadius * TAZExaggeration;
+            // push center matrix
+            GLHelper::pushMatrix();
+            // move to vertex
+            glTranslated(myTAZCenter.x(), myTAZCenter.y(), 0.3);
+            // set color
+            GLHelper::setColor(darkerColor);
+            // draw circle
+            GLHelper::drawFilledCircle(centerRadius, s.getCircleResolution());
+            // move to front
+            glTranslated(0, 0, 0.1);
+            // set color
+            GLHelper::setColor(color);
+            // draw circle
+            GLHelper::drawFilledCircle(centerRadius * 0.8, s.getCircleResolution());
+            // pop center matrix
+            GLHelper::popMatrix();
+            // pop layer matrix
+            GLHelper::popMatrix();
+            // pop name
+            GLHelper::popName();
+            // draw lock icon
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), TAZExaggeration);
         }
-        // draw center
-        const double centerRadius = s.neteditSizeSettings.polygonGeometryPointRadius * TAZExaggeration;
-        // push center matrix
-        GLHelper::pushMatrix();
-        // move to vertex
-        glTranslated(myTAZCenter.x(), myTAZCenter.y(), 0.3);
-        // set color
-        GLHelper::setColor(darkerColor);
-        // draw circle
-        GLHelper::drawFilledCircle(centerRadius, s.getCircleResolution());
-        // move to front
-        glTranslated(0, 0, 0.1);
-        // set color
-        GLHelper::setColor(color);
-        // draw circle
-        GLHelper::drawFilledCircle(centerRadius * 0.8, s.getCircleResolution());
-        // pop center matrix
-        GLHelper::popMatrix();
-        // pop layer matrix
-        GLHelper::popMatrix();
-        // pop name
-        GLHelper::popName();
-        // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), TAZExaggeration);
-        // get name position
-        const Position& namePos = myAdditionalGeometry.getShape().getPolygonCenter();
         // draw name
         drawName(myTAZCenter, s.scale, s.polyName, s.angle);
         // check if mouse is over element
@@ -383,7 +384,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         drawDottedContours(s, TAZExaggeration);
         // check if draw poly type
         if (s.polyType.show(this)) {
-            const Position p = namePos + Position(0, -0.6 * s.polyType.size / s.scale);
+            const Position p = myAdditionalGeometry.getShape().getPolygonCenter() + Position(0, -0.6 * s.polyType.size / s.scale);
             GLHelper::drawTextSettings(s.polyType, getShapeType(), p, s.scale, s.angle);
         }
     }

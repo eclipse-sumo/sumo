@@ -683,7 +683,8 @@ def updateStartedEnded(options, net, stopEdges, stopRoutes, vehicleStopRoutes):
     numConflicts = 0
 
     maxShift = 0
-    for busStop, stops in stopRoutes.items():
+    for busStop in sorted(stopRoutes.keys()):
+        stops = stopRoutes[busStop]
         latestKnownTime = 0
         shift = 0
         stopEdge = stopEdges[busStop]
@@ -1371,7 +1372,8 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
         if getBidiID(net, edge) in edge2Route:
             usedBidi.add(edge)
 
-    for busStop, stops in stopRoutes.items():
+    for busStop in sorted(stopRoutes.keys()):
+        stops = stopRoutes[busStop]
         # group all approaches via the same edges
         approaches = defaultdict(list)  # edgesBefore -> [stop, stop2, ...]
         for edgesBefore, stop in stops:
@@ -1379,7 +1381,8 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
                 continue
             approaches[edgesBefore].append(stop)
 
-        for edgesBefore, stops in approaches.items():
+        for edgesBefore in sorted(approaches.keys()):
+            stops = approaches[edgesBefore]
             oRoutes = set()
             stopBidi = getBidiID(net, edgesBefore[-1])
             for edge in edgesBefore:
@@ -1400,7 +1403,7 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
                     stopRoute = vehicleStopRoutes[vehID]
                     stopIndex = stopRoute.index((edgesBefore, stop))
                     arrivals = defaultdict(list)  # (bidiStart, bidiEnd) -> (pArrival, pStop, sIb, sI2)
-                    for route in oRoutes:
+                    for route in sorted(oRoutes):
                         for vehID2 in uniqueRoutes[route]:
                             if vehID2 == vehID:
                                 continue
@@ -1416,6 +1419,7 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
                                     if e in bidiBefore:
                                         # if the opposite train enters the conflict section with a reversal
                                         # this doesn't provide for a useful entry signal
+                                        # (we still call findDivergence to advance sI2b)
                                         ignoreConflict = prevEdge == getBidiID(net, e)
 
                                         # found the start of the conflict zone, now we need to find the end
@@ -1442,14 +1446,16 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
                                     # no divergence found
                                     break
 
-                    for item in collectBidiConflicts(options, net, vehicleStopRoutes, stop,
+                    for conflict in collectBidiConflicts(options, net, vehicleStopRoutes, stop,
                                                      stopRoute, edgesBefore, arrivals):
-                        if item is None:
+                        if conflict is None:
                             numIgnoredConflicts += 1
                         else:
-                            nSignal, conflict = item
-                            conflicts[nSignal].append(conflict)
+                            conflicts[conflict.signal].append(conflict)
                             numConflicts += 1
+
+    numRemoved = checkBidiConsistency(conflicts, options.verbose)
+    numConflicts -= numRemoved
 
     if numConflicts > 0:
         print("Found %s bidi conflicts" % numConflicts)
@@ -1459,7 +1465,10 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
 
 
 def collectBidiConflicts(options, net, vehicleStopRoutes, stop, stopRoute, edgesBefore, arrivals):
-    for (e2Start, e2end), arrivalList in arrivals.items():
+    if stop.busStop == options.debugStop:
+        print("findBidiConflicts at stop %s" % options.debugStop)
+    for (e2Start, e2end) in sorted(arrivals.keys()):
+        arrivalList = arrivals[(e2Start, e2end)]
         nStopArrival = getArrivalSecure(stop)
         e1End = getBidiID(net, e2Start)
         e1Start = getBidiID(net, e2end)
@@ -1469,6 +1478,12 @@ def collectBidiConflicts(options, net, vehicleStopRoutes, stop, stopRoute, edges
         arrivalList.sort(reverse=True, key=itemgetter(0))
         # print("found oppositeArrivals", [a[0] for a in arrivals])
         conflictArrival = None
+        if options.verbose and stop.busStop == options.debugStop:
+            print("%s (%s) n: %s %s start: %s end: %s" % (
+                  humanReadableTime(nArrival),
+                  humanReadableTime(nStopArrival),
+                  stop.tripId, stop.vehID, e1Start, e1End))
+
         for pArrival, pStop, sIb, sI2 in arrivalList:
             if pArrival >= nArrival:
                 continue
@@ -1490,6 +1505,12 @@ def collectBidiConflicts(options, net, vehicleStopRoutes, stop, stopRoute, edges
             nSignal = findSignal(net, getEdges(stopRoute, sIb, e1Start, False, noIndex=True), True)
             # signal before vehID2 enters the conflict section (in the opposite direction)
             pSignal = findSignal(net, getEdges(stopRoute2, sI2, e2Start, False, noIndex=True), True)
+
+            if options.verbose and stop.busStop == options.debugStop:
+                print("  %s (%s) p: %s %s start: %s end: %s" % (
+                      humanReadableTime(pArrival),
+                      humanReadableTime(parseTime(pStop.arrival)),
+                      pStop.tripId, pStop.vehID, e2Start, e2end))
 
             if pStop.vehID != stop.vehID:
                 if nSignal is None or pSignal is None:
@@ -1541,7 +1562,48 @@ def collectBidiConflicts(options, net, vehicleStopRoutes, stop, stopRoute, edges
                                     stop.busStop,
                                     info, active,
                                     busStop2=busStop2)
-                yield nSignal, conflict
+                conflict.signal = nSignal
+                yield conflict
+
+
+def checkBidiConsistency(conflicts, verbose):
+    # if the bidi section between two stops has an intermediate non-bidi section,
+    # inconsistent constraints may be generated (#12075)
+    # instead of trying to identify these cases beforehand we filter them out in a post-processing step
+
+    tfcMap = defaultdict(list) # (tripId, foeId) -> [conflict, ...]
+    numRemoved = 0
+
+    for signal in sorted(conflicts.keys()):
+        for c in conflicts[signal]:
+            busStop2 = c.busStop2[0][1]
+            key = (c.tripID, c.otherTripID, c.busStop, busStop2)
+            rkey = (c.otherTripID, c.tripID, busStop2, c.busStop)
+            if key in tfcMap and verbose:
+                print("Duplicate conflict between '%s' and '%s' between busStops '%s' and '%s'" % key, file=sys.stderr)
+            tfcMap[key].append(c)
+            if rkey in tfcMap:
+                keyToRemove = None
+                # decide which of the two conflicts to keep
+                times = dict([t.split('=') for t in c.conflictTime.split()])
+                if parseTime(times['foeStopArrival']) < parseTime(times['stopArrival']):
+                    keyToRemove = rkey
+                else:
+                    keyToRemove = key
+
+                for c in tfcMap[keyToRemove]:
+                    numRemoved += 1
+                    conflicts[c.signal].remove(c)
+                    if verbose:
+                        print("Found symmetrical bidi conflict (tripId=%s, foeId=%s, busStop=%s busStop2=%s)." % keyToRemove)
+                    if not conflicts[c.signal]:
+                        del conflicts[c.signal]
+                del tfcMap[keyToRemove]
+
+    if numRemoved > 0 and verbose:
+        print("Removed %s symmetrical bidi conflicts" % numRemoved)
+
+    return numRemoved;
 
 
 def getEdges(stopRoute, index, startEdge, forward, noIndex=False):

@@ -1698,6 +1698,19 @@ Helper::findCloserLane(const MSEdge* edge, const Position& pos, SUMOVehicleClass
             newBest = true;
         }
     }
+    if (edge->isInternal() && edge->getNumLanes() > 1) {
+        // there is a parallel internal edge that isn't returned by getInternalFollowingEdge but is also usable for the same route
+        for (const MSLane* const l : edge->getLanes()) {
+            if (l->getIndex() == 0) {
+                continue;
+            }
+            for (const MSLink* const link : l->getLinkCont()) {
+                if (link->isInternalJunctionLink()) {
+                    findCloserLane(&link->getViaLane()->getEdge(), pos, vClass, bestDistance, lane);
+                }
+            }
+        }
+    }
     return newBest;
 }
 

@@ -108,6 +108,7 @@ namespace PHEMlightdllV5 {
         }
 
         _ceps.insert(std::make_pair(Helper->getgClass(), new CEP(Vehicle, headerFCvalues, matrixFCvalues, headerPollutants, matrixPollutants, idlingValuesFCvalues, idlingValuesPollutants)));
+        delete Vehicle;
         return true;
     }
 
@@ -403,61 +404,28 @@ namespace PHEMlightdllV5 {
         privateVersion = value;
     }
 
-    VEHPHEMLightJSON::Vehicle_Data* VEHPHEMLightJSON::VEH::getVehicleData() const {
-        return privateVehicleData;
+    VEHPHEMLightJSON::Vehicle_Data* VEHPHEMLightJSON::VEH::getVehicleData() {
+        return &privateVehicleData;
     }
 
-    void VEHPHEMLightJSON::VEH::setVehicleData(Vehicle_Data* value) {
-        privateVehicleData = value;
+    VEHPHEMLightJSON::Aux_Data* VEHPHEMLightJSON::VEH::getAuxiliariesData() {
+        return &privateAuxiliariesData;
     }
 
-    VEHPHEMLightJSON::Aux_Data* VEHPHEMLightJSON::VEH::getAuxiliariesData() const {
-        return privateAuxiliariesData;
+    VEHPHEMLightJSON::Engine_Data* VEHPHEMLightJSON::VEH::getEngineData() {
+        return &privateEngineData;
     }
 
-    void VEHPHEMLightJSON::VEH::setAuxiliariesData(Aux_Data* value) {
-        privateAuxiliariesData = value;
+    VEHPHEMLightJSON::Rollres_Data* VEHPHEMLightJSON::VEH::getRollingResData() {
+        return &privateRollingResData;
     }
 
-    VEHPHEMLightJSON::Engine_Data* VEHPHEMLightJSON::VEH::getEngineData() const {
-        return privateEngineData;
+    VEHPHEMLightJSON::FullLoadDrag_Data* VEHPHEMLightJSON::VEH::getFLDData() {
+        return &privateFLDData;
     }
 
-    void VEHPHEMLightJSON::VEH::setEngineData(Engine_Data* value) {
-        privateEngineData = value;
-    }
-
-    VEHPHEMLightJSON::Rollres_Data* VEHPHEMLightJSON::VEH::getRollingResData() const {
-        return privateRollingResData;
-    }
-
-    void VEHPHEMLightJSON::VEH::setRollingResData(Rollres_Data* value) {
-        privateRollingResData = value;
-    }
-
-    VEHPHEMLightJSON::FullLoadDrag_Data* VEHPHEMLightJSON::VEH::getFLDData() const {
-        return privateFLDData;
-    }
-
-    void VEHPHEMLightJSON::VEH::setFLDData(FullLoadDrag_Data* value) {
-        privateFLDData = value;
-    }
-
-    VEHPHEMLightJSON::Transmission_Data* VEHPHEMLightJSON::VEH::getTransmissionData() const {
-        return privateTransmissionData;
-    }
-
-    void VEHPHEMLightJSON::VEH::setTransmissionData(Transmission_Data* value) {
-        privateTransmissionData = value;
-    }
-
-    VEHPHEMLightJSON::VEH::VEH() {
-        setVehicleData(new Vehicle_Data());
-        setRollingResData(new Rollres_Data());
-        setEngineData(new Engine_Data());
-        setAuxiliariesData(new Aux_Data());
-        setFLDData(new FullLoadDrag_Data());
-        setTransmissionData(new Transmission_Data());
+    VEHPHEMLightJSON::Transmission_Data* VEHPHEMLightJSON::VEH::getTransmissionData() {
+        return &privateTransmissionData;
     }
 
     const std::string& VEHPHEMLightJSON::Vehicle_Data::getMassType() const {
@@ -580,25 +548,12 @@ namespace PHEMlightdllV5 {
         privateFr4 = value;
     }
 
-    VEHPHEMLightJSON::ICE_Data* VEHPHEMLightJSON::Engine_Data::getICEData() const {
-        return privateICEData;
+    VEHPHEMLightJSON::ICE_Data* VEHPHEMLightJSON::Engine_Data::getICEData() {
+        return &privateICEData;
     }
 
-    void VEHPHEMLightJSON::Engine_Data::setICEData(ICE_Data* value) {
-        privateICEData = value;
-    }
-
-    VEHPHEMLightJSON::EM_Data* VEHPHEMLightJSON::Engine_Data::getEMData() const {
-        return privateEMData;
-    }
-
-    void VEHPHEMLightJSON::Engine_Data::setEMData(EM_Data* value) {
-        privateEMData = value;
-    }
-
-    VEHPHEMLightJSON::Engine_Data::Engine_Data() {
-        setICEData(new ICE_Data());
-        setEMData(new EM_Data());
+    VEHPHEMLightJSON::EM_Data* VEHPHEMLightJSON::Engine_Data::getEMData() {
+        return &privateEMData;
     }
 
     const double& VEHPHEMLightJSON::ICE_Data::getPrated() const {

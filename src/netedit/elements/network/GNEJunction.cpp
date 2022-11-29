@@ -1731,6 +1731,16 @@ GNEJunction::setMoveShape(const GNEMoveResult& moveResult) {
 
 void
 GNEJunction::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
+    // update objects in the current junction position
+    myNet->getViewNet()->updateObjectsUnderCursor(moveResult.shapeToUpdate.front());
+    // check if there is another junction in the same position
+    GNEJunction* secondJunction = nullptr;
+    const auto &clickedJunctions = myNet->getViewNet()->getObjectsUnderCursor().getClickedJunctions();
+    for (auto it = clickedJunctions.begin(); (it != clickedJunctions.end()) && (secondJunction == nullptr); it++) {
+        if (*it != this) {
+            secondJunction = *it;
+        }
+    }
     // make sure that newShape isn't empty
     if (moveResult.shapeToUpdate.size() > 0) {
         // check if we're editing a shape
@@ -1739,7 +1749,7 @@ GNEJunction::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoL
             undoList->begin(GUIIcon::JUNCTION, "moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
             undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(moveResult.shapeToUpdate)));
             undoList->end();
-        } else if (!myNet->getViewNet()->mergeJunctions(this, myNet->getViewNet()->getObjectsUnderCursor().getJunctionFront())) {
+        } else if (!myNet->getViewNet()->mergeJunctions(this, secondJunction)) {
             undoList->begin(GUIIcon::JUNCTION, "position of " + getTagStr());
             undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));
             undoList->end();

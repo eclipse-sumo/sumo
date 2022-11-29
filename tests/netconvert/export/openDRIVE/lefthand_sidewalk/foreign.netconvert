@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-11-14 22:42:40 by Eclipse SUMO netconvert Version v1_15_0+0243-781ae34
+<!-- generated on 2022-11-19 16:29:33 by Eclipse SUMO netconvert Version v1_15_0+0442-fb08314
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -48,7 +48,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Mon Nov 14 22:42:40 2022" north="200.00" south="0.00" east="200.00" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Sat Nov 19 16:29:33 2022" north="200.00" south="0.00" east="200.00" west="0.00"/>
     <road name="" length="92.80000000" id="50" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -430,15 +430,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <userData code="sumoId" value="WC"/>
     </road>
 
-    <road name=":C_11" length="16.86720708" id="58" junction="1">
+    <road name="C" length="3.24369367" id="58" junction="1">
         <link>
             <predecessor elementType="road" elementId="57" contactPoint="end"/>
-            <successor elementType="road" elementId="52" contactPoint="start"/>
+            <successor elementType="road" elementId="51" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="92.80000000" y="103.20000000" hdg="0.00000000" length="16.86720708">
-                <paramPoly3 aU="0.00000000" bU="20.80000000" cU="-10.40000000" dU="0.00000000" aV="0.00000000" bV="0.00000000" cV="-10.40000000" dV="0.00000000" pRange="normalized"/>
+            <geometry s="0.00000000" x="92.80000000" y="105.20000000" hdg="0.00000000" length="3.24369367">
+                <paramPoly3 aU="0.00000000" bU="4.00000000" cU="-2.00000000" dU="0.00000000" aV="0.00000000" bV="0.00000000" cV="2.00000000" dV="0.00000000" pRange="normalized"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -447,23 +447,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lateralProfile/>
         <lanes>
             <laneSection s="0">
-                <center>
-                    <lane id="0" type="none" level="true">
-                        <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
-                    </lane>
-                </center>
-                <right>
-                    <lane id="-1" type="driving" level="true">
-                        <link>
-                            <predecessor id="-2"/>
-                            <successor id="-2"/>
-                        </link>
-                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
-                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
-                        <speed sOffset="0" max="13.89"/>
-                    </lane>
-                    <lane id="-2" type="sidewalk" level="true">
+                <left>
+                    <lane id="-1" type="sidewalk" level="true">
                         <link>
                             <predecessor id="-1"/>
                             <successor id="-1"/>
@@ -472,7 +457,22 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="13.89"/>
                     </lane>
-                 </right>
+                    <lane id="-2" type="driving" level="true">
+                        <link>
+                            <predecessor id="-2"/>
+                            <successor id="-2"/>
+                        </link>
+                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
+                        <speed sOffset="0" max="13.89"/>
+                    </lane>
+                 </left>
+                <center>
+                    <lane id="0" type="none" level="true">
+                        <link/>
+                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                    </lane>
+                </center>
             </laneSection>
         </lanes>
         <objects/>
@@ -495,13 +495,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lateralProfile/>
         <lanes>
             <laneSection s="0">
-                <center>
-                    <lane id="0" type="none" level="true">
-                        <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
-                    </lane>
-                </center>
-                <right>
+                <left>
                     <lane id="-1" type="driving" level="true">
                         <link>
                             <predecessor id="-2"/>
@@ -511,21 +505,27 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                         <roadMark sOffset="0" type="broken" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="13.89"/>
                     </lane>
-                 </right>
+                 </left>
+                <center>
+                    <lane id="0" type="none" level="true">
+                        <link/>
+                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                    </lane>
+                </center>
             </laneSection>
         </lanes>
         <objects/>
         <signals/>
     </road>
-    <road name=":C_9" length="6.48738734" id="60" junction="1">
+    <road name=":C_11" length="16.86720708" id="60" junction="1">
         <link>
             <predecessor elementType="road" elementId="57" contactPoint="end"/>
-            <successor elementType="road" elementId="51" contactPoint="start"/>
+            <successor elementType="road" elementId="52" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="92.80000000" y="103.20000000" hdg="0.00000000" length="6.48738734">
-                <paramPoly3 aU="0.00000000" bU="8.00000000" cU="-4.00000000" dU="0.00000000" aV="0.00000000" bV="0.00000000" cV="4.00000000" dV="0.00000000" pRange="normalized"/>
+            <geometry s="0.00000000" x="92.80000000" y="103.20000000" hdg="0.00000000" length="16.86720708">
+                <paramPoly3 aU="0.00000000" bU="20.80000000" cU="-10.40000000" dU="0.00000000" aV="0.00000000" bV="0.00000000" cV="-10.40000000" dV="0.00000000" pRange="normalized"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -534,13 +534,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lateralProfile/>
         <lanes>
             <laneSection s="0">
-                <center>
-                    <lane id="0" type="none" level="true">
-                        <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
-                    </lane>
-                </center>
-                <right>
+                <left>
                     <lane id="-1" type="driving" level="true">
                         <link>
                             <predecessor id="-2"/>
@@ -550,21 +544,27 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                         <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="13.89"/>
                     </lane>
-                 </right>
+                 </left>
+                <center>
+                    <lane id="0" type="none" level="true">
+                        <link/>
+                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                    </lane>
+                </center>
             </laneSection>
         </lanes>
         <objects/>
         <signals/>
     </road>
-    <road name=":C_8" length="16.86720708" id="61" junction="1">
+    <road name="C" length="3.24369367" id="61" junction="1">
         <link>
             <predecessor elementType="road" elementId="55" contactPoint="end"/>
-            <successor elementType="road" elementId="53" contactPoint="start"/>
+            <successor elementType="road" elementId="50" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="103.20000000" y="107.20000000" hdg="-1.57079633" length="16.86720708">
-                <paramPoly3 aU="0.00000000" bU="20.80000000" cU="-10.40000000" dU="0.00000000" aV="0.00000000" bV="-0.00000000" cV="-10.40000000" dV="0.00000000" pRange="normalized"/>
+            <geometry s="0.00000000" x="105.20000000" y="107.20000000" hdg="-1.57079633" length="3.24369367">
+                <paramPoly3 aU="0.00000000" bU="4.00000000" cU="-2.00000000" dU="0.00000000" aV="0.00000000" bV="-0.00000000" cV="2.00000000" dV="0.00000000" pRange="normalized"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -573,23 +573,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lateralProfile/>
         <lanes>
             <laneSection s="0">
-                <center>
-                    <lane id="0" type="none" level="true">
-                        <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
-                    </lane>
-                </center>
-                <right>
-                    <lane id="-1" type="driving" level="true">
-                        <link>
-                            <predecessor id="-2"/>
-                            <successor id="-2"/>
-                        </link>
-                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
-                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
-                        <speed sOffset="0" max="13.89"/>
-                    </lane>
-                    <lane id="-2" type="sidewalk" level="true">
+                <left>
+                    <lane id="-1" type="sidewalk" level="true">
                         <link>
                             <predecessor id="-1"/>
                             <successor id="-1"/>
@@ -598,7 +583,22 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="13.89"/>
                     </lane>
-                 </right>
+                    <lane id="-2" type="driving" level="true">
+                        <link>
+                            <predecessor id="-2"/>
+                            <successor id="-2"/>
+                        </link>
+                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
+                        <speed sOffset="0" max="13.89"/>
+                    </lane>
+                 </left>
+                <center>
+                    <lane id="0" type="none" level="true">
+                        <link/>
+                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                    </lane>
+                </center>
             </laneSection>
         </lanes>
         <objects/>
@@ -621,13 +621,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lateralProfile/>
         <lanes>
             <laneSection s="0">
-                <center>
-                    <lane id="0" type="none" level="true">
-                        <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
-                    </lane>
-                </center>
-                <right>
+                <left>
                     <lane id="-1" type="driving" level="true">
                         <link>
                             <predecessor id="-2"/>
@@ -637,21 +631,27 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                         <roadMark sOffset="0" type="broken" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="13.89"/>
                     </lane>
-                 </right>
+                 </left>
+                <center>
+                    <lane id="0" type="none" level="true">
+                        <link/>
+                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                    </lane>
+                </center>
             </laneSection>
         </lanes>
         <objects/>
         <signals/>
     </road>
-    <road name=":C_6" length="6.48738734" id="63" junction="1">
+    <road name=":C_8" length="16.86720708" id="63" junction="1">
         <link>
             <predecessor elementType="road" elementId="55" contactPoint="end"/>
-            <successor elementType="road" elementId="50" contactPoint="start"/>
+            <successor elementType="road" elementId="53" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="103.20000000" y="107.20000000" hdg="-1.57079633" length="6.48738734">
-                <paramPoly3 aU="0.00000000" bU="8.00000000" cU="-4.00000000" dU="0.00000000" aV="0.00000000" bV="-0.00000000" cV="4.00000000" dV="0.00000000" pRange="normalized"/>
+            <geometry s="0.00000000" x="103.20000000" y="107.20000000" hdg="-1.57079633" length="16.86720708">
+                <paramPoly3 aU="0.00000000" bU="20.80000000" cU="-10.40000000" dU="0.00000000" aV="0.00000000" bV="-0.00000000" cV="-10.40000000" dV="0.00000000" pRange="normalized"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -660,13 +660,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lateralProfile/>
         <lanes>
             <laneSection s="0">
-                <center>
-                    <lane id="0" type="none" level="true">
-                        <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
-                    </lane>
-                </center>
-                <right>
+                <left>
                     <lane id="-1" type="driving" level="true">
                         <link>
                             <predecessor id="-2"/>
@@ -676,21 +670,27 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                         <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="13.89"/>
                     </lane>
-                 </right>
+                 </left>
+                <center>
+                    <lane id="0" type="none" level="true">
+                        <link/>
+                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                    </lane>
+                </center>
             </laneSection>
         </lanes>
         <objects/>
         <signals/>
     </road>
-    <road name=":C_5" length="16.86720708" id="64" junction="1">
+    <road name="C" length="3.24369367" id="64" junction="1">
         <link>
             <predecessor elementType="road" elementId="54" contactPoint="end"/>
-            <successor elementType="road" elementId="51" contactPoint="start"/>
+            <successor elementType="road" elementId="52" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="107.20000000" y="96.80000000" hdg="3.14159265" length="16.86720708">
-                <paramPoly3 aU="0.00000000" bU="20.80000000" cU="-10.40000000" dU="0.00000000" aV="-0.00000000" bV="0.00000000" cV="-10.40000000" dV="0.00000000" pRange="normalized"/>
+            <geometry s="0.00000000" x="107.20000000" y="94.80000000" hdg="3.14159265" length="3.24369367">
+                <paramPoly3 aU="0.00000000" bU="4.00000000" cU="-2.00000000" dU="0.00000000" aV="-0.00000000" bV="0.00000000" cV="2.00000000" dV="0.00000000" pRange="normalized"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -699,23 +699,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lateralProfile/>
         <lanes>
             <laneSection s="0">
-                <center>
-                    <lane id="0" type="none" level="true">
-                        <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
-                    </lane>
-                </center>
-                <right>
-                    <lane id="-1" type="driving" level="true">
-                        <link>
-                            <predecessor id="-2"/>
-                            <successor id="-2"/>
-                        </link>
-                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
-                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
-                        <speed sOffset="0" max="13.89"/>
-                    </lane>
-                    <lane id="-2" type="sidewalk" level="true">
+                <left>
+                    <lane id="-1" type="sidewalk" level="true">
                         <link>
                             <predecessor id="-1"/>
                             <successor id="-1"/>
@@ -724,7 +709,22 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="13.89"/>
                     </lane>
-                 </right>
+                    <lane id="-2" type="driving" level="true">
+                        <link>
+                            <predecessor id="-2"/>
+                            <successor id="-2"/>
+                        </link>
+                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
+                        <speed sOffset="0" max="13.89"/>
+                    </lane>
+                 </left>
+                <center>
+                    <lane id="0" type="none" level="true">
+                        <link/>
+                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                    </lane>
+                </center>
             </laneSection>
         </lanes>
         <objects/>
@@ -747,13 +747,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lateralProfile/>
         <lanes>
             <laneSection s="0">
-                <center>
-                    <lane id="0" type="none" level="true">
-                        <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
-                    </lane>
-                </center>
-                <right>
+                <left>
                     <lane id="-1" type="driving" level="true">
                         <link>
                             <predecessor id="-2"/>
@@ -763,21 +757,27 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                         <roadMark sOffset="0" type="broken" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="13.89"/>
                     </lane>
-                 </right>
+                 </left>
+                <center>
+                    <lane id="0" type="none" level="true">
+                        <link/>
+                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                    </lane>
+                </center>
             </laneSection>
         </lanes>
         <objects/>
         <signals/>
     </road>
-    <road name=":C_3" length="6.48738734" id="66" junction="1">
+    <road name=":C_5" length="16.86720708" id="66" junction="1">
         <link>
             <predecessor elementType="road" elementId="54" contactPoint="end"/>
-            <successor elementType="road" elementId="52" contactPoint="start"/>
+            <successor elementType="road" elementId="51" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="107.20000000" y="96.80000000" hdg="3.14159265" length="6.48738734">
-                <paramPoly3 aU="0.00000000" bU="8.00000000" cU="-4.00000000" dU="0.00000000" aV="-0.00000000" bV="0.00000000" cV="4.00000000" dV="0.00000000" pRange="normalized"/>
+            <geometry s="0.00000000" x="107.20000000" y="96.80000000" hdg="3.14159265" length="16.86720708">
+                <paramPoly3 aU="0.00000000" bU="20.80000000" cU="-10.40000000" dU="0.00000000" aV="-0.00000000" bV="0.00000000" cV="-10.40000000" dV="0.00000000" pRange="normalized"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -786,13 +786,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lateralProfile/>
         <lanes>
             <laneSection s="0">
-                <center>
-                    <lane id="0" type="none" level="true">
-                        <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
-                    </lane>
-                </center>
-                <right>
+                <left>
                     <lane id="-1" type="driving" level="true">
                         <link>
                             <predecessor id="-2"/>
@@ -802,21 +796,27 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                         <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="13.89"/>
                     </lane>
-                 </right>
+                 </left>
+                <center>
+                    <lane id="0" type="none" level="true">
+                        <link/>
+                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                    </lane>
+                </center>
             </laneSection>
         </lanes>
         <objects/>
         <signals/>
     </road>
-    <road name=":C_2" length="16.86720708" id="67" junction="1">
+    <road name="C" length="3.24369367" id="67" junction="1">
         <link>
             <predecessor elementType="road" elementId="56" contactPoint="end"/>
-            <successor elementType="road" elementId="50" contactPoint="start"/>
+            <successor elementType="road" elementId="53" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="96.80000000" y="92.80000000" hdg="1.57079633" length="16.86720708">
-                <paramPoly3 aU="0.00000000" bU="20.80000000" cU="-10.40000000" dU="0.00000000" aV="0.00000000" bV="0.00000000" cV="-10.40000000" dV="0.00000000" pRange="normalized"/>
+            <geometry s="0.00000000" x="94.80000000" y="92.80000000" hdg="1.57079633" length="3.24369367">
+                <paramPoly3 aU="0.00000000" bU="4.00000000" cU="-2.00000000" dU="0.00000000" aV="0.00000000" bV="0.00000000" cV="2.00000000" dV="0.00000000" pRange="normalized"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -825,23 +825,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lateralProfile/>
         <lanes>
             <laneSection s="0">
-                <center>
-                    <lane id="0" type="none" level="true">
-                        <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
-                    </lane>
-                </center>
-                <right>
-                    <lane id="-1" type="driving" level="true">
-                        <link>
-                            <predecessor id="-2"/>
-                            <successor id="-2"/>
-                        </link>
-                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
-                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
-                        <speed sOffset="0" max="13.89"/>
-                    </lane>
-                    <lane id="-2" type="sidewalk" level="true">
+                <left>
+                    <lane id="-1" type="sidewalk" level="true">
                         <link>
                             <predecessor id="-1"/>
                             <successor id="-1"/>
@@ -850,7 +835,22 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="13.89"/>
                     </lane>
-                 </right>
+                    <lane id="-2" type="driving" level="true">
+                        <link>
+                            <predecessor id="-2"/>
+                            <successor id="-2"/>
+                        </link>
+                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
+                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
+                        <speed sOffset="0" max="13.89"/>
+                    </lane>
+                 </left>
+                <center>
+                    <lane id="0" type="none" level="true">
+                        <link/>
+                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                    </lane>
+                </center>
             </laneSection>
         </lanes>
         <objects/>
@@ -873,13 +873,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lateralProfile/>
         <lanes>
             <laneSection s="0">
-                <center>
-                    <lane id="0" type="none" level="true">
-                        <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
-                    </lane>
-                </center>
-                <right>
+                <left>
                     <lane id="-1" type="driving" level="true">
                         <link>
                             <predecessor id="-2"/>
@@ -889,21 +883,27 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                         <roadMark sOffset="0" type="broken" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="13.89"/>
                     </lane>
-                 </right>
+                 </left>
+                <center>
+                    <lane id="0" type="none" level="true">
+                        <link/>
+                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                    </lane>
+                </center>
             </laneSection>
         </lanes>
         <objects/>
         <signals/>
     </road>
-    <road name=":C_0" length="6.48738734" id="69" junction="1">
+    <road name=":C_2" length="16.86720708" id="69" junction="1">
         <link>
             <predecessor elementType="road" elementId="56" contactPoint="end"/>
-            <successor elementType="road" elementId="53" contactPoint="start"/>
+            <successor elementType="road" elementId="50" contactPoint="start"/>
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="96.80000000" y="92.80000000" hdg="1.57079633" length="6.48738734">
-                <paramPoly3 aU="0.00000000" bU="8.00000000" cU="-4.00000000" dU="0.00000000" aV="0.00000000" bV="0.00000000" cV="4.00000000" dV="0.00000000" pRange="normalized"/>
+            <geometry s="0.00000000" x="96.80000000" y="92.80000000" hdg="1.57079633" length="16.86720708">
+                <paramPoly3 aU="0.00000000" bU="20.80000000" cU="-10.40000000" dU="0.00000000" aV="0.00000000" bV="0.00000000" cV="-10.40000000" dV="0.00000000" pRange="normalized"/>
             </geometry>
         </planView>
         <elevationProfile>
@@ -912,13 +912,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lateralProfile/>
         <lanes>
             <laneSection s="0">
-                <center>
-                    <lane id="0" type="none" level="true">
-                        <link/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
-                    </lane>
-                </center>
-                <right>
+                <left>
                     <lane id="-1" type="driving" level="true">
                         <link>
                             <predecessor id="-2"/>
@@ -928,7 +922,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                         <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="13.89"/>
                     </lane>
-                 </right>
+                 </left>
+                <center>
+                    <lane id="0" type="none" level="true">
+                        <link/>
+                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.00"/>
+                    </lane>
+                </center>
             </laneSection>
         </lanes>
         <objects/>
@@ -951,8 +951,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </controller>
     <junction name="C" id="1">
         <connection id="0" incomingRoad="57" connectingRoad="58" contactPoint="start">
-            <laneLink from="-2" to="-1"/>
-            <laneLink from="-1" to="-2"/>
+            <laneLink from="-1" to="-1"/>
+            <laneLink from="-2" to="-2"/>
         </connection>
         <connection id="2" incomingRoad="57" connectingRoad="59" contactPoint="start">
             <laneLink from="-2" to="-1"/>
@@ -961,8 +961,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <laneLink from="-2" to="-1"/>
         </connection>
         <connection id="4" incomingRoad="55" connectingRoad="61" contactPoint="start">
-            <laneLink from="-2" to="-1"/>
-            <laneLink from="-1" to="-2"/>
+            <laneLink from="-1" to="-1"/>
+            <laneLink from="-2" to="-2"/>
         </connection>
         <connection id="6" incomingRoad="55" connectingRoad="62" contactPoint="start">
             <laneLink from="-2" to="-1"/>
@@ -971,8 +971,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <laneLink from="-2" to="-1"/>
         </connection>
         <connection id="8" incomingRoad="54" connectingRoad="64" contactPoint="start">
-            <laneLink from="-2" to="-1"/>
-            <laneLink from="-1" to="-2"/>
+            <laneLink from="-1" to="-1"/>
+            <laneLink from="-2" to="-2"/>
         </connection>
         <connection id="10" incomingRoad="54" connectingRoad="65" contactPoint="start">
             <laneLink from="-2" to="-1"/>
@@ -981,8 +981,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <laneLink from="-2" to="-1"/>
         </connection>
         <connection id="12" incomingRoad="56" connectingRoad="67" contactPoint="start">
-            <laneLink from="-2" to="-1"/>
-            <laneLink from="-1" to="-2"/>
+            <laneLink from="-1" to="-1"/>
+            <laneLink from="-2" to="-2"/>
         </connection>
         <connection id="14" incomingRoad="56" connectingRoad="68" contactPoint="start">
             <laneLink from="-2" to="-1"/>

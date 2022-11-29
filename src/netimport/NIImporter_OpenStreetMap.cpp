@@ -598,11 +598,16 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
 
     const std::string origID = OptionsCont::getOptions().getBool("output.original-names") ? toString(e->id) : "";
     if (ok) {
-        const int offsetFactor = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
+        const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
+        const int offsetFactor = lefthand ? -1 : 1;
         LaneSpreadFunction lsf = (addBackward || OptionsCont::getOptions().getBool("osm.oneway-spread-right")) &&
                                  e->myRailDirection == WAY_UNKNOWN ? LaneSpreadFunction::RIGHT : LaneSpreadFunction::CENTER;
         if (addBackward && lsf == LaneSpreadFunction::RIGHT && OptionsCont::getOptions().getString("default.spreadtype") == toString(LaneSpreadFunction::ROADCENTER)) {
             lsf = LaneSpreadFunction::ROADCENTER;
+        }
+        if (tc.getEdgeTypeSpreadType(type) != LaneSpreadFunction::RIGHT) {
+            // user defined value overrides defaults
+            lsf = tc.getEdgeTypeSpreadType(type);
         }
 
         id = StringUtils::escapeXML(id);
@@ -633,6 +638,22 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             }
             nbe->updateParameters(e->getParametersMap());
             nbe->setDistance(distanceStart);
+
+            // process forward lanes width
+            const int numForwardLanesFromWidthKey = (int)e->myWidthLanesForward.size();
+            if (numForwardLanesFromWidthKey > 0) {
+                if ((int)nbe->getLanes().size() != numForwardLanesFromWidthKey) {
+                    WRITE_WARNINGF(TL("Forward lanes count for edge '%' ('%') is not matching the number of lanes defined in width:lanes:forward key ('%'). Using default width values."),
+                                   id, nbe->getLanes().size(), numForwardLanesFromWidthKey);
+                } else {
+                    for (int i = 0; i < numForwardLanesFromWidthKey; i++) {
+                        const double actualWidth = e->myWidthLanesForward[i] <= 0 ? forwardWidth : e->myWidthLanesForward[i];
+                        const int laneIndex = lefthand ? i : numForwardLanesFromWidthKey - i - 1;
+                        nbe->setLaneWidth(laneIndex, actualWidth);
+                    }
+                }
+            }
+
             if (!ec.insert(nbe)) {
                 delete nbe;
                 throw ProcessError("Could not add edge '" + id + "'.");
@@ -663,6 +684,22 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             }
             nbe->updateParameters(e->getParametersMap());
             nbe->setDistance(distanceEnd);
+
+            // process backward lanes width
+            const int numBackwardLanesFromWidthKey = (int)e->myWidthLanesBackward.size();
+            if (numBackwardLanesFromWidthKey > 0) {
+                if ((int)nbe->getLanes().size() != numBackwardLanesFromWidthKey) {
+                    WRITE_WARNINGF(TL("Backward lanes count for edge '%' ('%') is not matching the number of lanes defined in width:lanes:backward key ('%'). Using default width values."),
+                                   id, nbe->getLanes().size(), numBackwardLanesFromWidthKey);
+                } else {
+                    for (int i = 0; i < numBackwardLanesFromWidthKey; i++) {
+                        const double actualWidth = e->myWidthLanesBackward[i] <= 0 ? backwardWidth : e->myWidthLanesBackward[i];
+                        const int laneIndex = lefthand ? i : numBackwardLanesFromWidthKey - i - 1;
+                        nbe->setLaneWidth(laneIndex, actualWidth);
+                    }
+                }
+            }
+
             if (!ec.insert(nbe)) {
                 delete nbe;
                 throw ProcessError("Could not add edge '-" + id + "'.");
@@ -1027,6 +1064,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 && key != "foot"
                 && key != "bicycle"
                 && key != "oneway:bicycle"
+                && !StringUtils::startsWith(key, "width:lanes")
                 && !StringUtils::startsWith(key, "turn:lanes")
                 && key != "public_transport") {
             return;
@@ -1107,8 +1145,36 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 }
             } catch (const BoolFormatException&) {
                 myCurrentEdge->myExtraAllowed |= SVC_BUS;
-            }
-        } else if (key == "foot") {
+			}
+		}
+		else if (StringUtils::startsWith(key, "width:lanes")) {
+			try
+			{
+                const std::vector<std::string> values = StringTokenizer(value, "|").getVector();
+                std::vector<double> widthLanes;
+                for (std::string width : values) {
+                    double parsedWidth = width == "" 
+                        ? -1
+                        : StringUtils::toDouble(width);
+                    widthLanes.push_back(parsedWidth);
+                }
+
+				if (key == "width:lanes" || key == "width:lanes:forward") {
+                    myCurrentEdge->myWidthLanesForward = widthLanes;
+                }
+                else if (key == "width:lanes:backward") {
+                    myCurrentEdge->myWidthLanesBackward = widthLanes;
+                }
+				else {
+					WRITE_WARNINGF(TL("Using default lane width for edge '%' as key '%' could not be parsed."), toString(myCurrentEdge->id), key);
+				}
+			}
+			catch (const NumberFormatException&)
+			{
+                WRITE_WARNINGF(TL("Using default lane width for edge '%' as value '%' could not be parsed."), toString(myCurrentEdge->id), value);
+			}
+		}
+        else if (key == "foot") {
             if (value == "use_sidepath" || value == "no") {
                 myCurrentEdge->myExtraDisallowed |= SVC_PEDESTRIAN;
             } else if (value == "yes" || value == "designated" || value == "permissive") {

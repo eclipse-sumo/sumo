@@ -100,16 +100,19 @@ Each color gives encodes a different edge-id. Option **--factor 60** is used to 
 
 <img src="../images/plotAttrs_fundamental.png" width="500px"/>
 
-### Running from Summary
+### Multiple timelines from summary-output
+Input is [summary](../Simulation/Output/Summary.md).
+This plot demonstrates using a list of attributes to generate multiple data points from the same xml input element.
+In the absence of an id-attribute, the respective attribute name is used to "identify" and group the data points.
 
-Input is [summary](../Simulation/Output/Summary.md):
-
-Call: `python tools/visualization/plotXMLAttributes.py -x time -y running -o plot-running.png --scatterplot summary.xml`
+Call: `python tools/visualization/plotXMLAttributes.py summary.xml -x time -y running,halting -o plot-running.png --legend`
 
 <img src="../images/plot-running.png" width="500px"/>
 
 !!! caution
-    In version 1.15.0 and lower, the id-attribute must be provided so you need to provide a dummy value (i.e. with `-i running`)
+    In version 1.15.0 and lower, the id-attribute must be provided so you need
+    to provide a dummy value (i.e. with `-i collisions`) and only a single value is
+    permitted for the x and y attribute.
 
 ### Depart delay over time from TripInfo data
 The plot is created out of [TripInfo](../Simulation/Output/TripInfo.md) output data:
@@ -192,6 +195,44 @@ where -x is the attribute for the x axis; -y is the attribute for the y axis; -s
 
 <img src="../images/vehLocations_output.png" width="500px"/>
 
+### Public transport schedule
+
+In this type of plot time is on the y-axis running from top to bottom. Input is route file of a [public transport schedule](../Simulation/Public_Transport.md#public_transport_schedules) where each vehicle is modelled individually.
+A similar plot could also be generated from [stop-output](../Simulation/Output/StopOutput.md) by using attribute `started` or `ended` (or `started,ended`) instead of `until`.
+
+
+Call to generate the plot:
+```
+python tools/visualization/plotXMLAttributes.py route.rou.xml -x busStop -y until --ytime1 --legend --xticks-file stoplist.txt --invert-yaxis --marker o
+```
+
+<img src="../images/schedule_until.png" width="500px"/>
+
+The file stoplist.txt is used to define the ordering of the stops (corresponding to their ordering along a transport line) and is shown below.
+In order to group busStops that belong to different tracks of the same train station, they were named with a common suffix in their id and the stoplist.txt file uses wildcards (`*`) to match them.
+
+```
+*WLA
+*KI
+*MM
+*KX
+*LHG
+```
+
+!!! note
+    When plotting stops from a route file that also defines `<vType>` elements, then the option **--idelem** must be used to declare where the id attribute must be loaded from (i.e. **--idelem trip**).
+
+### Turn-counts over time
+
+This plot uses an attribute list for the value id (`-i from,to`) to reflect the fact that a turning relation is uniquely identified by the combination of two attributes. It also demonstrates flexible filtering to show all traffic that passes over edge `-40` or edge `36`.
+
+Call to generate the plot:
+```
+python tools/visualization/plotXMLAttributes.py turnCounts.xml -i from,to -x begin -y count --xtime0 --legend  --filter-ids="-40|*,36|*"
+```
+
+<img src="../images/turn-counts.png" width="500px"/>
+
 ## plot_trajectories.py
 
 Create plot of all trajectories in a given **--fcd-output** file. This tool in particular is located in {{SUMO}}/tools.
@@ -203,6 +244,9 @@ python tools/plot_trajectories.py fcd.xml -t td -o plot.png -s
 ```
 
 The option **-t (--trajectory-type)** supports different attributes that can be plotted against each other. The argument is a two-letter code with each letter encoding an attribute that is derived from the fcd input.
+
+!!! note
+    plot_trajectories.py is similar to [plotXMLAttributse.py](#plotxmlattributespy) but specialized for [fcd-output](../Simulation/Output/FCDOutput.md). It supports derived attributes that are not present in the loaded data (driven distance) and also allows for more filtering (**--filter-route**, **--filter-edges**).
 
 ### Available Attributes
 

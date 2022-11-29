@@ -1,0 +1,2 @@
+-n net3.net.xml -r input_routes.rou.xml --no-step-log --edgedata-output aggregated.xml 
+-t

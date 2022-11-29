@@ -471,7 +471,12 @@ NBTrafficLightDefinition::collectAllLinks(NBConnectionVector& into) {
                         // must be registered in MSRailCrossing
                         into.push_back(NBConnection(incoming, el.fromLane, el.toEdge, el.toLane, -1));
                     } else if (incoming->getToNode()->getType() == SumoXMLNodeType::RAIL_SIGNAL
-                               && incoming->getToNode()->getDirection(incoming, el.toEdge) == LinkDirection::TURN) {
+                               && incoming->getToNode()->getDirection(incoming, el.toEdge) == LinkDirection::TURN
+                               // assume explicit connections at sharp turn-arounds are either for reversal or due to a geometry glitch
+                               // (the might also be due to faulty connection
+                               // input but they would not come from guessing)
+                               && (incoming->getBidiEdge() == el.toEdge)
+                               ) {
                         // turnarounds stay uncontrolled at rail signal
                     } else {
                         into.push_back(NBConnection(incoming, el.fromLane, el.toEdge, el.toLane, tlIndex++));

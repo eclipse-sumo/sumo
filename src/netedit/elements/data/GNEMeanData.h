@@ -30,25 +30,26 @@
  * @class GNEMeanData
  * @brief An Element which don't belong to GNENet but has influence in the simulation
  */
-class GNEMeanData : public GUIGlObject, public GNEHierarchicalElement {
+class GNEMeanData : public GNEHierarchicalElement {
 
 public:
-    /**@brief Constructor for edge mean data
-     * @param[in] net pointer to net
-     * @param[in] edge edge associated with this meanData
-     * @param[in] file output file
-     */
-    GNEMeanData(GNENet *net, GNEEdge* edge, const std::string &file);
+    /// @brief Default constructor
+    GNEMeanData(GNENet *net, SumoXMLTag tag, const std::string& id);
 
-    /**@brief Constructor for edge mean data
-     * @param[in] net pointer to net
-     * @param[in] lane lane associated with this meanData
-     * @param[in] file output file
-     */
-    GNEMeanData(GNENet *net, GNELane* lane, const std::string &file);
+    /// @brief Parameter constructor
+    GNEMeanData(GNENet *net, SumoXMLTag tag, std::string ID, std::string file, SUMOTime period,
+        SUMOTime begin, SUMOTime end, const bool trackVehicles, const std::vector<SumoXMLAttr> &writtenAttributes,
+        const bool aggregate, const std::vector<std::string> &edges, const std::string &edgeFile, 
+        std::string excludeEmpty, const bool withInternal, const std::vector<std::string> &detectPersons, 
+        const double minSamples, const double maxTravelTime, const std::vector<std::string> &vTypes, const double speedThreshold);
 
     /// @brief Destructor
     ~GNEMeanData();
+
+    /**@brief write meanData element into a xml file
+     * @param[in] device device in which write parameters of meanData element
+     */
+    void writeMeanData(OutputDevice& device) const;
 
     /// @brief get GUIGlObject associated with this AttributeCarrier
     GUIGlObject* getGUIGlObject();
@@ -58,46 +59,6 @@ public:
 
     /// @brief Returns element position in view
     Position getPositionInView() const;
-
-    /// @name inherited from GUIGlObject
-    /// @{
-    /**@brief Returns an own popup-menu
-     *
-     * @param[in] app The application needed to build the popup-menu
-     * @param[in] parent The parent window needed to build the popup-menu
-     * @return The built popup-menu
-     * @see GUIGlObject::getPopUpMenu
-     */
-    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
-
-    /**@brief Returns an own parameter window
-     *
-     * @param[in] app The application needed to build the parameter window
-     * @param[in] parent The parent window needed to build the parameter window
-     * @return The built parameter window
-     * @see GUIGlObject::getParameterWindow
-     */
-    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
-
-    /**@brief Draws the object
-     * @param[in] s The settings for the current view (may influence drawing)
-     * @see GUIGlObject::drawGL
-     */
-    void drawGL(const GUIVisualizationSettings& s) const;
-
-    /// @brief delete element
-    void deleteGLObject();
-
-    /// @brief select element
-    void selectGLObject();
-
-    /// @brief update GLObject (geometry, ID, etc.)
-    void updateGLObject();
-
-    //// @brief Returns the boundary to which the view shall be centered in order to show the object
-    Boundary getCenteringBoundary() const;
-
-    /// @}
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
@@ -112,11 +73,6 @@ public:
      * @return double with the value associated to key
      */
     double getAttributeDouble(SumoXMLAttr key) const;
-
-    /* @brief method for check if the value for certain attribute is set
-     * @param[in] key The attribute key
-     */
-    bool isAttributeEnabled(SumoXMLAttr key) const;
 
     /**@brief method for setting the attribute and letting the object perform data set changes
      * @param[in] key The attribute key
@@ -143,12 +99,58 @@ public:
     const Parameterised::Map& getACParametersMap() const;
 
 protected:
-    
-    /// @brief file
-    std::string myFile;
+    /// @brief id
+    std::string myID;
+
+    /// @brief filename
+    std::string myFile; 
+
+    /// @brief period
+    SUMOTime myPeriod = 0;
+
+    /// @brief begin
+    SUMOTime myBegin = 0;
+
+    /// @brief end
+    SUMOTime myEnd = 0;
+
+    /// @brief Whether vehicles are tracked
+    bool myTrackVehicles = false;
+
+    /// @brief bit mask for checking attributes to be written
+    std::vector<SumoXMLAttr> myWrittenAttributes;
+
+    /// @brief whether the data for all edges shall be aggregated
+    bool myAggregate = false;
+
+    /// @brief list of edges
+    std::vector<std::string> myEdges;
+
+    /// @brief edge file
+    std::string myEdgeFile;
+
+    /// @brief exclude empty
+    std::string myExcludeEmpty;
+
+    /// @brief width internal
+    bool myWithInternal = false;
+
+    /// @brief detect persons
+    std::vector<std::string> myDetectPersons;
+
+    /// @brief minSamples
+    double myMinSamples = 0;
+
+    /// @brief max travel time
+    double myMaxTravelTime = 0;
+
+    /// @brief VTypes
+    std::vector<std::string> myVTypes;
+
+    /// @brief speed treshold
+    double mySpeedThreshold = 0;
 
 private:
-
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);
 

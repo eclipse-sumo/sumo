@@ -266,6 +266,9 @@ private:
     /// @brief draw geometry points
     void drawGeometryPoints(const GUIVisualizationSettings& s, const RGBColor& baseColor) const;
 
+    /// @brief get pathStopIndex
+    int getPathStopIndex() const;
+
     /// @brief Invalidated copy constructor.
     GNEStop(const GNEStop&) = delete;
 

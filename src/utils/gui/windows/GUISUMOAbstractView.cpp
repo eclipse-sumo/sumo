@@ -991,6 +991,7 @@ GUISUMOAbstractView::getPopupPosition() const {
 void
 GUISUMOAbstractView::destroyPopup() {
     if (myPopup != nullptr) {
+        myPopup->removePopupFromObject();
         delete myPopup;
         myPopupPosition.set(0, 0);
         myPopup = nullptr;
@@ -1004,6 +1005,7 @@ GUISUMOAbstractView::replacePopup(GUIGLObjectPopupMenu* popUp) {
     // use the same position of old popUp
     popUp->move(myPopup->getX(), myPopup->getY());
     // delete and replace popup
+    myPopup->removePopupFromObject();
     delete myPopup;
     myPopup = popUp;
     // create and show popUp
@@ -1193,7 +1195,9 @@ GUISUMOAbstractView::openObjectDialogAtCursor(const FXEvent* ev) {
     // check if SUMO is enabled, initialised and Make OpenGL context current
     if (isEnabled() && myAmInitialised && makeCurrent()) {
         // get all objects under cusor
-        const auto objectsUnderCursor = getGUIGlObjectsUnderCursor();
+        auto objectsUnderCursor = getGUIGlObjectsUnderCursor();
+        // filter elements by layer
+        objectsUnderCursor = filterGUIGLObjectsByLayer(objectsUnderCursor);
         // filter elements
         std::vector<GUIGlObject*> filteredObjectsUnderCursor;
         std::vector<GUIGlObject*> filteredVehiclesUnderCursor;
@@ -1234,19 +1238,19 @@ GUISUMOAbstractView::openObjectDialogAtCursor(const FXEvent* ev) {
         // continue depending of number of objects
         if (filteredObjectsUnderCursor.empty()) {
             // if filteredObjectsUnderCursor, inspect net
-            openObjectDialog({GUIGlObjectStorage::gIDStorage.getNetObject()});
+            openObjectDialog({GUIGlObjectStorage::gIDStorage.getNetObject()}, true);
         } else if (altKeyPressed) {
             // inspect all objects under cusror
-            openObjectDialog(filteredObjectsUnderCursor);
+            openObjectDialog(filteredObjectsUnderCursor, false);
         } else if (filteredVehiclesUnderCursor.size() > 0) {
             // inspect only vehicles
-            openObjectDialog(filteredVehiclesUnderCursor);
+            openObjectDialog(filteredVehiclesUnderCursor, true);
         } else if (filteredTLSUnderCursor.size() > 0) {
             // inspect only TLSs
-            openObjectDialog(filteredTLSUnderCursor);
+            openObjectDialog(filteredTLSUnderCursor, true);
         } else {
             // inspect objects under cursor
-            openObjectDialog(filteredObjectsUnderCursor);
+            openObjectDialog(filteredObjectsUnderCursor, true);
         }
         // Make OpenGL context non current
         makeNonCurrent();
@@ -1255,12 +1259,12 @@ GUISUMOAbstractView::openObjectDialogAtCursor(const FXEvent* ev) {
 
 
 void
-GUISUMOAbstractView::openObjectDialog(const std::vector<GUIGlObject*>& objects) {
+GUISUMOAbstractView::openObjectDialog(const std::vector<GUIGlObject*>& objects, const bool filter) {
     if (objects.size() > 0) {
         // create cursor popup dialog
         if (objects.size() == 1) {
             myCurrentObjectsDialog = objects;
-        } else {
+        } else if (filter) {
             // declare filtered objects
             std::vector<GUIGlObject*> filteredGLObjects;
             // fill filtered objects
@@ -1271,6 +1275,8 @@ GUISUMOAbstractView::openObjectDialog(const std::vector<GUIGlObject*>& objects) 
                 }
             }
             myCurrentObjectsDialog = filteredGLObjects;
+        } else {
+            myCurrentObjectsDialog = objects;
         }
         if (myCurrentObjectsDialog.size() > 1) {
             myPopup = new GUICursorDialog(GUIGLObjectPopupMenu::PopupType::PROPERTIES, this, myCurrentObjectsDialog);
@@ -1914,6 +1920,49 @@ GUISUMOAbstractView::setDelay(double delay) {
 void
 GUISUMOAbstractView::setBreakpoints(const std::vector<SUMOTime>& breakpoints) {
     myApp->setBreakpoints(breakpoints);
+}
+
+
+GUISUMOAbstractView::LayerObject::LayerObject(double layer, GUIGlObject* object) :
+    myGLObject(object) {
+    first = layer;
+    second.first = object->getType();
+    second.second = object->getMicrosimID();
+}
+
+
+GUISUMOAbstractView::LayerObject::LayerObject(GUIGlObject* object) :
+    myGLObject(object) {
+    first = object->getType();
+    second.first = object->getType();
+    second.second = object->getMicrosimID();
+}
+
+
+GUIGlObject*
+GUISUMOAbstractView::LayerObject::getGLObject() const {
+    return myGLObject;
+}
+
+
+std::vector<GUIGlObject*> 
+GUISUMOAbstractView::filterGUIGLObjectsByLayer(const std::vector<GUIGlObject*> &objects) const {
+    // declare map for saving shapes sorted by layer and ID
+    std::set<LayerObject> layerObjects;
+    for (const auto &object : objects) {
+        if ((object->getType() == GLO_POLYGON) || (object->getType() == GLO_POI)) {
+            layerObjects.insert(LayerObject(dynamic_cast<Shape*>(object)->getShapeLayer(), object));
+        } else {
+            layerObjects.insert(LayerObject(object));
+        }
+    }
+    // declare vector for saving object filtered by layer
+    std::vector<GUIGlObject*> objectsFiltered;
+    // insert in objects filtered
+    for (auto it = layerObjects.rbegin(); it != layerObjects.rend(); it++) {
+        objectsFiltered.push_back(it->getGLObject());
+    }
+    return objectsFiltered;
 }
 
 

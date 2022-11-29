@@ -11,6 +11,7 @@ on:
   pull_request:    # run on pull requests
     paths-ignore:  # but ignore everything in the docs subfolder 
       - 'docs/**'
+  workflow_dispatch:
   schedule:
     - cron:  '5 1 * * *'
 
@@ -40,7 +41,14 @@ jobs:
         name: helper-wheels
         path: tools/dist
 
-    - name: Building Python wheels
+    - name: Building Python wheels (fixed manylinux docker)
+      if: github.repository == 'eclipse/sumo'
+      uses: docker://quay.io/pypa/manylinux2014_x86_64:2022-11-14-1226cfc
+      with:
+        entrypoint: tools/build/build_wheels.sh
+
+    - name: Building Python wheels (latest manylinux docker)
+      if: github.repository == 'DLR-TS/sumo'
       uses: docker://quay.io/pypa/manylinux2014_x86_64
       with:
         entrypoint: tools/build/build_wheels.sh
@@ -57,24 +65,35 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python: [3.6, 3.7, 3.8, 3.9, '3.10']
+        python: [3.7, 3.8, 3.9, '3.10', 3.11]
 
     steps:
     - name: Cloning SUMO
       uses: actions/checkout@v3
 
     - name: Downloading Wheels artifact
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
 
     - name: Configuring Python
       uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python }}
 
-    - name: Running libsumo tests
+    - name: Preparing Python environment
       run: |
         python -m pip install wheel  # need to do this separately because the texttest install wants it
         python -m pip install texttest
+        python -m pip install manylinux-wheels/eclipse_sumo*
+        python -c "import sumo; print('SUMO_HOME=' + sumo.SUMO_HOME)" >> $GITHUB_ENV
+
+    - name: Running meta tests and cleaning up
+      run: |
+        tests/runTests.sh -b ci -v ci -ts meta
+        python -m pip uninstall -y eclipse-sumo
+        sed -i '/SUMO_HOME/d' $GITHUB_ENV
+
+    - name: Running libsumo tests
+      run: |
         python -m pip install helper-wheels/sumolib-* helper-wheels/traci-*
         PYTHON_VERSION=${{ matrix.python }}
         python -m pip install manylinux-wheels/libsumo-*cp3${PYTHON_VERSION:2}*
@@ -90,15 +109,15 @@ jobs:
         if-no-files-found: warn
 
   publish-wheels:
-    if: github.repository == 'eclipse/sumo' && (github.event_name == 'schedule' || startsWith(github.ref, 'refs/tags'))
+    if: github.repository == 'eclipse/sumo' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags'))
     needs: [test-wheels]
     runs-on: ubuntu-latest
 
     steps:
     - name: Downloading Wheels artifact
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
 
-    # this step removes the pypy versions until someone needs them to save some space
+    # this step removes the pypy versions to save some space (can be reenabled if someone needs them)
     - name: Moving artifacts
       run: |
         ls -lR

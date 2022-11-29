@@ -430,7 +430,7 @@ When a phase uses attribute 'next' with a list of indices. The next phase is cho
 - compute the priority for each phase given in 'next'. Priority is primarily given by the number of active detectors for that phase. Active means either of:
   - with detection gap below threshold
   - with a detection since the last time where the signal after this detector was green
-- the current phase is implicitly available for continuation as long as it's maxDur is not reached. Detectors of the current phase get a bonus priority
+- the current phase is implicitly available for continuation as long as its maxDur is not reached. Detectors of the current phase get a bonus priority
 - the phase with the highest priority is used with phases coming earlier in the next list given precedence over those coming later
 - if there is no traffic, the phases will run through a default cycle defined by the first value in the 'next' attribute
 - if a particular phase should remain active indefinitely in the absence of traffic it must have its own index in the 'next' list as well as a high maxDur value
@@ -453,7 +453,7 @@ the expression evaluates to 'true', the controller switches into the new phase.
 Otherwise it remains in the current phase. If the current phase has multiple successors (attribute 'next'),
 the candidates are evaluated from left to right and the first candidate where 'earlyTarget' evaluates to true is used.
 
-If the controller has reached the maximum duration of it's current phase and
+If the controller has reached the maximum duration of its current phase and
 multiple successor phases are defined with attribute 'next', the
 attribute 'finalTarget' of all candidate phases is evaluated from left to right.
 The first phase where the expression evaluates to 'true' is used.
@@ -479,7 +479,7 @@ The following elements are permitted in an expression for attributes
 The following constraints apply to expressions:
 
 - all elements of an expression must be separated by a space character (' ')
-  with the exception of the operator '!' (logical negation) which must precede it's operand without a space.
+  with the exception of the operator '!' (logical negation) which must precede its operand without a space.
   
 !!! note
     The comparators '<' and '<=' are also supported but must be written as xml-entities `&lt;` and `&lt;=` respectively.
@@ -650,7 +650,7 @@ They are defined with the `<function>` element within a `<tlLogic>` as shown bel
 - **nArgs** is the number of arguments required by the function
 - **$0** is the value returned by the function
 - **$1 ... $n** are the values of the functions arguments in the order they are supplied after the **:**
-- when a function is evaluted, all it's assignments are evaluted in definition order
+- when a function is evaluted, all its assignments are evaluted in definition order
 - functions may not assign to any defined `<condition>` id
 - assignments are local to the function
 - a function call takes the form **id:arg_1,arg_2,...arg_n** and there must be no spaces between the arguments and the commas (except within parentheses)
@@ -750,13 +750,16 @@ An alternative way to switch all traffic lights to the 'off' program is to set s
 
 ### Default behavior when 'off'
 
-Once a traffic light has been switched off, it's lights will change to to values of `O` (off, no signal) and `o` (off, blinking) and it will behave like a priority intersection. The connections (links) with state `O` will have priority whereas the connections `o` will yield.
+Once a traffic light has been switched off, its lights will change to to values of `O` (off, no signal) and `o` (off, blinking) and it will behave like a priority intersection. The connections (links) with state `O` will have priority whereas the connections `o` will yield.
 
 The rules for configuring the priority direction in the off-state are the same as for [an intersection without a traffic light](../Networks/PlainXML.md#right-of-way).
 
 ### All-way-stop when 'off'
 
-By setting junction (node) attribute `rightOfWay="allwayStop"`, when building / editing the network file, the behavior when switched off will correspond to that of junction type `allway_stop`. 
+By setting junction (node) attribute `rightOfWay="allwayStop"`, when building / editing the network file, the behavior when switched off will correspond to that of junction type `allway_stop`.
+
+!!! note
+    Traffic lights with `tlType="NEMA"` will default to `allwayStop` behavior when switched off.  To change this, the attribute `rightOfWay="mixedPriority"` can be used.
 
 # Tools for Importing TLS Programs
 

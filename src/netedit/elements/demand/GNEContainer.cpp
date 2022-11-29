@@ -367,7 +367,9 @@ void
 GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
     bool drawContainer = true;
     // check if container can be drawn
-    if (!myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
+    if (color.alpha() == 0) {
+        drawContainer = false;
+    } else if (!myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
         drawContainer = false;
     } else if (!myNet->getViewNet()->getDataViewOptions().showDemandElements()) {
         drawContainer = false;
@@ -426,6 +428,14 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
             }
             // pop name
             GLHelper::popName();
+            // draw stack label
+            if (myStackedLabelNumber > 0) {
+                drawStackLabel("container", Position(containerPosition.x() - 2.5, containerPosition.y() - 0.8), -90, 1.3, 5, getExaggeration(s));
+            }
+            // draw flow label
+            if (myTagProperty.isFlow()) {
+                drawFlowLabel(Position(containerPosition.x() - 1, containerPosition.y() - 4.25), -90, 1.8, 2, getExaggeration(s));
+            }
             // draw name
             drawName(containerPosition, s.scale, s.containerName, s.angle);
             if (s.personValue.show(this)) {

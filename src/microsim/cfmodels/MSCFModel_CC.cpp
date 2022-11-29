@@ -914,7 +914,7 @@ std::string MSCFModel_CC::getParameter(const MSVehicle* veh, const std::string& 
     }
     if (key.compare(PAR_DISTANCE_TO_END) == 0) {
         //route of the vehicle
-        const MSRoute* route;
+        ConstMSRoutePtr route;
         //edge the vehicle is currently traveling on
         const MSEdge* currentEdge;
         //last edge of the route of this vehicle
@@ -924,7 +924,7 @@ std::string MSCFModel_CC::getParameter(const MSVehicle* veh, const std::string& 
         //distance to trip end using
         double distanceToEnd;
 
-        route = &veh->getRoute();
+        route = veh->getRoutePtr();
         currentEdge = veh->getEdge();
         lastEdge = route->getEdges().back();
         positionOnEdge = veh->getPositionOnLane();
@@ -935,7 +935,7 @@ std::string MSCFModel_CC::getParameter(const MSVehicle* veh, const std::string& 
     }
     if (key.compare(PAR_DISTANCE_FROM_BEGIN) == 0) {
         //route of the vehicle
-        const MSRoute* route;
+        ConstMSRoutePtr route;
         //edge the vehicle is currently traveling on
         const MSEdge* currentEdge;
         //last edge of the route of this vehicle
@@ -945,7 +945,7 @@ std::string MSCFModel_CC::getParameter(const MSVehicle* veh, const std::string& 
         //distance to trip end using
         double distanceFromBegin;
 
-        route = &veh->getRoute();
+        route = veh->getRoutePtr();
         currentEdge = veh->getEdge();
         firstEdge = route->getEdges().front();
         positionOnEdge = veh->getPositionOnLane();

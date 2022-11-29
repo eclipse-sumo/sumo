@@ -346,7 +346,7 @@ public:
 
 protected:
     /// @brief sets the color according to the currente settings
-    void setColor(const GUIVisualizationSettings& s) const;
+    RGBColor setColor(const GUIVisualizationSettings& s) const;
 
 private:
     /// @brief vehicle arrival position radius
@@ -363,12 +363,6 @@ private:
 
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
-
-    /// @brief draw stack label
-    void drawStackLabel(const Position& vehiclePosition, const double vehicleRotation, const double width, const double length, const double exaggeration) const;
-
-    /// @brief draw flow label
-    void drawFlowLabel(const Position& vehiclePosition, const double vehicleRotation, const double width, const double length, const double exaggeration) const;
 
     /// @brief Invalidated copy constructor.
     GNEVehicle(const GNEVehicle&) = delete;

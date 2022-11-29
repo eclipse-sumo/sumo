@@ -132,9 +132,6 @@ public:
     /// @brief get next child demand element to the given demand element
     GNEDemandElement* getNextChildDemandElement(const GNEDemandElement* demandElement) const;
 
-    /// @brief get middle (via) parent edges
-    std::vector<GNEEdge*> getViaEdges() const;
-
     /// @brief update element stacked geometry (stacked)
     void updateDemandElementGeometry(const GNELane* lane, const double posOverLane);
 
@@ -373,6 +370,12 @@ protected:
     /// @brief draw line between junctions
     void drawJunctionLine(const GNEDemandElement* element) const;
 
+    /// @brief draw stack label
+    void drawStackLabel(const std::string &element, const Position& position, const double rotation, const double width, const double length, const double exaggeration) const;
+
+    /// @brief draw flow label
+    void drawFlowLabel(const Position& position, const double rotation, const double width, const double length, const double exaggeration) const;
+
     /// @name replace parent elements
     /// @{
 
@@ -405,23 +408,30 @@ protected:
 
     /// @}
 
-    /// @brief struct for writting sorted stops
-    struct SortedStops {
+    /// @brief auxiliar struct used for calculate pathStopIndex
+    struct EdgeStopIndex {
+
         /// @brief constructor
-        SortedStops(GNEEdge* edge_);
+        EdgeStopIndex(GNEEdge* edge_, GNEDemandElement* stop) :
+            edge(edge_),
+            stops({stop}) {}
 
-        /// @brief add (and sort) stop
-        void addStop(const GNEDemandElement* stop);
+        /// @brief edge (obtained from segment)
+        const GNEEdge* edge = nullptr;
 
-        /// @brief route's edge
-        const GNEEdge* edge;
+        /// @brief list of stops placed in the edge
+        std::vector<GNEDemandElement*> stops;
+        
+        /// @brief stopIndex (-1 menans out of route)
+        int stopIndex = -1;
 
-        /// @brief stops sorted by end position
-        std::vector<std::pair<std::pair<double, double >, const GNEDemandElement*> > myStops;
+    private:
+        /// @brief default constructor (disabled)
+        EdgeStopIndex() {}
     };
 
-    /// @brief get sorted stops
-    std::vector<const GNEDemandElement*> getSortedStops(const std::vector<GNEEdge*>& edges) const;
+    /// @brief get edgeStopIndex
+    std::vector<EdgeStopIndex> getEdgeStopIndex() const;
 
     /// @brief set flow parameters (used in toggleAttribute(...) function of vehicles, persons and containers
     void setFlowParameters(SUMOVehicleParameter* vehicleParameters, const SumoXMLAttr attribute, const bool value);

@@ -29,6 +29,11 @@
 
 - If the critical flow or the sum of the critical flows is larger than 1,
  the optimal cycle length will be set to 120 sec.
+ 
+- Duration for yellow phase will be adjusted according to
+  the defined option value
+  
+- Duration for all-red phase will be not adjusted.
 """
 
 from __future__ import absolute_import
@@ -52,7 +57,7 @@ def get_options(args=None):
     optParser.add_option("-y", "--yellow-time", dest="yellowtime", type=int,
                          default=4, help="yellow time")
     optParser.add_option("-a", "--all-red", dest="allred", type=int,
-                         default=0, help="all-red time")
+                         default=0, help="all-red time per cycle")
     optParser.add_option("-l", "--lost-time", dest="losttime", type=int,
                          default=4, help="lost time for start-up and clearance in each phase")
     optParser.add_option("-g", "--min-green", dest="mingreen", type=int,
@@ -350,7 +355,7 @@ def optimizeGreenTime(tl, groupFlowsMap, phaseLaneIndexMap, currentLength, optio
 
     # calculate the green time for each critical group
     effGreenTime = optCycle - lostTime
-    totalLength = lostTime
+    totalLength = len(groupFlowsMap)*options.yellowtime + options.allred
     minGreenPhasesList = []
     adjustGreenTimes = 0
     totalGreenTimes = 0
@@ -369,19 +374,28 @@ def optimizeGreenTime(tl, groupFlowsMap, phaseLaneIndexMap, currentLength, optio
 
     # adjust the green times if minimal green times are applied for keeping the defined maximal cycle length.
     if minGreenPhasesList and totalLength > options.maxcycle and options.restrict:
+        totalLength = len(groupFlowsMap)*options.yellowtime + options.allred
         if options.verbose:
             print("Re-allocate the green splits!")
         adjustGreenTimes = totalGreenTimes - len(minGreenPhasesList) * options.mingreen
         for i in groupFlowsMap:
             if i not in minGreenPhasesList:
-                groupFlowsMap[i][0] = int((groupFlowsMap[i][0] / float(subtotalGreenTimes)) * adjustGreenTimes)
+                groupFlowsMap[i][0] = int(round((groupFlowsMap[i][0] / float(subtotalGreenTimes)) * adjustGreenTimes))
+            totalLength += groupFlowsMap[i][0]
+
+    if options.unicycle and totalLength != optCycle:
+        diff = optCycle - totalLength
+        secs_to_distribute = [int(diff / abs(diff))] * abs(diff)
+        keys = list(groupFlowsMap.keys())
+        for i, s in enumerate(secs_to_distribute):
+            groupFlowsMap[keys[i % len(groupFlowsMap)]][0] += s
 
     if options.verbose:
-        totalLength = lostTime
+        totalLength = len(groupFlowsMap)*options.yellowtime + options.allred
         for i in groupFlowsMap:
             totalLength += groupFlowsMap[i][0]
             print("Green time for phase %s: %s" % (i, groupFlowsMap[i][0]))
-        print("the optimal cycle length:%s" % totalLength)
+        print("The optimal cycle length:%s\n" % totalLength)
 
     return groupFlowsMap
 
@@ -451,6 +465,11 @@ def main(options):
                     duration = p.duration
                     if i in groupFlowsMap:
                         duration = groupFlowsMap[i][0]
+                    # the yellow phase
+                    elif 'y' in p.state and 'r' in p.state:
+                        duration = options.yellowtime
+                    else:
+                        print("Duration for Phase %s is from the input file." %i)
                     outf.write('        <phase duration="%s" state="%s"/>\n' % (duration, p.state))
                 outf.write('    </tlLogic>\n')
         else:

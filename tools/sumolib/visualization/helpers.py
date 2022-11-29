@@ -67,6 +67,10 @@ def addPlotOptions(optParser):
                          default=None, help="Set x-axis ticks <XMIN>,<XMAX>,<XSTEP>,<XSIZE> or <XSIZE>")
     optParser.add_option("--yticks", dest="yticks",
                          default=None, help="Set y-axis ticks <YMIN>,<YMAX>,<YSTEP>,<YSIZE> or <YSIZE>")
+    optParser.add_option("--xticks-file", dest="xticksFile",
+                         default=None, help="Load x-axis ticks from file (<LABEL> or <FLOAT>:<LABEL> per line)")
+    optParser.add_option("--yticks-file", dest="yticksFile",
+                         default=None, help="Load y-axis ticks from file (<LABEL> or <FLOAT>:<LABEL> per line)")
     optParser.add_option("--xtime0", dest="xtime0", action="store_true",
                          default=False, help="Use a time formatter for x-ticks (hh)")
     optParser.add_option("--ytime0", dest="ytime0", action="store_true",
@@ -145,6 +149,8 @@ def applyPlotOptions(fig, ax, options):
         else:
             raise ValueError(
                 "Error: ticks must be given as one float (<SIZE>) or four floats (<MIN>,<MAX>,<STEP>,<SIZE>)")
+    if options.xticksFile:
+        xticks(*parseTicks(options.xticksFile))
     if options.xtime0:
         if max(ax.get_xticks()) < 3600:
             print("Warning: x ticks not suited for hh format.")
@@ -177,6 +183,8 @@ def applyPlotOptions(fig, ax, options):
         else:
             raise ValueError(
                 "Error: ticks must be given as one float (<SIZE>) or four floats (<MIN>,<MAX>,<STEP>,<SIZE>)")
+    if options.yticksFile:
+        yticks(*parseTicks(options.yticksFile))
     if options.ytime0:
         if max(ax.get_yticks()) < 3600:
             print("Warning: y ticks not suited for hh format.")
@@ -371,3 +379,31 @@ def parseColorMap(mapDef):
         # ret.append( (value, color) )
     colormap = matplotlib.colors.LinearSegmentedColormap("CUSTOM", ret, 1024)
     return colormap
+
+def parseTicks(tickfile):
+    # whether we're loading <FLOAT>:<LABEL> instead of <LABEL>
+    haveOffsets = True
+    offsets = []
+    labels = []
+    for line in open(tickfile):
+        line = line.strip()
+        if not line:
+            continue
+        of_label = line.split(':')
+        try:
+            of = float(of_label[0])
+            offsets.append(of)
+            if len(of_label) > 1:
+                labels.append(' '.join(of_label[1:]))
+            else:
+                # also accept <FLOAT> format
+                labels.append(str(of))
+        except ValueError:
+            haveOffsets = False
+            labels.append(line)
+
+    if not haveOffsets:
+        offsets = range(len(labels))
+    return offsets, labels
+
+

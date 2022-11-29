@@ -301,7 +301,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "additional-files",               SUMO_TAG_ADDITIONALFILES },
     { "route-files",                    SUMO_TAG_ROUTEFILES },
     { "data-files",                     SUMO_TAG_DATAFILES },
-    { "meandata-files",                 SUMO_TAG_MEANDATAFILES },
     // Last element
     { "",                               SUMO_TAG_NOTHING }  // -> must be the last one
 };
@@ -967,6 +966,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "VTypeDist.",                         GNE_ATTR_VTYPE_DISTRIBUTION },
     { "poisson",                            GNE_ATTR_POISSON },
     { "stopIndex",                          GNE_ATTR_STOPINDEX },
+    { "pathStopIndex",                      GNE_ATTR_PATHSTOPINDEX },
 
     { "carriageLength",     SUMO_ATTR_CARRIAGE_LENGTH },
     { "locomotiveLength",   SUMO_ATTR_LOCOMOTIVE_LENGTH },
@@ -1053,9 +1053,10 @@ StringBijection<ParkingType>::Entry SUMOXMLDefinitions::parkingTypeValues[] = {
 };
 
 StringBijection<RightOfWay>::Entry SUMOXMLDefinitions::rightOfWayValuesInitializer[] = {
-    {"edgePriority", RightOfWay::EDGEPRIORITY },
-    {"allwayStop",   RightOfWay::ALLWAYSTOP }, // only used for setting the fall-back behavior of TLS-off
-    {"default",      RightOfWay::DEFAULT } // default (must be the last one)
+    {"edgePriority",  RightOfWay::EDGEPRIORITY }, // use only edge priority values
+    {"mixedPriority", RightOfWay::MIXEDPRIORITY }, // use the default behavior but encode this explicitly (only needed for overriding the NEMA fallback behavior)
+    {"allwayStop",    RightOfWay::ALLWAYSTOP }, // only used for setting the fall-back behavior of TLS-off
+    {"default",       RightOfWay::DEFAULT } // default (must be the last one)
 };
 
 StringBijection<FringeType>::Entry SUMOXMLDefinitions::fringeTypeValuesInitializer[] = {

@@ -48,7 +48,6 @@
     <node id="2351979019" x="2953.62" y="1942.11" type="dead_end"/>
     <node id="2351979026" x="2950.33" y="1951.51" type="dead_end"/>
     <node id="2610339334" x="2997.88" y="1897.01" type="dead_end"/>
-    <node id="2789468447" x="2930.04" y="1897.19" type="dead_end"/>
     <node id="307157666" x="2975.53" y="1900.74" type="priority"/>
     <node id="4287485103" x="2923.27" y="1895.96" type="dead_end"/>
     <node id="44409826" x="2962.51" y="1872.74" type="dead_end"/>
@@ -58,6 +57,5 @@
     <node id="6111940013" x="2964.84" y="1879.14" type="dead_end"/>
     <node id="6111940662" x="2975.85" y="1893.17" type="dead_end"/>
     <node id="6111940735" x="2974.23" y="1891.20" type="dead_end"/>
-    <node id="6137626911" x="2989.08" y="1916.77" type="dead_end"/>
     <node id="cluster_2351978965_3491058798_606104206_606104215" x="2959.66" y="1902.19" type="priority"/>
 </nodes>

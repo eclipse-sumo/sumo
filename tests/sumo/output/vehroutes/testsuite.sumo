@@ -63,6 +63,9 @@ circle_reroute_intended_depart_sorted
 # output sorted by departure time
 sorted
 
+# output sorted by departure time but end before last vehicle arrives
+sorted_end_early
+
 # vehicles departing in the same second should be ordered by their loading order (intended depart) even when sorting by actual departure time.
 # 
 # Note: input vehicle ids are descending from 9 to 0 and this descending order must be kept for same-second departures

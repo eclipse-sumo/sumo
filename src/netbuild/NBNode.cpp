@@ -70,7 +70,7 @@
 //#define DEBUG_PED_STRUCTURES
 //#define DEBUG_EDGE_SORTING
 //#define DEBUGCOND true
-#define DEBUG_NODE_ID "C"
+#define DEBUG_NODE_ID ""
 #define DEBUGCOND (getID() == DEBUG_NODE_ID)
 #define DEBUGCOND2(obj) ((obj != 0 && (obj)->getID() == DEBUG_NODE_ID))
 
@@ -1063,6 +1063,22 @@ NBNode::hasConflict() const {
     }
 }
 
+
+bool
+NBNode::hasConflict(const NBEdge* e) const {
+    if (myRequest == nullptr) {
+        return false;
+    }
+    for (const auto& con : e->getConnections()) {
+        const int index = getConnectionIndex(e, con);
+        if (myRequest->hasConflictAtLink(index)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
 void
 NBNode::updateSurroundingGeometry() {
     NBTurningDirectionsComputer::computeTurnDirectionsForNode(this, false);
@@ -1433,14 +1449,33 @@ NBNode::recheckVClassConnections(NBEdge* currentOutgoing) {
                         for (int toLane = 0; toLane < currentOutgoing->getNumLanes(); ++toLane) {
                             const SVCPermissions satisfied = incoming->getPermissions(fromLane) & currentOutgoing->getPermissions(toLane) & unsatisfied;
                             if (satisfied != 0 && !incoming->getLaneStruct(fromLane).connectionsDone) {
-                                bool mayUseSameDestination = unsatisfied == SVC_TRAM;
-                                incoming->setConnection((int)fromLane, currentOutgoing, toLane, NBEdge::Lane2LaneInfoType::COMPUTED, mayUseSameDestination);
+                                if (incoming->hasConnectionTo(currentOutgoing, toLane)
+                                        && unsatisfied == SVC_TRAM
+                                        && incoming->getPermissions(fromLane) == currentOutgoing->getPermissions(toLane)) {
+                                    // avoid double tram connection by shifting an existing connection
+                                    for (auto con : incoming->getConnections()) {
+                                        if (con.toEdge == currentOutgoing && con.toLane == toLane) {
 #ifdef DEBUG_CONNECTION_GUESSING
-                                if (DEBUGCOND) {
-                                    std::cout << "  new connection from=" << fromLane << " to=" << currentOutgoing->getID() << "_" << toLane << " satisfies=" << getVehicleClassNames(satisfied) << "\n";
-                                }
+                                            if (DEBUGCOND) {
+                                                std::cout << "  shifting connection from=" << con.fromLane << " to=" << currentOutgoing->getID() << "_" << toLane << ": newFromLane=" << fromLane << " satisfies=" << getVehicleClassNames(satisfied) << "\n";
+                                            }
 #endif
-                                unsatisfied &= ~satisfied;
+                                            incoming->getConnectionRef(con.fromLane, con.toEdge, toLane).fromLane = fromLane;
+                                            unsatisfied &= ~satisfied;
+                                            break;
+                                        }
+                                    }
+                                } else {
+                                    // other modes (i.e. bus) can fix lane permissions NBPTLineCont::fixPermissions but do not wish to create parallel tram tracks here
+                                    bool mayUseSameDestination = unsatisfied == SVC_TRAM;
+                                    incoming->setConnection((int)fromLane, currentOutgoing, toLane, NBEdge::Lane2LaneInfoType::COMPUTED, mayUseSameDestination);
+#ifdef DEBUG_CONNECTION_GUESSING
+                                    if (DEBUGCOND) {
+                                        std::cout << "  new connection from=" << fromLane << " to=" << currentOutgoing->getID() << "_" << toLane << " satisfies=" << getVehicleClassNames(satisfied) << "\n";
+                                    }
+#endif
+                                    unsatisfied &= ~satisfied;
+                                }
                             }
                         }
                     }
@@ -1963,7 +1998,7 @@ NBNode::rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane,
         if (d1 == LinkDirection::LEFT || d1 == LinkDirection::PARTLEFT) {
             // check for leftTurnConflicht
             flip = !flip;
-            if (d2 == LinkDirection::RIGHT || d1 == LinkDirection::PARTRIGHT) {
+            if (d2 == LinkDirection::RIGHT || d2 == LinkDirection::PARTRIGHT) {
                 // assume that the left-turning bicycle goes straight at first
                 // and thus gets precedence over a right turning vehicle
                 return false;
@@ -2246,6 +2281,9 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
     }
     // turning direction
     if (incoming->isTurningDirectionAt(outgoing)) {
+        if (isExplicitRailNoBidi(incoming, outgoing)) {
+            return LinkDirection::STRAIGHT;
+        }
         return leftHand ? LinkDirection::TURN_LEFTHAND : LinkDirection::TURN;
     }
     // get the angle between incoming/outgoing at the junction
@@ -2286,6 +2324,9 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
     } else {
         // check whether any other edge goes further to the left
         if (angle < -170 && incoming->getGeometry().reverse() == outgoing->getGeometry()) {
+            if (isExplicitRailNoBidi(incoming, outgoing)) {
+                return LinkDirection::STRAIGHT;
+            }
             return leftHand ? LinkDirection::TURN_LEFTHAND : LinkDirection::TURN;
         } else if (angle < -90) {
             return LinkDirection::LEFT;
@@ -2297,6 +2338,18 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
             return LinkDirection::LEFT;
         }
     }
+}
+
+
+bool
+NBNode::isExplicitRailNoBidi(const NBEdge* incoming, const NBEdge* outgoing) {
+    // assume explicit connections at sharp turn-arounds are either for reversal or due to a geometry glitch
+    // (but should not have been guessed)
+    // @note this function is also called from NBAlgorithms when there aren't any connections ready
+    return (incoming->getStep() >= NBEdge::EdgeBuildingStep::LANES2LANES_RECHECK
+            && isRailway(incoming->getPermissions())
+            && isRailway(outgoing->getPermissions())
+            && incoming->getBidiEdge() != outgoing);
 }
 
 

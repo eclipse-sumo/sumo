@@ -20,6 +20,12 @@ intermediate_signals
 # 2 common bidi edges between stations, extra stop in between
 intermediate_stops
 
+# track diverges between stops before coming back together giving two distinct bidi sections between the stops.
+intermediate_divergence
+
+# track diverges between stops before coming back together but there are stops at the divergence as well 
+intermediate_divergence_stops
+
 # store comments as params
 comment_params
 

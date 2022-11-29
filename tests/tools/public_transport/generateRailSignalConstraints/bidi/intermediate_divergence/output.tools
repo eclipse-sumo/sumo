@@ -1,0 +1,16 @@
+read 6 busStops on 6 edges
+read 2 routes (2 unique) and 4 stops at 4 busStops
+processed 2 routes across 18 edges with 0 merging switches
+Found 0 stops after merging switches and 0 signals that guard switches
+Found 0 conflicts
+findFoeInsertionConflicts at stop j
+0 n: 00:02:40 None t0 1 2 passing: False depart: False
+findInsertionConflicts at stop j
+0 n: 00:02:40 None t0 1 2 passing: False depart: False
+Found 0 insertion conflicts
+findBidiConflicts at stop j
+00:02:05 (00:02:20) n: None t0 start: h end: h
+  00:00:21 (00:01:40) p: None t1 start: -h end: -h
+Found symmetrical bidi conflict (tripId=t1, foeId=t0, busStop=-a2 busStop2=j).
+Removed 1 symmetrical bidi conflicts
+Found 1 bidi conflicts

@@ -296,6 +296,9 @@ struct GNEViewNetHelper {
         /// @brief get vector with clicked ACs
         const std::vector<GNEAttributeCarrier*>& getClickedAttributeCarriers() const;
 
+        /// @brief get vector with clicked junctions
+        const std::vector<GNEJunction*>& getClickedJunctions() const;
+
         /// @brief get vector with clicked Demand Elements
         const std::vector<GNEDemandElement*>& getClickedDemandElements() const;
 
@@ -385,6 +388,9 @@ struct GNEViewNetHelper {
         bool mySwapLane2edge;
 
     private:
+        /// @brief filter duplicated objects
+        std::vector<GUIGlObject*> filterDuplicatedObjects(const std::vector<GUIGlObject*>& GUIGlObjects) const;
+
         /// @brief sort by altitude and update GUIGlObjects
         void sortGUIGlObjects(const std::vector<GUIGlObject*>& GUIGlObjects);
 

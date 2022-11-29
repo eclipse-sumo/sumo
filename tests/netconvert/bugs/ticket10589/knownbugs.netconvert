@@ -1,7 +1,0 @@
-
-[Reported by Windows at 26Apr09:43:28]
-search_string:Join
-search_file:output
-ignore_other_errors:1
-full_description:strange junction shape after joining
-brief_description:see #10589

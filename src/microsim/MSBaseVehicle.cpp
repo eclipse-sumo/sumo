@@ -100,7 +100,7 @@ MSBaseVehicle::getPreviousSpeed() const {
 }
 
 
-MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
+MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
                              MSVehicleType* type, const double speedFactor) :
     SUMOVehicle(pars->id),
     myParameter(pars),
@@ -129,7 +129,6 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     if ((*myRoute->begin())->isTazConnector() || myRoute->getLastEdge()->isTazConnector()) {
         pars->parametersSet |= VEHPARS_FORCE_REROUTE;
     }
-    myRoute->addReference();
     if ((pars->parametersSet & VEHPARS_FORCE_REROUTE) == 0) {
         setDepartAndArrivalEdge();
     }
@@ -142,7 +141,6 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
 
 MSBaseVehicle::~MSBaseVehicle() {
     delete myEdgeWeights;
-    myRoute->release();
     if (myParameter->repetitionNumber == 0) {
         MSRoute::checkDist(myParameter->routeid);
     }
@@ -152,6 +150,7 @@ MSBaseVehicle::~MSBaseVehicle() {
     delete myParameter;
     delete myEnergyParams;
     delete myParkingMemory;
+    myRoute->checkRemoval();
 }
 
 
@@ -374,7 +373,8 @@ MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, double cost, double s
     MSRoute* newRoute = new MSRoute(id, edges, false, &c == &RGBColor::DEFAULT_COLOR ? nullptr : new RGBColor(c), std::vector<SUMOVehicleParameter::Stop>());
     newRoute->setCosts(cost);
     newRoute->setSavings(savings);
-    if (!MSRoute::dictionary(id, newRoute)) {
+    ConstMSRoutePtr constRoute = std::shared_ptr<MSRoute>(newRoute);
+    if (!MSRoute::dictionary(id, constRoute)) {
         delete newRoute;
         if (msgReturn != nullptr) {
             *msgReturn = "duplicate routeID '" + id + "'";
@@ -383,20 +383,16 @@ MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, double cost, double s
     }
 
     std::string msg;
-    if (check && !hasValidRoute(msg, newRoute)) {
+    if (check && !hasValidRoute(msg, constRoute)) {
         WRITE_WARNINGF(TL("Invalid route replacement for vehicle '%'. %"), getID(), msg);
         if (MSGlobals::gCheckRoutes) {
-            newRoute->addReference();
-            newRoute->release();
             if (msgReturn != nullptr) {
                 *msgReturn = msg;
             }
             return false;
         }
     }
-    if (!replaceRoute(newRoute, info, onInit, (int)edges.size() - oldSize, false, removeStops, msgReturn)) {
-        newRoute->addReference();
-        newRoute->release();
+    if (!replaceRoute(constRoute, info, onInit, (int)edges.size() - oldSize, false, removeStops, msgReturn)) {
         return false;
     }
     return true;
@@ -404,7 +400,7 @@ MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, double cost, double s
 
 
 bool
-MSBaseVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bool onInit, int offset, bool addRouteStops, bool removeStops, std::string* msgReturn) {
+MSBaseVehicle::replaceRoute(ConstMSRoutePtr newRoute, const std::string& info, bool onInit, int offset, bool addRouteStops, bool removeStops, std::string* msgReturn) {
     const ConstMSEdgeVector& edges = newRoute->getEdges();
     // rebuild in-vehicle route information
     if (onInit) {
@@ -452,10 +448,8 @@ MSBaseVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bo
         myCurrEdge = newCurrEdge;
     }
     const bool stopsFromScratch = onInit && myRoute->getStops().empty();
-    // check whether the old route may be deleted (is not used by anyone else)
-    newRoute->addReference();
-    myRoute->release();
     // assign new route
+    myRoute->checkRemoval();
     myRoute = newRoute;
     // update arrival definition
     calculateArrivalParams(onInit);
@@ -628,7 +622,7 @@ MSBaseVehicle::addTransportable(MSTransportable* transportable) {
 
 
 bool
-MSBaseVehicle::hasValidRoute(std::string& msg, const MSRoute* route) const {
+MSBaseVehicle::hasValidRoute(std::string& msg, ConstMSRoutePtr route) const {
     MSRouteIterator start = myCurrEdge;
     if (route == nullptr) {
         route = myRoute;

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-11-22 13:58:54 by Eclipse SUMO netedit Version v1_15_0+0513-92dad7d
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.netconvert"/>
+    </input>
+
+    <output>
+        <output-file value="net.netconvert"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<nodes version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-2700.00,-896.99" convBoundary="0.00,0.00,400.00,3.01" origBoundary="100.00,900.00,4800.00,1000.00" projParameter="!"/>
+
+    <node id="A" x="0.00" y="3.01" type="dead_end"/>
+    <node id="B" x="400.00" y="3.01" type="rail_signal"/>
+    <node id="C" x="100.69" y="0.00" type="dead_end"/>
+</nodes>

@@ -315,6 +315,9 @@ public:
     /// @brief get path element
     const PathElement* getPathElement(const GUIGlObject* GLObject) const;
 
+    /// @brief get path segments
+    const std::vector<Segment*> &getPathElementSegments(PathElement* pathElement) const;
+
     /// @brief obtain instance of PathDraw
     PathDraw* getPathDraw();
 
@@ -392,6 +395,9 @@ protected:
     std::map<const GNEJunction*, std::set<Segment*> > myJunctionSegments;
 
 private:
+    /// @brief empty segments (used in getPathElementSegments)
+    const std::vector<Segment*> myEmptySegments;
+
     /// @brief Invalidated copy constructor.
     GNEPathManager(const GNEPathManager&) = delete;
 

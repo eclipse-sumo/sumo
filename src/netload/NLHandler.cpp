@@ -315,7 +315,6 @@ NLHandler::myEndElement(int element) {
         case SUMO_TAG_JUNCTION:
             if (!myCurrentIsBroken) {
                 try {
-                    myJunctionControlBuilder.closeJunctionLogic();
                     myJunctionControlBuilder.closeJunction(getFileName());
                 } catch (InvalidArgument& e) {
                     WRITE_ERROR(e.what());
@@ -328,6 +327,9 @@ NLHandler::myEndElement(int element) {
                 try {
                     myJunctionControlBuilder.closeTrafficLightLogic(getFileName());
                 } catch (InvalidArgument& e) {
+                    for (MSPhaseDefinition* const phase : myJunctionControlBuilder.getLoadedPhases()) {
+                        delete phase;
+                    }
                     WRITE_ERROR(e.what());
                 }
             }
@@ -803,7 +805,7 @@ NLHandler::addPhase(const SUMOSAXAttributes& attrs) {
     const SUMOTime duration = attrs.getSUMOTimeReporting(SUMO_ATTR_DURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok);
     const std::string state = attrs.get<std::string>(SUMO_ATTR_STATE, nullptr, ok);
     if (duration == 0) {
-        WRITE_ERROR("Duration of phase " + toString(myJunctionControlBuilder.getNumberOfLoadedPhases())
+        WRITE_ERROR("Duration of phase " + toString(myJunctionControlBuilder.getLoadedPhases().size())
                     + " for tlLogic '" + myJunctionControlBuilder.getActiveKey()
                     + "' program '" + myJunctionControlBuilder.getActiveSubKey() + "' is zero.");
         return;

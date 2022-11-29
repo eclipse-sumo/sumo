@@ -84,6 +84,9 @@ public:
     /// @brief get objects under cursor
     const GNEViewNetHelper::ObjectsUnderCursor& getObjectsUnderCursor() const;
 
+    /// @brief Update objects under cursor in the given position
+    void updateObjectsUnderCursor(const Position &pos);
+
     /// @brief get move multiple element values
     const GNEViewNetHelper::MoveMultipleElementValues& getMoveMultipleElementValues() const;
 

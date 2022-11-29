@@ -43,6 +43,14 @@
 
 #define MIN_TURN_DIAMETER 2.0
 
+#define ROAD_OBJECTS "roadObjects"
+
+// ===========================================================================
+// static members
+// ===========================================================================
+bool NWWriter_OpenDrive::lefthand(false);
+bool NWWriter_OpenDrive::LHLL(false);
+bool NWWriter_OpenDrive::LHRL(false);
 
 // ===========================================================================
 // method definitions
@@ -59,7 +67,9 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     const NBNodeCont& nc = nb.getNodeCont();
     const NBEdgeCont& ec = nb.getEdgeCont();
     const bool origNames = oc.getBool("output.original-names");
-    const bool lefthand = oc.getBool("lefthand");
+    lefthand = oc.getBool("lefthand");
+    LHLL = lefthand && oc.getBool("opendrive-output.lefthand-left");
+    LHRL = lefthand && !LHLL;
     const double straightThresh = DEG2RAD(oc.getFloat("opendrive-output.straight-threshold"));
     // some internal mapping containers
     int nodeID = 1;
@@ -109,6 +119,8 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 
     SignalLanes signalLanes;
 
+    mapmatchRoadObjects(nb.getShapeCont(), ec);
+
     // write normal edges (road)
     for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
         const NBEdge* e = (*i).second;
@@ -119,7 +131,6 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                         fromNodeID, toNodeID,
                         origNames, straightThresh,
                         nb.getShapeCont(),
-                        lefthand,
                         signalLanes);
     }
     device.lf();
@@ -146,9 +157,6 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             int lastFromLane = -1;
             std::vector<NBEdge::Connection> parallel;
             std::vector<NBEdge::Connection> connections = inEdge->getConnections();
-            if (lefthand) {
-                std::reverse(connections.begin(), connections.end());
-            }
             for (const NBEdge::Connection& c : connections) {
                 assert(c.toEdge != 0);
                 if (outEdge != c.toEdge || c.fromLane == lastFromLane) {
@@ -161,7 +169,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                                                          inEdgeID,
                                                          getID(outEdge->getID(), edgeMap, edgeID),
                                                          connectionID,
-                                                         parallel, isOuterEdge, straightThresh, centerMark, lefthand,
+                                                         parallel, isOuterEdge, straightThresh, centerMark,
                                                          signalLanes);
                         parallel.clear();
                         isOuterEdge = false;
@@ -183,7 +191,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                                                  inEdgeID,
                                                  getID(outEdge->getID(), edgeMap, edgeID),
                                                  connectionID,
-                                                 parallel, isOuterEdge, straightThresh, centerMark,lefthand,
+                                                 parallel, isOuterEdge, straightThresh, centerMark,
                                                  signalLanes);
                 parallel.clear();
             }
@@ -220,6 +228,26 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     device.close();
 }
 
+std::string
+NWWriter_OpenDrive::getDividerType(const NBEdge* e) {
+    std::map<std::string, std::string> dividerTypeMapping;
+    dividerTypeMapping["solid_line"] = "solid";
+    dividerTypeMapping["dashed_line"] = "broken";
+    dividerTypeMapping["double_solid_line"] = "solid solid";
+    dividerTypeMapping["no"] = "none";
+
+	// defaulting to solid as in the original code
+    std::string dividerType = "solid";
+
+    if (e->getParametersMap().count("divider") > 0) {
+		std::string divider = e->getParametersMap().find("divider")->second;
+		if (dividerTypeMapping.count(divider) > 0) {
+			dividerType = dividerTypeMapping.find(divider)->second;
+		}
+	}
+	
+    return dividerType;
+}
 
 void
 NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
@@ -227,7 +255,6 @@ NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
                                     const bool origNames,
                                     const double straightThresh,
                                     const ShapeContainer& shc,
-                                    bool lefthand,
                                     SignalLanes& signalLanes) {
     // buffer output because some fields are computed out of order
     OutputDevice_String elevationOSS(3);
@@ -239,7 +266,7 @@ NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
     planViewOSS.openTag("planView");
     // for the shape we need to use the leftmost border of the leftmost lane
     const std::vector<NBEdge::Lane>& lanes = e->getLanes();
-    PositionVector ls = getLeftLaneBorder(e);
+    PositionVector ls = getInnerLaneBorder(e);
 #ifdef DEBUG_SMOOTH_GEOM
     if (DEBUGCOND) {
         std::cout << "write planview for edge " << e->getID() << "\n";
@@ -286,18 +313,22 @@ NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
     device << "        <lateralProfile/>\n";
     device << "        <lanes>\n";
     device << "            <laneSection s=\"0\">\n";
-    const std::string centerMark = e->getPermissions(e->getNumLanes() - 1) == 0 ? "none" : "solid";
-    writeEmptyCenterLane(device, centerMark, 0.13);
-    device << "                <right>\n";
-    for (int jRH = e->getNumLanes(); --jRH >= 0;) {
+    const std::string centerMark = e->getPermissions(e->getNumLanes() - 1) == 0 ? "none" : getDividerType(e);
+    if (!LHLL) {
+        writeEmptyCenterLane(device, centerMark, 0.13);
+    }
+    const std::string side = LHLL ? "left" : "right";
+    device << "                <" << side << ">\n";
+    const int numLanes = e->getNumLanes();
+    for (int jRH = numLanes; --jRH >= 0;) {
         // XODR always has the lanes left to right (by default this is
         // inner-to-outer but in LH networks its outer-to-inner)
-        const int j = lefthand ? e->getNumLanes() - 1 - jRH : jRH;
+        const int j = lefthand ? numLanes - 1 - jRH : jRH;
         std::string laneType = e->getLaneStruct(j).type;
         if (laneType == "") {
             laneType = getLaneType(e->getPermissions(j));
         }
-        device << "                    <lane id=\"-" << e->getNumLanes() - jRH << "\" type=\"" << laneType << "\" level=\"true\">\n";
+        device << "                    <lane id=\"" << s2x(j, numLanes) << "\" type=\"" << laneType << "\" level=\"true\">\n";
         device << "                        <link/>\n";
         // this could be used for geometry-link junctions without u-turn,
         // predecessor and sucessors would be lane indices,
@@ -308,21 +339,34 @@ NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
         //device << "                        </link>\n";
         device << "                        <width sOffset=\"0\" a=\"" << e->getLaneWidth(j) << "\" b=\"0\" c=\"0\" d=\"0\"/>\n";
         std::string markType = "broken";
-        if (j == 0) {
-            markType = "solid";
-        } else if (j > 0
-                   && (e->getPermissions(j - 1) & ~(SVC_PEDESTRIAN | SVC_BICYCLE)) == 0) {
-            // solid road mark to the left of sidewalk or bicycle lane
-            markType = "solid";
-        } else if (e->getPermissions(j) == 0) {
-            // solid road mark to the right of a forbidden lane
-            markType = "solid";
+        if (LHRL) {
+            if (j == numLanes - 1) {
+                // solid road mark in the middle of the road
+                markType = "solid";
+            } else if ((e->getPermissions(j) & ~(SVC_PEDESTRIAN | SVC_BICYCLE)) == 0) {
+                // solid road mark to the right of sidewalk or bicycle lane
+                markType = "solid";
+            }
+        } else {
+            if (j == 0) {
+                markType = "solid";
+            } else if (j > 0
+                    && (e->getPermissions(j - 1) & ~(SVC_PEDESTRIAN | SVC_BICYCLE)) == 0) {
+                // solid road mark to the left of sidewalk or bicycle lane
+                markType = "solid";
+            } else if (e->getPermissions(j) == 0) {
+                // solid road mark to the right of a forbidden lane
+                markType = "solid";
+            }
         }
         device << "                        <roadMark sOffset=\"0\" type=\"" << markType << "\" weight=\"standard\" color=\"standard\" width=\"0.13\"/>\n";
         device << "                        <speed sOffset=\"0\" max=\"" << lanes[j].speed << "\"/>\n";
         device << "                    </lane>\n";
     }
-    device << "                 </right>\n";
+    device << "                 </" << side << ">\n";
+    if (LHLL) {
+        writeEmptyCenterLane(device, centerMark, 0.13);
+    }
     device << "            </laneSection>\n";
     device << "        </lanes>\n";
     writeRoadObjects(device, e, shc);
@@ -331,7 +375,7 @@ NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
         device << "        <userData code=\"sumoId\" value=\"" << e->getID() << "\"/>\n";
     }
     device.closeTag();
-    checkLaneGeometries(e, lefthand);
+    checkLaneGeometries(e);
 }
 
 void
@@ -358,13 +402,12 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
                                       const bool isOuterEdge,
                                       const double straightThresh,
                                       const std::string& centerMark,
-                                      bool lefthand,
                                       SignalLanes& signalLanes) {
     assert(parallel.size() != 0);
-    const NBEdge::Connection& cLeft = parallel.back();
+    const NBEdge::Connection& cLeft = LHRL ? parallel.front() : parallel.back();
     const NBEdge* outEdge = cLeft.toEdge;
-    PositionVector begShape = getLeftLaneBorder(inEdge, cLeft.fromLane);
-    PositionVector endShape = getLeftLaneBorder(outEdge, cLeft.toLane);
+    PositionVector begShape = getInnerLaneBorder(inEdge, cLeft.fromLane);
+    PositionVector endShape = getInnerLaneBorder(outEdge, cLeft.toLane);
     //std::cout << "computing reference line for internal lane " << cLeft.getInternalLaneID() << " begLane=" << inEdge->getLaneShape(cLeft.fromLane) << " endLane=" << outEdge->getLaneShape(cLeft.toLane) << "\n";
 
     double length;
@@ -383,8 +426,8 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
         } else if (length <= NUMERICAL_EPS) {
             // left-curving geometry-like edges must use the right
             // side as reference line and shift
-            begShape = getRightLaneBorder(inEdge, cLeft.fromLane);
-            endShape = getRightLaneBorder(outEdge, cLeft.toLane);
+            begShape = getOuterLaneBorder(inEdge, cLeft.fromLane);
+            endShape = getOuterLaneBorder(outEdge, cLeft.toLane);
             init = NBNode::bezierControlPoints(begShape, endShape, turnaround, 25, 25, ok, nullptr, straightThresh);
             if (init.size() != 0) {
                 length = init.bezier(12).length2D();
@@ -395,12 +438,13 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
     } else {
         length = init.bezier(12).length2D();
     }
+    double roadLength = MAX2(POSITION_EPS, length);
 
     junctionDevice << "        <connection id=\"" << connectionID << "\" incomingRoad=\"" << inEdgeID << "\" connectingRoad=\"" << edgeID << "\" contactPoint=\"start\">\n";
     device.openTag("road");
     device.writeAttr("name", cLeft.id);
     device.setPrecision(8); // length requires higher precision
-    device.writeAttr("length", MAX2(POSITION_EPS, length));
+    device.writeAttr("length", roadLength);
     device.setPrecision(gPrecision);
     device.writeAttr("id", edgeID);
     device.writeAttr("junction", nodeID);
@@ -442,24 +486,33 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
         device << "            <laneOffset s=\"0\" a=\"" << laneOffset << "\" b=\"0\" c=\"0\" d=\"0\"/>\n";
     }
     device << "            <laneSection s=\"0\">\n";
-    writeEmptyCenterLane(device, centerMark, 0);
-    device << "                <right>\n";
-    int toIndexInternal = 0;
-    for (int j = (int)parallel.size(); --j >= 0;) {
-        toIndexInternal--;
+    if (!lefthand) {
+        writeEmptyCenterLane(device, centerMark, 0);
+    }
+    const std::string side = lefthand ? "left" : "right";
+    device << "                <" << side << ">\n";
+    const int numLanes = (int)parallel.size();
+    for (int jRH = numLanes; --jRH >= 0;) {
+        const int j = lefthand ? numLanes - 1 - jRH : jRH;
+        const int xJ = s2x(j, numLanes);
         const NBEdge::Connection& c = parallel[j];
-        int fromIndex = c.fromLane - inEdge->getNumLanes();
-        int toIndex = c.toLane - outEdge->getNumLanes();
-        if (lefthand) {
-            fromIndex = -c.fromLane - 1;
-            toIndex = -c.toLane - 1;
-        }
-        device << "                    <lane id=\"-" << parallel.size() - j << "\" type=\"" << getLaneType(outEdge->getPermissions(c.toLane)) << "\" level=\"true\">\n";
+        const int fromIndex = s2x(c.fromLane, inEdge->getNumLanes());
+        const int toIndex = s2x(c.toLane, outEdge->getNumLanes());
+
+        double inEdgeWidth = inEdge->getLaneWidth(c.fromLane);
+        double outEdgeWidth = outEdge->getLaneWidth(c.toLane);
+        // Ideally a polynomial function of third order would be needed for more precision.
+        // This is obtained by specifying c and d coefficients, keeping it simple and linear
+        // as we only know final and initial width.
+        double bCoefficient = (outEdgeWidth - inEdgeWidth) / roadLength;
+        double cCoefficient = 0;
+        double dCoefficient = 0;
+        device << "                    <lane id=\"" << xJ << "\" type=\"" << getLaneType(outEdge->getPermissions(c.toLane)) << "\" level=\"true\">\n";
         device << "                        <link>\n";
         device << "                            <predecessor id=\"" << fromIndex << "\"/>\n";
         device << "                            <successor id=\"" << toIndex << "\"/>\n";
         device << "                        </link>\n";
-        device << "                        <width sOffset=\"0\" a=\"" << outEdge->getLaneWidth(c.toLane) << "\" b=\"0\" c=\"0\" d=\"0\"/>\n";
+        device << "                        <width sOffset=\"0\" a=\"" << inEdgeWidth << "\" b=\""<< bCoefficient << "\" c=\"" << cCoefficient << "\" d=\"" << dCoefficient << "\"/>\n";
         std::string markType = "broken";
         if (inEdge->isTurningDirectionAt(outEdge)) {
             markType = "none";
@@ -472,7 +525,7 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
             markType = "solid";
         } else if (!inEdge->getToNode()->geometryLike()) {
             // draw shorter road marks to indicate turning paths
-            LinkDirection dir = inEdge->getToNode()->getDirection(inEdge, outEdge, OptionsCont::getOptions().getBool("lefthand"));
+            LinkDirection dir = inEdge->getToNode()->getDirection(inEdge, outEdge, lefthand);
             if (dir == LinkDirection::LEFT || dir == LinkDirection::RIGHT || dir == LinkDirection::PARTLEFT || dir == LinkDirection::PARTRIGHT) {
                 // XXX <type><line/><type> is not rendered by odrViewer so cannot be validated
                 // device << "                             <type name=\"broken\" width=\"0.13\">\n";
@@ -485,10 +538,13 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
         device << "                        <speed sOffset=\"0\" max=\"" << c.vmax << "\"/>\n";
         device << "                    </lane>\n";
 
-        junctionDevice << "            <laneLink from=\"" << fromIndex << "\" to=\"" << toIndexInternal << "\"/>\n";
+        junctionDevice << "            <laneLink from=\"" << fromIndex << "\" to=\"" << xJ << "\"/>\n";
         connectionID++;
     }
-    device << "                 </right>\n";
+    device << "                 </" << side << ">\n";
+    if (lefthand) {
+        writeEmptyCenterLane(device, centerMark, 0);
+    }
     device << "            </laneSection>\n";
     device << "        </lanes>\n";
     device << "        <objects/>\n";
@@ -581,41 +637,26 @@ NWWriter_OpenDrive::getLaneType(SVCPermissions permissions) {
 
 
 PositionVector
-NWWriter_OpenDrive::getLeftLaneBorder(const NBEdge* edge, int laneIndex, double widthOffset) {
-    const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
+NWWriter_OpenDrive::getInnerLaneBorder(const NBEdge* edge, int laneIndex, double widthOffset) {
     if (laneIndex == -1) {
-        // leftmost lane
-        laneIndex = lefthand ? 0 : (int)edge->getNumLanes() - 1;
-    }
-    /// it would be tempting to use
-    // PositionVector result = edge->getLaneShape(laneIndex);
-    // (and the moveo2side)
-    // However, the lanes in SUMO have a small lateral gap (SUMO_const_laneOffset) to account for markings
-    // In OpenDRIVE this gap does not exists so we have to do all lateral
-    // computations based on the reference line
-    // This assumes that the 'stop line' for all lanes is colinear!
-    const int leftmost = lefthand ? 0 : (int)edge->getNumLanes() - 1;
-    widthOffset -= (edge->getLaneWidth(leftmost) / 2);
-    // collect lane widths from left border of edge to left border of lane to connect to
-    if (lefthand) {
-        for (int i = leftmost; i < laneIndex; i++) {
-            widthOffset += edge->getLaneWidth(i);
-        }
-    } else {
-        for (int i = leftmost; i > laneIndex; i--) {
-            widthOffset += edge->getLaneWidth(i);
+        // innermost lane
+        laneIndex = (int)edge->getNumLanes() - 1;
+        if (LHRL) {
+            laneIndex = 0;
         }
     }
-    PositionVector result = edge->getLaneShape(leftmost);
+    PositionVector result = edge->getLaneShape(laneIndex);
+    widthOffset -= (LHLL ? -1 : 1) * edge->getLaneWidth(laneIndex) / 2;
     try {
         result.move2side(widthOffset);
     } catch (InvalidArgument&) { }
     return result;
 }
 
+
 PositionVector
-NWWriter_OpenDrive::getRightLaneBorder(const NBEdge* edge, int laneIndex) {
-    return getLeftLaneBorder(edge, laneIndex, edge->getLaneWidth(laneIndex));
+NWWriter_OpenDrive::getOuterLaneBorder(const NBEdge* edge, int laneIndex) {
+    return getInnerLaneBorder(edge, laneIndex, edge->getLaneWidth(laneIndex));
 }
 
 
@@ -874,7 +915,7 @@ NWWriter_OpenDrive::writeElevationProfile(const PositionVector& shape, OutputDev
 
 
 void
-NWWriter_OpenDrive::checkLaneGeometries(const NBEdge* e, bool lefthand) {
+NWWriter_OpenDrive::checkLaneGeometries(const NBEdge* e) {
     if (e->getNumLanes() > 1) {
         // compute 'stop line' of rightmost lane
         const PositionVector shape0 = e->getLaneShape(0);
@@ -896,54 +937,21 @@ NWWriter_OpenDrive::checkLaneGeometries(const NBEdge* e, bool lefthand) {
 
 void
 NWWriter_OpenDrive::writeRoadObjects(OutputDevice& device, const NBEdge* e, const ShapeContainer& shc) {
-    if (e->knowsParameter("roadObjects")) {
+    if (e->knowsParameter(ROAD_OBJECTS)) {
         device.openTag("objects");
         device.setPrecision(8); // geometry hdg requires higher precision
-        PositionVector road = getLeftLaneBorder(e);
-        for (std::string id : StringTokenizer(e->getParameter("roadObjects", "")).getVector()) {
+        PositionVector road = getInnerLaneBorder(e);
+        for (std::string id : StringTokenizer(e->getParameter(ROAD_OBJECTS, "")).getVector()) {
             SUMOPolygon* p = shc.getPolygons().get(id);
             if (p == nullptr) {
-                WRITE_WARNING("Road object polygon '" + id + "' not found for edge '" + e->getID() + "'");
-            } else if (p->getShape().size() != 4) {
-                WRITE_WARNING("Cannot convert road object polygon '" + id + "' with " + toString(p->getShape().size()) + " points for edge '" + e->getID() + "'");
+                PointOfInterest* poi = shc.getPOIs().get(id);
+                if (poi == nullptr) {
+                    WRITE_WARNINGF("Road object polygon or POI '%' not found for edge '%'", id, e->getID());
+                } else {
+                    writeRoadObjectPOI(device, e, road, poi);
+                }
             } else {
-                const PositionVector& shape = p->getShape();
-                device.openTag("object");
-                Position center = shape.getPolygonCenter();
-                PositionVector sideline = shape.getSubpartByIndex(0, 2);
-                PositionVector ortholine = shape.getSubpartByIndex(1, 2);
-                const double absAngle = sideline.angleAt2D(0);
-                const double length = sideline.length2D();
-                const double width = ortholine.length2D();
-                const double edgeOffset = road.nearest_offset_to_point2D(center);
-                if (edgeOffset == GeomHelper::INVALID_OFFSET) {
-                    WRITE_WARNING("Cannot map road object polygon '" + id + "' with center " + toString(center) + " onto edge '" + e->getID() + "'");
-                    continue;
-                }
-                Position edgePos = road.positionAtOffset2D(edgeOffset);
-                const double edgeAngle = road.rotationAtOffset(edgeOffset);
-                const double relAngle = absAngle - edgeAngle;
-                double sideOffset = center.distanceTo2D(edgePos);
-                // determine sign of sideOffset
-                PositionVector tmp = road.getSubpart2D(MAX2(0.0, edgeOffset - 1), MIN2(road.length2D(), edgeOffset + 1));
-                tmp.move2side(sideOffset);
-                if (tmp.distance2D(center) < sideOffset) {
-                    sideOffset *= -1;
-                }
-                //std::cout << " id=" << id
-                //    << " shape=" << shape
-                //    << " center=" << center
-                //    << " edgeOffset=" << edgeOffset
-                //    << "\n";
-                device.writeAttr("id", id);
-                device.writeAttr("type", p->getShapeType());
-                device.writeAttr("name", p->getParameter("name", ""));
-                device.writeAttr("s", edgeOffset);
-                device.writeAttr("t", sideOffset);
-                device.writeAttr("width", width);
-                device.writeAttr("length", length);
-                device.writeAttr("hdg", relAngle);
-                device.closeTag();
+                writeRoadObjectPoly(device, e, road, p);
             }
         }
         device.setPrecision(gPrecision);
@@ -1028,6 +1036,203 @@ NWWriter_OpenDrive::writeSignals(OutputDevice& device, const NBEdge* e, double l
             device.closeTag();
         }
     }
+    device.closeTag();
+}
+
+int
+NWWriter_OpenDrive::s2x(int sumoIndex, int numLanes) {
+    // sumo lanes:     0, 1, 2  (0 being the outermost lane)
+    // XODR:          -3,-2,-1  (written in reverse order)
+    // LHLL:           3, 2, 1  (written in reverse order)
+    // lefthand (old):-1,-2,-3   
+    return (lefthand
+            ? (LHLL
+                ? numLanes - sumoIndex
+                : - sumoIndex - 1)
+            : sumoIndex - numLanes);
+}
+
+
+void
+NWWriter_OpenDrive::mapmatchRoadObjects(const ShapeContainer& shc,  const NBEdgeCont& ec) {
+    if (shc.getPolygons().size() == 0 && shc.getPOIs().size() == 0) {
+        return;
+    }
+    const double maxDist = OptionsCont::getOptions().getFloat("opendrive-output.shape-match-dist");
+    if (maxDist < 0) {
+        return;
+    }
+    // register custom assignements
+    std::set<std::string> assigned;
+    for (auto it = ec.begin(); it != ec.end(); ++it) {
+        NBEdge* e = it->second;
+        if (e->knowsParameter(ROAD_OBJECTS)) {
+            for (std::string id : StringTokenizer(e->getParameter(ROAD_OBJECTS, "")).getVector()) {
+                assigned.insert(id);
+            }
+        }
+    }
+    // build rtree for edges
+    NamedRTree r;
+    for (auto it = ec.begin(); it != ec.end(); ++it) {
+        NBEdge* edge = it->second;
+        Boundary bound = edge->getGeometry().getBoxBoundary();
+        bound.grow(maxDist);
+        float min[2] = { static_cast<float>(bound.xmin()), static_cast<float>(bound.ymin()) };
+        float max[2] = { static_cast<float>(bound.xmax()), static_cast<float>(bound.ymax()) };
+        r.Insert(min, max, edge);
+    }
+
+    for (auto itPoly = shc.getPolygons().begin(); itPoly != shc.getPolygons().end(); itPoly++) {
+        SUMOPolygon* p = itPoly->second;
+        Boundary bound = p->getShape().getBoxBoundary();
+        float min[2] = { static_cast<float>(bound.xmin()), static_cast<float>(bound.ymin()) };
+        float max[2] = { static_cast<float>(bound.xmax()), static_cast<float>(bound.ymax()) };
+        std::set<const Named*> edges;
+        Named::StoringVisitor visitor(edges);
+        r.Search(min, max, visitor);
+        std::vector<std::pair<double, std::string> > nearby;
+        for (const Named* namedEdge : edges) {
+            NBEdge* e = const_cast<NBEdge*>(dynamic_cast<const NBEdge*>(namedEdge));
+            const double distance = VectorHelper<double>::minValue(p->getShape().distances(e->getLaneShape(0), true));
+            if (distance <= maxDist) {
+                // sort by distance and ID to stabilize results
+                nearby.push_back(std::make_pair(distance, e->getID()));
+                //std::cout << " poly=" << p->getID() << " e=" << e->getID() << " dist=" << distance << "\n";
+            }
+        }
+        if (nearby.size() > 0) {
+            std::sort(nearby.begin(), nearby.end());
+            NBEdge* closest = ec.retrieve(nearby.front().second);
+            std::string objects = closest->getParameter(ROAD_OBJECTS, "");
+            if (objects != "") {
+                objects += " ";
+            }
+            objects += p->getID();
+            closest->setParameter(ROAD_OBJECTS, objects);
+            //std::cout << "poly=" << p->getID() << " closest=" << closest->getID() << "\n";
+        }
+    }
+    for (auto itPoi = shc.getPOIs().begin(); itPoi != shc.getPOIs().end(); itPoi++) {
+        PointOfInterest* p = itPoi->second;
+        float min[2] = { static_cast<float>(p->x()), static_cast<float>(p->y()) };
+        float max[2] = { static_cast<float>(p->x()), static_cast<float>(p->y()) };
+        std::set<const Named*> edges;
+        Named::StoringVisitor visitor(edges);
+        r.Search(min, max, visitor);
+        std::vector<std::pair<double, std::string> > nearby;
+        for (const Named* namedEdge : edges) {
+            NBEdge* e = const_cast<NBEdge*>(dynamic_cast<const NBEdge*>(namedEdge));
+            const double distance = e->getLaneShape(0).distance2D(*p, true);
+            if (distance != GeomHelper::INVALID_OFFSET && distance <= maxDist) {
+                // sort by distance and ID to stabilize results
+                nearby.push_back(std::make_pair(distance, e->getID()));
+                //if (p->getID() == "1275468911") {
+                //    std::cout << " poly=" << p->getID() << " e=" << e->getID() << " dist=" << distance << "\n";
+                //}
+            }
+        }
+        if (nearby.size() > 0) {
+            std::sort(nearby.begin(), nearby.end());
+            NBEdge* closest = ec.retrieve(nearby.front().second);
+            std::string objects = closest->getParameter(ROAD_OBJECTS, "");
+            if (objects != "") {
+                objects += " ";
+            }
+            objects += p->getID();
+            closest->setParameter(ROAD_OBJECTS, objects);
+            //std::cout << "poly=" << p->getID() << " closest=" << closest->getID() << "\n";
+        }
+    }
+}
+
+
+void
+NWWriter_OpenDrive::writeRoadObjectPOI(OutputDevice& device, const NBEdge* e, const PositionVector& roadShape, const PointOfInterest* poi) {
+    Position center = *poi;
+    const double edgeOffset = roadShape.nearest_offset_to_point2D(center, false);
+    if (edgeOffset == GeomHelper::INVALID_OFFSET) {
+        WRITE_WARNINGF("Cannot map road object POI '%' with center % onto edge '%'", poi->getID(), center, e->getID());
+        return;
+    }
+    Position edgePos = roadShape.positionAtOffset2D(edgeOffset);
+    double sideOffset = center.distanceTo2D(edgePos);
+    // determine sign of sideOffset
+    PositionVector tmp = roadShape.getSubpart2D(MAX2(0.0, edgeOffset - 1), MIN2(roadShape.length2D(), edgeOffset + 1));
+    tmp.move2side(sideOffset);
+    if (tmp.distance2D(center) < sideOffset) {
+        sideOffset *= -1;
+    }
+    device.openTag("object");
+    device.writeAttr("id", poi->getID());
+    device.writeAttr("type", poi->getShapeType());
+    device.writeAttr("name", StringUtils::escapeXML(poi->getParameter("name", ""), true));
+    device.writeAttr("s", edgeOffset);
+    device.writeAttr("t", sideOffset);
+    device.writeAttr("hdg", 0);
+    device.closeTag();
+}
+
+void
+NWWriter_OpenDrive::writeRoadObjectPoly(OutputDevice& device, const NBEdge* e, const PositionVector& roadShape, const SUMOPolygon* p) {
+    PositionVector shape = p->getShape();
+    Position center = shape.getPolygonCenter();
+
+    const double edgeOffset = roadShape.nearest_offset_to_point2D(center, false);
+    if (edgeOffset == GeomHelper::INVALID_OFFSET) {
+        WRITE_WARNINGF("Cannot map road object polygon '%' with center % onto edge '%'", p->getID(), center, e->getID());
+        return;
+    }
+    Position edgePos = roadShape.positionAtOffset2D(edgeOffset);
+    const double edgeAngle = roadShape.rotationAtOffset(edgeOffset);
+    double sideOffset = center.distanceTo2D(edgePos);
+    // determine sign of sideOffset
+    PositionVector tmp = roadShape.getSubpart2D(MAX2(0.0, edgeOffset - 1), MIN2(roadShape.length2D(), edgeOffset + 1));
+    tmp.move2side(sideOffset);
+    if (tmp.distance2D(center) < sideOffset) {
+        sideOffset *= -1;
+    }
+    //std::cout << " id=" << id
+    //    << " shape=" << shape
+    //    << " center=" << center
+    //    << " edgeOffset=" << edgeOffset
+    //    << "\n";
+    device.openTag("object");
+    device.writeAttr("id", p->getID());
+    device.writeAttr("type", p->getShapeType());
+    device.writeAttr("name", StringUtils::escapeXML(p->getParameter("name", ""), true));
+    device.writeAttr("s", edgeOffset);
+    device.writeAttr("t", sideOffset);
+    device.writeAttr("hdg", -edgeAngle);
+
+    //device.openTag("outlines");
+    device.openTag("outline");
+    device.writeAttr("id", 0);
+    device.writeAttr("fillType", "concrete");
+    device.writeAttr("outer", "true");
+    device.writeAttr("closed", p->getShape().isClosed() ? "true" : "false");
+    device.writeAttr("laneType", "border");
+
+    double height = 0;
+    try {
+        height = StringUtils::toDoubleSecure(p->getParameter("height", ""), 0);
+    } catch (NumberFormatException&) {}
+
+    shape.sub(center);
+    int i = 0;
+    for (Position pos : shape) {
+        device.openTag("cornerLocal");
+        device.writeAttr("u", pos.x());
+        device.writeAttr("v", pos.y());
+        device.writeAttr("z", MAX2(0.0, p->getShapeLayer()));
+        device.writeAttr("height", height);
+        device.writeAttr("id", i++);
+        device.closeTag();
+    }
+
+
+    //device.closeTag();
+    device.closeTag();
     device.closeTag();
 }
 

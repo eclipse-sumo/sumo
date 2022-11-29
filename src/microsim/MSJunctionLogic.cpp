@@ -34,12 +34,6 @@ MSLogicJunction::LinkBits MSJunctionLogic::myDummyFoes;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-int
-MSJunctionLogic::nLinks() {
-    return myNLinks;
-}
-
-
 MSJunctionLogic::MSJunctionLogic(int nLinks) :
     myNLinks(nLinks) {}
 

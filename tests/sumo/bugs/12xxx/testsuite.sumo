@@ -1,0 +1,8 @@
+# crash due to invalid bestlanes state
+ticket12150
+
+# crash due to missing lines attribute in ride
+ticket12167
+
+# failure to board
+ticket12168

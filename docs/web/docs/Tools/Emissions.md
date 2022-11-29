@@ -93,7 +93,7 @@ following columns:
 - HC emissions (in \[mg/s\])
 - PMx emissions (in \[mg/s\])
 - NOx emissions (in \[mg/s\])
-- fuel consumption (in \[ml/s\])
+- fuel consumption (in \[mg/s\])
 - electricity consumption (in \[Wh/s\])
 
 Additionally, the sums of the generated emissions / the consumed fuel

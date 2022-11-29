@@ -133,7 +133,7 @@ To only see the selected TAZ relations you need to further press the button "Red
 ![](../images/select_2.png)
 
 !!! caution 
-The "Reduce" action is mainly to help to get a better view about the demand distribution of the selected TAZ. Only the data of the selected TAZ relations will be kept after clicking "Reduce". If the save action (not save as) is made after the action "Reduce", the respective file will be overwritten and the data of other unselected TAZ will be lost. You can of course save the selected data with the "save as" action if it is your intention (see the next section).  
+    The "Reduce" action is mainly to help to get a better view about the demand distribution of the selected TAZ. Only the data of the selected TAZ relations will be kept after clicking "Reduce". If the save action (not save as) is made after the action "Reduce", the respective file will be overwritten and the data of other unselected TAZ will be lost. You can of course save the selected data with the "save as" action if it is your intention (see the next section).
 
 
 ### Save the selected TAZ relations

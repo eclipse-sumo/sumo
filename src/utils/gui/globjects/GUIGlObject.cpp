@@ -58,7 +58,8 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"crossing",                GLO_CROSSING},
     {"walkingArea",             GLO_WALKINGAREA},
     {"tlLogic",                 GLO_TLLOGIC},
-    {"type",                    GLO_TYPE},
+    {"edgeType",                GLO_EDGETYPE},
+    {"laneType",                GLO_LANETYPE},
     //
     {"parentChildLine",         GLO_PARENTCHILDLINE},
     //
@@ -129,13 +130,11 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"edgeData",                GLO_EDGEDATA},
     {"edgeRelData",             GLO_EDGERELDATA},
     {"TAZRelData",              GLO_TAZRELDATA},
-
-    {"meanDataEdge",            GLO_MEANDATAEDGE},
-    {"meanDataLane",            GLO_MEANDATALANE},
     //
     {"lockIcon",                GLO_LOCKICON},
     {"textName",                GLO_TEXTNAME},
     {"frontElement",            GLO_FRONTELEMENT},
+    {"geometryPoint",           GLO_GEOMETRYPOINT},
     {"dottedContour",           GLO_DOTTEDCONTOUR_INSPECTED},
     {"temporalShape",           GLO_TEMPORALSHAPE},
     {"rectangleSelection",      GLO_RECTANGLESELECTION},

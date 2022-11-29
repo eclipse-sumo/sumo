@@ -278,9 +278,14 @@ MSLaneChangerSublane::abortLCManeuver(MSVehicle* vehicle) {
 #endif
         outputLCEnded(vehicle, myCandi, myCandi, priorDirection);
     }
+    const double updatedSpeedLat = vehicle->getLaneChangeModel().getSpeedLat() != 0;
     vehicle->getLaneChangeModel().setSpeedLat(0);
     vehicle->getLaneChangeModel().setManeuverDist(0.);
     vehicle->getLaneChangeModel().updateTargetLane();
+    if (updatedSpeedLat) {
+        // update angle after having reset lateral speed
+        //vehicle->computeAngle();
+    }
 }
 
 

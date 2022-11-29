@@ -295,7 +295,7 @@ Lane::getInternalFoes(const std::string& laneID) {
     std::vector<const MSLane*>::const_iterator it;
     std::vector<std::string> foeIDs;
 
-    if (lane->isInternal() && lane->getLinkCont().size() > 0) {
+    if ((lane->isInternal() || lane->isCrossing()) && lane->getLinkCont().size() > 0) {
         MSLink* link = lane->getLinkCont().front();
         foeLanes = &link->getFoeLanes();
 

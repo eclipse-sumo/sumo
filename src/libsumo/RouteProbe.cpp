@@ -62,7 +62,7 @@ RouteProbe::getEdgeID(const std::string& probeID) {
 std::string
 RouteProbe::sampleLastRouteID(const std::string& probeID) {
     MSRouteProbe* rp = getRouteProbe(probeID);
-    const MSRoute* route = rp->sampleRoute(true);
+    ConstMSRoutePtr route = rp->sampleRoute(true);
     if (route == nullptr) {
         throw TraCIException("RouteProbe '" + probeID + "' did not collect any routes yet");
     }
@@ -72,7 +72,7 @@ RouteProbe::sampleLastRouteID(const std::string& probeID) {
 std::string
 RouteProbe::sampleCurrentRouteID(const std::string& probeID) {
     MSRouteProbe* rp = getRouteProbe(probeID);
-    const MSRoute* route = rp->sampleRoute(false);
+    ConstMSRoutePtr route = rp->sampleRoute(false);
     if (route == nullptr) {
         throw TraCIException("RouteProbe '" + probeID + "' did not collect any routes yet");
     }

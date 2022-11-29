@@ -87,10 +87,6 @@ GUIGLObjectPopupMenu::~GUIGLObjectPopupMenu() {
     for (const auto& pane : myMenuPanes) {
         delete pane;
     }
-    // remove popup menu from object
-    if (myObject) {
-        myObject->removedPopupMenu();
-    }
 }
 
 
@@ -110,6 +106,14 @@ GUIGLObjectPopupMenu::insertMenuPaneChild(FXMenuPane* child) {
     myMenuPanes.push_back(child);
 }
 
+
+void
+GUIGLObjectPopupMenu::removePopupFromObject() {
+    // remove popup menu from object
+    if (myObject) {
+        myObject->removedPopupMenu();
+    }
+}
 
 GUISUMOAbstractView*
 GUIGLObjectPopupMenu::getParentView() {

@@ -21,39 +21,20 @@
 ///
 // A single child window which contains a view of the simulation area
 /****************************************************************************/
-#include <config.h>
 
-#include <string>
-#include <vector>
-#include <fxkeys.h>
-#include <utils/common/UtilExceptions.h>
-#include <utils/geom/Position.h>
-#include <utils/geom/Boundary.h>
-#include <utils/foxtools/MFXUtils.h>
 #include <utils/foxtools/MFXCheckableButton.h>
 #include <utils/foxtools/MFXMenuButtonTooltip.h>
-#include <utils/foxtools/MFXImageHelper.h>
-#include <utils/gui/globjects/GUIGlObjectTypes.h>
-#include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/globjects/GUIShapeContainer.h>
-#include <utils/gui/images/GUIIcons.h>
-#include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
-#include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/windows/GUIAppEnum.h>
 #include <gui/dialogs/GUIDialog_GLObjChooser.h>
-#include <guisim/GUIVehicle.h>
 #include <guisim/GUIPerson.h>
 #include <guisim/GUIEdge.h>
 #include <guisim/GUILane.h>
 #include <guisim/GUINet.h>
 #include <guisim/GUIVehicleControl.h>
 #include <guisim/GUITransportableControl.h>
-#include <microsim/MSJunction.h>
-#include <microsim/MSGlobals.h>
 
-#include "GUIGlobals.h"
 #include "GUIViewTraffic.h"
 #include "GUIApplicationWindow.h"
 #include "GUISUMOViewParent.h"

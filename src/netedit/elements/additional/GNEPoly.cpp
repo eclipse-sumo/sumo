@@ -248,41 +248,44 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         const RGBColor color = isAttributeCarrierSelected() ? s.colorSettings.selectionColor : getShapeColor();
         const RGBColor invertedColor = color.invertedColor();
         const RGBColor darkerColor = color.changedBrightness(-32);
-        // push name (needed for getGUIGlObjectsUnderCursor(...)
-        GLHelper::pushName(getGlID());
-        // push layer matrix
-        GLHelper::pushMatrix();
-        // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getShapeLayer());
-        // check if we're drawing a polygon or a polyline
-        if (getFill()) {
-            if (s.drawForPositionSelection) {
-                // check if mouse is within geometry
-                if (myPolygonGeometry.getShape().around(mousePosition)) {
-                    // push matrix
-                    GLHelper::pushMatrix();
-                    // move to mouse position
-                    glTranslated(mousePosition.x(), mousePosition.y(), 0);
-                    // set color
-                    GLHelper::setColor(color);
-                    // draw circle
-                    GLHelper::drawFilledCircle(1, s.getCircleResolution());
-                    // pop matrix
-                    GLHelper::popMatrix();
+        // avoid draw invisible elements
+        if (color.alpha() != 0) {
+            // push name (needed for getGUIGlObjectsUnderCursor(...)
+            GLHelper::pushName(getGlID());
+            // push layer matrix
+            GLHelper::pushMatrix();
+            // translate to front
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getShapeLayer());
+            // check if we're drawing a polygon or a polyline
+            if (getFill()) {
+                if (s.drawForPositionSelection) {
+                    // check if mouse is within geometry
+                    if (myPolygonGeometry.getShape().around(mousePosition)) {
+                        // push matrix
+                        GLHelper::pushMatrix();
+                        // move to mouse position
+                        glTranslated(mousePosition.x(), mousePosition.y(), 0);
+                        // set color
+                        GLHelper::setColor(color);
+                        // draw circle
+                        GLHelper::drawFilledCircle(1, s.getCircleResolution());
+                        // pop matrix
+                        GLHelper::popMatrix();
+                    }
+                } else {
+                    // draw inner polygon
+                    GUIPolygon::drawInnerPolygon(s, this, this, myPolygonGeometry.getShape(), 0, getFill(), drawUsingSelectColor());
                 }
             } else {
-                // draw inner polygon
-                GUIPolygon::drawInnerPolygon(s, this, this, myPolygonGeometry.getShape(), 0, getFill(), drawUsingSelectColor());
+                // push matrix
+                GLHelper::pushMatrix();
+                // set color
+                GLHelper::setColor(color);
+                // draw geometry (polyline)
+                GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myPolygonGeometry, s.neteditSizeSettings.polylineWidth * polyExaggeration);
+                // pop matrix
+                GLHelper::popMatrix();
             }
-        } else {
-            // push matrix
-            GLHelper::pushMatrix();
-            // set color
-            GLHelper::setColor(color);
-            // draw geometry (polyline)
-            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myPolygonGeometry, s.neteditSizeSettings.polylineWidth * polyExaggeration);
-            // pop matrix
-            GLHelper::popMatrix();
         }
         // draw contour if shape isn't blocked
         if (!myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {

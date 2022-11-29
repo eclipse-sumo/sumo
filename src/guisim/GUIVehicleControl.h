@@ -67,7 +67,7 @@ public:
      * @see MSVehicleControl::buildVehicle
      */
     SUMOVehicle* buildVehicle(SUMOVehicleParameter* defs,
-                              const MSRoute* route, MSVehicleType* type,
+                              ConstMSRoutePtr route, MSVehicleType* type,
                               const bool ignoreStopErrors, const bool fromRouteFile = true,
                               bool addRouteStops = true) override;
     /// @}

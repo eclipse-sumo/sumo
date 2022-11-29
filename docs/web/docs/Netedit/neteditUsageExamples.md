@@ -177,7 +177,7 @@ directions. To make a unidirectional track usable in both directions,
 
 ## Creating a zipper merge
 
-1. use inspect mode to set junction type to 'zipper'
+1. use inspect mode to set junction type to 'zipper'.
 2. use connection mode to add 2 connections which enter the zipper junction with the same target lane. The second connection must be created with CTRL+Click to override conflict protection.
 3. optionally: use inspect mode and enable 'show connections' (Alt+5). Click on the zipper connections (brown) and customize 'visibilityDistance' to set the range where vehicles start zipper merging.
 
@@ -202,4 +202,25 @@ To clean up the states:
   - Object type: Lane
   - Attribute: allow
   - Value: "=pedestrian"
-3. press the `<del>` key.
+3. press the `<del>` key
+
+## Duplicating rightmost lane on all edges
+
+There are several solutions. The first one is as follows:
+
+1. toggle selection to work on lanes by default rather than edges (press Alt+5 when in select mode)
+2. select the desired lanes
+3. apply duplication by right clicking and going into lane operations
+
+The second solution is as follows:
+
+1. select the desired edges and go to the selection mode
+2. in selection panel on the left click: 'select children'
+3. toggle selection modification mode to 'keep'
+4. select lanes by attribute index=0 then apply selection
+5. apply duplication by right clicking and going into lane operations
+
+There is also another solution in case you want to add special lanes to your edges:
+
+1. select edges with the help of the select mode
+2. after right clicking use lane operation 'add restricted lane'

@@ -79,6 +79,10 @@ def getOptions(args=None):
     optParser.add_option("-p", "--pick-distance", dest="pickDist", type=float, default=1,
                          help="pick lines within the given distance in interactive plot mode")
     optParser.add_option("--label", help="plot label (default input file name")
+    optParser.add_option("--join-x", action="store_true", dest="joinx", default=False,
+                         help="if --xattr is a list concatenate the values")
+    optParser.add_option("--join-y", action="store_true", dest="joiny", default=False,
+                         help="if --yattr is a list concatenate the values")
     optParser.add_option("--xfactor", help="multiplier for x-data", type=float, default=1)
     optParser.add_option("--yfactor", help="multiplier for y-data", type=float, default=1)
     optParser.add_option("--invert-yaxis", dest="invertYAxis", action="store_true",
@@ -154,6 +158,9 @@ def getDataStream(options):
         parts = attr.split(',')
         allAttrs.update(parts)
         attr2parts[attr] = parts
+
+    splitX = len(attr2parts[options.xattr]) > 1 and not options.joinx
+    splitY = len(attr2parts[options.yattr]) > 1 and not options.joiny
 
     level = 0
     for event, elem in ET.iterparse(_open(options.files[0]), ("start", "end")):
@@ -241,14 +248,9 @@ def getDataStream(options):
                             skip = True
                             skippedLines[a] += 1
                     if not skip:
-                        toYield = []
-                        for a in attrs:
-                            if len(attr2parts[a]) == 1:
-                                toYield.append(values[a])
-                            else:
-                                toYield.append('|'.join([values[ap] for ap in attr2parts[a]]))
-                        yield toYield
-                        index += 1
+                        for toYield in combineValues(attrs, attr2parts, values, splitX, splitY):
+                            yield toYield
+                            index += 1
 
             for attr, count in skippedLines.items():
                 print("Warning: Skipped %s lines because of missing attributes '%s'." % (
@@ -277,18 +279,52 @@ def getDataStream(options):
                             else:
                                 skip = True
                     if not skip:
-                        toYield = []
-                        for a in attrs:
-                            if len(attr2parts[a]) == 1:
-                                toYield.append(values[a])
-                            else:
-                                toYield.append('|'.join([values[ap] for ap in attr2parts[a]]))
-                        yield toYield
-                        index += 1
+                        for toYield in combineValues(attrs, attr2parts, values, splitX, splitY):
+                            yield toYield
+                            index += 1
         return datastream
 
     else:
         sys.exit("Found attributes at elements %s but at most 2 elements are supported" % allElems)
+
+
+def combineValues(attrs, attr2parts, values, splitX, splitY):
+    needSplit = splitX or splitY
+    toYield = []
+    for a, split in zip(attrs, [False, splitX, splitY]):
+        if len(attr2parts[a]) == 1:
+            if needSplit:
+                toYield.append([values[a]])
+            else:
+                toYield.append(values[a])
+        else:
+            v = [values[ap] for ap in attr2parts[a]]
+            if needSplit and split:
+                toYield.append(v)
+            elif needSplit:
+                toYield.append(['|'.join(v)])
+            else:
+                toYield.append('|'.join(v))
+
+    if needSplit:
+        assert(len(toYield) == 3)
+        splitIndex = 0
+        for i in toYield[0]:
+            for ix, x in enumerate(toYield[1]):
+                for iy, y in enumerate(toYield[2]):
+                    if attrs[0] == NONE_ATTR:
+                        # build label from x or y parts
+                        i = ""
+                        if len(attr2parts[attrs[1]]) > 1:
+                            i += attr2parts[attrs[1]][ix]
+                        if len(attr2parts[attrs[2]]) > 1:
+                            if i != "":
+                                i += "|"
+                            i += attr2parts[attrs[2]][iy]
+                    yield [i, x, y]
+                    splitIndex += 1
+    else:
+        yield toYield
 
 
 def interpretValue(value):
@@ -310,6 +346,43 @@ def keepNumeric(d, xyIndex):
         if isnumeric(d[xyIndex][i]):
             res_x.append(d[0][i])
             res_y.append(d[1][i])
+    d[0].clear()
+    d[0].extend(res_x)
+    d[1].clear()
+    d[1].extend(res_y)
+
+
+def useWildcards(labels):
+    for label in labels:
+        if "*" in label or "?" in label or ("[" in label and "]" in label):
+            return True
+    return False
+
+def applyTicks(d, xyIndex, ticksFile):
+    offsets, labels = sumolib.visualization.helpers.parseTicks(ticksFile)
+    l2o = dict(zip(labels, offsets))
+    if useWildcards(labels):
+        def getOffset(val):
+            for label in labels:
+                if fnmatch.fnmatch(val, label):
+                    return l2o[label]
+            return None
+
+    else:
+        def getOffset(val):
+            return l2o.get(val)
+
+    res_x = []
+    res_y = []
+    for i in range(len(d[xyIndex])):
+        val = d[xyIndex][i]
+        o = getOffset(val)
+        if o is not None:
+            point = [d[0][i], d[1][i]]
+            point[xyIndex] = o
+            res_x.append(point[0])
+            res_y.append(point[1])
+
     d[0].clear()
     d[0].extend(res_x)
     d[1].clear()
@@ -392,8 +465,14 @@ def main(options):
         if numericYCount > 0 and stringYCount > 0:
             keepNumeric(d, ydata)
 
+        if options.xticksFile:
+            applyTicks(d, xdata, options.xticksFile)
+        if options.yticksFile:
+            applyTicks(d, ydata, options.yticksFile)
+
         xvalues = d[xdata]
         yvalues = d[ydata]
+
         if len(xvalues) == 0:
             assert(len(yvalues) == 0)
             continue

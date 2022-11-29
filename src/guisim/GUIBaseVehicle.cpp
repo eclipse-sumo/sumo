@@ -914,12 +914,12 @@ GUIBaseVehicle::drawRoute(const GUIVisualizationSettings& s, int routeNo, double
     }
     GLHelper::setColor(darker);
     if (routeNo == 0) {
-        drawRouteHelper(s, myVehicle.getRoute(), future, noLoop, darker);
+        drawRouteHelper(s, myVehicle.getRoutePtr(), future, noLoop, darker);
         return;
     }
-    const MSRoute* route = myRoutes->getRoute(routeNo - 1); // only prior routes are stored
+    ConstMSRoutePtr route = myRoutes->getRoute(routeNo - 1); // only prior routes are stored
     if (route != nullptr) {
-        drawRouteHelper(s, *route, future, noLoop, darker);
+        drawRouteHelper(s, route, future, noLoop, darker);
     }
 }
 
@@ -976,7 +976,9 @@ GUIBaseVehicle::drawStopLabels(const GUIVisualizationSettings& s, bool noLoop, c
                 }
             }
         }
-        if (stop.pars.until >= 0) {
+        if (stop.pars.ended >= 0 && MSGlobals::gUseStopEnded) {
+            label += " ended:" + time2string(stop.pars.ended);
+        } else if (stop.pars.until >= 0) {
             label += " until:" + time2string(stop.pars.until);
         }
         if (stop.duration >= 0 || stop.pars.duration > 0) {

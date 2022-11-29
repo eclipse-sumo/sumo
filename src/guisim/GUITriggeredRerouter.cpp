@@ -265,12 +265,12 @@ GUITriggeredRerouter::myEndElement(int element) {
         // add visualisation objects for switches
         if (ri.routeProbs.getProbs().size() > 1) {
             // find last common edge of all routes
-            const MSRoute* route0 = ri.routeProbs.getVals()[0];
+            ConstMSRoutePtr route0 = ri.routeProbs.getVals()[0];
             const MSEdge* lastEdge = nullptr;
             int nextIndex = 0;
             for (int i = 0; i < (int)route0->getEdges().size(); i++) {
                 const MSEdge* cand = route0->getEdges()[i];
-                for (const MSRoute* route : ri.routeProbs.getVals()) {
+                for (ConstMSRoutePtr route : ri.routeProbs.getVals()) {
                     const MSEdge* nextEdge = i < (int)route->getEdges().size() ? route->getEdges()[i] : nullptr;
                     if (nextEdge != cand) {
                         cand = nullptr;
@@ -354,7 +354,7 @@ void
 GUITriggeredRerouter::shiftProbs() {
     const RerouteInterval* const ri = getCurrentReroute(MSNet::getInstance()->getCurrentTimeStep());
     if (ri != nullptr && ri->routeProbs.getProbs().size() > 1) {
-        auto& rp = const_cast<RandomDistributor<const MSRoute*>&>(ri->routeProbs);
+        auto& rp = const_cast<RandomDistributor<ConstMSRoutePtr>&>(ri->routeProbs);
         myShiftProbDistIndex = myShiftProbDistIndex % rp.getProbs().size();
         double prob = rp.getProbs()[myShiftProbDistIndex];
         rp.add(rp.getVals()[myShiftProbDistIndex], -prob);

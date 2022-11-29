@@ -80,7 +80,7 @@
  * GUIVehicle - methods
  * ----------------------------------------------------------------------- */
 
-GUIVehicle::GUIVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
+GUIVehicle::GUIVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
                        MSVehicleType* type, const double speedFactor) :
     MSVehicle(pars, route, type, speedFactor),
     GUIBaseVehicle((MSBaseVehicle&) * this) {
@@ -662,18 +662,18 @@ GUIVehicle::drawBestLanes() const {
 
 
 void
-GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r, bool future, bool noLoop, const RGBColor& col) const {
+GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, ConstMSRoutePtr r, bool future, bool noLoop, const RGBColor& col) const {
     const double exaggeration = s.vehicleSize.getExaggeration(s, this) * (s.gaming ? 0.5 : 1);
-    MSRouteIterator start = future ? myCurrEdge : r.begin();
+    MSRouteIterator start = future ? myCurrEdge : r->begin();
     MSRouteIterator i = start;
     const std::vector<MSLane*>& bestLaneConts = getBestLanesContinuation();
     // draw continuation lanes when drawing the current route where available
-    int bestLaneIndex = (&r == myRoute ? 0 : (int)bestLaneConts.size());
+    int bestLaneIndex = (r == myRoute ? 0 : (int)bestLaneConts.size());
     std::map<const MSLane*, int> repeatLane; // count repeated occurrences of the same edge
     const double textSize = s.vehicleName.size / s.scale;
     const GUILane* prevLane = nullptr;
     int reversalIndex = 0;
-    const int indexDigits = (int)toString(r.size()).size();
+    const int indexDigits = (int)toString(r->size()).size();
     if (!isOnRoad() && !isParking()) {
         // simulation time has already advanced so isRemoteControlled is always false
         const std::string offRoadLabel = hasInfluencer() && getInfluencer()->isRemoteAffected(SIMSTEP) ? "offRoad" : "teleporting";
@@ -681,7 +681,7 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
     } else if (myLane->isInternal()) {
         bestLaneIndex++;
     }
-    for (; i != r.end(); ++i) {
+    for (; i != r->end(); ++i) {
         const GUILane* lane;
         if (bestLaneIndex < (int)bestLaneConts.size() && bestLaneConts[bestLaneIndex] != 0 && (*i) == &(bestLaneConts[bestLaneIndex]->getEdge())) {
             lane = static_cast<GUILane*>(bestLaneConts[bestLaneIndex]);

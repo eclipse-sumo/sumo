@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-05-17 12:49:02 by Eclipse SUMO netconvert Version v1_13_0+0274-acb1f9e
+<!-- generated on 2022-11-15 18:07:31 by Eclipse SUMO netconvert Version v1_15_0+0300-ac8d5f6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -162,7 +162,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="ring2" value="5,6,7,8"/>
     </tlLogic>
 
-    <junction id="0" type="traffic_light" x="500.00" y="500.00" incLanes="4fi_0 4fi_1 2fi_0 2fi_1 3fi_0 3fi_1 1fi_0 1fi_1" intLanes=":0_0_0 :0_1_0 :0_16_0 :0_17_0 :0_4_0 :0_5_0 :0_18_0 :0_19_0 :0_8_0 :0_9_0 :0_20_0 :0_21_0 :0_12_0 :0_13_0 :0_22_0 :0_23_0" shape="493.60,510.40 503.20,510.40 504.00,508.18 505.00,507.40 506.40,506.84 508.20,506.51 510.40,506.40 510.40,496.80 508.18,496.00 507.40,495.00 506.84,493.60 506.51,491.80 506.40,489.60 496.80,489.60 496.00,491.82 495.00,492.60 493.60,493.16 491.80,493.49 489.60,493.60 489.60,503.20 491.82,504.00 492.60,505.00 493.16,506.40 493.49,508.20">
+    <junction id="0" type="traffic_light" x="500.00" y="500.00" incLanes="4fi_0 4fi_1 2fi_0 2fi_1 3fi_0 3fi_1 1fi_0 1fi_1" intLanes=":0_0_0 :0_1_0 :0_16_0 :0_17_0 :0_4_0 :0_5_0 :0_18_0 :0_19_0 :0_8_0 :0_9_0 :0_20_0 :0_21_0 :0_12_0 :0_13_0 :0_22_0 :0_23_0" shape="493.60,510.40 503.20,510.40 504.00,508.18 505.00,507.40 506.40,506.84 508.20,506.51 510.40,506.40 510.40,496.80 508.18,496.00 507.40,495.00 506.84,493.60 506.51,491.80 506.40,489.60 496.80,489.60 496.00,491.82 495.00,492.60 493.60,493.16 491.80,493.49 489.60,493.60 489.60,503.20 491.82,504.00 492.60,505.00 493.16,506.40 493.49,508.20" rightOfWay="allwayStop">
         <request index="0"  response="0000000000000000" foes="1000010000100000" cont="0"/>
         <request index="1"  response="0100000001000000" foes="0111110001100000" cont="0"/>
         <request index="2"  response="0100001101000000" foes="0110001111100000" cont="1"/>
@@ -202,25 +202,25 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id=":0_22_0" type="internal" x="496.58" y="500.19" incLanes=":0_14_0 2fi_0" intLanes=":0_1_0 :0_2_0 :0_3_0 :0_4_0 :0_5_0 :0_9_0 :0_10_0"/>
     <junction id=":0_23_0" type="internal" x="490.80" y="499.20" incLanes=":0_15_0 2fi_0 3fi_1 4fi_0" intLanes=":0_0_0 :0_5_0 :0_10_0"/>
 
-    <connection from="1fi" to="3o" fromLane="0" toLane="0" via=":0_12_0" tl="0" linkIndex="12" dir="r" state="o"/>
-    <connection from="1fi" to="2o" fromLane="0" toLane="0" via=":0_13_0" tl="0" linkIndex="13" dir="s" state="o"/>
-    <connection from="1fi" to="4o" fromLane="1" toLane="0" via=":0_14_0" tl="0" linkIndex="14" dir="l" state="o"/>
-    <connection from="1fi" to="1o" fromLane="1" toLane="0" via=":0_15_0" tl="0" linkIndex="15" dir="t" state="o"/>
+    <connection from="1fi" to="3o" fromLane="0" toLane="0" via=":0_12_0" tl="0" linkIndex="12" dir="r" state="w"/>
+    <connection from="1fi" to="2o" fromLane="0" toLane="0" via=":0_13_0" tl="0" linkIndex="13" dir="s" state="w"/>
+    <connection from="1fi" to="4o" fromLane="1" toLane="0" via=":0_14_0" tl="0" linkIndex="14" dir="l" state="w"/>
+    <connection from="1fi" to="1o" fromLane="1" toLane="0" via=":0_15_0" tl="0" linkIndex="15" dir="t" state="w"/>
     <connection from="1o" to="1fi" fromLane="0" toLane="1" via=":1_0_0" dir="t" state="M"/>
-    <connection from="2fi" to="4o" fromLane="0" toLane="0" via=":0_4_0" tl="0" linkIndex="4" dir="r" state="o"/>
-    <connection from="2fi" to="1o" fromLane="0" toLane="0" via=":0_5_0" tl="0" linkIndex="5" dir="s" state="o"/>
-    <connection from="2fi" to="3o" fromLane="1" toLane="0" via=":0_6_0" tl="0" linkIndex="6" dir="l" state="o"/>
-    <connection from="2fi" to="2o" fromLane="1" toLane="0" via=":0_7_0" tl="0" linkIndex="7" dir="t" state="o"/>
+    <connection from="2fi" to="4o" fromLane="0" toLane="0" via=":0_4_0" tl="0" linkIndex="4" dir="r" state="w"/>
+    <connection from="2fi" to="1o" fromLane="0" toLane="0" via=":0_5_0" tl="0" linkIndex="5" dir="s" state="w"/>
+    <connection from="2fi" to="3o" fromLane="1" toLane="0" via=":0_6_0" tl="0" linkIndex="6" dir="l" state="w"/>
+    <connection from="2fi" to="2o" fromLane="1" toLane="0" via=":0_7_0" tl="0" linkIndex="7" dir="t" state="w"/>
     <connection from="2o" to="2fi" fromLane="0" toLane="1" via=":2_0_0" dir="t" state="M"/>
-    <connection from="3fi" to="2o" fromLane="0" toLane="0" via=":0_8_0" tl="0" linkIndex="8" dir="r" state="O"/>
-    <connection from="3fi" to="4o" fromLane="0" toLane="0" via=":0_9_0" tl="0" linkIndex="9" dir="s" state="O"/>
-    <connection from="3fi" to="1o" fromLane="1" toLane="0" via=":0_10_0" tl="0" linkIndex="10" dir="l" state="o"/>
-    <connection from="3fi" to="3o" fromLane="1" toLane="0" via=":0_11_0" tl="0" linkIndex="11" dir="t" state="o"/>
+    <connection from="3fi" to="2o" fromLane="0" toLane="0" via=":0_8_0" tl="0" linkIndex="8" dir="r" state="w"/>
+    <connection from="3fi" to="4o" fromLane="0" toLane="0" via=":0_9_0" tl="0" linkIndex="9" dir="s" state="w"/>
+    <connection from="3fi" to="1o" fromLane="1" toLane="0" via=":0_10_0" tl="0" linkIndex="10" dir="l" state="w"/>
+    <connection from="3fi" to="3o" fromLane="1" toLane="0" via=":0_11_0" tl="0" linkIndex="11" dir="t" state="w"/>
     <connection from="3o" to="3fi" fromLane="0" toLane="1" via=":3_0_0" dir="t" state="M"/>
-    <connection from="4fi" to="1o" fromLane="0" toLane="0" via=":0_0_0" tl="0" linkIndex="0" dir="r" state="O"/>
-    <connection from="4fi" to="3o" fromLane="0" toLane="0" via=":0_1_0" tl="0" linkIndex="1" dir="s" state="O"/>
-    <connection from="4fi" to="2o" fromLane="1" toLane="0" via=":0_2_0" tl="0" linkIndex="2" dir="l" state="o"/>
-    <connection from="4fi" to="4o" fromLane="1" toLane="0" via=":0_3_0" tl="0" linkIndex="3" dir="t" state="o"/>
+    <connection from="4fi" to="1o" fromLane="0" toLane="0" via=":0_0_0" tl="0" linkIndex="0" dir="r" state="w"/>
+    <connection from="4fi" to="3o" fromLane="0" toLane="0" via=":0_1_0" tl="0" linkIndex="1" dir="s" state="w"/>
+    <connection from="4fi" to="2o" fromLane="1" toLane="0" via=":0_2_0" tl="0" linkIndex="2" dir="l" state="w"/>
+    <connection from="4fi" to="4o" fromLane="1" toLane="0" via=":0_3_0" tl="0" linkIndex="3" dir="t" state="w"/>
     <connection from="4o" to="4fi" fromLane="0" toLane="1" via=":4_0_0" dir="t" state="M"/>
 
     <connection from=":0_0" to="1o" fromLane="0" toLane="0" dir="r" state="M"/>

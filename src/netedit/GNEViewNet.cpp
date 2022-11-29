@@ -462,6 +462,12 @@ GNEViewNet::getObjectsUnderCursor() const {
 }
 
 
+void
+GNEViewNet::updateObjectsUnderCursor(const Position &pos) {
+    myObjectsUnderCursor.updateObjectUnderCursor(getGUIGlObjectsAtPosition(pos, 0.1));
+}
+
+
 const GNEViewNetHelper::MoveMultipleElementValues&
 GNEViewNet::getMoveMultipleElementValues() const {
     return myMoveMultipleElementValues;
@@ -5377,6 +5383,8 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             }
             // check that we have clicked over network element element
             if (AC) {
+                // now filter locked elements forcing excluding walkingAreas
+                myObjectsUnderCursor.filterLockedElements(myLockManager, {GLO_WALKINGAREA});
                 // now check if we want only delete geometry points
                 if (myViewParent->getDeleteFrame()->getDeleteOptions()->deleteOnlyGeometryPoints()) {
                     // only remove geometry point

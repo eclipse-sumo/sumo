@@ -212,17 +212,8 @@ public:
         } catch (EmptyData&) {
             // general
             return false;
-        } catch (NumberFormatException&) {
-            // numbers
-            return false;
-        } catch (TimeFormatException&) {
-            // time
-            return false;
-        } catch (BoolFormatException&) {
-            // booleans
-            return false;
-        } catch (InvalidArgument&) {
-            // colors
+        } catch (FormatException&) {
+            // numbers, time, boolean, colors
             return false;
         }
         return true;

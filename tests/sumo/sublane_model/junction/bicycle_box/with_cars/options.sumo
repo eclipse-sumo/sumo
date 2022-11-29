@@ -1,0 +1,4 @@
+-n net.net.xml -r input_routes.rou.xml --lateral-resolution 0.8
+--lanechange-output lanechanges.xml
+--no-step-log
+-t

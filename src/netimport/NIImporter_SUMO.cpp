@@ -726,6 +726,9 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes& attrs) {
             // dead end is a computed status. Reset this to unknown so it will
             // be corrected if additional connections are loaded
             type = SumoXMLNodeType::UNKNOWN;
+        } else if (type == SumoXMLNodeType::INTERNAL) {
+            WRITE_WARNINGF("Invalid node type '%' for junction '%' in input network", toString(SumoXMLNodeType::INTERNAL), id);
+            type = SumoXMLNodeType::UNKNOWN;
         }
     }
     Position pos = readPosition(attrs, id, ok);

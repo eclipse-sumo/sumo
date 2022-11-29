@@ -209,3 +209,40 @@ MSVCR140.dll). You can check if all dependencies are correct using
 ### In debug mode, execution cannot proceed because MSVCR120D.dll/MSVCR140D.dll was not found
 
 Your version of Visual Studio doesn't support Debugging, you can only compile in release mode.
+
+## How to build JuPedSim and then build SUMO with JuPedSim
+
+### Build JuPedSim
+
+1. You need to clone the repository https://github.com/JuPedSim/jpscore and checkout the _SUMO-integration_ branch.
+2. You need to install vcpkg (documentation available [here](https://vcpkg.io/en/getting-started.html)).
+3. Using vcpkg, download and compile the third party dependencies:
+    
+	```
+    vcpkg.exe install boost:x64-windows-release fmt:x64-windows-release zlib:x64-windows-release spdlog:x64-windows-release poly2tri:x64-windows-release glm:x64-windows-release cgal:x64-windows-release pybind11:x64-windows-release
+    ```
+	
+    Note that `x64-windows-release` is used for the _Release_ mode, whereas we use `x64-windows` for the _Debug_ mode.
+ 
+4. In the 'jpscore' directory, create a 'build' directory. From that directory, run CMake as follows:
+	
+    ```
+    cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=/c/Users/[username]/[path-to-vcpkg]/installed/x64-windows-release/ -DBUILD_JPSVIS=OFF -G"Visual Studio 15 2017 Win64" ..
+    ```
+	
+    The flag `BUILD_JPSVIS` is turned off to disable the build of JuPedSim's visualization tool.
+ 
+5. Then open the Visual Studio solution file that has been created in that directory, select either the Debug or Release mode at the bottom of Visual Studio and then build.
+6. You can copy to some place the freshly built binaries by typing `make install /c/Users/[username]/[path-to-jpscore]/install`. You will need this path later when compiling SUMO with JuPedSim.
+
+### Build SUMO with JuPedSim
+
+1. Build SUMO as usual, Visual Studio will say that it can't find JuPedSim. Then in the CMake cache file, search for the `JUPEDSIM_DIR` variable and set it with the install path mentionned above:
+
+    ```
+	JUPEDSIM_DIR:PATH=/c/Users/[username]/[path-to-jpscore]/install
+    ```
+	
+2. Then rebuild SUMO; JuPedSim is found.
+3. The JuPedSIM and third-party binaries need to be copied to the SUMO 'bin' directory for execution (`jupedism.dll`, `mpfr-6.dll`, `gmp-10.dll`, `spdlog.dll` and `fmt.dll`). These binaries are located in the 'build/bin' subdirectory of jpscore or in the subdirectory 'installed' of vcpkg.
+4. Also note that in order to use JuPedSim, you need to put `<pedestrian.model value="jupedsim"/>` in your SUMO config file.

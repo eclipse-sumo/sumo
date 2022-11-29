@@ -2330,6 +2330,12 @@ MSLane::isNormal() const {
 }
 
 
+bool
+MSLane::isCrossing() const {
+    return myEdge->isCrossing();
+}
+
+
 MSVehicle*
 MSLane::getLastFullVehicle() const {
     if (myVehicles.size() == 0) {

@@ -1,6 +1,10 @@
 # declare a NEMA controller
 basic
 
+# Copy of off_priority_option
+off_priority
+off_priority_option
+
 # declare a NEMA controller
 NEMA_noLeftTurnLane
 

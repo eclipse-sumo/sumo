@@ -96,7 +96,7 @@ public:
     virtual bool shapeDrawed();
 
     /// @brief function called after set a valid attribute in AttributeCreator/AttributeEditor/ParametersEditor/...
-    virtual void attributeUpdated();
+    virtual void attributeUpdated(SumoXMLAttr attribute);
 
     /// @brief open GNEAttributesCreator extended dialog
     virtual void attributesEditorExtendedDialogOpened();

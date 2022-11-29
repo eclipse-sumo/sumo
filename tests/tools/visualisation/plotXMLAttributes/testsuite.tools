@@ -14,8 +14,20 @@ summary_no_id
 # plot summary output which doesn't have an id attribute
 summary_no_id_explicit
 
+# plot summary output which doesn't have an id attribute, running and halting
+summary_multi_y_split
+
 # plot categorial data
 lanechange_reason
+
+# plot categorial data
+lanechange_reason_sort
+
+# plot categorial data
+lanechange_reason_sort_reposition
+
+# plot categorial data
+lanechange_reason_filter
 
 # plot optional values
 lanechange_missing_data
@@ -25,3 +37,6 @@ edgeRelations_multi_id
 
 # plot turn counts
 edgeRelations_multi_x
+
+# plot stop-output  timing over stop id (wildcard to group stop elements that belong to the same station)
+stops_filter_pattern

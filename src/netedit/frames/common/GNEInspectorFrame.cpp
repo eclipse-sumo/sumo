@@ -834,7 +834,7 @@ GNEInspectorFrame::ParametersEditor::onCmdEditParameters(FXObject*, FXSelector, 
                 // write debug information
                 WRITE_DEBUG("Close multiple parameters dialog");
                 // update frame parent after attribute successfully set
-                myInspectorFrameParent->attributeUpdated();
+                myInspectorFrameParent->attributeUpdated(GNE_ATTR_PARAMETERS);
                 // Refresh parameter EditorInspector
                 refreshParametersEditor();
             } else {
@@ -848,7 +848,7 @@ GNEInspectorFrame::ParametersEditor::onCmdEditParameters(FXObject*, FXSelector, 
                 // write debug information
                 WRITE_DEBUG("Close single parameters dialog");
                 // update frame parent after attribute successfully set
-                myInspectorFrameParent->attributeUpdated();
+                myInspectorFrameParent->attributeUpdated(GNE_ATTR_PARAMETERS);
                 // Refresh parameter EditorInspector
                 refreshParametersEditor();
             } else {
@@ -892,7 +892,7 @@ GNEInspectorFrame::ParametersEditor::onCmdSetParameters(FXObject*, FXSelector, v
                 myInspectorFrameParent->myViewNet->getUndoList()->end();
             }
             // update frame parent after attribute successfully set
-            myInspectorFrameParent->attributeUpdated();
+            myInspectorFrameParent->attributeUpdated(GNE_ATTR_PARAMETERS);
         } else {
             myTextFieldParameters->setTextColor(FXRGB(255, 0, 0));
         }
@@ -1381,7 +1381,7 @@ GNEInspectorFrame::inspectClickedElement(const GNEViewNetHelper::ObjectsUnderCur
 
 
 void
-GNEInspectorFrame::attributeUpdated() {
+GNEInspectorFrame::attributeUpdated(SumoXMLAttr /*attribute*/) {
     myAttributesEditor->refreshAttributeEditor(false, false);
     myNeteditAttributesEditor->refreshNeteditAttributesEditor(true);
     myGEOAttributesEditor->refreshGEOAttributesEditor(true);

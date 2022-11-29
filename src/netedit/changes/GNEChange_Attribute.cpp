@@ -81,12 +81,10 @@ GNEChange_Attribute::undo() {
             myAC->updateGeometry();
         }
         // if is a dataelement, update attribute colors
-        if (myAC->getTagProperty().isDataElement()) {
-            if (myAC->getTagProperty().isGenericData()) {
-                myAC->getNet()->getAttributeCarriers()->retrieveDataSet(myAC->getAttribute(GNE_ATTR_DATASET))->updateAttributeColors();
-            } else {
-                myAC->getNet()->getAttributeCarriers()->retrieveDataSet(myAC->getAttribute(SUMO_ATTR_ID))->updateAttributeColors();
-            }
+        if (myAC->getTagProperty().isGenericData()) {
+            myAC->getNet()->getAttributeCarriers()->retrieveDataSet(myAC->getAttribute(GNE_ATTR_DATASET))->updateAttributeColors();
+        } else if (myAC->getTagProperty().getTag() == SUMO_TAG_DATASET) {
+            myAC->getNet()->getAttributeCarriers()->retrieveDataSet(myAC->getAttribute(SUMO_ATTR_ID))->updateAttributeColors();
         }
         // check if networkElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
         if (myAC->getTagProperty().isNetworkElement()) {
@@ -115,12 +113,10 @@ GNEChange_Attribute::redo() {
             myAC->updateGeometry();
         }
         // if is a dataelement, update attribute colors
-        if (myAC->getTagProperty().isDataElement()) {
-            if (myAC->getTagProperty().isGenericData()) {
-                myAC->getNet()->getAttributeCarriers()->retrieveDataSet(myAC->getAttribute(GNE_ATTR_DATASET))->updateAttributeColors();
-            } else {
-                myAC->getNet()->getAttributeCarriers()->retrieveDataSet(myAC->getAttribute(SUMO_ATTR_ID))->updateAttributeColors();
-            }
+        if (myAC->getTagProperty().isGenericData()) {
+            myAC->getNet()->getAttributeCarriers()->retrieveDataSet(myAC->getAttribute(GNE_ATTR_DATASET))->updateAttributeColors();
+        } else if (myAC->getTagProperty().getTag() == SUMO_TAG_DATASET) {
+            myAC->getNet()->getAttributeCarriers()->retrieveDataSet(myAC->getAttribute(SUMO_ATTR_ID))->updateAttributeColors();
         }
         // check if networkElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
         if (myAC->getTagProperty().isNetworkElement()) {

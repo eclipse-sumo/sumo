@@ -306,8 +306,11 @@ public:
     // @brief update vehicle geometries
     void updateVehicleStackLabels();
 
-    /// @brief draw edge geometry points (note: This function is called by GNELane::drawGL(...)
-    void drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane* lane) const;
+    // @brief update person geometries
+    void updatePersonStackLabels();
+
+    // @brief update vehicle geometries
+    void updateContainerStackLabels();
 
     /// @brief draw dotted contour for the given dottedGeometries
     static void drawDottedContourEdge(const GUIVisualizationSettings& s, const GUIDottedGeometry::DottedContourType type, const GNEEdge* edge,
@@ -429,17 +432,41 @@ private:
     /// @brief get vehicles a that start over this edge
     const std::map<const GNELane*, std::vector<GNEDemandElement*> > getVehiclesOverEdgeMap() const;
 
+    /// @brief get persons a that start over this edge
+    const std::map<const GNELane*, std::vector<GNEDemandElement*> > getPersonsOverEdgeMap() const;
+
+    /// @brief get containers a that start over this edge
+    const std::map<const GNELane*, std::vector<GNEDemandElement*> > getContainersOverEdgeMap() const;
+
+    /// @brief draw edge geometry points (note: This function is called by GNELane::drawGL(...)
+    void drawEdgeGeometryPoints(const GUIVisualizationSettings& s) const;
+
+    /// @brief draw start extreme geometry point
+    void drawStartGeometryPoint(const GUIVisualizationSettings& scircleWidth, const double circleWidth, const double exaggeration) const;
+
+    /// @brief draw end extreme geometry point
+    void drawEndGeometryPoint(const GUIVisualizationSettings& s, const double circleWidth, const double exaggeration) const;
+
     /// @brief draw edge name
     void drawEdgeName(const GUIVisualizationSettings& s) const;
 
     /// @brief draw edgeStopOffset
     void drawLaneStopOffset(const GUIVisualizationSettings& s) const;
 
+    /// @brief draw children
+    void drawChildrens(const GUIVisualizationSettings& s) const;
+
     /// @brief draw TAZElements
     void drawTAZElements(const GUIVisualizationSettings& s) const;
 
     /// @brief draw edge shape (only one line)
-    void drawEdgeShape() const;
+    void drawEdgeShape(const GUIVisualizationSettings& s) const;
+
+    /// @brief set geometry point color
+    void setGeometryPointColor(const Position &geometryPointPos, const double circleWidth, const RGBColor &geometryPointColor) const;
+
+    /// @brief check if draw big geometry points
+    bool drawBigGeometryPoints() const;
 
     /// @brief check if given stacked positions are overlapped
     bool areStackPositionOverlapped(const GNEEdge::StackPosition& vehicleA, const GNEEdge::StackPosition& vehicleB) const;

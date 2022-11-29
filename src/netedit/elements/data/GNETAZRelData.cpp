@@ -66,18 +66,18 @@ myLastWidth(0) {
 GNETAZRelData::~GNETAZRelData() {}
 
 
-void
+RGBColor
 GNETAZRelData::setColor(const GUIVisualizationSettings& s) const {
-    RGBColor col;
+    RGBColor color;
     if (isAttributeCarrierSelected()) {
-        col = s.colorSettings.selectedEdgeDataColor;
+        color = s.colorSettings.selectedEdgeDataColor;
     } else {
-        if (!setFunctionalColor(s.dataColorer.getActive(), col)) {
+        if (!setFunctionalColor(s.dataColorer.getActive(), color)) {
             double val = getColorValue(s, s.dataColorer.getActive());
-            col = s.dataColorer.getScheme().getColor(val);
+            color = s.dataColorer.getScheme().getColor(val);
         }
     }
-    GLHelper::setColor(col);
+    return color;
 }
 
 
@@ -251,8 +251,9 @@ GNETAZRelData::fixGenericDataProblem() {
 
 void
 GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
+    const auto &color = setColor(s);
     // draw TAZRels
-    if (drawTAZRel()) {
+    if ((color.alpha() != 0) && drawTAZRel()) {
         // get flag for only draw contour
         const bool onlyDrawContour = !isGenericDataVisible();
         // push name (needed for getGUIGlObjectsUnderCursor(...)
@@ -263,7 +264,7 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::pushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_TAZ + 1);
-        setColor(s);
+        GLHelper::setColor(color);
         // check if update lastWidth
         const double width = onlyDrawContour ? 0.1 :  0.5 * s.tazRelWidthExaggeration;
         if (width != myLastWidth) {

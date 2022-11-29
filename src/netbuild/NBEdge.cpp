@@ -463,7 +463,16 @@ NBEdge::init(int noLanes, bool tryIgnoreNodePositions, const std::string& origID
     // revisit geometry
     //  should have at least two points at the end...
     //  and in dome cases, the node positions must be added
-    myGeom.removeDoublePoints(POSITION_EPS, true);
+    // attempt symmetrical removal for forward and backward direction
+    // (very important for bidiRail)
+    if (myFrom->getID() < myTo->getID()) {
+        PositionVector reverse = myGeom.reverse();
+        reverse.removeDoublePoints(POSITION_EPS, true);
+        myGeom = reverse.reverse();
+    } else {
+        myGeom.removeDoublePoints(POSITION_EPS, true);
+    }
+
     if (!tryIgnoreNodePositions || myGeom.size() < 2) {
         if (myGeom.size() == 0) {
             myGeom.push_back(myFrom->getPosition());
@@ -2473,35 +2482,38 @@ NBEdge::computeEdge2Edges(bool noLeftMovers) {
     if (myStep >= EdgeBuildingStep::EDGE2EDGES) {
         return true;
     }
-    const EdgeVector& o = myTo->getOutgoingEdges();
     const bool fromRail = isRailway(getPermissions());
-    for (EdgeVector::const_iterator i = o.begin(); i != o.end(); ++i) {
-        if (noLeftMovers && myTo->isLeftMover(this, *i)) {
+    for (NBEdge* out : myTo->getOutgoingEdges()) {
+        if (noLeftMovers && myTo->isLeftMover(this, out)) {
             continue;
         }
         // avoid sharp railway turns
-        if (fromRail && isRailway((*i)->getPermissions())) {
-            const double angle = fabs(NBHelpers::normRelAngle(getAngleAtNode(myTo), (*i)->getAngleAtNode(myTo)));
+        if (fromRail && isRailway(out->getPermissions())) {
+            const double angle = fabs(NBHelpers::normRelAngle(getAngleAtNode(myTo), out->getAngleAtNode(myTo)));
             if (angle > 150) {
                 continue;
             } else if (angle > 90) {
                 // possibly the junction is large enough to achieve a plausible radius:
                 const PositionVector& fromShape = myLanes.front().shape;
-                const PositionVector& toShape = (*i)->getLanes().front().shape;
-                PositionVector shape = myTo->computeSmoothShape(fromShape, toShape, 5, getTurnDestination() == *i, 5, 5);
+                const PositionVector& toShape = out->getLanes().front().shape;
+                PositionVector shape = myTo->computeSmoothShape(fromShape, toShape, 5, getTurnDestination() == out, 5, 5);
                 const double radius = shape.length2D() / DEG2RAD(angle);
                 const double minRadius = (getPermissions() & SVC_TRAM) != 0 ? 20 : 80;
-                //std::cout << getID() << " to=" << (*i)->getID() << " radius=" << radius << " minRadius=" << minRadius << "\n";
+                //std::cout << getID() << " to=" << out->getID() << " radius=" << radius << " minRadius=" << minRadius << "\n";
                 if (radius < minRadius) {
                     continue;
                 }
             }
         }
-        if (*i == myTurnDestination) {
+        if (out == myTurnDestination) {
             // will be added by appendTurnaround
             continue;
         }
-        myConnections.push_back(Connection(-1, *i, -1));
+        if ((getPermissions() & out->getPermissions() & ~SVC_PEDESTRIAN) == 0) {
+            // no common permissions
+            continue;
+        }
+        myConnections.push_back(Connection(-1, out, -1));
     }
     myStep = EdgeBuildingStep::EDGE2EDGES;
     return true;
@@ -2751,7 +2763,7 @@ NBEdge::recheckLanes() {
             // This check is only done for edges which connections were assigned
             //  using the standard algorithm.
             for (int i = 0; i < (int)myLanes.size(); i++) {
-                if (connNumbersPerLane[i] == 0 && !isForbidden(getPermissions((int)i))) {
+                if (connNumbersPerLane[i] == 0 && !isForbidden(getPermissions(i) & ~SVC_PEDESTRIAN)) {
                     // dead-end lane found
                     bool hasDeadEnd = true;
                     // find lane with two connections or more to the right of the current lane
@@ -2784,6 +2796,80 @@ NBEdge::recheckLanes() {
                                 }
                                 hasDeadEnd = false;
                             }
+                        }
+                    }
+                    if (hasDeadEnd && myTo->getOutgoingEdges().size() > 1) {
+                        int passengerLanes = 0;
+                        int passengerTargetLanes = 0;
+                        for (const Lane& lane : myLanes) {
+                            if ((lane.permissions & SVC_PASSENGER) != 0) {
+                                passengerLanes++;
+                            }
+                        }
+                        for (const NBEdge* out : myTo->getOutgoingEdges()) {
+                            if (!isTurningDirectionAt(out)) {
+                                for (const Lane& lane : out->getLanes()) {
+                                    if ((lane.permissions & SVC_PASSENGER) != 0) {
+                                        passengerTargetLanes++;
+                                    }
+                                }
+                            }
+                        }
+                        if (passengerLanes > 0 && passengerLanes <= passengerTargetLanes) {
+                            // no need for dead-ends
+                            if (i > 0) {
+                                // check if a connection to the right has a usable target to the left of its target
+                                std::vector<Connection> rightCons = getConnectionsFromLane(i - 1);
+                                if (rightCons.size() > 0) {
+                                    const Connection& rc = rightCons.back();
+                                    NBEdge* to = rc.toEdge;
+                                    int toLane = rc.toLane + 1;
+                                    if (toLane < to->getNumLanes()
+                                            && (getPermissions(i) & ~SVC_PEDESTRIAN & to->getPermissions(toLane)) != 0
+                                            && !hasConnectionTo(to, toLane)) {
+                                        setConnection(i, to, toLane, Lane2LaneInfoType::COMPUTED);
+                                        hasDeadEnd = false;
+                                        sortOutgoingConnectionsByAngle();
+                                        sortOutgoingConnectionsByIndex();
+                                    }
+                                    if (hasDeadEnd) {
+                                        // check if a connection to the right has a usable target to the right of its target
+                                        toLane = rc.toLane - 1;
+                                        if (toLane >= 0
+                                                && (getPermissions(i) & ~SVC_PEDESTRIAN & to->getPermissions(rc.toLane)) != 0
+                                                && (getPermissions(rc.fromLane) & ~SVC_PEDESTRIAN & to->getPermissions(toLane)) != 0
+                                                && !hasConnectionTo(to, toLane)) {
+                                            // shift the right lane connection target right and connect the dead lane to the old target
+                                            getConnectionRef(rc.fromLane, to, rc.toLane).toLane = toLane;
+                                            setConnection(i, to, toLane + 1, Lane2LaneInfoType::COMPUTED);
+                                            hasDeadEnd = false;
+                                            sortOutgoingConnectionsByAngle();
+                                            sortOutgoingConnectionsByIndex();
+                                        }
+                                    }
+                                }
+                            }
+                            if (hasDeadEnd && i < getNumLanes() - 1) {
+                                // check if a connection to the left has a usable target to the right of its target
+                                std::vector<Connection> leftCons = getConnectionsFromLane(i + 1);
+                                if (leftCons.size() > 0) {
+                                    NBEdge* to = leftCons.front().toEdge;
+                                    int toLane = leftCons.front().toLane - 1;
+                                    if (toLane >= 0
+                                            && (getPermissions(i) & ~SVC_PEDESTRIAN & to->getPermissions(toLane)) != 0
+                                            && !hasConnectionTo(to, toLane)) {
+                                        setConnection(i, to, toLane, Lane2LaneInfoType::COMPUTED);
+                                        hasDeadEnd = false;
+                                        sortOutgoingConnectionsByAngle();
+                                        sortOutgoingConnectionsByIndex();
+                                    }
+                                }
+                            }
+#ifdef ADDITIONAL_WARNINGS
+                            if (hasDeadEnd) {
+                                WRITE_WARNING("Found dead-end lane " + getLaneID(i));
+                            }
+#endif
                         }
                     }
                 }
@@ -2897,36 +2983,6 @@ NBEdge::recheckLanes() {
             }
             if (!hasAlternative) {
                 WRITE_WARNING("Road lane ends on bikeLane for connection " + c.getDescription(this));
-            }
-        }
-    }
-    // check for dead-end passenger lanes when there are still unconnected outgoing edges
-    int passengerLanes = 0;
-    int passengerTargetLanes = 0;
-    for (const Lane& lane : myLanes) {
-        if ((lane.permissions & SVC_PASSENGER) != 0) {
-            passengerLanes++;
-        }
-    }
-    for (const NBEdge* out : myTo->getOutgoingEdges()) {
-        if (!isTurningDirectionAt(out)) {
-            for (const Lane& lane : out->getLanes()) {
-                if ((lane.permissions & SVC_PASSENGER) != 0) {
-                    passengerTargetLanes++;
-                }
-            }
-        }
-    }
-    if (passengerLanes <= passengerTargetLanes) {
-        // no need for dead-ends
-        connNumbersPerLane = std::vector<int>(myLanes.size(), 0);
-        for (const Connection& c : myConnections) {
-            connNumbersPerLane[c.fromLane]++;
-        }
-        for (int i = 0; i < (int)myLanes.size(); i++) {
-            if (connNumbersPerLane[i] == 0 && !isForbidden(getPermissions(i))) {
-                // dead-end lane found
-                WRITE_WARNING("Found dead-end lane " + getLaneID(i));
             }
         }
     }
@@ -3352,7 +3408,7 @@ NBEdge::appendTurnaround(bool noTLSControlled, bool noFringe, bool onlyDeadends,
         }
     }
     // avoid railway turn-arounds
-    if (isRailway(getPermissions()) && isRailway(myTurnDestination->getPermissions())
+    if (isRailway(getPermissions() & myTurnDestination->getPermissions())
             && fabs(NBHelpers::normRelAngle(getAngleAtNode(myTo), myTurnDestination->getAngleAtNode(myTo))) > 90) {
         // except at dead-ends on bidi-edges where they model a reversal in train direction
         // @todo #4382: once the network fringe is tagged, it also should not receive turn-arounds)

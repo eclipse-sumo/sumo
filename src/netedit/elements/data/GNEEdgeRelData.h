@@ -50,8 +50,7 @@ public:
     ~GNEEdgeRelData();
 
     /// @brief get edge rel data color
-    void setColor(const GUIVisualizationSettings& s) const;
-
+    RGBColor setColor(const GUIVisualizationSettings& s) const;
     double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
 
     /// @brief check if current edge rel data is visible

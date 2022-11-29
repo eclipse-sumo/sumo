@@ -37,7 +37,7 @@
 // ===========================================================================
 
 GNEEdgeType::GNEEdgeType(GNECreateEdgeFrame* createEdgeFrame) :
-    GNENetworkElement(createEdgeFrame->getViewNet()->getNet(), "", GLO_EDGE, SUMO_TAG_TYPE,
+    GNENetworkElement(createEdgeFrame->getViewNet()->getNet(), "", GLO_EDGETYPE, SUMO_TAG_TYPE,
                       GUIIconSubSys::getIcon(GUIIcon::EDGETYPE), {}, {}, {}, {}, {}, {}) {
     // create laneType
     myLaneTypes.push_back(new GNELaneType(this));
@@ -45,10 +45,10 @@ GNEEdgeType::GNEEdgeType(GNECreateEdgeFrame* createEdgeFrame) :
 
 
 GNEEdgeType::GNEEdgeType(const GNEEdgeType* edgeType) :
-    GNENetworkElement(edgeType->getNet(), edgeType->getID(), GLO_EDGE, SUMO_TAG_TYPE,
+    GNENetworkElement(edgeType->getNet(), edgeType->getID(), GLO_EDGETYPE, SUMO_TAG_TYPE,
                       GUIIconSubSys::getIcon(GUIIcon::EDGETYPE), {}, {}, {}, {}, {}, {}),
                                 Parameterised(edgeType->getParametersMap()),
-NBTypeCont::EdgeTypeDefinition(edgeType) {
+    NBTypeCont::EdgeTypeDefinition(edgeType) {
 }
 
 

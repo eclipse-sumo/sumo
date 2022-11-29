@@ -300,9 +300,11 @@ MSNet::~MSNet() {
     delete myRouteLoaders;
     if (myPersonControl != nullptr) {
         delete myPersonControl;
+        myPersonControl = nullptr; // just to have that clear for later cleanups
     }
     if (myContainerControl != nullptr) {
         delete myContainerControl;
+        myContainerControl = nullptr; // just to have that clear for later cleanups
     }
     delete myVehicleControl; // must happen after deleting transportables
     // delete events late so that vehicles can get rid of references first
@@ -625,9 +627,7 @@ MSNet::closeSimulation(SUMOTime start, const std::string& reason) {
     if (MSStopOut::active() && OptionsCont::getOptions().getBool("stop-output.write-unfinished")) {
         MSStopOut::getInstance()->generateOutputForUnfinished();
     }
-    if (OptionsCont::getOptions().getBool("vehroute-output.write-unfinished")) {
-        MSDevice_Vehroutes::generateOutputForUnfinished();
-    }
+    MSDevice_Vehroutes::writePendingOutput(OptionsCont::getOptions().getBool("vehroute-output.write-unfinished"));
     if (OptionsCont::getOptions().getBool("tripinfo-output.write-unfinished")) {
         MSDevice_Tripinfo::generateOutputForUnfinished();
     }

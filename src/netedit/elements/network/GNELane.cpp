@@ -276,80 +276,72 @@ GNELane::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoLi
 
 void
 GNELane::drawLinkNo(const GUIVisualizationSettings& s) const {
-    // first check that drawLinkJunctionIndex must be drawn
-    if (s.drawLinkJunctionIndex.show(myParentEdge->getToJunction())) {
-        // get connections
-        const std::vector<NBEdge::Connection>& cons = myParentEdge->getNBEdge()->getConnectionsFromLane(myIndex);
-        // get number of links
-        const int noLinks = (int)cons.size();
-        // only continue if there is links
-        if (noLinks > 0) {
-            // push link matrix
-            GLHelper::pushMatrix();
-            // move front
-            glTranslated(0, 0, GLO_TEXTNAME);
-            // calculate width
-            const double width = myParentEdge->getNBEdge()->getLaneWidth(myIndex) / (double) noLinks;
-            // get X1
-            double x1 = myParentEdge->getNBEdge()->getLaneWidth(myIndex) / 2;
-            // iterate over links
-            for (int i = noLinks; --i >= 0;) {
-                // calculate x2
-                const double x2 = x1 - (double)(width / 2.);
-                // get link index
-                const int linkIndex = myParentEdge->getNBEdge()->getToNode()->getConnectionIndex(myParentEdge->getNBEdge(),
-                                      cons[s.lefthand ? noLinks - 1 - i : i]);
-                // draw link index
-                GLHelper::drawTextAtEnd(toString(linkIndex), myLaneGeometry.getShape(), x2, s.drawLinkJunctionIndex, s.scale);
-                // update x1
-                x1 -= width;
+    // only draw links number depending of the scale and if isn't being drawn for selecting
+    if ((s.scale >= 10) && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
+        // first check that drawLinkJunctionIndex must be drawn
+        if (s.drawLinkJunctionIndex.show(myParentEdge->getToJunction())) {
+            // get connections
+            const std::vector<NBEdge::Connection>& cons = myParentEdge->getNBEdge()->getConnectionsFromLane(myIndex);
+            // get number of links
+            const int noLinks = (int)cons.size();
+            // only continue if there is links
+            if (noLinks > 0) {
+                // push link matrix
+                GLHelper::pushMatrix();
+                // move front
+                glTranslated(0, 0, GLO_TEXTNAME);
+                // calculate width
+                const double width = myParentEdge->getNBEdge()->getLaneWidth(myIndex) / (double) noLinks;
+                // get X1
+                double x1 = myParentEdge->getNBEdge()->getLaneWidth(myIndex) / 2;
+                // iterate over links
+                for (int i = noLinks; --i >= 0;) {
+                    // calculate x2
+                    const double x2 = x1 - (double)(width / 2.);
+                    // get link index
+                    const int linkIndex = myParentEdge->getNBEdge()->getToNode()->getConnectionIndex(myParentEdge->getNBEdge(),
+                                          cons[s.lefthand ? noLinks - 1 - i : i]);
+                    // draw link index
+                    GLHelper::drawTextAtEnd(toString(linkIndex), myLaneGeometry.getShape(), x2, s.drawLinkJunctionIndex, s.scale);
+                    // update x1
+                    x1 -= width;
+                }
+                // pop link matrix
+                GLHelper::popMatrix();
             }
-            // pop link matrix
-            GLHelper::popMatrix();
+        }
+        // draw TLSLink No
+        if (s.drawLinkTLIndex.show(myParentEdge->getToJunction()) && (myParentEdge->getToJunction()->getNBNode()->getControllingTLS().size() > 0)) {
+            // get connections
+            const std::vector<NBEdge::Connection>& cons = myParentEdge->getNBEdge()->getConnectionsFromLane(myIndex);
+            // get numer of links
+            const int noLinks = (int)cons.size();
+            // only continue if there are links
+            if (noLinks > 0) {
+                // push link matrix
+                GLHelper::pushMatrix();
+                // move t front
+                glTranslated(0, 0, GLO_TEXTNAME);
+                // calculate width
+                const double w = myParentEdge->getNBEdge()->getLaneWidth(myIndex) / (double) noLinks;
+                // calculate x1
+                double x1 = myParentEdge->getNBEdge()->getLaneWidth(myIndex) / 2;
+                // iterate over links
+                for (int i = noLinks; --i >= 0;) {
+                    // calculate x2
+                    const double x2 = x1 - (double)(w / 2.);
+                    // get link number
+                    const int linkNo = cons[s.lefthand ? noLinks - 1 - i : i].tlLinkIndex;
+                    // draw link number
+                    GLHelper::drawTextAtEnd(toString(linkNo), myLaneGeometry.getShape(), x2, s.drawLinkTLIndex, s.scale);
+                    // update x1
+                    x1 -= w;
+                }
+                // pop link matrix
+                GLHelper::popMatrix();
+            }
         }
     }
-}
-
-
-void
-GNELane::drawTLSLinkNo(const GUIVisualizationSettings& s) const {
-    // first check that drawLinkTLIndex must be drawn
-    if (s.drawLinkTLIndex.show(myParentEdge->getToJunction()) && (myParentEdge->getToJunction()->getNBNode()->getControllingTLS().size() > 0)) {
-        // get connections
-        const std::vector<NBEdge::Connection>& cons = myParentEdge->getNBEdge()->getConnectionsFromLane(myIndex);
-        // get numer of links
-        const int noLinks = (int)cons.size();
-        // only continue if there are links
-        if (noLinks > 0) {
-            // push link matrix
-            GLHelper::pushMatrix();
-            // move t front
-            glTranslated(0, 0, GLO_TEXTNAME);
-            // calculate width
-            const double w = myParentEdge->getNBEdge()->getLaneWidth(myIndex) / (double) noLinks;
-            // calculate x1
-            double x1 = myParentEdge->getNBEdge()->getLaneWidth(myIndex) / 2;
-            // iterate over links
-            for (int i = noLinks; --i >= 0;) {
-                // calculate x2
-                const double x2 = x1 - (double)(w / 2.);
-                // get link number
-                const int linkNo = cons[s.lefthand ? noLinks - 1 - i : i].tlLinkIndex;
-                // draw link number
-                GLHelper::drawTextAtEnd(toString(linkNo), myLaneGeometry.getShape(), x2, s.drawLinkTLIndex, s.scale);
-                // update x1
-                x1 -= w;
-            }
-            // pop link matrix
-            GLHelper::popMatrix();
-        }
-    }
-}
-
-
-void
-GNELane::drawLinkRules(const GUIVisualizationSettings& /*s*/) const {
-    // currently unused
 }
 
 
@@ -490,9 +482,13 @@ GNELane::drawLane2LaneConnections() const {
 void
 GNELane::drawGL(const GUIVisualizationSettings& s) const {
     // get lane drawing constants
-    LaneDrawingConstants laneDrawingConstants(s, this);
+    const LaneDrawingConstants laneDrawingConstants(s, this);
     // get lane color
     const RGBColor color = setLaneColor(s);
+    // avoid draw invisible elements
+    if (color.alpha() == 0) {
+        return;
+    }
     // get flag for draw lane as railway
     const bool drawRailway = drawAsRailway(s);
     // we draw the lanes with reduced width so that the lane markings below are visible (this avoids artifacts at geometry corners without having to)
@@ -563,8 +559,6 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             drawTextures(s, laneDrawingConstants);
             // draw start end shape points
             drawStartEndShapePoints(s);
-            // draw edge geometry points
-            myParentEdge->drawEdgeGeometryPoints(s, this);
         }
         // draw stopOffsets
         const auto& laneStopOffset = myParentEdge->getNBEdge()->getLaneStruct(myIndex).laneStopOffset;
@@ -573,98 +567,22 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         }
         // Pop layer matrix
         GLHelper::popMatrix();
-        // only draw details depending of the scale and if isn't being drawn for selecting
-        if (((s.scale * laneDrawingConstants.exaggeration) >= 1.) && (s.scale >= 10) && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
-            // Push layer matrix
-            GLHelper::pushMatrix();
-            // translate to front (note: Special case)
-            if (myNet->getViewNet()->getFrontAttributeCarrier() == myParentEdge) {
-                glTranslated(0, 0, GLO_FRONTELEMENT);
-            } else {
-                myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_LANEARROWS);
-            }
-            // draw arrows
-            drawArrows(s, spreadSuperposed);
-            // Pop layer matrix
-            GLHelper::popMatrix();
-        }
-
-        // if shape is being edited, draw point and green line
-        if (myShapeEdited) {
-            // push shape edited matrix
-            GLHelper::pushMatrix();
-            // translate
-            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_JUNCTION + 1);
-            // set selected edge color
-            GLHelper::setColor(s.colorSettings.editShapeColor);
-            // draw again to show the selected edge
-            GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), {}, 0.25);
-            // move front
-            glTranslated(0, 0, 1);
-            // color
-            const RGBColor darkerColor = s.colorSettings.editShapeColor.changedBrightness(-32);
-            // draw geometry points
-            GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry.getShape(), darkerColor, RGBColor::BLACK,
-                                            s.neteditSizeSettings.laneGeometryPointRadius, 1, myNet->getViewNet()->getNetworkViewOptions().editingElevation(), true);
-            // Pop shape edited matrix
-            GLHelper::popMatrix();
-        }
+        // draw lane arrows
+        drawLaneArrows(s, laneDrawingConstants.exaggeration, spreadSuperposed);
+        // draw shape edited
+        drawShapeEdited(s);
         // Pop lane Name
         GLHelper::popName();
         // Pop edge Name
         GLHelper::popName();
-        // only draw links number depending of the scale and if isn't being drawn for selecting
-        if ((s.scale >= 10) && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
-            // draw link number
-            drawLinkNo(s);
-            // draw TLS link number
-            drawTLSLinkNo(s);
-        }
+        // draw link numbers
+        drawLinkNo(s);
         // draw lock icon
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), 1);
-        // check if mark lane (and their parent edge)
-        if ((gPostDrawing.markedLane == nullptr) &&
-                (myLaneGeometry.getShape().distance2D(myNet->getViewNet()->getPositionInformation()) <= laneDrawingConstants.halfWidth)) {
-            // mark lane and their parent edge
-            gPostDrawing.markedLane = this;
-            gPostDrawing.markedEdge = myParentEdge;
-        }
         // check if mouse is over element
-        if (myParentEdge->getLanes().size() == 1) {
-            mouseWithinGeometry(getLaneShape(), laneDrawingConstants.halfWidth);
-        } else if (myNet->getViewNet()->getNetworkViewOptions().selectEdges() && !myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
-            mouseWithinGeometry(getLaneShape(), laneDrawingConstants.halfWidth, myParentEdge->getGUIGlObject());
-        } else if (!myNet->getViewNet()->getNetworkViewOptions().selectEdges() && myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
-            mouseWithinGeometry(getLaneShape(), laneDrawingConstants.halfWidth, myParentEdge->getGUIGlObject());
-        } else {
-            mouseWithinGeometry(getLaneShape(), laneDrawingConstants.halfWidth);
-        }
-        // check if dotted contours has to be drawn
-        if (!drawRailway) {
-            // inspect contour
-            if (myNet->getViewNet()->isAttributeCarrierInspected(this) ||
-                    ((myNet->getViewNet()->isAttributeCarrierInspected(myParentEdge) && (myParentEdge->getLanes().size() == 1)))) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, getLaneShape(), laneDrawingConstants.halfWidth, 1, true, true);
-            }
-            // front contour
-            if ((myNet->getViewNet()->getFrontAttributeCarrier() == this) ||
-                    ((myNet->getViewNet()->getFrontAttributeCarrier() == myParentEdge) && (myParentEdge->getLanes().size() == 1))) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, getLaneShape(), laneDrawingConstants.halfWidth, 1, true, true);
-            }
-            // orange contour
-            if (myNet->getViewNet()->getViewParent()->getAdditionalFrame()->getLanesSelector()->isNetworkElementSelected(this) ||
-                    (myNet->getViewNet()->getViewParent()->getAdditionalFrame()->getEdgesSelector()->isNetworkElementSelected(myParentEdge) && (myParentEdge->getLanes().size() == 1))) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::ORANGE, getLaneShape(), laneDrawingConstants.halfWidth, 1, true, true);
-            }
-            // delete contour
-            if (myNet->getViewNet()->drawDeleteContour(this, this)) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, getLaneShape(), laneDrawingConstants.halfWidth, 1, true, true);
-            }
-            // select contour
-            if (myNet->getViewNet()->drawSelectContour(this, this)) {
-                GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, getLaneShape(), laneDrawingConstants.halfWidth, 1, true, true);
-            }
-        }
+        checkMouseOverLane(laneDrawingConstants.halfWidth);
+        // draw dotted contours
+        drawDottedContours(s, drawRailway, laneDrawingConstants.halfWidth);
         // draw children
         drawChildren(s);
         // draw path additional elements
@@ -1229,6 +1147,103 @@ GNELane::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList)
     undoList->begin(GUIIcon::LANE, "moving " + toString(SUMO_ATTR_CUSTOMSHAPE) + " of " + getTagStr());
     undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(moveResult.shapeToUpdate)));
     undoList->end();
+}
+
+
+void
+GNELane::drawLaneArrows(const GUIVisualizationSettings& s, const double exaggeration, const bool spreadSuperposed) const {
+    // only draw details depending of the scale and if isn't being drawn for selecting
+    if (((s.scale * exaggeration) >= 1.) && (s.scale >= 10) && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
+        // Push layer matrix
+        GLHelper::pushMatrix();
+        // translate to front (note: Special case)
+        if (myNet->getViewNet()->getFrontAttributeCarrier() == myParentEdge) {
+            glTranslated(0, 0, GLO_FRONTELEMENT);
+        } else {
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_LANEARROWS);
+        }
+        // draw arrows
+        drawArrows(s, spreadSuperposed);
+        // Pop layer matrix
+        GLHelper::popMatrix();
+    }
+}
+
+
+void
+GNELane::drawShapeEdited(const GUIVisualizationSettings& s) const {
+    // if shape is being edited, draw point and green line
+    if (myShapeEdited) {
+        // push shape edited matrix
+        GLHelper::pushMatrix();
+        // translate
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_JUNCTION + 1);
+        // set selected edge color
+        GLHelper::setColor(s.colorSettings.editShapeColor);
+        // draw again to show the selected edge
+        GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), {}, 0.25);
+        // move front
+        glTranslated(0, 0, 1);
+        // color
+        const RGBColor darkerColor = s.colorSettings.editShapeColor.changedBrightness(-32);
+        // draw geometry points
+        GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry.getShape(), darkerColor, RGBColor::BLACK,
+                                        s.neteditSizeSettings.laneGeometryPointRadius, 1, myNet->getViewNet()->getNetworkViewOptions().editingElevation(), true);
+        // Pop shape edited matrix
+        GLHelper::popMatrix();
+    }
+}
+
+
+void
+GNELane::checkMouseOverLane(const double laneWidth) const {
+    bool withinGeometry = false;
+    if (myParentEdge->getLanes().size() == 1) {
+        withinGeometry = mouseWithinGeometry(getLaneShape(), laneWidth);
+    } else if (myNet->getViewNet()->getNetworkViewOptions().selectEdges() && !myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
+        withinGeometry = mouseWithinGeometry(getLaneShape(), laneWidth, myParentEdge->getGUIGlObject());
+    } else if (!myNet->getViewNet()->getNetworkViewOptions().selectEdges() && myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
+        withinGeometry = mouseWithinGeometry(getLaneShape(), laneWidth, myParentEdge->getGUIGlObject());
+    } else {
+        withinGeometry = mouseWithinGeometry(getLaneShape(), laneWidth);
+    }
+    // check if mark lane (and their parent edge)
+    if (withinGeometry && (gPostDrawing.markedLane == nullptr)) {
+        // mark lane and their parent edge
+        gPostDrawing.markedLane = this;
+        gPostDrawing.markedEdge = myParentEdge;
+    }
+}
+
+
+void
+GNELane::drawDottedContours(const GUIVisualizationSettings& s, const bool drawRailway, const double laneWidth) const {
+    // check if dotted contours has to be drawn
+    if (!drawRailway) {
+        // inspect contour
+        if (myNet->getViewNet()->isAttributeCarrierInspected(this) ||
+                ((myNet->getViewNet()->isAttributeCarrierInspected(myParentEdge) && (myParentEdge->getLanes().size() == 1)))) {
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::INSPECT, getLaneShape(), laneWidth, 1, true, true);
+        }
+        // front contour
+        if ((myNet->getViewNet()->getFrontAttributeCarrier() == this) ||
+                ((myNet->getViewNet()->getFrontAttributeCarrier() == myParentEdge) && (myParentEdge->getLanes().size() == 1))) {
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::FRONT, getLaneShape(), laneWidth, 1, true, true);
+        }
+        // orange contour
+        if (myNet->getViewNet()->getViewParent()->getAdditionalFrame()->getLanesSelector()->isNetworkElementSelected(this) ||
+                (myNet->getViewNet()->getViewParent()->getAdditionalFrame()->getEdgesSelector()->isNetworkElementSelected(myParentEdge) && (myParentEdge->getLanes().size() == 1))) {
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::ORANGE, getLaneShape(), laneWidth, 1, true, true);
+        }
+        // delete contour
+        if (myNet->getViewNet()->drawDeleteContour(this, this)) {
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::REMOVE, getLaneShape(), laneWidth, 1, true, true);
+        }
+        // select contour
+        if (myNet->getViewNet()->drawSelectContour(this, this)) {
+            GUIDottedGeometry::drawDottedContourShape(s, GUIDottedGeometry::DottedContourType::SELECT, getLaneShape(), laneWidth, 1, true, true);
+        }
+    }
 }
 
 

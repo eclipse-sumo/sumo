@@ -107,7 +107,7 @@ certain meaning and value range:
 | radius          | positive float;                                                                                                                                                                                                           | optional turning radius (for all corners) for that node in meters *(default 1.5)*                                                                  |
 | shape           | List of positions; each position is encoded in x,y or x,y,z in meters (do not separate the numbers with a space\!).                                                                                                       | A custom shape for that node. If less than two positions are given, netconvert will reset that node to use a computed shape.                       |
 | keepClear       | bool                                                                                                                                                                                                                      | Whether the [junction-blocking-heuristic](../Simulation/Intersections.md#junction_blocking) should be activated at this node *(default true)* |
-| rightOfWay      | string                                                                                                                                                                                                                    | Set algorithm for computing [\#Right-of-way](#right-of-way). Allowed values are *default*, *edgePriority* and *allwayStop*   |
+| rightOfWay      | string                                                                                                                                                                                                                    | Set algorithm for computing [\#Right-of-way](#right-of-way). Allowed values are *default*, *edgePriority*, *mixedPriority*, and *allwayStop*   |
 | fringe      | string                                                                                                                                                                                                                    | Clarify whether this junction is on the [network fringe](#fringe). Allowed values are *default*, *outer* and *inner*      |
 | controlledInner | list of edge ids                                                                                                                                                                                                          | Edges which shall be controlled by a joined TLS despite being incoming as well as outgoing to the jointly controlled nodes                         |
 
@@ -214,6 +214,7 @@ error and will yield in a program stop:
   any phase whenever it is safe to do so (after stopping once). This
   behavior is known as
   [right-turn-on-red](https://en.wikipedia.org/wiki/Right_turn_on_red).
+- `dead_end`: There are no connections at this node. This type is assigned automatically. Using this as input will trigger guessing the type.
 
 ## Right-of-way
 
@@ -234,6 +235,12 @@ by itself. It sorts edges according to attributes *priority*, *speed* and
 determined and will receive right-of-way. All other edges will be
 classified as minor.
 
+### rightOfWay="mixedPriority"
+This behaves like "default".
+Setting this value is only useful when configuring the switched-off behavior of
+intersections controlled by traffic lights of type [NEMA](../Simulation/NEMA.md).
+In this case it corresponds to main roads having priority (yellow blinking) and side roads having to stop (red blinking).
+
 ### rightOfWay="edgePriority"
 This mode is useful for customizing
 right-of-way by tuning edge *priority* attributes. The relationship
@@ -244,6 +251,7 @@ directions are also evaluated.
 ### rightOfWay="allwayStop"
 This mode is only used for configuring the behavior of traffic light junctions when switching the [traffic light off](../Simulation/Traffic_Lights.md#switching_tls_off).
 When this mode is used, the junction will behave like [type](#node_types) `allway_stop` in the 'off' state.
+This is used as the default for nodes controlled by traffic lights of type [NEMA](../Simulation/NEMA.md).
 
 ### Special Cases
 

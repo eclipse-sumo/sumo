@@ -303,7 +303,7 @@ GNERouteHandler::buildFlowOverRoute(const CommonXMLStructure::SumoBaseObject* /*
 
 
 void
-GNERouteHandler::buildTrip(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& vehicleParameters,
+GNERouteHandler::buildTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
                            const std::string& fromEdgeID, const std::string& toEdgeID) {
     // parse edges
     const auto fromEdge = parseEdge(SUMO_TAG_TRIP, fromEdgeID);
@@ -319,6 +319,10 @@ GNERouteHandler::buildTrip(const CommonXMLStructure::SumoBaseObject* /*sumoBaseO
         } else if (vehicleParameters.wasSet(VEHPARS_DEPARTSPEED_SET) && (vehicleParameters.departSpeedProcedure == DepartSpeedDefinition::GIVEN) && (vType->getAttributeDouble(SUMO_ATTR_MAXSPEED) < vehicleParameters.departSpeed)) {
             writeError("Invalid " + toString(SUMO_ATTR_DEPARTSPEED) + " used in " + toString(vehicleParameters.tag) + " '" + vehicleParameters.id + "'. " + toString(vehicleParameters.departSpeed) + " is greater than vType" + toString(SUMO_ATTR_MAXSPEED));
         } else {
+            // check if upate via attribute
+            if (sumoBaseObject->hasStringListAttribute(SUMO_ATTR_VIA)) {
+                vehicleParameters.via = sumoBaseObject->getStringListAttribute(SUMO_ATTR_VIA);
+            }
             // create trip or flow using tripParameters
             GNEDemandElement* trip = new GNEVehicle(SUMO_TAG_TRIP, myNet, vType, fromEdge, toEdge, vehicleParameters);
             if (myAllowUndoRedo) {
@@ -382,7 +386,7 @@ GNERouteHandler::buildTripJunctions(const CommonXMLStructure::SumoBaseObject* /*
 }
 
 void
-GNERouteHandler::buildFlow(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& vehicleParameters,
+GNERouteHandler::buildFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
                            const std::string& fromEdgeID, const std::string& toEdgeID) {
     // parse edges
     const auto fromEdge = parseEdge(SUMO_TAG_FLOW, fromEdgeID);
@@ -398,6 +402,10 @@ GNERouteHandler::buildFlow(const CommonXMLStructure::SumoBaseObject* /*sumoBaseO
         } else if (vehicleParameters.wasSet(VEHPARS_DEPARTSPEED_SET) && (vehicleParameters.departSpeedProcedure == DepartSpeedDefinition::GIVEN) && (vType->getAttributeDouble(SUMO_ATTR_MAXSPEED) < vehicleParameters.departSpeed)) {
             writeError("Invalid " + toString(SUMO_ATTR_DEPARTSPEED) + " used in " + toString(vehicleParameters.tag) + " '" + vehicleParameters.id + "'. " + toString(vehicleParameters.departSpeed) + " is greater than vType" + toString(SUMO_ATTR_MAXSPEED));
         } else {
+            // check if upate via attribute
+            if (sumoBaseObject->hasStringListAttribute(SUMO_ATTR_VIA)) {
+                vehicleParameters.via = sumoBaseObject->getStringListAttribute(SUMO_ATTR_VIA);
+            }
             // create trip or flow using tripParameters
             GNEDemandElement* flow = new GNEVehicle(SUMO_TAG_FLOW, myNet, vType, fromEdge, toEdge, vehicleParameters);
             if (myAllowUndoRedo) {

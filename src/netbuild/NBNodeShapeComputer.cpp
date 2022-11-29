@@ -221,6 +221,10 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
                               geomsCCW[*i].nearest_offset_to_point2D(p),
                               geomsCW[*i].nearest_offset_to_point2D(p));
             if (dist < 0) {
+                if (isRailway((*i)->getPermissions())) {
+                    // better not mess up bidi geometries
+                    return PositionVector();
+                }
                 // ok, we have the problem that even the extrapolated geometry
                 //  does not reach the point
                 // in this case, the geometry has to be extenden... too bad ...

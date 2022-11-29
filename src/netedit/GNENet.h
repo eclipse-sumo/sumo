@@ -523,6 +523,9 @@ public:
 
     /// @}
 
+    /// @brief variable used for write headers in additional, demand and data elements
+    static const std::map<SumoXMLAttr, std::string> EMPTY_HEADER;
+
 protected:
     /// @brief the rtree which contains all GUIGlObjects (so named for historical reasons)
     SUMORTree myGrid;
@@ -606,6 +609,9 @@ private:
     /// @brief write vTypes sorted by ID
     void writeVTypes(OutputDevice& device, const bool additionalFile) const;
 
+    /// @brief write meanData element by type and sorted by ID
+    void writeMeanDatas(OutputDevice& device, SumoXMLTag tag) const;
+
     /// @brief write vType comment
     bool writeVTypeComment(OutputDevice& device, const bool additionalFile) const;
 
@@ -636,6 +642,12 @@ private:
     /// @brief write Wire comment
     bool writeWireComment(OutputDevice& device) const;
 
+    /// @brief write meanDataEdge comment
+    bool writeMeanDataEdgeComment(OutputDevice& device) const;
+
+    /// @brief write Wire comment
+    bool writeMeanDataLaneComment(OutputDevice& device) const;
+
     /// @brief replace in list attribute
     static void replaceInListAttribute(GNEAttributeCarrier* ac, SumoXMLAttr key, const std::string& which, const std::string& by, GNEUndoList* undoList);
 
@@ -647,9 +659,6 @@ private:
 
     /// @brief marker for whether the z-boundary is initialized
     static const double Z_INITIALIZED;
-
-    /// @brief variable used for write headers in additional, demand and data elements
-    static const std::map<SumoXMLAttr, std::string> EMPTY_HEADER;
 
     /// @brief Invalidated copy constructor.
     GNENet(const GNENet&) = delete;

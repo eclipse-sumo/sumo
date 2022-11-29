@@ -35,12 +35,12 @@ the following command should work:
 Contact
 -------
 
-To stay informed, we have a mailing list for SUMO
+To stay informed, we have a mailing list for SUMO, which 
 [you can subscribe](https://dev.eclipse.org/mailman/listinfo/sumo-user) to.
 Messages to the list can be sent to sumo-user@eclipse.org.
 SUMO announcements will be made through the sumo-announce@eclipse.org list;
-[you can subscribe](https://dev.eclipse.org/mailman/listinfo/sumo-announce) to as well.
-For further contact information have a look at the [this page](https://sumo.dlr.de/docs/Contact.html).
+[you can subscribe](https://dev.eclipse.org/mailman/listinfo/sumo-announce) to it as well.
+For further contact information, have a look at [this page](https://sumo.dlr.de/docs/Contact.html).
 
 
 Build and Installation
@@ -51,10 +51,10 @@ If you want to develop under Windows, please also clone the dependent libraries 
 
         git clone --recursive https://github.com/DLR-TS/SUMOLibraries
 
-Using Linux you should have a look whether your distribution already contains sumo.
+If you're using Linux, you should have a look whether your distribution already contains sumo.
 There is also a [ppa for ubuntu users](https://launchpad.net/~sumo) and an
 [open build service instance](https://build.opensuse.org/project/show/home:behrisch).
-If you want to build yourself, the steps for ubuntu are:
+If you want to build sumo yourself, the steps for ubuntu are:
 
         sudo apt-get install cmake python g++ libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgl2ps-dev swig
         cd <SUMO_DIR> # please insert the correct directory name here
@@ -63,7 +63,7 @@ If you want to build yourself, the steps for ubuntu are:
         cmake ../..
         make -j$(nproc)
 
-For [detailed build instructions have a look at our Documentation](https://sumo.dlr.de/docs/Developer/Main.html#build_instructions).
+For [detailed build instructions, have a look at our Documentation](https://sumo.dlr.de/docs/Developer/Main.html#build_instructions).
 
 
 Getting started
@@ -78,7 +78,7 @@ homepage.
 Improving SUMO
 --------------
 
-Please use for bugs and requests the [GitHub bug tracking tool](https://github.com/eclipse/sumo/issues)
+Please use the [GitHub bug tracking tool](https://github.com/eclipse/sumo/issues) for bugs and requests, 
 or file them to the list sumo-user@eclipse.org. Before
 filing a bug, please consider to check with a current repository checkout
 whether the problem has already been fixed.

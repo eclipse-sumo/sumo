@@ -1,0 +1,19 @@
+<routes>
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <vType id="leader" sigma="0" lcSpeedGain="0" lcStrategic="-1"/>
+
+    <route id="r0" edges="E0"/>
+
+
+    <vehicle id="blocker0" depart="0" departPos="stop" route="r0" departLane="0">
+        <stop lane="E0_0" endPos="300" duration="200"/>
+    </vehicle>
+    <vehicle id="blocker1" depart="0" departPos="stop" route="r0" departLane="1">
+        <stop lane="E0_1" endPos="300" duration="200"/>
+    </vehicle>
+
+    <flow id="leader0" type="leader" route="r0" begin="0" end="1" number="2" departPos="last" departLane="0"/>
+    <flow id="leader1" type="leader" route="r0" begin="0" end="1" number="1" departPos="last" departLane="1"/>
+
+    <vehicle id="ego" depart="3" departSpeed="max" route="r0" departLane="0"/>
+</routes>

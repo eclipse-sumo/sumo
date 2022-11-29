@@ -123,7 +123,7 @@ public:
     /* @brief sample a route from the routeDistribution
      * @param[in] last Retrieve route from the previous (complete) collection interval
      */
-    const MSRoute* sampleRoute(bool last = true) const;
+    ConstMSRoutePtr sampleRoute(bool last = true) const;
 
     const MSEdge* getEdge() {
         return myEdge;
@@ -139,10 +139,10 @@ private:
     std::string myLastID;
 
     /// @brief The previous distribution of routes (probability->route)
-    RandomDistributor<const MSRoute*>* myLastRouteDistribution;
+    RandomDistributor<ConstMSRoutePtr>* myLastRouteDistribution;
 
     /// @brief The current distribution of routes (probability->route)
-    RandomDistributor<const MSRoute*>* myCurrentRouteDistribution;
+    RandomDistributor<ConstMSRoutePtr>* myCurrentRouteDistribution;
 
     /// @brief the edge of this route probe
     const MSEdge* myEdge;

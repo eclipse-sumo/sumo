@@ -115,7 +115,7 @@ public:
         EDGE2EDGES,
         /// @brief Lanes to edges - relationships are computed/loaded
         LANES2EDGES,
-        /// @brief Lanes to lanes - relationships are computed; should be recheked
+        /// @brief Lanes to lanes - relationships are computed; should be rechecked
         LANES2LANES_RECHECK,
         /// @brief Lanes to lanes - relationships are computed; no recheck is necessary/wished
         LANES2LANES_DONE,
