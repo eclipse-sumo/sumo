@@ -1,3 +1,6 @@
 # deadlock due to insufficient flank check for bidi flank
 # 
 ticket7563
+
+# deadlock avoidable due to arrival in the critical block
+ticket12184
