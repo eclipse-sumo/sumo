@@ -704,13 +704,14 @@ The following shapes are known:
 - "passenger/hatchback"
 - "passenger/wagon"
 - "passenger/van"
+- "taxi"
 - "delivery"
 - "truck"
 - "truck/semitrailer" (13.5)
 - "truck/trailer" (6.75)
 - "bus"
-- "bus/flexible" (8.25)
 - "bus/coach" (8.25)
+- "bus/flexible" (8.25)
 - "bus/trolley"
 - "rail" (24.5)
 - "rail/railcar" (16.85)
