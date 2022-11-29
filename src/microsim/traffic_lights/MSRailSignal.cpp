@@ -425,12 +425,15 @@ MSRailSignal::hasOncomingRailTraffic(MSLink* link, const MSVehicle* ego, bool& b
                 //std::cout << SIMTIME <<< " hasOncomingRailTraffic link=" << getTLLinkID(link) << " dwRoute=" << toString(dw.myRoute) << " bidi=" << toString(dw.myBidi) << "\n";
                 for (MSLane* lane : dw.myBidi) {
                     if (!lane->isEmpty()) {
+                        MSVehicle* veh = lane->getFirstAnyVehicle();
+                        if (std::find(veh->getCurrentRouteEdge(), veh->getRoute().end(), bidi) != veh->getRoute().end()) {
 #ifdef DEBUG_SIGNALSTATE
-                        if (DEBUG_HELPER(rs)) {
-                            std::cout << " oncoming vehicle on bidi-lane " << lane->getID() << "\n";
-                        }
+                            if (DEBUG_HELPER(rs)) {
+                                std::cout << " oncoming vehicle on bidi-lane " << lane->getID() << "\n";
+                            }
 #endif
-                        return true;
+                            return true;
+                        }
                     }
                 }
                 for (const MSLane* lane : dw.myFlank) {
