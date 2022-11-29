@@ -208,7 +208,6 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--railway.topology.output** {{DT_FILE}} | Analyze topology of the railway network |
 | **--polygon-output** {{DT_FILE}} | Write shapes that are embedded in the network input and that are not supported by polyconvert (OpenDRIVE) |
 | **--opendrive-output.straight-threshold** {{DT_FLOAT}} | Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees; *default:* **1e-08** |
-| **--opendrive-output.osm-divider-tag** {{DT_BOOL}} | Renders the provided divider tag (OSM) to the lanesection center roadmark type (OpenDrive); *default:* **false** |
 
 ### Projection
 
