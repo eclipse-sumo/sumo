@@ -162,9 +162,6 @@
         <!-- Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees -->
         <opendrive-output.straight-threshold value="1e-08" type="FLOAT"/>
 
-        <!-- Renders the provided divider tag (OSM) to the lanesection center roadmark type (OpenDrive) -->
-        <opendrive-output.osm-divider-tag value="false" type="BOOL"/>
-
         <!-- Write lanes in lefthand networks on the left side (positive indices) -->
         <opendrive-output.lefthand-left value="false" type="BOOL"/>
 

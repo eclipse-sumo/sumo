@@ -67,7 +67,6 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     const NBNodeCont& nc = nb.getNodeCont();
     const NBEdgeCont& ec = nb.getEdgeCont();
     const bool origNames = oc.getBool("output.original-names");
-    const bool outputCenterMark = oc.getBool("opendrive-output.osm-divider-tag");
     lefthand = oc.getBool("lefthand");
     LHLL = lefthand && oc.getBool("opendrive-output.lefthand-left");
     LHRL = lefthand && !LHLL;
@@ -130,7 +129,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         writeNormalEdge(device, e,
                         getID(e->getID(), edgeMap, edgeID),
                         fromNodeID, toNodeID,
-                        origNames, straightThresh, outputCenterMark,
+                        origNames, straightThresh,
                         nb.getShapeCont(),
                         signalLanes);
     }
@@ -235,11 +234,18 @@ NWWriter_OpenDrive::getDividerType(const NBEdge* e) {
     dividerTypeMapping["solid_line"] = "solid";
     dividerTypeMapping["dashed_line"] = "broken";
     dividerTypeMapping["double_solid_line"] = "solid solid";
+    dividerTypeMapping["no"] = "none";
 
-    std::string dividerType = "none";
-    if (dividerTypeMapping.count(e->getParametersMap().find("divider")->second) > 0) {
-        dividerType = dividerTypeMapping.find(e->getParametersMap().find("divider")->second)->second;
-    }
+	// defaulting to solid as in the original code
+    std::string dividerType = "solid";
+
+    if (e->getParametersMap().count("divider") > 0) {
+		std::string divider = e->getParametersMap().find("divider")->second;
+		if (dividerTypeMapping.count(divider) > 0) {
+			dividerType = dividerTypeMapping.find(divider)->second;
+		}
+	}
+	
     return dividerType;
 }
 
@@ -248,7 +254,6 @@ NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
                                     int edgeID, int fromNodeID, int toNodeID,
                                     const bool origNames,
                                     const double straightThresh,
-                                    const bool outputCenterMark,
                                     const ShapeContainer& shc,
                                     SignalLanes& signalLanes) {
     // buffer output because some fields are computed out of order
@@ -308,7 +313,7 @@ NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
     device << "        <lateralProfile/>\n";
     device << "        <lanes>\n";
     device << "            <laneSection s=\"0\">\n";
-    const std::string centerMark = e->getPermissions(e->getNumLanes() - 1) == 0 ? "none" : outputCenterMark ? getDividerType(e) : "solid";
+    const std::string centerMark = e->getPermissions(e->getNumLanes() - 1) == 0 ? "none" : getDividerType(e);
     if (!LHLL) {
         writeEmptyCenterLane(device, centerMark, 0.13);
     }

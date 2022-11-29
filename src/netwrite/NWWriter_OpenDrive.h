@@ -68,7 +68,6 @@ protected:
                                 int edgeID, int fromNodeID, int toNodeID,
                                 const bool origNames,
                                 const double straightThresh,
-                                const bool outputCenterMark,
                                 const ShapeContainer& shc,
                                 SignalLanes& signalLanes);
 
