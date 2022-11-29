@@ -1,7 +1,7 @@
 /* XPM */
 static const char *vaporizer_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"16 16 256 2 ",
+"16 16 256 2",
 "   c #040700",
 ".  c #091100",
 "X  c #0B1400",

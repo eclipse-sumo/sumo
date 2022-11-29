@@ -36,6 +36,7 @@ static const char *trainstop_xpm[] = {
 "3	c #59AF2E",
 "4	c #4CAA32",
 "5	c #C8D70F",
+/* pixels */
 "     .+..+      ",
 "   .+@#$%&**    ",
 "  ..=-;;;;>%,+  ",

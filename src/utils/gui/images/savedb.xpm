@@ -30,6 +30,7 @@ static const char * savedb_xpm[] = {
 "9	c #4e4f4f",
 "0	c #9e9d9e",
 "q	c #2f0a00",
+/* pixels */
 "    ....        ",
 "  ..oooo..      ",
 " .oooooooo.     ",
@@ -45,4 +46,5 @@ static const char * savedb_xpm[] = {
 ".O91...********.",
 " .0%55.*......*.",
 "  ..&&.*q..--.*.",
-"    ............"};
+"    ............"
+};

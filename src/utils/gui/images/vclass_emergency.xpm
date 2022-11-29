@@ -1,7 +1,8 @@
 /* XPM */
 static const char *vclass_emergency_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"64 32 256 2 ",
+"64 32 256 2",
+/* pixels */
 "   c #0E1A25",
 ".  c #161F27",
 "X  c #121E28",

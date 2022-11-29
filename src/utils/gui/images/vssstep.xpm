@@ -1,7 +1,7 @@
 /* XPM */
 static const char *vssstep_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"16 16 2 1 ",
+"16 16 2 1",
 "  c #808080",
 ". c None",
 /* pixels */
@@ -22,4 +22,3 @@ static const char *vssstep_xpm[] = {
 "................",
 "................"
 };
-

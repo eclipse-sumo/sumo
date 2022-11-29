@@ -5,6 +5,7 @@ static const char *checkbox_showshapes_xpm[] = {
 " 	c None",
 ".	c Black",
 "o	c #CC0000",
+/* pixels */
 "  ...           ",
 " .....          ",
 " .....          ",

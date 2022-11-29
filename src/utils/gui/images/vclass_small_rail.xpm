@@ -1,7 +1,7 @@
 /* XPM */
 static const char *vclass_small_rail_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"16 16 12 1 ",
+"16 16 12 1",
 "  c #37353B",
 ". c gray35",
 "X c #A29CAD",

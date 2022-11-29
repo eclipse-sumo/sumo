@@ -38,6 +38,7 @@ static const char *unlockselected_xpm[] = {
 "5	c #006CFF",
 "6	c #303DC1",
 "7	c #1829C2",
+/* pixels */
 "      ....      ",
 "     +@@@@.     ",
 "      #$%&@.    ",

@@ -6,6 +6,7 @@ static const char *windows_tile_vertically_xpm[] = {
 "X	c #5d60f2",
 "o	c Black",
 "O	c Gray51",
+/* pixels */
 "                ",
 " .XXXXXo .XXXXXo",
 " ooooooo ooooooo",
@@ -21,4 +22,5 @@ static const char *windows_tile_vertically_xpm[] = {
 " ......o ......o",
 " OO.OO.o OO.OO.o",
 " ......o ......o",
-" ooooooo ooooooo"};
+" ooooooo ooooooo"
+};

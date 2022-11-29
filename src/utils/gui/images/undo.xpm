@@ -1,5 +1,6 @@
 /* XPM */
 static const char * undo_xpm[] = {
+/* columns rows colors chars-per-pixel */
 "16 16 66 1",
 " 	c None",
 ".	c None",
@@ -67,6 +68,7 @@ static const char * undo_xpm[] = {
 "y	c #6EB23E",
 "z	c #70B33F",
 "A	c #6AAF3C",
+/* pixels */
 "................",
 "................",
 "....++..........",
@@ -82,4 +84,5 @@ static const char * undo_xpm[] = {
 "...........+uwx+",
 "...........+yzA+",
 "............+++.",
-"................"};
+"................"
+};

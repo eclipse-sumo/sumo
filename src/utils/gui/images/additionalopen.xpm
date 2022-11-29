@@ -1,5 +1,6 @@
 /* XPM */
 static const char *additionalopen_xpm[] = {
+/* columns rows colors chars-per-pixel */
 "16 15 7 1",
 " 	c None",
 ".	c #040404",
@@ -8,6 +9,7 @@ static const char *additionalopen_xpm[] = {
 "O	c Black",
 "+	c #ff0000",
 "@	c #808304",
+/* pixels */
 "         ...    ",
 "        .   . . ",
 "             .. ",
@@ -22,4 +24,5 @@ static const char *additionalopen_xpm[] = {
 "..@@@O+++++++++O",
 ".....OO+++++++OO",
 "      OO+++++OO ",
-"       OOOOOOO  "};
+"       OOOOOOO  "
+};

@@ -8,6 +8,7 @@ static const char *meandataopen_xpm[] = {
 "O	c Black",
 "+	c #ff0000",
 "@	c #808304",
+/* pixels */
 "         ...    ",
 "        .   . . ",
 "             .. ",
@@ -22,4 +23,5 @@ static const char *meandataopen_xpm[] = {
 "..@@@O+++++++++O",
 ".....OO+++++++OO",
 "      OO+++++OO ",
-"       OOOOOOO  "};
+"       OOOOOOO  "
+};
