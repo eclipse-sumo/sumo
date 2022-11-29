@@ -7,6 +7,7 @@ title: ChangeLog
 ### Bugfixes
 
 - Simulation 
+  - Fixed crash when defining ride without lines. Issue #12167 (regression in 1.11.0)
   - Fixed invalid walking distance output related to lengths of crossings and walkingArea paths. Issue #11983
   - Fixed invalid braking at internal junction. Issue #12000
   - Fixed invalid right of way rules when for two conflicting connections with internal junctions. Issue #11988
@@ -14,6 +15,9 @@ title: ChangeLog
   - stop-output contains now always contains the correct 'started' values even if other values were part of the input. Issue #12125
   - Fixed error when trying to use laneChangeModel *DK2008* with continous lane change model. Issue #12144
   - Fixed invalid lane choice in the presence of lane change restrictins. Issue #12118
+  - Fixed crash in public transport scenario with looped routes. Issue #12150
+  - Fixed bug where vehicle with short boardingDuration fails to board passengers after deboarding. Issue #12168
+  - Fixed invalid error when loading edgeData with negative electricity consumption. Issue #12172
 
 - netedit
   - Fixed bug where stops on looped routes where saved in an invalid order. Issue #12054 (regression in 1.12.0)
@@ -41,9 +45,13 @@ title: ChangeLog
   - Fixed missing bidi edges in generated network. Issue #12127
   - OSM import no longer ignores spreadType in typemap. Issue #12141
   
+- polyconvert
+  - Fixed invalid polygon output for some line based inputs. Issue #12161
+    
 - TraCI
   - Fixed moveToXY failure at parallel internal junction. Issue #12065
   - Foe lanes for crossings can now be trieved. Issue #12059
+  - Connection.close() now closes simulation. Issue #12133
 
 - Tools
   - plot_net_dump_file.py: plotting a single measure is working again. Issue #11975 (regression in 1.15.0)
@@ -63,6 +71,8 @@ title: ChangeLog
   - OpenDRIVE outputs now suppots export of loaded POIs and polygons as road objects. Issue #12060
   - When setting optin **--tls.guess** roads without conflict are excluded from the threshold-heuristic. Issue #6513
   - Improved heuristic for generating rail connections at sharp angles. Issue #12119
+  - Warnings of E3 detectors and from the SSM device can now be aggregated. Issue #12149
+  - Individual lane widths are now import from OpenStreetMap. Issue #12162
 
 - netedit
   - Added TimeStamp in Undo-Redo list. Issue #11744
@@ -74,6 +84,7 @@ title: ChangeLog
   - Multiple persons or personFlows in the same location are now indicated. Issue #10724
   - Added MeanData mode to create and modify `<edgeData>` and `<laneData>` definitions. Issue #11897
   - Recently used files are now in a sub-menu. Issue #12025
+  - Geometry points are now drawn above everything else in move mode. Issue #11725
 
 - sumo-gui
   - Wne option **--use-stop-ended** is set, show-route mode now labels the 'ended' time of stops. Issue #11833
@@ -91,8 +102,9 @@ title: ChangeLog
     - categorical labels can be sorted and filtered by loading a list of labels with option **--xticks-file** and **--yticks-file**. Issue #12091
     - now supporting additional visualization options (linestyle, markers, grids, ...). Issue #11972
     - plots a marker on a single point if the input data is only one point. Issue #11974
-    - Added the possibility to use wildcards with optin **--filter-ids**. Issue #11982
+    - Added the possibility to use wildcards with option **--filter-ids**. Issue #11981
     - Attribute options now permit setting a list of attributes. Issue #12015
+    - Can now display times as hours by setting **--xtime0** and **--ytime0** (also applies to other plotting tools). Issue #12011
 
 ### Miscellaneous
 
