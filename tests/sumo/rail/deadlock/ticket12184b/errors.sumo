@@ -1,0 +1,4 @@
+Warning: Teleporting vehicle 'v1'; waited too long (yield), lane='-E3_0', time=358.00.
+Warning: Teleporting vehicle 'v0'; waited too long (yield), lane='E1_0', time=358.00.
+Warning: Vehicle 'v0' ends teleporting on edge 'E2', time=358.00.
+Warning: Vehicle 'v1' ends teleporting on edge '-E2', time=369.00.
