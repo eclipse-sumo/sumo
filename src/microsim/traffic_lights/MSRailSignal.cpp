@@ -180,20 +180,29 @@ MSRailSignal::updateCurrentPhase() {
 #endif
             }
         } else {
-            DriveWay& driveway = li.myDriveways.front();
-            if (driveway.conflictLaneOccupied() || driveway.conflictLinkApproached()) {
+            if (li.myDriveways.empty()) {
 #ifdef DEBUG_SIGNALSTATE
                 if (gDebugFlag4) {
-                    std::cout << SIMTIME << " rsl=" << li.getID() << " red for default driveway (" << toString(driveway.myRoute) << ")\n";
+                    std::cout << SIMTIME << " rsl=" << li.getID() << " red for unitialized signal (no driveways yet)\n";
                 }
 #endif
                 state[li.myLink->getTLIndex()] = 'r';
             } else {
+                DriveWay& driveway = li.myDriveways.front();
+                if (driveway.conflictLaneOccupied() || driveway.conflictLinkApproached()) {
 #ifdef DEBUG_SIGNALSTATE
-                if (gDebugFlag4) {
-                    std::cout << SIMTIME << " rsl=" << li.getID() << " green for default driveway (" << toString(driveway.myRoute) << ")\n";
-                }
+                    if (gDebugFlag4) {
+                        std::cout << SIMTIME << " rsl=" << li.getID() << " red for default driveway (" << toString(driveway.myRoute) << ")\n";
+                    }
 #endif
+                    state[li.myLink->getTLIndex()] = 'r';
+                } else {
+#ifdef DEBUG_SIGNALSTATE
+                    if (gDebugFlag4) {
+                        std::cout << SIMTIME << " rsl=" << li.getID() << " green for default driveway (" << toString(driveway.myRoute) << ")\n";
+                    }
+#endif
+                }
             }
         }
     }
@@ -558,10 +567,6 @@ MSRailSignal::LinkInfo::reset() {
     myLastRerouteTime = -1;
     myLastRerouteVehicle = nullptr;
     myDriveways.clear();
-    ConstMSEdgeVector dummyRoute;
-    dummyRoute.push_back(&myLink->getLane()->getEdge());
-    DriveWay dw = buildDriveWay(dummyRoute.begin(), dummyRoute.end());
-    myDriveways.push_back(dw);
 }
 
 

@@ -81,6 +81,8 @@ MSRailSignalControl::vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet
                 }
             }
         }
+    } else if (to == MSNet::VehicleState::BUILT) {
+        // initialize driveways
     }
 }
 
