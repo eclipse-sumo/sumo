@@ -612,7 +612,10 @@ MSRailSignal::LinkInfo::getDriveWay(const SUMOVehicle* veh) {
             itRoute++;
             itDwRoute++;
         }
-        if (match) {
+        // if the vehicle arrives before the end of this driveway,
+        // we'd rather build a new driveway to avoid superfluous restrictions
+        if (match && itDwRoute == dw.myRoute.end()
+                && (itRoute == veh->getRoute().end() || dw.myFoundSignal)) {
             //std::cout << "  using dw=" << "\n";
             return dw;
         }
@@ -1215,8 +1218,7 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
         const MSEdge* current = &toLane->getEdge();
         toLane = nullptr;
         for (const MSLink* const link : links) {
-            if (((next != end && &link->getLane()->getEdge() == *next) ||
-                    (next == end && link->getDirection() != LinkDirection::TURN))
+            if ((next != end && &link->getLane()->getEdge() == *next)
                     && isRailway(link->getViaLaneOrLane()->getPermissions())) {
                 toLane = link->getViaLaneOrLane();
                 if (link->getLane()->getBidiLane() != nullptr && &link->getLane()->getEdge() == current->getBidiEdge()) {
@@ -1235,6 +1237,7 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
                         return;
                     }
                     seekForwardSignal = false;
+                    myFoundSignal = true;
                     seekBidiSwitch = bidi != nullptr;
 #ifdef DEBUG_DRIVEWAY_BUILDROUTE
                     if (gDebugFlag4) {

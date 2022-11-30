@@ -277,7 +277,8 @@ protected:
             myMaxFlankLength(0),
             myActive(nullptr),
             myProtectedBidi(nullptr),
-            myCoreSize(0)
+            myCoreSize(0),
+            myFoundSignal(false)
         {}
 
         /// @brief global driveway index
@@ -297,6 +298,9 @@ protected:
 
         /// @brief number of edges in myRoute where overlap with other driveways is forbidden
         int myCoreSize;
+
+        /// @brief whether this driveway ends its forward section with a rail signal (and thus comprises a full block)
+        bool myFoundSignal;
 
         /* @brief the actual driveway part up to the next railsignal (halting position)
          * This must be free of other trains */
