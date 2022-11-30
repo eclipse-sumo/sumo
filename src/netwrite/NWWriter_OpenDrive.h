@@ -69,7 +69,7 @@ protected:
                                 const bool origNames,
                                 const double straightThresh,
                                 const ShapeContainer& shc,
-                                SignalLanes& signalLanes);
+                                SignalLanes& signalLanes, const std::vector<std::string>& crossings);
 
     /// @brief write internal edge to device, return next connectionID
     static int writeInternalEdge(OutputDevice& device, OutputDevice& junctionDevice,
@@ -117,7 +117,7 @@ protected:
     static void checkLaneGeometries(const NBEdge* e);
 
     /// @brief write road objects referenced as edge parameters
-    static void writeRoadObjects(OutputDevice& device, const NBEdge* e, const ShapeContainer& shc);
+    static void writeRoadObjects(OutputDevice& device, const NBEdge* e, const ShapeContainer& shc, const std::vector<std::string>& crossings);
 
     /// @brief write signal record for traffic light
     static void writeSignals(OutputDevice& device, const NBEdge* e, double length, SignalLanes& signalLanes, const ShapeContainer& shc);

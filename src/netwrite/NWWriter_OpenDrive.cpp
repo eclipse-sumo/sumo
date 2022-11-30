@@ -122,6 +122,23 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 
     mapmatchRoadObjects(nb.getShapeCont(), ec);
 
+    PositionVector crossing_shape;
+    std::map<std::string, std::vector<std::string>> crossingsByEdgeId;
+    for (auto it = nc.begin(); it != nc.end(); ++it) {
+        NBNode* n = it->second;
+        auto crossings = n->getCrossings();
+        if (crossings.size() > 0)
+        {
+            crossing_shape = crossings[0]->shape;
+            auto newvector1 = crossing_shape.getOrthogonal(crossing_shape[0], false, false, 4.0, -90);
+            auto newvector2 = crossing_shape.getOrthogonal(crossing_shape[1], false, true, 4.0, 90);
+            crossing_shape.push_back(newvector2[1]);
+            crossing_shape.push_back(newvector1[1]);
+            nb.getShapeCont().addPolygon(crossings[0]->id, "crossing", RGBColor::BLACK, 0, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, crossing_shape, false, true, 1, true, crossings[0]->edges[0]->getID());
+            crossingsByEdgeId[crossings[0]->edges[0]->getID()].push_back(crossings[0]->id);
+        }
+    }
+
     // write normal edges (road)
     for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
         const NBEdge* e = (*i).second;
@@ -132,7 +149,8 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                         fromNodeID, toNodeID,
                         origNames, straightThresh,
                         nb.getShapeCont(),
-                        signalLanes);
+                        signalLanes,
+                        crossingsByEdgeId[e->getID()]);
     }
     device.lf();
 
@@ -256,7 +274,7 @@ NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
                                     const bool origNames,
                                     const double straightThresh,
                                     const ShapeContainer& shc,
-                                    SignalLanes& signalLanes) {
+                                    SignalLanes& signalLanes, const std::vector<std::string>& crossings) {
     // buffer output because some fields are computed out of order
     OutputDevice_String elevationOSS(3);
     elevationOSS.setPrecision(8);
@@ -370,7 +388,7 @@ NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
     }
     device << "            </laneSection>\n";
     device << "        </lanes>\n";
-    writeRoadObjects(device, e, shc);
+    writeRoadObjects(device, e, shc, crossings);
     writeSignals(device, e, length, signalLanes, shc);
     if (origNames) {
         device << "        <userData code=\"sumoId\" value=\"" << e->getID() << "\"/>\n";
@@ -937,7 +955,7 @@ NWWriter_OpenDrive::checkLaneGeometries(const NBEdge* e) {
 }
 
 void
-NWWriter_OpenDrive::writeRoadObjects(OutputDevice& device, const NBEdge* e, const ShapeContainer& shc) {
+NWWriter_OpenDrive::writeRoadObjects(OutputDevice& device, const NBEdge* e, const ShapeContainer& shc, const std::vector<std::string>& crossings) {
     if (e->knowsParameter(ROAD_OBJECTS)) {
         device.openTag("objects");
         device.setPrecision(8); // geometry hdg requires higher precision
@@ -952,6 +970,20 @@ NWWriter_OpenDrive::writeRoadObjects(OutputDevice& device, const NBEdge* e, cons
                     writeRoadObjectPOI(device, e, road, poi);
                 }
             } else {
+                writeRoadObjectPoly(device, e, road, p);
+            }
+        }
+        device.setPrecision(gPrecision);
+        device.closeTag();
+    }
+    else if (crossings.size() > 0) {
+        device.openTag("objects");
+        device.setPrecision(8); // geometry hdg requires higher precision
+        PositionVector road = getInnerLaneBorder(e);
+        for (size_t ic = 0; ic < crossings.size(); ic++)
+        {
+            SUMOPolygon* p = shc.getPolygons().get(crossings[ic]);
+            if (p != 0) {
                 writeRoadObjectPoly(device, e, road, p);
             }
         }
