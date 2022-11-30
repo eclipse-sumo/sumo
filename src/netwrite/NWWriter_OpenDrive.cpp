@@ -122,20 +122,20 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 
     mapmatchRoadObjects(nb.getShapeCont(), ec);
 
-    PositionVector crossing_shape;
-    std::map<std::string, std::vector<std::string>> crossingsByEdgeId;
+    PositionVector crosswalk_shape;
+    std::map<std::string, std::vector<std::string>> crosswalksByEdge;
     for (auto it = nc.begin(); it != nc.end(); ++it) {
         NBNode* n = it->second;
-        auto crossings = n->getCrossings();
-        if (crossings.size() > 0)
+        auto crosswalks = n->getCrossings();
+        for (size_t i = 0; i < crosswalks.size(); i++)
         {
-            crossing_shape = crossings[0]->shape;
-            auto newvector1 = crossing_shape.getOrthogonal(crossing_shape[0], false, false, 4.0, -90);
-            auto newvector2 = crossing_shape.getOrthogonal(crossing_shape[1], false, true, 4.0, 90);
-            crossing_shape.push_back(newvector2[1]);
-            crossing_shape.push_back(newvector1[1]);
-            nb.getShapeCont().addPolygon(crossings[0]->id, "crossing", RGBColor::BLACK, 0, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, crossing_shape, false, true, 1, true, crossings[0]->edges[0]->getID());
-            crossingsByEdgeId[crossings[0]->edges[0]->getID()].push_back(crossings[0]->id);
+            crosswalk_shape = crosswalks[i]->shape;
+            auto newvector1 = crosswalk_shape.getOrthogonal(crosswalk_shape[0], false, false, 4.0, -90);
+            auto newvector2 = crosswalk_shape.getOrthogonal(crosswalk_shape[1], false, true, 4.0, 90);
+            crosswalk_shape.push_back(newvector2[1]);
+            crosswalk_shape.push_back(newvector1[1]);
+            nb.getShapeCont().addPolygon(crosswalks[i]->id, "crosswalk", RGBColor::BLACK, 0, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, crosswalk_shape, false, true, 1, true, crosswalks[i]->edges[0]->getID());
+            crosswalksByEdge[crosswalks[i]->edges[0]->getID()].push_back(crosswalks[i]->id);
         }
     }
 
@@ -150,7 +150,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                         origNames, straightThresh,
                         nb.getShapeCont(),
                         signalLanes,
-                        crossingsByEdgeId[e->getID()]);
+                        crosswalksByEdge[e->getID()]);
     }
     device.lf();
 
