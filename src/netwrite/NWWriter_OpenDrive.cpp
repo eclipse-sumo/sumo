@@ -124,18 +124,24 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 
     PositionVector crosswalk_shape;
     std::map<std::string, std::vector<std::string>> crosswalksByEdge;
+    const double crossingWidth = OptionsCont::getOptions().getFloat("default.crossing-width");
     for (auto it = nc.begin(); it != nc.end(); ++it) {
         NBNode* n = it->second;
         auto crosswalks = n->getCrossings();
         for (size_t i = 0; i < crosswalks.size(); i++)
         {
+            // getting from crosswalk line to a full shape
             crosswalk_shape = crosswalks[i]->shape;
-            auto newvector1 = crosswalk_shape.getOrthogonal(crosswalk_shape[0], false, false, 4.0, -90);
-            auto newvector2 = crosswalk_shape.getOrthogonal(crosswalk_shape[1], false, true, 4.0, 90);
-            crosswalk_shape.push_back(newvector2[1]);
-            crosswalk_shape.push_back(newvector1[1]);
-            nb.getShapeCont().addPolygon(crosswalks[i]->id, "crosswalk", RGBColor::BLACK, 0, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, crosswalk_shape, false, true, 1, true, crosswalks[i]->edges[0]->getID());
-            crosswalksByEdge[crosswalks[i]->edges[0]->getID()].push_back(crosswalks[i]->id);
+            auto additionalCorner = crosswalk_shape.getOrthogonal(crosswalk_shape[0], true, false, crossingWidth);
+            auto finalCorner = crosswalk_shape.getOrthogonal(crosswalk_shape[1], true, false, crossingWidth);
+            crosswalk_shape.push_back(finalCorner[1]);
+            crosswalk_shape.push_back(additionalCorner[1]);
+
+            auto crosswalkId = crosswalks[i]->id;
+            nb.getShapeCont().addPolygon(crosswalkId, "crosswalk", RGBColor::DEFAULT_COLOR, 0,
+                                         Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, 
+                                         crosswalk_shape, false, true, 1, false, crosswalkId);
+            crosswalksByEdge[crosswalks[i]->edges[0]->getID()].push_back(crosswalkId);
         }
     }
 
@@ -274,7 +280,8 @@ NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
                                     const bool origNames,
                                     const double straightThresh,
                                     const ShapeContainer& shc,
-                                    SignalLanes& signalLanes, const std::vector<std::string>& crossings) {
+                                    SignalLanes& signalLanes,
+                                    const std::vector<std::string>& crossings) {
     // buffer output because some fields are computed out of order
     OutputDevice_String elevationOSS(3);
     elevationOSS.setPrecision(8);
@@ -956,8 +963,8 @@ NWWriter_OpenDrive::checkLaneGeometries(const NBEdge* e) {
 
 void
 NWWriter_OpenDrive::writeRoadObjects(OutputDevice& device, const NBEdge* e, const ShapeContainer& shc, const std::vector<std::string>& crossings) {
+    device.openTag("objects");
     if (e->knowsParameter(ROAD_OBJECTS)) {
-        device.openTag("objects");
         device.setPrecision(8); // geometry hdg requires higher precision
         PositionVector road = getInnerLaneBorder(e);
         for (std::string id : StringTokenizer(e->getParameter(ROAD_OBJECTS, "")).getVector()) {
@@ -974,10 +981,8 @@ NWWriter_OpenDrive::writeRoadObjects(OutputDevice& device, const NBEdge* e, cons
             }
         }
         device.setPrecision(gPrecision);
-        device.closeTag();
     }
-    else if (crossings.size() > 0) {
-        device.openTag("objects");
+    if (crossings.size() > 0) {
         device.setPrecision(8); // geometry hdg requires higher precision
         PositionVector road = getInnerLaneBorder(e);
         for (size_t ic = 0; ic < crossings.size(); ic++)
@@ -988,10 +993,8 @@ NWWriter_OpenDrive::writeRoadObjects(OutputDevice& device, const NBEdge* e, cons
             }
         }
         device.setPrecision(gPrecision);
-        device.closeTag();
-    } else {
-        device << "        <objects/>\n";
     }
+    device.closeTag();
 }
 
 std::vector<NWWriter_OpenDrive::TrafficSign>
@@ -1362,12 +1365,13 @@ NWWriter_OpenDrive::writeRoadObjectPoly(OutputDevice& device, const NBEdge* e, c
     //    << " center=" << center
     //    << " edgeOffset=" << edgeOffset
     //    << "\n";
+    auto shapeType = p->getShapeType();
     device.openTag("object");
     device.writeAttr("id", p->getID());
-    device.writeAttr("type", p->getShapeType());
+    device.writeAttr("type", shapeType);
     device.writeAttr("name", StringUtils::escapeXML(p->getParameter("name", ""), true));
     device.writeAttr("s", edgeOffset);
-    device.writeAttr("t", sideOffset);
+    device.writeAttr("t", shapeType == "crosswalk" && !lefthand ? 0 : sideOffset);
     device.writeAttr("hdg", -edgeAngle);
 
     //device.openTag("outlines");
