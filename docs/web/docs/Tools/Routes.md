@@ -388,6 +388,8 @@ vehicle1:363.66,497.79 2008.64,498.82
 vehicle2:363.66,497.79 1498.46,989.78 2008.64,498.82
 ```
 
+As an alternative input, [fcd-output](../Simulation/Output/FCDOutput.md) files (or similar files that contain attributes `id`, `x` and `y`) are supported.
+
 The output is a standard sumo route file
 
 ```
