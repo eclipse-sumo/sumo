@@ -249,6 +249,8 @@ public:
 
     static bool hasInsertionConstraint(MSLink* link, const MSVehicle* veh, std::string& info, bool& isInsertionOrder);
 
+    static void initDriveWays(const SUMOVehicle* ego, bool update);
+
     /// @brief final check for driveway compatibility of signals that switched green in this step
     static void recheckGreen();
 
@@ -278,7 +280,8 @@ protected:
             myActive(nullptr),
             myProtectedBidi(nullptr),
             myCoreSize(0),
-            myFoundSignal(false)
+            myFoundSignal(false),
+            myFoundReversal(false)
         {}
 
         /// @brief global driveway index
@@ -301,6 +304,7 @@ protected:
 
         /// @brief whether this driveway ends its forward section with a rail signal (and thus comprises a full block)
         bool myFoundSignal;
+        bool myFoundReversal;
 
         /* @brief the actual driveway part up to the next railsignal (halting position)
          * This must be free of other trains */

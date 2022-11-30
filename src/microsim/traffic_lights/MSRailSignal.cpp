@@ -56,8 +56,9 @@
 #define MAX_BLOCK_LENGTH 20000
 #define MAX_SIGNAL_WARNINGS 10
 
-//#define DEBUG_BUILD_DRIVEWAY
 //#define DEBUG_CHECK_FLANKS
+//#define DEBUG_SELECT_DRIVEWAY
+//#define DEBUG_BUILD_DRIVEWAY
 //#define DEBUG_DRIVEWAY_BUILDROUTE
 //#define DEBUG_DRIVEWAY_UPDATE
 
@@ -416,6 +417,44 @@ MSRailSignal::writeBlocks(OutputDevice& od) const {
 }
 
 
+void
+MSRailSignal::initDriveWays(const SUMOVehicle* ego, bool update) {
+    const ConstMSEdgeVector& edges = ego->getRoute().getEdges();
+    int endIndex = ego->getParameter().arrivalEdge;
+    if (endIndex < 0) {
+        endIndex = edges.size() - 1;
+    }
+    for (int i = ego->getParameter().departEdge; i <= endIndex - 1; i++) {
+        const MSEdge* e = edges[i];
+        if (e->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
+            const MSEdge* e2 = edges[i + 1];
+            for (MSLane* lane : e->getLanes()) {
+                for (MSLink* link : lane->getLinkCont()) {
+                    if (&link->getLane()->getEdge() == e2) {
+                        MSRailSignal* rs = const_cast<MSRailSignal*>(dynamic_cast<const MSRailSignal*>(link->getTLLogic()));
+                        if (rs != nullptr) {
+                            LinkInfo& li = rs->myLinkInfos[link->getTLIndex()];
+                            if (li.myDriveways.empty()) {
+                                // init driveway
+                                li.getDriveWay(ego);
+                                if (update && rs->isActive()) {
+                                    // vehicle may have rerouted it's intial trip
+                                    // after the states have been set
+                                    // @note: This is a hack because it could lead to invalid tls-output
+                                    // (it's still an improvement over switching based on default driveways)
+                                    rs->trySwitch();
+                                    rs->setTrafficLightSignals(SIMSTEP);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
 bool
 MSRailSignal::hasOncomingRailTraffic(MSLink* link, const MSVehicle* ego, bool& brakeBeforeSignal) {
     // @note: this check is intended to prevent deadlock / collision by an inserted vehicle that
@@ -600,6 +639,12 @@ MSRailSignal::LinkInfo::getDriveWay(const SUMOVehicle* veh) {
     if (firstIt == veh->getRoute().end()) {
         WRITE_WARNING("Invalid approach information to rail signal '" + getClickableTLLinkID(myLink) + "' after rerouting for vehicle '" + veh->getID()
                       + "' first driveway edge '" + first->getID() + "' time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+        if (myDriveways.empty()) {
+            ConstMSEdgeVector dummyRoute;
+            dummyRoute.push_back(&myLink->getLane()->getEdge());
+            DriveWay dw = buildDriveWay(dummyRoute.begin(), dummyRoute.end());
+            myDriveways.push_back(dw);
+        }
         return myDriveways.front();
     }
     //std::cout << SIMTIME << " veh=" << veh->getID() << " rsl=" << getID() << " dws=" << myDriveways.size() << "\n";
@@ -620,12 +665,18 @@ MSRailSignal::LinkInfo::getDriveWay(const SUMOVehicle* veh) {
         // if the vehicle arrives before the end of this driveway,
         // we'd rather build a new driveway to avoid superfluous restrictions
         if (match && itDwRoute == dw.myRoute.end()
-                && (itRoute == veh->getRoute().end() || dw.myFoundSignal)) {
+                && (itRoute == veh->getRoute().end() || dw.myFoundSignal || dw.myFoundReversal)) {
             //std::cout << "  using dw=" << "\n";
             return dw;
         }
+#ifdef DEBUG_SELECT_DRIVEWAY
+        std::cout << SIMTIME << " rs=" << getID() << " veh=" << veh->getID() << " other dwSignal=" << dw.myFoundSignal << " dwRoute=" << toString(dw.myRoute) << " route=" << toString(veh->getRoute().getEdges()) << "\n"; 
+#endif
     }
     DriveWay dw = buildDriveWay(firstIt, veh->getRoute().end());
+#ifdef DEBUG_SELECT_DRIVEWAY
+    std::cout << SIMTIME << " rs=" << getID() << " veh=" << veh->getID() << " new dwSignal=" << dw.myFoundSignal << " dwRoute=" << toString(dw.myRoute) << " route=" << toString(veh->getRoute().getEdges()) << "\n"; 
+#endif
     myDriveways.push_back(dw);
     return myDriveways.back();
 }
@@ -1197,6 +1248,11 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
                                 // if bidi is actually used by a train (rather than
                                 // the other route) we must later adapt this driveway for additional checks (myBidiExtended)
                                 myProtectedBidi = bidiNext;
+                                while (next != end) {
+                                    // the driveway is route specific
+                                    myRoute.push_back(*next);
+                                    next++;
+                                }
                                 return;
                             } else {
 #ifdef DEBUG_DRIVEWAY_BUILDROUTE
@@ -1233,6 +1289,7 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
                         std::cout << "      abort: turn-around\n";
                     }
 #endif
+                    myFoundReversal = true;
                     return;
                 }
                 if (link->getTLLogic() != nullptr) {
@@ -1415,8 +1472,9 @@ MSRailSignal::storeTraCIVehicles(int linkIndex) {
         // call for side effects
         driveway.reserve(closest, occupied);
         constraintsAllow(closest.first);
-    } else {
+    } else if (li.myDriveways.size() > 0) {
         li.myDriveways.front().conflictLaneOccupied();
+        li.myDriveways.front().conflictLinkApproached();
     }
     myStoreVehicles = false;
 }
