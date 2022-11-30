@@ -56,11 +56,11 @@
 #define MAX_BLOCK_LENGTH 20000
 #define MAX_SIGNAL_WARNINGS 10
 
-//#define DEBUG_CHECK_FLANKS
 //#define DEBUG_SELECT_DRIVEWAY
 //#define DEBUG_BUILD_DRIVEWAY
-//#define DEBUG_DRIVEWAY_BUILDROUTE
 //#define DEBUG_DRIVEWAY_UPDATE
+//#define DEBUG_DRIVEWAY_BUILDROUTE
+//#define DEBUG_CHECK_FLANKS
 
 #define DEBUG_SIGNALSTATE
 #define DEBUG_SIGNALSTATE_PRIORITY
@@ -1248,8 +1248,17 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
                                 // if bidi is actually used by a train (rather than
                                 // the other route) we must later adapt this driveway for additional checks (myBidiExtended)
                                 myProtectedBidi = bidiNext;
-                                while (next != end) {
-                                    // the driveway is route specific
+                                std::set<const MSEdge*> visitedEdges;
+                                for (auto item : visited) {
+                                    visitedEdges.insert(&item.first->getEdge());
+                                }
+                                while (next != end && visitedEdges.count(*next) == 0) {
+                                    // the driveway is route specific but only but stop recording if it loops back on itself
+                                    visitedEdges.insert(*next);
+                                    const MSEdge* nextBidi = (*next)->getBidiEdge();
+                                    if (nextBidi != nullptr) {
+                                        visitedEdges.insert(nextBidi);
+                                    }
                                     myRoute.push_back(*next);
                                     next++;
                                 }
