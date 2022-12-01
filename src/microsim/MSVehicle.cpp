@@ -2267,7 +2267,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                         // ignore oncoming vehicles on the shadow lane
                         shadowLeaders.removeOpposite(shadowLane);
                     }
-                    adaptToLeaders(shadowLeaders, latOffset, seen, lastLink, shadowLane, v, vLinkPass);
+                    const double turningDifference = MAX2(0.0, leaderLane->getLength() - shadowLane->getLength());
+                    adaptToLeaders(shadowLeaders, latOffset, seen - turningDifference, lastLink, shadowLane, v, vLinkPass);
                 } else if (shadowLane == myLaneChangeModel->getShadowLane() && leaderLane == myLane) {
                     // check for leader vehicles driving in the opposite direction on the opposite-direction shadow lane
                     // (and thus in the same direction as ego)
