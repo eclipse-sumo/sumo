@@ -336,6 +336,66 @@ fmi2SetString(fmi2Component c, const fmi2ValueReference vr[], size_t nvr, const 
     return status;
 }
 
+fmi2Status
+fmi2GetFMUstate(fmi2Component c, fmi2FMUstate* FMUstate) {
+    UNREFERENCED_PARAMETER(c);
+    UNREFERENCED_PARAMETER(FMUstate);
+    return fmi2Error; /* Dummy implementation */
+}
+
+fmi2Status
+fmi2SetFMUstate(fmi2Component c, fmi2FMUstate FMUstate) {
+    UNREFERENCED_PARAMETER(c);
+    UNREFERENCED_PARAMETER(FMUstate);
+    return fmi2Error; /* Dummy implementation */
+}
+
+fmi2Status
+fmi2FreeFMUstate(fmi2Component c, fmi2FMUstate* FMUstate) {
+    UNREFERENCED_PARAMETER(c);
+    UNREFERENCED_PARAMETER(FMUstate);
+    return fmi2Error; /* Dummy implementation */
+}
+
+fmi2Status
+fmi2SerializedFMUstateSize(fmi2Component c, fmi2FMUstate FMUstate, size_t* size) {
+    UNREFERENCED_PARAMETER(c);
+    UNREFERENCED_PARAMETER(FMUstate);
+    UNREFERENCED_PARAMETER(size);
+    return fmi2Error; /* Dummy implementation */
+}
+
+fmi2Status
+fmi2SerializeFMUstate(fmi2Component c, fmi2FMUstate FMUstate, fmi2Byte state[], size_t size) {
+    UNREFERENCED_PARAMETER(c);
+    UNREFERENCED_PARAMETER(FMUstate);
+    UNREFERENCED_PARAMETER(state);
+    UNREFERENCED_PARAMETER(size);
+    return fmi2Error; /* Dummy implementation */
+}
+
+fmi2Status
+fmi2DeSerializeFMUstate(fmi2Component c, const fmi2Byte serializedState[], size_t size, fmi2FMUstate* FMUstate) {
+    UNREFERENCED_PARAMETER(c);
+    UNREFERENCED_PARAMETER(serializedState);
+    UNREFERENCED_PARAMETER(size);
+    UNREFERENCED_PARAMETER(FMUstate);
+    return fmi2Error; /* Dummy implementation */
+}
+
+fmi2Status
+fmi2GetDirectionalDerivative(fmi2Component c, const fmi2ValueReference vUnknown_ref[], size_t nUnknown,
+                             const fmi2ValueReference vKnown_ref[], size_t nKnown, const fmi2Real dvKnown[], fmi2Real dvUnknown[]) {
+    UNREFERENCED_PARAMETER(c);
+    UNREFERENCED_PARAMETER(vUnknown_ref);
+    UNREFERENCED_PARAMETER(nUnknown);
+    UNREFERENCED_PARAMETER(vKnown_ref);
+    UNREFERENCED_PARAMETER(nKnown);
+    UNREFERENCED_PARAMETER(dvKnown);
+    UNREFERENCED_PARAMETER(dvUnknown);
+    return fmi2Error; /* Dummy implementation */
+}
+
 /* Further functions for interpolation */
 fmi2Status
 fmi2SetRealInputDerivatives(fmi2Component c, const fmi2ValueReference vr[], size_t nvr, const fmi2Integer order[], const fmi2Real value[]) {
