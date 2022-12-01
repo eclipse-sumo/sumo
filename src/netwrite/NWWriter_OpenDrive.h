@@ -120,7 +120,7 @@ protected:
     static void writeRoadObjects(OutputDevice& device, const NBEdge* e, const ShapeContainer& shc);
 
     /// @brief write signal record for traffic light
-    static void writeSignals(OutputDevice& device, const NBEdge* e, double length, SignalLanes& signalLanes);
+    static void writeSignals(OutputDevice& device, const NBEdge* e, double length, SignalLanes& signalLanes, const ShapeContainer& shc);
 
     /// @brief convert sumo lane index to xodr lane index
     static int s2x(int sumoIndex, int numLanes);
