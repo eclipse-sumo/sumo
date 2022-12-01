@@ -389,6 +389,9 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
     // 3) updated dens of all lanes that hold the vehicle or its shadow
 
     vehicle->myState.myPosLat += latDist * (vehicle->getLaneChangeModel().isOpposite() ? -1 : 1);
+    for (int i = 0; i < (int)vehicle->myFurtherLanesPosLat.size(); i++) {
+        vehicle->myFurtherLanesPosLat[i] += latDist * (vehicle->getLaneChangeModel().isOpposite() ? -1 : 1);
+    }
     vehicle->myCachedPosition = Position::INVALID;
     vehicle->getLaneChangeModel().setSpeedLat(DIST2SPEED(latDist));
 #ifdef DEBUG_MANEUVER
