@@ -498,6 +498,13 @@ GNEVehicle::isDemandElementValid() const {
         } else {
             return Problem::INVALID_PATH;
         }
+    } else if ((getChildDemandElements().size() > 0) && getChildDemandElements().front()->getTagProperty().isRoute()) {
+            // check if exist a valid path using route child edges
+        if (myNet->getPathManager()->getPathCalculator()->calculateDijkstraPath(getParentDemandElements().at(0)->getVClass(), getChildDemandElements().at(0)->getParentEdges()).size() > 0) {
+            return Problem::OK;
+        } else {
+            return Problem::INVALID_PATH;
+        }
     } else {
         return Problem::INVALID_ELEMENT;
     }
@@ -525,6 +532,17 @@ GNEVehicle::getDemandElementProblem() const {
         for (int i = 1; i < (int)routeEdges.size(); i++) {
             if (myNet->getPathManager()->getPathCalculator()->consecutiveEdgesConnected(getParentDemandElements().at(0)->getVClass(), routeEdges.at((int)i - 1), routeEdges.at(i)) == false) {
                 return ("There is no valid path between route edges '" + routeEdges.at((int)i - 1)->getID() + "' and '" + routeEdges.at(i)->getID() + "'");
+            }
+        }
+        // if there are connections between all edges, then all is ok
+        return "";
+    } else if ((getChildDemandElements().size() > 0) && getChildDemandElements().front()->getTagProperty().isRoute()) {
+        // get route parent edges
+        const std::vector<GNEEdge*>& routeEdges = getChildDemandElements().at(0)->getParentEdges();
+        // check if exist at least a connection between every edge
+        for (int i = 1; i < (int)routeEdges.size(); i++) {
+            if (myNet->getPathManager()->getPathCalculator()->consecutiveEdgesConnected(getParentDemandElements().at(0)->getVClass(), routeEdges.at((int)i - 1), routeEdges.at(i)) == false) {
+                return ("There is no valid path between embedded route edges '" + routeEdges.at((int)i - 1)->getID() + "' and '" + routeEdges.at(i)->getID() + "'");
             }
         }
         // if there are connections between all edges, then all is ok
