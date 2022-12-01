@@ -721,9 +721,9 @@ MSRailSignal::LinkInfo::buildDriveWay(MSRouteIterator first, MSRouteIterator end
     if (dw.myProtectedBidi == nullptr) {
         dw.myCoreSize = (int)dw.myRoute.size();
     }
-    dw.checkFlanks(dw.myForward, visited, true);
-    dw.checkFlanks(dw.myBidi, visited, false);
-    dw.checkFlanks(before, visited, true);
+    dw.checkFlanks(myLink, dw.myForward, visited, true);
+    dw.checkFlanks(myLink, dw.myBidi, visited, false);
+    dw.checkFlanks(myLink, before, visited, true);
 
     for (MSLink* link : dw.myFlankSwitches) {
         //std::cout << getID() << " flankSwitch=" << link->getDescription() << "\n";
@@ -1337,18 +1337,35 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
 
 
 void
-MSRailSignal::DriveWay::checkFlanks(const std::vector<MSLane*>& lanes, const LaneVisitedMap& visited, bool allFoes) {
+MSRailSignal::DriveWay::checkFlanks(const MSLink* originLink, const std::vector<MSLane*>& lanes, const LaneVisitedMap& visited, bool allFoes) {
 #ifdef DEBUG_CHECK_FLANKS
     std::cout << " checkFlanks lanes=" << toString(lanes) << "\n  visited=" << formatVisitedMap(visited) << " allFoes=" << allFoes << "\n";
 #endif
-    for (MSLane* lane : lanes) {
+    const MSLink* reverseOriginLink = originLink->getLane()->getBidiLane() != nullptr && originLink->getLaneBefore()->getBidiLane() != nullptr
+        ? originLink->getLane()->getBidiLane()->getLinkTo(originLink->getLaneBefore()->getBidiLane())
+        : nullptr;
+    //std::cout << "   originLink=" << originLink->getDescription() << "\n";
+    if (reverseOriginLink != nullptr) {
+        reverseOriginLink = reverseOriginLink->getCorrespondingExitLink();
+        //std::cout << "   reverseOriginLink=" << reverseOriginLink->getDescription() << "\n";
+    }
+    for (int i = 0; i < (int)lanes.size(); i++) {
+        MSLane* lane = lanes[i];
+        MSLane* prev = i > 0 ? lanes[i - 1] : nullptr;
+        MSLane* next = i + 1 < (int)lanes.size() ? lanes[i + 1] : nullptr;
         if (lane->isInternal()) {
             continue;
         }
         for (auto ili : lane->getIncomingLanes()) {
-            if (visited.count(ili.lane->getNormalPredecessorLane()) == 0) {
+            if (ili.viaLink == originLink
+                    || ili.viaLink == reverseOriginLink
+                    || ili.viaLink->getDirection() == LinkDirection::TURN
+                    || ili.viaLink->getDirection() == LinkDirection::TURN_LEFTHAND) {
+                continue;
+            }
+            if (ili.lane != prev && ili.lane != next) {
 #ifdef DEBUG_CHECK_FLANKS
-                std::cout << " add flankSwitch junction=" << ili.viaLink->getJunction()->getID() << " index=" << ili.viaLink->getIndex() << "\n";
+                std::cout << " add flankSwitch junction=" << ili.viaLink->getJunction()->getID() << " index=" << ili.viaLink->getIndex() << " iLane=" << ili.lane->getID() << " prev=" << Named::getIDSecure(prev) <<  " targetLane=" << lane->getID() << " next=" << Named::getIDSecure(next) << "\n";
 #endif
                 myFlankSwitches.push_back(ili.viaLink);
             } else if (allFoes) {

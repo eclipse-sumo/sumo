@@ -386,7 +386,7 @@ protected:
         void buildRoute(MSLink* origin, double length, MSRouteIterator next, MSRouteIterator end, LaneVisitedMap& visited);
 
         /// @brief find switches that threaten this driveway
-        void checkFlanks(const std::vector<MSLane*>& lanes, const LaneVisitedMap& visited, bool allFoes);
+        void checkFlanks(const MSLink* originLink, const std::vector<MSLane*>& lanes, const LaneVisitedMap& visited, bool allFoes);
 
         /// @brief find links that cross the driveway without entering it
         void checkCrossingFlanks(MSLink* dwLink, const LaneVisitedMap& visited);
