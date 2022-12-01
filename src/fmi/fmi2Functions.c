@@ -39,17 +39,47 @@
 /* **********************************************************************************************
  * * IMPLEMENTATION OF GENERIC FUNCTIONALITY
  * **********************************************************************************************/
-const char* fmi2GetVersion(void) {
-    return fmi2Version;
-}
-
 const char* fmi2GetTypesPlatform(void) {
     return fmi2TypesPlatform;
+}
+
+const char* fmi2GetVersion(void) {
+    return fmi2Version;
 }
 
 /* ***********************************************************************************************
    * CREATION AND DESTRUCTION OF AN FMU
    ***********************************************************************************************/
+
+/* Define what should be logged - if logging is enabled globally */
+fmi2Status
+fmi2SetDebugLogging(fmi2Component c, fmi2Boolean loggingOn, size_t nCategories, const fmi2String categories[]) {
+
+    ModelInstance *comp = (ModelInstance *)c;
+
+    if (loggingOn) {
+        size_t i;
+        for (i = 0; i < nCategories; i++) {
+            if (categories[i] == NULL) {
+                sumo2fmi_logError(comp, "Log category[%d] must not be NULL", i);
+                return fmi2Error;
+            } else if (strcmp(categories[i], "logStatusError") == 0) {
+                comp->logErrors = true;
+            } else if (strcmp(categories[i], "logEvents") == 0) {
+                comp->logEvents = true;
+            } else {
+                sumo2fmi_logError(comp, "Log category[%d] must be one of logEvents or logStatusError but was %s", i, categories[i]);
+                return fmi2Error;
+            }
+        }
+    } else {
+        // Logging is disabled globally, no need for a more fine grained logging
+        comp->logEvents = false;
+        comp->logErrors = false;
+    }
+
+    return fmi2OK;
+}
 
 /* The function returns a new instance of an FMU. If a null pointer is returned, then instantiation
    failed.*/
@@ -115,36 +145,6 @@ fmi2FreeInstance(fmi2Component c) {
     freeMemoryFunc((void *)comp);
 }
 
-/* Define what should be logged - if logging is enabled globally */
-fmi2Status
-fmi2SetDebugLogging(fmi2Component c, fmi2Boolean loggingOn, size_t nCategories, const fmi2String categories[]) {
-
-    ModelInstance *comp = (ModelInstance *)c;
-
-    if (loggingOn) {
-        size_t i;
-        for (i = 0; i < nCategories; i++) {
-            if (categories[i] == NULL) {
-                sumo2fmi_logError(comp, "Log category[%d] must not be NULL", i);
-                return fmi2Error;
-            } else if (strcmp(categories[i], "logStatusError") == 0) {
-                comp->logErrors = true;
-            } else if (strcmp(categories[i], "logEvents") == 0) {
-                comp->logEvents = true;
-            } else {
-                sumo2fmi_logError(comp, "Log category[%d] must be one of logEvents or logStatusError but was %s", i, categories[i]);
-                return fmi2Error;
-            }
-        }
-    } else {
-        // Logging is disabled globally, no need for a more fine grained logging
-        comp->logEvents = false;
-        comp->logErrors = false;
-    }
-
-    return fmi2OK;
-}
-
 fmi2Status
 fmi2SetupExperiment(fmi2Component c, fmi2Boolean toleranceDefined, fmi2Real tolerance,
                     fmi2Real startTime, fmi2Boolean stopTimeDefined, fmi2Real stopTime) {
@@ -205,6 +205,16 @@ fmi2Reset(fmi2Component c) {
 
 // Implementation of the getter features
 fmi2Status
+fmi2GetReal(fmi2Component c, const fmi2ValueReference vr[], size_t nvr, fmi2Real value[]) {
+    UNREFERENCED_PARAMETER(c);
+    UNREFERENCED_PARAMETER(vr);
+    UNREFERENCED_PARAMETER(nvr);
+    UNREFERENCED_PARAMETER(value);
+
+    return fmi2Error;
+}
+
+fmi2Status
 fmi2GetInteger(fmi2Component c, const fmi2ValueReference vr[], size_t nvr, fmi2Integer value[]) {
 
     ModelInstance *comp = (ModelInstance *)c;
@@ -228,16 +238,6 @@ fmi2GetInteger(fmi2Component c, const fmi2ValueReference vr[], size_t nvr, fmi2I
     }
 
     return status;
-}
-
-fmi2Status
-fmi2GetReal(fmi2Component c, const fmi2ValueReference vr[], size_t nvr, fmi2Real value[]) {
-    UNREFERENCED_PARAMETER(c);
-    UNREFERENCED_PARAMETER(vr);
-    UNREFERENCED_PARAMETER(nvr);
-    UNREFERENCED_PARAMETER(value);
-
-    return fmi2Error;
 }
 
 fmi2Status
@@ -290,6 +290,14 @@ fmi2GetString(fmi2Component c, const fmi2ValueReference vr[], size_t nvr, fmi2St
 }
 
 // Implementation of the setter features
+fmi2Status
+fmi2SetReal(fmi2Component c, const fmi2ValueReference vr[], size_t nvr, const fmi2Real value[]) {
+    UNREFERENCED_PARAMETER(c);
+    UNREFERENCED_PARAMETER(vr);
+    UNREFERENCED_PARAMETER(nvr);
+    UNREFERENCED_PARAMETER(value);
+    return fmi2Error;
+}
 
 fmi2Status
 fmi2SetInteger(fmi2Component c, const fmi2ValueReference vr[], size_t nvr, const fmi2Integer value[]) {
@@ -298,15 +306,6 @@ fmi2SetInteger(fmi2Component c, const fmi2ValueReference vr[], size_t nvr, const
     UNREFERENCED_PARAMETER(nvr);
     UNREFERENCED_PARAMETER(value);
 
-    return fmi2Error;
-}
-
-fmi2Status
-fmi2SetReal (fmi2Component c, const fmi2ValueReference vr[], size_t nvr, const fmi2Real value[]) {
-    UNREFERENCED_PARAMETER(c);
-    UNREFERENCED_PARAMETER(vr);
-    UNREFERENCED_PARAMETER(nvr);
-    UNREFERENCED_PARAMETER(value);
     return fmi2Error;
 }
 
