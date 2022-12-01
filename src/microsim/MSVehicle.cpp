@@ -100,9 +100,9 @@
 //#define DEBUG_REVERSE_BIDI
 //#define DEBUG_EXTRAPOLATE_DEPARTPOS
 //#define DEBUG_REMOTECONTROL
-#define DEBUG_COND (getID() == "mustChangeLeft")
+//#define DEBUG_COND (getID() == "ego")
 //#define DEBUG_COND (true)
-//#define DEBUG_COND (isSelected())
+#define DEBUG_COND (isSelected())
 //#define DEBUG_COND2(obj) (obj->getID() == "ego")
 #define DEBUG_COND2(obj) (obj->isSelected())
 
