@@ -1,5 +1,5 @@
 Error: Attribute 'type' in definition of flow 'CFlow01' is empty.
 Error: Could not build flow in netedit; vType doesn't exist.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\calibratorflow\load\type\input_additionals.add.xml failed.
-Error: routes cannot be processed either with additional handler nor with demand handler
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\calibratorflow\load\type\input_routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.calibratorflow.01Dec143640.87144/netedit.daily.additional.calibratorflow/additionalelements/calibratorflow/load/type/input_additionals.add.xml failed.
+Error: routes cannot be processed either with additional handler nor with demand handler nor with meanData handler
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.calibratorflow.01Dec143640.87144/netedit.daily.additional.calibratorflow/additionalelements/calibratorflow/load/type/input_routes.rou.xml failed.
