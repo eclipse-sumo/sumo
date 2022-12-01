@@ -569,8 +569,8 @@ GNEVehicle::updateGeometry() {
         if (firstPathLane) {
             // declare departPos
             double posOverLane = 0;
-            if (canParse<double>(getDepartPos())) {
-                posOverLane = parse<double>(getDepartPos());
+            if (wasSet(VEHPARS_DEPARTPOS_SET) && (departPosProcedure == DepartPosDefinition::GIVEN)) {
+                posOverLane = departPos;
             }
             // update Geometry
             myDemandElementGeometry.updateGeometry(firstPathLane->getLaneShape(), posOverLane, myMoveElementLateralOffset);
@@ -1078,7 +1078,7 @@ GNEVehicle::getFirstPathLane() const {
         firstEdge = getParentEdges().front();
     }
     // get departLane index
-    const int departLaneIndex = canParse<int>(getAttribute(SUMO_ATTR_DEPARTLANE)) ? parse<int>(getAttribute(SUMO_ATTR_DEPARTLANE)) : -1;
+    const int departLaneIndex = (int)getAttributeDouble(SUMO_ATTR_DEPARTLANE);
     // check departLane index
     if ((departLaneIndex >= 0) && (departLaneIndex < (int)firstEdge->getLanes().size())) {
         return firstEdge->getLanes().at(departLaneIndex);
@@ -1126,7 +1126,7 @@ GNEVehicle::getLastPathLane() const {
         lastEdge = getParentEdges().back();
     }
     // get arrivalLane index
-    const int arrivalLaneIndex = canParse<int>(getAttribute(SUMO_ATTR_ARRIVALLANE)) ? parse<int>(getAttribute(SUMO_ATTR_ARRIVALLANE)) : -1;
+    const int arrivalLaneIndex = (int)getAttributeDouble(SUMO_ATTR_ARRIVALLANE);
     // check arrivalLane index
     if ((arrivalLaneIndex >= 0) && (arrivalLaneIndex < (int)lastEdge->getLanes().size())) {
         return lastEdge->getLanes().at(arrivalLaneIndex);
@@ -1299,12 +1299,24 @@ GNEVehicle::getAttributeDouble(SumoXMLAttr key) const {
         case SUMO_ATTR_DEPART:
         case SUMO_ATTR_BEGIN:
             return STEPS2TIME(depart);
+        case SUMO_ATTR_DEPARTLANE:
+            if (wasSet(VEHPARS_DEPARTLANE_SET) && (departLaneProcedure == DepartLaneDefinition::GIVEN)) {
+                return departLane;
+            } else {
+                return -1;
+            }
         case SUMO_ATTR_DEPARTPOS:
             // only return departPos it if is given
             if (departPosProcedure == DepartPosDefinition::GIVEN) {
                 return departPos;
             } else {
                 return 0;
+            }
+        case SUMO_ATTR_ARRIVALLANE:
+            if (wasSet(VEHPARS_ARRIVALLANE_SET) && (arrivalLaneProcedure == ArrivalLaneDefinition::GIVEN)) {
+                return arrivalLane;
+            } else {
+                return -1;
             }
         case SUMO_ATTR_ARRIVALPOS:
             // only return departPos it if is given
