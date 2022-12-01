@@ -55,3 +55,9 @@ ticket11384
 # invalid insertion error
 # 
 ticket11440
+
+# deadlock avoidable due to arrival in the critical block
+ticket12184
+
+# deadlock avoidable due to arrival in the critical block
+ticket12184b
