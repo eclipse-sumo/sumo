@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-08-31 11:24:28 by Eclipse SUMO sumo Version v1_14_1+0712-212d4f0
+<!-- generated on 2022-12-01 17:14:17 by Eclipse SUMO sumo Version v1_15_0+0700-6823524
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -2260,7 +2260,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="bike.24" lane="26967263#7_1" posLat="0.24"/>
         <vehicle id="bike.25" lane=":1535884767_2_0" posLat="0.18"/>
         <vehicle id="bike.26" lane="26967263#6_1" posLat="-0.16"/>
-        <vehicle id="bike.27" lane="26967263#6_1" posLat="0.04"/>
+        <vehicle id="bike.27" lane="26967263#6_1" posLat="0.00"/>
         <vehicle id="bike.28" lane=":1535884767_2_0" posLat="-1.17"/>
         <vehicle id="bike.29" lane="26967263#6_1" posLat="0.00"/>
         <vehicle id="bike.30" lane="26967263#6_1" posLat="1.17"/>
