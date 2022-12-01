@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-11-30 21:45:06 by Eclipse SUMO sumo Version v1_15_0+0681-fc8e1b1
+<!-- generated on 2022-12-01 00:23:56 by Eclipse SUMO sumo Version v1_15_0+0683-3c2629d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -115,15 +115,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <driveWay edges="T19_1 T18_1 T43_1 T32_1 T31_1 T42_1 T15_1 T14_1 T13_1 T12_1 T11_1 T10_1 T9_1 T8_1 T7_1 T2_1 T1_1 TleftLoop_1 T20_0 T21_0 T22_0 T23_0 T24_0 T25_0 T26_0 T44_0 T27_0 T28_0 T29_0 T30_0" core="3">
                 <forward lanes=":s15_0_0 T19_1_0"/>
                 <bidi lanes=":s15_1_0 T19_0_0 :s14_1_0 T18_0_0 :w3_2_0 T43_0_0 :w8_3_0"/>
-                <flank lanes=":w8_3_0"/>
-                <protectingSwitches links="w8_3"/>
+                <flank lanes=""/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
             </driveWay>
             <driveWay edges="T19_1 T18_1 T43_1 T32_1 T31_1 T42_1 T15_1 T14_1 T13_1 T12_1 T11_1 T10_1 T9_1 T8_1 T7_1 T2_1 T1_1 TleftLoop_1" core="3">
                 <forward lanes=":s15_0_0 T19_1_0"/>
                 <bidi lanes=":s15_1_0 T19_0_0 :s14_1_0 T18_0_0 :w3_2_0 T43_0_0 :w8_3_0"/>
-                <flank lanes=":w8_3_0"/>
-                <protectingSwitches links="w8_3"/>
+                <flank lanes=""/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
             </driveWay>
         </link>
@@ -177,15 +177,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <driveWay edges="T3_1 T19_1 T18_1 T43_1 T32_1 T31_1 T42_1 T15_1 T14_1 T13_1 T12_1 T11_1 T10_1 T9_1 T8_1 T7_1 T2_1 T1_1 TleftLoop_1 T20_0 T21_0 T22_0 T23_0 T24_0 T25_0 T26_0 T44_0 T27_0 T28_0 T29_0 T30_0" core="4">
                 <forward lanes=":s2_0_0 T3_1_0"/>
                 <bidi lanes=":s2_1_0 T3_0_0 :s15_1_0 T19_0_0 :s14_1_0 T18_0_0 :w3_2_0 T43_0_0 :w8_3_0"/>
-                <flank lanes=":w8_3_0"/>
-                <protectingSwitches links="w8_3"/>
+                <flank lanes=""/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
             </driveWay>
             <driveWay edges="T3_1 T19_1 T18_1 T43_1 T32_1 T31_1 T42_1 T15_1 T14_1 T13_1 T12_1 T11_1 T10_1 T9_1 T8_1 T7_1 T2_1 T1_1 TleftLoop_1" core="4">
                 <forward lanes=":s2_0_0 T3_1_0"/>
                 <bidi lanes=":s2_1_0 T3_0_0 :s15_1_0 T19_0_0 :s14_1_0 T18_0_0 :w3_2_0 T43_0_0 :w8_3_0"/>
-                <flank lanes=":w8_3_0"/>
-                <protectingSwitches links="w8_3"/>
+                <flank lanes=""/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
             </driveWay>
         </link>
@@ -246,8 +246,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <driveWay edges="T30_0 T31_0 T32_0 T33_0 T34_0 T35_0 T6_0 TrightLoop_1 T3_1 T19_1 T18_1 T43_1">
                 <forward lanes=":s24_1_0 T30_0_0 :w7_2_0 T31_0_0"/>
                 <bidi lanes="T30_1_0 :w7_1_0 T31_1_0 :s25_0_0 T32_1_0 :w8_1_0 T33_1_0 :s26_0_0 T34_1_0 :s27_0_0 T35_1_0 :s28_0_0 T6_1_0 :s4_1_0 TrightLoop_0_0 :s2_1_0 T3_0_0 :s15_1_0 T19_0_0 :s14_1_0 T18_0_0 :w3_2_0 T43_0_0 :w8_3_0"/>
-                <flank lanes=":w7_3_0 T42_0_0 :w2_2_0 T15_0_0 :s12_1_0 T14_0_0 :s11_1_0 T13_0_0 :s10_1_0 T12_0_0"/>
-                <protectingSwitches links=""/>
+                <flank lanes=":w7_3_0 T42_0_0 :w2_2_0 T15_0_0 :s12_1_0 T14_0_0 :s11_1_0 T13_0_0 :s10_1_0 T12_0_0 :w8_0_0 T43_1_0 :w3_1_0"/>
+                <protectingSwitches links="w3_1"/>
                 <conflictLinks signals=""/>
             </driveWay>
         </link>
@@ -257,8 +257,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <driveWay edges="T32_0 T33_0 T34_0 T35_0 T6_0 TrightLoop_1 T3_1 T19_1 T18_1 T43_1">
                 <forward lanes=":s25_1_0 T32_0_0 :w8_2_0 T33_0_0"/>
                 <bidi lanes=":s25_0_0 T32_1_0 :w8_1_0 T33_1_0 :s26_0_0 T34_1_0 :s27_0_0 T35_1_0 :s28_0_0 T6_1_0 :s4_1_0 TrightLoop_0_0 :s2_1_0 T3_0_0 :s15_1_0 T19_0_0 :s14_1_0 T18_0_0 :w3_2_0 T43_0_0 :w8_3_0"/>
-                <flank lanes=""/>
-                <protectingSwitches links=""/>
+                <flank lanes=":w8_0_0 T43_1_0 :w3_1_0"/>
+                <protectingSwitches links="w3_1"/>
                 <conflictLinks signals=""/>
             </driveWay>
         </link>
@@ -268,15 +268,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <driveWay edges="T34_0 T35_0 T6_0 TrightLoop_1 T3_1 T19_1 T18_1 T43_1 T32_1 T31_1 T42_1 T15_1 T14_1 T13_1 T12_1 T11_1 T10_1 T9_1 T8_1 T7_1 T2_1 T1_1 TleftLoop_1 T20_0 T21_0 T22_0 T23_0 T24_0 T25_0 T26_0 T44_0 T27_0 T28_0 T29_0 T30_0" core="8">
                 <forward lanes=":s26_1_0 T34_0_0"/>
                 <bidi lanes=":s26_0_0 T34_1_0 :s27_0_0 T35_1_0 :s28_0_0 T6_1_0 :s4_1_0 TrightLoop_0_0 :s2_1_0 T3_0_0 :s15_1_0 T19_0_0 :s14_1_0 T18_0_0 :w3_2_0 T43_0_0 :w8_3_0"/>
-                <flank lanes=":w8_3_0"/>
-                <protectingSwitches links="w8_3"/>
+                <flank lanes=""/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
             </driveWay>
             <driveWay edges="T34_0 T35_0 T6_0 TrightLoop_1 T3_1 T19_1 T18_1 T43_1 T32_1 T31_1 T42_1 T15_1 T14_1 T13_1 T12_1 T11_1 T10_1 T9_1 T8_1 T7_1 T2_1 T1_1 TleftLoop_1 T20_0 T21_0 T22_0 T23_0 T24_0 T25_0 T26_0 T44_0 T36_0 T37_0 Tdepot_0" core="8">
                 <forward lanes=":s26_1_0 T34_0_0"/>
                 <bidi lanes=":s26_0_0 T34_1_0 :s27_0_0 T35_1_0 :s28_0_0 T6_1_0 :s4_1_0 TrightLoop_0_0 :s2_1_0 T3_0_0 :s15_1_0 T19_0_0 :s14_1_0 T18_0_0 :w3_2_0 T43_0_0 :w8_3_0"/>
-                <flank lanes=":w8_3_0"/>
-                <protectingSwitches links="w8_3"/>
+                <flank lanes=""/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
             </driveWay>
         </link>
@@ -286,15 +286,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <driveWay edges="T35_0 T6_0 TrightLoop_1 T3_1 T19_1 T18_1 T43_1 T32_1 T31_1 T42_1 T15_1 T14_1 T13_1 T12_1 T11_1 T10_1 T9_1 T8_1 T7_1 T2_1 T1_1 TleftLoop_1 T20_0 T21_0 T22_0 T23_0 T24_0 T25_0 T26_0 T44_0 T27_0 T28_0 T29_0 T30_0" core="7">
                 <forward lanes=":s27_1_0 T35_0_0"/>
                 <bidi lanes=":s27_0_0 T35_1_0 :s28_0_0 T6_1_0 :s4_1_0 TrightLoop_0_0 :s2_1_0 T3_0_0 :s15_1_0 T19_0_0 :s14_1_0 T18_0_0 :w3_2_0 T43_0_0 :w8_3_0"/>
-                <flank lanes=":w8_3_0"/>
-                <protectingSwitches links="w8_3"/>
+                <flank lanes=""/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
             </driveWay>
             <driveWay edges="T35_0 T6_0 TrightLoop_1 T3_1 T19_1 T18_1 T43_1 T32_1 T31_1 T42_1 T15_1 T14_1 T13_1 T12_1 T11_1 T10_1 T9_1 T8_1 T7_1 T2_1 T1_1 TleftLoop_1 T20_0 T21_0 T22_0 T23_0 T24_0 T25_0 T26_0 T44_0 T36_0 T37_0 Tdepot_0" core="7">
                 <forward lanes=":s27_1_0 T35_0_0"/>
                 <bidi lanes=":s27_0_0 T35_1_0 :s28_0_0 T6_1_0 :s4_1_0 TrightLoop_0_0 :s2_1_0 T3_0_0 :s15_1_0 T19_0_0 :s14_1_0 T18_0_0 :w3_2_0 T43_0_0 :w8_3_0"/>
-                <flank lanes=":w8_3_0"/>
-                <protectingSwitches links="w8_3"/>
+                <flank lanes=""/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
             </driveWay>
         </link>
@@ -304,15 +304,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <driveWay edges="T6_0 TrightLoop_1 T3_1 T19_1 T18_1 T43_1 T32_1 T31_1 T42_1 T15_1 T14_1 T13_1 T12_1 T11_1 T10_1 T9_1 T8_1 T7_1 T2_1 T1_1 TleftLoop_1 T20_0 T21_0 T22_0 T23_0 T24_0 T25_0 T26_0 T44_0 T27_0 T28_0 T29_0 T30_0" core="6">
                 <forward lanes=":s28_1_0 T6_0_0"/>
                 <bidi lanes=":s28_0_0 T6_1_0 :s4_1_0 TrightLoop_0_0 :s2_1_0 T3_0_0 :s15_1_0 T19_0_0 :s14_1_0 T18_0_0 :w3_2_0 T43_0_0 :w8_3_0"/>
-                <flank lanes=":w8_3_0"/>
-                <protectingSwitches links="w8_3"/>
+                <flank lanes=""/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
             </driveWay>
             <driveWay edges="T6_0 TrightLoop_1 T3_1 T19_1 T18_1 T43_1 T32_1 T31_1 T42_1 T15_1 T14_1 T13_1 T12_1 T11_1 T10_1 T9_1 T8_1 T7_1 T2_1 T1_1 TleftLoop_1 T20_0 T21_0 T22_0 T23_0 T24_0 T25_0 T26_0 T44_0 T36_0 T37_0 Tdepot_0" core="6">
                 <forward lanes=":s28_1_0 T6_0_0"/>
                 <bidi lanes=":s28_0_0 T6_1_0 :s4_1_0 TrightLoop_0_0 :s2_1_0 T3_0_0 :s15_1_0 T19_0_0 :s14_1_0 T18_0_0 :w3_2_0 T43_0_0 :w8_3_0"/>
-                <flank lanes=":w8_3_0"/>
-                <protectingSwitches links="w8_3"/>
+                <flank lanes=""/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
             </driveWay>
         </link>
@@ -362,15 +362,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <driveWay edges="TrightLoop_1 T3_1 T19_1 T18_1 T43_1 T32_1 T31_1 T42_1 T15_1 T14_1 T13_1 T12_1 T11_1 T10_1 T9_1 T8_1 T7_1 T2_1 T1_1 TleftLoop_1 T20_0 T21_0 T22_0 T23_0 T24_0 T25_0 T26_0 T44_0 T27_0 T28_0 T29_0 T30_0" core="5">
                 <forward lanes=":s4_0_0 TrightLoop_1_0"/>
                 <bidi lanes=":s4_1_0 TrightLoop_0_0 :s2_1_0 T3_0_0 :s15_1_0 T19_0_0 :s14_1_0 T18_0_0 :w3_2_0 T43_0_0 :w8_3_0"/>
-                <flank lanes=":w8_3_0"/>
-                <protectingSwitches links="w8_3"/>
+                <flank lanes=""/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
             </driveWay>
             <driveWay edges="TrightLoop_1 T3_1 T19_1 T18_1 T43_1 T32_1 T31_1 T42_1 T15_1 T14_1 T13_1 T12_1 T11_1 T10_1 T9_1 T8_1 T7_1 T2_1 T1_1 TleftLoop_1 T20_0 T21_0 T22_0 T23_0 T24_0 T25_0 T26_0 T44_0 T36_0 T37_0 Tdepot_0" core="5">
                 <forward lanes=":s4_0_0 TrightLoop_1_0"/>
                 <bidi lanes=":s4_1_0 TrightLoop_0_0 :s2_1_0 T3_0_0 :s15_1_0 T19_0_0 :s14_1_0 T18_0_0 :w3_2_0 T43_0_0 :w8_3_0"/>
-                <flank lanes=":w8_3_0"/>
-                <protectingSwitches links="w8_3"/>
+                <flank lanes=""/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
             </driveWay>
         </link>

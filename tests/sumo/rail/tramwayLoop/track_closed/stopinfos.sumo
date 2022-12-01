@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-11-30 21:45:06 by Eclipse SUMO sumo Version v1_15_0+0681-fc8e1b1
+<!-- generated on Wed Sep  2 13:21:20 2020 by Eclipse SUMO sumo Version v1_6_0+1918-ddac060898
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-This file may also be made available under the following Secondary
-Licenses when the conditions for such availability set forth in the Eclipse
-Public License 2.0 are satisfied: GNU General Public License, version 2
-or later which is available at
-https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
-SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+SPDX-License-Identifier: EPL-2.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -36,7 +31,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </routing>
 
     <report>
+        <verbose value="true"/>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <duration-log.statistics value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -53,32 +50,32 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <stopinfo id="tram7" type="RB628" lane="TrightLoop_1_0" pos="400.00" parking="0" started="564.00" ended="584.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="rightStop"/>
     <stopinfo id="tram8" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="619.00" ended="639.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="leftStop"/>
     <stopinfo id="tram9" type="RB628" lane="TrightLoop_1_0" pos="400.00" parking="0" started="655.00" ended="675.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="rightStop"/>
-    <stopinfo id="tram1" type="RB628" lane="TrightLoop_1_0" pos="400.00" parking="0" started="797.00" ended="817.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="rightStop"/>
     <stopinfo id="tram2" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="851.00" ended="871.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="leftStop"/>
-    <stopinfo id="tram4" type="RB628" lane="TrightLoop_1_0" pos="400.00" parking="0" started="1021.00" ended="1041.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="rightStop"/>
-    <stopinfo id="tram5" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="1070.00" ended="1090.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="leftStop"/>
-    <stopinfo id="tram6" type="RB628" lane="TrightLoop_1_0" pos="400.00" parking="0" started="1112.00" ended="1132.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="rightStop"/>
-    <stopinfo id="tram8" type="RB628" lane="TrightLoop_1_0" pos="400.00" parking="0" started="1266.00" ended="1286.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="rightStop"/>
-    <stopinfo id="tram7" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="1350.00" ended="1370.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="leftStop"/>
-    <stopinfo id="tram2" type="RB628" lane="TrightLoop_1_0" pos="400.00" parking="0" started="1357.00" ended="1377.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="rightStop"/>
-    <stopinfo id="tram9" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="1443.00" ended="1463.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="leftStop"/>
-    <stopinfo id="tram5" type="RB628" lane="TrightLoop_1_0" pos="400.00" parking="0" started="1583.00" ended="1603.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="rightStop"/>
-    <stopinfo id="tram1" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="1595.00" ended="1615.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="leftStop"/>
-    <stopinfo id="tram4" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="1688.00" ended="1708.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="leftStop"/>
-    <stopinfo id="tram7" type="RB628" lane="TrightLoop_1_0" pos="400.00" parking="0" started="1821.00" ended="1841.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="rightStop"/>
-    <stopinfo id="tram6" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="1846.00" ended="1866.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="leftStop"/>
-    <stopinfo id="tram8" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="1939.00" ended="1959.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="leftStop"/>
-    <stopinfo id="tram9" type="RB628" lane="TrightLoop_1_0" pos="400.00" parking="0" started="1996.00" ended="2016.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="rightStop"/>
-    <stopinfo id="tram1" type="RB628" lane="TrightLoop_1_0" pos="400.00" parking="0" started="2087.00" ended="2107.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="rightStop"/>
-    <stopinfo id="tram2" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="2090.00" ended="2110.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="leftStop"/>
-    <stopinfo id="tram4" type="RB628" lane="TrightLoop_1_0" pos="400.00" parking="0" started="2225.00" ended="2245.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="rightStop"/>
-    <stopinfo id="tram5" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="2320.00" ended="2340.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="leftStop"/>
-    <stopinfo id="tram6" type="RB628" lane="TrightLoop_1_0" pos="400.00" parking="0" started="2393.00" ended="2413.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="rightStop"/>
-    <stopinfo id="tram7" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="2487.00" ended="2507.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="leftStop"/>
-    <stopinfo id="tram2" type="RB628" lane="TrightLoop_1_0" pos="400.00" parking="0" started="2541.00" ended="2561.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="rightStop"/>
-    <stopinfo id="tram9" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="2655.00" ended="2675.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="leftStop"/>
-    <stopinfo id="tram1" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="2814.00" ended="2834.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="leftStop"/>
-    <stopinfo id="tram4" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="2907.00" ended="2927.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="leftStop"/>
-    <stopinfo id="tram6" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="2999.00" ended="3019.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="leftStop"/>
-    <stopinfo id="tram2" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="3089.00" ended="3109.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="leftStop"/>
+    <stopinfo id="tram1" type="RB628" lane="TrightLoop_1_0" pos="400.00" parking="0" started="908.00" ended="928.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="rightStop"/>
+    <stopinfo id="tram5" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="1002.00" ended="1022.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="leftStop"/>
+    <stopinfo id="tram4" type="RB628" lane="TrightLoop_1_0" pos="400.00" parking="0" started="1018.00" ended="1038.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="rightStop"/>
+    <stopinfo id="tram6" type="RB628" lane="TrightLoop_1_0" pos="400.00" parking="0" started="1109.00" ended="1129.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="rightStop"/>
+    <stopinfo id="tram8" type="RB628" lane="TrightLoop_1_0" pos="400.00" parking="0" started="1262.00" ended="1282.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="rightStop"/>
+    <stopinfo id="tram7" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="1347.00" ended="1367.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="leftStop"/>
+    <stopinfo id="tram2" type="RB628" lane="TrightLoop_1_0" pos="400.00" parking="0" started="1416.00" ended="1436.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="rightStop"/>
+    <stopinfo id="tram9" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="1440.00" ended="1460.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="leftStop"/>
+    <stopinfo id="tram5" type="RB628" lane="TrightLoop_1_0" pos="400.00" parking="0" started="1507.00" ended="1527.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="rightStop"/>
+    <stopinfo id="tram1" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="1591.00" ended="1611.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="leftStop"/>
+    <stopinfo id="tram4" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="1745.00" ended="1765.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="leftStop"/>
+    <stopinfo id="tram7" type="RB628" lane="TrightLoop_1_0" pos="400.00" parking="0" started="1809.00" ended="1829.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="rightStop"/>
+    <stopinfo id="tram6" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="1838.00" ended="1858.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="leftStop"/>
+    <stopinfo id="tram8" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="1930.00" ended="1950.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="leftStop"/>
+    <stopinfo id="tram9" type="RB628" lane="TrightLoop_1_0" pos="400.00" parking="0" started="1986.00" ended="2006.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="rightStop"/>
+    <stopinfo id="tram1" type="RB628" lane="TrightLoop_1_0" pos="400.00" parking="0" started="2077.00" ended="2097.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="rightStop"/>
+    <stopinfo id="tram2" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="2080.00" ended="2100.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="leftStop"/>
+    <stopinfo id="tram4" type="RB628" lane="TrightLoop_1_0" pos="400.00" parking="0" started="2198.00" ended="2218.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="rightStop"/>
+    <stopinfo id="tram5" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="2316.00" ended="2336.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="leftStop"/>
+    <stopinfo id="tram6" type="RB628" lane="TrightLoop_1_0" pos="400.00" parking="0" started="2375.00" ended="2395.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="rightStop"/>
+    <stopinfo id="tram7" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="2470.00" ended="2490.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="leftStop"/>
+    <stopinfo id="tram2" type="RB628" lane="TrightLoop_1_0" pos="400.00" parking="0" started="2634.00" ended="2654.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="rightStop"/>
+    <stopinfo id="tram9" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="2637.00" ended="2657.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="leftStop"/>
+    <stopinfo id="tram1" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="2730.00" ended="2750.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="leftStop"/>
+    <stopinfo id="tram4" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="2896.00" ended="2916.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="leftStop"/>
+    <stopinfo id="tram6" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="2989.00" ended="3009.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="leftStop"/>
+    <stopinfo id="tram2" type="RB628" lane="TleftLoop_1_0" pos="400.00" parking="0" started="3163.00" ended="3183.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="leftStop"/>
 </stops>
