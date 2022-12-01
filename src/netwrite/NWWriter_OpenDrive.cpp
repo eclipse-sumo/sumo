@@ -370,7 +370,7 @@ NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
     device << "            </laneSection>\n";
     device << "        </lanes>\n";
     writeRoadObjects(device, e, shc);
-    writeSignals(device, e, length, signalLanes);
+    writeSignals(device, e, length, signalLanes, shc);
     if (origNames) {
         device << "        <userData code=\"sumoId\" value=\"" << e->getID() << "\"/>\n";
     }
@@ -948,7 +948,24 @@ NWWriter_OpenDrive::writeRoadObjects(OutputDevice& device, const NBEdge* e, cons
                 if (poi == nullptr) {
                     WRITE_WARNINGF("Road object polygon or POI '%' not found for edge '%'", id, e->getID());
                 } else {
-                    writeRoadObjectPOI(device, e, road, poi);
+                    if (poi->getShapeType() == "traffic_sign") {
+                        auto s = e->getFromNode()->getPosition().distanceTo2D(*poi);
+                        double t = 0.30;
+                        for (int i = 0; i < e->getNumLanes(); i++) {
+                            t += e->getPermissions(i) == SVC_PEDESTRIAN ? e->getLaneWidth(i) * 0.2 : e->getLaneWidth(i);
+                        }
+                        device.openTag("object");
+                        device.writeAttr("id", poi->getID());
+                        device.writeAttr("type", "pole");
+                        device.writeAttr("name", "pole");
+                        device.writeAttr("s", s);
+                        device.writeAttr("t", -t);
+                        device.writeAttr("hdg", 0);
+                        device.closeTag();
+                    }
+                    else {
+                        writeRoadObjectPOI(device, e, road, poi);
+                    }
                 }
             } else {
                 writeRoadObjectPoly(device, e, road, p);
@@ -964,7 +981,7 @@ NWWriter_OpenDrive::writeRoadObjects(OutputDevice& device, const NBEdge* e, cons
 
 void
 NWWriter_OpenDrive::writeSignals(OutputDevice& device, const NBEdge* e, double length,
-                                 SignalLanes& signalLanes) {
+                                 SignalLanes& signalLanes, const ShapeContainer& shc) {
     device.openTag("signals");
     if (e->getToNode()->isTLControlled()) {
         // try to faithfully represent the SUMO signal layout
@@ -1034,6 +1051,51 @@ NWWriter_OpenDrive::writeSignals(OutputDevice& device, const NBEdge* e, double l
                 device.closeTag();
             }
             device.closeTag();
+        }
+    }
+    else if(e->knowsParameter(ROAD_OBJECTS)) {
+        PositionVector road = getInnerLaneBorder(e);
+        for (std::string id : StringTokenizer(e->getParameter(ROAD_OBJECTS, "")).getVector()) {
+            PointOfInterest* poi = shc.getPOIs().get(id);
+            if (poi != nullptr) {
+                if (poi->getShapeType() == "traffic_sign") {
+                    //todo should check if poi knowsparameter traffic_sign
+                    std::string traffic_sign_type = poi->getParameter("traffic_sign");
+                    //todo should do the switch to differentiate between IDbased traffic_signs and signs like hazard (i.e.)
+                    std::string traffic_sign_subtype = "";
+                    std::string traffic_sign_value = "";
+                    if (traffic_sign_type == "maxspeed" && poi->knowsParameter("maxspeed"))
+                    {
+                        traffic_sign_value = poi->getParameter("maxspeed");
+                    }
+                    else if (traffic_sign_type == "hazard" && poi->knowsParameter("hazard")) {
+                        traffic_sign_subtype = poi->getParameter("hazard");
+                    }
+
+                    const std::string tag = "signal";
+
+                    auto distance = e->getFromNode()->getPosition().distanceTo2D(*poi);
+                    double t = 0.30;
+                    for (int i = 0; i < e->getNumLanes(); i++) {
+                        t += e->getPermissions(i) == SVC_PEDESTRIAN ? e->getLaneWidth(i) * 0.2 : e->getLaneWidth(i);
+                    }
+                    device.openTag(tag);
+                    device.writeAttr("id", id);
+                    device.writeAttr("s", distance);
+                    device.writeAttr("t", -t);
+                    //adjust based on lefthand?
+                    device.writeAttr("orientation", "-");
+                    device.writeAttr("dynamic", "no");
+                    device.writeAttr("zOffset", 3);
+                    device.writeAttr("country", "OpenDRIVE");
+                    device.writeAttr("type", traffic_sign_type);
+                    device.writeAttr("subtype", traffic_sign_subtype);
+                    device.writeAttr("value", traffic_sign_value);
+                    device.writeAttr("height", 0.78);
+                    device.writeAttr("width", 0.78);
+                    device.closeTag();
+                }
+            }
         }
     }
     device.closeTag();
@@ -1123,7 +1185,8 @@ NWWriter_OpenDrive::mapmatchRoadObjects(const ShapeContainer& shc,  const NBEdge
         std::vector<std::pair<double, std::string> > nearby;
         for (const Named* namedEdge : edges) {
             NBEdge* e = const_cast<NBEdge*>(dynamic_cast<const NBEdge*>(namedEdge));
-            const double distance = e->getLaneShape(0).distance2D(*p, true);
+            // to double check why with "true" it does not work.
+            const double distance = e->getLaneShape(0).distance2D(*p, false);
             if (distance != GeomHelper::INVALID_OFFSET && distance <= maxDist) {
                 // sort by distance and ID to stabilize results
                 nearby.push_back(std::make_pair(distance, e->getID()));
