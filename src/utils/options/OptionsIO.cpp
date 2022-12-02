@@ -47,14 +47,13 @@
 // ===========================================================================
 // static member definitions
 // ===========================================================================
-
 std::vector<std::string> OptionsIO::myArgs;
 std::chrono::time_point<std::chrono::system_clock> OptionsIO::myLoadTime;
+
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-
 void
 OptionsIO::setArgs(int argc, char** argv) {
     myArgs.clear();
@@ -72,13 +71,13 @@ OptionsIO::setArgs(const std::vector<std::string>& args) {
 
 
 void
-OptionsIO::getOptions(OptionsCont& options, const bool commandLineOnly) {
+OptionsIO::getOptions(const bool commandLineOnly) {
     myLoadTime = std::chrono::system_clock::now();
     if (myArgs.size() == 2 && myArgs[1][0] != '-') {
         // special case only one parameter, check who can handle it
-        if (options.setByRootElement(getRoot(options, myArgs[1]), myArgs[1])) {
+        if (OptionsCont::getOptions().setByRootElement(getRoot(myArgs[1]), myArgs[1])) {
             if (!commandLineOnly) {
-                loadConfiguration(options);
+                loadConfiguration();
             }
             return;
         }
@@ -88,31 +87,32 @@ OptionsIO::getOptions(OptionsCont& options, const bool commandLineOnly) {
     if (!OptionsParser::parse(myArgs, true)) {
         throw ProcessError("Could not parse commandline options.");
     }
-    if (!commandLineOnly || options.isSet("save-configuration", false)) {
+    if (!commandLineOnly || OptionsCont::getOptions().isSet("save-configuration", false)) {
         // read the configuration when everything's ok
-        loadConfiguration(options);
+        loadConfiguration();
     }
 }
 
 
 void
-OptionsIO::loadConfiguration(OptionsCont& options) {
-    if (options.exists("configuration-file") && options.isSet("configuration-file")) {
-        const std::string path = options.getString("configuration-file");
+OptionsIO::loadConfiguration() {
+    OptionsCont& oc = OptionsCont::getOptions();
+    if (oc.exists("configuration-file") && oc.isSet("configuration-file")) {
+        const std::string path = oc.getString("configuration-file");
         if (!FileHelpers::isReadable(path)) {
-            throw ProcessError("Could not access configuration '" + options.getString("configuration-file") + "'.");
+            throw ProcessError("Could not access configuration '" + oc.getString("configuration-file") + "'.");
         }
-        const bool verbose = !options.exists("verbose") || options.getBool("verbose");
+        const bool verbose = !oc.exists("verbose") || oc.getBool("verbose");
         if (verbose) {
             PROGRESS_BEGIN_MESSAGE("Loading configuration");
         }
-        options.resetWritable();
+        oc.resetWritable();
         // build parser
         XERCES_CPP_NAMESPACE::SAXParser parser;
         parser.setValidationScheme(XERCES_CPP_NAMESPACE::SAXParser::Val_Never);
         parser.setDisableDefaultEntityResolution(true);
         // start the parsing
-        OptionsLoader handler(options);
+        OptionsLoader handler(OptionsCont::getOptions());
         try {
             parser.setDocumentHandler(&handler);
             parser.setErrorHandler(&handler);
@@ -123,14 +123,14 @@ OptionsIO::loadConfiguration(OptionsCont& options) {
         } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
             throw ProcessError("Could not load configuration '" + path + "':\n " + StringUtils::transcode(e.getMessage()));
         }
-        options.relocateFiles(path);
+        oc.relocateFiles(path);
         if (verbose) {
             PROGRESS_DONE_MESSAGE();
         }
     }
     if (myArgs.size() > 2) {
         // reparse the options (overwrite the settings from the configuration file)
-        options.resetWritable();
+        oc.resetWritable();
         if (!OptionsParser::parse(myArgs)) {
             throw ProcessError("Could not parse commandline options.");
         }
@@ -139,13 +139,13 @@ OptionsIO::loadConfiguration(OptionsCont& options) {
 
 
 std::string
-OptionsIO::getRoot(OptionsCont& options, const std::string& filename) {
+OptionsIO::getRoot(const std::string& filename) {
     // build parser
     XERCES_CPP_NAMESPACE::SAXParser parser;
     parser.setValidationScheme(XERCES_CPP_NAMESPACE::SAXParser::Val_Never);
     parser.setDisableDefaultEntityResolution(true);
     // start the parsing
-    OptionsLoader handler(options);
+    OptionsLoader handler(OptionsCont::getOptions());
     try {
         parser.setDocumentHandler(&handler);
         parser.setErrorHandler(&handler);

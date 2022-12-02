@@ -346,7 +346,7 @@ main(int argc, char** argv) {
         XMLSubSys::init();
         ROMAFrame::fillOptions();
         OptionsIO::setArgs(argc, argv);
-        OptionsIO::getOptions(OptionsCont::getOptions());
+        OptionsIO::getOptions();
         if (oc.processMetaOptions(argc < 2)) {
             SystemFrame::close();
             return 0;

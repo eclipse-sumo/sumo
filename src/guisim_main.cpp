@@ -66,7 +66,7 @@ main(int argc, char** argv) {
         XMLSubSys::init();
         MSFrame::fillOptions();
         OptionsIO::setArgs(argc, argv);
-        OptionsIO::getOptions(OptionsCont::getOptions(), true);
+        OptionsIO::getOptions(true);
         if (oc.processMetaOptions(false)) {
             SystemFrame::close();
             return 0;

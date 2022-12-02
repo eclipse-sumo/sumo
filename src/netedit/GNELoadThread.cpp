@@ -462,7 +462,7 @@ GNELoadThread::initOptions() {
         // set all values writable, because certain attributes already setted can be updated through console
         oc.resetWritable();
         // load options from console
-        OptionsIO::getOptions(OptionsCont::getNeteditOptions());
+        OptionsIO::getOptions();
         // if output file wasn't defined in the command line manually, set value of "sumo-net-file"
         if (!oc.isSet("output-file")) {
             oc.set("output-file", oc.getString("sumo-net-file"));

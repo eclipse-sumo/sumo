@@ -142,7 +142,7 @@ main(int argc, char** argv) {
         // initialise the application system (messaging, xml, options)
         XMLSubSys::init();
         OptionsIO::setArgs(argc, argv);
-        OptionsIO::getOptions(OptionsCont::getOptions());
+        OptionsIO::getOptions();
         if (oc.processMetaOptions(argc < 2)) {
             SystemFrame::close();
             return 0;

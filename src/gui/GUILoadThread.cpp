@@ -96,12 +96,12 @@ GUILoadThread::run() {
             // triggered by menu option or reload
             oc.clear();
             MSFrame::fillOptions();
-            oc.setByRootElement(OptionsIO::getRoot(OptionsCont::getOptions(), myFile), myFile);
+            oc.setByRootElement(OptionsIO::getRoot(myFile), myFile);
             oc.resetWritable(); // there may be command line options
-            OptionsIO::getOptions(OptionsCont::getOptions());
+            OptionsIO::getOptions();
         } else {
             // triggered at application start
-            OptionsIO::loadConfiguration(OptionsCont::getOptions());
+            OptionsIO::loadConfiguration();
             if (oc.isSet("configuration-file")) {
                 myFile = oc.getString("configuration-file");
             } else if (oc.isSet("net-file")) {
