@@ -87,7 +87,7 @@ if __name__ == "__main__":
     optParser.add_option("--direction", action="store_true",
                          default=False, help="try to use direction of consecutive points when mapping")
     optParser.add_option("--vehicle-class", default=None,
-                         help="filters the edges by the vehicle class the route is meant for")    
+                         help="filters the edges by the vehicle class the route is meant for")
     optParser.add_option("--fill-gaps", default=0., type=float,
                          help="repair disconnected routes bridging gaps of up to x meters")
     optParser.add_option("-g", "--gap-penalty", default=-1, type="float",

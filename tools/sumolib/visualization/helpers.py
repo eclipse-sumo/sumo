@@ -380,6 +380,7 @@ def parseColorMap(mapDef):
     colormap = matplotlib.colors.LinearSegmentedColormap("CUSTOM", ret, 1024)
     return colormap
 
+
 def parseTicks(tickfile):
     # whether we're loading <FLOAT>:<LABEL> instead of <LABEL>
     haveOffsets = True
@@ -405,5 +406,3 @@ def parseTicks(tickfile):
     if not haveOffsets:
         offsets = range(len(labels))
     return offsets, labels
-
-

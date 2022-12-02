@@ -29,10 +29,10 @@
 
 - If the critical flow or the sum of the critical flows is larger than 1,
  the optimal cycle length will be set to 120 sec.
- 
+
 - Duration for yellow phase will be adjusted according to
   the defined option value
-  
+
 - Duration for all-red phase will be not adjusted.
 """
 
