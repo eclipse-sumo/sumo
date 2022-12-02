@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-11-28 16:38:34 by Eclipse SUMO sumo Version v1_15_0+0645-8eb20fe
+<!-- generated on 2022-12-02 08:45:54 by Eclipse SUMO sumo Version v1_15_0+0714-4818e7c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -44,22 +44,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <railsignal-block-output>
     <railSignal id="J13">
         <link linkIndex="0" from="-E12_0" to="-E11_0">
-            <driveWay edges="-E11 E18 -E14 -E13">
-                <forward lanes="-E11_0 E18_0 -E14_0 -E13_0"/>
-                <bidi lanes="E11_0 -E18_0 E14_0 E13_0"/>
-                <flank lanes="-E15_0 -E16_0 -E17_0 E10_0 E9_0 E8_0"/>
-                <protectingSwitches links=""/>
+            <driveWay edges="-E11 -E10 -E9 -E8">
+                <forward lanes="-E11_0 -E10_0 -E9_0 -E8_0"/>
+                <bidi lanes="E11_0 E10_0 E9_0 E8_0"/>
+                <flank lanes="-E18_0"/>
+                <protectingSwitches links="J17_2"/>
                 <conflictLinks signals=""/>
             </driveWay>
         </link>
-        <link linkIndex="1" from="E11_0" to="E12_0">
-            <driveWay edges="E12">
-                <forward lanes="E12_0"/>
-                <bidi lanes="-E12_0"/>
-                <flank lanes=""/>
-                <protectingSwitches links=""/>
-                <conflictLinks signals=""/>
-            </driveWay>
-        </link>
+        <link linkIndex="1" from="E11_0" to="E12_0"/>
     </railSignal>
 </railsignal-block-output>

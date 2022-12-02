@@ -16,6 +16,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <input>
         <net-file value="net.net.xml"/>
         <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
     </input>
 
     <output>
@@ -26,12 +27,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <processing>
         <default.speeddev value="0"/>
+        <use-stop-ended value="true"/>
     </processing>
-
-    <routing>
-        <device.rerouting.period value="10"/>
-        <device.rerouting.adaptation-steps value="10"/>
-    </routing>
 
     <report>
         <xml-validation value="never"/>
@@ -48,14 +45,28 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <railsignal-block-output>
     <railSignal id="A">
-        <link linkIndex="0" from="T0_0" to="T1_0">
-            <driveWay edges="T1 T1b T2 T3 T4">
-                <forward lanes="T1_0 T1b_0 T2_0 T3_0 T4_0"/>
+        <link linkIndex="0" from="a_0" to="b_0">
+            <driveWay edges="b c">
+                <forward lanes="b_0 c_0"/>
                 <bidi lanes=""/>
-                <flank lanes="T11_0 T10_0 T21_0 T20_0 T31_0 T30_0"/>
+                <flank lanes="e_0"/>
                 <protectingSwitches links=""/>
-                <conflictLinks signals=""/>
+                <conflictLinks signals="D_0"/>
             </driveWay>
         </link>
+    </railSignal>
+    <railSignal id="AP">
+        <link linkIndex="0" from="aPre_0" to="a_0">
+            <driveWay edges="a c">
+                <forward lanes="a_0 c_0"/>
+                <bidi lanes=""/>
+                <flank lanes="b_0 e_0"/>
+                <protectingSwitches links=""/>
+                <conflictLinks signals="A_0 D_0"/>
+            </driveWay>
+        </link>
+    </railSignal>
+    <railSignal id="D">
+        <link linkIndex="0" from="d_0" to="e_0"/>
     </railSignal>
 </railsignal-block-output>
