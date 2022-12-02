@@ -69,7 +69,8 @@ protected:
                                 const bool origNames,
                                 const double straightThresh,
                                 const ShapeContainer& shc,
-                                SignalLanes& signalLanes, const std::vector<std::string>& crossings);
+                                SignalLanes& signalLanes,
+                                const std::vector<std::string>& crossings);
 
     /// @brief write internal edge to device, return next connectionID
     static int writeInternalEdge(OutputDevice& device, OutputDevice& junctionDevice,
