@@ -316,8 +316,10 @@ enum {
 
     /// @brief Open editor for selections
     MID_EDITCHOSEN,
-    /// @brief Open in netedit
-    MID_NETEDIT,
+    /// @brief Open network in NETEDIT
+    MID_NETEDIT_ONLYNETWORK,
+    /// @brief open sumoConfig in NETEDIT
+    MID_NETEDIT_SUMOCFG,
 
     /// @}
 

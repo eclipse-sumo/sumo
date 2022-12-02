@@ -188,8 +188,14 @@ public:
     /// @brief called if the user selects help->Tutorial
     long onCmdTutorial(FXObject* sender, FXSelector sel, void* ptr);
 
-    /// @brief Called on menu Edit->Netedit
-    long onCmdNetedit(FXObject*, FXSelector, void*);
+    /// @brief Called on menu Edit->Netedit (network)
+    long onCmdNeteditNetwork(FXObject*, FXSelector, void*);
+
+    /// @brief Called on menu Edit->Netedit (SUMOCfg)
+    long onCmdNeteditSUMOConfig(FXObject*, FXSelector, void*);
+
+    /// @brief Enable or disable open SUMOConfig in NETEDIT
+    long onUpdNeteditSUMOConfig(FXObject*, FXSelector, void*);
 
     /// @brief Opens the application settings menu (Settings->Application Settings...)
     long onCmdAppSettings(FXObject*, FXSelector, void*);
