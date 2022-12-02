@@ -18,10 +18,17 @@ title: ChangeLog
   - Fixed crash in public transport scenario with looped routes. Issue #12150
   - Fixed bug where vehicle with short boardingDuration fails to board passengers after deboarding. Issue #12168
   - Fixed invalid error when loading edgeData with negative electricity consumption. Issue #12172
+  - Fixed invalid insertion delay for trains on bidirectional track. Issue #12079
+  - Fixed deadlock on bidirectional track involving trains that arrive within a block. Issue #12184
+  - sublane model fixes:
+    - Fixed invalid emergency braking for junction foe. Issue #12202
+    - Fixed inconsistent computation for vehicle back position. Issue #12146
+    - Fixed unsafe follow speed on multi-lane turning edge. Issue #12204
 
 - netedit
   - Fixed bug where stops on looped routes where saved in an invalid order. Issue #12054 (regression in 1.12.0)
   - Right click on elements above a polygon now selects now acts on the top element again. Issue #12111 (regression in 1.14.1)
+  - Fixed invalid position of start and end edge geometry points after merging geometry points in move mode. Issue #12178 (regression in 1.14.1)
   - Fixed bug where during creation of new edge, sometimes, the candidate "to" junction isn't draw wit magenta dotted contour. Issue #12013 (regression in 1.15.0)  
   - Fixed invalid selection outline. Issue #12033
   - Fixed bug where right-click object-choice-menu lists the same object twice. Issue #12034
@@ -41,7 +48,7 @@ title: ChangeLog
   - Fixed invalid dead-end when using option **--osm.turn-lanes**. Issue #12042
   - Fixed invalid plain xml output (after reading an invalid network). Issue #12086
   - Fixed invalid right of way rules causing mutual conflict at multimodal priority-junction. Issue #5609
-  - Fixed invalid guessed connections. Issue #10771, #10978, #2472
+  - Fixed invalid guessed connections. Issue #10771, #10978, #2472, #12181
   - Fixed missing bidi edges in generated network. Issue #12127
   - OSM import no longer ignores spreadType in typemap. Issue #12141
   
@@ -73,6 +80,7 @@ title: ChangeLog
   - Improved heuristic for generating rail connections at sharp angles. Issue #12119
   - Warnings of E3 detectors and from the SSM device can now be aggregated. Issue #12149
   - Individual lane widths are now import from OpenStreetMap. Issue #12162
+  - Lane divider style can now be exported from OSM to OpenDRIVE. Issue #12158
 
 - netedit
   - Added TimeStamp in Undo-Redo list. Issue #11744
@@ -88,6 +96,7 @@ title: ChangeLog
 
 - sumo-gui
   - Wne option **--use-stop-ended** is set, show-route mode now labels the 'ended' time of stops. Issue #11833
+  - The view now updates after loading a selection file. Issue #12191
 
 - Tools
   - gtfs2pt.py: Now writing short route id and headsign as params. Issue #11819
@@ -112,6 +121,7 @@ title: ChangeLog
 - Netconvert options for writing polygons are now documented. Issue #12135
 - Updated Windows MSVC runtime libraries and Xerces-C to 3.2.4
 - Improved pydoc for TraCI functions that modify vType attributes. Issue #11943
+- Added all required fmi functions required for FMPy version 0.3.13. Issue #12199
 
 ## Version 1.15.0 (08.11.2022)
 
