@@ -44,6 +44,7 @@ class OptionsCont;
  *  contains a description about the failure.
  */
 class OptionsIO {
+
 public:
     /** @brief Stores the command line arguments for later parsing
      *
@@ -58,12 +59,10 @@ public:
     */
     static void setArgs(const std::vector<std::string>& args);
 
-    /** @brief Return the number of command line arguments
-     */
+    /// @brief Return the number of command line arguments
     static int getArgC() {
         return (int)myArgs.size();
     }
-
 
     /** @brief Parses the command line arguments and loads the configuration
      *
@@ -77,8 +76,7 @@ public:
      *  command line arguments, first, then to load values from this configuration
      *  file and reset them by other values from the command line.
      */
-    static void getOptions(const bool commandLineOnly = false);
-
+    static void getOptions(OptionsCont& options, const bool commandLineOnly = false);
 
     /** @brief Loads and parses the configuration
      *
@@ -86,25 +84,24 @@ public:
      *  OptionsCont ("configuration-file" is used as the name of the option to get
      *  the name of the configuration).
      */
-    static void loadConfiguration();
-
+    static void loadConfiguration(OptionsCont& options);
 
     /** @brief Retrieves the XML root element of a supposed configuration or net
      *
      * @param[in] filename the XML file to parse
      * @return the root element if any
      */
-    static std::string getRoot(const std::string& filename);
+    static std::string getRoot(OptionsCont& options, const std::string& filename);
 
-    /** @brief Return the time stamp of the last init
-     */
+    /// @brief Return the time stamp of the last init
     static const std::chrono::time_point<std::chrono::system_clock>& getLoadTime() {
         return myLoadTime;
     }
 
-
 private:
+    /// @brief list of arguments
     static std::vector<std::string> myArgs;
-    static std::chrono::time_point<std::chrono::system_clock> myLoadTime;
 
+    /// @brief load time
+    static std::chrono::time_point<std::chrono::system_clock> myLoadTime;
 };

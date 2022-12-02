@@ -279,7 +279,7 @@ NLBuilder::init(const bool isLibsumo) {
     OptionsCont& oc = OptionsCont::getOptions();
     oc.clear();
     MSFrame::fillOptions();
-    OptionsIO::getOptions();
+    OptionsIO::getOptions(OptionsCont::getOptions());
     if (oc.processMetaOptions(OptionsIO::getArgC() < 2)) {
         SystemFrame::close();
         return nullptr;
