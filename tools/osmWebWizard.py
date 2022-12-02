@@ -43,8 +43,7 @@ import tileGet
 import sumolib
 from webWizard.SimpleWebSocketServer import SimpleWebSocketServer, WebSocket
 
-SUMO_HOME = os.environ.get("SUMO_HOME", os.path.join(
-    os.path.dirname(os.path.abspath(__file__)), ".."))
+SUMO_HOME = os.environ.get("SUMO_HOME", os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 
 try:
     basestring

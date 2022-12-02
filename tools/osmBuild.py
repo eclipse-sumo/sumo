@@ -24,6 +24,7 @@ import subprocess
 import sumolib
 
 
+SUMO_HOME = os.environ.get("SUMO_HOME", os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 vclassRemove = {"passenger": ["--keep-edges.by-vclass", "passenger"],
                 "publicTransport": ["--keep-edges.by-vclass", "passenger,bus,tram,rail_urban,rail"],
                 "road": ["--remove-edges.by-vclass", "tram,rail_urban,rail_electric,bicycle,pedestrian"],
@@ -77,7 +78,7 @@ def build(args=None, bindir=None):
             not (options.oldapi_prefix or options.osm_file)):
         optParser.error(
             "exactly one of the options --osm-file and --oldapi-prefix must be supplied")
-    if options.typemap and not os.path.isfile(options.typemap.replace("${SUMO_HOME}", os.environ["SUMO_HOME"])):
+    if options.typemap and not os.path.isfile(options.typemap.replace("${SUMO_HOME}", SUMO_HOME)):
         # fail early because netconvert may take a long time
         optParser.error('typemap file "%s" not found' % options.typemap)
     if options.vehicle_classes not in vclassRemove:
