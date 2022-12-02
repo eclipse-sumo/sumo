@@ -116,7 +116,7 @@ GNEParkingArea::writeAdditional(OutputDevice& device) const {
 void
 GNEParkingArea::updateGeometry() {
     // Get value of option "lefthand"
-    const double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
+    const double offsetSign = OptionsCont::getNeteditOptions().getBool("lefthand") ? -1 : 1;
     // calculate spaceDim
     const double spaceDim = myRoadSideCapacity > 0 ? (getAttributeDouble(SUMO_ATTR_ENDPOS) - getAttributeDouble(SUMO_ATTR_STARTPOS)) / myRoadSideCapacity * getParentLanes().front()->getLengthGeometryFactor() : 7.5;
     // calculate length

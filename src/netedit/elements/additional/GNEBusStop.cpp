@@ -103,7 +103,7 @@ GNEBusStop::writeAdditional(OutputDevice& device) const {
 void
 GNEBusStop::updateGeometry() {
     // Get value of option "lefthand"
-    double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
+    double offsetSign = OptionsCont::getNeteditOptions().getBool("lefthand") ? -1 : 1;
     // Update common geometry of stopping place
     setStoppingPlaceGeometry(getParentLanes().front()->getParentEdge()->getNBEdge()->getLaneWidth(getParentLanes().front()->getIndex()) * 0.5);
     // Obtain a copy of the shape

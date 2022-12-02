@@ -1114,7 +1114,7 @@ GNENetHelper::AttributeCarriers::clearAdditionals() {
 std::string
 GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
     // obtain option container
-    OptionsCont& oc = OptionsCont::getOptions();
+    OptionsCont& oc = OptionsCont::getNeteditOptions();
     // get prefix
     std::string prefix;
     if (tag == SUMO_TAG_BUS_STOP) {
@@ -1365,7 +1365,7 @@ GNENetHelper::AttributeCarriers::getNumberOfDemandElements() const {
 std::string
 GNENetHelper::AttributeCarriers::generateDemandElementID(SumoXMLTag tag) const {
     // obtain option container
-    OptionsCont& oc = OptionsCont::getOptions();
+    OptionsCont& oc = OptionsCont::getNeteditOptions();
     // get tag property
     const auto tagProperty = GNEAttributeCarrier::getTagProperty(tag);
     // get prefix
@@ -2155,7 +2155,7 @@ GNENetHelper::AttributeCarriers::clearMeanDatas() {
 std::string
 GNENetHelper::AttributeCarriers::generateMeanDataID(SumoXMLTag tag) const {
     // obtain option container
-    OptionsCont& oc = OptionsCont::getOptions();
+    OptionsCont& oc = OptionsCont::getNeteditOptions();
     // get prefix
     std::string prefix;
     if (tag == SUMO_TAG_MEANDATA_EDGE) {

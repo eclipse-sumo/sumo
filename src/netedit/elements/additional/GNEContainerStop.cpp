@@ -101,7 +101,7 @@ GNEContainerStop::writeAdditional(OutputDevice& device) const {
 void
 GNEContainerStop::updateGeometry() {
     // Get value of option "lefthand"
-    const double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
+    const double offsetSign = OptionsCont::getNeteditOptions().getBool("lefthand") ? -1 : 1;
     // Update common geometry of stopping place
     setStoppingPlaceGeometry(getParentLanes().front()->getParentEdge()->getNBEdge()->getLaneWidth(getParentLanes().front()->getIndex()) / 2);
     // Obtain a copy of the shape

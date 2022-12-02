@@ -617,7 +617,7 @@ GNEViewNet::openSelectDialogAtCursor(const std::vector<GUIGlObject*>& GLObjects)
 void
 GNEViewNet::saveVisualizationSettings() const {
     // first check if we have to save gui settings in a file (only used for testing purposes)
-    OptionsCont& oc = OptionsCont::getOptions();
+    OptionsCont& oc = OptionsCont::getNeteditOptions();
     if (oc.getString("gui-testing.setting-output").size() > 0) {
         try {
             // open output device
@@ -995,8 +995,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         myVisualizationSettings->drawForRectangleSelection = true;
     }
     // set lefthand and laneIcons
-    myVisualizationSettings->lefthand = OptionsCont::getOptions().getBool("lefthand");
-    myVisualizationSettings->disableLaneIcons = OptionsCont::getOptions().getBool("disable-laneIcons");
+    myVisualizationSettings->lefthand = OptionsCont::getNeteditOptions().getBool("lefthand");
+    myVisualizationSettings->disableLaneIcons = OptionsCont::getNeteditOptions().getBool("disable-laneIcons");
 
     glRenderMode(mode);
     glMatrixMode(GL_MODELVIEW);
@@ -3257,7 +3257,7 @@ GNEViewNet::onCmdEditJunctionShape(FXObject*, FXSelector, void*) {
         // check if network has to be updated
         if (junction->getNBNode()->getShape().size() == 0) {
             // recompute the whole network
-            myNet->computeAndUpdate(OptionsCont::getOptions(), false);
+            myNet->computeAndUpdate(OptionsCont::getNeteditOptions(), false);
         }
         // start edit custom shape
         myEditNetworkElementShapes.startEditCustomShape(junction);
@@ -3551,7 +3551,7 @@ GNEViewNet::onCmdEditCrossingShape(FXObject*, FXSelector, void*) {
         // check if network has to be updated
         if (crossing->getParentJunction()->getNBNode()->getShape().size() == 0) {
             // recompute the whole network
-            myNet->computeAndUpdate(OptionsCont::getOptions(), false);
+            myNet->computeAndUpdate(OptionsCont::getNeteditOptions(), false);
         }
         // start edit custom shape
         myEditNetworkElementShapes.startEditCustomShape(crossing);
@@ -3571,7 +3571,7 @@ GNEViewNet::onCmdEditWalkingAreaShape(FXObject*, FXSelector, void*) {
         // check if network has to be updated
         if (walkingArea->getParentJunction()->getNBNode()->getShape().size() == 0) {
             // recompute the whole network
-            myNet->computeAndUpdate(OptionsCont::getOptions(), false);
+            myNet->computeAndUpdate(OptionsCont::getNeteditOptions(), false);
         }
         // start edit custom shape
         myEditNetworkElementShapes.startEditCustomShape(walkingArea);

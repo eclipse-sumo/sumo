@@ -237,7 +237,7 @@ GNEJunction::rebuildGNECrossings(bool rebuildNBNodeCrossings) {
 
 void
 GNEJunction::mirrorXLeftHand() {
-    if (OptionsCont::getOptions().getBool("lefthand")) {
+    if (OptionsCont::getNeteditOptions().getBool("lefthand")) {
         myNBNode->mirrorX();
         for (NBEdge* e : myNBNode->getEdges()) {
             e->mirrorX();
@@ -311,7 +311,7 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             GUIDesigns::buildFXMenuCommand(ret, "Select roundabout", nullptr, &parent, MID_GNE_JUNCTION_SELECT_ROUNDABOUT);
         } else {
             // get radius
-            const double radius = (myNBNode->getRadius() == NBNode::UNSPECIFIED_RADIUS) ? OptionsCont::getOptions().getFloat("default.junctions.radius") : myNBNode->getRadius();
+            const double radius = (myNBNode->getRadius() == NBNode::UNSPECIFIED_RADIUS) ? OptionsCont::getNeteditOptions().getFloat("default.junctions.radius") : myNBNode->getRadius();
             const std::string menuEntryInfo = "Convert to roundabout (using junction attribute radius " + toString(radius) + ")";
             FXMenuCommand* mcRoundabout = GUIDesigns::buildFXMenuCommand(ret, menuEntryInfo.c_str(), nullptr, &parent, MID_GNE_JUNCTION_CONVERT_ROUNDABOUT);
             // check if disable depending of number of edges

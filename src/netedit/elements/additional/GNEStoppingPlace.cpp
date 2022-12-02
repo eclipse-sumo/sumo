@@ -233,7 +233,7 @@ GNEStoppingPlace::getParentName() const {
 void
 GNEStoppingPlace::setStoppingPlaceGeometry(double movingToSide) {
     // Get value of option "lefthand"
-    const double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
+    const double offsetSign = OptionsCont::getNeteditOptions().getBool("lefthand") ? -1 : 1;
 
     // obtain laneShape
     PositionVector laneShape = getParentLanes().front()->getLaneShape();
