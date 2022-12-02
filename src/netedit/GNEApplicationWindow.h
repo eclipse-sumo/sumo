@@ -622,6 +622,9 @@ protected:
     /// @brief string to check if undo/redo list is enabled (a String is used to keep the disabling reason)
     std::string myUndoRedoListEnabled;
 
+    /// @brief NETDIT options container
+    OptionsCont myNeteditOptions;
+
 private:
     /// @brief Toolbars Grip
     GNEApplicationWindowHelper::ToolbarsGrip myToolbarsGrip;
