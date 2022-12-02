@@ -223,7 +223,7 @@ GNERouteHandler::buildEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* su
 
 void
 GNERouteHandler::buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& /*id*/) {
-    // unsuported
+    // unsupported
     writeError("NETEDIT doesn't support route distributions");
 }
 
@@ -319,7 +319,7 @@ GNERouteHandler::buildTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
         } else if (vehicleParameters.wasSet(VEHPARS_DEPARTSPEED_SET) && (vehicleParameters.departSpeedProcedure == DepartSpeedDefinition::GIVEN) && (vType->getAttributeDouble(SUMO_ATTR_MAXSPEED) < vehicleParameters.departSpeed)) {
             writeError("Invalid " + toString(SUMO_ATTR_DEPARTSPEED) + " used in " + toString(vehicleParameters.tag) + " '" + vehicleParameters.id + "'. " + toString(vehicleParameters.departSpeed) + " is greater than vType" + toString(SUMO_ATTR_MAXSPEED));
         } else {
-            // check if upate via attribute
+            // check if update via attribute
             if (sumoBaseObject->hasStringListAttribute(SUMO_ATTR_VIA)) {
                 vehicleParameters.via = sumoBaseObject->getStringListAttribute(SUMO_ATTR_VIA);
             }
@@ -402,7 +402,7 @@ GNERouteHandler::buildFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
         } else if (vehicleParameters.wasSet(VEHPARS_DEPARTSPEED_SET) && (vehicleParameters.departSpeedProcedure == DepartSpeedDefinition::GIVEN) && (vType->getAttributeDouble(SUMO_ATTR_MAXSPEED) < vehicleParameters.departSpeed)) {
             writeError("Invalid " + toString(SUMO_ATTR_DEPARTSPEED) + " used in " + toString(vehicleParameters.tag) + " '" + vehicleParameters.id + "'. " + toString(vehicleParameters.departSpeed) + " is greater than vType" + toString(SUMO_ATTR_MAXSPEED));
         } else {
-            // check if upate via attribute
+            // check if update via attribute
             if (sumoBaseObject->hasStringListAttribute(SUMO_ATTR_VIA)) {
                 vehicleParameters.via = sumoBaseObject->getStringListAttribute(SUMO_ATTR_VIA);
             }
