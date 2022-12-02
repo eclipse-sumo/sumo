@@ -52,7 +52,6 @@
 #include <utils/gui/shortcuts/GUIShortcutsSubSys.h>
 #include <utils/gui/windows/GUIDialog_Options.h>
 #include <utils/gui/windows/GUIPerspectiveChanger.h>
-#include <utils/options/OptionsCont.h>
 #include <utils/foxtools/MFXMenuCheckIcon.h>
 #include <utils/xml/XMLSubSys.h>
 
@@ -727,7 +726,7 @@ GNEApplicationWindow::onCmdOpenForeign(FXObject*, FXSelector, void*) {
             }
 
             GUIDialog_Options* wizard =
-                new GUIDialog_Options(this, TL("Select Import Options"), getWidth(), getHeight());
+                new GUIDialog_Options(this, OptionsCont::getOptions(), TL("Select Import Options"), getWidth(), getHeight());
 
             if (wizard->execute()) {
                 NIFrame::checkOptions(); // needed to set projection parameters
@@ -2505,7 +2504,7 @@ GNEApplicationWindow::onCmdTutorial(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdOptions(FXObject*, FXSelector, void*) {
     GUIDialog_Options* wizard =
-        new GUIDialog_Options(this, TL("Configure Options"), getWidth(), getHeight());
+        new GUIDialog_Options(this, OptionsCont::getOptions(), TL("Configure Options"), getWidth(), getHeight());
 
     if (wizard->execute()) {
         NIFrame::checkOptions(); // needed to set projection parameters
