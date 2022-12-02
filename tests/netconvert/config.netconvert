@@ -37,6 +37,7 @@ copy_test_path:input_ptlines.xml
 copy_test_path:osmNetconvertPedestrians.typ.xml
 copy_test_path:osmNetconvert.typ.xml
 copy_test_path:osmNetconvertUrbanDe.typ.xml
+copy_test_path:osm.netccfg
 
 [collate_file]
 net:net.net.xml
