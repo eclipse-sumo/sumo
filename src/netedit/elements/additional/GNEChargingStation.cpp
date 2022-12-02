@@ -102,7 +102,7 @@ GNEChargingStation::writeAdditional(OutputDevice& device) const {
 void
 GNEChargingStation::updateGeometry() {
     // Get value of option "lefthand"
-    const double offsetSign = OptionsCont::getNeteditOptions().getBool("lefthand") ? -1 : 1;
+    const double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
 
     // Update common geometry of stopping place
     setStoppingPlaceGeometry(0);

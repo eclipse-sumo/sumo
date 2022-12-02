@@ -227,12 +227,12 @@ GNEPerson::writeDemandElement(OutputDevice& device) const {
         // unset VType parameter
         parametersSet &= ~VEHPARS_VTYPE_SET;
         // write person attributes (VType will not be written)
-        write(device, OptionsCont::getNeteditOptions(), myTagProperty.getXMLTag());
+        write(device, OptionsCont::getOptions(), myTagProperty.getXMLTag());
         // set VType parameter again
         parametersSet |= VEHPARS_VTYPE_SET;
     } else {
         // write person attributes, including VType
-        write(device, OptionsCont::getNeteditOptions(), myTagProperty.getXMLTag(), getParentDemandElements().at(0)->getID());
+        write(device, OptionsCont::getOptions(), myTagProperty.getXMLTag(), getParentDemandElements().at(0)->getID());
     }
     // write specific flow attributes
     if (myTagProperty.getTag() == SUMO_TAG_PERSONFLOW) {

@@ -1796,7 +1796,7 @@ GNETLSEditorFrame::TLSDefinition::createTLS(GNEJunction* junction) {
             tpl = *junction->getNBNode()->getControllingTLS().begin();
         }
         // create new logic
-        NBTrafficLightLogic* newLogic = tpl->compute(OptionsCont::getNeteditOptions());
+        NBTrafficLightLogic* newLogic = tpl->compute(OptionsCont::getOptions());
         // create new TLDef
         NBLoadedSUMOTLDef* newDef = new NBLoadedSUMOTLDef(*tpl, *newLogic);
         NBTrafficLightLogicCont& tllCont = myTLSEditorParent->getViewNet()->getNet()->getTLLogicCont();
@@ -2448,7 +2448,7 @@ GNETLSEditorFrame::TLSPhases::initNEMAPhaseTable() {
 int
 GNETLSEditorFrame::TLSPhases::buildDefaultPhase(const int row) {
     // get option container
-    const OptionsCont& oc = OptionsCont::getNeteditOptions();
+    const OptionsCont& oc = OptionsCont::getOptions();
     // check if TLS is static
     const bool TLSStatic = (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::STATIC);
     const bool NEMA = (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::NEMA);

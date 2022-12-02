@@ -208,7 +208,7 @@ GNENet::addZValueInBoundary(const double z) {
 GNEJunction*
 GNENet::createJunction(const Position& pos, GNEUndoList* undoList) {
     // get junction prefix
-    const std::string junctionPrefix = OptionsCont::getNeteditOptions().getString("prefix") + OptionsCont::getNeteditOptions().getString("node-prefix");
+    const std::string junctionPrefix = OptionsCont::getOptions().getString("prefix") + OptionsCont::getOptions().getString("node-prefix");
     // generate new ID
     while (myAttributeCarriers->getJunctions().count(junctionPrefix + toString(myJunctionIDCounter)) != 0) {
         myJunctionIDCounter++;
@@ -225,9 +225,9 @@ GNEEdge*
 GNENet::createEdge(GNEJunction* src, GNEJunction* dest, GNEEdge* edgeTemplate, GNEUndoList* undoList,
                    const std::string& suggestedName, bool wasSplit, bool allowDuplicateGeom, bool recomputeConnections) {
     // get edge prefix
-    const std::string edgePrefix = OptionsCont::getNeteditOptions().getString("prefix") + OptionsCont::getNeteditOptions().getString("edge-prefix");
+    const std::string edgePrefix = OptionsCont::getOptions().getString("prefix") + OptionsCont::getOptions().getString("edge-prefix");
     // get edge infix
-    std::string edgeInfix = OptionsCont::getNeteditOptions().getString("edge-infix");
+    std::string edgeInfix = OptionsCont::getOptions().getString("edge-infix");
     // prevent duplicate edge (same geometry)
     for (const auto& outgoingEdge : src->getNBNode()->getOutgoingEdges()) {
         if (outgoingEdge->getToNode() == dest->getNBNode() && outgoingEdge->getGeometry().size() == 2) {
@@ -288,7 +288,7 @@ GNENet::createEdge(GNEJunction* src, GNEJunction* dest, GNEEdge* edgeTemplate, G
         edge = new GNEEdge(this, nbe, wasSplit);
     } else {
         // default if no template is given
-        const OptionsCont& oc = OptionsCont::getNeteditOptions();
+        const OptionsCont& oc = OptionsCont::getOptions();
         double defaultSpeed = oc.getFloat("default.speed");
         const std::string defaultType = oc.getString("default.type");
         const int defaultNrLanes = oc.getInt("default.lanenumber");
@@ -765,11 +765,11 @@ GNENet::restrictLane(SUMOVehicleClass vclass, GNELane* lane, GNEUndoList* undoLi
     if (addRestriction) {
         double width;
         if (vclass == SVC_PEDESTRIAN) {
-            width = OptionsCont::getNeteditOptions().getFloat("default.sidewalk-width");
+            width = OptionsCont::getOptions().getFloat("default.sidewalk-width");
         } else if (vclass == SVC_BICYCLE) {
-            width = OptionsCont::getNeteditOptions().getFloat("default.bikelane-width");
+            width = OptionsCont::getOptions().getFloat("default.bikelane-width");
         } else {
-            width = OptionsCont::getNeteditOptions().getFloat("default.lanewidth");
+            width = OptionsCont::getOptions().getFloat("default.lanewidth");
         }
         lane->setAttribute(SUMO_ATTR_ALLOW, toString(vclass), undoList);
         lane->setAttribute(SUMO_ATTR_WIDTH, toString(width), undoList);
@@ -1101,14 +1101,14 @@ GNENet::createRoundabout(GNEJunction* junction, GNEUndoList* undoList) {
     junction->getNBNode()->updateSurroundingGeometry();
     double radius = junction->getNBNode()->getRadius();
     if (radius == NBNode::UNSPECIFIED_RADIUS) {
-        radius = OptionsCont::getNeteditOptions().getFloat("default.junctions.radius");
+        radius = OptionsCont::getOptions().getFloat("default.junctions.radius");
     }
     std::vector<GNEEdge*> edges;
     // use clockwise sorting
     for (const auto& nbEdge : junction->getNBNode()->getEdges()) {
         edges.push_back(myAttributeCarriers->retrieveEdge(nbEdge->getID()));
     }
-    const bool lefthand = OptionsCont::getNeteditOptions().getBool("lefthand");
+    const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
     if (lefthand) {
         std::reverse(edges.begin(), edges.end());
     }
@@ -1136,7 +1136,7 @@ GNENet::createRoundabout(GNEJunction* junction, GNEUndoList* undoList) {
     Position center = junction->getPositionInView();
     deleteJunction(junction, undoList);
     // create new edges to connect roundabout junctions (counter-clockwise)
-    const double resolution = OptionsCont::getNeteditOptions().getFloat("opendrive.curve-resolution") * 3;
+    const double resolution = OptionsCont::getOptions().getFloat("opendrive.curve-resolution") * 3;
     for (int i = 0; i < (int)newJunctions.size(); i++) {
         GNEJunction* from = newJunctions[(i + 1) % newJunctions.size()];
         GNEJunction* to = newJunctions[i];
@@ -1288,7 +1288,7 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
         }
     }
     // compute and update
-    OptionsCont& oc = OptionsCont::getNeteditOptions();
+    OptionsCont& oc = OptionsCont::getOptions();
     computeAndUpdate(oc, volatileOptions);
     // load additionals if was recomputed with volatile options
     if (additionalPath != "") {
@@ -1354,7 +1354,7 @@ GNENet::computeDataElements(GNEApplicationWindow* window) {
 void
 GNENet::computeJunction(GNEJunction* junction) {
     // recompute tl-logics
-    OptionsCont& oc = OptionsCont::getNeteditOptions();
+    OptionsCont& oc = OptionsCont::getOptions();
     NBTrafficLightLogicCont& tllCont = getTLLogicCont();
     // iterate over traffic lights definitions. Make a copy because invalid
     // definitions will be removed (and would otherwise destroy the iterator)

@@ -78,7 +78,7 @@ GNEApplicationWindowHelper::ToolbarsGrip::buildViewParentToolbarsGrips() {
     // build menu bar for modes
     myToolBarShellModes = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
     // create modes depending of option "gui-testing" (note: Used for NETEDIT test)
-    if (OptionsCont::getNeteditOptions().getBool("gui-testing")) {
+    if (OptionsCont::getOptions().getBool("gui-testing")) {
         modes = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellModes, GUIDesignToolBarRaisedNext);
     } else {
         modes = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellModes, GUIDesignToolBarRaisedSame);
@@ -1889,7 +1889,7 @@ GNEApplicationWindowHelper::GNEConfigHandler::loadConfig(CommonXMLStructure::Sum
     const auto netFile = configObj->hasStringAttribute(SUMO_ATTR_NETFILE) ? configObj->getStringAttribute(SUMO_ATTR_NETFILE) : "";
     // first check if there is a network to load
     if (netFile.size() > 0) {
-        OptionsCont& oc = OptionsCont::getNeteditOptions();
+        OptionsCont& oc = OptionsCont::getOptions();
         // load net depending if file is absoulte or relative
         oc.resetWritable();
         if (FileHelpers::isAbsolute(netFile)) {
@@ -1953,7 +1953,7 @@ GNEApplicationWindowHelper::GNEConfigHandler::loadConfig(CommonXMLStructure::Sum
 void
 GNEApplicationWindowHelper::saveSUMOConfig() {
     // obtain option container
-    OptionsCont& oc = OptionsCont::getNeteditOptions();
+    OptionsCont& oc = OptionsCont::getOptions();
     // check SUMOConfig-outpout
     if (oc.getString("SUMOcfg-output").size() > 0) {
         // open output device

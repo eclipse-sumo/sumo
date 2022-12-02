@@ -1820,7 +1820,7 @@ GNEViewNetHelper::SelectingArea::processBoundarySelection(const Boundary& bounda
 
 GNEViewNetHelper::TestingMode::TestingMode(GNEViewNet* viewNet) :
     myViewNet(viewNet),
-    myTestingEnabled(OptionsCont::getNeteditOptions().getBool("gui-testing")),
+    myTestingEnabled(OptionsCont::getOptions().getBool("gui-testing")),
     myTestingWidth(0),
     myTestingHeight(0) {
 }
@@ -1829,8 +1829,8 @@ GNEViewNetHelper::TestingMode::TestingMode(GNEViewNet* viewNet) :
 void
 GNEViewNetHelper::TestingMode::initTestingMode() {
     // first check if testing mode is enabled and window size is correct
-    if (myTestingEnabled && OptionsCont::getNeteditOptions().isSet("window-size")) {
-        std::vector<std::string> windowSize = OptionsCont::getNeteditOptions().getStringVector("window-size");
+    if (myTestingEnabled && OptionsCont::getOptions().isSet("window-size")) {
+        std::vector<std::string> windowSize = OptionsCont::getOptions().getStringVector("window-size");
         // make sure that given windows size has exactly two valid int values
         if ((windowSize.size() == 2) && GNEAttributeCarrier::canParse<int>(windowSize[0]) && GNEAttributeCarrier::canParse<int>(windowSize[1])) {
             myTestingWidth = GNEAttributeCarrier::parse<int>(windowSize[0]);

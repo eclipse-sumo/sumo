@@ -71,7 +71,7 @@ GNELoadThread::run() {
     GNENet* net = nullptr;
 
     // try to load the given configuration
-    OptionsCont& oc = OptionsCont::getNeteditOptions();
+    OptionsCont& oc = OptionsCont::getOptions();
     if (oc.getString("sumocfg-file").empty() && (myFile != "" || oc.getString("sumo-net-file") != "")) {
         oc.clear();
         if (!initOptions()) {
@@ -445,7 +445,7 @@ GNELoadThread::setDefaultOptions(OptionsCont& oc) {
 
 bool
 GNELoadThread::initOptions() {
-    OptionsCont& oc = OptionsCont::getNeteditOptions();
+    OptionsCont& oc = OptionsCont::getOptions();
     // fill all options
     fillOptions(oc);
     // set manually the net file
