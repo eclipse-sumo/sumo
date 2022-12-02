@@ -351,7 +351,7 @@ vehicle if the first try fails
 - `"random_free"`: at first, ten random positions are tried, if all fail, "free" is applied
 - `"center"`: center of the lane (offset 0). *This is the default*
 - `"left"`: touching the left border of the lane
-- `"right"`: tourching the right border of the lane
+- `"right"`: touching the right border of the lane
                   |
 ### arrivalLane
 
@@ -405,7 +405,7 @@ The lateral position on the departure lane at which the vehicle tries to finish 
 - `"default"`: the vehicle may arrive at an arbitrary offset
 - `"center"`: center of the lane (offset 0). *This is the default*
 - `"left"`: touching the left border of the lane
-- `"right"`: tourching the right border of the lane
+- `"right"`: touching the right border of the lane
 
 # Vehicle Types
 

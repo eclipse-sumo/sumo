@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-06 12:09:03 by Eclipse SUMO sumo Version v1_14_1+1475-3cfd7ac
+<!-- generated on 2022-11-30 15:15:06 by Eclipse SUMO sumo Version v1_15_0+0679-5ca98c3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -40,15 +40,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <railsignal-block-output>
     <railSignal id="A">
-        <link linkIndex="0" from="-b_0" to="-a_0">
-            <driveWay edges="-a">
-                <forward lanes="-a_0"/>
-                <bidi lanes="a_0"/>
-                <flank lanes=""/>
-                <protectingSwitches links=""/>
-                <conflictLinks signals=""/>
-            </driveWay>
-        </link>
+        <link linkIndex="0" from="-b_0" to="-a_0"/>
         <link linkIndex="1" from="a_0" to="b_0">
             <driveWay edges="b c d e f">
                 <forward lanes="b_0 c_0 d_0 e_0"/>
@@ -69,26 +61,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <conflictLinks signals=""/>
             </driveWay>
         </link>
-        <link linkIndex="1" from="a2_0" to="b2_0">
-            <driveWay edges="b2 c d e f">
-                <forward lanes="b2_0 c_0 d_0 e_0"/>
-                <bidi lanes="-b2_0 -c_0 -d_0 -e_0 -f_0"/>
-                <flank lanes="b_0 -e2_0"/>
-                <protectingSwitches links=""/>
-                <conflictLinks signals="A_1 J1_0"/>
-            </driveWay>
-        </link>
+        <link linkIndex="1" from="a2_0" to="b2_0"/>
     </railSignal>
     <railSignal id="J0">
-        <link linkIndex="0" from="-f_0" to="-e_0">
-            <driveWay edges="-e -d -c -b2 -a2">
-                <forward lanes="-e_0 -d_0 -c_0 -b2_0"/>
-                <bidi lanes="e_0 d_0 c_0 b2_0 a2_0"/>
-                <flank lanes="-e2_0 b_0"/>
-                <protectingSwitches links=""/>
-                <conflictLinks signals="J1_0 A_1"/>
-            </driveWay>
-        </link>
+        <link linkIndex="0" from="-f_0" to="-e_0"/>
         <link linkIndex="1" from="e_0" to="f_0">
             <driveWay edges="f">
                 <forward lanes="f_0"/>
@@ -109,14 +85,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <conflictLinks signals="J0_0 A_1"/>
             </driveWay>
         </link>
-        <link linkIndex="1" from="e2_0" to="f2_0">
-            <driveWay edges="f2">
-                <forward lanes="f2_0"/>
-                <bidi lanes="-f2_0"/>
-                <flank lanes=""/>
-                <protectingSwitches links=""/>
-                <conflictLinks signals=""/>
-            </driveWay>
-        </link>
+        <link linkIndex="1" from="e2_0" to="f2_0"/>
     </railSignal>
 </railsignal-block-output>

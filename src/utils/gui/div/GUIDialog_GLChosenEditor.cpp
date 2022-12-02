@@ -135,6 +135,7 @@ GUIDialog_GLChosenEditor::onCmdLoad(FXObject*, FXSelector, void*) {
             FXMessageBox::error(this, MBOX_OK, TL("Errors while loading Selection"), "%s", msg.c_str());
         }
         rebuildList();
+        myParent->updateChildren();
     }
     return 1;
 }
