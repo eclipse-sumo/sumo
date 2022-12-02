@@ -1047,7 +1047,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 && key != "maxspeed:forward" && key != "maxspeed:backward"
                 && key != "junction" && key != "name" && key != "tracks" && key != "layer"
                 && key != "route"
-                && key != "sidewalk"
+                && !StringUtils::startsWith(key, "sidewalk")
                 && key != "ref"
                 && key != "highspeed"
                 && !StringUtils::startsWith(key, "parking")
@@ -1072,7 +1072,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
         std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentEdge->id).c_str(), ok, false);
 
         if ((key == "highway" && value != "platform") || key == "railway" || key == "waterway" || key == "cycleway"
-                || key == "busway" || key == "route" || key == "sidewalk" || key == "highspeed"
+                || key == "busway" || key == "route" || StringUtils::startsWith(key, "sidewalk") || key == "highspeed"
                 || key == "aeroway" || key == "aerialway" || key == "usage") {
             // build type id
             std::string singleTypeID = key + "." + value;
@@ -1099,6 +1099,34 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 } else if (value == "left") {
                     myCurrentEdge->mySidewalkType = WAY_BACKWARD;
                 }
+            }
+            if (key == "sidewalk:left") {
+                if (myCurrentEdge->mySidewalkType == WAY_UNKNOWN) {
+                    myCurrentEdge->mySidewalkType = WAY_NONE;
+                }
+                if (value == "yes") {
+                    myCurrentEdge->mySidewalkType = (WayType)(myCurrentEdge->mySidewalkType | WAY_BACKWARD);
+                }
+            }
+            if (key == "sidewalk:right") {
+                if (myCurrentEdge->mySidewalkType == WAY_UNKNOWN) {
+                    myCurrentEdge->mySidewalkType = WAY_NONE;
+                }
+                if (value == "yes") {
+                    myCurrentEdge->mySidewalkType = (WayType)(myCurrentEdge->mySidewalkType | WAY_FORWARD);
+                }
+            }
+            if (key == "sidewalk:both") {
+                if (myCurrentEdge->mySidewalkType == WAY_UNKNOWN) {
+                    if (value == "no" || value == "none" || value == "separate") {
+                        myCurrentEdge->mySidewalkType = WAY_NONE;
+                    }
+                    if (value == "yes") {
+                        myCurrentEdge->mySidewalkType = WAY_BOTH;
+                    }
+                }
+            }
+            if (StringUtils::startsWith(key, "sidewalk")) {
                 // no need to extend the type id
                 return;
             }
