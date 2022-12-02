@@ -471,9 +471,9 @@ GUIApplicationWindow::fillMenuBar() {
     GUIDesigns::buildFXMenuCommandShortcut(myEditMenu,
                                            TL("Open network in netedit"), "Ctrl+T", TL("Opens current network in NETEDIT."),
                                            GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), this, MID_NETEDIT_ONLYNETWORK);
-    GUIDesigns::buildFXMenuCommandShortcut(myEditMenu,
-                                           TL("Open config in netedit"), "", TL("Opens current sumo config in NETEDIT."),
-                                           GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), this, MID_NETEDIT_SUMOCFG);
+    //GUIDesigns::buildFXMenuCommandShortcut(myEditMenu,
+    //                                       TL("Open config in netedit"), "", TL("Opens current sumo config in NETEDIT."),
+    //                                       GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), this, MID_NETEDIT_SUMOCFG);
     // build settings menu
     mySettingsMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myMenuBar, TL("&Settings"), nullptr, mySettingsMenu);
