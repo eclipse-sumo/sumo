@@ -49,31 +49,20 @@
 // ===========================================================================
 // static member definitions
 // ===========================================================================
-
 OptionsCont OptionsCont::myOptions;
-OptionsCont OptionsCont::myNeteditOptions;
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-
 OptionsCont&
 OptionsCont::getOptions() {
     return myOptions;
 }
 
 
-OptionsCont&
-OptionsCont::getNeteditOptions() {
-    return myOptions;
-}
-
-
-OptionsCont::OptionsCont() : 
-    myAddresses(), 
-    myValues(), 
-    myDeprecatedSynonymes() {
+OptionsCont::OptionsCont()
+    : myAddresses(), myValues(), myDeprecatedSynonymes() {
     myCopyrightNotices.push_back("Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de");
 }
 
