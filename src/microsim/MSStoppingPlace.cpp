@@ -87,7 +87,7 @@ MSStoppingPlace::getEndLanePosition() const {
 Position
 MSStoppingPlace::getCenterPos() const {
     return myLane.getShape().positionAtOffset(myLane.interpolateLanePosToGeometryPos((myBegPos + myEndPos) / 2),
-            myLane.getWidth() / 2);
+            myLane.getWidth() / 2 + 0.5);
 }
 
 

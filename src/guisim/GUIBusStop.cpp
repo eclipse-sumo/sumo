@@ -202,8 +202,9 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popMatrix();
         }
         GLHelper::setColor(color);
+        const Position accessOrigin = getCenterPos();
         for (std::vector<Position>::const_iterator i = myAccessCoords.begin(); i != myAccessCoords.end(); ++i) {
-            GLHelper::drawBoxLine(*i, RAD2DEG(myFGSignPos.angleTo2D(*i)) - 90, myFGSignPos.distanceTo2D(*i), .05);
+            GLHelper::drawBoxLine(*i, RAD2DEG(accessOrigin.angleTo2D(*i)) - 90, accessOrigin.distanceTo2D(*i), .05);
         }
         // draw the sign
         glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
