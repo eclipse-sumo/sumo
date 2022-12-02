@@ -31,8 +31,8 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class OptionsCont;
 
+class OptionsCont;
 
 // ===========================================================================
 // class definitions
@@ -45,7 +45,7 @@ class OptionsLoader : public XERCES_CPP_NAMESPACE::HandlerBase {
 
 public:
     /// @brief Constructor
-    OptionsLoader(const bool routeOnly = false);
+    OptionsLoader(OptionsCont& options, const bool routeOnly = false);
 
     /// @brief destructor
     ~OptionsLoader();
