@@ -19,6 +19,7 @@
 /****************************************************************************/
 #include <netedit/elements/GNEAttributeCarrier.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/options/OptionsCont.h>
 #include <utils/foxtools/MFXMenuCheckIcon.h>
 #include <utils/common/FileHelpers.h>
 
