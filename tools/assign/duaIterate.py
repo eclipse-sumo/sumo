@@ -32,6 +32,7 @@ import glob
 import argparse
 import xml.etree.ElementTree as ET
 from datetime import datetime
+from collections import defaultdict
 
 from costMemory import CostMemory
 
@@ -450,36 +451,43 @@ def calcMarginalCost(step, options):
             log = open("marginal_cost2.log", "w" if step == 2 else "a")
         tree_sumo_cur = ET.parse(get_weightfilename(options, step - 1, "dump"))
         tree_sumo_prv = ET.parse(get_weightfilename(options, step - 2, "dump"))
+        oldValues = defaultdict(dict)
+        for interval_prv in tree_sumo_prv.getroot():
+            begin_prv = interval_prv.attrib.get("begin")
+            for edge_prv in interval_prv.iter('edge'):
+                if edge_prv.get("traveltime") is not None:
+                    veh_prv = float(edge_prv.get("left")) + float(edge_prv.get("arrived"))
+                    tt_prv = float(edge_prv.get("overlapTraveltime"))
+                    mc_prv = float(edge_prv.get("traveltime"))
+                    oldValues[begin_prv][edge_prv.get("id")] = (veh_prv, tt_prv, mc_prv)
+
         for interval_cur in tree_sumo_cur.getroot():
             begin_cur = interval_cur.attrib.get("begin")
-            for interval_prv in tree_sumo_prv.getroot():
-                begin_prv = interval_prv.attrib.get("begin")
+            if begin_cur in oldValues:
+                oldIntervalValues = oldValues[begin_cur]
                 for edge_cur in interval_cur.iter('edge'):
-                    for edge_prv in interval_prv.iter('edge'):
-                        if begin_cur == begin_prv and edge_cur.get("id") == edge_prv.get("id"):
-                            if edge_cur.get("traveltime") is not None and edge_prv.get(
-                                    "traveltime") is not None:
-                                veh_cur = float(edge_cur.get("left")) + float(edge_cur.get("arrived"))
-                                veh_prv = float(edge_prv.get("left")) + float(edge_prv.get("arrived"))
-                                tt_cur = float(edge_cur.get("traveltime"))
-                                tt_prv = float(edge_prv.get("overlapTraveltime"))
-                                mc_prv = float(edge_prv.get("traveltime"))
-                                dif_tt = abs(tt_cur - tt_prv)
-                                dif_veh = abs(veh_cur - veh_prv)
-                                if dif_veh != 0:
-                                    mc_cur = (dif_tt / dif_veh) * (veh_cur ** options.mcExp) + tt_cur
-                                else:
-                                    # previous marginal cost
-                                    mc_cur = tt_cur
+                    if edge_cur.get("traveltime") is not None:
+                        id_cur = edge_cur.get("id")
+                        if id_cur in oldIntervalValues:
+                            veh_prv, tt_prv, mc_prv = oldIntervalValues[id_cur]
+                            veh_cur = float(edge_cur.get("left")) + float(edge_cur.get("arrived"))
+                            tt_cur = float(edge_cur.get("traveltime"))
+                            dif_tt = abs(tt_cur - tt_prv)
+                            dif_veh = abs(veh_cur - veh_prv)
+                            if dif_veh != 0:
+                                mc_cur = (dif_tt / dif_veh) * (veh_cur ** options.mcExp) + tt_cur
+                            else:
+                                # previous marginal cost
+                                mc_cur = tt_cur
 
-                                edge_cur.set("traveltime", str(mc_cur))
-                                edge_cur.set("overlapTraveltime", str(tt_cur))
-                                edgeID = edge_cur.get("id")
-                                if DEBUGLOG:
-                                    if begin_cur == "1800.00":
-                                        print("step=%s beg=%s e=%s tt=%s ttprev=%s n=%s nPrev=%s mC=%s mCPrev=%s" %
-                                              (step, begin_cur, edgeID, tt_cur, tt_prv, veh_cur, veh_prv,
-                                               mc_cur, mc_prv), file=log)
+                            edge_cur.set("traveltime", str(mc_cur))
+                            edge_cur.set("overlapTraveltime", str(tt_cur))
+                            edgeID = edge_cur.get("id")
+                            if DEBUGLOG:
+                                if begin_cur == "1800.00":
+                                    print("step=%s beg=%s e=%s tt=%s ttprev=%s n=%s nPrev=%s mC=%s mCPrev=%s" %
+                                          (step, begin_cur, edgeID, tt_cur, tt_prv, veh_cur, veh_prv,
+                                           mc_cur, mc_prv), file=log)
         tree_sumo_cur.write(get_weightfilename(options, step - 1, "dump"))
 
         if DEBUGLOG:
