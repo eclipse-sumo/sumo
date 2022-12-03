@@ -5538,6 +5538,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
             q.bestLaneOffset = 0;
             q.length = cl->allowsVehicleClass(myType->getVehicleClass()) ? cl->getLength() : 0;
             q.currentLength = q.length;
+            // if all lanes are forbidden (i.e. due to a dynamic closing) we want to express no preference
             q.allowsContinuation = allowed == nullptr || std::find(allowed->begin(), allowed->end(), cl) != allowed->end();
             q.occupation = 0;
             q.nextOccupation = 0;
@@ -5661,13 +5662,14 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
                             }
                         }
                     }
-                    assert(bestConnectedNext != nullptr);
-                    if (bestConnectedNext->length == bestConnectedLength && abs(bestConnectedNext->bestLaneOffset) < 2) {
-                        j.length += bestLength;
-                    } else {
-                        j.length += bestConnectedNext->length;
+                    if (bestConnectedNext != nullptr) {
+                        if (bestConnectedNext->length == bestConnectedLength && abs(bestConnectedNext->bestLaneOffset) < 2) {
+                            j.length += bestLength;
+                        } else {
+                            j.length += bestConnectedNext->length;
+                        }
+                        j.bestLaneOffset = bestConnectedNext->bestLaneOffset;
                     }
-                    j.bestLaneOffset = bestConnectedNext->bestLaneOffset;
                 }
                 if (bestConnectedNext != nullptr && (bestConnectedNext->allowsContinuation || bestConnectedNext->length > 0)) {
                     copy(bestConnectedNext->bestContinuations.begin(), bestConnectedNext->bestContinuations.end(), back_inserter(j.bestContinuations));
