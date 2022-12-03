@@ -358,6 +358,7 @@ def useWildcards(labels):
             return True
     return False
 
+
 def applyTicks(d, xyIndex, ticksFile):
     offsets, labels = sumolib.visualization.helpers.parseTicks(ticksFile)
     l2o = dict(zip(labels, offsets))

@@ -469,7 +469,7 @@ def main(options):
                     elif 'y' in p.state and 'r' in p.state:
                         duration = options.yellowtime
                     else:
-                        print("Duration for Phase %s is from the input file." %i)
+                        print("Duration for Phase %s is from the input file." % i)
                     outf.write('        <phase duration="%s" state="%s"/>\n' % (duration, p.state))
                 outf.write('    </tlLogic>\n')
         else:
