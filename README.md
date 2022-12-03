@@ -53,7 +53,7 @@ If you want to develop under Windows, please also clone the dependent libraries 
 
 If you're using Linux, you should have a look whether your distribution already contains sumo.
 There is also a [ppa for ubuntu users](https://launchpad.net/~sumo) and an
-[open build service instance](https://build.opensuse.org/project/show/home:behrisch).
+[open build service instance](https://build.opensuse.org/project/show/science:dlr).
 If you want to build sumo yourself, the steps for ubuntu are:
 
         sudo apt-get install cmake python g++ libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgl2ps-dev swig
