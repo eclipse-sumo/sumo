@@ -37,3 +37,6 @@ roadObjects
 
 # OSM divider tag to OpenDrive export
 osm_divider
+
+# OSM Road Signs
+osm_road_sign
