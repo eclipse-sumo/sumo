@@ -222,11 +222,11 @@ def main():
                    '--no-step-log', '--routing-threads', str(options.threads),
                    '--routing-algorithm', 'astar', '--aggregate-warnings',  '1']
         if options.additional is not None:
-            command+=['--additional-files', options.additional]
+            command += ['--additional-files', options.additional]
         if options.unsortedinput is not False:
-            command+=['--unsorted-input', '1']
+            command += ['--unsorted-input', '1']
         if options.duaroutererrors is not False:
-            command+=['--ignore-errors', '1']
+            command += ['--ignore-errors', '1']
 
         if options.verbose:
             command += ["-v"]
