@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-12-04 10:24:18 by Eclipse SUMO sumo Version v1_15_0+0749-de9f6f8
+<!-- generated on 2022-12-04 22:37:03 by Eclipse SUMO sumo Version v1_15_0+0761-36d8b2b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -54,7 +54,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <edge id="end" sampledSeconds="675.71" traveltime="3.04" overlapTraveltime="3.18" density="18.77" laneDensity="18.77" occupancy="8.94" waitingTime="0.00" timeLoss="58.14" speed="33.00" speedRelative="0.91" departed="0" arrived="213" entered="213" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="jam" sampledSeconds="3406.74" traveltime="15.82" overlapTraveltime="16.10" density="96.07" laneDensity="48.04" occupancy="22.80" waitingTime="845.00" timeLoss="2800.21" speed="6.43" speedRelative="0.18" departed="0" arrived="0" entered="208" left="213" laneChangedFrom="117" laneChangedTo="117"/>
         <edge id="middle" sampledSeconds="6770.24" traveltime="31.07" overlapTraveltime="32.54" density="188.06" laneDensity="94.03" occupancy="44.98" waitingTime="3216.00" timeLoss="6165.18" speed="3.23" speedRelative="0.09" departed="0" arrived="0" entered="213" left="208" laneChangedFrom="14" laneChangedTo="14"/>
-        <edge id="start" sampledSeconds="6626.18" traveltime="30.47" overlapTraveltime="31.90" density="184.06" laneDensity="92.03" occupancy="43.12" waitingTime="2861.00" timeLoss="6022.11" speed="3.29" speedRelative="0.09" departed="227" arrived="0" entered="0" left="213" laneChangedFrom="17" laneChangedTo="17"/>
+        <edge id="start" sampledSeconds="6634.18" traveltime="30.56" overlapTraveltime="31.99" density="184.28" laneDensity="92.14" occupancy="43.16" waitingTime="2859.00" timeLoss="6031.15" speed="3.28" speedRelative="0.09" departed="227" arrived="0" entered="0" left="213" laneChangedFrom="18" laneChangedTo="18"/>
     </interval>
     <interval begin="720.00" end="1080.00" id="expect_300_vehs">
         <edge id="bottleneck" sampledSeconds="900.82" traveltime="4.30" overlapTraveltime="4.47" density="25.40" laneDensity="25.40" occupancy="12.04" waitingTime="0.00" timeLoss="323.61" speed="23.14" speedRelative="0.64" departed="0" arrived="0" entered="202" left="201" laneChangedFrom="0" laneChangedTo="0"/>
