@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-11-20 18:12:47.003997 by $Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $ v1_15_0+0461-5268fc0ad93
+<!-- generated on 2022-12-04 18:46:13.573554 by $Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $ v1_15_0+0758-6cd64103e36
   options: <doubleminus>test-output test
 -->
 
@@ -473,7 +473,7 @@
         <stop busStop="3867910427" duration="20" until="339.0"/> <!-- S Hackescher Markt -->
         <stop busStop="2915590925" duration="20" until="420.0"/> <!-- Spandauer Straße/Marienkirche -->
         <stop busStop="3867910424" duration="20" until="599.0"/> <!-- Nikolaiviertel -->
-        <stop busStop="3352479219" duration="20" until="690.0"/> <!-- Fischerinsel -->
+        <stop busStop="3352479219" duration="20" until="689.0"/> <!-- Fischerinsel -->
     </route>
     <route id="pt_bus_147:2" edges="-176043807#3 -176043807#0 -176043806#1 -176043806#0 -437325051#1 -437325051#0 -111251382#2 541295978 389705415#1 -541295974 6228081 -222328410 -465376254 -4402228 190447768#1 195411602#1 465376240 195411604 11483007 -169999355 -461526153 -194069450#1 -194069450#0 171423001#0 171423001#1 171423001#2 35557143#0 35557143#1 389101365#0 389101365#1 66071366#0 66071366#1 66071366#2 23755950#0 23755950#1 4611696#1 4611696#4 4611696#5 8008608 -120675240#1 -120675240#0 -43156728#4 -43156728#2 -43156728#1 -43156728#0 -52328295#1 -328426193#1" >
         <stop busStop="-3869306760" duration="20" until="60.0"/> <!-- Deutsches Theater -->
@@ -490,15 +490,15 @@
         <stop busStop="-3869306766" duration="20" until="307.0"/> <!-- U Französische Straße -->
         <stop busStop="3869306772" duration="20" until="375.0"/> <!-- Unter den Linden/Friedrichstraße -->
         <stop busStop="3869306764" duration="20" until="522.0"/> <!-- S+U Friedrichstraße -->
-        <stop busStop="3869306762" duration="20" until="597.0"/> <!-- Friedrichstraße/Reinhardtstraße -->
-        <stop busStop="3869306759" duration="20" until="658.0"/> <!-- Deutsches Theater -->
+        <stop busStop="3869306762" duration="20" until="596.0"/> <!-- Friedrichstraße/Reinhardtstraße -->
+        <stop busStop="3869306759" duration="20" until="656.0"/> <!-- Deutsches Theater -->
     </route>
     <route id="pt_bus_N42:1" color="89,91,98" edges="328426208#0 23851917#0 23851917#2 23851922#1 60333313 82654055#0 82654055#1 24992428 606078065 156364553#0 156364553#1 72157172 61583424#0 61583424#1 61583424#2 534588621#0 534588621#1 4773465#1 4773465#2 4773465#3 490365295#1 -156364570#3 -156364570#1 -156364570#0 -77348147 -387892378 -478396988 -370359204#1 -370359204#0 -316746323#2 -316746323#0 46140376#0 46140376#1 -84960597#1 -84960597#0 11103418 23809678#1 23809678#4 -19002363#6 -19002363#4 -19002363#3 -19002363#2 -19002363#1 -19002363#0 4613292#0 4613308#1 4613308#2 310357284#0 112128419#1 112128419#2" >
         <stop busStop="3352479220" duration="20" until="63.0"/> <!-- Fischerinsel -->
         <stop busStop="271430924" duration="20" until="140.0"/> <!-- Berliner Rathaus -->
-        <stop busStop="3867910438" duration="20" until="359.0"/> <!-- Spandauer Straße/Marienkirche -->
-        <stop busStop="-3867910426" duration="20" until="433.0"/> <!-- S Hackescher Markt -->
-        <stop busStop="3867910439" duration="20" until="571.0"/> <!-- U Weinmeisterstraße -->
+        <stop busStop="3867910438" duration="20" until="360.0"/> <!-- Spandauer Straße/Marienkirche -->
+        <stop busStop="-3867910426" duration="20" until="431.0"/> <!-- S Hackescher Markt -->
+        <stop busStop="3867910439" duration="20" until="570.0"/> <!-- U Weinmeisterstraße -->
         <stop busStop="270727260" duration="20" until="748.0"/> <!-- S+U Alexanderplatz/Memhardstraße -->
     </route>
     <flow id="pt_light_rail_S1:0" type="pt_light_rail" route="pt_light_rail_S1:0" begin="52.0" end="952.0" period="600" line="S1:0" >
