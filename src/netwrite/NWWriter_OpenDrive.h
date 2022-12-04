@@ -132,6 +132,17 @@ protected:
 
     static void writeRoadObjectPoly(OutputDevice& device, const NBEdge* e, const PositionVector& roadShape, const SUMOPolygon* p);
 
+    struct TrafficSign {
+        std::string country;
+        std::string type;
+		std::string subtype;
+        std::string value;
+    };
+
+	static TrafficSign parseTrafficSign(const std::string& trafficSign, PointOfInterest* poi);
+    static TrafficSign parseTrafficSignId(const std::string& trafficSign);
+
+
 protected:
     /// @brief whether a lefthand network is being written
     static bool lefthand;

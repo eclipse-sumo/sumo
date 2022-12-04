@@ -35,6 +35,7 @@
 #include <utils/common/StringUtils.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/geom/GeoConvHelper.h>
+#include <regex>
 
 #define INVALID_ID -1
 
@@ -44,6 +45,9 @@
 #define MIN_TURN_DIAMETER 2.0
 
 #define ROAD_OBJECTS "roadObjects"
+
+// forward declare struct
+struct TrafficSign;
 
 // ===========================================================================
 // static members
@@ -951,15 +955,17 @@ NWWriter_OpenDrive::writeRoadObjects(OutputDevice& device, const NBEdge* e, cons
                     if (poi->getShapeType() == "traffic_sign") {
                         auto s = e->getFromNode()->getPosition().distanceTo2D(*poi);
                         double t = 0.30;
-                        for (int i = 0; i < e->getNumLanes(); i++) {
-                            t += e->getPermissions(i) == SVC_PEDESTRIAN ? e->getLaneWidth(i) * 0.2 : e->getLaneWidth(i);
+                        if (!lefthand) {
+                            for (int i = 0; i < e->getNumLanes(); i++) {
+                                t += e->getPermissions(i) == SVC_PEDESTRIAN ? e->getLaneWidth(i) * 0.2 : e->getLaneWidth(i);
+                            }
                         }
                         device.openTag("object");
                         device.writeAttr("id", poi->getID());
                         device.writeAttr("type", "pole");
                         device.writeAttr("name", "pole");
                         device.writeAttr("s", s);
-                        device.writeAttr("t", -t);
+                        device.writeAttr("t", lefthand ? t : -t);
                         device.writeAttr("hdg", 0);
                         device.closeTag();
                     }
@@ -976,6 +982,41 @@ NWWriter_OpenDrive::writeRoadObjects(OutputDevice& device, const NBEdge* e, cons
     } else {
         device << "        <objects/>\n";
     }
+}
+
+NWWriter_OpenDrive::TrafficSign
+NWWriter_OpenDrive::parseTrafficSign(const std::string& trafficSign, PointOfInterest* poi) {
+	// check for maxspeed, stop, give_way and hazard
+    if (trafficSign == "maxspeed" && poi->knowsParameter("maxspeed")) {
+        return TrafficSign{ "OpenDrive", trafficSign, "", poi->getParameter("maxspeed")};
+    }
+    else if (trafficSign == "stop") {
+        return TrafficSign{ "OpenDrive", trafficSign, "", ""};
+    }
+    else if (trafficSign == "give_way") {
+        return TrafficSign{ "OpenDrive", trafficSign, "", ""};
+    } 
+    else if (trafficSign == "hazard" && poi->knowsParameter("hazard")) {
+        return TrafficSign{ "OpenDrive", trafficSign, poi->getParameter("hazard"), "" };
+    }
+    else
+    {
+        return parseTrafficSignId(trafficSign);
+    }
+}
+
+
+NWWriter_OpenDrive::TrafficSign
+NWWriter_OpenDrive::parseTrafficSignId(const std::string& trafficSign) {
+	std::regex re("([A-Z]{2}):([0-9]{1,3})(?:\\[([0-9]{1,3})\\])?");
+	std::smatch match;
+	std::regex_match(trafficSign, match, re);
+	if (match.size() == 4) {
+		return TrafficSign{ match[1], match[2], "", match[3]};
+	}
+	else {
+		return TrafficSign{ "OpenDrive", trafficSign, "", ""};
+	}
 }
 
 
@@ -1058,39 +1099,31 @@ NWWriter_OpenDrive::writeSignals(OutputDevice& device, const NBEdge* e, double l
         for (std::string id : StringTokenizer(e->getParameter(ROAD_OBJECTS, "")).getVector()) {
             PointOfInterest* poi = shc.getPOIs().get(id);
             if (poi != nullptr) {
-                if (poi->getShapeType() == "traffic_sign") {
-                    //todo should check if poi knowsparameter traffic_sign
+                if (poi->getShapeType() == "traffic_sign" && poi->knowsParameter("traffic_sign")) {
                     std::string traffic_sign_type = poi->getParameter("traffic_sign");
-                    //todo should do the switch to differentiate between IDbased traffic_signs and signs like hazard (i.e.)
-                    std::string traffic_sign_subtype = "";
-                    std::string traffic_sign_value = "";
-                    if (traffic_sign_type == "maxspeed" && poi->knowsParameter("maxspeed"))
-                    {
-                        traffic_sign_value = poi->getParameter("maxspeed");
-                    }
-                    else if (traffic_sign_type == "hazard" && poi->knowsParameter("hazard")) {
-                        traffic_sign_subtype = poi->getParameter("hazard");
-                    }
+
+                    TrafficSign trafficSign = parseTrafficSign(traffic_sign_type, poi);
 
                     const std::string tag = "signal";
 
                     auto distance = e->getFromNode()->getPosition().distanceTo2D(*poi);
                     double t = 0.30;
-                    for (int i = 0; i < e->getNumLanes(); i++) {
-                        t += e->getPermissions(i) == SVC_PEDESTRIAN ? e->getLaneWidth(i) * 0.2 : e->getLaneWidth(i);
+                    if (!lefthand) {
+                        for (int i = 0; i < e->getNumLanes(); i++) {
+                            t += e->getPermissions(i) == SVC_PEDESTRIAN ? e->getLaneWidth(i) * 0.2 : e->getLaneWidth(i);
+                        }
                     }
                     device.openTag(tag);
                     device.writeAttr("id", id);
                     device.writeAttr("s", distance);
-                    device.writeAttr("t", -t);
-                    //adjust based on lefthand?
+                    device.writeAttr("t", lefthand ? t : -t);
                     device.writeAttr("orientation", "-");
                     device.writeAttr("dynamic", "no");
                     device.writeAttr("zOffset", 3);
-                    device.writeAttr("country", "OpenDRIVE");
-                    device.writeAttr("type", traffic_sign_type);
-                    device.writeAttr("subtype", traffic_sign_subtype);
-                    device.writeAttr("value", traffic_sign_value);
+                    device.writeAttr("country", trafficSign.country);
+                    device.writeAttr("type", trafficSign.type);
+					device.writeAttr("subtype", trafficSign.subtype);
+                    device.writeAttr("value", trafficSign.value);
                     device.writeAttr("height", 0.78);
                     device.writeAttr("width", 0.78);
                     device.closeTag();
