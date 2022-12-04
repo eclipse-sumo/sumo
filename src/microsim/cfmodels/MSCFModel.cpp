@@ -170,7 +170,7 @@ MSCFModel::getSecureGap(const MSVehicle* const veh, const MSVehicle* const /*pre
     const double maxDecel = MAX2(myDecel, leaderMaxDecel);
     const double bgLeader = brakeGap(leaderSpeed, maxDecel, 0);
     double secureGap = MAX2(0.0, brakeGap(speed, myDecel, myHeadwayTime) - bgLeader);
-    if (MSGlobals::gComputeLC && veh->getAcceleration() < 0) {
+    if (MSGlobals::gComputeLC && veh->getAcceleration() < -NUMERICAL_EPS) {
         // vehicle can react instantly in the next step
         // we only apply 'myHeadWayTime' to avoid sudden braking after lane change
         // thus we can reduce the required brakeGap if the vehicle is braking anyway
