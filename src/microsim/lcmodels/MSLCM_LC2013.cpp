@@ -1281,9 +1281,15 @@ MSLCM_LC2013::_wantsChange(
                         + leader.second);
     } else if (bestLaneOffset == laneOffset && neighLead.first != 0 && neighLead.first->isStopped() && neighLead.second < (currentDist - posOnLane)) {
         // react to a stopped leader on the target lane (if it is the bestLane)
-        laDist = (myVehicle.getVehicleType().getLengthWithGap()
-                  + neighLead.first->getVehicleType().getLengthWithGap()
-                  + neighLead.second);
+        if (isOpposite()) {
+            // always allow changing back
+            laDist = (myVehicle.getVehicleType().getLengthWithGap()
+                    + neighLead.first->getVehicleType().getLengthWithGap()
+                    + neighLead.second);
+        } else {
+            // do not change to the target lane until passing the stopped vehicle
+            laDist = -1e3;
+        }
     }
     if (myStrategicParam < 0) {
         laDist = -1e3; // never perform strategic change
