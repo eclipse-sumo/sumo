@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jan 11 12:41:07 2021 by Eclipse SUMO sumo Version v1_8_0+0452-fcc853c
+<!-- generated on 2022-12-04 16:29:42 by Eclipse SUMO sumo Version v1_15_0+0751-db72905
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -24,9 +29,7 @@ SPDX-License-Identifier: EPL-2.0
     </processing>
 
     <report>
-        <verbose value="true"/>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.statistics value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -36,9 +39,9 @@ SPDX-License-Identifier: EPL-2.0
 
 <lanechanges>
     <change id="cars.7" type="car" time="19.00" from="beg_0" to="beg_1" dir="1" speed="9.52" pos="28.80" reason="speedGain" leaderGap="25.97" leaderSecureGap="0.96" leaderSpeed="13.69" followerGap="7.46" followerSecureGap="1.65" followerSpeed="5.84" origLeaderGap="15.73" origLeaderSecureGap="10.69" origLeaderSpeed="8.85" latGap="None"/>
-    <change id="cars.13" type="car" time="38.00" from="beg_0" to="beg_1" dir="1" speed="11.92" pos="131.25" reason="speedGain" leaderGap="19.57" leaderSecureGap="14.51" leaderSpeed="10.63" followerGap="44.12" followerSecureGap="15.15" followerSpeed="13.00" origLeaderGap="20.80" origLeaderSecureGap="15.98" origLeaderSpeed="9.90" latGap="None"/>
-    <change id="cars.10" type="car" time="50.00" from="beg_1" to="beg_0" dir="-1" speed="0.04" pos="253.97" reason="speedGain" leaderGap="2.51" leaderSecureGap="0.04" leaderSpeed="0.01" followerGap="2.56" followerSecureGap="0.12" followerSpeed="0.12" origLeaderGap="17.52" origLeaderSecureGap="0.04" origLeaderSpeed="0.00" latGap="None"/>
-    <change id="cars.12" type="car" time="50.00" from="beg_1" to="beg_0" dir="-1" speed="0.12" pos="246.41" reason="speedGain" leaderGap="2.56" leaderSecureGap="0.12" leaderSpeed="0.04" followerGap="35.68" followerSecureGap="20.22" followerSpeed="11.24" origLeaderGap="10.07" origLeaderSecureGap="0.12" origLeaderSpeed="0.01" latGap="None"/>
-    <change id="cars.6" type="car" time="219.00" from="end_1" to="end_0" dir="-1" speed="10.64" pos="140.98" reason="keepRight" leaderGap="52.02" leaderSecureGap="4.84" leaderSpeed="13.52" followerGap="17.90" followerSecureGap="5.97" followerSpeed="9.08" origLeaderGap="15.98" origLeaderSecureGap="8.08" origLeaderSpeed="11.92" latGap="None"/>
+    <change id="cars.13" type="car" time="38.00" from="beg_0" to="beg_1" dir="1" speed="11.92" pos="131.25" reason="speedGain" leaderGap="19.57" leaderSecureGap="14.50" leaderSpeed="10.63" followerGap="44.11" followerSecureGap="15.16" followerSpeed="13.00" origLeaderGap="20.79" origLeaderSecureGap="15.97" origLeaderSpeed="9.90" latGap="None"/>
+    <change id="cars.10" type="car" time="50.00" from="beg_1" to="beg_0" dir="-1" speed="0.04" pos="253.97" reason="speedGain" leaderGap="2.51" leaderSecureGap="0.04" leaderSpeed="0.01" followerGap="2.56" followerSecureGap="0.00" followerSpeed="0.12" origLeaderGap="17.52" origLeaderSecureGap="0.04" origLeaderSpeed="0.00" latGap="None"/>
+    <change id="cars.12" type="car" time="50.00" from="beg_1" to="beg_0" dir="-1" speed="0.12" pos="246.41" reason="speedGain" leaderGap="2.56" leaderSecureGap="0.00" leaderSpeed="0.04" followerGap="35.67" followerSecureGap="20.22" followerSpeed="11.24" origLeaderGap="10.07" origLeaderSecureGap="0.00" origLeaderSpeed="0.01" latGap="None"/>
+    <change id="cars.6" type="car" time="219.00" from="end_1" to="end_0" dir="-1" speed="10.64" pos="140.98" reason="keepRight" leaderGap="52.03" leaderSecureGap="4.83" leaderSpeed="13.52" followerGap="17.90" followerSecureGap="5.97" followerSpeed="9.08" origLeaderGap="15.98" origLeaderSecureGap="8.08" origLeaderSpeed="11.92" latGap="None"/>
     <change id="cars.18" type="car" time="227.00" from="end_0" to="end_1" dir="1" speed="8.90" pos="61.87" reason="speedGain" leaderGap="12.75" leaderSecureGap="6.87" leaderSpeed="9.97" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="12.73" origLeaderSecureGap="7.68" origLeaderSpeed="9.57" latGap="None"/>
 </lanechanges>

@@ -1,13 +1,13 @@
-Loading net-file from 'net2.net.xml' ... done (5ms).
+Loading net-file from 'net2.net.xml' ... done (3ms).
 Loading additional-files from 'input_additional.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_12_0+1410-8b2a08b68af started with time: 0.00.
-Simulation ended at time: 1867.00
+Simulation version v1_15_0+0751-db72905 started with time: 0.00.
+Simulation ended at time: 1865.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 4.03s
- Real time factor: 463.161
- UPS: 18975.440337
+ Duration: 1.91s
+ Real time factor: 974.399
+ UPS: 39968.129572
 Vehicles: 
  Inserted: 834
  Running: 0
@@ -16,15 +16,15 @@ Teleports: 4 (Yield: 4)
 Statistics (avg of 413):
  RouteLength: 253.15
  Speed: 6.29
- Duration: 73.79
- WaitingTime: 33.69
- TimeLoss: 55.11
+ Duration: 73.81
+ WaitingTime: 33.65
+ TimeLoss: 55.12
 Bike Statistics (avg of 421):
  RouteLength: 265.95
  Speed: 4.85
- Duration: 109.29
+ Duration: 109.30
  WaitingTime: 57.61
- TimeLoss: 60.71
+ TimeLoss: 60.72
 Statistics (avg of 834):
  DepartDelay: 641.70
 

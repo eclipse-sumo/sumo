@@ -1,7 +1,7 @@
-***Starting server on port 40391 ***
-Loading net-file from 'input_net2.net.xml' ... done (3ms).
+***Starting server on port 52635 ***
+Loading net-file from 'input_net2.net.xml' ... done (8ms).
 Loading done.
-Simulation version v1_14_1+1638-3dfb534e134 started with time: 0.00.
+Simulation version v1_15_0+0751-db72905 started with time: 0.00.
 Simulation ended at time: 26.00
 Reason: TraCI requested termination.
 Performance: 
@@ -14,11 +14,11 @@ Vehicles:
  Running: 7
  Waiting: 0
 Statistics (avg of 11):
- RouteLength: 104.91
- Speed: 5.91
+ RouteLength: 105.16
+ Speed: 5.93
  Duration: 19.00
- WaitingTime: 2.45
- TimeLoss: 10.44
+ WaitingTime: 2.54
+ TimeLoss: 10.40
  DepartDelay: 0.00
  DepartDelayWaiting: 0.00
 
