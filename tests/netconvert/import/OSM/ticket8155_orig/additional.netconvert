@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-03 22:29:23 by Eclipse SUMO netconvert Version v1_14_1+0819-bf19e4679c8
+<!-- generated on 2022-12-05 17:07:43 by Eclipse SUMO netconvert Version v1_15_0+0783-6ed32014969
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -50,7 +50,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="4539420388" name="Veltenhöfer Straße" lane="4747816#1_0" startPos="39.64" endPos="54.64" friendlyPos="true"/>
+    <busStop id="4539420388" name="Veltenhöfer Straße" lane="4747816#1_0" startPos="39.41" endPos="54.41" friendlyPos="true"/>
     <busStop id="4539421789" name="Brandenburgstraße" lane="4747816#7_0" startPos="110.00" endPos="125.00" friendlyPos="true"/>
     <busStop id="54142977" name="Heideblick" lane="859066434#3_0" startPos="36.54" endPos="61.54" friendlyPos="true" lines="1">
         <access lane="172186756#0_0" pos="0.00" length="17.11" friendlyPos="1"/>
@@ -66,12 +66,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <access lane="32433933#1_0" pos="1.45" length="10.91" friendlyPos="1"/>
         <access lane="394007640#2_0" pos="8.59" length="17.14" friendlyPos="1"/>
     </busStop>
-    <busStop id="54143012" name="Veltenhöfer Straße" lane="859066429#0_0" startPos="23.68" endPos="48.68" friendlyPos="true" lines="1">
-        <access lane="-32548182#1_0" pos="15.11" length="0.16" friendlyPos="1"/>
-        <access lane="-388933682#1_0" pos="0.00" length="21.45" friendlyPos="1"/>
-        <access lane="32548182#1_0" pos="34.51" length="2.84" friendlyPos="1"/>
-        <access lane="388933682#1_0" pos="57.35" length="18.47" friendlyPos="1"/>
-        <access lane="388933682#3_0" pos="0.00" length="20.52" friendlyPos="1"/>
+    <busStop id="54143012" name="Veltenhöfer Straße" lane="859066429#0_0" startPos="23.73" endPos="48.73" friendlyPos="true" lines="1">
+        <access lane="-32548182#1_0" pos="16.20" length="0.16" friendlyPos="1"/>
+        <access lane="32548182#1_0" pos="33.43" length="2.84" friendlyPos="1"/>
+        <access lane="388933682#1_0" pos="57.30" length="19.89" friendlyPos="1"/>
+        <access lane="388933682#3_0" pos="0.00" length="21.89" friendlyPos="1"/>
+        <access lane="4747816#1_0" pos="64.63" length="26.33" friendlyPos="1"/>
     </busStop>
     <busStop id="5672130288" name="Heideblick" lane="40020450#1_0" startPos="74.23" endPos="99.23" friendlyPos="true">
         <access lane="172186756#0_0" pos="0.00" length="25.10" friendlyPos="1"/>
@@ -80,6 +80,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <access lane="595002498#0_0" pos="0.00" length="20.47" friendlyPos="1"/>
         <access lane="595002498#1_0" pos="0.00" length="23.57" friendlyPos="1"/>
     </busStop>
-    <busStop id="91556880" name="Brandenburgstraße" lane="4747816#7_0" startPos="118.90" endPos="133.90" friendlyPos="true"/>
-    <busStop id="91556885" name="Veltenhöfer Straße" lane="4747816#1_0" startPos="46.78" endPos="61.78" friendlyPos="true"/>
+    <busStop id="91556880" name="Brandenburgstraße" lane="4747816#7_0" startPos="118.91" endPos="133.91" friendlyPos="true"/>
+    <busStop id="91556885" name="Veltenhöfer Straße" lane="4747816#1_0" startPos="46.62" endPos="61.62" friendlyPos="true"/>
 </additional>
