@@ -13,8 +13,8 @@ title: ChangeLog
   - Fixed invalid right of way rules when for two conflicting connections with internal junctions. Issue #11988
   - Fixed incomplete vehroute-output when using option **--vehroute-output.sorted** and some cars or vehicle do not finish their journey. Issue #12049
   - stop-output contains now always contains the correct 'started' values even if other values were part of the input. Issue #12125
-  - Fixed error when trying to use laneChangeModel *DK2008* with continous lane change model. Issue #12144
-  - Fixed invalid lane choice in the presence of lane change restrictins. Issue #12118
+  - Fixed error when trying to use laneChangeModel *DK2008* with continuos lane change model. Issue #12144
+  - Fixed invalid lane choice in the presence of lane change restrictions. Issue #12118
   - Fixed crash in public transport scenario with looped routes. Issue #12150
   - Fixed bug where vehicle with short boardingDuration fails to board passengers after deboarding. Issue #12168
   - Fixed invalid error when loading edgeData with negative electricity consumption. Issue #12172
@@ -32,15 +32,15 @@ title: ChangeLog
   - Fixed bug where during creation of new edge, sometimes, the candidate "to" junction isn't draw wit magenta dotted contour. Issue #12013 (regression in 1.15.0)  
   - Fixed invalid selection outline. Issue #12033
   - Fixed bug where right-click object-choice-menu lists the same object twice. Issue #12034
-  - Junctions can now be deleted when convered by a walkingarea. Issue #12070
+  - Junctions can now be deleted when covered by a walkingarea. Issue #12070
   - Junctions can be merged by moving when the background grid is active. Issue #12080
   - Fixed crash when using option **--prefix**. Issue #12024
   - Fixed bug that permitted invalid combination of stops and and via attribute. Issue #11961
-  - The grouping of inspected overlapped elements no longer includes invisble elements. Issue #12126
+  - The grouping of inspected overlapped elements no longer includes invisible elements. Issue #12126
 
 - netconvert
   - Fixed unnecessary dead-end lanes at large intersections. Issue #2472
-  - Fixed invalid OpenDRIVE output when writting traffic signals with signal groups. Issue #11980
+  - Fixed invalid OpenDRIVE output when writing traffic signals with signal groups. Issue #11980
   - Fixed invalid right of way rules when connections from the same edge merge and both have internal junctions. Issue #11988
   - Fixed invalid OpenDrive output for lefthand networks. Issue #11995, #12038, #12047
   - Fixed bug where **--junctions.join** failed in multimodal networks. Issue #6495
@@ -57,7 +57,7 @@ title: ChangeLog
     
 - TraCI
   - Fixed moveToXY failure at parallel internal junction. Issue #12065
-  - Foe lanes for crossings can now be trieved. Issue #12059
+  - Foe lanes for crossings can now be retrieved. Issue #12059
   - Connection.close() now closes simulation. Issue #12133
 
 - Tools
@@ -76,7 +76,7 @@ title: ChangeLog
   - The right-of-way rules to take effect when switching a traffic light off, can now be configured as 'allway_stop'. This is the new default for NEMA-type controllers. Issue #12043
   - Improve traffic light programs in networks with separated bicycle paths. Issue #10039
   - OpenDRIVE outputs now suppots export of loaded POIs and polygons as road objects. Issue #12060
-  - When setting optin **--tls.guess** roads without conflict are excluded from the threshold-heuristic. Issue #6513
+  - When setting option **--tls.guess** roads without conflict are excluded from the threshold-heuristic. Issue #6513
   - Improved heuristic for generating rail connections at sharp angles. Issue #12119
   - Warnings of E3 detectors and from the SSM device can now be aggregated. Issue #12149
   - Individual lane widths are now import from OpenStreetMap. Issue #12162
@@ -85,7 +85,7 @@ title: ChangeLog
 - netedit
   - Added TimeStamp in Undo-Redo list. Issue #11744
   - Now drawing red line between edge geometry points (if the points are not along the edge). Issue #11530
-  - Can now disable drawing dotted countours in visualization settings. Issue #11662
+  - Can now disable drawing dotted contours in visualization settings. Issue #11662
   - Now showing a warning dialog if user tries to create a TLS in a junction with all connections set as uncontrolled. Issue #6382
   - Removed dialog-button for permission 'disallow' attribute to avoid confusion. Issue #11940
   - Saved sumocfg now includes version data. Issue #11294
