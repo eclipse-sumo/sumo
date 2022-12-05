@@ -142,7 +142,7 @@ LineReader::readLine() {
                 myRead += 1024;
             } else {
                 toReport = myStrBuffer;
-                myRread += myStrBuffer.size();
+                myRread += (int)myStrBuffer.size();
                 if (toReport == "") {
                     myLinesRead++;
                     return toReport;

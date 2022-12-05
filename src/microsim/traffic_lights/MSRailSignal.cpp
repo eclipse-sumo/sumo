@@ -422,7 +422,7 @@ MSRailSignal::initDriveWays(const SUMOVehicle* ego, bool update) {
     const ConstMSEdgeVector& edges = ego->getRoute().getEdges();
     int endIndex = ego->getParameter().arrivalEdge;
     if (endIndex < 0) {
-        endIndex = edges.size() - 1;
+        endIndex = (int)edges.size() - 1;
     }
     for (int i = ego->getParameter().departEdge; i <= endIndex - 1; i++) {
         const MSEdge* e = edges[i];

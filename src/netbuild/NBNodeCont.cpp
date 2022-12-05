@@ -1473,18 +1473,18 @@ NBNodeCont::feasibleCluster(const NodeSet& cluster, const std::map<const NBNode*
     // prevent removal of long edges unless there is weak circle or a traffic light
     if (cluster.size() > 2) {
         // find the nodes with the biggests physical distance between them
-        double maxDist = -1;
+        double maxLength = -1;
         NBEdge* maxEdge = nullptr;
         for (NBNode* n1 : cluster) {
             for (NBNode* n2 : cluster) {
                 NBEdge* e1 = n1->getConnectionTo(n2);
                 NBEdge* e2 = n2->getConnectionTo(n1);
-                if (e1 != nullptr && e1->getLoadedLength() > maxDist) {
-                    maxDist = e1->getLoadedLength();
+                if (e1 != nullptr && e1->getLoadedLength() > maxLength) {
+                    maxLength = e1->getLoadedLength();
                     maxEdge = e1;
                 }
-                if (e2 != nullptr && e2->getLoadedLength() > maxDist) {
-                    maxDist = e2->getLoadedLength();
+                if (e2 != nullptr && e2->getLoadedLength() > maxLength) {
+                    maxLength = e2->getLoadedLength();
                     maxEdge = e2;
                 }
             }
@@ -1492,11 +1492,11 @@ NBNodeCont::feasibleCluster(const NodeSet& cluster, const std::map<const NBNode*
 #ifdef DEBUG_JOINJUNCTIONS
         for (NBNode* n : cluster) {
             if (DEBUGCOND(n)) {
-                std::cout << "feasible hasTLS=" << hasTLS << " maxDist=" << maxDist << " maxEdge=" << maxEdge->getID() << "\n";
+                std::cout << "feasible hasTLS=" << hasTLS << " maxLength=" << maxLength << " maxEdge=" << maxEdge->getID() << "\n";
             }
         }
 #endif
-        if (!hasTLS && maxDist > 5) {
+        if (!hasTLS && maxLength > 5) {
             // find a weak circle within cluster that does not use maxEdge
             std::vector<NBNode*> toCheck;
             std::set<NBNode*> visited;
@@ -1520,7 +1520,7 @@ NBNodeCont::feasibleCluster(const NodeSet& cluster, const std::map<const NBNode*
                 }
             }
             if (!foundCircle) {
-                reason = "not compact (maxEdge=" + maxEdge->getID() + " length=" + toString(maxDist) + ")";
+                reason = "not compact (maxEdge=" + maxEdge->getID() + " length=" + toString(maxLength) + ")";
                 return false;
             }
         }
