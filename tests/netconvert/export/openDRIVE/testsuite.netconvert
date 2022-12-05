@@ -38,5 +38,11 @@ roadObjects
 # OSM divider tag to OpenDrive export
 osm_divider
 
-# OSM Road Signs
-osm_road_sign
+# OSM traffic sign tag to OpenDrive export
+osm_traffic_sign
+
+# OSM traffic sign tag to OpenDrive export
+osm_traffic_sign_lefthand
+
+# OSM traffic sign tag to OpenDrive export
+osm_traffic_sign_LHLL
