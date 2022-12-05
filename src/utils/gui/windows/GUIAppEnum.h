@@ -456,6 +456,8 @@ enum {
     MID_COPY_CURSOR_POSITION,
     /// @brief Copy cursor geo-coordinate position - popup entry
     MID_COPY_CURSOR_GEOPOSITION,
+    /// @brief Copy view geo-coordinate boundary - popup entry
+    MID_COPY_VIEW_GEOBOUNDARY,
     /// @brief Show the cursor geo-coordinate position online in GeoHack - popup entry
     MID_SHOW_GEOPOSITION_ONLINE,
     /// @brief open additional dialog (used in netedit)

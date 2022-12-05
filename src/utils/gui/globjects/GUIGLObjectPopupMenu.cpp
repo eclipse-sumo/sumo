@@ -47,6 +47,7 @@ FXDEFMAP(GUIGLObjectPopupMenu) GUIGLObjectPopupMenuMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_COPY_EDGE_NAME,          GUIGLObjectPopupMenu::onCmdCopyEdgeName),
     FXMAPFUNC(SEL_COMMAND,  MID_COPY_CURSOR_POSITION,    GUIGLObjectPopupMenu::onCmdCopyCursorPosition),
     FXMAPFUNC(SEL_COMMAND,  MID_COPY_CURSOR_GEOPOSITION, GUIGLObjectPopupMenu::onCmdCopyCursorGeoPosition),
+    FXMAPFUNC(SEL_COMMAND,  MID_COPY_VIEW_GEOBOUNDARY,   GUIGLObjectPopupMenu::onCmdCopyViewGeoBoundary),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOW_GEOPOSITION_ONLINE, GUIGLObjectPopupMenu::onCmdShowCursorGeoPositionOnline),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWPARS,                GUIGLObjectPopupMenu::onCmdShowPars),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWTYPEPARS,            GUIGLObjectPopupMenu::onCmdShowTypePars),
@@ -185,8 +186,23 @@ long
 GUIGLObjectPopupMenu::onCmdCopyCursorGeoPosition(FXObject*, FXSelector, void*) {
     Position pos = myNetworkPosition;
     GeoConvHelper::getFinal().cartesian2geo(pos);
-    // formated for pasting into google maps
+    // formatted for pasting into google maps
     const std::string posString = toString(pos.y(), gPrecisionGeo) + ", " + toString(pos.x(), gPrecisionGeo);
+    GUIUserIO::copyToClipboard(*myParent->getApp(), posString);
+    return 1;
+}
+
+
+long
+GUIGLObjectPopupMenu::onCmdCopyViewGeoBoundary(FXObject*, FXSelector, void*) {
+    const Boundary b = myParent->getVisibleBoundary();
+    Position lowLeft(b.xmin(), b.ymin());
+    GeoConvHelper::getFinal().cartesian2geo(lowLeft);
+    Position upRight(b.xmax(), b.ymax());
+    GeoConvHelper::getFinal().cartesian2geo(upRight);
+    // formatted for usage with osmconvert
+    const std::string posString = toString(lowLeft.x(), gPrecisionGeo) + "," + toString(lowLeft.y(), gPrecisionGeo) + "," +
+                                  toString(upRight.x(), gPrecisionGeo) + "," + toString(upRight.y(), gPrecisionGeo);
     GUIUserIO::copyToClipboard(*myParent->getApp(), posString);
     return 1;
 }
