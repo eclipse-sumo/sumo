@@ -89,7 +89,8 @@ jobs:
     - name: Running "sumo in the wheel" tests
       if: github.repository == 'DLR-TS/sumo'
       run: |
-        tests/runTests.sh -b ci -v ci.fast -a sumo,duarouter
+        python -m pip install -r tools/requirements.txt
+        tests/runTests.sh -b ci -v ci.fast
 
     - name: Running meta tests and cleaning up
       run: |
