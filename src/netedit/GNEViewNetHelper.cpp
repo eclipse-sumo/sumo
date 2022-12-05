@@ -1280,14 +1280,27 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
             return false;
         }
     } else if (myViewNet->myObjectsUnderCursor.getJunctionFront() && (frontAC == myViewNet->myObjectsUnderCursor.getJunctionFront())) {
-        // get move operation
-        GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getJunctionFront()->getMoveOperation();
-        // continue if move operation is valid
-        if (moveOperation) {
-            myMoveOperations.push_back(moveOperation);
-            return true;
+        // check if over junction there is a geometry point
+        if (myViewNet->myObjectsUnderCursor.getEdgeFront() && (myViewNet->myObjectsUnderCursor.getEdgeFront()->clickedOverGeometryPoint(myRelativeClickedPosition))) {
+            // get move operation
+            GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getEdgeFront()->getMoveOperation();
+            // continue if move operation is valid
+            if (moveOperation) {
+                myMoveOperations.push_back(moveOperation);
+                return true;
+            } else {
+                return false;
+            }
         } else {
-            return false;
+            // get move operation
+            GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getJunctionFront()->getMoveOperation();
+            // continue if move operation is valid
+            if (moveOperation) {
+                myMoveOperations.push_back(moveOperation);
+                return true;
+            } else {
+                return false;
+            }
         }
     } else if ((myViewNet->myObjectsUnderCursor.getEdgeFront() && (frontAC == myViewNet->myObjectsUnderCursor.getEdgeFront())) ||
                (myViewNet->myObjectsUnderCursor.getLaneFront() && (frontAC == myViewNet->myObjectsUnderCursor.getLaneFront()))) {

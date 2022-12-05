@@ -194,7 +194,7 @@ GNEEdge::getPositionInView() const {
 GNEMoveOperation*
 GNEEdge::getMoveOperation() {
     // get circle width
-    const double circleWidth = drawBigGeometryPoints() ? SNAP_RADIUS * MIN2(1.0, myNet->getViewNet()->getVisualisationSettings().laneWidthExaggeration) : 0.5;
+    const double circleWidth = getSnapRadius(false);
     // check if edge is selected
     if (isAttributeCarrierSelected()) {
         // check if both junctions are selected
@@ -235,7 +235,7 @@ GNEEdge::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoLi
         removeGeometryPoint = false;
     }
     // check distance
-    if (shape[index].distanceSquaredTo2D(clickedPosition) > SNAP_RADIUS_SQUARED) {
+    if (shape[index].distanceSquaredTo2D(clickedPosition) > getSnapRadius(true)) {
         removeGeometryPoint = false;
     }
     // check custom start position
@@ -266,7 +266,7 @@ GNEEdge::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoLi
             shape.pop_front();
             shape.pop_back();
             // remove double points
-            shape.removeDoublePoints(SNAP_RADIUS);
+            shape.removeDoublePoints(getSnapRadius(false));
             // commit new shape
             undoList->begin(GUIIcon::EDGE, "remove geometry point of " + getTagStr());
             undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(shape)));
@@ -291,7 +291,7 @@ GNEEdge::hasCustomEndPoints() const {
 bool
 GNEEdge::clickedOverShapeStart(const Position& pos) const {
     if (myNBEdge->getGeometry().front().distanceSquaredTo2D(getFromJunction()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) {
-        return (myNBEdge->getGeometry().front().distanceSquaredTo2D(pos) < SNAP_RADIUS_SQUARED);
+        return (myNBEdge->getGeometry().front().distanceSquaredTo2D(pos) < getSnapRadius(true));
     } else {
         return false;
     }
@@ -301,7 +301,7 @@ GNEEdge::clickedOverShapeStart(const Position& pos) const {
 bool
 GNEEdge::clickedOverShapeEnd(const Position& pos) const {
     if (myNBEdge->getGeometry().back().distanceSquaredTo2D(getToJunction()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) {
-        return (myNBEdge->getGeometry().back().distanceSquaredTo2D(pos) < SNAP_RADIUS_SQUARED);
+        return (myNBEdge->getGeometry().back().distanceSquaredTo2D(pos) < getSnapRadius(true));
     } else {
         return false;
     }
@@ -310,11 +310,13 @@ GNEEdge::clickedOverShapeEnd(const Position& pos) const {
 
 bool
 GNEEdge::clickedOverGeometryPoint(const Position& pos) const {
+    // get snap radius
+    const auto snapRadius = getSnapRadius(true);
     // first check inner geometry
     const PositionVector innenShape = myNBEdge->getInnerGeometry();
     // iterate over geometry point
     for (const auto& geometryPoint : innenShape) {
-        if (geometryPoint.distanceSquaredTo2D(pos) < SNAP_RADIUS_SQUARED) {
+        if (geometryPoint.distanceSquaredTo2D(pos) < snapRadius) {
             return true;
         }
     }
@@ -477,7 +479,7 @@ Position
 GNEEdge::getSplitPos(const Position& clickPos) {
     const PositionVector& geom = myNBEdge->getGeometry();
     int index = geom.indexOfClosest(clickPos, true);
-    if (geom[index].distanceSquaredTo2D(clickPos) < SNAP_RADIUS_SQUARED) {
+    if (geom[index].distanceSquaredTo2D(clickPos) < getSnapRadius(true)) {
         // split at existing geometry point
         return myNet->getViewNet()->snapToActiveGrid(geom[index]);
     } else {
@@ -490,12 +492,12 @@ GNEEdge::getSplitPos(const Position& clickPos) {
 void
 GNEEdge::editEndpoint(Position pos, GNEUndoList* undoList) {
     if ((myNBEdge->getGeometry().front().distanceSquaredTo2D(getFromJunction()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) &&
-            (myNBEdge->getGeometry().front().distanceSquaredTo2D(pos) < SNAP_RADIUS_SQUARED)) {
+            (myNBEdge->getGeometry().front().distanceSquaredTo2D(pos) < getSnapRadius(true))) {
         undoList->begin(GUIIcon::EDGE, "remove endpoint");
         setAttribute(GNE_ATTR_SHAPE_START, "", undoList);
         undoList->end();
     } else if ((myNBEdge->getGeometry().back().distanceSquaredTo2D(getToJunction()->getNBNode()->getPosition()) > ENDPOINT_TOLERANCE) &&
-               (myNBEdge->getGeometry().back().distanceSquaredTo2D(pos) < SNAP_RADIUS_SQUARED)) {
+               (myNBEdge->getGeometry().back().distanceSquaredTo2D(pos) < getSnapRadius(true))) {
         undoList->begin(GUIIcon::EDGE, "remove endpoint");
         setAttribute(GNE_ATTR_SHAPE_END, "", undoList);
         undoList->end();
@@ -511,7 +513,7 @@ GNEEdge::editEndpoint(Position pos, GNEUndoList* undoList) {
             undoList->begin(GUIIcon::EDGE, "set endpoint");
             int index = geom.indexOfClosest(pos, true);
             // check if snap to existing geometry
-            if (geom[index].distanceSquaredTo2D(pos) < SNAP_RADIUS_SQUARED) {
+            if (geom[index].distanceSquaredTo2D(pos) < getSnapRadius(true)) {
                 pos = geom[index];
             }
             Position destPos = getToJunction()->getNBNode()->getPosition();
@@ -523,12 +525,6 @@ GNEEdge::editEndpoint(Position pos, GNEUndoList* undoList) {
                 setAttribute(GNE_ATTR_SHAPE_START, toString(newPos), undoList);
                 getFromJunction()->invalidateShape();
             }
-            /*
-                        // possibly existing inner point is no longer needed
-                        if (myNBEdge->getInnerGeometry().size() > 0 && getEdgeVertexIndex(pos, false) != -1) {
-                            deleteEdgeGeometryPoint(pos, false);
-                        }
-            */
             undoList->end();
         }
     }
@@ -2341,7 +2337,7 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s) const {
         // Obtain exaggeration of the draw
         const double exaggeration = getExaggeration(s);
         // get circle width
-        const double circleWidth = bigGeometryPoints ? SNAP_RADIUS * MIN2(1.0, s.laneWidthExaggeration) : 0.5;
+        const double circleWidth = getSnapRadius(false);
         const double circleWidthSquared = circleWidth * circleWidth;
         // obtain color
         RGBColor geometryPointColor = s.junctionColorer.getSchemes()[0].getColor(2);
@@ -2929,6 +2925,17 @@ GNEEdge::processNoneJunctionSelected(const double snapRadius) {
         const int newIndex = shapeToMove.insertAtClosest(offsetPosition, true);
         // move after setting new geometry point in shapeToMove
         return new GNEMoveOperation(this, myNBEdge->getGeometry(), {nearestIndex}, shapeToMove, {newIndex});
+    }
+}
+
+
+bool
+GNEEdge::getSnapRadius(const bool squared) const {
+    const double snapRadius = drawBigGeometryPoints() ? SNAP_RADIUS * MIN2(1.0, myNet->getViewNet()->getVisualisationSettings().laneWidthExaggeration) : 0.5;
+    if (squared) {
+        return (snapRadius * snapRadius);
+    } else {
+        return snapRadius;
     }
 }
 
