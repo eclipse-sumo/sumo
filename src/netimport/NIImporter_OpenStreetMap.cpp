@@ -135,7 +135,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
 
     myImportLaneAccess = oc.getBool("osm.lane-access");
     myImportTurnSigns = oc.getBool("osm.turn-lanes");
-    myImportSidewalks = OptionsCont::getOptions().getBool("osm.sidewalks");
+    myImportSidewalks = oc.getBool("osm.sidewalks");
 
     // load nodes, first
     NodesHandler nodesHandler(myOSMNodes, myUniqueNodes, oc);
