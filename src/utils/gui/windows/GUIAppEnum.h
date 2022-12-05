@@ -226,6 +226,8 @@ enum {
     MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE,
     /// @brief Adjust person plans (start und end positions, arrival positions, etc.)
     MID_HOTKEY_SHIFT_F7_ADJUST_PERSON_PLANS,
+    /// @brief open SUMO options menu (used in NETEDIT)
+    MID_HOTKEY_SHIFT_F10_SUMOOPTIONSMENU,
     /// @brief focus upper element of current frame (only used in NETEDIT)
     MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT,
     /// @}

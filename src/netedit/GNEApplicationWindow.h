@@ -458,7 +458,10 @@ public:
     long onCmdToogleComputeNetworkData(FXObject*, FXSelector, void*);
 
     /// @brief called if the user selects Processing->Configure Options
-    long onCmdOptions(FXObject*, FXSelector, void*);
+    long onCmdOpenOptionsDialog(FXObject*, FXSelector, void*);
+
+    /// @brief called if the user selects Processing->Configure Options
+    long onCmdOpenSUMOOptionsDialog(FXObject*, FXSelector, void*);
 
     /// @brief called when user press Ctrl+Z
     long onCmdUndo(FXObject*, FXSelector, void*);
@@ -622,8 +625,8 @@ protected:
     /// @brief string to check if undo/redo list is enabled (a String is used to keep the disabling reason)
     std::string myUndoRedoListEnabled;
 
-    /// @brief NETDIT options container
-    OptionsCont myNeteditOptions;
+    /// @brief SUMO options container
+    OptionsCont mySUMOOptions;
 
 private:
     /// @brief Toolbars Grip
