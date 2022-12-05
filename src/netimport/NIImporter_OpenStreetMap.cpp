@@ -473,7 +473,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             && e->myIsOneWay != "yes" && e->myIsOneWay != "-1" && e->myIsOneWay != "1" && e->myIsOneWay != "reverse") {
         WRITE_WARNINGF(TL("New value for oneway found: %"), e->myIsOneWay);
     }
-    if (isBikepath(permissions) && e->myCyclewayType != WAY_UNKNOWN) {
+    if (isBikepath(permissions) && e->myCyclewayType != WAY_UNKNOWN && e->myCyclewayType != WAY_NONE) {
         if ((e->myCyclewayType & WAY_BACKWARD) == 0) {
             addBackward = false;
         }
@@ -1005,24 +1005,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
     if (element == SUMO_TAG_TAG && myCurrentEdge != nullptr) {
         bool ok = true;
         std::string key = attrs.get<std::string>(SUMO_ATTR_K, toString(myCurrentEdge->id).c_str(), ok, false);
-        if (key.size() > 8 && StringUtils::startsWith(key, "cycleway:")) {
-            // handle special cycleway keys
-            const std::string cyclewaySpec = key.substr(9);
-            key = "cycleway";
-            if (cyclewaySpec == "right") {
-                myCurrentEdge->myCyclewayType = (WayType)(myCurrentEdge->myCyclewayType | WAY_FORWARD);
-            } else if (cyclewaySpec == "left") {
-                myCurrentEdge->myCyclewayType = (WayType)(myCurrentEdge->myCyclewayType | WAY_BACKWARD);
-            } else if (cyclewaySpec == "both") {
-                myCurrentEdge->myCyclewayType = (WayType)(myCurrentEdge->myCyclewayType | WAY_BOTH);
-            } else {
-                key = "ignore";
-            }
-            if ((myCurrentEdge->myCyclewayType & WAY_BOTH) != 0) {
-                // now we have some info on directionality
-                myCurrentEdge->myCyclewayType = (WayType)(myCurrentEdge->myCyclewayType & ~WAY_UNKNOWN);
-            }
-        } else if (key.size() > 6 && StringUtils::startsWith(key, "busway:")) {
+        if (key.size() > 6 && StringUtils::startsWith(key, "busway:")) {
             // handle special busway keys
             const std::string buswaySpec = key.substr(7);
             key = "busway";
@@ -1047,6 +1030,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 && key != "maxspeed:forward" && key != "maxspeed:backward"
                 && key != "junction" && key != "name" && key != "tracks" && key != "layer"
                 && key != "route"
+                && !StringUtils::startsWith(key, "cycleway")
                 && !StringUtils::startsWith(key, "sidewalk")
                 && key != "ref"
                 && key != "highspeed"
@@ -1069,28 +1053,69 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 && key != "public_transport") {
             return;
         }
-        std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentEdge->id).c_str(), ok, false);
+        const std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentEdge->id).c_str(), ok, false);
 
-        if ((key == "highway" && value != "platform") || key == "railway" || key == "waterway" || key == "cycleway"
+        if ((key == "highway" && value != "platform") || key == "railway" || key == "waterway" || StringUtils::startsWith(key, "cycleway")
                 || key == "busway" || key == "route" || StringUtils::startsWith(key, "sidewalk") || key == "highspeed"
                 || key == "aeroway" || key == "aerialway" || key == "usage") {
             // build type id
-            std::string singleTypeID = key + "." + value;
             myCurrentEdge->myCurrentIsRoad = true;
-            // special cycleway stuff
+            // special cycleway stuff https://wiki.openstreetmap.org/wiki/Key:cycleway
             if (key == "cycleway") {
-                if (value == "no") {
-                    return;
-                }
-                if (value == "opposite_track") {
+                if (value == "no" || value == "none" || value == "separate" || value == "opposite") {
+                    myCurrentEdge->myCyclewayType = WAY_NONE;
+                } else if (value == "both") {
+                    myCurrentEdge->myCyclewayType = WAY_BOTH;
+                } else if (value == "right") {
+                    myCurrentEdge->myCyclewayType = WAY_FORWARD;
+                } else if (value == "left") {
+                    myCurrentEdge->myCyclewayType = WAY_BACKWARD;
+                } else if (value == "opposite_track") {
                     myCurrentEdge->myCyclewayType = WAY_BACKWARD;
                 } else if (value == "opposite_lane") {
                     myCurrentEdge->myCyclewayType = WAY_BACKWARD;
                 }
             }
+            if (key == "cycleway:left") {
+                if (myCurrentEdge->myCyclewayType == WAY_UNKNOWN) {
+                    myCurrentEdge->myCyclewayType = WAY_NONE;
+                }
+                if (value == "yes" || value == "lane" || value == "track") {
+                    myCurrentEdge->myCyclewayType = (WayType)(myCurrentEdge->myCyclewayType | WAY_BACKWARD);
+                }
+                key = "cycleway"; // for type adaption
+            }
+            if (key == "cycleway:right") {
+                if (myCurrentEdge->myCyclewayType == WAY_UNKNOWN) {
+                    myCurrentEdge->myCyclewayType = WAY_NONE;
+                }
+                if (value == "yes" || value == "lane" || value == "track") {
+                    myCurrentEdge->myCyclewayType = (WayType)(myCurrentEdge->myCyclewayType | WAY_FORWARD);
+                }
+                key = "cycleway"; // for type adaption
+            }
+            if (key == "cycleway:both") {
+                if (myCurrentEdge->myCyclewayType == WAY_UNKNOWN) {
+                    if (value == "no" || value == "none" || value == "separate") {
+                        myCurrentEdge->myCyclewayType = WAY_NONE;
+                    }
+                    if (value == "yes" || value == "lane" || value == "track") {
+                        myCurrentEdge->myCyclewayType = WAY_BOTH;
+                    }
+                }
+                key = "cycleway"; // for type adaption
+            }
+            if (key == "cycleway" && value != "lane" && value != "track" && value != "opposite_track" && value != "opposite_lane") {
+                // typemap covers only the lane and track cases
+                return;
+            }
+            if (StringUtils::startsWith(key, "cycleway:")) {
+                // no need to extend the type id for other cycleway sub tags
+                return;
+            }
             // special sidewalk stuff
             if (key == "sidewalk") {
-                if (value == "no" || value == "none") {
+                if (value == "no" || value == "none" || value == "separate") {
                     myCurrentEdge->mySidewalkType = WAY_NONE;
                 } else if (value == "both") {
                     myCurrentEdge->mySidewalkType = WAY_BOTH;
@@ -1143,6 +1168,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 // no need to extend the type id
                 return;
             }
+            std::string singleTypeID = key + "." + value;
             if (key == "highspeed") {
                 if (value == "no") {
                     return;
