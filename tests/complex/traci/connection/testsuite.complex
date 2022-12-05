@@ -21,3 +21,6 @@ multiconnect
 
 # closing a connection object which is in the central dict
 close_named
+
+# test client-side command tracing when calling commands via the connection
+tracing

@@ -25,14 +25,14 @@ import time
 
 if "SUMO_HOME" in os.environ:
     sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
-import libsumo  # noqa
+import traci  # noqa
 import sumolib  # noqa
 
 
-libsumo.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg", "+a", "input_additional.add.xml", "-v"])
+traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg", "+a", "input_additional.add.xml", "-v"])
 
 for i in range(10):
-    libsumo.simulationStep()
+    traci.simulationStep()
     time.sleep(0.01)
 
-libsumo.simulation.close()
+traci.close()
