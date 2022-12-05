@@ -981,35 +981,80 @@ NWWriter_OpenDrive::writeRoadObjects(OutputDevice& device, const NBEdge* e, cons
 	}
 }
 
-NWWriter_OpenDrive::TrafficSign
+std::vector<NWWriter_OpenDrive::TrafficSign>
 NWWriter_OpenDrive::parseTrafficSign(const std::string& trafficSign, PointOfInterest* poi) {
+	std::vector<TrafficSign> result;
 	// check for maxspeed, stop, give_way and hazard
 	if (trafficSign == "maxspeed" && poi->knowsParameter("maxspeed")) {
-		return TrafficSign{ "OpenDrive", trafficSign, "", poi->getParameter("maxspeed")};
+		result.push_back(TrafficSign{ "OpenDrive", "maxspeed", "", poi->getParameter("maxspeed")});
 	}
-	else if (trafficSign == "stop") {
-		return TrafficSign{ "OpenDrive", trafficSign, "", ""};
+	else if (trafficSign == "stop") {		
+		result.push_back(TrafficSign{ "OpenDrive", trafficSign, "", "" });
 	}
 	else if (trafficSign == "give_way") {
-		return TrafficSign{ "OpenDrive", trafficSign, "", ""};
+		result.push_back(TrafficSign{ "OpenDrive", trafficSign, "", "" });
 	} 
 	else if (trafficSign == "hazard" && poi->knowsParameter("hazard")) {
-		return TrafficSign{ "OpenDrive", trafficSign, poi->getParameter("hazard"), "" };
+		result.push_back(TrafficSign{ "OpenDrive", trafficSign, poi->getParameter("hazard"), "" });
 	}
 	else
 	{
-		return parseTrafficSignId(trafficSign);
+		std::string::size_type pos = trafficSign.find_first_of(",;");
+		if (pos != std::string::npos) {
+			std::string::size_type colon = trafficSign.find(':');
+			std::string country = trafficSign.substr(0, colon);
+			std::string remaining = trafficSign.substr(colon + 1);
+
+			std::vector<std::string> tokens;
+			std::string::size_type lastPos = 0;
+			std::string::size_type pos = remaining.find_first_of(",;");
+			while (pos != std::string::npos) {
+				// add country and colon before pushing the token
+				tokens.push_back(country + ":" + remaining.substr(lastPos, pos - lastPos));
+				lastPos = pos + 1;
+				pos = remaining.find_first_of(",;", lastPos);
+			}
+			tokens.push_back(country + ":" + remaining.substr(lastPos));
+			// call for each token the parseTrafficSignId function and fill the result vector
+			for (std::string token : tokens) {
+				result.push_back(parseTrafficSignId(token));
+			}
+		}
+		else {
+			result.push_back(parseTrafficSignId(trafficSign));
+		}
 	}
+	return result;
 }
 
 
 NWWriter_OpenDrive::TrafficSign
 NWWriter_OpenDrive::parseTrafficSignId(const std::string& trafficSign) {
-	std::regex re("([A-Z]{2}):([0-9]{1,3})(?:\\[([0-9]{1,3})\\])?");
+	
+	// for OpenDrive 1.4 the country code is specified as ISO 3166-1, alpha-3,
+	// but OSM uses ISO 3166-1, alpha-2. In order to be OpenDrive 1.4 compliant
+	// we would need to convert it back to alpha-3. However, newer OpenDrive
+	// versions support alpha-2, so we use that instead.
+	
+	//std::regex re("([A-Z]{2}):([0-9]{1,3})(?:\\[([0-9]{1,3})\\])?");
+
+	// This regex is used to parse the traffic sign id. It matches the following groups:
+	// 1. country code (2 letters)
+	// 2. sign id (1-4 digits) e.g. 1020 or 274.1
+	// 3. value in brackets e.g. 1020[50] or 274.1[50] -> 50
+	// 4. value after the hyphen 1020-50 or 274.1-50 -> 50
+	std::regex re("([A-Z]{2}):([0-9.]{1,6}|[A-Z]{1}[0-9.]{2,6})(?:\\[(.*)\\])?(?:-(.*))?");
 	std::smatch match;
 	std::regex_match(trafficSign, match, re);
-	if (match.size() == 4) {
-		return TrafficSign{ match[1], match[2], "", match[3]};
+	if (match.size() == 5) {
+		std::string value;
+		if (match[3].matched) {
+			value = match[3].str();
+		}
+		else if (match[4].matched) {
+			value = match[4].str();
+		}
+		return TrafficSign{ match[1], match[2], "", value};
 	}
 	else {
 		return TrafficSign{ "OpenDrive", trafficSign, "", ""};
@@ -1099,7 +1144,7 @@ NWWriter_OpenDrive::writeSignals(OutputDevice& device, const NBEdge* e, double l
 				if (poi->getShapeType() == "traffic_sign" && poi->knowsParameter("traffic_sign")) {
 					std::string traffic_sign_type = poi->getParameter("traffic_sign");
 
-					TrafficSign trafficSign = parseTrafficSign(traffic_sign_type, poi);
+					std::vector<TrafficSign> trafficSigns = parseTrafficSign(traffic_sign_type, poi);
 
 					const std::string tag = "signal";
 
@@ -1110,20 +1155,25 @@ NWWriter_OpenDrive::writeSignals(OutputDevice& device, const NBEdge* e, double l
 							t += e->getPermissions(i) == SVC_PEDESTRIAN ? e->getLaneWidth(i) * 0.2 : e->getLaneWidth(i);
 						}
 					}
-					device.openTag(tag);
-					device.writeAttr("id", id);
-					device.writeAttr("s", distance);
-					device.writeAttr("t", LHRL ? t : -t);
-					device.writeAttr("orientation", "-");
-					device.writeAttr("dynamic", "no");
-					device.writeAttr("zOffset", 3);
-					device.writeAttr("country", trafficSign.country);
-					device.writeAttr("type", trafficSign.type);
-					device.writeAttr("subtype", trafficSign.subtype);
-					device.writeAttr("value", trafficSign.value);
-					device.writeAttr("height", 0.78);
-					device.writeAttr("width", 0.78);
-					device.closeTag();
+					double calculatedZOffset = 3.0;
+					// iterate over traffic signs
+					for (TrafficSign trafficSign : trafficSigns) {						
+						device.openTag(tag);
+						device.writeAttr("id", id);
+						device.writeAttr("s", distance);
+						device.writeAttr("t", LHRL ? t : -t);
+						device.writeAttr("orientation", "-");
+						device.writeAttr("dynamic", "no");
+						device.writeAttr("zOffset", calculatedZOffset);
+						device.writeAttr("country", trafficSign.country);
+						device.writeAttr("type", trafficSign.type);
+						device.writeAttr("subtype", trafficSign.subtype);
+						device.writeAttr("value", trafficSign.value);
+						device.writeAttr("height", 0.78);
+						device.writeAttr("width", 0.78);
+						device.closeTag();
+						calculatedZOffset += 0.78;
+					}
 				}
 			}
 		}

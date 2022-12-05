@@ -139,7 +139,7 @@ protected:
         std::string value;
     };
 
-	static TrafficSign parseTrafficSign(const std::string& trafficSign, PointOfInterest* poi);
+	static std::vector<TrafficSign> parseTrafficSign(const std::string& trafficSign, PointOfInterest* poi);
     static TrafficSign parseTrafficSignId(const std::string& trafficSign);
 
 
