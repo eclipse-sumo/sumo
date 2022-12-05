@@ -135,11 +135,11 @@ protected:
     struct TrafficSign {
         std::string country;
         std::string type;
-		std::string subtype;
+        std::string subtype;
         std::string value;
     };
 
-	static std::vector<TrafficSign> parseTrafficSign(const std::string& trafficSign, PointOfInterest* poi);
+    static std::vector<TrafficSign> parseTrafficSign(const std::string& trafficSign, PointOfInterest* poi);
     static TrafficSign parseTrafficSignId(const std::string& trafficSign);
 
 
