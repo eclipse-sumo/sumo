@@ -1,5 +1,3 @@
-Warning: Discarding unknown compound 'cycleway.separate' in type 'cycleway.separate|cycleway.track|highway.secondary' (first occurence for edge '79523623').
-Warning: Discarding unknown compound 'cycleway.separate' in type 'cycleway.separate|highway.secondary' (first occurence for edge '876570752').
 Warning: No way found for reference '1116784111' in relation '2439713'
 Warning: Ignoring restriction relation '2439713' with unknown to-way.
 Warning: No way found for reference '579378808' in relation '11765377'
@@ -12,6 +10,4 @@ Warning: Cannot revise pt stop localization for pt line '2077982', which consist
 Warning: Cannot revise pt stop localization for pt line '2078078', which consist of one way only. Ignoring!
 Warning: Cannot revise pt stop localization for pt line '2084110', which consist of one way only. Ignoring!
 Warning: Cannot revise pt stop localization for pt line '2084498', which consist of one way only. Ignoring!
-Warning: Ambiguity in turnarounds computation at junction 'cluster_72859928_8453482056'.
-Warning: Ambiguity in turnarounds computation at junction 'cluster_75042985_8453482059'.
 Warning: 9 total messages of type: No way found for reference '%' in relation '%'

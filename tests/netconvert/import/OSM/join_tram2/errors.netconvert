@@ -1,6 +1,5 @@
 Warning: Ignoring track count 2 for edge '42821103'.
 Warning: Ignoring track count 2 for edge '309119321'.
-Warning: Discarding unknown compound 'cycleway.opposite' in type 'cycleway.opposite|highway.residential' (first occurence for edge '18961778').
 Warning: Discarding unusable type 'highway.bus_stop' (first occurence for edge '51353825').
 Warning: Discarding unusable type 'railway.platform' (first occurence for edge '51353828').
 Warning: Discarding unusable type 'railway.abandoned' (first occurence for edge '579326821').

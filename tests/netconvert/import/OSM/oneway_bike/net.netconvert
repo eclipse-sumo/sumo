@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-22 08:14:30 by Eclipse SUMO netconvert Version v1_13_0+1094-d2dab2e946c
+<!-- generated on 2022-12-05 15:16:57 by Eclipse SUMO netconvert Version v1_15_0+0775-90378399cc5
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -459,8 +459,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="-496730533#0" from="1511503849" to="371188594" priority="1" type="highway.footway">
         <lane id="-496730533#0_0" index="0" allow="pedestrian bicycle" speed="2.78" length="16.91" width="2.00" shape="545.46,164.37 552.05,179.94"/>
         <param key="bicycle" value="yes"/>
+        <param key="cycleway:width" value="1.5"/>
         <param key="highway" value="footway"/>
-        <param key="ignore" value="1.5"/>
         <param key="lit" value="yes"/>
         <param key="segregated" value="yes"/>
         <param key="surface" value="paving_stones"/>
@@ -468,8 +468,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="-496730533#1" from="371188597" to="1511503849" priority="1" type="highway.footway">
         <lane id="-496730533#1_0" index="0" allow="pedestrian bicycle" speed="2.78" length="0.20" width="2.00" shape="544.64,160.42 544.65,160.61"/>
         <param key="bicycle" value="yes"/>
+        <param key="cycleway:width" value="1.5"/>
         <param key="highway" value="footway"/>
-        <param key="ignore" value="1.5"/>
         <param key="lit" value="yes"/>
         <param key="segregated" value="yes"/>
         <param key="surface" value="paving_stones"/>
@@ -477,8 +477,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="-496730533#2" from="923228108" to="371188597" priority="1" type="highway.footway">
         <lane id="-496730533#2_0" index="0" allow="pedestrian bicycle" speed="2.78" length="0.20" width="2.00" shape="543.40,149.79 543.43,149.99"/>
         <param key="bicycle" value="yes"/>
+        <param key="cycleway:width" value="1.5"/>
         <param key="highway" value="footway"/>
-        <param key="ignore" value="1.5"/>
         <param key="lit" value="yes"/>
         <param key="segregated" value="yes"/>
         <param key="surface" value="paving_stones"/>
@@ -486,8 +486,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="-496730533#3" from="923227909" to="923228108" priority="1" type="highway.footway">
         <lane id="-496730533#3_0" index="0" allow="pedestrian bicycle" speed="2.78" length="14.30" width="2.00" shape="542.50,131.15 543.06,145.43"/>
         <param key="bicycle" value="yes"/>
+        <param key="cycleway:width" value="1.5"/>
         <param key="highway" value="footway"/>
-        <param key="ignore" value="1.5"/>
         <param key="lit" value="yes"/>
         <param key="segregated" value="yes"/>
         <param key="surface" value="paving_stones"/>
@@ -495,8 +495,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="-496730533#4" from="371188599" to="923227909" priority="1" type="highway.footway">
         <lane id="-496730533#4_0" index="0" allow="pedestrian bicycle" speed="2.78" length="0.20" width="2.00" shape="542.31,127.31 542.33,127.51"/>
         <param key="bicycle" value="yes"/>
+        <param key="cycleway:width" value="1.5"/>
         <param key="highway" value="footway"/>
-        <param key="ignore" value="1.5"/>
         <param key="lit" value="yes"/>
         <param key="segregated" value="yes"/>
         <param key="surface" value="paving_stones"/>
@@ -504,8 +504,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="-496730533#5" from="923228375" to="371188599" priority="1" type="highway.footway">
         <lane id="-496730533#5_0" index="0" allow="pedestrian bicycle" speed="2.78" length="0.20" width="2.00" shape="541.62,117.89 541.63,118.09"/>
         <param key="bicycle" value="yes"/>
+        <param key="cycleway:width" value="1.5"/>
         <param key="highway" value="footway"/>
-        <param key="ignore" value="1.5"/>
         <param key="lit" value="yes"/>
         <param key="segregated" value="yes"/>
         <param key="surface" value="paving_stones"/>
@@ -513,8 +513,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="-496730533#6" from="371188601" to="923228375" priority="1" type="highway.footway">
         <lane id="-496730533#6_0" index="0" allow="pedestrian bicycle" speed="2.78" length="2.63" width="2.00" shape="543.88,114.67 542.56,116.94"/>
         <param key="bicycle" value="yes"/>
+        <param key="cycleway:width" value="1.5"/>
         <param key="highway" value="footway"/>
-        <param key="ignore" value="1.5"/>
         <param key="lit" value="yes"/>
         <param key="segregated" value="yes"/>
         <param key="surface" value="paving_stones"/>
@@ -704,9 +704,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="142944424#0" from="249811040" to="6694248781" priority="11" type="highway.secondary" spreadType="center" shape="543.55,76.58 547.23,80.16 552.37,85.15">
         <lane id="142944424#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.18" shape="553.37,83.90 553.50,84.02"/>
         <lane id="142944424#0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.18" shape="551.14,86.19 551.27,86.32"/>
-        <param key="cycleway" value="track"/>
+        <param key="cycleway:right" value="track"/>
+        <param key="cycleway:surface" value="paving_stones"/>
+        <param key="cycleway:width" value="1.5"/>
         <param key="highway" value="secondary"/>
-        <param key="ignore" value="1.5"/>
         <param key="lanes" value="2"/>
         <param key="lit" value="yes"/>
         <param key="maxspeed" value="50"/>
@@ -719,9 +720,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="142944424#1" from="6694248781" to="250861700" priority="11" type="highway.secondary" spreadType="center">
         <lane id="142944424#1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="5.25" shape="553.59,84.11 557.35,87.77"/>
         <lane id="142944424#1_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="5.25" shape="551.36,86.40 555.12,90.06"/>
-        <param key="cycleway" value="track"/>
+        <param key="cycleway:right" value="track"/>
+        <param key="cycleway:surface" value="paving_stones"/>
+        <param key="cycleway:width" value="1.5"/>
         <param key="highway" value="secondary"/>
-        <param key="ignore" value="1.5"/>
         <param key="lanes" value="2"/>
         <param key="lit" value="yes"/>
         <param key="maxspeed" value="50"/>
@@ -823,7 +825,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="188015326" from="249811037" to="249811040" priority="11" type="highway.secondary" spreadType="center">
         <lane id="188015326_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.20" shape="545.15,87.50 545.10,87.31"/>
         <lane id="188015326_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.20" shape="548.22,86.58 548.16,86.39"/>
-        <param key="cycleway" value="use_sidepath"/>
+        <param key="cycleway:right" value="use_sidepath"/>
         <param key="highway" value="secondary"/>
         <param key="lanes" value="2"/>
         <param key="lit" value="yes"/>
@@ -836,9 +838,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="188015327#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="38.06" shape="563.96,92.60 588.78,121.46"/>
         <lane id="188015327#0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="38.06" shape="561.54,94.69 586.35,123.55"/>
         <lane id="188015327#0_2" index="2" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="38.06" shape="559.11,96.77 583.93,125.63"/>
-        <param key="cycleway" value="track"/>
+        <param key="cycleway:right" value="track"/>
+        <param key="cycleway:right:bicycle" value="designated"/>
+        <param key="cycleway:smoothness" value="good"/>
+        <param key="cycleway:surface" value="paving_stones;asphalt"/>
+        <param key="cycleway:width" value="1.5"/>
         <param key="highway" value="secondary"/>
-        <param key="ignore" value="1.5"/>
         <param key="lanes" value="3"/>
         <param key="lit" value="yes"/>
         <param key="maxspeed" value="50"/>
@@ -852,9 +857,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="188015327#1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="2.47" shape="588.96,121.64 590.58,123.01"/>
         <lane id="188015327#1_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="2.47" shape="586.90,124.09 588.79,125.68"/>
         <lane id="188015327#1_2" index="2" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="2.47" shape="584.84,126.54 586.99,128.35"/>
-        <param key="cycleway" value="track"/>
+        <param key="cycleway:right" value="track"/>
+        <param key="cycleway:right:bicycle" value="designated"/>
+        <param key="cycleway:smoothness" value="good"/>
+        <param key="cycleway:surface" value="paving_stones;asphalt"/>
+        <param key="cycleway:width" value="1.5"/>
         <param key="highway" value="secondary"/>
-        <param key="ignore" value="1.5"/>
         <param key="lanes" value="3"/>
         <param key="lit" value="yes"/>
         <param key="maxspeed" value="50"/>
@@ -1079,7 +1087,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id="487395745" from="582955048" to="249811037" priority="11" type="highway.secondary" spreadType="center" shape="538.48,107.15 541.31,104.16 543.42,99.93 545.55,92.53 546.55,86.59">
         <lane id="487395745_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="7.16" shape="541.09,104.40 541.31,104.16 543.42,99.93 544.00,97.90"/>
-        <param key="cycleway" value="use_sidepath"/>
+        <param key="cycleway:right" value="use_sidepath"/>
         <param key="highway" value="secondary"/>
         <param key="lanes" value="1"/>
         <param key="lit" value="yes"/>
@@ -1092,8 +1100,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="496730533#0" from="371188594" to="1511503849" priority="1" type="highway.footway">
         <lane id="496730533#0_0" index="0" allow="pedestrian bicycle" speed="2.78" length="16.91" width="2.00" shape="550.21,180.72 543.62,165.15"/>
         <param key="bicycle" value="yes"/>
+        <param key="cycleway:width" value="1.5"/>
         <param key="highway" value="footway"/>
-        <param key="ignore" value="1.5"/>
         <param key="lit" value="yes"/>
         <param key="segregated" value="yes"/>
         <param key="surface" value="paving_stones"/>
@@ -1101,8 +1109,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="496730533#1" from="1511503849" to="371188597" priority="1" type="highway.footway">
         <lane id="496730533#1_0" index="0" allow="pedestrian bicycle" speed="2.78" length="0.20" width="2.00" shape="542.66,160.76 542.64,160.56"/>
         <param key="bicycle" value="yes"/>
+        <param key="cycleway:width" value="1.5"/>
         <param key="highway" value="footway"/>
-        <param key="ignore" value="1.5"/>
         <param key="lit" value="yes"/>
         <param key="segregated" value="yes"/>
         <param key="surface" value="paving_stones"/>
@@ -1110,8 +1118,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="496730533#2" from="371188597" to="923228108" priority="1" type="highway.footway">
         <lane id="496730533#2_0" index="0" allow="pedestrian bicycle" speed="2.78" length="0.20" width="2.00" shape="541.46,150.32 541.43,150.12"/>
         <param key="bicycle" value="yes"/>
+        <param key="cycleway:width" value="1.5"/>
         <param key="highway" value="footway"/>
-        <param key="ignore" value="1.5"/>
         <param key="lit" value="yes"/>
         <param key="segregated" value="yes"/>
         <param key="surface" value="paving_stones"/>
@@ -1119,8 +1127,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="496730533#3" from="923228108" to="923227909" priority="1" type="highway.footway">
         <lane id="496730533#3_0" index="0" allow="pedestrian bicycle" speed="2.78" length="14.30" width="2.00" shape="541.07,145.51 540.50,131.23"/>
         <param key="bicycle" value="yes"/>
+        <param key="cycleway:width" value="1.5"/>
         <param key="highway" value="footway"/>
-        <param key="ignore" value="1.5"/>
         <param key="lit" value="yes"/>
         <param key="segregated" value="yes"/>
         <param key="surface" value="paving_stones"/>
@@ -1128,8 +1136,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="496730533#4" from="923227909" to="371188599" priority="1" type="highway.footway">
         <lane id="496730533#4_0" index="0" allow="pedestrian bicycle" speed="2.78" length="0.20" width="2.00" shape="540.33,127.69 540.32,127.49"/>
         <param key="bicycle" value="yes"/>
+        <param key="cycleway:width" value="1.5"/>
         <param key="highway" value="footway"/>
-        <param key="ignore" value="1.5"/>
         <param key="lit" value="yes"/>
         <param key="segregated" value="yes"/>
         <param key="surface" value="paving_stones"/>
@@ -1137,8 +1145,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="496730533#5" from="371188599" to="923228375" priority="1" type="highway.footway">
         <lane id="496730533#5_0" index="0" allow="pedestrian bicycle" speed="2.78" length="0.20" width="2.00" shape="539.65,118.43 539.64,118.23"/>
         <param key="bicycle" value="yes"/>
+        <param key="cycleway:width" value="1.5"/>
         <param key="highway" value="footway"/>
-        <param key="ignore" value="1.5"/>
         <param key="lit" value="yes"/>
         <param key="segregated" value="yes"/>
         <param key="surface" value="paving_stones"/>
@@ -1146,8 +1154,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="496730533#6" from="923228375" to="371188601" priority="1" type="highway.footway">
         <lane id="496730533#6_0" index="0" allow="pedestrian bicycle" speed="2.78" length="2.63" width="2.00" shape="540.83,115.94 542.15,113.67"/>
         <param key="bicycle" value="yes"/>
+        <param key="cycleway:width" value="1.5"/>
         <param key="highway" value="footway"/>
-        <param key="ignore" value="1.5"/>
         <param key="lit" value="yes"/>
         <param key="segregated" value="yes"/>
         <param key="surface" value="paving_stones"/>

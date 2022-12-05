@@ -1,4 +1,3 @@
-Warning: Discarding unknown compound 'cycleway.opposite' in type 'cycleway.opposite|highway.residential' (first occurence for edge '8142293').
 Warning: Discarding unusable type 'railway.platform' (first occurence for edge '119432576').
 Warning: PT line in relation 165867 with no stops ignored. Probably OSM file is incomplete.
 Warning: No way found for reference '1670309356' in relation '4443863'

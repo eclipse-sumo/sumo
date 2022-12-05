@@ -1,4 +1,3 @@
-Warning: Discarding unknown compound 'cycleway.opposite' in type 'cycleway.opposite|highway.residential' (first occurence for edge '4533224').
 Warning: Discarding way '15734263' because it has only 1 node(s)
 Warning: Discarding way '31969559' because it has only 1 node(s)
 Warning: Discarding way '75470554' because it has only 1 node(s)

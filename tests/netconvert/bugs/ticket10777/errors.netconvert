@@ -1,4 +1,3 @@
-Warning: Discarding unknown compound 'cycleway.crossing' in type 'cycleway.crossing|highway.cycleway' (first occurence for edge '916807057').
 Warning: Found angle of 141.12 degrees at edge '26184171', segment 0.
 Warning: Found sharp turn with radius 7.03 at the start of edge '26184171'.
 Warning: Converting invalid rail_crossing to traffic_light at junction 'cluster_28114806_286726503_2952513732_2952513733_#2more'.
