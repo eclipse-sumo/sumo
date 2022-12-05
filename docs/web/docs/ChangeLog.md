@@ -136,7 +136,7 @@ title: ChangeLog
   - A persons individual speedFactor is now applied during access stage. Issue #11452
   - Fixed invalid pedestrian routing when using the *striping* model to navigate within an intersection. Issue #11674
   - Fixed invalid parking maneuver times. Issue #11420  
-  - Option **--scale** and vType attribute `scale` now apply evenly to all defined `<flow`> elements when set to values below 1. Issue #11441  
+  - Option **--scale** and vType attribute `scale` now apply evenly to all defined `<flow>` elements when set to values below 1. Issue #11441  
   - Fixed invalid braking at intersection in sublane simulation. Issue #11484
   - Fixed emergency braking at lane-width change in sublane simulation. Issue #11467, #11639
   - Fixed junction collision while turning with the sublane model. Issue #11482  
