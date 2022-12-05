@@ -267,6 +267,20 @@ public:
         FXTextField* myShiftValueYTextField = nullptr;
     };
 
+    // ===========================================================================
+    // class Information
+    // ===========================================================================
+
+    class Information : public MFXGroupBoxModule {
+
+    public:
+        /// @brief constructor
+        Information(GNEMoveFrame* moveFrameParent);
+
+        /// @brief destructor
+        ~Information();
+    };
+
     /**@brief Constructor
      * @brief viewParent GNEViewParent in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -315,6 +329,9 @@ private:
 
     /// @brief modul for change Z in selection
     ChangeZInSelection* myChangeZInSelection = nullptr;
+
+    /// @brief modul for show information
+    Information* myInformation = nullptr;
 
     /// @brief modul for shift shape geometry
     ShiftShapeGeometry* myShiftShapeGeometry = nullptr;
