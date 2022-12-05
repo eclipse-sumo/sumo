@@ -108,7 +108,7 @@ Alternatively to the above method, the `<edge>`-attribute [`bikeLaneWidth` may b
 !!! note
     The heuristic methods described below, also perform automatic connection shifting and removal of bicycle permissions from non-bike lanes
 
-### Type-base generation
+### Type-based generation
 
 When importing edges with defined types, it is also possible to declare that certain types should receive a sidewalk. This can be used to automatically generate bike lanes for residential streets while omitting them for motorways when importing OSM data. 
 
@@ -168,6 +168,20 @@ Sometimes, bicycles/motorpads do not wait side by side properly. The following p
 - latAlignment="nice"
 - minGapLat="0.1"
     
+## Short overview
+
+| Input                                           | Desired output                 | Options to use        |
+|-------------------------------------------------|--------------------------------|-----------------------|
+| shapefile or other data without bicycle info    | no bicycle infrastructure      | none                  |
+|                                                 | bicycle lanes where applicable | **--bikelanes.guess** |
+| OpenStreetMap                                   | no bicycle infrastructure      | none                  |
+|                                                 | bicycle lanes as in the input  | **--osm.bike-access** and the [{{SUMO}}/data/typemap/osmNetconvertBicycle.typ.xml](bicycle type map) |
+|                                                 | guessed bicycle lanes (discarding input) | a typemap which gives a bikelane width to all street types which should receive one or **--bikelanes.guess** |
+
+The options above only apply to adding further lanes for existing streets. Separate bike paths are always imported
+(if the typemap or other filter options do not prevent it).
+
+
 # Bicycle routing
 
 When [routing bicycles in the simulation](../Demand/Automatic_Routing.md) the option **--device.rerouting.bike-speeds** can be used to enable separate tracking of bicycle speeds. This ensure that routing for bicycles which can use a dedicated bicycle lane is not affected by jammed cars.
