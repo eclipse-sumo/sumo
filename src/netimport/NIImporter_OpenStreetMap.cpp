@@ -1243,17 +1243,13 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 }
             }
         } else if (key == "oneway:bicycle") {
-            if (myImportBikeAccess) {
-                if (value == "true" || value == "yes" || value == "1") {
-                    myCurrentEdge->myCyclewayType = WAY_FORWARD;
-                }
-                if (value == "-1" || value == "reverse") {
-                    // one-way in reversed direction of way
-                    myCurrentEdge->myCyclewayType = WAY_BACKWARD;
-                }
-                if (value == "no" || value == "false" || value == "0") {
-                    myCurrentEdge->myCyclewayType = WAY_BOTH;
-                }
+            if (value == "yes") {
+                // actually this should be a simple "oneway" tag
+                myCurrentEdge->myIsOneWay = value;
+            }
+            if (value == "no") {
+                // need to add a cycle way in reversed direction of way
+                myCurrentEdge->myCyclewayType = WAY_BACKWARD;
             }
         } else if (key == "lanes") {
             try {
