@@ -2929,14 +2929,15 @@ GNEEdge::processNoneJunctionSelected(const double snapRadius) {
 }
 
 
-bool
+double
 GNEEdge::getSnapRadius(const bool squared) const {
     const double snapRadius = drawBigGeometryPoints() ? SNAP_RADIUS * MIN2(1.0, myNet->getViewNet()->getVisualisationSettings().laneWidthExaggeration) : 0.5;
     if (squared) {
-        return (snapRadius * snapRadius);
+        return snapRadius * snapRadius;
     } else {
         return snapRadius;
     }
 }
+
 
 /****************************************************************************/

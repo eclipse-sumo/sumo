@@ -484,7 +484,7 @@ private:
     GNEMoveOperation* processNoneJunctionSelected(const double snapRadius);
 
     /// @brief get snap radius
-    bool getSnapRadius(const bool squared) const;
+    double getSnapRadius(const bool squared) const;
 
     /// @brief invalidated copy constructor
     GNEEdge(const GNEEdge& s) = delete;
