@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-11-25 16:12:53 by Eclipse SUMO netconvert Version v1_15_0+0602-b38f846bfb8
+<!-- generated on 2022-12-05 09:27:55 by Eclipse SUMO netconvert Version v1_15_0+0690-246ca29486b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -48,7 +48,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Fri Nov 25 16:12:53 2022" north="200.00" south="0.00" east="200.00" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Mon Dec  5 09:27:55 2022" north="200.00" south="0.00" east="200.00" west="0.00"/>
     <road name="" length="86.60000000" id="50" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -106,7 +106,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                  </right>
             </laneSection>
         </lanes>
-        <objects/>
+        <objects>
+            <object id=":C_c1" type="crosswalk" name="" s="0.00000000" t="0.00000000" hdg="-0.00000000">
+                <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
+                    <cornerLocal u="0.50000000" v="-7.40000000" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="0.50000000" v="7.40000000" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="-0.50000000" v="7.40000000" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="-0.50000000" v="-7.40000000" z="0.00000000" height="0.00000000" id="3"/>
+                </outline>
+            </object>
+        </objects>
         <signals/>
         <userData code="sumoId" value="CE"/>
     </road>
@@ -167,7 +176,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                  </right>
             </laneSection>
         </lanes>
-        <objects/>
+        <objects>
+            <object id=":C_c0" type="crosswalk" name="" s="0.00000000" t="0.00000000" hdg="-1.57079633">
+                <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
+                    <cornerLocal u="7.40000000" v="0.50000000" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="-7.40000000" v="0.50000000" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="-7.40000000" v="-0.50000000" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="7.40000000" v="-0.50000000" z="0.00000000" height="0.00000000" id="3"/>
+                </outline>
+            </object>
+        </objects>
         <signals/>
         <userData code="sumoId" value="CN"/>
     </road>
@@ -228,7 +246,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                  </right>
             </laneSection>
         </lanes>
-        <objects/>
+        <objects>
+            <object id=":C_c2" type="crosswalk" name="" s="0.00000000" t="0.00000000" hdg="1.57079633">
+                <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
+                    <cornerLocal u="-7.40000000" v="-0.50000000" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="7.40000000" v="-0.50000000" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="7.40000000" v="0.50000000" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="-7.40000000" v="0.50000000" z="0.00000000" height="0.00000000" id="3"/>
+                </outline>
+            </object>
+        </objects>
         <signals/>
         <userData code="sumoId" value="CS"/>
     </road>
@@ -289,7 +316,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                  </right>
             </laneSection>
         </lanes>
-        <objects/>
+        <objects>
+            <object id=":C_c3" type="crosswalk" name="" s="0.00000000" t="0.00000000" hdg="-3.14159265">
+                <outline id="0" fillType="concrete" outer="true" closed="false" laneType="border">
+                    <cornerLocal u="-0.50000000" v="7.40000000" z="0.00000000" height="0.00000000" id="0"/>
+                    <cornerLocal u="-0.50000000" v="-7.40000000" z="0.00000000" height="0.00000000" id="1"/>
+                    <cornerLocal u="0.50000000" v="-7.40000000" z="0.00000000" height="0.00000000" id="2"/>
+                    <cornerLocal u="0.50000000" v="7.40000000" z="0.00000000" height="0.00000000" id="3"/>
+                </outline>
+            </object>
+        </objects>
         <signals/>
         <userData code="sumoId" value="CW"/>
     </road>
