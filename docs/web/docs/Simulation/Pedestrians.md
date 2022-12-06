@@ -199,7 +199,7 @@ Cars will interact by pedestrians (by slowing down or stopping) when encounterin
 | shapefile or other data without pedestrian info | no pedestrian infrastructure             | none                         |
 |                                                 | sidewalks and crossings where applicable | **--sidewalks.guess --crossings.guess** |
 | OpenStreetMap                                   | no pedestrian infrastructure             | none (use a typemap without footpaths) |
-|                                                 | sidewalks and crossings as in the input  | **--osm.sidewalks** |
+|                                                 | sidewalks and crossings as in the input  | **--osm.sidewalks --osm.crossings** |
 |                                                 | guessed sidewalks and crossings (discarding input) | a typemap which gives a sidewalk width to all street types which should receive a side walk or **--sidewalks.guess --crossings.guess** |
 
 The options above only apply to adding further lanes for existing streets. Separate foot paths are always imported

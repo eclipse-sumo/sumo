@@ -605,6 +605,8 @@ This ensures good sidewalk coverage but may lead to double-sidewalks if OSM mode
 
 By setting option **--osm.sidewalks**, all sidewalk data from OSM will be loaded. When combined with a typemap such as {{SUMO_HOME}}/data/osmNetconvertPedestrians.typ.xml, the typemap will only be used to configure sidewalk widths but no extra sidewalks will be added.
 
+When **--osm.sidewalks** is set, by setting option **--osm.crosswalks** the "highway=crossing" tags will be loaded and crossings will be generated.
+
 This definition style prevents double-sidewalks but may lead to missing sidewalks wherever OSM modellers did not add sidewalk information.
 
 [osmWebWizard](../../Tutorials/OSMWebWizard.md) uses this style beginning with version 1.11.0. 
