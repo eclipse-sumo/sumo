@@ -513,6 +513,16 @@ GNECrossingFrame::CreateCrossing::setCreateCrossingButton(bool value) {
 
 GNECrossingFrame::Information::Information(GNECrossingFrame* crossingFrameParent) :
     MFXGroupBoxModule(crossingFrameParent, TL("Information")) {
+
+    std::ostringstream information;
+    // add label for shift+click
+    information
+            << TL("-Click over junction to") << "\n"
+            << TL(" mark candidate edges.") << "\n"
+            << TL("-Click over candidate") << "\n"
+            << TL(" edges for selecting.");
+    // create label
+    new FXLabel(getCollapsableFrame(), information.str().c_str(), 0, GUIDesignLabelFrameInformation);
     // candidate
     FXLabel* colorCandidateLabel = new FXLabel(getCollapsableFrame(), " Candidate", 0, GUIDesignLabelLeft);
     colorCandidateLabel->setBackColor(MFXUtils::getFXColor(crossingFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.possible));
@@ -520,6 +530,10 @@ GNECrossingFrame::Information::Information(GNECrossingFrame* crossingFrameParent
     // selected
     FXLabel* colorSelectedLabel = new FXLabel(getCollapsableFrame(), " Selected", 0, GUIDesignLabelLeft);
     colorSelectedLabel->setBackColor(MFXUtils::getFXColor(crossingFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.target));
+    // invalid
+    FXLabel* colorInvalidLabel = new FXLabel(getCollapsableFrame(), " Invalid", 0, GUIDesignLabelLeft);
+    colorInvalidLabel->setBackColor(MFXUtils::getFXColor(crossingFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.invalid));
+    colorInvalidLabel->setTextColor(MFXUtils::getFXColor(RGBColor::WHITE));
 }
 
 

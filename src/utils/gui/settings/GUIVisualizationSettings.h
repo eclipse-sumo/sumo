@@ -278,6 +278,9 @@ struct GUIVisualizationCandidateColorSettings {
 
     /// @brief color for selected conflict candidate element (Usually selected using ctrl+click)
     static const RGBColor conflict;
+
+    /// @brief color for invalid elements
+    static const RGBColor invalid;
 };
 
 /// @brief struct for connection settings

@@ -321,6 +321,21 @@ GNEConnectorFrame::ConnectionSelection::~ConnectionSelection() {}
 GNEConnectorFrame::Legend::Legend(GNEConnectorFrame* connectorFrameParent) :
     MFXGroupBoxModule(connectorFrameParent, TL("Information")) {
 
+
+        std::ostringstream information;
+    // add label for shift+click
+    information
+            << TL("- ESC:") << "\n"
+            << TL("  Deselect origin") << "\n"
+            << TL("- Control+Click:") << "\n"
+            << TL("  Move view") << "\n"
+            << TL("- Shift+Click:") << "\n"
+            << TL("  Splits edge in both directions") << "\n"
+            << TL("- Alt+Shift+Click:") << "\n"
+            << TL("  Splits edge in one direction");
+    // create label
+    new FXLabel(getCollapsableFrame(), information.str().c_str(), 0, GUIDesignLabelFrameInformation);
+
     // create possible target label
     FXLabel* possibleTargetLabel = new FXLabel(getCollapsableFrame(), "Possible Target", 0, GUIDesignLabelLeft);
     possibleTargetLabel->setBackColor(MFXUtils::getFXColor(connectorFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.possible));

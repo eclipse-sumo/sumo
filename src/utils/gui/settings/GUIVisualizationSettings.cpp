@@ -75,6 +75,7 @@ const RGBColor GUIVisualizationCandidateColorSettings::source(0, 255, 255, 255);
 const RGBColor GUIVisualizationCandidateColorSettings::target(0, 255, 0, 255);      // Green
 const RGBColor GUIVisualizationCandidateColorSettings::special(255, 0, 255, 255);   // Magenta
 const RGBColor GUIVisualizationCandidateColorSettings::conflict(255, 255, 0, 255);  // Yellow
+const RGBColor GUIVisualizationCandidateColorSettings::invalid(128, 128, 128, 255);  // Yellow
 
 // -------------------------------------------------------------------------
 // Netedit size values
