@@ -139,7 +139,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 
             auto crosswalkId = crosswalks[i]->id;
             nb.getShapeCont().addPolygon(crosswalkId, "crosswalk", RGBColor::DEFAULT_COLOR, 0,
-                                         Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, 
+                                         Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH,
                                          crosswalk_shape, false, true, 1, false, crosswalkId);
             crosswalksByEdge[crosswalks[i]->edges[0]->getID()].push_back(crosswalkId);
         }
@@ -253,6 +253,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     device.close();
 }
 
+
 std::string
 NWWriter_OpenDrive::getDividerType(const NBEdge* e) {
     std::map<std::string, std::string> dividerTypeMapping;
@@ -270,9 +271,9 @@ NWWriter_OpenDrive::getDividerType(const NBEdge* e) {
             dividerType = dividerTypeMapping.find(divider)->second;
         }
     }
-    
     return dividerType;
 }
+
 
 void
 NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
@@ -1040,12 +1041,11 @@ NWWriter_OpenDrive::parseTrafficSign(const std::string& trafficSign, PointOfInte
 
 NWWriter_OpenDrive::TrafficSign
 NWWriter_OpenDrive::parseTrafficSignId(const std::string& trafficSign) {
-    
     // for OpenDrive 1.4 the country code is specified as ISO 3166-1, alpha-3,
     // but OSM uses ISO 3166-1, alpha-2. In order to be OpenDrive 1.4 compliant
     // we would need to convert it back to alpha-3. However, newer OpenDrive
     // versions support alpha-2, so we use that instead.
-    
+
     //std::regex re("([A-Z]{2}):([0-9]{1,3})(?:\\[([0-9]{1,3})\\])?");
 
     // This regex is used to parse the traffic sign id. It matches the following groups:
@@ -1202,7 +1202,7 @@ NWWriter_OpenDrive::s2x(int sumoIndex, int numLanes) {
     // sumo lanes:     0, 1, 2  (0 being the outermost lane)
     // XODR:          -3,-2,-1  (written in reverse order)
     // LHLL:           3, 2, 1  (written in reverse order)
-    // lefthand (old):-1,-2,-3   
+    // lefthand (old):-1,-2,-3
     return (lefthand
             ? (LHLL
                 ? numLanes - sumoIndex
