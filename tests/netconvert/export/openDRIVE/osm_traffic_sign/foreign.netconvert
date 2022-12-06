@@ -1,15 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-12-04 20:50:15 by Eclipse SUMO netconvert Version v1_15_0+0695-688e820a866
+<!-- generated on 2022-12-06 10:53:50 by Eclipse SUMO netconvert Version v1_15_0+0799-b8997887d34
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\test\kurz.net.xml"/>
-        <polygon-files value="C:\test\kurz.poly.xml"/>
+        <sumo-net-file value="input_net.net.xml"/>
+        <polygon-files value="input_shapes.add.xml"/>
     </input>
 
     <output>
-        <opendrive-output value="C:\test\kurz.xodr"/>
+        <write-license value="true"/>
+        <opendrive-output value="foreign.net"/>
         <opendrive-output.shape-match-dist value="10000"/>
     </output>
 
@@ -30,11 +41,15 @@
         <walkingareas value="0"/>
     </pedestrian>
 
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
 </configuration>
 -->
 
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Sun Dec  4 20:50:15 2022" north="0.79" south="0.00" east="97.95" west="0.00">
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Dec  6 10:53:50 2022" north="0.79" south="0.00" east="97.95" west="0.00">
         <geoReference>
  <![CDATA[
  +proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs
@@ -110,10 +125,10 @@
             </laneSection>
         </lanes>
         <objects>
-            <object id="-137713" type="pole" name="pole" s="61.45204696" t="-4.30000000" hdg="0"/>
+            <object id="-137713" type="pole" name="pole" s="61.41569227" t="-4.30000000" hdg="0"/>
         </objects>
         <signals>
-            <signal id="-137713" s="61.45" t="-4.30" orientation="-" dynamic="no" zOffset="3" country="OpenDrive" type="maxspeed" subtype="" value="80" height="0.78" width="0.78"/>
+            <signal id="-137713" s="61.45" t="-4.30" orientation="-" dynamic="no" zOffset="3.00" country="OpenDrive" type="maxspeed" subtype="" value="80" height="0.78" width="0.78"/>
         </signals>
     </road>
 
