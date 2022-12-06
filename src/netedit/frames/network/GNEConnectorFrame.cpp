@@ -307,8 +307,25 @@ GNEConnectorFrame::ConnectionOperations::onCmdResetSelectedConnections(FXObject*
 GNEConnectorFrame::ConnectionSelection::ConnectionSelection(GNEConnectorFrame* connectorFrameParent) :
     MFXGroupBoxModule(connectorFrameParent, TL("Selection")) {
     // create Selection Hint
-    myHoldShiftLabel = new FXLabel(getCollapsableFrame(), "Hold <SHIFT> while clicking\nto create unyielding\nconnections (pass=true).", 0, GUIDesignLabelFrameInformation);
-    myHoldControlLabel = new FXLabel(getCollapsableFrame(), "Hold <CTRL> while clicking\nto create conflicting\nconnections (i.e. at zipper\nnodes or with incompatible\npermissions)", 0, GUIDesignLabelFrameInformation);
+    std::ostringstream informationA;
+    // add label for shift+click
+    informationA
+            << TL("-Hold <SHIFT> while") << "\n"
+            << TL(" clicking to create") << "\n"
+            << TL(" unyielding connections") << "\n"
+            << TL(" (pass=true).");
+    // create label
+    new FXLabel(getCollapsableFrame(), informationA.str().c_str(), 0, GUIDesignLabelFrameInformation);
+    std::ostringstream informationB;
+    informationB
+            << TL("-Hold <CTRL> while") << "\n"
+            << TL(" clicking to create ") << "\n"
+            << TL(" conflicting connections") << "\n"
+            << TL(" (i.e. at zipper nodes") << "\n"
+            << TL(" or with incompatible") << "\n"
+            << TL(" permissions");
+    // create label
+    new FXLabel(getCollapsableFrame(), informationB.str().c_str(), 0, GUIDesignLabelFrameInformation);
 }
 
 
@@ -320,21 +337,6 @@ GNEConnectorFrame::ConnectionSelection::~ConnectionSelection() {}
 
 GNEConnectorFrame::Legend::Legend(GNEConnectorFrame* connectorFrameParent) :
     MFXGroupBoxModule(connectorFrameParent, TL("Information")) {
-
-
-        std::ostringstream information;
-    // add label for shift+click
-    information
-            << TL("- ESC:") << "\n"
-            << TL("  Deselect origin") << "\n"
-            << TL("- Control+Click:") << "\n"
-            << TL("  Move view") << "\n"
-            << TL("- Shift+Click:") << "\n"
-            << TL("  Splits edge in both directions") << "\n"
-            << TL("- Alt+Shift+Click:") << "\n"
-            << TL("  Splits edge in one direction");
-    // create label
-    new FXLabel(getCollapsableFrame(), information.str().c_str(), 0, GUIDesignLabelFrameInformation);
 
     // create possible target label
     FXLabel* possibleTargetLabel = new FXLabel(getCollapsableFrame(), "Possible Target", 0, GUIDesignLabelLeft);
