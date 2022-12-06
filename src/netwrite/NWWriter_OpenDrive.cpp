@@ -949,26 +949,7 @@ NWWriter_OpenDrive::writeRoadObjects(OutputDevice& device, const NBEdge* e, cons
                 if (poi == nullptr) {
                     WRITE_WARNINGF("Road object polygon or POI '%' not found for edge '%'", id, e->getID());
                 } else {
-                    if (poi->getShapeType() == "traffic_sign") {
-                        auto s = e->getFromNode()->getPosition().distanceTo2D(*poi);
-                        double t = 0.30;
-                        if (!lefthand || LHLL) {
-                            for (int i = 0; i < e->getNumLanes(); i++) {
-                                t += e->getPermissions(i) == SVC_PEDESTRIAN ? e->getLaneWidth(i) * 0.2 : e->getLaneWidth(i);
-                            }
-                        }
-                        device.openTag("object");
-                        device.writeAttr("id", poi->getID());
-                        device.writeAttr("type", "pole");
-                        device.writeAttr("name", "pole");
-                        device.writeAttr("s", s);
-                        device.writeAttr("t", LHRL ? t : -t);
-                        device.writeAttr("hdg", 0);
-                        device.closeTag();
-                    }
-                    else {
-                        writeRoadObjectPOI(device, e, road, poi);
-                    }
+                    writeRoadObjectPOI(device, e, road, poi);
                 }
             } else {
                 writeRoadObjectPoly(device, e, road, p);
@@ -987,18 +968,13 @@ NWWriter_OpenDrive::parseTrafficSign(const std::string& trafficSign, PointOfInte
     // check for maxspeed, stop, give_way and hazard
     if (trafficSign == "maxspeed" && poi->knowsParameter("maxspeed")) {
         result.push_back(TrafficSign{ "OpenDrive", "maxspeed", "", poi->getParameter("maxspeed")});
-    }
-    else if (trafficSign == "stop") {		
+    } else if (trafficSign == "stop") {
         result.push_back(TrafficSign{ "OpenDrive", trafficSign, "", "" });
-    }
-    else if (trafficSign == "give_way") {
+    } else if (trafficSign == "give_way") {
         result.push_back(TrafficSign{ "OpenDrive", trafficSign, "", "" });
-    } 
-    else if (trafficSign == "hazard" && poi->knowsParameter("hazard")) {
+    } else if (trafficSign == "hazard" && poi->knowsParameter("hazard")) {
         result.push_back(TrafficSign{ "OpenDrive", trafficSign, poi->getParameter("hazard"), "" });
-    }
-    else
-    {
+    } else {
         std::string::size_type pos = trafficSign.find_first_of(",;");
         if (pos != std::string::npos) {
             std::string::size_type colon = trafficSign.find(':');
@@ -1019,8 +995,7 @@ NWWriter_OpenDrive::parseTrafficSign(const std::string& trafficSign, PointOfInte
             for (std::string token : tokens) {
                 result.push_back(parseTrafficSignId(token));
             }
-        }
-        else {
+        } else {
             result.push_back(parseTrafficSignId(trafficSign));
         }
     }
@@ -1297,6 +1272,7 @@ NWWriter_OpenDrive::writeRoadObjectPOI(OutputDevice& device, const NBEdge* e, co
         WRITE_WARNINGF("Cannot map road object POI '%' with center % onto edge '%'", poi->getID(), center, e->getID());
         return;
     }
+
     Position edgePos = roadShape.positionAtOffset2D(edgeOffset);
     double sideOffset = center.distanceTo2D(edgePos);
     // determine sign of sideOffset
@@ -1305,10 +1281,26 @@ NWWriter_OpenDrive::writeRoadObjectPOI(OutputDevice& device, const NBEdge* e, co
     if (tmp.distance2D(center) < sideOffset) {
         sideOffset *= -1;
     }
+    // place traffic signs on appropriate side of the road
+    std::string type = poi->getShapeType();
+    std::string name = StringUtils::escapeXML(poi->getParameter("name", ""), true);
+    if (poi->getShapeType() == "traffic_sign") {
+        double t = 0.30;
+        if (!lefthand || LHLL) {
+            for (int i = 0; i < e->getNumLanes(); i++) {
+                t += e->getPermissions(i) == SVC_PEDESTRIAN ? e->getLaneWidth(i) * 0.2 : e->getLaneWidth(i);
+            }
+        }
+        t = LHRL ? t : -t;
+        sideOffset = t;
+        type = "pole";
+        name = "pole";
+    }
+
     device.openTag("object");
     device.writeAttr("id", poi->getID());
-    device.writeAttr("type", poi->getShapeType());
-    device.writeAttr("name", StringUtils::escapeXML(poi->getParameter("name", ""), true));
+    device.writeAttr("type", type);
+    device.writeAttr("name", name);
     device.writeAttr("s", edgeOffset);
     device.writeAttr("t", sideOffset);
     device.writeAttr("hdg", 0);
