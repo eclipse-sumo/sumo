@@ -124,16 +124,14 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 
     PositionVector crosswalk_shape;
     std::map<std::string, std::vector<std::string>> crosswalksByEdge;
-    const double crossingWidth = OptionsCont::getOptions().getFloat("default.crossing-width");
     for (auto it = nc.begin(); it != nc.end(); ++it) {
         NBNode* n = it->second;
         auto crosswalks = n->getCrossings();
-        for (size_t i = 0; i < crosswalks.size(); i++)
-        {
+        for (size_t i = 0; i < crosswalks.size(); i++) {
             // getting from crosswalk line to a full shape
             crosswalk_shape = crosswalks[i]->shape;
-            auto additionalCorner = crosswalk_shape.getOrthogonal(crosswalk_shape[0], true, false, crossingWidth);
-            auto finalCorner = crosswalk_shape.getOrthogonal(crosswalk_shape[1], true, false, crossingWidth);
+            auto additionalCorner = crosswalk_shape.getOrthogonal(crosswalk_shape[0], true, false, crosswalks[i]->width);
+            auto finalCorner = crosswalk_shape.getOrthogonal(crosswalk_shape[1], true, false, crosswalks[i]->width);
             crosswalk_shape.push_back(finalCorner[1]);
             crosswalk_shape.push_back(additionalCorner[1]);
 
