@@ -11,13 +11,11 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GenericSAXHandler.h
-/// @author  Daniel Krajzewicz
-/// @author  Jakob Erdmann
-/// @author  Michael Behrisch
-/// @date    Sept 2002
+/// @file    GenericHandler.h
+/// @author  Pablo Alvarez Lopez
+/// @date    Dec 2022
 ///
-// A handler which converts occuring elements and attributes into enums
+// A handler which converts occuring elements and attributes into strings
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -38,7 +36,7 @@
 // class definitions
 // ===========================================================================
 /**
- * @class GenericSAXHandler
+ * @class GenericHandler
  * @brief A handler which converts occuring elements and attributes into enums
  *
  * Normally, when using a standard SAX-handler, we would have to compare
@@ -58,13 +56,16 @@
  * Also, this class allows to retrieve attributes using enums (int) within
  *  the implemented "myStartElement" method.
  *
- * Basically, GenericSAXHandler is not derived within SUMO directly, but via SUMOSAXHandler
+ * Basically, GenericHandler is not derived within SUMO directly, but via SUMOSAXHandler
  *  which knows all tags/attributes used by SUMO. It is still kept separate for
  *  an easier maintainability and later extensions.
  */
-class GenericSAXHandler : public XERCES_CPP_NAMESPACE::DefaultHandler {
+class GenericHandler : public XERCES_CPP_NAMESPACE::DefaultHandler {
 
 public:
+    // Reader needs access to myStartElement, myEndElement
+    friend class SUMOSAXReader;
+
     /**
      * @brief Constructor
      *
@@ -84,15 +85,10 @@ public:
      *
      * @todo Why are both lists non-const and given as pointers?
      */
-    GenericSAXHandler(
-        StringBijection<int>::Entry* tags, int terminatorTag,
-        StringBijection<int>::Entry* attrs, int terminatorAttr,
-        const std::string& file, const std::string& expectedRoot = "");
+    GenericHandler(const std::string& file, const std::string& expectedRoot = "");
 
-
-    /** @brief Destructor */
-    virtual ~GenericSAXHandler();
-
+    /// @brief Destructor
+    virtual ~GenericHandler();
 
     /**
      * @brief The inherited method called when a new tag opens
@@ -109,7 +105,6 @@ public:
     void startElement(const XMLCh* const uri, const XMLCh* const localname,
                       const XMLCh* const qname, const XERCES_CPP_NAMESPACE::Attributes& attrs);
 
-
     /**
      * @brief The inherited method called when characters occurred
      *
@@ -120,7 +115,6 @@ public:
      * @todo describe characters processing in the class' head
      */
     void characters(const XMLCh* const chars, const XERCES3_SIZE_t length);
-
 
     /**
      * @brief The inherited method called when a tag is being closed
@@ -137,12 +131,8 @@ public:
     void endElement(const XMLCh* const uri, const XMLCh* const localname,
                     const XMLCh* const qname);
 
-
-    /**
-     * @brief Assigning a parent handler which is enabled when the specified tag is closed
-     */
-    void registerParent(const int tag, GenericSAXHandler* handler);
-
+    /// @brief Assigning a parent handler which is enabled when the specified tag is closed
+    void registerParent(const int tag, GenericHandler* handler);
 
     /**
      * @brief Sets the current file name
@@ -153,14 +143,12 @@ public:
      */
     void setFileName(const std::string& name);
 
-
     /**
      * @brief returns the current file name
      *
      * @return The name of the currently processed file
      */
     const std::string& getFileName() const;
-
 
     /// @name SAX ErrorHandler callbacks
     //@{
@@ -175,7 +163,6 @@ public:
      */
     void warning(const XERCES_CPP_NAMESPACE::SAXParseException& exception);
 
-
     /**
      * @brief Handler for XML-errors
      *
@@ -186,7 +173,6 @@ public:
      */
     void error(const XERCES_CPP_NAMESPACE::SAXParseException& exception);
 
-
     /**
      * @brief Handler for XML-errors
      *
@@ -196,8 +182,8 @@ public:
      * @param[in] exception The occurred exception to process
      */
     void fatalError(const XERCES_CPP_NAMESPACE::SAXParseException& exception);
-    //@}
 
+    //@}
 
     void setSection(const int element, const bool seen) {
         mySection = element;
@@ -221,10 +207,6 @@ public:
         myCollectCharacterData = value;
     }
 
-    // Reader needs access to myStartElement, myEndElement
-    friend class SUMOSAXReader;
-
-
 protected:
     /**
      * @brief Builds an error message
@@ -237,7 +219,6 @@ protected:
      */
     std::string buildErrorMessage(const XERCES_CPP_NAMESPACE::SAXParseException& exception);
 
-
     /**
      * @brief Callback method for an opening tag to implement by derived classes
      *
@@ -249,7 +230,6 @@ protected:
     virtual void myStartElement(int element,
                                 const SUMOSAXAttributes& attrs);
 
-
     /**
      * @brief Callback method for characters to implement by derived classes
      *
@@ -260,7 +240,6 @@ protected:
      */
     virtual void myCharacters(int element,
                               const std::string& chars);
-
 
     /** @brief Callback method for a closing tag to implement by derived classes
      *
@@ -283,7 +262,6 @@ private:
      */
     XMLCh* convert(const std::string& name) const;
 
-
     /**
      * @brief Converts a tag from its string into its numerical representation
      *
@@ -294,22 +272,7 @@ private:
      */
     int convertTag(const std::string& tag) const;
 
-
 private:
-    /// @name attributes parsing
-    //@{
-
-    // the type of the map from ids to their unicode-string representation
-    typedef std::vector<XMLCh*> AttrMap;
-
-    // the map from ids to their unicode-string representation
-    AttrMap myPredefinedTags;
-
-    /// the map from ids to their string representation
-    std::vector<std::string> myPredefinedTagsMML;
-    //@}
-
-
     /// @name elements parsing
     //@{
 
@@ -318,13 +281,14 @@ private:
 
     // the map of tag names to their internal numerical representation
     TagMap myTagMap;
+
     //@}
 
     /// A list of character strings obtained so far to build the complete characters string at the end
     std::vector<std::string> myCharactersVector;
 
     /// @brief The handler to give control back to
-    GenericSAXHandler* myParentHandler;
+    GenericHandler* myParentHandler;
 
     /// @brief The tag indicating that control should be given back
     int myParentIndicator;
@@ -357,9 +321,9 @@ private:
 
 private:
     /// @brief invalidated copy constructor
-    GenericSAXHandler(const GenericSAXHandler& s);
+    GenericHandler(const GenericHandler& s);
 
     /// @brief invalidated assignment operator
-    const GenericSAXHandler& operator=(const GenericSAXHandler& s);
+    const GenericHandler& operator=(const GenericHandler& s);
 
 };

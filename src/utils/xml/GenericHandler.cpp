@@ -11,24 +11,22 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GenericSAXHandler.cpp
-/// @author  Daniel Krajzewicz
-/// @author  Jakob Erdmann
-/// @author  Michael Behrisch
-/// @author  Laura Bieker
-/// @date    Sept 2002
+/// @file    GenericHandler.cpp
+/// @author  Pablo Alvarez Lopez
+/// @date    Dec 2022
 ///
-// A handler which converts occuring elements and attributes into enums
+// A handler which converts occuring elements and attributes into strings
 /****************************************************************************/
 #include <config.h>
 
 #include <cassert>
-#include "GenericSAXHandler.h"
 #include <utils/common/StringUtils.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
+
+#include "GenericHandler.h"
 #include "SUMOSAXAttributesImpl_Xerces.h"
 #include "XMLSubSys.h"
 
@@ -36,54 +34,34 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-GenericSAXHandler::GenericSAXHandler(
-    StringBijection<int>::Entry* tags, int terminatorTag,
-    StringBijection<int>::Entry* attrs, int terminatorAttr,
-    const std::string& file, const std::string& expectedRoot)
-    : myParentHandler(nullptr), myParentIndicator(SUMO_TAG_NOTHING), myFileName(file),
-      myExpectedRoot(expectedRoot), myNextSectionStart(-1, nullptr) {
-    int i = 0;
-    while (tags[i].key != terminatorTag) {
-        myTagMap.insert(TagMap::value_type(tags[i].str, tags[i].key));
-        i++;
-    }
-    i = 0;
-    while (attrs[i].key != terminatorAttr) {
-        int key = attrs[i].key;
-        assert(key >= 0);
-        while (key >= (int)myPredefinedTags.size()) {
-            myPredefinedTags.push_back(nullptr);
-            myPredefinedTagsMML.push_back("");
-        }
-        myPredefinedTags[key] = convert(attrs[i].str);
-        myPredefinedTagsMML[key] = attrs[i].str;
-        i++;
-    }
+
+GenericHandler::GenericHandler(const std::string& file, const std::string& expectedRoot) : 
+    myParentHandler(nullptr), 
+    myParentIndicator(SUMO_TAG_NOTHING), 
+    myFileName(file),
+    myExpectedRoot(expectedRoot), myNextSectionStart(-1, nullptr) {
 }
 
 
-GenericSAXHandler::~GenericSAXHandler() {
-    for (AttrMap::iterator i1 = myPredefinedTags.begin(); i1 != myPredefinedTags.end(); i1++) {
-        delete[](*i1);
-    }
+GenericHandler::~GenericHandler() {
     delete myNextSectionStart.second;
 }
 
 
 void
-GenericSAXHandler::setFileName(const std::string& name) {
+GenericHandler::setFileName(const std::string& name) {
     myFileName = name;
 }
 
 
 const std::string&
-GenericSAXHandler::getFileName() const {
+GenericHandler::getFileName() const {
     return myFileName;
 }
 
 
 XMLCh*
-GenericSAXHandler::convert(const std::string& name) const {
+GenericHandler::convert(const std::string& name) const {
     int len = (int)name.length();
     XMLCh* ret = new XMLCh[len + 1];
     int i = 0;
@@ -96,7 +74,7 @@ GenericSAXHandler::convert(const std::string& name) const {
 
 
 void
-GenericSAXHandler::startElement(const XMLCh* const /*uri*/,
+GenericHandler::startElement(const XMLCh* const /*uri*/,
                                 const XMLCh* const /*localname*/,
                                 const XMLCh* const qname,
                                 const XERCES_CPP_NAMESPACE::Attributes& attrs) {
@@ -110,20 +88,20 @@ GenericSAXHandler::startElement(const XMLCh* const /*uri*/,
     if (mySectionSeen && !mySectionOpen && element != mySection) {
         mySectionEnded = true;
         myNextSectionStart.first = element;
-        myNextSectionStart.second = new SUMOSAXAttributesImpl_Xerces(attrs, myPredefinedTags, myPredefinedTagsMML, name);
+        myNextSectionStart.second = new SUMOSAXAttributesImpl_Xerces(attrs, {}, {}, name);
         return;
     }
     if (element == mySection) {
         mySectionSeen = true;
         mySectionOpen = true;
     }
-    SUMOSAXAttributesImpl_Xerces na(attrs, myPredefinedTags, myPredefinedTagsMML, name);
+    SUMOSAXAttributesImpl_Xerces na(attrs, {}, {}, name);
     if (element == SUMO_TAG_INCLUDE) {
         std::string file = na.getString(SUMO_ATTR_HREF);
         if (!FileHelpers::isAbsolute(file)) {
             file = FileHelpers::getConfigurationRelative(getFileName(), file);
         }
-        XMLSubSys::runParser(*this, file);
+        //XMLSubSys::runParser(*this, file);
     } else {
         myStartElement(element, na);
     }
@@ -131,7 +109,7 @@ GenericSAXHandler::startElement(const XMLCh* const /*uri*/,
 
 
 void
-GenericSAXHandler::endElement(const XMLCh* const /*uri*/,
+GenericHandler::endElement(const XMLCh* const /*uri*/,
                               const XMLCh* const /*localname*/,
                               const XMLCh* const qname) {
     std::string name = StringUtils::transcode(qname);
@@ -166,7 +144,7 @@ GenericSAXHandler::endElement(const XMLCh* const /*uri*/,
     if (element != SUMO_TAG_INCLUDE) {
         myEndElement(element);
         if (myParentHandler && myParentIndicator == element) {
-            XMLSubSys::setHandler(*myParentHandler);
+            //XMLSubSys::setHandler(*myParentHandler);
             myParentIndicator = SUMO_TAG_NOTHING;
             myParentHandler = nullptr;
         }
@@ -175,16 +153,15 @@ GenericSAXHandler::endElement(const XMLCh* const /*uri*/,
 
 
 void
-GenericSAXHandler::registerParent(const int tag, GenericSAXHandler* handler) {
+GenericHandler::registerParent(const int tag, GenericHandler* handler) {
     myParentHandler = handler;
     myParentIndicator = tag;
-    XMLSubSys::setHandler(*this);
+    //XMLSubSys::setHandler(*this);
 }
 
 
 void
-GenericSAXHandler::characters(const XMLCh* const chars,
-                              const XERCES3_SIZE_t length) {
+GenericHandler::characters(const XMLCh* const chars, const XERCES3_SIZE_t length) {
     if (myCollectCharacterData) {
         myCharactersVector.push_back(StringUtils::transcode(chars, (int)length));
     }
@@ -192,7 +169,7 @@ GenericSAXHandler::characters(const XMLCh* const chars,
 
 
 int
-GenericSAXHandler::convertTag(const std::string& tag) const {
+GenericHandler::convertTag(const std::string& tag) const {
     TagMap::const_iterator i = myTagMap.find(tag);
     if (i == myTagMap.end()) {
         return SUMO_TAG_NOTHING;
@@ -202,7 +179,7 @@ GenericSAXHandler::convertTag(const std::string& tag) const {
 
 
 std::string
-GenericSAXHandler::buildErrorMessage(const XERCES_CPP_NAMESPACE::SAXParseException& exception) {
+GenericHandler::buildErrorMessage(const XERCES_CPP_NAMESPACE::SAXParseException& exception) {
     std::ostringstream buf;
     char* pMsg = XERCES_CPP_NAMESPACE::XMLString::transcode(exception.getMessage());
     buf << pMsg << std::endl;
@@ -215,36 +192,36 @@ GenericSAXHandler::buildErrorMessage(const XERCES_CPP_NAMESPACE::SAXParseExcepti
 
 
 void
-GenericSAXHandler::warning(const XERCES_CPP_NAMESPACE::SAXParseException& exception) {
+GenericHandler::warning(const XERCES_CPP_NAMESPACE::SAXParseException& exception) {
     WRITE_WARNING(buildErrorMessage(exception));
 }
 
 
 void
-GenericSAXHandler::error(const XERCES_CPP_NAMESPACE::SAXParseException& exception) {
+GenericHandler::error(const XERCES_CPP_NAMESPACE::SAXParseException& exception) {
     throw ProcessError(buildErrorMessage(exception));
 }
 
 
 void
-GenericSAXHandler::fatalError(const XERCES_CPP_NAMESPACE::SAXParseException& exception) {
+GenericHandler::fatalError(const XERCES_CPP_NAMESPACE::SAXParseException& exception) {
     throw ProcessError(buildErrorMessage(exception));
 }
 
 
 void
-GenericSAXHandler::myStartElement(int, const SUMOSAXAttributes&) {}
+GenericHandler::myStartElement(int, const SUMOSAXAttributes&) {}
 
 
 void
-GenericSAXHandler::myCharacters(int, const std::string&) {}
+GenericHandler::myCharacters(int, const std::string&) {}
 
 
 void
-GenericSAXHandler::myEndElement(int) {}
+GenericHandler::myEndElement(int) {}
 
 void
-GenericSAXHandler::callParentEnd(int element) {
+GenericHandler::callParentEnd(int element) {
     if (myParentHandler) {
         myParentHandler->myEndElement(element);
     }
