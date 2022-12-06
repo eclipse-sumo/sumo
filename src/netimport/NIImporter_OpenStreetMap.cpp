@@ -1287,11 +1287,9 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 }
             } catch (const BoolFormatException&) {
                 myCurrentEdge->myExtraAllowed |= SVC_BUS;
-			}
-		}
-		else if (StringUtils::startsWith(key, "width:lanes")) {
-			try
-			{
+            }
+        } else if (StringUtils::startsWith(key, "width:lanes")) {
+            try {
                 const std::vector<std::string> values = StringTokenizer(value, "|").getVector();
                 std::vector<double> widthLanes;
                 for (std::string width : values) {
@@ -1301,22 +1299,21 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                     widthLanes.push_back(parsedWidth);
                 }
 
-				if (key == "width:lanes" || key == "width:lanes:forward") {
+                if (key == "width:lanes" || key == "width:lanes:forward") {
                     myCurrentEdge->myWidthLanesForward = widthLanes;
                 }
                 else if (key == "width:lanes:backward") {
                     myCurrentEdge->myWidthLanesBackward = widthLanes;
                 }
-				else {
-					WRITE_WARNINGF(TL("Using default lane width for edge '%' as key '%' could not be parsed."), toString(myCurrentEdge->id), key);
-				}
-			}
-			catch (const NumberFormatException&)
-			{
+                else {
+                    WRITE_WARNINGF(TL("Using default lane width for edge '%' as key '%' could not be parsed."), toString(myCurrentEdge->id), key);
+                }
+            }
+            catch (const NumberFormatException&)
+            {
                 WRITE_WARNINGF(TL("Using default lane width for edge '%' as value '%' could not be parsed."), toString(myCurrentEdge->id), value);
-			}
-		}
-        else if (key == "foot") {
+            }
+        } else if (key == "foot") {
             if (value == "use_sidepath" || value == "no") {
                 myCurrentEdge->myExtraDisallowed |= SVC_PEDESTRIAN;
             } else if (value == "yes" || value == "designated" || value == "permissive") {

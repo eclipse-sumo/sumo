@@ -342,8 +342,8 @@
             <xsd:element name="osm.oneway-spread-right" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="osm.lane-access" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="osm.bike-access" type="boolOptionType" minOccurs="0"/>
-			<xsd:element name="osm.sidewalks" type="boolOptionType" minOccurs="0"/>
-			<xsd:element name="osm.crossings" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="osm.sidewalks" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="osm.crossings" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="osm.turn-lanes" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="osm.stop-output.length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="osm.stop-output.length.bus" type="floatOptionType" minOccurs="0"/>
