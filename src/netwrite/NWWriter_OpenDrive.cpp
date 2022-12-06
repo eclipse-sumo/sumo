@@ -1265,8 +1265,7 @@ NWWriter_OpenDrive::mapmatchRoadObjects(const ShapeContainer& shc,  const NBEdge
         std::vector<std::pair<double, std::string> > nearby;
         for (const Named* namedEdge : edges) {
             NBEdge* e = const_cast<NBEdge*>(dynamic_cast<const NBEdge*>(namedEdge));
-            // to double check why with "true" it does not work.
-            const double distance = e->getLaneShape(0).distance2D(*p, false);
+            const double distance = e->getLaneShape(0).distance2D(*p, true);
             if (distance != GeomHelper::INVALID_OFFSET && distance <= maxDist) {
                 // sort by distance and ID to stabilize results
                 nearby.push_back(std::make_pair(distance, e->getID()));
