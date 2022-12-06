@@ -551,21 +551,18 @@ GUISUMOAbstractView::getObjectsInBoundary(Boundary bound, bool singlePosition) {
 
 std::vector<GUIGlObject*>
 GUISUMOAbstractView::filterInernalLanes(const std::vector<GUIGlObject*>& objects) const {
-    // if no draw junction shape, nothing to filter
-    if (!myVisualizationSettings->drawJunctionShape) {
-        return objects;
-    }
-    // check if there is junctions in list
-    bool junction = false;
-    for (const auto& object : objects) {
-        if (object->getType() == GLO_JUNCTION) {
-            junction = true;
+    // count number of internal lanes
+    size_t internalLanes = 0;
+    for (const auto &object : objects) {
+        if ((object->getType() == GLO_LANE) && (object->getMicrosimID().find(':') != std::string::npos)) {
+            internalLanes++;
         }
     }
-    if (!junction) {
+    // if all objects are internal lanes, return it all
+    if (objects.size() == internalLanes) {
         return objects;
     }
-    // filter internal lanes
+    // in other case filter internal lanes
     std::vector<GUIGlObject*> filteredObjects;
     for (const auto& object : objects) {
         if ((object->getType() == GLO_LANE) && (object->getMicrosimID().find(':') != std::string::npos)) {
