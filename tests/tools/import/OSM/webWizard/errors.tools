@@ -3,9 +3,6 @@ Warning: Ignoring track count 2 for edge '321754188'.
 Warning: Ignoring track count 2 for edge '321754191'.
 Warning: Ignoring track count 2 for edge '321754197'.
 Warning: Discarding unknown compound 'usage.main' in type 'railway.light_rail|usage.main' (first occurence for edge '4471817').
-Warning: Discarding unknown compound 'cycleway.opposite' in type 'cycleway.opposite|highway.residential' (first occurence for edge '4610354').
-Warning: Discarding unknown compound 'cycleway.share_busway' in type 'cycleway.share_busway|highway.primary' (first occurence for edge '4611698').
-Warning: Discarding unknown compound 'cycleway.shared_lane' in type 'cycleway.shared_lane|highway.secondary' (first occurence for edge '22972195').
 Warning: Discarding unknown compound 'usage.main' in type 'railway.rail|usage.main' (first occurence for edge '23809674').
 Warning: Ambiguous railway kilometrage direction for way '25946680' (assuming forward)
 Warning: Discarding unusable type 'highway.construction' (first occurence for edge '25959781').
@@ -17,6 +14,8 @@ Warning: Ambiguous railway kilometrage direction for way '32590429' (assuming fo
 Warning: Ambiguous railway kilometrage direction for way '32590435' (assuming forward)
 Warning: Discarding unusable type 'railway.platform' (first occurence for edge '43185748').
 Warning: Discarding unusable type 'railway.construction' (first occurence for edge '71326270').
+Warning: Discarding unknown compound 'railway.proposed' in type 'railway.proposed|usage.main' (first occurence for edge '199425789').
+Warning: Discarding unknown compound 'usage.main' in type 'railway.proposed|usage.main' (first occurence for edge '199425789').
 Warning: PT line in relation 114255 with no stops ignored. Probably OSM file is incomplete.
 Warning: PT line in relation 374676 with no stops ignored. Probably OSM file is incomplete.
 Warning: direction of restriction relation could not be determined
@@ -102,7 +101,6 @@ Warning: The traffic light 'joinedS_cluster_25664673_4590472030_4590472039_45904
 Warning: The traffic light 'joinedS_cluster_25664673_4590472030_4590472039_4590472040_cluster_25664680_4603453154_577258918' has a high cycle time of 172.00.
 Warning: 17 total messages of type: Ambiguous railway kilometrage direction for way '%' (assuming forward)
 Warning: 10 total messages of type: Could not re-assign PT stop '%', probably broken osm file.
-Warning: 9 total messages of type: Discarding unknown compound '%' in type '%' (first occurence for edge '%').
 Warning: 15 total messages of type: Discarding unusable type '%' (first occurence for edge '%').
 Warning: 10 total messages of type: Edge sequence is not consistent with stop sequence in line '%', not adding bidi edges.
 Warning: 9 total messages of type: Found sharp turn with radius % at the start of edge '%'.
@@ -151,4 +149,3 @@ Warning: Person 'ped36' aborted waiting for N5:0 at busStop '1827996417'.
 Warning: Person 'ped28' aborted waiting for RE7:0 at busStop '2603331683'.
 Warning: Person 'ped78' aborted waiting for S5:0 at busStop '1745157971'.
 Warning: Person 'ped154' aborted waiting for 12:0 at busStop '2175753204'.
-Warning: Person 'ped167' aborted waiting for 200:1 at busStop '270718978'.
