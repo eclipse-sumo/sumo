@@ -136,7 +136,12 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
     myImportLaneAccess = oc.getBool("osm.lane-access");
     myImportTurnSigns = oc.getBool("osm.turn-lanes");
     myImportSidewalks = OptionsCont::getOptions().getBool("osm.sidewalks");
-    myCrossingsGuess = oc.getBool("crossings.guess");
+    myImportCrossings = OptionsCont::getOptions().getBool("osm.crossings");
+
+    if (myImportCrossings && !myImportSidewalks) {
+        WRITE_ERROR("Importing crossings requires to also import sidewalks");
+        return;
+    }
 
     // load nodes, first
     NodesHandler nodesHandler(myOSMNodes, myUniqueNodes, oc);
@@ -211,7 +216,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
     }
     // Mark which nodes are used by traffic lights or are pedestrian crossings
     for (const auto& nodesIt : myOSMNodes) {
-        if (nodesIt.second->tlsControlled || nodesIt.second->railwaySignal || (nodesIt.second->pedestrianCrossing && myImportSidewalks && !myCrossingsGuess) /* || nodesIt->second->railwayCrossing*/) {
+        if (nodesIt.second->tlsControlled || nodesIt.second->railwaySignal || (nodesIt.second->pedestrianCrossing && myImportCrossings) /* || nodesIt->second->railwayCrossing*/) {
             // If the key is not found in the map, the value is automatically
             // initialized with 0.
             nodeUsage[nodesIt.first]++;
@@ -255,7 +260,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
         insertEdge(e, running, currentFrom, last, passed, nb, first, last);
     }
 
-    if (myImportSidewalks && !myCrossingsGuess) {
+    if (myImportCrossings) {
         /* After edges are instantiated
          * nodes are parsed again to add pedestrian crossings to them
          * This is only executed if crossings are imported and not guessed
@@ -269,15 +274,110 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
                 EdgeVector outgoingEdges = n->getOutgoingEdges();
                 size_t incomingEdgesNo = incomingEdges.size();
                 size_t outgoingEdgesNo = outgoingEdges.size();
-                if (incomingEdgesNo == outgoingEdgesNo && incomingEdgesNo > 2) {
-                    for (size_t i = 0; i < incomingEdges.size(); i++)
-                    {
-                        n->addCrossing(EdgeVector{ incomingEdges[i], outgoingEdges[i] }, crossingWidth, false);
-                    }
-                }
-                else if (incomingEdgesNo > 0 && outgoingEdgesNo > 0)
+                if (incomingEdgesNo > 0 && outgoingEdgesNo > 0)
                 {
-                    n->addCrossing(EdgeVector{ incomingEdges[0], outgoingEdges[0] }, crossingWidth, false);
+                    // Check if incoming edge has driving lanes
+                    // if it has driving lanes -> check if there is an outgoing edge for the opposite direction
+                    //                            --> if yes check if it has driving lanes, if yes do the crossing
+                    //                            --> if not, do the crossing with one edge (being incoming edge)
+                    // if not                  -> ignore
+                    for (size_t i = 0; i < incomingEdgesNo; i++)
+                    {
+                        auto const iEdge = incomingEdges[i];
+                        auto direction = NBNode::FORWARD;
+                        auto laneIndex = iEdge->getFirstNonPedestrianLaneIndex(direction);
+
+                        if (laneIndex > -1) {
+                            auto const& iEdgeId = iEdge->getID();
+
+                            std::size_t const m = iEdgeId.find_first_of("#");
+                            auto noDirectionIEdgeId = iEdgeId.substr(0, m);
+                            for (size_t j = 0; j < outgoingEdgesNo; j++) {
+                                auto const oEdge = outgoingEdges[j];
+                                auto const oEdgeId = oEdge->getID();
+                                if (oEdgeId.find(noDirectionIEdgeId) != std::string::npos /*&& oEdgeId.rfind(noDirectionIEdgeId, 0) != 0*/) {
+                                    auto oLaneIndex = oEdge->getFirstNonPedestrianLaneIndex(direction);
+                                    auto edgeVector = EdgeVector{ iEdge };
+                                    if (oLaneIndex > -1) {
+                                        edgeVector.push_back(oEdge);
+                                    }
+
+                                    auto crossings = n->getCrossings();
+                                    bool already_in = false;
+                                    for (size_t c = 0; c < crossings.size(); c++)
+                                    {
+                                        auto involvedEdges = crossings[c]->edges;
+                                        // Additional work might be needed for bigger crossings, but it's fine for now
+                                        if (involvedEdges.size() == 2 && edgeVector.size() == 2) {
+                                            auto firstEdgeId = involvedEdges[0]->getID();
+                                            firstEdgeId = firstEdgeId.substr(0, firstEdgeId.find_first_of("#"));
+                                            auto secondEdgeId = involvedEdges[1]->getID();
+                                            secondEdgeId = secondEdgeId.substr(0, secondEdgeId.find_first_of("#"));
+                                            if (edgeVector[1]->getID().rfind(secondEdgeId, 0) == 0
+                                                && edgeVector[0]->getID().rfind(firstEdgeId, 0) == 0)
+                                            {
+                                                already_in = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    if (n->getCrossing(edgeVector, false) == nullptr && !already_in) {
+                                        n->addCrossing(edgeVector, crossingWidth, false);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    for (size_t i = 0; i < outgoingEdgesNo; i++)
+                    {
+                        auto const oEdge = outgoingEdges[i];
+                        auto direction = NBNode::FORWARD;
+                        auto laneIndex = oEdge->getFirstNonPedestrianLaneIndex(direction);
+
+                        if (laneIndex > -1) {
+                            auto const& oEdgeId = oEdge->getID();
+
+                            std::size_t const m = oEdgeId.find_first_of("#");
+                            auto noDirectionOEdgeId = oEdgeId.substr(0, m);
+                            for (size_t j = 0; j < incomingEdgesNo; j++) {
+                                auto const iEdge = incomingEdges[j];
+                                auto const iEdgeId = iEdge->getID();
+                                if (iEdgeId.find(noDirectionOEdgeId) != std::string::npos /*&& iEdgeId.rfind(noDirectionOEdgeId, 0) != 0*/) {
+                                    auto iLaneIndex = iEdge->getFirstNonPedestrianLaneIndex(direction);
+                                    auto edgeVector = EdgeVector{ oEdge };
+                                    if (iLaneIndex > -1) {
+                                        edgeVector.push_back(iEdge);
+                                    }
+                                    
+                                    auto crossings = n->getCrossings();
+                                    
+                                    bool already_in = false;
+                                    for (size_t c = 0; c < crossings.size(); c++)
+                                    {
+                                        auto involvedEdges = crossings[c]->edges;
+                                        // Additional work might be needed for bigger crossings, but it's fine for now
+                                        if (involvedEdges.size() == 2 && edgeVector.size() == 2) {
+                                            auto firstEdgeId = involvedEdges[0]->getID();
+                                            firstEdgeId = firstEdgeId.substr(0, firstEdgeId.find_first_of("#"));
+                                            auto secondEdgeId = involvedEdges[1]->getID();
+                                            secondEdgeId = secondEdgeId.substr(0, secondEdgeId.find_first_of("#"));
+                                            if (edgeVector[1]->getID().rfind(firstEdgeId, 0) == 0
+                                                && edgeVector[0]->getID().rfind(secondEdgeId, 0) == 0)
+                                            {
+                                                already_in = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    if (n->getCrossing(edgeVector, false) == nullptr && !already_in) {
+                                        n->addCrossing(edgeVector, crossingWidth, false);
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
                 n->unsetParameter("computePedestrianCrossing");
             }

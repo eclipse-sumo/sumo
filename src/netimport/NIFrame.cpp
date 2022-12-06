@@ -198,6 +198,9 @@ NIFrame::fillOptions(bool forNetedit) {
     oc.doRegister("osm.sidewalks", new Option_Bool(false));
     oc.addDescription("osm.sidewalks", "Formats", "Import sidewalks");
 
+    oc.doRegister("osm.crossings", new Option_Bool(false));
+    oc.addDescription("osm.crossings", "Formats", "Import crossings");
+
     oc.doRegister("osm.turn-lanes", new Option_Bool(false));
     oc.addDescription("osm.turn-lanes", "Formats", "Import turning arrows from OSM to help with connection building");
 
