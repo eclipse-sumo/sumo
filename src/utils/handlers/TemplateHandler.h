@@ -41,7 +41,7 @@ public:
     /** @brief Constructor
      * @param[in] file Name of the parsed file
      */
-    TemplateHandler(const std::string& file);
+    TemplateHandler(OptionsCont &options, const std::string& file);
 
     /// @brief Destructor
     ~TemplateHandler();
@@ -49,60 +49,30 @@ public:
     /// @brief parse
     bool parse();
 
-    /// @brief parse SumoBaseObject (it's called recursivelly)
-    void parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj);
-
-    /// @name build functions
-    /// @{
-    /**@brief Builds DataInterval
-     * @param[in] sumoBaseObject sumo base object used for build
-     * @param[in] dataSetID interval's dataSet
-     * @param[in] begin interval begin
-     * @param[in] end interval end
-     */
-    virtual void buildDataInterval(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& dataSetID,
-                                   const double begin, const double end) = 0;
-
-    /**@brief Builds edgeData
-     * @param[in] sumoBaseObject sumo base object used for build
-     * @param[in] edgeID edge ID
-     * @param[in] parameters parameters map
-     */
-    virtual void buildEdgeData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID,
-                               const Parameterised::Map& parameters) = 0;
-
-    /**@brief Builds edgeRelationData
-     * @param[in] sumoBaseObject sumo base object used for build
-     * @param[in] fromEdge edge from
-     * @param[in] toEdge edge to
-     * @param[in] parameters parameters map
-     */
-    virtual void buildEdgeRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID,
-                                       const std::string& toEdgeID, const Parameterised::Map& parameters) = 0;
-
-    /**@brief Builds TAZRelationData
-     * @param[in] sumoBaseObject sumo base object used for build
-     * @param[in] fromTAZ TAZ from
-     * @param[in] toTAZ TAZ to
-     * @param[in] parameters parameters map
-     */
-    virtual void buildTAZRelationData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromTAZID,
-                                      const std::string& toTAZID, const Parameterised::Map& parameters) = 0;
-    /// @}
-
-    /// @brief get flag for check if a element wasn't created
-    bool isErrorCreatingElement() const;
-
-protected:
-    /// @brief write error and enable error creating element
-    void writeError(const std::string& error);
-
 private:
-    /// @brief common XML Structure
-    CommonXMLStructure myCommonXMLStructure;
+    /// @brief struct used for loading options
+    struct Option {
+        /// @brief option name
+        std::string name;
 
-    /// @brief flag for check if a element wasn't created
-    bool myErrorCreatingElement = false;
+        /// @brief option value
+        std::string value;
+
+        /// @brief option synonymes
+        std::string synonymes;
+
+        /// @brief option type
+        std::string type;
+
+        /// @brief option help
+        std::string help;
+    };
+
+    /// @brief list of loaded options
+    std::vector<Option> myLoadedOptions;
+
+    /// @brief option containers
+    OptionsCont &myOptions;
 
     /// @name inherited from GenericSAXHandler
     /// @{
@@ -125,27 +95,6 @@ private:
      */
     virtual void myEndElement(int element);
     /// @}
-
-    /// @name parse data attributes
-    /// @{
-    /// @brief parse interval attributes
-    void parseInterval(const SUMOSAXAttributes& attrs);
-
-    /// @brief parse edgeData attributes
-    void parseEdgeData(const SUMOSAXAttributes& attrs);
-
-    /// @brief parse edgeRelationData attributes
-    void parseEdgeRelationData(const SUMOSAXAttributes& attrs);
-
-    /// @brief parse TAZRelationData attributes
-    void parseTAZRelationData(const SUMOSAXAttributes& attrs);
-    /// @}
-
-    /// @brief parse attributes as parameters
-    void getAttributes(const SUMOSAXAttributes& attrs, const std::vector<SumoXMLAttr> avoidAttributes) const;
-
-    /// @brief check parents
-    void checkParent(const SumoXMLTag currentTag, const SumoXMLTag parentTag, bool& ok);
 
     /// @brief invalidate copy constructor
     TemplateHandler(const TemplateHandler& s) = delete;

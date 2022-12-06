@@ -54,6 +54,7 @@
 #include <utils/gui/windows/GUIPerspectiveChanger.h>
 #include <utils/foxtools/MFXMenuCheckIcon.h>
 #include <utils/xml/XMLSubSys.h>
+#include <utils/handlers/TemplateHandler.h>
 
 #include "GNEApplicationWindow.h"
 #include "GNEEvent_NetworkLoaded.h"
@@ -444,6 +445,12 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     myUndoListDialog = new GNEUndoListDialog(this);
     a->setTooltipTime(1000000000);
     a->setTooltipPause(1000000000);
+
+
+    TemplateHandler t(mySUMOOptions, "D:/SUMO/data/templates/sumo.xml");
+    t.parse();
+
+
 }
 
 void

@@ -21,6 +21,7 @@
 
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>
+#include <utils/options/OptionsCont.h>
 #include <utils/xml/XMLSubSys.h>
 
 #include "TemplateHandler.h"
@@ -30,8 +31,9 @@
 // method definitions
 // ===========================================================================
 
-TemplateHandler::TemplateHandler(const std::string& file) :
-    SUMOSAXHandler(file) {
+TemplateHandler::TemplateHandler(OptionsCont &options, const std::string& file) :
+    SUMOSAXHandler(file),
+    myOptions(options) {
 }
 
 
@@ -46,217 +48,54 @@ TemplateHandler::parse() {
 
 
 void
-TemplateHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
-    // switch tag
-    switch (obj->getTag()) {
-        // Stopping Places
-        case SUMO_TAG_INTERVAL:
-            buildDataInterval(obj,
-                              obj->getStringAttribute(SUMO_ATTR_ID),
-                              obj->getDoubleAttribute(SUMO_ATTR_BEGIN),
-                              obj->getDoubleAttribute(SUMO_ATTR_END));
-            break;
-        case SUMO_TAG_EDGE:
-            buildEdgeData(obj,
-                          obj->getStringAttribute(SUMO_ATTR_ID),
-                          obj->getParameters());
-            break;
-        case SUMO_TAG_EDGEREL:
-            buildEdgeRelationData(obj,
-                                  obj->getStringAttribute(SUMO_ATTR_FROM),
-                                  obj->getStringAttribute(SUMO_ATTR_TO),
-                                  obj->getParameters());
-            break;
-        case SUMO_TAG_TAZREL:
-            buildTAZRelationData(obj,
-                                 obj->getStringAttribute(SUMO_ATTR_FROM),
-                                 obj->getStringAttribute(SUMO_ATTR_TO),
-                                 obj->getParameters());
-            break;
-        default:
-            break;
-    }
-    // now iterate over childrens
-    for (const auto& child : obj->getSumoBaseObjectChildren()) {
-        // call this function recursively
-        parseSumoBaseObject(child);
-    }
-}
-
-
-void
-TemplateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
-    // obtain tag
-    const SumoXMLTag tag = (element == 0) ? SUMO_TAG_ROOTFILE : static_cast<SumoXMLTag>(element);
-    // open SUMOBaseOBject
-    myCommonXMLStructure.openSUMOBaseOBject();
-    // check tag
-    try {
-        switch (tag) {
-            // interval
-            case SUMO_TAG_INTERVAL:
-                parseInterval(attrs);
-                break;
-            // datas
-            case SUMO_TAG_EDGE:
-                parseEdgeData(attrs);
-                break;
-            case SUMO_TAG_EDGEREL:
-                parseEdgeRelationData(attrs);
-                break;
-            case SUMO_TAG_TAZREL:
-                parseTAZRelationData(attrs);
-                break;
-            case SUMO_TAG_PARAM:
-                WRITE_WARNING(TL("Data elements cannot load attributes as params"));
-                break;
-            default:
-                break;
-        }
-    } catch (InvalidArgument& e) {
-        writeError(e.what());
-    }
-}
-
-
-void
-TemplateHandler::myEndElement(int element) {
-    // obtain tag
-    const SumoXMLTag tag = static_cast<SumoXMLTag>(element);
-    // get last inserted object
-    CommonXMLStructure::SumoBaseObject* obj = myCommonXMLStructure.getCurrentSumoBaseObject();
-    // close SUMOBaseOBject
-    myCommonXMLStructure.closeSUMOBaseOBject();
-    // check tag
-    switch (tag) {
-        // only interval
-        case SUMO_TAG_INTERVAL:
-            // parse object and all their childrens
-            parseSumoBaseObject(obj);
-            // delete object (and all of their childrens)
-            delete obj;
-            break;
-        default:
-            break;
-    }
-}
-
-
-bool
-TemplateHandler::isErrorCreatingElement() const {
-    return myErrorCreatingElement;
-}
-
-
-void
-TemplateHandler::writeError(const std::string& error) {
-    WRITE_ERROR(error);
-    myErrorCreatingElement = true;
-}
-
-
-void
-TemplateHandler::parseInterval(const SUMOSAXAttributes& attrs) {
-    // declare Ok Flag
-    bool parsedOk = true;
-    // needed attributes
-    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
-    const double begin = attrs.get<double>(SUMO_ATTR_BEGIN, "", parsedOk);
-    const double end = attrs.get<double>(SUMO_ATTR_END, "", parsedOk);
-    // continue if flag is ok
-    if (parsedOk) {
-        // set tag
-        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_INTERVAL);
-        // add all attributes
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_BEGIN, begin);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_END, end);
-    }
-}
-
-
-void
-TemplateHandler::parseEdgeData(const SUMOSAXAttributes& attrs) {
-    // declare Ok Flag
-    bool parsedOk = true;
-    // needed attributes
-    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
-    // fill attributes
-    getAttributes(attrs, {SUMO_ATTR_ID});
-    // continue if flag is ok
-    if (parsedOk) {
-        // set tag
-        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_EDGE);
-        // add all attributes
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
-    }
-}
-
-
-void
-TemplateHandler::parseEdgeRelationData(const SUMOSAXAttributes& attrs) {
-    // declare Ok Flag
-    bool parsedOk = true;
-    // needed attributes
-    const std::string from = attrs.get<std::string>(SUMO_ATTR_FROM, "", parsedOk);
-    const std::string to = attrs.get<std::string>(SUMO_ATTR_TO, "", parsedOk);
-    // fill attributes
-    getAttributes(attrs, {SUMO_ATTR_FROM, SUMO_ATTR_TO});
-    // continue if flag is ok
-    if (parsedOk) {
-        // set tag
-        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_EDGEREL);
-        // add all attributes
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM, from);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TO, to);
-    }
-}
-
-
-void
-TemplateHandler::parseTAZRelationData(const SUMOSAXAttributes& attrs) {
-    // declare Ok Flag
-    bool parsedOk = true;
-    // needed attributes
-    const std::string from = attrs.get<std::string>(SUMO_ATTR_FROM, "", parsedOk);
-    const std::string to = attrs.get<std::string>(SUMO_ATTR_TO, "", parsedOk);
-    // fill attributes
-    getAttributes(attrs, {SUMO_ATTR_FROM, SUMO_ATTR_TO});
-    // continue if flag is ok
-    if (parsedOk) {
-        // set tag
-        myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_TAZREL);
-        // add all attributes
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM, from);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TO, to);
-    }
-}
-
-
-void
-TemplateHandler::getAttributes(const SUMOSAXAttributes& attrs, const std::vector<SumoXMLAttr> avoidAttributes) const {
-    // transform avoidAttributes to strings
-    std::vector<std::string> avoidAttributesStr;
-    for (const SumoXMLAttr& avoidAttribute : avoidAttributes) {
-        avoidAttributesStr.push_back(toString(avoidAttribute));
-    }
+TemplateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {   
+    // declare new option
+    Option option;
+    // set name
     // iterate over attributes and fill parameters map
     for (const std::string& attribute : attrs.getAttributeNames()) {
-        if (std::find(avoidAttributesStr.begin(), avoidAttributesStr.end(), attribute) == avoidAttributesStr.end()) {
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addParameter(attribute, attrs.getStringSecure(attribute, ""));
+        if (attribute == "value") {
+            option.value = attrs.getStringSecure(attribute, "");
+        } else if (attribute == "synonymes") { 
+            option.synonymes = attrs.getStringSecure(attribute, "");
+        } else if (attribute == "type") {
+            option.type = attrs.getStringSecure(attribute, "");
+        } else if (attribute == "help") { 
+            option.help = attrs.getStringSecure(attribute, "");
         }
+    }
+    // if value and type was defined, add it to options
+    if (option.value.size() > 0) {
+    /*
+        // check type
+        if (option.type == "STR") {
+            myOptions.doRegister(option.value, new Option_String());
+        } else if (option.type == "FLOAT") {
+            myOptions.doRegister(option.value, new Option_Float());
+        } else if (option.type == "INT") {
+            myOptions.doRegister(option.value, new Option_Integer());
+        } else if (option.type == "FILE") {
+            myOptions.doRegister(option.value, new Option_FileName());
+        } else if (option.type == "BOOL") {
+            myOptions.doRegister(option.value, new Option_Bool());
+        } else if (option.type == "INT[]") {
+            myOptions.doRegister(option.value, new Option_IntVector());
+        } else if (option.type == "STR[]") {
+            myOptions.doRegister(option.value, new Option_StringVector());
+        } 
+        */
+        /*
+        myOptions.
+
+        myOptions.doRegister("additionals-output", new Option_String());
+        myOptions.addDescription("additionals-output", "Netedit", "file in which additionals must be saved");
+        */
     }
 }
 
 
 void
-TemplateHandler::checkParent(const SumoXMLTag currentTag, const SumoXMLTag parentTag, bool& ok) {
-    // check that parent SUMOBaseObject's tag is the parentTag
-    if ((myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject() &&
-            (myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject()->getTag() == parentTag)) == false) {
-        writeError(toString(currentTag) + " must be defined within the definition of a " + toString(parentTag));
-        ok = false;
-    }
+TemplateHandler::myEndElement(int /*element*/) {
 }
 
 /****************************************************************************/
