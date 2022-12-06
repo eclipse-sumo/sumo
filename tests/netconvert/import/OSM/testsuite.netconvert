@@ -120,3 +120,6 @@ bugs
 
 # handle width:lanes information
 width_lane
+
+# importing highway=crossing
+crossings
