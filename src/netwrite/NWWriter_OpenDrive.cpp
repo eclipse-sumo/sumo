@@ -1110,8 +1110,7 @@ NWWriter_OpenDrive::writeSignals(OutputDevice& device, const NBEdge* e, double l
             }
             device.closeTag();
         }
-    }
-    else if(e->knowsParameter(ROAD_OBJECTS)) {
+    } else if(e->knowsParameter(ROAD_OBJECTS)) {
         PositionVector road = getInnerLaneBorder(e);
         for (std::string id : StringTokenizer(e->getParameter(ROAD_OBJECTS, "")).getVector()) {
             PointOfInterest* poi = shc.getPOIs().get(id);
@@ -1121,22 +1120,15 @@ NWWriter_OpenDrive::writeSignals(OutputDevice& device, const NBEdge* e, double l
 
                     std::vector<TrafficSign> trafficSigns = parseTrafficSign(traffic_sign_type, poi);
 
-                    const std::string tag = "signal";
-
                     auto distance = e->getFromNode()->getPosition().distanceTo2D(*poi);
-                    double t = 0.30;
-                    if (!lefthand || LHLL ) {
-                        for (int i = 0; i < e->getNumLanes(); i++) {
-                            t += e->getPermissions(i) == SVC_PEDESTRIAN ? e->getLaneWidth(i) * 0.2 : e->getLaneWidth(i);
-                        }
-                    }
+                    double t = getRoadSideOffset(e);
                     double calculatedZOffset = 3.0;
                     for (auto it = trafficSigns.rbegin(); it != trafficSigns.rend(); ++it) {
                         TrafficSign trafficSign = *it;
-                        device.openTag(tag);
+                        device.openTag("signal");
                         device.writeAttr("id", id);
                         device.writeAttr("s", distance);
-                        device.writeAttr("t", LHRL ? t : -t);
+                        device.writeAttr("t", t);
                         device.writeAttr("orientation", "-");
                         device.writeAttr("dynamic", "no");
                         device.writeAttr("zOffset", calculatedZOffset);
@@ -1155,6 +1147,20 @@ NWWriter_OpenDrive::writeSignals(OutputDevice& device, const NBEdge* e, double l
     }
     device.closeTag();
 }
+
+
+double
+NWWriter_OpenDrive::getRoadSideOffset(const NBEdge* e) {
+    double t = 0.30;
+    if (!lefthand || LHLL) {
+        for (int i = 0; i < e->getNumLanes(); i++) {
+            t += e->getPermissions(i) == SVC_PEDESTRIAN ? e->getLaneWidth(i) * 0.2 : e->getLaneWidth(i);
+        }
+    }
+    t = LHRL ? t : -t;
+    return t;
+}
+
 
 int
 NWWriter_OpenDrive::s2x(int sumoIndex, int numLanes) {
@@ -1285,14 +1291,7 @@ NWWriter_OpenDrive::writeRoadObjectPOI(OutputDevice& device, const NBEdge* e, co
     std::string type = poi->getShapeType();
     std::string name = StringUtils::escapeXML(poi->getParameter("name", ""), true);
     if (poi->getShapeType() == "traffic_sign") {
-        double t = 0.30;
-        if (!lefthand || LHLL) {
-            for (int i = 0; i < e->getNumLanes(); i++) {
-                t += e->getPermissions(i) == SVC_PEDESTRIAN ? e->getLaneWidth(i) * 0.2 : e->getLaneWidth(i);
-            }
-        }
-        t = LHRL ? t : -t;
-        sideOffset = t;
+        sideOffset = getRoadSideOffset(e);
         type = "pole";
         name = "pole";
     }

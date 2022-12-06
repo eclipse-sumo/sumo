@@ -142,6 +142,9 @@ protected:
     static std::vector<TrafficSign> parseTrafficSign(const std::string& trafficSign, PointOfInterest* poi);
     static TrafficSign parseTrafficSignId(const std::string& trafficSign);
 
+    // @brief return road postion in s,t coordinates
+    static double getRoadSideOffset(const NBEdge* e);
+
 
 protected:
     /// @brief whether a lefthand network is being written
