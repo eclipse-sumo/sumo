@@ -298,8 +298,8 @@ private:
     /// @brief import sidewalks
     bool myImportSidewalks;
 
-    /// @brief crossings guess
-    bool myCrossingsGuess;
+    /// @brief import crossings
+    bool myImportCrossings;
 
     /// @brief import turning signals (turn:lanes) to guide connection building
     bool myImportTurnSigns;
