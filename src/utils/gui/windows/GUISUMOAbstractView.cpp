@@ -96,7 +96,7 @@
 // static members
 // ===========================================================================
 
-const double GUISUMOAbstractView::SENSITIVITY = 0.1; // meters
+const double GUISUMOAbstractView::SENSITIVITY = 0.01; // meters
 
 
 // ===========================================================================
