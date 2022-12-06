@@ -440,6 +440,9 @@ NIFrame::checkOptions() {
     if (!oc.isDefault("osm.extra-attributes") && oc.isDefault("osm.all-attributes")) {
         oc.setDefault("osm.all-attributes", "true");
     }
+    if (oc.getBool("osm.crossings") && !oc.getBool("osm.sidewalks")) {
+        WRITE_WARNING(TL("It is recommend to use option osm.crossings with osm.sidewalks"));
+    }
     return ok;
 }
 

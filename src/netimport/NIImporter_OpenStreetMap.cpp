@@ -138,11 +138,6 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
     myImportSidewalks = OptionsCont::getOptions().getBool("osm.sidewalks");
     myImportCrossings = OptionsCont::getOptions().getBool("osm.crossings");
 
-    if (myImportCrossings && !myImportSidewalks) {
-        WRITE_ERROR("Importing crossings requires to also import sidewalks");
-        return;
-    }
-
     // load nodes, first
     NodesHandler nodesHandler(myOSMNodes, myUniqueNodes, oc);
     for (const std::string& file : files) {
