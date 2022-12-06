@@ -210,6 +210,13 @@ class VTypeDomain(Domain):
         """
         return self._getUniversal(tc.VAR_PERSON_CAPACITY, typeID)
 
+    def getBoardingDuration(self, typeID):
+        """getBoardingDuration(string) -> double
+
+        Returns the boarding duration of this type
+        """
+        return self._getUniversal(tc.VAR_BOARDING_DURATION, typeID)
+
     def setLength(self, typeID, length):
         """setLength(string, double) -> None
 

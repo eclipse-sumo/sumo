@@ -48,6 +48,7 @@ static int getPersonCapacity(const std::string& typeID); \
 static double getActionStepLength(const std::string& typeID); \
 \
 static double getSpeedDeviation(const std::string& typeID); \
+static double getBoardingDuration(const std::string& typeID); \
 
 
 #define LIBSUMO_VEHICLE_TYPE_SETTER \

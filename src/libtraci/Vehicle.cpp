@@ -196,6 +196,13 @@ Vehicle::getPersonCapacity(const std::string& vehID) {
     return Dom::getInt(libsumo::VAR_PERSON_CAPACITY, vehID);
 }
 
+
+double
+Vehicle::getBoardingDuration(const std::string& vehID) {
+    return Dom::getDouble(libsumo::VAR_BOARDING_DURATION, vehID);
+}
+
+
 std::vector<std::string>
 Vehicle::getPersonIDList(const std::string& vehID) {
     return Dom::getStringVector(libsumo::LAST_STEP_PERSON_ID_LIST, vehID);

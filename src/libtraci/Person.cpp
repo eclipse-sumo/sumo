@@ -302,6 +302,12 @@ Person::getPersonCapacity(const std::string& personID) {
 }
 
 
+double
+Person::getBoardingDuration(const std::string& personID) {
+    return Dom::getDouble(libsumo::VAR_BOARDING_DURATION, personID);
+}
+
+
 LIBTRACI_PARAMETER_IMPLEMENTATION(Person, PERSON)
 
 

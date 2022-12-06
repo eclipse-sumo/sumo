@@ -201,6 +201,11 @@ VehicleType::getScale(const std::string& typeID) {
     return getVType(typeID)->getParameter().scale;
 }
 
+double
+VehicleType::getBoardingDuration(const std::string& typeID) {
+    return STEPS2TIME(getVType(typeID)->getBoardingDuration(true));
+}
+
 void
 VehicleType::setLength(const std::string& typeID, double length)  {
     getVType(typeID)->setLength(length);
@@ -438,6 +443,8 @@ VehicleType::handleVariableWithID(const std::string& objID, const std::string& t
             return wrapper->wrapString(objID, variable, getLateralAlignment(typeID));
         case VAR_PERSON_CAPACITY:
             return wrapper->wrapInt(objID, variable, getPersonCapacity(typeID));
+        case VAR_BOARDING_DURATION:
+            return wrapper->wrapDouble(objID, variable, getBoardingDuration(typeID));
         case VAR_SCALE:
             return wrapper->wrapDouble(objID, variable, getScale(typeID));
         case libsumo::VAR_PARAMETER:
