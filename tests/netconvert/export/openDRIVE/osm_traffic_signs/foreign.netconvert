@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-12-06 10:53:50 by Eclipse SUMO netconvert Version v1_15_0+0799-b8997887d34
+<!-- generated on 2022-12-06 11:13:39 by Eclipse SUMO netconvert Version v1_15_0+0803-69359a94708
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -49,7 +49,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Dec  6 10:53:50 2022" north="0.79" south="0.00" east="97.95" west="0.00">
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Dec  6 11:13:39 2022" north="0.79" south="0.00" east="97.95" west="0.00">
         <geoReference>
  <![CDATA[
  +proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs
@@ -128,9 +128,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <object id="-137713" type="pole" name="pole" s="61.41569227" t="-4.30000000" hdg="0"/>
         </objects>
         <signals>
-            <signal id="-137713" s="61.45" t="-4.30" orientation="-" dynamic="no" zOffset="3.00" country="DE" type="265" subtype="" value="3.8" height="0.78" width="0.78"/>
-            <signal id="-137713" s="61.45" t="-4.30" orientation="-" dynamic="no" zOffset="3.78" country="DE" type="1020" subtype="" value="30" height="0.78" width="0.78"/>
-            <signal id="-137713" s="61.45" t="-4.30" orientation="-" dynamic="no" zOffset="4.56" country="DE" type="260" subtype="" value="" height="0.78" width="0.78"/>
+            <signal id="-137713" s="61.42" t="-4.30" orientation="-" dynamic="no" zOffset="3.00" country="DE" type="265" subtype="" value="3.8" height="0.78" width="0.78"/>
+            <signal id="-137713" s="61.42" t="-4.30" orientation="-" dynamic="no" zOffset="3.78" country="DE" type="1020" subtype="" value="30" height="0.78" width="0.78"/>
+            <signal id="-137713" s="61.42" t="-4.30" orientation="-" dynamic="no" zOffset="4.56" country="DE" type="260" subtype="" value="" height="0.78" width="0.78"/>
         </signals>
     </road>
 
