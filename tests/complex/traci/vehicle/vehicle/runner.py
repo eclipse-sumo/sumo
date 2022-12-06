@@ -114,6 +114,7 @@ def check(vehID):
     print("person number", traci.vehicle.getPersonNumber(vehID))
     print("person IDs", traci.vehicle.getPersonIDList(vehID))
     print("personCapacity", traci.vehicle.getPersonCapacity(vehID))
+    print("boardingDuration", traci.vehicle.getBoardingDuration(vehID))
     print("waiting time", traci.vehicle.getWaitingTime(vehID))
     print("accumulated waiting time", traci.vehicle.getAccumulatedWaitingTime(vehID))
     print("driving dist", traci.vehicle.getDrivingDistance(vehID, "4fi", 2.))

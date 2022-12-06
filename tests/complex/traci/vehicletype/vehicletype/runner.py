@@ -56,6 +56,7 @@ print("maxSpeedLat", traci.vehicletype.getMaxSpeedLat(typeID))
 print("latAlign", traci.vehicletype.getLateralAlignment(typeID))
 print("minGapLat", traci.vehicletype.getMinGapLat(typeID))
 print("personCapacity", traci.vehicletype.getPersonCapacity(typeID))
+print("boardingDuration", traci.vehicletype.getBoardingDuration(typeID))
 traci.vehicletype.subscribe(typeID)
 print(traci.vehicletype.getSubscriptionResults(typeID))
 for step in range(3, 6):

@@ -126,6 +126,7 @@ def check(personID):
     print("remainingStages", traci.person.getRemainingStages(personID))
     print("edges", traci.person.getEdges(personID))
     print("vehicle", traci.person.getVehicle(personID))
+    print("boardingDuration", traci.person.getBoardingDuration(personID))
 
 
 check(personID)
