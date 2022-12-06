@@ -1367,6 +1367,8 @@ GNEViewNet::abortOperation(bool clearSelection) {
             }
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) {
             myEditNetworkElementShapes.stopEditCustomShape();
+        } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_CROSSING) {
+            myViewParent->getCrossingFrame()->clearEdgesHotkey();
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_SHAPE) {
             // abort current drawing
             myViewParent->getShapeFrame()->getDrawingShapeModule()->abortDrawing();
