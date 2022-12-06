@@ -1111,7 +1111,7 @@ NWWriter_OpenDrive::writeSignals(OutputDevice& device, const NBEdge* e, double l
             device.closeTag();
         }
     } else if(e->knowsParameter(ROAD_OBJECTS)) {
-        PositionVector road = getInnerLaneBorder(e);
+        PositionVector roadShape = getInnerLaneBorder(e);
         for (std::string id : StringTokenizer(e->getParameter(ROAD_OBJECTS, "")).getVector()) {
             PointOfInterest* poi = shc.getPOIs().get(id);
             if (poi != nullptr) {
@@ -1120,7 +1120,7 @@ NWWriter_OpenDrive::writeSignals(OutputDevice& device, const NBEdge* e, double l
 
                     std::vector<TrafficSign> trafficSigns = parseTrafficSign(traffic_sign_type, poi);
 
-                    auto distance = e->getFromNode()->getPosition().distanceTo2D(*poi);
+                    auto distance = roadShape.nearest_offset_to_point2D(*poi, true);
                     double t = getRoadSideOffset(e);
                     double calculatedZOffset = 3.0;
                     for (auto it = trafficSigns.rbegin(); it != trafficSigns.rend(); ++it) {
