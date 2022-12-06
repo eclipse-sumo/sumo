@@ -1,6 +1,8 @@
 set(utils_xml_STAT_SRCS
    CommonXMLStructure.h
    CommonXMLStructure.cpp
+   GenericHandler.h
+   GenericHandler.cpp
    GenericSAXHandler.h
    GenericSAXHandler.cpp
    IStreamInputSource.h
