@@ -1156,8 +1156,8 @@ NWWriter_OpenDrive::writeSignals(OutputDevice& device, const NBEdge* e, double l
                         }
                     }
                     double calculatedZOffset = 3.0;
-                    // iterate over traffic signs
-                    for (TrafficSign trafficSign : trafficSigns) {						
+                    for (auto it = trafficSigns.rbegin(); it != trafficSigns.rend(); ++it) {
+                        TrafficSign trafficSign = *it;
                         device.openTag(tag);
                         device.writeAttr("id", id);
                         device.writeAttr("s", distance);

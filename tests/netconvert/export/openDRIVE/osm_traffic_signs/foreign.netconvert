@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-12-05 14:33:05 by Eclipse SUMO netconvert Version v1_15_0+0697-45d1218c82f
+<!-- generated on 2022-12-06 06:39:12 by Eclipse SUMO netconvert Version v1_15_0+0699-aa51e7edd57
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -34,7 +34,7 @@
 -->
 
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Mon Dec  5 14:33:05 2022" north="0.79" south="0.00" east="97.95" west="0.00">
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Dec  6 06:39:12 2022" north="0.79" south="0.00" east="97.95" west="0.00">
         <geoReference>
  <![CDATA[
  +proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs
@@ -113,9 +113,9 @@
             <object id="-137713" type="pole" name="pole" s="61.45204696" t="-4.30000000" hdg="0"/>
         </objects>
         <signals>
-            <signal id="-137713" s="61.45" t="-4.30" orientation="-" dynamic="no" zOffset="3.00" country="DE" type="260" subtype="" value="" height="0.78" width="0.78"/>
+            <signal id="-137713" s="61.45" t="-4.30" orientation="-" dynamic="no" zOffset="3.00" country="DE" type="265" subtype="" value="3.8" height="0.78" width="0.78"/>
             <signal id="-137713" s="61.45" t="-4.30" orientation="-" dynamic="no" zOffset="3.78" country="DE" type="1020" subtype="" value="30" height="0.78" width="0.78"/>
-            <signal id="-137713" s="61.45" t="-4.30" orientation="-" dynamic="no" zOffset="4.56" country="DE" type="265" subtype="" value="3.8" height="0.78" width="0.78"/>
+            <signal id="-137713" s="61.45" t="-4.30" orientation="-" dynamic="no" zOffset="4.56" country="DE" type="260" subtype="" value="" height="0.78" width="0.78"/>
         </signals>
     </road>
 
