@@ -447,7 +447,9 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     a->setTooltipTime(1000000000);
     a->setTooltipPause(1000000000);
     // parse sumo options
+/*
     TemplateHandler::parseTemplate(mySUMOOptions, "D:/SUMO/data/templates/sumo.xml");
+*/
 }
 
 void
