@@ -135,7 +135,7 @@ the following conditions are met
   given in the list defined by the 'lines' attribute of the ride OR
   the lines attribute contains 'ANY' and the vehicle stops at the
   destination 'busStop' of the ride (or at the destination edge if no destination busStop is defined).
-- the vehicle has a triggered stop and the person is position within
+- the vehicle has a triggered stop and the person position is within
   the range of `startpos,endPos` of the stop.
 - the vehicle has a timed stop and the person is waiting within 10m of
   the vehicle position
