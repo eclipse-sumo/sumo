@@ -155,12 +155,16 @@ public:
                 _IntermodalEdge* const otherTazDepart = other != nullptr ? getDepartConnector(other) : tazDepart;
                 _IntermodalEdge* const otherTazArrive = other != nullptr ? getArrivalConnector(other) : tazArrive;
                 for (const E* out : edge->getSuccessors()) {
-                    tazDepart->addSuccessor(getDepartConnector(out));
-                    getArrivalConnector(out)->addSuccessor(otherTazArrive);
+                    if (out->isNormal()) {
+                        tazDepart->addSuccessor(getDepartConnector(out));
+                        getArrivalConnector(out)->addSuccessor(otherTazArrive);
+                    }
                 }
                 for (const E* in : edge->getPredecessors()) {
-                    getArrivalConnector(in)->addSuccessor(tazArrive);
-                    otherTazDepart->addSuccessor(getDepartConnector(in));
+                    if (in->isNormal()) {
+                        getArrivalConnector(in)->addSuccessor(tazArrive);
+                        otherTazDepart->addSuccessor(getDepartConnector(in));
+                    }
                 }
                 continue;
             }
