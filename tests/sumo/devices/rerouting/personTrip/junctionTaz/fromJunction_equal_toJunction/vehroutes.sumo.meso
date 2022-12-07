@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-12-07 13:32:36 by Eclipse SUMO sumo Version v1_15_0+0859-f0f6a19
+<!-- generated on 2022-12-07 13:33:00 by Eclipse SUMO sumo Version v1_15_0+0859-f0f6a19
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -35,15 +35,19 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <no-step-log value="true"/>
     </report>
 
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <person id="2" depart="2.00" departPos="random" color="red" arrival="10.00">
+    <person id="2" depart="2.00" departPos="random" color="red" arrival="9.00">
         <ride from="CE" to="CE" arrivalPos="48.50" lines="2_0"/>
     </person>
 
-    <vehicle id="2_0" depart="triggered" arrivalPos="48.50" arrivalSpeed="0.00" arrival="10.00">
+    <vehicle id="2_0" depart="triggered" arrivalPos="48.50" arrivalSpeed="0.00" arrival="9.00">
         <route edges="CE"/>
     </vehicle>
 
