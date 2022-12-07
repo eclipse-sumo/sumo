@@ -314,7 +314,7 @@ MEVehicle::getCurrentStoppingTimeSeconds() const {
 void
 MEVehicle::processStop() {
     assert(isStopped());
-    double lastPos = 0;
+    double lastPos = -1;
     bool hadStop = false;
     while (!myStops.empty()) {
         MSStop& stop = myStops.front();
