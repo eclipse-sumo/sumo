@@ -62,6 +62,10 @@ private:
      */
     void startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::AttributeList& attributes);
 
+    /// @brief add option
+    bool addOption(const std::string &value, const std::string &synonymes, 
+                   const std::string &type, const std::string &help) const;
+
     /** @brief Called on the end of an element
      *
      * Resets the element name
@@ -99,29 +103,8 @@ private:
     /// @brief The options to fill
     OptionsCont& myOptions;
 
-    /// @brief The name of the currently parsed option
-    std::string myTag;
-
-    /** @brief Tries to set the named option to the given value
-     *
-     * Also evaluates whether it is a boolean or a filename option and
-     *  does the relevant checks / modifications.
-     *
-     * @param[in] key The name of the option to set
-     * @param[in] value The new value for the option
-     */
-    void setValue(const std::string& key, const std::string& value);
-
-    /** @brief Tries to set the named option to the given value
-     *
-     * Checks the item whether it was default before setting it.
-     * Returns the information whether the item was set before (was not a default value)
-     *
-     * @param[in] name The name of the option to set
-     * @param[in] value The new value for the option
-     * @return Whether the option could be set
-     */
-    bool addOption(const std::string& name, const std::string& value) const;
+    /// @brief The name of the currently topic
+    std::string myTopic;
 
     /// @brief invalid copy constructor
     TemplateHandler(const TemplateHandler& s) = delete;

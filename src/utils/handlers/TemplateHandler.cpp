@@ -43,6 +43,7 @@
 
 void
 TemplateHandler::parseTemplate(OptionsCont& options, const std::string &path) {
+        options.addOptionSubTopic("Netedit");
     // build parser
     XERCES_CPP_NAMESPACE::SAXParser parser;
     // disable validation
@@ -74,56 +75,76 @@ TemplateHandler::~TemplateHandler() {}
 
 void
 TemplateHandler::startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::AttributeList& attributes) {
-    // get current tag
-    myTag = StringUtils::transcode(name);
-
-/*
-    // iterate over all attributes
-    for (int i = 0; i < (int)attributes.getLength(); i++) {
-        const std::string& key = StringUtils::transcode(attributes.getName(i));
-        const std::string& value = StringUtils::transcode(attributes.getValue(i));
-        if (key == "value" || key == "v") {
-            setValue(myTag, value);
-        }
-        // could give a hint here about unsupported attributes in configuration files
-    }
-*/
-}
-
-
-void TemplateHandler::setValue(const std::string& key, const std::string& value) {
-    if (value.length() > 0) {
-        try {
-            if (!addOption(key, value)) {
-                myError = true;
-            }
-        } catch (ProcessError& e) {
-            WRITE_ERROR(e.what());
-            myError = true;
-        }
+    // get current topic
+    myTopic = StringUtils::transcode(name);
+    if (attributes.getLength() == 4) {
+        // needed for attributes.getValue
+        int i = 0;
+        // obtain all parameters
+        const std::string value = StringUtils::transcode(attributes.getValue(i));
+        const std::string synonymes = StringUtils::transcode(attributes.getValue(1));
+        const std::string type = StringUtils::transcode(attributes.getValue(2));
+        const std::string help = StringUtils::transcode(attributes.getValue(3));
+        // add option
+        addOption(value, synonymes, type, help);
     }
 }
 
 
 bool
-TemplateHandler::addOption(const std::string& name, const std::string& value) const {
-    if (myOptions.exists(name)) {
-        WRITE_WARNING(name + " already exists");
+TemplateHandler::addOption(const std::string &value, const std::string &synonymes, 
+        const std::string &type, const std::string &help) const {
+    if (myOptions.exists(myTopic)) {
+        WRITE_WARNING(myTopic + " already exists");
         return false;
     } else {
-        myOptions.doRegister(name, new Option_String("bs"));
-        //oc.addDescription("busStop-prefix", "Netedit", "prefix for busStop naming");
-        return true;
+        // declare option
+        Option* option = nullptr;
+        // create register depending of type
+        if (type == "STR") {
+            option = new Option_String(value);
+        } else if (type == "INT") {
+            option = new Option_Integer(0);
+        } else if ((type == "FLOAT") || (type == "TIME")) {
+            option = new Option_Float(0);
+        } else if (type == "BOOL") {
+            option = new Option_Bool(false);
+        } else if (type == "INT[]") {
+            option = new Option_IntVector();
+        } else if (type == "STR[]") {
+            option = new Option_StringVector();
+        } else if (type == "FILE") {
+            option = new Option_FileName();
+        } else {
+            WRITE_WARNING(type + " is an invalid type");
+        }
+        // check if option was created
+        if (option) {
+            // set value
+            option->set(value, "", true);
+            myOptions.doRegister(myTopic, option);
+            // check if add synonyme
+            if (synonymes.size() > 0) {
+                myOptions.addSynonyme(myTopic, synonymes);
+            }
+            // check if add help
+            if (help.size() > 0) {
+                myOptions.addDescription(myTopic, "Netedit", help);
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 
 
 void
 TemplateHandler::endElement(const XMLCh* const /*name*/) {
-    if (myTag.length() == 0) {
+    if (myTopic.length() == 0) {
         return;
     }
-    myTag = "";
+    myTopic = "";
 }
 
 
