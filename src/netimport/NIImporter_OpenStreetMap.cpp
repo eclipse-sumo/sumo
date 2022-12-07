@@ -135,8 +135,9 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
 
     myImportLaneAccess = oc.getBool("osm.lane-access");
     myImportTurnSigns = oc.getBool("osm.turn-lanes");
-    myImportSidewalks = OptionsCont::getOptions().getBool("osm.sidewalks");
-    myImportCrossings = OptionsCont::getOptions().getBool("osm.crossings");
+    myImportSidewalks = oc.getBool("osm.sidewalks");
+    myImportBikeAccess = oc.getBool("osm.bike-access");
+    myImportCrossings = oc.getBool("osm.crossings");
 
     // load nodes, first
     NodesHandler nodesHandler(myOSMNodes, myUniqueNodes, oc);
@@ -472,13 +473,14 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     int numLanesBackward = tc.getEdgeTypeNumLanes(type);
     double speed = tc.getEdgeTypeSpeed(type);
     bool defaultsToOneWay = tc.getEdgeTypeIsOneWay(type);
-    SVCPermissions defaultPermissions = tc.getEdgeTypePermissions(type);
-    SVCPermissions permissions = defaultPermissions | e->myExtraAllowed;
-    permissions &= ~e->myExtraDisallowed;
+    const SVCPermissions defaultPermissions = tc.getEdgeTypePermissions(type);
+    const SVCPermissions extra = myImportBikeAccess ? e->myExtraAllowed : (e->myExtraAllowed & ~SVC_BICYCLE);
+    const SVCPermissions extraDis = myImportBikeAccess ? e->myExtraDisallowed : (e->myExtraDisallowed & ~SVC_BICYCLE);
+    SVCPermissions permissions = (defaultPermissions | extra) & ~extraDis;
     if (defaultsToOneWay && defaultPermissions == SVC_PEDESTRIAN && (permissions & (~SVC_PEDESTRIAN)) != 0) {
         defaultsToOneWay = false;
     }
-    if (e->myCurrentIsElectrified && (permissions & SVC_RAIL) != 0) {
+    if ((permissions & SVC_RAIL) != 0 && e->myExtraTags.count("electrified") != 0) {
         permissions |= (SVC_RAIL_ELECTRIC | SVC_RAIL_FAST);
     }
 
@@ -532,7 +534,6 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     double backwardWidth = tc.getEdgeTypeWidth(type);
     double sidewalkWidth = tc.getEdgeTypeSidewalkWidth(type);
     bool addSidewalk = sidewalkWidth != NBEdge::UNSPECIFIED_WIDTH;
-    const bool addBikeLane = (tc.getEdgeTypeBikeLaneWidth(type) != NBEdge::UNSPECIFIED_WIDTH);
     if (myImportSidewalks) {
         if (addSidewalk) {
             // only use sidewalk width from typemap but don't add sidewalks
@@ -541,6 +542,12 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         } else {
             sidewalkWidth = OptionsCont::getOptions().getFloat("default.sidewalk-width");
         }
+    }
+    double bikeLaneWidth = tc.getEdgeTypeBikeLaneWidth(type);
+    const bool addBikeLane = bikeLaneWidth != NBEdge::UNSPECIFIED_WIDTH ||
+                             (myImportBikeAccess && ((e->myCyclewayType & WAY_BOTH) != 0 || e->myExtraTags.count("segregated") != 0));
+    if (addBikeLane && bikeLaneWidth == NBEdge::UNSPECIFIED_WIDTH) {
+        bikeLaneWidth = OptionsCont::getOptions().getFloat("default.bikelane-width");
     }
     // check directions
     bool addForward = true;
@@ -618,7 +625,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         if (!addForward && (cyclewayType & WAY_FORWARD) != 0) {
             addForward = true;
             forwardPermissions = SVC_BICYCLE;
-            forwardWidth = tc.getEdgeTypeBikeLaneWidth(type);
+            forwardWidth = bikeLaneWidth;
             numLanesForward = 1;
             // do not add an additional cycle lane
             cyclewayType = (WayType)(cyclewayType & ~WAY_FORWARD);  //clang tidy thinks "!WAY_FORWARD" is always false
@@ -626,7 +633,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         if (!addBackward && (cyclewayType & WAY_BACKWARD) != 0) {
             addBackward = true;
             backwardPermissions = SVC_BICYCLE;
-            backwardWidth = tc.getEdgeTypeBikeLaneWidth(type);
+            backwardWidth = bikeLaneWidth;
             numLanesBackward = 1;
             // do not add an additional cycle lane
             cyclewayType = (WayType)(cyclewayType & ~WAY_BACKWARD); //clang tidy thinks "!WAY_BACKWARD" is always false
@@ -713,7 +720,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             applyTurnSigns(nbe, e->myTurnSignsForward);
             nbe->setTurnSignTarget(last->getID());
             if (addBikeLane && (cyclewayType == WAY_UNKNOWN || (cyclewayType & WAY_FORWARD) != 0)) {
-                nbe->addBikeLane(tc.getEdgeTypeBikeLaneWidth(type) * offsetFactor);
+                nbe->addBikeLane(bikeLaneWidth * offsetFactor);
             } else if (nbe->getPermissions(0) == SVC_BUS) {
                 // bikes drive on buslanes if no separate cycle lane is available
                 nbe->setPermissions(SVC_BUS | SVC_BICYCLE, 0);
@@ -1054,7 +1061,6 @@ NIImporter_OpenStreetMap::EdgesHandler::EdgesHandler(
         // import all
         myExtraAttributes.clear();
     }
-    myImportBikeAccess = OptionsCont::getOptions().getBool("osm.bike-access");
 }
 
 NIImporter_OpenStreetMap::EdgesHandler::~EdgesHandler() = default;
@@ -1131,6 +1137,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 && key != "railway:track_ref"
                 && key != "usage"
                 && key != "electrified"
+                && key != "segregated"
                 && key != "bus"
                 && key != "psv"
                 && key != "foot"
@@ -1320,12 +1327,10 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 myCurrentEdge->myExtraAllowed |= SVC_PEDESTRIAN;
             }
         } else if (key == "bicycle") {
-            if (myImportBikeAccess) {
-                if (value == "use_sidepath" || value == "no") {
-                    myCurrentEdge->myExtraDisallowed |= SVC_BICYCLE;
-                } else if (value == "yes" || value == "designated" || value == "permissive") {
-                    myCurrentEdge->myExtraAllowed |= SVC_BICYCLE;
-                }
+            if (value == "use_sidepath" || value == "no") {
+                myCurrentEdge->myExtraDisallowed |= SVC_BICYCLE;
+            } else if (value == "yes" || value == "designated" || value == "permissive") {
+                myCurrentEdge->myExtraAllowed |= SVC_BICYCLE;
             }
         } else if (key == "oneway:bicycle") {
             if (value == "yes") {
@@ -1425,14 +1430,14 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
             if (value == "regular") {
                 myCurrentEdge->myRailDirection = WAY_BOTH;
             }
-        } else if (key == "electrified") {
+        } else if (key == "electrified" || key == "segregated") {
             if (value != "no") {
-                myCurrentEdge->myCurrentIsElectrified = true;
+                myCurrentEdge->myExtraTags[key] = value;
             }
         } else if (key == "railway:track_ref") {
             myCurrentEdge->setParameter(key, value);
         } else if (key == "public_transport" && value == "platform") {
-            myCurrentEdge->myCurrentIsPlatform = true;
+            myCurrentEdge->myExtraTags["platform"] = "yes";
         } else if (key == "parking:lane:both" && !StringUtils::startsWith(value, "no")) {
             myCurrentEdge->myParkingType |= PARKING_BOTH;
         } else if (key == "parking:lane:left" && !StringUtils::startsWith(value, "no")) {
@@ -1578,7 +1583,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myEndElement(int element) {
             } else {
                 delete myCurrentEdge;
             }
-        } else if (myCurrentEdge->myCurrentIsPlatform) {
+        } else if (myCurrentEdge->myExtraTags.count("platform") != 0) {
             const auto insertionIt = myPlatformShapesMap.lower_bound(myCurrentEdge->id);
             if (insertionIt == myPlatformShapesMap.end() || insertionIt->first != myCurrentEdge->id) {
                 // assume we are loading multiple files, so we won't report duplicate platforms

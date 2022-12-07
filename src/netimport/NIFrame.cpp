@@ -193,7 +193,8 @@ NIFrame::fillOptions(bool forNetedit) {
     oc.addDescription("osm.lane-access", "Formats", "Import lane-specific access restrictions");
 
     oc.doRegister("osm.bike-access", new Option_Bool(false));
-    oc.addDescription("osm.bike-access", "Formats", "Check additional attributes to fix directions and permissions on bike paths");
+    oc.addSynonyme("osm.bike-access", "osm.bike-lanes");
+    oc.addDescription("osm.bike-access", "Formats", "Import bike lanes and fix directions and permissions on bike paths");
 
     oc.doRegister("osm.sidewalks", new Option_Bool(false));
     oc.addDescription("osm.sidewalks", "Formats", "Import sidewalks");
