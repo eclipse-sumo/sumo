@@ -15,15 +15,24 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Dec 2022
 ///
-// The XML-Handler for templates
+// A SAX-Handler for loading templates
 /****************************************************************************/
 #include <config.h>
 
-#include <utils/common/MsgHandler.h>
+#include <algorithm>
+#include <string>
+#include <vector>
+#include <xercesc/sax/HandlerBase.hpp>
+#include <xercesc/sax/AttributeList.hpp>
+#include <xercesc/sax/SAXParseException.hpp>
+#include <xercesc/sax/SAXException.hpp>
 #include <utils/common/StringUtils.h>
+#include <utils/common/StringTokenizer.h>
+#include <utils/common/UtilExceptions.h>
+#include <utils/common/FileHelpers.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/ToString.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/xml/XMLSubSys.h>
-
 #include "TemplateHandler.h"
 
 
@@ -31,71 +40,110 @@
 // method definitions
 // ===========================================================================
 
-TemplateHandler::TemplateHandler(OptionsCont &options, const std::string& file) :
-    SUMOSAXHandler(file),
-    myOptions(options) {
+TemplateHandler::TemplateHandler(OptionsCont& options, const bool rootOnly) : 
+    myRootOnly(rootOnly), 
+    myError(false), 
+    myOptions(options), 
+    myItem() {
 }
 
 
 TemplateHandler::~TemplateHandler() {}
 
 
-bool
-TemplateHandler::parse() {
-    // run parser and return result
-    return XMLSubSys::runParser(*this, getFileName());
+void TemplateHandler::startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::AttributeList& attributes) {
+    myItem = StringUtils::transcode(name);
+    if (!myRootOnly) {
+        for (int i = 0; i < (int)attributes.getLength(); i++) {
+            const std::string& key = StringUtils::transcode(attributes.getName(i));
+            const std::string& value = StringUtils::transcode(attributes.getValue(i));
+            if (key == "value" || key == "v") {
+                setValue(myItem, value);
+            }
+            // could give a hint here about unsupported attributes in configuration files
+        }
+        myValue = "";
+    }
 }
 
 
-void
-TemplateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {   
-    // declare new option
-    Option option;
-    // set name
-    // iterate over attributes and fill parameters map
-    for (const std::string& attribute : attrs.getAttributeNames()) {
-        if (attribute == "value") {
-            option.value = attrs.getStringSecure(attribute, "");
-        } else if (attribute == "synonymes") { 
-            option.synonymes = attrs.getStringSecure(attribute, "");
-        } else if (attribute == "type") {
-            option.type = attrs.getStringSecure(attribute, "");
-        } else if (attribute == "help") { 
-            option.help = attrs.getStringSecure(attribute, "");
+void TemplateHandler::setValue(const std::string& key, const std::string& value) {
+    if (value.length() > 0) {
+        try {
+            if (!setSecure(key, value)) {
+                WRITE_ERROR("Could not set option '" + key + "' (probably defined twice).");
+                myError = true;
+            }
+        } catch (ProcessError& e) {
+            WRITE_ERROR(e.what());
+            myError = true;
         }
     }
-    // if value and type was defined, add it to options
-    if (option.value.size() > 0) {
-    /*
-        // check type
-        if (option.type == "STR") {
-            myOptions.doRegister(option.value, new Option_String());
-        } else if (option.type == "FLOAT") {
-            myOptions.doRegister(option.value, new Option_Float());
-        } else if (option.type == "INT") {
-            myOptions.doRegister(option.value, new Option_Integer());
-        } else if (option.type == "FILE") {
-            myOptions.doRegister(option.value, new Option_FileName());
-        } else if (option.type == "BOOL") {
-            myOptions.doRegister(option.value, new Option_Bool());
-        } else if (option.type == "INT[]") {
-            myOptions.doRegister(option.value, new Option_IntVector());
-        } else if (option.type == "STR[]") {
-            myOptions.doRegister(option.value, new Option_StringVector());
-        } 
-        */
-        /*
-        myOptions.
+}
 
-        myOptions.doRegister("additionals-output", new Option_String());
-        myOptions.addDescription("additionals-output", "Netedit", "file in which additionals must be saved");
-        */
+
+void TemplateHandler::characters(const XMLCh* const chars, const XERCES3_SIZE_t length) {
+    myValue = myValue + StringUtils::transcode(chars, (int) length);
+}
+
+
+bool
+TemplateHandler::setSecure(const std::string& name, const std::string& value) const {
+    if (myOptions.isWriteable(name)) {
+        myOptions.set(name, value);
+        return true;
     }
+    return false;
 }
 
 
 void
-TemplateHandler::myEndElement(int /*element*/) {
+TemplateHandler::endElement(const XMLCh* const /*name*/) {
+    if (myItem.length() == 0 || myValue.length() == 0) {
+        return;
+    }
+    if (myValue.find_first_not_of("\n\t \a") == std::string::npos) {
+        return;
+    }
+    setValue(myItem, myValue);
+    myItem = "";
+    myValue = "";
+}
+
+
+void
+TemplateHandler::warning(const XERCES_CPP_NAMESPACE::SAXParseException& exception) {
+    WRITE_WARNING(StringUtils::transcode(exception.getMessage()));
+    WRITE_WARNING(" (At line/column " \
+                  + toString(exception.getLineNumber() + 1) + '/' \
+                  + toString(exception.getColumnNumber()) + ").");
+    myError = true;
+}
+
+
+void
+TemplateHandler::error(const XERCES_CPP_NAMESPACE::SAXParseException& exception) {
+    WRITE_ERROR(StringUtils::transcode(exception.getMessage()));
+    WRITE_ERROR(" (At line/column "
+                + toString(exception.getLineNumber() + 1) + '/'
+                + toString(exception.getColumnNumber()) + ").");
+    myError = true;
+}
+
+
+void
+TemplateHandler::fatalError(const XERCES_CPP_NAMESPACE::SAXParseException& exception) {
+    WRITE_ERROR(StringUtils::transcode(exception.getMessage()));
+    WRITE_ERROR(" (At line/column "
+                + toString(exception.getLineNumber() + 1) + '/'
+                + toString(exception.getColumnNumber()) + ").");
+    myError = true;
+}
+
+
+bool
+TemplateHandler::errorOccurred() const {
+    return myError;
 }
 
 /****************************************************************************/

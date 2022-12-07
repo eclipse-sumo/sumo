@@ -15,90 +15,137 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Dec 2022
 ///
-// The XML-Handler for templates
+// A SAX-Handler for loading templates
 /****************************************************************************/
 #pragma once
 #include <config.h>
 
-#include <utils/xml/CommonXMLStructure.h>
-#include <utils/xml/SUMOSAXHandler.h>
+#include <xercesc/sax/HandlerBase.hpp>
+#include <xercesc/sax/AttributeList.hpp>
+#include <xercesc/sax/SAXParseException.hpp>
+#include <xercesc/sax/SAXException.hpp>
+#include <string>
 
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+
+class OptionsCont;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
  * @class TemplateHandler
- * @brief The XML-Handler for network loading
- *
- * The SAX2-handler responsible for parsing networks and routes to load.
- * This is an extension of the MSRouteHandler as routes and vehicles may also
- *  be loaded from network descriptions.
+ * @brief A SAX-Handler for loading options
  */
-class TemplateHandler : private SUMOSAXHandler {
+class TemplateHandler : public XERCES_CPP_NAMESPACE::HandlerBase {
 
 public:
-    /** @brief Constructor
-     * @param[in] file Name of the parsed file
-     */
-    TemplateHandler(OptionsCont &options, const std::string& file);
+    /// @brief Constructor
+    TemplateHandler(OptionsCont& options, const bool routeOnly = false);
 
-    /// @brief Destructor
+    /// @brief destructor
     ~TemplateHandler();
 
-    /// @brief parse
-    bool parse();
-
-private:
-    /// @brief struct used for loading options
-    struct Option {
-        /// @brief option name
-        std::string name;
-
-        /// @brief option value
-        std::string value;
-
-        /// @brief option synonymes
-        std::string synonymes;
-
-        /// @brief option type
-        std::string type;
-
-        /// @brief option help
-        std::string help;
-    };
-
-    /// @brief list of loaded options
-    std::vector<Option> myLoadedOptions;
-
-    /// @brief option containers
-    OptionsCont &myOptions;
-
-    /// @name inherited from GenericSAXHandler
+    /// @name Handlers for the SAX DocumentHandler interface
     /// @{
-    /** @brief Called on the opening of a tag;
-     *
-     * @param[in] element ID of the currently opened element
-     * @param[in] attrs Attributes within the currently opened element
-     * @exception ProcessError If something fails
-     * @see GenericSAXHandler::myStartElement
-     * @todo Refactor/describe
-     */
-    virtual void myStartElement(int element, const SUMOSAXAttributes& attrs);
 
-    /** @brief Called when a closing tag occurs
+    /** @brief Called on the occurence of the beginning of a tag
      *
-     * @param[in] element ID of the currently opened element
-     * @exception ProcessError If something fails
-     * @see GenericSAXHandler::myEndElement
-     * @todo Refactor/describe
+     * Sets the name of the last item
      */
-    virtual void myEndElement(int element);
+    virtual void startElement(const XMLCh* const name,
+                              XERCES_CPP_NAMESPACE::AttributeList& attributes);
+
+    /** @brief Called on the occurence of character data
+     *
+     * If this occurs inside a single tag it sets the option named
+     *  by the tag to the value given by the character data.
+     *  This is considered deprecated in favor of attributes.
+     * @todo Describe better
+     */
+    void characters(const XMLCh* const chars, const XERCES3_SIZE_t length);
+
+    /** @brief Called on the end of an element
+     *
+     * Resets the element name
+     */
+    void endElement(const XMLCh* const name);
+
     /// @}
 
-    /// @brief invalidate copy constructor
+    /// @name Handlers for the SAX ErrorHandler interface
+    /// @{
+
+    /** @brief Called on an XML-warning
+     *
+     * The warning is reported to the the warning-instance of MsgHandler
+     */
+    void warning(const XERCES_CPP_NAMESPACE::SAXParseException& exception);
+
+    /** @brief Called on an XML-error
+     *
+     * The warning is reported to the the error-instance of MsgHandler
+     */
+    void error(const XERCES_CPP_NAMESPACE::SAXParseException& exception);
+
+    /** @brief Called on an XML-fatal error
+     *
+     * The warning is reported to the the error-instance of MsgHandler
+     */
+    void fatalError(const XERCES_CPP_NAMESPACE::SAXParseException& exception);
+    /// @}
+
+    /// @brief Returns the information whether an error occurred
+    bool errorOccurred() const;
+
+    /// @brief Returns the last item read
+    const std::string& getItem() const {
+        return myItem;
+    }
+
+private:
+    /// @brief The information whether only the root element should be parsed
+    bool myRootOnly;
+
+    /// @brief The information whether an error occurred
+    bool myError;
+
+    /// @brief The options to fill
+    OptionsCont& myOptions;
+
+    /// @brief The name of the currently parsed option
+    std::string myItem;
+
+    /// @brief The currently read characters string
+    std::string myValue;
+
+    /** @brief Tries to set the named option to the given value
+     *
+     * Also evaluates whether it is a boolean or a filename option and
+     *  does the relevant checks / modifications.
+     *
+     * @param[in] key The name of the option to set
+     * @param[in] value The new value for the option
+     */
+    void setValue(const std::string& key, const std::string& value);
+
+    /** @brief Tries to set the named option to the given value
+     *
+     * Checks the item whether it was default before setting it.
+     * Returns the information whether the item was set before (was not a default value)
+     *
+     * @param[in] name The name of the option to set
+     * @param[in] value The new value for the option
+     * @return Whether the option could be set
+     */
+    bool setSecure(const std::string& name, const std::string& value) const;
+
+    /// @brief invalid copy constructor
     TemplateHandler(const TemplateHandler& s) = delete;
 
-    /// @brief invalidate assignment operator
+    /// @brief invalid assignment operator
     TemplateHandler& operator=(const TemplateHandler& s) = delete;
 };

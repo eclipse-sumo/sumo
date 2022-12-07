@@ -55,6 +55,7 @@
 #include <utils/foxtools/MFXMenuCheckIcon.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/handlers/TemplateHandler.h>
+#include <xercesc/parsers/SAXParser.hpp>
 
 #include "GNEApplicationWindow.h"
 #include "GNEEvent_NetworkLoaded.h"
@@ -445,11 +446,28 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     myUndoListDialog = new GNEUndoListDialog(this);
     a->setTooltipTime(1000000000);
     a->setTooltipPause(1000000000);
-
-/*
+    
+    std::string path = "D:/SUMO/data/templates/sumo.xml";
     TemplateHandler t(mySUMOOptions, "D:/SUMO/data/templates/sumo.xml");
-    t.parse();
-*/
+
+
+    // build parser
+    XERCES_CPP_NAMESPACE::SAXParser parser;
+    parser.setValidationScheme(XERCES_CPP_NAMESPACE::SAXParser::Val_Never);
+    parser.setDisableDefaultEntityResolution(true);
+    // start the parsing
+    TemplateHandler handler(OptionsCont::getOptions());
+    try {
+        parser.setDocumentHandler(&handler);
+        parser.setErrorHandler(&handler);
+        parser.parse(StringUtils::transcodeToLocal(path).c_str());
+        if (handler.errorOccurred()) {
+            throw ProcessError("Could not load configuration '" + path + "'.");
+        }
+    } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
+        throw ProcessError("Could not load configuration '" + path + "':\n " + StringUtils::transcode(e.getMessage()));
+    }
+
 
 }
 
