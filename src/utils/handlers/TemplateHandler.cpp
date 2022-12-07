@@ -83,7 +83,7 @@ TemplateHandler::startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::Att
     } else {
         std::vector<std::string> optionAttrs;
         optionAttrs.resize(4);
-        for (int i = 0; i < attributes.getLength(); i++) {
+        for (int i = 0; i < (int)attributes.getLength(); i++) {
             if (StringUtils::transcode(attributes.getName(i)) == "value") {
                 optionAttrs.at(0) = StringUtils::transcode(attributes.getValue(i));
             } else if (StringUtils::transcode(attributes.getName(i)) == "synonymes") {
