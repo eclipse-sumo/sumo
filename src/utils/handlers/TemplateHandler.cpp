@@ -41,6 +41,26 @@
 // method definitions
 // ===========================================================================
 
+void
+TemplateHandler::parseTemplate(OptionsCont& options, const std::string &path) {
+    // build parser
+    XERCES_CPP_NAMESPACE::SAXParser parser;
+    parser.setValidationScheme(XERCES_CPP_NAMESPACE::SAXParser::Val_Never);
+    parser.setDisableDefaultEntityResolution(true);
+    // start the parsing
+    TemplateHandler handler(options);
+    try {
+        parser.setDocumentHandler(&handler);
+        parser.setErrorHandler(&handler);
+        parser.parse(StringUtils::transcodeToLocal(path).c_str());
+        if (handler.myError) {
+            throw ProcessError("Could not load template '" + path + "'.");
+        }
+    } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
+        throw ProcessError("Could not load template '" + path + "':\n " + StringUtils::transcode(e.getMessage()));
+    }
+}
+
 TemplateHandler::TemplateHandler(OptionsCont& options) : 
     myError(false), 
     myOptions(options), 
@@ -68,8 +88,7 @@ void TemplateHandler::startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE
 void TemplateHandler::setValue(const std::string& key, const std::string& value) {
     if (value.length() > 0) {
         try {
-            if (!setSecure(key, value)) {
-                WRITE_ERROR("Could not set option '" + key + "' (probably defined twice).");
+            if (!addOption(key, value)) {
                 myError = true;
             }
         } catch (ProcessError& e) {
@@ -86,14 +105,16 @@ void TemplateHandler::characters(const XMLCh* const chars, const XERCES3_SIZE_t 
 
 
 bool
-TemplateHandler::setSecure(const std::string& name, const std::string& value) const {
-    std::cout << name << std::endl;
-    return true;
-    if (myOptions.isWriteable(name)) {
-        myOptions.set(name, value);
+TemplateHandler::addOption(const std::string& name, const std::string& value) const {
+    if (myOptions.exists(name)) {
+        WRITE_WARNING(name + " already exists");
+        return false;
+    } else {
+        myOptions.doRegister(name, new Option_String("bs"));
+        //oc.addDescription("busStop-prefix", "Netedit", "prefix for busStop naming");
         return true;
     }
-    return false;
+
 }
 
 

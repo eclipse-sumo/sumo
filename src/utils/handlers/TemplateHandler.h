@@ -133,7 +133,7 @@ private:
      * @param[in] value The new value for the option
      * @return Whether the option could be set
      */
-    bool setSecure(const std::string& name, const std::string& value) const;
+    bool addOption(const std::string& name, const std::string& value) const;
 
     /// @brief invalid copy constructor
     TemplateHandler(const TemplateHandler& s) = delete;
