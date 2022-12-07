@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-12-06 18:39:00 by Eclipse SUMO netconvert Version v1_15_0+0818-2777501e1fa
+<!-- generated on 2022-12-06 21:16:15 by Eclipse SUMO netconvert Version v1_15_0+0841-ec7ac00463d
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -301,7 +301,7 @@
         <osm.layer-elevation.max-grade value="10" type="FLOAT" help="Maximum grade threshold in % at 50km/h when reconstrucing elevation based on layer data. The value is scaled according to road speed."/>
         <osm.oneway-spread-right value="false" type="BOOL" help="Whether one-way roads should be spread to the side instead of centered"/>
         <osm.lane-access value="false" type="BOOL" help="Import lane-specific access restrictions"/>
-        <osm.bike-access value="false" type="BOOL" help="Check additional attributes to fix directions and permissions on bike paths"/>
+        <osm.bike-access value="false" synonymes="osm.bike-lanes" type="BOOL" help="Import bike lanes and fix directions and permissions on bike paths"/>
         <osm.sidewalks value="false" type="BOOL" help="Import sidewalks"/>
         <osm.crossings value="false" type="BOOL" help="Import crossings"/>
         <osm.turn-lanes value="false" type="BOOL" help="Import turning arrows from OSM to help with connection building"/>

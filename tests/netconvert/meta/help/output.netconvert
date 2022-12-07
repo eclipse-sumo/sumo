@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_15_0+0818-2777501e1fa
+Eclipse SUMO netconvert Version v1_15_0+0841-ec7ac00463d
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -543,8 +543,8 @@ Formats Options:
   --osm.oneway-spread-right            Whether one-way roads should be spread
                                         to the side instead of centered
   --osm.lane-access                    Import lane-specific access restrictions
-  --osm.bike-access                    Check additional attributes to fix
-                                        directions and permissions on bike paths
+  --osm.bike-access                    Import bike lanes and fix directions and
+                                        permissions on bike paths
   --osm.sidewalks                      Import sidewalks
   --osm.crossings                      Import crossings
   --osm.turn-lanes                     Import turning arrows from OSM to help
