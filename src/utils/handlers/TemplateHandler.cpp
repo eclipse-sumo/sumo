@@ -45,10 +45,12 @@ void
 TemplateHandler::parseTemplate(OptionsCont& options, const std::string &path) {
     // build parser
     XERCES_CPP_NAMESPACE::SAXParser parser;
+    // disable validation
     parser.setValidationScheme(XERCES_CPP_NAMESPACE::SAXParser::Val_Never);
     parser.setDisableDefaultEntityResolution(true);
-    // start the parsing
+    // build TemplateHandler
     TemplateHandler handler(options);
+    // start parsing
     try {
         parser.setDocumentHandler(&handler);
         parser.setErrorHandler(&handler);
@@ -63,25 +65,29 @@ TemplateHandler::parseTemplate(OptionsCont& options, const std::string &path) {
 
 TemplateHandler::TemplateHandler(OptionsCont& options) : 
     myError(false), 
-    myOptions(options), 
-    myItem() {
+    myOptions(options) {
 }
 
 
 TemplateHandler::~TemplateHandler() {}
 
 
-void TemplateHandler::startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::AttributeList& attributes) {
-    myItem = StringUtils::transcode(name);
+void
+TemplateHandler::startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::AttributeList& attributes) {
+    // get current tag
+    myTag = StringUtils::transcode(name);
+
+/*
+    // iterate over all attributes
     for (int i = 0; i < (int)attributes.getLength(); i++) {
         const std::string& key = StringUtils::transcode(attributes.getName(i));
         const std::string& value = StringUtils::transcode(attributes.getValue(i));
         if (key == "value" || key == "v") {
-            setValue(myItem, value);
+            setValue(myTag, value);
         }
         // could give a hint here about unsupported attributes in configuration files
     }
-    myValue = "";
+*/
 }
 
 
@@ -99,11 +105,6 @@ void TemplateHandler::setValue(const std::string& key, const std::string& value)
 }
 
 
-void TemplateHandler::characters(const XMLCh* const chars, const XERCES3_SIZE_t length) {
-    myValue = myValue + StringUtils::transcode(chars, (int) length);
-}
-
-
 bool
 TemplateHandler::addOption(const std::string& name, const std::string& value) const {
     if (myOptions.exists(name)) {
@@ -114,21 +115,15 @@ TemplateHandler::addOption(const std::string& name, const std::string& value) co
         //oc.addDescription("busStop-prefix", "Netedit", "prefix for busStop naming");
         return true;
     }
-
 }
 
 
 void
 TemplateHandler::endElement(const XMLCh* const /*name*/) {
-    if (myItem.length() == 0 || myValue.length() == 0) {
+    if (myTag.length() == 0) {
         return;
     }
-    if (myValue.find_first_not_of("\n\t \a") == std::string::npos) {
-        return;
-    }
-    setValue(myItem, myValue);
-    myItem = "";
-    myValue = "";
+    myTag = "";
 }
 
 

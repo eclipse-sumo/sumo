@@ -62,15 +62,6 @@ private:
      */
     void startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::AttributeList& attributes);
 
-    /** @brief Called on the occurence of character data
-     *
-     * If this occurs inside a single tag it sets the option named
-     *  by the tag to the value given by the character data.
-     *  This is considered deprecated in favor of attributes.
-     * @todo Describe better
-     */
-    void characters(const XMLCh* const chars, const XERCES3_SIZE_t length);
-
     /** @brief Called on the end of an element
      *
      * Resets the element name
@@ -109,10 +100,7 @@ private:
     OptionsCont& myOptions;
 
     /// @brief The name of the currently parsed option
-    std::string myItem;
-
-    /// @brief The currently read characters string
-    std::string myValue;
+    std::string myTag;
 
     /** @brief Tries to set the named option to the given value
      *
