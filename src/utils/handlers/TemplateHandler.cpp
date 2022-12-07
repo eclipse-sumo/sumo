@@ -33,6 +33,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/options/OptionsCont.h>
+#include <xercesc/parsers/SAXParser.hpp>
 #include "TemplateHandler.h"
 
 
@@ -40,8 +41,7 @@
 // method definitions
 // ===========================================================================
 
-TemplateHandler::TemplateHandler(OptionsCont& options, const bool rootOnly) : 
-    myRootOnly(rootOnly), 
+TemplateHandler::TemplateHandler(OptionsCont& options) : 
     myError(false), 
     myOptions(options), 
     myItem() {
@@ -53,17 +53,15 @@ TemplateHandler::~TemplateHandler() {}
 
 void TemplateHandler::startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::AttributeList& attributes) {
     myItem = StringUtils::transcode(name);
-    if (!myRootOnly) {
-        for (int i = 0; i < (int)attributes.getLength(); i++) {
-            const std::string& key = StringUtils::transcode(attributes.getName(i));
-            const std::string& value = StringUtils::transcode(attributes.getValue(i));
-            if (key == "value" || key == "v") {
-                setValue(myItem, value);
-            }
-            // could give a hint here about unsupported attributes in configuration files
+    for (int i = 0; i < (int)attributes.getLength(); i++) {
+        const std::string& key = StringUtils::transcode(attributes.getName(i));
+        const std::string& value = StringUtils::transcode(attributes.getValue(i));
+        if (key == "value" || key == "v") {
+            setValue(myItem, value);
         }
-        myValue = "";
+        // could give a hint here about unsupported attributes in configuration files
     }
+    myValue = "";
 }
 
 
@@ -89,6 +87,8 @@ void TemplateHandler::characters(const XMLCh* const chars, const XERCES3_SIZE_t 
 
 bool
 TemplateHandler::setSecure(const std::string& name, const std::string& value) const {
+    std::cout << name << std::endl;
+    return true;
     if (myOptions.isWriteable(name)) {
         myOptions.set(name, value);
         return true;
@@ -138,12 +138,6 @@ TemplateHandler::fatalError(const XERCES_CPP_NAMESPACE::SAXParseException& excep
                 + toString(exception.getLineNumber() + 1) + '/'
                 + toString(exception.getColumnNumber()) + ").");
     myError = true;
-}
-
-
-bool
-TemplateHandler::errorOccurred() const {
-    return myError;
 }
 
 /****************************************************************************/

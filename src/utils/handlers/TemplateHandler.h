@@ -43,8 +43,12 @@ class OptionsCont;
 class TemplateHandler : public XERCES_CPP_NAMESPACE::HandlerBase {
 
 public:
+    /// @brief run parser
+    static void parseTemplate(OptionsCont& options, const std::string &path);
+
+private:
     /// @brief Constructor
-    TemplateHandler(OptionsCont& options, const bool routeOnly = false);
+    TemplateHandler(OptionsCont& options);
 
     /// @brief destructor
     ~TemplateHandler();
@@ -56,8 +60,7 @@ public:
      *
      * Sets the name of the last item
      */
-    virtual void startElement(const XMLCh* const name,
-                              XERCES_CPP_NAMESPACE::AttributeList& attributes);
+    void startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::AttributeList& attributes);
 
     /** @brief Called on the occurence of character data
      *
@@ -96,19 +99,8 @@ public:
      * The warning is reported to the the error-instance of MsgHandler
      */
     void fatalError(const XERCES_CPP_NAMESPACE::SAXParseException& exception);
+
     /// @}
-
-    /// @brief Returns the information whether an error occurred
-    bool errorOccurred() const;
-
-    /// @brief Returns the last item read
-    const std::string& getItem() const {
-        return myItem;
-    }
-
-private:
-    /// @brief The information whether only the root element should be parsed
-    bool myRootOnly;
 
     /// @brief The information whether an error occurred
     bool myError;
