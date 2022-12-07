@@ -76,19 +76,26 @@ void
 TemplateHandler::startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::AttributeList& attributes) {
     // get current topic
     myTopic = StringUtils::transcode(name);
-    if (attributes.getLength() == 4) {
-        // needed for attributes.getValue
-        int i = 0;
-        // obtain all parameters
-        const std::string value = StringUtils::transcode(attributes.getValue(i));
-        const std::string synonymes = StringUtils::transcode(attributes.getValue(1));
-        const std::string type = StringUtils::transcode(attributes.getValue(2));
-        const std::string help = StringUtils::transcode(attributes.getValue(3));
-        // add option
-        addOption(value, synonymes, type, help);
-    } else if (attributes.getLength() == 0) {
+    // check if this is a subtopic
+    if (attributes.getLength() == 0) {
         mySubTopic = myTopic;
         myOptions.addOptionSubTopic(mySubTopic);
+    } else {
+        std::vector<std::string> optionAttrs;
+        optionAttrs.resize(4);
+        for (int i = 0; i < attributes.getLength(); i++) {
+            if (StringUtils::transcode(attributes.getName(i)) == "value") {
+                optionAttrs.at(0) = StringUtils::transcode(attributes.getValue(i));
+            } else if (StringUtils::transcode(attributes.getName(i)) == "synonymes") {
+                optionAttrs.at(1) = StringUtils::transcode(attributes.getValue(i));
+            } else if (StringUtils::transcode(attributes.getName(i)) == "type") {
+                optionAttrs.at(2) = StringUtils::transcode(attributes.getValue(i));
+            } else if (StringUtils::transcode(attributes.getName(i)) == "help") {
+                optionAttrs.at(3) = StringUtils::transcode(attributes.getValue(i));
+            }
+        }
+        // add option
+        addOption(optionAttrs.at(0), optionAttrs.at(1), optionAttrs.at(2), optionAttrs.at(3));
     }
 }
 
