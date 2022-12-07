@@ -46,9 +46,18 @@ using XERCES_CPP_NAMESPACE::XMLUni;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-SUMOSAXReader::SUMOSAXReader(GenericSAXHandler& handler, const std::string& validationScheme, XERCES_CPP_NAMESPACE::XMLGrammarPool* grammarPool)
-    : myHandler(nullptr), myValidationScheme(validationScheme), myGrammarPool(grammarPool), myXMLReader(nullptr),
-      myIStream(nullptr), myInputStream(nullptr), mySchemaResolver(true, false), myLocalResolver(false, false), myNoOpResolver(false, true), myNextSection(-1, nullptr) {
+
+SUMOSAXReader::SUMOSAXReader(GenericSAXHandler& handler, const std::string& validationScheme, XERCES_CPP_NAMESPACE::XMLGrammarPool* grammarPool) : 
+    myHandler(nullptr),
+    myValidationScheme(validationScheme),
+    myGrammarPool(grammarPool),
+    myXMLReader(nullptr),
+    myIStream(nullptr),
+    myInputStream(nullptr),
+    mySchemaResolver(true, false),
+    myLocalResolver(false, false),
+    myNoOpResolver(false, true),
+    myNextSection(-1, nullptr) {
     setHandler(handler);
 }
 
@@ -188,6 +197,12 @@ SUMOSAXReader::ensureSAXReader() {
 }
 
 
+SUMOSAXReader::LocalSchemaResolver::LocalSchemaResolver(const bool haveFallback, const bool noOp) :
+    myHaveFallback(haveFallback),
+    myNoOp(noOp) {
+}
+
+
 XERCES_CPP_NAMESPACE::InputSource*
 SUMOSAXReader::LocalSchemaResolver::resolveEntity(const XMLCh* const /* publicId */, const XMLCh* const systemId) {
     if (myNoOp) {
@@ -215,6 +230,5 @@ SUMOSAXReader::LocalSchemaResolver::resolveEntity(const XMLCh* const /* publicId
     }
     return new XERCES_CPP_NAMESPACE::MemBufInputSource((const XMLByte*)"", 0, "");
 }
-
 
 /****************************************************************************/
