@@ -206,6 +206,33 @@ MSBaseVehicle::getEdge() const {
 }
 
 
+bool
+MSBaseVehicle::stopsAt(MSStoppingPlace* stop) const {
+    if (stop == nullptr) {
+        return false;
+    }
+    for (const MSStop& s : myStops) {
+        if (s.busstop == stop
+                || s.containerstop == stop
+                || s.parkingarea == stop
+                || s.chargingStation == stop) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool
+MSBaseVehicle::stopsAtEdge(const MSEdge* edge) const {
+    for (const MSStop& s : myStops) {
+        if (&s.lane->getEdge() == edge) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
 void
 MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const bool onInit, const bool withTaz, const bool silent) {
     // check whether to reroute

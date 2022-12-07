@@ -1942,32 +1942,6 @@ MSVehicle::joinTrainPartFront(MSVehicle* veh) {
     }
 }
 
-bool
-MSVehicle::stopsAt(MSStoppingPlace* stop) const {
-    if (stop == nullptr) {
-        return false;
-    }
-    for (const MSStop& s : myStops) {
-        if (s.busstop == stop
-                || s.containerstop == stop
-                || s.parkingarea == stop
-                || s.chargingStation == stop) {
-            return true;
-        }
-    }
-    return false;
-}
-
-bool
-MSVehicle::stopsAtEdge(const MSEdge* edge) const {
-    for (const MSStop& s : myStops) {
-        if (&s.lane->getEdge() == edge) {
-            return true;
-        }
-    }
-    return false;
-}
-
 double
 MSVehicle::getBrakeGap(bool delayed) const {
     return getCarFollowModel().brakeGap(getSpeed(), getCarFollowModel().getMaxDecel(), delayed ? getCarFollowModel().getHeadwayTime() : 0);
