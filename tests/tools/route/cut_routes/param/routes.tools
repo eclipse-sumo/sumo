@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-12-07 13:46:29.148427 by cutRoutes.py v1_15_0+0859-f0f6a194aca
+  options: input_net.net.xml input_routes.rou.xml <doubleminus>routes-output out.rou.xml
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle depart="0.00" id="v" departLane="best" departSpeed="max">
+        <param key="blubber" value="zisch"/>
+        <route edges="beg2left"/>
+    </vehicle>
+    <person depart="0.00" id="beg">
+        <param key="blubber" value="zisch"/>
+        <walk edges="beg2left"/>
+    </person>
+</routes>
