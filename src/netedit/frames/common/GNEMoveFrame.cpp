@@ -62,9 +62,12 @@ FXIMPLEMENT(GNEMoveFrame::ShiftShapeGeometry,           MFXGroupBoxModule, Shift
 
 GNEMoveFrame::CommonModeOptions::CommonModeOptions(GNEMoveFrame* moveFrameParent) :
     MFXGroupBoxModule(moveFrameParent, TL("Common move options")) {
-    // Create checkbox for enable/disable move whole polygons
-    myAllowChangeLanes = new FXCheckButton(getCollapsableFrame(), TL("Allow change Lane"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    // Create checkbox for enable/disable allow change lanes
+    myAllowChangeLanes = new FXCheckButton(getCollapsableFrame(), TL("Allow change lanes"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myAllowChangeLanes->setCheck(FALSE);
+    // Create checkbox for enable/disable merge geometry points
+    myMergeGeometryPoints = new FXCheckButton(getCollapsableFrame(), TL("Merge geometry points"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myMergeGeometryPoints->setCheck(TRUE);
 }
 
 
@@ -74,6 +77,12 @@ GNEMoveFrame::CommonModeOptions::~CommonModeOptions() {}
 bool
 GNEMoveFrame::CommonModeOptions::getAllowChangeLane() const {
     return (myAllowChangeLanes->getCheck() == TRUE);
+}
+
+
+bool
+GNEMoveFrame::CommonModeOptions::getMergeGeometryPoints() const {
+    return (myMergeGeometryPoints->getCheck() == TRUE);
 }
 
 // ---------------------------------------------------------------------------

@@ -49,9 +49,15 @@ public:
         /// @brief allow change lane
         bool getAllowChangeLane() const;
 
+        /// @brief check if merge geometry points
+        bool getMergeGeometryPoints() const;
+
     private:
         /// @brief checkbox for enable/disable change lanes
         FXCheckButton* myAllowChangeLanes;
+
+        /// @brief checkbox for enable/disable merge geometry points
+        FXCheckButton* myMergeGeometryPoints;
     };
 
     // ===========================================================================
