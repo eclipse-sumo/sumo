@@ -30,6 +30,7 @@
 #include <netedit/elements/demand/GNERoute.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/common/GNEDeleteFrame.h>
+#include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/frames/network/GNEAdditionalFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
@@ -2751,7 +2752,8 @@ GNEEdge::setGeometryPointColor(const Position &geometryPointPos, const double ci
             gPostDrawing.markedFirstGeometryPoint = this;
             color = RGBColor::ORANGE;
         }
-    } else if (gPostDrawing.markedSecondGeometryPoint == nullptr) {
+    } else if (myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getMergeGeometryPoints() &&
+               (gPostDrawing.markedSecondGeometryPoint == nullptr)) {
         if (mouseWithinGeometry(geometryPointPos, circleWidth)) {
             gPostDrawing.markedSecondGeometryPoint = this;
             color = RGBColor::CYAN;
