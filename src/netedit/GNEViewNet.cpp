@@ -743,6 +743,10 @@ GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme&
         }
         return;
     }
+    if (hide && hide2 && minValue == std::numeric_limits<double>::infinity()) {
+        minValue = hideThreshold;
+        maxValue = hideThreshold2;
+    }
     if (minValue != std::numeric_limits<double>::infinity()) {
         scheme.clear();
         // add new thresholds
@@ -750,8 +754,9 @@ GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme&
                 || scheme.getName() == GUIVisualizationSettings::SCHEME_NAME_EDGE_PARAM_NUMERICAL
                 || scheme.getName() == GUIVisualizationSettings::SCHEME_NAME_LANE_PARAM_NUMERICAL
                 || scheme.getName() == GUIVisualizationSettings::SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL
-                || scheme.getName() == GUIVisualizationSettings::SCHEME_NAME_PARAM_NUMERICAL)  {
-            scheme.addColor(RGBColor(204, 204, 204), std::numeric_limits<double>::max(), "missing data");
+                || scheme.getName() == GUIVisualizationSettings::SCHEME_NAME_PARAM_NUMERICAL
+                || hasMissingData) {
+            scheme.addColor(s.COL_MISSING_DATA, s.MISSING_DATA, "missing data");
         }
         if (hide) {
             const double rawRange = maxValue - minValue;
@@ -771,9 +776,6 @@ GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme&
         scheme.addColor(RGBColor::CYAN, (minValue + range * 4 / 6.0));
         scheme.addColor(RGBColor::BLUE, (minValue + range * 5 / 6.0));
         scheme.addColor(RGBColor::MAGENTA, (maxValue));
-        if (hasMissingData) {
-            scheme.addColor(s.COL_MISSING_DATA, s.MISSING_DATA);
-        }
     }
 }
 
