@@ -106,6 +106,9 @@ private:
     /// @brief The name of the currently topic
     std::string myTopic;
 
+    /// @brief current subtopic
+    std::string mySubTopic;
+
     /// @brief invalid copy constructor
     TemplateHandler(const TemplateHandler& s) = delete;
 

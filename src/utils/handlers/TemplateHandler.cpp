@@ -43,7 +43,6 @@
 
 void
 TemplateHandler::parseTemplate(OptionsCont& options, const std::string &path) {
-        options.addOptionSubTopic("Netedit");
     // build parser
     XERCES_CPP_NAMESPACE::SAXParser parser;
     // disable validation
@@ -87,6 +86,9 @@ TemplateHandler::startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::Att
         const std::string help = StringUtils::transcode(attributes.getValue(3));
         // add option
         addOption(value, synonymes, type, help);
+    } else if (attributes.getLength() == 0) {
+        mySubTopic = myTopic;
+        myOptions.addOptionSubTopic(mySubTopic);
     }
 }
 
@@ -129,7 +131,7 @@ TemplateHandler::addOption(const std::string &value, const std::string &synonyme
             }
             // check if add help
             if (help.size() > 0) {
-                myOptions.addDescription(myTopic, "Netedit", help);
+                myOptions.addDescription(myTopic, mySubTopic, help);
             }
             return true;
         } else {
