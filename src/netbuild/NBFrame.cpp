@@ -503,6 +503,9 @@ NBFrame::fillOptions(bool forNetgen) {
 
         oc.doRegister("tls.guess-signals.dist", new Option_Float(25));
         oc.addDescription("tls.guess-signals.dist", "TLS Building", "Distance for interpreting nodes as signal locations");
+
+        oc.doRegister("tls.guess-signals.slack", new Option_Integer(0));
+        oc.addDescription("tls.guess-signals.slack", "TLS Building", "Number of uncontrolled entry edges to accept and still consider the central node as a traffic light");
     }
 
 

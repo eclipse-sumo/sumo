@@ -2083,6 +2083,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
         }
 
         // check which nodes should be controlled
+        const int defaultSlack = oc.getInt("tls.guess-signals.slack");
         for (std::map<std::string, NBNode*>::const_iterator i = myNodes.begin(); i != myNodes.end(); ++i) {
             NBNode* node = i->second;
             if (myUnsetTLS.count(node) != 0) {
@@ -2095,6 +2096,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
                     && node->getType() != SumoXMLNodeType::RAIL_CROSSING) {
                 std::vector<const NBNode*> signals;
                 bool isTLS = true;
+                int slack = defaultSlack;
                 // check if there is a signal at every incoming edge
                 for (EdgeVector::const_iterator it_i = incoming.begin(); it_i != incoming.end(); ++it_i) {
                     const NBEdge* inEdge = *it_i;
@@ -2104,11 +2106,15 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
                             std::cout << " noTLS, edge=" << inEdge->getID() << "\n";
                         }
 #endif
-                        isTLS = false;
-                        break;
+                        if (slack == 0) {
+                            isTLS = false;
+                            break;
+                        }
+                        slack--;
                     }
                 }
                 if (isTLS) {
+                    int slack = defaultSlack;
                     node->updateSurroundingGeometry();
                     // check if all signals are within the required distance
                     // (requires detailed geometry computation)
@@ -2121,8 +2127,11 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
                                 std::cout << " noTLS, edge=" << inEdge->getID() << " offset=" << inEdge->getSignalOffset() << " tlsPos=" << inEdge->getSignalPosition() << "\n";
                             }
 #endif
-                            isTLS = false;
-                            break;
+                            if (slack == 0) {
+                                isTLS = false;
+                                break;
+                            }
+                            slack--;
                         }
                         const NBNode* signal = inEdge->getSignalNode();
                         if (signal != nullptr) {
