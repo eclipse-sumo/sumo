@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_15_0+0880-28a117c
+Eclipse SUMO netconvert Version v1_15_0+0884-d788f24
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -272,6 +272,9 @@ TLS Building Options:
                                         OSM-derived networks
   --tls.guess-signals.dist FLOAT       Distance for interpreting nodes as
                                         signal locations
+  --tls.guess-signals.slack INT        Number of uncontrolled entry edges to
+                                        accept and still consider the central
+                                        node as a traffic light
   --tls.cycle.time INT                 Use INT as cycle duration
   --tls.green.time INT                 Use INT as green phase duration
   -D, --tls.yellow.min-decel FLOAT     Defines smallest vehicle deceleration
