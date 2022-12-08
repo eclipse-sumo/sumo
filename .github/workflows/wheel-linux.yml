@@ -106,12 +106,17 @@ jobs:
         cd tests
         texttest -b ci -v ci -a complex.libsumo
 
+    - name: Compressing test results
+      if: failure()
+      run: |
+        zip -r texttesttmp.zip ~/.texttest/tmp
+
     - name: Uploading test results
       if: failure()
       uses: actions/upload-artifact@v3
       with:
         name: texttesttmp-${{ matrix.python }}
-        path: ~/.texttest/tmp
+        path: texttesttmp.zip
         if-no-files-found: warn
 
   publish-wheels:
