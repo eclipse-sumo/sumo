@@ -906,9 +906,22 @@ present to open a new 3D view. A pre-compiled Windows version for testing is ava
 supplying the command line option **--osg-view true**.
 
 ## 3D Viewport
-The view of the 3D scene can be changed using two methods: The camera can be moved by mouse actions 
-(LMB drag for translational movement, MMB drag for pitch and yaw rotation) or the view can be defined in the 
-viewport dialog. Open the viewport editor using the ![Open_viewport_editor.gif](images/Open_viewport_editor.gif
+The view of the 3D scene can be changed using two methods: The camera can be moved by mouse and keyboard or the view can be defined in the 
+viewport dialog. The following table summarizes which mouse actions and keys can be used to control the view.
+
+| Name          | Description                                                                                                                      |
+| ------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `F`           | Switch between `terrain` and `ego` camera manipulator modes (default: `terrain`)                                                 |
+| `Up` arrow    | Move in view direction                                                                                                           |
+| `Down` arrow  | Move away from view direction                                                                                                    |
+| `Left` arrow  | Move sidewards to the left                                                                                                       |
+| `Right` arrow | Move sidewards to the right                                                                                                      |
+| LMB drag      | Move position in `terrain` mode                                                                                                  |
+| MMB drag      | Rotate view in `terrain` mode (with view target as pivot point)                                                                  |
+| RMB drag      | Zoom view in `terrain` mode                                                                                                      |
+| Mouse movement| Rotate view in `ego` mode (with eye position as pivot point)                                                                     |
+
+Open the viewport editor using the ![Open_viewport_editor.gif](images/Open_viewport_editor.gif
 "Open viewport editor") button. The camera position itself is listed in the left column wheras right "LookAt" coordinates define the 
 target to look at. "LookAt" coordinates are normalized to length 1 by OSG automatically.
 
