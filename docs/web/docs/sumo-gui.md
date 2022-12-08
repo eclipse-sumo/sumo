@@ -509,7 +509,7 @@ value/range
 
 ## Vehicle Visualisation Settings
 
-### Vehicle shape shemes
+### Vehicle shape schemes
 
 | Name          | Description                                                                                                                      |
 | ------------- | -------------------------------------------------------------------------------------------------------------------------------- |
