@@ -587,6 +587,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("tls.ungroup-signals", new Option_Bool(false));
     oc.addDescription("tls.ungroup-signals", "TLS Building", "Assign a distinct tls link index to every connection");
 
+    oc.doRegister("tls.rebuild", new Option_Bool(false));
+    oc.addDescription("tls.rebuild", "TLS Building", "rebuild all traffic light plans in the network");
+
     // edge pruning
     oc.doRegister("keep-edges.min-speed", new Option_Float(-1));
     oc.addSynonyme("keep-edges.min-speed", "edges-min-speed", true);
