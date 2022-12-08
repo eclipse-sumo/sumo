@@ -138,10 +138,6 @@ GUIOSGView::GUIOSGView(
     myTracked(0), myCameraManipulator(new GUIOSGManipulator()), myLastUpdate(-1),
     myOSGNormalizedCursorX(0.), myOSGNormalizedCursorY(0.) {
 
-    //FXGLVisual* glVisual=new FXGLVisual(getApp(),VISUAL_DOUBLEBUFFER|VISUAL_STEREO);
-
-    //m_gwFox = new GraphicsWindowFOX(this, glVisual, NULL, NULL, LAYOUT_FILL_X|LAYOUT_FILL_Y, x, y, w, h );
-
     if (myChanger != nullptr) {
         delete (myChanger);
     }
@@ -186,8 +182,6 @@ GUIOSGView::GUIOSGView(
     // add the stats handler
     myViewer->addEventHandler(new osgViewer::StatsHandler());
     myViewer->setSceneData(myRoot);
-    //myCameraManipulator->addNumberedMatrixManipulator(new SUMOTerrainManipulator());
-    //myCameraManipulator->addNumberedMatrixManipulator(new SUMOFirstPersonManipulator());
     myViewer->setCameraManipulator(myCameraManipulator);
 
     osg::Vec3d lookFrom, lookAt, up;
