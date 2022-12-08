@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-12-06 21:16:15 by Eclipse SUMO netconvert Version v1_15_0+0841-ec7ac00463d
+<!-- generated on 2022-12-08 14:21:19 by Eclipse SUMO netconvert Version v1_15_0+0880-28a117c
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -512,6 +512,9 @@
 
         <!-- Assign a distinct tls link index to every connection -->
         <tls.ungroup-signals value="false" type="BOOL"/>
+
+        <!-- rebuild all traffic light plans in the network -->
+        <tls.rebuild value="false" type="BOOL"/>
 
     </tls_building>
 

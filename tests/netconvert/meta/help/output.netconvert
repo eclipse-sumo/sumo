@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_15_0+0841-ec7ac00463d
+Eclipse SUMO netconvert Version v1_15_0+0880-28a117c
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -326,6 +326,8 @@ TLS Building Options:
                                         connections that share the same states
   --tls.ungroup-signals                Assign a distinct tls link index to
                                         every connection
+  --tls.rebuild                        rebuild all traffic light plans in the
+                                        network
 
 Ramp Guessing Options:
   --ramps.guess                        Enable ramp-guessing
