@@ -116,7 +116,7 @@ turn-lanes2
 
 # import key junction=circular
 junction_circular
-bugs
 
-# handle width:lanes information
-width_lane
+# one incoming arm doesn't have a tls but the central junction should still be considered as controlled
+guess-signals.slack
+bugs
