@@ -106,7 +106,7 @@ section [Flow Definitions](../Demand/Shortest_or_Optimal_Path_Routing.md#flow_de
 
 ## Using netedit
 
-We created the vehicle types and the vehicle flows "by hand", by writing the definitions down into a XML file, however these manipulations can directly be made (and visualized) in NetEdit! In order to achieve this, you need to select the "Demand" mode rather than the "Network" mode that you used to create the network above. For creating a new vehicle type use the "Create type mode". You can modify the main parameters directly in the left panel, other parameters can be modified after clicking "Open attributes editor", as shown here:
+We created the vehicle types and the vehicle flows "by hand", by writing the definitions down into a XML file, however these manipulations can directly be made (and visualized) in netedit! In order to achieve this, you need to select the "Demand" mode rather than the "Network" mode that you used to create the network above. For creating a new vehicle type use the "Create type mode". You can modify the main parameters directly in the left panel, other parameters can be modified after clicking "Open attributes editor", as shown here:
 
 <img src="../images/sumolympics_netedit_5.png" width="1000"/>
 
