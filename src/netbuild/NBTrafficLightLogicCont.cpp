@@ -178,8 +178,9 @@ NBTrafficLightLogicCont::computeLogics(OptionsCont& oc) {
                         node->removeTrafficLight(def);
                         node->addTrafficLight(lDef);
                     }
-                    removeFully(def->getID());
+                    removeProgram(def->getID(), def->getProgramID());
                     insert(lDef);
+                    delete logic;
                 }
             }
             if (lDef != nullptr) {
