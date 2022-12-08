@@ -26,6 +26,7 @@
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include "GUIOSGPerspectiveChanger.h"
 
+
 // ===========================================================================
 // method definitions
 // ===========================================================================

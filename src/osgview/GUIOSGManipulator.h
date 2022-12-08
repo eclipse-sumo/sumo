@@ -51,7 +51,7 @@ public:
     osg::Matrixd getInverseMatrix() const;
 
 private:
-#ifdef _DEBUG:
+#ifdef _DEBUG
     void updateHUD();
 #endif
 
@@ -59,13 +59,13 @@ protected:
     osg::ref_ptr<osg::Geode> myTextNode;
 private:
     /// @brief remember which ManipulatorMode we use 
-#ifdef _DEBUG:
+#ifdef _DEBUG
     osgText::FadeText* myText;
 #endif
     ManipulatorMode myCurrentMode;
+    double myWalkEyeHeight;
     double myMoveSpeed;
     double myMoveAccel;
-    double myWalkEyeHeight;
     osg::Vec3d myMove;
 };
 

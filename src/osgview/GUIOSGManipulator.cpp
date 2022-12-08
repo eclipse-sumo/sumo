@@ -17,8 +17,8 @@
 ///
 // A custom camera manipulator to interact with the OSG view directly
 /****************************************************************************/
-#pragma once
 #include <config.h>
+
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/StringBijection.h>
 
@@ -38,12 +38,16 @@ static StringBijection<ManipulatorMode>::Entry ModeTextInitializer[] = {
 
 StringBijection<ManipulatorMode> ModeText(ModeTextInitializer, MODE_TERRAIN, false);
 
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
 GUIOSGManipulator::GUIOSGManipulator(ManipulatorMode initMode, bool verticalFixed, double eyeHeight) : 
     myCurrentMode(initMode), myWalkEyeHeight(eyeHeight), myMoveSpeed(DEFAULT_MOVESPEED_MIN) {
     setAllowThrow(false);
     setVerticalAxisFixed(verticalFixed);
 
-#ifdef _DEBUG:
+#ifdef _DEBUG
     myTextNode = new osg::Geode();
     myText = new osgText::FadeText;
     myText->setFadeSpeed(0.001f);
@@ -58,7 +62,7 @@ GUIOSGManipulator::GUIOSGManipulator(ManipulatorMode initMode, bool verticalFixe
 }
 
 
-#ifdef _DEBUG:
+#ifdef _DEBUG
 osg::Camera*
 GUIOSGManipulator::getHUD() {
     osg::Camera* camera = new osg::Camera;
@@ -179,7 +183,7 @@ GUIOSGManipulator::rotateYawPitch(osg::Quat& rotation, const double yaw, const d
 
 
 bool 
-GUIOSGManipulator::handleKeyDown(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa) {
+GUIOSGManipulator::handleKeyDown(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& /* aa */) {
     bool result = false;
     switch (ea.getKey()) {
     case osgGA::GUIEventAdapter::KEY_Up:
@@ -205,7 +209,7 @@ GUIOSGManipulator::handleKeyDown(const osgGA::GUIEventAdapter& ea, osgGA::GUIAct
 
 
 bool 
-GUIOSGManipulator::handleKeyUp(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa) {
+GUIOSGManipulator::handleKeyUp(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& /* aa */) {
     bool result = false;
     switch (ea.getKey()) {
     case osgGA::GUIEventAdapter::KEY_Up:
@@ -222,7 +226,7 @@ GUIOSGManipulator::handleKeyUp(const osgGA::GUIEventAdapter& ea, osgGA::GUIActio
         } else {
             myCurrentMode = MODE_EGO;
         }
-#ifdef _DEBUG:
+#ifdef _DEBUG
         updateHUD();
 #endif
         return true;
@@ -231,7 +235,7 @@ GUIOSGManipulator::handleKeyUp(const osgGA::GUIEventAdapter& ea, osgGA::GUIActio
 }
 
 
-#ifdef _DEBUG:
+#ifdef _DEBUG
 void
 GUIOSGManipulator::updateHUD() {
     myText->setText(ModeText.getString(myCurrentMode));

@@ -193,7 +193,7 @@ GUIOSGView::GUIOSGView(
 
     getApp()->addChore(this, MID_CHORE);
     
-#ifdef _DEBUG:
+#ifdef _DEBUG
     osgViewer::Viewer::Windows windows;
     myViewer->getWindows(windows);
     osg::Camera* hudCamera = myCameraManipulator->getHUD();
