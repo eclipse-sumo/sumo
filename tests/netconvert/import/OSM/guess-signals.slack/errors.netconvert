@@ -36,6 +36,5 @@ Warning: Cannot revise pt stop localization for pt line '2807115', which consist
 Warning: Removed invalid stop '2275466607' from line '2807115'.
 Warning: Removing pt stop '2275466607' on non existing edge ''.
 Warning: Removed 1 pt stops because they could not be assigned to the network
-Warning: Not joining junctions 29271928,5723286886,726784470 (5 incoming edges).
 Warning: 21 total messages of type: Discarding way '%' because it has only % node(s)
 Warning: 458 total messages of type: The referenced geometry information (ref='%') is not known

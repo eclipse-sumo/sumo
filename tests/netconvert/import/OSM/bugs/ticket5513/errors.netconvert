@@ -9,7 +9,7 @@ Warning: Not joining junctions 201220801,201589322,3645231524,3645231555,5819001
 Warning: Not joining junctions 201221330,201588819 (parallel outgoing 19358290#0,47795936#0).
 Warning: Not joining junctions 201221373,5819001427 (parallel incoming -615359726#1,19358290#1).
 Warning: Reducing junction cluster 3645200026,5819001456,5819001459 (parallel incoming -615359739#1,94669185#2).
-Warning: Reducing junction cluster 5819001430,5819001435,5819001672 (5 incoming edges).
+Warning: Reducing junction cluster 5819001430,5819001435,5819001672 (parallel incoming -615359726#4,615359761).
 Warning: Ambiguity in turnarounds computation at junction '5819001479'.
 Warning: The traffic light '201221451' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '201221451'
