@@ -205,6 +205,8 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                           + "' to edge '" + oldEdges.back()->getID() + "' for vehicle '" + veh.getID() + "'.");
         }
         ConstROEdgeVector mandatory = veh.getMandatoryEdges(oldEdges.front(), oldEdges.back());
+        std::set<ConstROEdgeVector::const_iterator> jumpStarts;
+        veh.collectJumps(mandatory, jumpStarts);
         assert(mandatory.size() >= 2);
         // removed prohibited
         for (ConstROEdgeVector::iterator i = oldEdges.begin(); i != oldEdges.end();) {
@@ -241,23 +243,34 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                     last = newEdges.back();
                     newEdges.pop_back();
                 }
-//                router.setHint(targets.begin(), i, &veh, begin);
-                if (!router.compute(last, *i, &veh, begin, newEdges)) {
-                    // backtrack: try to route from last mandatory edge to next mandatory edge
-                    // XXX add option for backtracking in smaller increments
-                    // (i.e. previous edge to edge after *i)
-                    // we would then need to decide whether we have found a good
-                    // tradeoff between faithfulness to the input data and detour-length
-                    ConstROEdgeVector edges;
-                    if (lastMandatory >= (int)newEdges.size() || last == newEdges[lastMandatory] || !router.compute(newEdges[lastMandatory], *nextMandatory, &veh, begin, edges)) {
-                        mh->inform("Mandatory edge '" + (*i)->getID() + "' not reachable by vehicle '" + veh.getID() + "'.");
-                        return false;
-                    }
+                if (veh.hasJumps() && jumpStarts.count(nextMandatory - 1) != 0) {
                     while (*i != *nextMandatory) {
                         ++i;
                     }
-                    newEdges.erase(newEdges.begin() + lastMandatory + 1, newEdges.end());
-                    std::copy(edges.begin() + 1, edges.end(), back_inserter(newEdges));
+                    newEdges.push_back(last);
+                    newEdges.push_back(*i);
+                    //std::cout << " skipJump mIndex=" << (nextMandatory - 1 - mandatory.begin()) << " last=" << last->getID() << " next=" << (*i)->getID() << " newEdges=" << toString(newEdges) << "\n";
+                } else {
+
+                    //                router.setHint(targets.begin(), i, &veh, begin);
+                    if (!router.compute(last, *i, &veh, begin, newEdges)) {
+                        // backtrack: try to route from last mandatory edge to next mandatory edge
+                        // XXX add option for backtracking in smaller increments
+                        // (i.e. previous edge to edge after *i)
+                        // we would then need to decide whether we have found a good
+                        // tradeoff between faithfulness to the input data and detour-length
+                        ConstROEdgeVector edges;
+                        if (lastMandatory >= (int)newEdges.size() || last == newEdges[lastMandatory] || !router.compute(newEdges[lastMandatory], *nextMandatory, &veh, begin, edges)) {
+                            mh->inform("Mandatory edge '" + (*i)->getID() + "' not reachable by vehicle '" + veh.getID() + "'.");
+                            return false;
+                        }
+                        while (*i != *nextMandatory) {
+                            ++i;
+                        }
+                        newEdges.erase(newEdges.begin() + lastMandatory + 1, newEdges.end());
+                        std::copy(edges.begin() + 1, edges.end(), back_inserter(newEdges));
+                    }
+
                 }
             }
             if (*i == *nextMandatory) {
