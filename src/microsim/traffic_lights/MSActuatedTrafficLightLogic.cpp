@@ -197,7 +197,8 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                 detLaneIndex++;
             }
             if (customID == "") {
-                double speed = lane->getSpeedLimit();
+                const bool isBikeLane = (lane->getPermissions() & ~SVC_PEDESTRIAN) == SVC_BICYCLE;
+                double speed = isBikeLane ? DEFAULT_BICYCLE_SPEED : lane->getSpeedLimit();
                 inductLoopPosition = MIN2(
                                          myDetectorGap * speed,
                                          (STEPS2TIME(minDur) / myPassingTime + 0.5) * DEFAULT_LENGTH_WITH_GAP);
