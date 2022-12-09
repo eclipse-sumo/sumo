@@ -11,7 +11,7 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    scheduleStats.py
+# @file    fcdDiff.py
 # @author  Jakob Erdmann
 # @date    2022-12-06
 
@@ -87,22 +87,21 @@ def getDataFrame(fname, attrs, columns, tripId):
         orderedAttrs = [attrs[0]] + attrs[2:]
 
     for ts, v in parse_fast_nested(fname, 'timestep', ['time'], 'vehicle', orderedAttrs):
-            data.append([getattr(v, attrs[0]), parseTime(ts.time)] + [float(getattr(v, a)) for a in attrs[2:]])
+        data.append([getattr(v, attrs[0]), parseTime(ts.time)] + [float(getattr(v, a)) for a in attrs[2:]])
     return pd.DataFrame.from_records(data, columns=columns)
 
 
 def main(options):
-    nan = float("nan")
     idAttr = 'tripId' if options.tripId else 'id'
     attrs = [
         idAttr,
-        't', # time
+        't',  # time
         'x',
         'y',
     ]
     cols2 = [
         idAttr,
-        't', # time
+        't',  # time
         'x2',
         'y2',
     ]
@@ -124,12 +123,13 @@ def main(options):
         print("missing in new: %s" % dfOuter['x2'].isna().sum())
 
     useHist = options.histogram is not None
-    fun = (lambda r, s: s.add(sqrt((r['x'] - r['x2']) ** 2 + (r['y'] - r['y2']) ** 2) , key(r)))
+    fun = (lambda r, s: s.add(sqrt((r['x'] - r['x2']) ** 2 + (r['y'] - r['y2']) ** 2), key(r)))
     s = Statistics("euclidian_error", histogram=useHist, scale=options.histogram)
     df.apply(fun, axis=1, args=(s,))
 
     print(s)
-    #print(dfOuter)
+    # print(dfOuter)
+
 
 if __name__ == "__main__":
     main(get_options())
