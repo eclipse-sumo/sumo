@@ -649,6 +649,17 @@ MSBaseVehicle::addTransportable(MSTransportable* transportable) {
 
 
 bool
+MSBaseVehicle::hasJump(const MSRouteIterator& it) const {
+    for (const MSStop& stop : myStops) {
+        if (stop.edge == it) {
+            return stop.pars.jump >= 0;
+        }
+    }
+    return false;
+}
+
+
+bool
 MSBaseVehicle::hasValidRoute(std::string& msg, ConstMSRoutePtr route) const {
     MSRouteIterator start = myCurrEdge;
     if (route == nullptr) {
@@ -660,8 +671,10 @@ MSBaseVehicle::hasValidRoute(std::string& msg, ConstMSRoutePtr route) const {
     // check connectivity, first
     for (MSRouteIterator e = start; e != last; ++e) {
         if ((*e)->allowedLanes(**(e + 1), myType->getVehicleClass()) == nullptr) {
-            msg = TLF("No connection between edge '%' and edge '%'.", (*e)->getID(), (*(e + 1))->getID());
-            return false;
+            if (!hasJump(e)) {
+                msg = TLF("No connection between edge '%' and edge '%'.", (*e)->getID(), (*(e + 1))->getID());
+                return false;
+            }
         }
     }
     last = route->end();
