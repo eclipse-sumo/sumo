@@ -298,6 +298,20 @@ class VehicleDomain(VTypeDomain):
         """
         return self._getUniversal(tc.VAR_ROAD_ID, vehID)
 
+    def getDeparture(self, vehID):
+        """getDeparture(string) -> double
+
+        Returns the actual departure time in seconds
+        """
+        return self._getUniversal(tc.VAR_DEPARTURE, vehID)
+
+    def getDepartDelay(self, vehID):
+        """getDepartDelay(string) -> double
+
+        Returns the delay between intended and actual departure in seconds
+        """
+        return self._getUniversal(tc.VAR_DEPART_DELAY, vehID)
+
     def getLaneID(self, vehID):
         """getLaneID(string) -> string
 

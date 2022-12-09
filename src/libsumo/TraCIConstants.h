@@ -1090,6 +1090,12 @@ TRACI_CONST int VAR_PERSON_NUMBER = 0x67;
 // person capacity (vehicle , vehicle type)
 TRACI_CONST int VAR_PERSON_CAPACITY = 0x38;
 
+// departure time (vehicle, person)
+TRACI_CONST int VAR_DEPARTURE = 0x3a;
+
+// departure delay (vehicle, person)
+TRACI_CONST int VAR_DEPART_DELAY = 0x3b;
+
 // boarding time (get: vehicle type, vehicle, person)
 TRACI_CONST int VAR_BOARDING_DURATION = 0x3f;
 

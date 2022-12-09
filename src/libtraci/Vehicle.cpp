@@ -101,6 +101,18 @@ Vehicle::getRoadID(const std::string& vehID) {
 }
 
 
+double
+Vehicle::getDeparture(const std::string& vehID) {
+    return Dom::getDouble(libsumo::VAR_DEPARTURE, vehID);
+}
+
+
+double
+Vehicle::getDepartDelay(const std::string& vehID) {
+    return Dom::getDouble(libsumo::VAR_DEPART_DELAY, vehID);
+}
+
+
 std::string
 Vehicle::getLaneID(const std::string& vehID) {
     return Dom::getString(libsumo::VAR_LANE_ID, vehID);

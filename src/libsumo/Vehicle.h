@@ -60,6 +60,8 @@ public:
     static int getLaneIndex(const std::string& vehID);
     static std::string getTypeID(const std::string& vehID);
     static std::string getRouteID(const std::string& vehID);
+    static double getDeparture(const std::string& vehID);
+    static double getDepartDelay(const std::string& vehID);
     static int getRouteIndex(const std::string& vehID);
     static double getLanePosition(const std::string& vehID);
     static double getLateralLanePosition(const std::string& vehID);
