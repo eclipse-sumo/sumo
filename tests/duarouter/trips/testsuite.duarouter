@@ -1,3 +1,13 @@
+# test attributes fromJunction toJunction and viaJunctions
+junctionTaz
+
+# test restriction parameters
+restrictionParams
+rail
+
+# Tests false input
+errors
+
 # Test with 100 vehicles having one departure time, the type is given
 one_time
 
@@ -135,13 +145,3 @@ CHWrapper_lane_connectivity
 
 # test handling of input attributes
 departSpeed
-
-# test attributes fromJunction toJunction and viaJunctions
-junctionTaz
-
-# test restriction parameters
-restrictionParams
-rail
-
-# Tests false input
-errors
