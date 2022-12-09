@@ -78,6 +78,7 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
         const AssignmentMap& assignments,
         const FunctionMap& functions) :
     MSSimpleTrafficLightLogic(tlcontrol, id, programID, offset, TrafficLightType::ACTUATED, phases, step, delay, parameter),
+    myHasMultiTarget(false),
     myLastTrySwitchTime(0),
     myConditions(conditions),
     myAssignments(assignments),
@@ -552,6 +553,8 @@ MSActuatedTrafficLightLogic::initSwitchingRules() {
         std::vector<int> nextPhases = phase->nextPhases;
         if (nextPhases.size() == 0) {
             nextPhases.push_back((i + 1) % (int)myPhases.size());
+        } else if (nextPhases.size() > 1) {
+            myHasMultiTarget = true;
         }
         for (int next : nextPhases) {
             if (next >= 0 && next < (int)myPhases.size()) {
@@ -737,7 +740,7 @@ MSActuatedTrafficLightLogic::trySwitch() {
         actDuration = 0;
     }
     // activate coloring
-    if ((myShowDetectors || multiTarget) && getCurrentPhaseDef().isGreenPhase()) {
+    if ((myShowDetectors || myHasMultiTarget) && getCurrentPhaseDef().isGreenPhase()) {
         for (InductLoopInfo* loopInfo : myInductLoopsForPhase[myStep]) {
             //std::cout << SIMTIME << " p=" << myStep << " loopinfo=" << loopInfo->loop->getID() << " set lastGreen=" << STEPS2TIME(now) << "\n";
             if (loopInfo->isJammed()) {
