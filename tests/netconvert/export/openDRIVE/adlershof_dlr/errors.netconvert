@@ -11,4 +11,6 @@ Warning: Minor green from edge '7216737#3' to edge '24214694' exceeds 19.44m/s. 
 Warning: Minor green from edge '-24214693#0' to edge '-7727483#3' exceeds 19.44m/s. Maybe a left-turn lane is missing.
 Warning: Minor green from edge '7727483#3' to edge '-7216737#3' exceeds 19.44m/s. Maybe a left-turn lane is missing.
 Warning: Minor green from edge '-24214694' to edge '24214693#0' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: Minor green from edge '7216737#3' to edge '24214694' exceeds 19.44m/s. Maybe a left-turn lane is missing.
 Warning: Could not compute smooth shape from lane '-7727483#0_0' to lane '7727482_0'. Use option 'junctions.scurve-stretch' or increase radius of junction '38920501' to fix this.
+Warning: 8 total messages of type: Minor green from edge '%' to edge '%' exceeds %m/s. Maybe a left-turn lane is missing.
