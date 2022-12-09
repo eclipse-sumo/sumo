@@ -1,0 +1,5 @@
+# test trip with intermediate stop
+stop
+
+# test trip with intermediate bus stop
+busStop
