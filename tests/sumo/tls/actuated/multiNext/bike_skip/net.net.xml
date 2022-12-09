@@ -111,8 +111,9 @@
     </edge>
 
     <tlLogic id="J1" type="actuated" programID="0" offset="0">
-        <phase duration="42" state="GGgrrrrrrgGgrrr" minDur="5" maxDur="50" next="4 2"/>
-        <phase duration="3"  state="yyyrrrryyyyyrrr"/>
+        <phase duration="42" state="GGgrrrrrrgGgrrr" minDur="5" maxDur="50" next="1 2"/>
+        <phase duration="3"  state="yyyrrrrrryyyrrr" name="0->5" next="5"/>
+        <phase duration="3"  state="yyyrrrryyyyyrrr" name="0->3"/>
         <phase duration="2"  state="rrrrrrrGGrrrrrr" minDur="5" maxDur="120"/>
         <phase duration="3"  state="rrrrrrryyrrrrrr"/>
         <phase duration="42" state="rrrGGGgrrrrrGGg" minDur="5" maxDur="50"/>
