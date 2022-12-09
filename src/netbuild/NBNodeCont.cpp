@@ -2083,7 +2083,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
         }
 
         // check which nodes should be controlled
-        const int defaultSlack = oc.getInt("tls.guess-signals.slack");
+        const int slack = oc.getInt("tls.guess-signals.slack");
         for (std::map<std::string, NBNode*>::const_iterator i = myNodes.begin(); i != myNodes.end(); ++i) {
             NBNode* node = i->second;
             if (myUnsetTLS.count(node) != 0) {
@@ -2095,43 +2095,49 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
                     && !NBNodeTypeComputer::isRailwayNode(node)
                     && node->getType() != SumoXMLNodeType::RAIL_CROSSING) {
                 std::vector<const NBNode*> signals;
-                bool isTLS = true;
-                int slack = defaultSlack;
+                int foundSignals = 0;
+                int missingSignals = 0;
                 // check if there is a signal at every incoming edge
                 for (EdgeVector::const_iterator it_i = incoming.begin(); it_i != incoming.end(); ++it_i) {
                     const NBEdge* inEdge = *it_i;
-                    if (inEdge->getSignalOffset() == NBEdge::UNSPECIFIED_SIGNAL_OFFSET && inEdge->getPermissions() != SVC_TRAM) {
+                    if (inEdge->getSignalOffset() == NBEdge::UNSPECIFIED_SIGNAL_OFFSET) {
+                        if ((inEdge->getPermissions() & SVC_PASSENGER) != 0) {
 #ifdef DEBUG_GUESSSIGNALS
-                        if (DEBUGCOND(node)) {
-                            std::cout << " noTLS, edge=" << inEdge->getID() << "\n";
-                        }
+                            if (DEBUGCOND(node)) {
+                                std::cout << " noTLS, edge=" << inEdge->getID() << "\n";
+                            }
 #endif
-                        if (slack == 0) {
-                            isTLS = false;
-                            break;
+                            missingSignals++;
+                            if (missingSignals > slack) {
+                                break;
+                            }
                         }
-                        slack--;
+                    } else {
+                        foundSignals++;
                     }
                 }
-                if (isTLS) {
-                    int slack = defaultSlack;
+                missingSignals = 0;
+                int foundSignalsAtDist = 0;
+                if (foundSignals > 1 && missingSignals <= slack && missingSignals < foundSignals) {
                     node->updateSurroundingGeometry();
                     // check if all signals are within the required distance
                     // (requires detailed geometry computation)
                     for (EdgeVector::const_iterator it_i = incoming.begin(); it_i != incoming.end(); ++it_i) {
                         const NBEdge* inEdge = *it_i;
-                        if ((inEdge->getSignalOffset() == NBEdge::UNSPECIFIED_SIGNAL_OFFSET || inEdge->getSignalOffset() > signalDist)
-                                && inEdge->getPermissions() != SVC_TRAM) {
+                        if (inEdge->getSignalOffset() == NBEdge::UNSPECIFIED_SIGNAL_OFFSET || inEdge->getSignalOffset() > signalDist) {
+                            if ((inEdge->getPermissions() & SVC_PASSENGER) != 0) {
 #ifdef DEBUG_GUESSSIGNALS
-                            if (DEBUGCOND(node)) {
-                                std::cout << " noTLS, edge=" << inEdge->getID() << " offset=" << inEdge->getSignalOffset() << " tlsPos=" << inEdge->getSignalPosition() << "\n";
-                            }
+                                if (DEBUGCOND(node)) {
+                                    std::cout << " noTLS, edge=" << inEdge->getID() << " offset=" << inEdge->getSignalOffset() << " tlsPos=" << inEdge->getSignalPosition() << "\n";
+                                }
 #endif
-                            if (slack == 0) {
-                                isTLS = false;
-                                break;
+                                missingSignals++;
+                                if (missingSignals > slack) {
+                                    break;
+                                }
                             }
-                            slack--;
+                        } else {
+                            foundSignalsAtDist++;
                         }
                         const NBNode* signal = inEdge->getSignalNode();
                         if (signal != nullptr) {
@@ -2152,7 +2158,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
                         }
                     }
                 }
-                if (isTLS) {
+                if (foundSignalsAtDist > 1 && missingSignals <= slack && missingSignals < foundSignalsAtDist) {
                     for (const NBNode* s : signals) {
                         std::set<NBTrafficLightDefinition*> tls = s->getControllingTLS();
                         const_cast<NBNode*>(s)->reinit(s->getPosition(), SumoXMLNodeType::PRIORITY);
