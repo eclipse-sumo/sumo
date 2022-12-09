@@ -1,0 +1,7 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="ego" depart="0">
+        <route edges="SC CN">
+            <stop lane="SC_0" endPos="60" duration="5"/>
+        </route>
+    </vehicle>
+</routes>

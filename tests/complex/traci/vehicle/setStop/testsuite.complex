@@ -1,3 +1,5 @@
+# stop on internal lane
+newInternalStop
 newStop
 
 # Copy of newStop
