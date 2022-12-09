@@ -247,10 +247,11 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
     ConstMSEdgeVector oldEdgesRemaining(source == *myCurrEdge ? myCurrEdge : myCurrEdge + 1, myRoute->end());
     ConstMSEdgeVector edges;
     ConstMSEdgeVector stops;
+    std::set<int> jumps;
     if (myParameter->via.size() == 0) {
         double firstPos = -1;
         double lastPos = -1;
-        stops = getStopEdges(firstPos, lastPos);
+        stops = getStopEdges(firstPos, lastPos, jumps);
         if (stops.size() > 0) {
             const double sourcePos = onInit ? 0 : getPositionOnLane();
             // avoid superfluous waypoints for first and last edge
@@ -291,9 +292,16 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
         }
     }
 
+    int stopIndex = -1;
     for (const MSEdge* const stopEdge : stops) {
+        stopIndex++;
         // !!! need to adapt t here
         ConstMSEdgeVector into;
+        if (jumps.count(stopIndex) != 0) {
+            edges.push_back(source);
+            source = stopEdge;
+            continue;
+        }
         router.computeLooped(source, stopEdge, this, t, into, silent);
         //std::cout << SIMTIME << " reroute veh=" << getID() << " source=" << source->getID() << " target=" << (*s)->getID() << " edges=" << toString(into) << "\n";
         if (into.size() > 0) {
@@ -1344,13 +1352,16 @@ MSBaseVehicle::haveValidStopEdges() const {
 
 
 const ConstMSEdgeVector
-MSBaseVehicle::getStopEdges(double& firstPos, double& lastPos) const {
+MSBaseVehicle::getStopEdges(double& firstPos, double& lastPos, std::set<int>& jumps) const {
     assert(haveValidStopEdges());
     ConstMSEdgeVector result;
     const MSStop* prev = nullptr;
     const MSEdge* internalSuccessor = nullptr;
     for (const MSStop& stop : myStops) {
         if (stop.reached) {
+            if (stop.pars.jump >= 0) {
+                jumps.insert(result.size());
+            }
             continue;
         }
         const double stopPos = stop.getEndPos(*this);
@@ -1371,6 +1382,9 @@ MSBaseVehicle::getStopEdges(double& firstPos, double& lastPos) const {
             firstPos = stopPos;
         }
         lastPos = stopPos;
+        if (stop.pars.jump >= 0) {
+            jumps.insert(result.size() - 1);
+        }
     }
     //std::cout << "getStopEdges veh=" << getID() << " result=" << toString(result) << "\n";
     return result;
