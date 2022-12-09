@@ -507,7 +507,7 @@ The desired driving speed usually varies among the vehicle of a fleet.
 In SUMO this is modeled by assigning to each vehicle an individual multiplier which gets applied to the road speed limit.
 This multiplier is called the *individual speedFactor* or in short the *speedFactor of a vehicle*.
 The product of road speed limit and the individual speed factor gives the desired free flow driving speed of a vehicle.
-If the individual speedFactor is larger than 1 vehicles can exceed edge speeds. However, vehicle speeds are still
+If the individual speedFactor is larger than 1, vehicles can exceed edge speeds. However, vehicle speeds are still
 capped at the vehicle type's **maxSpeed**.
 
 While it is possible to assign the individual speedFactor value directly in a `<vehicle>`, `<trip>` or even `<flow>` definition using attribute `speedFactor`, a more common use case is to define the distribution of these factors for a `<vType>`.
