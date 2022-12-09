@@ -1,0 +1,23 @@
+# define an explicit jump (disconnect) in the route
+trip_jump
+
+# define an explicit jump (disconnect) in the route
+trip_jump_end
+
+# jump twice
+trip_jump2
+
+# define an explicit jump despite there being a possible route
+trip_jump_connected
+
+# define an explicit jump (disconnect) in the route
+jump
+
+# define an explicit jump (disconnect) in the route
+jump_end
+
+# jump twice
+jump2
+
+# define an explicit jump despite there being a possible route
+jump_connected

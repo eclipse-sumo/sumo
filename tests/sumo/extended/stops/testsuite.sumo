@@ -11,6 +11,9 @@ parkingArea_onRoad
 # skip stops if possible
 onDemand
 
+# routes and trips with intentional gaps
+jumps
+
 # test invalid stop definitions
 errors
 
