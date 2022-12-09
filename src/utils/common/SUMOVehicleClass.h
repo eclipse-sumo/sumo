@@ -434,5 +434,6 @@ extern const std::set<std::string> DEFAULT_VTYPES;
 extern const double DEFAULT_VEH_PROB; // !!! does this belong here?
 
 extern const double DEFAULT_PEDESTRIAN_SPEED;
+extern const double DEFAULT_BICYCLE_SPEED;
 
 extern const double DEFAULT_CONTAINER_TRANSHIP_SPEED;

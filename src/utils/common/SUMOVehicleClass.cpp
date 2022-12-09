@@ -165,6 +165,8 @@ const double DEFAULT_VEH_PROB(1.);
 
 const double DEFAULT_PEDESTRIAN_SPEED(5. / 3.6);
 
+const double DEFAULT_BICYCLE_SPEED(20. / 3.6);
+
 const double DEFAULT_CONTAINER_TRANSHIP_SPEED(5. / 3.6);
 
 // ===========================================================================
