@@ -57,6 +57,8 @@ height 1.5
 stopDelay -1.0
 stopArrivalDelay -1073741824.0
 timeLoss 1.50790337508
+departure 0.0
+departDelay 0.0
 lcStrategic 1.00
 lcCooperative 1.00
 lcSpeedGain 1.00
@@ -144,6 +146,8 @@ height 1.6
 stopDelay -1.0
 stopArrivalDelay -1073741824.0
 timeLoss 2.22304966151
+departure 0.0
+departDelay 0.0
 lcStrategic 2.00
 lcCooperative 1.00
 lcSpeedGain 1.00
@@ -231,6 +235,8 @@ height 1.5
 stopDelay -1.0
 stopArrivalDelay -1073741824.0
 timeLoss 0.0
+departure -1073741824.0
+departDelay 0.0
 lcStrategic 1.00
 lcCooperative 1.00
 lcSpeedGain 1.00
@@ -338,6 +344,8 @@ height 1.5
 stopDelay -1.0
 stopArrivalDelay -1073741824.0
 timeLoss 1.37728671814
+departure 10.0
+departDelay 3.0
 lcStrategic 1.00
 lcCooperative 1.00
 lcSpeedGain 1.00
@@ -693,6 +701,8 @@ height 1.5
 stopDelay -1.0
 stopArrivalDelay -1073741824.0
 timeLoss -0.250225022502
+departure 125.0
+departDelay 0.0
 lcStrategic 1.00
 lcCooperative 1.00
 lcSpeedGain 1.00
@@ -832,6 +842,8 @@ height 1.5
 stopDelay -1.0
 stopArrivalDelay -1073741824.0
 timeLoss 0.0
+departure -1073741824.0
+departDelay 0.0
 lcStrategic 1.00
 lcCooperative 1.00
 lcSpeedGain 1.00
@@ -911,6 +923,8 @@ height 1.5
 stopDelay -1.0
 stopArrivalDelay -1073741824.0
 timeLoss 0.0
+departure -1073741824.0
+departDelay 0.0
 lcStrategic 1.00
 lcCooperative 1.00
 lcSpeedGain 1.00
@@ -990,6 +1004,8 @@ height 1.5
 stopDelay -1.0
 stopArrivalDelay -1073741824.0
 timeLoss 0.0
+departure -1073741824.0
+departDelay 0.0
 lcStrategic 1.00
 lcCooperative 1.00
 lcSpeedGain 1.00
@@ -1069,6 +1085,8 @@ height 1.5
 stopDelay -1.0
 stopArrivalDelay -1073741824.0
 timeLoss 0.0
+departure -1073741824.0
+departDelay 0.0
 lcStrategic 1.00
 lcCooperative 1.00
 lcSpeedGain 1.00
