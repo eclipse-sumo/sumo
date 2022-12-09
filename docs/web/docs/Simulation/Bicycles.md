@@ -88,9 +88,10 @@ In this case, persons walking at high speed are used.
 ## Automatic import
 
 The import of bicycle lanes from OpenStreetMap is supported since
-version 0.24.0. To use this, [an appropriate
-typemap](../Networks/Import/OpenStreetMap.md#recommended_typemaps)
-must be loaded.
+version 0.24.0. Since version 1.17.0 you can enable them using
+the option **--osm.bike-access**. The earlier 
+[typemap approach](../Networks/Import/OpenStreetMap.md#recommended_typemaps)
+can still be used (also together with the option to modify bike lane widths).
 
 ## Generating a network with bike lanes
 
@@ -175,10 +176,10 @@ Sometimes, bicycles/motorpads do not wait side by side properly. The following p
 | shapefile or other data without bicycle info    | no bicycle infrastructure      | none                  |
 |                                                 | bicycle lanes where applicable | **--bikelanes.guess** |
 | OpenStreetMap                                   | no bicycle infrastructure      | none                  |
-|                                                 | bicycle lanes as in the input  | **--osm.bike-access** and the [{{SUMO}}/data/typemap/osmNetconvertBicycle.typ.xml](bicycle type map) |
+|                                                 | bicycle lanes as in the input  | **--osm.bike-access** |
 |                                                 | guessed bicycle lanes (discarding input) | a typemap which gives a bikelane width to all street types which should receive one or **--bikelanes.guess** |
 
-The options above only apply to adding further lanes for existing streets. Separate bike paths are always imported
+The options above only apply to adding further lanes for existing streets or foot paths. Separate bike paths are always imported
 (if the typemap or other filter options do not prevent it).
 
 
