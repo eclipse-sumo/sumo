@@ -51,7 +51,7 @@ ROVehicle::ROVehicle(const SUMOVehicleParameter& pars,
                      const RONet* net, MsgHandler* errorHandler):
     RORoutable(pars, type),
     myRoute(route),
-    myHaveJumps(false)
+    myJumpTime(-1)
 {
     getParameter().stops.clear();
     if (route != nullptr && route->getFirstRoute() != nullptr) {
@@ -121,7 +121,10 @@ ROVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, const RONet* net, 
                 errorHandler->inform("Jumps are not supported from internal stop edge '" + stopEdge->getID() + "'.");
             }
         } else {
-            myHaveJumps = true;
+            if (myJumpTime < 0) {
+                myJumpTime == 0;
+            }
+            myJumpTime += stopPar.jump;
         }
     }
 }

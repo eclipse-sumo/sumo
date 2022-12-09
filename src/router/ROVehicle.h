@@ -123,7 +123,11 @@ public:
     }
 
     inline bool hasJumps() const {
-        return myHaveJumps;
+        return myJumpTime >= 0;
+    }
+
+    inline SUMOTime getJumpTime() const {
+        return myJumpTime;
     }
 
     /// @brief collect mandatory-edge iterators that define jumps in the route
@@ -159,7 +163,7 @@ private:
     ConstROEdgeVector myStopEdges;
 
     /// @brief Whether this vehicle has any jumps defined
-    bool myHaveJumps;
+    SUMOTime myJumpTime;
 
     /// @brief map of all routes that were already saved with a name
     static std::map<ConstROEdgeVector, std::string> mySavedRoutes;

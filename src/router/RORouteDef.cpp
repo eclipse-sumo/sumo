@@ -291,9 +291,14 @@ RORouteDef::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
             delete myAlternatives[0];
             myAlternatives[0] = current;
         }
-        const double costs = router.recomputeCosts(current->getEdgeVector(), veh, begin);
+        double costs = router.recomputeCosts(current->getEdgeVector(), veh, begin);
         if (costs < 0) {
             throw ProcessError("Route '" + getID() + "' (vehicle '" + veh->getID() + "') is not valid.");
+        }
+        if (veh->hasJumps()) {
+            // @todo: jumpTime should be applied in recomputeCost to ensure the
+            // correctness of time-dependent traveltimes
+            costs += STEPS2TIME(veh->getJumpTime());
         }
         current->setCosts(costs);
         return;
