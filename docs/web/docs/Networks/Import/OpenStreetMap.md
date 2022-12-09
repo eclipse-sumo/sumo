@@ -88,7 +88,7 @@ below.
   typical urban speed limits (50km/h).
 - **osmNetconvertPedestrians.typ.xml** Adds sidewalks for some edge
   types and sets permissions appropriate for pedestrian simulation.
-- **osmNetconvertBicycle.typ.xml** Imports bicycle lanes.
+- **osmNetconvertBicycle.typ.xml** Adapts the width of bicycle lanes.
 - **osmNetconvertShips.typ.xml** Imports waterways and ferry routes.
   This typemap can be combined with any other typemap.
 - **osmNetconvertRailUsage.typ.xml** Imports additional
@@ -107,16 +107,16 @@ below.
 
 ### Bicycle Traffic
 
-Importing bicycle infrastructure can be achieved using the option **--osm-bike-access** and the bicycle typemap.
-The first will evaluate the [bike=yes/no tags](https://wiki.openstreetmap.org/wiki/Key:bicycle)
-as well as oneway information for bicycles. This usually applies only to the permissions
-for existing lanes and streets. If you want to add further bike lanes use the bicycle
+Importing bicycle infrastructure can be achieved using the option **--osm-bike-access**.
+It will evaluate the [bicycle=yes/no tags](https://wiki.openstreetmap.org/wiki/Key:bicycle)
+as well as oneway information for bicycles and trigger the addition of separate bike lanes.
+If you want to modify the width of the bike lanes depending on the street type use the bicycle
 type map mentioned above.
 
 ### Pedestrian Traffic
 
 By default only footpaths (osm ways dedicated for pedestrian use) are imported.
-To import all sidewalk related information, the option **--sidewalks** can be set. Alternatively, sidwalks can be added heuristically via typemaps (see above) or [guessing-options](../../Simulation/Pedestrians.md#generating_a_network_with_sidewalks)
+To import all sidewalk related information, the option **--osm.sidewalks** can be set. Alternatively, sidewalks can be added heuristically via typemaps (see above) or [guessing-options](../../Simulation/Pedestrians.md#generating_a_network_with_sidewalks)
 
 ### Lane-To-Lane Connections
 
@@ -601,11 +601,11 @@ By adding a typemap such as {{SUMO_HOME}}/data/osmNetconvertPedestrians.typ.xml,
 OSM-sidewalk data will only be considered if it explicitly disables sidewalks on an edge.
 This ensures good sidewalk coverage but may lead to double-sidewalks if OSM modellers have added the "sidewalks" as parallel foot paths edges.
 
-## Sidwalks from OSM
+## Sidewalks from OSM
 
 By setting option **--osm.sidewalks**, all sidewalk data from OSM will be loaded. When combined with a typemap such as {{SUMO_HOME}}/data/osmNetconvertPedestrians.typ.xml, the typemap will only be used to configure sidewalk widths but no extra sidewalks will be added.
 
-When **--osm.sidewalks** is set, by setting option **--osm.crosswalks** the "highway=crossing" tags will be loaded and crossings will be generated.
+When **--osm.sidewalks** is set, by setting option **--osm.crossings** the "highway=crossing" tags will be loaded and crossings will be generated.
 
 This definition style prevents double-sidewalks but may lead to missing sidewalks wherever OSM modellers did not add sidewalk information.
 
