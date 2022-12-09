@@ -1401,7 +1401,7 @@ NBNodeCont::feasibleCluster(const NodeSet& cluster, const std::map<const NBNode*
         }
     }
 #endif
-    if (finalIncomingAngles.size() > 4) {
+    if (finalIncomingAngles.size() > 5) {
         reason = toString(finalIncomingAngles.size()) + " incoming edges";
         return false;
     }
