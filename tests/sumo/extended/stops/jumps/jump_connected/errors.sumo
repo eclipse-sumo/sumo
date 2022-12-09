@@ -1,2 +1,2 @@
-Error: Vehicle 'v0' has no valid route. No connection between edge 'E0' and edge 'E2'.
-Quitting (on error).
+Warning: Teleporting vehicle 'v0'; waited too long (wrong lane), lane='E0_0', time=321.00.
+Warning: Vehicle 'v0' ends teleporting on edge 'E2', time=321.00.

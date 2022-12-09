@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-12-09 15:51:37 by Eclipse SUMO sumo Version v1_15_0+0925-15bf76d
+<!-- generated on 2022-12-09 16:09:48 by Eclipse SUMO sumo Version v1_15_0+0928-3b0c992
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,7 +15,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <input>
         <net-file value="net2.net.xml"/>
-        <route-files value="input_trips.trips.xml"/>
+        <route-files value="input_routes.rou.xml"/>
         <additional-files value="input_additional.add.xml"/>
     </input>
 
@@ -37,4 +37,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="v0" depart="0.00" arrival="686.00">
+        <route edges="E0 E2 E3 E4 E5"/>
+        <stop busStop="bs_0" duration="5.00" jump="6.00"/>
+        <stop busStop="bs_1" duration="5.00" jump="10.00"/>
+        <stop busStop="bs_2" duration="5.00"/>
+        <stop busStop="bs_3" duration="5.00"/>
+    </vehicle>
+
 </routes>
