@@ -2051,6 +2051,9 @@ MSLane::executeMovements(const SUMOTime t) {
             // vehicle started to park
             MSVehicleTransfer::getInstance()->add(t, veh);
             myParkingVehicles.insert(veh);
+        } else if (veh->isJumping()) {
+            // vehicle jumps to next route edge
+            MSVehicleTransfer::getInstance()->add(t, veh);
         } else if (veh->getPositionOnLane() > getLength()) {
             // for any reasons the vehicle is beyond its lane...
             // this should never happen because it is handled in MSVehicle::executeMove

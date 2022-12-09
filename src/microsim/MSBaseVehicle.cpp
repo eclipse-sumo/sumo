@@ -959,6 +959,12 @@ MSBaseVehicle::isParking() const {
 
 
 bool
+MSBaseVehicle::isJumping() const {
+    return myPastStops.size() > 0 && myPastStops.back().jump >= 0 && getEdge()->getID() == myPastStops.back().edge;
+}
+
+
+bool
 MSBaseVehicle::isStoppedTriggered() const {
     return isStopped() && (myStops.begin()->triggered || myStops.begin()->containerTriggered || myStops.begin()->joinTriggered);
 }

@@ -586,6 +586,11 @@ public:
      */
     bool isParking() const;
 
+    /** @brief Returns whether the vehicle is perform a jump
+     * @return whether the vehicle is starting to jump
+     */
+    bool isJumping() const;
+
     /** @brief Returns whether the vehicle is on a triggered stop
      * @return whether the vehicle is on a triggered stop
      */
