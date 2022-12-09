@@ -8,6 +8,7 @@ title: ChangeLog
 
 - Simulation 
   - Fixed crash when defining ride without lines. Issue #12167 (regression in 1.11.0)
+  - Fixed invalid blocked state while decelerating and trying to perform lane change. Issue #12108
   - Fixed invalid walking distance output related to lengths of crossings and walkingArea paths. Issue #11983
   - Fixed invalid braking at internal junction. Issue #12000
   - Fixed invalid right of way rules when for two conflicting connections with internal junctions. Issue #11988
@@ -20,6 +21,7 @@ title: ChangeLog
   - Fixed invalid error when loading edgeData with negative electricity consumption. Issue #12172
   - Fixed invalid insertion delay for trains on bidirectional track. Issue #12079
   - Fixed deadlock on bidirectional track involving trains that arrive within a block. Issue #12184
+  - Fixed crash when letting persons route between identical junctions. Issue #12242
   - sublane model fixes:
     - Fixed invalid emergency braking for junction foe. Issue #12202
     - Fixed inconsistent computation for vehicle back position. Issue #12146
@@ -37,6 +39,16 @@ title: ChangeLog
   - Fixed crash when using option **--prefix**. Issue #12024
   - Fixed bug that permitted invalid combination of stops and and via attribute. Issue #11961
   - The grouping of inspected overlapped elements no longer includes invisible elements. Issue #12126
+  - Move mode can now toggle whether closely spaced geometry points shall be automatically removed. Issue #12244
+
+- sumo-gui
+  - Pedestrians now follow the exact shape of access lines while in access stage. Issue #12116
+  - Aggregated warning summary is now written at simulation end. Issue #12209
+  - Fixed invalid objects in right-click disambiguation menu. Issue #12046
+  
+- meso
+  - Stopping at pos=0 is now working. Issue #12240
+  - Picking up persons and containers with `lines="ANY"` is now working. Issue #12241
 
 - netconvert
   - Fixed unnecessary dead-end lanes at large intersections. Issue #2472
@@ -51,6 +63,8 @@ title: ChangeLog
   - Fixed invalid guessed connections. Issue #10771, #10978, #2472, #12181
   - Fixed missing bidi edges in generated network. Issue #12127
   - OSM import no longer ignores spreadType in typemap. Issue #12141
+  - Fixed invalid bike lane in OSM import. Issue #12216
+  - Fixed invalid bidirectional combined foot/bike path. Issue #12214
   
 - polyconvert
   - Fixed invalid polygon output for some line based inputs. Issue #12161
@@ -67,10 +81,15 @@ title: ChangeLog
   - tlsCycleAdaptation.py: Fixed mismatch between optimal and actual cycle duration. Issue #12068
   - generateRailSignalConstraints.py: Fixed inconsistent bidiPredecessors. Issue #12075
   - tracemapper.py: Fixed duplicate consecutive edges in route. Issue #12094
+  - cutRoutes.pyL No longer writes persons without a plan. Issue #12245
 
 - All Applications: Fixed crash if gzipped outputfile cannot be opened. Issue #11954
 
 ### Enhancements
+
+- Simulation
+  - Elements `<ride>` and `<transport>` can now be defined without attribute `lines` and default to a value of `ANY` (taking any eligible vehicle that stops at the destination). Issue #12167
+  - Option **--fcd-output.attributes** now supports the attribute `speedLat` for writing lateral speeds. Issue #12213
 
 - netconvert
   - The right-of-way rules to take effect when switching a traffic light off, can now be configured as 'allway_stop'. This is the new default for NEMA-type controllers. Issue #12043
@@ -81,6 +100,13 @@ title: ChangeLog
   - Warnings of E3 detectors and from the SSM device can now be aggregated. Issue #12149
   - Individual lane widths are now import from OpenStreetMap. Issue #12162
   - Lane divider style can now be exported from OSM to OpenDRIVE. Issue #12158
+  - Traffic signs from OSM can now be exported to OpenDRIVE. Issue #12231
+  - Pedestrian crossings are now exported to OpenDRIVE. Issue #12229
+  - Added option **--osm.crossings** to import pedestrian crossings from OSM. Issue #12238
+  - Now separating lanes for bikes and pedestrians according to OSM declerations. Issue #12215
+  - Option **--osm.bike-access** now serves to add any addtional bike lanes declared in OSM without the need to load another typemap (The typemap may still be used to customize bike lane withs for different categories of lanes). Issue #12228
+  - Added option **--tls.rebuild** to rebuild all loaded traffic light plans. Issue #12250
+  - Added option **--tls.guess-signals.slack** to identify more controlled intersections by guessing from surrounding *simple* tls nodes. Issue #12249
 
 - netedit
   - Added TimeStamp in Undo-Redo list. Issue #11744
@@ -93,10 +119,13 @@ title: ChangeLog
   - Added MeanData mode to create and modify `<edgeData>` and `<laneData>` definitions. Issue #11897
   - Recently used files are now in a sub-menu. Issue #12025
   - Geometry points are now drawn above everything else in move mode. Issue #11725
+  - Geometry points now change color in move mode to indicate whether a click would create or merge points. Isse #12177
 
 - sumo-gui
   - Wne option **--use-stop-ended** is set, show-route mode now labels the 'ended' time of stops. Issue #11833
   - The view now updates after loading a selection file. Issue #12191
+  - Whenever the simulation has tripinfo-devices, the trip based statistics are available in the network parameter dialog. Issue #12207
+  - A rainbow color scale can now be defined between upper and lower "hiding" thresholds even when there is no data yet. Issue #11978
 
 - Tools
   - gtfs2pt.py: Now writing short route id and headsign as params. Issue #11819
@@ -105,6 +134,7 @@ title: ChangeLog
   - countEdgeUsage.py: Now permits loading named routes. Issue #12010
   - implausibleRoutes.py: Added options **--additional-file**, **--unsorted-input** and **--ignore-errors** which are passed to duarouter when needed. Issue #12090
   - tracemapper.py: Added option **--vehicle-class** to guide edge mapping. Issue #12117
+  - implausibleRoutes.py: Added options to handle unsorted input and additional files when duarouter is being called. Issue #12069
   - plotXMLAttributes.py
     - can now plot data without assigning ids to the data points. Issue #11969
     - can now plot categorical (non-numerical) data and also a mix of data types. Issue #11970, #11976
