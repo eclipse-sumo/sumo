@@ -95,6 +95,7 @@ const int STOP_ENDED_SET = 2 << 16;
 const int STOP_STARTED_SET = 2 << 17;
 const int STOP_POSLAT_SET = 2 << 18;
 const int STOP_ONDEMAND_SET = 2 << 19;
+const int STOP_JUMP_SET = 2 << 20;
 
 const double MIN_STOP_LENGTH = 2 * POSITION_EPS;
 
@@ -434,6 +435,9 @@ public:
 
         /// @brief whether the stop may be skipped
         bool onDemand = false;
+
+        /// @brief transfer time if there shall be a jump from this stop to the next route edge
+        SUMOTime jump = -1;
 
         /// @brief the time at which this stop was reached
         mutable SUMOTime started = -1;

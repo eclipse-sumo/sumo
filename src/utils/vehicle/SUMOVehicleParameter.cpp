@@ -289,6 +289,9 @@ SUMOVehicleParameter::Stop::write(OutputDevice& dev, const bool close, const boo
     if ((parametersSet & STOP_ONDEMAND_SET) != 0) {
         dev.writeAttr(SUMO_ATTR_ONDEMAND, onDemand);
     }
+    if ((parametersSet & STOP_JUMP_SET) != 0 && jump >= 0) {
+        dev.writeAttr(SUMO_ATTR_JUMP, time2string(jump));
+    }
     if (collision) {
         dev.writeAttr(SUMO_ATTR_COLLISION, collision);
     }
