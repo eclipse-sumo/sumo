@@ -1147,7 +1147,8 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
     } else {
         if (stopPar.index == STOP_INDEX_FIT) {
             while (iter != myStops.end() && (iter->edge < stop.edge ||
-                                             (iter->pars.endPos < stop.pars.endPos && iter->edge == stop.edge))) {
+                                             (iter->pars.endPos < stop.pars.endPos && iter->edge == stop.edge) || 
+                                            (stop.lane->getEdge().isInternal() && iter->edge == stop.edge))) {
                 prevStopEdge = iter->edge;
                 prevStopPos = iter->pars.endPos;
                 ++iter;
