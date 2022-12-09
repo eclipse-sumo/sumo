@@ -322,6 +322,22 @@ inline std::string joinNamedToString(const std::set<T*, C>& ns, const T_BETWEEN&
 }
 
 
+template <typename KEY, typename VAL, typename T_BETWEEN, typename T_BETWEEN_KEYVAL>
+inline std::string joinNamedToString(const std::map<KEY, VAL, ComparatorIdLess>& s, const T_BETWEEN& between, const T_BETWEEN_KEYVAL& between_keyval, std::streamsize accuracy = gPrecision) {
+    std::ostringstream oss;
+    bool connect = false;
+    for (typename std::map<KEY, VAL>::const_iterator it = s.begin(); it != s.end(); ++it) {
+        if (connect) {
+            oss << toString(between, accuracy);
+        } else {
+            connect = true;
+        }
+        oss << Named::getIDSecure(it->first) << between_keyval << toString(it->second, accuracy);
+    }
+    return oss.str();
+}
+
+
 template <typename V>
 inline std::string toString(const std::set<V*>& v, std::streamsize accuracy = gPrecision) {
     UNUSED_PARAMETER(accuracy);

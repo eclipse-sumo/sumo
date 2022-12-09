@@ -1395,8 +1395,8 @@ NBNodeCont::feasibleCluster(const NodeSet& cluster, const std::map<const NBNode*
     for (NBNode* n : cluster) {
         if (DEBUGCOND(n)) {
             std::cout << "feasibleCluster c=" << joinNamedToString(cluster, ',')
-                      << "\n inAngles=" << joinToString(finalIncomingAngles, ' ', ':')
-                      << "\n outAngles=" << joinToString(finalOutgoingAngles, ' ', ':')
+                      << "\n inAngles=" << joinNamedToString(finalIncomingAngles, ' ', ':')
+                      << "\n outAngles=" << joinNamedToString(finalOutgoingAngles, ' ', ':')
                       << "\n";
         }
     }
