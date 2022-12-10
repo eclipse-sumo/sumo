@@ -37,6 +37,7 @@ traci.start([sumoBinary,
 vehID = "v0"
 try:
     print("delay before departure", traci.vehicle.getStopDelay(vehID))
+    print("arrivalDelay before departure", traci.vehicle.getStopArrivalDelay(vehID))
 except traci.TraCIException:
     pass
 
