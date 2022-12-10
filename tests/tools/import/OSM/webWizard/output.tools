@@ -5,11 +5,11 @@ Parsing types from '/home/kobo/dlr/sumo/data/typemap/osmNetconvertPedestrians.ty
 Parsing types from '/home/kobo/dlr/sumo/data/typemap/osmNetconvertShips.typ.xml' ... done.
 Parsing types from '/home/kobo/dlr/sumo/data/typemap/osmNetconvertBicycle.typ.xml' ... done.
 Parsing types from '/home/kobo/dlr/sumo/data/typemap/osmNetconvertAerialway.typ.xml' ... done.
-Parsing nodes from osm-file '/home/kobo/.texttest/tmp/tools.08Dec073247.213938/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... 
+Parsing nodes from osm-file '/home/kobo/.texttest/tmp/tools.10Dec084425.316483/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... 
 Found and substituted 1 osm nodes.
-done (627ms).
-Parsing edges from osm-file '/home/kobo/.texttest/tmp/tools.08Dec073247.213938/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... 
-done (521ms).
+done (558ms).
+Parsing edges from osm-file '/home/kobo/.texttest/tmp/tools.10Dec084425.316483/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... 
+done (570ms).
 Removing duplicate edges ... 
 Removed 3 duplicate osm edges.
 done.
@@ -23,8 +23,8 @@ Adding new type 'cycleway.lane|highway.pedestrian' (first occurence for edge '24
 Adding new type 'cycleway.lane|highway.residential' (first occurence for edge '38208961').
 Adding new type 'cycleway.track|highway.secondary' (first occurence for edge '60333309').
 Adding new type 'highway.service|railway.tram' (first occurence for edge '388702047').
-Parsing relations from osm-file '/home/kobo/.texttest/tmp/tools.08Dec073247.213938/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... 
-done (408ms).
+Parsing relations from osm-file '/home/kobo/.texttest/tmp/tools.10Dec084425.316483/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... 
+done (481ms).
  Removed 125 traffic lights before loading plain-XML
  Import done:
    3434 nodes loaded.
@@ -33,9 +33,9 @@ done (408ms).
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Removing self-loops ... done (1ms).
 Processing public transport stops ... 
-done (2ms).
+done (3ms).
 Revising public transport stops based on pt lines ... 
-done (10ms).
+done (9ms).
 Align pt stop id signs with corresponding edge id signs ... done (0ms).
 Removing sharp turn with radius 1.40 at the start of edge '144014242#1'.
 Removing sharp turn with radius 1.76 at the end of edge '153522299#3'.
@@ -52,40 +52,40 @@ Reversed 5 sequences (count by length: 1:3 9:2)
 Added 4 edges to connect 3 buffer stops in both directions.
 Added 1 bidi-edges between 1 pairs of railway switches (count by length: 1:1)
 DijkstraRouter answered 69 queries and explored 30.10 edges on average.
-DijkstraRouter spent 0.00s answering queries (0.00ms on average).
+DijkstraRouter spent 0.00s answering queries (0.01ms on average).
 Joining junction clusters ... 
-done (24ms).
+done (25ms).
  Joined 120 junction cluster(s).
 Removing empty nodes and geometry nodes ... done (22ms).
    805 nodes removed.
 Moving network to origin ... done (97ms).
 Computing turning directions ... 
-done (5ms).
+done (4ms).
 Assigning nodes to traffic lights ... done (2ms).
 Guessing and setting on-/off-ramps ... done (7ms).
 Sorting nodes' edges ... done (6ms).
-Computing node shapes ... done (112ms).
-Computing edge shapes ... done (67ms).
-Computing node types ... done (4ms).
+Computing node shapes ... done (106ms).
+Computing edge shapes ... done (66ms).
+Computing node types ... done (5ms).
 Guessed 842 pedestrian crossings.
-Computing priorities ... done (4ms).
+Computing priorities ... done (5ms).
 Computing approached edges ... done (3ms).
 Guessing and setting roundabouts ... done (1ms).
-Computing approaching lanes ... done (11ms).
-Dividing of lanes on approached lanes ... done (10ms).
+Computing approaching lanes ... done (12ms).
+Dividing of lanes on approached lanes ... done (11ms).
 Processing turnarounds ... done (2ms).
 Rechecking of lane endings ... 
 done (2ms).
 Joining traffic light nodes ... done (3ms).
 Computing traffic light control information ... 
 done (2ms).
-Computing node logics ... done (28ms).
+Computing node logics ... done (36ms).
 Computing traffic light logics ... 
-done (15ms).
+done (17ms).
  56 traffic light(s) computed.
-Building inner edges ... done (109ms).
+Building inner edges ... done (125ms).
 Added 1 stops for superposed rail edges.
-Find accesses for pt rail stops ... done (108ms).
+Find accesses for pt rail stops ... done (112ms).
 DijkstraRouter answered 8 queries and explored 11.50 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
 -----------------------------------------------------
@@ -103,15 +103,15 @@ Summary:
   Applied offset     : -389562.46,-5817979.56
   Converted boundary : 0.00,0.00,4934.15,4470.73
 -----------------------------------------------------
-Writing network ... done (1091ms).
+Writing network ... done (1157ms).
 Success.
 Written configuration to 'osm.polycfg'
 Parsing network projection from 'osm.net.xml.gz' ... done (6ms).
-Parsing nodes from osm-file '/home/kobo/.texttest/tmp/tools.08Dec073247.213938/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (1324ms).
-Parsing relations from osm-file '/home/kobo/.texttest/tmp/tools.08Dec073247.213938/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (1137ms).
-Parsing edges from osm-file '/home/kobo/.texttest/tmp/tools.08Dec073247.213938/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (990ms).
+Parsing nodes from osm-file '/home/kobo/.texttest/tmp/tools.10Dec084425.316483/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (1177ms).
+Parsing relations from osm-file '/home/kobo/.texttest/tmp/tools.10Dec084425.316483/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (1038ms).
+Parsing edges from osm-file '/home/kobo/.texttest/tmp/tools.10Dec084425.316483/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (1030ms).
 Success.
-Building scenario in '/home/kobo/.texttest/tmp/tools.08Dec073247.213938/tools/import/OSM/webWizard/test'
+Building scenario in '/home/kobo/.texttest/tmp/tools.10Dec084425.316483/tools/import/OSM/webWizard/test'
 generating trips...
 Cannot extend route to fringe for line '1929070' (not enough edges given)
 Cannot extend route to fringe for line '1929071' (not enough edges given)
@@ -150,18 +150,18 @@ Success.
 Success.
 Success.
 Written configuration to 'osm.sumocfg'
-Loading net-file from '/home/kobo/.texttest/tmp/tools.08Dec073247.213938/tools/import/OSM/webWizard/test/osm.net.xml.gz' ... done (1098ms).
-Loading additional-files from '/home/kobo/.texttest/tmp/tools.08Dec073247.213938/tools/import/OSM/webWizard/test/osm.poly.xml.gz' ... done (303ms).
-Loading additional-files from '/home/kobo/.texttest/tmp/tools.08Dec073247.213938/tools/import/OSM/webWizard/test/osm_stops.add.xml' ... done (31ms).
+Loading net-file from '/home/kobo/.texttest/tmp/tools.10Dec084425.316483/tools/import/OSM/webWizard/test/osm.net.xml.gz' ... done (1106ms).
+Loading additional-files from '/home/kobo/.texttest/tmp/tools.10Dec084425.316483/tools/import/OSM/webWizard/test/osm.poly.xml.gz' ... done (295ms).
+Loading additional-files from '/home/kobo/.texttest/tmp/tools.10Dec084425.316483/tools/import/OSM/webWizard/test/osm_stops.add.xml' ... done (31ms).
 Loading done.
-Simulation version v1_15_0+0874-f80104bf5c0 started with time: 0.00.
-Simulation ended at time: 3254.00
+Simulation version v1_15_0+0937-9464a54b30d started with time: 0.00.
+Simulation ended at time: 3320.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 4.72s
- Real time factor: 690.138
- UPS: 30608.059385
- UPS-Persons: 34932.343584
+ Duration: 4.74s
+ Real time factor: 699.831
+ UPS: 30508.642496
+ UPS-Persons: 33917.580101
 Vehicles: 
  Inserted: 420
  Running: 0
@@ -171,32 +171,32 @@ Persons:
  Inserted: 189
  Running: 0
 Statistics (avg of 348):
- RouteLength: 1880.54
- Speed: 6.17
- Duration: 338.87
- WaitingTime: 64.08
- TimeLoss: 127.46
+ RouteLength: 1880.55
+ Speed: 6.16
+ Duration: 339.73
+ WaitingTime: 64.85
+ TimeLoss: 127.83
 Bike Statistics (avg of 72):
  RouteLength: 1543.34
- Speed: 4.27
- Duration: 366.53
- WaitingTime: 38.94
- TimeLoss: 74.11
+ Speed: 4.29
+ Duration: 368.17
+ WaitingTime: 40.92
+ TimeLoss: 75.78
 Statistics (avg of 420):
- DepartDelay: 0.39
+ DepartDelay: 0.41
 Pedestrian Statistics (avg of 395 walks):
- RouteLength: 301.47
- Duration: 251.04
- TimeLoss: 35.72
+ RouteLength: 303.55
+ Duration: 252.91
+ TimeLoss: 35.78
 Ride Statistics (avg of 165 rides):
- WaitingTime: 112.72
- RouteLength: 849.85
- Duration: 126.85
- Bus: 61
- Train: 91
- Aborted: 13
+ WaitingTime: 111.53
+ RouteLength: 859.06
+ Duration: 125.50
+ Bus: 62
+ Train: 93
+ Aborted: 10
 
-DijkstraRouter answered 8267 queries and explored 12.77 edges on average.
-DijkstraRouter spent 0.03s answering queries (0.00ms on average).
-DijkstraRouter answered 265 queries and explored 576.31 edges on average.
-DijkstraRouter spent 0.16s answering queries (0.61ms on average).
+DijkstraRouter answered 8279 queries and explored 12.49 edges on average.
+DijkstraRouter spent 0.04s answering queries (0.00ms on average).
+DijkstraRouter answered 265 queries and explored 576.05 edges on average.
+DijkstraRouter spent 0.16s answering queries (0.60ms on average).
