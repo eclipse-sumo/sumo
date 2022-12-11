@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-11-24 12:55:00 by Eclipse SUMO sumo Version v1_15_0+0560-283e46e
+<!-- generated on 2022-12-11 20:57:20 by Eclipse SUMO sumo Version v1_15_0+0944-c751163
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -132,22 +132,22 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="v0" x="402.25" y="491.75" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="158.91" lane="1si_0" slope="0.00" signals="0" acceleration="0.00" accelerationLat="0.00"/>
     </timestep>
     <timestep time="14.00">
-        <vehicle id="v0" x="408.83" y="492.28" angle="86.67" type="DEFAULT_VEHTYPE" speed="13.89" pos="165.86" lane="1si_0" slope="0.00" signals="2" acceleration="0.00" accelerationLat="2.13"/>
+        <vehicle id="v0" x="408.83" y="492.28" angle="85.61" type="DEFAULT_VEHTYPE" speed="13.89" pos="165.86" lane="1si_0" slope="0.00" signals="2" acceleration="0.00" accelerationLat="2.13"/>
     </timestep>
     <timestep time="14.50">
-        <vehicle id="v0" x="415.42" y="492.82" angle="83.33" type="DEFAULT_VEHTYPE" speed="13.89" pos="172.80" lane="1si_0" slope="0.00" signals="2" acceleration="0.00" accelerationLat="0.00"/>
+        <vehicle id="v0" x="415.42" y="492.82" angle="85.61" type="DEFAULT_VEHTYPE" speed="13.89" pos="172.80" lane="1si_0" slope="0.00" signals="2" acceleration="0.00" accelerationLat="0.00"/>
     </timestep>
     <timestep time="15.00">
-        <vehicle id="v0" x="422.01" y="493.45" angle="80.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="179.75" lane="1si_1" slope="0.00" signals="2" acceleration="0.00" accelerationLat="0.00"/>
+        <vehicle id="v0" x="422.01" y="493.45" angle="85.61" type="DEFAULT_VEHTYPE" speed="13.89" pos="179.75" lane="1si_1" slope="0.00" signals="2" acceleration="0.00" accelerationLat="0.00"/>
     </timestep>
     <timestep time="15.50">
-        <vehicle id="v0" x="428.60" y="493.98" angle="83.33" type="DEFAULT_VEHTYPE" speed="13.89" pos="186.69" lane="1si_1" slope="0.00" signals="2" acceleration="0.00" accelerationLat="0.00"/>
+        <vehicle id="v0" x="428.60" y="493.98" angle="85.61" type="DEFAULT_VEHTYPE" speed="13.89" pos="186.69" lane="1si_1" slope="0.00" signals="2" acceleration="0.00" accelerationLat="0.00"/>
     </timestep>
     <timestep time="16.00">
-        <vehicle id="v0" x="435.19" y="494.52" angle="86.67" type="DEFAULT_VEHTYPE" speed="13.89" pos="193.64" lane="1si_1" slope="0.00" signals="2" acceleration="0.00" accelerationLat="0.00"/>
+        <vehicle id="v0" x="435.19" y="494.52" angle="85.61" type="DEFAULT_VEHTYPE" speed="13.89" pos="193.64" lane="1si_1" slope="0.00" signals="2" acceleration="0.00" accelerationLat="0.00"/>
     </timestep>
     <timestep time="16.50">
-        <vehicle id="v0" x="441.77" y="495.05" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="200.58" lane="1si_1" slope="0.00" signals="0" acceleration="0.00" accelerationLat="0.00"/>
+        <vehicle id="v0" x="441.77" y="495.05" angle="85.61" type="DEFAULT_VEHTYPE" speed="13.89" pos="200.58" lane="1si_1" slope="0.00" signals="0" acceleration="0.00" accelerationLat="0.00"/>
     </timestep>
     <timestep time="17.00">
         <vehicle id="v0" x="448.36" y="495.05" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="207.53" lane="1si_1" slope="0.00" signals="0" acceleration="0.00" accelerationLat="-2.13"/>

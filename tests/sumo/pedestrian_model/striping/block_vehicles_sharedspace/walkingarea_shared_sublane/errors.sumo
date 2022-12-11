@@ -1,14 +1,11 @@
 Warning: Vehicle 'EN.2' performs emergency braking on lane ':C_4_0' with decel=9.00, wished=4.50, severity=1.00, time=290.00.
-Warning: Vehicle 'NS.7' collision with person 'pWN.21', lane=':C_1_0', time=500.00, stage=events.
-Warning: Person 'pWN.21' is jammed on edge ':C_w0', time=511.00.
-Warning: Vehicle 'NS.7' collision with person 'pWN.24', lane=':C_1_0', time=518.00, stage=events.
-Warning: Vehicle 'NS.7' collision with person 'pWN.24', lane=':C_1_0', time=520.00, stage=events.
+Warning: Vehicle 'NS.7' collision with person 'pWN.21', lane=':C_1_0', time=501.00, stage=events.
+Warning: Vehicle 'NS.7' collision with person 'pWN.23', lane=':C_1_0', time=506.00, stage=events.
+Warning: Vehicle 'NS.7' collision with person 'pWN.23', lane=':C_1_0', time=512.00, stage=events.
+Warning: Person 'pWN.23' is jammed on edge ':C_w0', time=516.00.
+Warning: Vehicle 'NS.7' collision with person 'pWN.24', lane=':C_1_0', time=517.00, stage=events.
+Warning: Vehicle 'NS.7' collision with person 'pWN.23', lane=':C_1_0', time=522.00, stage=events.
 Warning: Person 'pWN.24' is jammed on edge ':C_w0', time=524.00.
 Warning: Vehicle 'NS.7' collision with person 'pWN.25', lane=':C_1_0', time=525.00, stage=events.
 Warning: Vehicle 'WE.3' collision with person 'pSW.23', lane=':C_13_0', time=668.00, stage=events.
-Warning: Person 'pSW.23' is jammed on edge ':C_w0', time=680.00.
-Warning: Vehicle 'WE.3' collision with person 'pSW.23', lane=':C_13_0', time=680.00, stage=events.
-Warning: Person 'pSW.24' is jammed on edge ':C_w0', time=684.00.
-Warning: Vehicle 'WE.3' collision with person 'pSW.24', lane=':C_13_0', time=685.00, stage=events.
-Warning: Vehicle 'ES.3' collision with person 'pWE.27', lane=':C_6_0', time=719.00, stage=events.
-Warning: Vehicle 'ES.3' collision with person 'pWE.27', lane=':C_6_0', time=723.00, stage=events.
+Warning: Vehicle 'WE.3' collision with person 'pSW.24', lane=':C_13_0', time=675.00, stage=events.
