@@ -1360,7 +1360,7 @@ MSBaseVehicle::getStopEdges(double& firstPos, double& lastPos, std::set<int>& ju
     for (const MSStop& stop : myStops) {
         if (stop.reached) {
             if (stop.pars.jump >= 0) {
-                jumps.insert(result.size());
+                jumps.insert((int)result.size());
             }
             continue;
         }
