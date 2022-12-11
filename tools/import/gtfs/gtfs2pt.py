@@ -237,7 +237,7 @@ def map_stops(options, net, routes, rout, edgeMap):
         railType = os.path.basename(inp)[:-8]
         typedNetFile = os.path.join(options.network_split, railType + ".net.xml")
         if not os.path.exists(typedNetFile):
-            print("Warning! No net", typedNetFile)
+            print("Warning! No net", typedNetFile, file=sys.stderr)
             continue
         if options.verbose:
             print("Reading", typedNetFile)
@@ -258,7 +258,7 @@ def map_stops(options, net, routes, rout, edgeMap):
                 rid = veh.id
             if rid not in routes:
                 if options.warn_unmapped and rid not in seen:
-                    print("Warning! Not mapped", rid)
+                    print("Warning! Not mapped", rid, file=sys.stderr)
                     seen.add(rid)
                 continue
             if rid not in fixed:
@@ -267,13 +267,14 @@ def map_stops(options, net, routes, rout, edgeMap):
                     path, _ = typedNet.getShortestPath(typedNet.getEdge(routeFixed[-1]), typedNet.getEdge(routeEdgeID))
                     if path is None or len(path) > options.fill_gaps + 2:
                         error = "no path found" if path is None else "path too long (%s)" % len(path)
-                        print("Warning! Disconnected route '%s', %s. Keeping longer part." % (rid, error))
+                        print("Warning! Disconnected route '%s', %s. Keeping longer part." % (rid, error),
+                              file=sys.stderr)
                         if len(routeFixed) > len(routes[rid]) // 2:
                             break
                         routeFixed = [routeEdgeID]
                     else:
                         if len(path) > 2:
-                            print("Warning! Fixed connection", rid, len(path))
+                            print("Warning! Fixed connection", rid, len(path), file=sys.stderr)
                         routeFixed += [e.getID() for e in path[1:]]
                 if rid not in routes:
                     continue
@@ -290,7 +291,7 @@ def map_stops(options, net, routes, rout, edgeMap):
                                           route[lastIndex:], railType, lastPos)
             if result is None:
                 if options.warn_unmapped:
-                    print("Warning! No stop for coordinates %.2f, %.2f" % (veh.x, veh.y), "on", veh)
+                    print("Warning! No stop for coordinates %.2f, %.2f" % (veh.x, veh.y), "on", veh, file=sys.stderr)
                 continue
             laneID, start, end = result
             edgeID = laneID.rsplit("_", 1)[0]
@@ -363,7 +364,7 @@ def main(options):
         routes, trips_on_day, shapes, stops, stop_times = gtfs2osm.import_gtfs(options, gtfsZip)
 
         if shapes is None:
-            print('Warning: Importing OSM routes currently requires a GTFS file with shapes.')
+            print('Warning: Importing OSM routes currently requires a GTFS file with shapes.', file=sys.stderr)
             options.osm_routes = None
         else:
             (gtfs_data, trip_list,
@@ -398,7 +399,7 @@ def main(options):
             if not gtfs2fcd.dataAvailable(options):
                 sys.exit("No GTFS data found for given date %s." % options.date)
             if options.mapperlib != "tracemapper":
-                print("Warning! No mapping library found, falling back to tracemapper.")
+                print("Warning! No mapping library found, falling back to tracemapper.", file=sys.stderr)
             routes = traceMap(options, typedNets)
 
         if options.poly_output:
@@ -417,7 +418,7 @@ def main(options):
                                    (stop[0], options.duration, stop[1] - offset))
                     rout.write(u'    </route>\n')
                 else:
-                    print("Warning! Empty route", vehID)
+                    print("Warning! Empty route", vehID, file=sys.stderr)
             rout.write(u'</additional>\n')
         filter_trips(options, routes, stops, options.route_output, options.begin, options.end)
 

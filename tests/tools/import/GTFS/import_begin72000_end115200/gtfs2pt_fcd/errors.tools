@@ -20,3 +20,4 @@ Warning: 4 total messages of type: Found sharp turn with radius % at the end of 
 Warning: 2 total messages of type: Found sharp turn with radius % at the start of edge '%'.
 Warning: 4 total messages of type: Lane '%' is not connected from any incoming edge at junction '%'.
 Warning: 3 total messages of type: Unused state in tlLogic '%', program '%' at tl-index %
+Warning! No mapping library found, falling back to tracemapper.
