@@ -122,7 +122,7 @@ ROVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, const RONet* net, 
             }
         } else {
             if (myJumpTime < 0) {
-                myJumpTime == 0;
+                myJumpTime = 0;
             }
             myJumpTime += stopPar.jump;
         }
