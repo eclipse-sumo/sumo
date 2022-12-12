@@ -57,7 +57,6 @@ if __name__ == "__main__":
     with open("templates.h", 'w') as templateHeaderFile:
         # write header
         templateHeaderFile.write("#include <string>\n\n")
-        # generate template for all elements
+        # generate template for all files placed in data/templates
         for templateFile in os.listdir(templatePath):
-            print (templateFile)
             generateTemplate(templateHeaderFile, templatePath, templateFile)
