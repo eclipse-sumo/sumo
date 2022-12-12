@@ -36,7 +36,7 @@ def generateTemplate(templateHeaderFile, templatePath, templateFile):
     with open(XMLTemplateFile, 'r') as f:
         template = f.readlines()
     # write template
-    templateHeaderFile.write("std::string " + templateFile + "Template = ")
+    templateHeaderFile.write("std::string " + templateFile.replace(".xml", "") + "Template = ")
     for line in template:
         # replace characters
         lineStrip = line.strip("\n")
@@ -44,7 +44,7 @@ def generateTemplate(templateHeaderFile, templatePath, templateFile):
         # write line
         templateHeaderFile.write('\"' + lineStrip + '\"' + ' ' + '\\' + '\n')
     # write last
-    templateHeaderFile.write(";\n")
+    templateHeaderFile.write("\"\";\n\n")
     
 
 if __name__ == "__main__":
