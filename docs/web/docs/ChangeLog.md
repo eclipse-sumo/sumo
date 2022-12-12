@@ -22,6 +22,9 @@ title: ChangeLog
   - Fixed invalid insertion delay for trains on bidirectional track. Issue #12079
   - Fixed deadlock on bidirectional track involving trains that arrive within a block. Issue #12184
   - Fixed crash when letting persons route between identical junctions. Issue #12242
+  - Fixed invalid switching in branching 'actuated' traffic light programs. Issue #12265
+  - Fixed invalid bike lane detector placement for 'actuated' traffic lights. Issue #12266
+  - Fixed vehicle angles when using 'lcSigma' with the continous lane change mode. Issue #12201
   - sublane model fixes:
     - Fixed invalid emergency braking for junction foe. Issue #12202
     - Fixed inconsistent computation for vehicle back position. Issue #12146
@@ -39,7 +42,8 @@ title: ChangeLog
   - Fixed crash when using option **--prefix**. Issue #12024
   - Fixed bug that permitted invalid combination of stops and and via attribute. Issue #11961
   - The grouping of inspected overlapped elements no longer includes invisible elements. Issue #12126
-  - Move mode can now toggle whether closely spaced geometry points shall be automatically removed. Issue #12244
+  
+  
 
 - sumo-gui
   - Pedestrians now follow the exact shape of access lines while in access stage. Issue #12116
@@ -65,6 +69,7 @@ title: ChangeLog
   - OSM import no longer ignores spreadType in typemap. Issue #12141
   - Fixed invalid bike lane in OSM import. Issue #12216
   - Fixed invalid bidirectional combined foot/bike path. Issue #12214
+  - Traffic light building on large intersections now adds extra red time after left-turn phases to ensure safety. Issue #10796  
   
 - polyconvert
   - Fixed invalid polygon output for some line based inputs. Issue #12161
@@ -73,6 +78,7 @@ title: ChangeLog
   - Fixed moveToXY failure at parallel internal junction. Issue #12065
   - Foe lanes for crossings can now be retrieved. Issue #12059
   - Connection.close() now closes simulation. Issue #12133
+  - Fixed invalid behavior when mixing stops on normal and internal lanes. Issue #11885
 
 - Tools
   - plot_net_dump_file.py: plotting a single measure is working again. Issue #11975 (regression in 1.15.0)
@@ -90,6 +96,7 @@ title: ChangeLog
 - Simulation
   - Elements `<ride>` and `<transport>` can now be defined without attribute `lines` and default to a value of `ANY` (taking any eligible vehicle that stops at the destination). Issue #12167
   - Option **--fcd-output.attributes** now supports the attribute `speedLat` for writing lateral speeds. Issue #12213
+  - Stops now support attribute `jump="TIME"` to model explict jumps (teleports) between disconnected locations. Issue #12268
 
 - netconvert
   - The right-of-way rules to take effect when switching a traffic light off, can now be configured as 'allway_stop'. This is the new default for NEMA-type controllers. Issue #12043
@@ -107,6 +114,8 @@ title: ChangeLog
   - Option **--osm.bike-access** now serves to add any addtional bike lanes declared in OSM without the need to load another typemap (The typemap may still be used to customize bike lane withs for different categories of lanes). Issue #12228
   - Added option **--tls.rebuild** to rebuild all loaded traffic light plans. Issue #12250
   - Added option **--tls.guess-signals.slack** to identify more controlled intersections by guessing from surrounding *simple* tls nodes. Issue #12249
+  - Option **--tls.guess-signals** no longer requires signals on non-passeger edges to interpret an intersection as controlled. Issue #12260
+  - Option **--junctions.join** can now join intersections with more than 4 incoming edges. Issue #12261
 
 - netedit
   - Added TimeStamp in Undo-Redo list. Issue #11744
@@ -120,12 +129,16 @@ title: ChangeLog
   - Recently used files are now in a sub-menu. Issue #12025
   - Geometry points are now drawn above everything else in move mode. Issue #11725
   - Geometry points now change color in move mode to indicate whether a click would create or merge points. Isse #12177
+  - Move mode can now toggle whether closely spaced geometry points shall be automatically removed. Issue #12244
 
 - sumo-gui
   - Wne option **--use-stop-ended** is set, show-route mode now labels the 'ended' time of stops. Issue #11833
   - The view now updates after loading a selection file. Issue #12191
   - Whenever the simulation has tripinfo-devices, the trip based statistics are available in the network parameter dialog. Issue #12207
   - A rainbow color scale can now be defined between upper and lower "hiding" thresholds even when there is no data yet. Issue #11978
+
+- TraCI
+  - Added functions `vehicle.getDeparture` and `vehicle.getDepartDelay`. Issue #3036
 
 - Tools
   - gtfs2pt.py: Now writing short route id and headsign as params. Issue #11819
