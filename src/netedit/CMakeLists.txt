@@ -31,6 +31,7 @@ set(netedit_SRCS
    GNEEvent_NetworkLoaded.h
    GNELane2laneConnection.h
    GNELane2laneConnection.cpp
+   templates.h
 )
 
 add_executable(netedit ${netedit_SRCS} netedit.rc)
@@ -58,3 +59,11 @@ endif ()
 add_dependencies(netedit generate-version-h install_dll)
 
 install(TARGETS netedit RUNTIME DESTINATION bin)
+
+file(GLOB TEMPLATE_DATA "${CMAKE_CURRENT_SOURCE_DIR}/../../data/templates/*.xml")
+add_custom_command(OUTPUT templates.h
+                   COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../../tools/build/templates.py ${CMAKE_CURRENT_BINARY_DIR}/..
+                   DEPENDS ${TEMPLATE_DATA}
+                   )
+
+set_source_files_properties(${CMAKE_BINARY_DIR}/src/netedit/templates.h PROPERTIES GENERATED TRUE)
