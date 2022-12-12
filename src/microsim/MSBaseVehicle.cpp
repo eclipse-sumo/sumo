@@ -1384,7 +1384,7 @@ MSBaseVehicle::getStopEdges(double& firstPos, double& lastPos, std::set<int>& ju
         }
         lastPos = stopPos;
         if (stop.pars.jump >= 0) {
-            jumps.insert(result.size() - 1);
+            jumps.insert((int)result.size() - 1);
         }
     }
     //std::cout << "getStopEdges veh=" << getID() << " result=" << toString(result) << "\n";
