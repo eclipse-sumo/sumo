@@ -18,3 +18,13 @@ Warning: 3 total messages of type: Shape for junction '%' has distance % to its 
 Warning: 4 total messages of type: The rail crossing '%' does not have any roads.
 Warning: Unused state in tlLogic '7465967492', program '0' at tl-index 0
 Warning: 6 total messages of type: Unused state in tlLogic '%', program '%' at tl-index %
+Warning! No mapping library found, falling back to tracemapper.
+Warning! Disconnected route '257596', no path found. Keeping longer part.
+Warning! Disconnected route '257696.trimmed', no path found. Keeping longer part.
+Warning! Disconnected route '257768', no path found. Keeping longer part.
+Warning! Disconnected route '257791', no path found. Keeping longer part.
+Warning! Disconnected route '259570', no path found. Keeping longer part.
+Warning! Disconnected route '259578', no path found. Keeping longer part.
+Warning! Disconnected route '259634.trimmed', no path found. Keeping longer part.
+Warning! Disconnected route '68252', no path found. Keeping longer part.
+Warning! Disconnected route '68266', no path found. Keeping longer part.
