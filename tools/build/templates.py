@@ -11,49 +11,53 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    typemap.py
-# @author  Michael Behrisch
-# @date    2015-07-06
+# @file    templates.py
+# @author  Pablo Alvarez Lopez
+# @date    Dec 2022
 
 """
-This script rebuilds "src/netimport/typemap.h" and "src/polyconvert/pc_typemap.h", the files
-representing the default typemaps.
+This script rebuilds "src/netedit/templates.h" the files
+representing the templates.
 It does this by parsing the data from the sumo data dir.
 """
 
 from __future__ import print_function
 from __future__ import absolute_import
 import sys
+import os
 from os.path import dirname, exists, getmtime, join
 
 
-print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
-print(sys.argv)
 
-def writeTypeMap(typemapFile, typemap):
-    with open(typemapFile, 'w') as f:
-        for format, mapFile in sorted(typemap.items()):
-            print("const std::string %sTypemap =" % format, file=f)
-            for line in open(mapFile):
-                print('"%s"' %
-                      line.replace('"', r'\"').replace('\n', r'\n'), file=f)
-            print(";", file=f)
-
-
-def generateTypeMap(typemapFile, formats, suffix):
-    typemapDataDir = join(dirname(__file__), '..', '..', 'data', 'typemap')
-    typemap = {}
-    maxTime = 0
-    for format in formats:
-        typemap[format] = join(typemapDataDir, format + suffix)
-        if exists(typemap[format]):
-            maxTime = max(maxTime, getmtime(typemap[format]))
-    if not exists(typemapFile) or maxTime > getmtime(typemapFile):
-        writeTypeMap(typemapFile, typemap)
-
+def generateTemplate(templateHeaderFile, templatePath, templateFile):
+    # get XMLtemplate file
+    XMLTemplateFile = join(templatePath, templateFile)
+    # read XML
+    with open(XMLTemplateFile, 'r') as f:
+        template = f.readlines()
+    # write template
+    templateHeaderFile.write("std::string " + templateFile + "Template = ")
+    for line in template:
+        # replace characters
+        lineStrip = line.strip("\n")
+        lineStrip = lineStrip.replace('"', '\\"')
+        # write line
+        templateHeaderFile.write('\"' + lineStrip + '\"' + ' ' + '\\' + '\n')
+    # write last
+    templateHeaderFile.write(";\n")
+    
 
 if __name__ == "__main__":
     srcDir = join(dirname(__file__), '..', '..', 'src')
     if len(sys.argv) > 1:
         srcDir = sys.argv[1]
-    generateTypeMap(join(srcDir, 'netedit', 'templates.h'), ("opendrive", "osm"), "Netconvert.typ.xml")
+    # get template path
+    templatePath = join(dirname(__file__), '..', '..', 'data', 'templates');
+    # write templates.h
+    with open("templates.h", 'w') as templateHeaderFile:
+        # write header
+        templateHeaderFile.write("#include <string>\n\n")
+        # generate template for all elements
+        for templateFile in os.listdir(templatePath):
+            print (templateFile)
+            generateTemplate(templateHeaderFile, templatePath, templateFile)
