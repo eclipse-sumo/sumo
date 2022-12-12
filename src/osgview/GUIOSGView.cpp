@@ -187,10 +187,11 @@ GUIOSGView::GUIOSGView(
     osg::Vec3d lookFrom, lookAt, up;
     myCameraManipulator->getHomePosition(lookFrom, lookAt, up);
     lookFrom = lookAt + osg::Z_AXIS;
-    myCameraManipulator->setHomePosition(lookFrom, lookAt, up);
+    up = osg::Y_AXIS;
+    myCameraManipulator->setHomePosition(lookFrom, lookAt, up);    
     myViewer->home();
     recenterView();
-
+    myViewer->home();
     getApp()->addChore(this, MID_CHORE);
     
 #ifdef _DEBUG
