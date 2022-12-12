@@ -36,7 +36,7 @@ public:
     bool performMovementLeftMouseButton(const double eventTimeDelta, const double dx, const double dy);
     bool performMovementMiddleMouseButton(const double eventTimeDelta, const double dx, const double dy);
     bool performMovementRightMouseButton(const double eventTimeDelta, const double dx, const double dy);
-    bool performMouseDeltaMovement(const float dx, const float dy);
+    bool performMouseDeltaMovement(const double dx, const double dy);
     bool handleMouseMove(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa);
     bool handleMouseDeltaMovement(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa);
     bool handleKeyDown(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa);

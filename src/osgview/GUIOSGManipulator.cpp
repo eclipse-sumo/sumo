@@ -121,9 +121,9 @@ GUIOSGManipulator::handleMouseDeltaMovement(const osgGA::GUIEventAdapter& ea, os
         return false;
     }
     double dt = _ga_t0->getTime() - _ga_t1->getTime();
-    float dx = _ga_t0->getXnormalized() * dt;
-    float dy = _ga_t0->getYnormalized() * dt;
-    if (dx == 0.f && dy == 0.f) { return false; }
+    double dx = _ga_t0->getXnormalized() * dt;
+    double dy = _ga_t0->getYnormalized() * dt;
+    if (dx == 0. && dy == 0.) { return false; }
     centerMousePointer(ea, aa);
 
     // calculate delta angles from dx and dy movements
@@ -132,7 +132,7 @@ GUIOSGManipulator::handleMouseDeltaMovement(const osgGA::GUIEventAdapter& ea, os
 
 
 bool 
-GUIOSGManipulator::performMouseDeltaMovement(const float dx, const float dy) {
+GUIOSGManipulator::performMouseDeltaMovement(const double dx, const double dy) {
     rotateYawPitch(_rotation, dx, dy, osg::Z_AXIS);    
     return true;
 }
