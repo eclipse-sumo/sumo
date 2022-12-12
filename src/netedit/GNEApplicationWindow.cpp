@@ -56,6 +56,8 @@
 #include <utils/xml/XMLSubSys.h>
 #include <utils/handlers/TemplateHandler.h>
 #include <xercesc/parsers/SAXParser.hpp>
+#include <netedit/templates.h>
+
 
 #include "GNEApplicationWindow.h"
 #include "GNEEvent_NetworkLoaded.h"
@@ -447,9 +449,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     a->setTooltipTime(1000000000);
     a->setTooltipPause(1000000000);
     // parse sumo options
-/*
-    TemplateHandler::parseTemplate(mySUMOOptions, "D:/SUMO/data/templates/sumo.xml");
-*/
+    TemplateHandler::parseTemplate(mySUMOOptions, sumoTemplate);
 }
 
 void

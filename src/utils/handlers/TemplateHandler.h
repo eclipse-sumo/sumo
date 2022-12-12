@@ -44,7 +44,7 @@ class TemplateHandler : public XERCES_CPP_NAMESPACE::HandlerBase {
 
 public:
     /// @brief run parser
-    static void parseTemplate(OptionsCont& options, const std::string &path);
+    static void parseTemplate(OptionsCont& options, const std::string &templateString);
 
 private:
     /// @brief Constructor

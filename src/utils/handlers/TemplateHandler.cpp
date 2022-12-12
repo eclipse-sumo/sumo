@@ -34,6 +34,10 @@
 #include <utils/common/ToString.h>
 #include <utils/options/OptionsCont.h>
 #include <xercesc/parsers/SAXParser.hpp>
+#include <xercesc/sax2/XMLReaderFactory.hpp>
+#include <xercesc/framework/LocalFileInputSource.hpp>
+#include <xercesc/framework/MemBufInputSource.hpp>
+
 #include "TemplateHandler.h"
 
 
@@ -42,7 +46,7 @@
 // ===========================================================================
 
 void
-TemplateHandler::parseTemplate(OptionsCont& options, const std::string &path) {
+TemplateHandler::parseTemplate(OptionsCont& options, const std::string &templateString) {
     // build parser
     XERCES_CPP_NAMESPACE::SAXParser parser;
     // disable validation
@@ -50,16 +54,18 @@ TemplateHandler::parseTemplate(OptionsCont& options, const std::string &path) {
     parser.setDisableDefaultEntityResolution(true);
     // build TemplateHandler
     TemplateHandler handler(options);
+
     // start parsing
     try {
         parser.setDocumentHandler(&handler);
         parser.setErrorHandler(&handler);
-        parser.parse(StringUtils::transcodeToLocal(path).c_str());
+        XERCES_CPP_NAMESPACE::MemBufInputSource memBufIS((const XMLByte*)templateString.c_str(), templateString.size(), "template");
+        parser.parse(memBufIS);
         if (handler.myError) {
-            throw ProcessError("Could not load template '" + path + "'.");
+            throw ProcessError("Could not load template '" + templateString + "'.");
         }
     } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
-        throw ProcessError("Could not load template '" + path + "':\n " + StringUtils::transcode(e.getMessage()));
+        throw ProcessError("Could not load template '" + templateString + "':\n " + StringUtils::transcode(e.getMessage()));
     }
 }
 
