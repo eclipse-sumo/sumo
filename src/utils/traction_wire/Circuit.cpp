@@ -505,7 +505,7 @@ void Circuit::deployResults(double* vals, std::vector<int>* removable_ids) {
                 continue;
             } else {
                 if (j > numofeqs) {
-                    WRITE_ERROR(TL("Results deployment during circuit evaluation was unsuccessfull."));
+                    WRITE_ERROR(TL("Results deployment during circuit evaluation was unsuccessful."));
                     break;
                 }
                 tNode->setVoltage(vals[j]);
@@ -515,7 +515,7 @@ void Circuit::deployResults(double* vals, std::vector<int>* removable_ids) {
             tElem = getElement(i);
             if (tElem != nullptr) {
                 if (j > numofeqs) {
-                    WRITE_ERROR(TL("Results deployment during circuit evaluation was unsuccessfull."));
+                    WRITE_ERROR(TL("Results deployment during circuit evaluation was unsuccessful."));
                     break;
                 }
                 // tElem should be voltage source - the current through voltage source is computed in a loop below
@@ -523,7 +523,7 @@ void Circuit::deployResults(double* vals, std::vector<int>* removable_ids) {
                 continue;
             }
         }
-        WRITE_ERROR(TL("Results deployment during circuit evaluation was unsuccessfull."));
+        WRITE_ERROR(TL("Results deployment during circuit evaluation was unsuccessful."));
     }
 
     Element* el1 = nullptr;

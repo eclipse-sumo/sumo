@@ -2860,7 +2860,7 @@ msgstr ""
 #: /home/micha/sumo/src/utils/traction_wire/Circuit.cpp:508
 #: /home/micha/sumo/src/utils/traction_wire/Circuit.cpp:518
 #: /home/micha/sumo/src/utils/traction_wire/Circuit.cpp:526
-msgid "Results deployment during circuit evaluation was unsuccessfull."
+msgid "Results deployment during circuit evaluation was unsuccessful."
 msgstr ""
 
 #: /home/behr_mi/sumo/src/utils/traction_wire/Circuit.cpp:576
