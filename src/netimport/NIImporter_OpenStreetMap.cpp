@@ -373,7 +373,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
         if (n->ptStopPosition && stopNames.count(n->name) == 0) {
             Position ptPos(n->lon, n->lat, n->ele);
             if (!NBNetBuilder::transformCoordinate(ptPos)) {
-                WRITE_ERROR("Unable to project coordinates for node '" + toString(n->id) + "'.");
+                WRITE_ERRORF("Unable to project coordinates for node '%'.", n->id);
             }
             std::shared_ptr<NBPTStop> ptStop = std::make_shared<NBPTStop>(toString(n->id), ptPos, "", "", n->ptStopLength, n->name, n->permissions);
             nb.getPTStopCont().insert(ptStop, true);
@@ -389,7 +389,7 @@ NIImporter_OpenStreetMap::insertNodeChecking(long long int id, NBNodeCont& nc, N
         NIOSMNode* n = myOSMNodes.find(id)->second;
         Position pos(n->lon, n->lat, n->ele);
         if (!NBNetBuilder::transformCoordinate(pos, true)) {
-            WRITE_ERROR("Unable to project coordinates for junction '" + toString(id) + "'.");
+            WRITE_ERRORF("Unable to project coordinates for junction '%'.", id);
             return nullptr;
         }
         node = new NBNode(toString(id), pos);
@@ -441,7 +441,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     // patch the id
     std::string id = toString(e->id);
     if (from == nullptr || to == nullptr) {
-        WRITE_ERROR("Discarding edge '" + id + "' because the nodes could not be built.");
+        WRITE_ERRORF("Discarding edge '%' because the nodes could not be built.", id);
         return index;
     }
     if (index >= 0) {
@@ -511,7 +511,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             } else {
                 Position ptPos(n->lon, n->lat, n->ele);
                 if (!NBNetBuilder::transformCoordinate(ptPos)) {
-                    WRITE_ERROR("Unable to project coordinates for node '" + toString(n->id) + "'.");
+                    WRITE_ERRORF("Unable to project coordinates for node '%'.", n->id);
                 }
                 ptStops.push_back(std::make_shared<NBPTStop>(toString(n->id), ptPos, id, toString(e->id), n->ptStopLength, n->name, n->permissions));
                 sc.insert(ptStops.back());
@@ -521,7 +521,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         shape.push_back(pos);
     }
     if (!NBNetBuilder::transformCoordinates(shape)) {
-        WRITE_ERROR("Unable to project coordinates for edge '" + id + "'.");
+        WRITE_ERRORF("Unable to project coordinates for edge '%'.", id);
     }
 
     SVCPermissions forwardPermissions = permissions;
@@ -1844,7 +1844,7 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                             NIOSMNode* pNode = myOSMNodes.find(nodeRef)->second;
                             Position pNodePos(pNode->lon, pNode->lat, pNode->ele);
                             if (!NBNetBuilder::transformCoordinate(pNodePos)) {
-                                WRITE_ERROR("Unable to project coordinates for node '" + toString(pNode->id) + "'.");
+                                WRITE_ERRORF("Unable to project coordinates for node '%'.", pNode->id);
                                 continue;
                             }
                             p.push_back(pNodePos);
@@ -1866,7 +1866,7 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                         NIOSMNode* pNode = myOSMNodes.find(myPlatform.ref)->second;
                         Position platformPos(pNode->lon, pNode->lat, pNode->ele);
                         if (!NBNetBuilder::transformCoordinate(platformPos)) {
-                            WRITE_ERROR("Unable to project coordinates for node '" + toString(pNode->id) + "'.");
+                            WRITE_ERRORF("Unable to project coordinates for node '%'.", pNode->id);
                         }
                         NBPTPlatform platform(platformPos, myOptionsCont.getFloat("osm.stop-output.length"));
                         ptStop->addPlatformCand(platform);
@@ -1899,7 +1899,7 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                     // loose stop, which must later be mapped onto a line way
                     Position ptPos(n->lon, n->lat, n->ele);
                     if (!NBNetBuilder::transformCoordinate(ptPos)) {
-                        WRITE_ERROR("Unable to project coordinates for node '" + toString(n->id) + "'.");
+                        WRITE_ERRORF("Unable to project coordinates for node '%'.", n->id);
                     }
                     ptStop = std::make_shared<NBPTStop>(toString(n->id), ptPos, "", "", n->ptStopLength, n->name, n->permissions);
                     myNBPTStopCont->insert(ptStop);
