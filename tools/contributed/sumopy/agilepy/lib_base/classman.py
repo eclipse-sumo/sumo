@@ -2811,7 +2811,7 @@ class BaseObjman:
     #    self.parent=parent
 
     # def set_attrsman(self, attrsman):
-    #    # for quicker acces and because it is only on
+    #    # for quicker access and because it is only on
     #    # the attribute management is public and also directly accessible
     #    #setattr(self, attrname,Attrsman(self))# attribute management
     #    self._attrsman = attrsman

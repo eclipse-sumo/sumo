@@ -1733,7 +1733,7 @@ GNEAdditionalHandler::buildPOIGeo(const CommonXMLStructure::SumoBaseObject* sumo
 
 bool
 GNEAdditionalHandler::accessCanBeCreated(GNEAdditional* busStopParent, GNEEdge* edge) {
-    // check if exist another acces for the same busStop in the given edge
+    // check if exist another access for the same busStop in the given edge
     for (const auto& additional : busStopParent->getChildAdditionals()) {
         for (const auto& lane : edge->getLanes()) {
             if (additional->getAttribute(SUMO_ATTR_LANE) == lane->getID()) {

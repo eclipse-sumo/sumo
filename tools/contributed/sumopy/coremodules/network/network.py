@@ -126,7 +126,7 @@ class Modes(am.ArrayObjman):
                                   perm='r',
                                   is_index=True,
                                   name='Name',
-                                  info='Name of mode. Used as key for implementing acces restrictions on edges as well as demand modelling.',
+                                  info='Name of mode. Used as key for implementing access restrictions on edges as well as demand modelling.',
                                   xmltag='vClass',
                                   ))
 
