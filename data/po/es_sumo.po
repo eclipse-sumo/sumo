@@ -2382,7 +2382,7 @@ msgstr ""
 
 #: /home/behr_mi/sumo/src/utils/geom/PositionVector.cpp:1470
 #: /home/behr_mi/sumo/src/utils/geom/PositionVector.cpp:1484
-msgid "Trying to substract PositionVectors of different lengths."
+msgid "Trying to subtract PositionVectors of different lengths."
 msgstr ""
 
 #: /home/behr_mi/sumo/src/utils/geom/GeoConvHelper.cpp:86
