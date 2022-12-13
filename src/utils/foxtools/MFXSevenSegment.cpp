@@ -599,7 +599,7 @@ MFXSevenSegment::drawFigure(FXDCWindow& dc, FXchar figure) {
 //    case 'z' :
 //    case 'Z' :
         default  :
-            fxerror("MFXSevenSegment doesnt support: %c\n", figure);
+            fxerror("MFXSevenSegment doesn't support: %c\n", figure);
     }
 }
 
