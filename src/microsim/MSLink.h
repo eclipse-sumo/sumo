@@ -17,7 +17,7 @@
 /// @author  Michael Behrisch
 /// @date    Sept 2002
 ///
-// A connnection between lanes
+// A connection between lanes
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -46,7 +46,7 @@ class MSTrafficLightLogic;
 // ===========================================================================
 /**
  * @class MSLinks
- * @brief A connnection between lanes
+ * @brief A connection between lanes
  *
  * A link is basically a connection between two lanes, stored within the
  *  originating (the one that is being left) lane and pointing to the
