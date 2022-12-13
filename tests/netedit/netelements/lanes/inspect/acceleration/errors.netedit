@@ -19,7 +19,7 @@ Debug: Created connection 'fromgneE5_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE2_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE2_1' in retrieveGNEConnection()
-Debug: Enabled select edges throught alt + 5
+Debug: Enabled select edges through alt + 5
 Debug: Setting new attribute
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Z (Undo) pressed

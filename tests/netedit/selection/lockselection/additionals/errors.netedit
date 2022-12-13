@@ -31,7 +31,7 @@ Debug: Created connection 'from8_1to2_1' in retrieveGNEConnection()
 Debug: Created connection 'from8_1to3_1' in retrieveGNEConnection()
 Debug: Created connection 'from8_2to3_2' in retrieveGNEConnection()
 Debug: Created connection 'from8_2to1_2' in retrieveGNEConnection()
-Debug: Enabled show connections throught alt + 6
+Debug: Enabled show connections through alt + 6
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
