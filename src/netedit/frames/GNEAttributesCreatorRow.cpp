@@ -468,7 +468,7 @@ GNEAttributesCreatorRow::isValidID() const {
         return (myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->retrieveAdditional(
                     myAttrProperties.getTagPropertyParent().getTag(), myValueTextField->getText().text(), false) == nullptr);
     } else {
-        throw ProcessError("Unsuported additional ID");
+        throw ProcessError("Unsupported additional ID");
     }
 }
 
