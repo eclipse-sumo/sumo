@@ -246,9 +246,6 @@ protected:
      */
     GUILane* getLaneUnderCursor();
 
-    /// @brief create the GUIOSGPerspectiveChanegr instance
-    void initChanger(const Boundary& viewPort);
-
     /// @brief implement the current view settings in OSG
     void adoptViewSettings();
 

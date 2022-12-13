@@ -215,12 +215,6 @@ GUIOSGView::~GUIOSGView() {
 
 
 void
-GUIOSGView::initChanger(const Boundary& viewPort) {
-    myChanger = new GUIOSGPerspectiveChanger(*this, viewPort);
-}
-
-
-void
 GUIOSGView::adoptViewSettings() {
     osg::Light* globalLight = myViewer->getLight();
     globalLight->setAmbient(toOSGColorVector(myVisualizationSettings->ambient3DLight));
