@@ -5210,7 +5210,7 @@ GNEAttributeCarrier::fillCarFollowingModelAttributes(SumoXMLTag currentTag) {
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_CF_EIDM_T_ACC_MAX,
                                           GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::EXTENDED,
-                                          "EIDM Time parameter untill vehicle reaches amax after startup/driveoff [s]",
+                                          "EIDM Time parameter until vehicle reaches amax after startup/driveoff [s]",
                                           "1.20");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
