@@ -2161,7 +2161,7 @@ msgid ""
 msgstr ""
 
 #: /home/behr_mi/sumo/src/microsim/cfmodels/MSCFModel_Rail.cpp:211
-msgid "function call not allowd for rail model. Exiting!"
+msgid "function call not allowed for rail model. Exiting!"
 msgstr ""
 
 #: /home/behr_mi/sumo/src/microsim/cfmodels/MSCFModel_Rail.cpp:252

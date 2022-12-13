@@ -208,7 +208,7 @@ double MSCFModel_Rail::getSpeedAfterMaxDecel(double /* speed */) const {
 //    double a = 0;//trainParams.decl - gr/trainParams.rotWeight;
 //
 //    return speed + a * DELTA_T / 1000.;
-    WRITE_ERROR(TL("function call not allowd for rail model. Exiting!"));
+    WRITE_ERROR(TL("function call not allowed for rail model. Exiting!"));
     throw ProcessError();
 }
 
