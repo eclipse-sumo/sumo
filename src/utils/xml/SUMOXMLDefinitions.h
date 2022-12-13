@@ -733,8 +733,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_RECUPERATIONEFFICIENCY,
     /// @brief Recuperation efficiency (by deceleration)
     SUMO_ATTR_RECUPERATIONEFFICIENCY_BY_DECELERATION,
-    /// @brief Stopping treshold
-    SUMO_ATTR_STOPPINGTRESHOLD,
+    /// @brief Stopping threshold
+    SUMO_ATTR_STOPPINGTHRESHOLD,
     /// @}
 
     /// @name elecHybrid device export parameters

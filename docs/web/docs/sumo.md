@@ -202,7 +202,7 @@ configuration:
 | **--lanechange.overtake-right** {{DT_BOOL}} | Whether overtaking on the right on motorways is permitted; *default:* **false** |
 | **--tls.all-off** {{DT_BOOL}} | Switches off all traffic lights.; *default:* **false** |
 | **--tls.actuated.show-detectors** {{DT_BOOL}} | Sets default visibility for actuation detectors; *default:* **false** |
-| **--tls.actuated.jam-threshold** {{DT_FLOAT}} | Sets default jam-treshold parameter for all actuation detectors; *default:* **-1** |
+| **--tls.actuated.jam-threshold** {{DT_FLOAT}} | Sets default jam-threshold parameter for all actuation detectors; *default:* **-1** |
 | **--tls.actuated.detector-length** {{DT_FLOAT}} | Sets default detector length parameter for all actuation detectors; *default:* **0** |
 | **--tls.delay_based.detector-range** {{DT_FLOAT}} | Sets default range for detecting delayed vehicles; *default:* **100** |
 | **--tls.yellow.min-decel** {{DT_FLOAT}} | Minimum deceleration when braking at yellow; *default:* **3** |

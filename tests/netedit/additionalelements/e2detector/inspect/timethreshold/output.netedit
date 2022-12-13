@@ -4,7 +4,7 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 laneAreaDetector
 TestFunctions: Clicked over position 554 - 298
 TestFunctions: Clicked over position 654 - 298
-dummyTimeTreshold
+dummyTimeThreshold
 -5
 4.5
 TestFunctions: Clicked over position 304 - 168

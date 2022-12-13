@@ -151,7 +151,7 @@ class Electricalprofiles(am.ArrayObjman):
                                   name='Min. charging speed',
                                   unit='km/h',
                                   info='Minimum velocity to start charging',
-                                  xmltag='stoppingTreshold',
+                                  xmltag='stoppingThreshold',
                                   ))
 
     def add_profiles_default(self):

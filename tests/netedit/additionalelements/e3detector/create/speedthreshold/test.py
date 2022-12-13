@@ -37,22 +37,22 @@ netedit.additionalMode()
 # select E3
 netedit.changeElement("entryExitDetector")
 
-# set invalid speedTreshold
-netedit.changeDefaultValue(netedit.attrs.E3.create.speedThreshold, "dummySpeedTreshold")
+# set invalid speedThreshold
+netedit.changeDefaultValue(netedit.attrs.E3.create.speedThreshold, "dummySpeedThreshold")
 
-# try to create E3 with different speedTreshold
+# try to create E3 with different speedThreshold
 netedit.leftClick(referencePosition, 100, 85)
 
-# set invalid speedTreshold
+# set invalid speedThreshold
 netedit.changeDefaultValue(netedit.attrs.E3.create.speedThreshold, "-3.80")
 
-# try to create E3 with different speedTreshold
+# try to create E3 with different speedThreshold
 netedit.leftClick(referencePosition, 100, 85)
 
-# set valid speedTreshold
+# set valid speedThreshold
 netedit.changeDefaultValue(netedit.attrs.E3.create.speedThreshold, "2.51")
 
-# create E3 with different speedTreshold
+# create E3 with different speedThreshold
 netedit.leftClick(referencePosition, 100, 85)
 
 # select entry detector

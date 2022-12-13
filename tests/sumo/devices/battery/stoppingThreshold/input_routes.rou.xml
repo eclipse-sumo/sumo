@@ -12,7 +12,7 @@
 		<param key="constantPowerIntake" value="40"/>
 		<param key="propulsionEfficiency" value="0.8"/>
 		<param key="recuperationEfficiency" value="0.8"/>
-		<param key="stoppingTreshold" value="0.5"/>
+		<param key="stoppingThreshold" value="0.5"/>
 	</vType>
 
 	<route id="route01" edges="D2 L2 L12 L10 L7 D7"/>

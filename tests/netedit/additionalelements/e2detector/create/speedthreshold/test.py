@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("laneAreaDetector")
 
 # set invalid speed threshold (dummy)
-netedit.changeDefaultValue(netedit.attrs.E2.create.speedThreshold, "dummySpeedTreshold")
+netedit.changeDefaultValue(netedit.attrs.E2.create.speedThreshold, "dummySpeedThreshold")
 
 # try to create E2 with invalid speed threshold
 netedit.leftClick(referencePosition, 350, 220)

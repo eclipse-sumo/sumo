@@ -40,13 +40,13 @@ netedit.inspectMode()
 # inspect E2s
 netedit.leftClick(referencePosition, 350, 310)
 
-# Change parameter SpeedTreshold with a non valid value
-netedit.modifyAttribute(netedit.attrs.E2.inspectSelection.speedThreshold, "dummySpeedTreshold", True)
+# Change parameter SpeedThreshold with a non valid value
+netedit.modifyAttribute(netedit.attrs.E2.inspectSelection.speedThreshold, "dummySpeedThreshold", True)
 
-# Change parameter SpeedTreshold with a non valid value
+# Change parameter SpeedThreshold with a non valid value
 netedit.modifyAttribute(netedit.attrs.E2.inspectSelection.speedThreshold, "-12.1", True)
 
-# Change parameter SpeedTreshold with a valid value
+# Change parameter SpeedThreshold with a valid value
 netedit.modifyAttribute(netedit.attrs.E2.inspectSelection.speedThreshold, "6.3", True)
 
 # Check undos and redos

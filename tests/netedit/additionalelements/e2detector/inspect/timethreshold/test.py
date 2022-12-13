@@ -43,13 +43,13 @@ netedit.inspectMode()
 # inspect first E2
 netedit.leftClick(referencePosition, 350, 130)
 
-# Change parameter TimeTreshold with a non valid value
-netedit.modifyAttribute(netedit.attrs.E2.inspect.timeThreshold, "dummyTimeTreshold", True)
+# Change parameter TimeThreshold with a non valid value
+netedit.modifyAttribute(netedit.attrs.E2.inspect.timeThreshold, "dummyTimeThreshold", True)
 
-# Change parameter TimeTreshold with a non valid value
+# Change parameter TimeThreshold with a non valid value
 netedit.modifyAttribute(netedit.attrs.E2.inspect.timeThreshold, "-5", True)
 
-# Change parameter TimeTreshold with a valid value
+# Change parameter TimeThreshold with a valid value
 netedit.modifyAttribute(netedit.attrs.E2.inspect.timeThreshold, "4.5", True)
 
 # Check undos and redos

@@ -63,7 +63,7 @@ netedit.leftClick(referencePosition, 250, 110)
 # Change parameter Vtypes with a non valid value (invalid characters)
 netedit.modifyAttribute(netedit.attrs.E3.inspect.vTypes, "$$$ @**@;@ %%%", False)
 
-# Change parameter TimeTreshold with a non valid value (negative)
+# Change parameter TimeThreshold with a non valid value (negative)
 netedit.modifyAttribute(netedit.attrs.E3.inspect.vTypes, "type1 type2 type3", False)
 
 # Check undos and redos

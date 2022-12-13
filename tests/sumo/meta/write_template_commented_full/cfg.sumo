@@ -423,7 +423,7 @@
         <!-- Sets default visibility for actuation detectors -->
         <tls.actuated.show-detectors value="false" type="BOOL"/>
 
-        <!-- Sets default jam-treshold parameter for all actuation detectors -->
+        <!-- Sets default jam-threshold parameter for all actuation detectors -->
         <tls.actuated.jam-threshold value="-1" type="FLOAT"/>
 
         <!-- Sets default detector length parameter for all actuation detectors -->

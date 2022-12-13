@@ -28,33 +28,30 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# go to additional mode
-netedit.additionalMode()
+# go to select mode
+netedit.selectMode()
 
-# select calibrator
-netedit.changeElement("calibratorLane")
+# select all using invert
+netedit.selectionInvert()
 
-# change output with an invalid value
-netedit.changeDefaultValue(netedit.attrs.calibrator.create.jamTreshold, "dummyJam")
+# go to inspect mode
+netedit.inspectMode()
 
-# create calibrator with a valid parameter in other lane
-netedit.leftClick(referencePosition, 240, 250)
+# inspect calibrator
+netedit.leftClick(referencePosition, 300, 130)
 
-# change output with an invalid value
-netedit.changeDefaultValue(netedit.attrs.calibrator.create.jamTreshold, "-5")
+# Change parameter id with a non valid value (invalid characters)
+netedit.modifyAttribute(netedit.attrs.calibrator.inspectSelection.jamThreshold, "dummyjam", True)
 
-# create calibrator with a valid parameter in other lane
-netedit.leftClick(referencePosition, 250, 250)
+# Change parameter id with valid value
+netedit.modifyAttribute(netedit.attrs.calibrator.inspectSelection.jamThreshold, "-5", True)
 
-# change output with an valid value
-netedit.changeDefaultValue(netedit.attrs.calibrator.create.jamTreshold, "12.3")
+# Change parameter id with valid value
+netedit.modifyAttribute(netedit.attrs.calibrator.inspectSelection.jamThreshold, "7.5", True)
 
-# create calibrator with a valid parameter in other lane
-netedit.leftClick(referencePosition, 255, 250)
-
-# Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+# Check undos and redos
+netedit.undo(referencePosition, 4)
+netedit.redo(referencePosition, 4)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

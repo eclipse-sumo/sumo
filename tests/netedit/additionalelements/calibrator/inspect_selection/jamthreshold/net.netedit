@@ -4,11 +4,11 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.20Jun093115.9081/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect_selection/jamtreshold/input_net.net.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.20Jun093115.9081/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect_selection/jamthreshold/input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.20Jun093115.9081/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect_selection/jamtreshold/net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.20Jun093115.9081/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect_selection/jamthreshold/net.net.xml"/>
     </output>
 
     <processing>
@@ -30,26 +30,26 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.20Jun093115.9081/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect_selection/jamtreshold/additionals.xml"/>
-        <additionals-output value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.20Jun093115.9081/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect_selection/jamtreshold/additionals.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.20Jun093115.9081/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect_selection/jamtreshold/routes.xml"/>
-        <demandelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.20Jun093115.9081/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect_selection/jamtreshold/routes.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.20Jun093115.9081/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect_selection/jamtreshold/datas.xml"/>
-        <dataelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.20Jun093115.9081/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect_selection/jamtreshold/datas.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.20Jun093115.9081/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect_selection/jamthreshold/additionals.xml"/>
+        <additionals-output value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.20Jun093115.9081/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect_selection/jamthreshold/additionals.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.20Jun093115.9081/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect_selection/jamthreshold/routes.xml"/>
+        <demandelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.20Jun093115.9081/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect_selection/jamthreshold/routes.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.20Jun093115.9081/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect_selection/jamthreshold/datas.xml"/>
+        <dataelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.20Jun093115.9081/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect_selection/jamthreshold/datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.20Jun093115.9081/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect_selection/jamtreshold/gui-settings.xml"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.20Jun093115.9081/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect_selection/jamthreshold/gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.20Jun093115.9081/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect_selection/jamtreshold/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.20Jun093115.9081/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect_selection/jamthreshold/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.20Jun093115.9081/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect_selection/jamtreshold/log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.20Jun093115.9081/netedit.daily.additional.calibrator/additionalelements/calibrator/inspect_selection/jamthreshold/log.txt"/>
     </report>
 
 </configuration>

@@ -2,7 +2,7 @@ TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 TestFunctions: Clicked over position 654 - 478
-dummyTimeTreshold
+dummyTimeThreshold
 -5
 4.5
 TestFunctions: Clicked over position 304 - 168

@@ -54,7 +54,7 @@ def get_options():
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="Give more output")
     optParser.add_option("--threshold", type=float, default=2.5,
-                         help="Routes with an implausibility-score above treshold are reported")
+                         help="Routes with an implausibility-score above threshold are reported")
     optParser.add_option("--airdist-ratio-factor", type=float, default=1, dest="airdist_ratio_factor",
                          help="Implausibility factor for the ratio of routeDist/airDist ")
     optParser.add_option("--detour-ratio-factor", type=float, default=1, dest="detour_ratio_factor",

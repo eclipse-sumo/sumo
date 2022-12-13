@@ -41,7 +41,7 @@ These values have the following meanings (the defaults are from the Kia below):
 | constantPowerIntake     | float      | 100 (W)           | Avg. (constant) power of consumers *P<sub>const</sub>*  |
 | propulsionEfficiency    | float      | 0.98              | Drive efficiency *η<sub>prop</sub>*                     |
 | recuperationEfficiency  | float      | 0.96              | Recuperation efficiency *η<sub>recup</sub>*             |
-| stoppingTreshold        | float      | 0.1 (km/h)        | Minimum velocity to start charging                      |
+| stoppingThreshold       | float      | 0.1 (km/h)        | Minimum velocity to start charging                      |
 
 An example of a vehicle with electric attribute (those are the values for a city bus from the original publication):
 
@@ -60,7 +60,7 @@ An example of a vehicle with electric attribute (those are the values for a city
         <param key="constantPowerIntake" value="100"/>
         <param key="propulsionEfficiency" value="0.9"/>
         <param key="recuperationEfficiency" value="0.9"/>
-        <param key="stoppingTreshold" value="0.1"/>
+        <param key="stoppingThreshold" value="0.1"/>
     </vType>
 </routes>
 ```
@@ -318,7 +318,7 @@ The values are provided by courtesy of Jim Div based on his own calibration.
     <param key="radialDragCoefficient" value="0.1"/>     <!-- as above -->
     <param key="recuperationEfficiency" value=".96"/>    <!-- as above -->
     <param key="rollDragCoefficient" value="0.01"/>      <!-- as above -->
-    <param key="stoppingTreshold" value="0.1"/>          <!-- as above -->
+    <param key="stoppingThreshold" value="0.1"/>         <!-- as above -->
     <param key="vehicleMass" value="1830"/>              <!-- 1682kg curb wt + average 2 passengers / bags -->
 </vType>
 ```

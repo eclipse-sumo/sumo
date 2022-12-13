@@ -28,30 +28,33 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# go to select mode
-netedit.selectMode()
+# go to additional mode
+netedit.additionalMode()
 
-# select all using invert
-netedit.selectionInvert()
+# select E2
+netedit.changeElement("laneAreaDetector")
 
-# go to inspect mode
-netedit.inspectMode()
+# set invalid jam threshold (dummy)
+netedit.changeDefaultValue(netedit.attrs.E2.create.jamThreshold, "dummyJamThreshold")
 
-# inspect calibrator
-netedit.leftClick(referencePosition, 300, 130)
+# try to create E2 with invalid jam threshold
+netedit.leftClick(referencePosition, 450, 220)
 
-# Change parameter id with a non valid value (invalid characters)
-netedit.modifyAttribute(netedit.attrs.calibrator.inspectSelection.jamTreshold, "dummyjam", True)
+# set invalid jam threshold
+netedit.changeDefaultValue(netedit.attrs.E2.create.jamThreshold, "-30")
 
-# Change parameter id with valid value
-netedit.modifyAttribute(netedit.attrs.calibrator.inspectSelection.jamTreshold, "-5", True)
+# try to create E2 with invalid jam threshold
+netedit.leftClick(referencePosition, 460, 220)
 
-# Change parameter id with valid value
-netedit.modifyAttribute(netedit.attrs.calibrator.inspectSelection.jamTreshold, "7.5", True)
+# set valid jam threshold
+netedit.changeDefaultValue(netedit.attrs.E2.create.jamThreshold, "15.5")
 
-# Check undos and redos
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+# create E2 with valid jam threshold
+netedit.leftClick(referencePosition, 470, 220)
+
+# Check undo redo
+netedit.undo(referencePosition, 1)
+netedit.redo(referencePosition, 1)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

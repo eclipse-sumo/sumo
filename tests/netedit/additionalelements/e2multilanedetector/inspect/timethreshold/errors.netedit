@@ -5,7 +5,7 @@ Debug: Created connection 'fromgneE4_0togneE5_0' in retrieveGNEConnection()
 Debug: Selected item 'multiLaneAreaDetector' in GNETagSelector
 Debug: Key ENTER pressed
 Debug: Adding multiLaneAreaDetector 'e2_0' in GNEChange_Additional
-Debug: Value 'dummyTimeTreshold' for attribute timeThreshold of multiLaneAreaDetector isn't valid
+Debug: Value 'dummyTimeThreshold' for attribute timeThreshold of multiLaneAreaDetector isn't valid
 Debug: Value '-5' for attribute timeThreshold of multiLaneAreaDetector isn't valid
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed

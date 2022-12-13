@@ -6,7 +6,7 @@
     </entryExitDetector>
 
     <!-- non valid timeThreshold (dummy) -->
-    <entryExitDetector id="entryExitDetector_1" period="100.00" file="fileA.txt" timeThreshold="dummyTimeTreshold" speedThreshold="1.39" pos="20,10">
+    <entryExitDetector id="entryExitDetector_1" period="100.00" file="fileA.txt" timeThreshold="dummyTimeThreshold" speedThreshold="1.39" pos="20,10">
         <detEntry lane="gneE1_0" pos="26" friendlyPos="0"/>
         <detExit lane="gneE0_0" pos="26" friendlyPos="0"/>
     </entryExitDetector>

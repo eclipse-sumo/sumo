@@ -5,7 +5,7 @@ multiLaneAreaDetector
 TestFunctions: Clicked over position 494 - 418
 TestFunctions: Clicked over position 744 - 418
 TestFunctions: Clicked over position 624 - 418
-dummySpeedTreshold
+dummySpeedThreshold
 -12.1
 6.3
 TestFunctions: Clicked over position 304 - 168

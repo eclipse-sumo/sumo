@@ -754,12 +754,12 @@ class VpCreator(Process):
                             info = 'year of the database',
                             ))
                             
-        self.age_treshold = attrsman.add(cm.AttrConf( 'age_treshold',kwargs.get('age_treshold',40),
+        self.age_threshold = attrsman.add(cm.AttrConf( 'age_threshold',kwargs.get('age_threshold',40),
                             groupnames = ['options'], 
                             perm='rw', 
                             unit = '',
-                            name = 'Treshold age', 
-                            info = 'Treshold between young and old cyclists: this number is included with youngs',
+                            name = 'Threshold age', 
+                            info = 'Threshold between young and old cyclists: this number is included with youngs',
                             ))
                             
         vtypechoices = scenario.demand.get_vtypes().ids_sumo.get_indexmap()
@@ -1196,13 +1196,13 @@ class VpCreator(Process):
                     id_person = virtualpop.get_ibikes().ids_person[id_ibike]
                     age_person = self.year_database - virtualpop.years_birth[id_person]
                     gender_person = virtualpop.ids_gender[id_person]
-                    if gender_person == 0 and age_person <= self.age_treshold:
+                    if gender_person == 0 and age_person <= self.age_threshold:
                         virtualpop.get_ibikes().ids_vtype[id_ibike] = self.male_young
-                    if gender_person == 0 and age_person > self.age_treshold:
+                    if gender_person == 0 and age_person > self.age_threshold:
                         virtualpop.get_ibikes().ids_vtype[id_ibike] = self.male_old
-                    if gender_person == 1 and age_person <= self.age_treshold:
+                    if gender_person == 1 and age_person <= self.age_threshold:
                         virtualpop.get_ibikes().ids_vtype[id_ibike] = self.female_young
-                    if gender_person == 1 and age_person > self.age_treshold:
+                    if gender_person == 1 and age_person > self.age_threshold:
                         virtualpop.get_ibikes().ids_vtype[id_ibike] = self.female_old
                     
     

@@ -5,7 +5,7 @@ Debug: Created connection 'fromgneE4_0togneE5_0' in retrieveGNEConnection()
 Debug: Selected item 'multiLaneAreaDetector' in GNETagSelector
 Debug: Key ENTER pressed
 Debug: Adding multiLaneAreaDetector 'e2_0' in GNEChange_Additional
-Debug: Value 'dummySpeedTreshold' for attribute speedThreshold of multiLaneAreaDetector isn't valid
+Debug: Value 'dummySpeedThreshold' for attribute speedThreshold of multiLaneAreaDetector isn't valid
 Debug: Value '-12.1' for attribute speedThreshold of multiLaneAreaDetector isn't valid
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed

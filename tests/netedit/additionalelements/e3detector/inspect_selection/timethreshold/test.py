@@ -40,13 +40,13 @@ netedit.inspectMode()
 # inspect E3s
 netedit.leftClick(referencePosition, 160, 245)
 
-# Set invalid time treshold
-netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.timeThreshold, "dummySpeedTreshold", True)
+# Set invalid time threshold
+netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.timeThreshold, "dummySpeedThreshold", True)
 
-# Set invalid time treshold
+# Set invalid time threshold
 netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.timeThreshold, "-5", True)
 
-# Set valid time treshold
+# Set valid time threshold
 netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.timeThreshold, "11.3", True)
 
 # Check undo redo

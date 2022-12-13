@@ -1091,7 +1091,7 @@ class calibrator:
         name = 8
         routeProbe = 9
         output = 10
-        jamTreshold = 11
+        jamThreshold = 11
         vTypes = 12
         center = 16
 
@@ -1103,7 +1103,7 @@ class calibrator:
         name = 5
         routeProbe = 6
         output = 7
-        jamTreshold = 8
+        jamThreshold = 8
         vTypes = 9
         parameters = 12
 
@@ -1113,7 +1113,7 @@ class calibrator:
         name = 3
         routeProbe = 4
         output = 5
-        jamTreshold = 6
+        jamThreshold = 6
         vTypes = 7
         parameters = 10
 

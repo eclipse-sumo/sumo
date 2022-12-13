@@ -262,7 +262,7 @@ class TestClass(BaseObjman):
         self.is_pos_ok = attrsman.add(FuncConf('is_pos_ok', 'on_is_pos_ok', False,
                                                groupnames=['state'],
                                                name='Pos OK',
-                                               info='True if position greater than thhreshold.',
+                                               info='True if position greater than threshold.',
                                                ))
         self.testlist = attrsman.add(ListConf('testlist', ['1', 'dd', 'cvc'],
                                               groupnames=['state'],
@@ -298,7 +298,7 @@ class TestClass(BaseObjman):
 
     def on_is_pos_ok(self):
         """
-        True if position greater than thhreshold.
+        True if position greater than threshold.
         """
         print 'on_is_pos_ok', self.x > self.x_thresh
         return self.x > self.x_thresh
@@ -477,13 +477,13 @@ class TestTableObjMan(TableObjman):
 
     def on_new_row(self, ids):
         """
-        True if position greater than thhreshold.
+        True if position greater than threshold.
         """
         self.add_row()
 
     def on_del_row(self, id_row):
         """
-        True if position greater than thhreshold.
+        True if position greater than threshold.
         """
         print 'on_del_row', id_row
         self.del_row(id_row)

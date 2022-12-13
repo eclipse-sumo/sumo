@@ -272,7 +272,7 @@ Processing Options:
   --tls.all-off                        Switches off all traffic lights.
   --tls.actuated.show-detectors        Sets default visibility for actuation
                                         detectors
-  --tls.actuated.jam-threshold FLOAT   Sets default jam-treshold parameter for
+  --tls.actuated.jam-threshold FLOAT   Sets default jam-threshold parameter for
                                         all actuation detectors
   --tls.actuated.detector-length FLOAT  Sets default detector length parameter
                                         for all actuation detectors

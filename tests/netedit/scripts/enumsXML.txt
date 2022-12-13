@@ -790,7 +790,7 @@ calibrator.create.frequency
 calibrator.create.name 
 calibrator.create.routeProbe 
 calibrator.create.output 
-calibrator.create.jamTreshold 
+calibrator.create.jamThreshold 
 calibrator.create.vTypes 
 calibrator.create.center 
 calibrator.inspect.id 
@@ -800,7 +800,7 @@ calibrator.inspect.frequency
 calibrator.inspect.name 
 calibrator.inspect.routeProbe 
 calibrator.inspect.output 
-calibrator.inspect.jamTreshold 
+calibrator.inspect.jamThreshold 
 calibrator.inspect.vTypes 
 calibrator.inspect.parameters 
 calibrator.inspectSelection.pos 
@@ -808,7 +808,7 @@ calibrator.inspectSelection.frequency
 calibrator.inspectSelection.name 
 calibrator.inspectSelection.routeProbe 
 calibrator.inspectSelection.output 
-calibrator.inspectSelection.jamTreshold 
+calibrator.inspectSelection.jamThreshold 
 calibrator.inspectSelection.vTypes 
 calibrator.inspectSelection.parameters 
 routeProbe.create.id 

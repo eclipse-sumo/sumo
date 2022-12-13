@@ -34,23 +34,23 @@ netedit.additionalMode()
 # select E2
 netedit.changeElement("laneAreaDetector")
 
-# set invalid jam threshold (dummy)
-netedit.changeDefaultValue(netedit.attrs.E2.create.jamThreshold, "dummyJamTreshold")
+# set invalid time threshold (dummy)
+netedit.changeDefaultValue(netedit.attrs.E2.create.timeThreshold, "dummyTimeThreshold")
 
-# try to create E2 with invalid jam threshold
-netedit.leftClick(referencePosition, 450, 220)
+# try to create E2 with invalid time threshold
+netedit.leftClick(referencePosition, 250, 220)
 
-# set invalid jam threshold
-netedit.changeDefaultValue(netedit.attrs.E2.create.jamThreshold, "-30")
+# set invalid time threshold (negative)
+netedit.changeDefaultValue(netedit.attrs.E2.create.timeThreshold, "-12")
 
-# try to create E2 with invalid jam threshold
-netedit.leftClick(referencePosition, 460, 220)
+# try to create E2 with invalid time threshold
+netedit.leftClick(referencePosition, 260, 220)
 
-# set valid jam threshold
-netedit.changeDefaultValue(netedit.attrs.E2.create.jamThreshold, "15.5")
+# set valid time threshold
+netedit.changeDefaultValue(netedit.attrs.E2.create.timeThreshold, "10.5")
 
-# create E2 with valid jam threshold
-netedit.leftClick(referencePosition, 470, 220)
+# create E2 with valid time threshold
+netedit.leftClick(referencePosition, 270, 220)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

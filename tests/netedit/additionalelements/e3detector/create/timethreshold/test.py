@@ -37,22 +37,22 @@ netedit.additionalMode()
 # select E3
 netedit.changeElement("entryExitDetector")
 
-# set invalid timeTreshold
-netedit.changeDefaultValue(netedit.attrs.E3.create.timeThreshold, "dummyTimeTreshold")
+# set invalid timeThreshold
+netedit.changeDefaultValue(netedit.attrs.E3.create.timeThreshold, "dummyTimeThreshold")
 
-# try to create E3 with invalid timeTreshold
+# try to create E3 with invalid timeThreshold
 netedit.leftClick(referencePosition, 100, 85)
 
-# set invalid timeTreshold
+# set invalid timeThreshold
 netedit.changeDefaultValue(netedit.attrs.E3.create.timeThreshold, "-4")
 
-# try to create E3 with invalid timeTreshold
+# try to create E3 with invalid timeThreshold
 netedit.leftClick(referencePosition, 100, 85)
 
-# set valid timeTreshold
+# set valid timeThreshold
 netedit.changeDefaultValue(netedit.attrs.E3.create.timeThreshold, "5")
 
-# create E3 with valid timeTreshold
+# create E3 with valid timeThreshold
 netedit.leftClick(referencePosition, 100, 85)
 
 # select entry detector

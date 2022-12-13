@@ -13,7 +13,7 @@ detExit
 TestFunctions: Clicked over position 554 - 278
 TestFunctions: Clicked over position 554 - 588
 TestFunctions: Clicked over position 554 - 278
-dummyTimeTreshold
+dummyTimeThreshold
 -5
 4.2
 TestFunctions: Clicked over position 304 - 168

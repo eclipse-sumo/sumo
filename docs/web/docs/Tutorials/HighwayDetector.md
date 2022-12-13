@@ -192,7 +192,7 @@ defines the detected flow data; routes.rou.xml defines the edge
 composition of each route. There are options to define the analysis
 interval. In addition to the above mentioned outputs in the
 flowFromEdgeData.py it is also possible to get the GEH-statistics with
-use of the respective options --geh and --geh-treshold.
+use of the respective options --geh and --geh-threshold.
 
 ## Calibrating the data
 

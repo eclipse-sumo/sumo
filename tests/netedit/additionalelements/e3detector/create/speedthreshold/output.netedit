@@ -5,7 +5,7 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 0
 25
 entryExitDetector
-dummySpeedTreshold
+dummySpeedThreshold
 TestFunctions: Clicked over position 404 - 253
 -3.80
 TestFunctions: Clicked over position 404 - 253

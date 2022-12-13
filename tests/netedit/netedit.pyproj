@@ -80,7 +80,7 @@
     <Compile Include="additionalelements\calibratorlane\create\default\test.py" />
     <Compile Include="additionalelements\calibratorlane\create\default_nocenter\test.py" />
     <Compile Include="additionalelements\calibratorlane\create\id\test.py" />
-    <Compile Include="additionalelements\calibratorlane\create\jamtreshold\test.py" />
+    <Compile Include="additionalelements\calibratorlane\create\jamthreshold\test.py" />
     <Compile Include="additionalelements\calibratorlane\create\name\test.py" />
     <Compile Include="additionalelements\calibratorlane\create\output\test.py" />
     <Compile Include="additionalelements\calibratorlane\create\period\test.py" />
@@ -88,7 +88,7 @@
     <Compile Include="additionalelements\calibratorlane\create\routeprobe\test.py" />
     <Compile Include="additionalelements\calibratorlane\create\vtypes\test.py" />
     <Compile Include="additionalelements\calibratorlane\inspect\id\test.py" />
-    <Compile Include="additionalelements\calibratorlane\inspect\jamtreshold\test.py" />
+    <Compile Include="additionalelements\calibratorlane\inspect\jamthreshold\test.py" />
     <Compile Include="additionalelements\calibratorlane\inspect\lane\test.py" />
     <Compile Include="additionalelements\calibratorlane\inspect\name\test.py" />
     <Compile Include="additionalelements\calibratorlane\inspect\output\test.py" />
@@ -97,7 +97,7 @@
     <Compile Include="additionalelements\calibratorlane\inspect\pos\test.py" />
     <Compile Include="additionalelements\calibratorlane\inspect\routeprobe\test.py" />
     <Compile Include="additionalelements\calibratorlane\inspect\vtypes\test.py" />
-    <Compile Include="additionalelements\calibratorlane\inspect_selection\jamtreshold\test.py" />
+    <Compile Include="additionalelements\calibratorlane\inspect_selection\jamthreshold\test.py" />
     <Compile Include="additionalelements\calibratorlane\inspect_selection\name\test.py" />
     <Compile Include="additionalelements\calibratorlane\inspect_selection\output\test.py" />
     <Compile Include="additionalelements\calibratorlane\inspect_selection\parameters\test.py" />
@@ -110,7 +110,7 @@
     <Compile Include="additionalelements\calibrator\create\default\test.py" />
     <Compile Include="additionalelements\calibrator\create\default_nocenter\test.py" />
     <Compile Include="additionalelements\calibrator\create\id\test.py" />
-    <Compile Include="additionalelements\calibrator\create\jamtreshold\test.py" />
+    <Compile Include="additionalelements\calibrator\create\jamthreshold\test.py" />
     <Compile Include="additionalelements\calibrator\create\name\test.py" />
     <Compile Include="additionalelements\calibrator\create\output\test.py" />
     <Compile Include="additionalelements\calibrator\create\period\test.py" />
@@ -119,7 +119,7 @@
     <Compile Include="additionalelements\calibrator\create\vtypes\test.py" />
     <Compile Include="additionalelements\calibrator\inspect\edge\test.py" />
     <Compile Include="additionalelements\calibrator\inspect\id\test.py" />
-    <Compile Include="additionalelements\calibrator\inspect\jamtreshold\test.py" />
+    <Compile Include="additionalelements\calibrator\inspect\jamthreshold\test.py" />
     <Compile Include="additionalelements\calibrator\inspect\name\test.py" />
     <Compile Include="additionalelements\calibrator\inspect\output\test.py" />
     <Compile Include="additionalelements\calibrator\inspect\parameters\test.py" />
@@ -127,7 +127,7 @@
     <Compile Include="additionalelements\calibrator\inspect\pos\test.py" />
     <Compile Include="additionalelements\calibrator\inspect\routeprobe\test.py" />
     <Compile Include="additionalelements\calibrator\inspect\vtypes\test.py" />
-    <Compile Include="additionalelements\calibrator\inspect_selection\jamtreshold\test.py" />
+    <Compile Include="additionalelements\calibrator\inspect_selection\jamthreshold\test.py" />
     <Compile Include="additionalelements\calibrator\inspect_selection\name\test.py" />
     <Compile Include="additionalelements\calibrator\inspect_selection\output\test.py" />
     <Compile Include="additionalelements\calibrator\inspect_selection\parameters\test.py" />
@@ -292,12 +292,12 @@
     <Compile Include="additionalelements\e2detector\create\file\test.py" />
     <Compile Include="additionalelements\e2detector\create\friendlypos\test.py" />
     <Compile Include="additionalelements\e2detector\create\id\test.py" />
-    <Compile Include="additionalelements\e2detector\create\jamtreshold\test.py" />
+    <Compile Include="additionalelements\e2detector\create\jamthreshold\test.py" />
     <Compile Include="additionalelements\e2detector\create\length\test.py" />
     <Compile Include="additionalelements\e2detector\create\name\test.py" />
     <Compile Include="additionalelements\e2detector\create\period\test.py" />
-    <Compile Include="additionalelements\e2detector\create\speedtreshold\test.py" />
-    <Compile Include="additionalelements\e2detector\create\timetreshold\test.py" />
+    <Compile Include="additionalelements\e2detector\create\speedthreshold\test.py" />
+    <Compile Include="additionalelements\e2detector\create\timethreshold\test.py" />
     <Compile Include="additionalelements\e2detector\create\tl\test.py" />
     <Compile Include="additionalelements\e2detector\create\vtypes\test.py" />
     <Compile Include="additionalelements\e2detector\delete\test.py" />
@@ -3521,7 +3521,7 @@
     <Folder Include="additionalelements\calibratorlane\create\default" />
     <Folder Include="additionalelements\calibratorlane\create\default_nocenter" />
     <Folder Include="additionalelements\calibratorlane\create\id" />
-    <Folder Include="additionalelements\calibratorlane\create\jamtreshold" />
+    <Folder Include="additionalelements\calibratorlane\create\jamthreshold" />
     <Folder Include="additionalelements\calibratorlane\create\name" />
     <Folder Include="additionalelements\calibratorlane\create\output" />
     <Folder Include="additionalelements\calibratorlane\create\period" />
@@ -3530,7 +3530,7 @@
     <Folder Include="additionalelements\calibratorlane\create\vtypes" />
     <Folder Include="additionalelements\calibratorlane\inspect\" />
     <Folder Include="additionalelements\calibratorlane\inspect\id" />
-    <Folder Include="additionalelements\calibratorlane\inspect\jamtreshold" />
+    <Folder Include="additionalelements\calibratorlane\inspect\jamthreshold" />
     <Folder Include="additionalelements\calibratorlane\inspect\lane" />
     <Folder Include="additionalelements\calibratorlane\inspect\name" />
     <Folder Include="additionalelements\calibratorlane\inspect\output" />
@@ -3540,7 +3540,7 @@
     <Folder Include="additionalelements\calibratorlane\inspect\routeprobe" />
     <Folder Include="additionalelements\calibratorlane\inspect\vtypes" />
     <Folder Include="additionalelements\calibratorlane\inspect_selection\" />
-    <Folder Include="additionalelements\calibratorlane\inspect_selection\jamtreshold" />
+    <Folder Include="additionalelements\calibratorlane\inspect_selection\jamthreshold" />
     <Folder Include="additionalelements\calibratorlane\inspect_selection\name" />
     <Folder Include="additionalelements\calibratorlane\inspect_selection\output" />
     <Folder Include="additionalelements\calibratorlane\inspect_selection\parameters" />
@@ -3555,7 +3555,7 @@
     <Folder Include="additionalelements\calibrator\create\default" />
     <Folder Include="additionalelements\calibrator\create\default_nocenter" />
     <Folder Include="additionalelements\calibrator\create\id" />
-    <Folder Include="additionalelements\calibrator\create\jamtreshold" />
+    <Folder Include="additionalelements\calibrator\create\jamthreshold" />
     <Folder Include="additionalelements\calibrator\create\name" />
     <Folder Include="additionalelements\calibrator\create\output" />
     <Folder Include="additionalelements\calibrator\create\period" />
@@ -3565,7 +3565,7 @@
     <Folder Include="additionalelements\calibrator\inspect\" />
     <Folder Include="additionalelements\calibrator\inspect\edge" />
     <Folder Include="additionalelements\calibrator\inspect\id" />
-    <Folder Include="additionalelements\calibrator\inspect\jamtreshold" />
+    <Folder Include="additionalelements\calibrator\inspect\jamthreshold" />
     <Folder Include="additionalelements\calibrator\inspect\name" />
     <Folder Include="additionalelements\calibrator\inspect\output" />
     <Folder Include="additionalelements\calibrator\inspect\parameters" />
@@ -3574,7 +3574,7 @@
     <Folder Include="additionalelements\calibrator\inspect\routeprobe" />
     <Folder Include="additionalelements\calibrator\inspect\vtypes" />
     <Folder Include="additionalelements\calibrator\inspect_selection\" />
-    <Folder Include="additionalelements\calibrator\inspect_selection\jamtreshold" />
+    <Folder Include="additionalelements\calibrator\inspect_selection\jamthreshold" />
     <Folder Include="additionalelements\calibrator\inspect_selection\name" />
     <Folder Include="additionalelements\calibrator\inspect_selection\output" />
     <Folder Include="additionalelements\calibrator\inspect_selection\parameters" />
@@ -3767,12 +3767,12 @@
     <Folder Include="additionalelements\e2detector\create\file" />
     <Folder Include="additionalelements\e2detector\create\friendlypos" />
     <Folder Include="additionalelements\e2detector\create\id" />
-    <Folder Include="additionalelements\e2detector\create\jamtreshold" />
+    <Folder Include="additionalelements\e2detector\create\jamthreshold" />
     <Folder Include="additionalelements\e2detector\create\length" />
     <Folder Include="additionalelements\e2detector\create\name" />
     <Folder Include="additionalelements\e2detector\create\period" />
-    <Folder Include="additionalelements\e2detector\create\speedtreshold" />
-    <Folder Include="additionalelements\e2detector\create\timetreshold" />
+    <Folder Include="additionalelements\e2detector\create\speedthreshold" />
+    <Folder Include="additionalelements\e2detector\create\timethreshold" />
     <Folder Include="additionalelements\e2detector\create\tl" />
     <Folder Include="additionalelements\e2detector\create\vtypes" />
     <Folder Include="additionalelements\e2detector\delete" />

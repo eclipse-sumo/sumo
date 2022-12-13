@@ -31,26 +31,26 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # go to additional mode
 netedit.additionalMode()
 
-# select E2
-netedit.changeElement("laneAreaDetector")
+# select calibrator
+netedit.changeElement("calibratorLane")
 
-# set invalid time threshold (dummy)
-netedit.changeDefaultValue(netedit.attrs.E2.create.timeThreshold, "dummyTimeTreshold")
+# change output with an invalid value
+netedit.changeDefaultValue(netedit.attrs.calibrator.create.jamThreshold, "dummyJam")
 
-# try to create E2 with invalid time threshold
-netedit.leftClick(referencePosition, 250, 220)
+# create calibrator with a valid parameter in other lane
+netedit.leftClick(referencePosition, 240, 250)
 
-# set invalid time threshold (negative)
-netedit.changeDefaultValue(netedit.attrs.E2.create.timeThreshold, "-12")
+# change output with an invalid value
+netedit.changeDefaultValue(netedit.attrs.calibrator.create.jamThreshold, "-5")
 
-# try to create E2 with invalid time threshold
-netedit.leftClick(referencePosition, 260, 220)
+# create calibrator with a valid parameter in other lane
+netedit.leftClick(referencePosition, 250, 250)
 
-# set valid time threshold
-netedit.changeDefaultValue(netedit.attrs.E2.create.timeThreshold, "10.5")
+# change output with an valid value
+netedit.changeDefaultValue(netedit.attrs.calibrator.create.jamThreshold, "12.3")
 
-# create E2 with valid time threshold
-netedit.leftClick(referencePosition, 270, 220)
+# create calibrator with a valid parameter in other lane
+netedit.leftClick(referencePosition, 255, 250)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

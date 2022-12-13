@@ -5467,7 +5467,7 @@ GNEAttributeCarrier::fillLaneChangingModelAttributes(SumoXMLTag currentTag) {
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_LCA_SPEEDGAINRIGHT,
                                           GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::EXTENDED,
-                                          "Factor for configuring the treshold asymmetry when changing to the left or to the right for speed gain.",
+                                          "Factor for configuring the threshold asymmetry when changing to the left or to the right for speed gain.",
                                           "0.1");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
