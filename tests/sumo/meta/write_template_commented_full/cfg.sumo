@@ -465,7 +465,7 @@
         <!-- Sets the fraction of emergency decel capability that must be used to trigger a warning. -->
         <emergencydecel.warning-threshold value="1" type="FLOAT"/>
 
-        <!-- Whether parking simulation includes manoeuvering time and associated lane blocking -->
+        <!-- Whether parking simulation includes maneuvering time and associated lane blocking -->
         <parking.maneuver value="false" type="BOOL"/>
 
         <!-- Override stop until times with stop ended times when given -->

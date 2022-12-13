@@ -497,7 +497,7 @@ MSFrame::fillOptions() {
     oc.addDescription("emergencydecel.warning-threshold", "Processing", "Sets the fraction of emergency decel capability that must be used to trigger a warning.");
 
     oc.doRegister("parking.maneuver", new Option_Bool(false));
-    oc.addDescription("parking.maneuver", "Processing", "Whether parking simulation includes manoeuvering time and associated lane blocking");
+    oc.addDescription("parking.maneuver", "Processing", "Whether parking simulation includes maneuvering time and associated lane blocking");
 
     oc.doRegister("use-stop-ended", new Option_Bool(false));
     oc.addDescription("use-stop-ended", "Processing", "Override stop until times with stop ended times when given");

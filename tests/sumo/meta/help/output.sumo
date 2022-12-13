@@ -318,7 +318,7 @@ Processing Options:
                                         decel capability that must be used to
                                         trigger a warning.
   --parking.maneuver                   Whether parking simulation includes
-                                        manoeuvering time and associated lane
+                                        maneuvering time and associated lane
                                         blocking
   --use-stop-ended                     Override stop until times with stop
                                         ended times when given
