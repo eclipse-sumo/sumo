@@ -92,7 +92,7 @@ class MultiEntryExitDomain(Domain):
         """getLastIntervalMeanTravelTime(string) -> double
 
         Returns the average travel time of vehicles that passed the detector in
-        the previous measurement interval
+        the previous completed measurement interval
         """
         return self._getUniversal(tc.VAR_LAST_INTERVAL_TRAVELTIME, detID)
 
@@ -100,7 +100,7 @@ class MultiEntryExitDomain(Domain):
         """getLastIntervalMeanHaltsPerVehicle(string) -> double
 
         Returns the average number of halts of vehicles that passed the detector in
-        the previous measurement interval
+        the previous completed measurement interval
         """
         return self._getUniversal(tc.VAR_LAST_INTERVAL_MEAN_HALTING_NUMBER, detID)
 
@@ -108,7 +108,7 @@ class MultiEntryExitDomain(Domain):
         """getLastIntervalMeanTimeLoss(string) -> double
 
         Returns the average time loss of vehicles that passed the detector in
-        the previous measurement interval
+        the previous completed measurement interval
         """
         return self._getUniversal(tc.VAR_TIMELOSS, detID)
 
@@ -116,6 +116,6 @@ class MultiEntryExitDomain(Domain):
         """getLastIntervalVehicleSum(string) -> integer
 
         Returns the number of vehicles that passed the detector in
-        the previous measurement interval
+        the previous completed measurement interval
         """
         return self._getUniversal(tc.VAR_LAST_INTERVAL_VEHICLE_NUMBER, detID)
