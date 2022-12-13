@@ -309,6 +309,55 @@ MSInductLoop::getLastDetectionTime() const {
 }
 
 
+double
+MSInductLoop::getIntervalOccupancy() const {
+    return 0;
+}
+
+
+double
+MSInductLoop::getIntervalMeanSpeed() const {
+    return 0;
+}
+
+
+int
+MSInductLoop::getIntervalVehicleNumber() const {
+    return 0;
+}
+
+
+std::vector<std::string>
+MSInductLoop::getIntervalVehicleIDs() const {
+    return std::vector<std::string>();
+}
+
+
+double
+MSInductLoop::getLastIntervalOccupancy() const {
+    return 0;
+}
+
+
+double
+MSInductLoop::getLastIntervalMeanSpeed() const {
+    return 0;
+}
+
+
+int
+MSInductLoop::getLastIntervalVehicleNumber() const {
+    return 0;
+}
+
+
+std::vector<std::string>
+MSInductLoop::getLastIntervalVehicleIDs() const {
+    return std::vector<std::string>();
+}
+
+
+
 void
 MSInductLoop::overrideTimeSinceDetection(double time) {
     myOverrideTime = time;

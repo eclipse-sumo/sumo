@@ -215,6 +215,15 @@ public:
      */
     std::vector<std::string> getVehicleIDs(const int offset) const;
 
+    double getIntervalOccupancy() const;
+    double getIntervalMeanSpeed() const;
+    int getIntervalVehicleNumber() const;
+    std::vector<std::string> getIntervalVehicleIDs() const;
+
+    double getLastIntervalOccupancy() const;
+    double getLastIntervalMeanSpeed() const;
+    int getLastIntervalVehicleNumber() const;
+    std::vector<std::string> getLastIntervalVehicleIDs() const;
 
     /** @brief Returns the time since the last vehicle left the detector
      *

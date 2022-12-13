@@ -714,19 +714,43 @@ TRACI_CONST int LAST_STEP_LENGTH = 0x15;
 // last step time since last detection (get: induction loops)
 TRACI_CONST int LAST_STEP_TIME_SINCE_DETECTION = 0x16;
 
-// entry times
+// entry times (get: inductionloop)
 TRACI_CONST int LAST_STEP_VEHICLE_DATA = 0x17;
 
-// last step jam length in vehicles
+// get aggregated occupancy (get: inductionloop)
+TRACI_CONST int VAR_INTERVAL_OCCUPANCY = 0x23;
+
+// get aggregated speed (get: inductionloop)
+TRACI_CONST int VAR_INTERVAL_SPEED = 0x24;
+
+// get aggregated vehicle count (get: inductionloop)
+TRACI_CONST int VAR_INTERVAL_NUMBER = 0x25;
+
+// get aggregated vehicle ids (get: inductionloop)
+TRACI_CONST int VAR_INTERVAL_IDS = 0x26;
+
+// get aggregated speed of last written interval (get: inductionloop)
+TRACI_CONST int VAR_LAST_INTERVAL_OCCUPANCY = 0x27;
+
+// get aggregated occupancy of last written interval (get: inductionloop)
+TRACI_CONST int VAR_LAST_INTERVAL_SPEED = 0x28;
+
+// get aggregated vehicle count of last written interval (get: inductionloop)
+TRACI_CONST int VAR_LAST_INTERVAL_NUMBER = 0x29;
+
+// get aggregated vehicle ids of last written interval (get: inductionloop)
+TRACI_CONST int VAR_LAST_INTERVAL_IDS = 0x2a;
+
+// last step jam length in vehicles (get: e2)
 TRACI_CONST int JAM_LENGTH_VEHICLE = 0x18;
 
-// last step jam length in meters
+// last step jam length in meters (get: e2)
 TRACI_CONST int JAM_LENGTH_METERS = 0x19;
 
 // last interval travel time (get: e3)
 TRACI_CONST int VAR_LAST_INTERVAL_TRAVELTIME = 0x58;
 
-// last step vehicle halting number (get: multi-entry/multi-exit detector)
+// last step vehicle halting number (get: e3)
 TRACI_CONST int VAR_LAST_INTERVAL_MEAN_HALTING_NUMBER = 0x20;
 
 // last interval vehicle count(get: e3)

@@ -121,6 +121,54 @@ InductionLoop::getVehicleData(const std::string& detID) {
 }
 
 
+double
+InductionLoop::getIntervalOccupancy(const std::string& detID) {
+    return getDetector(detID)->getIntervalOccupancy();
+}
+
+
+double
+InductionLoop::getIntervalMeanSpeed(const std::string& detID) {
+    return getDetector(detID)->getIntervalMeanSpeed();
+}
+
+
+int
+InductionLoop::getIntervalVehicleNumber(const std::string& detID) {
+    return getDetector(detID)->getIntervalVehicleNumber();
+}
+
+
+std::vector<std::string>
+InductionLoop::getIntervalVehicleIDs(const std::string& detID) {
+    return getDetector(detID)->getIntervalVehicleIDs();
+}
+
+
+double
+InductionLoop::getLastIntervalOccupancy(const std::string& detID) {
+    return getDetector(detID)->getLastIntervalOccupancy();
+}
+
+
+double
+InductionLoop::getLastIntervalMeanSpeed(const std::string& detID) {
+    return getDetector(detID)->getLastIntervalMeanSpeed();
+}
+
+
+int
+InductionLoop::getLastIntervalVehicleNumber(const std::string& detID) {
+    return getDetector(detID)->getLastIntervalVehicleNumber();
+}
+
+
+std::vector<std::string>
+InductionLoop::getLastIntervalVehicleIDs(const std::string& detID) {
+    return getDetector(detID)->getLastIntervalVehicleIDs();
+}
+
+
 void
 InductionLoop::overrideTimeSinceDetection(const std::string& detID, double time) {
     getDetector(detID)->overrideTimeSinceDetection(time);
@@ -212,6 +260,22 @@ InductionLoop::handleVariable(const std::string& objID, const int variable, Vari
             return wrapper->wrapDouble(objID, variable, getLastStepMeanLength(objID));
         case LAST_STEP_TIME_SINCE_DETECTION:
             return wrapper->wrapDouble(objID, variable, getTimeSinceDetection(objID));
+        case VAR_INTERVAL_OCCUPANCY:
+            return wrapper->wrapDouble(objID, variable, getIntervalOccupancy(objID));
+        case VAR_INTERVAL_SPEED:
+            return wrapper->wrapDouble(objID, variable, getIntervalMeanSpeed(objID));
+        case VAR_INTERVAL_NUMBER:
+            return wrapper->wrapInt(objID, variable, getIntervalVehicleNumber(objID));
+        case VAR_INTERVAL_IDS:
+            return wrapper->wrapStringList(objID, variable, getIntervalVehicleIDs(objID));
+        case VAR_LAST_INTERVAL_OCCUPANCY:
+            return wrapper->wrapDouble(objID, variable, getLastIntervalOccupancy(objID));
+        case VAR_LAST_INTERVAL_SPEED:
+            return wrapper->wrapDouble(objID, variable, getLastIntervalMeanSpeed(objID));
+        case VAR_LAST_INTERVAL_NUMBER:
+            return wrapper->wrapInt(objID, variable, getLastIntervalVehicleNumber(objID));
+        case VAR_LAST_INTERVAL_IDS:
+            return wrapper->wrapStringList(objID, variable, getLastIntervalVehicleIDs(objID));
         case libsumo::VAR_PARAMETER:
             paramData->readUnsignedByte();
             return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));
