@@ -2444,7 +2444,7 @@ msgstr ""
 #: /home/behr_mi/sumo/src/microsim/devices/MSDevice_ElecHybrid.cpp:317
 #: /home/micha/sumo/src/microsim/devices/MSDevice_ElecHybrid.cpp:317
 msgid ""
-"pos_veh_node or neg_veh_node or veh_elem is not NULL (and they shoud be at "
+"pos_veh_node or neg_veh_node or veh_elem is not NULL (and they should be at "
 "the beginning of adding elecHybrid to the circuit)"
 msgstr ""
 
