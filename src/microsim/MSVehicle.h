@@ -2037,6 +2037,12 @@ public:
     /// @brief decide whether a red (or yellow light) may be ignore
     bool ignoreRed(const MSLink* link, bool canBrake) const;
 
+    /// @brief maximum acceleration to consider a vehicle as 'waiting' at low speed
+    inline double accelThresholdForWaiting() const {
+        return 0.5 * getCarFollowModel().getMaxAccel();
+    }
+
+
 protected:
 
     /* @brief adapt safe velocity in accordance to multiple vehicles ahead:
@@ -2103,11 +2109,6 @@ protected:
 
     /// @brief whether the give lane is reverse direction of the current route or not
     bool isOppositeLane(const MSLane* lane) const;
-
-    /// @brief maximum acceleration to consider a vehicle as 'waiting' at low speed
-    inline double accelThresholdForWaiting() const {
-        return 0.5 * getCarFollowModel().getMaxAccel();
-    }
 
 private:
     /// @brief The per vehicle variables of the car following model

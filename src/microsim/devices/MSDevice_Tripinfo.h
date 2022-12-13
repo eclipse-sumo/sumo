@@ -213,6 +213,8 @@ protected:
 
     static void writeRideStatistics(OutputDevice& od, const std::string& category, const int index);
 
+    static bool lowAcceleration(const SUMOTrafficObject& veh);
+
 private:
     /// @brief The lane the vehicle departed at
     std::string myDepartLane;
