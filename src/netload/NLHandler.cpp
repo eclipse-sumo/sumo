@@ -1342,7 +1342,7 @@ NLHandler::addEdgeLaneMeanData(const SUMOSAXAttributes& attrs, int objecttype) {
     if (edgesFile != "") {
         std::ifstream strm(edgesFile.c_str());
         if (!strm.good()) {
-            throw ProcessError("Could not load names of edges for edgeData defintion '" + id + "' from '" + edgesFile + "'.");
+            throw ProcessError("Could not load names of edges for edgeData definition '" + id + "' from '" + edgesFile + "'.");
         }
         while (strm.good()) {
             std::string name;

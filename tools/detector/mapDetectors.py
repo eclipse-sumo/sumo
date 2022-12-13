@@ -34,7 +34,7 @@ import sumolib  # noqa
 
 def get_options(args=None):
     optParser = sumolib.options.ArgumentParser(
-            description="Map detector locations to a network and write inductionLoop-defintions")  # noqa
+            description="Map detector locations to a network and write inductionLoop-definitions")  # noqa
     optParser.add_argument("-n", "--net-file", dest="netfile",
                            help="define the net file (mandatory)")
     optParser.add_argument("-d", "--detector-file", dest="detfile",
