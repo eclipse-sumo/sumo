@@ -143,7 +143,7 @@ protected:
                         const std::pair<MSVehicle*, double>& neighLead,
                         double remainingSeconds);
 
-    /// @brief decide whether we will try cut in before the follower or allow to be overtaken
+    /// @brief decide whether we will try cut in before the follower or allow being overtaken
     void informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                         int blocked, int dir,
                         const std::pair<MSVehicle*, double>& neighFollow,

@@ -119,7 +119,7 @@ GNEAttributesCreator::getAttributesAndValues(CommonXMLStructure::SumoBaseObject*
             const bool isFlowDefinitionAttribute = attrProperties.isFlowDefinition();
             // flag for Terminatel attributes
             const bool isActivatableAttribute = attrProperties.isActivatable() && row->getAttributeCheckButtonCheck();
-            // check if flags configuration allow to include values
+            // check if flags configuration allow including values
             if (rowEnabled && (includeAll || hasDefaultStaticValue || isFlowDefinitionAttribute || isActivatableAttribute)) {
                 // add attribute depending of type
                 if (attrProperties.isInt()) {

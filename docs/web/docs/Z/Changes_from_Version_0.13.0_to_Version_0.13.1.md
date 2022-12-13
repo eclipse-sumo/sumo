@@ -48,7 +48,7 @@ title: Changes from Version 0.13.0 to Version 0.13.1
 - Simulation
   - Added [Simulation/Output/Instantaneous Induction Loops Detectors](../Simulation/Output/Instantaneous_Induction_Loops_Detectors.md)
   - [Simulation/Output/Induction Loops Detectors (E1)](../Simulation/Output/Induction_Loops_Detectors_(E1).md)
-    now also allow to generate values on per-vehicle type base
+    now also allow generating values on per-vehicle type base
 - jtrrouter
   - added Karol Stosiek's patch for reading more than one turn-definitions file; changes **--turn-ratio-file** {{DT_FILE}} to **--turn-ratio-files** ** *<FILE\>\[,<FILE\>\]\** **
 - sumo-gui

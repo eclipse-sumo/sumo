@@ -109,7 +109,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--sink-edges** {{DT_STR[]}} | Use STR[] as list of sink edges |
 | **-A** {{DT_BOOL}}<br> **--accept-all-destinations** {{DT_BOOL}} | Whether all edges are allowed as sink edges; *default:* **false** |
 | **-i** {{DT_BOOL}}<br> **--ignore-vclasses** {{DT_BOOL}} | Ignore road restrictions based on vehicle class; *default:* **false** |
-| **--allow-loops** {{DT_BOOL}} | Allow to re-use a road; *default:* **false** |
+| **--allow-loops** {{DT_BOOL}} | Allow re-using a road; *default:* **false** |
 | **-S** {{DT_BOOL}}<br> **--sources-are-sinks** {{DT_BOOL}} | Use all source edges as sink edges.; *default:* **false** |
 | **-D** {{DT_BOOL}}<br> **--discount-sources** {{DT_BOOL}} | Subtract upstream flow when inserting a new flow. When option --sources-are-sinks is set, the upstream flow is limited to the value of the source flow and the remaining part terminates.; *default:* **false** |
 

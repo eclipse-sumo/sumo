@@ -338,14 +338,14 @@ Usually, existing files with the same name are overwritten without a
 warning. The directory must exist, where the output file shall be
 written.
 
-Besides writing to a file, further special notations allow to:
+Besides writing to a file, further special notations allow:
 
-- write into the null-device (no output at all): use "NUL" or
+- writing into the null-device (no output at all): use "NUL" or
   "/dev/null" for file name (both notations work platform independent)
-- write into a socket: use "<HOST\>:<PORT\>" for file name
-- write to stdout (print on command line): use "stdout" or "-" for
+- writing into a socket: use "<HOST\>:<PORT\>" for file name
+- writing to stdout (print on command line): use "stdout" or "-" for
   file name
-- write to stderr: use "stderr" for file name
+- writing to stderr: use "stderr" for file name
 - The special string 'TIME' within a filename will be replaced with
   the application start time
 

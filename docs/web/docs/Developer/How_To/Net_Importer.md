@@ -106,7 +106,7 @@ FileHelpers::exists(<FILE\>) returns whether a given file is existing.
 After the file has been checked for being existent, a parser is built
 and started.
 
-You may have noticed, that some of the import parsers allow to give more
+You may have noticed, that some of the import parsers allow giving more
 than one file, divided by ','. This is of a great help sometimes, still
 it is not mandatory. It is up to you to decide whether your importer
 should be able to handle several files or not.

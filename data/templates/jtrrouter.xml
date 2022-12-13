@@ -61,7 +61,7 @@
         <sink-edges value="" synonymes="sinks" type="STR[]" help="Use STR[] as list of sink edges"/>
         <accept-all-destinations value="false" synonymes="A" type="BOOL" help="Whether all edges are allowed as sink edges"/>
         <ignore-vclasses value="false" synonymes="i" type="BOOL" help="Ignore road restrictions based on vehicle class"/>
-        <allow-loops value="false" type="BOOL" help="Allow to re-use a road"/>
+        <allow-loops value="false" type="BOOL" help="Allow re-using a road"/>
         <sources-are-sinks value="false" synonymes="S" type="BOOL" help="Use all source edges as sink edges."/>
         <discount-sources value="false" synonymes="D" type="BOOL" help="Subtract upstream flow when inserting a new flow. When option --sources-are-sinks is set, the upstream flow is limited to the value of the source flow and the remaining part terminates."/>
     </processing>

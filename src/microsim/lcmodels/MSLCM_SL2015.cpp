@@ -705,7 +705,7 @@ MSLCM_SL2015::informFollower(int blocked,
                 return;
             }
         }
-        // decide whether we will request help to cut in before the follower or allow to be overtaken
+        // decide whether we will request help to cut in before the follower or allow being overtaken
 
         // PARAMETERS
         // assume other vehicle will assume the equivalent of 1 second of

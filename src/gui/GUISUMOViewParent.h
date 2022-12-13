@@ -45,7 +45,7 @@ class GUIDialog_ChooserAbstract;
  * @brief A single child window which contains a view of the simulation area
  *
  * It is made of a tool-bar containing a field to change the type of display,
- *  buttons that allow to choose an artifact and some other view controlling
+ *  buttons that allow choosing an artifact and some other view controlling
  *  options.
  *
  * The rest of the window is a canvas that contains the display itself

@@ -236,7 +236,7 @@ GNELaneAreaDetector::fixAdditionalProblem() {
                 if (!foundConnection) {
                     // create new connection manually
                     NBEdge::Connection newCon(getParentLanes().at(i)->getIndex(), getParentLanes().at(i + 1)->getParentEdge()->getNBEdge(), getParentLanes().at(i + 1)->getIndex());
-                    // allow to undo creation of new lane
+                    // allow undoing creation of new lane
                     myNet->getViewNet()->getUndoList()->add(new GNEChange_Connection(getParentLanes().at(i)->getParentEdge(), newCon, false, true), true);
                 }
                 // update lane iterator

@@ -79,7 +79,7 @@ ROJTRFrame::fillOptions() {
     oc.addDescription("ignore-vclasses", "Processing", "Ignore road restrictions based on vehicle class");
 
     oc.doRegister("allow-loops", new Option_Bool(false));
-    oc.addDescription("allow-loops", "Processing", "Allow to re-use a road");
+    oc.addDescription("allow-loops", "Processing", "Allow re-using a road");
 
     oc.doRegister("sources-are-sinks", 'S', new Option_Bool(false));
     oc.addDescription("sources-are-sinks", "Processing", "Use all source edges as sink edges.");

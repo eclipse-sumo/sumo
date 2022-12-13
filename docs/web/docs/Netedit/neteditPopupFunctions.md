@@ -36,7 +36,7 @@ Geometry endpoint will be created in the mouse cursor position
 There isn't an visual connection between end point and their end junction
 
 - *Restore geometry endpoint*: Restore a geometry endpoint to a normal edge
-- *Straighten edge*: Allow to restore the visual shape of an edge
+- *Straighten edge*: Allow restoring the visual shape of an edge
 
 ![](../images/neteditStraighten1.png)   
 With the operation move visual shape of an edge can be modified

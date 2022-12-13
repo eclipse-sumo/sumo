@@ -3118,7 +3118,7 @@ NBEdge::divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector
     }
     // compute the number of virtual edges
     //  a virtual edge is used as a replacement for a real edge from now on
-    //  it shall allow to divide the existing lanes on this structure without
+    //  it shall allow dividing the existing lanes on this structure without
     //  regarding the structure of outgoing edges
     int numVirtual = 0;
     // compute the transition from virtual to real edges
@@ -3637,7 +3637,7 @@ NBEdge::expandableBy(NBEdge* possContinuation, std::string& reason) const {
         reason = "bidi-rail";
         return false;
     }
-    // also, check whether the connections - if any exit do allow to join
+    // also, check whether the connections - if any exit do allow joining
     //  both edges
     // This edge must have a one-to-one connection to the following lanes
     switch (myStep) {

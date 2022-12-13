@@ -4,7 +4,7 @@ title: Further Outputs
 
 [netconvert](../netconvert.md),
 [netgenerate](../netgenerate.md), and [netedit](../Netedit/index.md)
-allow to generate additional output files besides writing a SUMO network
+allow generating additional output files besides writing a SUMO network
 file. They will be presented in the following.
 
 # Writing/Exporting Networks
@@ -14,7 +14,7 @@ and [netgenerate](../netgenerate.md) will write the result of
 network import/generation as a SUMO network file into "net.net.xml".
 Otherwise the specified output will be generated.
 
-Currently, the applications allow to write networks in the following
+Currently, the applications allow writing networks in the following
 formats:
 
 - SUMO road networks

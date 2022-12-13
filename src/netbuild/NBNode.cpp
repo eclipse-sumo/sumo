@@ -56,7 +56,7 @@
 #include "NBTrafficLightLogicCont.h"
 #include "NBTrafficLightDefinition.h"
 
-// allow to extend a crossing across multiple edges
+// allow extending a crossing across multiple edges
 #define EXTEND_CROSSING_ANGLE_THRESHOLD 35.0 // degrees
 // create intermediate walking areas if either of the following thresholds is exceeded
 #define SPLIT_CROSSING_WIDTH_THRESHOLD 1.5 // meters

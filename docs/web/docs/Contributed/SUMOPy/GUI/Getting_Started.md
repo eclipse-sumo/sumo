@@ -90,7 +90,7 @@ approximately the boundaries of the window. Next to the zoom button is a
 button which pops up a menu when pressed. From this menu, the network
 elements to be drawn can be selected or un-selected.
 
-The following mouse-key combination allow to navigate the network:
+The following mouse-key combination allow navigating the network:
 
 | Action      | Key-Mouse                                  |
 | ----------- | ------------------------------------------ |

@@ -152,7 +152,7 @@ protected:
     /// @name Helper methods for device assignment
     /// @{
 
-    /** @brief Adds common command options that allow to assign devices to vehicles
+    /** @brief Adds common command options that allow assigning devices to vehicles
      *
      * @param[in] deviceName The name of the device type
      * @param[in] optionsTopic The options topic into which the options shall be added

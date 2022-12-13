@@ -126,7 +126,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 Normally, both [netconvert](netconvert.md) and
 [netgenerate](netgenerate.md) translate the read network so that
 the left- and down-most node are at coordinate (0,0). The options
---offset.x and --offset.y allow to disable this and to apply different
+--offset.x and --offset.y allow disabling this and to apply different
 offsets for both the x- and the y-axis. If there are explicit offsets
 given, the normalization is disabled automatically (thus there is no
 need to give --offset.disable-normalization if there is at least one of

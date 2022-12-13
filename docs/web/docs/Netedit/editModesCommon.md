@@ -148,7 +148,7 @@ The modification modes have the following functions
 
 ## Match Attribute
 
-The 'Match Attribute' controls allow to specify a set of objects by matching their attributes against a given expression. When combining this set with the current selection, the *Modification Mode* is also applied.
+The 'Match Attribute' controls allow specifying a set of objects by matching their attributes against a given expression. When combining this set with the current selection, the *Modification Mode* is also applied.
 
 1.  Select an object type from the first input box
 2.  Select an attribute from the second input box

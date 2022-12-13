@@ -456,7 +456,7 @@ GNEMatchGenericDataAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
     // set help text
     std::ostringstream help;
     help
-            << TL("- The 'MatchGenericData Attribute' controls allow to specify a set of objects which are then applied to the current selection\n")
+            << TL("- The 'MatchGenericData Attribute' controls allow specifying a set of objects which are then applied to the current selection\n")
             << TL("  according to the current 'Modification Mode'.\n")
             << TL("     1. Select an object type from the first input box\n")
             << TL("     2. Select an attribute from the second input box\n")

@@ -74,7 +74,7 @@ private:
      * Checks whether the connections of the nodes are in common with the value of myMinLinkAngle.
      *
      * @param[in] node The node to check connections of
-     * @return Whether the settings allow to connect both nodes
+     * @return Whether the settings allow connecting both nodes
      */
     bool checkAngles(const NGNode* const node);
 
@@ -86,7 +86,7 @@ private:
      *
      * @param[in] baseNode The first node of the combination to check
      * @param[in] newNode The second node of the combination to check
-     * @return Whether the settings allow to connect both nodes
+     * @return Whether the settings allow connecting both nodes
      */
     bool canConnect(NGNode* baseNode, NGNode* newNode);
 

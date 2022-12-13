@@ -38,8 +38,8 @@ title: Changes from version 0.9.8 to version 0.9.9
   - Reworked mean data output. The vehicle movements are now
     weighted by the time the vehicle was on an edge/lane. Additional
     constraints for output
-    (**--exclude-empty-edges**/**--exclude-empty-lanes**) allow to
-    dump only information about edges/lanes which were occupied by
+    (**--exclude-empty-edges**/**--exclude-empty-lanes**) allow
+    dumping only information about edges/lanes which were occupied by
     vehicles.
   - debugged [bug 1964433 different simulation results for different starting times](http://sourceforge.net/tracker/index.php?func=detail&aid=1964433&group_id=45607&atid=443421);
     The issue was a false computation of WAUT switching and TLS

@@ -126,7 +126,7 @@ class LanduseTypes(am.ArrayObjman):
         self.add_col(am.ListArrayConf('osmfilters',
                                       perm='r',
                                       name='OSM filter',
-                                      info='List of openstreetmap filters that allow to identify this facility type.',
+                                      info='List of openstreetmap filters that allow identifying this facility type.',
                                       ))
 
         # this will remove all previous and setnw

@@ -178,7 +178,7 @@ protected:
                         const CLeaderDist& neighLead,
                         double remainingSeconds);
 
-    /// @brief decide whether we will try cut in before the follower or allow to be overtaken
+    /// @brief decide whether we will try cut in before the follower or allow being overtaken
     void informFollower(int blocked, int dir,
                         const CLeaderDist& neighFollow,
                         double remainingSeconds,

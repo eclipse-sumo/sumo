@@ -153,7 +153,7 @@
         <!-- Ignore road restrictions based on vehicle class -->
         <ignore-vclasses value="false" synonymes="i" type="BOOL"/>
 
-        <!-- Allow to re-use a road -->
+        <!-- Allow re-using a road -->
         <allow-loops value="false" type="BOOL"/>
 
         <!-- Use all source edges as sink edges. -->

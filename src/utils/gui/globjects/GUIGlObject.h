@@ -252,7 +252,7 @@ protected:
      */
     void buildCenterPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator = true);
 
-    /** @brief Builds entries which allow to copy the name / typed name into the clipboard
+    /** @brief Builds entries which allow copying the name / typed name into the clipboard
      * @param[in, filled] ret The popup menu to add the entry to
      * @param[in] addSeparator Whether a separator shall be added, too
      */

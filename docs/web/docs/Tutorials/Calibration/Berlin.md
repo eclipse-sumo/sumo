@@ -98,7 +98,7 @@ congestion length and duration.
 
 ## Summary and Outlook
 
-It was demonstrated that Variable Speed Signs allow to model congestion
+It was demonstrated that Variable Speed Signs allow modeling congestion
 effects caused outside the simulated net. The resulting duration and
 length of the vehicle-queue in the simulation matches to measurements at
 the UTRaLab. Currently further verification of the simulation

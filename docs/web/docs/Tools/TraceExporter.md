@@ -181,7 +181,7 @@ Example filter file:
 
 ## Processing Options
 
-Several options allow to fine-tune the processing.
+Several options allow fine-tuning the processing.
 
 | Option                                     | Description                                                                                             |
 |--------------------------------------------|---------------------------------------------------------------------------------------------------------|

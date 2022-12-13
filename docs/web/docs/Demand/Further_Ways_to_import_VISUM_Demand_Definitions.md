@@ -7,7 +7,7 @@ imported](../Demand/Importing_O/D_Matrices.md) using
 [od2trips](../od2trips.md). Though, it may be interesting for using
 the computed assignments without performing a [dynamic user
 assignment](../Demand/Dynamic_User_Assignment.md). The SUMO package
-contains some scripts which allow to process other VISUM data and are
+contains some scripts which allow processing other VISUM data and are
 discussed in the following.
 
 # Importing Turn Percentages

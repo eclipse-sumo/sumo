@@ -90,7 +90,7 @@ Processing Options:
   -A, --accept-all-destinations    Whether all edges are allowed as sink edges
   -i, --ignore-vclasses            Ignore road restrictions based on vehicle
                                     class
-  --allow-loops                    Allow to re-use a road
+  --allow-loops                    Allow re-using a road
   -S, --sources-are-sinks          Use all source edges as sink edges.
   -D, --discount-sources           Subtract upstream flow when inserting a new
                                     flow. When option --sources-are-sinks is
