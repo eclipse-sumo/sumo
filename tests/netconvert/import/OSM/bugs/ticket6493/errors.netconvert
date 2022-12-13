@@ -1,4 +1,4 @@
-Warning: Discarding unusable type 'railway.platform' (first occurence for edge '119432576').
+Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '119432576').
 Warning: PT line in relation 165867 with no stops ignored. Probably OSM file is incomplete.
 Warning: No way found for reference '1670309356' in relation '4443863'
 Warning: PT line in relation 6048504 with no stops ignored. Probably OSM file is incomplete.

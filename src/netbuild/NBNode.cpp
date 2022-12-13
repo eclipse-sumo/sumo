@@ -1661,7 +1661,7 @@ NBNode::replaceOutgoing(const EdgeVector& which, NBEdge* by) {
         replaceOutgoing(*i, by, laneOff);
         laneOff += (*i)->getNumLanes();
     }
-    // removed double occurences
+    // removed double occurrences
     removeDoubleEdges();
     // check whether this node belongs to a district and the edges
     //  must here be also remapped
@@ -1693,7 +1693,7 @@ NBNode::replaceIncoming(const EdgeVector& which, NBEdge* by) {
         replaceIncoming(*i, by, laneOff);
         laneOff += (*i)->getNumLanes();
     }
-    // removed double occurences
+    // removed double occurrences
     removeDoubleEdges();
     // check whether this node belongs to a district and the edges
     //  must here be also remapped

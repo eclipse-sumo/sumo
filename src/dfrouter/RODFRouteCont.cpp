@@ -127,11 +127,11 @@ void
 RODFRouteCont::setID(RODFRouteDesc& desc) const {
     std::pair<ROEdge*, ROEdge*> c(desc.edges2Pass[0], desc.edges2Pass.back());
     desc.routename = c.first->getID() + "_to_" + c.second->getID();
-    if (myConnectionOccurences.find(c) == myConnectionOccurences.end()) {
-        myConnectionOccurences[c] = 0;
+    if (myConnectionOccurrences.find(c) == myConnectionOccurrences.end()) {
+        myConnectionOccurrences[c] = 0;
     } else {
-        myConnectionOccurences[c] = myConnectionOccurences[c] + 1;
-        desc.routename = desc.routename + "_" + toString(myConnectionOccurences[c]);
+        myConnectionOccurrences[c] = myConnectionOccurrences[c] + 1;
+        desc.routename = desc.routename + "_" + toString(myConnectionOccurrences[c]);
     }
 }
 

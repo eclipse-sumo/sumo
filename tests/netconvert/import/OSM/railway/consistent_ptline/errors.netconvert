@@ -3,13 +3,13 @@ Warning: The referenced geometry information (ref='3319201694') is not known
 Warning: The referenced geometry information (ref='5424248175') is not known
 Warning: The referenced geometry information (ref='2830904186') is not known
 Warning: The referenced geometry information (ref='252500102') is not known
-Warning: Discarding unusable type 'railway.platform' (first occurence for edge '61302695').
+Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '61302695').
 Warning: Discarding way '127867765' because it has only 1 node(s)
 Warning: Discarding way '127867768' because it has only 1 node(s)
 Warning: Discarding way '127867791' because it has only 1 node(s)
 Warning: Discarding way '127867792' because it has only 1 node(s)
 Warning: Discarding way '127867795' because it has only 1 node(s)
-Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.tertiary' (first occurence for edge '382039401').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.tertiary' (first occurrence for edge '382039401').
 Warning: PT line 'Tram 4: Radeklint => Helmstedter Str.' in relation 3887930 seems to be split, only keeping first part.
 Warning: PT line in relation 6915027 with no stops ignored. Probably OSM file is incomplete.
 Warning: PT line in relation 6915028 with no stops ignored. Probably OSM file is incomplete.

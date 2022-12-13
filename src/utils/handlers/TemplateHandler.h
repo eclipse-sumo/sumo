@@ -56,7 +56,7 @@ private:
     /// @name Handlers for the SAX DocumentHandler interface
     /// @{
 
-    /** @brief Called on the occurence of the beginning of a tag
+    /** @brief Called on the occurrence of the beginning of a tag
      *
      * Sets the name of the last item
      */

@@ -4,14 +4,14 @@ Warning: The referenced geometry information (ref='439185051') is not known
 Warning: The referenced geometry information (ref='92486553') is not known
 Warning: The referenced geometry information (ref='271411907') is not known
 Warning: Discarding way '24978202' because it has only 1 node(s)
-Warning: Discarding unusable type 'waterway.river' (first occurence for edge '27600092').
+Warning: Discarding unusable type 'waterway.river' (first occurrence for edge '27600092').
 Warning: Discarding way '28384346' because it has only 1 node(s)
-Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.tertiary' (first occurence for edge '35162947').
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.tertiary' (first occurence for edge '92142136').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.tertiary' (first occurrence for edge '35162947').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.tertiary' (first occurrence for edge '92142136').
 Warning: Discarding way '136617339' because it has only 1 node(s)
 Warning: Discarding way '291221105' because it has only 1 node(s)
 Warning: Discarding way '332455395' because it has only 1 node(s)
-Warning: Discarding unusable type 'railway.platform' (first occurence for edge '503589432').
+Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '503589432').
 Warning: Removing pt stop '2275466607' on non existing edge '373181617'.
 Warning: PT line in relation 48677 with no stops ignored. Probably OSM file is incomplete.
 Warning: PT line in relation 48679 with no stops ignored. Probably OSM file is incomplete.

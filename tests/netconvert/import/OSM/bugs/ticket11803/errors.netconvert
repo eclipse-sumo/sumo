@@ -1,9 +1,9 @@
 Warning: Value of key 'maxspeed:type' is not numeric ('urban') in edge '76732435'.
 Warning: Value of key 'maxspeed:type' is not numeric ('urban') in edge '256651831'.
-Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.primary' (first occurence for edge '256651830').
-Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|cycleway.track|highway.primary' (first occurence for edge '695678838').
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.lane|cycleway.track|highway.primary' (first occurence for edge '695678838').
-Warning: Discarding unusable type 'route.ferry' (first occurence for edge '964206080').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.primary' (first occurrence for edge '256651830').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|cycleway.track|highway.primary' (first occurrence for edge '695678838').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.lane|cycleway.track|highway.primary' (first occurrence for edge '695678838').
+Warning: Discarding unusable type 'route.ferry' (first occurrence for edge '964206080').
 Warning: No way found for reference '8161400' in relation '11138423'
 Warning: No way found for reference '306839970' in relation '11138423'
 Warning: Ignoring restriction relation '11138423' with unknown from-way.

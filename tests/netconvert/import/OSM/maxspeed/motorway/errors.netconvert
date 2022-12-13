@@ -1,5 +1,5 @@
-Warning: Discarding unusable type 'waterway.drain' (first occurence for edge '25797909').
-Warning: Discarding unusable type 'waterway.stream' (first occurence for edge '44530101').
+Warning: Discarding unusable type 'waterway.drain' (first occurrence for edge '25797909').
+Warning: Discarding unusable type 'waterway.stream' (first occurrence for edge '44530101').
 Warning: Found sharp turn with radius 4.40 at the start of edge '231469974#2'.
 Warning: Shape for junction '1649753799' has distance 20.74 to its given position.
 Warning: Shape for junction '205498344' has distance 28.41 to its given position.

@@ -1584,17 +1584,17 @@ msgstr ""
 #: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2031
 #: /home/micha/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2031
 msgid ""
-"Discarding unknown compound '%' in type '%' (first occurence for edge '%')."
+"Discarding unknown compound '%' in type '%' (first occurrence for edge '%')."
 msgstr ""
 
 #: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2035
 #: /home/micha/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2035
-msgid "Discarding unusable type '%' (first occurence for edge '%')."
+msgid "Discarding unusable type '%' (first occurrence for edge '%')."
 msgstr ""
 
 #: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2084
 #: /home/micha/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2084
-msgid "Discarding compound type '%' (first occurence for edge '%')."
+msgid "Discarding compound type '%' (first occurrence for edge '%')."
 msgstr ""
 
 #: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2124

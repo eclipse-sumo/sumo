@@ -2,21 +2,21 @@ Warning: Ignoring track count 2 for edge '194973341'.
 Warning: Ignoring track count 2 for edge '321754188'.
 Warning: Ignoring track count 2 for edge '321754191'.
 Warning: Ignoring track count 2 for edge '321754197'.
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.primary' (first occurence for edge '4067932').
-Warning: Discarding unknown compound 'usage.main' in type 'railway.light_rail|usage.main' (first occurence for edge '4471817').
-Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.tertiary' (first occurence for edge '4588220').
-Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.secondary' (first occurence for edge '4612961').
-Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.primary' (first occurence for edge '4613110').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.primary' (first occurrence for edge '4067932').
+Warning: Discarding unknown compound 'usage.main' in type 'railway.light_rail|usage.main' (first occurrence for edge '4471817').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.tertiary' (first occurrence for edge '4588220').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.secondary' (first occurrence for edge '4612961').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.primary' (first occurrence for edge '4613110').
 Warning: Ambiguous railway kilometrage direction for way '25946680' (assuming forward)
-Warning: Discarding unusable type 'highway.construction' (first occurence for edge '25959781').
-Warning: Discarding unusable type 'waterway.stream' (first occurence for edge '31112384').
-Warning: Discarding unusable type 'waterway.weir' (first occurence for edge '31560876').
+Warning: Discarding unusable type 'highway.construction' (first occurrence for edge '25959781').
+Warning: Discarding unusable type 'waterway.stream' (first occurrence for edge '31112384').
+Warning: Discarding unusable type 'waterway.weir' (first occurrence for edge '31560876').
 Warning: Ambiguous railway kilometrage direction for way '32572620' (assuming forward)
 Warning: Ambiguous railway kilometrage direction for way '32572624' (assuming forward)
 Warning: Ambiguous railway kilometrage direction for way '32590429' (assuming forward)
 Warning: Ambiguous railway kilometrage direction for way '32590435' (assuming forward)
-Warning: Discarding unusable type 'railway.platform' (first occurence for edge '43185748').
-Warning: Discarding unusable type 'waterway.river' (first occurence for edge '59683399').
+Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '43185748').
+Warning: Discarding unusable type 'waterway.river' (first occurrence for edge '59683399').
 Warning: PT line in relation 114255 with no stops ignored. Probably OSM file is incomplete.
 Warning: PT line in relation 374676 with no stops ignored. Probably OSM file is incomplete.
 Warning: direction of restriction relation could not be determined
@@ -89,8 +89,8 @@ Warning: Could not build program '0' for traffic light '4363312288'
 Warning: Speed of turning connection '27080261_0->177195505#1_0' reduced by 24.90 due to turning radius of 1.51 (length=1.66, angle=168.28).
 Warning: 17 total messages of type: Ambiguous railway kilometrage direction for way '%' (assuming forward)
 Warning: 10 total messages of type: Could not re-assign PT stop '%', probably broken osm file.
-Warning: 13 total messages of type: Discarding unknown compound '%' in type '%' (first occurence for edge '%').
-Warning: 17 total messages of type: Discarding unusable type '%' (first occurence for edge '%').
+Warning: 13 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
+Warning: 17 total messages of type: Discarding unusable type '%' (first occurrence for edge '%').
 Warning: 7 total messages of type: Found sharp turn with radius % at the start of edge '%'.
 Warning: 15 total messages of type: No way found for reference '%' in relation '%'
 Warning: 7 total messages of type: Not joining junctions % (%).

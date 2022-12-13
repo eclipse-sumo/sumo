@@ -7,11 +7,11 @@ Warning: Discarding way '107509090' because it has only 1 node(s)
 Warning: Discarding way '107509095' because it has only 1 node(s)
 Warning: Discarding way '144019120' because it has only 1 node(s)
 Warning: Discarding way '173971214' because it has only 1 node(s)
-Warning: Discarding unusable type 'railway.platform' (first occurence for edge '319887234').
+Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '319887234').
 Warning: Discarding way '385162394' because it has only 1 node(s)
-Warning: Discarding unknown compound 'railway.razed' in type 'railway.razed|usage.industrial' (first occurence for edge '817495203').
-Warning: Discarding unknown compound 'usage.industrial' in type 'railway.razed|usage.industrial' (first occurence for edge '817495203').
-Warning: Discarding unusable type 'railway.razed|usage.industrial' (first occurence for edge '817495203').
+Warning: Discarding unknown compound 'railway.razed' in type 'railway.razed|usage.industrial' (first occurrence for edge '817495203').
+Warning: Discarding unknown compound 'usage.industrial' in type 'railway.razed|usage.industrial' (first occurrence for edge '817495203').
+Warning: Discarding unusable type 'railway.razed|usage.industrial' (first occurrence for edge '817495203').
 Warning: PT line in relation 2077160 with no stops ignored. Probably OSM file is incomplete.
 Warning: PT line in relation 2077161 with no stops ignored. Probably OSM file is incomplete.
 Warning: PT line in relation 2077647 with no stops ignored. Probably OSM file is incomplete.

@@ -53,14 +53,14 @@ public:
     /// @name Handlers for the SAX DocumentHandler interface
     /// @{
 
-    /** @brief Called on the occurence of the beginning of a tag
+    /** @brief Called on the occurrence of the beginning of a tag
      *
      * Sets the name of the last item
      */
     virtual void startElement(const XMLCh* const name,
                               XERCES_CPP_NAMESPACE::AttributeList& attributes);
 
-    /** @brief Called on the occurence of character data
+    /** @brief Called on the occurrence of character data
      *
      * If this occurs inside a single tag it sets the option named
      *  by the tag to the value given by the character data.

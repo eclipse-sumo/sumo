@@ -1,4 +1,4 @@
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.secondary' (first occurence for edge '79523623').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.secondary' (first occurrence for edge '79523623').
 Warning: No way found for reference '1116784111' in relation '2439713'
 Warning: Ignoring restriction relation '2439713' with unknown to-way.
 Warning: No way found for reference '579378808' in relation '11765377'
