@@ -1112,7 +1112,7 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
             clanes.push_back(clane);
         }
         if (clanes.size() == 0) {
-            throw InvalidArgument("Malformed argument 'lanes' for E2Detector '" + id + "'.\nSpecify 'lanes' as a sequence of lane-IDs seperated by whitespace or comma (',')");
+            throw InvalidArgument("Malformed argument 'lanes' for E2Detector '" + id + "'.\nSpecify 'lanes' as a sequence of lane-IDs separated by whitespace or comma (',')");
         }
         if (laneGiven) {
             WRITE_WARNING("Ignoring argument 'lane' for E2Detector '" + id + "' since argument 'lanes' was given.\n"
