@@ -1425,7 +1425,7 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelParameters(G
 
 void
 GNEVehicleTypeDialog::CarFollowingModelParameters::refreshCFMFields() {
-    // start hidding all rows
+    // start hiding all rows
     for (const auto& row : myRows) {
         row->hide();
     }
