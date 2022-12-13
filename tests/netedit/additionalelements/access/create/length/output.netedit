@@ -7,7 +7,7 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 busStop
 TestFunctions: Clicked over position 579 - 418
 access
-dummyLenght
+dummyLength
 -4
 TestFunctions: Clicked over position 354 - 368
 3.5

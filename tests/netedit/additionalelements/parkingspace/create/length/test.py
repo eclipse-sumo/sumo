@@ -42,7 +42,7 @@ netedit.changeElement("space")
 
 # set invalid length (dummy)
 netedit.selectAdditionalChild(netedit.attrs.parkingSpace.create.parent, 0)
-netedit.changeDefaultValue(netedit.attrs.parkingSpace.create.length, "dummyLenght")
+netedit.changeDefaultValue(netedit.attrs.parkingSpace.create.length, "dummyLength")
 
 # try to create area
 netedit.leftClick(referencePosition, 231, 83)

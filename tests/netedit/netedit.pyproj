@@ -2696,7 +2696,7 @@
     <Compile Include="netelements\crossings\with_tls\inspect_selected\priority\test.py" />
     <Compile Include="netelements\crossings\with_tls\inspect_selected\width\test.py" />
     <Compile Include="netelements\crossings\with_tls\load\test.py" />
-    <Compile Include="netelements\edges\contextual_menu\reset_lenght\test.py" />
+    <Compile Include="netelements\edges\contextual_menu\reset_length\test.py" />
     <Compile Include="netelements\edges\contextual_menu\restore_geometry_point\test.py" />
     <Compile Include="netelements\edges\contextual_menu\reverse_direction\test.py" />
     <Compile Include="netelements\edges\contextual_menu\reverse_direction_disconnected\test.py" />
@@ -6609,7 +6609,7 @@
     <Folder Include="netelements\crossings\with_tls\load" />
     <Folder Include="netelements\edges\" />
     <Folder Include="netelements\edges\contextual_menu\" />
-    <Folder Include="netelements\edges\contextual_menu\reset_lenght" />
+    <Folder Include="netelements\edges\contextual_menu\reset_length" />
     <Folder Include="netelements\edges\contextual_menu\restore_geometry_point" />
     <Folder Include="netelements\edges\contextual_menu\reverse_direction" />
     <Folder Include="netelements\edges\contextual_menu\reverse_direction_disconnected" />

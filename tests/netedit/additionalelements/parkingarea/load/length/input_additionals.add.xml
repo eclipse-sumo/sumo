@@ -4,7 +4,7 @@
     <parkingArea id="parkingArea_0" lane="gneE1_0" startPos="17" endPos="22" roadsideCapacity="4" width="12.00" angle="0.00" name="parkingArea" friendlyPos="true"/>
 
     <!-- non valid length (dummy) -->
-    <parkingArea id="parkingArea_1" lane="gneE1_0" startPos="19" endPos="24" roadsideCapacity="4" width="12.00" length="dummyLenght" angle="0.00" name="parkingArea" friendlyPos="true"/>
+    <parkingArea id="parkingArea_1" lane="gneE1_0" startPos="19" endPos="24" roadsideCapacity="4" width="12.00" length="dummyLength" angle="0.00" name="parkingArea" friendlyPos="true"/>
 
     <!-- non valid length (negative) -->
     <parkingArea id="parkingArea_2" lane="gneE1_0" startPos="21" endPos="26" roadsideCapacity="4" width="12.00" length="-3" angle="0.00" name="parkingArea" friendlyPos="true"/>

@@ -166,7 +166,7 @@ edge.contextualMenu.restoreGeometryPoint
 edge.contextualMenu.reverseEdge 
 edge.contextualMenu.addReverseDirection 
 edge.contextualMenu.addReverseDirectionDisconnected 
-edge.contextualMenu.resetLenght 
+edge.contextualMenu.resetLength 
 edge.contextualMenu.straighteen 
 edge.contextualMenu.smooth 
 edge.contextualMenu.straighteenElevation 

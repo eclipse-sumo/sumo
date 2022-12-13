@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("laneAreaDetector")
 
 # set invalid  length (dummy)
-netedit.changeDefaultValue(netedit.attrs.E2.create.length, "dummyLenght")
+netedit.changeDefaultValue(netedit.attrs.E2.create.length, "dummyLength")
 
 # try to create E2 with invalid length
 netedit.leftClick(referencePosition, 250, 250)

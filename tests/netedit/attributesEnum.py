@@ -248,7 +248,7 @@ class edge:
         reverseEdge = 4
         addReverseDirection = 5
         addReverseDirectionDisconnected = 6
-        resetLenght = 7
+        resetLength = 7
         straighteen = 8
         smooth = 9
         straighteenElevation = 10

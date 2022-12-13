@@ -47,7 +47,7 @@ netedit.leftClick(referencePosition, 326, 308)
 netedit.modifyAttribute(netedit.attrs.access.inspectSelection.length, "", True)
 
 # Change length (invalid, dummy)
-netedit.modifyAttribute(netedit.attrs.access.inspectSelection.length, "dummyLenght", True)
+netedit.modifyAttribute(netedit.attrs.access.inspectSelection.length, "dummyLength", True)
 
 # Change length (invalid, negative)
 netedit.modifyAttribute(netedit.attrs.access.inspectSelection.length, "-7", True)

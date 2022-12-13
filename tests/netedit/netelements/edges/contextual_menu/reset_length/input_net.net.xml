@@ -4,13 +4,13 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value=".\netedit\netelements\edges\contextual_menu\reset_lenght\input_net.nod.xml"/>
-        <edge-files value=".\netedit\netelements\edges\contextual_menu\reset_lenght\input_net.edg.xml"/>
-        <connection-files value=".\netedit\netelements\edges\contextual_menu\reset_lenght\input_net.con.xml"/>
+        <node-files value=".\netedit\netelements\edges\contextual_menu\reset_length\input_net.nod.xml"/>
+        <edge-files value=".\netedit\netelements\edges\contextual_menu\reset_length\input_net.edg.xml"/>
+        <connection-files value=".\netedit\netelements\edges\contextual_menu\reset_length\input_net.con.xml"/>
     </input>
 
     <output>
-        <output-file value=".\netedit\netelements\edges\contextual_menu\reset_lenght\input_net.net.xml"/>
+        <output-file value=".\netedit\netelements\edges\contextual_menu\reset_length\input_net.net.xml"/>
     </output>
 
     <report>

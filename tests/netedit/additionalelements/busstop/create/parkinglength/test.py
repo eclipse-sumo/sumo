@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("busStop")
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.busStop.create.parkingLength, "dummyLenght")
+netedit.changeDefaultValue(netedit.attrs.busStop.create.parkingLength, "dummyLength")
 
 # try to create busStop
 netedit.leftClick(referencePosition, 250, 250)

@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("trainStop")
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.trainStop.create.parkingLength, "dummyLenght")
+netedit.changeDefaultValue(netedit.attrs.trainStop.create.parkingLength, "dummyLength")
 
 # try to create trainStop
 netedit.leftClick(referencePosition, 250, 250)

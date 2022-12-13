@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("busStop")
 
 # set invalid length (dummy)
-netedit.changeDefaultValue(netedit.attrs.busStop.create.length, "dummyLenght")
+netedit.changeDefaultValue(netedit.attrs.busStop.create.length, "dummyLength")
 
 # try to create busstop with invalid length
 netedit.leftClick(referencePosition, 500, 250)

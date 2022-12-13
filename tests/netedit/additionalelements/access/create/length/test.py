@@ -45,7 +45,7 @@ netedit.changeElement("access")
 netedit.selectAdditionalChild(netedit.attrs.access.create.parent, 0)
 
 # set invalid length
-netedit.changeDefaultValue(netedit.attrs.access.create.length, "dummyLenght")
+netedit.changeDefaultValue(netedit.attrs.access.create.length, "dummyLength")
 
 # set invalid length
 netedit.changeDefaultValue(netedit.attrs.access.create.length, "-4")
