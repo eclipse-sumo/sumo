@@ -33,7 +33,7 @@ traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"] + sys.argv[1:])
 detID = traci.inductionloop.getIDList()[0]
 
 for step in range(120):
-    print("%s iO=%s iS=%s iN=%s iI=%s lO=%s lS=%s lN=%s lI=%s" % (
+    print("%s iO=%.2f iS=%.2f iN=%s iI=%s lO=%.2f lS=%.2f lN=%s lI=%s" % (
         step,
         traci.inductionloop.getIntervalOccupancy(detID),
         traci.inductionloop.getIntervalMeanSpeed(detID),
@@ -43,5 +43,6 @@ for step in range(120):
         traci.inductionloop.getLastIntervalMeanSpeed(detID),
         traci.inductionloop.getLastIntervalVehicleNumber(detID),
         traci.inductionloop.getLastIntervalVehicleIDs(detID)))
+    traci.simulationStep()
 
 traci.close()
