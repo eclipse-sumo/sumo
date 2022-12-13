@@ -215,15 +215,10 @@ public:
      */
     std::vector<std::string> getVehicleIDs(const int offset) const;
 
-    double getIntervalOccupancy() const;
-    double getIntervalMeanSpeed() const;
-    int getIntervalVehicleNumber() const;
-    std::vector<std::string> getIntervalVehicleIDs() const;
-
-    double getLastIntervalOccupancy() const;
-    double getLastIntervalMeanSpeed() const;
-    int getLastIntervalVehicleNumber() const;
-    std::vector<std::string> getLastIntervalVehicleIDs() const;
+    double getIntervalOccupancy(bool lastInterval = false) const;
+    double getIntervalMeanSpeed(bool lastInterval = false) const;
+    int getIntervalVehicleNumber(bool lastInterval = false) const;
+    std::vector<std::string> getIntervalVehicleIDs(bool lastInterval = false) const;
 
     /** @brief Returns the time since the last vehicle left the detector
      *
@@ -323,7 +318,7 @@ public:
      *            (the latter gives a more complete picture but may include vehicles in multiple steps even if they did not stay on the detector)
      * @return The list of vehicles
      */
-    std::vector<VehicleData> collectVehiclesOnDet(SUMOTime t, bool includeEarly = false, bool leaveTime = false, bool forOccupancy = false) const;
+    std::vector<VehicleData> collectVehiclesOnDet(SUMOTime t, bool includeEarly = false, bool leaveTime = false, bool forOccupancy = false, bool lastInterval = false) const;
 
     /// @brief allows for special color in the gui version
     virtual void setSpecialColor(const RGBColor* /*color*/) {};
@@ -387,6 +382,9 @@ protected:
 
     /// @brief Data for vehicles that have entered the detector (vehicle -> enter time)
     std::map<SUMOTrafficObject*, double> myVehiclesOnDet;
+
+    SUMOTime myLastIntervalEnd;
+    SUMOTime myLastIntervalBegin;
 
 private:
     /// @brief Invalidated copy constructor.

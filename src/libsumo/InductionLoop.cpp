@@ -147,25 +147,25 @@ InductionLoop::getIntervalVehicleIDs(const std::string& detID) {
 
 double
 InductionLoop::getLastIntervalOccupancy(const std::string& detID) {
-    return getDetector(detID)->getLastIntervalOccupancy();
+    return getDetector(detID)->getIntervalOccupancy(true);
 }
 
 
 double
 InductionLoop::getLastIntervalMeanSpeed(const std::string& detID) {
-    return getDetector(detID)->getLastIntervalMeanSpeed();
+    return getDetector(detID)->getIntervalMeanSpeed(true);
 }
 
 
 int
 InductionLoop::getLastIntervalVehicleNumber(const std::string& detID) {
-    return getDetector(detID)->getLastIntervalVehicleNumber();
+    return getDetector(detID)->getIntervalVehicleNumber(true);
 }
 
 
 std::vector<std::string>
 InductionLoop::getLastIntervalVehicleIDs(const std::string& detID) {
-    return getDetector(detID)->getLastIntervalVehicleIDs();
+    return getDetector(detID)->getIntervalVehicleIDs(true);
 }
 
 
