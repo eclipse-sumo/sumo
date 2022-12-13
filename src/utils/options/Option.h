@@ -63,7 +63,7 @@ typedef std::vector<std::string> StringVector;
  *  construction of derived, value and type holding, classes is allowed.
  *
  *  At the begin (after being constructed) an Option either has a default value or not.
- *   In dependance to this, myHaveTheDefaultValue is set. Also, myAmSet is set to
+ *   In dependence to this, myHaveTheDefaultValue is set. Also, myAmSet is set to
  *   true if a default value was supported. myAmWritable is set to true,
  *   indicating that a new value may be set.
  *
