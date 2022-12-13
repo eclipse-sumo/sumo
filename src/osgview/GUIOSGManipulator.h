@@ -49,6 +49,8 @@ public:
     osg::Matrixd getMatrix() const;
     /// @brief Get the position of the manipulator as a inverse matrix of the manipulator, typically used as a model view matrix.
     osg::Matrixd getInverseMatrix() const;
+    /// @brief inform HUD about the current window size to let it reposition
+    void updateHUDPosition(int width, int height);
 
 private:
 #ifdef _DEBUG
@@ -57,6 +59,7 @@ private:
 
 protected:
     osg::ref_ptr<osg::Geode> myTextNode;
+    osg::ref_ptr<osg::Camera> myHUDCamera;
 private:
     /// @brief remember which ManipulatorMode we use 
 #ifdef _DEBUG

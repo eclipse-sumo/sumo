@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include <utils/geom/GeomHelper.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/StringBijection.h>
 
 #include "GUIOSGManipulator.h"
@@ -31,9 +32,9 @@
 //#define DEFAULT_MOVEACCEL 2.0
 
 static StringBijection<ManipulatorMode>::Entry ModeTextInitializer[] = {
-    {"ego mode",        MODE_EGO},
-    {"walk mode",       MODE_WALK},
-    {"terrain mode",    MODE_TERRAIN}
+    {"Ego",        MODE_EGO},
+    {"Walk",       MODE_WALK},
+    {"Terrain",    MODE_TERRAIN}
 };
 
 StringBijection<ManipulatorMode> ModeText(ModeTextInitializer, MODE_TERRAIN, false);
@@ -51,9 +52,9 @@ GUIOSGManipulator::GUIOSGManipulator(ManipulatorMode initMode, bool verticalFixe
     myTextNode = new osg::Geode();
     myText = new osgText::FadeText;
     myText->setFadeSpeed(0.001f);
+    myText->setCharacterSize(20.f);
     myTextNode->addDrawable(myText);
-    int margin = 5; // TODO: dynamic text position
-    myText->setPosition(osg::Vec3f(margin, 500.f, 0.f));
+    myText->setAlignment(osgText::TextBase::AlignmentType::LEFT_TOP);
     myText->setDrawMode(osgText::TextBase::DrawModeMask::FILLEDBOUNDINGBOX | osgText::TextBase::DrawModeMask::TEXT);
     myText->setBoundingBoxColor(osg::Vec4(0.0f, 0.0f, 0.2f, 0.5f));
     myText->setBoundingBoxMargin(2.0f);
@@ -65,17 +66,27 @@ GUIOSGManipulator::GUIOSGManipulator(ManipulatorMode initMode, bool verticalFixe
 #ifdef _DEBUG
 osg::Camera*
 GUIOSGManipulator::getHUD() {
-    osg::Camera* camera = new osg::Camera;
-    camera->setProjectionMatrix(osg::Matrix::ortho2D(0, 1280, 0, 1024)); // TODO: what about other sizes / what is the actual view size?
-    camera->setReferenceFrame(osg::Transform::ABSOLUTE_RF);
-    camera->setViewMatrix(osg::Matrix::identity());
-    camera->setClearMask(GL_DEPTH_BUFFER_BIT);
-    camera->setRenderOrder(osg::Camera::POST_RENDER);
-    camera->setAllowEventFocus(false);
-    camera->addChild(myTextNode.get());
-    return camera;
+    if (myHUDCamera == nullptr) {
+        myHUDCamera = new osg::Camera;
+        myHUDCamera->setProjectionMatrixAsOrtho2D(0, 800, 0, 800); // default size will be overwritten
+        myHUDCamera->setReferenceFrame(osg::Transform::ABSOLUTE_RF);
+        myHUDCamera->setViewMatrix(osg::Matrix::identity());
+        myHUDCamera->setClearMask(GL_DEPTH_BUFFER_BIT);
+        myHUDCamera->setRenderOrder(osg::Camera::POST_RENDER);
+        myHUDCamera->setAllowEventFocus(false);
+        myHUDCamera->addChild(myTextNode.get());
+    }
+    return myHUDCamera.get();
 }
 #endif
+
+
+void
+GUIOSGManipulator::updateHUDPosition(int width, int height) {
+    // keep the HUD text in the left top corner
+    myHUDCamera->setProjectionMatrixAsOrtho2D(0, width, 0, height);
+    myText->setPosition(osg::Vec3f(0.f, height, 0.f));
+}
 
 
 bool 
@@ -238,7 +249,7 @@ GUIOSGManipulator::handleKeyUp(const osgGA::GUIEventAdapter& ea, osgGA::GUIActio
 #ifdef _DEBUG
 void
 GUIOSGManipulator::updateHUD() {
-    myText->setText(ModeText.getString(myCurrentMode));
+    myText->setText(TLF("Currently in % camera mode. Press [F] to switch.", ModeText.getString(myCurrentMode)));
 }
 #endif
 

@@ -197,6 +197,10 @@ public:
     void removeVeh(MSVehicle* veh);
     void removeTransportable(MSTransportable* t);
 
+    /// @brief added some callback to OSG to resize
+    void position(int x, int y, int w, int h);
+    void resize(int w, int h);
+
     // callback
     long onConfigure(FXObject*, FXSelector, void*);
     long onKeyPress(FXObject*, FXSelector, void*);

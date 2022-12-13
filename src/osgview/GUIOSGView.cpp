@@ -198,8 +198,8 @@ GUIOSGView::GUIOSGView(
     osgViewer::Viewer::Windows windows;
     myViewer->getWindows(windows);
     osg::Camera* hudCamera = myCameraManipulator->getHUD();
-    hudCamera->setGraphicsContext(windows[0]);
-    hudCamera->setViewport(0, 0, windows[0]->getTraits()->width, windows[0]->getTraits()->height);
+    hudCamera->setGraphicsContext(myAdapter);
+    hudCamera->setViewport(0, 0, w, h);
     myViewer->addSlave(hudCamera, false);
 #endif
 }
@@ -300,6 +300,20 @@ GUIOSGView::buildViewToolBars(GUIGlChildWindow* v) {
                  "\tLocate Polygon\tLocate a Polygon within the network.",
                  GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), v, MID_LOCATEPOLY,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+}
+
+
+void
+GUIOSGView::resize(int w, int h) {
+    GUISUMOAbstractView::resize(w, h);
+    myCameraManipulator->updateHUDPosition(w, h);
+}
+
+
+void
+GUIOSGView::position(int x, int y, int w, int h) {
+    GUISUMOAbstractView::position(x, y, w, h);
+    myCameraManipulator->updateHUDPosition(w, h);
 }
 
 
