@@ -227,14 +227,14 @@ Parameterised::areAttributesValid(const std::string& value, bool report, const s
             if (!((letter >= 'a') && (letter <= 'z')) && !((letter >= 'A') && (letter <= 'Z'))) {
                 // report depending of flag
                 if (report) {
-                    WRITE_WARNING("Invalid format of atribute '" + attr + "'. Attribute must start with a letter");
+                    WRITE_WARNING("Invalid format of attribute '" + attr + "'. Attribute must start with a letter");
                 }
                 return false;
             }
         } else {
             // report depending of flag
             if (report) {
-                WRITE_WARNING("Invalid format of atribute (" + keyValueStr + ")");
+                WRITE_WARNING("Invalid format of attribute (" + keyValueStr + ")");
             }
             return false;
         }

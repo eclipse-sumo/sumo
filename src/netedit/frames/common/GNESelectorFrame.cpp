@@ -1536,7 +1536,7 @@ GNESelectorFrame::handleIDs(const std::vector<GNEAttributeCarrier*>& ACs, const 
     }
     // handle ids
     for (const auto& AC : ACs) {
-        // iterate over AtributeCarriers an place it in ACsToSelect or ACsToUnselect
+        // iterate over AttributeCarriers an place it in ACsToSelect or ACsToUnselect
         switch (setOperation) {
             case GNESelectorFrame::ModificationMode::Operation::SUB:
                 ACsToUnselect.insert(std::make_pair(AC->getID(), AC));

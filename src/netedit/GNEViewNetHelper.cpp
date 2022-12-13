@@ -1017,7 +1017,7 @@ GNEViewNetHelper::ObjectsUnderCursor::updateGUIGlObjects(ObjectsContainer& conta
     container.GUIGlObjects.clear();
     // reserve
     container.GUIGlObjects.reserve(container.attributeCarriers.size());
-    // iterate over atribute carriers
+    // iterate over attribute carriers
     for (const auto& attributeCarrrier : container.attributeCarriers) {
         // add GUIGlObject in GUIGlObjects container
         container.GUIGlObjects.push_back(attributeCarrrier->getGUIGlObject());

@@ -47,9 +47,9 @@ class GNEVehicleTypeDialog : public GNEDemandElementDialog {
 
 public:
     /// @brief class for VClasses
-    class VTypeAtributes : protected FXVerticalFrame {
+    class VTypeAttributes : protected FXVerticalFrame {
         /// @brief FOX-declaration
-        FXDECLARE(GNEVehicleTypeDialog::VTypeAtributes)
+        FXDECLARE(GNEVehicleTypeDialog::VTypeAttributes)
 
     public:
         /// @brief class for VClasses
@@ -57,7 +57,7 @@ public:
 
         public:
             /// @brief constructor
-            VClassRow(VTypeAtributes* VTypeAtributesParent, FXVerticalFrame* column);
+            VClassRow(VTypeAttributes* VTypeAttributesParent, FXVerticalFrame* column);
 
             /// @brief set vehicle class
             SUMOVehicleClass setVariable();
@@ -66,8 +66,8 @@ public:
             SUMOVehicleClass updateValue();
 
         private:
-            /// @brief pointer to VTypeAtributes parent
-            VTypeAtributes* myVTypeAtributesParent;
+            /// @brief pointer to VTypeAttributes parent
+            VTypeAttributes* myVTypeAttributesParent;
 
             /// @brief FXComboBox for VClass
             MFXIconComboBox* myComboBoxVClass;
@@ -84,7 +84,7 @@ public:
 
         public:
             /// @brief constructor
-            VShapeRow(VTypeAtributes* VTypeAtributesParent, FXVerticalFrame* column);
+            VShapeRow(VTypeAttributes* VTypeAttributesParent, FXVerticalFrame* column);
 
             /// @brief set variables
             void setVariable();
@@ -96,8 +96,8 @@ public:
             void updateValue(SUMOVehicleClass vClass);
 
         private:
-            /// @brief pointer to VTypeAtributes parent
-            VTypeAtributes* myVTypeAtributesParent;
+            /// @brief pointer to VTypeAttributes parent
+            VTypeAttributes* myVTypeAttributesParent;
 
             /// @brief FXComboBox for Shape
             MFXIconComboBox* myComboBoxShape;
@@ -124,7 +124,7 @@ public:
             };
 
             /// @brief constructor
-            VTypeAttributeRow(VTypeAtributes* VTypeAtributesParent, FXVerticalFrame* verticalFrame, const SumoXMLAttr attr, const RowAttrType rowAttrType, const std::vector<std::string>& values = {});
+            VTypeAttributeRow(VTypeAttributes* VTypeAttributesParent, FXVerticalFrame* verticalFrame, const SumoXMLAttr attr, const RowAttrType rowAttrType, const std::vector<std::string>& values = {});
 
             /// @brief set Variable in VehicleType (using default value obtained from GNEAttributeCarrier)
             void setVariable();
@@ -161,7 +161,7 @@ public:
 
         private:
             /// @brief pointer to VTypeAttributeParameters parent
-            VTypeAtributes* myVTypeAtributesParent;
+            VTypeAttributes* myVTypeAttributesParent;
 
             /// @brief edited attribute
             const SumoXMLAttr myAttr;
@@ -186,7 +186,7 @@ public:
         };
 
         /// @brief constructor
-        VTypeAtributes(GNEVehicleTypeDialog* vehicleTypeDialog, FXHorizontalFrame* column);
+        VTypeAttributes(GNEVehicleTypeDialog* vehicleTypeDialog, FXHorizontalFrame* column);
 
         /// @brief build commmon attributes (A)
         void buildAttributesA(FXVerticalFrame* column);
@@ -220,7 +220,7 @@ public:
         /// @}
 
     protected:
-        FOX_CONSTRUCTOR(VTypeAtributes)
+        FOX_CONSTRUCTOR(VTypeAttributes)
 
         /// @brief FXTextfield for vehicleTypeID
         FXTextField* myTextFieldVehicleTypeID;
@@ -626,7 +626,7 @@ private:
     SumoXMLAttr myInvalidAttr;
 
     /// @brief Vehicle Type Common Attributes
-    VTypeAtributes* myVTypeAtributes;
+    VTypeAttributes* myVTypeAttributes;
 
     /// @brief Car Following model parameters
     CarFollowingModelParameters* myCarFollowingModelParameters;
