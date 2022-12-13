@@ -243,7 +243,7 @@ class DijkstraRouter(handler.ContentHandler):
                 if self.net.hasEdge(id):
                     result.append(self.net.getEdge(id))
                 else:
-                    raise Exception("unkown edge '%s'" % id)
+                    raise Exception("unknown edge '%s'" % id)
             else:
                 result.append(id)
         return result
