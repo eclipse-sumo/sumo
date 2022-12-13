@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-12-13 07:41:09.543215 by routeSampler.py v1_15_0+0965-8712c32
+<configuration>
+    <edgedata-attribute value="count"/>
+    <edgedata-files value="input_edgedata.xml"/>
+    <route-files value="input_routes.rou.xml"/>
+    <total-count value="500"/>
+    <verbose value="True"/>
+    <weighted value="True"/>
+    <write-flows value="number"/>
+    <write-route-ids value="True"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<!-- begin="0.0" end="3600.0" -->
+    <route id="0" edges="-3 -3.180.00 11"/> <!-- 65 -->
+    <route id="1" edges="-3 -3.180.00 15"/> <!-- 281 -->
+    <route id="2" edges="-3 -3.180.00 5"/> <!-- 154 -->
+
+    <flow id="1" begin="0.00" end="3585.60" number="281" route="1"/>
+    <flow id="2" begin="21.60" end="3592.80" number="154" route="2"/>
+    <flow id="0" begin="165.60" end="3448.80" number="65" route="0"/>
+</routes>

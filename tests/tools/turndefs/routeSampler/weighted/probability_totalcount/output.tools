@@ -1,0 +1,4 @@
+Loaded 3 routes (3 distinct)
+Loaded probability for 3 routes
+Wrote 500 routes (3 distinct) achieving total count 500 (50.00%) at 1 locations. GEH<5 for 0.00%
+Warning: underflow locations: count 1, min 500.00 (('-3',)), max 500.00 (('-3',)), mean 500.00, Q1 500.00, median 500.00, Q3 500.00 (total 500)

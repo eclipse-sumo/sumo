@@ -6,3 +6,6 @@ count
 
 # test interaction of probability and data location
 2_locations
+
+# use route attribute probability with total-count
+probability_totalcount
