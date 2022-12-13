@@ -837,7 +837,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                 # route probabilities
                 cd = countData[rng.choice(openCounts)]
                 routeIndex = rng.choice([r for r in openRoutes if r in cd.routeSet])
-                numSampled += 1
+            numSampled += 1
             usedRoutes.append(routeIndex)
             for dataIndex in routeUsage[routeIndex]:
                 countData[dataIndex].use()
