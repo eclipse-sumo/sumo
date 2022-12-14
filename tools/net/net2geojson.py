@@ -77,6 +77,9 @@ def shape2json(net, geometry, isBoundary):
 if __name__ == "__main__":
     options = parse_args()
     net = sumolib.net.readNet(options.netFile, withInternal=options.internal)
+    if not net.hasGeoProj():
+        sys.stderr.write("Network does not provide geo projection\n")
+        sys.exit(1)
 
     edgeData = defaultdict(dict)
     if options.edgeData:
