@@ -37,6 +37,7 @@
 #include <utils/xml/XMLSubSys.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/RGBColor.h>
+#include <utils/iodevices/OutputDevice.h>
 #include <utils/gui/div/GLObjectValuePassConnector.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdgeWeightsStorage.h>
@@ -746,6 +747,13 @@ GUINet::addHotkey(int key, Command* press, Command* release) {
     } catch (ProcessError&) { }
 }
 
+void
+GUINet::flushOutputsAtEnd() {
+    myDetectorControl->close(SIMSTEP);
+    OutputDevice::flushAll();
+    // update tracker windows
+    guiSimulationStep();
+}
 
 #ifdef HAVE_OSG
 void

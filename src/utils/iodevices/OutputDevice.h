@@ -113,6 +113,9 @@ public:
      */
     static OutputDevice& getDeviceByOption(const std::string& name);
 
+    /**  Flushes all registered devices
+     */
+    static void flushAll();
 
     /**  Closes all registered devices
      */

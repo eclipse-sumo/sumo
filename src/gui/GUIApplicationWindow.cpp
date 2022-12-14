@@ -1931,6 +1931,10 @@ GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent* e) {
         FXuint answer = FXMessageBox::question(this, MBOX_YES_NO, TL("Simulation ended"), "%s", text.c_str());
         if (answer == 1) { //1:yes, 2:no, 4:esc
             closeAllWindows();
+        } else {
+            GUINet::getGUIInstance()->flushOutputsAtEnd();
+            updateChildren();
+            update();
         }
         myHaveNotifiedAboutSimEnd = true;
     }
