@@ -89,7 +89,12 @@ MSE2Collector::MSE2Collector(const std::string& id,
     myCurrentJamLengthInMeters(0),
     myCurrentJamLengthInVehicles(0),
     myCurrentHaltingsNumber(0),
-    myOverrideVehNumber(-1) {
+    myPreviousMeanOccupancy(0),
+    myPreviousMeanSpeed(0),
+    myPreviousMaxJamLengthInMeters(0),
+    myPreviousNumberOfSeenVehicles(0),
+    myOverrideVehNumber(-1)
+{
     reset();
 
 #ifdef DEBUG_E2_CONSTRUCTOR
@@ -1358,8 +1363,8 @@ MSE2Collector::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime st
     }
     dev << "   <interval begin=\"" << time2string(startTime) << "\" end=\"" << time2string(stopTime) << "\" " << "id=\"" << getID() << "\" ";
 
-    const double meanSpeed = myVehicleSamples != 0 ? mySpeedSum / myVehicleSamples : -1;
-    const double meanOccupancy = myTimeSamples != 0 ? myOccupancySum / (double) myTimeSamples : 0;
+    const double meanSpeed = getIntervalMeanSpeed();
+    const double meanOccupancy = getIntervalOccupancy();
     const double meanJamLengthInMeters = myTimeSamples != 0 ? myMeanMaxJamInMeters / (double) myTimeSamples : 0;
     const double meanJamLengthInVehicles = myTimeSamples != 0 ? myMeanMaxJamInVehicles / (double) myTimeSamples : 0;
     const double meanVehicleNumber = myTimeSamples != 0 ? (double) myMeanVehicleNumber / (double) myTimeSamples : 0;
@@ -1433,6 +1438,12 @@ MSE2Collector::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime st
         << "meanVehicleNumber=\"" << meanVehicleNumber << "\" "
         << "maxVehicleNumber=\"" << myMaxVehicleNumber << "\" "
         << "/>\n";
+
+    myPreviousMeanOccupancy = meanOccupancy;
+    myPreviousMeanSpeed = meanSpeed;
+    myPreviousMaxJamLengthInMeters = myMaxJamInMeters;
+    myPreviousNumberOfSeenVehicles = myNumberOfSeenVehicles;
+
     reset();
 }
 

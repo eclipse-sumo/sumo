@@ -118,6 +118,47 @@ LaneArea::getLastStepHaltingNumber(const std::string& detID) {
 }
 
 
+double
+LaneArea::getIntervalOccupancy(const std::string& detID) {
+    return getDetector(detID)->getIntervalOccupancy();
+}
+
+double
+LaneArea::getIntervalMeanSpeed(const std::string& detID) {
+    return getDetector(detID)->getIntervalMeanSpeed();
+}
+
+double
+LaneArea::getIntervalMaxJamLengthInMeters(const std::string& detID) {
+    return getDetector(detID)->getIntervalMaxJamLengthInMeters();
+}
+
+int
+LaneArea::getIntervalVehicleNumber(const std::string& detID) {
+    return getDetector(detID)->getIntervalVehicleNumber();
+}
+
+double
+LaneArea::getLastIntervalOccupancy(const std::string& detID) {
+    return getDetector(detID)->getLastIntervalOccupancy();
+}
+
+double
+LaneArea::getLastIntervalMeanSpeed(const std::string& detID) {
+    return getDetector(detID)->getLastIntervalMeanSpeed();
+}
+
+double
+LaneArea::getLastIntervalMaxJamLengthInMeters(const std::string& detID) {
+    return getDetector(detID)->getLastIntervalMaxJamLengthInMeters();
+}
+
+int
+LaneArea::getLastIntervalVehicleNumber(const std::string& detID) {
+    return getDetector(detID)->getLastIntervalVehicleNumber();
+}
+
+
 std::string
 LaneArea::getParameter(const std::string& detID, const std::string& param) {
     return getDetector(detID)->getParameter(param, "");

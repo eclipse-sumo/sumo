@@ -506,7 +506,36 @@ public:
     /// @}
 
 
+    /// @name Methods returning aggregated values
+    /// @{
+    
+    double getIntervalOccupancy() const {
+        return myTimeSamples != 0 ? myOccupancySum / (double) myTimeSamples : 0;
+    }
+    double getIntervalMeanSpeed() const {
+        return myVehicleSamples != 0 ? mySpeedSum / myVehicleSamples : -1;
+    }
+    double getIntervalMaxJamLengthInMeters() const {
+        return myMaxJamInMeters;
+    }
+    int getIntervalVehicleNumber() const {
+        return myNumberOfSeenVehicles;
+    }
 
+    double getLastIntervalOccupancy() const {
+        return myPreviousMeanOccupancy;
+    }
+    double getLastIntervalMeanSpeed() const {
+        return myPreviousMeanSpeed;
+    }
+    double getLastIntervalMaxJamLengthInMeters() const {
+        return myPreviousMaxJamLengthInMeters;
+    }
+    int getLastIntervalVehicleNumber() const {
+        return myPreviousNumberOfSeenVehicles;
+    }
+
+    /// @}
 
 
     /// @name Estimation methods
@@ -790,6 +819,13 @@ private:
     int myCurrentHaltingsNumber;
     /// @}
 
+    /// @name Values generated describing the previous interval state
+    /// @{
+    double myPreviousMeanOccupancy;
+    double myPreviousMeanSpeed;
+    double myPreviousMaxJamLengthInMeters;
+    double myPreviousNumberOfSeenVehicles;
+    /// @}
 
     /// @brief stores the overriden (via Traci) number of vehicles on detector
     int myOverrideVehNumber;
