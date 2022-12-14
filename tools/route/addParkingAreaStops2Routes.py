@@ -39,7 +39,7 @@ def get_options(args=None):
     optParser.add_option("-r", "--route-file", dest="routefile", help="define the route file")
     optParser.add_option("-o", "--output-file", dest="outfile", help="output route file including parking")
     optParser.add_option("-p", "--parking-areas", dest="parking",
-                         help="define the parking areas seperated by comma")
+                         help="define the parking areas separated by comma")
     optParser.add_option("-d", "--parking-duration", dest="duration",
                          help="define the parking duration (in seconds)", default=3600)
     optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",

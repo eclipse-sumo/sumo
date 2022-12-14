@@ -46,7 +46,7 @@ def get_options(args=None):
     optParser.add_option("-o", "--output-file", dest="outfile",
                          default="turnRatios.add.xml", help="define the output filename")
     optParser.add_option("-r", "--route-files", dest="routefiles",
-                         help="define the route file seperated by comma(mandatory)")
+                         help="define the route file separated by comma(mandatory)")
     optParser.add_option("-p", "--probabilities", dest="prob", action="store_true", default=False,
                          help=" calculate the turning probabilities instead of traffic volumes")
     optParser.add_option("--id", default="generated",

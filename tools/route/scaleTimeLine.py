@@ -50,7 +50,7 @@ class SimObject:
 def get_options(args=None):
     optParser = sumolib.options.ArgumentParser()
     optParser.add_option("-r", "--route-files", dest="routefiles",
-                         help="define the route file seperated by comma (mandatory)")
+                         help="define the route file separated by comma (mandatory)")
     optParser.add_option("-o", "--output-file", dest="outfile",
                          help="define the output filename")
     optParser.add_option("--timeline-list", dest="timelinelist", type=str,
