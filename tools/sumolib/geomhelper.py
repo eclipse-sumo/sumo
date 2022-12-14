@@ -267,6 +267,14 @@ def narrow(fromPos, pos, toPos, amount):
     return x < amount
 
 
+def line2boundary(shape, width):
+    """expand center line by width/2 on both sides to obtain a (closed) boundary shape
+    (i.e. for an edge or lane)
+    """
+    left = move2side(shape, width / 2)
+    right = move2side(shape, -width / 2)
+    return left + list(reversed(right)) + [left[0]]
+
 def move2side(shape, amount):
     shape = [s for i, s in enumerate(shape) if i == 0 or shape[i-1] != s]
     if len(shape) < 2:
