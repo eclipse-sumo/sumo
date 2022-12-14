@@ -25,8 +25,7 @@ from __future__ import print_function
 from __future__ import absolute_import
 import sys
 import os
-from os.path import dirname, exists, getmtime, join
-
+from os.path import dirname, join
 
 
 def generateTemplate(templateHeaderFile, templatePath, templateFile):
@@ -45,14 +44,14 @@ def generateTemplate(templateHeaderFile, templatePath, templateFile):
         templateHeaderFile.write('\"' + lineStrip + '\"' + ' ' + '\\' + '\n')
     # write last
     templateHeaderFile.write("\"\";\n\n")
-    
+
 
 if __name__ == "__main__":
     srcDir = join(dirname(__file__), '..', '..', 'src')
     if len(sys.argv) > 1:
         srcDir = sys.argv[1]
     # get template path
-    templatePath = join(dirname(__file__), '..', '..', 'data', 'templates');
+    templatePath = join(dirname(__file__), '..', '..', 'data', 'templates')
     # write templates.h
     with open("templates.h", 'w') as templateHeaderFile:
         # write header
