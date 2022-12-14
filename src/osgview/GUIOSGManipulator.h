@@ -51,7 +51,8 @@ public:
     osg::Matrixd getInverseMatrix() const override;
     /// @brief inform HUD about the current window size to let it reposition
     void updateHUDPosition(int width, int height);
-
+protected:
+    void centerMousePointer(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa);
 private:
     void updateHUDText();
 

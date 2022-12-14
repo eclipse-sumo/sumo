@@ -131,13 +131,18 @@ GUIOSGManipulator::handleMouseDeltaMovement(const osgGA::GUIEventAdapter& ea, os
         return false;
     }
     double dt = _ga_t0->getTime() - _ga_t1->getTime();
+    if (dt > 0.1) { // wait until the mouse movement is sufficiently smooth
+        return false;
+    }
     double dx = _ga_t0->getXnormalized() * dt;
     double dy = _ga_t0->getYnormalized() * dt;
     if (dx == 0. && dy == 0.) { return false; }
     centerMousePointer(ea, aa);
-
     // calculate delta angles from dx and dy movements
-    return performMouseDeltaMovement((float)dx, (float)dy);
+    if (performMouseDeltaMovement(dx, dy)) {
+        aa.requestRedraw();
+    }
+    return true;
 }
 
 
@@ -145,6 +150,14 @@ bool
 GUIOSGManipulator::performMouseDeltaMovement(const float dx, const float dy) {
     rotateYawPitch(_rotation, dx, dy, osg::Z_AXIS);    
     return true;
+}
+
+
+void GUIOSGManipulator::centerMousePointer(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa) {
+    _mouseCenterX = (ea.getXmin() + ea.getXmax()) / 2.0f;
+    _mouseCenterY = (ea.getYmin() + ea.getYmax()) / 2.0f;
+
+    aa.requestWarpPointer(_mouseCenterX, _mouseCenterY);
 }
 
 
@@ -183,8 +196,7 @@ GUIOSGManipulator::rotateYawPitch(osg::Quat& rotation, const double yaw, const d
             return;
         }
         my_dy /= 2.;
-        if (++i == 20)
-        {
+        if (++i == 20) {
             setByMatrix(osg::Matrixd::rotate(rotation) * osg::Matrixd::rotate(rotateYaw) * osg::Matrixd::translate(eye));
             return;
         }
@@ -219,7 +231,7 @@ GUIOSGManipulator::handleKeyDown(const osgGA::GUIEventAdapter& ea, osgGA::GUIAct
 
 
 bool 
-GUIOSGManipulator::handleKeyUp(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& /* aa */) {
+GUIOSGManipulator::handleKeyUp(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa) {
     bool result = false;
     switch (ea.getKey()) {
     case osgGA::GUIEventAdapter::KEY_Up:
