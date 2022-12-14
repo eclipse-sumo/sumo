@@ -53,18 +53,14 @@ public:
     void updateHUDPosition(int width, int height);
 
 private:
-#ifdef _DEBUG
-    void updateHUD();
-#endif
+    void updateHUDText();
 
 protected:
     osg::ref_ptr<osg::Geode> myTextNode;
     osg::ref_ptr<osg::Camera> myHUDCamera;
 private:
     /// @brief remember which ManipulatorMode we use 
-#ifdef _DEBUG
-    osgText::FadeText* myText;
-#endif
+    osgText::Text* myText;
     ManipulatorMode myCurrentMode;
     double myWalkEyeHeight;
     double myMoveSpeed;

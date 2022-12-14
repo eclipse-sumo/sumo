@@ -48,22 +48,22 @@ GUIOSGManipulator::GUIOSGManipulator(ManipulatorMode initMode, bool verticalFixe
     setAllowThrow(false);
     setVerticalAxisFixed(verticalFixed);
 
-#ifdef _DEBUG
     myTextNode = new osg::Geode();
-    myText = new osgText::FadeText;
-    myText->setFadeSpeed(0.001f);
-    myText->setCharacterSize(20.f);
+    myText = new osgText::Text;
+    osg::ref_ptr<osgText::Font> font = osgText::readFontFile("fonts/arial.ttf");
+    if (font != nullptr) {
+        myText->setFont(font.get());
+    }
+    myText->setCharacterSize(16.f);
     myTextNode->addDrawable(myText);
     myText->setAlignment(osgText::TextBase::AlignmentType::LEFT_TOP);
     myText->setDrawMode(osgText::TextBase::DrawModeMask::FILLEDBOUNDINGBOX | osgText::TextBase::DrawModeMask::TEXT);
     myText->setBoundingBoxColor(osg::Vec4(0.0f, 0.0f, 0.2f, 0.5f));
     myText->setBoundingBoxMargin(2.0f);
-    updateHUD();
-#endif
+    updateHUDText();
 }
 
 
-#ifdef _DEBUG
 osg::Camera*
 GUIOSGManipulator::getHUD() {
     if (myHUDCamera == nullptr) {
@@ -78,7 +78,6 @@ GUIOSGManipulator::getHUD() {
     }
     return myHUDCamera.get();
 }
-#endif
 
 
 void
@@ -237,21 +236,17 @@ GUIOSGManipulator::handleKeyUp(const osgGA::GUIEventAdapter& ea, osgGA::GUIActio
         } else {
             myCurrentMode = MODE_EGO;
         }
-#ifdef _DEBUG
-        updateHUD();
-#endif
+        updateHUDText();
         return true;
     }
     return result;
 }
 
 
-#ifdef _DEBUG
 void
-GUIOSGManipulator::updateHUD() {
+GUIOSGManipulator::updateHUDText() {
     myText->setText(TLF("Currently in % camera mode. Press [F] to switch.", ModeText.getString(myCurrentMode)));
 }
-#endif
 
 
 void 

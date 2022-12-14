@@ -194,14 +194,12 @@ GUIOSGView::GUIOSGView(
     myViewer->home();
     getApp()->addChore(this, MID_CHORE);
     
-#ifdef _DEBUG
     osgViewer::Viewer::Windows windows;
     myViewer->getWindows(windows);
     osg::Camera* hudCamera = myCameraManipulator->getHUD();
     hudCamera->setGraphicsContext(myAdapter);
     hudCamera->setViewport(0, 0, w, h);
     myViewer->addSlave(hudCamera, false);
-#endif
 }
 
 
@@ -211,6 +209,12 @@ GUIOSGView::~GUIOSGView() {
     myViewer = 0;
     myRoot = 0;
     myAdapter = 0;
+    myCameraManipulator = 0;
+    myGreenLight = 0;
+    myYellowLight = 0;
+    myRedLight = 0;
+    myRedYellowLight = 0;
+    myPoleBase = 0;
 }
 
 
@@ -498,7 +502,7 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
             ++person;
         }
     }
-    //// show/hide OSG nodes
+    // show/hide OSG nodes
     unsigned int cullMask = 0xFFFFFFFF;
     cullMask ^= (-myVisualizationSettings->show3DTLSDomes ^ cullMask) & (1UL << NODESET_TLSDOMES);
     cullMask ^= (-myVisualizationSettings->show3DTLSLinkMarkers ^ cullMask) & (1UL << NODESET_TLSLINKMARKERS);
@@ -587,10 +591,8 @@ GUIOSGView::setViewportFromToRot(const Position& lookFrom, const Position& lookA
     double zoom = (myViewportChooser != nullptr) ? myViewportChooser->getZoomValue() : 100.;
     lookFromOSG = lookFromOSG + viewAxis * (100. - zoom);
     lookAtOSG = lookFromOSG - viewAxis;
-    // myViewer->getCameraManipulator()->setVerticalAxisFixed(true);
     myViewer->getCameraManipulator()->setHomePosition(lookFromOSG, lookAtOSG, up);
     myViewer->home();
-    // myViewer->getCameraManipulator()->setVerticalAxisFixed(false);
 }
 
 
