@@ -100,6 +100,62 @@ class LaneAreaDomain(Domain):
         """
         return self._getUniversal(tc.LAST_STEP_VEHICLE_HALTING_NUMBER, detID)
 
+    def getIntervalOccupancy(self, detID):
+        """getIntervalOccupancy(string) -> double
+
+        Returns the mean occupancy during the current interval
+        """
+        return self._getUniversal(tc.VAR_INTERVAL_OCCUPANCY, detID)
+
+    def getIntervalMeanSpeed(self, detID):
+        """getIntervalMeanSpeed(string) -> double
+
+        Returns the mean speed during the current interval
+        """
+        return self._getUniversal(tc.VAR_INTERVAL_SPEED, detID)
+
+    def getIntervalMaxJamLengthInMeters(self, detID):
+        """getIntervalMaxJamLengthInMeters(string) -> double
+
+        Returns the max jam length during the current interval
+        """
+        return self._getUniversal(tc.VAR_INTERVAL_MAX_JAM_LENGTH_METERS, detID)
+
+    def getIntervalVehicleNumber(self, detID):
+        """getIntervalVehicleNumber(string) -> int
+
+        Returns the number of seen vehicles during the current interval
+        """
+        return self._getUniversal(tc.VAR_INTERVAL_NUMBER, detID)
+
+    def getLastIntervalOccupancy(self, detID):
+        """getLastIntervalOccupancy(string) -> double
+
+        Returns the mean occupancy during the previous interval
+        """
+        return self._getUniversal(tc.VAR_LAST_INTERVAL_OCCUPANCY, detID)
+
+    def getLastIntervalMeanSpeed(self, detID):
+        """getLastIntervalMeanSpeed(string) -> double
+
+        Returns the mean speed during the previous interval
+        """
+        return self._getUniversal(tc.VAR_LAST_INTERVAL_SPEED, detID)
+
+    def getLastIntervalMaxJamLengthInMeters(self, detID):
+        """getLastIntervalMaxJamLengthInMeters(string) -> double
+
+        Returns the max jam length during the previous interval
+        """
+        return self._getUniversal(tc.VAR_LAST_INTERVAL_MAX_JAM_LENGTH_METERS, detID)
+
+    def getLastIntervalVehicleNumber(self, detID):
+        """getLastIntervalVehicleNumber(string) -> int
+
+        Returns the number of seen vehicles during the previous interval
+        """
+        return self._getUniversal(tc.VAR_LAST_INTERVAL_NUMBER, detID)
+
     def overrideVehicleNumber(self, detID, vehNum):
         """overrideVehicleNumber(string, integer) -> None
         Persistently overrides the number of vehicles on the detector.
