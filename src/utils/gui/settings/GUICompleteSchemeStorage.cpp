@@ -82,7 +82,7 @@ GUICompleteSchemeStorage::contains(const std::string& name) const {
 
 
 void
-GUICompleteSchemeStorage::remove(const std::string& name) {
+GUICompleteSchemeStorage::remove(const std::string name) {
     if (!contains(name)) {
         return;
     }
