@@ -5,7 +5,7 @@ Parsing types from '/home/micha/sumo/data/typemap/osmNetconvertPedestrians.typ.x
 Parsing nodes from osm-file 'osm.xml.gz' ... done (2ms).
 Parsing edges from osm-file 'osm.xml.gz' ... done (1ms).
 Removing duplicate edges ... done.
-Adding new type 'cycleway.track|highway.secondary' (first occurence for edge '79523623').
+Adding new type 'cycleway.track|highway.secondary' (first occurrence for edge '79523623').
 Parsing relations from osm-file 'osm.xml.gz' ... 
 done (13ms).
  Removed 5 traffic lights before loading plain-XML

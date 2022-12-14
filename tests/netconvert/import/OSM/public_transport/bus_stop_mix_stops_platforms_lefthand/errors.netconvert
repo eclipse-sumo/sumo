@@ -1,6 +1,6 @@
 Warning: Ignoring track count 2 for edge '25211335'.
-Warning: Discarding unknown compound 'usage.main' in type 'railway.rail|usage.main' (first occurence for edge '25211335').
-Warning: Discarding unknown compound 'cycleway.opposite_lane' in type 'cycleway.opposite_lane|highway.residential' (first occurence for edge '43873883').
+Warning: Discarding unknown compound 'usage.main' in type 'railway.rail|usage.main' (first occurrence for edge '25211335').
+Warning: Discarding unknown compound 'cycleway.opposite_lane' in type 'cycleway.opposite_lane|highway.residential' (first occurrence for edge '43873883').
 Warning: No way found for reference '682488207' in relation '1057486'
 Warning: No way found for reference '5001019' in relation '1057486'
 Warning: Ignoring restriction relation '1057486' with unknown from-way.

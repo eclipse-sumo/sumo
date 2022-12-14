@@ -1,7 +1,7 @@
-Warning: Discarding unusable type 'railway.abandoned' (first occurence for edge '23077101').
-Warning: Discarding unusable type 'railway.stop' (first occurence for edge '23735099').
-Warning: Discarding unknown compound 'usage.main' in type 'railway.rail|usage.main' (first occurence for edge '96560977').
-Warning: Discarding unusable type 'railway.platform' (first occurence for edge '812591734').
+Warning: Discarding unusable type 'railway.abandoned' (first occurrence for edge '23077101').
+Warning: Discarding unusable type 'railway.stop' (first occurrence for edge '23735099').
+Warning: Discarding unknown compound 'usage.main' in type 'railway.rail|usage.main' (first occurrence for edge '96560977').
+Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '812591734').
 Warning: Removing pt stop '1118516724' on non existing edge '892099949'.
 Warning: Removing pt stop '1118516947' on non existing edge '892099948'.
 Warning: Removing pt stop '4672299045' on non existing edge '812591737'.

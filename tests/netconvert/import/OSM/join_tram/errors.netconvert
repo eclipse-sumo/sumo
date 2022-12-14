@@ -1,13 +1,13 @@
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.secondary' (first occurence for edge '4687133').
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.residential' (first occurence for edge '7544445').
-Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.tertiary' (first occurence for edge '24951317').
-Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.residential' (first occurence for edge '28162580').
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.tertiary' (first occurence for edge '43115510').
-Warning: Discarding unusable type 'railway.platform' (first occurence for edge '171862277').
-Warning: Discarding unusable type 'railway.abandoned|usage.industrial' (first occurence for edge '320969260').
-Warning: Discarding unusable type 'railway.abandoned' (first occurence for edge '326192135').
-Warning: Discarding unusable type 'railway.razed|usage.industrial' (first occurence for edge '326192141').
-Warning: Discarding unusable type 'railway.razed' (first occurence for edge '485690627').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.secondary' (first occurrence for edge '4687133').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.residential' (first occurrence for edge '7544445').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.tertiary' (first occurrence for edge '24951317').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.residential' (first occurrence for edge '28162580').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.tertiary' (first occurrence for edge '43115510').
+Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '171862277').
+Warning: Discarding unusable type 'railway.abandoned|usage.industrial' (first occurrence for edge '320969260').
+Warning: Discarding unusable type 'railway.abandoned' (first occurrence for edge '326192135').
+Warning: Discarding unusable type 'railway.razed|usage.industrial' (first occurrence for edge '326192141').
+Warning: Discarding unusable type 'railway.razed' (first occurrence for edge '485690627').
 Warning: PT line 'Bus N56: U Magdalenenstraße → Wartenberg, Hagenower Ring → U Magdalenenstraße' in relation 2341762 seems to be split, only keeping first part.
 Warning: direction of restriction relation could not be determined
 Warning: Ignoring restriction relation '5317204'.
@@ -33,4 +33,4 @@ Warning: The rail crossing '1828307007' does not have any roads.
 Warning: The rail crossing '1828327715' does not have any roads.
 Warning: The rail crossing '1828327717' does not have any roads.
 Warning: The rail crossing '30695381' does not have any roads.
-Warning: 11 total messages of type: Discarding unknown compound '%' in type '%' (first occurence for edge '%').
+Warning: 11 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').

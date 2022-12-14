@@ -4,8 +4,8 @@ Parsing nodes from osm-file 'osm.xml.gz' ... done (5ms).
 Parsing edges from osm-file 'osm.xml.gz' ... 
 done (16ms).
 Removing duplicate edges ... done.
-Adding new type 'cycleway.track|highway.tertiary' (first occurence for edge '10597569').
-Adding new type 'cycleway.lane|cycleway.track|highway.secondary' (first occurence for edge '93203448').
+Adding new type 'cycleway.track|highway.tertiary' (first occurrence for edge '10597569').
+Adding new type 'cycleway.lane|cycleway.track|highway.secondary' (first occurrence for edge '93203448').
 Parsing relations from osm-file 'osm.xml.gz' ... 
 done (34ms).
  Import done:

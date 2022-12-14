@@ -1,4 +1,4 @@
-Warning: Discarding unusable type 'railway.platform' (first occurence for edge '39271721').
+Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '39271721').
 Warning: No way found for reference '625352732' in relation '8691796'
 Warning: Ignoring restriction relation '8691796' with unknown to-way.
 Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '143456955' (Stegerwaldsiedlung). Thus, it will be removed!

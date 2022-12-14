@@ -5,7 +5,7 @@ Synthetic network generator for the microscopic, multi-modal traffic simulation
 
 Usage: netgenerate [OPTION]*
  Either "--grid", "--spider" or "--rand" must be supplied.
-  In dependance to these switches other options are used.
+  In dependence to these switches other options are used.
  
 Configuration Options:
   -c, --configuration-file FILE        Loads the named config on startup

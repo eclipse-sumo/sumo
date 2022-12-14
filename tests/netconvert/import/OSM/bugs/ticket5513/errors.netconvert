@@ -1,8 +1,8 @@
-Warning: Discarding unusable type 'highway.service' (first occurence for edge '19358739').
-Warning: Discarding unusable type 'waterway.river' (first occurence for edge '143898136').
-Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.tertiary' (first occurence for edge '169055291').
-Warning: Discarding unusable type 'waterway.dam' (first occurence for edge '234669146').
-Warning: Discarding unusable type 'highway.footway' (first occurence for edge '615359756').
+Warning: Discarding unusable type 'highway.service' (first occurrence for edge '19358739').
+Warning: Discarding unusable type 'waterway.river' (first occurrence for edge '143898136').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.tertiary' (first occurrence for edge '169055291').
+Warning: Discarding unusable type 'waterway.dam' (first occurrence for edge '234669146').
+Warning: Discarding unusable type 'highway.footway' (first occurrence for edge '615359756').
 Warning: Not joining junctions 201158128,201158137,201158163,5819001494 (not compact (maxEdge=47795936#2 length=8.36)).
 Warning: Not joining junctions 201583479,3649519965 (only 1 exit node).
 Warning: Not joining junctions 201220801,201589322,3645231524,3645231555,5819001482 (parallel incoming -615359751#0,19386227#0).
