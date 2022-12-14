@@ -3,7 +3,7 @@ Debug: Selected item 'busStop' in GNETagSelector
 Debug: Adding busStop 'bs_0' in GNEChange_Additional
 Debug: Selected item 'access' in GNETagSelector
 Debug: Adding access 'bs_0' in GNEChange_Additional
-Debug: Value 'dummyLenght' for attribute length of access isn't valid
+Debug: Value 'dummyLength' for attribute length of access isn't valid
 Debug: Value '-30' for attribute length of access isn't valid
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed

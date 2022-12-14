@@ -1,6 +1,6 @@
 GLDebug: initJunctionsAndEdges function called in GNENet constructor
-Debug: Enabled auto opposite edge throught alt + 6
-Debug: Enabled chain edges throught alt + 5
+Debug: Enabled auto opposite edge through alt + 6
+Debug: Enabled chain edges through alt + 5
 Debug: Adding junction 'J0' into net
 GLDebug: 	Inserted junction:J0 into SUMORTree with boundary 8.00,58.00,32.00,82.00
 Debug: Adding junction 'J1' into net
@@ -226,7 +226,7 @@ GLDebug: 	Removed object edge:-E7 from SUMORTree with boundary 8.40,40.00,30.00,
 GLDebug: 	Inserted edge:-E7 into SUMORTree with boundary 8.40,40.00,30.00,80.00
 Debug: Setting new attribute
 Debug: Key ESC (abort) pressed
-Debug: Disabled chain edges throught alt + 5
+Debug: Disabled chain edges through alt + 5
 Debug: Adding junction 'J8' into net
 GLDebug: 	Inserted junction:J8 into SUMORTree with boundary 28.00,38.00,52.00,62.00
 Debug: Adding edge 'E8' from net

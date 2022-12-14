@@ -20,7 +20,7 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,35.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,35.00,11.60
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Debug: Enabled hide shapes throught alt + 4
+Debug: Enabled hide shapes through alt + 4
 Debug: Key F5 (Compute) pressed
 Debug: demand elements saved
 Debug: Additionals saved

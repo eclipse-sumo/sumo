@@ -1,6 +1,6 @@
 Debug: Selected item 'laneAreaDetector' in GNETagSelector
 Debug: Adding laneAreaDetector 'e2_0' in GNEChange_Additional
-Debug: Value 'dummySpeedTreshold' for attribute speedThreshold of laneAreaDetector isn't valid
+Debug: Value 'dummySpeedThreshold' for attribute speedThreshold of laneAreaDetector isn't valid
 Debug: Value '-12.1' for attribute speedThreshold of laneAreaDetector isn't valid
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed

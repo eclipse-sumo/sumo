@@ -15,7 +15,7 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary -10.00,28.40,70.00,50
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary -10.00,-10.00,70.00,11.60
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
-Error: Attribute 'length' in definition of vType 'vType0' Invalid Number Format (double) dummyLenght.
+Error: Attribute 'length' in definition of vType 'vType0' Invalid Number Format (double) dummyLength.
 Error: length must be greater than 0
 Error: length must be greater than 0
 Debug: Adding vType 'vType3' in GNEChange_DemandElement

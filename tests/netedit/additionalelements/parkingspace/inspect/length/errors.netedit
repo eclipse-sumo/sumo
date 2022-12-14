@@ -16,7 +16,7 @@ GLDebug: 	Removed object parkingSpace:pa_0 from SUMORTree with boundary 5.00,-5.
 GLDebug: 	Inserted parkingSpace:pa_0 into SUMORTree with boundary -5.70,-15.70,35.70,25.70
 GLDebug: 	Removed object parkingSpace:pa_0 from SUMORTree with boundary -5.70,-15.70,35.70,25.70
 GLDebug: 	Inserted parkingSpace:pa_0 into SUMORTree with boundary -5.70,-15.70,35.70,25.70
-Debug: Value 'dummyLenght' for attribute length of space isn't valid
+Debug: Value 'dummyLength' for attribute length of space isn't valid
 Debug: Value '-6' for attribute length of space isn't valid
 Debug: Value '0' for attribute length of space isn't valid
 Debug: Setting new attribute

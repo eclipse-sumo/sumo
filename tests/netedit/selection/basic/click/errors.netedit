@@ -5,7 +5,7 @@ Debug: Adding poiLane 'POI_0' in GNEChange_Additional
 Debug: Adding poiLane 'POI_1' in GNEChange_Additional
 Debug: Adding poi 'POI_2' in GNEChange_Additional
 Debug: Adding poi 'POI_3' in GNEChange_Additional
-Debug: Enabled select edges throught alt + 5
+Debug: Enabled select edges through alt + 5
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: network elements saved

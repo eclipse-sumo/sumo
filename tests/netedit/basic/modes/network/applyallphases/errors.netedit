@@ -149,7 +149,7 @@ Debug: Created walkingArea ':J2_w1' in retrieveGNEWalkingArea()
 Debug: Created crossing ':J3_c0' in retrieveGNECrossing()
 Debug: Created walkingArea ':J3_w0' in retrieveGNEWalkingArea()
 Debug: Created walkingArea ':J3_w1' in retrieveGNEWalkingArea()
-Debug: Enabled change all phases throught alt + 5
+Debug: Enabled change all phases through alt + 5
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:J0 from SUMORTree with boundary -15.20,44.80,15.20,75.20
 GLDebug: 	Removed object junction:J1 from SUMORTree with boundary 54.80,44.80,85.20,75.20
