@@ -258,6 +258,22 @@ LaneArea::handleVariable(const std::string& objID, const int variable, VariableW
             return wrapper->wrapString(objID, variable, getLaneID(objID));
         case VAR_LENGTH:
             return wrapper->wrapDouble(objID, variable, getLength(objID));
+        case VAR_INTERVAL_OCCUPANCY:
+            return wrapper->wrapDouble(objID, variable, getIntervalOccupancy(objID));
+        case VAR_INTERVAL_SPEED:
+            return wrapper->wrapDouble(objID, variable, getIntervalMeanSpeed(objID));
+        case VAR_INTERVAL_MAX_JAM_LENGTH_METERS:
+            return wrapper->wrapDouble(objID, variable, getIntervalMaxJamLengthInMeters(objID));
+        case VAR_INTERVAL_NUMBER:
+            return wrapper->wrapInt(objID, variable, getIntervalVehicleNumber(objID));
+        case VAR_LAST_INTERVAL_OCCUPANCY:
+            return wrapper->wrapDouble(objID, variable, getLastIntervalOccupancy(objID));
+        case VAR_LAST_INTERVAL_SPEED:
+            return wrapper->wrapDouble(objID, variable, getLastIntervalMeanSpeed(objID));
+        case VAR_LAST_INTERVAL_MAX_JAM_LENGTH_METERS:
+            return wrapper->wrapDouble(objID, variable, getLastIntervalMaxJamLengthInMeters(objID));
+        case VAR_LAST_INTERVAL_NUMBER:
+            return wrapper->wrapInt(objID, variable, getLastIntervalVehicleNumber(objID));
         case libsumo::VAR_PARAMETER:
             paramData->readUnsignedByte();
             return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));
