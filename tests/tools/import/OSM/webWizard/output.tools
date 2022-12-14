@@ -13,16 +13,16 @@ done (570ms).
 Removing duplicate edges ... 
 Removed 3 duplicate osm edges.
 done.
-Adding new type 'cycleway.track|highway.primary' (first occurence for edge '4067932').
-Adding new type 'cycleway.lane|highway.tertiary' (first occurence for edge '4588220').
-Adding new type 'cycleway.lane|highway.secondary' (first occurence for edge '4612961').
-Adding new type 'cycleway.lane|highway.primary' (first occurence for edge '4613110').
-Adding new type 'cycleway.track|highway.tertiary' (first occurence for edge '4773465').
-Adding new type 'cycleway.track|highway.secondary_link' (first occurence for edge '23812656').
-Adding new type 'cycleway.lane|highway.pedestrian' (first occurence for edge '24540240').
-Adding new type 'cycleway.lane|highway.residential' (first occurence for edge '38208961').
-Adding new type 'cycleway.track|highway.secondary' (first occurence for edge '60333309').
-Adding new type 'highway.service|railway.tram' (first occurence for edge '388702047').
+Adding new type 'cycleway.track|highway.primary' (first occurrence for edge '4067932').
+Adding new type 'cycleway.lane|highway.tertiary' (first occurrence for edge '4588220').
+Adding new type 'cycleway.lane|highway.secondary' (first occurrence for edge '4612961').
+Adding new type 'cycleway.lane|highway.primary' (first occurrence for edge '4613110').
+Adding new type 'cycleway.track|highway.tertiary' (first occurrence for edge '4773465').
+Adding new type 'cycleway.track|highway.secondary_link' (first occurrence for edge '23812656').
+Adding new type 'cycleway.lane|highway.pedestrian' (first occurrence for edge '24540240').
+Adding new type 'cycleway.lane|highway.residential' (first occurrence for edge '38208961').
+Adding new type 'cycleway.track|highway.secondary' (first occurrence for edge '60333309').
+Adding new type 'highway.service|railway.tram' (first occurrence for edge '388702047').
 Parsing relations from osm-file '/home/kobo/.texttest/tmp/tools.10Dec084425.316483/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... 
 done (481ms).
  Removed 125 traffic lights before loading plain-XML

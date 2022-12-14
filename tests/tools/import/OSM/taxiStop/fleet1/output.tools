@@ -8,7 +8,7 @@ done (704ms).
 Removing duplicate edges ... 
 Removed 3 duplicate osm edges.
 done.
-Adding new type 'highway.service|railway.tram' (first occurence for edge '388702047').
+Adding new type 'highway.service|railway.tram' (first occurrence for edge '388702047').
 Parsing relations from osm-file 'osm_bbox.osm.xml' ... 
 done (542ms).
  Removed 125 traffic lights before loading plain-XML
