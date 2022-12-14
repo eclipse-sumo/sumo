@@ -538,11 +538,11 @@ may be issued during OSM import.
 | Message                                        | Explanation                                          | Recommended Action                     |
 | ---------------------------------------------- | ---------------------------------------------------- | ----------------------------------------------- |
 | Warning: Discarding unusable type ...  / Discarding unknown compound ... in type ...                  | Lists `<way>` types that are not mentioned in the type file                         | Can be safely ignored in most cases (unless the user edited the type-file)                      |
-| Warning: The referenced geometry information (ref='...') is not known      | Unknown osm node references during import.                                   | Can be safely ignored in most cases (unless the user edited the OSM file)                       |
-| Warning: Discarding way '...' because it has only 1 node(s)                | Incomplete data in the OSM file (typically at the boundary of the data set). | Can be safely ignored in most cases (unless the user edited the OSM file)                       |
-| Warning: Discarding unusable type "...." (first occurence for edge "....") | Unknown edge types are ignored during import.                                | Ignore or provide an [Edge-type file](../../SUMO_edge_type_file.md) which contains that type. |
-| Warning: Ignoring restriction relation ...                                 | Some data is missing within the OSM file.                                    | Ignore, because this relation most likely falls outside the boundaries of the road network.     |
-| Warning: Direction of restriction relation could not be determined         | Some data is missing within the OSM file.                                    | Ignore, because this relation most likely falls outside the boundaries of the road network.     |
+| Warning: The referenced geometry information (ref='...') is not known       | Unknown osm node references during import.                                   | Can be safely ignored in most cases (unless the user edited the OSM file)                       |
+| Warning: Discarding way '...' because it has only 1 node(s)                 | Incomplete data in the OSM file (typically at the boundary of the data set). | Can be safely ignored in most cases (unless the user edited the OSM file)                       |
+| Warning: Discarding unusable type "...." (first occurrence for edge "....") | Unknown edge types are ignored during import.                                | Ignore or provide an [Edge-type file](../../SUMO_edge_type_file.md) which contains that type. |
+| Warning: Ignoring restriction relation ...                                  | Some data is missing within the OSM file.                                    | Ignore, because this relation most likely falls outside the boundaries of the road network.     |
+| Warning: Direction of restriction relation could not be determined          | Some data is missing within the OSM file.                                    | Ignore, because this relation most likely falls outside the boundaries of the road network.     |
 
 [Additional warnings are described
 here](../../netconvert.md#warnings_during_import).

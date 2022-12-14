@@ -202,7 +202,7 @@ configuration:
 | **--lanechange.overtake-right** {{DT_BOOL}} | Whether overtaking on the right on motorways is permitted; *default:* **false** |
 | **--tls.all-off** {{DT_BOOL}} | Switches off all traffic lights.; *default:* **false** |
 | **--tls.actuated.show-detectors** {{DT_BOOL}} | Sets default visibility for actuation detectors; *default:* **false** |
-| **--tls.actuated.jam-threshold** {{DT_FLOAT}} | Sets default jam-treshold parameter for all actuation detectors; *default:* **-1** |
+| **--tls.actuated.jam-threshold** {{DT_FLOAT}} | Sets default jam-threshold parameter for all actuation detectors; *default:* **-1** |
 | **--tls.actuated.detector-length** {{DT_FLOAT}} | Sets default detector length parameter for all actuation detectors; *default:* **0** |
 | **--tls.delay_based.detector-range** {{DT_FLOAT}} | Sets default range for detecting delayed vehicles; *default:* **100** |
 | **--tls.yellow.min-decel** {{DT_FLOAT}} | Minimum deceleration when braking at yellow; *default:* **3** |
@@ -216,7 +216,7 @@ configuration:
 | **--overhead-wire.recuperation** {{DT_BOOL}} | Enable recuperation from the vehicle equipped with elecHybrid device into the ovrehead wire.; *default:* **true** |
 | **--overhead-wire.substation-current-limits** {{DT_BOOL}} | Enable current limits of traction substation during solving the overhead wire electrical circuit.; *default:* **true** |
 | **--emergencydecel.warning-threshold** {{DT_FLOAT}} | Sets the fraction of emergency decel capability that must be used to trigger a warning.; *default:* **1** |
-| **--parking.maneuver** {{DT_BOOL}} | Whether parking simulation includes manoeuvering time and associated lane blocking; *default:* **false** |
+| **--parking.maneuver** {{DT_BOOL}} | Whether parking simulation includes maneuvering time and associated lane blocking; *default:* **false** |
 | **--use-stop-ended** {{DT_BOOL}} | Override stop until times with stop ended times when given; *default:* **false** |
 | **--pedestrian.model** {{DT_STR}} | Select among pedestrian models ['nonInteracting', 'striping', 'remote']; *default:* **striping** |
 | **--pedestrian.striping.stripe-width** {{DT_FLOAT}} | Width of parallel stripes for segmenting a sidewalk (meters) for use with model 'striping'; *default:* **0.64** |

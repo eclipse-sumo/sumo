@@ -252,7 +252,7 @@ The attributes are given in the following table.
 When the network was built with internal edges, each connection will typically correspond to exactly one internal lane.
 If there are multiple connections that have the same pair of `from` and `to` edges, then the internal lanes for these edges will be part of the same internal edge. On connections marked as *straight* (`dir="s"`), lane changing on internal lanes is permitted.
 
-A special case are so called [internal junctions](#internal_junctions). These mark places where vehicles wait within an intersection before passing through foe traffic. The most common occurence for this are:
+A special case are so called [internal junctions](#internal_junctions). These mark places where vehicles wait within an intersection before passing through foe traffic. The most common occurrence for this are:
 
 - left-turning vehicles that yield to oncoming traffic
 - right-turning vehicles that yield to pedestrian crossings

@@ -71,7 +71,7 @@ The complete list of attributes is:
 | -------------- | ----------------------- | -------------------------------------------------------------- |
 | **id**         | id (string)             | A string holding the id of the detector   |
 | **lane**       | referenced lane id      | The id of the lane the detector shall be laid on. The lane must be a part of the network used. This argument excludes the argument **lanes**.   |
-| **lanes**      | referenced lane id list | A space-seperated list of lane-ids which are to be covered by the detector. All lanes must be a part of the network and form a continuous sequence. This argument excludes the arguments **lane** and **length**. |
+| **lanes**      | referenced lane id list | A space-separated list of lane-ids which are to be covered by the detector. All lanes must be a part of the network and form a continuous sequence. This argument excludes the arguments **lane** and **length**. |
 | **pos**        | float                   | The position on the first lane covered by the detector. See information about the same attribute within the detector loop description for further information. Per default, the start position is placed at the first lane's begin.   |
 | **endPos**     | float                   | The end position on the last lane covered by the detector. Per default the end position is placed at the last lane's end.    |
 | **length**     | float                   | The length of the detector in meters. If the detector reaches over the lane's end, it is extended to preceding / consecutive lanes.   |
