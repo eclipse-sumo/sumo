@@ -346,7 +346,7 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
             }
         }
         if (!found) {
-            WRITE_WARNING(TL("Stop must be placed over an embeded route's edge"));
+            WRITE_WARNING(TL("Stop must be placed over an embedded route's edge"));
             return false;
         }
     }

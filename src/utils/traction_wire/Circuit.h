@@ -88,7 +88,7 @@ public:
     /**
      * @brief Flag of alpha scaling parameter
      *
-     * returns ALPHA_NOT_APPLIED => alpha shoud be 1
+     * returns ALPHA_NOT_APPLIED => alpha should be 1
      * returns ALPHA_CURRENT_LIMITS => alpha is lower than one due to electric current limits of the substation
      * returns ALPHA_VOLTAGE_LIMITS => alpha is not one due to inability of network to transfer requested power due to overhead wire resistance
      * returns ALPHA_NOT_CONVERGING => number of allowed iterations exceeded

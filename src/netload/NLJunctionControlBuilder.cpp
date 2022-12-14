@@ -265,7 +265,7 @@ NLJunctionControlBuilder::closeTrafficLightLogic(const std::string& basePath) {
         myActiveProgram = "default";
     }
     MSTrafficLightLogic* tlLogic = nullptr;
-    // build the tls-logic in dependance to its type
+    // build the tls-logic in dependence to its type
     switch (myLogicType) {
         case TrafficLightType::SWARM_BASED:
             firstEventOffset = DELTA_T; //this is needed because swarm needs to update the pheromone on the lanes at every step

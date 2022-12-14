@@ -128,7 +128,7 @@ void
 MSChargingStation::addChargeValueForOutput(double WCharged, MSDevice_Battery* battery) {
     std::string status = "";
     if (battery->getChargingStartTime() > myChargeDelay) {
-        if (battery->getHolder().getSpeed() < battery->getStoppingTreshold()) {
+        if (battery->getHolder().getSpeed() < battery->getStoppingThreshold()) {
             status = "chargingStopped";
         } else if (myChargeInTransit == true) {
             status = "chargingInTransit";
@@ -138,7 +138,7 @@ MSChargingStation::addChargeValueForOutput(double WCharged, MSDevice_Battery* ba
     } else {
         if (myChargeInTransit == true) {
             status = "waitingChargeInTransit";
-        } else if (battery->getHolder().getSpeed() < battery->getStoppingTreshold()) {
+        } else if (battery->getHolder().getSpeed() < battery->getStoppingThreshold()) {
             status = "waitingChargeStopped";
         } else {
             status = "noWaitingCharge";

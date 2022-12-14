@@ -2381,10 +2381,10 @@ GNEApplicationWindow::onCmdToggleGrid(FXObject* obj, FXSelector sel, void* ptr) 
         // show debug info
         if (myViewNet->getVisualisationSettings().showGrid) {
             // show extra information for tests
-            WRITE_DEBUG("Disabled grid throught Ctrl+g hotkey");
+            WRITE_DEBUG("Disabled grid through Ctrl+g hotkey");
         } else {
             // show extra information for tests
-            WRITE_DEBUG("Enabled grid throught Ctrl+g hotkey");
+            WRITE_DEBUG("Enabled grid through Ctrl+g hotkey");
         }
         // Call manually toggle grid function
         myViewNet->onCmdToggleShowGrid(obj, sel, ptr);
@@ -2400,10 +2400,10 @@ GNEApplicationWindow::onCmdToggleDrawJunctionShape(FXObject* obj, FXSelector sel
         // show debug info
         if (myViewNet->getVisualisationSettings().drawJunctionShape) {
             // show extra information for tests
-            WRITE_DEBUG("Disabled draw junction shape throught Ctrl+j hotkey");
+            WRITE_DEBUG("Disabled draw junction shape through Ctrl+j hotkey");
         } else {
             // show extra information for tests
-            WRITE_DEBUG("Enabled draw junction shape throught Ctrl+j hotkey");
+            WRITE_DEBUG("Enabled draw junction shape through Ctrl+j hotkey");
         }
         // Call manually toggle junction shape function
         myViewNet->onCmdToggleDrawJunctionShape(obj, sel, ptr);

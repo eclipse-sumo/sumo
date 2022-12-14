@@ -139,7 +139,7 @@ public:
      */
     bool computeSingleLogic(OptionsCont& oc, NBTrafficLightDefinition* def);
 
-    /** @brief Replaces occurences of the removed edge in incoming/outgoing edges of all definitions
+    /** @brief Replaces occurrences of the removed edge in incoming/outgoing edges of all definitions
      *
      * @param[in] removed The removed edge
      * @param[in] incoming The edges to use instead if an incoming edge was removed
@@ -149,7 +149,7 @@ public:
     void remapRemoved(NBEdge* removed,
                       const EdgeVector& incoming, const EdgeVector& outgoing);
 
-    /** @brief Replaces occurences of the removed edge/lane in all definitions by the given edge
+    /** @brief Replaces occurrences of the removed edge/lane in all definitions by the given edge
      *
      * @param[in] removed The removed edge
      * @param[in] removed The removed lane

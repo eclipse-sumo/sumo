@@ -59,7 +59,7 @@ public:
         FXWindow* const parent, const FXString& file);
 
 
-    /** @brief Returns the title text in dependance to an optional file name
+    /** @brief Returns the title text in dependence to an optional file name
      *
      * The title is computed as default on windows: The application name only if no
      *  file name is given. If a file name is given, it is used without the extension,

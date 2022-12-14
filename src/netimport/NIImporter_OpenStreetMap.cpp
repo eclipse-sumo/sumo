@@ -2242,11 +2242,11 @@ NIImporter_OpenStreetMap::usableType(const std::string& type, const std::string&
                 types.push_back(t);
             }
         } else if (tok.size() > 1) {
-            WRITE_WARNINGF(TL("Discarding unknown compound '%' in type '%' (first occurence for edge '%')."), t, type, id);
+            WRITE_WARNINGF(TL("Discarding unknown compound '%' in type '%' (first occurrence for edge '%')."), t, type, id);
         }
     }
     if (types.empty()) {
-        WRITE_WARNINGF(TL("Discarding unusable type '%' (first occurence for edge '%')."), type, id);
+        WRITE_WARNINGF(TL("Discarding unusable type '%' (first occurrence for edge '%')."), type, id);
         myUnusableTypes.insert(type);
         return "";
     }
@@ -2295,12 +2295,12 @@ NIImporter_OpenStreetMap::usableType(const std::string& type, const std::string&
         }
 
         if (discard) {
-            WRITE_WARNINGF(TL("Discarding compound type '%' (first occurence for edge '%')."), newType, id);
+            WRITE_WARNINGF(TL("Discarding compound type '%' (first occurrence for edge '%')."), newType, id);
             myUnusableTypes.insert(newType);
             return "";
         }
 
-        WRITE_MESSAGE("Adding new type '" + type + "' (first occurence for edge '" + id + "').");
+        WRITE_MESSAGE("Adding new type '" + type + "' (first occurrence for edge '" + id + "').");
         tc.insertEdgeType(newType, numLanes, maxSpeed, prio, permissions, spreadType, width,
                           defaultIsOneWay, sidewalkWidth, bikelaneWidth, 0, 0, 0);
         for (auto& type3 : types) {

@@ -1112,7 +1112,7 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
             clanes.push_back(clane);
         }
         if (clanes.size() == 0) {
-            throw InvalidArgument("Malformed argument 'lanes' for E2Detector '" + id + "'.\nSpecify 'lanes' as a sequence of lane-IDs seperated by whitespace or comma (',')");
+            throw InvalidArgument("Malformed argument 'lanes' for E2Detector '" + id + "'.\nSpecify 'lanes' as a sequence of lane-IDs separated by whitespace or comma (',')");
         }
         if (laneGiven) {
             WRITE_WARNING("Ignoring argument 'lane' for E2Detector '" + id + "' since argument 'lanes' was given.\n"
@@ -1342,7 +1342,7 @@ NLHandler::addEdgeLaneMeanData(const SUMOSAXAttributes& attrs, int objecttype) {
     if (edgesFile != "") {
         std::ifstream strm(edgesFile.c_str());
         if (!strm.good()) {
-            throw ProcessError("Could not load names of edges for edgeData defintion '" + id + "' from '" + edgesFile + "'.");
+            throw ProcessError("Could not load names of edges for edgeData definition '" + id + "' from '" + edgesFile + "'.");
         }
         while (strm.good()) {
             std::string name;

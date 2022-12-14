@@ -517,7 +517,7 @@ MSActuatedTrafficLightLogic::initAttributeOverride() {
     const SUMOTime ovrd = MSPhaseDefinition::OVERRIDE_DURATION;
     for (int i = 0; i < (int)myPhases.size(); i++) {
         MSPhaseDefinition* phase = myPhases[i];
-        const std::string errorSuffix = "' for overiding attribute in phase " + toString(i) + " of tlLogic '" + getID() + "' in program '" + getProgramID() + "'.";
+        const std::string errorSuffix = "' for overriding attribute in phase " + toString(i) + " of tlLogic '" + getID() + "' in program '" + getProgramID() + "'.";
         if (phase->minDuration == ovrd) {
             const std::string cond = "minDur:" + toString(i);
             if (myConditions.count(cond) == 0) {

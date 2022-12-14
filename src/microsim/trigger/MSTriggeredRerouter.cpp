@@ -64,7 +64,7 @@
 //#define DEBUGCOND (veh.getID() == "")
 
 // ===========================================================================
-// static member defintion
+// static member definition
 // ===========================================================================
 MSEdge MSTriggeredRerouter::mySpecialDest_keepDestination("MSTriggeredRerouter_keepDestination", -1, SumoXMLEdgeFunc::UNKNOWN, "", "", -1, 0);
 MSEdge MSTriggeredRerouter::mySpecialDest_terminateRoute("MSTriggeredRerouter_terminateRoute", -1, SumoXMLEdgeFunc::UNKNOWN, "", "", -1, 0);

@@ -133,7 +133,7 @@ public:
     /** @brief Replaces incoming edges from the vector (sinks) by the given edge
      *
      * When an edge is split/joined/removed/etc., it may get necessary to replace prior
-     *  edges by new ones. This method replaces all occurences of the edges from
+     *  edges by new ones. This method replaces all occurrences of the edges from
      *  "which" within incoming edges (sinks) by the given edge.
      *
      * The new sink edge's weight is the sum of the weights of the replaced edges.
@@ -147,7 +147,7 @@ public:
     /** @brief Replaces outgoing edges from the vector (source) by the given edge
      *
      * When an edge is split/joined/removed/etc., it may get necessary to replace prior
-     *  edges by new ones. This method replaces all occurences of the edges from
+     *  edges by new ones. This method replaces all occurrences of the edges from
      *  "which" within outgoing edges (sources) by the given edge.
      *
      * The new source edge's weight is the sum of the weights of the replaced edges.

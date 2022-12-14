@@ -5210,7 +5210,7 @@ GNEAttributeCarrier::fillCarFollowingModelAttributes(SumoXMLTag currentTag) {
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_CF_EIDM_T_ACC_MAX,
                                           GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::EXTENDED,
-                                          "EIDM Time parameter untill vehicle reaches amax after startup/driveoff [s]",
+                                          "EIDM Time parameter until vehicle reaches amax after startup/driveoff [s]",
                                           "1.20");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -5467,7 +5467,7 @@ GNEAttributeCarrier::fillLaneChangingModelAttributes(SumoXMLTag currentTag) {
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_LCA_SPEEDGAINRIGHT,
                                           GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::EXTENDED,
-                                          "Factor for configuring the treshold asymmetry when changing to the left or to the right for speed gain.",
+                                          "Factor for configuring the threshold asymmetry when changing to the left or to the right for speed gain.",
                                           "0.1");
     myTagProperties[currentTag].addAttribute(attrProperty);
 

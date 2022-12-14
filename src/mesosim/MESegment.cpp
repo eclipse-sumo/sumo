@@ -53,7 +53,7 @@
 
 
 // ===========================================================================
-// static member defintion
+// static member definition
 // ===========================================================================
 MSEdge MESegment::myDummyParent("MESegmentDummyParent", -1, SumoXMLEdgeFunc::UNKNOWN, "", "", -1, 0);
 MESegment MESegment::myVaporizationTarget("vaporizationTarget");

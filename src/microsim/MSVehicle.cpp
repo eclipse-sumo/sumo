@@ -1757,7 +1757,7 @@ MSVehicle::processNextStop(double currentVelocity) {
 #endif
             if (myState.pos() >= reachedThreshold && fitsOnStoppingPlace && currentVelocity <= stop.getSpeed() + SUMO_const_haltingSpeed && myLane == stop.lane
                     && (!MSGlobals::gModelParkingManoeuver || myManoeuvre.entryManoeuvreIsComplete(this))) {
-                // ok, we may stop (have reached the stop)  and either we are not modelling manoeuvering or have completed entry
+                // ok, we may stop (have reached the stop)  and either we are not modelling maneuvering or have completed entry
                 stop.reached = true;
                 if (!stop.startedFromState) {
                     stop.pars.started = time;
@@ -7316,7 +7316,7 @@ MSVehicle::Manoeuvre::entryManoeuvreIsComplete(MSVehicle* veh) {
 bool
 MSVehicle::Manoeuvre::manoeuvreIsComplete(const ManoeuvreType checkType) const {
     if (checkType != myManoeuvreType) {
-        return true;    // we're not manoeuvering / wrong manoeuvre
+        return true;    // we're not maneuvering / wrong manoeuvre
     }
 
     if (MSNet::getInstance()->getCurrentTimeStep() < myManoeuvreCompleteTime) {

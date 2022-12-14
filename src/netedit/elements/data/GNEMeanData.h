@@ -147,7 +147,7 @@ protected:
     /// @brief VTypes
     std::vector<std::string> myVTypes;
 
-    /// @brief speed treshold
+    /// @brief speed threshold
     double mySpeedThreshold = 0;
 
 private:

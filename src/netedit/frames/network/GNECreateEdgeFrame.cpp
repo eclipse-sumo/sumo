@@ -862,7 +862,7 @@ GNECreateEdgeFrame::addSidewalk(GNEEdge* edge) const {
     if (!sidewalkFound) {
         // update num lanes
         edge->setAttribute(SUMO_ATTR_NUMLANES, toString(edge->getLanes().size() + 1), myViewNet->getUndoList());
-        // set last lane allow atribute
+        // set last lane allow attribute
         edge->getLanes().front()->setAttribute(SUMO_ATTR_ALLOW, "pedestrian", myViewNet->getUndoList());
     }
 }

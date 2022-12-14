@@ -492,7 +492,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "propulsionEfficiency",           SUMO_ATTR_PROPULSIONEFFICIENCY },
     { "recuperationEfficiency",         SUMO_ATTR_RECUPERATIONEFFICIENCY },
     { "recuperationEfficiencyByDecel",  SUMO_ATTR_RECUPERATIONEFFICIENCY_BY_DECELERATION },
-    { "stoppingTreshold",               SUMO_ATTR_STOPPINGTRESHOLD },
+    { "stoppingTreshold",               SUMO_ATTR_STOPPINGTHRESHOLD },
     // MSElecHybridExport
     { "overheadWireId",         SUMO_ATTR_OVERHEADWIREID },
     { "tractionSubstationId",   SUMO_ATTR_TRACTIONSUBSTATIONID },

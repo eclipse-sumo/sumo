@@ -2536,7 +2536,7 @@ void
 NIImporter_OpenDrive::addGeometryShape(GeometryType type, const std::vector<double>& vals) {
     // checks
     if (myCurrentEdge.geometries.size() == 0) {
-        throw ProcessError("Mismatching paranthesis in geometry definition for road '" + myCurrentEdge.id + "'");
+        throw ProcessError("Mismatching parenthesis in geometry definition for road '" + myCurrentEdge.id + "'");
     }
     OpenDriveGeometry& last = myCurrentEdge.geometries.back();
     if (last.type != OPENDRIVE_GT_UNKNOWN) {

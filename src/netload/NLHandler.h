@@ -265,7 +265,7 @@ private:
 
     /** @begin Parses a district and creates a pseudo edge for it
      *
-     * Called on the occurence of a "district" element, this method
+     * Called on the occurrence of a "district" element, this method
      *  retrieves the id of the district and creates a district type
      *  edge with this id.
      *
@@ -277,7 +277,7 @@ private:
 
     /** @begin Parses a district edge and connects it to the district
      *
-     * Called on the occurence of a "dsource" or "dsink" element, this method
+     * Called on the occurrence of a "dsource" or "dsink" element, this method
      *  retrieves the id of the approachable edge. If this edge is known
      *  and valid, the approaching edge is informed about it.
      *

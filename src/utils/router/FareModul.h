@@ -328,7 +328,7 @@ private:
 
         //if station has no fare information, just propagate
         if (collectedToken  == FareToken::None) {
-            std::cout << "Progagating fare state for stop w/o a price!" << std::endl;
+            std::cout << "Propagating fare state for stop w/o a price!" << std::endl;
             return;
         }
 

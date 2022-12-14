@@ -34,7 +34,7 @@
 
 
 // ===========================================================================
-// static defintions
+// static definitions
 // ===========================================================================
 const double GNEDemandElement::myPersonPlanArrivalPositionDiameter = SUMO_const_halfLaneWidth;
 

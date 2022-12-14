@@ -50,7 +50,7 @@ class RGBColor;
  * @brief Encapsulated SAX-Attributes
  *
  * This class is an interface for using encapsulated SAX-attributes.
- * Encapsulation is done to allow a common acces without the need to
+ * Encapsulation is done to allow a common access without the need to
  *  import all the Xerces-definitions.
  */
 class SUMOSAXAttributes {

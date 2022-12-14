@@ -252,7 +252,7 @@ private:
 
     /** @brief Flag to enable or disable debug GL Functions
      *
-     * This value is used to show more internal information throught warning messages about certain operations
+     * This value is used to show more internal information through warning messages about certain operations
      */
     static bool myWriteDebugMessages;
     static bool myWriteDebugGLMessages;

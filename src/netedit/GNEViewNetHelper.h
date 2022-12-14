@@ -1069,7 +1069,7 @@ struct GNEViewNetHelper {
     };
 
     /// @brief struct used to group all variables related with selecting using a square or polygon
-    /// @note in the future the variables used for selecting throught a polygon will be placed here
+    /// @note in the future the variables used for selecting through a polygon will be placed here
     struct SelectingArea {
 
         /// @brief default constructor

@@ -1681,7 +1681,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                     bool oppositeLeftIntersect = avoidIntersectCandidate && haveIntersection(n, shape, i2, k2, numPoints, width1OppositeLeft, width2);
                     int shapeFlag = 0;
                     SVCPermissions warn = SVCAll & ~(SVC_PEDESTRIAN | SVC_BICYCLE | SVC_DELIVERY | SVC_RAIL_CLASSES);
-                    // do not warn if only bicycles, pedestrians or delivery vehicles are involved as this is a typical occurence
+                    // do not warn if only bicycles, pedestrians or delivery vehicles are involved as this is a typical occurrence
                     if (con.customShape.size() == 0
                             && k2.customShape.size() == 0
                             && (oppositeLeftIntersect || (avoidedIntersectingLeftOriginLane < con.fromLane  && avoidIntersectCandidate))

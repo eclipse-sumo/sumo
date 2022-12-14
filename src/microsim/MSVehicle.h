@@ -1059,7 +1059,7 @@ public:
 
 
     /** @brief Processes stops, returns the velocity needed to reach the stop
-     * @return The velocity in dependance to the next/current stop
+     * @return The velocity in dependence to the next/current stop
      * @todo Describe more detailed
      * @see Stop
      * @see MSStoppingPlace

@@ -141,20 +141,20 @@ public:
         myZ += dz;
     }
 
-    /// @brief Substracts the given position from this one
+    /// @brief Subtracts the given position from this one
     void sub(double dx, double dy) {
         myX -= dx;
         myY -= dy;
     }
 
-    /// @brief Substracts the given position from this one
+    /// @brief Subtracts the given position from this one
     void sub(double dx, double dy, double dz) {
         myX -= dx;
         myY -= dy;
         myZ -= dz;
     }
 
-    /// @brief Substracts the given position from this one
+    /// @brief Subtracts the given position from this one
     void sub(const Position& pos) {
         myX -= pos.myX;
         myY -= pos.myY;

@@ -1004,7 +1004,7 @@ NIImporter_VISUM::parse_AreaSubPartElement() {
         shape = shape.reverse();
     }
     if (mySubPartsAreas.find(id) == mySubPartsAreas.end()) {
-        WRITE_ERROR("Unkown are for area part '" + myCurrentID + "'.");
+        WRITE_ERROR("Unknown are for area part '" + myCurrentID + "'.");
         return;
     }
 
