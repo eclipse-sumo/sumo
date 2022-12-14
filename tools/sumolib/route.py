@@ -97,7 +97,7 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
     The positions are assumed to be dense (i.e. covering each edge of the route) and in the correct order.
     """
     result = ()
-    paths = {}
+    paths = {}  # maps a path stub to a pair of current cost and the last mapping position on the last edge
     lastPos = None
     if verbose:
         print("mapping trace with %s points" % len(trace))
@@ -162,6 +162,7 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
             else:
                 newPaths[(edge,)] = (d * d, base)
         if not newPaths:
+            # no mapping for the current pos, the route may be disconnected or the radius is too small
             if paths:
                 minPath = _getMinPath(paths)
                 if len(result) > 0 and minPath[0] in result:
