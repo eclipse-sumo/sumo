@@ -323,6 +323,9 @@ GUIBaseVehicle::GUIBaseVehicle(MSBaseVehicle& vehicle) :
 GUIBaseVehicle::~GUIBaseVehicle() {
     myLock.lock();
     for (std::map<GUISUMOAbstractView*, int>::iterator i = myAdditionalVisualizations.begin(); i != myAdditionalVisualizations.end(); ++i) {
+        if (i->first->getTrackedID() == getGlID()) {
+            i->first->stopTrack();
+        }
         while (i->first->removeAdditionalGLVisualisation(this));
     }
     myLock.unlock();
@@ -891,7 +894,9 @@ GUIBaseVehicle::addActiveAddVisualisation(GUISUMOAbstractView* const parent, int
         myAdditionalVisualizations[parent] = 0;
     }
     myAdditionalVisualizations[parent] |= which;
-    parent->addAdditionalGLVisualisation(this);
+    if (which != VO_TRACK) {
+        parent->addAdditionalGLVisualisation(this);
+    }
 }
 
 

@@ -406,6 +406,13 @@ GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
 void
 GUIViewTraffic::startTrack(int id) {
     myTrackedID = id;
+    GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
+    if (o != nullptr) {
+        GUIBaseVehicle* v = dynamic_cast<GUIBaseVehicle*>(o);
+        if (v != nullptr) {
+            v->addActiveAddVisualisation(this, GUIBaseVehicle::VO_TRACK);
+        }
+    }
 }
 
 
