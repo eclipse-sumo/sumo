@@ -1906,12 +1906,33 @@ GNEApplicationWindowHelper::GNEConfigHandler::loadConfig() {
         parser.setErrorHandler(&handler);
         parser.parse(StringUtils::transcodeToLocal(myFile).c_str());
         if (handler.errorOccurred()) {
-            throw ProcessError("Could not load configuration '" + myFile + "'.");
+            WRITE_ERROR("Could not load configuration '" + myFile + "'.");
+            return false;
         }
     } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
-        throw ProcessError("Could not load configuration '" + myFile + "':\n " + StringUtils::transcode(e.getMessage()));
+        WRITE_ERROR("Could not load configuration '" + myFile + "':\n " + StringUtils::transcode(e.getMessage()));
+            return false;
     }
+    // relocate files
     myApplicationWindow->getSUMOOptions().relocateFiles(myFile);
+    // network
+    if (myApplicationWindow->getSUMOOptions().getString("net-file").size() > 0) {
+        myApplicationWindow->loadConfigOrNet(OptionsCont::getOptions().getString("net-file"), true, true);
+    }
+    // additional
+    if (myApplicationWindow->getSUMOOptions().getString("additional-files").size() > 0) {
+        OptionsCont::getOptions().set("additional-files", myApplicationWindow->getSUMOOptions().getString("additional-files"));
+        myApplicationWindow->onCmdReloadAdditionals(nullptr, 0, nullptr);
+    }
+    // route
+    if (myApplicationWindow->getSUMOOptions().getString("route-files").size() > 0) {
+        OptionsCont::getOptions().set("route-files", myApplicationWindow->getSUMOOptions().getString("route-files"));
+        myApplicationWindow->onCmdReloadDemandElements(nullptr, 0, nullptr);
+    }
+    // data
+    if (OptionsCont::getOptions().getString("data-files").size() > 0) {
+        myApplicationWindow->onCmdReloadDataElements(nullptr, 0, nullptr);
+    }
 }
 
 // ---------------------------------------------------------------------------

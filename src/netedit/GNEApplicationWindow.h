@@ -676,10 +676,10 @@ private:
 
     /// @brief Builds the menu bar
     void fillMenuBar();
-
+public:
     /// @brief starts to load a netimport configuration or a network */
     void loadConfigOrNet(const std::string file, bool isNet, bool isReload = false, bool useStartupOptions = false, bool newNet = false);
-
+private:
     /// @brief this method closes all windows and deletes the current simulation */
     void closeAllWindows();
 
