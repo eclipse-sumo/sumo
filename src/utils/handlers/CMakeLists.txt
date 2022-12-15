@@ -3,8 +3,6 @@ set(utils_handlers_STAT_SRCS
    AdditionalHandler.cpp
    DataHandler.h
    DataHandler.cpp
-   ConfigHandler.h
-   ConfigHandler.cpp
    GeneralHandler.h
    GeneralHandler.cpp
    RouteHandler.h

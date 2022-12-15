@@ -771,7 +771,7 @@ GNEApplicationWindow::onCmdOpenSUMOConfig(FXObject*, FXSelector, void*) {
         // Create additional handler
         GNEApplicationWindowHelper::GNEConfigHandler confighandler(this, file);
         // Run parser
-        if (!confighandler.parse()) {
+        if (!confighandler.loadConfig()) {
             WRITE_ERROR("Loading of " + file + " failed.");
         }
         // update view
@@ -795,7 +795,7 @@ GNEApplicationWindow::onCmdReloadSUMOConfig(FXObject*, FXSelector, void*) {
         // Create additional handler
         GNEApplicationWindowHelper::GNEConfigHandler confighandler(this, file);
         // Run parser
-        if (!confighandler.parse()) {
+        if (!confighandler.loadConfig()) {
             WRITE_ERROR("Loading of " + file + " failed.");
         }
         update();
@@ -4755,14 +4755,13 @@ GNEApplicationWindow::continueWithUnsavedDataElementChanges(const std::string& o
 
 void
 GNEApplicationWindow::loadSUMOConfigAtStart(OptionsCont& oc) {
-
     if (oc.isSet("sumocfg-file") && !oc.getString("sumocfg-file").empty()) {
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // Create additional handler
         GNEApplicationWindowHelper::GNEConfigHandler confighandler(this, oc.getString("sumocfg-file"));
         // Run parser
-        if (!confighandler.parse()) {
+        if (!confighandler.loadConfig()) {
             WRITE_ERROR("Loading of " + oc.getString("sumocfg-file") + " failed.");
         }
         update();

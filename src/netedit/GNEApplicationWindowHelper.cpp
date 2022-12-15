@@ -1879,75 +1879,14 @@ GNEApplicationWindowHelper::SupermodeCommands::buildSupermodeCommands(FXMenuPane
 // ---------------------------------------------------------------------------
 
 GNEApplicationWindowHelper::GNEConfigHandler::GNEConfigHandler(GNEApplicationWindow* applicationWindow, const std::string& file) :
-    ConfigHandler(file),
     myApplicationWindow(applicationWindow),
     myFilepath(FileHelpers::getFilePath(file)) {
 }
 
 
-GNEApplicationWindowHelper::GNEConfigHandler::~GNEConfigHandler() {}
-
-
-void
-GNEApplicationWindowHelper::GNEConfigHandler::loadConfig(CommonXMLStructure::SumoBaseObject* configObj) {
-    // get net file
-    const auto netFile = configObj->hasStringAttribute(SUMO_ATTR_NETFILE) ? configObj->getStringAttribute(SUMO_ATTR_NETFILE) : "";
-    // first check if there is a network to load
-    if (netFile.size() > 0) {
-        OptionsCont& oc = OptionsCont::getOptions();
-        // load net depending if file is absoulte or relative
-        oc.resetWritable();
-        if (FileHelpers::isAbsolute(netFile)) {
-            oc.set("sumo-net-file", netFile);
-        } else {
-            oc.set("sumo-net-file", myFilepath + netFile);
-        }
-        // set additional files
-        if (configObj->hasStringAttribute(SUMO_ATTR_ADDITIONALFILES)) {
-            const auto file = configObj->getStringAttribute(SUMO_ATTR_ADDITIONALFILES);
-            oc.resetWritable();
-            if (FileHelpers::isAbsolute(file)) {
-                oc.set("additional-files", file);
-            } else {
-                oc.set("additional-files", myFilepath + file);
-            }
-        }
-        // set route files
-        if (configObj->hasStringAttribute(SUMO_ATTR_ROUTEFILES)) {
-            const auto file = configObj->getStringAttribute(SUMO_ATTR_ROUTEFILES);
-            oc.resetWritable();
-            if (FileHelpers::isAbsolute(file)) {
-                oc.set("route-files", file);
-            } else {
-                oc.set("route-files", myFilepath + file);
-            }
-        }
-        // set data files
-        if (configObj->hasStringAttribute(SUMO_ATTR_DATAFILES)) {
-            const auto file = configObj->getStringAttribute(SUMO_ATTR_DATAFILES);
-            oc.resetWritable();
-            if (FileHelpers::isAbsolute(file)) {
-                oc.set("data-files", file);
-            } else {
-                oc.set("data-files", myFilepath + file);
-            }
-        }
-        // set meanData files
-        if (configObj->hasStringAttribute(SUMO_ATTR_MEANDATAFILES)) {
-            const auto file = configObj->getStringAttribute(SUMO_ATTR_MEANDATAFILES);
-            oc.resetWritable();
-            if (FileHelpers::isAbsolute(file)) {
-                oc.set("meandata-files", file);
-            } else {
-                oc.set("meandata-files", myFilepath + file);
-            }
-        }
-        // set SUMOConfig-files
-        oc.resetWritable();
-        oc.set("SUMOcfg-output", configObj->getStringAttribute(SUMO_ATTR_CONFIGFILE));
-        // load network
-        myApplicationWindow->loadNet("");
-    }
+bool
+GNEApplicationWindowHelper::GNEConfigHandler::loadConfig() {
+    return false;
 }
 
 // ---------------------------------------------------------------------------
