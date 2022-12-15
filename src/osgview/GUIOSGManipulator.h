@@ -33,22 +33,22 @@ enum ManipulatorMode {
 class GUIOSGManipulator : public osgGA::TerrainManipulator {
 public:
     GUIOSGManipulator(ManipulatorMode initMode = MODE_TERRAIN, bool verticalFixed = true, double eyeHeight = 1.7);
-    bool performMovementLeftMouseButton(const double eventTimeDelta, const double dx, const double dy);
-    bool performMovementMiddleMouseButton(const double eventTimeDelta, const double dx, const double dy);
-    bool performMovementRightMouseButton(const double eventTimeDelta, const double dx, const double dy);
-    bool performMouseDeltaMovement(const double dx, const double dy);
-    bool handleMouseMove(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa);
-    bool handleMouseDeltaMovement(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa);
-    bool handleKeyDown(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa);
-    bool handleKeyUp(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa);
+    bool performMovementLeftMouseButton(const double eventTimeDelta, const double dx, const double dy) override;
+    bool performMovementMiddleMouseButton(const double eventTimeDelta, const double dx, const double dy) override;
+    bool performMovementRightMouseButton(const double eventTimeDelta, const double dx, const double dy) override;
+    bool performMouseDeltaMovement(const float dx, const float dy) override;
+    bool handleMouseMove(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa) override;
+    bool handleMouseDeltaMovement(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa) override;
+    bool handleKeyDown(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa) override;
+    bool handleKeyUp(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa) override;
     void rotateYawPitch(osg::Quat& rotation, const double yaw, const double pitch, const osg::Vec3d& localUp);
     osg::Camera* getHUD();
     /// @brief Set the position of the manipulator using a 4x4 matrix.
-    void setByMatrix(const osg::Matrixd& matrix);
+    void setByMatrix(const osg::Matrixd& matrix) override;
     /// @brief Get the position of the manipulator as 4x4 matrix.
-    osg::Matrixd getMatrix() const;
+    osg::Matrixd getMatrix() const override;
     /// @brief Get the position of the manipulator as a inverse matrix of the manipulator, typically used as a model view matrix.
-    osg::Matrixd getInverseMatrix() const;
+    osg::Matrixd getInverseMatrix() const override;
     /// @brief inform HUD about the current window size to let it reposition
     void updateHUDPosition(int width, int height);
 
