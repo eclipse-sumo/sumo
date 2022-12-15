@@ -49,7 +49,6 @@ void
 ConfigHandler::parseConfigFile() {
     // open SUMOBaseOBject and set tag
     myCommonXMLStructure.openSUMOBaseOBject();
-    myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_CONFIGURATION);
     myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_CONFIGFILE, getFileName());
 }
 
@@ -165,23 +164,6 @@ ConfigHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     // check tag
     try {
         switch (tag) {
-            // Stopping Places
-            case SUMO_TAG_CONFIGURATION:
-                parseConfigFile();
-                break;
-            case SUMO_TAG_NETFILE:
-                parseNetFile(attrs);
-                break;
-            case SUMO_TAG_ADDITIONALFILES:
-                parseAdditionalFiles(attrs);
-                parseMeanDataFiles(attrs);
-                break;
-            case SUMO_TAG_ROUTEFILES:
-                parseRouteFiles(attrs);
-                break;
-            case SUMO_TAG_DATAFILES:
-                parseDataFiles(attrs);
-                break;
             default:
                 // tag cannot be parsed in ConfigHandler
                 break;
@@ -198,15 +180,6 @@ ConfigHandler::myEndElement(int element) {
     const SumoXMLTag tag = static_cast<SumoXMLTag>(element);
     // get last inserted object
     CommonXMLStructure::SumoBaseObject* obj = myCommonXMLStructure.getCurrentSumoBaseObject();
-    // check tag (only load after ending configuration)
-    if (tag == SUMO_TAG_CONFIGURATION) {
-        // close SUMOBaseOBject
-        myCommonXMLStructure.closeSUMOBaseOBject();
-        // load config
-        loadConfig(obj);
-        // delete object (and all of their childrens)
-        delete obj;
-    }
 }
 
 /****************************************************************************/

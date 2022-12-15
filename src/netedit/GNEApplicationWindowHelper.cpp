@@ -1963,39 +1963,9 @@ GNEApplicationWindowHelper::saveSUMOConfig() {
     if (oc.getString("SUMOcfg-output").size() > 0) {
         // open output device
         OutputDevice& device = OutputDevice::getDevice(oc.getString("SUMOcfg-output"));
-        // open header
-        device.writeXMLHeader(toString(SUMO_TAG_CONFIGURATION), "sumoConfiguration.xsd", GNENet::EMPTY_HEADER, false);
-        // open configuration tag
-        device.openTag(SUMO_TAG_CONFIGURATION);
-        // save network
-        device.openTag(SUMO_TAG_NETFILE);
-        device.writeAttr(SUMO_ATTR_VALUE, oc.getString("output-file"));
-        device.closeTag();
-        // check if write additionals and meanData files
-        if ((oc.getString("additional-files").size() > 0) || (oc.getString("meandata-files").size() > 0)) {
-            device.openTag(SUMO_TAG_ADDITIONALFILES);
-            // write additional and meanData together
-            if ((oc.getString("additional-files").size() > 0) && (oc.getString("meandata-files").size() > 0)) {
-                device.writeAttr(SUMO_ATTR_VALUE, oc.getString("additional-files") + "," + oc.getString("meandata-files"));
-            } else if (oc.getString("additional-files").size() > 0) {
-                device.writeAttr(SUMO_ATTR_VALUE, oc.getString("additional-files"));
-            } else {
-                device.writeAttr(SUMO_ATTR_VALUE, oc.getString("meandata-files"));
-            }
-            device.closeTag();
-        }
-        // check if write route elements
-        if (oc.getString("route-files").size() > 0) {
-            device.openTag(SUMO_TAG_ROUTEFILES);
-            device.writeAttr(SUMO_ATTR_VALUE, oc.getString("route-files"));
-            device.closeTag();
-        }
-        // check if write data elements
-        if (oc.getString("data-files").size() > 0) {
-            device.openTag(SUMO_TAG_DATAFILES);
-            device.writeAttr(SUMO_ATTR_VALUE, oc.getString("data-files"));
-            device.closeTag();
-        }
+
+        /** **/
+
         // close device
         device.close();
         // show debug information
