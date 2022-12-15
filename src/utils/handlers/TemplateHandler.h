@@ -100,6 +100,9 @@ private:
     /// @brief The information whether an error occurred
     bool myError;
 
+    /// @brief The nesting level of parsed elements
+    int myLevel;
+
     /// @brief The options to fill
     OptionsCont& myOptions;
 

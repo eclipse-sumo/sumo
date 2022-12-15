@@ -82,6 +82,10 @@ void
 TemplateHandler::startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::AttributeList& attributes) {
     // get current topic
     myTopic = StringUtils::transcode(name);
+    if (myLevel++ == 0) {
+        // skip root elemnt
+        return;
+    }
     // check if this is a subtopic
     if (attributes.getLength() == 0) {
         mySubTopic = myTopic;
@@ -156,6 +160,7 @@ TemplateHandler::addOption(const std::string &value, const std::string &synonyme
 
 void
 TemplateHandler::endElement(const XMLCh* const /*name*/) {
+    myLevel--;
     if (myTopic.length() == 0) {
         return;
     }
