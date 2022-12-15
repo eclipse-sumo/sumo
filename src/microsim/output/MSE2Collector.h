@@ -824,7 +824,7 @@ private:
     double myPreviousMeanOccupancy;
     double myPreviousMeanSpeed;
     double myPreviousMaxJamLengthInMeters;
-    double myPreviousNumberOfSeenVehicles;
+    int myPreviousNumberOfSeenVehicles;
     /// @}
 
     /// @brief stores the overriden (via Traci) number of vehicles on detector
