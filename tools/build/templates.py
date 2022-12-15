@@ -23,14 +23,15 @@ It does this by parsing the data from the sumo data dir.
 
 from __future__ import print_function
 from __future__ import absolute_import
+import subprocess
 import sys
 import os
 from os.path import dirname, join
 
 
-def generateTemplate(templateHeaderFile, templatePath, templateFile):
+def generateTemplateString(templateHeaderFile, templateDir, templateFile):
     # get XMLtemplate file
-    XMLTemplateFile = join(templatePath, templateFile)
+    XMLTemplateFile = join(templateDir, templateFile)
     # read XML
     with open(XMLTemplateFile, 'r') as f:
         template = f.readlines()
@@ -46,16 +47,43 @@ def generateTemplate(templateHeaderFile, templatePath, templateFile):
     templateHeaderFile.write("\"\";\n\n")
 
 
+# def generateToolTemplate(toolDir, toolPath):
+
+
+def generateSUMOTemplate(binDir, templateDir):
+    # create a list with all sumo binaries in release mode
+    sumoRelease = [binDir + "/sumo", binDir + "/sumo.exe"]
+    for sumoBin in sumoRelease:
+        if (os.path.exists(sumoBin)):
+            subprocess.run([sumoBin, "--save-template", templateDir + "/sumo.xml"])
+            return True
+    # create another list with all sumo binaries in debug mode
+    sumoDebug = [binDir + "/sumod", binDir + "/sumod.exe"]
+    for sumoBin in sumoRelease:
+        if (os.path.exists(sumoBin)):
+            subprocess.run([sumoBin, "--save-template", templateDir + "/sumo.xml"])
+            return True
+    # if binary wasn't found, then raise exception
+    raise Exception("SUMO Template cannot be generated. SUMO binary not found")
+
 if __name__ == "__main__":
     srcDir = join(dirname(__file__), '..', '..', 'src')
     if len(sys.argv) > 1:
         srcDir = sys.argv[1]
-    # get template path
-    templatePath = join(dirname(__file__), '..', '..', 'data', 'templates')
+    # get template dir path (SUMO/data/templates)
+    templateDir = join(dirname(__file__), '..', '..', 'data', 'templates')
+    # get bin dir path (SUMO/tools)
+    binDir = join(dirname(__file__), '..', '..', 'bin')
+    # get tool dir path (SUMO/tools)
+    toolDir = join(dirname(__file__), '..', '..', 'tool')
+    # generate SUMO template
+    generateSUMOTemplate(binDir, templateDir)
     # write templates.h
     with open("templates.h", 'w') as templateHeaderFile:
         # write header
         templateHeaderFile.write("#include <string>\n\n")
-        # generate template for all files placed in data/templates
-        for templateFile in os.listdir(templatePath):
-            generateTemplate(templateHeaderFile, templatePath, templateFile)
+        # generate templateString for all files placed in data/templates
+        for templateFile in os.listdir(templateDir):
+            # avoid .gitignore file
+            if ".xml" in templateFile:
+                generateTemplateString(templateHeaderFile, templateDir, templateFile)
