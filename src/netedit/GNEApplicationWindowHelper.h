@@ -1048,8 +1048,8 @@ struct GNEApplicationWindowHelper {
         /// @brief application window
         GNEApplicationWindow* myApplicationWindow = nullptr;
 
-        /// @brief file path
-        const std::string myFilepath;
+        /// @brief SUMOCfg file
+        const std::string myFile;
     };
 
     /// @brief save SUMOConfig

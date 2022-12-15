@@ -555,6 +555,9 @@ public:
     /// @brief get processing Menu Commands
     const GNEApplicationWindowHelper::ProcessingMenuCommands& getProcessingMenuCommands() const;
 
+    /// @brief get SUMO options container
+    OptionsCont &getSUMOOptions();
+
 protected:
     /// @brief FOX needs this for static members
     GNEApplicationWindow();

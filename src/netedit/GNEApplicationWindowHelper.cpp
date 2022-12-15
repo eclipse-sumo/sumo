@@ -21,6 +21,12 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/foxtools/MFXMenuCheckIcon.h>
 #include <utils/common/FileHelpers.h>
+#include <utils/options/OptionsLoader.h>
+#include <xercesc/sax/HandlerBase.hpp>
+#include <xercesc/sax/AttributeList.hpp>
+#include <xercesc/sax/SAXParseException.hpp>
+#include <xercesc/sax/SAXException.hpp>
+#include <xercesc/parsers/SAXParser.hpp>
 
 #include "GNEApplicationWindow.h"
 #include "GNEViewNet.h"
@@ -1880,13 +1886,31 @@ GNEApplicationWindowHelper::SupermodeCommands::buildSupermodeCommands(FXMenuPane
 
 GNEApplicationWindowHelper::GNEConfigHandler::GNEConfigHandler(GNEApplicationWindow* applicationWindow, const std::string& file) :
     myApplicationWindow(applicationWindow),
-    myFilepath(FileHelpers::getFilePath(file)) {
+    myFile(file) {
 }
 
 
 bool
 GNEApplicationWindowHelper::GNEConfigHandler::loadConfig() {
-    return false;
+    // make all options writables
+    myApplicationWindow->getSUMOOptions().resetWritable();
+    // build parser
+    XERCES_CPP_NAMESPACE::SAXParser parser;
+    parser.setValidationScheme(XERCES_CPP_NAMESPACE::SAXParser::Val_Never);
+    parser.setDisableDefaultEntityResolution(true);
+    // start the parsing
+    OptionsLoader handler(myApplicationWindow->getSUMOOptions());
+    try {
+        parser.setDocumentHandler(&handler);
+        parser.setErrorHandler(&handler);
+        parser.parse(StringUtils::transcodeToLocal(myFile).c_str());
+        if (handler.errorOccurred()) {
+            throw ProcessError("Could not load configuration '" + myFile + "'.");
+        }
+    } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
+        throw ProcessError("Could not load configuration '" + myFile + "':\n " + StringUtils::transcode(e.getMessage()));
+    }
+    myApplicationWindow->getSUMOOptions().relocateFiles(myFile);
 }
 
 // ---------------------------------------------------------------------------

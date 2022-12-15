@@ -58,7 +58,6 @@
 #include <xercesc/parsers/SAXParser.hpp>
 #include <netedit/templates.h>
 
-
 #include "GNEApplicationWindow.h"
 #include "GNEEvent_NetworkLoaded.h"
 #include "GNELoadThread.h"
@@ -5079,6 +5078,12 @@ GNEApplicationWindow::clearUndoList() {
 const GNEApplicationWindowHelper::ProcessingMenuCommands&
 GNEApplicationWindow::getProcessingMenuCommands() const {
     return myProcessingMenuCommands;
+}
+
+
+OptionsCont&
+GNEApplicationWindow::getSUMOOptions() {
+    return mySUMOOptions;
 }
 
 // ---------------------------------------------------------------------------
