@@ -51,14 +51,16 @@ def get_options(args=None):
     parser.add_argument("new", help="the second fcd file")
     parser.add_argument("-o", "--xml-output", dest="output",
                         help="xml output file")
-    parser.add_option("--csv-output", dest="csv_output", help="write plot as csv", metavar="FILE")
-    parser.add_option("--filter-ids", dest="filterIDs", help="only plot data points from the given list of ids")
+    parser.add_option("--csv-output", dest="csv_output", help="write diff as csv", metavar="FILE")
+    parser.add_option("--filter-ids", dest="filterIDs", help="only include data points from the given list of ids")
+    parser.add_option("--exclude-ids", dest="excludeIDs", help="skip data points from the given list of ids")
     parser.add_argument("-H", "--human-readable-time", dest="hrTime", action="store_true", default=False,
                         help="Write time values as hour:minute:second or day:hour:minute:second rathern than seconds")
     parser.add_argument("-t", "--tripid", dest="tripId", action="store_true", default=False,
                         help="use attr tripId for matching instead of vehicle id")
     parser.add_argument("-i", "--histogram", dest="histogram", type=float,
                         help="histogram bin size")
+    parser.add_argument("--grouped", action="store_true", default=False, help="provide statistics grouped by id")
     parser.add_argument("-v", "--verbose", action="store_true",
                         default=False, help="tell me what you are doing")
 
@@ -66,6 +68,11 @@ def get_options(args=None):
     if options.old is None or options.new is None:
         parser.print_help()
         sys.exit()
+
+    if options.filterIDs is not None:
+        options.filterIDs = set(options.filterIDs.split(','))
+    if options.excludeIDs is not None:
+        options.excludeIDs = set(options.excludeIDs.split(','))
 
     return options
 
@@ -79,7 +86,7 @@ def key(row):
     return "%s_%s" % (row[0], humanReadableTime(row['t']))
 
 
-def getDataFrame(fname, attrs, columns, tripId):
+def getDataFrame(options, fname, attrs, columns, tripId):
     data = []
     if tripId:
         orderedAttrs = attrs[2:] + [attrs[0]]
@@ -87,7 +94,11 @@ def getDataFrame(fname, attrs, columns, tripId):
         orderedAttrs = [attrs[0]] + attrs[2:]
 
     for ts, v in parse_fast_nested(fname, 'timestep', ['time'], 'vehicle', orderedAttrs):
-        data.append([getattr(v, attrs[0]), parseTime(ts.time)] + [float(getattr(v, a)) for a in attrs[2:]])
+        vID = getattr(v, attrs[0])
+        if options.excludeIDs is not None and vID in options.excludeIDs:
+            continue
+        if options.filterIDs is None or vID in options.filterIDs:
+            data.append([vID, parseTime(ts.time)] + [float(getattr(v, a)) for a in attrs[2:]])
     return pd.DataFrame.from_records(data, columns=columns)
 
 
@@ -106,9 +117,9 @@ def main(options):
         'y2',
     ]
 
-    df1 = getDataFrame(options.old, attrs, attrs, options.tripId)
+    df1 = getDataFrame(options, options.old, attrs, attrs, options.tripId)
     print("read", options.old)
-    df2 = getDataFrame(options.new, attrs, cols2, options.tripId)
+    df2 = getDataFrame(options, options.new, attrs, cols2, options.tripId)
     print("new", options.old)
 
     # merge on common columns id, time
@@ -123,12 +134,44 @@ def main(options):
         print("missing in new: %s" % dfOuter['x2'].isna().sum())
 
     useHist = options.histogram is not None
-    fun = (lambda r, s: s.add(sqrt((r['x'] - r['x2']) ** 2 + (r['y'] - r['y2']) ** 2), key(r)))
     s = Statistics("euclidian_error", histogram=useHist, scale=options.histogram)
-    df.apply(fun, axis=1, args=(s,))
+    idStats = {}
+    def euclidian_error(r):
+        e = sqrt((r['x'] - r['x2']) ** 2 + (r['y'] - r['y2']) ** 2)
+        s.add(e, key(r))
+        if options.grouped:
+            i = r[idAttr]
+            if i not in idStats:
+                idStats[i] = Statistics(i, histogram=useHist, scale=options.histogram)
+            idStats[i].add(e, key(r))
+        return e
 
+    df['e'] = df.apply(euclidian_error, axis=1)
+
+    idStatList = list(idStats.values())
+    idStatList.sort(key=lambda x : x.count())
+
+    for x in idStatList:
+        print(x)
     print(s)
     # print(dfOuter)
+
+    if options.output:
+        with open(options.output, "w") as outf:
+            outf.write('<fcd-diff>\n')
+            lastTime = None
+            writtenTime = None
+            for index, row in df.iterrows():
+                time = row['t']
+                if time != lastTime:
+                    writtenTime = humanReadableTime(time) if options.hrTime else time
+                    if lastTime is not None:
+                        outf.write('   </timestep>\n')
+                    outf.write('   <timestep time="%s">\n' % writtenTime)
+                outf.write('       <vehicle %s/>\n' % ' '.join(['%s="%s"' % (k, v) for k,v in row.items()]))
+                lastTime = time
+            outf.write('   </timestep>\n')
+            outf.write('</fcd-diff>\n')
 
 
 if __name__ == "__main__":
