@@ -1894,6 +1894,7 @@ bool
 GNEApplicationWindowHelper::GNEConfigHandler::loadConfig() {
     // make all options writables
     myApplicationWindow->getSUMOOptions().resetWritable();
+    OptionsCont::getOptions().resetWritable();
     // build parser
     XERCES_CPP_NAMESPACE::SAXParser parser;
     parser.setValidationScheme(XERCES_CPP_NAMESPACE::SAXParser::Val_Never);

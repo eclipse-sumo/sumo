@@ -43,10 +43,18 @@
 // method definitions
 // ===========================================================================
 
-OptionsLoader::OptionsLoader(OptionsCont& options, const bool rootOnly) : 
-    myRootOnly(rootOnly), 
-    myError(false), 
-    myOptions(options), 
+OptionsLoader::OptionsLoader(const bool rootOnly) : 
+    myRootOnly(rootOnly),
+    myCustomOptions(false),
+    myOptions(OptionsCont::getOptions()), 
+    myItem() {
+}
+
+
+OptionsLoader::OptionsLoader(OptionsCont& customOptions) : 
+    myRootOnly(false),
+    myCustomOptions(true),
+    myOptions(customOptions), 
     myItem() {
 }
 
@@ -72,14 +80,28 @@ void OptionsLoader::startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::
 
 void OptionsLoader::setValue(const std::string& key, const std::string& value) {
     if (value.length() > 0) {
+        // try to add value in option container
         try {
-            if (!setSecure(key, value)) {
+            if (!setSecure(myOptions, key, value)) {
                 WRITE_ERROR("Could not set option '" + key + "' (probably defined twice).");
                 myError = true;
             }
         } catch (ProcessError& e) {
-            WRITE_ERROR(e.what());
-            myError = true;
+            // if we're using a custom option container, try to add in the main container
+            if (myCustomOptions) {
+                try {
+                    if (!setSecure(OptionsCont::getOptions(), key, value)) {
+                        WRITE_ERROR("Could not set option '" + key + "' (probably defined twice).");
+                        myError = true;
+                    }
+                } catch (ProcessError& e) {
+                    WRITE_ERROR(e.what());
+                    myError = true;
+                }
+            } else {
+                WRITE_ERROR(e.what());
+                myError = true;
+            }
         }
     }
 }
@@ -91,9 +113,9 @@ void OptionsLoader::characters(const XMLCh* const chars, const XERCES3_SIZE_t le
 
 
 bool
-OptionsLoader::setSecure(const std::string& name, const std::string& value) const {
-    if (myOptions.isWriteable(name)) {
-        myOptions.set(name, value);
+OptionsLoader::setSecure(OptionsCont& options, const std::string& name, const std::string& value) const {
+    if (options.isWriteable(name)) {
+        options.set(name, value);
         return true;
     }
     return false;

@@ -44,8 +44,11 @@ class OptionsCont;
 class OptionsLoader : public XERCES_CPP_NAMESPACE::HandlerBase {
 
 public:
-    /// @brief Constructor
-    OptionsLoader(OptionsCont& options, const bool routeOnly = false);
+    /// @brief Constructor for default option container
+    OptionsLoader(const bool routeOnly = false);
+
+    /// @brief Constructor for custom option container
+    OptionsLoader(OptionsCont& customOptions);
 
     /// @brief destructor
     ~OptionsLoader();
@@ -109,10 +112,13 @@ public:
 
 private:
     /// @brief The information whether only the root element should be parsed
-    bool myRootOnly;
+    const bool myRootOnly;
+
+    /// @brief flag for check if we're parsing custom options
+    const bool myCustomOptions;
 
     /// @brief The information whether an error occurred
-    bool myError;
+    bool myError = false;
 
     /// @brief The options to fill
     OptionsCont& myOptions;
@@ -142,7 +148,7 @@ private:
      * @param[in] value The new value for the option
      * @return Whether the option could be set
      */
-    bool setSecure(const std::string& name, const std::string& value) const;
+    bool setSecure(OptionsCont& options, const std::string& name, const std::string& value) const;
 
     /// @brief invalid copy constructor
     OptionsLoader(const OptionsLoader& s) = delete;
