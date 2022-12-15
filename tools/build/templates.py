@@ -51,20 +51,14 @@ def generateTemplateString(templateHeaderFile, templateDir, templateFile):
 
 
 def generateSUMOTemplate(binDir, templateDir):
-    # create a list with all sumo binaries in release mode
-    sumoRelease = [binDir + "/sumo", binDir + "/sumo.exe"]
-    for sumoBin in sumoRelease:
-        if (os.path.exists(sumoBin)):
-            subprocess.run([sumoBin, "--save-template", templateDir + "/sumo.xml"])
-            return True
-    # create another list with all sumo binaries in debug mode
-    sumoDebug = [binDir + "/sumoD", binDir + "/sumoD.exe"]
-    for sumoBin in sumoDebug:
-        if (os.path.exists(sumoBin)):
-            subprocess.run([sumoBin, "--save-template", templateDir + "/sumo.xml"])
+    # create a list with all sumo binaries
+    for sumoBin in [binDir + "/sumo", binDir + "/sumo.exe", binDir + "/sumoD", binDir + "/sumoD.exe"]:
+        if os.path.exists(sumoBin):
+            subprocess.check_call([sumoBin, "--save-template", templateDir + "/sumo.xml"])
             return True
     # if binary wasn't found, then raise exception
-    raise Exception("SUMO Template cannot be generated. SUMO binary not found. Make sure that sumo or sumoD was generated in bin folder")
+    raise Exception("SUMO Template cannot be generated. SUMO binary not found. "
+                    "Make sure that sumo or sumoD was generated in bin folder")
 
 if __name__ == "__main__":
     srcDir = join(dirname(__file__), '..', '..', 'src')
