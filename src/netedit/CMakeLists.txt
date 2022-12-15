@@ -56,14 +56,23 @@ if (MSVC)
     endif ()
     target_link_libraries(netedit opengl32 glu32)
 endif ()
-add_dependencies(netedit generate-version-h install_dll)
+add_dependencies(netedit generate-templates-h generate-version-h install_dll)
 
 install(TARGETS netedit RUNTIME DESTINATION bin)
 
 file(GLOB TEMPLATE_DATA "${CMAKE_CURRENT_SOURCE_DIR}/../../data/templates/*.xml")
+
+
+
+
 add_custom_command(OUTPUT templates.h
                    COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../../tools/build/templates.py ${CMAKE_CURRENT_BINARY_DIR}/..
-                   DEPENDS ${TEMPLATE_DATA}
+                   DEPENDS ${TEMPLATE_DATA} sumo
                    )
+				   
+add_custom_target(generate-templates-h DEPENDS templates.h)
+set_property(TARGET generate-templates-h PROPERTY FOLDER "CMake") 
+
+add_dependencies(generate-templates-h sumo)
 
 set_source_files_properties(${CMAKE_BINARY_DIR}/src/netedit/templates.h PROPERTIES GENERATED TRUE)
