@@ -275,6 +275,7 @@ def line2boundary(shape, width):
     right = move2side(shape, -width / 2)
     return left + list(reversed(right)) + [left[0]]
 
+
 def move2side(shape, amount):
     shape = [s for i, s in enumerate(shape) if i == 0 or shape[i-1] != s]
     if len(shape) < 2:

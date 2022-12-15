@@ -50,7 +50,7 @@ def main():
     while True:
         cmd = ['rsync', '-a', options.src, options.dst]
         if os.name == "nt":
-            cmd = ['wsl'] +  cmd
+            cmd = ['wsl'] + cmd
         call(cmd)
         files = glob.glob(options.dst + options.statePrefix + "*")
         if len(files) < 2:
