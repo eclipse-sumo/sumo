@@ -49,8 +49,8 @@ set_target_properties(netedit PROPERTIES OUTPUT_NAME_DEBUG netedit${BINARY_SUFFI
 # link all previously compiled libraries to netedit. Every library was compiled in their own folder using own CMakeList.txt
 target_link_libraries(netedit utils_gui_cursors utils_gui_shortcuts utils_foxtools foreign_eulerspiral
         netedit_frames_common netedit_frames_network netedit_frames_demand netedit_frames_data netedit_frames 
-        netedit_elements_network netedit_elements_additional netedit_elements_demand netedit_elements_data 
-        netedit_elements netedit_changes utils_gui_div utils_gui_settings utils_gui_images netedit_dialogs 
+        netedit_elements netedit_elements_network netedit_elements_additional netedit_elements_demand netedit_elements_data 
+        netedit_changes utils_gui_div utils_gui_settings utils_gui_images netedit_dialogs 
         netedit_dialogs_tools utils_gui_windows utils_gui_globjects utils_gui_tracker utils_foxtools 
         utils_vehicle utils_emissions foreign_phemlight foreign_phemlight_V5 ${netconvertlibs} ${FOX_LIBRARY} ${GL2PS_LIBRARIES})
 
