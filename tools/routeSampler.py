@@ -423,7 +423,7 @@ def optimize(options, countData, routes, usedRoutes, routeUsage, intervalCount):
         bounds = [(max(0, p - u), p + u) for p in priorRelevantRouteCounts] + [(0, None)] * m
 
     # Ax <= b
-    # x + s = b
+    # Ax + s = b
     # min s
     # -> x2 = [x, s]
 
