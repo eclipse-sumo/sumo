@@ -1920,13 +1920,12 @@ GNEApplicationWindowHelper::GNEConfigHandler::loadConfig() {
     myApplicationWindow->getSUMOOptions().relocateFiles(myFile);
     // set loaded files in netedit options
     neteditOptions.set("sumocfg-file", myFile);
+    neteditOptions.set("net-file", sumoOptions.getString("net-file"));
     neteditOptions.set("additional-files", sumoOptions.getString("additional-files"));
     neteditOptions.set("route-files", sumoOptions.getString("route-files"));
     neteditOptions.set("data-files", sumoOptions.getString("data-files"));
     // load network
-    if (sumoOptions.getString("net-file").size() > 0) {
-        myApplicationWindow->loadConfigOrNet(neteditOptions.getString("net-file"), true);
-    }
+    myApplicationWindow->loadConfigOrNet(neteditOptions.getString("net-file"), true);
     return true;
 }
 
