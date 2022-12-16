@@ -1269,8 +1269,6 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     }
     getApp()->endWaitCursor();
     myMessageWindow->registerMsgHandlers();
-    // check if we have to load an entire sumo config
-    loadSUMOConfigAtStart(oc);
     // load additionals/shapes
     loadAdditionalElements(OptionsCont::getOptions().getStringVector("additional-files"));
     // load demand elements
@@ -2946,8 +2944,6 @@ GNEApplicationWindow::onUpdSaveDataElementsAs(FXObject* sender, FXSelector, void
 long
 GNEApplicationWindow::onUpdSaveMeanDatas(FXObject* sender, FXSelector, void*) {
     if (myNet == nullptr) {
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myNet->getViewNet()->getViewParent()->getTAZFrame()->getTAZSaveChangesModule()->isChangesPending()) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
         return sender->handle(this, myNet->isMeanDatasSaved() ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
@@ -4928,7 +4924,7 @@ GNEApplicationWindow::getSUMOOptions() {
 
 
 void
-GNEApplicationWindow::loadAdditionalElements(const std::vector<std::string> &additionalFiles) {
+GNEApplicationWindow::loadAdditionalElements(const std::vector<std::string> additionalFiles) {
     if (myNet && (additionalFiles.size() > 0)) {
         // begin undolist
         myUndoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, "loading additionals and shapes from '" + toString(additionalFiles) + "'");
@@ -4969,7 +4965,7 @@ GNEApplicationWindow::loadAdditionalElements(const std::vector<std::string> &add
 
 
 void
-GNEApplicationWindow::loadDemandElements(const std::vector<std::string> &demandElementsFiles) {
+GNEApplicationWindow::loadDemandElements(const std::vector<std::string> demandElementsFiles) {
     if (myNet && (demandElementsFiles.size() > 0)) {
         // begin undolist
         myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, "loading demand elements from '" + toString(demandElementsFiles) + "'");
@@ -5008,7 +5004,7 @@ GNEApplicationWindow::loadDemandElements(const std::vector<std::string> &demandE
 
 
 void
-GNEApplicationWindow::loadDataElements(const std::vector<std::string> &dataElementsFiles) {
+GNEApplicationWindow::loadDataElements(const std::vector<std::string> dataElementsFiles) {
     if (myNet && (dataElementsFiles.size() > 0)) {
         // disable update data
         myViewNet->getNet()->disableUpdateData();
@@ -5047,7 +5043,7 @@ GNEApplicationWindow::loadDataElements(const std::vector<std::string> &dataEleme
 
 
 void
-GNEApplicationWindow::loadMeanDataElements(const std::vector<std::string> &meanDataElementsFiles) {
+GNEApplicationWindow::loadMeanDataElements(const std::vector<std::string> meanDataElementsFiles) {
     if (myNet && (meanDataElementsFiles.size() > 0)) {
         // begin undolist
         myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, "loading meanData elements from '" + toString(meanDataElementsFiles) + "'");
@@ -5056,10 +5052,10 @@ GNEApplicationWindow::loadMeanDataElements(const std::vector<std::string> &meanD
         // iterate over every meanData file
         for (const auto& meanDataElementsFile : meanDataElementsFiles) {
             WRITE_MESSAGE("Loading meanData elements from '" + meanDataElementsFile + "'");
-            GNEMeanDataHandler meanDataHandler(myNet, meanDataElementsFile, true);
+            GNEGeneralHandler handler(myNet, meanDataElementsFile, true, false);
             // disable validation for meanData elements
             XMLSubSys::setValidation("never", "auto", "auto");
-            if (!meanDataHandler.parse()) {
+            if (!handler.parse()) {
                 WRITE_ERROR("Loading of " + meanDataElementsFile + " failed.");
             } else {
                 // set first meanDataElementsFiles as default file
@@ -5069,7 +5065,7 @@ GNEApplicationWindow::loadMeanDataElements(const std::vector<std::string> &meanD
             // disable validation for meanData elements
             XMLSubSys::setValidation("auto", "auto", "auto");
             // enable demand elements if there is an error creating element
-            if (meanDataHandler.isErrorCreatingElement()) {
+            if (handler.isErrorCreatingElement()) {
                 myNet->requireSaveMeanDatas(true);
             } else {
                 myNet->requireSaveMeanDatas(false);

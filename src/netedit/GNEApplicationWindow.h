@@ -559,16 +559,16 @@ public:
     OptionsCont &getSUMOOptions();
 
     /// @brief load additional elements
-    void loadAdditionalElements(const std::vector<std::string> &additionalFiles);
+    void loadAdditionalElements(const std::vector<std::string> additionalFiles);
 
     /// @brief load demand elements
-    void loadDemandElements(const std::vector<std::string> &demandElementsFiles);
+    void loadDemandElements(const std::vector<std::string> demandElementsFiles);
 
     /// @brief load data elements
-    void loadDataElements(const std::vector<std::string> &dataElementsFiles);
+    void loadDataElements(const std::vector<std::string> dataElementsFiles);
 
     /// @brief load mean data elements
-    void loadMeanDataElements(const std::vector<std::string> &meanDataElementsFiles);
+    void loadMeanDataElements(const std::vector<std::string> meanDataElementsFiles);
 
 protected:
     /// @brief FOX needs this for static members
