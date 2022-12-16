@@ -232,6 +232,9 @@ class EdgeDomain(Domain):
             allowedClasses = [allowedClasses]
         self._setCmd(tc.LANE_ALLOWED, edgeID, "l", allowedClasses)
 
+    # alias for compatibility with libsumo
+    setAllowedVehicleClasses = setAllowed
+
     def setDisallowed(self, edgeID, disallowedClasses):
         """setDisallowed(string, list) -> None
 
@@ -240,6 +243,9 @@ class EdgeDomain(Domain):
         if isinstance(disallowedClasses, str):
             disallowedClasses = [disallowedClasses]
         self._setCmd(tc.LANE_DISALLOWED, edgeID, "l", disallowedClasses)
+
+    # alias for compatibility with libsumo
+    setDisallowedVehicleClasses = setDisallowed
 
     def setMaxSpeed(self, edgeID, speed):
         """setMaxSpeed(string, double) -> None
