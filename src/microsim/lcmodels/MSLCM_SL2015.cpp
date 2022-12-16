@@ -825,12 +825,7 @@ MSLCM_SL2015::informFollower(int blocked,
 #endif
         }
     } else if (neighFollow.first != 0) {
-        // we are not blocked no, make sure it remains that way
-        const MSVehicle* nv = neighFollow.first;
-        const double vsafe1 = nv->getCarFollowModel().followSpeed(
-                                  nv, nv->getSpeed(), neighFollow.second + SPEED2DIST(plannedSpeed), plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel());
-        const double vsafe = nv->getCarFollowModel().followSpeed(
-                                 nv, nv->getSpeed(), neighFollow.second + SPEED2DIST(plannedSpeed - vsafe1), plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel());
+        const double vsafe = MSLCHelper::getSpeedPreservingSecureGap(myVehicle, *neighFollow.first, neighFollow.second, plannedSpeed);
         msg(neighFollow, vsafe, dir | LCA_AMBLOCKINGFOLLOWER);
 #ifdef DEBUG_INFORM
         if (gDebugFlag2) {
