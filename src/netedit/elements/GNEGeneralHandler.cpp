@@ -36,7 +36,7 @@ GNEGeneralHandler::GNEGeneralHandler(GNENet* net, const std::string& file, const
     GeneralHandler(file),
     myAdditionalHandler(net, allowUndoRedo, overwrite),
     myDemandHandler(file, net, allowUndoRedo, overwrite),
-    myMeanDataHandler(file, net, allowUndoRedo, overwrite){
+    myMeanDataHandler(net, allowUndoRedo, overwrite){
 }
 
 
@@ -118,7 +118,7 @@ GNEGeneralHandler::endTag() {
     } else if (myQueue.back().demand) {
         // end parse demand elements
         myDemandHandler.endParseAttributes();
-    } else if (myQueue.back().demand) {
+    } else if (myQueue.back().meanData) {
         // end parse meanData elements
         myMeanDataHandler.endParseAttributes();
     } else {
