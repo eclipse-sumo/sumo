@@ -1031,10 +1031,15 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 && key != "railway:track_ref"
                 && key != "usage"
                 && key != "electrified"
-                && key != "bus"
                 && key != "psv"
+                && key != "psv:lanes"
+                && key != "psv:lanes:forward"
+                && key != "psv:lanes:backward"
                 && key != "foot"
                 && key != "bicycle"
+                && key != "bicycle:lanes"
+                && key != "bicycle:lanes:forward"
+                && key != "bicycle:lanes:backward"
                 && key != "oneway:bicycle"
                 && !StringUtils::startsWith(key, "turn:lanes")
                 && key != "public_transport") {
