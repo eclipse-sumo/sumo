@@ -526,6 +526,11 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         WRITE_WARNINGF(TL("Skipping edge '%' because it has speed %."), id, speed);
         ok = false;
     }
+
+    // Apply default permissions. Forward and backward permissions may be changed in the following code...
+    forwardPermissions = defaultPermissions;
+    backwardPermissions = defaultPermissions;
+
     // deal with cycleways that run in the opposite direction of a one-way street
     WayType cyclewayType = e->myCyclewayType; // make a copy because we do some temporary modifications
     if (addBikeLane) {
