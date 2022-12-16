@@ -1372,16 +1372,21 @@ NIImporter_OpenStreetMap::EdgesHandler::interpretLaneUse(const std::string& valu
     const std::vector<std::string> values = StringTokenizer(value, "|").getVector();
     int i = 0;
     for (const std::string& val : values) {
-        SVCPermissions use = SVC_IGNORING;
-        if (val == "yes" || val == "lane" || val == "designated") {
-            use = svc;
-        } else if (val != "no") {
-            WRITE_WARNINGF(TL("Unknown lane use specifier '%' treated as 'no' for way '%'"), val, myCurrentEdge->id);
-        }
+        // add another element to vector in case it isn't long enough
         if (i >= (int)result.size()) {
-            result.push_back(use);
+            result.push_back(SVC_IGNORING);
+        } 
+        if (val == "yes") {
+            // add svc to permissible classes
+            result[i] |= svc;
+        } else if (val == "lane" || val == "designated") {
+            // add svc to permissible classes and delete other classes's permissions
+            result[i] = svc;
+        } else if (val == "no") {
+            // delete class permission
+            result[i] &= ~svc;
         } else {
-            result[i] |= use;
+            WRITE_WARNINGF(TL("Unknown lane use specifier '%' treated as 'no' for way '%'"), val, myCurrentEdge->id);
         }
         i++;
     }
