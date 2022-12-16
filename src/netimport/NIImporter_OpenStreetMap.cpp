@@ -1262,6 +1262,14 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
             interpretLaneUse(value, SVC_PASSENGER, myCurrentEdge->myLaneUseForward);
         } else if (key == "vehicle:lanes:backward") {
             interpretLaneUse(value, SVC_PASSENGER, myCurrentEdge->myLaneUseBackward);
+        } else if (key == "psv:lanes" || key == "psv:lanes:forward") {
+            interpretLaneUse(value, SVC_BUS, myCurrentEdge->myLaneUseForward);
+        } else if (key == "psv:lanes:backward") {
+            interpretLaneUse(value, SVC_BUS, myCurrentEdge->myLaneUseBackward);
+        } else if (key == "bicycle:lanes" || key == "bicycle:lanes:forward") {
+            interpretLaneUse(value, SVC_BICYCLE, myCurrentEdge->myLaneUseForward);
+        } else if (key == "bicycle:lanes:backward") {
+            interpretLaneUse(value, SVC_BICYCLE, myCurrentEdge->myLaneUseBackward);
         } else if (StringUtils::startsWith(key, "turn:lanes")) {
             const std::vector<std::string> values = StringTokenizer(value, "|").getVector();
             std::vector<int> turnCodes;
