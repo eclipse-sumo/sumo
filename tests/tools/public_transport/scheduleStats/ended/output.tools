@@ -1,0 +1,4 @@
+Parsed 8 stops
+Parsed 8 stopinfos
+Found 8 matches
+depart delay: count 8, min -100.0 (t0_stop_c), max 176.0 (t3_stop_i), mean 39.2, Q1 0.0, median 0.0, Q3 149.0, mean_abs 69.2, median_abs 100.0
