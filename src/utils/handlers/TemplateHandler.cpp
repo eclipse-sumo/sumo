@@ -134,7 +134,7 @@ TemplateHandler::addOption(const std::string &value, const std::string &synonyme
             option = new Option_StringVector();
         } else if (type == "FILE") {
             option = new Option_FileName();
-        } else {
+        } else if (type.size() > 0) {
             WRITE_WARNING(type + " is an invalid type");
         }
         // check if option was created
