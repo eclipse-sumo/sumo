@@ -25,6 +25,7 @@ from __future__ import print_function
 
 import os
 import sys
+from math import isnan
 
 import pandas as pd
 
@@ -41,6 +42,8 @@ STATS = {
     # selector -> description, function
     'd': ('depart delay', lambda r, s: s.add(r['sim_ended'] - r['until'], key(r))),
     'a': ('arrival delay', lambda r, s: s.add(r['sim_started'] - r['arrival'], key(r))),
+    'de': ('depart delay', lambda r, s: s.add(r['sim_ended'] - (r['until'] if isnan(r['ended']) else r['ended']), key(r))),
+    'as': ('arrival delay', lambda r, s: s.add(r['sim_started'] - (r['arrival'] if isnan(r['started']) else r['started']), key(r))),
     's': ('stop delay', lambda r, s: s.add(r['until'] - r['arrival'] - (r['sim_ended'] - r['sim_started']), key(r))),
 }
 
