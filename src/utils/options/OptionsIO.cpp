@@ -112,7 +112,7 @@ OptionsIO::loadConfiguration() {
         parser.setValidationScheme(XERCES_CPP_NAMESPACE::SAXParser::Val_Never);
         parser.setDisableDefaultEntityResolution(true);
         // start the parsing
-        OptionsLoader handler;
+        OptionsLoader handler(OptionsCont::getOptions());
         try {
             parser.setDocumentHandler(&handler);
             parser.setErrorHandler(&handler);
@@ -145,7 +145,7 @@ OptionsIO::getRoot(const std::string& filename) {
     parser.setValidationScheme(XERCES_CPP_NAMESPACE::SAXParser::Val_Never);
     parser.setDisableDefaultEntityResolution(true);
     // start the parsing
-    OptionsLoader handler;
+    OptionsLoader handler(OptionsCont::getOptions());
     try {
         parser.setDocumentHandler(&handler);
         parser.setErrorHandler(&handler);

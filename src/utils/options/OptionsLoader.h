@@ -45,10 +45,7 @@ class OptionsLoader : public XERCES_CPP_NAMESPACE::HandlerBase {
 
 public:
     /// @brief Constructor for default option container
-    OptionsLoader(const bool routeOnly = false);
-
-    /// @brief Constructor for custom option container
-    OptionsLoader(OptionsCont& customOptions);
+    OptionsLoader(OptionsCont& customOptions, const bool routeOnly = false);
 
     /// @brief destructor
     ~OptionsLoader();
@@ -113,9 +110,6 @@ public:
 private:
     /// @brief The information whether only the root element should be parsed
     const bool myRootOnly;
-
-    /// @brief flag for check if we're parsing custom options
-    const bool myCustomOptions;
 
     /// @brief The information whether an error occurred
     bool myError = false;
