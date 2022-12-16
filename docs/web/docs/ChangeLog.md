@@ -25,6 +25,7 @@ title: ChangeLog
   - Fixed invalid switching in branching 'actuated' traffic light programs. Issue #12265
   - Fixed invalid bike lane detector placement for 'actuated' traffic lights. Issue #12266
   - Fixed vehicle angles when using 'lcSigma' with the continous lane change mode. Issue #12201
+  - Fixed inconsistency in waitingTime definition between tripinfo-output and accumulated waitingTime. Issue #12287
   - sublane model fixes:
     - Fixed invalid emergency braking for junction foe. Issue #12202
     - Fixed inconsistent computation for vehicle back position. Issue #12146
@@ -43,13 +44,14 @@ title: ChangeLog
   - Fixed bug that permitted invalid combination of stops and and via attribute. Issue #11961
   - The grouping of inspected overlapped elements no longer includes invisible elements. Issue #12126
   
-  
-
 - sumo-gui
+  - Fixed invalid camera position after tracked vehicles exits the simulation. Issue #12137 (regression in 1.13.0)
   - Pedestrians now follow the exact shape of access lines while in access stage. Issue #12116
   - Aggregated warning summary is now written at simulation end. Issue #12209
   - Fixed invalid objects in right-click disambiguation menu. Issue #12046
-  
+  - Fixed initial positions of some dialogs that were too high. Issue #11936
+  - Fixed crash on saving gui settings to registry (debug mode only). Issue #11595
+    
 - meso
   - Stopping at pos=0 is now working. Issue #12240
   - Picking up persons and containers with `lines="ANY"` is now working. Issue #12241
@@ -79,6 +81,8 @@ title: ChangeLog
   - Foe lanes for crossings can now be retrieved. Issue #12059
   - Connection.close() now closes simulation. Issue #12133
   - Fixed invalid behavior when mixing stops on normal and internal lanes. Issue #11885
+  - Function `traci.edge.setAllowed` is now working. Issue #12305
+  - Context subscriptions to the simulation domain now always return all requested objects regardless of range argument. Issue #12306
 
 - Tools
   - plot_net_dump_file.py: plotting a single measure is working again. Issue #11975 (regression in 1.15.0)
@@ -88,6 +92,8 @@ title: ChangeLog
   - generateRailSignalConstraints.py: Fixed inconsistent bidiPredecessors. Issue #12075
   - tracemapper.py: Fixed duplicate consecutive edges in route. Issue #12094
   - cutRoutes.pyL No longer writes persons without a plan. Issue #12245
+  - routesampler.py: Option **--total-count** is now compatible with **--weighted**. Issue #12284
+  - net2geojson.py: Fixed crash when trying to import network without geo projection (now gives an error message instead). Issue #12295
 
 - All Applications: Fixed crash if gzipped outputfile cannot be opened. Issue #11954
 
@@ -136,9 +142,13 @@ title: ChangeLog
   - The view now updates after loading a selection file. Issue #12191
   - Whenever the simulation has tripinfo-devices, the trip based statistics are available in the network parameter dialog. Issue #12207
   - A rainbow color scale can now be defined between upper and lower "hiding" thresholds even when there is no data yet. Issue #11978
+  - Aggregated detector values are now listed in their respective parameter dialog. Issue #12031
+  - Detector outputs are now flushed at simulation end even while the gui remains open. Issue #12293
 
 - TraCI
   - Added functions `vehicle.getDeparture` and `vehicle.getDepartDelay`. Issue #3036
+  - Added functions to retrieve aggregated inductionLoop detector measures. Issue #12030
+  - Added functions to retrieve aggregated lanearea detector measures. Issue #12029
 
 - Tools
   - gtfs2pt.py: Now writing short route id and headsign as params. Issue #11819
@@ -148,6 +158,8 @@ title: ChangeLog
   - implausibleRoutes.py: Added options **--additional-file**, **--unsorted-input** and **--ignore-errors** which are passed to duarouter when needed. Issue #12090
   - tracemapper.py: Added option **--vehicle-class** to guide edge mapping. Issue #12117
   - implausibleRoutes.py: Added options to handle unsorted input and additional files when duarouter is being called. Issue #12069
+  - net2geojson.py: Added option **--boundary** to write polygons instead of center lines. Issue #12296
+  - stateReplay.py: Now works on for Windows. Issue #12298
   - plotXMLAttributes.py
     - can now plot data without assigning ids to the data points. Issue #11969
     - can now plot categorical (non-numerical) data and also a mix of data types. Issue #11970, #11976
