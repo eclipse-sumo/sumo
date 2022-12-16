@@ -1915,8 +1915,6 @@ GNEApplicationWindowHelper::GNEConfigHandler::loadConfig() {
     }
     // relocate files
     myApplicationWindow->getSUMOOptions().relocateFiles(myFile);
-    // save mean data files (because loadConfig or net reset containerOptions)
-    const auto meanDatas = OptionsCont::getOptions().getStringVector("meandata-files");
     // load network
     if (myApplicationWindow->getSUMOOptions().getString("net-file").size() > 0) {
         myApplicationWindow->loadConfigOrNet(OptionsCont::getOptions().getString("net-file"), true, true);
@@ -1925,7 +1923,6 @@ GNEApplicationWindowHelper::GNEConfigHandler::loadConfig() {
     myApplicationWindow->loadAdditionalElements(myApplicationWindow->getSUMOOptions().getStringVector("additional-files"));
     myApplicationWindow->loadDemandElements(myApplicationWindow->getSUMOOptions().getStringVector("route-files"));
     myApplicationWindow->loadDataElements(myApplicationWindow->getSUMOOptions().getStringVector("data-files"));
-    myApplicationWindow->loadMeanDataElements(meanDatas);
     return true;
 }
 

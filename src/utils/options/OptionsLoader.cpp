@@ -45,7 +45,7 @@
 
 OptionsLoader::OptionsLoader(OptionsCont& customOptions, const bool rootOnly) : 
     myRootOnly(rootOnly),
-    myOptions(OptionsCont::getOptions()), 
+    myOptions(customOptions), 
     myItem() {
 }
 
