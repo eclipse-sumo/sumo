@@ -1,21 +1,21 @@
  Retrying in 1 seconds
 trying to subscribe to busstop around simulation '' at time 1.0
    found 1 objects
-0 {}
-1 {}
-2 {}
+0 {'': {'bs_0': {}, 'bs_1': {}, 'bs_2': {}}}
+1 {'': {'bs_0': {}, 'bs_1': {}, 'bs_2': {}}}
+2 {'': {'bs_0': {}, 'bs_1': {}, 'bs_2': {}}}
 Ok: Unsubscribe successful
 trying to subscribe to calibrator around simulation '' at time 3.0
    found 1 objects
-0 {}
-1 {}
-2 {}
+0 {'': {'ca_1': {}, 'ca_0': {}}}
+1 {'': {'ca_1': {}, 'ca_0': {}}}
+2 {'': {'ca_1': {}, 'ca_0': {}}}
 Ok: Unsubscribe successful
 trying to subscribe to chargingstation around simulation '' at time 5.0
    found 1 objects
-0 {}
-1 {}
-2 {}
+0 {'': {'cs_2': {}, 'cs_1': {}, 'cs_0': {}}}
+1 {'': {'cs_2': {}, 'cs_1': {}, 'cs_0': {}}}
+2 {'': {'cs_2': {}, 'cs_1': {}, 'cs_0': {}}}
 Ok: Unsubscribe successful
 trying to subscribe to edge around simulation '' at time 7.0
    found 1 objects
@@ -61,15 +61,15 @@ restarting sumo due to FatalTraCIError 'connection closed by SUMO'
  Retrying in 1 seconds
 trying to subscribe to parkingarea around simulation '' at time 1.0
    found 1 objects
-0 {}
-1 {}
-2 {}
+0 {'': {'pa_0': {}, 'pa_1': {}, 'pa_3': {}}}
+1 {'': {'pa_0': {}, 'pa_1': {}, 'pa_3': {}}}
+2 {'': {'pa_0': {}, 'pa_1': {}, 'pa_3': {}}}
 Ok: Unsubscribe successful
 trying to subscribe to person around simulation '' at time 3.0
    found 1 objects
-0 {'': {'p1': {}}}
-1 {'': {'p1': {}}}
-2 {'': {'p1': {}}}
+0 {'': {'p0': {}, 'p1': {}}}
+1 {'': {'p0': {}, 'p1': {}}}
+2 {'': {'p0': {}, 'p1': {}}}
 Ok: Unsubscribe successful
 trying to subscribe to poi around simulation '' at time 5.0
    found 1 objects
@@ -103,9 +103,9 @@ restarting sumo due to FatalTraCIError 'connection closed by SUMO'
  Retrying in 1 seconds
 trying to subscribe to vehicle around simulation '' at time 1.0
    found 1 objects
-0 {}
-1 {}
-2 {}
+0 {'': {'flow.0': {}, 'ego': {}}}
+1 {'': {'flow.0': {}, 'ego': {}}}
+2 {'': {'flow.0': {}, 'ego': {}}}
 Ok: Unsubscribe successful
 trying to subscribe to vehicletype around simulation '' at time 3.0
 restarting sumo due to FatalTraCIError 'connection closed by SUMO'
