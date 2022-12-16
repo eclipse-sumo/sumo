@@ -1915,24 +1915,18 @@ GNEApplicationWindowHelper::GNEConfigHandler::loadConfig() {
     }
     // relocate files
     myApplicationWindow->getSUMOOptions().relocateFiles(myFile);
-    // network
+    // save mean data files (because loadConfig or net reset containerOptions)
+    const auto meanDatas = OptionsCont::getOptions().getStringVector("meandata-files");
+    // load network
     if (myApplicationWindow->getSUMOOptions().getString("net-file").size() > 0) {
         myApplicationWindow->loadConfigOrNet(OptionsCont::getOptions().getString("net-file"), true, true);
     }
-    // additional
-    if (myApplicationWindow->getSUMOOptions().getString("additional-files").size() > 0) {
-        OptionsCont::getOptions().set("additional-files", myApplicationWindow->getSUMOOptions().getString("additional-files"));
-        myApplicationWindow->onCmdReloadAdditionals(nullptr, 0, nullptr);
-    }
-    // route
-    if (myApplicationWindow->getSUMOOptions().getString("route-files").size() > 0) {
-        OptionsCont::getOptions().set("route-files", myApplicationWindow->getSUMOOptions().getString("route-files"));
-        myApplicationWindow->onCmdReloadDemandElements(nullptr, 0, nullptr);
-    }
-    // data
-    if (OptionsCont::getOptions().getString("data-files").size() > 0) {
-        myApplicationWindow->onCmdReloadDataElements(nullptr, 0, nullptr);
-    }
+    // load elements
+    myApplicationWindow->loadAdditionalElements(myApplicationWindow->getSUMOOptions().getStringVector("additional-files"));
+    myApplicationWindow->loadDemandElements(myApplicationWindow->getSUMOOptions().getStringVector("route-files"));
+    myApplicationWindow->loadDataElements(myApplicationWindow->getSUMOOptions().getStringVector("data-files"));
+    myApplicationWindow->loadMeanDataElements(meanDatas);
+    return true;
 }
 
 // ---------------------------------------------------------------------------
