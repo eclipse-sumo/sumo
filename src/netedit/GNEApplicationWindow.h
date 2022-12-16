@@ -558,6 +558,18 @@ public:
     /// @brief get SUMO options container
     OptionsCont &getSUMOOptions();
 
+    /// @brief load additional elements
+    void loadAdditionalElements(const std::vector<std::string> &additionalFiles);
+
+    /// @brief load demand elements
+    void loadDemandElements(const std::vector<std::string> &demandElementsFiles);
+
+    /// @brief load data elements
+    void loadDataElements(const std::vector<std::string> &dataElementsFiles);
+
+    /// @brief load mean data elements
+    void loadMeanDataElements(const std::vector<std::string> &meanDataElementsFiles);
+
 protected:
     /// @brief FOX needs this for static members
     GNEApplicationWindow();
@@ -697,18 +709,6 @@ private:
 
     /// @brief load sumoConfig at start
     void loadSUMOConfigAtStart(OptionsCont& oc);
-
-    /// @brief load additional at start
-    void loadAdditionalElementsAtStart(OptionsCont& oc);
-
-    /// @brief load demand elements at start
-    void loadDemandElementsAtStart(OptionsCont& oc);
-
-    /// @brief load data elements at start
-    void loadDataElementsAtStart(OptionsCont& oc);
-
-    /// @brief load mean data elements at start
-    void loadMeanDataElementsAtStart(OptionsCont& oc);
 
     /// @brief extract folder
     FXString getFolder(const std::string& folder) const;
