@@ -1,0 +1,1 @@
+-n test/osm.net.xml.gz --gtfs https://sumo.dlr.de/daily/GTFS_VBB_Juni-Dezember-2016.zip --date 20160713 --osm-routes test/osm_ptlines.xml tests/complex/tutorial/gtfs/mitte/runner.py
