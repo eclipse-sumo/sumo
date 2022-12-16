@@ -1373,8 +1373,9 @@ NIImporter_OpenStreetMap::EdgesHandler::interpretLaneUse(const std::string& valu
     int i = 0;
     for (const std::string& val : values) {
         // add another element to vector in case it isn't long enough
-        if (i >= (int)result.size()) {
+        while (i >= (int)result.size()) {
             result.push_back(SVC_IGNORING);
+            WRITE_WARNING("Pushed back!");
         } 
         if (val == "yes") {
             // add svc to permissible classes
@@ -1386,7 +1387,7 @@ NIImporter_OpenStreetMap::EdgesHandler::interpretLaneUse(const std::string& valu
             // delete class permission
             result[i] &= ~svc;
         } else {
-            WRITE_WARNINGF(TL("Unknown lane use specifier '%' treated as 'no' for way '%'"), val, myCurrentEdge->id);
+            WRITE_WARNINGF(TL("Unknown lane use specifier '%' for way '%'"), val, myCurrentEdge->id);
         }
         i++;
     }
