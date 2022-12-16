@@ -54,7 +54,6 @@ TemplateHandler::parseTemplate(OptionsCont& options, const std::string &template
     parser.setDisableDefaultEntityResolution(true);
     // build TemplateHandler
     TemplateHandler handler(options);
-
     // start parsing
     try {
         parser.setDocumentHandler(&handler);
@@ -67,6 +66,8 @@ TemplateHandler::parseTemplate(OptionsCont& options, const std::string &template
     } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
         throw ProcessError("Could not load template '" + templateString + "':\n " + StringUtils::transcode(e.getMessage()));
     }
+    // mark al loaded options as default
+    options.resetDefault();
 }
 
 TemplateHandler::TemplateHandler(OptionsCont& options) : 
