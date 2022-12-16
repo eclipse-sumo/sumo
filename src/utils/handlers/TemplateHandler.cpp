@@ -54,7 +54,6 @@ TemplateHandler::parseTemplate(OptionsCont& options, const std::string &template
     parser.setDisableDefaultEntityResolution(true);
     // build TemplateHandler
     TemplateHandler handler(options);
-
     // start parsing
     try {
         parser.setDocumentHandler(&handler);
@@ -67,6 +66,8 @@ TemplateHandler::parseTemplate(OptionsCont& options, const std::string &template
     } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
         throw ProcessError("Could not load template '" + templateString + "':\n " + StringUtils::transcode(e.getMessage()));
     }
+    // mark al loaded options as default
+    options.resetDefault();
 }
 
 TemplateHandler::TemplateHandler(OptionsCont& options) : 
@@ -134,7 +135,7 @@ TemplateHandler::addOption(const std::string &value, const std::string &synonyme
             option = new Option_StringVector();
         } else if (type == "FILE") {
             option = new Option_FileName();
-        } else {
+        } else if (type.size() > 0) {
             WRITE_WARNING(type + " is an invalid type");
         }
         // check if option was created

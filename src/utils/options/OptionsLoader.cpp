@@ -43,17 +43,8 @@
 // method definitions
 // ===========================================================================
 
-OptionsLoader::OptionsLoader(const bool rootOnly) : 
+OptionsLoader::OptionsLoader(OptionsCont& customOptions, const bool rootOnly) : 
     myRootOnly(rootOnly),
-    myCustomOptions(false),
-    myOptions(OptionsCont::getOptions()), 
-    myItem() {
-}
-
-
-OptionsLoader::OptionsLoader(OptionsCont& customOptions) : 
-    myRootOnly(false),
-    myCustomOptions(true),
     myOptions(customOptions), 
     myItem() {
 }
@@ -87,21 +78,8 @@ void OptionsLoader::setValue(const std::string& key, const std::string& value) {
                 myError = true;
             }
         } catch (ProcessError& e) {
-            // if we're using a custom option container, try to add in the main container
-            if (myCustomOptions) {
-                try {
-                    if (!setSecure(OptionsCont::getOptions(), key, value)) {
-                        WRITE_ERROR("Could not set option '" + key + "' (probably defined twice).");
-                        myError = true;
-                    }
-                } catch (ProcessError& e) {
-                    WRITE_ERROR(e.what());
-                    myError = true;
-                }
-            } else {
-                WRITE_ERROR(e.what());
-                myError = true;
-            }
+            WRITE_ERROR(e.what());
+            myError = true;
         }
     }
 }

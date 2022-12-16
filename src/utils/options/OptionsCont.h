@@ -603,6 +603,9 @@ public:
      */
     void resetWritable();
 
+    /// @brief Resets all options to default
+    void resetDefault();
+
     /** @brief Output operator
      *
      * Generates the output used when current option values shall be printed.

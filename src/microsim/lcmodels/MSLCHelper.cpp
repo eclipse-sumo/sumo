@@ -292,4 +292,27 @@ MSLCHelper::divergentRoute(const MSVehicle& v1, const MSVehicle& v2) {
             && &v1.getLane()->getEdge() != &v2.getLane()->getEdge());
 }
 
+
+double
+MSLCHelper::getSpeedPreservingSecureGap(const MSVehicle& leader, const MSVehicle& follower, double currentGap, double leaderPlannedSpeed) {
+    // whatever speed the follower choses in the next step, it will change both
+    // the secureGap and the required followSpeed.
+    // Let's assume the leader maintains speed
+    const double nextGap = currentGap + SPEED2DIST(leaderPlannedSpeed - follower.getSpeed());
+    double sGap = follower.getCarFollowModel().getSecureGap(&follower, &leader, follower.getSpeed(), leaderPlannedSpeed, leader.getCarFollowModel().getMaxDecel());
+    if (nextGap >= sGap) {
+        // follower may still accelerate
+        const double nextGapMin = currentGap + SPEED2DIST(leaderPlannedSpeed - follower.getCarFollowModel().maxNextSpeed(follower.getSpeed(), &follower));
+        const double vSafe = follower.getCarFollowModel().followSpeed(
+                                  &follower, follower.getSpeed(), nextGapMin, leaderPlannedSpeed, leader.getCarFollowModel().getMaxDecel());
+        return MAX2(vSafe, follower.getSpeed());
+    } else {
+        // follower must brake. The following brakes conservatively since the actual gap will be lower due to braking.
+        const double vSafe = follower.getCarFollowModel().followSpeed(
+                                  &follower, follower.getSpeed(), nextGap, leaderPlannedSpeed, leader.getCarFollowModel().getMaxDecel());
+        // avoid emergency deceleration
+        return MAX2(vSafe, follower.getCarFollowModel().minNextSpeed(follower.getSpeed(), &follower));
+    }
+}
+
 /****************************************************************************/

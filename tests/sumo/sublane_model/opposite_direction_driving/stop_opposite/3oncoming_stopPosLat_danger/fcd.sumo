@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-12-11 20:57:32 by Eclipse SUMO sumo Version v1_15_0+0944-c751163
+<!-- generated on 2022-12-16 11:33:23 by Eclipse SUMO sumo Version v1_15_0+1045-4474c27
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -162,38 +162,38 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="oncoming3" x="66.63" y="0.60" angle="276.52" type="DEFAULT_VEHTYPE" speed="8.76" pos="133.37" lane="-a_0" slope="0.00"/>
     </timestep>
     <timestep time="26.00">
-        <vehicle id="ego" x="87.15" y="1.30" angle="85.48" type="DEFAULT_VEHTYPE" speed="1.17" pos="112.85" lane="-a_0" slope="0.00"/>
+        <vehicle id="ego" x="89.36" y="1.30" angle="94.74" type="DEFAULT_VEHTYPE" speed="3.38" pos="110.64" lane="-a_0" slope="0.00"/>
         <vehicle id="oncoming3" x="55.28" y="1.60" angle="275.03" type="DEFAULT_VEHTYPE" speed="11.36" pos="144.72" lane="-a_0" slope="0.00"/>
     </timestep>
     <timestep time="27.00">
-        <vehicle id="ego" x="90.92" y="0.30" angle="100.48" type="DEFAULT_VEHTYPE" speed="3.77" pos="109.08" lane="-a_0" slope="0.00"/>
+        <vehicle id="ego" x="95.34" y="0.30" angle="99.50" type="DEFAULT_VEHTYPE" speed="5.98" pos="104.66" lane="-a_0" slope="0.00"/>
         <vehicle id="oncoming3" x="41.39" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="158.61" lane="-a_0" slope="0.00"/>
     </timestep>
     <timestep time="28.00">
-        <vehicle id="ego" x="97.30" y="-0.70" angle="98.92" type="DEFAULT_VEHTYPE" speed="6.37" pos="97.30" lane="a_0" slope="0.00"/>
+        <vehicle id="ego" x="103.91" y="-0.70" angle="96.65" type="DEFAULT_VEHTYPE" speed="8.58" pos="103.91" lane="a_0" slope="0.00"/>
         <vehicle id="oncoming3" x="27.50" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="172.50" lane="-a_0" slope="0.00"/>
     </timestep>
     <timestep time="29.00">
-        <vehicle id="ego" x="106.27" y="-1.60" angle="95.73" type="DEFAULT_VEHTYPE" speed="8.97" pos="106.27" lane="a_0" slope="0.00"/>
+        <vehicle id="ego" x="115.09" y="-1.60" angle="94.60" type="DEFAULT_VEHTYPE" speed="11.18" pos="115.09" lane="a_0" slope="0.00"/>
         <vehicle id="oncoming3" x="13.61" y="1.60" angle="270.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="186.39" lane="-a_0" slope="0.00"/>
     </timestep>
     <timestep time="30.00">
-        <vehicle id="ego" x="117.84" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="11.57" pos="117.84" lane="a_0" slope="0.00"/>
+        <vehicle id="ego" x="128.87" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.78" pos="128.87" lane="a_0" slope="0.00"/>
     </timestep>
     <timestep time="31.00">
-        <vehicle id="ego" x="131.73" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="131.73" lane="a_0" slope="0.00"/>
+        <vehicle id="ego" x="142.76" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="142.76" lane="a_0" slope="0.00"/>
     </timestep>
     <timestep time="32.00">
-        <vehicle id="ego" x="145.62" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="145.62" lane="a_0" slope="0.00"/>
+        <vehicle id="ego" x="156.65" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="156.65" lane="a_0" slope="0.00"/>
     </timestep>
     <timestep time="33.00">
-        <vehicle id="ego" x="159.51" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="159.51" lane="a_0" slope="0.00"/>
+        <vehicle id="ego" x="170.54" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="170.54" lane="a_0" slope="0.00"/>
     </timestep>
     <timestep time="34.00">
-        <vehicle id="ego" x="173.40" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="173.40" lane="a_0" slope="0.00"/>
+        <vehicle id="ego" x="184.43" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="184.43" lane="a_0" slope="0.00"/>
     </timestep>
     <timestep time="35.00">
-        <vehicle id="ego" x="187.29" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="187.29" lane="a_0" slope="0.00"/>
+        <vehicle id="ego" x="198.32" y="-1.60" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="198.32" lane="a_0" slope="0.00"/>
     </timestep>
     <timestep time="36.00"/>
 </fcd-export>

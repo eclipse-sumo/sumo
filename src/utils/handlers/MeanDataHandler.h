@@ -35,19 +35,20 @@
  * This is an extension of the MSRouteHandler as routes and vehicles may also
  *  be loaded from network descriptions.
  */
-class MeanDataHandler : private SUMOSAXHandler {
+class MeanDataHandler {
 
 public:
-    /** @brief Constructor
-     * @param[in] file Name of the parsed file
-     */
-    MeanDataHandler(const std::string& file);
+    /// @brief Constructor
+    MeanDataHandler();
 
     /// @brief Destructor
-    ~MeanDataHandler();
+    virtual ~MeanDataHandler();
 
-    /// @brief parse
-    bool parse();
+    /// @brief begin parse attributes
+    bool beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes& attrs);
+
+    /// @brief end parse attributes
+    void endParseAttributes();
 
     /// @brief parse SumoBaseObject (it's called recursivelly)
     void parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj);
@@ -82,28 +83,6 @@ protected:
 private:
     /// @brief common XML Structure
     CommonXMLStructure myCommonXMLStructure;
-
-    /// @name inherited from GenericSAXHandler
-    /// @{
-    /** @brief Called on the opening of a tag;
-     *
-     * @param[in] element ID of the currently opened element
-     * @param[in] attrs Attributes within the currently opened element
-     * @exception ProcessError If something fails
-     * @see GenericSAXHandler::myStartElement
-     * @todo Refactor/describe
-     */
-    virtual void myStartElement(int element, const SUMOSAXAttributes& attrs);
-
-    /** @brief Called when a closing tag occurs
-     *
-     * @param[in] element ID of the currently opened element
-     * @exception ProcessError If something fails
-     * @see GenericSAXHandler::myEndElement
-     * @todo Refactor/describe
-     */
-    virtual void myEndElement(int element);
-    /// @}
 
     /// @name parse meanMeanData attributes
     /// @{

@@ -1892,9 +1892,12 @@ GNEApplicationWindowHelper::GNEConfigHandler::GNEConfigHandler(GNEApplicationWin
 
 bool
 GNEApplicationWindowHelper::GNEConfigHandler::loadConfig() {
+    // get options
+    auto &neteditOptions = OptionsCont::getOptions();
+    auto &sumoOptions = myApplicationWindow->getSUMOOptions();
     // make all options writables
-    myApplicationWindow->getSUMOOptions().resetWritable();
-    OptionsCont::getOptions().resetWritable();
+    sumoOptions.resetWritable();
+    neteditOptions.resetWritable();
     // build parser
     XERCES_CPP_NAMESPACE::SAXParser parser;
     parser.setValidationScheme(XERCES_CPP_NAMESPACE::SAXParser::Val_Never);
@@ -1915,17 +1918,14 @@ GNEApplicationWindowHelper::GNEConfigHandler::loadConfig() {
     }
     // relocate files
     myApplicationWindow->getSUMOOptions().relocateFiles(myFile);
-    // save mean data files (because loadConfig or net reset containerOptions)
-    const auto meanDatas = OptionsCont::getOptions().getStringVector("meandata-files");
+    // set loaded files in netedit options
+    neteditOptions.set("sumocfg-file", myFile);
+    neteditOptions.set("net-file", sumoOptions.getString("net-file"));
+    neteditOptions.set("additional-files", sumoOptions.getString("additional-files"));
+    neteditOptions.set("route-files", sumoOptions.getString("route-files"));
+    neteditOptions.set("data-files", sumoOptions.getString("data-files"));
     // load network
-    if (myApplicationWindow->getSUMOOptions().getString("net-file").size() > 0) {
-        myApplicationWindow->loadConfigOrNet(OptionsCont::getOptions().getString("net-file"), true, true);
-    }
-    // load elements
-    myApplicationWindow->loadAdditionalElements(myApplicationWindow->getSUMOOptions().getStringVector("additional-files"));
-    myApplicationWindow->loadDemandElements(myApplicationWindow->getSUMOOptions().getStringVector("route-files"));
-    myApplicationWindow->loadDataElements(myApplicationWindow->getSUMOOptions().getStringVector("data-files"));
-    myApplicationWindow->loadMeanDataElements(meanDatas);
+    myApplicationWindow->loadConfigOrNet(neteditOptions.getString("net-file"), true);
     return true;
 }
 

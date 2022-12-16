@@ -159,6 +159,7 @@ errors:Error: Overhead wire solver is on, but the Eigen library has not been com
 errors:Network contains internal links which are ignored.
 errors:Matplotlib is building the font cache; this may take a moment.
 errors:apport/report.py:13: DeprecationWarning: the imp{LINES 2}
+errors:\\{REPLACE /}
 ps:%%CreationDate
 gtfs_additional:<!-- generated on{[->]}-->
 gtfs_routes:<!-- generated on{[->]}-->
@@ -193,5 +194,4 @@ log:0.0101
 
 [batch_extra_version]
 gcc4_64:perf
-msvc12Win32:perf
-msvc12x64:perf
+msvc16x64:perf

@@ -89,7 +89,7 @@ private:
     GNERouteHandler myDemandHandler;
 
     /// @brief meanData handler
-    GNERouteHandler myMeanDataHandler;
+    GNEMeanDataHandler myMeanDataHandler;
 
     /// @brief start element
     void beginTag(SumoXMLTag tag, const SUMOSAXAttributes& attrs);

@@ -1,0 +1,1 @@
+-k sim.sumocfg,sim2.sumocfg -a $SUMO_BINARY --seeds 1,2,3 -v  tools/runSeeds.py
