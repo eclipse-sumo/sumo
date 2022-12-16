@@ -147,6 +147,7 @@ GUIOSGView::GUIOSGView(
     myAdapter = new FXOSGAdapter(this, new FXCursor(parent->getApp(), CURSOR_CROSS));
 
     myViewer = new osgViewer::Viewer();
+    myViewer->setKeyEventSetsDone(0);
     myViewer->getCamera()->setGraphicsContext(myAdapter);
     myViewer->getCamera()->setViewport(0, 0, w, h);
     myViewer->getCamera()->setNearFarRatio(0.005);
