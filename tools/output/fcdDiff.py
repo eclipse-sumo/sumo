@@ -136,6 +136,7 @@ def main(options):
     useHist = options.histogram is not None
     s = Statistics("euclidian_error", histogram=useHist, scale=options.histogram)
     idStats = {}
+
     def euclidian_error(r):
         e = sqrt((r['x'] - r['x2']) ** 2 + (r['y'] - r['y2']) ** 2)
         s.add(e, key(r))
@@ -149,7 +150,7 @@ def main(options):
     df['e'] = df.apply(euclidian_error, axis=1)
 
     idStatList = list(idStats.values())
-    idStatList.sort(key=lambda x : x.count())
+    idStatList.sort(key=lambda x: x.count())
 
     for x in idStatList:
         print(x)
@@ -168,7 +169,7 @@ def main(options):
                     if lastTime is not None:
                         outf.write('   </timestep>\n')
                     outf.write('   <timestep time="%s">\n' % writtenTime)
-                outf.write('       <vehicle %s/>\n' % ' '.join(['%s="%s"' % (k, v) for k,v in row.items()]))
+                outf.write('       <vehicle %s/>\n' % ' '.join(['%s="%s"' % (k, v) for k, v in row.items()]))
                 lastTime = time
             outf.write('   </timestep>\n')
             outf.write('</fcd-diff>\n')
