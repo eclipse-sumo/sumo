@@ -3443,86 +3443,67 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject*, FXSelector, void*) {
-    // obtain option container
-    OptionsCont& oc = OptionsCont::getOptions();
-    // check if save additional menu is enabled
-    if (myFileMenuCommands.saveSUMOConfig->isEnabled()) {
-        // Check if SUMOConfig file was already set at start of netedit or with a previous save
-        if (oc.getString("SUMOcfg-output").empty()) {
-            // declare current folder
-            FXString currentFolder = gCurrentFolder;
-            // check if there is a saved network
-            if (oc.getString("output-file").size() > 0) {
-                // extract folder
-                currentFolder = getFolder(oc.getString("output-file"));
-            }
-            // open dialog
-            FXString file = MFXUtils::getFilename2Write(this,
-                            TL("Save SUMOConfig"), ".sumocfg",
-                            GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI),
-                            currentFolder);
-            // add xml extension
-            std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".sumocfg");
-            // check tat file is valid
-            if (file == "") {
-                // None SUMOConfig file was selected, then stop function
-                return 0;
-            } else {
-                // change value of "SUMOcfg-output"
-                oc.resetWritable();
-                oc.set("SUMOcfg-output", fileWithExtension);
-            }
+    // obtain NETEDIT option container
+    OptionsCont& neteditOptions = OptionsCont::getOptions();
+    // Check if SUMOConfig file was already set at start of netedit or with a previous save
+    if (neteditOptions.getString("SUMOcfg-output").empty()) {
+        // get the new file name
+        FXFileDialog opendialog(this, TL("Save SUMO Configuration"));
+        opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::SAVE));
+        opendialog.setSelectMode(SELECTFILE_ANY);
+        opendialog.setPatternList("Config (*.sumocfg)");
+        if (gCurrentFolder.length() != 0) {
+            opendialog.setDirectory(gCurrentFolder);
         }
-        // Start saving SUMOConfig
-        getApp()->beginWaitCursor();
-        // save all elements
-        onCmdSaveAllElements(nullptr, 0, nullptr);
-        // save config
-        GNEApplicationWindowHelper::saveSUMOConfig();
-        getApp()->endWaitCursor();
-        // restore focus
-        setFocus();
-        return 1;
-    } else {
-        return 0;
+        if (!opendialog.execute() || !MFXUtils::userPermitsOverwritingWhenFileExists(this, opendialog.getFilename())) {
+            return 1;
+        } else {
+            const std::string file = MFXUtils::assureExtension(opendialog.getFilename(),
+                    opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
+            neteditOptions.resetWritable();
+            neteditOptions.set("SUMOcfg-output", file);
+        }
     }
+    const auto file = neteditOptions.getString("SUMOcfg-output");
+    std::ofstream out(StringUtils::transcodeToLocal(file));
+    if (out.good()) {
+        mySUMOOptions.writeConfiguration(out, true, false, false, file, true);
+        setStatusBarText("Configuration saved to " + file);
+    } else {
+        setStatusBarText("Could not save configuration to " + file);
+    }
+    out.close();
+    return 1;
 }
 
 
 long
 GNEApplicationWindow::onCmdSaveSUMOConfigAs(FXObject*, FXSelector, void*) {
-    // obtain option container
-    OptionsCont& oc = OptionsCont::getOptions();
-    // declare current folder
-    FXString currentFolder = gCurrentFolder;
-    // check if there is a saved network
-    if (oc.getString("output-file").size() > 0) {
-        // extract folder
-        currentFolder = getFolder(oc.getString("output-file"));
+    // obtain NETEDIT option container
+    OptionsCont& neteditOptions = OptionsCont::getOptions();
+    // get the new file name
+    FXFileDialog opendialog(this, TL("Save SUMO Configuration as"));
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::SAVE));
+    opendialog.setSelectMode(SELECTFILE_ANY);
+    opendialog.setPatternList("Config (*.sumocfg)");
+    if (gCurrentFolder.length() != 0) {
+        opendialog.setDirectory(gCurrentFolder);
     }
-    // open dialog
-    FXString file = MFXUtils::getFilename2Write(this,
-                    TL("Save SUMOConfig"), ".sumocfg",
-                    GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI),
-                    currentFolder);
-    // add xml extension
-    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".sumocfg");
-    // check tat file is valid
-    if (file == "") {
-        // None SUMOConfig file was selected, then stop function
-        return 0;
+    if (!opendialog.execute() || !MFXUtils::userPermitsOverwritingWhenFileExists(this, opendialog.getFilename())) {
+        return 1;
+    }
+    const std::string file = MFXUtils::assureExtension(opendialog.getFilename(),
+            opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
+    neteditOptions.resetWritable();
+    neteditOptions.set("SUMOcfg-output", file);
+    std::ofstream out(StringUtils::transcodeToLocal(file));
+    if (out.good()) {
+        mySUMOOptions.writeConfiguration(out, true, false, false, file, true);
+        setStatusBarText("Configuration saved to " + file);
     } else {
-        // change value of "SUMOcfg-output"
-        oc.resetWritable();
-        oc.set("SUMOcfg-output", fileWithExtension);
+        setStatusBarText("Could not save configuration to " + file);
     }
-    // Start saving SUMOConfig
-    getApp()->beginWaitCursor();
-    // save config
-    GNEApplicationWindowHelper::saveSUMOConfig();
-    getApp()->endWaitCursor();
-    // restore focus
-    setFocus();
+    out.close();
     return 1;
 }
 
