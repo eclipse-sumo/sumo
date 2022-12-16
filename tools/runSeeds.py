@@ -52,7 +52,8 @@ def get_options(args=None):
     ap.add_option("--threads", type=int, default=1,
                   help="number of parallel processes")
     # parse options
-    options = ap.parse_args(args=args)
+    options, unknown_args = ap.parse_known_args(args=args)
+    options.unknown_args = unknown_args
 
     if ":" in options.seeds:
         options.seeds = range(*map(int, options.seeds.split(":")))
@@ -90,7 +91,7 @@ def main(options):
                     '-c', options.configuration,
                     '--seed', str(seed),
                     '--output-prefix', prefix]
-            subprocess.call(args)
+            subprocess.call(args + options.unknown_args)
             q.task_done()
 
     for i in range(options.threads):
