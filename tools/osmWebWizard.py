@@ -21,6 +21,7 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import os
+import sys
 import stat
 import traceback
 import webbrowser
@@ -133,21 +134,20 @@ class Builder(object):
 
         self.tmp = None
         if local:
-            now = data.get("outputDir",
-                           datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S"))
+            now = data.get("outputDir", datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S"))
             for base in ['', os.path.expanduser('~/Sumo')]:
                 try:
                     self.tmp = os.path.abspath(os.path.join(base, now))
                     os.makedirs(self.tmp)
                     break
                 except Exception:
-                    print("Cannot create directory '%s'" % self.tmp)
+                    print("Cannot create directory '%s'." % self.tmp, file=sys.stderr)
                     self.tmp = None
         if self.tmp is None:
             self.tmp = tempfile.mkdtemp()
 
         self.origDir = os.getcwd()
-        print("Building scenario in '%s'" % self.tmp)
+        print("Building scenario in '%s'." % self.tmp)
 
     def report(self, message):
         pass
@@ -173,13 +173,12 @@ class Builder(object):
         # output name for the osm file, will be used by osmBuild, can be
         # deleted after the process
         self.filename("osm", "_bbox.osm.xml.gz")
-        # output name for the net file, will be used by osmBuild, randomTrips and
-        # sumo-gui
+        # output name for the net file, will be used by osmBuild, randomTrips and sumo-gui
         self.filename("net", ".net.xml.gz")
 
-        if 'osm' in self.data:
-            # testing mode
-            self.files["osm"] = data['osm']
+        if self.data.get("coords") is None:
+            # fixed input testing mode
+            self.files["osm"] = self.data['osm']
         else:
             self.report("Downloading map data")
             osmArgs = ["-b=" + (",".join(map(str, self.data["coords"]))), "-p", self.prefix, "-d", self.tmp, "-z"]
@@ -512,38 +511,41 @@ class OSMImporterWebSocket(WebSocket):
         os.chdir(builder.origDir)
 
 
-parser = ArgumentParser(
-    description="OSM Web Wizard for SUMO - Websocket Server")
-parser.add_argument("--remote", action="store_true",
-                    help="In remote mode, SUMO GUI will not be automatically opened instead a zip file " +
-                    "will be generated.")
-parser.add_argument("--osm-file", default="osm_bbox.osm.xml", dest="osmFile", help="use input file from path.")
-parser.add_argument("--test-output", default=None, dest="testOutputDir",
-                    help="Run with pre-defined options on file 'osm_bbox.osm.xml' and " +
-                    "write output to the given directory.")
-parser.add_argument("-o", "--output", default=None, dest="outputDir",
-                    help="Write output to the given folder rather than creating a name based on the timestamp")
-parser.add_argument("--address", default="", help="Address for the Websocket.")
-parser.add_argument("--port", type=int, default=8010,
-                    help="Port for the Websocket. Please edit script.js when using an other port than 8010.")
+def get_options(args=None):
+    parser = ArgumentParser(description="OSM Web Wizard for SUMO - Websocket Server")
+    parser.add_argument("--remote", action="store_true",
+                        help="In remote mode, SUMO GUI will not be automatically opened instead a zip file " +
+                        "will be generated.")
+    parser.add_argument("--osm-file", default="osm_bbox.osm.xml", dest="osmFile", help="use input file from path.")
+    parser.add_argument("--test-output", dest="testOutputDir",
+                        help="Run with pre-defined options on file 'osm_bbox.osm.xml' and " +
+                        "write output to the given directory.")
+    parser.add_argument("-b", "--bbox", help="bounding box to retrieve in geo coordinates west,south,east,north.")
+    parser.add_argument("-o", "--output", dest="outputDir",
+                        help="Write output to the given folder rather than creating a name based on the timestamp")
+    parser.add_argument("--address", default="", help="Address for the Websocket.")
+    parser.add_argument("--port", type=int, default=8010,
+                        help="Port for the Websocket. Please edit script.js when using an other port than 8010.")
+    return parser.parse_args(args)
 
-if __name__ == "__main__":
-    args = parser.parse_args()
-    OSMImporterWebSocket.local = args.testOutputDir is not None or not args.remote
-    OSMImporterWebSocket.outputDir = args.outputDir
-    if args.testOutputDir is not None:
+
+def main(options):
+    OSMImporterWebSocket.local = options.testOutputDir is not None or not options.remote
+    OSMImporterWebSocket.outputDir = options.outputDir
+    if options.testOutputDir is not None:
         data = {u'duration': 900,
                 u'vehicles': {u'passenger': {u'count': 6, u'fringeFactor': 5},
                               u'bicycle': {u'count': 2, u'fringeFactor': 2},
                               u'pedestrian': {u'count': 4, u'fringeFactor': 1},
                               u'ship': {u'count': 1, u'fringeFactor': 40}},
-                u'osm': os.path.abspath(args.osmFile),
-                u'poly': True,
+                u'osm': os.path.abspath(options.osmFile),
+                u'poly': options.bbox is None,  # reduce download size
                 u'publicTransport': True,
                 u'leftHand': False,
                 u'decal': False,
                 u'carOnlyNetwork': False,
-                u'outputDir': args.testOutputDir,
+                u'outputDir': options.testOutputDir,
+                u'coords': options.bbox.split(",") if options.bbox else None
                 }
         builder = Builder(data, True)
         builder.build()
@@ -551,10 +553,13 @@ if __name__ == "__main__":
         builder.createBatch()
         subprocess.call([sumolib.checkBinary("sumo"), "-c", builder.files["config"]])
     else:
-        if not args.remote:
+        if not options.remote:
             webbrowser.open("file://" +
                             os.path.join(os.path.dirname(os.path.abspath(__file__)), "webWizard", "index.html"))
 
-        server = SimpleWebSocketServer(
-            args.address, args.port, OSMImporterWebSocket)
+        server = SimpleWebSocketServer(options.address, options.port, OSMImporterWebSocket)
         server.serveforever()
+
+
+if __name__ == "__main__":
+    main(get_options())
