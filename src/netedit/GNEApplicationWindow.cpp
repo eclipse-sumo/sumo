@@ -447,6 +447,9 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     myUndoListDialog = new GNEUndoListDialog(this);
     a->setTooltipTime(1000000000);
     a->setTooltipPause(1000000000);
+    // set SUMO Options descriptions
+    mySUMOOptions.setApplicationDescription(TL("A microscopic, multi-modal traffic simulation."));
+    mySUMOOptions.setApplicationName("sumo", "Eclipse SUMO sumo Version " VERSION_STRING);
     // parse sumo options
     TemplateHandler::parseTemplate(mySUMOOptions, sumoTemplate);
 }
