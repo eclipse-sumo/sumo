@@ -93,7 +93,7 @@ static const double vehiclePoly_EmergencyLadder7[] =   { .25, .3, .2, .3, .2, -.
 static const double vehiclePoly_scooterBase[] = { -.17, .3, -.2, .3, -.2, -.3, -.17, -.3, -10000 };
 static const double vehiclePoly_scooterBase2[] = { .27, .03, .28, .03, .28, -.03, .27, -.03, -10000 };
 static const double vehiclePoly_scooterBase3[] = { -.5, .6, .5, .6, .5, -.6, -.5, -.6, -10000 };
-
+static const double vehiclePoly_aircraft[] = { 0.72,0.41,0.72,0.41,0.73,0.41,0.73,0.41,0.73,0.41,0.73,0.4,0.73,0.4,0.72,0.38,0.7,0.35,0.68,0.3,0.67,0.28,0.66,0.26,0.64,0.21,0.62,0.17,0.61,0.15,0.61,0.14,0.61,0.14,0.61,0.12,0.61,0.11,0.6,0.07,0.6,0.06,0.6,0.04,0.69,0.04,0.75,0.04,0.8,0.04,0.81,0.03,0.82,0.03,0.83,0.03,0.83,0.03,0.84,0.05,0.87,0.09,0.9,0.12,0.91,0.14,0.92,0.14,0.93,0.15,0.94,0.15,0.95,0.14,0.95,0.12,0.94,0.08,0.93,0.04,0.93,0.02,0.93,0.02,0.93,0.02,0.94,0.02,0.94,0.02,0.94,0.01,0.95,0.01,0.96,0.01,0.96,0.01,0.97,0.01,0.98,0,0.99,0,0.99,0,0.99,-0.01,0.97,-0.01,0.96,-0.02,0.95,-0.02,0.94,-0.02,0.94,-0.02,0.93,-0.03,0.93,-0.03,0.93,-0.03,0.92,-0.03,0.93,-0.05,0.94,-0.09,0.95,-0.13,0.95,-0.15,0.95,-0.15,0.94,-0.15,0.92,-0.15,0.91,-0.15,0.9,-0.13,0.87,-0.09,0.84,-0.06,0.83,-0.04,0.82,-0.04,0.79,-0.04,0.75,-0.05,0.69,-0.05,0.63,-0.05,0.61,-0.05,0.6,-0.06,0.6,-0.06,0.6,-0.07,0.61,-0.08,0.61,-0.1,0.61,-0.13,0.61,-0.15,0.62,-0.16,0.63,-0.18,0.64,-0.22,0.66,-0.26,0.67,-0.29,0.69,-0.32,0.7,-0.36,0.72,-0.4,0.73,-0.41,0.73,-0.41,0.74,-0.41,0.74,-0.41,0.73,-0.42,0.73,-0.42,0.72,-0.42,0.71,-0.42,0.7,-0.42,0.69,-0.42,0.67,-0.4,0.66,-0.39,0.64,-0.36,0.61,-0.33,0.57,-0.28,0.51,-0.21,0.48,-0.17,0.47,-0.16,0.46,-0.16,0.46,-0.16,0.45,-0.16,0.44,-0.17,0.42,-0.17,0.4,-0.17,0.38,-0.16,0.38,-0.16,0.38,-0.14,0.38,-0.13,0.39,-0.12,0.39,-0.12,0.41,-0.12,0.43,-0.12,0.44,-0.12,0.42,-0.09,0.4,-0.07,0.4,-0.07,0.4,-0.07,0.4,-0.06,0.4,-0.06,0.41,-0.06,0.41,-0.06,0.41,-0.06,0.4,-0.06,0.39,-0.06,0.38,-0.06,0.34,-0.06,0.28,-0.06,0.2,-0.06,0.14,-0.06,0.12,-0.05,0.1,-0.05,0.08,-0.05,0.06,-0.04,0.03,-0.04,0.01,-0.03,0,-0.02,0,-0.02,0,-0.01,0,-0.01,0,0,0,0,0.01,0.01,0.02,0.01,0.04,0.02,0.07,0.03,0.1,0.04,0.12,0.04,0.17,0.04,0.24,0.04,0.33,0.04,0.38,0.04,0.39,0.05,0.4,0.05,0.41,0.05,0.41,0.05,0.41,0.05,0.4,0.05,0.4,0.05,0.4,0.05,0.4,0.06,0.42,0.08,0.44,0.11,0.41,0.11,0.38,0.11,0.38,0.13,0.38,0.14,0.38,0.15,0.4,0.15,0.42,0.15,0.44,0.15,0.45,0.15,0.46,0.15,0.47,0.15,0.47,0.15,0.49,0.17,0.52,0.21,0.55,0.25,0.61,0.33,0.65,0.37,0.66,0.39,0.67,0.4,0.68,0.4,0.68,0.41,0.7,0.41,0.7,0.42,0.71,0.41,0.72,0.41, -10000 };
 //static const double vehiclePoly_Rickshaw[] = { 0.5, 0,  0.25, 0.45,  0.25, 0.5, 0.8, 0.15,     0.8, -0.15, 0.25, -0.5, 0.25, -0.45,     -10000 };
 
 // ===========================================================================
@@ -155,14 +155,27 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsCircle(const double width, double 
 
 void
 GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s, const SUMOVehicleShape shape, const double width, const double length,
-        int carriageIndex, bool isStopped) {
+        int carriageIndex, bool isStopped, bool amReversed, double guiWidth ) {
     UNUSED_PARAMETER(s);
     RGBColor current = GLHelper::getColor();
     RGBColor lighter = current.changedBrightness(51);
     RGBColor darker = current.changedBrightness(-51);
     GLHelper::pushMatrix();
     glRotated(90, 0, 0, 1);
-    glScaled(length, width, 1.);
+
+    // If guiWidth is passed use it to scale the box - just for drawing
+    if ( guiWidth > -1 )
+        glScaled(length, guiWidth, 1.);
+    else
+        glScaled(length, width, 1.);
+
+    // If the vehicle is 'logically' reversed then reverse the drawing box
+    //  NB at the moment the only vehicles that will have amReversed set true are trains. Here this supports a train with guiShape="aircraft"
+    //      this will work for other shapes should amReversed ever be set - except for truck/trailer variants because of the way this code uses carriageIndex
+    if (amReversed) {
+        glRotatef(180, 0, 0, 1);
+        glTranslated(-1, 0, 0);
+    }
 
     // draw main body
     switch (shape) {
@@ -473,6 +486,25 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
             GLHelper::drawFilledCircle(.3, 6);
             GLHelper::popMatrix();
             break;
+
+        case SUMOVehicleShape::AIRCRAFT: // Aircraft polygon has many points but we do not expect to have high numbers of aircraft being visualised!
+            GLHelper::pushMatrix();
+            glTranslated(0, 0, 4 * .1);
+            glPolygonOffset(0, (GLfloat)-4);
+            glLineWidth(2);
+            glBegin(GL_LINE_STRIP);
+            {
+                int i = 0;
+                while (vehiclePoly_aircraft[i] > -999) {
+                    glVertex2d(vehiclePoly_aircraft[i], vehiclePoly_aircraft[i + 1]);
+                    i = i + 2;
+                }
+            }
+            glEnd();
+            GLHelper::popMatrix();
+            GLHelper::setColor(current.changedBrightness(-30));
+            break;      
+
         case SUMOVehicleShape::SCOOTER: {
             RGBColor darker2 = current.changedBrightness(-25);
             GLHelper::pushMatrix();
@@ -661,6 +693,7 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
         case SUMOVehicleShape::FIREBRIGADE:
         case SUMOVehicleShape::POLICE:
         case SUMOVehicleShape::RICKSHAW:
+        case SUMOVehicleShape::AIRCRAFT:
         case SUMOVehicleShape::SCOOTER:
             break;
         default: // same as passenger/sedan

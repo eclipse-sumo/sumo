@@ -430,6 +430,7 @@
 #include "vshape_police.xpm"
 #include "vshape_rickshaw.xpm"
 #include "vshape_scooter.xpm"
+#include "vshape_aircraft.xpm"
 #include "vshape_unknown.xpm"
 
 #include "accept.xpm"
@@ -871,6 +872,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::VSHAPE_FIREBRIGADE] = new FXXPMIcon(a, vshape_firebrigade_xpm);
     myIcons[GUIIcon::VSHAPE_POLICE] = new FXXPMIcon(a, vshape_police_xpm);
     myIcons[GUIIcon::VSHAPE_RICKSHAW] = new FXXPMIcon(a, vshape_rickshaw_xpm);
+    myIcons[GUIIcon::VSHAPE_AIRCRAFT] = new FXXPMIcon(a, vshape_aircraft_xpm);
     myIcons[GUIIcon::VSHAPE_SCOOTER] = new FXXPMIcon(a, vshape_scooter_xpm);
     myIcons[GUIIcon::VSHAPE_UNKNOWN] = new FXXPMIcon(a, vshape_unknown_xpm);
 

@@ -54,7 +54,7 @@ public:
 
     /// @brief draw vehicle as a polygon
     static void drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s, const SUMOVehicleShape shape, const double width, const double length,
-            int carriageIndex = -1, bool isStopped = false);
+            int carriageIndex = -1, bool isStopped = false, bool amReversed = false, double guiWidth = -1. );
 
     /**@brief try to draw vehicle as raster image and return true if successful
      * @param[in] length The custom length of the vehicle

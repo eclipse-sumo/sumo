@@ -107,7 +107,9 @@ enum class SUMOVehicleShape {
     /// @brief render as a rickshaw
     RICKSHAW,
     /// @brief render as a scooter
-    SCOOTER
+    SCOOTER,
+    /// @brief render as aircraft
+    AIRCRAFT
 };
 
 
