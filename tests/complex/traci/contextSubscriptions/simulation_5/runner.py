@@ -27,6 +27,8 @@ if "SUMO_HOME" in os.environ:
 import sumolib  # noqa
 import traci  # noqa
 
+def csRes2Str(csr):
+    return ', '.join(sorted(csr[''].keys()))
 
 def runSingle(viewRange, domain, domain2):
     name = domain._name if hasattr(domain, "_name") else domain.__name__
@@ -46,7 +48,7 @@ def runSingle(viewRange, domain, domain2):
     print("   found %s objects" % len(responses))
 
     for i in range(3):
-        print(i, domain.getAllContextSubscriptionResults())
+        print(i, csRes2Str(domain.getAllContextSubscriptionResults()))
 
     domain.unsubscribeContext(egoID, domain2.DOMAIN_ID, viewRange)
     responses = traci.simulationStep()
