@@ -200,7 +200,7 @@ class CountData:
         self.options = options  # multiprocessing had issue with sumolib.options.getOptions().turnMaxGap
         self.routeSet = set()
         for routeIndex, edges in enumerate(allRoutes.unique):
-            if self.routePasses(edges,) is not None:
+            if self.routePasses(edges) is not None:
                 self.routeSet.add(routeIndex)
         if isRatio:
             self.count = options.turnRatioAbsTolerance
