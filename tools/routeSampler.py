@@ -439,9 +439,6 @@ def optimize(options, countData, routes, usedRoutes, routeUsage, intervalCount):
     # minimization objective [routeCounts] + [slack]
     c = [options.minimizeVehs] * k + [1] * m
 
-    # set x to prior counts and slack to deficit (otherwise solver may fail to find any solution
-    x0 = priorRelevantRouteCounts + [cd.origCount - cd.count for cd in countData]
-
     A_ub = None
     b_ub = None
 
@@ -458,19 +455,12 @@ def optimize(options, countData, routes, usedRoutes, routeUsage, intervalCount):
     # print("b (%s) %s" % (len(b), b))
     # print("c (%s) %s" % (len(c), c))
     # print("bounds (%s) %s" % (len(bounds) if bounds is not None else "-", bounds))
-    # print("x0 (%s) %s" % (len(x0), x0))
 
     linProgOpts = {}
     if options.verbose:
         linProgOpts["disp"] = True
 
-    try:
-        res = opt.linprog(c, A_ub=A_ub, b_ub=b_ub, A_eq=A_eq, b_eq=b, bounds=bounds, x0=x0, options=linProgOpts)
-    except TypeError:
-        if options.verbose:
-            print("Warning: Scipy version %s does not support initial guess for opt.linprog. Optimization may fail"
-                  % scipy.version.version, file=sys.stderr)
-        res = opt.linprog(c, A_ub=A_ub, b_ub=b_ub, A_eq=A_eq, b_eq=b, bounds=bounds, options=linProgOpts)
+    res = opt.linprog(c, A_ub=A_ub, b_ub=b_ub, A_eq=A_eq, b_eq=b, bounds=bounds, options=linProgOpts)
 
     if res.success:
         print("Optimization succeeded")
