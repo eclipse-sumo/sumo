@@ -802,11 +802,11 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
     openCounts = updateOpenCounts(range(0, len(countData)), countData, openRoutes)
 
     usedRoutes = []
+    numSampled = 0
     if options.optimizeInput:
         usedRoutes = [routes.edges2index[e] for e in routes.all]
         resetCounts(usedRoutes, routeUsage, countData)
-    else:
-        numSampled = 0
+    elif options.optimize != "full":
         while openCounts:
             if intervalCount is not None and numSampled >= intervalCount:
                 break
