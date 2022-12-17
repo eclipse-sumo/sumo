@@ -841,12 +841,38 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
             usedRoutes.append(routeIndex)
             for dataIndex in routeUsage[routeIndex]:
                 countData[dataIndex].use()
+
             if ratioIndices:
                 for dataIndex in routeUsage[routeIndex]:
                     countData[dataIndex].updateTurnRatioCounts(openRoutes, openCounts, True)
 
-            openRoutes = updateOpenRoutes(openRoutes, routeUsage, countData)
-            openCounts = updateOpenCounts(openCounts, countData, openRoutes)
+                # this is the old and slow way to update things
+                openRoutes = updateOpenRoutes(openRoutes, routeUsage, countData)
+                openCounts = updateOpenCounts(openCounts, countData, openRoutes)
+
+            else:
+                # update openRouts and openCounts only if needed
+                closedRoutes = set()
+                for dataIndex in routeUsage[routeIndex]:
+                    cd = countData[dataIndex]
+                    if cd.count == 0:
+                        openCounts.remove(dataIndex)
+                        for r in cd.routeSet:
+                            closedRoutes.add(r)
+
+                if closedRoutes:
+                    cdRecheck = set()
+                    openRoutes2 = []
+                    for r in openRoutes:
+                        if r in closedRoutes:
+                            for dataIndex in routeUsage[r]:
+                                cdRecheck.add(dataIndex)
+                        else:
+                            openRoutes2.append(r)
+                    openRoutes = openRoutes2
+                    closedCounts = [c for c in cdRecheck if not countData[c].routeSet.intersection(openRoutes)]
+                    if closedCounts:
+                        openCounts = [c for c in openCounts if not c in closedCounts]
 
     totalMismatch = sum([cd.count for cd in countData])
 
