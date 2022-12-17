@@ -44,10 +44,10 @@ public:
     static void drawPoly(const double* poses, const double offset);
 
     /// @brief draw vehicle as a Box
-    static void drawAction_drawVehicleAsBoxPlus(const double width, const double length);
+    static void drawAction_drawVehicleAsBoxPlus(const double width, const double length, bool amReversed = false);
 
     /// @brief draw vehicle as a triangle
-    static void drawAction_drawVehicleAsTrianglePlus(const double width, const double length);
+    static void drawAction_drawVehicleAsTrianglePlus(const double width, const double length, bool amReversed = false);
 
     /// @brief draw vehicle as a circle
     static void drawAction_drawVehicleAsCircle(const double width, double detail);

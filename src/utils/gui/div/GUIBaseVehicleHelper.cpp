@@ -116,32 +116,46 @@ GUIBaseVehicleHelper::drawPoly(const double* poses, const double offset) {
 }
 
 void
-GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(const double width, const double length) {
+GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(const double width, const double length, bool amReversed) {
     GLHelper::pushMatrix();
     glScaled(width, length, 1.);
     glBegin(GL_TRIANGLE_STRIP);
-    glVertex2d(0., 0.);
-    glVertex2d(-.5, .15);
-    glVertex2d(.5, .15);
-    glVertex2d(-.5, 1.);
-    glVertex2d(.5, 1.);
+    if (amReversed) {
+        glVertex2d(-.5, 0.);
+        glVertex2d(.5, 0.);
+        glVertex2d(-.5, .85);
+        glVertex2d(.5, .85);
+        glVertex2d( 0., 1.);
+    } else {
+        glVertex2d(0., 0.);
+        glVertex2d(-.5, .15);
+        glVertex2d(.5, .15);
+        glVertex2d(-.5, 1.);
+        glVertex2d(.5, 1.);
+    }
     glEnd();
     GLHelper::popMatrix();
 }
 
 
 void
-GUIBaseVehicleHelper::drawAction_drawVehicleAsTrianglePlus(const double width, const double length) {
+GUIBaseVehicleHelper::drawAction_drawVehicleAsTrianglePlus(const double width, const double length, bool amReversed) {
     if (length >= 8.) {
-        drawAction_drawVehicleAsBoxPlus(width, length);
+        drawAction_drawVehicleAsBoxPlus(width, length, amReversed);
         return;
     }
     GLHelper::pushMatrix();
     glScaled(width, length, 1.);
     glBegin(GL_TRIANGLES);
-    glVertex2d(0., 0.);
-    glVertex2d(-.5, 1.);
-    glVertex2d(.5, 1.);
+    if (amReversed) {
+        glVertex2d(0., 1.);
+        glVertex2d(-.5, 0.);
+        glVertex2d(.5, 0.);
+    } else {
+        glVertex2d(0., 0.);
+        glVertex2d(-.5, 1.);
+        glVertex2d(.5, 1.);
+    }
     glEnd();
     GLHelper::popMatrix();
 }
