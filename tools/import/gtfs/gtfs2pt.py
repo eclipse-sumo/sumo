@@ -143,13 +143,14 @@ def splitNet(options):
         mode = os.path.basename(inp)[7:-4]
         if not options.modes or mode in options.modes.split(","):
             netPrefix = os.path.join(options.network_split, mode)
-            sumoType = gtfs2osm.OSM2SUMO_MODES[mode]
-            edgeFilter = ["--keep-edges.by-type", sumoType] if sumoType in seenTypes else None
-            if "rail" in sumoType or sumoType == "subway":
-                if sumoType in seenTypes:
-                    edgeFilter = ["--keep-edges.by-type", "railway." + sumoType]
-            elif sumoType in ("tram", "bus"):
-                edgeFilter = ["--keep-edges.by-vclass", sumoType]
+            edgeFilter = ["--keep-edges.by-type", mode] if mode in seenTypes else None
+            if "rail" in mode or mode == "subway":
+                if "railway." + mode in seenTypes:
+                    edgeFilter = ["--keep-edges.by-type", "railway." + mode]
+            elif mode == "train":
+                edgeFilter = ["--keep-edges.by-type", "railway.rail,railway.light_rail"]
+            elif mode in ("tram", "bus"):
+                edgeFilter = ["--keep-edges.by-vclass", mode]
             if edgeFilter:
                 if (os.path.exists(netPrefix + ".net.xml") and
                         os.path.getmtime(netPrefix + ".net.xml") > os.path.getmtime(numIdNet)):
@@ -262,8 +263,8 @@ def map_stops(options, net, routes, rout, edgeMap):
                     path, _ = typedNet.getShortestPath(typedNet.getEdge(routeFixed[-1]), typedNet.getEdge(routeEdgeID))
                     if path is None or len(path) > options.fill_gaps + 2:
                         error = "no path found" if path is None else "path too long (%s)" % len(path)
-                        print("Warning! Disconnected route '%s', %s. Keeping longer part." % (rid, error),
-                              file=sys.stderr)
+                        print("Warning! Disconnected route '%s' between '%s' and '%s', %s. Keeping longer part." %
+                              (rid, edgeMap.get(routeFixed[-1]), edgeMap.get(routeEdgeID), error), file=sys.stderr)
                         if len(routeFixed) > len(routes[rid]) // 2:
                             break
                         routeFixed = [routeEdgeID]
@@ -283,10 +284,10 @@ def map_stops(options, net, routes, rout, edgeMap):
             else:
                 stopLength = options.train_stop_length
             result = gtfs2osm.getBestLane(net, veh.x, veh.y, 200, stopLength,
-                                          route[lastIndex:], railType, lastPos)
+                                          route[lastIndex:], gtfs2osm.OSM2SUMO_MODES[railType], lastPos)
             if result is None:
                 if options.warn_unmapped:
-                    print("Warning! No stop for coordinates %.2f, %.2f" % (veh.x, veh.y), "on", veh, file=sys.stderr)
+                    print("Warning! No stop for %s." % str(veh), file=sys.stderr)
                 continue
             laneID, start, end = result
             edgeID = laneID.rsplit("_", 1)[0]

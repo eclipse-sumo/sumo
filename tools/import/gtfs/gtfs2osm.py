@@ -41,6 +41,7 @@ OSM2SUMO_MODES = {
     'bus': 'bus',
     'train': 'rail',
     'tram': 'tram',
+    'light_rail': 'rail_urban',
     'subway': 'rail_urban',
     'ferry': 'ship'
 }
@@ -57,11 +58,11 @@ GTFS2OSM_MODES = {
     # '7':  'funicular',
     # https://developers.google.com/transit/gtfs/reference/extended-route-types
     '100':  'train',        # DB
-    '109':  'train',  # S-Bahn
-    '400':  'subway',      # U-Bahn
+    '109':  'light_rail',   # S-Bahn
+    '400':  'subway',       # U-Bahn
     '1000': 'ferry',        # Faehre
     # additional modes used in Hamburg
-    '402':  'subway',      # U-Bahn
+    '402':  'subway',       # U-Bahn
     '1200': 'ferry',        # Faehre
     # modes used by hafas
     's': 'train',

@@ -43,8 +43,8 @@ def add_options():
     argParser.add_argument("--date", help="define the day to import, format: 'YYYYMMDD'")
     argParser.add_argument("--fcd", help="directory to write / read the generated FCD files to / from")
     argParser.add_argument("--gpsdat", help="directory to write / read the generated gpsdat files to / from")
-    argParser.add_argument("--modes", default="bus,tram,train,subway,ferry",
-                           help="comma separated list of modes to import (bus, tram, train, subway and/or ferry)")
+    argParser.add_argument("--modes", help="comma separated list of modes to import (%s)" %
+                           (", ".join(gtfs2osm.OSM2SUMO_MODES.keys())))
     argParser.add_argument("--vtype-output", default="vtypes.xml",
                            help="file to write the generated vehicle types to")
     argParser.add_argument("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
@@ -62,6 +62,8 @@ def check_options(options):
         options.fcd = os.path.join('fcd', options.region)
     if options.gpsdat is None:
         options.gpsdat = os.path.join('input', options.region)
+    if options.modes is None:
+        options.modes = ",".join(gtfs2osm.OSM2SUMO_MODES.keys())
     return options
 
 
@@ -108,7 +110,7 @@ def main(options):
     if not os.path.exists(options.fcd):
         os.makedirs(options.fcd)
     seenModes = set()
-    modes = set(options.modes.split(",") if options.modes else gtfs2osm.GTFS2OSM_MODES.values())
+    modes = set(options.modes.split(","))
     for mode in modes:
         filePrefix = os.path.join(options.fcd, mode)
         fcdFile[mode] = io.open(filePrefix + '.fcd.xml', 'w', encoding="utf8")
