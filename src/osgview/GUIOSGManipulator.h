@@ -52,7 +52,7 @@ public:
     /// @brief inform HUD about the current window size to let it reposition
     void updateHUDPosition(int width, int height);
 protected:
-    void centerMousePointer(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa);
+    void centerMousePointer(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa) override;
 private:
     void updateHUDText();
 

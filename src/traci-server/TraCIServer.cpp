@@ -1268,7 +1268,7 @@ TraCIServer::addObjectVariableSubscription(const int commandId, const bool hasCo
     const int domain = hasContext ? myInputStorage.readUnsignedByte() : 0;
     double range = hasContext ? myInputStorage.readDouble() : 0.;
     if (commandId == libsumo::CMD_SUBSCRIBE_SIM_CONTEXT) {
-        range = std::numeric_limits<SUMOTime>::max();
+        range = std::numeric_limits<double>::max();
     }
     const int num = myInputStorage.readUnsignedByte();
     std::vector<int> variables;

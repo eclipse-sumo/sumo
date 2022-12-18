@@ -231,7 +231,7 @@ GUIOSGManipulator::handleKeyDown(const osgGA::GUIEventAdapter& ea, osgGA::GUIAct
 
 
 bool 
-GUIOSGManipulator::handleKeyUp(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa) {
+GUIOSGManipulator::handleKeyUp(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& /* aa */) {
     bool result = false;
     switch (ea.getKey()) {
     case osgGA::GUIEventAdapter::KEY_Up:
