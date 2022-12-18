@@ -124,6 +124,7 @@ def splitNet(options):
     netcCall = [sumolib.checkBinary("netconvert"), "--no-internal-links", "--numerical-ids", "--no-turnarounds",
                 "--offset.disable-normalization", "--output.original-names", "--aggregate-warnings", "1",
                 "--junctions.corner-detail", "0", "--dlr-navteq.precision", "0", "--geometry.avoid-overlap", "false"]
+    doNavteqOut = os.path.exists(options.mapperlib)
     if not os.path.exists(options.network_split):
         os.makedirs(options.network_split)
     numIdNet = os.path.join(options.network_split, "numerical.net.xml")
@@ -143,27 +144,21 @@ def splitNet(options):
         if not options.modes or mode in options.modes.split(","):
             netPrefix = os.path.join(options.network_split, mode)
             sumoType = gtfs2osm.OSM2SUMO_MODES[mode]
-            edgeTypes = [sumoType]
+            edgeFilter = ["--keep-edges.by-type", sumoType] if sumoType in seenTypes else None
             if "rail" in sumoType or sumoType == "subway":
-                edgeTypes = ["railway." + sumoType]
+                if sumoType in seenTypes:
+                    edgeFilter = ["--keep-edges.by-type", "railway." + sumoType]
             elif sumoType in ("tram", "bus"):
-                edgeTypes = ["railway.tram"] if sumoType == "tram" else []
-                for hwType in ("bus_guideway", "living_street", "motorway", "motorway_link", "primary", "primary_link",
-                               "residential", "secondary", "secondary_link", "tertiary", "tertiary_link",
-                               "trunk", "trunk_link", "unclassified", "unsurfaced"):
-                    if sumoType == "tram":
-                        edgeTypes.append("highway.%s|railway.tram" % hwType)
-                    else:
-                        edgeTypes.append("highway." + hwType)
-            edgeType = ",".join(filter(lambda t: t in seenTypes, edgeTypes))
-            if edgeType:
+                edgeFilter = ["--keep-edges.by-vclass", sumoType]
+            if edgeFilter:
                 if (os.path.exists(netPrefix + ".net.xml") and
                         os.path.getmtime(netPrefix + ".net.xml") > os.path.getmtime(numIdNet)):
                     print("Reusing old", netPrefix + ".net.xml")
                 else:
-                    subprocess.call(netcCall + ["-s", numIdNet, "-o", netPrefix + ".net.xml",
-                                                "--dlr-navteq-output", netPrefix,
-                                                "--dismiss-vclasses", "--keep-edges.by-type", edgeType])
+                    subprocess.call(netcCall + ["-s", numIdNet, "-o", netPrefix + ".net.xml"] + edgeFilter)
+                    if doNavteqOut:
+                        subprocess.call(netcCall + ["-s", netPrefix + ".net.xml", "-o", "NUL", "--dismiss-vclasses"
+                                                    "--dlr-navteq-output", netPrefix])
                 typedNets[mode] = (inp, netPrefix)
     return edgeMap, typedNets
 
