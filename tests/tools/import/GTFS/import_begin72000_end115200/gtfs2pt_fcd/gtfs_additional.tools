@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-11-10 11:43:41.619800 by gtfs2pt.py v1_15_0+0127-a3294783cc7
+<!-- generated on 2022-12-16 21:39:50.159127 by gtfs2pt.py v1_15_0+1083-325dcb3a18e
   options: -n net.net.xml <doubleminus>gtfs gtfs.zip <doubleminus>date 20201111 <doubleminus>vtype-output vehtypes.xml <doubleminus>modes bus <doubleminus>begin 72000 <doubleminus>end 115200
 -->
 
@@ -13,7 +13,7 @@
     </busStop>
     <busStop id="588927595:60.22" lane="588927595_0" startPos="47.22" endPos="60.22" friendlyPos="true" name="Braunschweig Friedrich-Wilhelm-Platz">
     </busStop>
-    <busStop id="8118997:57.38" lane="8118997_0" startPos="44.38" endPos="57.38" friendlyPos="true" name="Braunschweig Europaplatz">
+    <busStop id="122119622#0:95.59" lane="122119622#0_0" startPos="82.59" endPos="95.59" friendlyPos="true" name="Braunschweig Europaplatz">
     </busStop>
     <busStop id="-5148300:13.00" lane="-5148300_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Braunschweig Rathaus">
     </busStop>
@@ -27,7 +27,7 @@
     </busStop>
     <busStop id="-25290640:31.61" lane="-25290640_0" startPos="18.61" endPos="31.61" friendlyPos="true" name="Braunschweig Goslarsche Straße">
     </busStop>
-    <busStop id="23208748#0:28.80" lane="23208748#0_0" startPos="15.80" endPos="28.80" friendlyPos="true" name="Braunschweig John-F.-Kennedy-Platz">
+    <busStop id="51353826#0:29.57" lane="51353826#0_0" startPos="16.57" endPos="29.57" friendlyPos="true" name="Braunschweig John-F.-Kennedy-Platz">
     </busStop>
     <busStop id="25730281#0:17.75" lane="25730281#0_0" startPos="4.75" endPos="17.75" friendlyPos="true" name="Braunschweig Schloss">
     </busStop>
@@ -43,16 +43,16 @@
     </busStop>
     <busStop id="316791983:13.00" lane="316791983_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Braunschweig Am Wassertor">
     </busStop>
-    <busStop id="24020907#0:38.55" lane="24020907#0_0" startPos="25.55" endPos="38.55" friendlyPos="true" name="Braunschweig John-F.-Kennedy-Platz">
+    <busStop id="43328051#0:37.74" lane="43328051#0_0" startPos="24.74" endPos="37.74" friendlyPos="true" name="Braunschweig John-F.-Kennedy-Platz">
     </busStop>
     <route id="None" edges="27220201#0">
     </route>
-    <route id="132244371" edges="319583927#0 29087077#0 25730280#0 25730280#3 25730282 315422094 315422095#0 315422095#1 5059167#0 305951363 25076279#0 25076279#1 23209054#0 29085916#0 588927595 6279149#0 316781871#1 30426426#0 316781877#0 306497786 8118996#0 316785563#0 316785563#1 316785564#0 8118997">
+    <route id="132244371" edges="319583927#0 29087077#0 25730280#0 25730280#3 25730282 315422094 315422095#0 315422095#1 5059167#0 305951363 25076279#0 25076279#1 23209054#0 29085916#0 588927595 6279149#0 316781871#1 30426426#0 316781875#0 306497784 306497780 23118706 384876527 384876529 559570920#0 122119622#0">
         <stop busStop="319583927#0:13.00" duration="10" until="0"/>
         <stop busStop="319583927#0:15.76" duration="10" until="120"/>
         <stop busStop="5059167#0:39.17" duration="10" until="240"/>
         <stop busStop="588927595:60.22" duration="10" until="360"/>
-        <stop busStop="8118997:57.38" duration="10" until="480"/>
+        <stop busStop="122119622#0:95.59" duration="10" until="480"/>
     </route>
     <route id="132185783" edges="-198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312580 8108069 -376915189 -8107411#2 -320399277#2 -320814805#1 -59873991 -8118981 -320814798 -59873992 -25087143 -25290640 -283066855">
         <stop busStop="-5148300:13.00" duration="10" until="0"/>
@@ -67,8 +67,8 @@
         <stop busStop="-320399277#2:13.00" duration="10" until="120"/>
         <stop busStop="-25290640:31.61" duration="10" until="180"/>
     </route>
-    <route id="132218462" edges="23208748#0 23208748#3 61976434#0 61976434#1 61976434#2 61976434#3 61976434#4 25730283#0 315422093#0 25730281#0 27220157#0 29976721#0 4729561#0 317365383#0 317365383#1 317365382#0 27220209#0">
-        <stop busStop="23208748#0:28.80" duration="10" until="0"/>
+    <route id="132218462" edges="51353826#0 61976434#0 61976434#1 61976434#2 61976434#3 61976434#4 25730283#0 315422093#0 25730281#0 27220157#0 29976721#0 4729561#0 317365383#0 317365383#1 317365382#0 27220209#0">
+        <stop busStop="51353826#0:29.57" duration="10" until="0"/>
         <stop busStop="25730281#0:17.75" duration="10" until="120"/>
         <stop busStop="27220209#0:13.00" duration="10" until="240"/>
     </route>
@@ -77,14 +77,14 @@
         <stop busStop="588927595:66.40" duration="10" until="60"/>
         <stop busStop="127240643#2:13.56" duration="10" until="180"/>
     </route>
-    <route id="132183536" edges="316791974#1 30426508#0 317191948 171349008#0 316791987#1 316791983 316791991 25076268 316779270 23209056#0 23209056#2 305951352 311580921#0 311580921#1 311580921#2 25076286#0 24020907#0">
+    <route id="132183536" edges="316791974#1 30426508#0 317191948 171349008#0 316791987#1 316791983 316791991 25076268 316779270 23209056#0 316682907 316682910#0 25076286#0 43328051#0">
         <stop busStop="316791974#1:20.60" duration="10" until="0"/>
         <stop busStop="316791983:13.00" duration="10" until="60"/>
-        <stop busStop="24020907#0:38.55" duration="10" until="180"/>
+        <stop busStop="43328051#0:37.74" duration="10" until="180"/>
     </route>
-    <route id="132183536.trimmed" edges="316791974#1 30426508#0 317191948 171349008#0 316791987#1 316791983 316791991 25076268 316779270 23209056#0 23209056#2 305951352 311580921#0 311580921#1 311580921#2 25076286#0 24020907#0">
+    <route id="132183536.trimmed" edges="316791974#1 30426508#0 317191948 171349008#0 316791987#1 316791983 316791991 25076268 316779270 23209056#0 316682907 316682910#0 25076286#0 43328051#0">
         <stop busStop="316791974#1:20.60" duration="10" until="0"/>
         <stop busStop="316791983:13.00" duration="10" until="60"/>
-        <stop busStop="24020907#0:38.55" duration="10" until="180"/>
+        <stop busStop="43328051#0:37.74" duration="10" until="180"/>
     </route>
 </additional>
