@@ -23,6 +23,7 @@ from __future__ import print_function
 
 import os
 import sys
+from lxml import etree as ET
 from collections import defaultdict
 from optparse import OptionParser
 
@@ -30,7 +31,7 @@ if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
     sys.path.append(os.path.join(tools))
     import sumolib
-    from sumolib.xml import parse, parse_fast  # noqa
+    from sumolib.xml import _open, parse_fast  # noqa
     from sumolib.miscutils import Statistics  # noqa
     from sumolib.statistics import setPrecision
 else:
@@ -43,9 +44,9 @@ def get_options():
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="Give more output")
     optParser.add_option("-e", "--element", type="string",
-                         default="tripinfo", help="element to analyze")
+                         help="element to analyze")
     optParser.add_option("-a", "--attribute", type="string",
-                         default="timeLoss", help="attribute to analyze")
+                         help="attribute to analyze")
     optParser.add_option("-i", "--id-attribute", type="string", dest="idAttr",
                          default="id", help="attribute to identify data elements")
     optParser.add_option("-b", "--binwidth", type="float",
@@ -63,72 +64,117 @@ def get_options():
     options, args = optParser.parse_args()
 
     options.datafiles = args
+    if options.attribute:
+        options.attribute = options.attribute.split(',')
+    if options.element:
+        options.element = options.element.split(',')
+
+    if options.fast:
+        if options.attribute is None:
+            print("Parsing all attributes is not supported when using option --fast")
+            sys.exit()
+        if options.element is None:
+            print("Parsing all elements is not supported when using option --fast")
+            sys.exit()
+        if len(options.element) > 1:
+            print("Parsing multiple elements is not supported when using option --fast")
+            sys.exit()
+
     return options
 
 
 def main():
     options = get_options()
 
-    vals = defaultdict(list)
-    stats = Statistics("%s %ss" % (options.element, options.attribute),
-                       histogram=options.binwidth > 0, scale=options.binwidth,
-                       printDev=True)
-    missingAttr = set()
-    invalidType = set()
+    vals = defaultdict(lambda: defaultdict(list))
+    allStats = dict();
+    missingAttr = defaultdict(set)
+    invalidType = defaultdict(set)
 
     if options.fast:
+        assert(len(options.element) == 1)
+        elem = options.element[0]
         def elements():
             for datafile in options.datafiles:
-                for element in parse_fast(datafile, options.element, [options.idAttr, options.attribute]):
-                    yield getattr(element, options.idAttr), getattr(element, options.attribute)
+                for element in parse_fast(datafile, elem, [options.idAttr] + options.attribute):
+                    for attr in options.attribute:
+                        yield elem, attr, getattr(element, attr), getattr(element, options.idAttr), 
     else:
         def elements():
             for datafile in options.datafiles:
-                defaultID = str(None) if len(options.datafiles) == 1 else datafile
-                for element in parse(datafile, options.element, heterogeneous=True):
-                    elementID = defaultID
-                    if element.hasAttribute(options.idAttr):
-                        elementID = element.getAttribute(options.idAttr)
-                    stringVal = None
-                    if element.hasAttribute(options.attribute):
-                        stringVal = element.getAttribute(options.attribute)
-                    yield elementID, stringVal
+                defaultID = None if len(options.datafiles) == 1 else datafile
 
-    for elementID, stringVal in elements():
+                for _, node in ET.iterparse(_open(datafile, None)):
+                    if options.element is not None and node.tag not in options.element:
+                        continue
+                    elementID = node.get(options.idAttr, defaultID)
+                    if options.attribute is None:
+                        for k, v in node.items():
+                            if k != options.idAttr:
+                                yield node.tag, k, v, elementID
+                    else:
+                        for attr in options.attribute:
+                            yield node.tag, attr, node.get(attr), elementID
+
+
+    for tag, attr, stringVal, elementID in elements():
         if stringVal is not None:
             try:
+                if '_' in stringVal:
+                    # float() accepts '_' but this doesn't play nice with lane ids
+                    raise Exception
                 val = sumolib.miscutils.parseTime(stringVal)
-                vals[elementID].append(val)
+                vals[elementID][attr].append(val)
+                key = (tag, attr)
+                if not key in allStats:
+                    allStats[key] = Statistics("%s %ss" % (tag, attr),
+                       histogram=options.binwidth > 0, scale=options.binwidth,
+                       printDev=True)
+
+                stats = allStats[key]
                 stats.add(val, elementID)
             except Exception:
-                invalidType.add(stringVal)
+                invalidType[attr].add(stringVal)
         else:
-            missingAttr.add(elementID)
+            if elementID is not None:
+                missingAttr[attr].add(elementID)
 
-    print(stats.toString(options.precision))
+    histStyle = 1 if len(allStats) == 1  else 0
+    for key in sorted(allStats.keys()):
+        print(allStats[key].toString(options.precision, histStyle=histStyle))
+
     if missingAttr:
-        print("%s elements did not provide attribute '%s' Example ids: '%s'" %
-              (len(missingAttr), options.attribute, "', '".join(sorted(missingAttr)[:10])))
-    if invalidType:
-        print(("%s distinct values of attribute '%s' could not be interpreted " +
-               "as numerical value or time. Example values: '%s'") %
-              (len(invalidType), options.attribute, "', '".join(sorted(invalidType)[:10])))
+        for attr in sorted(missingAttr.keys()):
+            print("%s elements did not provide attribute '%s' Example ids: '%s'" %
+                    (len(missingAttr[attr]), attr, "', '".join(sorted(missingAttr[attr])[:10])))
+
+    if invalidType and options.attribute is not None:
+        for attr in sorted(invalidType.keys()):
+            print(("%s distinct values of attribute '%s' could not be interpreted " +
+                   "as numerical value or time. Example values: '%s'") %
+                  (len(invalidType[attr]), attr, "', '".join(sorted(invalidType[attr])[:10])))
 
     if options.hist_output is not None:
-        with open(options.hist_output, 'w') as f:
-            for bin, count in stats.histogram():
-                f.write("%s %s\n" % (bin, count))
+        for key in sorted(allStats.keys()):
+            fname = options.hist_output if len(allStats) == 1 else options.hist_output + ".%s.%s" % key
+            with open(fname, 'w') as f:
+                for bin, count in allStats[key].histogram():
+                    f.write("%s %s\n" % (bin, count))
 
     if options.full_output is not None:
         with open(options.full_output, 'w') as f:
-            for id, data in sorted(vals.items()):
-                for x in data:
-                    f.write(setPrecision("%.2f %s\n", options.precision) % (x, id))
+            for elementID in sorted(vals.keys()):
+                for attr, data in vals[elementID].items():
+                    if len(vals[elementID]) > 1:
+                        f.write("# %s\n" % attr)
+                    for x in data:
+                        f.write(setPrecision("%.2f %s\n", options.precision) % (x, elementID))
 
     if options.xml_output is not None:
         with open(options.xml_output, 'w') as f:
             sumolib.writeXMLHeader(f, "$Id$", "attributeStats")  # noqa
-            f.write(stats.toXML(options.precision))
+            for key in sorted(allStats.keys()):
+                f.write(allStats[key].toXML(options.precision))
             f.write('</attributeStats>\n')
 
 
