@@ -177,6 +177,10 @@ def import_gtfs(options, gtfsZip):
     filter_gtfs_modes = [key for key, value in GTFS2OSM_MODES.items()
                          if value in options.modes]
     routes = routes[routes['route_type'].isin(filter_gtfs_modes)]
+    if routes.empty:
+        print("Warning! No GTFS data found for the given modes %s." % options.modes)
+    if trips_on_day.empty:
+        print("Warning! No GTFS data found for the given date %s." % options.date)
 
     return routes, trips_on_day, shapes, stops, stop_times
 
@@ -649,7 +653,7 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
 
     # -----------------------   Save missing data ------------------
     if any([missing_stops, missing_lines, sequence_errors]):
-        print("Not all given gtfs elements have been mapped, see %s for more information" % options.warning_output)  # noqa
+        print("Not all given gtfs elements have been mapped, see %s for more information" % options.warning_output)
         with io.open(options.warning_output, 'w', encoding="utf8") as output_file:
             output_file.write(u'<missingElements>\n')
             for stop in sorted(set(missing_stops)):

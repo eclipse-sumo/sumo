@@ -359,6 +359,8 @@ def main(options):
         gtfsZip = zipfile.ZipFile(sumolib.open(options.gtfs, False))
         routes, trips_on_day, shapes, stops, stop_times = gtfs2osm.import_gtfs(options, gtfsZip)
 
+        if routes.empty or trips_on_day.empty:
+            return
         if shapes is None:
             print('Warning: Importing OSM routes currently requires a GTFS file with shapes.', file=sys.stderr)
             options.osm_routes = None
@@ -381,7 +383,8 @@ def main(options):
     if not options.osm_routes:
         # Import PT from GTFS
         if not options.skip_fcd:
-            gtfs2fcd.main(options)
+            if not gtfs2fcd.main(options):
+                return
         edgeMap, typedNets = splitNet(options)
         if os.path.exists(options.mapperlib):
             if not options.skip_map:
@@ -393,7 +396,8 @@ def main(options):
                     routes[id].append(edge)
         else:
             if not gtfs2fcd.dataAvailable(options):
-                sys.exit("No GTFS data found for given date %s." % options.date)
+                print("Warning! No infrastructure for the given modes %s." % options.modes)
+                return
             if options.mapperlib != "tracemapper":
                 print("Warning! No mapping library found, falling back to tracemapper.", file=sys.stderr)
             routes = traceMap(options, typedNets)

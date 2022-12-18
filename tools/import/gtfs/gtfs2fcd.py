@@ -105,6 +105,8 @@ def dataAvailable(options):
 
 def main(options):
     full_data_merged = get_merged_data(options)
+    if full_data_merged.empty:
+        return False
     fcdFile = {}
     tripFile = {}
     if not os.path.exists(options.fcd):
@@ -172,6 +174,7 @@ def main(options):
                 os.remove(tripFile[mode].name)
     if dataAvailable(options):
         gtfs2osm.write_vtypes(options, seenModes)
+    return True
 
 
 if __name__ == "__main__":
