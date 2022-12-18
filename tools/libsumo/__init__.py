@@ -27,7 +27,7 @@ if hasattr(os, "add_dll_directory"):
 
 from traci import connection, constants, exceptions, _vehicle, _person, _trafficlight, _simulation  # noqa
 from traci.step import StepManager, StepListener  # noqa
-from .libsumo import vehicle, simulation, person, trafficlight  # noqa
+from .libsumo import vehicle, simulation, person, trafficlight, edge  # noqa
 from .libsumo import TraCIStage, TraCINextStopData, TraCIReservation, TraCILogic, TraCIPhase, TraCIException  # noqa
 from .libsumo import TraCICollision, TraCISignalConstraint  # noqa
 from .libsumo import *  # noqa
@@ -36,7 +36,7 @@ DOMAINS = [
     busstop,  # noqa
     calibrator,  # noqa
     chargingstation,  # noqa
-    edge,  # noqa
+    edge,
     gui,  # noqa
     inductionloop,  # noqa
     junction,  # noqa
@@ -158,6 +158,30 @@ def simulationStep(step=0):
 
 
 simulation.step = simulationStep
+
+
+_edge_setAllowed = edge.setAllowedVehicleClasses
+
+
+def setAllowed(edgeID, allowedClasses):
+    if isinstance(allowedClasses, str):
+        allowedClasses = [allowedClasses]
+    _edge_setAllowed(edgeID, allowedClasses)
+
+
+edge.setAllowedVehicleClasses = edge.setAllowed = setAllowed
+
+
+_edge_setDisallowed = edge.setDisallowedVehicleClasses
+
+
+def setDisallowed(edgeID, disallowedClasses):
+    if isinstance(disallowedClasses, str):
+        disallowedClasses = [disallowedClasses]
+    _edge_setDisallowed(edgeID, disallowedClasses)
+
+
+edge.setDisallowedVehicleClasses = edge.setDisallowed = setDisallowed
 
 
 def close():
