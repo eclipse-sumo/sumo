@@ -57,6 +57,8 @@ def get_options():
                          default=None, help="output file for full data dump")
     optParser.add_option("-x", "--xml-output", type="string",
                          default=None, help="output statistic to xml file")
+    optParser.add_option("--xml-output.flat", action="store_true", dest="xmlFlat",
+                         default=False, help="legacy xml output")
     optParser.add_option("-q", "--fast", action="store_true",
                          default=False, help="use fast parser (does not track missing data)")
     optParser.add_option("-p", "--precision", type="int",
@@ -173,8 +175,21 @@ def main():
     if options.xml_output is not None:
         with open(options.xml_output, 'w') as f:
             sumolib.writeXMLHeader(f, "$Id$", "attributeStats")  # noqa
-            for key in sorted(allStats.keys()):
-                f.write(allStats[key].toXML(options.precision))
+            if options.xmlFlat:
+                for key in sorted(allStats.keys()):
+                    f.write(allStats[key].toXML(options.precision))
+
+            else:
+                elemKeys = defaultdict(list)
+                for key in allStats.keys():
+                    elemKeys[key[0]].append(key)
+                for elem in sorted(elemKeys.keys()):
+                    f.write('    <%s>\n' % elem)
+                    for key in sorted(elemKeys[elem]):
+                        attr = key[1]
+                        stats = allStats[key]
+                        f.write(stats.toXML(options.precision, tag=attr, indent=8))
+                    f.write('    </%s>\n' % elem)
             f.write('</attributeStats>\n')
 
 
