@@ -13,6 +13,9 @@ full_output
 # analyze tripinfo timeloss
 xml_output
 
+# analyze tripinfo timeloss
+xml_output.legacy
+
 # analyze tripinfo 
 attribute
 
