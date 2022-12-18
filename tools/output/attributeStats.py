@@ -127,7 +127,7 @@ def main():
                 vals[elementID][attr].append(val)
                 key = (tag, attr)
                 if not key in allStats:
-                    allStats[key] = Statistics("%s %ss" % (tag, attr),
+                    allStats[key] = Statistics("%s %s" % (tag, attr),
                        histogram=options.binwidth > 0, scale=options.binwidth,
                        printDev=True)
 
