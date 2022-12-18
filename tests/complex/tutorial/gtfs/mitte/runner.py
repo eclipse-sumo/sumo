@@ -25,5 +25,9 @@ TOOLS = os.path.join(os.environ["SUMO_HOME"], "tools")
 sys.path.append(TOOLS)
 import sumolib  # noqa
 
-subprocess.call([sys.executable, os.path.join(TOOLS, "osmWebWizard.py"), "-b=13.381507,52.511801,13.417790,52.527748", "--test-output", "test"])
-subprocess.call([sys.executable, os.path.join(TOOLS, "import", "gtfs", "gtfs2pt.py")] + sys.argv[1:])
+subprocess.call([sys.executable,
+    os.path.join(TOOLS, "osmWebWizard.py"),
+    "-b=13.381507,52.511801,13.417790,52.527748",
+    "--test-output", "test"])
+subprocess.call([sys.executable,
+    os.path.join(TOOLS, "import", "gtfs", "gtfs2pt.py")] + sys.argv[1:])
