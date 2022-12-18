@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-12-12 13:35:21.513869 by gtfs2pt.py v1_15_0+0952-2348cf19065
+<!-- generated on 2022-12-18 17:18:23.561151 by gtfs2pt.py v1_15_0+1094-2a75a6956b5
 <configuration>
     <date value="20160713"/>
     <gtfs value="https://sumo.dlr.de/daily/GTFS_VBB_Juni-Dezember-2016.zip"/>
@@ -9,6 +9,1630 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="281018.0" route="281018" type="light_rail" depart="39050" line="281018">
+        <param key="gtfs.route_name" value="S42"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="281096.0" route="281018" type="light_rail" depart="40250" line="281018">
+        <param key="gtfs.route_name" value="S42"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="281170.0" route="281018" type="light_rail" depart="41450" line="281018">
+        <param key="gtfs.route_name" value="S42"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92632.0" route="92632" type="light_rail" depart="18170" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92633.0" route="92632" type="light_rail" depart="19370" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92634.0" route="92632" type="light_rail" depart="20570" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92635.0" route="92632" type="light_rail" depart="21770" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92636.0" route="92632" type="light_rail" depart="22970" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92637.0" route="92632" type="light_rail" depart="24170" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92638.0" route="92632" type="light_rail" depart="25370" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92639.0" route="92632" type="light_rail" depart="26570" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92640.0" route="92632" type="light_rail" depart="27770" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92641.0" route="92632" type="light_rail" depart="28970" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92642.0" route="92632" type="light_rail" depart="30170" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92643.0" route="92632" type="light_rail" depart="31370" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92644.0" route="92632" type="light_rail" depart="32570" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92645.0" route="92632" type="light_rail" depart="33770" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92646.0" route="92632" type="light_rail" depart="49370" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92647.0" route="92632" type="light_rail" depart="50570" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92648.0" route="92632" type="light_rail" depart="51770" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92649.0" route="92632" type="light_rail" depart="52970" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92650.0" route="92632" type="light_rail" depart="54170" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92651.0" route="92632" type="light_rail" depart="55370" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92652.0" route="92632" type="light_rail" depart="56570" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92653.0" route="92632" type="light_rail" depart="57770" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92654.0" route="92632" type="light_rail" depart="58970" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92655.0" route="92632" type="light_rail" depart="60170" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92656.0" route="92632" type="light_rail" depart="61370" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92657.0" route="92632" type="light_rail" depart="62570" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92658.0" route="92632" type="light_rail" depart="63770" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92659.0" route="92632" type="light_rail" depart="64970" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92660.0" route="92632" type="light_rail" depart="66170" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92661.0" route="92632" type="light_rail" depart="67370" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92662.0" route="92632" type="light_rail" depart="68570" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92663.0" route="92632" type="light_rail" depart="69770" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92664.0" route="92632" type="light_rail" depart="70970" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92665.0" route="92632" type="light_rail" depart="72170" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92666.0" route="92632" type="light_rail" depart="73370" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92667.0" route="92632" type="light_rail" depart="74570" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92668.0" route="92632" type="light_rail" depart="75770" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92672.0" route="92632" type="light_rail" depart="76970" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92673.0" route="92632" type="light_rail" depart="78170" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92674.0" route="92632" type="light_rail" depart="79370" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92675.0" route="92632" type="light_rail" depart="80570" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92676.0" route="92632" type="light_rail" depart="81770" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92677.0" route="92632" type="light_rail" depart="82970" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92678.0" route="92632" type="light_rail" depart="84170" line="92632">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92683.0" route="92683" type="light_rail" depart="34970" line="92683">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S+U Bundesplatz (Berlin)"/>
+    </vehicle>
+    <vehicle id="92684.0" route="92683" type="light_rail" depart="36170" line="92683">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S+U Bundesplatz (Berlin)"/>
+    </vehicle>
+    <vehicle id="92685.0" route="92683" type="light_rail" depart="37370" line="92683">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S+U Bundesplatz (Berlin)"/>
+    </vehicle>
+    <vehicle id="92686.0" route="92683" type="light_rail" depart="38570" line="92683">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S+U Bundesplatz (Berlin)"/>
+    </vehicle>
+    <vehicle id="92687.0" route="92683" type="light_rail" depart="43370" line="92683">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S+U Bundesplatz (Berlin)"/>
+    </vehicle>
+    <vehicle id="92688.0" route="92683" type="light_rail" depart="44570" line="92683">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S+U Bundesplatz (Berlin)"/>
+    </vehicle>
+    <vehicle id="92698.0" route="92698" type="light_rail" depart="42650" line="92698">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92699.0" route="92698" type="light_rail" depart="43850" line="92698">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92700.0" route="92698" type="light_rail" depart="48650" line="92698">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92701.0" route="92698" type="light_rail" depart="49850" line="92698">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92702.0" route="92698" type="light_rail" depart="51050" line="92698">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92703.0" route="92698" type="light_rail" depart="52250" line="92698">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92816.0" route="92816" type="light_rail" depart="18650" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92817.0" route="92816" type="light_rail" depart="19850" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92818.0" route="92816" type="light_rail" depart="21050" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92819.0" route="92816" type="light_rail" depart="22250" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92820.0" route="92816" type="light_rail" depart="23450" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92821.0" route="92816" type="light_rail" depart="24650" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92822.0" route="92816" type="light_rail" depart="25850" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92823.0" route="92816" type="light_rail" depart="27050" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92824.0" route="92816" type="light_rail" depart="28250" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92825.0" route="92816" type="light_rail" depart="29450" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92826.0" route="92816" type="light_rail" depart="30650" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92827.0" route="92816" type="light_rail" depart="31850" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92828.0" route="92816" type="light_rail" depart="33050" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92829.0" route="92816" type="light_rail" depart="34250" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92830.0" route="92816" type="light_rail" depart="35450" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92831.0" route="92816" type="light_rail" depart="36650" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92832.0" route="92816" type="light_rail" depart="37850" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92833.0" route="92816" type="light_rail" depart="53450" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92834.0" route="92816" type="light_rail" depart="54650" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92835.0" route="92816" type="light_rail" depart="55850" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92836.0" route="92816" type="light_rail" depart="57050" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92837.0" route="92816" type="light_rail" depart="58250" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92838.0" route="92816" type="light_rail" depart="59450" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92839.0" route="92816" type="light_rail" depart="60650" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92840.0" route="92816" type="light_rail" depart="61850" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92841.0" route="92816" type="light_rail" depart="63050" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92842.0" route="92816" type="light_rail" depart="64250" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92843.0" route="92816" type="light_rail" depart="65450" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92844.0" route="92816" type="light_rail" depart="66650" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92845.0" route="92816" type="light_rail" depart="67850" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92846.0" route="92816" type="light_rail" depart="69050" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92847.0" route="92816" type="light_rail" depart="70250" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92848.0" route="92816" type="light_rail" depart="71450" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92849.0" route="92816" type="light_rail" depart="72650" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92850.0" route="92816" type="light_rail" depart="73850" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92851.0" route="92816" type="light_rail" depart="75050" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92852.0" route="92816" type="light_rail" depart="76250" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92853.0" route="92816" type="light_rail" depart="77450" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92854.0" route="92816" type="light_rail" depart="78650" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92855.0" route="92816" type="light_rail" depart="79850" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92856.0" route="92816" type="light_rail" depart="81050" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92857.0" route="92816" type="light_rail" depart="82250" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92858.0" route="92816" type="light_rail" depart="83450" line="92816">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92859.0" route="92859" type="light_rail" depart="17450" line="92859">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92669.0" route="92669" type="light_rail" depart="45770" line="92669">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92670.0" route="92669" type="light_rail" depart="46970" line="92669">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92671.0" route="92669" type="light_rail" depart="48170" line="92669">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="92689.0" route="92689" type="light_rail" depart="39770" line="92689">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S+U Bundesplatz (Berlin)"/>
+    </vehicle>
+    <vehicle id="92690.0" route="92689" type="light_rail" depart="40970" line="92689">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S+U Bundesplatz (Berlin)"/>
+    </vehicle>
+    <vehicle id="92691.0" route="92689" type="light_rail" depart="42170" line="92689">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S+U Bundesplatz (Berlin)"/>
+    </vehicle>
+    <vehicle id="92704.0" route="92704" type="light_rail" depart="45050" line="92704">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92705.0" route="92704" type="light_rail" depart="46250" line="92704">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92706.0" route="92704" type="light_rail" depart="47450" line="92704">
+        <param key="gtfs.route_name" value="S45"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="92988.0" route="92988" type="light_rail" depart="14870" line="92988">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend, in Bln-Grünau bitte umsteigen"/>
+    </vehicle>
+    <vehicle id="92990.0" route="92988" type="light_rail" depart="16070" line="92988">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend, in Bln-Grünau bitte umsteigen"/>
+    </vehicle>
+    <vehicle id="92929.0" route="92929" type="light_rail" depart="17270" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92930.0" route="92929" type="light_rail" depart="18470" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92931.0" route="92929" type="light_rail" depart="19670" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92932.0" route="92929" type="light_rail" depart="20870" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92933.0" route="92929" type="light_rail" depart="22070" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92934.0" route="92929" type="light_rail" depart="23270" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92935.0" route="92929" type="light_rail" depart="24470" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92936.0" route="92929" type="light_rail" depart="25670" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92937.0" route="92929" type="light_rail" depart="26870" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92938.0" route="92929" type="light_rail" depart="28070" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92939.0" route="92929" type="light_rail" depart="29270" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92940.0" route="92929" type="light_rail" depart="30470" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92941.0" route="92929" type="light_rail" depart="31670" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92942.0" route="92929" type="light_rail" depart="32870" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92943.0" route="92929" type="light_rail" depart="34070" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92944.0" route="92929" type="light_rail" depart="35270" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92945.0" route="92929" type="light_rail" depart="36470" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92946.0" route="92929" type="light_rail" depart="37670" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92947.0" route="92929" type="light_rail" depart="38870" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92948.0" route="92929" type="light_rail" depart="40070" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92949.0" route="92929" type="light_rail" depart="41270" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92950.0" route="92929" type="light_rail" depart="42470" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92951.0" route="92929" type="light_rail" depart="43670" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92952.0" route="92929" type="light_rail" depart="44870" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92953.0" route="92929" type="light_rail" depart="46070" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92954.0" route="92929" type="light_rail" depart="47270" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92955.0" route="92929" type="light_rail" depart="77270" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92956.0" route="92929" type="light_rail" depart="78470" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92957.0" route="92929" type="light_rail" depart="79670" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92958.0" route="92929" type="light_rail" depart="80870" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92959.0" route="92929" type="light_rail" depart="82070" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92960.0" route="92929" type="light_rail" depart="83270" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92961.0" route="92929" type="light_rail" depart="84470" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92962.0" route="92929" type="light_rail" depart="76070" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92963.0" route="92929" type="light_rail" depart="48470" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92964.0" route="92929" type="light_rail" depart="49670" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92965.0" route="92929" type="light_rail" depart="50870" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92966.0" route="92929" type="light_rail" depart="52070" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92967.0" route="92929" type="light_rail" depart="53270" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92968.0" route="92929" type="light_rail" depart="54470" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92969.0" route="92929" type="light_rail" depart="55670" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92970.0" route="92929" type="light_rail" depart="56870" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92971.0" route="92929" type="light_rail" depart="58070" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92972.0" route="92929" type="light_rail" depart="59270" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92973.0" route="92929" type="light_rail" depart="60470" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92974.0" route="92929" type="light_rail" depart="61670" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92975.0" route="92929" type="light_rail" depart="62870" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92976.0" route="92929" type="light_rail" depart="64070" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92977.0" route="92929" type="light_rail" depart="65270" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92978.0" route="92929" type="light_rail" depart="66470" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92979.0" route="92929" type="light_rail" depart="67670" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92980.0" route="92929" type="light_rail" depart="68870" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92981.0" route="92929" type="light_rail" depart="70070" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92982.0" route="92929" type="light_rail" depart="71270" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92983.0" route="92929" type="light_rail" depart="72470" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92984.0" route="92929" type="light_rail" depart="73670" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="92985.0" route="92929" type="light_rail" depart="74870" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="93017.0" route="93017" type="light_rail" depart="85670" line="93017">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Charlottenburg Bhf (Berlin)"/>
+    </vehicle>
+    <vehicle id="93224.0" route="93224" type="light_rail" depart="15470" line="93224">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93225.0" route="93224" type="light_rail" depart="16670" line="93224">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93285.0" route="93285" type="light_rail" depart="21470" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93286.0" route="93285" type="light_rail" depart="22670" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93287.0" route="93285" type="light_rail" depart="23870" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93288.0" route="93285" type="light_rail" depart="25070" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93289.0" route="93285" type="light_rail" depart="26270" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93290.0" route="93285" type="light_rail" depart="27470" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93291.0" route="93285" type="light_rail" depart="28670" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93292.0" route="93285" type="light_rail" depart="29870" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93293.0" route="93285" type="light_rail" depart="31070" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93294.0" route="93285" type="light_rail" depart="32270" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93295.0" route="93285" type="light_rail" depart="33470" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93296.0" route="93285" type="light_rail" depart="34670" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93297.0" route="93285" type="light_rail" depart="35870" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93298.0" route="93285" type="light_rail" depart="37070" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93299.0" route="93285" type="light_rail" depart="38270" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93300.0" route="93285" type="light_rail" depart="39470" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93301.0" route="93285" type="light_rail" depart="40670" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93302.0" route="93285" type="light_rail" depart="41870" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93303.0" route="93285" type="light_rail" depart="43070" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93304.0" route="93285" type="light_rail" depart="44270" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93305.0" route="93285" type="light_rail" depart="45470" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93306.0" route="93285" type="light_rail" depart="82670" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93307.0" route="93285" type="light_rail" depart="83870" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93308.0" route="93285" type="light_rail" depart="85070" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93309.0" route="93285" type="light_rail" depart="86270" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93311.0" route="93285" type="light_rail" depart="81470" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93312.0" route="93285" type="light_rail" depart="46670" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93313.0" route="93285" type="light_rail" depart="47870" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93314.0" route="93285" type="light_rail" depart="49070" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93315.0" route="93285" type="light_rail" depart="50270" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93316.0" route="93285" type="light_rail" depart="51470" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93317.0" route="93285" type="light_rail" depart="52670" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93318.0" route="93285" type="light_rail" depart="53870" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93319.0" route="93285" type="light_rail" depart="55070" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93320.0" route="93285" type="light_rail" depart="56270" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93321.0" route="93285" type="light_rail" depart="57470" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93322.0" route="93285" type="light_rail" depart="58670" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93323.0" route="93285" type="light_rail" depart="59870" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93324.0" route="93285" type="light_rail" depart="61070" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93325.0" route="93285" type="light_rail" depart="62270" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93326.0" route="93285" type="light_rail" depart="63470" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93327.0" route="93285" type="light_rail" depart="64670" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93328.0" route="93285" type="light_rail" depart="65870" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93329.0" route="93285" type="light_rail" depart="67070" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93330.0" route="93285" type="light_rail" depart="68270" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93331.0" route="93285" type="light_rail" depart="69470" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93332.0" route="93285" type="light_rail" depart="70670" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93333.0" route="93285" type="light_rail" depart="71870" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93334.0" route="93285" type="light_rail" depart="73070" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93335.0" route="93285" type="light_rail" depart="74270" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93336.0" route="93285" type="light_rail" depart="75470" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93337.0" route="93285" type="light_rail" depart="76670" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93338.0" route="93285" type="light_rail" depart="77870" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93339.0" route="93285" type="light_rail" depart="79070" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93340.0" route="93285" type="light_rail" depart="80270" line="93285">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93351.0" route="93351" type="light_rail" depart="19070" line="93351">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93352.0" route="93351" type="light_rail" depart="20270" line="93351">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="93359.0" route="93359" type="light_rail" depart="17870" line="93359">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="96476.0" route="96476" type="light_rail" depart="67190" line="96476">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
+    </vehicle>
+    <vehicle id="96477.0" route="96476" type="light_rail" depart="70790" line="96476">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
+    </vehicle>
+    <vehicle id="96478.0" route="96476" type="light_rail" depart="20390" line="96476">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
+    </vehicle>
+    <vehicle id="96479.0" route="96476" type="light_rail" depart="23990" line="96476">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
+    </vehicle>
+    <vehicle id="96480.0" route="96476" type="light_rail" depart="27590" line="96476">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
+    </vehicle>
+    <vehicle id="96481.0" route="96476" type="light_rail" depart="31190" line="96476">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
+    </vehicle>
+    <vehicle id="96482.0" route="96476" type="light_rail" depart="56390" line="96476">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
+    </vehicle>
+    <vehicle id="96483.0" route="96476" type="light_rail" depart="59990" line="96476">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
+    </vehicle>
+    <vehicle id="96484.0" route="96476" type="light_rail" depart="63590" line="96476">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
+    </vehicle>
+    <vehicle id="96487.0" route="96476" type="light_rail" depart="65990" line="96476">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
+    </vehicle>
+    <vehicle id="96488.0" route="96476" type="light_rail" depart="68390" line="96476">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
+    </vehicle>
+    <vehicle id="96489.0" route="96476" type="light_rail" depart="69590" line="96476">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
+    </vehicle>
+    <vehicle id="96490.0" route="96476" type="light_rail" depart="19190" line="96476">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
+    </vehicle>
+    <vehicle id="96491.0" route="96476" type="light_rail" depart="21590" line="96476">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
+    </vehicle>
+    <vehicle id="96492.0" route="96476" type="light_rail" depart="22790" line="96476">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
+    </vehicle>
+    <vehicle id="96493.0" route="96476" type="light_rail" depart="25190" line="96476">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
+    </vehicle>
+    <vehicle id="96494.0" route="96476" type="light_rail" depart="26390" line="96476">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
+    </vehicle>
+    <vehicle id="96495.0" route="96476" type="light_rail" depart="28790" line="96476">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
+    </vehicle>
+    <vehicle id="96496.0" route="96476" type="light_rail" depart="29990" line="96476">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
+    </vehicle>
+    <vehicle id="96497.0" route="96476" type="light_rail" depart="32390" line="96476">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
+    </vehicle>
+    <vehicle id="96498.0" route="96476" type="light_rail" depart="53990" line="96476">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
+    </vehicle>
+    <vehicle id="96499.0" route="96476" type="light_rail" depart="55190" line="96476">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
+    </vehicle>
+    <vehicle id="96500.0" route="96476" type="light_rail" depart="57590" line="96476">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
+    </vehicle>
+    <vehicle id="96501.0" route="96476" type="light_rail" depart="58790" line="96476">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
+    </vehicle>
+    <vehicle id="96502.0" route="96476" type="light_rail" depart="61190" line="96476">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
+    </vehicle>
+    <vehicle id="96503.0" route="96476" type="light_rail" depart="62390" line="96476">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
+    </vehicle>
+    <vehicle id="96504.0" route="96476" type="light_rail" depart="64790" line="96476">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
+    </vehicle>
+    <vehicle id="96602.0" route="96602" type="light_rail" depart="65270" line="96602">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
+    </vehicle>
+    <vehicle id="96603.0" route="96602" type="light_rail" depart="66470" line="96602">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
+    </vehicle>
+    <vehicle id="96604.0" route="96602" type="light_rail" depart="67670" line="96602">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
+    </vehicle>
+    <vehicle id="96605.0" route="96602" type="light_rail" depart="68870" line="96602">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
+    </vehicle>
+    <vehicle id="96606.0" route="96602" type="light_rail" depart="70070" line="96602">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
+    </vehicle>
+    <vehicle id="96607.0" route="96602" type="light_rail" depart="19670" line="96602">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
+    </vehicle>
+    <vehicle id="96608.0" route="96602" type="light_rail" depart="20870" line="96602">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
+    </vehicle>
+    <vehicle id="96609.0" route="96602" type="light_rail" depart="22070" line="96602">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
+    </vehicle>
+    <vehicle id="96610.0" route="96602" type="light_rail" depart="23270" line="96602">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
+    </vehicle>
+    <vehicle id="96611.0" route="96602" type="light_rail" depart="24470" line="96602">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
+    </vehicle>
+    <vehicle id="96612.0" route="96602" type="light_rail" depart="25670" line="96602">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
+    </vehicle>
+    <vehicle id="96613.0" route="96602" type="light_rail" depart="26870" line="96602">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
+    </vehicle>
+    <vehicle id="96614.0" route="96602" type="light_rail" depart="28070" line="96602">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
+    </vehicle>
+    <vehicle id="96615.0" route="96602" type="light_rail" depart="29270" line="96602">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
+    </vehicle>
+    <vehicle id="96616.0" route="96602" type="light_rail" depart="30470" line="96602">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
+    </vehicle>
+    <vehicle id="96617.0" route="96602" type="light_rail" depart="31670" line="96602">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
+    </vehicle>
+    <vehicle id="96618.0" route="96602" type="light_rail" depart="53270" line="96602">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
+    </vehicle>
+    <vehicle id="96619.0" route="96602" type="light_rail" depart="54470" line="96602">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
+    </vehicle>
+    <vehicle id="96620.0" route="96602" type="light_rail" depart="55670" line="96602">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
+    </vehicle>
+    <vehicle id="96621.0" route="96602" type="light_rail" depart="56870" line="96602">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
+    </vehicle>
+    <vehicle id="96622.0" route="96602" type="light_rail" depart="58070" line="96602">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
+    </vehicle>
+    <vehicle id="96623.0" route="96602" type="light_rail" depart="59270" line="96602">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
+    </vehicle>
+    <vehicle id="96624.0" route="96602" type="light_rail" depart="60470" line="96602">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
+    </vehicle>
+    <vehicle id="96625.0" route="96602" type="light_rail" depart="61670" line="96602">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
+    </vehicle>
+    <vehicle id="96626.0" route="96602" type="light_rail" depart="62870" line="96602">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
+    </vehicle>
+    <vehicle id="96627.0" route="96602" type="light_rail" depart="64070" line="96602">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
+    </vehicle>
+    <vehicle id="96700.0" route="96700" type="light_rail" depart="18470" line="96700">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
+    </vehicle>
+    <vehicle id="96885.0" route="96885" type="light_rail" depart="78950" line="96885">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96886.0" route="96885" type="light_rail" depart="84950" line="96885">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96964.0" route="96964" type="light_rail" depart="15950" line="96964">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="97015.0" route="97015" type="light_rail" depart="78050" line="97015">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="97016.0" route="97015" type="light_rail" depart="84050" line="97015">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="96874.0" route="96874" type="light_rail" depart="45350" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96875.0" route="96874" type="light_rail" depart="17750" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96879.0" route="96874" type="light_rail" depart="69350" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96880.0" route="96874" type="light_rail" depart="70550" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96881.0" route="96874" type="light_rail" depart="71750" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96882.0" route="96874" type="light_rail" depart="74150" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96883.0" route="96874" type="light_rail" depart="15350" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96884.0" route="96874" type="light_rail" depart="16550" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96887.0" route="96874" type="light_rail" depart="23750" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96888.0" route="96874" type="light_rail" depart="24950" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96889.0" route="96874" type="light_rail" depart="26150" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96890.0" route="96874" type="light_rail" depart="27350" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96891.0" route="96874" type="light_rail" depart="28550" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96892.0" route="96874" type="light_rail" depart="29750" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96893.0" route="96874" type="light_rail" depart="18950" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96894.0" route="96874" type="light_rail" depart="20150" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96895.0" route="96874" type="light_rail" depart="21350" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96896.0" route="96874" type="light_rail" depart="22550" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96897.0" route="96874" type="light_rail" depart="75350" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96898.0" route="96874" type="light_rail" depart="77750" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96899.0" route="96874" type="light_rail" depart="80150" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96900.0" route="96874" type="light_rail" depart="81350" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96901.0" route="96874" type="light_rail" depart="82550" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96902.0" route="96874" type="light_rail" depart="83750" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96903.0" route="96874" type="light_rail" depart="86150" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96904.0" route="96874" type="light_rail" depart="30950" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96905.0" route="96874" type="light_rail" depart="32150" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96906.0" route="96874" type="light_rail" depart="33350" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96907.0" route="96874" type="light_rail" depart="34550" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96908.0" route="96874" type="light_rail" depart="35750" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96909.0" route="96874" type="light_rail" depart="36950" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96910.0" route="96874" type="light_rail" depart="38150" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96911.0" route="96874" type="light_rail" depart="39350" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96912.0" route="96874" type="light_rail" depart="40550" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96913.0" route="96874" type="light_rail" depart="41750" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96914.0" route="96874" type="light_rail" depart="42950" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96915.0" route="96874" type="light_rail" depart="44150" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96916.0" route="96874" type="light_rail" depart="47750" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96917.0" route="96874" type="light_rail" depart="48950" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96918.0" route="96874" type="light_rail" depart="50150" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96919.0" route="96874" type="light_rail" depart="51350" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96920.0" route="96874" type="light_rail" depart="52550" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96921.0" route="96874" type="light_rail" depart="53750" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96922.0" route="96874" type="light_rail" depart="54950" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96923.0" route="96874" type="light_rail" depart="56150" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96924.0" route="96874" type="light_rail" depart="57350" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96925.0" route="96874" type="light_rail" depart="58550" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96926.0" route="96874" type="light_rail" depart="59750" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96927.0" route="96874" type="light_rail" depart="60950" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96928.0" route="96874" type="light_rail" depart="62150" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96929.0" route="96874" type="light_rail" depart="63350" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96930.0" route="96874" type="light_rail" depart="64550" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96931.0" route="96874" type="light_rail" depart="65750" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96932.0" route="96874" type="light_rail" depart="66950" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96933.0" route="96874" type="light_rail" depart="68150" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96934.0" route="96874" type="light_rail" depart="76550" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96935.0" route="96874" type="light_rail" depart="46550" line="96874">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
+    </vehicle>
+    <vehicle id="96962.0" route="96962" type="light_rail" depart="72950" line="96962">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S+U Pankow"/>
+    </vehicle>
+    <vehicle id="96969.0" route="96969" type="light_rail" depart="39650" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="96970.0" route="96969" type="light_rail" depart="28850" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="96971.0" route="96969" type="light_rail" depart="30050" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="96972.0" route="96969" type="light_rail" depart="31250" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="96973.0" route="96969" type="light_rail" depart="32450" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="96974.0" route="96969" type="light_rail" depart="33650" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="96975.0" route="96969" type="light_rail" depart="34850" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="96976.0" route="96969" type="light_rail" depart="36050" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="96977.0" route="96969" type="light_rail" depart="37250" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="96978.0" route="96969" type="light_rail" depart="38450" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="96979.0" route="96969" type="light_rail" depart="40850" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="96980.0" route="96969" type="light_rail" depart="42050" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="96981.0" route="96969" type="light_rail" depart="43250" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="96982.0" route="96969" type="light_rail" depart="44450" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="96983.0" route="96969" type="light_rail" depart="45650" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="96984.0" route="96969" type="light_rail" depart="46850" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="96985.0" route="96969" type="light_rail" depart="48050" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="96986.0" route="96969" type="light_rail" depart="49250" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="96987.0" route="96969" type="light_rail" depart="50450" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="96988.0" route="96969" type="light_rail" depart="51650" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="96989.0" route="96969" type="light_rail" depart="52850" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="96990.0" route="96969" type="light_rail" depart="54050" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="96991.0" route="96969" type="light_rail" depart="55250" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="96992.0" route="96969" type="light_rail" depart="56450" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="96993.0" route="96969" type="light_rail" depart="57650" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="96994.0" route="96969" type="light_rail" depart="58850" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="96995.0" route="96969" type="light_rail" depart="60050" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="96996.0" route="96969" type="light_rail" depart="61250" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="96997.0" route="96969" type="light_rail" depart="62450" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="96998.0" route="96969" type="light_rail" depart="63650" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="96999.0" route="96969" type="light_rail" depart="64850" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="97000.0" route="96969" type="light_rail" depart="66050" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="97001.0" route="96969" type="light_rail" depart="67250" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="97002.0" route="96969" type="light_rail" depart="68450" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="97003.0" route="96969" type="light_rail" depart="69650" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="97004.0" route="96969" type="light_rail" depart="70850" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="97005.0" route="96969" type="light_rail" depart="72050" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="97006.0" route="96969" type="light_rail" depart="73250" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="97007.0" route="96969" type="light_rail" depart="74450" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="97008.0" route="96969" type="light_rail" depart="75650" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="97009.0" route="96969" type="light_rail" depart="76850" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="97010.0" route="96969" type="light_rail" depart="79250" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="97011.0" route="96969" type="light_rail" depart="18050" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="97012.0" route="96969" type="light_rail" depart="19250" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="97013.0" route="96969" type="light_rail" depart="20450" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="97014.0" route="96969" type="light_rail" depart="21650" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="97018.0" route="96969" type="light_rail" depart="22850" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="97019.0" route="96969" type="light_rail" depart="24050" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="97020.0" route="96969" type="light_rail" depart="25250" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="97021.0" route="96969" type="light_rail" depart="26450" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="97022.0" route="96969" type="light_rail" depart="27650" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="97023.0" route="96969" type="light_rail" depart="80450" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="97024.0" route="96969" type="light_rail" depart="81650" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="97025.0" route="96969" type="light_rail" depart="82850" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="97026.0" route="96969" type="light_rail" depart="85250" line="96969">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="97036.0" route="97036" type="light_rail" depart="16850" line="97036">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
+    <vehicle id="97037.0" route="97037" type="light_rail" depart="15050" line="97037">
+        <param key="gtfs.route_name" value="S9"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
     <vehicle id="109241.0" route="109241" type="bus" depart="17150" line="109241">
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz (Berlin)"/>
