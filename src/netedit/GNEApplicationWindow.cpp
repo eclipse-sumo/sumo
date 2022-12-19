@@ -485,6 +485,7 @@ GNEApplicationWindow::dependentBuild() {
         myTestCoordinate = new FXLabel(myTestFrame, TL("N/A\t\tTest coordinate"), nullptr, GUIDesignLabelStatusBar);
     }
     // make the window a mdi-window
+    getApp()->reg().writeStringEntry("SETTINGS", "basecolor", "white"); // setting base color as white 
     myMainSplitter = new FXSplitter(this, GUIDesignSplitter | SPLITTER_VERTICAL | SPLITTER_REVERSED);
     myMDIClient = new FXMDIClient(myMainSplitter, GUIDesignSplitterMDI);
     myMDIMenu = new FXMDIMenu(this, myMDIClient);
