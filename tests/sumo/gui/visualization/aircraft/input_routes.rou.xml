@@ -17,10 +17,10 @@
 		<param key="frontSeatPos" value="2"/>
         <param key="guiWidth" value="31"/>
     </vType>
-    <vType id="vt3" length="24.00" minGap="1.00" vClass="rail" guiShape="aircraft" width="3.00" personCapacity="42" containerCapacity="1">
+    <vType id="vt3" length="24.00" minGap="1.00" vClass="rail" guiShape="aircraft" width="31.00" personCapacity="42" containerCapacity="1">
         <param key="carriageLength" value="0"/>
 		<param key="frontSeatPos" value="6"/>
-        <param key="guiWidth" value="31"/>
+        <param key="seatingWidth" value="3"/>
     </vType>
    
    <vType id="container" length="3" width="2"/>
