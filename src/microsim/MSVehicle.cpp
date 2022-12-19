@@ -3951,7 +3951,7 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, std::string& e
     checkReversal(reverseTrain);
     if (reverseTrain) {
         // Train is 'reversing' so toggle the logical state
-        toggleAmReversed();
+        myAmReversed = !myAmReversed;
         // add some slack to ensure that the back of train does appear looped
         myState.myPos += 2 * (myLane->getLength() - myState.myPos) + myType->getLength() + NUMERICAL_EPS;
         myState.mySpeed = 0;

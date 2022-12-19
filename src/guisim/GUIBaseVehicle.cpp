@@ -476,10 +476,10 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
     if (col.alpha() != 0) {
         switch (s.vehicleQuality) {
             case 0:
-                GUIBaseVehicleHelper::drawAction_drawVehicleAsTrianglePlus(getVType().getWidth(), scaledLength, myVehicle.amReversed());
+                GUIBaseVehicleHelper::drawAction_drawVehicleAsTrianglePlus(getVType().getWidth(), scaledLength, drawReversed());
                 break;
             case 1:
-                GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(getVType().getWidth(), scaledLength);
+                GUIBaseVehicleHelper::drawAction_drawVehicleAsBoxPlus(getVType().getWidth(), scaledLength, drawReversed());
                 break;
             case 2:
                 drawCarriages = drawAction_drawVehicleAsPolyWithCarriagges(s, scaledLength);
@@ -1106,6 +1106,10 @@ GUIBaseVehicle::drawAction_drawPersonsAndContainers(const GUIVisualizationSettin
 #endif
 }
 
+bool
+GUIBaseVehicle::drawReversed() const {
+    return myVehicle.isReversed();
+}
 
 bool
 GUIBaseVehicle::drawAction_drawVehicleAsPolyWithCarriagges(const GUIVisualizationSettings& s, double scaledLength, bool asImage) const {
@@ -1117,7 +1121,7 @@ GUIBaseVehicle::drawAction_drawVehicleAsPolyWithCarriagges(const GUIVisualizatio
                     s, getVType().getImgFile(), this, getVType().getWidth(), scaledLength)) {
             return false;
         }
-        GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(s, getVType().getGuiShape(), getVType().getWidth(), scaledLength, -1, myVehicle.isStopped(), myVehicle.amReversed());
+        GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(s, getVType().getGuiShape(), getVType().getWidth(), scaledLength, -1, myVehicle.isStopped(), drawReversed());
         return false;
     }
 }

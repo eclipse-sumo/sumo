@@ -594,17 +594,10 @@ public:
     /** @brief Returns whether the logical state of the vehicle is reversed - for drawing
     * @return whether the logical state of the vehicle is reversed
     */
-    inline bool amReversed() const {
+    inline bool isReversed() const {
         return myAmReversed;
     }
 
-    /** @brief Toggles the logical 'reversed' state of the vehicle - changes whenever the vehicle "reverses"
-     * @return whether the logical state of the vehicle is reversed
-     */
-    inline bool toggleAmReversed() {
-        myAmReversed = !myAmReversed;
-        return myAmReversed;
-    }
     /** @brief Returns whether the vehicle is on a triggered stop
      * @return whether the vehicle is on a triggered stop
      */

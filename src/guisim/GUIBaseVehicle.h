@@ -371,6 +371,9 @@ protected:
     /// @brief add seats to mySeatPositions and update requiredSeats
     void computeSeats(const Position& front, const Position& back, double seatOffset, int maxSeats, double exaggeration, int& requiredSeats, Seats& into) const;
 
+    /// @brief whether to reverse trains in their reversed state
+    bool drawReversed() const;
+
 
 protected:
     /// The mutex used to avoid concurrent updates of the vehicle buffer
