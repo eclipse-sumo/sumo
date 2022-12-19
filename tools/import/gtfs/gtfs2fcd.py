@@ -158,20 +158,21 @@ def main(options):
                                          sumolib.xml.quoteattr(str(d.trip_headsign), True))
                 tripFile[mode].write(u'    </vehicle>\n')
                 seenModes.add(mode)
+    for mode in modes:
+        fcdFile[mode].write(u'</fcd-export>\n')
+        fcdFile[mode].close()
+        tripFile[mode].write(u"</routes>\n")
+        tripFile[mode].close()
+        if mode not in seenModes:
+            os.remove(fcdFile[mode].name)
+            os.remove(tripFile[mode].name)
     if options.gpsdat:
         if not os.path.exists(options.gpsdat):
             os.makedirs(options.gpsdat)
         for mode in modes:
-            fcdFile[mode].write(u'</fcd-export>\n')
-            fcdFile[mode].close()
-            tripFile[mode].write(u"</routes>\n")
-            tripFile[mode].close()
             if mode in seenModes:
                 traceExporter.main(['', '--base-date', '0', '-i', fcdFile[mode].name,
                                     '--gpsdat-output', os.path.join(options.gpsdat, "gpsdat_%s.csv" % mode)])
-            else:
-                os.remove(fcdFile[mode].name)
-                os.remove(tripFile[mode].name)
     if dataAvailable(options):
         gtfs2osm.write_vtypes(options, seenModes)
     return True

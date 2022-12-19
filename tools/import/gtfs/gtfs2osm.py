@@ -536,7 +536,7 @@ def map_gtfs_osm(options, net, osm_routes, gtfs_data, shapes, shapes_dict, filte
 
 def write_vtypes(options, seen=None):
     if options.vtype_output:
-        with io.open(options.vtype_output, 'w', encoding="utf8") as vout:
+        with sumolib.open(options.vtype_output, mode='w') as vout:
             sumolib.xml.writeHeader(vout, root="additional")
             for osm_type, sumo_class in sorted(OSM2SUMO_MODES.items()):
                 if osm_type in options.modes and (seen is None or osm_type in seen):
@@ -553,7 +553,7 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
     if options.verbose:
         print("Generates stops and routes output")
 
-    with io.open(options.additional_output, 'w', encoding="utf8") as output_file:
+    with sumolib.open(options.additional_output, mode='w') as output_file:
         sumolib.xml.writeHeader(output_file, root="additional")
         for stop, value in map_stops.items():
             name, lane, start_pos, end_pos, access, v_type = value[:6]
@@ -569,7 +569,7 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
     sequence_errors = []
     write_vtypes(options)
 
-    with io.open(options.route_output, 'w', encoding="utf8") as output_file:
+    with sumolib.open(options.route_output, mode='w') as output_file:
         sumolib.xml.writeHeader(output_file, root="routes")
         numDays = options.end // 86401
         start_time = pd.to_timedelta(time.strftime('%H:%M:%S', time.gmtime(options.begin)))
