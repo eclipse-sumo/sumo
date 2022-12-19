@@ -1,6 +1,0 @@
-
-[Reported by micha at 17Dec16:08:12]
-search_string:Teleport
-search_file:errors
-full_description:counter lanechange deadlock after busstop
-brief_description:see #12320
