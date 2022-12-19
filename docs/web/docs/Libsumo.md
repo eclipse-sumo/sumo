@@ -20,7 +20,7 @@ following properties:
   [SWIG](http://www.swig.org/))
 - Support for other programming languages via
   [SWIG](http://www.swig.org/)
-
+  
 # Limitations
 
 The following things currently do not work (or work differently than with the TraCI Python client):
@@ -35,6 +35,8 @@ The following things currently do not work (or work differently than with the Tr
 - with traci every TraCIException will generate a message on stderr, Libsumo does not generate this message
 - libsumo by itself cannot be used to [connect multiple clients to the simulation](TraCI/Interfacing_TraCI_from_Python.md#controlling_the_same_simulation_from_multiple_clients) (though connecting normal TraCI clients to a libsumo instance is possible)
 - running parallel instances of libsumo requires the [multiprocessing module (in python)](https://docs.python.org/3/library/multiprocessing.html)
+
+To avoid the limituations with respect to GUI, multi-clients support, you can also use [libraci](Libtraci.md). This is a C++ traci client library which is fully API-compatible with libsumo.
 
 # Building it
 
