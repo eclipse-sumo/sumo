@@ -1271,7 +1271,6 @@ MSLCM_LC2013::_wantsChange(
     double laDist = myLookAheadSpeed * LOOK_FORWARD * myStrategicParam * (right ? 1 : myLookaheadLeft);
     laDist += myVehicle.getVehicleType().getLengthWithGap() *  2.;
 
-
     if (bestLaneOffset == 0 && leader.first != 0 && leader.first->isStopped() && leader.second < (currentDist - posOnLane)) {
         // react to a stopped leader on the current lane
         // The value of laDist is doubled below for the check whether the lc-maneuver can be taken out
@@ -1286,8 +1285,9 @@ MSLCM_LC2013::_wantsChange(
             laDist = (myVehicle.getVehicleType().getLengthWithGap()
                     + neighLead.first->getVehicleType().getLengthWithGap()
                     + neighLead.second);
-        } else {
+        } else if ((neighLead.second + myVehicle.getVehicleType().getLengthWithGap() + neighLead.first->getVehicleType().getLengthWithGap()) < (currentDist - posOnLane)) {
             // do not change to the target lane until passing the stopped vehicle
+            // (unless the vehicle blocks our intended stopping position, then we have to wait anyway)
             laDist = -1e3;
         }
     }
