@@ -169,7 +169,7 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsCircle(const double width, double 
 
 void
 GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSettings& s, const SUMOVehicleShape shape, const double width, const double length,
-        int carriageIndex, bool isStopped, bool amReversed, double guiWidth ) {
+        int carriageIndex, bool isStopped, bool amReversed) {
     UNUSED_PARAMETER(s);
     RGBColor current = GLHelper::getColor();
     RGBColor lighter = current.changedBrightness(51);
@@ -177,11 +177,7 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
     GLHelper::pushMatrix();
     glRotated(90, 0, 0, 1);
 
-    // If guiWidth is passed use it to scale the box - just for drawing
-    if ( guiWidth > -1 )
-        glScaled(length, guiWidth, 1.);
-    else
-        glScaled(length, width, 1.);
+    glScaled(length, width, 1.);
 
     // If the vehicle is 'logically' reversed then reverse the drawing box
     //  NB at the moment the only vehicles that will have amReversed set true are trains. Here this supports a train with guiShape="aircraft"

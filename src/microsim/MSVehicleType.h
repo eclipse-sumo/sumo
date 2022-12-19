@@ -260,6 +260,13 @@ public:
         return myParameter.width;
     }
 
+    /** @brief Get the width of the passenger compartment when being drawn
+     * @return The seating space width of this type's vehicles
+     */
+    double getSeatingWidth() const {
+        return myParameter.seatingWidth >= 0 ? myParameter.seatingWidth : myParameter.width;
+    }
+
     /** @brief Get the height which vehicles of this class shall have when being drawn
      * @return The height of this type's vehicles
      */

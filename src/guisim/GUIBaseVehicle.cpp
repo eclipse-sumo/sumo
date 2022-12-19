@@ -1117,7 +1117,7 @@ GUIBaseVehicle::drawAction_drawVehicleAsPolyWithCarriagges(const GUIVisualizatio
                     s, getVType().getImgFile(), this, getVType().getWidth(), scaledLength)) {
             return false;
         }
-        GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(s, getVType().getGuiShape(), getVType().getWidth(), scaledLength, -1, myVehicle.isStopped(), myVehicle.amReversed(), getVType().getParameter().guiWidth);
+        GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(s, getVType().getGuiShape(), getVType().getWidth(), scaledLength, -1, myVehicle.isStopped(), myVehicle.amReversed());
         return false;
     }
 }
@@ -1157,7 +1157,7 @@ GUIBaseVehicle::computeSeats(const Position& front, const Position& back, double
     }
     maxSeats = MAX2(maxSeats, 1); // compute at least one seat
     seatOffset *= exaggeration;
-    const double vehWidth = getVType().getWidth() * exaggeration;
+    const double vehWidth = getVType().getSeatingWidth() * exaggeration;
     const double length = front.distanceTo2D(back);
     const int rowSize = MAX2(1, (int)floor(vehWidth / seatOffset));
     const double rowOffset = MAX2(1.0, (length - getVType().getFrontSeatPos() - 1)) / ceil((double)maxSeats / rowSize);

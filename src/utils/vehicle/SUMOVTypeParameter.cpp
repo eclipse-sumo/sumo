@@ -54,7 +54,6 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
     osgFile("car-normal-citrus.obj"),
     carriageLength(-1),
     locomotiveLength(-1),
-    guiWidth(-1),
     latAlignmentProcedure(LatAlignmentDefinition::CENTER) {
     // update default values
     switch (vclass) {
@@ -293,11 +292,11 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
       minGapLat(0.6),
       carriageLength(-1),
       locomotiveLength(-1),
-      guiWidth(-1),
       carriageGap(1),
       timeToTeleport(TTT_UNSET),
       timeToTeleportBidi(TTT_UNSET),
       frontSeatPos(1.7),
+      seatingWidth(-1),
       parametersSet(0),
       saved(false),
       onlyReferenced(false) {
@@ -747,9 +746,9 @@ SUMOVTypeParameter::initRailVisualizationParameters() {
         }
     }
 
-    if (knowsParameter("guiWidth")) {
-        guiWidth = StringUtils::toDouble(getParameter("guiWidth"));
-        parametersSet |= VTYPEPARS_GUIWIDTH_SET;
+    if (knowsParameter("seatingWidth")) {
+        seatingWidth = StringUtils::toDouble(getParameter("seatingWidth"));
+        parametersSet |= VTYPEPARS_SEATING_WIDTH_SET;
     }
 }
 
