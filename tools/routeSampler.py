@@ -25,10 +25,10 @@ from __future__ import print_function
 import os
 import sys
 from collections import defaultdict
+from math import ceil
 # multiprocessing imports
 import multiprocessing
 import numpy as np
-from math import ceil
 
 try:
     from StringIO import StringIO
@@ -38,7 +38,7 @@ except ImportError:
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
-from sumolib.miscutils import parseTime,humanReadableTime  # noqa
+from sumolib.miscutils import parseTime, humanReadableTime  # noqa
 
 PRESERVE_INPUT_COUNT = 'input'
 
@@ -266,12 +266,12 @@ class CountData:
 
     def __repr__(self):
         return "CountData(edges=%s, count=%s, origCount=%s%s%s%s%s)\n" % (
-                self.edgeTuple, self.count, self.origCount,
-                ", isOrigin=True" if self.isOrigin else "",
-                ", isDest=True" if self.isDest else "",
-                ", isRatio=True" if self.isRatio else "",
-                (", sibs=%s" % len(self.ratioSiblings)) if self.isRatio else ""
-                )
+            self.edgeTuple, self.count, self.origCount,
+            ", isOrigin=True" if self.isOrigin else "",
+            ", isDest=True" if self.isDest else "",
+            ", isRatio=True" if self.isRatio else "",
+            (", sibs=%s" % len(self.ratioSiblings)) if self.isRatio else ""
+        )
 
 
 def getIntervals(options):
@@ -401,7 +401,6 @@ def optimize(options, countData, routes, usedRoutes, routeUsage, intervalCount):
 
     """
     import scipy.optimize as opt
-    import scipy.version
 
     m = len(countData)
 
@@ -862,7 +861,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                     openRoutes = openRoutes2
                     closedCounts = [c for c in cdRecheck if not countData[c].routeSet.intersection(openRoutes)]
                     if closedCounts:
-                        openCounts = [c for c in openCounts if not c in closedCounts]
+                        openCounts = [c for c in openCounts if c not in closedCounts]
 
     totalMismatch = sum([cd.count for cd in countData])
 
