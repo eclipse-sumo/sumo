@@ -182,7 +182,9 @@ def open(fileOrURL, tryGZip=True, mode="rb"):
     try:
         if fileOrURL.startswith("http"):
             return io.BytesIO(urlopen(fileOrURL).read())
-        if tryGZip:
+        if fileOrURL.endswith(".gz") and "w" in mode:
+            return gzip.open(fileOrURL, mode="wt", encoding="utf8")
+        if tryGZip and "r" in mode:
             return gzip.open(fileOrURL)
     finally:
         pass
