@@ -1,12 +1,11 @@
 Success.
 Written configuration to 'osm.polycfg'
 Parsing network projection from 'osm.net.xml.gz' ... done (11ms).
-Parsing nodes from osm-file '/home/behr_mi/.texttest/tmp/tools.19Dec115827.17627/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (753ms).
-Parsing relations from osm-file '/home/behr_mi/.texttest/tmp/tools.19Dec115827.17627/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (584ms).
-Parsing edges from osm-file '/home/behr_mi/.texttest/tmp/tools.19Dec115827.17627/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (623ms).
+Parsing nodes from osm-file '/home/behr_mi/.texttest/tmp/tools.19Dec120747.18992/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (793ms).
+Parsing relations from osm-file '/home/behr_mi/.texttest/tmp/tools.19Dec120747.18992/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (572ms).
+Parsing edges from osm-file '/home/behr_mi/.texttest/tmp/tools.19Dec120747.18992/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (609ms).
 Success.
-Building scenario in '/home/behr_mi/.texttest/tmp/tools.19Dec115827.17627/tools/import/OSM/webWizard/test'.
-['/home/behr_mi/sumo/bin/netconvert', '-t', '${SUMO_HOME}/data/typemap/osmNetconvert.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertUrbanDe.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertPedestrians.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertShips.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertBicycle.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertAerialway.typ.xml', '--geometry.remove', '--roundabouts.guess', '--ramps.guess', '--junctions.join', '--tls.guess-signals', '--tls.discard-simple', '--tls.join', '--output.original-names', '--junctions.corner-detail', '5', '--output.street-names', '--tls.default-type', 'actuated', '--crossings.guess', '--osm.sidewalks', '--osm.bike-access', '--ptstop-output', '/home/behr_mi/.texttest/tmp/tools.19Dec115827.17627/tools/import/OSM/webWizard/test/osm_stops.add.xml', '--ptline-output', '/home/behr_mi/.texttest/tmp/tools.19Dec115827.17627/tools/import/OSM/webWizard/test/osm_ptlines.xml', '--railway.topology.repair', '--osm-files']
+Building scenario in '/home/behr_mi/.texttest/tmp/tools.19Dec120747.18992/tools/import/OSM/webWizard/test'.
 generating trips...
 Cannot extend route to fringe for line '1929070' (not enough edges given)
 Cannot extend route to fringe for line '1929071' (not enough edges given)
@@ -45,18 +44,18 @@ Success.
 Success.
 Success.
 Written configuration to 'osm.sumocfg'
-Loading net-file from '/home/behr_mi/.texttest/tmp/tools.19Dec115827.17627/tools/import/OSM/webWizard/test/osm.net.xml.gz' ... done (410ms).
-Loading additional-files from '/home/behr_mi/.texttest/tmp/tools.19Dec115827.17627/tools/import/OSM/webWizard/test/osm.poly.xml.gz' ... done (116ms).
-Loading additional-files from '/home/behr_mi/.texttest/tmp/tools.19Dec115827.17627/tools/import/OSM/webWizard/test/osm_stops.add.xml' ... done (11ms).
+Loading net-file from '/home/behr_mi/.texttest/tmp/tools.19Dec120747.18992/tools/import/OSM/webWizard/test/osm.net.xml.gz' ... done (427ms).
+Loading additional-files from '/home/behr_mi/.texttest/tmp/tools.19Dec120747.18992/tools/import/OSM/webWizard/test/osm.poly.xml.gz' ... done (117ms).
+Loading additional-files from '/home/behr_mi/.texttest/tmp/tools.19Dec120747.18992/tools/import/OSM/webWizard/test/osm_stops.add.xml' ... done (12ms).
 Loading done.
 Simulation version v1_15_0+1111-8d856e14137 started with time: 0.00.
 Simulation ended at time: 3320.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 2.61s
- Real time factor: 1272.52
- UPS: 55474.511307
- UPS-Persons: 61673.054810
+ Duration: 3.01s
+ Real time factor: 1102.99
+ UPS: 48084.053156
+ UPS-Persons: 53456.810631
 Vehicles: 
  Inserted: 420
  Running: 0
@@ -92,6 +91,6 @@ Ride Statistics (avg of 165 rides):
  Aborted: 10
 
 DijkstraRouter answered 8279 queries and explored 12.49 edges on average.
-DijkstraRouter spent 0.02s answering queries (0.00ms on average).
+DijkstraRouter spent 0.03s answering queries (0.00ms on average).
 DijkstraRouter answered 265 queries and explored 576.05 edges on average.
-DijkstraRouter spent 0.10s answering queries (0.39ms on average).
+DijkstraRouter spent 0.15s answering queries (0.58ms on average).
