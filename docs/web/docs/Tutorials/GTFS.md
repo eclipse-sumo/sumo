@@ -26,14 +26,15 @@ The network should contain edges for all traffic types (modes) you want
 to model and the relevant edge types. The script currently supports
 the following mapping:
 
-- tram -> railway.tram or highway.*|railway.tram
-- subway -> railway.subway
-- light_rail -> railway.light_rail
-- rail -> railway.rail
-- bus -> highway.*
-- ship -> ship
+- tram -> all edges allowing SUMO's vehicle class tram
+- subway -> OSM type railway.subway
+- light_rail -> OSM type railway.light_rail
+- train -> OSM type railway.rail
+- bus -> all edges allowing SUMO's vehicle class bus
+- ship -> OSM type ship
 
-If the network does not contain edge types only a bus mapping is possible which will use all available edges.
+If the network does not contain edge types, only bus and tram mappings are possible which will use the edges
+allowing the relevant vehicle classes.
 
 For this tutorial we imported the network of Eichwalde with the osmWebWizard tool:
 

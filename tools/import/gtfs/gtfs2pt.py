@@ -124,6 +124,7 @@ def splitNet(options):
     netcCall = [sumolib.checkBinary("netconvert"), "--no-internal-links", "--numerical-ids", "--no-turnarounds",
                 "--offset.disable-normalization", "--output.original-names", "--aggregate-warnings", "1",
                 "--junctions.corner-detail", "0", "--dlr-navteq.precision", "0", "--geometry.avoid-overlap", "false"]
+    doNavteqOut = os.path.exists(options.mapperlib)
     if not os.path.exists(options.network_split):
         os.makedirs(options.network_split)
     numIdNet = os.path.join(options.network_split, "numerical.net.xml")
@@ -142,28 +143,23 @@ def splitNet(options):
         mode = os.path.basename(inp)[7:-4]
         if not options.modes or mode in options.modes.split(","):
             netPrefix = os.path.join(options.network_split, mode)
-            sumoType = gtfs2osm.OSM2SUMO_MODES[mode]
-            edgeTypes = [sumoType]
-            if "rail" in sumoType or sumoType == "subway":
-                edgeTypes = ["railway." + sumoType]
-            elif sumoType in ("tram", "bus"):
-                edgeTypes = ["railway.tram"] if sumoType == "tram" else []
-                for hwType in ("bus_guideway", "living_street", "motorway", "motorway_link", "primary", "primary_link",
-                               "residential", "secondary", "secondary_link", "tertiary", "tertiary_link",
-                               "trunk", "trunk_link", "unclassified", "unsurfaced"):
-                    if sumoType == "tram":
-                        edgeTypes.append("highway.%s|railway.tram" % hwType)
-                    else:
-                        edgeTypes.append("highway." + hwType)
-            edgeType = ",".join(filter(lambda t: t in seenTypes, edgeTypes))
-            if edgeType:
+            edgeFilter = ["--keep-edges.by-type", mode] if mode in seenTypes else None
+            if "rail" in mode or mode == "subway":
+                if "railway." + mode in seenTypes:
+                    edgeFilter = ["--keep-edges.by-type", "railway." + mode]
+            elif mode == "train":
+                edgeFilter = ["--keep-edges.by-type", "railway.rail,railway.light_rail"]
+            elif mode in ("tram", "bus"):
+                edgeFilter = ["--keep-edges.by-vclass", mode]
+            if edgeFilter:
                 if (os.path.exists(netPrefix + ".net.xml") and
                         os.path.getmtime(netPrefix + ".net.xml") > os.path.getmtime(numIdNet)):
                     print("Reusing old", netPrefix + ".net.xml")
                 else:
-                    subprocess.call(netcCall + ["-s", numIdNet, "-o", netPrefix + ".net.xml",
-                                                "--dlr-navteq-output", netPrefix,
-                                                "--dismiss-vclasses", "--keep-edges.by-type", edgeType])
+                    subprocess.call(netcCall + ["-s", numIdNet, "-o", netPrefix + ".net.xml"] + edgeFilter)
+                    if doNavteqOut:
+                        subprocess.call(netcCall + ["-s", netPrefix + ".net.xml", "-o", "NUL", "--dismiss-vclasses"
+                                                    "--dlr-navteq-output", netPrefix])
                 typedNets[mode] = (inp, netPrefix)
     return edgeMap, typedNets
 
@@ -267,8 +263,8 @@ def map_stops(options, net, routes, rout, edgeMap):
                     path, _ = typedNet.getShortestPath(typedNet.getEdge(routeFixed[-1]), typedNet.getEdge(routeEdgeID))
                     if path is None or len(path) > options.fill_gaps + 2:
                         error = "no path found" if path is None else "path too long (%s)" % len(path)
-                        print("Warning! Disconnected route '%s', %s. Keeping longer part." % (rid, error),
-                              file=sys.stderr)
+                        print("Warning! Disconnected route '%s' between '%s' and '%s', %s. Keeping longer part." %
+                              (rid, edgeMap.get(routeFixed[-1]), edgeMap.get(routeEdgeID), error), file=sys.stderr)
                         if len(routeFixed) > len(routes[rid]) // 2:
                             break
                         routeFixed = [routeEdgeID]
@@ -288,10 +284,10 @@ def map_stops(options, net, routes, rout, edgeMap):
             else:
                 stopLength = options.train_stop_length
             result = gtfs2osm.getBestLane(net, veh.x, veh.y, 200, stopLength,
-                                          route[lastIndex:], railType, lastPos)
+                                          route[lastIndex:], gtfs2osm.OSM2SUMO_MODES[railType], lastPos)
             if result is None:
                 if options.warn_unmapped:
-                    print("Warning! No stop for coordinates %.2f, %.2f" % (veh.x, veh.y), "on", veh, file=sys.stderr)
+                    print("Warning! No stop for %s." % str(veh), file=sys.stderr)
                 continue
             laneID, start, end = result
             edgeID = laneID.rsplit("_", 1)[0]
@@ -363,6 +359,8 @@ def main(options):
         gtfsZip = zipfile.ZipFile(sumolib.open(options.gtfs, False))
         routes, trips_on_day, shapes, stops, stop_times = gtfs2osm.import_gtfs(options, gtfsZip)
 
+        if routes.empty or trips_on_day.empty:
+            return
         if shapes is None:
             print('Warning: Importing OSM routes currently requires a GTFS file with shapes.', file=sys.stderr)
             options.osm_routes = None
@@ -385,7 +383,8 @@ def main(options):
     if not options.osm_routes:
         # Import PT from GTFS
         if not options.skip_fcd:
-            gtfs2fcd.main(options)
+            if not gtfs2fcd.main(options):
+                return
         edgeMap, typedNets = splitNet(options)
         if os.path.exists(options.mapperlib):
             if not options.skip_map:
@@ -397,7 +396,8 @@ def main(options):
                     routes[id].append(edge)
         else:
             if not gtfs2fcd.dataAvailable(options):
-                sys.exit("No GTFS data found for given date %s." % options.date)
+                print("Warning! No infrastructure for the given modes %s." % options.modes)
+                return
             if options.mapperlib != "tracemapper":
                 print("Warning! No mapping library found, falling back to tracemapper.", file=sys.stderr)
             routes = traceMap(options, typedNets)
