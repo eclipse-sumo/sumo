@@ -252,6 +252,7 @@ class Builder(object):
         self.report("Converting map data")
         osmBuild.build(options)
         ptOptions = None
+        begin = self.data.get("begin", 0)
         if self.data["publicTransport"]:
             self.report("Generating public transport schedule")
             self.filename("pt_stopinfos", "stopinfos.xml", False)
@@ -259,7 +260,8 @@ class Builder(object):
             self.filename("pt_trips", "trips.trips.xml", False)
             ptOptions = [
                 "-n", self.files["net"],
-                "-e", self.data["duration"],
+                "-b", begin,
+                "-e", begin + self.data["duration"],
                 "-p", "600",
                 "--random-begin",
                 "--seed", "42",
@@ -357,11 +359,13 @@ class Builder(object):
     def parseTripOpts(self, vehicle, options, publicTransport):
         "Return an option list for randomTrips.py for a given vehicle"
 
+        begin = self.data.get("begin", 0)
         opts = ["-n", self.files["net"], "--fringe-factor", options["fringeFactor"],
                 "--insertion-density", options["count"],
                 "-o", self.files["trips"],
                 "-r", self.files["route"],
-                "-e", self.data["duration"]]
+                "-b", begin,
+                "-e", begin + self.data["duration"]]
         if vehicle == "pedestrian" and publicTransport:
             opts += vehicleParameters["persontrips"]
         else:
@@ -521,13 +525,17 @@ def get_options(args=None):
     parser.add_argument("--test-output", dest="testOutputDir",
                         help="Run with pre-defined options on file 'osm_bbox.osm.xml' and " +
                         "write output to the given directory.")
-    parser.add_argument("-b", "--bbox", help="bounding box to retrieve in geo coordinates west,south,east,north.")
+    parser.add_argument("--bbox", help="bounding box to retrieve in geo coordinates west,south,east,north.")
     parser.add_argument("-o", "--output", dest="outputDir",
                         help="Write output to the given folder rather than creating a name based on the timestamp")
     parser.add_argument("--address", default="", help="Address for the Websocket.")
     parser.add_argument("--port", type=int, default=8010,
                         help="Port for the Websocket. Please edit script.js when using an other port than 8010.")
     parser.add_argument("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
+    parser.add_argument("-b", "--begin", default=0, type=sumolib.miscutils.parseTime,
+                        help="Defines the begin time for the scenario.")
+    parser.add_argument("-e", "--end", default=900, type=sumolib.miscutils.parseTime,
+                        help="Defines the end time for the scenario.")
     return parser.parse_args(args)
 
 
@@ -535,7 +543,8 @@ def main(options):
     OSMImporterWebSocket.local = options.testOutputDir is not None or not options.remote
     OSMImporterWebSocket.outputDir = options.outputDir
     if options.testOutputDir is not None:
-        data = {u'duration': 900,
+        data = {u'begin': options.begin,
+                u'duration': options.end - options.begin,
                 u'vehicles': {u'passenger': {u'count': 6, u'fringeFactor': 5},
                               u'bicycle': {u'count': 2, u'fringeFactor': 2},
                               u'pedestrian': {u'count': 4, u'fringeFactor': 1},

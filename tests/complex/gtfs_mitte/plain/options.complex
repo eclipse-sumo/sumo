@@ -1,0 +1,1 @@
+-n test/osm.net.xml.gz --gtfs https://sumo.dlr.de/daily/GTFS_VBB_Juni-Dezember-2016.zip --date 20160713 tests/complex/gtfs_mitte/runner.py

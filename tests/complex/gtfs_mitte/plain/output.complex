@@ -1,0 +1,109 @@
+Success.
+Building scenario in '/home/behr_mi/.texttest/tmp/complex.perf.19Dec120022.18201/complex.perf/tutorial/gtfs/mitte/plain/test'.
+200 OK
+generating trips...
+Skipping line '1231708' because it only drives at night
+Cannot extend route to fringe for line '1929071' (not enough edges given)
+Skipping line '2194813' because it only drives at night
+Skipping line '2194814' because it only drives at night
+Skipping line '2202086' because it only drives at night
+Skipping line '2206192' because it only drives at night
+Skipping line '2211984' because it only drives at night
+Skipping line '2211985' because it only drives at night
+Cannot extend route to fringe for line '2269238' (not enough edges given)
+Cannot extend route to fringe for line '2422951' (not enough edges given)
+Skipping line '2441959' because it only drives at night
+Skipping line '2441960' because it only drives at night
+Skipping line '2512806' because it only drives at night
+Skipping line '2512807' because it only drives at night
+Cannot extend route to fringe for line '2679013' (not enough edges given)
+Cannot extend route to fringe for line '2679014' (not enough edges given)
+Skipping line '28286' because it only drives at night
+Cannot extend route before first stop for line '300432' (stop edge 25946661 not in route)
+Cannot extend route after last stop for line '300432' (stop edge 25946661 not in route)
+Cannot extend route to fringe for line '3019045' (not enough edges given)
+Skipping line '3353027' because it only drives at night
+Skipping line '35040' because it only drives at night
+Skipping line '6187328' because it only drives at night
+Skipping line '6187329' because it only drives at night
+Cannot extend route before first stop for line '6593455' (stop edge 25946661 not in route)
+Cannot extend route after last stop for line '6593455' (stop edge 25946661 not in route)
+Cannot extend route after last stop for line '6622626' (stop edge 755551647 not in route)
+Cannot extend route to fringe for line '7794031' (not enough edges given)
+Imported 107 lines with 310 stops and skipped 16 lines
+   bus: 45
+   light_rail: 18
+   subway: 8
+   train: 14
+   tram: 22
+done.
+running SUMO to determine actual departure times...
+done.
+Success.
+creating routes...
+done.
+Success.
+Success.
+Success.
+Success.
+Success.
+Success.
+Written configuration to 'osm.sumocfg'
+Loading net-file from '/home/behr_mi/.texttest/tmp/complex.perf.19Dec120022.18201/complex.perf/tutorial/gtfs/mitte/plain/test/osm.net.xml.gz' ... done (720ms).
+Loading additional-files from '/home/behr_mi/.texttest/tmp/complex.perf.19Dec120022.18201/complex.perf/tutorial/gtfs/mitte/plain/test/osm_stops.add.xml' ... done (16ms).
+Loading done.
+Simulation version v1_15_0+1111-8d856e14137 started with time: 0.00.
+Simulation ended at time: 4072.00
+Reason: All vehicles have left the simulation.
+Performance: 
+ Duration: 5.99s
+ Real time factor: 679.459
+ UPS: 37338.394794
+ UPS-Persons: 40206.574337
+Vehicles: 
+ Inserted: 533
+ Running: 0
+ Waiting: 0
+Teleports: 29 (Collisions: 2, Wrong Lane: 27)
+Persons: 
+ Inserted: 243
+ Running: 0
+ Jammed: 1
+Statistics (avg of 435):
+ RouteLength: 2142.59
+ Speed: 5.94
+ Duration: 419.25
+ WaitingTime: 120.64
+ TimeLoss: 192.59
+Bike Statistics (avg of 98):
+ RouteLength: 1714.68
+ Speed: 4.16
+ Duration: 422.42
+ WaitingTime: 62.15
+ TimeLoss: 105.01
+Statistics (avg of 533):
+ DepartDelay: 16.54
+Pedestrian Statistics (avg of 509 walks):
+ RouteLength: 380.42
+ Duration: 321.30
+ TimeLoss: 46.36
+Ride Statistics (avg of 214 rides):
+ WaitingTime: 112.40
+ RouteLength: 993.97
+ Duration: 148.73
+ Bus: 48
+ Train: 160
+ Aborted: 6
+
+DijkstraRouter answered 13926 queries and explored 10.09 edges on average.
+DijkstraRouter spent 0.04s answering queries (0.00ms on average).
+DijkstraRouter answered 330 queries and explored 952.69 edges on average.
+DijkstraRouter spent 0.30s answering queries (0.91ms on average).
+function import_gtfs called at Mon, 19 Dec 2022 12:01:02 +0000
+function import_gtfs finished after 9.264957 seconds
+Success.
+Success.
+Success.
+Success.
+Success.
+Success.
