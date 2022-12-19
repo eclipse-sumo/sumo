@@ -33,6 +33,7 @@ enum ManipulatorMode {
 class GUIOSGManipulator : public osgGA::TerrainManipulator {
 public:
     GUIOSGManipulator(ManipulatorMode initMode = MODE_TERRAIN, bool verticalFixed = true, double eyeHeight = 1.7);
+    ~GUIOSGManipulator();
     bool performMovementLeftMouseButton(const double eventTimeDelta, const double dx, const double dy) override;
     bool performMovementMiddleMouseButton(const double eventTimeDelta, const double dx, const double dy) override;
     bool performMovementRightMouseButton(const double eventTimeDelta, const double dx, const double dy) override;

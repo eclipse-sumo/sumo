@@ -50,10 +50,12 @@ GUIOSGManipulator::GUIOSGManipulator(ManipulatorMode initMode, bool verticalFixe
 
     myTextNode = new osg::Geode();
     myText = new osgText::Text;
+    /*
     osg::ref_ptr<osgText::Font> font = osgText::readFontFile("fonts/arial.ttf");
     if (font != nullptr) {
         myText->setFont(font.get());
     }
+    */
     myText->setCharacterSize(16.f);
     myTextNode->addDrawable(myText);
     myText->setAlignment(osgText::TextBase::AlignmentType::LEFT_TOP);
@@ -61,6 +63,12 @@ GUIOSGManipulator::GUIOSGManipulator(ManipulatorMode initMode, bool verticalFixe
     myText->setBoundingBoxColor(osg::Vec4(0.0f, 0.0f, 0.2f, 0.5f));
     myText->setBoundingBoxMargin(2.0f);
     updateHUDText();
+}
+
+
+GUIOSGManipulator::~GUIOSGManipulator() {
+    myTextNode = 0;
+    myHUDCamera = 0;
 }
 
 
