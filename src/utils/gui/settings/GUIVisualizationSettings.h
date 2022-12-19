@@ -795,6 +795,9 @@ public:
     /// @brief Whether vehicle length shall be scaled with length/geometry factor
     bool scaleLength;
 
+    /// @brief Whether to draw reversed vehicles in their reversed state
+    bool drawReversed;
+
     /// @brief Set whether parking related information should be shown
     bool showParkingInfo;
 

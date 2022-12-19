@@ -349,6 +349,7 @@ protected:
     FXCheckButton* myShowBTRange = nullptr;
     FXCheckButton* myShowRouteIndex = nullptr;
     FXCheckButton* myScaleLength = nullptr;
+    FXCheckButton* myDrawReversed = nullptr;
     FXCheckButton* myShowParkingInfo = nullptr;
     /*FXCheckButton* myShowLaneChangePreference = nullptr;*/
 

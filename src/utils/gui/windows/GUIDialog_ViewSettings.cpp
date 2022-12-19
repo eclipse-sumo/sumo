@@ -320,6 +320,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* ptr) {
     myShowBTRange->setCheck(mySettings->showBTRange);
     myShowRouteIndex->setCheck(mySettings->showRouteIndex);
     myScaleLength->setCheck(mySettings->scaleLength);
+    myDrawReversed->setCheck(mySettings->drawReversed);
     myShowParkingInfo->setCheck(mySettings->showParkingInfo);
     /*
     myShowLaneChangePreference->setCheck(mySettings->drawLaneChangePreference);
@@ -612,6 +613,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.showBTRange = (myShowBTRange->getCheck() != FALSE);
     tmpSettings.showRouteIndex = (myShowRouteIndex->getCheck() != FALSE);
     tmpSettings.scaleLength = (myScaleLength->getCheck() != FALSE);
+    tmpSettings.drawReversed = (myDrawReversed->getCheck() != FALSE);
     tmpSettings.showParkingInfo = (myShowParkingInfo->getCheck() != FALSE);
     /*
     tmpSettings.drawLaneChangePreference = (myShowLaneChangePreference->getCheck() != FALSE);
@@ -2009,6 +2011,8 @@ GUIDialog_ViewSettings::buildVehiclesFrame(FXTabBook* tabbook) {
     myScaleLength->setCheck(mySettings->scaleLength);
     myShowParkingInfo = new FXCheckButton(matrixShow, TL("Show parking info"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myShowParkingInfo->setCheck(mySettings->showParkingInfo);
+    myDrawReversed = new FXCheckButton(matrixShow, TL("Draw reversed vehicles in reverse"), this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myDrawReversed->setCheck(mySettings->drawReversed);
     //new FXLabel(matrixShow, " ", nullptr, GUIDesignViewSettingsLabel1);
     //myShowLaneChangePreference = new FXCheckButton(matrixShow, TL("Show lane change preference"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     //myShowLaneChangePreference->setCheck(mySettings->drawLaneChangePreference);

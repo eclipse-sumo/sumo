@@ -372,7 +372,7 @@ protected:
     void computeSeats(const Position& front, const Position& back, double seatOffset, int maxSeats, double exaggeration, int& requiredSeats, Seats& into) const;
 
     /// @brief whether to reverse trains in their reversed state
-    bool drawReversed() const;
+    bool drawReversed(const GUIVisualizationSettings& s) const;
 
 
 protected:

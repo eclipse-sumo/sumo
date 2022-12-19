@@ -552,6 +552,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     showBTRange(false),
     showRouteIndex(false),
     scaleLength(true),
+    drawReversed(false),
     showParkingInfo(false),
     vehicleSize(1),
     vehicleName(false, 60, RGBColor(204, 153, 0, 255)),
@@ -1765,6 +1766,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("showBTRange", showBTRange);
     dev.writeAttr("showRouteIndex", showRouteIndex);
     dev.writeAttr("scaleLength", scaleLength);
+    dev.writeAttr("drawReversed", drawReversed);
     dev.writeAttr("showParkingInfo", showParkingInfo);
     dev.lf();
     dev << "                 ";
@@ -2105,6 +2107,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (scaleLength != v2.scaleLength) {
+        return false;
+    }
+    if (drawReversed != v2.drawReversed) {
         return false;
     }
     if (showParkingInfo != v2.showParkingInfo) {
