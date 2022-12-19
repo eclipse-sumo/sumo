@@ -44,11 +44,12 @@ def main():
     parser.add_argument("--src", help="the remote directory to sync", required=True)
     parser.add_argument("--dst", default="states", help="the subdirectory for the synced files")
     parser.add_argument("--delay", default=1, type=float, help="the delay between simulation states")
-    options = parser.parse_args()
+    # remaining command line options are treated as rsync args
+    options, args = parser.parse_known_args()
 
     traci.start([sumoBinary, "-c", options.sumo_config, "-S"])
     while True:
-        cmd = ['rsync', '-a', options.src, options.dst]
+        cmd = ['rsync', '-a'] + args + [options.src, options.dst]
         if os.name == "nt":
             cmd = ['wsl'] + cmd
         call(cmd)
