@@ -28,7 +28,7 @@ import sys
 import io
 import glob
 import subprocess
-from collections import defaultdict
+import collections
 import zipfile
 import pandas as pd
 pd.options.mode.chained_assignment = None  # default='warn'
@@ -43,7 +43,6 @@ import gtfs2osm  # noqa
 
 
 def get_options(args=None):
-    ap = sumolib.options.ArgumentParser()
     ap = gtfs2fcd.add_options()
     # ----------------------- general options ---------------------------------
     ap.add_argument("-n", "--network", fix_path=True, required=True,
@@ -185,8 +184,8 @@ def mapFCD(options, typedNets):
 
 
 def traceMap(options, typedNets, radius=100):
-    routes = defaultdict(list)
-    for railType in typedNets.keys():
+    routes = collections.OrderedDict()
+    for railType in sorted(typedNets.keys()):
         if options.verbose:
             print("mapping", railType)
         net = sumolib.net.readNet(os.path.join(options.network_split, railType + ".net.xml"))
@@ -226,7 +225,7 @@ def generate_polygons(net, routes, outfile):
 
 
 def map_stops(options, net, routes, rout, edgeMap):
-    stops = defaultdict(list)
+    stops = collections.defaultdict(list)
     stopDef = set()
     rid = None
     for inp in sorted(glob.glob(os.path.join(options.fcd, "*.fcd.xml"))):
@@ -313,8 +312,8 @@ def filter_trips(options, routes, stops, outfile, begin, end):
     with io.open(outfile, 'w', encoding="utf8") as outf:
         sumolib.xml.writeHeader(outf, os.path.basename(__file__), "routes", options=options)
         if options.sort:
-            vehs = defaultdict(lambda: "")
-        for inp in glob.glob(os.path.join(options.fcd, "*.rou.xml")):
+            vehs = collections.defaultdict(lambda: "")
+        for inp in sorted(glob.glob(os.path.join(options.fcd, "*.rou.xml"))):
             for veh in sumolib.xml.parse_fast_structured(inp, "vehicle", ("id", "route", "type", "depart", "line"),
                                                          {"param": ["key", "value"]}):
                 if len(routes.get(veh.route, [])) > 0 and len(stops.get(veh.route, [])) > 1:
@@ -389,11 +388,11 @@ def main(options):
         if os.path.exists(options.mapperlib):
             if not options.skip_map:
                 mapFCD(options, typedNets)
-            routes = defaultdict(lambda: [])
+            routes = collections.OrderedDict()
             for o in glob.glob(os.path.join(options.map_output, "*.dat")):
                 for line in open(o):
                     time, edge, speed, coverage, id, minute_of_week = line.split('\t')[:6]
-                    routes[id].append(edge)
+                    routes.setdefault(id, []).append(edge)
         else:
             if not gtfs2fcd.dataAvailable(options):
                 print("Warning! No infrastructure for the given modes %s." % options.modes)
