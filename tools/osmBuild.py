@@ -31,21 +31,18 @@ vclassRemove = {"passenger": ["--keep-edges.by-vclass", "passenger"],
                 "all": []}
 possibleVClassOptions = '|'.join(vclassRemove.keys())
 
-DEFAULT_NETCONVERT_OPTS = '''--geometry.remove,--roundabouts.guess,--ramps.guess,-v,--junctions.join,\
---tls.guess-signals,--tls.discard-simple,--tls.join,--output.original-names,--junctions.corner-detail,\
-5,--output.street-names'''
+DEFAULT_NETCONVERT_OPTS = ('--geometry.remove,--roundabouts.guess,--ramps.guess,--junctions.join,'
+                           '--tls.guess-signals,--tls.discard-simple,--tls.join,--output.original-names,'
+                           '--junctions.corner-detail,5,--output.street-names')
 
 
 optParser = sumolib.options.ArgumentParser(description="Import a OpenStreetMap file into SUMO")
 optParser.add_argument("-p", "--prefix", default="osm", help="for output file")
 # don't know whether area or bbox call was used
-optParser.add_argument(
-    "-f", "--osm-file", help="full name of the osm file to import")
-optParser.add_argument("-m", "--typemap", default=None,
-                       help="typemap file for the extraction of colored areas (optional)")
-optParser.add_argument("--netconvert-typemap", default=None,
-                       help="typemap files for netconverter (optional)")
-optParser.add_argument("-o", "--oldapi-prefix", default=None,
+optParser.add_argument("-f", "--osm-file", help="full name of the osm file to import")
+optParser.add_argument("-m", "--typemap", help="typemap file for the extraction of colored areas (optional)")
+optParser.add_argument("--netconvert-typemap", help="typemap files for netconverter (optional)")
+optParser.add_argument("-o", "--oldapi-prefix",
                        help="prefix that was used for retrieval with the old API")
 optParser.add_argument("-t", "--tiles", type=int, default=1,
                        help="number of tiles used for retrieving OSM-data via the old api")
@@ -61,6 +58,7 @@ optParser.add_argument("-y", "--polyconvert-options",
                        default="-v,--osm.keep-full-type", help="comma-separated options for polyconvert")
 optParser.add_argument("-z", "--gzip", action="store_true",
                        default=False, help="save gzipped network")
+optParser.add_argument("-v", "--verbose", action="store_true", default=False, help="enable verbose netconvert output")
 
 
 def getRelative(dirname, option):

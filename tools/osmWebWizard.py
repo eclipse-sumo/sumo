@@ -26,7 +26,6 @@ import stat
 import traceback
 import webbrowser
 import datetime
-from argparse import ArgumentParser
 import json
 import threading
 import subprocess
@@ -235,6 +234,8 @@ class Builder(object):
             typefiles.append(typemaps["aerialway"])
         if self.data["leftHand"]:
             netconvertOptions += ",--lefthand"
+        if self.data.get("verbose"):
+            netconvertOptions += ",--verbose"
         if self.data["decal"]:
             # change projection to web-mercator to match the background image projection
             netconvertOptions += ",--proj,+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"  # noqa
@@ -512,7 +513,7 @@ class OSMImporterWebSocket(WebSocket):
 
 
 def get_options(args=None):
-    parser = ArgumentParser(description="OSM Web Wizard for SUMO - Websocket Server")
+    parser = sumolib.options.ArgumentParser(description="OSM Web Wizard for SUMO - Websocket Server")
     parser.add_argument("--remote", action="store_true",
                         help="In remote mode, SUMO GUI will not be automatically opened instead a zip file " +
                         "will be generated.")
@@ -526,6 +527,7 @@ def get_options(args=None):
     parser.add_argument("--address", default="", help="Address for the Websocket.")
     parser.add_argument("--port", type=int, default=8010,
                         help="Port for the Websocket. Please edit script.js when using an other port than 8010.")
+    parser.add_argument("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
     return parser.parse_args(args)
 
 
@@ -543,6 +545,7 @@ def main(options):
                 u'publicTransport': True,
                 u'leftHand': False,
                 u'decal': False,
+                u'verbose': options.verbose,
                 u'carOnlyNetwork': False,
                 u'outputDir': options.testOutputDir,
                 u'coords': options.bbox.split(",") if options.bbox else None
