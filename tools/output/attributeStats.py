@@ -23,49 +23,42 @@ from __future__ import print_function
 
 import os
 import sys
-from lxml import etree as ET
 from collections import defaultdict
-from optparse import OptionParser
+from lxml import etree as ET
 
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
     sys.path.append(os.path.join(tools))
     import sumolib
-    from sumolib.xml import _open, parse_fast  # noqa
-    from sumolib.miscutils import Statistics  # noqa
+    from sumolib.xml import _open, parse_fast
+    from sumolib.miscutils import Statistics
     from sumolib.statistics import setPrecision
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
 
 def get_options():
-    USAGE = """Usage %prog [options] <data.xml>"""
-    optParser = OptionParser(usage=USAGE)
+    optParser = sumolib.options.ArgumentParser()
+    optParser.add_option("datafiles", nargs="+", help="XML files to analyze")
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="Give more output")
-    optParser.add_option("-e", "--element", type="string",
-                         help="element to analyze")
-    optParser.add_option("-a", "--attribute", type="string",
-                         help="attribute to analyze")
-    optParser.add_option("-i", "--id-attribute", type="string", dest="idAttr",
+    optParser.add_option("-e", "--element", help="element to analyze")
+    optParser.add_option("-a", "--attribute", help="attribute to analyze")
+    optParser.add_option("-i", "--id-attribute", dest="idAttr",
                          default="id", help="attribute to identify data elements")
-    optParser.add_option("-b", "--binwidth", type="float",
+    optParser.add_option("-b", "--binwidth", type=float,
                          default=50, help="binning width of result histogram")
-    optParser.add_option("--hist-output", type="string",
-                         default=None, help="output file for histogram (gnuplot compatible)")
-    optParser.add_option("-o", "--full-output", type="string",
-                         default=None, help="output file for full data dump")
-    optParser.add_option("-x", "--xml-output", type="string",
-                         default=None, help="output statistic to xml file")
+    optParser.add_option("--hist-output", help="output file for histogram (gnuplot compatible)")
+    optParser.add_option("-o", "--full-output", help="output file for full data dump")
+    optParser.add_option("-x", "--xml-output", help="output statistic to xml file")
     optParser.add_option("--xml-output.flat", action="store_true", dest="xmlFlat",
                          default=False, help="legacy xml output")
     optParser.add_option("-q", "--fast", action="store_true",
                          default=False, help="use fast parser (does not track missing data)")
-    optParser.add_option("-p", "--precision", type="int",
+    optParser.add_option("-p", "--precision", type=int,
                          default=2, help="Set output precision")
-    options, args = optParser.parse_args()
+    options = optParser.parse_args()
 
-    options.datafiles = args
     if options.attribute:
         options.attribute = options.attribute.split(',')
     if options.element:
@@ -89,18 +82,19 @@ def main():
     options = get_options()
 
     vals = defaultdict(lambda: defaultdict(list))
-    allStats = dict();
+    allStats = dict()
     missingAttr = defaultdict(set)
     invalidType = defaultdict(set)
 
     if options.fast:
         assert(len(options.element) == 1)
         elem = options.element[0]
+
         def elements():
             for datafile in options.datafiles:
                 for element in parse_fast(datafile, elem, [options.idAttr] + options.attribute):
                     for attr in options.attribute:
-                        yield elem, attr, getattr(element, attr), getattr(element, options.idAttr), 
+                        yield elem, attr, getattr(element, attr), getattr(element, options.idAttr),
     else:
         def elements():
             for datafile in options.datafiles:
@@ -118,7 +112,6 @@ def main():
                         for attr in options.attribute:
                             yield node.tag, attr, node.get(attr), elementID
 
-
     for tag, attr, stringVal, elementID in elements():
         if stringVal is not None:
             try:
@@ -128,10 +121,10 @@ def main():
                 val = sumolib.miscutils.parseTime(stringVal)
                 vals[elementID][attr].append(val)
                 key = (tag, attr)
-                if not key in allStats:
+                if key not in allStats:
                     allStats[key] = Statistics("%s %s" % (tag, attr),
-                       histogram=options.binwidth > 0, scale=options.binwidth,
-                       printDev=True)
+                                               histogram=options.binwidth > 0, scale=options.binwidth,
+                                               printDev=True)
 
                 stats = allStats[key]
                 stats.add(val, elementID)
@@ -141,14 +134,14 @@ def main():
             if elementID is not None:
                 missingAttr[attr].add(elementID)
 
-    histStyle = 1 if len(allStats) == 1  else 0
+    histStyle = 1 if len(allStats) == 1 else 0
     for key in sorted(allStats.keys()):
         print(allStats[key].toString(options.precision, histStyle=histStyle))
 
     if missingAttr:
         for attr in sorted(missingAttr.keys()):
             print("%s elements did not provide attribute '%s' Example ids: '%s'" %
-                    (len(missingAttr[attr]), attr, "', '".join(sorted(missingAttr[attr])[:10])))
+                  (len(missingAttr[attr]), attr, "', '".join(sorted(missingAttr[attr])[:10])))
 
     if invalidType and options.attribute is not None:
         for attr in sorted(invalidType.keys()):
