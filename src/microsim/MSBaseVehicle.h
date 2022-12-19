@@ -591,6 +591,20 @@ public:
      */
     bool isJumping() const;
 
+    /** @brief Returns whether the logical state of the vehicle is reversed - for drawing
+    * @return whether the logical state of the vehicle is reversed
+    */
+    inline bool amReversed() const {
+        return myAmReversed;
+    }
+
+    /** @brief Toggles the logical 'reversed' state of the vehicle - changes whenever the vehicle "reverses"
+     * @return whether the logical state of the vehicle is reversed
+     */
+    inline bool toggleAmReversed() {
+        myAmReversed = !myAmReversed;
+        return myAmReversed;
+    }
     /** @brief Returns whether the vehicle is on a triggered stop
      * @return whether the vehicle is on a triggered stop
      */
@@ -1014,6 +1028,11 @@ protected:
     static const SUMOTime NOT_YET_DEPARTED;
 
     static std::vector<MSTransportable*> myEmptyTransportableVector;
+
+    /* @brief The logical 'reversed' state of the vehicle - intended to be used by drawing functions
+     * @note:   only set by vClass rail reversing at the moment
+     */
+    bool myAmReversed = false;
 
 private:
     const NumericalID myNumericalID;

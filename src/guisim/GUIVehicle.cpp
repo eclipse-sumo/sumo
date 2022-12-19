@@ -359,9 +359,27 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
 
     // draw individual carriages
     double curCLength = firstCarriageLength;
+    int firstCarriageNo = 0;  // default case - we're going forwards  
+    if (amReversed()) {
+        firstCarriageNo = numCarriages-1;
+    }
+    
+    if ( firstCarriageNo != 0 ) {
+        // we are in reverse with more than one carriage
+        //  so first carriage drawn is standard length not firstCarriageLength
+        carriageBackOffset = myState.pos() - carriageLength;
+    }
+
     //std::cout << SIMTIME << " veh=" << getID() << " curCLength=" << curCLength << " loc=" << locomotiveLength << " car=" << carriageLength << " tlen=" << totalLength << " len=" << length << "\n";
     for (int i = 0; i < numCarriages; ++i) {
-        if (i > 0) {
+        if (i == firstCarriageNo) {
+            curCLength = firstCarriageLength;
+            if ( firstCarriageNo > 0 ) {
+                // previous loop iteration has adjusted backpos for a normal carriage so have to correct
+                carriageBackOffset += carriageLengthWithGap;
+                carriageBackOffset -= firstCarriageLength + carriageGap;
+            }
+        } else {
             curCLength = carriageLength;
         }
         while (carriageOffset < 0) {
@@ -392,11 +410,21 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
         }
         const double drawnCarriageLength = front.distanceTo2D(back);
         angle = atan2((front.x() - back.x()), (back.y() - front.y())) * (double) 180.0 / (double) M_PI;
-        if (i >= firstPassengerCarriage) {
-            computeSeats(front, back, SUMO_const_waitingPersonWidth, seatsPerCarriage, exaggeration, requiredSeats, mySeatPositions);
-        }
-        if (i >= firstContainerCarriage) {
-            computeSeats(front, back, SUMO_const_waitingContainerWidth, containersPerCarriage, exaggeration, requiredPositions, myContainerPositions);
+        // if we are in reverse 'first' carriages are drawn last so the >= test doesn't work
+        if (amReversed()) {
+            if (i <= numCarriages - firstPassengerCarriage) {
+                computeSeats(back, front, SUMO_const_waitingPersonWidth, seatsPerCarriage, exaggeration, requiredSeats, mySeatPositions);
+            }
+            if (i <= numCarriages - firstContainerCarriage) {
+                computeSeats(front, back, SUMO_const_waitingContainerWidth, containersPerCarriage, exaggeration, requiredPositions, myContainerPositions);
+            }
+        } else {
+            if (i >= firstPassengerCarriage) {
+                computeSeats(front, back, SUMO_const_waitingPersonWidth, seatsPerCarriage, exaggeration, requiredSeats, mySeatPositions);
+            }
+            if (i >= firstContainerCarriage) {
+                computeSeats(front, back, SUMO_const_waitingContainerWidth, containersPerCarriage, exaggeration, requiredPositions, myContainerPositions);
+            }
         }
         GLHelper::pushMatrix();
         glTranslated(front.x(), front.y(), getType());
@@ -405,15 +433,15 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
             switch (getVType().getGuiShape()) {
                 case SUMOVehicleShape::TRUCK_SEMITRAILER:
                 case SUMOVehicleShape::TRUCK_1TRAILER:
-                    if (i == 0) {
-                        GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(s, getVType().getGuiShape(), getVType().getWidth() * exaggeration, curCLength, i);
+                    if (i == firstCarriageNo) {  // at the moment amReversed is only ever set for rail - so has no impact in this call
+                        GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(s, getVType().getGuiShape(), getVType().getWidth() * exaggeration, curCLength, 0, false, amReversed());
                     } else {
                         GLHelper::setColor(current);
                         GLHelper::drawBoxLine(Position(0, 0), 180, curCLength, halfWidth);
                     }
                     break;
                 default: {
-                    if (i == 0) {
+                    if (i == firstCarriageNo) {
                         GLHelper::setColor(darker);
                     } else {
                         GLHelper::setColor(current);
@@ -430,14 +458,21 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
                     glVertex2d(halfWidth - xCornerCut, 0);
                     glEnd();
                     // indicate front of the head of the train
-                    if (i == 0) {
+                    if (i == firstCarriageNo) {
                         glTranslated(0, 0, 0.1);
                         glColor3d(0, 0, 0);
-                        glBegin(GL_TRIANGLE_FAN);
-                        glVertex2d(-halfWidth + 2 * xCornerCut, yCornerCut);
-                        glVertex2d(-halfWidth + xCornerCut, 3 * yCornerCut);
-                        glVertex2d(halfWidth - xCornerCut, 3 * yCornerCut);
-                        glVertex2d(halfWidth - 2 * xCornerCut, yCornerCut);
+                        glBegin(GL_TRIANGLE_FAN); 
+                        if ( amReversed() ) {  // not quite correct as its drawing at the wrong end of the locomotive - however useful as visual indicator of reverse?
+                            glVertex2d(-halfWidth + xCornerCut, yCornerCut);
+                            glVertex2d(-halfWidth + 2 * xCornerCut, 3 * yCornerCut);
+                            glVertex2d(halfWidth - 2 * xCornerCut, 3 * yCornerCut);
+                            glVertex2d(halfWidth - xCornerCut, yCornerCut);
+                        } else {
+                            glVertex2d(-halfWidth + 2 * xCornerCut, yCornerCut);
+                            glVertex2d(-halfWidth + xCornerCut, 3 * yCornerCut);
+                            glVertex2d(halfWidth - xCornerCut, 3 * yCornerCut);
+                            glVertex2d(halfWidth - 2 * xCornerCut, yCornerCut);
+                        }
                         glEnd();
                         glTranslated(0, 0, -0.1);
                     }
