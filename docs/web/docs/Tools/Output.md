@@ -229,6 +229,20 @@ python tools/output/attributeStats --element tripinfo --attribute timeLoss 
 - With option **--full-output** {{DT_FILE}}, A collected attribute values are recorded with their corresponnding ids
 - Output precision can be set with option **--precision** (**-p**)
 
+## attributeDiff.py
+
+Computes difference between numerical attributes in two xml files with the same structure (eg. attribute *timeLoss* for element *vehicleTripStatistics* in [statistic-output](../Simulation/Output/StatisticOutput.md)) and writes the
+results to standard output. When the attribute contains time data in HH:MM:SS format, the values will automatically be converted to seconds.
+
+```
+python tools/output/attributeDiff file1.xml file2.xml --xml-output differences.xml
+```
+
+- If option **--element** (**-e**) is set to a comma-separated list of elements, only these elements will be read. Otherwise all elements will be parsed
+- If option **--attribute** (**-a**) is set to a comma-separated list of attributes, only these attributes will be read. Otherwise all attributes will be parsed
+- If option **--id-attribute** (**-i**) is set, the minimum and maximum values of each attribute will be annotated with the corresponding id value
+- With option **--xml-output** {{DT_FILE}}, A file with statistical measures for all processed attributes is written
+
 
 ## computeCoordination.py
 
