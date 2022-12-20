@@ -1,0 +1,11 @@
+# subtract all attributes in the input files
+verbose
+
+# subtract all attributes in the input files
+xml_output
+
+# use only one attribute
+attribute
+
+# specify element and attribute
+element_attribute
