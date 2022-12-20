@@ -340,7 +340,11 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
     int backFurtherIndex = furtherIndex;
     // offsets of front and back
     double carriageOffset = myState.pos();
-    double carriageBackOffset = myState.pos() - firstCarriageLength;
+    if (getLaneChangeModel().isOpposite()) {
+        // @note this still produces some artifacts while not fully on the current lane
+        carriageOffset = MIN2(carriageOffset + getLength(), lane->getLength());
+    }
+    double carriageBackOffset = carriageOffset - firstCarriageLength;
     // handle seats
     int requiredSeats = getNumPassengers();
     int requiredPositions = getNumContainers();
@@ -360,14 +364,12 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
     // draw individual carriages
     double curCLength = firstCarriageLength;
     int firstCarriageNo = 0;  // default case - we're going forwards  
-    if (drawReversed(s)) {
-        firstCarriageNo = numCarriages-1;
-    }
-    
-    if ( firstCarriageNo != 0 ) {
-        // we are in reverse with more than one carriage
-        //  so first carriage drawn is standard length not firstCarriageLength
-        carriageBackOffset = myState.pos() - carriageLength;
+    const bool reversed = drawReversed(s) || getLaneChangeModel().isOpposite();
+    if (reversed) {
+        firstCarriageNo = numCarriages - 1;
+        if (numCarriages > 1) {
+            carriageBackOffset = carriageOffset - carriageLength;
+        }
     }
 
     //std::cout << SIMTIME << " veh=" << getID() << " curCLength=" << curCLength << " loc=" << locomotiveLength << " car=" << carriageLength << " tlen=" << totalLength << " len=" << length << "\n";
@@ -411,7 +413,7 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
         const double drawnCarriageLength = front.distanceTo2D(back);
         angle = atan2((front.x() - back.x()), (back.y() - front.y())) * (double) 180.0 / (double) M_PI;
         // if we are in reverse 'first' carriages are drawn last so the >= test doesn't work
-        if (drawReversed(s)) {
+        if (reversed) {
             if (i <= numCarriages - firstPassengerCarriage) {
                 computeSeats(back, front, SUMO_const_waitingPersonWidth, seatsPerCarriage, exaggeration, requiredSeats, mySeatPositions);
             }
@@ -434,7 +436,7 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
                 case SUMOVehicleShape::TRUCK_SEMITRAILER:
                 case SUMOVehicleShape::TRUCK_1TRAILER:
                     if (i == firstCarriageNo) {  // at the moment amReversed is only ever set for rail - so has no impact in this call
-                        GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(s, getVType().getGuiShape(), getVType().getWidth() * exaggeration, curCLength, 0, false, drawReversed(s));
+                        GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(s, getVType().getGuiShape(), getVType().getWidth() * exaggeration, curCLength, 0, false, reversed);
                     } else {
                         GLHelper::setColor(current);
                         GLHelper::drawBoxLine(Position(0, 0), 180, curCLength, halfWidth);
@@ -462,7 +464,7 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
                         glTranslated(0, 0, 0.1);
                         glColor3d(0, 0, 0);
                         glBegin(GL_TRIANGLE_FAN); 
-                        if (drawReversed(s)) {  // not quite correct as its drawing at the wrong end of the locomotive - however useful as visual indicator of reverse?
+                        if (reversed) {  // not quite correct as its drawing at the wrong end of the locomotive - however useful as visual indicator of reverse?
                             glVertex2d(-halfWidth + xCornerCut, yCornerCut);
                             glVertex2d(-halfWidth + 2 * xCornerCut, 3 * yCornerCut);
                             glVertex2d(halfWidth - 2 * xCornerCut, 3 * yCornerCut);

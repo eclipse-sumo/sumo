@@ -181,7 +181,6 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
 
     // If the vehicle is 'logically' reversed then reverse the drawing box
     //  NB at the moment the only vehicles that will have amReversed set true are trains. Here this supports a train with guiShape="aircraft"
-    //      this will work for other shapes should amReversed ever be set - except for truck/trailer variants because of the way this code uses carriageIndex
     if (amReversed) {
         glRotatef(180, 0, 0, 1);
         glTranslated(-1, 0, 0);
