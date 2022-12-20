@@ -1620,6 +1620,10 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
             }
 #endif
             if (leader.first != 0 && leader.second < length && !leader.first->isJammed()) {
+                if (v->getVehicleType().getGuiShape() == SUMOVehicleShape::AIRCRAFT) {
+                    // aircraft wings and body are above walking level
+                    continue;
+                }
                 const bool newCollision = MSNet::getInstance()->registerCollision(v, leader.first, "sharedLane", this, leader.first->getEdgePos());
                 if (newCollision) {
                     WRITE_WARNINGF(TL("Vehicle '%' collision with person '%', lane='%', gap=%, time=%, stage=%."),
