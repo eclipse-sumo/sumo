@@ -28,8 +28,7 @@ import sumolib  # noqa
 
 traci.start([sumolib.checkBinary('sumo'),
              '-n', 'input_net.net.xml',
-             '-a', 'input_additional.add.xml,input_additional2.add.xml',
-             '-r', 'input_routes.rou.xml',
+             '-a', 'input_additional.add.xml,input_additional2.add.xml,input_routes.rou.xml',
              '--tripinfo-output', 'tripinfo.xml',
              '--no-step-log',
              ] + sys.argv[1:])
