@@ -949,6 +949,9 @@ public:
     /// @brief whether 3D TLS models should be generated automatically
     bool generate3DTLSModels;
 
+    /// @brief whether to draw the head up display items
+    bool show3DHeadUpDisplay;
+
     /// @brief 3D material light components
     RGBColor ambient3DLight;
     RGBColor diffuse3DLight;

@@ -686,6 +686,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.showVehicleColorLegend = (myShowVehicleColorLegend->getCheck() != FALSE);
     tmpSettings.show3DTLSDomes = (myShow3DTLSDomes->getCheck() != FALSE);
     tmpSettings.show3DTLSLinkMarkers = (myShow3DTLSLinkMarkers->getCheck() != FALSE);
+    tmpSettings.show3DHeadUpDisplay = (myShow3DHeadUpDisplay->getCheck() != FALSE);
     tmpSettings.generate3DTLSModels = (myGenerate3DTLSModels->getCheck() != FALSE);
     const unsigned char lightFactor = (unsigned char)myLight3DFactor->getValue();
     tmpSettings.ambient3DLight.set(lightFactor / 2, lightFactor / 2, lightFactor / 2, 255);
@@ -2425,12 +2426,14 @@ GUIDialog_ViewSettings::build3DFrame(FXTabBook* tabbook) {
     FXMatrix* m82 = new FXMatrix(verticalFrame, 1, GUIDesignMatrixViewSettings);
     myShow3DTLSLinkMarkers = new FXCheckButton(m82, "Show TLS link markers", this, MID_SIMPLE_VIEW_COLORCHANGE);
     myShow3DTLSLinkMarkers->setCheck(mySettings->show3DTLSLinkMarkers);
-    FXMatrix* m83 = new FXMatrix(verticalFrame, 1, GUIDesignMatrixViewSettings);
-    myShow3DTLSDomes = new FXCheckButton(m83, "Show domes around TLS models from decals", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    //FXMatrix* m83 = new FXMatrix(verticalFrame, 1, GUIDesignMatrixViewSettings);
+    myShow3DTLSDomes = new FXCheckButton(m82, "Show domes around TLS models from decals", this, MID_SIMPLE_VIEW_COLORCHANGE);
     myShow3DTLSDomes->setCheck(mySettings->show3DTLSDomes);
-    FXMatrix* m84 = new FXMatrix(verticalFrame, 1, GUIDesignMatrixViewSettings);
-    myGenerate3DTLSModels = new FXCheckButton(m84, "Show auto-generated TLS models", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    //FXMatrix* m84 = new FXMatrix(verticalFrame, 1, GUIDesignMatrixViewSettings);
+    myGenerate3DTLSModels = new FXCheckButton(m82, "Show auto-generated TLS models", this, MID_SIMPLE_VIEW_COLORCHANGE);
     myGenerate3DTLSModels->setCheck(mySettings->generate3DTLSModels);
+    myShow3DHeadUpDisplay = new FXCheckButton(m82, "Show head-up display", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myShow3DHeadUpDisplay->setCheck(mySettings->show3DHeadUpDisplay);
 
     new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
 

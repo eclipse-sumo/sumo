@@ -597,6 +597,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     dataValueHideThreshold(0),
     show3DTLSLinkMarkers(true),
     show3DTLSDomes(true),
+    show3DHeadUpDisplay(true),
     generate3DTLSModels(false),
     ambient3DLight(OSG_color_AMBIENT),
     diffuse3DLight(OSG_color_DIFFUSE),
@@ -1908,6 +1909,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.openTag(SUMO_TAG_VIEWSETTINGS_3D);
     dev.writeAttr("show3DTLSLinkMarkers", show3DTLSLinkMarkers);
     dev.writeAttr("show3DTLSDomes", show3DTLSDomes);
+    dev.writeAttr("show3DHeadUpDisplay", show3DHeadUpDisplay);
     dev.writeAttr("generate3DTLSModels", generate3DTLSModels);
     dev.writeAttr("ambient3DLight", ambient3DLight);
     dev.writeAttr("diffuse3DLight", diffuse3DLight);
@@ -1929,6 +1931,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (show3DTLSLinkMarkers != v2.show3DTLSLinkMarkers) {
+        return false;
+    }
+    if (show3DHeadUpDisplay != v2.show3DHeadUpDisplay) {
         return false;
     }
     if (generate3DTLSModels != v2.generate3DTLSModels) {

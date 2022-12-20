@@ -509,6 +509,8 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
     cullMask ^= (-int(myVisualizationSettings->show3DTLSLinkMarkers) ^ cullMask) & (1UL << NODESET_TLSLINKMARKERS);
     cullMask ^= (-int(myVisualizationSettings->generate3DTLSModels) ^ cullMask) & (1UL << NODESET_TLSMODELS);
     myViewer->getCamera()->setCullMask(cullMask);
+    unsigned int hudCullMask = (myVisualizationSettings->show3DHeadUpDisplay) ? 0xFFFFFFFF : 0;
+    myCameraManipulator->getHUD()->setCullMask(hudCullMask);
 
     if (myAdapter->makeCurrent()) {
         myViewer->frame();

@@ -424,6 +424,7 @@ protected:
     /// @brief 3D
     FXCheckButton* myShow3DTLSLinkMarkers = nullptr;
     FXCheckButton* myShow3DTLSDomes = nullptr;
+    FXCheckButton* myShow3DHeadUpDisplay = nullptr;
     FXCheckButton* myGenerate3DTLSModels = nullptr;
     FXSpinner* myLight3DFactor = nullptr;
     //FXColorWell* myAmbient3DLight = nullptr;
