@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-12-20 10:09:42 by Eclipse SUMO sumo Version v1_15_0+1149-7a6e0c6
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml,input_additional2.add.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfo.xml"/>
+    </output>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="39635"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="t0" depart="0.00" departLane="a_0" departPos="50.10" departSpeed="13.89" departDelay="0.00" arrival="442.00" arrivalLane="f_0" arrivalPos="200.00" arrivalSpeed="5.00" duration="442.00" routeLength="849.90" waitingTime="301.00" waitingCount="1" stopTime="40.00" timeLoss="344.31" rerouteNo="0" devices="tripinfo_t0" vType="train" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="t1" depart="20.00" departLane="-f2_0" departPos="50.10" departSpeed="13.89" departDelay="0.00" arrival="459.00" arrivalLane="-a2_0" arrivalPos="200.00" arrivalSpeed="5.00" duration="439.00" routeLength="891.32" waitingTime="301.00" waitingCount="1" stopTime="40.00" timeLoss="344.82" rerouteNo="0" devices="tripinfo_t1" vType="train" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="t2" depart="25.00" departLane="-f2_0" departPos="50.10" departSpeed="10.16" departDelay="5.00" arrival="529.00" arrivalLane="-a2_0" arrivalPos="200.00" arrivalSpeed="5.00" duration="504.00" routeLength="891.32" waitingTime="215.00" waitingCount="2" stopTime="136.00" timeLoss="303.65" rerouteNo="0" devices="tripinfo_t2" vType="train" speedFactor="1.00" vaporized=""/>
+</tripinfos>
