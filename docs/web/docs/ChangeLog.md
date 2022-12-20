@@ -26,10 +26,12 @@ title: ChangeLog
   - Fixed invalid bike lane detector placement for 'actuated' traffic lights. Issue #12266
   - Fixed vehicle angles when using 'lcSigma' with the continous lane change mode. Issue #12201
   - Fixed inconsistency in waitingTime definition between tripinfo-output and accumulated waitingTime. Issue #12287
+  - Fixed invalid lot assignment for onRoad parkingArea. Issue #12330
   - sublane model fixes:
     - Fixed invalid emergency braking for junction foe. Issue #12202
     - Fixed inconsistent computation for vehicle back position. Issue #12146
     - Fixed unsafe follow speed on multi-lane turning edge. Issue #12204
+    - Fixed failure in cooperative speed adaptation at low step length. Issue #12283
 
 - netedit
   - Fixed bug where stops on looped routes where saved in an invalid order. Issue #12054 (regression in 1.12.0)
@@ -51,6 +53,7 @@ title: ChangeLog
   - Fixed invalid objects in right-click disambiguation menu. Issue #12046
   - Fixed initial positions of some dialogs that were too high. Issue #11936
   - Fixed crash on saving gui settings to registry (debug mode only). Issue #11595
+  - Pressing Escape key in OSG view no longer makes it unresponsive to further control input. Issue #12313
     
 - meso
   - Stopping at pos=0 is now working. Issue #12240
@@ -66,7 +69,7 @@ title: ChangeLog
   - Fixed invalid dead-end when using option **--osm.turn-lanes**. Issue #12042
   - Fixed invalid plain xml output (after reading an invalid network). Issue #12086
   - Fixed invalid right of way rules causing mutual conflict at multimodal priority-junction. Issue #5609
-  - Fixed invalid guessed connections. Issue #10771, #10978, #2472, #12181
+  - Fixed invalid guessed connections. Issue #10771, #10978, #2472, #12181, #12327
   - Fixed missing bidi edges in generated network. Issue #12127
   - OSM import no longer ignores spreadType in typemap. Issue #12141
   - Fixed invalid bike lane in OSM import. Issue #12216
@@ -94,6 +97,7 @@ title: ChangeLog
   - cutRoutes.pyL No longer writes persons without a plan. Issue #12245
   - routesampler.py: Option **--total-count** is now compatible with **--weighted**. Issue #12284
   - net2geojson.py: Fixed crash when trying to import network without geo projection (now gives an error message instead). Issue #12295
+  - gtfs2pt.py: Fixed missing transport modes. Issues #12277
 
 - All Applications: Fixed crash if gzipped outputfile cannot be opened. Issue #11954
 
@@ -144,6 +148,8 @@ title: ChangeLog
   - A rainbow color scale can now be defined between upper and lower "hiding" thresholds even when there is no data yet. Issue #11978
   - Aggregated detector values are now listed in their respective parameter dialog. Issue #12031
   - Detector outputs are now flushed at simulation end even while the gui remains open. Issue #12293
+  - Added guiShape "aircraft". Issue #12314
+  - Added vehicle setting to maintain orientation after reversal. This achieves a more realistic visualisation of reversing trains and (grounded) aircraft. Issue #12140
 
 - TraCI
   - Added functions `vehicle.getDeparture` and `vehicle.getDepartDelay`. Issue #3036
@@ -151,6 +157,11 @@ title: ChangeLog
   - Added functions to retrieve aggregated lanearea detector measures. Issue #12029
 
 - Tools
+  - runSeeds.py: Now forwarding unknown options to application call. Issue #12312
+  - runSeeds.py: Now supports setting a list of applications and a list of configurations to run all at once (with results in subfolders). Issue #12311
+  - routeSampler.py: Major improvement in sampling speed. Issue #12319
+  - routeSampler.py: Full optimization now skips initial sampling for further speed-up. Issue #12307
+  - [attributeStats.py](Tools/Output.md#attributestatspy): Permit parsing multiple elements and attributes at once. The new default is to parse all elements and attributes. Issue #12317
   - gtfs2pt.py: Now writing short route id and headsign as params. Issue #11819
   - plot_trajectories.py: Now support common visualization options. Issue #11991
   - Many visualization tools can now configure linestyle and marker style. Issue #11985
@@ -160,6 +171,7 @@ title: ChangeLog
   - implausibleRoutes.py: Added options to handle unsorted input and additional files when duarouter is being called. Issue #12069
   - net2geojson.py: Added option **--boundary** to write polygons instead of center lines. Issue #12296
   - stateReplay.py: Now works on for Windows. Issue #12298
+  - Added new tool [filterElements.py](Tools/Xml.md#filterelementspy) to filter elements from an xml file (either all instances or filtered by attribute value). Issue #12304
   - plotXMLAttributes.py
     - can now plot data without assigning ids to the data points. Issue #11969
     - can now plot categorical (non-numerical) data and also a mix of data types. Issue #11970, #11976
