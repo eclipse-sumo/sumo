@@ -17,9 +17,7 @@ Warning: 3 total messages of type: Lane '%' is not connected from any incoming e
 Warning: 3 total messages of type: Shape for junction '%' has distance % to its given position.
 Warning: 4 total messages of type: The rail crossing '%' does not have any roads.
 Warning: Non-static traffic light 'cluster_1599656332_6994510228_6994510229' does not define variable phase length.
-Warning: Non-static traffic light 'cluster_167874644_167874669_1907460195' does not define variable phase length.
-Warning: Non-static traffic light 'cluster_1820622388_1929543239_2078713441_2078713444_2078713447_2078713448_21432472_5101431876_6700271646_6700271647_6700271648_6700271649' does not define variable phase length.
-Warning: Non-static traffic light 'cluster_234120413_2663195253_344890128' does not define variable phase length.
+Warning: 4 total messages of type: Non-static traffic light '%' does not define variable phase length.
 Warning! No mapping library found, falling back to tracemapper.
 Warning! Disconnected route '257596' between '319292807' and '107701626', no path found. Keeping longer part.
 Warning! Disconnected route '257696.trimmed' between '319292807' and '107701626', no path found. Keeping longer part.

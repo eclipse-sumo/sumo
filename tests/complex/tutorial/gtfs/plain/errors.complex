@@ -23,16 +23,12 @@ Warning: Found sharp turn with radius 5.47 at the start of edge '204836052'.
 Warning: Shape for junction '27379359' has distance 33.70 to its given position.
 Warning: Lane '798253296_0' is not connected from any incoming edge at junction '7465967545'.
 Warning: Non-static traffic light '1234644037' does not define variable phase length.
-Warning: Non-static traffic light '2481301522' does not define variable phase length.
-Warning: Non-static traffic light '296091316' does not define variable phase length.
-Warning: Non-static traffic light 'cluster_1599656332_6994510228_6994510229' does not define variable phase length.
-Warning: Non-static traffic light 'cluster_21483449_296092567_382717803' does not define variable phase length.
-Warning: Non-static traffic light 'cluster_60345087_60345088' does not define variable phase length.
 Warning: 6 total messages of type: Ambiguity in turnarounds computation at junction '%'.
 Warning: 12 total messages of type: Found angle of % degrees at edge '%', segment %.
 Warning: 9 total messages of type: Found sharp turn with radius % at the end of edge '%'.
 Warning: 11 total messages of type: Found sharp turn with radius % at the start of edge '%'.
 Warning: 4 total messages of type: Lane '%' is not connected from any incoming edge at junction '%'.
+Warning: 6 total messages of type: Non-static traffic light '%' does not define variable phase length.
 Warning: Shape for junction '246767394' has distance 84.10 to its given position.
 Warning: Lane '-22956462_0' is not connected from any incoming edge at junction '247340717'.
 Warning: 2 total messages of type: Shape for junction '%' has distance % to its given position.
@@ -42,9 +38,7 @@ Warning: Lane '-22956462_0' is not connected from any incoming edge at junction 
 Warning: 4 total messages of type: Ambiguity in turnarounds computation at junction '%'.
 Warning: 2 total messages of type: Shape for junction '%' has distance % to its given position.
 Warning: Non-static traffic light 'cluster_1599656332_6994510228_6994510229' does not define variable phase length.
-Warning: Non-static traffic light 'cluster_167874644_167874669_1907460195' does not define variable phase length.
-Warning: Non-static traffic light 'cluster_1820622388_1929543239_2078713441_2078713444_2078713447_2078713448_21432472_5101431876_6700271646_6700271647_6700271648_6700271649' does not define variable phase length.
-Warning: Non-static traffic light 'cluster_234120413_2663195253_344890128' does not define variable phase length.
+Warning: 4 total messages of type: Non-static traffic light '%' does not define variable phase length.
 Warning! No mapping library found, falling back to tracemapper.
 Warning! Disconnected route '109241' between '-35630851#3' and '-38416189#0', no path found. Keeping longer part.
 Warning! Disconnected route '109242' between '38416189#0' and '35630851#3', no path found. Keeping longer part.
