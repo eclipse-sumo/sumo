@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-12-04 17:48:44 by Eclipse SUMO sumo Version v1_15_0+0751-db72905
+<!-- generated on 2022-12-20 19:46:07 by Eclipse SUMO sumo Version v1_15_0+1165-6058f1d
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -26,7 +26,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="49623"/>
+        <remote-port value="47994"/>
     </traci_server>
 
 </configuration>
@@ -86,36 +86,36 @@
     <timestep time="2.60">
         <vehicle id="follow" x="21.67" y="-1.60" angle="90.00" type="tFollow" speed="9.07" pos="21.67" lane="E_1" slope="0.00" signals="9"/>
         <vehicle id="lead" x="31.10" y="-4.80" angle="90.00" type="tLead" speed="10.00" pos="31.10" lane="E_0" slope="0.00" signals="0"/>
-        <vehicle id="neighFollow" x="10.84" y="-4.80" angle="90.00" type="tLead" speed="9.62" pos="10.84" lane="E_0" slope="0.00" signals="0"/>
+        <vehicle id="neighFollow" x="10.74" y="-4.80" angle="90.00" type="tLead" speed="9.10" pos="10.74" lane="E_0" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="2.80">
         <vehicle id="follow" x="23.40" y="-1.60" angle="90.00" type="tFollow" speed="8.68" pos="23.40" lane="E_1" slope="0.00" signals="9"/>
         <vehicle id="lead" x="33.10" y="-4.80" angle="90.00" type="tLead" speed="10.00" pos="33.10" lane="E_0" slope="0.00" signals="0"/>
-        <vehicle id="neighFollow" x="12.59" y="-4.80" angle="90.00" type="tLead" speed="8.72" pos="12.59" lane="E_0" slope="0.00" signals="8"/>
+        <vehicle id="neighFollow" x="12.38" y="-4.80" angle="90.00" type="tLead" speed="8.20" pos="12.38" lane="E_0" slope="0.00" signals="8"/>
     </timestep>
     <timestep time="3.00">
         <vehicle id="follow" x="25.06" y="-1.60" angle="90.00" type="tFollow" speed="8.29" pos="25.06" lane="E_1" slope="0.00" signals="9"/>
         <vehicle id="lead" x="35.10" y="-4.80" angle="90.00" type="tLead" speed="10.00" pos="35.10" lane="E_0" slope="0.00" signals="0"/>
-        <vehicle id="neighFollow" x="14.44" y="-4.80" angle="90.00" type="tLead" speed="9.24" pos="14.44" lane="E_0" slope="0.00" signals="0"/>
+        <vehicle id="neighFollow" x="14.02" y="-4.80" angle="90.00" type="tLead" speed="8.20" pos="14.02" lane="E_0" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="3.20">
         <vehicle id="follow" x="26.64" y="-1.60" angle="90.00" type="tFollow" speed="7.90" pos="26.64" lane="E_1" slope="0.00" signals="9"/>
         <vehicle id="lead" x="37.10" y="-4.80" angle="90.00" type="tLead" speed="10.00" pos="37.10" lane="E_0" slope="0.00" signals="0"/>
-        <vehicle id="neighFollow" x="16.10" y="-4.80" angle="90.00" type="tLead" speed="8.34" pos="16.10" lane="E_0" slope="0.00" signals="8"/>
+        <vehicle id="neighFollow" x="15.48" y="-4.80" angle="90.00" type="tLead" speed="7.30" pos="15.48" lane="E_0" slope="0.00" signals="8"/>
     </timestep>
     <timestep time="3.40">
         <vehicle id="follow" x="28.14" y="-1.60" angle="90.00" type="tFollow" speed="7.51" pos="28.14" lane="E_1" slope="0.00" signals="9"/>
         <vehicle id="lead" x="39.10" y="-4.80" angle="90.00" type="tLead" speed="10.00" pos="39.10" lane="E_0" slope="0.00" signals="0"/>
-        <vehicle id="neighFollow" x="17.88" y="-4.80" angle="90.00" type="tLead" speed="8.86" pos="17.88" lane="E_0" slope="0.00" signals="0"/>
+        <vehicle id="neighFollow" x="16.94" y="-4.80" angle="90.00" type="tLead" speed="7.30" pos="16.94" lane="E_0" slope="0.00" signals="0"/>
     </timestep>
     <timestep time="3.60">
         <vehicle id="follow" x="29.68" y="-4.80" angle="90.00" type="tFollow" speed="7.71" pos="29.68" lane="E_0" slope="0.00" signals="1"/>
         <vehicle id="lead" x="41.10" y="-4.80" angle="90.00" type="tLead" speed="10.00" pos="41.10" lane="E_0" slope="0.00" signals="0"/>
-        <vehicle id="neighFollow" x="19.47" y="-4.80" angle="90.00" type="tLead" speed="7.96" pos="19.47" lane="E_0" slope="0.00" signals="8"/>
+        <vehicle id="neighFollow" x="18.22" y="-4.80" angle="90.00" type="tLead" speed="6.40" pos="18.22" lane="E_0" slope="0.00" signals="8"/>
     </timestep>
     <timestep time="3.80">
         <vehicle id="follow" x="31.26" y="-4.80" angle="90.00" type="tFollow" speed="7.89" pos="31.26" lane="E_0" slope="0.00" signals="0"/>
         <vehicle id="lead" x="43.10" y="-4.80" angle="90.00" type="tLead" speed="10.00" pos="43.10" lane="E_0" slope="0.00" signals="0"/>
-        <vehicle id="neighFollow" x="20.88" y="-4.80" angle="90.00" type="tLead" speed="7.06" pos="20.88" lane="E_0" slope="0.00" signals="8"/>
+        <vehicle id="neighFollow" x="19.46" y="-4.80" angle="90.00" type="tLead" speed="6.18" pos="19.46" lane="E_0" slope="0.00" signals="8"/>
     </timestep>
 </fcd-export>
