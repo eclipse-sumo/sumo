@@ -25,4 +25,3 @@ Warning: 11 total messages of type: Found sharp turn with radius % at the start 
 Warning: 2 total messages of type: Lane '%' is not connected from any incoming edge at junction '%'.
 Warning: 2 total messages of type: Shape for junction '%' has distance % to its given position.
 Warning! No mapping library found, falling back to tracemapper.
-Warning! Disconnected route '132189814' between '319583928#3' and '-171756596', no path found. Keeping longer part.

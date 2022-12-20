@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-12-19 12:03:47.333017 by gtfs2pt.py v1_15_0+1111-8d856e14137
+<!-- generated on 2022-12-20 08:04:25.229319 by gtfs2pt.py v1_15_0+1141-c5fc4407cd1
 <configuration>
     <date value="20160713"/>
     <gtfs value="https://sumo.dlr.de/daily/GTFS_VBB_Juni-Dezember-2016.zip"/>
@@ -33,7 +33,7 @@
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="280860.0" route="280860" type="bus" depart="24950" line="280860">
+    <vehicle id="280860.0" route="109244" type="bus" depart="24950" line="109244">
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
@@ -165,11 +165,11 @@
         <param key="gtfs.route_name" value="735"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="109258.0" route="109258" type="bus" depart="53570" line="109258">
+    <vehicle id="109258.0" route="109254" type="bus" depart="53570" line="109254">
         <param key="gtfs.route_name" value="735"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="109259.0" route="109258" type="bus" depart="57170" line="109258">
+    <vehicle id="109259.0" route="109254" type="bus" depart="57170" line="109254">
         <param key="gtfs.route_name" value="735"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
@@ -297,7 +297,7 @@
         <param key="gtfs.route_name" value="736"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="281695.0" route="281695" type="bus" depart="26930" line="281695">
+    <vehicle id="281695.0" route="281396" type="bus" depart="26930" line="281396">
         <param key="gtfs.route_name" value="736"/>
         <param key="gtfs.trip_headsign" value="S Wildau"/>
     </vehicle>
@@ -521,7 +521,7 @@
         <param key="gtfs.route_name" value="428"/>
         <param key="gtfs.trip_headsign" value="Erkner Am Rund"/>
     </vehicle>
-    <vehicle id="280228.0" route="2437" type="bus" depart="22850" line="2437">
+    <vehicle id="280228.0" route="2437" type="bus" depart="22670" line="2437">
         <param key="gtfs.route_name" value="428"/>
         <param key="gtfs.trip_headsign" value="Ziegenhals Neubau"/>
     </vehicle>
@@ -529,7 +529,7 @@
         <param key="gtfs.route_name" value="428"/>
         <param key="gtfs.trip_headsign" value="S Erkner Bhf/ZOB"/>
     </vehicle>
-    <vehicle id="282229.0" route="282229" type="bus" depart="45890" line="282229">
+    <vehicle id="282229.0" route="2437" type="bus" depart="45890" line="2437">
         <param key="gtfs.route_name" value="428"/>
         <param key="gtfs.trip_headsign" value="Ziegenhals Neubau"/>
     </vehicle>
@@ -537,7 +537,7 @@
         <param key="gtfs.route_name" value="428"/>
         <param key="gtfs.trip_headsign" value="S Erkner Bhf/ZOB"/>
     </vehicle>
-    <vehicle id="282554.0" route="282554" type="bus" depart="48950" line="282554">
+    <vehicle id="282554.0" route="2437" type="bus" depart="48950" line="2437">
         <param key="gtfs.route_name" value="428"/>
         <param key="gtfs.trip_headsign" value="Ziegenhals Neubau"/>
     </vehicle>
@@ -545,15 +545,15 @@
         <param key="gtfs.route_name" value="428"/>
         <param key="gtfs.trip_headsign" value="S Erkner Bhf/ZOB"/>
     </vehicle>
-    <vehicle id="283211.0" route="282554" type="bus" depart="52550" line="282554">
+    <vehicle id="283211.0" route="2437" type="bus" depart="52550" line="2437">
         <param key="gtfs.route_name" value="428"/>
         <param key="gtfs.trip_headsign" value="Ziegenhals Neubau"/>
     </vehicle>
-    <vehicle id="283212.0" route="283212" type="bus" depart="53570" line="283212">
+    <vehicle id="283212.0" route="280229" type="bus" depart="53570" line="280229">
         <param key="gtfs.route_name" value="428"/>
         <param key="gtfs.trip_headsign" value="S Erkner Bhf/ZOB"/>
     </vehicle>
-    <vehicle id="283703.0" route="283703" type="bus" depart="56870" line="283703">
+    <vehicle id="283703.0" route="2437" type="bus" depart="56870" line="2437">
         <param key="gtfs.route_name" value="428"/>
         <param key="gtfs.trip_headsign" value="Ziegenhals Neubau"/>
     </vehicle>
@@ -917,7 +917,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="152007.0" route="151987" type="bus" depart="23270" line="151987">
+    <vehicle id="152007.0" route="151987" type="bus" depart="23330" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -925,7 +925,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="152011.0" route="151987" type="bus" depart="24470" line="151987">
+    <vehicle id="152011.0" route="151987" type="bus" depart="24530" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -933,7 +933,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="152015.0" route="151987" type="bus" depart="25670" line="151987">
+    <vehicle id="152015.0" route="151987" type="bus" depart="25730" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -941,7 +941,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="152019.0" route="151987" type="bus" depart="26870" line="151987">
+    <vehicle id="152019.0" route="151987" type="bus" depart="26930" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -949,7 +949,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="152023.0" route="151987" type="bus" depart="28070" line="151987">
+    <vehicle id="152023.0" route="151987" type="bus" depart="28130" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -957,7 +957,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="152027.0" route="151987" type="bus" depart="29270" line="151987">
+    <vehicle id="152027.0" route="151987" type="bus" depart="29330" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -965,7 +965,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="152031.0" route="151987" type="bus" depart="30470" line="151987">
+    <vehicle id="152031.0" route="151987" type="bus" depart="30530" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -973,7 +973,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="152035.0" route="151987" type="bus" depart="31670" line="151987">
+    <vehicle id="152035.0" route="151987" type="bus" depart="31730" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -981,7 +981,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="152039.0" route="151987" type="bus" depart="32870" line="151987">
+    <vehicle id="152039.0" route="151987" type="bus" depart="32930" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -989,7 +989,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="152043.0" route="151987" type="bus" depart="34070" line="151987">
+    <vehicle id="152043.0" route="151987" type="bus" depart="34130" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -997,7 +997,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="152047.0" route="151987" type="bus" depart="35270" line="151987">
+    <vehicle id="152047.0" route="151987" type="bus" depart="35330" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -1005,7 +1005,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="152051.0" route="151987" type="bus" depart="36470" line="151987">
+    <vehicle id="152051.0" route="151987" type="bus" depart="36530" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -1013,7 +1013,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="152055.0" route="151987" type="bus" depart="37670" line="151987">
+    <vehicle id="152055.0" route="151987" type="bus" depart="37730" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -1021,7 +1021,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="152059.0" route="151987" type="bus" depart="38870" line="151987">
+    <vehicle id="152059.0" route="151987" type="bus" depart="38930" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -1029,7 +1029,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="152063.0" route="151987" type="bus" depart="40070" line="151987">
+    <vehicle id="152063.0" route="151987" type="bus" depart="40130" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -1037,7 +1037,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="152067.0" route="151987" type="bus" depart="41270" line="151987">
+    <vehicle id="152067.0" route="151987" type="bus" depart="41330" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -1045,7 +1045,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="152071.0" route="151987" type="bus" depart="42470" line="151987">
+    <vehicle id="152071.0" route="151987" type="bus" depart="42530" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -1053,7 +1053,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="152075.0" route="151987" type="bus" depart="43670" line="151987">
+    <vehicle id="152075.0" route="151987" type="bus" depart="43730" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -1061,7 +1061,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="152079.0" route="151987" type="bus" depart="44870" line="151987">
+    <vehicle id="152079.0" route="151987" type="bus" depart="44930" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -1069,7 +1069,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="152083.0" route="151987" type="bus" depart="46070" line="151987">
+    <vehicle id="152083.0" route="151987" type="bus" depart="46130" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -1077,7 +1077,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="152087.0" route="151987" type="bus" depart="47270" line="151987">
+    <vehicle id="152087.0" route="151987" type="bus" depart="47330" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -1085,7 +1085,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="152091.0" route="151987" type="bus" depart="48470" line="151987">
+    <vehicle id="152091.0" route="151987" type="bus" depart="48530" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -1093,7 +1093,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="152095.0" route="151987" type="bus" depart="49670" line="151987">
+    <vehicle id="152095.0" route="151987" type="bus" depart="49730" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -1101,7 +1101,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="152099.0" route="151987" type="bus" depart="50870" line="151987">
+    <vehicle id="152099.0" route="151987" type="bus" depart="50930" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -1109,7 +1109,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="152103.0" route="151987" type="bus" depart="52070" line="151987">
+    <vehicle id="152103.0" route="151987" type="bus" depart="52130" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -1117,7 +1117,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="152107.0" route="151987" type="bus" depart="66470" line="151987">
+    <vehicle id="152107.0" route="151987" type="bus" depart="66530" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -1125,7 +1125,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="152111.0" route="151987" type="bus" depart="68870" line="151987">
+    <vehicle id="152111.0" route="151987" type="bus" depart="68930" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -1133,7 +1133,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="152115.0" route="151987" type="bus" depart="70070" line="151987">
+    <vehicle id="152115.0" route="151987" type="bus" depart="70130" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -1141,7 +1141,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="152119.0" route="151987" type="bus" depart="55430" line="151987">
+    <vehicle id="152119.0" route="151987" type="bus" depart="55490" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -1149,7 +1149,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="152123.0" route="151987" type="bus" depart="56630" line="151987">
+    <vehicle id="152123.0" route="151987" type="bus" depart="56690" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -1157,7 +1157,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="152127.0" route="151987" type="bus" depart="57830" line="151987">
+    <vehicle id="152127.0" route="151987" type="bus" depart="57890" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -1165,7 +1165,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="152131.0" route="151987" type="bus" depart="59030" line="151987">
+    <vehicle id="152131.0" route="151987" type="bus" depart="59090" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -1173,7 +1173,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="152135.0" route="151987" type="bus" depart="60230" line="151987">
+    <vehicle id="152135.0" route="151987" type="bus" depart="60290" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -1181,7 +1181,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="152139.0" route="151987" type="bus" depart="61430" line="151987">
+    <vehicle id="152139.0" route="151987" type="bus" depart="61490" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -1189,7 +1189,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="152143.0" route="151987" type="bus" depart="62630" line="151987">
+    <vehicle id="152143.0" route="151987" type="bus" depart="62690" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -1273,7 +1273,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="22864.0" route="151987" type="bus" depart="22070" line="151987">
+    <vehicle id="22864.0" route="151987" type="bus" depart="22130" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -1281,7 +1281,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="22868.0" route="151987" type="bus" depart="65150" line="151987">
+    <vehicle id="22868.0" route="151987" type="bus" depart="65210" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -1289,7 +1289,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="22872.0" route="151987" type="bus" depart="67670" line="151987">
+    <vehicle id="22872.0" route="151987" type="bus" depart="67730" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -1297,7 +1297,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="22876.0" route="151987" type="bus" depart="53270" line="151987">
+    <vehicle id="22876.0" route="151987" type="bus" depart="53330" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -1305,7 +1305,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="22880.0" route="151987" type="bus" depart="63830" line="151987">
+    <vehicle id="22880.0" route="151987" type="bus" depart="63890" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -1313,7 +1313,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="22884.0" route="151987" type="bus" depart="71390" line="151987">
+    <vehicle id="22884.0" route="151987" type="bus" depart="71450" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -1321,7 +1321,7 @@
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Adlershof"/>
     </vehicle>
-    <vehicle id="22888.0" route="151987" type="bus" depart="54230" line="151987">
+    <vehicle id="22888.0" route="151987" type="bus" depart="54290" line="151987">
         <param key="gtfs.route_name" value="163"/>
         <param key="gtfs.trip_headsign" value="S Schöneweide via S Grünau"/>
     </vehicle>
@@ -2689,7 +2689,7 @@
         <param key="gtfs.route_name" value="N69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="54217.0" route="54217" type="bus" depart="15410" line="54217">
+    <vehicle id="54217.0" route="236831" type="bus" depart="15410" line="236831">
         <param key="gtfs.route_name" value="N69"/>
         <param key="gtfs.trip_headsign" value="U Elsterwerdaer Platz"/>
     </vehicle>
@@ -2749,79 +2749,79 @@
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="246826.0" route="246782" type="bus" depart="67850" line="246782">
+    <vehicle id="246826.0" route="246782" type="bus" depart="67610" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="246828.0" route="246782" type="bus" depart="70250" line="246782">
+    <vehicle id="246828.0" route="246782" type="bus" depart="70010" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="246830.0" route="246782" type="bus" depart="71450" line="246782">
+    <vehicle id="246830.0" route="246782" type="bus" depart="71210" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="246832.0" route="246782" type="bus" depart="72650" line="246782">
+    <vehicle id="246832.0" route="246782" type="bus" depart="72410" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="246834.0" route="246782" type="bus" depart="36650" line="246782">
+    <vehicle id="246834.0" route="246782" type="bus" depart="36410" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="246836.0" route="246782" type="bus" depart="37850" line="246782">
+    <vehicle id="246836.0" route="246782" type="bus" depart="37610" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="246838.0" route="246782" type="bus" depart="39050" line="246782">
+    <vehicle id="246838.0" route="246782" type="bus" depart="38810" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="246840.0" route="246782" type="bus" depart="40250" line="246782">
+    <vehicle id="246840.0" route="246782" type="bus" depart="40010" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="246842.0" route="246782" type="bus" depart="41450" line="246782">
+    <vehicle id="246842.0" route="246782" type="bus" depart="41210" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="246844.0" route="246782" type="bus" depart="42650" line="246782">
+    <vehicle id="246844.0" route="246782" type="bus" depart="42410" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="246846.0" route="246782" type="bus" depart="43850" line="246782">
+    <vehicle id="246846.0" route="246782" type="bus" depart="43610" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="246848.0" route="246782" type="bus" depart="45050" line="246782">
+    <vehicle id="246848.0" route="246782" type="bus" depart="44810" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="246850.0" route="246782" type="bus" depart="46250" line="246782">
+    <vehicle id="246850.0" route="246782" type="bus" depart="46010" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="246852.0" route="246782" type="bus" depart="47450" line="246782">
+    <vehicle id="246852.0" route="246782" type="bus" depart="47210" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="246854.0" route="246782" type="bus" depart="48650" line="246782">
+    <vehicle id="246854.0" route="246782" type="bus" depart="48410" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="246856.0" route="246782" type="bus" depart="49850" line="246782">
+    <vehicle id="246856.0" route="246782" type="bus" depart="49610" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="246858.0" route="246782" type="bus" depart="51050" line="246782">
+    <vehicle id="246858.0" route="246782" type="bus" depart="50810" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="246860.0" route="246782" type="bus" depart="52250" line="246782">
+    <vehicle id="246860.0" route="246782" type="bus" depart="52010" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="246862.0" route="246782" type="bus" depart="65270" line="246782">
+    <vehicle id="246862.0" route="246782" type="bus" depart="65210" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
@@ -2889,119 +2889,119 @@
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Alt-Müggelheim"/>
     </vehicle>
-    <vehicle id="247024.0" route="246972" type="bus" depart="32270" line="246972">
+    <vehicle id="247024.0" route="246972" type="bus" depart="32210" line="246972">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Alt-Müggelheim"/>
     </vehicle>
-    <vehicle id="247026.0" route="246972" type="bus" depart="33470" line="246972">
+    <vehicle id="247026.0" route="246972" type="bus" depart="33410" line="246972">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Alt-Müggelheim"/>
     </vehicle>
-    <vehicle id="247028.0" route="246972" type="bus" depart="67070" line="246972">
+    <vehicle id="247028.0" route="246972" type="bus" depart="67010" line="246972">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Alt-Müggelheim"/>
     </vehicle>
-    <vehicle id="247030.0" route="246972" type="bus" depart="68270" line="246972">
+    <vehicle id="247030.0" route="246972" type="bus" depart="68210" line="246972">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Alt-Müggelheim"/>
     </vehicle>
-    <vehicle id="247032.0" route="246972" type="bus" depart="69470" line="246972">
+    <vehicle id="247032.0" route="246972" type="bus" depart="69410" line="246972">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Alt-Müggelheim"/>
     </vehicle>
-    <vehicle id="247034.0" route="246972" type="bus" depart="70670" line="246972">
+    <vehicle id="247034.0" route="246972" type="bus" depart="70610" line="246972">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Alt-Müggelheim"/>
     </vehicle>
-    <vehicle id="247036.0" route="246972" type="bus" depart="71870" line="246972">
+    <vehicle id="247036.0" route="246972" type="bus" depart="71810" line="246972">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Alt-Müggelheim"/>
     </vehicle>
-    <vehicle id="247038.0" route="246972" type="bus" depart="35870" line="246972">
+    <vehicle id="247038.0" route="246972" type="bus" depart="35810" line="246972">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Alt-Müggelheim"/>
     </vehicle>
-    <vehicle id="247040.0" route="246972" type="bus" depart="37070" line="246972">
+    <vehicle id="247040.0" route="246972" type="bus" depart="37010" line="246972">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Alt-Müggelheim"/>
     </vehicle>
-    <vehicle id="247042.0" route="246972" type="bus" depart="38270" line="246972">
+    <vehicle id="247042.0" route="246972" type="bus" depart="38210" line="246972">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Alt-Müggelheim"/>
     </vehicle>
-    <vehicle id="247044.0" route="246972" type="bus" depart="39470" line="246972">
+    <vehicle id="247044.0" route="246972" type="bus" depart="39410" line="246972">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Alt-Müggelheim"/>
     </vehicle>
-    <vehicle id="247046.0" route="246972" type="bus" depart="40670" line="246972">
+    <vehicle id="247046.0" route="246972" type="bus" depart="40610" line="246972">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Alt-Müggelheim"/>
     </vehicle>
-    <vehicle id="247048.0" route="246972" type="bus" depart="41870" line="246972">
+    <vehicle id="247048.0" route="246972" type="bus" depart="41810" line="246972">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Alt-Müggelheim"/>
     </vehicle>
-    <vehicle id="247050.0" route="246972" type="bus" depart="43070" line="246972">
+    <vehicle id="247050.0" route="246972" type="bus" depart="43010" line="246972">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Alt-Müggelheim"/>
     </vehicle>
-    <vehicle id="247052.0" route="246972" type="bus" depart="44270" line="246972">
+    <vehicle id="247052.0" route="246972" type="bus" depart="44210" line="246972">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Alt-Müggelheim"/>
     </vehicle>
-    <vehicle id="247054.0" route="246972" type="bus" depart="45470" line="246972">
+    <vehicle id="247054.0" route="246972" type="bus" depart="45410" line="246972">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Alt-Müggelheim"/>
     </vehicle>
-    <vehicle id="247056.0" route="246972" type="bus" depart="46670" line="246972">
+    <vehicle id="247056.0" route="246972" type="bus" depart="46610" line="246972">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Alt-Müggelheim"/>
     </vehicle>
-    <vehicle id="247058.0" route="246972" type="bus" depart="47870" line="246972">
+    <vehicle id="247058.0" route="246972" type="bus" depart="47810" line="246972">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Alt-Müggelheim"/>
     </vehicle>
-    <vehicle id="247060.0" route="246972" type="bus" depart="49070" line="246972">
+    <vehicle id="247060.0" route="246972" type="bus" depart="49010" line="246972">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Alt-Müggelheim"/>
     </vehicle>
-    <vehicle id="247062.0" route="246972" type="bus" depart="50270" line="246972">
+    <vehicle id="247062.0" route="246972" type="bus" depart="50210" line="246972">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Alt-Müggelheim"/>
     </vehicle>
-    <vehicle id="247064.0" route="246972" type="bus" depart="51470" line="246972">
+    <vehicle id="247064.0" route="246972" type="bus" depart="51410" line="246972">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Alt-Müggelheim"/>
     </vehicle>
-    <vehicle id="247080.0" route="247080" type="bus" depart="18050" line="247080">
+    <vehicle id="247080.0" route="246782" type="bus" depart="18170" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="247100.0" route="247100" type="bus" depart="78830" line="247100">
+    <vehicle id="247100.0" route="246782" type="bus" depart="78950" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="247102.0" route="247100" type="bus" depart="80030" line="247100">
+    <vehicle id="247102.0" route="246782" type="bus" depart="80150" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="247104.0" route="247100" type="bus" depart="81230" line="247100">
+    <vehicle id="247104.0" route="246782" type="bus" depart="81350" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="247106.0" route="247100" type="bus" depart="82430" line="247100">
+    <vehicle id="247106.0" route="246782" type="bus" depart="82550" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="247108.0" route="247100" type="bus" depart="83630" line="247100">
+    <vehicle id="247108.0" route="246782" type="bus" depart="83750" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="247110.0" route="247100" type="bus" depart="84830" line="247100">
+    <vehicle id="247110.0" route="246782" type="bus" depart="84950" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="247112.0" route="247100" type="bus" depart="86030" line="247100">
+    <vehicle id="247112.0" route="246782" type="bus" depart="86150" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
@@ -3293,35 +3293,35 @@
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="247392.0" route="247392" type="bus" depart="75170" line="247392">
+    <vehicle id="247392.0" route="247114" type="bus" depart="75170" line="247114">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="U Elsterwerdaer Platz"/>
     </vehicle>
-    <vehicle id="247394.0" route="247392" type="bus" depart="76370" line="247392">
+    <vehicle id="247394.0" route="247114" type="bus" depart="76370" line="247114">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="U Elsterwerdaer Platz"/>
     </vehicle>
-    <vehicle id="247396.0" route="247392" type="bus" depart="77570" line="247392">
+    <vehicle id="247396.0" route="247114" type="bus" depart="77570" line="247114">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="U Elsterwerdaer Platz"/>
     </vehicle>
-    <vehicle id="247398.0" route="247392" type="bus" depart="78770" line="247392">
+    <vehicle id="247398.0" route="247114" type="bus" depart="78770" line="247114">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="U Elsterwerdaer Platz"/>
     </vehicle>
-    <vehicle id="247400.0" route="247392" type="bus" depart="79970" line="247392">
+    <vehicle id="247400.0" route="247114" type="bus" depart="79970" line="247114">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="U Elsterwerdaer Platz"/>
     </vehicle>
-    <vehicle id="247402.0" route="247392" type="bus" depart="81170" line="247392">
+    <vehicle id="247402.0" route="247114" type="bus" depart="81170" line="247114">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="U Elsterwerdaer Platz"/>
     </vehicle>
-    <vehicle id="247404.0" route="247392" type="bus" depart="82370" line="247392">
+    <vehicle id="247404.0" route="247114" type="bus" depart="82370" line="247114">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="U Elsterwerdaer Platz"/>
     </vehicle>
-    <vehicle id="247406.0" route="247392" type="bus" depart="83570" line="247392">
+    <vehicle id="247406.0" route="247114" type="bus" depart="83570" line="247114">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="U Elsterwerdaer Platz"/>
     </vehicle>
@@ -3333,51 +3333,51 @@
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="61116.0" route="246782" type="bus" depart="22250" line="246782">
+    <vehicle id="61116.0" route="246782" type="bus" depart="22070" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="61118.0" route="246782" type="bus" depart="53450" line="246782">
+    <vehicle id="61118.0" route="246782" type="bus" depart="53270" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="61122.0" route="246782" type="bus" depart="34250" line="246782">
+    <vehicle id="61122.0" route="246782" type="bus" depart="34010" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="61124.0" route="246782" type="bus" depart="69050" line="246782">
+    <vehicle id="61124.0" route="246782" type="bus" depart="68810" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="61126.0" route="246782" type="bus" depart="73250" line="246782">
+    <vehicle id="61126.0" route="246782" type="bus" depart="73010" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="61128.0" route="246782" type="bus" depart="35450" line="246782">
+    <vehicle id="61128.0" route="246782" type="bus" depart="35210" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="61130.0" route="246782" type="bus" depart="32990" line="246782">
+    <vehicle id="61130.0" route="246782" type="bus" depart="32810" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="61132.0" route="246782" type="bus" depart="54590" line="246782">
+    <vehicle id="61132.0" route="246782" type="bus" depart="54470" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="61134.0" route="246782" type="bus" depart="66530" line="246782">
+    <vehicle id="61134.0" route="246782" type="bus" depart="66410" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="61136.0" route="246782" type="bus" depart="21290" line="246782">
+    <vehicle id="61136.0" route="246782" type="bus" depart="20810" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="61138.0" route="246782" type="bus" depart="31670" line="246782">
+    <vehicle id="61138.0" route="246782" type="bus" depart="31610" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="61148.0" route="246782" type="bus" depart="74450" line="246782">
+    <vehicle id="61148.0" route="246782" type="bus" depart="74150" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
@@ -3393,43 +3393,43 @@
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Alt-Müggelheim"/>
     </vehicle>
-    <vehicle id="61172.0" route="246972" type="bus" depart="31070" line="246972">
+    <vehicle id="61172.0" route="246972" type="bus" depart="31010" line="246972">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Alt-Müggelheim"/>
     </vehicle>
-    <vehicle id="61174.0" route="246972" type="bus" depart="65870" line="246972">
+    <vehicle id="61174.0" route="246972" type="bus" depart="65810" line="246972">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Alt-Müggelheim"/>
     </vehicle>
-    <vehicle id="61176.0" route="246972" type="bus" depart="34670" line="246972">
+    <vehicle id="61176.0" route="246972" type="bus" depart="34610" line="246972">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Alt-Müggelheim"/>
     </vehicle>
-    <vehicle id="61178.0" route="246972" type="bus" depart="20270" line="246972">
+    <vehicle id="61178.0" route="246972" type="bus" depart="19970" line="246972">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Alt-Müggelheim"/>
     </vehicle>
-    <vehicle id="61180.0" route="246972" type="bus" depart="19070" line="246972">
+    <vehicle id="61180.0" route="246972" type="bus" depart="18770" line="246972">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Alt-Müggelheim"/>
     </vehicle>
-    <vehicle id="61192.0" route="247080" type="bus" depart="16790" line="247080">
+    <vehicle id="61192.0" route="246782" type="bus" depart="16910" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="61194.0" route="247080" type="bus" depart="19250" line="247080">
+    <vehicle id="61194.0" route="246782" type="bus" depart="19370" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="61196.0" route="247100" type="bus" depart="74990" line="247100">
+    <vehicle id="61196.0" route="246782" type="bus" depart="75170" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="61204.0" route="247100" type="bus" depart="77630" line="247100">
+    <vehicle id="61204.0" route="246782" type="bus" depart="77750" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
-    <vehicle id="61206.0" route="247100" type="bus" depart="76250" line="247100">
+    <vehicle id="61206.0" route="246782" type="bus" depart="76370" line="246782">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="Müggelheim, Odernheimer Str."/>
     </vehicle>
@@ -3509,27 +3509,27 @@
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="61286.0" route="247392" type="bus" depart="71810" line="247392">
+    <vehicle id="61286.0" route="247114" type="bus" depart="71810" line="247114">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="U Elsterwerdaer Platz"/>
     </vehicle>
-    <vehicle id="61288.0" route="247392" type="bus" depart="70610" line="247392">
+    <vehicle id="61288.0" route="247114" type="bus" depart="70610" line="247114">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="U Elsterwerdaer Platz"/>
     </vehicle>
-    <vehicle id="61294.0" route="247392" type="bus" depart="73970" line="247392">
+    <vehicle id="61294.0" route="247114" type="bus" depart="73970" line="247114">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="U Elsterwerdaer Platz"/>
     </vehicle>
-    <vehicle id="61296.0" route="247392" type="bus" depart="72530" line="247392">
+    <vehicle id="61296.0" route="247114" type="bus" depart="72530" line="247114">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="U Elsterwerdaer Platz"/>
     </vehicle>
-    <vehicle id="61316.0" route="247524" type="bus" depart="84770" line="247524">
+    <vehicle id="61316.0" route="247114" type="bus" depart="84770" line="247114">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="61318.0" route="247524" type="bus" depart="85970" line="247524">
+    <vehicle id="61318.0" route="247114" type="bus" depart="85970" line="247114">
         <param key="gtfs.route_name" value="X69"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -3721,27 +3721,27 @@
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
     </vehicle>
-    <vehicle id="92683.0" route="92683" type="light_rail" depart="34970" line="92683">
+    <vehicle id="92683.0" route="92632" type="light_rail" depart="34970" line="92632">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S+U Bundesplatz (Berlin)"/>
     </vehicle>
-    <vehicle id="92684.0" route="92683" type="light_rail" depart="36170" line="92683">
+    <vehicle id="92684.0" route="92632" type="light_rail" depart="36170" line="92632">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S+U Bundesplatz (Berlin)"/>
     </vehicle>
-    <vehicle id="92685.0" route="92683" type="light_rail" depart="37370" line="92683">
+    <vehicle id="92685.0" route="92632" type="light_rail" depart="37370" line="92632">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S+U Bundesplatz (Berlin)"/>
     </vehicle>
-    <vehicle id="92686.0" route="92683" type="light_rail" depart="38570" line="92683">
+    <vehicle id="92686.0" route="92632" type="light_rail" depart="38570" line="92632">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S+U Bundesplatz (Berlin)"/>
     </vehicle>
-    <vehicle id="92687.0" route="92683" type="light_rail" depart="43370" line="92683">
+    <vehicle id="92687.0" route="92632" type="light_rail" depart="43370" line="92632">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S+U Bundesplatz (Berlin)"/>
     </vehicle>
-    <vehicle id="92688.0" route="92683" type="light_rail" depart="44570" line="92683">
+    <vehicle id="92688.0" route="92632" type="light_rail" depart="44570" line="92632">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S+U Bundesplatz (Berlin)"/>
     </vehicle>
@@ -3769,179 +3769,179 @@
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92816.0" route="92816" type="light_rail" depart="18650" line="92816">
+    <vehicle id="92816.0" route="92698" type="light_rail" depart="18650" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92817.0" route="92816" type="light_rail" depart="19850" line="92816">
+    <vehicle id="92817.0" route="92698" type="light_rail" depart="19850" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92818.0" route="92816" type="light_rail" depart="21050" line="92816">
+    <vehicle id="92818.0" route="92698" type="light_rail" depart="21050" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92819.0" route="92816" type="light_rail" depart="22250" line="92816">
+    <vehicle id="92819.0" route="92698" type="light_rail" depart="22250" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92820.0" route="92816" type="light_rail" depart="23450" line="92816">
+    <vehicle id="92820.0" route="92698" type="light_rail" depart="23450" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92821.0" route="92816" type="light_rail" depart="24650" line="92816">
+    <vehicle id="92821.0" route="92698" type="light_rail" depart="24650" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92822.0" route="92816" type="light_rail" depart="25850" line="92816">
+    <vehicle id="92822.0" route="92698" type="light_rail" depart="25850" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92823.0" route="92816" type="light_rail" depart="27050" line="92816">
+    <vehicle id="92823.0" route="92698" type="light_rail" depart="27050" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92824.0" route="92816" type="light_rail" depart="28250" line="92816">
+    <vehicle id="92824.0" route="92698" type="light_rail" depart="28250" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92825.0" route="92816" type="light_rail" depart="29450" line="92816">
+    <vehicle id="92825.0" route="92698" type="light_rail" depart="29450" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92826.0" route="92816" type="light_rail" depart="30650" line="92816">
+    <vehicle id="92826.0" route="92698" type="light_rail" depart="30650" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92827.0" route="92816" type="light_rail" depart="31850" line="92816">
+    <vehicle id="92827.0" route="92698" type="light_rail" depart="31850" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92828.0" route="92816" type="light_rail" depart="33050" line="92816">
+    <vehicle id="92828.0" route="92698" type="light_rail" depart="33050" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92829.0" route="92816" type="light_rail" depart="34250" line="92816">
+    <vehicle id="92829.0" route="92698" type="light_rail" depart="34250" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92830.0" route="92816" type="light_rail" depart="35450" line="92816">
+    <vehicle id="92830.0" route="92698" type="light_rail" depart="35450" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92831.0" route="92816" type="light_rail" depart="36650" line="92816">
+    <vehicle id="92831.0" route="92698" type="light_rail" depart="36650" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92832.0" route="92816" type="light_rail" depart="37850" line="92816">
+    <vehicle id="92832.0" route="92698" type="light_rail" depart="37850" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92833.0" route="92816" type="light_rail" depart="53450" line="92816">
+    <vehicle id="92833.0" route="92698" type="light_rail" depart="53450" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92834.0" route="92816" type="light_rail" depart="54650" line="92816">
+    <vehicle id="92834.0" route="92698" type="light_rail" depart="54650" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92835.0" route="92816" type="light_rail" depart="55850" line="92816">
+    <vehicle id="92835.0" route="92698" type="light_rail" depart="55850" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92836.0" route="92816" type="light_rail" depart="57050" line="92816">
+    <vehicle id="92836.0" route="92698" type="light_rail" depart="57050" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92837.0" route="92816" type="light_rail" depart="58250" line="92816">
+    <vehicle id="92837.0" route="92698" type="light_rail" depart="58250" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92838.0" route="92816" type="light_rail" depart="59450" line="92816">
+    <vehicle id="92838.0" route="92698" type="light_rail" depart="59450" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92839.0" route="92816" type="light_rail" depart="60650" line="92816">
+    <vehicle id="92839.0" route="92698" type="light_rail" depart="60650" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92840.0" route="92816" type="light_rail" depart="61850" line="92816">
+    <vehicle id="92840.0" route="92698" type="light_rail" depart="61850" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92841.0" route="92816" type="light_rail" depart="63050" line="92816">
+    <vehicle id="92841.0" route="92698" type="light_rail" depart="63050" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92842.0" route="92816" type="light_rail" depart="64250" line="92816">
+    <vehicle id="92842.0" route="92698" type="light_rail" depart="64250" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92843.0" route="92816" type="light_rail" depart="65450" line="92816">
+    <vehicle id="92843.0" route="92698" type="light_rail" depart="65450" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92844.0" route="92816" type="light_rail" depart="66650" line="92816">
+    <vehicle id="92844.0" route="92698" type="light_rail" depart="66650" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92845.0" route="92816" type="light_rail" depart="67850" line="92816">
+    <vehicle id="92845.0" route="92698" type="light_rail" depart="67850" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92846.0" route="92816" type="light_rail" depart="69050" line="92816">
+    <vehicle id="92846.0" route="92698" type="light_rail" depart="69050" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92847.0" route="92816" type="light_rail" depart="70250" line="92816">
+    <vehicle id="92847.0" route="92698" type="light_rail" depart="70250" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92848.0" route="92816" type="light_rail" depart="71450" line="92816">
+    <vehicle id="92848.0" route="92698" type="light_rail" depart="71450" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92849.0" route="92816" type="light_rail" depart="72650" line="92816">
+    <vehicle id="92849.0" route="92698" type="light_rail" depart="72650" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92850.0" route="92816" type="light_rail" depart="73850" line="92816">
+    <vehicle id="92850.0" route="92698" type="light_rail" depart="73850" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92851.0" route="92816" type="light_rail" depart="75050" line="92816">
+    <vehicle id="92851.0" route="92698" type="light_rail" depart="75050" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92852.0" route="92816" type="light_rail" depart="76250" line="92816">
+    <vehicle id="92852.0" route="92698" type="light_rail" depart="76250" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92853.0" route="92816" type="light_rail" depart="77450" line="92816">
+    <vehicle id="92853.0" route="92698" type="light_rail" depart="77450" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92854.0" route="92816" type="light_rail" depart="78650" line="92816">
+    <vehicle id="92854.0" route="92698" type="light_rail" depart="78650" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92855.0" route="92816" type="light_rail" depart="79850" line="92816">
+    <vehicle id="92855.0" route="92698" type="light_rail" depart="79850" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92856.0" route="92816" type="light_rail" depart="81050" line="92816">
+    <vehicle id="92856.0" route="92698" type="light_rail" depart="81050" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92857.0" route="92816" type="light_rail" depart="82250" line="92816">
+    <vehicle id="92857.0" route="92698" type="light_rail" depart="82250" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92858.0" route="92816" type="light_rail" depart="83450" line="92816">
+    <vehicle id="92858.0" route="92698" type="light_rail" depart="83450" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="92859.0" route="92859" type="light_rail" depart="17450" line="92859">
+    <vehicle id="92859.0" route="92698" type="light_rail" depart="17450" line="92698">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
@@ -3957,15 +3957,15 @@
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S Südkreuz Bhf (Berlin)"/>
     </vehicle>
-    <vehicle id="92689.0" route="92689" type="light_rail" depart="39770" line="92689">
+    <vehicle id="92689.0" route="92669" type="light_rail" depart="39770" line="92669">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S+U Bundesplatz (Berlin)"/>
     </vehicle>
-    <vehicle id="92690.0" route="92689" type="light_rail" depart="40970" line="92689">
+    <vehicle id="92690.0" route="92669" type="light_rail" depart="40970" line="92669">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S+U Bundesplatz (Berlin)"/>
     </vehicle>
-    <vehicle id="92691.0" route="92689" type="light_rail" depart="42170" line="92689">
+    <vehicle id="92691.0" route="92669" type="light_rail" depart="42170" line="92669">
         <param key="gtfs.route_name" value="S45"/>
         <param key="gtfs.trip_headsign" value="S+U Bundesplatz (Berlin)"/>
     </vehicle>
@@ -4217,7 +4217,7 @@
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="93017.0" route="93017" type="light_rail" depart="85670" line="93017">
+    <vehicle id="93017.0" route="92929" type="light_rail" depart="85670" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Charlottenburg Bhf (Berlin)"/>
     </vehicle>
@@ -4229,235 +4229,235 @@
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93285.0" route="93285" type="light_rail" depart="21470" line="93285">
+    <vehicle id="93285.0" route="93224" type="light_rail" depart="21470" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93286.0" route="93285" type="light_rail" depart="22670" line="93285">
+    <vehicle id="93286.0" route="93224" type="light_rail" depart="22670" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93287.0" route="93285" type="light_rail" depart="23870" line="93285">
+    <vehicle id="93287.0" route="93224" type="light_rail" depart="23870" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93288.0" route="93285" type="light_rail" depart="25070" line="93285">
+    <vehicle id="93288.0" route="93224" type="light_rail" depart="25070" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93289.0" route="93285" type="light_rail" depart="26270" line="93285">
+    <vehicle id="93289.0" route="93224" type="light_rail" depart="26270" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93290.0" route="93285" type="light_rail" depart="27470" line="93285">
+    <vehicle id="93290.0" route="93224" type="light_rail" depart="27470" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93291.0" route="93285" type="light_rail" depart="28670" line="93285">
+    <vehicle id="93291.0" route="93224" type="light_rail" depart="28670" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93292.0" route="93285" type="light_rail" depart="29870" line="93285">
+    <vehicle id="93292.0" route="93224" type="light_rail" depart="29870" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93293.0" route="93285" type="light_rail" depart="31070" line="93285">
+    <vehicle id="93293.0" route="93224" type="light_rail" depart="31070" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93294.0" route="93285" type="light_rail" depart="32270" line="93285">
+    <vehicle id="93294.0" route="93224" type="light_rail" depart="32270" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93295.0" route="93285" type="light_rail" depart="33470" line="93285">
+    <vehicle id="93295.0" route="93224" type="light_rail" depart="33470" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93296.0" route="93285" type="light_rail" depart="34670" line="93285">
+    <vehicle id="93296.0" route="93224" type="light_rail" depart="34670" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93297.0" route="93285" type="light_rail" depart="35870" line="93285">
+    <vehicle id="93297.0" route="93224" type="light_rail" depart="35870" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93298.0" route="93285" type="light_rail" depart="37070" line="93285">
+    <vehicle id="93298.0" route="93224" type="light_rail" depart="37070" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93299.0" route="93285" type="light_rail" depart="38270" line="93285">
+    <vehicle id="93299.0" route="93224" type="light_rail" depart="38270" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93300.0" route="93285" type="light_rail" depart="39470" line="93285">
+    <vehicle id="93300.0" route="93224" type="light_rail" depart="39470" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93301.0" route="93285" type="light_rail" depart="40670" line="93285">
+    <vehicle id="93301.0" route="93224" type="light_rail" depart="40670" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93302.0" route="93285" type="light_rail" depart="41870" line="93285">
+    <vehicle id="93302.0" route="93224" type="light_rail" depart="41870" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93303.0" route="93285" type="light_rail" depart="43070" line="93285">
+    <vehicle id="93303.0" route="93224" type="light_rail" depart="43070" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93304.0" route="93285" type="light_rail" depart="44270" line="93285">
+    <vehicle id="93304.0" route="93224" type="light_rail" depart="44270" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93305.0" route="93285" type="light_rail" depart="45470" line="93285">
+    <vehicle id="93305.0" route="93224" type="light_rail" depart="45470" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93306.0" route="93285" type="light_rail" depart="82670" line="93285">
+    <vehicle id="93306.0" route="93224" type="light_rail" depart="82670" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93307.0" route="93285" type="light_rail" depart="83870" line="93285">
+    <vehicle id="93307.0" route="93224" type="light_rail" depart="83870" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93308.0" route="93285" type="light_rail" depart="85070" line="93285">
+    <vehicle id="93308.0" route="93224" type="light_rail" depart="85070" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93309.0" route="93285" type="light_rail" depart="86270" line="93285">
+    <vehicle id="93309.0" route="93224" type="light_rail" depart="86270" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93311.0" route="93285" type="light_rail" depart="81470" line="93285">
+    <vehicle id="93311.0" route="93224" type="light_rail" depart="81470" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93312.0" route="93285" type="light_rail" depart="46670" line="93285">
+    <vehicle id="93312.0" route="93224" type="light_rail" depart="46670" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93313.0" route="93285" type="light_rail" depart="47870" line="93285">
+    <vehicle id="93313.0" route="93224" type="light_rail" depart="47870" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93314.0" route="93285" type="light_rail" depart="49070" line="93285">
+    <vehicle id="93314.0" route="93224" type="light_rail" depart="49070" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93315.0" route="93285" type="light_rail" depart="50270" line="93285">
+    <vehicle id="93315.0" route="93224" type="light_rail" depart="50270" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93316.0" route="93285" type="light_rail" depart="51470" line="93285">
+    <vehicle id="93316.0" route="93224" type="light_rail" depart="51470" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93317.0" route="93285" type="light_rail" depart="52670" line="93285">
+    <vehicle id="93317.0" route="93224" type="light_rail" depart="52670" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93318.0" route="93285" type="light_rail" depart="53870" line="93285">
+    <vehicle id="93318.0" route="93224" type="light_rail" depart="53870" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93319.0" route="93285" type="light_rail" depart="55070" line="93285">
+    <vehicle id="93319.0" route="93224" type="light_rail" depart="55070" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93320.0" route="93285" type="light_rail" depart="56270" line="93285">
+    <vehicle id="93320.0" route="93224" type="light_rail" depart="56270" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93321.0" route="93285" type="light_rail" depart="57470" line="93285">
+    <vehicle id="93321.0" route="93224" type="light_rail" depart="57470" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93322.0" route="93285" type="light_rail" depart="58670" line="93285">
+    <vehicle id="93322.0" route="93224" type="light_rail" depart="58670" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93323.0" route="93285" type="light_rail" depart="59870" line="93285">
+    <vehicle id="93323.0" route="93224" type="light_rail" depart="59870" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93324.0" route="93285" type="light_rail" depart="61070" line="93285">
+    <vehicle id="93324.0" route="93224" type="light_rail" depart="61070" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93325.0" route="93285" type="light_rail" depart="62270" line="93285">
+    <vehicle id="93325.0" route="93224" type="light_rail" depart="62270" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93326.0" route="93285" type="light_rail" depart="63470" line="93285">
+    <vehicle id="93326.0" route="93224" type="light_rail" depart="63470" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93327.0" route="93285" type="light_rail" depart="64670" line="93285">
+    <vehicle id="93327.0" route="93224" type="light_rail" depart="64670" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93328.0" route="93285" type="light_rail" depart="65870" line="93285">
+    <vehicle id="93328.0" route="93224" type="light_rail" depart="65870" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93329.0" route="93285" type="light_rail" depart="67070" line="93285">
+    <vehicle id="93329.0" route="93224" type="light_rail" depart="67070" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93330.0" route="93285" type="light_rail" depart="68270" line="93285">
+    <vehicle id="93330.0" route="93224" type="light_rail" depart="68270" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93331.0" route="93285" type="light_rail" depart="69470" line="93285">
+    <vehicle id="93331.0" route="93224" type="light_rail" depart="69470" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93332.0" route="93285" type="light_rail" depart="70670" line="93285">
+    <vehicle id="93332.0" route="93224" type="light_rail" depart="70670" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93333.0" route="93285" type="light_rail" depart="71870" line="93285">
+    <vehicle id="93333.0" route="93224" type="light_rail" depart="71870" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93334.0" route="93285" type="light_rail" depart="73070" line="93285">
+    <vehicle id="93334.0" route="93224" type="light_rail" depart="73070" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93335.0" route="93285" type="light_rail" depart="74270" line="93285">
+    <vehicle id="93335.0" route="93224" type="light_rail" depart="74270" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93336.0" route="93285" type="light_rail" depart="75470" line="93285">
+    <vehicle id="93336.0" route="93224" type="light_rail" depart="75470" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93337.0" route="93285" type="light_rail" depart="76670" line="93285">
+    <vehicle id="93337.0" route="93224" type="light_rail" depart="76670" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93338.0" route="93285" type="light_rail" depart="77870" line="93285">
+    <vehicle id="93338.0" route="93224" type="light_rail" depart="77870" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93339.0" route="93285" type="light_rail" depart="79070" line="93285">
+    <vehicle id="93339.0" route="93224" type="light_rail" depart="79070" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93340.0" route="93285" type="light_rail" depart="80270" line="93285">
+    <vehicle id="93340.0" route="93224" type="light_rail" depart="80270" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93351.0" route="93351" type="light_rail" depart="19070" line="93351">
+    <vehicle id="93351.0" route="93224" type="light_rail" depart="19070" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93352.0" route="93351" type="light_rail" depart="20270" line="93351">
+    <vehicle id="93352.0" route="93224" type="light_rail" depart="20270" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93359.0" route="93359" type="light_rail" depart="17870" line="93359">
+    <vehicle id="93359.0" route="93224" type="light_rail" depart="17870" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
@@ -4673,7 +4673,7 @@
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="96700.0" route="96700" type="light_rail" depart="18470" line="96700">
+    <vehicle id="96700.0" route="96602" type="light_rail" depart="18470" line="96602">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
@@ -4689,11 +4689,11 @@
         <param key="gtfs.route_name" value="S9"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="97015.0" route="97015" type="light_rail" depart="78050" line="97015">
+    <vehicle id="97015.0" route="96964" type="light_rail" depart="78050" line="96964">
         <param key="gtfs.route_name" value="S9"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="97016.0" route="97015" type="light_rail" depart="84050" line="97015">
+    <vehicle id="97016.0" route="96964" type="light_rail" depart="84050" line="96964">
         <param key="gtfs.route_name" value="S9"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
@@ -4925,7 +4925,7 @@
         <param key="gtfs.route_name" value="S9"/>
         <param key="gtfs.trip_headsign" value="S+U Pankow (Berlin)"/>
     </vehicle>
-    <vehicle id="96962.0" route="96962" type="light_rail" depart="72950" line="96962">
+    <vehicle id="96962.0" route="96874" type="light_rail" depart="72950" line="96874">
         <param key="gtfs.route_name" value="S9"/>
         <param key="gtfs.trip_headsign" value="S+U Pankow"/>
     </vehicle>
@@ -5149,383 +5149,383 @@
         <param key="gtfs.route_name" value="S9"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="97036.0" route="97036" type="light_rail" depart="16850" line="97036">
+    <vehicle id="97036.0" route="96969" type="light_rail" depart="16850" line="96969">
         <param key="gtfs.route_name" value="S9"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="97037.0" route="97037" type="light_rail" depart="15050" line="97037">
+    <vehicle id="97037.0" route="96969" type="light_rail" depart="15050" line="96969">
         <param key="gtfs.route_name" value="S9"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="257260.0" route="257260" type="tram" depart="77750" line="257260">
+    <vehicle id="257260.0" route="257252" type="tram" depart="77750" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257262.0" route="257260" type="tram" depart="78950" line="257260">
+    <vehicle id="257262.0" route="257252" type="tram" depart="78950" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257264.0" route="257260" type="tram" depart="82550" line="257260">
+    <vehicle id="257264.0" route="257252" type="tram" depart="82550" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257266.0" route="257260" type="tram" depart="83750" line="257260">
+    <vehicle id="257266.0" route="257252" type="tram" depart="83750" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257268.0" route="257260" type="tram" depart="84950" line="257260">
+    <vehicle id="257268.0" route="257252" type="tram" depart="84950" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257282.0" route="257260" type="tram" depart="86150" line="257260">
+    <vehicle id="257282.0" route="257252" type="tram" depart="86150" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257296.0" route="257260" type="tram" depart="21170" line="257260">
+    <vehicle id="257296.0" route="257252" type="tram" depart="21170" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257298.0" route="257260" type="tram" depart="22370" line="257260">
+    <vehicle id="257298.0" route="257252" type="tram" depart="22370" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257300.0" route="257260" type="tram" depart="23570" line="257260">
+    <vehicle id="257300.0" route="257252" type="tram" depart="23570" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257302.0" route="257260" type="tram" depart="24770" line="257260">
+    <vehicle id="257302.0" route="257252" type="tram" depart="24770" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257304.0" route="257260" type="tram" depart="25970" line="257260">
+    <vehicle id="257304.0" route="257252" type="tram" depart="25970" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257306.0" route="257260" type="tram" depart="27170" line="257260">
+    <vehicle id="257306.0" route="257252" type="tram" depart="27170" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257308.0" route="257260" type="tram" depart="28370" line="257260">
+    <vehicle id="257308.0" route="257252" type="tram" depart="28370" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257310.0" route="257260" type="tram" depart="29570" line="257260">
+    <vehicle id="257310.0" route="257252" type="tram" depart="29570" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257312.0" route="257260" type="tram" depart="30770" line="257260">
+    <vehicle id="257312.0" route="257252" type="tram" depart="30770" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257314.0" route="257260" type="tram" depart="31970" line="257260">
+    <vehicle id="257314.0" route="257252" type="tram" depart="31970" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257316.0" route="257260" type="tram" depart="33170" line="257260">
+    <vehicle id="257316.0" route="257252" type="tram" depart="33170" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257318.0" route="257260" type="tram" depart="34370" line="257260">
+    <vehicle id="257318.0" route="257252" type="tram" depart="34370" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257320.0" route="257260" type="tram" depart="35570" line="257260">
+    <vehicle id="257320.0" route="257252" type="tram" depart="35570" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257322.0" route="257260" type="tram" depart="36770" line="257260">
+    <vehicle id="257322.0" route="257252" type="tram" depart="36770" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257324.0" route="257260" type="tram" depart="37970" line="257260">
+    <vehicle id="257324.0" route="257252" type="tram" depart="37970" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257326.0" route="257260" type="tram" depart="39170" line="257260">
+    <vehicle id="257326.0" route="257252" type="tram" depart="39170" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257328.0" route="257260" type="tram" depart="40370" line="257260">
+    <vehicle id="257328.0" route="257252" type="tram" depart="40370" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257330.0" route="257260" type="tram" depart="41570" line="257260">
+    <vehicle id="257330.0" route="257252" type="tram" depart="41570" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257332.0" route="257260" type="tram" depart="42770" line="257260">
+    <vehicle id="257332.0" route="257252" type="tram" depart="42770" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257334.0" route="257260" type="tram" depart="43970" line="257260">
+    <vehicle id="257334.0" route="257252" type="tram" depart="43970" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257336.0" route="257260" type="tram" depart="45170" line="257260">
+    <vehicle id="257336.0" route="257252" type="tram" depart="45170" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257338.0" route="257260" type="tram" depart="46370" line="257260">
+    <vehicle id="257338.0" route="257252" type="tram" depart="46370" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257340.0" route="257260" type="tram" depart="47570" line="257260">
+    <vehicle id="257340.0" route="257252" type="tram" depart="47570" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257342.0" route="257260" type="tram" depart="48770" line="257260">
+    <vehicle id="257342.0" route="257252" type="tram" depart="48770" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257344.0" route="257260" type="tram" depart="49970" line="257260">
+    <vehicle id="257344.0" route="257252" type="tram" depart="49970" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257346.0" route="257260" type="tram" depart="51170" line="257260">
+    <vehicle id="257346.0" route="257252" type="tram" depart="51170" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257348.0" route="257260" type="tram" depart="52370" line="257260">
+    <vehicle id="257348.0" route="257252" type="tram" depart="52370" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257350.0" route="257260" type="tram" depart="53570" line="257260">
+    <vehicle id="257350.0" route="257252" type="tram" depart="53570" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257352.0" route="257260" type="tram" depart="54770" line="257260">
+    <vehicle id="257352.0" route="257252" type="tram" depart="54770" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257354.0" route="257260" type="tram" depart="55970" line="257260">
+    <vehicle id="257354.0" route="257252" type="tram" depart="55970" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257356.0" route="257260" type="tram" depart="57170" line="257260">
+    <vehicle id="257356.0" route="257252" type="tram" depart="57170" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257358.0" route="257260" type="tram" depart="58370" line="257260">
+    <vehicle id="257358.0" route="257252" type="tram" depart="58370" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257360.0" route="257260" type="tram" depart="59570" line="257260">
+    <vehicle id="257360.0" route="257252" type="tram" depart="59570" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257362.0" route="257260" type="tram" depart="60770" line="257260">
+    <vehicle id="257362.0" route="257252" type="tram" depart="60770" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257364.0" route="257260" type="tram" depart="61970" line="257260">
+    <vehicle id="257364.0" route="257252" type="tram" depart="61970" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257366.0" route="257260" type="tram" depart="63170" line="257260">
+    <vehicle id="257366.0" route="257252" type="tram" depart="63170" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257368.0" route="257260" type="tram" depart="64370" line="257260">
+    <vehicle id="257368.0" route="257252" type="tram" depart="64370" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257370.0" route="257260" type="tram" depart="65570" line="257260">
+    <vehicle id="257370.0" route="257252" type="tram" depart="65570" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257372.0" route="257260" type="tram" depart="66770" line="257260">
+    <vehicle id="257372.0" route="257252" type="tram" depart="66770" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257374.0" route="257260" type="tram" depart="67970" line="257260">
+    <vehicle id="257374.0" route="257252" type="tram" depart="67970" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257376.0" route="257260" type="tram" depart="69170" line="257260">
+    <vehicle id="257376.0" route="257252" type="tram" depart="69170" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257392.0" route="257260" type="tram" depart="17630" line="257260">
+    <vehicle id="257392.0" route="257252" type="tram" depart="17630" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257394.0" route="257260" type="tram" depart="18830" line="257260">
+    <vehicle id="257394.0" route="257252" type="tram" depart="18830" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257396.0" route="257260" type="tram" depart="71630" line="257260">
+    <vehicle id="257396.0" route="257252" type="tram" depart="71630" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257398.0" route="257260" type="tram" depart="72830" line="257260">
+    <vehicle id="257398.0" route="257252" type="tram" depart="72830" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="257456.0" route="257456" type="tram" depart="20510" line="257456">
+    <vehicle id="257456.0" route="257252" type="tram" depart="20510" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257459.0" route="257456" type="tram" depart="21710" line="257456">
+    <vehicle id="257459.0" route="257252" type="tram" depart="21710" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257462.0" route="257456" type="tram" depart="22910" line="257456">
+    <vehicle id="257462.0" route="257252" type="tram" depart="22910" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257465.0" route="257456" type="tram" depart="24110" line="257456">
+    <vehicle id="257465.0" route="257252" type="tram" depart="24110" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257468.0" route="257456" type="tram" depart="25310" line="257456">
+    <vehicle id="257468.0" route="257252" type="tram" depart="25310" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257471.0" route="257456" type="tram" depart="26510" line="257456">
+    <vehicle id="257471.0" route="257252" type="tram" depart="26510" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257474.0" route="257456" type="tram" depart="27710" line="257456">
+    <vehicle id="257474.0" route="257252" type="tram" depart="27710" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257477.0" route="257456" type="tram" depart="28910" line="257456">
+    <vehicle id="257477.0" route="257252" type="tram" depart="28910" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257480.0" route="257456" type="tram" depart="30110" line="257456">
+    <vehicle id="257480.0" route="257252" type="tram" depart="30110" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257483.0" route="257456" type="tram" depart="31310" line="257456">
+    <vehicle id="257483.0" route="257252" type="tram" depart="31310" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257486.0" route="257456" type="tram" depart="32510" line="257456">
+    <vehicle id="257486.0" route="257252" type="tram" depart="32510" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257489.0" route="257456" type="tram" depart="33710" line="257456">
+    <vehicle id="257489.0" route="257252" type="tram" depart="33710" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257492.0" route="257456" type="tram" depart="34910" line="257456">
+    <vehicle id="257492.0" route="257252" type="tram" depart="34910" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257495.0" route="257456" type="tram" depart="36110" line="257456">
+    <vehicle id="257495.0" route="257252" type="tram" depart="36110" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257498.0" route="257456" type="tram" depart="37310" line="257456">
+    <vehicle id="257498.0" route="257252" type="tram" depart="37310" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257501.0" route="257456" type="tram" depart="38510" line="257456">
+    <vehicle id="257501.0" route="257252" type="tram" depart="38510" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257504.0" route="257456" type="tram" depart="39710" line="257456">
+    <vehicle id="257504.0" route="257252" type="tram" depart="39710" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257507.0" route="257456" type="tram" depart="40910" line="257456">
+    <vehicle id="257507.0" route="257252" type="tram" depart="40910" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257510.0" route="257456" type="tram" depart="42110" line="257456">
+    <vehicle id="257510.0" route="257252" type="tram" depart="42110" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257513.0" route="257456" type="tram" depart="43310" line="257456">
+    <vehicle id="257513.0" route="257252" type="tram" depart="43310" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257516.0" route="257456" type="tram" depart="44510" line="257456">
+    <vehicle id="257516.0" route="257252" type="tram" depart="44510" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257519.0" route="257456" type="tram" depart="45710" line="257456">
+    <vehicle id="257519.0" route="257252" type="tram" depart="45710" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257522.0" route="257456" type="tram" depart="46910" line="257456">
+    <vehicle id="257522.0" route="257252" type="tram" depart="46910" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257525.0" route="257456" type="tram" depart="48110" line="257456">
+    <vehicle id="257525.0" route="257252" type="tram" depart="48110" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257528.0" route="257456" type="tram" depart="49310" line="257456">
+    <vehicle id="257528.0" route="257252" type="tram" depart="49310" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257531.0" route="257456" type="tram" depart="50510" line="257456">
+    <vehicle id="257531.0" route="257252" type="tram" depart="50510" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257534.0" route="257456" type="tram" depart="51710" line="257456">
+    <vehicle id="257534.0" route="257252" type="tram" depart="51710" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257537.0" route="257456" type="tram" depart="52910" line="257456">
+    <vehicle id="257537.0" route="257252" type="tram" depart="52910" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257540.0" route="257456" type="tram" depart="54110" line="257456">
+    <vehicle id="257540.0" route="257252" type="tram" depart="54110" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257543.0" route="257456" type="tram" depart="55310" line="257456">
+    <vehicle id="257543.0" route="257252" type="tram" depart="55310" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257546.0" route="257456" type="tram" depart="56510" line="257456">
+    <vehicle id="257546.0" route="257252" type="tram" depart="56510" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257549.0" route="257456" type="tram" depart="57710" line="257456">
+    <vehicle id="257549.0" route="257252" type="tram" depart="57710" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257552.0" route="257456" type="tram" depart="58910" line="257456">
+    <vehicle id="257552.0" route="257252" type="tram" depart="58910" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257555.0" route="257456" type="tram" depart="60110" line="257456">
+    <vehicle id="257555.0" route="257252" type="tram" depart="60110" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257558.0" route="257456" type="tram" depart="61310" line="257456">
+    <vehicle id="257558.0" route="257252" type="tram" depart="61310" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257561.0" route="257456" type="tram" depart="62510" line="257456">
+    <vehicle id="257561.0" route="257252" type="tram" depart="62510" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257564.0" route="257456" type="tram" depart="63710" line="257456">
+    <vehicle id="257564.0" route="257252" type="tram" depart="63710" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257567.0" route="257456" type="tram" depart="64910" line="257456">
+    <vehicle id="257567.0" route="257252" type="tram" depart="64910" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257570.0" route="257456" type="tram" depart="66110" line="257456">
+    <vehicle id="257570.0" route="257252" type="tram" depart="66110" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257573.0" route="257456" type="tram" depart="67310" line="257456">
+    <vehicle id="257573.0" route="257252" type="tram" depart="67310" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257576.0" route="257456" type="tram" depart="68510" line="257456">
+    <vehicle id="257576.0" route="257252" type="tram" depart="68510" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="257579.0" route="257456" type="tram" depart="69710" line="257456">
+    <vehicle id="257579.0" route="257252" type="tram" depart="69710" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -5689,251 +5689,251 @@
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257676.0" route="257596" type="tram" depart="22070" line="257596">
+    <vehicle id="257676.0" route="257596" type="tram" depart="22010" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257678.0" route="257596" type="tram" depart="73670" line="257596">
+    <vehicle id="257678.0" route="257596" type="tram" depart="73610" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257690.0" route="257596" type="tram" depart="80930" line="257596">
+    <vehicle id="257690.0" route="257596" type="tram" depart="80750" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257692.0" route="257596" type="tram" depart="83330" line="257596">
+    <vehicle id="257692.0" route="257596" type="tram" depart="83150" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257694.0" route="257596" type="tram" depart="84530" line="257596">
+    <vehicle id="257694.0" route="257596" type="tram" depart="84350" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257710.0" route="257596" type="tram" depart="85730" line="257596">
+    <vehicle id="257710.0" route="257596" type="tram" depart="85550" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257728.0" route="257596" type="tram" depart="76070" line="257596">
+    <vehicle id="257728.0" route="257596" type="tram" depart="76010" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257730.0" route="257596" type="tram" depart="77270" line="257596">
+    <vehicle id="257730.0" route="257596" type="tram" depart="77210" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257768.0" route="257768" type="tram" depart="17210" line="257768">
+    <vehicle id="257768.0" route="257596" type="tram" depart="17210" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257770.0" route="257768" type="tram" depart="20270" line="257768">
+    <vehicle id="257770.0" route="257596" type="tram" depart="20270" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257772.0" route="257768" type="tram" depart="21470" line="257768">
+    <vehicle id="257772.0" route="257596" type="tram" depart="21470" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257791.0" route="257791" type="tram" depart="23930" line="257791">
+    <vehicle id="257791.0" route="257596" type="tram" depart="23930" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257793.0" route="257791" type="tram" depart="25130" line="257791">
+    <vehicle id="257793.0" route="257596" type="tram" depart="25130" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257795.0" route="257791" type="tram" depart="26330" line="257791">
+    <vehicle id="257795.0" route="257596" type="tram" depart="26330" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257797.0" route="257791" type="tram" depart="27530" line="257791">
+    <vehicle id="257797.0" route="257596" type="tram" depart="27530" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257799.0" route="257791" type="tram" depart="28730" line="257791">
+    <vehicle id="257799.0" route="257596" type="tram" depart="28730" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257801.0" route="257791" type="tram" depart="29930" line="257791">
+    <vehicle id="257801.0" route="257596" type="tram" depart="29930" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257803.0" route="257791" type="tram" depart="31130" line="257791">
+    <vehicle id="257803.0" route="257596" type="tram" depart="31130" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257805.0" route="257791" type="tram" depart="32330" line="257791">
+    <vehicle id="257805.0" route="257596" type="tram" depart="32330" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257807.0" route="257791" type="tram" depart="33530" line="257791">
+    <vehicle id="257807.0" route="257596" type="tram" depart="33530" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257809.0" route="257791" type="tram" depart="34730" line="257791">
+    <vehicle id="257809.0" route="257596" type="tram" depart="34730" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257811.0" route="257791" type="tram" depart="35930" line="257791">
+    <vehicle id="257811.0" route="257596" type="tram" depart="35930" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257813.0" route="257791" type="tram" depart="37130" line="257791">
+    <vehicle id="257813.0" route="257596" type="tram" depart="37130" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257815.0" route="257791" type="tram" depart="38330" line="257791">
+    <vehicle id="257815.0" route="257596" type="tram" depart="38330" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257817.0" route="257791" type="tram" depart="39530" line="257791">
+    <vehicle id="257817.0" route="257596" type="tram" depart="39530" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257819.0" route="257791" type="tram" depart="40730" line="257791">
+    <vehicle id="257819.0" route="257596" type="tram" depart="40730" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257821.0" route="257791" type="tram" depart="41930" line="257791">
+    <vehicle id="257821.0" route="257596" type="tram" depart="41930" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257823.0" route="257791" type="tram" depart="43130" line="257791">
+    <vehicle id="257823.0" route="257596" type="tram" depart="43130" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257825.0" route="257791" type="tram" depart="44330" line="257791">
+    <vehicle id="257825.0" route="257596" type="tram" depart="44330" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257827.0" route="257791" type="tram" depart="45530" line="257791">
+    <vehicle id="257827.0" route="257596" type="tram" depart="45530" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257829.0" route="257791" type="tram" depart="46730" line="257791">
+    <vehicle id="257829.0" route="257596" type="tram" depart="46730" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257831.0" route="257791" type="tram" depart="47930" line="257791">
+    <vehicle id="257831.0" route="257596" type="tram" depart="47930" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257833.0" route="257791" type="tram" depart="49130" line="257791">
+    <vehicle id="257833.0" route="257596" type="tram" depart="49130" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257835.0" route="257791" type="tram" depart="50330" line="257791">
+    <vehicle id="257835.0" route="257596" type="tram" depart="50330" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257837.0" route="257791" type="tram" depart="51530" line="257791">
+    <vehicle id="257837.0" route="257596" type="tram" depart="51530" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257839.0" route="257791" type="tram" depart="52730" line="257791">
+    <vehicle id="257839.0" route="257596" type="tram" depart="52730" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257841.0" route="257791" type="tram" depart="53930" line="257791">
+    <vehicle id="257841.0" route="257596" type="tram" depart="53930" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257843.0" route="257791" type="tram" depart="55130" line="257791">
+    <vehicle id="257843.0" route="257596" type="tram" depart="55130" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257845.0" route="257791" type="tram" depart="56330" line="257791">
+    <vehicle id="257845.0" route="257596" type="tram" depart="56330" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257847.0" route="257791" type="tram" depart="57530" line="257791">
+    <vehicle id="257847.0" route="257596" type="tram" depart="57530" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257849.0" route="257791" type="tram" depart="58730" line="257791">
+    <vehicle id="257849.0" route="257596" type="tram" depart="58730" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257851.0" route="257791" type="tram" depart="59930" line="257791">
+    <vehicle id="257851.0" route="257596" type="tram" depart="59930" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257853.0" route="257791" type="tram" depart="61130" line="257791">
+    <vehicle id="257853.0" route="257596" type="tram" depart="61130" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257855.0" route="257791" type="tram" depart="62330" line="257791">
+    <vehicle id="257855.0" route="257596" type="tram" depart="62330" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257857.0" route="257791" type="tram" depart="63530" line="257791">
+    <vehicle id="257857.0" route="257596" type="tram" depart="63530" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257859.0" route="257791" type="tram" depart="64730" line="257791">
+    <vehicle id="257859.0" route="257596" type="tram" depart="64730" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257861.0" route="257791" type="tram" depart="65930" line="257791">
+    <vehicle id="257861.0" route="257596" type="tram" depart="65930" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257863.0" route="257791" type="tram" depart="67130" line="257791">
+    <vehicle id="257863.0" route="257596" type="tram" depart="67130" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257865.0" route="257791" type="tram" depart="68330" line="257791">
+    <vehicle id="257865.0" route="257596" type="tram" depart="68330" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257867.0" route="257791" type="tram" depart="69530" line="257791">
+    <vehicle id="257867.0" route="257596" type="tram" depart="69530" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257869.0" route="257791" type="tram" depart="70730" line="257791">
+    <vehicle id="257869.0" route="257596" type="tram" depart="70730" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257871.0" route="257791" type="tram" depart="71930" line="257791">
+    <vehicle id="257871.0" route="257596" type="tram" depart="71930" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="257873.0" route="257791" type="tram" depart="73130" line="257791">
+    <vehicle id="257873.0" route="257596" type="tram" depart="73070" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="67753.0" route="257260" type="tram" depart="76550" line="257260">
+    <vehicle id="67753.0" route="257252" type="tram" depart="76550" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="67755.0" route="257260" type="tram" depart="81350" line="257260">
+    <vehicle id="67755.0" route="257252" type="tram" depart="81350" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="67761.0" route="257260" type="tram" depart="80150" line="257260">
+    <vehicle id="67761.0" route="257252" type="tram" depart="80150" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="67775.0" route="257260" type="tram" depart="19970" line="257260">
+    <vehicle id="67775.0" route="257252" type="tram" depart="19970" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="67785.0" route="257260" type="tram" depart="16430" line="257260">
+    <vehicle id="67785.0" route="257252" type="tram" depart="16430" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="67787.0" route="257260" type="tram" depart="70430" line="257260">
+    <vehicle id="67787.0" route="257252" type="tram" depart="70430" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="67789.0" route="257260" type="tram" depart="75230" line="257260">
+    <vehicle id="67789.0" route="257252" type="tram" depart="75230" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="67793.0" route="257260" type="tram" depart="74030" line="257260">
+    <vehicle id="67793.0" route="257252" type="tram" depart="74030" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Mahlsdorf"/>
     </vehicle>
-    <vehicle id="67805.0" route="257456" type="tram" depart="19310" line="257456">
+    <vehicle id="67805.0" route="257252" type="tram" depart="19310" line="257252">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -5941,47 +5941,47 @@
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="67854.0" route="257596" type="tram" depart="20870" line="257596">
+    <vehicle id="67854.0" route="257596" type="tram" depart="20810" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="67856.0" route="257596" type="tram" depart="72470" line="257596">
+    <vehicle id="67856.0" route="257596" type="tram" depart="72410" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="67882.0" route="257596" type="tram" depart="78530" line="257596">
+    <vehicle id="67882.0" route="257596" type="tram" depart="78350" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="67884.0" route="257596" type="tram" depart="82130" line="257596">
+    <vehicle id="67884.0" route="257596" type="tram" depart="81950" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="67892.0" route="257596" type="tram" depart="79730" line="257596">
+    <vehicle id="67892.0" route="257596" type="tram" depart="79550" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="67900.0" route="257596" type="tram" depart="74870" line="257596">
+    <vehicle id="67900.0" route="257596" type="tram" depart="74810" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="67906.0" route="257791" type="tram" depart="19670" line="257791">
+    <vehicle id="67906.0" route="257596" type="tram" depart="19610" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="67912.0" route="257768" type="tram" depart="16010" line="257768">
+    <vehicle id="67912.0" route="257596" type="tram" depart="16010" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="67914.0" route="257768" type="tram" depart="19070" line="257768">
+    <vehicle id="67914.0" route="257596" type="tram" depart="19070" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="67928.0" route="257791" type="tram" depart="22730" line="257791">
+    <vehicle id="67928.0" route="257596" type="tram" depart="22730" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
-    <vehicle id="67930.0" route="257791" type="tram" depart="18470" line="257791">
+    <vehicle id="67930.0" route="257596" type="tram" depart="18410" line="257596">
         <param key="gtfs.route_name" value="62"/>
         <param key="gtfs.trip_headsign" value="Wendenschloß"/>
     </vehicle>
@@ -5993,395 +5993,395 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259578.0" route="259578" type="tram" depart="22250" line="259578">
+    <vehicle id="259578.0" route="259570" type="tram" depart="22250" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259580.0" route="259578" type="tram" depart="23450" line="259578">
+    <vehicle id="259580.0" route="259570" type="tram" depart="23450" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259582.0" route="259578" type="tram" depart="24650" line="259578">
+    <vehicle id="259582.0" route="259570" type="tram" depart="24650" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259584.0" route="259578" type="tram" depart="25850" line="259578">
+    <vehicle id="259584.0" route="259570" type="tram" depart="25850" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259586.0" route="259578" type="tram" depart="27050" line="259578">
+    <vehicle id="259586.0" route="259570" type="tram" depart="27050" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259588.0" route="259578" type="tram" depart="28250" line="259578">
+    <vehicle id="259588.0" route="259570" type="tram" depart="28250" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259590.0" route="259578" type="tram" depart="29450" line="259578">
+    <vehicle id="259590.0" route="259570" type="tram" depart="29450" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259592.0" route="259578" type="tram" depart="53450" line="259578">
+    <vehicle id="259592.0" route="259570" type="tram" depart="53450" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259594.0" route="259578" type="tram" depart="54650" line="259578">
+    <vehicle id="259594.0" route="259570" type="tram" depart="54650" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259596.0" route="259578" type="tram" depart="55850" line="259578">
+    <vehicle id="259596.0" route="259570" type="tram" depart="55850" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259598.0" route="259578" type="tram" depart="57050" line="259578">
+    <vehicle id="259598.0" route="259570" type="tram" depart="57050" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259600.0" route="259578" type="tram" depart="58250" line="259578">
+    <vehicle id="259600.0" route="259570" type="tram" depart="58250" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259602.0" route="259578" type="tram" depart="59450" line="259578">
+    <vehicle id="259602.0" route="259570" type="tram" depart="59450" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259604.0" route="259578" type="tram" depart="60650" line="259578">
+    <vehicle id="259604.0" route="259570" type="tram" depart="60650" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259606.0" route="259578" type="tram" depart="61850" line="259578">
+    <vehicle id="259606.0" route="259570" type="tram" depart="61850" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259608.0" route="259578" type="tram" depart="63050" line="259578">
+    <vehicle id="259608.0" route="259570" type="tram" depart="63050" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259610.0" route="259578" type="tram" depart="64250" line="259578">
+    <vehicle id="259610.0" route="259570" type="tram" depart="64250" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259612.0" route="259578" type="tram" depart="65450" line="259578">
+    <vehicle id="259612.0" route="259570" type="tram" depart="65450" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259618.0" route="259578" type="tram" depart="77510" line="259578">
+    <vehicle id="259618.0" route="259570" type="tram" depart="77450" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259620.0" route="259578" type="tram" depart="78710" line="259578">
+    <vehicle id="259620.0" route="259570" type="tram" depart="78650" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259622.0" route="259578" type="tram" depart="79910" line="259578">
+    <vehicle id="259622.0" route="259570" type="tram" depart="79850" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259624.0" route="259578" type="tram" depart="81110" line="259578">
+    <vehicle id="259624.0" route="259570" type="tram" depart="81050" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259626.0" route="259578" type="tram" depart="82310" line="259578">
+    <vehicle id="259626.0" route="259570" type="tram" depart="82250" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259628.0" route="259578" type="tram" depart="83510" line="259578">
+    <vehicle id="259628.0" route="259570" type="tram" depart="83450" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259630.0" route="259578" type="tram" depart="84710" line="259578">
+    <vehicle id="259630.0" route="259570" type="tram" depart="84650" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259632.0" route="259578" type="tram" depart="85910" line="259578">
+    <vehicle id="259632.0" route="259570" type="tram" depart="85850" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259672.0" route="259578" type="tram" depart="19850" line="259578">
+    <vehicle id="259672.0" route="259570" type="tram" depart="19850" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259674.0" route="259578" type="tram" depart="31850" line="259578">
+    <vehicle id="259674.0" route="259570" type="tram" depart="31850" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259676.0" route="259578" type="tram" depart="33050" line="259578">
+    <vehicle id="259676.0" route="259570" type="tram" depart="33050" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259678.0" route="259578" type="tram" depart="67850" line="259578">
+    <vehicle id="259678.0" route="259570" type="tram" depart="67850" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259680.0" route="259578" type="tram" depart="71450" line="259578">
+    <vehicle id="259680.0" route="259570" type="tram" depart="71450" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259682.0" route="259578" type="tram" depart="72650" line="259578">
+    <vehicle id="259682.0" route="259570" type="tram" depart="72650" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259684.0" route="259578" type="tram" depart="73850" line="259578">
+    <vehicle id="259684.0" route="259570" type="tram" depart="73850" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259692.0" route="259578" type="tram" depart="35450" line="259578">
+    <vehicle id="259692.0" route="259570" type="tram" depart="35450" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259694.0" route="259578" type="tram" depart="36650" line="259578">
+    <vehicle id="259694.0" route="259570" type="tram" depart="36650" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259696.0" route="259578" type="tram" depart="37850" line="259578">
+    <vehicle id="259696.0" route="259570" type="tram" depart="37850" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259698.0" route="259578" type="tram" depart="39050" line="259578">
+    <vehicle id="259698.0" route="259570" type="tram" depart="39050" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259700.0" route="259578" type="tram" depart="40250" line="259578">
+    <vehicle id="259700.0" route="259570" type="tram" depart="40250" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259702.0" route="259578" type="tram" depart="41450" line="259578">
+    <vehicle id="259702.0" route="259570" type="tram" depart="41450" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259704.0" route="259578" type="tram" depart="42650" line="259578">
+    <vehicle id="259704.0" route="259570" type="tram" depart="42650" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259706.0" route="259578" type="tram" depart="43850" line="259578">
+    <vehicle id="259706.0" route="259570" type="tram" depart="43850" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259708.0" route="259578" type="tram" depart="45050" line="259578">
+    <vehicle id="259708.0" route="259570" type="tram" depart="45050" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259710.0" route="259578" type="tram" depart="46250" line="259578">
+    <vehicle id="259710.0" route="259570" type="tram" depart="46250" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259712.0" route="259578" type="tram" depart="47450" line="259578">
+    <vehicle id="259712.0" route="259570" type="tram" depart="47450" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259714.0" route="259578" type="tram" depart="48650" line="259578">
+    <vehicle id="259714.0" route="259570" type="tram" depart="48650" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259716.0" route="259578" type="tram" depart="49850" line="259578">
+    <vehicle id="259716.0" route="259570" type="tram" depart="49850" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259718.0" route="259578" type="tram" depart="51050" line="259578">
+    <vehicle id="259718.0" route="259570" type="tram" depart="51050" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259720.0" route="259578" type="tram" depart="75050" line="259578">
+    <vehicle id="259720.0" route="259570" type="tram" depart="75050" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259865.0" route="259865" type="tram" depart="17390" line="259865">
+    <vehicle id="259865.0" route="259780" type="tram" depart="17390" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259868.0" route="259865" type="tram" depart="18590" line="259865">
+    <vehicle id="259868.0" route="259780" type="tram" depart="18590" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259871.0" route="259865" type="tram" depart="76190" line="259865">
+    <vehicle id="259871.0" route="259780" type="tram" depart="76190" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259874.0" route="259865" type="tram" depart="77390" line="259865">
+    <vehicle id="259874.0" route="259780" type="tram" depart="77390" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259877.0" route="259865" type="tram" depart="78590" line="259865">
+    <vehicle id="259877.0" route="259780" type="tram" depart="78590" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259880.0" route="259865" type="tram" depart="79790" line="259865">
+    <vehicle id="259880.0" route="259780" type="tram" depart="79790" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259883.0" route="259865" type="tram" depart="80990" line="259865">
+    <vehicle id="259883.0" route="259780" type="tram" depart="80990" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259886.0" route="259865" type="tram" depart="82190" line="259865">
+    <vehicle id="259886.0" route="259780" type="tram" depart="82190" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259889.0" route="259865" type="tram" depart="83390" line="259865">
+    <vehicle id="259889.0" route="259780" type="tram" depart="83390" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259892.0" route="259865" type="tram" depart="84590" line="259865">
+    <vehicle id="259892.0" route="259780" type="tram" depart="84590" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259895.0" route="259865" type="tram" depart="85790" line="259865">
+    <vehicle id="259895.0" route="259780" type="tram" depart="85790" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259919.0" route="259865" type="tram" depart="20870" line="259865">
+    <vehicle id="259919.0" route="259780" type="tram" depart="20870" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259922.0" route="259865" type="tram" depart="22070" line="259865">
+    <vehicle id="259922.0" route="259780" type="tram" depart="22070" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259925.0" route="259865" type="tram" depart="23270" line="259865">
+    <vehicle id="259925.0" route="259780" type="tram" depart="23270" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259928.0" route="259865" type="tram" depart="24470" line="259865">
+    <vehicle id="259928.0" route="259780" type="tram" depart="24470" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259931.0" route="259865" type="tram" depart="25670" line="259865">
+    <vehicle id="259931.0" route="259780" type="tram" depart="25670" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259934.0" route="259865" type="tram" depart="26870" line="259865">
+    <vehicle id="259934.0" route="259780" type="tram" depart="26870" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259937.0" route="259865" type="tram" depart="28070" line="259865">
+    <vehicle id="259937.0" route="259780" type="tram" depart="28070" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259940.0" route="259865" type="tram" depart="29270" line="259865">
+    <vehicle id="259940.0" route="259780" type="tram" depart="29270" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259943.0" route="259865" type="tram" depart="30470" line="259865">
+    <vehicle id="259943.0" route="259780" type="tram" depart="30470" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259946.0" route="259865" type="tram" depart="31670" line="259865">
+    <vehicle id="259946.0" route="259780" type="tram" depart="31670" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259949.0" route="259865" type="tram" depart="32870" line="259865">
+    <vehicle id="259949.0" route="259780" type="tram" depart="32870" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259952.0" route="259865" type="tram" depart="55670" line="259865">
+    <vehicle id="259952.0" route="259780" type="tram" depart="55670" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259955.0" route="259865" type="tram" depart="56870" line="259865">
+    <vehicle id="259955.0" route="259780" type="tram" depart="56870" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259958.0" route="259865" type="tram" depart="58070" line="259865">
+    <vehicle id="259958.0" route="259780" type="tram" depart="58070" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259961.0" route="259865" type="tram" depart="61670" line="259865">
+    <vehicle id="259961.0" route="259780" type="tram" depart="61670" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259964.0" route="259865" type="tram" depart="62870" line="259865">
+    <vehicle id="259964.0" route="259780" type="tram" depart="62870" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259967.0" route="259865" type="tram" depart="64070" line="259865">
+    <vehicle id="259967.0" route="259780" type="tram" depart="64070" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259970.0" route="259865" type="tram" depart="67670" line="259865">
+    <vehicle id="259970.0" route="259780" type="tram" depart="67670" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259973.0" route="259865" type="tram" depart="68870" line="259865">
+    <vehicle id="259973.0" route="259780" type="tram" depart="68870" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259976.0" route="259865" type="tram" depart="70070" line="259865">
+    <vehicle id="259976.0" route="259780" type="tram" depart="70070" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259979.0" route="259865" type="tram" depart="73670" line="259865">
+    <vehicle id="259979.0" route="259780" type="tram" depart="73670" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259982.0" route="259865" type="tram" depart="35270" line="259865">
+    <vehicle id="259982.0" route="259780" type="tram" depart="35270" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259985.0" route="259865" type="tram" depart="36470" line="259865">
+    <vehicle id="259985.0" route="259780" type="tram" depart="36470" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259988.0" route="259865" type="tram" depart="37670" line="259865">
+    <vehicle id="259988.0" route="259780" type="tram" depart="37670" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259991.0" route="259865" type="tram" depart="38870" line="259865">
+    <vehicle id="259991.0" route="259780" type="tram" depart="38870" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259994.0" route="259865" type="tram" depart="40070" line="259865">
+    <vehicle id="259994.0" route="259780" type="tram" depart="40070" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259997.0" route="259865" type="tram" depart="41270" line="259865">
+    <vehicle id="259997.0" route="259780" type="tram" depart="41270" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="260000.0" route="259865" type="tram" depart="42470" line="259865">
+    <vehicle id="260000.0" route="259780" type="tram" depart="42470" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="260003.0" route="259865" type="tram" depart="43670" line="259865">
+    <vehicle id="260003.0" route="259780" type="tram" depart="43670" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="260006.0" route="259865" type="tram" depart="44870" line="259865">
+    <vehicle id="260006.0" route="259780" type="tram" depart="44870" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="260009.0" route="259865" type="tram" depart="46070" line="259865">
+    <vehicle id="260009.0" route="259780" type="tram" depart="46070" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="260012.0" route="259865" type="tram" depart="47270" line="259865">
+    <vehicle id="260012.0" route="259780" type="tram" depart="47270" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="260015.0" route="259865" type="tram" depart="48470" line="259865">
+    <vehicle id="260015.0" route="259780" type="tram" depart="48470" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="260018.0" route="259865" type="tram" depart="49670" line="259865">
+    <vehicle id="260018.0" route="259780" type="tram" depart="49670" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="260021.0" route="259865" type="tram" depart="50870" line="259865">
+    <vehicle id="260021.0" route="259780" type="tram" depart="50870" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="260024.0" route="259865" type="tram" depart="52070" line="259865">
+    <vehicle id="260024.0" route="259780" type="tram" depart="52070" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="260027.0" route="259865" type="tram" depart="59270" line="259865">
+    <vehicle id="260027.0" route="259780" type="tram" depart="59270" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="260030.0" route="259865" type="tram" depart="65270" line="259865">
+    <vehicle id="260030.0" route="259780" type="tram" depart="65270" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="260033.0" route="259865" type="tram" depart="71270" line="259865">
+    <vehicle id="260033.0" route="259780" type="tram" depart="71270" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -6397,43 +6397,43 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="68266.0" route="68266" type="tram" depart="27650" line="68266">
+    <vehicle id="68266.0" route="68252" type="tram" depart="27650" line="68252">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="68268.0" route="259578" type="tram" depart="21050" line="259578">
+    <vehicle id="68268.0" route="259570" type="tram" depart="21050" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="68270.0" route="259578" type="tram" depart="52250" line="259578">
+    <vehicle id="68270.0" route="259570" type="tram" depart="52250" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="68274.0" route="259578" type="tram" depart="76310" line="259578">
+    <vehicle id="68274.0" route="259570" type="tram" depart="76250" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="68294.0" route="259578" type="tram" depart="18650" line="259578">
+    <vehicle id="68294.0" route="259570" type="tram" depart="18650" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="68296.0" route="259578" type="tram" depart="30650" line="259578">
+    <vehicle id="68296.0" route="259570" type="tram" depart="30650" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="68298.0" route="259578" type="tram" depart="66650" line="259578">
+    <vehicle id="68298.0" route="259570" type="tram" depart="66650" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="68300.0" route="259578" type="tram" depart="70250" line="259578">
+    <vehicle id="68300.0" route="259570" type="tram" depart="70250" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="68304.0" route="259578" type="tram" depart="34250" line="259578">
+    <vehicle id="68304.0" route="259570" type="tram" depart="34250" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="68306.0" route="259578" type="tram" depart="69050" line="259578">
+    <vehicle id="68306.0" route="259570" type="tram" depart="69050" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
@@ -6445,43 +6445,43 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Betriebshof Köpenick"/>
     </vehicle>
-    <vehicle id="68364.0" route="259865" type="tram" depart="16190" line="259865">
+    <vehicle id="68364.0" route="259780" type="tram" depart="16190" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="68367.0" route="259865" type="tram" depart="74990" line="259865">
+    <vehicle id="68367.0" route="259780" type="tram" depart="74990" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="68376.0" route="259865" type="tram" depart="19670" line="259865">
+    <vehicle id="68376.0" route="259780" type="tram" depart="19670" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="68379.0" route="259865" type="tram" depart="54470" line="259865">
+    <vehicle id="68379.0" route="259780" type="tram" depart="54470" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="68382.0" route="259865" type="tram" depart="60470" line="259865">
+    <vehicle id="68382.0" route="259780" type="tram" depart="60470" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="68385.0" route="259865" type="tram" depart="66470" line="259865">
+    <vehicle id="68385.0" route="259780" type="tram" depart="66470" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="68388.0" route="259865" type="tram" depart="72470" line="259865">
+    <vehicle id="68388.0" route="259780" type="tram" depart="72470" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="68391.0" route="259865" type="tram" depart="34070" line="259865">
+    <vehicle id="68391.0" route="259780" type="tram" depart="34070" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="68394.0" route="259865" type="tram" depart="53270" line="259865">
+    <vehicle id="68394.0" route="259780" type="tram" depart="53270" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="68397.0" route="68397" type="tram" depart="25130" line="68397">
+    <vehicle id="68397.0" route="68332" type="tram" depart="25130" line="68332">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>

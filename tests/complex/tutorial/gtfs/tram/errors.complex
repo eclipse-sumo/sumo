@@ -20,11 +20,5 @@ Warning: Non-static traffic light 'cluster_1599656332_6994510228_6994510229' doe
 Warning: 4 total messages of type: Non-static traffic light '%' does not define variable phase length.
 Warning! No mapping library found, falling back to tracemapper.
 Warning! Disconnected route '257596' between '319292807' and '107701626', no path found. Keeping longer part.
-Warning! Disconnected route '257696.trimmed' between '319292807' and '107701626', no path found. Keeping longer part.
-Warning! Disconnected route '257768' between '319292807' and '107701626', no path found. Keeping longer part.
-Warning! Disconnected route '257791' between '319292807' and '107701626', no path found. Keeping longer part.
 Warning! Disconnected route '259570' between '461452916' and '180390329#0', no path found. Keeping longer part.
-Warning! Disconnected route '259578' between '461452916' and '180390329#0', no path found. Keeping longer part.
-Warning! Disconnected route '259634.trimmed' between '461452916' and '180390329#0', no path found. Keeping longer part.
 Warning! Disconnected route '68252' between '461452916' and '180390329#0', no path found. Keeping longer part.
-Warning! Disconnected route '68266' between '461452916' and '180390329#0', no path found. Keeping longer part.

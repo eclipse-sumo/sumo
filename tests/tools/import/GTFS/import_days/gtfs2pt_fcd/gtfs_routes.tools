@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-11-11 11:47:08.685149 by gtfs2pt.py v1_15_0+0172-9d9bbfa8cc6
+<!-- generated on 2022-12-20 07:55:48.447128 by gtfs2pt.py v1_15_0+1141-c5fc4407cd1
 <configuration>
     <date value="20201111"/>
     <end value="122400"/>
@@ -64,7 +64,7 @@
         <param key="gtfs.route_name" value="419"/>
         <param key="gtfs.trip_headsign" value="Braunschweig Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="132183536.trimmed.0" route="132183536.trimmed" type="bus" depart="87530" line="132183536.trimmed">
+    <vehicle id="132183536.trimmed.0" route="132183536" type="bus" depart="87530" line="132183536">
         <param key="gtfs.route_name" value="419"/>
         <param key="gtfs.trip_headsign" value="Braunschweig Hauptbahnhof"/>
     </vehicle>
