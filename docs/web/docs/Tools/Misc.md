@@ -334,6 +334,11 @@ python tools/runSeeds.py -k test.sumocfg --seeds 7,11,13
 ```
 
 - option **--seeds** can either be given as a list or as a range (`0:100`).  
-- the application path can be set with option **--application** (**-a**)
+- the application path can be set with option **--application** (**-a**). Default is *sumo*.
+   - by passing a comma-separated list of applications, each one will be run with all seeds and results will be put into a subfolder
+- the application config path must be set with with option **--configuration** (**-k**)
+   - by passing a comma-separated list of configs, each one will be run with all seeds and results will be put into a subfolder
 - option **--output-prefix** (**-p**) can be used to define a prefix for all written output files. The string "SEED" is replaced by the current seed. (default prefix is "SEED.")
+- option **--threads INT** can be used to perform application runs in parallel
+- any additional options are forwarded to the application
 
