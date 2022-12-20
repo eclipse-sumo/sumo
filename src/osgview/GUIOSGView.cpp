@@ -505,9 +505,9 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
     }
     // show/hide OSG nodes
     unsigned int cullMask = 0xFFFFFFFF;
-    cullMask ^= (-myVisualizationSettings->show3DTLSDomes ^ cullMask) & (1UL << NODESET_TLSDOMES);
-    cullMask ^= (-myVisualizationSettings->show3DTLSLinkMarkers ^ cullMask) & (1UL << NODESET_TLSLINKMARKERS);
-    cullMask ^= (-myVisualizationSettings->generate3DTLSModels ^ cullMask) & (1UL << NODESET_TLSMODELS);
+    cullMask ^= (-int(myVisualizationSettings->show3DTLSDomes) ^ cullMask) & (1UL << NODESET_TLSDOMES);
+    cullMask ^= (-int(myVisualizationSettings->show3DTLSLinkMarkers) ^ cullMask) & (1UL << NODESET_TLSLINKMARKERS);
+    cullMask ^= (-int(myVisualizationSettings->generate3DTLSModels) ^ cullMask) & (1UL << NODESET_TLSMODELS);
     myViewer->getCamera()->setCullMask(cullMask);
 
     if (myAdapter->makeCurrent()) {

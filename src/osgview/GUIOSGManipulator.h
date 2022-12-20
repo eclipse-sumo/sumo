@@ -64,9 +64,8 @@ private:
     /// @brief remember which ManipulatorMode we use 
     osgText::Text* myText;
     ManipulatorMode myCurrentMode;
-    double myWalkEyeHeight;
+    //double myWalkEyeHeight;
     double myMoveSpeed;
-    double myMoveAccel;
     osg::Vec3d myMove;
 };
 

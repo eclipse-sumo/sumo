@@ -44,7 +44,7 @@ StringBijection<ManipulatorMode> ModeText(ModeTextInitializer, MODE_TERRAIN, fal
 // method definitions
 // ===========================================================================
 GUIOSGManipulator::GUIOSGManipulator(ManipulatorMode initMode, bool verticalFixed, double eyeHeight) : 
-    myCurrentMode(initMode), myWalkEyeHeight(eyeHeight), myMoveSpeed(DEFAULT_MOVESPEED_MIN) {
+    myCurrentMode(initMode), /*myWalkEyeHeight(eyeHeight),*/ myMoveSpeed(DEFAULT_MOVESPEED_MIN) {
     setAllowThrow(false);
     setVerticalAxisFixed(verticalFixed);
 
@@ -92,7 +92,7 @@ void
 GUIOSGManipulator::updateHUDPosition(int width, int height) {
     // keep the HUD text in the left top corner
     myHUDCamera->setProjectionMatrixAsOrtho2D(0, width, 0, height);
-    myText->setPosition(osg::Vec3f(0.f, height, 0.f));
+    myText->setPosition(osg::Vec3f(0.f, static_cast<float>(height), 0.f));
 }
 
 
@@ -142,8 +142,8 @@ GUIOSGManipulator::handleMouseDeltaMovement(const osgGA::GUIEventAdapter& ea, os
     if (dt > 0.1) { // wait until the mouse movement is sufficiently smooth
         return false;
     }
-    double dx = _ga_t0->getXnormalized() * dt;
-    double dy = _ga_t0->getYnormalized() * dt;
+    float dx = _ga_t0->getXnormalized() * dt;
+    float dy = _ga_t0->getYnormalized() * dt;
     if (dx == 0. && dy == 0.) { return false; }
     centerMousePointer(ea, aa);
     // calculate delta angles from dx and dy movements
