@@ -81,13 +81,14 @@ def main():
                 stack.pop()
                 continue
 
-            tags = tuple(stack[1:])  # exclude root
+            tags = tuple(stack[1:]) if options.element is None else tuple(stack) # exclude root
             if options.attribute is None:
                 for k, v in node.items():
-                    yield tags, k, v
+                    yield '.'.join(tags), k, v
             else:
                 for attr in options.attribute:
-                    yield tags, attr, node.get(attr)
+                    if node.get(attr) is not None or options.element is not None:
+                        yield '.'.join(tags), attr, node.get(attr)
 
     # parse old
     for tag, attr, stringVal in elements(options.old):
@@ -128,7 +129,7 @@ def main():
     if missingAttr:
         for attr in sorted(missingAttr.keys()):
             print("Elements %s did not provide attribute '%s'" % (
-            ','.join(sorted(missingAttr[atr])), attr))
+            ','.join(sorted(missingAttr[attr])), attr))
 
     if invalidType and options.attribute is not None:
         for attr in sorted(invalidType.keys()):
@@ -141,7 +142,7 @@ def main():
             sumolib.writeXMLHeader(f, "$Id$", "attributeDiff")  # noqa
             elemKeys = defaultdict(list)
             for elem in sorted(differences.keys()):
-                f.write('    <%s' % '.'.join(elem))
+                f.write('    <%s' % elem)
                 for attr, d in sorted(differences[elem].items()):
                     f.write(' %s="%s"' % (attr, d))
                 f.write('/>\n')
