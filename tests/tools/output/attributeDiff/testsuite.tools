@@ -1,8 +1,11 @@
 # subtract all attributes in the input files
-verbose
+default
 
 # subtract all attributes in the input files
 xml_output
+
+# subtract all attributes in the input files
+verbose
 
 # use only one attribute
 attribute
