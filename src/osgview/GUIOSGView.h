@@ -281,6 +281,10 @@ private:
         bool releaseContextImplementation() {
             return true;
         }
+        void requestWarpPointer(float x, float y) {
+            myParent->setCursorPosition(int(x), int(y));
+            getEventQueue()->mouseWarped(x, y);
+        }
 
     protected:
         ~FXOSGAdapter();

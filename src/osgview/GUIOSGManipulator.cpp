@@ -132,6 +132,33 @@ GUIOSGManipulator::handleMouseMove(const osgGA::GUIEventAdapter& ea, osgGA::GUIA
 }
 
 
+bool
+GUIOSGManipulator::handleMouseDrag(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa) {
+    if (myCurrentMode == MODE_TERRAIN) {
+        return osgGA::TerrainManipulator::handleMouseDrag(ea, aa);
+    }
+    return handleMouseDeltaMovement(ea, aa);
+}
+
+
+bool
+GUIOSGManipulator::handleMousePush(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa) {
+    if (myCurrentMode == MODE_TERRAIN) {
+        return osgGA::TerrainManipulator::handleMousePush(ea, aa);
+    }
+    return handleMouseDeltaMovement(ea, aa);
+}
+
+
+bool
+GUIOSGManipulator::handleMouseRelease(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa) {
+    if (myCurrentMode == MODE_TERRAIN) {
+        return osgGA::TerrainManipulator::handleMouseRelease(ea, aa);
+    }
+    return false;
+}
+
+
 bool 
 GUIOSGManipulator::handleMouseDeltaMovement(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa) {
     addMouseEvent(ea);
@@ -142,8 +169,9 @@ GUIOSGManipulator::handleMouseDeltaMovement(const osgGA::GUIEventAdapter& ea, os
     if (dt > 0.1) { // wait until the mouse movement is sufficiently smooth
         return false;
     }
-    float dx = _ga_t0->getXnormalized() * dt;
-    float dy = _ga_t0->getYnormalized() * dt;
+    float intensity = 15.;
+    float dx = _ga_t0->getXnormalized() * intensity * dt;
+    float dy = _ga_t0->getYnormalized() * intensity * dt;
     if (dx == 0. && dy == 0.) { return false; }
     centerMousePointer(ea, aa);
     // calculate delta angles from dx and dy movements
@@ -164,7 +192,6 @@ GUIOSGManipulator::performMouseDeltaMovement(const float dx, const float dy) {
 void GUIOSGManipulator::centerMousePointer(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa) {
     _mouseCenterX = (ea.getXmin() + ea.getXmax()) / 2.0f;
     _mouseCenterY = (ea.getYmin() + ea.getYmax()) / 2.0f;
-
     aa.requestWarpPointer(_mouseCenterX, _mouseCenterY);
 }
 
