@@ -210,7 +210,7 @@ Output is given as plain text on the command line or in xml format if option **-
 
 ## attributeStats.py
 
-Computes statistics on an arbitrary numerical attribute in a flat xml
+Computes statistics on arbitrary numerical attributes in an xml
 document. (eg. attribute *timeLoss* for element *tripinfo* in
 [tripinfo-output](../Simulation/Output/TripInfo.md)) and writes the
 results to standard output. When the attribute contains time data in HH:MM:SS format, the values will automatically be converted to seconds.
@@ -219,10 +219,16 @@ results to standard output. When the attribute contains time data in HH:MM:SS fo
 python tools/output/attributeStats --element tripinfo --attribute timeLoss input.xml
 ```
 
-With option **--hist-output** {{DT_FILE}} a histogram data file (e.g. for plotting with gnuplot) is
-generated.
+- If option **--element** (**-e**) is set to a comma-separated list of elements, only these elements will be read. Otherwise all elements will be parsed
+- If option **--attribute** (**-a**) is set to a comma-separated list of attributes, only these attributes will be read. Otherwise all attributes will be parsed
+- It is also possible to give multiple files as input as a space separated list or via shell expenasion (i.e. `*.input.xml`)
+- If option **--id-attribute** (**-i**) is set, the minimum and maximum values of each attribute will be annotated with the corresponding id value
+- With option **--hist-output** {{DT_FILE}}, a histogram data file (e.g. for plotting with gnuplot) is generated.
+  - option **--binwidth INT** (**-b**) defines the binning width for the histogram
+- With option **--xml-output** {{DT_FILE}}, A file with statistical measures for all processed attributes is written
+- With option **--full-output** {{DT_FILE}}, A collected attribute values are recorded with their corresponnding ids
+- Output precision can be set with option **--precision** (**-p**)
 
-It is also possible to give multiple files as input as a space separated list or via shell expenasion (i.e. `*.input.xml`)
 
 ## computeCoordination.py
 
