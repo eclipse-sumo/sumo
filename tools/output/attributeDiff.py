@@ -122,7 +122,7 @@ def main():
             missingAttr[attr].add(tag)
 
 
-    if options.verbose:
+    if options.verbose or options.xml_output is None:
         for tag in sorted(differences.keys()):
             print("%s: %s" % (tag, ' '.join(["%s=%s" % av for av in sorted(differences[tag].items())])))
 
