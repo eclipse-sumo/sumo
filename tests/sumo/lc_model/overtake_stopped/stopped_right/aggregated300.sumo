@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-12-04 10:24:21 by Eclipse SUMO sumo Version v1_15_0+0749-de9f6f8
+<!-- generated on 2022-12-20 15:31:55 by Eclipse SUMO sumo Version v1_15_0+1163-053c4cf
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -40,8 +40,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="1097.00" id="laneData">
         <edge id="beg2">
-            <lane id="beg2_0" sampledSeconds="15849.07" traveltime="98.41" overlapTraveltime="98.55" density="4.83" laneDensity="4.83" occupancy="2.41" waitingTime="265.00" timeLoss="1254.95" speed="30.41" speedRelative="0.84" departed="199" arrived="212" entered="0" left="0" laneChangedFrom="237" laneChangedTo="250"/>
-            <lane id="beg2_1" sampledSeconds="15081.17" traveltime="97.40" overlapTraveltime="97.55" density="4.59" laneDensity="4.59" occupancy="2.30" waitingTime="42.00" timeLoss="2478.38" speed="30.72" speedRelative="0.85" departed="117" arrived="104" entered="0" left="0" laneChangedFrom="250" laneChangedTo="237"/>
+            <lane id="beg2_0" sampledSeconds="15377.57" traveltime="98.40" overlapTraveltime="98.54" density="4.69" laneDensity="4.69" occupancy="2.34" waitingTime="244.00" timeLoss="1162.67" speed="30.41" speedRelative="0.84" departed="199" arrived="204" entered="0" left="0" laneChangedFrom="242" laneChangedTo="247"/>
+            <lane id="beg2_1" sampledSeconds="15543.67" traveltime="97.39" overlapTraveltime="97.54" density="4.74" laneDensity="4.74" occupancy="2.37" waitingTime="21.00" timeLoss="2561.85" speed="30.73" speedRelative="0.85" departed="117" arrived="112" entered="0" left="0" laneChangedFrom="247" laneChangedTo="242"/>
         </edge>
     </interval>
 </meandata>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-12-04 16:29:43 by Eclipse SUMO sumo Version v1_15_0+0751-db72905
+<!-- generated on 2022-12-20 15:32:09 by Eclipse SUMO sumo Version v1_15_0+1163-053c4cf
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -68,8 +68,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <change id="merge.12" type="t0" time="62.20" from="beg_0" to="beg_1" dir="1" speed="1.62" pos="106.52" reason="speedGain" leaderGap="10.07" leaderSecureGap="0.06" leaderSpeed="0.04" followerGap="10.00" followerSecureGap="0.00" followerSpeed="0.00" origLeaderGap="2.55" origLeaderSecureGap="0.00" origLeaderSpeed="0.32"/>
     <change id="merge.15" type="t0" time="65.90" from="beg_0" to="beg_1" dir="1" speed="0.35" pos="151.08" reason="strategic|urgent" leaderGap="2.54" leaderSecureGap="0.02" leaderSpeed="0.00" followerGap="3.15" followerSecureGap="0.01" followerSpeed="0.35" origLeaderGap="2.51" origLeaderSecureGap="0.00" origLeaderSpeed="0.04"/>
     <change id="merge.4" type="t0" time="69.90" from="beg_0" to="beg_1" dir="1" speed="4.42" pos="188.81" reason="strategic|urgent" leaderGap="8.47" leaderSecureGap="0.00" leaderSpeed="13.00" followerGap="4.64" followerSecureGap="1.55" followerSpeed="3.75" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
-    <change id="merge.17" type="t0" time="72.00" from="beg_0" to="beg_1" dir="1" speed="2.86" pos="148.15" reason="strategic|urgent" leaderGap="4.30" leaderSecureGap="0.00" leaderSpeed="6.20" followerGap="6.16" followerSecureGap="0.00" followerSpeed="0.00" origLeaderGap="26.66" origLeaderSecureGap="0.00" origLeaderSpeed="1.82"/>
-    <change id="merge.5" type="t0" time="74.90" from="beg_0" to="beg_1" dir="1" speed="5.81" pos="188.51" reason="strategic|urgent" leaderGap="5.91" leaderSecureGap="2.05" leaderSpeed="6.47" followerGap="6.14" followerSecureGap="0.00" followerSpeed="0.01" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
-    <change id="merge.13" type="t0" time="88.30" from="beg_0" to="beg_1" dir="1" speed="9.45" pos="166.52" reason="strategic|urgent" leaderGap="23.15" leaderSecureGap="0.00" leaderSpeed="13.37" followerGap="6.50" followerSecureGap="0.00" followerSpeed="2.60" origLeaderGap="35.72" origLeaderSecureGap="8.96" origLeaderSpeed="0.00"/>
-    <change id="merge.11" type="t0" time="103.20" from="beg_0" to="beg_1" dir="1" speed="0.00" pos="196.00" reason="strategic|urgent" leaderGap="7.21" leaderSecureGap="0.00" leaderSpeed="11.92" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="merge.5" type="t0" time="74.90" from="beg_0" to="beg_1" dir="1" speed="5.81" pos="188.51" reason="strategic|urgent" leaderGap="5.91" leaderSecureGap="2.05" leaderSpeed="6.47" followerGap="4.21" followerSecureGap="0.00" followerSpeed="0.00" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="merge.17" type="t0" time="99.50" from="beg_0" to="beg_1" dir="1" speed="0.00" pos="196.00" reason="strategic|urgent" leaderGap="4.41" leaderSecureGap="0.00" leaderSpeed="10.54" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="merge.11" type="t0" time="104.30" from="beg_0" to="beg_1" dir="1" speed="3.85" pos="191.57" reason="strategic|urgent" leaderGap="6.70" leaderSecureGap="0.05" leaderSpeed="4.68" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="merge.13" type="t0" time="104.80" from="beg_0" to="beg_1" dir="1" speed="0.45" pos="181.15" reason="strategic|urgent" leaderGap="2.54" leaderSecureGap="0.01" leaderSpeed="0.41" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="2.54" origLeaderSecureGap="0.00" origLeaderSpeed="0.41"/>
 </lanechanges>
