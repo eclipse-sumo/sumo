@@ -181,7 +181,7 @@ def main():
                     for key in sorted(elemKeys[elem]):
                         attr = key[1]
                         stats = allStats[key]
-                        f.write(stats.toXML(options.precision, tag=attr, indent=8))
+                        f.write(stats.toXML(options.precision, tag=attr, indent=8, label=''))
                     f.write('    </%s>\n' % elem)
             f.write('</attributeStats>\n')
 

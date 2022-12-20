@@ -244,9 +244,14 @@ class Statistics:
         else:
             return '%s: no values' % self.label
 
-    def toXML(self, precision=2, tag="statistic", indent=4):
-        result = ' ' * indent + '<%s description="%s"' % (tag, self.label)
-        if len(self.values) > 0:
+    def toXML(self, precision=2, tag="statistic", indent=4, label=None):
+        if label is None:
+            label = self.label
+        description = ' description="%s"' % label if label != '' else ''
+
+        result = ' ' * indent + '<%s%s' % (tag, description)
+        if self.count() > 0:
+            result += ' count="%i"' % self.count()
             result += (setPrecision(' min="%.2f" minLabel="%s" max="%.2f" maxLabel="%s" mean="%.2f"',
                                     precision, self.isArray) %
                        (self.min, self.min_label, self.max, self.max_label, self.avg()))
