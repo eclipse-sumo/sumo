@@ -52,6 +52,7 @@ def add_options():
                            type=int, help="Defines the begin time to export")
     argParser.add_argument("-e", "--end", default=86400,
                            type=int, help="Defines the end time for the export")
+    argParser.add_argument("--bbox", help="define the bounding box to filter the gtfs data, format: W,S,E,N")
     return argParser
 
 
@@ -76,6 +77,11 @@ def get_merged_data(options):
     gtfsZip = zipfile.ZipFile(sumolib.openz(options.gtfs, mode="rb", tryGZip=False))
     routes, trips_on_day, shapes, stops, stop_times = gtfs2osm.import_gtfs(options, gtfsZip)
 
+    if options.bbox:
+        stops['stop_lat'] = stops['stop_lat'].astype(float)
+        stops['stop_lon'] = stops['stop_lon'].astype(float)
+        stops = stops[(options.bbox[1] <= stops['stop_lat']) & (stops['stop_lat'] <= options.bbox[3]) &
+                      (options.bbox[0] <= stops['stop_lon']) & (stops['stop_lon'] <= options.bbox[2])]
     stop_times['arrival_time'] = stop_times['arrival_time'].map(time2sec)
     stop_times['departure_time'] = stop_times['departure_time'].map(time2sec)
 

@@ -38,10 +38,14 @@ def readPOI(traceFile, net):
 
 
 def readFCD(traceFile, net, geo):
+    """Reads traces from a file in SUMO's fcd-output format.
+    The file needs to be sorted by vehicle id rather than by time!"""
     trace = []
     last = None
     for v in sumolib.xml.parse_fast(traceFile, "vehicle", ("id", "x", "y")):
-        if trace and last != v.id:
+        if last is None:
+            last = v.id
+        if last != v.id:
             yield last, trace
             trace = []
             last = v.id

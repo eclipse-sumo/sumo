@@ -32,7 +32,8 @@ import zipfile
 import pandas as pd
 pd.options.mode.chained_assignment = None  # default='warn'
 
-sys.path += [os.path.join(os.environ["SUMO_HOME"], "tools"), os.path.join(os.environ['SUMO_HOME'], 'tools', 'route')]  # noqa
+sys.path += [os.path.join(os.environ["SUMO_HOME"], "tools"),
+             os.path.join(os.environ['SUMO_HOME'], 'tools', 'route')]
 import route2poly  # noqa
 import sumolib  # noqa
 import tracemapper  # noqa
@@ -92,8 +93,6 @@ def get_options(args=None):
                     help="file to write the unmapped elements from gtfs")
     ap.add_argument("--dua-repair-output",
                     help="file to write the osm routes with errors")
-    ap.add_argument("--bbox",
-                    help="define the bounding box to filter the gtfs data, format: W,S,E,N")
     ap.add_argument("--repair", help="repair osm routes", action='store_true')
     ap.add_argument("--min-stops", default=1, type=int,
                     help="minimum number of stops a public transport line must have to be imported")
@@ -343,17 +342,13 @@ def main(options):
         print('Loading net')
     net = sumolib.net.readNet(options.network)
 
+    if not options.bbox:
+        bboxXY = net.getBBoxXY()
+        options.bbox = net.convertXY2LonLat(*bboxXY[0]) + net.convertXY2LonLat(*bboxXY[1])
+    else:
+        options.bbox = [float(coord) for coord in options.bbox.split(",")]
     if options.osm_routes:
         # Import PT from GTFS and OSM routes
-        if not options.bbox:
-            BBoxXY = net.getBBoxXY()
-            BBoxLonLat = (net.convertXY2LonLat(BBoxXY[0][0], BBoxXY[0][1]),
-                          net.convertXY2LonLat(BBoxXY[1][0], BBoxXY[1][1]))
-            options.bbox = (BBoxLonLat[0][0], BBoxLonLat[0][1],
-                            BBoxLonLat[1][0], BBoxLonLat[1][1])
-        else:
-            options.bbox = [float(coord) for coord in options.bbox.split(",")]
-
         gtfsZip = zipfile.ZipFile(sumolib.openz(options.gtfs, mode="rb", tryGZip=False))
         routes, trips_on_day, shapes, stops, stop_times = gtfs2osm.import_gtfs(options, gtfsZip)
 
