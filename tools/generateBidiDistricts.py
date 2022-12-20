@@ -99,7 +99,7 @@ def computeAllBidiTaz(net, radius, travelDist, symmetrical):
 
 def main(netFile, outFile, radius, travelDist, symmetrical):
     net = sumolib.net.readNet(netFile, withConnections=False, withFoes=False)
-    with sumolib.open(outFile, mode='w') as outf:
+    with sumolib.openz(outFile, mode='w') as outf:
         sumolib.writeXMLHeader(outf)
         outf.write('<tazs>\n')
         for taz, edges in computeAllBidiTaz(net, radius, travelDist, symmetrical):

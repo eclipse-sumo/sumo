@@ -87,7 +87,7 @@ class DistrictEdgeComputer:
         return result
 
     def writeResults(self, options):
-        fd = sumolib.open(options.output, mode="w")
+        fd = sumolib.openz(options.output, mode="w")
         sumolib.xml.writeHeader(fd, "$Id$", "tazs", "taz_file.xsd")  # noqa
         lastId = None
         lastEdges = set()

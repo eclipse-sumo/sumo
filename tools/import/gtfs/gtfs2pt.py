@@ -308,7 +308,7 @@ def filter_trips(options, routes, stops, outfile, begin, end):
     numDays = end // 86400
     if end % 86400 != 0:
         numDays += 1
-    with sumolib.open(outfile, mode='w') as outf:
+    with sumolib.openz(outfile, mode='w') as outf:
         sumolib.xml.writeHeader(outf, os.path.basename(__file__), "routes", options=options)
         if options.sort:
             vehs = collections.defaultdict(lambda: "")
@@ -354,7 +354,7 @@ def main(options):
         else:
             options.bbox = [float(coord) for coord in options.bbox.split(",")]
 
-        gtfsZip = zipfile.ZipFile(sumolib.open(options.gtfs, False))
+        gtfsZip = zipfile.ZipFile(sumolib.openz(options.gtfs, mode="rb", tryGZip=False))
         routes, trips_on_day, shapes, stops, stop_times = gtfs2osm.import_gtfs(options, gtfsZip)
 
         if routes.empty or trips_on_day.empty:
@@ -404,7 +404,7 @@ def main(options):
 
         if options.poly_output:
             generate_polygons(net, routes, options.poly_output)
-        with sumolib.open(options.additional_output, mode='w') as rout:
+        with sumolib.openz(options.additional_output, mode='w') as rout:
             sumolib.xml.writeHeader(rout, os.path.basename(__file__), "additional")
             stops = map_stops(options, net, routes, rout, edgeMap)
             for vehID, edges in routes.items():
