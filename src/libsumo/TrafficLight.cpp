@@ -328,13 +328,39 @@ TrafficLight::swapConstraints(const std::string& tlsID, const std::string& tripI
         const int limit = c->myLimit;
         // the two constraints are complementary so we actually remove rather than deactivate to avoid redundant conflict information
         MSRailSignalConstraint::ConstraintType type = c->getSwappedType();
+        MSRailSignalConstraint* swapped = new MSRailSignalConstraint_Predecessor(type, s, tripId, limit, true);
+        swapped->updateParameters(c->getParametersMap());
+        swapParameters(swapped);
         s->removeConstraint(tripId, c);
-        s2->addConstraint(foeId, new MSRailSignalConstraint_Predecessor(type, s, tripId, limit, true));
+        s2->addConstraint(foeId, swapped);
         return findConstraintsDeadLocks(foeId, tripId, foeSignal, tlsID);
     } else {
         throw TraCIException("Rail signal '" + tlsID + "' does not have a constraint for tripId '" + tripId + "' with foeSignal '" + foeSignal + "' and foeId '" + foeId + "'");
     }
 }
+
+
+void
+TrafficLight::swapParameters(MSRailSignalConstraint* c) {
+    // swap parameters that were assigned by generateRailSignalConstraints.py
+    if (c->getType() == MSRailSignalConstraint::ConstraintType::BIDI_PREDECESSOR) {
+        swapParameters(c, "busStop", "busStop2");
+        swapParameters(c, "priorStop", "priorStop2");
+        swapParameters(c, "arrival", "foeArrival");
+        swapParameters(c, "stopArrival", "foeStopArrival");
+    }
+}
+
+void
+TrafficLight::swapParameters(MSRailSignalConstraint* c, const std::string& key1, const std::string& key2) {
+    const std::string value1 = c->getParameter(key1);
+    const std::string value2 = c->getParameter(key2);
+    if (value1 != "" && value2 != "") {
+        c->setParameter(key1, value2);
+        c->setParameter(key2, value1);
+    }
+}
+
 
 void
 TrafficLight::removeConstraints(const std::string& tlsID, const std::string& tripId, const std::string& foeSignal, const std::string& foeId) {
