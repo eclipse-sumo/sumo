@@ -724,6 +724,7 @@ The following shapes are known:
 - "police"
 - "rickshaw"
 - "scooter"
+- "aircraft"
 
 Some of these classes are drawn as a sequence of carriages. The length
 of a single carriage is indicated in parentheses after the type. For
