@@ -293,48 +293,49 @@ def map_stops(options, net, routes, rout, edgeMap):
             stop = "%s:%.2f" % (edgeID, end)
             if stop not in stopDef:
                 stopDef.add(stop)
+                access = gtfs2osm.getAccess(net, veh.x, veh.y, 100, laneID)
+                if not access and not params:
+                    addAttrs += "/"
                 typ = "busStop" if mode == "bus" else "trainStop"
                 rout.write(u'    <%s id="%s" lane="%s" startPos="%.2f" endPos="%.2f"%s>\n%s' %
                            (typ, stop, laneID, start, end, addAttrs, params))
-                for a in gtfs2osm.getAccess(net, veh.x, veh.y, 100, laneID):
-                    rout.write(a)
-                rout.write(u'    </%s>\n' % typ)
+                if access or params:
+                    for a in sorted(access):
+                        rout.write(a)
+                    rout.write(u'    </%s>\n' % typ)
             stops[rid].append((stop, int(veh.until)))
     return stops
 
 
-def filter_trips(options, routes, stops, outfile, begin, end):
+def filter_trips(options, routes, stops, outf, begin, end):
     numDays = end // 86400
     if end % 86400 != 0:
         numDays += 1
-    with sumolib.openz(outfile, mode='w') as outf:
-        sumolib.xml.writeHeader(outf, os.path.basename(__file__), "routes", options=options)
-        if options.sort:
-            vehs = collections.defaultdict(lambda: "")
-        for inp in sorted(glob.glob(os.path.join(options.fcd, "*.rou.xml"))):
-            for veh in sumolib.xml.parse_fast_structured(inp, "vehicle", ("id", "route", "type", "depart", "line"),
-                                                         {"param": ["key", "value"]}):
-                if len(routes.get(veh.route, [])) > 0 and len(stops.get(veh.route, [])) > 1:
-                    until = stops[veh.route][0][1]
-                    for d in range(numDays):
-                        depart = max(0, d * 86400 + int(veh.depart) + until - options.duration)
-                        if begin <= depart < end:
-                            if d != 0 and veh.id.endswith(".trimmed"):
-                                # only add trimmed trips the first day
-                                continue
-                            line = (u'    <vehicle id="%s.%s" route="%s" type="%s" depart="%s" line="%s">\n' %
-                                    (veh.id, d, veh.route, veh.type, depart, veh.line))
-                            for p in veh.param:
-                                line += u'        <param key="%s" value="%s"/>\n' % p
-                            line += u'    </vehicle>\n'
-                            if options.sort:
-                                vehs[depart] += line
-                            else:
-                                outf.write(line)
-        if options.sort:
-            for _, vehs in sorted(vehs.items()):
-                outf.write(vehs)
-        outf.write(u'</routes>\n')
+    if options.sort:
+        vehs = collections.defaultdict(lambda: "")
+    for inp in sorted(glob.glob(os.path.join(options.fcd, "*.rou.xml"))):
+        for veh in sumolib.xml.parse_fast_structured(inp, "vehicle", ("id", "route", "type", "depart", "line"),
+                                                        {"param": ["key", "value"]}):
+            if len(routes.get(veh.route, [])) > 0 and len(stops.get(veh.route, [])) > 1:
+                until = stops[veh.route][0][1]
+                for d in range(numDays):
+                    depart = max(0, d * 86400 + int(veh.depart) + until - options.duration)
+                    if begin <= depart < end:
+                        if d != 0 and veh.id.endswith(".trimmed"):
+                            # only add trimmed trips the first day
+                            continue
+                        line = (u'    <vehicle id="%s.%s" route="%s" type="%s" depart="%s" line="%s">\n' %
+                                (veh.id, d, veh.route, veh.type, depart, veh.line))
+                        for p in veh.param:
+                            line += u'        <param key="%s" value="%s"/>\n' % p
+                        line += u'    </vehicle>\n'
+                        if options.sort:
+                            vehs[depart] += line
+                        else:
+                            outf.write(line)
+    if options.sort:
+        for _, vehs in sorted(vehs.items()):
+            outf.write(vehs)
 
 
 def main(options):
@@ -399,9 +400,12 @@ def main(options):
 
         if options.poly_output:
             generate_polygons(net, routes, options.poly_output)
-        with sumolib.openz(options.additional_output, mode='w') as rout:
-            sumolib.xml.writeHeader(rout, os.path.basename(__file__), "additional")
-            stops = map_stops(options, net, routes, rout, edgeMap)
+        with sumolib.openz(options.additional_output, mode='w') as aout:
+            sumolib.xml.writeHeader(aout, os.path.basename(__file__), "additional", options=options)
+            stops = map_stops(options, net, routes, aout, edgeMap)
+            aout.write(u'</additional>\n')
+        with sumolib.openz(options.route_output, mode='w') as rout:
+            sumolib.xml.writeHeader(rout, os.path.basename(__file__), "routes", options=options)
             for vehID, edges in routes.items():
                 if edges:
                     rout.write(u'    <route id="%s" edges="%s">\n' % (vehID, " ".join([edgeMap[e] for e in edges])))
@@ -414,8 +418,8 @@ def main(options):
                     rout.write(u'    </route>\n')
                 else:
                     print("Warning! Empty route", vehID, file=sys.stderr)
-            rout.write(u'</additional>\n')
-        filter_trips(options, routes, stops, options.route_output, options.begin, options.end)
+            filter_trips(options, routes, stops, rout, options.begin, options.end)
+            rout.write(u'</routes>\n')
 
 
 if __name__ == "__main__":
