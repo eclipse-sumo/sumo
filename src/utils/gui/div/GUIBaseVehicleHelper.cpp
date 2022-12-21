@@ -499,19 +499,26 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
 
         case SUMOVehicleShape::AIRCRAFT: // Aircraft polygon has many points but we do not expect to have high numbers of aircraft being visualised!
             GLHelper::pushMatrix();
-            glTranslated(0, 0, 4 * .1);
-            glPolygonOffset(0, (GLfloat)-4);
-            glLineWidth(2);
             glBegin(GL_TRIANGLE_STRIP);
             {
                 int i = 0;
                 while (vehiclePoly_aircraft[i] > -999) {
                     glVertex2d(vehiclePoly_aircraft[i], vehiclePoly_aircraft[i + 1]);
-                    
                     i = i + 2;
                 }
             }
             glEnd();
+            GLHelper::popMatrix();
+            // naviation lights
+            glColor3d(1.f, 0, 0);
+            GLHelper::pushMatrix();
+            glTranslated(0.62, -0.49, 0.1);
+            GLHelper::drawFilledCircle(-.01, 6);
+            GLHelper::popMatrix();
+            glColor3d(0, 1.f, 0);
+            GLHelper::pushMatrix();
+            glTranslated(0.62, 0.49, 0.1);
+            GLHelper::drawFilledCircle(-.01, 6);
             GLHelper::popMatrix();
             break;      
 
