@@ -160,30 +160,6 @@ def simulationStep(step=0):
 simulation.step = simulationStep
 
 
-_edge_setAllowed = edge.setAllowedVehicleClasses
-
-
-def setAllowed(edgeID, allowedClasses):
-    if isinstance(allowedClasses, str):
-        allowedClasses = [allowedClasses]
-    _edge_setAllowed(edgeID, allowedClasses)
-
-
-edge.setAllowedVehicleClasses = edge.setAllowed = setAllowed
-
-
-_edge_setDisallowed = edge.setDisallowedVehicleClasses
-
-
-def setDisallowed(edgeID, disallowedClasses):
-    if isinstance(disallowedClasses, str):
-        disallowedClasses = [disallowedClasses]
-    _edge_setDisallowed(edgeID, disallowedClasses)
-
-
-edge.setDisallowedVehicleClasses = edge.setDisallowed = setDisallowed
-
-
 def close():
     simulation.close()
     _stepManager.close()

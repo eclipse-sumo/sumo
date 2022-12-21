@@ -102,13 +102,13 @@ TraCIServerAPI_Edge::processSet(TraCIServer& server, tcpip::Storage& inputStorag
             case libsumo::LANE_ALLOWED: {
                 // read and set allowed vehicle classes
                 const std::vector<std::string> classes = StoHelp::readTypedStringList(inputStorage, "Allowed vehicle classes must be given as a list of strings.");
-                libsumo::Edge::setAllowedVehicleClasses(id, classes);
+                libsumo::Edge::setAllowed(id, classes);
                 break;
             }
             case libsumo::LANE_DISALLOWED: {
                 // read and set disallowed vehicle classes
                 const std::vector<std::string> classes = StoHelp::readTypedStringList(inputStorage, "Not allowed vehicle classes must be given as a list of strings.");
-                libsumo::Edge::setDisallowedVehicleClasses(id, classes);
+                libsumo::Edge::setDisallowed(id, classes);
                 break;
             }
             case libsumo::VAR_EDGE_TRAVELTIME: {

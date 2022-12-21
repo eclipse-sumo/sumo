@@ -291,16 +291,26 @@ LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(Edge)
 
 
 void
-Edge::setAllowedVehicleClasses(const std::string& edgeID, std::vector<std::string> classes) {
-    SVCPermissions permissions = parseVehicleClasses(classes);
-    setAllowedSVCPermissions(edgeID, permissions);
+Edge::setAllowed(const std::string& edgeID, std::string allowedClasses) {
+    setAllowedSVCPermissions(edgeID, parseVehicleClasses(allowedClasses));
 }
 
 
 void
-Edge::setDisallowedVehicleClasses(const std::string& edgeID, std::vector<std::string> classes) {
-    SVCPermissions permissions = invertPermissions(parseVehicleClasses(classes));
-    setAllowedSVCPermissions(edgeID, permissions);
+Edge::setAllowed(const std::string& edgeID, std::vector<std::string> allowedClasses) {
+    setAllowedSVCPermissions(edgeID, parseVehicleClasses(allowedClasses));
+}
+
+
+void
+Edge::setDisallowed(const std::string& edgeID, std::string disallowedClasses) {
+    setAllowedSVCPermissions(edgeID, invertPermissions(parseVehicleClasses(disallowedClasses)));
+}
+
+
+void
+Edge::setDisallowed(const std::string& edgeID, std::vector<std::string> disallowedClasses) {
+    setAllowedSVCPermissions(edgeID, invertPermissions(parseVehicleClasses(disallowedClasses)));
 }
 
 
