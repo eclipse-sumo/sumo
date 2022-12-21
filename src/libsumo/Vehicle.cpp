@@ -805,6 +805,29 @@ Vehicle::getTaxiFleet(int taxiState) {
     return result;
 }
 
+std::vector<std::string>
+Vehicle::getLoadedIDList() {
+    std::vector<std::string> ids;
+    MSVehicleControl& c = MSNet::getInstance()->getVehicleControl();
+    for (MSVehicleControl::constVehIt i = c.loadedVehBegin(); i != c.loadedVehEnd(); ++i) {
+        ids.push_back(i->first);
+    }
+    return ids;
+}
+
+std::vector<std::string>
+Vehicle::getTeleportingIDList() {
+    std::vector<std::string> ids;
+    MSVehicleControl& c = MSNet::getInstance()->getVehicleControl();
+    for (MSVehicleControl::constVehIt i = c.loadedVehBegin(); i != c.loadedVehEnd(); ++i) {
+        SUMOVehicle* veh = i->second;
+        if (veh->hasDeparted() && !isVisible(veh)) {
+            ids.push_back(veh->getID());
+        }
+    }
+    return ids;
+}
+
 std::string
 Vehicle::getEmissionClass(const std::string& vehID) {
     return PollutantsInterface::getName(Helper::getVehicleType(vehID).getEmissionClass());
@@ -2623,6 +2646,10 @@ Vehicle::handleVariable(const std::string& objID, const int variable, VariableWr
             const double dist = paramData->readDouble();
             return wrapper->wrapStringDoublePair(objID, variable, getFollower(objID, dist));
         }
+        case VAR_LOADED_LIST:
+            return wrapper->wrapStringList(objID, variable, getLoadedIDList());
+        case VAR_TELEPORTING_LIST:
+            return wrapper->wrapStringList(objID, variable, getTeleportingIDList());
         case libsumo::VAR_PARAMETER:
             paramData->readUnsignedByte();
             return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));

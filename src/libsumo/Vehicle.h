@@ -110,6 +110,9 @@ public:
     static double getStopArrivalDelay(const std::string& vehID);
     static double getTimeLoss(const std::string& vehID);
     static std::vector<std::string> getTaxiFleet(int taxiState = 0);
+
+    static std::vector<std::string> getLoadedIDList();
+    static std::vector<std::string> getTeleportingIDList();
     /// @}
 
     LIBSUMO_ID_PARAMETER_API

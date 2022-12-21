@@ -906,6 +906,18 @@ class VehicleDomain(VTypeDomain):
         """
         return self._getUniversal(tc.VAR_TAXI_FLEET, "", "i", flag)
 
+    def getLoadedIDList(self):
+        """getLoadedIDList() -> list(string)
+        returns all loaded vehicles that have not yet left the simulation
+        """
+        return self._getUniversal(tc.VAR_LOADED_LIST, "")
+
+    def getTeleportingIDList(self):
+        """getTeleportingIDList() -> list(string)
+        returns all teleporting or jumping vehicles
+        """
+        return self._getUniversal(tc.VAR_TELEPORTING_LIST, "")
+
     def rerouteParkingArea(self, vehID, parkingAreaID):
         """rerouteParkingArea(string, string)
 

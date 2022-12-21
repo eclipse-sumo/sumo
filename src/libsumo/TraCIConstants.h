@@ -1299,6 +1299,12 @@ TRACI_CONST int CMD_LOAD_SIMSTATE = 0x96;
 // retrieve detail data for each collision
 TRACI_CONST int VAR_COLLISIONS = 0x23;
 
+// return loaded vehicles regardless of visibility (excluding arrived)
+TRACI_CONST int VAR_LOADED_LIST = 0x24;
+
+// return teleporting vehicles
+TRACI_CONST int VAR_TELEPORTING_LIST = 0x25;
+
 // sets/retrieves abstract parameter
 TRACI_CONST int VAR_PARAMETER = 0x7e;
 
