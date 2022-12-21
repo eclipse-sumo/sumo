@@ -169,7 +169,7 @@ GUIOSGManipulator::handleMouseDeltaMovement(const osgGA::GUIEventAdapter& ea, os
     if (dt > 0.1) { // wait until the mouse movement is sufficiently smooth
         return false;
     }
-    float intensity = 15.;
+    float intensity = 50.;
     float dx = _ga_t0->getXnormalized() * intensity * dt;
     float dy = _ga_t0->getYnormalized() * intensity * dt;
     if (dx == 0. && dy == 0.) { return false; }
