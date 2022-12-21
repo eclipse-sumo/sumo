@@ -511,7 +511,6 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
             }
             glEnd();
             GLHelper::popMatrix();
-            GLHelper::setColor(current.changedBrightness(-30));
             break;      
 
         case SUMOVehicleShape::SCOOTER: {
