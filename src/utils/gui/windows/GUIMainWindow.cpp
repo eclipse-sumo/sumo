@@ -133,6 +133,13 @@ GUIMainWindow::getTopDock() {
     return myTopDock;
 }
 
+FXDockSite*
+GUIMainWindow::getLeftDock() {
+    return myLeftDock;
+}
+
+
+
 
 std::vector<std::string>
 GUIMainWindow::getViewIDs() const {
