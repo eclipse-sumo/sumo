@@ -308,20 +308,26 @@ Synchronizes saved state files from a (remote) simulation and replays them in a
 local sumo-gui instance to observe the remote simulation.
 
 !!! note
-    This script requires the rsync executable which is probably already installed if you are on Linux or macOS. On Windows it is recommended to install the [Windows Linux Subsystem (WSL)](https://learn.microsoft.com/windows/wsl). Please do *not* run sumo or stateReplay itself inside the WSL, the script will trigger the WSL itself.
+    This script requires the rsync executable which is probably already installed if you are on Linux or macOS. On Windows it is recommended to install the [Windows Linux Subsystem (WSL)](https://learn.microsoft.com/windows/wsl) and install rsync there. Please do *not* run sumo or stateReplay itself inside the WSL, the script will trigger the WSL itself.
 
-To observer every step in a simulation with step length 1s, the remote simulation must be started with option **--save-state.period 1**.
+To observe every step in a simulation with step length 1s, the remote simulation must be started with option **--save-state.period 1**.
 In order to conserve disk space, the option **--save-state.period.keep 3** is recommended. (i.e. to retain only the last 3 simulation state files at any time).
+
+!!! caution
+    Option **--save-state.period 1** can slow down a simulation significantly.
 
 To replay the state files the following call can be used:
 ```
 python tools/stateReplay --sumo-config replay.sumocfg --src REMOTE_FOLDER --dst LOCAL_FOLDER
 ```
 
-The given .sumocfg file only needs to include the network and any additional infrastructure referenced by the remote simulation. The value of REMOTE_FOLDER can be any folder as understood by rsync (i.e. remotehost:~/myfolder)
+The given .sumocfg file only needs to include the network and any additional infrastructure referenced by the remote simulation. The value of REMOTE_FOLDER can be any folder as understood by rsync (i.e. remotehost:~/myfolder).
+If you use ssh make sure that you can access the remote folder without a password by [creating a public-private key pair](https://en.wikipedia.org/wiki/Ssh-keygen).
 
-!!! caution
-    Option **--save-state.period 1** can slow down a simulation significantly.
+If you need to pass additional options to rsync you can append them to the command line, e.g. for a custom ssh port and verbose output:
+```
+python tools/stateReplay --sumo-config replay.sumocfg --src REMOTE_FOLDER --dst LOCAL_FOLDER -v -e "ssh -p PORT"
+```
 
 # runSeeds.py
 
