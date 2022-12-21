@@ -43,3 +43,4 @@ parkingSearchTraffic
 # aggregate battery outputs
 aggregateBatteryOutput
 vehrouteCountValidation
+fcdDiff
