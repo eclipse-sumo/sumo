@@ -21,12 +21,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <output>
         <write-license value="true"/>
         <tripinfo-output value="tripinfos.xml"/>
+        <tripinfo-output.write-unfinished value="true"/>
         <vehroute-output value="vehroutes.xml"/>
     </output>
-
-    <time>
-        <end value="1000"/>
-    </time>
 
     <processing>
         <default.speeddev value="0"/>
@@ -46,23 +43,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <person id="p0" depart="0.00" arrival="110.00">
-        <ride from="B2C2" to="A0B0" arrivalPos="191.73" lines="taxi"/>
-    </person>
-
-    <vehicle id="trip_0" type="taxi" depart="0.00" arrival="155.00">
-        <route edges="A0B0 B0C0"/>
-        <stop edge="A0B0" actType="idling"/>
-    </vehicle>
-
-    <vehicle id="trip_1" type="taxi" depart="0.00" arrival="508.00">
-        <routeDistribution>
-            <route replacedOnEdge="A2B2" reason="taxi:dispatch" replacedAtTime="0.00" probability="0" edges="A2B2 B2C2 A0B0"/>
-            <route edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0"/>
-        </routeDistribution>
-        <stop lane="B2C2_1" permitted="p0" actType="pickup p0 (0)"/>
-        <stop lane="A0B0_1" actType="dropOff p0 (0)"/>
-        <param key="device.taxi.end" value="500"/>
-    </vehicle>
+    <container id="c0" depart="0.00" arrival="110.00">
+        <transport from="B2C2" to="A0B0" arrivalPos="191.73" lines="taxi"/>
+    </container>
 
 </routes>
