@@ -43,7 +43,7 @@ MSIdling_Stop::idle(MSDevice_Taxi* taxi) {
     if (!taxi->getHolder().hasStops()) {
 #ifdef DEBUG_IDLING
         if (DEBUG_COND(taxi)) {
-            std::cout << SIMTIME << " MSIdling_Stop add stop\n";
+            std::cout << SIMTIME << " taxi=" << taxi->getHolder().getID() << " MSIdling_Stop add stop\n";
         }
 #endif
         std::string errorOut;
@@ -83,7 +83,7 @@ MSIdling_Stop::idle(MSDevice_Taxi* taxi) {
         MSStop& stop = taxi->getHolder().getNextStop();
 #ifdef DEBUG_IDLING
         if (DEBUG_COND(taxi)) {
-            std::cout << SIMTIME << " MSIdling_Stop reusing stop with duration " << time2string(stop.duration) << "\n";
+            std::cout << SIMTIME << " taxi=" << taxi->getHolder().getID() << " MSIdling_Stop reusing stop with duration " << time2string(stop.duration) << "\n";
         }
 #endif
         if (taxi->getHolder().getVehicleType().getContainerCapacity() > 0) {
