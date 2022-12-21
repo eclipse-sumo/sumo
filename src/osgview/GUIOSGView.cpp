@@ -225,6 +225,15 @@ GUIOSGView::adoptViewSettings() {
     globalLight->setAmbient(toOSGColorVector(myVisualizationSettings->ambient3DLight));
     globalLight->setDiffuse(toOSGColorVector(myVisualizationSettings->diffuse3DLight));
     myViewer->getCamera()->setClearColor(toOSGColorVector(myVisualizationSettings->skyColor));
+
+    // show/hide OSG nodes
+    unsigned int cullMask = 0xFFFFFFFF;
+    cullMask ^= (-int(myVisualizationSettings->show3DTLSDomes) ^ cullMask) & (1UL << NODESET_TLSDOMES);
+    cullMask ^= (-int(myVisualizationSettings->show3DTLSLinkMarkers) ^ cullMask) & (1UL << NODESET_TLSLINKMARKERS);
+    cullMask ^= (-int(myVisualizationSettings->generate3DTLSModels) ^ cullMask) & (1UL << NODESET_TLSMODELS);
+    myViewer->getCamera()->setCullMask(cullMask);
+    unsigned int hudCullMask = (myVisualizationSettings->show3DHeadUpDisplay) ? 0xFFFFFFFF : 0;
+    myCameraManipulator->getHUD()->setCullMask(hudCullMask);
 }
 
 
@@ -503,14 +512,6 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
             ++person;
         }
     }
-    // show/hide OSG nodes
-    unsigned int cullMask = 0xFFFFFFFF;
-    cullMask ^= (-int(myVisualizationSettings->show3DTLSDomes) ^ cullMask) & (1UL << NODESET_TLSDOMES);
-    cullMask ^= (-int(myVisualizationSettings->show3DTLSLinkMarkers) ^ cullMask) & (1UL << NODESET_TLSLINKMARKERS);
-    cullMask ^= (-int(myVisualizationSettings->generate3DTLSModels) ^ cullMask) & (1UL << NODESET_TLSMODELS);
-    myViewer->getCamera()->setCullMask(cullMask);
-    unsigned int hudCullMask = (myVisualizationSettings->show3DHeadUpDisplay) ? 0xFFFFFFFF : 0;
-    myCameraManipulator->getHUD()->setCullMask(hudCullMask);
 
     if (myAdapter->makeCurrent()) {
         myViewer->frame();
