@@ -25,6 +25,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSStop.h>
 #include <microsim/transportables/MSTransportable.h>
+#include <mesosim/MELoop.h>
 #include "MSRoutingEngine.h"
 #include "MSIdling.h"
 
@@ -50,7 +51,28 @@ MSIdling_Stop::idle(MSDevice_Taxi* taxi) {
         double brakeGap = 0;
         std::pair<const MSLane*, double> stopPos;
         if (MSGlobals::gUseMesoSim) {
-            stopPos = std::make_pair((*taxi->getHolder().getCurrentRouteEdge())->getLanes()[0], taxi->getHolder().getPositionOnLane());
+            // stops are only checked in MESegment::receive so we need to put this onto the next segment
+            MSBaseVehicle& veh = dynamic_cast<MSBaseVehicle&>(taxi->getHolder());
+            MSRouteIterator ri = veh.getCurrentRouteEdge();
+            MESegment* curSeg = MSGlobals::gMesoNet->getSegmentForEdge(**ri, veh.getPositionOnLane());
+            MESegment* stopSeg = curSeg->getNextSegment();
+            if (stopSeg == nullptr) {
+                if ((ri + 1) != veh.getRoute().end()) {
+                    stopSeg = MSGlobals::gMesoNet->getSegmentForEdge(**(ri + 1), 0);
+                } else {
+                    WRITE_WARNING("Idle taxi '" + taxi->getHolder().getID() + "' has no next segment to stop. time=" + time2string(SIMTIME) + ".");
+                    return;
+                }
+            }
+            // determine offset of stopSeg
+            double stopOffset = 0;
+            const MSEdge& stopEdge = stopSeg->getEdge();
+            MESegment* seg = MSGlobals::gMesoNet->getSegmentForEdge(stopEdge);
+            while (seg != stopSeg) {
+                stopOffset += seg->getLength();
+                seg = seg->getNextSegment();
+            }
+            stopPos = std::make_pair(stopEdge.getLanes()[0], stopOffset);
         } else {
             MSVehicle& veh = dynamic_cast<MSVehicle&>(taxi->getHolder());
             brakeGap = veh.getCarFollowModel().brakeGap(veh.getSpeed());
