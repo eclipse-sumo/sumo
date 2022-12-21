@@ -333,3 +333,18 @@ Example usage:
 ```
 python tools\output\aggregateBatteryOutput.py -i battery.xml -o batteryAggregatedx.xml -t 60 -v veh0')
 ```
+
+## fcdDiff.py
+
+Computes difference between two [fcd-output files](../Simulation/Output/FCDOutput.md) with regard to their distance in space.
+Data points in the files are matched by time and by id (no time shifting is done).
+
+Statistical outputs are printed on the console. It is also possible to write all error values to an xml file.
+
+```
+python tools/output/fcdDiff fcd.xml fcd2.xml 
+```
+
+- If option **--grouped** is set, separate statistics for each vehicle will be printed
+- If option **--tripId** is set, vehicles will be matched by attribute `tripId` instead of `id` (requires **--fcd-output.params tripId** to be when generating the fcd-output)
+- With option **--xml-output** {{DT_FILE}}, An annotated fcd file with error values is written
