@@ -175,7 +175,14 @@ GUIOSGView::GUIOSGView(
         WRITE_ERROR(TL("Could not load traffic light files."));
     }
 
+    // calculate camera frustum to scale the ground plane all across
+    double left, right, bottom, top, zNear, zFar;
+    myViewer->getCamera()->getProjectionMatrixAsFrustum(left, right, bottom, top, zNear, zFar);
     myRoot = GUIOSGBuilder::buildOSGScene(myGreenLight, myYellowLight, myRedLight, myRedYellowLight, myPoleBase);
+    myPlane = new osg::MatrixTransform();
+    myPlane->addChild(GUIOSGBuilder::buildPlane(zFar - zNear));
+    myPlane->addUpdateCallback(new PlaneMoverCallback(myViewer->getCamera()));
+    myRoot->addChild(myPlane.get());
 
     // adjust the main light
     adoptViewSettings();
@@ -223,10 +230,20 @@ GUIOSGView::~GUIOSGView() {
 
 void
 GUIOSGView::adoptViewSettings() {
+    // lighting
     osg::Light* globalLight = myViewer->getLight();
     globalLight->setAmbient(toOSGColorVector(myVisualizationSettings->ambient3DLight));
     globalLight->setDiffuse(toOSGColorVector(myVisualizationSettings->diffuse3DLight));
     myViewer->getCamera()->setClearColor(toOSGColorVector(myVisualizationSettings->skyColor));
+
+    // ground color
+    osg::Geometry* planeGeom = dynamic_cast<osg::Geometry*>(myPlane->getChild(0));
+    osg::Vec4ubArray* colors = dynamic_cast<osg::Vec4ubArray*>(planeGeom->getColorArray());
+    (*colors)[0].set(myVisualizationSettings->backgroundColor.red(),
+        myVisualizationSettings->backgroundColor.green(),
+        myVisualizationSettings->backgroundColor.blue(),
+        myVisualizationSettings->backgroundColor.alpha());
+    planeGeom->setColorArray(colors);
 
     // show/hide OSG nodes
     unsigned int cullMask = 0xFFFFFFFF;

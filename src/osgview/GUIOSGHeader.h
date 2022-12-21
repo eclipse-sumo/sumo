@@ -46,6 +46,7 @@
 #include <osg/Light>
 #include <osg/LightSource>
 #include <osg/Material>
+#include <osg/MatrixTransform>
 #include <osg/Node>
 #include <osg/PositionAttitudeTransform>
 #include <osg/Sequence>

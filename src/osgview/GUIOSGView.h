@@ -293,6 +293,29 @@ private:
         FXCursor* const myOldCursor;
     };
 
+    class PlaneMoverCallback : public osg::Callback {
+    public:
+        PlaneMoverCallback(osg::Camera* camera) : myCamera(camera) {};
+        virtual bool run(osg::Object* object, osg::Object* data) override {
+            osg::MatrixTransform* mt = dynamic_cast<osg::MatrixTransform*>(object);
+            osg::Vec3d lookFrom, lookAt, up;
+            myCamera->getViewMatrixAsLookAt(lookFrom, lookAt, up);
+            osg::Vec3d direction = lookAt - lookFrom;
+            direction.normalize();
+            osg::Vec3d lookAtGround = lookFrom - direction * (lookFrom.z() / direction.z());
+            osg::Matrixd translateMatrix;
+            translateMatrix.makeTranslate(lookAtGround.x(), lookAtGround.y(), 0.);
+            double angle = atan2(direction.y(), direction.x());
+            osg::Matrixd rotMatrix = osg::Matrixd::rotate(angle, osg::Z_AXIS);
+            mt->setMatrix(rotMatrix * translateMatrix);          
+            return true;
+        }
+    protected:
+        ~PlaneMoverCallback() {};
+    private:
+        osg::Camera* myCamera;
+    };
+
     class PickHandler : public osgGA::GUIEventHandler {
     public:
         PickHandler(GUIOSGView* parent) : myParent(parent), myDrag(false) {};
@@ -310,6 +333,7 @@ protected:
     osg::ref_ptr<FXOSGAdapter> myAdapter;
     osg::ref_ptr<osgViewer::Viewer> myViewer;
     osg::ref_ptr<osg::Group> myRoot;
+    osg::ref_ptr<osg::MatrixTransform> myPlane;
 
 private:
     GUIVehicle* myTracked;
@@ -327,6 +351,7 @@ private:
     osg::ref_ptr<osg::Node> myRedLight;
     osg::ref_ptr<osg::Node> myRedYellowLight;
     osg::ref_ptr<osg::Node> myPoleBase;
+    osg::ref_ptr<osg::Node> myPlaneTransform;
 };
 
 #endif
