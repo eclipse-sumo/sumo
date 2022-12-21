@@ -181,7 +181,9 @@ GUIOSGView::GUIOSGView(
     adoptViewSettings();
 
     // add the stats handler
-    myViewer->addEventHandler(new osgViewer::StatsHandler());
+    osgViewer::StatsHandler* statsHandler = new osgViewer::StatsHandler();
+    statsHandler->setKeyEventTogglesOnScreenStats(osgGA::GUIEventAdapter::KEY_I);
+    myViewer->addEventHandler(statsHandler);
     myViewer->setSceneData(myRoot);
     myViewer->setCameraManipulator(myCameraManipulator);
 
