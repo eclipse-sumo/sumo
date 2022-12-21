@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-12-07 20:26:35 by Eclipse SUMO netconvert Version v1_15_0+0841-ec7ac00463d
+<!-- generated on 2022-12-21 07:14:30 by Eclipse SUMO netconvert Version v1_15_0+1171-c707aa10fd1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -136,7 +136,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id=":249811040_0" function="internal">
         <lane id=":249811040_0_0" index="0" allow="bicycle" speed="6.21" length="14.75" width="1.00" shape="546.79,88.91 546.94,85.08 549.29,82.61 552.78,82.00 556.33,83.78"/>
-        <lane id=":249811040_0_1" index="1" disallow="bicycle tram rail_urban rail rail_electric rail_fast ship" speed="6.26" length="14.99" shape="548.80,88.30 547.77,83.40 548.43,81.26 550.80,81.89 554.87,85.28"/>
+        <lane id=":249811040_0_1" index="1" disallow="bicycle tram rail_urban rail rail_electric rail_fast ship" speed="5.98" length="13.53" shape="545.74,89.22 545.94,85.83 548.22,83.82 551.55,83.53 554.87,85.28"/>
         <lane id=":249811040_0_2" index="2" disallow="bicycle tram rail_urban rail rail_electric rail_fast ship" speed="4.83" length="8.15" shape="548.80,88.30 548.34,85.90 548.82,84.98 550.25,85.54 552.64,87.58"/>
     </edge>
     <edge id=":249811229_0" function="internal">
@@ -1707,7 +1707,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="188015323#2" to="142944283#0" fromLane="1" toLane="0" via=":249811229_7_0" dir="R" state="m"/>
     <connection from="188015323#2" to="142944265" fromLane="2" toLane="0" via=":249811229_8_0" dir="s" state="m"/>
     <connection from="188015326" to="142944424#0" fromLane="0" toLane="0" via=":249811040_0_0" dir="l" state="M"/>
-    <connection from="188015326" to="142944424#0" fromLane="1" toLane="1" via=":249811040_0_1" dir="l" state="M"/>
+    <connection from="188015326" to="142944424#0" fromLane="0" toLane="1" via=":249811040_0_1" dir="l" state="M"/>
     <connection from="188015326" to="142944424#0" fromLane="1" toLane="2" via=":249811040_0_2" dir="l" state="M"/>
     <connection from="188015327#0" to="188015327#1" fromLane="0" toLane="0" via=":215262186_0_0" tl="215262186" linkIndex="0" dir="s" state="O"/>
     <connection from="188015327#0" to="188015327#1" fromLane="1" toLane="1" via=":215262186_0_1" tl="215262186" linkIndex="1" dir="s" state="O"/>
