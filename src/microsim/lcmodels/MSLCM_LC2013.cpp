@@ -1176,7 +1176,7 @@ MSLCM_LC2013::_wantsChange(
     const int lca = (right ? LCA_RIGHT : LCA_LEFT);
     const int myLca = (right ? LCA_MRIGHT : LCA_MLEFT);
     const int lcaCounter = (right ? LCA_LEFT : LCA_RIGHT);
-    const bool changeToBest = (right && bestLaneOffset < 0) || (!right && bestLaneOffset > 0);
+    bool changeToBest = (right && bestLaneOffset < 0) || (!right && bestLaneOffset > 0);
     // keep information about being a leader/follower
     int ret = (myOwnState & 0xffff0000);
     int req = 0; // the request to change or stay
@@ -1230,8 +1230,9 @@ MSLCM_LC2013::_wantsChange(
     }
     double laDist = myLookAheadSpeed * LOOK_FORWARD * myStrategicParam * (right ? 1 : myLookaheadLeft);
     laDist += myVehicle.getVehicleType().getLengthWithGap() *  2.;
+    const bool hasStoppedLeader = leader.first != 0 && leader.first->isStopped() && leader.second < (currentDist - posOnLane);
 
-    if (bestLaneOffset == 0 && leader.first != 0 && leader.first->isStopped() && leader.second < (currentDist - posOnLane)) {
+    if (bestLaneOffset == 0 && hasStoppedLeader) {
         // react to a stopped leader on the current lane
         // The value of laDist is doubled below for the check whether the lc-maneuver can be taken out
         // on the remaining distance (because the vehicle has to change back and forth). Therefore multiply with 0.5.
@@ -1245,10 +1246,11 @@ MSLCM_LC2013::_wantsChange(
             laDist = (myVehicle.getVehicleType().getLengthWithGap()
                     + neighLead.first->getVehicleType().getLengthWithGap()
                     + neighLead.second);
-        } else if ((neighLead.second + myVehicle.getVehicleType().getLengthWithGap() + neighLead.first->getVehicleType().getLengthWithGap()) < (currentDist - posOnLane)) {
+        } else if (!hasStoppedLeader &&
+                (neighLead.second + myVehicle.getVehicleType().getLengthWithGap() + neighLead.first->getVehicleType().getLengthWithGap()) < (currentDist - posOnLane)) {
             // do not change to the target lane until passing the stopped vehicle
             // (unless the vehicle blocks our intended stopping position, then we have to wait anyway)
-            laDist = -1e3;
+            changeToBest = false;
         }
     }
     if (myStrategicParam < 0) {
@@ -1273,12 +1275,16 @@ MSLCM_LC2013::_wantsChange(
     const double usableDist = MAX2(currentDist - posOnLane - best.occupation * JAM_FACTOR, driveToNextStop);
     //- (best.lane->getVehicleNumber() * neighSpeed)); // VARIANT 9 jfSpeed
     const double maxJam = MAX2(preb[currIdx + prebOffset].occupation, preb[currIdx].occupation);
-    const double neighLeftPlace = MAX2(0.0, neighDist - posOnLane - maxJam);
     const double vMax = myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle);
     const double neighVMax = neighLane.getVehicleMaxSpeed(&myVehicle);
     // upper bound which will be restricted successively
     double thisLaneVSafe = vMax;
     const bool checkOverTakeRight = avoidOvertakeRight();
+
+    double neighLeftPlace = MAX2(0.0, neighDist - posOnLane - maxJam);
+    if (neighLead.first != 0 && neighLead.first->isStopped()) {
+        neighLeftPlace = MIN2(neighLeftPlace, neighLead.second);
+    }
 
 #ifdef DEBUG_WANTS_CHANGE
     if (DEBUG_COND) {
