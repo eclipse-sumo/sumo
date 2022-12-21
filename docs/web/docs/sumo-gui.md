@@ -928,6 +928,9 @@ target to look at. "LookAt" coordinates are normalized to length 1 by OSG automa
 Interacting with network elements and vehicles works like in the 2D view: Context-dependent options are available by RMB click on the object 
 to inspect.
 
+## Rendering statistics
+OSG draws some rendering statistics (e.g. frames per seconds) on top of the 3D view by pressing the `I` key. Pressing the key multiple times will unveal different statistics and finally hide them again.
+
 ## Automatically generated 3D environment
 Only some of the regular network components have been ported to the 3D view (yet). Currently the following are displayed:
 
