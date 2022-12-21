@@ -94,7 +94,7 @@ static const double vehiclePoly_scooterBase[] = { -.17, .3, -.2, .3, -.2, -.3, -
 static const double vehiclePoly_scooterBase2[] = { .27, .03, .28, .03, .28, -.03, .27, -.03, -10000 };
 static const double vehiclePoly_scooterBase3[] = { -.5, .6, .5, .6, .5, -.6, -.5, -.6, -10000 };
 static const double vehiclePoly_aircraft[] = {0.633,-0.500,0.609,-0.465,0.563,-0.460,0.517,-0.168,0.413,-0.156,0.509,-0.053,0.509,0.053,0.413,-0.156,0.413,0.156,0.385,-0.101,0.385,0.101,0.354,-0.058,0.354,0.058,0.109,-0.050,0.109,0.050,0,-0.003,0,0.003,0,0.003,0.633,0.500,0.633,0.500,0.609,0.465,0.563,0.460,0.517,0.168,0.413,0.156,0.509,0.053,0.385,0.101,0.326,0.158,0.326,0.108,0.413,0.156,0.385,0.101,0.509,0.053,0.509,-0.053,0.761,0.043,0.761,-0.043,0.830,0.030,0.830,-0.030,0.952,-0.196,0.933,-0.196,0.907,-0.008,0.830,0.030,0.933,0.196,0.952,0.196,0.907,0.008,0.830,0.030,0.907,-0.008,1.000,0.003,0.907,0.008,0.354,-0.058,0.509,-0.053,0.413,-0.156,0.385,-0.101,0.326,-0.158,0.326,-0.108,0.385,-0.101, -10000};
-
+static const double vehiclePoly_aircraftEngines[] = {0.326,-0.158,0.413,-0.156,0.326,-0.108,0.385,-0.101,0.385,-0.101,0.385,0.101,0.385,0.101,0.326,0.108,0.413,0.156,0.326,0.158, -10000};
 //static const double vehiclePoly_Rickshaw[] = { 0.5, 0,  0.25, 0.45,  0.25, 0.5, 0.8, 0.15,     0.8, -0.15, 0.25, -0.5, 0.25, -0.45,     -10000 };
 
 // ===========================================================================
@@ -504,6 +504,17 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
                 int i = 0;
                 while (vehiclePoly_aircraft[i] > -999) {
                     glVertex2d(vehiclePoly_aircraft[i], vehiclePoly_aircraft[i + 1]);
+                    i = i + 2;
+                }
+            }
+            glEnd();
+            GLHelper::setColor(current.changedBrightness(-30));
+            glTranslated(0, 0, 0.1);
+            glBegin(GL_TRIANGLE_STRIP);
+            {
+                int i = 0;
+                while (vehiclePoly_aircraftEngines[i] > -999) {
+                    glVertex2d(vehiclePoly_aircraftEngines[i], vehiclePoly_aircraftEngines[i + 1]);
                     i = i + 2;
                 }
             }
