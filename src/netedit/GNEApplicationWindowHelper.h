@@ -62,15 +62,18 @@ struct GNEApplicationWindowHelper {
 
         /// @brief build menu toolbar grips
         void buildMenuToolbarsGrip();
+        void buildMenuToolbarsGrip2();
 
         /// @brief build toolbars grips
         void buildViewParentToolbarsGrips();
+        void buildViewParentToolbarsGrips2();
 
         /// @brief build toolbars grips
         void destroyParentToolbarsGrips();
 
         /// @brief The application menu bar (for file, edit, processing...)
         FXMenuBar* menu;
+        FXMenuBar* menu2;
 
         /// @brief The application menu bar for supermodes (network and demand)
         FXMenuBar* superModes;
@@ -93,6 +96,7 @@ struct GNEApplicationWindowHelper {
 
         /// @brief menu bar drag (for file, edit, processing...)
         FXToolBarShell* myToolBarShellMenu;
+        FXToolBarShell* leftToolBarShellMenu;
 
         /// @brief menu bar drag for modes (network and demand)
         FXToolBarShell* myToolBarShellSuperModes;

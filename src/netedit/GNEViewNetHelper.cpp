@@ -1986,21 +1986,21 @@ void
 GNEViewNetHelper::EditModes::buildSuperModeButtons() {
     // create network button
     networkButton = new MFXCheckableButton(false,
-                                           myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().superModes,
+                                           myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip2().superModes,
                                            myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                                            "Network\tEdit network elements\tSet mode for edit network elements. (F2)",
                                            GUIIconSubSys::getIcon(GUIIcon::SUPERMODENETWORK), myViewNet, MID_HOTKEY_F2_SUPERMODE_NETWORK, GUIDesignMFXCheckableButtonSupermode);
     networkButton->create();
     // create demand button
     demandButton = new MFXCheckableButton(false,
-                                          myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().superModes,
+                                          myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip2().superModes,
                                           myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                                           "Demand\tEdit traffic demand elements\tSet mode for edit traffic demand. (F3)",
                                           GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND), myViewNet, MID_HOTKEY_F3_SUPERMODE_DEMAND, GUIDesignMFXCheckableButtonSupermode);
     demandButton->create();
     // create data button
     dataButton = new MFXCheckableButton(false,
-                                        myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().superModes,
+                                        myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip2().superModes,
                                         myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                                         "Data\tEdit data elements\tSet mode for edit data demand. (F4)",
                                         GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA), myViewNet, MID_HOTKEY_F4_SUPERMODE_DATA, GUIDesignMFXCheckableButtonSupermode);

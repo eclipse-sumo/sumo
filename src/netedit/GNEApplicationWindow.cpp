@@ -427,6 +427,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     myUndoList(new GNEUndoList(this)),
     myConfigPattern(configPattern),
     myToolbarsGrip(this),
+    leftToolbarsGrip(this),
     myMenuBarFile(this),
     myFileMenuCommands(this),
     myModesMenuCommands(this),
@@ -464,6 +465,7 @@ GNEApplicationWindow::dependentBuild() {
     setSelector(MID_WINDOW);
     // build toolbar menu
     getToolbarsGrip().buildMenuToolbarsGrip();
+    getToolbarsGrip2().buildMenuToolbarsGrip2();
     // build the thread - io
     myLoadThreadEvent.setTarget(this);
     myLoadThreadEvent.setSelector(ID_LOADTHREAD_EVENT);
@@ -1003,6 +1005,7 @@ GNEApplicationWindow::onCmdReload(FXObject*, FXSelector, void*) {
             myFileMenuCommands.saveTLSPrograms->disable();
             // disable toolbargrip modes
             myToolbarsGrip.menu->disable();
+            leftToolbarsGrip.menu->disable();
             // hide all Supermode, Network and demand commands
             mySupermodeCommands.hideSupermodeCommands();
             myModesMenuCommands.networkMenuCommands.hideNetworkMenuCommands();
@@ -1238,6 +1241,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         setWindowSizeAndPos();
         // build viewparent toolbar grips before creating view parent
         getToolbarsGrip().buildViewParentToolbarsGrips();
+        getToolbarsGrip2().buildViewParentToolbarsGrips2();
         // initialise NETEDIT View
         GNEViewParent* viewParent = new GNEViewParent(myMDIClient, myMDIMenu, "NETEDIT VIEW", this, nullptr, myNet, ec->isNewNet, myUndoList, nullptr, MDI_TRACKING, 10, 10, 300, 200);
         // create it maximized
@@ -1494,6 +1498,11 @@ GNEApplicationWindow::getViewNet() {
 GNEApplicationWindowHelper::ToolbarsGrip&
 GNEApplicationWindow::getToolbarsGrip() {
     return myToolbarsGrip;
+}
+
+GNEApplicationWindowHelper::ToolbarsGrip&
+GNEApplicationWindow::getToolbarsGrip2() {
+    return leftToolbarsGrip;
 }
 
 
@@ -5089,6 +5098,7 @@ GNEApplicationWindow::getProcessingMenuCommands() const {
 
 GNEApplicationWindow::GNEApplicationWindow() :
     myToolbarsGrip(this),
+    leftToolbarsGrip(this),
     myMenuBarFile(this),
     myFileMenuCommands(this),
     myModesMenuCommands(this),
