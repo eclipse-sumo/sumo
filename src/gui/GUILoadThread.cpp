@@ -129,7 +129,7 @@ GUILoadThread::run() {
             throw ProcessError();
         }
         XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"), oc.getString("xml-validation.routes"));
-        GUIGlobals::gRunAfterLoad = oc.getBool("start");
+        GUIGlobals::gRunAfterLoad = oc.getBool("start") || (myAmLibsumo && std::getenv("LIBSUMO_GUI") != nullptr);
         GUIGlobals::gQuitOnEnd = oc.getBool("quit-on-end");
         GUIGlobals::gDemoAutoReload = oc.getBool("demo");
         GUIGlobals::gTrackerInterval = STEPS2TIME(string2time(oc.getString("tracker-interval")));

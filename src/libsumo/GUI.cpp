@@ -308,35 +308,18 @@ GUI::start(const std::vector<std::string>& cmd) {
         if (!GUI::close("Libsumo started new instance.")) {
 //            SystemFrame::close();
         }
-        bool needStart = false;
-        if (std::getenv("LIBSUMO_GUI") != nullptr) {
-            needStart = true;
-            for (const std::string& a : cmd) {
-                if (a == "-S" || a == "--start") {
-                    needStart = false;
-                }
-            }
-        }
-        int origArgc = (int)cmd.size();
-        int argc = origArgc;
-        if (needStart) {
-            argc++;
-        }
-        char** argv = new char* [argc];
-        int i;
-        for (i = 0; i < origArgc; i++) {
-            argv[i] = new char[cmd[i].size() + 1];
-            std::strcpy(argv[i], cmd[i].c_str());
-        }
-        if (needStart) {
-            argv[i++] = (char*)"-S";
-        }
+        int argc = 1;
+        char array[1][10] = {{0}};
+        strcpy(array[0], "dummy");
+        char* argv[1];
+        argv[0] = array[0];
         // make the output aware of threading
         MsgHandler::setFactory(&MsgHandlerSynchronized::create);
         gSimulation = true;
         XMLSubSys::init();
         MSFrame::fillOptions();
-        OptionsIO::setArgs(argc, argv);
+        std::vector<std::string> args(cmd.begin() + 1, cmd.end());
+        OptionsIO::setArgs(args);
         OptionsIO::getOptions(true);
         OptionsCont::getOptions().processMetaOptions(false);
         // Open display
@@ -354,9 +337,7 @@ GUI::start(const std::vector<std::string>& cmd) {
         myApp->create();
         myWindow->getRunner()->enableLibsumo();
         // Load configuration given on command line
-        if (argc > 1) {
-            myWindow->loadOnStartup(true);
-        }
+        myWindow->loadOnStartup(true);
     } catch (ProcessError& e) {
         throw TraCIException(e.what());
     }
