@@ -54,8 +54,8 @@ def generateSUMOTemplate(binDir, templateDir):
     # create a list with all sumo binaries
     for sumoBin in [binDir + "/sumo", binDir + "/sumo.exe", binDir + "/sumoD", binDir + "/sumoD.exe"]:
         if os.path.exists(sumoBin):
-            subprocess.check_call([sumoBin, "--save-template", templateDir + "/sumo.xml"])
-            return True
+            subprocess.call([sumoBin, "--save-template", templateDir + "/sumo.xml"])
+            return
     # if binary wasn't found, then raise exception
     raise Exception("SUMO Template cannot be generated. SUMO binary not found. "
                     "Make sure that sumo or sumoD was generated in bin folder")
