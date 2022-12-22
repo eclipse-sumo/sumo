@@ -355,6 +355,7 @@ GUIApplicationWindow::~GUIApplicationWindow() {
     closeAllWindows();
     // close icons
     GUIIconSubSys::close();
+    GUICursorSubSys::close();
     // delete visual
     delete myGLVisual;
     // delete some non-parented windows

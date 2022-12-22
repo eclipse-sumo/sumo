@@ -557,6 +557,7 @@ GNEApplicationWindow::~GNEApplicationWindow() {
     GUIIconSubSys::close();
     // Close gifs (Textures)
     GUITextureSubSys::close();
+    GUICursorSubSys::close();
     // delete visuals
     delete myGLVisual;
     // must delete menus to avoid segfault on removing accelerators

@@ -67,7 +67,9 @@ GUICursorSubSys::GUICursorSubSys(FXApp* a) {
 GUICursorSubSys::~GUICursorSubSys() {
     // delete all cursors
     for (const auto& cursor : myCursors) {
-        delete cursor.second;
+        if (cursor.first != GUICursor::DEFAULT && cursor.first != GUICursor::MOVEVIEW) {
+            delete cursor.second;
+        }
     }
 }
 
