@@ -125,7 +125,8 @@ def write_csv(data, fname):
             f.write('# "%s"\n' % veh)
             for x in zip(*vals):
                 f.write(" ".join(map(str, x)) + "\n")
-            f.write('\n')
+            #  2 blank lines indicate a new data block in gnuplot
+            f.write('\n\n')
 
 
 def short_names(filenames):
