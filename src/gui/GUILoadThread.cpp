@@ -51,6 +51,7 @@
 #include <microsim/MSFrame.h>
 #include <microsim/MSRouteHandler.h>
 #include <mesogui/GUIMEVehicleControl.h>
+#include <libsumo/Helper.h>
 #include <traci-server/TraCIServer.h>
 #include "TraCIServerAPI_GUI.h"
 #include "GUIApplicationWindow.h"
@@ -174,6 +175,9 @@ GUILoadThread::run() {
         execs[libsumo::CMD_GET_GUI_VARIABLE] = &TraCIServerAPI_GUI::processGet;
         execs[libsumo::CMD_SET_GUI_VARIABLE] = &TraCIServerAPI_GUI::processSet;
         TraCIServer::openSocket(execs);
+        if (myAmLibsumo) {
+            libsumo::Helper::registerStateListener();
+        }
 
         eb = new GUIEdgeControlBuilder();
         GUIDetectorBuilder db(*net);
