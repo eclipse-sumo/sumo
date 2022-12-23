@@ -531,6 +531,23 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     forwardPermissions = defaultPermissions;
     backwardPermissions = defaultPermissions;
 
+    // Fill e->myLaneUseForward and ...Backward with default permissions
+    for (int i = 0; i < e->myNoLanesForward; i++) {
+        if (i > ((int)e->myLaneUseForward.size()) - 1) {
+            e->myLaneUseForward.push_back(forwardPermissions);
+        } else {
+            e->myLaneUseForward[i] = forwardPermissions;
+        }
+        WRITE_WARNING("Forward Lanes gefuellt");
+    }
+    for (int i = 0; i < (e->myNoLanes - e->myNoLanesForward); i++) {
+        if (i > ((int)e->myLaneUseBackward.size()) - 1) {
+            e->myLaneUseBackward.push_back(backwardPermissions);
+        } else {
+            e->myLaneUseBackward[i] = backwardPermissions;
+        }
+    }
+
     // deal with cycleways that run in the opposite direction of a one-way street
     WayType cyclewayType = e->myCyclewayType; // make a copy because we do some temporary modifications
     if (addBikeLane) {
@@ -1013,7 +1030,8 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
             myCurrentEdge->setParameter(key, attrs.get<std::string>(SUMO_ATTR_V, info.c_str(), ok, false));
         }
         // we check whether the key is relevant (and we really need to transcode the value) to avoid hitting #1636
-        if (!StringUtils::endsWith(key, "way") && !StringUtils::startsWith(key, "lanes")
+        if (!StringUtils::endsWith(key, "way") 
+                && !StringUtils::startsWith(key, "lanes")
                 && key != "maxspeed" && key != "maxspeed:type"
                 && key != "zone:maxspeed"
                 && key != "maxspeed:forward" && key != "maxspeed:backward"

@@ -486,7 +486,7 @@ protected:
 
         int interpretChangeType(const std::string& value) const;
 
-        void interpretLaneUse(const std::string& value, SUMOVehicleClass svc, std::vector<SVCPermissions>& result) const;
+        void interpretLaneUse(const std::string& value, SUMOVehicleClass svc, std::vector<SVCPermissions>& result, SVCPermissions defaultPermission = SVC_IGNORING) const;
 
     private:
         /// @brief The previously parsed nodes
