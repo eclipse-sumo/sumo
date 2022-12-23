@@ -219,9 +219,22 @@ protected:
         int myChangeForward;
         /// @brief Information about change prohibitions (backward direction
         int myChangeBackward;
-        /// @brief (optional) information about the permitted vehicle classes on each lane
+        /// @brief (optional) information about the permitted vehicle classes on each forward lane
         std::vector<SVCPermissions> myLaneUseForward;
+        /// @brief (optional) information about the permitted vehicle classes on each backward lane
         std::vector<SVCPermissions> myLaneUseBackward;
+        /// @brief (optional) information about whether the forward lanes are designated to some SVCs
+        std::vector<bool> myDesignatedLaneForward;
+        /// @brief (optional) information about whether the backward lanes are designated to some SVCs
+        std::vector<bool> myDesignatedLaneBackward;
+        /// @brief (optional) information about additional allowed SVCs on forward lane(s)
+        std::vector<SVCPermissions> myExtraAllowedLaneForward;
+        /// @brief (optional) information about additional allowed SVCs on backward lane(s)
+        std::vector<SVCPermissions> myExtraAllowedLaneBackward;
+        /// @brief (optional) information about additional disallowed SVCs on forward lane(s)
+        std::vector<SVCPermissions> myExtraDisallowedLaneForward;
+        /// @brief (optional) information about additional disallowed SVCs on backward lane(s)
+        std::vector<SVCPermissions> myExtraDisallowedLaneBackward;
         /// @brief Information about the relative z-ordering of ways
         int myLayer;
         /// @brief The list of nodes this edge is made of
@@ -352,6 +365,8 @@ protected:
 
     static void applyChangeProhibition(NBEdge* e, int changeProhibition);
     void applyLaneUseInformation(NBEdge* e, const std::vector<SVCPermissions>& laneUse);
+    void applyExtraLaneUseInformationForward(NBEdge* e, NIImporter::Edge* nie);
+    void applyExtraLaneUseInformationBackward(NBEdge* e, NIImporter::Edge* nie);
     void applyTurnSigns(NBEdge* e, const std::vector<int>& turnSigns);
 
     /**
@@ -487,6 +502,9 @@ protected:
         int interpretChangeType(const std::string& value) const;
 
         void interpretLaneUse(const std::string& value, SUMOVehicleClass svc, std::vector<SVCPermissions>& result) const;
+
+        void interpretExtraForwardLaneUse(const std::string& value, SUMOVehicleClass svc) const;
+        void interpretExtraBackwardLaneUse(const std::string& value, SUMOVehicleClass svc) const;
 
     private:
         /// @brief The previously parsed nodes

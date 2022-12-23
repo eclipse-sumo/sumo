@@ -1340,6 +1340,7 @@ public:
     /// @brief set allowed/disallowed classes for the given lane or for all lanes if -1 is given
     void setPermissions(SVCPermissions permissions, int lane = -1);
 
+
     /// @brief set preferred Vehicle Class
     void setPreferredVehicleClass(SVCPermissions permissions, int lane = -1);
 

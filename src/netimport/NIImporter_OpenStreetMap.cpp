@@ -623,6 +623,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             }
             applyChangeProhibition(nbe, e->myChangeForward);
             applyLaneUseInformation(nbe, e->myLaneUseForward);
+            applyExtraLaneUseInformationForward(nbe, e);
             applyTurnSigns(nbe, e->myTurnSignsForward);
             nbe->setTurnSignTarget(last->getID());
             if (addBikeLane && (cyclewayType == WAY_UNKNOWN || (cyclewayType & WAY_FORWARD) != 0)) {
@@ -653,6 +654,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             }
             applyChangeProhibition(nbe, e->myChangeBackward);
             applyLaneUseInformation(nbe, e->myLaneUseBackward);
+            applyExtraLaneUseInformationBackward(nbe, e);
             applyTurnSigns(nbe, e->myTurnSignsBackward);
             nbe->setTurnSignTarget(first->getID());
             if (addBikeLane && (cyclewayType == WAY_UNKNOWN || (cyclewayType & WAY_BACKWARD) != 0)) {
@@ -1008,7 +1010,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
             myCurrentEdge->setParameter(key, attrs.get<std::string>(SUMO_ATTR_V, info.c_str(), ok, false));
         }
         // we check whether the key is relevant (and we really need to transcode the value) to avoid hitting #1636
-        if (!StringUtils::endsWith(key, "way") 
+        if (!StringUtils::endsWith(key, "way")
                 && !StringUtils::startsWith(key, "lanes")
                 && key != "maxspeed" && key != "maxspeed:type"
                 && key != "zone:maxspeed"
@@ -1256,16 +1258,22 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
             myCurrentEdge->myChangeBackward = interpretChangeType(value);
         } else if (key == "vehicle:lanes" || key == "vehicle:lanes:forward") {
             interpretLaneUse(value, SVC_PASSENGER, myCurrentEdge->myLaneUseForward);
+            interpretExtraForwardLaneUse(value, SVC_PASSENGER);
         } else if (key == "vehicle:lanes:backward") {
             interpretLaneUse(value, SVC_PASSENGER, myCurrentEdge->myLaneUseBackward);
+            interpretExtraBackwardLaneUse(value, SVC_PASSENGER);
         } else if (key == "psv:lanes" || key == "psv:lanes:forward") {
             interpretLaneUse(value, SVC_BUS, myCurrentEdge->myLaneUseForward);
+            interpretExtraForwardLaneUse(value, SVC_BUS);
         } else if (key == "psv:lanes:backward") {
             interpretLaneUse(value, SVC_BUS, myCurrentEdge->myLaneUseBackward);
+            interpretExtraBackwardLaneUse(value, SVC_BUS);
         } else if (key == "bicycle:lanes" || key == "bicycle:lanes:forward") {
             interpretLaneUse(value, SVC_BICYCLE, myCurrentEdge->myLaneUseForward);
+            interpretExtraForwardLaneUse(value, SVC_BICYCLE);
         } else if (key == "bicycle:lanes:backward") {
             interpretLaneUse(value, SVC_BICYCLE, myCurrentEdge->myLaneUseBackward);
+            interpretExtraBackwardLaneUse(value, SVC_BICYCLE);
         } else if (StringUtils::startsWith(key, "turn:lanes")) {
             const std::vector<std::string> values = StringTokenizer(value, "|").getVector();
             std::vector<int> turnCodes;
@@ -1382,6 +1390,59 @@ NIImporter_OpenStreetMap::EdgesHandler::interpretLaneUse(const std::string& valu
         i++;
     }
 }
+
+void
+NIImporter_OpenStreetMap::EdgesHandler::interpretExtraForwardLaneUse(const std::string& value, SUMOVehicleClass svc) const {
+    // shorten for convenience
+    NIImporter::Edge e = myCurrentEdge;
+    const std::vector<std::string> values = StringTokenizer(value, "|").getVector();
+    int i = 0;
+    for (const std::string& val : values) {
+        // enlarge vectors if necessary
+        if (i >= (int)e->myDesignatedLaneForward.size()) { e->myDesignatedLaneForward.push_back(false); }
+        if (i >= (int)e->myExtraAllowedLaneForward.size()) { e->myExtraAllowedLaneForward.push_back(SVC_IGNORING); }
+        if (i >= (int)e->myExtraDisallowedLaneForward.size()) { e->myExtraAllowedLaneBackward.push_back(SVC_IGNORING); }
+
+        if (val == "yes") {
+            e->myExtraAllowedLaneForward[i] |= svc;
+        } else if (val == "lane" || val == "designated") {
+            e->myExtraAllowedLaneForward[i] |= svc;
+            e->myDesignatedLaneForward[i] = true;
+        } else if (val == "no") {
+            e->myExtraDisallowedLaneForward[i] |= svc;
+        } else {
+            WRITE_WARNINGF(TL("Unknown lane use specifier '%' ignored for way '%'"), val, myCurrentEdge->id);
+        }
+        i++;
+    }
+}
+
+void
+NIImporter_OpenStreetMap::EdgesHandler::interpretExtraBackwardLaneUse(const std::string& value, SUMOVehicleClass svc) const {
+    // shorten for convenience
+    NIImporter::Edge e = myCurrentEdge;
+    const std::vector<std::string> values = StringTokenizer(value, "|").getVector();
+    int i = 0;
+    for (const std::string& val : values) {
+        // enlarge vectors if necessary
+        if (i >= (int)e->myDesignatedLaneBackward.size()) { e->myDesignatedLaneBackward.push_back(false); }
+        if (i >= (int)e->myExtraAllowedLaneBackward.size()) { e->myExtraAllowedLaneBackward.push_back(SVC_IGNORING); }
+        if (i >= (int)e->myExtraDisallowedLaneBackward.size()) { e->myExtraAllowedLaneBackward.push_back(SVC_IGNORING); }
+
+        if (val == "yes") {
+            e->myExtraAllowedLaneBackward[i] |= svc;
+        } else if (val == "lane" || val == "designated") {
+            e->myExtraAllowedLaneBackward[i] |= svc;
+            e->myDesignatedLaneBackward[i] = true;
+        } else if (val == "no") {
+            e->myExtraDisallowedLaneBackward[i] |= svc;
+        } else {
+            WRITE_WARNINGF(TL("Unknown lane use specifier '%' ignored for way '%'"), val, myCurrentEdge->id);
+        }
+        i++;
+    }
+}
+
 
 
 void
@@ -2264,6 +2325,80 @@ NIImporter_OpenStreetMap::applyLaneUseInformation(NBEdge* e, const std::vector<S
                     svc &= ~SVC_PASSENGER;
                 }
                 e->setPermissions(svc, lane);
+            }
+        } else {
+            WRITE_WARNINGF(TL("Ignoring lane use information for % lanes on edge % with % lanes"), laneUse.size(), e->getID(), e->getNumLanes());
+        }
+    }
+}
+
+void
+NIImporter_OpenStreetMap::applyExtraLaneUseInformationForward(NBEdge* e, NIImporter::Edge* nie) {
+    if (myImportLaneAccess && laneUse.size() > 0) {
+        if ((int)laneUse.size() == e->getNumLanes()) {
+            const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
+            for (int lane = 0; lane < (int)laneUse.size(); lane++) {
+                // laneUse stores from left to right
+                const int i = lefthand ? lane : e->getNumLanes() - 1 - lane;
+
+                if nie->myDesignatedLaneForward[i] {
+                    // if designated, delete all permissions
+                    e->setPermissions(SVC_IGNORING, lane);
+                }
+            }
+            for (int lane = 0; lane < (int)laneUse.size(); lane++) {
+                // laneUse stores from left to right
+                const int i = lefthand ? lane : e->getNumLanes() - 1 - lane;
+
+                SVCPermissions svc = e->getPermissions(lane);
+                SVCPermissions extraAllowed = nie->myExtraAllowedLaneForward[i];
+                SVCPermissions extraDisallowed = nie->myExtraDisallowedLaneForward[i];
+
+                svc |= extraAllowed;
+                svc &= ~extraDisallowed;
+
+                e->setPermissions(svc, lane);
+
+                if nie->myDesignatedLaneForward[i] {
+                    e->preferVehicleClass(i, extraAllowed);
+                }
+            }
+        } else {
+            WRITE_WARNINGF(TL("Ignoring lane use information for % lanes on edge % with % lanes"), laneUse.size(), e->getID(), e->getNumLanes());
+        }
+    }
+}
+
+void
+NIImporter_OpenStreetMap::applyExtraLaneUseInformationBackward(NBEdge* e, NIImporter::Edge* nie) {
+    if (myImportLaneAccess && laneUse.size() > 0) {
+        if ((int)laneUse.size() == e->getNumLanes()) {
+            const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
+            for (int lane = 0; lane < (int)laneUse.size(); lane++) {
+                // laneUse stores from left to right
+                const int i = lefthand ? lane : e->getNumLanes() - 1 - lane;
+
+                if nie->myDesignatedLaneBackward[i] {
+                    // if designated, delete all permissions
+                    e->setPermissions(SVC_IGNORING, lane);
+                }
+            }
+            for (int lane = 0; lane < (int)laneUse.size(); lane++) {
+                // laneUse stores from left to right
+                const int i = lefthand ? lane : e->getNumLanes() - 1 - lane;
+
+                SVCPermissions svc = e->getPermissions(lane);
+                SVCPermissions extraAllowed = nie->myExtraAllowedLaneBackward[i];
+                SVCPermissions extraDisallowed = nie->myExtraDisallowedLaneBackward[i];
+
+                svc |= extraAllowed;
+                svc &= ~extraDisallowed;
+
+                e->setPermissions(svc, lane);
+
+                if nie->myDesignatedLaneForward[i] {
+                    e->preferVehicleClass(i, extraAllowed);
+                }
             }
         } else {
             WRITE_WARNINGF(TL("Ignoring lane use information for % lanes on edge % with % lanes"), laneUse.size(), e->getID(), e->getNumLanes());
