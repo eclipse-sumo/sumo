@@ -57,7 +57,7 @@ class PlatoonManager(traci.StepListener):
         if self._typeSubstrings == [""] and rp.VERBOSITY >= 1:
             warn("No typeSubstring given. Managing all vehicles.", True)
         elif rp.VERBOSITY >= 2:
-            report("Managing all vTypes selected by %s" % str(self._typeSubstrings), True)
+            report("Managing all vTypes selected by %s" % str(self._typeSubstrings), True)          
         # max intra platoon gap
         self._maxPlatoonGap = cfg.MAX_PLATOON_GAP
         # max intra platoon headway
@@ -432,7 +432,8 @@ class PlatoonManager(traci.StepListener):
 
         Iterates over platoon-leaders and
         1) checks whether two platoons (including "one-vehicle platoons") may merge for being sufficiently close
-        2) advises platoon-leaders to try to catch up with a platoon in front
+        2) deters catchup vehicles from joining as the max platoon size is reached       
+        3) advises platoon-leaders to try to catch up with a platoon in front
         '''
         # list of platoon ids that merged into another platoon
         toRemove = []
@@ -442,7 +443,7 @@ class PlatoonManager(traci.StepListener):
             # try setting back mode to regular platoon mode if leader is kept in FOLLOWER mode due to safety reasons
             # or if the ordering within platoon changed
             if pltnLeader.getCurrentPlatoonMode() == PlatoonMode.FOLLOWER:
-                pltn.setModeWithImpatience(PlatoonMode.LEADER, self._controlInterval)
+                pltn.setModeWithImpatience(PlatoonMode.LEADER, self._controlInterval)                
             elif pltnLeader.getCurrentPlatoonMode() == PlatoonMode.CATCHUP_FOLLOWER:
                 pltn.setModeWithImpatience(PlatoonMode.CATCHUP, self._controlInterval)
             # get leader of the leader
@@ -473,7 +474,15 @@ class PlatoonManager(traci.StepListener):
             # leader vehicle
             leaderID, leaderDist = leaderInfo
             leader = self._connectedVehicles[leaderID]
-
+            
+            if pltnLeader.getCurrentPlatoonMode() == PlatoonMode.CATCHUP and leader.getPlatoon().size() + pltn.size() > cfg.MAX_VEHICLES:
+                if pltn.size() == 1:
+                    pltn.setModeWithImpatience(PlatoonMode.NONE, self._controlInterval)
+                else:
+                    # try to set mode to regular platoon mode
+                    pltn.setModeWithImpatience(PlatoonMode.LEADER, self._controlInterval)
+                continue
+            
             # Commented out -> isLastInPlatoon should not be a hindrance to join platoon
             # tryCatchup = leader.isLastInPlatoon() and leader.getPlatoon() != pltn
             # join = tryCatchup and leaderDist <= self._maxPlatoonGap
@@ -509,8 +518,8 @@ class PlatoonManager(traci.StepListener):
                                 leader.getPlatoon().getID(),
                                 str([veh.getID() for veh in leader.getPlatoon().getVehicles()])))
             else:
-                # Join failed due to too large distance. Try to get closer (change to CATCHUP mode).
-                if not pltn.setMode(PlatoonMode.CATCHUP):
+                # Join failed due to too large distance. Try to get closer (change to CATCHUP mode).                
+                if leader.getPlatoon().size() + pltn.size() <= cfg.MAX_VEHICLES and not pltn.setMode(PlatoonMode.CATCHUP):
                     if rp.VERBOSITY >= 3:
                         report(("Switch to catchup mode would not be safe for platoon '%s' (%s) chasing " +
                                 "platoon '%s' (%s).") %

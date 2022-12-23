@@ -24,6 +24,7 @@ else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
 from simpla._platoonmode import PlatoonMode  # noqa
+from simpla._utils import openGap
 import simpla._reporting as rp  # noqa
 
 warn = rp.Warner("Platoon")
@@ -37,7 +38,7 @@ class Platoon(object):
     # static platoon ID counter
     _nextID = 0
 
-    def __init__(self, vehicles, controlInterval, registerVehicles=True):
+    def __init__(self, vehicles, controlInterval, maxVehicles, registerVehicles=True):
         '''Platoon(list(PVehicle), float, bool) -> Platoon
 
         Create a Platoon object that holds an ordered list of its members, which is inititialized with 'vehicles'.
@@ -49,6 +50,7 @@ class Platoon(object):
         self._ID = Platoon._nextID
         Platoon._nextID += 1
         self._vehicles = vehicles
+        self._maxVehicles = maxVehicles
         if registerVehicles:
             self.registerVehicles()
 
@@ -261,6 +263,10 @@ class Platoon(object):
 
         Tries to add the given platoon to the end of this. Returns True if this could safely be executed.
         '''
+        # respect maximum platoon size
+        if self.size() + pltn.size() > self._maxVehicles:
+            return False
+               
         vehs = pltn.getVehicles()
         if self.getMode() == PlatoonMode.CATCHUP:
             if pltn.setModeWithImpatience(PlatoonMode.CATCHUP, self._controlInterval):

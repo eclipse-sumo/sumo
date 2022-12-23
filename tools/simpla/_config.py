@@ -41,6 +41,7 @@ def initDefaults():
     They are overriden by specification in a configuration file (see load() method).
     '''
     global CONTROL_RATE, VEH_SELECTORS, MAX_PLATOON_GAP, MAX_PLATOON_HEADWAY, CATCHUP_DIST
+    global MAX_VEHICLES
     global CATCHUP_HEADWAY, PLATOON_SPLIT_TIME, VTYPE_FILE, PLATOON_VTYPES, LC_MODE, USE_HEADWAY
     global SPEEDFACTOR, SWITCH_IMPATIENCE_FACTOR, EDGE_LOOKAHEAD, DIST_LOOKAHEAD, LC_MINDIST
 
@@ -49,6 +50,9 @@ def initDefaults():
 
     # specify substring for vtypes, that should be controlled by platoon manager
     VEH_SELECTORS = [""]
+
+    # The maximal number of vehicles inside a platoon, after which joining is denied
+    MAX_VEHICLES = 10
 
     # Distance in meters below which a vehicle joins a leading platoon
     MAX_PLATOON_GAP = 15.0
@@ -192,6 +196,7 @@ def load(filename):
     This loads configuration parameters from a file and overwrites default values.
     '''
     global CONTROL_RATE, VEH_SELECTORS, MAX_PLATOON_GAP, MAX_PLATOON_HEADWAY, CATCHUP_DIST, CATCHUP_HEADWAY
+    global MAX_VEHICLES
     global PLATOON_SPLIT_TIME, VTYPE_FILE, PLATOON_VTYPES, LC_MODE, SPEEDFACTOR, SWITCH_IMPATIENCE_FACTOR
     global EDGE_LOOKAHEAD, DIST_LOOKAHEAD, LC_MINDIST, USE_HEADWAY
 
@@ -220,6 +225,14 @@ def load(filename):
         elif e.tag == "vehicleSelectors":
             if hasAttributes(e):
                 VEH_SELECTORS = list(map(lambda x: x.strip(), list(e.attrib.values())[0].split(",")))
+        elif e.tag == "maxVehicles":
+            if hasAttributes(e):
+                maxVeh = int(list(e.attrib.values())[0])
+                if maxVeh > 0:
+                    MAX_VEHICLES = maxVeh
+                else:
+                    if rp.VERBOSITY >= 1:
+                        warn("Parameter maxVehicles must be positive. Ignoring given value: %s" % (maxVeh), True)                                
         elif e.tag == "maxPlatoonGap":
             if hasAttributes(e):
                 maxgap = float(list(e.attrib.values())[0])
