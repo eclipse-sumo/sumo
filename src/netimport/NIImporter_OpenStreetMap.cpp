@@ -2333,7 +2333,7 @@ NIImporter_OpenStreetMap::applyLaneUseInformation(NBEdge* e, const std::vector<S
 }
 
 void
-NIImporter_OpenStreetMap::applyExtraLaneUseInformationForward(NBEdge* e) {
+NIImporter_OpenStreetMap::applyExtraLaneUseInformationForward(NBEdge* e, NIImporter_OpenStreetMap::Edge* nie) {
     if (myImportLaneAccess && laneUse.size() > 0) {
         if ((int)laneUse.size() == e->getNumLanes()) {
             const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
@@ -2370,7 +2370,7 @@ NIImporter_OpenStreetMap::applyExtraLaneUseInformationForward(NBEdge* e) {
 }
 
 void
-NIImporter_OpenStreetMap::applyExtraLaneUseInformationBackward(NBEdge* e) {
+NIImporter_OpenStreetMap::applyExtraLaneUseInformationBackward(NBEdge* e, NIImporter_OpenStreetMap::Edge* nie) {
     if (myImportLaneAccess && laneUse.size() > 0) {
         if ((int)laneUse.size() == e->getNumLanes()) {
             const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
