@@ -2341,7 +2341,7 @@ NIImporter_OpenStreetMap::applyExtraLaneUseInformationForward(NBEdge* e, NIImpor
                 // laneUse stores from left to right
                 const int i = lefthand ? lane : e->getNumLanes() - 1 - lane;
 
-                if this->myDesignatedLaneForward[i] {
+                if nie->myDesignatedLaneForward[i] {
                     // if designated, delete all permissions
                     e->setPermissions(SVC_IGNORING, lane);
                 }
@@ -2351,15 +2351,15 @@ NIImporter_OpenStreetMap::applyExtraLaneUseInformationForward(NBEdge* e, NIImpor
                 const int i = lefthand ? lane : e->getNumLanes() - 1 - lane;
 
                 SVCPermissions svc = e->getPermissions(lane);
-                SVCPermissions extraAllowed = this->myExtraAllowedLaneForward[i];
-                SVCPermissions extraDisallowed = this->myExtraDisallowedLaneForward[i];
+                SVCPermissions extraAllowed = nie->myExtraAllowedLaneForward[i];
+                SVCPermissions extraDisallowed = nie->myExtraDisallowedLaneForward[i];
 
                 svc |= extraAllowed;
                 svc &= ~extraDisallowed;
 
                 e->setPermissions(svc, lane);
 
-                if this->myDesignatedLaneForward[i] {
+                if nie->myDesignatedLaneForward[i] {
                     e->preferVehicleClass(i, extraAllowed);
                 }
             }
@@ -2378,7 +2378,7 @@ NIImporter_OpenStreetMap::applyExtraLaneUseInformationBackward(NBEdge* e, NIImpo
                 // laneUse stores from left to right
                 const int i = lefthand ? lane : e->getNumLanes() - 1 - lane;
 
-                if this->myDesignatedLaneBackward[i] {
+                if nie->myDesignatedLaneBackward[i] {
                     // if designated, delete all permissions
                     e->setPermissions(SVC_IGNORING, lane);
                 }
@@ -2388,15 +2388,15 @@ NIImporter_OpenStreetMap::applyExtraLaneUseInformationBackward(NBEdge* e, NIImpo
                 const int i = lefthand ? lane : e->getNumLanes() - 1 - lane;
 
                 SVCPermissions svc = e->getPermissions(lane);
-                SVCPermissions extraAllowed = this->myExtraAllowedLaneBackward[i];
-                SVCPermissions extraDisallowed = this->myExtraDisallowedLaneBackward[i];
+                SVCPermissions extraAllowed = nie->myExtraAllowedLaneBackward[i];
+                SVCPermissions extraDisallowed = nie->myExtraDisallowedLaneBackward[i];
 
                 svc |= extraAllowed;
                 svc &= ~extraDisallowed;
 
                 e->setPermissions(svc, lane);
 
-                if this->myDesignatedLaneForward[i] {
+                if nie->myDesignatedLaneForward[i] {
                     e->preferVehicleClass(i, extraAllowed);
                 }
             }
