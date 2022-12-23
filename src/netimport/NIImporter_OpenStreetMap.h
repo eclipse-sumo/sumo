@@ -365,8 +365,8 @@ protected:
 
     static void applyChangeProhibition(NBEdge* e, int changeProhibition);
     void applyLaneUseInformation(NBEdge* e, const std::vector<SVCPermissions>& laneUse);
-    void applyExtraLaneUseInformationForward(NBEdge* e, NIImporter::Edge* nie);
-    void applyExtraLaneUseInformationBackward(NBEdge* e, NIImporter::Edge* nie);
+    void applyExtraLaneUseInformationForward(NBEdge* e);
+    void applyExtraLaneUseInformationBackward(NBEdge* e);
     void applyTurnSigns(NBEdge* e, const std::vector<int>& turnSigns);
 
     /**

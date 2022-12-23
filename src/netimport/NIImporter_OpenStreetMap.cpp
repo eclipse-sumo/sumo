@@ -2333,7 +2333,7 @@ NIImporter_OpenStreetMap::applyLaneUseInformation(NBEdge* e, const std::vector<S
 }
 
 void
-NIImporter_OpenStreetMap::applyExtraLaneUseInformationForward(NBEdge* e, NIImporter::Edge* nie) {
+NIImporter_OpenStreetMap::applyExtraLaneUseInformationForward(NBEdge* e) {
     if (myImportLaneAccess && laneUse.size() > 0) {
         if ((int)laneUse.size() == e->getNumLanes()) {
             const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
@@ -2341,7 +2341,7 @@ NIImporter_OpenStreetMap::applyExtraLaneUseInformationForward(NBEdge* e, NIImpor
                 // laneUse stores from left to right
                 const int i = lefthand ? lane : e->getNumLanes() - 1 - lane;
 
-                if nie->myDesignatedLaneForward[i] {
+                if this->myDesignatedLaneForward[i] {
                     // if designated, delete all permissions
                     e->setPermissions(SVC_IGNORING, lane);
                 }
@@ -2351,15 +2351,15 @@ NIImporter_OpenStreetMap::applyExtraLaneUseInformationForward(NBEdge* e, NIImpor
                 const int i = lefthand ? lane : e->getNumLanes() - 1 - lane;
 
                 SVCPermissions svc = e->getPermissions(lane);
-                SVCPermissions extraAllowed = nie->myExtraAllowedLaneForward[i];
-                SVCPermissions extraDisallowed = nie->myExtraDisallowedLaneForward[i];
+                SVCPermissions extraAllowed = this->myExtraAllowedLaneForward[i];
+                SVCPermissions extraDisallowed = this->myExtraDisallowedLaneForward[i];
 
                 svc |= extraAllowed;
                 svc &= ~extraDisallowed;
 
                 e->setPermissions(svc, lane);
 
-                if nie->myDesignatedLaneForward[i] {
+                if this->myDesignatedLaneForward[i] {
                     e->preferVehicleClass(i, extraAllowed);
                 }
             }
@@ -2370,7 +2370,7 @@ NIImporter_OpenStreetMap::applyExtraLaneUseInformationForward(NBEdge* e, NIImpor
 }
 
 void
-NIImporter_OpenStreetMap::applyExtraLaneUseInformationBackward(NBEdge* e, NIImporter::Edge* nie) {
+NIImporter_OpenStreetMap::applyExtraLaneUseInformationBackward(NBEdge* e) {
     if (myImportLaneAccess && laneUse.size() > 0) {
         if ((int)laneUse.size() == e->getNumLanes()) {
             const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
@@ -2378,7 +2378,7 @@ NIImporter_OpenStreetMap::applyExtraLaneUseInformationBackward(NBEdge* e, NIImpo
                 // laneUse stores from left to right
                 const int i = lefthand ? lane : e->getNumLanes() - 1 - lane;
 
-                if nie->myDesignatedLaneBackward[i] {
+                if this->myDesignatedLaneBackward[i] {
                     // if designated, delete all permissions
                     e->setPermissions(SVC_IGNORING, lane);
                 }
@@ -2388,15 +2388,15 @@ NIImporter_OpenStreetMap::applyExtraLaneUseInformationBackward(NBEdge* e, NIImpo
                 const int i = lefthand ? lane : e->getNumLanes() - 1 - lane;
 
                 SVCPermissions svc = e->getPermissions(lane);
-                SVCPermissions extraAllowed = nie->myExtraAllowedLaneBackward[i];
-                SVCPermissions extraDisallowed = nie->myExtraDisallowedLaneBackward[i];
+                SVCPermissions extraAllowed = this->myExtraAllowedLaneBackward[i];
+                SVCPermissions extraDisallowed = this->myExtraDisallowedLaneBackward[i];
 
                 svc |= extraAllowed;
                 svc &= ~extraDisallowed;
 
                 e->setPermissions(svc, lane);
 
-                if nie->myDesignatedLaneForward[i] {
+                if this->myDesignatedLaneForward[i] {
                     e->preferVehicleClass(i, extraAllowed);
                 }
             }
