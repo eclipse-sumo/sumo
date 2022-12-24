@@ -158,9 +158,6 @@ private:
     /// @brief The point to look at, only needed for osg view
     Position myLookAt;
 
-    /// @brief Whether the Z coordinate is set in 3D view
-    bool myZCoordSet;
-
     /// @brief View rotation
     double myRotation;
 

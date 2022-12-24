@@ -44,7 +44,7 @@
 GUISettingsHandler::GUISettingsHandler(const std::string& content, bool isFile, bool netedit) :
     SUMOSAXHandler(content),
     mySettings("TEMPORARY_NAME", netedit),
-    myDelay(-1), myLookFrom(0, 0, 1), myLookAt(-1, -1, -1), myZCoordSet(false),
+    myDelay(-1), myLookFrom(-1, -1, -1), myLookAt(-1, -1, -1),
     myRotation(0),
     myZoom(-1),
     myCurrentColorer(SUMO_TAG_NOTHING),
@@ -96,12 +96,11 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             const double x = attrs.getOpt<double>(SUMO_ATTR_X, nullptr, ok, myLookFrom.x());
             const double y = attrs.getOpt<double>(SUMO_ATTR_Y, nullptr, ok, myLookFrom.y());
             const double z = attrs.getOpt<double>(SUMO_ATTR_Z, nullptr, ok, myLookFrom.z());
-            attrs.get<double>(SUMO_ATTR_Z, nullptr, myZCoordSet);
             myLookFrom.set(x, y, z);
             myZoom = attrs.getOpt<double>(SUMO_ATTR_ZOOM, nullptr, ok, myZoom);
-            const double cx = attrs.getOpt<double>(SUMO_ATTR_CENTER_X, nullptr, ok, myLookFrom.x());
-            const double cy = attrs.getOpt<double>(SUMO_ATTR_CENTER_Y, nullptr, ok, myLookFrom.y());
-            const double cz = attrs.getOpt<double>(SUMO_ATTR_CENTER_Z, nullptr, ok, 0.);
+            const double cx = attrs.getOpt<double>(SUMO_ATTR_CENTER_X, nullptr, ok, myLookAt.x());
+            const double cy = attrs.getOpt<double>(SUMO_ATTR_CENTER_Y, nullptr, ok, myLookAt.y());
+            const double cz = attrs.getOpt<double>(SUMO_ATTR_CENTER_Z, nullptr, ok, myLookAt.z());
             myLookAt.set(cx, cy, cz);
             myRotation = attrs.getOpt<double>(SUMO_ATTR_ANGLE, nullptr, ok, myRotation);
             break;
@@ -496,9 +495,6 @@ GUISettingsHandler::applyViewport(GUISUMOAbstractView* view) const {
         double z = (view->is3DView()) ? myLookFrom.z() : view->getChanger().zoom2ZPos(myZoom);
         Position lookFrom(myLookFrom.x(), myLookFrom.y(), z);
         view->setViewportFromToRot(lookFrom, myLookAt, myRotation);
-        if (view->is3DView() && !myZCoordSet) {
-            view->recenterView();
-        }
     }
 }
 
