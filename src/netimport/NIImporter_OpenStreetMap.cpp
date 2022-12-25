@@ -617,12 +617,12 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             NBEdge* nbe = new NBEdge(id, from, to, type, speed, NBEdge::UNSPECIFIED_FRICTION, numLanesForward, tc.getEdgeTypePriority(type),
                                      forwardWidth, NBEdge::UNSPECIFIED_OFFSET, shape, lsf,
                                      StringUtils::escapeXML(streetName), origID, true);
-            nbe->setPermissions(forwardPermissions);
+            nbe->setPermissions(forwardPermissions, -1);
             if ((e->myBuswayType & WAY_FORWARD) != 0) {
                 nbe->setPermissions(SVC_BUS, 0);
             }
             applyChangeProhibition(nbe, e->myChangeForward);
-            applyLaneUseInformation(nbe, e->myLaneUseForward);
+            //applyLaneUseInformation(nbe, e->myLaneUseForward);
             applyExtraLaneUseInformationForward(nbe, e);
             applyTurnSigns(nbe, e->myTurnSignsForward);
             nbe->setTurnSignTarget(last->getID());
@@ -653,7 +653,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                 nbe->setPermissions(SVC_BUS, 0);
             }
             applyChangeProhibition(nbe, e->myChangeBackward);
-            applyLaneUseInformation(nbe, e->myLaneUseBackward);
+            //applyLaneUseInformation(nbe, e->myLaneUseBackward);
             applyExtraLaneUseInformationBackward(nbe, e);
             applyTurnSigns(nbe, e->myTurnSignsBackward);
             nbe->setTurnSignTarget(first->getID());
@@ -1394,14 +1394,14 @@ NIImporter_OpenStreetMap::EdgesHandler::interpretLaneUse(const std::string& valu
 void
 NIImporter_OpenStreetMap::EdgesHandler::interpretExtraForwardLaneUse(const std::string& value, SUMOVehicleClass svc) const {
     // shorten for convenience
-    NIImporter::Edge e = myCurrentEdge;
+    NIImporter_OpenStreetMap::Edge* e = myCurrentEdge;
     const std::vector<std::string> values = StringTokenizer(value, "|").getVector();
     int i = 0;
     for (const std::string& val : values) {
         // enlarge vectors if necessary
         if (i >= (int)e->myDesignatedLaneForward.size()) { e->myDesignatedLaneForward.push_back(false); }
         if (i >= (int)e->myExtraAllowedLaneForward.size()) { e->myExtraAllowedLaneForward.push_back(SVC_IGNORING); }
-        if (i >= (int)e->myExtraDisallowedLaneForward.size()) { e->myExtraAllowedLaneBackward.push_back(SVC_IGNORING); }
+        if (i >= (int)e->myExtraDisallowedLaneForward.size()) { e->myExtraDisallowedLaneForward.push_back(SVC_IGNORING); }
 
         if (val == "yes") {
             e->myExtraAllowedLaneForward[i] |= svc;
@@ -1420,14 +1420,14 @@ NIImporter_OpenStreetMap::EdgesHandler::interpretExtraForwardLaneUse(const std::
 void
 NIImporter_OpenStreetMap::EdgesHandler::interpretExtraBackwardLaneUse(const std::string& value, SUMOVehicleClass svc) const {
     // shorten for convenience
-    NIImporter::Edge e = myCurrentEdge;
+    NIImporter_OpenStreetMap::Edge* e = myCurrentEdge;
     const std::vector<std::string> values = StringTokenizer(value, "|").getVector();
     int i = 0;
     for (const std::string& val : values) {
         // enlarge vectors if necessary
         if (i >= (int)e->myDesignatedLaneBackward.size()) { e->myDesignatedLaneBackward.push_back(false); }
         if (i >= (int)e->myExtraAllowedLaneBackward.size()) { e->myExtraAllowedLaneBackward.push_back(SVC_IGNORING); }
-        if (i >= (int)e->myExtraDisallowedLaneBackward.size()) { e->myExtraAllowedLaneBackward.push_back(SVC_IGNORING); }
+        if (i >= (int)e->myExtraDisallowedLaneBackward.size()) { e->myExtraDisallowedLaneBackward.push_back(SVC_IGNORING); }
 
         if (val == "yes") {
             e->myExtraAllowedLaneBackward[i] |= svc;
@@ -2334,6 +2334,7 @@ NIImporter_OpenStreetMap::applyLaneUseInformation(NBEdge* e, const std::vector<S
 
 void
 NIImporter_OpenStreetMap::applyExtraLaneUseInformationForward(NBEdge* e, NIImporter_OpenStreetMap::Edge* nie) {
+    std::vector<SVCPermissions> laneUse = nie->myLaneUseForward;
     if (myImportLaneAccess && laneUse.size() > 0) {
         if ((int)laneUse.size() == e->getNumLanes()) {
             const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
@@ -2341,7 +2342,7 @@ NIImporter_OpenStreetMap::applyExtraLaneUseInformationForward(NBEdge* e, NIImpor
                 // laneUse stores from left to right
                 const int i = lefthand ? lane : e->getNumLanes() - 1 - lane;
 
-                if nie->myDesignatedLaneForward[i] {
+                if (nie->myDesignatedLaneForward[i]) {
                     // if designated, delete all permissions
                     e->setPermissions(SVC_IGNORING, lane);
                 }
@@ -2359,8 +2360,8 @@ NIImporter_OpenStreetMap::applyExtraLaneUseInformationForward(NBEdge* e, NIImpor
 
                 e->setPermissions(svc, lane);
 
-                if nie->myDesignatedLaneForward[i] {
-                    e->preferVehicleClass(i, extraAllowed);
+                if (nie->myDesignatedLaneForward[i]) {
+                    e->preferVehicleClass(i, (SUMOVehicleClass) extraAllowed);
                 }
             }
         } else {
@@ -2371,6 +2372,7 @@ NIImporter_OpenStreetMap::applyExtraLaneUseInformationForward(NBEdge* e, NIImpor
 
 void
 NIImporter_OpenStreetMap::applyExtraLaneUseInformationBackward(NBEdge* e, NIImporter_OpenStreetMap::Edge* nie) {
+    std::vector<SVCPermissions> laneUse = nie->myLaneUseBackward;
     if (myImportLaneAccess && laneUse.size() > 0) {
         if ((int)laneUse.size() == e->getNumLanes()) {
             const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
@@ -2378,7 +2380,7 @@ NIImporter_OpenStreetMap::applyExtraLaneUseInformationBackward(NBEdge* e, NIImpo
                 // laneUse stores from left to right
                 const int i = lefthand ? lane : e->getNumLanes() - 1 - lane;
 
-                if nie->myDesignatedLaneBackward[i] {
+                if (nie->myDesignatedLaneBackward[i]) {
                     // if designated, delete all permissions
                     e->setPermissions(SVC_IGNORING, lane);
                 }
@@ -2396,8 +2398,8 @@ NIImporter_OpenStreetMap::applyExtraLaneUseInformationBackward(NBEdge* e, NIImpo
 
                 e->setPermissions(svc, lane);
 
-                if nie->myDesignatedLaneForward[i] {
-                    e->preferVehicleClass(i, extraAllowed);
+                if (nie->myDesignatedLaneForward[i]) {
+                    e->preferVehicleClass(i, (SUMOVehicleClass) extraAllowed);
                 }
             }
         } else {
