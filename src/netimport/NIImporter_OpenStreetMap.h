@@ -228,13 +228,13 @@ protected:
         /// @brief (optional) information about whether the backward lanes are designated to some SVCs
         std::vector<bool> myDesignatedLaneBackward;
         /// @brief (optional) information about additional allowed SVCs on forward lane(s)
-        std::vector<SVCPermissions> myExtraAllowedLaneForward;
+        std::vector<SVCPermissions> myAllowedLaneForward;
         /// @brief (optional) information about additional allowed SVCs on backward lane(s)
-        std::vector<SVCPermissions> myExtraAllowedLaneBackward;
+        std::vector<SVCPermissions> myAllowedLaneBackward;
         /// @brief (optional) information about additional disallowed SVCs on forward lane(s)
-        std::vector<SVCPermissions> myExtraDisallowedLaneForward;
+        std::vector<SVCPermissions> myDisallowedLaneForward;
         /// @brief (optional) information about additional disallowed SVCs on backward lane(s)
-        std::vector<SVCPermissions> myExtraDisallowedLaneBackward;
+        std::vector<SVCPermissions> myDisallowedLaneBackward;
         /// @brief Information about the relative z-ordering of ways
         int myLayer;
         /// @brief The list of nodes this edge is made of
@@ -364,9 +364,28 @@ protected:
     static const long long int INVALID_ID;
 
     static void applyChangeProhibition(NBEdge* e, int changeProhibition);
-    void applyLaneUseInformation(NBEdge* e, const std::vector<SVCPermissions>& laneUse);
-    void applyExtraLaneUseInformationForward(NBEdge* e, NIImporter_OpenStreetMap::Edge* nie);
-    void applyExtraLaneUseInformationBackward(NBEdge* e, NIImporter_OpenStreetMap::Edge* nie);
+    /// Applies lane use information from `nie` to `e`. Uses the member values
+    /// `myLaneAllowedForward`, `myLaneDisallowedForward` and `myLaneDesignatedForward`
+    /// to determine the ultimate lane uses. 
+    /// When a value of `e->myLaneDesignatedForward` is `true`, all permissions for the corresponding
+    /// lane will be deleted before adding permissions from `e->myLaneAllowedForward`.
+    /// SVCs from `e->myLaneAllowedForward` will be added to the existing permissions (for each lane). 
+    /// SVCs from `e->myLaneDisallowedForward` will be subtracted from the existing permissions.
+    /// @brief Applies lane use information from `nie` to `e`. 
+    /// @param e The NBEdge that the new information will be written to.
+    /// @param nie Ths Edge that the information comes from.
+    void applyLaneUseForward(NBEdge* e, NIImporter_OpenStreetMap::Edge* nie);
+    /// Applies lane use information from `nie` to `e`. Uses the member values
+    /// `myLaneAllowedBackward`, `myLaneDisallowedBackward` and `myLaneDesignatedBackward`
+    /// to determine the ultimate lane uses. 
+    /// When a value of `e->myLaneDesignatedBackward` is `true`, all permissions for the corresponding
+    /// lane will be deleted before adding permissions from `e->myLaneAllowedBackward`.
+    /// SVCs from `e->myLaneAllowedBackward` will be added to the existing permissions (for each lane). 
+    /// SVCs from `e->myLaneDisallowedBackward` will be subtracted from the existing permissions.
+    /// @brief Applies lane use information from `nie` to `e`. 
+    /// @param e The NBEdge that the new information will be written to.
+    /// @param nie Ths Edge that the information comes from.
+    void applyLaneUseBackward(NBEdge* e, NIImporter_OpenStreetMap::Edge* nie);
     void applyTurnSigns(NBEdge* e, const std::vector<int>& turnSigns);
 
     /**
@@ -501,10 +520,8 @@ protected:
 
         int interpretChangeType(const std::string& value) const;
 
-        void interpretLaneUse(const std::string& value, SUMOVehicleClass svc, std::vector<SVCPermissions>& result) const;
-
-        void interpretExtraForwardLaneUse(const std::string& value, SUMOVehicleClass svc) const;
-        void interpretExtraBackwardLaneUse(const std::string& value, SUMOVehicleClass svc) const;
+        void interpretLaneUseForward(const std::string& value, SUMOVehicleClass svc) const;
+        void interpretLaneUseBackward(const std::string& value, SUMOVehicleClass svc) const;
 
     private:
         /// @brief The previously parsed nodes
