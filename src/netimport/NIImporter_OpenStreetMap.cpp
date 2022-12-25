@@ -2283,7 +2283,7 @@ NIImporter_OpenStreetMap::applyChangeProhibition(NBEdge* e, int changeProhibitio
 
 void
 NIImporter_OpenStreetMap::applyLaneUseForward(NBEdge* e, NIImporter_OpenStreetMap::Edge* nie) {
-    int noLanes = nie->myNoLanesForward;
+    int noLanes = e->getNumLanes();
     if (myImportLaneAccess) {
         const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
         for (int lane = 0; lane < noLanes; lane++) {
@@ -2321,7 +2321,7 @@ NIImporter_OpenStreetMap::applyLaneUseForward(NBEdge* e, NIImporter_OpenStreetMa
 
 void
 NIImporter_OpenStreetMap::applyLaneUseBackward(NBEdge* e, NIImporter_OpenStreetMap::Edge* nie) {
-    int noLanes = nie->myNoLanes - nie->myNoLanesForward;
+    int noLanes = e->getNumLanes();
     if (myImportLaneAccess) {
         const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
         for (int lane = 0; lane < noLanes; lane++) {
