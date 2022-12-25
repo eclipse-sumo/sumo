@@ -219,10 +219,6 @@ protected:
         int myChangeForward;
         /// @brief Information about change prohibitions (backward direction
         int myChangeBackward;
-        /// @brief (optional) information about the permitted vehicle classes on each forward lane
-        std::vector<SVCPermissions> myLaneUseForward;
-        /// @brief (optional) information about the permitted vehicle classes on each backward lane
-        std::vector<SVCPermissions> myLaneUseBackward;
         /// @brief (optional) information about whether the forward lanes are designated to some SVCs
         std::vector<bool> myDesignatedLaneForward;
         /// @brief (optional) information about whether the backward lanes are designated to some SVCs
