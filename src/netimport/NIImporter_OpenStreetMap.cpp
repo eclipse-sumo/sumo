@@ -1257,8 +1257,10 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
             myCurrentEdge->myChangeBackward = interpretChangeType(value);
         } else if (key == "vehicle:lanes" || key == "vehicle:lanes:forward") {
             interpretLaneUseForward(value, SVC_PASSENGER);
+            interpretLaneUseForward(value, SVC_PRIVATE);
         } else if (key == "vehicle:lanes:backward") {
             interpretLaneUseBackward(value, SVC_PASSENGER);
+            interpretLaneUseBackward(value, SVC_PRIVATE);
         } else if (key == "psv:lanes" || key == "psv:lanes:forward") {
             interpretLaneUseForward(value, SVC_BUS);
         } else if (key == "psv:lanes:backward") {
