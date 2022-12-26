@@ -1375,7 +1375,7 @@ NIImporter_OpenStreetMap::EdgesHandler::interpretLaneUseForward(const std::strin
         if (i >= (int)e->myAllowedLaneForward.size()) { e->myAllowedLaneForward.push_back(SVC_IGNORING); }
         if (i >= (int)e->myDisallowedLaneForward.size()) { e->myDisallowedLaneForward.push_back(SVC_IGNORING); }
 
-        if (val == "yes") {
+        if (val == "yes" || val == "permissive") {
             e->myAllowedLaneForward[i] |= svc;
         } else if (val == "lane" || val == "designated") {
             e->myAllowedLaneForward[i] |= svc;
@@ -1401,7 +1401,7 @@ NIImporter_OpenStreetMap::EdgesHandler::interpretLaneUseBackward(const std::stri
         if (i >= (int)e->myAllowedLaneBackward.size()) { e->myAllowedLaneBackward.push_back(SVC_IGNORING); }
         if (i >= (int)e->myDisallowedLaneBackward.size()) { e->myDisallowedLaneBackward.push_back(SVC_IGNORING); }
 
-        if (val == "yes") {
+        if (val == "yes" || val == "permissive") {
             e->myAllowedLaneBackward[i] |= svc;
         } else if (val == "lane" || val == "designated") {
             e->myAllowedLaneBackward[i] |= svc;
