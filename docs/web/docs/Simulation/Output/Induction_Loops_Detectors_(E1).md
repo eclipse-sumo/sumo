@@ -107,5 +107,6 @@ collected for the vehicles correspond to
 - [Simulated induction loops can be accessed using
   TraCI](../../TraCI/Induction_Loop_Value_Retrieval.md). If no XML output is
   needed, the attribute `file="NUL"` may be used.
+- Induction loops are created automatically when defining [actuated traffic lights](../Traffic_Lights.md#type_actuated)
 - You can generate detector definitions automatically. See [output
   tools](../../Tools/Output.md) for more information.

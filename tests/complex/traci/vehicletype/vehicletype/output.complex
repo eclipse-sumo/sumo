@@ -1,4 +1,3 @@
- Retrying in 1 seconds
 step 0
 step 1
 step 2
@@ -6,7 +5,7 @@ vehicletypes ('DEFAULT_BIKETYPE', 'DEFAULT_CONTAINERTYPE', 'DEFAULT_PEDTYPE', 'D
 vehicletype count 5
 examining DEFAULT_VEHTYPE
 length 5.0
-maxSpeed 55.5555555556
+maxSpeed 55.55555555555556
 speedFactor 1.0
 speedDev 0.0
 accel 2.6
@@ -26,6 +25,7 @@ maxSpeedLat 1.0
 latAlign center
 minGapLat 0.6
 personCapacity 4
+boardingDuration 0.5
 {0: ('DEFAULT_BIKETYPE', 'DEFAULT_CONTAINERTYPE', 'DEFAULT_PEDTYPE', 'DEFAULT_TAXITYPE', 'DEFAULT_VEHTYPE')}
 step 3
 {0: ('DEFAULT_BIKETYPE', 'DEFAULT_CONTAINERTYPE', 'DEFAULT_PEDTYPE', 'DEFAULT_TAXITYPE', 'DEFAULT_VEHTYPE')}

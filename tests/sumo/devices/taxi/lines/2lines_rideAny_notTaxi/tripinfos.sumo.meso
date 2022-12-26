@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-07-14 08:39:53 by Eclipse SUMO sumo Version v1_14_0+0087-66b4175
+<!-- generated on 2022-12-21 10:48:33 by Eclipse SUMO sumo Version v1_15_0+1176-c58c473
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -50,6 +50,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </personinfo>
     <tripinfo id="trip_A" depart="0.00" departLane="" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="366.00" routeLength="658.80" waitingTime="0.00" waitingCount="0" stopTime="1.00" timeLoss="0.00" rerouteNo="1" devices="tripinfo_trip_A routing_trip_A" vType="special" speedFactor="1.00" vaporized="end"/>
     <tripinfo id="trip_B" depart="0.00" departLane="" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="366.00" routeLength="3705.20" waitingTime="0.00" waitingCount="0" stopTime="122.00" timeLoss="35.61" rerouteNo="4" devices="tripinfo_trip_B routing_trip_B taxi_trip_B person_trip_B" vType="taxi" speedFactor="1.00" vaporized="">
-        <taxi customers="2" occupiedDistance="2094.40" occupiedTime="150.79"/>
+        <taxi customers="2" occupiedDistance="2094.40" occupiedTime="152.79"/>
     </tripinfo>
 </tripinfos>

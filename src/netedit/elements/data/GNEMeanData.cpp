@@ -111,7 +111,7 @@ GNEMeanData::writeMeanData(OutputDevice& device) const {
     if (myMaxTravelTime != 100000) {
         device.writeAttr(SUMO_ATTR_MAX_TRAVELTIME, myMaxTravelTime);
     }
-    if (myMinSamples != 1) {
+    if (myMinSamples != 0) {
         device.writeAttr(SUMO_ATTR_MIN_SAMPLES, myMinSamples);
     }
     if (mySpeedThreshold != 0.1) {

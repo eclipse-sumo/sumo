@@ -132,14 +132,16 @@ protected:
         SUMOTime myProceedTime;
         /// @brief whether the vehicle is or was parking
         bool myParking;
+        /// @brief whether the vehicle is or was jumping
+        bool myJumping;
 
         /** @brief Constructor
          * @param[in] veh The teleported vehicle
          * @param[in] insertTime The time the vehicle was inserted at
          * @param[in] proceedTime The time at which the vehicle should be moved virtually one edge further
          */
-        VehicleInformation(SUMOTime t, MSVehicle* veh, SUMOTime proceedTime, bool parking)
-            : myTransferTime(t), myVeh(veh), myProceedTime(proceedTime), myParking(parking) { }
+        VehicleInformation(SUMOTime t, MSVehicle* veh, SUMOTime proceedTime, bool parking, bool jumping)
+            : myTransferTime(t), myVeh(veh), myProceedTime(proceedTime), myParking(parking), myJumping(jumping) { }
 
         /// @brief sort by vehicle ID for repeatable parallel simulation
         bool operator<(const VehicleInformation& v2) const;

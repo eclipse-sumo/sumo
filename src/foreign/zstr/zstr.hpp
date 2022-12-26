@@ -16,6 +16,14 @@
 #include <iostream>
 #include "strict_fstream.hpp"
 
+#if defined(__GNUC__) && !defined(__clang__)
+#if (__GNUC__ > 5) || (__GNUC__ == 5 && __GNUC_MINOR__>0)
+#define CAN_MOVE_IOSTREAM
+#endif
+#else
+#define CAN_MOVE_IOSTREAM
+#endif
+
 namespace zstr
 {
 
@@ -423,10 +431,12 @@ public:
     void close() {
         _fs.close();
     }
-    // void open(const std::string filename, std::ios_base::openmode mode = std::ios_base::in) {
-    //     _fs.open(filename, mode);
-    //     std::istream::operator=(std::istream(new istreambuf(_fs.rdbuf())));
-    // }
+    #ifdef CAN_MOVE_IOSTREAM
+    void open(const std::string filename, std::ios_base::openmode mode = std::ios_base::in) {
+        _fs.open(filename, mode);
+        std::istream::operator=(std::istream(new istreambuf(_fs.rdbuf())));
+    }
+    #endif
     bool is_open() const {
         return _fs.is_open();
     }
@@ -460,11 +470,13 @@ public:
         std::ostream::flush();
         _fs.close();
     }
-    // void open(const std::string filename, std::ios_base::openmode mode = std::ios_base::out, int level = Z_DEFAULT_COMPRESSION) {
-    //     flush();
-    //     _fs.open(filename, mode | std::ios_base::binary);
-    //     std::ostream::operator=(std::ostream(new ostreambuf(_fs.rdbuf(), default_buff_size, level)));
-    // }
+    #ifdef CAN_MOVE_IOSTREAM
+    void open(const std::string filename, std::ios_base::openmode mode = std::ios_base::out, int level = Z_DEFAULT_COMPRESSION) {
+        flush();
+        _fs.open(filename, mode | std::ios_base::binary);
+        std::ostream::operator=(std::ostream(new ostreambuf(_fs.rdbuf(), default_buff_size, level)));
+    }
+    #endif
     bool is_open() const {
         return _fs.is_open();
     }

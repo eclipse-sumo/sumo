@@ -95,6 +95,9 @@ Direct installation without adding the repository can be done in CentOS 8 like t
 ```
 sudo yum --nogpgcheck --repofrompath=centos,https://download.opensuse.org/repositories/science:/dlr/CentOS_8 install sumo
 ```
+More instructions on how to install from open build service are
+[here for the main project](https://software.opensuse.org//download.html?project=science%3Adlr&package=sumo)
+and [here for the playground](https://software.opensuse.org//download.html?project=home%3Abehrisch&package=sumo).
 
 Ubuntu, Debian and Arch users please see the community repositories above.
 
@@ -211,7 +214,7 @@ The [release directory](https://sumo.dlr.de/releases/) contains all release file
 Those and older releases can also be obtained via the [sourceforge download portal](https://sourceforge.net/projects/sumo/files/sumo/).
 If you want to try out an older version you can also use the virtual environment approach
 ([explained above](#python_packages_virtual_environments)) with a fixed version, e.g.
-`pip install eclipse-sumo=1.9.0` (works only for 1.8.0 and later).
+`pip install eclipse-sumo==1.9.0` (works only for 1.8.0 and later).
 
 If you need a complete zipped snapshot of the repository (including tests) for an older version have a look at the tags in your
 local repository or at [GitHub tags](https://github.com/eclipse/sumo/tags).

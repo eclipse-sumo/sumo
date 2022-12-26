@@ -1,7 +1,7 @@
 /* XPM */
 static const char *vshape_pedestrian_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"64 32 26 1 ",
+"64 32 26 1",
 "  c blue",
 ". c #0202FF",
 "X c #0303FF",

@@ -41,14 +41,14 @@ jobs:
         name: helper-wheels
         path: tools/dist
 
-    - name: Building Python wheels (fixed manylinux docker)
-      if: github.repository == 'eclipse/sumo'
-      uses: docker://quay.io/pypa/manylinux2014_x86_64:2022-11-14-1226cfc
-      with:
-        entrypoint: tools/build/build_wheels.sh
+    # - name: Building Python wheels (fixed manylinux docker)
+    #   if: github.repository == 'eclipse/sumo'
+    #   uses: docker://quay.io/pypa/manylinux2014_x86_64:2022-11-14-1226cfc
+    #   with:
+    #     entrypoint: tools/build/build_wheels.sh
 
     - name: Building Python wheels (latest manylinux docker)
-      if: github.repository == 'DLR-TS/sumo'
+      # if: github.repository == 'DLR-TS/sumo'
       uses: docker://quay.io/pypa/manylinux2014_x86_64
       with:
         entrypoint: tools/build/build_wheels.sh
@@ -86,6 +86,12 @@ jobs:
         python -m pip install manylinux-wheels/eclipse_sumo*
         python -c "import sumo; print('SUMO_HOME=' + sumo.SUMO_HOME)" >> $GITHUB_ENV
 
+    - name: Running "sumo in the wheel" tests
+      if: github.repository == 'DLR-TS/sumo'
+      run: |
+        python -m pip install -r tools/requirements.txt
+        tests/runTests.sh -b ci -v ci.fast
+
     - name: Running meta tests and cleaning up
       run: |
         tests/runTests.sh -b ci -v ci -ts meta
@@ -100,12 +106,17 @@ jobs:
         cd tests
         texttest -b ci -v ci -a complex.libsumo
 
+    - name: Compressing test results
+      if: failure()
+      run: |
+        zip -r texttesttmp.zip ~/.texttest/tmp
+
     - name: Uploading test results
       if: failure()
       uses: actions/upload-artifact@v3
       with:
         name: texttesttmp-${{ matrix.python }}
-        path: ~/.texttest/tmp
+        path: texttesttmp.zip
         if-no-files-found: warn
 
   publish-wheels:

@@ -1,39 +1,6 @@
-function import_gtfs called at Fri, 28 Oct 2022 08:05:40 +0000
-function import_gtfs finished after 22.575408 seconds
+function import_gtfs called at Tue, 20 Dec 2022 08:03:16 +0000
+function import_gtfs finished after 7.798710 seconds
 Success.
 Success.
 Success.
 Success.
-Warning! No mapping library found, falling back to tracemapper.
-Warning! Disconnected route '109241', no path found. Keeping longer part.
-Warning! Disconnected route '109242', no path found. Keeping longer part.
-Warning! Disconnected route '109244', no path found. Keeping longer part.
-Warning! Disconnected route '280056', no path found. Keeping longer part.
-Warning! Disconnected route '280370', no path found. Keeping longer part.
-Warning! Disconnected route '280860', no path found. Keeping longer part.
-Warning! Disconnected route '281591', no path found. Keeping longer part.
-Warning! Disconnected route '281867', no path found. Keeping longer part.
-Warning! Disconnected route '285265', no path found. Keeping longer part.
-Warning! Fixed connection 281979 26
-Warning! Fixed connection 284866 26
-Warning! Disconnected route '2442', no path found. Keeping longer part.
-Warning! Disconnected route '284973', no path found. Keeping longer part.
-Warning! Fixed connection 202043 11
-Warning! Fixed connection 202125 14
-Warning! Disconnected route '236553', no path found. Keeping longer part.
-Warning! Disconnected route '236569', no path found. Keeping longer part.
-Warning! Fixed connection 236759 55
-Warning! Fixed connection 246782 22
-Warning! Fixed connection 247080 22
-Warning! Fixed connection 247100 22
-Warning! No net resources/gtfs/ferry.net.xml
-Warning! No net resources/gtfs/subway.net.xml
-Warning! Disconnected route '257596', no path found. Keeping longer part.
-Warning! Disconnected route '257696.trimmed', no path found. Keeping longer part.
-Warning! Disconnected route '257768', no path found. Keeping longer part.
-Warning! Disconnected route '257791', no path found. Keeping longer part.
-Warning! Disconnected route '259570', no path found. Keeping longer part.
-Warning! Disconnected route '259578', no path found. Keeping longer part.
-Warning! Disconnected route '259634.trimmed', no path found. Keeping longer part.
-Warning! Disconnected route '68252', no path found. Keeping longer part.
-Warning! Disconnected route '68266', no path found. Keeping longer part.

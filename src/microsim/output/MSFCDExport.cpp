@@ -133,6 +133,9 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
                 }
                 of.writeOptionalAttr(SUMO_ATTR_ODOMETER, veh->getOdometer(), mask);
                 of.writeOptionalAttr(SUMO_ATTR_POSITION_LAT, veh->getLateralPositionOnLane(), mask);
+                if (microVeh != nullptr) {
+                    of.writeOptionalAttr(SUMO_ATTR_SPEED_LAT, microVeh->getLaneChangeModel().getSpeedLat(), mask);
+                }
                 if (maxLeaderDistance >= 0 && microVeh != nullptr) {
                     std::pair<const MSVehicle* const, double> leader = microVeh->getLeader(maxLeaderDistance);
                     if (leader.first != nullptr) {

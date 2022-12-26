@@ -21,5 +21,8 @@ person_100m
 # Validation of the range
 person_200m
 
+# should return all objects
+simulation_5
+
 # detect parking vehicles
 parking

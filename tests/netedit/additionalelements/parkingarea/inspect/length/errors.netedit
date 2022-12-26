@@ -9,7 +9,7 @@ GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,5.20,60.00,30.
 GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary -10.00,10.00,60.00,34.80
 Debug: Selected item 'parkingArea' in GNETagSelector
 Debug: Adding parkingArea 'pa_0' in GNEChange_Additional
-Debug: Value 'dummyLenght' for attribute length of parkingArea isn't valid
+Debug: Value 'dummyLength' for attribute length of parkingArea isn't valid
 Debug: Value '-6' for attribute length of parkingArea isn't valid
 Debug: Value '0' for attribute length of parkingArea isn't valid
 Debug: Setting new attribute

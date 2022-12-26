@@ -76,6 +76,7 @@ protected:
             :
             id(_id), lon(_lon), lat(_lat), ele(0.),
             tlsControlled(false),
+            pedestrianCrossing(false),
             railwayCrossing(false),
             railwaySignal(false),
             railwayBufferStop(false),
@@ -94,6 +95,8 @@ protected:
         double ele;
         /// @brief Whether this is a tls controlled junction
         bool tlsControlled;
+        /// @brief Whether this is a pedestrian crossing
+        bool pedestrianCrossing;
         /// @brief Whether this is a railway crossing
         bool railwayCrossing;
         /// @brief Whether this is a railway (main) signal
@@ -176,9 +179,7 @@ protected:
             myChangeForward(CHANGE_YES),
             myChangeBackward(CHANGE_YES),
             myLayer(0), // layer is non-zero only in conflict areas
-            myCurrentIsRoad(false),
-            myCurrentIsPlatform(false),
-            myCurrentIsElectrified(false)
+            myCurrentIsRoad(false)
         { }
 
         virtual ~Edge() {}
@@ -237,13 +238,14 @@ protected:
         std::vector<long long int> myCurrentNodes;
         /// @brief Information whether this is a road
         bool myCurrentIsRoad;
-        /// @brief Information whether this is a pt platform
-        bool myCurrentIsPlatform;
-        /// @brief Information whether this is railway is electrified
-        bool myCurrentIsElectrified;
+        /// @brief Additionally tagged information
+        std::map<std::string, std::string> myExtraTags;
         /// @brief turning direction (arrows printed on the road)
         std::vector<int> myTurnSignsForward;
         std::vector<int> myTurnSignsBackward;
+        /// @brief Information on lane width
+        std::vector<double> myWidthLanesForward;
+        std::vector<double> myWidthLanesBackward;
 
     private:
         /// invalidated assignment operator
@@ -300,6 +302,12 @@ private:
 
     /// @brief import sidewalks
     bool myImportSidewalks;
+
+    /// @brief import bike path specific permissions and directions
+    bool myImportBikeAccess;
+
+    /// @brief import crossings
+    bool myImportCrossings;
 
     /// @brief import turning signals (turn:lanes) to guide connection building
     bool myImportTurnSigns;
@@ -537,11 +545,9 @@ protected:
 
         /// @brief whether additional way attributes shall be added to the edge
         bool myAllAttributes;
+
         /// @brief extra attributes to import
         std::set<std::string> myExtraAttributes;
-
-        /// @brief import bike path specific permissions and directions
-        bool myImportBikeAccess;
 
     private:
         /** @brief invalidated copy constructor */

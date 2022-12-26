@@ -122,10 +122,11 @@ def getOptions(args=None):
 def write_csv(data, fname):
     with open(fname, 'w') as f:
         for veh, vals in sorted(data.items()):
-            f.write('"%s"\n' % veh)
+            f.write('# "%s"\n' % veh)
             for x in zip(*vals):
                 f.write(" ".join(map(str, x)) + "\n")
-            f.write('\n')
+            #  2 blank lines indicate a new data block in gnuplot
+            f.write('\n\n')
 
 
 def short_names(filenames):
@@ -357,6 +358,7 @@ def useWildcards(labels):
         if "*" in label or "?" in label or ("[" in label and "]" in label):
             return True
     return False
+
 
 def applyTicks(d, xyIndex, ticksFile):
     offsets, labels = sumolib.visualization.helpers.parseTicks(ticksFile)

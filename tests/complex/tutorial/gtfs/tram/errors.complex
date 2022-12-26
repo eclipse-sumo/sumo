@@ -16,5 +16,9 @@ Warning: 51 total messages of type: Found sharp turn with radius % at the start 
 Warning: 3 total messages of type: Lane '%' is not connected from any incoming edge at junction '%'.
 Warning: 3 total messages of type: Shape for junction '%' has distance % to its given position.
 Warning: 4 total messages of type: The rail crossing '%' does not have any roads.
-Warning: Unused state in tlLogic '7465967492', program '0' at tl-index 0
-Warning: 6 total messages of type: Unused state in tlLogic '%', program '%' at tl-index %
+Warning: Non-static traffic light 'cluster_1599656332_6994510228_6994510229' does not define variable phase length.
+Warning: 4 total messages of type: Non-static traffic light '%' does not define variable phase length.
+Warning! No mapping library found, falling back to tracemapper.
+Warning! Disconnected route '257596' between '319292807' and '107701626', no path found. Keeping longer part.
+Warning! Disconnected route '259570' between '461452916' and '180390329#0', no path found. Keeping longer part.
+Warning! Disconnected route '68252' between '461452916' and '180390329#0', no path found. Keeping longer part.

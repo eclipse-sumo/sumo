@@ -1,7 +1,7 @@
 /* XPM */
 static const char *vshape_passenger_sedan_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"64 32 63 1 ",
+"64 32 63 1",
 "  c black",
 ". c #030300",
 "X c #070700",

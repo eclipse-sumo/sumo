@@ -62,9 +62,12 @@ FXIMPLEMENT(GNEMoveFrame::ShiftShapeGeometry,           MFXGroupBoxModule, Shift
 
 GNEMoveFrame::CommonModeOptions::CommonModeOptions(GNEMoveFrame* moveFrameParent) :
     MFXGroupBoxModule(moveFrameParent, TL("Common move options")) {
-    // Create checkbox for enable/disable move whole polygons
-    myAllowChangeLanes = new FXCheckButton(getCollapsableFrame(), TL("Allow change Lane"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    // Create checkbox for enable/disable allow change lanes
+    myAllowChangeLanes = new FXCheckButton(getCollapsableFrame(), TL("Allow change lanes"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myAllowChangeLanes->setCheck(FALSE);
+    // Create checkbox for enable/disable merge geometry points
+    myMergeGeometryPoints = new FXCheckButton(getCollapsableFrame(), TL("Merge geometry points"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myMergeGeometryPoints->setCheck(TRUE);
 }
 
 
@@ -74,6 +77,12 @@ GNEMoveFrame::CommonModeOptions::~CommonModeOptions() {}
 bool
 GNEMoveFrame::CommonModeOptions::getAllowChangeLane() const {
     return (myAllowChangeLanes->getCheck() == TRUE);
+}
+
+
+bool
+GNEMoveFrame::CommonModeOptions::getMergeGeometryPoints() const {
+    return (myMergeGeometryPoints->getCheck() == TRUE);
 }
 
 // ---------------------------------------------------------------------------
@@ -598,6 +607,35 @@ GNEMoveFrame::ShiftShapeGeometry::onCmdShiftShapeGeometry(FXObject*, FXSelector,
 }
 
 // ---------------------------------------------------------------------------
+// GNEMoveFrame::Information - methods
+// ---------------------------------------------------------------------------
+
+GNEMoveFrame::Information::Information(GNEMoveFrame* moveFrameParent) :
+    MFXGroupBoxModule(moveFrameParent, TL("Information")) {
+    // create info label
+    std::ostringstream information;
+    // add label for shift+click
+    information
+            << TL("-Click over edge to") << "\n"
+            << TL(" create or edit") << "\n"
+            << TL(" geometry point.") << "\n"
+            << TL("-Shift+click over edge") << "\n"
+            << TL(" to edit start or end") << "\n"
+            << TL(" geometry point.");
+    // create label
+    new FXLabel(getCollapsableFrame(), information.str().c_str(), 0, GUIDesignLabelFrameInformation);
+    // create source label
+    FXLabel* sourceLabel = new FXLabel(getCollapsableFrame(), TL("-Move geometry point"), 0, GUIDesignLabelLeft);
+    sourceLabel->setBackColor(MFXUtils::getFXColor(RGBColor::ORANGE));
+    // create target label
+    FXLabel* targetLabel = new FXLabel(getCollapsableFrame(), TL("-Merge geometry point"), 0, GUIDesignLabelLeft);
+    targetLabel->setBackColor(MFXUtils::getFXColor(RGBColor::CYAN));
+}
+
+
+GNEMoveFrame::Information::~Information() {}
+
+// ---------------------------------------------------------------------------
 // GNEMoveFrame - methods
 // ---------------------------------------------------------------------------
 
@@ -613,6 +651,8 @@ GNEMoveFrame::GNEMoveFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     myShiftEdgeSelectedGeometry = new ShiftEdgeSelectedGeometry(this);
     // create change z selection
     myChangeZInSelection = new ChangeZInSelection(this);
+    // create information label
+    myInformation = new Information(this);
     // create shift shape geometry modul
     myShiftShapeGeometry = new ShiftShapeGeometry(this);
 }

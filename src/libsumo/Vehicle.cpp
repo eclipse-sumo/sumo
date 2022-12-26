@@ -195,6 +195,19 @@ Vehicle::getRouteID(const std::string& vehID) {
 }
 
 
+double
+Vehicle::getDeparture(const std::string& vehID) {
+    MSBaseVehicle* veh = Helper::getVehicle(vehID);
+    return veh->hasDeparted() ? STEPS2TIME(veh->getDeparture()) : INVALID_DOUBLE_VALUE;
+}
+
+
+double
+Vehicle::getDepartDelay(const std::string& vehID) {
+    return STEPS2TIME(Helper::getVehicle(vehID)->getDepartDelay());
+}
+
+
 int
 Vehicle::getRouteIndex(const std::string& vehID) {
     MSBaseVehicle* veh = Helper::getVehicle(vehID);
@@ -276,6 +289,13 @@ int
 Vehicle::getPersonCapacity(const std::string& vehID) {
     return Helper::getVehicleType(vehID).getPersonCapacity();
 }
+
+
+double
+Vehicle::getBoardingDuration(const std::string& vehID) {
+    return STEPS2TIME(Helper::getVehicleType(vehID).getLoadingDuration(true));
+}
+
 
 std::vector<std::string>
 Vehicle::getPersonIDList(const std::string& vehID) {
@@ -783,6 +803,29 @@ Vehicle::getTaxiFleet(int taxiState) {
         }
     }
     return result;
+}
+
+std::vector<std::string>
+Vehicle::getLoadedIDList() {
+    std::vector<std::string> ids;
+    MSVehicleControl& c = MSNet::getInstance()->getVehicleControl();
+    for (MSVehicleControl::constVehIt i = c.loadedVehBegin(); i != c.loadedVehEnd(); ++i) {
+        ids.push_back(i->first);
+    }
+    return ids;
+}
+
+std::vector<std::string>
+Vehicle::getTeleportingIDList() {
+    std::vector<std::string> ids;
+    MSVehicleControl& c = MSNet::getInstance()->getVehicleControl();
+    for (MSVehicleControl::constVehIt i = c.loadedVehBegin(); i != c.loadedVehEnd(); ++i) {
+        SUMOVehicle* veh = i->second;
+        if (veh->hasDeparted() && !isVisible(veh)) {
+            ids.push_back(veh->getID());
+        }
+    }
+    return ids;
 }
 
 std::string
@@ -2517,6 +2560,10 @@ Vehicle::handleVariable(const std::string& objID, const int variable, VariableWr
             return wrapper->wrapString(objID, variable, getTypeID(objID));
         case VAR_ROUTE_ID:
             return wrapper->wrapString(objID, variable, getRouteID(objID));
+        case VAR_DEPARTURE:
+            return wrapper->wrapDouble(objID, variable, getDeparture(objID));
+        case VAR_DEPART_DELAY:
+            return wrapper->wrapDouble(objID, variable, getDepartDelay(objID));
         case VAR_ROUTE_INDEX:
             return wrapper->wrapInt(objID, variable, getRouteIndex(objID));
         case VAR_COLOR:
@@ -2545,6 +2592,8 @@ Vehicle::handleVariable(const std::string& objID, const int variable, VariableWr
             return wrapper->wrapInt(objID, variable, getPersonNumber(objID));
         case VAR_PERSON_CAPACITY:
             return wrapper->wrapInt(objID, variable, getPersonCapacity(objID));
+        case VAR_BOARDING_DURATION:
+            return wrapper->wrapDouble(objID, variable, getBoardingDuration(objID));
         case LAST_STEP_PERSON_ID_LIST:
             return wrapper->wrapStringList(objID, variable, getPersonIDList(objID));
         case VAR_WAITING_TIME:
@@ -2597,6 +2646,10 @@ Vehicle::handleVariable(const std::string& objID, const int variable, VariableWr
             const double dist = paramData->readDouble();
             return wrapper->wrapStringDoublePair(objID, variable, getFollower(objID, dist));
         }
+        case VAR_LOADED_LIST:
+            return wrapper->wrapStringList(objID, variable, getLoadedIDList());
+        case VAR_TELEPORTING_LIST:
+            return wrapper->wrapStringList(objID, variable, getTeleportingIDList());
         case libsumo::VAR_PARAMETER:
             paramData->readUnsignedByte();
             return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));

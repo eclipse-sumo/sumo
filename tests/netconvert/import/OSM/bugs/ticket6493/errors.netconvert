@@ -1,5 +1,4 @@
-Warning: Discarding unknown compound 'cycleway.opposite' in type 'cycleway.opposite|highway.residential' (first occurence for edge '8142293').
-Warning: Discarding unusable type 'railway.platform' (first occurence for edge '119432576').
+Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '119432576').
 Warning: PT line in relation 165867 with no stops ignored. Probably OSM file is incomplete.
 Warning: No way found for reference '1670309356' in relation '4443863'
 Warning: PT line in relation 6048504 with no stops ignored. Probably OSM file is incomplete.
@@ -23,7 +22,7 @@ Warning: Removing pt stop '256572343' on non existing edge ''.
 Warning: Removing pt stop '300403947' on non existing edge ''.
 Warning: Removed 12 pt stops because they could not be assigned to the network
 Warning: Reducing junction cluster 1093872774,245901919,245904890,7022705834 (parallel incoming -22873499#0,150039007#0).
-Warning: Reducing junction cluster 313566,368880,84510146 (5 incoming edges).
+Warning: Reducing junction cluster 313566,368880,84510146 (parallel incoming -8225118#0,751186388).
 Warning: Not joining junctions 245904901,248150932 (parallel outgoing 27115018#0,329890957).
 Warning: Not joining junctions 368879,659614608 (only 1 edge within and no cross-traffic).
 Warning: Not joining junctions 4333150952,443847,660638854 (not compact (maxEdge=4534554#2 length=6.97)).

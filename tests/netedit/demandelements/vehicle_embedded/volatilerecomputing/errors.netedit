@@ -20,7 +20,7 @@ Debug: Adding trip 'trip_0' in GNEChange_DemandElement
 Debug: Adding trip 'trip_1' in GNEChange_DemandElement
 Debug: Adding trip 'trip_2' in GNEChange_DemandElement
 Debug: Adding trip 'trip_3' in GNEChange_DemandElement
-Debug: Enabled show demand elements throught alt + 4
+Debug: Enabled show demand elements through alt + 4
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'

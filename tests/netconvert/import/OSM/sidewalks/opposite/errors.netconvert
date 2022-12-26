@@ -1,0 +1,6 @@
+Warning: Discarding unusable type 'highway.residential_tunnel' (first occurrence for edge '182').
+Warning: Reducing junction cluster 11382,21319,3149,9428 (parallel incoming 1695,1760).
+Warning: Reducing junction cluster 13852,20508,9610 (long edge).
+Warning: Speed of straight connection '-61421#2_1->-61421#0_1' reduced by 18.70 due to turning radius of 14.99 (length=1.80, angle=22.25).
+Warning: Speed of straight connection '2128#2_1->2128#3_1' reduced by 17.77 due to turning radius of 18.21 (length=13.66, angle=59.96).
+Warning: Speed of straight connection '-1748#0_1->-61421#2_1' reduced by 7.67 due to turning radius of 73.54 (length=19.11, angle=30.05).

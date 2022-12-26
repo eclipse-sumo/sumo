@@ -51,6 +51,7 @@
 #include <microsim/MSFrame.h>
 #include <microsim/MSRouteHandler.h>
 #include <mesogui/GUIMEVehicleControl.h>
+#include <libsumo/Helper.h>
 #include <traci-server/TraCIServer.h>
 #include "TraCIServerAPI_GUI.h"
 #include "GUIApplicationWindow.h"
@@ -129,7 +130,7 @@ GUILoadThread::run() {
             throw ProcessError();
         }
         XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"), oc.getString("xml-validation.routes"));
-        GUIGlobals::gRunAfterLoad = oc.getBool("start");
+        GUIGlobals::gRunAfterLoad = oc.getBool("start") || (myAmLibsumo && std::getenv("LIBSUMO_GUI") != nullptr);
         GUIGlobals::gQuitOnEnd = oc.getBool("quit-on-end");
         GUIGlobals::gDemoAutoReload = oc.getBool("demo");
         GUIGlobals::gTrackerInterval = STEPS2TIME(string2time(oc.getString("tracker-interval")));
@@ -174,6 +175,9 @@ GUILoadThread::run() {
         execs[libsumo::CMD_GET_GUI_VARIABLE] = &TraCIServerAPI_GUI::processGet;
         execs[libsumo::CMD_SET_GUI_VARIABLE] = &TraCIServerAPI_GUI::processSet;
         TraCIServer::openSocket(execs);
+        if (myAmLibsumo) {
+            libsumo::Helper::registerStateListener();
+        }
 
         eb = new GUIEdgeControlBuilder();
         GUIDetectorBuilder db(*net);

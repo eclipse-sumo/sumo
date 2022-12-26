@@ -430,7 +430,13 @@ class Net:
             (self._ranges[0][0] - self._ranges[0][1]) ** 2 +
             (self._ranges[1][0] - self._ranges[1][1]) ** 2)
 
+    def hasGeoProj(self):
+        projString = self._location["projParameter"]
+        return projString != "!"
+
     def getGeoProj(self):
+        if not self.hasGeoProj():
+            raise RuntimeError("Network does not provide geo-projection")
         if self._proj is None:
             import pyproj
             try:

@@ -42,15 +42,18 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-OptionsLoader::OptionsLoader(const bool rootOnly)
-    : myRootOnly(rootOnly), myError(false), myOptions(OptionsCont::getOptions()), myItem() {}
+
+OptionsLoader::OptionsLoader(OptionsCont& customOptions, const bool rootOnly) : 
+    myRootOnly(rootOnly),
+    myOptions(customOptions), 
+    myItem() {
+}
 
 
 OptionsLoader::~OptionsLoader() {}
 
 
-void OptionsLoader::startElement(const XMLCh* const name,
-                                 XERCES_CPP_NAMESPACE::AttributeList& attributes) {
+void OptionsLoader::startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::AttributeList& attributes) {
     myItem = StringUtils::transcode(name);
     if (!myRootOnly) {
         for (int i = 0; i < (int)attributes.getLength(); i++) {
@@ -66,11 +69,11 @@ void OptionsLoader::startElement(const XMLCh* const name,
 }
 
 
-void OptionsLoader::setValue(const std::string& key,
-                             const std::string& value) {
+void OptionsLoader::setValue(const std::string& key, const std::string& value) {
     if (value.length() > 0) {
+        // try to add value in option container
         try {
-            if (!setSecure(key, value)) {
+            if (!setSecure(myOptions, key, value)) {
                 WRITE_ERROR("Could not set option '" + key + "' (probably defined twice).");
                 myError = true;
             }
@@ -82,17 +85,15 @@ void OptionsLoader::setValue(const std::string& key,
 }
 
 
-void OptionsLoader::characters(const XMLCh* const chars,
-                               const XERCES3_SIZE_t length) {
+void OptionsLoader::characters(const XMLCh* const chars, const XERCES3_SIZE_t length) {
     myValue = myValue + StringUtils::transcode(chars, (int) length);
 }
 
 
 bool
-OptionsLoader::setSecure(const std::string& name,
-                         const std::string& value) const {
-    if (myOptions.isWriteable(name)) {
-        myOptions.set(name, value);
+OptionsLoader::setSecure(OptionsCont& options, const std::string& name, const std::string& value) const {
+    if (options.isWriteable(name)) {
+        options.set(name, value);
         return true;
     }
     return false;
@@ -125,24 +126,20 @@ OptionsLoader::warning(const XERCES_CPP_NAMESPACE::SAXParseException& exception)
 
 void
 OptionsLoader::error(const XERCES_CPP_NAMESPACE::SAXParseException& exception) {
-    WRITE_ERROR(
-        StringUtils::transcode(exception.getMessage()));
-    WRITE_ERROR(
-        " (At line/column "
-        + toString(exception.getLineNumber() + 1) + '/'
-        + toString(exception.getColumnNumber()) + ").");
+    WRITE_ERROR(StringUtils::transcode(exception.getMessage()));
+    WRITE_ERROR(" (At line/column "
+                + toString(exception.getLineNumber() + 1) + '/'
+                + toString(exception.getColumnNumber()) + ").");
     myError = true;
 }
 
 
 void
 OptionsLoader::fatalError(const XERCES_CPP_NAMESPACE::SAXParseException& exception) {
-    WRITE_ERROR(
-        StringUtils::transcode(exception.getMessage()));
-    WRITE_ERROR(
-        " (At line/column "
-        + toString(exception.getLineNumber() + 1) + '/'
-        + toString(exception.getColumnNumber()) + ").");
+    WRITE_ERROR(StringUtils::transcode(exception.getMessage()));
+    WRITE_ERROR(" (At line/column "
+                + toString(exception.getLineNumber() + 1) + '/'
+                + toString(exception.getColumnNumber()) + ").");
     myError = true;
 }
 
@@ -151,6 +148,5 @@ bool
 OptionsLoader::errorOccurred() const {
     return myError;
 }
-
 
 /****************************************************************************/

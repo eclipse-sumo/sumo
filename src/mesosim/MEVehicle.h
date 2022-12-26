@@ -164,15 +164,6 @@ public:
     ///@brief ends the current stop and performs loading/unloading
     void processStop();
 
-    /** @brief Returns whether the vehicle stops at the given stopping place */
-    bool stopsAt(MSStoppingPlace* /*stop*/) const {
-        return false;
-    }
-
-    bool stopsAtEdge(const MSEdge* /*edge*/) const {
-        return false;
-    }
-
     /** @brief Returns until when to stop at the current segment and sets the information that the stop has been reached
      * @param[in] time the current time
      * @return stop time for the segment

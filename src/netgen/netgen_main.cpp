@@ -63,7 +63,7 @@ fillOptions() {
     oc.addCallExample("--spider [spider-network options] -o <OUTPUTFILE>", "create spider net");
     oc.addCallExample("--rand [random-network options] -o <OUTPUTFILE>", "create random net");
 
-    oc.setAdditionalHelpMessage(" Either \"--grid\", \"--spider\" or \"--rand\" must be supplied.\n  In dependance to these switches other options are used.");
+    oc.setAdditionalHelpMessage(" Either \"--grid\", \"--spider\" or \"--rand\" must be supplied.\n  In dependence to these switches other options are used.");
 
     // insert options sub-topics
     SystemFrame::addConfigurationOptions(oc); // this subtopic is filled here, too

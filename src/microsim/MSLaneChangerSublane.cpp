@@ -284,7 +284,7 @@ MSLaneChangerSublane::abortLCManeuver(MSVehicle* vehicle) {
     vehicle->getLaneChangeModel().updateTargetLane();
     if (updatedSpeedLat) {
         // update angle after having reset lateral speed
-        //vehicle->computeAngle();
+        vehicle->setAngle(vehicle->computeAngle());
     }
 }
 
@@ -389,6 +389,9 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
     // 3) updated dens of all lanes that hold the vehicle or its shadow
 
     vehicle->myState.myPosLat += latDist * (vehicle->getLaneChangeModel().isOpposite() ? -1 : 1);
+    for (int i = 0; i < (int)vehicle->myFurtherLanesPosLat.size(); i++) {
+        vehicle->myFurtherLanesPosLat[i] += latDist * (vehicle->getLaneChangeModel().isOpposite() ? -1 : 1);
+    }
     vehicle->myCachedPosition = Position::INVALID;
     vehicle->getLaneChangeModel().setSpeedLat(DIST2SPEED(latDist));
 #ifdef DEBUG_MANEUVER
@@ -475,24 +478,7 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
     // compute new angle of the vehicle from the x- and y-distances travelled within last time step
     // (should happen last because primaryLaneChanged() also triggers angle computation)
     // this part of the angle comes from the orientation of our current lane
-    double laneAngle = vehicle->getLane()->getShape().rotationAtOffset(vehicle->getLane()->interpolateLanePosToGeometryPos(vehicle->getPositionOnLane())) ;
-    if (vehicle->getLane()->getShape().length2D() == 0) {
-        if (vehicle->getFurtherLanes().size() == 0) {
-            laneAngle = vehicle->getAngle();
-        } else {
-            laneAngle = vehicle->getFurtherLanes().front()->getShape().rotationAtOffset(-NUMERICAL_EPS);
-        }
-    }
-    // this part of the angle comes from the vehicle's lateral movement
-    double changeAngle = 0;
-    // avoid flicker
-    if (fabs(latDist) > NUMERICAL_EPS) {
-        // angle is between vehicle front and vehicle back (and depending on travelled distance)
-        changeAngle = atan2(DIST2SPEED(latDist), vehicle->getVehicleType().getLength() + vehicle->getSpeed());
-        if (MSGlobals::gLefthand) {
-            changeAngle *= -1;
-        }
-    }
+    double laneAngle = vehicle->computeAngle();
     if (vehicle->getLaneChangeModel().isOpposite()) {
         // reverse lane angle
         laneAngle += M_PI;
@@ -517,7 +503,7 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
                   << "\n";
     }
 #endif
-    vehicle->setAngle(laneAngle + changeAngle, completedManeuver);
+    vehicle->setAngle(laneAngle, completedManeuver);
 
     // check if a traci maneuver must continue
     // getOwnState is reset to 0 when changing lanes so we use the stored reason

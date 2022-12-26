@@ -19,7 +19,7 @@ Debug: Adding route 'route_0' in GNEChange_DemandElement
 Debug: Adding route 'route_1' in GNEChange_DemandElement
 Debug: Adding route 'route_2' in GNEChange_DemandElement
 Debug: Adding route 'route_3' in GNEChange_DemandElement
-Debug: Enabled show demand elements throught alt + 4
+Debug: Enabled show demand elements through alt + 4
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00

@@ -306,19 +306,21 @@ public:
      */
     enum VisualisationFeatures {
         /// @brief show vehicle's best lanes
-        VO_SHOW_BEST_LANES = 1,
+        VO_SHOW_BEST_LANES = 1 << 0 ,
         /// @brief show vehicle's current route
-        VO_SHOW_ROUTE = 2,
+        VO_SHOW_ROUTE = 1 << 1,
         /// @brief show all vehicle's routes
-        VO_SHOW_ALL_ROUTES = 4,
+        VO_SHOW_ALL_ROUTES = 1 << 2,
         /// @brief LFLinkItems
-        VO_SHOW_LFLINKITEMS = 8,
+        VO_SHOW_LFLINKITEMS = 1 << 3,
         /// @brief draw vehicle outside the road network
-        VO_DRAW_OUTSIDE_NETWORK = 16,
+        VO_DRAW_OUTSIDE_NETWORK = 1 << 4,
         /// @brief show vehicle's current continued from the current position
-        VO_SHOW_FUTURE_ROUTE = 32,
+        VO_SHOW_FUTURE_ROUTE = 1 << 5,
         /// @brief show vehicle's routes without loops
-        VO_SHOW_ROUTE_NOLOOP = 64
+        VO_SHOW_ROUTE_NOLOOP = 1 << 6,
+        /// @brief track the vehicle (only needed for cleaning up)
+        VO_TRACK = 1 << 7
     };
 
     /// @brief Enabled visualisations, per view
@@ -368,6 +370,9 @@ protected:
 
     /// @brief add seats to mySeatPositions and update requiredSeats
     void computeSeats(const Position& front, const Position& back, double seatOffset, int maxSeats, double exaggeration, int& requiredSeats, Seats& into) const;
+
+    /// @brief whether to reverse trains in their reversed state
+    bool drawReversed(const GUIVisualizationSettings& s) const;
 
 
 protected:

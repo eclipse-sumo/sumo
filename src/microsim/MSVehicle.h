@@ -1013,12 +1013,6 @@ public:
     /// @brief Returns the remaining stop duration for a stopped vehicle or 0
     SUMOTime remainingStopDuration() const;
 
-    /** @brief Returns whether the vehicle stops at the given stopping place */
-    bool stopsAt(MSStoppingPlace* stop) const;
-
-    /** @brief Returns whether the vehicle stops at the given edge */
-    bool stopsAtEdge(const MSEdge* edge) const;
-
     /** @brief Returns whether the vehicle will stop on the current edge
      */
     bool willStop() const;
@@ -1065,7 +1059,7 @@ public:
 
 
     /** @brief Processes stops, returns the velocity needed to reach the stop
-     * @return The velocity in dependance to the next/current stop
+     * @return The velocity in dependence to the next/current stop
      * @todo Describe more detailed
      * @see Stop
      * @see MSStoppingPlace
@@ -2043,6 +2037,12 @@ public:
     /// @brief decide whether a red (or yellow light) may be ignore
     bool ignoreRed(const MSLink* link, bool canBrake) const;
 
+    /// @brief maximum acceleration to consider a vehicle as 'waiting' at low speed
+    inline double accelThresholdForWaiting() const {
+        return 0.5 * getCarFollowModel().getMaxAccel();
+    }
+
+
 protected:
 
     /* @brief adapt safe velocity in accordance to multiple vehicles ahead:
@@ -2109,11 +2109,6 @@ protected:
 
     /// @brief whether the give lane is reverse direction of the current route or not
     bool isOppositeLane(const MSLane* lane) const;
-
-    /// @brief maximum acceleration to consider a vehicle as 'waiting' at low speed
-    inline double accelThresholdForWaiting() const {
-        return 0.5 * getCarFollowModel().getMaxAccel();
-    }
 
 private:
     /// @brief The per vehicle variables of the car following model

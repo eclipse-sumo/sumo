@@ -278,6 +278,9 @@ struct GUIVisualizationCandidateColorSettings {
 
     /// @brief color for selected conflict candidate element (Usually selected using ctrl+click)
     static const RGBColor conflict;
+
+    /// @brief color for invalid elements
+    static const RGBColor invalid;
 };
 
 /// @brief struct for connection settings
@@ -792,6 +795,9 @@ public:
     /// @brief Whether vehicle length shall be scaled with length/geometry factor
     bool scaleLength;
 
+    /// @brief Whether to draw reversed vehicles in their reversed state
+    bool drawReversed;
+
     /// @brief Set whether parking related information should be shown
     bool showParkingInfo;
 
@@ -942,6 +948,9 @@ public:
 
     /// @brief whether 3D TLS models should be generated automatically
     bool generate3DTLSModels;
+
+    /// @brief whether to draw the head up display items
+    bool show3DHeadUpDisplay;
 
     /// @brief 3D material light components
     RGBColor ambient3DLight;

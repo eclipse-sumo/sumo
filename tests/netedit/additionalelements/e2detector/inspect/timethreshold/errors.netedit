@@ -1,6 +1,6 @@
 Debug: Selected item 'laneAreaDetector' in GNETagSelector
 Debug: Adding laneAreaDetector 'e2_0' in GNEChange_Additional
-Debug: Value 'dummyTimeTreshold' for attribute timeThreshold of laneAreaDetector isn't valid
+Debug: Value 'dummyTimeThreshold' for attribute timeThreshold of laneAreaDetector isn't valid
 Debug: Value '-5' for attribute timeThreshold of laneAreaDetector isn't valid
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed

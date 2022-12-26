@@ -34,10 +34,10 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+
 class GenericSAXHandler;
 class IStreamInputSource;
 class SUMOSAXAttributes;
-
 
 // ===========================================================================
 // class definitions
@@ -51,6 +51,7 @@ class SUMOSAXAttributes;
  * SAX2XMLReader.
  */
 class SUMOSAXReader {
+
 public:
     /**
      * @brief Constructor
@@ -119,16 +120,24 @@ public:
     bool parseSection(int element);
 
 private:
+    /// @brief Local Schema Resolver
     class LocalSchemaResolver : public XERCES_CPP_NAMESPACE::EntityResolver {
+
     public:
-        LocalSchemaResolver(const bool haveFallback, const bool noOp) : myHaveFallback(haveFallback), myNoOp(noOp) {}
+        /// @brief constructor
+        LocalSchemaResolver(const bool haveFallback, const bool noOp);
+
+        /// @brief resolve entity
         XERCES_CPP_NAMESPACE::InputSource* resolveEntity(const XMLCh* const publicId, const XMLCh* const systemId);
+
     private:
+        /// @brief flag for check if we have fallback
         const bool myHaveFallback;
+
+        /// @brief flag for check if there is an operation
         const bool myNoOp;
     };
 
-private:
     /**
      * @brief Builds a reader, if needed
      *
@@ -140,8 +149,7 @@ private:
      */
     void ensureSAXReader();
 
-
-private:
+    /// @brief generic SAX Handler
     GenericSAXHandler* myHandler;
 
     /// @brief Information whether built reader/parser shall validate XML-documents against schemata
@@ -150,30 +158,36 @@ private:
     /// @brief Schema cache to be used for grammars which are not declared
     XERCES_CPP_NAMESPACE::XMLGrammarPool* myGrammarPool;
 
+    /// @brief token
     XERCES_CPP_NAMESPACE::XMLPScanToken myToken;
 
+    /// @brief XML reader
     XERCES_CPP_NAMESPACE::SAX2XMLReader* myXMLReader;
 
+    /// @brief istream
     std::unique_ptr<std::istream> myIStream;
 
+    /// @brief input stream
     std::unique_ptr<IStreamInputSource> myInputStream;
 
     /// @brief The stack of begun xml elements
     std::vector<SumoXMLTag> myXMLStack;
 
+    /// @brief schema resolver
     LocalSchemaResolver mySchemaResolver;
 
+    /// @brief local resolver
     LocalSchemaResolver myLocalResolver;
 
+    /// @brief no operation resolver
     LocalSchemaResolver myNoOpResolver;
 
+    /// @brief next section
     std::pair<int, SUMOSAXAttributes*> myNextSection;
 
-private:
     /// @brief invalidated copy constructor
-    SUMOSAXReader(const SUMOSAXReader& s);
+    SUMOSAXReader(const SUMOSAXReader& s) = delete;
 
     /// @brief invalidated assignment operator
-    const SUMOSAXReader& operator=(const SUMOSAXReader& s);
-
+    const SUMOSAXReader& operator=(const SUMOSAXReader& s) = delete;
 };

@@ -54,7 +54,7 @@ FXIMPLEMENT(GNEVehicle::GNESingleVehiclePopupMenu,      GUIGLObjectPopupMenu,   
 FXIMPLEMENT(GNEVehicle::GNESelectedVehiclesPopupMenu,   GUIGLObjectPopupMenu,   GNESelectedVehiclesPopupMenuMap,    ARRAYNUMBER(GNESelectedVehiclesPopupMenuMap))
 
 // ===========================================================================
-// static defintions
+// static definitions
 // ===========================================================================
 const double GNEVehicle::myArrivalPositionDiameter = SUMO_const_halfLaneWidth * 0.5;
 
@@ -498,6 +498,13 @@ GNEVehicle::isDemandElementValid() const {
         } else {
             return Problem::INVALID_PATH;
         }
+    } else if ((getChildDemandElements().size() > 0) && getChildDemandElements().front()->getTagProperty().isRoute()) {
+            // check if exist a valid path using route child edges
+        if (myNet->getPathManager()->getPathCalculator()->calculateDijkstraPath(getParentDemandElements().at(0)->getVClass(), getChildDemandElements().at(0)->getParentEdges()).size() > 0) {
+            return Problem::OK;
+        } else {
+            return Problem::INVALID_PATH;
+        }
     } else {
         return Problem::INVALID_ELEMENT;
     }
@@ -525,6 +532,17 @@ GNEVehicle::getDemandElementProblem() const {
         for (int i = 1; i < (int)routeEdges.size(); i++) {
             if (myNet->getPathManager()->getPathCalculator()->consecutiveEdgesConnected(getParentDemandElements().at(0)->getVClass(), routeEdges.at((int)i - 1), routeEdges.at(i)) == false) {
                 return ("There is no valid path between route edges '" + routeEdges.at((int)i - 1)->getID() + "' and '" + routeEdges.at(i)->getID() + "'");
+            }
+        }
+        // if there are connections between all edges, then all is ok
+        return "";
+    } else if ((getChildDemandElements().size() > 0) && getChildDemandElements().front()->getTagProperty().isRoute()) {
+        // get route parent edges
+        const std::vector<GNEEdge*>& routeEdges = getChildDemandElements().at(0)->getParentEdges();
+        // check if exist at least a connection between every edge
+        for (int i = 1; i < (int)routeEdges.size(); i++) {
+            if (myNet->getPathManager()->getPathCalculator()->consecutiveEdgesConnected(getParentDemandElements().at(0)->getVClass(), routeEdges.at((int)i - 1), routeEdges.at(i)) == false) {
+                return ("There is no valid path between embedded route edges '" + routeEdges.at((int)i - 1)->getID() + "' and '" + routeEdges.at(i)->getID() + "'");
             }
         }
         // if there are connections between all edges, then all is ok
@@ -569,8 +587,8 @@ GNEVehicle::updateGeometry() {
         if (firstPathLane) {
             // declare departPos
             double posOverLane = 0;
-            if (canParse<double>(getDepartPos())) {
-                posOverLane = parse<double>(getDepartPos());
+            if (wasSet(VEHPARS_DEPARTPOS_SET) && (departPosProcedure == DepartPosDefinition::GIVEN)) {
+                posOverLane = departPos;
             }
             // update Geometry
             myDemandElementGeometry.updateGeometry(firstPathLane->getLaneShape(), posOverLane, myMoveElementLateralOffset);
@@ -1078,7 +1096,7 @@ GNEVehicle::getFirstPathLane() const {
         firstEdge = getParentEdges().front();
     }
     // get departLane index
-    const int departLaneIndex = canParse<int>(getAttribute(SUMO_ATTR_DEPARTLANE)) ? parse<int>(getAttribute(SUMO_ATTR_DEPARTLANE)) : -1;
+    const int departLaneIndex = (int)getAttributeDouble(SUMO_ATTR_DEPARTLANE);
     // check departLane index
     if ((departLaneIndex >= 0) && (departLaneIndex < (int)firstEdge->getLanes().size())) {
         return firstEdge->getLanes().at(departLaneIndex);
@@ -1126,7 +1144,7 @@ GNEVehicle::getLastPathLane() const {
         lastEdge = getParentEdges().back();
     }
     // get arrivalLane index
-    const int arrivalLaneIndex = canParse<int>(getAttribute(SUMO_ATTR_ARRIVALLANE)) ? parse<int>(getAttribute(SUMO_ATTR_ARRIVALLANE)) : -1;
+    const int arrivalLaneIndex = (int)getAttributeDouble(SUMO_ATTR_ARRIVALLANE);
     // check arrivalLane index
     if ((arrivalLaneIndex >= 0) && (arrivalLaneIndex < (int)lastEdge->getLanes().size())) {
         return lastEdge->getLanes().at(arrivalLaneIndex);
@@ -1299,12 +1317,24 @@ GNEVehicle::getAttributeDouble(SumoXMLAttr key) const {
         case SUMO_ATTR_DEPART:
         case SUMO_ATTR_BEGIN:
             return STEPS2TIME(depart);
+        case SUMO_ATTR_DEPARTLANE:
+            if (wasSet(VEHPARS_DEPARTLANE_SET) && (departLaneProcedure == DepartLaneDefinition::GIVEN)) {
+                return departLane;
+            } else {
+                return -1;
+            }
         case SUMO_ATTR_DEPARTPOS:
             // only return departPos it if is given
             if (departPosProcedure == DepartPosDefinition::GIVEN) {
                 return departPos;
             } else {
                 return 0;
+            }
+        case SUMO_ATTR_ARRIVALLANE:
+            if (wasSet(VEHPARS_ARRIVALLANE_SET) && (arrivalLaneProcedure == ArrivalLaneDefinition::GIVEN)) {
+                return arrivalLane;
+            } else {
+                return -1;
             }
         case SUMO_ATTR_ARRIVALPOS:
             // only return departPos it if is given

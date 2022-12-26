@@ -30,12 +30,14 @@
 #include <utils/gui/globjects/GUIPolygon.h>
 #include <utils/gui/globjects/GUIPointOfInterest.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIShapeContainer.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/RGBColor.h>
+#include <utils/iodevices/OutputDevice.h>
 #include <utils/gui/div/GLObjectValuePassConnector.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdgeWeightsStorage.h>
@@ -429,6 +431,9 @@ GUINet::getPopUpMenu(GUIMainWindow& app,
     buildCenterPopupEntry(ret);
     buildShowParamsPopupEntry(ret);
     buildPositionCopyEntry(ret, app);
+    if (GeoConvHelper::getFinal().usingGeoProjection()) {
+        GUIDesigns::buildFXMenuCommand(ret, "Copy view geo-boundary to clipboard", nullptr, ret, MID_COPY_VIEW_GEOBOUNDARY);
+    }
     return ret;
 }
 
@@ -491,18 +496,18 @@ GUINet::getParameterWindow(GUIMainWindow& app,
                 */
         ret->mkItem("updates per second", true, new FunctionBinding<GUINet, double>(this, &GUINet::getUPS));
         ret->mkItem("avg. updates per second", true, new FunctionBinding<GUINet, double>(this, &GUINet::getMeanUPS));
-        if (OptionsCont::getOptions().getBool("duration-log.statistics")) {
-            ret->mkItem("avg. trip length [m]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgRouteLength));
-            ret->mkItem("avg. trip duration [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgDuration));
-            ret->mkItem("avg. trip waiting time [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgWaitingTime));
-            ret->mkItem("avg. trip time loss [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgTimeLoss));
-            ret->mkItem("avg. trip depart delay [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgDepartDelay));
-            ret->mkItem("avg. trip speed [m/s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgTripSpeed));
-            if (myPersonControl != nullptr) {
-                ret->mkItem("avg. walk length [m]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgWalkRouteLength));
-                ret->mkItem("avg. walk duration [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgWalkDuration));
-                ret->mkItem("avg. walk time loss [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgWalkTimeLoss));
-            }
+    }
+    if (OptionsCont::getOptions().isSet("tripinfo-output") || OptionsCont::getOptions().getBool("duration-log.statistics")) {
+        ret->mkItem("avg. trip length [m]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgRouteLength));
+        ret->mkItem("avg. trip duration [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgDuration));
+        ret->mkItem("avg. trip waiting time [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgWaitingTime));
+        ret->mkItem("avg. trip time loss [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgTimeLoss));
+        ret->mkItem("avg. trip depart delay [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgDepartDelay));
+        ret->mkItem("avg. trip speed [m/s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgTripSpeed));
+        if (myPersonControl != nullptr) {
+            ret->mkItem("avg. walk length [m]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgWalkRouteLength));
+            ret->mkItem("avg. walk duration [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgWalkDuration));
+            ret->mkItem("avg. walk time loss [s]", true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgWalkTimeLoss));
         }
     }
     ret->mkItem("nodes [#]", false, (int)getJunctionIDs(false).size());
@@ -742,6 +747,13 @@ GUINet::addHotkey(int key, Command* press, Command* release) {
     } catch (ProcessError&) { }
 }
 
+void
+GUINet::flushOutputsAtEnd() {
+    myDetectorControl->close(SIMSTEP);
+    OutputDevice::flushAll();
+    // update tracker windows
+    guiSimulationStep();
+}
 
 #ifdef HAVE_OSG
 void

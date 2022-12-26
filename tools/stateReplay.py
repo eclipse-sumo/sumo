@@ -20,9 +20,10 @@
 Synchronizes saved state files from a (remote) simulation and replays them in a
 local sumo-gui instance to observe the remote simulation
 
-requirements: rsync
+requirements: rsync (via the Windows Linux Subsystem or native on Linux/MacOS)
 """
 
+from __future__ import print_function
 import os
 import sys
 import time
@@ -43,20 +44,40 @@ def main():
     parser.add_argument("--src", help="the remote directory to sync")
     parser.add_argument("--dst", default="states", help="the subdirectory for the synced files")
     parser.add_argument("--delay", default=1, type=float, help="the delay between simulation states")
-    options = parser.parse_args()
+    parser.add_argument("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
+    # remaining command line options are treated as rsync args
+    options, args = parser.parse_known_args()
 
     traci.start([sumoBinary, "-c", options.sumo_config, "-S"])
     while True:
-        call(['rsync', '-a', options.src, options.dst])
+        if os.name == "nt":
+            cmd = ['wsl']
+            dst = options.dst.replace("\\", "/")
+            if dst[1] == ":":
+                # remap absolute windows paths
+                dst = "/mnt/" + dst[0].lower() + dst[2:]
+        else:
+            cmd = []
+            dst = options.dst
+        if options.src:
+            args.append(options.src)
+        cmd += ['rsync', '-a'] + args + [dst]
+        if options.verbose:
+            print("Calling", " ".join(cmd))
+        call(cmd)
         files = glob.glob(options.dst + options.statePrefix + "*")
-        fileSteps = [(int(os.path.basename(f).split('.')[0].split('_')[1]), f) for f in files]
-        fileSteps.sort()
-        lastState = fileSteps[-2][1]
-        print(os.path.basename(lastState))
-        traci.simulation.loadState(lastState)
-        # a phantom step makes the client respond to gui-close but adds invalid
-        # info (as long as the traffic lights are not in sync)
-        # traci.simulationStep()
+        if len(files) < 2:
+            print("Warning! Not enough state files yet.", file=sys.stderr)
+        else:
+            fileSteps = [(int(os.path.basename(f).split('.')[0].split('_')[1]), f) for f in files]
+            fileSteps.sort()
+            lastState = fileSteps[-2][1]
+            if options.verbose:
+                print("Loading", os.path.basename(lastState))
+            traci.simulation.loadState(lastState)
+            # a phantom step makes the client respond to gui-close but adds invalid
+            # info (as long as the traffic lights are not in sync)
+            # traci.simulationStep()
         time.sleep(options.delay)
 
 

@@ -141,6 +141,11 @@ public:
         myTimePenalty = value;
     }
 
+    /// @brief return whether this edge is a normal edge
+    inline bool isNormal() const {
+        return myFunction == SumoXMLEdgeFunc::NORMAL;
+    }
+
     /// @brief return whether this edge is an internal edge
     inline bool isInternal() const {
         return myFunction == SumoXMLEdgeFunc::INTERNAL;

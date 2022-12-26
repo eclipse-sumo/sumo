@@ -29,7 +29,7 @@
 #include <utils/gui/div/GUIMessageWindow.h>
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/shapes/ShapeHandler.h>
-#include <utils/handlers/ConfigHandler.h>
+#include <utils/options/OptionsCont.h>
 
 #include "GNEViewNetHelper.h"
 
@@ -1032,27 +1032,24 @@ struct GNEApplicationWindowHelper {
     };
 
     /// @brief config handler
-    class GNEConfigHandler : public ConfigHandler {
+    class GNEConfigHandler {
 
     public:
         /// @brief Constructor
         GNEConfigHandler(GNEApplicationWindow* applicationWindow, const std::string& file);
 
-        /// @brief Destructor
-        ~GNEConfigHandler();
-
         /**@brief Load net file
          * @param[in] configObj sumo base object used for build
          * @param[in] file net file
          */
-        void loadConfig(CommonXMLStructure::SumoBaseObject* configObj);
+        bool loadConfig();
 
     private:
         /// @brief application window
         GNEApplicationWindow* myApplicationWindow = nullptr;
 
-        /// @brief file path
-        const std::string myFilepath;
+        /// @brief SUMOCfg file
+        const std::string myFile;
     };
 
     /// @brief save SUMOConfig

@@ -9,3 +9,6 @@ stopped_right
 
 # overtake a vehicle that is 1000m
 very_long
+
+# do not try to overtake when stopped vehicle blocks the intended stop position (#12320)
+stop_same_pos

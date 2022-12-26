@@ -1,7 +1,7 @@
 /* XPM */
 static const char *vshape_bus_trolley_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"64 32 24 1 ",
+"64 32 24 1",
 "  c black",
 ". c #1B1B00",
 "X c #363600",

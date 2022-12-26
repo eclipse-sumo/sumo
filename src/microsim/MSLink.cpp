@@ -18,7 +18,7 @@
 /// @author  Laura Bieker
 /// @date    Sept 2002
 ///
-// A connnection between lanes
+// A connection between lanes
 /****************************************************************************/
 #include <config.h>
 
@@ -1139,7 +1139,7 @@ MSLink::isExitLinkAfterInternalJunction() const {
 const MSLink*
 MSLink::getCorrespondingExitLink() const {
     MSLane* lane = myInternalLane;
-    const MSLink* link = nullptr;
+    const MSLink* link = this;
     while (lane != nullptr) {
         link = lane->getLinkCont()[0];
         lane = link->getViaLane();
@@ -1318,7 +1318,8 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                     continue;
                 }
                 // ignore vehicles if not in conflict sublane-wise
-                const double posLat = ego->getLateralPositionOnLane();
+                const double egoLatOffset = isShadowLink ? ego->getLatOffset(ego->getLaneChangeModel().getShadowLane()) : 0;
+                const double posLat = ego->getLateralPositionOnLane() + egoLatOffset;
                 const double posLatLeader = leader->getLateralPositionOnLane() + leader->getLatOffset(foeLane);
                 const double latGap = (fabs(posLat - posLatLeader)
                                        - 0.5 * (ego->getVehicleType().getWidth() + leader->getVehicleType().getWidth()));
@@ -1332,6 +1333,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                               << " egoLane=" << ego->getLane()->getID()
                               << " leaderLane=" << leader->getLane()->getID()
                               << " egoLat=" << posLat
+                              << " egoLatOffset=" << egoLatOffset
                               << " leaderLat=" << posLatLeader
                               << " leaderLatOffset=" << leader->getLatOffset(foeLane)
                               << " latGap=" << latGap

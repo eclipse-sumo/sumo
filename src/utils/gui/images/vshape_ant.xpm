@@ -1,7 +1,7 @@
 /* XPM */
 static const char *vshape_ant_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"64 32 27 1 ",
+"64 32 27 1",
 "  c #B1B100",
 ". c #B2B200",
 "X c #B3B300",

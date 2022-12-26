@@ -1,6 +1,6 @@
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.primary' (first occurence for edge '4045243').
-Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.primary' (first occurence for edge '4616572').
-Warning: Discarding unusable type 'railway.platform' (first occurence for edge '384333000').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.primary' (first occurrence for edge '4045243').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.primary' (first occurrence for edge '4616572').
+Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '384333000').
 Warning: The traffic light '243995320' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '243995320'
 Warning: The traffic light '8301076081' does not control any links; it will not be build.

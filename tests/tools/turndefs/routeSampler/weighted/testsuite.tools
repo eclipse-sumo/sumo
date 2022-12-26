@@ -1,8 +1,11 @@
 # use route attribute probability
 probability
 
-# use route re-occurence as probability
+# use route re-occurrence as probability
 count
 
 # test interaction of probability and data location
 2_locations
+
+# use route attribute probability with total-count
+probability_totalcount

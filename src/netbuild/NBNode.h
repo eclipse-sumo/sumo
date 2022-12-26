@@ -624,16 +624,16 @@ public:
         return myDisplacementError;
     }
 
-    /// @brief Replaces occurences of the first edge within the list of incoming by the second Connections are remapped, too
+    /// @brief Replaces occurrences of the first edge within the list of incoming by the second Connections are remapped, too
     void replaceIncoming(NBEdge* which, NBEdge* by, int laneOff);
 
-    /// @brief Replaces occurences of every edge from the given list within the list of incoming by the second Connections are remapped, too
+    /// @brief Replaces occurrences of every edge from the given list within the list of incoming by the second Connections are remapped, too
     void replaceIncoming(const EdgeVector& which, NBEdge* by);
 
-    /// @brief Replaces occurences of the first edge within the list of outgoing by the second Connections are remapped, too
+    /// @brief Replaces occurrences of the first edge within the list of outgoing by the second Connections are remapped, too
     void replaceOutgoing(NBEdge* which, NBEdge* by, int laneOff);
 
-    /// @brief Replaces occurences of every edge from the given list within the list of outgoing by the second Connections are remapped, too
+    /// @brief Replaces occurrences of every edge from the given list within the list of outgoing by the second Connections are remapped, too
     void replaceOutgoing(const EdgeVector& which, NBEdge* by);
 
     /// @brief guess pedestrian crossings and return how many were guessed
@@ -866,6 +866,9 @@ private:
 
     /// @brief return edges that permit passengers (either incoming or outgoing)
     EdgeVector getPassengerEdges(bool incoming) const;
+
+    /// @brief detect explict rail turns with potential geometry problem
+    static bool isExplicitRailNoBidi(const NBEdge* incoming, const NBEdge* outgoing);
 
 private:
     /// @brief The position the node lies at

@@ -17,6 +17,7 @@
 yum install -y epel-release
 yum-config-manager --add-repo=https://download.opensuse.org/repositories/science:/dlr/CentOS_7/
 yum install -y --nogpgcheck ccache libxerces-c-devel proj-devel fox16-devel bzip2-devel gl2ps-devel swig3
+pipx install -f patchelf==0.16.1.0  # see https://github.com/pypa/manylinux/issues/1421
 /opt/python/cp38-cp38/bin/pip install scikit-build cmake
 
 mkdir -p $HOME/.ccache

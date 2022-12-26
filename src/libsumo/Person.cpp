@@ -468,6 +468,13 @@ Person::getPersonCapacity(const std::string& personID) {
 }
 
 
+double
+Person::getBoardingDuration(const std::string& personID) {
+    return STEPS2TIME(getPerson(personID)->getVehicleType().getLoadingDuration(true));
+}
+
+
+
 void
 Person::setSpeed(const std::string& personID, double speed) {
     getPerson(personID)->setSpeed(speed);

@@ -193,10 +193,14 @@ NIFrame::fillOptions(bool forNetedit) {
     oc.addDescription("osm.lane-access", "Formats", "Import lane-specific access restrictions");
 
     oc.doRegister("osm.bike-access", new Option_Bool(false));
-    oc.addDescription("osm.bike-access", "Formats", "Check additional attributes to fix directions and permissions on bike paths");
+    oc.addSynonyme("osm.bike-access", "osm.bike-lanes");
+    oc.addDescription("osm.bike-access", "Formats", "Import bike lanes and fix directions and permissions on bike paths");
 
     oc.doRegister("osm.sidewalks", new Option_Bool(false));
     oc.addDescription("osm.sidewalks", "Formats", "Import sidewalks");
+
+    oc.doRegister("osm.crossings", new Option_Bool(false));
+    oc.addDescription("osm.crossings", "Formats", "Import crossings");
 
     oc.doRegister("osm.turn-lanes", new Option_Bool(false));
     oc.addDescription("osm.turn-lanes", "Formats", "Import turning arrows from OSM to help with connection building");
@@ -436,6 +440,9 @@ NIFrame::checkOptions() {
     }
     if (!oc.isDefault("osm.extra-attributes") && oc.isDefault("osm.all-attributes")) {
         oc.setDefault("osm.all-attributes", "true");
+    }
+    if (oc.getBool("osm.crossings") && !oc.getBool("osm.sidewalks")) {
+        WRITE_WARNING(TL("It is recommend to use option osm.crossings with osm.sidewalks"));
     }
     return ok;
 }

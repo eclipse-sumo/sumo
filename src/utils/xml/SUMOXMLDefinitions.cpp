@@ -295,12 +295,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "stopContainer: edge",            GNE_TAG_STOPCONTAINER_EDGE },
     // root file
     { "rootFile",                       SUMO_TAG_ROOTFILE },
-    // SUMOConfig files
-    { "configuration",                  SUMO_TAG_CONFIGURATION },
-    { "net-file",                       SUMO_TAG_NETFILE },
-    { "additional-files",               SUMO_TAG_ADDITIONALFILES },
-    { "route-files",                    SUMO_TAG_ROUTEFILES },
-    { "data-files",                     SUMO_TAG_DATAFILES },
     // Last element
     { "",                               SUMO_TAG_NOTHING }  // -> must be the last one
 };
@@ -372,6 +366,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "vehicle",                SUMO_ATTR_VEHICLE },
     { "odometer",               SUMO_ATTR_ODOMETER },
     { "posLat",                 SUMO_ATTR_POSITION_LAT },
+    { "speedLat",               SUMO_ATTR_SPEED_LAT },
 
     // Edge
     { "id",                     SUMO_ATTR_ID },
@@ -491,7 +486,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "propulsionEfficiency",           SUMO_ATTR_PROPULSIONEFFICIENCY },
     { "recuperationEfficiency",         SUMO_ATTR_RECUPERATIONEFFICIENCY },
     { "recuperationEfficiencyByDecel",  SUMO_ATTR_RECUPERATIONEFFICIENCY_BY_DECELERATION },
-    { "stoppingTreshold",               SUMO_ATTR_STOPPINGTRESHOLD },
+    { "stoppingTreshold",               SUMO_ATTR_STOPPINGTHRESHOLD },
     // MSElecHybridExport
     { "overheadWireId",         SUMO_ATTR_OVERHEADWIREID },
     { "tractionSubstationId",   SUMO_ATTR_TRACTIONSUBSTATIONID },
@@ -768,6 +763,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "join",                   SUMO_ATTR_JOIN },
     { "intended",               SUMO_ATTR_INTENDED },
     { "onDemand",               SUMO_ATTR_ONDEMAND },
+    { "jump",                   SUMO_ATTR_JUMP },
     { "collision",              SUMO_ATTR_COLLISION },
     { "value",                  SUMO_ATTR_VALUE },
     { "prohibitor",             SUMO_ATTR_PROHIBITOR },

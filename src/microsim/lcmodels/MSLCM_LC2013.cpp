@@ -988,47 +988,7 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
         }
     } else if (neighFollow.first != nullptr && (blocked & LCA_BLOCKED_BY_LEADER)) {
         // we are not blocked by the follower now, make sure it remains that way
-        // XXX: Does the below code for the euler case really assure that? Refs. #2578
-        double vsafe, vsafe1;
-        if (MSGlobals::gSemiImplicitEulerUpdate) {
-            // euler
-            MSVehicle* const nfv = neighFollow.first;
-            vsafe1 = nfv->getCarFollowModel().followSpeed(nfv, nfv->getSpeed(), neighFollow.second + SPEED2DIST(plannedSpeed),
-                     plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel());
-            vsafe = nfv->getCarFollowModel().followSpeed(nfv, nfv->getSpeed(), neighFollow.second + SPEED2DIST(plannedSpeed - vsafe1),
-                    plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel());
-            // NOTE: since vsafe1 > nfv->getSpeed() is possible, we don't have vsafe1 < vsafe < nfv->getSpeed here (similar pattern above works differently)
-        } else {
-            // ballistic
-            // XXX This should actually do for euler and ballistic cases (TODO: test!) Refs. #2575
-
-            double anticipationTime = 1.;
-            double anticipatedSpeed =  MIN2(myVehicle.getSpeed() + plannedAccel * anticipationTime, myVehicle.getMaxSpeedOnLane());
-            double anticipatedGap = getCarFollowModel().gapExtrapolation(anticipationTime, neighFollow.second, myVehicle.getSpeed(), nv->getSpeed(),
-                                    plannedAccel, 0, myVehicle.getMaxSpeedOnLane(), nv->getMaxSpeedOnLane());
-            double secureGap = nv->getCarFollowModel().getSecureGap(nv, &myVehicle, nv->getSpeed(), anticipatedSpeed, getCarFollowModel().getMaxDecel());
-
-            // propose follower speed corresponding to first estimation of gap
-            vsafe = nv->getCarFollowModel().followSpeed(
-                        nv, nv->getSpeed(), anticipatedGap, plannedSpeed, getCarFollowModel().getMaxDecel());
-            double helpAccel = SPEED2ACCEL(vsafe - nv->getSpeed()) / anticipationTime;
-
-            if (anticipatedGap > secureGap) {
-                // follower may accelerate, implying vhelp >= vsafe >= nv->getSpeed()
-                // calculate gap for the assumed acceleration
-                anticipatedGap = getCarFollowModel().gapExtrapolation(anticipationTime, neighFollow.second, myVehicle.getSpeed(), nv->getSpeed(),
-                                 plannedAccel, helpAccel, myVehicle.getMaxSpeedOnLane(), nv->getMaxSpeedOnLane());
-                double anticipatedHelpSpeed = MIN2(nv->getSpeed() + anticipationTime * helpAccel, nv->getMaxSpeedOnLane());
-                secureGap = nv->getCarFollowModel().getSecureGap(nv, &myVehicle, anticipatedHelpSpeed, anticipatedSpeed, getCarFollowModel().getMaxDecel());
-                if (anticipatedGap < secureGap) {
-                    // don't accelerate
-                    vsafe = nv->getSpeed();
-                }
-            } else {
-                // follower is too fast, implying that vhelp <= vsafe <= nv->getSpeed()
-                // we use the above vhelp
-            }
-        }
+        const double vsafe = MSLCHelper::getSpeedPreservingSecureGap(myVehicle, *neighFollow.first, neighFollow.second, plannedSpeed);
         msgPass.informNeighFollower(new Info(vsafe, dir), &myVehicle);
 
 #ifdef DEBUG_INFORMER
@@ -1216,7 +1176,7 @@ MSLCM_LC2013::_wantsChange(
     const int lca = (right ? LCA_RIGHT : LCA_LEFT);
     const int myLca = (right ? LCA_MRIGHT : LCA_MLEFT);
     const int lcaCounter = (right ? LCA_LEFT : LCA_RIGHT);
-    const bool changeToBest = (right && bestLaneOffset < 0) || (!right && bestLaneOffset > 0);
+    bool changeToBest = (right && bestLaneOffset < 0) || (!right && bestLaneOffset > 0);
     // keep information about being a leader/follower
     int ret = (myOwnState & 0xffff0000);
     int req = 0; // the request to change or stay
@@ -1270,9 +1230,9 @@ MSLCM_LC2013::_wantsChange(
     }
     double laDist = myLookAheadSpeed * LOOK_FORWARD * myStrategicParam * (right ? 1 : myLookaheadLeft);
     laDist += myVehicle.getVehicleType().getLengthWithGap() *  2.;
+    const bool hasStoppedLeader = leader.first != 0 && leader.first->isStopped() && leader.second < (currentDist - posOnLane);
 
-
-    if (bestLaneOffset == 0 && leader.first != 0 && leader.first->isStopped() && leader.second < (currentDist - posOnLane)) {
+    if (bestLaneOffset == 0 && hasStoppedLeader) {
         // react to a stopped leader on the current lane
         // The value of laDist is doubled below for the check whether the lc-maneuver can be taken out
         // on the remaining distance (because the vehicle has to change back and forth). Therefore multiply with 0.5.
@@ -1281,9 +1241,17 @@ MSLCM_LC2013::_wantsChange(
                         + leader.second);
     } else if (bestLaneOffset == laneOffset && neighLead.first != 0 && neighLead.first->isStopped() && neighLead.second < (currentDist - posOnLane)) {
         // react to a stopped leader on the target lane (if it is the bestLane)
-        laDist = (myVehicle.getVehicleType().getLengthWithGap()
-                  + neighLead.first->getVehicleType().getLengthWithGap()
-                  + neighLead.second);
+        if (isOpposite()) {
+            // always allow changing back
+            laDist = (myVehicle.getVehicleType().getLengthWithGap()
+                    + neighLead.first->getVehicleType().getLengthWithGap()
+                    + neighLead.second);
+        } else if (!hasStoppedLeader &&
+                (neighLead.second + myVehicle.getVehicleType().getLengthWithGap() + neighLead.first->getVehicleType().getLengthWithGap()) < (currentDist - posOnLane)) {
+            // do not change to the target lane until passing the stopped vehicle
+            // (unless the vehicle blocks our intended stopping position, then we have to wait anyway)
+            changeToBest = false;
+        }
     }
     if (myStrategicParam < 0) {
         laDist = -1e3; // never perform strategic change
@@ -1307,12 +1275,16 @@ MSLCM_LC2013::_wantsChange(
     const double usableDist = MAX2(currentDist - posOnLane - best.occupation * JAM_FACTOR, driveToNextStop);
     //- (best.lane->getVehicleNumber() * neighSpeed)); // VARIANT 9 jfSpeed
     const double maxJam = MAX2(preb[currIdx + prebOffset].occupation, preb[currIdx].occupation);
-    const double neighLeftPlace = MAX2(0.0, neighDist - posOnLane - maxJam);
     const double vMax = myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle);
     const double neighVMax = neighLane.getVehicleMaxSpeed(&myVehicle);
     // upper bound which will be restricted successively
     double thisLaneVSafe = vMax;
     const bool checkOverTakeRight = avoidOvertakeRight();
+
+    double neighLeftPlace = MAX2(0.0, neighDist - posOnLane - maxJam);
+    if (neighLead.first != 0 && neighLead.first->isStopped()) {
+        neighLeftPlace = MIN2(neighLeftPlace, neighLead.second);
+    }
 
 #ifdef DEBUG_WANTS_CHANGE
     if (DEBUG_COND) {

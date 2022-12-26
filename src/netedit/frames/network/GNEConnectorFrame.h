@@ -174,13 +174,6 @@ public:
 
         /// @brief destructor
         ~ConnectionSelection();
-
-    private:
-        /// @brief Selection Hint
-        FXLabel* myHoldShiftLabel;
-
-        /// @brief hold control label
-        FXLabel* myHoldControlLabel;
     };
 
     // ===========================================================================

@@ -1,11 +1,11 @@
-Eclipse SUMO netgenerate Version v1_14_1+1919-6e355cb
+Eclipse SUMO netgenerate Version v1_15_0+0890-bc996e9c3d1
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
  SUMO.
 
 Usage: netgenerate [OPTION]*
  Either "--grid", "--spider" or "--rand" must be supplied.
-  In dependance to these switches other options are used.
+  In dependence to these switches other options are used.
  
 Configuration Options:
   -c, --configuration-file FILE        Loads the named config on startup
@@ -297,6 +297,8 @@ TLS Building Options:
                                         connections that share the same states
   --tls.ungroup-signals                Assign a distinct tls link index to
                                         every connection
+  --tls.rebuild                        rebuild all traffic light plans in the
+                                        network
   --tls.discard-simple                 Does not instatiate traffic lights at
                                         geometry-like nodes
 

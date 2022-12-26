@@ -414,7 +414,7 @@ GNETAZFrame::TAZSaveChanges::showTAZSaveChangesModule() {
 
 void
 GNETAZFrame::TAZSaveChanges::hideTAZSaveChangesModule() {
-    // cancel changes before hidding modul
+    // cancel changes before hiding module
     onCmdCancelChanges(0, 0, 0);
     hide();
 }

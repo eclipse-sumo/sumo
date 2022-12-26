@@ -55,7 +55,7 @@ public:
     /// Converts german "Umlaute" to their latin-version
     static std::string convertUmlaute(std::string str);
 
-    /** Replaces all occurences of the second string by the third
+    /** Replaces all occurrences of the second string by the third
         string within the first string */
     static std::string replace(std::string str, const std::string& what, const std::string& by);
 

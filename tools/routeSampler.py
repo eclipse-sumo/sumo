@@ -25,10 +25,10 @@ from __future__ import print_function
 import os
 import sys
 from collections import defaultdict
+from math import ceil
 # multiprocessing imports
 import multiprocessing
 import numpy as np
-from math import ceil
 
 try:
     from StringIO import StringIO
@@ -38,7 +38,7 @@ except ImportError:
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
-from sumolib.miscutils import parseTime,humanReadableTime  # noqa
+from sumolib.miscutils import parseTime, humanReadableTime  # noqa
 
 PRESERVE_INPUT_COUNT = 'input'
 
@@ -200,7 +200,7 @@ class CountData:
         self.options = options  # multiprocessing had issue with sumolib.options.getOptions().turnMaxGap
         self.routeSet = set()
         for routeIndex, edges in enumerate(allRoutes.unique):
-            if self.routePasses(edges,) is not None:
+            if self.routePasses(edges) is not None:
                 self.routeSet.add(routeIndex)
         if isRatio:
             self.count = options.turnRatioAbsTolerance
@@ -266,12 +266,12 @@ class CountData:
 
     def __repr__(self):
         return "CountData(edges=%s, count=%s, origCount=%s%s%s%s%s)\n" % (
-                self.edgeTuple, self.count, self.origCount,
-                ", isOrigin=True" if self.isOrigin else "",
-                ", isDest=True" if self.isDest else "",
-                ", isRatio=True" if self.isRatio else "",
-                (", sibs=%s" % len(self.ratioSiblings)) if self.isRatio else ""
-                )
+            self.edgeTuple, self.count, self.origCount,
+            ", isOrigin=True" if self.isOrigin else "",
+            ", isDest=True" if self.isDest else "",
+            ", isRatio=True" if self.isRatio else "",
+            (", sibs=%s" % len(self.ratioSiblings)) if self.isRatio else ""
+        )
 
 
 def getIntervals(options):
@@ -401,7 +401,6 @@ def optimize(options, countData, routes, usedRoutes, routeUsage, intervalCount):
 
     """
     import scipy.optimize as opt
-    import scipy.version
 
     m = len(countData)
 
@@ -423,7 +422,7 @@ def optimize(options, countData, routes, usedRoutes, routeUsage, intervalCount):
         bounds = [(max(0, p - u), p + u) for p in priorRelevantRouteCounts] + [(0, None)] * m
 
     # Ax <= b
-    # x + s = b
+    # Ax + s = b
     # min s
     # -> x2 = [x, s]
 
@@ -438,9 +437,6 @@ def optimize(options, countData, routes, usedRoutes, routeUsage, intervalCount):
 
     # minimization objective [routeCounts] + [slack]
     c = [options.minimizeVehs] * k + [1] * m
-
-    # set x to prior counts and slack to deficit (otherwise solver may fail to find any solution
-    x0 = priorRelevantRouteCounts + [cd.origCount - cd.count for cd in countData]
 
     A_ub = None
     b_ub = None
@@ -458,19 +454,12 @@ def optimize(options, countData, routes, usedRoutes, routeUsage, intervalCount):
     # print("b (%s) %s" % (len(b), b))
     # print("c (%s) %s" % (len(c), c))
     # print("bounds (%s) %s" % (len(bounds) if bounds is not None else "-", bounds))
-    # print("x0 (%s) %s" % (len(x0), x0))
 
     linProgOpts = {}
     if options.verbose:
         linProgOpts["disp"] = True
 
-    try:
-        res = opt.linprog(c, A_ub=A_ub, b_ub=b_ub, A_eq=A_eq, b_eq=b, bounds=bounds, x0=x0, options=linProgOpts)
-    except TypeError:
-        if options.verbose:
-            print("Warning: Scipy version %s does not support initial guess for opt.linprog. Optimization may fail"
-                  % scipy.version.version, file=sys.stderr)
-        res = opt.linprog(c, A_ub=A_ub, b_ub=b_ub, A_eq=A_eq, b_eq=b, bounds=bounds, options=linProgOpts)
+    res = opt.linprog(c, A_ub=A_ub, b_ub=b_ub, A_eq=A_eq, b_eq=b, bounds=bounds, options=linProgOpts)
 
     if res.success:
         print("Optimization succeeded")
@@ -812,11 +801,11 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
     openCounts = updateOpenCounts(range(0, len(countData)), countData, openRoutes)
 
     usedRoutes = []
+    numSampled = 0
     if options.optimizeInput:
         usedRoutes = [routes.edges2index[e] for e in routes.all]
         resetCounts(usedRoutes, routeUsage, countData)
-    else:
-        numSampled = 0
+    elif options.optimize != "full":
         while openCounts:
             if intervalCount is not None and numSampled >= intervalCount:
                 break
@@ -837,16 +826,42 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                 # route probabilities
                 cd = countData[rng.choice(openCounts)]
                 routeIndex = rng.choice([r for r in openRoutes if r in cd.routeSet])
-                numSampled += 1
+            numSampled += 1
             usedRoutes.append(routeIndex)
             for dataIndex in routeUsage[routeIndex]:
                 countData[dataIndex].use()
+
             if ratioIndices:
                 for dataIndex in routeUsage[routeIndex]:
                     countData[dataIndex].updateTurnRatioCounts(openRoutes, openCounts, True)
 
-            openRoutes = updateOpenRoutes(openRoutes, routeUsage, countData)
-            openCounts = updateOpenCounts(openCounts, countData, openRoutes)
+                # this is the old and slow way to update things
+                openRoutes = updateOpenRoutes(openRoutes, routeUsage, countData)
+                openCounts = updateOpenCounts(openCounts, countData, openRoutes)
+
+            else:
+                # update openRouts and openCounts only if needed
+                closedRoutes = set()
+                for dataIndex in routeUsage[routeIndex]:
+                    cd = countData[dataIndex]
+                    if cd.count == 0:
+                        openCounts.remove(dataIndex)
+                        for r in cd.routeSet:
+                            closedRoutes.add(r)
+
+                if closedRoutes:
+                    cdRecheck = set()
+                    openRoutes2 = []
+                    for r in openRoutes:
+                        if r in closedRoutes:
+                            for dataIndex in routeUsage[r]:
+                                cdRecheck.add(dataIndex)
+                        else:
+                            openRoutes2.append(r)
+                    openRoutes = openRoutes2
+                    closedCounts = [c for c in cdRecheck if not countData[c].routeSet.intersection(openRoutes)]
+                    if closedCounts:
+                        openCounts = [c for c in openCounts if c not in closedCounts]
 
     totalMismatch = sum([cd.count for cd in countData])
 

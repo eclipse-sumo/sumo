@@ -458,7 +458,10 @@ public:
     long onCmdToogleComputeNetworkData(FXObject*, FXSelector, void*);
 
     /// @brief called if the user selects Processing->Configure Options
-    long onCmdOptions(FXObject*, FXSelector, void*);
+    long onCmdOpenOptionsDialog(FXObject*, FXSelector, void*);
+
+    /// @brief called if the user selects Processing->Configure Options
+    long onCmdOpenSUMOOptionsDialog(FXObject*, FXSelector, void*);
 
     /// @brief called when user press Ctrl+Z
     long onCmdUndo(FXObject*, FXSelector, void*);
@@ -552,6 +555,21 @@ public:
     /// @brief get processing Menu Commands
     const GNEApplicationWindowHelper::ProcessingMenuCommands& getProcessingMenuCommands() const;
 
+    /// @brief get SUMO options container
+    OptionsCont &getSUMOOptions();
+
+    /// @brief load additional elements
+    void loadAdditionalElements(const std::vector<std::string> additionalFiles);
+
+    /// @brief load demand elements
+    void loadDemandElements(const std::vector<std::string> demandElementsFiles);
+
+    /// @brief load data elements
+    void loadDataElements(const std::vector<std::string> dataElementsFiles);
+
+    /// @brief load mean data elements
+    void loadMeanDataElements(const std::vector<std::string> meanDataElementsFiles);
+
 protected:
     /// @brief FOX needs this for static members
     GNEApplicationWindow();
@@ -622,6 +640,9 @@ protected:
     /// @brief string to check if undo/redo list is enabled (a String is used to keep the disabling reason)
     std::string myUndoRedoListEnabled;
 
+    /// @brief SUMO options container
+    OptionsCont mySUMOOptions;
+
 private:
     /// @brief Toolbars Grip
     GNEApplicationWindowHelper::ToolbarsGrip myToolbarsGrip;
@@ -667,10 +688,10 @@ private:
 
     /// @brief Builds the menu bar
     void fillMenuBar();
-
+public:
     /// @brief starts to load a netimport configuration or a network */
     void loadConfigOrNet(const std::string file, bool isNet, bool isReload = false, bool useStartupOptions = false, bool newNet = false);
-
+private:
     /// @brief this method closes all windows and deletes the current simulation */
     void closeAllWindows();
 
@@ -688,18 +709,6 @@ private:
 
     /// @brief load sumoConfig at start
     void loadSUMOConfigAtStart(OptionsCont& oc);
-
-    /// @brief load additional at start
-    void loadAdditionalElementsAtStart(OptionsCont& oc);
-
-    /// @brief load demand elements at start
-    void loadDemandElementsAtStart(OptionsCont& oc);
-
-    /// @brief load data elements at start
-    void loadDataElementsAtStart(OptionsCont& oc);
-
-    /// @brief load mean data elements at start
-    void loadMeanDataElementsAtStart(OptionsCont& oc);
 
     /// @brief extract folder
     FXString getFolder(const std::string& folder) const;

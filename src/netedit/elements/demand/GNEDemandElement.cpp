@@ -34,7 +34,7 @@
 
 
 // ===========================================================================
-// static defintions
+// static definitions
 // ===========================================================================
 const double GNEDemandElement::myPersonPlanArrivalPositionDiameter = SUMO_const_halfLaneWidth;
 
@@ -1059,7 +1059,9 @@ GNEDemandElement::getEdgeStopIndex() const {
             pathEdges = parent->getParentEdges();
         } else if (parent->getTagProperty().hasAttribute(SUMO_ATTR_ROUTE)) {
             // get route edges
-            pathEdges = parent->getParentDemandElements().front()->getParentEdges();
+            if (parent->getParentDemandElements().size() > 1) {
+                pathEdges = parent->getParentDemandElements().at(1)->getParentEdges();
+            }
         } else if (parent->getTagProperty().hasEmbeddedRoute()) {
             // get embedded route edges
             pathEdges = parent->getChildDemandElements().front()->getParentEdges();

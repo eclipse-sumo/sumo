@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep  2 09:53:20 2020 by Eclipse SUMO sumo Version v1_6_0+1904-84cb2799ee
+<!-- generated on 2022-11-30 15:15:06 by Eclipse SUMO sumo Version v1_15_0+0679-5ca98c3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -30,7 +35,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -102,26 +106,10 @@ SPDX-License-Identifier: EPL-2.0
                 <conflictLinks signals="F_0 A_0"/>
             </driveWay>
         </link>
-        <link linkIndex="1" from="T14_0" to=":E_1_0">
-            <driveWay edges="T15">
-                <forward lanes=":E_1_0 T15_0"/>
-                <bidi lanes=":E_0_0 -T15_0"/>
-                <flank lanes=""/>
-                <protectingSwitches links=""/>
-                <conflictLinks signals=""/>
-            </driveWay>
-        </link>
+        <link linkIndex="1" from="T14_0" to=":E_1_0"/>
     </railSignal>
     <railSignal id="F">
-        <link linkIndex="0" from="-T5_0" to=":F_0_0">
-            <driveWay edges="-T4 -T13 -T12 -T11 -T10">
-                <forward lanes=":F_0_0 -T4_0 :W2_1_0 -T13_0 :D_0_0 -T12_0"/>
-                <bidi lanes=":F_1_0 T4_0 :W2_2_0 T13_0 :D_1_0 T12_0 :C_1_0 T11_0 :B_1_0 T10_0"/>
-                <flank lanes=":W2_0_0 -T14_0 :E_0_0 :W1_1_0 T9_0 :A_0_0"/>
-                <protectingSwitches links=""/>
-                <conflictLinks signals="E_0 A_0"/>
-            </driveWay>
-        </link>
+        <link linkIndex="0" from="-T5_0" to=":F_0_0"/>
         <link linkIndex="1" from="T4_0" to=":F_1_0">
             <driveWay edges="T5">
                 <forward lanes=":F_1_0 T5_0"/>

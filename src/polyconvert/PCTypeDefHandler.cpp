@@ -38,7 +38,7 @@
 // method definitions
 // ===========================================================================
 PCTypeDefHandler::PCTypeDefHandler(OptionsCont& oc, PCTypeMap& con) :
-    SUMOSAXHandler("Detector-Defintion"),
+    SUMOSAXHandler(),
     myOptions(oc),
     myContainer(con),
     myOverwriteType(!oc.isDefault("type"))

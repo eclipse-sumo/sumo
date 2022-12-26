@@ -402,7 +402,7 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n, bool forceStrai
         for (auto item : counterOutgoingEdges) {
             tmp2[item.first->getID()] = item.second->getID();
         }
-        std::cout << "n=" << n.getID() << " bestIn=" << bestIn->getID() << " bestOut=" << bestOut->getID()
+        std::cout << "n=" << n.getID() << " bestIn=" << bestIn->getID() << " bestOut=" << toString(bestOutgoing)
                   << " counterBest=" << counterIncomingEdges.find(bestIncoming[0])->second->getID()
                   << " mainExplicit=" << mainDirectionExplicit
                   << " forceStraight=" << forceStraight

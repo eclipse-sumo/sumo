@@ -100,6 +100,8 @@ def check(vehID):
     print("stopDelay", traci.vehicle.getStopDelay(vehID))
     print("stopArrivalDelay", traci.vehicle.getStopArrivalDelay(vehID))
     print("timeLoss", traci.vehicle.getTimeLoss(vehID))
+    print("departure", traci.vehicle.getDeparture(vehID))
+    print("departDelay", traci.vehicle.getDepartDelay(vehID))
     try:
         print("lcStrategic", traci.vehicle.getParameter(vehID, "laneChangeModel.lcStrategic"))
         print("lcCooperative", traci.vehicle.getParameter(vehID, "laneChangeModel.lcCooperative"))
@@ -114,6 +116,7 @@ def check(vehID):
     print("person number", traci.vehicle.getPersonNumber(vehID))
     print("person IDs", traci.vehicle.getPersonIDList(vehID))
     print("personCapacity", traci.vehicle.getPersonCapacity(vehID))
+    print("boardingDuration", traci.vehicle.getBoardingDuration(vehID))
     print("waiting time", traci.vehicle.getWaitingTime(vehID))
     print("accumulated waiting time", traci.vehicle.getAccumulatedWaitingTime(vehID))
     print("driving dist", traci.vehicle.getDrivingDistance(vehID, "4fi", 2.))

@@ -100,9 +100,9 @@
 //#define DEBUG_REVERSE_BIDI
 //#define DEBUG_EXTRAPOLATE_DEPARTPOS
 //#define DEBUG_REMOTECONTROL
-#define DEBUG_COND (getID() == "mustChangeLeft")
+//#define DEBUG_COND (getID() == "ego")
 //#define DEBUG_COND (true)
-//#define DEBUG_COND (isSelected())
+#define DEBUG_COND (isSelected())
 //#define DEBUG_COND2(obj) (obj->getID() == "ego")
 #define DEBUG_COND2(obj) (obj->isSelected())
 
@@ -1440,9 +1440,9 @@ MSVehicle::computeAngle() const {
     }
     double result = (p1 != p2 ? p2.angleTo2D(p1) :
                      myLane->getShape().rotationAtOffset(myLane->interpolateLanePosToGeometryPos(getPositionOnLane())));
-    if (myLaneChangeModel->isChangingLanes()) {
-        result += lefthandSign * DEG2RAD(myLaneChangeModel->getAngleOffset());
-    }
+   
+    result += lefthandSign * myLaneChangeModel->calcAngleOffset();
+
 #ifdef DEBUG_FURTHER
     if (DEBUG_COND) {
         std::cout << SIMTIME << " computeAngle veh=" << getID() << " p1=" << p1 << " p2=" << p2 << " angle=" << RAD2DEG(result) << " naviDegree=" << GeomHelper::naviDegree(result) << "\n";
@@ -1757,7 +1757,7 @@ MSVehicle::processNextStop(double currentVelocity) {
 #endif
             if (myState.pos() >= reachedThreshold && fitsOnStoppingPlace && currentVelocity <= stop.getSpeed() + SUMO_const_haltingSpeed && myLane == stop.lane
                     && (!MSGlobals::gModelParkingManoeuver || myManoeuvre.entryManoeuvreIsComplete(this))) {
-                // ok, we may stop (have reached the stop)  and either we are not modelling manoeuvering or have completed entry
+                // ok, we may stop (have reached the stop)  and either we are not modelling maneuvering or have completed entry
                 stop.reached = true;
                 if (!stop.startedFromState) {
                     stop.pars.started = time;
@@ -1940,32 +1940,6 @@ MSVehicle::joinTrainPartFront(MSVehicle* veh) {
     } else {
         return false;
     }
-}
-
-bool
-MSVehicle::stopsAt(MSStoppingPlace* stop) const {
-    if (stop == nullptr) {
-        return false;
-    }
-    for (const MSStop& s : myStops) {
-        if (s.busstop == stop
-                || s.containerstop == stop
-                || s.parkingarea == stop
-                || s.chargingStation == stop) {
-            return true;
-        }
-    }
-    return false;
-}
-
-bool
-MSVehicle::stopsAtEdge(const MSEdge* edge) const {
-    for (const MSStop& s : myStops) {
-        if (&s.lane->getEdge() == edge) {
-            return true;
-        }
-    }
-    return false;
 }
 
 double
@@ -2267,7 +2241,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                         // ignore oncoming vehicles on the shadow lane
                         shadowLeaders.removeOpposite(shadowLane);
                     }
-                    adaptToLeaders(shadowLeaders, latOffset, seen, lastLink, shadowLane, v, vLinkPass);
+                    const double turningDifference = MAX2(0.0, leaderLane->getLength() - shadowLane->getLength());
+                    adaptToLeaders(shadowLeaders, latOffset, seen - turningDifference, lastLink, shadowLane, v, vLinkPass);
                 } else if (shadowLane == myLaneChangeModel->getShadowLane() && leaderLane == myLane) {
                     // check for leader vehicles driving in the opposite direction on the opposite-direction shadow lane
                     // (and thus in the same direction as ego)
@@ -3975,6 +3950,8 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, std::string& e
     bool reverseTrain = false;
     checkReversal(reverseTrain);
     if (reverseTrain) {
+        // Train is 'reversing' so toggle the logical state
+        myAmReversed = !myAmReversed;
         // add some slack to ensure that the back of train does appear looped
         myState.myPos += 2 * (myLane->getLength() - myState.myPos) + myType->getLength() + NUMERICAL_EPS;
         myState.mySpeed = 0;
@@ -4320,6 +4297,7 @@ MSVehicle::executeMove() {
             }
 #endif
         }
+        myLaneChangeModel->setPreviousAngleOffset(myLaneChangeModel->getAngleOffset());
         myAngle = computeAngle();
     }
 
@@ -5537,6 +5515,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
             q.bestLaneOffset = 0;
             q.length = cl->allowsVehicleClass(myType->getVehicleClass()) ? cl->getLength() : 0;
             q.currentLength = q.length;
+            // if all lanes are forbidden (i.e. due to a dynamic closing) we want to express no preference
             q.allowsContinuation = allowed == nullptr || std::find(allowed->begin(), allowed->end(), cl) != allowed->end();
             q.occupation = 0;
             q.nextOccupation = 0;
@@ -5631,16 +5610,16 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
     for (std::vector<std::vector<LaneQ> >::reverse_iterator i = myBestLanes.rbegin() + 1; i != myBestLanes.rend(); ++i) {
         std::vector<LaneQ>& nextLanes = (*(i - 1));
         std::vector<LaneQ>& clanes = (*i);
-        MSEdge& cE = clanes[0].lane->getEdge();
+        MSEdge* const cE = &clanes[0].lane->getEdge();
         int index = 0;
         double bestConnectedLength = -1;
         double bestLength = -1;
-        for (std::vector<LaneQ>::iterator j = nextLanes.begin(); j != nextLanes.end(); ++j, ++index) {
-            if ((*j).lane->isApproachedFrom(&cE) && bestConnectedLength < (*j).length) {
-                bestConnectedLength = (*j).length;
+        for (const LaneQ& j : nextLanes) {
+            if (j.lane->isApproachedFrom(cE) && bestConnectedLength < j.length) {
+                bestConnectedLength = j.length;
             }
-            if (bestLength < (*j).length) {
-                bestLength = (*j).length;
+            if (bestLength < j.length) {
+                bestLength = j.length;
             }
         }
         // compute index of the best lane (highest length and least offset from the best next lane)
@@ -5648,53 +5627,57 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
         int bestThisMaxIndex = 0;
         if (bestConnectedLength > 0) {
             index = 0;
-            for (std::vector<LaneQ>::iterator j = clanes.begin(); j != clanes.end(); ++j, ++index) {
-                LaneQ bestConnectedNext;
-                bestConnectedNext.length = -1;
-                if ((*j).allowsContinuation) {
-                    for (std::vector<LaneQ>::const_iterator m = nextLanes.begin(); m != nextLanes.end(); ++m) {
-                        if (((*m).lane->allowsVehicleClass(getVClass()) || (*m).lane->hadPermissionChanges())
-                                && (*m).lane->isApproachedFrom(&cE, (*j).lane)) {
-                            if (bestConnectedNext.length < (*m).length || (bestConnectedNext.length == (*m).length && abs(bestConnectedNext.bestLaneOffset) > abs((*m).bestLaneOffset))) {
-                                bestConnectedNext = *m;
+            for (LaneQ& j : clanes) {
+                const LaneQ* bestConnectedNext = nullptr;
+                if (j.allowsContinuation) {
+                    for (const LaneQ& m : nextLanes) {
+                        if ((m.lane->allowsVehicleClass(getVClass()) || m.lane->hadPermissionChanges())
+                                && m.lane->isApproachedFrom(cE, j.lane)) {
+                            if (bestConnectedNext == nullptr || bestConnectedNext->length < m.length ||
+                                    (bestConnectedNext->length == m.length && abs(bestConnectedNext->bestLaneOffset) > abs(m.bestLaneOffset))) {
+                                bestConnectedNext = &m;
                             }
                         }
                     }
-                    if (bestConnectedNext.length == bestConnectedLength && abs(bestConnectedNext.bestLaneOffset) < 2) {
-                        (*j).length += bestLength;
-                    } else {
-                        (*j).length += bestConnectedNext.length;
+                    if (bestConnectedNext != nullptr) {
+                        if (bestConnectedNext->length == bestConnectedLength && abs(bestConnectedNext->bestLaneOffset) < 2) {
+                            j.length += bestLength;
+                        } else {
+                            j.length += bestConnectedNext->length;
+                        }
+                        j.bestLaneOffset = bestConnectedNext->bestLaneOffset;
                     }
-                    (*j).bestLaneOffset = bestConnectedNext.bestLaneOffset;
                 }
-                if (bestConnectedNext.allowsContinuation || bestConnectedNext.length > 0) {
-                    copy(bestConnectedNext.bestContinuations.begin(), bestConnectedNext.bestContinuations.end(), back_inserter((*j).bestContinuations));
+                if (bestConnectedNext != nullptr && (bestConnectedNext->allowsContinuation || bestConnectedNext->length > 0)) {
+                    copy(bestConnectedNext->bestContinuations.begin(), bestConnectedNext->bestContinuations.end(), back_inserter(j.bestContinuations));
                 } else {
-                    (*j).allowsContinuation = false;
+                    j.allowsContinuation = false;
                 }
-                if (clanes[bestThisIndex].length < (*j).length
-                        || (clanes[bestThisIndex].length == (*j).length && abs(clanes[bestThisIndex].bestLaneOffset) > abs((*j).bestLaneOffset))
-                        || (clanes[bestThisIndex].length == (*j).length && abs(clanes[bestThisIndex].bestLaneOffset) == abs((*j).bestLaneOffset) &&
-                            nextLinkPriority(clanes[bestThisIndex].bestContinuations) < nextLinkPriority((*j).bestContinuations))
+                if (clanes[bestThisIndex].length < j.length
+                        || (clanes[bestThisIndex].length == j.length && abs(clanes[bestThisIndex].bestLaneOffset) > abs(j.bestLaneOffset))
+                        || (clanes[bestThisIndex].length == j.length && abs(clanes[bestThisIndex].bestLaneOffset) == abs(j.bestLaneOffset) &&
+                            nextLinkPriority(clanes[bestThisIndex].bestContinuations) < nextLinkPriority(j.bestContinuations))
                    ) {
                     bestThisIndex = index;
                     bestThisMaxIndex = index;
-                } else if (clanes[bestThisIndex].length == (*j).length
-                           && abs(clanes[bestThisIndex].bestLaneOffset) == abs((*j).bestLaneOffset)
-                           && nextLinkPriority(clanes[bestThisIndex].bestContinuations) == nextLinkPriority((*j).bestContinuations)) {
+                } else if (clanes[bestThisIndex].length == j.length
+                           && abs(clanes[bestThisIndex].bestLaneOffset) == abs(j.bestLaneOffset)
+                           && nextLinkPriority(clanes[bestThisIndex].bestContinuations) == nextLinkPriority(j.bestContinuations)) {
                     bestThisMaxIndex = index;
                 }
+                index++;
             }
 
             //vehicle with elecHybrid device prefers running under an overhead wire
-            if (static_cast<MSDevice_ElecHybrid*>(getDevice(typeid(MSDevice_ElecHybrid))) != 0) {
+            if (getDevice(typeid(MSDevice_ElecHybrid)) != nullptr) {
                 index = 0;
-                for (std::vector<LaneQ>::iterator j = clanes.begin(); j != clanes.end(); ++j, ++index) {
-                    std::string overheadWireSegmentID = MSNet::getInstance()->getStoppingPlaceID((*j).lane, ((*j).currentLength) / 2, SUMO_TAG_OVERHEAD_WIRE_SEGMENT);
+                for (const LaneQ& j : clanes) {
+                    std::string overheadWireSegmentID = MSNet::getInstance()->getStoppingPlaceID(j.lane, j.currentLength / 2., SUMO_TAG_OVERHEAD_WIRE_SEGMENT);
                     if (overheadWireSegmentID != "") {
                         bestThisIndex = index;
                         bestThisMaxIndex = index;
                     }
+                    index++;
                 }
             }
 
@@ -5707,7 +5690,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
                 if ((*j).allowsContinuation) {
                     int nextIndex = 0;
                     for (std::vector<LaneQ>::const_iterator m = nextLanes.begin(); m != nextLanes.end(); ++m, ++nextIndex) {
-                        if ((*m).lane->isApproachedFrom(&cE, (*j).lane)) {
+                        if ((*m).lane->isApproachedFrom(cE, (*j).lane)) {
                             if (bestDistToNeeded > abs((*m).bestLaneOffset)) {
                                 bestDistToNeeded = abs((*m).bestLaneOffset);
                                 bestThisIndex = index;
@@ -7335,7 +7318,7 @@ MSVehicle::Manoeuvre::entryManoeuvreIsComplete(MSVehicle* veh) {
 bool
 MSVehicle::Manoeuvre::manoeuvreIsComplete(const ManoeuvreType checkType) const {
     if (checkType != myManoeuvreType) {
-        return true;    // we're not manoeuvering / wrong manoeuvre
+        return true;    // we're not maneuvering / wrong manoeuvre
     }
 
     if (MSNet::getInstance()->getCurrentTimeStep() < myManoeuvreCompleteTime) {

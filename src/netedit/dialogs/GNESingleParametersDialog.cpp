@@ -507,7 +507,7 @@ GNESingleParametersDialog::GNESingleParametersDialog(GNEInspectorFrame::Paramete
 
 
 
-GNESingleParametersDialog::GNESingleParametersDialog(GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow* VTypeAttributeRow, GNEViewNet* viewNet) :
+GNESingleParametersDialog::GNESingleParametersDialog(GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow* VTypeAttributeRow, GNEViewNet* viewNet) :
     FXDialogBox(viewNet->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
     myGenericDataAttributes(nullptr),
     myParametersEditor(nullptr),

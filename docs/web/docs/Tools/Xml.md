@@ -98,3 +98,14 @@ If option **--value** (**-v**) is not given, the attribute is removed. Otherwise
 python tools/xml/tools/xml/changeAttribute.py -f INPUT_FILE -o OUTPUT_FILE -t TAG -a ATTRIBUTE [-v VALUE]
 ```
 
+## filterElements.py
+
+This removes the specified element from the input file subject to the following conditions:
+- all occurrences of the element (default)
+- all elements that have a specified attribute matching a value from a given list (**--attribute** ATTR **--remove-values VAL1,VAL2**)
+- all elements that have a specified attribute not matching a value from a given list (**--attribute** ATTR **--keep-values VAL1,VAL2**)
+
+Example call:
+```
+python tools/xml/tools/xml/filterElements.py -f stopoutput.xml -o filtered.xml -t stopinfo -a delay --remove-values 0
+```

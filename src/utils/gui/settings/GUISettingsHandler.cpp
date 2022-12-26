@@ -84,6 +84,7 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
         case SUMO_TAG_VIEWSETTINGS_3D:
             mySettings.show3DTLSLinkMarkers = StringUtils::toBool(attrs.getStringSecure("show3DTLSLinkMarkers", toString(mySettings.show3DTLSLinkMarkers)));
             mySettings.show3DTLSDomes = StringUtils::toBool(attrs.getStringSecure("show3DTLSDomes", toString(mySettings.show3DTLSDomes)));
+            mySettings.show3DHeadUpDisplay = StringUtils::toBool(attrs.getStringSecure("show3DHeadUpDisplay", toString(mySettings.show3DHeadUpDisplay)));
             mySettings.generate3DTLSModels = StringUtils::toBool(attrs.getStringSecure("generate3DTLSModels", toString(mySettings.generate3DTLSModels)));
             mySettings.ambient3DLight = parseColor(attrs, "ambient3DLight", mySettings.ambient3DLight);
             mySettings.diffuse3DLight = parseColor(attrs, "diffuse3DLight", mySettings.diffuse3DLight);
@@ -257,6 +258,7 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             mySettings.showBTRange = StringUtils::toBool(attrs.getStringSecure("showBTRange", toString(mySettings.showBTRange)));
             mySettings.showRouteIndex = StringUtils::toBool(attrs.getStringSecure("showRouteIndex", toString(mySettings.showRouteIndex)));
             mySettings.scaleLength = StringUtils::toBool(attrs.getStringSecure("scaleLength", toString(mySettings.scaleLength)));
+            mySettings.drawReversed = StringUtils::toBool(attrs.getStringSecure("drawReversed", toString(mySettings.drawReversed)));
             mySettings.showParkingInfo = StringUtils::toBool(attrs.getStringSecure("showParkingInfo", toString(mySettings.showParkingInfo)));
             mySettings.vehicleSize = parseSizeSettings("vehicle", attrs, mySettings.vehicleSize);
             mySettings.vehicleName = parseTextSettings("vehicleName", attrs, mySettings.vehicleName);

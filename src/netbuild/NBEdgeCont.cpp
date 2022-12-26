@@ -417,8 +417,10 @@ NBEdgeCont::extract(NBDistrictCont& dc, NBEdge* edge, bool remember) {
     if (remember) {
         const auto& prevExtracted = myExtractedEdges.find(edge->getID());
         if (prevExtracted != myExtractedEdges.end()) {
-            myEdgeCemetery.push_back(prevExtracted->second);
-            prevExtracted->second = edge;
+            if (edge != prevExtracted->second) {
+                myEdgeCemetery.insert(prevExtracted->second);
+                prevExtracted->second = edge;
+            }
         } else {
             myExtractedEdges[edge->getID()] = edge;
         }

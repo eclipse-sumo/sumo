@@ -298,6 +298,20 @@ class VehicleDomain(VTypeDomain):
         """
         return self._getUniversal(tc.VAR_ROAD_ID, vehID)
 
+    def getDeparture(self, vehID):
+        """getDeparture(string) -> double
+
+        Returns the actual departure time in seconds
+        """
+        return self._getUniversal(tc.VAR_DEPARTURE, vehID)
+
+    def getDepartDelay(self, vehID):
+        """getDepartDelay(string) -> double
+
+        Returns the delay between intended and actual departure in seconds
+        """
+        return self._getUniversal(tc.VAR_DEPART_DELAY, vehID)
+
     def getLaneID(self, vehID):
         """getLaneID(string) -> string
 
@@ -892,6 +906,18 @@ class VehicleDomain(VTypeDomain):
         """
         return self._getUniversal(tc.VAR_TAXI_FLEET, "", "i", flag)
 
+    def getLoadedIDList(self):
+        """getLoadedIDList() -> list(string)
+        returns all loaded vehicles that have not yet left the simulation
+        """
+        return self._getUniversal(tc.VAR_LOADED_LIST, "")
+
+    def getTeleportingIDList(self):
+        """getTeleportingIDList() -> list(string)
+        returns all teleporting or jumping vehicles
+        """
+        return self._getUniversal(tc.VAR_TELEPORTING_LIST, "")
+
     def rerouteParkingArea(self, vehID, parkingAreaID):
         """rerouteParkingArea(string, string)
 
@@ -957,7 +983,8 @@ class VehicleDomain(VTypeDomain):
         For edgeID a stopping place id may be given if the flag marks this
         stop as stopping on busStop, parkingArea, containerStop etc.
         If edgeID is "", the stop at the given index will be removed without
-        replacement and the route will not be modified.
+        replacement and the route will not be modified (unless setting
+        teleport=2 which will trigger rerouting between the prior and next stop)
         If teleport is set to 1, the route to the replacement stop will be
         disconnected (forcing a teleport).
         If stopIndex is 0 the gap will be between the current

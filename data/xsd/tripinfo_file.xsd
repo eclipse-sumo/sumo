@@ -75,7 +75,7 @@
             <xsd:attribute name="PMx_abs" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="NOx_abs" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="fuel_abs" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="electricity_abs" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="electricity_abs" use="required" type="xsd:float"/>
         </xsd:complexType>
     </xsd:element>
 

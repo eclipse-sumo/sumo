@@ -1,7 +1,7 @@
 /* XPM */
 static const char *vclass_taxi_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"52 32 256 2 ",
+"52 32 256 2",
 "   c #11202E",
 ".  c #1F262D",
 "X  c #122230",

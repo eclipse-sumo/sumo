@@ -346,7 +346,6 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         }
     }
     // guess bike lanes
-    int addedLanes = 0;
     if (mayAddOrRemove && ((oc.getBool("bikelanes.guess") || oc.getBool("bikelanes.guess.from-permissions")))) {
         const int bikelanes = myEdgeCont.guessSpecialLanes(SVC_BICYCLE, oc.getFloat("default.bikelane-width"),
                               oc.getFloat("bikelanes.guess.min-speed"),
@@ -355,7 +354,6 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
                               "bikelanes.guess.exclude",
                               myTLLCont);
         WRITE_MESSAGE("Guessed " + toString(bikelanes) + " bike lanes.");
-        addedLanes += bikelanes;
     }
 
     // guess sidewalks
@@ -367,7 +365,6 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
                               "sidewalks.guess.exclude",
                               myTLLCont);
         WRITE_MESSAGE("Guessed " + toString(sidewalks) + " sidewalks.");
-        addedLanes += sidewalks;
     }
     // check whether any not previously setable connections may be set now
     myEdgeCont.recheckPostProcessConnections();

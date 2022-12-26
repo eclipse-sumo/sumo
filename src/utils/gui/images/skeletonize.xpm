@@ -5,6 +5,7 @@ static const char * skeletonize_xpm[] = {
 "!	c black",
 "#	c #808080",
 "$	c #9F9F9F",
+/* pixels */
 "       ###       ",
 "      #!!!#      ",
 "      #!!!#      ",
@@ -21,4 +22,5 @@ static const char * skeletonize_xpm[] = {
 "     !! ! !!     ",
 "      !!!!!      ",
 "    !       !    ",
-"   !         !   "};
+"   !         !   "
+};

@@ -785,7 +785,7 @@ MSLaneChanger::checkChange(
         //       have desynchronized action steps as the extrapolated speeds can be exceeded in this case
 
         // Expected reaction time (tau) for the follower-vehicle.
-        // (substracted TS since at this point the vehicles' states are already updated)
+        // (subtracted TS since at this point the vehicles' states are already updated)
         const double vNextFollower = neighFollow.first->getSpeed() + MAX2(0., tauRemainder * neighFollow.first->getAcceleration());
         const double vNextLeader = vehicle->getSpeed() + MIN2(0., tauRemainder * vehicle->getAcceleration());
         // !!! eigentlich: vsafe braucht die Max. Geschwindigkeit beider Spuren
@@ -830,7 +830,7 @@ MSLaneChanger::checkChange(
         //       have desynchronized action steps as the extrapolated speeds can be exceeded in this case
 
         // Expected reaction time (tau) for the follower-vehicle.
-        // (substracted TS since at this point the vehicles' states are already updated)
+        // (subtracted TS since at this point the vehicles' states are already updated)
         const double vNextFollower = vehicle->getSpeed() + MAX2(0., tauRemainder * vehicle->getAcceleration());
         const double vNextLeader = neighLead.first->getSpeed() + MIN2(0., tauRemainder * neighLead.first->getAcceleration());
         // !!! eigentlich: vsafe braucht die Max. Geschwindigkeit beider Spuren

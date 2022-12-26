@@ -1,5 +1,4 @@
-Warning: Discarding unknown compound 'cycleway.opposite' in type 'cycleway.opposite|highway.residential' (first occurence for edge '23151660').
-Warning: Discarding unusable type 'railway.platform' (first occurence for edge '202065857').
+Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '202065857').
 Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '207160370' (Maarweg). Thus, it will be removed!
 Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '207511340' (Clarenbachstift). Thus, it will be removed!
 Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '255562064' (Aachener Straße / Gürtel). Thus, it will be removed!

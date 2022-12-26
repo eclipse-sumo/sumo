@@ -403,19 +403,6 @@ enum SumoXMLTag {
     /// @brief parameters
     AGEN_TAG_PARAM,
 
-    /// @name SUMOConfig elements
-    /// @brief configuration
-    SUMO_TAG_CONFIGURATION,
-    /// @brief net file
-    SUMO_TAG_NETFILE,
-    /// @brief additional files
-    SUMO_TAG_ADDITIONALFILES,
-    /// @brief route files
-    SUMO_TAG_ROUTEFILES,
-    /// @brief data files
-    SUMO_TAG_DATAFILES,
-    ///@}
-
     /// @name NETEDIT elements
     /// @{
     /// @brief edge rel (defined in a single lane)
@@ -558,6 +545,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_VEHICLE            = 60,
     SUMO_ATTR_ODOMETER           = 61,
     SUMO_ATTR_POSITION_LAT       = 62,
+    SUMO_ATTR_SPEED_LAT          = 63,
     /// @}
 
     /// @name common attributes
@@ -650,7 +638,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_INSERTIONCHECKS,
     SUMO_ATTR_TIME_TO_TELEPORT,
     SUMO_ATTR_TIME_TO_TELEPORT_BIDI,
-    /// @brief Class specific timing values for vehicle manoeuvering through angle ranges
+    /// @brief Class specific timing values for vehicle maneuvering through angle ranges
     SUMO_ATTR_MANEUVER_ANGLE_TIMES,
     /// @}
 
@@ -732,8 +720,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_RECUPERATIONEFFICIENCY,
     /// @brief Recuperation efficiency (by deceleration)
     SUMO_ATTR_RECUPERATIONEFFICIENCY_BY_DECELERATION,
-    /// @brief Stopping treshold
-    SUMO_ATTR_STOPPINGTRESHOLD,
+    /// @brief Stopping threshold
+    SUMO_ATTR_STOPPINGTHRESHOLD,
     /// @}
 
     /// @name elecHybrid device export parameters
@@ -1136,6 +1124,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_JOIN,
     SUMO_ATTR_INTENDED,
     SUMO_ATTR_ONDEMAND,
+    SUMO_ATTR_JUMP,
     SUMO_ATTR_COLLISION,
     SUMO_ATTR_VALUE,
     SUMO_ATTR_PROHIBITOR,

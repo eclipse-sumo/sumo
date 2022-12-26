@@ -20,7 +20,7 @@ Debug: Adding flow 'flow_0' in GNEChange_DemandElement
 Debug: Adding flow 'flow_1' in GNEChange_DemandElement
 Debug: Adding flow 'flow_2' in GNEChange_DemandElement
 Debug: Adding flow 'flow_3' in GNEChange_DemandElement
-Debug: Enabled show demand elements throught alt + 4
+Debug: Enabled show demand elements through alt + 4
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'

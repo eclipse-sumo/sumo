@@ -74,6 +74,7 @@ const long long int VTYPEPARS_SCALE_SET = 1 << 30;
 const long long int VTYPEPARS_MASS_SET = (long long int)1 << 31;
 const long long int VTYPEPARS_TTT_SET = (long long int)1 << 32;
 const long long int VTYPEPARS_TTT_BIDI_SET = (long long int)1 << 33;
+const long long int VTYPEPARS_SEATING_WIDTH_SET = (long long int)1 << 34;
 
 
 const int VTYPEPARS_DEFAULT_EMERGENCYDECEL_DEFAULT = -1;
@@ -367,6 +368,9 @@ public:
 
     /// @brief the offset of the first person seat from the front of the vehicle
     double frontSeatPos;
+
+    /// @brief width to be used when comping seats
+    double seatingWidth;
 
     /// @brief Information for the router which parameter were set
     long long int parametersSet;

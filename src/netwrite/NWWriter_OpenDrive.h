@@ -60,13 +60,17 @@ protected:
     /// @brief signalID -> (lanes, dirs)
     typedef std::map<std::string, std::pair<std::set<int>, std::set<LinkDirection> > > SignalLanes;
 
+    /// @brief retrieve divider type
+    static std::string getDividerType(const NBEdge* e);
+
     /// @brief write normal edge to device
     static void writeNormalEdge(OutputDevice& device, const NBEdge* e,
                                 int edgeID, int fromNodeID, int toNodeID,
                                 const bool origNames,
                                 const double straightThresh,
                                 const ShapeContainer& shc,
-                                SignalLanes& signalLanes);
+                                SignalLanes& signalLanes,
+                                const std::vector<std::string>& crossings);
 
     /// @brief write internal edge to device, return next connectionID
     static int writeInternalEdge(OutputDevice& device, OutputDevice& junctionDevice,
@@ -114,10 +118,10 @@ protected:
     static void checkLaneGeometries(const NBEdge* e);
 
     /// @brief write road objects referenced as edge parameters
-    static void writeRoadObjects(OutputDevice& device, const NBEdge* e, const ShapeContainer& shc);
+    static void writeRoadObjects(OutputDevice& device, const NBEdge* e, const ShapeContainer& shc, const std::vector<std::string>& crossings);
 
     /// @brief write signal record for traffic light
-    static void writeSignals(OutputDevice& device, const NBEdge* e, double length, SignalLanes& signalLanes);
+    static void writeSignals(OutputDevice& device, const NBEdge* e, double length, SignalLanes& signalLanes, const ShapeContainer& shc);
 
     /// @brief convert sumo lane index to xodr lane index
     static int s2x(int sumoIndex, int numLanes);
@@ -128,6 +132,20 @@ protected:
     static void writeRoadObjectPOI(OutputDevice& device, const NBEdge* e, const PositionVector& roadShape, const PointOfInterest* poi);
 
     static void writeRoadObjectPoly(OutputDevice& device, const NBEdge* e, const PositionVector& roadShape, const SUMOPolygon* p);
+
+    struct TrafficSign {
+        std::string country;
+        std::string type;
+        std::string subtype;
+        std::string value;
+    };
+
+    static std::vector<TrafficSign> parseTrafficSign(const std::string& trafficSign, PointOfInterest* poi);
+    static TrafficSign parseTrafficSignId(const std::string& trafficSign);
+
+    // @brief return road postion in s,t coordinates
+    static double getRoadSideOffset(const NBEdge* e);
+
 
 protected:
     /// @brief whether a lefthand network is being written

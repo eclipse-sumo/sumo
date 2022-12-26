@@ -1,10 +1,10 @@
 Warning: Value of key 'ele' is not numeric ('extected_wrong_value') in node '27541970'.
-Warning: Discarding unusable type 'waterway.riverbank' (first occurence for edge '4616435').
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.secondary' (first occurence for edge '24214694').
-Warning: Discarding unusable type 'waterway.canal' (first occurence for edge '31233332').
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.tertiary' (first occurence for edge '46039050').
-Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.secondary' (first occurence for edge '143308535').
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.primary' (first occurence for edge '190083608').
+Warning: Discarding unusable type 'waterway.riverbank' (first occurrence for edge '4616435').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.secondary' (first occurrence for edge '24214694').
+Warning: Discarding unusable type 'waterway.canal' (first occurrence for edge '31233332').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.tertiary' (first occurrence for edge '46039050').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.secondary' (first occurrence for edge '143308535').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.primary' (first occurrence for edge '190083608').
 Warning: No way found for reference '81096600' in relation '1216677'
 Warning: Ignoring restriction relation '1216677' with unknown from-way.
 Warning: No way found for reference '143308555' in relation '1727169'

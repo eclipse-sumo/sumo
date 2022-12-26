@@ -97,7 +97,8 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_B_EDITBREAKPOINT_OPENDATAELEMENTS,  GUIApplicationWindow::onCmdEditBreakpoints),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F9_EDIT_VIEWSCHEME,                      GUIApplicationWindow::onCmdEditViewScheme),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_I_EDITVIEWPORT,                     GUIApplicationWindow::onCmdEditViewport),
-    FXMAPFUNC(SEL_COMMAND,  MID_NETEDIT,                                        GUIApplicationWindow::onCmdNetedit),
+    FXMAPFUNC(SEL_COMMAND,  MID_NETEDIT_ONLYNETWORK,                            GUIApplicationWindow::onCmdNeteditNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_NETEDIT_SUMOCFG,                                GUIApplicationWindow::onCmdNeteditSUMOConfig),
     // gaming
     FXMAPFUNC(SEL_COMMAND,  MID_APPSETTINGS,                            GUIApplicationWindow::onCmdAppSettings),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_G_GAMINGMODE_TOGGLEGRID,    GUIApplicationWindow::onCmdGaming),
@@ -149,10 +150,11 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_B_EDITBREAKPOINT_OPENDATAELEMENTS,          GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_F9_EDIT_VIEWSCHEME,                              GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_I_EDITVIEWPORT,                             GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_NETEDIT,                                                GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_NETEDIT_ONLYNETWORK,                                    GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_DEMAND_SCALE,                                           GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_G_GAMINGMODE_TOGGLEGRID,                    GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_F_FULSCREENMODE,                            GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_NETEDIT_SUMOCFG,                                        GUIApplicationWindow::onUpdNeteditSUMOConfig),
     FXMAPFUNC(SEL_UPDATE,   MID_TRACI_STATUS,                                           GUIApplicationWindow::onUpdTraCIStatus),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F1_ONLINEDOCUMENTATION,                          GUIApplicationWindow::onCmdHelp),
     FXMAPFUNC(SEL_COMMAND,  MID_CHANGELOG,                                              GUIApplicationWindow::onCmdChangelog),
@@ -353,6 +355,7 @@ GUIApplicationWindow::~GUIApplicationWindow() {
     closeAllWindows();
     // close icons
     GUIIconSubSys::close();
+    GUICursorSubSys::close();
     // delete visual
     delete myGLVisual;
     // delete some non-parented windows
@@ -467,8 +470,11 @@ GUIApplicationWindow::fillMenuBar() {
                                            GUIIconSubSys::getIcon(GUIIcon::EDITVIEWPORT), this, MID_HOTKEY_CTRL_I_EDITVIEWPORT);
     new FXMenuSeparator(myEditMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myEditMenu,
-                                           TL("Open in netedit"), "Ctrl+T", TL("Opens the netedit application with the current network."),
-                                           GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), this, MID_NETEDIT);
+                                           TL("Open network in netedit"), "Ctrl+T", TL("Opens current network in NETEDIT."),
+                                           GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), this, MID_NETEDIT_ONLYNETWORK);
+    //GUIDesigns::buildFXMenuCommandShortcut(myEditMenu,
+    //                                       TL("Open config in netedit"), "", TL("Opens current sumo config in NETEDIT."),
+    //                                       GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), this, MID_NETEDIT_SUMOCFG);
     // build settings menu
     mySettingsMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myMenuBar, TL("&Settings"), nullptr, mySettingsMenu);
@@ -780,6 +786,7 @@ GUIApplicationWindow::onCmdQuit(FXObject*, FXSelector, void*) {
     getApp()->reg().writeIntEntry("SETTINGS", "maximized", isMaximized() ? 1 : 0);
     getApp()->reg().writeIntEntry("gui", "timeasHMS", myShowTimeAsHMS ? 1 : 0);
     getApp()->reg().writeIntEntry("gui", "alternateSimDelay", (int)myAlternateSimDelay);
+    closeAllWindows();
     getApp()->exit(0);
     return 1;
 }
@@ -881,7 +888,7 @@ GUIApplicationWindow::onCmdTutorial(FXObject*, FXSelector, void*) {
 
 
 long
-GUIApplicationWindow::onCmdNetedit(FXObject*, FXSelector, void*) {
+GUIApplicationWindow::onCmdNeteditNetwork(FXObject*, FXSelector, void*) {
     if (myGLWindows.empty()) {
         return 1;
     }
@@ -912,6 +919,52 @@ GUIApplicationWindow::onCmdNetedit(FXObject*, FXSelector, void*) {
     // yay! fun with dangerous commands... Never use this over the internet
     SysUtils::runHiddenCommand(cmd);
     return 1;
+}
+
+
+long
+GUIApplicationWindow::onCmdNeteditSUMOConfig(FXObject*, FXSelector, void*) {
+    if (myGLWindows.empty()) {
+        return 1;
+    }
+    FXRegistry reg("SUMO netedit", "netedit");
+    reg.read();
+    const GUISUMOAbstractView* const v = myGLWindows[0]->getView();
+    reg.writeRealEntry("viewport", "x", v->getChanger().getXPos());
+    reg.writeRealEntry("viewport", "y", v->getChanger().getYPos());
+    reg.writeRealEntry("viewport", "z", v->getChanger().getZPos());
+    reg.write();
+    std::string netedit = "netedit";
+    const char* sumoPath = getenv("SUMO_HOME");
+    if (sumoPath != nullptr) {
+        std::string newPath = std::string(sumoPath) + "/bin/netedit";
+        if (FileHelpers::isReadable(newPath) || FileHelpers::isReadable(newPath + ".exe")) {
+            netedit = "\"" + newPath + "\"";
+        }
+    }
+    std::string cmd = netedit + " --registry-viewport --sumocfg " + "\"" + OptionsCont::getOptions().getString("configuration-file") + "\"";
+    // start in background
+#ifndef WIN32
+    cmd = cmd + " &";
+#else
+    // see "help start" for the parameters
+    cmd = "start /B \"\" " + cmd;
+#endif
+    WRITE_MESSAGE("Running " + cmd + ".");
+    // yay! fun with dangerous commands... Never use this over the internet
+    SysUtils::runHiddenCommand(cmd);
+    return 1;
+}
+
+
+
+long
+GUIApplicationWindow::onUpdNeteditSUMOConfig(FXObject* sender, FXSelector, void* ptr) {
+    if (!myRunThread->simulationAvailable() || myAmLoading) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), ptr);
+    } else {
+        return sender->handle(this, OptionsCont::getOptions().isSet("configuration-file") ? FXSEL(SEL_COMMAND, ID_ENABLE) : FXSEL(SEL_COMMAND, ID_DISABLE), ptr);
+    }
 }
 
 
@@ -1879,6 +1932,10 @@ GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent* e) {
         FXuint answer = FXMessageBox::question(this, MBOX_YES_NO, TL("Simulation ended"), "%s", text.c_str());
         if (answer == 1) { //1:yes, 2:no, 4:esc
             closeAllWindows();
+        } else {
+            GUINet::getGUIInstance()->flushOutputsAtEnd();
+            updateChildren();
+            update();
         }
         myHaveNotifiedAboutSimEnd = true;
     }

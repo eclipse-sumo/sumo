@@ -25,15 +25,15 @@ from __future__ import absolute_import
 from __future__ import division
 import os
 import sys
-import io
 import glob
 import subprocess
-from collections import defaultdict
+import collections
 import zipfile
 import pandas as pd
 pd.options.mode.chained_assignment = None  # default='warn'
 
-sys.path += [os.path.join(os.environ["SUMO_HOME"], "tools"), os.path.join(os.environ['SUMO_HOME'], 'tools', 'route')]  # noqa
+sys.path += [os.path.join(os.environ["SUMO_HOME"], "tools"),
+             os.path.join(os.environ['SUMO_HOME'], 'tools', 'route')]
 import route2poly  # noqa
 import sumolib  # noqa
 import tracemapper  # noqa
@@ -43,7 +43,6 @@ import gtfs2osm  # noqa
 
 
 def get_options(args=None):
-    ap = sumolib.options.ArgumentParser()
     ap = gtfs2fcd.add_options()
     # ----------------------- general options ---------------------------------
     ap.add_argument("-n", "--network", fix_path=True, required=True,
@@ -94,8 +93,6 @@ def get_options(args=None):
                     help="file to write the unmapped elements from gtfs")
     ap.add_argument("--dua-repair-output",
                     help="file to write the osm routes with errors")
-    ap.add_argument("--bbox",
-                    help="define the bounding box to filter the gtfs data, format: W,S,E,N")
     ap.add_argument("--repair", help="repair osm routes", action='store_true')
     ap.add_argument("--min-stops", default=1, type=int,
                     help="minimum number of stops a public transport line must have to be imported")
@@ -124,6 +121,7 @@ def splitNet(options):
     netcCall = [sumolib.checkBinary("netconvert"), "--no-internal-links", "--numerical-ids", "--no-turnarounds",
                 "--offset.disable-normalization", "--output.original-names", "--aggregate-warnings", "1",
                 "--junctions.corner-detail", "0", "--dlr-navteq.precision", "0", "--geometry.avoid-overlap", "false"]
+    doNavteqOut = os.path.exists(options.mapperlib)
     if not os.path.exists(options.network_split):
         os.makedirs(options.network_split)
     numIdNet = os.path.join(options.network_split, "numerical.net.xml")
@@ -138,32 +136,27 @@ def splitNet(options):
         edgeMap[e.getID()] = e.getLanes()[0].getParam("origId", e.getID())
         seenTypes.add(e.getType())
     typedNets = {}
-    for inp in glob.glob(os.path.join(options.gpsdat, "gpsdat_*.csv")):
-        mode = os.path.basename(inp)[7:-4]
+    for inp in sorted(glob.glob(os.path.join(options.fcd, "*.fcd.xml"))):
+        mode = os.path.basename(inp)[:-8]
         if not options.modes or mode in options.modes.split(","):
             netPrefix = os.path.join(options.network_split, mode)
-            sumoType = gtfs2osm.OSM2SUMO_MODES[mode]
-            edgeTypes = [sumoType]
-            if "rail" in sumoType or sumoType == "subway":
-                edgeTypes = ["railway." + sumoType]
-            elif sumoType in ("tram", "bus"):
-                edgeTypes = ["railway.tram"] if sumoType == "tram" else []
-                for hwType in ("bus_guideway", "living_street", "motorway", "motorway_link", "primary", "primary_link",
-                               "residential", "secondary", "secondary_link", "tertiary", "tertiary_link",
-                               "trunk", "trunk_link", "unclassified", "unsurfaced"):
-                    if sumoType == "tram":
-                        edgeTypes.append("highway.%s|railway.tram" % hwType)
-                    else:
-                        edgeTypes.append("highway." + hwType)
-            edgeType = ",".join(filter(lambda t: t in seenTypes, edgeTypes))
-            if edgeType:
+            edgeFilter = ["--keep-edges.by-type", mode] if mode in seenTypes else None
+            if "rail" in mode or mode == "subway":
+                if "railway." + mode in seenTypes:
+                    edgeFilter = ["--keep-edges.by-type", "railway." + mode]
+            elif mode == "train":
+                edgeFilter = ["--keep-edges.by-type", "railway.rail,railway.light_rail"]
+            elif mode in ("tram", "bus"):
+                edgeFilter = ["--keep-edges.by-vclass", mode]
+            if edgeFilter:
                 if (os.path.exists(netPrefix + ".net.xml") and
                         os.path.getmtime(netPrefix + ".net.xml") > os.path.getmtime(numIdNet)):
                     print("Reusing old", netPrefix + ".net.xml")
                 else:
-                    subprocess.call(netcCall + ["-s", numIdNet, "-o", netPrefix + ".net.xml",
-                                                "--dlr-navteq-output", netPrefix,
-                                                "--dismiss-vclasses", "--keep-edges.by-type", edgeType])
+                    subprocess.call(netcCall + ["-s", numIdNet, "-o", netPrefix + ".net.xml"] + edgeFilter)
+                    if doNavteqOut:
+                        subprocess.call(netcCall + ["-s", netPrefix + ".net.xml", "-o", "NUL", "--dismiss-vclasses"
+                                                    "--dlr-navteq-output", netPrefix])
                 typedNets[mode] = (inp, netPrefix)
     return edgeMap, typedNets
 
@@ -174,13 +167,13 @@ def mapFCD(options, typedNets):
     outConf = os.path.join(os.path.dirname(options.map_output_config), "output_configuration.xml")
     with open(options.map_output_config) as inp, open(outConf, "w") as outp:
         outp.write(inp.read() % {"output": options.map_output})
-    for railType, (gpsdat, netPrefix) in typedNets.items():
-        conf = os.path.join(os.path.dirname(options.map_input_config), "input_configuration_%s.xml") % railType
+    for mode, (gpsdat, netPrefix) in typedNets.items():
+        conf = os.path.join(os.path.dirname(options.map_input_config), "input_configuration_%s.xml") % mode
         with open(options.map_input_config) as inp, open(conf, "w") as outp:
             outp.write(inp.read() % {"input": gpsdat, "net_prefix": netPrefix})
-        param = os.path.join(os.path.dirname(options.map_parameter), "parameters_%s.xml") % railType
+        param = os.path.join(os.path.dirname(options.map_parameter), "parameters_%s.xml") % mode
         with open(options.map_parameter) as inp, open(param, "w") as outp:
-            outp.write(inp.read() % {"radius": 100 if railType in ("bus", "tram") else 1000})
+            outp.write(inp.read() % {"radius": 100 if mode in ("bus", "tram") else 1000})
         call = "java -mx16000m -jar %s %s %s %s" % (options.mapperlib, conf, outConf, param)
         if options.verbose:
             print(call)
@@ -189,14 +182,14 @@ def mapFCD(options, typedNets):
 
 
 def traceMap(options, typedNets, radius=100):
-    routes = defaultdict(list)
-    for railType in typedNets.keys():
+    routes = collections.OrderedDict()
+    for mode in sorted(typedNets.keys()):
         if options.verbose:
-            print("mapping", railType)
-        net = sumolib.net.readNet(os.path.join(options.network_split, railType + ".net.xml"))
+            print("mapping", mode)
+        net = sumolib.net.readNet(os.path.join(options.network_split, mode + ".net.xml"))
         netBox = net.getBBoxXY()
         numTraces = 0
-        filePath = os.path.join(options.fcd, railType + ".fcd.xml")
+        filePath = os.path.join(options.fcd, mode + ".fcd.xml")
         if not os.path.exists(filePath):
             return []
         traces = tracemapper.readFCD(filePath, net, True)
@@ -230,14 +223,14 @@ def generate_polygons(net, routes, outfile):
 
 
 def map_stops(options, net, routes, rout, edgeMap):
-    stops = defaultdict(list)
+    stops = collections.defaultdict(list)
     stopDef = set()
     rid = None
     for inp in sorted(glob.glob(os.path.join(options.fcd, "*.fcd.xml"))):
-        railType = os.path.basename(inp)[:-8]
-        typedNetFile = os.path.join(options.network_split, railType + ".net.xml")
+        mode = os.path.basename(inp)[:-8]
+        typedNetFile = os.path.join(options.network_split, mode + ".net.xml")
         if not os.path.exists(typedNetFile):
-            print("Warning! No net", typedNetFile)
+            print("Warning! No net", typedNetFile, file=sys.stderr)
             continue
         if options.verbose:
             print("Reading", typedNetFile)
@@ -258,7 +251,7 @@ def map_stops(options, net, routes, rout, edgeMap):
                 rid = veh.id
             if rid not in routes:
                 if options.warn_unmapped and rid not in seen:
-                    print("Warning! Not mapped", rid)
+                    print("Warning! Not mapped", rid, file=sys.stderr)
                     seen.add(rid)
                 continue
             if rid not in fixed:
@@ -267,30 +260,31 @@ def map_stops(options, net, routes, rout, edgeMap):
                     path, _ = typedNet.getShortestPath(typedNet.getEdge(routeFixed[-1]), typedNet.getEdge(routeEdgeID))
                     if path is None or len(path) > options.fill_gaps + 2:
                         error = "no path found" if path is None else "path too long (%s)" % len(path)
-                        print("Warning! Disconnected route '%s', %s. Keeping longer part." % (rid, error))
+                        print("Warning! Disconnected route '%s' between '%s' and '%s', %s. Keeping longer part." %
+                              (rid, edgeMap.get(routeFixed[-1]), edgeMap.get(routeEdgeID), error), file=sys.stderr)
                         if len(routeFixed) > len(routes[rid]) // 2:
                             break
                         routeFixed = [routeEdgeID]
                     else:
                         if len(path) > 2:
-                            print("Warning! Fixed connection", rid, len(path))
+                            print("Warning! Fixed connection", rid, len(path), file=sys.stderr)
                         routeFixed += [e.getID() for e in path[1:]]
                 if rid not in routes:
                     continue
                 routes[rid] = routeFixed
                 fixed[rid] = [edgeMap[e] for e in routeFixed]
             route = fixed[rid]
-            if railType == "bus":
+            if mode == "bus":
                 stopLength = options.bus_stop_length
-            elif railType == "tram":
+            elif mode == "tram":
                 stopLength = options.tram_stop_length
             else:
                 stopLength = options.train_stop_length
             result = gtfs2osm.getBestLane(net, veh.x, veh.y, 200, stopLength,
-                                          route[lastIndex:], railType, lastPos)
+                                          route[lastIndex:], gtfs2osm.OSM2SUMO_MODES[mode], lastPos)
             if result is None:
                 if options.warn_unmapped:
-                    print("Warning! No stop for coordinates %.2f, %.2f" % (veh.x, veh.y), "on", veh)
+                    print("Warning! No stop for %s." % str(veh), file=sys.stderr)
                 continue
             laneID, start, end = result
             edgeID = laneID.rsplit("_", 1)[0]
@@ -299,48 +293,49 @@ def map_stops(options, net, routes, rout, edgeMap):
             stop = "%s:%.2f" % (edgeID, end)
             if stop not in stopDef:
                 stopDef.add(stop)
-                typ = "busStop" if railType == "bus" else "trainStop"
+                access = gtfs2osm.getAccess(net, veh.x, veh.y, 100, laneID)
+                if not access and not params:
+                    addAttrs += "/"
+                typ = "busStop" if mode == "bus" else "trainStop"
                 rout.write(u'    <%s id="%s" lane="%s" startPos="%.2f" endPos="%.2f"%s>\n%s' %
                            (typ, stop, laneID, start, end, addAttrs, params))
-                for a in gtfs2osm.getAccess(net, veh.x, veh.y, 100, laneID):
-                    rout.write(a)
-                rout.write(u'    </%s>\n' % typ)
+                if access or params:
+                    for a in sorted(access):
+                        rout.write(a)
+                    rout.write(u'    </%s>\n' % typ)
             stops[rid].append((stop, int(veh.until)))
     return stops
 
 
-def filter_trips(options, routes, stops, outfile, begin, end):
+def filter_trips(options, routes, stops, outf, begin, end):
     numDays = end // 86400
     if end % 86400 != 0:
         numDays += 1
-    with io.open(outfile, 'w', encoding="utf8") as outf:
-        sumolib.xml.writeHeader(outf, os.path.basename(__file__), "routes", options=options)
-        if options.sort:
-            vehs = defaultdict(lambda: "")
-        for inp in glob.glob(os.path.join(options.fcd, "*.rou.xml")):
-            for veh in sumolib.xml.parse_fast_structured(inp, "vehicle", ("id", "route", "type", "depart", "line"),
-                                                         {"param": ["key", "value"]}):
-                if len(routes.get(veh.route, [])) > 0 and len(stops.get(veh.route, [])) > 1:
-                    until = stops[veh.route][0][1]
-                    for d in range(numDays):
-                        depart = max(0, d * 86400 + int(veh.depart) + until - options.duration)
-                        if begin <= depart < end:
-                            if d != 0 and veh.id.endswith(".trimmed"):
-                                # only add trimmed trips the first day
-                                continue
-                            line = (u'    <vehicle id="%s.%s" route="%s" type="%s" depart="%s" line="%s">\n' %
-                                    (veh.id, d, veh.route, veh.type, depart, veh.line))
-                            for p in veh.param:
-                                line += u'        <param key="%s" value="%s"/>\n' % p
-                            line += u'    </vehicle>\n'
-                            if options.sort:
-                                vehs[depart] += line
-                            else:
-                                outf.write(line)
-        if options.sort:
-            for _, vehs in sorted(vehs.items()):
-                outf.write(vehs)
-        outf.write(u'</routes>\n')
+    if options.sort:
+        vehs = collections.defaultdict(lambda: "")
+    for inp in sorted(glob.glob(os.path.join(options.fcd, "*.rou.xml"))):
+        for veh in sumolib.xml.parse_fast_structured(inp, "vehicle", ("id", "route", "type", "depart", "line"),
+                                                        {"param": ["key", "value"]}):
+            if len(routes.get(veh.route, [])) > 0 and len(stops.get(veh.route, [])) > 1:
+                until = stops[veh.route][0][1]
+                for d in range(numDays):
+                    depart = max(0, d * 86400 + int(veh.depart) + until - options.duration)
+                    if begin <= depart < end:
+                        if d != 0 and veh.id.endswith(".trimmed"):
+                            # only add trimmed trips the first day
+                            continue
+                        line = (u'    <vehicle id="%s.%s" route="%s" type="%s" depart="%s" line="%s">\n' %
+                                (veh.id, d, veh.route, veh.type, depart, veh.line))
+                        for p in veh.param:
+                            line += u'        <param key="%s" value="%s"/>\n' % p
+                        line += u'    </vehicle>\n'
+                        if options.sort:
+                            vehs[depart] += line
+                        else:
+                            outf.write(line)
+    if options.sort:
+        for _, vehs in sorted(vehs.items()):
+            outf.write(vehs)
 
 
 def main(options):
@@ -348,22 +343,20 @@ def main(options):
         print('Loading net')
     net = sumolib.net.readNet(options.network)
 
+    if not options.bbox:
+        bboxXY = net.getBBoxXY()
+        options.bbox = net.convertXY2LonLat(*bboxXY[0]) + net.convertXY2LonLat(*bboxXY[1])
+    else:
+        options.bbox = [float(coord) for coord in options.bbox.split(",")]
     if options.osm_routes:
         # Import PT from GTFS and OSM routes
-        if not options.bbox:
-            BBoxXY = net.getBBoxXY()
-            BBoxLonLat = (net.convertXY2LonLat(BBoxXY[0][0], BBoxXY[0][1]),
-                          net.convertXY2LonLat(BBoxXY[1][0], BBoxXY[1][1]))
-            options.bbox = (BBoxLonLat[0][0], BBoxLonLat[0][1],
-                            BBoxLonLat[1][0], BBoxLonLat[1][1])
-        else:
-            options.bbox = [float(coord) for coord in options.bbox.split(",")]
-
-        gtfsZip = zipfile.ZipFile(sumolib.open(options.gtfs, False))
+        gtfsZip = zipfile.ZipFile(sumolib.openz(options.gtfs, mode="rb", tryGZip=False))
         routes, trips_on_day, shapes, stops, stop_times = gtfs2osm.import_gtfs(options, gtfsZip)
 
+        if routes.empty or trips_on_day.empty:
+            return
         if shapes is None:
-            print('Warning: Importing OSM routes currently requires a GTFS file with shapes.')
+            print('Warning: Importing OSM routes currently requires a GTFS file with shapes.', file=sys.stderr)
             options.osm_routes = None
         else:
             (gtfs_data, trip_list,
@@ -384,28 +377,35 @@ def main(options):
     if not options.osm_routes:
         # Import PT from GTFS
         if not options.skip_fcd:
-            gtfs2fcd.main(options)
+            if not os.path.exists(options.mapperlib):
+                options.gpsdat = None
+            if not gtfs2fcd.main(options):
+                return
         edgeMap, typedNets = splitNet(options)
         if os.path.exists(options.mapperlib):
             if not options.skip_map:
                 mapFCD(options, typedNets)
-            routes = defaultdict(lambda: [])
+            routes = collections.OrderedDict()
             for o in glob.glob(os.path.join(options.map_output, "*.dat")):
                 for line in open(o):
                     time, edge, speed, coverage, id, minute_of_week = line.split('\t')[:6]
-                    routes[id].append(edge)
+                    routes.setdefault(id, []).append(edge)
         else:
             if not gtfs2fcd.dataAvailable(options):
-                sys.exit("No GTFS data found for given date %s." % options.date)
+                print("Warning! No infrastructure for the given modes %s." % options.modes)
+                return
             if options.mapperlib != "tracemapper":
-                print("Warning! No mapping library found, falling back to tracemapper.")
+                print("Warning! No mapping library found, falling back to tracemapper.", file=sys.stderr)
             routes = traceMap(options, typedNets)
 
         if options.poly_output:
             generate_polygons(net, routes, options.poly_output)
-        with io.open(options.additional_output, 'w', encoding="utf8") as rout:
-            sumolib.xml.writeHeader(rout, os.path.basename(__file__), "additional")
-            stops = map_stops(options, net, routes, rout, edgeMap)
+        with sumolib.openz(options.additional_output, mode='w') as aout:
+            sumolib.xml.writeHeader(aout, os.path.basename(__file__), "additional", options=options)
+            stops = map_stops(options, net, routes, aout, edgeMap)
+            aout.write(u'</additional>\n')
+        with sumolib.openz(options.route_output, mode='w') as rout:
+            sumolib.xml.writeHeader(rout, os.path.basename(__file__), "routes", options=options)
             for vehID, edges in routes.items():
                 if edges:
                     rout.write(u'    <route id="%s" edges="%s">\n' % (vehID, " ".join([edgeMap[e] for e in edges])))
@@ -417,9 +417,9 @@ def main(options):
                                    (stop[0], options.duration, stop[1] - offset))
                     rout.write(u'    </route>\n')
                 else:
-                    print("Warning! Empty route", vehID)
-            rout.write(u'</additional>\n')
-        filter_trips(options, routes, stops, options.route_output, options.begin, options.end)
+                    print("Warning! Empty route", vehID, file=sys.stderr)
+            filter_trips(options, routes, stops, rout, options.begin, options.end)
+            rout.write(u'</routes>\n')
 
 
 if __name__ == "__main__":

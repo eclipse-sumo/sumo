@@ -85,3 +85,6 @@ ticket11639
 
 # delayed lane change while decelerating
 ticket12108
+
+# cyclic speed adapatation prevents lane changing
+ticket12283

@@ -58,6 +58,23 @@ By setting the special attribute key `@RANK` then the index of the elements with
 
 Further examples are shown below. Some of them are generated with the scenario acosta, one of the published sumo scenarios (https://github.com/DLR-TS/sumo-scenarios/tree/main/bologna/acosta).
 
+### Multi-line plots
+
+- By default, every distinct ID (as defined by **--idattr**) will generated a new line for all the data points associated with that ID.
+- If multple files are given, the abbreviated filename will become part of the data point ID and thereby create distinct lines or scatterpoints for data from each file
+- If a commma-separated list of values is passed to option **--idattr**, then values for each of the attributes will be combined with `|` to form the data point ID
+- If a comma-separared list of values given to **--xattr** or **--yattr** (or both), and the data does not supply an ID (or option **--idattr @NONE** is set) then each combination of individual xattr and yattr will create a new line
+
+If a combined plot is needed that cannot be created with any of the above methods (i.e. because the data comes from different kinds of data files such as summary-output and edgeData) then an alternative is to use option **--csv-output** and plotting the resulting data with another tool (i.e. [gnuplot](https://en.wikipedia.org/wiki/Gnuplot)).
+
+In csv-output each group of data points belonging to the same ID will form it's own block separated by two blank lines from the next block.
+To replicate a plot where each ID/block has its distinct color, the following approach can be used in gnuplot:
+
+```
+stats 'data.csv'
+plot for [idx=0:STATS_blocks] 'data.csv' i idx with lines
+```
+
 ### Inductionloop Speed over Time
 
 Input is [inductionloop-output](../Simulation/Output/Induction_Loops_Detectors_(E1).md) with 30s aggregation from 2 detectors (`<e1Detector id="e1Detector_-109_0_0" lane="-109_0" pos="54.06" period="30.00" file="data.xml"/>`

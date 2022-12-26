@@ -1,0 +1,9 @@
+ Retrying in 1 seconds
+constraints before swap
+ tls=A Constraint(signalId=A tripId=t0, foeId=t2, foeSignal=J1, limit=1, type=4, mustWait=True, active=True param=arrival=00:03:45|busStop=f|busStop2=-a2|foeArrival=00:03:04|foeStopArrival=00:03:20|priorStop=a|priorStop2=-f2|stopArrival=00:04:00)
+ tls=A Constraint(signalId=A tripId=t0, foeId=t1, foeSignal=J1, limit=1, type=4, mustWait=True, active=True param=arrival=00:03:45|busStop=f|busStop2=-a2|foeArrival=00:01:24|foeStopArrival=00:01:40|priorStop=a|priorStop2=-f2|stopArrival=00:04:00)
+constraints added to avoid deadlock
+ tls=J1 Constraint(signalId=J1 tripId=t2, foeId=t0, foeSignal=A, limit=1, type=4, mustWait=True, active=True)
+constraints after swap
+ tls=J1 Constraint(signalId=J1 tripId=t1, foeId=t0, foeSignal=A, limit=1, type=4, mustWait=True, active=True param=arrival=00:01:24|busStop=-a2|busStop2=f|foeArrival=00:03:45|foeStopArrival=00:04:00|priorStop=-f2|priorStop2=a|stopArrival=00:01:40)
+ tls=J1 Constraint(signalId=J1 tripId=t2, foeId=t0, foeSignal=A, limit=1, type=4, mustWait=True, active=True param=arrival=00:03:04|busStop=-a2|busStop2=f|foeArrival=00:03:45|foeStopArrival=00:04:00|priorStop=-f2|priorStop2=a|stopArrival=00:03:20)

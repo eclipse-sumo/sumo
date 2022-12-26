@@ -87,3 +87,6 @@ ticket12042
 
 # spreadType in typemap
 ticket12141
+
+# crash in cleanup after joining tram
+ticket12223

@@ -71,7 +71,7 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
         case SVC_BICYCLE:
             minGap = 0.5;
             maxSpeed = 50. / 3.6;
-            desiredMaxSpeed = 20 / 3.6;
+            desiredMaxSpeed = DEFAULT_BICYCLE_SPEED;
             width = 0.65;
             height = 1.7;
             shape = SUMOVehicleShape::BICYCLE;
@@ -296,6 +296,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
       timeToTeleport(TTT_UNSET),
       timeToTeleportBidi(TTT_UNSET),
       frontSeatPos(1.7),
+      seatingWidth(-1),
       parametersSet(0),
       saved(false),
       onlyReferenced(false) {
@@ -393,7 +394,7 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
     dev.openTag(SUMO_TAG_VTYPE);
     // write ID (always needed)
     dev.writeAttr(SUMO_ATTR_ID, id);
-    // write parametes depending if is set
+    // write parameters depending if is set
     if (wasSet(VTYPEPARS_LENGTH_SET)) {
         dev.writeAttr(SUMO_ATTR_LENGTH, length);
     }
@@ -743,6 +744,11 @@ SUMOVTypeParameter::initRailVisualizationParameters() {
             default:
                 break;
         }
+    }
+
+    if (knowsParameter("seatingWidth")) {
+        seatingWidth = StringUtils::toDouble(getParameter("seatingWidth"));
+        parametersSet |= VTYPEPARS_SEATING_WIDTH_SET;
     }
 }
 

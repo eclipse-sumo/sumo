@@ -351,7 +351,7 @@ vehicle if the first try fails
 - `"random_free"`: at first, ten random positions are tried, if all fail, "free" is applied
 - `"center"`: center of the lane (offset 0). *This is the default*
 - `"left"`: touching the left border of the lane
-- `"right"`: tourching the right border of the lane
+- `"right"`: touching the right border of the lane
                   |
 ### arrivalLane
 
@@ -405,7 +405,7 @@ The lateral position on the departure lane at which the vehicle tries to finish 
 - `"default"`: the vehicle may arrive at an arbitrary offset
 - `"center"`: center of the lane (offset 0). *This is the default*
 - `"left"`: touching the left border of the lane
-- `"right"`: tourching the right border of the lane
+- `"right"`: touching the right border of the lane
 
 # Vehicle Types
 
@@ -507,7 +507,7 @@ The desired driving speed usually varies among the vehicle of a fleet.
 In SUMO this is modeled by assigning to each vehicle an individual multiplier which gets applied to the road speed limit.
 This multiplier is called the *individual speedFactor* or in short the *speedFactor of a vehicle*.
 The product of road speed limit and the individual speed factor gives the desired free flow driving speed of a vehicle.
-If the individual speedFactor is larger than 1 vehicles can exceed edge speeds. However, vehicle speeds are still
+If the individual speedFactor is larger than 1, vehicles can exceed edge speeds. However, vehicle speeds are still
 capped at the vehicle type's **maxSpeed**.
 
 While it is possible to assign the individual speedFactor value directly in a `<vehicle>`, `<trip>` or even `<flow>` definition using attribute `speedFactor`, a more common use case is to define the distribution of these factors for a `<vType>`.
@@ -704,13 +704,14 @@ The following shapes are known:
 - "passenger/hatchback"
 - "passenger/wagon"
 - "passenger/van"
+- "taxi"
 - "delivery"
 - "truck"
 - "truck/semitrailer" (13.5)
 - "truck/trailer" (6.75)
 - "bus"
-- "bus/flexible" (8.25)
 - "bus/coach" (8.25)
+- "bus/flexible" (8.25)
 - "bus/trolley"
 - "rail" (24.5)
 - "rail/railcar" (16.85)
@@ -723,6 +724,7 @@ The following shapes are known:
 - "police"
 - "rickshaw"
 - "scooter"
+- "aircraft"
 
 Some of these classes are drawn as a sequence of carriages. The length
 of a single carriage is indicated in parentheses after the type. For
@@ -1114,12 +1116,12 @@ Stops can be childs of vehicles, routes, persons or containers.
 | endPos             | float(m)          | \-lane.length < x < lane.length (negative values count backwards from the end of the lane) | lane.length        |                                                                                                                        |
 | startPos           | float(m)          | \-lane.length < x < lane.length (negative values count backwards from the end of the lane) | endPos-0.2m        | there must be a difference of more than 0.1m between *startPos* and *endPos*                                           |
 | friendlyPos        | bool              | true,false                                                                                   | false              | whether invalid stop positions should be corrected automatically                                                       |
-| duration           | float(s)          | ≥0                                                                                           | \-                 | minimum duration for stopping                                                                                          |
-| until              | float(s)          | ≥0                                                                                           | \-                 | the time step at which the route continues                                                                             |
-| arrival            | float(s)          | ≥0                                                                                           | \-                 | the expected time of arrival for the stop. If this value is set, [stop-output]() will include the attribute ''arrivalDelay''.                                                                           |
-| ended              | float(s)          | ≥0                                                                                           | \-                 | the time step at which the stop ended (i.e. as recorded by a prior simulation). Can be used to overrule 'until' by setting option **--use-stop-ended** (i.e. when trying to reproduce known timings)                                                                            |
-| started            | float(s)          | ≥0                                                                                           | \-                 | the known time of arrival for the stop (i.e. as recorded by a prior simulation).                                                                           |
-| extension          | float(s)          | ≥0                                                                                           | \-                 | the maximum time by which to extend the stop duration due to boarding persons and when waiting for expected persons / triggered stopping
+| duration           | float(s) or HH:MM:SS | ≥0                                                                                           | \-                 | minimum duration for stopping                                                                                          |
+| until              | float(s) or HH:MM:SS | ≥0                                                                                           | \-                 | the time step at which the route continues                                                                             |
+| arrival            | float(s) or HH:MM:SS | ≥0                                                                                           | \-                 | the expected time of arrival for the stop. If this value is set, [stop-output]() will include the attribute ''arrivalDelay''.                                                                           |
+| ended              | float(s) or HH:MM:SS | ≥0                                                                                           | \-                 | the time step at which the stop ended (i.e. as recorded by a prior simulation). Can be used to overrule 'until' by setting option **--use-stop-ended** (i.e. when trying to reproduce known timings)                                                                            |
+| started            | float(s) or HH:MM:SS | ≥0                                                                                           | \-                 | the known time of arrival for the stop (i.e. as recorded by a prior simulation).                                                                           |
+| extension          | float(s) or HH:MM:SS | ≥0                                                                                           | \-                 | the maximum time by which to extend the stop duration due to boarding persons and when waiting for expected persons / triggered stopping
 | index              | int, "end", "fit" | 0≤index≤number of stops in the route                                                         | "end"              | where to insert the stop in the vehicle's list of stops                                                                |
 | triggered          | bool              | true,false                                                                                   | false              | whether a person may end the stop                                                                                      |
 | expected           | string            | list of person IDs                                                                           |                    | list of persons that must board the vehicle before it may continue (only takes effect for triggered stops)             |
@@ -1132,6 +1134,7 @@ Stops can be childs of vehicles, routes, persons or containers.
 | speed              | float            | positive | - | speed to be kept while driving between startPos and endPos. This turns the stop into a waypoint. |
 | posLat             | float            |  | - | lateral offset while stopped |
 | onDemand           | bool             |  | false | whether stopping may be skipped if no person wants to embark or disembark there |
+| jump           | float(s) or HH:MM:SS |  | -1 | when set to a non-negative value, jump to the next *mandatory* route edge (next stop or arrival edge) and spend the given time for the *jump* |
 
 - If "duration" *and* "until" are given, the vehicle will stop for at least "duration" seconds.
 - If "duration" is 0 the vehicle will decelerate to reach velocity 0 and then start to accelerate again.

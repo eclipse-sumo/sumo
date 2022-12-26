@@ -34,3 +34,18 @@ signalGroups
 
 # test exporting pois and polygons
 roadObjects
+
+# OSM divider tag to OpenDrive export
+osm_divider
+
+# OSM traffic sign tag to OpenDrive export
+osm_traffic_sign
+
+# OSM traffic sign tag to OpenDrive export, this one is mapping multiple signs to one pole
+osm_traffic_signs
+
+# OSM traffic sign tag to OpenDrive export
+osm_traffic_sign_lefthand
+
+# OSM traffic sign tag to OpenDrive export
+osm_traffic_sign_LHLL

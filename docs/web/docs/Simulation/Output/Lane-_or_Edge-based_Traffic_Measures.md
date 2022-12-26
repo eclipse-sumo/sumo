@@ -140,9 +140,10 @@ values are reported in one line.
 Both the edge-dump and the lane-dump are computing the values the same
 way: every vehicle move - even those with v=0 - is recorded and saved
 during the interval. After the interval has passed, these values are
-written into the file after being normalized. In the case of the
-edge-dump the values are not only normalized by the number of the
-collected vehicle moves and the length of the lane, but also by the
+written into the file after being normalized. 
+
+With regard to edgeData `density`, the values are normalized by the number of the
+collected vehicle movements and the length of the lane. For `laneDensity` they are also normalized by the
 number of lanes of the edge.
 
 The meanings of the written values are given in the following table.

@@ -115,7 +115,7 @@ public:
         EDGE2EDGES,
         /// @brief Lanes to edges - relationships are computed/loaded
         LANES2EDGES,
-        /// @brief Lanes to lanes - relationships are computed; should be recheked
+        /// @brief Lanes to lanes - relationships are computed; should be rechecked
         LANES2LANES_RECHECK,
         /// @brief Lanes to lanes - relationships are computed; no recheck is necessary/wished
         LANES2LANES_DONE,
@@ -1696,7 +1696,7 @@ private:
     void restoreRestrictedLane(SUMOVehicleClass vclass, std::vector<NBEdge::Lane> oldLanes, PositionVector oldGeometry, std::vector<NBEdge::Connection> oldConnections);
 
     /// @brief assign length to all lanes of an internal edge
-    void assignInternalLaneLength(std::vector<Connection>::iterator i, int numLanes, double lengthSum, bool averageLength);
+    double assignInternalLaneLength(std::vector<Connection>::iterator i, int numLanes, double lengthSum, bool averageLength);
 
     /// @brief decode bitset
     std::vector<LinkDirection> decodeTurnSigns(int turnSigns);

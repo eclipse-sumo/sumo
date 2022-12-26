@@ -144,7 +144,7 @@ public:
     /// how many threads to use
     static int gNumThreads;
 
-    /// treshold for warning about strong deceleration
+    /// threshold for warning about strong deceleration
     static double gEmergencyDecelWarningThreshold;
 
     /// (minimum) time penalty for passing a minor link when routing

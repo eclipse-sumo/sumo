@@ -255,7 +255,7 @@ public:
      */
     std::vector<std::string> getControlledInnerEdges() const;
 
-    /** @brief Replaces occurences of the removed edge in incoming/outgoing edges of all definitions
+    /** @brief Replaces occurrences of the removed edge in incoming/outgoing edges of all definitions
      * @param[in] removed The removed edge
      * @param[in] incoming The edges to use instead if an incoming edge was removed
      * @param[in] outgoing The edges to use instead if an outgoing edge was removed

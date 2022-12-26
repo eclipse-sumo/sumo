@@ -1,0 +1,23 @@
+<routes>
+    <vehicle id="v" depart="0">
+        <param key="blubber" value="zisch"/>
+        <route edges="beg beg2left left"/>
+    </vehicle>
+    <person id="beg" depart="0">
+        <param key="blubber" value="zisch"/>
+        <walk edges="beg beg2left left"/>
+    </person>
+    <person id="left" depart="0">
+        <param key="blubber" value="zisch"/>
+        <walk edges="beg beg2left left left2end end rend"/>
+    </person>
+    <person id="back" depart="0">
+        <walk edges="beg beg2left left left2end end rend"/>
+        <walk edges="rend end left2end left beg2left beg"/>
+    </person>
+    <person id="left_stop" depart="0">
+        <walk edges="beg beg2left left left2end"/>
+        <stop lane="left2end_0" duration="100"/>
+        <walk edges="left2end end rend"/>
+    </person>
+</routes>

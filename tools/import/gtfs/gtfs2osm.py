@@ -41,6 +41,7 @@ OSM2SUMO_MODES = {
     'bus': 'bus',
     'train': 'rail',
     'tram': 'tram',
+    'light_rail': 'rail_urban',
     'subway': 'rail_urban',
     'ferry': 'ship'
 }
@@ -57,11 +58,11 @@ GTFS2OSM_MODES = {
     # '7':  'funicular',
     # https://developers.google.com/transit/gtfs/reference/extended-route-types
     '100':  'train',        # DB
-    '109':  'train',  # S-Bahn
-    '400':  'subway',      # U-Bahn
+    '109':  'light_rail',   # S-Bahn
+    '400':  'subway',       # U-Bahn
     '1000': 'ferry',        # Faehre
     # additional modes used in Hamburg
-    '402':  'subway',      # U-Bahn
+    '402':  'subway',       # U-Bahn
     '1200': 'ferry',        # Faehre
     # modes used by hafas
     's': 'train',
@@ -176,6 +177,10 @@ def import_gtfs(options, gtfsZip):
     filter_gtfs_modes = [key for key, value in GTFS2OSM_MODES.items()
                          if value in options.modes]
     routes = routes[routes['route_type'].isin(filter_gtfs_modes)]
+    if routes.empty:
+        print("Warning! No GTFS data found for the given modes %s." % options.modes)
+    if trips_on_day.empty:
+        print("Warning! No GTFS data found for the given date %s." % options.date)
 
     return routes, trips_on_day, shapes, stops, stop_times
 
@@ -531,7 +536,7 @@ def map_gtfs_osm(options, net, osm_routes, gtfs_data, shapes, shapes_dict, filte
 
 def write_vtypes(options, seen=None):
     if options.vtype_output:
-        with io.open(options.vtype_output, 'w', encoding="utf8") as vout:
+        with sumolib.openz(options.vtype_output, mode='w') as vout:
             sumolib.xml.writeHeader(vout, root="additional")
             for osm_type, sumo_class in sorted(OSM2SUMO_MODES.items()):
                 if osm_type in options.modes and (seen is None or osm_type in seen):
@@ -548,7 +553,7 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
     if options.verbose:
         print("Generates stops and routes output")
 
-    with io.open(options.additional_output, 'w', encoding="utf8") as output_file:
+    with sumolib.openz(options.additional_output, mode='w') as output_file:
         sumolib.xml.writeHeader(output_file, root="additional")
         for stop, value in map_stops.items():
             name, lane, start_pos, end_pos, access, v_type = value[:6]
@@ -564,7 +569,7 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
     sequence_errors = []
     write_vtypes(options)
 
-    with io.open(options.route_output, 'w', encoding="utf8") as output_file:
+    with sumolib.openz(options.route_output, mode='w') as output_file:
         sumolib.xml.writeHeader(output_file, root="routes")
         numDays = options.end // 86401
         start_time = pd.to_timedelta(time.strftime('%H:%M:%S', time.gmtime(options.begin)))
@@ -648,7 +653,7 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
 
     # -----------------------   Save missing data ------------------
     if any([missing_stops, missing_lines, sequence_errors]):
-        print("Not all given gtfs elements have been mapped, see %s for more information" % options.warning_output)  # noqa
+        print("Not all given gtfs elements have been mapped, see %s for more information" % options.warning_output)
         with io.open(options.warning_output, 'w', encoding="utf8") as output_file:
             output_file.write(u'<missingElements>\n')
             for stop in sorted(set(missing_stops)):

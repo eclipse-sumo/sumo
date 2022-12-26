@@ -110,6 +110,64 @@ class InductionLoopDomain(Domain):
         """
         return self._getUniversal(tc.LAST_STEP_VEHICLE_DATA, loopID)
 
+    def getIntervalOccupancy(self, loopID):
+        """getIntervalOccupancy(string) -> double
+
+        Returns the percentage of time the detector was occupied by a vehicle
+        during the current interval.
+        """
+        return self._getUniversal(tc.VAR_INTERVAL_OCCUPANCY, loopID)
+
+    def getIntervalMeanSpeed(self, loopID):
+        """getIntervalMeanSpeed(string) -> double
+
+        Returns the average speed of vehicles during the current interval.
+        """
+        return self._getUniversal(tc.VAR_INTERVAL_SPEED, loopID)
+
+    def getIntervalVehicleNumber(self, loopID):
+        """getIntervalVehicleNumber(string) -> integer
+
+        Returns the number of vehicles that passed the detector during the current interval
+        """
+        return self._getUniversal(tc.VAR_INTERVAL_NUMBER, loopID)
+
+    def getIntervalVehicleIDs(self, loopID):
+        """getIntervalVehicleIDs(string) -> list(string)
+
+        Returns the ids of vehicles that passed the detector during the current interval
+        """
+        return self._getUniversal(tc.VAR_INTERVAL_IDS, loopID)
+
+    def getLastIntervalOccupancy(self, loopID):
+        """getLastIntervalOccupancy(string) -> double
+
+        Returns the percentage of time the detector was occupied by a vehicle
+        during the previous interval.
+        """
+        return self._getUniversal(tc.VAR_LAST_INTERVAL_OCCUPANCY, loopID)
+
+    def getLastIntervalMeanSpeed(self, loopID):
+        """getLastIntervalMeanSpeed(string) -> double
+
+        Returns the average speed of vehicles during the previous interval.
+        """
+        return self._getUniversal(tc.VAR_LAST_INTERVAL_SPEED, loopID)
+
+    def getLastIntervalVehicleNumber(self, loopID):
+        """getLastIntervalVehicleNumber(string) -> integer
+
+        Returns the number of vehicles that passed the detector during the previous interval
+        """
+        return self._getUniversal(tc.VAR_LAST_INTERVAL_NUMBER, loopID)
+
+    def getLastIntervalVehicleIDs(self, loopID):
+        """getLastIntervalVehicleIDs(string) -> list(string)
+
+        Returns the ids of vehicles that passed the detector during the previous interval
+        """
+        return self._getUniversal(tc.VAR_LAST_INTERVAL_IDS, loopID)
+
     def overrideTimeSinceDetection(self, loopID, time):
         """overrideTimeSinceDetection(string, double) -> None
         Persistently overrides the measured time since detection with the given value.

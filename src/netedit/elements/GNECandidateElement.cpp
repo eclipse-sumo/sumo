@@ -30,13 +30,7 @@
 // ===========================================================================
 
 
-GNECandidateElement::GNECandidateElement() :
-    myPossibleCandidate(false),
-    mySourceCandidate(false),
-    myTargetCandidate(false),
-    mySpecialCandidate(false),
-    myConflictedCandidate(false),
-    myReachability(-1) {}
+GNECandidateElement::GNECandidateElement() {}
 
 
 GNECandidateElement::~GNECandidateElement() {}
@@ -49,6 +43,7 @@ GNECandidateElement::resetCandidateFlags() {
     myTargetCandidate = false;
     mySpecialCandidate = false;
     myConflictedCandidate = false;
+    myInvalidCandidate = false;
 }
 
 
@@ -83,6 +78,12 @@ GNECandidateElement::isConflictedCandidate() const {
 }
 
 
+bool
+GNECandidateElement::isInvalidCandidate() const {
+    return myInvalidCandidate;
+}
+
+
 void
 GNECandidateElement::setPossibleCandidate(const bool value) {
     myPossibleCandidate = value;
@@ -110,6 +111,12 @@ GNECandidateElement::setSpecialCandidate(const bool value) {
 void
 GNECandidateElement::setConflictedCandidate(const bool value) {
     myConflictedCandidate = value;
+}
+
+
+void
+GNECandidateElement::setInvalidCandidate(const bool value) {
+    myInvalidCandidate = value;
 }
 
 

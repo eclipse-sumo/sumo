@@ -52,9 +52,11 @@
 #include <utils/gui/shortcuts/GUIShortcutsSubSys.h>
 #include <utils/gui/windows/GUIDialog_Options.h>
 #include <utils/gui/windows/GUIPerspectiveChanger.h>
-#include <utils/options/OptionsCont.h>
 #include <utils/foxtools/MFXMenuCheckIcon.h>
 #include <utils/xml/XMLSubSys.h>
+#include <utils/handlers/TemplateHandler.h>
+#include <xercesc/parsers/SAXParser.hpp>
+#include <netedit/templates.h>
 
 #include "GNEApplicationWindow.h"
 #include "GNEEvent_NetworkLoaded.h"
@@ -319,8 +321,9 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS,    GNEApplicationWindow::onCmdProcessButton),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS,    GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOGGLE_COMPUTE_NETWORK_DATA,                    GNEApplicationWindow::onCmdToogleComputeNetworkData),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F10_OPTIONSMENU,                             GNEApplicationWindow::onCmdOptions),
-
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F10_SUMOOPTIONSMENU,                   GNEApplicationWindow::onCmdOpenSUMOOptionsDialog),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_F10_SUMOOPTIONSMENU,                   GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F10_OPTIONSMENU,                             GNEApplicationWindow::onCmdOpenOptionsDialog),
 
     // Toolbar locate
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEJUNCTION,     GNEApplicationWindow::onCmdLocate),
@@ -444,6 +447,11 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     myUndoListDialog = new GNEUndoListDialog(this);
     a->setTooltipTime(1000000000);
     a->setTooltipPause(1000000000);
+    // set SUMO Options descriptions
+    mySUMOOptions.setApplicationDescription(TL("A microscopic, multi-modal traffic simulation."));
+    mySUMOOptions.setApplicationName("sumo", "Eclipse SUMO sumo Version " VERSION_STRING);
+    // parse sumo options
+    TemplateHandler::parseTemplate(mySUMOOptions, sumoTemplate);
 }
 
 void
@@ -549,6 +557,7 @@ GNEApplicationWindow::~GNEApplicationWindow() {
     GUIIconSubSys::close();
     // Close gifs (Textures)
     GUITextureSubSys::close();
+    GUICursorSubSys::close();
     // delete visuals
     delete myGLVisual;
     // must delete menus to avoid segfault on removing accelerators
@@ -727,7 +736,7 @@ GNEApplicationWindow::onCmdOpenForeign(FXObject*, FXSelector, void*) {
             }
 
             GUIDialog_Options* wizard =
-                new GUIDialog_Options(this, TL("Select Import Options"), getWidth(), getHeight());
+                new GUIDialog_Options(this, OptionsCont::getOptions(), TL("Select Import Options"), getWidth(), getHeight());
 
             if (wizard->execute()) {
                 NIFrame::checkOptions(); // needed to set projection parameters
@@ -756,22 +765,24 @@ GNEApplicationWindow::onCmdOpenSUMOConfig(FXObject*, FXSelector, void*) {
         WRITE_DEBUG("Close SUMOConfig dialog");
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
-        // write info
-        WRITE_MESSAGE("Loading SUMOConfig from '" + file + "'");
-        // close all windows
-        closeAllWindows();
-        // disable validation for additionals
-        XMLSubSys::setValidation("never", "auto", "auto");
-        // Create additional handler
-        GNEApplicationWindowHelper::GNEConfigHandler confighandler(this, file);
-        // Run parser
-        if (!confighandler.parse()) {
-            WRITE_ERROR("Loading of " + file + " failed.");
+        if (file.size() > 0 && continueWithUnsavedChanges("load SUMOConfig")) {
+            // write info
+            WRITE_MESSAGE("Loading SUMOConfig from '" + file + "'");
+            // close all windows
+            closeAllWindows();
+            // disable validation for additionals
+            XMLSubSys::setValidation("never", "auto", "auto");
+            // Create additional handler
+            GNEApplicationWindowHelper::GNEConfigHandler confighandler(this, file);
+            // Run parser
+            if (!confighandler.loadConfig()) {
+                WRITE_ERROR("Loading of " + file + " failed.");
+            }
+            // update view
+            update();
+            // restore validation for additionals
+            XMLSubSys::setValidation("auto", "auto", "auto");
         }
-        // update view
-        update();
-        // restore validation for additionals
-        XMLSubSys::setValidation("auto", "auto", "auto");
     } else {
         // write debug information
         WRITE_DEBUG("Cancel SUMOConfig dialog");
@@ -789,7 +800,7 @@ GNEApplicationWindow::onCmdReloadSUMOConfig(FXObject*, FXSelector, void*) {
         // Create additional handler
         GNEApplicationWindowHelper::GNEConfigHandler confighandler(this, file);
         // Run parser
-        if (!confighandler.parse()) {
+        if (!confighandler.loadConfig()) {
             WRITE_ERROR("Loading of " + file + " failed.");
         }
         update();
@@ -1262,16 +1273,14 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     }
     getApp()->endWaitCursor();
     myMessageWindow->registerMsgHandlers();
-    // check if we have to load an entire sumo config
-    loadSUMOConfigAtStart(oc);
-    // check if additionals/shapes has to be loaded at start
-    loadAdditionalElementsAtStart(oc);
-    // check if demand elements has to be loaded at start
-    loadDemandElementsAtStart(oc);
-    // check if data elements has to be loaded at start
-    loadDataElementsAtStart(oc);
-    // check if meanData elements has to be loaded at start
-    loadMeanDataElementsAtStart(oc);
+    // load additionals/shapes
+    loadAdditionalElements(OptionsCont::getOptions().getStringVector("additional-files"));
+    // load demand elements
+    loadDemandElements(OptionsCont::getOptions().getStringVector("route-files"));
+    // load data elements
+    loadDataElements(OptionsCont::getOptions().getStringVector("data-files"));
+    // load meanData elements
+    loadMeanDataElements(OptionsCont::getOptions().getStringVector("meandata-files"));
     // check if additionals output must be changed
     if (oc.isSet("additionals-output")) {
         // overwrite "additional-files" with value "additionals-output"
@@ -1410,14 +1419,14 @@ GNEApplicationWindow::fillMenuBar() {
     // build help menu commands
     GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, TL("&Online Documentation"), "F1", TL("Open Online documentation."),
                                            nullptr, this, MID_HOTKEY_F1_ONLINEDOCUMENTATION);
-    new FXMenuSeparator(myEditMenu);
+    new FXMenuSeparator(myHelpMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, TL("&Changelog"), "", TL("Open Changelog."),
                                            nullptr, this, MID_CHANGELOG);
     GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, TL("&Hotkeys"), "", TL("Open Hotkeys."),
                                            nullptr, this, MID_HOTKEYS);
     GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, TL("&Tutorial"), "", TL("Open Tutorial."),
                                            nullptr, this, MID_TUTORIAL);
-    new FXMenuSeparator(myEditMenu);
+    new FXMenuSeparator(myHelpMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, TL("&About"), "F12", TL("About netedit."),
                                            GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), this, MID_HOTKEY_F12_ABOUT);
 }
@@ -2375,10 +2384,10 @@ GNEApplicationWindow::onCmdToggleGrid(FXObject* obj, FXSelector sel, void* ptr) 
         // show debug info
         if (myViewNet->getVisualisationSettings().showGrid) {
             // show extra information for tests
-            WRITE_DEBUG("Disabled grid throught Ctrl+g hotkey");
+            WRITE_DEBUG("Disabled grid through Ctrl+g hotkey");
         } else {
             // show extra information for tests
-            WRITE_DEBUG("Enabled grid throught Ctrl+g hotkey");
+            WRITE_DEBUG("Enabled grid through Ctrl+g hotkey");
         }
         // Call manually toggle grid function
         myViewNet->onCmdToggleShowGrid(obj, sel, ptr);
@@ -2394,10 +2403,10 @@ GNEApplicationWindow::onCmdToggleDrawJunctionShape(FXObject* obj, FXSelector sel
         // show debug info
         if (myViewNet->getVisualisationSettings().drawJunctionShape) {
             // show extra information for tests
-            WRITE_DEBUG("Disabled draw junction shape throught Ctrl+j hotkey");
+            WRITE_DEBUG("Disabled draw junction shape through Ctrl+j hotkey");
         } else {
             // show extra information for tests
-            WRITE_DEBUG("Enabled draw junction shape throught Ctrl+j hotkey");
+            WRITE_DEBUG("Enabled draw junction shape through Ctrl+j hotkey");
         }
         // Call manually toggle junction shape function
         myViewNet->onCmdToggleDrawJunctionShape(obj, sel, ptr);
@@ -2503,16 +2512,22 @@ GNEApplicationWindow::onCmdTutorial(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdOptions(FXObject*, FXSelector, void*) {
-    GUIDialog_Options* wizard =
-        new GUIDialog_Options(this, TL("Configure Options"), getWidth(), getHeight());
-
+GNEApplicationWindow::onCmdOpenOptionsDialog(FXObject*, FXSelector, void*) {
+    GUIDialog_Options* wizard = new GUIDialog_Options(this, OptionsCont::getOptions(), TL("Configure Options"), getWidth(), getHeight());
     if (wizard->execute()) {
         NIFrame::checkOptions(); // needed to set projection parameters
         NBFrame::checkOptions();
         NWFrame::checkOptions();
         SystemFrame::checkOptions(); // needed to set precision
     }
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onCmdOpenSUMOOptionsDialog(FXObject*, FXSelector, void*) {
+    GUIDialog_Options* wizard = new GUIDialog_Options(this, mySUMOOptions, TL("SUMO Options"), getWidth(), getHeight());
+    wizard->execute();
     return 1;
 }
 
@@ -2933,8 +2948,6 @@ GNEApplicationWindow::onUpdSaveDataElementsAs(FXObject* sender, FXSelector, void
 long
 GNEApplicationWindow::onUpdSaveMeanDatas(FXObject* sender, FXSelector, void*) {
     if (myNet == nullptr) {
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myNet->getViewNet()->getViewParent()->getTAZFrame()->getTAZSaveChangesModule()->isChangesPending()) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
         return sender->handle(this, myNet->isMeanDatasSaved() ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
@@ -3434,86 +3447,67 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject*, FXSelector, void*) {
-    // obtain option container
-    OptionsCont& oc = OptionsCont::getOptions();
-    // check if save additional menu is enabled
-    if (myFileMenuCommands.saveSUMOConfig->isEnabled()) {
-        // Check if SUMOConfig file was already set at start of netedit or with a previous save
-        if (oc.getString("SUMOcfg-output").empty()) {
-            // declare current folder
-            FXString currentFolder = gCurrentFolder;
-            // check if there is a saved network
-            if (oc.getString("output-file").size() > 0) {
-                // extract folder
-                currentFolder = getFolder(oc.getString("output-file"));
-            }
-            // open dialog
-            FXString file = MFXUtils::getFilename2Write(this,
-                            TL("Save SUMOConfig"), ".sumocfg",
-                            GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI),
-                            currentFolder);
-            // add xml extension
-            std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".sumocfg");
-            // check tat file is valid
-            if (file == "") {
-                // None SUMOConfig file was selected, then stop function
-                return 0;
-            } else {
-                // change value of "SUMOcfg-output"
-                oc.resetWritable();
-                oc.set("SUMOcfg-output", fileWithExtension);
-            }
+    // obtain NETEDIT option container
+    OptionsCont& neteditOptions = OptionsCont::getOptions();
+    // Check if SUMOConfig file was already set at start of netedit or with a previous save
+    if (neteditOptions.getString("SUMOcfg-output").empty()) {
+        // get the new file name
+        FXFileDialog opendialog(this, TL("Save SUMO Configuration"));
+        opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::SAVE));
+        opendialog.setSelectMode(SELECTFILE_ANY);
+        opendialog.setPatternList("Config (*.sumocfg)");
+        if (gCurrentFolder.length() != 0) {
+            opendialog.setDirectory(gCurrentFolder);
         }
-        // Start saving SUMOConfig
-        getApp()->beginWaitCursor();
-        // save all elements
-        onCmdSaveAllElements(nullptr, 0, nullptr);
-        // save config
-        GNEApplicationWindowHelper::saveSUMOConfig();
-        getApp()->endWaitCursor();
-        // restore focus
-        setFocus();
-        return 1;
-    } else {
-        return 0;
+        if (!opendialog.execute() || !MFXUtils::userPermitsOverwritingWhenFileExists(this, opendialog.getFilename())) {
+            return 1;
+        } else {
+            const std::string file = MFXUtils::assureExtension(opendialog.getFilename(),
+                    opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
+            neteditOptions.resetWritable();
+            neteditOptions.set("SUMOcfg-output", file);
+        }
     }
+    const auto file = neteditOptions.getString("SUMOcfg-output");
+    std::ofstream out(StringUtils::transcodeToLocal(file));
+    if (out.good()) {
+        mySUMOOptions.writeConfiguration(out, true, false, false, file, true);
+        setStatusBarText("Configuration saved to " + file);
+    } else {
+        setStatusBarText("Could not save configuration to " + file);
+    }
+    out.close();
+    return 1;
 }
 
 
 long
 GNEApplicationWindow::onCmdSaveSUMOConfigAs(FXObject*, FXSelector, void*) {
-    // obtain option container
-    OptionsCont& oc = OptionsCont::getOptions();
-    // declare current folder
-    FXString currentFolder = gCurrentFolder;
-    // check if there is a saved network
-    if (oc.getString("output-file").size() > 0) {
-        // extract folder
-        currentFolder = getFolder(oc.getString("output-file"));
+    // obtain NETEDIT option container
+    OptionsCont& neteditOptions = OptionsCont::getOptions();
+    // get the new file name
+    FXFileDialog opendialog(this, TL("Save SUMO Configuration as"));
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::SAVE));
+    opendialog.setSelectMode(SELECTFILE_ANY);
+    opendialog.setPatternList("Config (*.sumocfg)");
+    if (gCurrentFolder.length() != 0) {
+        opendialog.setDirectory(gCurrentFolder);
     }
-    // open dialog
-    FXString file = MFXUtils::getFilename2Write(this,
-                    TL("Save SUMOConfig"), ".sumocfg",
-                    GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI),
-                    currentFolder);
-    // add xml extension
-    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".sumocfg");
-    // check tat file is valid
-    if (file == "") {
-        // None SUMOConfig file was selected, then stop function
-        return 0;
+    if (!opendialog.execute() || !MFXUtils::userPermitsOverwritingWhenFileExists(this, opendialog.getFilename())) {
+        return 1;
+    }
+    const std::string file = MFXUtils::assureExtension(opendialog.getFilename(),
+            opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
+    neteditOptions.resetWritable();
+    neteditOptions.set("SUMOcfg-output", file);
+    std::ofstream out(StringUtils::transcodeToLocal(file));
+    if (out.good()) {
+        mySUMOOptions.writeConfiguration(out, true, false, false, file, true);
+        setStatusBarText("Configuration saved to " + file);
     } else {
-        // change value of "SUMOcfg-output"
-        oc.resetWritable();
-        oc.set("SUMOcfg-output", fileWithExtension);
+        setStatusBarText("Could not save configuration to " + file);
     }
-    // Start saving SUMOConfig
-    getApp()->beginWaitCursor();
-    // save config
-    GNEApplicationWindowHelper::saveSUMOConfig();
-    getApp()->endWaitCursor();
-    // restore focus
-    setFocus();
+    out.close();
     return 1;
 }
 
@@ -4743,14 +4737,13 @@ GNEApplicationWindow::continueWithUnsavedDataElementChanges(const std::string& o
 
 void
 GNEApplicationWindow::loadSUMOConfigAtStart(OptionsCont& oc) {
-
     if (oc.isSet("sumocfg-file") && !oc.getString("sumocfg-file").empty()) {
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // Create additional handler
         GNEApplicationWindowHelper::GNEConfigHandler confighandler(this, oc.getString("sumocfg-file"));
         // Run parser
-        if (!confighandler.parse()) {
+        if (!confighandler.loadConfig()) {
             WRITE_ERROR("Loading of " + oc.getString("sumocfg-file") + " failed.");
         }
         update();
@@ -4758,168 +4751,6 @@ GNEApplicationWindow::loadSUMOConfigAtStart(OptionsCont& oc) {
         XMLSubSys::setValidation("auto", "auto", "auto");
     }
 
-}
-
-
-void
-GNEApplicationWindow::loadAdditionalElementsAtStart(OptionsCont& oc) {
-    if (oc.isSet("additional-files") && !oc.getString("additional-files").empty() && myNet) {
-        // obtain vector of additional files
-        std::vector<std::string> additionalFiles = oc.getStringVector("additional-files");
-        // begin undolist
-        myUndoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, "loading additionals and shapes from '" + toString(additionalFiles) + "'");
-        // flag for check if there is error creating elements
-        bool errorCreatingElement = false;
-        // iterate over every additional file
-        for (const auto& additionalFile : additionalFiles) {
-            WRITE_MESSAGE("loading additionals and shapes from '" + additionalFile + "'");
-            // declare general handler
-            GNEGeneralHandler handler(myNet, additionalFile, true, false);
-            // disable validation for additionals
-            XMLSubSys::setValidation("never", "auto", "auto");
-            // Run parser
-            if (!handler.parse()) {
-                WRITE_ERROR("Loading of " + additionalFile + " failed.");
-            } else {
-                // set additional-files
-                oc.resetWritable();
-                oc.set("additional-files", additionalFile);
-            }
-            // disable validation for additionals
-            XMLSubSys::setValidation("auto", "auto", "auto");
-            // enable demand elements if there is an error creating element
-            if (handler.isErrorCreatingElement()) {
-                errorCreatingElement = true;
-            }
-        }
-        // check if enable save demand elements
-        if (errorCreatingElement) {
-            myNet->requireSaveAdditionals(true);
-        } else {
-            myNet->requireSaveAdditionals(false);
-        }
-        // end undo list
-        myUndoList->end();
-    }
-}
-
-
-void
-GNEApplicationWindow::loadDemandElementsAtStart(OptionsCont& oc) {
-    if (oc.isSet("route-files") && !oc.getString("route-files").empty() && myNet) {
-        // obtain vector of route files
-        std::vector<std::string> demandElementsFiles = oc.getStringVector("route-files");
-        // begin undolist
-        myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, "loading demand elements from '" + toString(demandElementsFiles) + "'");
-        // flag for check if there is error creating elements
-        bool errorCreatingElement = false;
-        // iterate over every route file
-        for (const auto& demandElementsFile : demandElementsFiles) {
-            WRITE_MESSAGE("Loading demand elements from '" + demandElementsFile + "'");
-            GNEGeneralHandler handler(myNet, demandElementsFile, true, false);
-            // disable validation for demand elements
-            XMLSubSys::setValidation("never", "auto", "auto");
-            if (!handler.parse()) {
-                WRITE_ERROR("Loading of " + demandElementsFile + " failed.");
-            } else {
-                // set first demandElementsFiles as default file
-                oc.resetWritable();
-                oc.set("route-files", demandElementsFile);
-            }
-            // disable validation for demand elements
-            XMLSubSys::setValidation("auto", "auto", "auto");
-            // enable demand elements if there is an error creating element
-            if (handler.isErrorCreatingElement()) {
-                errorCreatingElement = true;
-            }
-        }
-        // check if enable save demand elements
-        if (errorCreatingElement) {
-            myNet->requireSaveDemandElements(true);
-        } else {
-            myNet->requireSaveDemandElements(false);
-        }
-        // end undo list
-        myUndoList->end();
-    }
-}
-
-
-void
-GNEApplicationWindow::loadDataElementsAtStart(OptionsCont& oc) {
-if (oc.isSet("data-files") && !oc.getString("data-files").empty() && myNet) {
-        // obtain vector of data files
-        std::vector<std::string> dataElementsFiles = oc.getStringVector("data-files");
-        // disable update data
-        myViewNet->getNet()->disableUpdateData();
-        // begin undolist
-        myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, "loading data elements from '" + toString(dataElementsFiles) + "'");
-        // disable save data elements (because data elements were loaded through console)
-        myNet->requireSaveDataElements(false);
-        // iterate over every data file
-        for (const auto& dataElementsFile : dataElementsFiles) {
-            WRITE_MESSAGE("Loading data elements from '" + dataElementsFile + "'");
-            GNEDataHandler dataHandler(myNet, dataElementsFile, true);
-            // disable validation for data elements
-            XMLSubSys::setValidation("never", "auto", "auto");
-            if (!dataHandler.parse()) {
-                WRITE_ERROR("Loading of " + dataElementsFile + " failed.");
-            } else {
-                // set first dataElementsFiles as default file
-                oc.resetWritable();
-                oc.set("data-files", dataElementsFile);
-            }
-            // disable validation for data elements
-            XMLSubSys::setValidation("auto", "auto", "auto");
-            // enable demand elements if there is an error creating element
-            if (dataHandler.isErrorCreatingElement()) {
-                myNet->requireSaveDataElements(true);
-            } else {
-                myNet->requireSaveDataElements(false);
-            }
-        }
-        // end undolist
-        myUndoList->end();
-        // enable update data
-        myViewNet->getNet()->enableUpdateData();
-    }
-}
-
-
-void
-GNEApplicationWindow::loadMeanDataElementsAtStart(OptionsCont& oc) {
-    if (oc.isSet("meandata-files") && !oc.getString("meandata-files").empty() && myNet) {
-        // obtain vector of meanData files
-        std::vector<std::string> meanDataElementsFiles = oc.getStringVector("meandata-files");
-        // begin undolist
-        myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, "loading meanData elements from '" + toString(meanDataElementsFiles) + "'");
-        // disable save meanData elements (because meanData elements were loaded through console)
-        myNet->requireSaveMeanDatas(false);
-        // iterate over every meanData file
-        for (const auto& meanDataElementsFile : meanDataElementsFiles) {
-            WRITE_MESSAGE("Loading meanData elements from '" + meanDataElementsFile + "'");
-            GNEMeanDataHandler meanDataHandler(myNet, meanDataElementsFile, true);
-            // disable validation for meanData elements
-            XMLSubSys::setValidation("never", "auto", "auto");
-            if (!meanDataHandler.parse()) {
-                WRITE_ERROR("Loading of " + meanDataElementsFile + " failed.");
-            } else {
-                // set first meanDataElementsFiles as default file
-                oc.resetWritable();
-                oc.set("meandata-files", meanDataElementsFile);
-            }
-            // disable validation for meanData elements
-            XMLSubSys::setValidation("auto", "auto", "auto");
-            // enable demand elements if there is an error creating element
-            if (meanDataHandler.isErrorCreatingElement()) {
-                myNet->requireSaveMeanDatas(true);
-            } else {
-                myNet->requireSaveMeanDatas(false);
-            }
-        }
-        // end undolist
-        myUndoList->end();
-    }
 }
 
 
@@ -5068,6 +4899,166 @@ GNEApplicationWindow::clearUndoList() {
 const GNEApplicationWindowHelper::ProcessingMenuCommands&
 GNEApplicationWindow::getProcessingMenuCommands() const {
     return myProcessingMenuCommands;
+}
+
+
+OptionsCont&
+GNEApplicationWindow::getSUMOOptions() {
+    return mySUMOOptions;
+}
+
+
+void
+GNEApplicationWindow::loadAdditionalElements(const std::vector<std::string> additionalFiles) {
+    if (myNet && (additionalFiles.size() > 0)) {
+        // begin undolist
+        myUndoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, "loading additionals and shapes from '" + toString(additionalFiles) + "'");
+        // flag for check if there is error creating elements
+        bool errorCreatingElement = false;
+        // iterate over every additional file
+        for (const auto& additionalFile : additionalFiles) {
+            WRITE_MESSAGE("loading additionals and shapes from '" + additionalFile + "'");
+            // declare general handler
+            GNEGeneralHandler handler(myNet, additionalFile, true, false);
+            // disable validation for additionals
+            XMLSubSys::setValidation("never", "auto", "auto");
+            // Run parser
+            if (!handler.parse()) {
+                WRITE_ERROR("Loading of " + additionalFile + " failed.");
+            } else {
+                // set additional-files
+                OptionsCont::getOptions().resetWritable();
+                OptionsCont::getOptions().set("additional-files", additionalFile);
+            }
+            // disable validation for additionals
+            XMLSubSys::setValidation("auto", "auto", "auto");
+            // enable demand elements if there is an error creating element
+            if (handler.isErrorCreatingElement()) {
+                errorCreatingElement = true;
+            }
+        }
+        // check if enable save demand elements
+        if (errorCreatingElement) {
+            myNet->requireSaveAdditionals(true);
+        } else {
+            myNet->requireSaveAdditionals(false);
+        }
+        // end undo list
+        myUndoList->end();
+    }
+}
+
+
+void
+GNEApplicationWindow::loadDemandElements(const std::vector<std::string> demandElementsFiles) {
+    if (myNet && (demandElementsFiles.size() > 0)) {
+        // begin undolist
+        myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, "loading demand elements from '" + toString(demandElementsFiles) + "'");
+        // flag for check if there is error creating elements
+        bool errorCreatingElement = false;
+        // iterate over every route file
+        for (const auto& demandElementsFile : demandElementsFiles) {
+            WRITE_MESSAGE("Loading demand elements from '" + demandElementsFile + "'");
+            GNEGeneralHandler handler(myNet, demandElementsFile, true, false);
+            // disable validation for demand elements
+            XMLSubSys::setValidation("never", "auto", "auto");
+            if (!handler.parse()) {
+                WRITE_ERROR("Loading of " + demandElementsFile + " failed.");
+            } else {
+                // set first demandElementsFiles as default file
+                OptionsCont::getOptions().resetWritable();
+                OptionsCont::getOptions().set("route-files", demandElementsFile);
+            }
+            // disable validation for demand elements
+            XMLSubSys::setValidation("auto", "auto", "auto");
+            // enable demand elements if there is an error creating element
+            if (handler.isErrorCreatingElement()) {
+                errorCreatingElement = true;
+            }
+        }
+        // check if enable save demand elements
+        if (errorCreatingElement) {
+            myNet->requireSaveDemandElements(true);
+        } else {
+            myNet->requireSaveDemandElements(false);
+        }
+        // end undo list
+        myUndoList->end();
+    }
+}
+
+
+void
+GNEApplicationWindow::loadDataElements(const std::vector<std::string> dataElementsFiles) {
+    if (myNet && (dataElementsFiles.size() > 0)) {
+        // disable update data
+        myViewNet->getNet()->disableUpdateData();
+        // begin undolist
+        myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, "loading data elements from '" + toString(dataElementsFiles) + "'");
+        // disable save data elements (because data elements were loaded through console)
+        myNet->requireSaveDataElements(false);
+        // iterate over every data file
+        for (const auto& dataElementsFile : dataElementsFiles) {
+            WRITE_MESSAGE("Loading data elements from '" + dataElementsFile + "'");
+            GNEDataHandler dataHandler(myNet, dataElementsFile, true);
+            // disable validation for data elements
+            XMLSubSys::setValidation("never", "auto", "auto");
+            if (!dataHandler.parse()) {
+                WRITE_ERROR("Loading of " + dataElementsFile + " failed.");
+            } else {
+                // set first dataElementsFiles as default file
+                OptionsCont::getOptions().resetWritable();
+                OptionsCont::getOptions().set("data-files", dataElementsFile);
+            }
+            // disable validation for data elements
+            XMLSubSys::setValidation("auto", "auto", "auto");
+            // enable demand elements if there is an error creating element
+            if (dataHandler.isErrorCreatingElement()) {
+                myNet->requireSaveDataElements(true);
+            } else {
+                myNet->requireSaveDataElements(false);
+            }
+        }
+        // end undolist
+        myUndoList->end();
+        // enable update data
+        myViewNet->getNet()->enableUpdateData();
+    }
+}
+
+
+void
+GNEApplicationWindow::loadMeanDataElements(const std::vector<std::string> meanDataElementsFiles) {
+    if (myNet && (meanDataElementsFiles.size() > 0)) {
+        // begin undolist
+        myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, "loading meanData elements from '" + toString(meanDataElementsFiles) + "'");
+        // disable save meanData elements (because meanData elements were loaded through console)
+        myNet->requireSaveMeanDatas(false);
+        // iterate over every meanData file
+        for (const auto& meanDataElementsFile : meanDataElementsFiles) {
+            WRITE_MESSAGE("Loading meanData elements from '" + meanDataElementsFile + "'");
+            GNEGeneralHandler handler(myNet, meanDataElementsFile, true, false);
+            // disable validation for meanData elements
+            XMLSubSys::setValidation("never", "auto", "auto");
+            if (!handler.parse()) {
+                WRITE_ERROR("Loading of " + meanDataElementsFile + " failed.");
+            } else {
+                // set first meanDataElementsFiles as default file
+                OptionsCont::getOptions().resetWritable();
+                OptionsCont::getOptions().set("meandata-files", meanDataElementsFile);
+            }
+            // disable validation for meanData elements
+            XMLSubSys::setValidation("auto", "auto", "auto");
+            // enable demand elements if there is an error creating element
+            if (handler.isErrorCreatingElement()) {
+                myNet->requireSaveMeanDatas(true);
+            } else {
+                myNet->requireSaveMeanDatas(false);
+            }
+        }
+        // end undolist
+        myUndoList->end();
+    }
 }
 
 // ---------------------------------------------------------------------------

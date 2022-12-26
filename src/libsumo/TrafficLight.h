@@ -100,6 +100,8 @@ private:
     static std::vector<libsumo::TraCISignalConstraint> findConstraintsDeadLocks(const std::string& foeId, const std::string& tripId, const std::string& foeSignal, const std::string& tlsID);
     static SUMOVehicle* getVehicleByTripId(const std::string tripOrVehID);
     static std::vector<std::string> getFutureTripIds(const std::string vehID);
+    static void swapParameters(MSRailSignalConstraint* c);
+    static void swapParameters(MSRailSignalConstraint* c, const std::string& key1, const std::string& key2);
 
 private:
     static SubscriptionResults mySubscriptionResults;

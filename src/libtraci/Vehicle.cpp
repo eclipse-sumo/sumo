@@ -101,6 +101,18 @@ Vehicle::getRoadID(const std::string& vehID) {
 }
 
 
+double
+Vehicle::getDeparture(const std::string& vehID) {
+    return Dom::getDouble(libsumo::VAR_DEPARTURE, vehID);
+}
+
+
+double
+Vehicle::getDepartDelay(const std::string& vehID) {
+    return Dom::getDouble(libsumo::VAR_DEPART_DELAY, vehID);
+}
+
+
 std::string
 Vehicle::getLaneID(const std::string& vehID) {
     return Dom::getString(libsumo::VAR_LANE_ID, vehID);
@@ -195,6 +207,13 @@ int
 Vehicle::getPersonCapacity(const std::string& vehID) {
     return Dom::getInt(libsumo::VAR_PERSON_CAPACITY, vehID);
 }
+
+
+double
+Vehicle::getBoardingDuration(const std::string& vehID) {
+    return Dom::getDouble(libsumo::VAR_BOARDING_DURATION, vehID);
+}
+
 
 std::vector<std::string>
 Vehicle::getPersonIDList(const std::string& vehID) {
@@ -552,6 +571,16 @@ Vehicle::getTaxiFleet(int taxiState) {
     tcpip::Storage content;
     StoHelp::writeTypedInt(content, taxiState);
     return Dom::getStringVector(libsumo::VAR_TAXI_FLEET, "", &content);
+}
+
+std::vector<std::string>
+Vehicle::getLoadedIDList() {
+    return Dom::getStringVector(libsumo::VAR_LOADED_LIST, "");
+}
+
+std::vector<std::string>
+Vehicle::getTeleportingIDList() {
+    return Dom::getStringVector(libsumo::VAR_TELEPORTING_LIST, "");
 }
 
 std::string

@@ -668,6 +668,34 @@ GUIOSGBuilder::buildMovable(const MSVehicleType& type) {
     return m;
 }
 
+
+osg::Node* 
+GUIOSGBuilder::buildPlane(double length) {    
+    osg::Geode* geode = new osg::Geode();
+    osg::Geometry* geom = new osg::Geometry;
+    geode->addDrawable(geom);
+    osg::Vec3Array* coords = new osg::Vec3Array(4);
+    geom->setVertexArray(coords);
+    (*coords)[0].set(.5*length, .5*length, -0.1);
+    (*coords)[1].set(.5*length, -.5*length, -0.1);
+    (*coords)[2].set(-.5*length, -.5*length, -0.1);
+    (*coords)[3].set(-.5*length, .5*length, -0.1);
+    osg::Vec3Array* normals = new osg::Vec3Array(1);
+    (*normals)[0].set(0, 0, 1);
+    geom->setNormalArray(normals, osg::Array::BIND_PER_PRIMITIVE_SET);
+    osg::Vec4ubArray* colors = new osg::Vec4ubArray(1);
+    (*colors)[0].set(0, 255, 0, 255);
+    geom->setColorArray(colors, osg::Array::BIND_OVERALL);
+    geom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::POLYGON, 0, 4));
+
+    osg::ref_ptr<osg::StateSet> ss = geode->getOrCreateStateSet();
+    ss->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
+    ss->setMode(GL_BLEND, osg::StateAttribute::OVERRIDE | osg::StateAttribute::PROTECTED | osg::StateAttribute::ON);
+
+    return geom;
+}
+
+
 #endif
 
 /****************************************************************************/

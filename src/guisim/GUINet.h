@@ -354,6 +354,9 @@ public:
     /// @brief register custom hotkey action
     void addHotkey(int key, Command* press, Command* release = nullptr);
 
+    /// @brief flush outputs once the simulation has reached its end
+    void flushOutputsAtEnd();
+
 private:
     /// @brief Initialises the tl-logic map and wrappers
     void initTLMap();

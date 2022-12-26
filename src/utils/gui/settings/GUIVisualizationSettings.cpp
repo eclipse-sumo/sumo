@@ -75,6 +75,7 @@ const RGBColor GUIVisualizationCandidateColorSettings::source(0, 255, 255, 255);
 const RGBColor GUIVisualizationCandidateColorSettings::target(0, 255, 0, 255);      // Green
 const RGBColor GUIVisualizationCandidateColorSettings::special(255, 0, 255, 255);   // Magenta
 const RGBColor GUIVisualizationCandidateColorSettings::conflict(255, 255, 0, 255);  // Yellow
+const RGBColor GUIVisualizationCandidateColorSettings::invalid(128, 128, 128, 255);  // Yellow
 
 // -------------------------------------------------------------------------
 // Netedit size values
@@ -551,6 +552,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     showBTRange(false),
     showRouteIndex(false),
     scaleLength(true),
+    drawReversed(false),
     showParkingInfo(false),
     vehicleSize(1),
     vehicleName(false, 60, RGBColor(204, 153, 0, 255)),
@@ -596,6 +598,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     show3DTLSLinkMarkers(true),
     show3DTLSDomes(true),
     generate3DTLSModels(false),
+    show3DHeadUpDisplay(true),
     ambient3DLight(OSG_color_AMBIENT),
     diffuse3DLight(OSG_color_DIFFUSE),
     skyColor(OSG_color_SKY),
@@ -1764,6 +1767,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("showBTRange", showBTRange);
     dev.writeAttr("showRouteIndex", showRouteIndex);
     dev.writeAttr("scaleLength", scaleLength);
+    dev.writeAttr("drawReversed", drawReversed);
     dev.writeAttr("showParkingInfo", showParkingInfo);
     dev.lf();
     dev << "                 ";
@@ -1905,6 +1909,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.openTag(SUMO_TAG_VIEWSETTINGS_3D);
     dev.writeAttr("show3DTLSLinkMarkers", show3DTLSLinkMarkers);
     dev.writeAttr("show3DTLSDomes", show3DTLSDomes);
+    dev.writeAttr("show3DHeadUpDisplay", show3DHeadUpDisplay);
     dev.writeAttr("generate3DTLSModels", generate3DTLSModels);
     dev.writeAttr("ambient3DLight", ambient3DLight);
     dev.writeAttr("diffuse3DLight", diffuse3DLight);
@@ -1926,6 +1931,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (show3DTLSLinkMarkers != v2.show3DTLSLinkMarkers) {
+        return false;
+    }
+    if (show3DHeadUpDisplay != v2.show3DHeadUpDisplay) {
         return false;
     }
     if (generate3DTLSModels != v2.generate3DTLSModels) {
@@ -2104,6 +2112,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (scaleLength != v2.scaleLength) {
+        return false;
+    }
+    if (drawReversed != v2.drawReversed) {
         return false;
     }
     if (showParkingInfo != v2.showParkingInfo) {

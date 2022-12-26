@@ -30,7 +30,7 @@ chargingStations_output
 chargingStations_output_subseconds
 
 # Vehicle with a different stoppingTreshold taking different chargingStations, every with a different configuration 
-stoppingTreshold
+stoppingThreshold
 
 # test parameter for influencing recuperation by deceleration level
 recuperateByDecel

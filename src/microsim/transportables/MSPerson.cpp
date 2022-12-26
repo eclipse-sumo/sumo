@@ -441,7 +441,7 @@ MSPerson::MSPersonStage_Access::MSPersonStage_Access(const MSEdge* destination, 
     MSStage(destination, toStop, arrivalPos, MSStageType::ACCESS),
     myDist(dist), myAmExit(isExit) {
     myPath.push_back(destination->getLanes()[0]->geometryPositionAtOffset(myDestinationStop->getAccessPos(destination)));
-    myPath.push_back(toStop->getLane().geometryPositionAtOffset((toStop->getEndLanePosition() + toStop->getBeginLanePosition()) / 2));
+    myPath.push_back(toStop->getCenterPos());
     if (isExit) {
         myPath = myPath.reverse();
     }

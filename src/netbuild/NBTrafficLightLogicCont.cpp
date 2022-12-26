@@ -164,7 +164,21 @@ NBTrafficLightLogicCont::computeLogics(OptionsCont& oc) {
         delete *it;
     }
     myComputed.clear();
-
+    if (oc.getBool("tls.rebuild")) {
+        for (NBTrafficLightDefinition* def : getDefinitions()) {
+            NBLoadedSUMOTLDef* lDef = dynamic_cast<NBLoadedSUMOTLDef*>(def);
+            if (lDef != nullptr) {
+                NBOwnTLDef* oDef = new NBOwnTLDef(def->getID(), def->getNodes(), def->getOffset(), def->getType()); 
+                oDef->setProgramID(def->getProgramID());
+                oDef->setParticipantsInformation();
+                for (NBNode* node : oDef->getNodes()) {
+                    node->removeTrafficLight(def);
+                }
+                removeProgram(def->getID(), def->getProgramID());
+                insert(oDef);
+            }
+        }
+    }
     if (oc.getBool("tls.group-signals")) {
         // replace NBOwnTLDef tld with NBLoadedSUMOTLDef
         for (NBTrafficLightDefinition* def : getDefinitions()) {
@@ -180,6 +194,7 @@ NBTrafficLightLogicCont::computeLogics(OptionsCont& oc) {
                     }
                     removeProgram(def->getID(), def->getProgramID());
                     insert(lDef);
+                    delete logic;
                 }
             }
             if (lDef != nullptr) {

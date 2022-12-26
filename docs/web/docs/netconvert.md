@@ -471,6 +471,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--osm.lane-access** {{DT_BOOL}} | Import lane-specific access restrictions; *default:* **false** |
 | **--osm.bike-access** {{DT_BOOL}} | Check additional attributes to fix directions and permissions on bike paths; *default:* **false** |
 | **--osm.sidewalks** {{DT_BOOL}} | Import sidewalks; *default:* **false** |
+| **--osm.crosswalks** {{DT_BOOL}} | Import crosswalks; *default:* **false** |
 | **--osm.turn-lanes** {{DT_BOOL}} | Import turning arrows from OSM to help with connection building; *default:* **false** |
 | **--osm.stop-output.length** {{DT_FLOAT}} | The default length of a public transport stop in FLOAT m; *default:* **25** |
 | **--osm.stop-output.length.bus** {{DT_FLOAT}} | The default length of a bus stop in FLOAT m; *default:* **15** |

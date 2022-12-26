@@ -105,6 +105,9 @@ public:
     /// @brief Called if the cursor geo-position shall be copied to clipboard
     long onCmdCopyCursorGeoPosition(FXObject*, FXSelector, void*);
 
+    /// @brief Called if the current geo-boundary shall be copied to clipboard
+    long onCmdCopyViewGeoBoundary(FXObject*, FXSelector, void*);
+
     /// @brief Called if the cursor geo-position shall be shown online
     long onCmdShowCursorGeoPositionOnline(FXObject*, FXSelector, void*);
 

@@ -46,6 +46,7 @@
 #include <osg/Light>
 #include <osg/LightSource>
 #include <osg/Material>
+#include <osg/MatrixTransform>
 #include <osg/Node>
 #include <osg/PositionAttitudeTransform>
 #include <osg/Sequence>
@@ -57,12 +58,17 @@
 #include <osg/ref_ptr>
 #include <osgDB/ReadFile>
 #include <osgDB/WriteFile>
-#include <osgGA/NodeTrackerManipulator>
+#include <osgGA/FirstPersonManipulator>
+#include <osgGA/KeySwitchMatrixManipulator>
+//#include <osgGA/NodeTrackerManipulator>
+#include <osgGA/StandardManipulator>
 #include <osgGA/TerrainManipulator>
-#include <osgGA/TrackballManipulator>
+//#include <osgGA/TrackballManipulator>
+#include <osgText/FadeText>
 #include <osgUtil/Tessellator>
 #include <osgUtil/SmoothingVisitor>
 #include <osgViewer/Viewer>
+#include <osgViewer/CompositeViewer>
 #include <osgViewer/ViewerEventHandlers>
 
 // pop MSVC warnings

@@ -508,7 +508,7 @@ public:
     /** @brief Tries to insert the given vehicle into the network
      *
      * The procedure for choosing the proper lane is determined, first.
-     *  In dependance to this, the proper lane is chosen.
+     *  In dependence to this, the proper lane is chosen.
      *
      * Insertion itself is done by calling the chose lane's "insertVehicle"
      *  method but only if the checkOnly argument is false. The check needs

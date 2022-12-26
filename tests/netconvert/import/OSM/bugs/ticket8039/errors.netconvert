@@ -1,7 +1,7 @@
-Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.residential' (first occurence for edge '10425555').
-Warning: Discarding unknown compound 'railway.platform' in type 'highway.path|railway.platform' (first occurence for edge '32548182').
-Warning: Discarding unusable type 'railway.platform' (first occurence for edge '32548183').
-Warning: Discarding unusable type 'highway.bus_stop' (first occurence for edge '595002487').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.residential' (first occurrence for edge '10425555').
+Warning: Discarding unknown compound 'railway.platform' in type 'highway.path|railway.platform' (first occurrence for edge '32548182').
+Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '32548183').
+Warning: Discarding unusable type 'highway.bus_stop' (first occurrence for edge '595002487').
 Warning: Removing pt stop '250749715' on non existing edge '53650436#0'.
 Warning: Removing pt stop '4539421794' on non existing edge '23187673#1'.
 Warning: PT line 'Bus 414: Heideblick => Stadion (Schwarzer Berg)' in relation 76955 seems to be split, only keeping first part.

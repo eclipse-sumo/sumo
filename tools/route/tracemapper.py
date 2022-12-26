@@ -21,7 +21,6 @@ from __future__ import print_function
 from __future__ import absolute_import
 import os
 import sys
-from optparse import OptionParser
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 import sumolib  # noqa
@@ -39,10 +38,14 @@ def readPOI(traceFile, net):
 
 
 def readFCD(traceFile, net, geo):
+    """Reads traces from a file in SUMO's fcd-output format.
+    The file needs to be sorted by vehicle id rather than by time!"""
     trace = []
     last = None
     for v in sumolib.xml.parse_fast(traceFile, "vehicle", ("id", "x", "y")):
-        if trace and last != v.id:
+        if last is None:
+            last = v.id
+        if last != v.id:
             yield last, trace
             trace = []
             last = v.id
@@ -65,19 +68,17 @@ def readLines(traceFile, net, geo):
 
 
 if __name__ == "__main__":
-    optParser = OptionParser()
+    optParser = sumolib.options.ArgumentParser()
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="tell me what you are doing")
-    optParser.add_option("-n", "--net",
-                         help="SUMO network to use (mandatory)", metavar="FILE")
+    optParser.add_option("-n", "--net", help="SUMO network to use", metavar="FILE", required=True)
     optParser.add_option("-t", "--trace",
-                         help="trace files to use (mandatory), separated by comma", metavar="FILE")
-    optParser.add_option("-d", "--delta", default=1,
-                         type="float", help="maximum distance between edge and trace points")
-    optParser.add_option("-a", "--air-dist-factor", default=2, type="float",
+                         help="trace files to use, separated by comma", metavar="FILE", required=True)
+    optParser.add_option("-d", "--delta", default=1., type=float,
+                         help="maximum distance between edge and trace points")
+    optParser.add_option("-a", "--air-dist-factor", default=2., type=float,
                          help="maximum factor between airline and route distance between successive trace points")
-    optParser.add_option("-o", "--output",
-                         help="route output (mandatory)", metavar="FILE")
+    optParser.add_option("-o", "--output", help="route output", metavar="FILE", required=True)
     optParser.add_option("-p", "--poi-output",
                          help="generate POI output for the trace", metavar="FILE")
     optParser.add_option("-y", "--polygon-output",
@@ -87,24 +88,21 @@ if __name__ == "__main__":
     optParser.add_option("--direction", action="store_true",
                          default=False, help="try to use direction of consecutive points when mapping")
     optParser.add_option("--vehicle-class", default=None,
-                         help="filters the edges by the vehicle class the route is meant for")    
+                         help="filters the edges by the vehicle class the route is meant for")
     optParser.add_option("--fill-gaps", default=0., type=float,
                          help="repair disconnected routes bridging gaps of up to x meters")
-    optParser.add_option("-g", "--gap-penalty", default=-1, type="float",
+    optParser.add_option("-g", "--gap-penalty", default=-1, type=float,
                          help="penalty to add for disconnected routes " +
                               "(default of -1 adds the distance between the two endpoints as penalty)")
     optParser.add_option("--internal", action="store_true",
                          default=False, help="include internal edges in generated shapes")
-    optParser.add_option("--spread", type="float", help="spread polygons laterally to avoid overlap")
-    optParser.add_option("--blur", type="float",
+    optParser.add_option("--spread", type=float, help="spread polygons laterally to avoid overlap")
+    optParser.add_option("--blur", type=float,
                          default=0, help="maximum random disturbance to route geometry")
     optParser.add_option("-l", "--layer", default=100, help="layer for generated polygons")
     optParser.add_option("-b", "--debug", action="store_true",
                          default=False, help="print out the debugging messages")
-    (options, args) = optParser.parse_args()
-
-    if not options.output or not options.net:
-        optParser.exit("missing input or output")
+    options = optParser.parse_args()
 
     if options.verbose:
         print("Reading net ...")

@@ -5,6 +5,7 @@ static const char * yellow_edge_xpm[] = {
 ".	c Black",
 "X	c Gray50",
 "o	c Yellow",
+/* pixels */
 " ...            ",
 ".XXX.           ",
 ".XXX.           ",
@@ -20,4 +21,5 @@ static const char * yellow_edge_xpm[] = {
 "          ..XXX.",
 "           .XXX.",
 "           .XXX.",
-"            ... "};
+"            ... "
+};

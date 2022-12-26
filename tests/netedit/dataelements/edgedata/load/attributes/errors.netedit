@@ -14,7 +14,7 @@ GLDebug: 	Inserted edge:gneE15 into SUMORTree with boundary 30.00,22.00,90.00,50
 GLDebug: 	Inserted edge:gneE16 into SUMORTree with boundary 22.00,-10.00,50.00,50.00
 Debug: Adding dataSet 'dataSetB' in GNEChange_DataSet
 Debug: adding dataInterval [0.00, 3600.00] in GNEChange_DataInterval
-Debug: Adding edgeData 'dataSetB[0.00,3600.00]:gneE13' in GNEChange_GenericData
+Debug: Adding edgeRelSingle 'dataSetB[0.00,3600.00]:gneE13' in GNEChange_GenericData
 Debug: data sets saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ10 from SUMORTree with boundary 28.00,68.00,52.00,92.00
@@ -67,7 +67,7 @@ Debug: Created connection 'fromgneE12_1togneE16_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE12_2togneE16_2' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE12_2togneE15_2' in retrieveGNEConnection()
 Debug: network elements saved
-Debug: Deleting unreferenced edgeData
+Debug: Deleting unreferenced edgeRelSingle
 Debug: Deleting unreferenced dataInterval [0.00, 3600.00] in ~GNEChange_DataInterval()
 Debug: Deleting unreferenced dataSet 'dataSetB'
 Debug: Deleting unreferenced edge '-gneE14' in AttributeCarriers destructor

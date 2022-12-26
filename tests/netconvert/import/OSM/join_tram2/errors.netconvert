@@ -1,10 +1,9 @@
 Warning: Ignoring track count 2 for edge '42821103'.
 Warning: Ignoring track count 2 for edge '309119321'.
-Warning: Discarding unknown compound 'cycleway.opposite' in type 'cycleway.opposite|highway.residential' (first occurence for edge '18961778').
-Warning: Discarding unusable type 'highway.bus_stop' (first occurence for edge '51353825').
-Warning: Discarding unusable type 'railway.platform' (first occurence for edge '51353828').
-Warning: Discarding unusable type 'railway.abandoned' (first occurence for edge '579326821').
-Warning: Discarding unusable type 'highway.proposed' (first occurence for edge '743594483').
+Warning: Discarding unusable type 'highway.bus_stop' (first occurrence for edge '51353825').
+Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '51353828').
+Warning: Discarding unusable type 'railway.abandoned' (first occurrence for edge '579326821').
+Warning: Discarding unusable type 'highway.proposed' (first occurrence for edge '743594483').
 Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '270105899' (Altstadtmarkt). Thus, it will be removed!
 Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '4397192313' (Altstadtmarkt). Thus, it will be removed!
 Warning: Not joining tram edge '316682910#0' with 2 lanes.

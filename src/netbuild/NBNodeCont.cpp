@@ -77,11 +77,6 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NBNodeCont::NBNodeCont()
-    : myInternalID(1) {
-}
-
-
 NBNodeCont::~NBNodeCont() {
     clear();
 }
@@ -1400,13 +1395,13 @@ NBNodeCont::feasibleCluster(const NodeSet& cluster, const std::map<const NBNode*
     for (NBNode* n : cluster) {
         if (DEBUGCOND(n)) {
             std::cout << "feasibleCluster c=" << joinNamedToString(cluster, ',')
-                      << "\n inAngles=" << joinToString(finalIncomingAngles, ' ', ':')
-                      << "\n outAngles=" << joinToString(finalOutgoingAngles, ' ', ':')
+                      << "\n inAngles=" << joinNamedToString(finalIncomingAngles, ' ', ':')
+                      << "\n outAngles=" << joinNamedToString(finalOutgoingAngles, ' ', ':')
                       << "\n";
         }
     }
 #endif
-    if (finalIncomingAngles.size() > 4) {
+    if (finalIncomingAngles.size() > 5) {
         reason = toString(finalIncomingAngles.size()) + " incoming edges";
         return false;
     }
@@ -1478,18 +1473,18 @@ NBNodeCont::feasibleCluster(const NodeSet& cluster, const std::map<const NBNode*
     // prevent removal of long edges unless there is weak circle or a traffic light
     if (cluster.size() > 2) {
         // find the nodes with the biggests physical distance between them
-        double maxDist = -1;
+        double maxLength = -1;
         NBEdge* maxEdge = nullptr;
         for (NBNode* n1 : cluster) {
             for (NBNode* n2 : cluster) {
                 NBEdge* e1 = n1->getConnectionTo(n2);
                 NBEdge* e2 = n2->getConnectionTo(n1);
-                if (e1 != nullptr && e1->getLoadedLength() > maxDist) {
-                    maxDist = e1->getLoadedLength();
+                if (e1 != nullptr && e1->getLoadedLength() > maxLength) {
+                    maxLength = e1->getLoadedLength();
                     maxEdge = e1;
                 }
-                if (e2 != nullptr && e2->getLoadedLength() > maxDist) {
-                    maxDist = e2->getLoadedLength();
+                if (e2 != nullptr && e2->getLoadedLength() > maxLength) {
+                    maxLength = e2->getLoadedLength();
                     maxEdge = e2;
                 }
             }
@@ -1497,11 +1492,11 @@ NBNodeCont::feasibleCluster(const NodeSet& cluster, const std::map<const NBNode*
 #ifdef DEBUG_JOINJUNCTIONS
         for (NBNode* n : cluster) {
             if (DEBUGCOND(n)) {
-                std::cout << "feasible hasTLS=" << hasTLS << " maxDist=" << maxDist << " maxEdge=" << maxEdge->getID() << "\n";
+                std::cout << "feasible hasTLS=" << hasTLS << " maxLength=" << maxLength << " maxEdge=" << maxEdge->getID() << "\n";
             }
         }
 #endif
-        if (!hasTLS && maxDist > 5) {
+        if (!hasTLS && maxLength > 5) {
             // find a weak circle within cluster that does not use maxEdge
             std::vector<NBNode*> toCheck;
             std::set<NBNode*> visited;
@@ -1525,7 +1520,7 @@ NBNodeCont::feasibleCluster(const NodeSet& cluster, const std::map<const NBNode*
                 }
             }
             if (!foundCircle) {
-                reason = "not compact (maxEdge=" + maxEdge->getID() + " length=" + toString(maxDist) + ")";
+                reason = "not compact (maxEdge=" + maxEdge->getID() + " length=" + toString(maxLength) + ")";
                 return false;
             }
         }
@@ -2088,6 +2083,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
         }
 
         // check which nodes should be controlled
+        const int slack = oc.getInt("tls.guess-signals.slack");
         for (std::map<std::string, NBNode*>::const_iterator i = myNodes.begin(); i != myNodes.end(); ++i) {
             NBNode* node = i->second;
             if (myUnsetTLS.count(node) != 0) {
@@ -2099,35 +2095,49 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
                     && !NBNodeTypeComputer::isRailwayNode(node)
                     && node->getType() != SumoXMLNodeType::RAIL_CROSSING) {
                 std::vector<const NBNode*> signals;
-                bool isTLS = true;
+                int foundSignals = 0;
+                int missingSignals = 0;
                 // check if there is a signal at every incoming edge
                 for (EdgeVector::const_iterator it_i = incoming.begin(); it_i != incoming.end(); ++it_i) {
                     const NBEdge* inEdge = *it_i;
-                    if (inEdge->getSignalOffset() == NBEdge::UNSPECIFIED_SIGNAL_OFFSET && inEdge->getPermissions() != SVC_TRAM) {
+                    if (inEdge->getSignalOffset() == NBEdge::UNSPECIFIED_SIGNAL_OFFSET) {
+                        if ((inEdge->getPermissions() & SVC_PASSENGER) != 0) {
 #ifdef DEBUG_GUESSSIGNALS
-                        if (DEBUGCOND(node)) {
-                            std::cout << " noTLS, edge=" << inEdge->getID() << "\n";
-                        }
+                            if (DEBUGCOND(node)) {
+                                std::cout << " noTLS, edge=" << inEdge->getID() << "\n";
+                            }
 #endif
-                        isTLS = false;
-                        break;
+                            missingSignals++;
+                            if (missingSignals > slack) {
+                                break;
+                            }
+                        }
+                    } else {
+                        foundSignals++;
                     }
                 }
-                if (isTLS) {
+                missingSignals = 0;
+                int foundSignalsAtDist = 0;
+                if (foundSignals > 1 && missingSignals <= slack && missingSignals < foundSignals) {
                     node->updateSurroundingGeometry();
                     // check if all signals are within the required distance
                     // (requires detailed geometry computation)
                     for (EdgeVector::const_iterator it_i = incoming.begin(); it_i != incoming.end(); ++it_i) {
                         const NBEdge* inEdge = *it_i;
-                        if ((inEdge->getSignalOffset() == NBEdge::UNSPECIFIED_SIGNAL_OFFSET || inEdge->getSignalOffset() > signalDist)
-                                && inEdge->getPermissions() != SVC_TRAM) {
+                        if (inEdge->getSignalOffset() == NBEdge::UNSPECIFIED_SIGNAL_OFFSET || inEdge->getSignalOffset() > signalDist) {
+                            if ((inEdge->getPermissions() & SVC_PASSENGER) != 0) {
 #ifdef DEBUG_GUESSSIGNALS
-                            if (DEBUGCOND(node)) {
-                                std::cout << " noTLS, edge=" << inEdge->getID() << " offset=" << inEdge->getSignalOffset() << " tlsPos=" << inEdge->getSignalPosition() << "\n";
-                            }
+                                if (DEBUGCOND(node)) {
+                                    std::cout << " noTLS, edge=" << inEdge->getID() << " offset=" << inEdge->getSignalOffset() << " tlsPos=" << inEdge->getSignalPosition() << "\n";
+                                }
 #endif
-                            isTLS = false;
-                            break;
+                                missingSignals++;
+                                if (missingSignals > slack) {
+                                    break;
+                                }
+                            }
+                        } else {
+                            foundSignalsAtDist++;
                         }
                         const NBNode* signal = inEdge->getSignalNode();
                         if (signal != nullptr) {
@@ -2148,7 +2158,7 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
                         }
                     }
                 }
-                if (isTLS) {
+                if (foundSignalsAtDist > 1 && missingSignals <= slack && missingSignals < foundSignalsAtDist) {
                     for (const NBNode* s : signals) {
                         std::set<NBTrafficLightDefinition*> tls = s->getControllingTLS();
                         const_cast<NBNode*>(s)->reinit(s->getPosition(), SumoXMLNodeType::PRIORITY);

@@ -136,6 +136,14 @@ OutputDevice::getDeviceByOption(const std::string& optionName) {
 
 
 void
+OutputDevice::flushAll() {
+    for (auto item : myOutputDevices) {
+        item.second->flush();
+    }
+}
+
+
+void
 OutputDevice::closeAll(bool keepErrorRetrievers) {
     std::vector<OutputDevice*> errorDevices;
     std::vector<OutputDevice*> nonErrorDevices;

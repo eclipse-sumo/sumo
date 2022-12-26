@@ -230,7 +230,7 @@ NBTrafficLightLogic::closeBuilding(bool checkVarDurations) {
                 }
             }
             if (!found) {
-                WRITE_WARNING("Non-static traffic light '" + getID() + "' does not define variable phase length.");
+                WRITE_WARNINGF(TL("Non-static traffic light '%' does not define variable phase length."), getID());
             }
         }
     }

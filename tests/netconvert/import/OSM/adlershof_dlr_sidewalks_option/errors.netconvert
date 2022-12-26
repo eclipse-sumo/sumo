@@ -1,12 +1,12 @@
-Warning: Discarding unusable type 'waterway.riverbank' (first occurence for edge '4616435').
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.secondary' (first occurence for edge '24214694').
-Warning: Discarding unusable type 'waterway.canal' (first occurence for edge '31233332').
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.tertiary' (first occurence for edge '46039050').
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.residential' (first occurence for edge '52460499').
-Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.unclassified' (first occurence for edge '81096583').
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.unclassified' (first occurence for edge '135777010').
-Warning: Discarding unusable type 'highway.construction' (first occurence for edge '190461577').
-Warning: Discarding unusable type 'railway.abandoned' (first occurence for edge '219832513').
+Warning: Discarding unusable type 'waterway.riverbank' (first occurrence for edge '4616435').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.secondary' (first occurrence for edge '24214694').
+Warning: Discarding unusable type 'waterway.canal' (first occurrence for edge '31233332').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.tertiary' (first occurrence for edge '46039050').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.residential' (first occurrence for edge '52460499').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.unclassified' (first occurrence for edge '81096583').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.unclassified' (first occurrence for edge '135777010').
+Warning: Discarding unusable type 'highway.construction' (first occurrence for edge '190461577').
+Warning: Discarding unusable type 'railway.abandoned' (first occurrence for edge '219832513').
 Warning: PT line 'Buslinie N60: Flughafen Schönefeld Terminal => S Adlershof' in relation 35040 seems to be split, only keeping first part.
 Warning: PT line 'Buslinie 164: S Flughafen Berlin-Schönefeld => S Kaulsdorf' in relation 228027 seems to be split, only keeping first part.
 Warning: PT line 'Buslinie 160: Hasselwerderstraße => Siriusstraße' in relation 1119047 seems to be split, only keeping first part.
@@ -25,7 +25,7 @@ Warning: Removing pt stop '663346697' on non existing edge ''.
 Warning: Removing pt stop '735390157' on non existing edge ''.
 Warning: Removing pt stop '852932403' on non existing edge ''.
 Warning: Removed 5 pt stops because they could not be assigned to the network
-Warning: Reducing junction cluster 1560224141,1560224152,1560224191,1560224195 (5 incoming edges).
+Warning: Reducing junction cluster 1560224141,1560224152,1560224191,1560224195 (parallel incoming -71028774#0,142575690#7).
 Warning: Found sharp turn with radius 4.30 at the end of edge '-133858467#1'.
 Warning: Found sharp turn with radius 7.22 at the start of edge '-133858467#2'.
 Warning: Found sharp turn with radius 4.20 at the end of edge '-245105014'.
@@ -35,6 +35,6 @@ Warning: Found sharp turn with radius 4.73 at the start of edge '143308685#1'.
 Warning: Found sharp turn with radius 4.20 at the start of edge '245105013'.
 Warning: Found sharp turn with radius 6.42 at the start of edge '47765615#1'.
 Warning: Found angle of 138.43 degrees at edge '71960638#0', segment 5.
-Warning: 9 total messages of type: Discarding unknown compound '%' in type '%' (first occurence for edge '%').
+Warning: 9 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
 Warning: 6 total messages of type: Found sharp turn with radius % at the start of edge '%'.
 Warning: 10 total messages of type: PT line '%' in relation % seems to be split, only keeping first part.

@@ -36,6 +36,7 @@
 
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/SUMOSAXAttributes.h>
+#include <utils/geom/GeomHelper.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
@@ -109,6 +110,8 @@ MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v, const LaneCha
     myCanceledStateLeft(LCA_NONE),
     mySpeedLat(0),
     myAccelerationLat(0),
+    myAngleOffset(0),
+    myPreviousAngleOffset(0),
     myCommittedSpeed(0),
     myLaneChangeCompletion(1.0),
     myLaneChangeDirection(0),
@@ -734,13 +737,18 @@ MSAbstractLaneChangeModel::determineTargetLane(int& targetDir) const {
 
 
 double
-MSAbstractLaneChangeModel::getAngleOffset() const {
-    const double totalDuration = (myVehicle.getVehicleType().wasSet(VTYPEPARS_MAXSPEED_LAT_SET)
-                                  ? SUMO_const_laneWidth / myVehicle.getVehicleType().getMaxSpeedLat()
-                                  : STEPS2TIME(MSGlobals::gLaneChangeDuration));
+MSAbstractLaneChangeModel::calcAngleOffset() {
+    double result = 0.;
+    if (!(fabs(mySpeedLat) < NUMERICAL_EPS && fabs(myPreviousAngleOffset * 180 / M_PI) < NUMERICAL_EPS)) {
+        if (myVehicle.getLength() < sqrt(SPEED2DIST(mySpeedLat) * SPEED2DIST(mySpeedLat) + SPEED2DIST(myVehicle.getSpeed()) * SPEED2DIST(myVehicle.getSpeed()))) {
+            result = atan2(mySpeedLat, myVehicle.getSpeed());
+        } else {
+            result = myPreviousAngleOffset + asin((sin(M_PI / 2 - myPreviousAngleOffset) * (SPEED2DIST(mySpeedLat) - tan(myPreviousAngleOffset) * SPEED2DIST(myVehicle.getSpeed()))) / myVehicle.getLength());
+        }
+    }
 
-    const double angleOffset = 60 / totalDuration * (pastMidpoint() ? 1 - myLaneChangeCompletion : myLaneChangeCompletion);
-    return myLaneChangeDirection * angleOffset;
+    myAngleOffset = result;
+    return result;
 }
 
 

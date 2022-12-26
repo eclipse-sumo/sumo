@@ -1166,6 +1166,9 @@ NBNode::computeLanes2Lanes() {
             for (int i = 0; i < addedLeft; ++i) {
                 in->setConnection(inLeftMost, out, outOffset2 + i, NBEdge::Lane2LaneInfoType::COMPUTED);
             }
+            if (out->getSpecialLane(SVC_BICYCLE) >= 0) {
+                recheckVClassConnections(out);
+            }
             return;
         }
     }
@@ -1305,6 +1308,9 @@ NBNode::computeLanes2Lanes() {
                 in->setConnection(i + inOffset - outOffset, out, i, NBEdge::Lane2LaneInfoType::COMPUTED);
             }
             //std::cout << " special case f at node=" << getID() << " inOffset=" << inOffset << " outOffset=" << outOffset << "\n";
+            if (out->getSpecialLane(SVC_BICYCLE) >= 0) {
+                recheckVClassConnections(out);
+            }
             return;
         }
     }
@@ -1543,8 +1549,8 @@ NBNode::recheckVClassConnections(NBEdge* currentOutgoing) {
 
 void
 NBNode::getReduction(const NBEdge* in, const NBEdge* out, int& inOffset, int& outOffset, int& reduction) const {
-    inOffset = MAX2(0, in->getFirstNonPedestrianLaneIndex(FORWARD, true));
-    outOffset = MAX2(0, out->getFirstNonPedestrianLaneIndex(FORWARD, true));
+    inOffset = MAX2(0, in->getFirstNonPedestrianNonBicycleLaneIndex(FORWARD, true));
+    outOffset = MAX2(0, out->getFirstNonPedestrianNonBicycleLaneIndex(FORWARD, true));
     reduction = (in->getNumLanes() - inOffset) - (out->getNumLanes() - outOffset);
 }
 
@@ -1570,7 +1576,7 @@ NBNode::addedLanesRight(NBEdge* out, int addedLanes) const {
     int outLanesStraight = 0;
     for (NBEdge* succ : to->getOutgoingEdges()) {
         if (out->isConnectedTo(succ)) {
-            const int outOffset = MAX2(0, succ->getFirstNonPedestrianLaneIndex(FORWARD, true));
+            const int outOffset = MAX2(0, succ->getFirstNonPedestrianNonBicycleLaneIndex(FORWARD, true));
             const int usableLanes = succ->getNumLanes() - outOffset;
             LinkDirection dir = to->getDirection(out, succ);
             if (dir == LinkDirection::STRAIGHT) {
@@ -1582,7 +1588,7 @@ NBNode::addedLanesRight(NBEdge* out, int addedLanes) const {
             }
         }
     }
-    const int outOffset = MAX2(0, out->getFirstNonPedestrianLaneIndex(FORWARD, true));
+    const int outOffset = MAX2(0, out->getFirstNonPedestrianNonBicycleLaneIndex(FORWARD, true));
     const int usableLanes = out->getNumLanes() - outOffset;
     int addedTurnLanes = MIN3(
                              addedLanes,
@@ -1661,7 +1667,7 @@ NBNode::replaceOutgoing(const EdgeVector& which, NBEdge* by) {
         replaceOutgoing(*i, by, laneOff);
         laneOff += (*i)->getNumLanes();
     }
-    // removed double occurences
+    // removed double occurrences
     removeDoubleEdges();
     // check whether this node belongs to a district and the edges
     //  must here be also remapped
@@ -1693,7 +1699,7 @@ NBNode::replaceIncoming(const EdgeVector& which, NBEdge* by) {
         replaceIncoming(*i, by, laneOff);
         laneOff += (*i)->getNumLanes();
     }
-    // removed double occurences
+    // removed double occurrences
     removeDoubleEdges();
     // check whether this node belongs to a district and the edges
     //  must here be also remapped
@@ -2281,6 +2287,9 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
     }
     // turning direction
     if (incoming->isTurningDirectionAt(outgoing)) {
+        if (isExplicitRailNoBidi(incoming, outgoing)) {
+            return LinkDirection::STRAIGHT;
+        }
         return leftHand ? LinkDirection::TURN_LEFTHAND : LinkDirection::TURN;
     }
     // get the angle between incoming/outgoing at the junction
@@ -2321,6 +2330,9 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
     } else {
         // check whether any other edge goes further to the left
         if (angle < -170 && incoming->getGeometry().reverse() == outgoing->getGeometry()) {
+            if (isExplicitRailNoBidi(incoming, outgoing)) {
+                return LinkDirection::STRAIGHT;
+            }
             return leftHand ? LinkDirection::TURN_LEFTHAND : LinkDirection::TURN;
         } else if (angle < -90) {
             return LinkDirection::LEFT;
@@ -2332,6 +2344,18 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
             return LinkDirection::LEFT;
         }
     }
+}
+
+
+bool
+NBNode::isExplicitRailNoBidi(const NBEdge* incoming, const NBEdge* outgoing) {
+    // assume explicit connections at sharp turn-arounds are either for reversal or due to a geometry glitch
+    // (but should not have been guessed)
+    // @note this function is also called from NBAlgorithms when there aren't any connections ready
+    return (incoming->getStep() >= NBEdge::EdgeBuildingStep::LANES2LANES_RECHECK
+            && isRailway(incoming->getPermissions())
+            && isRailway(outgoing->getPermissions())
+            && incoming->getBidiEdge() != outgoing);
 }
 
 

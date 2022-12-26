@@ -283,6 +283,8 @@ GUIRunThread::simulationAvailable() const {
 void
 GUIRunThread::deleteSim() {
     myHalting = true;
+    // flush aggregated warnings
+    MsgHandler::getWarningInstance()->clear();
     // remove message callbacks
     MsgHandler::getErrorInstance()->removeRetriever(myErrorRetriever);
     MsgHandler::getWarningInstance()->removeRetriever(myWarningRetriever);

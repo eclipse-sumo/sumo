@@ -715,7 +715,7 @@ private:
     EdgeCont myExtractedEdges;
 
     /// @brief The edges which got extracted twice but may still be referenced somewhere TODO smart_ptr?
-    EdgeVector myEdgeCemetery;
+    std::set<NBEdge*> myEdgeCemetery;
 
     /// @brief The ids of ignored edges
     std::set<std::string> myIgnoredEdges;

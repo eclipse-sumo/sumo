@@ -52,6 +52,9 @@ public:
     /// @brief check if this element is a conflicted candidate
     bool isConflictedCandidate() const;
 
+    /// @brief check if this element is a invalid candidate
+    bool isInvalidCandidate() const;
+
     /// @brief set element as possible candidate
     void setPossibleCandidate(const bool value);
 
@@ -66,6 +69,9 @@ public:
 
     /// @brief set element as conflicted candidate
     void setConflictedCandidate(const bool value);
+
+    /// @brief set element as invalid candidate
+    void setInvalidCandidate(const bool value);
 
     /// @name functions for reachability
     /// @{
@@ -83,22 +89,25 @@ public:
 
 protected:
     /// @brief flag to mark this element as possible candidate
-    bool myPossibleCandidate;
+    bool myPossibleCandidate = false;
 
     /// @brief flag to mark this element as source candidate
-    bool mySourceCandidate;
+    bool mySourceCandidate = false;
 
     /// @brief flag to mark this element as target candidate
-    bool myTargetCandidate;
+    bool myTargetCandidate = false;
 
     /// @brief flag to mark this element as special candidate
-    bool mySpecialCandidate;
+    bool mySpecialCandidate = false;
 
     /// @brief flag to mark this element as conflicted candidate
-    bool myConflictedCandidate;
+    bool myConflictedCandidate = false;
+
+    /// @brief flag to mark this element as invalid candidate
+    bool myInvalidCandidate = false;
 
     /// @brief value for reachability
-    double myReachability;
+    double myReachability = -1;
 
 private:
     /// @brief Invalidated copy constructor.

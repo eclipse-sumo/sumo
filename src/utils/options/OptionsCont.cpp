@@ -444,11 +444,18 @@ OptionsCont::isBool(const std::string& name) const {
 
 void
 OptionsCont::resetWritable() {
-    for (ItemAddressContType::iterator i = myAddresses.begin(); i != myAddresses.end(); i++) {
-        (*i)->resetWritable();
+    for (const auto &addresse : myAddresses) {
+        addresse->resetWritable();
     }
 }
 
+
+void
+OptionsCont::resetDefault() {
+    for (const auto &addresse : myAddresses) {
+        addresse->resetDefault();
+    }
+}
 
 bool
 OptionsCont::isWriteable(const std::string& name) {

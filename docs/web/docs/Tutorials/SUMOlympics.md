@@ -4,7 +4,7 @@ title: SUMOlympics
 
 This tutorial sets up a competition (a collective 100 meter sprint) for
 different traffic modes. You will learn how to create special lanes and
-(very simple) traffic lights in netedit, use different vehicle classes
+(very simple) traffic lights in [netedit](../Netedit/index.md), use different vehicle classes
 to define vehicle types and you will create flows for the different
 types. All files can also be found in the {{SUMO}}/docs/tutorial/sumolympics
 directory.
@@ -12,11 +12,11 @@ directory.
 This tutorial is a reconstruction of a [VISSIM Scenario devised
 by the PTV Group](https://www.youtube.com/watch?v=IpaNLxrtHOs).
 
-# Building the Net
+# Building the network
 
 <img src="../images/sumolympics_netedit_1.PNG" width="1000"/>
 
-Open [netedit](../Netedit/index.md) and create a new network and add a single
+Open netedit and create a new network and add a single
 edge by pressing `e` for entering the edge creation mode and clicking on
 two different locations in the editing area. Change to inspection mode
 (press `i`) and click on the starting point of the edge (at the location
@@ -55,7 +55,7 @@ inspect mode, change its width to 2.1 meters in the left panel.
 Now let us split the edge to create a starting point for the
 competitors: Right-click somewhere on the edge and select "Split edge
 here" from the context menu. Then click on the created node (in SUMO
-terminology this is already a "junction"). Set its x-coordinate to 900
+terminology this is already a _junction_). Set its x-coordinate to 900
 and its y-coordinate to 0 in the `pos`-field just as you did above when
 creating the edge. Effectively, we have created a 100 meter running
 track for the competitors with a 900 meter holding area for each of the
@@ -63,11 +63,13 @@ competing modes. Now check the check box "select edges" again and rename
 the two edges to "beg" and "end" (in the inspector panel). Save your
 network (`Ctrl-S`).
 
-# Defining Competing Vehicle Types
+# Defining the competing vehicles (types and flows)
 
-As a next step, we define the competing vehicle types. Open a new file
-called `sumolympics.rou.xml` and insert the following vehicle type
-definitions:
+As a next step, we define the competing vehicle types as well as a several of these vehicles, organized as _flows_.
+
+## Using XML
+
+Open a new file called `sumolympics.rou.xml` and insert the following vehicle type definitions:
 
 ```
 <routes>
@@ -99,10 +101,24 @@ vType definitions (within the `<routes>` element\!):
         ...
 ```
 
-Notice that the pedestrian flow (`personFlow` element above) has a slightly different syntax. For details on the meaning of the attributes of the flows, see the
+Notice that the pedestrian flow (represented by the `personFlow` element above) has a slightly different syntax, the reason for this is that pedestrians can walk or take a ride (use public transport for instance), and these different activities need to be communicated to [sumo](../sumo.md). For details on the meaning of the attributes of the flows, see the
 section [Flow Definitions](../Demand/Shortest_or_Optimal_Path_Routing.md#flow_definitions) and [Person Flows](../Specification/Persons.md#repeated_persons_personflows).
 
-To prepare the simulation, create a SUMO configuration file (name it
+## Using netedit
+
+We created the vehicle types and the vehicle flows "by hand", by writing the definitions down into a XML file, however these manipulations can directly be made (and visualized) in netedit! In order to achieve this, you need to select the "Demand" mode rather than the "Network" mode that you used to create the network above. For creating a new vehicle type use the "Create type mode". You can modify the main parameters directly in the left panel, other parameters can be modified after clicking "Open attributes editor", as shown here:
+
+<img src="../images/sumolympics_netedit_5.png" width="1000"/>
+
+Now concerning the creation of motorized flows, you need to use the "Create vehicle mode". Then at the top of the left panel, you can create an individual vehicle or a flow, with different options. There select "flow (from-to edges)". You can then use a particular vehicle type, change the `departPos` attribute and the number of vehicles you want. Then select the start and end edges directly on the network and when everything has been set, click on "Finish route creation" on the left panel to create the route and the flow. 
+
+<img src="../images/sumolympics_netedit_6.png" width="1000"/>
+
+The cyan color is used to represent the start edge whereas the light green color is used for the chosen end edge. A small vehicle will be added at the starting position of the flow to materialize it inside the GUI. You can also check that the flow was created by using "Locate > Vehicles" of the netedit main menu. Person flows are created in a similar manner, but you need to use the dedicated "Create person mode" instead.
+
+## A first simulation
+
+Finally, to prepare the simulation, create a SUMO configuration file (name it
 `sumolympics.sumocfg`):
 
 ```
@@ -130,7 +146,7 @@ Adjust the step delay to 100 ms and press the run button
 
 <img src="../images/sumolympics_sumogui_1.png" width="1000"/>
 
-# Defining a Start Signal (Traffic Light)
+# Defining a start signal by using a traffic light
 
 There os one thing left to do for a fair and complete competition: all 
 competitors should be allowed to position freely in front of the

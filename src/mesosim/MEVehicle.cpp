@@ -29,6 +29,7 @@
 #include <utils/xml/SUMOSAXAttributes.h>
 #include <microsim/devices/MSDevice_Tripinfo.h>
 #include <microsim/devices/MSDevice_Vehroutes.h>
+#include <microsim/devices/MSDevice_Taxi.h>
 #include <microsim/output/MSStopOut.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSEdge.h>
@@ -247,6 +248,10 @@ MEVehicle::checkStop(SUMOTime time) {
                                    getID(), mySegment->getID(), time2string(time));
                 }
             }
+            MSDevice_Taxi* taxi = static_cast<MSDevice_Taxi*>(getDevice(typeid(MSDevice_Taxi)));
+            if (taxi != nullptr) {
+                taxi->notifyMove(*this, 0, 0, 0);
+            }
         }
         if (stop.triggered || stop.containerTriggered || stop.joinTriggered) {
             time = MAX2(time, cur + DELTA_T);
@@ -314,7 +319,7 @@ MEVehicle::getCurrentStoppingTimeSeconds() const {
 void
 MEVehicle::processStop() {
     assert(isStopped());
-    double lastPos = 0;
+    double lastPos = -1;
     bool hadStop = false;
     while (!myStops.empty()) {
         MSStop& stop = myStops.front();

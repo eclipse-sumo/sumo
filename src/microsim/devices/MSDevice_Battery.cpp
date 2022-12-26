@@ -71,11 +71,11 @@ MSDevice_Battery::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevic
         }
 
         const double powerMax = typeParams.getDouble(toString(SUMO_ATTR_MAXIMUMPOWER), 150000.);
-        const double stoppingTreshold = typeParams.getDouble(toString(SUMO_ATTR_STOPPINGTRESHOLD), 0.1);
+        const double stoppingThreshold = typeParams.getDouble(toString(SUMO_ATTR_STOPPINGTHRESHOLD), 0.1);
 
         // battery constructor
         MSDevice_Battery* device = new MSDevice_Battery(v, "battery_" + v.getID(),
-                actualBatteryCapacity, maximumBatteryCapacity, powerMax, stoppingTreshold);
+                actualBatteryCapacity, maximumBatteryCapacity, powerMax, stoppingThreshold);
 
         // Add device to vehicle
         into.push_back(device);
@@ -87,12 +87,12 @@ MSDevice_Battery::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevic
 // MSDevice_Battery-methods
 // ---------------------------------------------------------------------------
 MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, const double actualBatteryCapacity, const double maximumBatteryCapacity,
-                                   const double powerMax, const double stoppingTreshold) :
+                                   const double powerMax, const double stoppingThreshold) :
     MSVehicleDevice(holder, id),
     myActualBatteryCapacity(0),         // [actualBatteryCapacity <= maximumBatteryCapacity]
     myMaximumBatteryCapacity(0),        // [maximumBatteryCapacity >= 0]
     myPowerMax(0),                      // [maximumPower >= 0]
-    myStoppingTreshold(0),              // [stoppingTreshold >= 0]
+    myStoppingThreshold(0),             // [stoppingThreshold >= 0]
     myLastAngle(std::numeric_limits<double>::infinity()),
     myChargingStopped(false),           // Initially vehicle don't charge stopped
     myChargingInTransit(false),         // Initially vehicle don't charge in transit
@@ -124,10 +124,10 @@ MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, c
         myPowerMax = powerMax;
     }
 
-    if (stoppingTreshold < 0) {
-        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' doesn't have a valid value for parameter " + toString(SUMO_ATTR_STOPPINGTRESHOLD) + " (" + toString(stoppingTreshold) + ").")
+    if (stoppingThreshold < 0) {
+        WRITE_WARNING("Battery builder: Vehicle '" + getID() + "' doesn't have a valid value for parameter " + toString(SUMO_ATTR_STOPPINGTHRESHOLD) + " (" + toString(stoppingThreshold) + ").")
     } else {
-        myStoppingTreshold = stoppingTreshold;
+        myStoppingThreshold = stoppingThreshold;
     }
 
     EnergyParams* const params = myHolder.getEmissionParameters();
@@ -156,7 +156,7 @@ bool MSDevice_Battery::notifyMove(SUMOTrafficObject& tObject, double /* oldPos *
     }
     SUMOVehicle& veh = static_cast<SUMOVehicle&>(tObject);
     // Start vehicleStoppedTimer if the vehicle is stopped. In other case reset timer
-    if (veh.getSpeed() < myStoppingTreshold) {
+    if (veh.getSpeed() < myStoppingThreshold) {
         // Increase vehicle stopped timer
         increaseVehicleStoppedTimer();
     } else {
@@ -211,9 +211,9 @@ bool MSDevice_Battery::notifyMove(SUMOTrafficObject& tObject, double /* oldPos *
     if (chargingStationID != "") {
         // if the vehicle is almost stopped, or charge in transit is enabled, then charge vehicle
         MSChargingStation* const cs = static_cast<MSChargingStation*>(MSNet::getInstance()->getStoppingPlace(chargingStationID, SUMO_TAG_CHARGING_STATION));
-        if ((veh.getSpeed() < myStoppingTreshold) || cs->getChargeInTransit()) {
+        if ((veh.getSpeed() < myStoppingThreshold) || cs->getChargeInTransit()) {
             // Set Flags Stopped/intransit to
-            if (veh.getSpeed() < myStoppingTreshold) {
+            if (veh.getSpeed() < myStoppingThreshold) {
                 // vehicle ist almost stopped, then is charging stopped
                 myChargingStopped = true;
 
@@ -232,7 +232,7 @@ bool MSDevice_Battery::notifyMove(SUMOTrafficObject& tObject, double /* oldPos *
 
             // Only update charging start time if vehicle allow charge in transit, or in other case
             // if the vehicle not allow charge in transit but it's stopped.
-            if ((myActChargingStation->getChargeInTransit()) || (veh.getSpeed() < myStoppingTreshold)) {
+            if ((myActChargingStation->getChargeInTransit()) || (veh.getSpeed() < myStoppingThreshold)) {
                 // Update Charging start time
                 increaseChargingStartTime();
             }
@@ -324,11 +324,11 @@ MSDevice_Battery::setPowerMax(const double powerMax) {
 
 
 void
-MSDevice_Battery::setStoppingTreshold(const double stoppingTreshold) {
-    if (stoppingTreshold < 0) {
-        WRITE_WARNING("Trying to set into the battery device of vehicle '" + getID() + "' an invalid " + toString(SUMO_ATTR_STOPPINGTRESHOLD) + " (" + toString(stoppingTreshold) + ").")
+MSDevice_Battery::setStoppingThreshold(const double stoppingThreshold) {
+    if (stoppingThreshold < 0) {
+        WRITE_WARNING("Trying to set into the battery device of vehicle '" + getID() + "' an invalid " + toString(SUMO_ATTR_STOPPINGTHRESHOLD) + " (" + toString(stoppingThreshold) + ").")
     } else {
-        myStoppingTreshold = stoppingTreshold;
+        myStoppingThreshold = stoppingThreshold;
     }
 }
 
@@ -432,8 +432,8 @@ MSDevice_Battery::getVehicleStopped() const {
 
 
 double
-MSDevice_Battery::getStoppingTreshold() const {
-    return myStoppingTreshold;
+MSDevice_Battery::getStoppingThreshold() const {
+    return myStoppingThreshold;
 }
 
 

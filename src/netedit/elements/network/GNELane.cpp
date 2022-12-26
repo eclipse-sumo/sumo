@@ -1314,6 +1314,10 @@ GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
     if (myParentEdge->isTargetCandidate()) {
         color = s.candidateColorSettings.target;
     }
+    // special color for invalid candidate edges
+    if (myParentEdge->isInvalidCandidate()) {
+        color = s.candidateColorSettings.invalid;
+    }
     // special color for source candidate lanes
     if (mySourceCandidate) {
         color = s.candidateColorSettings.source;
@@ -1333,6 +1337,10 @@ GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
     // special color for conflicted candidate lanes
     if (myConflictedCandidate) {
         color = s.candidateColorSettings.conflict;
+    }
+    // special color for invalid candidate lanes
+    if (myInvalidCandidate) {
+        color = s.candidateColorSettings.invalid;
     }
     // set color in GLHelper
     GLHelper::setColor(color);

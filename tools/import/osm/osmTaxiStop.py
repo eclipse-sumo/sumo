@@ -86,11 +86,11 @@ def main(options):
                                 break
                 if bestLane:
                     pos = sumolib.geomhelper.polygonOffsetWithMinimumDistanceToPoint(point, bestLane.getShape())
-                    endPos = min(lane.getLength(), max(length, pos + length / 2))
+                    endPos = min(bestLane.getLength(), max(length, pos + length / 2))
                     nameAttr = 'name="%s" ' % name if name else ""
                     stopID = "%s_%s" % (options.type, count)
                     print(u'    <%s id="%s" %slane="%s" startPos="%.2f" endPos="%.2f"/>' %
-                          (options.type, stopID, nameAttr, bestLane.getID(), endPos - length, endPos),
+                          (options.type, stopID, nameAttr, bestLane.getID(), max(0, endPos - length), endPos),
                           file=output)
                     if fleet_out:
                         places += int(length / VEHICLE_LENGTH) * [stopID]

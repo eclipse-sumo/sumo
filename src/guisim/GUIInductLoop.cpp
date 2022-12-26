@@ -28,6 +28,7 @@
 #include <utils/gui/globjects/GLIncludes.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/logging/FuncBinding_IntParam.h>
+#include <microsim/logging/CastingFunctionBinding_Param.h>
 #include <microsim/MSLane.h>
 #include <microsim/output/MSInductLoop.h>
 #include "GUIEdge.h"
@@ -154,6 +155,18 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
                 new FunctionBinding<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getTimeSinceLastDetection));
     ret->mkItem("occupied time [s]", true,
                 new FunctionBinding<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getOccupancyTime));
+    ret->mkItem("interval entered vehicles [#]", true,
+                new CastingFunctionBinding_Param<GUIInductLoop, double, int, bool>(&myDetector, &GUIInductLoop::getIntervalVehicleNumber, false));
+    ret->mkItem("interval speed [m/s]", true,
+                new CastingFunctionBinding_Param<GUIInductLoop, double, double, bool>(&myDetector, &GUIInductLoop::getIntervalMeanSpeed, false));
+    ret->mkItem("interval occupancy [%]", true,
+                new CastingFunctionBinding_Param<GUIInductLoop, double, double, bool>(&myDetector, &GUIInductLoop::getIntervalOccupancy, false));
+    ret->mkItem("last interval entered vehicles [#]", true,
+                new CastingFunctionBinding_Param<GUIInductLoop, double, int, bool>(&myDetector, &GUIInductLoop::getIntervalVehicleNumber, true));
+    ret->mkItem("last interval speed [m/s]", true,
+                new CastingFunctionBinding_Param<GUIInductLoop, double, double, bool>(&myDetector, &GUIInductLoop::getIntervalMeanSpeed, true));
+    ret->mkItem("last interval occupancy [%]", true,
+                new CastingFunctionBinding_Param<GUIInductLoop, double, double, bool>(&myDetector, &GUIInductLoop::getIntervalOccupancy, true));
     // close building
     ret->closeBuilding(&myDetector);
     return ret;

@@ -74,7 +74,7 @@ public:
     /** @brief Removes the setting with the given name
      * @param[in] name The name of the scheme to remove
      */
-    void remove(const std::string& name);
+    void remove(const std::string name);
 
 
     /** @brief Makes the scheme with the given name the default

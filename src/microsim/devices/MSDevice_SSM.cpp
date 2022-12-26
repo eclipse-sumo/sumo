@@ -282,7 +282,7 @@ void
 MSDevice_SSM::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into) {
     if (equippedByDefaultAssignmentOptions(OptionsCont::getOptions(), "ssm", v, false)) {
         if (MSGlobals::gUseMesoSim) {
-            WRITE_WARNING("SSM Device for vehicle '" + v.getID() + "' will not be built. (SSMs not supported in MESO)");
+            WRITE_WARNINGF("SSM Device for vehicle '%' will not be built. (SSMs not supported in MESO)", v.getID());
             return;
         }
         // ID for the device
@@ -3707,7 +3707,7 @@ MSDevice_SSM::getMeasuresAndThresholds(const SUMOVehicle& v, std::string deviceI
 
     // Check retrieved measures
     if (measures_str == "") {
-        WRITE_WARNING("No measures specified for ssm device of vehicle '" + v.getID() + "'. Registering all available SSMs.");
+        WRITE_WARNINGF("No measures specified for ssm device of vehicle '%'. Registering all available SSMs.", v.getID());
         measures_str = AVAILABLE_SSMS;
     }
     StringTokenizer st = StringTokenizer(AVAILABLE_SSMS);

@@ -1,8 +1,5 @@
-Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.secondary' (first occurence for edge '145575264').
-Warning: Discarding unknown compound 'cycleway.sidepath' in type 'cycleway.sidepath|highway.cycleway' (first occurence for edge '158325374').
-Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.primary' (first occurence for edge '321455267').
-Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|cycleway.shared_lane|highway.primary' (first occurence for edge '321455268').
-Warning: Discarding unknown compound 'cycleway.shared_lane' in type 'cycleway.lane|cycleway.shared_lane|highway.primary' (first occurence for edge '321455268').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.secondary' (first occurrence for edge '145575264').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.primary' (first occurrence for edge '321455267').
 Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '157329991' (Körnerstraße). Thus, it will be removed!
 Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '157330124' (Piusstraße). Thus, it will be removed!
 Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '1696101133' (Rochusplatz). Thus, it will be removed!

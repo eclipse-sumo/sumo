@@ -1,7 +1,7 @@
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.residential' (first occurence for edge '9261006').
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.tertiary' (first occurence for edge '11645842').
-Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.residential' (first occurence for edge '19431425').
-Warning: Discarding unusable type 'highway.elevator' (first occurence for edge '203574457').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.residential' (first occurrence for edge '9261006').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.tertiary' (first occurrence for edge '11645842').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.residential' (first occurrence for edge '19431425').
+Warning: Discarding unusable type 'highway.elevator' (first occurrence for edge '203574457').
 Warning: No way found for reference '264888946' in relation '3559808'
 Warning: Ignoring restriction relation '3559808' with unknown from-way.
 Warning: PT line 'Bus 769: Ahrensburg, Auestieg => Ahrensburg, Schulzentrum Am Heimgarten' in relation 4476426 seems to be split, only keeping first part.

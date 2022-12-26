@@ -388,6 +388,8 @@ vehicle1:363.66,497.79 2008.64,498.82
 vehicle2:363.66,497.79 1498.46,989.78 2008.64,498.82
 ```
 
+As an alternative input, [fcd-output](../Simulation/Output/FCDOutput.md) files (or similar files that contain attributes `id`, `x` and `y`) are supported.
+
 The output is a standard sumo route file
 
 ```
@@ -461,7 +463,7 @@ By setting option **--probability FLOAT**, stops only receive a delay with the g
 
 # checkStopOrder.py
 
-This tool reads a [public transport schedule for vehicles or trips](../Simulation/Public_Transport.md#single_vehicles_and_trips) and checks whether the time spent at the same stop by different vehicles is overlapping. This occurence may be expected for bus lines but typically indicates a data error for a railway schedule (unless [portion working](../Simulation/Railways.md#portion_working) takes place).
+This tool reads a [public transport schedule for vehicles or trips](../Simulation/Public_Transport.md#single_vehicles_and_trips) and checks whether the time spent at the same stop by different vehicles is overlapping. This occurrence may be expected for bus lines but typically indicates a data error for a railway schedule (unless [portion working](../Simulation/Railways.md#portion_working) takes place).
 ```
 python tools/route/checkStopOrder.py -r <route-file>
 ```

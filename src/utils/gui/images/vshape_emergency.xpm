@@ -122,6 +122,7 @@ static const char *vshape_emergency_xpm[] = {
 "<.	c #E6E6E6",
 "[.	c #318D59",
 "}.	c #A4CCB4",
+/* pixels */
 "                                                                                                                                ",
 "                                                                                                                                ",
 "                                                                                                                                ",

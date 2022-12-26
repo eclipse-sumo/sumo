@@ -1447,7 +1447,7 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
                                     break
 
                     for conflict in collectBidiConflicts(options, net, vehicleStopRoutes, stop,
-                                                     stopRoute, edgesBefore, arrivals):
+                                                         stopRoute, edgesBefore, arrivals):
                         if conflict is None:
                             numIgnoredConflicts += 1
                         else:
@@ -1571,7 +1571,7 @@ def checkBidiConsistency(conflicts, verbose):
     # inconsistent constraints may be generated (#12075)
     # instead of trying to identify these cases beforehand we filter them out in a post-processing step
 
-    tfcMap = defaultdict(list) # (tripId, foeId) -> [conflict, ...]
+    tfcMap = defaultdict(list)  # (tripId, foeId) -> [conflict, ...]
     numRemoved = 0
 
     for signal in sorted(conflicts.keys()):
@@ -1595,7 +1595,8 @@ def checkBidiConsistency(conflicts, verbose):
                     numRemoved += 1
                     conflicts[c.signal].remove(c)
                     if verbose:
-                        print("Found symmetrical bidi conflict (tripId=%s, foeId=%s, busStop=%s busStop2=%s)." % keyToRemove)
+                        print("Found symmetrical bidi conflict (tripId=%s, foeId=%s, busStop=%s busStop2=%s)." %
+                              keyToRemove)
                     if not conflicts[c.signal]:
                         del conflicts[c.signal]
                 del tfcMap[keyToRemove]
@@ -1603,7 +1604,7 @@ def checkBidiConsistency(conflicts, verbose):
     if numRemoved > 0 and verbose:
         print("Removed %s symmetrical bidi conflicts" % numRemoved)
 
-    return numRemoved;
+    return numRemoved
 
 
 def getEdges(stopRoute, index, startEdge, forward, noIndex=False):

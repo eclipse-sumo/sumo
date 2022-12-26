@@ -108,3 +108,6 @@ junctionModel.ignore
 
 # test bit5 (ignore foes within junction)
 ignoreJunctionFoes
+
+# retrieve vehicles that are not visible in the network
+getInvisible

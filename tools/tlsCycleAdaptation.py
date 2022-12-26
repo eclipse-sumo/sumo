@@ -29,10 +29,10 @@
 
 - If the critical flow or the sum of the critical flows is larger than 1,
  the optimal cycle length will be set to 120 sec.
- 
+
 - Duration for yellow phase will be adjusted according to
   the defined option value
-  
+
 - Duration for all-red phase will be not adjusted.
 """
 
@@ -469,7 +469,7 @@ def main(options):
                     elif 'y' in p.state and 'r' in p.state:
                         duration = options.yellowtime
                     else:
-                        print("Duration for Phase %s is from the input file." %i)
+                        print("Duration for Phase %s is from the input file." % i)
                     outf.write('        <phase duration="%s" state="%s"/>\n' % (duration, p.state))
                 outf.write('    </tlLogic>\n')
         else:

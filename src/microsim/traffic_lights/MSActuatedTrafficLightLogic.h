@@ -282,6 +282,9 @@ protected:
     /// Whether the detectors shall be shown in the GUI
     bool myShowDetectors;
 
+    /// Whether any of the phases has multiple targets
+    bool myHasMultiTarget;
+
     /// The output file for generated detectors
     std::string myFile;
 

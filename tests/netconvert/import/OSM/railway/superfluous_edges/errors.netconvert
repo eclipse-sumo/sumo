@@ -1,7 +1,7 @@
 Warning: Ignoring track count 2 for edge '25290481'.
 Warning: Ignoring track count 2 for edge '310143560'.
-Warning: Discarding unusable type 'highway.bus_stop' (first occurence for edge '61793937').
-Warning: Discarding unusable type 'railway.platform' (first occurence for edge '61793940').
+Warning: Discarding unusable type 'highway.bus_stop' (first occurrence for edge '61793937').
+Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '61793940').
 Warning: PT line in relation 10693304 with no stops ignored. Probably OSM file is incomplete.
 Warning: PT line in relation 10693305 with no stops ignored. Probably OSM file is incomplete.
 Warning: PT line in relation 11722150 with no stops ignored. Probably OSM file is incomplete.

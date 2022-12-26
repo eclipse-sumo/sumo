@@ -133,13 +133,12 @@ def main(options, platform="x64"):
     for ext in ("*.exe", "*.ilk", "*.pdb", "*.py", "*.pyd", "*.dll", "*.lib", "*.exp", "*.jar", "*.manifest", "*.fmu"):
         toClean += glob.glob(os.path.join(SUMO_HOME, "bin", ext))
     toClean += glob.glob(os.path.join(SUMO_HOME, "tools", "lib*", "*lib*"))
-    toClean += glob.glob(os.path.join(SUMO_HOME, "share", "*", "*"))
     for f in toClean:
         try:
             os.remove(f)
         except Exception:
             pass
-    for d in (glob.glob(os.path.join(SUMO_HOME, "bin", "osgPlugins*")) +
+    for d in [os.path.join(SUMO_HOME, "share")] + (glob.glob(os.path.join(SUMO_HOME, "bin", "osgPlugins*")) +
               glob.glob(os.path.join(SUMO_HOME, "tools", "*.egg-info"))):
         shutil.rmtree(d, ignore_errors=True)
     for d in glob.glob(os.path.join(SUMO_HOME, "docs", "*")):

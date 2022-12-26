@@ -16,10 +16,10 @@ GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary -10.00,-10.00,70.00,1
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
 Debug: Adding route 'route_0' in GNEChange_DemandElement
-Error: Invalid color definition ''
-Error: Invalid color definition 'dummycolor'
+Error: Attribute 'color' in definition of route 'route_1' Invalid color definition ''.
+Error: Attribute 'color' in definition of route 'route_2' Invalid color definition 'dummycolor'.
 Debug: Adding route 'route_3' in GNEChange_DemandElement
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.27Jun101816.5656/netedit.gui/demandelements/route/load/color/input_routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.route.01Dec143641.87240/netedit.daily.demand.route/demandelements/route/load/color/input_routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00

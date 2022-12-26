@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-11-02 15:34:49 by Eclipse SUMO sumo Version v1_14_1+2182-6d3465c
+<!-- generated on 2022-12-11 20:57:33 by Eclipse SUMO sumo Version v1_15_0+0944-c751163
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -48,307 +48,307 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <person id="ped13" x="1209.98" y="3019.69" angle="277.01" speed="0.00" pos="65.55" edge="-c" slope="0.00"/>
     </timestep>
     <timestep time="0.10">
-        <vehicle id="bike18" x="1201.56" y="3021.25" angle="96.98" type="bike_bicycle" speed="5.21" pos="2.21" lane="b_0" slope="0.00"/>
+        <vehicle id="bike18" x="1201.56" y="3021.25" angle="96.50" type="bike_bicycle" speed="5.21" pos="2.21" lane="b_0" slope="0.00"/>
         <person id="ped13" x="1209.86" y="3019.73" angle="291.21" speed="1.19" pos="65.67" edge="-c" slope="0.00"/>
     </timestep>
     <timestep time="0.20">
-        <vehicle id="bike18" x="1202.06" y="3021.17" angle="98.40" type="bike_bicycle" speed="4.96" pos="0.47" lane=":j3_2_0" slope="0.00"/>
+        <vehicle id="bike18" x="1202.06" y="3021.17" angle="97.26" type="bike_bicycle" speed="4.96" pos="0.47" lane=":j3_2_0" slope="0.00"/>
         <person id="ped13" x="1209.74" y="3019.75" angle="277.01" speed="1.24" pos="65.79" edge="-c" slope="0.00"/>
     </timestep>
     <timestep time="0.30">
-        <vehicle id="bike18" x="1202.52" y="3021.09" angle="99.38" type="bike_bicycle" speed="4.71" pos="0.94" lane=":j3_2_0" slope="0.00"/>
+        <vehicle id="bike18" x="1202.52" y="3021.09" angle="98.20" type="bike_bicycle" speed="4.71" pos="0.94" lane=":j3_2_0" slope="0.00"/>
         <person id="ped13" x="1209.60" y="3019.76" angle="277.01" speed="1.43" pos="65.94" edge="-c" slope="0.00"/>
     </timestep>
     <timestep time="0.40">
-        <vehicle id="bike18" x="1202.96" y="3021.00" angle="100.43" type="bike_bicycle" speed="4.46" pos="1.38" lane=":j3_2_0" slope="0.00"/>
+        <vehicle id="bike18" x="1202.96" y="3021.00" angle="99.28" type="bike_bicycle" speed="4.46" pos="1.38" lane=":j3_2_0" slope="0.00"/>
         <person id="ped13" x="1209.47" y="3019.78" angle="277.01" speed="1.30" pos="66.07" edge="-c" slope="0.00"/>
     </timestep>
     <timestep time="0.50">
-        <vehicle id="bike18" x="1203.38" y="3020.90" angle="101.57" type="bike_bicycle" speed="4.21" pos="1.81" lane=":j3_2_0" slope="0.00"/>
+        <vehicle id="bike18" x="1203.38" y="3020.90" angle="100.43" type="bike_bicycle" speed="4.21" pos="1.81" lane=":j3_2_0" slope="0.00"/>
         <person id="ped13" x="1209.34" y="3019.79" angle="277.01" speed="1.27" pos="66.19" edge="-c" slope="0.00"/>
     </timestep>
     <timestep time="0.60">
-        <vehicle id="bike18" x="1203.76" y="3020.79" angle="102.81" type="bike_bicycle" speed="3.96" pos="2.20" lane=":j3_2_0" slope="0.00"/>
+        <vehicle id="bike18" x="1203.76" y="3020.79" angle="101.64" type="bike_bicycle" speed="3.96" pos="2.20" lane=":j3_2_0" slope="0.00"/>
         <person id="ped13" x="1209.20" y="3019.81" angle="277.01" speed="1.43" pos="66.34" edge="-c" slope="0.00"/>
     </timestep>
     <timestep time="0.70">
-        <vehicle id="bike18" x="1204.12" y="3020.68" angle="104.17" type="bike_bicycle" speed="3.70" pos="2.57" lane=":j3_2_0" slope="0.00"/>
+        <vehicle id="bike18" x="1204.12" y="3020.68" angle="102.98" type="bike_bicycle" speed="3.70" pos="2.57" lane=":j3_2_0" slope="0.00"/>
         <person id="ped13" x="1209.08" y="3019.83" angle="277.01" speed="1.23" pos="66.46" edge="-c" slope="0.00"/>
     </timestep>
     <timestep time="0.80">
-        <vehicle id="bike18" x="1204.46" y="3020.56" angle="105.67" type="bike_bicycle" speed="3.44" pos="2.92" lane=":j3_2_0" slope="0.00"/>
+        <vehicle id="bike18" x="1204.46" y="3020.56" angle="104.47" type="bike_bicycle" speed="3.44" pos="2.92" lane=":j3_2_0" slope="0.00"/>
         <person id="ped13" x="1208.94" y="3019.84" angle="277.01" speed="1.37" pos="66.60" edge="-c" slope="0.00"/>
     </timestep>
     <timestep time="0.90">
-        <vehicle id="bike18" x="1204.76" y="3020.43" angle="107.33" type="bike_bicycle" speed="3.17" pos="3.23" lane=":j3_2_0" slope="0.00"/>
+        <vehicle id="bike18" x="1204.76" y="3020.43" angle="106.12" type="bike_bicycle" speed="3.17" pos="3.23" lane=":j3_2_0" slope="0.00"/>
         <person id="ped13" x="1208.82" y="3019.86" angle="277.01" speed="1.28" pos="66.72" edge="-c" slope="0.00"/>
     </timestep>
     <timestep time="1.00">
-        <vehicle id="bike18" x="1205.04" y="3020.30" angle="109.18" type="bike_bicycle" speed="2.90" pos="3.52" lane=":j3_2_0" slope="0.00"/>
+        <vehicle id="bike18" x="1205.04" y="3020.30" angle="107.95" type="bike_bicycle" speed="2.90" pos="3.52" lane=":j3_2_0" slope="0.00"/>
         <person id="ped13" x="1208.70" y="3019.87" angle="277.01" speed="1.23" pos="66.85" edge="-c" slope="0.00"/>
     </timestep>
     <timestep time="1.10">
-        <vehicle id="bike18" x="1205.29" y="3020.17" angle="109.98" type="bike_bicycle" speed="2.62" pos="3.79" lane=":j3_2_0" slope="0.00"/>
+        <vehicle id="bike18" x="1205.29" y="3020.17" angle="109.62" type="bike_bicycle" speed="2.62" pos="3.79" lane=":j3_2_0" slope="0.00"/>
         <person id="ped13" x="1208.55" y="3019.89" angle="277.01" speed="1.44" pos="66.99" edge="-c" slope="0.00"/>
     </timestep>
     <timestep time="1.20">
-        <vehicle id="bike18" x="1205.51" y="3020.06" angle="109.52" type="bike_bicycle" speed="2.34" pos="4.02" lane=":j3_2_0" slope="0.00"/>
+        <vehicle id="bike18" x="1205.51" y="3020.06" angle="110.88" type="bike_bicycle" speed="2.34" pos="4.02" lane=":j3_2_0" slope="0.00"/>
         <person id="ped13" x="1208.43" y="3019.91" angle="277.01" speed="1.25" pos="67.12" edge="-c" slope="0.00"/>
     </timestep>
     <timestep time="1.30">
-        <vehicle id="bike18" x="1205.70" y="3019.95" angle="108.99" type="bike_bicycle" speed="2.06" pos="4.23" lane=":j3_2_0" slope="0.00"/>
+        <vehicle id="bike18" x="1205.70" y="3019.95" angle="111.85" type="bike_bicycle" speed="2.06" pos="4.23" lane=":j3_2_0" slope="0.00"/>
         <person id="ped13" x="1208.30" y="3019.92" angle="277.01" speed="1.31" pos="67.25" edge="-c" slope="0.00"/>
     </timestep>
     <timestep time="1.40">
-        <vehicle id="bike18" x="1205.87" y="3019.86" angle="108.38" type="bike_bicycle" speed="1.77" pos="4.40" lane=":j3_2_0" slope="0.00"/>
+        <vehicle id="bike18" x="1205.87" y="3019.86" angle="112.60" type="bike_bicycle" speed="1.77" pos="4.40" lane=":j3_2_0" slope="0.00"/>
         <person id="ped13" x="1208.17" y="3019.94" angle="277.01" speed="1.31" pos="67.38" edge="-c" slope="0.00"/>
     </timestep>
     <timestep time="1.50">
-        <vehicle id="bike18" x="1206.01" y="3019.77" angle="109.40" type="bike_bicycle" speed="1.49" pos="4.55" lane=":j3_2_0" slope="0.00"/>
+        <vehicle id="bike18" x="1206.01" y="3019.77" angle="113.54" type="bike_bicycle" speed="1.49" pos="4.55" lane=":j3_2_0" slope="0.00"/>
         <person id="ped13" x="1208.04" y="3019.95" angle="277.01" speed="1.28" pos="67.50" edge="-c" slope="0.00"/>
     </timestep>
     <timestep time="1.60">
-        <vehicle id="bike18" x="1206.13" y="3019.70" angle="108.69" type="bike_bicycle" speed="1.21" pos="4.67" lane=":j3_2_0" slope="0.00"/>
+        <vehicle id="bike18" x="1206.13" y="3019.70" angle="114.33" type="bike_bicycle" speed="1.21" pos="4.67" lane=":j3_2_0" slope="0.00"/>
         <person id="ped13" x="1207.91" y="3019.97" angle="277.01" speed="1.37" pos="67.64" edge="-c" slope="0.00"/>
     </timestep>
     <timestep time="1.70">
-        <vehicle id="bike18" x="1206.21" y="3019.64" angle="107.82" type="bike_bicycle" speed="0.93" pos="4.77" lane=":j3_2_0" slope="0.00"/>
+        <vehicle id="bike18" x="1206.21" y="3019.64" angle="115.02" type="bike_bicycle" speed="0.93" pos="4.77" lane=":j3_2_0" slope="0.00"/>
         <person id="ped13" x="1207.76" y="3019.99" angle="277.01" speed="1.42" pos="67.78" edge="-c" slope="0.00"/>
     </timestep>
     <timestep time="1.80">
-        <vehicle id="bike18" x="1206.28" y="3019.59" angle="106.58" type="bike_bicycle" speed="0.69" pos="4.84" lane=":j3_2_0" slope="0.00"/>
+        <vehicle id="bike18" x="1206.28" y="3019.59" angle="115.61" type="bike_bicycle" speed="0.69" pos="4.84" lane=":j3_2_0" slope="0.00"/>
         <person id="ped13" x="1207.65" y="3020.00" angle="277.01" speed="1.19" pos="67.90" edge="-c" slope="0.00"/>
     </timestep>
     <timestep time="1.90">
-        <vehicle id="bike18" x="1206.35" y="3019.55" angle="103.76" type="bike_bicycle" speed="0.81" pos="4.92" lane=":j3_2_0" slope="0.00"/>
+        <vehicle id="bike18" x="1206.35" y="3019.55" angle="115.69" type="bike_bicycle" speed="0.81" pos="4.92" lane=":j3_2_0" slope="0.00"/>
         <person id="ped13" x="1207.51" y="3020.02" angle="277.01" speed="1.35" pos="68.04" edge="-c" slope="0.00"/>
     </timestep>
     <timestep time="2.00">
-        <vehicle id="bike18" x="1206.44" y="3019.52" angle="101.18" type="bike_bicycle" speed="0.93" pos="5.01" lane=":j3_2_0" slope="0.00"/>
+        <vehicle id="bike18" x="1206.44" y="3019.52" angle="115.28" type="bike_bicycle" speed="0.93" pos="5.01" lane=":j3_2_0" slope="0.00"/>
         <person id="ped13" x="1207.39" y="3020.03" angle="277.01" speed="1.24" pos="68.16" edge="-c" slope="0.00"/>
     </timestep>
     <timestep time="2.10">
-        <vehicle id="bike18" x="1206.55" y="3019.50" angle="98.82" type="bike_bicycle" speed="1.05" pos="5.11" lane=":j3_2_0" slope="0.00"/>
+        <vehicle id="bike18" x="1206.55" y="3019.50" angle="114.42" type="bike_bicycle" speed="1.05" pos="5.11" lane=":j3_2_0" slope="0.00"/>
         <person id="ped13" x="1207.25" y="3020.05" angle="277.01" speed="1.43" pos="68.31" edge="-c" slope="0.00"/>
     </timestep>
     <timestep time="2.20">
-        <vehicle id="bike18" x="1206.66" y="3019.49" angle="96.65" type="bike_bicycle" speed="1.17" pos="5.23" lane=":j3_2_0" slope="0.00"/>
+        <vehicle id="bike18" x="1206.66" y="3019.49" angle="113.15" type="bike_bicycle" speed="1.17" pos="5.23" lane=":j3_2_0" slope="0.00"/>
         <person id="ped13" x="1207.12" y="3020.07" angle="277.01" speed="1.29" pos="68.43" edge="-c" slope="0.00"/>
     </timestep>
     <timestep time="2.30">
-        <vehicle id="bike18" x="1206.79" y="3019.47" angle="97.55" type="bike_bicycle" speed="1.29" pos="5.36" lane=":j3_2_0" slope="0.00"/>
+        <vehicle id="bike18" x="1206.79" y="3019.47" angle="112.00" type="bike_bicycle" speed="1.29" pos="5.36" lane=":j3_2_0" slope="0.00"/>
         <person id="ped13" x="1206.98" y="3020.08" angle="277.01" speed="1.35" pos="68.57" edge="-c" slope="0.00"/>
     </timestep>
     <timestep time="2.40">
-        <vehicle id="bike18" x="1206.85" y="3019.46" angle="96.65" type="bike_bicycle" speed="0.59" pos="5.42" lane=":j3_2_0" slope="0.00"/>
+        <vehicle id="bike18" x="1206.85" y="3019.46" angle="111.44" type="bike_bicycle" speed="0.59" pos="5.42" lane=":j3_2_0" slope="0.00"/>
         <person id="ped13" x="1206.86" y="3020.10" angle="277.01" speed="1.26" pos="0.08" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="2.50">
-        <vehicle id="bike18" x="1206.85" y="3019.46" angle="96.65" type="bike_bicycle" speed="0.00" pos="5.42" lane=":j3_2_0" slope="0.00"/>
+        <vehicle id="bike18" x="1206.85" y="3019.46" angle="111.44" type="bike_bicycle" speed="0.00" pos="5.42" lane=":j3_2_0" slope="0.00"/>
         <person id="ped13" x="1206.87" y="3020.16" angle="6.92" speed="0.00" pos="0.08" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="2.60">
-        <vehicle id="bike18" x="1206.85" y="3019.46" angle="96.65" type="bike_bicycle" speed="0.00" pos="5.42" lane=":j3_2_0" slope="0.00"/>
+        <vehicle id="bike18" x="1206.85" y="3019.46" angle="111.44" type="bike_bicycle" speed="0.00" pos="5.42" lane=":j3_2_0" slope="0.00"/>
         <person id="ped13" x="1206.88" y="3020.23" angle="6.92" speed="0.00" pos="0.08" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="2.70">
-        <vehicle id="bike18" x="1206.85" y="3019.46" angle="96.65" type="bike_bicycle" speed="0.00" pos="5.42" lane=":j3_2_0" slope="0.00"/>
+        <vehicle id="bike18" x="1206.85" y="3019.46" angle="111.44" type="bike_bicycle" speed="0.00" pos="5.42" lane=":j3_2_0" slope="0.00"/>
         <person id="ped13" x="1206.88" y="3020.29" angle="6.92" speed="0.00" pos="0.08" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="2.80">
-        <vehicle id="bike18" x="1206.85" y="3019.46" angle="96.65" type="bike_bicycle" speed="0.00" pos="5.42" lane=":j3_2_0" slope="0.00"/>
+        <vehicle id="bike18" x="1206.85" y="3019.46" angle="111.44" type="bike_bicycle" speed="0.00" pos="5.42" lane=":j3_2_0" slope="0.00"/>
         <person id="ped13" x="1206.89" y="3020.35" angle="6.92" speed="0.00" pos="0.08" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="2.90">
-        <vehicle id="bike18" x="1206.85" y="3019.46" angle="96.65" type="bike_bicycle" speed="0.00" pos="5.42" lane=":j3_2_0" slope="0.00"/>
+        <vehicle id="bike18" x="1206.85" y="3019.46" angle="111.44" type="bike_bicycle" speed="0.00" pos="5.42" lane=":j3_2_0" slope="0.00"/>
         <person id="ped13" x="1206.90" y="3020.42" angle="6.92" speed="0.00" pos="0.08" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="3.00">
-        <vehicle id="bike18" x="1206.85" y="3019.46" angle="96.65" type="bike_bicycle" speed="0.00" pos="5.42" lane=":j3_2_0" slope="0.00"/>
+        <vehicle id="bike18" x="1206.85" y="3019.46" angle="111.44" type="bike_bicycle" speed="0.00" pos="5.42" lane=":j3_2_0" slope="0.00"/>
         <person id="ped13" x="1206.91" y="3020.48" angle="6.92" speed="0.00" pos="0.08" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="3.10">
-        <vehicle id="bike18" x="1206.85" y="3019.46" angle="96.65" type="bike_bicycle" speed="0.00" pos="5.42" lane=":j3_2_0" slope="0.00"/>
+        <vehicle id="bike18" x="1206.85" y="3019.46" angle="111.44" type="bike_bicycle" speed="0.00" pos="5.42" lane=":j3_2_0" slope="0.00"/>
         <person id="ped13" x="1206.77" y="3020.56" angle="298.94" speed="1.43" pos="0.22" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="3.20">
-        <vehicle id="bike18" x="1206.85" y="3019.46" angle="96.65" type="bike_bicycle" speed="0.00" pos="5.42" lane=":j3_2_0" slope="0.00"/>
+        <vehicle id="bike18" x="1206.85" y="3019.46" angle="111.44" type="bike_bicycle" speed="0.00" pos="5.42" lane=":j3_2_0" slope="0.00"/>
         <person id="ped13" x="1206.64" y="3020.63" angle="300.06" speed="1.36" pos="0.35" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="3.30">
-        <vehicle id="bike18" x="1206.85" y="3019.46" angle="96.65" type="bike_bicycle" speed="0.00" pos="5.42" lane=":j3_2_0" slope="0.00"/>
+        <vehicle id="bike18" x="1206.85" y="3019.46" angle="111.44" type="bike_bicycle" speed="0.00" pos="5.42" lane=":j3_2_0" slope="0.00"/>
         <person id="ped13" x="1206.53" y="3020.70" angle="302.28" speed="1.22" pos="0.48" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="3.40">
-        <vehicle id="bike18" x="1206.85" y="3019.46" angle="96.65" type="bike_bicycle" speed="0.00" pos="5.42" lane=":j3_2_0" slope="0.00"/>
+        <vehicle id="bike18" x="1206.85" y="3019.46" angle="111.44" type="bike_bicycle" speed="0.00" pos="5.42" lane=":j3_2_0" slope="0.00"/>
         <person id="ped13" x="1206.40" y="3020.78" angle="299.45" speed="1.40" pos="0.62" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="3.50">
-        <vehicle id="bike18" x="1206.85" y="3019.46" angle="96.65" type="bike_bicycle" speed="0.00" pos="5.42" lane=":j3_2_0" slope="0.00"/>
+        <vehicle id="bike18" x="1206.85" y="3019.46" angle="111.44" type="bike_bicycle" speed="0.00" pos="5.42" lane=":j3_2_0" slope="0.00"/>
         <person id="ped13" x="1206.29" y="3020.81" angle="289.23" speed="1.17" pos="0.73" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="3.60">
-        <vehicle id="bike18" x="1206.86" y="3019.46" angle="96.65" type="bike_bicycle" speed="0.12" pos="5.43" lane=":j3_2_0" slope="0.00"/>
+        <vehicle id="bike18" x="1206.86" y="3019.46" angle="111.33" type="bike_bicycle" speed="0.12" pos="5.43" lane=":j3_2_0" slope="0.00"/>
         <person id="ped13" x="1206.14" y="3020.83" angle="277.01" speed="1.43" pos="0.88" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="3.70">
-        <vehicle id="bike18" x="1206.88" y="3019.46" angle="96.66" type="bike_bicycle" speed="0.24" pos="0.02" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1206.88" y="3019.46" angle="111.12" type="bike_bicycle" speed="0.24" pos="0.02" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1206.02" y="3020.85" angle="276.70" speed="1.24" pos="1.00" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="3.80">
-        <vehicle id="bike18" x="1206.92" y="3019.45" angle="96.67" type="bike_bicycle" speed="0.36" pos="0.06" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1206.92" y="3019.45" angle="110.80" type="bike_bicycle" speed="0.36" pos="0.06" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1205.88" y="3020.86" angle="276.70" speed="1.35" pos="1.14" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="3.90">
-        <vehicle id="bike18" x="1206.96" y="3019.45" angle="96.68" type="bike_bicycle" speed="0.48" pos="0.11" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1206.96" y="3019.45" angle="110.40" type="bike_bicycle" speed="0.48" pos="0.11" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1205.74" y="3020.88" angle="276.70" speed="1.40" pos="1.28" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="4.00">
-        <vehicle id="bike18" x="1207.02" y="3019.44" angle="96.69" type="bike_bicycle" speed="0.60" pos="0.17" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1207.02" y="3019.44" angle="109.90" type="bike_bicycle" speed="0.60" pos="0.17" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1205.60" y="3020.90" angle="276.70" speed="1.41" pos="1.42" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="4.10">
-        <vehicle id="bike18" x="1207.10" y="3019.43" angle="96.71" type="bike_bicycle" speed="0.72" pos="0.24" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1207.10" y="3019.43" angle="109.33" type="bike_bicycle" speed="0.72" pos="0.24" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1205.47" y="3020.91" angle="276.70" speed="1.32" pos="1.55" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="4.20">
-        <vehicle id="bike18" x="1207.18" y="3019.42" angle="96.73" type="bike_bicycle" speed="0.84" pos="0.32" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1207.18" y="3019.42" angle="108.69" type="bike_bicycle" speed="0.84" pos="0.32" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1205.36" y="3020.93" angle="276.70" speed="1.16" pos="1.67" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="4.30">
-        <vehicle id="bike18" x="1207.27" y="3019.41" angle="96.75" type="bike_bicycle" speed="0.96" pos="0.42" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1207.27" y="3019.41" angle="108.00" type="bike_bicycle" speed="0.96" pos="0.42" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1205.22" y="3020.94" angle="276.70" speed="1.37" pos="1.80" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="4.40">
-        <vehicle id="bike18" x="1207.38" y="3019.40" angle="96.77" type="bike_bicycle" speed="1.08" pos="0.53" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1207.38" y="3019.40" angle="107.26" type="bike_bicycle" speed="1.08" pos="0.53" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1205.08" y="3020.96" angle="276.70" speed="1.38" pos="1.94" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="4.50">
-        <vehicle id="bike18" x="1207.50" y="3019.38" angle="96.80" type="bike_bicycle" speed="1.20" pos="0.65" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1207.50" y="3019.38" angle="106.51" type="bike_bicycle" speed="1.20" pos="0.65" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1204.95" y="3020.97" angle="276.70" speed="1.39" pos="2.08" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="4.60">
-        <vehicle id="bike18" x="1207.63" y="3019.37" angle="96.83" type="bike_bicycle" speed="1.32" pos="0.78" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1207.63" y="3019.37" angle="105.74" type="bike_bicycle" speed="1.32" pos="0.78" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1204.82" y="3020.99" angle="276.70" speed="1.28" pos="2.21" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="4.70">
-        <vehicle id="bike18" x="1207.77" y="3019.35" angle="96.86" type="bike_bicycle" speed="1.44" pos="0.92" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1207.77" y="3019.35" angle="104.97" type="bike_bicycle" speed="1.44" pos="0.92" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1204.68" y="3021.00" angle="276.70" speed="1.37" pos="2.34" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="4.80">
-        <vehicle id="bike18" x="1207.93" y="3019.33" angle="96.89" type="bike_bicycle" speed="1.56" pos="1.08" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1207.93" y="3019.33" angle="104.22" type="bike_bicycle" speed="1.56" pos="1.08" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1204.56" y="3021.02" angle="276.70" speed="1.21" pos="2.46" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="4.90">
-        <vehicle id="bike18" x="1208.10" y="3019.31" angle="96.93" type="bike_bicycle" speed="1.68" pos="1.25" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1208.10" y="3019.31" angle="103.49" type="bike_bicycle" speed="1.68" pos="1.25" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1204.42" y="3021.04" angle="276.70" speed="1.42" pos="2.61" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="5.00">
-        <vehicle id="bike18" x="1208.27" y="3019.29" angle="96.97" type="bike_bicycle" speed="1.80" pos="1.43" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1208.27" y="3019.29" angle="102.79" type="bike_bicycle" speed="1.80" pos="1.43" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1204.30" y="3021.05" angle="276.70" speed="1.25" pos="2.73" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="5.10">
-        <vehicle id="bike18" x="1208.46" y="3019.26" angle="97.01" type="bike_bicycle" speed="1.92" pos="1.62" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1208.46" y="3019.26" angle="102.13" type="bike_bicycle" speed="1.92" pos="1.62" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1204.18" y="3021.06" angle="276.70" speed="1.24" pos="2.85" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="5.20">
-        <vehicle id="bike18" x="1208.67" y="3019.24" angle="97.01" type="bike_bicycle" speed="2.04" pos="1.82" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1208.67" y="3019.24" angle="101.48" type="bike_bicycle" speed="2.04" pos="1.82" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1204.05" y="3021.08" angle="276.70" speed="1.27" pos="2.98" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="5.30">
-        <vehicle id="bike18" x="1208.88" y="3019.21" angle="97.01" type="bike_bicycle" speed="2.16" pos="2.04" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1208.88" y="3019.21" angle="100.88" type="bike_bicycle" speed="2.16" pos="2.04" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1203.93" y="3021.09" angle="276.70" speed="1.24" pos="3.11" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="5.40">
-        <vehicle id="bike18" x="1209.11" y="3019.18" angle="97.01" type="bike_bicycle" speed="2.27" pos="2.27" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1209.11" y="3019.18" angle="100.33" type="bike_bicycle" speed="2.27" pos="2.27" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1203.81" y="3021.11" angle="276.70" speed="1.17" pos="3.22" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="5.50">
-        <vehicle id="bike18" x="1209.34" y="3019.16" angle="97.01" type="bike_bicycle" speed="2.39" pos="2.50" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1209.34" y="3019.16" angle="99.83" type="bike_bicycle" speed="2.39" pos="2.50" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1203.69" y="3021.12" angle="276.70" speed="1.17" pos="3.34" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="5.60">
-        <vehicle id="bike18" x="1209.59" y="3019.12" angle="97.01" type="bike_bicycle" speed="2.51" pos="2.76" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1209.59" y="3019.12" angle="99.39" type="bike_bicycle" speed="2.51" pos="2.76" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1203.56" y="3021.14" angle="276.70" speed="1.35" pos="3.48" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="5.70">
-        <vehicle id="bike18" x="1209.85" y="3019.09" angle="97.01" type="bike_bicycle" speed="2.63" pos="3.02" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1209.85" y="3019.09" angle="99.00" type="bike_bicycle" speed="2.63" pos="3.02" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1203.43" y="3021.15" angle="276.70" speed="1.30" pos="3.61" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="5.80">
-        <vehicle id="bike18" x="1210.13" y="3019.06" angle="97.01" type="bike_bicycle" speed="2.74" pos="3.29" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1210.13" y="3019.06" angle="98.66" type="bike_bicycle" speed="2.74" pos="3.29" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1203.30" y="3021.17" angle="276.70" speed="1.27" pos="3.73" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="5.90">
-        <vehicle id="bike18" x="1210.41" y="3019.02" angle="97.01" type="bike_bicycle" speed="2.86" pos="3.58" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1210.41" y="3019.02" angle="98.36" type="bike_bicycle" speed="2.86" pos="3.58" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1203.16" y="3021.18" angle="276.70" speed="1.39" pos="3.87" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="6.00">
-        <vehicle id="bike18" x="1210.70" y="3018.99" angle="97.01" type="bike_bicycle" speed="2.97" pos="3.88" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1210.70" y="3018.99" angle="98.11" type="bike_bicycle" speed="2.97" pos="3.88" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1203.05" y="3021.20" angle="276.70" speed="1.17" pos="3.99" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="6.10">
-        <vehicle id="bike18" x="1211.01" y="3018.95" angle="97.01" type="bike_bicycle" speed="3.09" pos="4.18" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1211.01" y="3018.95" angle="97.90" type="bike_bicycle" speed="3.09" pos="4.18" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1202.91" y="3021.21" angle="276.70" speed="1.39" pos="4.13" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="6.20">
-        <vehicle id="bike18" x="1211.33" y="3018.91" angle="97.01" type="bike_bicycle" speed="3.20" pos="4.51" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1211.33" y="3018.91" angle="97.72" type="bike_bicycle" speed="3.20" pos="4.51" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1202.79" y="3021.23" angle="276.70" speed="1.26" pos="4.25" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="6.30">
-        <vehicle id="bike18" x="1211.66" y="3018.87" angle="97.01" type="bike_bicycle" speed="3.32" pos="4.84" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1211.66" y="3018.87" angle="97.57" type="bike_bicycle" speed="3.32" pos="4.84" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1202.65" y="3021.24" angle="276.70" speed="1.40" pos="4.39" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="6.40">
-        <vehicle id="bike18" x="1212.00" y="3018.83" angle="97.01" type="bike_bicycle" speed="3.43" pos="5.18" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1212.00" y="3018.83" angle="97.45" type="bike_bicycle" speed="3.43" pos="5.18" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1202.50" y="3021.26" angle="276.14" speed="1.43" pos="4.54" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="6.50">
-        <vehicle id="bike18" x="1212.35" y="3018.79" angle="97.01" type="bike_bicycle" speed="3.54" pos="5.53" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1212.35" y="3018.79" angle="97.35" type="bike_bicycle" speed="3.54" pos="5.53" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1202.36" y="3021.27" angle="276.14" speed="1.36" pos="4.67" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="6.60">
-        <vehicle id="bike18" x="1212.71" y="3018.74" angle="97.01" type="bike_bicycle" speed="3.65" pos="5.90" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1212.71" y="3018.74" angle="97.27" type="bike_bicycle" speed="3.65" pos="5.90" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1202.24" y="3021.29" angle="276.14" speed="1.28" pos="4.80" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="6.70">
-        <vehicle id="bike18" x="1213.08" y="3018.70" angle="97.01" type="bike_bicycle" speed="3.75" pos="6.27" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1213.08" y="3018.70" angle="97.21" type="bike_bicycle" speed="3.75" pos="6.27" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1202.12" y="3021.30" angle="276.14" speed="1.17" pos="4.92" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="6.80">
-        <vehicle id="bike18" x="1213.47" y="3018.65" angle="97.01" type="bike_bicycle" speed="3.86" pos="6.66" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1213.47" y="3018.65" angle="97.16" type="bike_bicycle" speed="3.86" pos="6.66" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1201.98" y="3021.32" angle="276.14" speed="1.42" pos="5.06" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="6.90">
-        <vehicle id="bike18" x="1213.86" y="3018.60" angle="97.01" type="bike_bicycle" speed="3.97" pos="7.06" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1213.86" y="3018.60" angle="97.12" type="bike_bicycle" speed="3.97" pos="7.06" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1201.84" y="3021.33" angle="276.14" speed="1.39" pos="5.20" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="7.00">
-        <vehicle id="bike18" x="1214.27" y="3018.55" angle="97.01" type="bike_bicycle" speed="4.07" pos="7.46" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1214.27" y="3018.55" angle="97.09" type="bike_bicycle" speed="4.07" pos="7.46" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1201.72" y="3021.34" angle="276.14" speed="1.16" pos="5.32" edge=":j3_w0" slope="0.00"/>
     </timestep>
     <timestep time="7.10">
-        <vehicle id="bike18" x="1214.68" y="3018.50" angle="97.01" type="bike_bicycle" speed="4.17" pos="7.88" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1214.68" y="3018.50" angle="97.07" type="bike_bicycle" speed="4.17" pos="7.88" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1201.59" y="3021.36" angle="276.14" speed="1.35" pos="0.01" edge="-b" slope="0.00"/>
     </timestep>
     <timestep time="7.20">
-        <vehicle id="bike18" x="1215.10" y="3018.45" angle="97.01" type="bike_bicycle" speed="4.27" pos="8.31" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1215.10" y="3018.45" angle="97.05" type="bike_bicycle" speed="4.27" pos="8.31" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1201.46" y="3021.37" angle="276.14" speed="1.34" pos="0.15" edge="-b" slope="0.00"/>
     </timestep>
     <timestep time="7.30">
-        <vehicle id="bike18" x="1215.54" y="3018.39" angle="97.01" type="bike_bicycle" speed="4.37" pos="8.74" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1215.54" y="3018.39" angle="97.04" type="bike_bicycle" speed="4.37" pos="8.74" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1201.32" y="3021.39" angle="276.14" speed="1.42" pos="0.29" edge="-b" slope="0.00"/>
     </timestep>
     <timestep time="7.40">
-        <vehicle id="bike18" x="1215.98" y="3018.34" angle="97.01" type="bike_bicycle" speed="4.46" pos="9.19" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1215.98" y="3018.34" angle="97.03" type="bike_bicycle" speed="4.46" pos="9.19" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1201.19" y="3021.40" angle="276.14" speed="1.28" pos="0.42" edge="-b" slope="0.00"/>
     </timestep>
     <timestep time="7.50">
-        <vehicle id="bike18" x="1216.43" y="3018.28" angle="97.01" type="bike_bicycle" speed="4.55" pos="9.64" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1216.43" y="3018.28" angle="97.02" type="bike_bicycle" speed="4.55" pos="9.64" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1201.05" y="3021.42" angle="276.14" speed="1.38" pos="0.56" edge="-b" slope="0.00"/>
     </timestep>
     <timestep time="7.60">
-        <vehicle id="bike18" x="1216.89" y="3018.23" angle="97.01" type="bike_bicycle" speed="4.64" pos="10.11" lane="c_0" slope="0.00"/>
+        <vehicle id="bike18" x="1216.89" y="3018.23" angle="97.02" type="bike_bicycle" speed="4.64" pos="10.11" lane="c_0" slope="0.00"/>
         <person id="ped13" x="1200.91" y="3021.43" angle="276.14" speed="1.39" pos="0.70" edge="-b" slope="0.00"/>
     </timestep>
     <timestep time="7.70">

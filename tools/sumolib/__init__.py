@@ -23,6 +23,7 @@ import sys
 import subprocess
 import gzip
 import io
+import warnings
 try:
     from urllib.request import urlopen
 except ImportError:
@@ -179,11 +180,26 @@ def _laneID2edgeID(laneID):
 
 
 def open(fileOrURL, tryGZip=True, mode="rb"):
+    warnings.warn("sumolib.open is deprecated, due to the name clash and strange signature! Use openz instead.")
+    return openz(fileOrURL, mode, tryGZip=tryGZip)
+
+
+def openz(fileOrURL, mode="r", **kwargs):
+    """
+    Opens transparently files, URLs and gzipped files for reading and writing. Also enforces UTF8 on text output / input.
+    Should be compatible with python 2 and 3.
+    """
     try:
-        if fileOrURL.startswith("http"):
+        if fileOrURL.startswith("http://") or fileOrURL.startswith("https://"):
             return io.BytesIO(urlopen(fileOrURL).read())
-        if tryGZip:
+        if fileOrURL.endswith(".gz") and "w" in mode:
+            if "b" in mode:
+                return gzip.open(fileOrURL, mode="w")
+            return gzip.open(fileOrURL, mode="wt", encoding="utf8")
+        if kwargs.get("tryGZip", True) and "r" in mode:
             return gzip.open(fileOrURL)
     finally:
         pass
-    return io.open(fileOrURL, mode=mode)
+    if "b" in mode:
+        return io.open(fileOrURL, mode=mode)
+    return io.open(fileOrURL, mode=mode, encoding="utf8")

@@ -29,5 +29,8 @@ intermediate_divergence_stops
 # store comments as params
 comment_params
 
+# three trains and two constraints (to be used as input for #12326)
+3_trains
+
 # 2 common bidi edges between stations
 redundant

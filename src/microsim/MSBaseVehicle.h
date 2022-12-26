@@ -113,7 +113,7 @@ public:
     /// @brief replace the vehicle parameter (deleting the old one)
     void replaceParameter(const SUMOVehicleParameter* newParameter);
 
-    /// @brief check whether the vehicle is equiped with a device of the given type
+    /// @brief check whether the vehicle is equiped with a device of the given name
     bool hasDevice(const std::string& deviceName) const;
 
     /// @brief create device of the given type
@@ -182,6 +182,12 @@ public:
     virtual const MSEdge* getCurrentEdge() const {
         return getEdge();
     }
+
+    /** @brief Returns whether the vehicle stops at the given stopping place */
+    bool stopsAt(MSStoppingPlace* stop) const;
+
+    /** @brief Returns whether the vehicle stops at the given edge */
+    bool stopsAtEdge(const MSEdge* edge) const;
 
     /// @brief returns the next edge (possibly an internal edge)
     virtual const MSEdge* getNextEdgePtr() const {
@@ -462,6 +468,9 @@ public:
     /// @brief returns whether the vehicle serves a public transport line that serves the given stop
     bool isLineStop(double position) const;
 
+    /// @brief check wether the vehicle has jump at the given part of it's route
+    bool hasJump(const MSRouteIterator& it) const;
+
     /** @brief Validates the current or given route
      * @param[out] msg Description why the route is not valid (if it is the case)
      * @param[in] route The route to check (or 0 if the current route shall be checked)
@@ -533,7 +542,7 @@ public:
         myChosenSpeedFactor = factor;
     }
 
-    /// @brief Returns a device of the given type if it exists or 0
+    /// @brief Returns a device of the given type if it exists, nullptr otherwise
     MSVehicleDevice* getDevice(const std::type_info& type) const;
 
 
@@ -576,6 +585,18 @@ public:
      * @return whether the vehicle is parking
      */
     bool isParking() const;
+
+    /** @brief Returns whether the vehicle is perform a jump
+     * @return whether the vehicle is starting to jump
+     */
+    bool isJumping() const;
+
+    /** @brief Returns whether the logical state of the vehicle is reversed - for drawing
+    * @return whether the logical state of the vehicle is reversed
+    */
+    inline bool isReversed() const {
+        return myAmReversed;
+    }
 
     /** @brief Returns whether the vehicle is on a triggered stop
      * @return whether the vehicle is on a triggered stop
@@ -625,7 +646,7 @@ public:
     /** @brief Returns the list of still pending stop edges
      * also returns the first and last stop position
      */
-    const ConstMSEdgeVector getStopEdges(double& firstPos, double& lastPos) const;
+    const ConstMSEdgeVector getStopEdges(double& firstPos, double& lastPos, std::set<int>& jumps) const;
 
     /// @brief return list of route indices for the remaining stops
     std::vector<std::pair<int, double> > getStopIndices() const;
@@ -1000,6 +1021,11 @@ protected:
     static const SUMOTime NOT_YET_DEPARTED;
 
     static std::vector<MSTransportable*> myEmptyTransportableVector;
+
+    /* @brief The logical 'reversed' state of the vehicle - intended to be used by drawing functions
+     * @note:   only set by vClass rail reversing at the moment
+     */
+    bool myAmReversed = false;
 
 private:
     const NumericalID myNumericalID;

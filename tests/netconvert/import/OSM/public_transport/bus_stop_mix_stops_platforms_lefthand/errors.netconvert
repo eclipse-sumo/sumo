@@ -1,9 +1,6 @@
 Warning: Ignoring track count 2 for edge '25211335'.
-Warning: Discarding unknown compound 'cycleway.share_busway' in type 'cycleway.share_busway|highway.trunk' (first occurence for edge '4060821').
-Warning: Discarding unknown compound 'cycleway.opposite' in type 'cycleway.opposite|highway.residential' (first occurence for edge '8401517').
-Warning: Discarding unknown compound 'usage.main' in type 'railway.rail|usage.main' (first occurence for edge '25211335').
-Warning: Discarding unknown compound 'cycleway.opposite_lane' in type 'cycleway.opposite_lane|highway.residential' (first occurence for edge '43873883').
-Warning: Discarding unknown compound 'cycleway.opposite' in type 'cycleway.opposite|highway.unclassified' (first occurence for edge '204657039').
+Warning: Discarding unknown compound 'usage.main' in type 'railway.rail|usage.main' (first occurrence for edge '25211335').
+Warning: Discarding unknown compound 'cycleway.opposite_lane' in type 'cycleway.opposite_lane|highway.residential' (first occurrence for edge '43873883').
 Warning: No way found for reference '682488207' in relation '1057486'
 Warning: No way found for reference '5001019' in relation '1057486'
 Warning: Ignoring restriction relation '1057486' with unknown from-way.
@@ -36,7 +33,6 @@ Warning: Found sharp turn with radius 5.14 at the start of edge '743127581#2'.
 Warning: Speed of straight connection '24546642#0_0->24546642#1_0' reduced by 5.99 due to turning radius of 10.02 (length=1.40, angle=23.69).
 Warning: Speed of straight connection '300873532#2_0->300873532#3_0' reduced by 7.31 due to turning radius of 6.77 (length=2.24, angle=36.47).
 Warning: Speed of straight connection '300873532#2_1->300873532#3_1' reduced by 8.92 due to turning radius of 3.67 (length=1.07, angle=36.47).
-Warning: 9 total messages of type: Discarding unknown compound '%' in type '%' (first occurence for edge '%').
 Warning: 6 total messages of type: No way found for reference '%' in relation '%'
 Warning: 9 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.
 Warning: 8 total messages of type: PT stop '%' has been moved to edge '%'.

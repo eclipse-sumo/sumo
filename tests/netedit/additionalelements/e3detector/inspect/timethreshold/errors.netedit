@@ -5,7 +5,7 @@ Debug: Selected item 'detEntry' in GNETagSelector
 Debug: Adding detEntry 'e3_0' in GNEChange_Additional
 Debug: Selected item 'detExit' in GNETagSelector
 Debug: Adding detExit 'e3_0' in GNEChange_Additional
-Debug: Value 'dummyTimeTreshold' for attribute timeThreshold of entryExitDetector isn't valid
+Debug: Value 'dummyTimeThreshold' for attribute timeThreshold of entryExitDetector isn't valid
 Debug: Value '-5' for attribute timeThreshold of entryExitDetector isn't valid
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed

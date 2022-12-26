@@ -295,7 +295,7 @@ public:
     /// @brief comparing operation
     bool operator!=(const PositionVector& v2) const;
 
-    /// @brief substracts two vectors (requires vectors of the same length)
+    /// @brief subtracts two vectors (requires vectors of the same length)
     PositionVector operator-(const PositionVector& v2) const;
 
     /// @brief adds two vectors (requires vectors of the same length)

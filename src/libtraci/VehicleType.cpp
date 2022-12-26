@@ -188,6 +188,13 @@ VehicleType::getScale(const std::string& typeID) {
     return Dom::getDouble(libsumo::VAR_SCALE, typeID);
 }
 
+
+double
+VehicleType::getBoardingDuration(const std::string& typeID) {
+    return Dom::getDouble(libsumo::VAR_BOARDING_DURATION, typeID);
+}
+
+
 void
 VehicleType::setActionStepLength(const std::string& typeID, double actionStepLength, bool resetActionOffset) {
     //if (actionStepLength < 0) {

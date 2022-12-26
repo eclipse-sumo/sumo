@@ -96,8 +96,13 @@ PCLoaderArcView::toShape(OGRLineString* geom, const std::string& tid) {
     }
     GeoConvHelper& geoConvHelper = GeoConvHelper::getProcessing();
     PositionVector shape;
+#if GDAL_VERSION_MAJOR < 3
     for (int j = 0; j < geom->getNumPoints(); j++) {
         Position pos(geom->getX(j), geom->getY(j));
+#else
+    for (const OGRPoint& p : *geom) {
+        Position pos(p.getX(), p.getY());
+#endif
         if (!geoConvHelper.x2cartesian(pos)) {
             WRITE_ERROR("Unable to project coordinates for polygon '" + tid + "'.");
         }

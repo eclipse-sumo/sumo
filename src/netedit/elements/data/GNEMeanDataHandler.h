@@ -37,10 +37,10 @@ class GNEMeanDataHandler : public MeanDataHandler {
 
 public:
     /// @brief Constructor
-    GNEMeanDataHandler(GNENet* net, const std::string& file, const bool allowUndoRedo);
+    GNEMeanDataHandler(GNENet* net, const bool allowUndoRedo, const bool overwrite);
 
     /// @brief Destructor
-    ~GNEMeanDataHandler();
+    virtual ~GNEMeanDataHandler();
 
     /// @name build functions
     /// @{
@@ -68,6 +68,9 @@ protected:
 
     /// @brief allow undo/redo
     const bool myAllowUndoRedo;
+
+    /// @brief check if overwrite
+    const bool myOverwrite;
 
     /// @brief parse edges
     std::vector<GNEEdge*> parseEdges(const SumoXMLTag tag, const std::vector<std::string>& edgeIDs);

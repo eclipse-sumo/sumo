@@ -86,7 +86,7 @@ Please note:
 2.  changing the route works only if the vehicle is not within an
     intersection.
 3.  The specified lane must lie ahead of the vehicle on its current
-    route. The next occurence is used. Intermediate edges will count the
+    route. The next occurrence is used. Intermediate edges will count the
     vehicle when entering and exiting.
 
 # compound message details

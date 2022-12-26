@@ -307,8 +307,25 @@ GNEConnectorFrame::ConnectionOperations::onCmdResetSelectedConnections(FXObject*
 GNEConnectorFrame::ConnectionSelection::ConnectionSelection(GNEConnectorFrame* connectorFrameParent) :
     MFXGroupBoxModule(connectorFrameParent, TL("Selection")) {
     // create Selection Hint
-    myHoldShiftLabel = new FXLabel(getCollapsableFrame(), "Hold <SHIFT> while clicking\nto create unyielding\nconnections (pass=true).", 0, GUIDesignLabelFrameInformation);
-    myHoldControlLabel = new FXLabel(getCollapsableFrame(), "Hold <CTRL> while clicking\nto create conflicting\nconnections (i.e. at zipper\nnodes or with incompatible\npermissions)", 0, GUIDesignLabelFrameInformation);
+    std::ostringstream informationA;
+    // add label for shift+click
+    informationA
+            << TL("-Hold <SHIFT> while") << "\n"
+            << TL(" clicking to create") << "\n"
+            << TL(" unyielding connections") << "\n"
+            << TL(" (pass=true).");
+    // create label
+    new FXLabel(getCollapsableFrame(), informationA.str().c_str(), 0, GUIDesignLabelFrameInformation);
+    std::ostringstream informationB;
+    informationB
+            << TL("-Hold <CTRL> while") << "\n"
+            << TL(" clicking to create ") << "\n"
+            << TL(" conflicting connections") << "\n"
+            << TL(" (i.e. at zipper nodes") << "\n"
+            << TL(" or with incompatible") << "\n"
+            << TL(" permissions");
+    // create label
+    new FXLabel(getCollapsableFrame(), informationB.str().c_str(), 0, GUIDesignLabelFrameInformation);
 }
 
 

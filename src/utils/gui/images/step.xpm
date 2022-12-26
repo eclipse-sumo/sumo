@@ -1,5 +1,6 @@
 /* XPM */
-static const char *step_xpm[]={
+static const char *step_xpm[] = {
+/* columns rows colors chars-per-pixel */
 "15 16 41 1",
 ". c #000000",
 "B c #3e9000",
@@ -42,6 +43,7 @@ static const char *step_xpm[]={
 "b c #88ff2d",
 "a c #8dff37",
 "# c None",
+/* pixels */
 ".....#..#######",
 ".abc.#.d.######",
 ".bce.#.fg.#####",
@@ -57,4 +59,5 @@ static const char *step_xpm[]={
 ".KLy.#.JF.#####",
 ".LyM.#.F.######",
 ".....#..#######",
-"###############"};
+"###############"
+};

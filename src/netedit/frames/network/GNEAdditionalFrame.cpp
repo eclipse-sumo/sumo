@@ -34,13 +34,13 @@ GNEAdditionalFrame::GNEAdditionalFrame(GNEViewParent* viewParent, GNEViewNet* vi
     GNEFrame(viewParent, viewNet, "Additionals"),
     myBaseAdditional(nullptr) {
 
-    // create item Selector modul for additionals
+    // create item Selector module for additionals
     myAdditionalTagSelector = new GNETagSelector(this, GNETagProperties::TagType::ADDITIONALELEMENT, SUMO_TAG_BUS_STOP);
 
     // Create additional parameters
     myAdditionalAttributes = new GNEAttributesCreator(this);
 
-    // Create Netedit parameter
+    // Create netedit parameter
     myNeteditAttributes = new GNENeteditAttributes(this);
 
     // Create selector parent
@@ -195,7 +195,7 @@ GNEAdditionalFrame::tagSelected() {
     // get template AC
     const auto templateAC = myAdditionalTagSelector->getCurrentTemplateAC();
     if (templateAC) {
-        // show additional attributes modul
+        // show additional attributes module
         myAdditionalAttributes->showAttributesCreatorModule(templateAC, {});
         // show netedit attributes
         myNeteditAttributes->showNeteditAttributesModule(templateAC);
@@ -225,7 +225,7 @@ GNEAdditionalFrame::tagSelected() {
         // reset last position
         myViewNet->resetLastClickedPosition();
     } else {
-        // hide all moduls if additional isn't valid
+        // hide all modules if additional isn't valid
         myAdditionalAttributes->hideAttributesCreatorModule();
         myNeteditAttributes->hideNeteditAttributesModule();
         mySelectorAdditionalParent->hideSelectorParentModule();
@@ -364,7 +364,7 @@ GNEAdditionalFrame::buildAdditionalOverEdge(GNELane* lane, const GNETagPropertie
         additionalHandler.parseSumoBaseObject(myBaseAdditional);
         // Refresh additional Parent Selector (For additionals that have a limited number of children)
         mySelectorAdditionalParent->refreshSelectorParentModule();
-        // clear selected eddges and lanes
+        // clear selected edges and lanes
         myEdgesSelector->onCmdClearSelection(nullptr, 0, nullptr);
         myLanesSelector->onCmdClearSelection(nullptr, 0, nullptr);
         // refresh additional attributes
@@ -406,7 +406,7 @@ GNEAdditionalFrame::buildAdditionalOverLane(GNELane* lane, const GNETagPropertie
         additionalHandler.parseSumoBaseObject(myBaseAdditional);
         // Refresh additional Parent Selector (For additionals that have a limited number of children)
         mySelectorAdditionalParent->refreshSelectorParentModule();
-        // clear selected eddges and lanes
+        // clear selected edges and lanes
         myEdgesSelector->onCmdClearSelection(nullptr, 0, nullptr);
         myLanesSelector->onCmdClearSelection(nullptr, 0, nullptr);
         // refresh additional attributes
@@ -425,17 +425,17 @@ GNEAdditionalFrame::buildAdditionalOverView(const GNETagProperties& tagPropertie
             (tagProperties.getTag() == SUMO_TAG_CLOSING_LANE_REROUTE) ||
             (tagProperties.getTag() == SUMO_TAG_ROUTE_PROB_REROUTE) ||
             (tagProperties.getTag() == SUMO_TAG_PARKING_AREA_REROUTE)) {
-        WRITE_WARNING(TL("Currently unsuported. Create rerouter elements using rerouter dialog"));
+        WRITE_WARNING(TL("Currently unsupported. Create rerouter elements using rerouter dialog"));
         return false;
     }
     // disable steps (temporal)
     if (tagProperties.getTag() == SUMO_TAG_STEP) {
-        WRITE_WARNING(TL("Currently unsuported. Create VSS steps using VSS dialog"));
+        WRITE_WARNING(TL("Currently unsupported. Create VSS steps using VSS dialog"));
         return false;
     }
     // disable flows (temporal)
     if (tagProperties.getTag() == GNE_TAG_CALIBRATOR_FLOW) {
-        WRITE_WARNING(TL("Currently unsuported. Create calibratorFlows using calibrator dialog"));
+        WRITE_WARNING(TL("Currently unsupported. Create calibratorFlows using calibrator dialog"));
         return false;
     }
     // Check if ID has to be generated
@@ -483,7 +483,7 @@ GNEAdditionalFrame::buildAdditionalOverView(const GNETagProperties& tagPropertie
         additionalHandler.parseSumoBaseObject(myBaseAdditional);
         // Refresh additional Parent Selector (For additionals that have a limited number of children)
         mySelectorAdditionalParent->refreshSelectorParentModule();
-        // clear selected eddges and lanes
+        // clear selected edges and lanes
         myEdgesSelector->onCmdClearSelection(nullptr, 0, nullptr);
         myLanesSelector->onCmdClearSelection(nullptr, 0, nullptr);
         // refresh additional attributes

@@ -25,13 +25,14 @@ from __future__ import print_function
 
 import os
 import sys
+from math import isnan
 
 import pandas as pd
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
-from sumolib.miscutils import parseTime, humanReadableTime  # noqa
+from sumolib.miscutils import parseTime  # noqa
 from sumolib.statistics import Statistics  # noqa
 from sumolib.xml import parse  # noqa
 
@@ -41,6 +42,10 @@ STATS = {
     # selector -> description, function
     'd': ('depart delay', lambda r, s: s.add(r['sim_ended'] - r['until'], key(r))),
     'a': ('arrival delay', lambda r, s: s.add(r['sim_started'] - r['arrival'], key(r))),
+    'de': ('depart delay',
+           lambda r, s: s.add(r['sim_ended'] - (r['until'] if isnan(r['ended']) else r['ended']), key(r))),
+    'as': ('arrival delay',
+           lambda r, s: s.add(r['sim_started'] - (r['arrival'] if isnan(r['started']) else r['started']), key(r))),
     's': ('stop delay', lambda r, s: s.add(r['until'] - r['arrival'] - (r['sim_ended'] - r['sim_started']), key(r))),
 }
 

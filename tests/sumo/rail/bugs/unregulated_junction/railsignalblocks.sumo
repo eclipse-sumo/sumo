@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep  2 09:53:23 2020 by Eclipse SUMO sumo Version v1_6_0+1904-84cb2799ee
+<!-- generated on 2022-11-30 15:15:07 by Eclipse SUMO sumo Version v1_15_0+0679-5ca98c3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -23,7 +28,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -33,25 +37,9 @@ SPDX-License-Identifier: EPL-2.0
 
 <railsignal-block-output>
     <railSignal id="gneJ5">
-        <link linkIndex="0" from="-e_0" to=":gneJ5_0_0">
-            <driveWay edges="-d -c -b -a">
-                <forward lanes=":gneJ5_0_0 -d_0 :gneJ2_0_0 -c_0 :gneJ1_0_0 -b_0 :gneJ6_0_0 -a_0"/>
-                <bidi lanes="c_0"/>
-                <flank lanes=":gneJ1_1_0 b_0 :gneJ8_0_0"/>
-                <protectingSwitches links=""/>
-                <conflictLinks signals="gneJ8_0"/>
-            </driveWay>
-        </link>
+        <link linkIndex="0" from="-e_0" to=":gneJ5_0_0"/>
     </railSignal>
     <railSignal id="gneJ8">
-        <link linkIndex="0" from="a_0" to=":gneJ8_0_0">
-            <driveWay edges="b c d e">
-                <forward lanes=":gneJ8_0_0 b_0 :gneJ1_1_0 c_0 :gneJ2_1_0 d_0 :gneJ9_0_0 e_0"/>
-                <bidi lanes="-c_0"/>
-                <flank lanes=":gneJ2_0_0 -d_0 :gneJ5_0_0"/>
-                <protectingSwitches links=""/>
-                <conflictLinks signals="gneJ5_0"/>
-            </driveWay>
-        </link>
+        <link linkIndex="0" from="a_0" to=":gneJ8_0_0"/>
     </railSignal>
 </railsignal-block-output>

@@ -503,6 +503,9 @@ NBFrame::fillOptions(bool forNetgen) {
 
         oc.doRegister("tls.guess-signals.dist", new Option_Float(25));
         oc.addDescription("tls.guess-signals.dist", "TLS Building", "Distance for interpreting nodes as signal locations");
+
+        oc.doRegister("tls.guess-signals.slack", new Option_Integer(0));
+        oc.addDescription("tls.guess-signals.slack", "TLS Building", "Number of uncontrolled entry edges to accept and still consider the central node as a traffic light");
     }
 
 
@@ -586,6 +589,9 @@ NBFrame::fillOptions(bool forNetgen) {
 
     oc.doRegister("tls.ungroup-signals", new Option_Bool(false));
     oc.addDescription("tls.ungroup-signals", "TLS Building", "Assign a distinct tls link index to every connection");
+
+    oc.doRegister("tls.rebuild", new Option_Bool(false));
+    oc.addDescription("tls.rebuild", "TLS Building", "rebuild all traffic light plans in the network");
 
     // edge pruning
     oc.doRegister("keep-edges.min-speed", new Option_Float(-1));

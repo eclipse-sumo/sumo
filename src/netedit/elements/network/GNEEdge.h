@@ -462,6 +462,12 @@ private:
     /// @brief draw edge shape (only one line)
     void drawEdgeShape(const GUIVisualizationSettings& s) const;
 
+    /// @brief set geometry point color
+    void setGeometryPointColor(const Position &geometryPointPos, const double circleWidth, const RGBColor &geometryPointColor) const;
+
+    /// @brief check if draw big geometry points
+    bool drawBigGeometryPoints() const;
+
     /// @brief check if given stacked positions are overlapped
     bool areStackPositionOverlapped(const GNEEdge::StackPosition& vehicleA, const GNEEdge::StackPosition& vehicleB) const;
 
@@ -476,6 +482,9 @@ private:
 
     /// @brief process moving edge when none junction are selected
     GNEMoveOperation* processNoneJunctionSelected(const double snapRadius);
+
+    /// @brief get snap radius
+    double getSnapRadius(const bool squared) const;
 
     /// @brief invalidated copy constructor
     GNEEdge(const GNEEdge& s) = delete;

@@ -226,6 +226,8 @@ enum {
     MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE,
     /// @brief Adjust person plans (start und end positions, arrival positions, etc.)
     MID_HOTKEY_SHIFT_F7_ADJUST_PERSON_PLANS,
+    /// @brief open SUMO options menu (used in NETEDIT)
+    MID_HOTKEY_SHIFT_F10_SUMOOPTIONSMENU,
     /// @brief focus upper element of current frame (only used in NETEDIT)
     MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT,
     /// @}
@@ -316,8 +318,10 @@ enum {
 
     /// @brief Open editor for selections
     MID_EDITCHOSEN,
-    /// @brief Open in netedit
-    MID_NETEDIT,
+    /// @brief Open network in NETEDIT
+    MID_NETEDIT_ONLYNETWORK,
+    /// @brief open sumoConfig in NETEDIT
+    MID_NETEDIT_SUMOCFG,
 
     /// @}
 
@@ -454,6 +458,8 @@ enum {
     MID_COPY_CURSOR_POSITION,
     /// @brief Copy cursor geo-coordinate position - popup entry
     MID_COPY_CURSOR_GEOPOSITION,
+    /// @brief Copy view geo-coordinate boundary - popup entry
+    MID_COPY_VIEW_GEOBOUNDARY,
     /// @brief Show the cursor geo-coordinate position online in GeoHack - popup entry
     MID_SHOW_GEOPOSITION_ONLINE,
     /// @brief open additional dialog (used in netedit)

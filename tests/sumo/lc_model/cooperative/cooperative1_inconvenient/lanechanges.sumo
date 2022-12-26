@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-13 14:52:27 by Eclipse SUMO sumo Version v1_14_1+1667-e8594ac
+<!-- generated on 2022-12-04 14:20:01 by Eclipse SUMO sumo Version v1_15_0+0751-db72905
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -41,5 +41,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <change id="ego" type="ego" time="16.00" from="beg_1" to="beg_2" dir="1" speed="13.89" pos="227.34" reason="cooperative|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
     <change id="A" type="neigh" time="17.00" from="beg_0" to="beg_1" dir="1" speed="13.89" pos="241.23" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
     <change id="ego" type="ego" time="25.00" from="beg_2" to="beg_1" dir="-1" speed="9.30" pos="311.13" reason="speedGain" leaderGap="36.22" leaderSecureGap="0.00" leaderSpeed="13.89" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
-    <change id="ego" type="ego" time="38.00" from="beg_1" to="beg_0" dir="-1" speed="10.06" pos="485.88" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="9.12" origLeaderSecureGap="16.68" origLeaderSpeed="0.00"/>
+    <change id="ego" type="ego" time="38.00" from="beg_1" to="beg_0" dir="-1" speed="10.06" pos="485.88" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="9.12" origLeaderSecureGap="8.63" origLeaderSpeed="0.00"/>
 </lanechanges>

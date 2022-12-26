@@ -21,7 +21,7 @@ Debug: Adding tripJunctions 't_1' in GNEChange_DemandElement
 Debug: Adding tripJunctions 't_2' in GNEChange_DemandElement
 Debug: Adding tripJunctions 't_3' in GNEChange_DemandElement
 Debug: Adding tripJunctions 't_4' in GNEChange_DemandElement
-Debug: Enabled show demand elements throught alt + 4
+Debug: Enabled show demand elements through alt + 4
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'

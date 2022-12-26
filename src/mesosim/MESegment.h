@@ -261,7 +261,7 @@ public:
 
     /** @brief Returns the relative occupany of the segment (percentage of road used))
      * at which the segment is considered jammed
-     * @return the jam treshold of the segment in percent
+     * @return the jam threshold of the segment in percent
      */
     inline double getRelativeJamThreshold() const {
         return myJamThreshold / myCapacity;

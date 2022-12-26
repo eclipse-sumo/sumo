@@ -1641,7 +1641,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
             edgeIndex = linkIndex;
             toEdge = con.toEdge;
             internalLaneIndex = 0;
-            assignInternalLaneLength(i, numLanes, lengthSum, averageLength);
+            maxCross = MAX2(maxCross, assignInternalLaneLength(i, numLanes, lengthSum, averageLength));
             numLanes = 0;
             lengthSum = 0;
         }
@@ -1681,7 +1681,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                     bool oppositeLeftIntersect = avoidIntersectCandidate && haveIntersection(n, shape, i2, k2, numPoints, width1OppositeLeft, width2);
                     int shapeFlag = 0;
                     SVCPermissions warn = SVCAll & ~(SVC_PEDESTRIAN | SVC_BICYCLE | SVC_DELIVERY | SVC_RAIL_CLASSES);
-                    // do not warn if only bicycles, pedestrians or delivery vehicles are involved as this is a typical occurence
+                    // do not warn if only bicycles, pedestrians or delivery vehicles are involved as this is a typical occurrence
                     if (con.customShape.size() == 0
                             && k2.customShape.size() == 0
                             && (oppositeLeftIntersect || (avoidedIntersectingLeftOriginLane < con.fromLane  && avoidIntersectCandidate))
@@ -1878,7 +1878,9 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
         assert(shape.size() >= 2);
         // get internal splits if any
         con.id = innerID + "_" + toString(edgeIndex);
-        if (crossingPositions.first >= 0 && crossingPositions.first < shape.length()) {
+        const double shapeLength = shape.length();
+        double firstLength = shapeLength;
+        if (crossingPositions.first >= 0 && crossingPositions.first < shapeLength) {
             std::pair<PositionVector, PositionVector> split = shape.splitAt(crossingPositions.first);
             con.shape = split.first;
             con.foeIncomingLanes = std::vector<std::string>(tmpFoeIncomingLanes.begin(), tmpFoeIncomingLanes.end());
@@ -1887,6 +1889,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
             ++splitIndex;
             con.viaShape = split.second;
             con.haveVia = true;
+            firstLength = con.shape.length();
         } else {
             con.shape = shape;
         }
@@ -1895,44 +1898,53 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
         ++linkIndex;
         ++numLanes;
         if (con.customLength != UNSPECIFIED_LOADED_LENGTH) {
-            lengthSum += con.customLength;
-            maxCross = MAX2(maxCross, con.customLength / MAX2(con.vmax, NBOwnTLDef::MIN_SPEED_CROSSING_TIME));
+            // split length proportionally
+            lengthSum += firstLength / shapeLength * con.customLength;
         } else {
-            lengthSum += con.shape.length();
-            maxCross = MAX2(maxCross, con.shape.length() / MAX2(con.vmax, NBOwnTLDef::MIN_SPEED_CROSSING_TIME));
+            lengthSum += firstLength;
         }
     }
-    assignInternalLaneLength(myConnections.end(), numLanes, lengthSum, averageLength);
-    return maxCross;
+    return MAX2(maxCross, assignInternalLaneLength(myConnections.end(), numLanes, lengthSum, averageLength));
 }
 
 
-void
+double
 NBEdge::assignInternalLaneLength(std::vector<Connection>::iterator i, int numLanes, double lengthSum, bool averageLength) {
-    // assign average length to all lanes of the same internal edge
-    // @note the actual length should be used once sumo supports lanes of
-    // varying length within the same edge
+    // assign average length to all lanes of the same internal edge if averageLength is set
+    // the lengthSum only covers the part up to the first internal junction
+    // TODO This code assumes that either all connections in question have a via or none
+    double maxCross = 0.;
     assert(i - myConnections.begin() >= numLanes);
     for (int prevIndex = 1; prevIndex <= numLanes; prevIndex++) {
         //std::cout << " con=" << (*(i - prevIndex)).getDescription(this) << " numLanes=" << numLanes << " avgLength=" << lengthSum / numLanes << "\n";
         Connection& c = (*(i - prevIndex));
         const double minLength = c.customLength != UNSPECIFIED_LOADED_LENGTH ? pow(10, -gPrecision) : POSITION_EPS;
-        if (averageLength) {
-            c.length = MAX2(minLength, lengthSum / numLanes);
-        } else {
-            c.length = MAX2(minLength, c.shape.length());
-        }
+        c.length = MAX2(minLength, averageLength ? lengthSum / numLanes : c.shape.length());
         if (c.haveVia) {
-            c.viaLength = c.viaShape.length();
-            if (c.customLength != UNSPECIFIED_LOADED_LENGTH) {
+            c.viaLength = MAX2(minLength, c.viaShape.length());
+        }
+        if (c.customLength != UNSPECIFIED_LOADED_LENGTH) {
+            if (c.haveVia) {
                 // split length proportionally
-                const double firstLength = c.shape.length();
-                const double a = firstLength / (firstLength + c.viaLength);
-                c.length = MAX2(minLength, a * c.customLength);
-                c.viaLength = MAX2(minLength, c.customLength - c.length);
+                const double a = c.viaLength / (c.shape.length() + c.viaLength);
+                c.viaLength = MAX2(minLength, a * c.customLength);
+            }
+            if (!averageLength) {
+                c.length = MAX2(minLength, c.customLength - c.viaLength);
             }
         }
+        if (c.haveVia) {
+            // we need to be able to leave from the internal junction by accelerating from 0
+            maxCross = MAX2(maxCross, sqrt(2. * c.viaLength)); // t = sqrt(2*s/a) and we assume 'a' is at least 1 (default value for tram in SUMOVTypeParameter)
+        }
+        // we need to be able to cross the junction in one go but not if we have an indirect left turn
+        if (c.indirectLeft) {
+            maxCross = MAX2(maxCross, MAX2(c.length, c.viaLength) / MAX2(c.vmax, NBOwnTLDef::MIN_SPEED_CROSSING_TIME));
+        } else {
+            maxCross = MAX2(maxCross, (c.length + c.viaLength) / MAX2(c.vmax, NBOwnTLDef::MIN_SPEED_CROSSING_TIME));
+        }
     }
+    return maxCross;
 }
 
 
@@ -3408,7 +3420,7 @@ NBEdge::appendTurnaround(bool noTLSControlled, bool noFringe, bool onlyDeadends,
         }
     }
     // avoid railway turn-arounds
-    if (isRailway(getPermissions()) && isRailway(myTurnDestination->getPermissions())
+    if (isRailway(getPermissions() & myTurnDestination->getPermissions())
             && fabs(NBHelpers::normRelAngle(getAngleAtNode(myTo), myTurnDestination->getAngleAtNode(myTo))) > 90) {
         // except at dead-ends on bidi-edges where they model a reversal in train direction
         // @todo #4382: once the network fringe is tagged, it also should not receive turn-arounds)

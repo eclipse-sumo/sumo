@@ -83,6 +83,7 @@ copy_test_path:input_data.xml
 copy_test_path:input_data2.xml
 copy_test_path_merge:data
 copy_test_path:sim.sumocfg
+copy_test_path:sim2.sumocfg
 copy_test_path:gtfs.zip
 copy_test_path:battery.xml
 
@@ -282,7 +283,9 @@ errors:Matplotlib is building the font cache; this may take a moment.
 errors:apport/report.py:13: DeprecationWarning: the imp{LINES 2}
 errors:schemaCheck.py
 errors:site-packages/ortools.*DeprecationWarning:
-errors:[remaining_args ...]
+errors:remaining_args \.\.\.
+errors:FutureWarning:{LINES 2}
+errors:\^\^\^
 omnet:<!-- generated on
 shawn:<!-- generated on
 gpsdat:r[0-9]

@@ -141,7 +141,7 @@ GUIMEInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     glVertex2d(1.0, 2);
     glEnd();
     glBegin(GL_LINES);
-    // without the substracted offsets, lines are partially longer
+    // without the subtracted offsets, lines are partially longer
     //  than the boxes
     glVertex2d(0, 2 - .1);
     glVertex2d(0, -2 + .1);

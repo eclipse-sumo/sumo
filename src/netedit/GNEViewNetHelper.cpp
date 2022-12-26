@@ -220,8 +220,10 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
     // clear elements
     myEdgeObjects.clearElements();
     myLaneObjects.clearElements();
+    // filter duplicated objects
+    const auto filteredObjects = filterDuplicatedObjects(GUIGlObjects);
     // sort GUIGLObjects
-    sortGUIGlObjects(GUIGlObjects);
+    sortGUIGlObjects(filteredObjects);
     // process GUIGLObjects using myEdgeObjects.GUIGlObjects and myLaneObjects.GUIGlObjects
     processGUIGlObjects();
 }
@@ -714,6 +716,22 @@ GNEViewNetHelper::ObjectsUnderCursor::ObjectsContainer::clearElements() {
 }
 
 
+std::vector<GUIGlObject*>
+GNEViewNetHelper::ObjectsUnderCursor::filterDuplicatedObjects(const std::vector<GUIGlObject*>& GUIGlObjects) const {
+    // declare vector for filter objects
+    std::vector<GUIGlObject*> filteredGUIGlObjects;
+    // iterate over GUIGlObjects
+    for (const auto &GLObject : GUIGlObjects) {
+        // find GLObject in filteredGUIGlObjects
+        const auto it = std::find(filteredGUIGlObjects.begin(), filteredGUIGlObjects.end(), GLObject);
+        if (it == filteredGUIGlObjects.end()) {
+            filteredGUIGlObjects.push_back(GLObject);
+        }
+    }
+    return filteredGUIGlObjects;
+}
+
+
 void
 GNEViewNetHelper::ObjectsUnderCursor::sortGUIGlObjects(const std::vector<GUIGlObject*>& GUIGlObjects) {
     // declare a map to save GUIGlObjects sorted by GLO_TYPE
@@ -999,7 +1017,7 @@ GNEViewNetHelper::ObjectsUnderCursor::updateGUIGlObjects(ObjectsContainer& conta
     container.GUIGlObjects.clear();
     // reserve
     container.GUIGlObjects.reserve(container.attributeCarriers.size());
-    // iterate over atribute carriers
+    // iterate over attribute carriers
     for (const auto& attributeCarrrier : container.attributeCarriers) {
         // add GUIGlObject in GUIGlObjects container
         container.GUIGlObjects.push_back(attributeCarrrier->getGUIGlObject());
@@ -1262,14 +1280,27 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
             return false;
         }
     } else if (myViewNet->myObjectsUnderCursor.getJunctionFront() && (frontAC == myViewNet->myObjectsUnderCursor.getJunctionFront())) {
-        // get move operation
-        GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getJunctionFront()->getMoveOperation();
-        // continue if move operation is valid
-        if (moveOperation) {
-            myMoveOperations.push_back(moveOperation);
-            return true;
+        // check if over junction there is a geometry point
+        if (myViewNet->myObjectsUnderCursor.getEdgeFront() && (myViewNet->myObjectsUnderCursor.getEdgeFront()->clickedOverGeometryPoint(myRelativeClickedPosition))) {
+            // get move operation
+            GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getEdgeFront()->getMoveOperation();
+            // continue if move operation is valid
+            if (moveOperation) {
+                myMoveOperations.push_back(moveOperation);
+                return true;
+            } else {
+                return false;
+            }
         } else {
-            return false;
+            // get move operation
+            GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getJunctionFront()->getMoveOperation();
+            // continue if move operation is valid
+            if (moveOperation) {
+                myMoveOperations.push_back(moveOperation);
+                return true;
+            } else {
+                return false;
+            }
         }
     } else if ((myViewNet->myObjectsUnderCursor.getEdgeFront() && (frontAC == myViewNet->myObjectsUnderCursor.getEdgeFront())) ||
                (myViewNet->myObjectsUnderCursor.getLaneFront() && (frontAC == myViewNet->myObjectsUnderCursor.getLaneFront()))) {
@@ -2243,7 +2274,7 @@ GNEViewNetHelper::NetworkViewOptions::buildNetworkViewOptionsMenuChecks() {
 
     menuCheckToggleDrawJunctionShape = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
             myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-            ("\tHide junction shape\tToggle hidding junction shape. (Ctrl+J)"),
+            ("\tHide junction shape\tToggle hiding junction shape. (Ctrl+J)"),
             GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_TOGGLEDRAWJUNCTIONSHAPE),
             myViewNet, MID_GNE_NETWORKVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE, GUIDesignMFXCheckableButtonSquare);
     menuCheckToggleDrawJunctionShape->setChecked(false);
@@ -2554,7 +2585,7 @@ GNEViewNetHelper::DemandViewOptions::buildDemandViewOptionsMenuChecks() {
 
     menuCheckToggleDrawJunctionShape = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
             myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-            ("\tHide junction shape\tToggle hidding junction shape. (Ctrl+J)"),
+            ("\tHide junction shape\tToggle hiding junction shape. (Ctrl+J)"),
             GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_TOGGLEDRAWJUNCTIONSHAPE),
             myViewNet, MID_GNE_DEMANDVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE, GUIDesignMFXCheckableButtonSquare);
     menuCheckToggleDrawJunctionShape->setChecked(false);
@@ -2841,7 +2872,7 @@ GNEViewNetHelper::DataViewOptions::buildDataViewOptionsMenuChecks() {
     // create menu checks
     menuCheckToggleDrawJunctionShape = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
             myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-            ("\tHide junction shape\tToggle hidding junction shape. (Ctrl+J)"),
+            ("\tHide junction shape\tToggle hiding junction shape. (Ctrl+J)"),
             GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_TOGGLEDRAWJUNCTIONSHAPE),
             myViewNet, MID_GNE_DATAVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE, GUIDesignMFXCheckableButtonSquare);
     menuCheckToggleDrawJunctionShape->setChecked(false);

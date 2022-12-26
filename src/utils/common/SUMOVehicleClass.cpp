@@ -123,6 +123,7 @@ static StringBijection<SUMOVehicleShape>::Entry sumoVehicleShapeStringInitialize
     {"police",                SUMOVehicleShape::POLICE},
     {"rickshaw",              SUMOVehicleShape::RICKSHAW },
     {"scooter",               SUMOVehicleShape::SCOOTER},
+    {"aircraft",              SUMOVehicleShape::AIRCRAFT},
     {"",                      SUMOVehicleShape::UNKNOWN}
 };
 
@@ -164,6 +165,8 @@ const std::set<std::string> DEFAULT_VTYPES({DEFAULT_VTYPE_ID, DEFAULT_PEDTYPE_ID
 const double DEFAULT_VEH_PROB(1.);
 
 const double DEFAULT_PEDESTRIAN_SPEED(5. / 3.6);
+
+const double DEFAULT_BICYCLE_SPEED(20. / 3.6);
 
 const double DEFAULT_CONTAINER_TRANSHIP_SPEED(5. / 3.6);
 

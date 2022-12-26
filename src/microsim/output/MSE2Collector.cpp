@@ -89,7 +89,12 @@ MSE2Collector::MSE2Collector(const std::string& id,
     myCurrentJamLengthInMeters(0),
     myCurrentJamLengthInVehicles(0),
     myCurrentHaltingsNumber(0),
-    myOverrideVehNumber(-1) {
+    myPreviousMeanOccupancy(0),
+    myPreviousMeanSpeed(0),
+    myPreviousMaxJamLengthInMeters(0),
+    myPreviousNumberOfSeenVehicles(0),
+    myOverrideVehNumber(-1)
+{
     reset();
 
 #ifdef DEBUG_E2_CONSTRUCTOR
@@ -313,7 +318,7 @@ MSE2Collector::recalculateDetectorLength() {
         }
         previous = *j;
     }
-    // substract uncovered area on first and last lane
+    // subtract uncovered area on first and last lane
     myDetectorLength -= myStartPos;
     myDetectorLength -= myLastLane->getLength() - myEndPos;
 
@@ -337,7 +342,7 @@ MSE2Collector::selectLanes(MSLane* lane, double length, std::string dir) {
     assert(dir == "fw" || dir == "bw");
     bool fw = dir == "fw";
     double linkLength = 0; // linkLength (used if no internal lanes are present)
-    bool substractedLinkLength = false; // whether linkLength was substracted during the last iteration.
+    bool subtractedLinkLength = false; // whether linkLength was subtracted during the last iteration.
 
 #ifdef DEBUG_E2_CONSTRUCTOR
     if (DEBUG_COND) {
@@ -347,7 +352,7 @@ MSE2Collector::selectLanes(MSLane* lane, double length, std::string dir) {
     std::vector<MSLane*> lanes;
     // Selected lanes are stacked into vector 'lanes'. If dir == "bw" lanes will be reversed after this is done.
     // The length is reduced while adding lanes to the detector
-    // First we adjust the starting value for length (in the first iteration, the whole length of the first considered lane is substracted,
+    // First we adjust the starting value for length (in the first iteration, the whole length of the first considered lane is subtracted,
     // while it might only be partially covered by the detector)
     if (fw) {
         assert(myStartPos != std::numeric_limits<double>::max());
@@ -378,7 +383,7 @@ MSE2Collector::selectLanes(MSLane* lane, double length, std::string dir) {
         }
 
 
-        substractedLinkLength = false;
+        subtractedLinkLength = false;
         if (lane != nullptr && !MSGlobals::gUsingInternalLanes && length > POSITION_EPS) {
             // In case wher no internal lanes are used,
             // take into account the link length for the detector range
@@ -389,7 +394,7 @@ MSE2Collector::selectLanes(MSLane* lane, double length, std::string dir) {
                 linkLength = lane->getLinkTo(lanes.back())->getLength();
             }
             length -= linkLength;
-            substractedLinkLength = true;
+            subtractedLinkLength = true;
         }
 
 
@@ -403,8 +408,8 @@ MSE2Collector::selectLanes(MSLane* lane, double length, std::string dir) {
 #endif
     }
 
-    if (substractedLinkLength) {
-        // if the link's length was substracted during the last step,
+    if (subtractedLinkLength) {
+        // if the link's length was subtracted during the last step,
         // the start/endPos would lie on a non-existing internal lane,
         // therefore revert and truncate detector part on the non-existing internal lane.
         length += linkLength;
@@ -485,7 +490,7 @@ MSE2Collector::initAuxiliaries(std::vector<MSLane*>& lanes) {
     myOffsets.clear();
 
     // loop over detector lanes and accumulate offsets with respect to the first lane's begin
-    // (these will be corrected afterwards by substracting the start position.)
+    // (these will be corrected afterwards by subtracting the start position.)
     std::vector<MSLane*>::iterator il = lanes.begin();
 
     // start on an internal lane?
@@ -571,7 +576,7 @@ MSE2Collector::initAuxiliaries(std::vector<MSLane*>& lanes) {
         // find the connection to next
         const MSLink* link = lane->getLinkTo(*il);
         if (link == nullptr) {
-            throw InvalidArgument("Lanes '" + lane->getID() + "' and '" + (*il)->getID() + "' are not consecutive in defintion of e2Detector '" + getID() + "'");
+            throw InvalidArgument("Lanes '" + lane->getID() + "' and '" + (*il)->getID() + "' are not consecutive in definition of e2Detector '" + getID() + "'");
         }
 
         if (!MSGlobals::gUsingInternalLanes) {
@@ -581,7 +586,7 @@ MSE2Collector::initAuxiliaries(std::vector<MSLane*>& lanes) {
         }
     }
 
-    // Substract distance not covered on the last considered lane
+    // Subtract distance not covered on the last considered lane
     bool fw = myEndPos == std::numeric_limits<double>::max();
     if (fw) {
         myDetectorLength -= myStartPos;
@@ -1358,8 +1363,8 @@ MSE2Collector::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime st
     }
     dev << "   <interval begin=\"" << time2string(startTime) << "\" end=\"" << time2string(stopTime) << "\" " << "id=\"" << getID() << "\" ";
 
-    const double meanSpeed = myVehicleSamples != 0 ? mySpeedSum / myVehicleSamples : -1;
-    const double meanOccupancy = myTimeSamples != 0 ? myOccupancySum / (double) myTimeSamples : 0;
+    const double meanSpeed = getIntervalMeanSpeed();
+    const double meanOccupancy = getIntervalOccupancy();
     const double meanJamLengthInMeters = myTimeSamples != 0 ? myMeanMaxJamInMeters / (double) myTimeSamples : 0;
     const double meanJamLengthInVehicles = myTimeSamples != 0 ? myMeanMaxJamInVehicles / (double) myTimeSamples : 0;
     const double meanVehicleNumber = myTimeSamples != 0 ? (double) myMeanVehicleNumber / (double) myTimeSamples : 0;
@@ -1433,6 +1438,12 @@ MSE2Collector::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime st
         << "meanVehicleNumber=\"" << meanVehicleNumber << "\" "
         << "maxVehicleNumber=\"" << myMaxVehicleNumber << "\" "
         << "/>\n";
+
+    myPreviousMeanOccupancy = meanOccupancy;
+    myPreviousMeanSpeed = meanSpeed;
+    myPreviousMaxJamLengthInMeters = myMaxJamInMeters;
+    myPreviousNumberOfSeenVehicles = myNumberOfSeenVehicles;
+
     reset();
 }
 

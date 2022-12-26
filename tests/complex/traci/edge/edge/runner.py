@@ -105,4 +105,10 @@ for step in range(10):
         traci.edge.getTraveltime("3si")))
     print("pending", traci.edge.getPendingVehicles("3si"))
 
+print("allow_0", traci.lane.getAllowed(edgeID + "_0"))
+traci.edge.setAllowed(edgeID, "bicycle")
+print("allow_1", traci.lane.getAllowed(edgeID + "_0"))
+traci.edge.setAllowed(edgeID, ["bicycle", "pedestrian"])
+print("allow_2", traci.lane.getAllowed(edgeID + "_0"))
+
 traci.close()

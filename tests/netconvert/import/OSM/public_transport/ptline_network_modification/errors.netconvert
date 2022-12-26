@@ -1,4 +1,3 @@
-Warning: Discarding unknown compound 'cycleway.share_busway' in type 'cycleway.share_busway|highway.secondary' (first occurence for edge '338412128').
 Warning: No way found for reference '475519856' in relation '2008468'
 Warning: Ignoring restriction relation '2008468' with unknown to-way.
 Warning: No way found for reference '13863062' in relation '2873596'

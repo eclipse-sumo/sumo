@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep  2 09:41:08 2020 by Eclipse SUMO sumo Version v1_6_0+1900-0b77d662af
+<!-- generated on 2022-11-30 15:15:07 by Eclipse SUMO sumo Version v1_15_0+0679-5ca98c3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -26,7 +31,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -35,104 +39,104 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tlsStates xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tlsstates_file.xsd">
-    <tlsState time="0.00" id="A" programID="0" phase="1" state="G"/>
-    <tlsState time="1.00" id="A" programID="0" phase="1" state="G"/>
-    <tlsState time="2.00" id="A" programID="0" phase="1" state="G"/>
-    <tlsState time="3.00" id="A" programID="0" phase="1" state="G"/>
-    <tlsState time="4.00" id="A" programID="0" phase="1" state="G"/>
-    <tlsState time="5.00" id="A" programID="0" phase="1" state="G"/>
-    <tlsState time="6.00" id="A" programID="0" phase="1" state="G"/>
-    <tlsState time="7.00" id="A" programID="0" phase="1" state="G"/>
-    <tlsState time="8.00" id="A" programID="0" phase="1" state="G"/>
-    <tlsState time="9.00" id="A" programID="0" phase="1" state="G"/>
-    <tlsState time="10.00" id="A" programID="0" phase="1" state="G"/>
-    <tlsState time="11.00" id="A" programID="0" phase="1" state="G"/>
-    <tlsState time="12.00" id="A" programID="0" phase="1" state="G"/>
-    <tlsState time="13.00" id="A" programID="0" phase="1" state="G"/>
-    <tlsState time="14.00" id="A" programID="0" phase="1" state="G"/>
-    <tlsState time="15.00" id="A" programID="0" phase="1" state="G"/>
-    <tlsState time="16.00" id="A" programID="0" phase="1" state="G"/>
-    <tlsState time="17.00" id="A" programID="0" phase="1" state="G"/>
-    <tlsState time="18.00" id="A" programID="0" phase="1" state="G"/>
-    <tlsState time="19.00" id="A" programID="0" phase="1" state="G"/>
-    <tlsState time="20.00" id="A" programID="0" phase="1" state="G"/>
-    <tlsState time="21.00" id="A" programID="0" phase="1" state="G"/>
-    <tlsState time="22.00" id="A" programID="0" phase="1" state="G"/>
-    <tlsState time="23.00" id="A" programID="0" phase="1" state="G"/>
-    <tlsState time="24.00" id="A" programID="0" phase="1" state="G"/>
-    <tlsState time="25.00" id="A" programID="0" phase="1" state="G"/>
-    <tlsState time="26.00" id="A" programID="0" phase="1" state="G"/>
-    <tlsState time="27.00" id="A" programID="0" phase="1" state="G"/>
-    <tlsState time="28.00" id="A" programID="0" phase="1" state="G"/>
-    <tlsState time="29.00" id="A" programID="0" phase="1" state="G"/>
-    <tlsState time="30.00" id="A" programID="0" phase="1" state="G"/>
-    <tlsState time="31.00" id="A" programID="0" phase="1" state="G"/>
-    <tlsState time="32.00" id="A" programID="0" phase="1" state="G"/>
-    <tlsState time="33.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="34.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="35.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="36.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="37.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="38.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="39.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="40.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="41.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="42.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="43.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="44.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="45.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="46.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="47.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="48.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="49.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="50.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="51.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="52.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="53.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="54.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="55.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="56.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="57.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="58.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="59.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="60.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="61.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="62.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="63.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="64.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="65.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="66.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="67.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="68.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="69.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="70.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="71.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="72.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="73.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="74.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="75.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="76.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="77.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="78.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="79.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="80.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="81.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="82.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="83.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="84.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="85.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="86.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="87.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="88.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="89.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="90.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="91.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="92.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="93.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="94.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="95.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="96.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="97.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="98.00" id="A" programID="0" phase="0" state="r"/>
-    <tlsState time="99.00" id="A" programID="0" phase="0" state="r"/>
+    <tlsState time="0.00" id="A" programID="0" phase="0" state="G"/>
+    <tlsState time="1.00" id="A" programID="0" phase="0" state="G"/>
+    <tlsState time="2.00" id="A" programID="0" phase="0" state="G"/>
+    <tlsState time="3.00" id="A" programID="0" phase="0" state="G"/>
+    <tlsState time="4.00" id="A" programID="0" phase="0" state="G"/>
+    <tlsState time="5.00" id="A" programID="0" phase="0" state="G"/>
+    <tlsState time="6.00" id="A" programID="0" phase="0" state="G"/>
+    <tlsState time="7.00" id="A" programID="0" phase="0" state="G"/>
+    <tlsState time="8.00" id="A" programID="0" phase="0" state="G"/>
+    <tlsState time="9.00" id="A" programID="0" phase="0" state="G"/>
+    <tlsState time="10.00" id="A" programID="0" phase="0" state="G"/>
+    <tlsState time="11.00" id="A" programID="0" phase="0" state="G"/>
+    <tlsState time="12.00" id="A" programID="0" phase="0" state="G"/>
+    <tlsState time="13.00" id="A" programID="0" phase="0" state="G"/>
+    <tlsState time="14.00" id="A" programID="0" phase="0" state="G"/>
+    <tlsState time="15.00" id="A" programID="0" phase="0" state="G"/>
+    <tlsState time="16.00" id="A" programID="0" phase="0" state="G"/>
+    <tlsState time="17.00" id="A" programID="0" phase="0" state="G"/>
+    <tlsState time="18.00" id="A" programID="0" phase="0" state="G"/>
+    <tlsState time="19.00" id="A" programID="0" phase="0" state="G"/>
+    <tlsState time="20.00" id="A" programID="0" phase="0" state="G"/>
+    <tlsState time="21.00" id="A" programID="0" phase="0" state="G"/>
+    <tlsState time="22.00" id="A" programID="0" phase="0" state="G"/>
+    <tlsState time="23.00" id="A" programID="0" phase="0" state="G"/>
+    <tlsState time="24.00" id="A" programID="0" phase="0" state="G"/>
+    <tlsState time="25.00" id="A" programID="0" phase="0" state="G"/>
+    <tlsState time="26.00" id="A" programID="0" phase="0" state="G"/>
+    <tlsState time="27.00" id="A" programID="0" phase="0" state="G"/>
+    <tlsState time="28.00" id="A" programID="0" phase="0" state="G"/>
+    <tlsState time="29.00" id="A" programID="0" phase="0" state="G"/>
+    <tlsState time="30.00" id="A" programID="0" phase="0" state="G"/>
+    <tlsState time="31.00" id="A" programID="0" phase="0" state="G"/>
+    <tlsState time="32.00" id="A" programID="0" phase="0" state="G"/>
+    <tlsState time="33.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="34.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="35.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="36.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="37.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="38.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="39.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="40.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="41.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="42.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="43.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="44.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="45.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="46.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="47.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="48.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="49.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="50.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="51.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="52.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="53.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="54.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="55.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="56.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="57.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="58.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="59.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="60.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="61.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="62.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="63.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="64.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="65.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="66.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="67.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="68.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="69.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="70.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="71.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="72.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="73.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="74.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="75.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="76.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="77.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="78.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="79.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="80.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="81.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="82.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="83.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="84.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="85.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="86.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="87.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="88.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="89.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="90.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="91.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="92.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="93.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="94.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="95.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="96.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="97.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="98.00" id="A" programID="0" phase="1" state="r"/>
+    <tlsState time="99.00" id="A" programID="0" phase="1" state="r"/>
 </tlsStates>
