@@ -398,7 +398,7 @@ protected:
      */
     class NodesHandler : public SUMOSAXHandler {
     public:
-        /** @brief Contructor
+        /** @brief Constructor
          * @param[in, out] toFill The nodes container to fill
          * @param[in, out] uniqueNodes The nodes container for ensuring uniqueness
          * @param[in] options The options to use

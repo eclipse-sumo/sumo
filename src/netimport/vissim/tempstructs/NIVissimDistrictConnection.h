@@ -35,7 +35,7 @@ class NBEdgeCont;
 // ===========================================================================
 class NIVissimDistrictConnection {
 public:
-    /// Contructor
+    /// Constructor
     NIVissimDistrictConnection(int id, const std::string& name,
                                const std::vector<int>& districts, const std::vector<double>& percentages,
                                int edgeid, double position,

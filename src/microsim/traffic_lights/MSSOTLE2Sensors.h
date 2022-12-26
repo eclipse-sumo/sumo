@@ -44,7 +44,7 @@ protected :
 
 public:
     /*
-    * @brief This sensor logic contructor
+    * @brief This sensor logic constructor
     */
     MSSOTLE2Sensors(std::string tlLogicID, const MSTrafficLightLogic::Phases* phases);
 
