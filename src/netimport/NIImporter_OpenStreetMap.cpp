@@ -1027,6 +1027,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 && key != "railway:track_ref"
                 && key != "usage"
                 && key != "electrified"
+                && key != "bus"
                 && key != "psv"
                 && key != "psv:lanes"
                 && key != "psv:lanes:forward"
