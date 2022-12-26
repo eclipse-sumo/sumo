@@ -72,7 +72,7 @@ private:
      */
     class NodesHandler : public GenericSAXHandler {
     public:
-        /** @brief Contructor
+        /** @brief Constructor
          * @param[in] toFill The nodes container to fill
          */
         NodesHandler(NBNodeCont& toFill);

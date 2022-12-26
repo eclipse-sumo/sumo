@@ -142,7 +142,7 @@ protected:
      */
     class NodesHandler : public SUMOSAXHandler {
     public:
-        /** @brief Contructor
+        /** @brief Constructor
          * @param[in] toFill The nodes container to fill
          * @param[in] withAttributes Whether all attributes shall be stored
          * @param[in] errorHandler The handler to report errors to (WarningHandler for ignoring errors)

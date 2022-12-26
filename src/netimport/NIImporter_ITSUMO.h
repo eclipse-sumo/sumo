@@ -71,7 +71,7 @@ private:
      */
     class Handler : public GenericSAXHandler {
     public:
-        /** @brief Contructor
+        /** @brief Constructor
          * @param[in] toFill The container to fill
          */
         Handler(NBNetBuilder& toFill);
