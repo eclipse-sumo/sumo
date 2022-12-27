@@ -296,7 +296,7 @@ private:
     class PlaneMoverCallback : public osg::Callback {
     public:
         PlaneMoverCallback(osg::Camera* camera) : myCamera(camera) {};
-        virtual bool run(osg::Object* object, osg::Object* data) override {
+        virtual bool run(osg::Object* object, osg::Object* /* data */) override {
             osg::MatrixTransform* mt = dynamic_cast<osg::MatrixTransform*>(object);
             osg::Vec3d lookFrom, lookAt, up;
             myCamera->getViewMatrixAsLookAt(lookFrom, lookAt, up);

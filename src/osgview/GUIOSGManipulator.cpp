@@ -43,7 +43,7 @@ StringBijection<ManipulatorMode> ModeText(ModeTextInitializer, MODE_TERRAIN, fal
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIOSGManipulator::GUIOSGManipulator(ManipulatorMode initMode, bool verticalFixed, double eyeHeight) : 
+GUIOSGManipulator::GUIOSGManipulator(ManipulatorMode initMode, bool verticalFixed, double /* eyeHeight */) :
     myCurrentMode(initMode), /*myWalkEyeHeight(eyeHeight),*/ myMoveSpeed(DEFAULT_MOVESPEED_MIN) {
     setAllowThrow(false);
     setVerticalAxisFixed(verticalFixed);
