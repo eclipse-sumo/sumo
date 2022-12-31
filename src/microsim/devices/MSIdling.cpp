@@ -60,7 +60,7 @@ MSIdling_Stop::idle(MSDevice_Taxi* taxi) {
                 if ((ri + 1) != veh.getRoute().end()) {
                     stopSeg = MSGlobals::gMesoNet->getSegmentForEdge(**(ri + 1), 0);
                 } else {
-                    WRITE_WARNING("Idle taxi '" + taxi->getHolder().getID() + "' has no next segment to stop. time=" + time2string(SIMTIME) + ".");
+                    WRITE_WARNINGF(TL("Idle taxi '%' has no next segment to stop. time=%."), taxi->getHolder().getID(), time2string(SIMSTEP));
                     return;
                 }
             }
