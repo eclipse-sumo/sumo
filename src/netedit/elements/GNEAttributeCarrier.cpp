@@ -167,12 +167,7 @@ GNEAttributeCarrier::parse(const std::string& string) {
 
 template<> SUMOTime
 GNEAttributeCarrier::parse(const std::string& string) {
-    SUMOTime time = string2time(string);
-    if (time < 0) {
-        throw TimeFormatException("SUMOTIME cannot be negative");
-    } else {
-        return time;
-    }
+    return string2time(string);
 }
 
 
@@ -5648,7 +5643,13 @@ GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag, const bool 
                                               "Whether the stop may be skipped if no passengers wants to embark or disembark",
                                               "false");
         myTagProperties[currentTag].addAttribute(attrProperty);
-    }
+    }    
+    
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_JUMP,
+                                          GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
+                                          "transfer time if there shall be a jump from this stop to the next route edge",
+                                          "-1");
+    myTagProperties[currentTag].addAttribute(attrProperty);
 }
 
 
