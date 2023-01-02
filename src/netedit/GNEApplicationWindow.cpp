@@ -761,7 +761,7 @@ GNEApplicationWindow::onCmdOpenSUMOConfig(FXObject*, FXSelector, void*) {
         opendialog.setDirectory(gCurrentFolder);
     }
     if (opendialog.execute()) {
-        // closet additional dialog
+        // close additional dialog
         WRITE_DEBUG("Close SUMOConfig dialog");
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
@@ -835,7 +835,7 @@ GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
         opendialog.setDirectory(gCurrentFolder);
     }
     if (opendialog.execute()) {
-        // closet additional dialog
+        // close additional dialog
         WRITE_DEBUG("Close TLSProgram dialog");
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
@@ -1274,13 +1274,13 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     getApp()->endWaitCursor();
     myMessageWindow->registerMsgHandlers();
     // load additionals/shapes
-    loadAdditionalElements(OptionsCont::getOptions().getStringVector("additional-files"));
+    loadAdditionalElements();
     // load demand elements
-    loadDemandElements(OptionsCont::getOptions().getStringVector("route-files"));
+    loadDemandElements();
     // load data elements
-    loadDataElements(OptionsCont::getOptions().getStringVector("data-files"));
+    loadDataElements();
     // load meanData elements
-    loadMeanDataElements(OptionsCont::getOptions().getStringVector("meandata-files"));
+    loadMeanDataElements();
     // check if additionals output must be changed
     if (oc.isSet("additionals-output")) {
         // overwrite "additional-files" with value "additionals-output"
@@ -3777,7 +3777,7 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
         opendialog.setDirectory(gCurrentFolder);
     }
     if (opendialog.execute()) {
-        // closet additional dialog
+        // close additional dialog
         WRITE_DEBUG("Closet additional dialog");
         // declare overwrite flag
         bool overwriteElements = false;
@@ -3999,7 +3999,7 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
         opendialog.setDirectory(gCurrentFolder);
     }
     if (opendialog.execute()) {
-        // closet additional dialog
+        // close additional dialog
         WRITE_DEBUG("Close demand element dialog");
         // declare overwrite flag
         bool overwriteElements = false;
@@ -4207,7 +4207,7 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
         opendialog.setDirectory(gCurrentFolder);
     }
     if (opendialog.execute()) {
-        // closet additional dialog
+        // close additional dialog
         WRITE_DEBUG("Close data element dialog");
         // check if open question dialog box
         if (opendialog.getFilename().text() == OptionsCont::getOptions().getString("data-files")) {
@@ -4990,9 +4990,12 @@ GNEApplicationWindow::getSUMOOptions() {
 
 
 void
-GNEApplicationWindow::loadAdditionalElements(const std::vector<std::string> additionalFiles) {
+GNEApplicationWindow::loadAdditionalElements() {
     // obtain option container
     OptionsCont& oc = OptionsCont::getOptions();
+    // get additional files
+    const auto additionalFiles = oc.getStringVector("additional-files");
+    // continue depending of network and additional files
     if (myNet && (additionalFiles.size() > 0)) {
         // begin undolist
         myUndoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, "loading additionals and shapes from '" + toString(additionalFiles) + "'");
@@ -5040,26 +5043,29 @@ GNEApplicationWindow::loadAdditionalElements(const std::vector<std::string> addi
 
 
 void
-GNEApplicationWindow::loadDemandElements(const std::vector<std::string> demandElementsFiles) {
+GNEApplicationWindow::loadDemandElements() {
     // obtain option container
     OptionsCont& oc = OptionsCont::getOptions();
-    if (myNet && (demandElementsFiles.size() > 0)) {
+    // get route files
+    const auto routeFiles = oc.getStringVector("route-files");
+    // continue depending of network and route files
+    if (myNet && (routeFiles.size() > 0)) {
         // begin undolist
-        myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, "loading demand elements from '" + toString(demandElementsFiles) + "'");
+        myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, "loading demand elements from '" + toString(routeFiles) + "'");
         // flag for check if there is error creating elements
         bool errorCreatingElement = false;
         // iterate over every route file
-        for (const auto& demandElementsFile : demandElementsFiles) {
-            WRITE_MESSAGE("Loading demand elements from '" + demandElementsFile + "'");
-            GNEGeneralHandler handler(myNet, demandElementsFile, true, false);
+        for (const auto& routeFile : routeFiles) {
+            WRITE_MESSAGE("Loading demand elements from '" + routeFile + "'");
+            GNEGeneralHandler handler(myNet, routeFile, true, false);
             // disable validation for demand elements
             XMLSubSys::setValidation("never", "auto", "auto");
             if (!handler.parse()) {
-                WRITE_ERROR("Loading of " + demandElementsFile + " failed.");
+                WRITE_ERROR("Loading of " + routeFile + " failed.");
             } else {
-                // set first demandElementsFiles as default file
+                // set first routeFile as default file
                 oc.resetWritable();
-                oc.set("route-files", demandElementsFile);
+                oc.set("route-files", routeFile);
                 // set route files in SUMO configs
                 mySUMOOptions.resetWritable();
                 mySUMOOptions.set("route-files", oc.getString("route-files"));
@@ -5084,28 +5090,31 @@ GNEApplicationWindow::loadDemandElements(const std::vector<std::string> demandEl
 
 
 void
-GNEApplicationWindow::loadDataElements(const std::vector<std::string> dataElementsFiles) {
+GNEApplicationWindow::loadDataElements() {
     // obtain option container
     OptionsCont& oc = OptionsCont::getOptions();
-    if (myNet && (dataElementsFiles.size() > 0)) {
+    // get data files
+    const auto dataFiles = oc.getStringVector("data-files");
+    // continue depending of network and data files
+    if (myNet && (dataFiles.size() > 0)) {
         // disable update data
         myViewNet->getNet()->disableUpdateData();
         // begin undolist
-        myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, "loading data elements from '" + toString(dataElementsFiles) + "'");
+        myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, "loading data elements from '" + toString(dataFiles) + "'");
         // disable save data elements (because data elements were loaded through console)
         myNet->requireSaveDataElements(false);
         // iterate over every data file
-        for (const auto& dataElementsFile : dataElementsFiles) {
-            WRITE_MESSAGE("Loading data elements from '" + dataElementsFile + "'");
-            GNEDataHandler dataHandler(myNet, dataElementsFile, true);
+        for (const auto& dataFile : dataFiles) {
+            WRITE_MESSAGE("Loading data elements from '" + dataFile + "'");
+            GNEDataHandler dataHandler(myNet, dataFile, true);
             // disable validation for data elements
             XMLSubSys::setValidation("never", "auto", "auto");
             if (!dataHandler.parse()) {
-                WRITE_ERROR("Loading of " + dataElementsFile + " failed.");
+                WRITE_ERROR("Loading of " + dataFile + " failed.");
             } else {
                 // set first dataElementsFiles as default file
                 oc.resetWritable();
-                oc.set("data-files", dataElementsFile);
+                oc.set("data-files", dataFile);
             }
             // disable validation for data elements
             XMLSubSys::setValidation("auto", "auto", "auto");
@@ -5125,26 +5134,29 @@ GNEApplicationWindow::loadDataElements(const std::vector<std::string> dataElemen
 
 
 void
-GNEApplicationWindow::loadMeanDataElements(const std::vector<std::string> meanDataElementsFiles) {
+GNEApplicationWindow::loadMeanDataElements() {
     // obtain option container
     OptionsCont& oc = OptionsCont::getOptions();
-    if (myNet && (meanDataElementsFiles.size() > 0)) {
+    // get meanData files
+    const auto meanDataFiles = oc.getStringVector("meandata-files");
+    // continue depending of network and meanData files
+    if (myNet && (meanDataFiles.size() > 0)) {
         // begin undolist
-        myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, "loading meanData elements from '" + toString(meanDataElementsFiles) + "'");
+        myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, "loading meanData elements from '" + toString(meanDataFiles) + "'");
         // disable save meanData elements (because meanData elements were loaded through console)
         myNet->requireSaveMeanDatas(false);
         // iterate over every meanData file
-        for (const auto& meanDataElementsFile : meanDataElementsFiles) {
-            WRITE_MESSAGE("Loading meanData elements from '" + meanDataElementsFile + "'");
-            GNEGeneralHandler handler(myNet, meanDataElementsFile, true, false);
+        for (const auto& meanDataFile : meanDataFiles) {
+            WRITE_MESSAGE("Loading meanData elements from '" + meanDataFile + "'");
+            GNEGeneralHandler handler(myNet, meanDataFile, true, false);
             // disable validation for meanData elements
             XMLSubSys::setValidation("never", "auto", "auto");
             if (!handler.parse()) {
-                WRITE_ERROR("Loading of " + meanDataElementsFile + " failed.");
+                WRITE_ERROR("Loading of " + meanDataFile + " failed.");
             } else {
                 // set first meanDataElementsFiles as default file
                 oc.resetWritable();
-                oc.set("meandata-files", meanDataElementsFile);
+                oc.set("meandata-files", meanDataFile);
                 // set meanData files in SUMO configs (additional and meanDatas)
                 mySUMOOptions.resetWritable();
                 if (oc.getString("additional-files").size() > 0) {
