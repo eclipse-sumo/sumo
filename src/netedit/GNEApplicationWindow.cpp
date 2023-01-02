@@ -3381,6 +3381,9 @@ GNEApplicationWindow::onCmdSaveAllElements(FXObject*, FXSelector, void*) {
     if (!myNet->isDataElementsSaved()) {
         onCmdSaveDataElements(nullptr, 0, nullptr);
     }
+    if (!myNet->isMeanDatasSaved()) {
+        onCmdSaveMeanDatas(nullptr, 0, nullptr);
+    }
     return 1;
 }
 
@@ -3463,6 +3466,9 @@ GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject*, FXSelector, void*) {
     if (!myNet->isDemandElementsSaved()) {
         onCmdSaveDemandElements(nullptr, 0, nullptr);
     }
+    if (!myNet->isMeanDatasSaved()) {
+        onCmdSaveMeanDatas(nullptr, 0, nullptr);
+    }
     // obtain NETEDIT option container
     OptionsCont& neteditOptions = OptionsCont::getOptions();
     // Check if SUMOConfig file was already set at start of netedit or with a previous save
@@ -3509,6 +3515,9 @@ GNEApplicationWindow::onCmdSaveSUMOConfigAs(FXObject*, FXSelector, void*) {
     }
     if (!myNet->isDemandElementsSaved()) {
         onCmdSaveDemandElements(nullptr, 0, nullptr);
+    }
+    if (!myNet->isMeanDatasSaved()) {
+        onCmdSaveMeanDatas(nullptr, 0, nullptr);
     }
     // obtain NETEDIT option container
     OptionsCont& neteditOptions = OptionsCont::getOptions();
@@ -3896,7 +3905,7 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject*, FXSelector, void*) {
             }
             // open dialog
             FXString file = MFXUtils::getFilename2Write(this,
-                            TL("Save Additionals file"), ".xml",
+                            TL("Save Additionals file"), ".add.xml",
                             GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL),
                             currentFolder);
             // add xml extension
@@ -4535,7 +4544,7 @@ GNEApplicationWindow::onCmdSaveMeanDatas(FXObject*, FXSelector, void*) {
             }
             // open dialog
             FXString file = MFXUtils::getFilename2Write(this,
-                            TL("Save MeanDatas file"), ".xml",
+                            TL("Save MeanDatas file"), ".add.xml",
                             GUIIconSubSys::getIcon(GUIIcon::MODEMEANDATA),
                             currentFolder);
             // add xml extension
@@ -4597,7 +4606,7 @@ GNEApplicationWindow::onCmdSaveMeanDatasAs(FXObject*, FXSelector, void*) {
     }
     // Open window to select meanData file
     FXString file = MFXUtils::getFilename2Write(this,
-                    TL("Save MeanDatas file as"), ".xml",
+                    TL("Save MeanDatas file as"), ".add.xml",
                     GUIIconSubSys::getIcon(GUIIcon::MODEMEANDATA),
                     currentFolder);
     // add xml extension
