@@ -530,11 +530,11 @@ protected:
     /// @brief the rtree which contains all GUIGlObjects (so named for historical reasons)
     SUMORTree myGrid;
 
-    /// @brief The net to be notified of about changes
-    GNEViewNet* myViewNet;
-
     /// @brief The internal netbuilder
     NBNetBuilder* myNetBuilder;
+
+    /// @brief The net to be notified of about changes
+    GNEViewNet* myViewNet = nullptr;
 
     /// @brief AttributeCarriers of net
     GNENetHelper::AttributeCarriers* myAttributeCarriers;
@@ -544,39 +544,39 @@ protected:
 
     /// @name counters for junction/edge IDs
     // @{
-    unsigned int myJunctionIDCounter;
-    unsigned int myEdgeIDCounter;
+    unsigned int myJunctionIDCounter = 0;
+    unsigned int myEdgeIDCounter = 0;
     // @}
 
     /// @brief list of edge ids for which turn-arounds must be added explicitly
     std::set<std::string> myExplicitTurnarounds;
 
     /// @brief whether the net needs recomputation
-    bool myNeedRecompute;
+    bool myNeedRecompute = true;
 
     /// @brief Flag to check if net has to be saved
-    bool myNetSaved;
+    bool myNetSaved = true;
 
     /// @brief Flag to check if additionals has to be saved
-    bool myAdditionalsSaved;
+    bool myAdditionalsSaved = true;
 
     /// @brief Flag to check if shapes has to be saved
-    bool myTLSProgramsSaved;
+    bool myTLSProgramsSaved = true;
 
     /// @brief Flag to check if demand elements has to be saved
-    bool myDemandElementsSaved;
+    bool myDemandElementsSaved = true;
 
     /// @brief Flag to check if data elements has to be saved
-    bool myDataElementsSaved;
+    bool myDataElementsSaved = true;
 
     /// @brief Flag to check if meanDatas has to be saved
-    bool myMeanDatasSaved;
+    bool myMeanDatasSaved = true;
 
     /// @brief Flag to enable or disable update geometry of elements after inserting or removing element in net
-    bool myUpdateGeometryEnabled;
+    bool myUpdateGeometryEnabled = true;
 
     /// @brief Flag to enable or disable update data elements after inserting or removing element in net
-    bool myUpdateDataEnabled;
+    bool myUpdateDataEnabled = true;
 
 private:
     /// @brief Init Junctions and edges

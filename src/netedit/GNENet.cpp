@@ -84,20 +84,9 @@ const std::map<SumoXMLAttr, std::string> GNENet::EMPTY_HEADER;
 
 GNENet::GNENet(NBNetBuilder* netBuilder) :
     GUIGlObject(GLO_NETWORK, "", nullptr),
-    myViewNet(nullptr),
     myNetBuilder(netBuilder),
     myAttributeCarriers(new GNENetHelper::AttributeCarriers(this)),
-    myPathManager(new GNEPathManager(this)), // TODO a little dangerous to use "this" here, it makes access to the net and the netBuilder
-    myJunctionIDCounter(0),
-    myEdgeIDCounter(0),
-    myNeedRecompute(true),
-    myNetSaved(true),
-    myAdditionalsSaved(true),
-    myTLSProgramsSaved(true),
-    myDemandElementsSaved(true),
-    myDataElementsSaved(true),
-    myUpdateGeometryEnabled(true),
-    myUpdateDataEnabled(true) {
+    myPathManager(new GNEPathManager(this)) { // TODO a little dangerous to use "this" here, it makes access to the net and the netBuilder
     // set net in gIDStorage
     GUIGlObjectStorage::gIDStorage.setNetObject(this);
     // Write GL debug information
