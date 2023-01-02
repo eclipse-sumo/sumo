@@ -157,12 +157,14 @@ enum {
 
     /// @brief Save Additional Elements
     MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS,
-    /// @brief save Edge Types
-    MID_HOTKEY_CTRL_SHIFT_H_SAVEEDGETYPES,
     /// @brief save Data Elements
     MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS,
     /// @brief Save Demand Elements
     MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS,
+    /// @brief save Edge Types
+    MID_HOTKEY_CTRL_SHIFT_H_SAVEEDGETYPES,
+    /// @brief save Mean Datas
+    MID_HOTKEY_CTRL_SHIFT_J_SAVEMEANDATAS,
     /// @brief save TLS Programs
     MID_HOTKEY_CTRL_SHIFT_K_SAVETLS,
     /// @brief Open a New Window
@@ -715,8 +717,6 @@ enum {
     MID_GNE_TOOLBARFILE_RELOAD_DATAELEMENTS,
     /// @brief open meanData file
     MID_GNE_TOOLBARFILE_OPENMEANDATAS,
-    /// @brief save meanDatas
-    MID_GNE_TOOLBARFILE_SAVEMEANDATAS,
     /// @brief save meanDatas as
     MID_GNE_TOOLBARFILE_SAVEMEANDATAS_AS,
     /// @brief reload meanDatas

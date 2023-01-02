@@ -1919,11 +1919,6 @@ GNEViewNetHelper::TestingMode::isTestingEnabled() const {
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::SaveElements::SaveElements(GNEViewNet* viewNet) :
-    saveAll(nullptr),
-    saveNetwork(nullptr),
-    saveAdditionalElements(nullptr),
-    saveDemandElements(nullptr),
-    saveDataElements(nullptr),
     myViewNet(viewNet) {
 }
 
@@ -1960,6 +1955,12 @@ GNEViewNetHelper::SaveElements::buildSaveElementsButtons() {
                                             "\tSave data elements\tSave data elements. (Ctrl+Shift+B)", GUIIconSubSys::getIcon(GUIIcon::SAVEDATAELEMENTS),
                                             myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS, GUIDesignButtonToolbar);
     saveDataElements->create();
+    // create save mean datas elements button
+    saveMeanDataElements = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
+                                            myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
+                                            "\tSave mean data elements\tSave mean data elements. (Ctrl+Shift+B)", GUIIconSubSys::getIcon(GUIIcon::SAVEDATAELEMENTS),
+                                            myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_J_SAVEMEANDATAS, GUIDesignButtonToolbar);
+    saveMeanDataElements->create();
     // recalc menu bar because there is new elements
     myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements->recalc();
     // show menu bar modes

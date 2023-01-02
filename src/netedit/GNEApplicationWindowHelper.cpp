@@ -315,7 +315,7 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
     reloadMeanDatas->disable();
     saveMeanDatas = GUIDesigns::buildFXMenuCommandShortcut(fileMenuDataElements,
         "Save MeanDatas", "", "Save meanDatas and shapes.",
-        GUIIconSubSys::getIcon(GUIIcon::SAVEMEANDATAELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEMEANDATAS);
+        GUIIconSubSys::getIcon(GUIIcon::SAVEMEANDATAELEMENTS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_J_SAVEMEANDATAS);
     saveMeanDatas->disable();
     saveMeanDatasAs = GUIDesigns::buildFXMenuCommandShortcut(fileMenuDataElements,
         "Save MeanDatas As...", "", "Save meanData elements to another file.",

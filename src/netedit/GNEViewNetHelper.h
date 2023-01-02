@@ -476,19 +476,22 @@ struct GNEViewNetHelper {
         void buildSaveElementsButtons();
 
         /// @brief checkable button for save all
-        MFXButtonTooltip* saveAll;
+        MFXButtonTooltip* saveAll = nullptr;
 
         /// @brief checkable button for save network
-        MFXButtonTooltip* saveNetwork;
+        MFXButtonTooltip* saveNetwork = nullptr;
 
         /// @brief checkable button for save additional elements
-        MFXButtonTooltip* saveAdditionalElements;
+        MFXButtonTooltip* saveAdditionalElements = nullptr;
 
         /// @brief checkable button for save demand elements
-        MFXButtonTooltip* saveDemandElements;
+        MFXButtonTooltip* saveDemandElements = nullptr;
 
-        /// @brief checkable button for save data elements
-        MFXButtonTooltip* saveDataElements;
+        /// @brief checkable button for save genericdata elements
+        MFXButtonTooltip* saveDataElements = nullptr;
+
+        /// @brief checkable button for save meanData elements
+        MFXButtonTooltip* saveMeanDataElements = nullptr;
 
     private:
         /// @brief pointer to net
