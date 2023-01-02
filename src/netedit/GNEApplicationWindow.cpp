@@ -761,7 +761,7 @@ GNEApplicationWindow::onCmdOpenSUMOConfig(FXObject*, FXSelector, void*) {
         opendialog.setDirectory(gCurrentFolder);
     }
     if (opendialog.execute()) {
-        // close additional dialog
+        // closet additional dialog
         WRITE_DEBUG("Close SUMOConfig dialog");
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
@@ -835,7 +835,7 @@ GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
         opendialog.setDirectory(gCurrentFolder);
     }
     if (opendialog.execute()) {
-        // close additional dialog
+        // closet additional dialog
         WRITE_DEBUG("Close TLSProgram dialog");
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
@@ -2706,24 +2706,30 @@ GNEApplicationWindow::onCmdSaveAsNetwork(FXObject*, FXSelector, void*) {
                     GUIIconSubSys::getIcon(GUIIcon::SAVE),
                     gCurrentFolder);
     // get file with extension
-    std::string fileWithExtension = file.text();
+    std::string networkFile = file.text();
     // clear wildcard
-    const size_t pos = fileWithExtension.find(wildcard);
+    const size_t pos = networkFile.find(wildcard);
     if (pos != std::string::npos) {
         // If found then erase it from string
-        fileWithExtension.erase(pos, wildcard.length());
+        networkFile.erase(pos, wildcard.length());
     }
     // check xml extension
-    if (!GNEApplicationWindowHelper::stringEndsWith(fileWithExtension, netExtension) &&
-            !GNEApplicationWindowHelper::stringEndsWith(fileWithExtension, zipNetExtension)) {
-        fileWithExtension = FileHelpers::addExtension(fileWithExtension, netExtension);
+    if (!GNEApplicationWindowHelper::stringEndsWith(networkFile, netExtension) &&
+            !GNEApplicationWindowHelper::stringEndsWith(networkFile, zipNetExtension)) {
+        networkFile = FileHelpers::addExtension(networkFile, netExtension);
     }
     // check that file with extension is valid
-    if (fileWithExtension != "") {
+    if (networkFile != "") {
+        // set ouput file in NETEDIT configs
         OptionsCont& oc = OptionsCont::getOptions();
         oc.resetWritable();
-        oc.set("output-file", fileWithExtension);
-        setTitle(MFXUtils::getTitleText(myTitlePrefix, fileWithExtension.c_str()));
+        oc.set("output-file", networkFile);
+        // se network output in SUMO configs
+        mySUMOOptions.resetWritable();
+        mySUMOOptions.set("net-file", networkFile);
+        // update NETEDIT title with the network name
+        setTitle(MFXUtils::getTitleText(myTitlePrefix, networkFile.c_str()));
+        // save network
         onCmdSaveNetwork(nullptr, 0, nullptr);
     }
     return 1;
@@ -3447,6 +3453,16 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject*, FXSelector, void*) {
+    // save all elements
+    if (!myNet->isNetSaved()) {
+        onCmdSaveNetwork(nullptr, 0, nullptr);
+    }
+    if (!myNet->isAdditionalsSaved()) {
+        onCmdSaveAdditionals(nullptr, 0, nullptr);
+    }
+    if (!myNet->isDemandElementsSaved()) {
+        onCmdSaveDemandElements(nullptr, 0, nullptr);
+    }
     // obtain NETEDIT option container
     OptionsCont& neteditOptions = OptionsCont::getOptions();
     // Check if SUMOConfig file was already set at start of netedit or with a previous save
@@ -3471,6 +3487,7 @@ GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject*, FXSelector, void*) {
     const auto file = neteditOptions.getString("SUMOcfg-output");
     std::ofstream out(StringUtils::transcodeToLocal(file));
     if (out.good()) {
+        // write SUMO config
         mySUMOOptions.writeConfiguration(out, true, false, false, file, true);
         setStatusBarText("Configuration saved to " + file);
     } else {
@@ -3483,6 +3500,16 @@ GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdSaveSUMOConfigAs(FXObject*, FXSelector, void*) {
+    // save all elements
+    if (!myNet->isNetSaved()) {
+        onCmdSaveNetwork(nullptr, 0, nullptr);
+    }
+    if (!myNet->isAdditionalsSaved()) {
+        onCmdSaveAdditionals(nullptr, 0, nullptr);
+    }
+    if (!myNet->isDemandElementsSaved()) {
+        onCmdSaveDemandElements(nullptr, 0, nullptr);
+    }
     // obtain NETEDIT option container
     OptionsCont& neteditOptions = OptionsCont::getOptions();
     // get the new file name
@@ -3502,6 +3529,7 @@ GNEApplicationWindow::onCmdSaveSUMOConfigAs(FXObject*, FXSelector, void*) {
     neteditOptions.set("SUMOcfg-output", file);
     std::ofstream out(StringUtils::transcodeToLocal(file));
     if (out.good()) {
+        // write SUMO config
         mySUMOOptions.writeConfiguration(out, true, false, false, file, true);
         setStatusBarText("Configuration saved to " + file);
     } else {
@@ -3749,8 +3777,8 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
         opendialog.setDirectory(gCurrentFolder);
     }
     if (opendialog.execute()) {
-        // close additional dialog
-        WRITE_DEBUG("Close additional dialog");
+        // closet additional dialog
+        WRITE_DEBUG("Closet additional dialog");
         // declare overwrite flag
         bool overwriteElements = false;
         // check if open question dialog box
@@ -3800,6 +3828,13 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
         OptionsCont& oc = OptionsCont::getOptions();
         oc.resetWritable();
         oc.set("additional-files", opendialog.getFilename().text());
+        // set additional files in SUMO configs (additional and meanDatas)
+        mySUMOOptions.resetWritable();
+        if (oc.getString("meandata-files").size() > 0) {
+            mySUMOOptions.set("additional-files", oc.getString("additional-files") + "," + oc.getString("meandata-files"));
+        } else {
+            mySUMOOptions.set("additional-files", oc.getString("additional-files"));
+        }
     } else {
         // write debug information
         WRITE_DEBUG("Cancel additional dialog");
@@ -3871,6 +3906,13 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject*, FXSelector, void*) {
                 // change value of "additional-files"
                 oc.resetWritable();
                 oc.set("additional-files", fileWithExtension);
+                // set additional files in SUMO configs (additional and meanDatas)
+                mySUMOOptions.resetWritable();
+                if (oc.getString("meandata-files").size() > 0) {
+                    mySUMOOptions.set("additional-files", oc.getString("additional-files") + "," + oc.getString("meandata-files"));
+                } else {
+                    mySUMOOptions.set("additional-files", oc.getString("additional-files"));
+                }
             } else {
                 // None additionals file was selected, then stop function
                 return 0;
@@ -3927,6 +3969,13 @@ GNEApplicationWindow::onCmdSaveAdditionalsAs(FXObject*, FXSelector, void*) {
         OptionsCont::getOptions().resetWritable();
         // change value of "additional-files"
         OptionsCont::getOptions().set("additional-files", fileWithExtension);
+        // set additional files in SUMO configs (additional and meanDatas)
+        mySUMOOptions.resetWritable();
+        if (oc.getString("meandata-files").size() > 0) {
+            mySUMOOptions.set("additional-files", oc.getString("additional-files") + "," + oc.getString("meandata-files"));
+        } else {
+            mySUMOOptions.set("additional-files", oc.getString("additional-files"));
+        }
         // change flag of menu command for save additionals
         myFileMenuCommands.saveAdditionals->enable();
         // save additionals
@@ -3950,7 +3999,7 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
         opendialog.setDirectory(gCurrentFolder);
     }
     if (opendialog.execute()) {
-        // close additional dialog
+        // closet additional dialog
         WRITE_DEBUG("Close demand element dialog");
         // declare overwrite flag
         bool overwriteElements = false;
@@ -4001,6 +4050,9 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
         OptionsCont& oc = OptionsCont::getOptions();
         oc.resetWritable();
         oc.set("route-files", opendialog.getFilename().text());
+        // set route files in SUMO configs
+        mySUMOOptions.resetWritable();
+        mySUMOOptions.set("route-files", oc.getString("route-files"));
     } else {
         // write debug information
         WRITE_DEBUG("Cancel demand element dialog");
@@ -4072,6 +4124,9 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject*, FXSelector, void*) {
                 // change value of "route-files"
                 oc.resetWritable();
                 oc.set("route-files", fileWithExtension);
+                // set route files in SUMO configs
+                mySUMOOptions.resetWritable();
+                mySUMOOptions.set("route-files", oc.getString("route-files"));
             } else {
                 // None demand elements file was selected, then stop function
                 return 0;
@@ -4126,6 +4181,9 @@ GNEApplicationWindow::onCmdSaveDemandElementsAs(FXObject*, FXSelector, void*) {
         OptionsCont::getOptions().resetWritable();
         // change value of "route-files"
         OptionsCont::getOptions().set("route-files", fileWithExtension);
+        // set route files in SUMO configs
+        mySUMOOptions.resetWritable();
+        mySUMOOptions.set("route-files", oc.getString("route-files"));
         // change flag of menu command for save demand elements
         myFileMenuCommands.saveDemandElements->enable();
         // save demand elements
@@ -4149,7 +4207,7 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
         opendialog.setDirectory(gCurrentFolder);
     }
     if (opendialog.execute()) {
-        // close additional dialog
+        // closet additional dialog
         WRITE_DEBUG("Close data element dialog");
         // check if open question dialog box
         if (opendialog.getFilename().text() == OptionsCont::getOptions().getString("data-files")) {
@@ -4409,6 +4467,13 @@ GNEApplicationWindow::onCmdOpenMeanDatas(FXObject*, FXSelector, void*) {
         OptionsCont& oc = OptionsCont::getOptions();
         oc.resetWritable();
         oc.set("meandata-files", opendialog.getFilename().text());
+        // set meanData files in SUMO configs (additional and meanDatas)
+        mySUMOOptions.resetWritable();
+        if (oc.getString("additional-files").size() > 0) {
+            mySUMOOptions.set("additional-files", oc.getString("additional-files") + "," + oc.getString("meandata-files"));
+        } else {
+            mySUMOOptions.set("additional-files", oc.getString("meandata-files"));
+        }
     } else {
         // write debug information
         WRITE_DEBUG("Cancel meanData dialog");
@@ -4480,6 +4545,13 @@ GNEApplicationWindow::onCmdSaveMeanDatas(FXObject*, FXSelector, void*) {
                 // change value of "meandata-files"
                 oc.resetWritable();
                 oc.set("meandata-files", fileWithExtension);
+                // set meanData files in SUMO configs (additional and meanDatas)
+                mySUMOOptions.resetWritable();
+                if (oc.getString("additional-files").size() > 0) {
+                    mySUMOOptions.set("additional-files", oc.getString("additional-files") + "," + oc.getString("meandata-files"));
+                } else {
+                    mySUMOOptions.set("additional-files", oc.getString("meandata-files"));
+                }
             } else {
                 // None meanDatas file was selected, then stop function
                 return 0;
@@ -4536,6 +4608,15 @@ GNEApplicationWindow::onCmdSaveMeanDatasAs(FXObject*, FXSelector, void*) {
         OptionsCont::getOptions().resetWritable();
         // change value of "meandata-files"
         OptionsCont::getOptions().set("meandata-files", fileWithExtension);
+
+        // set meanData output in SUMO configs (additional and meanDatas)
+        mySUMOOptions.resetWritable();
+        if (oc.getString("additional-files").size() > 0) {
+            mySUMOOptions.set("additional-files", oc.getString("additional-files") + "," + oc.getString("meandata-files"));
+        } else {
+            mySUMOOptions.set("additional-files", oc.getString("meandata-files"));
+        }
+
         // change flag of menu command for save meanDatas
         myFileMenuCommands.saveMeanDatas->enable();
         // save meanDatas
@@ -4910,6 +4991,8 @@ GNEApplicationWindow::getSUMOOptions() {
 
 void
 GNEApplicationWindow::loadAdditionalElements(const std::vector<std::string> additionalFiles) {
+    // obtain option container
+    OptionsCont& oc = OptionsCont::getOptions();
     if (myNet && (additionalFiles.size() > 0)) {
         // begin undolist
         myUndoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, "loading additionals and shapes from '" + toString(additionalFiles) + "'");
@@ -4927,8 +5010,15 @@ GNEApplicationWindow::loadAdditionalElements(const std::vector<std::string> addi
                 WRITE_ERROR("Loading of " + additionalFile + " failed.");
             } else {
                 // set additional-files
-                OptionsCont::getOptions().resetWritable();
-                OptionsCont::getOptions().set("additional-files", additionalFile);
+                oc.resetWritable();
+                oc.set("additional-files", additionalFile);
+                // set additional files in SUMO configs (additional and meanDatas)
+                mySUMOOptions.resetWritable();
+                if (oc.getString("meandata-files").size() > 0) {
+                    mySUMOOptions.set("additional-files", oc.getString("additional-files") + "," + oc.getString("meandata-files"));
+                } else {
+                    mySUMOOptions.set("additional-files", oc.getString("additional-files"));
+                }
             }
             // disable validation for additionals
             XMLSubSys::setValidation("auto", "auto", "auto");
@@ -4951,6 +5041,8 @@ GNEApplicationWindow::loadAdditionalElements(const std::vector<std::string> addi
 
 void
 GNEApplicationWindow::loadDemandElements(const std::vector<std::string> demandElementsFiles) {
+    // obtain option container
+    OptionsCont& oc = OptionsCont::getOptions();
     if (myNet && (demandElementsFiles.size() > 0)) {
         // begin undolist
         myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, "loading demand elements from '" + toString(demandElementsFiles) + "'");
@@ -4966,8 +5058,11 @@ GNEApplicationWindow::loadDemandElements(const std::vector<std::string> demandEl
                 WRITE_ERROR("Loading of " + demandElementsFile + " failed.");
             } else {
                 // set first demandElementsFiles as default file
-                OptionsCont::getOptions().resetWritable();
-                OptionsCont::getOptions().set("route-files", demandElementsFile);
+                oc.resetWritable();
+                oc.set("route-files", demandElementsFile);
+                // set route files in SUMO configs
+                mySUMOOptions.resetWritable();
+                mySUMOOptions.set("route-files", oc.getString("route-files"));
             }
             // disable validation for demand elements
             XMLSubSys::setValidation("auto", "auto", "auto");
@@ -4990,6 +5085,8 @@ GNEApplicationWindow::loadDemandElements(const std::vector<std::string> demandEl
 
 void
 GNEApplicationWindow::loadDataElements(const std::vector<std::string> dataElementsFiles) {
+    // obtain option container
+    OptionsCont& oc = OptionsCont::getOptions();
     if (myNet && (dataElementsFiles.size() > 0)) {
         // disable update data
         myViewNet->getNet()->disableUpdateData();
@@ -5007,8 +5104,8 @@ GNEApplicationWindow::loadDataElements(const std::vector<std::string> dataElemen
                 WRITE_ERROR("Loading of " + dataElementsFile + " failed.");
             } else {
                 // set first dataElementsFiles as default file
-                OptionsCont::getOptions().resetWritable();
-                OptionsCont::getOptions().set("data-files", dataElementsFile);
+                oc.resetWritable();
+                oc.set("data-files", dataElementsFile);
             }
             // disable validation for data elements
             XMLSubSys::setValidation("auto", "auto", "auto");
@@ -5029,6 +5126,8 @@ GNEApplicationWindow::loadDataElements(const std::vector<std::string> dataElemen
 
 void
 GNEApplicationWindow::loadMeanDataElements(const std::vector<std::string> meanDataElementsFiles) {
+    // obtain option container
+    OptionsCont& oc = OptionsCont::getOptions();
     if (myNet && (meanDataElementsFiles.size() > 0)) {
         // begin undolist
         myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, "loading meanData elements from '" + toString(meanDataElementsFiles) + "'");
@@ -5044,8 +5143,15 @@ GNEApplicationWindow::loadMeanDataElements(const std::vector<std::string> meanDa
                 WRITE_ERROR("Loading of " + meanDataElementsFile + " failed.");
             } else {
                 // set first meanDataElementsFiles as default file
-                OptionsCont::getOptions().resetWritable();
-                OptionsCont::getOptions().set("meandata-files", meanDataElementsFile);
+                oc.resetWritable();
+                oc.set("meandata-files", meanDataElementsFile);
+                // set meanData files in SUMO configs (additional and meanDatas)
+                mySUMOOptions.resetWritable();
+                if (oc.getString("additional-files").size() > 0) {
+                    mySUMOOptions.set("additional-files", oc.getString("additional-files") + "," + oc.getString("meandata-files"));
+                } else {
+                    mySUMOOptions.set("additional-files", oc.getString("meandata-files"));
+                }
             }
             // disable validation for meanData elements
             XMLSubSys::setValidation("auto", "auto", "auto");
