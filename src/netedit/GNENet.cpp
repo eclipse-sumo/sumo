@@ -2365,7 +2365,7 @@ void
 GNENet::saveMeanDatasConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
     // open header
-    device.writeXMLHeader("meanData", "meanData_file.xsd", EMPTY_HEADER, false);
+    device.writeXMLHeader("additional", "additional_file.xsd", EMPTY_HEADER, false);
     // MeanDataEdges
     writeMeanDataEdgeComment(device);
     writeMeanDatas(device, SUMO_TAG_MEANDATA_EDGE);
