@@ -2448,7 +2448,7 @@ GNETLSEditorFrame::TLSPhases::initNEMAPhaseTable() {
 int
 GNETLSEditorFrame::TLSPhases::buildDefaultPhase(const int row) {
     // get option container
-    const OptionsCont& oc = OptionsCont::getOptions();
+    const auto &neteditOptions = OptionsCont::getOptions();
     // check if TLS is static
     const bool TLSStatic = (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::STATIC);
     const bool NEMA = (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::NEMA);
@@ -2478,7 +2478,7 @@ GNETLSEditorFrame::TLSPhases::buildDefaultPhase(const int row) {
     }
     if (haveGreen && haveYellow) {
         // guess left-mover state
-        duration = TIME2STEPS(oc.getInt("tls.left-green.time"));
+        duration = TIME2STEPS(neteditOptions.getInt("tls.left-green.time"));
         for (int i = 0; i < (int)state.size(); i++) {
             if ((state[i] == LINKSTATE_TL_YELLOW_MAJOR) || (state[i] == LINKSTATE_TL_YELLOW_MINOR)) {
                 state[i] = LINKSTATE_TL_RED;
@@ -2489,7 +2489,7 @@ GNETLSEditorFrame::TLSPhases::buildDefaultPhase(const int row) {
     } else if (haveGreen) {
         // guess yellow state
         myTLSEditorParent->myEditedDef->setParticipantsInformation();
-        duration = TIME2STEPS(myTLSEditorParent->myEditedDef->computeBrakingTime(oc.getFloat("tls.yellow.min-decel")));
+        duration = TIME2STEPS(myTLSEditorParent->myEditedDef->computeBrakingTime(neteditOptions.getFloat("tls.yellow.min-decel")));
         for (int i = 0; i < (int)state.size(); i++) {
             if ((state[i] == LINKSTATE_TL_GREEN_MAJOR) || (state[i] == LINKSTATE_TL_GREEN_MINOR)) {
                 if (crossingIndices.count(i) == 0) {
@@ -2500,7 +2500,7 @@ GNETLSEditorFrame::TLSPhases::buildDefaultPhase(const int row) {
             }
         }
     } else if (haveYellow) {
-        duration = TIME2STEPS(oc.isDefault("tls.allred.time") ? 2 :  oc.getInt("tls.allred.time"));
+        duration = TIME2STEPS(neteditOptions.isDefault("tls.allred.time") ? 2 :  neteditOptions.getInt("tls.allred.time"));
         // guess all-red state
         for (int i = 0; i < (int)state.size(); i++) {
             if ((state[i] == LINKSTATE_TL_YELLOW_MAJOR) || (state[i] == LINKSTATE_TL_YELLOW_MINOR)) {

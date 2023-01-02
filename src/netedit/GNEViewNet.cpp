@@ -617,11 +617,11 @@ GNEViewNet::openSelectDialogAtCursor(const std::vector<GUIGlObject*>& GLObjects)
 void
 GNEViewNet::saveVisualizationSettings() const {
     // first check if we have to save gui settings in a file (only used for testing purposes)
-    OptionsCont& oc = OptionsCont::getOptions();
-    if (oc.getString("gui-testing.setting-output").size() > 0) {
+    const auto &neteditOptions = OptionsCont::getOptions();
+    if (neteditOptions.getString("gui-testing.setting-output").size() > 0) {
         try {
             // open output device
-            OutputDevice& output = OutputDevice::getDevice(oc.getString("gui-testing.setting-output"));
+            OutputDevice& output = OutputDevice::getDevice(neteditOptions.getString("gui-testing.setting-output"));
             // save view settings
             output.openTag(SUMO_TAG_VIEWSETTINGS);
             myVisualizationSettings->save(output);
@@ -636,7 +636,7 @@ GNEViewNet::saveVisualizationSettings() const {
             // close output device
             output.close();
         } catch (...) {
-            WRITE_ERROR("GUI-Settings cannot be saved in " + oc.getString("gui-testing.setting-output"));
+            WRITE_ERROR("GUI-Settings cannot be saved in " + neteditOptions.getString("gui-testing.setting-output"));
         }
     }
 }

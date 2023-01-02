@@ -45,10 +45,10 @@ main(int argc, char** argv) {
     // make the output aware of threading
     MsgHandler::setFactory(&MsgHandlerSynchronized::create);
     // get the options
-    OptionsCont& oc = OptionsCont::getOptions();
+    auto &neteditOptions = OptionsCont::getOptions();
     // give some application descriptions
-    oc.setApplicationDescription("Graphical editor for SUMO networks.");
-    oc.setApplicationName("netedit", "Eclipse SUMO netedit Version " VERSION_STRING);
+    neteditOptions.setApplicationDescription("Graphical editor for SUMO networks.");
+    neteditOptions.setApplicationName("netedit", "Eclipse SUMO netedit Version " VERSION_STRING);
     int ret = 0;
 #ifndef _DEBUG
     try {
@@ -57,10 +57,10 @@ main(int argc, char** argv) {
 #endif
         // initialise subsystems
         XMLSubSys::init();
-        GNELoadThread::fillOptions(oc);
+        GNELoadThread::fillOptions(neteditOptions);
         OptionsIO::setArgs(argc, argv);
         OptionsIO::getOptions(true);
-        if (oc.processMetaOptions(false)) {
+        if (neteditOptions.processMetaOptions(false)) {
             SystemFrame::close();
             return 0;
         }

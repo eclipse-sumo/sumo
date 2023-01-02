@@ -336,7 +336,7 @@ public:
     void initGNEConnections();
 
     /// @brief recompute the network and update lane geometries
-    void computeAndUpdate(OptionsCont& oc, bool volatileOptions);
+    void computeAndUpdate(OptionsCont& neteditOptions, bool volatileOptions);
 
     /**@brief trigger full netbuild computation
      * param[in] window The window to inform about delay

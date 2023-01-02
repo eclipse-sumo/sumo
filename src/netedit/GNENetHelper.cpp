@@ -1114,43 +1114,43 @@ GNENetHelper::AttributeCarriers::clearAdditionals() {
 std::string
 GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
     // obtain option container
-    OptionsCont& oc = OptionsCont::getOptions();
+    const auto &neteditOptions = OptionsCont::getOptions();
     // get prefix
     std::string prefix;
     if (tag == SUMO_TAG_BUS_STOP) {
-        prefix = oc.getString("busStop-prefix");
+        prefix = neteditOptions.getString("busStop-prefix");
     } else if (tag == SUMO_TAG_TRAIN_STOP) {
-        prefix = oc.getString("trainStop-prefix");
+        prefix = neteditOptions.getString("trainStop-prefix");
     } else if (tag == SUMO_TAG_CONTAINER_STOP) {
-        prefix = oc.getString("containerStop-prefix");
+        prefix = neteditOptions.getString("containerStop-prefix");
     } else if (tag == SUMO_TAG_CHARGING_STATION) {
-        prefix = oc.getString("chargingStation-prefix");
+        prefix = neteditOptions.getString("chargingStation-prefix");
     } else if (tag == SUMO_TAG_PARKING_AREA) {
-        prefix = oc.getString("parkingArea-prefix");
+        prefix = neteditOptions.getString("parkingArea-prefix");
     } else if (tag == SUMO_TAG_INDUCTION_LOOP) {
-        prefix = oc.getString("e1Detector-prefix");
+        prefix = neteditOptions.getString("e1Detector-prefix");
     } else if ((tag == SUMO_TAG_LANE_AREA_DETECTOR) || (tag == GNE_TAG_MULTI_LANE_AREA_DETECTOR)) {
-        prefix = oc.getString("e2Detector-prefix");
+        prefix = neteditOptions.getString("e2Detector-prefix");
     } else if (tag == SUMO_TAG_ENTRY_EXIT_DETECTOR) {
-        prefix = oc.getString("e3Detector-prefix");
+        prefix = neteditOptions.getString("e3Detector-prefix");
     } else if (tag == SUMO_TAG_INSTANT_INDUCTION_LOOP) {
-        prefix = oc.getString("e1InstantDetector-prefix");
+        prefix = neteditOptions.getString("e1InstantDetector-prefix");
     } else if (tag == SUMO_TAG_REROUTER) {
-        prefix = oc.getString("rerouter-prefix");
+        prefix = neteditOptions.getString("rerouter-prefix");
     } else if ((tag == SUMO_TAG_CALIBRATOR) || (tag == GNE_TAG_CALIBRATOR_LANE)) {
-        prefix = oc.getString("calibrator-prefix");
+        prefix = neteditOptions.getString("calibrator-prefix");
     } else if (tag == SUMO_TAG_ROUTEPROBE) {
-        prefix = oc.getString("routeProbe-prefix");
+        prefix = neteditOptions.getString("routeProbe-prefix");
     } else if (tag == SUMO_TAG_VSS) {
-        prefix = oc.getString("vss-prefix");
+        prefix = neteditOptions.getString("vss-prefix");
     } else if (tag == SUMO_TAG_TRACTION_SUBSTATION) {
-        prefix = oc.getString("tractionSubstation-prefix");
+        prefix = neteditOptions.getString("tractionSubstation-prefix");
     } else if (tag == SUMO_TAG_OVERHEAD_WIRE_SECTION) {
-        prefix = oc.getString("overheadWire-prefix");
+        prefix = neteditOptions.getString("overheadWire-prefix");
     } else if (tag == SUMO_TAG_POLY) {
-        prefix = oc.getString("polygon-prefix");
+        prefix = neteditOptions.getString("polygon-prefix");
     } else if ((tag == SUMO_TAG_POI) || (tag == GNE_TAG_POILANE) || (tag == GNE_TAG_POIGEO)) {
-        prefix = oc.getString("poi-prefix");
+        prefix = neteditOptions.getString("poi-prefix");
     } else if (tag == SUMO_TAG_TAZ) {
         prefix = toString(SUMO_TAG_TAZ);
     }
@@ -1365,33 +1365,33 @@ GNENetHelper::AttributeCarriers::getNumberOfDemandElements() const {
 std::string
 GNENetHelper::AttributeCarriers::generateDemandElementID(SumoXMLTag tag) const {
     // obtain option container
-    OptionsCont& oc = OptionsCont::getOptions();
+    const auto &neteditOptions = OptionsCont::getOptions();
     // get tag property
     const auto tagProperty = GNEAttributeCarrier::getTagProperty(tag);
     // get prefix
     std::string prefix;
     if (tag == SUMO_TAG_ROUTE) {
-        prefix = oc.getString("route-prefix");
+        prefix = neteditOptions.getString("route-prefix");
     } else if (tag == SUMO_TAG_VTYPE) {
-        prefix = oc.getString("vType-prefix");
+        prefix = neteditOptions.getString("vType-prefix");
     } else if ((tag == SUMO_TAG_TRIP) || (tag == GNE_TAG_TRIP_JUNCTIONS)) {
-        prefix = oc.getString("trip-prefix");
+        prefix = neteditOptions.getString("trip-prefix");
     } else if (tagProperty.isVehicle() && !tagProperty.isFlow()) {
-        prefix = oc.getString("vehicle-prefix");
+        prefix = neteditOptions.getString("vehicle-prefix");
     } else if (tagProperty.isPerson()) {
         if (tagProperty.isFlow()) {
-            prefix = oc.getString("personflow-prefix");
+            prefix = neteditOptions.getString("personflow-prefix");
         } else {
-            prefix = oc.getString("person-prefix");
+            prefix = neteditOptions.getString("person-prefix");
         }
     } else if (tagProperty.isContainer()) {
         if (tagProperty.isFlow()) {
-            prefix = oc.getString("containerflow-prefix");
+            prefix = neteditOptions.getString("containerflow-prefix");
         } else {
-            prefix = oc.getString("container-prefix");
+            prefix = neteditOptions.getString("container-prefix");
         }
     } else if (tagProperty.isFlow()) {
-        prefix = oc.getString("flow-prefix");
+        prefix = neteditOptions.getString("flow-prefix");
     }
     // declare counter
     int counter = 0;
@@ -2155,13 +2155,13 @@ GNENetHelper::AttributeCarriers::clearMeanDatas() {
 std::string
 GNENetHelper::AttributeCarriers::generateMeanDataID(SumoXMLTag tag) const {
     // obtain option container
-    OptionsCont& oc = OptionsCont::getOptions();
+    const auto &neteditOptions = OptionsCont::getOptions();
     // get prefix
     std::string prefix;
     if (tag == SUMO_TAG_MEANDATA_EDGE) {
-        prefix = oc.getString("meanDataEdge-prefix");
+        prefix = neteditOptions.getString("meanDataEdge-prefix");
     } else if (tag == SUMO_TAG_MEANDATA_LANE) {
-        prefix = oc.getString("meanDataLane-prefix");
+        prefix = neteditOptions.getString("meanDataLane-prefix");
     }
     int counter = 0;
     while (retrieveMeanData(tag, prefix + "_" + toString(counter), false) != nullptr) {

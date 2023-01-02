@@ -791,8 +791,8 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdUseSelectedEdges(FXObject*, FXSelec
 long
 GNETAZFrame::TAZChildDefaultParameters::onCmdSetZeroFringeProbabilities(FXObject*, FXSelector, void*) {
     // compute and update
-    OptionsCont& oc = OptionsCont::getOptions();
-    myTAZFrameParent->getViewNet()->getNet()->computeAndUpdate(oc, false);
+    auto &neteditOptions = OptionsCont::getOptions();
+    myTAZFrameParent->getViewNet()->getNet()->computeAndUpdate(neteditOptions, false);
     myTAZFrameParent->getViewNet()->update();
     // find all edges with TAZSource/sinks and without successors/predecessors
     std::vector<GNEAdditional*> sources;

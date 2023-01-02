@@ -63,10 +63,10 @@ public:
     void retrieveMessage(const MsgHandler::MsgType type, const std::string& msg);
 
     /// @brief clears and initializes the OptionsCont
-    static void fillOptions(OptionsCont& oc);
+    static void fillOptions(OptionsCont& neteditOptions);
 
     /// @brief sets required options for proper functioning
-    static void setDefaultOptions(OptionsCont& oc);
+    static void setDefaultOptions(OptionsCont& neteditOptions);
 
 protected:
     /// @brief init options

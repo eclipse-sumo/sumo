@@ -292,11 +292,11 @@ GNENet::createEdge(GNEJunction* src, GNEJunction* dest, GNEEdge* edgeTemplate, G
         edge = new GNEEdge(this, nbe, wasSplit);
     } else {
         // default if no template is given
-        const OptionsCont& oc = OptionsCont::getOptions();
-        double defaultSpeed = oc.getFloat("default.speed");
-        const std::string defaultType = oc.getString("default.type");
-        const int defaultNrLanes = oc.getInt("default.lanenumber");
-        const int defaultPriority = oc.getInt("default.priority");
+        const auto &neteditOptions = OptionsCont::getOptions();
+        double defaultSpeed = neteditOptions.getFloat("default.speed");
+        const std::string defaultType = neteditOptions.getString("default.type");
+        const int defaultNrLanes = neteditOptions.getInt("default.lanenumber");
+        const int defaultPriority = neteditOptions.getInt("default.priority");
         const double defaultWidth = NBEdge::UNSPECIFIED_WIDTH;
         const double defaultOffset = NBEdge::UNSPECIFIED_OFFSET;
         const LaneSpreadFunction spread = LaneSpreadFunction::RIGHT;
@@ -1292,8 +1292,8 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
         }
     }
     // compute and update
-    OptionsCont& oc = OptionsCont::getOptions();
-    computeAndUpdate(oc, volatileOptions);
+    auto &neteditOptions = OptionsCont::getOptions();
+    computeAndUpdate(neteditOptions, volatileOptions);
     // load additionals if was recomputed with volatile options
     if (additionalPath != "") {
         // Create additional handler
@@ -1358,7 +1358,7 @@ GNENet::computeDataElements(GNEApplicationWindow* window) {
 void
 GNENet::computeJunction(GNEJunction* junction) {
     // recompute tl-logics
-    OptionsCont& oc = OptionsCont::getOptions();
+    auto &neteditOptions = OptionsCont::getOptions();
     NBTrafficLightLogicCont& tllCont = getTLLogicCont();
     // iterate over traffic lights definitions. Make a copy because invalid
     // definitions will be removed (and would otherwise destroy the iterator)
@@ -1366,7 +1366,7 @@ GNENet::computeJunction(GNEJunction* junction) {
     for (auto it : tlsDefs) {
         it->setParticipantsInformation();
         it->setTLControllingInformation();
-        tllCont.computeSingleLogic(oc, it);
+        tllCont.computeSingleLogic(neteditOptions, it);
     }
 
     // @todo compute connections etc...
@@ -2790,7 +2790,7 @@ GNENet::initGNEConnections() {
 
 
 void
-GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
+GNENet::computeAndUpdate(OptionsCont& neteditOptions, bool volatileOptions) {
     // make sure we only add turn arounds to edges which currently exist within the network
     std::set<std::string> liveExplicitTurnarounds;
     for (const auto& explicitTurnarounds : myExplicitTurnarounds) {
@@ -2809,13 +2809,13 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
         myGrid.removeAdditionalGLObject(it.second);
     }
     // compute using NetBuilder
-    myNetBuilder->compute(oc, liveExplicitTurnarounds, volatileOptions);
+    myNetBuilder->compute(neteditOptions, liveExplicitTurnarounds, volatileOptions);
     // remap ids if necessary
-    if (oc.getBool("numerical-ids") || oc.isSet("reserved-ids")) {
+    if (neteditOptions.getBool("numerical-ids") || neteditOptions.isSet("reserved-ids")) {
         myAttributeCarriers->remapJunctionAndEdgeIds();
     }
     // update rtree if necessary
-    if (!oc.getBool("offset.disable-normalization")) {
+    if (!neteditOptions.getBool("offset.disable-normalization")) {
         for (const auto& edge : myAttributeCarriers->getEdges()) {
             // refresh edge geometry
             edge.second->updateGeometry();

@@ -708,7 +708,7 @@ private:
     bool continueWithUnsavedDataElementChanges(const std::string& operation);
 
     /// @brief load sumoConfig at start
-    void loadSUMOConfigAtStart(OptionsCont& oc);
+    void loadSUMOConfigAtStart(OptionsCont& neteditOptions);
 
     /// @brief extract folder
     FXString getFolder(const std::string& folder) const;

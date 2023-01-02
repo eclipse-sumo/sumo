@@ -1937,11 +1937,11 @@ GNEApplicationWindowHelper::GNEConfigHandler::loadConfig() {
 void
 GNEApplicationWindowHelper::saveSUMOConfig() {
     // obtain option container
-    OptionsCont& oc = OptionsCont::getOptions();
+    const auto &neteditOptions = OptionsCont::getOptions();
     // check SUMOConfig-outpout
-    if (oc.getString("SUMOcfg-output").size() > 0) {
+    if (neteditOptions.getString("SUMOcfg-output").size() > 0) {
         // open output device
-        OutputDevice& device = OutputDevice::getDevice(oc.getString("SUMOcfg-output"));
+        OutputDevice& device = OutputDevice::getDevice(neteditOptions.getString("SUMOcfg-output"));
 
         /** **/
 
