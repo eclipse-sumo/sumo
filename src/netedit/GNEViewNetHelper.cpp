@@ -1929,7 +1929,7 @@ GNEViewNetHelper::SaveElements::buildSaveElementsButtons() {
     saveSUMOConfig = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
                                           myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                                           "\tSave SUMOConfig\tSave SUMOConfig.", GUIIconSubSys::getIcon(GUIIcon::SAVESUMOCONFIG),
-                                          myViewNet->getViewParent()->getGNEAppWindows(), MID_GNE_SAVEALLELEMENTS, GUIDesignButtonToolbar);
+                                          myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_M_SAVESUMOCONFIG, GUIDesignButtonToolbar);
     saveSUMOConfig->create();
     // create save network button
     saveAll = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,

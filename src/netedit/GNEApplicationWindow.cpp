@@ -97,7 +97,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_R_RELOAD,                           GNEApplicationWindow::onUpdReload),
     // network
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SAVEALLELEMENTS,                            GNEApplicationWindow::onCmdSaveAllElements),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVEALLELEMENTS,                            GNEApplicationWindow::onUpdSaveNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVEALLELEMENTS,                            GNEApplicationWindow::onUpdSaveAllElements),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK,       GNEApplicationWindow::onCmdSaveNetwork),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK,       GNEApplicationWindow::onUpdSaveNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORK_AS,             GNEApplicationWindow::onCmdSaveAsNetwork),
@@ -113,7 +113,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_M_SAVESUMOCONFIG,             GNEApplicationWindow::onCmdSaveSUMOConfig),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_M_SAVESUMOCONFIG,             GNEApplicationWindow::onUpdSaveSUMOConfig),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVESUMOCONFIG_AS,              GNEApplicationWindow::onCmdSaveSUMOConfigAs),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVESUMOCONFIG_AS,              GNEApplicationWindow::onUpdSaveSUMOConfig),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVESUMOCONFIG_AS,              GNEApplicationWindow::onUpdNeedsNetwork),
     // TLS
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_K_OPENTLSPROGRAMS,                  GNEApplicationWindow::onCmdOpenTLSPrograms),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_K_OPENTLSPROGRAMS,                  GNEApplicationWindow::onUpdNeedsNetwork),
@@ -2883,23 +2883,14 @@ GNEApplicationWindow::onUpdReload(FXObject* sender, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onUpdSaveAllElements(FXObject* sender, FXSelector, void*) {
-    bool enable = false;
-    if (myNet) {
-        if (!myNet->isNetSaved()) {
-            enable = true;
-        }
-        if (!myNet->isAdditionalsSaved()) {
-            enable = true;
-        }
-        if (!myNet->isDemandElementsSaved()) {
-            enable = true;
-        }
-        if (!myNet->isDataElementsSaved()) {
-            enable = true;
-        }
+    if (myNet == nullptr) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else if (myNet->isNetSaved() && myNet->isAdditionalsSaved() && myNet->isDemandElementsSaved() && 
+               myNet->isDataElementsSaved() && myNet->isMeanDatasSaved()){
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     }
-    sender->handle(this, enable ? FXSEL(SEL_COMMAND, ID_ENABLE) : FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    return 1;
 }
 
 
@@ -3470,9 +3461,9 @@ GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject*, FXSelector, void*) {
         onCmdSaveMeanDatas(nullptr, 0, nullptr);
     }
     // obtain NETEDIT option container
-    OptionsCont& neteditOptions = OptionsCont::getOptions();
+    OptionsCont& oc = OptionsCont::getOptions();
     // Check if SUMOConfig file was already set at start of netedit or with a previous save
-    if (neteditOptions.getString("SUMOcfg-output").empty()) {
+    if (oc.getString("SUMOcfg-output").empty()) {
         // get the new file name
         FXFileDialog opendialog(this, TL("Save SUMO Configuration"));
         opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::SAVE));
@@ -3486,11 +3477,11 @@ GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject*, FXSelector, void*) {
         } else {
             const std::string file = MFXUtils::assureExtension(opendialog.getFilename(),
                     opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
-            neteditOptions.resetWritable();
-            neteditOptions.set("SUMOcfg-output", file);
+            oc.resetWritable();
+            oc.set("SUMOcfg-output", file);
         }
     }
-    const auto file = neteditOptions.getString("SUMOcfg-output");
+    const auto file = oc.getString("SUMOcfg-output");
     std::ofstream out(StringUtils::transcodeToLocal(file));
     if (out.good()) {
         // write SUMO config
@@ -3551,13 +3542,16 @@ GNEApplicationWindow::onCmdSaveSUMOConfigAs(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onUpdSaveSUMOConfig(FXObject* sender, FXSelector, void*) {
-    // check if net exist and there is junctions
-    if (myNet) {
-        sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    if (myNet == nullptr) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else if (OptionsCont::getOptions().getString("SUMOcfg-output").empty()) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    } else if (myNet->isNetSaved() && myNet->isAdditionalsSaved() && myNet->isDemandElementsSaved() && 
+               myNet->isDataElementsSaved() && myNet->isMeanDatasSaved()){
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
-        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     }
-    return 1;
 }
 
 
