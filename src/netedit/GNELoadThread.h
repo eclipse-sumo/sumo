@@ -32,7 +32,7 @@
 // ===========================================================================
 class GNENet;
 class GUIEvent;
-
+class GNEApplicationWindow;
 
 // ===========================================================================
 // class definitions
@@ -41,10 +41,10 @@ class GUIEvent;
  * @class GNELoadThread
  */
 class GNELoadThread : public MFXSingleEventThread {
+
 public:
     /// @brief constructor
-    GNELoadThread(FXApp* app, MFXInterThreadEventClient* mw, MFXSynchQue<GUIEvent*>& eq,
-                  FXEX::MFXThreadEvent& ev);
+    GNELoadThread(GNEApplicationWindow* applicationWindow, MFXSynchQue<GUIEvent*>& eq, FXEX::MFXThreadEvent& ev);
 
     /// @brief destructor
     virtual ~GNELoadThread();
@@ -79,9 +79,9 @@ protected:
      * application is informed about the loading */
     void submitEndAndCleanup(GNENet* net, const bool newNet = false, const std::string& guiSettingsFile = "", const bool viewportFromRegistry = false);
 
-protected:
-    /// @brief the parent window to inform about the loading
-    MFXInterThreadEventClient* myParent;
+private:
+    /// @brief NETEDIT application windows
+    GNEApplicationWindow* myApplicationWindow;
 
     /// @brief the path to load the network from
     std::string myFile;
@@ -90,7 +90,7 @@ protected:
     OutputDevice* myErrorRetriever, *myMessageRetriever, *myWarningRetriever, *myDebugRetriever, *myGLDebugRetriever;
 
     /// @brief event Queue
-    MFXSynchQue<GUIEvent*>& myEventQue;
+    MFXSynchQue<GUIEvent*>& myEventQueue;
 
     /// @brief event throw
     FXEX::MFXThreadEvent& myEventThrow;

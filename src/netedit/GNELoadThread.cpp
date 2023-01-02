@@ -30,6 +30,7 @@
 #include <utils/options/OptionsIO.h>
 #include <utils/xml/XMLSubSys.h>
 
+#include "GNEApplicationWindow.h"
 #include "GNEEvent_NetworkLoaded.h"
 #include "GNELoadThread.h"
 #include "GNENet.h"
@@ -38,8 +39,10 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-GNELoadThread::GNELoadThread(FXApp* app, MFXInterThreadEventClient* mw, MFXSynchQue<GUIEvent*>& eq, FXEX::MFXThreadEvent& ev) :
-    MFXSingleEventThread(app, mw), myParent(mw), myEventQue(eq),
+GNELoadThread::GNELoadThread(GNEApplicationWindow* applicationWindow, MFXSynchQue<GUIEvent*>& eq, FXEX::MFXThreadEvent& ev) :
+    MFXSingleEventThread(applicationWindow->getApp(), applicationWindow),
+    myApplicationWindow(applicationWindow),
+    myEventQueue(eq),
     myEventThrow(ev) {
     myDebugRetriever = new MsgRetrievingFunction<GNELoadThread>(this, &GNELoadThread::retrieveMessage, MsgHandler::MsgType::MT_DEBUG);
     myGLDebugRetriever = new MsgRetrievingFunction<GNELoadThread>(this, &GNELoadThread::retrieveMessage, MsgHandler::MsgType::MT_GLDEBUG);
@@ -71,18 +74,30 @@ GNELoadThread::run() {
     GNENet* net = nullptr;
     // get netedit options
     auto &neteditOptions = OptionsCont::getOptions();
-    // try to load the given configuration
-    if (neteditOptions.getString("sumocfg-file").empty() && (myFile != "" || neteditOptions.getString("sumo-net-file") != "")) {
+    // first fill all SUMO Options if we're loading a sumo config file
+    if (neteditOptions.getString("sumocfg-file").size() > 0) {
+        GNEApplicationWindowHelper::GNEConfigHandler confighandler(myApplicationWindow, neteditOptions.getString("sumocfg-file"));
+        // if there is an error loading sumo config, stop
+        if (!confighandler.loadConfig(false)) {
+            WRITE_ERROR("Loading of " + neteditOptions.getString("sumocfg-file") + " failed.");
+            submitEndAndCleanup(net);
+            return 0;
+        }
+    } else if ((myFile.size() > 0) || (neteditOptions.getString("sumo-net-file").size() > 0)) {
+        // reset options
         neteditOptions.clear();
         if (!initOptions()) {
             submitEndAndCleanup(net);
             return 0;
         }
     }
+    // update aggregate warnings
     if (neteditOptions.isDefault("aggregate-warnings")) {
         neteditOptions.setDefault("aggregate-warnings", "5");
     }
+    // init output options
     MsgHandler::initOutputOptions();
+    // if there is an error checking options, stop
     if (!(NIFrame::checkOptions() &&
             NBFrame::checkOptions() &&
             NWFrame::checkOptions() &&
@@ -92,18 +107,21 @@ GNELoadThread::run() {
         submitEndAndCleanup(net);
         return 0;
     }
+    // clear message instances
     MsgHandler::getGLDebugInstance()->clear();
     MsgHandler::getDebugInstance()->clear();
     MsgHandler::getErrorInstance()->clear();
     MsgHandler::getWarningInstance()->clear();
     MsgHandler::getMessageInstance()->clear();
-
+    // init global random seed
     RandHelper::initRandGlobal();
+    // check if geo projection can be inited
     if (!GeoConvHelper::init(neteditOptions)) {
         WRITE_ERROR(TL("Could not build projection!"));
         submitEndAndCleanup(net);
         return 0;
     }
+    // set validation
     XMLSubSys::setValidation(neteditOptions.getString("xml-validation"), neteditOptions.getString("xml-validation.net"), neteditOptions.getString("xml-validation.routes"));
     // check if Debug has to be enabled
     MsgHandler::enableDebugMessages(neteditOptions.getBool("gui-testing-debug"));
@@ -111,17 +129,17 @@ GNELoadThread::run() {
     MsgHandler::enableDebugGLMessages(neteditOptions.getBool("gui-testing-debug-gl"));
     // this netbuilder instance becomes the responsibility of the GNENet
     NBNetBuilder* netBuilder = new NBNetBuilder();
-
+    // apply netedit optiones in netBuilder
     netBuilder->applyOptions(neteditOptions);
-
+    // check if create a new net
     if (myNewNet) {
         // create new network
         net = new GNENet(netBuilder);
     } else {
         NILoader nl(*netBuilder);
         try {
+            // try to load network using netedit options
             nl.load(neteditOptions);
-
             if (!myLoadNet) {
                 WRITE_MESSAGE(TL("Performing initial computation ...\n"));
                 // perform one-time processing (i.e. edge removal)
@@ -131,11 +149,10 @@ GNELoadThread::run() {
                 // make coordinate conversion usable before first netBuilder->compute()
                 GeoConvHelper::computeFinal();
             }
-
+            // check if ignore errors
             if (neteditOptions.getBool("ignore-errors")) {
                 MsgHandler::getErrorInstance()->clear();
             }
-
             // check whether any errors occurred
             if (MsgHandler::getErrorInstance()->wasInformed()) {
                 throw ProcessError();
@@ -199,8 +216,7 @@ GNELoadThread::submitEndAndCleanup(GNENet* net, const bool newNet, const std::st
     MsgHandler::getWarningInstance()->removeRetriever(myWarningRetriever);
     MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);
     // inform parent about the process
-    GUIEvent* e = new GNEEvent_NetworkLoaded(net, newNet, myFile, guiSettingsFile, viewportFromRegistry);
-    myEventQue.push_back(e);
+    myEventQueue.push_back(new GNEEvent_NetworkLoaded(net, newNet, myFile, guiSettingsFile, viewportFromRegistry));
     myEventThrow.signal();
 }
 
@@ -237,10 +253,10 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     // files
     neteditOptions.doRegister("sumocfg-file", new Option_FileName());
     neteditOptions.addSynonyme("sumocfg-file", "sumocfg");
-    neteditOptions.addDescription("sumocfg-file", "Netedit", "Load sumocfg");
+    neteditOptions.addDescription("sumocfg-file", "Netedit", "Load sumo config");
 
     neteditOptions.doRegister("SUMOcfg-output", new Option_String());
-    neteditOptions.addDescription("SUMOcfg-output", "Netedit", "file in which SUMOCOnfig must be saved");
+    neteditOptions.addDescription("SUMOcfg-output", "Netedit", "file in which sumo config must be saved");
 
     neteditOptions.doRegister("additional-files", 'a', new Option_FileName());
     neteditOptions.addSynonyme("additional-files", "additional");
@@ -492,8 +508,7 @@ GNELoadThread::loadConfigOrNet(const std::string& file, const bool isNet, const 
 
 void
 GNELoadThread::retrieveMessage(const MsgHandler::MsgType type, const std::string& msg) {
-    GUIEvent* e = new GUIEvent_Message(type, msg);
-    myEventQue.push_back(e);
+    myEventQueue.push_back(new GUIEvent_Message(type, msg));
     myEventThrow.signal();
 }
 

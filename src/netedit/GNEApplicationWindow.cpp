@@ -496,7 +496,7 @@ GNEApplicationWindow::dependentBuild() {
     // fill menu and tool bar
     fillMenuBar();
     // build additional threads
-    myLoadThread = new GNELoadThread(getApp(), this, myEvents, myLoadThreadEvent);
+    myLoadThread = new GNELoadThread(this, myEvents, myLoadThreadEvent);
     // set the status bar
     myStatusbar->getStatusLine()->setText(TL("Ready."));
     // set the caption
@@ -775,7 +775,7 @@ GNEApplicationWindow::onCmdOpenSUMOConfig(FXObject*, FXSelector, void*) {
             // Create additional handler
             GNEApplicationWindowHelper::GNEConfigHandler confighandler(this, file);
             // Run parser
-            if (!confighandler.loadConfig()) {
+            if (!confighandler.loadConfig(true)) {
                 WRITE_ERROR("Loading of " + file + " failed.");
             }
             // update view
@@ -800,7 +800,7 @@ GNEApplicationWindow::onCmdReloadSUMOConfig(FXObject*, FXSelector, void*) {
         // Create additional handler
         GNEApplicationWindowHelper::GNEConfigHandler confighandler(this, file);
         // Run parser
-        if (!confighandler.loadConfig()) {
+        if (!confighandler.loadConfig(true)) {
             WRITE_ERROR("Loading of " + file + " failed.");
         }
         update();
@@ -4817,26 +4817,6 @@ GNEApplicationWindow::continueWithUnsavedDataElementChanges(const std::string& o
         return true;
     }
 }
-
-
-void
-GNEApplicationWindow::loadSUMOConfigAtStart(OptionsCont& neteditOptions) {
-    if (neteditOptions.isSet("sumocfg-file") && !neteditOptions.getString("sumocfg-file").empty()) {
-        // disable validation for additionals
-        XMLSubSys::setValidation("never", "auto", "auto");
-        // Create additional handler
-        GNEApplicationWindowHelper::GNEConfigHandler confighandler(this, neteditOptions.getString("sumocfg-file"));
-        // Run parser
-        if (!confighandler.loadConfig()) {
-            WRITE_ERROR("Loading of " + neteditOptions.getString("sumocfg-file") + " failed.");
-        }
-        update();
-        // restore validation for additionals
-        XMLSubSys::setValidation("auto", "auto", "auto");
-    }
-
-}
-
 
 FXString
 GNEApplicationWindow::getFolder(const std::string& folder) const {

@@ -1038,11 +1038,8 @@ struct GNEApplicationWindowHelper {
         /// @brief Constructor
         GNEConfigHandler(GNEApplicationWindow* applicationWindow, const std::string& file);
 
-        /**@brief Load net file
-         * @param[in] configObj sumo base object used for build
-         * @param[in] file net file
-         */
-        bool loadConfig();
+        /// @brief load config
+        bool loadConfig(const bool loadElements);
 
     private:
         /// @brief application window

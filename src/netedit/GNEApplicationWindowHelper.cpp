@@ -1891,7 +1891,7 @@ GNEApplicationWindowHelper::GNEConfigHandler::GNEConfigHandler(GNEApplicationWin
 
 
 bool
-GNEApplicationWindowHelper::GNEConfigHandler::loadConfig() {
+GNEApplicationWindowHelper::GNEConfigHandler::loadConfig(const bool loadElements) {
     // get options
     auto &neteditOptions = OptionsCont::getOptions();
     auto &sumoOptions = myApplicationWindow->getSUMOOptions();
@@ -1924,8 +1924,10 @@ GNEApplicationWindowHelper::GNEConfigHandler::loadConfig() {
     neteditOptions.set("additional-files", sumoOptions.getString("additional-files"));
     neteditOptions.set("route-files", sumoOptions.getString("route-files"));
     neteditOptions.set("data-files", sumoOptions.getString("data-files"));
-    // load network
-    myApplicationWindow->loadConfigOrNet(neteditOptions.getString("net-file"), true);
+    // check if load network
+    if (loadElements) {
+        myApplicationWindow->loadConfigOrNet(neteditOptions.getString("net-file"), true);
+    }
     return true;
 }
 
