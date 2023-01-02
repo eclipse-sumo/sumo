@@ -82,7 +82,7 @@ GNEChange_MeanData::undo() {
         myMeanData->getNet()->getAttributeCarriers()->insertMeanData(myMeanData);
     }
     // require always save elements
-    myMeanData->getNet()->requireSaveDataElements(true);
+    myMeanData->getNet()->requireSaveMeanDatas(true);
 }
 
 
@@ -108,7 +108,7 @@ GNEChange_MeanData::redo() {
         myMeanData->getNet()->getAttributeCarriers()->deleteMeanData(myMeanData);
     }
     // require always save elements
-    myMeanData->getNet()->requireSaveDataElements(true);
+    myMeanData->getNet()->requireSaveMeanDatas(true);
 }
 
 

@@ -1958,7 +1958,7 @@ GNEViewNetHelper::SaveElements::buildSaveElementsButtons() {
     // create save mean datas elements button
     saveMeanDataElements = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
                                             myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-                                            "\tSave mean data elements\tSave mean data elements. (Ctrl+Shift+B)", GUIIconSubSys::getIcon(GUIIcon::SAVEDATAELEMENTS),
+                                            "\tSave mean data elements\tSave mean data elements. (Ctrl+Shift+B)", GUIIconSubSys::getIcon(GUIIcon::SAVEMEANDATAELEMENTS),
                                             myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_J_SAVEMEANDATAS, GUIDesignButtonToolbar);
     saveMeanDataElements->create();
     // recalc menu bar because there is new elements
