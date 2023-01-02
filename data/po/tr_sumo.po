@@ -8,14 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2022-10-18 14:55+0200\n"
-"PO-Revision-Date: 2022-10-14 15:47+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2023-01-03 12:50+0000\n"
+"Last-Translator: kyasin <yasingoka@gmail.com>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
+"applications/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ASCII\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.15.1-dev\n"
 
 #: /home/behr_mi/sumo/src/sumo_main.cpp:49
 msgid "Another interrupt signal received, hard exit."
@@ -32,7 +34,7 @@ msgstr ""
 #: /home/behr_mi/sumo/src/sumo_main.cpp:114
 #: /home/behr_mi/sumo/src/sumo_main.cpp:123
 msgid "Quitting (on error)."
-msgstr ""
+msgstr "Çıkılıyor (Hata Kaynaklı)."
 
 #: /home/behr_mi/sumo/src/sumo_main.cpp:126
 msgid "Quitting (on unknown error)."
@@ -985,7 +987,7 @@ msgstr ""
 #: /home/behr_mi/sumo/src/osgview/GUIOSGView.cpp:870
 #: /home/behr_mi/sumo/src/osgview/GUIOSGView.cpp:871
 msgid "N/A"
-msgstr ""
+msgstr "Yok"
 
 #: /home/behr_mi/sumo/src/netwrite/NWFrame.cpp:143
 msgid "OpenDRIVE export needs internal links computation."
