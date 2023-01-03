@@ -36,7 +36,7 @@ title: ChangeLog
 
 - netedit
   - Fixed bug where stops on looped routes where saved in an invalid order. Issue #12054 (regression in 1.12.0)
-  - Right click on elements above a polygon now selects now acts on the top element again. Issue #12111 (regression in 1.14.1)
+  - Right click on elements above a polygon now acts on the top element again. Issue #12111 (regression in 1.14.1)
   - Fixed invalid position of start and end edge geometry points after merging geometry points in move mode. Issue #12178 (regression in 1.14.1)
   - Fixed bug where during creation of new edge, sometimes, the candidate "to" junction isn't draw wit magenta dotted contour. Issue #12013 (regression in 1.15.0)  
   - Fixed crash when using 'convert to roundabout' from the junction context menu. Issue #12355 (regression in 1.15.0)
@@ -150,7 +150,7 @@ title: ChangeLog
   - Stops now support attribute 'jump'. Issue #12269
 
 - sumo-gui
-  - Wne option **--use-stop-ended** is set, show-route mode now labels the 'ended' time of stops. Issue #11833
+  - Wnen option **--use-stop-ended** is set, show-route mode now labels the 'ended' time of stops. Issue #11833
   - The view now updates after loading a selection file. Issue #12191
   - Whenever the simulation has tripinfo-devices, the trip based statistics are available in the network parameter dialog. Issue #12207
   - A rainbow color scale can now be defined between upper and lower "hiding" thresholds even when there is no data yet. Issue #11978
@@ -177,9 +177,9 @@ title: ChangeLog
   - plot_trajectories.py: Now support common visualization options. Issue #11991
   - Many visualization tools can now configure linestyle and marker style. Issue #11985
   - countEdgeUsage.py: Now permits loading named routes. Issue #12010
-  - implausibleRoutes.py: Added options **--additional-file**, **--unsorted-input** and **--ignore-errors** which are passed to duarouter when needed. Issue #12090
-  - tracemapper.py: Added option **--vehicle-class** to guide edge mapping. Issue #12117
+  - implausibleRoutes.py: Added options **--additional-file**, **--unsorted-input** and **--ignore-errors** which are passed to duarouter when needed. Issue #12090  
   - implausibleRoutes.py: Added options to handle unsorted input and additional files when duarouter is being called. Issue #12069
+  - tracemapper.py: Added option **--vehicle-class** to guide edge mapping. Issue #12117
   - net2geojson.py: Added option **--boundary** to write polygons instead of center lines. Issue #12296
   - stateReplay.py: Now works on for Windows. Issue #12298
   - Added new tool [filterElements.py](Tools/Xml.md#filterelementspy) to filter elements from an xml file (either all instances or filtered by attribute value). Issue #12304
