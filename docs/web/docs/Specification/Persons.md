@@ -219,6 +219,8 @@ the aspired destination on the current route. The first time the vehicle
 stops (on a well defined stop) at the destination edge, the ride is
 finished and the person proceeds with the next step in the plan.
 
+If option **--time-to-teleport.ride** is set, persons will be teleported to their ride destination after the specified time rather than waiting until the end of the simulation (or until all active vehicles have left the simulation).
+
 ## Walking
 
 The walking behavior of a person depends on the selected [pedestrian
