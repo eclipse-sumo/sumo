@@ -38,5 +38,5 @@ edgeRelations_multi_id
 # plot turn counts
 edgeRelations_multi_x
 
-# plot stop-output  timing over stop id (wildcard to group stop elements that belong to the same station)
-stops_filter_pattern
+# plot fcd output and ignore ids (#12346)
+fcd_no_id_explicit
