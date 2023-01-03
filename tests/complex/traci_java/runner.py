@@ -41,7 +41,8 @@ assert(os.path.exists(traciJar))
 
 for f in sys.argv[1:]:
     subprocess.check_call([javac, "-cp", traciJar, "data/%s.java" % f])
-procs = [subprocess.Popen([java, "-cp", os.pathsep.join([traciJar, "data"]), sys.argv[1],
+procs = [subprocess.Popen([java, "-Djava.library.path=" + os.path.join(os.environ['SUMO_HOME'], "bin"),
+                           "-cp", os.pathsep.join([traciJar, "data"]), sys.argv[1],
                            checkBinary('sumo'), "data/config.sumocfg"])]
 if len(sys.argv) > 2:
     time.sleep(10)  # give sumo some time to start
