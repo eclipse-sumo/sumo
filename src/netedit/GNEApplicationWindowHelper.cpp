@@ -1923,7 +1923,6 @@ GNEApplicationWindowHelper::GNEConfigHandler::loadConfig(const bool loadElements
     neteditOptions.set("net-file", sumoOptions.getString("net-file"));
     neteditOptions.set("additional-files", sumoOptions.getString("additional-files"));
     neteditOptions.set("route-files", sumoOptions.getString("route-files"));
-    neteditOptions.set("data-files", sumoOptions.getString("data-files"));
     // check if load network
     if (loadElements) {
         myApplicationWindow->loadConfigOrNet(neteditOptions.getString("net-file"), true);

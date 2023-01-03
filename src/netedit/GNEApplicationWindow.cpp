@@ -663,6 +663,7 @@ GNEApplicationWindow::onCmdOpenConfiguration(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
+    auto &neteditOptions = OptionsCont::getOptions();
     // get the new file name
     FXFileDialog opendialog(this, TL("Open Network"));
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_NET));
@@ -687,6 +688,14 @@ GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
             }
             // set current folder
             gCurrentFolder = opendialog.getDirectory();
+            // reset netedit files
+            neteditOptions.resetWritable();
+            neteditOptions.set("sumocfg-file", "");
+            neteditOptions.set("net-file", "");
+            neteditOptions.set("additional-files", "");
+            neteditOptions.set("route-files", "");
+            neteditOptions.set("data-files", "");
+            neteditOptions.set("meandata-files", "");
             // load network
             loadConfigOrNet(file, true);
             // add it into recent nets
@@ -766,10 +775,19 @@ GNEApplicationWindow::onCmdOpenSUMOConfig(FXObject*, FXSelector, void*) {
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
         if (file.size() > 0 && continueWithUnsavedChanges("load SUMOConfig")) {
+            auto &neteditOptions = OptionsCont::getOptions();
             // write info
             WRITE_MESSAGE("Loading SUMOConfig from '" + file + "'");
             // close all windows
             closeAllWindows();
+            // reset netedit files
+            neteditOptions.resetWritable();
+            neteditOptions.set("sumocfg-file", "");
+            neteditOptions.set("net-file", "");
+            neteditOptions.set("additional-files", "");
+            neteditOptions.set("route-files", "");
+            neteditOptions.set("data-files", "");
+            neteditOptions.set("meandata-files", "");
             // disable validation for additionals
             XMLSubSys::setValidation("never", "auto", "auto");
             // Create additional handler
@@ -980,6 +998,15 @@ GNEApplicationWindow::onCmdOpenRecent(FXObject*, FXSelector, void* fileData) {
         myStatusbar->getStatusLine()->setText(TL("Already loading!"));
         return 1;
     } else {
+        auto &neteditOptions = OptionsCont::getOptions();
+        // reset netedit files
+        neteditOptions.resetWritable();
+        neteditOptions.set("sumocfg-file", "");
+        neteditOptions.set("net-file", "");
+        neteditOptions.set("additional-files", "");
+        neteditOptions.set("route-files", "");
+        neteditOptions.set("data-files", "");
+        neteditOptions.set("meandata-files", "");
         // get filedata
         std::string file((const char*)fileData);
         // check if we're loading a network or a config (.netccfg for configs)
