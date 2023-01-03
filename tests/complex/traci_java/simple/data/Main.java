@@ -20,17 +20,28 @@
 //
 /****************************************************************************/
 import org.eclipse.sumo.libtraci.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.Member;
 
 public class Main {
     public static void main(String[] args) {
         System.loadLibrary("libtracijni");
+        String sumo_bin = "sumo";
+        String config_file = "data/config.sumocfg";
+        double step_length = 0.1;
+        if (args.length > 0) {
+            sumo_bin = args[0];
+        }
+        if (args.length > 1) {
+            config_file = args[1];
+        }
 
-        Simulation.start(new StringVector(new String[] {"sumo",
-            "-c", "data/config.sumocfg",
+        Simulation.start(new StringVector(new String[] {sumo_bin,
+            "-c", config_file,
             "--start",
             "--step-length", "0.1"}));
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 3600; i++) {
             Simulation.step();
             Vehicle.add("v" + i, "r1", "car", "now", "0", "0", "max", "current", "max", "current", "", "", "", 0, 0);
             double timeSeconds = Simulation.getTime();
@@ -38,10 +49,10 @@ public class Main {
             String tlsPhaseName = TrafficLight.getPhaseName("gneJ1");
             System.out.println(String.format("Step %s, tlsPhase %s (%s)", timeSeconds, tlsPhase, tlsPhaseName));
 
-            //SumoVehicleData vehData = Inductionloop.getVehicleData("loop1");
-            //for (SumoVehicleData.VehicleData d : vehData.ll) {
-            //    System.out.println(String.format("  veh=%s len=%s entry=%s leave=%s type=%s", d.vehID, d.length, d.entry_time, d.leave_time, d.typeID));
-            //}
+            TraCIVehicleDataVector vehData = InductionLoop.getVehicleData("loop1");
+            for (TraCIVehicleData d : vehData) {
+                //System.out.println(String.format("  veh=%s len=%s entry=%s leave=%s type=%s", d.id, d.length, d.entryTime, d.leaveTime, d.typeID));
+            }
         }
         Simulation.close();
     }

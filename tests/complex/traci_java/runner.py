@@ -23,6 +23,7 @@ import os
 import subprocess
 import sys
 import time
+import glob
 if "SUMO_HOME" in os.environ:
     sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 from sumolib import checkBinary  # noqa
@@ -33,9 +34,16 @@ if 'JAVA_HOME' in os.environ:
     javac = os.path.join(os.environ['JAVA_HOME'], "bin", javac)
     java = os.path.join(os.environ['JAVA_HOME'], "bin", java)
 
-traciJar = os.path.join(os.environ['SUMO_HOME'], "bin", "libtraci-1.16.0-SNAPSHOT.jar")
-if 'LIBSUMO_AS_TRACI' in os.environ:
-    traciJar = os.path.join(os.environ['SUMO_HOME'], "bin", "libsumo-1.16.0-SNAPSHOT.jar")
+# use latest version
+prefix = "libsumo" if 'LIBSUMO_AS_TRACI' in os.environ else "libtraci"
+prefix = os.path.join(os.environ['SUMO_HOME'], "bin", prefix)
+suffix = "SNAPSHOT.jar"
+files = glob.glob("%s-*-%s" % (prefix, suffix))
+# extract version number for sorting
+files = [list(map(float, f[len(prefix) + 1:-(len(suffix) + 1)].split('.'))) + [f] for f in files]
+files.sort()
+traciJar = files[-1][-1]
+#print("traciJar", traciJar)
 
 assert(os.path.exists(traciJar))
 

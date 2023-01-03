@@ -15,4 +15,8 @@
         <gui-settings-file value="settings.xml"/>
     </gui_only>
 
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
 </configuration>
