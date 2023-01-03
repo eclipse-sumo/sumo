@@ -1031,26 +1031,23 @@ struct GNEApplicationWindowHelper {
         SupermodeCommands& operator=(const SupermodeCommands&) = delete;
     };
 
-    /// @brief config handler
-    class GNEConfigHandler {
+    /// @brief SUMO config handler
+    class GNESUMOConfigHandler {
 
     public:
         /// @brief Constructor
-        GNEConfigHandler(GNEApplicationWindow* applicationWindow, const std::string& file);
+        GNESUMOConfigHandler(GNEApplicationWindow* applicationWindow, const std::string& file);
 
-        /// @brief load config
-        bool loadConfig(const bool loadElements);
+        /// @brief load sumo config
+        bool loadSUMOConfig(const bool createElements);
 
     private:
         /// @brief application window
         GNEApplicationWindow* myApplicationWindow = nullptr;
 
-        /// @brief SUMOCfg file
+        /// @brief SUMO config file
         const std::string myFile;
     };
-
-    /// @brief save SUMOConfig
-    static void saveSUMOConfig();
 
     /// @brief toggle edit options Network menu commands (called in GNEApplicationWindow::onCmdToggleEditOptions)
     static bool toggleEditOptionsNetwork(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck,

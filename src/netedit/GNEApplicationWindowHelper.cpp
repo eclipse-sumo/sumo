@@ -1881,17 +1881,17 @@ GNEApplicationWindowHelper::SupermodeCommands::buildSupermodeCommands(FXMenuPane
 }
 
 // ---------------------------------------------------------------------------
-// GNEConfigHandler - methods
+// GNESUMOConfigHandler - methods
 // ---------------------------------------------------------------------------
 
-GNEApplicationWindowHelper::GNEConfigHandler::GNEConfigHandler(GNEApplicationWindow* applicationWindow, const std::string& file) :
+GNEApplicationWindowHelper::GNESUMOConfigHandler::GNESUMOConfigHandler(GNEApplicationWindow* applicationWindow, const std::string& file) :
     myApplicationWindow(applicationWindow),
     myFile(file) {
 }
 
 
 bool
-GNEApplicationWindowHelper::GNEConfigHandler::loadConfig(const bool loadElements) {
+GNEApplicationWindowHelper::GNESUMOConfigHandler::loadSUMOConfig(const bool createElements) {
     // get options
     auto &neteditOptions = OptionsCont::getOptions();
     auto &sumoOptions = myApplicationWindow->getSUMOOptions();
@@ -1909,11 +1909,11 @@ GNEApplicationWindowHelper::GNEConfigHandler::loadConfig(const bool loadElements
         parser.setErrorHandler(&handler);
         parser.parse(StringUtils::transcodeToLocal(myFile).c_str());
         if (handler.errorOccurred()) {
-            WRITE_ERROR("Could not load configuration '" + myFile + "'.");
+            WRITE_ERROR("Could not load SUMO configuration '" + myFile + "'.");
             return false;
         }
     } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
-        WRITE_ERROR("Could not load configuration '" + myFile + "':\n " + StringUtils::transcode(e.getMessage()));
+        WRITE_ERROR("Could not load SUMO onfiguration '" + myFile + "':\n " + StringUtils::transcode(e.getMessage()));
             return false;
     }
     // relocate files
@@ -1923,8 +1923,8 @@ GNEApplicationWindowHelper::GNEConfigHandler::loadConfig(const bool loadElements
     neteditOptions.set("net-file", sumoOptions.getString("net-file"));
     neteditOptions.set("additional-files", sumoOptions.getString("additional-files"));
     neteditOptions.set("route-files", sumoOptions.getString("route-files"));
-    // check if load network
-    if (loadElements) {
+    // check if create loaded elements
+    if (createElements) {
         myApplicationWindow->loadConfigOrNet(neteditOptions.getString("net-file"), true);
     }
     return true;
@@ -1933,26 +1933,6 @@ GNEApplicationWindowHelper::GNEConfigHandler::loadConfig(const bool loadElements
 // ---------------------------------------------------------------------------
 // GNEApplicationWindowHelper - methods
 // ---------------------------------------------------------------------------
-
-
-void
-GNEApplicationWindowHelper::saveSUMOConfig() {
-    // obtain option container
-    const auto &neteditOptions = OptionsCont::getOptions();
-    // check SUMOConfig-outpout
-    if (neteditOptions.getString("SUMOcfg-output").size() > 0) {
-        // open output device
-        OutputDevice& device = OutputDevice::getDevice(neteditOptions.getString("SUMOcfg-output"));
-
-        /** **/
-
-        // close device
-        device.close();
-        // show debug information
-        WRITE_DEBUG("SUMOConfig saved");
-    }
-}
-
 
 bool
 GNEApplicationWindowHelper::toggleEditOptionsNetwork(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck, const int numericalKeyPressed, FXObject* obj, FXSelector sel) {

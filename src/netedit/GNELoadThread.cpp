@@ -76,9 +76,9 @@ GNELoadThread::run() {
     auto &neteditOptions = OptionsCont::getOptions();
     // first fill all SUMO Options if we're loading a sumo config file
     if (neteditOptions.getString("sumocfg-file").size() > 0) {
-        GNEApplicationWindowHelper::GNEConfigHandler confighandler(myApplicationWindow, neteditOptions.getString("sumocfg-file"));
+        GNEApplicationWindowHelper::GNESUMOConfigHandler confighandler(myApplicationWindow, neteditOptions.getString("sumocfg-file"));
         // if there is an error loading sumo config, stop
-        if (!confighandler.loadConfig(false)) {
+        if (!confighandler.loadSUMOConfig(false)) {
             WRITE_ERROR("Loading of " + neteditOptions.getString("sumocfg-file") + " failed.");
             submitEndAndCleanup(net);
             return 0;
@@ -251,6 +251,10 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.addDescription("new", "Input", "Start with a new network");
 
     // files
+    neteditOptions.doRegister("netedit-file", new Option_FileName());
+    neteditOptions.addSynonyme("netedit-file", "neteditcfg");
+    neteditOptions.addDescription("netedit-file", "Netedit", "Load NETEDIT config");
+
     neteditOptions.doRegister("sumocfg-file", new Option_FileName());
     neteditOptions.addSynonyme("sumocfg-file", "sumocfg");
     neteditOptions.addDescription("sumocfg-file", "Netedit", "Load sumo config");

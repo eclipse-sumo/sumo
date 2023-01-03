@@ -791,9 +791,9 @@ GNEApplicationWindow::onCmdOpenSUMOConfig(FXObject*, FXSelector, void*) {
             // disable validation for additionals
             XMLSubSys::setValidation("never", "auto", "auto");
             // Create additional handler
-            GNEApplicationWindowHelper::GNEConfigHandler confighandler(this, file);
+            GNEApplicationWindowHelper::GNESUMOConfigHandler confighandler(this, file);
             // Run parser
-            if (!confighandler.loadConfig(true)) {
+            if (!confighandler.loadSUMOConfig(true)) {
                 WRITE_ERROR("Loading of " + file + " failed.");
             }
             // update view
@@ -816,9 +816,9 @@ GNEApplicationWindow::onCmdReloadSUMOConfig(FXObject*, FXSelector, void*) {
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // Create additional handler
-        GNEApplicationWindowHelper::GNEConfigHandler confighandler(this, file);
+        GNEApplicationWindowHelper::GNESUMOConfigHandler confighandler(this, file);
         // Run parser
-        if (!confighandler.loadConfig(true)) {
+        if (!confighandler.loadSUMOConfig(true)) {
             WRITE_ERROR("Loading of " + file + " failed.");
         }
         update();
