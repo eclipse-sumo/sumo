@@ -772,7 +772,7 @@ def forceSaveAdditionals():
     @brief force save additionals
     """
     # change additional save flag using hotkey
-    typeThreeKeys('ctrl', 'shift', 'u')
+    typeThreeKeys('ctrl', 'shift', 'x')
 
 
 def forceSaveDemandElements():
@@ -780,7 +780,7 @@ def forceSaveDemandElements():
     @brief force save demand elements
     """
     # change demand elements save flag using hotkey
-    typeThreeKeys('ctrl', 'shift', 'v')
+    typeThreeKeys('ctrl', 'shift', 'y')
 
 
 def forceSaveDataElements():
@@ -788,7 +788,7 @@ def forceSaveDataElements():
     @brief force save data elements
     """
     # change data elements save flag using hotkey
-    typeThreeKeys('ctrl', 'shift', 'w')
+    typeThreeKeys('ctrl', 'shift', 'z')
 
 
 def saveAdditionals(referencePosition, clickOverReference=False):
