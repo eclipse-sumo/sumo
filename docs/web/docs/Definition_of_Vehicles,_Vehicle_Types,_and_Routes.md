@@ -1160,6 +1160,14 @@ Stops can be childs of vehicles, routes, persons or containers.
 ## Waypoints
 By defining attribute 'speed' with a positive value, the stop definition is turned into a waypoint. The vehicle will drive past the given lane and keep the defined speed while between startPos end endPos. The 'duration' and 'until' values are ignored.
 
+## Jumps
+When defining attribute 'jump' with a non-negative value, the vehicle will leave the network for the given duration and re-enter it on the edge of it's next stop (or on it's arrival edge). Any intervening edges are skipped and it is permitted to have a disconnected route between the start and end of the jump.  
+
+A typical use case for jumps would be a public transport vehicle that has some of it's stops outside the simulated area and is expected to re-enter it at a later time after leaving the simulation  (while preserving it's ID and delay).
+
+!!! caution
+    The next stop must be on a different edge that that on which the jump started or the next stop will be skipped.
+
 # Colors
 
 A color is defined as *red,green,blue* or *red,green,blue,alpha* either
