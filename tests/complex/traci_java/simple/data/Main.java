@@ -51,7 +51,8 @@ public class Main {
 
             TraCIVehicleDataVector vehData = InductionLoop.getVehicleData("loop1");
             for (TraCIVehicleData d : vehData) {
-                //System.out.println(String.format("  veh=%s len=%s entry=%s leave=%s type=%s", d.id, d.length, d.entryTime, d.leaveTime, d.typeID));
+                System.out.println(String.format("  veh=%s len=%s entry=%s leave=%s type=%s",
+                            d.getId(), d.getLength(), d.getEntryTime(), d.getLeaveTime(), d.getTypeID()));
             }
         }
         Simulation.close();
