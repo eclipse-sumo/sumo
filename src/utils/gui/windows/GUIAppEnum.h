@@ -83,14 +83,16 @@ enum {
     MID_HOTKEY_CTRL_C_COPY,
     /// @brief Perform a single simulation step in SUMO and open Demand Elements in NETEDIT
     MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMANDELEMENTS,
+    /// @brief Load NETEDITConfig
+    MID_HOTKEY_CTRL_E_LOADNETEDITCONFIG,
+    /// @brief Fullscreen mode - menu entry
+    MID_HOTKEY_CTRL_F_FULSCREENMODE,
     /// @brief Toggle Gaming mode in SUMO and grid in NETEDIT
     MID_HOTKEY_CTRL_G_GAMINGMODE_TOGGLEGRID,
     /// @brief open edge type files
     MID_HOTKEY_CTRL_H_OPENEDGETYPES,
     /// @brief Open viewport editor
     MID_HOTKEY_CTRL_I_EDITVIEWPORT,
-    /// @brief Fullscreen mode - menu entry
-    MID_HOTKEY_CTRL_F_FULSCREENMODE,
     /// @brief toggle draw junction shape
     MID_HOTKEY_CTRL_J_TOGGLEDRAWJUNCTIONSHAPE,
     /// @brief Load file with TLS Programs
@@ -169,6 +171,8 @@ enum {
     MID_HOTKEY_CTRL_SHIFT_C_SAVENETEDITCONFIG,
     /// @brief Save Demand Elements
     MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS,
+    /// @brief save NETEDIT Config
+    MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG,
     /// @brief save Edge Types
     MID_HOTKEY_CTRL_SHIFT_H_SAVEEDGETYPES,
     /// @brief save TLS Programs
