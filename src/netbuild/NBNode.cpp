@@ -3192,6 +3192,11 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
                                    getID(), c->id, c->prevWalkingArea, wa.id);
                     c->valid = false;
                 }
+                if (c->valid && std::find(wa.prevCrossings.begin(), wa.prevCrossings.end(), c->id) != wa.prevCrossings.end()) {
+                    WRITE_WARNINGF(TL("Invalid pedestrian topology at junction '%'; crossing '%' starts and ends at walkingarea '%'."),
+                                   getID(), c->id, wa.id);
+                    c->valid = false;
+                }
                 c->prevWalkingArea = wa.id;
                 wa.nextCrossings.push_back(c->id);
                 if ((int)c->edges.size() < wa.minNextCrossingEdges) {
