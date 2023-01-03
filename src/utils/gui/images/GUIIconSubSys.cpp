@@ -31,7 +31,6 @@
 #include "sumo_logo.xpm"
 
 #include "empty.xpm"
-#include "filesave.xpm"
 #include "fileopen.xpm"
 #include "netopen.xpm"
 #include "newnet.xpm"
@@ -44,6 +43,17 @@
 #include "step.xpm"
 #include "new_window.xpm"
 #include "new_window_3d.xpm"
+
+#include "save.xpm"
+#include "save_sumoconfig.xpm"
+#include "save_neteditconfig.xpm"
+#include "save_question.xpm"
+#include "save_networkelements.xpm"
+#include "save_aditionalelements.xpm"
+#include "save_demandelements.xpm"
+#include "save_dataelements.xpm"
+#include "save_meandataelements.xpm"
+#include "save_database.xpm"
 
 #include "app_tracker.xpm"
 #include "app_finder.xpm"
@@ -78,7 +88,6 @@
 #include "yellow_person.xpm"
 
 #include "colorwheel.xpm"
-#include "savedb.xpm"
 #include "removedb.xpm"
 #include "recenter_view.xpm"
 #include "allow_rotation.xpm"
@@ -201,14 +210,6 @@
 #include "tracker.xpm"
 #include "hall_of_fame.xpm"
 #include "clear_message_window.xpm"
-
-#include "savesumoconfig.xpm"
-#include "saveallelements.xpm"
-#include "savenetworkelements.xpm"
-#include "saveaditionalelements.xpm"
-#include "savedemandelements.xpm"
-#include "savedataelements.xpm"
-#include "savemeandataelements.xpm"
 
 #include "supermodenetwork.xpm"
 #include "supermodedemand.xpm"
@@ -478,7 +479,6 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::OPEN_SUMOCONFIG] = new FXXPMIcon(a, fileopen_xpm);
     myIcons[GUIIcon::NEW_NET] = new FXXPMIcon(a, newnet_xpm);
     myIcons[GUIIcon::RELOAD] = new FXXPMIcon(a, reload_xpm);
-    myIcons[GUIIcon::SAVE] = new FXXPMIcon(a, filesave_xpm);
     myIcons[GUIIcon::CLOSE] = new FXXPMIcon(a, empty_xpm);  /** temporal **/
     myIcons[GUIIcon::HELP] = new FXXPMIcon(a, empty_xpm);   /** temporal **/
     myIcons[GUIIcon::START] = new FXXPMIcon(a, play_xpm);
@@ -493,6 +493,17 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::FULL_SCREEN] = new FXXPMIcon(a, full_screen_xpm);
     myIcons[GUIIcon::HALL_OF_FAME] = new FXXPMIcon(a, hall_of_fame_xpm);   /** temporal? **/
     myIcons[GUIIcon::CLEARMESSAGEWINDOW] = new FXXPMIcon(a, clear_message_window_xpm);
+
+    myIcons[GUIIcon::SAVE] = new FXXPMIcon(a, save_xpm);
+    myIcons[GUIIcon::SAVE_SUMOCONFIG] = new FXXPMIcon(a, save_sumoconfig_xpm);
+    myIcons[GUIIcon::SAVE_NETEDITCONFIG] = new FXXPMIcon(a, save_neteditconfig_xpm);
+    myIcons[GUIIcon::SAVE_QUESTION] = new FXXPMIcon(a, save_question_xpm);
+    myIcons[GUIIcon::SAVE_NETWORKELEMENTS] = new FXXPMIcon(a, save_networkelements_xpm);
+    myIcons[GUIIcon::SAVE_ADDITIONALELEMENTS] = new FXXPMIcon(a, save_additionalelements_xpm);
+    myIcons[GUIIcon::SAVE_DEMANDELEMENTS] = new FXXPMIcon(a, save_demandelements_xpm);
+    myIcons[GUIIcon::SAVE_DATAELEMENTS] = new FXXPMIcon(a, save_dataelements_xpm);
+    myIcons[GUIIcon::SAVE_MEANDATAELEMENTS] = new FXXPMIcon(a, save_meandataelements_xpm);
+    myIcons[GUIIcon::SAVE_DATABASE] = new FXXPMIcon(a, save_database_xpm);
 
     myIcons[GUIIcon::CUT] = new FXXPMIcon(a, cut_xpm);
     myIcons[GUIIcon::COPY] = new FXXPMIcon(a, copy_xpm);
@@ -537,7 +548,6 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::YELLOWPERSON] = new FXXPMIcon(a, yellow_person_xpm);
 
     myIcons[GUIIcon::COLORWHEEL] = new FXXPMIcon(a, colorwheel_xpm);
-    myIcons[GUIIcon::SAVEDB] = new FXXPMIcon(a, savedb_xpm);
     myIcons[GUIIcon::REMOVEDB] = new FXXPMIcon(a, removedb_xpm);
     myIcons[GUIIcon::SHOWTOOLTIPS_VIEW] = new FXXPMIcon(a, show_tooltips_view_xpm);
     myIcons[GUIIcon::SHOWTOOLTIPS_MENU] = new FXXPMIcon(a, show_tooltips_menu_xpm);
@@ -644,14 +654,6 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::EXT] = new FXXPMIcon(a, ext_xpm);
     myIcons[GUIIcon::CUT_SWELL] = new FXXPMIcon(a, cut_xpm);
     myIcons[GUIIcon::TRACKER] = new FXXPMIcon(a, tracker_xpm);
-
-    myIcons[GUIIcon::SAVESUMOCONFIG] = new FXXPMIcon(a, savesumoconfig_xpm);
-    myIcons[GUIIcon::SAVEALLELEMENTS] = new FXXPMIcon(a, saveallelements_xpm);
-    myIcons[GUIIcon::SAVENETWORKELEMENTS] = new FXXPMIcon(a, savenetworkelements_xpm);
-    myIcons[GUIIcon::SAVEADDITIONALELEMENTS] = new FXXPMIcon(a, saveadditionalelements_xpm);
-    myIcons[GUIIcon::SAVEDEMANDELEMENTS] = new FXXPMIcon(a, savedemandelements_xpm);
-    myIcons[GUIIcon::SAVEDATAELEMENTS] = new FXXPMIcon(a, savedataelements_xpm);
-    myIcons[GUIIcon::SAVEMEANDATAELEMENTS] = new FXXPMIcon(a, savemeandataelements_xpm);
 
     myIcons[GUIIcon::SUPERMODENETWORK] = new FXXPMIcon(a, supermodenetwork_xpm);
     myIcons[GUIIcon::SUPERMODEDEMAND] = new FXXPMIcon(a, supermodedemand_xpm);

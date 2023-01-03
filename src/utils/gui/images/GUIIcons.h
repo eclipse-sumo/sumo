@@ -46,11 +46,26 @@ enum class GUIIcon {
     OPEN_SUMOCONFIG,
     NEW_NET,
     RELOAD,
-    SAVE,
     CLOSE,
     HELP,
     HALL_OF_FAME,
     CLEARMESSAGEWINDOW,
+    /// @}
+
+    /// @brief save icons
+    /// @{
+    
+    SAVE,
+    SAVE_DATABASE,
+    SAVE_SUMOCONFIG,
+    SAVE_NETEDITCONFIG,
+    SAVE_QUESTION,
+    SAVE_NETWORKELEMENTS,
+    SAVE_ADDITIONALELEMENTS,
+    SAVE_DEMANDELEMENTS,
+    SAVE_DATAELEMENTS,
+    SAVE_MEANDATAELEMENTS,
+
     /// @}
 
     /// @brief basic operations
@@ -131,7 +146,6 @@ enum class GUIIcon {
     /// @name options icons
     /// @{
     COLORWHEEL,
-    SAVEDB,
     REMOVEDB,
     SHOWTOOLTIPS_VIEW,
     SHOWTOOLTIPS_MENU,
@@ -293,17 +307,6 @@ enum class GUIIcon {
     LANE_BUS,
     LANE_BIKE,
     LANEGREENVERGE,
-    /// @}
-
-    /// @name netedit save elements
-    /// @{
-    SAVESUMOCONFIG,
-    SAVEALLELEMENTS,
-    SAVENETWORKELEMENTS,
-    SAVEADDITIONALELEMENTS,
-    SAVEDEMANDELEMENTS,
-    SAVEDATAELEMENTS,
-    SAVEMEANDATAELEMENTS,
     /// @}
 
     /// @name netedit supermode icons

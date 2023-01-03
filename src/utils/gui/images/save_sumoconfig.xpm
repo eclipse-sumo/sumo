@@ -1,5 +1,5 @@
 /* XPM */
-static const char *saveallelements_xpm[] = {
+static const char *save_sumoconfig_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "14 14 4 1",
 ". c #040404",

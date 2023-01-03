@@ -1,5 +1,5 @@
 /*  PM */
-static const char * savedb_xpm[] = {
+static const char * save_database_xpm[] = {
 "16 16 29 1",
 " 	c None",
 ".	c Black",
