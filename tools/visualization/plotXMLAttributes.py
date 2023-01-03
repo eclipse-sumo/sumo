@@ -198,7 +198,7 @@ def getDataStream(options):
             for attr in attr2parts[attrOrig]:
                 if attr not in attr2elem:
                     lvlElem = [(lv, el) for el, lv in elem2level.items()]
-                    minLevelElem = sorted(lvlElem)[0][1]
+                    minLevelElem = sorted(lvlElem)[-1][1]
                     if attr == RANK_ATTR:
                         attr2elem[attr] = minLevelElem
                     else:
