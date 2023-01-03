@@ -270,7 +270,7 @@ public:
     long onCmdSaveMeanDatasAs(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall save network as is executed
-    long onCmdSaveAsNetwork(FXObject*, FXSelector, void*);
+    long onCmdSaveNetworkAs(FXObject*, FXSelector, void*);
 
     /// @brief called when the update/FXCall needs network is executed
     long onUpdNeedsNetwork(FXObject*, FXSelector, void*);

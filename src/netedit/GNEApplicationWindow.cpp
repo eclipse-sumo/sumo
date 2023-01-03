@@ -100,7 +100,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVEALLELEMENTS,                            GNEApplicationWindow::onUpdSaveAllElements),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK,       GNEApplicationWindow::onCmdSaveNetwork),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK,       GNEApplicationWindow::onUpdSaveNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVENETWORK_AS,                 GNEApplicationWindow::onCmdSaveAsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVENETWORK_AS,                 GNEApplicationWindow::onCmdSaveNetworkAs),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVENETWORK_AS,                 GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_L_SAVEASPLAINXML,                   GNEApplicationWindow::onCmdSaveAsPlainXML),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_L_SAVEASPLAINXML,                   GNEApplicationWindow::onUpdNeedsNetwork),
@@ -2722,7 +2722,7 @@ GNEApplicationWindow::onCmdClearTemplate(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdSaveAsNetwork(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdSaveNetworkAs(FXObject*, FXSelector, void*) {
     // declar extensions
     const std::string netExtension = ".net.xml";
     const std::string zipNetExtension = netExtension + ".gz";
@@ -3409,9 +3409,9 @@ GNEApplicationWindow::onCmdSaveAllElements(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
     auto &neteditOptions = OptionsCont::getOptions();
-    // function onCmdSaveAsNetwork must be executed if this is the first save
+    // function onCmdSaveNetworkAs must be executed if this is the first save
     if (neteditOptions.getString("output-file") == "" || neteditOptions.isDefault("output-file")) {
-        return onCmdSaveAsNetwork(nullptr, 0, nullptr);
+        return onCmdSaveNetworkAs(nullptr, 0, nullptr);
     } else {
         getApp()->beginWaitCursor();
         try {
