@@ -99,8 +99,8 @@ enum {
     MID_HOTKEY_CTRL_L_SAVEASPLAINXML,
     /// @brief open sumo config
     MID_HOTKEY_CTRL_M_OPENSUMOCONFIG,
-    /// @brief create new empty network
-    MID_HOTKEY_CTRL_N_NEWNETWORK,
+    /// @brief open network in SUMO and create new empty network in NETEDIT
+    MID_HOTKEY_CTRL_N_OPENNETWORK_NEWNETWORK,
     /// @brief Open simulation
     MID_HOTKEY_CTRL_O_OPENSIMULATION,
     /// @brief Main window closes
