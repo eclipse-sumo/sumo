@@ -284,7 +284,7 @@ GUIShortcutsSubSys::buildAccelerators(FXAccelTable* accelTable, FXObject* target
 
 
 void
-GUIShortcutsSubSys::alterSUMOAccelerator(GUIApplicationWindow* GUIApp, GUIShortcut keysym, long msg) {
+GUIShortcutsSubSys::changeAccelerator(GUIApplicationWindow* GUIApp, GUIShortcut keysym, long msg) {
     GUIApp->getAccelTable()->addAccel(parseKey(keysym), GUIApp, FXSEL(SEL_COMMAND, msg));
 }
 

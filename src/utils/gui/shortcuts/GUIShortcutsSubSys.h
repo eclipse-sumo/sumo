@@ -26,23 +26,24 @@
 // ===========================================================================
 // class declaration
 // ==========================================================================
+
 class GNEApplicationWindow;
 class GUIApplicationWindow;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
+
 class GUIShortcutsSubSys {
 
 public:
     /// @brief build accelerators
     static void buildAccelerators(FXAccelTable* accelTable, FXObject* target);
 
-    /// @brief set acelerator (used for toogle binding space key with start/end simulation)
-    static void alterSUMOAccelerator(GUIApplicationWindow* GUIApp, GUIShortcut keysym, long);
+    /// @brief change acelerator (used for toogle dynamically binding space key with start/end simulation)
+    static void changeAccelerator(GUIApplicationWindow* GUIApp, GUIShortcut keysym, long);
 
 private:
-
     // @brief parse GUIShortcut to int
     static int parseKey(GUIShortcut key);
 
