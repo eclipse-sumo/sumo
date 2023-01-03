@@ -101,8 +101,8 @@ enum {
     MID_HOTKEY_CTRL_M_OPENSUMOCONFIG,
     /// @brief open network in SUMO and create new empty network in NETEDIT
     MID_HOTKEY_CTRL_N_OPENNETWORK_NEWNETWORK,
-    /// @brief Open simulation
-    MID_HOTKEY_CTRL_O_OPENSIMULATION,
+    /// @brief Open simulation in SUMO and open network in NETEDIT
+    MID_HOTKEY_CTRL_O_OPENSIMULATION_OPENNETWORK,
     /// @brief Load additional file with poi and polygons
     MID_HOTKEY_CTRL_P_OPENSHAPES,
     /// @brief Main window closes
@@ -276,8 +276,6 @@ enum {
     /// @name Main Window File Menu - IDs
     /// @{
 
-    /// @brief Open network - ID
-    MID_OPEN_NETWORK,
     /// @brief Load edge data for visualization
     MID_OPEN_EDGEDATA,
     /// @brief Loads a file previously loaded
