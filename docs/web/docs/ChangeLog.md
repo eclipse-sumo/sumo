@@ -27,6 +27,7 @@ title: ChangeLog
   - Fixed vehicle angles when using 'lcSigma' with the continous lane change mode. Issue #12201
   - Fixed inconsistency in waitingTime definition between tripinfo-output and accumulated waitingTime. Issue #12287
   - Fixed invalid lot assignment for onRoad parkingArea. Issue #12330
+  - Fixed invalid change to lane with stopped leader. Issue #12113
   - sublane model fixes:
     - Fixed invalid emergency braking for junction foe. Issue #12202
     - Fixed inconsistent computation for vehicle back position. Issue #12146
@@ -38,6 +39,7 @@ title: ChangeLog
   - Right click on elements above a polygon now selects now acts on the top element again. Issue #12111 (regression in 1.14.1)
   - Fixed invalid position of start and end edge geometry points after merging geometry points in move mode. Issue #12178 (regression in 1.14.1)
   - Fixed bug where during creation of new edge, sometimes, the candidate "to" junction isn't draw wit magenta dotted contour. Issue #12013 (regression in 1.15.0)  
+  - Fixed crash when using 'convert to roundabout' from the junction context menu. Issue #12355 (regression in 1.15.0)
   - Fixed invalid selection outline. Issue #12033
   - Fixed bug where right-click object-choice-menu lists the same object twice. Issue #12034
   - Junctions can now be deleted when covered by a walkingarea. Issue #12070
@@ -54,6 +56,8 @@ title: ChangeLog
   - Fixed initial positions of some dialogs that were too high. Issue #11936
   - Fixed crash on saving gui settings to registry (debug mode only). Issue #11595
   - Pressing Escape key in OSG view no longer makes it unresponsive to further control input. Issue #12313
+  - Trailer and Semi-Trailer vehicles are now drawn correctly during opposite-overtaking. Issue #12331
+  - Fixed bad default settings when loading a 2D viewport in OSG view. Issue #12348
     
 - meso
   - Stopping at pos=0 is now working. Issue #12240
@@ -86,6 +90,8 @@ title: ChangeLog
   - Fixed invalid behavior when mixing stops on normal and internal lanes. Issue #11885
   - Function `traci.edge.setAllowed` is now working. Issue #12305
   - Context subscriptions to the simulation domain now always return all requested objects regardless of range argument. Issue #12306
+  - `trafficlight.swapConstraints` now preserves params (and swaps params for `bidiPredecessor`). Issue #12326
+  - Fixed problems when using libsumo with gui. Issue #12285, #12021
 
 - Tools
   - plot_net_dump_file.py: plotting a single measure is working again. Issue #11975 (regression in 1.15.0)
@@ -128,6 +134,7 @@ title: ChangeLog
   - Option **--junctions.join** can now join intersections with more than 4 incoming edges. Issue #12261
 
 - netedit
+  - It is now possible to load and save a *.sumocfg* file and also to edit all sumo options (SHIFT-F10). Issue #11896
   - Added TimeStamp in Undo-Redo list. Issue #11744
   - Now drawing red line between edge geometry points (if the points are not along the edge). Issue #11530
   - Can now disable drawing dotted contours in visualization settings. Issue #11662
@@ -140,6 +147,7 @@ title: ChangeLog
   - Geometry points are now drawn above everything else in move mode. Issue #11725
   - Geometry points now change color in move mode to indicate whether a click would create or merge points. Isse #12177
   - Move mode can now toggle whether closely spaced geometry points shall be automatically removed. Issue #12244
+  - Stops now support attribute 'jump'. Issue #12269
 
 - sumo-gui
   - Wne option **--use-stop-ended** is set, show-route mode now labels the 'ended' time of stops. Issue #11833
@@ -150,11 +158,13 @@ title: ChangeLog
   - Detector outputs are now flushed at simulation end even while the gui remains open. Issue #12293
   - Added guiShape "aircraft". Issue #12314
   - Added vehicle setting to maintain orientation after reversal. This achieves a more realistic visualisation of reversing trains and (grounded) aircraft. Issue #12140
+  - Added settings to show/hide HUD elements in OSG view. Issue #12294
 
 - TraCI
   - Added functions `vehicle.getDeparture` and `vehicle.getDepartDelay`. Issue #3036
   - Added functions to retrieve aggregated inductionLoop detector measures. Issue #12030
   - Added functions to retrieve aggregated lanearea detector measures. Issue #12029
+  - Added functions `vehicle.getLoadedIDList` and `vehicle.getTeleportingIDList` to retrieve the corresponding vehicles (some of which could not be retrieved with getIDList). Issue #2338
 
 - Tools
   - runSeeds.py: Now forwarding unknown options to application call. Issue #12312
@@ -162,6 +172,7 @@ title: ChangeLog
   - routeSampler.py: Major improvement in sampling speed. Issue #12319
   - routeSampler.py: Full optimization now skips initial sampling for further speed-up. Issue #12307
   - [attributeStats.py](Tools/Output.md#attributestatspy): Permit parsing multiple elements and attributes at once. The new default is to parse all elements and attributes. Issue #12317
+  - attributeStats.py now includes count in xml-output. Issue #12337
   - gtfs2pt.py: Now writing short route id and headsign as params. Issue #11819
   - plot_trajectories.py: Now support common visualization options. Issue #11991
   - Many visualization tools can now configure linestyle and marker style. Issue #11985
@@ -172,6 +183,8 @@ title: ChangeLog
   - net2geojson.py: Added option **--boundary** to write polygons instead of center lines. Issue #12296
   - stateReplay.py: Now works on for Windows. Issue #12298
   - Added new tool [filterElements.py](Tools/Xml.md#filterelementspy) to filter elements from an xml file (either all instances or filtered by attribute value). Issue #12304
+  - Added new tool [attributeDiff.py](Tools/Output.md#attributediffpy) to compute the numerical difference between two xml files with the same structure. Issue #12318
+  - Added new tool [fcdDifff.py](Tools/Output.md#fcddiffpy) to compare two fcd-output files (by vehicle id an time). Issue #12233
   - plotXMLAttributes.py
     - can now plot data without assigning ids to the data points. Issue #11969
     - can now plot categorical (non-numerical) data and also a mix of data types. Issue #11970, #11976
@@ -181,6 +194,7 @@ title: ChangeLog
     - Added the possibility to use wildcards with option **--filter-ids**. Issue #11981
     - Attribute options now permit setting a list of attributes. Issue #12015
     - Can now display times as hours by setting **--xtime0** and **--ytime0** (also applies to other plotting tools). Issue #12011
+    - csv-output is now directly usable with gnuplot. Issue #12345
 
 ### Miscellaneous
 
