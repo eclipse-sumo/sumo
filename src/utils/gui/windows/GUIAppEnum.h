@@ -103,6 +103,8 @@ enum {
     MID_HOTKEY_CTRL_N_OPENNETWORK_NEWNETWORK,
     /// @brief Open simulation
     MID_HOTKEY_CTRL_O_OPENSIMULATION,
+    /// @brief Load additional file with poi and polygons
+    MID_HOTKEY_CTRL_P_OPENSHAPES,
     /// @brief Main window closes
     MID_HOTKEY_CTRL_Q_CLOSE,
     /// @brief Stop the simulation in SUMO and save network in NETEDIT
@@ -276,8 +278,6 @@ enum {
 
     /// @brief Open network - ID
     MID_OPEN_NETWORK,
-    /// @brief Load additional file with poi and polygons
-    MID_HOTKEY_CTRL_P,
     /// @brief Load edge data for visualization
     MID_OPEN_EDGEDATA,
     /// @brief Loads a file previously loaded
