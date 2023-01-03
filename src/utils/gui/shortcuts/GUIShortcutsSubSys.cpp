@@ -20,8 +20,6 @@
 #include <config.h>
 
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <gui/GUIApplicationWindow.h>
-#include <netedit/GNEApplicationWindow.h>
 
 #include "GUIShortcutsSubSys.h"
 
@@ -284,8 +282,8 @@ GUIShortcutsSubSys::buildAccelerators(FXAccelTable* accelTable, FXObject* target
 
 
 void
-GUIShortcutsSubSys::changeAccelerator(GUIApplicationWindow* GUIApp, GUIShortcut keysym, long msg) {
-    GUIApp->getAccelTable()->addAccel(parseKey(keysym), GUIApp, FXSEL(SEL_COMMAND, msg));
+GUIShortcutsSubSys::changeAccelerator(FXAccelTable* accelTable, FXObject* target, GUIShortcut keysym, long msg) {
+    accelTable->addAccel(parseKey(keysym), target, FXSEL(SEL_COMMAND, msg));
 }
 
 

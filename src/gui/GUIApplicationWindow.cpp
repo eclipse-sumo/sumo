@@ -1374,7 +1374,7 @@ GUIApplicationWindow::onUpdStart(FXObject* sender, FXSelector, void* ptr) {
                    ptr);
     if (myRunThread->simulationIsStartable() && !myAmLoading) {
         // bind start simulation with space key
-        GUIShortcutsSubSys::changeAccelerator(this, KEY_SPACE, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS);
+        GUIShortcutsSubSys::changeAccelerator(getAccelTable(), this, KEY_SPACE, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS);
     }
     return 1;
 }
@@ -1388,7 +1388,7 @@ GUIApplicationWindow::onUpdStop(FXObject* sender, FXSelector, void* ptr) {
                    ptr);
     if (myRunThread->simulationIsStopable() && !myAmLoading) {
         // bind stop simulation with space key
-        GUIShortcutsSubSys::changeAccelerator(this, KEY_SPACE, MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK);
+        GUIShortcutsSubSys::changeAccelerator(getAccelTable(), this, KEY_SPACE, MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK);
     }
     return 1;
 }

@@ -21,14 +21,8 @@
 #include <config.h>
 
 #include <utils/foxtools/fxheader.h>
+
 #include "GUIShortcuts.h"
-
-// ===========================================================================
-// class declaration
-// ==========================================================================
-
-class GNEApplicationWindow;
-class GUIApplicationWindow;
 
 // ===========================================================================
 // class definitions
@@ -41,7 +35,7 @@ public:
     static void buildAccelerators(FXAccelTable* accelTable, FXObject* target);
 
     /// @brief change acelerator (used for toogle dynamically binding space key with start/end simulation)
-    static void changeAccelerator(GUIApplicationWindow* GUIApp, GUIShortcut keysym, long);
+    static void changeAccelerator(FXAccelTable* accelTable, FXObject* target, GUIShortcut keysym, long msg);
 
 private:
     // @brief parse GUIShortcut to int
