@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2022-10-18 14:55+0200\n"
-"PO-Revision-Date: 2023-01-03 12:50+0000\n"
+"PO-Revision-Date: 2023-01-03 13:21+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/tr/>\n"
@@ -165,6 +165,7 @@ msgstr ""
 #: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1694
 msgid "setLaneChangeMode not applicable for meso"
 msgstr ""
+"setLaneChangeMode (Şerit Değiştirme Modu Ayarla) Bölgesel Ölçekte Uygulanamaz"
 
 #: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1778
 msgid "updateBestLanes not applicable for meso"
