@@ -159,28 +159,28 @@ enum {
     MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS,
     /// @brief save Data Elements
     MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS,
+    /// @brief Save NETEDITConfig
+    MID_HOTKEY_CTRL_SHIFT_C_SAVENETEDITCONFIG,
     /// @brief Save Demand Elements
     MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS,
     /// @brief save Edge Types
     MID_HOTKEY_CTRL_SHIFT_H_SAVEEDGETYPES,
-    /// @brief save Mean Datas
-    MID_HOTKEY_CTRL_SHIFT_J_SAVEMEANDATAS,
     /// @brief save TLS Programs
     MID_HOTKEY_CTRL_SHIFT_K_SAVETLS,
-    /// @brief Open a New Window
+    /// @brief save Mean Datas
+    MID_HOTKEY_CTRL_SHIFT_M_SAVEMEANDATAS,
+    /// @brief open a new window (SUMO AND NETEDIT)
     MID_HOTKEY_CTRL_SHIFT_N_NEWWINDOW,
-    /// @brief save SUMOConfig
-    MID_HOTKEY_CTRL_SHIFT_M_SAVESUMOCONFIG,
-    /// @brief save network as
-    MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORK_AS,
-    /// @brief Force save network (flag)
-    MID_HOTKEY_CTRL_SHIFT_T_FORCESAVENETEWORK,
-    /// @brief Force save additionals (flag)
-    MID_HOTKEY_CTRL_SHIFT_U_FORCESAVEADDITIONALS,
-    /// @brief Force save demand elements (flag)
-    MID_HOTKEY_CTRL_SHIFT_V_FORCESAVEDEMANDELEMENTS,
-    /// @brief Force save data elements (flag)
-    MID_HOTKEY_CTRL_SHIFT_W_FORCESAVEDATAELEMENTS,
+    /// @brief save SUMOConfig (SUMO AND NETEDIT)
+    MID_HOTKEY_CTRL_SHIFT_S_SAVESUMOCONFIG,
+    /// @brief Force save network (flag, temporal)
+    MID_HOTKEY_CTRL_SHIFT_W_FORCESAVENETEWORK,
+    /// @brief Force save additionals (flag, temporal)
+    MID_HOTKEY_CTRL_SHIFT_X_FORCESAVEADDITIONALS,
+    /// @brief Force save demand elements (flag, temporal)
+    MID_HOTKEY_CTRL_SHIFT_Y_FORCESAVEDEMANDELEMENTS,
+    /// @brief Force save data elements (flag, temporal)
+    MID_HOTKEY_CTRL_SHIFT_Z_FORCESAVEDATAELEMENTS,
 
     /// @}
 
@@ -691,22 +691,24 @@ enum {
     MID_GNE_SAVEALLELEMENTS,
     /// @brief save joined junctions
     MID_GNE_SAVEJOINEDJUNCTIONS,
-    /// @brief save additionals as
-    MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS,
-    /// @brief reload TLS Programs
-    MID_GNE_TOOLBARFILE_RELOAD_TLSPROGRAMS,
     /// @brief reload SUMOConfig
     MID_GNE_TOOLBARFILE_RELOAD_SUMOCONFIG,
-    /// @brief reload edge types
-    MID_GNE_TOOLBARFILE_RELOAD_EDGETYPES,
+    /// @brief save SUMOConfig as
+    MID_GNE_TOOLBARFILE_SAVESUMOCONFIG_AS,
+    /// @brief save network as
+    MID_GNE_TOOLBARFILE_SAVENETWORK_AS,
+    /// @brief save additionals as
+    MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS,
     /// @brief reload additionals
     MID_GNE_TOOLBARFILE_RELOAD_ADDITIONALS,
     /// @brief save TLS Programs as
     MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS,
-    /// @brief save SUMOConfig as
-    MID_GNE_TOOLBARFILE_SAVESUMOCONFIG_AS,
+    /// @brief reload TLS Programs
+    MID_GNE_TOOLBARFILE_RELOAD_TLSPROGRAMS,
     /// @brief save edgeTypes as
     MID_GNE_TOOLBARFILE_SAVEEDGETYPES_AS,
+    /// @brief reload edge types
+    MID_GNE_TOOLBARFILE_RELOAD_EDGETYPES,
     /// @brief save demand elements as
     MID_GNE_TOOLBARFILE_SAVEDEMAND_AS,
     /// @brief reload demand elements

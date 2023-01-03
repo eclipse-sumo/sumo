@@ -1929,7 +1929,7 @@ GNEViewNetHelper::SaveElements::buildSaveElementsButtons() {
     saveSUMOConfig = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
                                           myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                                           "\tSave SUMOConfig\tSave SUMOConfig.", GUIIconSubSys::getIcon(GUIIcon::SAVE_SUMOCONFIG),
-                                          myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_M_SAVESUMOCONFIG, GUIDesignButtonToolbar);
+                                          myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_S_SAVESUMOCONFIG, GUIDesignButtonToolbar);
     saveSUMOConfig->create();
     // create save network button
     saveAll = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
@@ -1964,8 +1964,8 @@ GNEViewNetHelper::SaveElements::buildSaveElementsButtons() {
     // create save mean datas elements button
     saveMeanDataElements = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
                                             myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-                                            "\tSave mean data elements\tSave mean data elements. (Ctrl+Shift+B)", GUIIconSubSys::getIcon(GUIIcon::SAVE_MEANDATAELEMENTS),
-                                            myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_J_SAVEMEANDATAS, GUIDesignButtonToolbar);
+                                            "\tSave mean data elements\tSave mean data elements. (Ctrl+Shift+M)", GUIIconSubSys::getIcon(GUIIcon::SAVE_MEANDATAELEMENTS),
+                                            myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_M_SAVEMEANDATAS, GUIDesignButtonToolbar);
     saveMeanDataElements->create();
     // recalc menu bar because there is new elements
     myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements->recalc();

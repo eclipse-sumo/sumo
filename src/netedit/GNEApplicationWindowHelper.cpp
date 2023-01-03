@@ -200,8 +200,8 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
         "&Save Network", "Ctrl+S", "Save the network.",
         GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-        "Save Net&work As...", "Ctrl+Shift+S", "Save the network to another file.",
-        GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORK_AS);
+        "Save Net&work As...", "", "Save the network to another file.",
+        GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_GNE_TOOLBARFILE_SAVENETWORK_AS);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
         "Save Plain XM&L...", "Ctrl+L", "Save plain XML representation the network.",
         GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_HOTKEY_CTRL_L_SAVEASPLAINXML);
@@ -216,8 +216,8 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
         "Reload SUMOConfig", "", "Reload SUMOConfig.",
         GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_SUMOCONFIG);
     saveSUMOConfig = GUIDesigns::buildFXMenuCommandShortcut(fileMenuSUMOConfig,
-        "Save SUMOConfig", "Ctrl+Shift+M", "Save sumo config.",
-        GUIIconSubSys::getIcon(GUIIcon::SAVE_SUMOCONFIG), myGNEApp, MID_HOTKEY_CTRL_SHIFT_M_SAVESUMOCONFIG);
+        "Save SUMOConfig", "Ctrl+Shift+S", "Save sumo config.",
+        GUIIconSubSys::getIcon(GUIIcon::SAVE_SUMOCONFIG), myGNEApp, MID_HOTKEY_CTRL_SHIFT_S_SAVESUMOCONFIG);
     saveSUMOConfig->disable();
     GUIDesigns::buildFXMenuCommandShortcut(fileMenuSUMOConfig,
         "Save SUMOConfig As...", "", "Save sumo config in a new file.",
@@ -315,10 +315,10 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
     reloadMeanDatas->disable();
     saveMeanDatas = GUIDesigns::buildFXMenuCommandShortcut(fileMenuDataElements,
         "Save MeanDatas", "", "Save meanDatas and shapes.",
-        GUIIconSubSys::getIcon(GUIIcon::SAVE_MEANDATAELEMENTS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_J_SAVEMEANDATAS);
+        GUIIconSubSys::getIcon(GUIIcon::SAVE_MEANDATAELEMENTS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_M_SAVEMEANDATAS);
     saveMeanDatas->disable();
     saveMeanDatasAs = GUIDesigns::buildFXMenuCommandShortcut(fileMenuDataElements,
-        "Save MeanDatas As...", "", "Save meanData elements to another file.",
+        "Save MeanDatas As...", "Ctrl+Shift+M", "Save meanData elements to another file.",
         GUIIconSubSys::getIcon(GUIIcon::SAVE_MEANDATAELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEMEANDATAS_AS);
     saveMeanDatasAs->disable();
     dataMenuCascade = new FXMenuCascade(fileMenu, "Data Elements", GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA), fileMenuDataElements);
