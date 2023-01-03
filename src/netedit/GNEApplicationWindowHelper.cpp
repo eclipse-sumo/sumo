@@ -1117,7 +1117,7 @@ GNEApplicationWindowHelper::EditMenuCommands::buildOpenSUMOMenuCommands(FXMenuPa
     loadDemandInSUMOGUI->setCheck(TRUE);
     openInSUMOGUI = GUIDesigns::buildFXMenuCommandShortcut(editMenu,
                     "Open in sumo-gui", "Ctrl+T", "Opens the sumo-gui application with the current network.",
-                    GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI), myGNEApp, MID_HOTKEY_CTRL_T_OPENSUMONETEDIT);
+                    GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI), myGNEApp, MID_HOTKEY_CTRL_T_OPENNETEDIT_OPENSUMO);
 }
 
 // ---------------------------------------------------------------------------

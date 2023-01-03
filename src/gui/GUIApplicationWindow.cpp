@@ -97,8 +97,8 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_B_EDITBREAKPOINT_OPENDATAELEMENTS,  GUIApplicationWindow::onCmdEditBreakpoints),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F9_EDIT_VIEWSCHEME,                      GUIApplicationWindow::onCmdEditViewScheme),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_I_EDITVIEWPORT,                     GUIApplicationWindow::onCmdEditViewport),
-    FXMAPFUNC(SEL_COMMAND,  MID_NETEDIT_ONLYNETWORK,                            GUIApplicationWindow::onCmdNeteditNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_NETEDIT_SUMOCFG,                                GUIApplicationWindow::onCmdNeteditSUMOConfig),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_T_OPENNETEDIT_OPENSUMO,             GUIApplicationWindow::onCmdNeteditNetwork),
+    //FXMAPFUNC(SEL_COMMAND,  MID_NETEDIT_SUMOCFG,                                GUIApplicationWindow::onCmdNeteditSUMOConfig),
     // gaming
     FXMAPFUNC(SEL_COMMAND,  MID_APPSETTINGS,                            GUIApplicationWindow::onCmdAppSettings),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_G_GAMINGMODE_TOGGLEGRID,    GUIApplicationWindow::onCmdGaming),
@@ -149,11 +149,11 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_B_EDITBREAKPOINT_OPENDATAELEMENTS,          GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_F9_EDIT_VIEWSCHEME,                              GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_I_EDITVIEWPORT,                             GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_NETEDIT_ONLYNETWORK,                                    GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_T_OPENNETEDIT_OPENSUMO,                                    GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_DEMAND_SCALE,                                           GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_G_GAMINGMODE_TOGGLEGRID,                    GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_F_FULSCREENMODE,                            GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_NETEDIT_SUMOCFG,                                        GUIApplicationWindow::onUpdNeteditSUMOConfig),
+    //FXMAPFUNC(SEL_UPDATE,   MID_NETEDIT_SUMOCFG,                                        GUIApplicationWindow::onUpdNeteditSUMOConfig),
     FXMAPFUNC(SEL_UPDATE,   MID_TRACI_STATUS,                                           GUIApplicationWindow::onUpdTraCIStatus),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F1_ONLINEDOCUMENTATION,                          GUIApplicationWindow::onCmdHelp),
     FXMAPFUNC(SEL_COMMAND,  MID_CHANGELOG,                                              GUIApplicationWindow::onCmdChangelog),
@@ -470,7 +470,7 @@ GUIApplicationWindow::fillMenuBar() {
     new FXMenuSeparator(myEditMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myEditMenu,
                                            TL("Open network in netedit"), "Ctrl+T", TL("Opens current network in NETEDIT."),
-                                           GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), this, MID_NETEDIT_ONLYNETWORK);
+                                           GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), this, MID_HOTKEY_CTRL_T_OPENNETEDIT_OPENSUMO);
     //GUIDesigns::buildFXMenuCommandShortcut(myEditMenu,
     //                                       TL("Open config in netedit"), "", TL("Opens current sumo config in NETEDIT."),
     //                                       GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), this, MID_NETEDIT_SUMOCFG);

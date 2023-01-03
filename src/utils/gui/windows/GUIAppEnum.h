@@ -113,8 +113,8 @@ enum {
     MID_HOTKEY_CTRL_R_RELOAD,
     /// @brief Quick-Reload the previously loaded simulation (keep the net)
     MID_HOTKEY_CTRL_QUICK_RELOAD,
-    /// @brief Open current network in SUMO or in NETEDIT
-    MID_HOTKEY_CTRL_T_OPENSUMONETEDIT,
+    /// @brief Open current SUMO simulation/network in NETEDIT, or current NETEDIT simulation/network in SUMO
+    MID_HOTKEY_CTRL_T_OPENNETEDIT_OPENSUMO,
     /// @brief Load edge data for visualization
     MID_HOTKEY_CTRL_U_OPENEDGEDATA,
     /// @brief paste the current selection / element
@@ -320,10 +320,6 @@ enum {
 
     /// @brief Open editor for selections
     MID_EDITCHOSEN,
-    /// @brief Open network in NETEDIT
-    MID_NETEDIT_ONLYNETWORK,
-    /// @brief open sumoConfig in NETEDIT
-    MID_NETEDIT_SUMOCFG,
 
     /// @}
 

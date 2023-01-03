@@ -292,8 +292,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBAREDIT_LOADDEMAND,                 GNEApplicationWindow::onCmdLoadDemandInSUMOGUI),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBAREDIT_LOADDEMAND,                 GNEApplicationWindow::onUpdNeedsNetwork),
 
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_T_OPENSUMONETEDIT,              GNEApplicationWindow::onCmdOpenSUMOGUI),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_T_OPENSUMONETEDIT,              GNEApplicationWindow::onUpdNeedsNetworkElement),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_T_OPENNETEDIT_OPENSUMO,         GNEApplicationWindow::onCmdOpenSUMOGUI),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_T_OPENNETEDIT_OPENSUMO,         GNEApplicationWindow::onUpdNeedsNetworkElement),
     /* Prepared for #6042
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_X_CUT,                          GNEApplicationWindow::onCmdCut),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_C_COPY,                         GNEApplicationWindow::onCmdCopy),
