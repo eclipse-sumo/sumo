@@ -50,6 +50,9 @@ public:
     /// @brief called when user releases right button
     bool onRightBtnRelease(void* data);
 
+    /// @brief called when user releases middle button
+    bool onMiddleBtnRelease(void* data);
+
     /// @brief called when user moves mouse
     void onMouseMove(void* data);
     //@}
