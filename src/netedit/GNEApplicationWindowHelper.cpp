@@ -1913,7 +1913,7 @@ GNEApplicationWindowHelper::GNESUMOConfigHandler::loadSUMOConfig(const bool crea
             return false;
         }
     } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
-        WRITE_ERROR("Could not load SUMO onfiguration '" + myFile + "':\n " + StringUtils::transcode(e.getMessage()));
+        WRITE_ERROR("Could not load SUMO configuration '" + myFile + "':\n " + StringUtils::transcode(e.getMessage()));
             return false;
     }
     // relocate files
@@ -1927,6 +1927,47 @@ GNEApplicationWindowHelper::GNESUMOConfigHandler::loadSUMOConfig(const bool crea
     if (createElements) {
         myApplicationWindow->loadConfigOrNet(neteditOptions.getString("net-file"), true);
     }
+    return true;
+}
+
+// ---------------------------------------------------------------------------
+// GNENETEDITConfigHandler - methods
+// ---------------------------------------------------------------------------
+
+GNEApplicationWindowHelper::GNENETEDITConfigHandler::GNENETEDITConfigHandler(GNEApplicationWindow* applicationWindow, const std::string& file) :
+    myApplicationWindow(applicationWindow),
+    myFile(file) {
+}
+
+
+bool
+GNEApplicationWindowHelper::GNENETEDITConfigHandler::loadNETEDITConfig() {
+    // get options
+    auto &neteditOptions = OptionsCont::getOptions();
+    // make all options writables
+    neteditOptions.resetWritable();
+    // build parser
+    XERCES_CPP_NAMESPACE::SAXParser parser;
+    parser.setValidationScheme(XERCES_CPP_NAMESPACE::SAXParser::Val_Never);
+    parser.setDisableDefaultEntityResolution(true);
+    // start the parsing
+    OptionsLoader handler(neteditOptions);
+    try {
+        parser.setDocumentHandler(&handler);
+        parser.setErrorHandler(&handler);
+        parser.parse(StringUtils::transcodeToLocal(myFile).c_str());
+        if (handler.errorOccurred()) {
+            WRITE_ERROR("Could not load NETEDIT configuration '" + myFile + "'.");
+            return false;
+        }
+    } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
+        WRITE_ERROR("Could not load NETEDIT configuration '" + myFile + "':\n " + StringUtils::transcode(e.getMessage()));
+            return false;
+    }
+    // relocate files
+    neteditOptions.relocateFiles(myFile);
+    // build elements
+    myApplicationWindow->loadConfigOrNet(neteditOptions.getString("net-file"), true);
     return true;
 }
 

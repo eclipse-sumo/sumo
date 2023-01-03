@@ -1038,7 +1038,7 @@ struct GNEApplicationWindowHelper {
         /// @brief Constructor
         GNESUMOConfigHandler(GNEApplicationWindow* applicationWindow, const std::string& file);
 
-        /// @brief load sumo config
+        /// @brief load SUMO config
         bool loadSUMOConfig(const bool createElements);
 
     private:
@@ -1046,6 +1046,24 @@ struct GNEApplicationWindowHelper {
         GNEApplicationWindow* myApplicationWindow = nullptr;
 
         /// @brief SUMO config file
+        const std::string myFile;
+    };
+
+    /// @brief NETEDIT config handler
+    class GNENETEDITConfigHandler {
+
+    public:
+        /// @brief Constructor
+        GNENETEDITConfigHandler(GNEApplicationWindow* applicationWindow, const std::string& file);
+
+        /// @brief load NETEDIT config
+        bool loadNETEDITConfig();
+
+    private:
+        /// @brief application window
+        GNEApplicationWindow* myApplicationWindow = nullptr;
+
+        /// @brief NETEDIT config file
         const std::string myFile;
     };
 
