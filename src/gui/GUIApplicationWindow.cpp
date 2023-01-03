@@ -612,7 +612,7 @@ GUIApplicationWindow::fillMenuBar() {
     GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, TL("&About"), "F12", TL("About sumo-gui."),
                                            GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI), this, MID_HOTKEY_F12_ABOUT);
     // build SUMO Accelerators (hotkeys)
-    GUIShortcutsSubSys::buildSUMOAccelerators(this);
+    GUIShortcutsSubSys::buildAccelerators(getAccelTable(), this);
 }
 
 

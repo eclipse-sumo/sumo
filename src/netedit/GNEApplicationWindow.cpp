@@ -505,7 +505,7 @@ GNEApplicationWindow::dependentBuild() {
     setIcon(GUIIconSubSys::getIcon(GUIIcon::NETEDIT));
     setMiniIcon(GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI));
     // build NETEDIT Accelerators (hotkeys)
-    GUIShortcutsSubSys::buildNETEDITAccelerators(this);
+    GUIShortcutsSubSys::buildAccelerators(getAccelTable(), this);
 }
 
 

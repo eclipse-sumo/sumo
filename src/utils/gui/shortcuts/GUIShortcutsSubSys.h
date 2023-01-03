@@ -33,14 +33,16 @@ class GUIApplicationWindow;
 // class definitions
 // ===========================================================================
 class GUIShortcutsSubSys {
+
 public:
-    /// @brief build SUMO Accelerators
-    static void buildSUMOAccelerators(GUIApplicationWindow* GUIApp);
+    /// @brief build accelerators
+    static void buildAccelerators(FXAccelTable* accelTable, FXObject* target);
+
+    /// @brief set acelerator (used for toogle binding space key with start/end simulation)
     static void alterSUMOAccelerator(GUIApplicationWindow* GUIApp, GUIShortcut keysym, long);
-    /// @brief build NETEDIT Accelerators
-    static void buildNETEDITAccelerators(GNEApplicationWindow* GNEApp);
 
 private:
+
     // @brief parse GUIShortcut to int
     static int parseKey(GUIShortcut key);
 
