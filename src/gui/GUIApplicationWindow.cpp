@@ -84,7 +84,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_CLOSE,    MID_WINDOW,                 GUIApplicationWindow::onCmdQuit),
     // toolbar
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_N_NEWWINDOW,                  GUIApplicationWindow::onCmdNewWindow),
-    FXMAPFUNC(SEL_COMMAND,  MID_OPEN_CONFIG,                                    GUIApplicationWindow::onCmdOpenConfiguration),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_O_OPENSIMULATION,                   GUIApplicationWindow::onCmdOpenConfiguration),
     FXMAPFUNC(SEL_COMMAND,  MID_OPEN_NETWORK,                                   GUIApplicationWindow::onCmdOpenNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_P,                                  GUIApplicationWindow::onCmdOpenShapes),
     FXMAPFUNC(SEL_COMMAND,  MID_OPEN_EDGEDATA,                                  GUIApplicationWindow::onCmdOpenEdgeData),
@@ -132,15 +132,15 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWPERSONSTATS,    GUIApplicationWindow::onCmdShowStats),
     // these functions do not assign shortcut keys to commands, but rather affect the button enable status upon other events (e.g. simulation loaded)
     // since those events are invoked through pseudo key events (?), the same key shortcuts as in cmd must be supplied as well
-    FXMAPFUNC(SEL_UPDATE,   MID_OPEN_CONFIG,            GUIApplicationWindow::onUpdOpen),
-    FXMAPFUNC(SEL_UPDATE,   MID_OPEN_NETWORK,           GUIApplicationWindow::onUpdOpen),
-    FXMAPFUNC(SEL_UPDATE,   MID_OPEN_NETWORK,           GUIApplicationWindow::onUpdOpen),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_P,          GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_OPEN_EDGEDATA,          GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_R_RELOAD,   GUIApplicationWindow::onUpdReload),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_QUICK_RELOAD, GUIApplicationWindow::onUpdReload),
-    FXMAPFUNC(SEL_UPDATE,   MID_RECENTFILE,             GUIApplicationWindow::onUpdOpenRecent),
-    FXMAPFUNC(SEL_UPDATE,   MID_NEW_MICROVIEW,          GUIApplicationWindow::onUpdAddView),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_O_OPENSIMULATION,   GUIApplicationWindow::onUpdOpen),
+    FXMAPFUNC(SEL_UPDATE,   MID_OPEN_NETWORK,                   GUIApplicationWindow::onUpdOpen),
+    FXMAPFUNC(SEL_UPDATE,   MID_OPEN_NETWORK,                   GUIApplicationWindow::onUpdOpen),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_P,                  GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_OPEN_EDGEDATA,                  GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_R_RELOAD,           GUIApplicationWindow::onUpdReload),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_QUICK_RELOAD,       GUIApplicationWindow::onUpdReload),
+    FXMAPFUNC(SEL_UPDATE,   MID_RECENTFILE,                     GUIApplicationWindow::onUpdOpenRecent),
+    FXMAPFUNC(SEL_UPDATE,   MID_NEW_MICROVIEW,                  GUIApplicationWindow::onUpdAddView),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS,          GUIApplicationWindow::onUpdStart),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK,               GUIApplicationWindow::onUpdStop),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMANDELEMENTS,  GUIApplicationWindow::onUpdStep),
@@ -414,7 +414,7 @@ GUIApplicationWindow::fillMenuBar() {
     new FXMenuSeparator(myFileMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myFileMenu,
                                            TL("&Open Simulation..."), "Ctrl+O", TL("Open a simulation (Configuration file)."),
-                                           GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, MID_OPEN_CONFIG);
+                                           GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, MID_HOTKEY_CTRL_O_OPENSIMULATION);
     GUIDesigns::buildFXMenuCommandShortcut(myFileMenu,
                                            TL("Open &Network..."), "Ctrl+N", TL("Open a network."),
                                            GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, MID_OPEN_NETWORK);
@@ -626,7 +626,7 @@ GUIApplicationWindow::buildToolBars() {
         new FXToolBarGrip(myToolBar1, myToolBar1, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
         // build file tools
         new MFXButtonTooltip(myToolBar1, myStaticTooltipMenu, TL("\tOpen simulation\tOpen a simulation (Configuration file)."),
-                             GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, MID_OPEN_CONFIG, GUIDesignButtonToolbar);
+                             GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, MID_HOTKEY_CTRL_O_OPENSIMULATION, GUIDesignButtonToolbar);
         new MFXButtonTooltip(myToolBar1, myStaticTooltipMenu, TL("\tOpen network\tOpen a network."),
                              GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, MID_OPEN_NETWORK, GUIDesignButtonToolbar);
         new MFXButtonTooltip(myToolBar1, myStaticTooltipMenu, TL("\tReload\tReloads the simulation / the network."),

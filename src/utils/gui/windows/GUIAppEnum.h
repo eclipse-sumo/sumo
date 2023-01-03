@@ -101,6 +101,8 @@ enum {
     MID_HOTKEY_CTRL_M_OPENSUMOCONFIG,
     /// @brief create new empty network
     MID_HOTKEY_CTRL_N_NEWNETWORK,
+    /// @brief Open simulation
+    MID_HOTKEY_CTRL_O_OPENSIMULATION,
     /// @brief Main window closes
     MID_HOTKEY_CTRL_Q_CLOSE,
     /// @brief Stop the simulation in SUMO and save network in NETEDIT
@@ -171,6 +173,8 @@ enum {
     MID_HOTKEY_CTRL_SHIFT_M_SAVEMEANDATAS,
     /// @brief open a new window (SUMO AND NETEDIT)
     MID_HOTKEY_CTRL_SHIFT_N_NEWWINDOW,
+    /// @brief open Netconvert file
+    MID_HOTKEY_CTRL_SHIFT_O_OPENNETCONVERTFILE,
     /// @brief save SUMOConfig (SUMO AND NETEDIT)
     MID_HOTKEY_CTRL_SHIFT_S_SAVESUMOCONFIG,
     /// @brief Force save network (flag, temporal)
@@ -270,8 +274,6 @@ enum {
     /// @name Main Window File Menu - IDs
     /// @{
 
-    /// @brief Open configuration - ID
-    MID_OPEN_CONFIG,
     /// @brief Open network - ID
     MID_OPEN_NETWORK,
     /// @brief Load additional file with poi and polygons

@@ -186,7 +186,7 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
         GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), myGNEApp, MID_OPEN_NETWORK);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
         "Open Netconvert Configura&tion...", "Ctrl+Shift+O", "Open a configuration file with NETCONVERT options.",
-        GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), myGNEApp, MID_OPEN_CONFIG);
+        GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), myGNEApp, MID_HOTKEY_CTRL_SHIFT_O_OPENNETCONVERTFILE);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
         "Load SUMOConfig...", "Ctrl+M", "Load programs for traffic lights in the current net.",
         GUIIconSubSys::getIcon(GUIIcon::OPEN_SUMOCONFIG), myGNEApp, MID_HOTKEY_CTRL_M_OPENSUMOCONFIG);
