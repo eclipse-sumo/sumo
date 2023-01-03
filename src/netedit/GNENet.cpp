@@ -1115,7 +1115,7 @@ GNENet::createRoundabout(GNEJunction* junction, GNEUndoList* undoList) {
             newJunction = newJunctions.back();
         }
         //std::cout << " edge=" << edge->getID() << " prevOpposite=" << Named::getIDSecure(prevOpposite) << " newJunction=" << Named::getIDSecure(newJunction) << "\n";
-        prevOpposite = edge->getOppositeEdges().front();
+        prevOpposite = edge->getOppositeEdges().size() > 0 ? edge->getOppositeEdges().front() : nullptr;
         const double geomLength = edge->getNBEdge()->getGeometry().length2D();
         const double splitOffset = (edge->getToJunction() == junction
                                     ? MAX2(POSITION_EPS, geomLength - radius)
