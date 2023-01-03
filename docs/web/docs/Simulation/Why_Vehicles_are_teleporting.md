@@ -17,9 +17,9 @@ vehicle:
 
 - the vehicle stood too long in front of an intersection (message:
   "*...'; waited too long, lane='...*")
-- the vehicle has [collided](Simulation/Safety.md#collisions) with his leader (message: "*...';
+- the vehicle has [collided](Safety.md#collisions) with his leader (message: "*...';
   collision, lane='...*")
-- the vehicle is performing a [jump](Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#jumps)
+- the vehicle is performing a [jump](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#jumps)
 
 ## Waiting too long, aka Grid-locks
 
@@ -68,7 +68,7 @@ Related options are
 - **--time-to-teleport.highways.min-speed**: configure threshold for above option
 - **--time-to-teleport.disconnected**: teleport earlier when the route is disconnected
 - **--time-to-teleport.bidi**: teleport earlier when on a bidi-edge (as this is more prone to dead-lock)
-- **--time-to-teleport.ride**: teleports [persons that are waiting for a ride](Specification/Persons.md#riding) rather than vehicles.
+- **--time-to-teleport.ride**: teleports [persons that are waiting for a ride](../Specification/Persons.md#riding) rather than vehicles.
 - **--time-to-teleport.remove**: remove teleporting vehicles directly
 
 Unfortunately, grid-locks are rather common in congested simulation
