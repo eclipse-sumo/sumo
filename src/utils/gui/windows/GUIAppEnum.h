@@ -115,6 +115,8 @@ enum {
     MID_HOTKEY_CTRL_QUICK_RELOAD,
     /// @brief Open current network in SUMO or in NETEDIT
     MID_HOTKEY_CTRL_T_OPENSUMONETEDIT,
+    /// @brief Load edge data for visualization
+    MID_HOTKEY_CTRL_U_OPENEDGEDATA,
     /// @brief paste the current selection / element
     MID_HOTKEY_CTRL_V_PASTE,
     /// @brief Close simulation - ID
@@ -276,8 +278,6 @@ enum {
     /// @name Main Window File Menu - IDs
     /// @{
 
-    /// @brief Load edge data for visualization
-    MID_OPEN_EDGEDATA,
     /// @brief Loads a file previously loaded
     MID_RECENTFILE,
 
