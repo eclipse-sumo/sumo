@@ -613,12 +613,12 @@ OptionsCont::processMetaOptions(bool missingOptions) {
         return true;
     }
     // check whether the settings shall be printed
-    if (exists("print-options") && getBool("print-options")) {
+    if (getBool("print-options")) {
         std::cout << (*this);
     }
     // check whether something has to be done with options
     // whether the current options shall be saved
-    if (isSet("save-configuration", false)) { // sumo-gui does not register these
+    if (isSet("save-configuration")) {
         const std::string& configPath = getString("save-configuration");
         if (configPath == "-" || configPath == "stdout") {
             writeConfiguration(std::cout, true, false, getBool("save-commented"));
@@ -636,7 +636,7 @@ OptionsCont::processMetaOptions(bool missingOptions) {
         }
     }
     // whether the template shall be saved
-    if (isSet("save-template", false)) { // sumo-gui does not register these
+    if (isSet("save-template")) {
         if (getString("save-template") == "-" || getString("save-template") == "stdout") {
             writeConfiguration(std::cout, false, true, getBool("save-commented"));
             return true;
@@ -652,7 +652,7 @@ OptionsCont::processMetaOptions(bool missingOptions) {
             return true;
         }
     }
-    if (isSet("save-schema", false)) { // sumo-gui does not register these
+    if (isSet("save-schema")) {
         if (getString("save-schema") == "-" || getString("save-schema") == "stdout") {
             writeSchema(std::cout);
             return true;
