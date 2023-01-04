@@ -227,12 +227,14 @@ MsgHandler::removeRetrieverFromAllInstances(OutputDevice* out) {
 void
 MsgHandler::setupI18n(const std::string& locale) {
 #ifdef HAVE_INTL
+/*
     if (locale != "") {
         setenv("LANGUAGE", locale.data(), true);
     }
     if (!setlocale(LC_MESSAGES, "")) {
         WRITE_WARNING("Could not set locale to '" + locale + "'.");
     }
+*/
     const char* sumoPath = getenv("SUMO_HOME");
     if (sumoPath == nullptr) {
         if (!bindtextdomain("sumo", nullptr)) {
