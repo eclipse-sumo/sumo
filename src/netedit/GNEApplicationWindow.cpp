@@ -471,7 +471,9 @@ GNEApplicationWindow::dependentBuild() {
     }
     myHadDependentBuild = true;
     if (gLanguage == "C") {
-        gLanguage = getApp()->reg().readStringEntry("gui", "language", "C");
+        FXRegistry reg("SUMO GUI", "sumo-gui");
+        reg.read();
+        gLanguage = reg.readStringEntry("gui", "language", "C");
         MsgHandler::setupI18n(gLanguage);
     }
     setTarget(this);
