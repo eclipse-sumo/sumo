@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2022-10-18 14:55+0200\n"
-"PO-Revision-Date: 2023-01-04 08:16+0000\n"
+"PO-Revision-Date: 2023-01-04 08:59+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/tr/>\n"
@@ -229,6 +229,8 @@ msgstr "Veri"
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:453
 msgid "DEBUG: GNEApplicationWindow::dependentBuild called twice"
 msgstr ""
+"Hata Ayıklama: GNEApplicationWindow::dependentBuild (GNE Uygulamaları "
+"Penceresi::Bağıl Yapılandırma) Üst Üste Çağrıldı"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:469
 msgid "Recomputing\t\tRecomputing is needed"
@@ -406,9 +408,8 @@ msgid "N/A"
 msgstr "Yok"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1695
-#, fuzzy
 msgid "Recompute with volatile options"
-msgstr "Geçici Seçeneklerle Yeniden Hesapla"
+msgstr "Havai Seçeneklerle Yeniden Hesapla"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1716
 msgid "Save additionals before recomputing with volatile options"
@@ -462,9 +463,10 @@ msgid "Save Network as"
 msgstr "Ağı Farklı Kaydet"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:2737
-#, fuzzy
 msgid "Save plain-xml edge-file (other names will be deduced from this)"
-msgstr "plain-xml edge-file Kaydet (Diğer İsimler Buradan Oluşturulacak)"
+msgstr ""
+"plain-xml edge-file (Yalın XML Kesim Dosyası) Kaydet (Diğer İsimler Buradan "
+"Oluşturulacak)"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:2757
 msgid "Saving plain xml failed!"
@@ -621,18 +623,16 @@ msgid "Simulation started with time: %."
 msgstr "Simülasyon Zamanla Başladı: %."
 
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:286
-#, fuzzy
 msgid "TraCI"
-msgstr "TKA"
+msgstr "TraCI (Trafik Kontrol Arayüzü)"
 
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:439
 msgid "New Window"
 msgstr "Yeni Pencere"
 
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:439
-#, fuzzy
 msgid "Open a new sumo-gui window."
-msgstr "Yeni SUMO-GUI Penceresi Aç."
+msgstr "Yeni Bir sumo-gui (SUMO-GKA) Penceresi Aç."
 
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:443
 msgid "&Open Simulation..."
@@ -711,13 +711,12 @@ msgid "Opens a dialog for editing the list of selected items."
 msgstr "Seçilen Öğelerin Listesini Düzenlemek İçin Bir İletişim Kutusu Açar."
 
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:502
-#, fuzzy
 msgid ""
 "Select lanes which allow...\t\tOpens a menu for selecting a vehicle class by "
 "which to selected lanes."
 msgstr ""
-"İzin Verilen Şeritleri Seç...\t\tŞeritlerin Seçileceği Bir Araç Sınıfı "
-"Seçmek İçin Bir Menü Açar."
+"İzin Veren Şeritleri Seç...\t\tŞeritlerin Belirleneceği Bir Araç Sınıfı "
+"Seçmek İçin Menü Açar."
 
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:506
 msgid "Edit Breakpoints"
@@ -929,7 +928,6 @@ msgid "Tile &Vertically"
 msgstr "Döşeme & Dikey"
 
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:623
-#, fuzzy
 msgid "Cascade"
 msgstr "Kademeli"
 
@@ -1200,9 +1198,8 @@ msgid "Remove stops out of vehicle's route"
 msgstr "Araç Rotası Dışındaki Durakları Kaldır"
 
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:458
-#, fuzzy
 msgid "Activate friendlyPos and save"
-msgstr "Varsayılan Yerleşimi Aktifleştir ve Kaydet"
+msgstr "friendlyPos (Varsayılan Yerleşimi) Aktifleştir ve Kaydet"
 
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:461
 msgid "Save invalid positions"
@@ -1217,7 +1214,6 @@ msgid "Fix positions and save"
 msgstr "Pozisyonları Düzelt ve Kaydet"
 
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:558
-#, fuzzy
 msgid "Delete person plan"
 msgstr "Yolcu Planını Sil"
 
@@ -1267,7 +1263,6 @@ msgstr "Parametre Şablon Dosyası Kaydet"
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:400
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:404
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:399
-#, fuzzy
 msgid "- Parameters are defined by a Key and a Value.\n"
 msgstr "- Parametreler Bir Anahtar ve Değere Göre Tanımlanmıştır.\n"
 
@@ -1278,6 +1273,8 @@ msgid ""
 "- In Netedit can be defined using format key1=parameter1|"
 "key2=parameter2|...\n"
 msgstr ""
+"- Netedit'te Format Kullanılarak Tanımlanabilir "
+"key1=parameter1|key2=parameter2|...\n"
 
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:402
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:406
@@ -1337,9 +1334,8 @@ msgid "&OK\t\t"
 msgstr "Tamam\t\t"
 
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNERerouterIntervalDialog.cpp:182
-#, fuzzy
 msgid "Rerouter has more than one edge"
-msgstr "Rerouter'de Bir Kesitten Fazla Var"
+msgstr "Rerouter (Rotalayıcı) Bir Kesimden Fazla Var"
 
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNERerouterIntervalDialog.cpp:320
 msgid "There is no lanes in the network"
@@ -1372,7 +1368,6 @@ msgstr "Tamam\t\tİletişim Penceresini Kapat"
 #: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:492
 #: /home/behr_mi/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:228
 #: /home/behr_mi/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:342
-#, fuzzy
 msgid "false"
 msgstr "Yanlış"
 
@@ -1383,7 +1378,6 @@ msgstr "Yanlış"
 #: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:489
 #: /home/behr_mi/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:225
 #: /home/behr_mi/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:339
-#, fuzzy
 msgid "true"
 msgstr "Doğru"
 
@@ -1404,7 +1398,6 @@ msgid "cancel\t\tclose discarding changes"
 msgstr "İptal Et\t\tOnaylanmamış Değişiklikleri Kapat"
 
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNEAdditionalDialog.cpp:65
-#, fuzzy
 msgid "reset\t\treset to previous values"
 msgstr "Sıfırla\t\tÖnceki Değerlere Sıfırla"
 
@@ -1531,7 +1524,7 @@ msgstr "Yürümeler"
 
 #: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:191
 msgid "Rides"
-msgstr ""
+msgstr "Yolculuklar"
 
 #: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:194
 msgid "Person stops"
@@ -1574,9 +1567,8 @@ msgid "Show candidate edges"
 msgstr "Aday Kesitleri Göster"
 
 #: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:374
-#, fuzzy
 msgid "Double junctions aren't allowed"
-msgstr "Çifte Kavşağa İzin Verilmiyor"
+msgstr "Çifte Kavşaklar İzinli Değil"
 
 #: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:382
 msgid "Only two junctions are allowed"
@@ -1653,7 +1645,6 @@ msgstr ""
 "İstiyorsanız:\n"
 
 #: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:232
-#, fuzzy
 msgid ""
 "  - Reference Left will create it with startPos = 70 and endPos = 100.\n"
 msgstr ""
@@ -1661,7 +1652,6 @@ msgstr ""
 "Oluşturacak.\n"
 
 #: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:233
-#, fuzzy
 msgid ""
 "  - Reference Right will create it with startPos = 100 and endPos = 130.\n"
 msgstr ""
@@ -1669,7 +1659,6 @@ msgstr ""
 "Oluşturacak.\n"
 
 #: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:234
-#, fuzzy
 msgid ""
 "  - Reference Center will create it with startPos = 85 and endPos = 115.\n"
 msgstr ""
@@ -1710,12 +1699,10 @@ msgid "Edit attributes"
 msgstr "Öznitelikleri Düzenle"
 
 #: /home/behr_mi/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:52
-#, fuzzy
 msgid "Overlapped elements"
-msgstr "Örtüşük Elemanlar"
+msgstr "Çakışık Elemanlar"
 
 #: /home/behr_mi/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:278
-#, fuzzy
 msgid " - Click in the same position\n"
 msgstr " - Aynı Pozisyonda Tıkla\n"
 
@@ -1724,7 +1711,6 @@ msgid "   for inspect next element\n"
 msgstr "   Sonraki Elemanın İncelenmesi İçin\n"
 
 #: /home/behr_mi/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:280
-#, fuzzy
 msgid " - Shift + Click in the same\n"
 msgstr " - Aynı İçinde Shift + Click\n"
 
@@ -1782,7 +1768,6 @@ msgid "rate"
 msgstr "Oran"
 
 #: /home/behr_mi/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:58
-#, fuzzy
 msgid "name"
 msgstr "Ad"
 
