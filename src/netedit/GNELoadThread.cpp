@@ -255,12 +255,15 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.addSynonyme("netedit-file", "neteditcfg");
     neteditOptions.addDescription("netedit-file", "Netedit", "Load NETEDIT config");
 
+    neteditOptions.doRegister("neteditcfg-output", new Option_String());
+    neteditOptions.addDescription("neteditcfg-output", "Netedit", "file in which netedit config must be saved");
+
     neteditOptions.doRegister("sumocfg-file", new Option_FileName());
     neteditOptions.addSynonyme("sumocfg-file", "sumocfg");
     neteditOptions.addDescription("sumocfg-file", "Netedit", "Load sumo config");
 
-    neteditOptions.doRegister("SUMOcfg-output", new Option_String());
-    neteditOptions.addDescription("SUMOcfg-output", "Netedit", "file in which sumo config must be saved");
+    neteditOptions.doRegister("sumocfg-output", new Option_String());
+    neteditOptions.addDescription("sumocfg-output", "Netedit", "file in which sumo config must be saved");
 
     neteditOptions.doRegister("additional-files", 'a', new Option_FileName());
     neteditOptions.addSynonyme("additional-files", "additional");
