@@ -23,12 +23,13 @@
 import org.eclipse.sumo.libtraci.*;
 
 public class APITest {
+
     public static void main(String[] args) {
 
         System.loadLibrary("libtracijni");
         String sumo_bin = "sumo";
         String config_file = "data/config.sumocfg";
-        double step_length = 0.1;
+        double step_length = 1;
         if (args.length > 0) {
             sumo_bin = args[0];
         }
@@ -100,6 +101,11 @@ public class APITest {
         System.out.println("Vehicle.getRoute: " + Vehicle.getRoute("v0"));
         Vehicle.setRouteID("v0", "r1");
         System.out.println("Vehicle.getRoute: " + Vehicle.getRoute("v0"));
+
+        TraCINextTLSVector ntlsV = Vehicle.getNextTLS("v0");
+        for (TraCINextTLSData t : ntlsV) {
+            System.out.println("Vehicle.getNextTLS: id=" + t.getId() + " dist=" + t.getDist() + " state=" + t.getState());
+        }
 
         VehicleType.setParameter("car", "vehtypeParam", "vehtypeValue");
         System.out.println("VehicleType.getParameter: " + VehicleType.getParameter("car", "vehtypeParam"));
