@@ -82,11 +82,8 @@ void single(const std::string& of, const std::string& className, SUMOEmissionCla
 
 int
 main(int argc, char** argv) {
-    MsgHandler::setupI18n();
-    // build options
     OptionsCont& oc = OptionsCont::getOptions();
-    // give some application descriptions
-    oc.setApplicationDescription("Builds and writes an emissions map for SUMO's emission models.");
+    oc.setApplicationDescription(TL("Builds and writes an emissions map for SUMO's emission models."));
     oc.setApplicationName("emissionsMap", "Eclipse SUMO emissionsMap Version " VERSION_STRING);
     // add options
     SystemFrame::addConfigurationOptions(oc);

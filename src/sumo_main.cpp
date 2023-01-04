@@ -80,7 +80,6 @@ main(int argc, char** argv) {
     signal(SIGUSR2, signalHandler);
 #endif
 
-    MsgHandler::setupI18n();
     OptionsCont& oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription(TL("A microscopic, multi-modal traffic simulation."));

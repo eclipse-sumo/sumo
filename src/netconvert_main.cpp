@@ -93,10 +93,8 @@ checkOptions() {
  * ----------------------------------------------------------------------- */
 int
 main(int argc, char** argv) {
-    MsgHandler::setupI18n();
     OptionsCont& oc = OptionsCont::getOptions();
-    // give some application descriptions
-    oc.setApplicationDescription("Network importer / builder for the microscopic, multi-modal traffic simulation SUMO.");
+    oc.setApplicationDescription(TL("Network importer / builder for the microscopic, multi-modal traffic simulation SUMO."));
     oc.setApplicationName("netconvert", "Eclipse SUMO netconvert Version " VERSION_STRING);
     int ret = 0;
     try {

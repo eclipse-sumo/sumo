@@ -336,9 +336,8 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
  * ----------------------------------------------------------------------- */
 int
 main(int argc, char** argv) {
-    MsgHandler::setupI18n();
     OptionsCont& oc = OptionsCont::getOptions();
-    oc.setApplicationDescription("Import O/D-matrices for macroscopic traffic assignment to generate SUMO routes");
+    oc.setApplicationDescription(TL("Import O/D-matrices for macroscopic traffic assignment to generate SUMO routes."));
     oc.setApplicationName("marouter", "Eclipse SUMO marouter Version " VERSION_STRING);
     int ret = 0;
     RONet* net = nullptr;

@@ -41,13 +41,11 @@
 // ===========================================================================
 int
 main(int argc, char** argv) {
-    MsgHandler::setupI18n();
     // make the output aware of threading
     MsgHandler::setFactory(&MsgHandlerSynchronized::create);
     // get the options
     auto &neteditOptions = OptionsCont::getOptions();
-    // give some application descriptions
-    neteditOptions.setApplicationDescription("Graphical editor for SUMO networks.");
+    neteditOptions.setApplicationDescription(TL("Graphical editor for SUMO networks, demand and additional infrastructure."));
     neteditOptions.setApplicationName("netedit", "Eclipse SUMO netedit Version " VERSION_STRING);
     int ret = 0;
 #ifndef _DEBUG

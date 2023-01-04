@@ -109,6 +109,9 @@ SystemFrame::addReportOptions(OptionsCont& oc) {
     oc.doRegister("error-log", new Option_FileName());
     oc.addDescription("error-log", "Report", "Writes all warnings and errors to FILE");
 
+    oc.doRegister("language", new Option_String("C"));
+    oc.addDescription("language", "Report", "Language to use in messages");
+
     oc.doRegister("write-license", new Option_Bool(false));
     oc.addDescription("write-license", "Output", "Include license info into every output file");
 

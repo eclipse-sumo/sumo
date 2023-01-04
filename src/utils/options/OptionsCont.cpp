@@ -63,7 +63,7 @@ OptionsCont::getOptions() {
 
 OptionsCont::OptionsCont()
     : myAddresses(), myValues(), myDeprecatedSynonymes() {
-    myCopyrightNotices.push_back("Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de");
+    myCopyrightNotices.push_back(TL("Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de"));
 }
 
 
@@ -567,16 +567,16 @@ OptionsCont::splitLines(std::ostream& os, std::string what,
 
 bool
 OptionsCont::processMetaOptions(bool missingOptions) {
+    MsgHandler::setupI18n(getString("language"));
     if (missingOptions) {
         // no options are given
         std::cout << myFullName << std::endl;
-        std::cout << " Build features: " << HAVE_ENABLED << std::endl;
-        for (std::vector<std::string>::const_iterator it =
-                    myCopyrightNotices.begin(); it != myCopyrightNotices.end(); ++it) {
-            std::cout << " " << *it << std::endl;
+        std::cout << TL(" Build features: ") << HAVE_ENABLED << std::endl;
+        for (const std::string& c : myCopyrightNotices) {
+            std::cout << " " << TL(c.data()) << std::endl;
         }
-        std::cout << " License EPL-2.0: Eclipse Public License Version 2 <https://eclipse.org/legal/epl-v20.html>\n";
-        std::cout << " Use --help to get the list of options." << std::endl;
+        std::cout << TL(" License EPL-2.0: Eclipse Public License Version 2 <https://eclipse.org/legal/epl-v20.html>") << std::endl;
+        std::cout << TL(" Use --help to get the list of options.") << std::endl;
         return true;
     }
 
@@ -584,9 +584,8 @@ OptionsCont::processMetaOptions(bool missingOptions) {
     // check whether the help shall be printed
     if (getBool("help")) {
         std::cout << myFullName << std::endl;
-        for (std::vector<std::string>::const_iterator it =
-                    myCopyrightNotices.begin(); it != myCopyrightNotices.end(); ++it) {
-            std::cout << " " << *it << std::endl;
+        for (const std::string& c : myCopyrightNotices) {
+            std::cout << " " << TL(c.data()) << std::endl;
         }
         printHelp(std::cout);
         return true;
@@ -594,10 +593,9 @@ OptionsCont::processMetaOptions(bool missingOptions) {
     // check whether the help shall be printed
     if (getBool("version")) {
         std::cout << myFullName << std::endl;
-        std::cout << " Build features: " << HAVE_ENABLED << std::endl;
-        for (std::vector<std::string>::const_iterator it =
-                    myCopyrightNotices.begin(); it != myCopyrightNotices.end(); ++it) {
-            std::cout << " " << *it << std::endl;
+        std::cout << TL(" Build features: ") << HAVE_ENABLED << std::endl;
+        for (const std::string& c : myCopyrightNotices) {
+            std::cout << " " << TL(c.data()) << std::endl;
         }
         std::cout << "\n" << myFullName << " is part of SUMO.\n";
         std::cout << "This program and the accompanying materials\n";
@@ -676,7 +674,7 @@ void
 OptionsCont::printHelp(std::ostream& os) {
     std::vector<std::string>::const_iterator i, j;
     // print application description
-    splitLines(os, myAppDescription, 0, 0);
+    splitLines(os, TL(myAppDescription.c_str()), 0, 0);
     os << std::endl;
 
     // check option sizes first

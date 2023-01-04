@@ -178,10 +178,8 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
 
 int
 main(int argc, char** argv) {
-    MsgHandler::setupI18n();
     OptionsCont& oc = OptionsCont::getOptions();
-    // give some application descriptions
-    oc.setApplicationDescription("Router for the microscopic, multi-modal traffic simulation SUMO based on junction turning ratios.");
+    oc.setApplicationDescription(TL("Router for the microscopic, multi-modal traffic simulation SUMO based on junction turning ratios."));
     oc.setApplicationName("jtrrouter", "Eclipse SUMO jtrrouter Version " VERSION_STRING);
     int ret = 0;
     RONet* net = nullptr;

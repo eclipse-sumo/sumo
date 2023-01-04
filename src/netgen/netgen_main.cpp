@@ -225,10 +225,8 @@ buildNetwork(NBNetBuilder& nb) {
 
 int
 main(int argc, char** argv) {
-    MsgHandler::setupI18n();
     OptionsCont& oc = OptionsCont::getOptions();
-    // give some application descriptions
-    oc.setApplicationDescription("Synthetic network generator for the microscopic, multi-modal traffic simulation SUMO.");
+    oc.setApplicationDescription(TL("Synthetic network generator for the microscopic, multi-modal traffic simulation SUMO."));
     oc.setApplicationName("netgenerate", "Eclipse SUMO netgenerate Version " VERSION_STRING);
     int ret = 0;
     try {

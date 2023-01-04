@@ -58,11 +58,8 @@
  * ----------------------------------------------------------------------- */
 int
 main(int argc, char** argv) {
-    MsgHandler::setupI18n();
-    // build options
     OptionsCont& oc = OptionsCont::getOptions();
-    // give some application descriptions
-    oc.setApplicationDescription("Computes emissions by driving a time line using SUMO's emission models.");
+    oc.setApplicationDescription(TL("Computes emissions by driving a time line using SUMO's emission models."));
     oc.setApplicationName("emissionsDrivingCycle", "Eclipse SUMO emissionsDrivingCycle Version " VERSION_STRING);
 
     // add options

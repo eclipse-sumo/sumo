@@ -228,9 +228,8 @@ fillOptions() {
 
 int
 main(int argc, char** argv) {
-    MsgHandler::setupI18n();
     OptionsCont& oc = OptionsCont::getOptions();
-    oc.setApplicationDescription("Importer of polygons and POIs for the microscopic, multi-modal traffic simulation SUMO.");
+    oc.setApplicationDescription(TL("Importer of polygons and POIs for the microscopic, multi-modal traffic simulation SUMO."));
     oc.setApplicationName("polyconvert", "Eclipse SUMO polyconvert Version " VERSION_STRING);
     int ret = 0;
     try {
