@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-27 21:06:15 by Eclipse SUMO dfrouter Version v1_14_1+1294-35e14935ffb
+<!-- generated on 2023-01-04 11:28:03 by Eclipse SUMO dfrouter Version v1_15_0+1277-3febad6e597
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/dfrouterConfiguration.xsd">
@@ -233,6 +233,9 @@
 
         <!-- Writes all warnings and errors to FILE -->
         <error-log value="" type="FILE"/>
+
+        <!-- Language to use in messages -->
+        <language value="C" type="STR"/>
 
         <!-- Lists detectors with no flow (enable -v) -->
         <report-empty-detectors value="false" type="BOOL"/>

@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_15_0+0884-d788f24
+Eclipse SUMO netconvert Version v1_15_0+1277-3febad6e597
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -647,6 +647,7 @@ Report Options:
   --message-log FILE                   Writes all non-error messages to FILE
                                         (implies verbose)
   --error-log FILE                     Writes all warnings and errors to FILE
+  --language STR                       Language to use in messages
   --ignore-errors                      Continue on broken input
   --ignore-errors.connections          Continue on invalid connections
   --show-errors.connections-first-try  Show errors in connections at parsing

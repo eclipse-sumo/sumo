@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_15_0+0890-bc996e9c3d1
+Eclipse SUMO netgenerate Version v1_15_0+1277-3febad6e597
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -462,6 +462,7 @@ Report Options:
   --message-log FILE                   Writes all non-error messages to FILE
                                         (implies verbose)
   --error-log FILE                     Writes all warnings and errors to FILE
+  --language STR                       Language to use in messages
 
 Random Number Options:
   --random                             Initialises the random number generator

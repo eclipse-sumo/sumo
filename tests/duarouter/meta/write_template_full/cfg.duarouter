@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-27 21:06:15 by Eclipse SUMO duarouter Version v1_14_1+1294-35e14935ffb
+<!-- generated on 2023-01-04 11:28:03 by Eclipse SUMO duarouter Version v1_15_0+1277-3febad6e597
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -123,6 +123,7 @@
         <log value="" synonymes="l log-file" type="FILE" help="Writes all messages to FILE (implies verbose)"/>
         <message-log value="" type="FILE" help="Writes all non-error messages to FILE (implies verbose)"/>
         <error-log value="" type="FILE" help="Writes all warnings and errors to FILE"/>
+        <language value="C" type="STR" help="Language to use in messages"/>
         <ignore-errors value="false" synonymes="continue-on-unbuild dismiss-loading-errors" type="BOOL" help="Continue if a route could not be build"/>
         <stats-period value="-1" type="INT" help="Defines how often statistics shall be printed"/>
         <no-step-log value="false" type="BOOL" help="Disable console output of route parsing step"/>
