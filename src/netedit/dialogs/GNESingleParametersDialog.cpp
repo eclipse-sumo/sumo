@@ -280,7 +280,7 @@ GNESingleParametersDialog::ParametersOperations::ParametersOperations(FXHorizont
     // create buttons
     mySortButton =  new FXButton(this, TL("Sort"),  GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_GNE_BUTTON_SORT, GUIDesignButtonRectangular100);
     myClearButton = new FXButton(this, TL("Clear"), GUIIconSubSys::getIcon(GUIIcon::CLEANJUNCTIONS), this, MID_GNE_BUTTON_CLEAR, GUIDesignButtonRectangular100);
-    myLoadButton =  new FXButton(this, TL("Load"),  GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, MID_GNE_BUTTON_LOAD, GUIDesignButtonRectangular100);
+    myLoadButton =  new FXButton(this, TL("Load"),  GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_GNE_BUTTON_LOAD, GUIDesignButtonRectangular100);
     mySaveButton =  new FXButton(this, TL("Save"),  GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GNE_BUTTON_SAVE, GUIDesignButtonRectangular100);
     myHelpButton =  new FXButton(this, TL("Help"),  GUIIconSubSys::getIcon(GUIIcon::HELP), this, MID_HELP, GUIDesignButtonRectangular100);
 }

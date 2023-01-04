@@ -31,19 +31,13 @@
  * @brief An enumeration of icons used by the gui applications
  */
 enum class GUIIcon {
+
     /// @name general Interface icons
     /// @{
     SUMO,
     SUMO_MINI,
     SUMO_LOGO,
     EMPTY,
-    OPEN_CONFIG,
-    OPEN_NET,
-    OPEN_SHAPES,
-    OPEN_ADDITIONALS,
-    OPEN_MEANDATAS,
-    OPEN_TLSPROGRAMS,
-    OPEN_SUMOCONFIG,
     NEW_NET,
     RELOAD,
     CLOSE,
@@ -52,9 +46,20 @@ enum class GUIIcon {
     CLEARMESSAGEWINDOW,
     /// @}
 
+    /// @brief open icons
+    /// @{
+    OPEN,
+    OPEN_SUMOCONFIG,
+    OPEN_NETEDITCONFIG,
+    OPEN_NET,
+    OPEN_SHAPES,
+    OPEN_ADDITIONALS,
+    OPEN_MEANDATAS,
+    OPEN_TLSPROGRAMS,
+    /// @{
+
     /// @brief save icons
     /// @{
-    
     SAVE,
     SAVE_DATABASE,
     SAVE_SUMOCONFIG,
@@ -65,16 +70,13 @@ enum class GUIIcon {
     SAVE_DEMANDELEMENTS,
     SAVE_DATAELEMENTS,
     SAVE_MEANDATAELEMENTS,
-
     /// @}
 
     /// @brief basic operations
     /// @{
-
     CUT,
     COPY,
     PASTE,
-
     /// @}
 
 

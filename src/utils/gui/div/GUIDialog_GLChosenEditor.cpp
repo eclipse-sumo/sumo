@@ -71,7 +71,7 @@ GUIDialog_GLChosenEditor::GUIDialog_GLChosenEditor(GUIMainWindow* parent, GUISel
     // build the layout
     FXVerticalFrame* layout = new FXVerticalFrame(hbox, GUIDesignChooserLayoutRight);
     // "Load"
-    new FXButton(layout, TL("&Load selection\t\t"), GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, MID_CHOOSEN_LOAD, GUIDesignChooserButtons);
+    new FXButton(layout, TL("&Load selection\t\t"), GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_CHOOSEN_LOAD, GUIDesignChooserButtons);
     // "Save"
     new FXButton(layout, TL("&Save selection\t\t"), GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_CHOOSEN_SAVE, GUIDesignChooserButtons);
     // extra separator
@@ -121,7 +121,7 @@ long
 GUIDialog_GLChosenEditor::onCmdLoad(FXObject*, FXSelector, void*) {
     // get the new file name
     FXFileDialog opendialog(this, TL("Open List of Selected Items"));
-    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG));
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("*.txt\nAll files (*)");
     if (gCurrentFolder.length() != 0) {

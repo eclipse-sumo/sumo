@@ -413,7 +413,7 @@ GUIApplicationWindow::fillMenuBar() {
     new FXMenuSeparator(myFileMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myFileMenu,
                                            TL("&Open Simulation..."), "Ctrl+O", TL("Open a simulation (Configuration file)."),
-                                           GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, MID_HOTKEY_CTRL_O_OPENSIMULATION_OPENNETWORK);
+                                           GUIIconSubSys::getIcon(GUIIcon::OPEN_SUMOCONFIG), this, MID_HOTKEY_CTRL_O_OPENSIMULATION_OPENNETWORK);
     GUIDesigns::buildFXMenuCommandShortcut(myFileMenu,
                                            TL("Open &Network..."), "Ctrl+N", TL("Open a network."),
                                            GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, MID_HOTKEY_CTRL_N_OPENNETWORK_NEWNETWORK);
@@ -550,7 +550,7 @@ GUIApplicationWindow::fillMenuBar() {
                                            GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_SIMSAVE);
     GUIDesigns::buildFXMenuCommandShortcut(myControlMenu,
                                            TL("Load"), "", TL("Load simulation state for the current network from file."),
-                                           GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, MID_SIMLOAD);
+                                           GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_SIMLOAD);
     // build windows menu
     myWindowMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myMenuBar, TL("&Window"), nullptr, myWindowMenu);
@@ -625,7 +625,7 @@ GUIApplicationWindow::buildToolBars() {
         new FXToolBarGrip(myToolBar1, myToolBar1, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
         // build file tools
         new MFXButtonTooltip(myToolBar1, myStaticTooltipMenu, TL("\tOpen simulation\tOpen a simulation (Configuration file)."),
-                             GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, MID_HOTKEY_CTRL_O_OPENSIMULATION_OPENNETWORK, GUIDesignButtonToolbar);
+                             GUIIconSubSys::getIcon(GUIIcon::OPEN_SUMOCONFIG), this, MID_HOTKEY_CTRL_O_OPENSIMULATION_OPENNETWORK, GUIDesignButtonToolbar);
         new MFXButtonTooltip(myToolBar1, myStaticTooltipMenu, TL("\tOpen network\tOpen a network."),
                              GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, MID_HOTKEY_CTRL_N_OPENNETWORK_NEWNETWORK, GUIDesignButtonToolbar);
         new MFXButtonTooltip(myToolBar1, myStaticTooltipMenu, TL("\tReload\tReloads the simulation / the network."),
@@ -997,7 +997,7 @@ long
 GUIApplicationWindow::onCmdOpenConfiguration(FXObject*, FXSelector, void*) {
     // get the new file name
     FXFileDialog opendialog(this, TL("Open Simulation Configuration"));
-    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG));
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_SUMOCONFIG));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList(myConfigPattern.c_str());
     if (gCurrentFolder.length() != 0) {
@@ -1271,7 +1271,7 @@ long
 GUIApplicationWindow::onCmdLoadState(FXObject*, FXSelector, void*) {
     // get the new file name
     FXFileDialog opendialog(this, TL("Load Simulation State"));
-    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG));
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN));
     opendialog.setSelectMode(SELECTFILE_ANY);
     opendialog.setPatternList("GZipped State (*.xml.gz)\nXML State (*.xml)");
     if (gCurrentFolder.length() != 0) {

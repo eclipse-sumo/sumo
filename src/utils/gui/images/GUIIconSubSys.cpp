@@ -470,13 +470,14 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::SUMO_MINI] = new FXXPMIcon(a, sumo_icon16_xpm);
     myIcons[GUIIcon::SUMO_LOGO] = new FXXPMIcon(a, sumo_logo_xpm);
     myIcons[GUIIcon::EMPTY] = new FXXPMIcon(a, empty_xpm);
-    myIcons[GUIIcon::OPEN_CONFIG] = new FXXPMIcon(a, fileopen_xpm);
+    myIcons[GUIIcon::OPEN] = new FXXPMIcon(a, fileopen_xpm);
+    myIcons[GUIIcon::OPEN_NETEDITCONFIG] = new FXXPMIcon(a, fileopen_xpm);
+    myIcons[GUIIcon::OPEN_SUMOCONFIG] = new FXXPMIcon(a, fileopen_xpm);
     myIcons[GUIIcon::OPEN_NET] = new FXXPMIcon(a, netopen_xpm);
     myIcons[GUIIcon::OPEN_SHAPES] = new FXXPMIcon(a, shapeopen_xpm);
     myIcons[GUIIcon::OPEN_ADDITIONALS] = new FXXPMIcon(a, additionalopen_xpm);
     myIcons[GUIIcon::OPEN_MEANDATAS] = new FXXPMIcon(a, meandataopen_xpm);
     myIcons[GUIIcon::OPEN_TLSPROGRAMS] = new FXXPMIcon(a, tlsopen_xpm);
-    myIcons[GUIIcon::OPEN_SUMOCONFIG] = new FXXPMIcon(a, fileopen_xpm);
     myIcons[GUIIcon::NEW_NET] = new FXXPMIcon(a, newnet_xpm);
     myIcons[GUIIcon::RELOAD] = new FXXPMIcon(a, reload_xpm);
     myIcons[GUIIcon::CLOSE] = new FXXPMIcon(a, empty_xpm);  /** temporal **/
