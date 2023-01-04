@@ -691,6 +691,10 @@ enum {
     MID_GNE_SAVEALLELEMENTS,
     /// @brief save joined junctions
     MID_GNE_SAVEJOINEDJUNCTIONS,
+    /// @brief reload NETEDITConfig
+    MID_GNE_TOOLBARFILE_RELOAD_NETEDITCONFIG,
+    /// @brief save NETEDITConfig as
+    MID_GNE_TOOLBARFILE_SAVENETEDITCONFIG_AS,
     /// @brief reload SUMOConfig
     MID_GNE_TOOLBARFILE_RELOAD_SUMOCONFIG,
     /// @brief save SUMOConfig as

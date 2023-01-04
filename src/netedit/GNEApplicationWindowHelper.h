@@ -145,10 +145,13 @@ struct GNEApplicationWindowHelper {
         FileMenuCommands(GNEApplicationWindow* GNEApp);
 
         /// @brief build menu commands
-        void buildFileMenuCommands(FXMenuPane* fileMenu, FXMenuPane* fileMenuSUMOConfig, FXMenuPane* fileMenuTLS,
-                                   FXMenuPane* fileMenuEdgeTypes, FXMenuPane* fileMenuAdditionals,
+        void buildFileMenuCommands(FXMenuPane* fileMenu, FXMenuPane* fileMenuNEEDITConfig, FXMenuPane* fileMenuSUMOConfig, 
+                                   FXMenuPane* fileMenuTLS, FXMenuPane* fileMenuEdgeTypes, FXMenuPane* fileMenuAdditionals,
                                    FXMenuPane* fileMenuDemandElements, FXMenuPane* fileMenuDataElements);
 
+        /// @brief FXMenuCascade for NETEDITConfig
+        FXMenuCascade* NETEDITConfigMenuCascade = nullptr;
+        
         /// @brief FXMenuCascade for SUMOConfig
         FXMenuCascade* SUMOConfigMenuCascade = nullptr;
 
@@ -166,6 +169,12 @@ struct GNEApplicationWindowHelper {
 
         /// @brief FXMenuCascade for data
         FXMenuCascade* dataMenuCascade = nullptr;
+
+        /// @brief FXMenuCommand for reload NETEDITConfig
+        FXMenuCommand* reloadNETEDITConfig = nullptr;
+
+        /// @brief FXMenuCommand for enable or disable save NETEDITConfig
+        FXMenuCommand* saveNETEDITConfig = nullptr;
 
         /// @brief FXMenuCommand for reload SUMOConfig
         FXMenuCommand* reloadSUMOConfig = nullptr;

@@ -106,6 +106,14 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_L_SAVEASPLAINXML,                   GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SAVEJOINEDJUNCTIONS,                        GNEApplicationWindow::onCmdSaveJoined),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVEJOINEDJUNCTIONS,                        GNEApplicationWindow::onUpdNeedsNetwork),
+    // NETEDITConfig
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_E_LOADNETEDITCONFIG,                GNEApplicationWindow::onCmdOpenNETEDITConfig),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_RELOAD_NETEDITCONFIG,           GNEApplicationWindow::onCmdReloadNETEDITConfig),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_RELOAD_NETEDITCONFIG,           GNEApplicationWindow::onUpdReloadNETEDITConfig),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG,          GNEApplicationWindow::onCmdSaveNETEDITConfig),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG,          GNEApplicationWindow::onUpdSaveNETEDITConfig),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVENETEDITCONFIG_AS,           GNEApplicationWindow::onCmdSaveNETEDITConfigAs),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVENETEDITCONFIG_AS,           GNEApplicationWindow::onUpdNeedsNetwork),
     // SUMOConfig
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_M_OPENSUMOCONFIG,                   GNEApplicationWindow::onCmdOpenSUMOConfig),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_RELOAD_SUMOCONFIG,              GNEApplicationWindow::onCmdReloadSUMOConfig),
@@ -521,6 +529,7 @@ GNEApplicationWindow::create() {
     myFileMenu->create();
     myModesMenu->create();
     myEditMenu->create();
+    myFileMenuNETEDITConfig->create();
     myFileMenuSUMOConfig->create();
     myFileMenuTLS->create();
     myFileMenuEdgeTypes->create();
@@ -562,6 +571,7 @@ GNEApplicationWindow::~GNEApplicationWindow() {
     delete myGLVisual;
     // must delete menus to avoid segfault on removing accelerators
     // (http://www.fox-toolkit.net/faq#TOC-What-happens-when-the-application-s)
+    delete myFileMenuNETEDITConfig;
     delete myFileMenuSUMOConfig;
     delete myFileMenuTLS;
     delete myFileMenuEdgeTypes;
@@ -642,7 +652,7 @@ GNEApplicationWindow::onCmdOpenConfiguration(FXObject*, FXSelector, void*) {
     } else {
         // get the new file name
         FXFileDialog opendialog(this, TL("Open Netconvert Configuration"));
-        opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG));
+        opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN));
         opendialog.setSelectMode(SELECTFILE_EXISTING);
         opendialog.setPatternList(myConfigPattern.c_str());
         if (gCurrentFolder.length() != 0) {
@@ -758,6 +768,49 @@ GNEApplicationWindow::onCmdOpenForeign(FXObject*, FXSelector, void*) {
 
 
 long
+GNEApplicationWindow::onCmdOpenNETEDITConfig(FXObject*, FXSelector, void*) {
+    // write debug information
+    WRITE_DEBUG("Open NETEDITConfig dialog");
+    // get the NETEDITConfig file name
+    FXFileDialog opendialog(this, TL("Open NETEDITConfig file"));
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI));
+    opendialog.setSelectMode(SELECTFILE_EXISTING);
+    opendialog.setPatternList("NETEDITConfig files (*.neteditcfg)\nAll files (*)");
+    if (gCurrentFolder.length() != 0) {
+        opendialog.setDirectory(gCurrentFolder);
+    }
+    if (opendialog.execute()) {
+        // close additional dialog
+        WRITE_DEBUG("Close NETEDITConfig dialog");
+        gCurrentFolder = opendialog.getDirectory();
+        std::string file = opendialog.getFilename().text();
+        if (file.size() > 0 && continueWithUnsavedChanges("load NETEDITConfig")) {
+            // write info
+            WRITE_MESSAGE("Loading NETEDITConfig from '" + file + "'");
+            // close all windows
+            closeAllWindows();
+            // disable validation for additionals
+            XMLSubSys::setValidation("never", "auto", "auto");
+            // Create additional handler
+            GNEApplicationWindowHelper::GNENETEDITConfigHandler confighandler(this, file);
+            // Run parser
+            if (!confighandler.loadNETEDITConfig()) {
+                WRITE_ERROR("Loading of " + file + " failed.");
+            }
+            // update view
+            update();
+            // restore validation for additionals
+            XMLSubSys::setValidation("auto", "auto", "auto");
+        }
+    } else {
+        // write debug information
+        WRITE_DEBUG("Cancel NETEDITConfig dialog");
+    }
+    return 1;
+}
+
+
+long
 GNEApplicationWindow::onCmdOpenSUMOConfig(FXObject*, FXSelector, void*) {
     // write debug information
     WRITE_DEBUG("Open SUMOConfig dialog");
@@ -794,7 +847,7 @@ GNEApplicationWindow::onCmdOpenSUMOConfig(FXObject*, FXSelector, void*) {
             GNEApplicationWindowHelper::GNESUMOConfigHandler confighandler(this, file);
             // Run parser
             if (!confighandler.loadSUMOConfig(true)) {
-                WRITE_ERROR("Loading of " + file + " failed.");
+                WRITE_ERROR("Loading of SUMOConfig " + file + " failed.");
             }
             // update view
             update();
@@ -810,16 +863,16 @@ GNEApplicationWindow::onCmdOpenSUMOConfig(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdReloadSUMOConfig(FXObject*, FXSelector, void*) {
-    const auto file = OptionsCont::getOptions().getString("SUMOcfg-file");
+GNEApplicationWindow::onCmdReloadNETEDITConfig(FXObject*, FXSelector, void*) {
+    const auto file = OptionsCont::getOptions().getString("NETEDITcfg-file");
     if (file.size() > 0) {
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // Create additional handler
-        GNEApplicationWindowHelper::GNESUMOConfigHandler confighandler(this, file);
+        GNEApplicationWindowHelper::GNENETEDITConfigHandler confighandler(this, file);
         // Run parser
-        if (!confighandler.loadSUMOConfig(true)) {
-            WRITE_ERROR("Loading of " + file + " failed.");
+        if (!confighandler.loadNETEDITConfig()) {
+            WRITE_ERROR("Loading of NETEDITConfig " + file + " failed.");
         }
         update();
         // restore validation for additionals
@@ -830,9 +883,40 @@ GNEApplicationWindow::onCmdReloadSUMOConfig(FXObject*, FXSelector, void*) {
 
 
 long
+GNEApplicationWindow::onCmdReloadSUMOConfig(FXObject*, FXSelector, void*) {
+    const auto file = OptionsCont::getOptions().getString("SUMOcfg-file");
+    if (file.size() > 0) {
+        // disable validation for additionals
+        XMLSubSys::setValidation("never", "auto", "auto");
+        // Create additional handler
+        GNEApplicationWindowHelper::GNESUMOConfigHandler confighandler(this, file);
+        // Run parser
+        if (!confighandler.loadSUMOConfig(true)) {
+            WRITE_ERROR("Loading of SUMOConfig " + file + " failed.");
+        }
+        update();
+        // restore validation for additionals
+        XMLSubSys::setValidation("auto", "auto", "auto");
+    }
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onUpdReloadNETEDITConfig(FXObject*, FXSelector, void*) {
+    // check if file exist
+    if (myViewNet && !OptionsCont::getOptions().getString("neteditcfg-output").empty()) {
+        return myFileMenuCommands.reloadNETEDITConfig->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    } else {
+        return myFileMenuCommands.reloadNETEDITConfig->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    }
+}
+
+
+long
 GNEApplicationWindow::onUpdReloadSUMOConfig(FXObject*, FXSelector, void*) {
     // check if file exist
-    if (myViewNet && !OptionsCont::getOptions().getString("SUMOcfg-output").empty()) {
+    if (myViewNet && !OptionsCont::getOptions().getString("sumocfg-output").empty()) {
         return myFileMenuCommands.reloadSUMOConfig->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else {
         return myFileMenuCommands.reloadSUMOConfig->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
@@ -1363,6 +1447,7 @@ GNEApplicationWindow::fillMenuBar() {
     // build file menu
     myFileMenu = new FXMenuPane(this, LAYOUT_FIX_HEIGHT);
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, TL("&File"), nullptr, myFileMenu);
+    myFileMenuNETEDITConfig = new FXMenuPane(this);
     myFileMenuSUMOConfig = new FXMenuPane(this);
     myFileMenuTLS = new FXMenuPane(this);
     myFileMenuEdgeTypes = new FXMenuPane(this);
@@ -1370,8 +1455,8 @@ GNEApplicationWindow::fillMenuBar() {
     myFileMenuDemandElements = new FXMenuPane(this);
     myFileMenuDataElements = new FXMenuPane(this);
     myFileMenuRecentFiles = new FXMenuPane(this);
-    myFileMenuCommands.buildFileMenuCommands(myFileMenu, myFileMenuSUMOConfig, myFileMenuTLS, myFileMenuEdgeTypes,
-            myFileMenuAdditionals, myFileMenuDemandElements, myFileMenuDataElements);
+    myFileMenuCommands.buildFileMenuCommands(myFileMenu, myFileMenuNETEDITConfig, myFileMenuSUMOConfig, 
+        myFileMenuTLS, myFileMenuEdgeTypes, myFileMenuAdditionals, myFileMenuDemandElements, myFileMenuDataElements);
     // add separator for recent files
     new FXMenuSeparator(myFileMenu);
     // build recent files
@@ -3473,6 +3558,116 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
 
 
 long
+GNEApplicationWindow::onCmdSaveNETEDITConfig(FXObject*, FXSelector, void*) {
+    // save all elements
+    if (!myNet->isNetSaved()) {
+        onCmdSaveNetwork(nullptr, 0, nullptr);
+    }
+    if (!myNet->isAdditionalsSaved()) {
+        onCmdSaveAdditionals(nullptr, 0, nullptr);
+    }
+    if (!myNet->isDemandElementsSaved()) {
+        onCmdSaveDemandElements(nullptr, 0, nullptr);
+    }
+    if (!myNet->isMeanDatasSaved()) {
+        onCmdSaveMeanDatas(nullptr, 0, nullptr);
+    }
+    // obtain NETEDIT option container
+    auto &neteditOptions = OptionsCont::getOptions();
+    // Check if NETEDITConfig file was already set at start of netedit or with a previous save
+    if (neteditOptions.getString("neteditcfg-output").empty()) {
+        // get the new file name
+        FXFileDialog opendialog(this, TL("Save NETEDIT Configuration"));
+        opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::SAVE));
+        opendialog.setSelectMode(SELECTFILE_ANY);
+        opendialog.setPatternList("Config (*.neteditcfg)");
+        if (gCurrentFolder.length() != 0) {
+            opendialog.setDirectory(gCurrentFolder);
+        }
+        if (!opendialog.execute() || !MFXUtils::userPermitsOverwritingWhenFileExists(this, opendialog.getFilename())) {
+            return 1;
+        } else {
+            const std::string file = MFXUtils::assureExtension(opendialog.getFilename(),
+                    opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
+            neteditOptions.resetWritable();
+            neteditOptions.set("neteditcfg-output", file);
+        }
+    }
+    const auto file = neteditOptions.getString("neteditcfg-output");
+    std::ofstream out(StringUtils::transcodeToLocal(file));
+    if (out.good()) {
+        // write NETEDIT config
+        neteditOptions.writeConfiguration(out, true, false, false, file, true);
+        setStatusBarText("Configuration saved to " + file);
+    } else {
+        setStatusBarText("Could not save configuration to " + file);
+    }
+    out.close();
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onCmdSaveNETEDITConfigAs(FXObject*, FXSelector, void*) {
+    // save all elements
+    if (!myNet->isNetSaved()) {
+        onCmdSaveNetwork(nullptr, 0, nullptr);
+    }
+    if (!myNet->isAdditionalsSaved()) {
+        onCmdSaveAdditionals(nullptr, 0, nullptr);
+    }
+    if (!myNet->isDemandElementsSaved()) {
+        onCmdSaveDemandElements(nullptr, 0, nullptr);
+    }
+    if (!myNet->isMeanDatasSaved()) {
+        onCmdSaveMeanDatas(nullptr, 0, nullptr);
+    }
+    // obtain NETEDIT option container
+    OptionsCont& neteditOptions = OptionsCont::getOptions();
+    // get the new file name
+    FXFileDialog opendialog(this, TL("Save NETEDIT Configuration as"));
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::SAVE));
+    opendialog.setSelectMode(SELECTFILE_ANY);
+    opendialog.setPatternList("Config (*.sumocfg)");
+    if (gCurrentFolder.length() != 0) {
+        opendialog.setDirectory(gCurrentFolder);
+    }
+    if (!opendialog.execute() || !MFXUtils::userPermitsOverwritingWhenFileExists(this, opendialog.getFilename())) {
+        return 1;
+    }
+    const std::string file = MFXUtils::assureExtension(opendialog.getFilename(),
+            opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
+    neteditOptions.resetWritable();
+    neteditOptions.set("neteditcfg-output", file);
+    std::ofstream out(StringUtils::transcodeToLocal(file));
+    if (out.good()) {
+        // write NETEDIT config
+        neteditOptions.writeConfiguration(out, true, false, false, file, true);
+        setStatusBarText("Configuration saved to " + file);
+    } else {
+        setStatusBarText("Could not save configuration to " + file);
+    }
+    out.close();
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onUpdSaveNETEDITConfig(FXObject* sender, FXSelector, void*) {
+    if (myNet == nullptr) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else if (OptionsCont::getOptions().getString("neteditcfg-output").empty()) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    } else if (myNet->isNetSaved() && myNet->isAdditionalsSaved() && myNet->isDemandElementsSaved() && 
+               myNet->isDataElementsSaved() && myNet->isMeanDatasSaved()){
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    } else {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    }
+}
+
+
+long
 GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject*, FXSelector, void*) {
     // save all elements
     if (!myNet->isNetSaved()) {
@@ -3490,7 +3685,7 @@ GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject*, FXSelector, void*) {
     // obtain NETEDIT option container
     auto &neteditOptions = OptionsCont::getOptions();
     // Check if SUMOConfig file was already set at start of netedit or with a previous save
-    if (neteditOptions.getString("SUMOcfg-output").empty()) {
+    if (neteditOptions.getString("sumocfg-output").empty()) {
         // get the new file name
         FXFileDialog opendialog(this, TL("Save SUMO Configuration"));
         opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::SAVE));
@@ -3505,10 +3700,10 @@ GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject*, FXSelector, void*) {
             const std::string file = MFXUtils::assureExtension(opendialog.getFilename(),
                     opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
             neteditOptions.resetWritable();
-            neteditOptions.set("SUMOcfg-output", file);
+            neteditOptions.set("sumocfg-output", file);
         }
     }
-    const auto file = neteditOptions.getString("SUMOcfg-output");
+    const auto file = neteditOptions.getString("sumocfg-output");
     std::ofstream out(StringUtils::transcodeToLocal(file));
     if (out.good()) {
         // write SUMO config
@@ -3553,7 +3748,7 @@ GNEApplicationWindow::onCmdSaveSUMOConfigAs(FXObject*, FXSelector, void*) {
     const std::string file = MFXUtils::assureExtension(opendialog.getFilename(),
             opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
     neteditOptions.resetWritable();
-    neteditOptions.set("SUMOcfg-output", file);
+    neteditOptions.set("sumocfg-output", file);
     std::ofstream out(StringUtils::transcodeToLocal(file));
     if (out.good()) {
         // write SUMO config
@@ -3571,7 +3766,7 @@ long
 GNEApplicationWindow::onUpdSaveSUMOConfig(FXObject* sender, FXSelector, void*) {
     if (myNet == nullptr) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (OptionsCont::getOptions().getString("SUMOcfg-output").empty()) {
+    } else if (OptionsCont::getOptions().getString("sumocfg-output").empty()) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else if (myNet->isNetSaved() && myNet->isAdditionalsSaved() && myNet->isDemandElementsSaved() && 
                myNet->isDataElementsSaved() && myNet->isMeanDatasSaved()){

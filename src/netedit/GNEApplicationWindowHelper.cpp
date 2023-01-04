@@ -172,8 +172,9 @@ GNEApplicationWindowHelper::FileMenuCommands::FileMenuCommands(GNEApplicationWin
 
 
 void
-GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* fileMenu, FXMenuPane* fileMenuSUMOConfig, FXMenuPane* fileMenuTLS,
-        FXMenuPane* fileMenuEdgeTypes, FXMenuPane* fileMenuAdditionals, FXMenuPane* fileMenuDemandElements, FXMenuPane* fileMenuDataElements) {
+GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* fileMenu, FXMenuPane* fileMenuNETEDITConfig, 
+        FXMenuPane* fileMenuSUMOConfig, FXMenuPane* fileMenuTLS, FXMenuPane* fileMenuEdgeTypes, FXMenuPane* fileMenuAdditionals, 
+        FXMenuPane* fileMenuDemandElements, FXMenuPane* fileMenuDataElements) {
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
         "&New Network", "Ctrl+N", "Create a new network.",
         GUIIconSubSys::getIcon(GUIIcon::NEW_NET), myGNEApp, MID_HOTKEY_CTRL_N_OPENNETWORK_NEWNETWORK);
@@ -186,9 +187,12 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
         GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), myGNEApp, MID_HOTKEY_CTRL_O_OPENSIMULATION_OPENNETWORK);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
         "Open Netconvert Configura&tion...", "Ctrl+Shift+O", "Open a configuration file with NETCONVERT options.",
-        GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), myGNEApp, MID_HOTKEY_CTRL_SHIFT_O_OPENNETCONVERTFILE);
+        GUIIconSubSys::getIcon(GUIIcon::OPEN), myGNEApp, MID_HOTKEY_CTRL_SHIFT_O_OPENNETCONVERTFILE);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-        "Load SUMOConfig...", "Ctrl+M", "Load programs for traffic lights in the current net.",
+        "Load NETEDITConfig...", "Ctrl+E", "Load netedit config.",
+        GUIIconSubSys::getIcon(GUIIcon::OPEN_NETEDITCONFIG), myGNEApp, MID_HOTKEY_CTRL_E_LOADNETEDITCONFIG);
+    GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
+        "Load SUMOConfig...", "Ctrl+M", "Load sumo config.",
         GUIIconSubSys::getIcon(GUIIcon::OPEN_SUMOCONFIG), myGNEApp, MID_HOTKEY_CTRL_M_OPENSUMOCONFIG);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
         "Import &Foreign Network...", "", "Import a foreign network such as OSM.",
@@ -211,6 +215,18 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
         "Save All Elements", "", "Save all elements (network, additional, demand and data)",
         GUIIconSubSys::getIcon(GUIIcon::SAVE_QUESTION), myGNEApp, MID_GNE_SAVEALLELEMENTS);
+    // create NETEDITConfig menu options
+    reloadNETEDITConfig = GUIDesigns::buildFXMenuCommandShortcut(fileMenuNETEDITConfig,
+        "Reload NETEDITConfig", "", "Reload NETEDITConfig.",
+        GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_NETEDITCONFIG);
+    saveNETEDITConfig = GUIDesigns::buildFXMenuCommandShortcut(fileMenuNETEDITConfig,
+        "Save NETEDITConfig", "Ctrl+Shift+E", "Save netedit config.",
+        GUIIconSubSys::getIcon(GUIIcon::SAVE_NETEDITCONFIG), myGNEApp, MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG);
+    saveNETEDITConfig->disable();
+    GUIDesigns::buildFXMenuCommandShortcut(fileMenuNETEDITConfig,
+        "Save NETEDITConfig As...", "", "Save sumo config in a new file.",
+        GUIIconSubSys::getIcon(GUIIcon::SAVE_NETEDITCONFIG), myGNEApp, MID_GNE_TOOLBARFILE_SAVENETEDITCONFIG_AS);
+    NETEDITConfigMenuCascade = new FXMenuCascade(fileMenu, "NETEDITConfig", GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), fileMenuNETEDITConfig);
     // create SUMOConfig menu options
     reloadSUMOConfig = GUIDesigns::buildFXMenuCommandShortcut(fileMenuSUMOConfig,
         "Reload SUMOConfig", "", "Reload SUMOConfig.",
