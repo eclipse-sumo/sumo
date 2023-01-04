@@ -56,6 +56,7 @@ enum class GUIIcon {
     OPEN_ADDITIONALS,
     OPEN_MEANDATAS,
     OPEN_TLSPROGRAMS,
+    OPEN_BMPDIALOG,
     /// @{
 
     /// @brief save icons
@@ -204,7 +205,6 @@ enum class GUIIcon {
     SKELETONIZE,
     RARIFY,
     CREATE_GRAPH,
-    OPEN_BMP_DIALOG,
     EYEDROP,
     PAINTBRUSH1X,
     PAINTBRUSH2X,

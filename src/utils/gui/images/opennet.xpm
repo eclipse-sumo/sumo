@@ -1,5 +1,5 @@
 /* XPM */
-static const char *netopen_xpm[] = {
+static const char *open_net_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "16 15 6 1",
 " 	c None",

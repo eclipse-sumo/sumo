@@ -1,5 +1,5 @@
 /* XPM */
-static const char * open_bmp_dialog_xpm[] = {
+static const char * open_bmpdialog_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "17 17 2 1",
 " 	c None",

@@ -1,5 +1,5 @@
 /* XPM */
-static const char *tlsopen_xpm[] = {
+static const char *open_shapes_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "16 15 7 1",
 " 	c None",

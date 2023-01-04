@@ -1,5 +1,5 @@
 /* XPM */
-static const char *meandataopen_xpm[] = {
+static const char *open_meandatas_xpm[] = {
 "16 15 7 1",
 " 	c None",
 ".	c #040404",
