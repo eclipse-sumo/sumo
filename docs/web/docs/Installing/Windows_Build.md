@@ -246,27 +246,27 @@ Your version of Visual Studio doesn't support Debugging, you can only compile in
     vcpkg.exe install boost zlib spdlog poly2tri glm cgal pybind11
     ```
 	
-	Note that the _triplet_ `x64-windows-release` is used for the _Release_ mode, whereas `x64-windows` is used for the _Debug_ mode. It is important to use the triplet `x64-windows-release` in _production_ for performance reasons. The third-party libraries can be compiled in _Release_ mode (so with the triplet `x64-windows-release`) and JuPedSim in _Debug_ mode in order to just debug JuPedSim. As done previously, the default triplet has been set to `x64-windows`.
+	Note that the _triplet_ `x64-windows` is used for both the _Release_ and the _Debug_ compilation modes.
 
-6. Copy the files for the _fmt_ library that are located in `/c/Users/[username]/[path-to-vcpkg]/vcpkg_installed/x64-windows` into `/c/Users/[username]/[path-to-vcpkg]/installed/x64-windows` so that all the third-party libraries share a common tree.
+6. Copy the files for the _fmt_ library that are located in `/c/Users/[username]/[path-to-vcpkg]/vcpkg_installed/x64-windows` into `/c/Users/[username]/[path-to-vcpkg]/installed/x64-windows` so that all the third-party libraries share a common tree. In case you want to build the _Debug_ binaries, you also need to copy `/c/Users/[username]/[path-to-vcpkg]/installed/x64-windows/debug/lib/poly2tri.lib' to `/c/Users/[username]/[path-to-vcpkg]/installed/x64-windows/lib/poly2tri.lib' (replacement).
  
-7. In the 'jpscore' directory, create a 'build' directory (or better: a 'build_release' directory, in case in the future you need also debug binaries). From that directory, run CMake as follows:
+7. In the 'jpscore' directory, create a 'build' directory (or better: a 'build_release' directory, in case you also want _Debug_ binaries). From that directory, run CMake as follows:
 	
     ```
     cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=/c/Users/[username]/[path-to-vcpkg]/installed/x64-windows/ -DBUILD_JPSVIS=OFF -G"Visual Studio 15 2017 Win64" ..
     ```
 	
-	The flag `BUILD_JPSVIS` is turned off to disable the build of JuPedSim's visualization tool.
+	The flag `BUILD_JPSVIS` is turned off to disable the build of JuPedSim's visualization tool. Use `-DCMAKE_BUILD_TYPE=Debug` for _Debug_ binaries.
  
-8. Then open the Visual Studio solution file that has been created in that directory, select either the Debug or Release mode at the bottom of Visual Studio and then build.
+8. Then open the Visual Studio solution file that has been created in that directory, select either the _Debug_ or _Release_ mode at the bottom of Visual Studio and then build.
 
-9. You can copy to some place the freshly built binaries by typing:
+9. You can copy to some place the freshly built binaries by lauching the following command from your build directory:
 	
 	```
 	cmake --install . --prefix /c/Users/[username]/[path-to-jpscore]/install
 	```
 	
-	You will need this installation path later when compiling SUMO with JuPedSim.
+	You will need this installation path later when compiling SUMO with JuPedSim. Add `--config Debug` to the previous command line for _Debug_ binaries.
 
 ### Build SUMO with JuPedSim
 
@@ -277,5 +277,5 @@ Your version of Visual Studio doesn't support Debugging, you can only compile in
     ```
 	
 2. Then rebuild SUMO; JuPedSim is found.
-3. The JuPedSIM and third-party binaries need to be copied to the SUMO 'bin' directory for execution (`jupedsim.dll`, `mpfr-6.dll`, `gmp-10.dll`, `spdlog.dll` and `fmt.dll`). These binaries are located in the 'build/bin' subdirectory of jpscore or in the subdirectory 'installed' of vcpkg.
+3. The JuPedSIM and third-party binaries need to be copied to the SUMO 'bin' directory for execution (`jupedsim.dll`, `mpfr-6.dll`, `gmp-10.dll`, `spdlog.dll` and `fmt.dll`). These binaries are located in the 'build/bin' subdirectory of jpscore or in the subdirectory 'installed' of vcpkg (or 'installed/debug' for _Debug_ binaries; in that case some binaries have an additional 'd' at the end).
 4. Also note that in order to use JuPedSim, you need to put `<pedestrian.model value="jupedsim"/>` in your SUMO config file.
