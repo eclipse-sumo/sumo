@@ -52,12 +52,15 @@ public:
     /// @brief starts the thread. The thread ends after the net has been loaded
     FXint run();
 
+    /// @brief create new network
+    void createNewNetwork();
+
     /**@brief begins the loading of a netconvert configuration or a a network
      * @param[in] file The network or configuration-file to be loaded
      * @param[in] isNet whether file is a network file
      * @param[in] useStartupOptions whether the initial startup options shall be used
      */
-    void loadConfigOrNet(const std::string& file, const bool isNet, const bool useStartupOptions, const bool newNet = false);
+    void loadConfigOrNet(const std::string& file, const bool isNet, const bool useStartupOptions);
 
     /// @brief Retrieves messages from the loading module
     void retrieveMessage(const MsgHandler::MsgType type, const std::string& msg);

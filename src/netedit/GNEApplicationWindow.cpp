@@ -635,10 +635,12 @@ GNEApplicationWindow::onCmdNewNetwork(FXObject*, FXSelector, void*) {
     if (myViewNet && !onCmdClose(0, 0, 0)) {
         return 1;
     } else {
+        // reset all netedit options
         auto &neteditOptions = OptionsCont::getOptions();
         GNELoadThread::fillOptions(neteditOptions);
         GNELoadThread::setDefaultOptions(neteditOptions);
-        loadConfigOrNet("", true, false, true, true);
+        // create new network
+        createNewNetwork();
         return 1;
     }
 }
@@ -1545,7 +1547,33 @@ GNEApplicationWindow::fillMenuBar() {
 
 
 void
-GNEApplicationWindow::loadConfigOrNet(const std::string file, bool isNet, bool isReload, bool useStartupOptions, bool newNet) {
+GNEApplicationWindow::createNewNetwork() {
+    // save windows size and position
+    storeWindowSizeAndPos();
+    // begin wait cursor
+    getApp()->beginWaitCursor();
+    // enable loading flag and disable reloading flag
+    myAmLoading = true;
+    myReloading = false;
+    // close all windows
+    closeAllWindows();
+    // recenter view
+    gSchemeStorage.saveViewport(0, 0, -1, 0); 
+    // create new network
+    myLoadThread->createNewNetwork();
+    // update status bar
+    setStatusBarText("Creating new network.");
+    // show supermode commands menu
+    mySupermodeCommands.showSupermodeCommands();
+    // show Network command menus (because Network is the default supermode)
+    myModesMenuCommands.networkMenuCommands.showNetworkMenuCommands();
+    // update window
+    update();
+}
+
+
+void
+GNEApplicationWindow::loadConfigOrNet(const std::string file, bool isNet, bool isReload, bool useStartupOptions) {
     storeWindowSizeAndPos();
     getApp()->beginWaitCursor();
     myAmLoading = true;
@@ -1556,7 +1584,7 @@ GNEApplicationWindow::loadConfigOrNet(const std::string file, bool isNet, bool i
         setStatusBarText("Reloading.");
     } else {
         gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
-        myLoadThread->loadConfigOrNet(file, isNet, useStartupOptions, newNet);
+        myLoadThread->loadConfigOrNet(file, isNet, useStartupOptions);
         setStatusBarText("Loading '" + file + "'.");
     }
     // show supermode commands menu
@@ -1690,7 +1718,11 @@ GNEApplicationWindow::loadOptionOnStartup() {
     auto &neteditOptions = OptionsCont::getOptions();
     // Disable normalization preserve the given network as far as possible
     neteditOptions.set("offset.disable-normalization", "true");
-    loadConfigOrNet("", true, false, true, neteditOptions.getBool("new"));
+    if (neteditOptions.getBool("new")) {
+        createNewNetwork();
+    } else {
+        loadConfigOrNet("", true, false, true);
+    }
 }
 
 
