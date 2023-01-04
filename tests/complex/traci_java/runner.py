@@ -35,7 +35,8 @@ if 'JAVA_HOME' in os.environ:
     java = os.path.join(os.environ['JAVA_HOME'], "bin", java)
 
 # use latest version
-prefix = "libsumo" if 'LIBSUMO_AS_TRACI' in os.environ else "libtraci"
+useLibsumo = 'LIBSUMO_AS_TRACI' in os.environ
+prefix = "libsumo" if useLibsumo else "libtraci"
 prefix = os.path.join(os.environ['SUMO_HOME'], "bin", prefix)
 suffix = "SNAPSHOT.jar"
 files = glob.glob("%s-*-%s" % (prefix, suffix))
@@ -43,12 +44,20 @@ files = glob.glob("%s-*-%s" % (prefix, suffix))
 files = [list(map(float, f[len(prefix) + 1:-(len(suffix) + 1)].split('.'))) + [f] for f in files]
 files.sort()
 traciJar = files[-1][-1]
-#print("traciJar", traciJar)
+# print("traciJar", traciJar)
 
 assert(os.path.exists(traciJar))
 
 for f in sys.argv[1:]:
-    subprocess.check_call([javac, "-cp", traciJar, "data/%s.java" % f])
+    fname = "data/%s.java" % f
+    if useLibsumo:
+        with open(fname, 'r') as fob:
+          filedata = fob.read()
+        filedata = filedata.replace('libtraci', 'libsumo')
+        with open(fname, 'w') as fob:
+          fob.write(filedata)
+    subprocess.check_call([javac, "-cp", traciJar, fname])
+
 procs = [subprocess.Popen([java, "-Djava.library.path=" + os.path.join(os.environ['SUMO_HOME'], "bin"),
                            "-cp", os.pathsep.join([traciJar, "data"]), sys.argv[1],
                            checkBinary('sumo'), "data/config.sumocfg"])]
