@@ -57,9 +57,6 @@ public:
     /// @brief load net on startup
     void loadOptionOnStartup();
 
-    /// @brief load network
-    void loadNet(const std::string& file);
-
     /// @brief build dependent
     void dependentBuild();
 
@@ -116,8 +113,8 @@ public:
     /// @brief called when the command/FXCall new network is executed
     long onCmdNewNetwork(FXObject*, FXSelector, void*);
 
-    /// @brief called when the command/FXCall open configuration is executed
-    long onCmdOpenConfiguration(FXObject*, FXSelector, void*);
+    /// @brief called when the command/FXCall open netconvertconfiguration is executed
+    long onCmdOpenNetconvertConfig(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall open network is executed
     long onCmdOpenNetwork(FXObject*, FXSelector, void*);
@@ -712,8 +709,11 @@ public:
     /// @brief create new network
     void createNewNetwork();
 
-    /// @brief starts to load a netimport configuration or a network
-    void loadConfigOrNet(const std::string file, bool isNet, bool isReload = false, bool useStartupOptions = false);
+    /// @brief starts to load a network
+    void loadNetwork(const std::string file, bool isReload, bool useStartupOptions);
+
+    /// @brief starts to load a netconvert configuration
+    void loadNetconvertConfig(const std::string file, bool useStartupOptions);
 
 private:
     /// @brief this method closes all windows and deletes the current simulation */

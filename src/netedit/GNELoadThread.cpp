@@ -512,9 +512,22 @@ GNELoadThread::createNewNetwork() {
 
 
 void
-GNELoadThread::loadConfigOrNet(const std::string& file, const bool isNet, const bool useStartupOptions) {
+GNELoadThread::loadNetwork(const std::string& file, const bool useStartupOptions) {
     myFile = file;
-    myLoadNet = isNet;
+    myLoadNet = true;
+    myNewNet = false;
+    if ((myFile != "") && !useStartupOptions) {
+        OptionsIO::setArgs(0, nullptr);
+    }
+    // start thread
+    start();
+}
+
+
+void
+GNELoadThread::loadNetconvertConfig(const std::string& file, const bool useStartupOptions) {
+    myFile = file;
+    myLoadNet = false;
     myNewNet = false;
     if ((myFile != "") && !useStartupOptions) {
         OptionsIO::setArgs(0, nullptr);
