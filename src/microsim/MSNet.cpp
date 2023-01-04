@@ -922,6 +922,11 @@ MSNet::clearState(const SUMOTime step, bool quickReload) {
         }
     }
     myInserter->clearState();
+    // detectors may still reference persons/vehicles
+    myDetectorControl->updateDetectors(myStep);
+    myDetectorControl->writeOutput(myStep, true);
+    myDetectorControl->clearState(step);
+
     if (myPersonControl != nullptr) {
         myPersonControl->clearState();
     }
@@ -932,9 +937,6 @@ MSNet::clearState(const SUMOTime step, bool quickReload) {
     myVehicleControl->clearState(true);
     MSVehicleTransfer::getInstance()->clearState();
     myLogics->clearState(step, quickReload);
-    myDetectorControl->updateDetectors(myStep);
-    myDetectorControl->writeOutput(myStep, true);
-    myDetectorControl->clearState(step);
     // delete all routes after vehicles and detector output is done
     MSRoute::dict_clearState();
     for (auto& item : myStoppingPlaces) {
