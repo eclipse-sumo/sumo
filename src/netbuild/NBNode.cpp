@@ -2679,7 +2679,7 @@ NBNode::guessCrossings() {
 
 
 int
-NBNode::checkCrossing(EdgeVector candidates) {
+NBNode::checkCrossing(EdgeVector candidates, bool checkOnly) {
     if (gDebugFlag1) {
         std::cout << "checkCrossing candidates=" << toString(candidates) << "\n";
     }
@@ -2710,9 +2710,11 @@ NBNode::checkCrossing(EdgeVector candidates) {
             prevAngle = angle;
         }
         if (candidates.size() == 1 || getType() == SumoXMLNodeType::RAIL_CROSSING) {
-            addCrossing(candidates, NBEdge::UNSPECIFIED_WIDTH, isTLControlled());
-            if (gDebugFlag1) {
-                std::cout << "adding crossing: " << toString(candidates) << "\n";
+            if (!checkOnly) {
+                addCrossing(candidates, NBEdge::UNSPECIFIED_WIDTH, isTLControlled());
+                if (gDebugFlag1) {
+                    std::cout << "adding crossing: " << toString(candidates) << "\n";
+                }
             }
             return 1;
         } else {
@@ -2753,15 +2755,17 @@ NBNode::checkCrossing(EdgeVector candidates) {
                     }
                     if (fabs(NBHelpers::relAngle(prevAngle, angle)) > SPLIT_CROSSING_ANGLE_THRESHOLD
                             || (intermediateWidth > SPLIT_CROSSING_WIDTH_THRESHOLD)) {
-                        return checkCrossing(EdgeVector(candidates.begin(), it))
-                               + checkCrossing(EdgeVector(it, candidates.end()));
+                        return checkCrossing(EdgeVector(candidates.begin(), it), checkOnly)
+                               + checkCrossing(EdgeVector(it, candidates.end()), checkOnly);
                     }
                 }
                 prevAngle = angle;
             }
-            addCrossing(candidates, NBEdge::UNSPECIFIED_WIDTH, isTLControlled());
-            if (gDebugFlag1) {
-                std::cout << "adding crossing: " << toString(candidates) << "\n";
+            if (!checkOnly) {
+                addCrossing(candidates, NBEdge::UNSPECIFIED_WIDTH, isTLControlled());
+                if (gDebugFlag1) {
+                    std::cout << "adding crossing: " << toString(candidates) << "\n";
+                }
             }
             return 1;
         }
