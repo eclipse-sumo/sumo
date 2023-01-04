@@ -1219,7 +1219,7 @@ GUIApplicationWindow::onCmdStart(FXObject*, FXSelector, void*) {
         myWasStarted = true;
     }
     myRunThread->resume();
-    getApp()->forceRefresh(); // only callking myToolBar2->forceRefresh somehow loses keyboard focus
+    getApp()->forceRefresh(); // only calling myToolBar2->forceRefresh somehow looses keyboard focus
     return 1;
 }
 
@@ -1227,7 +1227,7 @@ GUIApplicationWindow::onCmdStart(FXObject*, FXSelector, void*) {
 long
 GUIApplicationWindow::onCmdStop(FXObject*, FXSelector, void*) {
     myRunThread->stop();
-    getApp()->forceRefresh(); // only callking myToolBar2->forceRefresh somehow loses keyboard focus
+    getApp()->forceRefresh(); // only calling myToolBar2->forceRefresh somehow looses keyboard focus
     return 1;
 }
 
