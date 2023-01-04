@@ -1,5 +1,8 @@
 # DUA iteration tests
 dua-iterate
+
+# DUA iteration tests
+duaIterateMix
 duaIterate_analysis
 
 # DUA cost function tests
