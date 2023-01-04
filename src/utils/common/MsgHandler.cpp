@@ -228,7 +228,11 @@ void
 MsgHandler::setupI18n(const std::string& locale) {
 #ifdef HAVE_INTL
     if (locale != "") {
-        putenv(("LANGUAGE=" + locale).data());
+#ifdef WIN32
+        _putenv_s("LANGUAGE", locale.data());
+#else
+        setenv("LANGUAGE", locale.data(), true);
+#endif
     }
     if (!setlocale(LC_MESSAGES, "")) {
         WRITE_WARNING("Could not set locale to '" + locale + "'.");
