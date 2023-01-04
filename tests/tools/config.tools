@@ -314,9 +314,8 @@ image:id="[^"]*"{REPLACE id="ReplacedTransientID"}
 image:url\(.*\){REPLACE url(ReplacedTransientURL)}
 image:href="[^"]*"{REPLACE href="ReplacedTransientHREF"}
 image:<dc:date>
-image:http:{REPLACE https:}
-image-600:http:{REPLACE https:}
-image-800:http:{REPLACE https:}
+image-600:<dc:date>
+image-800:<dc:date>
 csv:\r$
 diff_con:<!-- generated on{[->]}-->
 diff_edg:<!-- generated on{[->]}-->
