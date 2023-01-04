@@ -17,24 +17,19 @@
 /// @author  Michael Behrisch
 /// @date    2004
 ///
-// Some global variables (yep)
+// Some global variables for the GUI
 /****************************************************************************/
 #pragma once
 #include <config.h>
-
-#include <vector>
-#include <utils/common/SUMOTime.h>
 
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
- * @class MSGlobals
+ * @class GUIGlobals
  * This class holds some static variables, filled mostly with values coming
- *  from the command line or the simulation configuration file.
- * They are stored herein to allow a faster access than from the options
- *  container.
+ *  from the command line, application settings or the registry.
  */
 class GUIGlobals {
 public:
