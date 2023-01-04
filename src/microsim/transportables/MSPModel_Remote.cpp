@@ -26,6 +26,7 @@
 #include "microsim/MSLink.h"
 #include "microsim/MSEdgeControl.h"
 #include "microsim/MSEventControl.h"
+#include "libsumo/Person.h"
 #include "utils/geom/Position.h"
 #include "utils/geom/PositionVector.h"
 #include "MSPModel_Remote.h"
@@ -82,11 +83,6 @@ MSPModel_Remote::add(MSTransportable* person, MSStageMoving* stage, SUMOTime now
     JPS_JourneyId journeyId = JPS_Simulation_AddJourney(mySimulation, journey, nullptr);
 
 	JPS_AgentParameters agent_parameters{};
-    agent_parameters.v0 = stage->getMaxSpeed(person);
-	agent_parameters.AMin = 0.15;
-	agent_parameters.BMax = 0.15;
-	agent_parameters.BMin = 0.15;
-	agent_parameters.Av = 0.53;
 	agent_parameters.journeyId = journeyId;
 	agent_parameters.orientationX = 1.0;
 	agent_parameters.orientationY = 0.0;
@@ -152,34 +148,39 @@ MSPModel_Remote::execute(SUMOTime time) {
             Position newPosition(newPositionX, newPositionY);
             MSPerson* person = state->getPerson();
             MSPerson::MSPersonStage_Walking* stage = dynamic_cast<MSPerson::MSPersonStage_Walking*>(person->getCurrentStage());
-
-            // Updates the edge to walk on.
             const MSEdge* currentEdge = stage->getEdge();
             const MSLane* currentLane = getSidewalk<MSEdge, MSLane>(currentEdge);
-            if (currentEdge->isWalkingArea()) {
-                MSLane* nextLane = getNextPedestrianLane(currentLane);
-                PositionVector shape = nextLane->getShape();
-                Position nextLaneDirection = shape[1] - shape[0];
-                Position pedestrianLookAhead = newPosition - shape[0];
-                if (pedestrianLookAhead.dotProduct(nextLaneDirection) > 0.0) {
-                    MSEdge& nextEdge = nextLane->getEdge();
-                    if (nextEdge.isCrossing()) {
-                        stage->moveToNextEdge(person, time, 1, &nextEdge);
-                    }
-                    else {
-                        stage->moveToNextEdge(person, time, 1, nullptr);
-                    }
-                }
-            }
-            else {
-                Position relativePosition = (currentLane->getShape()).transformToVectorCoordinates(newPosition);
-                if (relativePosition == Position::INVALID) {
-                    std::vector<MSLink*> links = currentLane->getLinkCont();
-                    MSLane* nextLane = getNextPedestrianLane(currentLane);
-                    stage->moveToNextEdge(person, time, 1, nextLane ? &(nextLane->getEdge()) : nullptr);
-                }
-            }
 
+            // Updates the edge to walk on.
+            if (myRoutingMode == PedestrianRoutingMode::SUMO_ROUTING)
+            {
+                if (currentEdge->isWalkingArea()) { 
+                    MSLane* nextLane = getNextPedestrianLane(currentLane);
+                    PositionVector shape = nextLane->getShape();
+                    Position nextLaneDirection = shape[1] - shape[0];
+                    Position pedestrianLookAhead = newPosition - shape[0];
+                    if (pedestrianLookAhead.dotProduct(nextLaneDirection) > 0.0) {
+                        MSEdge& nextEdge = nextLane->getEdge();
+                        if (nextEdge.isCrossing()) {
+                            stage->moveToNextEdge(person, time, 1, &nextEdge);
+                        }
+                        else {
+                            stage->moveToNextEdge(person, time, 1, nullptr);
+                        }
+                    }
+                }
+                else {
+                    Position relativePosition = (currentLane->getShape()).transformToVectorCoordinates(newPosition);
+                    if (relativePosition == Position::INVALID) {
+                        MSLane* nextLane = getNextPedestrianLane(currentLane);
+                        stage->moveToNextEdge(person, time, 1, nextLane ? &(nextLane->getEdge()) : nullptr);
+                    }
+                }
+            }
+            else { // PedestrianRoutingMode::JUPEDSIM_ROUTING
+                libsumo::Person::moveToXY(person->getID(), currentEdge->getID(), newPositionX, newPositionY, libsumo::INVALID_DOUBLE_VALUE, 2);
+            }
+            
             // If near the last waypoint, remove the agent.
             if (newPosition.distanceTo2D(state->getDestination()) < JPS_EXIT_TOLERANCE) {
                 JPS_Simulation_RemoveAgent(mySimulation, state->getAgentId(), nullptr);
@@ -230,8 +231,9 @@ MSPModel_Remote::initialize() {
 	for (const MSEdge* const edge : (myNet->getEdgeControl()).getEdges()) {
         const MSLane* lane = getSidewalk<MSEdge, MSLane>(edge);
         if (lane) {
-            // Apparently CGAL expects polygons to be oriented CCW.
             PositionVector shape = lane->getShape();
+
+            // Apparently CGAL expects polygons to be oriented CCW.
             if (shape.isClockwiseOriented()) {
                 shape = shape.reverse();
             }
@@ -249,6 +251,10 @@ MSPModel_Remote::initialize() {
             std::vector<double> lanePolygonCoordinates;
 
             if (edge->isWalkingArea()) {
+                if (shape.area() == 0.0) {
+                    continue;
+                }
+
                 for (const Position& position : shape) {
                     lanePolygonCoordinates.push_back(position.x());
                     lanePolygonCoordinates.push_back(position.y());
@@ -300,7 +306,9 @@ MSPModel_Remote::initialize() {
 
     JPS_VelocityModelBuilder modelBuilder = JPS_VelocityModelBuilder_Create(8.0, 0.1, 5.0, 0.02);
     myParameterProfileId = 1;
-    JPS_VelocityModelBuilder_AddParameterProfile(modelBuilder, myParameterProfileId, 1, 0.5);
+    double initial_speed = 1.0; // stage->getMaxSpeed(person);
+    double pedestrian_radius = 1.0;
+    JPS_VelocityModelBuilder_AddParameterProfile(modelBuilder, myParameterProfileId, 1.0, 0.5, initial_speed, pedestrian_radius);
     myModel = JPS_VelocityModelBuilder_Build(modelBuilder, &message);
     if (myModel == nullptr) {
         std::ostringstream oss;
@@ -342,6 +350,9 @@ MSLane* MSPModel_Remote::getNextPedestrianLane(const MSLane* const currentLane) 
 // ===========================================================================
 MSPModel_Remote::PState::PState(MSPerson* person, MSStageMoving* stage, JPS_Journey journey, Position destination, JPS_AgentId agentId)
     : myPerson(person), myAngle(0), myPosition(0, 0), myStage(stage), myJourney(journey), myDestination(destination), myAgentId(agentId) {
+    ConstMSEdgeVector route = stage->getRoute();
+    myCustomRoute.push_back(route.front());
+    myCustomRoute.push_back(route.back());
 }
 
 
@@ -367,6 +378,16 @@ double MSPModel_Remote::PState::getAngle(const MSStageMoving& stage, SUMOTime no
 
 void MSPModel_Remote::PState::setAngle(double angle) {
 	myAngle = angle;
+}
+
+
+void MSPModel_Remote::PState::addEdgeToRoute(MSEdge* edge) {
+    myCustomRoute.insert(myCustomRoute.end()-1, edge);
+}
+
+
+const ConstMSEdgeVector& MSPModel_Remote::PState::getRoute(void) const {
+    return myCustomRoute;
 }
 
 
@@ -402,6 +423,41 @@ double MSPModel_Remote::PState::getSpeed(const MSStageMoving& stage) const {
 
 const MSEdge* MSPModel_Remote::PState::getNextEdge(const MSStageMoving& stage) const {
     return nullptr;
+}
+
+
+void
+MSPModel_Remote::PState::moveToXY(MSPerson* p, Position pos, MSLane* lane, double lanePos, double lanePosLat, double angle, int routeOffset, const ConstMSEdgeVector& edges, SUMOTime t) {
+    if (edges.empty()) {
+        myStage->setRouteIndex(myPerson, routeOffset);
+    }
+    else {
+        myStage->replaceRoute(myPerson, edges, routeOffset);
+    }
+
+    /*
+    if (currentEdge->isWalkingArea()) {
+        MSLane* nextLane = getNextPedestrianLane(currentLane);
+        PositionVector shape = nextLane->getShape();
+        Position nextLaneDirection = shape[1] - shape[0];
+        Position pedestrianLookAhead = newPosition - shape[0];
+        if (pedestrianLookAhead.dotProduct(nextLaneDirection) > 0.0) {
+            MSEdge& nextEdge = nextLane->getEdge();
+            if (nextEdge.isCrossing()) {
+                stage->moveToNextEdge(person, time, 1, &nextEdge);
+            }
+            else {
+                stage->moveToNextEdge(person, time, 1, nullptr);
+            }
+        }
+    }
+    else {
+        Position relativePosition = (currentLane->getShape()).transformToVectorCoordinates(newPosition);
+        if (relativePosition == Position::INVALID) {
+            MSLane* nextLane = getNextPedestrianLane(currentLane);
+            stage->moveToNextEdge(person, time, 1, nextLane ? &(nextLane->getEdge()) : nullptr);
+        }
+    }*/
 }
 
 
