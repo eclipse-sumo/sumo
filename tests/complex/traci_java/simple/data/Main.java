@@ -15,13 +15,12 @@
 /****************************************************************************/
 /// @file    Main.java
 /// @author  Mario Krumnow
+/// @author  Jakob Erdmann
 /// @date    2013
 ///
 //
 /****************************************************************************/
 import org.eclipse.sumo.libtraci.*;
-import java.lang.reflect.Field;
-import java.lang.reflect.Member;
 
 public class Main {
     public static void main(String[] args) {

@@ -1,6 +1,6 @@
 simple
-#subscription
+subscription
 #multiclient
 
 # Testing the java API directly
-#api
+api

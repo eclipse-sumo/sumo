@@ -1,3 +1,5 @@
+Could not connect to TraCI server at localhost:46555 tcpip::Socket::connect() @ connect: Connection refused
+ Retrying in 1 second
 deltaT:1.0
 findRoute result stage:
   gneE0
@@ -50,11 +52,11 @@ Step 35.0, tlsPhase 0 (North-South)
 Step 36.0, tlsPhase 0 (North-South)
 VehicleIDs: v0 v1 v10 v11 v12 v13 v14 v15 v16 v17 v18 v19 v2 v20 v21 v22 v23 v3 v4 v5 v6 v7 v8 v9 
 vehicle.getParameter: vehValue
-Vehicletype.getAdaptedTraveltime: 200.0
+VehicleType.getAdaptedTraveltime: 200.0
 Vehicle.getRoute: [gneE0, gneE1]
 Vehicle.getRoute: [gneE0]
 Vehicle.getRoute: [gneE0, gneE1]
-Vehicletype.getParameter: vehtypeValue
+VehicleType.getParameter: vehtypeValue
 PersonIDs: p0 p1 p10 p11 p12 p13 p14 p15 p16 p17 p18 p19 p2 p20 p21 p22 p23 p24 p25 p26 p27 p28 p29 p3 p30 p31 p32 p33 p34 p4 p5 p6 p7 p8 p9 
 Person.getStage: 2
 Edge.getParameter: edgeValue
@@ -67,11 +69,15 @@ Edge.getEffort: -1.0
 Lane.getParameter: laneValue
 Route.getParameter: routeValue
 Poi.getParameter: poiValue
-Trafficlight.getControlledJunctions: [gneJ1]
-Trafficlight.getParameter: tlsValue
-Trafficlight.getCompleteRedYellowGreenDefinition: {0=0#0#0#GGgGGGrrrr#42.0#42.0#42.0#[]#North-South#yyyyyyrrrr#3.0#3.0#3.0#[]#Transition to East-West#rrrrrrGGGG#42.0#42.0#42.0#[]#East-West#rrrrrryyyy#3.0#3.0#3.0#[]#Transition to North-South#, 1=1#0#2#GGgGGGrrrr#22.0#22.0#22.0#[]#North-South#yyyyyyrrrr#3.0#3.0#3.0#[]#Transition to East-West#rrrrrrGGGG#22.0#22.0#22.0#[]#East-West#rrrrrryyyy#3.0#3.0#3.0#[]#Transition to North-South#, 2=2#0#0#GGgGGGrrrr#50.0#50.0#50.0#[1]#North-South#yyyyyyrrrr#3.0#3.0#3.0#[]#Transition to East-West#rrrrrrGGGG#50.0#50.0#50.0#[3, 0]#East-West#rrrrrryyyy#3.0#3.0#3.0#[]#Transition to North-South#}
-Trafficlight.getPhaseDuration: 50.0
-Trafficlight.getNextSwitch: 51.0
+TrafficLight.getControlledJunctions: [gneJ1]
+TrafficLight.getParameter: tlsValue
+TrafficLight.getCompleteRedYellowGreenDefinition: 0
+TrafficLight.getCompleteRedYellowGreenDefinition: 1
+TrafficLight.getCompleteRedYellowGreenDefinition: 2
+TrafficLight.getPhaseDuration: 50.0
+TrafficLight.getNextSwitch: 51.0
 Simulation.convertRoad: gneE2, 57.92, 0
-Simulation.convertGeo: 13.380492798007497,52.50047399595011
-Lane.getLinks: -gneE2_0##1#1#0#0.0#M#r#
+Simulation.convertGeo: 13.380492798007497, 52.50047399595011
+Lane.getLinks to=-gneE2_0 via= prio=true open=true
+Could not connect to TraCI server at localhost:52608 tcpip::Socket::connect() @ connect: Connection refused
+ Retrying in 1 second

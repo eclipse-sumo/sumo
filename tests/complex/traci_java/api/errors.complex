@@ -1,3 +1,2 @@
-Note: data/APITest.java uses unchecked or unsafe operations.
-Note: Recompile with -Xlint:unchecked for details.
-Received null repsonse for command 203 149. (Maybe you need to use do_job_set?)
+Warning: Missing yellow phase in tlLogic 'gneJ1', program '2' for tl-index 6 when switching from phase 2 to phase 0.
+Warning: Missing yellow phase in tlLogic 'gneJ1', program '2' for tl-index 6 when switching from phase 2 to phase 0.
