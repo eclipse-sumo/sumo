@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2022-10-18 14:55+0200\n"
-"PO-Revision-Date: 2023-01-03 12:50+0000\n"
+"PO-Revision-Date: 2023-01-04 08:16+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/tr/>\n"
@@ -160,9 +160,8 @@ msgid "&Containers"
 msgstr "Konteynerler"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1214
-#, fuzzy
 msgid "Tra&nsports"
-msgstr "Nakliyeler"
+msgstr "Aktarımlar"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1219
 msgid "Trans&hips"
@@ -204,7 +203,7 @@ msgstr "TIS"
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1774
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:557
 msgid "P&oI"
-msgstr ""
+msgstr "Pol"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1777
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:560
