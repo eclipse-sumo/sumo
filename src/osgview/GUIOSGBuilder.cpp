@@ -152,13 +152,13 @@ GUIOSGBuilder::buildOSGEdgeGeometry(const MSEdge& edge,
         osg::Vec4ubArray* osg_colors = new osg::Vec4ubArray(1);
         (*osg_colors)[0].set(128, 128, 128, 255);
         geom->setColorArray(osg_colors, osg::Array::BIND_OVERALL);
-        osg::Vec3Array* osg_coords = new osg::Vec3Array(totalShapeSize);
+        osg::Vec3dArray* osg_coords = new osg::Vec3dArray(totalShapeSize);
         geom->setVertexArray(osg_coords);
         int sizeDiff = 0;
         if (edge.isWalkingArea()) {
             int index = upperShapeSize - 1;
             for (int k = 0; k < upperShapeSize; ++k, --index) {
-                (*osg_coords)[index].set((float)shape[k].x(), (float)shape[k].y(), (float)shape[k].z() + zOffset);
+                (*osg_coords)[index].set(shape[k].x(), shape[k].y(), shape[k].z() + zOffset);
             }
             geom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::POLYGON, 0, upperShapeSize));
         } else {
@@ -166,12 +166,12 @@ GUIOSGBuilder::buildOSGEdgeGeometry(const MSEdge& edge,
             PositionVector rshape = shape;
             rshape.move2side(l->getWidth() / 2);
             for (int k = (int)rshape.size() - 1; k >= 0; --k, ++index) {
-                (*osg_coords)[index].set((float)rshape[k].x(), (float)rshape[k].y(), (float)rshape[k].z() + zOffset);
+                (*osg_coords)[index].set(rshape[k].x(), rshape[k].y(), rshape[k].z() + zOffset);
             }
             PositionVector lshape = shape;
             lshape.move2side(-l->getWidth() / 2);
             for (int k = 0; k < (int)lshape.size(); ++k, ++index) {
-                (*osg_coords)[index].set((float)lshape[k].x(), (float)lshape[k].y(), (float)lshape[k].z() + zOffset);
+                (*osg_coords)[index].set(lshape[k].x(), lshape[k].y(), lshape[k].z() + zOffset);
             }
             sizeDiff = (int)rshape.size() + (int)lshape.size() - upperShapeSize;
             int minSize = MIN2((int)rshape.size(), (int)lshape.size());
@@ -240,13 +240,13 @@ GUIOSGBuilder::buildOSGJunctionGeometry(GUIJunctionWrapper& junction,
     geode->setName("junction:" + junction.getMicrosimID());
     addTo.addChild(geode);
     dynamic_cast<GUIGlObject&>(junction).setNode(geode);
-    osg::Vec3Array* osg_coords = new osg::Vec3Array((int)shape.size());
+    osg::Vec3dArray* osg_coords = new osg::Vec3dArray((int)shape.size());
     geom->setVertexArray(osg_coords);
     for (int k = 0; k < (int)shape.size(); ++k) {
-        (*osg_coords)[k].set((float)shape[k].x(), (float)shape[k].y(), (float)shape[k].z());
+        (*osg_coords)[k].set(shape[k].x(), shape[k].y(), shape[k].z());
     }
-    osg::Vec3Array* osg_normals = new osg::Vec3Array(1);
-    (*osg_normals)[0] = osg::Vec3(0, 0, 1);
+    osg::Vec3dArray* osg_normals = new osg::Vec3dArray(1);
+    (*osg_normals)[0] = osg::Vec3d(0, 0, 1);
     geom->setNormalArray(osg_normals, osg::Array::BIND_PER_PRIMITIVE_SET);
     osg::Vec4ubArray* osg_colors = new osg::Vec4ubArray(1);
     (*osg_colors)[0].set(128, 128, 128, 255);
@@ -557,7 +557,7 @@ GUIOSGBuilder::createTrafficLightState(const GUISUMOAbstractView::Decal& d, osg:
         unsigned int nodeMask = (withPole) ? 1 << GUIOSGView::NodeSetGroup::NODESET_TLSDOMES : 1 << GUIOSGView::NodeSetGroup::NODESET_TLSLINKMARKERS;
         osg::Geode* geode = new osg::Geode();
         osg::Vec3d center = osg::Vec3d(0., 0., (withPole) ? -1.8 : 0.);
-        osg::ShapeDrawable* shape = new osg::ShapeDrawable(new osg::Sphere(center, (float)size));
+        osg::ShapeDrawable* shape = new osg::ShapeDrawable(new osg::Sphere(center, size));
         geode->addDrawable(shape);
         osg::ref_ptr<osg::StateSet> ss = shape->getOrCreateStateSet();
         ss->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
@@ -674,13 +674,13 @@ GUIOSGBuilder::buildPlane(double length) {
     osg::Geode* geode = new osg::Geode();
     osg::Geometry* geom = new osg::Geometry;
     geode->addDrawable(geom);
-    osg::Vec3Array* coords = new osg::Vec3Array(4);
+    osg::Vec3dArray* coords = new osg::Vec3dArray(4);
     geom->setVertexArray(coords);
-    (*coords)[0].set(.5*length, .5*length, -0.1f);
-    (*coords)[1].set(.5*length, -.5*length, -0.1f);
-    (*coords)[2].set(-.5*length, -.5*length, -0.1f);
-    (*coords)[3].set(-.5*length, .5*length, -0.1f);
-    osg::Vec3Array* normals = new osg::Vec3Array(1);
+    (*coords)[0].set(.5*length, .5*length, -0.1);
+    (*coords)[1].set(.5*length, -.5*length, -0.1);
+    (*coords)[2].set(-.5*length, -.5*length, -0.1);
+    (*coords)[3].set(-.5*length, .5*length, -0.1);
+    osg::Vec3dArray* normals = new osg::Vec3dArray(1);
     (*normals)[0].set(0, 0, 1);
     geom->setNormalArray(normals, osg::Array::BIND_PER_PRIMITIVE_SET);
     osg::Vec4ubArray* colors = new osg::Vec4ubArray(1);
