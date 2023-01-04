@@ -182,7 +182,7 @@ GUIOSGView::GUIOSGView(
     myPlane = new osg::MatrixTransform();
     myPlane->addChild(GUIOSGBuilder::buildPlane(zFar - zNear));
     myPlane->addUpdateCallback(new PlaneMoverCallback(myViewer->getCamera()));
-    myRoot->addChild(myPlane.get());
+    myRoot->addChild(myPlane);
 
     // adjust the main light
     adoptViewSettings();
@@ -237,7 +237,8 @@ GUIOSGView::adoptViewSettings() {
     myViewer->getCamera()->setClearColor(toOSGColorVector(myVisualizationSettings->skyColor));
 
     // ground color
-    osg::Geometry* planeGeom = dynamic_cast<osg::Geometry*>(myPlane->getChild(0));
+    osg::Geode* planeGeode = dynamic_cast<osg::Geode*>(myPlane->getChild(0));
+    osg::Geometry* planeGeom = dynamic_cast<osg::Geometry*>(planeGeode->getChild(0));
     osg::Vec4ubArray* colors = dynamic_cast<osg::Vec4ubArray*>(planeGeom->getColorArray());
     (*colors)[0].set(myVisualizationSettings->backgroundColor.red(),
         myVisualizationSettings->backgroundColor.green(),

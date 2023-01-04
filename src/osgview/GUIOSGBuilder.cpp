@@ -692,7 +692,7 @@ GUIOSGBuilder::buildPlane(double length) {
     ss->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
     ss->setMode(GL_BLEND, osg::StateAttribute::OVERRIDE | osg::StateAttribute::PROTECTED | osg::StateAttribute::ON);
 
-    return geom;
+    return geode;
 }
 
 
