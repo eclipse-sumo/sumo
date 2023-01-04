@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2022-10-18 14:55+0200\n"
+"POT-Creation-Date: 2023-01-04 13:42+0100\n"
 "PO-Revision-Date: 2022-10-09 17:46+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -25,34 +25,48 @@ msgstr ""
 msgid "Interrupt signal received, trying to exit gracefully."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/sumo_main.cpp:86
+#: /home/behr_mi/sumo/src/sumo_main.cpp:85
 msgid "A microscopic, multi-modal traffic simulation."
 msgstr "Eine mikroskopische, multimodale Verkehrssimulation."
 
-#: /home/behr_mi/sumo/src/sumo_main.cpp:114
-#: /home/behr_mi/sumo/src/sumo_main.cpp:123
+#: /home/behr_mi/sumo/src/sumo_main.cpp:113
+#: /home/behr_mi/sumo/src/sumo_main.cpp:122
 msgid "Quitting (on error)."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/sumo_main.cpp:126
+#: /home/behr_mi/sumo/src/sumo_main.cpp:125
 msgid "Quitting (on unknown error)."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/od2trips_main.cpp:194
+#: /home/behr_mi/sumo/src/netconvert_main.cpp:97
+#, fuzzy
+msgid ""
+"Network importer / builder for the microscopic, multi-modal traffic "
+"simulation SUMO."
+msgstr "Eine mikroskopische, multimodale Verkehrssimulation."
+
+#: /home/behr_mi/sumo/src/od2trips_main.cpp:193
 msgid "No TAZ input file (-n) specified."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/od2trips_main.cpp:198
+#: /home/behr_mi/sumo/src/od2trips_main.cpp:197
 msgid "No input specified."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/od2trips_main.cpp:202
+#: /home/behr_mi/sumo/src/od2trips_main.cpp:201
 msgid "No trip table output file (-o) or flow-output is specified."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/od2trips_main.cpp:206
+#: /home/behr_mi/sumo/src/od2trips_main.cpp:205
 msgid "Only one of the the options 'pedestrians' and 'persontrips' may be set."
 msgstr ""
+
+#: /home/behr_mi/sumo/src/od2trips_main.cpp:248
+#, fuzzy
+msgid ""
+"Importer of O/D-matrices for the microscopic, multi-modal traffic simulation "
+"SUMO."
+msgstr "Eine mikroskopische, multimodale Verkehrssimulation."
 
 #: /home/behr_mi/sumo/src/libsumo/Simulation.cpp:104
 msgid "Simulation version % started via libsumo with time: %."
@@ -83,114 +97,114 @@ msgid ""
 "ignoring filter..."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:463
+#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:483
 msgid "getNextTLS not yet implemented for meso"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:505
+#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:525
 msgid "getStopState not yet implemented for meso"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:721
+#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:741
 msgid "getFollowSpeed not applicable for meso"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:734
+#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:754
 msgid "getSecureGap not applicable for meso"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:747
+#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:767
 msgid "getStopSpeed not applicable for meso"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1182
+#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1225
 msgid "rerouteParkingArea not yet implemented for meso"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1197
+#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1240
 msgid "resume not yet implemented for meso"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1249
+#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1292
 msgid "changeLane not applicable for meso"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1264
+#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1307
 msgid "changeLaneRelative not applicable for meso"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1289
+#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1332
 msgid "changeSublane not applicable for meso"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1458
+#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1501
 msgid "moveToXY not yet implemented for meso"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1577
+#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1620
 msgid "slowDown not applicable for meso"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1592
+#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1635
 msgid "openGap not applicable for meso"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1605
+#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1648
 msgid ""
 "Ignoring openGap(). New time headway must not be smaller than the original."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1616
+#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1659
 msgid "deactivateGapControl not applicable for meso"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1635
+#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1678
 msgid "setSpeed not yet implemented for meso"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1652
+#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1695
 msgid "setAcceleration not yet implemented for meso"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1668
+#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1711
 msgid "setPreviousSpeed not yet implemented for meso"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1682
+#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1725
 msgid "setSpeedMode not yet implemented for meso"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1694
+#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1737
 msgid "setLaneChangeMode not applicable for meso"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1778
+#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1821
 msgid "updateBestLanes not applicable for meso"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1867
+#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1910
 msgid "setSignals not applicable for meso"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1886
+#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1929
 msgid "moveTo not yet implemented for meso"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1964
+#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:2007
 msgid ""
 "Invalid action step length (<0). Ignoring command setActionStepLength()."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1970
+#: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:2013
 msgid "setActionStepLength not applicable for meso"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/libsumo/GUI.cpp:300
+#: /home/behr_mi/sumo/src/libsumo/GUI.cpp:304
 msgid ""
 "Libsumo on Windows does not work with GUI, falling back to plain libsumo."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/libsumo/GUI.cpp:367
+#: /home/behr_mi/sumo/src/libsumo/GUI.cpp:352
 msgid "libsumo.load is not implemented for the GUI."
 msgstr ""
 
@@ -212,6 +226,10 @@ msgstr ""
 
 #: /home/behr_mi/sumo/src/dfrouter/RODFDetFlowLoader.cpp:104
 msgid "At least one line does not contain the correct number of columns."
+msgstr ""
+
+#: /home/behr_mi/sumo/src/dfrouter/dfrouter_main.cpp:251
+msgid "Builds vehicle routes for SUMO using detector values."
 msgstr ""
 
 #: /home/behr_mi/sumo/src/netbuild/NBHeightMapper.cpp:88
@@ -243,205 +261,207 @@ msgstr ""
 msgid "Cannot load GeoTIFF file since SUMO was compiled without GDAL support."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:254
+#: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:259
 msgid ""
 "Cannot prune edges using a geo-boundary because no projection has been loaded"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:845
+#: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:858
 msgid "Moving opposite lane '%' from invalid lane '%' to lane index %."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:847
+#: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:860
 msgid "Removing opposite lane '%' for invalid lane '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:856
+#: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:869
 msgid "Removing unknown opposite lane '%' for edge '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:861
+#: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:874
 msgid "Adapting invalid opposite lane '%' for edge '%' to '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:867
+#: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:880
 msgid "Adapting missing opposite lane '%' for edge '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:873
+#: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:886
 msgid "Averaging edge lengths for lane '%' (length %) and edge '%' (length %)."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:1385
+#: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:1399
 msgid "Replacing loaded roundabout '%' with '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:1688
+#: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:1717
 msgid "Edge '%' overlaps with edge '%' by %."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:1704
+#: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:1733
 #, c-format
 msgid "Edge '%' has a vertical jump of %m."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:1706
+#: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:1735
 #, c-format
 msgid "Edge '%' has a grade of %%."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:1716
+#: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:1745
 #, c-format
 msgid "Connection '%' has a vertical jump of %m."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:1718
+#: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:1747
 #, c-format
 msgid "Connection '%' has a grade of %%."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:1750
+#: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:1779
 msgid "Not joining tram edge '%' with % lanes."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:1824
+#: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:1853
 msgid "Ambiguous tram edges '%' and '%' for lane '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBPTLine.cpp:184
+#: /home/behr_mi/sumo/src/netbuild/NBPTLine.cpp:197
 msgid "Could not retrieve edge '%' for first stop of line '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBPTLine.cpp:190
+#: /home/behr_mi/sumo/src/netbuild/NBPTLine.cpp:203
 msgid "First stop edge '%' is not part of the route of line '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBPTLine.cpp:214
+#: /home/behr_mi/sumo/src/netbuild/NBPTLine.cpp:227
 msgid "Could not retrieve edge '%' for last stop of line '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBPTLine.cpp:220
+#: /home/behr_mi/sumo/src/netbuild/NBPTLine.cpp:233
 msgid "Last stop edge '%' is not part of the route of line '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBPTLine.cpp:279
+#: /home/behr_mi/sumo/src/netbuild/NBPTLine.cpp:294
 msgid "Removed invalid stop '%' from line '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBPTLine.cpp:296
+#: /home/behr_mi/sumo/src/netbuild/NBPTLine.cpp:312
 msgid "Removed duplicate stop '%' at area '%' from line '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBPTLine.cpp:299
+#: /home/behr_mi/sumo/src/netbuild/NBPTLine.cpp:315
 msgid "Removed duplicate stop '%' named '%' from line '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBPTStopCont.cpp:112
+#: /home/behr_mi/sumo/src/netbuild/NBPTStopCont.cpp:110
 msgid ""
 "Could not find corresponding edge or compatible lane for pt stop '%' (%). "
 "Thus, it will be removed!"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBPTStopCont.cpp:138
+#: /home/behr_mi/sumo/src/netbuild/NBPTStopCont.cpp:136
 msgid ""
 "Could not create reverse-direction stop for superposed edge '%' (origStop "
 "'%'). Stop id '%' already in use by stop on edge '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBPTStopCont.cpp:274
+#: /home/behr_mi/sumo/src/netbuild/NBPTStopCont.cpp:272
 msgid "Could not determine cross product for edge '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBPTStopCont.cpp:328
+#: /home/behr_mi/sumo/src/netbuild/NBPTStopCont.cpp:326
 msgid "Removing pt stop '%' on non existing edge '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBPTStopCont.cpp:359
+#: /home/behr_mi/sumo/src/netbuild/NBPTStopCont.cpp:357
 msgid "Could not re-assign pt stop '%' after replacing edge '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBPTStopCont.cpp:448
+#: /home/behr_mi/sumo/src/netbuild/NBPTStopCont.cpp:446
 msgid ""
 "Could not find corresponding edge or compatible lane for free-floating pt "
 "stop '%' (%). Thus, it will be removed!"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:323
+#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:319
 msgid "Removed a road without junctions: %."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:663
+#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:658
 #, c-format
 msgid ""
 "Ignoring join exclusion for junction '%' since it already occurred in a list "
 "of nodes to be joined."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:696
+#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:691
 msgid ""
 "Ignoring join-cluster because junction '%' was already excluded from joining."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:699
+#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:694
 #, c-format
 msgid ""
 "Ignoring join-cluster because junction '%' already occurred in another join-"
 "cluster."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:713
+#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:708
 msgid "Ignoring join-cluster '%' because it has size '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:785
-#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:826
-#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:832
+#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:780
+#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:821
+#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:828
+#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:833
+#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:840
 msgid "Not joining junctions % (%)."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:805
-#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:819
+#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:800
+#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:814
 msgid "Reducing junction cluster % (%)."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:1660
+#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:1709
 msgid "Could not join junctions %."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:1860
+#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:1909
 msgid "Ambiguous traffic light type for node cluster '%', setting to '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:2105
+#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:2174
 msgid "Could not build joined tls '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:2150
+#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:2219
 msgid "Could not build guessed, joined tls."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:2249
+#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:2335
 msgid "Could not build a joined tls."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:2266
+#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:2352
 msgid "Building a tl-logic for junction '%' twice is not possible."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:2348
-#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:2433
+#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:2434
+#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:2526
 msgid "-----------------------------------------------------"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:2349
+#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:2435
 msgid "Summary:"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:2403
+#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:2493
 msgid " Node type statistics:"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:2429
+#: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:2522
 msgid " Network boundaries:"
 msgstr ""
 
@@ -457,54 +477,54 @@ msgstr ""
 msgid "Could not allocate tls '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBPTLineCont.cpp:96
+#: /home/behr_mi/sumo/src/netbuild/NBPTLineCont.cpp:99
 msgid ""
 "Cannot revise pt stop localization for pt line '%', which consist of one way "
 "only. Ignoring!"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBPTLineCont.cpp:100
+#: /home/behr_mi/sumo/src/netbuild/NBPTLineCont.cpp:103
 msgid ""
 "Cannot revise pt stop localization for pt line '%', which has no route "
 "edges. Ignoring!"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBPTLineCont.cpp:119
+#: /home/behr_mi/sumo/src/netbuild/NBPTLineCont.cpp:122
 msgid ""
 "Cannot assign stop '%' on edge '%' to pt line '%' (wayNodes not found). "
 "Ignoring!"
 msgstr ""
 
 #: /home/behr_mi/sumo/src/netbuild/NBPTLineCont.cpp:137
-#: /home/behr_mi/sumo/src/netbuild/NBPTLineCont.cpp:153
+#: /home/behr_mi/sumo/src/netbuild/NBPTLineCont.cpp:151
 msgid ""
 "Cannot revise pt stop localization for incomplete pt line '%'. Ignoring!"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBPTLineCont.cpp:164
+#: /home/behr_mi/sumo/src/netbuild/NBPTLineCont.cpp:162
 msgid "Could not re-assign PT stop '%', probably broken osm file."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBPTLineCont.cpp:173
+#: /home/behr_mi/sumo/src/netbuild/NBPTLineCont.cpp:171
 msgid "PT stop '%' has been moved to edge '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBPTLineCont.cpp:245
+#: /home/behr_mi/sumo/src/netbuild/NBPTLineCont.cpp:243
 msgid ""
 "Could not assign stop '%' to pt line '%' (closest edge '%', distance %). "
 "Ignoring!"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBPTLineCont.cpp:277
+#: /home/behr_mi/sumo/src/netbuild/NBPTLineCont.cpp:275
 msgid "Cannot assign stop % on edge '%' to pt line '%'. Ignoring!"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBPTLineCont.cpp:460
+#: /home/behr_mi/sumo/src/netbuild/NBPTLineCont.cpp:458
 msgid ""
 "Could not determine vehicle class for public transport line of type '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBPTLineCont.cpp:525
+#: /home/behr_mi/sumo/src/netbuild/NBPTLineCont.cpp:523
 msgid "Could not determine direction for line '%' at stop '%'."
 msgstr ""
 
@@ -523,209 +543,209 @@ msgstr ""
 msgid "Can not build off ramp on edge '%' - the edge is not known."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBTrafficLightLogicCont.cpp:353
+#: /home/behr_mi/sumo/src/netbuild/NBTrafficLightLogicCont.cpp:376
 msgid "Guessing signalID for link index % at traffic light '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:526
-#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:660
+#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:491
+#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:625
 #, c-format
 msgid "Edge's '%' from- and to-node are at the same position."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:1028
+#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:993
 msgid "Found angle of % degrees at edge '%', segment %."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:1183
+#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:1148
 msgid "Could not set connection from '%' to '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:1690
+#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:1655
 msgid "Connection '%_%->%_%' is only %m short."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:1790
+#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:1756
 msgid ""
 "Intersecting left turns at junction '%' from lane '%' and lane '%' (increase "
 "junction radius to avoid this)."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:1890
+#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:1856
 msgid ""
 "Speed of % connection '%' reduced by % due to turning radius of % (length=%, "
 "angle=%)."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:2218
+#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:2196
 msgid "In lane '%': lane shape could not be determined (%)."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:2231
+#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:2209
 msgid "In lane '%': Could not build shape (%)."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:2636
+#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:2617
 msgid ""
 "Cannot apply turn sign information for edge '%' because there are % signed "
 "directions but only % targets"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:2677
+#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:2658
 msgid ""
 "Cannot apply turn sign information for edge '%' because there are % signed "
 "directions and % targets (after target pruning)"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:2696
+#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:2677
 msgid ""
 "Cannot apply turn sign information for edge '%' because there are % signed "
 "connections with directions '%' but target edge '%' has only % suitable lanes"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:2723
+#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:2704
 msgid ""
 "Cannot apply turn sign information for edge '%' because not enough target "
 "lanes could be determined for direction '%'"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:2888
+#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:2943
 msgid "Edge '%' is not connected to outgoing edges at junction '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:2902
+#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:2957
 msgid "Lane '%' is not connected from any incoming edge at junction '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:3542
+#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:3567
 #, c-format
 msgid "The lane '%' on edge '%' already had a traffic light signal."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:3548
+#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:3573
 msgid "Could not set any signal of the tlLogic '%' (unknown group)."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:4030
+#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:4055
 msgid "Ignoring invalid stopOffset for edge '%' (negative offset)."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:4039
+#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:4064
 msgid "Ignoring invalid stopOffset for lane '%' (negative offset)."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:4045
+#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:4070
 msgid "Ignoring invalid stopOffset for lane '%' (invalid lane index)."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:4366
+#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:4391
 #, c-format
 msgid "Edge '%' already has a dedicated lane for %s. Not adding another one."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:4403
+#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:4428
 #, c-format
 msgid "Edge '%' doesn't have a dedicated lane for %s. Cannot be restored."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:4451
+#: /home/behr_mi/sumo/src/netbuild/NBEdge.cpp:4476
 msgid "Could not avoid overlapping shape at node '%' for edge '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBFrame.cpp:702
+#: /home/behr_mi/sumo/src/netbuild/NBFrame.cpp:711
 msgid ""
 "only one of the options 'keep-edges.in-boundary' or 'keep-edges.in-geo-"
 "boundary' may be given"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBFrame.cpp:706
+#: /home/behr_mi/sumo/src/netbuild/NBFrame.cpp:715
 msgid ""
 "only one of the options 'no-internal-links' or 'crossings.guess' may be given"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBFrame.cpp:710
+#: /home/behr_mi/sumo/src/netbuild/NBFrame.cpp:719
 msgid "only one of the options 'no-internal-links' or 'walkareas' may be given"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBFrame.cpp:714
+#: /home/behr_mi/sumo/src/netbuild/NBFrame.cpp:723
 msgid ""
 "only one of the options 'tls.green.time' or 'tls.cycle.time' may be given"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBFrame.cpp:718
+#: /home/behr_mi/sumo/src/netbuild/NBFrame.cpp:727
 msgid "default.lanenumber must be at least 1"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBFrame.cpp:726
+#: /home/behr_mi/sumo/src/netbuild/NBFrame.cpp:735
 msgid ""
 "only one of the options 'default.disallow' or 'default.allow' may be given"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBFrame.cpp:730
+#: /home/behr_mi/sumo/src/netbuild/NBFrame.cpp:739
 msgid "junctions.internal-link-detail must >= 2"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBFrame.cpp:735
+#: /home/behr_mi/sumo/src/netbuild/NBFrame.cpp:744
 msgid ""
 "Option 'junctions.scurve-stretch' requires internal lanes to work. Option '--"
 "no-internal-links' will be disabled."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBFrame.cpp:742
+#: /home/behr_mi/sumo/src/netbuild/NBFrame.cpp:751
 msgid ""
 "option 'default.junctions.radius' is smaller than option 'junctions.small-"
 "radius'"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBFrame.cpp:750
+#: /home/behr_mi/sumo/src/netbuild/NBFrame.cpp:759
 msgid "tls.layout must be 'opposites', 'incoming' or 'alternateOneWay'"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBFrame.cpp:759
+#: /home/behr_mi/sumo/src/netbuild/NBFrame.cpp:768
 msgid "roundabouts.visibility-distance must be positive or -1"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBAlgorithms_Railway.cpp:196
+#: /home/behr_mi/sumo/src/netbuild/NBAlgorithms_Railway.cpp:197
 #, c-format
 msgid "Bidi-edge '%' prevented by filtering rules."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBAlgorithms_Railway.cpp:210
+#: /home/behr_mi/sumo/src/netbuild/NBAlgorithms_Railway.cpp:211
 msgid "Could not add bidi-edge '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBAlgorithms_Railway.cpp:271
+#: /home/behr_mi/sumo/src/netbuild/NBAlgorithms_Railway.cpp:272
 msgid "Railway nodes by number of incoming,outgoing edges:"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBAlgorithms_Railway.cpp:688
+#: /home/behr_mi/sumo/src/netbuild/NBAlgorithms_Railway.cpp:689
 msgid "Ignoring buffer stop junction '%' with % edges."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBAlgorithms_Railway.cpp:973
+#: /home/behr_mi/sumo/src/netbuild/NBAlgorithms_Railway.cpp:974
 msgid ""
 "Edge sequence is not consistent with stop sequence in line '%', not adding "
 "bidi edges."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBAlgorithms_Railway.cpp:1015
+#: /home/behr_mi/sumo/src/netbuild/NBAlgorithms_Railway.cpp:1016
 #, c-format
 msgid ""
 "Stop on edge '%' can only be reached in reverse but edge has the wrong "
 "spreadType."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBAlgorithms_Railway.cpp:1036
+#: /home/behr_mi/sumo/src/netbuild/NBAlgorithms_Railway.cpp:1037
 msgid "No connection found between stops on edge '%' and edge '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBAlgorithms_Railway.cpp:1208
+#: /home/behr_mi/sumo/src/netbuild/NBAlgorithms_Railway.cpp:1209
 msgid ""
 "Cannot extend track direction priority because there are no track edges with "
 "positive priority"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBAlgorithms_Railway.cpp:1264
+#: /home/behr_mi/sumo/src/netbuild/NBAlgorithms_Railway.cpp:1265
 msgid ""
 "Edge '%' was loaded with undefined priority (%) but has unambiguous main "
 "direction (no bidi edge)"
@@ -733,6 +753,11 @@ msgstr ""
 
 #: /home/behr_mi/sumo/src/netbuild/NBLoadedSUMOTLDef.cpp:889
 msgid "Unused state in tlLogic '%', program '%' at tl-index %"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netbuild/NBTrafficLightLogic.cpp:233
+#, c-format
+msgid "Non-static traffic light '%' does not define variable phase length."
 msgstr ""
 
 #: /home/behr_mi/sumo/src/netbuild/NBNetBuilder.cpp:671
@@ -756,29 +781,29 @@ msgstr ""
 msgid "Could not find edge for parkingArea '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBTrafficLightDefinition.cpp:504
+#: /home/behr_mi/sumo/src/netbuild/NBTrafficLightDefinition.cpp:509
 #, c-format
 msgid "The rail crossing '%' does not have any roads."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBOwnTLDef.cpp:518
+#: /home/behr_mi/sumo/src/netbuild/NBOwnTLDef.cpp:559
 #, c-format
 msgid ""
 "Minor green from edge '%' to edge '%' exceeds %m/s. Maybe a left-turn lane "
 "is missing."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBOwnTLDef.cpp:730
+#: /home/behr_mi/sumo/src/netbuild/NBOwnTLDef.cpp:771
 msgid ""
 "Generating NEMA phases is not support for traffic light '%' with % incoming "
 "edges. Using tlType 'actuated' as fallback"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBOwnTLDef.cpp:756
+#: /home/behr_mi/sumo/src/netbuild/NBOwnTLDef.cpp:797
 msgid "The traffic light '%' cannot be adapted to a cycle time of %."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBOwnTLDef.cpp:775
+#: /home/behr_mi/sumo/src/netbuild/NBOwnTLDef.cpp:816
 msgid "The traffic light '%' has a high cycle time of %."
 msgstr ""
 
@@ -799,65 +824,78 @@ msgstr ""
 msgid "Custom shape has distance % to outgoing lane for connection %."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:976
+#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:978
 msgid ""
 "Junction '%' is too complicated (% connections, max %); will be set to %."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:1101
+#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:1119
 #, c-format
 msgid "Shape for junction '%' has distance % to its given position."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:1105
+#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:1123
 msgid "For junction '%': could not compute shape."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:1781
+#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:1824
 msgid "Something went wrong during the building of a connection..."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:2747
+#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:2822
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (no "
 "walkingarea found)."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:2923
+#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:2998
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (no vehicle "
 "lanes to cross)."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:2942
+#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:3017
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (invalid "
 "shape)."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:3093
+#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:3168
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' targets '%' and "
 "'%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:3116
+#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:3191
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' is targeted by '%' "
 "and '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:3333
+#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:3196
+msgid ""
+"Invalid pedestrian topology at junction '%'; crossing '%' starts and ends at "
+"walkingarea '%'."
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:3413
 msgid "Invalid pedestrian topology: crossing '%' across [%] has no target."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/activitygen/activitygen_main.cpp:117
+#: /home/behr_mi/sumo/src/activitygen/activitygen_main.cpp:89
+#, fuzzy
+msgid ""
+"Generates trips of persons throughout a day for the microscopic, multi-modal "
+"traffic simulation SUMO."
+msgstr "Eine mikroskopische, multimodale Verkehrssimulation."
+
+#: /home/behr_mi/sumo/src/activitygen/activitygen_main.cpp:115
 msgid ""
 "\n"
 "\t ---- begin AcitivtyGen ----\n"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/activitygen/activitygen_main.cpp:130
+#: /home/behr_mi/sumo/src/activitygen/activitygen_main.cpp:128
 msgid ""
 "\n"
 "\t ---- end of ActivityGen ----\n"
@@ -866,6 +904,21 @@ msgstr ""
 #: /home/behr_mi/sumo/src/activitygen/AGActivityGenHandler.cpp:329
 msgid "Unknown bus station '%'."
 msgstr ""
+
+#: /home/behr_mi/sumo/src/tools/emissionsMap_main.cpp:86
+msgid "Builds and writes an emissions map for SUMO's emission models."
+msgstr ""
+
+#: /home/behr_mi/sumo/src/tools/emissionsDrivingCycle_main.cpp:62
+msgid "Computes emissions by driving a time line using SUMO's emission models."
+msgstr ""
+
+#: /home/behr_mi/sumo/src/jtrrouter/jtrrouter_main.cpp:182
+#, fuzzy
+msgid ""
+"Router for the microscopic, multi-modal traffic simulation SUMO based on "
+"junction turning ratios."
+msgstr "Eine mikroskopische, multimodale Verkehrssimulation."
 
 #: /home/behr_mi/sumo/src/jtrrouter/ROJTRTurnDefLoader.cpp:116
 msgid "Ignoring flow '%' without 'from'"
@@ -877,7 +930,13 @@ msgid ""
 "stochastic method ('SUE')."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/marouter/marouter_main.cpp:377
+#: /home/behr_mi/sumo/src/marouter/marouter_main.cpp:340
+msgid ""
+"Import O/D-matrices for macroscopic traffic assignment to generate SUMO "
+"routes."
+msgstr ""
+
+#: /home/behr_mi/sumo/src/marouter/marouter_main.cpp:376
 msgid "No districts loaded, will use edge ids!"
 msgstr ""
 
@@ -904,41 +963,41 @@ msgstr ""
 msgid "failed."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/router/ROEdge.cpp:202
+#: /home/behr_mi/sumo/src/router/ROEdge.cpp:204
 msgid ""
 "No interval matches passed time=% in edge '%'.\n"
 " Using edge's length / max speed."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/router/ROEdge.cpp:228
+#: /home/behr_mi/sumo/src/router/ROEdge.cpp:230
 msgid ""
 "No interval matches passed time=% in edge '%'.\n"
 " Using edge's length / edge's speed."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/router/ROEdge.cpp:451
+#: /home/behr_mi/sumo/src/router/ROEdge.cpp:453
 msgid ""
 "Option weights.priority-factor does not take effect because all edges have "
 "the same priority."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/router/RORouteHandler.cpp:302
+#: /home/behr_mi/sumo/src/router/RORouteHandler.cpp:324
 msgid "No probability for route %, using default."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/router/RORouteHandler.cpp:1019
+#: /home/behr_mi/sumo/src/router/RORouteHandler.cpp:1062
 msgid "Cannot convert geo-positions because the network has no geo-reference"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/router/RORouteHandler.cpp:1141
-#: /home/behr_mi/sumo/src/router/RORouteHandler.cpp:1259
-#: /home/behr_mi/sumo/src/microsim/MSRouteHandler.cpp:1316
+#: /home/behr_mi/sumo/src/router/RORouteHandler.cpp:1184
+#: /home/behr_mi/sumo/src/router/RORouteHandler.cpp:1302
+#: /home/behr_mi/sumo/src/microsim/MSRouteHandler.cpp:1302
 msgid ""
 "The attribute departPos is no longer supported for walks, please use the "
 "person attribute, the arrivalPos of the previous step or explicit stops."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/router/RONet.cpp:206
+#: /home/behr_mi/sumo/src/router/RONet.cpp:215
 #: /home/behr_mi/sumo/src/netload/NLBuilder.cpp:184
 #, c-format
 msgid "A TAZ with id '%' already exists. Not building junction TAZ."
@@ -952,7 +1011,7 @@ msgstr ""
 msgid "You may specify only one type of network to generate at once."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netgen/NGFrame.cpp:270
+#: /home/behr_mi/sumo/src/netgen/NGFrame.cpp:272
 msgid "Option 'random-type' takes no effect unless 'type-files' are loaded"
 msgstr ""
 
@@ -974,34 +1033,46 @@ msgid ""
 "there are no attachments."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netgen/netgen_main.cpp:267
+#: /home/behr_mi/sumo/src/netgen/netgen_main.cpp:229
+#, fuzzy
+msgid ""
+"Synthetic network generator for the microscopic, multi-modal traffic "
+"simulation SUMO."
+msgstr "Eine mikroskopische, multimodale Verkehrssimulation."
+
+#: /home/behr_mi/sumo/src/netgen/netgen_main.cpp:265
 msgid " Generation done;"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/osgview/GUIOSGView.cpp:176
+#: /home/behr_mi/sumo/src/osgview/GUIOSGManipulator.cpp:295
+#, c-format
+msgid "Currently in % camera mode. Press [F] to switch."
+msgstr ""
+
+#: /home/behr_mi/sumo/src/osgview/GUIOSGView.cpp:175
 msgid "Could not load traffic light files."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/osgview/GUIOSGView.cpp:870
-#: /home/behr_mi/sumo/src/osgview/GUIOSGView.cpp:871
+#: /home/behr_mi/sumo/src/osgview/GUIOSGView.cpp:937
+#: /home/behr_mi/sumo/src/osgview/GUIOSGView.cpp:938
 msgid "N/A"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netwrite/NWFrame.cpp:143
+#: /home/behr_mi/sumo/src/netwrite/NWFrame.cpp:151
 msgid "OpenDRIVE export needs internal links computation."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netwrite/NWFrame.cpp:153
+#: /home/behr_mi/sumo/src/netwrite/NWFrame.cpp:161
 msgid ""
 "OpenDRIVE cannot represent oblique lane cuts and should use option "
 "'rectangular-lane-cut'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netwrite/NWFrame.cpp:162
+#: /home/behr_mi/sumo/src/netwrite/NWFrame.cpp:170
 msgid "public transport lines output requires 'ptstop-output' to be set"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netwrite/NWFrame.cpp:166
+#: /home/behr_mi/sumo/src/netwrite/NWFrame.cpp:174
 msgid ""
 "'ptline-clean-up' only works in conjunction with 'ptline-output'. Ignoring "
 "invalid option."
@@ -1026,6 +1097,13 @@ msgstr ""
 #, c-format
 msgid "Lane '%' has a maximum allowed speed of 0."
 msgstr ""
+
+#: /home/behr_mi/sumo/src/duarouter/duarouter_main.cpp:238
+#, fuzzy
+msgid ""
+"Shortest path router and DUE computer for the microscopic, multi-modal "
+"traffic simulation SUMO."
+msgstr "Eine mikroskopische, multimodale Verkehrssimulation."
 
 #: /home/behr_mi/sumo/src/duarouter/RODUAFrame.cpp:232
 msgid ""
@@ -1083,8 +1161,13 @@ msgstr ""
 msgid "Could not compute spiral geometry for edge '%' (cDot=% length=%)."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NILoader.cpp:125
+#: /home/behr_mi/sumo/src/netimport/NILoader.cpp:126
 msgid " Import done:"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netimport/NILoader.cpp:165
+#, c-format
+msgid "Deprecated vehicle class(es) '%' in input edge files."
 msgstr ""
 
 #: /home/behr_mi/sumo/src/netimport/NIImporter_ArcView.cpp:218
@@ -1115,7 +1198,7 @@ msgid "Edge '%' is not unique. Renaming subsequent edge to '%'."
 msgstr ""
 
 #: /home/behr_mi/sumo/src/netimport/NIImporter_ArcView.cpp:379
-#: /home/behr_mi/sumo/src/polyconvert/PCLoaderArcView.cpp:326
+#: /home/behr_mi/sumo/src/polyconvert/PCLoaderArcView.cpp:331
 msgid "SUMO was compiled without GDAL support."
 msgstr ""
 
@@ -1127,198 +1210,239 @@ msgstr ""
 msgid "Ignoring 'split' because it cannot be assigned to an edge"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIFrame.cpp:387
+#: /home/behr_mi/sumo/src/netimport/NIXMLEdgesHandler.cpp:658
+#, c-format
+msgid "Duplicate edge '%' occurred."
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netimport/NIXMLEdgesHandler.cpp:667
+msgid "An important information is missing in edge '%'."
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netimport/NIXMLEdgesHandler.cpp:689
+#, c-format
+msgid "Unknown edge '%' in roundabout."
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netimport/NIFrame.cpp:391
 msgid ""
 "Cannot import network data without PROJ-Library. Please install package proj "
 "before building sumo"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIFrame.cpp:412
-#: /home/behr_mi/sumo/src/polyconvert/polyconvert_main.cpp:315
+#: /home/behr_mi/sumo/src/netimport/NIFrame.cpp:416
+#: /home/behr_mi/sumo/src/polyconvert/polyconvert_main.cpp:314
 msgid "Environment variable SUMO_HOME is not set, using built in type maps."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:235
+#: /home/behr_mi/sumo/src/netimport/NIFrame.cpp:445
+msgid "It is recommend to use option osm.crossings with osm.sidewalks"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:231
 msgid "Discarding way '%' because it has only % node(s)"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:374
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:455
 msgid ""
 "Discarding edge '%' which connects two identical nodes without geometry."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:480
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:567
 msgid "New value for oneway found: %"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:512
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:599
 msgid "Skipping edge '%' because it has zero lanes."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:532
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:619
 msgid "Skipping edge '%' because it has speed %."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:762
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:739
+msgid ""
+"Forward lanes count for edge '%' ('%') is not matching the number of lanes "
+"defined in width:lanes:forward key ('%'). Using default width values."
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:785
+msgid ""
+"Backward lanes count for edge '%' ('%') is not matching the number of lanes "
+"defined in width:lanes:backward key ('%'). Using default width values."
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:886
 msgid ""
 "Attribute 'id' in the definition of a node is not of type long long int."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:768
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:892
 msgid "Tag element on wrong XML hierarchy level."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:808
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:934
 msgid "Value of key '%' is invalid ('%') in node '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:813
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:939
 msgid "Value of key '%' is not numeric ('%') in node '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:962
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1087
 #: /home/behr_mi/sumo/src/polyconvert/PCLoaderOSM.cpp:592
 msgid "The referenced geometry information (ref='%') is not known"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1159
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1316
+#, c-format
+msgid "Using default lane width for edge '%' as key '%' could not be parsed."
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1321
+#, c-format
+msgid "Using default lane width for edge '%' as value '%' could not be parsed."
+msgstr ""
+
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1359
 msgid "Using minimum lane number from list (%) for edge '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1161
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1165
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1176
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1188
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1211
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1221
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1361
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1365
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1376
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1388
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1411
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1421
 msgid "Value of key '%' is not numeric ('%') in edge '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1218
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1418
 msgid "Ignoring track count % for edge '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1360
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1563
 msgid "Unknown lane use specifier '%' treated as 'no' for way '%'"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1461
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1676
 msgid "No node found for reference '%' in relation '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1523
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1738
 msgid "Found unknown restriction type '%' in relation '%'"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1546
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1761
 msgid "Invalid color value '%' in relation %"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1564
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1779
 msgid "No way found for reference '%' in relation '%'"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1576
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1791
 msgid "Ignoring restriction relation '%' with unknown type."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1580
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1795
 msgid "Ignoring restriction relation '%' with unknown from-way."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1584
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1799
 msgid "Ignoring restriction relation '%' with unknown to-way."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1588
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1803
 msgid "Ignoring restriction relation '%' with unknown via."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1592
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1807
 msgid "Ignoring restriction relation '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1617
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1832
 #, c-format
 msgid ""
 "Platform '%' in relation: '%' is given as polygon, which currently is not "
 "supported."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1638
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1853
 #, c-format
 msgid ""
 "Referenced platform: '%' in relation: '%' is corrupt. Probably OSM file is "
 "incomplete."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1677
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1892
 #, c-format
 msgid "PT line '%' in relation % seems to be split, only keeping first part."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1710
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1925
 msgid ""
 "PT line in relation % with no stops ignored. Probably OSM file is incomplete."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1717
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1931
+#: /home/behr_mi/sumo/src/netimport/NIXMLPTHandler.cpp:222
 msgid "Ignoring duplicate PT line '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1732
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1946
 msgid "Via-node '%' was not instantiated"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1738
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1952
 #, c-format
 msgid "from-edge '%' of restriction relation could not be determined"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1742
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1956
 #, c-format
 msgid "to-edge '%' of restriction relation could not be determined"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1759
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1973
 msgid "direction of restriction relation could not be determined%"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1780
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:1994
 #, c-format
 msgid "Ambiguous way reference '%' in restriction relation"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2031
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2245
 msgid ""
-"Discarding unknown compound '%' in type '%' (first occurence for edge '%')."
+"Discarding unknown compound '%' in type '%' (first occurrence for edge '%')."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2035
-msgid "Discarding unusable type '%' (first occurence for edge '%')."
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2249
+msgid "Discarding unusable type '%' (first occurrence for edge '%')."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2084
-msgid "Discarding compound type '%' (first occurence for edge '%')."
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2298
+msgid "Discarding compound type '%' (first occurrence for edge '%')."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2124
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2338
 msgid "Ambiguous railway kilometrage direction for way '%' (assuming forward)"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2131
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2345
 msgid "Inconsistent railway kilometrage direction for way '%': % (skipping)"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2176
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2390
 msgid "Value of railway:position is not numeric ('%') in node '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2243
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2457
 msgid "Ignoring lane use information for % lanes on edge % with % lanes"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2262
+#: /home/behr_mi/sumo/src/netimport/NIImporter_OpenStreetMap.cpp:2476
 msgid ""
 "Ignoring turn sign information for % lanes on edge % with % driving lanes"
 msgstr ""
@@ -1332,30 +1456,30 @@ msgstr ""
 msgid "The traffic light edge '%' could not be found."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_DlrNavteq.cpp:746
+#: /home/behr_mi/sumo/src/netimport/NIImporter_DlrNavteq.cpp:747
 msgid "Ignoring temporary prohibited manoeuvre (%)."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_DlrNavteq.cpp:755
-#: /home/behr_mi/sumo/src/netimport/NIImporter_DlrNavteq.cpp:800
+#: /home/behr_mi/sumo/src/netimport/NIImporter_DlrNavteq.cpp:756
+#: /home/behr_mi/sumo/src/netimport/NIImporter_DlrNavteq.cpp:801
 msgid "Ignoring prohibition from unknown start edge '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_DlrNavteq.cpp:760
-#: /home/behr_mi/sumo/src/netimport/NIImporter_DlrNavteq.cpp:805
+#: /home/behr_mi/sumo/src/netimport/NIImporter_DlrNavteq.cpp:761
+#: /home/behr_mi/sumo/src/netimport/NIImporter_DlrNavteq.cpp:806
 msgid "Ignoring prohibition from unknown end edge '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_DlrNavteq.cpp:810
+#: /home/behr_mi/sumo/src/netimport/NIImporter_DlrNavteq.cpp:811
 msgid ""
 "Ignoring invalid lane index '%' in connection from edge '%' with % lanes."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_DlrNavteq.cpp:815
+#: /home/behr_mi/sumo/src/netimport/NIImporter_DlrNavteq.cpp:816
 msgid "Ignoring invalid lane index '%' in connection to edge '%' with % lanes"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_DlrNavteq.cpp:820
+#: /home/behr_mi/sumo/src/netimport/NIImporter_DlrNavteq.cpp:821
 msgid "Could not set loaded connection from '%' to '%'."
 msgstr ""
 
@@ -1372,11 +1496,11 @@ msgstr ""
 msgid "Could not set loaded connection from lane '%' to lane '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIXMLPTHandler.cpp:244
+#: /home/behr_mi/sumo/src/netimport/NIXMLPTHandler.cpp:253
 msgid "Found route outside line definition"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIXMLNodesHandler.cpp:341
+#: /home/behr_mi/sumo/src/netimport/NIXMLNodesHandler.cpp:342
 msgid "Changing traffic light type '%' to '%' for tl '%'."
 msgstr ""
 
@@ -1388,21 +1512,21 @@ msgstr ""
 msgid "Edge '%' in prohibition was not built."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_SUMO.cpp:517
+#: /home/behr_mi/sumo/src/netimport/NIImporter_SUMO.cpp:516
 #, c-format
 msgid "Edge '%' occurred at least twice in the input."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_SUMO.cpp:535
+#: /home/behr_mi/sumo/src/netimport/NIImporter_SUMO.cpp:538
 msgid "Unmatched closing tag for tl-logic."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_SUMO.cpp:732
+#: /home/behr_mi/sumo/src/netimport/NIImporter_SUMO.cpp:738
 #, c-format
 msgid "Junction '%' occurred at least twice in the input."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_SUMO.cpp:941
+#: /home/behr_mi/sumo/src/netimport/NIImporter_SUMO.cpp:947
 msgid "found phase without tl-logic"
 msgstr ""
 
@@ -1446,15 +1570,15 @@ msgstr ""
 msgid "Unexpected to-node '%' for edge '%' of stopping place '%'"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_VISUM.cpp:1529
+#: /home/behr_mi/sumo/src/netimport/NIImporter_VISUM.cpp:1518
 msgid " The from-node was not found within the net"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_VISUM.cpp:1532
+#: /home/behr_mi/sumo/src/netimport/NIImporter_VISUM.cpp:1521
 msgid " The to-node was not found within the net"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIImporter_VISUM.cpp:1535
+#: /home/behr_mi/sumo/src/netimport/NIImporter_VISUM.cpp:1524
 msgid " Both nodes are the same"
 msgstr ""
 
@@ -1499,6 +1623,11 @@ msgid ""
 "solver is off."
 msgstr ""
 
+#: /home/behr_mi/sumo/src/netload/NLJunctionControlBuilder.cpp:126
+#: /home/behr_mi/sumo/src/netload/NLJunctionControlBuilder.cpp:143
+msgid "Ignoring junction logic for junction '%'."
+msgstr ""
+
 #: /home/behr_mi/sumo/src/netload/NLDetectorBuilder.cpp:526
 msgid ""
 "The netstate type 'hbefa' is deprecated. Please use the type 'emissions' "
@@ -1515,40 +1644,40 @@ msgid ""
 "across junctions and thus underestimate route lengths and travel times."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netload/NLBuilder.cpp:268
+#: /home/behr_mi/sumo/src/netload/NLBuilder.cpp:272
 msgid "Loading done."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netload/NLHandler.cpp:862
+#: /home/behr_mi/sumo/src/netload/NLHandler.cpp:871
 msgid "maxDur % should not be smaller than minDir % in phase of tlLogic %"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netload/NLHandler.cpp:989
+#: /home/behr_mi/sumo/src/netload/NLHandler.cpp:998
 msgid ""
 "VTypeProbes are deprecated. Use fcd-output devices (assigned to the vType) "
 "instead."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netload/NLHandler.cpp:1079
+#: /home/behr_mi/sumo/src/netload/NLHandler.cpp:1088
 msgid ""
 "Trying to specify detector's lane by the given id since the argument 'lane' "
 "is missing."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netload/NLHandler.cpp:1518
+#: /home/behr_mi/sumo/src/netload/NLHandler.cpp:1527
 msgid ""
 "no valid geo projection loaded from network. fcd-output.geo will not work"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netload/NLHandler.cpp:1546
+#: /home/behr_mi/sumo/src/netload/NLHandler.cpp:1555
 msgid "Replacing junction-taz '%' with loaded TAZ."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/mesosim/MEVehicle.cpp:219
+#: /home/behr_mi/sumo/src/mesosim/MEVehicle.cpp:220
 msgid "Join stops are not available in meso yet (vehicle '%', segment '%')."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/mesosim/MEVehicle.cpp:246
+#: /home/behr_mi/sumo/src/mesosim/MEVehicle.cpp:247
 msgid ""
 "Vehicle '%' has multiple stops on segment '%', time=% (stop-output will be "
 "merged)."
@@ -1568,8 +1697,8 @@ msgid "DEBUG: Could not clear jam at calibrator '%' at time=%."
 msgstr ""
 
 #: /home/behr_mi/sumo/src/mesosim/MELoop.cpp:89
-#: /home/behr_mi/sumo/src/microsim/MSVehicleTransfer.cpp:64
-#: /home/behr_mi/sumo/src/microsim/MSVehicleTransfer.cpp:178
+#: /home/behr_mi/sumo/src/microsim/MSVehicleTransfer.cpp:66
+#: /home/behr_mi/sumo/src/microsim/MSVehicleTransfer.cpp:184
 msgid "Vehicle '%' teleports beyond arrival edge '%', time=%."
 msgstr ""
 
@@ -1595,23 +1724,86 @@ msgstr ""
 msgid "  client connected"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSRouteHandler.cpp:304
+#: /home/behr_mi/sumo/src/microsim/MSRouteHandler.cpp:303
 msgid "Attribute 'period' is deprecated for route. Use 'cycleTime' instead."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSRouteHandler.cpp:754
-#: /home/behr_mi/sumo/src/microsim/transportables/MSTransportable.cpp:320
+#: /home/behr_mi/sumo/src/microsim/MSRouteHandler.cpp:741
+#: /home/behr_mi/sumo/src/microsim/transportables/MSTransportable.cpp:325
 msgid ""
 "Person '%' receives type '%' which implicitly uses unsuitable vClass '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSRouteHandler.cpp:890
+#: /home/behr_mi/sumo/src/microsim/MSRouteHandler.cpp:877
 msgid ""
 "There exists a person and a container with the same id '%'. Starting with "
 "SUMO 1.9.0 this is an error."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSBaseVehicle.cpp:750
+#: /home/behr_mi/sumo/src/microsim/MSBaseVehicle.cpp:289
+msgid "Vehicle '%' is not allowed on any lane of via edge '%'."
+msgstr ""
+
+#: /home/behr_mi/sumo/src/microsim/MSBaseVehicle.cpp:317
+msgid "Vehicle '%' has no valid route from edge '%' to stop edge '%'."
+msgstr ""
+
+#: /home/behr_mi/sumo/src/microsim/MSBaseVehicle.cpp:361
+#, c-format
+msgid "Vehicle '%' has no valid route."
+msgstr ""
+
+#: /home/behr_mi/sumo/src/microsim/MSBaseVehicle.cpp:363
+msgid "Removing vehicle '%' which has no valid route."
+msgstr ""
+
+#: /home/behr_mi/sumo/src/microsim/MSBaseVehicle.cpp:377
+#, c-format
+msgid "No route for vehicle '%' found."
+msgstr ""
+
+#: /home/behr_mi/sumo/src/microsim/MSBaseVehicle.cpp:422
+msgid "Invalid route replacement for vehicle '%'. %"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/microsim/MSBaseVehicle.cpp:447
+#, c-format
+msgid "current edge '%' not found in new route"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/microsim/MSBaseVehicle.cpp:460
+msgid "Vehicle is on junction-internal edge leading elsewhere"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/microsim/MSBaseVehicle.cpp:473
+msgid ""
+"Vehicle is moving past junction and committed to move to another successor "
+"edge"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/microsim/MSBaseVehicle.cpp:543
+msgid "Vehicle '%' could not assign stop '%' after rerouting (%) at time=%."
+msgstr ""
+
+#: /home/behr_mi/sumo/src/microsim/MSBaseVehicle.cpp:683
+msgid "No connection between edge '%' and edge '%'."
+msgstr ""
+
+#: /home/behr_mi/sumo/src/microsim/MSBaseVehicle.cpp:692
+#, c-format
+msgid "Edge '%' prohibits."
+msgstr ""
+
+#: /home/behr_mi/sumo/src/microsim/MSBaseVehicle.cpp:706
+#, c-format
+msgid "Vehicle '%' is not allowed to depart on its first edge."
+msgstr ""
+
+#: /home/behr_mi/sumo/src/microsim/MSBaseVehicle.cpp:736
+msgid "Vehicle '%' has no valid route. %"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/microsim/MSBaseVehicle.cpp:799
 msgid ""
 "Vehicle '%' ignores attribute arrivalEdge=% after rerouting at time=% "
 "(routeLength=%)"
@@ -1626,82 +1818,82 @@ msgstr ""
 msgid "No gap control available for meso."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSVehicle.cpp:942
+#: /home/behr_mi/sumo/src/microsim/MSVehicle.cpp:944
 msgid ""
 "Vehicle '%' moved by TraCI from % to % (dist %) with implied speed of % "
 "(exceeding maximum speed %). time=%."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSVehicle.cpp:1800
+#: /home/behr_mi/sumo/src/microsim/MSVehicle.cpp:1814
 msgid "Vehicle '%' to split from vehicle '%' is not known. time=%."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSVehicle.cpp:2707
+#: /home/behr_mi/sumo/src/microsim/MSVehicle.cpp:2689
 msgid "Suspicious right_before_left junction '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSVehicle.cpp:4253
+#: /home/behr_mi/sumo/src/microsim/MSVehicle.cpp:4242
 msgid " for unknown reasons"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSVehicle.cpp:4261
+#: /home/behr_mi/sumo/src/microsim/MSVehicle.cpp:4250
 msgid ""
 "Vehicle '%' performs emergency stop at the end of lane '%'% (decel=%, "
 "offset=%), time=%."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSVehicle.cpp:4333
+#: /home/behr_mi/sumo/src/microsim/MSVehicle.cpp:4325
 msgid "Unexpected end of opposite lane for vehicle '%' at lane '%', time=%."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSVehicle.cpp:4458
+#: /home/behr_mi/sumo/src/microsim/MSVehicle.cpp:4443
 msgid ""
 "Vehicle '%' performs emergency braking on lane '%' with decel=%, wished=%, "
 "severity=%, time=%."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:319
+#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:311
 msgid "Unequal lengths of neigh lane '%' and lane '%' (% != %)."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:754
+#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:746
 #, c-format
 msgid "Vehicle '%' is inserted in emergency situation."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:776
+#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:768
 msgid ""
 "Invalid departPos % given for vehicle '%'. Inserting at lane end instead."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:999
+#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:991
 msgid ""
 "Vehicle '%' is inserted too fast and will violate the speed limit on a lane "
 "'%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:1633
+#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:1629
 msgid ""
 "Vehicle '%' collision with person '%', lane='%', gap=%, time=%, stage=%."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:1772
+#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:1768
 msgid "Vehicle '%' collision with person '%', lane='%', time=%, stage=%."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:2064
+#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:2065
 msgid "Teleporting vehicle '%'; beyond end of lane, target lane='%', time=%."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:2071
+#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:2072
 msgid "Removing vehicle '%' after earlier collision, lane='%', time=%."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:2076
+#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:2077
 msgid "Teleporting vehicle '%' after earlier collision, lane='%', time=%."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:2542
+#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:2549
 msgid ""
 "Lane '%' is approached multiple times from edge '%'. This may cause "
 "collisions."
@@ -1722,7 +1914,7 @@ msgid ""
 "queue for multi-modal meso simulation"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSNet.cpp:386
+#: /home/behr_mi/sumo/src/microsim/MSNet.cpp:388
 msgid "Simulation version % started with time: %."
 msgstr ""
 
@@ -1735,106 +1927,106 @@ msgstr ""
 msgid "Command returned negative repeat number; will be deleted."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSVehicleTransfer.cpp:164
+#: /home/behr_mi/sumo/src/microsim/MSVehicleTransfer.cpp:169
 msgid "Vehicle '%' ends teleporting on edge '%', time=%."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:788
+#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:796
 msgid "No network file (-n) specified."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:792
+#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:800
 msgid "Invalid scaling factor."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:796
+#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:804
 msgid "A vehroute-output file is needed for exit times."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:808
+#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:816
 msgid "You can either restart or quit on end."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:813
+#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:821
 msgid ""
 "The option 'meso-junction-control.limited' implies 'meso-junction-control'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:831
+#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:839
 msgid "The begin time should not be negative."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:841
+#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:849
 msgid "The end time should be after the begin time."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:846
+#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:854
 msgid "the minimum step-length is 0.001"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:873
+#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:881
 msgid ""
 "option movereminder-output.vehicles requires option movereminder-output to "
 "be set"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:878
+#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:886
 msgid ""
 "The option 'sloppy-insert' is deprecated, because it is now activated by "
 "default, see the new option 'eager-insert'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:881
+#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:889
 msgid ""
 "Only one of the options 'lanechange.duration' or 'lateral-resolution' may be "
 "given."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:885
+#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:893
 msgid "Sublane dynamics are not supported by mesoscopic simulation"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:889
+#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:897
 msgid ""
 "The option 'ignore-accidents' is deprecated. Use 'collision.action none' "
 "instead."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:902
+#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:910
 msgid ""
 "The option tripinfo-output.write-undeparted implies tripinfo-output.write-"
 "unfinished."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:939
+#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:947
 msgid "You need a non-negative delay."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:952
+#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:960
 msgid "Parallel simulation is only possible when compiled with Fox."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:957
+#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:965
 msgid "You need at least one thread."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:961
+#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:969
 msgid ""
 "Number of threads exceeds number of thread-rngs. Simulation runs with the "
 "same seed may produce different results"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:964
+#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:972
 msgid "game.mode must be one of ['tls', 'drt']"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:1030
+#: /home/behr_mi/sumo/src/microsim/MSFrame.cpp:1038
 msgid ""
 "Integration method was set to 'ballistic', since a default action step "
 "length was specified."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSEdge.cpp:658
+#: /home/behr_mi/sumo/src/microsim/MSEdge.cpp:660
 msgid ""
 "Choosing new speed factor % for vehicle '%' to match departure speed % (max "
 "%)."
@@ -1843,6 +2035,13 @@ msgstr ""
 #: /home/behr_mi/sumo/src/polyconvert/PCLoaderDlrNavteq.cpp:224
 msgid "The name of a polygon is missing; it will be discarded."
 msgstr ""
+
+#: /home/behr_mi/sumo/src/polyconvert/polyconvert_main.cpp:232
+#, fuzzy
+msgid ""
+"Importer of polygons and POIs for the microscopic, multi-modal traffic "
+"simulation SUMO."
+msgstr "Eine mikroskopische, multimodale Verkehrssimulation."
 
 #: /home/behr_mi/sumo/src/polyconvert/PCLoaderOSM.cpp:157
 msgid "Could not import polygon from relation '%' (missing ways)"
@@ -1924,16 +2123,16 @@ msgstr ""
 msgid "Green fraction is only 1% for link % in tlLogic '%', program '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/traffic_lights/MSRailSignal.cpp:108
+#: /home/behr_mi/sumo/src/microsim/traffic_lights/MSRailSignal.cpp:109
 #, c-format
 msgid "Rail signal at junction '%' does not control any links"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:404
+#: /home/behr_mi/sumo/src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:406
 msgid "At actuated tlLogic '%', actuated phase % has no controlling detector."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:441
+#: /home/behr_mi/sumo/src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:443
 msgid "At actuated tlLogic '%', linkIndex % has no controlling detector."
 msgstr ""
 
@@ -1957,23 +2156,23 @@ msgid ""
 "rerouter. This may cause parking search to abort."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/transportables/MSTransportable.cpp:252
+#: /home/behr_mi/sumo/src/microsim/transportables/MSTransportable.cpp:256
 msgid "Teleporting % '%'; waited too long, from edge '%', time=%."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/transportables/MSTransportable.cpp:384
+#: /home/behr_mi/sumo/src/microsim/transportables/MSTransportable.cpp:389
 msgid "parkingAreaReroute not support for containers"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/transportables/MSPerson.cpp:88
+#: /home/behr_mi/sumo/src/microsim/transportables/MSPerson.cpp:91
 msgid "Adjusting departPos for cloned walk with routeDistribution '%'"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/transportables/MSPerson.cpp:92
+#: /home/behr_mi/sumo/src/microsim/transportables/MSPerson.cpp:95
 msgid "Adjusting arrivalPos for cloned walk with routeDistribution '%'"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/transportables/MSPerson.cpp:96
+#: /home/behr_mi/sumo/src/microsim/transportables/MSPerson.cpp:99
 msgid "Adjusting departLane for cloned walk with routeDistribution '%'"
 msgstr ""
 
@@ -1990,7 +2189,7 @@ msgstr ""
 
 #: /home/behr_mi/sumo/src/microsim/devices/MSDevice_ElecHybrid.cpp:317
 msgid ""
-"pos_veh_node or neg_veh_node or veh_elem is not NULL (and they shoud be at "
+"pos_veh_node or neg_veh_node or veh_elem is not NULL (and they should be at "
 "the beginning of adding elecHybrid to the circuit)"
 msgstr ""
 
@@ -2055,7 +2254,11 @@ msgstr ""
 msgid "Adapting number of routing threads to number of simulation threads."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/devices/MSDevice_BTreceiver.cpp:247
+#: /home/behr_mi/sumo/src/microsim/devices/MSIdling.cpp:63
+msgid "Idle taxi '%' has no next segment to stop. time=%."
+msgstr ""
+
+#: /home/behr_mi/sumo/src/microsim/devices/MSDevice_BTreceiver.cpp:299
 msgid "Nope, a circle cannot be crossed more often than twice by a line."
 msgstr ""
 
@@ -2065,15 +2268,15 @@ msgid ""
 "taxi."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/devices/MSDevice_Taxi.cpp:452
+#: /home/behr_mi/sumo/src/microsim/devices/MSDevice_Taxi.cpp:453
 msgid "Could not add taxi stop for vehicle '%' to %. time=% error=%."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/devices/MSDevice_Taxi.cpp:568
+#: /home/behr_mi/sumo/src/microsim/devices/MSDevice_Taxi.cpp:569
 msgid "Taxi '%' reaches scheduled end of service at time=%."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/devices/MSDevice_Taxi.cpp:644
+#: /home/behr_mi/sumo/src/microsim/devices/MSDevice_Taxi.cpp:645
 msgid ""
 "All customers left vehicle '%' at time=% but there are % remaining stops"
 msgstr ""
@@ -2093,19 +2296,19 @@ msgid ""
 "the same priority"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/devices/MSDevice_SSM.cpp:1055
+#: /home/behr_mi/sumo/src/microsim/devices/MSDevice_SSM.cpp:1057
 msgid ""
 "SSM device of vehicle '%' detected collision with vehicle '%' at time=%."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/devices/MSDevice_SSM.cpp:2186
+#: /home/behr_mi/sumo/src/microsim/devices/MSDevice_SSM.cpp:2188
 msgid ""
 "Cannot classify SSM encounter between ego vehicle % and foe vehicle % at "
 "time=%\n"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/devices/MSDevice_SSM.cpp:2371
-#: /home/behr_mi/sumo/src/microsim/devices/MSDevice_SSM.cpp:2395
+#: /home/behr_mi/sumo/src/microsim/devices/MSDevice_SSM.cpp:2366
+#: /home/behr_mi/sumo/src/microsim/devices/MSDevice_SSM.cpp:2390
 msgid ""
 "Cannot compute SSM due to bad internal lane geometry at junction '%'. "
 "Crossing point between traffic from links % and % not found."
@@ -2132,19 +2335,19 @@ msgstr ""
 msgid "Vehicle '%' ends stop on edge '%', time=% without entering the stop."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/output/MSE2Collector.cpp:120
+#: /home/behr_mi/sumo/src/microsim/output/MSE2Collector.cpp:125
 msgid ""
 "No valid detector length and start position given. Assuming startPos = 0 and "
 "length = end position"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/output/MSE2Collector.cpp:124
+#: /home/behr_mi/sumo/src/microsim/output/MSE2Collector.cpp:129
 msgid ""
 "No valid detector length and end position given. Assuming endPos = lane "
 "length and length = endPos-startPos"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/output/MSDetectorControl.cpp:176
+#: /home/behr_mi/sumo/src/microsim/output/MSDetectorControl.cpp:180
 msgid ""
 "MSDetectorControl::addDetectorAndInterval: detector already in container. "
 "Ignoring."
@@ -2154,14 +2357,14 @@ msgstr ""
 msgid "Rounding 'sigmaStep' to % for vType '%'"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/cfmodels/MSCFModel.cpp:653
+#: /home/behr_mi/sumo/src/microsim/cfmodels/MSCFModel.cpp:678
 msgid ""
 "passingTime(): given argument 'currentSpeed' is negative. This case is not "
 "handled yet."
 msgstr ""
 
 #: /home/behr_mi/sumo/src/microsim/cfmodels/MSCFModel_Rail.cpp:211
-msgid "function call not allowd for rail model. Exiting!"
+msgid "function call not allowed for rail model. Exiting!"
 msgstr ""
 
 #: /home/behr_mi/sumo/src/microsim/cfmodels/MSCFModel_Rail.cpp:252
@@ -2176,12 +2379,12 @@ msgid ""
 "slow website lookups."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/utils/common/MsgHandler.cpp:236
+#: /home/behr_mi/sumo/src/utils/common/MsgHandler.cpp:243
 msgid ""
 "Environment variable SUMO_HOME is not set, could not find localized messages."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/utils/common/MsgHandler.cpp:242
+#: /home/behr_mi/sumo/src/utils/common/MsgHandler.cpp:249
 msgid "Could not find localized messages."
 msgstr ""
 
@@ -2193,62 +2396,55 @@ msgstr ""
 msgid "Invalid conversion from string to doubles (empty value)"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/utils/common/SUMOVehicleClass.cpp:187
+#: /home/behr_mi/sumo/src/utils/common/SUMOVehicleClass.cpp:190
 msgid "Simultaneous specification of vClasses and exceptions is not allowed"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/utils/common/SUMOVehicleClass.cpp:191
+#: /home/behr_mi/sumo/src/utils/common/SUMOVehicleClass.cpp:194
 msgid "StopOffset requires an offset value"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/utils/common/SUMOVehicleClass.cpp:382
+#: /home/behr_mi/sumo/src/utils/common/SUMOVehicleClass.cpp:385
 msgid ""
 "SVCPermissions must be specified either via 'allow' or 'disallow'. Ignoring "
 "'disallow'"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/utils/iodevices/OutputDevice.cpp:153
+#: /home/behr_mi/sumo/src/utils/iodevices/OutputDevice.cpp:161
 msgid "Error on closing output devices."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/utils/handlers/ConfigHandler.cpp:66
-msgid "Network file cannot be empty"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/utils/handlers/ConfigHandler.cpp:68
-msgid "Network file must be loaded within a configuration"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/utils/handlers/ConfigHandler.cpp:87
-msgid "Additional files cannot be empty"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/utils/handlers/ConfigHandler.cpp:89
-msgid "Additional files must be loaded within a configuration"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/utils/handlers/ConfigHandler.cpp:108
-msgid "Route files cannot be empty"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/utils/handlers/ConfigHandler.cpp:110
-msgid "Route files must be loaded within a configuration"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/utils/handlers/ConfigHandler.cpp:129
-msgid "Data files cannot be empty"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/utils/handlers/ConfigHandler.cpp:131
-msgid "Data files must be loaded within a configuration"
+#: /home/behr_mi/sumo/src/utils/handlers/MeanDataHandler.cpp:54
+msgid "MeanData elements cannot load attributes as params"
 msgstr ""
 
 #: /home/behr_mi/sumo/src/utils/handlers/DataHandler.cpp:111
 msgid "Data elements cannot load attributes as params"
 msgstr ""
 
+#: /home/behr_mi/sumo/src/utils/options/OptionsCont.cpp:66
+msgid ""
+"Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://"
+"sumo.dlr.de"
+msgstr ""
+
 #: /home/behr_mi/sumo/src/utils/options/OptionsCont.cpp:381
 msgid "Empty file name given; ignoring."
+msgstr ""
+
+#: /home/behr_mi/sumo/src/utils/options/OptionsCont.cpp:574
+#: /home/behr_mi/sumo/src/utils/options/OptionsCont.cpp:596
+msgid " Build features: "
+msgstr ""
+
+#: /home/behr_mi/sumo/src/utils/options/OptionsCont.cpp:578
+msgid ""
+" License EPL-2.0: Eclipse Public License Version 2 <https://eclipse.org/"
+"legal/epl-v20.html>"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/utils/options/OptionsCont.cpp:579
+msgid " Use --help to get the list of options."
 msgstr ""
 
 #: /home/behr_mi/sumo/src/utils/options/Option.cpp:324
@@ -2325,7 +2521,7 @@ msgstr ""
 #: /home/behr_mi/sumo/src/utils/traction_wire/Circuit.cpp:508
 #: /home/behr_mi/sumo/src/utils/traction_wire/Circuit.cpp:518
 #: /home/behr_mi/sumo/src/utils/traction_wire/Circuit.cpp:526
-msgid "Results deployment during circuit evaluation was unsuccessfull."
+msgid "Results deployment during circuit evaluation was unsuccessful."
 msgstr ""
 
 #: /home/behr_mi/sumo/src/utils/traction_wire/Circuit.cpp:576
@@ -2346,17 +2542,17 @@ msgid ""
 "resistance < 0. "
 msgstr ""
 
-#: /home/behr_mi/sumo/src/utils/vehicle/SUMOVehicleParameter.cpp:695
+#: /home/behr_mi/sumo/src/utils/vehicle/SUMOVehicleParameter.cpp:701
 msgid ""
 "Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a "
 "boolean"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/utils/vehicle/SUMORouteHandler.cpp:62
+#: /home/behr_mi/sumo/src/utils/vehicle/SUMORouteHandler.cpp:63
 msgid "Route file should be sorted by departure time, ignoring '%'!"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/utils/vehicle/SUMORouteHandler.cpp:222
+#: /home/behr_mi/sumo/src/utils/vehicle/SUMORouteHandler.cpp:229
 msgid "Invalid parsing embedded VType"
 msgstr ""
 
@@ -2382,7 +2578,7 @@ msgstr ""
 
 #: /home/behr_mi/sumo/src/utils/geom/PositionVector.cpp:1470
 #: /home/behr_mi/sumo/src/utils/geom/PositionVector.cpp:1484
-msgid "Trying to substract PositionVectors of different lengths."
+msgid "Trying to subtract PositionVectors of different lengths."
 msgstr ""
 
 #: /home/behr_mi/sumo/src/utils/geom/GeoConvHelper.cpp:86
