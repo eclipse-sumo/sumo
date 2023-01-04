@@ -1066,7 +1066,7 @@ struct GNEApplicationWindowHelper {
         GNENETEDITConfigHandler(GNEApplicationWindow* applicationWindow, const std::string& file);
 
         /// @brief load NETEDIT config
-        bool loadNETEDITConfig();
+        bool loadNETEDITConfig(const bool createElements);
 
     private:
         /// @brief application window

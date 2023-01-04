@@ -72,24 +72,57 @@ GNELoadThread::run() {
     MsgHandler::getWarningInstance()->addRetriever(myWarningRetriever);
     // declare network
     GNENet* net = nullptr;
+    // declare loaded file
+    std::string loadedFile;
     // get netedit options
     auto &neteditOptions = OptionsCont::getOptions();
-    // first fill all SUMO Options if we're loading a sumo config file
-    if (neteditOptions.getString("sumocfg-file").size() > 0) {
-        GNEApplicationWindowHelper::GNESUMOConfigHandler confighandler(myApplicationWindow, neteditOptions.getString("sumocfg-file"));
+    // check if we're loading a NETEDIT config
+    if (neteditOptions.getString("neteditcfg-file").size() > 0) {
+        // set netedit config as loaded file
+        loadedFile = neteditOptions.getString("neteditcfg-file");
+        // declare parser for netedit config file
+        GNEApplicationWindowHelper::GNENETEDITConfigHandler confighandler(myApplicationWindow, loadedFile);
+        // if there is an error loading sumo config, stop
+        if (!confighandler.loadNETEDITConfig(false)) {
+            WRITE_ERROR("Loading of netedit config file '" + loadedFile + "' failed.");
+            submitEndAndCleanup(net, loadedFile);
+            return 0;
+        }
+    } else if (neteditOptions.getString("sumocfg-file").size() > 0) {
+        // set sumo config as loaded file
+        loadedFile = neteditOptions.getString("sumocfg-file");
+        // declare parser for sumo config file
+        GNEApplicationWindowHelper::GNESUMOConfigHandler confighandler(myApplicationWindow, loadedFile);
         // if there is an error loading sumo config, stop
         if (!confighandler.loadSUMOConfig(false)) {
-            WRITE_ERROR("Loading of " + neteditOptions.getString("sumocfg-file") + " failed.");
-            submitEndAndCleanup(net);
+            WRITE_ERROR("Loading of sumo config file '" + loadedFile + "' failed.");
+            submitEndAndCleanup(net, loadedFile);
             return 0;
         }
-    } else if ((myFile.size() > 0) || (neteditOptions.getString("sumo-net-file").size() > 0)) {
-        // reset options
-        neteditOptions.clear();
-        if (!initOptions()) {
-            submitEndAndCleanup(net);
+    } else if (neteditOptions.getString("configuration-file").size() > 0) {
+        // set net convert configuration as loadedFile
+        loadedFile = neteditOptions.getString("configuration-file");
+        if (resetOptions(loadedFile)) {
+            // restore file in options
+            neteditOptions.set("configuration-file", loadedFile);
+        } else {
+            submitEndAndCleanup(net, loadedFile);
             return 0;
         }
+    } else if (neteditOptions.getString("sumo-net-file").size() > 0) {
+        // set netwok as loadedFile
+        loadedFile = neteditOptions.getString("sumo-net-file");
+        if (resetOptions(loadedFile)) {
+            // restore file in options
+            neteditOptions.set("sumo-net-file", loadedFile);
+        } else {
+            submitEndAndCleanup(net, loadedFile);
+            return 0;
+        }
+    } else {
+        WRITE_ERROR("Either a NETEDITConfig or SUMOConfig or netconvertConfig or network must be specified.");
+        submitEndAndCleanup(net, loadedFile);
+        return 0;
     }
     // update aggregate warnings
     if (neteditOptions.isDefault("aggregate-warnings")) {
@@ -99,12 +132,12 @@ GNELoadThread::run() {
     MsgHandler::initOutputOptions();
     // if there is an error checking options, stop
     if (!(NIFrame::checkOptions() &&
-            NBFrame::checkOptions() &&
-            NWFrame::checkOptions() &&
-            SystemFrame::checkOptions())) {
+          NBFrame::checkOptions() &&
+          NWFrame::checkOptions() &&
+          SystemFrame::checkOptions())) {
         // options are not valid
         WRITE_ERROR(TL("Invalid Options. Nothing loaded"));
-        submitEndAndCleanup(net);
+        submitEndAndCleanup(net, loadedFile);
         return 0;
     }
     // clear message instances
@@ -118,7 +151,7 @@ GNELoadThread::run() {
     // check if geo projection can be inited
     if (!GeoConvHelper::init(neteditOptions)) {
         WRITE_ERROR(TL("Could not build projection!"));
-        submitEndAndCleanup(net);
+        submitEndAndCleanup(net, loadedFile);
         return 0;
     }
     // set validation
@@ -129,7 +162,7 @@ GNELoadThread::run() {
     MsgHandler::enableDebugGLMessages(neteditOptions.getBool("gui-testing-debug-gl"));
     // this netbuilder instance becomes the responsibility of the GNENet
     NBNetBuilder* netBuilder = new NBNetBuilder();
-    // apply netedit optiones in netBuilder
+    // apply netedit options in netBuilder. In this options we have all information for building network
     netBuilder->applyOptions(neteditOptions);
     // check if create a new net
     if (myNewNet) {
@@ -171,14 +204,6 @@ GNELoadThread::run() {
                     net->getNetBuilder()->getEdgeCont().addPrefix(neteditOptions.getString("prefix"));
                 }
             }
-            if (myFile == "") {
-                if (neteditOptions.isSet("configuration-file")) {
-                    myFile = neteditOptions.getString("configuration-file");
-                } else if (neteditOptions.isSet("sumo-net-file")) {
-                    myFile = neteditOptions.getString("sumo-net-file");
-                }
-            }
-
         } catch (ProcessError& e) {
             if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
                 WRITE_ERROR(e.what());
@@ -201,14 +226,14 @@ GNELoadThread::run() {
         }
     }
     // only a single setting file is supported
-    submitEndAndCleanup(net, myNewNet, neteditOptions.getString("gui-settings-file"), neteditOptions.getBool("registry-viewport"));
+    submitEndAndCleanup(net, loadedFile, neteditOptions.getString("gui-settings-file"), neteditOptions.getBool("registry-viewport"));
     return 0;
 }
 
 
 
 void
-GNELoadThread::submitEndAndCleanup(GNENet* net, const bool newNet, const std::string& guiSettingsFile, const bool viewportFromRegistry) {
+GNELoadThread::submitEndAndCleanup(GNENet* net, const std::string &loadedFile, const std::string& guiSettingsFile, const bool viewportFromRegistry) {
     // remove message callbacks
     MsgHandler::getDebugInstance()->removeRetriever(myDebugRetriever);
     MsgHandler::getGLDebugInstance()->removeRetriever(myGLDebugRetriever);
@@ -216,7 +241,7 @@ GNELoadThread::submitEndAndCleanup(GNENet* net, const bool newNet, const std::st
     MsgHandler::getWarningInstance()->removeRetriever(myWarningRetriever);
     MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);
     // inform parent about the process
-    myEventQueue.push_back(new GNEEvent_NetworkLoaded(net, newNet, myFile, guiSettingsFile, viewportFromRegistry));
+    myEventQueue.push_back(new GNEEvent_NetworkLoaded(net, myNewNet, loadedFile, guiSettingsFile, viewportFromRegistry));
     myEventThrow.signal();
 }
 
@@ -251,9 +276,9 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.addDescription("new", "Input", "Start with a new network");
 
     // files
-    neteditOptions.doRegister("netedit-file", new Option_FileName());
-    neteditOptions.addSynonyme("netedit-file", "neteditcfg");
-    neteditOptions.addDescription("netedit-file", "Netedit", "Load NETEDIT config");
+    neteditOptions.doRegister("neteditcfg-file", new Option_FileName());
+    neteditOptions.addSynonyme("neteditcfg-file", "neteditcfg");
+    neteditOptions.addDescription("neteditcfg-file", "Netedit", "Load NETEDIT config");
 
     neteditOptions.doRegister("neteditcfg-output", new Option_String());
     neteditOptions.addDescription("neteditcfg-output", "Netedit", "file in which netedit config must be saved");
@@ -467,18 +492,10 @@ GNELoadThread::setDefaultOptions(OptionsCont& neteditOptions) {
 
 
 bool
-GNELoadThread::initOptions() {
+GNELoadThread::resetOptions(const std::string &file) {
     auto &neteditOptions = OptionsCont::getOptions();
     // fill (reset) all options
     fillOptions(neteditOptions);
-    // set manually the net file
-    if (myFile != "") {
-        if (myLoadNet) {
-            neteditOptions.set("sumo-net-file", myFile);
-        } else {
-            neteditOptions.set("configuration-file", myFile);
-        }
-    }
     // set default options defined in GNELoadThread::setDefaultOptions(...)
     setDefaultOptions(neteditOptions);
     try {
@@ -488,22 +505,37 @@ GNELoadThread::initOptions() {
         OptionsIO::getOptions();
         // if output file wasn't defined in the command line manually, set value of "sumo-net-file"
         if (!neteditOptions.isSet("output-file")) {
-            neteditOptions.set("output-file", neteditOptions.getString("sumo-net-file"));
+            neteditOptions.set("output-file", file);
         }
         return true;
     } catch (ProcessError& e) {
         if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
             WRITE_ERROR(e.what());
         }
-        WRITE_ERROR(TL("Failed to parse options."));
+        WRITE_ERROR(TL("Failed to reset options."));
         return false;
     }
 }
 
 
 void
+GNELoadThread::resetFileOptions() {
+    auto &neteditOptions = OptionsCont::getOptions();
+    // reset netedit files
+    neteditOptions.resetWritable();
+    neteditOptions.set("neteditcfg-file", "");
+    neteditOptions.set("sumocfg-file", "");
+    neteditOptions.set("configuration-file", "");
+    neteditOptions.set("net-file", "");
+    neteditOptions.set("additional-files", "");
+    neteditOptions.set("route-files", "");
+    neteditOptions.set("data-files", "");
+    neteditOptions.set("meandata-files", "");
+}
+
+
+void
 GNELoadThread::createNewNetwork() {
-    myFile.clear();
     myLoadNet = false;
     myNewNet = true;
     // start thread
@@ -512,8 +544,7 @@ GNELoadThread::createNewNetwork() {
 
 
 void
-GNELoadThread::loadNetwork(const std::string& file) {
-    myFile = file;
+GNELoadThread::loadNetwork() {
     myLoadNet = true;
     myNewNet = false;
     // start thread
@@ -522,8 +553,7 @@ GNELoadThread::loadNetwork(const std::string& file) {
 
 
 void
-GNELoadThread::loadNetconvertConfig(const std::string& file) {
-    myFile = file;
+GNELoadThread::loadNetconvertConfig() {
     myLoadNet = false;
     myNewNet = false;
     // start thread

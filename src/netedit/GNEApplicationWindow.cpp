@@ -648,6 +648,7 @@ GNEApplicationWindow::onCmdNewNetwork(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenNetconvertConfig(FXObject*, FXSelector, void*) {
+    auto &neteditOptions = OptionsCont::getOptions();
     // first check that current edited Net can be closed (und therefore the undo-list cleared, see #5753)
     if (myViewNet && !onCmdClose(0, 0, 0)) {
         return 1;
@@ -663,8 +664,13 @@ GNEApplicationWindow::onCmdOpenNetconvertConfig(FXObject*, FXSelector, void*) {
         if (opendialog.execute()) {
             gCurrentFolder = opendialog.getDirectory();
             std::string file = opendialog.getFilename().text();
+            // reset files in options
+            myLoadThread->resetFileOptions();
+            // set file to load
+            neteditOptions.resetWritable();
+            neteditOptions.set("configuration-file", file);
             // load netconvert
-            loadNetconvertConfig(file);
+            loadNetconvertConfig();
             // add it into recent configs
             myMenuBarFile.myRecentNetworksAndConfigs.appendFile(file.c_str());
         }
@@ -700,15 +706,10 @@ GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
             }
             // set current folder
             gCurrentFolder = opendialog.getDirectory();
-            // reset netedit files
-            neteditOptions.resetWritable();
-            neteditOptions.set("sumocfg-file", "");
-            neteditOptions.set("net-file", "");
-            neteditOptions.set("additional-files", "");
-            neteditOptions.set("route-files", "");
-            neteditOptions.set("data-files", "");
-            neteditOptions.set("meandata-files", "");
+            // reset files in options
+            myLoadThread->resetFileOptions();
             // set file to load
+            neteditOptions.resetWritable();
             neteditOptions.set("net-file", file);
             // load network
             loadNetwork(false);
@@ -763,7 +764,7 @@ GNEApplicationWindow::onCmdOpenForeign(FXObject*, FXSelector, void*) {
 
             if (wizard->execute()) {
                 NIFrame::checkOptions(); // needed to set projection parameters
-                loadNetconvertConfig("");
+                loadNetconvertConfig();
             }
         }
         return 1;
@@ -773,6 +774,7 @@ GNEApplicationWindow::onCmdOpenForeign(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenNETEDITConfig(FXObject*, FXSelector, void*) {
+    auto &neteditOptions = OptionsCont::getOptions();
     // write debug information
     WRITE_DEBUG("Open NETEDITConfig dialog");
     // get the NETEDITConfig file name
@@ -793,12 +795,17 @@ GNEApplicationWindow::onCmdOpenNETEDITConfig(FXObject*, FXSelector, void*) {
             WRITE_MESSAGE("Loading NETEDITConfig from '" + file + "'");
             // close all windows
             closeAllWindows();
+            // reset files in options
+            myLoadThread->resetFileOptions();
+            // set file to load
+            neteditOptions.resetWritable();
+            neteditOptions.set("neteditcfg-file", file);
             // disable validation for additionals
             XMLSubSys::setValidation("never", "auto", "auto");
             // Create additional handler
             GNEApplicationWindowHelper::GNENETEDITConfigHandler confighandler(this, file);
             // Run parser
-            if (!confighandler.loadNETEDITConfig()) {
+            if (!confighandler.loadNETEDITConfig(true)) {
                 WRITE_ERROR("Loading of " + file + " failed.");
             }
             // update view
@@ -837,14 +844,13 @@ GNEApplicationWindow::onCmdOpenSUMOConfig(FXObject*, FXSelector, void*) {
             WRITE_MESSAGE("Loading SUMOConfig from '" + file + "'");
             // close all windows
             closeAllWindows();
-            // reset netedit files
+            // set current folder
+            gCurrentFolder = opendialog.getDirectory();
+            // reset files in options
+            myLoadThread->resetFileOptions();
+            // set file to load
             neteditOptions.resetWritable();
-            neteditOptions.set("sumocfg-file", "");
-            neteditOptions.set("net-file", "");
-            neteditOptions.set("additional-files", "");
-            neteditOptions.set("route-files", "");
-            neteditOptions.set("data-files", "");
-            neteditOptions.set("meandata-files", "");
+            neteditOptions.set("sumocfg-file", file);
             // disable validation for additionals
             XMLSubSys::setValidation("never", "auto", "auto");
             // Create additional handler
@@ -875,7 +881,7 @@ GNEApplicationWindow::onCmdReloadNETEDITConfig(FXObject*, FXSelector, void*) {
         // Create additional handler
         GNEApplicationWindowHelper::GNENETEDITConfigHandler confighandler(this, file);
         // Run parser
-        if (!confighandler.loadNETEDITConfig()) {
+        if (!confighandler.loadNETEDITConfig(true)) {
             WRITE_ERROR("Loading of NETEDITConfig " + file + " failed.");
         }
         update();
@@ -1087,24 +1093,30 @@ GNEApplicationWindow::onCmdOpenRecent(FXObject*, FXSelector, void* fileData) {
         return 1;
     } else {
         auto &neteditOptions = OptionsCont::getOptions();
+        // reset files in options
+        myLoadThread->resetFileOptions();
+        // set file to load
+        neteditOptions.resetWritable();
         // reset netedit files
         neteditOptions.resetWritable();
-        neteditOptions.set("sumocfg-file", "");
-        neteditOptions.set("net-file", "");
-        neteditOptions.set("additional-files", "");
-        neteditOptions.set("route-files", "");
-        neteditOptions.set("data-files", "");
-        neteditOptions.set("meandata-files", "");
         // get filedata
         std::string file((const char*)fileData);
-        // check if we're loading a network or a config (.netccfg for configs)
-        if (file.find(".netccfg") != std::string::npos) {
-            // load config
-            loadNetconvertConfig(file);
+        // check what are currently loading
+        if (file.find(".neteditcfg") != std::string::npos) {
+            // load neteditcfg
+            neteditOptions.set("neteditcfg-file", file);
+            loadNetwork(false);
+        } else if (file.find(".sumocfg") != std::string::npos) {
+            // load sumocfg
+            neteditOptions.set("sumocfg-file", file);
+            loadNetwork(false);
+        } else if (file.find(".netccfg") != std::string::npos) {
+            // load netconvert configuration
+            neteditOptions.set("configuration-file", file);
+            loadNetconvertConfig();
         } else {
-            // set file to load
-            neteditOptions.set("net-file", file);
             // load network
+            neteditOptions.set("net-file", file);
             loadNetwork(false);
         }
         return 1;
@@ -1588,7 +1600,7 @@ GNEApplicationWindow::loadNetwork(const bool isReloading) {
         setStatusBarText("Reloading network.");
     } else {
         gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
-        myLoadThread->loadNetwork("");
+        myLoadThread->loadNetwork();
         setStatusBarText("Loading network file '" + OptionsCont::getOptions().getString("sumo-net-file") + "'.");
     }
     // show supermode commands menu
@@ -1601,15 +1613,15 @@ GNEApplicationWindow::loadNetwork(const bool isReloading) {
 
 
 void
-GNEApplicationWindow::loadNetconvertConfig(const std::string &file) {
+GNEApplicationWindow::loadNetconvertConfig() {
     storeWindowSizeAndPos();
     getApp()->beginWaitCursor();
     myAmLoading = true;
     myReloading = false;
     closeAllWindows();
     gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
-    myLoadThread->loadNetconvertConfig(file);
-    setStatusBarText("Loading netconvert config '" + file + "'.");
+    myLoadThread->loadNetconvertConfig();
+    setStatusBarText("Loading netconvert config '" + OptionsCont::getOptions().getString("configuration-file") + "'.");
     // show supermode commands menu
     mySupermodeCommands.showSupermodeCommands();
     // show Network command menus (because Network is the default supermode)

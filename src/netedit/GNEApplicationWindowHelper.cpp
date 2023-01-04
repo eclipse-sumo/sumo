@@ -1957,7 +1957,7 @@ GNEApplicationWindowHelper::GNENETEDITConfigHandler::GNENETEDITConfigHandler(GNE
 
 
 bool
-GNEApplicationWindowHelper::GNENETEDITConfigHandler::loadNETEDITConfig() {
+GNEApplicationWindowHelper::GNENETEDITConfigHandler::loadNETEDITConfig(const bool createElements) {
     // get options
     auto &neteditOptions = OptionsCont::getOptions();
     // make all options writables
@@ -1983,7 +1983,9 @@ GNEApplicationWindowHelper::GNENETEDITConfigHandler::loadNETEDITConfig() {
     // relocate files
     neteditOptions.relocateFiles(myFile);
     // build elements
-    myApplicationWindow->loadNetwork(false);
+    if (createElements) {
+        myApplicationWindow->loadNetwork(false);
+    }
     return true;
 }
 

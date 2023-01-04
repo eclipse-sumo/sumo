@@ -713,7 +713,7 @@ public:
     void loadNetwork(const bool isReload);
 
     /// @brief starts to load a netconvert configuration
-    void loadNetconvertConfig(const std::string &file);
+    void loadNetconvertConfig();
 
 private:
     /// @brief this method closes all windows and deletes the current simulation */
