@@ -75,7 +75,7 @@ public:
 
 private:
     /// @brief reset options (used for loading single networks or netconvert configs)
-    bool resetOptions(const std::string &file);
+    bool resetOptions(const std::string &file, const bool configuration);
 
     /**@brief Closes the loading process
      *

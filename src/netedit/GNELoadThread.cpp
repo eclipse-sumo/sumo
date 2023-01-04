@@ -102,20 +102,14 @@ GNELoadThread::run() {
     } else if (neteditOptions.getString("configuration-file").size() > 0) {
         // set net convert configuration as loadedFile
         loadedFile = neteditOptions.getString("configuration-file");
-        if (resetOptions(loadedFile)) {
-            // restore file in options
-            neteditOptions.set("configuration-file", loadedFile);
-        } else {
+        if (!resetOptions(loadedFile, true)) {
             submitEndAndCleanup(net, loadedFile);
             return 0;
         }
     } else if (neteditOptions.getString("sumo-net-file").size() > 0) {
         // set netwok as loadedFile
         loadedFile = neteditOptions.getString("sumo-net-file");
-        if (resetOptions(loadedFile)) {
-            // restore file in options
-            neteditOptions.set("sumo-net-file", loadedFile);
-        } else {
+        if (!resetOptions(loadedFile, false)) {
             submitEndAndCleanup(net, loadedFile);
             return 0;
         }
@@ -492,12 +486,18 @@ GNELoadThread::setDefaultOptions(OptionsCont& neteditOptions) {
 
 
 bool
-GNELoadThread::resetOptions(const std::string &file) {
+GNELoadThread::resetOptions(const std::string &file, const bool configuration) {
     auto &neteditOptions = OptionsCont::getOptions();
     // fill (reset) all options
     fillOptions(neteditOptions);
     // set default options defined in GNELoadThread::setDefaultOptions(...)
     setDefaultOptions(neteditOptions);
+    // check if is a configuration (needed for parsing configuration file)
+    if (configuration) {
+        neteditOptions.set("configuration-file", file);
+    } else {
+        neteditOptions.set("sumo-net-file", file);
+    }
     try {
         // set all values writable, because certain attributes already setted can be updated through console
         neteditOptions.resetWritable();
