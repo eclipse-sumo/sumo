@@ -46,6 +46,12 @@ public:
     int getActiveNumber();
     void clearState();
 
+    enum PedestrianRoutingMode
+    {
+        JUPEDSIM_ROUTING,
+        SUMO_ROUTING
+    };
+
     class Event : public Command {
     public:
         explicit Event(MSPModel_Remote* remoteModel)
@@ -74,6 +80,9 @@ private:
         double getAngle(const MSStageMoving& stage, SUMOTime now) const;
         void setAngle(double angle);
 
+        void addEdgeToRoute(MSEdge* edge); // TO REMOVE
+        const ConstMSEdgeVector& getRoute(void) const; // TO REMOVE
+
         MSStageMoving* getStage();
         MSPerson* getPerson();
 
@@ -82,6 +91,9 @@ private:
         SUMOTime getWaitingTime(const MSStageMoving& stage, SUMOTime now) const;
         double getSpeed(const MSStageMoving& stage) const;
         const MSEdge* getNextEdge(const MSStageMoving& stage) const;
+        void moveToXY(MSPerson* p, Position pos, MSLane* lane, double lanePos,
+            double lanePosLat, double angle, int routeOffset,
+            const ConstMSEdgeVector& edges, SUMOTime t);
 
         Position getDestination(void) const;
         JPS_AgentId getAgentId(void) const;
@@ -94,6 +106,7 @@ private:
         MSPerson* myPerson;
         JPS_Journey myJourney;
         JPS_AgentId myAgentId;
+        ConstMSEdgeVector myCustomRoute;
     };
 
     MSNet* myNet;
@@ -106,6 +119,7 @@ private:
     JPS_OperationalModel myModel;
     JPS_ModelParameterProfileId myParameterProfileId;
     JPS_Simulation mySimulation;
+    const PedestrianRoutingMode myRoutingMode = PedestrianRoutingMode::SUMO_ROUTING;
 
 #ifdef DEBUG
     std::ofstream myTrajectoryDumpFile;
