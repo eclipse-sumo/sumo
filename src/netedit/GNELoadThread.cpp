@@ -113,10 +113,6 @@ GNELoadThread::run() {
             submitEndAndCleanup(net, loadedFile);
             return 0;
         }
-    } else {
-        WRITE_ERROR("Either a NETEDITConfig or SUMOConfig or netconvertConfig or network must be specified.");
-        submitEndAndCleanup(net, loadedFile);
-        return 0;
     }
     // update aggregate warnings
     if (neteditOptions.isDefault("aggregate-warnings")) {
