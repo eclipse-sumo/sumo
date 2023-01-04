@@ -469,7 +469,7 @@ GNELoadThread::setDefaultOptions(OptionsCont& neteditOptions) {
 bool
 GNELoadThread::initOptions() {
     auto &neteditOptions = OptionsCont::getOptions();
-    // fill all options
+    // fill (reset) all options
     fillOptions(neteditOptions);
     // set manually the net file
     if (myFile != "") {
@@ -512,26 +512,20 @@ GNELoadThread::createNewNetwork() {
 
 
 void
-GNELoadThread::loadNetwork(const std::string& file, const bool useStartupOptions) {
+GNELoadThread::loadNetwork(const std::string& file) {
     myFile = file;
     myLoadNet = true;
     myNewNet = false;
-    if ((myFile != "") && !useStartupOptions) {
-        OptionsIO::setArgs(0, nullptr);
-    }
     // start thread
     start();
 }
 
 
 void
-GNELoadThread::loadNetconvertConfig(const std::string& file, const bool useStartupOptions) {
+GNELoadThread::loadNetconvertConfig(const std::string& file) {
     myFile = file;
     myLoadNet = false;
     myNewNet = false;
-    if ((myFile != "") && !useStartupOptions) {
-        OptionsIO::setArgs(0, nullptr);
-    }
     // start thread
     start();
 }

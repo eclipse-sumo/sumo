@@ -709,11 +709,11 @@ public:
     /// @brief create new network
     void createNewNetwork();
 
-    /// @brief starts to load a network
-    void loadNetwork(const std::string file, bool isReload, bool useStartupOptions);
+    /// @brief load network (with information previously stored in options)
+    void loadNetwork(const bool isReload);
 
     /// @brief starts to load a netconvert configuration
-    void loadNetconvertConfig(const std::string file, bool useStartupOptions);
+    void loadNetconvertConfig(const std::string &file);
 
 private:
     /// @brief this method closes all windows and deletes the current simulation */

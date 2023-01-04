@@ -1941,7 +1941,7 @@ GNEApplicationWindowHelper::GNESUMOConfigHandler::loadSUMOConfig(const bool crea
     neteditOptions.set("route-files", sumoOptions.getString("route-files"));
     // check if create loaded elements
     if (createElements) {
-        myApplicationWindow->loadNetwork(neteditOptions.getString("net-file"), false, false);
+        myApplicationWindow->loadNetwork(false);
     }
     return true;
 }
@@ -1983,7 +1983,7 @@ GNEApplicationWindowHelper::GNENETEDITConfigHandler::loadNETEDITConfig() {
     // relocate files
     neteditOptions.relocateFiles(myFile);
     // build elements
-    myApplicationWindow->loadNetwork(neteditOptions.getString("net-file"), false, false);
+    myApplicationWindow->loadNetwork(false);
     return true;
 }
 

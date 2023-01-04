@@ -55,17 +55,11 @@ public:
     /// @brief begins the creation of an empty network
     void createNewNetwork();
 
-    /**@brief begins the loading of an existent network
-     * @param[in] file The network to be loaded
-     * @param[in] useStartupOptions whether the initial startup options shall be used
-     */
-    void loadNetwork(const std::string& file, const bool useStartupOptions);
+    /// @brief begins the loading of an existent network
+    void loadNetwork(const std::string& file);
 
-    /**@brief begins the loading of an existent netconvert configuration
-     * @param[in] file The netconvert configuration to be loaded
-     * @param[in] useStartupOptions whether the initial startup options shall be used
-     */
-    void loadNetconvertConfig(const std::string& file, const bool useStartupOptions);
+    /// @brief begins the loading of an existent netconvert configuration
+    void loadNetconvertConfig(const std::string& file);
 
     /// @brief Retrieves messages from the loading module
     void retrieveMessage(const MsgHandler::MsgType type, const std::string& msg);
@@ -76,7 +70,7 @@ public:
     /// @brief sets required options for proper functioning
     static void setDefaultOptions(OptionsCont& neteditOptions);
 
-protected:
+private:
     /// @brief init options
     bool initOptions();
 
@@ -84,10 +78,10 @@ protected:
      *
      * This method is called both on success and failure.
      * All message callbacks to this instance are removed and the parent
-     * application is informed about the loading */
+     * application is informed about the loading 
+     */
     void submitEndAndCleanup(GNENet* net, const bool newNet = false, const std::string& guiSettingsFile = "", const bool viewportFromRegistry = false);
 
-private:
     /// @brief NETEDIT application windows
     GNEApplicationWindow* myApplicationWindow;
 

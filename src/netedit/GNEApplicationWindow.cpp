@@ -664,7 +664,7 @@ GNEApplicationWindow::onCmdOpenNetconvertConfig(FXObject*, FXSelector, void*) {
             gCurrentFolder = opendialog.getDirectory();
             std::string file = opendialog.getFilename().text();
             // load netconvert
-            loadNetconvertConfig(file, false);
+            loadNetconvertConfig(file);
             // add it into recent configs
             myMenuBarFile.myRecentNetworksAndConfigs.appendFile(file.c_str());
         }
@@ -708,8 +708,10 @@ GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
             neteditOptions.set("route-files", "");
             neteditOptions.set("data-files", "");
             neteditOptions.set("meandata-files", "");
+            // set file to load
+            neteditOptions.set("net-file", file);
             // load network
-            loadNetwork(file, false, false);
+            loadNetwork(false);
             // add it into recent nets
             myMenuBarFile.myRecentNetworksAndConfigs.appendFile(file.c_str());
             // when a net is loaded, save additionals and TLSPrograms are disabled
@@ -761,7 +763,7 @@ GNEApplicationWindow::onCmdOpenForeign(FXObject*, FXSelector, void*) {
 
             if (wizard->execute()) {
                 NIFrame::checkOptions(); // needed to set projection parameters
-                loadNetconvertConfig("", false);
+                loadNetconvertConfig("");
             }
         }
         return 1;
@@ -1098,10 +1100,12 @@ GNEApplicationWindow::onCmdOpenRecent(FXObject*, FXSelector, void* fileData) {
         // check if we're loading a network or a config (.netccfg for configs)
         if (file.find(".netccfg") != std::string::npos) {
             // load config
-            loadNetconvertConfig(file, false);
+            loadNetconvertConfig(file);
         } else {
+            // set file to load
+            neteditOptions.set("net-file", file);
             // load network
-            loadNetwork(file, false, false);
+            loadNetwork(false);
         }
         return 1;
     }
@@ -1129,13 +1133,13 @@ GNEApplicationWindow::onCmdReload(FXObject*, FXSelector, void*) {
             myEditMenuCommands.networkViewOptions.hideNetworkViewOptionsMenuChecks();
             myEditMenuCommands.demandViewOptions.hideDemandViewOptionsMenuChecks();
             myEditMenuCommands.dataViewOptions.hideDataViewOptionsMenuChecks();
+            // reload network (this uses the stored files saved in options)
+            loadNetwork(true);
         } else {
             // abort reloading (because "cancel button" was pressed)
             return 1;
         }
     }
-    // @note. If another network has been load during this session, it might not be desirable to set useStartupOptions
-    loadNetwork(OptionsCont::getOptions().getString("sumo-net-file"), true, false);
     return 1;
 }
 
@@ -1573,19 +1577,19 @@ GNEApplicationWindow::createNewNetwork() {
 
 
 void
-GNEApplicationWindow::loadNetwork(const std::string file, bool isReload, bool useStartupOptions) {
+GNEApplicationWindow::loadNetwork(const bool isReloading) {
     storeWindowSizeAndPos();
     getApp()->beginWaitCursor();
     myAmLoading = true;
-    myReloading = isReload;
+    myReloading = isReloading;
     closeAllWindows();
-    if (isReload) {
+    if (isReloading) {
         myLoadThread->start();
         setStatusBarText("Reloading network.");
     } else {
         gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
-        myLoadThread->loadNetwork(file, useStartupOptions);
-        setStatusBarText("Loading network file '" + file + "'.");
+        myLoadThread->loadNetwork("");
+        setStatusBarText("Loading network file '" + OptionsCont::getOptions().getString("sumo-net-file") + "'.");
     }
     // show supermode commands menu
     mySupermodeCommands.showSupermodeCommands();
@@ -1597,14 +1601,14 @@ GNEApplicationWindow::loadNetwork(const std::string file, bool isReload, bool us
 
 
 void
-GNEApplicationWindow::loadNetconvertConfig(const std::string file, bool useStartupOptions) {
+GNEApplicationWindow::loadNetconvertConfig(const std::string &file) {
     storeWindowSizeAndPos();
     getApp()->beginWaitCursor();
     myAmLoading = true;
     myReloading = false;
     closeAllWindows();
     gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
-    myLoadThread->loadNetconvertConfig(file, useStartupOptions);
+    myLoadThread->loadNetconvertConfig(file);
     setStatusBarText("Loading netconvert config '" + file + "'.");
     // show supermode commands menu
     mySupermodeCommands.showSupermodeCommands();
@@ -1740,7 +1744,8 @@ GNEApplicationWindow::loadOptionOnStartup() {
     if (neteditOptions.getBool("new")) {
         createNewNetwork();
     } else {
-        loadNetwork("", false, true);
+        // load network with the previously stored information in options
+        loadNetwork(false);
     }
 }
 
