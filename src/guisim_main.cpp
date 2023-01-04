@@ -78,8 +78,8 @@ main(int argc, char** argv) {
         }
 
         // build the main window
-        GUIApplicationWindow* window =
-            new GUIApplicationWindow(&application, "*.sumo.cfg,*.sumocfg");
+        GUIApplicationWindow* window = new GUIApplicationWindow(&application, "*.sumo.cfg,*.sumocfg");
+        gLanguage = oc.getString("language");
         gSchemeStorage.init(&application);
         window->dependentBuild(false);
         // Create app

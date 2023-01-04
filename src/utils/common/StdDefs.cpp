@@ -29,6 +29,7 @@ bool gHumanReadableTime = false;
 bool gSimulation = false;
 double gWeightsRandomFactor = 1;
 double gWeightsWalkOppositeFactor = 1;
+std::string gLanguage;
 
 bool gDebugFlag1 = false;
 bool gDebugFlag2 = false;

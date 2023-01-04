@@ -124,6 +124,9 @@ extern bool gSimulation; // whether the current application is sumo or sumo-gui 
 extern double gWeightsRandomFactor; // randomization for edge weights
 extern double gWeightsWalkOppositeFactor; // factor for walking against flow of traffic
 
+/// the language for GUI elements and messages
+extern std::string gLanguage;
+
 
 /// @brief global utility flags for debugging
 extern bool gDebugFlag1;

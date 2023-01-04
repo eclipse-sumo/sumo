@@ -470,6 +470,10 @@ GNEApplicationWindow::dependentBuild() {
         return;
     }
     myHadDependentBuild = true;
+    if (gLanguage == "C") {
+        gLanguage = getApp()->reg().readStringEntry("gui", "language", "C");
+        MsgHandler::setupI18n(gLanguage);
+    }
     setTarget(this);
     setSelector(MID_WINDOW);
     // build toolbar menu

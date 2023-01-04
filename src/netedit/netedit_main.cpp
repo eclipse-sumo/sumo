@@ -71,8 +71,8 @@ main(int argc, char** argv) {
             throw ProcessError("This system has no OpenGL support. Exiting.");
         }
         // build the main window
-        GNEApplicationWindow* window =
-        new GNEApplicationWindow(&application, "*.netc.cfg,*.netccfg");
+        GNEApplicationWindow* window = new GNEApplicationWindow(&application, "*.netc.cfg,*.netccfg");
+        gLanguage = neteditOptions.getString("language");
         gSchemeStorage.init(&application, true);
         window->dependentBuild();
         // Create app

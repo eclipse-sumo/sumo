@@ -84,6 +84,9 @@ private:
     /// @brief Offset when adding breakpoints
     FXRealSpinner* myBreakPointOffset;
 
+    /// @brief The language text field
+    FXTextField* myLanguageField;
+
     /// @brief The list that holds the URLs
     FXTable* myTable;
 
