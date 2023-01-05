@@ -1940,6 +1940,10 @@ GNEApplicationWindowHelper::GNESUMOConfigHandler::loadSUMOConfig() {
     neteditOptions.set("net-file", mySumoOptions.getString("net-file"));
     neteditOptions.set("additional-files", mySumoOptions.getString("additional-files"));
     neteditOptions.set("route-files", mySumoOptions.getString("route-files"));
+    // set outputs and flags
+    if (neteditOptions.getString("output-file").empty()) {
+        neteditOptions.set("output-file", neteditOptions.getString("net-file"));
+    }
     // check if we need to define the configuration file
     if (neteditOptions.getString("configuration-file").empty()) {
         const auto newConfiguration = StringUtils::replace(neteditOptions.getString("configuration-file"), ".sumocfg", ".neteditcfg");
@@ -1984,6 +1988,10 @@ GNEApplicationWindowHelper::GNENETEDITConfigHandler::loadNETEDITConfig() {
     }
     // relocate files
     neteditOptions.relocateFiles(myFile);
+    // set outputs and flags
+    if (neteditOptions.getString("output-file").empty()) {
+        neteditOptions.set("output-file", neteditOptions.getString("net-file"));
+    }
     // check if we have loaded a netedit config or a netconvert config
     if (neteditOptions.getString("configuration-file").find(".netccfg") != std::string::npos) {
         const auto newConfiguration = StringUtils::replace(neteditOptions.getString("configuration-file"), ".netccfg", ".neteditcfg");
