@@ -1646,7 +1646,7 @@ MSVehicle::processNextStop(double currentVelocity) {
                 }
             }
         } else {
-            if (stop.triggered && !myAmRegisteredAsWaiting) {
+            if (stop.triggered && !myAmRegisteredAsWaiting && stop.duration <= DELTA_T) {
                 if (getVehicleType().getPersonCapacity() == getPersonNumber()) {
                     WRITE_WARNING("Vehicle '" + getID() + "' ignores triggered stop on lane '" + stop.lane->getID() + "' due to capacity constraints.");
                     stop.triggered = false;
@@ -1660,7 +1660,7 @@ MSVehicle::processNextStop(double currentVelocity) {
                 }
 #endif
             }
-            if (stop.containerTriggered && !myAmRegisteredAsWaiting) {
+            if (stop.containerTriggered && !myAmRegisteredAsWaiting && stop.duration <= DELTA_T) {
                 if (getVehicleType().getContainerCapacity() == getContainerNumber()) {
                     WRITE_WARNING("Vehicle '" + getID() + "' ignores container triggered stop on lane '" + stop.lane->getID() + "' due to capacity constraints.");
                     stop.containerTriggered = false;
