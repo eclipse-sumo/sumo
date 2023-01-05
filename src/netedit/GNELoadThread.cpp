@@ -77,9 +77,9 @@ GNELoadThread::run() {
     // get netedit options
     auto &neteditOptions = OptionsCont::getOptions();
     // check if we're loading a NETEDIT config
-    if (neteditOptions.getString("neteditcfg-file").size() > 0) {
+    if (neteditOptions.getString("configuration-file").size() > 0) {
         // set netedit config as loaded file
-        loadedFile = neteditOptions.getString("neteditcfg-file");
+        loadedFile = neteditOptions.getString("configuration-file");
         // declare parser for netedit config file
         GNEApplicationWindowHelper::GNENETEDITConfigHandler confighandler(myApplicationWindow, loadedFile);
         // if there is an error loading sumo config, stop
@@ -266,13 +266,6 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.addDescription("new", "Input", "Start with a new network");
 
     // files
-    neteditOptions.doRegister("neteditcfg-file", new Option_FileName());
-    neteditOptions.addSynonyme("neteditcfg-file", "neteditcfg");
-    neteditOptions.addDescription("neteditcfg-file", "Netedit", "Load NETEDIT config");
-
-    neteditOptions.doRegister("neteditcfg-output", new Option_String());
-    neteditOptions.addDescription("neteditcfg-output", "Netedit", "file in which netedit config must be saved");
-
     neteditOptions.doRegister("sumocfg-file", new Option_FileName());
     neteditOptions.addSynonyme("sumocfg-file", "sumocfg");
     neteditOptions.addDescription("sumocfg-file", "Netedit", "Load sumo config");
@@ -519,9 +512,8 @@ GNELoadThread::resetFileOptions() {
     auto &neteditOptions = OptionsCont::getOptions();
     // reset netedit files
     neteditOptions.resetWritable();
-    neteditOptions.set("neteditcfg-file", "");
-    neteditOptions.set("sumocfg-file", "");
     neteditOptions.set("configuration-file", "");
+    neteditOptions.set("sumocfg-file", "");
     neteditOptions.set("net-file", "");
     neteditOptions.set("additional-files", "");
     neteditOptions.set("route-files", "");
