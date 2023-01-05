@@ -21,6 +21,8 @@
 /****************************************************************************/
 import org.eclipse.sumo.libtraci.*;
 import java.util.Map;
+import java.util.AbstractMap;
+import java.util.TreeMap;
 
 public class Subscription {
 
@@ -66,10 +68,11 @@ public class Subscription {
                     Vehicle.subscribe(vehID, new IntVector(new int[] { libtraci.getVAR_POSITION(), libtraci.getVAR_SPEED() }));
                 }
             }
-            SubscriptionResults vsRes = Vehicle.getAllSubscriptionResults();
+            TreeMap<String, TraCIResults> vsRes = sortedMap(Vehicle.getAllSubscriptionResults());
             for (Map.Entry<String, TraCIResults> vehEntry : vsRes.entrySet()) {
                 System.out.println("Vehicle Subscription: id=" + vehEntry.getKey());
-                for (Map.Entry<Integer, TraCIResult> entry : vehEntry.getValue().entrySet()) {
+                TreeMap<Integer, TraCIResult> vehResults = sortedMap(vehEntry.getValue());
+                for (Map.Entry<Integer, TraCIResult> entry : vehResults.entrySet()) {
                     TraCIResult sR = entry.getValue();
                     System.out.println("   variable id: " + entry.getKey() + "  value: " + sR.getString());
                 }
@@ -77,5 +80,13 @@ public class Subscription {
         }
 
         Simulation.close();
+    }
+
+    public static <K, V> TreeMap<K, V> sortedMap(AbstractMap<K, V> map) {
+        TreeMap<K, V> result = new TreeMap<K, V>();
+        for (Map.Entry<K, V> e : map.entrySet()) {
+            result.put(e.getKey(), e.getValue());
+        }
+        return result;
     }
 }
