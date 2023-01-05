@@ -1168,11 +1168,11 @@ GNENet::checkJunctionPosition(const Position& pos) {
 void
 GNENet::requireSaveNet(bool value) {
     if (value) {
-        myNetSaved = true;
+        myNetSaved = false;
         requireSaveSUMOConfig(true);
         requireSaveNETEDITConfig(true);
     } else {
-        myNetSaved = false;
+        myNetSaved = true;
     }
 }
 
