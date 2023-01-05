@@ -96,7 +96,7 @@ def main(args=None):
         # "fake up the array of the scalar mappable. Urgh..."
         # (pelson, http://stackoverflow.com/questions/8342549/matplotlib-add-colorbar-to-a-sequence-of-line-plots)
         sm._A = []
-    plt.colorbar(sm)
+    plt.colorbar(sm, ax=ax)
     options.nolegend = True
     helpers.closeFigure(fig, ax, options)
 
