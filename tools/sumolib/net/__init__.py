@@ -483,9 +483,8 @@ class Net:
         for n in self._nodes:
             n._coord = (n._coord[0] + dx, n._coord[1] + dy, n._coord[2] + dz)
         for e in self._edges:
-            for l in e._lanes:
-                l._shape = [(p[0] + dx, p[1] + dy, p[2] + dz)
-                            for p in l.getShape3D()]
+            for _lane in e.getLanes():
+                _lane.setShape([(p[0] + dx, p[1] + dy, p[2] + dz) for p in _lane.getShape3D()])
             e.rebuildShape()
 
     def getInternalPath(self, conn, fastest=False):

@@ -94,7 +94,7 @@ class Relation:
         self.population = population
 
     def __repr__(self):
-        return "%s|%s_%s" % (self.id, self.name, self.uid, self.population)
+        return "%s|%s_%s_%s" % (self.id, self.name, self.uid, self.population)
 
 
 class PopulationReader(handler.ContentHandler):

@@ -16,32 +16,32 @@
 # @date    2014-08-26
 
 
-def _getNumberAt(l, pos):
+def _getNumberAt(line, pos):
     start = pos
     eSeen = False
     dotSeen = False
-    while start > 0 and l[start-1] in "1234567890.eE-+":
-        if l[start-1] in "eE":
+    while start > 0 and line[start-1] in "1234567890.eE-+":
+        if line[start-1] in "eE":
             if eSeen:
                 break
             eSeen = True
-        if l[start-1] == ".":
+        if line[start-1] == ".":
             if dotSeen:
                 break
             dotSeen = True
         start -= 1
     end = pos
-    while end < len(l) and l[end] in "1234567890.eE-+":
-        if l[end] in "eE":
+    while end < len(line) and line[end] in "1234567890.eE-+":
+        if line[end] in "eE":
             if eSeen:
                 break
             eSeen = True
-        if l[end] == ".":
+        if line[end] == ".":
             if dotSeen:
                 break
             dotSeen = True
         end += 1
-    return l[start:end], l[end:]
+    return line[start:end], line[end:]
 
 
 def _fpequalAtPos(l1, l2, tolerance, relTolerance, pos):

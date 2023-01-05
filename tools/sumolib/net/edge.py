@@ -192,19 +192,18 @@ class Edge:
         else:
             self._shape3D = []
             minLen = -1
-            for l in self._lanes:
-                if minLen == -1 or minLen > len(l.getShape()):
-                    minLen = len(l._shape)
+            for _lane in self._lanes:
+                if minLen == -1 or minLen > len(_lane.getShape()):
+                    minLen = len(_lane.getShape())
             for i in range(minLen):
                 x = 0.
                 y = 0.
                 z = 0.
-                for l in self._lanes:
-                    x += l.getShape3D()[i][0]
-                    y += l.getShape3D()[i][1]
-                    z += l.getShape3D()[i][2]
-                self._shape3D.append(
-                    (x / float(numLanes), y / float(numLanes), z / float(numLanes)))
+                for _lane in self._lanes:
+                    x += _lane.getShape3D()[i][0]
+                    y += _lane.getShape3D()[i][1]
+                    z += _lane.getShape3D()[i][2]
+                self._shape3D.append((x / float(numLanes), y / float(numLanes), z / float(numLanes)))
 
         if self._function in ["crossing", "walkingarea"]:
             self._shapeWithJunctions3D = self._shape3D

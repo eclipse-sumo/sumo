@@ -168,9 +168,7 @@ class Net:
         splits = []
         for s in defEdge.splits:
             splits.append(s)
-        lanes = []
-        for l in defEdge.lanes:
-            lanes.append(l)
+        lanes = list(defEdge.lanes)
         numLanes = defEdge.numLanes
         maxSpeed = defEdge.maxSpeed
         e = Edge(n1.nid + "_to_" + n2.nid, n1, n2, numLanes=numLanes,

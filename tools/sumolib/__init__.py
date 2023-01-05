@@ -186,7 +186,8 @@ def open(fileOrURL, tryGZip=True, mode="rb"):
 
 def openz(fileOrURL, mode="r", **kwargs):
     """
-    Opens transparently files, URLs and gzipped files for reading and writing. Also enforces UTF8 on text output / input.
+    Opens transparently files, URLs and gzipped files for reading and writing.
+    Also enforces UTF8 on text output / input.
     Should be compatible with python 2 and 3.
     """
     try:

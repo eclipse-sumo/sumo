@@ -64,20 +64,17 @@ class NetShiftAdaptor:
             n._coord = (
                 b1 * x11 + b2 * x12 + b3 * x13, b1 * y11 + b2 * y12 + b3 * y13)
         for e in self._net2._edges:
-            for l in e._lanes:
+            for _lane in e.getLanes():
                 shape = []
-                for p in l.getShape3D():
+                for p in _lane.getShape3D():
                     x0 = p[0]
                     y0 = p[1]
-                    b1 = (
-                        (x22 - x0) * (y23 - y0) - (x23 - x0) * (y22 - y0)) / b0
-                    b2 = (
-                        (x23 - x0) * (y21 - y0) - (x21 - x0) * (y23 - y0)) / b0
-                    b3 = (
-                        (x21 - x0) * (y22 - y0) - (x22 - x0) * (y21 - y0)) / b0
+                    b1 = ((x22 - x0) * (y23 - y0) - (x23 - x0) * (y22 - y0)) / b0
+                    b2 = ((x23 - x0) * (y21 - y0) - (x21 - x0) * (y23 - y0)) / b0
+                    b3 = ((x21 - x0) * (y22 - y0) - (x22 - x0) * (y21 - y0)) / b0
                     x = (b1 * x11 + b2 * x12 + b3 * x13)
                     y = (b1 * y11 + b2 * y12 + b3 * y13)
                     z = p[2]
                     shape.append((x, y, z))
-                l.setShape(shape)
+                _lane.setShape(shape)
             e.rebuildShape()

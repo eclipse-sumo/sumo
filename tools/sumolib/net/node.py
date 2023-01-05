@@ -153,13 +153,13 @@ class Node:
             incoming = list(self._incoming)
         conns = []
         for e in incoming:
-            if (hasattr(e, "getLanes")):
+            if hasattr(e, "getLanes"):
                 lanes = e.getLanes()
             else:
                 # assuming source is a lane
                 lanes = [e]
-            for l in lanes:
-                all_outgoing = l.getOutgoing()
+            for _lane in lanes:
+                all_outgoing = _lane.getOutgoing()
                 outgoing = []
                 if target:
                     if hasattr(target, "getLanes"):

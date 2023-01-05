@@ -228,13 +228,13 @@ class Lane:
         lanes = [c.getFromLane() for c in candidates if self == c.getToLane()]
         if onlyDirect:
             hasInternal = False
-            for l in lanes:
-                if l.getID()[0] == ":":
+            for _lane in lanes:
+                if _lane.getID()[0] == ":":
                     hasInternal = True
                     break
             if hasInternal:
-                return [l for l in lanes if l.getID()[0] == ":" and
-                        l.getOutgoing()[0].getViaLaneID() == ""]
+                return [_lane for _lane in lanes if _lane.getID()[0] == ":" and
+                        _lane.getOutgoing()[0].getViaLaneID() == ""]
         return lanes
 
     def getConnection(self, toLane):
