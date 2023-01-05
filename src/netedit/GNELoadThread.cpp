@@ -279,38 +279,23 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     // files
     neteditOptions.doRegister("sumocfg-file", new Option_FileName());
     neteditOptions.addSynonyme("sumocfg-file", "sumocfg");
-    neteditOptions.addDescription("sumocfg-file", "Netedit", "load sumo config");
-
-    neteditOptions.doRegister("sumocfg-output", new Option_String());
-    neteditOptions.addDescription("sumocfg-output", "Netedit", "file in which sumo config must be saved");
+    neteditOptions.addDescription("sumocfg-file", "Input", "load sumo config");
 
     neteditOptions.doRegister("additional-files", 'a', new Option_FileName());
     neteditOptions.addSynonyme("additional-files", "additional");
-    neteditOptions.addDescription("additional-files", "Netedit", "load additional and shapes descriptions from FILE(s)");
-
-    neteditOptions.doRegister("additionals-output", new Option_String());
-    neteditOptions.addDescription("additionals-output", "Netedit", "file in which additionals must be saved");
+    neteditOptions.addDescription("additional-files", "Input", "load additional and shapes descriptions from FILE(s)");
 
     neteditOptions.doRegister("route-files", 'r', new Option_FileName());
     neteditOptions.addSynonyme("route-files", "routes");
-    neteditOptions.addDescription("route-files", "Netedit", "load demand elements descriptions from FILE(s)");
-
-    neteditOptions.doRegister("demandelements-output", new Option_String());
-    neteditOptions.addDescription("demandelements-output", "Netedit", "file in which demand elements must be saved");
+    neteditOptions.addDescription("route-files", "Input", "load demand elements descriptions from FILE(s)");
 
     neteditOptions.doRegister("data-files", 'd', new Option_FileName());
     neteditOptions.addSynonyme("data-files", "data");
-    neteditOptions.addDescription("data-files", "Netedit", "load data elements descriptions from FILE(s)");
-
-    neteditOptions.doRegister("dataelements-output", new Option_String());
-    neteditOptions.addDescription("dataelements-output", "Netedit", "file in which data elements must be saved");
+    neteditOptions.addDescription("data-files", "Input", "load data elements descriptions from FILE(s)");
 
     neteditOptions.doRegister("meandata-files", 'm', new Option_FileName());
     neteditOptions.addSynonyme("meandata-files", "meandata");
-    neteditOptions.addDescription("meandata-files", "Netedit", "load meanData descriptions from FILE(s)");
-
-    neteditOptions.doRegister("meandatas-output", new Option_String());
-    neteditOptions.addDescription("meandatas-output", "Netedit", "file in which meandatas must be saved");
+    neteditOptions.addDescription("meandata-files", "Input", "load meanData descriptions from FILE(s)");
 
     neteditOptions.doRegister("TLSPrograms-output", new Option_String());
     neteditOptions.addDescription("TLSPrograms-output", "Netedit", "file in which TLS Programs must be saved");
@@ -503,10 +488,6 @@ GNELoadThread::resetOptions(const std::string &file, const bool configuration) {
         neteditOptions.resetWritable();
         // load options from console
         OptionsIO::getOptions();
-        // if output file wasn't defined in the command line manually, set value of "sumo-net-file"
-        if (!neteditOptions.isSet("output-file")) {
-            neteditOptions.set("output-file", file);
-        }
         return true;
     } catch (ProcessError& e) {
         if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
