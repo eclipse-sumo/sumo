@@ -641,7 +641,7 @@ public:
     void addStops(const bool ignoreStopErrors, MSRouteIterator* searchStart = nullptr, bool addRouteStops = true);
 
     /// @brief check whether all stop.edge MSRouteIterators are valid and in order
-    bool haveValidStopEdges() const;
+    bool haveValidStopEdges(bool silent = false) const;
 
     /** @brief Returns the list of still pending stop edges
      * also returns the first and last stop position
