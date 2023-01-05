@@ -269,6 +269,7 @@ given in the following.
 | **-l** {{DT_FILE}}<br>**--log** {{DT_FILE}}  | Writes all messages to FILE (implies verbose)  |
 | **--message-log** {{DT_FILE}}  | Writes all non-error messages to FILE (implies verbose)  |
 | **--error-log** {{DT_FILE}}  | Writes all warnings and errors to FILE  |
+| **--language** {{DT_STR}} | Language to use in messages; *default:* **C** |
 
 The logging options **--log** and **--message-log** also enable the verbose output but only into
 the given file (unless **--verbose** was given as well). Errors get always printed to
@@ -280,6 +281,12 @@ the XML parser. This performs a basic validation of the input and is
 highly recommended especially for beginners because it easily finds
 spelling mistakes in the input which otherwise might be silently
 ignored. Validation is only performed if the [XML-schema is declared within the input file](../XMLValidation.md).
+
+The **--language** option sets the language for messages, warnings and the GUI elements. The translation is still very incomplete
+thus by default the language is set to "C", which means untranslated. The parameter accepts a two letter language code
+such as *tr* or *de*. If it is explicitly set to the empty string, it will try to determine the language from
+environment variables as described in the [gettext documentation](https://www.gnu.org/software/gettext/manual/html_node/Locale-Environment-Variables.html).
+If you want to contribute to translations please have a look at the [translation documentation](../Developer/Translating.md).
 
 ## Random Number Options
 

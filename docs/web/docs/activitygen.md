@@ -94,6 +94,7 @@ Command Line Applications\#Reporting Options](Basics/Using_the_Command_Line_Appl
 | **-l** {{DT_FILE}}<br> **--log** {{DT_FILE}} | Writes all messages to FILE (implies verbose) |
 | **--message-log** {{DT_FILE}} | Writes all non-error messages to FILE (implies verbose) |
 | **--error-log** {{DT_FILE}} | Writes all warnings and errors to FILE |
+| **--language** {{DT_STR}} | Language to use in messages; *default:* **C** |
 | **--debug** {{DT_BOOL}} | Detailed messages about every single step; *default:* **false** |
 
 ### Random Number

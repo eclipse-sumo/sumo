@@ -289,6 +289,7 @@ configuration:
 | **-l** {{DT_FILE}}<br> **--log** {{DT_FILE}} | Writes all messages to FILE (implies verbose) |
 | **--message-log** {{DT_FILE}} | Writes all non-error messages to FILE (implies verbose) |
 | **--error-log** {{DT_FILE}} | Writes all warnings and errors to FILE |
+| **--language** {{DT_STR}} | Language to use in messages; *default:* **C** |
 | **--duration-log.disable** {{DT_BOOL}} | Disable performance reports for individual simulation steps; *default:* **false** |
 | **-t** {{DT_BOOL}}<br> **--duration-log.statistics** {{DT_BOOL}} | Enable statistics on vehicle trips; *default:* **false** |
 | **--no-step-log** {{DT_BOOL}} | Disable console output of current simulation step; *default:* **false** |
