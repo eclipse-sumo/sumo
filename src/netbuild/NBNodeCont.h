@@ -446,7 +446,7 @@ private:
     std::set<const NBNode*> mySplit;
 
     /// @brief nodes that received a traffic light due to guessing (--tls.guess)
-    std::set<NBNode*> myGuessedTLS;
+    std::set<NBNode*, ComparatorIdLess> myGuessedTLS;
 
     /// @brief nodes that are excluded from tls-guessing
     std::set<const NBNode*> myUnsetTLS;
