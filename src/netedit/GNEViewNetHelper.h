@@ -475,6 +475,9 @@ struct GNEViewNetHelper {
         /// @brief build save buttons
         void buildSaveElementsButtons();
 
+        /// @brief checkable button for save NETEDIT config
+        MFXButtonTooltip* saveNETEDITConfig = nullptr;
+
         /// @brief checkable button for save SUMO config
         MFXButtonTooltip* saveSUMOConfig = nullptr;
 
