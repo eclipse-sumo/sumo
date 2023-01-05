@@ -814,7 +814,7 @@ GNEApplicationWindow::onCmdOpenNETEDITConfig(FXObject*, FXSelector, void*) {
             if (!confighandler.loadNETEDITConfig()) {
                 WRITE_ERROR("Loading of " + file + " failed.");
             } else {
-                myLoadThread->loadNetconvertConfig();
+                myLoadThread->loadConfig();
             }
             // update view
             update();
@@ -867,7 +867,7 @@ GNEApplicationWindow::onCmdOpenSUMOConfig(FXObject*, FXSelector, void*) {
             if (!confighandler.loadSUMOConfig()) {
                 WRITE_ERROR("Loading of SUMOConfig " + file + " failed.");
             } else {
-                myLoadThread->loadNetconvertConfig();
+                myLoadThread->loadConfig();
             }
             // update view
             update();
@@ -894,7 +894,7 @@ GNEApplicationWindow::onCmdReloadNETEDITConfig(FXObject*, FXSelector, void*) {
         if (!confighandler.loadNETEDITConfig()) {
             WRITE_ERROR("Loading of NETEDITConfig " + file + " failed.");
         } else {
-            myLoadThread->loadNetconvertConfig();
+            myLoadThread->loadConfig();
         }
         update();
         // restore validation for additionals
@@ -916,7 +916,7 @@ GNEApplicationWindow::onCmdReloadSUMOConfig(FXObject*, FXSelector, void*) {
         if (!confighandler.loadSUMOConfig()) {
             WRITE_ERROR("Loading of SUMOConfig " + file + " failed.");
         } else {
-            myLoadThread->loadNetconvertConfig();
+            myLoadThread->loadConfig();
         }
         update();
         // restore validation for additionals
@@ -1626,8 +1626,8 @@ GNEApplicationWindow::loadNetconvertConfig() {
     myReloading = false;
     closeAllWindows();
     gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
-    myLoadThread->loadNetconvertConfig();
     setStatusBarText("Loading netconvert config '" + OptionsCont::getOptions().getString("configuration-file") + "'.");
+    myLoadThread->loadConfig();
     // show supermode commands menu
     mySupermodeCommands.showSupermodeCommands();
     // show Network command menus (because Network is the default supermode)

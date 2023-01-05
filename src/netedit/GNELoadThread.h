@@ -61,8 +61,8 @@ public:
     /// @brief begins the loading of an existent network
     void loadNetwork();
 
-    /// @brief begins the loading of an existent netconvert configuration
-    void loadNetconvertConfig();
+    /// @brief begins the loading of an existent configuration (netconvert, netedit or sumo config)
+    void loadConfig();
 
     /// @brief Retrieves messages from the loading module
     void retrieveMessage(const MsgHandler::MsgType type, const std::string& msg);

@@ -76,7 +76,7 @@ GNELoadThread::run() {
     std::string loadedFile;
     // get netedit options
     auto &neteditOptions = OptionsCont::getOptions();
-    // check if we're loading a NETEDIT config
+    // check if we're loading a sumo or netconvet config file
     if (neteditOptions.getString("configuration-file").size() > 0) {
         // set netedit config as loaded file
         loadedFile = neteditOptions.getString("configuration-file");
@@ -99,13 +99,6 @@ GNELoadThread::run() {
             submitEndAndCleanup(net, loadedFile);
             return 0;
         }
-    } else if (neteditOptions.getString("configuration-file").size() > 0) {
-        // set net convert configuration as loadedFile
-        loadedFile = neteditOptions.getString("configuration-file");
-        if (!resetOptions(loadedFile, true)) {
-            submitEndAndCleanup(net, loadedFile);
-            return 0;
-        }
     } else if (neteditOptions.getString("sumo-net-file").size() > 0) {
         // set netwok as loadedFile
         loadedFile = neteditOptions.getString("sumo-net-file");
@@ -113,6 +106,10 @@ GNELoadThread::run() {
             submitEndAndCleanup(net, loadedFile);
             return 0;
         }
+    } else if (!myNewNet) {
+        WRITE_ERROR("Invalid input network option. Load with either sumo/netedit/netconvert config or with -new option");
+        submitEndAndCleanup(net, loadedFile);
+        return 0;
     }
     // update aggregate warnings
     if (neteditOptions.isDefault("aggregate-warnings")) {
@@ -150,7 +147,7 @@ GNELoadThread::run() {
     MsgHandler::enableDebugMessages(neteditOptions.getBool("gui-testing-debug"));
     // check if GL Debug has to be enabled
     MsgHandler::enableDebugGLMessages(neteditOptions.getBool("gui-testing-debug-gl"));
-    // this netbuilder instance becomes the responsibility of the GNENet
+    // create netBuilder (will be destroyed in GNENet destructor)
     NBNetBuilder* netBuilder = new NBNetBuilder();
     // apply netedit options in netBuilder. In this options we have all information for building network
     netBuilder->applyOptions(neteditOptions);
@@ -159,18 +156,19 @@ GNELoadThread::run() {
         // create new network
         net = new GNENet(netBuilder);
     } else {
+        // declare net loader 
         NILoader nl(*netBuilder);
         try {
             // try to load network using netedit options
             nl.load(neteditOptions);
-            if (!myLoadNet) {
+            if (myLoadNet) {
+                // make coordinate conversion usable before first netBuilder->compute()
+                GeoConvHelper::computeFinal();
+            } else {
                 WRITE_MESSAGE(TL("Performing initial computation ...\n"));
                 // perform one-time processing (i.e. edge removal)
                 netBuilder->compute(neteditOptions);
                 // @todo remove one-time processing options!
-            } else {
-                // make coordinate conversion usable before first netBuilder->compute()
-                GeoConvHelper::computeFinal();
             }
             // check if ignore errors
             if (neteditOptions.getBool("ignore-errors")) {
@@ -180,11 +178,14 @@ GNELoadThread::run() {
             if (MsgHandler::getErrorInstance()->wasInformed()) {
                 throw ProcessError();
             } else {
+                // now create net with al information loaded in net builder
                 net = new GNENet(netBuilder);
+                // chek if change traffic direction
                 if (neteditOptions.getBool("lefthand")) {
                     // force initial geometry computation without volatile options because the net will look strange otherwise
                     net->computeAndUpdate(neteditOptions, false);
                 }
+                // check if add prefixes
                 if (neteditOptions.getString("prefix").size() > 0) {
                     // change prefixes in attributeCarriers
                     net->getAttributeCarriers()->addPrefixToEdges(neteditOptions.getString("prefix"));
@@ -203,16 +204,20 @@ GNELoadThread::run() {
             if (net != nullptr) {
                 delete net;
                 net = nullptr;
+            } else {
+                // GNENet not created, then delete netBuilder
+                delete netBuilder;
             }
-            delete netBuilder;
         } catch (std::exception& e) {
             WRITE_ERROR(e.what());
             // check if delete network
             if (net != nullptr) {
                 delete net;
                 net = nullptr;
+            } else {
+                // GNENet not created, then delete netBuilder
+                delete netBuilder;
             }
-            delete netBuilder;
         }
     }
     // only a single setting file is supported
@@ -524,6 +529,7 @@ GNELoadThread::resetFileOptions() {
 
 void
 GNELoadThread::createNewNetwork() {
+    // set flags
     myLoadNet = false;
     myNewNet = true;
     // start thread
@@ -533,6 +539,7 @@ GNELoadThread::createNewNetwork() {
 
 void
 GNELoadThread::loadNetwork() {
+    // set flags
     myLoadNet = true;
     myNewNet = false;
     // start thread
@@ -541,7 +548,8 @@ GNELoadThread::loadNetwork() {
 
 
 void
-GNELoadThread::loadNetconvertConfig() {
+GNELoadThread::loadConfig() {
+    // set flags
     myLoadNet = false;
     myNewNet = false;
     // start thread

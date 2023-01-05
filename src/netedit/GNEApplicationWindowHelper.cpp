@@ -28,6 +28,8 @@
 #include <xercesc/sax/SAXException.hpp>
 #include <xercesc/parsers/SAXParser.hpp>
 
+#include <regex>
+
 #include "GNEApplicationWindow.h"
 #include "GNEViewNet.h"
 #include "GNENet.h"
@@ -1938,6 +1940,12 @@ GNEApplicationWindowHelper::GNESUMOConfigHandler::loadSUMOConfig() {
     neteditOptions.set("net-file", mySumoOptions.getString("net-file"));
     neteditOptions.set("additional-files", mySumoOptions.getString("additional-files"));
     neteditOptions.set("route-files", mySumoOptions.getString("route-files"));
+    // check if we need to define the configuration file
+    if (neteditOptions.getString("configuration-file").empty()) {
+        const auto newConfiguration = std::regex_replace(neteditOptions.getString("configuration-file"), std::regex(".sumocfg"), ".neteditcfg");
+        neteditOptions.resetWritable();
+        neteditOptions.set("configuration-file", newConfiguration);
+    }
     return true;
 }
 
@@ -1976,6 +1984,12 @@ GNEApplicationWindowHelper::GNENETEDITConfigHandler::loadNETEDITConfig() {
     }
     // relocate files
     neteditOptions.relocateFiles(myFile);
+    // check if we have loaded a netedit config or a netconvert config
+    if (neteditOptions.getString("configuration-file").find(".netccfg") != std::string::npos) {
+        const auto newConfiguration = std::regex_replace(neteditOptions.getString("configuration-file"), std::regex(".netccfg"), ".neteditcfg");
+        neteditOptions.resetWritable();
+        neteditOptions.set("configuration-file", newConfiguration);
+    }
     return true;
 }
 
