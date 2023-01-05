@@ -268,40 +268,43 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.addOptionSubTopic("Time");
 
     neteditOptions.doRegister("new", new Option_Bool(false)); // !!!
-    neteditOptions.addDescription("new", "Input", "Start with a new network");
+    neteditOptions.addDescription("new", "Input", "start with a new network");
+
+    neteditOptions.doRegister("configuration-saved", new Option_Bool(false));
+    neteditOptions.addDescription("configuration-saved", "Input", "flag for check if configuration is saved");
 
     // files
     neteditOptions.doRegister("sumocfg-file", new Option_FileName());
     neteditOptions.addSynonyme("sumocfg-file", "sumocfg");
-    neteditOptions.addDescription("sumocfg-file", "Netedit", "Load sumo config");
+    neteditOptions.addDescription("sumocfg-file", "Netedit", "load sumo config");
 
     neteditOptions.doRegister("sumocfg-output", new Option_String());
     neteditOptions.addDescription("sumocfg-output", "Netedit", "file in which sumo config must be saved");
 
     neteditOptions.doRegister("additional-files", 'a', new Option_FileName());
     neteditOptions.addSynonyme("additional-files", "additional");
-    neteditOptions.addDescription("additional-files", "Netedit", "Load additional and shapes descriptions from FILE(s)");
+    neteditOptions.addDescription("additional-files", "Netedit", "load additional and shapes descriptions from FILE(s)");
 
     neteditOptions.doRegister("additionals-output", new Option_String());
     neteditOptions.addDescription("additionals-output", "Netedit", "file in which additionals must be saved");
 
     neteditOptions.doRegister("route-files", 'r', new Option_FileName());
     neteditOptions.addSynonyme("route-files", "routes");
-    neteditOptions.addDescription("route-files", "Netedit", "Load demand elements descriptions from FILE(s)");
+    neteditOptions.addDescription("route-files", "Netedit", "load demand elements descriptions from FILE(s)");
 
     neteditOptions.doRegister("demandelements-output", new Option_String());
     neteditOptions.addDescription("demandelements-output", "Netedit", "file in which demand elements must be saved");
 
     neteditOptions.doRegister("data-files", 'd', new Option_FileName());
     neteditOptions.addSynonyme("data-files", "data");
-    neteditOptions.addDescription("data-files", "Netedit", "Load data elements descriptions from FILE(s)");
+    neteditOptions.addDescription("data-files", "Netedit", "load data elements descriptions from FILE(s)");
 
     neteditOptions.doRegister("dataelements-output", new Option_String());
     neteditOptions.addDescription("dataelements-output", "Netedit", "file in which data elements must be saved");
 
     neteditOptions.doRegister("meandata-files", 'm', new Option_FileName());
     neteditOptions.addSynonyme("meandata-files", "meandata");
-    neteditOptions.addDescription("meandata-files", "Netedit", "Load meanData descriptions from FILE(s)");
+    neteditOptions.addDescription("meandata-files", "Netedit", "load meanData descriptions from FILE(s)");
 
     neteditOptions.doRegister("meandatas-output", new Option_String());
     neteditOptions.addDescription("meandatas-output", "Netedit", "file in which meandatas must be saved");

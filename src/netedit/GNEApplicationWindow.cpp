@@ -3726,6 +3726,8 @@ GNEApplicationWindow::onUpdSaveNETEDITConfig(FXObject* sender, FXSelector, void*
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (OptionsCont::getOptions().getString("configuration-file").empty()) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    } else if (OptionsCont::getOptions().getBool("configuration-saved") == false) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else if (myNet->isNetSaved() && myNet->isAdditionalsSaved() && myNet->isDemandElementsSaved() && 
                myNet->isDataElementsSaved() && myNet->isMeanDatasSaved()){
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
