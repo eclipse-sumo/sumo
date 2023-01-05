@@ -335,39 +335,23 @@ def Popen(extraParameters, debugInformation):
                         os.path.join(_TEXTTEST_SANDBOX, "input_net.net.xml")]
 
     # Check if additionals must be loaded
-    if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "input_additionals.add.xml")):
+    if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "additionals.add.xml")):
         neteditCall += ['-a',
-                        os.path.join(_TEXTTEST_SANDBOX, "input_additionals.add.xml")]
+                        os.path.join(_TEXTTEST_SANDBOX, "additionals.add.xml")]
 
     # Check if vTypes must be loaded
-    if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "input_vtypes.rou.xml")):
+    if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "vtypes.rou.xml")):
         neteditCall += ['-r',
-                        os.path.join(_TEXTTEST_SANDBOX, "input_vtypes.rou.xml,input_routes.rou.xml")]
+                        os.path.join(_TEXTTEST_SANDBOX, "vtypes.rou.xml,routes.rou.xml")]
 
-    elif os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "input_routes.rou.xml")):
+    elif os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "routes.rou.xml")):
         neteditCall += ['-r',
-                        os.path.join(_TEXTTEST_SANDBOX, "input_routes.rou.xml")]
+                        os.path.join(_TEXTTEST_SANDBOX, "routes.rou.xml")]
 
     # Check if datas must be loaded
-    if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "input_datas.dat.xml")):
+    if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "datas.dat.xml")):
         neteditCall += ['-d',
-                        os.path.join(_TEXTTEST_SANDBOX, "input_datas.dat.xml")]
-
-    # set output for net
-    neteditCall += ['--output-file',
-                    os.path.join(_TEXTTEST_SANDBOX, 'net.net.xml')]
-
-    # set output for additionals
-    neteditCall += ['--additionals-output',
-                    os.path.join(_TEXTTEST_SANDBOX, "additionals.xml")]
-
-    # set output for routes
-    neteditCall += ['--demandelements-output',
-                    os.path.join(_TEXTTEST_SANDBOX, "routes.xml")]
-
-    # set output for datas
-    neteditCall += ['--dataelements-output',
-                    os.path.join(_TEXTTEST_SANDBOX, "datas.xml")]
+                        os.path.join(_TEXTTEST_SANDBOX, "datas.dat.xml")]
 
     # set output for gui
     neteditCall += ['--gui-testing.setting-output',
