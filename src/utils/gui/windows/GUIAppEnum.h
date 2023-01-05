@@ -39,12 +39,12 @@ enum {
     /// @name hotkeys
     /// @{
 
-    /// @brief hotkey for mode editing additionals AND stops
-    MID_HOTKEY_A_MODE_ADDITIONAL_STOP,
+    /// @brief hotkey for start simulation in SUMO and set editing mode additionals AND stops in NETEDIT
+    MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP,
     /// @brief hotkey for mode connecting lanes ABD person plan
     MID_HOTKEY_C_MODE_CONNECT_PERSONPLAN,
-    /// @brief hotkey for mode deleting things
-    MID_HOTKEY_D_MODE_DELETE,
+    /// @brief hotkey for perform a single simulation step in SUMO and set delete mode in NETEDIT
+    MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE,
     /// @brief hotkey for mode adding edges AND edgeDatas
     MID_HOTKEY_E_MODE_EDGE_EDGEDATA,
     /// @brief hotkey for mode container
@@ -57,8 +57,8 @@ enum {
     MID_HOTKEY_M_MODE_MOVE_MEANDATA,
     /// @brief hotkey for mode creating polygons
     MID_HOTKEY_P_MODE_POLYGON_PERSON,
-    /// @brief hotkey for mode selecting objects
-    MID_HOTKEY_S_MODE_SELECT,
+    /// @brief hotkey for stop simulation in SUMO and set select mode in NETEDIT
+    MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT,
     /// @brief hotkey for mode editing crossing, routes and edge rel datas
     MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA,
     /// @brief hotkey for mode editing TLS AND Vehicle Types

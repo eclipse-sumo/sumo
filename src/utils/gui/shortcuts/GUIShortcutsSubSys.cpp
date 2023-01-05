@@ -32,14 +32,14 @@ GUIShortcutsSubSys::buildAccelerators(FXAccelTable* accelTable, FXObject* target
     
     // basic hotkeys
 
-    accelTable->addAccel(parseKey(KEY_a), target, FXSEL(SEL_COMMAND, MID_HOTKEY_A_MODE_ADDITIONAL_STOP));
-    accelTable->addAccel(parseKey(KEY_A), target, FXSEL(SEL_COMMAND, MID_HOTKEY_A_MODE_ADDITIONAL_STOP));
+    accelTable->addAccel(parseKey(KEY_a), target, FXSEL(SEL_COMMAND, MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP));
+    accelTable->addAccel(parseKey(KEY_A), target, FXSEL(SEL_COMMAND, MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP));
 
     accelTable->addAccel(parseKey(KEY_c), target, FXSEL(SEL_COMMAND, MID_HOTKEY_C_MODE_CONNECT_PERSONPLAN));
     accelTable->addAccel(parseKey(KEY_C), target, FXSEL(SEL_COMMAND, MID_HOTKEY_C_MODE_CONNECT_PERSONPLAN));
 
-    accelTable->addAccel(parseKey(KEY_d), target, FXSEL(SEL_COMMAND, MID_HOTKEY_D_MODE_DELETE));
-    accelTable->addAccel(parseKey(KEY_D), target, FXSEL(SEL_COMMAND, MID_HOTKEY_D_MODE_DELETE));
+    accelTable->addAccel(parseKey(KEY_d), target, FXSEL(SEL_COMMAND, MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE));
+    accelTable->addAccel(parseKey(KEY_D), target, FXSEL(SEL_COMMAND, MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE));
 
     accelTable->addAccel(parseKey(KEY_e), target, FXSEL(SEL_COMMAND, MID_HOTKEY_E_MODE_EDGE_EDGEDATA));
     accelTable->addAccel(parseKey(KEY_E), target, FXSEL(SEL_COMMAND, MID_HOTKEY_E_MODE_EDGE_EDGEDATA));
@@ -62,8 +62,8 @@ GUIShortcutsSubSys::buildAccelerators(FXAccelTable* accelTable, FXObject* target
     accelTable->addAccel(parseKey(KEY_r), target, FXSEL(SEL_COMMAND, MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA));
     accelTable->addAccel(parseKey(KEY_R), target, FXSEL(SEL_COMMAND, MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA));
 
-    accelTable->addAccel(parseKey(KEY_s), target, FXSEL(SEL_COMMAND, MID_HOTKEY_S_MODE_SELECT));
-    accelTable->addAccel(parseKey(KEY_S), target, FXSEL(SEL_COMMAND, MID_HOTKEY_S_MODE_SELECT));
+    accelTable->addAccel(parseKey(KEY_s), target, FXSEL(SEL_COMMAND, MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT));
+    accelTable->addAccel(parseKey(KEY_S), target, FXSEL(SEL_COMMAND, MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT));
 
     accelTable->addAccel(parseKey(KEY_t), target, FXSEL(SEL_COMMAND, MID_HOTKEY_T_MODE_TLS_TYPE));
     accelTable->addAccel(parseKey(KEY_T), target, FXSEL(SEL_COMMAND, MID_HOTKEY_T_MODE_TLS_TYPE));
