@@ -1900,26 +1900,25 @@ GNEApplicationWindowHelper::SupermodeCommands::buildSupermodeCommands(FXMenuPane
 // GNESUMOConfigHandler - methods
 // ---------------------------------------------------------------------------
 
-GNEApplicationWindowHelper::GNESUMOConfigHandler::GNESUMOConfigHandler(GNEApplicationWindow* applicationWindow, const std::string& file) :
-    myApplicationWindow(applicationWindow),
+GNEApplicationWindowHelper::GNESUMOConfigHandler::GNESUMOConfigHandler(OptionsCont& sumoOptions, const std::string& file) :
+    mySumoOptions(sumoOptions),
     myFile(file) {
 }
 
 
 bool
-GNEApplicationWindowHelper::GNESUMOConfigHandler::loadSUMOConfig(const bool createElements) {
+GNEApplicationWindowHelper::GNESUMOConfigHandler::loadSUMOConfig() {
     // get options
     auto &neteditOptions = OptionsCont::getOptions();
-    auto &sumoOptions = myApplicationWindow->getSUMOOptions();
     // make all options writables
-    sumoOptions.resetWritable();
+    mySumoOptions.resetWritable();
     neteditOptions.resetWritable();
     // build parser
     XERCES_CPP_NAMESPACE::SAXParser parser;
     parser.setValidationScheme(XERCES_CPP_NAMESPACE::SAXParser::Val_Never);
     parser.setDisableDefaultEntityResolution(true);
     // start the parsing
-    OptionsLoader handler(myApplicationWindow->getSUMOOptions());
+    OptionsLoader handler(mySumoOptions);
     try {
         parser.setDocumentHandler(&handler);
         parser.setErrorHandler(&handler);
@@ -1933,16 +1932,12 @@ GNEApplicationWindowHelper::GNESUMOConfigHandler::loadSUMOConfig(const bool crea
             return false;
     }
     // relocate files
-    myApplicationWindow->getSUMOOptions().relocateFiles(myFile);
+    mySumoOptions.relocateFiles(myFile);
     // set loaded files in netedit options
     neteditOptions.set("sumocfg-file", myFile);
-    neteditOptions.set("net-file", sumoOptions.getString("net-file"));
-    neteditOptions.set("additional-files", sumoOptions.getString("additional-files"));
-    neteditOptions.set("route-files", sumoOptions.getString("route-files"));
-    // check if create loaded elements
-    if (createElements) {
-        myApplicationWindow->loadNetwork(false);
-    }
+    neteditOptions.set("net-file", mySumoOptions.getString("net-file"));
+    neteditOptions.set("additional-files", mySumoOptions.getString("additional-files"));
+    neteditOptions.set("route-files", mySumoOptions.getString("route-files"));
     return true;
 }
 
@@ -1950,14 +1945,13 @@ GNEApplicationWindowHelper::GNESUMOConfigHandler::loadSUMOConfig(const bool crea
 // GNENETEDITConfigHandler - methods
 // ---------------------------------------------------------------------------
 
-GNEApplicationWindowHelper::GNENETEDITConfigHandler::GNENETEDITConfigHandler(GNEApplicationWindow* applicationWindow, const std::string& file) :
-    myApplicationWindow(applicationWindow),
+GNEApplicationWindowHelper::GNENETEDITConfigHandler::GNENETEDITConfigHandler(const std::string& file) :
     myFile(file) {
 }
 
 
 bool
-GNEApplicationWindowHelper::GNENETEDITConfigHandler::loadNETEDITConfig(const bool createElements) {
+GNEApplicationWindowHelper::GNENETEDITConfigHandler::loadNETEDITConfig() {
     // get options
     auto &neteditOptions = OptionsCont::getOptions();
     // make all options writables
@@ -1982,10 +1976,6 @@ GNEApplicationWindowHelper::GNENETEDITConfigHandler::loadNETEDITConfig(const boo
     }
     // relocate files
     neteditOptions.relocateFiles(myFile);
-    // build elements
-    if (createElements) {
-        myApplicationWindow->loadNetwork(false);
-    }
     return true;
 }
 

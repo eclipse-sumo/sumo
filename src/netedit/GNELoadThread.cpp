@@ -81,9 +81,9 @@ GNELoadThread::run() {
         // set netedit config as loaded file
         loadedFile = neteditOptions.getString("configuration-file");
         // declare parser for netedit config file
-        GNEApplicationWindowHelper::GNENETEDITConfigHandler confighandler(myApplicationWindow, loadedFile);
+        GNEApplicationWindowHelper::GNENETEDITConfigHandler confighandler(loadedFile);
         // if there is an error loading sumo config, stop
-        if (!confighandler.loadNETEDITConfig(false)) {
+        if (!confighandler.loadNETEDITConfig()) {
             WRITE_ERROR("Loading of netedit config file '" + loadedFile + "' failed.");
             submitEndAndCleanup(net, loadedFile);
             return 0;
@@ -92,9 +92,9 @@ GNELoadThread::run() {
         // set sumo config as loaded file
         loadedFile = neteditOptions.getString("sumocfg-file");
         // declare parser for sumo config file
-        GNEApplicationWindowHelper::GNESUMOConfigHandler confighandler(myApplicationWindow, loadedFile);
+        GNEApplicationWindowHelper::GNESUMOConfigHandler confighandler(myApplicationWindow->getSUMOOptions(), loadedFile);
         // if there is an error loading sumo config, stop
-        if (!confighandler.loadSUMOConfig(false)) {
+        if (!confighandler.loadSUMOConfig()) {
             WRITE_ERROR("Loading of sumo config file '" + loadedFile + "' failed.");
             submitEndAndCleanup(net, loadedFile);
             return 0;

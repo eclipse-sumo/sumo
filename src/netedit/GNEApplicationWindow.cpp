@@ -809,10 +809,12 @@ GNEApplicationWindow::onCmdOpenNETEDITConfig(FXObject*, FXSelector, void*) {
             // disable validation for additionals
             XMLSubSys::setValidation("never", "auto", "auto");
             // Create additional handler
-            GNEApplicationWindowHelper::GNENETEDITConfigHandler confighandler(this, file);
+            GNEApplicationWindowHelper::GNENETEDITConfigHandler confighandler(file);
             // Run parser
-            if (!confighandler.loadNETEDITConfig(true)) {
+            if (!confighandler.loadNETEDITConfig()) {
                 WRITE_ERROR("Loading of " + file + " failed.");
+            } else {
+                myLoadThread->loadNetconvertConfig();
             }
             // update view
             update();
@@ -860,10 +862,12 @@ GNEApplicationWindow::onCmdOpenSUMOConfig(FXObject*, FXSelector, void*) {
             // disable validation for additionals
             XMLSubSys::setValidation("never", "auto", "auto");
             // Create additional handler
-            GNEApplicationWindowHelper::GNESUMOConfigHandler confighandler(this, file);
+            GNEApplicationWindowHelper::GNESUMOConfigHandler confighandler(mySUMOOptions, file);
             // Run parser
-            if (!confighandler.loadSUMOConfig(true)) {
+            if (!confighandler.loadSUMOConfig()) {
                 WRITE_ERROR("Loading of SUMOConfig " + file + " failed.");
+            } else {
+                myLoadThread->loadNetconvertConfig();
             }
             // update view
             update();
@@ -885,10 +889,12 @@ GNEApplicationWindow::onCmdReloadNETEDITConfig(FXObject*, FXSelector, void*) {
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // Create additional handler
-        GNEApplicationWindowHelper::GNENETEDITConfigHandler confighandler(this, file);
+        GNEApplicationWindowHelper::GNENETEDITConfigHandler confighandler(file);
         // Run parser
-        if (!confighandler.loadNETEDITConfig(true)) {
+        if (!confighandler.loadNETEDITConfig()) {
             WRITE_ERROR("Loading of NETEDITConfig " + file + " failed.");
+        } else {
+            myLoadThread->loadNetconvertConfig();
         }
         update();
         // restore validation for additionals
@@ -905,10 +911,12 @@ GNEApplicationWindow::onCmdReloadSUMOConfig(FXObject*, FXSelector, void*) {
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // Create additional handler
-        GNEApplicationWindowHelper::GNESUMOConfigHandler confighandler(this, file);
+        GNEApplicationWindowHelper::GNESUMOConfigHandler confighandler(mySUMOOptions, file);
         // Run parser
-        if (!confighandler.loadSUMOConfig(true)) {
+        if (!confighandler.loadSUMOConfig()) {
             WRITE_ERROR("Loading of SUMOConfig " + file + " failed.");
+        } else {
+            myLoadThread->loadNetconvertConfig();
         }
         update();
         // restore validation for additionals
