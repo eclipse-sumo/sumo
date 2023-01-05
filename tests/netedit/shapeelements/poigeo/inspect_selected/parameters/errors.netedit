@@ -13,7 +13,7 @@ Error: Attribute 'key' is missing in definition of a param.
 Error: Attribute 'key' is missing in definition of a param.
 Debug: Adding poiGeo 'POI_2' in GNEChange_Additional
 GLDebug: 	Inserted poi:POI_2 into SUMORTree with boundary -4.49,7.46,16.51,28.46
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poigeo.24Jun133820.22541/netedit.daily.shape.poigeo/shapeelements/poigeo/inspect_selected/parameters/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poigeo.24Jun133820.22541/netedit.daily.shape.poigeo/shapeelements/poigeo/inspect_selected/parameters/additionals.add.xml failed.
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute

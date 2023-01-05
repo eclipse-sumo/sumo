@@ -7,7 +7,7 @@ Debug: Adding laneAreaDetector 'E2_01' in GNEChange_Additional
 Error: Attribute 'period' in definition of laneAreaDetector 'E2_02' is not a valid time value.
 Error: Could not build laneAreaDetector with ID 'E2_03' in netedit; attribute period cannot be negative.
 Debug: Adding laneAreaDetector 'E2_04' in GNEChange_Additional
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.28Jun133526.4749/netedit.gui/additionalelements/e2detector/load/period/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.28Jun133526.4749/netedit.gui/additionalelements/e2detector/load/period/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

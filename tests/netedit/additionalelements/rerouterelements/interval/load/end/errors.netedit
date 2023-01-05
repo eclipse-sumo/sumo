@@ -13,7 +13,7 @@ Debug: Adding rerouterSymbol 'gneE0' in GNEChange_Additional
 Debug: Adding rerouterSymbol 'gneE1' in GNEChange_Additional
 Error: Could not build interval with ID 'rerouter_0' in netedit; begin is greather than end.
 Error: Attempted to retrieve non-existant rerouter interval
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.rerouterelements.24Jun133818.22405/netedit.daily.additional.rerouterelements/additionalelements/rerouterelements/interval/load/end/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.rerouterelements.24Jun133818.22405/netedit.daily.additional.rerouterelements/additionalelements/rerouterelements/interval/load/end/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

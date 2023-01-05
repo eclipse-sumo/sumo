@@ -1,3 +1,3 @@
 Error: Attribute 'length' in definition of parkingArea 'parkingArea_1' Invalid Number Format (double) dummyLenght.
 Error: Could not build parkingArea with ID 'parkingArea_2' in netedit; attribute length cannot be negative.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\parkingarea\load\length\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\parkingarea\load\length\additionals.add.xml failed.

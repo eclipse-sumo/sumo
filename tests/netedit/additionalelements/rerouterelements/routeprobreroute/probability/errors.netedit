@@ -22,7 +22,7 @@ Debug: Adding routeProbReroute 'rerouter_0' in GNEChange_Additional
 GLDebug: 	Removed object rerouter:rerouter_0 from SUMORTree with boundary -10.00,-11.60,54.00,21.00
 GLDebug: 	Inserted rerouter:rerouter_0 into SUMORTree with boundary -10.00,-11.60,54.00,21.00
 Debug: Adding routeProbReroute 'rerouter_0' in GNEChange_Additional
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.rerouterelements.24Jun133818.22405/netedit.daily.additional.rerouterelements/additionalelements/rerouterelements/routeprobreroute/probability/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.rerouterelements.24Jun133818.22405/netedit.daily.additional.rerouterelements/additionalelements/rerouterelements/routeprobreroute/probability/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

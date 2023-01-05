@@ -7,7 +7,7 @@ Error: lon and lat must be be defined together in POIs
 Error: Attribute 'lat' in definition of poi 'POI_1' Invalid Number Format (double) dummyY.
 Debug: Adding poiGeo 'POI_2' in GNEChange_Additional
 GLDebug: 	Inserted poi:POI_2 into SUMORTree with boundary -6873376.65,-10.00,-6873356.65,10.00
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poigeo.24Jun133820.22541/netedit.daily.shape.poigeo/shapeelements/poigeo/load/lat/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poigeo.24Jun133820.22541/netedit.daily.shape.poigeo/shapeelements/poigeo/load/lat/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

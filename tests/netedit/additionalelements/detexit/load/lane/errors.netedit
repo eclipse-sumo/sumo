@@ -9,7 +9,7 @@ GLDebug: 	Inserted e3Detector:entryExitDetector_0 into SUMORTree with boundary 1
 Error: Could not build detExit in netedit; lane doesn't exist.
 Debug: Adding detExit 'entryExitDetector_0' in GNEChange_Additional
 Debug: Adding detEntry 'entryExitDetector_0' in GNEChange_Additional
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.detexit.01Aug073707.40057/netedit.daily.additional.detexit/additionalelements/detexit/load/lane/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.detexit.01Aug073707.40057/netedit.daily.additional.detexit/additionalelements/detexit/load/lane/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

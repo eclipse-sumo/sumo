@@ -7,7 +7,7 @@ Error: X and Y must be be defined together in POIs
 Error: Attribute 'y' in definition of poi 'POI_1' Invalid Number Format (double) dummyY.
 Debug: Adding poi 'POI_2' in GNEChange_Additional
 GLDebug: 	Inserted poi:POI_2 into SUMORTree with boundary -50.00,-10.00,-30.00,10.00
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poi.24Jun133820.22538/netedit.daily.shape.poi/shapeelements/poi/load/y/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poi.24Jun133820.22538/netedit.daily.shape.poi/shapeelements/poi/load/y/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

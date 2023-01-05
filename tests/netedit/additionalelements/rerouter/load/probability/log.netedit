@@ -1,4 +1,4 @@
 Error: Attribute 'probability' in definition of rerouter 'rerouter_1' is empty.
 Error: Attribute 'probability' in definition of rerouter 'rerouter_2' Invalid Number Format (double) dummyProbability.
 Error: Could not build rerouter with ID 'rerouter_3' in netedit; attribute probability cannot be negative.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\rerouter\load\probability\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\rerouter\load\probability\additionals.add.xml failed.

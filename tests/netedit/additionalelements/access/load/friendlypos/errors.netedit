@@ -33,7 +33,7 @@ Debug: Adding access 'busStop_0' in GNEChange_Additional
 Debug: Adding access 'busStop_0' in GNEChange_Additional
 Debug: Adding access 'busStop_0' in GNEChange_Additional
 Debug: Adding access 'busStop_0' in GNEChange_Additional
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.access.24Jun133818.22369/netedit.daily.additional.access/additionalelements/access/load/friendlypos/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.access.24Jun133818.22369/netedit.daily.additional.access/additionalelements/access/load/friendlypos/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,18.00,12.00,42.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,18.00,62.00,42.00

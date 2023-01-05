@@ -5,4 +5,4 @@ Error: Attribute 'probability' in definition of flow 'flow_3' is empty.
 Error: Invalid repetition probability in the definition of flow 'flow_4'.
 Error: Invalid repetition probability in the definition of flow 'flow_5'.
 Error: Invalid repetition probability in the definition of flow 'flow_6'.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\demandelements\flow\load\probability\input_routes.rou.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\demandelements\flow\load\probability\routes.rou.xml failed.

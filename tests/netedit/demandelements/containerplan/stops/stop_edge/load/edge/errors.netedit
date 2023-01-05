@@ -23,7 +23,7 @@ Error: A stop requires only a stoppingPlace, edge or lane
 Debug: Adding container 'c_1' in GNEChange_DemandElement
 Debug: Adding tranship: edge->edge 'c_1' in GNEChange_DemandElement
 Debug: Adding stopContainer: edge 'c_1' in GNEChange_DemandElement
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.20Oct114903.1360\netedit.gui\demandelements\containerplan\stops\stop_edge\load\edge\input_routes.rou.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.20Oct114903.1360\netedit.gui\demandelements\containerplan\stops\stop_edge\load\edge\routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00

@@ -24,7 +24,7 @@ Debug: Adding walk: edge->edge 'p_0' in GNEChange_DemandElement
 Debug: Adding person 'p_1' in GNEChange_DemandElement
 Debug: Adding walk: edge->edge 'p_1' in GNEChange_DemandElement
 Debug: Adding stopPerson: busStop 'p_1' in GNEChange_DemandElement
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.20Oct145014.2480\netedit.gui\demandelements\personplan\stops\stop_busstop\load\duration\input_routes.rou.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.20Oct145014.2480\netedit.gui\demandelements\personplan\stops\stop_busstop\load\duration\routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00

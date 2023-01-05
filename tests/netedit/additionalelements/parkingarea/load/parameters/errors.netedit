@@ -14,7 +14,7 @@ Debug: Inserting generic parameter 'key2|' into parkingArea
 Debug: Inserting generic parameter 'key3|$$value with spaces%%' into parkingArea
 Debug: Inserting generic parameter 'keyFinal|valueFinal' into parkingArea
 Debug: Adding parkingArea 'parkingArea_0' in GNEChange_Additional
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.parkingarea.24Jun133818.22399/netedit.daily.additional.parkingarea/additionalelements/parkingarea/load/parameters/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.parkingarea.24Jun133818.22399/netedit.daily.additional.parkingarea/additionalelements/parkingarea/load/parameters/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

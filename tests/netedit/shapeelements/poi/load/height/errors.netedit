@@ -8,7 +8,7 @@ GLDebug: 	Inserted poi:POI_0 into SUMORTree with boundary -10.50,19.50,10.50,40.
 Error: Attribute 'height' in definition of poi 'POI_1' Invalid Number Format (double) dummyHeight.
 Debug: Adding poi 'POI_2' in GNEChange_Additional
 GLDebug: 	Inserted poi:POI_2 into SUMORTree with boundary 9.00,19.00,31.00,41.00
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poi.24Jun133820.22538/netedit.daily.shape.poi/shapeelements/poi/load/height/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poi.24Jun133820.22538/netedit.daily.shape.poi/shapeelements/poi/load/height/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

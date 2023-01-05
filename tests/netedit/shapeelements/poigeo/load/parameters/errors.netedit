@@ -15,7 +15,7 @@ Debug: Inserting generic parameter 'key3|$$value with spaces%%' into poi
 Debug: Inserting generic parameter 'keyFinal|valueFinal' into poi
 Debug: Adding poiGeo 'POI_0' in GNEChange_Additional
 GLDebug: 	Inserted poi:POI_0 into SUMORTree with boundary -4048866.84,4348764.84,-4048846.84,4348784.84
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poigeo.24Jun133820.22541/netedit.daily.shape.poigeo/shapeelements/poigeo/load/parameters/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poigeo.24Jun133820.22541/netedit.daily.shape.poigeo/shapeelements/poigeo/load/parameters/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

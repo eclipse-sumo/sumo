@@ -11,7 +11,7 @@ Error: Attribute 'timeThreshold' in definition of laneAreaDetector 'multiLaneAre
 Error: Could not build laneAreaDetector with ID 'multiLaneAreaDetector_2' in netedit; attribute timeThreshold cannot be negative.
 Debug: Adding multiLaneAreaDetector 'multiLaneAreaDetector_3' in GNEChange_Additional
 Debug: Adding multiLaneAreaDetector 'multiLaneAreaDetector_4' in GNEChange_Additional
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.e2multilanedetector.24Jun133818.22395/netedit.daily.additional.e2multilanedetector/additionalelements/e2multilanedetector/load/timethreshold/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.e2multilanedetector.24Jun133818.22395/netedit.daily.additional.e2multilanedetector/additionalelements/e2multilanedetector/load/timethreshold/additionals.add.xml failed.
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00

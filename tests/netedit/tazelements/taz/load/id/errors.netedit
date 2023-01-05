@@ -10,7 +10,7 @@ Error: Could not build taz with ID '%%%%;;$$$%' in netedit; ID contains invalid 
 Error: Could not build taz with ID 'TAZ_0' in netedit; declared twice.
 Debug: Adding taz 'TAZ_1' in GNEChange_Additional
 GLDebug: 	Inserted taz:TAZ_1 into SUMORTree with boundary -40.00,20.00,-10.00,50.00
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.taz.taz.24Jun133820.22554/netedit.daily.taz.taz/tazelements/taz/load/id/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.taz.taz.24Jun133820.22554/netedit.daily.taz.taz/tazelements/taz/load/id/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

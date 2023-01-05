@@ -28,7 +28,7 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.20Nov143116.10972/netedit.gui/additionalElements/e2detector/inspect_selection/timethreshold\input_additionals.add.xml"/>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.20Nov143116.10972/netedit.gui/additionalElements/e2detector/inspect_selection/timethreshold\additionals.add.xml"/>
         <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.20Nov143116.10972/netedit.gui/additionalElements/e2detector/inspect_selection/timethreshold\additionals.xml"/>
         <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.20Nov143116.10972/netedit.gui/additionalElements/e2detector/inspect_selection/timethreshold\shapes.xml"/>
     </netedit>

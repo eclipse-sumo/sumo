@@ -6,7 +6,7 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Adding poiLane 'POI_0' in GNEChange_Additional
 Error: lane and position must be be defined together in POIs
 Error: Could not build poi in netedit; lane doesn't exist.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poilane.24Jun133820.22544/netedit.daily.shape.poilane/shapeelements/poilane/load/lane/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poilane.24Jun133820.22544/netedit.daily.shape.poilane/shapeelements/poilane/load/lane/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

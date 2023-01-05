@@ -22,7 +22,7 @@ Error: Invalid vehicle type 'dummy_Type' used in vehicle 'vehicle_1'.
 Error: Attribute 'type' in definition of vehicle 'vehicle_2' is empty.
 Error: Invalid vehicle type 'id with invalid characters' used in vehicle 'vehicle_3'.
 Debug: Adding vehicle 'vehicle_4' in GNEChange_DemandElement
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.27Oct081901.8656\netedit.gui\demandelements\vehicle\load\type\input_routes.rou.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.27Oct081901.8656\netedit.gui\demandelements\vehicle\load\type\routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00

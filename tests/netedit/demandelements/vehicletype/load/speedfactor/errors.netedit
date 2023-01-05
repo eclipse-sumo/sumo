@@ -21,7 +21,7 @@ Error: Invalid speed distribution when parsing vType 'vType1' (distribution mean
 Error: Invalid speed distribution when parsing vType 'vType2' (distribution mean 0.00 is smaller than lower boundary 0.20)
 Error: Invalid speed distribution when parsing vType 'vType3' (distribution mean 12.00 is larger than upper boundary 2.00)
 Error: Invalid speed distribution when parsing vType 'vType4' (distribution mean 4.50 is larger than upper boundary 2.00)
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.vehicletype.24Jun133820.22495/netedit.daily.demand.vehicletype/demandelements/vehicletype/load/speedfactor/input_routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.vehicletype.24Jun133820.22495/netedit.daily.demand.vehicletype/demandelements/vehicletype/load/speedfactor/routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00

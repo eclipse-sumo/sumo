@@ -7,7 +7,7 @@ Debug: Adding calibrator 'calibrator01' in GNEChange_Additional
 Debug: Adding calibrator 'calibrator02' in GNEChange_Additional
 Error: Attribute 'output' in definition of calibrator 'calibrator03' is empty.
 Debug: Adding calibrator 'calibrator04' in GNEChange_Additional
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.24Jun133818.22375/netedit.daily.additional.calibrator/additionalelements/calibrator/load/output/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.calibrator.24Jun133818.22375/netedit.daily.additional.calibrator/additionalelements/calibrator/load/output/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

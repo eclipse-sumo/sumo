@@ -30,7 +30,7 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Dec152521.3676/netedit.gui/netElements/edges/load/length\input_additionals.add.xml"/>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Dec152521.3676/netedit.gui/netElements/edges/load/length\additionals.add.xml"/>
         <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Dec152521.3676/netedit.gui/netElements/edges/load/length\additionals.xml"/>
         <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Dec152521.3676/netedit.gui/netElements/edges/load/length\shapes.xml"/>
     </netedit>

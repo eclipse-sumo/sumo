@@ -31,7 +31,7 @@ Debug: Adding vaporizer '1' in GNEChange_Additional
 Error: Attribute 'id' is missing in definition of a vaporizer.
 Error: Could not build vaporizer in netedit; edge doesn't exist.
 Debug: Adding vaporizer '2' in GNEChange_Additional
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15_from_27Jun114342.7200\netedit.gui\additionalelements\vaporizer\load\id\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15_from_27Jun114342.7200\netedit.gui\additionalelements\vaporizer\load\id\additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,18.00,12.00,42.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,18.00,62.00,42.00

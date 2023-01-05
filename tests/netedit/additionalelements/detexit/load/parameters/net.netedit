@@ -28,7 +28,7 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Nov111831.6028/netedit.gui/additionalElements/detentry/load/genericparameters\input_additionals.add.xml"/>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Nov111831.6028/netedit.gui/additionalElements/detentry/load/genericparameters\additionals.add.xml"/>
         <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Nov111831.6028/netedit.gui/additionalElements/detentry/load/genericparameters\additionals.xml"/>
         <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.27Nov111831.6028/netedit.gui/additionalElements/detentry/load/genericparameters\shapes.xml"/>
     </netedit>

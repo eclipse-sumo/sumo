@@ -8,7 +8,7 @@ Error: Attribute 'id' is missing in definition of a laneAreaDetector.
 Debug: Adding laneAreaDetector 'id with spaces' in GNEChange_Additional
 Error: Could not build laneAreaDetector with ID 'E2_01' in netedit; declared twice.
 Debug: Adding laneAreaDetector 'E2_02' in GNEChange_Additional
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.e2detector.24Jun133818.22393/netedit.daily.additional.e2detector/additionalelements/e2detector/load/id/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.e2detector.24Jun133818.22393/netedit.daily.additional.e2detector/additionalelements/e2detector/load/id/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

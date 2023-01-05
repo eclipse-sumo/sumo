@@ -19,7 +19,7 @@ GLDebug: 	Removed object parkingSpace:parkingArea_0 from SUMORTree with boundary
 GLDebug: 	Inserted parkingSpace:parkingArea_0 into SUMORTree with boundary 4.90,-5.10,45.10,35.10
 GLDebug: 	Removed object parkingSpace:parkingArea_0 from SUMORTree with boundary 4.90,-5.10,45.10,35.10
 GLDebug: 	Inserted parkingSpace:parkingArea_0 into SUMORTree with boundary 4.90,-5.10,45.10,35.10
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.parkingspace.24Jun133818.22401/netedit.daily.additional.parkingspace/additionalelements/parkingspace/load/width/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.parkingspace.24Jun133818.22401/netedit.daily.additional.parkingspace/additionalelements/parkingspace/load/width/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

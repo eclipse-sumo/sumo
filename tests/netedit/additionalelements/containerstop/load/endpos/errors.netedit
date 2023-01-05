@@ -9,7 +9,7 @@ Error: Could not build containerStop with ID 'containerStop_03' in netedit; Inva
 Error: Could not build containerStop with ID 'containerStop_04' in netedit; Invalid position over lane.
 Error: Could not build containerStop with ID 'containerStop_05' in netedit; Invalid position over lane.
 Debug: Adding containerStop 'containerStop_06' in GNEChange_Additional
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.containerstop.24Jun133818.22383/netedit.daily.additional.containerstop/additionalelements/containerstop/load/endpos/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.containerstop.24Jun133818.22383/netedit.daily.additional.containerstop/additionalelements/containerstop/load/endpos/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

@@ -14,10 +14,10 @@ copy_test_path:input_net.nod.xml
 copy_test_path:input_net.tll.xml
 copy_test_path:input_net.net.xml
 copy_test_path:input_net_loadedmanually.net.xml
-copy_test_path:input_additionals.add.xml
-copy_test_path:input_routes.rou.xml
-copy_test_path:input_vtypes.rou.xml
-copy_test_path:input_datas.dat.xml
+copy_test_path:additionals.add.xml
+copy_test_path:routes.rou.xml
+copy_test_path:vtypes.rou.xml
+copy_test_path:datas.dat.xml
 copy_test_path:gui-settings.xml
 copy_test_path:berlin_icon.ico
 copy_test_path:fileA.txt
@@ -33,9 +33,9 @@ netcon:net.con.xml
 netedg:net.edg.xml
 netnod:net.nod.xml
 nettll:net.tll.xml
-additionals:additionals.xml
-routes:routes.xml
-datas:datas.xml
+additionals:additionals.add.xml
+routes:routes.rou.xml
+datas:datas.dat.xml
 guisettingsoutput:guisettingsoutput.xml
 cfg:config.cfg
 log:log.txt
