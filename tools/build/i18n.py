@@ -92,7 +92,10 @@ def main(args=None):
         merged_po_file = "%s/data/po/%s.po" % (SUMO_HOME, lang)
         subprocess.check_call([path + "msgcat"] + po_files + ["--output-file=" + merged_po_file])
         d = "%s/data/locale/%s/LC_MESSAGES" % (SUMO_HOME, lang)
-        os.makedirs(d, exist_ok=True)
+        try:
+            os.makedirs(d)
+        except OSError:
+            pass
         subprocess.check_call([path + "msgfmt", merged_po_file, "--output-file=%s/sumo.mo" % d])
         os.remove(merged_po_file)
 
