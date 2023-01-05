@@ -1787,7 +1787,7 @@ GNEApplicationWindowHelper::LocateMenuCommands::buildLocateMenuCommands(FXMenuPa
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), myGNEApp, MID_HOTKEY_SHIFT_E_LOCATEEDGE);
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
                                            TL("&WalkingAreas"), "Shift+W", "Open a dialog for locating a Walking Area.",
-                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEWALKINGAREA), myGNEApp, MID_LOCATEWALKINGAREA);
+                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEWALKINGAREA), myGNEApp, MID_HOTKEY_SHIFT_W_LOCATEWALKINGAREA);
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
                                            TL("&Vehicles"), "Shift+V", "Open a dialog for locating a Vehicle.",
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), myGNEApp, MID_HOTKEY_SHIFT_V_LOCATEVEHICLE);
@@ -1796,10 +1796,10 @@ GNEApplicationWindowHelper::LocateMenuCommands::buildLocateMenuCommands(FXMenuPa
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), myGNEApp, MID_HOTKEY_SHIFT_P_LOCATEPERSON);
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
                                            TL("&Route"), "Shift+R", "Open a dialog for locating a Route.",
-                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEROUTE), myGNEApp, MID_LOCATEROUTE);
+                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEROUTE), myGNEApp, MID_HOTKEY_SHIFT_R_LOCATEROUTE);
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
                                            TL("&Stops"), "Shift+S", "Open a dialog for locating a Stop.",
-                                           GUIIconSubSys::getIcon(GUIIcon::LOCATESTOP), myGNEApp, MID_LOCATESTOP);
+                                           GUIIconSubSys::getIcon(GUIIcon::LOCATESTOP), myGNEApp, MID_HOTKEY_SHIFT_S_LOCATESTOP);
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
                                            TL("&TLS"), "Shift+T", "Open a dialog for locating a Traffic Light.",
                                            GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), myGNEApp, MID_HOTKEY_SHIFT_T_LOCATETLS);

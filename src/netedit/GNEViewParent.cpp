@@ -66,11 +66,11 @@ FXDEFMAP(GNEViewParent) GNEViewParentMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_MAKESNAPSHOT,                       GNEViewParent::onCmdMakeSnapshot),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_J_LOCATEJUNCTION,      GNEViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_E_LOCATEEDGE,          GNEViewParent::onCmdLocate),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEWALKINGAREA,                  GNEViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_W_LOCATEWALKINGAREA,   GNEViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_V_LOCATEVEHICLE,       GNEViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_P_LOCATEPERSON,        GNEViewParent::onCmdLocate),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEROUTE,                        GNEViewParent::onCmdLocate),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATESTOP,                         GNEViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_R_LOCATEROUTE,         GNEViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_S_LOCATESTOP,          GNEViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_T_LOCATETLS,           GNEViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_A_LOCATEADDITIONAL,    GNEViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_O_LOCATEPOI,           GNEViewParent::onCmdLocate),
@@ -513,7 +513,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     ACsToLocate.push_back(edge.second);
                 }
                 break;
-            case MID_LOCATEWALKINGAREA:
+            case MID_HOTKEY_SHIFT_W_LOCATEWALKINGAREA:
                 chooserLoc = &myACChoosers.ACChooserWalkingAreas;
                 locateTitle = "WalkingArea";
                 ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getWalkingAreas().size());
@@ -582,7 +582,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     ACsToLocate.push_back(personFlow);
                 }
                 break;
-            case MID_LOCATEROUTE:
+            case MID_HOTKEY_SHIFT_R_LOCATEROUTE:
                 chooserLoc = &myACChoosers.ACChooserRoutes;
                 locateTitle = "Route";
                 ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).size());
@@ -590,7 +590,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     ACsToLocate.push_back(route);
                 }
                 break;
-            case MID_LOCATESTOP: {
+            case MID_HOTKEY_SHIFT_S_LOCATESTOP: {
                 chooserLoc = &myACChoosers.ACChooserStops;
                 locateTitle = "Stop";
                 // reserve memory

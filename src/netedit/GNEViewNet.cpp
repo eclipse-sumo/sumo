@@ -343,7 +343,7 @@ GNEViewNet::buildViewToolBars(GUIGlChildWindow* v) {
     new MFXButtonTooltip(v->getLocatorPopup(),
                          myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate WalkingAreas\tLocate a walkingArea within the network. (Shift+W)",
-                         GUIIconSubSys::getIcon(GUIIcon::LOCATEWALKINGAREA), v, MID_LOCATEWALKINGAREA,
+                         GUIIconSubSys::getIcon(GUIIcon::LOCATEWALKINGAREA), v, MID_HOTKEY_SHIFT_W_LOCATEWALKINGAREA,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for vehicles
     new MFXButtonTooltip(v->getLocatorPopup(),
@@ -363,14 +363,14 @@ GNEViewNet::buildViewToolBars(GUIGlChildWindow* v) {
     new MFXButtonTooltip(v->getLocatorPopup(),
                          myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate Route\tLocate a route within the network. (Shift+R)",
-                         GUIIconSubSys::getIcon(GUIIcon::LOCATEROUTE), v, MID_LOCATEROUTE,
+                         GUIIconSubSys::getIcon(GUIIcon::LOCATEROUTE), v, MID_HOTKEY_SHIFT_R_LOCATEROUTE,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
 
     // for routes
     new MFXButtonTooltip(v->getLocatorPopup(),
                          myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate Stops\tLocate a stop within the network. (Shift+S)",
-                         GUIIconSubSys::getIcon(GUIIcon::LOCATESTOP), v, MID_LOCATESTOP,
+                         GUIIconSubSys::getIcon(GUIIcon::LOCATESTOP), v, MID_HOTKEY_SHIFT_S_LOCATESTOP,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
 
     // for persons (currently unused)

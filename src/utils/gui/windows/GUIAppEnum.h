@@ -177,10 +177,16 @@ enum {
     MID_HOTKEY_SHIFT_O_LOCATEPOI,
     /// @brief Locate person - button
     MID_HOTKEY_SHIFT_P_LOCATEPERSON,
+    /// @brief Locate route - button
+    MID_HOTKEY_SHIFT_R_LOCATEROUTE,
+    /// @brief Locate stop - button
+    MID_HOTKEY_SHIFT_S_LOCATESTOP,
     /// @brief Locate TLS - button
     MID_HOTKEY_SHIFT_T_LOCATETLS,
     /// @brief Locate vehicle - button
     MID_HOTKEY_SHIFT_V_LOCATEVEHICLE,
+    /// @brief Locate edge - button
+    MID_HOTKEY_SHIFT_W_LOCATEWALKINGAREA,
 
     /// @}
 
@@ -384,12 +390,6 @@ enum {
     MID_RECENTERVIEW,
     /// @brief Allow rotation - button
     MID_ALLOWROTATION,
-    /// @brief Locate edge - button
-    MID_LOCATEWALKINGAREA,
-    /// @brief Locate route - button
-    MID_LOCATEROUTE,
-    /// @brief Locate stop - button
-    MID_LOCATESTOP,
     /// @brief Show tool tips in view - button
     MID_SHOWTOOLTIPS_VIEW,
     /// @brief Show tool tips in menus - button
