@@ -241,7 +241,7 @@ def main(args=None):
             # "fake up the array of the scalar mappable. Urgh..."
             # (pelson, http://stackoverflow.com/questions/8342549/matplotlib-add-colorbar-to-a-sequence-of-line-plots)
             sm._A = []
-        color_bar = plt.colorbar(sm, plt.gca())
+        color_bar = plt.colorbar(sm, ax=ax)
         color_bar.set_label(options.colorBarLabel)
 
         # Should we also save the figure to a file / list of files (comma
