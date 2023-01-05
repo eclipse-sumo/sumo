@@ -3695,7 +3695,7 @@ GNEViewNetHelper::DemandCheckableButtons::buildDemandCheckableButtons() {
     // container plan mode
     containerPlanButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
         myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-        "\tCreate container plan mode\tMode for creating container plans. (C)",
+        "\tCreate container plan mode\tMode for creating container plans. (H)",
         GUIIconSubSys::getIcon(GUIIcon::MODECONTAINERPLAN), myViewNet, MID_HOTKEY_H_MODE_PROHIBITION_CONTAINERPLAN, GUIDesignMFXCheckableButtonSquare);
     containerPlanButton->create();
     // always recalc after creating new elements
