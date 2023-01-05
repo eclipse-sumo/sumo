@@ -14,26 +14,14 @@
 # @author Leonhard Luecken
 # @date   2017-04-09
 
-import os
-import sys
-
-if 'SUMO_HOME' in os.environ:
-    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
-    sys.path.append(tools)
-else:
-    sys.exit("please declare environment variable 'SUMO_HOME'")
-
-from simpla._platoonmode import PlatoonMode  # noqa
-from simpla._utils import openGap
-import simpla._reporting as rp  # noqa
+from ._platoonmode import PlatoonMode
+from . import _reporting as rp
 
 warn = rp.Warner("Platoon")
 report = rp.Reporter("Platoon")
 
 
 class Platoon(object):
-    '''
-    '''
 
     # static platoon ID counter
     _nextID = 0
@@ -266,7 +254,7 @@ class Platoon(object):
         # respect maximum platoon size
         if self.size() + pltn.size() > self._maxVehicles:
             return False
-               
+
         vehs = pltn.getVehicles()
         if self.getMode() == PlatoonMode.CATCHUP:
             if pltn.setModeWithImpatience(PlatoonMode.CATCHUP, self._controlInterval):

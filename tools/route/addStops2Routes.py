@@ -214,7 +214,7 @@ def loadRouteFiles(options, routefile, edge2parking, outf):
                 # find usable lane
                 skip = True
                 lanes = lastEdge.getLanes()
-                usable = [l for l in lanes if l.allows(vtypes[obj.type])]
+                usable = [lane for lane in lanes if lane.allows(vtypes[obj.type])]
                 if usable:
                     lane = None
                     if options.lane == 'random':

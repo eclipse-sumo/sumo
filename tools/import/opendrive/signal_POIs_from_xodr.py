@@ -182,10 +182,10 @@ if __name__ == "__main__":
     # edge_df = pd.DataFrame(edge_ids, columns=('rd_ref','lin_m',))   # 'lane'))
     # edge_df.lin_m = edge_df.lin_m.astype(float)
 
-    lane_ids = (l.attrib['id'].split('.', 1) for l in nlanes)
+    lane_ids = (lane.attrib['id'].split('.', 1) for lane in nlanes)
     lane_ids = ([c, l[0], ] + l[1].split('_') for c, l in enumerate(lane_ids))
     lane_ra = lol_T(list(lane_ids))
-    lane_ra.append([l.attrib['width'] for l in nlanes])
+    lane_ra.append([lane.attrib['width'] for lane in nlanes])
     # get max len of string id
     idS_max = max(map(len, lane_ra[1]))
     lane_ra = np.rec.fromarrays(lane_ra, names=('index', 'rd_ref', 'lin_m', 'lane', 'width'),

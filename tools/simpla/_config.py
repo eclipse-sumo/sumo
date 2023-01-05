@@ -18,18 +18,11 @@
 
 from collections import defaultdict
 import os
-import sys
 import xml.etree.ElementTree as ET
 
-if 'SUMO_HOME' in os.environ:
-    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
-    sys.path.append(tools)
-else:
-    sys.exit("please declare environment variable 'SUMO_HOME'")
-
-from simpla._platoonmode import PlatoonMode  # noqa
-import simpla._reporting as rp  # noqa
-from simpla import SimplaException  # noqa
+from ._platoonmode import PlatoonMode
+from . import _reporting as rp
+from . import SimplaException
 
 warn = rp.Warner("Config")
 report = rp.Reporter("Config")
@@ -138,7 +131,7 @@ def loadVTypeMap(fn):
         #         if rp.VERBOSITY >= 2:
         if rp.VERBOSITY >= 2:
             report("Loading vehicle type mappings from file '%s'..." % fn, True)
-        splits = [l.split(":") for l in f.readlines()]
+        splits = [line.split(":") for line in f.readlines()]
         NrBadLines = 0
         for j, spl in enumerate(splits):
             if len(spl) >= 2 and len(spl) <= 5:
@@ -232,7 +225,7 @@ def load(filename):
                     MAX_VEHICLES = maxVeh
                 else:
                     if rp.VERBOSITY >= 1:
-                        warn("Parameter maxVehicles must be positive. Ignoring given value: %s" % (maxVeh), True)                                
+                        warn("Parameter maxVehicles must be positive. Ignoring given value: %s" % (maxVeh), True)
         elif e.tag == "maxPlatoonGap":
             if hasAttributes(e):
                 maxgap = float(list(e.attrib.values())[0])
