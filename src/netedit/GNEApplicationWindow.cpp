@@ -486,8 +486,8 @@ GNEApplicationWindow::dependentBuild() {
     // build the status bar
     myStatusbar = new FXStatusBar(this, GUIDesignStatusBar);
     // build geo coordinates label
-    auto requiereRecomputingFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-    myRequireRecomputingButton = new MFXButtonTooltip(requiereRecomputingFrame, myStaticTooltipMenu,
+    auto requireRecomputingFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
+    myRequireRecomputingButton = new MFXButtonTooltip(requireRecomputingFrame, myStaticTooltipMenu,
             TL("Recomputing\t\tRecomputing is needed"), nullptr, this, MID_GNE_RECOMPUTINGNEEDED, GUIDesignButtonStatusBarFixed);
     // build geo coordinates label
     myGeoFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
@@ -3668,7 +3668,7 @@ GNEApplicationWindow::onCmdSaveNETEDITConfig(FXObject*, FXSelector, void*) {
         neteditOptions.writeConfiguration(out, true, false, false, file, true);
         setStatusBarText("netedit configuration saved to " + file);
         // config saved
-        myNet->requiereSaveNETEDITConfig(false);
+        myNet->requireSaveNETEDITConfig(false);
     } else {
         setStatusBarText("Could not save netedit configuration to " + file);
     }
@@ -3715,7 +3715,7 @@ GNEApplicationWindow::onCmdSaveNETEDITConfigAs(FXObject*, FXSelector, void*) {
         neteditOptions.writeConfiguration(out, true, false, false, file, true);
         setStatusBarText("Netedit configuration saved to " + file);
         // config saved
-        myNet->requiereSaveNETEDITConfig(false);
+        myNet->requireSaveNETEDITConfig(false);
     } else {
         setStatusBarText("Could not save netdit configuration to " + file);
     }
@@ -3784,7 +3784,7 @@ GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject*, FXSelector, void*) {
         mySUMOOptions.writeConfiguration(out, true, false, false, file, true);
         setStatusBarText("Configuration saved to " + file);
         // config saved
-        myNet->requiereSaveSUMOConfig(false);
+        myNet->requireSaveSUMOConfig(false);
     } else {
         setStatusBarText("Could not save configuration to " + file);
     }
@@ -3831,7 +3831,7 @@ GNEApplicationWindow::onCmdSaveSUMOConfigAs(FXObject*, FXSelector, void*) {
         mySUMOOptions.writeConfiguration(out, true, false, false, file, true);
         setStatusBarText("Configuration saved to " + file);
         // config saved
-        myNet->requiereSaveSUMOConfig(false);
+        myNet->requireSaveSUMOConfig(false);
     } else {
         setStatusBarText("Could not save configuration to " + file);
     }

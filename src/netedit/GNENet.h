@@ -432,10 +432,10 @@ public:
     void removeExplicitTurnaround(std::string id);
 
     /// @brief check if SUMO configs must be saved
-    void requiereSaveSUMOConfig(bool value);
+    void requireSaveSUMOConfig(bool value);
 
     /// @brief check if NETEDIT configs must be saved
-    void requiereSaveNETEDITConfig(bool value);
+    void requireSaveNETEDITConfig(bool value);
 
     /// @brief inform that additionals has to be saved
     void requireSaveAdditionals(bool value);

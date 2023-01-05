@@ -139,7 +139,7 @@ public:
         long onCmdCancel(FXObject*, FXSelector, void*);
 
         /// @brief Called when the user presses the OK-Button saves any prohibition modifications
-        long onCmdRequiereConnection(FXObject*, FXSelector, void*);
+        long onCmdRequireConnection(FXObject*, FXSelector, void*);
 
         /// @}
 

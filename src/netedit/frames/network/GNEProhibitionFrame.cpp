@@ -37,7 +37,7 @@
 FXDEFMAP(GNEProhibitionFrame::Selection) SelectionMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_OK,         GNEProhibitionFrame::Selection::onCmdOK),
     FXMAPFUNC(SEL_COMMAND,  MID_CANCEL,     GNEProhibitionFrame::Selection::onCmdCancel),
-    FXMAPFUNC(SEL_UPDATE,   MID_CANCEL,     GNEProhibitionFrame::Selection::onCmdRequiereConnection),
+    FXMAPFUNC(SEL_UPDATE,   MID_CANCEL,     GNEProhibitionFrame::Selection::onCmdRequireConnection),
 };
 
 // Object implementation
@@ -210,7 +210,7 @@ GNEProhibitionFrame::Selection::onCmdCancel(FXObject*, FXSelector, void*) {
 
 
 long
-GNEProhibitionFrame::Selection::onCmdRequiereConnection(FXObject*, FXSelector, void*) {
+GNEProhibitionFrame::Selection::onCmdRequireConnection(FXObject*, FXSelector, void*) {
     if (myProhibitionFrameParent->myCurrentConn) {
         mySaveButton->enable();
         myCancelButton->enable();

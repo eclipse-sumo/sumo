@@ -442,7 +442,7 @@ public:
     /// @brief enable or disable sender object depending if viewNet exist
     long onUpdRequireViewNet(FXObject* sender, FXSelector sel, void* ptr);
 
-    /// @brief update label for requiere recomputing
+    /// @brief update label for require recomputing
     long onUpdRequireRecomputing(FXObject* sender, FXSelector sel, void* ptr);
 
     /// @brief called if the user press key combination Ctrl + G to toggle grid
