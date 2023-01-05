@@ -431,6 +431,12 @@ public:
     /// @brief remove edge id from the list of explicit turnarounds
     void removeExplicitTurnaround(std::string id);
 
+    /// @brief check if SUMO configs must be saved
+    void requiereSaveSUMOConfig(bool value);
+
+    /// @brief check if NETEDIT configs must be saved
+    void requiereSaveNETEDITConfig(bool value);
+
     /// @brief inform that additionals has to be saved
     void requireSaveAdditionals(bool value);
 

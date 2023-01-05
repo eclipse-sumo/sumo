@@ -270,8 +270,11 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.doRegister("new", new Option_Bool(false)); // !!!
     neteditOptions.addDescription("new", "Input", "start with a new network");
 
-    neteditOptions.doRegister("configuration-saved", new Option_Bool(false));
-    neteditOptions.addDescription("configuration-saved", "Input", "flag for check if configuration is saved");
+    neteditOptions.doRegister("sumoconfiguration-saved", new Option_Bool(false));
+    neteditOptions.addDescription("sumoconfiguration-saved", "Input", "flag for check if sumo configuration is saved");
+
+    neteditOptions.doRegister("neteditconfiguration-saved", new Option_Bool(false));
+    neteditOptions.addDescription("neteditconfiguration-saved", "Input", "flag for check if netedit configuration is saved");
 
     // files
     neteditOptions.doRegister("sumocfg-file", new Option_FileName());
