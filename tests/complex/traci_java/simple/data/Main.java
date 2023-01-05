@@ -36,9 +36,10 @@ public class Main {
         }
 
         Simulation.start(new StringVector(new String[] {sumo_bin,
-            "-c", config_file,
-            "--start",
-            "--step-length", "0.1"}));
+                                          "-c", config_file,
+                                          "--start",
+                                          "--step-length", "0.1"
+                                                       }));
 
         for (int i = 0; i < 3600; i++) {
             Simulation.step();
@@ -51,7 +52,7 @@ public class Main {
             TraCIVehicleDataVector vehData = InductionLoop.getVehicleData("loop1");
             for (TraCIVehicleData d : vehData) {
                 System.out.println(String.format("  veh=%s len=%s entry=%s leave=%s type=%s",
-                            d.getId(), d.getLength(), d.getEntryTime(), d.getLeaveTime(), d.getTypeID()));
+                                                 d.getId(), d.getLength(), d.getEntryTime(), d.getLeaveTime(), d.getTypeID()));
             }
         }
         Simulation.close();

@@ -38,8 +38,9 @@ public class APITest {
         }
 
         Simulation.start(new StringVector(new String[] {sumo_bin,
-            "-c", config_file,
-            "--start"}));
+                                          "-c", config_file,
+                                          "--start"
+                                                       }));
 
 
         double deltaT = Simulation.getDeltaT();
@@ -50,7 +51,7 @@ public class APITest {
             System.out.println("  " + s);
         }
         TraCIStageVector stages = Simulation.findIntermodalRoute("gneE0", "gneE2", "", 0, 0,
-                                       1.5, 1, 50, 50, 0, "", "", "");
+                                  1.5, 1, 50, 50, 0, "", "", "");
         System.out.println("findIntermodalRoute result stages:");
         for (TraCIStage s2 : stages) {
             for (String s : s2.getEdges()) {
@@ -73,7 +74,7 @@ public class APITest {
             TraCIVehicleDataVector vehData = InductionLoop.getVehicleData("loop1");
             for (TraCIVehicleData d : vehData) {
                 System.out.println(String.format("  veh=%s len=%s entry=%s leave=%s type=%s",
-                            d.getId(), d.getLength(), d.getEntryTime(), d.getLeaveTime(), d.getTypeID()));
+                                                 d.getId(), d.getLength(), d.getEntryTime(), d.getLeaveTime(), d.getTypeID()));
             }
             if (i == 10) {
                 Vehicle.setStop("v0", "gneE0", 200, 0, 10, 0, 10, -1);
@@ -168,14 +169,15 @@ public class APITest {
         System.out.println("Simulation.convertGeo: " + geoPos.getX() + ", " + geoPos.getY());
 
         for (TraCIConnection c : Lane.getLinks(":gneJ1_6_0")) {
-            System.out.println("Lane.getLinks to=" + c.getApproachedLane() + " via=" + c.getApproachedInternal() + " prio=" + c.getHasPrio() + " open=" + c.getIsOpen()); 
+            System.out.println("Lane.getLinks to=" + c.getApproachedLane() + " via=" + c.getApproachedInternal() + " prio=" + c.getHasPrio() + " open=" + c.getIsOpen());
         }
 
         Simulation.close();
 
         Simulation.start(new StringVector(new String[] {sumo_bin,
-            "-c", config_file,
-            "--start"}));
+                                          "-c", config_file,
+                                          "--start"
+                                                       }));
 
         Simulation.saveState("file-state-now");
         Simulation.close();

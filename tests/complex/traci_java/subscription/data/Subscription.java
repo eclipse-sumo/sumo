@@ -37,8 +37,9 @@ public class Subscription {
         }
 
         Simulation.start(new StringVector(new String[] {sumo_bin,
-            "-c", config_file,
-            "--start"}));
+                                          "-c", config_file,
+                                          "--start"
+                                                       }));
 
         Simulation.subscribe(new IntVector(new int[] { libtraci.getVAR_DEPARTED_VEHICLES_IDS() }));
 

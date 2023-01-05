@@ -52,10 +52,10 @@ for f in sys.argv[1:]:
     fname = "data/%s.java" % f
     if useLibsumo:
         with open(fname, 'r') as fob:
-          filedata = fob.read()
+            filedata = fob.read()
         filedata = filedata.replace('libtraci', 'libsumo')
         with open(fname, 'w') as fob:
-          fob.write(filedata)
+            fob.write(filedata)
     subprocess.check_call([javac, "-cp", traciJar, fname])
 
 procs = [subprocess.Popen([java, "-Djava.library.path=" + os.path.join(os.environ['SUMO_HOME'], "bin"),
