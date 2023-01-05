@@ -24,11 +24,11 @@ Warning: Ignoring restriction relation '4466969' with unknown via.
 Warning: to-edge '46733382' of restriction relation could not be determined
 Warning: Ignoring restriction relation '9231710'.
 Warning: PT stop '3893875082' has been moved to edge '-10597569#4'.
-Warning: Ambiguous tram edges '104765104#3' and '998193590#4' for lane '10597569#2_1'.
 Warning: Ambiguous tram edges '173349393' and '465830148#0' for lane '-10597569#2_0'.
-Warning: Ambiguous tram edges '104765104#3' and '998193590#4' for lane '10597569#3_1'.
 Warning: Ambiguous tram edges '173349393' and '175760035#0' for lane '-10597569#3_0'.
 Warning: Ambiguous tram edges '173349393' and '465830148#0' for lane '-10597569#3_0'.
+Warning: Ambiguous tram edges '236529399#2' and '465830148#4' for lane '-142810575#2_0'.
+Warning: Ambiguous tram edges '465830148#1' and '465830148#2' for lane '-142810575#6_0'.
 Warning: Ambiguity in turnarounds computation at junction '3186398214'.
 Warning: Ambiguity in turnarounds computation at junction '7561495436'.
 Warning: Ambiguity in turnarounds computation at junction '9886764479'.
