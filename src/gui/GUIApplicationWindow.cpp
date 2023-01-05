@@ -162,24 +162,24 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F11_HALLOFFAME,                            GUIApplicationWindow::onCmdHallOfFame),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F12_ABOUT,                                       GUIApplicationWindow::onCmdAbout),
     // forward requests to the active view
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEJUNCTION, GUIApplicationWindow::onCmdLocate),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEEDGE,     GUIApplicationWindow::onCmdLocate),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEVEHICLE,  GUIApplicationWindow::onCmdLocate),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPERSON,   GUIApplicationWindow::onCmdLocate),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATECONTAINER, GUIApplicationWindow::onCmdLocate),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATETLS,      GUIApplicationWindow::onCmdLocate),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEADD,      GUIApplicationWindow::onCmdLocate),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPOI,      GUIApplicationWindow::onCmdLocate),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPOLY,     GUIApplicationWindow::onCmdLocate),
-    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEJUNCTION, GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEEDGE,     GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEVEHICLE,  GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEPERSON,   GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_LOCATECONTAINER, GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_LOCATETLS,      GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEADD,      GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEPOI,      GUIApplicationWindow::onUpdNeedsSimulation),
-    FXMAPFUNC(SEL_UPDATE,   MID_LOCATEPOLY,     GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_J_LOCATEJUNCTION, GUIApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_E_LOCATEEDGE,     GUIApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_V_LOCATEVEHICLE,  GUIApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_P_LOCATEPERSON,   GUIApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_C_LOCATECONTAINER, GUIApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_T_LOCATETLS,      GUIApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_A_LOCATEADDITIONAL,      GUIApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_O_LOCATEPOI,      GUIApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_L_LOCATEPOLY,     GUIApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_J_LOCATEJUNCTION, GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_E_LOCATEEDGE,     GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_V_LOCATEVEHICLE,  GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_P_LOCATEPERSON,   GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_C_LOCATECONTAINER, GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_T_LOCATETLS,      GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_A_LOCATEADDITIONAL,      GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_O_LOCATEPOI,      GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_L_LOCATEPOLY,     GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_KEYPRESS,              0,     GUIApplicationWindow::onKeyPress),
     FXMAPFUNC(SEL_KEYRELEASE,            0,     GUIApplicationWindow::onKeyRelease),
     // clipboard
@@ -495,31 +495,31 @@ GUIApplicationWindow::fillMenuBar() {
     GUIDesigns::buildFXMenuTitle(myMenuBar, TL("&Locate"), nullptr, myLocatorMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
                                            TL("&Junctions"), "Shift+J", TL("Open a Dialog for Locating a Junction."),
-                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), this, MID_LOCATEJUNCTION);
+                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), this, MID_HOTKEY_SHIFT_J_LOCATEJUNCTION);
     GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
                                            TL("&Edges"), "Shift+E", TL("Open a Dialog for Locating an Edge."),
-                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), this, MID_LOCATEEDGE);
+                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), this, MID_HOTKEY_SHIFT_E_LOCATEEDGE);
     GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
                                            TL("&Vehicles"), "Shift+V", TL("Open a Dialog for Locating a Vehicle."),
-                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), this, MID_LOCATEVEHICLE);
+                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), this, MID_HOTKEY_SHIFT_V_LOCATEVEHICLE);
     GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
                                            TL("&Persons"), "Shift+P", TL("Open a Dialog for Locating a Person."),
-                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), this, MID_LOCATEPERSON);
+                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), this, MID_HOTKEY_SHIFT_P_LOCATEPERSON);
     GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
                                            TL("&Container"), "Shift+C", TL("Open a Dialog for Locating a Container."),
-                                           GUIIconSubSys::getIcon(GUIIcon::LOCATECONTAINER), this, MID_LOCATECONTAINER);
+                                           GUIIconSubSys::getIcon(GUIIcon::LOCATECONTAINER), this, MID_HOTKEY_SHIFT_C_LOCATECONTAINER);
     GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
                                            TL("&TLS"), "Shift+T", TL("Open a Dialog for Locating a Traffic Light."),
-                                           GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), this, MID_LOCATETLS);
+                                           GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), this, MID_HOTKEY_SHIFT_T_LOCATETLS);
     GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
                                            TL("&Additional"), "Shift+A", TL("Open a Dialog for Locating an Additional Structure."),
-                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEADD), this, MID_LOCATEADD);
+                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEADD), this, MID_HOTKEY_SHIFT_A_LOCATEADDITIONAL);
     GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
                                            TL("P&oI"), "Shift+O", TL("Open a Dialog for Locating a Point of Interest."),
-                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), this, MID_LOCATEPOI);
+                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), this, MID_HOTKEY_SHIFT_O_LOCATEPOI);
     GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
                                            TL("Po&lygon"), "Shift+L", TL("Open a Dialog for Locating a Polygon."),
-                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), this, MID_LOCATEPOLY);
+                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), this, MID_HOTKEY_SHIFT_L_LOCATEPOLY);
     new FXMenuSeparator(myLocatorMenu);
     new FXMenuCheck(myLocatorMenu,
                     TL("Show Internal Structures\t\tShow internal junctions and streets in locator dialog."),

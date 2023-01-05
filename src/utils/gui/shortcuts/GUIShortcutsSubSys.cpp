@@ -228,32 +228,32 @@ GUIShortcutsSubSys::buildAccelerators(FXAccelTable* accelTable, FXObject* target
 
     // shift hotkeys
 
-    accelTable->addAccel(parseKey(KEY_a, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_LOCATEADD));
-    accelTable->addAccel(parseKey(KEY_A, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_LOCATEADD));
+    accelTable->addAccel(parseKey(KEY_a, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_SHIFT_A_LOCATEADDITIONAL));
+    accelTable->addAccel(parseKey(KEY_A, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_SHIFT_A_LOCATEADDITIONAL));
 
-    accelTable->addAccel(parseKey(KEY_c, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_LOCATECONTAINER));
-    accelTable->addAccel(parseKey(KEY_C, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_LOCATECONTAINER));
+    accelTable->addAccel(parseKey(KEY_c, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_SHIFT_C_LOCATECONTAINER));
+    accelTable->addAccel(parseKey(KEY_C, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_SHIFT_C_LOCATECONTAINER));
 
-    accelTable->addAccel(parseKey(KEY_e, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_LOCATEEDGE));
-    accelTable->addAccel(parseKey(KEY_E, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_LOCATEEDGE));
+    accelTable->addAccel(parseKey(KEY_e, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_SHIFT_E_LOCATEEDGE));
+    accelTable->addAccel(parseKey(KEY_E, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_SHIFT_E_LOCATEEDGE));
 
-    accelTable->addAccel(parseKey(KEY_j, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_LOCATEJUNCTION));
-    accelTable->addAccel(parseKey(KEY_J, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_LOCATEJUNCTION));
+    accelTable->addAccel(parseKey(KEY_j, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_SHIFT_J_LOCATEJUNCTION));
+    accelTable->addAccel(parseKey(KEY_J, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_SHIFT_J_LOCATEJUNCTION));
 
-    accelTable->addAccel(parseKey(KEY_l, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_LOCATEPOLY));
-    accelTable->addAccel(parseKey(KEY_L, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_LOCATEPOLY));
+    accelTable->addAccel(parseKey(KEY_l, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_SHIFT_L_LOCATEPOLY));
+    accelTable->addAccel(parseKey(KEY_L, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_SHIFT_L_LOCATEPOLY));
 
-    accelTable->addAccel(parseKey(KEY_o, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_LOCATEPOI));
-    accelTable->addAccel(parseKey(KEY_O, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_LOCATEPOI));
+    accelTable->addAccel(parseKey(KEY_o, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_SHIFT_O_LOCATEPOI));
+    accelTable->addAccel(parseKey(KEY_O, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_SHIFT_O_LOCATEPOI));
 
-    accelTable->addAccel(parseKey(KEY_p, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_LOCATEPERSON));
-    accelTable->addAccel(parseKey(KEY_P, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_LOCATEPERSON));
+    accelTable->addAccel(parseKey(KEY_p, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_SHIFT_P_LOCATEPERSON));
+    accelTable->addAccel(parseKey(KEY_P, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_SHIFT_P_LOCATEPERSON));
 
-    accelTable->addAccel(parseKey(KEY_t, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_LOCATETLS));
-    accelTable->addAccel(parseKey(KEY_T, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_LOCATETLS));
+    accelTable->addAccel(parseKey(KEY_t, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_SHIFT_T_LOCATETLS));
+    accelTable->addAccel(parseKey(KEY_T, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_SHIFT_T_LOCATETLS));
 
-    accelTable->addAccel(parseKey(KEY_v, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_LOCATEVEHICLE));
-    accelTable->addAccel(parseKey(KEY_V, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_LOCATEVEHICLE));
+    accelTable->addAccel(parseKey(KEY_v, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_SHIFT_V_LOCATEVEHICLE));
+    accelTable->addAccel(parseKey(KEY_V, KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_SHIFT_V_LOCATEVEHICLE));
 
     accelTable->addAccel(parseKey(KEY_F1,  KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_SHIFT_F1_TEMPLATE_SET));
     accelTable->addAccel(parseKey(KEY_F2,  KEYMODIFIER_SHIFT), target, FXSEL(SEL_COMMAND, MID_HOTKEY_SHIFT_F2_TEMPLATE_COPY));

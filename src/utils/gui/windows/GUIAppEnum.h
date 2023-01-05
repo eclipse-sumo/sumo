@@ -160,6 +160,30 @@ enum {
 
     /// @}
 
+    /// @name shift + hotkeys
+    /// @{
+
+    /// @brief Locate additional structure - button
+    MID_HOTKEY_SHIFT_A_LOCATEADDITIONAL,
+    /// @brief Locate container - button
+    MID_HOTKEY_SHIFT_C_LOCATECONTAINER,
+    /// @brief Locate edge - button
+    MID_HOTKEY_SHIFT_E_LOCATEEDGE,
+    /// @brief Locate junction - button
+    MID_HOTKEY_SHIFT_J_LOCATEJUNCTION,
+    /// @brief Locate polygons - button
+    MID_HOTKEY_SHIFT_L_LOCATEPOLY,
+    /// @brief Locate poi - button
+    MID_HOTKEY_SHIFT_O_LOCATEPOI,
+    /// @brief Locate person - button
+    MID_HOTKEY_SHIFT_P_LOCATEPERSON,
+    /// @brief Locate TLS - button
+    MID_HOTKEY_SHIFT_T_LOCATETLS,
+    /// @brief Locate vehicle - button
+    MID_HOTKEY_SHIFT_V_LOCATEVEHICLE,
+
+    /// @}
+
     /// @name Ctrl + Shift hotkeys
     /// @{
 
@@ -225,6 +249,7 @@ enum {
     MID_HOTKEY_SHIFT_F11_HALLOFFAME,
     /// @brief open about dialog
     MID_HOTKEY_F12_ABOUT,
+
     /// @}
 
     /// @name shift + Functional hotkeys
@@ -244,6 +269,7 @@ enum {
     MID_HOTKEY_SHIFT_F10_SUMOOPTIONSMENU,
     /// @brief focus upper element of current frame (only used in NETEDIT)
     MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT,
+
     /// @}
 
     /// @name Other hotkeys
@@ -277,6 +303,7 @@ enum {
     MID_CANCEL,
     /// @brief Update-button pressed
     MID_UPDATE,
+
     /// @}
 
     /// @name Main Window File Menu - IDs
@@ -357,30 +384,12 @@ enum {
     MID_RECENTERVIEW,
     /// @brief Allow rotation - button
     MID_ALLOWROTATION,
-    /// @brief Locate junction - button
-    MID_LOCATEJUNCTION,
-    /// @brief Locate edge - button
-    MID_LOCATEEDGE,
     /// @brief Locate edge - button
     MID_LOCATEWALKINGAREA,
-    /// @brief Locate vehicle - button
-    MID_LOCATEVEHICLE,
     /// @brief Locate route - button
     MID_LOCATEROUTE,
     /// @brief Locate stop - button
     MID_LOCATESTOP,
-    /// @brief Locate person - button
-    MID_LOCATEPERSON,
-    /// @brief Locate container - button
-    MID_LOCATECONTAINER,
-    /// @brief Locate TLS - button
-    MID_LOCATETLS,
-    /// @brief Locate additional structure - button
-    MID_LOCATEADD,
-    /// @brief Locate poi - button
-    MID_LOCATEPOI,
-    /// @brief Locate polygons - button
-    MID_LOCATEPOLY,
     /// @brief Show tool tips in view - button
     MID_SHOWTOOLTIPS_VIEW,
     /// @brief Show tool tips in menus - button
@@ -401,6 +410,7 @@ enum {
     MID_DEMAND_SCALE,
     /// @brief scale vehicle speed
     MID_SPEEDFACTOR,
+
     /// @}
 
     /// @name Common view IDs

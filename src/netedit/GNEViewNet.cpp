@@ -331,13 +331,13 @@ GNEViewNet::buildViewToolBars(GUIGlChildWindow* v) {
     new MFXButtonTooltip(v->getLocatorPopup(),
                          myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate Junctions\tLocate a junction within the network. (Shift+J)",
-                         GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), v, MID_LOCATEJUNCTION,
+                         GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), v, MID_HOTKEY_SHIFT_J_LOCATEJUNCTION,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for edges
     new MFXButtonTooltip(v->getLocatorPopup(),
                          myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate Edges\tLocate an edge within the network. (Shift+E)",
-                         GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), v, MID_LOCATEEDGE,
+                         GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), v, MID_HOTKEY_SHIFT_E_LOCATEEDGE,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for walkingAreas
     new MFXButtonTooltip(v->getLocatorPopup(),
@@ -349,14 +349,14 @@ GNEViewNet::buildViewToolBars(GUIGlChildWindow* v) {
     new MFXButtonTooltip(v->getLocatorPopup(),
                          myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate Vehicles\tLocate a vehicle within the network. (Shift+V)",
-                         GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), v, MID_LOCATEVEHICLE,
+                         GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), v, MID_HOTKEY_SHIFT_V_LOCATEVEHICLE,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
 
     // for person
     new MFXButtonTooltip(v->getLocatorPopup(),
                          myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate Persons\tLocate a person within the network. (Shift+P)",
-                         GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), v, MID_LOCATEPERSON,
+                         GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), v, MID_HOTKEY_SHIFT_P_LOCATEPERSON,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
 
     // for routes
@@ -385,25 +385,25 @@ GNEViewNet::buildViewToolBars(GUIGlChildWindow* v) {
     new MFXButtonTooltip(v->getLocatorPopup(),
                          myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate TLS\tLocate a tls within the network. (Shift+T)",
-                         GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), v, MID_LOCATETLS,
+                         GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), v, MID_HOTKEY_SHIFT_T_LOCATETLS,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for additional stuff
     new MFXButtonTooltip(v->getLocatorPopup(),
                          myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate Additional\tLocate an additional structure within the network. (Shift+A)",
-                         GUIIconSubSys::getIcon(GUIIcon::LOCATEADD), v, MID_LOCATEADD,
+                         GUIIconSubSys::getIcon(GUIIcon::LOCATEADD), v, MID_HOTKEY_SHIFT_A_LOCATEADDITIONAL,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for pois
     new MFXButtonTooltip(v->getLocatorPopup(),
                          myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate PoI\tLocate a PoI within the network. (Shift+O)",
-                         GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), v, MID_LOCATEPOI,
+                         GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), v, MID_HOTKEY_SHIFT_O_LOCATEPOI,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for polygons
     new MFXButtonTooltip(v->getLocatorPopup(),
                          myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate Polygon\tLocate a Polygon within the network. (Shift+L)",
-                         GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), v, MID_LOCATEPOLY,
+                         GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), v, MID_HOTKEY_SHIFT_L_LOCATEPOLY,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
 }
 
