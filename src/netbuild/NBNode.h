@@ -101,7 +101,7 @@ public:
         /// @brief the bresenham-callback
         void execute(const int src, const int dest);
 
-        /// @brief the method that spreads the wished number of lanes from the the lane given by the bresenham-call to both left and right
+        /// @brief the method that spreads the wished number of lanes from the lane given by the bresenham-call to both left and right
         std::deque<int>* spread(const std::vector<int>& approachingLanes, int dest) const;
 
     private:
