@@ -49,6 +49,7 @@ alternatives below.
  - ffmpeg-devel (for video output),
  - libOpenSceneGraph-devel (for the experimental 3D GUI),
  - gtest (for unit testing)
+ - gettext (for internationalization)
  - texttest, xvfb  and tkdiff (for the acceptance tests)
  - flake, astyle and autopep for style checking
  - see also further dependencies [for GUI testing](../Developer/GUI_Testing.md)
@@ -57,8 +58,8 @@ The package names above are for openSUSE, for ubuntu the call to get the most im
   
 ```
 sudo apt-get install ccache libavformat-dev libswscale-dev libopenscenegraph-dev python3-pip python3-setuptools
-sudo apt-get install libgtest-dev tkdiff xvfb flake8 astyle python3-autopep8
-sudo pip3 install texttest
+sudo apt-get install libgtest-dev gettext tkdiff xvfb flake8 astyle python3-autopep8
+pip3 install texttest
 ```
 
 For the Python tools there are some requirements depending on which tools you want to use. If you want to install
