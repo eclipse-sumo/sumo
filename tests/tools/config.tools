@@ -316,8 +316,11 @@ image:href="[^"]*"{REPLACE href="ReplacedTransientHREF"}
 image:<dc:date>
 image:\)scale\({REPLACE ) scale(}
 image:\)rotate\({REPLACE ) rotate(}
+image:\)translate\({REPLACE ) translate(}
 image-600:<dc:date>
+image-600:\)scale\({REPLACE ) scale(}
 image-800:<dc:date>
+image-800:\)scale\({REPLACE ) scale(}
 csv:\r$
 diff_con:<!-- generated on{[->]}-->
 diff_edg:<!-- generated on{[->]}-->
