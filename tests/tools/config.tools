@@ -314,6 +314,8 @@ image:id="[^"]*"{REPLACE id="ReplacedTransientID"}
 image:url\(.*\){REPLACE url(ReplacedTransientURL)}
 image:href="[^"]*"{REPLACE href="ReplacedTransientHREF"}
 image:<dc:date>
+image:\)scale\({REPLACE ) scale(}
+image:\)rotate\({REPLACE ) rotate(}
 image-600:<dc:date>
 image-800:<dc:date>
 csv:\r$
