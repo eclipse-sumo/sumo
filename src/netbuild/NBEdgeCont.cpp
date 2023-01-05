@@ -1768,26 +1768,26 @@ int
 NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTStopCont& sc, NBPTLineCont& lc, double maxDist) {
     // this is different from joinSimilarEdges because there don't need to be
     // shared nodes and tram edges may be split
-    std::set<NBEdge*> tramEdges;
-    std::set<NBEdge*> targetEdges;
+    std::vector<NBEdge*> tramEdges;
+    std::vector<NBEdge*> targetEdges;
     for (auto item : myEdges) {
         SVCPermissions permissions = item.second->getPermissions();
         if (isTram(permissions)) {
             if (item.second->getNumLanes() == 1) {
-                tramEdges.insert(item.second);
+                tramEdges.push_back(item.second);
             } else {
                 WRITE_WARNINGF(TL("Not joining tram edge '%' with % lanes."), item.second->getID(), item.second->getNumLanes());
             }
         } else if ((permissions & (SVC_PASSENGER | SVC_BUS)) != 0) {
-            targetEdges.insert(item.second);
+            targetEdges.push_back(item.second);
         }
     }
-    if (tramEdges.size() == 0 || targetEdges.size() == 0) {
+    if (tramEdges.empty() || targetEdges.empty()) {
         return 0;
     }
     int numJoined = 0;
     NamedRTree tramTree;
-    for (NBEdge* edge : tramEdges) {
+    for (NBEdge* const edge : tramEdges) {
         const Boundary& bound = edge->getGeometry().getBoxBoundary();
         float min[2] = { static_cast<float>(bound.xmin()), static_cast<float>(bound.ymin()) };
         float max[2] = { static_cast<float>(bound.xmax()), static_cast<float>(bound.ymax()) };
