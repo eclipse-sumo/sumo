@@ -101,11 +101,11 @@ def main(netFile, outFile, radius, travelDist, symmetrical):
     net = sumolib.net.readNet(netFile, withConnections=False, withFoes=False)
     with sumolib.openz(outFile, mode='w') as outf:
         sumolib.writeXMLHeader(outf)
-        outf.write('<tazs>\n')
+        outf.write(u'<tazs>\n')
         for taz, edges in computeAllBidiTaz(net, radius, travelDist, symmetrical):
-            outf.write('    <taz id="%s" edges="%s"/>\n' % (
+            outf.write(u'    <taz id="%s" edges="%s"/>\n' % (
                 taz.getID(), ' '.join(sorted([e.getID() for e in edges]))))
-        outf.write('</tazs>\n')
+        outf.write(u'</tazs>\n')
     return net
 
 
