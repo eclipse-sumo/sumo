@@ -89,8 +89,8 @@ enum {
     MID_HOTKEY_CTRL_F_FULSCREENMODE,
     /// @brief Toggle Gaming mode in SUMO and grid in NETEDIT
     MID_HOTKEY_CTRL_G_GAMINGMODE_TOGGLEGRID,
-    /// @brief open edge type files
-    MID_HOTKEY_CTRL_H_OPENEDGETYPES,
+    /// @brief open app setting dialog in SUMO and open edge type files in NETEDIT
+    MID_HOTKEY_CTRL_H_APPSETTINGS_OPENEDGETYPES,
     /// @brief Open viewport editor
     MID_HOTKEY_CTRL_I_EDITVIEWPORT,
     /// @brief toggle draw junction shape
@@ -330,8 +330,6 @@ enum {
     /// @name Settings Menu Item - IDs
     /// @{
 
-    /// @brief Application settings - menu entry
-    MID_APPSETTINGS,
     /// @brief Locator configuration - menu entry
     MID_LISTINTERNAL,
     MID_LISTPARKING,
