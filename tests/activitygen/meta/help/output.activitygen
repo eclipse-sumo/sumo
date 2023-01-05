@@ -1,5 +1,5 @@
-Eclipse SUMO activitygen Version v1_15_0+1277-3febad6e597
- Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
+Eclipse SUMO activitygen Version v1_15_0+1315-6cce7c5914f
+ Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
  Copyright (C) 2010-2012 Technische Universitaet Muenchen
 Generates trips of persons throughout a day for the microscopic, multi-modal
  traffic simulation SUMO.
