@@ -557,6 +557,13 @@ add_custom_target(install_test_dll DEPENDS ${TARGET_TEST_DLLS})
 set_property(TARGET install_dll PROPERTY FOLDER "CMake")
 set_property(TARGET install_test_dll PROPERTY FOLDER "CMake")
 
+# i18n target
+set(I18N_DATA ${CMAKE_SOURCE_DIR}/data/locale/tr/LC_MESSAGES/sumo.mo)
+add_custom_command(OUTPUT ${I18N_DATA}
+                   COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/i18n.py -m
+                   DEPENDS ${CMAKE_SOURCE_DIR}/data/po/tr_gui.po)
+add_custom_target(install_mo DEPENDS ${I18N_DATA})
+
 # java targets
 find_program(MVN_EXECUTABLE mvn)
 find_package(Java COMPONENTS Development)

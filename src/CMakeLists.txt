@@ -80,7 +80,7 @@ if (FOX_FOUND)
             set_target_properties(sumo-gui PROPERTIES VS_DPI_AWARE "ON")
         endif ()
     endif ()
-    add_dependencies(sumo-gui generate-version-h install_dll)
+    add_dependencies(sumo-gui generate-version-h install_dll install_mo)
     install(TARGETS sumo-gui RUNTIME DESTINATION bin)
 endif ()
 
