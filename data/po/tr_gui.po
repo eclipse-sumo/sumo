@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-04 13:42+0100\n"
-"PO-Revision-Date: 2023-01-04 08:59+0000\n"
+"PO-Revision-Date: 2023-01-06 07:49+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/tr/>\n"
@@ -30,7 +30,7 @@ msgstr "Bu sistemin OpenGL desteği yoktur. Çıkılıyor."
 #: /home/behr_mi/sumo/src/netedit/netedit_main.cpp:48
 msgid ""
 "Graphical editor for SUMO networks, demand and additional infrastructure."
-msgstr ""
+msgstr "SUMO Ağları Talep ve Ek Altyapılar için Grafiksel Düzenleyici."
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:201
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:427
@@ -56,7 +56,7 @@ msgstr "Taşı"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:430
 msgid "&Edge"
-msgstr "Kesit"
+msgstr "Kesim"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:433
 msgid "&Connection"
@@ -64,7 +64,7 @@ msgstr "Bağlantı"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:436
 msgid "Pro&hibition"
-msgstr "Kural"
+msgstr "Geçiş Kuralı"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:442
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1807
@@ -85,9 +85,8 @@ msgid "&Wire"
 msgstr "Enerji Hattı"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:576
-#, fuzzy
 msgid "&MeanData"
-msgstr "Veri"
+msgstr "Ortalama Veri"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1152
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1783
@@ -99,7 +98,7 @@ msgstr "Kavşaklar"
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1786
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:496
 msgid "&Edges"
-msgstr "Kesitler"
+msgstr "Kesimler"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1162
 msgid "&Lanes"
@@ -151,19 +150,20 @@ msgstr "Araçlar"
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1795
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:502
 msgid "&Persons"
-msgstr "İnsanlar"
+msgstr "Yolcular"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1222
 msgid "Person&Trips"
-msgstr "İnsan&Yolculuklar"
+msgstr "Yolcu&Seyahatler"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1227
 msgid "&Walks"
-msgstr "Yürüyüşler"
+msgstr "Yürümeler"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1232
+#, fuzzy
 msgid "Ri&des"
-msgstr "Sürüşler"
+msgstr "Turlar"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1237
 msgid "&Containers"
@@ -175,7 +175,7 @@ msgstr "Aktarımlar"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1247
 msgid "Trans&hips"
-msgstr "Aktarmalar"
+msgstr "Nakliyeler"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1252
 msgid "Stop&s"
@@ -195,7 +195,7 @@ msgstr "Kesit&TAB İlişkili"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1789
 msgid "&WalkingAreas"
-msgstr "Yürüyüş Alanları"
+msgstr "Yürüme Alanları"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1798
 msgid "&Route"
@@ -237,9 +237,8 @@ msgid "&Data"
 msgstr "Veri"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:459
-#, fuzzy
 msgid "A microscopic, multi-modal traffic simulation."
-msgstr "Mikro Ölçekli, Çok Modlu Trafik Simülasyonu SUMO'nun GKA Versiyonu."
+msgstr "Mikro Ölçekli, Çok Modlu Trafik Simülasyonu."
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:469
 msgid "DEBUG: GNEApplicationWindow::dependentBuild called twice"
@@ -286,12 +285,11 @@ msgstr "Dışarıdan Ağ Yükle"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:760
 msgid "Select Import Options"
-msgstr "Yükleme Seçeneklerini Seç"
+msgstr "İçeri Aktarma Seçeneklerini Seç"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:777
-#, fuzzy
 msgid "Open NETEDITConfig file"
-msgstr "SUMOConfig Dosyası Aç"
+msgstr "NeteditConfig Dosyası Aç"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:820
 msgid "Open SUMOConfig file"
@@ -303,7 +301,7 @@ msgstr "TIS Programları Dosyası Aç"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:996
 msgid "Load edgeType file"
-msgstr "Kesit Tipi Dosyası Yükle"
+msgstr "Kesim Tipi Dosyası Yükle"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1084
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1124
@@ -368,7 +366,7 @@ msgstr "Yardım"
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1534
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:602
 msgid "&Online Documentation"
-msgstr "Çevrimiçi Döküman"
+msgstr "Çevrimiçi Dökümantasyon"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1534
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:602
@@ -433,7 +431,7 @@ msgstr "Havai Seçeneklerle Yeniden Hesapla"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1790
 msgid "Save additionals before recomputing with volatile options"
-msgstr "Geçici Seçeneklerle Yeniden Hesaplamadan Önce Ekleri Kaydet"
+msgstr "Havai Seçeneklerle Yeniden Hesaplamadan Önce Ekleri Kaydet"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1804
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1866
@@ -469,14 +467,12 @@ msgid "Saving data elements in temporary folder failed!"
 msgstr "Veri Elemanlarının Geçici Dosyaya Kaydı Başarısız!"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1976
-#, fuzzy
 msgid "Save meanDatas before recomputing with volatile options"
-msgstr "Geçici Seçeneklerle Yeniden Hesaplamadan Önce Veri Elemanlarını Kaydet"
+msgstr "Geçici Seçeneklerle Yeniden Hesaplamadan Önce Ortalama Verileri Kaydet"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:2018
-#, fuzzy
 msgid "Saving meanDatas in temporary folder failed!"
-msgstr "Veri Elemanlarının Geçici Dosyaya Kaydı Başarısız!"
+msgstr "Ortalama Verilerin Geçici Dosyaya Kaydı Başarısız!"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:2673
 msgid "Configure Options"
@@ -484,7 +480,7 @@ msgstr "Yapılandırma Seçenekleri"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:2686
 msgid "SUMO Options"
-msgstr ""
+msgstr "SUMO Seçenekleri"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:2705
 msgid "Undo"
@@ -521,14 +517,12 @@ msgid "Saving Network failed!"
 msgstr "Ağ Kaydı Başarısız!"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3625
-#, fuzzy
 msgid "Save NETEDIT Configuration"
-msgstr "Yapılandırmaları Kaydet"
+msgstr "Netedit Yapılandırmasını Kaydet"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3673
-#, fuzzy
 msgid "Save NETEDIT Configuration as"
-msgstr "Yapılandırmaları Kaydet"
+msgstr "Netedit Yapılandırmasını Farklı Kaydet"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3735
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1136
@@ -536,9 +530,8 @@ msgid "Save SUMO Configuration"
 msgstr "SUMO Yapılandırmasını Kaydet"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3783
-#, fuzzy
 msgid "Save SUMO Configuration as"
-msgstr "SUMO Yapılandırmasını Kaydet"
+msgstr "SUMO Yapılandırmasını Farklı Kaydet"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3842
 msgid "Save TLS Programs"
@@ -550,11 +543,11 @@ msgstr "TIS Programlarının Kaydı Başarısız!"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3912
 msgid "Save edgeType file"
-msgstr "Kesit Tipi Dosyası Kaydet"
+msgstr "Kesim Tipi Dosyası Kaydet"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3937
 msgid "Saving edgeTypes failed!"
-msgstr "Kesit Tipi Dosyası Kaydı Başarısız!"
+msgstr "Kesim Tipi Dosyası Kaydı Başarısız!"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3977
 msgid "Save TLS Programs as"
@@ -562,7 +555,7 @@ msgstr "TIS Programlarını Farklı Kaydet"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4008
 msgid "Save edgeType file as"
-msgstr "Kesit Tipi Dosyasını Farklı Kaydet"
+msgstr "Kesim Tipi Dosyasını Farklı Kaydet"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4042
 msgid "Open Additionals file"
@@ -609,24 +602,20 @@ msgid "Save data element file as"
 msgstr "Veri Elemanları Dosyasını Farklı Kaydet"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4681
-#, fuzzy
 msgid "Open MeanDatas file"
-msgstr "Kesit Verisi Dosyası Aç "
+msgstr "Ortalama Veriler Dosyasını Aç"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4808
-#, fuzzy
 msgid "Save MeanDatas file"
-msgstr "Talep Elemanları Dosyasını Kaydet"
+msgstr "Ortalama Veriler Dosyasını Kaydet"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4842
-#, fuzzy
 msgid "Saving meanDatas failed!"
-msgstr "Veri Elemanları Kaydı Başarısız!"
+msgstr "Ortalama Veriler Kaydı Başarısız!"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4870
-#, fuzzy
 msgid "Save MeanDatas file as"
-msgstr "Ekler Dosyasını Farklı Kaydet"
+msgstr "Ortalama Veriler Dosyasını Farklı Kaydet"
 
 #: /home/behr_mi/sumo/src/netedit/GNELoadThread.cpp:106
 msgid "Invalid Options. Nothing loaded"
@@ -731,11 +720,11 @@ msgstr "Görselleştirme için ENler ve Çokgenleri Yükle."
 
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:424
 msgid "Open EdgeData "
-msgstr "Kesit Verisi Dosyası Aç "
+msgstr "Kesim Verisi Dosyası Aç "
 
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:424
 msgid "Load edge related data for visualization."
-msgstr "Görselleştirme için Kesit İlişkili Veri Dosyası Yükle."
+msgstr "Görselleştirme için Kesim İlişkili Veri Dosyası Yükle."
 
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:427
 msgid "Reloads the simulation / the network."
@@ -808,13 +797,12 @@ msgstr ""
 "Penceresi Açar."
 
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:472
-#, fuzzy
 msgid "Open network in netedit"
-msgstr "Netedit'te Aç"
+msgstr "Ağı Netedit'te Aç"
 
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:472
 msgid "Opens current network in NETEDIT."
-msgstr ""
+msgstr "Mevcut Ağı Netedit'te Açar."
 
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:479
 msgid "&Settings"
@@ -846,7 +834,7 @@ msgstr "Bir Kavşak Belirlemek İçin İletişim Kutusu Aç."
 
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:496
 msgid "Open a Dialog for Locating an Edge."
-msgstr "Bir Kesit Belirlemek İçin İletişim Penceresi Aç."
+msgstr "Bir Kesim Belirlemek İçin İletişim Penceresi Aç."
 
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:499
 msgid "Open a Dialog for Locating a Vehicle."
@@ -927,7 +915,7 @@ msgstr "Adım"
 
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:542
 msgid "Perform one simulation step."
-msgstr "Bir Simülasyonu Adımı Yürüt."
+msgstr "Bir Simülasyon Adımı Yürüt."
 
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:545
 msgid "Delay+"
@@ -1005,7 +993,7 @@ msgstr "Diğer..."
 
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:595
 msgid "Clear Message Window"
-msgstr "Mesaj Penceresini Temizle"
+msgstr "Mesaj Penceresi Temizle"
 
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:595
 msgid "Clear the message window."
@@ -1106,7 +1094,7 @@ msgstr "Şekilleri Aç"
 
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1070
 msgid "Open EdgeData"
-msgstr "Kesit Verilerini Aç"
+msgstr "Kesim Verilerini Aç"
 
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1209
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1235
@@ -1128,13 +1116,13 @@ msgstr "Simülasyon Bitti"
 
 #: /home/behr_mi/sumo/src/guisim/GUINet.cpp:632
 msgid "Trying to set data value for the unknown edge '%'."
-msgstr "Bilinmeyen '%' Kesit İçin Veri Değerleri Ayarlanmaya Çalışılıyor."
+msgstr "Bilinmeyen '%' Kesim İçin Veri Değerleri Ayarlanmaya Çalışılıyor."
 
 #: /home/behr_mi/sumo/src/guisim/GUINet.cpp:656
 msgid ""
 "Trying to set data value for the unknown relation from edge '%' to edge '%'."
 msgstr ""
-"Bilinmeyen '%' Kesitten '%' Kesite İlişkisi İçin Veri Değerleri Ayarlanmaya "
+"Bilinmeyen '%' Kesimden '%' Kesime İlişkisi İçin Veri Değerleri Ayarlanmaya "
 "Çalışılıyor."
 
 #: /home/behr_mi/sumo/src/guisim/GUINet.cpp:674
@@ -1395,7 +1383,7 @@ msgstr "Tamam\t\t"
 
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNERerouterIntervalDialog.cpp:182
 msgid "Rerouter has more than one edge"
-msgstr "Rerouter (Rotalayıcı) Bir Kesimden Fazla Var"
+msgstr "Rerouter (Rotalayıcı) Birden Fazla Kesimde Var"
 
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNERerouterIntervalDialog.cpp:321
 msgid "There is no lanes in the network"
@@ -1404,7 +1392,7 @@ msgstr "Ağda Herhangi Bir Şerit Yok"
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNERerouterIntervalDialog.cpp:341
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNERerouterIntervalDialog.cpp:361
 msgid "There is no edges in the network"
-msgstr "Ağda Herhangi Bir Kesit Yok"
+msgstr "Ağda Herhangi Bir Kesim Yok"
 
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNERerouterIntervalDialog.cpp:398
 msgid "There is no parking areas in the network"
@@ -1499,15 +1487,15 @@ msgstr "Çakışan Öğe Listesinin Kaydı Başarısız"
 
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:227
 msgid "Remove invalid edges"
-msgstr "Geçersiz Kesitleri Kaldır"
+msgstr "Geçersiz Kesimleri Kaldır"
 
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:230
 msgid "Save invalid edges"
-msgstr "Geçersiz Kesitleri Kaydet"
+msgstr "Geçersiz Kesimleri Kaydet"
 
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:233
 msgid "Select conflicted edges"
-msgstr "Çakışan Kesitleri Seç"
+msgstr "Çakışan Kesimleri Seç"
 
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:308
 msgid "Remove invalid crossings"
@@ -1583,8 +1571,9 @@ msgid "Walks"
 msgstr "Yürümeler"
 
 #: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:191
+#, fuzzy
 msgid "Rides"
-msgstr "Yolculuklar"
+msgstr "Turlar"
 
 #: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:194
 msgid "Person stops"
@@ -1620,11 +1609,11 @@ msgstr "Rota Oluşturmayı İptal Et"
 
 #: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:163
 msgid "Remove last edge"
-msgstr "Son Kesiti Kaldır"
+msgstr "Son Kesimi Kaldır"
 
 #: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:166
 msgid "Show candidate edges"
-msgstr "Aday Kesitleri Göster"
+msgstr "Aday Kesimleri Göster"
 
 #: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:374
 msgid "Double junctions aren't allowed"
@@ -1636,27 +1625,27 @@ msgstr "Sadece İki Kavşak İzinli"
 
 #: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:421
 msgid "Double edges aren't allowed"
-msgstr "Çifte Kesite İzin Verilmiyor"
+msgstr "Çifte Kesime İzin Verilmiyor"
 
 #: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:431
 msgid "Only consecutives edges are allowed"
-msgstr "Sadece Ardışık Kesitler İzinli"
+msgstr "Sadece Ardışık Kesimler İzinli"
 
 #: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:440
 msgid "Only two edges are allowed"
-msgstr "Sadece İki Kesit İzinli"
+msgstr "Sadece İki Kesim İzinli"
 
 #: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:531
 msgid "first select an edge"
-msgstr "Önce Bir Kesit Seçin"
+msgstr "Önce Bir Kesim Seçin"
 
 #: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:941
 msgid "- Selected edges: "
-msgstr "- Seçilen Kesitler: "
+msgstr "- Seçilen Kesimler: "
 
 #: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:942
 msgid "- Path edges: "
-msgstr "- Güzergah Kesitleri: "
+msgstr "- Güzergah Kesimleri: "
 
 #: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:943
 #: /home/behr_mi/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:407
@@ -1669,7 +1658,7 @@ msgstr "- Ortalama Hız: "
 
 #: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:948
 msgid "No edges selected"
-msgstr "Herhangi Bir Kesit Seçilmedi"
+msgstr "Herhangi Bir Kesim Seçilmedi"
 
 #: /home/behr_mi/sumo/src/netedit/frames/GNENetworkSelector.cpp:49
 msgid "NetworkElements"
