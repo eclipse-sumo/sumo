@@ -102,7 +102,7 @@ public:
         void execute(const int src, const int dest);
 
         /// @brief the method that spreads the wished number of lanes from the lane given by the bresenham-call to both left and right
-        std::deque<int>* spread(const std::vector<int>& approachingLanes, int dest) const;
+        std::deque<int>* spread(int numLanes, int dest) const;
 
     private:
         /// @brief The list of edges that approach the current edge

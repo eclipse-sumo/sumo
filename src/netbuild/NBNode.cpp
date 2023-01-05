@@ -149,7 +149,7 @@ NBNode::ApproachingDivider::execute(const int src, const int dest) {
     }
 
 #endif
-    std::deque<int>* approachedLanes = spread(approachingLanes, dest);
+    std::deque<int>* approachedLanes = spread(approachingLanes.size(), dest);
     assert(approachedLanes->size() <= myAvailableLanes.size());
     // set lanes
     for (int i = 0; i < (int)approachedLanes->size(); i++) {
@@ -162,9 +162,8 @@ NBNode::ApproachingDivider::execute(const int src, const int dest) {
 
 
 std::deque<int>*
-NBNode::ApproachingDivider::spread(const std::vector<int>& approachingLanes, int dest) const {
+NBNode::ApproachingDivider::spread(int numLanes, int dest) const {
     std::deque<int>* ret = new std::deque<int>();
-    const int numLanes = (int)approachingLanes.size();
     // when only one lane is approached, we check, whether the double-value
     //  is assigned more to the left or right lane
     if (numLanes == 1) {
