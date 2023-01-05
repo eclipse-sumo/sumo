@@ -53,8 +53,8 @@ class Entry:
 
 
 def readLines(lines):
-    for l in lines:
-        flowDef = l.split()
+    for fl in lines:
+        flowDef = fl.split()
         if not cityDets or flowDef[0] in cityDets:
             if not flowDef[0] in totalFlow:
                 totalFlow[flowDef[0]] = Entry()
@@ -88,5 +88,5 @@ for f in args:
     else:
         print("Cannot read", f, file=sys.stderr)
 print("Detector;Time;qPKW;qLKW;vPKW;vLKW")
-for det, flow in totalFlow.iteritems():
+for det, flow in totalFlow.items():
     print(det + ";0;" + str(flow))

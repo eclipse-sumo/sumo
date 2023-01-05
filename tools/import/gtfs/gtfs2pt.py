@@ -315,7 +315,7 @@ def filter_trips(options, routes, stops, outf, begin, end):
         vehs = collections.defaultdict(lambda: "")
     for inp in sorted(glob.glob(os.path.join(options.fcd, "*.rou.xml"))):
         for veh in sumolib.xml.parse_fast_structured(inp, "vehicle", ("id", "route", "type", "depart", "line"),
-                                                        {"param": ["key", "value"]}):
+                                                     {"param": ["key", "value"]}):
             if len(routes.get(veh.route, [])) > 0 and len(stops.get(veh.route, [])) > 1:
                 until = stops[veh.route][0][1]
                 for d in range(numDays):

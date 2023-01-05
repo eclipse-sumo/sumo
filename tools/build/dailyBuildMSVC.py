@@ -139,7 +139,7 @@ def main(options, platform="x64"):
         except Exception:
             pass
     for d in [os.path.join(SUMO_HOME, "share")] + (glob.glob(os.path.join(SUMO_HOME, "bin", "osgPlugins*")) +
-              glob.glob(os.path.join(SUMO_HOME, "tools", "*.egg-info"))):
+                                                   glob.glob(os.path.join(SUMO_HOME, "tools", "*.egg-info"))):
         shutil.rmtree(d, ignore_errors=True)
     for d in glob.glob(os.path.join(SUMO_HOME, "docs", "*")):
         if os.path.basename(d) in ('examples', 'javadoc', 'man', 'pydoc', 'tutorial', 'userdoc'):

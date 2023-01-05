@@ -47,7 +47,7 @@ def get_options(args=None):
                            help="Read detector ids from the given column")
     optParser.add_argument("-x", "--longitude-column", default="lon", dest="lon",
                            help="Read detector x-coordinate (lon) from the given column")
-    optParser.add_argument("-y", "--lattitude-column", default="lat", dest="lat",
+    optParser.add_argument("-y", "--latitude-column", default="lat", dest="lat",
                            help="Read detector y-coordinate (lat) from the given column")
     optParser.add_argument("--vclass", default="passenger",
                            help="only consider edges that permit the given vClass")
@@ -90,7 +90,7 @@ def main():
             radius = 0.1
             while not lanes and radius <= 1000:
                 lanes = net.getNeighboringLanes(x, y, radius, True)
-                lanes = [(d, l) for l, d in lanes if l.allows(options.vclass)]
+                lanes = [(d, lane) for lane, d in lanes if lane.allows(options.vclass)]
                 radius *= 10
             if not lanes:
                 sys.stderr.write("Could not find road for detector %s within %sm radius" % (detID, radius))

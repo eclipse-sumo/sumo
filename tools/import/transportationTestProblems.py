@@ -36,10 +36,9 @@ with open("nodes.nod.xml", "w") as nodeout:
 csvfile = csv.reader(open(sys.argv[2]), delimiter='\t')
 with open("edges.edg.xml", "w") as edgeout:
     edgeout.write("<edges>\n")
-    for l in csvfile:
-        if l and l[0][0] not in "~<":
-            edgeout.write(
-                '    <edge id="%s_%s" from="%s" to="%s"/>\n' % (2 * (l[0], l[1])))
+    for el in csvfile:
+        if el and el[0][0] not in "~<":
+            edgeout.write('    <edge id="%s_%s" from="%s" to="%s"/>\n' % (2 * (el[0], el[1])))
     edgeout.write("</edges>\n")
 
 subprocess.call(
