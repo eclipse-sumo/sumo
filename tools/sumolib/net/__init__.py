@@ -414,6 +414,14 @@ class Net:
                         self._origIdx[oID].add(the_edge)
         return self._origIdx[origID]
 
+    def getGeometries(self, useLanes, includeJunctions=False):
+        for e in self._edges:
+            if useLanes:
+                for the_lane in e.getLanes():
+                    yield the_lane.getID(), the_lane.getShape(), the_lane.getWidth()
+            else:
+                yield e.getID(), e.getShape(includeJunctions), sum([the_lane.getWidth() for the_lane in e.getLanes()])
+
     def getBBoxXY(self):
         """
         Get the bounding box (bottom left and top right coordinates) for a net;
