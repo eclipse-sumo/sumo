@@ -909,6 +909,19 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             if (checkFailure(aVehicle, speed, dist, cfModel.insertionStopSpeed(aVehicle, speed, remaining),
                              patchSpeed, errorMsg, InsertionCheck::JUNCTION)) {
                 // we may not drive with the given velocity - we cannot stop at the junction in time
+#ifdef DEBUG_INSERTION
+                if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
+                    std::cout << SIMTIME << " isInsertionSuccess lane=" << getID()
+                        << " veh=" << aVehicle->getID()
+                        << " patchSpeed=" << patchSpeed
+                        << " speed=" << speed
+                        << " remaining=" << remaining
+                        << " leader=" << currentLane->getLastVehicleInformation(aVehicle, 0, 0).toString()
+                        << " last=" << Named::getIDSecure(getLastAnyVehicle())
+                        << " meanSpeed=" << getMeanSpeed()
+                        << " failed (@926)!\n";
+                }
+#endif
                 return false;
             }
 #ifdef DEBUG_INSERTION
