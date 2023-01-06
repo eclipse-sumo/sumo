@@ -606,6 +606,9 @@ public:
     /// @brief Resets all options to default
     void resetDefault();
 
+    /// @brief Reset specific option to default
+    void resetDefault(const std::string& name);
+
     /** @brief Output operator
      *
      * Generates the output used when current option values shall be printed.

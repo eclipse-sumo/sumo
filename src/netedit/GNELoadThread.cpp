@@ -99,9 +99,9 @@ GNELoadThread::run() {
             submitEndAndCleanup(net, loadedFile);
             return 0;
         }
-    } else if (neteditOptions.getString("sumo-net-file").size() > 0) {
+    } else if (neteditOptions.getString("net-file").size() > 0) {
         // set netwok as loadedFile
-        loadedFile = neteditOptions.getString("sumo-net-file");
+        loadedFile = neteditOptions.getString("net-file");
         if (!resetOptions(loadedFile, false)) {
             submitEndAndCleanup(net, loadedFile);
             return 0;
@@ -481,7 +481,7 @@ GNELoadThread::resetOptions(const std::string &file, const bool configuration) {
     if (configuration) {
         neteditOptions.set("configuration-file", file);
     } else {
-        neteditOptions.set("sumo-net-file", file);
+        neteditOptions.set("net-file", file);
     }
     try {
         // set all values writable, because certain attributes already setted can be updated through console

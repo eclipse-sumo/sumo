@@ -1184,9 +1184,13 @@ GNENet::isNetSaved() const {
 
 
 void
-GNENet::saveNetwork(OptionsCont& oc) {
+GNENet::saveNetwork() {
+    auto &neteditOptions = OptionsCont::getOptions();
+    // set output file
+    neteditOptions.resetWritable();
+    neteditOptions.set("output-file", neteditOptions.getString("net-file"));
     // compute without volatile options and update network
-    computeAndUpdate(oc, false);
+    computeAndUpdate(neteditOptions, false);
     // clear typeContainer
     myNetBuilder->getTypeCont().clearTypes();
     // now update typeContainer with edgeTypes
@@ -1201,23 +1205,26 @@ GNENet::saveNetwork(OptionsCont& oc) {
         }
     }
     // write network
-    NWFrame::writeNetwork(oc, *myNetBuilder);
+    NWFrame::writeNetwork(neteditOptions, *myNetBuilder);
     myNetSaved = true;
+    // reset output file
+    neteditOptions.resetDefault("output-file");
 }
 
 
 void
-GNENet::savePlain(OptionsCont& oc, const std::string& prefix) {
+GNENet::savePlain(const std::string& prefix) {
+    auto &neteditOptions = OptionsCont::getOptions();
     // compute without volatile options
-    computeAndUpdate(oc, false);
-    NWWriter_XML::writeNetwork(oc, prefix, *myNetBuilder);
+    computeAndUpdate(neteditOptions, false);
+    NWWriter_XML::writeNetwork(neteditOptions, prefix, *myNetBuilder);
 }
 
 
 void
-GNENet::saveJoined(OptionsCont& oc, const std::string& filename) {
+GNENet::saveJoined(const std::string& filename) {
     // compute without volatile options
-    computeAndUpdate(oc, false);
+    computeAndUpdate(OptionsCont::getOptions(), false);
     NWWriter_XML::writeJoinedJunctions(filename, myNetBuilder->getNodeCont());
 }
 

@@ -296,20 +296,14 @@ public:
     /// @brief return if net has to be saved
     bool isNetSaved() const;
 
-    /**@brief save the network
-     * @param[in] oc The OptionsCont which knows how and where to save
-     */
-    void saveNetwork(OptionsCont& oc);
+    /// @brief save the network
+    void saveNetwork();
 
-    /**@brief save plain xml representation of the network (and nothing else)
-     * @param[in] oc The OptionsCont which knows how and where to save
-     */
-    void savePlain(OptionsCont& oc, const std::string& prefix);
+    /// @brief save plain xml representation of the network (and nothing else)
+    void savePlain(const std::string& prefix);
 
-    /**@brief save log of joined junctions (and nothing else)
-     * @param[in] oc The OptionsCont which knows how and where to save
-     */
-    void saveJoined(OptionsCont& oc, const std::string& filename);
+    /// @brief save log of joined junctions (and nothing else)
+    void saveJoined(const std::string& filename);
 
     /// @brief Set the net to be notified of network changes
     void setViewNet(GNEViewNet* viewNet);

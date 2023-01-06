@@ -1256,7 +1256,7 @@ GNEApplicationWindow::onCmdToolNetDiff(FXObject*, FXSelector, void*) {
             // declare python command
             std::string cmd = "cd " + secondNetFolder + TL("&") +  // folder to save diff files (the same of second net)
                               "python " + netDiff +                           // netdiff.py
-                              " " + neteditOptions.getString("sumo-net-file") +             // netA (current)
+                              " " + neteditOptions.getString("net-file") +             // netA (current)
                               " " + secondNet +                               // net B
                               " diff";                                        // netdiff options
             // start in background
@@ -1582,7 +1582,7 @@ GNEApplicationWindow::loadNetwork(const bool isReloading) {
     } else {
         gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
         myLoadThread->loadNetwork();
-        setStatusBarText("Loading network file '" + OptionsCont::getOptions().getString("sumo-net-file") + "'.");
+        setStatusBarText("Loading network file '" + OptionsCont::getOptions().getString("net-file") + "'.");
     }
     // show supermode commands menu
     mySupermodeCommands.showSupermodeCommands();
@@ -2343,7 +2343,7 @@ GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject*, FXSelector, void*) {
             }
         }
         // declare comand
-        std::string cmd = sumogui + " --registry-viewport" + " -n "  + "\"" + OptionsCont::getOptions().getString("sumo-net-file") + "\"";
+        std::string cmd = sumogui + " --registry-viewport" + " -n "  + "\"" + OptionsCont::getOptions().getString("net-file") + "\"";
         // obtainer options container
         const auto &neteditOptions = OptionsCont::getOptions();
         // if load additionals is enabled, add it to command
@@ -2878,7 +2878,7 @@ GNEApplicationWindow::onCmdSaveNetworkAs(FXObject*, FXSelector, void*) {
         // set ouput file in NETEDIT configs
         auto &neteditOptions = OptionsCont::getOptions();
         neteditOptions.resetWritable();
-        neteditOptions.set("sumo-net-file", networkFile);
+        neteditOptions.set("net-file", networkFile);
         // se network output in SUMO configs
         mySUMOOptions.resetWritable();
         mySUMOOptions.set("net-file", networkFile);
@@ -2898,9 +2898,9 @@ GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
     // declare current folder
     FXString currentFolder = gCurrentFolder;
     // check if there is a saved network
-    if (neteditOptions.getString("sumo-net-file").size() > 0) {
+    if (neteditOptions.getString("net-file").size() > 0) {
         // extract folder
-        currentFolder = getFolder(neteditOptions.getString("sumo-net-file"));
+        currentFolder = getFolder(neteditOptions.getString("net-file"));
     }
     // open dialog
     FXString file = MFXUtils::getFilename2Write(this,
@@ -2919,7 +2919,7 @@ GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
         }
         getApp()->beginWaitCursor();
         try {
-            myNet->savePlain(neteditOptions, prefix);
+            myNet->savePlain(prefix);
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox 'Error saving plainXML'");
@@ -2945,9 +2945,9 @@ GNEApplicationWindow::onCmdSaveJoined(FXObject*, FXSelector, void*) {
     // declare current folder
     FXString currentFolder = gCurrentFolder;
     // check if there is a saved network
-    if (neteditOptions.getString("sumo-net-file").size() > 0) {
+    if (neteditOptions.getString("net-file").size() > 0) {
         // extract folder
-        currentFolder = getFolder(neteditOptions.getString("sumo-net-file"));
+        currentFolder = getFolder(neteditOptions.getString("net-file"));
     }
     // open dialog
     FXString file = MFXUtils::getFilename2Write(this,
@@ -2960,7 +2960,7 @@ GNEApplicationWindow::onCmdSaveJoined(FXObject*, FXSelector, void*) {
     if (fileWithExtension != "") {
         getApp()->beginWaitCursor();
         try {
-            myNet->saveJoined(neteditOptions, fileWithExtension);
+            myNet->saveJoined(fileWithExtension);
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox 'error saving joined'");
@@ -3028,7 +3028,7 @@ GNEApplicationWindow::onUpdNeedsFrontElement(FXObject* sender, FXSelector, void*
 
 long
 GNEApplicationWindow::onUpdReload(FXObject* sender, FXSelector, void*) {
-    if ((myNet == nullptr) || !OptionsCont::getOptions().isSet("sumo-net-file")) {
+    if ((myNet == nullptr) || !OptionsCont::getOptions().isSet("net-file")) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
@@ -3538,7 +3538,7 @@ long
 GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
     auto &neteditOptions = OptionsCont::getOptions();
     // function onCmdSaveNetworkAs must be executed if this is the first save
-    if (neteditOptions.getString("sumo-net-file") == "" || neteditOptions.isDefault("sumo-net-file")) {
+    if (neteditOptions.getString("net-file").empty()) {
         return onCmdSaveNetworkAs(nullptr, 0, nullptr);
     } else {
         getApp()->beginWaitCursor();
@@ -3568,13 +3568,13 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
                     return 1;
                 } else {
                     // Save network
-                    myNet->saveNetwork(neteditOptions);
+                    myNet->saveNetwork();
                     // show debug information
                     WRITE_DEBUG("network elements saved after dialog");
                 }
             } else {
                 // Save network
-                myNet->saveNetwork(neteditOptions);
+                myNet->saveNetwork();
                 // show debug information
                 WRITE_DEBUG("network elements saved");
             }
@@ -3586,9 +3586,9 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'error saving network' with 'OK'");
         }
-        myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "Network saved in " + neteditOptions.getString("sumo-net-file") + ".\n");
+        myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "Network saved in " + neteditOptions.getString("net-file") + ".\n");
         // After saving a net successfully, add it into Recent Nets list.
-        myMenuBarFile.myRecentNetworksAndConfigs.appendFile(neteditOptions.getString("sumo-net-file").c_str());
+        myMenuBarFile.myRecentNetworksAndConfigs.appendFile(neteditOptions.getString("net-file").c_str());
         myMessageWindow->addSeparator();
         getApp()->endWaitCursor();
         // update view
@@ -3843,9 +3843,9 @@ GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject*, FXSelector, void*) {
             // declare current folder
             FXString currentFolder = gCurrentFolder;
             // check if there is a saved network
-            if (neteditOptions.getString("sumo-net-file").size() > 0) {
+            if (neteditOptions.getString("net-file").size() > 0) {
                 // extract folder
-                currentFolder = getFolder(neteditOptions.getString("sumo-net-file"));
+                currentFolder = getFolder(neteditOptions.getString("net-file"));
             }
             // open dialog
             FXString file = MFXUtils::getFilename2Write(this,
@@ -3913,9 +3913,9 @@ GNEApplicationWindow::onCmdSaveEdgeTypes(FXObject*, FXSelector, void*) {
             // declare current folder
             FXString currentFolder = gCurrentFolder;
             // check if there is a saved network
-            if (neteditOptions.getString("sumo-net-file").size() > 0) {
+            if (neteditOptions.getString("net-file").size() > 0) {
                 // extract folder
-                currentFolder = getFolder(neteditOptions.getString("sumo-net-file"));
+                currentFolder = getFolder(neteditOptions.getString("net-file"));
             }
             // open dialog
             FXString file = MFXUtils::getFilename2Write(this,
@@ -3978,9 +3978,9 @@ GNEApplicationWindow::onCmdSaveTLSProgramsAs(FXObject*, FXSelector, void*) {
     // declare current folder
     FXString currentFolder = gCurrentFolder;
     // check if there is a saved network
-    if (neteditOptions.getString("sumo-net-file").size() > 0) {
+    if (neteditOptions.getString("net-file").size() > 0) {
         // extract folder
-        currentFolder = getFolder(neteditOptions.getString("sumo-net-file"));
+        currentFolder = getFolder(neteditOptions.getString("net-file"));
     }
     // Open window to select TLS Programs file
     FXString file = MFXUtils::getFilename2Write(this,
@@ -4009,9 +4009,9 @@ GNEApplicationWindow::onCmdSaveEdgeTypesAs(FXObject*, FXSelector, void*) {
     // declare current folder
     FXString currentFolder = gCurrentFolder;
     // check if there is a saved network
-    if (neteditOptions.getString("sumo-net-file").size() > 0) {
+    if (neteditOptions.getString("net-file").size() > 0) {
         // extract folder
-        currentFolder = getFolder(neteditOptions.getString("sumo-net-file"));
+        currentFolder = getFolder(neteditOptions.getString("net-file"));
     }
     // Open window to select edgeType file
     FXString file = MFXUtils::getFilename2Write(this,
@@ -4170,9 +4170,9 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject*, FXSelector, void*) {
             // declare current folder
             FXString currentFolder = gCurrentFolder;
             // check if there is a saved network
-            if (neteditOptions.getString("sumo-net-file").size() > 0) {
+            if (neteditOptions.getString("net-file").size() > 0) {
                 // extract folder
-                currentFolder = getFolder(neteditOptions.getString("sumo-net-file"));
+                currentFolder = getFolder(neteditOptions.getString("net-file"));
             }
             // open dialog
             FXString file = MFXUtils::getFilename2Write(this,
@@ -4232,9 +4232,9 @@ GNEApplicationWindow::onCmdSaveAdditionalsAs(FXObject*, FXSelector, void*) {
     // declare current folder
     FXString currentFolder = gCurrentFolder;
     // check if there is a saved network
-    if (neteditOptions.getString("sumo-net-file").size() > 0) {
+    if (neteditOptions.getString("net-file").size() > 0) {
         // extract folder
-        currentFolder = getFolder(neteditOptions.getString("sumo-net-file"));
+        currentFolder = getFolder(neteditOptions.getString("net-file"));
     }
     // Open window to select additional file
     FXString file = MFXUtils::getFilename2Write(this,
@@ -4388,9 +4388,9 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject*, FXSelector, void*) {
             // declare current folder
             FXString currentFolder = gCurrentFolder;
             // check if there is a saved network
-            if (neteditOptions.getString("sumo-net-file").size() > 0) {
+            if (neteditOptions.getString("net-file").size() > 0) {
                 // extract folder
-                currentFolder = getFolder(neteditOptions.getString("sumo-net-file"));
+                currentFolder = getFolder(neteditOptions.getString("net-file"));
             }
             // open dialog
             FXString file = MFXUtils::getFilename2Write(this,
@@ -4444,9 +4444,9 @@ GNEApplicationWindow::onCmdSaveDemandElementsAs(FXObject*, FXSelector, void*) {
     // declare current folder
     FXString currentFolder = gCurrentFolder;
     // check if there is a saved network
-    if (neteditOptions.getString("sumo-net-file").size() > 0) {
+    if (neteditOptions.getString("net-file").size() > 0) {
         // extract folder
-        currentFolder = getFolder(neteditOptions.getString("sumo-net-file"));
+        currentFolder = getFolder(neteditOptions.getString("net-file"));
     }
     // Open window to select additionasl file
     FXString file = MFXUtils::getFilename2Write(this,
@@ -4603,9 +4603,9 @@ GNEApplicationWindow::onCmdSaveDataElements(FXObject*, FXSelector, void*) {
             // declare current folder
             FXString currentFolder = gCurrentFolder;
             // check if there is a saved network
-            if (neteditOptions.getString("sumo-net-file").size() > 0) {
+            if (neteditOptions.getString("net-file").size() > 0) {
                 // extract folder
-                currentFolder = getFolder(neteditOptions.getString("sumo-net-file"));
+                currentFolder = getFolder(neteditOptions.getString("net-file"));
             }
             // open dialog
             FXString file = MFXUtils::getFilename2Write(this,
@@ -4656,9 +4656,9 @@ GNEApplicationWindow::onCmdSaveDataElementsAs(FXObject*, FXSelector, void*) {
     // declare current folder
     FXString currentFolder = gCurrentFolder;
     // check if there is a saved network
-    if (neteditOptions.getString("sumo-net-file").size() > 0) {
+    if (neteditOptions.getString("net-file").size() > 0) {
         // extract folder
-        currentFolder = getFolder(neteditOptions.getString("sumo-net-file"));
+        currentFolder = getFolder(neteditOptions.getString("net-file"));
     }
     // Open window to select additionasl file
     FXString file = MFXUtils::getFilename2Write(this,
@@ -4809,9 +4809,9 @@ GNEApplicationWindow::onCmdSaveMeanDatas(FXObject*, FXSelector, void*) {
             // declare current folder
             FXString currentFolder = gCurrentFolder;
             // check if there is a saved network
-            if (neteditOptions.getString("sumo-net-file").size() > 0) {
+            if (neteditOptions.getString("net-file").size() > 0) {
                 // extract folder
-                currentFolder = getFolder(neteditOptions.getString("sumo-net-file"));
+                currentFolder = getFolder(neteditOptions.getString("net-file"));
             }
             // open dialog
             FXString file = MFXUtils::getFilename2Write(this,
@@ -4871,9 +4871,9 @@ GNEApplicationWindow::onCmdSaveMeanDatasAs(FXObject*, FXSelector, void*) {
     // declare current folder
     FXString currentFolder = gCurrentFolder;
     // check if there is a saved network
-    if (neteditOptions.getString("sumo-net-file").size() > 0) {
+    if (neteditOptions.getString("net-file").size() > 0) {
         // extract folder
-        currentFolder = getFolder(neteditOptions.getString("sumo-net-file"));
+        currentFolder = getFolder(neteditOptions.getString("net-file"));
     }
     // Open window to select meanData file
     FXString file = MFXUtils::getFilename2Write(this,

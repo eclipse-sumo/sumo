@@ -457,6 +457,13 @@ OptionsCont::resetDefault() {
     }
 }
 
+
+void
+OptionsCont::resetDefault(const std::string& name) {
+    getSecure(name)->resetDefault();
+}
+
+
 bool
 OptionsCont::isWriteable(const std::string& name) {
     Option* o = getSecure(name);
