@@ -34,6 +34,7 @@ import shutil
 from zipfile import ZipFile
 import base64
 import ssl
+import collections
 
 import osmGet
 import osmBuild
@@ -353,7 +354,7 @@ class Builder(object):
                 if ptOptions is not None:
                     f.write('python "%s" %s\n' %
                             (ptlines2flowsPath, " ".join(map(quoted_str, self.getRelative(ptOptions)))))
-                for opts in sorted(randomTripsCalls):
+                for opts in randomTripsCalls:
                     f.write('python "%s" %s\n' %
                             (randomTripsPath, " ".join(map(quoted_str, self.getRelative(opts)))))
             os.chmod(batchFile, BATCH_MODE)
@@ -362,7 +363,7 @@ class Builder(object):
         "Return an option list for randomTrips.py for a given vehicle"
 
         begin = self.data.get("begin", 0)
-        opts = ["-n", self.files["net"], "--fringe-factor", options["fringeFactor"],
+        opts = ["-n", self.files["net"], "--fringe-factor", options.get("fringeFactor", "1"),
                 "--insertion-density", options["count"],
                 "-o", self.files["trips"],
                 "-r", self.files["route"],
@@ -539,6 +540,8 @@ def get_options(args=None):
     parser.add_argument("-e", "--end", default=900, type=sumolib.miscutils.parseTime,
                         help="Defines the end time for the scenario.")
     parser.add_argument("-n", "--netconvert-options", help="additional comma-separated options for netconvert")
+    parser.add_argument("--demand", default="passenger:6f5,bicycle:2f2,pedestrian:4,ship:1f40",
+                        help="Traffic demand definition for non-interactive mode.")
     return parser.parse_args(args)
 
 
@@ -546,12 +549,16 @@ def main(options):
     OSMImporterWebSocket.local = options.testOutputDir is not None or not options.remote
     OSMImporterWebSocket.outputDir = options.outputDir
     if options.testOutputDir is not None:
+        demand = collections.defaultdict(dict)
+        for mode in options.demand.split(","):
+            k, v = mode.split(":")
+            if "f" in v:
+                demand[k]['count'], demand[k]['fringeFactor'] = v.split("f")
+            else:
+                demand[k]['count'] = v
         data = {u'begin': options.begin,
                 u'duration': options.end - options.begin,
-                u'vehicles': {u'passenger': {u'count': 6, u'fringeFactor': 5},
-                              u'bicycle': {u'count': 2, u'fringeFactor': 2},
-                              u'pedestrian': {u'count': 4, u'fringeFactor': 1},
-                              u'ship': {u'count': 1, u'fringeFactor': 40}},
+                u'vehicles': demand,
                 u'osm': os.path.abspath(options.osmFile),
                 u'poly': options.bbox is None,  # reduce download size
                 u'publicTransport': True,
