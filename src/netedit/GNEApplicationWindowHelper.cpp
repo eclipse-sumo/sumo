@@ -192,7 +192,7 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
         GUIIconSubSys::getIcon(GUIIcon::OPEN), myGNEApp, MID_HOTKEY_CTRL_SHIFT_O_OPENNETCONVERTFILE);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
         "Load NETEDITConfig...", "Ctrl+E", "Load netedit config.",
-        GUIIconSubSys::getIcon(GUIIcon::OPEN_NETEDITCONFIG), myGNEApp, MID_HOTKEY_CTRL_E_LOADNETEDITCONFIG);
+        GUIIconSubSys::getIcon(GUIIcon::OPEN_NETEDITCONFIG), myGNEApp, MID_HOTKEY_CTRL_E_EDITSELECTION_LOADNETEDITCONFIG);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
         "Load SUMOConfig...", "Ctrl+M", "Load sumo config.",
         GUIIconSubSys::getIcon(GUIIcon::OPEN_SUMOCONFIG), myGNEApp, MID_HOTKEY_CTRL_M_OPENSUMOCONFIG);

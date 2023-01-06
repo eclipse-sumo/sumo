@@ -107,7 +107,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SAVEJOINEDJUNCTIONS,                        GNEApplicationWindow::onCmdSaveJoined),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVEJOINEDJUNCTIONS,                        GNEApplicationWindow::onUpdNeedsNetwork),
     // NETEDITConfig
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_E_LOADNETEDITCONFIG,                GNEApplicationWindow::onCmdOpenNETEDITConfig),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_E_EDITSELECTION_LOADNETEDITCONFIG,  GNEApplicationWindow::onCmdOpenNETEDITConfig),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_RELOAD_NETEDITCONFIG,           GNEApplicationWindow::onCmdReloadNETEDITConfig),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_RELOAD_NETEDITCONFIG,           GNEApplicationWindow::onUpdReloadNETEDITConfig),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG,          GNEApplicationWindow::onCmdSaveNETEDITConfig),
@@ -519,7 +519,7 @@ GNEApplicationWindow::dependentBuild() {
     setIcon(GUIIconSubSys::getIcon(GUIIcon::NETEDIT));
     setMiniIcon(GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI));
     // build NETEDIT Accelerators (hotkeys)
-    GUIShortcutsSubSys::buildAccelerators(getAccelTable(), this);
+    GUIShortcutsSubSys::buildAccelerators(getAccelTable(), this, false);
 }
 
 

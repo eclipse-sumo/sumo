@@ -83,8 +83,8 @@ enum {
     MID_HOTKEY_CTRL_C_COPY,
     /// @brief Perform a single simulation step in SUMO and open Demand Elements in NETEDIT
     MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMANDELEMENTS,
-    /// @brief Load NETEDITConfig
-    MID_HOTKEY_CTRL_E_LOADNETEDITCONFIG,
+    /// @brief Edit selection in SUMO and load NETEDITConfig in NETEDIT
+    MID_HOTKEY_CTRL_E_EDITSELECTION_LOADNETEDITCONFIG,
     /// @brief Fullscreen mode - menu entry
     MID_HOTKEY_CTRL_F_FULSCREENMODE,
     /// @brief Toggle Gaming mode in SUMO and grid in NETEDIT
@@ -349,14 +349,6 @@ enum {
     ID_RUNTHREAD_EVENT,
     /// @brief ID for message passing between threads
     ID_THREAD_EVENT,
-
-    /// @}
-
-    /// @name Edit Menu Item - IDs
-    /// @{
-
-    /// @brief Open editor for selections
-    MID_EDITCHOSEN,
 
     /// @}
 
