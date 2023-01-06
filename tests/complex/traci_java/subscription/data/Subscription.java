@@ -54,16 +54,8 @@ public class Subscription {
             for (Map.Entry<Integer, TraCIResult> entry : ssRes.entrySet()) {
                 TraCIResult sR = entry.getValue();
                 // the following code is supposed to work but the cast fails (#8930)
-                /*
-                TraCIStringList vehIDs = (TraCIStringList)sR;
+                TraCIStringList vehIDs = TraCIStringList.cast(sR);
                 for (String vehID : vehIDs.getValue()) {
-                    System.out.println("Subscription Departed vehicles: " + vehID);
-                }
-                */
-                // workaround
-                int srLen = sR.getString().length();
-                if (srLen > 2) {
-                    String vehID = sR.getString().substring(1, srLen - 2);
                     System.out.println("Subscription Departed vehicles: " + vehID);
                     Vehicle.subscribe(vehID, new IntVector(new int[] { libtraci.getVAR_POSITION(), libtraci.getVAR_SPEED() }));
                 }
