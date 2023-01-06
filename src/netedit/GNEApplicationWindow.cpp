@@ -3612,6 +3612,9 @@ GNEApplicationWindow::onCmdSaveNETEDITConfig(FXObject*, FXSelector, void*) {
     if (!myNet->isDemandElementsSaved()) {
         onCmdSaveDemandElements(nullptr, 0, nullptr);
     }
+    if (!myNet->isDataElementsSaved()) {
+        onCmdSaveDataElements(nullptr, 0, nullptr);
+    }
     if (!myNet->isMeanDatasSaved()) {
         onCmdSaveMeanDatas(nullptr, 0, nullptr);
     }
@@ -3663,6 +3666,9 @@ GNEApplicationWindow::onCmdSaveNETEDITConfigAs(FXObject*, FXSelector, void*) {
     }
     if (!myNet->isDemandElementsSaved()) {
         onCmdSaveDemandElements(nullptr, 0, nullptr);
+    }
+    if (!myNet->isDataElementsSaved()) {
+        onCmdSaveDataElements(nullptr, 0, nullptr);
     }
     if (!myNet->isMeanDatasSaved()) {
         onCmdSaveMeanDatas(nullptr, 0, nullptr);
@@ -4613,7 +4619,7 @@ GNEApplicationWindow::onCmdSaveDataElements(FXObject*, FXSelector, void*) {
                             GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA),
                             currentFolder);
             // add xml extension
-            std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
+            std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".dat.xml");
             // check tat file is valid
             if (fileWithExtension != "") {
                 // change value of "data-files"
@@ -4666,7 +4672,7 @@ GNEApplicationWindow::onCmdSaveDataElementsAs(FXObject*, FXSelector, void*) {
                     GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA),
                     currentFolder);
     // add xml extension
-    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
+    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".dat.xml");
     // check that file is correct
     if (fileWithExtension != "") {
         // reset writtable flag
