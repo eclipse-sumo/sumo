@@ -47,9 +47,21 @@ speed_random__vehlimit
 # (should not lower speed)
 speed_desired
 
+# one vehicle approaching a lane with a lower max speed
+speed_desired_approach_slow
+
+# one vehicle approaching an unprioritized intersection
+speed_desired_approach_minor
+
 # departSpeed="speedLimit" 
 # (should not lower speed)
 speed_speedLimit
+
+# one vehicle approaching a lane with a lower max speed
+speed_speedLimit_approach_slow
+
+# one vehicle approaching an unprioritized intersection
+speed_speedLimit_approach_minor
 
 # departSpeed="last" 
 # should use speed of the last vehicle (increases flow due to homegeneous insertion speeds)

@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Jun  6 13:06:35 2014 by SUMO sumo Version dev-SVN-r16550
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <netstate-dump value="rawdump.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-duration-log value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<netstate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netstate_file.xsd">
+    <timestep time="0.00">
+        <edge id="1to22.17">
+            <vehicle id="441" pos="9901.96" speed="30.01"/>
+        </edge>
+    </timestep>
+    <timestep time="1.00">
+        <edge id="1to22.17">
+            <vehicle id="441" pos="9901.96" speed="30.01"/>
+        </edge>
+    </timestep>
+    <timestep time="2.00">
+        <edge id="1to22.17">
+            <vehicle id="441" pos="9901.96" speed="30.01"/>
+        </edge>
+    </timestep>
+    <timestep time="3.00">
+        <edge id="1to22.17">
+            <vehicle id="441" pos="9901.96" speed="30.01"/>
+        </edge>
+    </timestep>
+    <timestep time="4.00">
+        <edge id="out">
+            <vehicle id="441" pos="0.00" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="5.00">
+        <edge id="out">
+            <vehicle id="441" pos="0.00" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="6.00">
+        <edge id="out">
+            <vehicle id="441" pos="0.00" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="7.00">
+        <edge id="out">
+            <vehicle id="441" pos="0.00" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="8.00">
+        <edge id="out">
+            <vehicle id="441" pos="0.00" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="9.00">
+        <edge id="out">
+            <vehicle id="441" pos="0.00" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="10.00">
+        <edge id="out">
+            <vehicle id="441" pos="0.00" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="11.00">
+        <edge id="out">
+            <vehicle id="441" pos="0.00" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="12.00">
+        <edge id="out">
+            <vehicle id="441" pos="0.00" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="13.00">
+        <edge id="out">
+            <vehicle id="441" pos="0.00" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="14.00">
+        <edge id="out">
+            <vehicle id="441" pos="0.00" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="15.00">
+        <edge id="out">
+            <vehicle id="441" pos="92.66" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="16.00">
+        <edge id="out">
+            <vehicle id="441" pos="92.66" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="17.00">
+        <edge id="out">
+            <vehicle id="441" pos="92.66" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="18.00">
+        <edge id="out">
+            <vehicle id="441" pos="92.66" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="19.00">
+        <edge id="out">
+            <vehicle id="441" pos="92.66" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="20.00">
+        <edge id="out">
+            <vehicle id="441" pos="92.66" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="21.00">
+        <edge id="out">
+            <vehicle id="441" pos="92.66" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="22.00">
+        <edge id="out">
+            <vehicle id="441" pos="92.66" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="23.00">
+        <edge id="out">
+            <vehicle id="441" pos="92.66" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="24.00">
+        <edge id="out">
+            <vehicle id="441" pos="92.66" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="25.00">
+        <edge id="out">
+            <vehicle id="441" pos="92.66" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="26.00">
+        <edge id="out">
+            <vehicle id="441" pos="185.31" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="27.00">
+        <edge id="out">
+            <vehicle id="441" pos="185.31" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="28.00">
+        <edge id="out">
+            <vehicle id="441" pos="185.31" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="29.00">
+        <edge id="out">
+            <vehicle id="441" pos="185.31" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="30.00">
+        <edge id="out">
+            <vehicle id="441" pos="185.31" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="31.00">
+        <edge id="out">
+            <vehicle id="441" pos="185.31" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="32.00">
+        <edge id="out">
+            <vehicle id="441" pos="185.31" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="33.00">
+        <edge id="out">
+            <vehicle id="441" pos="185.31" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="34.00">
+        <edge id="out">
+            <vehicle id="441" pos="185.31" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="35.00">
+        <edge id="out">
+            <vehicle id="441" pos="185.31" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="36.00">
+        <edge id="out">
+            <vehicle id="441" pos="185.31" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="37.00">
+        <edge id="gneE4">
+            <vehicle id="441" pos="0.00" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="38.00">
+        <edge id="gneE4">
+            <vehicle id="441" pos="0.00" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="39.00">
+        <edge id="gneE4">
+            <vehicle id="441" pos="0.00" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="40.00">
+        <edge id="gneE4">
+            <vehicle id="441" pos="0.00" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="41.00">
+        <edge id="gneE4">
+            <vehicle id="441" pos="0.00" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="42.00">
+        <edge id="gneE4">
+            <vehicle id="441" pos="0.00" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="43.00">
+        <edge id="gneE4">
+            <vehicle id="441" pos="0.00" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="44.00">
+        <edge id="gneE4">
+            <vehicle id="441" pos="0.00" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="45.00">
+        <edge id="gneE4">
+            <vehicle id="441" pos="0.00" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="46.00">
+        <edge id="gneE4">
+            <vehicle id="441" pos="0.00" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="47.00">
+        <edge id="gneE4">
+            <vehicle id="441" pos="0.00" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="48.00">
+        <edge id="gneE4">
+            <vehicle id="441" pos="0.00" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="49.00">
+        <edge id="gneE4">
+            <vehicle id="441" pos="101.42" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="50.00">
+        <edge id="gneE4">
+            <vehicle id="441" pos="101.42" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="51.00">
+        <edge id="gneE4">
+            <vehicle id="441" pos="101.42" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="52.00">
+        <edge id="gneE4">
+            <vehicle id="441" pos="101.42" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="53.00">
+        <edge id="gneE4">
+            <vehicle id="441" pos="101.42" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="54.00">
+        <edge id="gneE4">
+            <vehicle id="441" pos="101.42" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="55.00">
+        <edge id="gneE4">
+            <vehicle id="441" pos="101.42" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="56.00">
+        <edge id="gneE4">
+            <vehicle id="441" pos="101.42" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="57.00">
+        <edge id="gneE4">
+            <vehicle id="441" pos="101.42" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="58.00">
+        <edge id="gneE4">
+            <vehicle id="441" pos="101.42" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="59.00">
+        <edge id="gneE4">
+            <vehicle id="441" pos="101.42" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="60.00">
+        <edge id="gneE4">
+            <vehicle id="441" pos="101.42" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="61.00">
+        <edge id="gneE4">
+            <vehicle id="441" pos="101.42" speed="8.30"/>
+        </edge>
+    </timestep>
+    <timestep time="62.00"/>
+</netstate>
