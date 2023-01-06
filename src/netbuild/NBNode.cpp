@@ -156,15 +156,16 @@ NBNode::ApproachingDivider::execute(const int src, const int dest) {
 #endif
     size_t numConnections = approachingLanes.size();
     double factor = 1;
+    const bool rightOnRed = incomingEdge->getToNode()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED;
     if (myNumStraight == 1 && myDirections[src] == LinkDirection::STRAIGHT && (
                 // we do not want to destroy ramp-like assignments where the
                 // on-connection-per-lane rule avoids conflicts
                 // - at a traffic light the phases are seperated so there is no conflict anyway
-                incomingEdge->getToNode()->isTLControlled()
+                (incomingEdge->getToNode()->isTLControlled() && !rightOnRed)
                 // - there are no incoming edges to the right
                 || src == 0
                 // - a minor straight road is likely in conflict anyway
-                || incomingEdge->getJunctionPriority(incomingEdge->getToNode()) == NBEdge::MINOR_ROAD)) {
+                || (incomingEdge->getJunctionPriority(incomingEdge->getToNode()) == NBEdge::MINOR_ROAD && !rightOnRed))) {
         numConnections = myAvailableLanes.size();
         factor = (double)approachingLanes.size() / numConnections;
         if (factor > 0.5) {
