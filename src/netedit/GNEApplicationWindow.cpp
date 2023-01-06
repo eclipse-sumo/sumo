@@ -884,7 +884,7 @@ GNEApplicationWindow::onCmdOpenSUMOConfig(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdReloadNETEDITConfig(FXObject*, FXSelector, void*) {
-    const auto file = OptionsCont::getOptions().getString("NETEDITcfg-file");
+    const auto file = OptionsCont::getOptions().getString("configuration-file");
     if (file.size() > 0) {
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
@@ -894,6 +894,9 @@ GNEApplicationWindow::onCmdReloadNETEDITConfig(FXObject*, FXSelector, void*) {
         if (!confighandler.loadNETEDITConfig()) {
             WRITE_ERROR("Loading of NETEDITConfig " + file + " failed.");
         } else {
+            // close all windows
+            closeAllWindows();
+            // load config
             myLoadThread->loadConfig();
         }
         update();
@@ -906,7 +909,7 @@ GNEApplicationWindow::onCmdReloadNETEDITConfig(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdReloadSUMOConfig(FXObject*, FXSelector, void*) {
-    const auto file = OptionsCont::getOptions().getString("SUMOcfg-file");
+    const auto file = OptionsCont::getOptions().getString("sumocfg-file");
     if (file.size() > 0) {
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
@@ -916,6 +919,9 @@ GNEApplicationWindow::onCmdReloadSUMOConfig(FXObject*, FXSelector, void*) {
         if (!confighandler.loadSUMOConfig()) {
             WRITE_ERROR("Loading of SUMOConfig " + file + " failed.");
         } else {
+            // close all windows
+            closeAllWindows();
+            // load config
             myLoadThread->loadConfig();
         }
         update();
