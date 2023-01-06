@@ -1,4 +1,4 @@
-# Contributing to Eclipse Sumo
+# Contributing to Eclipse SUMO
 
 Thanks for your interest in this project.
 
@@ -24,6 +24,8 @@ more.
 The project maintains the following source code repositories
 
 * https://github.com/eclipse/sumo
+* https://github.com/eclipse/sumo.website
+* https://github.com/dlr-ts/homebrew-sumo
 
 We are happily reviewing pull requests against the master of this repository.
 For details see below and https://sumo.dlr.de/docs/FAQ.html#how_do_code_contributions_work.
