@@ -150,7 +150,7 @@ title: ChangeLog
   - Stops now support attribute 'jump'. Issue #12269
 
 - sumo-gui
-  - Wnen option **--use-stop-ended** is set, show-route mode now labels the 'ended' time of stops. Issue #11833
+  - When option **--use-stop-ended** is set, show-route mode now labels the 'ended' time of stops. Issue #11833
   - The view now updates after loading a selection file. Issue #12191
   - Whenever the simulation has tripinfo-devices, the trip based statistics are available in the network parameter dialog. Issue #12207
   - A rainbow color scale can now be defined between upper and lower "hiding" thresholds even when there is no data yet. Issue #11978
