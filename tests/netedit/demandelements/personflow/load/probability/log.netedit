@@ -4,4 +4,4 @@ Error: Attribute 'probability' in definition of personFlow 'p_2' is empty.
 Error: Invalid repetition probability in the definition of personFlow 'p_3'.
 Error: Invalid repetition probability in the definition of personFlow 'p_4'.
 Error: Invalid repetition probability in the definition of personFlow 'p_5'.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_22Apr103431.6120\netedit.gui\demandelements\personflow\load\probability\input_routes.rou.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_22Apr103431.6120\netedit.gui\demandelements\personflow\load\probability\routes.rou.xml failed.

@@ -6,7 +6,7 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Error: Attribute 'lane' is missing in definition of containerStop 'containerStop_01'.
 Error: Could not build containerStop in netedit; lane doesn't exist.
 Debug: Adding containerStop 'containerStop_03' in GNEChange_Additional
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.containerstop.24Jun133818.22383/netedit.daily.additional.containerstop/additionalelements/containerstop/load/lane/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.containerstop.24Jun133818.22383/netedit.daily.additional.containerstop/additionalelements/containerstop/load/lane/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

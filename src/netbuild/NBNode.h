@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -101,8 +101,8 @@ public:
         /// @brief the bresenham-callback
         void execute(const int src, const int dest);
 
-        /// @brief the method that spreads the wished number of lanes from the the lane given by the bresenham-call to both left and right
-        std::deque<int>* spread(const std::vector<int>& approachingLanes, int dest) const;
+        /// @brief the method that spreads the wished number of lanes from the lane given by the bresenham-call to both left and right
+        std::deque<int>* spread(int numLanes, int dest) const;
 
     private:
         /// @brief The list of edges that approach the current edge
@@ -113,6 +113,12 @@ public:
 
         /// @brief The available lanes to which connections shall be built
         std::vector<int> myAvailableLanes;
+
+        /// directions from each incoming edge to the outgoing edge
+        std::vector<LinkDirection> myDirections;
+
+        /// @brief number of straight connections to the outgoing edge
+        int myNumStraight;
 
         /// @brief whether the outgoing edge is exclusively used by bikes
         bool myIsBikeEdge;
@@ -481,6 +487,8 @@ public:
     bool mergeConflict(const NBEdge* from, const NBEdge::Connection& con,
                        const NBEdge* prohibitorFrom, const NBEdge::Connection& prohibitorCon, bool foes) const;
 
+    bool zipperConflict(const NBEdge* incoming, const NBEdge* outgoing, int fromLane, int toLane) const;
+
     /// @brief return whether the given laneToLane connection originate from the same edge and are in conflict due to turning across each other
     bool turnFoes(const NBEdge* from, const NBEdge* to, int fromLane,
                   const NBEdge* from2, const NBEdge* to2, int fromLane2,
@@ -517,7 +525,7 @@ public:
     LinkDirection getDirection(const NBEdge* const incoming, const NBEdge* const outgoing, bool leftHand = false) const;
 
     /// @brief get link state
-    LinkState getLinkState(const NBEdge* incoming, NBEdge* outgoing,
+    LinkState getLinkState(const NBEdge* incoming, const NBEdge* outgoing,
                            int fromLane, int toLane, bool mayDefinitelyPass, const std::string& tlID) const;
 
     /**@brief Compute the junction shape for this node
@@ -643,7 +651,7 @@ public:
      * @param[in] candidates The candidate vector of edges to be crossed
      * @return The number of crossings built
      * */
-    int checkCrossing(EdgeVector candidates);
+    int checkCrossing(EdgeVector candidates, bool checkOnly=false);
 
     /// @brief return true if there already exist a crossing with the same edges as the input
     bool checkCrossingDuplicated(EdgeVector edges);

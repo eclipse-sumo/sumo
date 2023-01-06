@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -214,7 +214,7 @@ GNEEdgeType::updateGLObject() {
 std::string
 GNEEdgeType::getAttribute(SumoXMLAttr key) const {
     // get options
-    const OptionsCont& oc = OptionsCont::getOptions();
+    const auto &neteditOptions = OptionsCont::getOptions();
     switch (key) {
         case SUMO_ATTR_ID:
             return getMicrosimID();
@@ -222,13 +222,13 @@ GNEEdgeType::getAttribute(SumoXMLAttr key) const {
             return toString(myLaneTypes.size());
         case SUMO_ATTR_SPEED:
             if (attrs.count(key) == 0) {
-                return toString(oc.getFloat("default.speed"));
+                return toString(neteditOptions.getFloat("default.speed"));
             } else {
                 return toString(speed);
             }
         case SUMO_ATTR_FRICTION:
             if (attrs.count(key) == 0) {
-                return toString(oc.getFloat("default.friction"));
+                return toString(neteditOptions.getFloat("default.friction"));
             } else {
                 return toString(friction);
             }

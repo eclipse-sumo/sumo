@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -27,6 +27,8 @@
 #include <xercesc/sax/SAXParseException.hpp>
 #include <xercesc/sax/SAXException.hpp>
 #include <xercesc/parsers/SAXParser.hpp>
+
+#include <regex>
 
 #include "GNEApplicationWindow.h"
 #include "GNEViewNet.h"
@@ -172,23 +174,27 @@ GNEApplicationWindowHelper::FileMenuCommands::FileMenuCommands(GNEApplicationWin
 
 
 void
-GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* fileMenu, FXMenuPane* fileMenuSUMOConfig, FXMenuPane* fileMenuTLS,
-        FXMenuPane* fileMenuEdgeTypes, FXMenuPane* fileMenuAdditionals, FXMenuPane* fileMenuDemandElements, FXMenuPane* fileMenuDataElements) {
+GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* fileMenu, FXMenuPane* fileMenuNETEDITConfig, 
+        FXMenuPane* fileMenuSUMOConfig, FXMenuPane* fileMenuTLS, FXMenuPane* fileMenuEdgeTypes, FXMenuPane* fileMenuAdditionals, 
+        FXMenuPane* fileMenuDemandElements, FXMenuPane* fileMenuDataElements) {
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
         "&New Network", "Ctrl+N", "Create a new network.",
-        GUIIconSubSys::getIcon(GUIIcon::NEW_NET), myGNEApp, MID_HOTKEY_CTRL_N_NEWNETWORK);
+        GUIIconSubSys::getIcon(GUIIcon::NEW_NET), myGNEApp, MID_HOTKEY_CTRL_N_OPENNETWORK_NEWNETWORK);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
         "New Window", "Ctrl+Shift+N", "Open a new netedit window.",
         nullptr, myGNEApp, MID_HOTKEY_CTRL_SHIFT_N_NEWWINDOW);
     new FXMenuSeparator(fileMenu);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
         "&Open Network...", "Ctrl+O", "Open a SUMO network.",
-        GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), myGNEApp, MID_OPEN_NETWORK);
+        GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), myGNEApp, MID_HOTKEY_CTRL_O_OPENSIMULATION_OPENNETWORK);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
         "Open Netconvert Configura&tion...", "Ctrl+Shift+O", "Open a configuration file with NETCONVERT options.",
-        GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), myGNEApp, MID_OPEN_CONFIG);
+        GUIIconSubSys::getIcon(GUIIcon::OPEN), myGNEApp, MID_HOTKEY_CTRL_SHIFT_O_OPENNETCONVERTFILE);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-        "Load SUMOConfig...", "Ctrl+M", "Load programs for traffic lights in the current net.",
+        "Load NETEDITConfig...", "Ctrl+E", "Load netedit config.",
+        GUIIconSubSys::getIcon(GUIIcon::OPEN_NETEDITCONFIG), myGNEApp, MID_HOTKEY_CTRL_E_EDITSELECTION_LOADNETEDITCONFIG);
+    GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
+        "Load SUMOConfig...", "Ctrl+M", "Load sumo config.",
         GUIIconSubSys::getIcon(GUIIcon::OPEN_SUMOCONFIG), myGNEApp, MID_HOTKEY_CTRL_M_OPENSUMOCONFIG);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
         "Import &Foreign Network...", "", "Import a foreign network such as OSM.",
@@ -200,8 +206,8 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
         "&Save Network", "Ctrl+S", "Save the network.",
         GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-        "Save Net&work As...", "Ctrl+Shift+S", "Save the network to another file.",
-        GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORK_AS);
+        "Save Net&work As...", "", "Save the network to another file.",
+        GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_GNE_TOOLBARFILE_SAVENETWORK_AS);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
         "Save Plain XM&L...", "Ctrl+L", "Save plain XML representation the network.",
         GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_HOTKEY_CTRL_L_SAVEASPLAINXML);
@@ -210,18 +216,30 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
         GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_GNE_SAVEJOINEDJUNCTIONS);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
         "Save All Elements", "", "Save all elements (network, additional, demand and data)",
-        GUIIconSubSys::getIcon(GUIIcon::SAVEALLELEMENTS), myGNEApp, MID_GNE_SAVEALLELEMENTS);
+        GUIIconSubSys::getIcon(GUIIcon::SAVE_QUESTION), myGNEApp, MID_GNE_SAVEALLELEMENTS);
+    // create NETEDITConfig menu options
+    reloadNETEDITConfig = GUIDesigns::buildFXMenuCommandShortcut(fileMenuNETEDITConfig,
+        "Reload NETEDITConfig", "", "Reload NETEDITConfig.",
+        GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_NETEDITCONFIG);
+    saveNETEDITConfig = GUIDesigns::buildFXMenuCommandShortcut(fileMenuNETEDITConfig,
+        "Save NETEDITConfig", "Ctrl+Shift+E", "Save netedit config.",
+        GUIIconSubSys::getIcon(GUIIcon::SAVE_NETEDITCONFIG), myGNEApp, MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG);
+    saveNETEDITConfig->disable();
+    GUIDesigns::buildFXMenuCommandShortcut(fileMenuNETEDITConfig,
+        "Save NETEDITConfig As...", "", "Save sumo config in a new file.",
+        GUIIconSubSys::getIcon(GUIIcon::SAVE_NETEDITCONFIG), myGNEApp, MID_GNE_TOOLBARFILE_SAVENETEDITCONFIG_AS);
+    NETEDITConfigMenuCascade = new FXMenuCascade(fileMenu, "NETEDITConfig", GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), fileMenuNETEDITConfig);
     // create SUMOConfig menu options
     reloadSUMOConfig = GUIDesigns::buildFXMenuCommandShortcut(fileMenuSUMOConfig,
         "Reload SUMOConfig", "", "Reload SUMOConfig.",
         GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_SUMOCONFIG);
     saveSUMOConfig = GUIDesigns::buildFXMenuCommandShortcut(fileMenuSUMOConfig,
-        "Save SUMOConfig", "Ctrl+Shift+M", "Save sumo config.",
-        GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_HOTKEY_CTRL_SHIFT_M_SAVESUMOCONFIG);
+        "Save SUMOConfig", "Ctrl+Shift+S", "Save sumo config.",
+        GUIIconSubSys::getIcon(GUIIcon::SAVE_SUMOCONFIG), myGNEApp, MID_HOTKEY_CTRL_SHIFT_S_SAVESUMOCONFIG);
     saveSUMOConfig->disable();
     GUIDesigns::buildFXMenuCommandShortcut(fileMenuSUMOConfig,
         "Save SUMOConfig As...", "", "Save sumo config in a new file.",
-        GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_GNE_TOOLBARFILE_SAVESUMOCONFIG_AS);
+        GUIIconSubSys::getIcon(GUIIcon::SAVE_SUMOCONFIG), myGNEApp, MID_GNE_TOOLBARFILE_SAVESUMOCONFIG_AS);
     SUMOConfigMenuCascade = new FXMenuCascade(fileMenu, "SUMOConfig", GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI), fileMenuSUMOConfig);
     // create TLS menu options
     GUIDesigns::buildFXMenuCommandShortcut(fileMenuTLS,
@@ -241,7 +259,7 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
     // create edgeTypes menu options
     GUIDesigns::buildFXMenuCommandShortcut(fileMenuEdgeTypes,
         "Load Edge Types...", "Ctrl+H", "Load edge types in the current net.",
-        GUIIconSubSys::getIcon(GUIIcon::OPEN_TLSPROGRAMS), myGNEApp, MID_HOTKEY_CTRL_H_OPENEDGETYPES);
+        GUIIconSubSys::getIcon(GUIIcon::OPEN_TLSPROGRAMS), myGNEApp, MID_HOTKEY_CTRL_H_APPSETTINGS_OPENEDGETYPES);
     reloadEdgeTypes = GUIDesigns::buildFXMenuCommandShortcut(fileMenuEdgeTypes,
         "Reload edge types", "", "Reload edge types.",
         GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_EDGETYPES);
@@ -263,11 +281,11 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
     reloadAdditionals->disable();
     saveAdditionals = GUIDesigns::buildFXMenuCommandShortcut(fileMenuAdditionals,
         "Save Additionals", "Ctrl+Shift+A", "Save additionals and shapes.",
-        GUIIconSubSys::getIcon(GUIIcon::SAVEADDITIONALELEMENTS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS);
+        GUIIconSubSys::getIcon(GUIIcon::SAVE_ADDITIONALELEMENTS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS);
     saveAdditionals->disable();
     saveAdditionalsAs = GUIDesigns::buildFXMenuCommandShortcut(fileMenuAdditionals,
         "Save Additionals As...", "", "Save additional elements to another file.",
-        GUIIconSubSys::getIcon(GUIIcon::SAVEADDITIONALELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS);
+        GUIIconSubSys::getIcon(GUIIcon::SAVE_ADDITIONALELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS);
     saveAdditionalsAs->disable();
     additionalMenuCascade = new FXMenuCascade(fileMenu, "Additionals and Shapes", GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL), fileMenuAdditionals);
     // create DemandElements menu options
@@ -280,11 +298,11 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
     reloadDemandElements->disable();
     saveDemandElements = GUIDesigns::buildFXMenuCommandShortcut(fileMenuDemandElements,
         "Save Demand Elements", "Ctrl+Shift+D", "Save demand elements.",
-        GUIIconSubSys::getIcon(GUIIcon::SAVEDEMANDELEMENTS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS);
+        GUIIconSubSys::getIcon(GUIIcon::SAVE_DEMANDELEMENTS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS);
     saveDemandElements->disable();
     saveDemandElementsAs = GUIDesigns::buildFXMenuCommandShortcut(fileMenuDemandElements,
         "Save Demand Elements As...", "", "Save demand elements to another file.",
-        GUIIconSubSys::getIcon(GUIIcon::SAVEDEMANDELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEDEMAND_AS);
+        GUIIconSubSys::getIcon(GUIIcon::SAVE_DEMANDELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEDEMAND_AS);
     saveDemandElementsAs->disable();
     demandMenuCascade = new FXMenuCascade(fileMenu, "Demand Elements", GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND), fileMenuDemandElements);
     // create DataElements menu options
@@ -297,11 +315,11 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
     reloadDataElements->disable();
     saveDataElements = GUIDesigns::buildFXMenuCommandShortcut(fileMenuDataElements,
         "Save Data Elements", "Ctrl+Shift+B", "Save data elements.",
-        GUIIconSubSys::getIcon(GUIIcon::SAVEDATAELEMENTS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS);
+        GUIIconSubSys::getIcon(GUIIcon::SAVE_DATAELEMENTS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS);
     saveDataElements->disable();
     saveDataElementsAs = GUIDesigns::buildFXMenuCommandShortcut(fileMenuDataElements,
         "Save Data Elements As...", "", "Save data elements to another file.",
-        GUIIconSubSys::getIcon(GUIIcon::SAVEDATAELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEDATA_AS);
+        GUIIconSubSys::getIcon(GUIIcon::SAVE_DATAELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEDATA_AS);
     saveDataElementsAs->disable();
     // add separator
     new FXMenuSeparator(fileMenuDataElements);
@@ -315,11 +333,11 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
     reloadMeanDatas->disable();
     saveMeanDatas = GUIDesigns::buildFXMenuCommandShortcut(fileMenuDataElements,
         "Save MeanDatas", "", "Save meanDatas and shapes.",
-        GUIIconSubSys::getIcon(GUIIcon::SAVEMEANDATAELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEMEANDATAS);
+        GUIIconSubSys::getIcon(GUIIcon::SAVE_MEANDATAELEMENTS), myGNEApp, MID_HOTKEY_CTRL_SHIFT_M_SAVEMEANDATAS);
     saveMeanDatas->disable();
     saveMeanDatasAs = GUIDesigns::buildFXMenuCommandShortcut(fileMenuDataElements,
-        "Save MeanDatas As...", "", "Save meanData elements to another file.",
-        GUIIconSubSys::getIcon(GUIIcon::SAVEMEANDATAELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEMEANDATAS_AS);
+        "Save MeanDatas As...", "Ctrl+Shift+M", "Save meanData elements to another file.",
+        GUIIconSubSys::getIcon(GUIIcon::SAVE_MEANDATAELEMENTS), myGNEApp, MID_GNE_TOOLBARFILE_SAVEMEANDATAS_AS);
     saveMeanDatasAs->disable();
     dataMenuCascade = new FXMenuCascade(fileMenu, "Data Elements", GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA), fileMenuDataElements);
     // close network
@@ -349,10 +367,10 @@ GNEApplicationWindowHelper::ModesMenuCommands::CommonMenuCommands::buildCommonMe
                   GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_I_MODE_INSPECT);
     deleteMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
                  TL("&Delete"), "D", "Delete elements.",
-                 GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_D_MODE_DELETE);
+                 GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE);
     selectMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
                  TL("&Select"), "S", "Select elements.",
-                 GUIIconSubSys::getIcon(GUIIcon::MODESELECT), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_S_MODE_SELECT);
+                 GUIIconSubSys::getIcon(GUIIcon::MODESELECT), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT);
 }
 
 // ---------------------------------------------------------------------------
@@ -424,7 +442,7 @@ GNEApplicationWindowHelper::ModesMenuCommands::NetworkMenuCommands::buildNetwork
         GUIIconSubSys::getIcon(GUIIcon::MODETLS), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_T_MODE_TLS_TYPE);
     additionalMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
         TL("&Additional"), "A", "Create additional elements.",
-        GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_A_MODE_ADDITIONAL_STOP);
+        GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP);
     crossingMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
         TL("C&rossing"), "R", "Create crossings between edges.",
         GUIIconSubSys::getIcon(GUIIcon::MODECROSSING), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA);
@@ -502,7 +520,7 @@ GNEApplicationWindowHelper::ModesMenuCommands::DemandMenuCommands::buildDemandMe
         GUIIconSubSys::getIcon(GUIIcon::MODETYPE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_T_MODE_TLS_TYPE);
     stopMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
         "Stop", "A", "Create stops.",
-        GUIIconSubSys::getIcon(GUIIcon::MODESTOP), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_A_MODE_ADDITIONAL_STOP);
+        GUIIconSubSys::getIcon(GUIIcon::MODESTOP), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP);
     personMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
         "Person", "P", "Create persons.",
         GUIIconSubSys::getIcon(GUIIcon::MODEPERSON), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_P_MODE_POLYGON_PERSON);
@@ -1117,7 +1135,7 @@ GNEApplicationWindowHelper::EditMenuCommands::buildOpenSUMOMenuCommands(FXMenuPa
     loadDemandInSUMOGUI->setCheck(TRUE);
     openInSUMOGUI = GUIDesigns::buildFXMenuCommandShortcut(editMenu,
                     "Open in sumo-gui", "Ctrl+T", "Opens the sumo-gui application with the current network.",
-                    GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI), myGNEApp, MID_HOTKEY_CTRL_T_OPENSUMONETEDIT);
+                    GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI), myGNEApp, MID_HOTKEY_CTRL_T_OPENNETEDIT_OPENSUMO);
 }
 
 // ---------------------------------------------------------------------------
@@ -1765,37 +1783,37 @@ GNEApplicationWindowHelper::LocateMenuCommands::buildLocateMenuCommands(FXMenuPa
     // build locate menu commands
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
                                            TL("&Junctions"), "Shift+J", "Open a dialog for locating a Junction.",
-                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), myGNEApp, MID_LOCATEJUNCTION);
+                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), myGNEApp, MID_HOTKEY_SHIFT_J_LOCATEJUNCTION);
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
                                            TL("&Edges"), "Shift+E", "Open a dialog for locating an Edge.",
-                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), myGNEApp, MID_LOCATEEDGE);
+                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), myGNEApp, MID_HOTKEY_SHIFT_E_LOCATEEDGE);
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
                                            TL("&WalkingAreas"), "Shift+W", "Open a dialog for locating a Walking Area.",
-                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEWALKINGAREA), myGNEApp, MID_LOCATEWALKINGAREA);
+                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEWALKINGAREA), myGNEApp, MID_HOTKEY_SHIFT_W_LOCATEWALKINGAREA);
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
                                            TL("&Vehicles"), "Shift+V", "Open a dialog for locating a Vehicle.",
-                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), myGNEApp, MID_LOCATEVEHICLE);
+                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), myGNEApp, MID_HOTKEY_SHIFT_V_LOCATEVEHICLE);
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
                                            TL("&Persons"), "Shift+P", "Open a dialog for locating a Person.",
-                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), myGNEApp, MID_LOCATEPERSON);
+                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), myGNEApp, MID_HOTKEY_SHIFT_P_LOCATEPERSON);
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
                                            TL("&Route"), "Shift+R", "Open a dialog for locating a Route.",
-                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEROUTE), myGNEApp, MID_LOCATEROUTE);
+                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEROUTE), myGNEApp, MID_HOTKEY_SHIFT_R_LOCATEROUTE);
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
                                            TL("&Stops"), "Shift+S", "Open a dialog for locating a Stop.",
-                                           GUIIconSubSys::getIcon(GUIIcon::LOCATESTOP), myGNEApp, MID_LOCATESTOP);
+                                           GUIIconSubSys::getIcon(GUIIcon::LOCATESTOP), myGNEApp, MID_HOTKEY_SHIFT_S_LOCATESTOP);
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
                                            TL("&TLS"), "Shift+T", "Open a dialog for locating a Traffic Light.",
-                                           GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), myGNEApp, MID_LOCATETLS);
+                                           GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), myGNEApp, MID_HOTKEY_SHIFT_T_LOCATETLS);
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
                                            TL("&Additional"), "Shift+A", "Open a dialog for locating an Additional Structure.",
-                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEADD), myGNEApp, MID_LOCATEADD);
+                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEADD), myGNEApp, MID_HOTKEY_SHIFT_A_LOCATEADDITIONAL);
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
                                            TL("P&oI"), "Shift+O", "Open a dialog for locating a Point of Interest.",
-                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), myGNEApp, MID_LOCATEPOI);
+                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), myGNEApp, MID_HOTKEY_SHIFT_O_LOCATEPOI);
     GUIDesigns::buildFXMenuCommandShortcut(locateMenu,
                                            TL("Po&lygon"), "Shift+L", "Open a dialog for locating a Polygon.",
-                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), myGNEApp, MID_LOCATEPOLY);
+                                           GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), myGNEApp, MID_HOTKEY_SHIFT_L_LOCATEPOLY);
 }
 
 // ---------------------------------------------------------------------------
@@ -1881,77 +1899,103 @@ GNEApplicationWindowHelper::SupermodeCommands::buildSupermodeCommands(FXMenuPane
 }
 
 // ---------------------------------------------------------------------------
-// GNEConfigHandler - methods
+// GNESUMOConfigHandler - methods
 // ---------------------------------------------------------------------------
 
-GNEApplicationWindowHelper::GNEConfigHandler::GNEConfigHandler(GNEApplicationWindow* applicationWindow, const std::string& file) :
-    myApplicationWindow(applicationWindow),
+GNEApplicationWindowHelper::GNESUMOConfigHandler::GNESUMOConfigHandler(OptionsCont& sumoOptions, const std::string& file) :
+    mySumoOptions(sumoOptions),
     myFile(file) {
 }
 
 
 bool
-GNEApplicationWindowHelper::GNEConfigHandler::loadConfig() {
+GNEApplicationWindowHelper::GNESUMOConfigHandler::loadSUMOConfig() {
     // get options
     auto &neteditOptions = OptionsCont::getOptions();
-    auto &sumoOptions = myApplicationWindow->getSUMOOptions();
     // make all options writables
-    sumoOptions.resetWritable();
+    mySumoOptions.resetWritable();
     neteditOptions.resetWritable();
     // build parser
     XERCES_CPP_NAMESPACE::SAXParser parser;
     parser.setValidationScheme(XERCES_CPP_NAMESPACE::SAXParser::Val_Never);
     parser.setDisableDefaultEntityResolution(true);
     // start the parsing
-    OptionsLoader handler(myApplicationWindow->getSUMOOptions());
+    OptionsLoader handler(mySumoOptions);
     try {
         parser.setDocumentHandler(&handler);
         parser.setErrorHandler(&handler);
         parser.parse(StringUtils::transcodeToLocal(myFile).c_str());
         if (handler.errorOccurred()) {
-            WRITE_ERROR("Could not load configuration '" + myFile + "'.");
+            WRITE_ERROR("Could not load SUMO configuration '" + myFile + "'.");
             return false;
         }
     } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
-        WRITE_ERROR("Could not load configuration '" + myFile + "':\n " + StringUtils::transcode(e.getMessage()));
+        WRITE_ERROR("Could not load SUMO configuration '" + myFile + "':\n " + StringUtils::transcode(e.getMessage()));
             return false;
     }
     // relocate files
-    myApplicationWindow->getSUMOOptions().relocateFiles(myFile);
+    mySumoOptions.relocateFiles(myFile);
     // set loaded files in netedit options
     neteditOptions.set("sumocfg-file", myFile);
-    neteditOptions.set("net-file", sumoOptions.getString("net-file"));
-    neteditOptions.set("additional-files", sumoOptions.getString("additional-files"));
-    neteditOptions.set("route-files", sumoOptions.getString("route-files"));
-    neteditOptions.set("data-files", sumoOptions.getString("data-files"));
-    // load network
-    myApplicationWindow->loadConfigOrNet(neteditOptions.getString("net-file"), true);
+    neteditOptions.set("net-file", mySumoOptions.getString("net-file"));
+    neteditOptions.set("additional-files", mySumoOptions.getString("additional-files"));
+    neteditOptions.set("route-files", mySumoOptions.getString("route-files"));
+    // check if we need to define the configuration file
+    if (neteditOptions.getString("configuration-file").empty()) {
+        const auto newConfiguration = StringUtils::replace(neteditOptions.getString("configuration-file"), ".sumocfg", ".neteditcfg");
+        neteditOptions.resetWritable();
+        neteditOptions.set("configuration-file", newConfiguration);
+    }
+    return true;
+}
+
+// ---------------------------------------------------------------------------
+// GNENETEDITConfigHandler - methods
+// ---------------------------------------------------------------------------
+
+GNEApplicationWindowHelper::GNENETEDITConfigHandler::GNENETEDITConfigHandler(const std::string& file) :
+    myFile(file) {
+}
+
+
+bool
+GNEApplicationWindowHelper::GNENETEDITConfigHandler::loadNETEDITConfig() {
+    // get options
+    auto &neteditOptions = OptionsCont::getOptions();
+    // make all options writables
+    neteditOptions.resetWritable();
+    // build parser
+    XERCES_CPP_NAMESPACE::SAXParser parser;
+    parser.setValidationScheme(XERCES_CPP_NAMESPACE::SAXParser::Val_Never);
+    parser.setDisableDefaultEntityResolution(true);
+    // start the parsing
+    OptionsLoader handler(neteditOptions);
+    try {
+        parser.setDocumentHandler(&handler);
+        parser.setErrorHandler(&handler);
+        parser.parse(StringUtils::transcodeToLocal(myFile).c_str());
+        if (handler.errorOccurred()) {
+            WRITE_ERROR("Could not load NETEDIT configuration '" + myFile + "'.");
+            return false;
+        }
+    } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
+        WRITE_ERROR("Could not load NETEDIT configuration '" + myFile + "':\n " + StringUtils::transcode(e.getMessage()));
+            return false;
+    }
+    // relocate files
+    neteditOptions.relocateFiles(myFile);
+    // check if we have loaded a netedit config or a netconvert config
+    if (neteditOptions.getString("configuration-file").find(".netccfg") != std::string::npos) {
+        const auto newConfiguration = StringUtils::replace(neteditOptions.getString("configuration-file"), ".netccfg", ".neteditcfg");
+        neteditOptions.resetWritable();
+        neteditOptions.set("configuration-file", newConfiguration);
+    }
     return true;
 }
 
 // ---------------------------------------------------------------------------
 // GNEApplicationWindowHelper - methods
 // ---------------------------------------------------------------------------
-
-
-void
-GNEApplicationWindowHelper::saveSUMOConfig() {
-    // obtain option container
-    OptionsCont& oc = OptionsCont::getOptions();
-    // check SUMOConfig-outpout
-    if (oc.getString("SUMOcfg-output").size() > 0) {
-        // open output device
-        OutputDevice& device = OutputDevice::getDevice(oc.getString("SUMOcfg-output"));
-
-        /** **/
-
-        // close device
-        device.close();
-        // show debug information
-        WRITE_DEBUG("SUMOConfig saved");
-    }
-}
-
 
 bool
 GNEApplicationWindowHelper::toggleEditOptionsNetwork(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck, const int numericalKeyPressed, FXObject* obj, FXSelector sel) {

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -187,7 +187,6 @@ fillOptions() {
 
 bool
 checkOptions() {
-    MsgHandler::setupI18n();
     OptionsCont& oc = OptionsCont::getOptions();
     bool ok = true;
     if (!oc.isSet("taz-files")) {
@@ -246,8 +245,7 @@ checkOptions() {
 int
 main(int argc, char** argv) {
     OptionsCont& oc = OptionsCont::getOptions();
-    // give some application descriptions
-    oc.setApplicationDescription("Importer of O/D-matrices for the microscopic, multi-modal traffic simulation SUMO.");
+    oc.setApplicationDescription(TL("Importer of O/D-matrices for the microscopic, multi-modal traffic simulation SUMO."));
     oc.setApplicationName("od2trips", "Eclipse SUMO od2trips Version " VERSION_STRING);
     int ret = 0;
     try {

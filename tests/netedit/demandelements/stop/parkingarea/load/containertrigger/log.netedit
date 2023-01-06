@@ -6,4 +6,4 @@ Error: Attribute 'containerTriggered' in definition of a stop Invalid Bool Forma
 Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'parkingArea'
 Error: Attribute 'containerTriggered' in definition of a stop Invalid Bool Format 2.3.
 Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'parkingArea'
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.stop.parkingarea.08Apr202456.3564/netedit.daily.demand.stop.parkingarea/demandelements/stop/parkingarea/load/containertrigger/input_routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.stop.parkingarea.08Apr202456.3564/netedit.daily.demand.stop.parkingarea/demandelements/stop/parkingarea/load/containertrigger/routes.rou.xml failed.

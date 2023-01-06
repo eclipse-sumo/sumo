@@ -202,6 +202,7 @@ Options](Basics/Using_the_Command_Line_Applications.md#reporting_options).
 | **-l** {{DT_FILE}}<br> **--log** {{DT_FILE}} | Writes all messages to FILE (implies verbose) |
 | **--message-log** {{DT_FILE}} | Writes all non-error messages to FILE (implies verbose) |
 | **--error-log** {{DT_FILE}} | Writes all warnings and errors to FILE |
+| **--language** {{DT_STR}} | Language to use in messages; *default:* **C** |
 | **--ignore-errors** {{DT_BOOL}} | Continue if a route could not be build; *default:* **false** |
 | **--stats-period** {{DT_INT}} | Defines how often statistics shall be printed; *default:* **-1** |
 | **--no-step-log** {{DT_BOOL}} | Disable console output of route parsing step; *default:* **false** |

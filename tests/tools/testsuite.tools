@@ -34,8 +34,8 @@ detector
 # tests for district tools (especially visum and net mapping)
 district
 
-# tests for visualisation tools
-visualisation
+# tests for visualization tools
+visualization
 build
 
 # test functions that aren't yet used by a tested tool

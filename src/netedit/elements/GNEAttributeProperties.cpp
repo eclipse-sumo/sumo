@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -31,17 +31,7 @@
 // method definitions
 // ===========================================================================
 
-GNEAttributeProperties::GNEAttributeProperties() :
-    myAttribute(SUMO_ATTR_NOTHING),
-    myTagPropertyParent(nullptr),
-    myAttrStr(toString(SUMO_ATTR_NOTHING)),
-    myAttributeProperty(STRING),
-    myDefinition(""),
-    myDefaultValue(""),
-    myDefaultActivated(false),
-    myAttrSynonym(SUMO_ATTR_NOTHING),
-    myMinimumRange(0),
-    myMaximumRange(0) {}
+GNEAttributeProperties::GNEAttributeProperties() {}
 
 
 GNEAttributeProperties::GNEAttributeProperties(const SumoXMLAttr attribute, const int attributeProperty, const std::string& definition, std::string defaultValue) :
@@ -101,9 +91,10 @@ GNEAttributeProperties::checkAttributeIntegrity() const {
 
 
 void
-GNEAttributeProperties::setDiscreteValues(const std::vector<std::string>& discreteValues) {
+GNEAttributeProperties::setDiscreteValues(const std::vector<std::string>& discreteValues, bool showAll) {
     if (isDiscrete()) {
         myDiscreteValues = discreteValues;
+        myShowAllDiscreteValues = showAll;
     } else {
         throw FormatException("AttributeProperty doesn't support discrete values");
     }
@@ -427,6 +418,12 @@ GNEAttributeProperties::isUnique() const {
 bool
 GNEAttributeProperties::isDiscrete() const {
     return (myAttributeProperty & DISCRETE) != 0;
+}
+
+
+bool
+GNEAttributeProperties::showAllDiscreteValues() const {
+    return myShowAllDiscreteValues;
 }
 
 

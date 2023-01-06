@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -475,20 +475,29 @@ struct GNEViewNetHelper {
         /// @brief build save buttons
         void buildSaveElementsButtons();
 
+        /// @brief checkable button for save NETEDIT config
+        MFXButtonTooltip* saveNETEDITConfig = nullptr;
+
+        /// @brief checkable button for save SUMO config
+        MFXButtonTooltip* saveSUMOConfig = nullptr;
+
         /// @brief checkable button for save all
-        MFXButtonTooltip* saveAll;
+        MFXButtonTooltip* saveAll = nullptr;
 
         /// @brief checkable button for save network
-        MFXButtonTooltip* saveNetwork;
+        MFXButtonTooltip* saveNetwork = nullptr;
 
         /// @brief checkable button for save additional elements
-        MFXButtonTooltip* saveAdditionalElements;
+        MFXButtonTooltip* saveAdditionalElements = nullptr;
 
         /// @brief checkable button for save demand elements
-        MFXButtonTooltip* saveDemandElements;
+        MFXButtonTooltip* saveDemandElements = nullptr;
 
-        /// @brief checkable button for save data elements
-        MFXButtonTooltip* saveDataElements;
+        /// @brief checkable button for save genericdata elements
+        MFXButtonTooltip* saveDataElements = nullptr;
+
+        /// @brief checkable button for save meanData elements
+        MFXButtonTooltip* saveMeanDataElements = nullptr;
 
     private:
         /// @brief pointer to net

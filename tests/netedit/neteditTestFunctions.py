@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -316,62 +316,11 @@ def Popen(extraParameters, debugInformation):
     @brief open netedit
     """
     # set the default parameters of Netedit
-    neteditCall = [_NETEDIT_APP, '--gui-testing', '--window-pos', '50,50',
-                   '--window-size', '936, 697', '--no-warnings',
-                   '--error-log', os.path.join(_TEXTTEST_SANDBOX, 'log.txt')]
+    neteditCall = [_NETEDIT_APP]
 
-    # check if debug output information has to be enabled
-    if debugInformation:
-        neteditCall += ['--gui-testing-debug']
-
-    # check if a gui settings file has to be load
-    if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "gui-settings.xml")):
-        neteditCall += ['--gui-settings-file',
-                        os.path.join(_TEXTTEST_SANDBOX, "gui-settings.xml")]
-
-    # check if an existent net must be loaded
-    if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "input_net.net.xml")):
-        neteditCall += ['--sumo-net-file',
-                        os.path.join(_TEXTTEST_SANDBOX, "input_net.net.xml")]
-
-    # Check if additionals must be loaded
-    if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "input_additionals.add.xml")):
-        neteditCall += ['-a',
-                        os.path.join(_TEXTTEST_SANDBOX, "input_additionals.add.xml")]
-
-    # Check if vTypes must be loaded
-    if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "input_vtypes.rou.xml")):
-        neteditCall += ['-r',
-                        os.path.join(_TEXTTEST_SANDBOX, "input_vtypes.rou.xml,input_routes.rou.xml")]
-
-    elif os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "input_routes.rou.xml")):
-        neteditCall += ['-r',
-                        os.path.join(_TEXTTEST_SANDBOX, "input_routes.rou.xml")]
-
-    # Check if datas must be loaded
-    if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "input_datas.dat.xml")):
-        neteditCall += ['-d',
-                        os.path.join(_TEXTTEST_SANDBOX, "input_datas.dat.xml")]
-
-    # set output for net
-    neteditCall += ['--output-file',
-                    os.path.join(_TEXTTEST_SANDBOX, 'net.net.xml')]
-
-    # set output for additionals
-    neteditCall += ['--additionals-output',
-                    os.path.join(_TEXTTEST_SANDBOX, "additionals.xml")]
-
-    # set output for routes
-    neteditCall += ['--demandelements-output',
-                    os.path.join(_TEXTTEST_SANDBOX, "routes.xml")]
-
-    # set output for datas
-    neteditCall += ['--dataelements-output',
-                    os.path.join(_TEXTTEST_SANDBOX, "datas.xml")]
-
-    # set output for gui
-    neteditCall += ['--gui-testing.setting-output',
-                    os.path.join(_TEXTTEST_SANDBOX, "guisettingsoutput.xml")]
+    # check if a netedit config must be loaded
+    if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "netedit.neteditcfg")):
+        neteditCall += ['-c', os.path.join(_TEXTTEST_SANDBOX, "netedit.neteditcfg")]
 
     # add extra parameters
     neteditCall += extraParameters
@@ -772,7 +721,7 @@ def forceSaveAdditionals():
     @brief force save additionals
     """
     # change additional save flag using hotkey
-    typeThreeKeys('ctrl', 'shift', 'u')
+    typeThreeKeys('ctrl', 'shift', 'x')
 
 
 def forceSaveDemandElements():
@@ -780,7 +729,7 @@ def forceSaveDemandElements():
     @brief force save demand elements
     """
     # change demand elements save flag using hotkey
-    typeThreeKeys('ctrl', 'shift', 'v')
+    typeThreeKeys('ctrl', 'shift', 'y')
 
 
 def forceSaveDataElements():
@@ -788,7 +737,7 @@ def forceSaveDataElements():
     @brief force save data elements
     """
     # change data elements save flag using hotkey
-    typeThreeKeys('ctrl', 'shift', 'w')
+    typeThreeKeys('ctrl', 'shift', 'z')
 
 
 def saveAdditionals(referencePosition, clickOverReference=False):

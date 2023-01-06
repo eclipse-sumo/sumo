@@ -59,19 +59,14 @@ try one of the build service repositories here too, e.g.
 At the moment there is no documentation included in the packages. The
 repositories include a nightly build as well (called ***sumo-git***).
 
-- [openSUSE Leap 42.3 repository](http://download.opensuse.org/repositories/science:/dlr/openSUSE_Leap_42.3/)
-- [openSUSE Leap 15.0 repository](http://download.opensuse.org/repositories/science:/dlr/openSUSE_Leap_15.0/)
-- [openSUSE Leap 15.1 repository](http://download.opensuse.org/repositories/science:/dlr/openSUSE_Leap_15.1/)
 - [openSUSE Leap 15.2 repository](http://download.opensuse.org/repositories/science:/dlr/openSUSE_Leap_15.2/)
 - [openSUSE Leap 15.3 repository](http://download.opensuse.org/repositories/science:/dlr/15.3/)
 - [openSUSE Leap 15.4 repository](http://download.opensuse.org/repositories/science:/dlr/15.4/)
 - [openSUSE Tumbleweed repository](http://download.opensuse.org/repositories/science:/dlr/openSUSE_Tumbleweed/)
-- [Fedora 30 repository](http://download.opensuse.org/repositories/science:/dlr/Fedora_30/)
-- [Fedora 31 repository](http://download.opensuse.org/repositories/science:/dlr/Fedora_31/)
-- [Fedora 32 repository](http://download.opensuse.org/repositories/science:/dlr/Fedora_32/)
-- [Fedora 33 repository](http://download.opensuse.org/repositories/science:/dlr/Fedora_33/)
 - [Fedora 34 repository](http://download.opensuse.org/repositories/science:/dlr/Fedora_34/)
 - [Fedora 35 repository](http://download.opensuse.org/repositories/science:/dlr/Fedora_35/)
+- [Fedora 36 repository](http://download.opensuse.org/repositories/science:/dlr/Fedora_36/)
+- [Fedora 37 repository](http://download.opensuse.org/repositories/science:/dlr/Fedora_37/)
 - [Fedora Rawhide repository](http://download.opensuse.org/repositories/science:/dlr/Fedora_Rawhide/)
 - [CentOS 7 repository](http://download.opensuse.org/repositories/science:/dlr/CentOS_7/)
 - [CentOS 8 repository](http://download.opensuse.org/repositories/science:/dlr/CentOS_8/)

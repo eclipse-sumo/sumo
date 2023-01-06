@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -84,20 +84,9 @@ const std::map<SumoXMLAttr, std::string> GNENet::EMPTY_HEADER;
 
 GNENet::GNENet(NBNetBuilder* netBuilder) :
     GUIGlObject(GLO_NETWORK, "", nullptr),
-    myViewNet(nullptr),
     myNetBuilder(netBuilder),
     myAttributeCarriers(new GNENetHelper::AttributeCarriers(this)),
-    myPathManager(new GNEPathManager(this)), // TODO a little dangerous to use "this" here, it makes access to the net and the netBuilder
-    myJunctionIDCounter(0),
-    myEdgeIDCounter(0),
-    myNeedRecompute(true),
-    myNetSaved(true),
-    myAdditionalsSaved(true),
-    myTLSProgramsSaved(true),
-    myDemandElementsSaved(true),
-    myDataElementsSaved(true),
-    myUpdateGeometryEnabled(true),
-    myUpdateDataEnabled(true) {
+    myPathManager(new GNEPathManager(this)) { // TODO a little dangerous to use "this" here, it makes access to the net and the netBuilder
     // set net in gIDStorage
     GUIGlObjectStorage::gIDStorage.setNetObject(this);
     // Write GL debug information
@@ -292,11 +281,11 @@ GNENet::createEdge(GNEJunction* src, GNEJunction* dest, GNEEdge* edgeTemplate, G
         edge = new GNEEdge(this, nbe, wasSplit);
     } else {
         // default if no template is given
-        const OptionsCont& oc = OptionsCont::getOptions();
-        double defaultSpeed = oc.getFloat("default.speed");
-        const std::string defaultType = oc.getString("default.type");
-        const int defaultNrLanes = oc.getInt("default.lanenumber");
-        const int defaultPriority = oc.getInt("default.priority");
+        const auto &neteditOptions = OptionsCont::getOptions();
+        double defaultSpeed = neteditOptions.getFloat("default.speed");
+        const std::string defaultType = neteditOptions.getString("default.type");
+        const int defaultNrLanes = neteditOptions.getInt("default.lanenumber");
+        const int defaultPriority = neteditOptions.getInt("default.priority");
         const double defaultWidth = NBEdge::UNSPECIFIED_WIDTH;
         const double defaultOffset = NBEdge::UNSPECIFIED_OFFSET;
         const LaneSpreadFunction spread = LaneSpreadFunction::RIGHT;
@@ -1126,7 +1115,7 @@ GNENet::createRoundabout(GNEJunction* junction, GNEUndoList* undoList) {
             newJunction = newJunctions.back();
         }
         //std::cout << " edge=" << edge->getID() << " prevOpposite=" << Named::getIDSecure(prevOpposite) << " newJunction=" << Named::getIDSecure(newJunction) << "\n";
-        prevOpposite = edge->getOppositeEdges().front();
+        prevOpposite = edge->getOppositeEdges().size() > 0 ? edge->getOppositeEdges().front() : nullptr;
         const double geomLength = edge->getNBEdge()->getGeometry().length2D();
         const double splitOffset = (edge->getToJunction() == junction
                                     ? MAX2(POSITION_EPS, geomLength - radius)
@@ -1178,7 +1167,13 @@ GNENet::checkJunctionPosition(const Position& pos) {
 
 void
 GNENet::requireSaveNet(bool value) {
-    myNetSaved = !value;
+    if (value) {
+        myNetSaved = false;
+        myViewNet->getViewParent()->getGNEAppWindows()->requireSaveSUMOConfig(true);
+        myViewNet->getViewParent()->getGNEAppWindows()->requireSaveNETEDITConfig(true);
+    } else {
+        myNetSaved = true;
+    }
 }
 
 
@@ -1189,9 +1184,13 @@ GNENet::isNetSaved() const {
 
 
 void
-GNENet::saveNetwork(OptionsCont& oc) {
+GNENet::saveNetwork() {
+    auto &neteditOptions = OptionsCont::getOptions();
+    // set output file
+    neteditOptions.resetWritable();
+    neteditOptions.set("output-file", neteditOptions.getString("net-file"));
     // compute without volatile options and update network
-    computeAndUpdate(oc, false);
+    computeAndUpdate(neteditOptions, false);
     // clear typeContainer
     myNetBuilder->getTypeCont().clearTypes();
     // now update typeContainer with edgeTypes
@@ -1206,23 +1205,26 @@ GNENet::saveNetwork(OptionsCont& oc) {
         }
     }
     // write network
-    NWFrame::writeNetwork(oc, *myNetBuilder);
+    NWFrame::writeNetwork(neteditOptions, *myNetBuilder);
     myNetSaved = true;
+    // reset output file
+    neteditOptions.resetDefault("output-file");
 }
 
 
 void
-GNENet::savePlain(OptionsCont& oc, const std::string& prefix) {
+GNENet::savePlain(const std::string& prefix) {
+    auto &neteditOptions = OptionsCont::getOptions();
     // compute without volatile options
-    computeAndUpdate(oc, false);
-    NWWriter_XML::writeNetwork(oc, prefix, *myNetBuilder);
+    computeAndUpdate(neteditOptions, false);
+    NWWriter_XML::writeNetwork(neteditOptions, prefix, *myNetBuilder);
 }
 
 
 void
-GNENet::saveJoined(OptionsCont& oc, const std::string& filename) {
+GNENet::saveJoined(const std::string& filename) {
     // compute without volatile options
-    computeAndUpdate(oc, false);
+    computeAndUpdate(OptionsCont::getOptions(), false);
     NWWriter_XML::writeJoinedJunctions(filename, myNetBuilder->getNodeCont());
 }
 
@@ -1292,8 +1294,8 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
         }
     }
     // compute and update
-    OptionsCont& oc = OptionsCont::getOptions();
-    computeAndUpdate(oc, volatileOptions);
+    auto &neteditOptions = OptionsCont::getOptions();
+    computeAndUpdate(neteditOptions, volatileOptions);
     // load additionals if was recomputed with volatile options
     if (additionalPath != "") {
         // Create additional handler
@@ -1358,7 +1360,7 @@ GNENet::computeDataElements(GNEApplicationWindow* window) {
 void
 GNENet::computeJunction(GNEJunction* junction) {
     // recompute tl-logics
-    OptionsCont& oc = OptionsCont::getOptions();
+    auto &neteditOptions = OptionsCont::getOptions();
     NBTrafficLightLogicCont& tllCont = getTLLogicCont();
     // iterate over traffic lights definitions. Make a copy because invalid
     // definitions will be removed (and would otherwise destroy the iterator)
@@ -1366,7 +1368,7 @@ GNENet::computeJunction(GNEJunction* junction) {
     for (auto it : tlsDefs) {
         it->setParticipantsInformation();
         it->setTLControllingInformation();
-        tllCont.computeSingleLogic(oc, it);
+        tllCont.computeSingleLogic(neteditOptions, it);
     }
 
     // @todo compute connections etc...
@@ -2035,6 +2037,8 @@ GNENet::requireSaveAdditionals(bool value) {
             myViewNet->getViewParent()->getGNEAppWindows()->disableSaveAdditionalsMenu();
         } else {
             myViewNet->getViewParent()->getGNEAppWindows()->enableSaveAdditionalsMenu();
+            myViewNet->getViewParent()->getGNEAppWindows()->requireSaveSUMOConfig(true);
+            myViewNet->getViewParent()->getGNEAppWindows()->requireSaveNETEDITConfig(true);
         }
     }
 }
@@ -2101,6 +2105,8 @@ GNENet::requireSaveDemandElements(bool value) {
             myViewNet->getViewParent()->getGNEAppWindows()->disableSaveDemandElementsMenu();
         } else {
             myViewNet->getViewParent()->getGNEAppWindows()->enableSaveDemandElementsMenu();
+            myViewNet->getViewParent()->getGNEAppWindows()->requireSaveSUMOConfig(true);
+            myViewNet->getViewParent()->getGNEAppWindows()->requireSaveNETEDITConfig(true);
         }
     }
 }
@@ -2168,6 +2174,8 @@ GNENet::requireSaveDataElements(bool value) {
             myViewNet->getViewParent()->getGNEAppWindows()->disableSaveDataElementsMenu();
         } else {
             myViewNet->getViewParent()->getGNEAppWindows()->enableSaveDataElementsMenu();
+            myViewNet->getViewParent()->getGNEAppWindows()->requireSaveSUMOConfig(true);
+            myViewNet->getViewParent()->getGNEAppWindows()->requireSaveNETEDITConfig(true);
         }
     }
 }
@@ -2236,6 +2244,8 @@ GNENet::requireSaveMeanDatas(bool value) {
             myViewNet->getViewParent()->getGNEAppWindows()->disableSaveMeanDatasMenu();
         } else {
             myViewNet->getViewParent()->getGNEAppWindows()->enableSaveMeanDatasMenu();
+            myViewNet->getViewParent()->getGNEAppWindows()->requireSaveSUMOConfig(true);
+            myViewNet->getViewParent()->getGNEAppWindows()->requireSaveNETEDITConfig(true);
         }
     }
 }
@@ -2365,7 +2375,7 @@ void
 GNENet::saveMeanDatasConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
     // open header
-    device.writeXMLHeader("meanData", "meanData_file.xsd", EMPTY_HEADER, false);
+    device.writeXMLHeader("additional", "additional_file.xsd", EMPTY_HEADER, false);
     // MeanDataEdges
     writeMeanDataEdgeComment(device);
     writeMeanDatas(device, SUMO_TAG_MEANDATA_EDGE);
@@ -2790,7 +2800,7 @@ GNENet::initGNEConnections() {
 
 
 void
-GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
+GNENet::computeAndUpdate(OptionsCont& neteditOptions, bool volatileOptions) {
     // make sure we only add turn arounds to edges which currently exist within the network
     std::set<std::string> liveExplicitTurnarounds;
     for (const auto& explicitTurnarounds : myExplicitTurnarounds) {
@@ -2809,13 +2819,13 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
         myGrid.removeAdditionalGLObject(it.second);
     }
     // compute using NetBuilder
-    myNetBuilder->compute(oc, liveExplicitTurnarounds, volatileOptions);
+    myNetBuilder->compute(neteditOptions, liveExplicitTurnarounds, volatileOptions);
     // remap ids if necessary
-    if (oc.getBool("numerical-ids") || oc.isSet("reserved-ids")) {
+    if (neteditOptions.getBool("numerical-ids") || neteditOptions.isSet("reserved-ids")) {
         myAttributeCarriers->remapJunctionAndEdgeIds();
     }
     // update rtree if necessary
-    if (!oc.getBool("offset.disable-normalization")) {
+    if (!neteditOptions.getBool("offset.disable-normalization")) {
         for (const auto& edge : myAttributeCarriers->getEdges()) {
             // refresh edge geometry
             edge.second->updateGeometry();

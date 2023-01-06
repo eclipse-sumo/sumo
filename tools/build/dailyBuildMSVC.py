@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -139,7 +139,7 @@ def main(options, platform="x64"):
         except Exception:
             pass
     for d in [os.path.join(SUMO_HOME, "share")] + (glob.glob(os.path.join(SUMO_HOME, "bin", "osgPlugins*")) +
-              glob.glob(os.path.join(SUMO_HOME, "tools", "*.egg-info"))):
+                                                   glob.glob(os.path.join(SUMO_HOME, "tools", "*.egg-info"))):
         shutil.rmtree(d, ignore_errors=True)
     for d in glob.glob(os.path.join(SUMO_HOME, "docs", "*")):
         if os.path.basename(d) in ('examples', 'javadoc', 'man', 'pydoc', 'tutorial', 'userdoc'):

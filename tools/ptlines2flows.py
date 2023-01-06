@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2010-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -320,9 +320,7 @@ def createRoutes(options, trpMap, stopNames):
     with codecs.open(options.outfile, 'w', encoding="UTF8") as foutflows:
         flows = []
         actualDepart = {}  # departure may be delayed when the edge is not yet empty
-        sumolib.writeXMLHeader(
-            foutflows, "$Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $",
-            "routes")
+        sumolib.writeXMLHeader(foutflows, root="routes")
         if not options.novtypes:
             writeTypes(foutflows, options.vtypeprefix, None)
         collections.defaultdict(int)

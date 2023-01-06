@@ -7,7 +7,7 @@ Error: Attribute 'pos' in definition of a detEntry Invalid Number Format (double
 Error: Attribute 'pos' in definition of a detExit Invalid Number Format (double) dummmyPosition.
 Debug: Adding entryExitDetector 'entryExitDetector_0' in GNEChange_Additional
 GLDebug: 	Inserted e3Detector:entryExitDetector_0 into SUMORTree with boundary 34.00,0.00,54.00,20.00
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.e3detector.01Aug073708.40067/netedit.daily.additional.e3detector/additionalelements/e3detector/load/invalidchilds/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.e3detector.01Aug073708.40067/netedit.daily.additional.e3detector/additionalelements/e3detector/load/invalidchilds/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

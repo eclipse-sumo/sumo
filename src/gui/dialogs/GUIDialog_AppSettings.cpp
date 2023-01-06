@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -50,7 +50,7 @@ FXIMPLEMENT(GUIDialog_AppSettings, FXDialogBox, GUIDialog_AppSettingsMap, ARRAYN
 // method definitions
 // ===========================================================================
 GUIDialog_AppSettings::GUIDialog_AppSettings(GUIMainWindow* parent)
-    : FXDialogBox(parent, "Application Settings"),
+    : FXDialogBox(parent, TL("Application Settings")),
       myParent(parent),
       myAppQuitOnEnd(GUIGlobals::gQuitOnEnd),
       myAppAutoStart(GUIGlobals::gRunAfterLoad),
@@ -72,6 +72,9 @@ GUIDialog_AppSettings::GUIDialog_AppSettings(GUIMainWindow* parent)
     myBreakPointOffset = new FXRealSpinner(m1, 5, this, MID_TIMELINK_BREAKPOINT, GUIDesignViewSettingsSpinDial2 | SPIN_NOMIN);
     myBreakPointOffset->setValue(STEPS2TIME(GUIMessageWindow::getBreakPointOffset()));
     new FXLabel(m1, TL("Breakpoint offset when clicking on time message"), nullptr, GUIDesignViewSettingsLabel1);
+    myLanguageField = new FXTextField(m1, 5, this, MID_GNE_SET_ATTRIBUTE, TEXTFIELD_NORMAL | LAYOUT_RIGHT, 0, 0, 0, 0, 4, 2, 0, 2);
+    myLanguageField->setText(gLanguage.c_str());
+    new FXLabel(m1, TL("Language (needs restart)"), nullptr, GUIDesignViewSettingsLabel1);
 
     myTable = new FXTable(f1, this, MID_TABLE, GUIDesignBreakpointTable);
     const auto& onlineMaps = parent->getOnlineMaps();
@@ -129,6 +132,11 @@ GUIDialog_AppSettings::onCmdOk(FXObject*, FXSelector, void*) {
         }
     }
     getApp()->reg().writeStringEntry("gui", "onlineMaps", maps.text());
+    const std::string lang = myLanguageField->getText().text();
+    if (lang != gLanguage) {
+        gLanguage = lang;
+        getApp()->reg().writeStringEntry("gui", "language", lang.c_str());
+    }
     destroy();
     return 1;
 }

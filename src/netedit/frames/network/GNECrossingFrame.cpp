@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -419,6 +419,11 @@ GNECrossingFrame::CrossingParameters::onCmdSetAttribute(FXObject*, FXSelector, v
             edge->setPossibleCandidate(true);
         }
     } else {
+        EdgeVector selected;
+        for (GNEEdge* e : myCurrentSelectedEdges) {
+            selected.push_back(e->getNBEdge());
+        }
+        NBNode* node = myCrossingFrameParent->myEdgeSelector->getCurrentJunction()->getNBNode();
         for (const auto& edge : myCrossingFrameParent->myEdgeSelector->getCurrentJunction()->getChildEdges()) {
             // restore colors
             edge->resetCandidateFlags();
@@ -426,15 +431,12 @@ GNECrossingFrame::CrossingParameters::onCmdSetAttribute(FXObject*, FXSelector, v
             if (std::find(myCurrentSelectedEdges.begin(), myCurrentSelectedEdges.end(), edge) != myCurrentSelectedEdges.end()) {
                 edge->setTargetCandidate(true);
             } else {
-                edge->setInvalidCandidate(true);
-            }
-        }
-        for (const auto selectedEdge : myCurrentSelectedEdges) {
-            const auto oppositeEdges = selectedEdge->getOppositeEdges();
-            for (const auto &oppositeEdge : oppositeEdges) {
-                if (oppositeEdge->isInvalidCandidate()) {
-                    oppositeEdge->setInvalidCandidate(false);
-                    oppositeEdge->setPossibleCandidate(true);
+                EdgeVector newCandidates = selected;;
+                newCandidates.push_back(edge->getNBEdge());
+                if (node->checkCrossing(newCandidates, true) == 0) {
+                    edge->setInvalidCandidate(true);
+                } else {
+                    edge->setPossibleCandidate(true);
                 }
             }
         }

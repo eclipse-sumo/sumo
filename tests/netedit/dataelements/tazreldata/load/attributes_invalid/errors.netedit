@@ -19,10 +19,10 @@ GLDebug: 	Inserted taz:taz_1 into SUMORTree with boundary 50.00,-20.00,110.00,40
 Debug: Adding taz 'taz_2' in GNEChange_Additional
 GLDebug: 	Inserted taz:taz_2 into SUMORTree with boundary 10.00,-50.00,70.00,-10.00
 Error: attribute name expected
- In file '/home/palcraft/.texttest/tmp/netedit.daily.data.tazreldata.24Jun133818.22425/netedit.daily.data.tazreldata/dataelements/tazreldata/load/attributes_invalid/input_datas.dat.xml'
+ In file '/home/palcraft/.texttest/tmp/netedit.daily.data.tazreldata.24Jun133818.22425/netedit.daily.data.tazreldata/dataelements/tazreldata/load/attributes_invalid/datas.dat.xml'
  At line/column 62/46.
 
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.data.tazreldata.24Jun133818.22425/netedit.daily.data.tazreldata/dataelements/tazreldata/load/attributes_invalid/input_datas.dat.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.data.tazreldata.24Jun133818.22425/netedit.daily.data.tazreldata/dataelements/tazreldata/load/attributes_invalid/datas.dat.xml failed.
 Debug: data sets saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ10 from SUMORTree with boundary 28.00,68.00,52.00,92.00

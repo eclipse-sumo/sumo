@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -400,8 +400,8 @@ MSBaseVehicle::replaceRouteEdges(ConstMSEdgeVector& edges, double cost, double s
         }
         edges.insert(edges.begin(), myRoute->begin(), myCurrEdge);
     }
-    if (edges == myRoute->getEdges() && !StringUtils::endsWith(info, toString(SUMO_TAG_PARKING_AREA_REROUTE))) {
-        // re-assign stop iterators when rerouting to a new parkingArea
+    if (edges == myRoute->getEdges() && haveValidStopEdges(true)) {
+        // re-assign stop iterators when rerouting to a new parkingArea / insertStop
         return true;
     }
     const RGBColor& c = myRoute->getColor();
@@ -1290,7 +1290,7 @@ MSBaseVehicle::addStops(const bool ignoreStopErrors, MSRouteIterator* searchStar
 
 
 bool
-MSBaseVehicle::haveValidStopEdges() const {
+MSBaseVehicle::haveValidStopEdges(bool silent) const {
     MSRouteIterator start = myCurrEdge;
     const std::string err = "for vehicle '" + getID() + "' at time=" + time2string(SIMSTEP);
     int i = 0;
@@ -1319,7 +1319,9 @@ MSBaseVehicle::haveValidStopEdges() const {
             it = std::find(start, myRoute->end(), stopEdge);
         }
         if (it == myRoute->end()) {
-            WRITE_ERROR(prefix + "is not found after edge '" + (*start)->getID() + "' (" + toString(start - myCurrEdge) + " after current " + err);
+            if (!silent) {
+                WRITE_ERROR(prefix + "is not found after edge '" + (*start)->getID() + "' (" + toString(start - myCurrEdge) + " after current " + err);
+            }
             ok = false;
         } else {
             MSRouteIterator it2;
@@ -1329,17 +1331,23 @@ MSBaseVehicle::haveValidStopEdges() const {
                 }
             }
             if (it2 == myRoute->end()) {
-                WRITE_ERROR(prefix + "used invalid route index " + err);
+                if (!silent) {
+                    WRITE_ERROR(prefix + "used invalid route index " + err);
+                }
                 ok = false;
             } else if (it2 < start) {
-                WRITE_ERROR(prefix + "used invalid (relative) route index " + toString(it2 - myCurrEdge) + " expected after " + toString(start - myCurrEdge) + " " + err);
+                if (!silent) {
+                    WRITE_ERROR(prefix + "used invalid (relative) route index " + toString(it2 - myCurrEdge) + " expected after " + toString(start - myCurrEdge) + " " + err);
+                }
                 ok = false;
             } else {
                 if (it != stop.edge) {
                     double brakeGap = i == 0 ? getBrakeGap() : 0;
                     if (endPos >= lastPos + brakeGap) {
-                        WRITE_WARNING(prefix + "is used in " + toString(stop.edge - myCurrEdge) + " edges but first encounter is in "
+                        if (!silent) {
+                            WRITE_WARNING(prefix + "is used in " + toString(stop.edge - myCurrEdge) + " edges but first encounter is in "
                                       + toString(it - myCurrEdge) + " edges " + err);
+                        }
                     }
                 }
                 start = stop.edge;

@@ -15,7 +15,7 @@ GLDebug: 	Inserted rerouter:rerouter_0 into SUMORTree with boundary -10.00,-11.6
 Debug: Adding closingReroute 'rerouter_0' in GNEChange_Additional
 Error: Could not build interval with begin '50000' and '3600000' in 'rerouter_0' due overlapping.
 Error: Attempted to retrieve non-existant rerouter interval
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.rerouterelements.24Jun133818.22405/netedit.daily.additional.rerouterelements/additionalelements/rerouterelements/interval/load/overlapped/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.rerouterelements.24Jun133818.22405/netedit.daily.additional.rerouterelements/additionalelements/rerouterelements/interval/load/overlapped/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-04 09:25:48 by Eclipse SUMO netconvert Version v1_14_1+1404-60b7850a127
+<!-- generated on 2023-01-06 08:14:49 by Eclipse SUMO netconvert Version v1_15_0+1362-339c192
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,7 +14,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/home/behr_mi/sumo/data/typemap/osmNetconvert.typ.xml,/home/behr_mi/sumo/data/typemap/osmNetconvertPedestrians.typ.xml"/>
+        <type-files value="/scr1/sumo/data/typemap/osmNetconvert.typ.xml,/scr1/sumo/data/typemap/osmNetconvertPedestrians.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
@@ -250,16 +250,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="5"  state="rr"/>
     </tlLogic>
     <tlLogic id="cluster_1652675097_1652675099_1704693785_2697454318_#9more" type="static" programID="0" offset="0">
-        <phase duration="21" state="GGGgggrrrrrrGGGggrrrrrr"/>
-        <phase duration="3"  state="yyygggrrrrrryyyggrrrrrr"/>
-        <phase duration="6"  state="rrrGGGrrrrrrrrrGGrrrrrr"/>
-        <phase duration="3"  state="rrryyyrrrrrrrrryyrrrrrr"/>
-        <phase duration="21" state="GGGrrrGGrrrgGrrrrGrrrrr"/>
-        <phase duration="3"  state="yyyrrryyrrryyrrrryrrrrr"/>
-        <phase duration="21" state="rrrrrrrGGGggrrrrrrGGggg"/>
-        <phase duration="3"  state="rrrrrrryyyggrrrrrryyggg"/>
-        <phase duration="6"  state="rrrrrrrrrrGGrrrrrrrrGGG"/>
-        <phase duration="3"  state="rrrrrrrrrryyrrrrrrrryyy"/>
+        <phase duration="21" state="GGGgggrrrrrrGGGGggrrrrrr"/>
+        <phase duration="3"  state="yyygggrrrrrryyyyggrrrrrr"/>
+        <phase duration="6"  state="rrrGGGrrrrrrrrrrGGrrrrrr"/>
+        <phase duration="3"  state="rrryyyrrrrrrrrrryyrrrrrr"/>
+        <phase duration="21" state="GGGrrrGGrrrgGrrrrrGrrrrr"/>
+        <phase duration="3"  state="yyyrrryyrrryyrrrrryrrrrr"/>
+        <phase duration="21" state="rrrrrrrGGGggrrrrrrrGGggg"/>
+        <phase duration="3"  state="rrrrrrryyyggrrrrrrryyggg"/>
+        <phase duration="6"  state="rrrrrrrrrrGGrrrrrrrrrGGG"/>
+        <phase duration="3"  state="rrrrrrrrrryyrrrrrrrrryyy"/>
     </tlLogic>
     <tlLogic id="cluster_3366620136_5836660314" type="static" programID="0" offset="0">
         <phase duration="82" state="GGG"/>
@@ -272,15 +272,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="1652675093" type="priority" x="613.45" y="466.39" incLanes="-318210373_0 -318210373_1 -142575695_0 -142575695_1 142575672#4_0 142575672#4_1" intLanes="" shape="622.29,464.52 614.67,457.44 613.76,458.10 613.29,458.19 612.83,458.11 612.36,457.88 611.89,457.49 604.55,464.86 605.40,466.02 605.57,466.58 605.56,467.12 605.38,467.65 605.03,468.16 615.31,477.07 617.12,474.62 618.12,472.57 618.73,470.73 619.35,468.91 620.40,466.90">
-        <request index="0" response="000000000" foes="000000000"/>
-        <request index="1" response="011000000" foes="011110000"/>
-        <request index="2" response="010001000" foes="010001000"/>
-        <request index="3" response="010000000" foes="010000100"/>
-        <request index="4" response="010000010" foes="110000010"/>
-        <request index="5" response="001000010" foes="001000010"/>
-        <request index="6" response="000000000" foes="000100010"/>
-        <request index="7" response="000000000" foes="000011110"/>
-        <request index="8" response="000010000" foes="000010000"/>
+        <request index="0" response="0000000000" foes="1000100000"/>
+        <request index="1" response="0000000000" foes="1000100000"/>
+        <request index="2" response="0110000000" foes="0111100000"/>
+        <request index="3" response="0100010000" foes="0100010000"/>
+        <request index="4" response="0100000000" foes="0100001000"/>
+        <request index="5" response="0100000111" foes="1100000111"/>
+        <request index="6" response="0010000100" foes="0010000100"/>
+        <request index="7" response="0000000000" foes="0001000100"/>
+        <request index="8" response="0000000000" foes="0000111100"/>
+        <request index="9" response="0000100011" foes="0000100011"/>
     </junction>
     <junction id="1704693564" type="dead_end" x="2.11" y="0.00" incLanes="" intLanes="" shape="1.16,1.29 3.06,-1.29"/>
     <junction id="1704693568" type="dead_end" x="0.00" y="2.89" incLanes="206889079#3_0" intLanes="" shape="-0.97,4.16 0.97,1.62"/>
@@ -338,29 +339,30 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </junction>
     <junction id="9035154606" type="dead_end" x="634.96" y="529.04" incLanes="976351540#1_0 976351540#1_1 976351540#1_2" intLanes="" shape="638.17,523.74 633.31,531.78"/>
     <junction id="cluster_1652675097_1652675099_1704693785_2697454318_#9more" type="traffic_light" x="578.77" y="508.68" incLanes="318210389#0_0 318210389#0_1 318210389#0_2 318210389#0_3 206889079#1_0 -142575672#0_0 -142575672#0_1 -142575672#0_2 143308549#2_0 143308549#2_1 143308549#2_2 220198808#7_0 -52080655#2_0 -52080655#2_1 -52080655#2_2" intLanes="" shape="585.38,529.73 602.16,501.97 599.20,499.98 598.26,499.17 597.68,498.49 597.46,497.93 597.61,497.49 587.34,488.58 585.52,489.37 584.34,489.10 582.97,488.38 581.43,487.23 579.70,485.63 556.73,508.43 558.12,511.09 558.06,512.62 557.49,514.27 556.43,516.05 554.86,517.96 566.34,528.52 568.56,526.72 571.16,525.72 574.15,525.52 577.51,526.12 581.25,527.52">
-        <request index="0"  response="00000000000000000000000" foes="10000001000001000000000"/>
-        <request index="1"  response="00000000000000000000000" foes="01111011000011000000000"/>
-        <request index="2"  response="00000000000000000000000" foes="01111011000011000000000"/>
-        <request index="3"  response="00000100111000001000000" foes="01110100111111001000000"/>
-        <request index="4"  response="00000100100000001000000" foes="01000100100000101000000"/>
-        <request index="5"  response="01100100110000101000000" foes="01100100110000101000000"/>
-        <request index="6"  response="00000000000000000000000" foes="01110011000011000111000"/>
-        <request index="7"  response="00000000000000000000000" foes="00000000000000000000000"/>
-        <request index="8"  response="00000100110000000010000" foes="01100100110000000110000"/>
-        <request index="9"  response="00000101110000001001111" foes="11100101110000001001111"/>
-        <request index="10" response="00010101110000001001110" foes="00010111110000001001110"/>
-        <request index="11" response="00010000001000000001000" foes="00010000001000000001000"/>
-        <request index="12" response="00000000000000000000000" foes="00010000000100000001000"/>
-        <request index="13" response="00000000000000000000000" foes="00110000000011100101000"/>
-        <request index="14" response="00000000000000000000000" foes="01110100000011100111000"/>
-        <request index="15" response="00000100000000001000111" foes="11110100000011001000111"/>
-        <request index="16" response="00000100000010001000110" foes="00000100000010001000110"/>
-        <request index="17" response="00000000100000000000000" foes="01110011100011100111000"/>
-        <request index="18" response="00000000000000000000110" foes="00000000000000000000110"/>
-        <request index="19" response="00000101111000001001110" foes="00000101111110001001110"/>
-        <request index="20" response="00000101110001101001110" foes="00000101110001101101110"/>
-        <request index="21" response="00000101100001101011110" foes="00000101100001101111110"/>
-        <request index="22" response="00000001000001000000001" foes="00000001000001000000001"/>
+        <request index="0"  response="000000000000000000000000" foes="100000010000001000000000"/>
+        <request index="1"  response="000000000000000000000000" foes="011110110000011000000000"/>
+        <request index="2"  response="000000000000000000000000" foes="011110110000011000000000"/>
+        <request index="3"  response="000001001111000001000000" foes="011101001111111001000000"/>
+        <request index="4"  response="000001001000000001000000" foes="010001001000000101000000"/>
+        <request index="5"  response="011001001110000101000000" foes="011001001110000101000000"/>
+        <request index="6"  response="000000000000000000000000" foes="011100110000011000111000"/>
+        <request index="7"  response="000000000110000000000000" foes="000000000110000000000000"/>
+        <request index="8"  response="000001001110000000010000" foes="011001001110000000110000"/>
+        <request index="9"  response="000001011110000001001111" foes="111001011110000001001111"/>
+        <request index="10" response="000101011110000001001110" foes="000101111110000001001110"/>
+        <request index="11" response="000100000001000000001000" foes="000100000001000000001000"/>
+        <request index="12" response="000000000000000000000000" foes="000100000000100000001000"/>
+        <request index="13" response="000000000000000000000000" foes="001100000000011110101000"/>
+        <request index="14" response="000000000000000000000000" foes="001100000000011110101000"/>
+        <request index="15" response="000000000000000000000000" foes="011101000000011100111000"/>
+        <request index="16" response="000001000000000001000111" foes="111101000000011001000111"/>
+        <request index="17" response="000001000000010001000110" foes="000001000000010001000110"/>
+        <request index="18" response="000000001000000000000000" foes="011100111000011100111000"/>
+        <request index="19" response="000000000000000000000110" foes="000000000000000000000110"/>
+        <request index="20" response="000001011111000001001110" foes="000001011111110001001110"/>
+        <request index="21" response="000001011110001101001110" foes="000001011110001101101110"/>
+        <request index="22" response="000001011000001101011110" foes="000001011000001101111110"/>
+        <request index="23" response="000000010000001000000001" foes="000000010000001000000001"/>
     </junction>
     <junction id="cluster_3366620136_5836660314" type="traffic_light" x="595.42" y="487.19" incLanes="617443819#1_0 -142575672#3_0 -142575672#3_1 -142575672#3_2 142575672#1_0 142575672#1_1" intLanes="" shape="608.47,488.60 608.66,486.61 607.94,486.40 607.79,486.21 607.77,485.97 607.89,485.68 608.15,485.33 597.87,476.42 590.78,484.60 601.06,493.51 602.51,491.93 603.88,490.65 605.16,489.68 606.35,489.02 607.45,488.66">
         <request index="0" response="000" foes="000"/>
@@ -368,7 +370,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="2" response="000" foes="000"/>
     </junction>
 
-    <connection from="-142575672#0" to="976351540#1" fromLane="1" toLane="1" tl="cluster_1652675097_1652675099_1704693785_2697454318_#9more" linkIndex="7" dir="r" state="O"/>
+    <connection from="-142575672#0" to="976351540#1" fromLane="1" toLane="1" tl="cluster_1652675097_1652675099_1704693785_2697454318_#9more" linkIndex="7" dir="r" state="o"/>
     <connection from="-142575672#0" to="158236381" fromLane="1" toLane="1" tl="cluster_1652675097_1652675099_1704693785_2697454318_#9more" linkIndex="8" dir="r" state="o"/>
     <connection from="-142575672#0" to="52080655#2" fromLane="1" toLane="1" tl="cluster_1652675097_1652675099_1704693785_2697454318_#9more" linkIndex="9" dir="s" state="o"/>
     <connection from="-142575672#0" to="670062912#1" fromLane="2" toLane="2" tl="cluster_1652675097_1652675099_1704693785_2697454318_#9more" linkIndex="10" dir="l" state="o"/>
@@ -383,15 +385,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="-142575695" to="-142575672#4" fromLane="1" toLane="2" dir="l" state="m"/>
     <connection from="-142575695" to="142575695" fromLane="1" toLane="1" dir="t" state="m"/>
     <connection from="-318210373" to="-142575672#4" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="-318210373" to="-142575672#4" fromLane="1" toLane="2" dir="s" state="M"/>
     <connection from="-318210373" to="142575695" fromLane="1" toLane="1" dir="l" state="m"/>
     <connection from="-318210373" to="318210373" fromLane="1" toLane="1" dir="t" state="m"/>
     <connection from="-318210394" to="-52080655#2" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="-318210394" to="-52080655#2" fromLane="1" toLane="2" dir="s" state="M"/>
-    <connection from="-52080655#2" to="670062912#1" fromLane="1" toLane="1" tl="cluster_1652675097_1652675099_1704693785_2697454318_#9more" linkIndex="18" dir="r" state="o"/>
-    <connection from="-52080655#2" to="142575672#0" fromLane="1" toLane="1" tl="cluster_1652675097_1652675099_1704693785_2697454318_#9more" linkIndex="19" dir="s" state="o"/>
-    <connection from="-52080655#2" to="976351540#1" fromLane="2" toLane="2" tl="cluster_1652675097_1652675099_1704693785_2697454318_#9more" linkIndex="20" dir="L" state="o"/>
-    <connection from="-52080655#2" to="158236381" fromLane="2" toLane="1" tl="cluster_1652675097_1652675099_1704693785_2697454318_#9more" linkIndex="21" dir="l" state="o"/>
-    <connection from="-52080655#2" to="52080655#2" fromLane="2" toLane="1" tl="cluster_1652675097_1652675099_1704693785_2697454318_#9more" linkIndex="22" dir="t" state="o"/>
+    <connection from="-52080655#2" to="670062912#1" fromLane="1" toLane="1" tl="cluster_1652675097_1652675099_1704693785_2697454318_#9more" linkIndex="19" dir="r" state="o"/>
+    <connection from="-52080655#2" to="142575672#0" fromLane="1" toLane="1" tl="cluster_1652675097_1652675099_1704693785_2697454318_#9more" linkIndex="20" dir="s" state="o"/>
+    <connection from="-52080655#2" to="976351540#1" fromLane="2" toLane="2" tl="cluster_1652675097_1652675099_1704693785_2697454318_#9more" linkIndex="21" dir="L" state="o"/>
+    <connection from="-52080655#2" to="158236381" fromLane="2" toLane="1" tl="cluster_1652675097_1652675099_1704693785_2697454318_#9more" linkIndex="22" dir="l" state="o"/>
+    <connection from="-52080655#2" to="52080655#2" fromLane="2" toLane="1" tl="cluster_1652675097_1652675099_1704693785_2697454318_#9more" linkIndex="23" dir="t" state="o"/>
     <connection from="142575672#0" to="142575672#1" fromLane="1" toLane="1" tl="3246050929" linkIndex="2" dir="s" state="O"/>
     <connection from="142575672#1" to="142575672#3" fromLane="1" toLane="1" tl="cluster_3366620136_5836660314" linkIndex="2" dir="s" state="O"/>
     <connection from="142575672#3" to="142575672#4" fromLane="1" toLane="1" dir="s" state="M"/>
@@ -404,15 +407,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="143308549#1" to="143308549#2" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="143308549#1" to="143308549#2" fromLane="2" toLane="2" dir="s" state="M"/>
     <connection from="143308549#2" to="142575672#0" fromLane="1" toLane="1" tl="cluster_1652675097_1652675099_1704693785_2697454318_#9more" linkIndex="12" dir="r" state="O"/>
-    <connection from="143308549#2" to="976351540#1" fromLane="1" toLane="2" tl="cluster_1652675097_1652675099_1704693785_2697454318_#9more" linkIndex="13" dir="s" state="O"/>
-    <connection from="143308549#2" to="158236381" fromLane="1" toLane="1" tl="cluster_1652675097_1652675099_1704693785_2697454318_#9more" linkIndex="14" dir="s" state="O"/>
-    <connection from="143308549#2" to="52080655#2" fromLane="2" toLane="1" tl="cluster_1652675097_1652675099_1704693785_2697454318_#9more" linkIndex="15" dir="l" state="o"/>
-    <connection from="143308549#2" to="670062912#1" fromLane="2" toLane="2" tl="cluster_1652675097_1652675099_1704693785_2697454318_#9more" linkIndex="16" dir="t" state="o"/>
+    <connection from="143308549#2" to="976351540#1" fromLane="1" toLane="1" tl="cluster_1652675097_1652675099_1704693785_2697454318_#9more" linkIndex="13" dir="s" state="O"/>
+    <connection from="143308549#2" to="976351540#1" fromLane="1" toLane="2" tl="cluster_1652675097_1652675099_1704693785_2697454318_#9more" linkIndex="14" dir="s" state="O"/>
+    <connection from="143308549#2" to="158236381" fromLane="1" toLane="1" tl="cluster_1652675097_1652675099_1704693785_2697454318_#9more" linkIndex="15" dir="s" state="O"/>
+    <connection from="143308549#2" to="52080655#2" fromLane="2" toLane="1" tl="cluster_1652675097_1652675099_1704693785_2697454318_#9more" linkIndex="16" dir="l" state="o"/>
+    <connection from="143308549#2" to="670062912#1" fromLane="2" toLane="2" tl="cluster_1652675097_1652675099_1704693785_2697454318_#9more" linkIndex="17" dir="t" state="o"/>
     <connection from="206889079#0" to="206889079#1" fromLane="0" toLane="0" tl="2169462564" linkIndex="0" dir="s" state="O"/>
     <connection from="206889079#1" to="206889079#2" fromLane="0" toLane="0" tl="cluster_1652675097_1652675099_1704693785_2697454318_#9more" linkIndex="6" dir="s" state="O"/>
     <connection from="206889079#2" to="206889079#3" fromLane="0" toLane="0" tl="1906399893" linkIndex="0" dir="s" state="O"/>
     <connection from="220198808#0" to="220198808#7" fromLane="0" toLane="0" tl="1906399902" linkIndex="0" dir="s" state="O"/>
-    <connection from="220198808#7" to="158236381" fromLane="0" toLane="1" tl="cluster_1652675097_1652675099_1704693785_2697454318_#9more" linkIndex="17" dir="s" state="o"/>
+    <connection from="220198808#7" to="158236381" fromLane="0" toLane="1" tl="cluster_1652675097_1652675099_1704693785_2697454318_#9more" linkIndex="18" dir="s" state="o"/>
     <connection from="318210373" to="-318210373" fromLane="1" toLane="1" dir="t" state="M"/>
     <connection from="318210389#0" to="52080655#2" fromLane="1" toLane="1" tl="cluster_1652675097_1652675099_1704693785_2697454318_#9more" linkIndex="0" dir="r" state="O"/>
     <connection from="318210389#0" to="670062912#1" fromLane="1" toLane="1" tl="cluster_1652675097_1652675099_1704693785_2697454318_#9more" linkIndex="1" dir="s" state="O"/>

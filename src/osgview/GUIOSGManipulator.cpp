@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -43,7 +43,7 @@ StringBijection<ManipulatorMode> ModeText(ModeTextInitializer, MODE_TERRAIN, fal
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIOSGManipulator::GUIOSGManipulator(ManipulatorMode initMode, bool verticalFixed, double eyeHeight) : 
+GUIOSGManipulator::GUIOSGManipulator(ManipulatorMode initMode, bool verticalFixed, double /* eyeHeight */) :
     myCurrentMode(initMode), /*myWalkEyeHeight(eyeHeight),*/ myMoveSpeed(DEFAULT_MOVESPEED_MIN) {
     setAllowThrow(false);
     setVerticalAxisFixed(verticalFixed);

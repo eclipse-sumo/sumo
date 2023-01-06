@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -30,6 +30,7 @@
 #include <utils/options/OptionsIO.h>
 #include <utils/xml/XMLSubSys.h>
 
+#include "GNEApplicationWindow.h"
 #include "GNEEvent_NetworkLoaded.h"
 #include "GNELoadThread.h"
 #include "GNENet.h"
@@ -38,8 +39,10 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-GNELoadThread::GNELoadThread(FXApp* app, MFXInterThreadEventClient* mw, MFXSynchQue<GUIEvent*>& eq, FXEX::MFXThreadEvent& ev) :
-    MFXSingleEventThread(app, mw), myParent(mw), myEventQue(eq),
+GNELoadThread::GNELoadThread(GNEApplicationWindow* applicationWindow, MFXSynchQue<GUIEvent*>& eq, FXEX::MFXThreadEvent& ev) :
+    MFXSingleEventThread(applicationWindow->getApp(), applicationWindow),
+    myApplicationWindow(applicationWindow),
+    myEventQueue(eq),
     myEventThrow(ev) {
     myDebugRetriever = new MsgRetrievingFunction<GNELoadThread>(this, &GNELoadThread::retrieveMessage, MsgHandler::MsgType::MT_DEBUG);
     myGLDebugRetriever = new MsgRetrievingFunction<GNELoadThread>(this, &GNELoadThread::retrieveMessage, MsgHandler::MsgType::MT_GLDEBUG);
@@ -67,101 +70,131 @@ GNELoadThread::run() {
     MsgHandler::getGLDebugInstance()->addRetriever(myGLDebugRetriever);
     MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
     MsgHandler::getWarningInstance()->addRetriever(myWarningRetriever);
-
+    // declare network
     GNENet* net = nullptr;
-
-    // try to load the given configuration
-    OptionsCont& oc = OptionsCont::getOptions();
-    if (oc.getString("sumocfg-file").empty() && (myFile != "" || oc.getString("sumo-net-file") != "")) {
-        oc.clear();
-        if (!initOptions()) {
-            submitEndAndCleanup(net);
+    // declare loaded file
+    std::string loadedFile;
+    // get netedit options
+    auto &neteditOptions = OptionsCont::getOptions();
+    // check if we're loading a sumo or netconvet config file
+    if (neteditOptions.getString("sumocfg-file").size() > 0) {
+        // set sumo config as loaded file
+        loadedFile = neteditOptions.getString("sumocfg-file");
+        // declare parser for sumo config file
+        GNEApplicationWindowHelper::GNESUMOConfigHandler confighandler(myApplicationWindow->getSUMOOptions(), loadedFile);
+        // if there is an error loading sumo config, stop
+        if (!confighandler.loadSUMOConfig()) {
+            WRITE_ERROR("Loading of sumo config file '" + loadedFile + "' failed.");
+            submitEndAndCleanup(net, loadedFile);
             return 0;
         }
-    }
-    if (oc.isDefault("aggregate-warnings")) {
-        oc.setDefault("aggregate-warnings", "5");
-    }
-    MsgHandler::initOutputOptions();
-    if (!(NIFrame::checkOptions() &&
-            NBFrame::checkOptions() &&
-            NWFrame::checkOptions() &&
-            SystemFrame::checkOptions())) {
-        // options are not valid
-        WRITE_ERROR(TL("Invalid Options. Nothing loaded"));
-        submitEndAndCleanup(net);
+    } else if (neteditOptions.getString("configuration-file").size() > 0) {
+        // set netedit config as loaded file
+        loadedFile = neteditOptions.getString("configuration-file");
+        // declare parser for netedit config file
+        GNEApplicationWindowHelper::GNENETEDITConfigHandler confighandler(loadedFile);
+        // if there is an error loading sumo config, stop
+        if (!confighandler.loadNETEDITConfig()) {
+            WRITE_ERROR("Loading of netedit config file '" + loadedFile + "' failed.");
+            submitEndAndCleanup(net, loadedFile);
+            return 0;
+        }
+    } else if (neteditOptions.getString("net-file").size() > 0) {
+        // set netwok as loadedFile
+        loadedFile = neteditOptions.getString("net-file");
+        if (!resetOptions(loadedFile, false)) {
+            submitEndAndCleanup(net, loadedFile);
+            return 0;
+        }
+    } else if (!myNewNet) {
+        WRITE_ERROR("Invalid input network option. Load with either sumo/netedit/netconvert config or with -new option");
+        submitEndAndCleanup(net, loadedFile);
         return 0;
     }
+    // update aggregate warnings
+    if (neteditOptions.isDefault("aggregate-warnings")) {
+        neteditOptions.setDefault("aggregate-warnings", "5");
+    }
+    // init output options
+    MsgHandler::initOutputOptions();
+    // if there is an error checking options, stop
+    if (!(NIFrame::checkOptions() &&
+          NBFrame::checkOptions() &&
+          NWFrame::checkOptions() &&
+          SystemFrame::checkOptions())) {
+        // options are not valid
+        WRITE_ERROR(TL("Invalid Options. Nothing loaded"));
+        submitEndAndCleanup(net, loadedFile);
+        return 0;
+    }
+    // clear message instances
     MsgHandler::getGLDebugInstance()->clear();
     MsgHandler::getDebugInstance()->clear();
     MsgHandler::getErrorInstance()->clear();
     MsgHandler::getWarningInstance()->clear();
     MsgHandler::getMessageInstance()->clear();
-
+    // init global random seed
     RandHelper::initRandGlobal();
-    if (!GeoConvHelper::init(oc)) {
+    // check if geo projection can be inited
+    if (!GeoConvHelper::init(neteditOptions)) {
         WRITE_ERROR(TL("Could not build projection!"));
-        submitEndAndCleanup(net);
+        submitEndAndCleanup(net, loadedFile);
         return 0;
     }
-    XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"), oc.getString("xml-validation.routes"));
+    // set validation
+    XMLSubSys::setValidation(neteditOptions.getString("xml-validation"), neteditOptions.getString("xml-validation.net"), neteditOptions.getString("xml-validation.routes"));
     // check if Debug has to be enabled
-    MsgHandler::enableDebugMessages(oc.getBool("gui-testing-debug"));
+    MsgHandler::enableDebugMessages(neteditOptions.getBool("gui-testing-debug"));
     // check if GL Debug has to be enabled
-    MsgHandler::enableDebugGLMessages(oc.getBool("gui-testing-debug-gl"));
-    // this netbuilder instance becomes the responsibility of the GNENet
+    MsgHandler::enableDebugGLMessages(neteditOptions.getBool("gui-testing-debug-gl"));
+    // create netBuilder (will be destroyed in GNENet destructor)
     NBNetBuilder* netBuilder = new NBNetBuilder();
-
-    netBuilder->applyOptions(oc);
-
+    // apply netedit options in netBuilder. In this options we have all information for building network
+    netBuilder->applyOptions(neteditOptions);
+    // check if create a new net
     if (myNewNet) {
         // create new network
         net = new GNENet(netBuilder);
     } else {
+        // declare net loader 
         NILoader nl(*netBuilder);
         try {
-            nl.load(oc);
-
-            if (!myLoadNet) {
-                WRITE_MESSAGE(TL("Performing initial computation ...\n"));
-                // perform one-time processing (i.e. edge removal)
-                netBuilder->compute(oc);
-                // @todo remove one-time processing options!
-            } else {
+            // try to load network using netedit options
+            nl.load(neteditOptions);
+            if (myLoadNet) {
                 // make coordinate conversion usable before first netBuilder->compute()
                 GeoConvHelper::computeFinal();
+            } else {
+                WRITE_MESSAGE(TL("Performing initial computation ...\n"));
+                // perform one-time processing (i.e. edge removal)
+                netBuilder->compute(neteditOptions);
+                // @todo remove one-time processing options!
             }
-
-            if (oc.getBool("ignore-errors")) {
+            // check if ignore errors
+            if (neteditOptions.getBool("ignore-errors")) {
                 MsgHandler::getErrorInstance()->clear();
             }
-
             // check whether any errors occurred
             if (MsgHandler::getErrorInstance()->wasInformed()) {
                 throw ProcessError();
             } else {
+                // now create net with al information loaded in net builder
                 net = new GNENet(netBuilder);
-                if (oc.getBool("lefthand")) {
+                // chek if change traffic direction
+                if (neteditOptions.getBool("lefthand")) {
                     // force initial geometry computation without volatile options because the net will look strange otherwise
-                    net->computeAndUpdate(oc, false);
+                    net->computeAndUpdate(neteditOptions, false);
                 }
-                if (oc.getString("prefix").size() > 0) {
+                // check if add prefixes
+                if (neteditOptions.getString("prefix").size() > 0) {
                     // change prefixes in attributeCarriers
-                    net->getAttributeCarriers()->addPrefixToEdges(oc.getString("prefix"));
-                    net->getAttributeCarriers()->addPrefixToJunctions(oc.getString("prefix"));
+                    net->getAttributeCarriers()->addPrefixToEdges(neteditOptions.getString("prefix"));
+                    net->getAttributeCarriers()->addPrefixToJunctions(neteditOptions.getString("prefix"));
                     // change prefix in containers
-                    net->getNetBuilder()->getNodeCont().addPrefix(oc.getString("prefix"));
-                    net->getNetBuilder()->getEdgeCont().addPrefix(oc.getString("prefix"));
+                    net->getNetBuilder()->getNodeCont().addPrefix(neteditOptions.getString("prefix"));
+                    net->getNetBuilder()->getEdgeCont().addPrefix(neteditOptions.getString("prefix"));
                 }
             }
-            if (myFile == "") {
-                if (oc.isSet("configuration-file")) {
-                    myFile = oc.getString("configuration-file");
-                } else if (oc.isSet("sumo-net-file")) {
-                    myFile = oc.getString("sumo-net-file");
-                }
-            }
-
         } catch (ProcessError& e) {
             if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
                 WRITE_ERROR(e.what());
@@ -171,27 +204,31 @@ GNELoadThread::run() {
             if (net != nullptr) {
                 delete net;
                 net = nullptr;
+            } else {
+                // GNENet not created, then delete netBuilder
+                delete netBuilder;
             }
-            delete netBuilder;
         } catch (std::exception& e) {
             WRITE_ERROR(e.what());
             // check if delete network
             if (net != nullptr) {
                 delete net;
                 net = nullptr;
+            } else {
+                // GNENet not created, then delete netBuilder
+                delete netBuilder;
             }
-            delete netBuilder;
         }
     }
     // only a single setting file is supported
-    submitEndAndCleanup(net, myNewNet, oc.getString("gui-settings-file"), oc.getBool("registry-viewport"));
+    submitEndAndCleanup(net, loadedFile, neteditOptions.getString("gui-settings-file"), neteditOptions.getBool("registry-viewport"));
     return 0;
 }
 
 
 
 void
-GNELoadThread::submitEndAndCleanup(GNENet* net, const bool newNet, const std::string& guiSettingsFile, const bool viewportFromRegistry) {
+GNELoadThread::submitEndAndCleanup(GNENet* net, const std::string &loadedFile, const std::string& guiSettingsFile, const bool viewportFromRegistry) {
     // remove message callbacks
     MsgHandler::getDebugInstance()->removeRetriever(myDebugRetriever);
     MsgHandler::getGLDebugInstance()->removeRetriever(myGLDebugRetriever);
@@ -199,234 +236,233 @@ GNELoadThread::submitEndAndCleanup(GNENet* net, const bool newNet, const std::st
     MsgHandler::getWarningInstance()->removeRetriever(myWarningRetriever);
     MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);
     // inform parent about the process
-    GUIEvent* e = new GNEEvent_NetworkLoaded(net, newNet, myFile, guiSettingsFile, viewportFromRegistry);
-    myEventQue.push_back(e);
+    myEventQueue.push_back(new GNEEvent_NetworkLoaded(net, myNewNet, loadedFile, guiSettingsFile, viewportFromRegistry));
     myEventThrow.signal();
 }
 
 
 void
-GNELoadThread::fillOptions(OptionsCont& oc) {
-    oc.clear();
-    oc.addCallExample("--new", "start plain GUI with empty net");
-    oc.addCallExample("-s <SUMO_NET>", "edit SUMO network");
-    oc.addCallExample("-c <CONFIGURATION>", "edit net with options read from file");
+GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
+    neteditOptions.clear();
+    neteditOptions.addCallExample("--new", "start plain GUI with empty net");
+    neteditOptions.addCallExample("-s <SUMO_NET>", "open a SUMO network");
+    neteditOptions.addCallExample("-c <CONFIGURATION>", "open a configuration file (NETEDIT o NETCONVERT config)");
+    neteditOptions.addCallExample("-sumocfg-file <CONFIGURATION>", "open a SUMO config file");
 
-    SystemFrame::addConfigurationOptions(oc); // this subtopic is filled here, too
-    oc.addOptionSubTopic("Input");
-    oc.addOptionSubTopic("Output");
-    GeoConvHelper::addProjectionOptions(oc);
-    oc.addOptionSubTopic("Processing");
-    oc.addOptionSubTopic("Building Defaults");
-    oc.addOptionSubTopic("TLS Building");
-    oc.addOptionSubTopic("Ramp Guessing");
-    oc.addOptionSubTopic("Edge Removal");
-    oc.addOptionSubTopic("Unregulated Nodes");
-    oc.addOptionSubTopic("Junctions");
-    oc.addOptionSubTopic("Pedestrian");
-    oc.addOptionSubTopic("Bicycle");
-    oc.addOptionSubTopic("Railway");
-    oc.addOptionSubTopic("Formats");
-    oc.addOptionSubTopic("Netedit");
-    oc.addOptionSubTopic("Visualisation");
-    oc.addOptionSubTopic("Time");
+    SystemFrame::addConfigurationOptions(neteditOptions); // this subtopic is filled here, too
+    neteditOptions.addOptionSubTopic("Input");
+    neteditOptions.addOptionSubTopic("Output");
+    GeoConvHelper::addProjectionOptions(neteditOptions);
+    neteditOptions.addOptionSubTopic("Processing");
+    neteditOptions.addOptionSubTopic("Building Defaults");
+    neteditOptions.addOptionSubTopic("TLS Building");
+    neteditOptions.addOptionSubTopic("Ramp Guessing");
+    neteditOptions.addOptionSubTopic("Edge Removal");
+    neteditOptions.addOptionSubTopic("Unregulated Nodes");
+    neteditOptions.addOptionSubTopic("Junctions");
+    neteditOptions.addOptionSubTopic("Pedestrian");
+    neteditOptions.addOptionSubTopic("Bicycle");
+    neteditOptions.addOptionSubTopic("Railway");
+    neteditOptions.addOptionSubTopic("Formats");
+    neteditOptions.addOptionSubTopic("Netedit");
+    neteditOptions.addOptionSubTopic("Visualisation");
+    neteditOptions.addOptionSubTopic("Time");
 
-    oc.doRegister("new", new Option_Bool(false)); // !!!
-    oc.addDescription("new", "Input", "Start with a new network");
+    // TOPIC: Input
 
-    // files
-    oc.doRegister("sumocfg-file", new Option_FileName());
-    oc.addSynonyme("sumocfg-file", "sumocfg");
-    oc.addDescription("sumocfg-file", "Netedit", "Load sumocfg");
+    neteditOptions.doRegister("sumocfg-file", new Option_FileName());
+    neteditOptions.addSynonyme("sumocfg-file", "sumocfg");
+    neteditOptions.addDescription("sumocfg-file", "Input", "load sumo config");
 
-    oc.doRegister("SUMOcfg-output", new Option_String());
-    oc.addDescription("SUMOcfg-output", "Netedit", "file in which SUMOCOnfig must be saved");
+    neteditOptions.doRegister("additional-files", 'a', new Option_FileName());
+    neteditOptions.addSynonyme("additional-files", "additional");
+    neteditOptions.addDescription("additional-files", "Input", "load additional and shapes descriptions from FILE(s)");
 
-    oc.doRegister("additional-files", 'a', new Option_FileName());
-    oc.addSynonyme("additional-files", "additional");
-    oc.addDescription("additional-files", "Netedit", "Load additional and shapes descriptions from FILE(s)");
+    neteditOptions.doRegister("route-files", 'r', new Option_FileName());
+    neteditOptions.addSynonyme("route-files", "routes");
+    neteditOptions.addDescription("route-files", "Input", "load demand elements descriptions from FILE(s)");
 
-    oc.doRegister("additionals-output", new Option_String());
-    oc.addDescription("additionals-output", "Netedit", "file in which additionals must be saved");
+    neteditOptions.doRegister("data-files", 'd', new Option_FileName());
+    neteditOptions.addSynonyme("data-files", "data");
+    neteditOptions.addDescription("data-files", "Input", "load data elements descriptions from FILE(s)");
 
-    oc.doRegister("route-files", 'r', new Option_FileName());
-    oc.addSynonyme("route-files", "routes");
-    oc.addDescription("route-files", "Netedit", "Load demand elements descriptions from FILE(s)");
+    neteditOptions.doRegister("meandata-files", 'm', new Option_FileName());
+    neteditOptions.addSynonyme("meandata-files", "meandata");
+    neteditOptions.addDescription("meandata-files", "Input", "load meanData descriptions from FILE(s)");
 
-    oc.doRegister("demandelements-output", new Option_String());
-    oc.addDescription("demandelements-output", "Netedit", "file in which demand elements must be saved");
+    // TOPIC: Output
 
-    oc.doRegister("data-files", 'd', new Option_FileName());
-    oc.addSynonyme("data-files", "data");
-    oc.addDescription("data-files", "Netedit", "Load data elements descriptions from FILE(s)");
+    neteditOptions.doRegister("tls-output", new Option_String());
+    neteditOptions.addSynonyme("tls-output", "TLSPrograms-output");
+    neteditOptions.addDescription("tls-output", "Output", "file in which TLS Programs must be saved");
 
-    oc.doRegister("dataelements-output", new Option_String());
-    oc.addDescription("dataelements-output", "Netedit", "file in which data elements must be saved");
+    neteditOptions.doRegister("edgeTypes-output", new Option_String());
+    neteditOptions.addDescription("edgeTypes-output", "Output", "file in which edgeTypes must be saved");
 
-    oc.doRegister("meandata-files", 'm', new Option_FileName());
-    oc.addSynonyme("meandata-files", "meandata");
-    oc.addDescription("meandata-files", "Netedit", "Load meanData descriptions from FILE(s)");
+    // TOPIC: Netedit
 
-    oc.doRegister("meandatas-output", new Option_String());
-    oc.addDescription("meandatas-output", "Netedit", "file in which meandatas must be saved");
-
-    oc.doRegister("TLSPrograms-output", new Option_String());
-    oc.addDescription("TLSPrograms-output", "Netedit", "file in which TLS Programs must be saved");
-
-    oc.doRegister("edgeTypes-output", new Option_String());
-    oc.addDescription("edgeTypes-output", "Netedit", "file in which edgeTypes must be saved");
+    neteditOptions.doRegister("new-network", new Option_Bool(false));
+    neteditOptions.addSynonyme("new-network", "new");
+    neteditOptions.addDescription("new-network", "Netedit", "start netedit with a new network");
 
     // network prefixes
 
-    oc.doRegister("node-prefix", new Option_String("J"));
-    oc.addDescription("node-prefix", "Netedit", "prefix for node naming");
+    neteditOptions.doRegister("node-prefix", new Option_String("J"));
+    neteditOptions.addDescription("node-prefix", "Netedit", "prefix for node naming");
 
-    oc.doRegister("edge-prefix", new Option_String("E"));
-    oc.addDescription("edge-prefix", "Netedit", "prefix for edge naming");
+    neteditOptions.doRegister("edge-prefix", new Option_String("E"));
+    neteditOptions.addDescription("edge-prefix", "Netedit", "prefix for edge naming");
 
-    oc.doRegister("edge-infix", new Option_String(""));
-    oc.addDescription("edge-infix", "Netedit", "enable edge-infix (<fromNodeID><infix><toNodeID>)");
+    neteditOptions.doRegister("edge-infix", new Option_String(""));
+    neteditOptions.addDescription("edge-infix", "Netedit", "enable edge-infix (<fromNodeID><infix><toNodeID>)");
 
     // additional prefixes
 
-    oc.doRegister("busStop-prefix", new Option_String("bs"));
-    oc.addDescription("busStop-prefix", "Netedit", "prefix for busStop naming");
+    neteditOptions.doRegister("busStop-prefix", new Option_String("bs"));
+    neteditOptions.addDescription("busStop-prefix", "Netedit", "prefix for busStop naming");
 
-    oc.doRegister("trainStop-prefix", new Option_String("ts"));
-    oc.addDescription("trainStop-prefix", "Netedit", "prefix for trainStop naming");
+    neteditOptions.doRegister("trainStop-prefix", new Option_String("ts"));
+    neteditOptions.addDescription("trainStop-prefix", "Netedit", "prefix for trainStop naming");
 
-    oc.doRegister("containerStop-prefix", new Option_String("ct"));
-    oc.addDescription("containerStop-prefix", "Netedit", "prefix for containerStop naming");
+    neteditOptions.doRegister("containerStop-prefix", new Option_String("ct"));
+    neteditOptions.addDescription("containerStop-prefix", "Netedit", "prefix for containerStop naming");
 
-    oc.doRegister("chargingStation-prefix", new Option_String("cs"));
-    oc.addDescription("chargingStation-prefix", "Netedit", "prefix for chargingStation naming");
+    neteditOptions.doRegister("chargingStation-prefix", new Option_String("cs"));
+    neteditOptions.addDescription("chargingStation-prefix", "Netedit", "prefix for chargingStation naming");
 
-    oc.doRegister("parkingArea-prefix", new Option_String("pa"));
-    oc.addDescription("parkingArea-prefix", "Netedit", "prefix for parkingArea naming");
+    neteditOptions.doRegister("parkingArea-prefix", new Option_String("pa"));
+    neteditOptions.addDescription("parkingArea-prefix", "Netedit", "prefix for parkingArea naming");
 
-    oc.doRegister("e1Detector-prefix", new Option_String("e1"));
-    oc.addDescription("e1Detector-prefix", "Netedit", "prefix for e1Detector naming");
+    neteditOptions.doRegister("e1Detector-prefix", new Option_String("e1"));
+    neteditOptions.addDescription("e1Detector-prefix", "Netedit", "prefix for e1Detector naming");
 
-    oc.doRegister("e2Detector-prefix", new Option_String("e2"));
-    oc.addDescription("e2Detector-prefix", "Netedit", "prefix for e2Detector naming");
+    neteditOptions.doRegister("e2Detector-prefix", new Option_String("e2"));
+    neteditOptions.addDescription("e2Detector-prefix", "Netedit", "prefix for e2Detector naming");
 
-    oc.doRegister("e3Detector-prefix", new Option_String("e3"));
-    oc.addDescription("e3Detector-prefix", "Netedit", "prefix for e3Detector naming");
+    neteditOptions.doRegister("e3Detector-prefix", new Option_String("e3"));
+    neteditOptions.addDescription("e3Detector-prefix", "Netedit", "prefix for e3Detector naming");
 
-    oc.doRegister("e1InstantDetector-prefix", new Option_String("e1i"));
-    oc.addDescription("e1InstantDetector-prefix", "Netedit", "prefix for e1InstantDetector naming");
+    neteditOptions.doRegister("e1InstantDetector-prefix", new Option_String("e1i"));
+    neteditOptions.addDescription("e1InstantDetector-prefix", "Netedit", "prefix for e1InstantDetector naming");
 
-    oc.doRegister("rerouter-prefix", new Option_String("rr"));
-    oc.addDescription("rerouter-prefix", "Netedit", "prefix for rerouter naming");
+    neteditOptions.doRegister("rerouter-prefix", new Option_String("rr"));
+    neteditOptions.addDescription("rerouter-prefix", "Netedit", "prefix for rerouter naming");
 
-    oc.doRegister("calibrator-prefix", new Option_String("ca"));
-    oc.addDescription("calibrator-prefix", "Netedit", "prefix for calibrator naming");
+    neteditOptions.doRegister("calibrator-prefix", new Option_String("ca"));
+    neteditOptions.addDescription("calibrator-prefix", "Netedit", "prefix for calibrator naming");
 
-    oc.doRegister("routeProbe-prefix", new Option_String("rp"));
-    oc.addDescription("routeProbe-prefix", "Netedit", "prefix for routeProbe naming");
+    neteditOptions.doRegister("routeProbe-prefix", new Option_String("rp"));
+    neteditOptions.addDescription("routeProbe-prefix", "Netedit", "prefix for routeProbe naming");
 
-    oc.doRegister("vss-prefix", new Option_String("vs"));
-    oc.addDescription("vss-prefix", "Netedit", "prefix for variable speed sign naming");
+    neteditOptions.doRegister("vss-prefix", new Option_String("vs"));
+    neteditOptions.addDescription("vss-prefix", "Netedit", "prefix for variable speed sign naming");
 
-    oc.doRegister("tractionSubstation-prefix", new Option_String("tr"));
-    oc.addDescription("tractionSubstation-prefix", "Netedit", "prefix for traction substation naming");
+    neteditOptions.doRegister("tractionSubstation-prefix", new Option_String("tr"));
+    neteditOptions.addDescription("tractionSubstation-prefix", "Netedit", "prefix for traction substation naming");
 
-    oc.doRegister("overheadWire-prefix", new Option_String("ow"));
-    oc.addDescription("overheadWire-prefix", "Netedit", "prefix for overhead wire naming");
+    neteditOptions.doRegister("overheadWire-prefix", new Option_String("ow"));
+    neteditOptions.addDescription("overheadWire-prefix", "Netedit", "prefix for overhead wire naming");
 
-    oc.doRegister("polygon-prefix", new Option_String("po"));
-    oc.addDescription("polygon-prefix", "Netedit", "prefix for polygon naming");
+    neteditOptions.doRegister("polygon-prefix", new Option_String("po"));
+    neteditOptions.addDescription("polygon-prefix", "Netedit", "prefix for polygon naming");
 
-    oc.doRegister("poi-prefix", new Option_String("poi"));
-    oc.addDescription("poi-prefix", "Netedit", "prefix for poi naming");
+    neteditOptions.doRegister("poi-prefix", new Option_String("poi"));
+    neteditOptions.addDescription("poi-prefix", "Netedit", "prefix for poi naming");
 
     // demand prefixes
 
-    oc.doRegister("route-prefix", new Option_String("r"));
-    oc.addDescription("route-prefix", "Netedit", "prefix for route naming");
+    neteditOptions.doRegister("route-prefix", new Option_String("r"));
+    neteditOptions.addDescription("route-prefix", "Netedit", "prefix for route naming");
 
-    oc.doRegister("vType-prefix", new Option_String("t"));
-    oc.addDescription("vType-prefix", "Netedit", "prefix for vType naming");
+    neteditOptions.doRegister("vType-prefix", new Option_String("t"));
+    neteditOptions.addDescription("vType-prefix", "Netedit", "prefix for vType naming");
 
-    oc.doRegister("vehicle-prefix", new Option_String("v"));
-    oc.addDescription("vehicle-prefix", "Netedit", "prefix for vehicle naming");
+    neteditOptions.doRegister("vehicle-prefix", new Option_String("v"));
+    neteditOptions.addDescription("vehicle-prefix", "Netedit", "prefix for vehicle naming");
 
-    oc.doRegister("trip-prefix", new Option_String("t"));
-    oc.addDescription("trip-prefix", "Netedit", "prefix for trip naming");
+    neteditOptions.doRegister("trip-prefix", new Option_String("t"));
+    neteditOptions.addDescription("trip-prefix", "Netedit", "prefix for trip naming");
 
-    oc.doRegister("flow-prefix", new Option_String("f"));
-    oc.addDescription("flow-prefix", "Netedit", "prefix for flow naming");
+    neteditOptions.doRegister("flow-prefix", new Option_String("f"));
+    neteditOptions.addDescription("flow-prefix", "Netedit", "prefix for flow naming");
 
-    oc.doRegister("person-prefix", new Option_String("p"));
-    oc.addDescription("person-prefix", "Netedit", "prefix for person naming");
+    neteditOptions.doRegister("person-prefix", new Option_String("p"));
+    neteditOptions.addDescription("person-prefix", "Netedit", "prefix for person naming");
 
-    oc.doRegister("personflow-prefix", new Option_String("pf"));
-    oc.addDescription("personflow-prefix", "Netedit", "prefix for personFlow naming");
+    neteditOptions.doRegister("personflow-prefix", new Option_String("pf"));
+    neteditOptions.addDescription("personflow-prefix", "Netedit", "prefix for personFlow naming");
 
-    oc.doRegister("container-prefix", new Option_String("c"));
-    oc.addDescription("container-prefix", "Netedit", "prefix for container naming");
+    neteditOptions.doRegister("container-prefix", new Option_String("c"));
+    neteditOptions.addDescription("container-prefix", "Netedit", "prefix for container naming");
 
-    oc.doRegister("containerflow-prefix", new Option_String("cf"));
-    oc.addDescription("containerflow-prefix", "Netedit", "prefix for containerFlow naming");
+    neteditOptions.doRegister("containerflow-prefix", new Option_String("cf"));
+    neteditOptions.addDescription("containerflow-prefix", "Netedit", "prefix for containerFlow naming");
 
     // data prefixes
 
-    // additional prefixes
+    // mean data prefixes
 
-    oc.doRegister("meanDataEdge-prefix", new Option_String("ed"));
-    oc.addDescription("meanDataEdge-prefix", "Netedit", "prefix for meanDataEdge naming");
+    neteditOptions.doRegister("meanDataEdge-prefix", new Option_String("ed"));
+    neteditOptions.addDescription("meanDataEdge-prefix", "Netedit", "prefix for meanDataEdge naming");
 
-    // additional prefixes
+    neteditOptions.doRegister("meanDataLane-prefix", new Option_String("ld"));
+    neteditOptions.addDescription("meanDataLane-prefix", "Netedit", "prefix for meanDataLane naming");
 
-    oc.doRegister("meanDataLane-prefix", new Option_String("ld"));
-    oc.addDescription("meanDataLane-prefix", "Netedit", "prefix for meanDataLane naming");
+    // TOPIC: Visualisation
 
-    // drawing
+    // textures
 
-    oc.doRegister("disable-laneIcons", new Option_Bool(false));
-    oc.addDescription("disable-laneIcons", "Visualisation", "Disable icons of special lanes");
+    neteditOptions.doRegister("disable-laneIcons", new Option_Bool(false));
+    neteditOptions.addDescription("disable-laneIcons", "Visualisation", "Disable icons of special lanes");
 
-    oc.doRegister("disable-textures", 'T', new Option_Bool(false)); // !!!
-    oc.addDescription("disable-textures", "Visualisation", "");
+    neteditOptions.doRegister("disable-textures", 'T', new Option_Bool(false)); // !!!
+    neteditOptions.addDescription("disable-textures", "Visualisation", "");
 
-    oc.doRegister("gui-settings-file", 'g', new Option_FileName());
-    oc.addDescription("gui-settings-file", "Visualisation", "Load visualisation settings from FILE");
+    neteditOptions.doRegister("gui-settings-file", 'g', new Option_FileName());
+    neteditOptions.addDescription("gui-settings-file", "Visualisation", "Load visualisation settings from FILE");
 
-    oc.doRegister("registry-viewport", new Option_Bool(false));
-    oc.addDescription("registry-viewport", "Visualisation", "Load current viewport from registry");
+    // windows position
 
-    oc.doRegister("window-size", new Option_StringVector());
-    oc.addDescription("window-size", "Visualisation", "Create initial window with the given x,y size");
+    neteditOptions.doRegister("registry-viewport", new Option_Bool(false));
+    neteditOptions.addDescription("registry-viewport", "Visualisation", "Load current viewport from registry");
 
-    oc.doRegister("window-pos", new Option_StringVector());
-    oc.addDescription("window-pos", "Visualisation", "Create initial window at the given x,y position");
+    neteditOptions.doRegister("window-size", new Option_StringVector());
+    neteditOptions.addDescription("window-size", "Visualisation", "Create initial window with the given x,y size");
+
+    neteditOptions.doRegister("window-pos", new Option_StringVector());
+    neteditOptions.addDescription("window-pos", "Visualisation", "Create initial window at the given x,y position");
 
     // testing
 
-    oc.doRegister("gui-testing", new Option_Bool(false));
-    oc.addDescription("gui-testing", "Visualisation", "Enable overlay for screen recognition");
+    neteditOptions.doRegister("gui-testing", new Option_Bool(false));
+    neteditOptions.addDescription("gui-testing", "Visualisation", "Enable overlay for screen recognition");
 
-    oc.doRegister("gui-testing-debug", new Option_Bool(false));
-    oc.addDescription("gui-testing-debug", "Visualisation", "Enable output messages during GUI-Testing");
+    neteditOptions.doRegister("gui-testing-debug", new Option_Bool(false));
+    neteditOptions.addDescription("gui-testing-debug", "Visualisation", "Enable output messages during GUI-Testing");
 
-    oc.doRegister("gui-testing-debug-gl", new Option_Bool(false));
-    oc.addDescription("gui-testing-debug-gl", "Visualisation", "Enable output messages during GUI-Testing specific of gl functions");
+    neteditOptions.doRegister("gui-testing-debug-gl", new Option_Bool(false));
+    neteditOptions.addDescription("gui-testing-debug-gl", "Visualisation", "Enable output messages during GUI-Testing specific of gl functions");
 
-    oc.doRegister("gui-testing.setting-output", new Option_FileName());
-    oc.addDescription("gui-testing.setting-output", "Visualisation", "Save gui settings in the given settings-output file");
+    neteditOptions.doRegister("gui-testing.setting-output", new Option_FileName());
+    neteditOptions.addDescription("gui-testing.setting-output", "Visualisation", "Save gui settings in the given settings-output file");
+
+    // TOPIC: Time
 
     // register the simulation settings (needed for GNERouteHandler)
-    oc.doRegister("begin", new Option_String("0", "TIME"));
-    oc.addDescription("begin", "Time", "Defines the begin time in seconds; The simulation starts at this time");
 
-    oc.doRegister("end", new Option_String("-1", "TIME"));
-    oc.addDescription("end", "Time", "Defines the end time in seconds; The simulation ends at this time");
+    neteditOptions.doRegister("begin", new Option_String("0", "TIME"));
+    neteditOptions.addDescription("begin", "Time", "Defines the begin time in seconds; The simulation starts at this time");
 
-    oc.doRegister("default.action-step-length", new Option_Float(0.0));
-    oc.addDescription("default.action-step-length", "Processing", "Length of the default interval length between action points for the car-following and lane-change models (in seconds). If not specified, the simulation step-length is used per default. Vehicle- or VType-specific settings override the default. Must be a multiple of the simulation step-length.");
+    neteditOptions.doRegister("end", new Option_String("-1", "TIME"));
+    neteditOptions.addDescription("end", "Time", "Defines the end time in seconds; The simulation ends at this time");
 
-    oc.doRegister("default.speeddev", new Option_Float(-1));
-    oc.addDescription("default.speeddev", "Processing", "Select default speed deviation. A negative value implies vClass specific defaults (0.1 for the default passenger class");
+    neteditOptions.doRegister("default.action-step-length", new Option_Float(0.0));
+    neteditOptions.addDescription("default.action-step-length", "Processing", "Length of the default interval length between action points for the car-following and lane-change models (in seconds). If not specified, the simulation step-length is used per default. Vehicle- or VType-specific settings override the default. Must be a multiple of the simulation step-length.");
+
+    neteditOptions.doRegister("default.speeddev", new Option_Float(-1));
+    neteditOptions.addDescription("default.speeddev", "Processing", "Select default speed deviation. A negative value implies vClass specific defaults (0.1 for the default passenger class");
+
+    // fill rest of options
 
     NIFrame::fillOptions(true);
     NBFrame::fillOptions(false);
@@ -436,64 +472,90 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
 
 
 void
-GNELoadThread::setDefaultOptions(OptionsCont& oc) {
-    oc.resetWritable();
-    oc.set("offset.disable-normalization", "true"); // preserve the given network as far as possible
-    oc.set("no-turnarounds", "true"); // otherwise it is impossible to manually removed turn-arounds
+GNELoadThread::setDefaultOptions(OptionsCont& neteditOptions) {
+    neteditOptions.resetWritable();
+    neteditOptions.set("offset.disable-normalization", "true"); // preserve the given network as far as possible
+    neteditOptions.set("no-turnarounds", "true"); // otherwise it is impossible to manually removed turn-arounds
 }
 
 
 bool
-GNELoadThread::initOptions() {
-    OptionsCont& oc = OptionsCont::getOptions();
-    // fill all options
-    fillOptions(oc);
-    // set manually the net file
-    if (myFile != "") {
-        if (myLoadNet) {
-            oc.set("sumo-net-file", myFile);
-        } else {
-            oc.set("configuration-file", myFile);
-        }
-    }
+GNELoadThread::resetOptions(const std::string &file, const bool configuration) {
+    auto &neteditOptions = OptionsCont::getOptions();
+    // fill (reset) all options
+    fillOptions(neteditOptions);
     // set default options defined in GNELoadThread::setDefaultOptions(...)
-    setDefaultOptions(oc);
+    setDefaultOptions(neteditOptions);
+    // check if is a configuration (needed for parsing configuration file)
+    if (configuration) {
+        neteditOptions.set("configuration-file", file);
+    } else {
+        neteditOptions.set("net-file", file);
+    }
     try {
         // set all values writable, because certain attributes already setted can be updated through console
-        oc.resetWritable();
+        neteditOptions.resetWritable();
         // load options from console
         OptionsIO::getOptions();
-        // if output file wasn't defined in the command line manually, set value of "sumo-net-file"
-        if (!oc.isSet("output-file")) {
-            oc.set("output-file", oc.getString("sumo-net-file"));
-        }
         return true;
     } catch (ProcessError& e) {
         if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
             WRITE_ERROR(e.what());
         }
-        WRITE_ERROR(TL("Failed to parse options."));
+        WRITE_ERROR(TL("Failed to reset options."));
         return false;
     }
 }
 
 
 void
-GNELoadThread::loadConfigOrNet(const std::string& file, const bool isNet, const bool useStartupOptions, const bool newNet) {
-    myFile = file;
-    myLoadNet = isNet;
-    if (myFile != "" && !useStartupOptions) {
-        OptionsIO::setArgs(0, nullptr);
-    }
-    myNewNet = newNet;
+GNELoadThread::resetFileOptions() {
+    auto &neteditOptions = OptionsCont::getOptions();
+    // reset netedit files
+    neteditOptions.resetWritable();
+    neteditOptions.set("configuration-file", "");
+    neteditOptions.set("sumocfg-file", "");
+    neteditOptions.set("net-file", "");
+    neteditOptions.set("additional-files", "");
+    neteditOptions.set("route-files", "");
+    neteditOptions.set("data-files", "");
+    neteditOptions.set("meandata-files", "");
+}
+
+
+void
+GNELoadThread::createNewNetwork() {
+    // set flags
+    myLoadNet = false;
+    myNewNet = true;
+    // start thread
+    start();
+}
+
+
+void
+GNELoadThread::loadNetwork() {
+    // set flags
+    myLoadNet = true;
+    myNewNet = false;
+    // start thread
+    start();
+}
+
+
+void
+GNELoadThread::loadConfig() {
+    // set flags
+    myLoadNet = false;
+    myNewNet = false;
+    // start thread
     start();
 }
 
 
 void
 GNELoadThread::retrieveMessage(const MsgHandler::MsgType type, const std::string& msg) {
-    GUIEvent* e = new GUIEvent_Message(type, msg);
-    myEventQue.push_back(e);
+    myEventQueue.push_back(new GUIEvent_Message(type, msg));
     myEventThrow.signal();
 }
 

@@ -13,7 +13,7 @@ GLDebug: 	Inserted rerouter:customID into SUMORTree with boundary 30.00,-20.00,5
 Debug: Adding rerouterSymbol 'gneE0' in GNEChange_Additional
 Debug: Adding rerouterSymbol 'gneE1' in GNEChange_Additional
 Error: Could not build rerouter with ID 'customID' in netedit; declared twice.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.rerouter.24Jun133818.22403/netedit.daily.additional.rerouter/additionalelements/rerouter/load/id/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.rerouter.24Jun133818.22403/netedit.daily.additional.rerouter/additionalelements/rerouter/load/id/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

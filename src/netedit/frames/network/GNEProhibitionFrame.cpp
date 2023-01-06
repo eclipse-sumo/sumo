@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -37,7 +37,7 @@
 FXDEFMAP(GNEProhibitionFrame::Selection) SelectionMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_OK,         GNEProhibitionFrame::Selection::onCmdOK),
     FXMAPFUNC(SEL_COMMAND,  MID_CANCEL,     GNEProhibitionFrame::Selection::onCmdCancel),
-    FXMAPFUNC(SEL_UPDATE,   MID_CANCEL,     GNEProhibitionFrame::Selection::onCmdRequiereConnection),
+    FXMAPFUNC(SEL_UPDATE,   MID_CANCEL,     GNEProhibitionFrame::Selection::onCmdRequireConnection),
 };
 
 // Object implementation
@@ -210,7 +210,7 @@ GNEProhibitionFrame::Selection::onCmdCancel(FXObject*, FXSelector, void*) {
 
 
 long
-GNEProhibitionFrame::Selection::onCmdRequiereConnection(FXObject*, FXSelector, void*) {
+GNEProhibitionFrame::Selection::onCmdRequireConnection(FXObject*, FXSelector, void*) {
     if (myProhibitionFrameParent->myCurrentConn) {
         mySaveButton->enable();
         myCancelButton->enable();

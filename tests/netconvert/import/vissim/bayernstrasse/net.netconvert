@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-09 13:41:46 by Eclipse SUMO netconvert Version v1_10_0+1808-f54501a53b3
+<!-- generated on 2023-01-06 08:14:46 by Eclipse SUMO netconvert Version v1_15_0+1362-339c192
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -29,7 +34,6 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -1171,11 +1175,12 @@ SPDX-License-Identifier: EPL-2.0
         <request index="3" response="0000" foes="0000"/>
     </junction>
     <junction id="57" type="traffic_light" x="486.79" y="979.77" incLanes="30007[1][0]_0 30007[1][0]_1 30017_0 30017_1" intLanes="" shape="507.08,931.55 500.70,931.09 497.28,931.52 493.06,931.30 487.16,930.80 479.59,930.02 470.35,928.95 469.58,935.30 476.78,937.34 482.48,941.55 486.69,947.92 489.42,956.46 490.66,967.16 490.41,980.04 503.43,980.98">
-        <request index="0" response="00000" foes="01000"/>
-        <request index="1" response="00000" foes="01000"/>
-        <request index="2" response="00000" foes="01000"/>
-        <request index="3" response="00111" foes="00111"/>
-        <request index="4" response="00000" foes="00000"/>
+        <request index="0" response="000000" foes="010000"/>
+        <request index="1" response="000000" foes="010000"/>
+        <request index="2" response="110000" foes="110000"/>
+        <request index="3" response="110000" foes="110000"/>
+        <request index="4" response="000011" foes="001111"/>
+        <request index="5" response="000000" foes="001100"/>
     </junction>
     <junction id="58" type="priority" x="494.96" y="1053.52" incLanes="30007[1][1][0]_0 30007[1][1][0]_1" intLanes="" shape="497.72,1059.62 491.34,1059.15 490.73,1067.10 499.94,1067.86 499.45,1064.78 498.84,1063.74 498.24,1062.70 497.80,1061.41">
         <request index="0" response="000" foes="000"/>
@@ -1356,7 +1361,8 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="30007[0]" to="30022" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="30007[1][0]" to="30007[1][1][0]" fromLane="0" toLane="0" tl="532" linkIndex="3" dir="s" state="O"/>
     <connection from="30007[1][0]" to="30007[1][1][0]" fromLane="1" toLane="1" tl="532" linkIndex="4" dir="s" state="O"/>
-    <connection from="30007[1][0]" to="30014" fromLane="1" toLane="0" tl="532" linkIndex="5" dir="s" state="O"/>
+    <connection from="30007[1][0]" to="30014" fromLane="1" toLane="0" tl="532" linkIndex="5" dir="s" state="o"/>
+    <connection from="30007[1][0]" to="30014" fromLane="1" toLane="1" dir="s" state="m"/>
     <connection from="30007[1][1][0]" to="30021" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="30007[1][1][0]" to="30007[1][1][1][0]" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="30007[1][1][0]" to="30007[1][1][1][0]" fromLane="1" toLane="1" dir="s" state="M"/>

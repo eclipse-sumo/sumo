@@ -29,7 +29,7 @@ GLDebug: 	Inserted edge:8 into SUMORTree with boundary -10.00,18.40,60.00,40.00
 GLDebug: 	Inserted edge:9 into SUMORTree with boundary -10.00,10.00,60.00,31.60
 Error: Attribute 'id' is missing in definition of a busStop.
 Error: 'access' must be defined within the definition of a 'busStop' (found '').
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.access.24Jun133818.22369/netedit.daily.additional.access/additionalelements/access/load/invalid_parent/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.access.24Jun133818.22369/netedit.daily.additional.access/additionalelements/access/load/invalid_parent/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,18.00,12.00,42.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,18.00,62.00,42.00

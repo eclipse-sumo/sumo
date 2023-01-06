@@ -6,3 +6,15 @@ ticket12167
 
 # failure to board
 ticket12168
+
+# parallel unloading of persons and containers
+ticket12385
+
+# departSpeed=avg error
+ticket12398
+
+# departSpeed=last error
+ticket12398b
+
+# departSpeed=avg and different lengths, error 
+ticket12398c

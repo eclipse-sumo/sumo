@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2011-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -228,13 +228,13 @@ class Lane:
         lanes = [c.getFromLane() for c in candidates if self == c.getToLane()]
         if onlyDirect:
             hasInternal = False
-            for l in lanes:
-                if l.getID()[0] == ":":
+            for _lane in lanes:
+                if _lane.getID()[0] == ":":
                     hasInternal = True
                     break
             if hasInternal:
-                return [l for l in lanes if l.getID()[0] == ":" and
-                        l.getOutgoing()[0].getViaLaneID() == ""]
+                return [_lane for _lane in lanes if _lane.getID()[0] == ":" and
+                        _lane.getOutgoing()[0].getViaLaneID() == ""]
         return lanes
 
     def getConnection(self, toLane):

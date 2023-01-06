@@ -20,7 +20,7 @@ Error: Attribute 'color' in definition of trip 'trip_1' Invalid color definition
 Debug: Adding trip 'trip_2' in GNEChange_DemandElement
 Debug: Adding trip 'trip_3' in GNEChange_DemandElement
 Debug: Adding trip 'trip_4' in GNEChange_DemandElement
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.trip.01Dec143641.87290/netedit.daily.demand.trip/demandelements/trip/load/color/input_routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.trip.01Dec143641.87290/netedit.daily.demand.trip/demandelements/trip/load/color/routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00

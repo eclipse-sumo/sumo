@@ -124,6 +124,8 @@ public class APITest {
 }
 ```
 
+See also the information on [casting subscription results](Libsumo.md#casting_subscription_results).
+
 ### compiling on Linux
 
 make sure SUMO_HOME is set and the jar / so / dll files are available

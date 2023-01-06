@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -296,7 +296,7 @@ private:
     class PlaneMoverCallback : public osg::Callback {
     public:
         PlaneMoverCallback(osg::Camera* camera) : myCamera(camera) {};
-        virtual bool run(osg::Object* object, osg::Object* data) override {
+        virtual bool run(osg::Object* object, osg::Object* /* data */) override {
             osg::MatrixTransform* mt = dynamic_cast<osg::MatrixTransform*>(object);
             osg::Vec3d lookFrom, lookAt, up;
             myCamera->getViewMatrixAsLookAt(lookFrom, lookAt, up);

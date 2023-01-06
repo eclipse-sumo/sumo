@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2010-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -214,7 +214,7 @@ def loadRouteFiles(options, routefile, edge2parking, outf):
                 # find usable lane
                 skip = True
                 lanes = lastEdge.getLanes()
-                usable = [l for l in lanes if l.allows(vtypes[obj.type])]
+                usable = [lane for lane in lanes if lane.allows(vtypes[obj.type])]
                 if usable:
                     lane = None
                     if options.lane == 'random':

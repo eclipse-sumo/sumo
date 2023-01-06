@@ -11,7 +11,7 @@ Debug: Adding route 'route_1' in GNEChange_DemandElement
 Debug: Adding stopBusStop 'route_1' in GNEChange_DemandElement
 Debug: Adding route 'route_2' in GNEChange_DemandElement
 Debug: Adding stopBusStop 'route_2' in GNEChange_DemandElement
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Oct094038.2924\netedit.gui\demandelements\stop\busstop\load\acttype\input_routes.rou.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Oct094038.2924\netedit.gui\demandelements\stop\busstop\load\acttype\routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 13.00,-12.00,37.00,12.00

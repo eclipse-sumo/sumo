@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2012-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2012-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -101,11 +101,11 @@ def main(netFile, outFile, radius, travelDist, symmetrical):
     net = sumolib.net.readNet(netFile, withConnections=False, withFoes=False)
     with sumolib.openz(outFile, mode='w') as outf:
         sumolib.writeXMLHeader(outf)
-        outf.write('<tazs>\n')
+        outf.write(u'<tazs>\n')
         for taz, edges in computeAllBidiTaz(net, radius, travelDist, symmetrical):
-            outf.write('    <taz id="%s" edges="%s"/>\n' % (
+            outf.write(u'    <taz id="%s" edges="%s"/>\n' % (
                 taz.getID(), ' '.join(sorted([e.getID() for e in edges]))))
-        outf.write('</tazs>\n')
+        outf.write(u'</tazs>\n')
     return net
 
 

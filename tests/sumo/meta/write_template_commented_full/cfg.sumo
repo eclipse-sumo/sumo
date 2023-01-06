@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-11-03 18:39:55 by Eclipse SUMO sumo Version v1_14_1+2205-02cde80
+<!-- generated on 2023-01-04 11:28:03 by Eclipse SUMO sumo Version v1_15_0+1277-3febad6e597
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -660,6 +660,9 @@
         <!-- Writes all warnings and errors to FILE -->
         <error-log value="" type="FILE"/>
 
+        <!-- Language to use in messages -->
+        <language value="C" type="STR"/>
+
         <!-- Disable performance reports for individual simulation steps -->
         <duration-log.disable value="false" synonymes="no-duration-log" type="BOOL"/>
 
@@ -1199,6 +1202,9 @@
 
         <!-- The aggregation period for value tracker windows -->
         <tracker-interval value="1" type="TIME"/>
+
+        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
+        <osg-view value="false" type="BOOL"/>
 
         <!-- Enable overlay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>

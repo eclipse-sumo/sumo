@@ -6,7 +6,7 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Error: Attribute 'id' is missing in definition of a entryExitDetector.
 Error: 'detExit' must be defined within the definition of a 'e3Detector' (found '').
 Error: 'detEntry' must be defined within the definition of a 'e3Detector' (found '').
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.detexit.01Aug073707.40057/netedit.daily.additional.detexit/additionalelements/detexit/load/parent_invalid/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.detexit.01Aug073707.40057/netedit.daily.additional.detexit/additionalelements/detexit/load/parent_invalid/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

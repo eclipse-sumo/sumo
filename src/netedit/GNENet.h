@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -296,20 +296,14 @@ public:
     /// @brief return if net has to be saved
     bool isNetSaved() const;
 
-    /**@brief save the network
-     * @param[in] oc The OptionsCont which knows how and where to save
-     */
-    void saveNetwork(OptionsCont& oc);
+    /// @brief save the network
+    void saveNetwork();
 
-    /**@brief save plain xml representation of the network (and nothing else)
-     * @param[in] oc The OptionsCont which knows how and where to save
-     */
-    void savePlain(OptionsCont& oc, const std::string& prefix);
+    /// @brief save plain xml representation of the network (and nothing else)
+    void savePlain(const std::string& prefix);
 
-    /**@brief save log of joined junctions (and nothing else)
-     * @param[in] oc The OptionsCont which knows how and where to save
-     */
-    void saveJoined(OptionsCont& oc, const std::string& filename);
+    /// @brief save log of joined junctions (and nothing else)
+    void saveJoined(const std::string& filename);
 
     /// @brief Set the net to be notified of network changes
     void setViewNet(GNEViewNet* viewNet);
@@ -336,7 +330,7 @@ public:
     void initGNEConnections();
 
     /// @brief recompute the network and update lane geometries
-    void computeAndUpdate(OptionsCont& oc, bool volatileOptions);
+    void computeAndUpdate(OptionsCont& neteditOptions, bool volatileOptions);
 
     /**@brief trigger full netbuild computation
      * param[in] window The window to inform about delay
@@ -530,11 +524,11 @@ protected:
     /// @brief the rtree which contains all GUIGlObjects (so named for historical reasons)
     SUMORTree myGrid;
 
-    /// @brief The net to be notified of about changes
-    GNEViewNet* myViewNet;
-
     /// @brief The internal netbuilder
     NBNetBuilder* myNetBuilder;
+
+    /// @brief The net to be notified of about changes
+    GNEViewNet* myViewNet = nullptr;
 
     /// @brief AttributeCarriers of net
     GNENetHelper::AttributeCarriers* myAttributeCarriers;
@@ -544,39 +538,39 @@ protected:
 
     /// @name counters for junction/edge IDs
     // @{
-    unsigned int myJunctionIDCounter;
-    unsigned int myEdgeIDCounter;
+    unsigned int myJunctionIDCounter = 0;
+    unsigned int myEdgeIDCounter = 0;
     // @}
 
     /// @brief list of edge ids for which turn-arounds must be added explicitly
     std::set<std::string> myExplicitTurnarounds;
 
     /// @brief whether the net needs recomputation
-    bool myNeedRecompute;
+    bool myNeedRecompute = true;
 
     /// @brief Flag to check if net has to be saved
-    bool myNetSaved;
+    bool myNetSaved = true;
 
     /// @brief Flag to check if additionals has to be saved
-    bool myAdditionalsSaved;
+    bool myAdditionalsSaved = true;
 
     /// @brief Flag to check if shapes has to be saved
-    bool myTLSProgramsSaved;
+    bool myTLSProgramsSaved = true;
 
     /// @brief Flag to check if demand elements has to be saved
-    bool myDemandElementsSaved;
+    bool myDemandElementsSaved = true;
 
     /// @brief Flag to check if data elements has to be saved
-    bool myDataElementsSaved;
+    bool myDataElementsSaved = true;
 
     /// @brief Flag to check if meanDatas has to be saved
-    bool myMeanDatasSaved;
+    bool myMeanDatasSaved = true;
 
     /// @brief Flag to enable or disable update geometry of elements after inserting or removing element in net
-    bool myUpdateGeometryEnabled;
+    bool myUpdateGeometryEnabled = true;
 
     /// @brief Flag to enable or disable update data elements after inserting or removing element in net
-    bool myUpdateDataEnabled;
+    bool myUpdateDataEnabled = true;
 
 private:
     /// @brief Init Junctions and edges

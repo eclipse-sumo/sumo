@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2011-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -186,7 +186,8 @@ def open(fileOrURL, tryGZip=True, mode="rb"):
 
 def openz(fileOrURL, mode="r", **kwargs):
     """
-    Opens transparently files, URLs and gzipped files for reading and writing. Also enforces UTF8 on text output / input.
+    Opens transparently files, URLs and gzipped files for reading and writing.
+    Also enforces UTF8 on text output / input.
     Should be compatible with python 2 and 3.
     """
     try:

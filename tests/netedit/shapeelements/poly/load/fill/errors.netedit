@@ -8,7 +8,7 @@ GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary 20.00,0.00,50.00,
 Error: Attribute 'fill' in definition of poly 'poly_1' Invalid Bool Format dummy.
 Debug: Adding poly 'poly_2' in GNEChange_Additional
 GLDebug: 	Inserted polygon:poly_2 into SUMORTree with boundary 20.00,-20.00,50.00,10.00
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poly.24Jun133820.22546/netedit.daily.shape.poly/shapeelements/poly/load/fill/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poly.24Jun133820.22546/netedit.daily.shape.poly/shapeelements/poly/load/fill/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

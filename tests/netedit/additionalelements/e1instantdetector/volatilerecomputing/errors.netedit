@@ -11,7 +11,7 @@ Error: Could not build inductionLoop in netedit; lane doesn't exist.
 Error: Could not build inductionLoop in netedit; lane doesn't exist.
 Error: Could not build inductionLoop in netedit; lane doesn't exist.
 Error: Could not build inductionLoop in netedit; lane doesn't exist.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.e1instantdetector.24Jun133818.22391/netedit.daily.additional.e1instantdetector/additionalelements/e1instantdetector/volatilerecomputing/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.e1instantdetector.24Jun133818.22391/netedit.daily.additional.e1instantdetector/additionalelements/e1instantdetector/volatilerecomputing/additionals.add.xml failed.
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2005-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2005-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -62,7 +62,7 @@ GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent, cons
     // create frame for file icons
     FXHorizontalFrame* frameFiles = new FXHorizontalFrame(contentsFrame, GUIDesignHorizontalFrameIcons);
     myLoadButton = new FXButton(frameFiles, TL("Load\t\tLoad viewport from file"),
-                                GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, GUIDialog_EditViewport::MID_LOAD, GUIDesignButtonToolbarWithText);
+                                GUIIconSubSys::getIcon(GUIIcon::OPEN), this, GUIDialog_EditViewport::MID_LOAD, GUIDesignButtonToolbarWithText);
     mySaveButton = new FXButton(frameFiles, TL("Save\t\tSave viewport to file"),
                                 GUIIconSubSys::getIcon(GUIIcon::SAVE), this, GUIDialog_EditViewport::MID_SAVE, GUIDesignButtonToolbarWithText);
     // create horizontalframe for zoom elements and OSG
@@ -208,7 +208,7 @@ GUIDialog_EditViewport::onCmdChanged(FXObject* o, FXSelector, void*) {
 long
 GUIDialog_EditViewport::onCmdLoad(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, TL("Load Viewport"));
-    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG));
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN));
     opendialog.setSelectMode(SELECTFILE_ANY);
     opendialog.setPatternList("*.xml,*.xml.gz");
     if (gCurrentFolder.length() != 0) {

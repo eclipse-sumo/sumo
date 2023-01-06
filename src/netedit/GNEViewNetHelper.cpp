@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -1919,47 +1919,60 @@ GNEViewNetHelper::TestingMode::isTestingEnabled() const {
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::SaveElements::SaveElements(GNEViewNet* viewNet) :
-    saveAll(nullptr),
-    saveNetwork(nullptr),
-    saveAdditionalElements(nullptr),
-    saveDemandElements(nullptr),
-    saveDataElements(nullptr),
     myViewNet(viewNet) {
 }
 
 
 void
 GNEViewNetHelper::SaveElements::buildSaveElementsButtons() {
+    // create save sumo config button
+    saveNETEDITConfig = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
+                                             myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
+                                             "\tSave NETEDITConfig\tSave NETEDITConfig.", GUIIconSubSys::getIcon(GUIIcon::SAVE_NETEDITCONFIG),
+                                             myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG, GUIDesignButtonToolbar);
+    saveNETEDITConfig->create();
+    // create save sumo config button
+    saveSUMOConfig = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
+                                          myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
+                                          "\tSave SUMOConfig\tSave SUMOConfig.", GUIIconSubSys::getIcon(GUIIcon::SAVE_SUMOCONFIG),
+                                          myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_S_SAVESUMOCONFIG, GUIDesignButtonToolbar);
+    saveSUMOConfig->create();
     // create save network button
     saveAll = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
                                    myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-                                   "\tSave all\tSave all elements.", GUIIconSubSys::getIcon(GUIIcon::SAVEALLELEMENTS),
+                                   "\tSave all\tSave all elements.", GUIIconSubSys::getIcon(GUIIcon::SAVE_QUESTION),
                                    myViewNet->getViewParent()->getGNEAppWindows(), MID_GNE_SAVEALLELEMENTS, GUIDesignButtonToolbar);
     saveAll->create();
     // create save network button
     saveNetwork = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
                                        myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-                                       "\tSave network\tSave network. (Ctrl+S)", GUIIconSubSys::getIcon(GUIIcon::SAVENETWORKELEMENTS),
+                                       "\tSave network\tSave network. (Ctrl+S)", GUIIconSubSys::getIcon(GUIIcon::SAVE_NETWORKELEMENTS),
                                        myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK, GUIDesignButtonToolbar);
     saveNetwork->create();
     // create save additional elements button
     saveAdditionalElements = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
             myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-            "\tSave additional elements\tSave additional elements. (Ctrl+Shift+A)", GUIIconSubSys::getIcon(GUIIcon::SAVEADDITIONALELEMENTS),
+            "\tSave additional elements\tSave additional elements. (Ctrl+Shift+A)", GUIIconSubSys::getIcon(GUIIcon::SAVE_ADDITIONALELEMENTS),
             myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS, GUIDesignButtonToolbar);
     saveAdditionalElements->create();
     // create save demand elements button
     saveDemandElements = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
             myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-            "\tSave demand elements\tSave demand elements. (Ctrl+Shift+D)", GUIIconSubSys::getIcon(GUIIcon::SAVEDEMANDELEMENTS),
+            "\tSave demand elements\tSave demand elements. (Ctrl+Shift+D)", GUIIconSubSys::getIcon(GUIIcon::SAVE_DEMANDELEMENTS),
             myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS, GUIDesignButtonToolbar);
     saveDemandElements->create();
     // create save data elements button
     saveDataElements = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
                                             myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-                                            "\tSave data elements\tSave data elements. (Ctrl+Shift+B)", GUIIconSubSys::getIcon(GUIIcon::SAVEDATAELEMENTS),
+                                            "\tSave data elements\tSave data elements. (Ctrl+Shift+B)", GUIIconSubSys::getIcon(GUIIcon::SAVE_DATAELEMENTS),
                                             myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS, GUIDesignButtonToolbar);
     saveDataElements->create();
+    // create save mean datas elements button
+    saveMeanDataElements = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
+                                            myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
+                                            "\tSave mean data elements\tSave mean data elements. (Ctrl+Shift+M)", GUIIconSubSys::getIcon(GUIIcon::SAVE_MEANDATAELEMENTS),
+                                            myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_M_SAVEMEANDATAS, GUIDesignButtonToolbar);
+    saveMeanDataElements->create();
     // recalc menu bar because there is new elements
     myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements->recalc();
     // show menu bar modes
@@ -3428,13 +3441,13 @@ GNEViewNetHelper::CommonCheckableButtons::buildCommonCheckableButtons() {
     deleteButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
                                           myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                                           "\tSet delete mode\tMode for delete elements. (D)",
-                                          GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), myViewNet, MID_HOTKEY_D_MODE_DELETE, GUIDesignMFXCheckableButtonSquare);
+                                          GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), myViewNet, MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE, GUIDesignMFXCheckableButtonSquare);
     deleteButton->create();
     // select button
     selectButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
                                           myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                                           "\tSet select mode\tMode for select elements. (S)",
-                                          GUIIconSubSys::getIcon(GUIIcon::MODESELECT), myViewNet, MID_HOTKEY_S_MODE_SELECT, GUIDesignMFXCheckableButtonSquare);
+                                          GUIIconSubSys::getIcon(GUIIcon::MODESELECT), myViewNet, MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT, GUIDesignMFXCheckableButtonSquare);
     selectButton->create();
     // always recalc menu bar after creating new elements
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->recalc();
@@ -3527,7 +3540,7 @@ GNEViewNetHelper::NetworkCheckableButtons::buildNetworkCheckableButtons() {
     additionalButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
         myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
         "\tSet additional mode\tMode for adding additional elements. (A)",
-        GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL), myViewNet, MID_HOTKEY_A_MODE_ADDITIONAL_STOP, GUIDesignMFXCheckableButtonSquare);
+        GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL), myViewNet, MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP, GUIDesignMFXCheckableButtonSquare);
     additionalButton->create();
     // crossing mode
     crossingButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
@@ -3665,7 +3678,7 @@ GNEViewNetHelper::DemandCheckableButtons::buildDemandCheckableButtons() {
     stopButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
         myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
         "\tCreate stop mode\tMode for creating stops. (A)",
-        GUIIconSubSys::getIcon(GUIIcon::MODESTOP), myViewNet, MID_HOTKEY_A_MODE_ADDITIONAL_STOP, GUIDesignMFXCheckableButtonSquare);
+        GUIIconSubSys::getIcon(GUIIcon::MODESTOP), myViewNet, MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP, GUIDesignMFXCheckableButtonSquare);
     stopButton->create();
     // person mode
     personButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
@@ -3688,7 +3701,7 @@ GNEViewNetHelper::DemandCheckableButtons::buildDemandCheckableButtons() {
     // container plan mode
     containerPlanButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
         myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-        "\tCreate container plan mode\tMode for creating container plans. (C)",
+        "\tCreate container plan mode\tMode for creating container plans. (H)",
         GUIIconSubSys::getIcon(GUIIcon::MODECONTAINERPLAN), myViewNet, MID_HOTKEY_H_MODE_PROHIBITION_CONTAINERPLAN, GUIDesignMFXCheckableButtonSquare);
     containerPlanButton->create();
     // always recalc after creating new elements

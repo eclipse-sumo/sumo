@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2007-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -60,7 +60,7 @@ MSIdling_Stop::idle(MSDevice_Taxi* taxi) {
                 if ((ri + 1) != veh.getRoute().end()) {
                     stopSeg = MSGlobals::gMesoNet->getSegmentForEdge(**(ri + 1), 0);
                 } else {
-                    WRITE_WARNING("Idle taxi '" + taxi->getHolder().getID() + "' has no next segment to stop. time=" + time2string(SIMTIME) + ".");
+                    WRITE_WARNINGF(TL("Idle taxi '%' has no next segment to stop. time=%."), taxi->getHolder().getID(), time2string(SIMSTEP));
                     return;
                 }
             }

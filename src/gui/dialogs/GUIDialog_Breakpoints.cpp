@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -85,7 +85,7 @@ GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIApplicationWindow* parent, std::
     FXVerticalFrame* layoutRight = new FXVerticalFrame(hbox, GUIDesignChooserLayoutRight);
     // create buttons ('&' in the label creates a hot key)
     // "Load"
-    new FXButton(layoutRight, TL("&Load\t\t"), GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, MID_CHOOSEN_LOAD, GUIDesignChooserButtons);
+    new FXButton(layoutRight, TL("&Load\t\t"), GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_CHOOSEN_LOAD, GUIDesignChooserButtons);
     // "Save"
     new FXButton(layoutRight, TL("&Save\t\t"), GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_CHOOSEN_SAVE, GUIDesignChooserButtons);
     new FXHorizontalSeparator(layoutRight, GUIDesignHorizontalSeparator);

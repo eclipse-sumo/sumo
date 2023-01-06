@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2010-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2010-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -641,7 +641,7 @@ public:
     void addStops(const bool ignoreStopErrors, MSRouteIterator* searchStart = nullptr, bool addRouteStops = true);
 
     /// @brief check whether all stop.edge MSRouteIterators are valid and in order
-    bool haveValidStopEdges() const;
+    bool haveValidStopEdges(bool silent = false) const;
 
     /** @brief Returns the list of still pending stop edges
      * also returns the first and last stop position

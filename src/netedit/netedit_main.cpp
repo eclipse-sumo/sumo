@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -41,14 +41,12 @@
 // ===========================================================================
 int
 main(int argc, char** argv) {
-    MsgHandler::setupI18n();
     // make the output aware of threading
     MsgHandler::setFactory(&MsgHandlerSynchronized::create);
     // get the options
-    OptionsCont& oc = OptionsCont::getOptions();
-    // give some application descriptions
-    oc.setApplicationDescription("Graphical editor for SUMO networks.");
-    oc.setApplicationName("netedit", "Eclipse SUMO netedit Version " VERSION_STRING);
+    auto &neteditOptions = OptionsCont::getOptions();
+    neteditOptions.setApplicationDescription(TL("Graphical editor for SUMO networks, demand and additional infrastructure."));
+    neteditOptions.setApplicationName("netedit", "Eclipse SUMO netedit Version " VERSION_STRING);
     int ret = 0;
 #ifndef _DEBUG
     try {
@@ -57,10 +55,10 @@ main(int argc, char** argv) {
 #endif
         // initialise subsystems
         XMLSubSys::init();
-        GNELoadThread::fillOptions(oc);
+        GNELoadThread::fillOptions(neteditOptions);
         OptionsIO::setArgs(argc, argv);
         OptionsIO::getOptions(true);
-        if (oc.processMetaOptions(false)) {
+        if (neteditOptions.processMetaOptions(false)) {
             SystemFrame::close();
             return 0;
         }
@@ -73,8 +71,8 @@ main(int argc, char** argv) {
             throw ProcessError("This system has no OpenGL support. Exiting.");
         }
         // build the main window
-        GNEApplicationWindow* window =
-        new GNEApplicationWindow(&application, "*.netc.cfg,*.netccfg");
+        GNEApplicationWindow* window = new GNEApplicationWindow(&application, "*.netc.cfg,*.netccfg");
+        gLanguage = neteditOptions.getString("language");
         gSchemeStorage.init(&application, true);
         window->dependentBuild();
         // Create app

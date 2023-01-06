@@ -8,7 +8,7 @@ GLDebug: 	Inserted poi:POI_0 into SUMORTree with boundary 1955023.50,-3415423.85
 Error: Attribute 'color' in definition of poi 'POI_1' Invalid color definition 'dummycolor'.
 Debug: Adding poiGeo 'POI_2' in GNEChange_Additional
 GLDebug: 	Inserted poi:POI_2 into SUMORTree with boundary 17468.33,-3329339.80,17488.33,-3329319.80
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poigeo.01Dec143642.87478/netedit.daily.shape.poigeo/shapeelements/poigeo/load/color/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poigeo.01Dec143642.87478/netedit.daily.shape.poigeo/shapeelements/poigeo/load/color/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

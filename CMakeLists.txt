@@ -257,7 +257,7 @@ if (SUMO_LIBRARIES AND WIN32)
     file(GLOB EIGEN3_PATH "${SUMO_LIBRARIES}/eigen-3.?.?")
     file(GLOB GETTEXT_PATH "${SUMO_LIBRARIES}/gettext-?.??")
     # set all paths in prefix
-    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${EIGEN3_PATH};${XERCES_PATH};${ZLIB_PATH};${PROJ_PATH};${FOX_PATH};${FREETYPE_PATH};${GETTEXT_PATH}")
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${EIGEN3_PATH};${XERCES_PATH};${ZLIB_PATH};${PROJ_PATH};${FOX_PATH};${FREETYPE_PATH};${GETTEXT_PATH};${GETTEXT_PATH}/tools/gettext")
     # save in variable SUMO_LIBRARIES_DLL all paths to dll files
     file(GLOB SUMO_LIBRARIES_DLL "${XERCES_PATH}/bin/*.dll"
                                  "${PROJ_PATH}/bin/*.dll"
@@ -556,6 +556,18 @@ add_custom_target(install_dll DEPENDS ${TARGET_ALL_DLLS} ${OSG_TARGET} ${PROJ_DA
 add_custom_target(install_test_dll DEPENDS ${TARGET_TEST_DLLS})
 set_property(TARGET install_dll PROPERTY FOLDER "CMake")
 set_property(TARGET install_test_dll PROPERTY FOLDER "CMake")
+
+# i18n target
+find_package(Gettext)
+if (Gettext_FOUND)
+    set(I18N_DATA ${CMAKE_SOURCE_DIR}/data/locale/tr/LC_MESSAGES/sumo.mo)
+    add_custom_command(OUTPUT ${I18N_DATA}
+                       COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/i18n.py -m
+                       DEPENDS ${CMAKE_SOURCE_DIR}/data/po/tr_gui.po)
+else ()
+    message(WARNING "Gettext tools not found, translation files will not be generated.")
+endif()
+add_custom_target(install_mo DEPENDS ${I18N_DATA})
 
 # java targets
 find_program(MVN_EXECUTABLE mvn)

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2014-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2014-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -30,9 +30,6 @@ if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
     sys.path.append(os.path.join(tools))
     import sumolib
-    from sumolib.xml import _open, parse_fast
-    from sumolib.miscutils import Statistics
-    from sumolib.statistics import setPrecision
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
@@ -49,10 +46,6 @@ def get_options():
     optParser.add_option("-p", "--precision", type=int,
                          default=2, help="Set output precision")
     options = optParser.parse_args()
-
-    if options.old is None or options.new is None:
-        parser.print_help()
-        sys.exit()
 
     if options.attribute:
         options.attribute = options.attribute.split(',')
@@ -72,7 +65,7 @@ def main():
 
     def elements(fname):
         stack = []
-        for event, node in ET.iterparse(_open(fname, None), events=('start', 'end')):
+        for event, node in ET.iterparse(sumolib.xml._open(fname, None), events=('start', 'end')):
             if options.element is not None and node.tag not in options.element:
                 continue
             if event == 'start':
@@ -81,7 +74,7 @@ def main():
                 stack.pop()
                 continue
 
-            tags = tuple(stack[1:]) if options.element is None else tuple(stack) # exclude root
+            tags = tuple(stack[1:]) if options.element is None else tuple(stack)  # exclude root
             if options.attribute is None:
                 for k, v in node.items():
                     yield '.'.join(tags), k, v
@@ -121,15 +114,13 @@ def main():
         else:
             missingAttr[attr].add(tag)
 
-
     if options.verbose or options.xml_output is None:
         for tag in sorted(differences.keys()):
             print("%s: %s" % (tag, ' '.join(["%s=%s" % av for av in sorted(differences[tag].items())])))
 
     if missingAttr:
         for attr in sorted(missingAttr.keys()):
-            print("Elements %s did not provide attribute '%s'" % (
-            ','.join(sorted(missingAttr[attr])), attr))
+            print("Elements %s did not provide attribute '%s'" % (','.join(sorted(missingAttr[attr])), attr))
 
     if invalidType and options.attribute is not None:
         for attr in sorted(invalidType.keys()):
@@ -139,8 +130,7 @@ def main():
 
     if options.xml_output is not None:
         with open(options.xml_output, 'w') as f:
-            sumolib.writeXMLHeader(f, "$Id$", "attributeDiff")  # noqa
-            elemKeys = defaultdict(list)
+            sumolib.writeXMLHeader(f, root="attributeDiff")
             for elem in sorted(differences.keys()):
                 f.write('    <%s' % elem)
                 for attr, d in sorted(differences[elem].items()):

@@ -12,7 +12,7 @@ Debug: Adding entryExitDetector 'entryExitDetector_0' in GNEChange_Additional
 Error: Could not build entry in netedit; lane doesn't exist.
 Debug: Adding detEntry 'entryExitDetector_0' in GNEChange_Additional
 Debug: Adding detExit 'entryExitDetector_0' in GNEChange_Additional
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.net.junctions.24Jun133820.22521/netedit.daily.net.junctions/netelements/junctions/load/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.net.junctions.24Jun133820.22521/netedit.daily.net.junctions/netelements/junctions/load/additionals.add.xml failed.
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from-gneE10_0to-gneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'from-gneE10_0to-gneE17_0' in retrieveGNEConnection()

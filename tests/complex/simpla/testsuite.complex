@@ -1,3 +1,6 @@
+# one vehicle more than allowed to join the platoon
+max_size
+
 # Use more vehicle types than given in vTypeMap  #11219
 vtypemap_incomplete
 

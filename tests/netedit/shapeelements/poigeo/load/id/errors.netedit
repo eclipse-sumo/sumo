@@ -11,7 +11,7 @@ Debug: Adding poiGeo 'POI_0' in GNEChange_Additional
 GLDebug: 	Inserted poi:POI_0 into SUMORTree with boundary 2161991.41,-1143859.32,2162011.41,-1143839.32
 Debug: Adding poiGeo 'POI_1' in GNEChange_Additional
 GLDebug: 	Inserted poi:POI_1 into SUMORTree with boundary 2083045.92,-2283522.92,2083065.92,-2283502.92
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poigeo.24Jun133820.22541/netedit.daily.shape.poigeo/shapeelements/poigeo/load/id/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poigeo.24Jun133820.22541/netedit.daily.shape.poigeo/shapeelements/poigeo/load/id/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

@@ -8,7 +8,7 @@ Error: Attribute 'containerCapacity' in definition of containerStop 'containerSt
 Error: Could not build containerStop with ID 'containerStop_03' in netedit; attribute containerCapacity cannot be negative.
 Error: Attribute 'containerCapacity' in definition of containerStop 'containerStop_04' Invalid Number Format (long long integer format) 2.5.
 Debug: Adding containerStop 'containerStop_05' in GNEChange_Additional
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.containerstop.24Jun133818.22383/netedit.daily.additional.containerstop/additionalelements/containerstop/load/containercapacity/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.containerstop.24Jun133818.22383/netedit.daily.additional.containerstop/additionalelements/containerstop/load/containercapacity/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

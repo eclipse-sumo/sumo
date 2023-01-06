@@ -14,7 +14,7 @@ Debug: Adding multiLaneAreaDetector 'multiLaneAreaDetector_4' in GNEChange_Addit
 Debug: Adding multiLaneAreaDetector 'multiLaneAreaDetector_5' in GNEChange_Additional
 Debug: Adding multiLaneAreaDetector 'multiLaneAreaDetector_6' in GNEChange_Additional
 Debug: Adding multiLaneAreaDetector 'multiLaneAreaDetector_7' in GNEChange_Additional
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.e2multilanedetector.24Jun133818.22395/netedit.daily.additional.e2multilanedetector/additionalelements/e2multilanedetector/load/endpos/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.e2multilanedetector.24Jun133818.22395/netedit.daily.additional.e2multilanedetector/additionalelements/e2multilanedetector/load/endpos/additionals.add.xml failed.
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00

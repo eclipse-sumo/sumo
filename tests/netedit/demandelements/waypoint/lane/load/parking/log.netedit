@@ -6,4 +6,4 @@ Error: Attribute 'parking' in definition of a stop Invalid Bool Format -4.
 Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop on lane 'gneE1_0'
 Error: Attribute 'parking' in definition of a stop Invalid Bool Format 2.3.
 Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop on lane 'gneE1_0'
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Apr161512.5508\netedit.gui\demandelements\waypoint\lane\load\parking\input_routes.rou.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Apr161512.5508\netedit.gui\demandelements\waypoint\lane\load\parking\routes.rou.xml failed.

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -86,21 +86,21 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_F3_SUPERMODE_DEMAND,  GNEViewNet::onCmdSetSupermode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_F4_SUPERMODE_DATA,    GNEViewNet::onCmdSetSupermode),
     // Modes
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_G_MODE_CONTAINER,                     GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_H_MODE_PROHIBITION_CONTAINERPLAN,     GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_A_MODE_ADDITIONAL_STOP,               GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_C_MODE_CONNECT_PERSONPLAN,            GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_D_MODE_DELETE,                        GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_E_MODE_EDGE_EDGEDATA,                 GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_I_MODE_INSPECT,                       GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_M_MODE_MOVE_MEANDATA,                 GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_P_MODE_POLYGON_PERSON,                GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA,    GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_S_MODE_SELECT,                        GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_T_MODE_TLS_TYPE,                      GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_V_MODE_VEHICLE,                       GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_W_MODE_WIRE,                          GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_Z_MODE_TAZ_TAZREL,                    GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP,    GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_C_MODE_CONNECT_PERSONPLAN,                GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE,       GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_E_MODE_EDGE_EDGEDATA,                     GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_G_MODE_CONTAINER,                         GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_H_MODE_PROHIBITION_CONTAINERPLAN,         GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_I_MODE_INSPECT,                           GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_M_MODE_MOVE_MEANDATA,                     GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_P_MODE_POLYGON_PERSON,                    GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA,        GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT,             GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_T_MODE_TLS_TYPE,                          GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_V_MODE_VEHICLE,                           GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_W_MODE_WIRE,                              GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_Z_MODE_TAZ_TAZREL,                        GNEViewNet::onCmdSetMode),
     // Network view options
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_TOGGLEGRID,               GNEViewNet::onCmdToggleShowGrid),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE,  GNEViewNet::onCmdToggleDrawJunctionShape),
@@ -331,46 +331,46 @@ GNEViewNet::buildViewToolBars(GUIGlChildWindow* v) {
     new MFXButtonTooltip(v->getLocatorPopup(),
                          myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate Junctions\tLocate a junction within the network. (Shift+J)",
-                         GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), v, MID_LOCATEJUNCTION,
+                         GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), v, MID_HOTKEY_SHIFT_J_LOCATEJUNCTION,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for edges
     new MFXButtonTooltip(v->getLocatorPopup(),
                          myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate Edges\tLocate an edge within the network. (Shift+E)",
-                         GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), v, MID_LOCATEEDGE,
+                         GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), v, MID_HOTKEY_SHIFT_E_LOCATEEDGE,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for walkingAreas
     new MFXButtonTooltip(v->getLocatorPopup(),
                          myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate WalkingAreas\tLocate a walkingArea within the network. (Shift+W)",
-                         GUIIconSubSys::getIcon(GUIIcon::LOCATEWALKINGAREA), v, MID_LOCATEWALKINGAREA,
+                         GUIIconSubSys::getIcon(GUIIcon::LOCATEWALKINGAREA), v, MID_HOTKEY_SHIFT_W_LOCATEWALKINGAREA,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for vehicles
     new MFXButtonTooltip(v->getLocatorPopup(),
                          myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate Vehicles\tLocate a vehicle within the network. (Shift+V)",
-                         GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), v, MID_LOCATEVEHICLE,
+                         GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), v, MID_HOTKEY_SHIFT_V_LOCATEVEHICLE,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
 
     // for person
     new MFXButtonTooltip(v->getLocatorPopup(),
                          myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate Persons\tLocate a person within the network. (Shift+P)",
-                         GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), v, MID_LOCATEPERSON,
+                         GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), v, MID_HOTKEY_SHIFT_P_LOCATEPERSON,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
 
     // for routes
     new MFXButtonTooltip(v->getLocatorPopup(),
                          myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate Route\tLocate a route within the network. (Shift+R)",
-                         GUIIconSubSys::getIcon(GUIIcon::LOCATEROUTE), v, MID_LOCATEROUTE,
+                         GUIIconSubSys::getIcon(GUIIcon::LOCATEROUTE), v, MID_HOTKEY_SHIFT_R_LOCATEROUTE,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
 
     // for routes
     new MFXButtonTooltip(v->getLocatorPopup(),
                          myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate Stops\tLocate a stop within the network. (Shift+S)",
-                         GUIIconSubSys::getIcon(GUIIcon::LOCATESTOP), v, MID_LOCATESTOP,
+                         GUIIconSubSys::getIcon(GUIIcon::LOCATESTOP), v, MID_HOTKEY_SHIFT_S_LOCATESTOP,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
 
     // for persons (currently unused)
@@ -385,25 +385,25 @@ GNEViewNet::buildViewToolBars(GUIGlChildWindow* v) {
     new MFXButtonTooltip(v->getLocatorPopup(),
                          myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate TLS\tLocate a tls within the network. (Shift+T)",
-                         GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), v, MID_LOCATETLS,
+                         GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), v, MID_HOTKEY_SHIFT_T_LOCATETLS,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for additional stuff
     new MFXButtonTooltip(v->getLocatorPopup(),
                          myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate Additional\tLocate an additional structure within the network. (Shift+A)",
-                         GUIIconSubSys::getIcon(GUIIcon::LOCATEADD), v, MID_LOCATEADD,
+                         GUIIconSubSys::getIcon(GUIIcon::LOCATEADD), v, MID_HOTKEY_SHIFT_A_LOCATEADDITIONAL,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for pois
     new MFXButtonTooltip(v->getLocatorPopup(),
                          myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate PoI\tLocate a PoI within the network. (Shift+O)",
-                         GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), v, MID_LOCATEPOI,
+                         GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), v, MID_HOTKEY_SHIFT_O_LOCATEPOI,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for polygons
     new MFXButtonTooltip(v->getLocatorPopup(),
                          myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate Polygon\tLocate a Polygon within the network. (Shift+L)",
-                         GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), v, MID_LOCATEPOLY,
+                         GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), v, MID_HOTKEY_SHIFT_L_LOCATEPOLY,
                          ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
 }
 
@@ -617,11 +617,11 @@ GNEViewNet::openSelectDialogAtCursor(const std::vector<GUIGlObject*>& GLObjects)
 void
 GNEViewNet::saveVisualizationSettings() const {
     // first check if we have to save gui settings in a file (only used for testing purposes)
-    OptionsCont& oc = OptionsCont::getOptions();
-    if (oc.getString("gui-testing.setting-output").size() > 0) {
+    const auto &neteditOptions = OptionsCont::getOptions();
+    if (neteditOptions.getString("gui-testing.setting-output").size() > 0) {
         try {
             // open output device
-            OutputDevice& output = OutputDevice::getDevice(oc.getString("gui-testing.setting-output"));
+            OutputDevice& output = OutputDevice::getDevice(neteditOptions.getString("gui-testing.setting-output"));
             // save view settings
             output.openTag(SUMO_TAG_VIEWSETTINGS);
             myVisualizationSettings->save(output);
@@ -636,7 +636,7 @@ GNEViewNet::saveVisualizationSettings() const {
             // close output device
             output.close();
         } catch (...) {
-            WRITE_ERROR("GUI-Settings cannot be saved in " + oc.getString("gui-testing.setting-output"));
+            WRITE_ERROR("GUI-Settings cannot be saved in " + neteditOptions.getString("gui-testing.setting-output"));
         }
     }
 }
@@ -1972,10 +1972,10 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
             case MID_HOTKEY_I_MODE_INSPECT:
                 myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_INSPECT);
                 break;
-            case MID_HOTKEY_D_MODE_DELETE:
+            case MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE:
                 myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_DELETE);
                 break;
-            case MID_HOTKEY_S_MODE_SELECT:
+            case MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT:
                 myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_SELECT);
                 break;
             case MID_HOTKEY_M_MODE_MOVE_MEANDATA:
@@ -1990,7 +1990,7 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
             case MID_HOTKEY_T_MODE_TLS_TYPE:
                 myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_TLS);
                 break;
-            case MID_HOTKEY_A_MODE_ADDITIONAL_STOP:
+            case MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP:
                 myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_ADDITIONAL);
                 break;
             case MID_HOTKEY_R_MODE_CROSSING_ROUTE_EDGERELDATA:
@@ -2023,10 +2023,10 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
             case MID_HOTKEY_I_MODE_INSPECT:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_INSPECT);
                 break;
-            case MID_HOTKEY_D_MODE_DELETE:
+            case MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_DELETE);
                 break;
-            case MID_HOTKEY_S_MODE_SELECT:
+            case MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_SELECT);
                 break;
             case MID_HOTKEY_M_MODE_MOVE_MEANDATA:
@@ -2041,7 +2041,7 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
             case MID_HOTKEY_T_MODE_TLS_TYPE:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_TYPE);
                 break;
-            case MID_HOTKEY_A_MODE_ADDITIONAL_STOP:
+            case MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_STOP);
                 break;
             case MID_HOTKEY_P_MODE_POLYGON_PERSON:
@@ -2059,10 +2059,10 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
             case MID_HOTKEY_I_MODE_INSPECT:
                 myEditModes.setDataEditMode(DataEditMode::DATA_INSPECT);
                 break;
-            case MID_HOTKEY_D_MODE_DELETE:
+            case MID_HOTKEY_D_MODE_SINGLESIMULATIONSTEP_DELETE:
                 myEditModes.setDataEditMode(DataEditMode::DATA_DELETE);
                 break;
-            case MID_HOTKEY_S_MODE_SELECT:
+            case MID_HOTKEY_S_MODE_STOPSIMULATION_SELECT:
                 myEditModes.setDataEditMode(DataEditMode::DATA_SELECT);
                 break;
             case MID_HOTKEY_E_MODE_EDGE_EDGEDATA:

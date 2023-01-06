@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -43,13 +43,22 @@ GUIOSGPerspectiveChanger::GUIOSGPerspectiveChanger(
 GUIOSGPerspectiveChanger::~GUIOSGPerspectiveChanger() {}
 
 
-bool GUIOSGPerspectiveChanger::onLeftBtnRelease(void* /* data */) {
+bool
+GUIOSGPerspectiveChanger::onLeftBtnRelease(void* /* data */) {
     updateViewport();
     return false;
 }
 
 
-bool GUIOSGPerspectiveChanger::onRightBtnRelease(void* /* data */) {
+bool
+GUIOSGPerspectiveChanger::onRightBtnRelease(void* /* data */) {
+    updateViewport();
+    return false;
+}
+
+
+bool
+GUIOSGPerspectiveChanger::onMiddleBtnRelease(void* /* data */) {
     updateViewport();
     return false;
 }
@@ -58,6 +67,7 @@ bool GUIOSGPerspectiveChanger::onRightBtnRelease(void* /* data */) {
 void GUIOSGPerspectiveChanger::onMouseMove(void* /* data */) {
     //updateViewport();
 }
+
 
 double
 GUIOSGPerspectiveChanger::getRotation() const {
@@ -192,8 +202,15 @@ GUIOSGPerspectiveChanger::updateViewport() {
 void
 GUIOSGPerspectiveChanger::updateViewport(osg::Vec3d& /* lookFrom */) {
     osg::Vec3d bottomLeft = getPositionOnGround(-1., -1.);
+    osg::Vec3d bottomRight = getPositionOnGround(1., -1.);
+    osg::Vec3d topLeft = getPositionOnGround(1., -1.);
     osg::Vec3d topRight = getPositionOnGround(1., 1.);
-    myViewPort.set(bottomLeft.x(), bottomLeft.y(), topRight.x(), topRight.y());
+    double xMin, xMax, yMin, yMax;
+    xMin = MIN4(bottomLeft.x(), bottomRight.x(), topLeft.x(), topRight.x());
+    xMax = MAX4(bottomLeft.x(), bottomRight.x(), topLeft.x(), topRight.x());
+    yMin = MIN4(bottomLeft.y(), bottomRight.y(), topLeft.y(), topRight.y());
+    yMax = MAX4(bottomLeft.y(), bottomRight.y(), topLeft.y(), topRight.y());
+    myViewPort.set(xMin, yMin, xMax, yMax);
 }
 
 

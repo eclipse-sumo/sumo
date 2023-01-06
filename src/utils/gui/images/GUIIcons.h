@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -31,35 +31,53 @@
  * @brief An enumeration of icons used by the gui applications
  */
 enum class GUIIcon {
+
     /// @name general Interface icons
     /// @{
     SUMO,
     SUMO_MINI,
     SUMO_LOGO,
     EMPTY,
-    OPEN_CONFIG,
-    OPEN_NET,
-    OPEN_SHAPES,
-    OPEN_ADDITIONALS,
-    OPEN_MEANDATAS,
-    OPEN_TLSPROGRAMS,
-    OPEN_SUMOCONFIG,
     NEW_NET,
     RELOAD,
-    SAVE,
     CLOSE,
     HELP,
     HALL_OF_FAME,
     CLEARMESSAGEWINDOW,
     /// @}
 
-    /// @brief basic operations
+    /// @brief open icons
+    /// @{
+    OPEN,
+    OPEN_SUMOCONFIG,
+    OPEN_NETEDITCONFIG,
+    OPEN_NET,
+    OPEN_SHAPES,
+    OPEN_ADDITIONALS,
+    OPEN_MEANDATAS,
+    OPEN_TLSPROGRAMS,
+    OPEN_BMPDIALOG,
     /// @{
 
+    /// @brief save icons
+    /// @{
+    SAVE,
+    SAVE_DATABASE,
+    SAVE_SUMOCONFIG,
+    SAVE_NETEDITCONFIG,
+    SAVE_QUESTION,
+    SAVE_NETWORKELEMENTS,
+    SAVE_ADDITIONALELEMENTS,
+    SAVE_DEMANDELEMENTS,
+    SAVE_DATAELEMENTS,
+    SAVE_MEANDATAELEMENTS,
+    /// @}
+
+    /// @brief basic operations
+    /// @{
     CUT,
     COPY,
     PASTE,
-
     /// @}
 
 
@@ -131,7 +149,6 @@ enum class GUIIcon {
     /// @name options icons
     /// @{
     COLORWHEEL,
-    SAVEDB,
     REMOVEDB,
     SHOWTOOLTIPS_VIEW,
     SHOWTOOLTIPS_MENU,
@@ -188,7 +205,6 @@ enum class GUIIcon {
     SKELETONIZE,
     RARIFY,
     CREATE_GRAPH,
-    OPEN_BMP_DIALOG,
     EYEDROP,
     PAINTBRUSH1X,
     PAINTBRUSH2X,
@@ -293,16 +309,6 @@ enum class GUIIcon {
     LANE_BUS,
     LANE_BIKE,
     LANEGREENVERGE,
-    /// @}
-
-    /// @name netedit save elements
-    /// @{
-    SAVEALLELEMENTS,
-    SAVENETWORKELEMENTS,
-    SAVEADDITIONALELEMENTS,
-    SAVEDEMANDELEMENTS,
-    SAVEDATAELEMENTS,
-    SAVEMEANDATAELEMENTS,
     /// @}
 
     /// @name netedit supermode icons

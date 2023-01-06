@@ -1,0 +1,42 @@
+edgeData_fundamental
+
+# This test checks that wildcards are correctly used for filtering IDs out within the plotXMLAttributes tool.
+filtered-ids_wildcards
+edgeData_speeds
+
+# tripinfos contain vehicle trips and person rides
+tripinfo_mixed_depart_routeLength
+tripinfo_rank_depart
+
+# plot summary output which doesn't have an id attribute
+summary_no_id
+
+# plot summary output which doesn't have an id attribute
+summary_no_id_explicit
+
+# plot summary output which doesn't have an id attribute, running and halting
+summary_multi_y_split
+
+# plot categorial data
+lanechange_reason
+
+# plot categorial data
+lanechange_reason_sort
+
+# plot categorial data
+lanechange_reason_sort_reposition
+
+# plot categorial data
+lanechange_reason_filter
+
+# plot optional values
+lanechange_missing_data
+
+# plot turn counts
+edgeRelations_multi_id
+
+# plot turn counts
+edgeRelations_multi_x
+
+# plot fcd output and ignore ids (#12346)
+fcd_no_id_explicit

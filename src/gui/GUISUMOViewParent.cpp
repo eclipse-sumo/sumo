@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -51,15 +51,15 @@
 FXDEFMAP(GUISUMOViewParent) GUISUMOViewParentMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_MAKESNAPSHOT,   GUISUMOViewParent::onCmdMakeSnapshot),
     //        FXMAPFUNC(SEL_COMMAND,  MID_ALLOWROTATION,  GUISUMOViewParent::onCmdAllowRotation),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEJUNCTION, GUISUMOViewParent::onCmdLocate),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEEDGE,     GUISUMOViewParent::onCmdLocate),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEVEHICLE,  GUISUMOViewParent::onCmdLocate),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPERSON,   GUISUMOViewParent::onCmdLocate),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATECONTAINER, GUISUMOViewParent::onCmdLocate),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATETLS,      GUISUMOViewParent::onCmdLocate),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEADD,      GUISUMOViewParent::onCmdLocate),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPOI,      GUISUMOViewParent::onCmdLocate),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPOLY,     GUISUMOViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_J_LOCATEJUNCTION, GUISUMOViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_E_LOCATEEDGE,     GUISUMOViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_V_LOCATEVEHICLE,  GUISUMOViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_P_LOCATEPERSON,   GUISUMOViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_C_LOCATECONTAINER, GUISUMOViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_T_LOCATETLS,      GUISUMOViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_A_LOCATEADDITIONAL,      GUISUMOViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_O_LOCATEPOI,      GUISUMOViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_L_LOCATEPOLY,     GUISUMOViewParent::onCmdLocate),
     FXMAPFUNC(SEL_UPDATE,   MID_SPEEDFACTOR,    GUISUMOViewParent::onUpdSpeedFactor),
     FXMAPFUNC(SEL_COMMAND,  MID_SPEEDFACTOR,    GUISUMOViewParent::onCmdSpeedFactor),
     FXMAPFUNC(SEL_COMMAND,  MID_SIMSTEP,        GUISUMOViewParent::onSimStep),
@@ -180,11 +180,11 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject* sender, FXSelector, void*) {
 std::vector<GUIGlID>
 GUISUMOViewParent::getObjectIDs(int messageId) const {
     switch (messageId) {
-        case MID_LOCATEJUNCTION:
+        case MID_HOTKEY_SHIFT_J_LOCATEJUNCTION:
             return static_cast<GUINet*>(GUINet::getInstance())->getJunctionIDs(myParent->listInternal());
-        case MID_LOCATEEDGE:
+        case MID_HOTKEY_SHIFT_E_LOCATEEDGE:
             return GUIEdge::getIDs(myParent->listInternal());
-        case MID_LOCATEVEHICLE: {
+        case MID_HOTKEY_SHIFT_V_LOCATEVEHICLE: {
             std::vector<GUIGlID> vehicles;
             if (MSGlobals::gUseMesoSim) {
                 static_cast<GUIMEVehicleControl*>(static_cast<GUINet*>(MSNet::getInstance())->getGUIMEVehicleControl())->insertVehicleIDs(vehicles);
@@ -194,24 +194,24 @@ GUISUMOViewParent::getObjectIDs(int messageId) const {
             }
             return vehicles;
         }
-        case MID_LOCATEPERSON: {
+        case MID_HOTKEY_SHIFT_P_LOCATEPERSON: {
             std::vector<GUIGlID> persons;
             static_cast<GUITransportableControl&>(MSNet::getInstance()->getPersonControl()).insertIDs(persons);
             return persons;
         }
-        case MID_LOCATECONTAINER: {
+        case MID_HOTKEY_SHIFT_C_LOCATECONTAINER: {
             // get containers
             std::vector<GUIGlID> containers;
             static_cast<GUITransportableControl&>(MSNet::getInstance()->getContainerControl()).insertIDs(containers);
             return containers;
         }
-        case MID_LOCATETLS:
+        case MID_HOTKEY_SHIFT_T_LOCATETLS:
             return static_cast<GUINet*>(GUINet::getInstance())->getTLSIDs();
-        case MID_LOCATEADD:
+        case MID_HOTKEY_SHIFT_A_LOCATEADDITIONAL:
             return GUIGlObject_AbstractAdd::getIDList(GLO_ADDITIONALELEMENT);
-        case MID_LOCATEPOI:
+        case MID_HOTKEY_SHIFT_O_LOCATEPOI:
             return static_cast<GUIShapeContainer&>(GUINet::getInstance()->getShapeContainer()).getPOIIds();
-        case MID_LOCATEPOLY:
+        case MID_HOTKEY_SHIFT_L_LOCATEPOLY:
             return static_cast<GUIShapeContainer&>(GUINet::getInstance()->getShapeContainer()).getPolygonIDs();
         default:
             throw ProcessError("Unknown Message ID in onCmdLocate");
@@ -226,39 +226,39 @@ GUISUMOViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
         FXIcon* icon = nullptr;
         std::string titleString = "";
         switch (messageId) {
-            case MID_LOCATEJUNCTION:
+            case MID_HOTKEY_SHIFT_J_LOCATEJUNCTION:
                 icon = GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION);
                 titleString = "Junction Chooser";
                 break;
-            case MID_LOCATEEDGE:
+            case MID_HOTKEY_SHIFT_E_LOCATEEDGE:
                 icon = GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE);
                 titleString = "Edge Chooser";
                 break;
-            case MID_LOCATEVEHICLE:
+            case MID_HOTKEY_SHIFT_V_LOCATEVEHICLE:
                 icon = GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE);
                 titleString = "Vehicle Chooser";
                 break;
-            case MID_LOCATEPERSON:
+            case MID_HOTKEY_SHIFT_P_LOCATEPERSON:
                 icon = GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON);
                 titleString = "Person Chooser";
                 break;
-            case MID_LOCATECONTAINER:
+            case MID_HOTKEY_SHIFT_C_LOCATECONTAINER:
                 icon = GUIIconSubSys::getIcon(GUIIcon::LOCATECONTAINER);
                 titleString = "Container Chooser";
                 break;
-            case MID_LOCATETLS:
+            case MID_HOTKEY_SHIFT_T_LOCATETLS:
                 icon = GUIIconSubSys::getIcon(GUIIcon::LOCATETLS);
                 titleString = "Traffic Lights Chooser";
                 break;
-            case MID_LOCATEADD:
+            case MID_HOTKEY_SHIFT_A_LOCATEADDITIONAL:
                 icon = GUIIconSubSys::getIcon(GUIIcon::LOCATEADD);
                 titleString = "Additional Objects Chooser";
                 break;
-            case MID_LOCATEPOI:
+            case MID_HOTKEY_SHIFT_O_LOCATEPOI:
                 icon = GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI);
                 titleString = "POI Chooser";
                 break;
-            case MID_LOCATEPOLY:
+            case MID_HOTKEY_SHIFT_L_LOCATEPOLY:
                 icon = GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY);
                 titleString = "Polygon Chooser";
                 break;

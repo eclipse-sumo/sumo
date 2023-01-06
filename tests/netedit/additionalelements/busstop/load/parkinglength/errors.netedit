@@ -8,7 +8,7 @@ Error: Attribute 'parkingLength' in definition of busStop 'busStop_02' Invalid N
 Error: Could not build busStop with ID 'busStop_03' in netedit; attribute parkingLength cannot be negative.
 Debug: Adding busStop 'busStop_04' in GNEChange_Additional
 Debug: Adding busStop 'busStop_05' in GNEChange_Additional
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.busstop.24Jun133818.22373/netedit.daily.additional.busstop/additionalelements/busstop/load/parkinglength/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.busstop.24Jun133818.22373/netedit.daily.additional.busstop/additionalelements/busstop/load/parkinglength/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

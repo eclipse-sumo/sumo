@@ -8,7 +8,7 @@ Error: Attribute 'id' is missing in definition of a inductionLoop.
 Debug: Adding inductionLoop 'ID with spaces' in GNEChange_Additional
 Error: Could not build inductionLoop with ID 'E1_01' in netedit; declared twice.
 Debug: Adding inductionLoop 'validID' in GNEChange_Additional
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.e1detector.24Jun133818.22389/netedit.daily.additional.e1detector/additionalelements/e1detector/load/id/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.e1detector.24Jun133818.22389/netedit.daily.additional.e1detector/additionalelements/e1detector/load/id/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

@@ -12,7 +12,7 @@ Debug: Adding detEntry 'entryExitDetector_0' in GNEChange_Additional
 Error: Could not build entry with ID 'entryExitDetector_0' in netedit; Invalid position over lane.
 Debug: Adding detEntry 'entryExitDetector_0' in GNEChange_Additional
 Debug: Adding detExit 'entryExitDetector_0' in GNEChange_Additional
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.detentry.01Aug073708.40055/netedit.daily.additional.detentry/additionalelements/detentry/load/pos/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.detentry.01Aug073708.40055/netedit.daily.additional.detentry/additionalelements/detentry/load/pos/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

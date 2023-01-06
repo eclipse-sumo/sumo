@@ -30,7 +30,7 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12_from_08Mar091225.2372/netedit.gui/netElements/edges/load/shapeend\input_additionals.add.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12_from_08Mar091225.2372/netedit.gui/netElements/edges/load/shapeend\additionals.add.xml"/>
         <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12_from_08Mar091225.2372/netedit.gui/netElements/edges/load/shapeend\additionals.xml"/>
         <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.12_from_08Mar091225.2372/netedit.gui/netElements/edges/load/shapeend\routes.xml"/>
     </netedit>

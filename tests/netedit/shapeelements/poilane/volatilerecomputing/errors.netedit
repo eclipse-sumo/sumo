@@ -21,7 +21,7 @@ Debug: Adding poiLane 'POI_6' in GNEChange_Additional
 Debug: Adding poiLane 'POI_7' in GNEChange_Additional
 Error: Could not build poi with ID 'POI_8' in netedit; attribute width cannot be negative.
 Debug: Adding poiLane 'POI_9' in GNEChange_Additional
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poilane.24Jun133820.22544/netedit.daily.shape.poilane/shapeelements/poilane/volatilerecomputing/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poilane.24Jun133820.22544/netedit.daily.shape.poilane/shapeelements/poilane/volatilerecomputing/additionals.add.xml failed.
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'

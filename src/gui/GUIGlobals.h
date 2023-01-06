@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -17,24 +17,19 @@
 /// @author  Michael Behrisch
 /// @date    2004
 ///
-// Some global variables (yep)
+// Some global variables for the GUI
 /****************************************************************************/
 #pragma once
 #include <config.h>
-
-#include <vector>
-#include <utils/common/SUMOTime.h>
 
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
- * @class MSGlobals
+ * @class GUIGlobals
  * This class holds some static variables, filled mostly with values coming
- *  from the command line or the simulation configuration file.
- * They are stored herein to allow a faster access than from the options
- *  container.
+ *  from the command line, application settings or the registry.
  */
 class GUIGlobals {
 public:

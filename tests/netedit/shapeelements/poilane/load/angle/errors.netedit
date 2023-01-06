@@ -7,7 +7,7 @@ Error: Attribute 'angle' in definition of poi 'POI_0' Invalid Number Format (dou
 Debug: Adding poiLane 'POI_1' in GNEChange_Additional
 Debug: Adding poiLane 'POI_2' in GNEChange_Additional
 Debug: Adding poiLane 'POI_3' in GNEChange_Additional
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poilane.24Jun133820.22544/netedit.daily.shape.poilane/shapeelements/poilane/load/angle/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poilane.24Jun133820.22544/netedit.daily.shape.poilane/shapeelements/poilane/load/angle/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

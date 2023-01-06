@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -31,19 +31,33 @@
 #include "sumo_logo.xpm"
 
 #include "empty.xpm"
-#include "filesave.xpm"
-#include "fileopen.xpm"
-#include "netopen.xpm"
 #include "newnet.xpm"
-#include "shapeopen.xpm"
-#include "additionalopen.xpm"
-#include "meandataopen.xpm"
-#include "tlsopen.xpm"
 #include "play.xpm"
 #include "stop.xpm"
 #include "step.xpm"
 #include "new_window.xpm"
 #include "new_window_3d.xpm"
+
+#include "open.xpm"
+#include "openadditionals.xpm"
+#include "openbmpdialog.xpm"
+#include "opennet.xpm"
+#include "openmeandatas.xpm"
+#include "openneteditconfig.xpm"
+#include "openshapes.xpm"
+#include "opensumoconfig.xpm"
+#include "opentls.xpm"
+
+#include "save.xpm"
+#include "save_sumoconfig.xpm"
+#include "save_neteditconfig.xpm"
+#include "save_question.xpm"
+#include "save_networkelements.xpm"
+#include "save_aditionalelements.xpm"
+#include "save_demandelements.xpm"
+#include "save_dataelements.xpm"
+#include "save_meandataelements.xpm"
+#include "save_database.xpm"
 
 #include "app_tracker.xpm"
 #include "app_finder.xpm"
@@ -78,7 +92,6 @@
 #include "yellow_person.xpm"
 
 #include "colorwheel.xpm"
-#include "savedb.xpm"
 #include "removedb.xpm"
 #include "recenter_view.xpm"
 #include "allow_rotation.xpm"
@@ -99,7 +112,6 @@
 #include "skeletonize.xpm"
 #include "rarify.xpm"
 #include "create_graph.xpm"
-#include "open_bmp_dialog.xpm"
 #include "eyedrop.xpm"
 #include "rubber1x.xpm"
 #include "rubber2x.xpm"
@@ -201,13 +213,6 @@
 #include "tracker.xpm"
 #include "hall_of_fame.xpm"
 #include "clear_message_window.xpm"
-
-#include "saveallelements.xpm"
-#include "savenetworkelements.xpm"
-#include "saveaditionalelements.xpm"
-#include "savedemandelements.xpm"
-#include "savedataelements.xpm"
-#include "savemeandataelements.xpm"
 
 #include "supermodenetwork.xpm"
 #include "supermodedemand.xpm"
@@ -468,16 +473,8 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::SUMO_MINI] = new FXXPMIcon(a, sumo_icon16_xpm);
     myIcons[GUIIcon::SUMO_LOGO] = new FXXPMIcon(a, sumo_logo_xpm);
     myIcons[GUIIcon::EMPTY] = new FXXPMIcon(a, empty_xpm);
-    myIcons[GUIIcon::OPEN_CONFIG] = new FXXPMIcon(a, fileopen_xpm);
-    myIcons[GUIIcon::OPEN_NET] = new FXXPMIcon(a, netopen_xpm);
-    myIcons[GUIIcon::OPEN_SHAPES] = new FXXPMIcon(a, shapeopen_xpm);
-    myIcons[GUIIcon::OPEN_ADDITIONALS] = new FXXPMIcon(a, additionalopen_xpm);
-    myIcons[GUIIcon::OPEN_MEANDATAS] = new FXXPMIcon(a, meandataopen_xpm);
-    myIcons[GUIIcon::OPEN_TLSPROGRAMS] = new FXXPMIcon(a, tlsopen_xpm);
-    myIcons[GUIIcon::OPEN_SUMOCONFIG] = new FXXPMIcon(a, fileopen_xpm);
     myIcons[GUIIcon::NEW_NET] = new FXXPMIcon(a, newnet_xpm);
     myIcons[GUIIcon::RELOAD] = new FXXPMIcon(a, reload_xpm);
-    myIcons[GUIIcon::SAVE] = new FXXPMIcon(a, filesave_xpm);
     myIcons[GUIIcon::CLOSE] = new FXXPMIcon(a, empty_xpm);  /** temporal **/
     myIcons[GUIIcon::HELP] = new FXXPMIcon(a, empty_xpm);   /** temporal **/
     myIcons[GUIIcon::START] = new FXXPMIcon(a, play_xpm);
@@ -492,6 +489,27 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::FULL_SCREEN] = new FXXPMIcon(a, full_screen_xpm);
     myIcons[GUIIcon::HALL_OF_FAME] = new FXXPMIcon(a, hall_of_fame_xpm);   /** temporal? **/
     myIcons[GUIIcon::CLEARMESSAGEWINDOW] = new FXXPMIcon(a, clear_message_window_xpm);
+
+    myIcons[GUIIcon::OPEN] = new FXXPMIcon(a, open_xpm);
+    myIcons[GUIIcon::OPEN_NETEDITCONFIG] = new FXXPMIcon(a, open_neteditconfig_xpm);
+    myIcons[GUIIcon::OPEN_SUMOCONFIG] = new FXXPMIcon(a, open_sumoconfig_xpm);
+    myIcons[GUIIcon::OPEN_NET] = new FXXPMIcon(a, open_net_xpm);
+    myIcons[GUIIcon::OPEN_SHAPES] = new FXXPMIcon(a, open_shapes_xpm);
+    myIcons[GUIIcon::OPEN_ADDITIONALS] = new FXXPMIcon(a, open_additionals_xpm);
+    myIcons[GUIIcon::OPEN_MEANDATAS] = new FXXPMIcon(a, open_meandatas_xpm);
+    myIcons[GUIIcon::OPEN_TLSPROGRAMS] = new FXXPMIcon(a, open_tls_xpm);
+    myIcons[GUIIcon::OPEN_BMPDIALOG] = new FXXPMIcon(a, open_bmpdialog_xpm);
+
+    myIcons[GUIIcon::SAVE] = new FXXPMIcon(a, save_xpm);
+    myIcons[GUIIcon::SAVE_SUMOCONFIG] = new FXXPMIcon(a, save_sumoconfig_xpm);
+    myIcons[GUIIcon::SAVE_NETEDITCONFIG] = new FXXPMIcon(a, save_neteditconfig_xpm);
+    myIcons[GUIIcon::SAVE_QUESTION] = new FXXPMIcon(a, save_question_xpm);
+    myIcons[GUIIcon::SAVE_NETWORKELEMENTS] = new FXXPMIcon(a, save_networkelements_xpm);
+    myIcons[GUIIcon::SAVE_ADDITIONALELEMENTS] = new FXXPMIcon(a, save_additionalelements_xpm);
+    myIcons[GUIIcon::SAVE_DEMANDELEMENTS] = new FXXPMIcon(a, save_demandelements_xpm);
+    myIcons[GUIIcon::SAVE_DATAELEMENTS] = new FXXPMIcon(a, save_dataelements_xpm);
+    myIcons[GUIIcon::SAVE_MEANDATAELEMENTS] = new FXXPMIcon(a, save_meandataelements_xpm);
+    myIcons[GUIIcon::SAVE_DATABASE] = new FXXPMIcon(a, save_database_xpm);
 
     myIcons[GUIIcon::CUT] = new FXXPMIcon(a, cut_xpm);
     myIcons[GUIIcon::COPY] = new FXXPMIcon(a, copy_xpm);
@@ -536,7 +554,6 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::YELLOWPERSON] = new FXXPMIcon(a, yellow_person_xpm);
 
     myIcons[GUIIcon::COLORWHEEL] = new FXXPMIcon(a, colorwheel_xpm);
-    myIcons[GUIIcon::SAVEDB] = new FXXPMIcon(a, savedb_xpm);
     myIcons[GUIIcon::REMOVEDB] = new FXXPMIcon(a, removedb_xpm);
     myIcons[GUIIcon::SHOWTOOLTIPS_VIEW] = new FXXPMIcon(a, show_tooltips_view_xpm);
     myIcons[GUIIcon::SHOWTOOLTIPS_MENU] = new FXXPMIcon(a, show_tooltips_menu_xpm);
@@ -562,7 +579,6 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::SKELETONIZE] = new FXXPMIcon(a, skeletonize_xpm);
     myIcons[GUIIcon::RARIFY] = new FXXPMIcon(a, rarify_xpm);
     myIcons[GUIIcon::CREATE_GRAPH] = new FXXPMIcon(a, create_graph_xpm);
-    myIcons[GUIIcon::OPEN_BMP_DIALOG] = new FXXPMIcon(a, open_bmp_dialog_xpm);
     myIcons[GUIIcon::EYEDROP] = new FXXPMIcon(a, eyedrop_xpm);
     myIcons[GUIIcon::PAINTBRUSH1X] = new FXXPMIcon(a, paintbrush1x_xpm);
     myIcons[GUIIcon::PAINTBRUSH2X] = new FXXPMIcon(a, paintbrush2x_xpm);
@@ -643,13 +659,6 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::EXT] = new FXXPMIcon(a, ext_xpm);
     myIcons[GUIIcon::CUT_SWELL] = new FXXPMIcon(a, cut_xpm);
     myIcons[GUIIcon::TRACKER] = new FXXPMIcon(a, tracker_xpm);
-
-    myIcons[GUIIcon::SAVEALLELEMENTS] = new FXXPMIcon(a, saveallelements_xpm);
-    myIcons[GUIIcon::SAVENETWORKELEMENTS] = new FXXPMIcon(a, savenetworkelements_xpm);
-    myIcons[GUIIcon::SAVEADDITIONALELEMENTS] = new FXXPMIcon(a, saveadditionalelements_xpm);
-    myIcons[GUIIcon::SAVEDEMANDELEMENTS] = new FXXPMIcon(a, savedemandelements_xpm);
-    myIcons[GUIIcon::SAVEDATAELEMENTS] = new FXXPMIcon(a, savedataelements_xpm);
-    myIcons[GUIIcon::SAVEMEANDATAELEMENTS] = new FXXPMIcon(a, savemeandataelements_xpm);
 
     myIcons[GUIIcon::SUPERMODENETWORK] = new FXXPMIcon(a, supermodenetwork_xpm);
     myIcons[GUIIcon::SUPERMODEDEMAND] = new FXXPMIcon(a, supermodedemand_xpm);

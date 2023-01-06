@@ -8,7 +8,7 @@ Error: Attribute 'endPos' in definition of chargingStation 'chargingStation_8' I
 Error: Could not build chargingStation with ID 'chargingStation_9' in netedit; Invalid position over lane.
 Error: Could not build chargingStation with ID 'chargingStation_10' in netedit; Invalid position over lane.
 Debug: Adding chargingStation 'chargingStation_10' in GNEChange_Additional
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.chargingstation.24Jun133818.22381/netedit.daily.additional.chargingstation/additionalelements/chargingstation/load/endpos/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.chargingstation.24Jun133818.22381/netedit.daily.additional.chargingstation/additionalelements/chargingstation/load/endpos/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

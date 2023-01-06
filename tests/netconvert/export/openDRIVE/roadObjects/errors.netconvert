@@ -3,6 +3,8 @@ Warning: Lane '150394036#1_0' is not connected from any incoming edge at junctio
 Warning: Lane '72157172_1' is not connected from any incoming edge at junction 'cluster_4566145593_4566145594_5747234975_768074054'.
 Warning: Lane '72157172_2' is not connected from any incoming edge at junction 'cluster_4566145593_4566145594_5747234975_768074054'.
 Warning: Lane '72157172_3' is not connected from any incoming edge at junction 'cluster_4566145593_4566145594_5747234975_768074054'.
+Warning: Invalid pedestrian topology at junction '2054749637'; crossing ':2054749637_c0' starts and ends at walkingarea ':2054749637_w0'.
+Warning: Invalid pedestrian topology at junction '3182529366'; crossing ':3182529366_c0' starts and ends at walkingarea ':3182529366_w0'.
 Warning: The rail crossing 'cluster_1827996436_1827996440' does not have any roads.
 Warning: The rail crossing 'cluster_1827996511_1827996525' does not have any roads.
 Warning: The rail crossing 'cluster_3792418585_3792418767' does not have any roads.

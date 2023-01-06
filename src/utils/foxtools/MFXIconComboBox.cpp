@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2006-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2006-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -295,8 +295,8 @@ MFXIconComboBox::setText(FXString text) {
 void
 MFXIconComboBox::setNumVisible(FXint nvis) {
     myList->setNumVisible(nvis);
-    // set height manually (due icons)
-    myList->setHeight((nvis + 1) * ICON_HEIGHT);
+    // set height manually (marging top + ICON_HEIGHT + marging bot)
+    myList->setHeight(nvis * (ICON_HEIGHT + 4));
 }
 
 

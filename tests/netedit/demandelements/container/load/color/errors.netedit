@@ -22,7 +22,7 @@ Error: Attribute 'color' in definition of container 'p_1' Invalid color definiti
 Error: Attribute 'color' in definition of container 'p_2' Invalid color definition 'dummycolor'.
 Debug: Adding container 'p_3' in GNEChange_DemandElement
 Debug: Adding tranship: edge->edge 'p_3' in GNEChange_DemandElement
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.container.1_from_01Dez143640.150605/netedit.daily.demand.container/demandelements/container/load/color/input_routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.container.1_from_01Dez143640.150605/netedit.daily.demand.container/demandelements/container/load/color/routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00

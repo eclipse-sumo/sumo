@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -227,10 +227,17 @@ MsgHandler::removeRetrieverFromAllInstances(OutputDevice* out) {
 void
 MsgHandler::setupI18n(const std::string& locale) {
 #ifdef HAVE_INTL
-    if (!setlocale(LC_MESSAGES, locale.data())) {
+    if (locale != "") {
+#ifdef WIN32
+        _putenv_s("LANGUAGE", locale.data());
+#else
+        setenv("LANGUAGE", locale.data(), true);
+#endif
+    }
+    if (!setlocale(LC_MESSAGES, "")) {
         WRITE_WARNING("Could not set locale to '" + locale + "'.");
     }
-    const char* sumoPath = std::getenv("SUMO_HOME");
+    const char* sumoPath = getenv("SUMO_HOME");
     if (sumoPath == nullptr) {
         if (!bindtextdomain("sumo", nullptr)) {
             WRITE_WARNING(TL("Environment variable SUMO_HOME is not set, could not find localized messages."));

@@ -8,7 +8,7 @@ Debug: Adding parkingArea 'parkingArea_1' in GNEChange_Additional
 Error: Could not build parkingArea with ID 'parkingArea_2' in netedit; Invalid departPos over lane.
 Error: Could not build parkingArea with ID 'parkingArea_3' in netedit; Invalid departPos over lane.
 Debug: Adding parkingArea 'parkingArea_4' in GNEChange_Additional
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.parkingarea.24Jun133818.22399/netedit.daily.additional.parkingarea/additionalelements/parkingarea/load/departpos/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.parkingarea.24Jun133818.22399/netedit.daily.additional.parkingarea/additionalelements/parkingarea/load/departpos/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

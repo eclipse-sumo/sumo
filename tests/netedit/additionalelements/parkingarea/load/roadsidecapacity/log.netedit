@@ -1,4 +1,4 @@
 Error: Attribute 'roadsideCapacity' in definition of parkingArea 'parkingArea_1' Invalid Number Format (long long integer format) dummy.
 Error: Could not build parkingArea with ID 'parkingArea_2' in netedit; attribute roadsideCapacity cannot be negative.
 Error: Attribute 'roadsideCapacity' in definition of parkingArea 'parkingArea_3' Invalid Number Format (long long integer format) 2.5.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\parkingarea\load\roadsidecapacity\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\parkingarea\load\roadsidecapacity\additionals.add.xml failed.

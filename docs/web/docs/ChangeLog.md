@@ -20,6 +20,7 @@ title: ChangeLog
   - Fixed bug where vehicle with short boardingDuration fails to board passengers after deboarding. Issue #12168
   - Fixed invalid error when loading edgeData with negative electricity consumption. Issue #12172
   - Fixed invalid insertion delay for trains on bidirectional track. Issue #12079
+  - Fixed collision on bidi edge. Issue #12393
   - Fixed deadlock on bidirectional track involving trains that arrive within a block. Issue #12184
   - Fixed crash when letting persons route between identical junctions. Issue #12242
   - Fixed invalid switching in branching 'actuated' traffic light programs. Issue #12265
@@ -27,6 +28,9 @@ title: ChangeLog
   - Fixed vehicle angles when using 'lcSigma' with the continous lane change mode. Issue #12201
   - Fixed inconsistency in waitingTime definition between tripinfo-output and accumulated waitingTime. Issue #12287
   - Fixed invalid lot assignment for onRoad parkingArea. Issue #12330
+  - Fixed invalid change to lane with stopped leader. Issue #12113
+  - Containers and persons are now unloaded in parallel. Issue #12385
+  - Fixed premature simulation end with triggered stop and combined loading/unloading. Issue #12386
   - sublane model fixes:
     - Fixed invalid emergency braking for junction foe. Issue #12202
     - Fixed inconsistent computation for vehicle back position. Issue #12146
@@ -35,9 +39,10 @@ title: ChangeLog
 
 - netedit
   - Fixed bug where stops on looped routes where saved in an invalid order. Issue #12054 (regression in 1.12.0)
-  - Right click on elements above a polygon now selects now acts on the top element again. Issue #12111 (regression in 1.14.1)
+  - Right click on elements above a polygon now acts on the top element again. Issue #12111 (regression in 1.14.1)
   - Fixed invalid position of start and end edge geometry points after merging geometry points in move mode. Issue #12178 (regression in 1.14.1)
   - Fixed bug where during creation of new edge, sometimes, the candidate "to" junction isn't draw wit magenta dotted contour. Issue #12013 (regression in 1.15.0)  
+  - Fixed crash when using 'convert to roundabout' from the junction context menu. Issue #12355 (regression in 1.15.0)
   - Fixed invalid selection outline. Issue #12033
   - Fixed bug where right-click object-choice-menu lists the same object twice. Issue #12034
   - Junctions can now be deleted when covered by a walkingarea. Issue #12070
@@ -54,6 +59,10 @@ title: ChangeLog
   - Fixed initial positions of some dialogs that were too high. Issue #11936
   - Fixed crash on saving gui settings to registry (debug mode only). Issue #11595
   - Pressing Escape key in OSG view no longer makes it unresponsive to further control input. Issue #12313
+  - Trailer and Semi-Trailer vehicles are now drawn correctly during opposite-overtaking. Issue #12331
+  - Fixed bad default settings when loading a 2D viewport in OSG view. Issue #12348
+  - Fixes 3D view boundary coordinates after rotating the view. Issue #11941
+  - Fixed crash on quick-reload reloading. Issue #12367
     
 - meso
   - Stopping at pos=0 is now working. Issue #12240
@@ -62,19 +71,22 @@ title: ChangeLog
 - netconvert
   - Fixed unnecessary dead-end lanes at large intersections. Issue #2472
   - Fixed invalid OpenDRIVE output when writing traffic signals with signal groups. Issue #11980
-  - Fixed invalid right of way rules when connections from the same edge merge and both have internal junctions. Issue #11988
   - Fixed invalid OpenDrive output for lefthand networks. Issue #11995, #12038, #12047
+  - Fixed invalid right of way rules when connections from the same edge merge and both have internal junctions. Issue #11988  
+  - Fixed invalid right of way rules causing mutual conflict at multimodal priority-junction. Issue #5609
   - Fixed bug where **--junctions.join** failed in multimodal networks. Issue #6495
   - Fixed bug where **--junctions.join** joins to much. Issue #10589
   - Fixed invalid dead-end when using option **--osm.turn-lanes**. Issue #12042
-  - Fixed invalid plain xml output (after reading an invalid network). Issue #12086
-  - Fixed invalid right of way rules causing mutual conflict at multimodal priority-junction. Issue #5609
+  - Fixed invalid plain xml output (after reading an invalid network). Issue #12086  
   - Fixed invalid guessed connections. Issue #10771, #10978, #2472, #12181, #12327
   - Fixed missing bidi edges in generated network. Issue #12127
   - OSM import no longer ignores spreadType in typemap. Issue #12141
   - Fixed invalid bike lane in OSM import. Issue #12216
-  - Fixed invalid bidirectional combined foot/bike path. Issue #12214
+  - Fixed invalid bidirectional combined foot/bike path in OSM import. Issue #12214
   - Traffic light building on large intersections now adds extra red time after left-turn phases to ensure safety. Issue #10796  
+  - Fixed creation of invalid pedestrian crossings. Issue #12234
+  - Added missing (guessed) connections when an outgoing edge has additional lanes. Issue #8899
+  - Fixed invalid link state at zipper junction. Issue #7676
   
 - polyconvert
   - Fixed invalid polygon output for some line based inputs. Issue #12161
@@ -86,6 +98,9 @@ title: ChangeLog
   - Fixed invalid behavior when mixing stops on normal and internal lanes. Issue #11885
   - Function `traci.edge.setAllowed` is now working. Issue #12305
   - Context subscriptions to the simulation domain now always return all requested objects regardless of range argument. Issue #12306
+  - `trafficlight.swapConstraints` now preserves params (and swaps params for `bidiPredecessor`). Issue #12326
+  - Fixed problems when using libsumo with gui. Issue #12285, #12021
+  - Fixed crash on rerouting after insertStop/replaceStop. Issue #12387
 
 - Tools
   - plot_net_dump_file.py: plotting a single measure is working again. Issue #11975 (regression in 1.15.0)
@@ -98,6 +113,7 @@ title: ChangeLog
   - routesampler.py: Option **--total-count** is now compatible with **--weighted**. Issue #12284
   - net2geojson.py: Fixed crash when trying to import network without geo projection (now gives an error message instead). Issue #12295
   - gtfs2pt.py: Fixed missing transport modes. Issues #12277
+  - gtfs2pt.py: Fixed mapping of bus and tram stops in multimodal networks. Issue #11802, #11849
 
 - All Applications: Fixed crash if gzipped outputfile cannot be opened. Issue #11954
 
@@ -126,8 +142,10 @@ title: ChangeLog
   - Added option **--tls.guess-signals.slack** to identify more controlled intersections by guessing from surrounding *simple* tls nodes. Issue #12249
   - Option **--tls.guess-signals** no longer requires signals on non-passeger edges to interpret an intersection as controlled. Issue #12260
   - Option **--junctions.join** can now join intersections with more than 4 incoming edges. Issue #12261
+  - Walkingarea shapes for pure pedestrian intersections now match the junction shape. Issue #12377
 
 - netedit
+  - It is now possible to load and save a *.sumocfg* file and also to edit all sumo options (SHIFT-F10). Issue #11896
   - Added TimeStamp in Undo-Redo list. Issue #11744
   - Now drawing red line between edge geometry points (if the points are not along the edge). Issue #11530
   - Can now disable drawing dotted contours in visualization settings. Issue #11662
@@ -140,9 +158,11 @@ title: ChangeLog
   - Geometry points are now drawn above everything else in move mode. Issue #11725
   - Geometry points now change color in move mode to indicate whether a click would create or merge points. Isse #12177
   - Move mode can now toggle whether closely spaced geometry points shall be automatically removed. Issue #12244
+  - Stops now support attribute 'jump'. Issue #12269
+  - Crossing mode now ensures that only sensible crossings can be defined. Issue #12366
 
 - sumo-gui
-  - Wne option **--use-stop-ended** is set, show-route mode now labels the 'ended' time of stops. Issue #11833
+  - When option **--use-stop-ended** is set, show-route mode now labels the 'ended' time of stops. Issue #11833
   - The view now updates after loading a selection file. Issue #12191
   - Whenever the simulation has tripinfo-devices, the trip based statistics are available in the network parameter dialog. Issue #12207
   - A rainbow color scale can now be defined between upper and lower "hiding" thresholds even when there is no data yet. Issue #11978
@@ -150,11 +170,14 @@ title: ChangeLog
   - Detector outputs are now flushed at simulation end even while the gui remains open. Issue #12293
   - Added guiShape "aircraft". Issue #12314
   - Added vehicle setting to maintain orientation after reversal. This achieves a more realistic visualisation of reversing trains and (grounded) aircraft. Issue #12140
+  - Added settings to show/hide HUD elements in 3D view. Issue #12294
+  - Added terrain to 3D view (using flat background color) #12279
 
 - TraCI
   - Added functions `vehicle.getDeparture` and `vehicle.getDepartDelay`. Issue #3036
   - Added functions to retrieve aggregated inductionLoop detector measures. Issue #12030
   - Added functions to retrieve aggregated lanearea detector measures. Issue #12029
+  - Added functions `vehicle.getLoadedIDList` and `vehicle.getTeleportingIDList` to retrieve the corresponding vehicles (some of which could not be retrieved with getIDList). Issue #2338
 
 - Tools
   - runSeeds.py: Now forwarding unknown options to application call. Issue #12312
@@ -162,16 +185,19 @@ title: ChangeLog
   - routeSampler.py: Major improvement in sampling speed. Issue #12319
   - routeSampler.py: Full optimization now skips initial sampling for further speed-up. Issue #12307
   - [attributeStats.py](Tools/Output.md#attributestatspy): Permit parsing multiple elements and attributes at once. The new default is to parse all elements and attributes. Issue #12317
+  - attributeStats.py now includes count in xml-output. Issue #12337
   - gtfs2pt.py: Now writing short route id and headsign as params. Issue #11819
   - plot_trajectories.py: Now support common visualization options. Issue #11991
   - Many visualization tools can now configure linestyle and marker style. Issue #11985
   - countEdgeUsage.py: Now permits loading named routes. Issue #12010
-  - implausibleRoutes.py: Added options **--additional-file**, **--unsorted-input** and **--ignore-errors** which are passed to duarouter when needed. Issue #12090
-  - tracemapper.py: Added option **--vehicle-class** to guide edge mapping. Issue #12117
+  - implausibleRoutes.py: Added options **--additional-file**, **--unsorted-input** and **--ignore-errors** which are passed to duarouter when needed. Issue #12090  
   - implausibleRoutes.py: Added options to handle unsorted input and additional files when duarouter is being called. Issue #12069
+  - tracemapper.py: Added option **--vehicle-class** to guide edge mapping. Issue #12117
   - net2geojson.py: Added option **--boundary** to write polygons instead of center lines. Issue #12296
-  - stateReplay.py: Now works on for Windows. Issue #12298
+  - stateReplay.py: Now works on Windows. Issue #12298
   - Added new tool [filterElements.py](Tools/Xml.md#filterelementspy) to filter elements from an xml file (either all instances or filtered by attribute value). Issue #12304
+  - Added new tool [attributeDiff.py](Tools/Output.md#attributediffpy) to compute the numerical difference between two xml files with the same structure. Issue #12318
+  - Added new tool [fcdDifff.py](Tools/Output.md#fcddiffpy) to compare two fcd-output files (by vehicle id and time). Issue #12233
   - plotXMLAttributes.py
     - can now plot data without assigning ids to the data points. Issue #11969
     - can now plot categorical (non-numerical) data and also a mix of data types. Issue #11970, #11976
@@ -181,6 +207,7 @@ title: ChangeLog
     - Added the possibility to use wildcards with option **--filter-ids**. Issue #11981
     - Attribute options now permit setting a list of attributes. Issue #12015
     - Can now display times as hours by setting **--xtime0** and **--ytime0** (also applies to other plotting tools). Issue #12011
+    - csv-output is now directly usable with gnuplot. Issue #12345
 
 ### Miscellaneous
 
@@ -189,6 +216,7 @@ title: ChangeLog
 - Updated Windows MSVC runtime libraries and Xerces-C to 3.2.4
 - Improved pydoc for TraCI functions that modify vType attributes. Issue #11943
 - Added all required fmi functions required for FMPy version 0.3.13. Issue #12199
+- Netedit options **--SUMOConfig-output, --additionals-output, --demandelements-output, --dataelements-output**. Instead, the corresponding input file path is used for output. Issue #12388
 
 ## Version 1.15.0 (08.11.2022)
 

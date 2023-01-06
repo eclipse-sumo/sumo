@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2013-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -82,11 +82,8 @@ void single(const std::string& of, const std::string& className, SUMOEmissionCla
 
 int
 main(int argc, char** argv) {
-    MsgHandler::setupI18n();
-    // build options
     OptionsCont& oc = OptionsCont::getOptions();
-    // give some application descriptions
-    oc.setApplicationDescription("Builds and writes an emissions map for SUMO's emission models.");
+    oc.setApplicationDescription(TL("Builds and writes an emissions map for SUMO's emission models."));
     oc.setApplicationName("emissionsMap", "Eclipse SUMO emissionsMap Version " VERSION_STRING);
     // add options
     SystemFrame::addConfigurationOptions(oc);

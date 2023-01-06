@@ -168,6 +168,8 @@ the offsets given).
 
 ### Building Defaults
 
+See the [docs](Networks/PlainXML.md) for more info on [junction types](Networks/PlainXML.md#Node_types) and [edge types](Networks/PlainXML.md#type_descriptions).
+
 | Option | Description |
 |--------|-------------|
 | **-L** {{DT_INT}}<br> **--default.lanenumber** {{DT_INT}} | The default number of lanes in an edge; *default:* **1** |
@@ -186,7 +188,7 @@ the offsets given).
 | **--default.junctions.radius** {{DT_FLOAT}} | The default turning radius of intersections; *default:* **4** |
 | **--default.connection-length** {{DT_FLOAT}} | The default length when overriding connection lengths; *default:* **-1** |
 | **--default.right-of-way** {{DT_STR}} | The default algorithm for computing right of way rules ('default', 'edgePriority'); *default:* **default** |
-| **-j** {{DT_STR}}<br> **--default-junction-type** {{DT_STR}} | [traffic_light,priority,right_before_left,left_before_right,traffic_light_right_on_red,priority_stop,allway_stop,...] Determines [junction type](Networks/PlainXML.md#Node_types) |
+| **-j** {{DT_STR}}<br> **--default-junction-type** {{DT_STR}} | [traffic_light,priority,right_before_left,left_before_right,traffic_light_right_on_red,priority_stop,allway_stop,...] Determines junction type (see wiki/Networks/PlainXML#Node_types) |
 
 ### Tls Building
 
@@ -225,6 +227,7 @@ the offsets given).
 | **--tls.max-dur** {{DT_INT}} | Default maximum phase duration for traffic lights with variable phase length; *default:* **50** |
 | **--tls.group-signals** {{DT_BOOL}} | Assign the same tls link index to connections that share the same states; *default:* **false** |
 | **--tls.ungroup-signals** {{DT_BOOL}} | Assign a distinct tls link index to every connection; *default:* **false** |
+| **--tls.rebuild** {{DT_BOOL}} | rebuild all traffic light plans in the network; *default:* **false** |
 | **--tls.discard-simple** {{DT_BOOL}} | Does not instatiate traffic lights at geometry-like nodes; *default:* **false** |
 
 ### Edge Removal
@@ -324,6 +327,7 @@ Options](Basics/Using_the_Command_Line_Applications.md#reporting_options).
 | **-l** {{DT_FILE}}<br> **--log** {{DT_FILE}} | Writes all messages to FILE (implies verbose) |
 | **--message-log** {{DT_FILE}} | Writes all non-error messages to FILE (implies verbose) |
 | **--error-log** {{DT_FILE}} | Writes all warnings and errors to FILE |
+| **--language** {{DT_STR}} | Language to use in messages; *default:* **C** |
 
 ### Random Number
 

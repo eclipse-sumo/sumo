@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -56,9 +56,6 @@ public:
 
     /// @brief load net on startup
     void loadOptionOnStartup();
-
-    /// @brief load network
-    void loadNet(const std::string& file);
 
     /// @brief build dependent
     void dependentBuild();
@@ -116,8 +113,8 @@ public:
     /// @brief called when the command/FXCall new network is executed
     long onCmdNewNetwork(FXObject*, FXSelector, void*);
 
-    /// @brief called when the command/FXCall open configuration is executed
-    long onCmdOpenConfiguration(FXObject*, FXSelector, void*);
+    /// @brief called when the command/FXCall open netconvertconfiguration is executed
+    long onCmdOpenNetconvertConfig(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall open network is executed
     long onCmdOpenNetwork(FXObject*, FXSelector, void*);
@@ -125,11 +122,20 @@ public:
     /// @brief called when the command/FXCall open foreign is executed
     long onCmdOpenForeign(FXObject*, FXSelector, void*);
 
+    /// @brief called when the command/FXCall open NETEDITConfig is executed
+    long onCmdOpenNETEDITConfig(FXObject*, FXSelector, void*);
+
     /// @brief called when the command/FXCall open SUMOConfig is executed
     long onCmdOpenSUMOConfig(FXObject*, FXSelector, void*);
 
+    /// @brief called when the command/FXCall reload NETEDITConfig is executed
+    long onCmdReloadNETEDITConfig(FXObject*, FXSelector, void*);
+
     /// @brief called when the command/FXCall reload SUMOConfig is executed
     long onCmdReloadSUMOConfig(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall reload NETEDITConfig is updated
+    long onUpdReloadNETEDITConfig(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall reload SUMOConfig is updated
     long onUpdReloadSUMOConfig(FXObject*, FXSelector, void*);
@@ -178,6 +184,15 @@ public:
 
     /// @brief called when the command/FXCall save network is executed
     long onCmdSaveNetwork(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save NETEDITConfig is executed
+    long onCmdSaveNETEDITConfig(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save NETEDITConfig as is executed
+    long onCmdSaveNETEDITConfigAs(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save NETEDITConfig is updated
+    long onUpdSaveNETEDITConfig(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall save SUMOConfig is executed
     long onCmdSaveSUMOConfig(FXObject*, FXSelector, void*);
@@ -270,7 +285,7 @@ public:
     long onCmdSaveMeanDatasAs(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall save network as is executed
-    long onCmdSaveAsNetwork(FXObject*, FXSelector, void*);
+    long onCmdSaveNetworkAs(FXObject*, FXSelector, void*);
 
     /// @brief called when the update/FXCall needs network is executed
     long onUpdNeedsNetwork(FXObject*, FXSelector, void*);
@@ -427,7 +442,7 @@ public:
     /// @brief enable or disable sender object depending if viewNet exist
     long onUpdRequireViewNet(FXObject* sender, FXSelector sel, void* ptr);
 
-    /// @brief update label for requiere recomputing
+    /// @brief update label for require recomputing
     long onUpdRequireRecomputing(FXObject* sender, FXSelector sel, void* ptr);
 
     /// @brief called if the user press key combination Ctrl + G to toggle grid
@@ -559,16 +574,22 @@ public:
     OptionsCont &getSUMOOptions();
 
     /// @brief load additional elements
-    void loadAdditionalElements(const std::vector<std::string> additionalFiles);
+    void loadAdditionalElements();
 
     /// @brief load demand elements
-    void loadDemandElements(const std::vector<std::string> demandElementsFiles);
+    void loadDemandElements();
 
     /// @brief load data elements
-    void loadDataElements(const std::vector<std::string> dataElementsFiles);
+    void loadDataElements();
 
     /// @brief load mean data elements
-    void loadMeanDataElements(const std::vector<std::string> meanDataElementsFiles);
+    void loadMeanDataElements();
+
+    /// @brief check if SUMO config must be saved
+    void requireSaveSUMOConfig(bool value);
+
+    /// @brief check if NETEDIT config must be saved
+    void requireSaveNETEDITConfig(bool value);
 
 protected:
     /// @brief FOX needs this for static members
@@ -585,6 +606,7 @@ protected:
 
     /// @brief the submenus
     FXMenuPane *myFileMenu = nullptr,
+               *myFileMenuNETEDITConfig = nullptr,
                *myFileMenuSUMOConfig = nullptr,
                *myFileMenuTLS = nullptr,
                *myFileMenuEdgeTypes = nullptr,
@@ -686,11 +708,25 @@ private:
     /// @brief The menu used for the MDI-windows
     FXMDIMenu* myMDIMenu = nullptr;
 
+    /// @brief flag for check if sumo config is saved
+    bool mySumoConfigSaved = false;
+
+    /// @brief flag for check if netedit config is saved
+    bool myNeteditConfigSaved = false;
+
     /// @brief Builds the menu bar
     void fillMenuBar();
+
 public:
-    /// @brief starts to load a netimport configuration or a network */
-    void loadConfigOrNet(const std::string file, bool isNet, bool isReload = false, bool useStartupOptions = false, bool newNet = false);
+    /// @brief create new network
+    void createNewNetwork();
+
+    /// @brief load network (with information previously stored in options)
+    void loadNetwork(const bool isReload);
+
+    /// @brief starts to load a netconvert configuration
+    void loadNetconvertConfig();
+
 private:
     /// @brief this method closes all windows and deletes the current simulation */
     void closeAllWindows();
@@ -706,9 +742,6 @@ private:
 
     /// @brief warns about unsaved changes in data elements and gives the user the option to abort
     bool continueWithUnsavedDataElementChanges(const std::string& operation);
-
-    /// @brief load sumoConfig at start
-    void loadSUMOConfigAtStart(OptionsCont& oc);
 
     /// @brief extract folder
     FXString getFolder(const std::string& folder) const;

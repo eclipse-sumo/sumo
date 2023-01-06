@@ -6,4 +6,4 @@ Error: Attribute 'containerTriggered' in definition of a stop Invalid Bool Forma
 Error: Invalid duration or end time is given for a stop on lane 'gneE1_0'
 Error: Attribute 'containerTriggered' in definition of a stop Invalid Bool Format 2.3.
 Error: Invalid duration or end time is given for a stop on lane 'gneE1_0'
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.waypoint.lane.08Apr202456.3608/netedit.daily.demand.waypoint.lane/demandelements/waypoint/lane/load/containertrigger/input_routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.waypoint.lane.08Apr202456.3608/netedit.daily.demand.waypoint.lane/demandelements/waypoint/lane/load/containertrigger/routes.rou.xml failed.

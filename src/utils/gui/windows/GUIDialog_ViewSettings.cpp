@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -1099,7 +1099,7 @@ GUIDialog_ViewSettings::onUpdExportSetting(FXObject* sender, FXSelector, void* p
 long
 GUIDialog_ViewSettings::onCmdImportSetting(FXObject*, FXSelector, void* /*data*/) {
     FXFileDialog opendialog(this, TL("Import view settings"));
-    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG));
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN));
     opendialog.setSelectMode(SELECTFILE_ANY);
     opendialog.setPatternList("*.xml,*.xml.gz");
     if (gCurrentFolder.length() != 0) {
@@ -1788,10 +1788,10 @@ GUIDialog_ViewSettings::buildHeader(FXVerticalFrame* contentFrame) {
     }
     mySchemeName->setNumVisible(5);
 
-    new FXButton(horizontalFrame, "\t\tSave the setting to registry", GUIIconSubSys::getIcon(GUIIcon::SAVEDB), this, MID_SIMPLE_VIEW_SAVE, GUIDesignButtonToolbar);
+    new FXButton(horizontalFrame, "\t\tSave the setting to registry", GUIIconSubSys::getIcon(GUIIcon::SAVE_DATABASE), this, MID_SIMPLE_VIEW_SAVE, GUIDesignButtonToolbar);
     new FXButton(horizontalFrame, "\t\tRemove the setting from registry", GUIIconSubSys::getIcon(GUIIcon::REMOVEDB), this, MID_SIMPLE_VIEW_DELETE, GUIDesignButtonToolbar);
     new FXButton(horizontalFrame, "\t\tExport setting to file", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_SIMPLE_VIEW_EXPORT, GUIDesignButtonToolbar);
-    new FXButton(horizontalFrame, "\t\tLoad setting from file", GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, MID_SIMPLE_VIEW_IMPORT, GUIDesignButtonToolbar);
+    new FXButton(horizontalFrame, "\t\tLoad setting from file", GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_SIMPLE_VIEW_IMPORT, GUIDesignButtonToolbar);
 
     new FXVerticalSeparator(horizontalFrame);
     new FXLabel(horizontalFrame, "Export includes:", nullptr, GUIDesignViewSettingsLabel1);

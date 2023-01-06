@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -240,13 +240,13 @@ GUIOSGBuilder::buildOSGJunctionGeometry(GUIJunctionWrapper& junction,
     geode->setName("junction:" + junction.getMicrosimID());
     addTo.addChild(geode);
     dynamic_cast<GUIGlObject&>(junction).setNode(geode);
-    osg::Vec3Array* osg_coords = new osg::Vec3Array((int)shape.size());
+    osg::Vec3Array* osg_coords = new osg::Vec3Array((int)shape.size()); // OSG needs float coordinates here
     geom->setVertexArray(osg_coords);
     for (int k = 0; k < (int)shape.size(); ++k) {
         (*osg_coords)[k].set((float)shape[k].x(), (float)shape[k].y(), (float)shape[k].z());
     }
     osg::Vec3Array* osg_normals = new osg::Vec3Array(1);
-    (*osg_normals)[0] = osg::Vec3(0, 0, 1);
+    (*osg_normals)[0] = osg::Vec3(0, 0, 1); // OSG needs float coordinates here
     geom->setNormalArray(osg_normals, osg::Array::BIND_PER_PRIMITIVE_SET);
     osg::Vec4ubArray* osg_colors = new osg::Vec4ubArray(1);
     (*osg_colors)[0].set(128, 128, 128, 255);
@@ -674,13 +674,13 @@ GUIOSGBuilder::buildPlane(double length) {
     osg::Geode* geode = new osg::Geode();
     osg::Geometry* geom = new osg::Geometry;
     geode->addDrawable(geom);
-    osg::Vec3Array* coords = new osg::Vec3Array(4);
+    osg::Vec3Array* coords = new osg::Vec3Array(4); // OSG needs float coordinates here
     geom->setVertexArray(coords);
-    (*coords)[0].set(.5*length, .5*length, -0.1);
-    (*coords)[1].set(.5*length, -.5*length, -0.1);
-    (*coords)[2].set(-.5*length, -.5*length, -0.1);
-    (*coords)[3].set(-.5*length, .5*length, -0.1);
-    osg::Vec3Array* normals = new osg::Vec3Array(1);
+    (*coords)[0].set(.5*length, .5*length, -0.1f);
+    (*coords)[1].set(.5*length, -.5*length, -0.1f);
+    (*coords)[2].set(-.5*length, -.5*length, -0.1f);
+    (*coords)[3].set(-.5*length, .5*length, -0.1f);
+    osg::Vec3Array* normals = new osg::Vec3Array(1); // OSG needs float coordinates here
     (*normals)[0].set(0, 0, 1);
     geom->setNormalArray(normals, osg::Array::BIND_PER_PRIMITIVE_SET);
     osg::Vec4ubArray* colors = new osg::Vec4ubArray(1);
@@ -692,7 +692,7 @@ GUIOSGBuilder::buildPlane(double length) {
     ss->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
     ss->setMode(GL_BLEND, osg::StateAttribute::OVERRIDE | osg::StateAttribute::PROTECTED | osg::StateAttribute::ON);
 
-    return geom;
+    return geode;
 }
 
 

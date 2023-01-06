@@ -12,7 +12,7 @@ GLDebug: 	Inserted polygon:poly_1 into SUMORTree with boundary -80.00,-60.00,-50
 Error: Attribute 'imgFile' in definition of poly 'poly_2' is empty.
 Debug: Adding poly 'poly_3' in GNEChange_Additional
 GLDebug: 	Inserted polygon:poly_3 into SUMORTree with boundary 40.00,0.00,70.00,30.00
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poly.24Jun133820.22546/netedit.daily.shape.poly/shapeelements/poly/load/imgfile/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poly.24Jun133820.22546/netedit.daily.shape.poly/shapeelements/poly/load/imgfile/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

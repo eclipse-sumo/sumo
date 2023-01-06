@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2007-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2007-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -59,7 +59,7 @@ def initOptions():
     ap.add_argument("-o", dest="output", default='tripinfos.xml',
                     help="Name of output file")
     ap.add_argument("--darp-solver", default='exhaustive_search',
-                    help="Method to solve the DARP problem. Available: exhaustive_search and simple_rerouting")  # noqa
+                    help="Method to solve the DARP problem. Available: exhaustive_search and simple_rerouting")
     ap.add_argument("--rtv-time", type=float, default=5,
                     help="Timeout for exhaustive search (default 5 seconds)")
     ap.add_argument("--ilp-time", type=float, default=5,
@@ -73,15 +73,15 @@ def initOptions():
     ap.add_argument("--drf-min", type=int, default=600,
                     help="Minimum time difference allowed between DRT travel time and direct connection for the cases of short trips (default 600 seconds)")  # noqa
     ap.add_argument("--max-wait", type=int, default=900,
-                    help="Maximum waiting time for pickup (default 900 seconds)")  # noqa
+                    help="Maximum waiting time for pickup (default 900 seconds)")
     ap.add_argument("--max-processing", type=int,
-                    help="Maximum number of attempts to process a request (default unlimited)")  # noqa
+                    help="Maximum number of attempts to process a request (default unlimited)")
     ap.add_argument("--sim-step", type=int, default=30,
-                    help="Step time to collect new reservations (default 30 seconds)")  # noqa
+                    help="Step time to collect new reservations (default 30 seconds)")
     ap.add_argument("--end-time", type=int, default=90000,
-                    help="Maximum simulation time to close Traci (default 90000 sec - 25h)")  # noqa
+                    help="Maximum simulation time to close Traci (default 90000 sec - 25h)")
     ap.add_argument("--routing-algorithm", default='dijkstra',
-                    help="Algorithm for shortest path routing. Support: dijkstra (default), astar, CH and CHWrapper")  # noqa
+                    help="Algorithm for shortest path routing. Support: dijkstra (default), astar, CH and CHWrapper")
     ap.add_argument("--routing-mode", type=int, default=0,
                     help="Mode for shortest path routing. Support: 0 (default) for routing with loaded or default speeds and 1 for routing with averaged historical speeds")  # noqa
     ap.add_argument("--dua-times", action='store_true',
@@ -115,12 +115,10 @@ def find_dua_times(options):
     with open("temp_dua/dua_file.xml", "w+") as dua_file:
         dua_file.write("<routes>\n")
         for comb_edges in list(combination_edges):
-            dua_file.write("""\t<trip id="%s_%s" depart="0" from="%s" to="%s"/>\n""" # noqa
-                           % (comb_edges[0], comb_edges[1],
-                              comb_edges[0], comb_edges[1]))
-            dua_file.write("""\t<trip id="%s_%s" depart="0" from="%s" to="%s"/>\n""" # noqa
-                           % (comb_edges[1], comb_edges[0],
-                              comb_edges[1], comb_edges[0]))
+            dua_file.write('\t<trip id="%s_%s" depart="0" from="%s" to="%s"/>\n'
+                           % (comb_edges[0], comb_edges[1], comb_edges[0], comb_edges[1]))
+            dua_file.write('\t<trip id="%s_%s" depart="0" from="%s" to="%s"/>\n'
+                           % (comb_edges[1], comb_edges[0], comb_edges[1], comb_edges[0]))
         dua_file.write("</routes>\n")
 
     # run duarouter:
@@ -155,7 +153,7 @@ def ilp_solve(options, veh_num, res_num, costs, veh_constraints,
     """
     # founds the combination of trips that minimize the costs function
 
-    # req_costs = [reservation.cost for reservation in reservations] # TODO to implement req with diff costs/priorities # noqa
+    # req_costs = [reservation.cost for reservation in reservations] # TODO to implement req with diff costs/priorities
     order_trips = costs.keys()
 
     ILP_result = []
@@ -236,9 +234,9 @@ def main():
         if options.verbose:
             print('Calculate travel time between edges with duarouter')
             if not options.reservations:
-                sys.exit("please specify the reservation file with the option '--reservations'")  # noqa
+                sys.exit("please specify the reservation file with the option '--reservations'")
             if not options.network:
-                sys.exit("please specify the sumo network file with the option '--network'")  # noqa
+                sys.exit("please specify the sumo network file with the option '--network'")
         pairs_dua_times = find_dua_times(options)
     else:
         pairs_dua_times = {}
@@ -274,7 +272,7 @@ def main():
             direct = pairs_dua_times.get("%s_%s" % (res.fromEdge, res.toEdge))
             if direct is None:
                 direct = int(findRoute(res.fromEdge, res.toEdge, veh_type,
-                             res.depart, routingMode=options.routing_mode).travelTime) # noqa
+                             res.depart, routingMode=options.routing_mode).travelTime)
 
             # add new reservation attributes
             setattr(res, 'direct', direct)  # direct travel time
@@ -377,7 +375,7 @@ def main():
 
             # get fleet
             fleet = traci.vehicle.getTaxiFleet(-1)
-            if set(fleet) != set(fleet) & set(traci.vehicle.getIDList()):  # TODO manage teleports # noqa
+            if set(fleet) != set(fleet) & set(traci.vehicle.getIDList()):  # TODO manage teleports
                 print("\nVehicle %s is being teleported, skip to next step" %
                       (set(fleet) - set(traci.vehicle.getIDList())))
                 step += options.sim_step
@@ -398,12 +396,12 @@ def main():
                     veh_edges[veh_edge] = [veh_id]
 
             # remove reservations already served
-            res_id_current = [res.id for res in traci.person.getTaxiReservations(0)]  # noqa
+            res_id_current = [res.id for res in traci.person.getTaxiReservations(0)]
             res_id_served = list(set(res_all.keys()) - set(res_id_current))
             [res_all.pop(key) for key in res_id_served]
 
             # reservations already picked up
-            res_id_picked = [res.id for res in traci.person.getTaxiReservations(8)]  # noqa
+            res_id_picked = [res.id for res in traci.person.getTaxiReservations(8)]
 
             # call DARP solver to find the best routes
             if options.verbose:
@@ -511,7 +509,7 @@ def main():
                                                       edges[idx+1]))
                         if tt_pair is None:
                             tt_pair = int(findRoute(edge, edges[idx+1],
-                                          veh_type, step, routingMode=options.routing_mode).travelTime) # noqa
+                                          veh_type, step, routingMode=options.routing_mode).travelTime)
 
                         if 'pickup' in stop_types[idx]:
                             tt_current_route += tt_pair + veh_time_pickup
@@ -525,8 +523,8 @@ def main():
                     print('Dispatch:', route_id)
                 traci.vehicle.dispatchTaxi(veh_id, stops[1:])
                 # assign vehicle to reservations
-                # TODO to avoid major changes in the pick-up time when assigning new passengers,  # noqa
-                # tw_pickup should be updated, whit some constant X seconds, e.g. 10 Minutes  # noqa
+                # TODO to avoid major changes in the pick-up time when assigning new passengers,
+                # tw_pickup should be updated, whit some constant X seconds, e.g. 10 Minutes
                 for res_id in set(stops[1:]):
                     res = res_all[res_id]
                     res.vehicle = veh_id

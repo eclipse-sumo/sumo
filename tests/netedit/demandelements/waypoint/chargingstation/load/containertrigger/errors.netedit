@@ -20,7 +20,7 @@ Error: Invalid duration or end time is given for a stop at 'chargingStation'
 Debug: Adding flow 'flow_4' in GNEChange_DemandElement
 Debug: Adding flow 'flow_5' in GNEChange_DemandElement
 Debug: Adding waypointChargingStation 'flow_5' in GNEChange_DemandElement
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.waypointChargingStation.chargingstation.24Jun133819.22501/netedit.daily.demand.waypointChargingStation.chargingstation/demandelements/waypoint/chargingstation/load/containertrigger/input_routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.waypointChargingStation.chargingstation.24Jun133819.22501/netedit.daily.demand.waypointChargingStation.chargingstation/demandelements/waypoint/chargingstation/load/containertrigger/routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 13.00,-12.00,37.00,12.00

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2011-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -36,18 +36,12 @@ def get_args(args=None):
     arg_parser = ArgumentParser()
     arg_parser.add_argument("-l", "--lang", nargs='*', default=existing_langs,
                             help="languages to process")
+    arg_parser.add_argument("-m", "--mo-only", action="store_true", default=False,
+                            help="only generate mo files, do not update po and pot")
     return arg_parser.parse_args(args)
 
 
-def main(args=None):
-    path = ""
-    if os.name == "nt":
-        paths = glob(os.path.join(SUMO_LIBRARIES, "gettext-*", "tools", "gettext", "bin"))
-        if paths:
-            path = paths[0] + os.path.sep
-    options = get_args(args)
-    pot_file = SUMO_HOME + "/data/po/sumo.pot"
-    gui_pot_file = SUMO_HOME + "/data/po/gui.pot"
+def generate_po(path, languages, pot_file, gui_pot_file):
     pots = {pot_file: open(pot_file + ".txt", "w"), gui_pot_file: open(gui_pot_file + ".txt", "w")}
     for f in glob(SUMO_HOME + "/src/*.cpp") + glob(SUMO_HOME + "/src/*/*.cpp") + glob(SUMO_HOME + "/src/*/*/*.cpp"):
         if "gui" in f[len(SUMO_HOME):] or "netedit" in f[len(SUMO_HOME):]:
@@ -72,19 +66,36 @@ def main(args=None):
             os.rename(pot + ".new", pot)
         else:
             os.remove(pot + ".new")
-        for lang in options.lang:
+        for lang in languages:
             po_file = "%s/data/po/%s_%s" % (SUMO_HOME, lang, os.path.basename(pot)[:-1])
             if os.path.exists(po_file):
                 subprocess.check_call([path + "msgmerge", po_file, pot, "--output-file=" + po_file])
             else:
                 subprocess.check_call([path + "msginit", "--input=" + pot, "--output=" + po_file,
                                        "--no-translator", "--locale=" + lang])
+
+
+def main(args=None):
+    path = ""
+    if os.name == "nt":
+        paths = glob(os.path.join(SUMO_LIBRARIES, "gettext-*", "tools", "gettext", "bin"))
+        if paths:
+            path = paths[0] + os.path.sep
+    options = get_args(args)
+    pot_file = SUMO_HOME + "/data/po/sumo.pot"
+    gui_pot_file = SUMO_HOME + "/data/po/gui.pot"
+    if not options.mo_only:
+        generate_po(path, options.lang, pot_file, gui_pot_file)
     for lang in options.lang:
-        po_files = ["%s/data/po/%s_%s" % (SUMO_HOME, lang, os.path.basename(pot)[:-1]) for pot in pots]
+        po_files = ["%s/data/po/%s_%s" % (SUMO_HOME, lang, os.path.basename(pot)[:-1])
+                    for pot in (pot_file, gui_pot_file)]
         merged_po_file = "%s/data/po/%s.po" % (SUMO_HOME, lang)
         subprocess.check_call([path + "msgcat"] + po_files + ["--output-file=" + merged_po_file])
         d = "%s/data/locale/%s/LC_MESSAGES" % (SUMO_HOME, lang)
-        os.makedirs(d, exist_ok=True)
+        try:
+            os.makedirs(d)
+        except OSError:
+            pass
         subprocess.check_call([path + "msgfmt", merged_po_file, "--output-file=%s/sumo.mo" % d])
         os.remove(merged_po_file)
 

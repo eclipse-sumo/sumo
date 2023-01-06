@@ -7,7 +7,7 @@ Debug: Adding inductionLoop 'E1_01' in GNEChange_Additional
 Error: Attribute 'period' in definition of inductionLoop 'E1_02' is not a valid time value.
 Error: Could not build inductionLoop with ID 'E1_03' in netedit; attribute period cannot be negative.
 Debug: Adding inductionLoop 'E1_04' in GNEChange_Additional
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.20_from_27Jun114342.6304\netedit.gui\additionalelements\e1detector\load\period\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.20_from_27Jun114342.6304\netedit.gui\additionalelements\e1detector\load\period\additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

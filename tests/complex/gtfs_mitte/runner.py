@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2011-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -21,13 +21,12 @@ from __future__ import print_function
 import os
 import sys
 import subprocess
+
 TOOLS = os.path.join(os.environ["SUMO_HOME"], "tools")
-sys.path.append(TOOLS)
-import sumolib  # noqa
 
 subprocess.call([sys.executable,
                  os.path.join(TOOLS, "osmWebWizard.py"), "-b=7:0:0", "-e=8:0:0",
                  "--bbox=13.381507,52.511801,13.417790,52.527748",
-                 "--test-output", "test"])
+                 "--test-output", "test", "-n=--aggregate-warnings=0", "--remote"])
 subprocess.call([sys.executable,
                  os.path.join(TOOLS, "import", "gtfs", "gtfs2pt.py")] + sys.argv[1:])

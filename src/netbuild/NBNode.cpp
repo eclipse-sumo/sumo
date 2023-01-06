@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -97,6 +97,7 @@ NBNode::ApproachingDivider::ApproachingDivider(
     const EdgeVector& approaching, NBEdge* currentOutgoing) :
     myApproaching(approaching),
     myCurrentOutgoing(currentOutgoing),
+    myNumStraight(0),
     myIsBikeEdge(currentOutgoing->getPermissions() == SVC_BICYCLE) {
     // collect lanes which are expliclity targeted
     std::set<int> approachedLanes;
@@ -105,6 +106,10 @@ NBNode::ApproachingDivider::ApproachingDivider(
             if (con.toEdge == myCurrentOutgoing) {
                 approachedLanes.insert(con.toLane);
             }
+        }
+        myDirections.push_back(approachingEdge->getToNode()->getDirection(approachingEdge, currentOutgoing));
+        if (myDirections.back() == LinkDirection::STRAIGHT) {
+            myNumStraight++;
         }
     }
     // compute the indices of lanes that should be targeted (excluding pedestrian
@@ -149,22 +154,41 @@ NBNode::ApproachingDivider::execute(const int src, const int dest) {
     }
 
 #endif
-    std::deque<int>* approachedLanes = spread(approachingLanes, dest);
+    size_t numConnections = approachingLanes.size();
+    double factor = 1;
+    const bool rightOnRed = incomingEdge->getToNode()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED;
+    if (myNumStraight == 1 && myDirections[src] == LinkDirection::STRAIGHT && (
+                // we do not want to destroy ramp-like assignments where the
+                // on-connection-per-lane rule avoids conflicts
+                // - at a traffic light the phases are seperated so there is no conflict anyway
+                (incomingEdge->getToNode()->isTLControlled() && !rightOnRed)
+                // - there are no incoming edges to the right
+                || src == 0
+                // - a minor straight road is likely in conflict anyway
+                || (incomingEdge->getJunctionPriority(incomingEdge->getToNode()) == NBEdge::MINOR_ROAD && !rightOnRed))) {
+        numConnections = myAvailableLanes.size();
+        factor = (double)approachingLanes.size() / numConnections;
+        if (factor > 0.5) {
+            factor = 1;
+        }
+    }
+    std::deque<int>* approachedLanes = spread(numConnections, dest);
     assert(approachedLanes->size() <= myAvailableLanes.size());
     // set lanes
+    int maxFrom = approachingLanes.size() - 1;
     for (int i = 0; i < (int)approachedLanes->size(); i++) {
         assert((int)approachingLanes.size() > i);
+        int fromLane = approachingLanes[MIN2((int)(i * factor), maxFrom)];
         int approached = myAvailableLanes[(*approachedLanes)[i]];
-        incomingEdge->setConnection(approachingLanes[i], myCurrentOutgoing, approached, NBEdge::Lane2LaneInfoType::COMPUTED);
+        incomingEdge->setConnection(fromLane, myCurrentOutgoing, approached, NBEdge::Lane2LaneInfoType::COMPUTED);
     }
     delete approachedLanes;
 }
 
 
 std::deque<int>*
-NBNode::ApproachingDivider::spread(const std::vector<int>& approachingLanes, int dest) const {
+NBNode::ApproachingDivider::spread(int numLanes, int dest) const {
     std::deque<int>* ret = new std::deque<int>();
-    const int numLanes = (int)approachingLanes.size();
     // when only one lane is approached, we check, whether the double-value
     //  is assigned more to the left or right lane
     if (numLanes == 1) {
@@ -2360,7 +2384,7 @@ NBNode::isExplicitRailNoBidi(const NBEdge* incoming, const NBEdge* outgoing) {
 
 
 LinkState
-NBNode::getLinkState(const NBEdge* incoming, NBEdge* outgoing, int fromlane, int toLane,
+NBNode::getLinkState(const NBEdge* incoming, const NBEdge* outgoing, int fromLane, int toLane,
                      bool mayDefinitelyPass, const std::string& tlID) const {
     if (myType == SumoXMLNodeType::RAIL_CROSSING && isRailway(incoming->getPermissions())) {
         return LINKSTATE_MAJOR; // the trains must run on time
@@ -2369,23 +2393,23 @@ NBNode::getLinkState(const NBEdge* incoming, NBEdge* outgoing, int fromlane, int
         if (getRightOfWay() == RightOfWay::ALLWAYSTOP) {
             return LINKSTATE_ALLWAY_STOP;
         }
-        return mustBrake(incoming, outgoing, fromlane, toLane, true) ? LINKSTATE_TL_OFF_BLINKING : LINKSTATE_TL_OFF_NOSIGNAL;
+        return mustBrake(incoming, outgoing, fromLane, toLane, true) ? LINKSTATE_TL_OFF_BLINKING : LINKSTATE_TL_OFF_NOSIGNAL;
     }
     if (outgoing == nullptr) { // always off
         return LINKSTATE_TL_OFF_NOSIGNAL;
     }
     if ((myType == SumoXMLNodeType::RIGHT_BEFORE_LEFT || myType == SumoXMLNodeType::LEFT_BEFORE_RIGHT)
-            && mustBrake(incoming, outgoing, fromlane, toLane, true)) {
+            && mustBrake(incoming, outgoing, fromLane, toLane, true)) {
         return LINKSTATE_EQUAL; // all the same
     }
     if (myType == SumoXMLNodeType::ALLWAY_STOP) {
         return LINKSTATE_ALLWAY_STOP; // all drive, first one to arrive may drive first
     }
-    if (myType == SumoXMLNodeType::ZIPPER && mustBrake(incoming, outgoing, fromlane, toLane, false)) {
+    if (myType == SumoXMLNodeType::ZIPPER && zipperConflict(incoming, outgoing, fromLane, toLane)) {
         return LINKSTATE_ZIPPER;
     }
     if (!mayDefinitelyPass
-            && mustBrake(incoming, outgoing, fromlane, toLane, true)
+            && mustBrake(incoming, outgoing, fromLane, toLane, true)
             // legacy mode
             && (!incoming->isInsideTLS() || getDirection(incoming, outgoing) != LinkDirection::STRAIGHT)
             // avoid linkstate minor at pure railway nodes
@@ -2395,6 +2419,23 @@ NBNode::getLinkState(const NBEdge* incoming, NBEdge* outgoing, int fromlane, int
     // traffic lights are not regarded here
     return LINKSTATE_MAJOR;
 }
+
+
+bool
+NBNode::zipperConflict(const NBEdge* incoming, const NBEdge* outgoing, int fromLane, int toLane) const {
+    if (mustBrake(incoming, outgoing, fromLane, toLane, false)) {
+        // there should be another connection with the same target (not just some intersecting trajectories)
+        for (const NBEdge* in : getIncomingEdges()) {
+            for (const NBEdge::Connection& c : in->getConnections()) {
+                if ((in != incoming || c.fromLane != fromLane) && c.toEdge == outgoing && c.toLane == toLane) {
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
 
 bool
 NBNode::checkIsRemovable() const {
@@ -2679,7 +2720,7 @@ NBNode::guessCrossings() {
 
 
 int
-NBNode::checkCrossing(EdgeVector candidates) {
+NBNode::checkCrossing(EdgeVector candidates, bool checkOnly) {
     if (gDebugFlag1) {
         std::cout << "checkCrossing candidates=" << toString(candidates) << "\n";
     }
@@ -2710,9 +2751,11 @@ NBNode::checkCrossing(EdgeVector candidates) {
             prevAngle = angle;
         }
         if (candidates.size() == 1 || getType() == SumoXMLNodeType::RAIL_CROSSING) {
-            addCrossing(candidates, NBEdge::UNSPECIFIED_WIDTH, isTLControlled());
-            if (gDebugFlag1) {
-                std::cout << "adding crossing: " << toString(candidates) << "\n";
+            if (!checkOnly) {
+                addCrossing(candidates, NBEdge::UNSPECIFIED_WIDTH, isTLControlled());
+                if (gDebugFlag1) {
+                    std::cout << "adding crossing: " << toString(candidates) << "\n";
+                }
             }
             return 1;
         } else {
@@ -2753,15 +2796,17 @@ NBNode::checkCrossing(EdgeVector candidates) {
                     }
                     if (fabs(NBHelpers::relAngle(prevAngle, angle)) > SPLIT_CROSSING_ANGLE_THRESHOLD
                             || (intermediateWidth > SPLIT_CROSSING_WIDTH_THRESHOLD)) {
-                        return checkCrossing(EdgeVector(candidates.begin(), it))
-                               + checkCrossing(EdgeVector(it, candidates.end()));
+                        return checkCrossing(EdgeVector(candidates.begin(), it), checkOnly)
+                               + checkCrossing(EdgeVector(it, candidates.end()), checkOnly);
                     }
                 }
                 prevAngle = angle;
             }
-            addCrossing(candidates, NBEdge::UNSPECIFIED_WIDTH, isTLControlled());
-            if (gDebugFlag1) {
-                std::cout << "adding crossing: " << toString(candidates) << "\n";
+            if (!checkOnly) {
+                addCrossing(candidates, NBEdge::UNSPECIFIED_WIDTH, isTLControlled());
+                if (gDebugFlag1) {
+                    std::cout << "adding crossing: " << toString(candidates) << "\n";
+                }
             }
             return 1;
         }
@@ -3192,6 +3237,11 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
                                    getID(), c->id, c->prevWalkingArea, wa.id);
                     c->valid = false;
                 }
+                if (c->valid && std::find(wa.prevCrossings.begin(), wa.prevCrossings.end(), c->id) != wa.prevCrossings.end()) {
+                    WRITE_WARNINGF(TL("Invalid pedestrian topology at junction '%'; crossing '%' starts and ends at walkingarea '%'."),
+                                   getID(), c->id, wa.id);
+                    c->valid = false;
+                }
                 c->prevWalkingArea = wa.id;
                 wa.nextCrossings.push_back(c->id);
                 if ((int)c->edges.size() < wa.minNextCrossingEdges) {
@@ -3276,8 +3326,11 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
                 continue;
             }
         }
-        // build smooth inner curve (optional)
-        if (cornerDetail > 0) {
+        if (count == (int)normalizedLanes.size()) {
+            // junction is covered by the whole walkingarea
+            wa.shape = myPoly;
+        } else if (cornerDetail > 0) {
+            // build smooth inner curve (optional)
             int smoothEnd = end;
             int smoothPrev = prev;
             // extend to green verge

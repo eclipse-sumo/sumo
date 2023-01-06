@@ -8,7 +8,7 @@ Error: Attribute 'color' in definition of trainStop 'trainStop_02' Invalid color
 Error: Attribute 'color' in definition of trainStop 'trainStop_03' Invalid color definition '-7'.
 Debug: Adding trainStop 'trainStop_04' in GNEChange_Additional
 Debug: Adding trainStop 'trainStop_05' in GNEChange_Additional
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.trainstop.01Dec143640.87176/netedit.daily.additional.trainstop/additionalelements/trainstop/load/color/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.trainstop.01Dec143640.87176/netedit.daily.additional.trainstop/additionalelements/trainstop/load/color/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

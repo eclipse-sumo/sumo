@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -2084,7 +2084,7 @@ GNEEdge::straightenElevation(GNEUndoList* undoList) {
 
 PositionVector
 GNEEdge::smoothShape(const PositionVector& old, bool forElevation) {
-    const OptionsCont& oc = OptionsCont::getOptions();
+    const auto &neteditOptions = OptionsCont::getOptions();
     // distinguish 3 cases:
     // a) if the edge has exactly 3 or 4 points, use these as control points
     // b) if the edge has more than 4 points, use the first 2 and the last 2 as control points
@@ -2136,7 +2136,7 @@ GNEEdge::smoothShape(const PositionVector& old, bool forElevation) {
             init[2].setz(2 * init[-1].z() - endZ);
         } else {
             bool ok = true;
-            const double straightThresh = DEG2RAD(oc.getFloat("opendrive-output.straight-threshold"));
+            const double straightThresh = DEG2RAD(neteditOptions.getFloat("opendrive-output.straight-threshold"));
             init = NBNode::bezierControlPoints(begShape, endShape, false, dist, dist, ok, nullptr, straightThresh);
         }
 #ifdef DEBUG_SMOOTH_GEOM
@@ -2148,8 +2148,8 @@ GNEEdge::smoothShape(const PositionVector& old, bool forElevation) {
     if (init.size() == 0) {
         return PositionVector::EMPTY;
     } else {
-        const int numPoints = MAX2(oc.getInt("junctions.internal-link-detail"),
-                                   int(old.length2D() / oc.getFloat("opendrive.curve-resolution")));
+        const int numPoints = MAX2(neteditOptions.getInt("junctions.internal-link-detail"),
+                                   int(old.length2D() / neteditOptions.getFloat("opendrive.curve-resolution")));
         return init.bezier(numPoints);
     }
 }

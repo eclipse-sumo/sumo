@@ -24,7 +24,7 @@ Error: Invalid flow id 'id with spaces'. Contains invalid characters.
 Error: flow cannot be created
 Debug: Adding flowRoute 'flow_valid' in GNEChange_DemandElement
 Error: There is another flowRoute with the same ID='flow_valid'.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.27Jun101826.5735/netedit.gui/demandelements/routeflow/load/id/input_routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.27Jun101826.5735/netedit.gui/demandelements/routeflow/load/id/routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00

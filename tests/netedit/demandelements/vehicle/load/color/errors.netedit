@@ -21,7 +21,7 @@ Error: Attribute 'color' in definition of vehicle 'vehicle_1' Invalid color defi
 Debug: Adding vehicle 'vehicle_2' in GNEChange_DemandElement
 Debug: Adding vehicle 'vehicle_3' in GNEChange_DemandElement
 Debug: Adding vehicle 'vehicle_4' in GNEChange_DemandElement
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.vehicle.01Dec143641.87310/netedit.daily.demand.vehicle/demandelements/vehicle/load/color/input_routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.vehicle.01Dec143641.87310/netedit.daily.demand.vehicle/demandelements/vehicle/load/color/routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00

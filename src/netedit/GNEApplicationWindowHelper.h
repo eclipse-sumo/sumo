@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -145,10 +145,13 @@ struct GNEApplicationWindowHelper {
         FileMenuCommands(GNEApplicationWindow* GNEApp);
 
         /// @brief build menu commands
-        void buildFileMenuCommands(FXMenuPane* fileMenu, FXMenuPane* fileMenuSUMOConfig, FXMenuPane* fileMenuTLS,
-                                   FXMenuPane* fileMenuEdgeTypes, FXMenuPane* fileMenuAdditionals,
+        void buildFileMenuCommands(FXMenuPane* fileMenu, FXMenuPane* fileMenuNEEDITConfig, FXMenuPane* fileMenuSUMOConfig, 
+                                   FXMenuPane* fileMenuTLS, FXMenuPane* fileMenuEdgeTypes, FXMenuPane* fileMenuAdditionals,
                                    FXMenuPane* fileMenuDemandElements, FXMenuPane* fileMenuDataElements);
 
+        /// @brief FXMenuCascade for NETEDITConfig
+        FXMenuCascade* NETEDITConfigMenuCascade = nullptr;
+        
         /// @brief FXMenuCascade for SUMOConfig
         FXMenuCascade* SUMOConfigMenuCascade = nullptr;
 
@@ -166,6 +169,12 @@ struct GNEApplicationWindowHelper {
 
         /// @brief FXMenuCascade for data
         FXMenuCascade* dataMenuCascade = nullptr;
+
+        /// @brief FXMenuCommand for reload NETEDITConfig
+        FXMenuCommand* reloadNETEDITConfig = nullptr;
+
+        /// @brief FXMenuCommand for enable or disable save NETEDITConfig
+        FXMenuCommand* saveNETEDITConfig = nullptr;
 
         /// @brief FXMenuCommand for reload SUMOConfig
         FXMenuCommand* reloadSUMOConfig = nullptr;
@@ -1031,29 +1040,38 @@ struct GNEApplicationWindowHelper {
         SupermodeCommands& operator=(const SupermodeCommands&) = delete;
     };
 
-    /// @brief config handler
-    class GNEConfigHandler {
+    /// @brief SUMO config handler
+    class GNESUMOConfigHandler {
 
     public:
         /// @brief Constructor
-        GNEConfigHandler(GNEApplicationWindow* applicationWindow, const std::string& file);
+        GNESUMOConfigHandler(OptionsCont& sumoOptions, const std::string& file);
 
-        /**@brief Load net file
-         * @param[in] configObj sumo base object used for build
-         * @param[in] file net file
-         */
-        bool loadConfig();
+        /// @brief load SUMO config
+        bool loadSUMOConfig();
 
     private:
-        /// @brief application window
-        GNEApplicationWindow* myApplicationWindow = nullptr;
+        /// @brief sumo options
+        OptionsCont& mySumoOptions;
 
-        /// @brief SUMOCfg file
+        /// @brief SUMO config file
         const std::string myFile;
     };
 
-    /// @brief save SUMOConfig
-    static void saveSUMOConfig();
+    /// @brief NETEDIT config handler
+    class GNENETEDITConfigHandler {
+
+    public:
+        /// @brief Constructor
+        GNENETEDITConfigHandler(const std::string& file);
+
+        /// @brief load NETEDIT config
+        bool loadNETEDITConfig();
+
+    private:
+        /// @brief NETEDIT config file
+        const std::string myFile;
+    };
 
     /// @brief toggle edit options Network menu commands (called in GNEApplicationWindow::onCmdToggleEditOptions)
     static bool toggleEditOptionsNetwork(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck,

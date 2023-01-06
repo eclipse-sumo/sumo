@@ -1,4 +1,4 @@
 Error: Attribute 'id' is missing in definition of a chargingStation.
 Error: Could not build chargingStation with ID 'id with spaces' in netedit; ID contains invalid characters.
 Error: Could not build chargingStation with ID 'chargingStation_0' in netedit; declared twice.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\chargingstation\load\id\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\chargingstation\load\id\additionals.add.xml failed.

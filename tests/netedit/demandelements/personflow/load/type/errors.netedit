@@ -23,7 +23,7 @@ Error: Attribute 'type' in definition of personFlow 'p_1' is empty.
 Error: Invalid personFlow type 'dummyType' used in personFlow 'p_2'.
 Debug: Adding personFlow 'p_3' in GNEChange_DemandElement
 Debug: Adding personTrip: edge->edge 'p_3' in GNEChange_DemandElement
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.personflow.24Jun133819.22462/netedit.daily.demand.personflow/demandelements/personflow/load/type/input_routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.personflow.24Jun133819.22462/netedit.daily.demand.personflow/demandelements/personflow/load/type/routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00

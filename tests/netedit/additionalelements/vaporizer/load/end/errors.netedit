@@ -33,7 +33,7 @@ Error: Attribute 'end' in definition of a vaporizer is not a valid time value.
 Error: Could not build vaporizer with ID '4' in netedit; attribute end cannot be negative.
 Debug: Adding vaporizer '5' in GNEChange_Additional
 Error: Could not build vaporizer with ID '6' in netedit; begin is greather than end.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15_from_27Jun114342.7200\netedit.gui\additionalelements\vaporizer\load\end\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15_from_27Jun114342.7200\netedit.gui\additionalelements\vaporizer\load\end\additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,18.00,12.00,42.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,18.00,62.00,42.00

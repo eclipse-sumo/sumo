@@ -10,7 +10,7 @@ Debug: Adding poly 'poly_2' in GNEChange_Additional
 GLDebug: 	Inserted polygon:poly_2 into SUMORTree with boundary -60.00,-40.00,-30.00,-10.00
 Debug: Adding poly 'poly_3' in GNEChange_Additional
 GLDebug: 	Inserted polygon:poly_3 into SUMORTree with boundary -60.00,-40.00,-30.00,-10.00
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poly.24Jun133820.22546/netedit.daily.shape.poly/shapeelements/poly/load/layer/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poly.24Jun133820.22546/netedit.daily.shape.poly/shapeelements/poly/load/layer/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

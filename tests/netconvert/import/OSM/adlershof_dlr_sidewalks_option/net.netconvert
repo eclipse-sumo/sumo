@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-12-09 08:13:27 by Eclipse SUMO netconvert Version v1_15_0+0892-3fcf8f1998d
+<!-- generated on 2023-01-06 08:14:48 by Eclipse SUMO netconvert Version v1_15_0+1362-339c192
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -2839,7 +2839,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="148491631" type="priority" x="3349.50" y="134.06" incLanes="31763024#1_0" intLanes="" shape="3349.50,134.06 3348.10,136.93 3349.50,134.06">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="1510075989" type="priority" x="0.00" y="3531.77" incLanes="-183076346_0" intLanes="" shape="0.00,3531.77 1.62,3532.94 -0.00,3531.77">
+    <junction id="1510075989" type="priority" x="0.00" y="3531.77" incLanes="-183076346_0" intLanes="" shape="0.00,3531.77 1.62,3532.94 0.00,3531.77">
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="1520039998" type="priority" x="3508.25" y="797.56" incLanes="138624421#4_0 -52460499#5_0 -52460499#5_1 52460499#4_0 52460499#4_1" intLanes="" shape="3513.22,803.73 3516.15,798.04 3514.92,797.16 3514.55,796.66 3514.33,796.12 3514.27,795.54 3514.36,794.91 3504.33,792.18 3503.45,795.16 3503.07,796.18 3502.63,797.18 3502.04,798.37 3501.24,799.97 3510.56,804.60 3511.25,803.71 3511.67,803.49 3512.14,803.42 3512.66,803.50">
@@ -3662,13 +3662,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="6" response="0000000" foes="0001110"/>
     </junction>
     <junction id="2007005083" type="priority" x="3954.06" y="504.84" incLanes="-190083625#0_0 206579064#2_0 206579064#2_1 -206579061_0 -206579061_1" intLanes="" shape="3960.92,508.44 3961.29,502.05 3960.49,501.84 3960.23,501.62 3960.07,501.32 3960.00,500.94 3960.04,500.48 3946.61,498.30 3946.53,500.30 3946.89,501.78 3947.46,503.00 3948.02,504.22 3948.33,505.69 3948.16,507.67 3958.35,509.78 3958.77,508.98 3959.14,508.71 3959.63,508.53 3960.22,508.44">
-        <request index="0" response="0010000" foes="0010000"/>
-        <request index="1" response="1010000" foes="1010000"/>
-        <request index="2" response="1001000" foes="1001000"/>
-        <request index="3" response="0000000" foes="1000100"/>
-        <request index="4" response="0000000" foes="1000011"/>
-        <request index="5" response="0000000" foes="0000000"/>
-        <request index="6" response="0011000" foes="0011110"/>
+        <request index="0" response="00010000" foes="00010000"/>
+        <request index="1" response="11110000" foes="11110000"/>
+        <request index="2" response="10001000" foes="10001000"/>
+        <request index="3" response="00000000" foes="10000100"/>
+        <request index="4" response="00000000" foes="10000011"/>
+        <request index="5" response="00000000" foes="00000010"/>
+        <request index="6" response="00000000" foes="00000010"/>
+        <request index="7" response="00011000" foes="00011110"/>
     </junction>
     <junction id="2007005087" type="priority" x="3947.01" y="539.72" incLanes="-190083623#0_0 206579062#0_0 206579062#0_1 206579062#0_2 -206579062#2_0 -206579062#2_1" intLanes="" shape="3957.39,543.24 3957.58,536.84 3956.78,536.65 3956.53,536.44 3956.37,536.15 3956.31,535.77 3956.35,535.32 3942.97,532.88 3941.26,541.98 3954.60,544.63 3955.04,543.82 3955.44,543.55 3955.97,543.36 3956.62,543.26">
         <request index="0" response="00110000" foes="00110000"/>
@@ -4344,7 +4345,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </junction>
     <junction id="32266899" type="dead_end" x="4074.00" y="79.86" incLanes="22917250#1_0 22917250#1_1 22917250#1_2" intLanes="" shape="4069.21,79.45 4078.78,80.27"/>
     <junction id="32266901" type="dead_end" x="4087.65" y="76.59" incLanes="" intLanes="" shape="4082.87,76.12 4092.43,77.06"/>
-    <junction id="32266940" type="priority" x="4353.77" y="0.00" incLanes="46150481#1_0 46150481#1_1" intLanes="" shape="4353.77,-0.00 4348.72,1.24 4353.77,0.00">
+    <junction id="32266940" type="priority" x="4353.77" y="0.00" incLanes="46150481#1_0 46150481#1_1" intLanes="" shape="4353.77,0.00 4348.72,1.24 4353.77,0.00">
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="35215927" type="priority" x="3406.21" y="224.77" incLanes="145586617#1_0 -31763024#0_0 -145586617#2_0" intLanes="" shape="3414.08,223.98 3410.91,218.42 3408.76,219.13 3407.81,219.02 3406.95,218.62 3406.16,217.90 3405.47,216.88 3399.88,220.01 3400.58,222.16 3400.47,223.10 3400.05,223.95 3399.34,224.72 3398.31,225.40 3401.35,231.03">
@@ -5633,6 +5634,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="-206579059" to="16942869" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-206579059" to="16942869" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="-206579061" to="-206579064#2" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="-206579061" to="-206579064#2" fromLane="1" toLane="2" dir="s" state="M"/>
     <connection from="-206579061" to="190083625#0" fromLane="1" toLane="0" dir="l" state="m"/>
     <connection from="-206579062#0" to="-206579061" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="-206579062#2" to="-206579062#0" fromLane="1" toLane="1" dir="s" state="M"/>

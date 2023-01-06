@@ -310,13 +310,22 @@ osmbatch:python.*route2trips\.py{REPLACE python /path/to/route2trips.py}
 osmbatch:python.*ptlines2flows\.py{REPLACE python /path/to/ptlines2flows.py}
 osmbatch:-attributes.*--{REPLACE -attributes <attrs-with-os-dependent-quoting> --}
 osmbatch:#!/bin/bash
+image:<g id="matplotlib.axis
 image:id="[^"]*"{REPLACE id="ReplacedTransientID"}
 image:url\(.*\){REPLACE url(ReplacedTransientURL)}
 image:href="[^"]*"{REPLACE href="ReplacedTransientHREF"}
 image:<dc:date>
-image:http:{REPLACE https:}
-image-600:http:{REPLACE https:}
-image-800:http:{REPLACE https:}
+image:\)scale\({REPLACE ) scale(}
+image:\)rotate\({REPLACE ) rotate(}
+image:\)translate\({REPLACE ) translate(}
+image-600:<g id="matplotlib.axis
+image-600:<dc:date>
+image-600:\)scale\({REPLACE ) scale(}
+image-600:\)translate\({REPLACE ) translate(}
+image-800:<g id="matplotlib.axis
+image-800:<dc:date>
+image-800:\)scale\({REPLACE ) scale(}
+image-800:\)translate\({REPLACE ) translate(}
 csv:\r$
 diff_con:<!-- generated on{[->]}-->
 diff_edg:<!-- generated on{[->]}-->

@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -414,6 +414,14 @@ class Net:
                         self._origIdx[oID].add(the_edge)
         return self._origIdx[origID]
 
+    def getGeometries(self, useLanes, includeJunctions=False):
+        for e in self._edges:
+            if useLanes:
+                for the_lane in e.getLanes():
+                    yield the_lane.getID(), the_lane.getShape(), the_lane.getWidth()
+            else:
+                yield e.getID(), e.getShape(includeJunctions), sum([the_lane.getWidth() for the_lane in e.getLanes()])
+
     def getBBoxXY(self):
         """
         Get the bounding box (bottom left and top right coordinates) for a net;
@@ -475,9 +483,8 @@ class Net:
         for n in self._nodes:
             n._coord = (n._coord[0] + dx, n._coord[1] + dy, n._coord[2] + dz)
         for e in self._edges:
-            for l in e._lanes:
-                l._shape = [(p[0] + dx, p[1] + dy, p[2] + dz)
-                            for p in l.getShape3D()]
+            for _lane in e.getLanes():
+                _lane.setShape([(p[0] + dx, p[1] + dy, p[2] + dz) for p in _lane.getShape3D()])
             e.rebuildShape()
 
     def getInternalPath(self, conn, fastest=False):

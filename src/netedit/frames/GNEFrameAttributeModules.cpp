@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -272,7 +272,11 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                     }
                 }
                 // show combo box with values
-                myValueChoicesComboBox->setNumVisible(myValueChoicesComboBox->getNumItems() < 10 ? myValueChoicesComboBox->getNumItems() : 10);
+                if (myACAttr.showAllDiscreteValues()) {
+                    myValueChoicesComboBox->setNumVisible(myValueChoicesComboBox->getNumItems());
+                } else {
+                    myValueChoicesComboBox->setNumVisible(myValueChoicesComboBox->getNumItems() < 10 ? myValueChoicesComboBox->getNumItems() : 10);
+                }
                 const int itemIndex = myValueChoicesComboBox->findItem(value.c_str());
                 if (itemIndex == -1) {
                     myValueChoicesComboBox->setText(value.c_str());
@@ -373,11 +377,15 @@ GNEFrameAttributeModules::AttributesEditorRow::refreshAttributesEditorRow(const 
             }
         } else {
             for (const auto& discreteValue : myACAttr.getDiscreteValues()) {
-                myValueChoicesComboBox->appendIconItem(discreteValue.c_str());
+                myValueChoicesComboBox->appendIconItem(discreteValue.c_str(), GUIIconSubSys::getIcon(GUIIcon::EMPTY));
             }
         }
         // show combo box with values
-        myValueChoicesComboBox->setNumVisible(myValueChoicesComboBox->getNumItems() < 10 ? myValueChoicesComboBox->getNumItems() : 10);
+        if (myACAttr.showAllDiscreteValues()) {
+            myValueChoicesComboBox->setNumVisible(myValueChoicesComboBox->getNumItems());
+        } else {
+            myValueChoicesComboBox->setNumVisible(myValueChoicesComboBox->getNumItems() < 10 ? myValueChoicesComboBox->getNumItems() : 10);
+        }
         myValueChoicesComboBox->setCurrentItem(myValueChoicesComboBox->findItem(value.c_str()));
         // set blue color if is an computed value
         if (computed) {

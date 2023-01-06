@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2014-2022 German Aerospace Center (DLR) and others.
+# Copyright (C) 2014-2023 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -34,6 +34,7 @@ import shutil
 from zipfile import ZipFile
 import base64
 import ssl
+import collections
 
 import osmGet
 import osmBuild
@@ -208,6 +209,8 @@ class Builder(object):
         # leading space ensures that arguments starting with -- are not
         # misinterpreted as options
         netconvertOptions = " " + osmBuild.DEFAULT_NETCONVERT_OPTS
+        if self.data.get("options"):
+            netconvertOptions += "," + self.data["options"]
         netconvertOptions += ",--tls.default-type,actuated"
         # netconvertOptions += ",--default.spreadtype,roadCenter"
         if "pedestrian" in self.data["vehicles"]:
@@ -351,7 +354,7 @@ class Builder(object):
                 if ptOptions is not None:
                     f.write('python "%s" %s\n' %
                             (ptlines2flowsPath, " ".join(map(quoted_str, self.getRelative(ptOptions)))))
-                for opts in sorted(randomTripsCalls):
+                for opts in randomTripsCalls:
                     f.write('python "%s" %s\n' %
                             (randomTripsPath, " ".join(map(quoted_str, self.getRelative(opts)))))
             os.chmod(batchFile, BATCH_MODE)
@@ -360,7 +363,7 @@ class Builder(object):
         "Return an option list for randomTrips.py for a given vehicle"
 
         begin = self.data.get("begin", 0)
-        opts = ["-n", self.files["net"], "--fringe-factor", options["fringeFactor"],
+        opts = ["-n", self.files["net"], "--fringe-factor", options.get("fringeFactor", "1"),
                 "--insertion-density", options["count"],
                 "-o", self.files["trips"],
                 "-r", self.files["route"],
@@ -505,7 +508,7 @@ class OSMImporterWebSocket(WebSocket):
 
                 self.sendMessage(u"zip " + data)
         except ssl.CertificateError:
-            self.report("Error with SSL certificate, try 'pip install certifi'.")
+            self.report("Error with SSL certificate, try 'pip install -U certifi'.")
         except Exception:
             print(traceback.format_exc())
             # reset 'Generate Scenario' button
@@ -536,6 +539,9 @@ def get_options(args=None):
                         help="Defines the begin time for the scenario.")
     parser.add_argument("-e", "--end", default=900, type=sumolib.miscutils.parseTime,
                         help="Defines the end time for the scenario.")
+    parser.add_argument("-n", "--netconvert-options", help="additional comma-separated options for netconvert")
+    parser.add_argument("--demand", default="passenger:6f5,bicycle:2f2,pedestrian:4,ship:1f40",
+                        help="Traffic demand definition for non-interactive mode.")
     return parser.parse_args(args)
 
 
@@ -543,12 +549,16 @@ def main(options):
     OSMImporterWebSocket.local = options.testOutputDir is not None or not options.remote
     OSMImporterWebSocket.outputDir = options.outputDir
     if options.testOutputDir is not None:
+        demand = collections.defaultdict(dict)
+        for mode in options.demand.split(","):
+            k, v = mode.split(":")
+            if "f" in v:
+                demand[k]['count'], demand[k]['fringeFactor'] = v.split("f")
+            else:
+                demand[k]['count'] = v
         data = {u'begin': options.begin,
                 u'duration': options.end - options.begin,
-                u'vehicles': {u'passenger': {u'count': 6, u'fringeFactor': 5},
-                              u'bicycle': {u'count': 2, u'fringeFactor': 2},
-                              u'pedestrian': {u'count': 4, u'fringeFactor': 1},
-                              u'ship': {u'count': 1, u'fringeFactor': 40}},
+                u'vehicles': demand,
                 u'osm': os.path.abspath(options.osmFile),
                 u'poly': options.bbox is None,  # reduce download size
                 u'publicTransport': True,
@@ -557,13 +567,15 @@ def main(options):
                 u'verbose': options.verbose,
                 u'carOnlyNetwork': False,
                 u'outputDir': options.testOutputDir,
-                u'coords': options.bbox.split(",") if options.bbox else None
+                u'coords': options.bbox.split(",") if options.bbox else None,
+                u'options': options.netconvert_options
                 }
         builder = Builder(data, True)
         builder.build()
         builder.makeConfigFile()
         builder.createBatch()
-        subprocess.call([sumolib.checkBinary("sumo"), "-c", builder.files["config"]])
+        if not options.remote:
+            subprocess.call([sumolib.checkBinary("sumo"), "-c", builder.files["config"]])
     else:
         if not options.remote:
             webbrowser.open("file://" +

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -456,6 +456,12 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
     if (stopBaseObject->hasBoolAttribute(SUMO_ATTR_PARKING)) {
         if (stopBaseObject->getBoolAttribute(SUMO_ATTR_PARKING)) {
             stop.parametersSet |= STOP_PARKING_SET;
+        }
+    }
+    if (stopBaseObject->hasTimeAttribute(SUMO_ATTR_JUMP)) {
+        if (stopBaseObject->getTimeAttribute(SUMO_ATTR_JUMP) >= 0) {
+            stop.parametersSet |= STOP_JUMP_SET;
+            stop.jump = stopBaseObject->getTimeAttribute(SUMO_ATTR_JUMP);
         }
     }
     if (stopBaseObject->hasStringAttribute(SUMO_ATTR_TRIP_ID)) {

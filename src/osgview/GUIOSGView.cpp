@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -182,7 +182,7 @@ GUIOSGView::GUIOSGView(
     myPlane = new osg::MatrixTransform();
     myPlane->addChild(GUIOSGBuilder::buildPlane(zFar - zNear));
     myPlane->addUpdateCallback(new PlaneMoverCallback(myViewer->getCamera()));
-    myRoot->addChild(myPlane.get());
+    myRoot->addChild(myPlane);
 
     // adjust the main light
     adoptViewSettings();
@@ -237,7 +237,8 @@ GUIOSGView::adoptViewSettings() {
     myViewer->getCamera()->setClearColor(toOSGColorVector(myVisualizationSettings->skyColor));
 
     // ground color
-    osg::Geometry* planeGeom = dynamic_cast<osg::Geometry*>(myPlane->getChild(0));
+    osg::Geode* planeGeode = dynamic_cast<osg::Geode*>(myPlane->getChild(0));
+    osg::Geometry* planeGeom = dynamic_cast<osg::Geometry*>(planeGeode->getChild(0));
     osg::Vec4ubArray* colors = dynamic_cast<osg::Vec4ubArray*>(planeGeom->getColorArray());
     (*colors)[0].set(myVisualizationSettings->backgroundColor.red(),
         myVisualizationSettings->backgroundColor.green(),
@@ -291,47 +292,47 @@ GUIOSGView::buildViewToolBars(GUIGlChildWindow* v) {
     // for junctions
     new FXButton(v->getLocatorPopup(),
                  "\tLocate Junction\tLocate a junction within the network.",
-                 GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), v, MID_LOCATEJUNCTION,
+                 GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), v, MID_HOTKEY_SHIFT_J_LOCATEJUNCTION,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for edges
     new FXButton(v->getLocatorPopup(),
                  "\tLocate Street\tLocate a street within the network.",
-                 GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), v, MID_LOCATEEDGE,
+                 GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), v, MID_HOTKEY_SHIFT_E_LOCATEEDGE,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for vehicles
     new FXButton(v->getLocatorPopup(),
                  "\tLocate Vehicle\tLocate a vehicle within the network.",
-                 GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), v, MID_LOCATEVEHICLE,
+                 GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), v, MID_HOTKEY_SHIFT_V_LOCATEVEHICLE,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for persons
     new FXButton(v->getLocatorPopup(),
                  "\tLocate Person\tLocate a person within the network.",
-                 GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), v, MID_LOCATEPERSON,
+                 GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), v, MID_HOTKEY_SHIFT_P_LOCATEPERSON,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for containers
     new FXButton(v->getLocatorPopup(),
                  "\tLocate Container\tLocate a container within the network.",
-                 GUIIconSubSys::getIcon(GUIIcon::LOCATECONTAINER), v, MID_LOCATECONTAINER,
+                 GUIIconSubSys::getIcon(GUIIcon::LOCATECONTAINER), v, MID_HOTKEY_SHIFT_C_LOCATECONTAINER,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for tls
     new FXButton(v->getLocatorPopup(),
                  "\tLocate TLS\tLocate a tls within the network.",
-                 GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), v, MID_LOCATETLS,
+                 GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), v, MID_HOTKEY_SHIFT_T_LOCATETLS,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for additional stuff
     new FXButton(v->getLocatorPopup(),
                  "\tLocate Additional\tLocate an additional structure within the network.",
-                 GUIIconSubSys::getIcon(GUIIcon::LOCATEADD), v, MID_LOCATEADD,
+                 GUIIconSubSys::getIcon(GUIIcon::LOCATEADD), v, MID_HOTKEY_SHIFT_A_LOCATEADDITIONAL,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for pois
     new FXButton(v->getLocatorPopup(),
                  "\tLocate POI\tLocate a POI within the network.",
-                 GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), v, MID_LOCATEPOI,
+                 GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), v, MID_HOTKEY_SHIFT_O_LOCATEPOI,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for polygons
     new FXButton(v->getLocatorPopup(),
                  "\tLocate Polygon\tLocate a Polygon within the network.",
-                 GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), v, MID_LOCATEPOLY,
+                 GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), v, MID_HOTKEY_SHIFT_L_LOCATEPOLY,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
 }
 
@@ -784,6 +785,7 @@ long GUIOSGView::onMiddleBtnPress(FXObject* sender, FXSelector sel, void* ptr) {
 long GUIOSGView::onMiddleBtnRelease(FXObject* sender, FXSelector sel, void* ptr) {
     FXEvent* event = (FXEvent*)ptr;
     myAdapter->getEventQueue()->mouseButtonRelease((float)event->click_x, (float)event->click_y, 2);
+    myChanger->onMiddleBtnRelease(ptr);
     return FXGLCanvas::onMiddleBtnRelease(sender, sel, ptr);
 }
 

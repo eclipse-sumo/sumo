@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -776,6 +776,9 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                   << SIMTIME  << " lane=" << getID()
                   << " veh '" << aVehicle->getID()
                   << " bestLanes=" << toString(aVehicle->getBestLanesContinuation(this))
+                  << " pos=" << pos
+                  << " speed=" << speed
+                  << " patchSpeed=" << patchSpeed
                   << "'\n";
     }
 #endif
@@ -906,9 +909,28 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 errorMsg = "tlLogic '" + (*link)->getTLLogic()->getID() + "' link " + toString((*link)->getTLIndex()) + " never switches to 'G'";
             }
             const double remaining = seen - currentLane->getVehicleStopOffset(aVehicle);
+            auto dsp = aVehicle->getParameter().departSpeedProcedure;
+            const bool patchSpeedSpecial = patchSpeed || dsp == DepartSpeedDefinition::DESIRED || dsp == DepartSpeedDefinition::LIMIT;
+            // patchSpeed depends on the presence of vehicles for these procedures. We never want to abort them here
+            if (dsp == DepartSpeedDefinition::LAST || dsp == DepartSpeedDefinition::AVG) {
+                errorMsg = "";
+            }
             if (checkFailure(aVehicle, speed, dist, cfModel.insertionStopSpeed(aVehicle, speed, remaining),
-                             patchSpeed, errorMsg, InsertionCheck::JUNCTION)) {
+                             patchSpeedSpecial, errorMsg, InsertionCheck::JUNCTION)) {
                 // we may not drive with the given velocity - we cannot stop at the junction in time
+#ifdef DEBUG_INSERTION
+                if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
+                    std::cout << SIMTIME << " isInsertionSuccess lane=" << getID()
+                        << " veh=" << aVehicle->getID()
+                        << " patchSpeed=" << patchSpeed
+                        << " speed=" << speed
+                        << " remaining=" << remaining
+                        << " leader=" << currentLane->getLastVehicleInformation(aVehicle, 0, 0).toString()
+                        << " last=" << Named::getIDSecure(getLastAnyVehicle())
+                        << " meanSpeed=" << getMeanSpeed()
+                        << " failed (@926)!\n";
+                }
+#endif
                 return false;
             }
 #ifdef DEBUG_INSERTION
@@ -982,7 +1004,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             // check next lane's maximum velocity
             const double nspeed = cfModel.freeSpeed(aVehicle, speed, seen, nextLane->getVehicleMaxSpeed(aVehicle), true, MSCFModel::CalcReason::FUTURE);
             if (nspeed < speed) {
-                if (patchSpeed) {
+                if (patchSpeed || aVehicle->getParameter().departSpeedProcedure != DepartSpeedDefinition::GIVEN) {
                     speed = nspeed;
                     dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
                 } else {
@@ -1063,7 +1085,6 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                               << " veh=" << aVehicle->getID()
                               << " pos=" << pos
                               << " posLat=" << posLat
-                              << " patchSpeed=" << patchSpeed
                               << " speed=" << speed
                               << " nspeed=" << nspeed
                               << " follower=" << follower->getID()
@@ -1104,7 +1125,6 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                                   << " veh=" << aVehicle->getID()
                                   << " pos=" << pos
                                   << " posLat=" << posLat
-                                  << " patchSpeed=" << patchSpeed
                                   << " speed=" << speed
                                   << " nspeed=" << nspeed
                                   << " follower=" << follower->getID()
@@ -1134,7 +1154,6 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                                   << " veh=" << aVehicle->getID()
                                   << " pos=" << pos
                                   << " posLat=" << posLat
-                                  << " patchSpeed=" << patchSpeed
                                   << " speed=" << speed
                                   << " nspeed=" << nspeed
                                   << " leader=" << veh->getID()
@@ -1162,7 +1181,6 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                           << " veh=" << aVehicle->getID()
                           << " pos=" << pos
                           << " posLat=" << posLat
-                          << " patchSpeed=" << patchSpeed
                           << " speed=" << speed
                           << " nspeed=" << nspeed
                           << " missingRearGap=" << missingRearGap
@@ -1184,7 +1202,6 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                       << " veh=" << aVehicle->getID()
                       << " pos=" << pos
                       << " posLat=" << posLat
-                      << " patchSpeed=" << patchSpeed
                       << " speed=" << speed
                       << " nspeed=" << nspeed
                       << " failed (@733)!\n";
@@ -1224,7 +1241,6 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                   << " veh=" << aVehicle->getID()
                   << " pos=" << pos
                   << " posLat=" << posLat
-                  << " patchSpeed=" << patchSpeed
                   << " speed=" << speed
                   << " nspeed=" << nspeed
                   << "\n myVehicles=" << toString(myVehicles)
@@ -1661,10 +1677,9 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
                     }
                     for (AnyVehicleIterator veh2 = bidiLane->anyVehiclesBegin(); veh2 != bidiLane->anyVehiclesEnd(); ++veh2) {
                         // self-collisions might legitemately occur when a long train loops back on itself
-                        //if (*veh == *veh2) {
-                        //    // no self-collision (when performing a turn-around)
-                        //    continue;
-                        //}
+                        if (*veh == *veh2 && !isRailway((*veh)->getVClass())) {
+                            continue;
+                        }
                         double low2 = myLength - (*veh2)->getPositionOnLane(bidiLane);
                         double high2 = myLength - (*veh2)->getBackPositionOnLane(bidiLane);
                         if (stage == MSNet::STAGE_MOVEMENTS) {

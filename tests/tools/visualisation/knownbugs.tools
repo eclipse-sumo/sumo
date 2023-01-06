@@ -1,6 +1,0 @@
-[Reported by Windows at 05Okt09:51:13]
-search_string:<metadata>
-use_regexp:0
-search_file:free_text
-full_description:Different matplotlib versions generate different images
-brief_description:matplotlib version

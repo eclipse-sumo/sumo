@@ -7,7 +7,7 @@ Debug: Adding chargingStation 'chargingStation_0' in GNEChange_Additional
 Error: Attribute 'power' in definition of chargingStation 'chargingStation_1' Invalid Number Format (double) dummyPower.
 Error: Could not build chargingStation with ID 'chargingStation_2' in netedit; attribute power cannot be negative.
 Debug: Adding chargingStation 'chargingStation_2' in GNEChange_Additional
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.chargingstation.24Jun133818.22381/netedit.daily.additional.chargingstation/additionalelements/chargingstation/load/power/input_additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.chargingstation.24Jun133818.22381/netedit.daily.additional.chargingstation/additionalelements/chargingstation/load/power/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

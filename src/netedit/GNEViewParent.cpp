@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -64,17 +64,17 @@
 
 FXDEFMAP(GNEViewParent) GNEViewParentMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_MAKESNAPSHOT,                       GNEViewParent::onCmdMakeSnapshot),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEJUNCTION,                     GNEViewParent::onCmdLocate),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEEDGE,                         GNEViewParent::onCmdLocate),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEWALKINGAREA,                  GNEViewParent::onCmdLocate),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEVEHICLE,                      GNEViewParent::onCmdLocate),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPERSON,                       GNEViewParent::onCmdLocate),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEROUTE,                        GNEViewParent::onCmdLocate),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATESTOP,                         GNEViewParent::onCmdLocate),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATETLS,                          GNEViewParent::onCmdLocate),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEADD,                          GNEViewParent::onCmdLocate),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPOI,                          GNEViewParent::onCmdLocate),
-    FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPOLY,                         GNEViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_J_LOCATEJUNCTION,      GNEViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_E_LOCATEEDGE,          GNEViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_W_LOCATEWALKINGAREA,   GNEViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_V_LOCATEVEHICLE,       GNEViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_P_LOCATEPERSON,        GNEViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_R_LOCATEROUTE,         GNEViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_S_LOCATESTOP,          GNEViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_T_LOCATETLS,           GNEViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_A_LOCATEADDITIONAL,    GNEViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_O_LOCATEPOI,           GNEViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_L_LOCATEPOLY,          GNEViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  FXMDIChild::ID_MDI_MENUCLOSE,           GNEViewParent::onCmdClose),
     FXMAPFUNC(SEL_CHANGED,  MID_GNE_VIEWPARENT_FRAMEAREAWIDTH,      GNEViewParent::onCmdUpdateFrameAreaWidth),
 };
@@ -497,7 +497,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
         GNEDialogACChooser** chooserLoc = nullptr;
         std::string locateTitle;
         switch (messageId) {
-            case MID_LOCATEJUNCTION:
+            case MID_HOTKEY_SHIFT_J_LOCATEJUNCTION:
                 chooserLoc = &myACChoosers.ACChooserJunction;
                 locateTitle = "Junction";
                 ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getJunctions().size());
@@ -505,7 +505,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     ACsToLocate.push_back(junction.second);
                 }
                 break;
-            case MID_LOCATEEDGE:
+            case MID_HOTKEY_SHIFT_E_LOCATEEDGE:
                 chooserLoc = &myACChoosers.ACChooserEdges;
                 locateTitle = "Edge";
                 ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getEdges().size());
@@ -513,7 +513,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     ACsToLocate.push_back(edge.second);
                 }
                 break;
-            case MID_LOCATEWALKINGAREA:
+            case MID_HOTKEY_SHIFT_W_LOCATEWALKINGAREA:
                 chooserLoc = &myACChoosers.ACChooserWalkingAreas;
                 locateTitle = "WalkingArea";
                 ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getWalkingAreas().size());
@@ -521,7 +521,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     ACsToLocate.push_back(walkingArea);
                 }
                 break;
-            case MID_LOCATEVEHICLE: {
+            case MID_HOTKEY_SHIFT_V_LOCATEVEHICLE: {
                 chooserLoc = &myACChoosers.ACChooserVehicles;
                 locateTitle = "Vehicle";
                 const auto demandElements = viewNet->getNet()->getAttributeCarriers()->getDemandElements();
@@ -568,7 +568,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 }
                 break;
             }
-            case MID_LOCATEPERSON:
+            case MID_HOTKEY_SHIFT_P_LOCATEPERSON:
                 chooserLoc = &myACChoosers.ACChooserPersons;
                 locateTitle = "Person";
                 ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSON).size() +
@@ -582,7 +582,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     ACsToLocate.push_back(personFlow);
                 }
                 break;
-            case MID_LOCATEROUTE:
+            case MID_HOTKEY_SHIFT_R_LOCATEROUTE:
                 chooserLoc = &myACChoosers.ACChooserRoutes;
                 locateTitle = "Route";
                 ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).size());
@@ -590,7 +590,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     ACsToLocate.push_back(route);
                 }
                 break;
-            case MID_LOCATESTOP: {
+            case MID_HOTKEY_SHIFT_S_LOCATESTOP: {
                 chooserLoc = &myACChoosers.ACChooserStops;
                 locateTitle = "Stop";
                 // reserve memory
@@ -621,7 +621,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 }
                 break;
             }
-            case MID_LOCATETLS:
+            case MID_HOTKEY_SHIFT_T_LOCATETLS:
                 chooserLoc = &myACChoosers.ACChooserTLS;
                 locateTitle = "TLS";
                 // fill ACsToLocate with junctions that haven TLS
@@ -632,7 +632,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     }
                 }
                 break;
-            case MID_LOCATEADD:
+            case MID_HOTKEY_SHIFT_A_LOCATEADDITIONAL:
                 chooserLoc = &myACChoosers.ACChooserAdditional;
                 locateTitle = "Additional";
                 for (const auto& additionalTag : viewNet->getNet()->getAttributeCarriers()->getAdditionals()) {
@@ -647,7 +647,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     }
                 }
                 break;
-            case MID_LOCATEPOI:
+            case MID_HOTKEY_SHIFT_O_LOCATEPOI:
                 chooserLoc = &myACChoosers.ACChooserPOI;
                 locateTitle = "POI";
                 // fill ACsToLocate with POIs
@@ -661,7 +661,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     ACsToLocate.push_back(POI);
                 }
                 break;
-            case MID_LOCATEPOLY:
+            case MID_HOTKEY_SHIFT_L_LOCATEPOLY:
                 chooserLoc = &myACChoosers.ACChooserPolygon;
                 locateTitle = "Poly";
                 // fill ACsToLocate with polys and TAZs (because share namespae)

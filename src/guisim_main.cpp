@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -51,12 +51,9 @@
 // ===========================================================================
 int
 main(int argc, char** argv) {
-    MsgHandler::setupI18n();
     // make the output aware of threading
     MsgHandler::setFactory(&MsgHandlerSynchronized::create);
-    // get the options
     OptionsCont& oc = OptionsCont::getOptions();
-    // give some application descriptions
     oc.setApplicationDescription(TL("GUI version of the microscopic, multi-modal traffic simulation SUMO."));
     oc.setApplicationName("sumo-gui", "Eclipse SUMO GUI Version " VERSION_STRING);
     gSimulation = true;
@@ -81,8 +78,8 @@ main(int argc, char** argv) {
         }
 
         // build the main window
-        GUIApplicationWindow* window =
-            new GUIApplicationWindow(&application, "*.sumo.cfg,*.sumocfg");
+        GUIApplicationWindow* window = new GUIApplicationWindow(&application, "*.sumo.cfg,*.sumocfg");
+        gLanguage = oc.getString("language");
         gSchemeStorage.init(&application);
         window->dependentBuild(false);
         // Create app

@@ -29,7 +29,7 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.10Dec123754.8076/netedit.gui/additionalElements/parkingarea/load/width\input_additionals.add.xml"/>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.10Dec123754.8076/netedit.gui/additionalElements/parkingarea/load/width\additionals.add.xml"/>
         <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.10Dec123754.8076/netedit.gui/additionalElements/parkingarea/load/width\additionals.xml"/>
         <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.10Dec123754.8076/netedit.gui/additionalElements/parkingarea/load/width\shapes.xml"/>
     </netedit>

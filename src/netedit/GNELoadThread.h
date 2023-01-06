@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -32,7 +32,7 @@
 // ===========================================================================
 class GNENet;
 class GUIEvent;
-
+class GNEApplicationWindow;
 
 // ===========================================================================
 // class definitions
@@ -41,10 +41,10 @@ class GUIEvent;
  * @class GNELoadThread
  */
 class GNELoadThread : public MFXSingleEventThread {
+
 public:
     /// @brief constructor
-    GNELoadThread(FXApp* app, MFXInterThreadEventClient* mw, MFXSynchQue<GUIEvent*>& eq,
-                  FXEX::MFXThreadEvent& ev);
+    GNELoadThread(GNEApplicationWindow* applicationWindow, MFXSynchQue<GUIEvent*>& eq, FXEX::MFXThreadEvent& ev);
 
     /// @brief destructor
     virtual ~GNELoadThread();
@@ -52,45 +52,47 @@ public:
     /// @brief starts the thread. The thread ends after the net has been loaded
     FXint run();
 
-    /**@brief begins the loading of a netconvert configuration or a a network
-     * @param[in] file The network or configuration-file to be loaded
-     * @param[in] isNet whether file is a network file
-     * @param[in] useStartupOptions whether the initial startup options shall be used
-     */
-    void loadConfigOrNet(const std::string& file, const bool isNet, const bool useStartupOptions, const bool newNet = false);
+    /// @brief clear files in options (used before loading files)
+    void resetFileOptions();
+
+    /// @brief begins the creation of an empty network
+    void createNewNetwork();
+
+    /// @brief begins the loading of an existent network
+    void loadNetwork();
+
+    /// @brief begins the loading of an existent configuration (netconvert, netedit or sumo config)
+    void loadConfig();
 
     /// @brief Retrieves messages from the loading module
     void retrieveMessage(const MsgHandler::MsgType type, const std::string& msg);
 
     /// @brief clears and initializes the OptionsCont
-    static void fillOptions(OptionsCont& oc);
+    static void fillOptions(OptionsCont& neteditOptions);
 
     /// @brief sets required options for proper functioning
-    static void setDefaultOptions(OptionsCont& oc);
+    static void setDefaultOptions(OptionsCont& neteditOptions);
 
-protected:
-    /// @brief init options
-    bool initOptions();
+private:
+    /// @brief reset options (used for loading single networks or netconvert configs)
+    bool resetOptions(const std::string &file, const bool configuration);
 
     /**@brief Closes the loading process
      *
      * This method is called both on success and failure.
      * All message callbacks to this instance are removed and the parent
-     * application is informed about the loading */
-    void submitEndAndCleanup(GNENet* net, const bool newNet = false, const std::string& guiSettingsFile = "", const bool viewportFromRegistry = false);
+     * application is informed about the loading 
+     */
+    void submitEndAndCleanup(GNENet* net, const std::string &loadedFile, const std::string& guiSettingsFile = "", const bool viewportFromRegistry = false);
 
-protected:
-    /// @brief the parent window to inform about the loading
-    MFXInterThreadEventClient* myParent;
-
-    /// @brief the path to load the network from
-    std::string myFile;
+    /// @brief NETEDIT application windows
+    GNEApplicationWindow* myApplicationWindow;
 
     /// @brief @brief The instances of message retriever encapsulations Needed to be deleted from the handler later on
     OutputDevice* myErrorRetriever, *myMessageRetriever, *myWarningRetriever, *myDebugRetriever, *myGLDebugRetriever;
 
     /// @brief event Queue
-    MFXSynchQue<GUIEvent*>& myEventQue;
+    MFXSynchQue<GUIEvent*>& myEventQueue;
 
     /// @brief event throw
     FXEX::MFXThreadEvent& myEventThrow;

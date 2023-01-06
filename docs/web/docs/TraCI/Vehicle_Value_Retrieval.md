@@ -459,6 +459,18 @@ value is also shown in the table.
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getTimeLoss">getTimeLoss</a></p></td>
 </tr>
 <tr class="even">
+<td><p>loaded list (0x24)</p></td>
+<td><p>stringList</p></td>
+<td><p>Returns a list of all loaded vehicle ids that have not yet arrived. This includes vehicles that are meant to depart in the future.</p></td>
+<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getLoadedIDList">getLoadedIDList</a></p></td>
+</tr>
+<tr class="odd">
+<td><p>teleporting list (0x25)</p></td>
+<td><p>stringList</p></td>
+<td><p>Returns a list of all vehicles that are currently [teleporting/jumping](Simulation/Why_Vehicles_are_teleporting.md)</p></td>
+<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getTeleportingIDList">getTeleportingIDList</a></p></td>
+</tr>
+<tr class="even">
 <td></td>
 <td></td>
 <td></td>
