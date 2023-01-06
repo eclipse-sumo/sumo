@@ -15,3 +15,6 @@ ticket12398
 
 # departSpeed=last error
 ticket12398b
+
+# departSpeed=avg and different lengths, error 
+ticket12398c
