@@ -9,3 +9,6 @@ ticket12168
 
 # parallel unloading of persons and containers
 ticket12385
+
+# departSpeed=avg error
+ticket12398
