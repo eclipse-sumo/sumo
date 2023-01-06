@@ -257,7 +257,7 @@ if (SUMO_LIBRARIES AND WIN32)
     file(GLOB EIGEN3_PATH "${SUMO_LIBRARIES}/eigen-3.?.?")
     file(GLOB GETTEXT_PATH "${SUMO_LIBRARIES}/gettext-?.??")
     # set all paths in prefix
-    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${EIGEN3_PATH};${XERCES_PATH};${ZLIB_PATH};${PROJ_PATH};${FOX_PATH};${FREETYPE_PATH};${GETTEXT_PATH}")
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${EIGEN3_PATH};${XERCES_PATH};${ZLIB_PATH};${PROJ_PATH};${FOX_PATH};${FREETYPE_PATH};${GETTEXT_PATH};${GETTEXT_PATH}/tools/gettext")
     # save in variable SUMO_LIBRARIES_DLL all paths to dll files
     file(GLOB SUMO_LIBRARIES_DLL "${XERCES_PATH}/bin/*.dll"
                                  "${PROJ_PATH}/bin/*.dll"
