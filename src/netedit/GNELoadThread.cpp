@@ -292,8 +292,9 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
 
     // TOPIC: Output
 
-    neteditOptions.doRegister("TLSPrograms-output", new Option_String());
-    neteditOptions.addDescription("TLSPrograms-output", "Output", "file in which TLS Programs must be saved");
+    neteditOptions.doRegister("tls-output", new Option_String());
+    neteditOptions.addSynonyme("tls-output", "TLSPrograms-output");
+    neteditOptions.addDescription("tls-output", "Output", "file in which TLS Programs must be saved");
 
     neteditOptions.doRegister("edgeTypes-output", new Option_String());
     neteditOptions.addDescription("edgeTypes-output", "Output", "file in which edgeTypes must be saved");
