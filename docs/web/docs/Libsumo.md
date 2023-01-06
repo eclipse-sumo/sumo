@@ -146,3 +146,20 @@ javac -cp $SUMO_HOME/bin/libsumo-1.8.0-SNAPSHOT.jar Test.java
 ```
 java -Djava.library.path=$SUMO_HOME/bin -cp $SUMO_HOME/bin/libsumo-1.8.0-SNAPSHOT.jar:. Test
 ```
+
+### casting subscription results
+
+Please be aware that casting subscription results is not straightforward with Java.
+You have to use the `cast` function as below. If the cast is not successful it will not throw an exception
+but return a null pointer.
+
+```
+TraCIResults ssRes = Simulation.getSubscriptionResults();
+for (Map.Entry<Integer, TraCIResult> entry : ssRes.entrySet()) {
+    TraCIResult sR = entry.getValue();
+    TraCIStringList vehIDs = TraCIStringList.cast(sR);
+    for (String vehID : vehIDs.getValue()) {
+        System.out.println("Subscription Departed vehicles: " + vehID);
+    }
+}
+```
