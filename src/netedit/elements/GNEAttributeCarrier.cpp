@@ -981,7 +981,7 @@ GNEAttributeCarrier::fillNetworkElements() {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
                                               "An optional type for the node");
-        attrProperty.setDiscreteValues(nodeTypes);
+        attrProperty.setDiscreteValues(nodeTypes, true);
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_SHAPE,
@@ -1005,14 +1005,14 @@ GNEAttributeCarrier::fillNetworkElements() {
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
                                               "How to compute right of way rules at this node",
                                               SUMOXMLDefinitions::RightOfWayValues.getString(RightOfWay::DEFAULT));
-        attrProperty.setDiscreteValues(SUMOXMLDefinitions::RightOfWayValues.getStrings());
+        attrProperty.setDiscreteValues(SUMOXMLDefinitions::RightOfWayValues.getStrings(), true);
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FRINGE,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
                                               "Whether this junction is at the fringe of the network",
                                               SUMOXMLDefinitions::FringeTypeValues.getString(FringeType::DEFAULT));
-        attrProperty.setDiscreteValues(SUMOXMLDefinitions::FringeTypeValues.getStrings());
+        attrProperty.setDiscreteValues(SUMOXMLDefinitions::FringeTypeValues.getStrings(), true);
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_NAME,
@@ -1023,7 +1023,7 @@ GNEAttributeCarrier::fillNetworkElements() {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TLTYPE,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
                                               "An optional type for the traffic light algorithm");
-        attrProperty.setDiscreteValues(TLTypes);
+        attrProperty.setDiscreteValues(TLTypes, true);
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TLLAYOUT,
@@ -1032,7 +1032,7 @@ GNEAttributeCarrier::fillNetworkElements() {
         attrProperty.setDiscreteValues({toString(TrafficLightLayout::DEFAULT),
                                         toString(TrafficLightLayout::OPPOSITES),
                                         toString(TrafficLightLayout::INCOMING),
-                                        toString(TrafficLightLayout::ALTERNATE_ONEWAY)});
+                                        toString(TrafficLightLayout::ALTERNATE_ONEWAY)}, true);
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TLID,
@@ -1080,7 +1080,7 @@ GNEAttributeCarrier::fillNetworkElements() {
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
                                               "The spreadType defines how to compute the lane geometry from the edge geometry (used for visualization)",
                                               SUMOXMLDefinitions::LaneSpreadFunctions.getString(LaneSpreadFunction::RIGHT));
-        attrProperty.setDiscreteValues(SUMOXMLDefinitions::LaneSpreadFunctions.getStrings());
+        attrProperty.setDiscreteValues(SUMOXMLDefinitions::LaneSpreadFunctions.getStrings(), true);
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_PRIORITY,
@@ -1210,7 +1210,7 @@ GNEAttributeCarrier::fillNetworkElements() {
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
                                               "The spreadType defines how to compute the lane geometry from the edge geometry (used for visualization)",
                                               SUMOXMLDefinitions::LaneSpreadFunctions.getString(LaneSpreadFunction::RIGHT));
-        attrProperty.setDiscreteValues(SUMOXMLDefinitions::LaneSpreadFunctions.getStrings());
+        attrProperty.setDiscreteValues(SUMOXMLDefinitions::LaneSpreadFunctions.getStrings(), true);
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_NAME,
@@ -1261,7 +1261,7 @@ GNEAttributeCarrier::fillNetworkElements() {
                                               GNEAttributeProperties::VCLASS | GNEAttributeProperties::LIST | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::VCLASSES,
                                               "Specifies, for which vehicle classes the stopOffset does NOT apply.",
                                               "");
-        attrProperty.setDiscreteValues(SumoVehicleClassStrings.getStrings());
+        attrProperty.setDiscreteValues(SumoVehicleClassStrings.getStrings(), false);
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_LANE;
@@ -1331,14 +1331,14 @@ GNEAttributeCarrier::fillNetworkElements() {
                                               GNEAttributeProperties::VCLASS | GNEAttributeProperties::LIST | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::VCLASSES,
                                               "Permit changing left only for to the given vehicle classes",
                                               "all");
-        attrProperty.setDiscreteValues(SumoVehicleClassStrings.getStrings());
+        attrProperty.setDiscreteValues(SumoVehicleClassStrings.getStrings(), true);
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_CHANGE_RIGHT,
                                               GNEAttributeProperties::VCLASS | GNEAttributeProperties::LIST | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::VCLASSES,
                                               "Permit changing right only for to the given vehicle classes",
                                               "all");
-        attrProperty.setDiscreteValues(SumoVehicleClassStrings.getStrings());
+        attrProperty.setDiscreteValues(SumoVehicleClassStrings.getStrings(), true);
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
@@ -1356,7 +1356,7 @@ GNEAttributeCarrier::fillNetworkElements() {
                                               GNEAttributeProperties::VCLASS | GNEAttributeProperties::LIST | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::VCLASSES,
                                               "Specifies, for which vehicle classes the stopOffset does NOT apply.",
                                               "");
-        attrProperty.setDiscreteValues(SumoVehicleClassStrings.getStrings());
+        attrProperty.setDiscreteValues(SumoVehicleClassStrings.getStrings(), false);
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_CROSSING;
@@ -1538,14 +1538,14 @@ GNEAttributeCarrier::fillNetworkElements() {
                                               GNEAttributeProperties::VCLASS | GNEAttributeProperties::LIST | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::VCLASSES,
                                               "Permit changing left only for to the given vehicle classes",
                                               "all");
-        attrProperty.setDiscreteValues(SumoVehicleClassStrings.getStrings());
+        attrProperty.setDiscreteValues(SumoVehicleClassStrings.getStrings(), true);
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_CHANGE_RIGHT,
                                               GNEAttributeProperties::VCLASS | GNEAttributeProperties::LIST | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::VCLASSES,
                                               "Permit changing right only for to the given vehicle classes",
                                               "all");
-        attrProperty.setDiscreteValues(SumoVehicleClassStrings.getStrings());
+        attrProperty.setDiscreteValues(SumoVehicleClassStrings.getStrings(), true);
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_INDIRECT,
@@ -3496,7 +3496,7 @@ GNEAttributeCarrier::fillDemandElements() {
                                               GNEAttributeProperties::VCLASS | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
                                               "An abstract vehicle class",
                                               "passenger");
-        attrProperty.setDiscreteValues(SumoVehicleClassStrings.getStrings());
+        attrProperty.setDiscreteValues(SumoVehicleClassStrings.getStrings(), false);
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_COLOR,
@@ -3534,13 +3534,13 @@ GNEAttributeCarrier::fillDemandElements() {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_EMISSIONCLASS,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::EXTENDED,
                                               "An abstract emission class");
-        attrProperty.setDiscreteValues(PollutantsInterface::getAllClassesStr());
+        attrProperty.setDiscreteValues(PollutantsInterface::getAllClassesStr(), false);
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_GUISHAPE,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::EXTENDED,
                                               "How this vehicle is rendered");
-        attrProperty.setDiscreteValues(SumoVehicleShapeStrings.getStrings());
+        attrProperty.setDiscreteValues(SumoVehicleShapeStrings.getStrings(), false);
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_WIDTH,
@@ -3564,14 +3564,14 @@ GNEAttributeCarrier::fillDemandElements() {
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::EXTENDED,
                                               "The model used for changing lanes",
                                               "default");
-        attrProperty.setDiscreteValues(SUMOXMLDefinitions::LaneChangeModels.getStrings());
+        attrProperty.setDiscreteValues(SUMOXMLDefinitions::LaneChangeModels.getStrings(), true);
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_CAR_FOLLOW_MODEL,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::EXTENDED,
                                               "The model used for car following",
                                               "Krauss");
-        attrProperty.setDiscreteValues(SUMOXMLDefinitions::CarFollowModels.getStrings());
+        attrProperty.setDiscreteValues(SUMOXMLDefinitions::CarFollowModels.getStrings(), true);
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_PERSON_CAPACITY,
@@ -3600,7 +3600,7 @@ GNEAttributeCarrier::fillDemandElements() {
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::EXTENDED,
                                               "The preferred lateral alignment when using the sublane-model",
                                               "center");
-        attrProperty.setDiscreteValues(SUMOVTypeParameter::getLatAlignmentStrings());
+        attrProperty.setDiscreteValues(SUMOVTypeParameter::getLatAlignmentStrings(), true);
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_MINGAP_LAT,
@@ -5304,7 +5304,7 @@ GNEAttributeCarrier::fillCarFollowingModelAttributes(SumoXMLTag currentTag) {
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::EXTENDED,
                                           "Train Types",
                                           "NGT400");
-    attrProperty.setDiscreteValues(SUMOXMLDefinitions::TrainTypes.getStrings());
+    attrProperty.setDiscreteValues(SUMOXMLDefinitions::TrainTypes.getStrings(), true);
     myTagProperties[currentTag].addAttribute(attrProperty);
 }
 
@@ -5596,7 +5596,7 @@ GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag, const bool 
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
                                           "Whether a person or container or bth may end the stop",
                                           "false");
-    attrProperty.setDiscreteValues({"false", "person", "container", "join"});
+    attrProperty.setDiscreteValues({"false", "person", "container", "join"}, true);
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_EXPECTED,
@@ -5613,7 +5613,7 @@ GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag, const bool 
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
                                           "Whether the vehicle stops on the road or beside",
                                           "false");
-    attrProperty.setDiscreteValues({"true", "false", "opportunistic"});
+    attrProperty.setDiscreteValues({"true", "false", "opportunistic"}, true);
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_ACTTYPE,
@@ -5813,7 +5813,7 @@ GNEAttributeCarrier::fillCommonMeanDataAttributes(SumoXMLTag currentTag) {
                                             GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
                                             "If set to true, edges/lanes which were not use by a vehicle during this period will not be written",
                                             "default");
-    attrProperty.setDiscreteValues({"true", "false", "default"});
+    attrProperty.setDiscreteValues({"true", "false", "default"}, true);
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_WITH_INTERNAL,

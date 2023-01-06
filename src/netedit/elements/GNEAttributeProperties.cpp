@@ -31,17 +31,7 @@
 // method definitions
 // ===========================================================================
 
-GNEAttributeProperties::GNEAttributeProperties() :
-    myAttribute(SUMO_ATTR_NOTHING),
-    myTagPropertyParent(nullptr),
-    myAttrStr(toString(SUMO_ATTR_NOTHING)),
-    myAttributeProperty(STRING),
-    myDefinition(""),
-    myDefaultValue(""),
-    myDefaultActivated(false),
-    myAttrSynonym(SUMO_ATTR_NOTHING),
-    myMinimumRange(0),
-    myMaximumRange(0) {}
+GNEAttributeProperties::GNEAttributeProperties() {}
 
 
 GNEAttributeProperties::GNEAttributeProperties(const SumoXMLAttr attribute, const int attributeProperty, const std::string& definition, std::string defaultValue) :
@@ -101,9 +91,10 @@ GNEAttributeProperties::checkAttributeIntegrity() const {
 
 
 void
-GNEAttributeProperties::setDiscreteValues(const std::vector<std::string>& discreteValues) {
+GNEAttributeProperties::setDiscreteValues(const std::vector<std::string>& discreteValues, bool showAll) {
     if (isDiscrete()) {
         myDiscreteValues = discreteValues;
+        myShowAllDiscreteValues = showAll;
     } else {
         throw FormatException("AttributeProperty doesn't support discrete values");
     }
@@ -427,6 +418,12 @@ GNEAttributeProperties::isUnique() const {
 bool
 GNEAttributeProperties::isDiscrete() const {
     return (myAttributeProperty & DISCRETE) != 0;
+}
+
+
+bool
+GNEAttributeProperties::showAllDiscreteValues() const {
+    return myShowAllDiscreteValues;
 }
 
 
