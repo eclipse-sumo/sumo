@@ -12,3 +12,6 @@ ticket12385
 
 # departSpeed=avg error
 ticket12398
+
+# departSpeed=last error
+ticket12398b
