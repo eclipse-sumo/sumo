@@ -194,10 +194,10 @@ title: ChangeLog
   - implausibleRoutes.py: Added options to handle unsorted input and additional files when duarouter is being called. Issue #12069
   - tracemapper.py: Added option **--vehicle-class** to guide edge mapping. Issue #12117
   - net2geojson.py: Added option **--boundary** to write polygons instead of center lines. Issue #12296
-  - stateReplay.py: Now works on for Windows. Issue #12298
+  - stateReplay.py: Now works on Windows. Issue #12298
   - Added new tool [filterElements.py](Tools/Xml.md#filterelementspy) to filter elements from an xml file (either all instances or filtered by attribute value). Issue #12304
   - Added new tool [attributeDiff.py](Tools/Output.md#attributediffpy) to compute the numerical difference between two xml files with the same structure. Issue #12318
-  - Added new tool [fcdDifff.py](Tools/Output.md#fcddiffpy) to compare two fcd-output files (by vehicle id an time). Issue #12233
+  - Added new tool [fcdDifff.py](Tools/Output.md#fcddiffpy) to compare two fcd-output files (by vehicle id and time). Issue #12233
   - plotXMLAttributes.py
     - can now plot data without assigning ids to the data points. Issue #11969
     - can now plot categorical (non-numerical) data and also a mix of data types. Issue #11970, #11976
