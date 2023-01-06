@@ -114,6 +114,12 @@ public:
         /// @brief The available lanes to which connections shall be built
         std::vector<int> myAvailableLanes;
 
+        /// directions from each incoming edge to the outgoing edge
+        std::vector<LinkDirection> myDirections;
+
+        /// @brief number of straight connections to the outgoing edge
+        int myNumStraight;
+
         /// @brief whether the outgoing edge is exclusively used by bikes
         bool myIsBikeEdge;
 

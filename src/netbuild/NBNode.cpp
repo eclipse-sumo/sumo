@@ -97,6 +97,7 @@ NBNode::ApproachingDivider::ApproachingDivider(
     const EdgeVector& approaching, NBEdge* currentOutgoing) :
     myApproaching(approaching),
     myCurrentOutgoing(currentOutgoing),
+    myNumStraight(0),
     myIsBikeEdge(currentOutgoing->getPermissions() == SVC_BICYCLE) {
     // collect lanes which are expliclity targeted
     std::set<int> approachedLanes;
@@ -105,6 +106,10 @@ NBNode::ApproachingDivider::ApproachingDivider(
             if (con.toEdge == myCurrentOutgoing) {
                 approachedLanes.insert(con.toLane);
             }
+        }
+        myDirections.push_back(approachingEdge->getToNode()->getDirection(approachingEdge, currentOutgoing));
+        if (myDirections.back() == LinkDirection::STRAIGHT) {
+            myNumStraight++;
         }
     }
     // compute the indices of lanes that should be targeted (excluding pedestrian
@@ -149,13 +154,32 @@ NBNode::ApproachingDivider::execute(const int src, const int dest) {
     }
 
 #endif
-    std::deque<int>* approachedLanes = spread(approachingLanes.size(), dest);
+    size_t numConnections = approachingLanes.size();
+    double factor = 1;
+    if (myNumStraight == 1 && myDirections[src] == LinkDirection::STRAIGHT && (
+                // we do not want to destroy ramp-like assignments where the
+                // on-connection-per-lane rule avoids conflicts
+                // - at a traffic light the phases are seperated so there is no conflict anyway
+                incomingEdge->getToNode()->isTLControlled()
+                // - there are no incoming edges to the right
+                || src == 0
+                // - a minor straight road is likely in conflict anyway
+                || incomingEdge->getJunctionPriority(incomingEdge->getToNode()) == NBEdge::MINOR_ROAD)) {
+        numConnections = myAvailableLanes.size();
+        factor = (double)approachingLanes.size() / numConnections;
+        if (factor > 0.5) {
+            factor = 1;
+        }
+    }
+    std::deque<int>* approachedLanes = spread(numConnections, dest);
     assert(approachedLanes->size() <= myAvailableLanes.size());
     // set lanes
+    int maxFrom = approachingLanes.size() - 1;
     for (int i = 0; i < (int)approachedLanes->size(); i++) {
         assert((int)approachingLanes.size() > i);
+        int fromLane = approachingLanes[MIN2((int)(i * factor), maxFrom)];
         int approached = myAvailableLanes[(*approachedLanes)[i]];
-        incomingEdge->setConnection(approachingLanes[i], myCurrentOutgoing, approached, NBEdge::Lane2LaneInfoType::COMPUTED);
+        incomingEdge->setConnection(fromLane, myCurrentOutgoing, approached, NBEdge::Lane2LaneInfoType::COMPUTED);
     }
     delete approachedLanes;
 }
