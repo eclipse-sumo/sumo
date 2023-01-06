@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-22 08:14:28 by Eclipse SUMO netconvert Version v1_13_0+1094-d2dab2e946c
+<!-- generated on 2023-01-06 08:14:48 by Eclipse SUMO netconvert Version v1_15_0+1362-339c192
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -47,7 +47,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="-399343.89,-5808929.68" convBoundary="0.00,0.00,1645.69,1206.12" origBoundary="13.453860,52.421550,13.575739,52.459735" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+    <location netOffset="-399343.89,-5808929.68" convBoundary="0.00,0.00,1645.69,1206.12" origBoundary="13.456660,52.421550,13.575739,52.459437" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <type id="highway.bridleway" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.bus_guideway" priority="1" numLanes="1" speed="27.78" allow="bus" oneway="1"/>
@@ -965,10 +965,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="8" response="000010001" foes="000010001"/>
     </junction>
     <junction id="1560223686" type="priority" x="494.28" y="756.89" z="36.84" incLanes="-24214694#0_0 143308587#1_0" intLanes="" shape="495.15,771.58,36.84 501.30,769.82,36.84 500.49,767.36,36.84 499.73,765.57,36.84 499.05,764.11,36.84 498.46,762.64,36.84 497.98,760.80,36.84 497.62,758.25,36.84 491.25,758.86,36.84 491.45,761.48,36.84 491.48,763.42,36.84 491.35,765.02,36.84 491.08,766.62,36.84 490.70,768.54,36.84 490.22,771.13,36.84 493.37,771.67,36.84">
-        <request index="0" response="0000" foes="0000"/>
-        <request index="1" response="0100" foes="0100"/>
-        <request index="2" response="0000" foes="0010"/>
-        <request index="3" response="0000" foes="0000"/>
+        <request index="0" response="00000" foes="10000"/>
+        <request index="1" response="00000" foes="10000"/>
+        <request index="2" response="01000" foes="01000"/>
+        <request index="3" response="00000" foes="00100"/>
+        <request index="4" response="00011" foes="00011"/>
     </junction>
     <junction id="1560223690" type="priority" x="17.49" y="770.70" z="31.35" incLanes="46039050#0_0 46039050#0_1" intLanes="" shape="17.40,773.90,31.35 17.85,767.51,31.35 17.41,767.49,31.35 17.29,773.89,31.35">
         <request index="0" response="00" foes="00"/>
@@ -1534,6 +1535,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="-239335494#1" to="-239335494#0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-239335494#1" to="-224769566" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="-24214694#0" to="143308590#0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="-24214694#0" to="143308590#0" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from="-24214694#0" to="24214694#0" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="-24214694#1" to="-26816590#2" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="-24214694#1" to="-24214694#0" fromLane="0" toLane="0" dir="s" state="M"/>
@@ -1697,7 +1699,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="143308581" to="143308538" fromLane="1" toLane="1" dir="l" state="M"/>
     <connection from="143308587#0" to="143308587#1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="143308587#1" to="24214694#0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="143308587#1" to="143308590#0" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from="143308587#1" to="143308590#0" fromLane="0" toLane="1" dir="l" state="m"/>
     <connection from="143308590#0" to="143308590#1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="143308590#0" to="143308590#1" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="143308590#1" to="143308542#0" fromLane="0" toLane="0" dir="r" state="M"/>

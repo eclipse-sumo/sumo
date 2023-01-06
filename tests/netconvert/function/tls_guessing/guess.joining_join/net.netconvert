@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-04 09:40:08 by Eclipse SUMO netconvert Version v1_14_1+1405-b752ca57d78
+<!-- generated on 2023-01-06 08:14:50 by Eclipse SUMO netconvert Version v1_15_0+1362-339c192
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -917,16 +917,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="201558105" type="dead_end" x="639.44" y="48.08" incLanes="" intLanes="" shape="636.72,46.39 642.16,49.77"/>
     <junction id="201575609" type="dead_end" x="88.74" y="747.51" incLanes="" intLanes="" shape="89.77,748.73 87.71,746.29"/>
     <junction id="201579267" type="priority" x="222.72" y="664.09" incLanes="359891757_0 359891757_1 47795742_0 360587414_0" intLanes="" shape="223.58,674.95 229.49,672.49 229.14,670.26 229.37,669.30 229.88,668.44 230.66,667.67 231.71,667.01 226.61,655.24 224.25,655.94 223.23,655.83 222.31,655.40 221.49,654.66 220.78,653.62 215.10,656.56 216.19,658.80 216.86,660.71 217.09,662.31 216.90,663.58 216.27,664.54 215.21,665.17 216.32,668.17 218.99,668.24 220.23,669.09 221.41,670.50 222.52,672.45">
-        <request index="0" response="0000000000" foes="1000100000"/>
-        <request index="1" response="0000000000" foes="1000100000"/>
-        <request index="2" response="0000000000" foes="0111100000"/>
-        <request index="3" response="0100000000" foes="0100000000"/>
-        <request index="4" response="0000000000" foes="0000000000"/>
-        <request index="5" response="0000000111" foes="1100000111"/>
-        <request index="6" response="0010000100" foes="0010000100"/>
-        <request index="7" response="0000000100" foes="0001000100"/>
-        <request index="8" response="0000100100" foes="0000101100"/>
-        <request index="9" response="0000100011" foes="0000100011"/>
+        <request index="0"  response="000000000000" foes="100001100000"/>
+        <request index="1"  response="000000000000" foes="100001100000"/>
+        <request index="2"  response="000000000000" foes="011111100000"/>
+        <request index="3"  response="011000000000" foes="011000000000"/>
+        <request index="4"  response="000000000000" foes="011000000000"/>
+        <request index="5"  response="000000000111" foes="111000000111"/>
+        <request index="6"  response="000000000111" foes="111000000111"/>
+        <request index="7"  response="000100000100" foes="000100000100"/>
+        <request index="8"  response="000000000100" foes="000010000100"/>
+        <request index="9"  response="000001110100" foes="000001111100"/>
+        <request index="10" response="000001110100" foes="000001111100"/>
+        <request index="11" response="000001100011" foes="000001100011"/>
     </junction>
     <junction id="201579305" type="priority" x="0.00" y="452.06" incLanes="-47795742_0" intLanes="" shape="0.00,452.06 0.33,455.24 0.00,452.06">
         <request index="0" response="0" foes="0"/>
@@ -1474,17 +1476,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="11" response="000010000110" foes="000010000110"/>
     </junction>
     <junction id="cluster_201484298_3646958907" type="priority" x="186.60" y="415.33" incLanes="94669148#0_0 94669148#0_1 -132174699_0 19377705_0 19377705_1" intLanes="" shape="181.68,427.02 194.36,425.27 193.49,420.62 192.46,417.27 190.23,411.85 189.19,408.50 188.31,403.85 181.97,404.74 181.51,407.02 180.65,407.90 179.37,408.61 177.68,409.13 175.57,409.48 177.16,423.50 179.43,423.69 180.28,424.16 180.94,424.86 181.40,425.82">
-        <request index="0"  response="00000000000" foes="10000100000"/>
-        <request index="1"  response="00000000000" foes="10000100000"/>
-        <request index="2"  response="01110000000" foes="01111100000"/>
-        <request index="3"  response="01100000000" foes="01100000000"/>
-        <request index="4"  response="01100000000" foes="01100000000"/>
-        <request index="5"  response="01100000111" foes="11100000111"/>
-        <request index="6"  response="00010000100" foes="00010000100"/>
-        <request index="7"  response="00000000000" foes="00001000100"/>
-        <request index="8"  response="00000000000" foes="00000111100"/>
-        <request index="9"  response="00000000000" foes="00000111100"/>
-        <request index="10" response="00000100011" foes="00000100011"/>
+        <request index="0"  response="000000000000" foes="100001000000"/>
+        <request index="1"  response="000000000000" foes="100001000000"/>
+        <request index="2"  response="011100000000" foes="011111000000"/>
+        <request index="3"  response="011000110000" foes="011000110000"/>
+        <request index="4"  response="011000000000" foes="011000001000"/>
+        <request index="5"  response="011000000000" foes="011000001000"/>
+        <request index="6"  response="011000000111" foes="111000000111"/>
+        <request index="7"  response="000100000100" foes="000100000100"/>
+        <request index="8"  response="000000000000" foes="000010000100"/>
+        <request index="9"  response="000000000000" foes="000001111100"/>
+        <request index="10" response="000000000000" foes="000001111100"/>
+        <request index="11" response="000001000011" foes="000001000011"/>
     </junction>
     <junction id="cluster_5819001430_5819001435" type="right_before_left" x="423.27" y="421.79" incLanes="615359726#2_0 615359730#2_0 -615359726#4_0 -615359735#0_0" intLanes="" shape="433.68,426.32 434.47,419.97 430.63,419.31 427.34,418.36 424.61,417.12 422.43,415.59 420.81,413.77 419.74,411.66 413.70,413.77 414.00,415.81 413.70,416.48 413.11,416.91 412.23,417.10 411.06,417.05 410.26,423.40 414.25,424.02 417.49,424.78 419.99,425.69 421.74,426.74 422.74,427.94 423.00,429.28 429.38,429.81 430.00,427.65 430.62,426.94 431.43,426.48 432.45,426.27">
         <request index="0"  response="0000000000000000" foes="1000010000100000"/>
@@ -1524,6 +1527,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </junction>
 
     <connection from="-132174699" to="-94669148#0" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from="-132174699" to="-94669148#0" fromLane="0" toLane="1" dir="s" state="m"/>
     <connection from="-132174699" to="360095183" fromLane="0" toLane="1" dir="l" state="m"/>
     <connection from="-132174699" to="132174699" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="-19354946" to="94669166" fromLane="0" toLane="0" dir="l" state="M"/>
@@ -1813,11 +1817,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="360431542" to="47795936#2" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="360431542" to="-360431542" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="360587414" to="-47795742" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="360587414" to="-359891757" fromLane="0" toLane="0" dir="s" state="m"/>
     <connection from="360587414" to="-359891757" fromLane="0" toLane="1" dir="s" state="m"/>
     <connection from="360587414" to="19397167" fromLane="0" toLane="1" dir="l" state="m"/>
     <connection from="47795739" to="547275315" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="47795739" to="547275315" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="47795742" to="-359891757" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="47795742" to="19397167" fromLane="0" toLane="0" dir="s" state="m"/>
     <connection from="47795742" to="19397167" fromLane="0" toLane="1" dir="s" state="m"/>
     <connection from="47795742" to="-47795742" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="47795933#0" to="47795933#1" fromLane="0" toLane="0" dir="s" state="M"/>

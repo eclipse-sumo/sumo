@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-27 08:42:11 by Eclipse SUMO netconvert Version v1_14_1+1242-57b0522bf9b
+<!-- generated on 2023-01-06 08:14:48 by Eclipse SUMO netconvert Version v1_15_0+1362-339c192
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -92,8 +92,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <access lane="-93704176#0_0" pos="304.26" length="4.75" friendlyPos="1"/>
         <access lane="93704176#0_0" pos="1401.28" length="9.35" friendlyPos="1"/>
     </busStop>
-    <busStop id="1907517438" name="Pablo-Neruda-Straße" lane="44956230#1_1" startPos="21.25" endPos="37.48" friendlyPos="true" lines="N65 N69 N67"/>
-    <busStop id="1965562491" name="Krankenhaus Köpenick/Besuchereingang" lane="31012749#3_1" startPos="12.52" endPos="24.97" friendlyPos="true" lines="169 N65 N67"/>
+    <busStop id="1907517438" name="Pablo-Neruda-Straße" lane="44956230#1_1" startPos="21.17" endPos="37.40" friendlyPos="true" lines="N65 N69 N67"/>
+    <busStop id="1965562491" name="Krankenhaus Köpenick/Besuchereingang" lane="31012749#3_1" startPos="12.58" endPos="25.04" friendlyPos="true" lines="169 N65 N67"/>
     <busStop id="296942988" name="Pablo-Neruda-Straße" lane="26708288#1_1" startPos="6.26" endPos="25.50" friendlyPos="true" lines="N65 N67 N69"/>
     <busStop id="3239724394" name="Anemonenstraße" lane="37850032#0_1" startPos="47.69" endPos="62.69" friendlyPos="true" lines="169 165 269 N67"/>
     <busStop id="3239724399" name="Krankenhaus Köpenick/Südseite" lane="31343609#1_0" startPos="12.15" endPos="38.08" friendlyPos="true" lines="169 N69">

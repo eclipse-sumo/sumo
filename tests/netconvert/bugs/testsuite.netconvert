@@ -72,6 +72,9 @@ ticket1586b
 # all lanes allow pedestrians only
 ticket1586c
 
+# no unregulated nodes
+ticket1586d
+
 # computing node shape with corner detail failed
 ticket1674
 ticket1678

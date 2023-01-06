@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-11-29 10:11:25 by Eclipse SUMO netconvert Version v1_15_0+0663-5f2c467
+<!-- generated on 2023-01-06 08:14:48 by Eclipse SUMO netconvert Version v1_15_0+1362-339c192
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -956,12 +956,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="1" response="00" foes="00"/>
     </junction>
     <junction id="370883704" type="priority" x="236.21" y="569.56" incLanes="431353995#2_0 431353995#2_1 32935326#4_0 32935326#4_1" intLanes="" shape="238.32,576.88 243.16,572.69 241.92,570.54 241.76,569.45 241.91,568.34 242.37,567.23 243.13,566.11 238.16,562.08 233.75,562.23 229.07,566.59 229.15,572.45 233.84,576.80">
-        <request index="0" response="011000" foes="011000"/>
-        <request index="1" response="011000" foes="011000"/>
-        <request index="2" response="011000" foes="011000"/>
-        <request index="3" response="000000" foes="000111"/>
-        <request index="4" response="000000" foes="000111"/>
-        <request index="5" response="000000" foes="000000"/>
+        <request index="0" response="0110000" foes="0110000"/>
+        <request index="1" response="0110000" foes="0110000"/>
+        <request index="2" response="1110000" foes="1110000"/>
+        <request index="3" response="1110000" foes="1110000"/>
+        <request index="4" response="0000000" foes="0001111"/>
+        <request index="5" response="0000000" foes="0001111"/>
+        <request index="6" response="0000000" foes="0001100"/>
     </junction>
     <junction id="370884302" type="priority" x="220.43" y="586.50" incLanes="288073794#2_0 288073794#2_1 288073794#2_2 10855571#4_0 10855571#4_1" intLanes="" shape="221.93,595.31 229.04,588.86 228.59,582.43 223.90,578.07 217.21,579.49 214.64,581.40 211.86,590.77 216.46,595.22">
         <request index="0" response="000000" foes="011000"/>
@@ -1253,6 +1254,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="431353995#2" to="79523627#0" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="431353995#2" to="79523627#0" fromLane="1" toLane="1" dir="r" state="m"/>
     <connection from="431353995#2" to="10855571#0" fromLane="1" toLane="0" dir="s" state="m"/>
+    <connection from="431353995#2" to="10855571#0" fromLane="1" toLane="1" dir="s" state="m"/>
     <connection from="490167485" to="32934556#0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="490167485" to="32935326#0" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="490167485" to="32935326#0" fromLane="1" toLane="1" dir="l" state="M"/>
