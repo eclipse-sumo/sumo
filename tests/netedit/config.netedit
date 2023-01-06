@@ -6,6 +6,8 @@ virtual_display_extra_args:-dpi 100 -shmem
 historical_report_split_version:false
 
 copy_test_path:test.py
+copy_test_path:netedit.neteditcfg
+copy_test_path:net.net.xml
 copy_test_path:input_net.netccfg
 copy_test_path:input_net.net.xml
 copy_test_path:input_net.con.xml

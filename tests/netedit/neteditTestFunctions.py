@@ -316,46 +316,11 @@ def Popen(extraParameters, debugInformation):
     @brief open netedit
     """
     # set the default parameters of Netedit
-    neteditCall = [_NETEDIT_APP, '--gui-testing', '--window-pos', '50,50',
-                   '--window-size', '936, 697', '--no-warnings',
-                   '--error-log', os.path.join(_TEXTTEST_SANDBOX, 'log.txt')]
+    neteditCall = [_NETEDIT_APP]
 
-    # check if debug output information has to be enabled
-    if debugInformation:
-        neteditCall += ['--gui-testing-debug']
-
-    # check if a gui settings file has to be load
-    if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "gui-settings.xml")):
-        neteditCall += ['--gui-settings-file',
-                        os.path.join(_TEXTTEST_SANDBOX, "gui-settings.xml")]
-
-    # check if an existent net must be loaded
-    if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "input_net.net.xml")):
-        neteditCall += ['--sumo-net-file',
-                        os.path.join(_TEXTTEST_SANDBOX, "input_net.net.xml")]
-
-    # Check if additionals must be loaded
-    if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "additionals.add.xml")):
-        neteditCall += ['-a',
-                        os.path.join(_TEXTTEST_SANDBOX, "additionals.add.xml")]
-
-    # Check if vTypes must be loaded
-    if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "vtypes.rou.xml")):
-        neteditCall += ['-r',
-                        os.path.join(_TEXTTEST_SANDBOX, "vtypes.rou.xml,routes.rou.xml")]
-
-    elif os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "routes.rou.xml")):
-        neteditCall += ['-r',
-                        os.path.join(_TEXTTEST_SANDBOX, "routes.rou.xml")]
-
-    # Check if datas must be loaded
-    if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "datas.dat.xml")):
-        neteditCall += ['-d',
-                        os.path.join(_TEXTTEST_SANDBOX, "datas.dat.xml")]
-
-    # set output for gui
-    neteditCall += ['--gui-testing.setting-output',
-                    os.path.join(_TEXTTEST_SANDBOX, "guisettingsoutput.xml")]
+    # check if a netedit config must be loaded
+    if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "netedit.neteditcfg")):
+        neteditCall += ['-c', os.path.join(_TEXTTEST_SANDBOX, "netedit.neteditcfg")]
 
     # add extra parameters
     neteditCall += extraParameters
