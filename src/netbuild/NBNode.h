@@ -525,7 +525,7 @@ public:
     LinkDirection getDirection(const NBEdge* const incoming, const NBEdge* const outgoing, bool leftHand = false) const;
 
     /// @brief get link state
-    LinkState getLinkState(const NBEdge* incoming, NBEdge* outgoing,
+    LinkState getLinkState(const NBEdge* incoming, const NBEdge* outgoing,
                            int fromLane, int toLane, bool mayDefinitelyPass, const std::string& tlID) const;
 
     /**@brief Compute the junction shape for this node

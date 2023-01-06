@@ -2384,7 +2384,7 @@ NBNode::isExplicitRailNoBidi(const NBEdge* incoming, const NBEdge* outgoing) {
 
 
 LinkState
-NBNode::getLinkState(const NBEdge* incoming, NBEdge* outgoing, int fromlane, int toLane,
+NBNode::getLinkState(const NBEdge* incoming, const NBEdge* outgoing, int fromLane, int toLane,
                      bool mayDefinitelyPass, const std::string& tlID) const {
     if (myType == SumoXMLNodeType::RAIL_CROSSING && isRailway(incoming->getPermissions())) {
         return LINKSTATE_MAJOR; // the trains must run on time
@@ -2393,23 +2393,23 @@ NBNode::getLinkState(const NBEdge* incoming, NBEdge* outgoing, int fromlane, int
         if (getRightOfWay() == RightOfWay::ALLWAYSTOP) {
             return LINKSTATE_ALLWAY_STOP;
         }
-        return mustBrake(incoming, outgoing, fromlane, toLane, true) ? LINKSTATE_TL_OFF_BLINKING : LINKSTATE_TL_OFF_NOSIGNAL;
+        return mustBrake(incoming, outgoing, fromLane, toLane, true) ? LINKSTATE_TL_OFF_BLINKING : LINKSTATE_TL_OFF_NOSIGNAL;
     }
     if (outgoing == nullptr) { // always off
         return LINKSTATE_TL_OFF_NOSIGNAL;
     }
     if ((myType == SumoXMLNodeType::RIGHT_BEFORE_LEFT || myType == SumoXMLNodeType::LEFT_BEFORE_RIGHT)
-            && mustBrake(incoming, outgoing, fromlane, toLane, true)) {
+            && mustBrake(incoming, outgoing, fromLane, toLane, true)) {
         return LINKSTATE_EQUAL; // all the same
     }
     if (myType == SumoXMLNodeType::ALLWAY_STOP) {
         return LINKSTATE_ALLWAY_STOP; // all drive, first one to arrive may drive first
     }
-    if (myType == SumoXMLNodeType::ZIPPER && zipperConflict(incoming, outgoing, fromlane, toLane)) {
+    if (myType == SumoXMLNodeType::ZIPPER && zipperConflict(incoming, outgoing, fromLane, toLane)) {
         return LINKSTATE_ZIPPER;
     }
     if (!mayDefinitelyPass
-            && mustBrake(incoming, outgoing, fromlane, toLane, true)
+            && mustBrake(incoming, outgoing, fromLane, toLane, true)
             // legacy mode
             && (!incoming->isInsideTLS() || getDirection(incoming, outgoing) != LinkDirection::STRAIGHT)
             // avoid linkstate minor at pure railway nodes
