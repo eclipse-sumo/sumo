@@ -1,0 +1,6 @@
+Warning: Teleporting vehicle 'v_1'; collision with vehicle 'v_1', lane='-E3_0', gap=-1.00, time=20.00 stage=move.
+Warning: Teleporting vehicle 'v_0'; collision with vehicle 'v_0', lane='E2_0', gap=-1.00, time=20.00 stage=move.
+Warning: Vehicle 'v_0' ends teleporting on edge 'E3', time=20.00.
+Warning: Vehicle 'v_1' ends teleporting on edge '-E2', time=20.00.
+Warning: Vehicle 'v_0' ends teleporting on edge 'E4', time=21.00.
+Warning: Vehicle 'v_1' ends teleporting on edge '-E1', time=21.00.
