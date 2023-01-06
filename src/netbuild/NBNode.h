@@ -487,6 +487,8 @@ public:
     bool mergeConflict(const NBEdge* from, const NBEdge::Connection& con,
                        const NBEdge* prohibitorFrom, const NBEdge::Connection& prohibitorCon, bool foes) const;
 
+    bool zipperConflict(const NBEdge* incoming, const NBEdge* outgoing, int fromLane, int toLane) const;
+
     /// @brief return whether the given laneToLane connection originate from the same edge and are in conflict due to turning across each other
     bool turnFoes(const NBEdge* from, const NBEdge* to, int fromLane,
                   const NBEdge* from2, const NBEdge* to2, int fromLane2,

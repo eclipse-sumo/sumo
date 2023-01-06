@@ -2405,7 +2405,7 @@ NBNode::getLinkState(const NBEdge* incoming, NBEdge* outgoing, int fromlane, int
     if (myType == SumoXMLNodeType::ALLWAY_STOP) {
         return LINKSTATE_ALLWAY_STOP; // all drive, first one to arrive may drive first
     }
-    if (myType == SumoXMLNodeType::ZIPPER && mustBrake(incoming, outgoing, fromlane, toLane, false)) {
+    if (myType == SumoXMLNodeType::ZIPPER && zipperConflict(incoming, outgoing, fromlane, toLane)) {
         return LINKSTATE_ZIPPER;
     }
     if (!mayDefinitelyPass
@@ -2419,6 +2419,23 @@ NBNode::getLinkState(const NBEdge* incoming, NBEdge* outgoing, int fromlane, int
     // traffic lights are not regarded here
     return LINKSTATE_MAJOR;
 }
+
+
+bool
+NBNode::zipperConflict(const NBEdge* incoming, const NBEdge* outgoing, int fromLane, int toLane) const {
+    if (mustBrake(incoming, outgoing, fromLane, toLane, false)) {
+        // there should be another connection with the same target (not just some intersecting trajectories)
+        for (const NBEdge* in : getIncomingEdges()) {
+            for (const NBEdge::Connection& c : in->getConnections()) {
+                if ((in != incoming || c.fromLane != fromLane) && c.toEdge == outgoing && c.toLane == toLane) {
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
 
 bool
 NBNode::checkIsRemovable() const {
