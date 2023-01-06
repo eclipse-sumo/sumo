@@ -290,11 +290,13 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.addSynonyme("meandata-files", "meandata");
     neteditOptions.addDescription("meandata-files", "Input", "load meanData descriptions from FILE(s)");
 
+    // TOPIC: Output
+
     neteditOptions.doRegister("TLSPrograms-output", new Option_String());
-    neteditOptions.addDescription("TLSPrograms-output", "Input", "file in which TLS Programs must be saved");
+    neteditOptions.addDescription("TLSPrograms-output", "Output", "file in which TLS Programs must be saved");
 
     neteditOptions.doRegister("edgeTypes-output", new Option_String());
-    neteditOptions.addDescription("edgeTypes-output", "Input", "file in which edgeTypes must be saved");
+    neteditOptions.addDescription("edgeTypes-output", "Output", "file in which edgeTypes must be saved");
 
     // TOPIC: Netedit
 
