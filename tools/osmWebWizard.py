@@ -208,6 +208,8 @@ class Builder(object):
         # leading space ensures that arguments starting with -- are not
         # misinterpreted as options
         netconvertOptions = " " + osmBuild.DEFAULT_NETCONVERT_OPTS
+        if self.data.get("options"):
+            netconvertOptions += "," + self.data["options"]
         netconvertOptions += ",--tls.default-type,actuated"
         # netconvertOptions += ",--default.spreadtype,roadCenter"
         if "pedestrian" in self.data["vehicles"]:
@@ -536,6 +538,7 @@ def get_options(args=None):
                         help="Defines the begin time for the scenario.")
     parser.add_argument("-e", "--end", default=900, type=sumolib.miscutils.parseTime,
                         help="Defines the end time for the scenario.")
+    parser.add_argument("-n", "--netconvert-options", help="additional comma-separated options for netconvert")
     return parser.parse_args(args)
 
 
@@ -557,13 +560,15 @@ def main(options):
                 u'verbose': options.verbose,
                 u'carOnlyNetwork': False,
                 u'outputDir': options.testOutputDir,
-                u'coords': options.bbox.split(",") if options.bbox else None
+                u'coords': options.bbox.split(",") if options.bbox else None,
+                u'options': options.netconvert_options
                 }
         builder = Builder(data, True)
         builder.build()
         builder.makeConfigFile()
         builder.createBatch()
-        subprocess.call([sumolib.checkBinary("sumo"), "-c", builder.files["config"]])
+        if not options.remote:
+            subprocess.call([sumolib.checkBinary("sumo"), "-c", builder.files["config"]])
     else:
         if not options.remote:
             webbrowser.open("file://" +
