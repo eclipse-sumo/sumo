@@ -1169,8 +1169,8 @@ void
 GNENet::requireSaveNet(bool value) {
     if (value) {
         myNetSaved = false;
-        requireSaveSUMOConfig(true);
-        requireSaveNETEDITConfig(true);
+        myViewNet->getViewParent()->getGNEAppWindows()->requireSaveSUMOConfig(true);
+        myViewNet->getViewParent()->getGNEAppWindows()->requireSaveNETEDITConfig(true);
     } else {
         myNetSaved = true;
     }
@@ -2030,30 +2030,6 @@ GNENet::removeExplicitTurnaround(std::string id) {
 
 
 void
-GNENet::requireSaveSUMOConfig(bool value) {
-    auto &neteditOptions = OptionsCont::getOptions();
-    neteditOptions.resetWritable();
-    if (value) {
-        neteditOptions.set("sumoconfiguration-saved", "false");
-    } else {
-        neteditOptions.set("sumoconfiguration-saved", "true");
-    }
-}
-
-
-void
-GNENet::requireSaveNETEDITConfig(bool value) {
-    auto &neteditOptions = OptionsCont::getOptions();
-    neteditOptions.resetWritable();
-    if (value) {
-        neteditOptions.set("neteditconfiguration-saved", "false");
-    } else {
-        neteditOptions.set("neteditconfiguration-saved", "true");
-    }
-}
-
-
-void
 GNENet::requireSaveAdditionals(bool value) {
     myAdditionalsSaved = !value;
     if (myViewNet != nullptr) {
@@ -2061,8 +2037,8 @@ GNENet::requireSaveAdditionals(bool value) {
             myViewNet->getViewParent()->getGNEAppWindows()->disableSaveAdditionalsMenu();
         } else {
             myViewNet->getViewParent()->getGNEAppWindows()->enableSaveAdditionalsMenu();
-            requireSaveSUMOConfig(true);
-            requireSaveNETEDITConfig(true);
+            myViewNet->getViewParent()->getGNEAppWindows()->requireSaveSUMOConfig(true);
+            myViewNet->getViewParent()->getGNEAppWindows()->requireSaveNETEDITConfig(true);
         }
     }
 }
@@ -2129,8 +2105,8 @@ GNENet::requireSaveDemandElements(bool value) {
             myViewNet->getViewParent()->getGNEAppWindows()->disableSaveDemandElementsMenu();
         } else {
             myViewNet->getViewParent()->getGNEAppWindows()->enableSaveDemandElementsMenu();
-            requireSaveSUMOConfig(true);
-            requireSaveNETEDITConfig(true);
+            myViewNet->getViewParent()->getGNEAppWindows()->requireSaveSUMOConfig(true);
+            myViewNet->getViewParent()->getGNEAppWindows()->requireSaveNETEDITConfig(true);
         }
     }
 }
@@ -2198,8 +2174,8 @@ GNENet::requireSaveDataElements(bool value) {
             myViewNet->getViewParent()->getGNEAppWindows()->disableSaveDataElementsMenu();
         } else {
             myViewNet->getViewParent()->getGNEAppWindows()->enableSaveDataElementsMenu();
-            requireSaveSUMOConfig(true);
-            requireSaveNETEDITConfig(true);
+            myViewNet->getViewParent()->getGNEAppWindows()->requireSaveSUMOConfig(true);
+            myViewNet->getViewParent()->getGNEAppWindows()->requireSaveNETEDITConfig(true);
         }
     }
 }
@@ -2268,8 +2244,8 @@ GNENet::requireSaveMeanDatas(bool value) {
             myViewNet->getViewParent()->getGNEAppWindows()->disableSaveMeanDatasMenu();
         } else {
             myViewNet->getViewParent()->getGNEAppWindows()->enableSaveMeanDatasMenu();
-            requireSaveSUMOConfig(true);
-            requireSaveNETEDITConfig(true);
+            myViewNet->getViewParent()->getGNEAppWindows()->requireSaveSUMOConfig(true);
+            myViewNet->getViewParent()->getGNEAppWindows()->requireSaveNETEDITConfig(true);
         }
     }
 }

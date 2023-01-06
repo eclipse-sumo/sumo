@@ -3643,7 +3643,7 @@ GNEApplicationWindow::onCmdSaveNETEDITConfig(FXObject*, FXSelector, void*) {
         neteditOptions.writeConfiguration(out, true, false, false, file, true);
         setStatusBarText("netedit configuration saved to " + file);
         // config saved
-        myNet->requireSaveNETEDITConfig(false);
+        myNeteditConfigSaved = true;
     } else {
         setStatusBarText("Could not save netedit configuration to " + file);
     }
@@ -3690,7 +3690,7 @@ GNEApplicationWindow::onCmdSaveNETEDITConfigAs(FXObject*, FXSelector, void*) {
         neteditOptions.writeConfiguration(out, true, false, false, file, true);
         setStatusBarText("Netedit configuration saved to " + file);
         // config saved
-        myNet->requireSaveNETEDITConfig(false);
+        myNeteditConfigSaved = true;
     } else {
         setStatusBarText("Could not save netdit configuration to " + file);
     }
@@ -3705,7 +3705,7 @@ GNEApplicationWindow::onUpdSaveNETEDITConfig(FXObject* sender, FXSelector, void*
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (OptionsCont::getOptions().getString("configuration-file").empty()) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
-    } else if (OptionsCont::getOptions().getBool("neteditconfiguration-saved") == false) {
+    } else if (myNeteditConfigSaved == false) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else if (myNet->isNetSaved() && myNet->isAdditionalsSaved() && myNet->isDemandElementsSaved() && 
                myNet->isDataElementsSaved() && myNet->isMeanDatasSaved()){
@@ -3759,7 +3759,7 @@ GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject*, FXSelector, void*) {
         mySUMOOptions.writeConfiguration(out, true, false, false, file, true);
         setStatusBarText("Configuration saved to " + file);
         // config saved
-        myNet->requireSaveSUMOConfig(false);
+        mySumoConfigSaved = true;
     } else {
         setStatusBarText("Could not save configuration to " + file);
     }
@@ -3806,7 +3806,7 @@ GNEApplicationWindow::onCmdSaveSUMOConfigAs(FXObject*, FXSelector, void*) {
         mySUMOOptions.writeConfiguration(out, true, false, false, file, true);
         setStatusBarText("Configuration saved to " + file);
         // config saved
-        myNet->requireSaveSUMOConfig(false);
+        mySumoConfigSaved = true;
     } else {
         setStatusBarText("Could not save configuration to " + file);
     }
@@ -3821,7 +3821,7 @@ GNEApplicationWindow::onUpdSaveSUMOConfig(FXObject* sender, FXSelector, void*) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (OptionsCont::getOptions().getString("sumocfg-file").empty()) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
-    } else if (OptionsCont::getOptions().getBool("sumoconfiguration-saved") == false) {
+    } else if (myNeteditConfigSaved == false) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else if (myNet->isNetSaved() && myNet->isAdditionalsSaved() && myNet->isDemandElementsSaved() && 
                myNet->isDataElementsSaved() && myNet->isMeanDatasSaved()){
@@ -5437,6 +5437,18 @@ GNEApplicationWindow::loadMeanDataElements() {
         // end undolist
         myUndoList->end();
     }
+}
+
+
+void
+GNEApplicationWindow::requireSaveSUMOConfig(bool value) {
+    mySumoConfigSaved = !value;
+}
+
+
+void
+GNEApplicationWindow::requireSaveNETEDITConfig(bool value) {
+    myNeteditConfigSaved = !value;
 }
 
 // ---------------------------------------------------------------------------

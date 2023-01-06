@@ -245,8 +245,9 @@ void
 GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.clear();
     neteditOptions.addCallExample("--new", "start plain GUI with empty net");
-    neteditOptions.addCallExample("-s <SUMO_NET>", "edit SUMO network");
-    neteditOptions.addCallExample("-c <CONFIGURATION>", "edit net with options read from file");
+    neteditOptions.addCallExample("-s <SUMO_NET>", "open a SUMO network");
+    neteditOptions.addCallExample("-c <CONFIGURATION>", "open a configuration file (NETEDIT o NETCONVERT config)");
+    neteditOptions.addCallExample("-sumocfg-file <CONFIGURATION>", "open a SUMO config file");
 
     SystemFrame::addConfigurationOptions(neteditOptions); // this subtopic is filled here, too
     neteditOptions.addOptionSubTopic("Input");
@@ -267,16 +268,8 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.addOptionSubTopic("Visualisation");
     neteditOptions.addOptionSubTopic("Time");
 
-    neteditOptions.doRegister("new", new Option_Bool(false)); // !!!
-    neteditOptions.addDescription("new", "Input", "start with a new network");
+    // TOPIC: Input
 
-    neteditOptions.doRegister("sumoconfiguration-saved", new Option_Bool(false));
-    neteditOptions.addDescription("sumoconfiguration-saved", "Input", "flag for check if sumo configuration is saved");
-
-    neteditOptions.doRegister("neteditconfiguration-saved", new Option_Bool(false));
-    neteditOptions.addDescription("neteditconfiguration-saved", "Input", "flag for check if netedit configuration is saved");
-
-    // files
     neteditOptions.doRegister("sumocfg-file", new Option_FileName());
     neteditOptions.addSynonyme("sumocfg-file", "sumocfg");
     neteditOptions.addDescription("sumocfg-file", "Input", "load sumo config");
@@ -298,10 +291,16 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.addDescription("meandata-files", "Input", "load meanData descriptions from FILE(s)");
 
     neteditOptions.doRegister("TLSPrograms-output", new Option_String());
-    neteditOptions.addDescription("TLSPrograms-output", "Netedit", "file in which TLS Programs must be saved");
+    neteditOptions.addDescription("TLSPrograms-output", "Input", "file in which TLS Programs must be saved");
 
     neteditOptions.doRegister("edgeTypes-output", new Option_String());
-    neteditOptions.addDescription("edgeTypes-output", "Netedit", "file in which edgeTypes must be saved");
+    neteditOptions.addDescription("edgeTypes-output", "Input", "file in which edgeTypes must be saved");
+
+    // TOPIC: Netedit
+
+    neteditOptions.doRegister("new-network", new Option_Bool(false));
+    neteditOptions.addSynonyme("new-network", "new");
+    neteditOptions.addDescription("new-network", "Netedit", "start netedit with a new network");
 
     // network prefixes
 
@@ -398,17 +397,17 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
 
     // data prefixes
 
-    // additional prefixes
+    // mean data prefixes
 
     neteditOptions.doRegister("meanDataEdge-prefix", new Option_String("ed"));
     neteditOptions.addDescription("meanDataEdge-prefix", "Netedit", "prefix for meanDataEdge naming");
 
-    // additional prefixes
-
     neteditOptions.doRegister("meanDataLane-prefix", new Option_String("ld"));
     neteditOptions.addDescription("meanDataLane-prefix", "Netedit", "prefix for meanDataLane naming");
 
-    // drawing
+    // TOPIC: Visualisation
+
+    // textures
 
     neteditOptions.doRegister("disable-laneIcons", new Option_Bool(false));
     neteditOptions.addDescription("disable-laneIcons", "Visualisation", "Disable icons of special lanes");
@@ -418,6 +417,8 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
 
     neteditOptions.doRegister("gui-settings-file", 'g', new Option_FileName());
     neteditOptions.addDescription("gui-settings-file", "Visualisation", "Load visualisation settings from FILE");
+
+    // windows position
 
     neteditOptions.doRegister("registry-viewport", new Option_Bool(false));
     neteditOptions.addDescription("registry-viewport", "Visualisation", "Load current viewport from registry");
@@ -442,7 +443,10 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.doRegister("gui-testing.setting-output", new Option_FileName());
     neteditOptions.addDescription("gui-testing.setting-output", "Visualisation", "Save gui settings in the given settings-output file");
 
+    // TOPIC: Time
+
     // register the simulation settings (needed for GNERouteHandler)
+
     neteditOptions.doRegister("begin", new Option_String("0", "TIME"));
     neteditOptions.addDescription("begin", "Time", "Defines the begin time in seconds; The simulation starts at this time");
 
@@ -454,6 +458,8 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
 
     neteditOptions.doRegister("default.speeddev", new Option_Float(-1));
     neteditOptions.addDescription("default.speeddev", "Processing", "Select default speed deviation. A negative value implies vClass specific defaults (0.1 for the default passenger class");
+
+    // fill rest of options
 
     NIFrame::fillOptions(true);
     NBFrame::fillOptions(false);
