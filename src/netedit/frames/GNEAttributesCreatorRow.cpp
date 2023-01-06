@@ -246,7 +246,12 @@ GNEAttributesCreatorRow::refreshRow() {
             for (const auto& item : myAttrProperties.getDiscreteValues()) {
                 myValueComboBox->appendItem(item.c_str());
             }
-            myValueComboBox->setNumVisible(myValueComboBox->getNumItems());
+            // set number of visible items
+            if (myAttrProperties.showAllDiscreteValues()) {
+                myValueComboBox->setNumVisible(myValueComboBox->getNumItems());
+            } else {
+                myValueComboBox->setNumVisible(10);
+            }
             myValueComboBox->setText(myAttributesCreatorParent->getCurrentTemplateAC()->getAttribute(myAttrProperties.getAttr()).c_str());
             if (myAttrProperties.hasDefaultValue() && (myAttrProperties.getDefaultValue() == myValueComboBox->getText().text())) {
                 myValueComboBox->setTextColor(FXRGB(128, 128, 128));
