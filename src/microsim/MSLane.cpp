@@ -910,12 +910,13 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             }
             const double remaining = seen - currentLane->getVehicleStopOffset(aVehicle);
             auto dsp = aVehicle->getParameter().departSpeedProcedure;
+            const bool patchSpeedSpecial = patchSpeed || dsp == DepartSpeedDefinition::DESIRED || dsp == DepartSpeedDefinition::LIMIT;
             // patchSpeed depends on the presence of vehicles for these procedures. We never want to abort them here
             if (dsp == DepartSpeedDefinition::LAST || dsp == DepartSpeedDefinition::AVG) {
                 errorMsg = "";
             }
             if (checkFailure(aVehicle, speed, dist, cfModel.insertionStopSpeed(aVehicle, speed, remaining),
-                             patchSpeed, errorMsg, InsertionCheck::JUNCTION)) {
+                             patchSpeedSpecial, errorMsg, InsertionCheck::JUNCTION)) {
                 // we may not drive with the given velocity - we cannot stop at the junction in time
 #ifdef DEBUG_INSERTION
                 if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
