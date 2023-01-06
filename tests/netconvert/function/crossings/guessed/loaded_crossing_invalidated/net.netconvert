@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-13 16:54:49 by Eclipse SUMO netconvert Version v1_14_1+0990-ad3506bf07c
+<!-- generated on 2023-01-06 12:55:36 by Eclipse SUMO netconvert Version v1_15_0+1411-7fc3aec
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -27,19 +27,19 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
+        <lefthand value="0"/>
     </processing>
 
     <junctions>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="0"/>
-        <junctions.limit-turn-speed value="-1"/>
-        <rectangular-lane-cut value="false"/>
+        <junctions.limit-turn-speed value="-1.00"/>
+        <rectangular-lane-cut value="0"/>
     </junctions>
 
     <pedestrian>
         <crossings.guess value="true"/>
-        <walkingareas value="false"/>
+        <walkingareas value="0"/>
     </pedestrian>
 
     <report>
@@ -78,7 +78,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":C_w1_0" index="0" allow="pedestrian" speed="1.00" length="24.80" width="3.00" shape="112.40,-7.90 112.40,-10.90 87.60,-10.90 87.60,-7.90"/>
     </edge>
     <edge id=":N_w0" function="walkingarea">
-        <lane id=":N_w0_0" index="0" allow="pedestrian" speed="1.00" length="18.80" width="3.20" shape="100.00,100.00 96.80,100.00 93.60,100.00 92.10,100.00 89.10,100.00 110.90,100.00 107.90,100.00 106.40,100.00 103.20,100.00 100.00,100.00"/>
+        <lane id=":N_w0_0" index="0" allow="pedestrian" speed="1.00" length="18.80" width="3.20" shape="100.00,100.00 89.10,100.00 110.90,100.00 100.00,100.00"/>
     </edge>
 
     <edge id="CE" from="C" to="E" priority="2">

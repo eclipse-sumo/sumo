@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-07-01 08:13:39 by Eclipse SUMO netconvert Version v1_13_0+1331-a3a1a97
+<!-- generated on 2023-01-06 12:55:36 by Eclipse SUMO netconvert Version v1_15_0+1411-7fc3aec
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -43,7 +43,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <location netOffset="100.00,0.00" convBoundary="0.00,0.00,200.00,100.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":C_w0" function="walkingarea">
-        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="1.00" length="4.99" width="3.20" shape="96.80,1.50 100.00,1.50 101.50,0.00 101.50,-3.20 95.30,-3.20 95.30,0.00"/>
+        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="1.00" length="4.99" width="3.20" shape="96.80,1.50 100.00,1.50 100.17,0.67 100.38,0.38 100.67,0.17 101.04,0.04 101.50,0.00 101.50,-3.20 95.30,-3.20 95.30,0.00 96.13,0.17 96.43,0.37 96.63,0.67 96.76,1.04"/>
     </edge>
     <edge id="CE" from="C" to="E" priority="-1">
         <lane id="CE_0" index="0" allow="pedestrian" speed="13.89" length="98.50" shape="101.50,-1.60 200.00,-1.60"/>
