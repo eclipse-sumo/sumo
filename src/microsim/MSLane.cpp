@@ -567,7 +567,7 @@ MSLane::getDepartSpeed(const MSVehicle& veh, bool& patchSpeed) {
             patchSpeed = false;
             break;
         case DepartSpeedDefinition::LAST: {
-            MSVehicle* last = getLastFullVehicle();
+            MSVehicle* last = getLastAnyVehicle();
             speed = getVehicleMaxSpeed(&veh);
             if (last != nullptr) {
                 speed = MIN2(speed, last->getSpeed());
@@ -577,7 +577,7 @@ MSLane::getDepartSpeed(const MSVehicle& veh, bool& patchSpeed) {
         }
         case DepartSpeedDefinition::AVG: {
             speed = MIN2(getVehicleMaxSpeed(&veh), getMeanSpeed());
-            if (getLastFullVehicle() != nullptr) {
+            if (getLastAnyVehicle() != nullptr) {
                 patchSpeed = false;
             }
             break;
@@ -909,6 +909,11 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 errorMsg = "tlLogic '" + (*link)->getTLLogic()->getID() + "' link " + toString((*link)->getTLIndex()) + " never switches to 'G'";
             }
             const double remaining = seen - currentLane->getVehicleStopOffset(aVehicle);
+            auto dsp = aVehicle->getParameter().departSpeedProcedure;
+            // patchSpeed depends on the presence of vehicles for these procedures. We never want to abort them here
+            if (dsp == DepartSpeedDefinition::LAST || dsp == DepartSpeedDefinition::AVG) {
+                errorMsg = "";
+            }
             if (checkFailure(aVehicle, speed, dist, cfModel.insertionStopSpeed(aVehicle, speed, remaining),
                              patchSpeed, errorMsg, InsertionCheck::JUNCTION)) {
                 // we may not drive with the given velocity - we cannot stop at the junction in time
