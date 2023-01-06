@@ -3326,8 +3326,11 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
                 continue;
             }
         }
-        // build smooth inner curve (optional)
-        if (cornerDetail > 0) {
+        if (count == (int)normalizedLanes.size()) {
+            // junction is covered by the whole walkingarea
+            wa.shape = myPoly;
+        } else if (cornerDetail > 0) {
+            // build smooth inner curve (optional)
             int smoothEnd = end;
             int smoothPrev = prev;
             // extend to green verge
