@@ -19,6 +19,7 @@
 
 from __future__ import absolute_import
 from __future__ import print_function
+import sys
 import os
 import gzip
 import base64
@@ -254,4 +255,7 @@ def get(args=None):
 
 
 if __name__ == "__main__":
-    get()
+    try:
+        get()
+    except ssl.CertificateError:
+        print("Error with SSL certificate, try 'pip install -U certifi'.", file=sys.stderr)

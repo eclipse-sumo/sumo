@@ -505,7 +505,7 @@ class OSMImporterWebSocket(WebSocket):
 
                 self.sendMessage(u"zip " + data)
         except ssl.CertificateError:
-            self.report("Error with SSL certificate, try 'pip install certifi'.")
+            self.report("Error with SSL certificate, try 'pip install -U certifi'.")
         except Exception:
             print(traceback.format_exc())
             # reset 'Generate Scenario' button
