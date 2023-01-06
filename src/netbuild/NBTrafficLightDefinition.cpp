@@ -112,7 +112,7 @@ NBTrafficLightDefinition::compute(OptionsCont& oc) {
         for (auto it : nodes) {
             it->removeTrafficLight(this);
         }
-        WRITE_WARNING("The traffic light '" + getID() + "' does not control any links; it will not be build.");
+        WRITE_WARNINGF(TL("The traffic light '%' does not control any links; it will not be build."), getID());
         return nullptr;
     }
     // compute the time needed to brake

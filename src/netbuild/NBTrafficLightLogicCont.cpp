@@ -232,7 +232,7 @@ NBTrafficLightLogicCont::computeSingleLogic(OptionsCont& oc, NBTrafficLightDefin
     // build program
     NBTrafficLightLogic* built = def->compute(oc);
     if (built == nullptr) {
-        WRITE_WARNING("Could not build program '" + programID + "' for traffic light '" + id + "'");
+        WRITE_WARNINGF(TL("Could not build program '%' for traffic light '%'"), programID, id);
         return false;
     }
     // compute offset
