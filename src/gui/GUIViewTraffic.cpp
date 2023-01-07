@@ -597,7 +597,9 @@ GUIViewTraffic::showLaneReachability(GUILane* lane, FXObject* menu, FXSelector) 
                     gLane->setReachability(traveltime);
                 }
             }
-            traveltime += e->getLength() / MIN2(e->getSpeedLimit(), defaultMaxSpeed);
+            const double dt = e->getLength() / MIN2(e->getSpeedLimit(), defaultMaxSpeed);
+            // ensure algorithm termination
+            traveltime += MAX2(dt, NUMERICAL_EPS);
             for (MSEdge* const nextEdge : e->getSuccessors(svc)) {
                 if (reachableEdges.count(nextEdge) == 0 ||
                         // revisit edge via faster path
