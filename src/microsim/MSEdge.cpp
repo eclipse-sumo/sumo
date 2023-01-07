@@ -1073,6 +1073,7 @@ MSEdge::getVehicleMaxSpeed(const SUMOTrafficObject* const veh) const {
 
 void
 MSEdge::setMaxSpeed(double val) const {
+    assert(val >= 0);
     if (myLanes != nullptr) {
         for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
             (*i)->setMaxSpeed(val);

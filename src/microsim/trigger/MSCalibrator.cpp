@@ -169,8 +169,10 @@ MSCalibrator::myStartElement(int element,
     if (element == SUMO_TAG_FLOW) {
         AspiredState state;
         SUMOTime lastEnd = -1;
+        SUMOTime lastBegin = -1;
         if (myIntervals.size() > 0) {
             lastEnd = myIntervals.back().end;
+            lastBegin = myIntervals.back().begin;
             if (lastEnd == -1) {
                 lastEnd = myIntervals.back().begin;
             }
@@ -180,7 +182,7 @@ MSCalibrator::myStartElement(int element,
             state.q = attrs.getOpt<double>(SUMO_ATTR_VEHSPERHOUR, nullptr, ok, -1.);
             state.v = attrs.getOpt<double>(SUMO_ATTR_SPEED, nullptr, ok, -1.);
             state.begin = attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, getID().c_str(), ok);
-            if (state.begin < lastEnd) {
+            if (state.begin < lastEnd || state.begin <= lastBegin) {
                 WRITE_ERROR("Overlapping or unsorted intervals in calibrator '" + getID() + "'.");
             }
             state.end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, getID().c_str(), ok, -1);
