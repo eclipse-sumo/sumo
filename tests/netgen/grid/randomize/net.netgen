@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-05-20 13:51:24 by Eclipse SUMO netgenerate Version v1_13_0+0342-8e59220
+<!-- generated on 2023-01-07 10:20:10 by Eclipse SUMO netgenerate Version v1_15_0+1440-6fccaef
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -20,8 +20,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </grid_network>
 
     <random_network>
-        <rand.random-lanenumber value="true"/>
-        <rand.random-priority value="true"/>
+        <random-lanenumber value="true"/>
+        <random-priority value="true"/>
     </random_network>
 
     <output>
@@ -235,17 +235,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="4" response="00000" foes="00000"/>
     </junction>
     <junction id="foo_C1" type="priority" x="200.00" y="100.00" incLanes="foo_C2C1_0 foo_C2C1_1 foo_C0C1_0 foo_C0C1_1 foo_B1C1_0 foo_B1C1_1" intLanes="" shape="193.60,110.40 209.60,110.40 209.36,105.94 208.77,102.67 207.23,97.33 206.64,94.06 206.40,89.60 196.80,89.60 196.00,91.82 195.00,92.60 193.60,93.16 191.80,93.49 189.60,93.60 189.60,106.40 191.82,106.84 192.60,107.40 193.16,108.18 193.49,109.18">
-        <request index="0"  response="00000000000" foes="00000000000"/>
-        <request index="1"  response="01110000000" foes="01111100000"/>
-        <request index="2"  response="01100000000" foes="01100000000"/>
-        <request index="3"  response="01100000000" foes="01100000000"/>
-        <request index="4"  response="01100000000" foes="01100000000"/>
-        <request index="5"  response="01100000010" foes="11100000010"/>
-        <request index="6"  response="00010000010" foes="00010000010"/>
-        <request index="7"  response="00000000000" foes="00001000010"/>
-        <request index="8"  response="00000000000" foes="00000111110"/>
-        <request index="9"  response="00000000000" foes="00000111110"/>
-        <request index="10" response="00000100000" foes="00000100000"/>
+        <request index="0"  response="000000000000" foes="000000000000"/>
+        <request index="1"  response="011100000000" foes="011111000000"/>
+        <request index="2"  response="011000111000" foes="011000111000"/>
+        <request index="3"  response="011000000000" foes="011000000100"/>
+        <request index="4"  response="011000000000" foes="011000000100"/>
+        <request index="5"  response="011000000000" foes="011000000100"/>
+        <request index="6"  response="011000000010" foes="111000000010"/>
+        <request index="7"  response="000100000010" foes="000100000010"/>
+        <request index="8"  response="000000000000" foes="000010000010"/>
+        <request index="9"  response="000000000000" foes="000001111110"/>
+        <request index="10" response="000000000000" foes="000001111110"/>
+        <request index="11" response="000001000000" foes="000001000000"/>
     </junction>
     <junction id="foo_C2" type="priority" x="200.00" y="200.00" incLanes="foo_C1C2_0 foo_C1C2_1 foo_C1C2_2 foo_B2C2_0" intLanes="" shape="209.60,192.80 193.60,192.80 193.16,195.02 192.60,195.80 191.82,196.36 190.82,196.69 189.60,196.80 189.60,209.60 195.71,209.13 200.71,207.73 204.60,205.40 207.38,202.13 209.04,197.93">
         <request index="0" response="00000" foes="00000"/>
@@ -321,6 +322,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="foo_C0B0" to="foo_B0C0" fromLane="2" toLane="1" dir="t" state="m"/>
     <connection from="foo_C0C1" to="foo_C1C2" fromLane="0" toLane="0" dir="s" state="m"/>
     <connection from="foo_C0C1" to="foo_C1C2" fromLane="1" toLane="1" dir="s" state="m"/>
+    <connection from="foo_C0C1" to="foo_C1C2" fromLane="1" toLane="2" dir="s" state="m"/>
     <connection from="foo_C0C1" to="foo_C1B1" fromLane="1" toLane="1" dir="l" state="m"/>
     <connection from="foo_C0C1" to="foo_C1C0" fromLane="1" toLane="0" dir="t" state="m"/>
     <connection from="foo_C1B1" to="foo_B1B2" fromLane="0" toLane="0" dir="r" state="M"/>
