@@ -90,7 +90,7 @@ void
 GUIOSGManipulator::updateHUDPosition(int width, int height) {
     // keep the HUD text in the left top corner
     myHUDCamera->setProjectionMatrixAsOrtho2D(0, width, 0, height);
-    myText->setPosition(osg::Vec3f(0.f, static_cast<float>(height), 0.f));
+    myText->setPosition(osg::Vec3d(0., static_cast<double>(height), 0.));
 }
 
 

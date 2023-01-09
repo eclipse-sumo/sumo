@@ -724,6 +724,7 @@ long GUIOSGView::onConfigure(FXObject* sender, FXSelector sel, void* ptr) {
     if (w > 0 && h > 0) {
         myAdapter->getEventQueue()->windowResize(0, 0, w, h);
         myAdapter->resized(0, 0, w, h);
+        myCameraManipulator->updateHUDPosition(w, h);
     }
     return FXGLCanvas::onConfigure(sender, sel, ptr);
 }
