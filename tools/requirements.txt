@@ -8,3 +8,6 @@ ezdxf
 scipy
 fmpy
 ortools
+texttest
+pyautogui
+pyperclip
