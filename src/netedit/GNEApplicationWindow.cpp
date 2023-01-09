@@ -3547,6 +3547,10 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
     if (neteditOptions.getString("net-file").empty()) {
         return onCmdSaveNetworkAs(nullptr, 0, nullptr);
     } else {
+        // se network output in SUMO configs
+        mySUMOOptions.resetWritable();
+        mySUMOOptions.set("net-file", neteditOptions.getString("net-file"));
+        // set network in SUMOConfig
         getApp()->beginWaitCursor();
         try {
             // obtain invalid networkElements (currently only edges or crossings
@@ -3659,7 +3663,7 @@ GNEApplicationWindow::onCmdSaveNETEDITConfig(FXObject*, FXSelector, void*) {
     }
     if (!myNet->isMeanDatasSaved()) {
         if (neteditOptions.getString("meandata-files").empty()) {
-            neteditOptions.set("meandata-files", patterFile + ".add.xml");
+            neteditOptions.set("meandata-files", patterFile + ".med.add.xml");
         }
         onCmdSaveMeanDatas(nullptr, 0, nullptr);
     }
@@ -3749,7 +3753,9 @@ long
 GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject*, FXSelector, void*) {
     // obtain NETEDIT option container
     auto &neteditOptions = OptionsCont::getOptions();
+    // reset containers
     neteditOptions.resetWritable();
+    mySUMOOptions.resetWritable();
     // Check if configuration file was already set at start of netedit or with a previous save
     if (neteditOptions.getString("sumocfg-file").empty()) {
         // get the new file name
@@ -3790,17 +3796,23 @@ GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject*, FXSelector, void*) {
         }
         onCmdSaveDemandElements(nullptr, 0, nullptr);
     }
-    if (!myNet->isDataElementsSaved()) {
-        if (neteditOptions.getString("data-files").empty()) {
-            neteditOptions.set("data-files", patterFile + ".dat.xml");
-        }
-        onCmdSaveDataElements(nullptr, 0, nullptr);
-    }
     if (!myNet->isMeanDatasSaved()) {
         if (neteditOptions.getString("meandata-files").empty()) {
-            neteditOptions.set("meandata-files", patterFile + ".add.xml");
+            neteditOptions.set("meandata-files", patterFile + ".med.add.xml");
         }
         onCmdSaveMeanDatas(nullptr, 0, nullptr);
+    }
+    // set files in sumo options
+    mySUMOOptions.set("net-file", neteditOptions.getString("net-file"));
+    mySUMOOptions.set("route-files", neteditOptions.getString("route-files"));
+    if ((neteditOptions.getString("additional-files").size() > 0) && (neteditOptions.getString("meandata-files").size())) {
+        mySUMOOptions.set("additional-files", neteditOptions.getString("additional-files") + "," + neteditOptions.getString("meandata-files"));
+    } else if (neteditOptions.getString("additional-files").size() > 0) {
+        mySUMOOptions.set("additional-files", neteditOptions.getString("additional-files"));
+    } else if (neteditOptions.getString("meandata-files").size() > 0) {
+        mySUMOOptions.set("additional-files", neteditOptions.getString("meandata-files"));
+    } else {
+        mySUMOOptions.set("additional-files", "");
     }
     std::ofstream out(StringUtils::transcodeToLocal(sumoConfigFile));
     if (out.good()) {
