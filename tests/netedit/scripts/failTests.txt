@@ -306,7 +306,6 @@ additionalelements/parkingspace/create/slope
 additionalelements/parkingspace/create/width
 additionalelements/parkingspace/inspect/length
 additionalelements/parkingspace/inspect/parameters
-additionalelements/parkingspace/inspect/slope
 additionalelements/parkingspace/inspect_selection/length
 additionalelements/parkingspace/move
 additionalelements/rerouterelements/routeprobreroute/default
@@ -411,7 +410,7 @@ basic/save/new_net
 basic/save/save_configuration
 bugs/additionals/ticket3322
 bugs/additionals/ticket3879
-bugs/crossings/ticket3149/additionals/newadditionals/newadditionals/newadditionals/new
+bugs/crossings/ticket3149/additionals/newadditionals/newadditionals/new
 bugs/crossings/ticket3288
 bugs/crossings/ticket3292
 bugs/crossings/ticket5559
@@ -925,7 +924,6 @@ demandelements/route/create_nonconsecutive/abort
 demandelements/route/create_nonconsecutive/abort_button
 demandelements/route/volatilerecomputing
 demandelements/routeflow/fix/errors/newerrors/newerrors/newerrors/newerrors/newerrors/new
-demandelements/routeflow/inspect_selection/number
 demandelements/routeflow/inspect_selection/parametersafter/1/rerun
 demandelements/routeflow/load/color
 demandelements/routeflow/transform/flow
@@ -1007,7 +1005,6 @@ demandelements/vehicle/transform/flow
 demandelements/vehicle/transform/trip
 demandelements/vehicle/volatilerecomputing
 demandelements/vehicle_embedded/fix/errors/newerrors/newerrors/newerrors/newerrors/newerrors/new
-demandelements/vehicle_embedded/inspect/depart/containertriggered
 demandelements/vehicle_embedded/transform/flow
 demandelements/vehicle_embedded/transform/trip
 demandelements/vehicle_embedded/volatilerecomputing
