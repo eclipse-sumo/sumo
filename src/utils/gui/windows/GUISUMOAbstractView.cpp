@@ -736,8 +736,8 @@ GUISUMOAbstractView::displayColorLegend(const GUIColorScheme& scheme, bool leftS
     double textX = left - 0.01;
     double textDir = 1;
     FONSalign textAlign = FONS_ALIGN_RIGHT;
-    const double top = -0.8;
-    const double bot = 0.8;
+    const double top = -0.7;
+    const double bot = 0.9;
     const double dy = (top - bot) / numColors;
     const double bot2 = fixed ? bot : bot + dy / 2;
     // legend placement
@@ -835,6 +835,13 @@ GUISUMOAbstractView::displayColorLegend(const GUIColorScheme& scheme, bool leftS
         glTranslated(0, 0, -0.1);
         GLHelper::drawText(text, Position(textX + textDir * textXShift, topi + textShift), 0, fontHeight, RGBColor::BLACK, 0, textAlign, fontWidth);
     }
+    // draw scheme name
+    std::string name = scheme.getName();
+    if (StringUtils::startsWith(name, "by ")) {
+        name = name.substr(3);
+    }
+    GLHelper::drawText(name, Position(textX + textDir * 0.04, -0.8), 0, fontHeight, RGBColor::BLACK, 0, textAlign, fontWidth);
+
     GLHelper::popMatrix();
     // restore matrices
     glMatrixMode(GL_PROJECTION);
