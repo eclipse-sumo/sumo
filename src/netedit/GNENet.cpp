@@ -1186,9 +1186,12 @@ GNENet::isNetSaved() const {
 void
 GNENet::saveNetwork() {
     auto &neteditOptions = OptionsCont::getOptions();
-    // set output file
+    auto &sumoOptions = myViewNet->getViewParent()->getGNEAppWindows()->getSUMOOptions();
+    // set output file in SUMO and NETEDIT options
     neteditOptions.resetWritable();
     neteditOptions.set("output-file", neteditOptions.getString("net-file"));
+    sumoOptions.resetWritable();
+    sumoOptions.set("net-file", neteditOptions.getString("net-file"));
     // compute without volatile options and update network
     computeAndUpdate(neteditOptions, false);
     // clear typeContainer
@@ -1208,6 +1211,7 @@ GNENet::saveNetwork() {
     NWFrame::writeNetwork(neteditOptions, *myNetBuilder);
     myNetSaved = true;
     // reset output file
+    sumoOptions.resetWritable();
     neteditOptions.resetDefault("output-file");
 }
 
