@@ -33,8 +33,6 @@ sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
 import sumolib  # noqa
 import traci  # noqa
 
-sumoBinary = sumolib.checkBinary("sumo-gui")
-
 
 def main():
     parser = sumolib.options.ArgumentParser()
@@ -44,12 +42,15 @@ def main():
     parser.add_argument("--src", help="the remote directory to sync")
     parser.add_argument("--dst", default="states", help="the subdirectory for the synced files")
     parser.add_argument("--delay", default=1, type=float, help="the delay between simulation states")
+    parser.add_argument("--iterations", type=int, help="the number of iterations to run (mainly useful for testing)")
     parser.add_argument("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
     # remaining command line options are treated as rsync args
     options, args = parser.parse_known_args()
 
-    traci.start([sumoBinary, "-c", options.sumo_config, "-S"])
-    while True:
+    sumoBinary = sumolib.checkBinary("sumo-gui")
+    traci.start([sumoBinary, "-c", options.sumo_config, "-S", "-Q"])
+    it = 0
+    while options.iterations is None or it < options.iterations:
         if os.name == "nt":
             cmd = ['wsl']
             dst = options.dst.replace("\\", "/")
@@ -65,7 +66,7 @@ def main():
         if options.verbose:
             print("Calling", " ".join(cmd))
         call(cmd)
-        files = glob.glob(options.dst + options.statePrefix + "*")
+        files = glob.glob(os.path.join(options.dst, options.statePrefix + "*"))
         if len(files) < 2:
             print("Warning! Not enough state files yet.", file=sys.stderr)
         else:
@@ -79,6 +80,8 @@ def main():
             # info (as long as the traffic lights are not in sync)
             # traci.simulationStep()
         time.sleep(options.delay)
+        it += 1
+    traci.close()
 
 
 if __name__ == "__main__":
