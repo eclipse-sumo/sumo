@@ -288,7 +288,7 @@ MFXIconComboBox::setText(FXString text) {
 void
 MFXIconComboBox::setNumVisible(FXint nvis) {
     myList->setNumVisible(nvis);
-    // set height manually (marging top + ICON_HEIGHT + marging bot)
+    // set height manually (margin top + ICON_HEIGHT + margin bot)
     myList->setHeight(nvis * 16 + 4);
 }
 
