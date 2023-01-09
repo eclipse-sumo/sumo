@@ -75,9 +75,6 @@ if test -e $SUMO_BINDIR/sumo -a $SUMO_BINDIR/sumo -nt build/$FILEPREFIX/Makefile
     tests/runTests.sh -b $FILEPREFIX -name $TESTLABEL &> $TESTLOG
     if which Xvfb &>/dev/null; then
       tests/runTests.sh -a sumo.gui -b $FILEPREFIX -name $TESTLABEL >> $TESTLOG 2>&1
-      if test "$FILEPREFIX" == "gcc4_64"; then
-        tests/runNeteditDailyTests.sh -b $FILEPREFIX -name $TESTLABEL >> $TESTLOG 2>&1
-      fi
     fi
   fi
   tests/runTests.sh -b $FILEPREFIX -name $TESTLABEL -coll >> $TESTLOG 2>&1
@@ -89,6 +86,7 @@ if test -e $SUMO_BINDIR/sumo -a $SUMO_BINDIR/sumo -nt build/$FILEPREFIX/Makefile
   fi
 fi
 
+# running extra tests for the coverage report
 if test -e build/$FILEPREFIX/src/CMakeFiles/sumo.dir/sumo_main.cpp.gcda; then
   date >> $TESTLOG
   tests/runExtraTests.py --gui "b $FILEPREFIX" >> $TESTLOG 2>&1
@@ -117,6 +115,18 @@ basename $TESTLOG >> $STATUSLOG
 date >> $STATUSLOG
 echo "--" >> $STATUSLOG
 
+# netedit tests
+if test -e $SUMO_BINDIR/netedit -a $SUMO_BINDIR/netedit -nt build/$FILEPREFIX/Makefile; then
+  if test "$FILEPREFIX" == "gcc4_64"; then
+    STATUSLOG=$PREFIX/${FILEPREFIX}neteditstatus.log
+    TESTLOG=$PREFIX/${FILEPREFIX}netedit.log
+    tests/runNeteditDailyTests.sh -b ${FILEPREFIX}netedit -name $TESTLABEL > $TESTLOG 2>&1
+    tests/runTests.sh -b ${FILEPREFIX}netedit -name $TESTLABEL -coll >> $TESTLOG 2>&1
+    tools/build/status.py $TESTLOG $TESTLOG $SMTP_SERVER sumo-tests@dlr.de $TESTLOG > $STATUSLOG
+  fi
+fi
+
+# macOS M1 wheels
 if test ${FILEPREFIX: -2} == "M1"; then
   rm -rf dist _skbuild
   python3 tools/build/setup-sumo.py bdist_wheel
