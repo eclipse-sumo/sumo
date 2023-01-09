@@ -1,1 +1,3 @@
+GLDebug: initJunctionsAndEdges function called in GNENet constructor
 Debug: Deleting net builder in GNENet destructor
+GLDebug: Number of objects in SUMORTree during call of the destructor: 0
