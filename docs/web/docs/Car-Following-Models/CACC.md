@@ -6,11 +6,11 @@ title: CACC
 
 The integrated CACC car-following model is based on the work of Milanés
 & Shladover [\[1\]](#references), Xiao, Wang & van Arem [\[2\]](#references) and Xiao, Wang, Schakel &
-van Arem [\[3\]](#references), wherein the developed control law in the ACC control
+van Arem [\[3\]](#references), wherein the developed control law in the CACC control
 algorithm is explicitly divided into three modes: (i) speed (or
 cruising) control, (ii) gap control and (iii) gap-closing control. A
 fourth mode (i.e. collision avoidance mode) has been introduced within
-the project [TransAID](https://www.transaid.eu).
+the project [TransAID](https://www.transaid.eu), when the CACC model was first integrated to SUMO [\[4\]](#references).
 
 see also [ACC model](ACC.md).
 
@@ -75,4 +75,6 @@ Also, If the `followSpeed` computed by the CACC model grows higher than the safe
     effects of cooperative adaptive cruise control deactivation on
     traffic flow characteristics at merging bottlenecks. Transportation
     Research Part C: Emerging Technologies, 96, 380–397.
-    <https://doi.org/10.1016/j.trc.2018.10.008>
+4.	Porfyri, K. N., Mintsis, E., & Mitsakis, E. (2018). Assessment of ACC and CACC systems using SUMO. 
+	EPiC Series in Engineering, 2, 82-93. 
+	<https://doi.org/10.29007/r343>
