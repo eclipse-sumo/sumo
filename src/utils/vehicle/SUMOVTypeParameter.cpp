@@ -458,10 +458,10 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
         dev.writeAttr(SUMO_ATTR_CONTAINER_CAPACITY, containerCapacity);
     }
     if (wasSet(VTYPEPARS_BOARDING_DURATION)) {
-        dev.writeAttr(SUMO_ATTR_BOARDING_DURATION, boardingDuration);
+        dev.writeAttr(SUMO_ATTR_BOARDING_DURATION, time2string(boardingDuration));
     }
     if (wasSet(VTYPEPARS_LOADING_DURATION)) {
-        dev.writeAttr(SUMO_ATTR_LOADING_DURATION, loadingDuration);
+        dev.writeAttr(SUMO_ATTR_LOADING_DURATION, time2string(loadingDuration));
     }
     if (wasSet(VTYPEPARS_MAXSPEED_LAT_SET)) {
         dev.writeAttr(SUMO_ATTR_MAXSPEED_LAT, maxSpeedLat);
@@ -504,7 +504,7 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
         dev.writeAttr(SUMO_ATTR_SCALE, scale);
     }
     if (wasSet(VTYPEPARS_TTT_SET)) {
-        dev.writeAttr(SUMO_ATTR_TIME_TO_TELEPORT, timeToTeleport);
+        dev.writeAttr(SUMO_ATTR_TIME_TO_TELEPORT, time2string(timeToTeleport));
     }
     if (wasSet(VTYPEPARS_LANE_CHANGE_MODEL_SET)) {
         dev.writeAttr(SUMO_ATTR_LANE_CHANGE_MODEL, lcModel);
