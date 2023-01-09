@@ -353,7 +353,7 @@ private:
     double myQuarterLaneWidth;
 
     /// @brief the time distance from a particular edge
-    double myReachability;
+    double myReachability = INVALID_DOUBLE;
 
     /// @brief list of parkingAreas on this lane
     mutable std::vector<MSParkingArea*>* myParkingAreas;

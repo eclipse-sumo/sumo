@@ -863,8 +863,8 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::RED, 1.);
     scheme.setAllowsNegativeValues(false);
     laneColorer.addScheme(scheme);
-    scheme = GUIColorScheme("by reachability (traveltime)", RGBColor(204, 204, 204));
-    scheme.addColor(RGBColor::RED, 1.);
+    scheme = GUIColorScheme("by reachability (traveltime)", RGBColor::RED);
+    scheme.addColor(RGBColor::GREY, INVALID_DOUBLE, "unreachable");
     scheme.setAllowsNegativeValues(true);
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme("by thread index", RGBColor(204, 204, 204));

@@ -569,7 +569,7 @@ long
 GUIViewTraffic::showLaneReachability(GUILane* lane, FXObject* menu, FXSelector) {
     if (lane != nullptr) {
         // reset
-        const double UNREACHED = -1;
+        const double UNREACHED = INVALID_DOUBLE;
         gSelected.clear();
         for (const MSEdge* const e : MSEdge::getAllEdges()) {
             for (MSLane* const l : e->getLanes()) {
