@@ -24,6 +24,7 @@
 #include <string>
 #include <vector>
 #include <utils/foxtools/fxheader.h>
+#include <utils/gui/div/GUIPersistentWindowPos.h>
 
 
 // ===========================================================================
@@ -37,7 +38,7 @@
  *  time steps where the simulation halts.
  * @todo Use a LineReader instead of >> while reading
  */
-class GUIDialog_Breakpoints : public FXMainWindow {
+class GUIDialog_Breakpoints : public FXMainWindow, public GUIPersistentWindowPos {
     // FOX-declarations
     FXDECLARE(GUIDialog_Breakpoints)
 

@@ -67,6 +67,7 @@ FXIMPLEMENT(GUIDialog_Breakpoints, FXMainWindow, GUIDialog_BreakpointsMap, ARRAY
 
 GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIApplicationWindow* parent, std::vector<SUMOTime>& breakpoints, FXMutex& breakpointLock) :
     FXMainWindow(parent->getApp(), "Breakpoints Editor", GUIIconSubSys::getIcon(GUIIcon::APP_BREAKPOINTS), nullptr, GUIDesignChooserDialog),
+    GUIPersistentWindowPos(this, "DIALOG_BREAKPOINTS", true, 20, 40, 300, 350),
     myParent(parent), myBreakpoints(&breakpoints), myBreakpointLock(&breakpointLock) {
     // build main Frame
     FXHorizontalFrame* hbox = new FXHorizontalFrame(this, GUIDesignAuxiliarFrame);
@@ -96,6 +97,7 @@ GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIApplicationWindow* parent, std::
     new FXButton(layoutRight, TL("&Close\t\t"), GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_CANCEL, GUIDesignChooserButtons);
     // add this dialog as child of GUIMainWindow parent
     myParent->addChild(this);
+    loadWindowPos();
     create();
     show();
 }
