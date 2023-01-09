@@ -377,7 +377,7 @@ GNEFrameAttributeModules::AttributesEditorRow::refreshAttributesEditorRow(const 
             }
         } else {
             for (const auto& discreteValue : myACAttr.getDiscreteValues()) {
-                myValueChoicesComboBox->appendIconItem(discreteValue.c_str(), GUIIconSubSys::getIcon(GUIIcon::EMPTY));
+                myValueChoicesComboBox->appendIconItem(discreteValue.c_str(), nullptr);
             }
         }
         // show combo box with values

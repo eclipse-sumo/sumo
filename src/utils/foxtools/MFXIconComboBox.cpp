@@ -76,13 +76,6 @@ void
 MFXListItem::draw(const FXList* myList, FXDC& dc, FXint xx, FXint yy, FXint ww, FXint hh) {
     // almost the same code as FXListItem::draw except for using custom background color
     FXFont* font = myList->getFont();
-    FXint ih = 0, th = 0;
-    if (icon) {
-        ih = icon->getHeight();
-    }
-    if (!label.empty()) {
-        th = font->getFontHeight();
-    }
     if (isSelected()) {
         dc.setForeground(myList->getSelBackColor());
     } else {
@@ -94,7 +87,7 @@ MFXListItem::draw(const FXList* myList, FXDC& dc, FXint xx, FXint yy, FXint ww, 
     }
     xx += SIDE_SPACING / 2;
     if (icon) {
-        dc.drawIcon(icon, xx, yy + (hh - ih) / 2);
+        dc.drawIcon(icon, xx, yy + (hh - 16) / 2);
         xx += ICON_SPACING + icon->getWidth();
     }
     if (!label.empty()) {
@@ -106,7 +99,7 @@ MFXListItem::draw(const FXList* myList, FXDC& dc, FXint xx, FXint yy, FXint ww, 
         } else {
             dc.setForeground(myList->getTextColor());
         }
-        dc.drawText(xx, yy + (hh - th) / 2 + font->getFontAscent(), label);
+        dc.drawText(xx, yy + (hh - 16) / 2 + font->getFontAscent(), label);
     }
 }
 
