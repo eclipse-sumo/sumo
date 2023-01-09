@@ -1739,8 +1739,9 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     // get template editor
     GNEInspectorFrame::TemplateEditor* templateEditor = myNet->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor();
-    // check update template
-    if (templateEditor->getEdgeTemplate() && (templateEditor->getEdgeTemplate()->getID() == getID())) {
+    // check if update template (except for modification status)
+    if (templateEditor->getEdgeTemplate() && (templateEditor->getEdgeTemplate()->getID() == getID()) &&
+        (key != GNE_ATTR_MODIFICATION_STATUS)) {
         myNet->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor()->updateEdgeTemplate();
     }
     // invalidate path calculator
