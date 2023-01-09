@@ -62,6 +62,7 @@ std::vector<GUIParameterTableWindow*> GUIParameterTableWindow::myContainer;
 // ===========================================================================
 GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow& app, GUIGlObject& o) :
     FXMainWindow(app.getApp(), (o.getFullName() + " Parameter").c_str(), nullptr, nullptr, DECOR_ALL, 20, 40, 200, 500),
+    GUIPersistentWindowPos(this, "DIALOG_PARAMETERS", false, 20, 40),
     myObject(&o),
     myApplication(&app),
     myTrackerY(50),
@@ -89,6 +90,7 @@ GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow& app, GUIGlObject
     myContainer.push_back(this);
     // Table cannot be editable
     myTable->setEditable(FALSE);
+    loadWindowPos();
 }
 
 GUIParameterTableWindow::~GUIParameterTableWindow() {

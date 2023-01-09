@@ -27,6 +27,7 @@
 #include <set>
 #include <utils/foxtools/fxheader.h>
 #include <utils/gui/globjects/GUIGlObject.h>
+#include <utils/gui/div/GUIPersistentWindowPos.h>
 #include "GUIAppEnum.h"
 
 
@@ -47,7 +48,7 @@ class GUIGlObject;
  * from a given artifact like vehicles, edges or junctions and allow
  * one of their items
  */
-class GUIDialog_ChooserAbstract : public FXMainWindow {
+class GUIDialog_ChooserAbstract : public FXMainWindow, public GUIPersistentWindowPos {
     // FOX-declarations
     FXDECLARE(GUIDialog_ChooserAbstract)
 

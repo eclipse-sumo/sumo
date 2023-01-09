@@ -29,6 +29,7 @@
 #include <utils/foxtools/fxheader.h>
 #include <utils/common/ValueSource.h>
 #include <utils/common/SUMOTime.h>
+#include <utils/gui/div/GUIPersistentWindowPos.h>
 #include "GUIParameterTableItem.h"
 
 
@@ -57,7 +58,7 @@ class Parameterised;
  *
  * Each row is represented using an instance of GUIParameterTableItemInterface.
  */
-class GUIParameterTableWindow : public FXMainWindow {
+class GUIParameterTableWindow : public FXMainWindow, public GUIPersistentWindowPos {
     FXDECLARE(GUIParameterTableWindow)
 public:
     /** @brief Constructor
