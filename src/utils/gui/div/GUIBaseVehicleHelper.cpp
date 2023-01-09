@@ -520,7 +520,7 @@ GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(const GUIVisualizationSetting
             }
             glEnd();
             GLHelper::popMatrix();
-            // naviation lights
+            // navigation lights
             glColor3d(1.f, 0, 0);
             GLHelper::pushMatrix();
             glTranslated(0.62, -0.49, 0.1);
