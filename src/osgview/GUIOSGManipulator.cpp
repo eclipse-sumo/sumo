@@ -67,8 +67,6 @@ GUIOSGManipulator::GUIOSGManipulator(ManipulatorMode initMode, bool verticalFixe
 
 
 GUIOSGManipulator::~GUIOSGManipulator() {
-    myTextNode = 0;
-    myHUDCamera = 0;
 }
 
 
@@ -82,7 +80,7 @@ GUIOSGManipulator::getHUD() {
         myHUDCamera->setClearMask(GL_DEPTH_BUFFER_BIT);
         myHUDCamera->setRenderOrder(osg::Camera::POST_RENDER);
         myHUDCamera->setAllowEventFocus(false);
-        myHUDCamera->addChild(myTextNode.get());
+        myHUDCamera->addChild(myTextNode);
     }
     return myHUDCamera.get();
 }

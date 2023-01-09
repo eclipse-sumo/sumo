@@ -65,7 +65,7 @@ protected:
     osg::ref_ptr<osg::Camera> myHUDCamera;
 private:
     /// @brief remember which ManipulatorMode we use 
-    osgText::Text* myText;
+    osg::ref_ptr<osgText::Text> myText;
     ManipulatorMode myCurrentMode;
     //double myWalkEyeHeight;
     double myMoveSpeed;
