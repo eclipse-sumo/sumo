@@ -99,7 +99,7 @@ network problems or deliberate configuration,
 
 To avoid collisions, observe the simulation
 [sumo-gui](../sumo-gui.md) at the location and time of the
-collision. Check if some of the [that may cause a collision are present
+collision. Check if some of the [things that may cause a collision are present
 in your network](../Simulation/Safety.md#deliberately_causing_collisions).
 
 # What is happening while a vehicle teleports
