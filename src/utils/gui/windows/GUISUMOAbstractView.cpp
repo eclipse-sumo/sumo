@@ -1563,15 +1563,7 @@ GUISUMOAbstractView::showViewschemeEditor() {
 GUIDialog_EditViewport*
 GUISUMOAbstractView::getViewportEditor() {
     if (myViewportChooser == nullptr) {
-        const FXint minSize = 100;
-        const FXint minTitlebarHeight = 20;
-        int x = MAX2(0, MIN2(getApp()->reg().readIntEntry(
-                                 "VIEWPORT_DIALOG_SETTINGS", "x", 150),
-                             getApp()->getRootWindow()->getWidth() - minSize));
-        int y = MAX2(minTitlebarHeight, MIN2(getApp()->reg().readIntEntry(
-                "VIEWPORT_DIALOG_SETTINGS", "y", 150),
-                                             getApp()->getRootWindow()->getHeight() - minSize));
-        myViewportChooser = new GUIDialog_EditViewport(this, "Edit Viewport", x, y);
+        myViewportChooser = new GUIDialog_EditViewport(this, "Edit Viewport");
         myViewportChooser->create();
     }
     updateViewportValues();

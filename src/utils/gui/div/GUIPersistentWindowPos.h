@@ -37,7 +37,7 @@ public:
      * @param[in] parent The parent window
      * @param[in] str The storage of object selections to use
      */
-    GUIPersistentWindowPos(FXMainWindow* parent, const std::string& name, bool storeSize,
+    GUIPersistentWindowPos(FXWindow* parent, const std::string& name, bool storeSize,
             int x=150, int y=150,
             int width=700, int height=500,
             int minSize=400, int minTitlebarHeight=20); 
@@ -50,7 +50,7 @@ public:
 
 protected:
     /// @brief The window for which the position is being stored
-    FXMainWindow* myParent;
+    FXWindow* myParent;
 
     /// @brief Name for storing in the registry
     std::string myWindowName;

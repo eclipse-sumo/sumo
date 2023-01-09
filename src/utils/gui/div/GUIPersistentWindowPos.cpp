@@ -43,7 +43,7 @@
 // method definitions
 // ===========================================================================
 
-GUIPersistentWindowPos::GUIPersistentWindowPos(FXMainWindow* parent, const std::string& name, bool storeSize,
+GUIPersistentWindowPos::GUIPersistentWindowPos(FXWindow* parent, const std::string& name, bool storeSize,
         int x, int y,
         int width, int height,
         int minSize, int minTitlebarHeight) :
