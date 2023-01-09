@@ -26,6 +26,7 @@
 #include <utils/foxtools/fxheader.h>
 
 #include <utils/gui/div/GUISelectedStorage.h>
+#include <utils/gui/div/GUIPersistentWindowPos.h>
 #include <utils/gui/windows/GUIMainWindow.h>
 
 // ===========================================================================
@@ -44,7 +45,7 @@ class GUIMainWindow;
  * @see GUIMainWindow
  * @see GUISelectedStorage
  */
-class GUIDialog_GLChosenEditor : public FXMainWindow, public GUISelectedStorage::UpdateTarget {
+class GUIDialog_GLChosenEditor : public FXMainWindow, public GUISelectedStorage::UpdateTarget, GUIPersistentWindowPos {
     // FOX-declarations
     FXDECLARE(GUIDialog_GLChosenEditor)
 

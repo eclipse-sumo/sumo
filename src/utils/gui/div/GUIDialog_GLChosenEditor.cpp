@@ -58,6 +58,7 @@ FXIMPLEMENT(GUIDialog_GLChosenEditor, FXMainWindow, GUIDialog_GLChosenEditorMap,
 
 GUIDialog_GLChosenEditor::GUIDialog_GLChosenEditor(GUIMainWindow* parent, GUISelectedStorage* str) :
     FXMainWindow(parent->getApp(), "List of Selected Items", GUIIconSubSys::getIcon(GUIIcon::APP_SELECTOR), nullptr, GUIDesignChooserDialog),
+    GUIPersistentWindowPos(this, "DIALOG_EDIT_SELECTED", true, 20, 40, 300, 350),
     myParent(parent), myStorage(str) {
     myStorage->add2Update(this);
     FXHorizontalFrame* hbox = new FXHorizontalFrame(this, GUIDesignAuxiliarFrame);
@@ -85,6 +86,7 @@ GUIDialog_GLChosenEditor::GUIDialog_GLChosenEditor(GUIMainWindow* parent, GUISel
     // "Close"
     new FXButton(layout, TL("Cl&ose\t\t"), GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_CANCEL, GUIDesignChooserButtons);
     myParent->addChild(this);
+    loadWindowPos();
 }
 
 
