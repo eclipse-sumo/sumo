@@ -24,6 +24,7 @@
 
 #include <utils/foxtools/fxheader.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
+#include <utils/gui/div/GUIPersistentWindowPos.h>
 #include <utils/foxtools/MFXAddEditTypedTable.h>
 
 
@@ -42,7 +43,7 @@ class MFXIconComboBox;
  *
  * @todo Check whether saving/loading settings should be done via XML
  */
-class GUIDialog_ViewSettings : public FXDialogBox {
+class GUIDialog_ViewSettings : public FXDialogBox, public GUIPersistentWindowPos {
     /// @brief FOX Declaration
     FXDECLARE(GUIDialog_ViewSettings)
 
@@ -544,12 +545,6 @@ protected:
      * @param[in] file The name of the file to read the decals from
      */
     void loadDecals(const std::string& file);
-
-    /// @brief save window position and size to the registry
-    void saveWindowSize();
-
-    /// @brief load window position and size from the registry
-    void loadWindowSize();
 
     /// @brief reload known vehicle parameters
     void updateVehicleParams();

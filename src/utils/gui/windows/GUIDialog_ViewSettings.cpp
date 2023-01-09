@@ -86,6 +86,7 @@ FXIMPLEMENT(GUIDialog_ViewSettings::SizePanel,  FXObject,       GUIDialog_SizeMa
 // ===========================================================================
 GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIVisualizationSettings* settings, std::vector<GUISUMOAbstractView::Decal>* decals, FXMutex* decalsLock) :
     FXDialogBox(parent, "View Settings", GUIDesignViewSettingsMainDialog),
+    GUIPersistentWindowPos(this, "VIEWSETTINGS", true, 20, 40, 700, 500, 400, 20),
     myParent(parent), mySettings(settings), myBackup(settings->name, settings->netedit),
     myDecals(decals), myDecalsLock(decalsLock), myDecalsTable(nullptr),
     myDataValuePanel(nullptr) {
@@ -140,7 +141,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
     // rebuild color matrix
     rebuildColorMatrices(false);
     setIcon(GUIIconSubSys::getIcon(GUIIcon::EMPTY));
-    loadWindowSize();
+    loadWindowPos();
 }
 
 
@@ -204,7 +205,6 @@ GUIDialog_ViewSettings::setCurrent(GUIVisualizationSettings* settings) {
 
 long
 GUIDialog_ViewSettings::onCmdOk(FXObject*, FXSelector, void*) {
-    saveWindowSize();
     hide();
     return 1;
 }
@@ -212,7 +212,6 @@ GUIDialog_ViewSettings::onCmdOk(FXObject*, FXSelector, void*) {
 
 long
 GUIDialog_ViewSettings::onCmdCancel(FXObject*, FXSelector, void*) {
-    saveWindowSize();
     hide();
     mySettings->copy(myBackup);
     myParent->update();
@@ -1750,29 +1749,6 @@ GUIDialog_ViewSettings::SizePanel::onCmdSizeChange(FXObject* obj, FXSelector sel
     gPostDrawing.recomputeBoundaries = myType;
     // continue as a normal change
     return myDialogViewSettings->onCmdColorChange(obj, sel, ptr);
-}
-
-
-void
-GUIDialog_ViewSettings::saveWindowSize() {
-    getApp()->reg().writeIntEntry("VIEWSETTINGS", "x", getX());
-    getApp()->reg().writeIntEntry("VIEWSETTINGS", "y", getY());
-    getApp()->reg().writeIntEntry("VIEWSETTINGS", "width", getWidth());
-    getApp()->reg().writeIntEntry("VIEWSETTINGS", "height", getHeight());
-}
-
-void
-GUIDialog_ViewSettings::loadWindowSize() {
-    // ensure window is visible after switching screen resolutions
-    const FXint minSize = 400;
-    const FXint minTitlebarHeight = 20;
-    setX(MAX2(0, MIN2(getApp()->reg().readIntEntry("VIEWSETTINGS", "x", 150),
-                      getApp()->getRootWindow()->getWidth() - minSize)));
-    setY(MAX2(minTitlebarHeight,
-              MIN2(getApp()->reg().readIntEntry("VIEWSETTINGS", "y", 150),
-                   getApp()->getRootWindow()->getHeight() - minSize)));
-    setWidth(MAX2(getApp()->reg().readIntEntry("VIEWSETTINGS", "width", 700), minSize));
-    setHeight(MAX2(getApp()->reg().readIntEntry("VIEWSETTINGS", "height", 500), minSize));
 }
 
 
