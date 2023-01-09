@@ -1488,8 +1488,11 @@ protected:
     /// @brief whether a collision check is currently needed
     bool myNeedsCollisionCheck;
 
-    // @brief the ids of the opposite direction lane
+    // @brief the neighboring opposite direction or nullptr
     MSLane* myOpposite;
+
+    // @brief bidi lane or nullptr
+    MSLane* myBidiLane;
 
     // @brief transient changes in permissions
     std::map<long long, SVCPermissions> myPermissionChanges;
