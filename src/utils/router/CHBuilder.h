@@ -447,7 +447,7 @@ private:
             follower->approaching.push_back(CHConnection(&info, cost, permissions, 1));
         }
 #ifdef CHRouter_DEBUG_WEIGHTS
-        std::cout << time << ": " << edge->getID() << " cost: " << cost << "\n";
+        std::cout << time << ": " << edge->getID() << " baseCost: " << baseCost << "\n";
 #endif
         // @todo: check whether we even need to save approaching in ROEdge;
     }
