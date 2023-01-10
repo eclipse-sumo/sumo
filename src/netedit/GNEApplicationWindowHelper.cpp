@@ -186,10 +186,10 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
     // load sumo/netedit configs
     new FXMenuSeparator(fileMenu);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-        "Load Netedit config...", "Ctrl+E", "Load netedit config.",
+        "Load Netedit config...", "Ctrl+E", "Load a netedit configuration file.",
         GUIIconSubSys::getIcon(GUIIcon::OPEN_NETEDITCONFIG), myGNEApp, MID_HOTKEY_CTRL_E_EDITSELECTION_LOADNETEDITCONFIG);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-        "Load Sumo config...", "Ctrl+M", "Load sumo config.",
+        "Load Sumo config...", "Ctrl+M", "Load a SUMO configuration file.",
         GUIIconSubSys::getIcon(GUIIcon::OPEN_SUMOCONFIG), myGNEApp, MID_HOTKEY_CTRL_M_OPENSUMOCONFIG);
     // load networks
     new FXMenuSeparator(fileMenu);
@@ -211,7 +211,7 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
         "Save Net&work As...", "", "Save the network to another file.",
         GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_GNE_TOOLBARFILE_SAVENETWORK_AS);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-        "Save Plain XM&L...", "Ctrl+L", "Save plain XML representation the network.",
+        "Save Plain XM&L...", "Ctrl+L", "Save a plain XML representation of the network.",
         GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_HOTKEY_CTRL_L_SAVEASPLAINXML);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
         "Save &Joined Junctions...", "", "Save log of joined junctions (allows reproduction of joins).",
@@ -224,11 +224,11 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
     new FXMenuSeparator(fileMenu);
     // create NETEDITConfig menu options
     saveNETEDITConfig = GUIDesigns::buildFXMenuCommandShortcut(fileMenuNETEDITConfig,
-        "Save NETEDITConfig", "Ctrl+Shift+E", "Save netedit config.",
+        "Save NETEDITConfig", "Ctrl+Shift+E", "Save netedit configuration file.",
         GUIIconSubSys::getIcon(GUIIcon::SAVE_NETEDITCONFIG), myGNEApp, MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG);
     saveNETEDITConfig->disable();
     GUIDesigns::buildFXMenuCommandShortcut(fileMenuNETEDITConfig,
-        "Save NETEDITConfig As...", "", "Save sumo config in a new file.",
+        "Save NETEDITConfig As...", "", "Save netedit configuration in a new file.",
         GUIIconSubSys::getIcon(GUIIcon::SAVE_NETEDITCONFIG), myGNEApp, MID_GNE_TOOLBARFILE_SAVENETEDITCONFIG_AS);
     NETEDITConfigMenuCascade = new FXMenuCascade(fileMenu, "NETEDITConfig", GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), fileMenuNETEDITConfig);
     new FXMenuSeparator(fileMenuNETEDITConfig);
@@ -237,11 +237,11 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
         GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_NETEDITCONFIG);
     // create SUMOConfig menu options
     saveSUMOConfig = GUIDesigns::buildFXMenuCommandShortcut(fileMenuSUMOConfig,
-        "Save SUMOConfig", "Ctrl+Shift+S", "Save sumo config.",
+        "Save SUMOConfig", "Ctrl+Shift+S", "Save sumo configuration file.",
         GUIIconSubSys::getIcon(GUIIcon::SAVE_SUMOCONFIG), myGNEApp, MID_HOTKEY_CTRL_SHIFT_S_SAVESUMOCONFIG);
     saveSUMOConfig->disable();
     GUIDesigns::buildFXMenuCommandShortcut(fileMenuSUMOConfig,
-        "Save SUMOConfig As...", "", "Save sumo config in a new file.",
+        "Save SUMOConfig As...", "", "Save sumo configuration in a new file.",
         GUIIconSubSys::getIcon(GUIIcon::SAVE_SUMOCONFIG), myGNEApp, MID_GNE_TOOLBARFILE_SAVESUMOCONFIG_AS);
     SUMOConfigMenuCascade = new FXMenuCascade(fileMenu, "SUMOConfig", GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI), fileMenuSUMOConfig);
     new FXMenuSeparator(fileMenuSUMOConfig);
@@ -254,11 +254,11 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
         GUIIconSubSys::getIcon(GUIIcon::OPEN_TLSPROGRAMS), myGNEApp, MID_HOTKEY_CTRL_K_OPENTLSPROGRAMS);
     new FXMenuSeparator(fileMenuTLS);
     saveTLSPrograms = GUIDesigns::buildFXMenuCommandShortcut(fileMenuTLS,
-        "Save TLS Programs", "Ctrl+Shift+K", "Save all traffic light programs of the current net.",
+        "Save TLS Programs", "Ctrl+Shift+K", "Save all traffic light programs of the current network.",
         GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_HOTKEY_CTRL_SHIFT_K_SAVETLS);
     saveTLSPrograms->disable();
     GUIDesigns::buildFXMenuCommandShortcut(fileMenuTLS,
-        "Save TLS Programs As...", "", "Save all traffic light programs of the current net to another file.",
+        "Save TLS Programs As...", "", "Save all traffic light programs of the current network to another file.",
         GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS);
     new FXMenuSeparator(fileMenuTLS);
     reloadTLSPrograms = GUIDesigns::buildFXMenuCommandShortcut(fileMenuTLS,
