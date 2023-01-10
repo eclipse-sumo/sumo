@@ -560,7 +560,7 @@ public:
     bool selectingJunctionsTLSMode() const;
 
     /// @brief get variable used to save elements
-    const GNEViewNetHelper::SaveElements &getSaveElements();
+    GNEViewNetHelper::SaveElements &getSaveElements();
 
 protected:
     /// @brief FOX needs this

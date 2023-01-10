@@ -479,29 +479,8 @@ struct GNEViewNetHelper {
         /// @brief build save buttons
         void buildSaveElementsButtons();
 
-        /// @brief checkable button for save NETEDIT config
-        MFXButtonTooltip* saveNETEDITConfig = nullptr;
-
-        /// @brief checkable button for save SUMO config
-        MFXButtonTooltip* saveSUMOConfig = nullptr;
-
-        /// @brief checkable button for save individual files
-        MFXMenuButtonTooltip* saveIndividualFiles = nullptr;
-
-        /// @brief checkable button for save network
-        MFXButtonTooltip* saveNetwork = nullptr;
-
-        /// @brief checkable button for save additional elements
-        MFXButtonTooltip* saveAdditionalElements = nullptr;
-
-        /// @brief checkable button for save demand elements
-        MFXButtonTooltip* saveDemandElements = nullptr;
-
-        /// @brief checkable button for save genericdata elements
-        MFXButtonTooltip* saveDataElements = nullptr;
-
-        /// @brief checkable button for save meanData elements
-        MFXButtonTooltip* saveMeanDataElements = nullptr;
+        /// @brief enable or disable save individual files
+        void setSaveIndividualFiles(bool value);
 
     private:
         /// @brief pointer to net
@@ -509,6 +488,30 @@ struct GNEViewNetHelper {
 
         /// The locator menu
         FXPopup* mySaveIndividualFilesPopup = nullptr;
+
+        /// @brief checkable button for save individual files
+        MFXMenuButtonTooltip* mySaveIndividualFiles = nullptr;
+
+        /// @brief checkable button for save NETEDIT config
+        MFXButtonTooltip* mySaveNETEDITConfig = nullptr;
+
+        /// @brief checkable button for save SUMO config
+        MFXButtonTooltip* mySaveSUMOConfig = nullptr;
+
+        /// @brief checkable button for save network
+        MFXButtonTooltip* mySaveNetwork = nullptr;
+
+        /// @brief checkable button for save additional elements
+        MFXButtonTooltip* mySaveAdditionalElements = nullptr;
+
+        /// @brief checkable button for save demand elements
+        MFXButtonTooltip* mySaveDemandElements = nullptr;
+
+        /// @brief checkable button for save genericdata elements
+        MFXButtonTooltip* mySaveDataElements = nullptr;
+
+        /// @brief checkable button for save meanData elements
+        MFXButtonTooltip* mySaveMeanDataElements = nullptr;
 
         /// @brief Invalidated copy constructor.
         SaveElements(const SaveElements&) = delete;

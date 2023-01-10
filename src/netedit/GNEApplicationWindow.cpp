@@ -3711,16 +3711,13 @@ GNEApplicationWindow::onUpdSaveNETEDITConfig(FXObject* sender, FXSelector, void*
     } else {
         enableButton = true;
     }
-    // also enable/disable save individual files
+    // enable/disable save individual files
+    if (myViewNet) {
+        myViewNet->getSaveElements().setSaveIndividualFiles(enableButton);
+    }
     if (enableButton) {
-        if (myViewNet) {
-            myViewNet->getSaveElements().saveIndividualFiles->enable();
-        }
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else {
-        if (myViewNet) {
-            myViewNet->getSaveElements().saveIndividualFiles->disable();
-        }
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     }
 }
