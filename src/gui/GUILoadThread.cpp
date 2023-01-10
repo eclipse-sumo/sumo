@@ -105,12 +105,14 @@ GUILoadThread::run() {
             OptionsIO::loadConfiguration();
             if (oc.isSet("configuration-file")) {
                 myFile = oc.getString("configuration-file");
+                myParent->addRecentConfig(FXPath::absolute(myFile.c_str()));
+
             } else if (oc.isSet("net-file")) {
                 myFile = oc.getString("net-file");
+                myParent->addRecentNetwork(FXPath::absolute(myFile.c_str()));
             }
             myEventQue.push_back(new GUIEvent_Message("Loading '" + myFile + "'."));
             myEventThrow.signal();
-            myParent->addRecentFile(FXPath::absolute(myFile.c_str()));
         }
         myTitle = myFile;
         if (!myAmLibsumo) {

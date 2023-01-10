@@ -93,8 +93,11 @@ public:
     /// @brief set status bar text
     void setStatusBarText(const std::string& text);
 
-    /// @brief add recent file to recent file list
-    void addRecentFile(const FX::FXString& f);
+    /// @brief add recent network to recent file list
+    void addRecentNetwork(const FX::FXString& f);
+
+    /// @brief add recent config to recent file list
+    void addRecentConfig(const FX::FXString& f);
 
     /// @brief get build GLCanvas
     FXGLCanvas* getBuildGLCanvas() const;
@@ -349,8 +352,11 @@ protected:
     /// Builds the tool bar
     virtual void buildToolBars();
 
-    /// @brief build recent files
-    void buildRecentFiles(FXMenuPane* fileMenu, FXMenuPane* fileMenuRecentFiles);
+    /// @brief build recent networks
+    void buildRecentNetworks(FXMenuPane* fileMenu, FXMenuPane* fileMenuRecentNetworks);
+
+    /// @brief build recent configs
+    void buildRecentConfigs(FXMenuPane* fileMenu, FXMenuPane* fileMenuRecentConfigs);
 
     /// @brief  the name of the simulation
     std::string myName;
@@ -457,8 +463,11 @@ protected:
     /// @brief io-event with the run-thread
     FXEX::MFXThreadEvent myRunThreadEvent;
 
-    /// @brief List of recent networks and configs
-    MFXRecentNetworks myRecentNetworksAndConfigs;
+    /// @brief List of recent networks
+    MFXRecentNetworks myRecentNetworks;
+
+    /// @brief List of recent configs
+    MFXRecentNetworks myRecentConfigs;
 
     /// @brief Input file pattern
     std::string myConfigPattern;
