@@ -703,13 +703,13 @@ public:
         myAmDelayed = true;
     }
 
-    // return whether there have been vehicles on this edge at least once
+    // return whether there have been vehicles on this or the bidi edge (if there is any) at least once
     inline bool isDelayed() const {
         return myAmDelayed || (myBidiEdge != nullptr && myBidiEdge->myAmDelayed);
     }
 
     bool hasLaneChanger() const {
-        return myLaneChanger != 0;
+        return myLaneChanger != nullptr;
     }
 
     /// @brief whether this edge allows changing to the opposite direction edge
