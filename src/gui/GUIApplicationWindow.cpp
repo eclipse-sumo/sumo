@@ -562,20 +562,10 @@ GUIApplicationWindow::fillMenuBar() {
     // build windows menu
     myWindowMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myMenuBar, TL("&Window"), nullptr, myWindowMenu);
-    new FXMenuCheck(myWindowMenu,
-                    TL("Show Status Line\t\tToggle the Status Bar on/off."),
-                    myStatusbar, FXWindow::ID_TOGGLESHOWN);
-    new FXMenuCheck(myWindowMenu,
-                    TL("Show Message Window\t\tToggle the Message Window on/off."),
-                    myMessageWindow, FXWindow::ID_TOGGLESHOWN);
-    new FXMenuCheck(myWindowMenu,
-                    TL("Show Simulation Time\t\tToggle the Simulation Time on/off."),
-                    myToolBar3, FXWindow::ID_TOGGLESHOWN);
-    new FXMenuCheck(myWindowMenu,
-                    TL("Show Simulation Delay\t\tToggle the Simulation Delay Entry on/off."),
-                    myToolBar4, FXWindow::ID_TOGGLESHOWN);
-    addToWindowsMenu(myWindowMenu);
-    new FXMenuSeparator(myWindowMenu);
+    GUIDesigns::buildFXMenuCommandShortcut(myWindowMenu, TL("Open new view"), "", "", GUIIconSubSys::getIcon(GUIIcon::MICROVIEW), this, MID_NEW_MICROVIEW);
+#ifdef HAVE_OSG
+    GUIDesigns::buildFXMenuCommandShortcut(myWindowMenu, TL("Open new 3D view"), "", "", GUIIconSubSys::getIcon(GUIIcon::OSGVIEW), this, MID_NEW_OSGVIEW);
+#endif
     GUIDesigns::buildFXMenuCommandShortcut(myWindowMenu,
                                            TL("Tile &Horizontally"), "", "",
                                            GUIIconSubSys::getIcon(GUIIcon::WINDOWS_TILE_HORI), myMDIClient, FXMDIClient::ID_MDI_TILEHORIZONTAL);
@@ -598,6 +588,22 @@ GUIApplicationWindow::fillMenuBar() {
     GUIDesigns::buildFXMenuCommand(myWindowMenu, "", nullptr, myMDIClient, FXMDIClient::ID_MDI_3);
     GUIDesigns::buildFXMenuCommand(myWindowMenu, "", nullptr, myMDIClient, FXMDIClient::ID_MDI_4);
     GUIDesigns::buildFXMenuCommand(myWindowMenu, TL("&Others..."), nullptr, myMDIClient, FXMDIClient::ID_MDI_OVER_5);
+
+    new FXMenuSeparator(myWindowMenu);
+    new FXMenuCheck(myWindowMenu,
+                    TL("Show Status Line\t\tToggle the Status Bar on/off."),
+                    myStatusbar, FXWindow::ID_TOGGLESHOWN);
+    new FXMenuCheck(myWindowMenu,
+                    TL("Show Message Window\t\tToggle the Message Window on/off."),
+                    myMessageWindow, FXWindow::ID_TOGGLESHOWN);
+    new FXMenuCheck(myWindowMenu,
+                    TL("Show Simulation Time\t\tToggle the Simulation Time on/off."),
+                    myToolBar3, FXWindow::ID_TOGGLESHOWN);
+    new FXMenuCheck(myWindowMenu,
+                    TL("Show Simulation Delay\t\tToggle the Simulation Delay Entry on/off."),
+                    myToolBar4, FXWindow::ID_TOGGLESHOWN);
+    addToWindowsMenu(myWindowMenu);
+
     new FXMenuSeparator(myWindowMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myWindowMenu,
                                            TL("Clear Message Window"), "", TL("Clear the message window."),
