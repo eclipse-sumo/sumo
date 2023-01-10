@@ -1450,7 +1450,7 @@ GNEApplicationWindow::loadConfigOrNet(const std::string file, bool isNet, bool i
         setStatusBarText("Loading '" + file + "'.");
     }
     // show supermode commands menu
-    mySupermodeCommands.showSupermodeCommands();
+    //mySupermodeCommands.showSupermodeCommands();
     // show Network command menus (because Network is the default supermode)
     myModesMenuCommands.networkMenuCommands.showNetworkMenuCommands();
     // update window
