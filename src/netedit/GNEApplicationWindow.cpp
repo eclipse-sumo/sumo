@@ -540,6 +540,7 @@ GNEApplicationWindow::create() {
     myFileMenuAdditionals->create();
     myFileMenuDemandElements->create();
     myFileMenuDataElements->create();
+    myFileMenuMeanDataElements->create();
     myWindowMenu->create();
     myHelpMenu->create();
 
@@ -581,6 +582,7 @@ GNEApplicationWindow::~GNEApplicationWindow() {
     delete myFileMenuEdgeTypes;
     delete myFileMenuAdditionals;
     delete myFileMenuDemandElements;
+    delete myFileMenuMeanDataElements;
     delete myFileMenuDataElements;
     delete myFileMenuRecentFiles;
     delete myFileMenu;
@@ -1457,9 +1459,11 @@ GNEApplicationWindow::fillMenuBar() {
     myFileMenuAdditionals = new FXMenuPane(this);
     myFileMenuDemandElements = new FXMenuPane(this);
     myFileMenuDataElements = new FXMenuPane(this);
+    myFileMenuMeanDataElements = new FXMenuPane(this);
     myFileMenuRecentFiles = new FXMenuPane(this);
     myFileMenuCommands.buildFileMenuCommands(myFileMenu, myFileMenuNETEDITConfig, myFileMenuSUMOConfig, 
-        myFileMenuTLS, myFileMenuEdgeTypes, myFileMenuAdditionals, myFileMenuDemandElements, myFileMenuDataElements);
+        myFileMenuTLS, myFileMenuEdgeTypes, myFileMenuAdditionals, myFileMenuDemandElements,
+        myFileMenuDataElements, myFileMenuMeanDataElements);
     // add separator for recent files
     new FXMenuSeparator(myFileMenu);
     // build recent files

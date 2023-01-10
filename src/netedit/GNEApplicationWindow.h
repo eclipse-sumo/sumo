@@ -607,6 +607,7 @@ protected:
                *myFileMenuAdditionals = nullptr,
                *myFileMenuDemandElements = nullptr,
                *myFileMenuDataElements = nullptr,
+               *myFileMenuMeanDataElements = nullptr,
                *myFileMenuRecentFiles = nullptr,
                *myModesMenu = nullptr,
                *myEditMenu = nullptr,

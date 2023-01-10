@@ -147,7 +147,8 @@ struct GNEApplicationWindowHelper {
         /// @brief build menu commands
         void buildFileMenuCommands(FXMenuPane* fileMenu, FXMenuPane* fileMenuNEEDITConfig, FXMenuPane* fileMenuSUMOConfig, 
                                    FXMenuPane* fileMenuTLS, FXMenuPane* fileMenuEdgeTypes, FXMenuPane* fileMenuAdditionals,
-                                   FXMenuPane* fileMenuDemandElements, FXMenuPane* fileMenuDataElements);
+                                   FXMenuPane* fileMenuDemandElements, FXMenuPane* fileMenuDataElements, 
+                                   FXMenuPane* fileMenuMeanDataElements);
 
         /// @brief FXMenuCascade for NETEDITConfig
         FXMenuCascade* NETEDITConfigMenuCascade = nullptr;
@@ -233,6 +234,30 @@ struct GNEApplicationWindowHelper {
     private:
         /// @brief pointer to current GNEApplicationWindows
         GNEApplicationWindow* myGNEApp;
+
+        /// @brief build NETEDIT Config section
+        void buildNETEDITConfigSection(FXMenuPane* menuPane);
+
+        /// @brief build SUMO Config section
+        void buildSUMOConfigSection(FXMenuPane* menuPane);
+
+        /// @brief build traffic light section
+        void buildTrafficLightSection(FXMenuPane* menuPane);
+
+        /// @brief build edge type section
+        void buildEdgeTypeSection(FXMenuPane* menuPane);
+
+        /// @brief build additional section
+        void buildAdditionalSection(FXMenuPane* menuPane);
+
+        /// @brief build demand section
+        void buildDemandSection(FXMenuPane* menuPane);
+
+        /// @brief build data section
+        void buildDataSection(FXMenuPane* menuPane);
+
+        /// @brief build meanData section
+        void buildMeanDataSection(FXMenuPane* menuPane);
 
         /// @brief Invalidated copy constructor.
         FileMenuCommands(const FileMenuCommands&) = delete;
