@@ -110,7 +110,7 @@ MFXCheckableButton::buildColors() {
     myBackColor = backColor;
     myDarkColor = makeShadowColor(myBackColor);
     myHiliteColor = hiliteColor;
-    myShadowColor = FXRGB(163,179,195); // shadowColor;
+    myShadowColor = shadowColor;
     myAmInitialised = true;
 }
 

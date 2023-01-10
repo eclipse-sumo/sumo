@@ -508,7 +508,7 @@ struct GNEViewNetHelper {
         EditModes(GNEViewNet* viewNet, const bool newNet);
 
         /// @brief build checkable buttons
-       // void buildSuperModeButtons();
+        void buildSuperModeButtons();
 
         /// @brief set supermode
         void setSupermode(Supermode supermode, const bool force);
@@ -1201,18 +1201,6 @@ struct GNEViewNetHelper {
         /// @brief update network checkable buttons
         void updateNetworkCheckableButtons();
 
-        /// @brief checkable button for supermode Network
-        MFXCheckableButton* networkButton;
-
-        /// @brief chekable button for edit mode inspect
-        MFXCheckableButton* inspectButtonNe;
-
-        /// @brief chekable button for edit mode delete
-        MFXCheckableButton* deleteButtonNe;
-
-        /// @brief chekable button for edit mode select
-        MFXCheckableButton* selectButtonNe;
-
         /// @brief checkable button for edit mode "move network elements"
         MFXCheckableButton* moveNetworkElementsButton;
 
@@ -1253,18 +1241,6 @@ struct GNEViewNetHelper {
 
         /// @brief default constructor
         DemandCheckableButtons(GNEViewNet* viewNet);
-
-        /// @brief checkable button for supermode Demand
-        MFXCheckableButton* demandButton;
-
-        /// @brief chekable button for edit mode inspect
-        MFXCheckableButton* inspectButtonDe;
-
-        /// @brief chekable button for edit mode delete
-        MFXCheckableButton* deleteButtonDe;
-
-        /// @brief chekable button for edit mode select
-        MFXCheckableButton* selectButtonDe;
 
         /// @brief build checkable buttons
         void buildDemandCheckableButtons();
@@ -1318,18 +1294,6 @@ struct GNEViewNetHelper {
 
         /// @brief default constructor
         DataCheckableButtons(GNEViewNet* viewNet);
-
-        /// @brief checkable button for supermode Data
-        MFXCheckableButton* dataButton;
-
-        /// @brief chekable button for edit mode inspect
-        MFXCheckableButton* inspectButtonDa;
-
-        /// @brief chekable button for edit mode delete
-        MFXCheckableButton* deleteButtonDa;
-
-        /// @brief chekable button for edit mode select
-        MFXCheckableButton* selectButtonDa;
 
         /// @brief build checkable buttons
         void buildDataCheckableButtons();

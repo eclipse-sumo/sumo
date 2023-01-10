@@ -76,7 +76,7 @@ struct GNEApplicationWindowHelper {
         FXMenuBar* menu2;
 
         /// @brief The application menu bar for supermodes (network and demand)
-       /* FXMenuBar* superModes;*/
+        FXMenuBar* superModes;
 
         /// @brief The application menu bar for save elements (NetworkElements, additionals and demand elements)
         FXMenuBar* saveElements;

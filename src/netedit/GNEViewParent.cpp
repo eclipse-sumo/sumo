@@ -158,7 +158,6 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
 GNEViewParent::~GNEViewParent() {
     // delete toolbar grips
     myGNEAppWindows->getToolbarsGrip().destroyParentToolbarsGrips();
-    myGNEAppWindows->getToolbarsGrip2().destroyParentToolbarsGrips();
     // Remove child before remove
     myParent->removeGLChild(this);
 }
