@@ -260,6 +260,7 @@ MSLane::MSLane(const std::string& id, double maxSpeed, double friction, double l
     myRightmostSublane(0),
     myNeedsCollisionCheck(false),
     myOpposite(nullptr),
+    myBidiLane(nullptr),
 #ifdef HAVE_FOX
     mySimulationTask(*this, 0),
 #endif
@@ -311,6 +312,15 @@ MSLane::setOpposite(MSLane* oppositeLane) {
         WRITE_WARNINGF(TL("Unequal lengths of neigh lane '%' and lane '%' (% != %)."), getID(), myOpposite->getID(), getLength(), myOpposite->getLength());
     }
 }
+
+void
+MSLane::setBidiLane(MSLane* bidiLane) {
+    myBidiLane = bidiLane;
+    if (myBidiLane != nullptr && getLength() > myBidiLane->getLength()) {
+        WRITE_WARNINGF(TL("Unequal lengths of bidi lane '%' and lane '%' (% != %)."), getID(), myBidiLane->getID(), getLength(), myBidiLane->getLength());
+    }
+}
+
 
 
 // ------ interaction with MSMoveReminder ------
@@ -4270,14 +4280,7 @@ MSLane::loadRNGState(int index, const std::string& state) {
 
 MSLane*
 MSLane::getBidiLane() const {
-    const MSEdge* bidiEdge = myEdge->getBidiEdge();
-    if (bidiEdge == nullptr) {
-        return nullptr;
-    } else {
-        /// XXX multi-lane edges are not considered
-        assert(bidiEdge->getLanes().size() == 1);
-        return bidiEdge->getLanes()[0];
-    }
+    return myBidiLane;
 }
 
 

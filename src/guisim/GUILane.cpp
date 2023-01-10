@@ -983,8 +983,8 @@ GUILane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& view) {
     ret->mkItem("disallowed vehicle class", false, getVehicleClassNames(~myPermissions));
     ret->mkItem("permission code", false, myPermissions);
     ret->mkItem("color value", true, new FunctionBinding<GUILane, double>(this, &GUILane::getColorValueForTracker));
-    if (myEdge->getBidiEdge() != nullptr) {
-        ret->mkItem("bidi-edge", false, myEdge->getBidiEdge()->getID());
+    if (myBidiLane != nullptr) {
+        ret->mkItem("bidi-lane", false, myBidiLane->getID());
     }
     for (const auto& kv : myEdge->getParametersMap()) {
         ret->mkItem(("edgeParam:" + kv.first).c_str(), false, kv.second);

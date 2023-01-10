@@ -274,6 +274,12 @@ public:
      * @param[in] id The lane's id
      */
     void setOpposite(MSLane* oppositeLane);
+
+    /** @brief Adds the (overlapping) reverse direction lane to this lane
+     *
+     * @param[in] id The lane's id
+     */
+    void setBidiLane(MSLane* bidyLane);
     ///@}
 
 

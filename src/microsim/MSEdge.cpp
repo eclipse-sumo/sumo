@@ -1263,11 +1263,13 @@ MSEdge::checkAndRegisterBiDirEdge(const std::string& bidiID) {
         if (myBidiEdge == nullptr) {
             WRITE_ERROR("Bidi-edge '" + bidiID + "' does not exist");
         }
+        setBidiLanes();
         return;
     }
     if (getFunction() != SumoXMLEdgeFunc::NORMAL) {
         return;
     }
+    // legacy networks (no bidi attribute)
     ConstMSEdgeVector candidates = myToJunction->getOutgoing();
     for (ConstMSEdgeVector::const_iterator it = candidates.begin(); it != candidates.end(); it++) {
         if ((*it)->getToJunction() == myFromJunction) { //reverse edge
@@ -1275,7 +1277,35 @@ MSEdge::checkAndRegisterBiDirEdge(const std::string& bidiID) {
                 WRITE_WARNING("Ambiguous superposable edges between junction '" + myToJunction->getID() + "' and '" + myFromJunction->getID() + "'.");
                 break;
             }
-            myBidiEdge = isSuperposable(*it) ? *it : nullptr;
+            if (isSuperposable(*it)) {
+                myBidiEdge = *it;
+                setBidiLanes();
+            }
+        }
+    }
+}
+
+
+void
+MSEdge::setBidiLanes() {
+    assert(myBidiEdge != nullptr);
+    if (getNumLanes() == 1 && myBidiEdge->getNumLanes() == 1) {
+        // the other way round is set when this method runs for the bidiEdge
+        getLanes()[0]->setBidiLane(myBidiEdge->getLanes()[0]);
+    } else {
+        // find lanes with matching reversed shapes
+        int numBidiLanes = 0;
+        for (MSLane* l1 : *myLanes) {
+            for (MSLane* l2 : *myBidiEdge->myLanes) {
+                if (l1->getShape().reverse() == l2->getShape()) {
+                    l1->setBidiLane(l2);
+                    numBidiLanes++;
+                }
+            }
+        }
+        // warn only once for each pair
+        if (numBidiLanes == 0 && getID() < myBidiEdge->getID()) {
+            WRITE_WARNINGF(TL("Edge '%s' and bidi edge '%s' have no matching bidi lanes"), getID(), myBidiEdge->getID());
         }
     }
 }

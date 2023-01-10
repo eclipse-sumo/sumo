@@ -1019,6 +1019,8 @@ private:
     /// @brief assignment operator.
     MSEdge& operator=(const MSEdge&) = delete;
 
+    void setBidiLanes();
+
     bool isSuperposable(const MSEdge* other);
 
     void addToAllowed(const SVCPermissions permissions, std::shared_ptr<const std::vector<MSLane*> > allowedLanes, AllowedLanesCont& laneCont) const;
