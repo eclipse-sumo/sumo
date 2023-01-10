@@ -1942,6 +1942,12 @@ GNEViewNetHelper::SaveElements::buildSaveElementsButtons() {
             "\tSave SUMOConfig\tSave SUMOConfig.", GUIIconSubSys::getIcon(GUIIcon::SAVE_SUMOCONFIG),
             myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_S_SAVESUMOCONFIG, GUIDesignButtonToolbar);
     mySaveSUMOConfig->create();
+    // create save network button
+    mySaveNetwork = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
+            myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
+            "\tSave network\tSave network. (Ctrl+S)", GUIIconSubSys::getIcon(GUIIcon::SAVE_NETWORKELEMENTS),
+            myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK, GUIDesignButtonToolbar);
+    mySaveNetwork->create();
     // create popup for save individual files
     mySaveIndividualFilesPopup = new FXPopup(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements, POPUP_VERTICAL);
     mySaveIndividualFilesPopup->create();
@@ -1950,12 +1956,6 @@ GNEViewNetHelper::SaveElements::buildSaveElementsButtons() {
             myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(), "\tSave individual files\tSave individual files.",
             GUIIconSubSys::getIcon(GUIIcon::SAVE_QUESTION), mySaveIndividualFilesPopup, nullptr, GUIDesignButtonToolbarLocator);
     mySaveIndividualFiles->create();
-    // create save network button
-    mySaveNetwork = new MFXButtonTooltip(mySaveIndividualFilesPopup,
-            myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-            "\tSave network\tSave network. (Ctrl+S)", GUIIconSubSys::getIcon(GUIIcon::SAVE_NETWORKELEMENTS),
-            myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK, GUIDesignButtonPopup);
-    mySaveNetwork->create();
     // create save additional elements button
     mySaveAdditionalElements = new MFXButtonTooltip(mySaveIndividualFilesPopup,
             myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
