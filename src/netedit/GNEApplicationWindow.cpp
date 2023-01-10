@@ -584,7 +584,8 @@ GNEApplicationWindow::~GNEApplicationWindow() {
     delete myFileMenuDemandElements;
     delete myFileMenuMeanDataElements;
     delete myFileMenuDataElements;
-    delete myFileMenuRecentFiles;
+    delete myFileMenuRecentNetworks;
+    delete myFileMenuRecentConfigs;
     delete myFileMenu;
     delete myModesMenu;
     delete myEditMenu;
@@ -678,7 +679,7 @@ GNEApplicationWindow::onCmdOpenNetconvertConfig(FXObject*, FXSelector, void*) {
             // load netconvert
             loadNetconvertConfig();
             // add it into recent configs
-            myMenuBarFile.myRecentNetworksAndConfigs.appendFile(file.c_str());
+            myMenuBarFile.myRecentNetworks.appendFile(file.c_str());
         }
         return 1;
     }
@@ -720,7 +721,7 @@ GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
             // load network
             loadNetwork(false);
             // add it into recent nets
-            myMenuBarFile.myRecentNetworksAndConfigs.appendFile(file.c_str());
+            myMenuBarFile.myRecentNetworks.appendFile(file.c_str());
             // when a net is loaded, save additionals and TLSPrograms are disabled
             disableSaveAdditionalsMenu();
             myFileMenuCommands.saveTLSPrograms->disable();
@@ -815,6 +816,8 @@ GNEApplicationWindow::onCmdOpenNETEDITConfig(FXObject*, FXSelector, void*) {
                 WRITE_ERROR("Loading of " + file + " failed.");
             } else {
                 myLoadThread->loadConfig();
+                // After load config successfully, add it into recent configs
+                myMenuBarFile.myRecentConfigs.appendFile(neteditOptions.getString("configuration-file").c_str());
             }
             // update view
             update();
@@ -868,6 +871,8 @@ GNEApplicationWindow::onCmdOpenSUMOConfig(FXObject*, FXSelector, void*) {
                 WRITE_ERROR("Loading of SUMOConfig " + file + " failed.");
             } else {
                 myLoadThread->loadConfig();
+                // After load config successfully, add it into recent configs
+                myMenuBarFile.myRecentConfigs.appendFile(neteditOptions.getString("sumocfg-file").c_str());
             }
             // update view
             update();
@@ -1460,14 +1465,16 @@ GNEApplicationWindow::fillMenuBar() {
     myFileMenuDemandElements = new FXMenuPane(this);
     myFileMenuDataElements = new FXMenuPane(this);
     myFileMenuMeanDataElements = new FXMenuPane(this);
-    myFileMenuRecentFiles = new FXMenuPane(this);
+    myFileMenuRecentNetworks = new FXMenuPane(this);
+    myFileMenuRecentConfigs = new FXMenuPane(this);
     myFileMenuCommands.buildFileMenuCommands(myFileMenu, myFileMenuNETEDITConfig, myFileMenuSUMOConfig, 
         myFileMenuTLS, myFileMenuEdgeTypes, myFileMenuAdditionals, myFileMenuDemandElements,
         myFileMenuDataElements, myFileMenuMeanDataElements);
     // add separator for recent files
     new FXMenuSeparator(myFileMenu);
     // build recent files
-    myMenuBarFile.buildRecentFiles(myFileMenu, myFileMenuRecentFiles);
+    myMenuBarFile.buildRecentNetworkFiles(myFileMenu, myFileMenuRecentNetworks);
+    myMenuBarFile.buildRecentConfigFiles(myFileMenu, myFileMenuRecentConfigs);
     new FXMenuSeparator(myFileMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myFileMenu,
                                            TL("&Quit"), "Ctrl+Q", TL("Quit the Application."),
@@ -3569,7 +3576,7 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
         }
         myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "Network saved in " + neteditOptions.getString("net-file") + ".\n");
         // After saving a net successfully, add it into Recent Nets list.
-        myMenuBarFile.myRecentNetworksAndConfigs.appendFile(neteditOptions.getString("net-file").c_str());
+        myMenuBarFile.myRecentNetworks.appendFile(neteditOptions.getString("net-file").c_str());
         myMessageWindow->addSeparator();
         getApp()->endWaitCursor();
         // update view
@@ -3645,6 +3652,8 @@ GNEApplicationWindow::onCmdSaveNETEDITConfig(FXObject*, FXSelector, void*) {
         setStatusBarText("netedit configuration saved to " + neteditConfigFile);
         // config saved
         myNeteditConfigSaved = true;
+        // After saving a config successfully, add it into recent configs
+        myMenuBarFile.myRecentConfigs.appendFile(neteditOptions.getString("configuration-file").c_str());
     } else {
         setStatusBarText("Could not save netedit configuration to " + neteditConfigFile);
     }
@@ -3695,6 +3704,8 @@ GNEApplicationWindow::onCmdSaveNETEDITConfigAs(FXObject*, FXSelector, void*) {
         setStatusBarText("Netedit configuration saved to " + file);
         // config saved
         myNeteditConfigSaved = true;
+        // After saving a config successfully, add it into recent configs
+        myMenuBarFile.myRecentConfigs.appendFile(neteditOptions.getString("configuration-file").c_str());
     } else {
         setStatusBarText("Could not save netdit configuration to " + file);
     }
@@ -3803,6 +3814,8 @@ GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject*, FXSelector, void*) {
         setStatusBarText("SUMO configuration saved to " + sumoConfigFile);
         // config saved
         mySumoConfigSaved = true;
+        // After saving a config successfully, add it into recent configs
+        myMenuBarFile.myRecentConfigs.appendFile(neteditOptions.getString("sumocfg-file").c_str());
     } else {
         setStatusBarText("Could not save SUMO configuration to " + sumoConfigFile);
     }
@@ -3850,6 +3863,8 @@ GNEApplicationWindow::onCmdSaveSUMOConfigAs(FXObject*, FXSelector, void*) {
         setStatusBarText("Configuration saved to " + file);
         // config saved
         mySumoConfigSaved = true;
+        // After saving a config successfully, add it into recent configs
+        myMenuBarFile.myRecentConfigs.appendFile(neteditOptions.getString("sumocfg-file").c_str());
     } else {
         setStatusBarText("Could not save configuration to " + file);
     }

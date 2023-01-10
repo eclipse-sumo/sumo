@@ -209,7 +209,8 @@ std::mt19937 GUIApplicationWindow::myGamingRNG;
 // ===========================================================================
 GUIApplicationWindow::GUIApplicationWindow(FXApp* a, const std::string& configPattern) :
     GUIMainWindow(a),
-    myFileMenuRecentFiles(new FXMenuPane(this)),
+    myFileMenuRecentNetworks(new FXMenuPane(this)),
+    myFileMenuRecentConfigs(new FXMenuPane(this)),
     myRecentNetworksAndConfigs(a, "files"),
     myConfigPattern(configPattern),
     myLastStepEventMillis(SysUtils::getCurrentMillis() - MIN_DRAW_DELAY)
@@ -369,7 +370,8 @@ GUIApplicationWindow::~GUIApplicationWindow() {
     delete myToolBarDrag1;
     delete mySimDelayTarget;
     // delete rest of elements
-    delete myFileMenuRecentFiles;
+    delete myFileMenuRecentNetworks;
+    delete myFileMenuRecentConfigs;
     delete myRunThread;
     delete myFileMenu;
     delete myEditMenu;
@@ -446,7 +448,8 @@ GUIApplicationWindow::fillMenuBar() {
                                            GUIIconSubSys::getIcon(GUIIcon::CLOSE), this, MID_HOTKEY_CTRL_W_CLOSESIMULATION);
     new FXMenuSeparator(myFileMenu);
     // build recent files
-    buildRecentFiles(myFileMenu, myFileMenuRecentFiles);
+    buildRecentFiles(myFileMenu, myFileMenuRecentNetworks);
+    buildRecentFiles(myFileMenu, myFileMenuRecentConfigs);
     new FXMenuSeparator(myFileMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myFileMenu,
                                            TL("&Quit"), "Ctrl+Q", TL("Quit the Application."),

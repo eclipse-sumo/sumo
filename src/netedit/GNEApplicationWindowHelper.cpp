@@ -137,31 +137,55 @@ GNEApplicationWindowHelper::ToolbarsGrip::destroyParentToolbarsGrips() {
 // ===========================================================================
 
 GNEApplicationWindowHelper::MenuBarFile::MenuBarFile(GNEApplicationWindow* GNEApp) :
-    myRecentNetworksAndConfigs(GNEApp->getApp(), "nets"),
-    myGNEApp(GNEApp)
-{ }
+    myRecentNetworks(GNEApp->getApp(), "nets"),
+    myRecentConfigs(GNEApp->getApp(), "configs"),
+    myGNEApp(GNEApp) {
+}
 
 
 void
-GNEApplicationWindowHelper::MenuBarFile::buildRecentFiles(FXMenuPane* fileMenu, FXMenuPane* fileMenuRecentFiles) {
+GNEApplicationWindowHelper::MenuBarFile::buildRecentNetworkFiles(FXMenuPane* fileMenu, FXMenuPane* fileMenuRecentNetworkFiles) {
     // for whatever reason, sonar complains in the next line that sep1 may leak, but fox does the cleanup
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentFiles, "", &myRecentNetworksAndConfigs, FXRecentFiles::ID_FILE_1);
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentFiles, "", &myRecentNetworksAndConfigs, FXRecentFiles::ID_FILE_2);
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentFiles, "", &myRecentNetworksAndConfigs, FXRecentFiles::ID_FILE_3);
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentFiles, "", &myRecentNetworksAndConfigs, FXRecentFiles::ID_FILE_4);
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentFiles, "", &myRecentNetworksAndConfigs, FXRecentFiles::ID_FILE_5);
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentFiles, "", &myRecentNetworksAndConfigs, FXRecentFiles::ID_FILE_6);
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentFiles, "", &myRecentNetworksAndConfigs, FXRecentFiles::ID_FILE_7);
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentFiles, "", &myRecentNetworksAndConfigs, FXRecentFiles::ID_FILE_8);
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentFiles, "", &myRecentNetworksAndConfigs, FXRecentFiles::ID_FILE_9);
-    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentFiles, "", &myRecentNetworksAndConfigs, FXRecentFiles::ID_FILE_10);
-    new FXMenuSeparator(fileMenuRecentFiles);  // NOSONAR, Fox does the cleanup
-    GUIDesigns::buildFXMenuCommand(fileMenuRecentFiles, "Cl&ear Recent Files", nullptr, &myRecentNetworksAndConfigs, FXRecentFiles::ID_CLEAR);
-    GUIDesigns::buildFXMenuCommand(fileMenuRecentFiles, "No Recent Files", nullptr, &myRecentNetworksAndConfigs, MFXRecentNetworks::ID_NOFILES);
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentNetworkFiles, "", &myRecentNetworks, FXRecentFiles::ID_FILE_1);
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentNetworkFiles, "", &myRecentNetworks, FXRecentFiles::ID_FILE_2);
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentNetworkFiles, "", &myRecentNetworks, FXRecentFiles::ID_FILE_3);
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentNetworkFiles, "", &myRecentNetworks, FXRecentFiles::ID_FILE_4);
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentNetworkFiles, "", &myRecentNetworks, FXRecentFiles::ID_FILE_5);
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentNetworkFiles, "", &myRecentNetworks, FXRecentFiles::ID_FILE_6);
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentNetworkFiles, "", &myRecentNetworks, FXRecentFiles::ID_FILE_7);
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentNetworkFiles, "", &myRecentNetworks, FXRecentFiles::ID_FILE_8);
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentNetworkFiles, "", &myRecentNetworks, FXRecentFiles::ID_FILE_9);
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentNetworkFiles, "", &myRecentNetworks, FXRecentFiles::ID_FILE_10);
+    new FXMenuSeparator(fileMenuRecentNetworkFiles);  // NOSONAR, Fox does the cleanup
+    GUIDesigns::buildFXMenuCommand(fileMenuRecentNetworkFiles, "Cl&ear Recent Networks", nullptr, &myRecentNetworks, FXRecentFiles::ID_CLEAR);
+    GUIDesigns::buildFXMenuCommand(fileMenuRecentNetworkFiles, "No Recent Networks", nullptr, &myRecentNetworks, MFXRecentNetworks::ID_NOFILES);
     // set target
-    myRecentNetworksAndConfigs.setTarget(myGNEApp);
-    myRecentNetworksAndConfigs.setSelector(MID_RECENTFILE);
-    new FXMenuCascade(fileMenu, "Recent Files", nullptr, fileMenuRecentFiles);
+    myRecentNetworks.setTarget(myGNEApp);
+    myRecentNetworks.setSelector(MID_RECENTFILE);
+    new FXMenuCascade(fileMenu, "Recent Networks", nullptr, fileMenuRecentNetworkFiles);
+}
+
+
+void
+GNEApplicationWindowHelper::MenuBarFile::buildRecentConfigFiles(FXMenuPane* fileMenu, FXMenuPane* fileMenuRecentConfigFiles) {
+    // for whatever reason, sonar complains in the next line that sep1 may leak, but fox does the cleanup
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentConfigFiles, "", &myRecentConfigs, FXRecentFiles::ID_FILE_1);
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentConfigFiles, "", &myRecentConfigs, FXRecentFiles::ID_FILE_2);
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentConfigFiles, "", &myRecentConfigs, FXRecentFiles::ID_FILE_3);
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentConfigFiles, "", &myRecentConfigs, FXRecentFiles::ID_FILE_4);
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentConfigFiles, "", &myRecentConfigs, FXRecentFiles::ID_FILE_5);
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentConfigFiles, "", &myRecentConfigs, FXRecentFiles::ID_FILE_6);
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentConfigFiles, "", &myRecentConfigs, FXRecentFiles::ID_FILE_7);
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentConfigFiles, "", &myRecentConfigs, FXRecentFiles::ID_FILE_8);
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentConfigFiles, "", &myRecentConfigs, FXRecentFiles::ID_FILE_9);
+    GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentConfigFiles, "", &myRecentConfigs, FXRecentFiles::ID_FILE_10);
+    new FXMenuSeparator(fileMenuRecentConfigFiles);  // NOSONAR, Fox does the cleanup
+    GUIDesigns::buildFXMenuCommand(fileMenuRecentConfigFiles, "Cl&ear Recent Configs", nullptr, &myRecentConfigs, FXRecentFiles::ID_CLEAR);
+    GUIDesigns::buildFXMenuCommand(fileMenuRecentConfigFiles, "No Recent Configs", nullptr, &myRecentConfigs, MFXRecentNetworks::ID_NOFILES);
+    // set target
+    myRecentConfigs.setTarget(myGNEApp);
+    myRecentConfigs.setSelector(MID_RECENTFILE);
+    new FXMenuCascade(fileMenu, "Recent Configs", nullptr, fileMenuRecentConfigFiles);
 }
 
 // ---------------------------------------------------------------------------

@@ -386,8 +386,11 @@ protected:
                *myWindowMenu = nullptr, 
                *myHelpMenu = nullptr;
 
-    /// @brief FXMenu pane for recent files
-    FXMenuPane *myFileMenuRecentFiles = nullptr;
+    /// @brief FXMenu pane for recent networks
+    FXMenuPane *myFileMenuRecentNetworks = nullptr;
+
+    /// @brief FXMenu pane for recent configs
+    FXMenuPane *myFileMenuRecentConfigs = nullptr;
 
     /// @brief the menu cascades
     FXMenuCascade* mySelectLanesMenuCascade = nullptr;
