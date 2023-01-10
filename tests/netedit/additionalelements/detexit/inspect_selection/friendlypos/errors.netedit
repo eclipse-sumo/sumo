@@ -1,13 +1,20 @@
+GLDebug: initJunctionsAndEdges function called in GNENet constructor
+GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -12.00,-12.00,12.00,12.00
+GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 38.00,-12.00,62.00,12.00
+GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
+GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Inserting generic parameter 'KeyA1|valueA1' into detExit
 Debug: Inserting generic parameter 'KeyA3|valueA2' into detExit
 Debug: Inserting generic parameter 'KeyA2|valueA3' into detExit
 Debug: Adding entryExitDetector 'E3_0' in GNEChange_Additional
+GLDebug: 	Inserted e3Detector:E3_0 into SUMORTree with boundary -2.50,-7.00,17.50,13.00
 Debug: Adding detExit 'E3_0' in GNEChange_Additional
 Debug: Adding detEntry 'E3_0' in GNEChange_Additional
 Debug: Inserting generic parameter 'KeyB1|valueB1' into detExit
 Debug: Inserting generic parameter 'KeyB3|valueB2' into detExit
 Debug: Inserting generic parameter 'KeyB2|valueB3' into detExit
 Debug: Adding entryExitDetector 'E3_1' in GNEChange_Additional
+GLDebug: 	Inserted e3Detector:E3_1 into SUMORTree with boundary 7.50,-7.00,27.50,13.00
 Debug: Adding detExit 'E3_1' in GNEChange_Additional
 Debug: Adding detEntry 'E3_1' in GNEChange_Additional
 Debug: Setting new attribute
@@ -43,15 +50,19 @@ Debug: Calling GNEUndoList::undo()
 Debug: Removing detEntry 'E3_1' in GNEChange_Additional
 Debug: Removing detExit 'E3_1' in GNEChange_Additional
 Debug: Removing entryExitDetector 'E3_1' in GNEChange_Additional
+GLDebug: 	Removed object e3Detector:E3_1 from SUMORTree with boundary 7.50,-7.00,27.50,13.00
 Debug: Removing detEntry 'E3_0' in GNEChange_Additional
 Debug: Removing detExit 'E3_0' in GNEChange_Additional
 Debug: Removing entryExitDetector 'E3_0' in GNEChange_Additional
+GLDebug: 	Removed object e3Detector:E3_0 from SUMORTree with boundary -2.50,-7.00,17.50,13.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding entryExitDetector 'E3_0' in GNEChange_Additional
+GLDebug: 	Inserted e3Detector:E3_0 into SUMORTree with boundary -2.50,-7.00,17.50,13.00
 Debug: Adding detExit 'E3_0' in GNEChange_Additional
 Debug: Adding detEntry 'E3_0' in GNEChange_Additional
 Debug: Adding entryExitDetector 'E3_1' in GNEChange_Additional
+GLDebug: 	Inserted e3Detector:E3_1 into SUMORTree with boundary 7.50,-7.00,27.50,13.00
 Debug: Adding detExit 'E3_1' in GNEChange_Additional
 Debug: Adding detEntry 'E3_1' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
@@ -70,16 +81,42 @@ Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
 Debug: Setting new attribute
+GLDebug: Removing junctions during recomputing
+GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
+GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00
+GLDebug: Removing edges during recomputing
+GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -10.00,-11.60,60.00,10.00
+GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,60.00,11.60
+GLDebug: Add junctions during recomputing after calling myNetBuilder->compute(...)
+GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -10.00,-13.20,10.00,13.20
+GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 40.00,-13.20,60.00,13.20
+GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
+GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
+GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Additionals saved
+GLDebug: Removing junctions during recomputing
+GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -10.00,-13.20,10.00,13.20
+GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 40.00,-13.20,60.00,13.20
+GLDebug: Removing edges during recomputing
+GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -10.00,-11.60,60.00,10.00
+GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,60.00,11.60
+GLDebug: Add junctions during recomputing after calling myNetBuilder->compute(...)
+GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -10.00,-13.20,10.00,13.20
+GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 40.00,-13.20,60.00,13.20
+GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
+GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
+GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: network elements saved
 Debug: Deleting unreferenced detEntry
 Debug: Deleting unreferenced detExit
 Debug: Deleting unreferenced entryExitDetector
+GLDebug: 	Removed object e3Detector:E3_1 from SUMORTree with boundary 7.50,-7.00,27.50,13.00
 Debug: Deleting unreferenced detEntry
 Debug: Deleting unreferenced detExit
 Debug: Deleting unreferenced entryExitDetector
+GLDebug: 	Removed object e3Detector:E3_0 from SUMORTree with boundary -2.50,-7.00,17.50,13.00
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
@@ -89,3 +126,4 @@ Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destru
 Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
+GLDebug: Number of objects in SUMORTree during call of the destructor: 4

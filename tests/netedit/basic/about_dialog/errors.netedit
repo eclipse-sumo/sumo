@@ -1,5 +1,11 @@
+GLDebug: initJunctionsAndEdges function called in GNENet constructor
 Debug: Opening about dialog
-Debug: Modules:  x86_64 GNU 9.3.0 Release FMI Proj GUI SWIG GDAL FFmpeg GL2PS Eigen
+Debug: Modules:  AMD64 MSVC 19.34.31935.0 Release FMI Proj GUI Intl SWIG GDAL FFmpeg OSG GL2PS Eigen
 Debug: Closed about dialog
+GLDebug: Removing junctions during recomputing
+GLDebug: Removing edges during recomputing
+GLDebug: Add junctions during recomputing after calling myNetBuilder->compute(...)
+GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 Debug: network elements saved
 Debug: Deleting net builder in GNENet destructor
+GLDebug: Number of objects in SUMORTree during call of the destructor: 0
