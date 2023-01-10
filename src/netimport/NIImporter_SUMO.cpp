@@ -1010,13 +1010,6 @@ NIImporter_SUMO::parseProhibitionConnection(const std::string& attr, std::string
     }
     from = attr.substr(0, div);
     to = attr.substr(div + 2);
-    // check whether the definition includes a lane information and discard it
-    if (from.find('_') != std::string::npos) {
-        from = from.substr(0, from.find('_'));
-    }
-    if (to.find('_') != std::string::npos) {
-        to = to.substr(0, to.find('_'));
-    }
     // check whether the edges are known
     if (myEdges.count(from) == 0) {
         WRITE_ERROR("Unknown edge prohibition '" + from + "'");
