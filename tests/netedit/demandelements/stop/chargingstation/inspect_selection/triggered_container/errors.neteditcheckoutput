@@ -7,10 +7,8 @@ Warning: Vehicle 'flow.5' ignores container triggered stop on lane 'gneE0_0' due
 Warning: Vehicle 'flow.6' ignores container triggered stop on lane 'gneE0_0' due to capacity constraints.
 Warning: Vehicle 'flow.7' ignores container triggered stop on lane 'gneE0_0' due to capacity constraints.
 Warning: Vehicle 'flow.8' ignores container triggered stop on lane 'gneE0_0' due to capacity constraints.
-Warning: Vehicle 'flow.6' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
 Warning: Vehicle 'flow.9' ignores container triggered stop on lane 'gneE0_0' due to capacity constraints.
 Warning: Vehicle 'flow.10' ignores container triggered stop on lane 'gneE0_0' due to capacity constraints.
-Warning: Vehicle 'flow.8' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
 Warning: Vehicle 'flow.11' ignores container triggered stop on lane 'gneE0_0' due to capacity constraints.
 Warning: Vehicle 'flow.12' ignores container triggered stop on lane 'gneE0_0' due to capacity constraints.
 Warning: Vehicle 'flow.13' ignores container triggered stop on lane 'gneE0_0' due to capacity constraints.
@@ -18,5 +16,7 @@ Warning: Vehicle 'flow.14' ignores container triggered stop on lane 'gneE0_0' du
 Warning: Vehicle 'flow.15' ignores container triggered stop on lane 'gneE0_0' due to capacity constraints.
 Warning: Vehicle 'flow.16' ignores container triggered stop on lane 'gneE0_0' due to capacity constraints.
 Warning: Vehicle 'flow.17' ignores container triggered stop on lane 'gneE0_0' due to capacity constraints.
+Warning: Vehicle 'flow.6' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
+Warning: Vehicle 'flow.8' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
 Warning: Vehicle 'flow.10' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
 Warning: Vehicle 'flow.12' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
