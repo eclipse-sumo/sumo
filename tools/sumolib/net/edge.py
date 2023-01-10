@@ -215,10 +215,9 @@ class Edge:
                 self._rawShape3D = [self._from.getCoord3D(), self._to.getCoord3D()]
 
         # 2d - versions
-        self._shape = [(x, y) for x, y, z in self._shape3D]
-        self._shapeWithJunctions = [(x, y)
-                                    for x, y, z in self._shapeWithJunctions3D]
-        self._rawShape = [(x, y) for x, y, z in self._rawShape3D]
+        self._shape = [(x, y) for x, y, z in self._shape3D]  # noqa
+        self._shapeWithJunctions = [(x, y) for x, y, z in self._shapeWithJunctions3D]  # noqa
+        self._rawShape = [(x, y) for x, y, z in self._rawShape3D]  # noqa
 
     def getLength(self):
         return self._lanes[0].getLength()

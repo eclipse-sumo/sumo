@@ -605,7 +605,7 @@ def simple_rerouting(options, res_id_unassigned, res_id_picked,
             # if one vehicle problem, assign the fastest trip with
             # max reservations served (equivalent to minor trip_cost)
             trips_list = list(rtv_dict.keys())
-            costs_list = [value[3] for trip, value in rtv_dict.items()]
+            costs_list = [value[3] for key, value in rtv_dict.items()]
             trip_index = costs_list.index(min(costs_list))
             trip_id = trips_list[trip_index]
             return {trip_id: rtv_dict[trip_id]}, rtv_res

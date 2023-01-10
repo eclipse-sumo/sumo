@@ -655,7 +655,7 @@ def toCsv(options):
                 tlLogics.append(tlLogic)
         # check for same signal groups
         if options.group:
-            if not len(set([len(tlLogic._signalGroups) for tlLogic in tlLogics])) == 1:
+            if not len(set([len(tll._signalGroups) for tll in tlLogics])) == 1:
                 print("Signal states of TL %s cannot be grouped unambiguously. "
                       "Please remove the group option or the contradictory tll file." % tls.getID())
                 return

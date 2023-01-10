@@ -360,7 +360,7 @@ def generate_rerouters_process(parameters):
         sequence = distances.items()
 
     for pid, dists in sequence:
-        list_of_dist = [tuple(reversed(x)) for x in dists.items() if x[1] is not None]
+        list_of_dist = [tuple(reversed(kv)) for kv in dists.items() if kv[1] is not None]
         list_of_dist = sorted(list_of_dist)
         temp_rerouters = [(pid, 0.0)]
 

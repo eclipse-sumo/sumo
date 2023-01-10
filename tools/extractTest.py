@@ -325,7 +325,7 @@ for d, p in [
                 if options.verbose:
                     print("generating shell scripts for testPath '%s' with call '%s'" %
                           (testPath, " ".join(appOptions)))
-                cmd = [o if " " not in o else "'%s'" % o for o in appOptions]
+                cmd = [ao if " " not in ao else "'%s'" % ao for ao in appOptions]
                 with open(nameBase + ".sh", "w") as sh:
                     sh.write(" ".join(cmd))
                 os.chmod(nameBase + ".sh", os.stat(nameBase + ".sh").st_mode | stat.S_IXUSR)

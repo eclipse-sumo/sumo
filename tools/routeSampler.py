@@ -483,7 +483,7 @@ def optimize(options, countData, routes, usedRoutes, routeUsage, intervalCount):
         #    sum(map(round, routeCounts)),
         #    routeCounts))
         # print("slack (n=%s, sum=%s) %s" % (len(slack), sum(slack), slack))
-        usedRoutes.extend(sum([[i] * int(round(c)) for i, c in enumerate(routeCounts)], []))
+        usedRoutes.extend(sum([[i] * int(round(count)) for i, count in enumerate(routeCounts)], []))
         # print("#usedRoutes=%s" % len(usedRoutes))
         # update countData
     else:
@@ -863,7 +863,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                     if closedCounts:
                         openCounts = [c for c in openCounts if c not in closedCounts]
 
-    totalMismatch = sum([cd.count for cd in countData])
+    totalMismatch = sum([cd.count for cd in countData])  # noqa
 
     if totalMismatch > 0 and options.optimize is not None:
         if options.verbose:
