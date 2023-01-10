@@ -458,7 +458,7 @@ GNECreateEdgeFrame::LaneTypeSelector::showLaneTypeSelector() {
 
 void
 GNECreateEdgeFrame::LaneTypeSelector::hideLaneTypeSelector() {
-    // hide attributes creator modul
+    // hide attributes creator module
     myCreateEdgeFrameParent->myLaneTypeAttributes->hideAttributesCreatorModule();
     // hide
     hide();
@@ -833,7 +833,7 @@ void
 GNECreateEdgeFrame::disablePedestrians(GNEEdge* edge) const {
     // iterate over lanes
     for (const auto& lane : edge->getLanes()) {
-        // avoid sidelwalks
+        // avoid sidewalks
         if (lane->getAttribute(SUMO_ATTR_ALLOW) != "pedestrian") {
             // extract disallow list
             std::vector<std::string> disallowList = GNEAttributeCarrier::parse<std::vector<std::string> >(lane->getAttribute(SUMO_ATTR_DISALLOW));
