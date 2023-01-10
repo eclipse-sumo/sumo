@@ -442,7 +442,7 @@ GUIApplicationWindow::fillMenuBar() {
     new FXMenuSeparator(myFileMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myFileMenu,
                                            TL("Save Configuration"), "Ctrl+Shift+S", TL("Save current options as a configuration file."),
-                                           GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_HOTKEY_CTRL_SHIFT_S_SAVESUMOCONFIG);
+                                           GUIIconSubSys::getIcon(GUIIcon::SAVE_SUMOCONFIG), this, MID_HOTKEY_CTRL_SHIFT_S_SAVESUMOCONFIG);
     GUIDesigns::buildFXMenuCommandShortcut(myFileMenu,
                                            TL("Close"), "Ctrl+W", TL("Close the simulation."),
                                            GUIIconSubSys::getIcon(GUIIcon::CLOSE), this, MID_HOTKEY_CTRL_W_CLOSESIMULATION);
