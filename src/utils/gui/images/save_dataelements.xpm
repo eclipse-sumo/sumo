@@ -1,8 +1,7 @@
 /* XPM */
 static const char *save_dataelements_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"14 14 10 1",
-"  c black",
+"16 16 9 1",
 ". c #040404",
 "X c #007F0E",
 "o c red",
@@ -10,21 +9,23 @@ static const char *save_dataelements_xpm[] = {
 "+ c #FFD800",
 "@ c #0026FF",
 "# c #BFC2BF",
-"$ c white",
+"$ c #bfc2bf",
 "% c None",
 /* pixels */
-"..............",
-".OOOOOOOOOOOO.",
-".O          O.",
-".O $$@@$$$$ O.",
-".O oo@@$$$$ O.",
-".O oo@@XX$$ O.",
-".O oo@@XX++ O.",
-".O          O.",
-".OOOOOOOOOOOO.",
-".OO.........O.",
-".OO......##.O.",
-".OO......##.O.",
-".OO......##.O.",
-"%............."
+"%%%%%%%%%%%%%%%%",
+"%..............%",
+"%.O.$$$$$$$$.#.%",
+"%.O.$$@@$$$$...%",
+"%.O.oo@@$$$$.O.%",
+"%.O.oo@@XX$$.O.%",
+"%.O.oo@@XX++.O.%",
+"%.O.oo@@XX++.O.%",
+"%.OO........OO.%",
+"%.OOOOOOOOOOOO.%",
+"%.OO.........O.%",
+"%.OO......##.O.%",
+"%.OO......##.O.%",
+"%.OO......##.O.%",
+"%%.............%",
+"%%%%%%%%%%%%%%%%"
 };
