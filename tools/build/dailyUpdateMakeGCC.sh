@@ -108,6 +108,7 @@ if make -j32 >> $MAKEALLLOG 2>&1; then
 else
   echo "make with all options failed" | tee -a $STATUSLOG; tail -20 $MAKEALLLOG
 fi
+cd $PREFIX/sumo
 echo `grep -ci 'warn[iu]ng:' $MAKEALLLOG` warnings >> $STATUSLOG
 echo "--" >> $STATUSLOG
 
