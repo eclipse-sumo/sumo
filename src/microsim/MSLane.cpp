@@ -885,8 +885,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             firstRailSignalDist = seen;
         }
         // allow guarding bidirectional tracks at the network border with railSignal
-        if (currentLane == this && notification == MSMoveReminder::NOTIFICATION_DEPARTED
-                && (*link)->getJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
+        if (currentLane == this && (*link)->getJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
             /// the oncoming check differs depending on whether the train may brake
             const double vSafe = cfModel.insertionStopSpeed(aVehicle, speed, seen);
             bool brakeBeforeSignal = patchSpeed || speed <= vSafe;
