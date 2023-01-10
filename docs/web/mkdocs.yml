@@ -31,9 +31,9 @@ plugins:
   - git-revision-date:
       as_datetime: true
   - macros
-  - redirects:
-      redirect_maps:
-          "Z/index.md" : "ChangeLog.md"
+  #- redirects:
+      #redirect_maps:
+          #"Z/index.md" : "ChangeLog.md"
 
 markdown_extensions:
   - attr_list
