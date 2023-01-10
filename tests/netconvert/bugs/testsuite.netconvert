@@ -175,3 +175,6 @@ ticket11996
 
 # invalid plain output
 ticket12086
+
+# prohibitions fail for edge id with '_' 
+ticket12419
