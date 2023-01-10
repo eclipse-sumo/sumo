@@ -2993,20 +2993,24 @@ GNEApplicationWindow::onUpdNeedsNetwork(FXObject* sender, FXSelector, void*) {
     if (myNet) {
         // enable menu cascades
         myFileMenuCommands.SUMOConfigMenuCascade->enable();
+        myFileMenuCommands.NETEDITConfigMenuCascade->enable();
         myFileMenuCommands.TLSMenuCascade->enable();
         myFileMenuCommands.edgeTypesMenuCascade->enable();
         myFileMenuCommands.additionalMenuCascade->enable();
         myFileMenuCommands.demandMenuCascade->enable();
         myFileMenuCommands.dataMenuCascade->enable();
+        myFileMenuCommands.meanDataMenuCascade->enable();
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else {
         // disable menu cascades
         myFileMenuCommands.SUMOConfigMenuCascade->disable();
+        myFileMenuCommands.NETEDITConfigMenuCascade->disable();
         myFileMenuCommands.TLSMenuCascade->disable();
         myFileMenuCommands.edgeTypesMenuCascade->disable();
         myFileMenuCommands.additionalMenuCascade->disable();
         myFileMenuCommands.demandMenuCascade->disable();
         myFileMenuCommands.dataMenuCascade->disable();
+        myFileMenuCommands.meanDataMenuCascade->disable();
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     }
 }

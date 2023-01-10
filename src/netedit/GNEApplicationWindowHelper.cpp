@@ -224,10 +224,10 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
     new FXMenuSeparator(fileMenu);
     // create NETEDITConfig menu options
     buildNETEDITConfigSection(fileMenuNETEDITConfig);
-    NETEDITConfigMenuCascade = new FXMenuCascade(fileMenu, "NETEDITConfig", GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), fileMenuNETEDITConfig);
+    NETEDITConfigMenuCascade = new FXMenuCascade(fileMenu, "Netedit Config", GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), fileMenuNETEDITConfig);
     // create SUMOConfig menu options
     buildSUMOConfigSection(fileMenuSUMOConfig);
-    SUMOConfigMenuCascade = new FXMenuCascade(fileMenu, "SUMOConfig", GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI), fileMenuSUMOConfig);
+    SUMOConfigMenuCascade = new FXMenuCascade(fileMenu, "Sumo Config", GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI), fileMenuSUMOConfig);
     // create TLS menu options
     buildTrafficLightSection(fileMenuTLS);
     TLSMenuCascade = new FXMenuCascade(fileMenu, "Traffic Lights", GUIIconSubSys::getIcon(GUIIcon::MODETLS), fileMenuTLS);
@@ -245,7 +245,7 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
     dataMenuCascade = new FXMenuCascade(fileMenu, "Data Elements", GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA), fileMenuDataElements);
     // create MeanDatas menu options
     buildMeanDataSection(fileMenuMeanDataElements);
-    dataMenuCascade = new FXMenuCascade(fileMenu, "MeanData Elements", GUIIconSubSys::getIcon(GUIIcon::MODEMEANDATA), fileMenuMeanDataElements);
+    meanDataMenuCascade = new FXMenuCascade(fileMenu, "MeanData Elements", GUIIconSubSys::getIcon(GUIIcon::MODEMEANDATA), fileMenuMeanDataElements);
     // close network
     new FXMenuSeparator(fileMenu);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
@@ -257,15 +257,15 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
 void
 GNEApplicationWindowHelper::FileMenuCommands::buildNETEDITConfigSection(FXMenuPane* menuPane) {
     saveNETEDITConfig = GUIDesigns::buildFXMenuCommandShortcut(menuPane,
-        "Save NETEDITConfig", "Ctrl+Shift+E", "Save netedit configuration file.",
+        "Save Netedit Config", "Ctrl+Shift+E", "Save netedit configuration file.",
         GUIIconSubSys::getIcon(GUIIcon::SAVE_NETEDITCONFIG), myGNEApp, MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG);
     saveNETEDITConfig->disable();
     GUIDesigns::buildFXMenuCommandShortcut(menuPane,
-        "Save NETEDITConfig As...", "", "Save netedit configuration in a new file.",
+        "Save Netedit Config As...", "", "Save netedit configuration in a new file.",
         GUIIconSubSys::getIcon(GUIIcon::SAVE_NETEDITCONFIG), myGNEApp, MID_GNE_TOOLBARFILE_SAVENETEDITCONFIG_AS);
     new FXMenuSeparator(menuPane);
     reloadNETEDITConfig = GUIDesigns::buildFXMenuCommandShortcut(menuPane,
-        "Reload NETEDITConfig", "", "Reload NETEDITConfig.",
+        "Reload Netedit Config", "", "Reload netedit configuration.",
         GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_NETEDITCONFIG);
 }
 
@@ -273,15 +273,15 @@ GNEApplicationWindowHelper::FileMenuCommands::buildNETEDITConfigSection(FXMenuPa
 void
 GNEApplicationWindowHelper::FileMenuCommands::buildSUMOConfigSection(FXMenuPane* menuPane) {
     saveSUMOConfig = GUIDesigns::buildFXMenuCommandShortcut(menuPane,
-        "Save SUMOConfig", "Ctrl+Shift+S", "Save sumo configuration file.",
+        "Save Sumo Config", "Ctrl+Shift+S", "Save sumo configuration file.",
         GUIIconSubSys::getIcon(GUIIcon::SAVE_SUMOCONFIG), myGNEApp, MID_HOTKEY_CTRL_SHIFT_S_SAVESUMOCONFIG);
     saveSUMOConfig->disable();
     GUIDesigns::buildFXMenuCommandShortcut(menuPane,
-        "Save SUMOConfig As...", "", "Save sumo configuration in a new file.",
+        "Save Sumo Config As...", "", "Save sumo configuration in a new file.",
         GUIIconSubSys::getIcon(GUIIcon::SAVE_SUMOCONFIG), myGNEApp, MID_GNE_TOOLBARFILE_SAVESUMOCONFIG_AS);
     new FXMenuSeparator(menuPane);
     reloadSUMOConfig = GUIDesigns::buildFXMenuCommandShortcut(menuPane,
-        "Reload SUMOConfig", "", "Reload SUMOConfig.",
+        "Reload Sumo Config", "", "Reload sumo configuration.",
         GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOAD_SUMOCONFIG);
 }
 
