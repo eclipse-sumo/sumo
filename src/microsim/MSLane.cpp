@@ -317,7 +317,9 @@ void
 MSLane::setBidiLane(MSLane* bidiLane) {
     myBidiLane = bidiLane;
     if (myBidiLane != nullptr && getLength() > myBidiLane->getLength()) {
-        WRITE_WARNINGF(TL("Unequal lengths of bidi lane '%' and lane '%' (% != %)."), getID(), myBidiLane->getID(), getLength(), myBidiLane->getLength());
+        if (isNormal() || MSGlobals::gUsingInternalLanes) {
+            WRITE_WARNINGF(TL("Unequal lengths of bidi lane '%' and lane '%' (% != %)."), getID(), myBidiLane->getID(), getLength(), myBidiLane->getLength());
+        }
     }
 }
 
