@@ -327,6 +327,24 @@ private:
         bool myDrag;
     };
 
+    class ExcludeFromNearFarComputationCallback : public osg::NodeCallback {
+        virtual void operator()(osg::Node* node, osg::NodeVisitor* nv) {
+            osgUtil::CullVisitor *cv = dynamic_cast<osgUtil::CullVisitor*>(nv);
+            // Default value
+            osg::CullSettings::ComputeNearFarMode oldMode = osg::CullSettings::COMPUTE_NEAR_FAR_USING_BOUNDING_VOLUMES;
+            if (cv) {
+                oldMode = cv->getComputeNearFarMode();
+                cv->setComputeNearFarMode(osg::CullSettings::DO_NOT_COMPUTE_NEAR_FAR);
+            }
+            traverse(node, nv);
+            if (cv) {
+                cv->setComputeNearFarMode(oldMode);
+            }
+        }
+    };
+
+
+
 protected:
     GUIOSGView() {}
 
@@ -338,7 +356,6 @@ protected:
 private:
     GUIVehicle* myTracked;
     osg::ref_ptr<GUIOSGManipulator> myCameraManipulator;
-
     SUMOTime myLastUpdate;
 
     float myOSGNormalizedCursorX, myOSGNormalizedCursorY;

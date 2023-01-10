@@ -205,8 +205,6 @@ GUIOSGBuilder::buildOSGEdgeGeometry(const MSEdge& edge,
         ss->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
         ss->setMode(GL_BLEND, osg::StateAttribute::OVERRIDE | osg::StateAttribute::PROTECTED | osg::StateAttribute::ON);
 
-
-
         if (shape.size() > 2) {
             tessellator.retessellatePolygons(*geom);
 
@@ -689,7 +687,9 @@ GUIOSGBuilder::buildPlane(double length) {
     geom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::POLYGON, 0, 4));
 
     osg::ref_ptr<osg::StateSet> ss = geode->getOrCreateStateSet();
-    ss->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
+    ss->setMode(GL_DEPTH_TEST, osg::StateAttribute::OFF);
+    ss->setRenderingHint(osg::StateSet::OPAQUE_BIN);
+    ss->setRenderBinDetails(-1, "RenderBin");
     ss->setMode(GL_BLEND, osg::StateAttribute::OVERRIDE | osg::StateAttribute::PROTECTED | osg::StateAttribute::ON);
 
     return geode;

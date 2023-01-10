@@ -146,15 +146,7 @@ GUIOSGView::GUIOSGView(
     int w = getWidth();
     int h = getHeight();
     myAdapter = new FXOSGAdapter(this, new FXCursor(parent->getApp(), CURSOR_CROSS));
-
     myViewer = new osgViewer::Viewer();
-    myViewer->setKeyEventSetsDone(0);
-    myViewer->getCamera()->setGraphicsContext(myAdapter);
-    myViewer->getCamera()->setViewport(0, 0, w, h);
-    myViewer->getCamera()->setNearFarRatio(0.005);
-    myViewer->setThreadingModel(osgViewer::Viewer::SingleThreaded);
-    myViewer->addEventHandler(new PickHandler(this));
-
     myChanger = new GUIOSGPerspectiveChanger(*this, *myGrid);
 
     const char* sumoPath = getenv("SUMO_HOME");
@@ -181,7 +173,8 @@ GUIOSGView::GUIOSGView(
     myViewer->getCamera()->getProjectionMatrixAsFrustum(left, right, bottom, top, zNear, zFar);
     myRoot = GUIOSGBuilder::buildOSGScene(myGreenLight, myYellowLight, myRedLight, myRedYellowLight, myPoleBase);
     myPlane = new osg::MatrixTransform();
-    myPlane->addChild(GUIOSGBuilder::buildPlane(zFar - zNear));
+    myPlane->setCullCallback(new ExcludeFromNearFarComputationCallback());
+    myPlane->addChild(GUIOSGBuilder::buildPlane((zFar - zNear)));
     myPlane->addUpdateCallback(new PlaneMoverCallback(myViewer->getCamera()));
     myRoot->addChild(myPlane);
 
@@ -195,6 +188,13 @@ GUIOSGView::GUIOSGView(
     myViewer->setSceneData(myRoot);
     myViewer->setCameraManipulator(myCameraManipulator);
 
+    myViewer->setKeyEventSetsDone(0);
+    myViewer->getCamera()->setGraphicsContext(myAdapter);
+    myViewer->getCamera()->setViewport(0, 0, w, h);
+    myViewer->getCamera()->setNearFarRatio(0.005); // does not work together with setUpDepthPartitionForCamera
+    myViewer->setThreadingModel(osgViewer::Viewer::SingleThreaded);
+    myViewer->addEventHandler(new PickHandler(this));
+
     osg::Vec3d lookFrom, lookAt, up;
     myCameraManipulator->getHomePosition(lookFrom, lookAt, up);
     lookFrom = lookAt + osg::Z_AXIS;
@@ -205,8 +205,6 @@ GUIOSGView::GUIOSGView(
     myViewer->home();
     getApp()->addChore(this, MID_CHORE);
 
-    osgViewer::Viewer::Windows windows;
-    myViewer->getWindows(windows);
     osg::Camera* hudCamera = myCameraManipulator->getHUD();
     hudCamera->setGraphicsContext(myAdapter);
     hudCamera->setViewport(0, 0, w, h);
