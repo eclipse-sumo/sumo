@@ -31,38 +31,40 @@
 #include <utility>
 #include <cmath>
 #include <limits>
-#include <guisim/GUINet.h>
+#include <foreign/rtree/SUMORTree.h>
+#include <gui/GUIApplicationWindow.h>
 #include <guisim/GUIEdge.h>
 #include <guisim/GUILane.h>
+#include <guisim/GUINet.h>
 #include <guisim/GUIVehicle.h>
 #include <guisim/GUIVehicleControl.h>
-#include <microsim/MSGlobals.h>
 #include <microsim/MSEdge.h>
-#include <microsim/MSLane.h>
+#include <microsim/MSGlobals.h>
 #include <microsim/MSJunctionControl.h>
+#include <microsim/MSLane.h>
 #include <microsim/MSStoppingPlace.h>
-#include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
+#include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <utils/common/RGBColor.h>
-#include <utils/geom/PositionVector.h>
-#include <utils/shapes/ShapeContainer.h>
-#include "GUISUMOViewParent.h"
-#include "GUIViewTraffic.h"
-#include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <utils/gui/windows/GUIPerspectiveChanger.h>
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/foxtools/MFXCheckableButton.h>
-#include <utils/gui/images/GUIIconSubSys.h>
-#include <gui/GUIApplicationWindow.h>
-#include <utils/gui/windows/GUIDialog_ViewSettings.h>
-#include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/foxtools/MFXButtonTooltip.h>
+#include <utils/foxtools/MFXCheckableButton.h>
 #include <utils/foxtools/MFXImageHelper.h>
-#include <utils/gui/globjects/GUIGlObjectStorage.h>
-#include <foreign/rtree/SUMORTree.h>
+#include <utils/geom/PositionVector.h>
 #include <utils/gui/div/GLHelper.h>
+#include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
+#include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/settings/GUICompleteSchemeStorage.h>
+#include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/gui/windows/GUIDialog_ViewSettings.h>
+#include <utils/gui/windows/GUIPerspectiveChanger.h>
+#include <utils/gui/windows/GUISUMOAbstractView.h>
+#include <utils/shapes/ShapeContainer.h>
+
+#include "GUISUMOViewParent.h"
+#include "GUIViewTraffic.h"
 
 // ===========================================================================
 // member method definitions
@@ -110,47 +112,47 @@ GUIViewTraffic::buildViewToolBars(GUIGlChildWindow* v) {
     new MFXButtonTooltip(v->getLocatorPopup(), myApp->getStaticTooltipMenu(),
                          "\tLocate Junctions\tLocate a junction within the network.",
                          GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), v, MID_HOTKEY_SHIFT_J_LOCATEJUNCTION,
-                         ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+                         GUIDesignButtonPopup);
     // for edges
     new MFXButtonTooltip(v->getLocatorPopup(), myApp->getStaticTooltipMenu(),
                          "\tLocate Edges\tLocate an edge within the network.",
                          GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), v, MID_HOTKEY_SHIFT_E_LOCATEEDGE,
-                         ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+                         GUIDesignButtonPopup);
     // for vehicles
     new MFXButtonTooltip(v->getLocatorPopup(), myApp->getStaticTooltipMenu(),
                          "\tLocate Vehicles\tLocate a vehicle within the network.",
                          GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), v, MID_HOTKEY_SHIFT_V_LOCATEVEHICLE,
-                         ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+                         GUIDesignButtonPopup);
     // for persons
     new MFXButtonTooltip(v->getLocatorPopup(), myApp->getStaticTooltipMenu(),
                          "\tLocate Persons\tLocate a person within the network.",
                          GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), v, MID_HOTKEY_SHIFT_P_LOCATEPERSON,
-                         ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+                         GUIDesignButtonPopup);
     // for containers
     new MFXButtonTooltip(v->getLocatorPopup(), myApp->getStaticTooltipMenu(),
                          "\tLocate Container\tLocate a container within the network.",
                          GUIIconSubSys::getIcon(GUIIcon::LOCATECONTAINER), v, MID_HOTKEY_SHIFT_C_LOCATECONTAINER,
-                         ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+                         GUIDesignButtonPopup);
     // for tls
     new MFXButtonTooltip(v->getLocatorPopup(), myApp->getStaticTooltipMenu(),
                          "\tLocate TLS\tLocate a tls within the network.",
                          GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), v, MID_HOTKEY_SHIFT_T_LOCATETLS,
-                         ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+                         GUIDesignButtonPopup);
     // for additional stuff
     new MFXButtonTooltip(v->getLocatorPopup(), myApp->getStaticTooltipMenu(),
                          "\tLocate Additional\tLocate an additional structure within the network.",
                          GUIIconSubSys::getIcon(GUIIcon::LOCATEADD), v, MID_HOTKEY_SHIFT_A_LOCATEADDITIONAL,
-                         ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+                         GUIDesignButtonPopup);
     // for pois
     new MFXButtonTooltip(v->getLocatorPopup(), myApp->getStaticTooltipMenu(),
                          "\tLocate PoI\tLocate a PoI within the network.",
                          GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), v, MID_HOTKEY_SHIFT_O_LOCATEPOI,
-                         ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+                         GUIDesignButtonPopup);
     // for polygons
     new MFXButtonTooltip(v->getLocatorPopup(), myApp->getStaticTooltipMenu(),
                          "\tLocate Polygon\tLocate a Polygon within the network.",
                          GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), v, MID_HOTKEY_SHIFT_L_LOCATEPOLY,
-                         ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+                         GUIDesignButtonPopup);
 }
 
 

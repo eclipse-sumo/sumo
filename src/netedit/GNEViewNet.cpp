@@ -328,83 +328,56 @@ GNEViewNet::buildViewToolBars(GUIGlChildWindow* v) {
         v->getColoringSchemesCombo()->setNumVisible(MAX2(5, (int)gSchemeStorage.getNames().size() + 1));
     }
     // for junctions
-    new MFXButtonTooltip(v->getLocatorPopup(),
-                         myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
+    new MFXButtonTooltip(v->getLocatorPopup(), myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate Junctions\tLocate a junction within the network. (Shift+J)",
-                         GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), v, MID_HOTKEY_SHIFT_J_LOCATEJUNCTION,
-                         ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+                         GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), v, MID_HOTKEY_SHIFT_J_LOCATEJUNCTION, GUIDesignButtonPopup);
     // for edges
-    new MFXButtonTooltip(v->getLocatorPopup(),
-                         myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
+    new MFXButtonTooltip(v->getLocatorPopup(), myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate Edges\tLocate an edge within the network. (Shift+E)",
-                         GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), v, MID_HOTKEY_SHIFT_E_LOCATEEDGE,
-                         ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+                         GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), v, MID_HOTKEY_SHIFT_E_LOCATEEDGE, GUIDesignButtonPopup);
     // for walkingAreas
-    new MFXButtonTooltip(v->getLocatorPopup(),
-                         myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
+    new MFXButtonTooltip(v->getLocatorPopup(), myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate WalkingAreas\tLocate a walkingArea within the network. (Shift+W)",
-                         GUIIconSubSys::getIcon(GUIIcon::LOCATEWALKINGAREA), v, MID_HOTKEY_SHIFT_W_LOCATEWALKINGAREA,
-                         ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+                         GUIIconSubSys::getIcon(GUIIcon::LOCATEWALKINGAREA), v, MID_HOTKEY_SHIFT_W_LOCATEWALKINGAREA, GUIDesignButtonPopup);
     // for vehicles
-    new MFXButtonTooltip(v->getLocatorPopup(),
-                         myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
+    new MFXButtonTooltip(v->getLocatorPopup(), myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate Vehicles\tLocate a vehicle within the network. (Shift+V)",
-                         GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), v, MID_HOTKEY_SHIFT_V_LOCATEVEHICLE,
-                         ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
-
+                         GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), v, MID_HOTKEY_SHIFT_V_LOCATEVEHICLE, GUIDesignButtonPopup);
     // for person
-    new MFXButtonTooltip(v->getLocatorPopup(),
-                         myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
+    new MFXButtonTooltip(v->getLocatorPopup(), myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate Persons\tLocate a person within the network. (Shift+P)",
-                         GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), v, MID_HOTKEY_SHIFT_P_LOCATEPERSON,
-                         ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
-
+                         GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), v, MID_HOTKEY_SHIFT_P_LOCATEPERSON, GUIDesignButtonPopup);
     // for routes
-    new MFXButtonTooltip(v->getLocatorPopup(),
-                         myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
+    new MFXButtonTooltip(v->getLocatorPopup(), myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate Route\tLocate a route within the network. (Shift+R)",
-                         GUIIconSubSys::getIcon(GUIIcon::LOCATEROUTE), v, MID_HOTKEY_SHIFT_R_LOCATEROUTE,
-                         ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
-
+                         GUIIconSubSys::getIcon(GUIIcon::LOCATEROUTE), v, MID_HOTKEY_SHIFT_R_LOCATEROUTE, GUIDesignButtonPopup);
     // for routes
-    new MFXButtonTooltip(v->getLocatorPopup(),
-                         myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
+    new MFXButtonTooltip(v->getLocatorPopup(), myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate Stops\tLocate a stop within the network. (Shift+S)",
-                         GUIIconSubSys::getIcon(GUIIcon::LOCATESTOP), v, MID_HOTKEY_SHIFT_S_LOCATESTOP,
-                         ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
-
+                         GUIIconSubSys::getIcon(GUIIcon::LOCATESTOP), v, MID_HOTKEY_SHIFT_S_LOCATESTOP, GUIDesignButtonPopup);
     // for persons (currently unused)
     /*
     new MFXButtonTooltip(v->getLocatorPopup(),
-                 "\tLocate Vehicle\tLocate a person within the network.",
-                 GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), &v, MID_LOCATEPERSON,
-                 ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+                         "\tLocate Vehicle\tLocate a person within the network.",
+                         GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), &v, MID_LOCATEPERSON,
+                         GUIDesignButtonPopup);
     */
-
     // for tls
-    new MFXButtonTooltip(v->getLocatorPopup(),
-                         myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
+    new MFXButtonTooltip(v->getLocatorPopup(), myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate TLS\tLocate a tls within the network. (Shift+T)",
-                         GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), v, MID_HOTKEY_SHIFT_T_LOCATETLS,
-                         ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+                         GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), v, MID_HOTKEY_SHIFT_T_LOCATETLS, GUIDesignButtonPopup);
     // for additional stuff
-    new MFXButtonTooltip(v->getLocatorPopup(),
-                         myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
+    new MFXButtonTooltip(v->getLocatorPopup(), myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate Additional\tLocate an additional structure within the network. (Shift+A)",
-                         GUIIconSubSys::getIcon(GUIIcon::LOCATEADD), v, MID_HOTKEY_SHIFT_A_LOCATEADDITIONAL,
-                         ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+                         GUIIconSubSys::getIcon(GUIIcon::LOCATEADD), v, MID_HOTKEY_SHIFT_A_LOCATEADDITIONAL, GUIDesignButtonPopup);
     // for pois
-    new MFXButtonTooltip(v->getLocatorPopup(),
-                         myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
+    new MFXButtonTooltip(v->getLocatorPopup(), myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate PoI\tLocate a PoI within the network. (Shift+O)",
-                         GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), v, MID_HOTKEY_SHIFT_O_LOCATEPOI,
-                         ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+                         GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), v, MID_HOTKEY_SHIFT_O_LOCATEPOI, GUIDesignButtonPopup);
     // for polygons
-    new MFXButtonTooltip(v->getLocatorPopup(),
-                         myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
+    new MFXButtonTooltip(v->getLocatorPopup(), myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
                          "\tLocate Polygon\tLocate a Polygon within the network. (Shift+L)",
-                         GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), v, MID_HOTKEY_SHIFT_L_LOCATEPOLY,
-                         ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+                         GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), v, MID_HOTKEY_SHIFT_L_LOCATEPOLY, GUIDesignButtonPopup);
 }
 
 

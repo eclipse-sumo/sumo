@@ -106,6 +106,9 @@ class MFXMenuCheckIcon;
 /// @brief checkable button only with icon used in TLSTable
 #define GUIDesignTLSTableCheckableButtonIcon    (MENUBUTTON_RIGHT | FRAME_THICK | FRAME_RAISED | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, GUIDesignHeight, GUIDesignHeight, 0, 0, 0, 0
 
+/// @brief checkable button placed in popup (for example, locate buttons)
+#define GUIDesignButtonPopup                    (ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED)
+
 /// @}
 
 
