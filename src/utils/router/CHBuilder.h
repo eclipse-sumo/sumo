@@ -94,8 +94,8 @@ public:
         mySPTree(new SPTree<CHInfo, CHConnection>(4, validatePermissions)),
         mySVC(svc),
         myUpdateCount(0) {
-        for (typename std::vector<E*>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-            myCHInfos.push_back(CHInfo(*i));
+        for (const E* const e : edges) {
+            myCHInfos.push_back(CHInfo(e));
         }
     }
 
@@ -144,27 +144,25 @@ public:
             const E* const edge = max->edge;
             // add outgoing connections to the forward search
             const int edgeID = edge->getNumericalID();
-            for (typename CHConnections::const_iterator it = max->followers.begin(); it != max->followers.end(); it++) {
-                const CHConnection& con = *it;
+            for (const CHConnection& con : max->followers) {
                 result->forwardUplinks[edgeID].push_back(Connection(con.target->edge->getNumericalID(), con.cost, con.permissions));
                 disconnect(con.target->approaching, max);
                 con.target->updatePriority(0);
             }
             // add incoming connections to the backward search
-            for (typename CHConnections::const_iterator it = max->approaching.begin(); it != max->approaching.end(); it++) {
-                const CHConnection& con = *it;
+            for (const CHConnection& con : max->approaching) {
                 result->backwardUplinks[edgeID].push_back(Connection(con.target->edge->getNumericalID(), con.cost, con.permissions));
                 disconnect(con.target->followers, max);
                 con.target->updatePriority(0);
             }
             // add shortcuts to the net
-            for (typename std::vector<Shortcut>::const_iterator it = max->shortcuts.begin(); it != max->shortcuts.end(); it++) {
-                const ConstEdgePair& edgePair = it->edgePair;
+            for (const Shortcut& s : max->shortcuts) {
+                const ConstEdgePair& edgePair = s.edgePair;
                 result->shortcuts[edgePair] = edge;
                 CHInfo* from = getCHInfo(edgePair.first);
                 CHInfo* to = getCHInfo(edgePair.second);
-                from->followers.push_back(CHConnection(to, it->cost, it->permissions, it->underlying));
-                to->approaching.push_back(CHConnection(from, it->cost, it->permissions, it->underlying));
+                from->followers.push_back(CHConnection(to, s.cost, s.permissions, s.underlying));
+                to->approaching.push_back(CHConnection(from, s.cost, s.permissions, s.underlying));
             }
             // if you need to debug the chrouter with MSVC uncomment the following line, hierarchy building will get slower and the hierarchy may change though
             //std::make_heap(queue.begin(), queue.end(), myCmp);
@@ -264,12 +262,10 @@ private:
 #endif
             shortcuts.clear();
             underlyingTotal = 0;
-            for (typename CHConnections::iterator it_a = approaching.begin(); it_a != approaching.end(); it_a++) {
-                CHConnection& aInfo = *it_a;
+            for (const CHConnection& aInfo : approaching) {
                 // build shortest path tree in a fixed neighborhood
                 spTree->rebuildFrom(aInfo.target, this);
-                for (typename CHConnections::iterator it_f = followers.begin(); it_f != followers.end(); it_f++) {
-                    CHConnection& fInfo = *it_f;
+                for (const CHConnection& fInfo : followers) {
                     const double viaCost = aInfo.cost + fInfo.cost;
                     const SVCPermissions viaPermissions = (aInfo.permissions & fInfo.permissions);
                     if (fInfo.target->traveltime > viaCost) {
@@ -300,10 +296,9 @@ private:
             }
             // insert shortcuts needed due to unmet permissions
             if (validatePermissions) {
-                const CHConnectionPairs& pairs = spTree->getNeededShortcuts(this);
-                for (typename CHConnectionPairs::const_iterator it = pairs.begin(); it != pairs.end(); ++it) {
-                    const CHConnection* aInfo = it->first;
-                    const CHConnection* fInfo = it->second;
+                for (const CHConnectionPair& chcp : spTree->getNeededShortcuts(this)) {
+                    const CHConnection* aInfo = chcp.first;
+                    const CHConnection* fInfo = chcp.second;
                     const double viaCost = aInfo->cost + fInfo->cost;
                     const SVCPermissions viaPermissions = (aInfo->permissions & fInfo->permissions);
                     const int underlying = aInfo->underlying + fInfo->underlying;
@@ -318,16 +313,13 @@ private:
         // update level as defined by Abraham
         void updateLevel() {
             int maxLower = std::numeric_limits<int>::min();
-            int otherRank;
-            for (typename CHConnections::iterator it = approaching.begin(); it != approaching.end(); it++) {
-                otherRank = it->target->rank;
-                if (otherRank < rank) {
+            for (const CHConnection& con : approaching) {
+                if (con.target->rank < rank) {
                     maxLower = MAX2(rank, maxLower);
                 }
             }
-            for (typename CHConnections::iterator it = followers.begin(); it != followers.end(); it++) {
-                otherRank = it->target->rank;
-                if (otherRank < rank) {
+            for (const CHConnection& con : followers) {
+                if (con.target->rank < rank) {
                     maxLower = MAX2(rank, maxLower);
                 }
             }
@@ -483,14 +475,15 @@ private:
         }
     }
 
+#ifdef CHRouter_DEBUG_CONTRACTION_QUEUE
     // helper method for debugging
     void debugPrintQueue(std::vector<CHInfo*>& queue) {
-        for (typename std::vector<CHInfo*>::iterator it = queue.begin(); it != queue.end(); it++) {
-            CHInfo* chInfo = *it;
+        for (const CHInfo* const chInfo : queue) {
             std::cout << "(" << chInfo->edge->getID() << "," << chInfo->priority << ") ";
         }
         std::cout << "\n";
     }
+#endif
 
 private:
     /// @brief all edges with numerical ids
