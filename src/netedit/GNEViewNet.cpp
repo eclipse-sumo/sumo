@@ -269,8 +269,8 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     // init testing mode
     myTestingMode.initTestingMode();
     // update grid flags
-    myNetworkViewOptions.menuCheckToggleGrid->setChecked(myVisualizationSettings->showGrid);
-    myDemandViewOptions.menuCheckToggleGrid->setChecked(myVisualizationSettings->showGrid);
+   /* myNetworkViewOptions.menuCheckToggleGrid->setChecked(myVisualizationSettings->showGrid);
+    myDemandViewOptions.menuCheckToggleGrid->setChecked(myVisualizationSettings->showGrid);*/
     // update junction shape flags
     const bool hide = !myVisualizationSettings->drawJunctionShape;
     myNetworkViewOptions.menuCheckToggleDrawJunctionShape->setChecked(hide);
@@ -1966,7 +1966,40 @@ GNEViewNet::onCmdSetSupermode(FXObject*, FXSelector sel, void*) {
 
 long
 GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
+    FX::FXString s = (*((FX::FXToolTip*)myApp->getStaticTooltipMenu())).getText();
+     
+    if (s.find((FX::FXString)"network", 0) != -1)
+    {
+        myEditModes.setSupermode(Supermode::NETWORK, true);
+
+        myNetworkCheckableButtons.networkButton->setChecked(true);
+        myDemandCheckableButtons.disableDemandCheckableButtons();
+        myDataCheckableButtons.disableDataCheckableButtons();
+        
+    }
+    else if (s.find((FX::FXString)"demand", 0) != -1)
+    {
+        myEditModes.setSupermode(Supermode::DEMAND, true);
+
+        myNetworkCheckableButtons.disableNetworkCheckableButtons();
+        myDemandCheckableButtons.demandButton->setChecked(true);
+        myDataCheckableButtons.disableDataCheckableButtons();
+    }
+    else
+    {
+        myEditModes.setSupermode(Supermode::DATA, true);
+
+        myNetworkCheckableButtons.disableNetworkCheckableButtons();
+        myDemandCheckableButtons.demandButton->setChecked(false);
+        myDataCheckableButtons.disableDataCheckableButtons();
+    }
+
     if (myEditModes.isCurrentSupermodeNetwork()) {
+        
+        
+        
+        /*myEditModes.myViewNet->myApp->myStaticTooltipMenu.*/
+        //char* s = (*((FX::FXToolTip*)myEditModes.myViewNet->myApp->myStaticTooltipMenu)).label.str;
         // check what network mode will be set
         switch (FXSELID(sel)) {
             case MID_HOTKEY_I_MODE_INSPECT:
@@ -2013,6 +2046,7 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
         }
     } else if (myEditModes.isCurrentSupermodeDemand()) {
         // check what demand mode will be set
+       
         switch (FXSELID(sel)) {
             case MID_HOTKEY_G_MODE_CONTAINER:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_CONTAINER);
@@ -2054,6 +2088,7 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
                 break;
         }
     } else if (myEditModes.isCurrentSupermodeData()) {
+        
         // check what demand mode will be set
         switch (FXSELID(sel)) {
             case MID_HOTKEY_I_MODE_INSPECT:
@@ -4391,7 +4426,7 @@ GNEViewNet::onCmdRemoveEdgeSelected(FXObject*, FXSelector, void*) {
 void
 GNEViewNet::buildEditModeControls() {
     // first build supermode buttons
-    myEditModes.buildSuperModeButtons();
+    //myEditModes.buildSuperModeButtons();
 
     // build save buttons
     mySaveElements.buildSaveElementsButtons();
@@ -4409,10 +4444,10 @@ GNEViewNet::buildEditModeControls() {
     myDataCheckableButtons.buildDataCheckableButtons();
 
     // Create Vertical separator
-    new FXVerticalSeparator(myViewParent->getGNEAppWindows()->getToolbarsGrip().modes, GUIDesignVerticalSeparator);
+    new FXVerticalSeparator(myViewParent->getGNEAppWindows()->getToolbarsGrip().navigation, GUIDesignVerticalSeparator);
     // XXX for some reason the vertical groove is not visible. adding more spacing to emphasize the separation
-    new FXVerticalSeparator(myViewParent->getGNEAppWindows()->getToolbarsGrip().modes, GUIDesignVerticalSeparator);
-    new FXVerticalSeparator(myViewParent->getGNEAppWindows()->getToolbarsGrip().modes, GUIDesignVerticalSeparator);
+    new FXVerticalSeparator(myViewParent->getGNEAppWindows()->getToolbarsGrip().navigation, GUIDesignVerticalSeparator);
+    new FXVerticalSeparator(myViewParent->getGNEAppWindows()->getToolbarsGrip().navigation, GUIDesignVerticalSeparator);
 
     // build menu checks of view options Network
     myNetworkViewOptions.buildNetworkViewOptionsMenuChecks();
@@ -4439,7 +4474,9 @@ GNEViewNet::updateNetworkModeSpecificControls() {
     // hide all checkbox of view options Data
     myDataViewOptions.hideDataViewOptionsMenuChecks();
     // disable all common edit modes
-    myCommonCheckableButtons.disableCommonCheckableButtons();
+    //myCommonCheckableButtons.disableCommonCheckableButtons();
+    // disable all demand edit modes
+    myDemandCheckableButtons.disableDemandCheckableButtons();
     // disable all network edit modes
     myNetworkCheckableButtons.disableNetworkCheckableButtons();
     // disable all network edit modes
@@ -4461,6 +4498,8 @@ GNEViewNet::updateNetworkModeSpecificControls() {
     menuChecks.menuCheckToggleDrawJunctionShape->show();
     menuChecks.menuCheckDrawSpreadVehicles->show();
     menuChecks.menuCheckShowDemandElements->show();
+
+    myNetworkCheckableButtons.networkButton->setChecked(true);
     // show separator
     menuChecks.separator->show();
     // enable selected controls
@@ -4470,7 +4509,7 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myViewParent->getInspectorFrame()->show();
             myViewParent->getInspectorFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getInspectorFrame();
-            myCommonCheckableButtons.inspectButton->setChecked(true);
+            myNetworkCheckableButtons.inspectButtonNe->setChecked(true);
             // show view options
             myNetworkViewOptions.menuCheckSelectEdges->show();
             myNetworkViewOptions.menuCheckShowConnections->show();
@@ -4489,7 +4528,7 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myViewParent->getDeleteFrame()->show();
             myViewParent->getDeleteFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getDeleteFrame();
-            myCommonCheckableButtons.deleteButton->setChecked(true);
+            myNetworkCheckableButtons.deleteButtonNe->setChecked(true);
             myNetworkViewOptions.menuCheckShowConnections->show();
             myNetworkViewOptions.menuCheckShowAdditionalSubElements->show();
             myNetworkViewOptions.menuCheckShowTAZElements->show();
@@ -4506,7 +4545,7 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myViewParent->getSelectorFrame()->show();
             myViewParent->getSelectorFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getSelectorFrame();
-            myCommonCheckableButtons.selectButton->setChecked(true);
+            myNetworkCheckableButtons.selectButtonNe->setChecked(true);
             // show view options
             myNetworkViewOptions.menuCheckSelectEdges->show();
             myNetworkViewOptions.menuCheckShowConnections->show();
@@ -4609,12 +4648,16 @@ GNEViewNet::updateNetworkModeSpecificControls() {
     // update menuChecks shorcuts
     menuChecks.updateShortcuts();
     // update common Network buttons
-    myCommonCheckableButtons.updateCommonCheckableButtons();
+    //myCommonCheckableButtons.updateCommonCheckableButtons();
     // Update Network buttons
+    myDemandCheckableButtons.updateDemandCheckableButtons();
     myNetworkCheckableButtons.updateNetworkCheckableButtons();
+    myDataCheckableButtons.updateDataCheckableButtons();
     // recalc toolbar
-    myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->recalc();
-    myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->repaint();
+    myViewParent->getGNEAppWindows()->getToolbarsGrip().navigation->recalc();
+    myViewParent->getGNEAppWindows()->getToolbarsGrip().navigation->repaint();
+    myViewParent->getGNEAppWindows()->getToolbarsGrip2().modes->recalc();
+    myViewParent->getGNEAppWindows()->getToolbarsGrip2().modes->repaint();
     // force repaint because different modes draw different things
     onPaint(nullptr, 0, nullptr);
     // finally update view
@@ -4633,7 +4676,9 @@ GNEViewNet::updateDemandModeSpecificControls() {
     // hide all checkbox of view options Data
     myDataViewOptions.hideDataViewOptionsMenuChecks();
     // disable all common edit modes
-    myCommonCheckableButtons.disableCommonCheckableButtons();
+    //myCommonCheckableButtons.disableCommonCheckableButtons();
+    // disable all Demand edit modes
+    myNetworkCheckableButtons.disableNetworkCheckableButtons();
     // disable all Demand edit modes
     myDemandCheckableButtons.disableDemandCheckableButtons();
     // disable all network edit modes
@@ -4667,6 +4712,8 @@ GNEViewNet::updateDemandModeSpecificControls() {
     menuChecks.menuCheckShowAllContainerPlans->show();
     menuChecks.menuCheckLockContainer->show();
     menuChecks.menuCheckShowOverlappedRoutes->show();
+
+    myDemandCheckableButtons.demandButton->setChecked(true);
     // show separator
     menuChecks.separator->show();
     // enable selected controls
@@ -4677,7 +4724,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myViewParent->getInspectorFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getInspectorFrame();
             // set checkable button
-            myCommonCheckableButtons.inspectButton->setChecked(true);
+            myDemandCheckableButtons.inspectButtonDe->setChecked(true);
             // show view options
             myDemandViewOptions.menuCheckHideNonInspectedDemandElements->show();
             // show menu checks
@@ -4688,14 +4735,16 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myViewParent->getDeleteFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getDeleteFrame();
             // set checkable button
-            myCommonCheckableButtons.deleteButton->setChecked(true);
+            myDemandCheckableButtons.deleteButtonDe->setChecked(true);
+
             break;
         case DemandEditMode::DEMAND_SELECT:
             myViewParent->getSelectorFrame()->show();
             myViewParent->getSelectorFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getSelectorFrame();
             // set checkable button
-            myCommonCheckableButtons.selectButton->setChecked(true);
+            myDemandCheckableButtons.selectButtonDe->setChecked(true);
+
             break;
         case DemandEditMode::DEMAND_MOVE:
             myViewParent->getMoveFrame()->show();
@@ -4767,12 +4816,17 @@ GNEViewNet::updateDemandModeSpecificControls() {
     // update menuChecks shorcuts
     menuChecks.updateShortcuts();
     // update common Network buttons
-    myCommonCheckableButtons.updateCommonCheckableButtons();
+    //myCommonCheckableButtons.updateCommonCheckableButtons();
     // Update Demand buttons
     myDemandCheckableButtons.updateDemandCheckableButtons();
+    myNetworkCheckableButtons.updateNetworkCheckableButtons();
+    myDataCheckableButtons.updateDataCheckableButtons();
     // recalc toolbar
-    myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->recalc();
-    myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->repaint();
+    myViewParent->getGNEAppWindows()->getToolbarsGrip2().modes->recalc();
+    myViewParent->getGNEAppWindows()->getToolbarsGrip2().modes->repaint();
+
+    myViewParent->getGNEAppWindows()->getToolbarsGrip().navigation->recalc();
+    myViewParent->getGNEAppWindows()->getToolbarsGrip().navigation->repaint();
     // force repaint because different modes draw different things
     onPaint(nullptr, 0, nullptr);
     // finally update view
@@ -4791,8 +4845,12 @@ GNEViewNet::updateDataModeSpecificControls() {
     // hide all checkbox of view options Data
     myDataViewOptions.hideDataViewOptionsMenuChecks();
     // disable all common edit modes
-    myCommonCheckableButtons.disableCommonCheckableButtons();
-    // disable all Data edit modes
+    //myCommonCheckableButtons.disableCommonCheckableButtons();
+    // disable all network edit modes
+    myNetworkCheckableButtons.disableNetworkCheckableButtons();
+    // disable all Demand edit modes
+    myDemandCheckableButtons.disableDemandCheckableButtons();
+    // disable all network edit modes
     myDataCheckableButtons.disableDataCheckableButtons();
     // show interval bar
     myIntervalBar.showIntervalBar();
@@ -4811,6 +4869,8 @@ GNEViewNet::updateDataModeSpecificControls() {
     menuChecks.menuCheckShowAdditionals->show();
     menuChecks.menuCheckShowShapes->show();
     menuChecks.menuCheckShowDemandElements->show();
+
+    myDataCheckableButtons.dataButton->setChecked(true);
     // show separator
     menuChecks.separator->show();
     // enable selected controls
@@ -4821,7 +4881,7 @@ GNEViewNet::updateDataModeSpecificControls() {
             myViewParent->getInspectorFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getInspectorFrame();
             // set checkable button
-            myCommonCheckableButtons.inspectButton->setChecked(true);
+            myDataCheckableButtons.inspectButtonDa->setChecked(true);
             // show view option
             myDataViewOptions.menuCheckToggleTAZRelDrawing->show();
             myDataViewOptions.menuCheckToggleTAZDrawFill->show();
@@ -4838,7 +4898,7 @@ GNEViewNet::updateDataModeSpecificControls() {
             myViewParent->getDeleteFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getDeleteFrame();
             // set checkable button
-            myCommonCheckableButtons.deleteButton->setChecked(true);
+            myDataCheckableButtons.deleteButtonDa->setChecked(true);
             // show toggle TAZRel drawing view option
             myDataViewOptions.menuCheckToggleTAZRelDrawing->show();
             myDataViewOptions.menuCheckToggleTAZRelOnlyFrom->show();
@@ -4853,7 +4913,7 @@ GNEViewNet::updateDataModeSpecificControls() {
             myViewParent->getSelectorFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getSelectorFrame();
             // set checkable button
-            myCommonCheckableButtons.selectButton->setChecked(true);
+            myDataCheckableButtons.selectButtonDa->setChecked(true);
             // show toggle TAZRel drawing view option
             myDataViewOptions.menuCheckToggleTAZRelDrawing->show();
             myDataViewOptions.menuCheckToggleTAZRelOnlyFrom->show();
@@ -4907,12 +4967,17 @@ GNEViewNet::updateDataModeSpecificControls() {
     // update menuChecks shorcuts
     menuChecks.updateShortcuts();
     // update common Network buttons
-    myCommonCheckableButtons.updateCommonCheckableButtons();
+    //myCommonCheckableButtons.updateCommonCheckableButtons();
     // Update Data buttons
+    myDemandCheckableButtons.updateDemandCheckableButtons();
+    myNetworkCheckableButtons.updateNetworkCheckableButtons();
     myDataCheckableButtons.updateDataCheckableButtons();
     // recalc toolbar
-    myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->recalc();
-    myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->repaint();
+    myViewParent->getGNEAppWindows()->getToolbarsGrip2().modes->recalc();
+    myViewParent->getGNEAppWindows()->getToolbarsGrip2().modes->repaint();
+
+    myViewParent->getGNEAppWindows()->getToolbarsGrip().navigation->recalc();
+    myViewParent->getGNEAppWindows()->getToolbarsGrip().navigation->repaint();
     // force repaint because different modes draw different things
     onPaint(nullptr, 0, nullptr);
     // finally update view

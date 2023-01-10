@@ -73,6 +73,12 @@ protected:
     /// @brief flag to indicate if this MFXCheckableButton is checked
     bool myAmChecked;
 
+   /* /// @brief colors of this MFXCheckableButton
+    FXColor myBackColor,
+            myDarkColor,
+            myHiliteColor,
+            myShadowColor;*/
+    
     /// @brief colors of this MFXCheckableButton
     FXColor myBackColor,
             myDarkColor,
