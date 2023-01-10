@@ -194,20 +194,20 @@ public:
         throw ProcessError("parkingZoneReroute not implemented for meso");
     }
 
-    /** @brief Sets the (planned) time at which the vehicle leaves his current cell
+    /** @brief Sets the (planned) time at which the vehicle leaves its current segment
      * @param[in] t The leaving time
      */
     inline void setEventTime(SUMOTime t, bool hasDelay = true) {
         assert(t > myLastEntryTime);
-        if (hasDelay && mySegment != 0) {
+        if (hasDelay && mySegment != nullptr) {
             mySegment->getEdge().markDelayed();
         }
         myEventTime = t;
     }
 
 
-    /** @brief Returns the (planned) time at which the vehicle leaves his current cell
-     * @return The time the vehicle thinks he leaves his cell at
+    /** @brief Returns the (planned) time at which the vehicle leaves its current segment
+     * @return The time the vehicle thinks it leaves its segment at
      */
     inline SUMOTime getEventTime() const {
         return myEventTime;
