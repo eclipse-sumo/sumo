@@ -8,6 +8,7 @@ title: ChangeLog
 
 - Simulation 
   - Fixed crash when defining ride without lines. Issue #12167 (regression in 1.11.0)
+  - Improved simulation speed in large networks with simulation routing. Issue #12416 (regression in 1.2.0)
   - Fixed invalid blocked state while decelerating and trying to perform lane change. Issue #12108
   - Fixed invalid walking distance output related to lengths of crossings and walkingArea paths. Issue #11983
   - Fixed invalid braking at internal junction. Issue #12000
@@ -19,9 +20,7 @@ title: ChangeLog
   - Fixed crash in public transport scenario with looped routes. Issue #12150
   - Fixed bug where vehicle with short boardingDuration fails to board passengers after deboarding. Issue #12168
   - Fixed invalid error when loading edgeData with negative electricity consumption. Issue #12172
-  - Fixed invalid insertion delay for trains on bidirectional track. Issue #12079
-  - Fixed collision on bidi edge. Issue #12393
-  - Fixed deadlock on bidirectional track involving trains that arrive within a block. Issue #12184
+  - Fixed collision on bidi edge. Issue #12393  
   - Fixed crash when letting persons route between identical junctions. Issue #12242
   - Fixed invalid switching in branching 'actuated' traffic light programs. Issue #12265
   - Fixed invalid bike lane detector placement for 'actuated' traffic lights. Issue #12266
@@ -31,6 +30,11 @@ title: ChangeLog
   - Fixed invalid change to lane with stopped leader. Issue #12113
   - Containers and persons are now unloaded in parallel. Issue #12385
   - Fixed premature simulation end with triggered stop and combined loading/unloading. Issue #12386
+  - Fixed invalid error when using departSpeed values 'avg', 'last', 'desired' or 'speedLimit' near a minor link or speed reduction. Issue #12398, #12401  
+  - railway fixes
+    - Fixed invalid insertion delay on bidirectional track. Issue #12423, #12079
+    - Fixed unsafe insertion after parking stop. Issue #12425
+    - Fixed deadlock on bidirectional track involving trains that arrive within a block. Issue #12184
   - sublane model fixes:
     - Fixed invalid emergency braking for junction foe. Issue #12202
     - Fixed inconsistent computation for vehicle back position. Issue #12146
@@ -50,6 +54,8 @@ title: ChangeLog
   - Fixed crash when using option **--prefix**. Issue #12024
   - Fixed bug that permitted invalid combination of stops and and via attribute. Issue #11961
   - The grouping of inspected overlapped elements no longer includes invisible elements. Issue #12126
+  - Custom `loadingDuration` and `boardingDuration` are written as s instead of ms (also affects duarouter). Issue #12383
+  - Fixed invalid default edge attributes after setting a template. Issue #12392
   
 - sumo-gui
   - Fixed invalid camera position after tracked vehicles exits the simulation. Issue #12137 (regression in 1.13.0)
@@ -63,6 +69,7 @@ title: ChangeLog
   - Fixed bad default settings when loading a 2D viewport in OSG view. Issue #12348
   - Fixes 3D view boundary coordinates after rotating the view. Issue #11941
   - Fixed crash on quick-reload reloading. Issue #12367
+  - Fixed crash when using 'select reachability' related to negative edge speeds. Issue #12400, #12403
     
 - meso
   - Stopping at pos=0 is now working. Issue #12240
@@ -87,6 +94,7 @@ title: ChangeLog
   - Fixed creation of invalid pedestrian crossings. Issue #12234
   - Added missing (guessed) connections when an outgoing edge has additional lanes. Issue #8899
   - Fixed invalid link state at zipper junction. Issue #7676
+  - Prohibitions involving edges with underscore in their name are now working. Issue #12419
   
 - polyconvert
   - Fixed invalid polygon output for some line based inputs. Issue #12161
@@ -100,7 +108,7 @@ title: ChangeLog
   - Context subscriptions to the simulation domain now always return all requested objects regardless of range argument. Issue #12306
   - `trafficlight.swapConstraints` now preserves params (and swaps params for `bidiPredecessor`). Issue #12326
   - Fixed problems when using libsumo with gui. Issue #12285, #12021
-  - Fixed crash on rerouting after insertStop/replaceStop. Issue #12387
+  - Fixed crash on rerouting after insertStop/replaceStop. Issue #12387  
 
 - Tools
   - plot_net_dump_file.py: plotting a single measure is working again. Issue #11975 (regression in 1.15.0)
@@ -114,6 +122,7 @@ title: ChangeLog
   - net2geojson.py: Fixed crash when trying to import network without geo projection (now gives an error message instead). Issue #12295
   - gtfs2pt.py: Fixed missing transport modes. Issues #12277
   - gtfs2pt.py: Fixed mapping of bus and tram stops in multimodal networks. Issue #11802, #11849
+  - gtfs2pt.py: Output is now usable with duarouter. Issue #12333
 
 - All Applications: Fixed crash if gzipped outputfile cannot be opened. Issue #11954
 
@@ -146,6 +155,7 @@ title: ChangeLog
 
 - netedit
   - It is now possible to load and save a *.sumocfg* file and also to edit all sumo options (SHIFT-F10). Issue #11896
+  - Added support for saving and loading *.neteditcfg* files to simplify simulation project management. Issue #12309
   - Added TimeStamp in Undo-Redo list. Issue #11744
   - Now drawing red line between edge geometry points (if the points are not along the edge). Issue #11530
   - Can now disable drawing dotted contours in visualization settings. Issue #11662
@@ -159,7 +169,7 @@ title: ChangeLog
   - Geometry points now change color in move mode to indicate whether a click would create or merge points. Isse #12177
   - Move mode can now toggle whether closely spaced geometry points shall be automatically removed. Issue #12244
   - Stops now support attribute 'jump'. Issue #12269
-  - Crossing mode now ensures that only sensible crossings can be defined. Issue #12366
+  - Crossing mode now ensures that only sensible crossings can be defined. Issue #12366  
 
 - sumo-gui
   - When option **--use-stop-ended** is set, show-route mode now labels the 'ended' time of stops. Issue #11833
@@ -172,12 +182,18 @@ title: ChangeLog
   - Added vehicle setting to maintain orientation after reversal. This achieves a more realistic visualisation of reversing trains and (grounded) aircraft. Issue #12140
   - Added settings to show/hide HUD elements in 3D view. Issue #12294
   - Added terrain to 3D view (using flat background color) #12279
+  - Color legend decoration now includes the name of the coloring scheme. Issue #11967
+  - All dialogs now remember their previous position. Issue #11962
+  - Window menu now includes entries for opening a new view. Issue #12417
+  - Train insertion that is delayed due to oncoming trains is now indicated in the lane parameter dialog. Issue #12421
 
 - TraCI
   - Added functions `vehicle.getDeparture` and `vehicle.getDepartDelay`. Issue #3036
   - Added functions to retrieve aggregated inductionLoop detector measures. Issue #12030
   - Added functions to retrieve aggregated lanearea detector measures. Issue #12029
   - Added functions `vehicle.getLoadedIDList` and `vehicle.getTeleportingIDList` to retrieve the corresponding vehicles (some of which could not be retrieved with getIDList). Issue #2338
+  - Simpla: The maximum length of a platoon can now be configured. Issue #11426
+  - The JAVA bindings now facilitate casting of subscription results. Issue #8930
 
 - Tools
   - runSeeds.py: Now forwarding unknown options to application call. Issue #12312
@@ -217,6 +233,7 @@ title: ChangeLog
 - Improved pydoc for TraCI functions that modify vType attributes. Issue #11943
 - Added all required fmi functions required for FMPy version 0.3.13. Issue #12199
 - Netedit options **--SUMOConfig-output, --additionals-output, --demandelements-output, --dataelements-output**. Instead, the corresponding input file path is used for output. Issue #12388
+- Some netedit buttons for saving are now grouped in a sub-menu to avoid clutter. Issue #12360
 
 ## Version 1.15.0 (08.11.2022)
 
