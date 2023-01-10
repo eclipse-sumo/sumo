@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <utils/foxtools/MFXButtonTooltip.h>
+#include <utils/foxtools/MFXMenuButtonTooltip.h>
 #include <utils/foxtools/MFXCheckableButton.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
@@ -472,6 +473,9 @@ struct GNEViewNetHelper {
         /// @brief default constructor
         SaveElements(GNEViewNet* viewNet);
 
+        /// @brief destructor
+        ~SaveElements();
+
         /// @brief build save buttons
         void buildSaveElementsButtons();
 
@@ -481,8 +485,8 @@ struct GNEViewNetHelper {
         /// @brief checkable button for save SUMO config
         MFXButtonTooltip* saveSUMOConfig = nullptr;
 
-        /// @brief checkable button for save all
-        MFXButtonTooltip* saveAll = nullptr;
+        /// @brief checkable button for save individual files
+        MFXMenuButtonTooltip* saveIndividualFiles = nullptr;
 
         /// @brief checkable button for save network
         MFXButtonTooltip* saveNetwork = nullptr;
@@ -502,6 +506,9 @@ struct GNEViewNetHelper {
     private:
         /// @brief pointer to net
         GNEViewNet* myViewNet;
+
+        /// The locator menu
+        FXPopup* mySaveIndividualFilesPopup = nullptr;
 
         /// @brief Invalidated copy constructor.
         SaveElements(const SaveElements&) = delete;

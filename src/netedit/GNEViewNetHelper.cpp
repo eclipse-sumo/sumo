@@ -1923,55 +1923,62 @@ GNEViewNetHelper::SaveElements::SaveElements(GNEViewNet* viewNet) :
 }
 
 
+GNEViewNetHelper::SaveElements::~SaveElements() {
+    delete mySaveIndividualFilesPopup;
+}
+
+
 void
 GNEViewNetHelper::SaveElements::buildSaveElementsButtons() {
     // create save sumo config button
     saveNETEDITConfig = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
-                                             myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-                                             "\tSave NETEDITConfig\tSave NETEDITConfig.", GUIIconSubSys::getIcon(GUIIcon::SAVE_NETEDITCONFIG),
-                                             myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG, GUIDesignButtonToolbar);
+            myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
+            "\tSave NETEDITConfig\tSave NETEDITConfig.", GUIIconSubSys::getIcon(GUIIcon::SAVE_NETEDITCONFIG),
+            myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG, GUIDesignButtonToolbar);
     saveNETEDITConfig->create();
     // create save sumo config button
     saveSUMOConfig = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
-                                          myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-                                          "\tSave SUMOConfig\tSave SUMOConfig.", GUIIconSubSys::getIcon(GUIIcon::SAVE_SUMOCONFIG),
-                                          myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_S_SAVESUMOCONFIG, GUIDesignButtonToolbar);
+            myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
+            "\tSave SUMOConfig\tSave SUMOConfig.", GUIIconSubSys::getIcon(GUIIcon::SAVE_SUMOCONFIG),
+            myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_S_SAVESUMOCONFIG, GUIDesignButtonToolbar);
     saveSUMOConfig->create();
+    // create popup for save individual files
+    mySaveIndividualFilesPopup = new FXPopup(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements, POPUP_VERTICAL);
+    mySaveIndividualFilesPopup->create();
+    // create save individual files button
+    saveIndividualFiles = new MFXMenuButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
+            myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(), "\tSave individual files\tSave individual files.",
+            GUIIconSubSys::getIcon(GUIIcon::SAVE_QUESTION), mySaveIndividualFilesPopup, nullptr, GUIDesignButtonToolbarLocator);
+    saveIndividualFiles->create();
     // create save network button
-    saveAll = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
-                                   myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-                                   "\tSave all\tSave all elements.", GUIIconSubSys::getIcon(GUIIcon::SAVE_QUESTION),
-                                   myViewNet->getViewParent()->getGNEAppWindows(), MID_GNE_SAVEALLELEMENTS, GUIDesignButtonToolbar);
-    saveAll->create();
-    // create save network button
-    saveNetwork = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
-                                       myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-                                       "\tSave network\tSave network. (Ctrl+S)", GUIIconSubSys::getIcon(GUIIcon::SAVE_NETWORKELEMENTS),
-                                       myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK, GUIDesignButtonToolbar);
+    saveNetwork = new MFXButtonTooltip(mySaveIndividualFilesPopup,
+            myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
+            "\tSave network\tSave network. (Ctrl+S)", GUIIconSubSys::getIcon(GUIIcon::SAVE_NETWORKELEMENTS),
+            myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK, GUIDesignButtonToolbar);
     saveNetwork->create();
     // create save additional elements button
-    saveAdditionalElements = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
+    saveAdditionalElements = new MFXButtonTooltip(mySaveIndividualFilesPopup,
             myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
             "\tSave additional elements\tSave additional elements. (Ctrl+Shift+A)", GUIIconSubSys::getIcon(GUIIcon::SAVE_ADDITIONALELEMENTS),
             myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS, GUIDesignButtonToolbar);
     saveAdditionalElements->create();
     // create save demand elements button
-    saveDemandElements = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
+    saveDemandElements = new MFXButtonTooltip(mySaveIndividualFilesPopup,
             myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
             "\tSave demand elements\tSave demand elements. (Ctrl+Shift+D)", GUIIconSubSys::getIcon(GUIIcon::SAVE_DEMANDELEMENTS),
             myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS, GUIDesignButtonToolbar);
     saveDemandElements->create();
     // create save data elements button
-    saveDataElements = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
-                                            myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-                                            "\tSave data elements\tSave data elements. (Ctrl+Shift+B)", GUIIconSubSys::getIcon(GUIIcon::SAVE_DATAELEMENTS),
-                                            myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS, GUIDesignButtonToolbar);
+    saveDataElements = new MFXButtonTooltip(mySaveIndividualFilesPopup,
+            myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
+            "\tSave data elements\tSave data elements. (Ctrl+Shift+B)", GUIIconSubSys::getIcon(GUIIcon::SAVE_DATAELEMENTS),
+            myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS, GUIDesignButtonToolbar);
     saveDataElements->create();
     // create save mean datas elements button
-    saveMeanDataElements = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
-                                            myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-                                            "\tSave mean data elements\tSave mean data elements. (Ctrl+Shift+M)", GUIIconSubSys::getIcon(GUIIcon::SAVE_MEANDATAELEMENTS),
-                                            myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_M_SAVEMEANDATAS, GUIDesignButtonToolbar);
+    saveMeanDataElements = new MFXButtonTooltip(mySaveIndividualFilesPopup,
+            myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
+            "\tSave mean data elements\tSave mean data elements. (Ctrl+Shift+M)", GUIIconSubSys::getIcon(GUIIcon::SAVE_MEANDATAELEMENTS),
+            myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_M_SAVEMEANDATAS, GUIDesignButtonToolbar);
     saveMeanDataElements->create();
     // recalc menu bar because there is new elements
     myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements->recalc();
