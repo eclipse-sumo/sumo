@@ -3242,6 +3242,10 @@ GNEViewNet::onCmdEditJunctionShape(FXObject*, FXSelector, void*) {
             // recompute the whole network
             myNet->computeAndUpdate(OptionsCont::getOptions(), false);
         }
+        // if grid is enabled, show warning
+        if (myVisualizationSettings->showGrid) {
+            WRITE_WARNING("Grid is still active, press ctrl+g to deactivate");
+        }
         // start edit custom shape
         myEditNetworkElementShapes.startEditCustomShape(junction);
     }
@@ -3505,6 +3509,10 @@ GNEViewNet::onCmdEditConnectionShape(FXObject*, FXSelector, void*) {
     if (connection) {
         myEditNetworkElementShapes.startEditCustomShape(connection);
     }
+    // if grid is enabled, show warning
+    if (myVisualizationSettings->showGrid) {
+        WRITE_WARNING("Grid is still active, press ctrl+g to deactivate");
+    }
     // destroy pop-up and update view Net
     destroyPopup();
     setFocus();
@@ -3536,6 +3544,10 @@ GNEViewNet::onCmdEditCrossingShape(FXObject*, FXSelector, void*) {
             // recompute the whole network
             myNet->computeAndUpdate(OptionsCont::getOptions(), false);
         }
+        // if grid is enabled, show warning
+        if (myVisualizationSettings->showGrid) {
+            WRITE_WARNING("Grid is still active, press ctrl+g to deactivate");
+        }
         // start edit custom shape
         myEditNetworkElementShapes.startEditCustomShape(crossing);
     }
@@ -3555,6 +3567,10 @@ GNEViewNet::onCmdEditWalkingAreaShape(FXObject*, FXSelector, void*) {
         if (walkingArea->getParentJunction()->getNBNode()->getShape().size() == 0) {
             // recompute the whole network
             myNet->computeAndUpdate(OptionsCont::getOptions(), false);
+            // if grid is enabled, show warning
+            if (myVisualizationSettings->showGrid) {
+                WRITE_WARNING("Grid is still active, press ctrl+g to deactivate");
+            }
         }
         // start edit custom shape
         myEditNetworkElementShapes.startEditCustomShape(walkingArea);
