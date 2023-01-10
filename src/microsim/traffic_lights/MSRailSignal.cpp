@@ -470,7 +470,7 @@ MSRailSignal::hasOncomingRailTraffic(MSLink* link, const MSVehicle* ego, bool& b
         if (rs != nullptr) {
             const LinkInfo& li = rs->myLinkInfos[link->getTLIndex()];
             for (const DriveWay& dw : li.myDriveways) {
-                //std::cout << SIMTIME <<< " hasOncomingRailTraffic link=" << getTLLinkID(link) << " dwRoute=" << toString(dw.myRoute) << " bidi=" << toString(dw.myBidi) << "\n";
+                //std::cout << SIMTIME << " hasOncomingRailTraffic link=" << getTLLinkID(link) << " dwRoute=" << toString(dw.myRoute) << " bidi=" << toString(dw.myBidi) << "\n";
                 for (MSLane* lane : dw.myBidi) {
                     if (!lane->isEmpty()) {
                         MSVehicle* veh = lane->getFirstAnyVehicle();
