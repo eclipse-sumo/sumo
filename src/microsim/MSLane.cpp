@@ -895,6 +895,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 }
 #endif
                 if ((aVehicle->getParameter().insertionChecks & (int)InsertionCheck::ONCOMING_TRAIN) != 0) {
+                    setParameter("insertionFail:" + aVehicle->getID(), "oncoming rail traffic");
                     return false;
                 }
             }
@@ -1263,6 +1264,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     if (isRail) {
         unsetParameter("insertionConstraint:" + aVehicle->getID());
         unsetParameter("insertionOrder:" + aVehicle->getID());
+        unsetParameter("insertionFail:" + aVehicle->getID());
         // rail_signal (not traffic_light) requires approach information for
         // switching correctly at the start of the next simulation step
         if (firstRailSignal != nullptr && firstRailSignal->getJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
