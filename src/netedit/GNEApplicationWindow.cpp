@@ -96,8 +96,6 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_R_RELOAD,                           GNEApplicationWindow::onCmdReload),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_R_RELOAD,                           GNEApplicationWindow::onUpdReload),
     // network
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SAVEALLELEMENTS,                            GNEApplicationWindow::onCmdSaveAllElements),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVEALLELEMENTS,                            GNEApplicationWindow::onUpdSaveAllElements),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK,       GNEApplicationWindow::onCmdSaveNetwork),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK,       GNEApplicationWindow::onUpdSaveNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVENETWORK_AS,                 GNEApplicationWindow::onCmdSaveNetworkAs),
@@ -3043,19 +3041,6 @@ GNEApplicationWindow::onUpdReload(FXObject* sender, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onUpdSaveAllElements(FXObject* sender, FXSelector, void*) {
-    if (myNet == nullptr) {
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else if (myNet->isNetSaved() && myNet->isAdditionalsSaved() && myNet->isDemandElementsSaved() && 
-               myNet->isDataElementsSaved() && myNet->isMeanDatasSaved()){
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    } else {
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
-    }
-}
-
-
-long
 GNEApplicationWindow::onUpdSaveNetwork(FXObject* sender, FXSelector, void*) {
     return sender->handle(this, ((myNet == nullptr) || myNet->isNetSaved()) ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
 }
@@ -3519,28 +3504,6 @@ GNEApplicationWindow::onUpdToggleViewOption(FXObject* obj, FXSelector sel, void*
 
 
 long
-GNEApplicationWindow::onCmdSaveAllElements(FXObject*, FXSelector, void*) {
-    // save all elements
-    if (!myNet->isNetSaved()) {
-        onCmdSaveNetwork(nullptr, 0, nullptr);
-    }
-    if (!myNet->isAdditionalsSaved()) {
-        onCmdSaveAdditionals(nullptr, 0, nullptr);
-    }
-    if (!myNet->isDemandElementsSaved()) {
-        onCmdSaveDemandElements(nullptr, 0, nullptr);
-    }
-    if (!myNet->isDataElementsSaved()) {
-        onCmdSaveDataElements(nullptr, 0, nullptr);
-    }
-    if (!myNet->isMeanDatasSaved()) {
-        onCmdSaveMeanDatas(nullptr, 0, nullptr);
-    }
-    return 1;
-}
-
-
-long
 GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
     auto &neteditOptions = OptionsCont::getOptions();
     // function onCmdSaveNetworkAs must be executed if this is the first save
@@ -3734,17 +3697,31 @@ GNEApplicationWindow::onCmdSaveNETEDITConfigAs(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onUpdSaveNETEDITConfig(FXObject* sender, FXSelector, void*) {
+    bool enableButton = false;
+    // check if enable or disable
     if (myNet == nullptr) {
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        enableButton = false;
     } else if (OptionsCont::getOptions().getString("configuration-file").empty()) {
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+        enableButton = true;
     } else if (myNeteditConfigSaved == false) {
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+        return enableButton = true;
     } else if (myNet->isNetSaved() && myNet->isAdditionalsSaved() && myNet->isDemandElementsSaved() && 
                myNet->isDataElementsSaved() && myNet->isMeanDatasSaved()){
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        enableButton = false;
     } else {
+        enableButton = true;
+    }
+    // also enable/disable save individual files
+    if (enableButton) {
+        if (myViewNet) {
+            myViewNet->getSaveElements().saveIndividualFiles->enable();
+        }
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    } else {
+        if (myViewNet) {
+            myViewNet->getSaveElements().saveIndividualFiles->disable();
+        }
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     }
 }
 
@@ -5503,13 +5480,13 @@ GNEApplicationWindow::loadMeanDataElements() {
 
 void
 GNEApplicationWindow::requireSaveSUMOConfig(bool value) {
-    mySumoConfigSaved = !value;
+    mySumoConfigSaved = value;
 }
 
 
 void
 GNEApplicationWindow::requireSaveNETEDITConfig(bool value) {
-    myNeteditConfigSaved = !value;
+    myNeteditConfigSaved = value;
 }
 
 // ---------------------------------------------------------------------------

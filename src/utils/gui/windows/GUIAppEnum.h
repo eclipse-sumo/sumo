@@ -687,8 +687,6 @@ enum {
 
     /// @brief open foreign network
     MID_GNE_TOOLBARFILE_OPENFOREIGN,
-    /// @brief save all element
-    MID_GNE_SAVEALLELEMENTS,
     /// @brief save joined junctions
     MID_GNE_SAVEJOINEDJUNCTIONS,
     /// @brief reload NETEDITConfig

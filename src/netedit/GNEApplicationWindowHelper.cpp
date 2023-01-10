@@ -214,9 +214,6 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
         "Save &Joined Junctions...", "", "Save log of joined junctions (allows reproduction of joins).",
         GUIIconSubSys::getIcon(GUIIcon::SAVE), myGNEApp, MID_GNE_SAVEJOINEDJUNCTIONS);
-    GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-        "Save All Elements", "", "Save all elements (network, additional, demand and data)",
-        GUIIconSubSys::getIcon(GUIIcon::SAVE_QUESTION), myGNEApp, MID_GNE_SAVEALLELEMENTS);
     // create NETEDITConfig menu options
     reloadNETEDITConfig = GUIDesigns::buildFXMenuCommandShortcut(fileMenuNETEDITConfig,
         "Reload NETEDITConfig", "", "Reload NETEDITConfig.",

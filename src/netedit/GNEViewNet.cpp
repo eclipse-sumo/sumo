@@ -904,6 +904,12 @@ GNEViewNet::selectingJunctionsTLSMode() const {
 }
 
 
+const GNEViewNetHelper::SaveElements&
+GNEViewNet::getSaveElements() {
+    return mySaveElements;
+}
+
+
 GNEViewNet::GNEViewNet() :
     myEditModes(this, false),
     myTestingMode(this),

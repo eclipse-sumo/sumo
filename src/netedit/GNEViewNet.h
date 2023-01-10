@@ -559,6 +559,9 @@ public:
     /// @brief check if we're selecting junctions in TLS mode
     bool selectingJunctionsTLSMode() const;
 
+    /// @brief get variable used to save elements
+    const GNEViewNetHelper::SaveElements &getSaveElements();
+
 protected:
     /// @brief FOX needs this
     GNEViewNet();
