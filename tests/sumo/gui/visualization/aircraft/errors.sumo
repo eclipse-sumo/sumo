@@ -1,0 +1,6 @@
+Warning: Unequal lengths of bidi lane ':J13_1_0' and lane ':J13_0_0' (6.32 != 5.54).
+Warning: Unequal lengths of bidi lane ':J6_1_0' and lane ':J6_0_0' (8.43 != 7.34).
+Warning: Unequal lengths of bidi lane ':Jcentre_3_0' and lane ':Jcentre_2_0' (9.24 != 3.24).
+Warning: Unequal lengths of bidi lane ':Jcentre_7_0' and lane ':Jcentre_1_0' (15.36 != 4.88).
+Warning: Edge '-E13s' and bidi edge 'E13s' have no matching bidi lanes
+Warning: Edge '-E6s' and bidi edge 'E6s' have no matching bidi lanes
