@@ -1,5 +1,0 @@
-Error: Could not find edge 'gneE1' in prohibitor 'gneE1_1->-gneE2'
-Error: Could not find edge '-gneE0' in prohibited '-gneE0->-gneE3'
-Error: Could not find edge 'gneE2' in prohibitor 'gneE2_1->-gneE1'
-Error: Could not find edge '-gneE0' in prohibited '-gneE0->-gneE3'
-Quitting (on error).
