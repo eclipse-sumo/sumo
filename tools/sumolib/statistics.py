@@ -230,7 +230,7 @@ class Statistics:
                 result += setPrecision(', mean_abs %.2f, median_abs %.2f', precision, self.isArray) % (
                     self.avg_abs(), self.median_abs())
             if self.printDev:
-                result += (setPrecision(',  stdDev  %.2f', precision, self.isArray) % (self.meanAndStdDev()[1]))
+                result += (setPrecision(', stdDev %.2f', precision, self.isArray) % (self.meanAndStdDev()[1]))
             if self.counts is not None:
                 if histStyle == 1:
                     result += '\n histogram: %s' % self.histogram()
