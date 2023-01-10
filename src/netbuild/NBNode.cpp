@@ -177,7 +177,8 @@ NBNode::ApproachingDivider::execute(const int src, const int dest) {
     // set lanes
     int maxFrom = approachingLanes.size() - 1;
     for (int i = 0; i < (int)approachedLanes->size(); i++) {
-        assert((int)approachingLanes.size() > i);
+        // distribute i evenly on approaching lanes in case we are building more
+        // connections than there are lanes
         int fromLane = approachingLanes[MIN2((int)(i * factor), maxFrom)];
         int approached = myAvailableLanes[(*approachedLanes)[i]];
         incomingEdge->setConnection(fromLane, myCurrentOutgoing, approached, NBEdge::Lane2LaneInfoType::COMPUTED);
