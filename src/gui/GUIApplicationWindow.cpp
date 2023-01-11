@@ -620,14 +620,14 @@ GUIApplicationWindow::fillMenuBar() {
                                  nullptr, myHelpMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, TL("&Online Documentation"), "F1", TL("Open Online documentation."),
                                            nullptr, this, MID_HOTKEY_F1_ONLINEDOCUMENTATION);
-    new FXMenuSeparator(myEditMenu);
+    new FXMenuSeparator(myHelpMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, TL("&Changelog"), "", TL("Open Changelog."),
                                            nullptr, this, MID_CHANGELOG);
     GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, TL("&Hotkeys"), "", TL("Open Hotkeys."),
                                            nullptr, this, MID_HOTKEYS);
     GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, TL("&Tutorial"), "", TL("Open Tutorial."),
                                            nullptr, this, MID_TUTORIAL);
-    new FXMenuSeparator(myEditMenu);
+    new FXMenuSeparator(myHelpMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, TL("&About"), "F12", TL("About sumo-gui."),
                                            GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI), this, MID_HOTKEY_F12_ABOUT);
     // build SUMO Accelerators (hotkeys)
