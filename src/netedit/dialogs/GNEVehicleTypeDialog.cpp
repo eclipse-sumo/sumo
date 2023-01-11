@@ -23,11 +23,11 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/dialogs/GNESingleParametersDialog.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/images/VClassIcons.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/common/StringTokenizer.h>
-#include <utils/common/VClassIcons.h>
 
 #include "GNEVehicleTypeDialog.h"
 

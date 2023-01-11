@@ -28,8 +28,8 @@
 #include <netedit/dialogs/GNESingleParametersDialog.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/common/StringTokenizer.h>
-#include <utils/common/VClassIcons.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/images/VClassIcons.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEFrameAttributeModules.h"

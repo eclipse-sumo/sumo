@@ -36,7 +36,6 @@
 #include <microsim/transportables/MSTransportableControl.h>
 #include <netload/NLHandler.h>
 #include <traci-server/TraCIServer.h>
-#include <utils/common/VClassIcons.h>
 #include <utils/foxtools/MFXButtonTooltip.h>
 #include <utils/foxtools/MFXLCDLabel.h>
 #include <utils/foxtools/MFXLinkLabel.h>
@@ -53,6 +52,7 @@
 #include <utils/gui/events/GUIEvent_Message.h>
 #include <utils/gui/globjects/GUIShapeContainer.h>
 #include <utils/gui/images/GUITexturesHelper.h>
+#include <utils/gui/images/VClassIcons.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/settings/GUISettingsHandler.h>
 #include <utils/gui/shortcuts/GUIShortcutsSubSys.h>

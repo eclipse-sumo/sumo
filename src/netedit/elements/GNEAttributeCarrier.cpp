@@ -20,10 +20,10 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <utils/common/StringTokenizer.h>
-#include <utils/common/VClassIcons.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/geom/GeomConvHelper.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/gui/images/VClassIcons.h>
 #include <utils/options/OptionsCont.h>
 
 #include "GNEAttributeCarrier.h"
