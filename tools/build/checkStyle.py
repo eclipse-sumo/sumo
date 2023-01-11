@@ -23,6 +23,7 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import os
+import sys
 import subprocess
 import multiprocessing
 import xml.sax
@@ -309,9 +310,10 @@ class PropertyReader(xml.sax.handler.ContentHandler):
         if self._pep and ext == ".py":
             ret = 0
             if HAVE_FLAKE and os.path.getsize(self._file) < 1000000:  # flake hangs on very large files
+                flake = "flake8-2" if sys.version_info[0] < 3 else "flake8"
                 if not self._fix:
-                    return subprocess.Popen(["flake8", "--max-line-length", "120", self._file])
-                ret = subprocess.call(["flake8", "--max-line-length", "120", self._file])
+                    return subprocess.Popen([flake, "--max-line-length", "120", self._file])
+                ret = subprocess.call([flake, "--max-line-length", "120", self._file])
             if ret and HAVE_AUTOPEP and self._fix:
                 subprocess.call(["autopep8", "--max-line-length", "120", "--in-place", self._file])
 
