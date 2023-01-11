@@ -121,6 +121,8 @@ if test -e $SUMO_BINDIR/netedit -a $SUMO_BINDIR/netedit -nt build/$FILEPREFIX/Ma
   if test "$FILEPREFIX" == "gcc4_64"; then
     STATUSLOG=$PREFIX/${FILEPREFIX}neteditstatus.log
     TESTLOG=$PREFIX/${FILEPREFIX}netedit.log
+    export SUMO_BATCH_RESULT=$PREFIX/${FILEPREFIX}neteditbatch_result
+    export SUMO_REPORT=$PREFIX/${FILEPREFIX}neteditreport
     tests/runNeteditDailyTests.sh -b ${FILEPREFIX}netedit -name $TESTLABEL > $TESTLOG 2>&1
     tests/runTests.sh -b ${FILEPREFIX}netedit -name $TESTLABEL -coll >> $TESTLOG 2>&1
     tools/build/status.py $TESTLOG $TESTLOG $SMTP_SERVER sumo-tests@dlr.de $TESTLOG > $STATUSLOG
