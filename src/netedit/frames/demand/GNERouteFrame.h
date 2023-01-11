@@ -20,8 +20,8 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/frames/GNEFrame.h>
 #include <netedit/elements/demand/GNERouteHandler.h>
+#include <netedit/frames/GNEFrame.h>
 #include <netedit/frames/GNEPathLegendModule.h>
 
 

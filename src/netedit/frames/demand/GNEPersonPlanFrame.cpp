@@ -53,6 +53,9 @@ GNEPersonPlanFrame::GNEPersonPlanFrame(GNEViewParent* viewParent, GNEViewNet* vi
 
     // Create GNEElementTree modul
     myPersonHierarchy = new GNEElementTree(this);
+
+    // create legend label
+    myPathLegend = new GNEPathLegendModule(this);
 }
 
 
@@ -93,12 +96,13 @@ GNEPersonPlanFrame::show() {
             myPersonSelector->setDemandElement(nullptr);
         }
     } else {
-        // hide all moduls except helpCreation
+        // hide all moduls
         myPersonSelector->hideDemandElementSelector();
         myPersonPlanTagSelector->hideTagSelector();
         myPersonPlanAttributes->hideAttributesCreatorModule();
         myPathCreator->hidePathCreatorModule();
         myPersonHierarchy->hideHierarchicalElementTree();
+        myPathLegend->hidePathLegendModule();
     }
     // show frame
     GNEFrame::show();
@@ -207,6 +211,8 @@ GNEPersonPlanFrame::tagSelected() {
         if (previousEdge) {
             // set path creator mode
             myPathCreator->showPathCreatorModule(personPlanTag, true, false);
+            // show legend
+            myPathLegend->showPathLegendModule();
             // add previous edge or junction
             if (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().hasAttribute(SUMO_ATTR_FROMJUNCTION)) {
                 myPathCreator->addJunction(previousEdge->getToJunction(), false, false);
@@ -216,6 +222,8 @@ GNEPersonPlanFrame::tagSelected() {
         } else {
             // set path creator mode
             myPathCreator->showPathCreatorModule(personPlanTag, false, false);
+            // show legend
+            myPathLegend->showPathLegendModule();
         }
         // show person hierarchy
         myPersonHierarchy->showHierarchicalElementTree(myPersonSelector->getCurrentDemandElement());
@@ -224,6 +232,7 @@ GNEPersonPlanFrame::tagSelected() {
         myPersonPlanAttributes->hideAttributesCreatorModule();
         myPathCreator->hidePathCreatorModule();
         myPersonHierarchy->hideHierarchicalElementTree();
+        myPathLegend->hidePathLegendModule();
     }
 }
 
@@ -242,6 +251,7 @@ GNEPersonPlanFrame::demandElementSelected() {
             myPersonPlanAttributes->hideAttributesCreatorModule();
             myPathCreator->hidePathCreatorModule();
             myPersonHierarchy->hideHierarchicalElementTree();
+            myPathLegend->hidePathLegendModule();
         }
     } else {
         // hide moduls if person selected isn't valid
@@ -249,6 +259,7 @@ GNEPersonPlanFrame::demandElementSelected() {
         myPersonPlanAttributes->hideAttributesCreatorModule();
         myPathCreator->hidePathCreatorModule();
         myPersonHierarchy->hideHierarchicalElementTree();
+        myPathLegend->hidePathLegendModule();
     }
 }
 

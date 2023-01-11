@@ -20,13 +20,14 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/frames/GNEFrame.h>
 #include <netedit/elements/demand/GNERouteHandler.h>
 #include <netedit/frames/GNEAttributesCreator.h>
-#include <netedit/frames/GNEPathCreator.h>
-#include <netedit/frames/GNETagSelector.h>
 #include <netedit/frames/GNEDemandSelector.h>
+#include <netedit/frames/GNEFrame.h>
 #include <netedit/frames/GNENeteditAttributes.h>
+#include <netedit/frames/GNEPathCreator.h>
+#include <netedit/frames/GNEPathLegendModule.h>
+#include <netedit/frames/GNETagSelector.h>
 
 
 // ===========================================================================
@@ -99,6 +100,9 @@ private:
 
     /// @brief edge path creator (used for Walks, rides and trips)
     GNEPathCreator* myPathCreator;
+
+    /// @brief path legend modul
+    GNEPathLegendModule* myPathLegend;
 
     /// @brief build person and return it (note: function includes a call to begin(...), but NOT a call to end(...))
     GNEDemandElement* buildPerson();

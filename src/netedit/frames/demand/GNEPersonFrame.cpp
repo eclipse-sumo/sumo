@@ -61,6 +61,9 @@ GNEPersonFrame::GNEPersonFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     // create GNEPathCreator Module
     myPathCreator = new GNEPathCreator(this);
 
+    // create legend label
+    myPathLegend = new GNEPathLegendModule(this);
+
     // limit path creator to pedestrians
     myPathCreator->setVClass(SVC_PEDESTRIAN);
 }
@@ -183,12 +186,15 @@ GNEPersonFrame::tagSelected() {
                     }
                     // show edge path creator modul
                     myPathCreator->showPathCreatorModule(myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
+                    // show path legend
+                    myPathLegend->showPathLegendModule();
                 }
             } else {
                 // hide modules
                 myPersonPlanAttributes->hideAttributesCreatorModule();
                 myNeteditAttributes->hideNeteditAttributesModule();
                 myPathCreator->hidePathCreatorModule();
+                myPathLegend->hidePathLegendModule();
             }
         } else {
             // hide modules
@@ -197,6 +203,7 @@ GNEPersonFrame::tagSelected() {
             myPersonPlanAttributes->hideAttributesCreatorModule();
             myNeteditAttributes->hideNeteditAttributesModule();
             myPathCreator->hidePathCreatorModule();
+            myPathLegend->hidePathLegendModule();
         }
     } else {
         // hide all moduls if person isn't valid
@@ -206,6 +213,7 @@ GNEPersonFrame::tagSelected() {
         myPersonPlanAttributes->hideAttributesCreatorModule();
         myNeteditAttributes->hideNeteditAttributesModule();
         myPathCreator->hidePathCreatorModule();
+        myPathLegend->hidePathLegendModule();
     }
 }
 
@@ -235,6 +243,8 @@ GNEPersonFrame::demandElementSelected() {
             myNeteditAttributes->showNeteditAttributesModule(myPersonPlanTagSelector->getCurrentTemplateAC());
             // show edge path creator modul
             myPathCreator->showPathCreatorModule(myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
+            // show legend
+            myPathLegend->showPathLegendModule();
             // show warning if we have selected a vType oriented to containers or vehicles
             if (myTypeSelector->getCurrentDemandElement()->getVClass() == SVC_IGNORING) {
                 WRITE_WARNING(TL("VType with vClass == 'ignoring' is oriented to containers"));
