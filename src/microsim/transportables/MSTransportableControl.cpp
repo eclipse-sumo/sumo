@@ -52,6 +52,8 @@ MSTransportableControl::MSTransportableControl(const bool isPerson):
     myWaitingUntilNumber(0),
     myEndedNumber(0),
     myArrivedNumber(0),
+    myTeleportsAbortWait(0),
+    myTeleportsWrongDest(0),
     myHaveNewWaiting(false) {
     const OptionsCont& oc = OptionsCont::getOptions();
     MSNet* const net = MSNet::getInstance();

@@ -472,10 +472,10 @@ MSNet::generateStatistics(SUMOTime start) {
             if (myVehicleControl->getTeleportsWrongLane() > 0) {
                 reasons.push_back("Wrong Lane: " + toString(myVehicleControl->getTeleportsWrongLane()));
             }
-            msg << "Teleports: " << myVehicleControl->getTeleportCount() << " (" << joinToString(reasons, ", ") << ")\n";
+            msg << " Teleports: " << myVehicleControl->getTeleportCount() << " (" << joinToString(reasons, ", ") << ")\n";
         }
         if (myVehicleControl->getEmergencyStops() > 0) {
-            msg << "Emergency Stops: " << myVehicleControl->getEmergencyStops() << "\n";
+            msg << " Emergency Stops: " << myVehicleControl->getEmergencyStops() << "\n";
         }
         if (myPersonControl != nullptr && myPersonControl->getLoadedNumber() > 0) {
             msg << "Persons: " << "\n"
@@ -484,6 +484,16 @@ MSNet::generateStatistics(SUMOTime start) {
             if (myPersonControl->getJammedNumber() > 0) {
                 msg << " Jammed: " << myPersonControl->getJammedNumber() << "\n";
             }
+            if (myPersonControl->getTeleportCount() > 0) {
+                std::vector<std::string> reasons;
+                if (myPersonControl->getTeleportsAbortWait() > 0) {
+                    reasons.push_back("Abort Wait: " + toString(myPersonControl->getTeleportsAbortWait()));
+                }
+                if (myPersonControl->getTeleportsWrongDest() > 0) {
+                    reasons.push_back("Wrong Dest: " + toString(myPersonControl->getTeleportsWrongDest()));
+                }
+                msg << " Teleports: " << myPersonControl->getTeleportCount() << " (" << joinToString(reasons, ", ") << ")\n";
+            }
         }
         if (myContainerControl != nullptr && myContainerControl->getLoadedNumber() > 0) {
             msg << "Containers: " << "\n"
@@ -491,6 +501,16 @@ MSNet::generateStatistics(SUMOTime start) {
                 << " Running: " << myContainerControl->getRunningNumber() << "\n";
             if (myContainerControl->getJammedNumber() > 0) {
                 msg << " Jammed: " << myContainerControl->getJammedNumber() << "\n";
+            }
+            if (myContainerControl->getTeleportCount() > 0) {
+                std::vector<std::string> reasons;
+                if (myContainerControl->getTeleportsAbortWait() > 0) {
+                    reasons.push_back("Abort Wait: " + toString(myContainerControl->getTeleportsAbortWait()));
+                }
+                if (myContainerControl->getTeleportsWrongDest() > 0) {
+                    reasons.push_back("Wrong Dest: " + toString(myContainerControl->getTeleportsWrongDest()));
+                }
+                msg << " Teleports: " << myContainerControl->getTeleportCount() << " (" << joinToString(reasons, ", ") << ")\n";
             }
         }
     }
@@ -545,6 +565,11 @@ MSNet::writeStatistics() const {
     od.writeAttr("loaded", myPersonControl != nullptr ? myPersonControl->getLoadedNumber() : 0);
     od.writeAttr("running", myPersonControl != nullptr ? myPersonControl->getRunningNumber() : 0);
     od.writeAttr("jammed", myPersonControl != nullptr ? myPersonControl->getJammedNumber() : 0);
+    od.closeTag();
+    od.openTag("personTeleports");
+    od.writeAttr("total", myPersonControl != nullptr ? myPersonControl->getTeleportCount() : 0);
+    od.writeAttr("abortWait", myPersonControl != nullptr ? myPersonControl->getTeleportsAbortWait() : 0);
+    od.writeAttr("wrongDest", myPersonControl != nullptr ? myPersonControl->getTeleportsWrongDest() : 0);
     od.closeTag();
     if (OptionsCont::getOptions().isSet("tripinfo-output") || OptionsCont::getOptions().getBool("duration-log.statistics")) {
         MSDevice_Tripinfo::writeStatistics(od);
@@ -608,6 +633,7 @@ MSNet::writeSummaryOutput() {
         od.writeAttr("jammed", pc.getJammedNumber());
         od.writeAttr("ended", pc.getEndedNumber());
         od.writeAttr("arrived", pc.getArrivedNumber());
+        od.writeAttr("teleports", pc.getTeleportCount());
         if (myLogExecutionTime) {
             od.writeAttr("duration", mySimStepDuration);
         }
