@@ -22,8 +22,8 @@ set(netedit_frames_SRCS
    GNEOverlappedInspection.h
    GNEPathCreator.cpp
    GNEPathCreator.h
-   GNEPathLegend.cpp
-   GNEPathLegend.h
+   GNEPathLegendModule.cpp
+   GNEPathLegendModule.h
    GNESelectorParent.cpp
    GNESelectorParent.h
    GNETagSelector.cpp

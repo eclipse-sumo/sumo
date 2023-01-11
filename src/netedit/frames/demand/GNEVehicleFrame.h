@@ -25,7 +25,7 @@
 #include <netedit/frames/GNEAttributesCreator.h>
 #include <netedit/frames/GNETagSelector.h>
 #include <netedit/frames/GNEDemandSelector.h>
-#include <netedit/frames/GNEPathLegend.h>
+#include <netedit/frames/GNEPathLegendModule.h>
 
 
 // ===========================================================================
@@ -132,5 +132,5 @@ private:
     HelpCreation* myHelpCreation;
 
     /// @brief path legend modul
-    GNEM_PathLegend* myPathLegend;
+    GNEPathLegendModule* myPathLegend;
 };

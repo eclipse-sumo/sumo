@@ -32,14 +32,14 @@ class GNEFrame;
 // class definitions
 // ===========================================================================
 
-class GNEM_PathLegend : public MFXGroupBoxModule {
+class GNEPathLegendModule : public MFXGroupBoxModule {
 
 public:
     /// @brief constructor
-    GNEM_PathLegend(GNEFrame* frameParent);
+    GNEPathLegendModule(GNEFrame* frameParent);
 
     /// @brief destructor
-    ~GNEM_PathLegend();
+    ~GNEPathLegendModule();
 
     /// @brief show Legend modul
     void showPathLegendModule();

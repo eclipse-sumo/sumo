@@ -199,7 +199,7 @@ GNERouteFrame::GNERouteFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     myPathCreator = new GNEPathCreator(this);
 
     // create legend label
-    myPathLegend = new GNEM_PathLegend(this);
+    myPathLegend = new GNEPathLegendModule(this);
 }
 
 
