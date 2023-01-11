@@ -1933,13 +1933,13 @@ GNEViewNetHelper::SaveElements::buildSaveElementsButtons() {
     // create save sumo config button
     mySaveNETEDITConfig = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
             myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-            "\tSave NETEDITConfig\tSave NETEDITConfig.", GUIIconSubSys::getIcon(GUIIcon::SAVE_NETEDITCONFIG),
+            "\tSave NETEDITConfig\tSave NETEDITConfig. (Ctrl+Shift+E)", GUIIconSubSys::getIcon(GUIIcon::SAVE_NETEDITCONFIG),
             myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG, GUIDesignButtonToolbar);
     mySaveNETEDITConfig->create();
     // create save sumo config button
     mySaveSUMOConfig = new MFXButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
             myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(),
-            "\tSave SUMOConfig\tSave SUMOConfig.", GUIIconSubSys::getIcon(GUIIcon::SAVE_SUMOCONFIG),
+            "\tSave SUMOConfig\tSave SUMOConfig. (Ctrl+Shift+S)", GUIIconSubSys::getIcon(GUIIcon::SAVE_SUMOCONFIG),
             myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_S_SAVESUMOCONFIG, GUIDesignButtonToolbar);
     mySaveSUMOConfig->create();
     // create save network button
