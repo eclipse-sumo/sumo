@@ -28,7 +28,7 @@
 // ===========================================================================
 /**
  * @class GNEApplicationWindow
- * @brief The main window of the Netedit.
+ * @brief The main window of Netedit.
  *
  * Contains the file opening support and a canvas to display the network in.
  *
@@ -287,7 +287,7 @@ public:
     /// @brief called when the update/FXCall needs network is executed
     long onUpdNeedsNetwork(FXObject*, FXSelector, void*);
 
-    /// @brief called when the update/FXCall needs at least one newtork element is executed
+    /// @brief called when the update/FXCall needs at least one network element is executed
     long onUpdNeedsNetworkElement(FXObject*, FXSelector, void*);
 
     /// @brief called when the update/FXCall needs front element is executed
@@ -463,8 +463,8 @@ public:
     /// @brief called if the user selects help->Tutorial
     long onCmdTutorial(FXObject* sender, FXSelector sel, void* ptr);
 
-    /// @brief called when toogle checkbox compute network when swichting between supermodes
-    long onCmdToogleComputeNetworkData(FXObject*, FXSelector, void*);
+    /// @brief called when toggle checkbox compute network when switching between supermodes
+    long onCmdToggleComputeNetworkData(FXObject*, FXSelector, void*);
 
     /// @brief called if the user selects Processing->Configure Options
     long onCmdOpenOptionsDialog(FXObject*, FXSelector, void*);
