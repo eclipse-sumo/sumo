@@ -44,9 +44,6 @@ GNEE2DetectorLegendModule::GNEE2DetectorLegendModule(GNEFrame* frameParent) :
     // edge selected
     legendLabel = new FXLabel(getCollapsableFrame(), " edge selected", 0, GUIDesignLabelLeft);
     legendLabel->setBackColor(MFXUtils::getFXColor(frameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.source));
-    // edge conflict (vClass)
-    legendLabel = new FXLabel(getCollapsableFrame(), " edge conflict (vClass)", 0, GUIDesignLabelLeft);
-    legendLabel->setBackColor(MFXUtils::getFXColor(frameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.special));
     // edge disconnected
     legendLabel = new FXLabel(getCollapsableFrame(), " edge disconnected", 0, GUIDesignLabelLeft);
     legendLabel->setBackColor(MFXUtils::getFXColor(frameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.conflict));
@@ -57,12 +54,13 @@ GNEE2DetectorLegendModule::~GNEE2DetectorLegendModule() {}
 
 
 void
-GNEE2DetectorLegendModule::showPathLegendModule() {
+GNEE2DetectorLegendModule::showE2DetectorLegend() {
     show();
 }
 
+
 void
-GNEE2DetectorLegendModule::hidePathLegendModule() {
+GNEE2DetectorLegendModule::hideE2DetectorLegend() {
     hide();
 }
 

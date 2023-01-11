@@ -42,8 +42,8 @@ public:
     ~GNEE2DetectorLegendModule();
 
     /// @brief show Legend modul
-    void showPathLegendModule();
+    void showE2DetectorLegend();
 
     /// @brief hide Legend modul
-    void hidePathLegendModule();
+    void hideE2DetectorLegend();
 };
