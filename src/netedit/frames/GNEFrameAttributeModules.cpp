@@ -296,7 +296,7 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
             // fill comboBox with vTypes
             myValueChoicesComboBox->clearItems();
             for (const auto& vType : ACParent->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
-                myValueChoicesComboBox->appendIconItem(vType->getID().c_str());
+                myValueChoicesComboBox->appendIconItem(vType->getID().c_str(), vType->getACIcon());
             }
             // show only 10 vtypes
             myValueChoicesComboBox->setNumVisible(myValueChoicesComboBox->getNumItems() < 10 ? myValueChoicesComboBox->getNumItems() : 10);
@@ -380,7 +380,7 @@ GNEFrameAttributeModules::AttributesEditorRow::refreshAttributesEditorRow(const 
         // fill comboBox with vTypes
         myValueChoicesComboBox->clearItems();
         for (const auto& vType : ACParent->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
-            myValueChoicesComboBox->appendIconItem(vType->getID().c_str());
+            myValueChoicesComboBox->appendIconItem(vType->getID().c_str(), vType->getACIcon());
         }
         // show only 10 vtypes
         myValueChoicesComboBox->setNumVisible(myValueChoicesComboBox->getNumItems() < 10 ? myValueChoicesComboBox->getNumItems() : 10);
