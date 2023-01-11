@@ -1136,7 +1136,7 @@ GUIApplicationWindow::onCmdOpenEdgeData(FXObject*, FXSelector, void*) {
 
 long
 GUIApplicationWindow::onCmdReload(FXObject*, FXSelector, void*) {
-    if (!myAmLoading) {
+    if (!myAmLoading && TraCIServer::getInstance() == nullptr) {
         storeWindowSizeAndPos();
         getApp()->beginWaitCursor();
         myAmLoading = true;
