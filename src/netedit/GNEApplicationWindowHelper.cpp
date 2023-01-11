@@ -1941,6 +1941,7 @@ GNEApplicationWindowHelper::WindowsMenuCommands::buildWindowsMenuCommands(FXMenu
     GUIDesigns::buildFXMenuCheckbox(windowsMenu,
                                     "Show Message Window", "Toggle the Message Window on/off.",
                                     messageWindow, FXWindow::ID_TOGGLESHOWN);
+    new FXMenuSeparator(windowsMenu);
     GUIDesigns::buildFXMenuCommandShortcut(windowsMenu,
                                            "Clear Message Window", "", "Clear the Message Window.",
                                            GUIIconSubSys::getIcon(GUIIcon::CLEARMESSAGEWINDOW), myGNEApp, MID_CLEARMESSAGEWINDOW);
