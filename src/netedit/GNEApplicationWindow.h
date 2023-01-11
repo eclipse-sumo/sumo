@@ -570,22 +570,22 @@ protected:
     bool myReloading = false;
 
     /// @brief the submenus
-    FXMenuPane *myFileMenu = nullptr,
-               *myFileMenuSUMOConfig = nullptr,
-               *myFileMenuTLS = nullptr,
-               *myFileMenuEdgeTypes = nullptr,
-               *myFileMenuAdditionals = nullptr,
-               *myFileMenuDemandElements = nullptr,
-               *myFileMenuDataElements = nullptr,
-               *myFileMenuRecentFiles = nullptr,
-               *myModesMenu = nullptr,
-               *myEditMenu = nullptr,
-               *myLockMenu = nullptr,
-               *myProcessingMenu = nullptr,
-               *myLocatorMenu = nullptr,
-               *myToolsMenu = nullptr,
-               *myWindowMenu = nullptr,
-               *myHelpMenu = nullptr;
+    FXMenuPane* myFileMenu = nullptr,
+        * myFileMenuSUMOConfig = nullptr,
+        * myFileMenuTLS = nullptr,
+        * myFileMenuEdgeTypes = nullptr,
+        * myFileMenuAdditionals = nullptr,
+        * myFileMenuDemandElements = nullptr,
+        * myFileMenuDataElements = nullptr,
+        * myFileMenuRecentFiles = nullptr,
+        * myModesMenu = nullptr,
+        * myEditMenu = nullptr,
+        * myLockMenu = nullptr,
+        * myProcessingMenu = nullptr,
+        * myLocatorMenu = nullptr,
+        * myToolsMenu = nullptr,
+        * myWindowMenu = nullptr,
+        * myHelpMenu = nullptr;
 
     /// @brief menu title for modes
     FXMenuTitle* myModesMenuTitle = nullptr;

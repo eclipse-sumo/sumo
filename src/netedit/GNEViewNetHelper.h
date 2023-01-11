@@ -1354,7 +1354,7 @@ struct GNEViewNetHelper {
 
         /// @brief checkable button for edit mode "TAZRelData"
         MFXCheckableButton* TAZRelDataButton = nullptr;
-        
+
         /// @brief checkable button for edit mode "meanData"
         MFXCheckableButton* meanDataButton = nullptr;
 
@@ -1397,8 +1397,8 @@ struct GNEViewNetHelper {
     struct LockIcon {
         /// @brief draw lock icon
         static void drawLockIcon(const GNEAttributeCarrier* AC, GUIGlObjectType type, const Position viewPosition,
-                                 const double exaggeration, const double size = 0.5,
-                                 const double offsetx = 0, const double offsety = 0);
+            const double exaggeration, const double size = 0.5,
+            const double offsetx = 0, const double offsety = 0);
 
         /// @brief check if icon can be drawn
         static bool checkDrawing(const GNEAttributeCarrier* AC, GUIGlObjectType type, const double exaggeration);

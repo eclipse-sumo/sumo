@@ -34,9 +34,9 @@ class MFXCheckableButton : public FXButton {
 public:
     /// @brief constructor (Very similar to the FXButton constructor)
     MFXCheckableButton(bool amChecked, FXComposite* p, MFXStaticToolTip* staticToolTip, const FXString& text,
-                       FXIcon* ic = NULL, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = BUTTON_NORMAL,
-                       FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
-                       FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
+        FXIcon* ic = NULL, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = BUTTON_NORMAL,
+        FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
+        FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
 
     /// @brief destructor (Called automatically)
     ~MFXCheckableButton();
@@ -70,20 +70,20 @@ protected:
     /// @brief FOX need this
     FOX_CONSTRUCTOR(MFXCheckableButton)
 
-    /// @brief flag to indicate if this MFXCheckableButton is checked
-    bool myAmChecked;
+        /// @brief flag to indicate if this MFXCheckableButton is checked
+        bool myAmChecked;
 
-   /* /// @brief colors of this MFXCheckableButton
+    /* /// @brief colors of this MFXCheckableButton
+     FXColor myBackColor,
+             myDarkColor,
+             myHiliteColor,
+             myShadowColor;*/
+
+             /// @brief colors of this MFXCheckableButton
     FXColor myBackColor,
-            myDarkColor,
-            myHiliteColor,
-            myShadowColor;*/
-    
-    /// @brief colors of this MFXCheckableButton
-    FXColor myBackColor,
-            myDarkColor,
-            myHiliteColor,
-            myShadowColor;
+        myDarkColor,
+        myHiliteColor,
+        myShadowColor;
 
     /// @brief check if this MFXCheckableButton is initialised
     bool myAmInitialised;

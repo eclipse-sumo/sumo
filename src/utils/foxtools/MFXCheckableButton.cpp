@@ -35,9 +35,9 @@ FXDEFMAP(MFXCheckableButton) MFXCheckableButtonMap[] = {
 FXIMPLEMENT(MFXCheckableButton, FXButton, MFXCheckableButtonMap, ARRAYNUMBER(MFXCheckableButtonMap))
 
 MFXCheckableButton::MFXCheckableButton(bool amChecked, FXComposite* p, MFXStaticToolTip* staticToolTip,
-                                       const FXString& text, FXIcon* ic, FXObject* tgt, FXSelector sel,
-                                       FXuint opts, FXint x, FXint y, FXint w, FXint h,
-                                       FXint pl, FXint pr, FXint pt, FXint pb) :
+    const FXString& text, FXIcon* ic, FXObject* tgt, FXSelector sel,
+    FXuint opts, FXint x, FXint y, FXint w, FXint h,
+    FXint pl, FXint pr, FXint pt, FXint pb) :
     FXButton(p, text, ic, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb),
     myAmChecked(amChecked), myAmInitialised(false),
     myStaticToolTip(staticToolTip) {
@@ -110,7 +110,7 @@ MFXCheckableButton::buildColors() {
     myBackColor = backColor;
     myDarkColor = makeShadowColor(myBackColor);
     myHiliteColor = hiliteColor;
-    myShadowColor = FXRGB(163,179,195); // shadowColor;
+    myShadowColor = FXRGB(163, 179, 195); // shadowColor;
     myAmInitialised = true;
 }
 
@@ -124,16 +124,19 @@ MFXCheckableButton::setColors() {
         shadowColor = myHiliteColor;
         if (state == STATE_ENGAGED) {
             options |= FRAME_SUNKEN | FRAME_THICK;
-        } else {
+        }
+        else {
             options |= FRAME_SUNKEN;
         }
-    } else {
+    }
+    else {
         backColor = myBackColor;
         hiliteColor = myHiliteColor;
         shadowColor = myShadowColor;
         if (state == STATE_ENGAGED) {
             options |= FRAME_RAISED | FRAME_THICK;
-        } else {
+        }
+        else {
             options |= FRAME_RAISED;
         }
     }

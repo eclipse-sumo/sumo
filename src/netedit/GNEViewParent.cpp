@@ -88,7 +88,7 @@ FXIMPLEMENT(GNEViewParent, GUIGlChildWindow, GNEViewParentMap, ARRAYNUMBER(GNEVi
 // ===========================================================================
 
 GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString& name, GNEApplicationWindow* parentWindow,
-                             FXGLCanvas* share, GNENet* net, const bool newNet, GNEUndoList* undoList, FXIcon* ic, FXuint opts, FXint x, FXint y, FXint w, FXint h) :
+    FXGLCanvas* share, GNENet* net, const bool newNet, GNEUndoList* undoList, FXIcon* ic, FXuint opts, FXint x, FXint y, FXint w, FXint h) :
     GUIGlChildWindow(p, parentWindow, mdimenu, name, parentWindow->getToolbarsGrip().navigation, ic, opts, x, y, w, h),
     myGNEAppWindows(parentWindow) {
     // Add child to parent
@@ -99,16 +99,16 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
 
     // Create undo/redo buttons
     myUndoButton = new MFXButtonTooltip(myGripNavigationToolbar, myGNEAppWindows->getStaticTooltipMenu(),
-                                        "\tUndo\tUndo the last change. (Ctrl+Z)", GUIIconSubSys::getIcon(GUIIcon::UNDO), parentWindow, MID_HOTKEY_CTRL_Z_UNDO, GUIDesignButtonToolbar);
+        "\tUndo\tUndo the last change. (Ctrl+Z)", GUIIconSubSys::getIcon(GUIIcon::UNDO), parentWindow, MID_HOTKEY_CTRL_Z_UNDO, GUIDesignButtonToolbar);
     myRedoButton = new MFXButtonTooltip(myGripNavigationToolbar, myGNEAppWindows->getStaticTooltipMenu(),
-                                        "\tRedo\tRedo the last change. (Ctrl+Y)", GUIIconSubSys::getIcon(GUIIcon::REDO), parentWindow, MID_HOTKEY_CTRL_Y_REDO, GUIDesignButtonToolbar);
+        "\tRedo\tRedo the last change. (Ctrl+Y)", GUIIconSubSys::getIcon(GUIIcon::REDO), parentWindow, MID_HOTKEY_CTRL_Y_REDO, GUIDesignButtonToolbar);
 
     // Create Vertical separator
     new FXVerticalSeparator(myGripNavigationToolbar, GUIDesignVerticalSeparator);
 
     // create compute path manager button
     myComputePathManagerButton = new MFXButtonTooltip(myGripNavigationToolbar, myGNEAppWindows->getStaticTooltipMenu(),
-            "\tCompute path manager\tCompute path manager", GUIIconSubSys::getIcon(GUIIcon::COMPUTEPATHMANAGER), parentWindow, MID_GNE_TOOLBAREDIT_COMPUTEPATHMANAGER, GUIDesignButtonToolbar);
+        "\tCompute path manager\tCompute path manager", GUIIconSubSys::getIcon(GUIIcon::COMPUTEPATHMANAGER), parentWindow, MID_GNE_TOOLBAREDIT_COMPUTEPATHMANAGER, GUIDesignButtonToolbar);
 
     // Create Frame Splitter
     myFramesSplitter = new FXSplitter(myChildWindowContentFrame, this, MID_GNE_VIEWPARENT_FRAMEAREAWIDTH, GUIDesignSplitter | SPLITTER_HORIZONTAL);
@@ -177,13 +177,17 @@ GNEFrame*
 GNEViewParent::getCurrentShownFrame() const {
     if (myCommonFrames.isCommonFrameShown()) {
         return myCommonFrames.getCurrentShownFrame();
-    } else if (myNetworkFrames.isNetworkFrameShown()) {
+    }
+    else if (myNetworkFrames.isNetworkFrameShown()) {
         return myNetworkFrames.getCurrentShownFrame();
-    } else if (myDemandFrames.isDemandFrameShown()) {
+    }
+    else if (myDemandFrames.isDemandFrameShown()) {
         return myDemandFrames.getCurrentShownFrame();
-    } else if (myDataFrames.isDataFrameShown()) {
+    }
+    else if (myDataFrames.isDataFrameShown()) {
         return myDataFrames.getCurrentShownFrame();
-    } else {
+    }
+    else {
         return nullptr;
     }
 }
@@ -342,9 +346,9 @@ GNEViewParent::getMeanDataFrame() const {
 void
 GNEViewParent::showFramesArea() {
     const bool frameShown = myCommonFrames.isCommonFrameShown() ||
-                            myNetworkFrames.isNetworkFrameShown() ||
-                            myDemandFrames.isDemandFrameShown() ||
-                            myDataFrames.isDataFrameShown();
+        myNetworkFrames.isNetworkFrameShown() ||
+        myDemandFrames.isDemandFrameShown() ||
+        myDataFrames.isDataFrameShown();
     // show and recalc framesArea if at least there is a frame shown
     if (frameShown) {
         myFramesArea->recalc();
@@ -356,9 +360,9 @@ GNEViewParent::showFramesArea() {
 void
 GNEViewParent::hideFramesArea() {
     const bool frameShown = myCommonFrames.isCommonFrameShown() ||
-                            myNetworkFrames.isNetworkFrameShown() ||
-                            myDemandFrames.isDemandFrameShown() ||
-                            myDataFrames.isDataFrameShown();
+        myNetworkFrames.isNetworkFrameShown() ||
+        myDemandFrames.isDemandFrameShown() ||
+        myDataFrames.isDataFrameShown();
     // hide and recalc frames Area if all frames are hidden is enabled
     if (!frameShown) {
         myFramesArea->hide();
@@ -383,33 +387,47 @@ void
 GNEViewParent::eraseACChooserDialog(GNEDialogACChooser* chooserDialog) {
     if (chooserDialog == nullptr) {
         throw ProcessError("ChooserDialog already deleted");
-    } else if (chooserDialog == myACChoosers.ACChooserJunction) {
+    }
+    else if (chooserDialog == myACChoosers.ACChooserJunction) {
         myACChoosers.ACChooserJunction = nullptr;
-    } else if (chooserDialog == myACChoosers.ACChooserEdges) {
+    }
+    else if (chooserDialog == myACChoosers.ACChooserEdges) {
         myACChoosers.ACChooserEdges = nullptr;
-    } else if (chooserDialog == myACChoosers.ACChooserWalkingAreas) {
+    }
+    else if (chooserDialog == myACChoosers.ACChooserWalkingAreas) {
         myACChoosers.ACChooserWalkingAreas = nullptr;
-    } else if (chooserDialog == myACChoosers.ACChooserVehicles) {
+    }
+    else if (chooserDialog == myACChoosers.ACChooserVehicles) {
         myACChoosers.ACChooserVehicles = nullptr;
-    } else if (chooserDialog == myACChoosers.ACChooserPersons) {
+    }
+    else if (chooserDialog == myACChoosers.ACChooserPersons) {
         myACChoosers.ACChooserPersons = nullptr;
-    } else if (chooserDialog == myACChoosers.ACChooserRoutes) {
+    }
+    else if (chooserDialog == myACChoosers.ACChooserRoutes) {
         myACChoosers.ACChooserRoutes = nullptr;
-    } else if (chooserDialog == myACChoosers.ACChooserStops) {
+    }
+    else if (chooserDialog == myACChoosers.ACChooserStops) {
         myACChoosers.ACChooserStops = nullptr;
-    } else if (chooserDialog == myACChoosers.ACChooserTLS) {
+    }
+    else if (chooserDialog == myACChoosers.ACChooserTLS) {
         myACChoosers.ACChooserTLS = nullptr;
-    } else if (chooserDialog == myACChoosers.ACChooserAdditional) {
+    }
+    else if (chooserDialog == myACChoosers.ACChooserAdditional) {
         myACChoosers.ACChooserAdditional = nullptr;
-    } else if (chooserDialog == myACChoosers.ACChooserPOI) {
+    }
+    else if (chooserDialog == myACChoosers.ACChooserPOI) {
         myACChoosers.ACChooserPOI = nullptr;
-    } else if (chooserDialog == myACChoosers.ACChooserPolygon) {
+    }
+    else if (chooserDialog == myACChoosers.ACChooserPolygon) {
         myACChoosers.ACChooserPolygon = nullptr;
-    } else if (chooserDialog == myACChoosers.ACChooserProhibition) {
+    }
+    else if (chooserDialog == myACChoosers.ACChooserProhibition) {
         myACChoosers.ACChooserProhibition = nullptr;
-    } else if (chooserDialog == myACChoosers.ACChooserWire) {
+    }
+    else if (chooserDialog == myACChoosers.ACChooserWire) {
         myACChoosers.ACChooserWire = nullptr;
-    } else {
+    }
+    else {
         throw ProcessError("Unregistered chooserDialog");
     }
 }
@@ -448,12 +466,12 @@ GNEViewParent::onCmdMakeSnapshot(FXObject*, FXSelector, void*) {
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::CAMERA));
     opendialog.setSelectMode(SELECTFILE_ANY);
     opendialog.setPatternList("All Image Files (*.gif, *.bmp, *.xpm, *.pcx, *.ico, *.rgb, *.xbm, *.tga, *.png, *.jpg, *.jpeg, *.tif, *.tiff, *.ps, *.eps, *.pdf, *.svg, *.tex, *.pgf)\n"
-                              "GIF Image (*.gif)\nBMP Image (*.bmp)\nXPM Image (*.xpm)\nPCX Image (*.pcx)\nICO Image (*.ico)\n"
-                              "RGB Image (*.rgb)\nXBM Image (*.xbm)\nTARGA Image (*.tga)\nPNG Image  (*.png)\n"
-                              "JPEG Image (*.jpg, *.jpeg)\nTIFF Image (*.tif, *.tiff)\n"
-                              "Postscript (*.ps)\nEncapsulated Postscript (*.eps)\nPortable Document Format (*.pdf)\n"
-                              "Scalable Vector Graphics (*.svg)\nLATEX text strings (*.tex)\nPortable LaTeX Graphics (*.pgf)\n"
-                              "All Files (*)");
+        "GIF Image (*.gif)\nBMP Image (*.bmp)\nXPM Image (*.xpm)\nPCX Image (*.pcx)\nICO Image (*.ico)\n"
+        "RGB Image (*.rgb)\nXBM Image (*.xbm)\nTARGA Image (*.tga)\nPNG Image  (*.png)\n"
+        "JPEG Image (*.jpg, *.jpeg)\nTIFF Image (*.tif, *.tiff)\n"
+        "Postscript (*.ps)\nEncapsulated Postscript (*.eps)\nPortable Document Format (*.pdf)\n"
+        "Scalable Vector Graphics (*.svg)\nLATEX text strings (*.tex)\nPortable LaTeX Graphics (*.pgf)\n"
+        "All Files (*)");
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
@@ -474,7 +492,8 @@ GNEViewParent::onCmdMakeSnapshot(FXObject*, FXSelector, void*) {
         FXMessageBox::error(this, MBOX_OK, TL("Saving failed."), "%s", error.c_str());
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Closed FXMessageBox 'error saving snapshot' with 'OK'");
-    } else {
+    }
+    else {
         WRITE_MESSAGE(TL("Snapshot successfully saved!"));
     }
     return 1;
@@ -499,183 +518,183 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
         GNEDialogACChooser** chooserLoc = nullptr;
         std::string locateTitle;
         switch (messageId) {
-            case MID_LOCATEJUNCTION:
-                chooserLoc = &myACChoosers.ACChooserJunction;
-                locateTitle = "Junction";
-                ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getJunctions().size());
-                for (const auto& junction : viewNet->getNet()->getAttributeCarriers()->getJunctions()) {
+        case MID_LOCATEJUNCTION:
+            chooserLoc = &myACChoosers.ACChooserJunction;
+            locateTitle = "Junction";
+            ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getJunctions().size());
+            for (const auto& junction : viewNet->getNet()->getAttributeCarriers()->getJunctions()) {
+                ACsToLocate.push_back(junction.second);
+            }
+            break;
+        case MID_LOCATEEDGE:
+            chooserLoc = &myACChoosers.ACChooserEdges;
+            locateTitle = "Edge";
+            ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getEdges().size());
+            for (const auto& edge : viewNet->getNet()->getAttributeCarriers()->getEdges()) {
+                ACsToLocate.push_back(edge.second);
+            }
+            break;
+        case MID_LOCATEWALKINGAREA:
+            chooserLoc = &myACChoosers.ACChooserWalkingAreas;
+            locateTitle = "WalkingArea";
+            ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getWalkingAreas().size());
+            for (const auto& walkingArea : viewNet->getNet()->getAttributeCarriers()->getWalkingAreas()) {
+                ACsToLocate.push_back(walkingArea);
+            }
+            break;
+        case MID_LOCATEVEHICLE: {
+            chooserLoc = &myACChoosers.ACChooserVehicles;
+            locateTitle = "Vehicle";
+            const auto demandElements = viewNet->getNet()->getAttributeCarriers()->getDemandElements();
+            // reserve memory
+            ACsToLocate.reserve(demandElements.at(SUMO_TAG_VEHICLE).size() +
+                demandElements.at(SUMO_TAG_TRIP).size() +
+                demandElements.at(GNE_TAG_VEHICLE_WITHROUTE).size() +
+                demandElements.at(GNE_TAG_TRIP_JUNCTIONS).size() +
+                demandElements.at(SUMO_TAG_FLOW).size() +
+                demandElements.at(GNE_TAG_FLOW_ROUTE).size() +
+                demandElements.at(GNE_TAG_FLOW_WITHROUTE).size() +
+                demandElements.at(GNE_TAG_FLOW_JUNCTIONS).size());
+            // fill ACsToLocate with vehicles,...
+            for (const auto& vehicle : demandElements.at(SUMO_TAG_VEHICLE)) {
+                ACsToLocate.push_back(vehicle);
+            }
+            // ...trips,...
+            for (const auto& trip : demandElements.at(SUMO_TAG_TRIP)) {
+                ACsToLocate.push_back(trip);
+            }
+            // ...vehicles with embedded routes,...
+            for (const auto& trip : demandElements.at(GNE_TAG_VEHICLE_WITHROUTE)) {
+                ACsToLocate.push_back(trip);
+            }
+            // ...trips over junctions,...
+            for (const auto& trip : demandElements.at(GNE_TAG_TRIP_JUNCTIONS)) {
+                ACsToLocate.push_back(trip);
+            }
+            // ...flows,...
+            for (const auto& flow : demandElements.at(SUMO_TAG_FLOW)) {
+                ACsToLocate.push_back(flow);
+            }
+            // ...flows over routes,...
+            for (const auto& flowRoute : demandElements.at(GNE_TAG_FLOW_ROUTE)) {
+                ACsToLocate.push_back(flowRoute);
+            }
+            // ...flows with embedded routes...
+            for (const auto& flowRoute : demandElements.at(GNE_TAG_FLOW_WITHROUTE)) {
+                ACsToLocate.push_back(flowRoute);
+            }
+            // ... and flows over junctions.
+            for (const auto& flowRoute : demandElements.at(GNE_TAG_FLOW_JUNCTIONS)) {
+                ACsToLocate.push_back(flowRoute);
+            }
+            break;
+        }
+        case MID_LOCATEPERSON:
+            chooserLoc = &myACChoosers.ACChooserPersons;
+            locateTitle = "Person";
+            ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSON).size() +
+                viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSONFLOW).size());
+            // fill ACsToLocate with persons
+            for (const auto& person : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSON)) {
+                ACsToLocate.push_back(person);
+            }
+            // fill ACsToLocate with personFlows
+            for (const auto& personFlow : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSONFLOW)) {
+                ACsToLocate.push_back(personFlow);
+            }
+            break;
+        case MID_LOCATEROUTE:
+            chooserLoc = &myACChoosers.ACChooserRoutes;
+            locateTitle = "Route";
+            ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).size());
+            for (const auto& route : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE)) {
+                ACsToLocate.push_back(route);
+            }
+            break;
+        case MID_LOCATESTOP: {
+            chooserLoc = &myACChoosers.ACChooserStops;
+            locateTitle = "Stop";
+            // reserve memory
+            ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_LANE).size() +
+                viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_BUSSTOP).size() +
+                viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_CONTAINERSTOP).size() +
+                viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_CHARGINGSTATION).size() +
+                viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_PARKINGAREA).size());
+            // fill ACsToLocate with stop over lanes
+            for (const auto& stopLane : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_LANE)) {
+                ACsToLocate.push_back(stopLane);
+            }
+            // fill ACsToLocate with stop over busstops
+            for (const auto& stopBusStop : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_BUSSTOP)) {
+                ACsToLocate.push_back(stopBusStop);
+            }
+            // fill ACsToLocate with stop over container stops
+            for (const auto& stopContainerStop : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_CONTAINERSTOP)) {
+                ACsToLocate.push_back(stopContainerStop);
+            }
+            // fill ACsToLocate with stop over charging stations
+            for (const auto& stopChargingStation : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_CHARGINGSTATION)) {
+                ACsToLocate.push_back(stopChargingStation);
+            }
+            // fill ACsToLocate with stop over parking areas
+            for (const auto& stopParkingArea : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_PARKINGAREA)) {
+                ACsToLocate.push_back(stopParkingArea);
+            }
+            break;
+        }
+        case MID_LOCATETLS:
+            chooserLoc = &myACChoosers.ACChooserTLS;
+            locateTitle = "TLS";
+            // fill ACsToLocate with junctions that haven TLS
+            ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getJunctions().size());
+            for (const auto& junction : viewNet->getNet()->getAttributeCarriers()->getJunctions()) {
+                if (junction.second->getNBNode()->getControllingTLS().size() > 0) {
                     ACsToLocate.push_back(junction.second);
                 }
-                break;
-            case MID_LOCATEEDGE:
-                chooserLoc = &myACChoosers.ACChooserEdges;
-                locateTitle = "Edge";
-                ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getEdges().size());
-                for (const auto& edge : viewNet->getNet()->getAttributeCarriers()->getEdges()) {
-                    ACsToLocate.push_back(edge.second);
-                }
-                break;
-            case MID_LOCATEWALKINGAREA:
-                chooserLoc = &myACChoosers.ACChooserWalkingAreas;
-                locateTitle = "WalkingArea";
-                ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getWalkingAreas().size());
-                for (const auto& walkingArea : viewNet->getNet()->getAttributeCarriers()->getWalkingAreas()) {
-                    ACsToLocate.push_back(walkingArea);
-                }
-                break;
-            case MID_LOCATEVEHICLE: {
-                chooserLoc = &myACChoosers.ACChooserVehicles;
-                locateTitle = "Vehicle";
-                const auto demandElements = viewNet->getNet()->getAttributeCarriers()->getDemandElements();
-                // reserve memory
-                ACsToLocate.reserve(demandElements.at(SUMO_TAG_VEHICLE).size() +
-                                    demandElements.at(SUMO_TAG_TRIP).size() +
-                                    demandElements.at(GNE_TAG_VEHICLE_WITHROUTE).size() +
-                                    demandElements.at(GNE_TAG_TRIP_JUNCTIONS).size() +
-                                    demandElements.at(SUMO_TAG_FLOW).size() +
-                                    demandElements.at(GNE_TAG_FLOW_ROUTE).size() +
-                                    demandElements.at(GNE_TAG_FLOW_WITHROUTE).size() +
-                                    demandElements.at(GNE_TAG_FLOW_JUNCTIONS).size());
-                // fill ACsToLocate with vehicles,...
-                for (const auto& vehicle : demandElements.at(SUMO_TAG_VEHICLE)) {
-                    ACsToLocate.push_back(vehicle);
-                }
-                // ...trips,...
-                for (const auto& trip : demandElements.at(SUMO_TAG_TRIP)) {
-                    ACsToLocate.push_back(trip);
-                }
-                // ...vehicles with embedded routes,...
-                for (const auto& trip : demandElements.at(GNE_TAG_VEHICLE_WITHROUTE)) {
-                    ACsToLocate.push_back(trip);
-                }
-                // ...trips over junctions,...
-                for (const auto& trip : demandElements.at(GNE_TAG_TRIP_JUNCTIONS)) {
-                    ACsToLocate.push_back(trip);
-                }
-                // ...flows,...
-                for (const auto& flow : demandElements.at(SUMO_TAG_FLOW)) {
-                    ACsToLocate.push_back(flow);
-                }
-                // ...flows over routes,...
-                for (const auto& flowRoute : demandElements.at(GNE_TAG_FLOW_ROUTE)) {
-                    ACsToLocate.push_back(flowRoute);
-                }
-                // ...flows with embedded routes...
-                for (const auto& flowRoute : demandElements.at(GNE_TAG_FLOW_WITHROUTE)) {
-                    ACsToLocate.push_back(flowRoute);
-                }
-                // ... and flows over junctions.
-                for (const auto& flowRoute : demandElements.at(GNE_TAG_FLOW_JUNCTIONS)) {
-                    ACsToLocate.push_back(flowRoute);
-                }
-                break;
             }
-            case MID_LOCATEPERSON:
-                chooserLoc = &myACChoosers.ACChooserPersons;
-                locateTitle = "Person";
-                ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSON).size() +
-                                    viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSONFLOW).size());
-                // fill ACsToLocate with persons
-                for (const auto& person : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSON)) {
-                    ACsToLocate.push_back(person);
+            break;
+        case MID_LOCATEADD:
+            chooserLoc = &myACChoosers.ACChooserAdditional;
+            locateTitle = "Additional";
+            for (const auto& additionalTag : viewNet->getNet()->getAttributeCarriers()->getAdditionals()) {
+                if (additionalTag.first == SUMO_TAG_POI
+                    || additionalTag.first == GNE_TAG_POILANE
+                    || additionalTag.first == GNE_TAG_POIGEO
+                    || additionalTag.first == SUMO_TAG_POLY) {
+                    continue;
                 }
-                // fill ACsToLocate with personFlows
-                for (const auto& personFlow : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSONFLOW)) {
-                    ACsToLocate.push_back(personFlow);
+                for (const auto& additional : additionalTag.second) {
+                    ACsToLocate.push_back(additional);
                 }
-                break;
-            case MID_LOCATEROUTE:
-                chooserLoc = &myACChoosers.ACChooserRoutes;
-                locateTitle = "Route";
-                ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).size());
-                for (const auto& route : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE)) {
-                    ACsToLocate.push_back(route);
-                }
-                break;
-            case MID_LOCATESTOP: {
-                chooserLoc = &myACChoosers.ACChooserStops;
-                locateTitle = "Stop";
-                // reserve memory
-                ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_LANE).size() +
-                                    viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_BUSSTOP).size() +
-                                    viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_CONTAINERSTOP).size() +
-                                    viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_CHARGINGSTATION).size() +
-                                    viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_PARKINGAREA).size());
-                // fill ACsToLocate with stop over lanes
-                for (const auto& stopLane : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_LANE)) {
-                    ACsToLocate.push_back(stopLane);
-                }
-                // fill ACsToLocate with stop over busstops
-                for (const auto& stopBusStop : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_BUSSTOP)) {
-                    ACsToLocate.push_back(stopBusStop);
-                }
-                // fill ACsToLocate with stop over container stops
-                for (const auto& stopContainerStop : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_CONTAINERSTOP)) {
-                    ACsToLocate.push_back(stopContainerStop);
-                }
-                // fill ACsToLocate with stop over charging stations
-                for (const auto& stopChargingStation : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_CHARGINGSTATION)) {
-                    ACsToLocate.push_back(stopChargingStation);
-                }
-                // fill ACsToLocate with stop over parking areas
-                for (const auto& stopParkingArea : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_PARKINGAREA)) {
-                    ACsToLocate.push_back(stopParkingArea);
-                }
-                break;
             }
-            case MID_LOCATETLS:
-                chooserLoc = &myACChoosers.ACChooserTLS;
-                locateTitle = "TLS";
-                // fill ACsToLocate with junctions that haven TLS
-                ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getJunctions().size());
-                for (const auto& junction : viewNet->getNet()->getAttributeCarriers()->getJunctions()) {
-                    if (junction.second->getNBNode()->getControllingTLS().size() > 0) {
-                        ACsToLocate.push_back(junction.second);
-                    }
-                }
-                break;
-            case MID_LOCATEADD:
-                chooserLoc = &myACChoosers.ACChooserAdditional;
-                locateTitle = "Additional";
-                for (const auto& additionalTag : viewNet->getNet()->getAttributeCarriers()->getAdditionals()) {
-                    if (additionalTag.first == SUMO_TAG_POI
-                            || additionalTag.first == GNE_TAG_POILANE
-                            || additionalTag.first == GNE_TAG_POIGEO
-                            || additionalTag.first == SUMO_TAG_POLY) {
-                        continue;
-                    }
-                    for (const auto& additional : additionalTag.second) {
-                        ACsToLocate.push_back(additional);
-                    }
-                }
-                break;
-            case MID_LOCATEPOI:
-                chooserLoc = &myACChoosers.ACChooserPOI;
-                locateTitle = "POI";
-                // fill ACsToLocate with POIs
-                for (const auto& POI : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_POI)) {
-                    ACsToLocate.push_back(POI);
-                }
-                for (const auto& POI : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_POILANE)) {
-                    ACsToLocate.push_back(POI);
-                }
-                for (const auto& POI : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_POIGEO)) {
-                    ACsToLocate.push_back(POI);
-                }
-                break;
-            case MID_LOCATEPOLY:
-                chooserLoc = &myACChoosers.ACChooserPolygon;
-                locateTitle = "Poly";
-                // fill ACsToLocate with polys and TAZs (because share namespae)
-                for (const auto& polygon : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_POLY)) {
-                    ACsToLocate.push_back(polygon);
-                }
-                for (const auto& taz : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {
-                    ACsToLocate.push_back(taz);
-                }
-                break;
-            default:
-                throw ProcessError("Unknown Message ID in onCmdLocate");
+            break;
+        case MID_LOCATEPOI:
+            chooserLoc = &myACChoosers.ACChooserPOI;
+            locateTitle = "POI";
+            // fill ACsToLocate with POIs
+            for (const auto& POI : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_POI)) {
+                ACsToLocate.push_back(POI);
+            }
+            for (const auto& POI : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_POILANE)) {
+                ACsToLocate.push_back(POI);
+            }
+            for (const auto& POI : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(GNE_TAG_POIGEO)) {
+                ACsToLocate.push_back(POI);
+            }
+            break;
+        case MID_LOCATEPOLY:
+            chooserLoc = &myACChoosers.ACChooserPolygon;
+            locateTitle = "Poly";
+            // fill ACsToLocate with polys and TAZs (because share namespae)
+            for (const auto& polygon : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_POLY)) {
+                ACsToLocate.push_back(polygon);
+            }
+            for (const auto& taz : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_TAZ)) {
+                ACsToLocate.push_back(taz);
+            }
+            break;
+        default:
+            throw ProcessError("Unknown Message ID in onCmdLocate");
         }
         if (*chooserLoc) {
             // restore focus in the existent chooser dialog
@@ -683,7 +702,8 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
             chooser->restore();
             chooser->setFocus();
             chooser->raise();
-        } else {
+        }
+        else {
             GNEDialogACChooser* chooser = new GNEDialogACChooser(this, messageId, GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), locateTitle + " Chooser", ACsToLocate);
             *chooserLoc = chooser;
         }
@@ -766,13 +786,17 @@ GNEViewParent::CommonFrames::isCommonFrameShown() const {
     // check all frames
     if (inspectorFrame->shown()) {
         return true;
-    } else if (deleteFrame->shown()) {
+    }
+    else if (deleteFrame->shown()) {
         return true;
-    } else if (selectorFrame->shown()) {
+    }
+    else if (selectorFrame->shown()) {
         return true;
-    } else if (moveFrame->shown()) {
+    }
+    else if (moveFrame->shown()) {
         return true;
-    } else {
+    }
+    else {
         return false;
     }
 }
@@ -783,13 +807,17 @@ GNEViewParent::CommonFrames::getCurrentShownFrame() const {
     // check all frames
     if (inspectorFrame->shown()) {
         return inspectorFrame;
-    } else if (deleteFrame->shown()) {
+    }
+    else if (deleteFrame->shown()) {
         return deleteFrame;
-    } else if (selectorFrame->shown()) {
+    }
+    else if (selectorFrame->shown()) {
         return selectorFrame;
-    } else if (moveFrame->shown()) {
+    }
+    else if (moveFrame->shown()) {
         return moveFrame;
-    } else {
+    }
+    else {
         return nullptr;
     }
 }
@@ -859,23 +887,32 @@ GNEViewParent::NetworkFrames::isNetworkFrameShown() const {
     // check all frames
     if (connectorFrame->shown()) {
         return true;
-    } else if (TLSEditorFrame->shown()) {
+    }
+    else if (TLSEditorFrame->shown()) {
         return true;
-    } else if (additionalFrame->shown()) {
+    }
+    else if (additionalFrame->shown()) {
         return true;
-    } else if (crossingFrame->shown()) {
+    }
+    else if (crossingFrame->shown()) {
         return true;
-    } else if (TAZFrame->shown()) {
+    }
+    else if (TAZFrame->shown()) {
         return true;
-    } else if (polygonFrame->shown()) {
+    }
+    else if (polygonFrame->shown()) {
         return true;
-    } else if (prohibitionFrame->shown()) {
+    }
+    else if (prohibitionFrame->shown()) {
         return true;
-    } else if (wireFrame->shown()) {
+    }
+    else if (wireFrame->shown()) {
         return true;
-    } else if (createEdgeFrame->shown()) {
+    }
+    else if (createEdgeFrame->shown()) {
         return true;
-    } else {
+    }
+    else {
         return false;
     }
 }
@@ -886,23 +923,32 @@ GNEViewParent::NetworkFrames::getCurrentShownFrame() const {
     // check all frames
     if (connectorFrame->shown()) {
         return connectorFrame;
-    } else if (TLSEditorFrame->shown()) {
+    }
+    else if (TLSEditorFrame->shown()) {
         return TLSEditorFrame;
-    } else if (additionalFrame->shown()) {
+    }
+    else if (additionalFrame->shown()) {
         return additionalFrame;
-    } else if (crossingFrame->shown()) {
+    }
+    else if (crossingFrame->shown()) {
         return crossingFrame;
-    } else if (TAZFrame->shown()) {
+    }
+    else if (TAZFrame->shown()) {
         return TAZFrame;
-    } else if (polygonFrame->shown()) {
+    }
+    else if (polygonFrame->shown()) {
         return polygonFrame;
-    } else if (prohibitionFrame->shown()) {
+    }
+    else if (prohibitionFrame->shown()) {
         return prohibitionFrame;
-    } else if (wireFrame->shown()) {
+    }
+    else if (wireFrame->shown()) {
         return wireFrame;
-    } else if (createEdgeFrame->shown()) {
+    }
+    else if (createEdgeFrame->shown()) {
         return createEdgeFrame;
-    } else {
+    }
+    else {
         return nullptr;
     }
 }
@@ -968,21 +1014,29 @@ GNEViewParent::DemandFrames::isDemandFrameShown() const {
     // check all frames
     if (routeFrame->shown()) {
         return true;
-    } else if (vehicleFrame->shown()) {
+    }
+    else if (vehicleFrame->shown()) {
         return true;
-    } else if (vehicleTypeFrame->shown()) {
+    }
+    else if (vehicleTypeFrame->shown()) {
         return true;
-    } else if (stopFrame->shown()) {
+    }
+    else if (stopFrame->shown()) {
         return true;
-    } else if (personFrame->shown()) {
+    }
+    else if (personFrame->shown()) {
         return true;
-    } else if (personPlanFrame->shown()) {
+    }
+    else if (personPlanFrame->shown()) {
         return true;
-    } else if (containerFrame->shown()) {
+    }
+    else if (containerFrame->shown()) {
         return true;
-    } else if (containerPlanFrame->shown()) {
+    }
+    else if (containerPlanFrame->shown()) {
         return true;
-    } else {
+    }
+    else {
         return false;
     }
 }
@@ -993,21 +1047,29 @@ GNEViewParent::DemandFrames::getCurrentShownFrame() const {
     // check all frames
     if (routeFrame->shown()) {
         return routeFrame;
-    } else if (vehicleFrame->shown()) {
+    }
+    else if (vehicleFrame->shown()) {
         return vehicleFrame;
-    } else if (vehicleTypeFrame->shown()) {
+    }
+    else if (vehicleTypeFrame->shown()) {
         return vehicleTypeFrame;
-    } else if (stopFrame->shown()) {
+    }
+    else if (stopFrame->shown()) {
         return stopFrame;
-    } else if (personFrame->shown()) {
+    }
+    else if (personFrame->shown()) {
         return personFrame;
-    } else if (personPlanFrame->shown()) {
+    }
+    else if (personPlanFrame->shown()) {
         return personPlanFrame;
-    } else if (containerFrame->shown()) {
+    }
+    else if (containerFrame->shown()) {
         return containerFrame;
-    } else if (containerPlanFrame->shown()) {
+    }
+    else if (containerPlanFrame->shown()) {
         return containerPlanFrame;
-    } else {
+    }
+    else {
         return nullptr;
     }
 }
@@ -1053,13 +1115,17 @@ GNEViewParent::DataFrames::isDataFrameShown() const {
     // check all frames
     if (edgeDataFrame->shown()) {
         return true;
-    } else if (edgeRelDataFrame->shown()) {
+    }
+    else if (edgeRelDataFrame->shown()) {
         return true;
-    } else if (TAZRelDataFrame->shown()) {
+    }
+    else if (TAZRelDataFrame->shown()) {
         return true;
-    } else if (meanDataFrame->shown()) {
+    }
+    else if (meanDataFrame->shown()) {
         return true;
-    } else {
+    }
+    else {
         return false;
     }
 }
@@ -1070,13 +1136,17 @@ GNEViewParent::DataFrames::getCurrentShownFrame() const {
     // check all frames
     if (edgeDataFrame->shown()) {
         return edgeDataFrame;
-    } else if (edgeRelDataFrame->shown()) {
+    }
+    else if (edgeRelDataFrame->shown()) {
         return edgeRelDataFrame;
-    } else if (TAZRelDataFrame->shown()) {
+    }
+    else if (TAZRelDataFrame->shown()) {
         return TAZRelDataFrame;
-    } else if (meanDataFrame->shown()) {
+    }
+    else if (meanDataFrame->shown()) {
         return meanDataFrame;
-    } else {
+    }
+    else {
         return nullptr;
     }
 }
