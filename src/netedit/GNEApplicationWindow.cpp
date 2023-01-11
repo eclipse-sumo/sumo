@@ -3716,29 +3716,29 @@ GNEApplicationWindow::onCmdSaveNETEDITConfigAs(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onUpdSaveNETEDITConfig(FXObject* sender, FXSelector, void*) {
-    bool enableButton = false;
-    // check if enable or disable
+    // check if enable or disable save NETEDIT config button
     if (myNet == nullptr) {
-        enableButton = false;
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (OptionsCont::getOptions().getString("configuration-file").empty()) {
-        enableButton = true;
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else if (myNeteditConfigSaved == false) {
-        return enableButton = true;
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else if (myNet->isNetSaved() && myNet->isAdditionalsSaved() && myNet->isDemandElementsSaved() && 
-               myNet->isDataElementsSaved() && myNet->isMeanDatasSaved()){
-        enableButton = false;
+               myNet->isDataElementsSaved() && myNet->isMeanDatasSaved()) {
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
-        enableButton = true;
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     }
-    // enable/disable save individual files
-    if (myViewNet) {
-        myViewNet->getSaveElements().setSaveIndividualFiles(enableButton);
+    // check if eenable/disable save individual files
+    if (myNet) {
+        if (myNet->isAdditionalsSaved() && myNet->isDemandElementsSaved() && 
+            myNet->isDataElementsSaved() && myNet->isMeanDatasSaved()) {
+            myViewNet->getSaveElements().setSaveIndividualFiles(false);
+        } else {
+            myViewNet->getSaveElements().setSaveIndividualFiles(true);
+        }
     }
-    if (enableButton) {
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
-    } else {
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    }
+    return 1;
 }
 
 

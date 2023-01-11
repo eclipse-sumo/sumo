@@ -1954,7 +1954,7 @@ GNEViewNetHelper::SaveElements::buildSaveElementsButtons() {
     // create save individual files button
     mySaveIndividualFiles = new MFXMenuButtonTooltip(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
             myViewNet->myViewParent->getGNEAppWindows()->getStaticTooltipMenu(), "\tSave individual files\tSave individual files.",
-            GUIIconSubSys::getIcon(GUIIcon::SAVE_QUESTION), mySaveIndividualFilesPopup, nullptr, GUIDesignButtonToolbarLocator);
+            GUIIconSubSys::getIcon(GUIIcon::SAVE_MULTIPLE), mySaveIndividualFilesPopup, nullptr, GUIDesignButtonToolbarLocator);
     mySaveIndividualFiles->create();
     // create save additional elements button
     mySaveAdditionalElements = new MFXButtonTooltip(mySaveIndividualFilesPopup,
