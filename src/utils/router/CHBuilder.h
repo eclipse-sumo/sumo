@@ -225,7 +225,7 @@ private:
     class CHInfo {
     public:
         /// @brief Constructor
-        CHInfo(const E* e) :
+        CHInfo(const E* const e) :
             edge(e),
             priority(0.),
             contractedNeighbors(0),
@@ -240,7 +240,7 @@ private:
 
         /// @brief recompute the contraction priority and report whether it changed
         bool updatePriority(SPTree<CHInfo, CHConnection>* spTree) {
-            if (spTree != 0) {
+            if (spTree != nullptr) {
                 updateShortcuts(spTree);
                 updateLevel();
             } else {
@@ -332,18 +332,20 @@ private:
 
         // resets state before rebuilding the hierarchy
         void resetContractionState() {
+            priority = 0.;
+            shortcuts.clear();
             contractedNeighbors = 0;
             rank = -1;
             level = 0;
             underlyingTotal = 0;
-            shortcuts.clear();
             followers.clear();
             approaching.clear();
+            reset();  // just to make sure
         }
 
 
-        /// @brief The current edge - not const since it may receive shortcut edges
-        const E* edge;
+        /// @brief The current edge
+        const E* const edge;
         /// @brief The contraction priority
         double priority;
         /// @brief The needed shortcuts
@@ -358,8 +360,10 @@ private:
         CHConnections followers;
         CHConnections approaching;
 
+        /// @name members used in SPTree
+        /// @{
 
-        /// members used in SPTree
+        /// whether the edge has been visited during shortest path search
         bool visited;
         /// Effort to reach the edge
         double traveltime;
@@ -373,8 +377,11 @@ private:
         inline void reset() {
             traveltime = std::numeric_limits<double>::max();
             visited = false;
+            depth = 0;
+            permissions = SVC_IGNORING;
         }
 
+        /// @}
 
         /// debugging methods
         inline void debugNoWitness(const CHConnection& aInfo, const CHConnection& fInfo) {
