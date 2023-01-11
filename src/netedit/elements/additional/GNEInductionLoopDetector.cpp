@@ -177,7 +177,7 @@ GNEInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const {
                 // Check if the distance is enought to draw details
                 if (s.drawDetail(s.detailSettings.detectorDetails, E1Exaggeration)) {
                     // draw E1 Logo
-                    drawDetectorLogo(s, E1Exaggeration, "E1", textColor);
+                    drawE1DetectorLogo(s, E1Exaggeration, "E1", textColor);
                 }
                 // pop layer matrix
                 GLHelper::popMatrix();
