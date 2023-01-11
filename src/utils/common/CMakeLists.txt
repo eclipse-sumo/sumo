@@ -41,6 +41,8 @@ set(utils_common_STAT_SRCS
    ValueSource.h
    ValueTimeLine.h
    VectorHelper.h
+   VClassIcons.h
+   VClassIcons.cpp
    WrappingCommand.h
 )
 

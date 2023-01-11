@@ -36,6 +36,7 @@
 #include <microsim/transportables/MSTransportableControl.h>
 #include <netload/NLHandler.h>
 #include <traci-server/TraCIServer.h>
+#include <utils/common/VClassIcons.h>
 #include <utils/foxtools/MFXButtonTooltip.h>
 #include <utils/foxtools/MFXLCDLabel.h>
 #include <utils/foxtools/MFXLinkLabel.h>
@@ -459,7 +460,7 @@ GUIApplicationWindow::fillMenuBar() {
     mySelectByPermissions = new FXMenuPane(this);
     std::vector<std::string> vehicleClasses = SumoVehicleClassStrings.getStrings();
     for (const auto& vehicleClass : vehicleClasses) {
-        GUIDesigns::buildFXMenuCommand(mySelectByPermissions, vehicleClass, nullptr, this, MID_HOTKEY_CTRL_E_EDITSELECTION_LOADNETEDITCONFIG);
+        GUIDesigns::buildFXMenuCommand(mySelectByPermissions, vehicleClass, VClassIcons::getVClassIcon(SumoVehicleClassStrings.get(vehicleClass)), this, MID_HOTKEY_CTRL_E_EDITSELECTION_LOADNETEDITCONFIG);
     }
     myEditMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myMenuBar, TL("&Edit"), nullptr, myEditMenu);

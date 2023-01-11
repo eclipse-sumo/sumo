@@ -20,6 +20,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/common/VClassIcons.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/geom/GeomConvHelper.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -407,69 +408,6 @@ GNEAttributeCarrier::lanesConsecutives(const std::vector<GNELane*>& lanes) {
 }
 
 
-FXIcon*
-GNEAttributeCarrier::getVClassIcon(const SUMOVehicleClass vc) {
-    switch (vc) {
-        case SVC_IGNORING:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_IGNORING);
-        case SVC_PRIVATE:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_PRIVATE);
-        case SVC_EMERGENCY:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_EMERGENCY);
-        case SVC_AUTHORITY:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_AUTHORITY);
-        case SVC_ARMY:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_ARMY);
-        case SVC_VIP:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_VIP);
-        case SVC_PEDESTRIAN:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_PEDESTRIAN);
-        case SVC_PASSENGER:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_PASSENGER);
-        case SVC_HOV:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_HOV);
-        case SVC_TAXI:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_TAXI);
-        case SVC_BUS:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_BUS);
-        case SVC_COACH:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_COACH);
-        case SVC_DELIVERY:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_DELIVERY);
-        case SVC_TRUCK:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_TRUCK);
-        case SVC_TRAILER:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_TRAILER);
-        case SVC_MOTORCYCLE:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_MOTORCYCLE);
-        case SVC_MOPED:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_MOPED);
-        case SVC_BICYCLE:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_BICYCLE);
-        case SVC_E_VEHICLE:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_EVEHICLE);
-        case SVC_TRAM:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_TRAM);
-        case SVC_RAIL_URBAN:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_RAIL_URBAN);
-        case SVC_RAIL:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_RAIL);
-        case SVC_RAIL_ELECTRIC:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_RAIL_ELECTRIC);
-        case SVC_RAIL_FAST:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_RAIL_FAST);
-        case SVC_SHIP:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_SHIP);
-        case SVC_CUSTOM1:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_CUSTOM1);
-        case SVC_CUSTOM2:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_CUSTOM2);
-        default:
-            throw ProcessError("Invalid vClass");
-    }
-}
-
-
 template<> std::string
 GNEAttributeCarrier::getACParameters() const {
     std::string result;
@@ -658,7 +596,7 @@ GNEAttributeCarrier::getACIcon() const {
     }
     // special case for vClass icons
     if (myTagProperty.vClassIcon()) {
-        return getVClassIcon(SumoVehicleClassStrings.get(getAttribute(SUMO_ATTR_VCLASS)));
+        return VClassIcons::getVClassIcon(SumoVehicleClassStrings.get(getAttribute(SUMO_ATTR_VCLASS)));
     } else {
         return GUIIconSubSys::getIcon(myTagProperty.getGUIIcon());
     }
