@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-04 13:42+0100\n"
-"PO-Revision-Date: 2023-01-06 07:49+0000\n"
+"PO-Revision-Date: 2023-01-11 08:34+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/tr/>\n"
@@ -21,11 +21,11 @@ msgstr ""
 
 #: /home/behr_mi/sumo/src/sumo_main.cpp:49
 msgid "Another interrupt signal received, hard exit."
-msgstr ""
+msgstr "Başka Kesinti Sinyali Algılandı, (Sert Çıkış)."
 
 #: /home/behr_mi/sumo/src/sumo_main.cpp:52
 msgid "Interrupt signal received, trying to exit gracefully."
-msgstr ""
+msgstr "Kesinti Sinyali Algılandı, Çıkılmaya Çalışılıyor."
 
 #: /home/behr_mi/sumo/src/sumo_main.cpp:85
 msgid "A microscopic, multi-modal traffic simulation."
@@ -38,21 +38,23 @@ msgstr "Çıkılıyor (Hata Kaynaklı)."
 
 #: /home/behr_mi/sumo/src/sumo_main.cpp:125
 msgid "Quitting (on unknown error)."
-msgstr ""
+msgstr "Çıkılıyor (Bilinmeyen Hata)."
 
 #: /home/behr_mi/sumo/src/netconvert_main.cpp:97
 msgid ""
 "Network importer / builder for the microscopic, multi-modal traffic "
 "simulation SUMO."
 msgstr ""
+"Mikro Ölçekli, Çok Modlu Trafik Simülasyonu SUMO İçin Ağ Yükleyici / "
+"Oluşturucu."
 
 #: /home/behr_mi/sumo/src/od2trips_main.cpp:193
 msgid "No TAZ input file (-n) specified."
-msgstr ""
+msgstr "Herhangi Bir TAB Girdi Dosyası (-n) Belirtilmemiş."
 
 #: /home/behr_mi/sumo/src/od2trips_main.cpp:197
 msgid "No input specified."
-msgstr ""
+msgstr "Herhangi Bir Girdi Belirtilmemiş."
 
 #: /home/behr_mi/sumo/src/od2trips_main.cpp:201
 msgid "No trip table output file (-o) or flow-output is specified."
