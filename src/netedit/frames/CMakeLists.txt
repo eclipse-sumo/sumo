@@ -24,6 +24,8 @@ set(netedit_frames_SRCS
    GNEPathCreator.h
    GNEPathLegendModule.cpp
    GNEPathLegendModule.h
+   GNEE2DetectorLegendModule.cpp
+   GNEE2DetectorLegendModule.h
    GNESelectorParent.cpp
    GNESelectorParent.h
    GNETagSelector.cpp
