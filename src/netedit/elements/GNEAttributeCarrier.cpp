@@ -1032,19 +1032,16 @@ GNEAttributeCarrier::fillNetworkElements() {
                                               "Lane width for all lanes of this edge in meters (used for visualization)",
                                               "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
-        /*
-                implement in #9725
 
-                attrProperty = GNEAttributeProperties(SUMO_ATTR_SIDEWALKWIDTH,
-                                                      GNEAttributeProperties::FLOAT,
-                                                      "The width of the sidewalk that should be added as an additional lane");
-                myTagProperties[currentTag].addAttribute(attrProperty);
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_SIDEWALKWIDTH,
+                                              GNEAttributeProperties::FLOAT,
+                                              "The width of the sidewalk that should be added as an additional lane");
+        myTagProperties[currentTag].addAttribute(attrProperty);
 
-                attrProperty = GNEAttributeProperties(SUMO_ATTR_BIKELANEWIDTH,
-                                                      GNEAttributeProperties::FLOAT,
-                                                      "The width of the bike lane that should be added as an additional lane");
-                myTagProperties[currentTag].addAttribute(attrProperty);
-        */
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_BIKELANEWIDTH,
+                                              GNEAttributeProperties::FLOAT,
+                                              "The width of the bike lane that should be added as an additional lane");
+        myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_LANETYPE;
     {

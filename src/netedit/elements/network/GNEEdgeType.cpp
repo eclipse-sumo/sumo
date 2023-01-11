@@ -315,6 +315,8 @@ GNEEdgeType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_SPREADTYPE:
             return SUMOXMLDefinitions::LaneSpreadFunctions.hasString(value);
         case SUMO_ATTR_WIDTH:
+        case SUMO_ATTR_SIDEWALKWIDTH:
+        case SUMO_ATTR_BIKELANEWIDTH:
             if (value.empty() || (value == "-1")) {
                 return true;
             } else {
@@ -433,6 +435,22 @@ GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 attrs.insert(key);
                 width = parse<double>(value);
+            }
+            break;
+        case SUMO_ATTR_SIDEWALKWIDTH:
+            if (value.empty()) {
+                attrs.erase(key);
+            } else {
+                attrs.insert(key);
+                sidewalkWidth = parse<double>(value);
+            }
+            break;
+        case SUMO_ATTR_BIKELANEWIDTH:
+            if (value.empty()) {
+                attrs.erase(key);
+            } else {
+                attrs.insert(key);
+                bikeLaneWidth = parse<double>(value);
             }
             break;
         case SUMO_ATTR_PRIORITY:
