@@ -174,13 +174,12 @@ MSPModel_Striping::add(MSTransportable* transportable, MSStageMoving* stage, SUM
     assert(person->getCurrentStageType() == MSStageType::WALKING);
     const MSLane* lane = stage->checkDepartLane(person->getEdge(), person->getVClass(), stage->getDepartLane(), person->getID());
     if (lane == nullptr) {
-        std::string error = "Person '" + person->getID() + "' could not find sidewalk on edge '" + person->getEdge()->getID() + "', time="
-                            + time2string(net->getCurrentTimeStep()) + ".";
+        const char* error = TL("Person '%' could not find sidewalk on edge '%', time=%.");
         if (OptionsCont::getOptions().getBool("ignore-route-errors")) {
-            WRITE_WARNING(error);
+            WRITE_WARNINGF(error, person->getID(), person->getEdge()->getID(), time2string(net->getCurrentTimeStep()));
             return nullptr;
         } else {
-            throw ProcessError(error);
+            throw ProcessError(TLF(error, person->getID(), person->getEdge()->getID(), time2string(net->getCurrentTimeStep())));
         }
     }
     PState* ped = new PState(person, stage, lane);
