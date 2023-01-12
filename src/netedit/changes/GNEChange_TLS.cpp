@@ -130,7 +130,7 @@ GNEChange_TLS::undo() {
         }
     }
     // enable save networkElements
-    myJunction->getNet()->requireSaveNet(true);
+    myJunction->getNet()->getSavingStatus()->requireSaveNetwork();
 }
 
 
@@ -162,7 +162,7 @@ GNEChange_TLS::redo() {
         }
     }
     // enable save networkElements
-    myJunction->getNet()->requireSaveNet(true);
+    myJunction->getNet()->getSavingStatus()->requireSaveNetwork();
 }
 
 

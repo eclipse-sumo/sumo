@@ -94,7 +94,7 @@ GNEChange_DemandElement::undo() {
         parentEdges.front()->updateContainerStackLabels();
     }
     // require always save elements
-    myDemandElement->getNet()->requireSaveDemandElements(true);
+    myDemandElement->getNet()->getSavingStatus()->requireSaveDemandElements();
 }
 
 
@@ -135,7 +135,7 @@ GNEChange_DemandElement::redo() {
         parentEdges.front()->updateContainerStackLabels();
     }
     // require always save elements
-    myDemandElement->getNet()->requireSaveDemandElements(true);
+    myDemandElement->getNet()->getSavingStatus()->requireSaveDemandElements();
 }
 
 

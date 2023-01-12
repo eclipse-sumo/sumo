@@ -92,7 +92,7 @@ GNEChange_Edge::undo() {
         addEdgeLanes();
     }
     // enable save networkElements
-    myEdge->getNet()->requireSaveNet(true);
+    myEdge->getNet()->getSavingStatus()->requireSaveNetwork();
 }
 
 
@@ -126,7 +126,7 @@ GNEChange_Edge::redo() {
         myEdge->getNet()->getAttributeCarriers()->deleteSingleEdge(myEdge);
     }
     // enable save networkElements
-    myEdge->getNet()->requireSaveNet(true);
+    myEdge->getNet()->getSavingStatus()->requireSaveNetwork();
 }
 
 

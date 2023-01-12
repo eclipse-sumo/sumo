@@ -580,10 +580,10 @@ public:
     void loadMeanDataElements();
 
     /// @brief check if SUMO config must be saved
-    void requireSaveSUMOConfig(bool value);
+    void requireSaveSUMOConfig();
 
     /// @brief check if NETEDIT config must be saved
-    void requireSaveNETEDITConfig(bool value);
+    void requireSaveNETEDITConfig();
 
 protected:
     /// @brief FOX needs this for static members

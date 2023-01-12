@@ -101,7 +101,7 @@ GNEChange_Children::undo() {
         }
     }
     // require always save children
-    myParentDemandElement->getNet()->requireSaveDemandElements(true);
+    myParentDemandElement->getNet()->getSavingStatus()->requireSaveDemandElements();
 }
 
 
@@ -135,7 +135,7 @@ GNEChange_Children::redo() {
         }
     }
     // require always save children
-    myParentDemandElement->getNet()->requireSaveDemandElements(true);
+    myParentDemandElement->getNet()->getSavingStatus()->requireSaveDemandElements();
 }
 
 

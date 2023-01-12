@@ -73,7 +73,7 @@ GNEChange_Junction::undo() {
         myJunction->getNet()->getAttributeCarriers()->insertJunction(myJunction);
     }
     // enable save networkElements
-    myJunction->getNet()->requireSaveNet(true);
+    myJunction->getNet()->getSavingStatus()->requireSaveNetwork();
 }
 
 
@@ -99,7 +99,7 @@ GNEChange_Junction::redo() {
         myJunction->getNet()->getAttributeCarriers()->deleteSingleJunction(myJunction);
     }
     // enable save networkElements
-    myJunction->getNet()->requireSaveNet(true);
+    myJunction->getNet()->getSavingStatus()->requireSaveNetwork();
 }
 
 

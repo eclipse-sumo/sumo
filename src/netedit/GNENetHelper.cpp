@@ -481,7 +481,7 @@ GNENetHelper::AttributeCarriers::updateJunctionID(GNEJunction* junction, const s
         // build crossings
         junction->getNBNode()->buildCrossings();
         // net has to be saved
-        myNet->requireSaveNet(true);
+        myNet->getSavingStatus()->requireSaveNetwork();
     }
 }
 
@@ -676,7 +676,7 @@ GNENetHelper::AttributeCarriers::updateEdgeTypeID(GNEEdgeType* edgeType, const s
         // add it into myEdgeTypes again
         myEdgeTypes[edgeType->getID()] = edgeType;
         // net has to be saved
-        myNet->requireSaveNet(true);
+        myNet->getSavingStatus()->requireSaveNetwork();
     }
 }
 
@@ -802,7 +802,7 @@ GNENetHelper::AttributeCarriers::updateEdgeID(GNEEdge* edge, const std::string& 
             lane->updateConnectionIDs();
         }
         // net has to be saved
-        myNet->requireSaveNet(true);
+        myNet->getSavingStatus()->requireSaveNetwork();
     }
 }
 
@@ -2300,7 +2300,7 @@ GNENetHelper::AttributeCarriers::insertAdditional(GNEAdditional* additional) {
         additional->updateGeometry();
     }
     // additionals has to be saved
-    myNet->requireSaveAdditionals(true);
+    myNet->getSavingStatus()->requireSaveAdditionals();
 }
 
 
@@ -2324,7 +2324,7 @@ GNENetHelper::AttributeCarriers::deleteAdditional(GNEAdditional* additional) {
     // delete path element
     myNet->getPathManager()->removePath(additional);
     // additionals has to be saved
-    myNet->requireSaveAdditionals(true);
+    myNet->getSavingStatus()->requireSaveAdditionals();
 }
 
 
@@ -2355,7 +2355,7 @@ GNENetHelper::AttributeCarriers::insertDemandElement(GNEDemandElement* demandEle
         demandElement->updateGeometry();
     }
     // demandElements has to be saved
-    myNet->requireSaveDemandElements(true);
+    myNet->getSavingStatus()->requireSaveDemandElements();
 }
 
 
@@ -2382,7 +2382,7 @@ GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandEle
     // delete path element
     myNet->getPathManager()->removePath(demandElement);
     // demandElements has to be saved
-    myNet->requireSaveDemandElements(true);
+    myNet->getSavingStatus()->requireSaveDemandElements();
 }
 
 
@@ -2408,7 +2408,7 @@ GNENetHelper::AttributeCarriers::insertDataSet(GNEDataSet* dataSet) {
         throw ProcessError(dataSet->getTagStr() + " with ID='" + dataSet->getID() + "' already exist");
     }
     // dataSets has to be saved
-    myNet->requireSaveDataElements(true);
+    myNet->getSavingStatus()->requireSaveDataElements();
     // mark interval toolbar for update
     myNet->getViewNet()->getIntervalBar().markForUpdate();
 }
@@ -2428,7 +2428,7 @@ GNENetHelper::AttributeCarriers::deleteDataSet(GNEDataSet* dataSet) {
     // obtain demand element and erase it from container
     myDataSets.erase(itFind);
     // dataSets has to be saved
-    myNet->requireSaveDataElements(true);
+    myNet->getSavingStatus()->requireSaveDataElements();
     // mark interval toolbar for update
     myNet->getViewNet()->getIntervalBar().markForUpdate();
 }
@@ -2463,7 +2463,7 @@ GNENetHelper::AttributeCarriers::insertMeanData(GNEMeanData* meanData) {
         meanData->updateGeometry();
     }
     // meanDatas has to be saved
-    myNet->requireSaveMeanDatas(true);
+    myNet->getSavingStatus()->requireSaveMeanDatas();
 }
 
 
@@ -2485,7 +2485,104 @@ GNENetHelper::AttributeCarriers::deleteMeanData(GNEMeanData* meanData) {
         myNet->removeGLObjectFromGrid(meanData);
     }
     // meanDatas has to be saved
-    myNet->requireSaveMeanDatas(true);
+    myNet->getSavingStatus()->requireSaveMeanDatas();
+}
+
+// ---------------------------------------------------------------------------
+// GNENetHelper::SavingStatus - methods
+// ---------------------------------------------------------------------------
+
+GNENetHelper::SavingStatus::SavingStatus() {
+}
+
+
+void
+GNENetHelper::SavingStatus::requireSaveNetwork() {
+    myNetworkSaved = false;
+}
+
+
+void
+GNENetHelper::SavingStatus::networkSaved() {
+    myNetworkSaved = true;
+}
+
+
+bool
+GNENetHelper::SavingStatus::isNetworkSaved() const {
+    return myNetworkSaved;
+}
+
+
+void
+GNENetHelper::SavingStatus::requireSaveAdditionals() {
+    myAdditionalSaved = false;
+}
+
+
+void
+GNENetHelper::SavingStatus::additionalsSaved() {
+    myAdditionalSaved = true;
+}
+
+
+bool
+GNENetHelper::SavingStatus::isAdditionalsSaved() const {
+    return myAdditionalSaved;
+}
+
+
+void
+GNENetHelper::SavingStatus::requireSaveDemandElements() {
+    myDemandElementSaved = false;
+}
+
+
+void
+GNENetHelper::SavingStatus::demandElementsSaved() {
+    myDemandElementSaved = true;
+}
+
+
+bool
+GNENetHelper::SavingStatus::isDemandElementsSaved() const {
+    return myDemandElementSaved;
+}
+
+
+void
+GNENetHelper::SavingStatus::requireSaveDataElements() {
+    myDataElementSaved = false;
+}
+
+
+void
+GNENetHelper::SavingStatus::dataElementsSaved() {
+    myDataElementSaved = true;
+}
+
+
+bool
+GNENetHelper::SavingStatus::isDataElementsSaved() const {
+    return myDataElementSaved;
+}
+
+
+void
+GNENetHelper::SavingStatus::requireSaveMeanDatas() {
+    myMeanDataElementSaved = false;
+}
+
+
+void
+GNENetHelper::SavingStatus::meanDatasSaved() {
+    myMeanDataElementSaved = true;
+}
+
+
+bool
+GNENetHelper::SavingStatus::isMeanDatasSaved() const {
+    return myMeanDataElementSaved;
 }
 
 // ---------------------------------------------------------------------------

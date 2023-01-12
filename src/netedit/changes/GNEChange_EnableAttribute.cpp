@@ -73,11 +73,15 @@ GNEChange_EnableAttribute::undo() {
     myAC->toggleAttribute(myKey, myOrigValue);
     // check if networkElements, additional or shapes has to be saved
     if (myAC->getTagProperty().isNetworkElement()) {
-        myAC->getNet()->requireSaveNet(true);
+        myAC->getNet()->getSavingStatus()->requireSaveNetwork();
     } else if (myAC->getTagProperty().isAdditionalElement()) {
-        myAC->getNet()->requireSaveAdditionals(true);
+        myAC->getNet()->getSavingStatus()->requireSaveAdditionals();
     } else if (myAC->getTagProperty().isDemandElement()) {
-        myAC->getNet()->requireSaveDemandElements(true);
+        myAC->getNet()->getSavingStatus()->requireSaveDemandElements();
+    } else if (myAC->getTagProperty().isDataElement()) {
+        myAC->getNet()->getSavingStatus()->requireSaveDataElements();
+    } else if (myAC->getTagProperty().isMeanData()) {
+        myAC->getNet()->getSavingStatus()->requireSaveMeanDatas();
     }
 }
 
@@ -90,11 +94,15 @@ GNEChange_EnableAttribute::redo() {
     myAC->toggleAttribute(myKey, myNewValue);
     // check if networkElements, additional or shapes has to be saved
     if (myAC->getTagProperty().isNetworkElement()) {
-        myAC->getNet()->requireSaveNet(true);
+        myAC->getNet()->getSavingStatus()->requireSaveNetwork();
     } else if (myAC->getTagProperty().isAdditionalElement()) {
-        myAC->getNet()->requireSaveAdditionals(true);
+        myAC->getNet()->getSavingStatus()->requireSaveAdditionals();
     } else if (myAC->getTagProperty().isDemandElement()) {
-        myAC->getNet()->requireSaveDemandElements(true);
+        myAC->getNet()->getSavingStatus()->requireSaveDemandElements();
+    } else if (myAC->getTagProperty().isDataElement()) {
+        myAC->getNet()->getSavingStatus()->requireSaveDataElements();
+    } else if (myAC->getTagProperty().isMeanData()) {
+        myAC->getNet()->getSavingStatus()->requireSaveMeanDatas();
     }
 }
 

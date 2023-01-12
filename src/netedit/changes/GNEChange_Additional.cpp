@@ -80,7 +80,7 @@ GNEChange_Additional::undo() {
         restoreHierarchicalContainers();
     }
     // require always save additionals
-    myAdditional->getNet()->requireSaveAdditionals(true);
+    myAdditional->getNet()->getSavingStatus()->requireSaveAdditionals();
 }
 
 
@@ -110,7 +110,7 @@ GNEChange_Additional::redo() {
         removeElementFromParentsAndChildren(myAdditional);
     }
     // require always save additionals
-    myAdditional->getNet()->requireSaveAdditionals(true);
+    myAdditional->getNet()->getSavingStatus()->requireSaveAdditionals();
 }
 
 

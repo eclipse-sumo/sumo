@@ -87,6 +87,7 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     GUIGlObject(GLO_NETWORK, "", nullptr),
     myNetBuilder(netBuilder),
     myAttributeCarriers(new GNENetHelper::AttributeCarriers(this)),
+    mySavingStatus(new GNENetHelper::SavingStatus()),
     myPathManager(new GNEPathManager(this)) { // TODO a little dangerous to use "this" here, it makes access to the net and the netBuilder
     // set net in gIDStorage
     GUIGlObjectStorage::gIDStorage.setNetObject(this);
@@ -107,6 +108,8 @@ GNENet::~GNENet() {
     delete myPathManager;
     // delete AttributeCarriers
     delete myAttributeCarriers;
+    // delete saving status
+    delete mySavingStatus;
     // show extra information for tests
     WRITE_DEBUG("Deleting net builder in GNENet destructor");
     delete myNetBuilder;
@@ -116,6 +119,12 @@ GNENet::~GNENet() {
 GNENetHelper::AttributeCarriers*
 GNENet::getAttributeCarriers() const {
     return myAttributeCarriers;
+}
+
+
+GNENetHelper::SavingStatus*
+GNENet::getSavingStatus() const {
+    return mySavingStatus;
 }
 
 
@@ -1167,24 +1176,6 @@ GNENet::checkJunctionPosition(const Position& pos) {
 
 
 void
-GNENet::requireSaveNet(bool value) {
-    if (value) {
-        myNetSaved = false;
-        myViewNet->getViewParent()->getGNEAppWindows()->requireSaveSUMOConfig(true);
-        myViewNet->getViewParent()->getGNEAppWindows()->requireSaveNETEDITConfig(true);
-    } else {
-        myNetSaved = true;
-    }
-}
-
-
-bool
-GNENet::isNetSaved() const {
-    return myNetSaved;
-}
-
-
-void
 GNENet::saveNetwork() {
     auto& neteditOptions = OptionsCont::getOptions();
     auto& sumoOptions = myViewNet->getViewParent()->getGNEAppWindows()->getSUMOOptions();
@@ -1210,10 +1201,11 @@ GNENet::saveNetwork() {
     }
     // write network
     NWFrame::writeNetwork(neteditOptions, *myNetBuilder);
-    myNetSaved = true;
     // reset output file
     sumoOptions.resetWritable();
     neteditOptions.resetDefault("output-file");
+    // mark network as saved
+    mySavingStatus->networkSaved();
 }
 
 
@@ -2058,21 +2050,6 @@ GNENet::removeExplicitTurnaround(std::string id) {
 
 
 void
-GNENet::requireSaveAdditionals(bool value) {
-    myAdditionalsSaved = !value;
-    if (myViewNet != nullptr) {
-        if (myAdditionalsSaved) {
-            myViewNet->getViewParent()->getGNEAppWindows()->disableSaveAdditionalsMenu();
-        } else {
-            myViewNet->getViewParent()->getGNEAppWindows()->enableSaveAdditionalsMenu();
-            myViewNet->getViewParent()->getGNEAppWindows()->requireSaveSUMOConfig(true);
-            myViewNet->getViewParent()->getGNEAppWindows()->requireSaveNETEDITConfig(true);
-        }
-    }
-}
-
-
-void
 GNENet::saveAdditionals() {
     // obtain invalid additionals depending of number of their parent lanes
     std::vector<GNEAdditional*> invalidSingleLaneAdditionals;
@@ -2109,27 +2086,6 @@ GNENet::saveAdditionals() {
         saveAdditionalsConfirmed();
         // show debug information
         WRITE_DEBUG("Additionals saved");
-    }
-}
-
-
-bool
-GNENet::isAdditionalsSaved() const {
-    return myAdditionalsSaved;
-}
-
-
-void
-GNENet::requireSaveDemandElements(bool value) {
-    myDemandElementsSaved = !value;
-    if (myViewNet != nullptr) {
-        if (myDemandElementsSaved) {
-            myViewNet->getViewParent()->getGNEAppWindows()->disableSaveDemandElementsMenu();
-        } else {
-            myViewNet->getViewParent()->getGNEAppWindows()->enableSaveDemandElementsMenu();
-            myViewNet->getViewParent()->getGNEAppWindows()->requireSaveSUMOConfig(true);
-            myViewNet->getViewParent()->getGNEAppWindows()->requireSaveNETEDITConfig(true);
-        }
     }
 }
 
@@ -2176,43 +2132,14 @@ GNENet::saveDemandElements() {
 }
 
 
-bool
-GNENet::isDemandElementsSaved() const {
-    return myDemandElementsSaved;
-}
-
-
-void
-GNENet::requireSaveDataElements(bool value) {
-    myDataElementsSaved = !value;
-    if (myViewNet != nullptr) {
-        if (myDataElementsSaved) {
-            myViewNet->getViewParent()->getGNEAppWindows()->disableSaveDataElementsMenu();
-        } else {
-            myViewNet->getViewParent()->getGNEAppWindows()->enableSaveDataElementsMenu();
-            myViewNet->getViewParent()->getGNEAppWindows()->requireSaveSUMOConfig(true);
-            myViewNet->getViewParent()->getGNEAppWindows()->requireSaveNETEDITConfig(true);
-        }
-    }
-}
-
-
 void
 GNENet::saveDataElements() {
     // first recompute data sets
     computeDataElements(myViewNet->getViewParent()->getGNEAppWindows());
     // save data elements
     saveDataElementsConfirmed();
-    // change value of flag
-    myDataElementsSaved = true;
     // show debug information
     WRITE_DEBUG("data sets saved");
-}
-
-
-bool
-GNENet::isDataElementsSaved() const {
-    return myDataElementsSaved;
 }
 
 
@@ -2251,35 +2178,10 @@ GNENet::getDataSetIntervalMaximumEnd() const {
 
 
 void
-GNENet::requireSaveMeanDatas(bool value) {
-    myMeanDatasSaved = !value;
-    if (myViewNet != nullptr) {
-        if (myMeanDatasSaved) {
-            myViewNet->getViewParent()->getGNEAppWindows()->disableSaveMeanDatasMenu();
-        } else {
-            myViewNet->getViewParent()->getGNEAppWindows()->enableSaveMeanDatasMenu();
-            myViewNet->getViewParent()->getGNEAppWindows()->requireSaveSUMOConfig(true);
-            myViewNet->getViewParent()->getGNEAppWindows()->requireSaveNETEDITConfig(true);
-        }
-    }
-}
-
-
-void
-GNENet::saveMeanDatas(const std::string& filename) {
-    if (filename.size() > 0) {
-        saveMeanDatasConfirmed(filename);
-        // change value of flag
-        myMeanDatasSaved = true;
-        // show debug information
-        WRITE_DEBUG("MeanDatas saved");
-    }
-}
-
-
-bool
-GNENet::isMeanDatasSaved() const {
-    return myMeanDatasSaved;
+GNENet::saveMeanDatas() {
+    saveMeanDatasConfirmed();
+    // show debug information
+    WRITE_DEBUG("MeanDatas saved");
 }
 
 
@@ -2333,7 +2235,7 @@ GNENet::saveAdditionalsConfirmed() {
     // close device
     device.close();
     // mark additionals as saved
-    myAdditionalsSaved = true;
+    mySavingStatus->additionalsSaved();
 }
 
 
@@ -2372,7 +2274,7 @@ GNENet::saveDemandElementsConfirmed() {
     // close device
     device.close();
     // mark demand elements as saved
-    myDemandElementsSaved = true;
+    mySavingStatus->demandElementsSaved();
 }
 
 
@@ -2386,12 +2288,14 @@ GNENet::saveDataElementsConfirmed() {
     }
     // close device
     device.close();
+    // mark data element as saved
+    mySavingStatus->dataElementsSaved();
 }
 
 
 void
-GNENet::saveMeanDatasConfirmed(const std::string& filename) {
-    OutputDevice& device = OutputDevice::getDevice(filename);
+GNENet::saveMeanDatasConfirmed() {
+    OutputDevice& device = OutputDevice::getDevice(OptionsCont::getOptions().getString("meandata-files"));
     // open header
     device.writeXMLHeader("additional", "additional_file.xsd", EMPTY_HEADER, false);
     // MeanDataEdges
@@ -2402,6 +2306,8 @@ GNENet::saveMeanDatasConfirmed(const std::string& filename) {
     writeMeanDatas(device, SUMO_TAG_MEANDATA_LANE);
     // close device
     device.close();
+    // mark mean datas as saved
+    mySavingStatus->meanDatasSaved();
 }
 
 
