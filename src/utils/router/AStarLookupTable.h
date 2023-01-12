@@ -124,6 +124,7 @@ public:
             throw ProcessError("Could not load landmark-lookup-table from '" + filename + "'.");
         }
         std::string line;
+        std::vector<const E*> landmarks;
         int numLandMarks = 0;
         bool haveData = false;
         while (std::getline(strm, line)) {
@@ -133,9 +134,18 @@ public:
             StringTokenizer st(line);
             if (st.size() == 1) {
                 const std::string lm = st.get(0);
+                if (myLandmarks.count(lm) != 0) {
+                    throw ProcessError(TLF("Duplicate edge '%' in landmark file.", lm));
+                }
+                // retrieve landmark edge
+                const auto& it = numericID.find(lm);
+                if (it == numericID.end()) {
+                    throw ProcessError(TLF("Landmark edge '%' does not exist in the network.", lm));
+                }
                 myLandmarks[lm] = numLandMarks++;
                 myFromLandmarkDists.push_back(std::vector<double>(0));
                 myToLandmarkDists.push_back(std::vector<double>(0));
+                landmarks.push_back(edges[it->second + myFirstNonInternal]);
             } else if (st.size() == 4) {
                 // legacy style landmark table
                 const std::string lm = st.get(0);
@@ -176,27 +186,14 @@ public:
         if (!haveData) {
             WRITE_MESSAGE(TL("Calculating new lookup table."));
         }
-        std::vector<const E*> landmarks;
         for (int i = 0; i < numLandMarks; ++i) {
             if ((int)myFromLandmarkDists[i].size() != (int)edges.size() - myFirstNonInternal) {
-                const std::string landmarkID = getLandmark(i);
-                const E* landmark = nullptr;
-                // retrieve landmark edge
-                for (const E* const edge : edges) {
-                    if (edge->getID() == landmarkID) {
-                        landmark = edge;
-                        landmarks.push_back(edge);
-                        break;
-                    }
-                }
-                if (landmark == nullptr) {
-                    throw ProcessError(TLF("Landmark edge '%' does not exist in the network.", landmarkID));
-                }
+                const E* const landmark = landmarks[i];
                 if (haveData) {
                     if (myFromLandmarkDists[i].empty()) {
-                        WRITE_WARNINGF(TL("No lookup table for landmark edge '%', recalculating."), landmarkID);
+                        WRITE_WARNINGF(TL("No lookup table for landmark edge '%', recalculating."), landmark->getID());
                     } else {
-                        throw ProcessError(TLF("Not all network edges were found in the lookup table '%' for landmark edge '%'.", filename, landmarkID));
+                        throw ProcessError(TLF("Not all network edges were found in the lookup table '%' for landmark edge '%'.", filename, landmark->getID()));
                     }
                 }
 #ifdef HAVE_FOX
