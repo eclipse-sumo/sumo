@@ -22,7 +22,6 @@ Replay an fcd-file as moving POIs on top of a simulation (or emtpy network)
 from __future__ import print_function
 import os
 import sys
-import time
 from collections import defaultdict
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
 import sumolib  # noqa
@@ -79,11 +78,12 @@ def main():
                 traci.poi.setParameter(obj.id, a, v)
         for objID in removeAtTime.get(t, []):
             traci.poi.remove(objID)
-            
+
         traci.simulationStep()
         t = traci.simulation.getTime()
 
     traci.close()
+
 
 if __name__ == "__main__":
     main()
