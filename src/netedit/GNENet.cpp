@@ -1273,7 +1273,7 @@ GNENet::removeGLObjectFromGrid(GNEAttributeCarrier* AC) {
 
 
 void
-GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOptions, std::string demandPath, std::string dataPath) {
+GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOptions, std::string dataPath) {
     if (!myNeedRecompute) {
         if (force) {
             if (volatileOptions) {
@@ -1301,7 +1301,7 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     auto &neteditOptions = OptionsCont::getOptions();
     computeAndUpdate(neteditOptions, volatileOptions);
     // load additionals if was recomputed with volatile options
-    if (OptionsCont::getOptions().getString("additional-files").size() > 0) {
+    if (volatileOptions && OptionsCont::getOptions().getString("additional-files").size() > 0) {
         // Create additional handler
         GNEGeneralHandler generalHandler(this, OptionsCont::getOptions().getString("additional-files"), false, false);
         // Run parser
@@ -1312,12 +1312,12 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
         myEdgesAndNumberOfLanes.clear();
     }
     // load demand elements if was recomputed with volatile options
-    if (demandPath != "") {
+    if (volatileOptions && OptionsCont::getOptions().getString("route-files").size() > 0) {
         // Create general handler
-        GNEGeneralHandler handler(this, demandPath, false, false);
+        GNEGeneralHandler handler(this, OptionsCont::getOptions().getString("route-files"), false, false);
         // Run parser
         if (!handler.parse()) {
-            WRITE_MESSAGE("Loading of " + demandPath + " failed.");
+            WRITE_MESSAGE("Loading of " + OptionsCont::getOptions().getString("route-files") + " failed.");
         }
         // clear myEdgesAndNumberOfLanes after reload demandElements
         myEdgesAndNumberOfLanes.clear();
@@ -2074,8 +2074,6 @@ GNENet::saveAdditionals() {
             WRITE_DEBUG("Additionals saving aborted");
         } else {
             saveAdditionalsConfirmed();
-            // change value of flag
-            myAdditionalsSaved = true;
             // show debug information
             WRITE_DEBUG("Additionals saved after dialog");
         }
@@ -2085,8 +2083,6 @@ GNENet::saveAdditionals() {
         myViewNet->setFocus();
     } else {
         saveAdditionalsConfirmed();
-        // change value of flag
-        myAdditionalsSaved = true;
         // show debug information
         WRITE_DEBUG("Additionals saved");
     }
@@ -2115,49 +2111,43 @@ GNENet::requireSaveDemandElements(bool value) {
 
 
 void
-GNENet::saveDemandElements(const std::string& filename) {
-    if (filename.size() > 0) {
-        // first recompute demand elements
-        computeDemandElements(myViewNet->getViewParent()->getGNEAppWindows());
-        // obtain invalid demandElements depending of number of their parent lanes
-        std::vector<GNEDemandElement*> invalidSingleLaneDemandElements;
-        // iterate over demandElements and obtain invalids
-        for (const auto& demandElementSet : myAttributeCarriers->getDemandElements()) {
-            for (const auto& demandElement : demandElementSet.second) {
-                // compute before check if demand element is valid
-                demandElement->computePathElement();
-                // check if has to be fixed
-                if (demandElement->isDemandElementValid() != GNEDemandElement::Problem::OK) {
-                    invalidSingleLaneDemandElements.push_back(demandElement);
-                }
+GNENet::saveDemandElements() {
+    // first recompute demand elements
+    computeDemandElements(myViewNet->getViewParent()->getGNEAppWindows());
+    // obtain invalid demandElements depending of number of their parent lanes
+    std::vector<GNEDemandElement*> invalidSingleLaneDemandElements;
+    // iterate over demandElements and obtain invalids
+    for (const auto& demandElementSet : myAttributeCarriers->getDemandElements()) {
+        for (const auto& demandElement : demandElementSet.second) {
+            // compute before check if demand element is valid
+            demandElement->computePathElement();
+            // check if has to be fixed
+            if (demandElement->isDemandElementValid() != GNEDemandElement::Problem::OK) {
+                invalidSingleLaneDemandElements.push_back(demandElement);
             }
         }
-        // if there are invalid demand elements, open GNEFixDemandElements
-        if (invalidSingleLaneDemandElements.size() > 0) {
-            // 0 -> Canceled Saving, with or without selecting invalid demand elements
-            // 1 -> Invalid demand elements fixed, friendlyPos enabled, or saved with invalid positions
-            GNEFixDemandElements fixDemandElementsDialog(myViewNet, invalidSingleLaneDemandElements);
-            if (fixDemandElementsDialog.execute() == 0) {
-                // show debug information
-                WRITE_DEBUG("demand elements saving aborted");
-            } else {
-                saveDemandElementsConfirmed(filename);
-                // change value of flag
-                myDemandElementsSaved = true;
-                // show debug information
-                WRITE_DEBUG("demand elements saved after dialog");
-            }
-            // update view
-            myViewNet->updateViewNet();
-            // set focus again in net
-            myViewNet->setFocus();
-        } else {
-            saveDemandElementsConfirmed(filename);
-            // change value of flag
-            myDemandElementsSaved = true;
+    }
+    // if there are invalid demand elements, open GNEFixDemandElements
+    if (invalidSingleLaneDemandElements.size() > 0) {
+        // 0 -> Canceled Saving, with or without selecting invalid demand elements
+        // 1 -> Invalid demand elements fixed, friendlyPos enabled, or saved with invalid positions
+        GNEFixDemandElements fixDemandElementsDialog(myViewNet, invalidSingleLaneDemandElements);
+        if (fixDemandElementsDialog.execute() == 0) {
             // show debug information
-            WRITE_DEBUG("demand elements saved");
+            WRITE_DEBUG("demand elements saving aborted");
+        } else {
+            saveDemandElementsConfirmed();
+            // show debug information
+            WRITE_DEBUG("demand elements saved after dialog");
         }
+        // update view
+        myViewNet->updateViewNet();
+        // set focus again in net
+        myViewNet->setFocus();
+    } else {
+        saveDemandElementsConfirmed();
+        // show debug information
+        WRITE_DEBUG("demand elements saved");
     }
 }
 
@@ -2320,12 +2310,14 @@ GNENet::saveAdditionalsConfirmed() {
     writeAdditionalByType(device, {SUMO_TAG_OVERHEAD_WIRE_CLAMP});
     // close device
     device.close();
+    // mark additionals as saved
+    myAdditionalsSaved = true;
 }
 
 
 void
-GNENet::saveDemandElementsConfirmed(const std::string& filename) {
-    OutputDevice& device = OutputDevice::getDevice(filename);
+GNENet::saveDemandElementsConfirmed() {
+    OutputDevice& device = OutputDevice::getDevice(OptionsCont::getOptions().getString("route-files"));
     // open header
     device.writeXMLHeader("routes", "routes_file.xsd", EMPTY_HEADER, false);
     // first  write all vTypeDistributions (and their vTypes)
@@ -2357,6 +2349,8 @@ GNENet::saveDemandElementsConfirmed(const std::string& filename) {
     }
     // close device
     device.close();
+    // mark demand elements as saved
+    myDemandElementsSaved = true;
 }
 
 

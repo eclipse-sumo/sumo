@@ -1772,7 +1772,6 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
     // declare variable to save FXMessageBox outputs.
     FXuint answer = 0;
     // declare string to save paths in wich additionals, shapes demand and data elements will be saved
-    std::string demandElementsSavePath = neteditOptions.getString("route-files");
     std::string dataElementsSavePath = neteditOptions.getString("data-files");
     std::string meanDatasSavePath = neteditOptions.getString("meandata-files");
     // write warning if netedit is running in testing mode
@@ -1794,68 +1793,8 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
         WRITE_DEBUG("Closed FXMessageBox 'Volatile Recomputing' with 'Yes'");
         // save additionals
         onCmdSaveAdditionals(nullptr, 0, nullptr);
-        // Check if there are demand elements in our net
-        if (myNet->getAttributeCarriers()->getNumberOfDemandElements() > 0) {
-            // ask user if want to save demand elements if weren't saved previously
-            if (neteditOptions.getString("route-files") == "") {
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Opening FXMessageBox 'Save demand elements before recomputing'");
-                // open question dialog box
-                answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, TL("Save demand elements before recomputing with volatile options"),
-                                                "Would you like to save demand elements before recomputing?");
-                if (answer != 1) { //1:yes, 2:no, 4:esc
-                    // write warning if netedit is running in testing mode
-                    if (answer == 2) {
-                        WRITE_DEBUG("Closed FXMessageBox 'Save demand elements before recomputing' with 'No'");
-                    } else if (answer == 4) {
-                        WRITE_DEBUG("Closed FXMessageBox 'Save demand elements before recomputing' with 'ESC'");
-                    }
-                } else {
-                    // write warning if netedit is running in testing mode
-                    WRITE_DEBUG("Closed FXMessageBox 'Save demand elements before recomputing' with 'Yes'");
-                    // Open a dialog to set filename output
-                    FXString file = MFXUtils::getFilename2Write(this,
-                                    TL("Save demand element file"), ".rou.xml",
-                                    GUIIconSubSys::getIcon(GUIIcon::MODETLS),
-                                    gCurrentFolder).text();
-                    // add xml extension
-                    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".rou.xml");
-                    // check that file is valid
-                    if (fileWithExtension != "") {
-                        // update route files
-                        neteditOptions.resetWritable();
-                        neteditOptions.set("route-files", fileWithExtension);
-                        // set obtanied filename output into demand elementSavePath (can be "")
-                        demandElementsSavePath = neteditOptions.getString("route-files");
-                    }
-                }
-            }
-            // Check if demand element must be saved in a temporary directory, if user didn't define a directory for demand elements
-            if (neteditOptions.getString("route-files") == "") {
-                // Obtain temporary directory provided by FXSystem::getCurrentDirectory()
-                demandElementsSavePath = FXSystem::getTempDirectory().text() + std::string("/tmpDemandElementsNetedit.xml");
-            }
-            // Start saving demand elements
-            getApp()->beginWaitCursor();
-            try {
-                myNet->saveDemandElements(demandElementsSavePath);
-            } catch (IOError& e) {
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Opening FXMessageBox 'Error saving demand elements before recomputing'");
-                // open error message box
-                FXMessageBox::error(this, MBOX_OK, TL("Saving demand elements in temporary folder failed!"), "%s", e.what());
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Closed FXMessageBox 'Error saving demand elements before recomputing' with 'OK'");
-            }
-            // end saving demand elements
-            myMessageWindow->addSeparator();
-            getApp()->endWaitCursor();
-            // restore focus
-            setFocus();
-        } else {
-            // clear demand element path
-            demandElementsSavePath = "";
-        }
+        // save demand elements
+        onCmdSaveDemandElements(nullptr, 0, nullptr);
         // Check if there are data elements in our net
         if (myNet->getAttributeCarriers()->getDataSets().size() > 0) {
             // ask user if want to save data elements if weren't saved previously
@@ -1981,7 +1920,7 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
             meanDatasSavePath = "";
         }
         // compute with volatile options
-        myNet->computeNetwork(this, true, true, demandElementsSavePath, dataElementsSavePath);
+        myNet->computeNetwork(this, true, true, dataElementsSavePath);
         updateControls();
         return 1;
     }
@@ -4083,7 +4022,7 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject* obj, FXSelector sel, void* 
     // obtain option container
     auto &neteditOptions = OptionsCont::getOptions();
     // check saving conditions
-    if (myFileMenuCommands.saveAdditionals->isEnabled() == false) {
+    if (myNet->isAdditionalsSaved()) {
         // nothing to save
         return 1;
     } else if (neteditOptions.getString("additional-files").empty()) {
@@ -4097,7 +4036,7 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject* obj, FXSelector sel, void* 
         // save additionals
         myNet->saveAdditionals();
         // show info
-        WRITE_MESSAGE("Additionals saved in " + neteditOptions.getString("additional-files") + ".\n");
+        WRITE_MESSAGE("Additionals saved in '" + neteditOptions.getString("additional-files") + "'.");
         // end saving additionals
         getApp()->endWaitCursor();
         // restore focus
@@ -4131,6 +4070,8 @@ GNEApplicationWindow::onCmdSaveAdditionalsAs(FXObject*, FXSelector, void*) {
         OptionsCont::getOptions().resetWritable();
         // change value of "additional-files"
         OptionsCont::getOptions().set("additional-files", additionalFile);
+        // enable save additionals
+        myNet->requireSaveAdditionals(true);
         // save additionals
         return onCmdSaveAdditionals(nullptr, 0, nullptr);
     } else {
@@ -4251,61 +4192,27 @@ GNEApplicationWindow::onUpdReloadDemandElements(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdSaveDemandElements(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdSaveDemandElements(FXObject* obj, FXSelector sel, void* ptr) {
     // obtain option container
     auto &neteditOptions = OptionsCont::getOptions();
-    // check if save demand element menu is enabled
-    if (myFileMenuCommands.saveDemandElements->isEnabled()) {
-        // Check if demand elements file was already set at start of netedit or with a previous save
-        if (neteditOptions.getString("route-files").empty()) {
-            // declare current folder
-            FXString currentFolder = gCurrentFolder;
-            // check if there is a saved network
-            if (neteditOptions.getString("net-file").size() > 0) {
-                // extract folder
-                currentFolder = getFolder(neteditOptions.getString("net-file"));
-            }
-            // open dialog
-            FXString file = MFXUtils::getFilename2Write(this,
-                            TL("Save demand element file"), ".rou.xml",
-                            GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND),
-                            currentFolder);
-            // add xml extension
-            std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".rou.xml");
-            // check tat file is valid
-            if (fileWithExtension != "") {
-                // change value of "route-files"
-                neteditOptions.resetWritable();
-                neteditOptions.set("route-files", fileWithExtension);
-                // set route files in SUMO configs
-                mySUMOOptions.resetWritable();
-                mySUMOOptions.set("route-files", neteditOptions.getString("route-files"));
-            } else {
-                // None demand elements file was selected, then stop function
-                return 0;
-            }
-        }
+    // check if requiere save demand elements
+    if (myNet->isDemandElementsSaved()) {
+        // nothing to save
+        return 1;
+    } else if (neteditOptions.getString("route-files").empty()) {
+        return onCmdSaveDemandElementsAs(obj, sel, ptr);
+    } else {
         // Start saving demand elements
         getApp()->beginWaitCursor();
-        try {
-            myNet->saveDemandElements(neteditOptions.getString("route-files"));
-            myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "Demand elements saved in " + neteditOptions.getString("route-files") + ".\n");
-            myFileMenuCommands.saveDemandElements->disable();
-        } catch (IOError& e) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Opening FXMessageBox 'error saving demand elements'");
-            // open error message box
-            FXMessageBox::error(this, MBOX_OK, TL("Saving demand elements failed!"), "%s", e.what());
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox 'error saving demand elements' with 'OK'");
-        }
-        myMessageWindow->addSeparator();
+        // save demand elements
+        myNet->saveDemandElements();
+        // show info
+        WRITE_MESSAGE("Demand elements saved in '" + neteditOptions.getString("route-files") + "'.");
+        // end saving demand elements
         getApp()->endWaitCursor();
         // restore focus
         setFocus();
         return 1;
-    } else {
-        return 0;
     }
 }
 
@@ -4316,9 +4223,10 @@ GNEApplicationWindow::onCmdSaveDemandElementsAs(FXObject*, FXSelector, void*) {
     const auto &neteditOptions = OptionsCont::getOptions();
     // declare current folder
     FXString currentFolder = gCurrentFolder;
-    // check if there is a saved network
-    if (neteditOptions.getString("net-file").size() > 0) {
-        // extract folder
+    // set current folder
+    if (neteditOptions.getString("configuration-file").size() > 0) {
+        currentFolder = getFolder(neteditOptions.getString("configuration-file"));
+    } else if (neteditOptions.getString("net-file").size() > 0) {
         currentFolder = getFolder(neteditOptions.getString("net-file"));
     }
     // Open window to select additionasl file
@@ -4334,11 +4242,8 @@ GNEApplicationWindow::onCmdSaveDemandElementsAs(FXObject*, FXSelector, void*) {
         OptionsCont::getOptions().resetWritable();
         // change value of "route-files"
         OptionsCont::getOptions().set("route-files", fileWithExtension);
-        // set route files in SUMO configs
-        mySUMOOptions.resetWritable();
-        mySUMOOptions.set("route-files", neteditOptions.getString("route-files"));
-        // change flag of menu command for save demand elements
-        myFileMenuCommands.saveDemandElements->enable();
+        // requiere save demand elements
+        myNet->requireSaveDemandElements(true);
         // save demand elements
         return onCmdSaveDemandElements(nullptr, 0, nullptr);
     } else {
