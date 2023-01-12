@@ -115,7 +115,7 @@ public:
     }
 
 private:
-    const E* myOriginal;
+    const E* const myOriginal;
     /// @brief The successors available for a given vClass
     mutable std::map<SUMOVehicleClass, ConstEdgePairVector> myClassesViaSuccessorMap;
 
