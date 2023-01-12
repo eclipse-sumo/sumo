@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-04 13:42+0100\n"
-"PO-Revision-Date: 2023-01-06 07:49+0000\n"
+"PO-Revision-Date: 2023-01-12 08:40+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/tr/>\n"
@@ -161,9 +161,8 @@ msgid "&Walks"
 msgstr "Yürümeler"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1232
-#, fuzzy
 msgid "Ri&des"
-msgstr "Turlar"
+msgstr "Binişler"
 
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1237
 msgid "&Containers"
@@ -1571,9 +1570,8 @@ msgid "Walks"
 msgstr "Yürümeler"
 
 #: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:191
-#, fuzzy
 msgid "Rides"
-msgstr "Turlar"
+msgstr "Binişler"
 
 #: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:194
 msgid "Person stops"
