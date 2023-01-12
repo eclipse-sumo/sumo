@@ -79,7 +79,7 @@ GNEGeneralHandler::beginTag(SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
                 if (myQueue.back().isAdditional() && myAdditionalHandler.beginParseAttributes(tag, attrs)) {
                     myQueue.push_back(TagType(tag, TagType::Type::ADDITIONAL));
                 } else if (myDemandHandler.beginParseAttributes(tag, attrs)) {
-                    myQueue.push_back(TagType(tag, TagType::Type::NONE));
+                    myQueue.push_back(TagType(tag, TagType::Type::DEMAND));
                 } else {
                     myQueue.push_back(TagType(tag, TagType::Type::NONE));
                 }
