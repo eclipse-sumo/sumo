@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-04 13:42+0100\n"
-"PO-Revision-Date: 2023-01-12 08:43+0000\n"
+"PO-Revision-Date: 2023-01-12 08:56+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/tr/>\n"
@@ -420,7 +420,7 @@ msgstr ""
 
 #: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:319
 msgid "Removed a road without junctions: %."
-msgstr ""
+msgstr "Kavşaksız Bir Yol Kaldırıldı: % ."
 
 #: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:658
 #, c-format
