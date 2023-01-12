@@ -4079,6 +4079,8 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject* obj, FXSelector sel, voi
     } else {
         // Start saving demand elements
         getApp()->beginWaitCursor();
+        // compute before saving
+        myNet->computeNetwork(this);
         // save demand elements
         myNet->saveDemandElements();
         // show info
@@ -4422,80 +4424,41 @@ GNEApplicationWindow::onUpdReloadMeanDatas(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdSaveMeanDatas(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdSaveMeanDatas(FXObject* obj, FXSelector sel, void* ptr) {
     // obtain option container
     auto &neteditOptions = OptionsCont::getOptions();
-    // check if save meanData menu is enabled
-    if (myFileMenuCommands.saveMeanDatas->isEnabled()) {
-        // Check if meanDatas file was already set at start of netedit or with a previous save
-        if (neteditOptions.getString("meandata-files").empty()) {
-            // declare current folder
-            FXString currentFolder = gCurrentFolder;
-            // check if there is a saved network
-            if (neteditOptions.getString("net-file").size() > 0) {
-                // extract folder
-                currentFolder = getFolder(neteditOptions.getString("net-file"));
-            }
-            // open dialog
-            FXString file = MFXUtils::getFilename2Write(this,
-                            TL("Save MeanDatas file"), ".add.xml",
-                            GUIIconSubSys::getIcon(GUIIcon::MODEMEANDATA),
-                            currentFolder);
-            // add xml extension
-            std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
-            // check tat file is valid
-            if (fileWithExtension != "") {
-                // change value of "meandata-files"
-                neteditOptions.resetWritable();
-                neteditOptions.set("meandata-files", fileWithExtension);
-                // set meanData files in SUMO configs (additional and meanDatas)
-                mySUMOOptions.resetWritable();
-                if (neteditOptions.getString("additional-files").size() > 0) {
-                    mySUMOOptions.set("additional-files", neteditOptions.getString("additional-files") + "," + neteditOptions.getString("meandata-files"));
-                } else {
-                    mySUMOOptions.set("additional-files", neteditOptions.getString("meandata-files"));
-                }
-            } else {
-                // None meanDatas file was selected, then stop function
-                return 0;
-            }
-        }
+    // check conditions
+    if (myNet->isMeanDatasSaved()) {
+        // nothing to save
+        return 1;
+    } else if (neteditOptions.getString("meandata-files").empty()) {
+        return onCmdSaveMeanDatasAs(obj, sel, ptr);
+    } else {
         // Start saving meanDatas
         getApp()->beginWaitCursor();
-        try {
-            // compute before saving (for detectors positions)
-            myNet->computeNetwork(this);
-            myNet->saveMeanDatas(neteditOptions.getString("meandata-files"));
-            myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "MeanDatas saved in " + neteditOptions.getString("meandata-files") + ".\n");
-            myFileMenuCommands.saveMeanDatas->disable();
-        } catch (IOError& e) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Opening FXMessageBox 'error saving meanDatas'");
-            // open error message box
-            FXMessageBox::error(this, MBOX_OK, TL("Saving meanDatas failed!"), "%s", e.what());
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox 'error saving meanDatas' with 'OK'");
-        }
-        myMessageWindow->addSeparator();
+        // save mean datas
+        myNet->saveMeanDatas(neteditOptions.getString("meandata-files"));
+        // write info
+        WRITE_MESSAGE("MeanDatas saved in '" + neteditOptions.getString("meandata-files") + "'.");
+        // end saving
         getApp()->endWaitCursor();
         // restore focus
         setFocus();
         return 1;
-    } else {
-        return 0;
     }
 }
 
 
 long
-GNEApplicationWindow::onCmdSaveMeanDatasAs(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdSaveMeanDatasAs(FXObject* obj, FXSelector sel, void* ptr) {
     // obtain option container
-    const auto &neteditOptions = OptionsCont::getOptions();
+    auto &neteditOptions = OptionsCont::getOptions();
     // declare current folder
     FXString currentFolder = gCurrentFolder;
-    // check if there is a saved network
-    if (neteditOptions.getString("net-file").size() > 0) {
-        // extract folder
+    // set current folder
+    if (neteditOptions.getString("configuration-file").size() > 0) {
+        currentFolder = getFolder(neteditOptions.getString("configuration-file"));
+    } else if (neteditOptions.getString("net-file").size() > 0) {
         currentFolder = getFolder(neteditOptions.getString("net-file"));
     }
     // Open window to select meanData file
@@ -4504,26 +4467,17 @@ GNEApplicationWindow::onCmdSaveMeanDatasAs(FXObject*, FXSelector, void*) {
                     GUIIconSubSys::getIcon(GUIIcon::MODEMEANDATA),
                     currentFolder);
     // add xml extension
-    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
+    std::string fileWithExtension = FileHelpers::addExtension(file.text(), "add.xml");
     // check tat file is valid
     if (fileWithExtension != "") {
         // reset writtable flag
-        OptionsCont::getOptions().resetWritable();
+        neteditOptions.resetWritable();
         // change value of "meandata-files"
-        OptionsCont::getOptions().set("meandata-files", fileWithExtension);
-
-        // set meanData output in SUMO configs (additional and meanDatas)
-        mySUMOOptions.resetWritable();
-        if (neteditOptions.getString("additional-files").size() > 0) {
-            mySUMOOptions.set("additional-files", neteditOptions.getString("additional-files") + "," + neteditOptions.getString("meandata-files"));
-        } else {
-            mySUMOOptions.set("additional-files", neteditOptions.getString("meandata-files"));
-        }
-
-        // change flag of menu command for save meanDatas
-        myFileMenuCommands.saveMeanDatas->enable();
+        neteditOptions.set("meandata-files", fileWithExtension);
+        // mark mean datas as unsaved
+        myNet->requireSaveMeanDatas(true);
         // save meanDatas
-        return onCmdSaveMeanDatas(nullptr, 0, nullptr);
+        return onCmdSaveMeanDatas(obj, sel, ptr);
     } else {
         return 1;
     }
