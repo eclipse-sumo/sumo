@@ -1273,7 +1273,7 @@ GNENet::removeGLObjectFromGrid(GNEAttributeCarrier* AC) {
 
 
 void
-GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOptions, std::string dataPath) {
+GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOptions) {
     if (!myNeedRecompute) {
         if (force) {
             if (volatileOptions) {
@@ -1293,8 +1293,8 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     }
     // save current number of lanes for every edge if recomputing is with volatile options
     if (volatileOptions) {
-        for (auto it : myAttributeCarriers->getEdges()) {
-            myEdgesAndNumberOfLanes[it.second->getID()] = (int)it.second->getLanes().size();
+        for (const auto &edge : myAttributeCarriers->getEdges()) {
+            myEdgesAndNumberOfLanes[edge.second->getID()] = (int)edge.second->getLanes().size();
         }
     }
     // compute and update
@@ -1306,10 +1306,8 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
         GNEGeneralHandler generalHandler(this, OptionsCont::getOptions().getString("additional-files"), false, false);
         // Run parser
         if (!generalHandler.parse()) {
-            WRITE_MESSAGE("Loading of " + OptionsCont::getOptions().getString("additional-files") + " failed.");
+            WRITE_MESSAGE("Loading of '" + OptionsCont::getOptions().getString("additional-files") + "' failed.");
         }
-        // clear myEdgesAndNumberOfLanes after reload additionals
-        myEdgesAndNumberOfLanes.clear();
     }
     // load demand elements if was recomputed with volatile options
     if (volatileOptions && OptionsCont::getOptions().getString("route-files").size() > 0) {
@@ -1317,12 +1315,30 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
         GNEGeneralHandler handler(this, OptionsCont::getOptions().getString("route-files"), false, false);
         // Run parser
         if (!handler.parse()) {
-            WRITE_MESSAGE("Loading of " + OptionsCont::getOptions().getString("route-files") + " failed.");
+            WRITE_MESSAGE("Loading of '" + OptionsCont::getOptions().getString("route-files") + "' failed.");
         }
-        // clear myEdgesAndNumberOfLanes after reload demandElements
-        myEdgesAndNumberOfLanes.clear();
     }
-    UNUSED_PARAMETER(dataPath);
+
+    // load datas if was recomputed with volatile options
+    if (volatileOptions && OptionsCont::getOptions().getString("data-files").size() > 0) {
+        // Create data handler
+        GNEGeneralHandler generalHandler(this, OptionsCont::getOptions().getString("data-files"), false, false);
+        // Run parser
+        if (!generalHandler.parse()) {
+            WRITE_MESSAGE("Loading of '" + OptionsCont::getOptions().getString("data-files") + "' failed.");
+        }
+    }
+    // load meanDatas if was recomputed with volatile options
+    if (volatileOptions && OptionsCont::getOptions().getString("meandata-files").size() > 0) {
+        // Create meanData handler
+        GNEGeneralHandler generalHandler(this, OptionsCont::getOptions().getString("meandata-files"), false, false);
+        // Run parser
+        if (!generalHandler.parse()) {
+            WRITE_MESSAGE("Loading of '" + OptionsCont::getOptions().getString("meandata-files") + "' failed.");
+        }
+    }
+    // clear myEdgesAndNumberOfLanes after reload additionals
+    myEdgesAndNumberOfLanes.clear();
     window->getApp()->endWaitCursor();
     window->setStatusBarText("Finished computing junctions.");
 }
@@ -2174,17 +2190,15 @@ GNENet::requireSaveDataElements(bool value) {
 
 
 void
-GNENet::saveDataElements(const std::string& filename) {
-    if (filename.size() > 0) {
-        // first recompute data sets
-        computeDataElements(myViewNet->getViewParent()->getGNEAppWindows());
-        // save data elements
-        saveDataElementsConfirmed(filename);
-        // change value of flag
-        myDataElementsSaved = true;
-        // show debug information
-        WRITE_DEBUG("data sets saved");
-    }
+GNENet::saveDataElements() {
+    // first recompute data sets
+    computeDataElements(myViewNet->getViewParent()->getGNEAppWindows());
+    // save data elements
+    saveDataElementsConfirmed();
+    // change value of flag
+    myDataElementsSaved = true;
+    // show debug information
+    WRITE_DEBUG("data sets saved");
 }
 
 
@@ -2355,8 +2369,8 @@ GNENet::saveDemandElementsConfirmed() {
 
 
 void
-GNENet::saveDataElementsConfirmed(const std::string& filename) {
-    OutputDevice& device = OutputDevice::getDevice(filename);
+GNENet::saveDataElementsConfirmed() {
+    OutputDevice& device = OutputDevice::getDevice(OptionsCont::getOptions().getString("data-files"));
     device.writeXMLHeader("data", "datamode_file.xsd", EMPTY_HEADER, false);
     // write all data sets
     for (const auto& dataSet : myAttributeCarriers->getDataSets()) {

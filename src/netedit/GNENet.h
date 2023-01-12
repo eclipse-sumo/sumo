@@ -336,9 +336,8 @@ public:
      * param[in] window The window to inform about delay
      * param[in] force Whether to force recomputation even if not needed
      * param[in] volatileOptions enable or disable volatile options
-     * param[in] dataPath path in which data elements were saved before recomputing with volatile options
      */
-    void computeNetwork(GNEApplicationWindow* window, bool force = false, bool volatileOptions = false, std::string dataPath = "");
+    void computeNetwork(GNEApplicationWindow* window, bool force = false, bool volatileOptions = false);
 
     /**@brief compute demand elements
      * param[in] window The window to inform about delay
@@ -444,10 +443,8 @@ public:
     /// @brief inform that data sets has to be saved
     void requireSaveDataElements(bool value);
 
-    /**@brief save data set elements of the network
-     * @param[in] filename name of the file in which save data sets
-    */
-    void saveDataElements(const std::string& filename);
+    /// @brief save data set elements of the network
+    void saveDataElements();
 
     /// @brief check if data sets are saved
     bool isDataElementsSaved() const;
@@ -580,7 +577,7 @@ private:
     void saveDemandElementsConfirmed();
 
     /// @brief save data elements after confirming invalid objects
-    void saveDataElementsConfirmed(const std::string& filename);
+    void saveDataElementsConfirmed();
 
     /// @brief save meanDatas
     void saveMeanDatasConfirmed(const std::string& filename);
