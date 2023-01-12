@@ -336,11 +336,10 @@ public:
      * param[in] window The window to inform about delay
      * param[in] force Whether to force recomputation even if not needed
      * param[in] volatileOptions enable or disable volatile options
-     * param[in] additionalPath path in which additionals were saved before recomputing with volatile options
      * param[in] demandPath path in which demand elements were saved before recomputing with volatile options
      * param[in] dataPath path in which data elements were saved before recomputing with volatile options
      */
-    void computeNetwork(GNEApplicationWindow* window, bool force = false, bool volatileOptions = false, std::string additionalPath = "", std::string demandPath = "", std::string dataPath = "");
+    void computeNetwork(GNEApplicationWindow* window, bool force = false, bool volatileOptions = false, std::string demandPath = "", std::string dataPath = "");
 
     /**@brief compute demand elements
      * param[in] window The window to inform about delay
@@ -428,10 +427,8 @@ public:
     /// @brief inform that additionals has to be saved
     void requireSaveAdditionals(bool value);
 
-    /**@brief save additional elements of the network
-     * @param[in] filename name of the file in which save additionals
-    */
-    void saveAdditionals(const std::string& filename);
+    /// @brief save additional elements
+    void saveAdditionals();
 
     /// @brief check if additionals are saved
     bool isAdditionalsSaved() const;
@@ -580,7 +577,7 @@ private:
     bool checkJunctionPosition(const Position& pos);
 
     /// @brief save additionals after confirming invalid objects
-    void saveAdditionalsConfirmed(const std::string& filename);
+    void saveAdditionalsConfirmed();
 
     /// @brief save demand elements after confirming invalid objects
     void saveDemandElementsConfirmed(const std::string& filename);

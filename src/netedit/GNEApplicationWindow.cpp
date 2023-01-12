@@ -1772,7 +1772,6 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
     // declare variable to save FXMessageBox outputs.
     FXuint answer = 0;
     // declare string to save paths in wich additionals, shapes demand and data elements will be saved
-    std::string additionalsSavePath = neteditOptions.getString("additional-files");
     std::string demandElementsSavePath = neteditOptions.getString("route-files");
     std::string dataElementsSavePath = neteditOptions.getString("data-files");
     std::string meanDatasSavePath = neteditOptions.getString("meandata-files");
@@ -1793,68 +1792,8 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
     } else {
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Closed FXMessageBox 'Volatile Recomputing' with 'Yes'");
-        // Check if there are additionals in our net
-        if (myNet->getAttributeCarriers()->getNumberOfAdditionals() > 0) {
-            // ask user if want to save additionals if weren't saved previously
-            if (neteditOptions.getString("additional-files") == "") {
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Opening FXMessageBox 'Save additionals before recomputing'");
-                // open question dialog box
-                answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, TL("Save additionals before recomputing with volatile options"),
-                                                "Would you like to save additionals before recomputing?");
-                if (answer != 1) { //1:yes, 2:no, 4:esc
-                    // write warning if netedit is running in testing mode
-                    if (answer == 2) {
-                        WRITE_DEBUG("Closed FXMessageBox 'Save additionals before recomputing' with 'No'");
-                    } else if (answer == 4) {
-                        WRITE_DEBUG("Closed FXMessageBox 'Save additionals before recomputing' with 'ESC'");
-                    }
-                } else {
-                    // write warning if netedit is running in testing mode
-                    WRITE_DEBUG("Closed FXMessageBox 'Save additionals before recomputing' with 'Yes'");
-                    // Open a dialog to set filename output
-                    FXString file = MFXUtils::getFilename2Write(this,
-                                    TL("Save demand element file"), ".xml",
-                                    GUIIconSubSys::getIcon(GUIIcon::MODETLS),
-                                    gCurrentFolder).text();
-                    // add xml extension
-                    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".rou.xml");
-                    // check that file is valid
-                    if (fileWithExtension != "") {
-                        // update additional files
-                        neteditOptions.resetWritable();
-                        neteditOptions.set("additional-files", fileWithExtension);
-                        // set obtanied filename output into additionalsSavePath (can be "")
-                        additionalsSavePath = neteditOptions.getString("additional-files");
-                    }
-                }
-            }
-            // Check if additional must be saved in a temporary directory, if user didn't define a directory for additionals
-            if (neteditOptions.getString("additional-files") == "") {
-                // Obtain temporary directory provided by FXSystem::getCurrentDirectory()
-                additionalsSavePath = FXSystem::getTempDirectory().text() + std::string("/tmpAdditionalsNetedit.xml");
-            }
-            // Start saving additionals
-            getApp()->beginWaitCursor();
-            try {
-                myNet->saveAdditionals(additionalsSavePath);
-            } catch (IOError& e) {
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Opening FXMessageBox 'Error saving additionals before recomputing'");
-                // open error message box
-                FXMessageBox::error(this, MBOX_OK, TL("Saving additionals in temporary folder failed!"), "%s", e.what());
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Closed FXMessageBox 'Error saving additionals before recomputing' with 'OK'");
-            }
-            // end saving additionals
-            myMessageWindow->addSeparator();
-            getApp()->endWaitCursor();
-            // restore focus
-            setFocus();
-        } else {
-            // clear additional path
-            additionalsSavePath = "";
-        }
+        // save additionals
+        onCmdSaveAdditionals(nullptr, 0, nullptr);
         // Check if there are demand elements in our net
         if (myNet->getAttributeCarriers()->getNumberOfDemandElements() > 0) {
             // ask user if want to save demand elements if weren't saved previously
@@ -2042,7 +1981,7 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
             meanDatasSavePath = "";
         }
         // compute with volatile options
-        myNet->computeNetwork(this, true, true, additionalsSavePath, demandElementsSavePath, dataElementsSavePath);
+        myNet->computeNetwork(this, true, true, demandElementsSavePath, dataElementsSavePath);
         updateControls();
         return 1;
     }
@@ -4140,67 +4079,30 @@ GNEApplicationWindow::onUpdReloadAdditionals(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdSaveAdditionals(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdSaveAdditionals(FXObject* obj, FXSelector sel, void* ptr) {
     // obtain option container
     auto &neteditOptions = OptionsCont::getOptions();
-    // check if save additional menu is enabled
-    if (myFileMenuCommands.saveAdditionals->isEnabled()) {
-        // Check if additionals file was already set at start of netedit or with a previous save
-        if (neteditOptions.getString("additional-files").empty()) {
-            // declare current folder
-            FXString currentFolder = gCurrentFolder;
-            // check if there is a saved network
-            if (neteditOptions.getString("net-file").size() > 0) {
-                // extract folder
-                currentFolder = getFolder(neteditOptions.getString("net-file"));
-            }
-            // open dialog
-            FXString file = MFXUtils::getFilename2Write(this,
-                            TL("Save Additionals file"), ".add.xml",
-                            GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL),
-                            currentFolder);
-            // add xml extension
-            std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
-            // check tat file is valid
-            if (fileWithExtension != "") {
-                // change value of "additional-files"
-                neteditOptions.resetWritable();
-                neteditOptions.set("additional-files", fileWithExtension);
-                // set additional files in SUMO configs (additional and meanDatas)
-                mySUMOOptions.resetWritable();
-                if (neteditOptions.getString("meandata-files").size() > 0) {
-                    mySUMOOptions.set("additional-files", neteditOptions.getString("additional-files") + "," + neteditOptions.getString("meandata-files"));
-                } else {
-                    mySUMOOptions.set("additional-files", neteditOptions.getString("additional-files"));
-                }
-            } else {
-                // None additionals file was selected, then stop function
-                return 0;
-            }
-        }
+    // check saving conditions
+    if (myFileMenuCommands.saveAdditionals->isEnabled() == false) {
+        // nothing to save
+        return 1;
+    } else if (neteditOptions.getString("additional-files").empty()) {
+        // choose file to save
+        return onCmdSaveAdditionalsAs(obj, sel, ptr);
+    } else {
         // Start saving additionals
         getApp()->beginWaitCursor();
-        try {
-            // compute before saving (for detectors positions)
-            myNet->computeNetwork(this);
-            myNet->saveAdditionals(neteditOptions.getString("additional-files"));
-            myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "Additionals saved in " + neteditOptions.getString("additional-files") + ".\n");
-            myFileMenuCommands.saveAdditionals->disable();
-        } catch (IOError& e) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Opening FXMessageBox 'error saving additionals'");
-            // open error message box
-            FXMessageBox::error(this, MBOX_OK, TL("Saving additionals failed!"), "%s", e.what());
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox 'error saving additionals' with 'OK'");
-        }
-        myMessageWindow->addSeparator();
+        // compute before saving (for detectors positions)
+        myNet->computeNetwork(this);
+        // save additionals
+        myNet->saveAdditionals();
+        // show info
+        WRITE_MESSAGE("Additionals saved in " + neteditOptions.getString("additional-files") + ".\n");
+        // end saving additionals
         getApp()->endWaitCursor();
         // restore focus
         setFocus();
         return 1;
-    } else {
-        return 0;
     }
 }
 
@@ -4211,33 +4113,24 @@ GNEApplicationWindow::onCmdSaveAdditionalsAs(FXObject*, FXSelector, void*) {
     const auto &neteditOptions = OptionsCont::getOptions();
     // declare current folder
     FXString currentFolder = gCurrentFolder;
-    // check if there is a saved network
-    if (neteditOptions.getString("net-file").size() > 0) {
-        // extract folder
+    // set current folder
+    if (neteditOptions.getString("configuration-file").size() > 0) {
+        currentFolder = getFolder(neteditOptions.getString("configuration-file"));
+    } else if (neteditOptions.getString("net-file").size() > 0) {
         currentFolder = getFolder(neteditOptions.getString("net-file"));
     }
     // Open window to select additional file
     FXString file = MFXUtils::getFilename2Write(this,
-                    TL("Save Additionals file as"), ".xml",
-                    GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL),
-                    currentFolder);
+        TL("Save Additionals file as"), ".add.xml",
+        GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL), currentFolder);
     // add xml extension
-    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
-    // check tat file is valid
-    if (fileWithExtension != "") {
+    const auto additionalFile = FileHelpers::addExtension(file.text(), ".xml");
+    // check that file is valid
+    if (additionalFile.size() > 0) {
         // reset writtable flag
         OptionsCont::getOptions().resetWritable();
         // change value of "additional-files"
-        OptionsCont::getOptions().set("additional-files", fileWithExtension);
-        // set additional files in SUMO configs (additional and meanDatas)
-        mySUMOOptions.resetWritable();
-        if (neteditOptions.getString("meandata-files").size() > 0) {
-            mySUMOOptions.set("additional-files", neteditOptions.getString("additional-files") + "," + neteditOptions.getString("meandata-files"));
-        } else {
-            mySUMOOptions.set("additional-files", neteditOptions.getString("additional-files"));
-        }
-        // change flag of menu command for save additionals
-        myFileMenuCommands.saveAdditionals->enable();
+        OptionsCont::getOptions().set("additional-files", additionalFile);
         // save additionals
         return onCmdSaveAdditionals(nullptr, 0, nullptr);
     } else {

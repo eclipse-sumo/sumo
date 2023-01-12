@@ -1273,7 +1273,7 @@ GNENet::removeGLObjectFromGrid(GNEAttributeCarrier* AC) {
 
 
 void
-GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOptions, std::string additionalPath, std::string demandPath, std::string dataPath) {
+GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOptions, std::string demandPath, std::string dataPath) {
     if (!myNeedRecompute) {
         if (force) {
             if (volatileOptions) {
@@ -1301,12 +1301,12 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     auto &neteditOptions = OptionsCont::getOptions();
     computeAndUpdate(neteditOptions, volatileOptions);
     // load additionals if was recomputed with volatile options
-    if (additionalPath != "") {
+    if (OptionsCont::getOptions().getString("additional-files").size() > 0) {
         // Create additional handler
-        GNEGeneralHandler generalHandler(this, additionalPath, false, false);
+        GNEGeneralHandler generalHandler(this, OptionsCont::getOptions().getString("additional-files"), false, false);
         // Run parser
         if (!generalHandler.parse()) {
-            WRITE_MESSAGE("Loading of " + additionalPath + " failed.");
+            WRITE_MESSAGE("Loading of " + OptionsCont::getOptions().getString("additional-files") + " failed.");
         }
         // clear myEdgesAndNumberOfLanes after reload additionals
         myEdgesAndNumberOfLanes.clear();
@@ -2049,48 +2049,46 @@ GNENet::requireSaveAdditionals(bool value) {
 
 
 void
-GNENet::saveAdditionals(const std::string& filename) {
-    if (filename.size() > 0) {
-        // obtain invalid additionals depending of number of their parent lanes
-        std::vector<GNEAdditional*> invalidSingleLaneAdditionals;
-        std::vector<GNEAdditional*> invalidMultiLaneAdditionals;
-        // iterate over additionals and obtain invalids
-        for (const auto& additionalPair : myAttributeCarriers->getAdditionals()) {
-            for (const auto& addditional : additionalPair.second) {
-                // check if has to be fixed
-                if (addditional->getTagProperty().hasAttribute(SUMO_ATTR_LANE) && !addditional->isAdditionalValid()) {
-                    invalidSingleLaneAdditionals.push_back(addditional);
-                } else if (addditional->getTagProperty().hasAttribute(SUMO_ATTR_LANES) && !addditional->isAdditionalValid()) {
-                    invalidMultiLaneAdditionals.push_back(addditional);
-                }
+GNENet::saveAdditionals() {
+    // obtain invalid additionals depending of number of their parent lanes
+    std::vector<GNEAdditional*> invalidSingleLaneAdditionals;
+    std::vector<GNEAdditional*> invalidMultiLaneAdditionals;
+    // iterate over additionals and obtain invalids
+    for (const auto& additionalPair : myAttributeCarriers->getAdditionals()) {
+        for (const auto& addditional : additionalPair.second) {
+            // check if has to be fixed
+            if (addditional->getTagProperty().hasAttribute(SUMO_ATTR_LANE) && !addditional->isAdditionalValid()) {
+                invalidSingleLaneAdditionals.push_back(addditional);
+            } else if (addditional->getTagProperty().hasAttribute(SUMO_ATTR_LANES) && !addditional->isAdditionalValid()) {
+                invalidMultiLaneAdditionals.push_back(addditional);
             }
         }
-        // if there are invalid StoppingPlaces or detectors, open GNEFixAdditionalElements
-        if (invalidSingleLaneAdditionals.size() > 0 || invalidMultiLaneAdditionals.size() > 0) {
-            // 0 -> Canceled Saving, with or without selecting invalid stopping places and E2
-            // 1 -> Invalid stoppingPlaces and E2 fixed, friendlyPos enabled, or saved with invalid positions
-            GNEFixAdditionalElements fixAdditionalElementsDialog(myViewNet, invalidSingleLaneAdditionals, invalidMultiLaneAdditionals);
-            if (fixAdditionalElementsDialog.execute() == 0) {
-                // show debug information
-                WRITE_DEBUG("Additionals saving aborted");
-            } else {
-                saveAdditionalsConfirmed(filename);
-                // change value of flag
-                myAdditionalsSaved = true;
-                // show debug information
-                WRITE_DEBUG("Additionals saved after dialog");
-            }
-            // update view
-            myViewNet->updateViewNet();
-            // set focus again in net
-            myViewNet->setFocus();
+    }
+    // if there are invalid StoppingPlaces or detectors, open GNEFixAdditionalElements
+    if (invalidSingleLaneAdditionals.size() > 0 || invalidMultiLaneAdditionals.size() > 0) {
+        // 0 -> Canceled Saving, with or without selecting invalid stopping places and E2
+        // 1 -> Invalid stoppingPlaces and E2 fixed, friendlyPos enabled, or saved with invalid positions
+        GNEFixAdditionalElements fixAdditionalElementsDialog(myViewNet, invalidSingleLaneAdditionals, invalidMultiLaneAdditionals);
+        if (fixAdditionalElementsDialog.execute() == 0) {
+            // show debug information
+            WRITE_DEBUG("Additionals saving aborted");
         } else {
-            saveAdditionalsConfirmed(filename);
+            saveAdditionalsConfirmed();
             // change value of flag
             myAdditionalsSaved = true;
             // show debug information
-            WRITE_DEBUG("Additionals saved");
+            WRITE_DEBUG("Additionals saved after dialog");
         }
+        // update view
+        myViewNet->updateViewNet();
+        // set focus again in net
+        myViewNet->setFocus();
+    } else {
+        saveAdditionalsConfirmed();
+        // change value of flag
+        myAdditionalsSaved = true;
+        // show debug information
+        WRITE_DEBUG("Additionals saved");
     }
 }
 
@@ -2274,8 +2272,8 @@ GNENet::isMeanDatasSaved() const {
 
 
 void
-GNENet::saveAdditionalsConfirmed(const std::string& filename) {
-    OutputDevice& device = OutputDevice::getDevice(filename);
+GNENet::saveAdditionalsConfirmed() {
+    OutputDevice& device = OutputDevice::getDevice(OptionsCont::getOptions().getString("additional-files"));
     // open header
     device.writeXMLHeader("additional", "additional_file.xsd", EMPTY_HEADER, false);
     // write vTypes with additional childrens (due calibrators)
