@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-01-04 13:42+0100\n"
+"POT-Creation-Date: 2023-01-12 11:24+0100\n"
 "PO-Revision-Date: 2022-10-11 11:53+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -541,6 +541,10 @@ msgstr ""
 msgid "Can not build off ramp on edge '%' - the edge is not known."
 msgstr ""
 
+#: /home/behr_mi/sumo/src/netbuild/NBTrafficLightLogicCont.cpp:235
+msgid "Could not build program '%' for traffic light '%'"
+msgstr ""
+
 #: /home/behr_mi/sumo/src/netbuild/NBTrafficLightLogicCont.cpp:376
 msgid "Guessing signalID for link index % at traffic light '%'."
 msgstr ""
@@ -779,6 +783,11 @@ msgstr ""
 msgid "Could not find edge for parkingArea '%'."
 msgstr ""
 
+#: /home/behr_mi/sumo/src/netbuild/NBTrafficLightDefinition.cpp:115
+#, c-format
+msgid "The traffic light '%' does not control any links; it will not be build."
+msgstr ""
+
 #: /home/behr_mi/sumo/src/netbuild/NBTrafficLightDefinition.cpp:509
 #, c-format
 msgid "The rail crossing '%' does not have any roads."
@@ -805,78 +814,78 @@ msgstr ""
 msgid "The traffic light '%' has a high cycle time of %."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:440
+#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:465
 msgid " Removing self-looping edge '%'"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:752
-#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:770
+#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:777
+#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:795
 msgid "Could not use custom shape for connection %."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:761
+#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:786
 msgid "Custom shape has distance % to incoming lane for connection %."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:778
+#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:803
 msgid "Custom shape has distance % to outgoing lane for connection %."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:978
+#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:1003
 msgid ""
 "Junction '%' is too complicated (% connections, max %); will be set to %."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:1119
+#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:1144
 #, c-format
 msgid "Shape for junction '%' has distance % to its given position."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:1123
+#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:1148
 msgid "For junction '%': could not compute shape."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:1824
+#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:1849
 msgid "Something went wrong during the building of a connection..."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:2822
+#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:2868
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (no "
 "walkingarea found)."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:2998
+#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:3044
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (no vehicle "
 "lanes to cross)."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:3017
+#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:3063
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (invalid "
 "shape)."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:3168
+#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:3214
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' targets '%' and "
 "'%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:3191
+#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:3237
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' is targeted by '%' "
 "and '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:3196
+#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:3242
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' starts and ends at "
 "walkingarea '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:3413
+#: /home/behr_mi/sumo/src/netbuild/NBNode.cpp:3462
 msgid "Invalid pedestrian topology: crossing '%' across [%] has no target."
 msgstr ""
 
@@ -1039,17 +1048,17 @@ msgstr ""
 msgid " Generation done;"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/osgview/GUIOSGManipulator.cpp:295
+#: /home/behr_mi/sumo/src/osgview/GUIOSGManipulator.cpp:293
 #, c-format
 msgid "Currently in % camera mode. Press [F] to switch."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/osgview/GUIOSGView.cpp:175
+#: /home/behr_mi/sumo/src/osgview/GUIOSGView.cpp:176
 msgid "Could not load traffic light files."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/osgview/GUIOSGView.cpp:937
-#: /home/behr_mi/sumo/src/osgview/GUIOSGView.cpp:938
+#: /home/behr_mi/sumo/src/osgview/GUIOSGView.cpp:940
+#: /home/behr_mi/sumo/src/osgview/GUIOSGView.cpp:941
 msgid "N/A"
 msgstr ""
 
@@ -1486,7 +1495,7 @@ msgstr ""
 msgid "Edge '%' has no connection to lane '%'; the connection cannot be reset."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netimport/NIXMLConnectionsHandler.cpp:287
+#: /home/behr_mi/sumo/src/netimport/NIXMLConnectionsHandler.cpp:279
 msgid "Could not set loaded connection from lane '%' to lane '%'."
 msgstr ""
 
@@ -1678,7 +1687,7 @@ msgid ""
 msgstr ""
 
 #: /home/behr_mi/sumo/src/mesosim/METriggeredCalibrator.cpp:137
-#: /home/behr_mi/sumo/src/microsim/trigger/MSCalibrator.cpp:592
+#: /home/behr_mi/sumo/src/microsim/trigger/MSCalibrator.cpp:596
 msgid "Clearing jam at calibrator '%' at time=%."
 msgstr ""
 
@@ -1723,7 +1732,7 @@ msgid "Attribute 'period' is deprecated for route. Use 'cycleTime' instead."
 msgstr ""
 
 #: /home/behr_mi/sumo/src/microsim/MSRouteHandler.cpp:741
-#: /home/behr_mi/sumo/src/microsim/transportables/MSTransportable.cpp:325
+#: /home/behr_mi/sumo/src/microsim/transportables/MSTransportable.cpp:327
 msgid ""
 "Person '%' receives type '%' which implicitly uses unsuitable vClass '%'."
 msgstr ""
@@ -1846,48 +1855,52 @@ msgid ""
 "severity=%, time=%."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:311
+#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:312
 msgid "Unequal lengths of neigh lane '%' and lane '%' (% != %)."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:746
+#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:321
+msgid "Unequal lengths of bidi lane '%' and lane '%' (% != %)."
+msgstr ""
+
+#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:758
 #, c-format
 msgid "Vehicle '%' is inserted in emergency situation."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:768
+#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:780
 msgid ""
 "Invalid departPos % given for vehicle '%'. Inserting at lane end instead."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:991
+#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:1025
 msgid ""
 "Vehicle '%' is inserted too fast and will violate the speed limit on a lane "
 "'%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:1629
+#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:1658
 msgid ""
 "Vehicle '%' collision with person '%', lane='%', gap=%, time=%, stage=%."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:1768
+#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:1796
 msgid "Vehicle '%' collision with person '%', lane='%', time=%, stage=%."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:2065
+#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:2093
 msgid "Teleporting vehicle '%'; beyond end of lane, target lane='%', time=%."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:2072
+#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:2100
 msgid "Removing vehicle '%' after earlier collision, lane='%', time=%."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:2077
+#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:2105
 msgid "Teleporting vehicle '%' after earlier collision, lane='%', time=%."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:2549
+#: /home/behr_mi/sumo/src/microsim/MSLane.cpp:2577
 msgid ""
 "Lane '%' is approached multiple times from edge '%'. This may cause "
 "collisions."
@@ -2026,6 +2039,11 @@ msgid ""
 "%)."
 msgstr ""
 
+#: /home/behr_mi/sumo/src/microsim/MSEdge.cpp:1308
+#, c-format
+msgid "Edge '%s' and bidi edge '%s' have no matching bidi lanes"
+msgstr ""
+
 #: /home/behr_mi/sumo/src/polyconvert/PCLoaderDlrNavteq.cpp:224
 msgid "The name of a polygon is missing; it will be discarded."
 msgstr ""
@@ -2153,7 +2171,7 @@ msgstr ""
 msgid "Teleporting % '%'; waited too long, from edge '%', time=%."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/transportables/MSTransportable.cpp:389
+#: /home/behr_mi/sumo/src/microsim/transportables/MSTransportable.cpp:391
 msgid "parkingAreaReroute not support for containers"
 msgstr ""
 
@@ -2176,7 +2194,11 @@ msgid ""
 "and this may cause collisions with vehicles."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/microsim/transportables/MSPModel_Striping.cpp:2048
+#: /home/behr_mi/sumo/src/microsim/transportables/MSPModel_Striping.cpp:177
+msgid "Person '%' could not find sidewalk on edge '%', time=%."
+msgstr ""
+
+#: /home/behr_mi/sumo/src/microsim/transportables/MSPModel_Striping.cpp:2047
 msgid "Person '%' is jammed on edge '%', time=%."
 msgstr ""
 
@@ -2417,7 +2439,7 @@ msgstr ""
 
 #: /home/behr_mi/sumo/src/utils/options/OptionsCont.cpp:66
 msgid ""
-"Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://"
+"Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://"
 "sumo.dlr.de"
 msgstr ""
 
@@ -2425,18 +2447,18 @@ msgstr ""
 msgid "Empty file name given; ignoring."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/utils/options/OptionsCont.cpp:574
-#: /home/behr_mi/sumo/src/utils/options/OptionsCont.cpp:596
+#: /home/behr_mi/sumo/src/utils/options/OptionsCont.cpp:581
+#: /home/behr_mi/sumo/src/utils/options/OptionsCont.cpp:603
 msgid " Build features: "
 msgstr ""
 
-#: /home/behr_mi/sumo/src/utils/options/OptionsCont.cpp:578
+#: /home/behr_mi/sumo/src/utils/options/OptionsCont.cpp:585
 msgid ""
 " License EPL-2.0: Eclipse Public License Version 2 <https://eclipse.org/"
 "legal/epl-v20.html>"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/utils/options/OptionsCont.cpp:579
+#: /home/behr_mi/sumo/src/utils/options/OptionsCont.cpp:586
 msgid " Use --help to get the list of options."
 msgstr ""
 

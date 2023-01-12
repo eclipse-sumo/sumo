@@ -261,7 +261,7 @@ GUIApplicationWindow::dependentBuild(const bool isLibsumo) {
     {
         // build TraCi info
         myTraCiFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-        auto button = new FXButton(myTraCiFrame, TL("TraCI"), nullptr, this, MID_TRACI_STATUS, GUIDesignButtonStatusBarFixed);
+        auto button = new FXButton(myTraCiFrame, "TraCI", nullptr, this, MID_TRACI_STATUS, GUIDesignButtonStatusBarFixed);
         button->setBackColor(FXRGBA(253, 255, 206, 255));
         if (TraCIServer::getInstance() == nullptr) {
             myTraCiFrame->hide();
