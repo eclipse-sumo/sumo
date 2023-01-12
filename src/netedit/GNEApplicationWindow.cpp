@@ -2865,136 +2865,6 @@ GNEApplicationWindow::onCmdClearTemplate(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdSaveNetworkAs(FXObject*, FXSelector, void*) {
-    // declar extensions
-    const std::string netExtension = ".net.xml";
-    const std::string zipNetExtension = netExtension + ".gz";
-    const std::string wildcard = (netExtension + "\n*" + zipNetExtension);
-    // open dialog
-    FXString file = MFXUtils::getFilename2Write(this,
-                    TL("Save Network as"), wildcard.c_str(),
-                    GUIIconSubSys::getIcon(GUIIcon::SAVE),
-                    gCurrentFolder);
-    // get file with extension
-    std::string networkFile = file.text();
-    // clear wildcard
-    const size_t pos = networkFile.find(wildcard);
-    if (pos != std::string::npos) {
-        // If found then erase it from string
-        networkFile.erase(pos, wildcard.length());
-    }
-    // check xml extension
-    if (!GNEApplicationWindowHelper::stringEndsWith(networkFile, netExtension) &&
-            !GNEApplicationWindowHelper::stringEndsWith(networkFile, zipNetExtension)) {
-        networkFile = FileHelpers::addExtension(networkFile, netExtension);
-    }
-    // check that file with extension is valid
-    if (networkFile != "") {
-        // set ouput file in NETEDIT configs
-        auto &neteditOptions = OptionsCont::getOptions();
-        neteditOptions.resetWritable();
-        neteditOptions.set("net-file", networkFile);
-        // se network output in SUMO configs
-        mySUMOOptions.resetWritable();
-        mySUMOOptions.set("net-file", networkFile);
-        // update NETEDIT title with the network name
-        setTitle(MFXUtils::getTitleText(myTitlePrefix, networkFile.c_str()));
-        // save network
-        onCmdSaveNetwork(nullptr, 0, nullptr);
-    }
-    return 1;
-}
-
-
-long
-GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
-    // obtain option container
-    auto &neteditOptions = OptionsCont::getOptions();
-    // declare current folder
-    FXString currentFolder = gCurrentFolder;
-    // check if there is a saved network
-    if (neteditOptions.getString("net-file").size() > 0) {
-        // extract folder
-        currentFolder = getFolder(neteditOptions.getString("net-file"));
-    }
-    // open dialog
-    FXString file = MFXUtils::getFilename2Write(this,
-                    TL("Save plain-xml edge-file (other names will be deduced from this)"), "",
-                    GUIIconSubSys::getIcon(GUIIcon::SAVE),
-                    currentFolder);
-    // check that file is valid (note: in this case we don't need to use function FileHelpers::addExtension)
-    if (file != "") {
-        std::string prefix = file.text();
-        // if the name of an edg.xml file was given, remove the suffix
-        if (StringUtils::endsWith(prefix, ".edg.xml")) {
-            prefix = prefix.substr(0, prefix.size() - 8);
-        }
-        if (StringUtils::endsWith(prefix, ".")) {
-            prefix = prefix.substr(0, prefix.size() - 1);
-        }
-        getApp()->beginWaitCursor();
-        try {
-            myNet->savePlain(prefix);
-        } catch (IOError& e) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Opening FXMessageBox 'Error saving plainXML'");
-            // open message box
-            FXMessageBox::error(this, MBOX_OK, TL("Saving plain xml failed!"), "%s", e.what());
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox 'Error saving plainXML' with 'OK'");
-        }
-        myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "Plain XML saved with prefix '" + prefix + "'.\n");
-        myMessageWindow->addSeparator();
-        getApp()->endWaitCursor();
-        // restore focus
-        setFocus();
-    }
-    return 1;
-}
-
-
-long
-GNEApplicationWindow::onCmdSaveJoined(FXObject*, FXSelector, void*) {
-    // obtain option container
-    auto &neteditOptions = OptionsCont::getOptions();
-    // declare current folder
-    FXString currentFolder = gCurrentFolder;
-    // check if there is a saved network
-    if (neteditOptions.getString("net-file").size() > 0) {
-        // extract folder
-        currentFolder = getFolder(neteditOptions.getString("net-file"));
-    }
-    // open dialog
-    FXString file = MFXUtils::getFilename2Write(this,
-                    TL("Save joined-junctions"), ".nod.xml",
-                    GUIIconSubSys::getIcon(GUIIcon::SAVE),
-                    currentFolder);
-    // add xml extension
-    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
-    // check that file with extension is valid
-    if (fileWithExtension != "") {
-        getApp()->beginWaitCursor();
-        try {
-            myNet->saveJoined(fileWithExtension);
-        } catch (IOError& e) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Opening FXMessageBox 'error saving joined'");
-            // opening error message
-            FXMessageBox::error(this, MBOX_OK, TL("Saving joined junctions failed!"), "%s", e.what());
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox 'error saving joined' with 'OK'");
-        }
-        myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "Joined junctions saved to '" + fileWithExtension + "'.\n");
-        myMessageWindow->addSeparator();
-        getApp()->endWaitCursor();
-        // restore focus
-        setFocus();
-    }
-    return 1;
-}
-
-
-long
 GNEApplicationWindow::onUpdNeedsNetwork(FXObject* sender, FXSelector, void*) {
     // check if net exist
     if (myNet) {
@@ -3519,13 +3389,13 @@ GNEApplicationWindow::onUpdToggleViewOption(FXObject* obj, FXSelector sel, void*
 
 
 long
-GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdSaveNetwork(FXObject* obj, FXSelector sel, void* ptr) {
     auto &neteditOptions = OptionsCont::getOptions();
     // function onCmdSaveNetworkAs must be executed if this is the first save
     if (neteditOptions.getString("net-file").empty()) {
-        return onCmdSaveNetworkAs(nullptr, 0, nullptr);
+        return onCmdSaveNetworkAs(obj, sel, ptr);
     } else {
-        // se network output in SUMO configs
+        // se net file in SUMO options
         mySUMOOptions.resetWritable();
         mySUMOOptions.set("net-file", neteditOptions.getString("net-file"));
         // set network in SUMOConfig
@@ -3589,97 +3459,195 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
 
 
 long
+GNEApplicationWindow::onCmdSaveNetworkAs(FXObject*, FXSelector, void*) {
+    // declar extensions
+    const std::string netExtension = ".net.xml";
+    const std::string zipNetExtension = netExtension + ".gz";
+    const std::string wildcard = (netExtension + "\n*" + zipNetExtension);
+    // open dialog
+    FXString file = MFXUtils::getFilename2Write(this,
+                    TL("Save Network as"), wildcard.c_str(),
+                    GUIIconSubSys::getIcon(GUIIcon::SAVE),
+                    gCurrentFolder);
+    // get file with extension
+    std::string networkFile = file.text();
+    // clear wildcard
+    const size_t pos = networkFile.find(wildcard);
+    if (pos != std::string::npos) {
+        // If found then erase it from string
+        networkFile.erase(pos, wildcard.length());
+    }
+    // check xml extension
+    if (!GNEApplicationWindowHelper::stringEndsWith(networkFile, netExtension) &&
+        !GNEApplicationWindowHelper::stringEndsWith(networkFile, zipNetExtension)) {
+        networkFile = FileHelpers::addExtension(networkFile, netExtension);
+    }
+    // check that file with extension is valid
+    if (networkFile != "") {
+        // set ouput file in NETEDIT configs
+        auto &neteditOptions = OptionsCont::getOptions();
+        neteditOptions.resetWritable();
+        neteditOptions.set("net-file", networkFile);
+        // update NETEDIT title with the network name
+        setTitle(MFXUtils::getTitleText(myTitlePrefix, networkFile.c_str()));
+        // save network
+        onCmdSaveNetwork(nullptr, 0, nullptr);
+    }
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
+    // obtain option container
+    auto &neteditOptions = OptionsCont::getOptions();
+    // declare current folder
+    FXString currentFolder = gCurrentFolder;
+    // check if there is a saved network
+    if (neteditOptions.getString("net-file").size() > 0) {
+        // extract folder
+        currentFolder = getFolder(neteditOptions.getString("net-file"));
+    }
+    // open dialog
+    FXString file = MFXUtils::getFilename2Write(this,
+                    TL("Save plain-xml edge-file (other names will be deduced from this)"), "",
+                    GUIIconSubSys::getIcon(GUIIcon::SAVE),
+                    currentFolder);
+    // check that file is valid (note: in this case we don't need to use function FileHelpers::addExtension)
+    if (file != "") {
+        std::string prefix = file.text();
+        // if the name of an edg.xml file was given, remove the suffix
+        if (StringUtils::endsWith(prefix, ".edg.xml")) {
+            prefix = prefix.substr(0, prefix.size() - 8);
+        }
+        if (StringUtils::endsWith(prefix, ".")) {
+            prefix = prefix.substr(0, prefix.size() - 1);
+        }
+        getApp()->beginWaitCursor();
+        try {
+            myNet->savePlain(prefix);
+        } catch (IOError& e) {
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Opening FXMessageBox 'Error saving plainXML'");
+            // open message box
+            FXMessageBox::error(this, MBOX_OK, TL("Saving plain xml failed!"), "%s", e.what());
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Closed FXMessageBox 'Error saving plainXML' with 'OK'");
+        }
+        myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "Plain XML saved with prefix '" + prefix + "'.\n");
+        myMessageWindow->addSeparator();
+        getApp()->endWaitCursor();
+        // restore focus
+        setFocus();
+    }
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onCmdSaveJoinedJunctions(FXObject*, FXSelector, void*) {
+    // obtain option container
+    auto &neteditOptions = OptionsCont::getOptions();
+    // declare current folder
+    FXString currentFolder = gCurrentFolder;
+    // check if there is a saved network
+    if (neteditOptions.getString("net-file").size() > 0) {
+        // extract folder
+        currentFolder = getFolder(neteditOptions.getString("net-file"));
+    }
+    // open dialog
+    FXString file = MFXUtils::getFilename2Write(this,
+                    TL("Save joined-junctions"), ".nod.xml",
+                    GUIIconSubSys::getIcon(GUIIcon::SAVE),
+                    currentFolder);
+    // add xml extension
+    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
+    // check that file with extension is valid
+    if (fileWithExtension != "") {
+        getApp()->beginWaitCursor();
+        try {
+            myNet->saveJoined(fileWithExtension);
+        } catch (IOError& e) {
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Opening FXMessageBox 'error saving joined'");
+            // opening error message
+            FXMessageBox::error(this, MBOX_OK, TL("Saving joined junctions failed!"), "%s", e.what());
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Closed FXMessageBox 'error saving joined' with 'OK'");
+        }
+        myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "Joined junctions saved to '" + fileWithExtension + "'.\n");
+        myMessageWindow->addSeparator();
+        getApp()->endWaitCursor();
+        // restore focus
+        setFocus();
+    }
+    return 1;
+}
+
+
+long
 GNEApplicationWindow::onCmdSaveNETEDITConfig(FXObject*, FXSelector, void*) {
     // obtain NETEDIT option container
     auto &neteditOptions = OptionsCont::getOptions();
     neteditOptions.resetWritable();
     // Check if configuration file was already set at start of netedit or with a previous save
     if (neteditOptions.getString("configuration-file").empty()) {
-        // get the new file name
-        FXFileDialog opendialog(this, TL("Save NETEDIT Configuration"));
-        opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::SAVE));
-        opendialog.setSelectMode(SELECTFILE_ANY);
-        opendialog.setPatternList("Config (*.neteditcfg)");
-        if (gCurrentFolder.length() != 0) {
-            opendialog.setDirectory(gCurrentFolder);
-        }
-        if (!opendialog.execute() || !MFXUtils::userPermitsOverwritingWhenFileExists(this, opendialog.getFilename())) {
-            return 1;
-        } else {
-            const std::string file = MFXUtils::assureExtension(opendialog.getFilename(),
-                    opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
-            neteditOptions.set("configuration-file", file);
-        }
-    }
-    const auto neteditConfigFile = neteditOptions.getString("configuration-file");
-    // get config file without extension
-    const auto patterFile = StringUtils::replace(neteditConfigFile, ".neteditcfg", "");
-    // save all element giving automatic names
-    if (!myNet->isNetSaved()) {
-        if (neteditOptions.getString("net-file").empty()) {
-            neteditOptions.set("net-file", patterFile + ".net.xml");
-        }
-        onCmdSaveNetwork(nullptr, 0, nullptr);
-    }
-    if (!myNet->isAdditionalsSaved()) {
-        if (neteditOptions.getString("additional-files").empty()) {
-            neteditOptions.set("additional-files", patterFile + ".add.xml");
-        }
-        onCmdSaveAdditionals(nullptr, 0, nullptr);
-    }
-    if (!myNet->isDemandElementsSaved()) {
-        if (neteditOptions.getString("route-files").empty()) {
-            neteditOptions.set("route-files", patterFile + ".rou.xml");
-        }
-        onCmdSaveDemandElements(nullptr, 0, nullptr);
-    }
-    if (!myNet->isDataElementsSaved()) {
-        if (neteditOptions.getString("data-files").empty()) {
-            neteditOptions.set("data-files", patterFile + ".dat.xml");
-        }
-        onCmdSaveDataElements(nullptr, 0, nullptr);
-    }
-    if (!myNet->isMeanDatasSaved()) {
-        if (neteditOptions.getString("meandata-files").empty()) {
-            neteditOptions.set("meandata-files", patterFile + ".med.add.xml");
-        }
-        onCmdSaveMeanDatas(nullptr, 0, nullptr);
-    }
-    std::ofstream out(StringUtils::transcodeToLocal(neteditConfigFile));
-    if (out.good()) {
-        // write NETEDIT config
-        neteditOptions.writeConfiguration(out, true, false, false, neteditConfigFile, true);
-        setStatusBarText("netedit configuration saved to " + neteditConfigFile);
-        // config saved
-        myNeteditConfigSaved = true;
-        // After saving a config successfully, add it into recent configs
-        myMenuBarFile.myRecentConfigs.appendFile(neteditOptions.getString("configuration-file").c_str());
+        return onCmdSaveNETEDITConfigAs(nullptr, 0, nullptr);
     } else {
-        setStatusBarText("Could not save netedit configuration to " + neteditConfigFile);
+        const auto neteditConfigFile = neteditOptions.getString("configuration-file");
+        // get config file without extension
+        const auto patterFile = StringUtils::replace(neteditConfigFile, ".neteditcfg", "");
+        // save all element giving automatic names
+        if (!myNet->isNetSaved()) {
+            if (neteditOptions.getString("net-file").empty()) {
+                neteditOptions.set("net-file", patterFile + ".net.xml");
+            }
+            onCmdSaveNetwork(nullptr, 0, nullptr);
+        }
+        if (!myNet->isAdditionalsSaved()) {
+            if (neteditOptions.getString("additional-files").empty()) {
+                neteditOptions.set("additional-files", patterFile + ".add.xml");
+            }
+            onCmdSaveAdditionals(nullptr, 0, nullptr);
+        }
+        if (!myNet->isDemandElementsSaved()) {
+            if (neteditOptions.getString("route-files").empty()) {
+                neteditOptions.set("route-files", patterFile + ".rou.xml");
+            }
+            onCmdSaveDemandElements(nullptr, 0, nullptr);
+        }
+        if (!myNet->isDataElementsSaved()) {
+            if (neteditOptions.getString("data-files").empty()) {
+                neteditOptions.set("data-files", patterFile + ".dat.xml");
+            }
+            onCmdSaveDataElements(nullptr, 0, nullptr);
+        }
+        if (!myNet->isMeanDatasSaved()) {
+            if (neteditOptions.getString("meandata-files").empty()) {
+                neteditOptions.set("meandata-files", patterFile + ".med.add.xml");
+            }
+            onCmdSaveMeanDatas(nullptr, 0, nullptr);
+        }
+        std::ofstream out(StringUtils::transcodeToLocal(neteditConfigFile));
+        if (out.good()) {
+            // write NETEDIT config
+            neteditOptions.writeConfiguration(out, true, false, false, neteditConfigFile, true);
+            setStatusBarText("netedit configuration saved to " + neteditConfigFile);
+            // config saved
+            myNeteditConfigSaved = true;
+            // After saving a config successfully, add it into recent configs
+            myMenuBarFile.myRecentConfigs.appendFile(neteditOptions.getString("configuration-file").c_str());
+        } else {
+            setStatusBarText("Could not save netedit configuration to " + neteditConfigFile);
+        }
+        out.close();
+        return 1;
     }
-    out.close();
-    return 1;
 }
 
 
 long
-GNEApplicationWindow::onCmdSaveNETEDITConfigAs(FXObject*, FXSelector, void*) {
-    // save all elements
-    if (!myNet->isNetSaved()) {
-        onCmdSaveNetwork(nullptr, 0, nullptr);
-    }
-    if (!myNet->isAdditionalsSaved()) {
-        onCmdSaveAdditionals(nullptr, 0, nullptr);
-    }
-    if (!myNet->isDemandElementsSaved()) {
-        onCmdSaveDemandElements(nullptr, 0, nullptr);
-    }
-    if (!myNet->isDataElementsSaved()) {
-        onCmdSaveDataElements(nullptr, 0, nullptr);
-    }
-    if (!myNet->isMeanDatasSaved()) {
-        onCmdSaveMeanDatas(nullptr, 0, nullptr);
-    }
+GNEApplicationWindow::onCmdSaveNETEDITConfigAs(FXObject* obj, FXSelector sel, void* ptr) {
     // obtain NETEDIT option container
     OptionsCont& neteditOptions = OptionsCont::getOptions();
     // get the new file name
@@ -3692,25 +3660,15 @@ GNEApplicationWindow::onCmdSaveNETEDITConfigAs(FXObject*, FXSelector, void*) {
     }
     if (!opendialog.execute() || !MFXUtils::userPermitsOverwritingWhenFileExists(this, opendialog.getFilename())) {
         return 1;
-    }
-    const std::string file = MFXUtils::assureExtension(opendialog.getFilename(),
-            opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
-    neteditOptions.resetWritable();
-    neteditOptions.set("configuration-file", file);
-    std::ofstream out(StringUtils::transcodeToLocal(file));
-    if (out.good()) {
-        // write NETEDIT config
-        neteditOptions.writeConfiguration(out, true, false, false, file, true);
-        setStatusBarText("Netedit configuration saved to " + file);
-        // config saved
-        myNeteditConfigSaved = true;
-        // After saving a config successfully, add it into recent configs
-        myMenuBarFile.myRecentConfigs.appendFile(neteditOptions.getString("configuration-file").c_str());
     } else {
-        setStatusBarText("Could not save netdit configuration to " + file);
+        // save file in NETEDIT options
+        const std::string file = MFXUtils::assureExtension(opendialog.getFilename(),
+                opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
+        neteditOptions.resetWritable();
+        neteditOptions.set("configuration-file", file);
+        // continue saving netedit config
+        return onCmdSaveNETEDITConfig(obj, sel, ptr);
     }
-    out.close();
-    return 1;
 }
 
 
@@ -3743,7 +3701,7 @@ GNEApplicationWindow::onUpdSaveNETEDITConfig(FXObject* sender, FXSelector, void*
 
 
 long
-GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject* obj, FXSelector sel, void* ptr) {
     // obtain NETEDIT option container
     auto &neteditOptions = OptionsCont::getOptions();
     // reset containers
@@ -3751,94 +3709,68 @@ GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject*, FXSelector, void*) {
     mySUMOOptions.resetWritable();
     // Check if configuration file was already set at start of netedit or with a previous save
     if (neteditOptions.getString("sumocfg-file").empty()) {
-        // get the new file name
-        FXFileDialog opendialog(this, TL("Save SUMO Configuration"));
-        opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::SAVE));
-        opendialog.setSelectMode(SELECTFILE_ANY);
-        opendialog.setPatternList("Config (*.sumocfg)");
-        if (gCurrentFolder.length() != 0) {
-            opendialog.setDirectory(gCurrentFolder);
+        return onCmdSaveSUMOConfigAs(obj, sel, ptr);
+    } else {
+        const auto sumoConfigFile = neteditOptions.getString("sumocfg-file");
+        // get config file without extension
+        const auto patterFile = StringUtils::replace(sumoConfigFile, ".sumocfg", "");
+        // save all element giving automatic names
+        if (!myNet->isNetSaved()) {
+            if (neteditOptions.getString("net-file").empty()) {
+                neteditOptions.set("net-file", patterFile + ".net.xml");
+            }
+            onCmdSaveNetwork(nullptr, 0, nullptr);
         }
-        if (!opendialog.execute() || !MFXUtils::userPermitsOverwritingWhenFileExists(this, opendialog.getFilename())) {
-            return 1;
+        if (!myNet->isAdditionalsSaved()) {
+            if (neteditOptions.getString("additional-files").empty()) {
+                neteditOptions.set("additional-files", patterFile + ".add.xml");
+            }
+            onCmdSaveAdditionals(nullptr, 0, nullptr);
+        }
+        if (!myNet->isDemandElementsSaved()) {
+            if (neteditOptions.getString("route-files").empty()) {
+                neteditOptions.set("route-files", patterFile + ".rou.xml");
+            }
+            onCmdSaveDemandElements(nullptr, 0, nullptr);
+        }
+        if (!myNet->isMeanDatasSaved()) {
+            if (neteditOptions.getString("meandata-files").empty()) {
+                neteditOptions.set("meandata-files", patterFile + ".med.add.xml");
+            }
+            onCmdSaveMeanDatas(nullptr, 0, nullptr);
+        }
+        // set files in sumo options
+        mySUMOOptions.set("net-file", neteditOptions.getString("net-file"));
+        mySUMOOptions.set("route-files", neteditOptions.getString("route-files"));
+        if ((neteditOptions.getString("additional-files").size() > 0) && (neteditOptions.getString("meandata-files").size())) {
+            mySUMOOptions.set("additional-files", neteditOptions.getString("additional-files") + "," + neteditOptions.getString("meandata-files"));
+        } else if (neteditOptions.getString("additional-files").size() > 0) {
+            mySUMOOptions.set("additional-files", neteditOptions.getString("additional-files"));
+        } else if (neteditOptions.getString("meandata-files").size() > 0) {
+            mySUMOOptions.set("additional-files", neteditOptions.getString("meandata-files"));
         } else {
-            const std::string file = MFXUtils::assureExtension(opendialog.getFilename(),
-                    opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
-            neteditOptions.set("sumocfg-file", file);
+            mySUMOOptions.set("additional-files", "");
         }
-    }
-    const auto sumoConfigFile = neteditOptions.getString("sumocfg-file");
-    // get config file without extension
-    const auto patterFile = StringUtils::replace(sumoConfigFile, ".sumocfg", "");
-    // save all element giving automatic names
-    if (!myNet->isNetSaved()) {
-        if (neteditOptions.getString("net-file").empty()) {
-            neteditOptions.set("net-file", patterFile + ".net.xml");
+        std::ofstream out(StringUtils::transcodeToLocal(sumoConfigFile));
+        if (out.good()) {
+            // write SUMO config
+            mySUMOOptions.writeConfiguration(out, true, false, false, sumoConfigFile, true);
+            setStatusBarText("SUMO configuration saved to " + sumoConfigFile);
+            // config saved
+            mySumoConfigSaved = true;
+            // After saving a config successfully, add it into recent configs
+            myMenuBarFile.myRecentConfigs.appendFile(neteditOptions.getString("sumocfg-file").c_str());
+        } else {
+            setStatusBarText("Could not save SUMO configuration to " + sumoConfigFile);
         }
-        onCmdSaveNetwork(nullptr, 0, nullptr);
+        out.close();
+        return 1;
     }
-    if (!myNet->isAdditionalsSaved()) {
-        if (neteditOptions.getString("additional-files").empty()) {
-            neteditOptions.set("additional-files", patterFile + ".add.xml");
-        }
-        onCmdSaveAdditionals(nullptr, 0, nullptr);
-    }
-    if (!myNet->isDemandElementsSaved()) {
-        if (neteditOptions.getString("route-files").empty()) {
-            neteditOptions.set("route-files", patterFile + ".rou.xml");
-        }
-        onCmdSaveDemandElements(nullptr, 0, nullptr);
-    }
-    if (!myNet->isMeanDatasSaved()) {
-        if (neteditOptions.getString("meandata-files").empty()) {
-            neteditOptions.set("meandata-files", patterFile + ".med.add.xml");
-        }
-        onCmdSaveMeanDatas(nullptr, 0, nullptr);
-    }
-    // set files in sumo options
-    mySUMOOptions.set("net-file", neteditOptions.getString("net-file"));
-    mySUMOOptions.set("route-files", neteditOptions.getString("route-files"));
-    if ((neteditOptions.getString("additional-files").size() > 0) && (neteditOptions.getString("meandata-files").size())) {
-        mySUMOOptions.set("additional-files", neteditOptions.getString("additional-files") + "," + neteditOptions.getString("meandata-files"));
-    } else if (neteditOptions.getString("additional-files").size() > 0) {
-        mySUMOOptions.set("additional-files", neteditOptions.getString("additional-files"));
-    } else if (neteditOptions.getString("meandata-files").size() > 0) {
-        mySUMOOptions.set("additional-files", neteditOptions.getString("meandata-files"));
-    } else {
-        mySUMOOptions.set("additional-files", "");
-    }
-    std::ofstream out(StringUtils::transcodeToLocal(sumoConfigFile));
-    if (out.good()) {
-        // write SUMO config
-        mySUMOOptions.writeConfiguration(out, true, false, false, sumoConfigFile, true);
-        setStatusBarText("SUMO configuration saved to " + sumoConfigFile);
-        // config saved
-        mySumoConfigSaved = true;
-        // After saving a config successfully, add it into recent configs
-        myMenuBarFile.myRecentConfigs.appendFile(neteditOptions.getString("sumocfg-file").c_str());
-    } else {
-        setStatusBarText("Could not save SUMO configuration to " + sumoConfigFile);
-    }
-    out.close();
-    return 1;
 }
 
 
 long
-GNEApplicationWindow::onCmdSaveSUMOConfigAs(FXObject*, FXSelector, void*) {
-    // save all elements
-    if (!myNet->isNetSaved()) {
-        onCmdSaveNetwork(nullptr, 0, nullptr);
-    }
-    if (!myNet->isAdditionalsSaved()) {
-        onCmdSaveAdditionals(nullptr, 0, nullptr);
-    }
-    if (!myNet->isDemandElementsSaved()) {
-        onCmdSaveDemandElements(nullptr, 0, nullptr);
-    }
-    if (!myNet->isMeanDatasSaved()) {
-        onCmdSaveMeanDatas(nullptr, 0, nullptr);
-    }
+GNEApplicationWindow::onCmdSaveSUMOConfigAs(FXObject* obj, FXSelector sel, void* ptr) {
     // obtain NETEDIT option container
     OptionsCont& neteditOptions = OptionsCont::getOptions();
     // get the new file name
@@ -3851,25 +3783,15 @@ GNEApplicationWindow::onCmdSaveSUMOConfigAs(FXObject*, FXSelector, void*) {
     }
     if (!opendialog.execute() || !MFXUtils::userPermitsOverwritingWhenFileExists(this, opendialog.getFilename())) {
         return 1;
-    }
-    const std::string file = MFXUtils::assureExtension(opendialog.getFilename(),
-            opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
-    neteditOptions.resetWritable();
-    neteditOptions.set("sumocfg-file", file);
-    std::ofstream out(StringUtils::transcodeToLocal(file));
-    if (out.good()) {
-        // write SUMO config
-        mySUMOOptions.writeConfiguration(out, true, false, false, file, true);
-        setStatusBarText("Configuration saved to " + file);
-        // config saved
-        mySumoConfigSaved = true;
-        // After saving a config successfully, add it into recent configs
-        myMenuBarFile.myRecentConfigs.appendFile(neteditOptions.getString("sumocfg-file").c_str());
     } else {
-        setStatusBarText("Could not save configuration to " + file);
+        // save file in NETEDIT options
+        const std::string file = MFXUtils::assureExtension(opendialog.getFilename(),
+                opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
+        neteditOptions.resetWritable();
+        neteditOptions.set("sumocfg-file", file);
+        // continue saving SUMO Config
+        return onCmdSaveSUMOConfig(obj, sel, ptr);
     }
-    out.close();
-    return 1;
 }
 
 

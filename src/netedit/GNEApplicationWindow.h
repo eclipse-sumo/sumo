@@ -182,6 +182,15 @@ public:
     /// @brief called when the command/FXCall save network is executed
     long onCmdSaveNetwork(FXObject*, FXSelector, void*);
 
+    /// @brief called when the command/FXCall save network as is executed
+    long onCmdSaveNetworkAs(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save as plain xml is executed
+    long onCmdSaveAsPlainXML(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save joined is executed
+    long onCmdSaveJoinedJunctions(FXObject*, FXSelector, void*);
+
     /// @brief called when the command/FXCall save NETEDITConfig is executed
     long onCmdSaveNETEDITConfig(FXObject*, FXSelector, void*);
 
@@ -281,9 +290,6 @@ public:
     /// @brief called when the command/FXCall save meanDatas as is executed
     long onCmdSaveMeanDatasAs(FXObject*, FXSelector, void*);
 
-    /// @brief called when the command/FXCall save network as is executed
-    long onCmdSaveNetworkAs(FXObject*, FXSelector, void*);
-
     /// @brief called when the update/FXCall needs network is executed
     long onUpdNeedsNetwork(FXObject*, FXSelector, void*);
 
@@ -337,12 +343,6 @@ public:
 
     /// @brief update viewOption
     long onUpdToggleViewOption(FXObject*, FXSelector, void*);
-
-    /// @brief called when the command/FXCall save as plain xml is executed
-    long onCmdSaveAsPlainXML(FXObject*, FXSelector, void*);
-
-    /// @brief called when the command/FXCall save joined is executed
-    long onCmdSaveJoined(FXObject*, FXSelector, void*);
 
     /// @brief called when a key is pressed
     long onKeyPress(FXObject* o, FXSelector sel, void* data);
