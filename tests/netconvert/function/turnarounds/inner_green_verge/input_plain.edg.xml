@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-01-12 14:01:59 by Eclipse SUMO netedit Version v1_15_0+1600-19d4f46
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.netconvert"/>
+    </input>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<edges version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="A0A1" from="A0" to="A1" priority="-1" numLanes="1" speed="13.89"/>
+    <edge id="A1A0" from="A1" to="A0" priority="-1" numLanes="1" speed="13.89"/>
+    <edge id="A1B1" from="A1" to="B1" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0"/>
+        <lane index="1" disallow="all"/>
+    </edge>
+    <edge id="A1left1" from="A1" to="left1" priority="-1" numLanes="3" speed="13.89">
+        <lane index="0"/>
+        <lane index="1"/>
+        <lane index="2" disallow="all"/>
+    </edge>
+    <edge id="A1top0" from="A1" to="top0" priority="-1" numLanes="1" speed="13.89"/>
+    <edge id="B1A1" from="B1" to="A1" priority="-1" numLanes="2" speed="13.89"/>
+    <edge id="left1A1" from="left1" to="A1" priority="-1" numLanes="3" speed="13.89">
+        <lane index="0"/>
+        <lane index="1"/>
+        <lane index="2" disallow="all"/>
+    </edge>
+    <edge id="top0A1" from="top0" to="A1" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0"/>
+        <lane index="1" disallow="all"/>
+    </edge>
+</edges>
