@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_15_0+1315-6cce7c5914f
+Eclipse SUMO netconvert Version v1_15_0+1595-d32acb9
  Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -58,6 +58,8 @@ Output Options:
                                         FILE
   -p, --plain-output-prefix FILE       Prefix of files to write plain xml
                                         nodes, edges and connections to
+  --plain-output.lanes                 Write all lanes and their attributes
+                                        even when they are not customized
   --junctions.join-output FILE         Writes information about joined
                                         junctions to FILE (can be loaded as
                                         additional node-file to reproduce joins

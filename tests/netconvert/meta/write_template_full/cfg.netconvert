@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-04 11:28:03 by Eclipse SUMO netconvert Version v1_15_0+1277-3febad6e597
+<!-- generated on 2023-01-12 13:09:30 by Eclipse SUMO netconvert Version v1_15_0+1595-d32acb9
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -45,6 +45,7 @@
         <human-readable-time value="false" synonymes="H" type="BOOL" help="Write time values as hour:minute:second or day:hour:minute:second rather than seconds"/>
         <output-file value="" synonymes="o output sumo-output" type="FILE" help="The generated net will be written to FILE"/>
         <plain-output-prefix value="" synonymes="p plain plain-output" type="FILE" help="Prefix of files to write plain xml nodes, edges and connections to"/>
+        <plain-output.lanes value="false" type="BOOL" help="Write all lanes and their attributes even when they are not customized"/>
         <junctions.join-output value="" type="FILE" help="Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins"/>
         <prefix value="" type="STR" help="Defines a prefix for edge and junction names"/>
         <amitran-output value="" type="FILE" help="The generated net will be written to FILE using Amitran format"/>
