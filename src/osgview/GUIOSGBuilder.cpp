@@ -669,17 +669,17 @@ GUIOSGBuilder::buildMovable(const MSVehicleType& type) {
 }
 
 
-osg::Node* 
-GUIOSGBuilder::buildPlane(double length) {    
+osg::Node*
+GUIOSGBuilder::buildPlane(double length) {
     osg::Geode* geode = new osg::Geode();
     osg::Geometry* geom = new osg::Geometry;
     geode->addDrawable(geom);
     osg::Vec3Array* coords = new osg::Vec3Array(4); // OSG needs float coordinates here
     geom->setVertexArray(coords);
-    (*coords)[0].set(.5*length, .5*length, -0.1f);
-    (*coords)[1].set(.5*length, -.5*length, -0.1f);
-    (*coords)[2].set(-.5*length, -.5*length, -0.1f);
-    (*coords)[3].set(-.5*length, .5*length, -0.1f);
+    (*coords)[0].set(.5 * length, .5 * length, -0.1f);
+    (*coords)[1].set(.5 * length, -.5 * length, -0.1f);
+    (*coords)[2].set(-.5 * length, -.5 * length, -0.1f);
+    (*coords)[3].set(-.5 * length, .5 * length, -0.1f);
     osg::Vec3Array* normals = new osg::Vec3Array(1); // OSG needs float coordinates here
     (*normals)[0].set(0, 0, 1);
     geom->setNormalArray(normals, osg::Array::BIND_PER_PRIMITIVE_SET);

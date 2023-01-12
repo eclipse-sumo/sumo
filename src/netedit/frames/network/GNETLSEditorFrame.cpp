@@ -1510,7 +1510,7 @@ GNETLSEditorFrame::TLSDefinition::onCmdCreate(FXObject*, FXSelector, void*) {
     }
     // check uncontrolled connections
     bool connectionControlled = false;
-    for (const auto &connection : currentJunction->getGNEConnections()) {
+    for (const auto& connection : currentJunction->getGNEConnections()) {
         if (!connection->getNBEdgeConnection().uncontrolled) {
             connectionControlled = true;
         }
@@ -2448,7 +2448,7 @@ GNETLSEditorFrame::TLSPhases::initNEMAPhaseTable() {
 int
 GNETLSEditorFrame::TLSPhases::buildDefaultPhase(const int row) {
     // get option container
-    const auto &neteditOptions = OptionsCont::getOptions();
+    const auto& neteditOptions = OptionsCont::getOptions();
     // check if TLS is static
     const bool TLSStatic = (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::STATIC);
     const bool NEMA = (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::NEMA);

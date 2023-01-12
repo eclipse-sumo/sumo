@@ -565,7 +565,7 @@ public:
     const GNEApplicationWindowHelper::ProcessingMenuCommands& getProcessingMenuCommands() const;
 
     /// @brief get SUMO options container
-    OptionsCont &getSUMOOptions();
+    OptionsCont& getSUMOOptions();
 
     /// @brief load additional elements
     void loadAdditionalElements();
@@ -599,25 +599,25 @@ protected:
     bool myReloading = false;
 
     /// @brief the submenus
-    FXMenuPane *myFileMenu = nullptr,
-               *myFileMenuNETEDITConfig = nullptr,
-               *myFileMenuSUMOConfig = nullptr,
-               *myFileMenuTLS = nullptr,
-               *myFileMenuEdgeTypes = nullptr,
-               *myFileMenuAdditionals = nullptr,
-               *myFileMenuDemandElements = nullptr,
-               *myFileMenuDataElements = nullptr,
-               *myFileMenuMeanDataElements = nullptr,
-               *myFileMenuRecentNetworks = nullptr,
-               *myFileMenuRecentConfigs = nullptr,
-               *myModesMenu = nullptr,
-               *myEditMenu = nullptr,
-               *myLockMenu = nullptr,
-               *myProcessingMenu = nullptr,
-               *myLocatorMenu = nullptr,
-               *myToolsMenu = nullptr,
-               *myWindowMenu = nullptr,
-               *myHelpMenu = nullptr;
+    FXMenuPane* myFileMenu = nullptr,
+                *myFileMenuNETEDITConfig = nullptr,
+                 *myFileMenuSUMOConfig = nullptr,
+                  *myFileMenuTLS = nullptr,
+                   *myFileMenuEdgeTypes = nullptr,
+                    *myFileMenuAdditionals = nullptr,
+                     *myFileMenuDemandElements = nullptr,
+                      *myFileMenuDataElements = nullptr,
+                       *myFileMenuMeanDataElements = nullptr,
+                        *myFileMenuRecentNetworks = nullptr,
+                         *myFileMenuRecentConfigs = nullptr,
+                          *myModesMenu = nullptr,
+                           *myEditMenu = nullptr,
+                            *myLockMenu = nullptr,
+                             *myProcessingMenu = nullptr,
+                              *myLocatorMenu = nullptr,
+                               *myToolsMenu = nullptr,
+                                *myWindowMenu = nullptr,
+                                 *myHelpMenu = nullptr;
 
     /// @brief menu title for modes
     FXMenuTitle* myModesMenuTitle = nullptr;

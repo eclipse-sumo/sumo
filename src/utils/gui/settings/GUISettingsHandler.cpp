@@ -493,7 +493,7 @@ void
 GUISettingsHandler::applyViewport(GUISUMOAbstractView* view) const {
     if (myLookFrom.z() > 0 || myZoom > 0) {
         // z value stores zoom so we must convert first
-        double z = (view->is3DView()) ? (myZCoordSet)? myLookFrom.z() : 1. : view->getChanger().zoom2ZPos(myZoom);
+        double z = (view->is3DView()) ? (myZCoordSet) ? myLookFrom.z() : 1. : view->getChanger().zoom2ZPos(myZoom);
         Position lookFrom(myLookFrom.x(), myLookFrom.y(), z);
         view->setViewportFromToRot(lookFrom, myLookAt, myRotation);
         if (view->is3DView() && !myZCoordSet) {

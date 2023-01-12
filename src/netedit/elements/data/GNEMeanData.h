@@ -34,14 +34,14 @@ class GNEMeanData : public GNEHierarchicalElement {
 
 public:
     /// @brief Default constructor
-    GNEMeanData(GNENet *net, SumoXMLTag tag, const std::string& id);
+    GNEMeanData(GNENet* net, SumoXMLTag tag, const std::string& id);
 
     /// @brief Parameter constructor
-    GNEMeanData(GNENet *net, SumoXMLTag tag, std::string ID, std::string file, SUMOTime period,
-        SUMOTime begin, SUMOTime end, const bool trackVehicles, const std::vector<SumoXMLAttr> &writtenAttributes,
-        const bool aggregate, const std::vector<std::string> &edges, const std::string &edgeFile, 
-        std::string excludeEmpty, const bool withInternal, const std::vector<std::string> &detectPersons, 
-        const double minSamples, const double maxTravelTime, const std::vector<std::string> &vTypes, const double speedThreshold);
+    GNEMeanData(GNENet* net, SumoXMLTag tag, std::string ID, std::string file, SUMOTime period,
+                SUMOTime begin, SUMOTime end, const bool trackVehicles, const std::vector<SumoXMLAttr>& writtenAttributes,
+                const bool aggregate, const std::vector<std::string>& edges, const std::string& edgeFile,
+                std::string excludeEmpty, const bool withInternal, const std::vector<std::string>& detectPersons,
+                const double minSamples, const double maxTravelTime, const std::vector<std::string>& vTypes, const double speedThreshold);
 
     /// @brief Destructor
     ~GNEMeanData();
@@ -103,7 +103,7 @@ protected:
     std::string myID;
 
     /// @brief filename
-    std::string myFile; 
+    std::string myFile;
 
     /// @brief period
     SUMOTime myPeriod = 0;

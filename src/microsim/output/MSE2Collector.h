@@ -508,7 +508,7 @@ public:
 
     /// @name Methods returning aggregated values
     /// @{
-    
+
     double getIntervalOccupancy() const {
         return myTimeSamples != 0 ? myOccupancySum / (double) myTimeSamples : 0;
     }

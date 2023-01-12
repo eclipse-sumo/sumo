@@ -199,12 +199,12 @@ GUIOSGView::GUIOSGView(
     myCameraManipulator->getHomePosition(lookFrom, lookAt, up);
     lookFrom = lookAt + osg::Z_AXIS;
     up = osg::Y_AXIS;
-    myCameraManipulator->setHomePosition(lookFrom, lookAt, up);    
+    myCameraManipulator->setHomePosition(lookFrom, lookAt, up);
     myViewer->home();
     recenterView();
     myViewer->home();
     getApp()->addChore(this, MID_CHORE);
-    
+
     osgViewer::Viewer::Windows windows;
     myViewer->getWindows(windows);
     osg::Camera* hudCamera = myCameraManipulator->getHUD();
@@ -242,9 +242,9 @@ GUIOSGView::adoptViewSettings() {
     osg::Geometry* planeGeom = dynamic_cast<osg::Geometry*>(planeGeode->getChild(0));
     osg::Vec4ubArray* colors = dynamic_cast<osg::Vec4ubArray*>(planeGeom->getColorArray());
     (*colors)[0].set(myVisualizationSettings->backgroundColor.red(),
-        myVisualizationSettings->backgroundColor.green(),
-        myVisualizationSettings->backgroundColor.blue(),
-        myVisualizationSettings->backgroundColor.alpha());
+                     myVisualizationSettings->backgroundColor.green(),
+                     myVisualizationSettings->backgroundColor.blue(),
+                     myVisualizationSettings->backgroundColor.alpha());
     planeGeom->setColorArray(colors);
 
     // show/hide OSG nodes
@@ -493,7 +493,7 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
         lookFrom[2] = lookAt[2] + 10.;
         osg::Matrix m;
         m.makeLookAt(lookFrom, lookAt, osg::Z_AXIS);
-         myViewer->getCameraManipulator()->setByInverseMatrix(m);
+        myViewer->getCameraManipulator()->setByInverseMatrix(m);
     }
 
     // reset active flag
@@ -568,7 +568,7 @@ GUIOSGView::removeTransportable(MSTransportable* t) {
 
 void GUIOSGView::updateViewportValues() {
     osg::Vec3d lookFrom, lookAt, up;
-     myViewer->getCameraManipulator()->getInverseMatrix().getLookAt(lookFrom, lookAt, up);
+    myViewer->getCameraManipulator()->getInverseMatrix().getLookAt(lookFrom, lookAt, up);
     myViewportChooser->setValues(Position(lookFrom[0], lookFrom[1], lookFrom[2]),
                                  Position(lookAt[0], lookAt[1], lookAt[2]), calculateRotation(lookFrom, lookAt, up));
 }
@@ -578,7 +578,7 @@ void
 GUIOSGView::showViewportEditor() {
     getViewportEditor(); // make sure it exists;
     osg::Vec3d lookFrom, lookAt, up;
-     myViewer->getCameraManipulator()->getInverseMatrix().getLookAt(lookFrom, lookAt, up);
+    myViewer->getCameraManipulator()->getInverseMatrix().getLookAt(lookFrom, lookAt, up);
     Position from(lookFrom[0], lookFrom[1], lookFrom[2]), at(lookAt[0], lookAt[1], lookAt[2]);
     myViewportChooser->setOldValues(from, at, calculateRotation(lookFrom, lookAt, up));
     myViewportChooser->setZoomValue(100);
@@ -624,7 +624,7 @@ GUIOSGView::setViewportFromToRot(const Position& lookFrom, const Position& lookA
 void
 GUIOSGView::copyViewportTo(GUISUMOAbstractView* view) {
     osg::Vec3d lookFrom, lookAt, up;
-     myViewer->getCameraManipulator()->getHomePosition(lookFrom, lookAt, up);
+    myViewer->getCameraManipulator()->getHomePosition(lookFrom, lookAt, up);
     view->setViewportFromToRot(Position(lookFrom[0], lookFrom[1], lookFrom[2]),
                                Position(lookAt[0], lookAt[1], lookAt[2]), 0);
 }
@@ -655,7 +655,7 @@ GUIOSGView::startTrack(int id) {
             lookFrom[2] = lookAt[2] + 10.;
             osg::Matrix m;
             m.makeLookAt(lookFrom, lookAt, osg::Z_AXIS);
-             myViewer->getCameraManipulator()->setByInverseMatrix(m);
+            myViewer->getCameraManipulator()->setByInverseMatrix(m);
         }
     }
 }
@@ -947,7 +947,7 @@ bool
 GUIOSGView::getPositionAtCursor(float xNorm, float yNorm, Position& pos) const {
     // only reasonable if view axis points to the ground (not parallel to the ground or in the sky)
     osg::Vec3d lookFrom, lookAt, up, viewAxis;
-     myViewer->getCameraManipulator()->getInverseMatrix().getLookAt(lookFrom, lookAt, up);
+    myViewer->getCameraManipulator()->getInverseMatrix().getLookAt(lookFrom, lookAt, up);
     if ((lookAt - lookFrom).z() >= 0.) {
         // looking to the sky makes position at ground pointless
         return false;
@@ -1010,7 +1010,7 @@ GUIOSGView::getLaneUnderCursor() {
 void
 GUIOSGView::zoom2Pos(Position& camera, Position& lookAt, double zoom) {
     osg::Vec3d lookFromOSG, lookAtOSG, viewAxis, up;
-     myViewer->getCameraManipulator()->getInverseMatrix().getLookAt(lookFromOSG, lookAtOSG, up);
+    myViewer->getCameraManipulator()->getInverseMatrix().getLookAt(lookFromOSG, lookAtOSG, up);
     lookFromOSG[0] = camera.x();
     lookFromOSG[1] = camera.y();
     lookFromOSG[2] = camera.z();

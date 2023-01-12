@@ -45,20 +45,20 @@ public:
     /// @name build functions
     /// @{
     /// @brief Builds edgeMeanData
-    void buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &ID, 
-        const std::string &file, SUMOTime period, SUMOTime begin, SUMOTime end, const bool trackVehicles, 
-        const std::vector<std::string> &writtenAttributes, const bool aggregate, const std::vector<std::string> &edgeIDs, 
-        const std::string &edgeFile, std::string excludeEmpty, const bool withInternal, 
-        const std::vector<std::string> &detectPersons, const double minSamples, const double maxTravelTime, 
-        const std::vector<std::string> &vTypes, const double speedThreshold);
+    void buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& ID,
+                           const std::string& file, SUMOTime period, SUMOTime begin, SUMOTime end, const bool trackVehicles,
+                           const std::vector<std::string>& writtenAttributes, const bool aggregate, const std::vector<std::string>& edgeIDs,
+                           const std::string& edgeFile, std::string excludeEmpty, const bool withInternal,
+                           const std::vector<std::string>& detectPersons, const double minSamples, const double maxTravelTime,
+                           const std::vector<std::string>& vTypes, const double speedThreshold);
 
     /// @brief Builds laneMeanData
-    void buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string &ID, 
-        const std::string &file, SUMOTime period, SUMOTime begin, SUMOTime end, const bool trackVehicles, 
-        const std::vector<std::string> &writtenAttributes, const bool aggregate, const std::vector<std::string> &edgeIDs, 
-        const std::string &edgeFile, std::string excludeEmpty, const bool withInternal, 
-        const std::vector<std::string> &detectPersons, const double minSamples, const double maxTravelTime, 
-        const std::vector<std::string> &vTypes, const double speedThreshold);
+    void buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& ID,
+                           const std::string& file, SUMOTime period, SUMOTime begin, SUMOTime end, const bool trackVehicles,
+                           const std::vector<std::string>& writtenAttributes, const bool aggregate, const std::vector<std::string>& edgeIDs,
+                           const std::string& edgeFile, std::string excludeEmpty, const bool withInternal,
+                           const std::vector<std::string>& detectPersons, const double minSamples, const double maxTravelTime,
+                           const std::vector<std::string>& vTypes, const double speedThreshold);
 
     /// @}
 

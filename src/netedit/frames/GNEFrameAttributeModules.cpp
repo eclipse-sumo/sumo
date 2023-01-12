@@ -447,7 +447,7 @@ GNEFrameAttributeModules::AttributesEditorRow::isAttributesEditorRowValid() cons
 
 long
 GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject* obj, FXSelector, void*) {
-    GNEViewNet *viewNet = myAttributesEditorParent->getFrameParent()->getViewNet();
+    GNEViewNet* viewNet = myAttributesEditorParent->getFrameParent()->getViewNet();
     const auto& ACs = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
     if (obj == myAttributeColorButton) {
         // create FXColorDialog
@@ -492,8 +492,8 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject
         // declare accept changes
         bool acceptChanges = false;
         // open GNEAllowVClassesDialog (also used to modify SUMO_ATTR_CHANGE_LEFT etc
-        GNEAllowVClassesDialog(viewNet, 
-        viewNet->getInspectedAttributeCarriers().front(), SUMO_ATTR_ALLOW, &acceptChanges).execute();
+        GNEAllowVClassesDialog(viewNet,
+                               viewNet->getInspectedAttributeCarriers().front(), SUMO_ATTR_ALLOW, &acceptChanges).execute();
         // continue depending of acceptChanges
         if (acceptChanges) {
             std::string allowed = viewNet->getInspectedAttributeCarriers().front()->getAttribute(SUMO_ATTR_ALLOW);

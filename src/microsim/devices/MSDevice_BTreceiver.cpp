@@ -144,8 +144,8 @@ MSDevice_BTreceiver::BTreceiverUpdate::execute(SUMOTime /*currentTime*/) {
         for (MSTransportableControl::constVehIt i = c.loadedBegin(); i != c.loadedEnd(); ++i) {
             MSTransportable* t = i->second;
             if (t->getCurrentStageType() != MSStageType::WAITING_FOR_DEPART) {
-                MSDevice_BTsender* snd = dynamic_cast<MSDevice_BTsender*>(t->getDevice(typeid(MSTransportableDevice_BTsender))); 
-                MSDevice_BTreceiver* rec = dynamic_cast<MSDevice_BTreceiver*>(t->getDevice(typeid(MSTransportableDevice_BTreceiver))); 
+                MSDevice_BTsender* snd = dynamic_cast<MSDevice_BTsender*>(t->getDevice(typeid(MSTransportableDevice_BTsender)));
+                MSDevice_BTreceiver* rec = dynamic_cast<MSDevice_BTreceiver*>(t->getDevice(typeid(MSTransportableDevice_BTreceiver)));
                 if (snd) {
                     snd->notifyMove(*t, t->getPositionOnLane(), t->getPositionOnLane(), t->getSpeed());
                     if (MSDevice_BTsender::sVehicles[t->getID()]->route.back() != t->getEdge()) {

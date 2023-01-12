@@ -215,8 +215,7 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a, const std::string& configPa
     myRecentNetworks(a, "networks"),
     myRecentConfigs(a, "configs"),
     myConfigPattern(configPattern),
-    myLastStepEventMillis(SysUtils::getCurrentMillis() - MIN_DRAW_DELAY)
-{
+    myLastStepEventMillis(SysUtils::getCurrentMillis() - MIN_DRAW_DELAY) {
     // init icons
     GUIIconSubSys::initIcons(a);
     // init cursors

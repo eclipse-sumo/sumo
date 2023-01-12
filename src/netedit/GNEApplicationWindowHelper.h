@@ -151,14 +151,14 @@ struct GNEApplicationWindowHelper {
         FileMenuCommands(GNEApplicationWindow* GNEApp);
 
         /// @brief build menu commands
-        void buildFileMenuCommands(FXMenuPane* fileMenu, FXMenuPane* fileMenuNEEDITConfig, FXMenuPane* fileMenuSUMOConfig, 
+        void buildFileMenuCommands(FXMenuPane* fileMenu, FXMenuPane* fileMenuNEEDITConfig, FXMenuPane* fileMenuSUMOConfig,
                                    FXMenuPane* fileMenuTLS, FXMenuPane* fileMenuEdgeTypes, FXMenuPane* fileMenuAdditionals,
-                                   FXMenuPane* fileMenuDemandElements, FXMenuPane* fileMenuDataElements, 
+                                   FXMenuPane* fileMenuDemandElements, FXMenuPane* fileMenuDataElements,
                                    FXMenuPane* fileMenuMeanDataElements);
 
         /// @brief FXMenuCascade for NETEDITConfig
         FXMenuCascade* NETEDITConfigMenuCascade = nullptr;
-        
+
         /// @brief FXMenuCascade for SUMOConfig
         FXMenuCascade* SUMOConfigMenuCascade = nullptr;
 

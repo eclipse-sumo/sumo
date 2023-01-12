@@ -42,7 +42,7 @@
 GNEStop::GNEStop(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_STOP, tag, GUIIconSubSys::getIcon(GUIIcon::STOP),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-    myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
+myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
     // reset default values
     resetDefaultValues();
     // enable parking for stops in parkin)gAreas
@@ -63,8 +63,8 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net) :
 GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEAdditional* stoppingPlace, const SUMOVehicleParameter::Stop& stopParameter) :
     GNEDemandElement(stopParent, net, GLO_STOP, tag, GUIIconSubSys::getIcon(GUIIcon::STOP),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {stoppingPlace}, {stopParent}, {}),
-    SUMOVehicleParameter::Stop(stopParameter),
-    myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
+SUMOVehicleParameter::Stop(stopParameter),
+myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
     // enable parking for stops in parkingAreas
     if ((tag == SUMO_TAG_STOP_PARKINGAREA) || (tag == GNE_TAG_WAYPOINT_PARKINGAREA)) {
         parametersSet |= STOP_PARKING_SET;
@@ -87,8 +87,8 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEA
 GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNELane* lane, const SUMOVehicleParameter::Stop& stopParameter) :
     GNEDemandElement(stopParent, net, GLO_STOP, tag, GUIIconSubSys::getIcon(GUIIcon::STOP),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {lane}, {}, {stopParent}, {}),
-    SUMOVehicleParameter::Stop(stopParameter),
-    myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
+SUMOVehicleParameter::Stop(stopParameter),
+myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
     // set parking
     if (parametersSet & STOP_PARKING_SET) {
         parking = ParkingType::OFFROAD;
@@ -107,8 +107,8 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEL
 GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEEdge* edge, const SUMOVehicleParameter::Stop& stopParameter) :
     GNEDemandElement(stopParent, net, GLO_STOP, tag, GUIIconSubSys::getIcon(GUIIcon::STOP),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {edge}, {}, {}, {stopParent}, {}),
-    SUMOVehicleParameter::Stop(stopParameter),
-    myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
+SUMOVehicleParameter::Stop(stopParameter),
+myCreationIndex(myNet->getAttributeCarriers()->getStopIndex()) {
     // enable parking for stops in parkingAreas
     if ((tag == SUMO_TAG_STOP_PARKINGAREA) || (tag == GNE_TAG_WAYPOINT_PARKINGAREA)) {
         parametersSet |= STOP_PARKING_SET;
@@ -938,7 +938,7 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_JUMP:
             if ((value == "-1") || (value.empty())) {
                 return true;
-            } else if (canParse<double>(value)){
+            } else if (canParse<double>(value)) {
                 return parse<double>(value) >= 0;
             } else {
                 return false;
@@ -1817,8 +1817,8 @@ GNEStop::getPathStopIndex() const {
     // get edge stop indexes
     const auto edgeStopIndex = getEdgeStopIndex();
     // finally find stopIndex in edgeStopIndexes
-    for (const auto &edgeStop : edgeStopIndex) {
-        for (const auto &stop : edgeStop.stops) {
+    for (const auto& edgeStop : edgeStopIndex) {
+        for (const auto& stop : edgeStop.stops) {
             if (stop == this) {
                 return edgeStop.stopIndex;
             }

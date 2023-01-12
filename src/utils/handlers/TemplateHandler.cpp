@@ -46,7 +46,7 @@
 // ===========================================================================
 
 void
-TemplateHandler::parseTemplate(OptionsCont& options, const std::string &templateString) {
+TemplateHandler::parseTemplate(OptionsCont& options, const std::string& templateString) {
     // build parser
     XERCES_CPP_NAMESPACE::SAXParser parser;
     // disable validation
@@ -70,8 +70,8 @@ TemplateHandler::parseTemplate(OptionsCont& options, const std::string &template
     options.resetDefault();
 }
 
-TemplateHandler::TemplateHandler(OptionsCont& options) : 
-    myError(false), 
+TemplateHandler::TemplateHandler(OptionsCont& options) :
+    myError(false),
     myOptions(options) {
 }
 
@@ -112,8 +112,8 @@ TemplateHandler::startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::Att
 
 
 bool
-TemplateHandler::addOption(const std::string &value, const std::string &synonymes, 
-        const std::string &type, const std::string &help) const {
+TemplateHandler::addOption(const std::string& value, const std::string& synonymes,
+                           const std::string& type, const std::string& help) const {
     if (myOptions.exists(myTopic)) {
         WRITE_WARNING(myTopic + " already exists");
         return false;

@@ -33,8 +33,8 @@
 GNEClosingLaneReroute::GNEClosingLaneReroute(GNENet* net) :
     GNEAdditional("", net, GLO_REROUTER_CLOSINGLANEREROUTE, SUMO_TAG_CLOSING_LANE_REROUTE,
                   GUIIconSubSys::getIcon(GUIIcon::CLOSINGLANEREROUTE), "", {}, {}, {}, {}, {}, {}),
-                  myClosedLane(nullptr),
-    myPermissions(0) {
+                            myClosedLane(nullptr),
+myPermissions(0) {
     // reset default values
     resetDefaultValues();
 }

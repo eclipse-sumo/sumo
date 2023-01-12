@@ -93,8 +93,7 @@ MSE2Collector::MSE2Collector(const std::string& id,
     myPreviousMeanSpeed(0),
     myPreviousMaxJamLengthInMeters(0),
     myPreviousNumberOfSeenVehicles(0),
-    myOverrideVehNumber(-1)
-{
+    myOverrideVehNumber(-1) {
     reset();
 
 #ifdef DEBUG_E2_CONSTRUCTOR

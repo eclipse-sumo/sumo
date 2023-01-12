@@ -228,7 +228,7 @@ GNEDetector::drawE1Shape(const GUIVisualizationSettings& s, const double exagger
 
 void
 GNEDetector::drawE1DetectorLogo(const GUIVisualizationSettings& s, const double exaggeration,
-                              const std::string& logo, const RGBColor& textColor) const {
+                                const std::string& logo, const RGBColor& textColor) const {
     if (!s.drawForRectangleSelection && !s.drawForPositionSelection) {
         // calculate middle point
         const double middlePoint = (myAdditionalGeometry.getShape().length2D() * 0.5);
@@ -261,7 +261,7 @@ GNEDetector::drawE1DetectorLogo(const GUIVisualizationSettings& s, const double 
 
 void
 GNEDetector::drawE2DetectorLogo(const GUIVisualizationSettings& s, const double exaggeration,
-                              const std::string& logo, const RGBColor& textColor) const {
+                                const std::string& logo, const RGBColor& textColor) const {
     if (!s.drawForRectangleSelection && !s.drawForPositionSelection) {
         // calculate middle point
         const double middlePoint = (myAdditionalGeometry.getShape().length2D() * 0.5);

@@ -328,8 +328,8 @@ GNEAttributeCarrier::parse(GNENet* net, const std::string& value) {
         if (retrievedEdge) {
             parsedEdges.push_back(net->getAttributeCarriers()->retrieveEdge(edgeID));
         } else {
-            throw FormatException("Error parsing parameter " + toString(SUMO_ATTR_EDGES) + ". " + 
-                toString(SUMO_TAG_EDGE) + " '" + edgeID + "' doesn't exist");
+            throw FormatException("Error parsing parameter " + toString(SUMO_ATTR_EDGES) + ". " +
+                                  toString(SUMO_TAG_EDGE) + " '" + edgeID + "' doesn't exist");
         }
     }
     return parsedEdges;
@@ -347,8 +347,8 @@ GNEAttributeCarrier::parse(GNENet* net, const std::string& value) {
         if (retrievedLane) {
             parsedLanes.push_back(net->getAttributeCarriers()->retrieveLane(laneID));
         } else {
-            throw FormatException("Error parsing parameter " + toString(SUMO_ATTR_LANES) + ". " + 
-                toString(SUMO_TAG_LANE) + " '" + laneID + "'  doesn't exist");
+            throw FormatException("Error parsing parameter " + toString(SUMO_ATTR_LANES) + ". " +
+                                  toString(SUMO_TAG_LANE) + " '" + laneID + "'  doesn't exist");
         }
     }
     return parsedLanes;
@@ -886,7 +886,7 @@ GNEAttributeCarrier::fillNetworkElements() {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
     // obtain Node Types except SumoXMLNodeType::DEAD_END_DEPRECATED
-    const auto &neteditOptions = OptionsCont::getOptions();
+    const auto& neteditOptions = OptionsCont::getOptions();
     std::vector<std::string> nodeTypes = SUMOXMLDefinitions::NodeTypes.getStrings();
     nodeTypes.erase(std::find(nodeTypes.begin(), nodeTypes.end(), toString(SumoXMLNodeType::DEAD_END_DEPRECATED)));
     nodeTypes.erase(std::find(nodeTypes.begin(), nodeTypes.end(), toString(SumoXMLNodeType::DEAD_END)));
@@ -5578,8 +5578,8 @@ GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag, const bool 
                                               "Whether the stop may be skipped if no passengers wants to embark or disembark",
                                               "false");
         myTagProperties[currentTag].addAttribute(attrProperty);
-    }    
-    
+    }
+
     attrProperty = GNEAttributeProperties(SUMO_ATTR_JUMP,
                                           GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
                                           "transfer time if there shall be a jump from this stop to the next route edge",
@@ -5720,96 +5720,96 @@ GNEAttributeCarrier::fillCommonMeanDataAttributes(SumoXMLTag currentTag) {
     GNEAttributeProperties attrProperty;
     // fill all meanData attributes
     attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
-                                            GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
-                                            "The id of this set of measurements");
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
+                                          "The id of this set of measurements");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_FILE,
-                                            GNEAttributeProperties::STRING | GNEAttributeProperties::FILENAME | GNEAttributeProperties::DEFAULTVALUE,
-                                            "The path to the output file. The path may be relative");
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::FILENAME | GNEAttributeProperties::DEFAULTVALUE,
+                                          "The path to the output file. The path may be relative");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_PERIOD,
-                                            GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
-                                            "The aggregation period the values the detector collects shall be summed up");
+                                          GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
+                                          "The aggregation period the values the detector collects shall be summed up");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_BEGIN,
-                                            GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
-                                            "The time to start writing. If not given, the simulation's begin is used.");
+                                          GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
+                                          "The time to start writing. If not given, the simulation's begin is used.");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_END,
-                                            GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
-                                            "The time to end writing. If not given the simulation's end is used.");
+                                          GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
+                                          "The time to end writing. If not given the simulation's end is used.");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_EXCLUDE_EMPTY,
-                                            GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
-                                            "If set to true, edges/lanes which were not use by a vehicle during this period will not be written",
-                                            "default");
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
+                                          "If set to true, edges/lanes which were not use by a vehicle during this period will not be written",
+                                          "default");
     attrProperty.setDiscreteValues({"true", "false", "default"}, true);
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_WITH_INTERNAL,
-                                            GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                            "If set, junction internal edges/lanes will be written as well",
-                                            "0");
+                                          GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
+                                          "If set, junction internal edges/lanes will be written as well",
+                                          "0");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_MAX_TRAVELTIME,
-                                            GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
-                                            "The maximum traveltime in seconds to write if only very small movements occur",
-                                            "100000");
+                                          GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
+                                          "The maximum traveltime in seconds to write if only very small movements occur",
+                                          "100000");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_MIN_SAMPLES,
-                                            GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
-                                            "Consider an edge/lane unused if it has at most this many sampled seconds",
-                                            "0");
+                                          GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
+                                          "Consider an edge/lane unused if it has at most this many sampled seconds",
+                                          "0");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_HALTING_SPEED_THRESHOLD,
-                                            GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUE,
-                                            "The maximum speed to consider a vehicle halting;",
-                                            "0.1");
+                                          GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUE,
+                                          "The maximum speed to consider a vehicle halting;",
+                                          "0.1");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_VTYPES,
-                                            GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
-                                            "space separated list of vehicle type ids to consider");
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                          "space separated list of vehicle type ids to consider");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_TRACK_VEHICLES,
-                                            GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                            "whether aggregation should be performed over all vehicles that entered the edge/lane in the aggregation interval",
-                                            "1");
+                                          GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
+                                          "whether aggregation should be performed over all vehicles that entered the edge/lane in the aggregation interval",
+                                          "1");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_DETECT_PERSONS,
-                                            GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
-                                            "Whether pedestrians shall be recorded instead of vehicles. Allowed value is walk");
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                          "Whether pedestrians shall be recorded instead of vehicles. Allowed value is walk");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_WRITE_ATTRIBUTES,
-                                            GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
-                                            "List of attribute names that shall be written");
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                          "List of attribute names that shall be written");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_EDGES,
-                                            GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
-                                            "Restrict output to the given list of edge ids");
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                          "Restrict output to the given list of edge ids");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_EDGESFILE,
-                                            GNEAttributeProperties::STRING | GNEAttributeProperties::FILENAME | GNEAttributeProperties::DEFAULTVALUE,
-                                            "Restrict output to the given the list of edges given in file");
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::FILENAME | GNEAttributeProperties::DEFAULTVALUE,
+                                          "Restrict output to the given the list of edges given in file");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_AGGREGATE,
-                                            GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                            "Whether the traffic statistic of all edges shall be aggregated into a single value",
-                                            "0");
+                                          GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
+                                          "Whether the traffic statistic of all edges shall be aggregated into a single value",
+                                          "0");
     myTagProperties[currentTag].addAttribute(attrProperty);
 }
 

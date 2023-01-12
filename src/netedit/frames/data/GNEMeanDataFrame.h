@@ -55,7 +55,7 @@ public:
         ~MeanDataTypeSelector();
 
         /// @brief get current MeanData
-        const GNETagProperties &getCurrentMeanData() const;
+        const GNETagProperties& getCurrentMeanData() const;
 
         /// @brief refresh meanData selector
         void refreshMeanDataTypeSelector();
@@ -215,7 +215,7 @@ public:
 protected:
     /// @brief meanData type selector
     MeanDataTypeSelector* myMeanDataTypeSelector = nullptr;
-    
+
     /// @brief meanData editor
     MeanDataEditor* myMeanDataEditor = nullptr;
 

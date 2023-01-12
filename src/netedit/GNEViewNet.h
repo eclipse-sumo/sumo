@@ -85,7 +85,7 @@ public:
     const GNEViewNetHelper::ObjectsUnderCursor& getObjectsUnderCursor() const;
 
     /// @brief Update objects under cursor in the given position
-    void updateObjectsUnderCursor(const Position &pos);
+    void updateObjectsUnderCursor(const Position& pos);
 
     /// @brief get move multiple element values
     const GNEViewNetHelper::MoveMultipleElementValues& getMoveMultipleElementValues() const;
@@ -560,7 +560,7 @@ public:
     bool selectingJunctionsTLSMode() const;
 
     /// @brief get variable used to save elements
-    GNEViewNetHelper::SaveElements &getSaveElements();
+    GNEViewNetHelper::SaveElements& getSaveElements();
 
 protected:
     /// @brief FOX needs this

@@ -48,7 +48,7 @@ GNEEdgeType::GNEEdgeType(const GNEEdgeType* edgeType) :
     GNENetworkElement(edgeType->getNet(), edgeType->getID(), GLO_EDGETYPE, SUMO_TAG_TYPE,
                       GUIIconSubSys::getIcon(GUIIcon::EDGETYPE), {}, {}, {}, {}, {}, {}),
                                 Parameterised(edgeType->getParametersMap()),
-    NBTypeCont::EdgeTypeDefinition(edgeType) {
+NBTypeCont::EdgeTypeDefinition(edgeType) {
 }
 
 
@@ -214,7 +214,7 @@ GNEEdgeType::updateGLObject() {
 std::string
 GNEEdgeType::getAttribute(SumoXMLAttr key) const {
     // get options
-    const auto &neteditOptions = OptionsCont::getOptions();
+    const auto& neteditOptions = OptionsCont::getOptions();
     switch (key) {
         case SUMO_ATTR_ID:
             return getMicrosimID();

@@ -1440,7 +1440,7 @@ MSVehicle::computeAngle() const {
     }
     double result = (p1 != p2 ? p2.angleTo2D(p1) :
                      myLane->getShape().rotationAtOffset(myLane->interpolateLanePosToGeometryPos(getPositionOnLane())));
-   
+
     result += lefthandSign * myLaneChangeModel->calcAngleOffset();
 
 #ifdef DEBUG_FURTHER
@@ -5451,7 +5451,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
             }
         }
         assert(false); // should always find the next edge
-    } 
+    }
     // start rebuilding
     myLastBestLanesInternalLane = nullptr;
     myLastBestLanesEdge = &startLane->getEdge();

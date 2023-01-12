@@ -139,12 +139,12 @@ NBPTStopCont::generateBidiStops(NBEdgeCont& ec) {
                 continue;
             }
             std::shared_ptr<NBPTStop> bidiStop = std::make_shared<NBPTStop>(id,
-                                              stop->getPosition(),
-                                              bidiEdge->getID(),
-                                              stop->getOrigEdgeId(),
-                                              stop->getLength(),
-                                              stop->getName(),
-                                              stop->getPermissions());
+                                                 stop->getPosition(),
+                                                 bidiEdge->getID(),
+                                                 stop->getOrigEdgeId(),
+                                                 stop->getLength(),
+                                                 stop->getName(),
+                                                 stop->getPermissions());
             if (bidiStop->findLaneAndComputeBusStopExtent(ec)) {
                 toAdd.push_back(bidiStop);
                 stop->setBidiStop(bidiStop);
@@ -182,7 +182,7 @@ NBPTStopCont::getReverseStop(std::shared_ptr<NBPTStop> pStop, const NBEdgeCont& 
         const std::string reverseID = getReverseID(pStop->getID());
         if (myPTStops.count(reverseID) == 0) {
             return std::make_shared<NBPTStop>(reverseID, pStop->getPosition(), reverse->getID(), reverse->getID(),
-                                pStop->getLength(), pStop->getName(), pStop->getPermissions());
+                                              pStop->getLength(), pStop->getName(), pStop->getPermissions());
         } else {
             return myPTStops[reverseID];
         }

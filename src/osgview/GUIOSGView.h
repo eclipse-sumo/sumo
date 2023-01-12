@@ -307,7 +307,7 @@ private:
             translateMatrix.makeTranslate(lookAtGround.x(), lookAtGround.y(), 0.);
             double angle = atan2(direction.y(), direction.x());
             osg::Matrixd rotMatrix = osg::Matrixd::rotate(angle, osg::Z_AXIS);
-            mt->setMatrix(rotMatrix * translateMatrix);          
+            mt->setMatrix(rotMatrix * translateMatrix);
             return true;
         }
     protected:

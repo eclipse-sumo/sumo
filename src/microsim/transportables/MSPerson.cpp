@@ -62,8 +62,7 @@ MSPerson::MSPersonStage_Walking::MSPersonStage_Walking(const std::string& person
     MSStageMoving(route, routeID, toStop, speed, departPos, arrivalPos, departPosLat, departLane, MSStageType::WALKING),
     myWalkingTime(walkingTime),
     myExitTimes(nullptr),
-    myInternalDistance(0)
-{
+    myInternalDistance(0) {
     myDepartPos = SUMOVehicleParameter::interpretEdgePos(departPos, route.front()->getLength(), SUMO_ATTR_DEPARTPOS,
                   "person '" + personID + "' walking from edge '" + route.front()->getID() + "'");
     myArrivalPos = SUMOVehicleParameter::interpretEdgePos(arrivalPos, route.back()->getLength(), SUMO_ATTR_ARRIVALPOS,

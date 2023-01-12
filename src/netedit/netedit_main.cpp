@@ -44,7 +44,7 @@ main(int argc, char** argv) {
     // make the output aware of threading
     MsgHandler::setFactory(&MsgHandlerSynchronized::create);
     // get the options
-    auto &neteditOptions = OptionsCont::getOptions();
+    auto& neteditOptions = OptionsCont::getOptions();
     neteditOptions.setApplicationDescription(TL("Graphical editor for SUMO networks, demand and additional infrastructure."));
     neteditOptions.setApplicationName("netedit", "Eclipse SUMO netedit Version " VERSION_STRING);
     int ret = 0;

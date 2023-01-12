@@ -36,7 +36,7 @@ GNEGeneralHandler::GNEGeneralHandler(GNENet* net, const std::string& file, const
     GeneralHandler(file),
     myAdditionalHandler(net, allowUndoRedo, overwrite),
     myDemandHandler(file, net, allowUndoRedo, overwrite),
-    myMeanDataHandler(net, allowUndoRedo, overwrite){
+    myMeanDataHandler(net, allowUndoRedo, overwrite) {
 }
 
 
@@ -45,7 +45,7 @@ GNEGeneralHandler::~GNEGeneralHandler() {}
 
 bool
 GNEGeneralHandler::isErrorCreatingElement() const {
-    return (myAdditionalHandler.isErrorCreatingElement() || 
+    return (myAdditionalHandler.isErrorCreatingElement() ||
             myDemandHandler.isErrorCreatingElement() ||
             myMeanDataHandler.isErrorCreatingElement());
 }
@@ -122,8 +122,8 @@ GNEGeneralHandler::endTag() {
         // end parse meanData elements
         myMeanDataHandler.endParseAttributes();
     } else {
-        WRITE_ERROR(toString(myQueue.back().tag) + " cannot be processed either " + 
-            "with additional handler nor with demand handler nor with meanData handler");
+        WRITE_ERROR(toString(myQueue.back().tag) + " cannot be processed either " +
+                    "with additional handler nor with demand handler nor with meanData handler");
     }
 }
 

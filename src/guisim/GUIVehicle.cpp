@@ -363,7 +363,7 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
 
     // draw individual carriages
     double curCLength = firstCarriageLength;
-    int firstCarriageNo = 0;  // default case - we're going forwards  
+    int firstCarriageNo = 0;  // default case - we're going forwards
     const bool reversed = drawReversed(s) || getLaneChangeModel().isOpposite();
     if (reversed) {
         firstCarriageNo = numCarriages - 1;
@@ -376,7 +376,7 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
     for (int i = 0; i < numCarriages; ++i) {
         if (i == firstCarriageNo) {
             curCLength = firstCarriageLength;
-            if ( firstCarriageNo > 0 ) {
+            if (firstCarriageNo > 0) {
                 // previous loop iteration has adjusted backpos for a normal carriage so have to correct
                 carriageBackOffset += carriageLengthWithGap;
                 carriageBackOffset -= firstCarriageLength + carriageGap;
@@ -463,7 +463,7 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
                     if (i == firstCarriageNo) {
                         glTranslated(0, 0, 0.1);
                         glColor3d(0, 0, 0);
-                        glBegin(GL_TRIANGLE_FAN); 
+                        glBegin(GL_TRIANGLE_FAN);
                         if (reversed) {  // not quite correct as its drawing at the wrong end of the locomotive - however useful as visual indicator of reverse?
                             glVertex2d(-halfWidth + xCornerCut, yCornerCut);
                             glVertex2d(-halfWidth + 2 * xCornerCut, 3 * yCornerCut);

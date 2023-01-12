@@ -306,7 +306,7 @@ public:
      */
     enum VisualisationFeatures {
         /// @brief show vehicle's best lanes
-        VO_SHOW_BEST_LANES = 1 << 0 ,
+        VO_SHOW_BEST_LANES = 1 << 0,
         /// @brief show vehicle's current route
         VO_SHOW_ROUTE = 1 << 1,
         /// @brief show all vehicle's routes

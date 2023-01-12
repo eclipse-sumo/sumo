@@ -120,7 +120,7 @@ GUIDialog_Options::~GUIDialog_Options() { }
 // Option input classes method definitions
 // ===========================================================================
 
-GUIDialog_Options::InputString::InputString(GUIDialog_Options *GUIDialogOptions, FXComposite* parent, const std::string& name) :
+GUIDialog_Options::InputString::InputString(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name) :
     FXHorizontalFrame(parent, LAYOUT_FILL_X),
     myGUIDialogOptions(GUIDialogOptions),
     myName(name) {
@@ -138,7 +138,7 @@ GUIDialog_Options::InputString::onCmdSetOption(FXObject*, FXSelector, void*) {
 }
 
 
-GUIDialog_Options::InputStringVector::InputStringVector(GUIDialog_Options *GUIDialogOptions, FXComposite* parent, const std::string& name) :
+GUIDialog_Options::InputStringVector::InputStringVector(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name) :
     FXHorizontalFrame(parent, LAYOUT_FILL_X),
     myGUIDialogOptions(GUIDialogOptions),
     myName(name) {
@@ -156,7 +156,7 @@ GUIDialog_Options::InputStringVector::onCmdSetOption(FXObject*, FXSelector, void
 }
 
 
-GUIDialog_Options::InputBool::InputBool(GUIDialog_Options *GUIDialogOptions, FXComposite* parent, const std::string& name) :
+GUIDialog_Options::InputBool::InputBool(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name) :
     FXHorizontalFrame(parent, LAYOUT_FILL_X),
     myGUIDialogOptions(GUIDialogOptions),
     myName(name) {
@@ -181,7 +181,7 @@ GUIDialog_Options::InputBool::onCmdSetOption(FXObject*, FXSelector, void*) {
 }
 
 
-GUIDialog_Options::InputInt::InputInt(GUIDialog_Options *GUIDialogOptions, FXComposite* parent, const std::string& name) :
+GUIDialog_Options::InputInt::InputInt(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name) :
     FXHorizontalFrame(parent, LAYOUT_FILL_X),
     myGUIDialogOptions(GUIDialogOptions),
     myName(name) {
@@ -199,7 +199,7 @@ GUIDialog_Options::InputInt::onCmdSetOption(FXObject*, FXSelector, void*) {
 }
 
 
-GUIDialog_Options::InputIntVector::InputIntVector(GUIDialog_Options *GUIDialogOptions, FXComposite* parent, const std::string& name) :
+GUIDialog_Options::InputIntVector::InputIntVector(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name) :
     FXHorizontalFrame(parent, LAYOUT_FILL_X),
     myGUIDialogOptions(GUIDialogOptions),
     myName(name) {
@@ -227,7 +227,7 @@ GUIDialog_Options::InputIntVector::onCmdSetOption(FXObject*, FXSelector, void*) 
 }
 
 
-GUIDialog_Options::InputFloat::InputFloat(GUIDialog_Options *GUIDialogOptions, FXComposite* parent, const std::string& name) :
+GUIDialog_Options::InputFloat::InputFloat(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name) :
     FXHorizontalFrame(parent, LAYOUT_FILL_X),
     myGUIDialogOptions(GUIDialogOptions),
     myName(name) {
@@ -245,7 +245,7 @@ GUIDialog_Options::InputFloat::onCmdSetOption(FXObject*, FXSelector, void*) {
 }
 
 
-GUIDialog_Options::InputFilename::InputFilename(GUIDialog_Options *GUIDialogOptions, FXComposite* parent, const std::string& name) :
+GUIDialog_Options::InputFilename::InputFilename(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name) :
     FXHorizontalFrame(parent, LAYOUT_FILL_X),
     myGUIDialogOptions(GUIDialogOptions),
     myName(name) {

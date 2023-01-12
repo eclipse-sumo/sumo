@@ -476,7 +476,7 @@ NBTrafficLightDefinition::collectAllLinks(NBConnectionVector& into) {
                                // (the might also be due to faulty connection
                                // input but they would not come from guessing)
                                && (incoming->getBidiEdge() == el.toEdge)
-                               ) {
+                              ) {
                         // turnarounds stay uncontrolled at rail signal
                     } else {
                         into.push_back(NBConnection(incoming, el.fromLane, el.toEdge, el.toLane, tlIndex++));

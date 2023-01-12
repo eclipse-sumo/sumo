@@ -444,7 +444,7 @@ OptionsCont::isBool(const std::string& name) const {
 
 void
 OptionsCont::resetWritable() {
-    for (const auto &addresse : myAddresses) {
+    for (const auto& addresse : myAddresses) {
         addresse->resetWritable();
     }
 }
@@ -452,7 +452,7 @@ OptionsCont::resetWritable() {
 
 void
 OptionsCont::resetDefault() {
-    for (const auto &addresse : myAddresses) {
+    for (const auto& addresse : myAddresses) {
         addresse->resetDefault();
     }
 }

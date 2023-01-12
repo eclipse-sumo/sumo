@@ -417,9 +417,9 @@ GNEDemandElement::getInvalidStops() const {
         // get edge stop index
         const auto edgeStopIndex = getEdgeStopIndex();
         // take all stops/waypoints with index = -1
-        for (const auto &edgeStop : edgeStopIndex) {
+        for (const auto& edgeStop : edgeStopIndex) {
             if (edgeStop.stopIndex == -1) {
-                for (const auto &stop : edgeStop.stops) {
+                for (const auto& stop : edgeStop.stops) {
                     invalidStops.push_back(stop);
                 }
             }
@@ -915,7 +915,7 @@ GNEDemandElement::drawJunctionLine(const GNEDemandElement* element) const {
 
 
 void
-GNEDemandElement::drawStackLabel(const std::string &element, const Position& position, const double rotation, const double width, const double length, const double exaggeration) const {
+GNEDemandElement::drawStackLabel(const std::string& element, const Position& position, const double rotation, const double width, const double length, const double exaggeration) const {
     // declare contour width
     const double contourWidth = (0.05 * exaggeration);
     // Push matrix
@@ -1069,7 +1069,7 @@ GNEDemandElement::getEdgeStopIndex() const {
             // get last parent edge
             const auto lastEdge = parent->getParentEdges().back();
             bool stop = false;
-            const auto &pathElementSegments = myNet->getPathManager()->getPathElementSegments(parent);
+            const auto& pathElementSegments = myNet->getPathManager()->getPathElementSegments(parent);
             // extract all edges from pathElement parent
             for (auto it = pathElementSegments.begin(); (it != pathElementSegments.end()) && !stop; it++) {
                 if ((*it)->getLane()) {
@@ -1082,7 +1082,7 @@ GNEDemandElement::getEdgeStopIndex() const {
             }
         }
         // get all parent's stops and waypoints sorted by position
-        for (const auto &demandElement : parent->getChildDemandElements()) {
+        for (const auto& demandElement : parent->getChildDemandElements()) {
             if (demandElement->getTagProperty().isStop() || demandElement->getTagProperty().isWaypoint()) {
                 // get stop/waypoint edge
                 GNEEdge* edge = nullptr;
@@ -1122,11 +1122,11 @@ GNEDemandElement::getEdgeStopIndex() const {
         }
     }
     // sort stops by position
-    for (auto &edgeStop : edgeStopIndex) {
+    for (auto& edgeStop : edgeStopIndex) {
         if (edgeStop.stops.size() > 1) {
             // copy all stops to a map to sort it by endPos
             std::map<double, std::vector<GNEDemandElement*> > sortedStops;
-            for (const auto &stop : edgeStop.stops) {
+            for (const auto& stop : edgeStop.stops) {
                 if (sortedStops.count(stop->getAttributeDouble(SUMO_ATTR_ENDPOS)) == 0) {
                     sortedStops[stop->getAttributeDouble(SUMO_ATTR_ENDPOS)] = {stop};
                 } else {
@@ -1135,7 +1135,7 @@ GNEDemandElement::getEdgeStopIndex() const {
             }
             // update stops with sorted stops
             edgeStop.stops.clear();
-            for (const auto &sortedStop : sortedStops) {
+            for (const auto& sortedStop : sortedStops) {
                 edgeStop.stops.insert(edgeStop.stops.end(), sortedStop.second.begin(), sortedStop.second.end());
             }
         }

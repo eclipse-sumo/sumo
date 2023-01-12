@@ -436,7 +436,7 @@ GNEViewNet::getObjectsUnderCursor() const {
 
 
 void
-GNEViewNet::updateObjectsUnderCursor(const Position &pos) {
+GNEViewNet::updateObjectsUnderCursor(const Position& pos) {
     myObjectsUnderCursor.updateObjectUnderCursor(getGUIGlObjectsAtPosition(pos, 0.1));
 }
 
@@ -590,7 +590,7 @@ GNEViewNet::openSelectDialogAtCursor(const std::vector<GUIGlObject*>& GLObjects)
 void
 GNEViewNet::saveVisualizationSettings() const {
     // first check if we have to save gui settings in a file (only used for testing purposes)
-    const auto &neteditOptions = OptionsCont::getOptions();
+    const auto& neteditOptions = OptionsCont::getOptions();
     if (neteditOptions.getString("gui-testing.setting-output").size() > 0) {
         try {
             // open output device

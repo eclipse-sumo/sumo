@@ -454,7 +454,7 @@ GNENetHelper::AttributeCarriers::addPrefixToJunctions(const std::string& prefix)
     // clear junctions
     myJunctions.clear();
     // fill junctions again
-    for (const auto &junction : junctionCopy) {
+    for (const auto& junction : junctionCopy) {
         // update microsim ID
         junction.second->setMicrosimID(prefix + junction.first);
         // insert in myJunctions again
@@ -773,7 +773,7 @@ GNENetHelper::AttributeCarriers::addPrefixToEdges(const std::string& prefix) {
     // clear edges
     myEdges.clear();
     // fill edges again
-    for (const auto &edge : edgeCopy) {
+    for (const auto& edge : edgeCopy) {
         // update microsim ID
         edge.second->setMicrosimID(prefix + edge.first);
         // insert in myEdges again
@@ -1114,7 +1114,7 @@ GNENetHelper::AttributeCarriers::clearAdditionals() {
 std::string
 GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
     // obtain option container
-    const auto &neteditOptions = OptionsCont::getOptions();
+    const auto& neteditOptions = OptionsCont::getOptions();
     // get prefix
     std::string prefix;
     if (tag == SUMO_TAG_BUS_STOP) {
@@ -1365,7 +1365,7 @@ GNENetHelper::AttributeCarriers::getNumberOfDemandElements() const {
 std::string
 GNENetHelper::AttributeCarriers::generateDemandElementID(SumoXMLTag tag) const {
     // obtain option container
-    const auto &neteditOptions = OptionsCont::getOptions();
+    const auto& neteditOptions = OptionsCont::getOptions();
     // get tag property
     const auto tagProperty = GNEAttributeCarrier::getTagProperty(tag);
     // get prefix
@@ -2155,7 +2155,7 @@ GNENetHelper::AttributeCarriers::clearMeanDatas() {
 std::string
 GNENetHelper::AttributeCarriers::generateMeanDataID(SumoXMLTag tag) const {
     // obtain option container
-    const auto &neteditOptions = OptionsCont::getOptions();
+    const auto& neteditOptions = OptionsCont::getOptions();
     // get prefix
     std::string prefix;
     if (tag == SUMO_TAG_MEANDATA_EDGE) {

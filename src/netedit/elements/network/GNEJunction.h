@@ -309,12 +309,12 @@ private:
     bool drawAsBubble(const GUIVisualizationSettings& s) const;
 
     /// @brief draw junction as bubble
-    void drawJunctionAsBubble(const GUIVisualizationSettings& s, 
-        const double junctionExaggeration, const Position mousePosition) const;
+    void drawJunctionAsBubble(const GUIVisualizationSettings& s,
+                              const double junctionExaggeration, const Position mousePosition) const;
 
     /// @brief draw junction as bubble
-    void drawJunctionAsShape(const GUIVisualizationSettings& s, 
-        const double junctionExaggeration, const Position mousePosition) const;
+    void drawJunctionAsShape(const GUIVisualizationSettings& s,
+                             const double junctionExaggeration, const Position mousePosition) const;
 
     /// @brief draw TLS icon
     void drawTLSIcon(const GUIVisualizationSettings& s) const;

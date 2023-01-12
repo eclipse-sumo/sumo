@@ -89,7 +89,7 @@ private:
 
         /// @brief tag related with this TagType
         const SumoXMLTag tag;
-    
+
     private:
         /// @brief tag type
         const Type myType;

@@ -74,8 +74,7 @@ MSInductLoop::MSInductLoop(const std::string& id, MSLane* const lane,
     myOverrideEntryTime(-1),
     myVehicleDataCont(),
     myVehiclesOnDet(),
-    myLastIntervalEnd(-1)
-{
+    myLastIntervalEnd(-1) {
     assert(length >= 0);
     assert(myPosition >= 0 && myEndPosition <= myLane->getLength());
     reset();
@@ -464,14 +463,14 @@ MSInductLoop::collectVehiclesOnDet(SUMOTime tMS, bool includeEarly, bool leaveTi
     for (const VehicleData& i : myLastVehicleDataCont) {
         if (includeEarly || !i.leftEarlyM) {
             if ((!lastInterval && (i.entryTimeM >= t || (leaveTime && i.leaveTimeM >= t)))
-                || (lastInterval && i.leaveTimeM <= t)) {
+                    || (lastInterval && i.leaveTimeM <= t)) {
                 ret.push_back(i);
             }
         }
     }
     for (const auto& i : myVehiclesOnDet) {
         if ((!lastInterval && (i.second >= t || leaveTime || forOccupancy))
-                    || (lastInterval && i.second < t)) { // no need to check leave time, they are still on the detector
+                || (lastInterval && i.second < t)) { // no need to check leave time, they are still on the detector
             SUMOTrafficObject* const v = i.first;
             VehicleData d(*v, i.second, HAS_NOT_LEFT_DETECTOR, false);
             d.speedM = v->getSpeed();

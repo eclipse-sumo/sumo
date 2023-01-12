@@ -75,7 +75,7 @@ GNELoadThread::run() {
     // declare loaded file
     std::string loadedFile;
     // get netedit options
-    auto &neteditOptions = OptionsCont::getOptions();
+    auto& neteditOptions = OptionsCont::getOptions();
     // check if we're loading a sumo or netconvet config file
     if (neteditOptions.getString("sumocfg-file").size() > 0) {
         // set sumo config as loaded file
@@ -119,9 +119,9 @@ GNELoadThread::run() {
     MsgHandler::initOutputOptions();
     // if there is an error checking options, stop
     if (!(NIFrame::checkOptions() &&
-          NBFrame::checkOptions() &&
-          NWFrame::checkOptions() &&
-          SystemFrame::checkOptions())) {
+            NBFrame::checkOptions() &&
+            NWFrame::checkOptions() &&
+            SystemFrame::checkOptions())) {
         // options are not valid
         WRITE_ERROR(TL("Invalid Options. Nothing loaded"));
         submitEndAndCleanup(net, loadedFile);
@@ -156,7 +156,7 @@ GNELoadThread::run() {
         // create new network
         net = new GNENet(netBuilder);
     } else {
-        // declare net loader 
+        // declare net loader
         NILoader nl(*netBuilder);
         try {
             // try to load network using netedit options
@@ -228,7 +228,7 @@ GNELoadThread::run() {
 
 
 void
-GNELoadThread::submitEndAndCleanup(GNENet* net, const std::string &loadedFile, const std::string& guiSettingsFile, const bool viewportFromRegistry) {
+GNELoadThread::submitEndAndCleanup(GNENet* net, const std::string& loadedFile, const std::string& guiSettingsFile, const bool viewportFromRegistry) {
     // remove message callbacks
     MsgHandler::getDebugInstance()->removeRetriever(myDebugRetriever);
     MsgHandler::getGLDebugInstance()->removeRetriever(myGLDebugRetriever);
@@ -480,8 +480,8 @@ GNELoadThread::setDefaultOptions(OptionsCont& neteditOptions) {
 
 
 bool
-GNELoadThread::resetOptions(const std::string &file, const bool configuration) {
-    auto &neteditOptions = OptionsCont::getOptions();
+GNELoadThread::resetOptions(const std::string& file, const bool configuration) {
+    auto& neteditOptions = OptionsCont::getOptions();
     // fill (reset) all options
     fillOptions(neteditOptions);
     // set default options defined in GNELoadThread::setDefaultOptions(...)
@@ -510,7 +510,7 @@ GNELoadThread::resetOptions(const std::string &file, const bool configuration) {
 
 void
 GNELoadThread::resetFileOptions() {
-    auto &neteditOptions = OptionsCont::getOptions();
+    auto& neteditOptions = OptionsCont::getOptions();
     // reset netedit files
     neteditOptions.resetWritable();
     neteditOptions.set("configuration-file", "");

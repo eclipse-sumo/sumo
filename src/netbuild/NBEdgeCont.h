@@ -593,7 +593,7 @@ public:
     void updateAllChangeRestrictions(SVCPermissions ignoring);
 
     /// @brief add prefix to all edges
-    void addPrefix(const std::string &prefix); 
+    void addPrefix(const std::string& prefix);
 
 private:
     /// @brief compute the form factor for a loop of edges

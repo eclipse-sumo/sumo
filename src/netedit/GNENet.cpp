@@ -282,7 +282,7 @@ GNENet::createEdge(GNEJunction* src, GNEJunction* dest, GNEEdge* edgeTemplate, G
         edge = new GNEEdge(this, nbe, wasSplit);
     } else {
         // default if no template is given
-        const auto &neteditOptions = OptionsCont::getOptions();
+        const auto& neteditOptions = OptionsCont::getOptions();
         double defaultSpeed = neteditOptions.getFloat("default.speed");
         const std::string defaultType = neteditOptions.getString("default.type");
         const int defaultNrLanes = neteditOptions.getInt("default.lanenumber");
@@ -1186,8 +1186,8 @@ GNENet::isNetSaved() const {
 
 void
 GNENet::saveNetwork() {
-    auto &neteditOptions = OptionsCont::getOptions();
-    auto &sumoOptions = myViewNet->getViewParent()->getGNEAppWindows()->getSUMOOptions();
+    auto& neteditOptions = OptionsCont::getOptions();
+    auto& sumoOptions = myViewNet->getViewParent()->getGNEAppWindows()->getSUMOOptions();
     // set output file in SUMO and NETEDIT options
     neteditOptions.resetWritable();
     neteditOptions.set("output-file", neteditOptions.getString("net-file"));
@@ -1219,7 +1219,7 @@ GNENet::saveNetwork() {
 
 void
 GNENet::savePlain(const std::string& prefix) {
-    auto &neteditOptions = OptionsCont::getOptions();
+    auto& neteditOptions = OptionsCont::getOptions();
     // compute without volatile options
     computeAndUpdate(neteditOptions, false);
     NWWriter_XML::writeNetwork(neteditOptions, prefix, *myNetBuilder);
@@ -1294,12 +1294,12 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     }
     // save current number of lanes for every edge if recomputing is with volatile options
     if (volatileOptions) {
-        for (const auto &edge : myAttributeCarriers->getEdges()) {
+        for (const auto& edge : myAttributeCarriers->getEdges()) {
             myEdgesAndNumberOfLanes[edge.second->getID()] = (int)edge.second->getLanes().size();
         }
     }
     // compute and update
-    auto &neteditOptions = OptionsCont::getOptions();
+    auto& neteditOptions = OptionsCont::getOptions();
     computeAndUpdate(neteditOptions, volatileOptions);
     // load additionals if was recomputed with volatile options
     if (volatileOptions && OptionsCont::getOptions().getString("additional-files").size() > 0) {
@@ -1388,7 +1388,7 @@ GNENet::computeDataElements(GNEApplicationWindow* window) {
 void
 GNENet::computeJunction(GNEJunction* junction) {
     // recompute tl-logics
-    auto &neteditOptions = OptionsCont::getOptions();
+    auto& neteditOptions = OptionsCont::getOptions();
     NBTrafficLightLogicCont& tllCont = getTLLogicCont();
     // iterate over traffic lights definitions. Make a copy because invalid
     // definitions will be removed (and would otherwise destroy the iterator)

@@ -63,16 +63,16 @@ const double GNEEdge::SNAP_RADIUS_SQUARED = (SUMO_const_halfLaneWidth* SUMO_cons
 
 GNEEdge::GNEEdge(GNENet* net, NBEdge* nbe, bool wasSplit, bool loaded):
     GNENetworkElement(net, nbe->getID(), GLO_EDGE, SUMO_TAG_EDGE, GUIIconSubSys::getIcon(GUIIcon::EDGE), {
-        net->getAttributeCarriers()->retrieveJunction(nbe->getFromNode()->getID()),
+    net->getAttributeCarriers()->retrieveJunction(nbe->getFromNode()->getID()),
         net->getAttributeCarriers()->retrieveJunction(nbe->getToNode()->getID())
-    },
-    {}, {}, {}, {}, {}),
-    myNBEdge(nbe),
-    myLanes(0),
-    myAmResponsible(false),
-    myWasSplit(wasSplit),
-    myConnectionStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
-    myUpdateGeometry(true) {
+},
+{}, {}, {}, {}, {}),
+myNBEdge(nbe),
+myLanes(0),
+myAmResponsible(false),
+myWasSplit(wasSplit),
+myConnectionStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
+myUpdateGeometry(true) {
     // Create lanes
     int numLanes = myNBEdge->getNumLanes();
     myLanes.reserve(numLanes);
@@ -1747,7 +1747,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
     GNEInspectorFrame::TemplateEditor* templateEditor = myNet->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor();
     // check if update template (except for modification status)
     if (templateEditor->getEdgeTemplate() && (templateEditor->getEdgeTemplate()->getID() == getID()) &&
-        (key != GNE_ATTR_MODIFICATION_STATUS)) {
+            (key != GNE_ATTR_MODIFICATION_STATUS)) {
         myNet->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor()->updateEdgeTemplate();
     }
     // invalidate path calculator
@@ -2091,7 +2091,7 @@ GNEEdge::straightenElevation(GNEUndoList* undoList) {
 
 PositionVector
 GNEEdge::smoothShape(const PositionVector& old, bool forElevation) {
-    const auto &neteditOptions = OptionsCont::getOptions();
+    const auto& neteditOptions = OptionsCont::getOptions();
     // distinguish 3 cases:
     // a) if the edge has exactly 3 or 4 points, use these as control points
     // b) if the edge has more than 4 points, use the first 2 and the last 2 as control points
@@ -2410,7 +2410,7 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s) const {
 void
 GNEEdge::drawStartGeometryPoint(const GUIVisualizationSettings& s, const double circleWidth, const double exaggeration) const {
     // get first geometry point
-    const auto &geometryPointPos = myNBEdge->getGeometry().front();
+    const auto& geometryPointPos = myNBEdge->getGeometry().front();
     // check if mouse is over start geometry point
     const bool mouseOver = myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryPointPos) <= (circleWidth * circleWidth);
     // check drawing conditions
@@ -2466,7 +2466,7 @@ GNEEdge::drawStartGeometryPoint(const GUIVisualizationSettings& s, const double 
 void
 GNEEdge::drawEndGeometryPoint(const GUIVisualizationSettings& s, const double circleWidth, const double exaggeration) const {
     // get last geometry point
-    const auto &geometryPointPos = myNBEdge->getGeometry().back();
+    const auto& geometryPointPos = myNBEdge->getGeometry().back();
     // check if mouse is over start geometry point
     const bool mouseOver = myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryPointPos) <= (circleWidth * circleWidth);
     // check drawing condition
@@ -2718,7 +2718,7 @@ GNEEdge::drawTAZElements(const GUIVisualizationSettings& s) const {
 void
 GNEEdge::drawEdgeShape(const GUIVisualizationSettings& s) const {
     // avoid draw for railways
-    if((gPostDrawing.markedFirstGeometryPoint == this) && (s.laneWidthExaggeration >= 1) && !myLanes.front()->drawAsRailway(s)) {
+    if ((gPostDrawing.markedFirstGeometryPoint == this) && (s.laneWidthExaggeration >= 1) && !myLanes.front()->drawAsRailway(s)) {
         // push draw matrix
         GLHelper::pushMatrix();
         // translate to front depending of big points
@@ -2738,7 +2738,7 @@ GNEEdge::drawEdgeShape(const GUIVisualizationSettings& s) const {
         // iterate over NBEdge geometry
         for (int i = 1; i < (int)myNBEdge->getGeometry().size(); i++) {
             // calculate line between previous and current geometry point
-            PositionVector line = {myNBEdge->getGeometry()[i-1], myNBEdge->getGeometry()[i]};
+            PositionVector line = {myNBEdge->getGeometry()[i - 1], myNBEdge->getGeometry()[i]};
             line.move2side(0.2);
             // draw box line
             GLHelper::drawBoxLine(line[1], RAD2DEG(line[0].angleTo2D(line[1])) - 90, line[0].distanceTo2D(line[1]), .1);
@@ -2750,9 +2750,9 @@ GNEEdge::drawEdgeShape(const GUIVisualizationSettings& s) const {
 
 
 void
-GNEEdge::setGeometryPointColor(const Position &geometryPointPos, const double circleWidth, const RGBColor &geometryPointColor) const {
+GNEEdge::setGeometryPointColor(const Position& geometryPointPos, const double circleWidth, const RGBColor& geometryPointColor) const {
     // by default use geometryPointColor
-    RGBColor color = geometryPointColor; 
+    RGBColor color = geometryPointColor;
     // set color depending if mouse is over geometry point
     if (gPostDrawing.markedFirstGeometryPoint == nullptr) {
         if (mouseWithinGeometry(geometryPointPos, circleWidth)) {
@@ -2777,7 +2777,7 @@ GNEEdge::drawBigGeometryPoints() const {
     } else if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
         return true;
     } else if ((myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_DELETE) &&
-            (myNet->getViewNet()->getViewParent()->getDeleteFrame()->getDeleteOptions()->deleteOnlyGeometryPoints())) {
+               (myNet->getViewNet()->getViewParent()->getDeleteFrame()->getDeleteOptions()->deleteOnlyGeometryPoints())) {
         return true;
     } else {
         return false;

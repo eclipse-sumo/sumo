@@ -94,7 +94,7 @@ GUIOSGManipulator::updateHUDPosition(int width, int height) {
 }
 
 
-bool 
+bool
 GUIOSGManipulator::performMovementLeftMouseButton(const double eventTimeDelta, const double dx, const double dy) {
     if (myCurrentMode == MODE_TERRAIN) {
         return osgGA::TerrainManipulator::performMovementMiddleMouseButton(eventTimeDelta, dx, dy);
@@ -103,7 +103,7 @@ GUIOSGManipulator::performMovementLeftMouseButton(const double eventTimeDelta, c
 }
 
 
-bool 
+bool
 GUIOSGManipulator::performMovementMiddleMouseButton(const double eventTimeDelta, const double dx, const double dy) {
     if (myCurrentMode == MODE_TERRAIN) {
         return osgGA::TerrainManipulator::performMovementLeftMouseButton(eventTimeDelta, dx, dy);
@@ -112,7 +112,7 @@ GUIOSGManipulator::performMovementMiddleMouseButton(const double eventTimeDelta,
 }
 
 
-bool 
+bool
 GUIOSGManipulator::performMovementRightMouseButton(const double eventTimeDelta, const double dx, const double dy) {
     if (myCurrentMode == MODE_TERRAIN) {
         return osgGA::TerrainManipulator::performMovementRightMouseButton(eventTimeDelta, dx, -dy);
@@ -121,12 +121,12 @@ GUIOSGManipulator::performMovementRightMouseButton(const double eventTimeDelta, 
 }
 
 
-bool 
+bool
 GUIOSGManipulator::handleMouseMove(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa) {
     if (myCurrentMode == MODE_EGO || myCurrentMode == MODE_WALK) {
         return handleMouseDeltaMovement(ea, aa);
     }
-    return false;    
+    return false;
 }
 
 
@@ -157,7 +157,7 @@ GUIOSGManipulator::handleMouseRelease(const osgGA::GUIEventAdapter& ea, osgGA::G
 }
 
 
-bool 
+bool
 GUIOSGManipulator::handleMouseDeltaMovement(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa) {
     addMouseEvent(ea);
     if (_ga_t0.get() == NULL || _ga_t1.get() == NULL) {
@@ -170,7 +170,9 @@ GUIOSGManipulator::handleMouseDeltaMovement(const osgGA::GUIEventAdapter& ea, os
     float intensity = 50.;
     float dx = _ga_t0->getXnormalized() * intensity * dt;
     float dy = _ga_t0->getYnormalized() * intensity * dt;
-    if (dx == 0. && dy == 0.) { return false; }
+    if (dx == 0. && dy == 0.) {
+        return false;
+    }
     centerMousePointer(ea, aa);
     // calculate delta angles from dx and dy movements
     if (performMouseDeltaMovement(dx, dy)) {
@@ -180,9 +182,9 @@ GUIOSGManipulator::handleMouseDeltaMovement(const osgGA::GUIEventAdapter& ea, os
 }
 
 
-bool 
+bool
 GUIOSGManipulator::performMouseDeltaMovement(const float dx, const float dy) {
-    rotateYawPitch(_rotation, dx, dy, osg::Z_AXIS);    
+    rotateYawPitch(_rotation, dx, dy, osg::Z_AXIS);
     return true;
 }
 
@@ -194,13 +196,14 @@ void GUIOSGManipulator::centerMousePointer(const osgGA::GUIEventAdapter& ea, osg
 }
 
 
-void 
+void
 GUIOSGManipulator::rotateYawPitch(osg::Quat& rotation, const double yaw, const double pitch, const osg::Vec3d& localUp) {
     bool verticalAxisFixed = (localUp != osg::Vec3d(0., 0., 0.));
 
     // fix current rotation
-    if (verticalAxisFixed)
+    if (verticalAxisFixed) {
         fixVerticalAxis(rotation, localUp, true);
+    }
 
     // rotations
     osg::Quat rotateYaw(-yaw, verticalAxisFixed ? localUp : rotation * osg::Vec3d(0., 1., 0.));
@@ -217,13 +220,13 @@ GUIOSGManipulator::rotateYawPitch(osg::Quat& rotation, const double yaw, const d
         newRotation = rotation * rotateYaw * rotatePitch;
 
         // update vertical axis
-        if (verticalAxisFixed)
+        if (verticalAxisFixed) {
             fixVerticalAxis(newRotation, localUp, false);
+        }
 
         // check for viewer's up vector to be more than 90 degrees from "up" axis
         osg::Vec3d newCameraUp = newRotation * osg::Vec3d(0., 1., 0.);
-        if (newCameraUp * localUp > 0.)
-        {
+        if (newCameraUp * localUp > 0.) {
             // apply new rotation
             setByMatrix(osg::Matrixd::rotate(newRotation) * osg::Matrixd::translate(eye));
             return;
@@ -237,52 +240,52 @@ GUIOSGManipulator::rotateYawPitch(osg::Quat& rotation, const double yaw, const d
 }
 
 
-bool 
+bool
 GUIOSGManipulator::handleKeyDown(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& /* aa */) {
     bool result = false;
     switch (ea.getKey()) {
-    case osgGA::GUIEventAdapter::KEY_Up:
-        myMove.z() -= myMoveSpeed;
-        result = true;
-        break;
-    case osgGA::GUIEventAdapter::KEY_Down:
-        myMove.z() += myMoveSpeed;
-        result = true;
-        break;
-    case osgGA::GUIEventAdapter::KEY_Right:
-        myMove.x() += myMoveSpeed;
-        result = true;
-        break;
-    case osgGA::GUIEventAdapter::KEY_Left:
-        myMove.x() -= myMoveSpeed;
-        result = true;
-        break;
+        case osgGA::GUIEventAdapter::KEY_Up:
+            myMove.z() -= myMoveSpeed;
+            result = true;
+            break;
+        case osgGA::GUIEventAdapter::KEY_Down:
+            myMove.z() += myMoveSpeed;
+            result = true;
+            break;
+        case osgGA::GUIEventAdapter::KEY_Right:
+            myMove.x() += myMoveSpeed;
+            result = true;
+            break;
+        case osgGA::GUIEventAdapter::KEY_Left:
+            myMove.x() -= myMoveSpeed;
+            result = true;
+            break;
     }
     _center += getMatrix().getRotate() * myMove;
     return result;
 }
 
 
-bool 
+bool
 GUIOSGManipulator::handleKeyUp(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& /* aa */) {
     bool result = false;
     switch (ea.getKey()) {
-    case osgGA::GUIEventAdapter::KEY_Up:
-    case osgGA::GUIEventAdapter::KEY_Down:
-    case osgGA::GUIEventAdapter::KEY_Right:
-    case osgGA::GUIEventAdapter::KEY_Left:
-        myMove.set(0, 0, 0);
-        return true;
-    case osgGA::GUIEventAdapter::KEY_F:
-        if (myCurrentMode == MODE_EGO) {
-            myCurrentMode = MODE_TERRAIN; // MODE_WALK disabled until it's fully implemented
-        } else if(myCurrentMode == MODE_WALK) {
-            myCurrentMode = MODE_TERRAIN;
-        } else {
-            myCurrentMode = MODE_EGO;
-        }
-        updateHUDText();
-        return true;
+        case osgGA::GUIEventAdapter::KEY_Up:
+        case osgGA::GUIEventAdapter::KEY_Down:
+        case osgGA::GUIEventAdapter::KEY_Right:
+        case osgGA::GUIEventAdapter::KEY_Left:
+            myMove.set(0, 0, 0);
+            return true;
+        case osgGA::GUIEventAdapter::KEY_F:
+            if (myCurrentMode == MODE_EGO) {
+                myCurrentMode = MODE_TERRAIN; // MODE_WALK disabled until it's fully implemented
+            } else if (myCurrentMode == MODE_WALK) {
+                myCurrentMode = MODE_TERRAIN;
+            } else {
+                myCurrentMode = MODE_EGO;
+            }
+            updateHUDText();
+            return true;
     }
     return result;
 }
@@ -294,21 +297,23 @@ GUIOSGManipulator::updateHUDText() {
 }
 
 
-void 
+void
 GUIOSGManipulator::setByMatrix(const osg::Matrixd& matrix) {
     _center = osg::Vec3d(0., 0., -_distance) * matrix;
     _rotation = matrix.getRotate();
 
     // fix current rotation
-    if (getVerticalAxisFixed()) { fixVerticalAxis(_center, _rotation, true); }
+    if (getVerticalAxisFixed()) {
+        fixVerticalAxis(_center, _rotation, true);
+    }
 }
 
 
 osg::Matrixd GUIOSGManipulator::getMatrix() const {
     if (myCurrentMode == MODE_TERRAIN) {
         return osg::Matrixd::translate(0., 0., _distance) *
-            osg::Matrixd::rotate(_rotation) *
-            osg::Matrixd::translate(_center);
+               osg::Matrixd::rotate(_rotation) *
+               osg::Matrixd::translate(_center);
     } else {
         osg::Vec3f eye = _center - _rotation * osg::Vec3d(0., 0., -_distance);
         return osg::Matrixd::rotate(_rotation) * osg::Matrixd::translate(eye);
@@ -319,8 +324,8 @@ osg::Matrixd GUIOSGManipulator::getMatrix() const {
 osg::Matrixd GUIOSGManipulator::getInverseMatrix() const {
     if (myCurrentMode == MODE_TERRAIN) {
         return osg::Matrixd::translate(-_center) *
-            osg::Matrixd::rotate(_rotation.inverse()) *
-            osg::Matrixd::translate(0.0, 0.0, -_distance);
+               osg::Matrixd::rotate(_rotation.inverse()) *
+               osg::Matrixd::translate(0.0, 0.0, -_distance);
     } else {
         osg::Vec3f eye = _center - _rotation * osg::Vec3d(0., 0., -_distance);
         return osg::Matrixd::translate(-eye) * osg::Matrixd::rotate(_rotation.inverse());

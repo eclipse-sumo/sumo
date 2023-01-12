@@ -670,12 +670,12 @@ MSRailSignal::LinkInfo::getDriveWay(const SUMOVehicle* veh) {
             return dw;
         }
 #ifdef DEBUG_SELECT_DRIVEWAY
-        std::cout << SIMTIME << " rs=" << getID() << " veh=" << veh->getID() << " other dwSignal=" << dw.myFoundSignal << " dwRoute=" << toString(dw.myRoute) << " route=" << toString(veh->getRoute().getEdges()) << "\n"; 
+        std::cout << SIMTIME << " rs=" << getID() << " veh=" << veh->getID() << " other dwSignal=" << dw.myFoundSignal << " dwRoute=" << toString(dw.myRoute) << " route=" << toString(veh->getRoute().getEdges()) << "\n";
 #endif
     }
     DriveWay dw = buildDriveWay(firstIt, veh->getRoute().end());
 #ifdef DEBUG_SELECT_DRIVEWAY
-    std::cout << SIMTIME << " rs=" << getID() << " veh=" << veh->getID() << " new dwSignal=" << dw.myFoundSignal << " dwRoute=" << toString(dw.myRoute) << " route=" << toString(veh->getRoute().getEdges()) << "\n"; 
+    std::cout << SIMTIME << " rs=" << getID() << " veh=" << veh->getID() << " new dwSignal=" << dw.myFoundSignal << " dwRoute=" << toString(dw.myRoute) << " route=" << toString(veh->getRoute().getEdges()) << "\n";
 #endif
     myDriveways.push_back(dw);
     return myDriveways.back();
@@ -1342,8 +1342,8 @@ MSRailSignal::DriveWay::checkFlanks(const MSLink* originLink, const std::vector<
     std::cout << " checkFlanks lanes=" << toString(lanes) << "\n  visited=" << formatVisitedMap(visited) << " allFoes=" << allFoes << "\n";
 #endif
     const MSLink* reverseOriginLink = originLink->getLane()->getBidiLane() != nullptr && originLink->getLaneBefore()->getBidiLane() != nullptr
-        ? originLink->getLane()->getBidiLane()->getLinkTo(originLink->getLaneBefore()->getBidiLane())
-        : nullptr;
+                                      ? originLink->getLane()->getBidiLane()->getLinkTo(originLink->getLaneBefore()->getBidiLane())
+                                      : nullptr;
     //std::cout << "   originLink=" << originLink->getDescription() << "\n";
     if (reverseOriginLink != nullptr) {
         reverseOriginLink = reverseOriginLink->getCorrespondingExitLink();
