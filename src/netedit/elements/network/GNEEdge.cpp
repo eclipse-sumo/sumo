@@ -206,7 +206,13 @@ GNEEdge::getMoveOperation() {
         } else if (getToJunction()->isAttributeCarrierSelected()) {
             return processMoveToJunctionSelected(myNBEdge->getGeometry(), myNet->getViewNet()->getPositionInformation(), circleWidth);
         } else if (myNet->getViewNet()->getMoveMultipleElementValues().isMovingSelectedEdge()) {
-            return processNoneJunctionSelected(circleWidth);
+            if (myNet->getAttributeCarriers()->getNumberOfSelectedEdges() == 1) {
+                // special case: when only a single edge is selected, move all shape points (including custom end points)
+                return processMoveBothJunctionSelected();
+            } else {
+                // synchronized movement of a single point
+                return processNoneJunctionSelected(circleWidth);
+            }
         } else {
             // calculate move shape operation (because there are only an edge selected)
             return calculateMoveShapeOperation(myNBEdge->getGeometry(), myNet->getViewNet()->getPositionInformation(), circleWidth, false);
@@ -2885,12 +2891,11 @@ GNEEdge::processMoveToJunctionSelected(const PositionVector originalShape, const
 
 GNEMoveOperation*
 GNEEdge::processMoveBothJunctionSelected() {
-    // declare a vector for saving geometry points to move (all except extremes)
     std::vector<int> geometryPointsToMove;
-    for (int i = 1; i < (int)myNBEdge->getGeometry().size() - 1; i++) {
+    for (int i = 0; i < (int)myNBEdge->getGeometry().size(); i++) {
         geometryPointsToMove.push_back(i);
     }
-    // move entire shape (except extremes)
+    // move entire shape (including extremes)
     return new GNEMoveOperation(this, myNBEdge->getGeometry(), geometryPointsToMove, myNBEdge->getGeometry(), geometryPointsToMove);
 }
 
