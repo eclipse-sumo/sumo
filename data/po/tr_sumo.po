@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-04 13:42+0100\n"
-"PO-Revision-Date: 2023-01-11 08:34+0000\n"
+"PO-Revision-Date: 2023-01-12 08:40+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/tr/>\n"
@@ -59,20 +59,25 @@ msgstr "Herhangi Bir Girdi Belirtilmemiş."
 #: /home/behr_mi/sumo/src/od2trips_main.cpp:201
 msgid "No trip table output file (-o) or flow-output is specified."
 msgstr ""
+"Herhangi Bir Seyahat Tablosu Çıktı Dosyası (-o) ya da Akış-Çıktı Dosyası "
+"Belirtilmemiş."
 
 #: /home/behr_mi/sumo/src/od2trips_main.cpp:205
 msgid "Only one of the the options 'pedestrians' and 'persontrips' may be set."
 msgstr ""
+"'Yayalar' ve 'Yolcu Seyahatleri' Seçeneklerinden Sadece Birisi Ayarlanabilir."
 
 #: /home/behr_mi/sumo/src/od2trips_main.cpp:248
 msgid ""
 "Importer of O/D-matrices for the microscopic, multi-modal traffic simulation "
 "SUMO."
 msgstr ""
+"Mikroskopik, Çok Modlu Trafik Simülasyonu SUMO İçin B/V Matrisleri "
+"Yükleyicisi."
 
 #: /home/behr_mi/sumo/src/libsumo/Simulation.cpp:104
 msgid "Simulation version % started via libsumo with time: %."
-msgstr ""
+msgstr "Simülasyon Versiyonu % libsumo Kanalıyla % Sürede Başlatıldı."
 
 #: /home/behr_mi/sumo/src/libsumo/Helper.cpp:901
 #, c-format
@@ -80,101 +85,111 @@ msgid ""
 "Ignoring veh '%' no-opposite subscription filter for geographic range object "
 "collection. Consider using the 'lanes' filter."
 msgstr ""
+"Araç '%' Yok Sayılıyor. Coğrafi Aralık Nesne Koleksiyonu İçin Karşıt Olmayan "
+"Abonelik Filtresi. 'Şeritler' Filtresini Kullanmayı Dikkate Alın."
 
 #: /home/behr_mi/sumo/src/libsumo/Helper.cpp:1064
 msgid ""
 "Lanes filter is only feasible for context domain 'vehicle' (current is '%'), "
 "ignoring filter..."
 msgstr ""
+"Şerit Filtresi Yalnızca 'Araç' Bağlam Alanı İçin Uygundur (Geçerli Olan '%')"
+", Filtre Yok Sayılıyor..."
 
 #: /home/behr_mi/sumo/src/libsumo/Helper.cpp:1161
 msgid ""
 "Turn filter is only feasible for context domain 'vehicle' (current is '%'), "
 "ignoring filter..."
 msgstr ""
+"Dönüş Filtresi Yalnızca Bağlam Alanı 'Araç' (Geçerli Olan '%') İçin "
+"Uygundur, Filtre Yok Sayılıyor..."
 
 #: /home/behr_mi/sumo/src/libsumo/Helper.cpp:1226
 msgid ""
 "Field of vision opening angle ('%') should be within interval (0, 360), "
 "ignoring filter..."
 msgstr ""
+"Görüş Alanı Açılma Açısı ('%') (0, 360) Aralığında Olmalıdır, Filtre Yok "
+"Sayılıyor..."
 
 #: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:483
 msgid "getNextTLS not yet implemented for meso"
-msgstr ""
+msgstr "getNextTLS Bölgesel Ölçek İçin Henüz Uygulanmadı"
 
 #: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:525
 msgid "getStopState not yet implemented for meso"
-msgstr ""
+msgstr "getStopState Bölgesel Ölçek İçin Henüz Uygulanmadı"
 
 #: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:741
 msgid "getFollowSpeed not applicable for meso"
-msgstr ""
+msgstr "getFollowSpeed Bölgesel Ölçek İçin Uygulanabilir Değil"
 
 #: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:754
 msgid "getSecureGap not applicable for meso"
-msgstr ""
+msgstr "getSecureGap Bölgesel Ölçek İçin Uygulanabilir Değil"
 
 #: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:767
 msgid "getStopSpeed not applicable for meso"
-msgstr ""
+msgstr "getStopSpeed Bölgesel Ölçek İçin Uygulanabilir Değil"
 
 #: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1225
 msgid "rerouteParkingArea not yet implemented for meso"
-msgstr ""
+msgstr "rerouteParkingArea Bölgesel Ölçek İçin Henüz Uygulanmadı"
 
 #: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1240
 msgid "resume not yet implemented for meso"
-msgstr ""
+msgstr "resume Bölgesel Ölçek İçin Henüz Uygulanmadı"
 
 #: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1292
 msgid "changeLane not applicable for meso"
-msgstr ""
+msgstr "changeLane Bölgesel Ölçek İçin Uygulanabilir Değil"
 
 #: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1307
 msgid "changeLaneRelative not applicable for meso"
-msgstr ""
+msgstr "changeLaneRelative Bölgesel Ölçek İçin Uygulanabilir Değil"
 
 #: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1332
 msgid "changeSublane not applicable for meso"
-msgstr ""
+msgstr "changeSublane Bölgesel Ölçek İçin Uygulanabilir Değil"
 
 #: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1501
 msgid "moveToXY not yet implemented for meso"
-msgstr ""
+msgstr "moveToXY Bölgesel Ölçek İçin Henüz Uygulanmadı"
 
 #: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1620
 msgid "slowDown not applicable for meso"
-msgstr ""
+msgstr "slowDown Bölgesel Ölçek İçin Uygulanabilir Değil"
 
 #: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1635
 msgid "openGap not applicable for meso"
-msgstr ""
+msgstr "openGap Bölgesel Ölçek İçin Uygulanabilir Değil"
 
 #: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1648
 msgid ""
 "Ignoring openGap(). New time headway must not be smaller than the original."
 msgstr ""
+"openGap() Yok Sayılıyor. Yeni Zaman Boşluğu Orijinalinden Daha Küçük "
+"Olmamalıdır."
 
 #: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1659
 msgid "deactivateGapControl not applicable for meso"
-msgstr ""
+msgstr "deactivateGapControl Bölgesel Ölçek İçin Uygulanabilir Değil"
 
 #: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1678
 msgid "setSpeed not yet implemented for meso"
-msgstr ""
+msgstr "setSpeed Bölgesel Ölçek İçin Henüz Uygulanmadı"
 
 #: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1695
 msgid "setAcceleration not yet implemented for meso"
-msgstr ""
+msgstr "setAcceleration Bölgesel Ölçek İçin Henüz Uygulanmadı"
 
 #: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1711
 msgid "setPreviousSpeed not yet implemented for meso"
-msgstr ""
+msgstr "setPreviousSpeed Bölgesel Ölçek İçin Henüz Uygulanmadı"
 
 #: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1725
 msgid "setSpeedMode not yet implemented for meso"
-msgstr ""
+msgstr "setSpeedMode Bölgesel Ölçek İçin Henüz Uygulanmadı"
 
 #: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1737
 msgid "setLaneChangeMode not applicable for meso"
@@ -183,199 +198,213 @@ msgstr ""
 
 #: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1821
 msgid "updateBestLanes not applicable for meso"
-msgstr ""
+msgstr "updateBestLanes Bölgesel Ölçek İçin Uygulanabilir Değil"
 
 #: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1910
 msgid "setSignals not applicable for meso"
-msgstr ""
+msgstr "setSignals Bölgesel Ölçek İçin Uygulanabilir Değil"
 
 #: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:1929
 msgid "moveTo not yet implemented for meso"
-msgstr ""
+msgstr "moveTo Bölgesel Ölçek İçin Henüz Uygulanmadı"
 
 #: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:2007
 msgid ""
 "Invalid action step length (<0). Ignoring command setActionStepLength()."
 msgstr ""
+"Eylem Adım Uzunluğu Geçersiz (<0). setActionStepLength() Komutu Yok "
+"Sayılıyor."
 
 #: /home/behr_mi/sumo/src/libsumo/Vehicle.cpp:2013
 msgid "setActionStepLength not applicable for meso"
-msgstr ""
+msgstr "setActionStepLength Bölgesel Ölçek İçin Uygulanabilir Değil"
 
 #: /home/behr_mi/sumo/src/libsumo/GUI.cpp:304
 msgid ""
 "Libsumo on Windows does not work with GUI, falling back to plain libsumo."
 msgstr ""
+"Windows Üzerinde Libsumo GKA ile Çalışmaz, Yalın libsumo'ya Geri Dönülüyor."
 
 #: /home/behr_mi/sumo/src/libsumo/GUI.cpp:352
 msgid "libsumo.load is not implemented for the GUI."
-msgstr ""
+msgstr "libsumo.load GKA İçin Gerçeklenmemiş."
 
 #: /home/behr_mi/sumo/src/dfrouter/RODFNet.cpp:142
 msgid "Computed detector types:"
-msgstr ""
+msgstr "Hesaplanan Dedektör Tipleri:"
 
 #: /home/behr_mi/sumo/src/dfrouter/RODFNet.cpp:467
 msgid " Could not build list of previous flows."
-msgstr ""
+msgstr " Önceki Akışların Listesi Oluşturulamadı."
 
 #: /home/behr_mi/sumo/src/dfrouter/RODFNet.cpp:504
 msgid " Could not build list of latter flows."
-msgstr ""
+msgstr " Sonraki Akışların Listesi Oluşturulmadı."
 
 #: /home/behr_mi/sumo/src/dfrouter/RODFDetFlowLoader.cpp:76
 msgid "At least one value lies beyond given time boundaries."
-msgstr ""
+msgstr "En Az Bir Değer verilen Zaman Sınırlarının Ötesindedir."
 
 #: /home/behr_mi/sumo/src/dfrouter/RODFDetFlowLoader.cpp:104
 msgid "At least one line does not contain the correct number of columns."
-msgstr ""
+msgstr "En Az Bir Satır Doğru Sayıda Sütun İçermiyor."
 
 #: /home/behr_mi/sumo/src/dfrouter/dfrouter_main.cpp:251
 msgid "Builds vehicle routes for SUMO using detector values."
-msgstr ""
+msgstr "Dedektör Değerlerini Kullanarak SUMO İçin Araç Rotaları Oluşturur."
 
 #: /home/behr_mi/sumo/src/netbuild/NBHeightMapper.cpp:88
 msgid "Cannot supply height since no height data was loaded"
-msgstr ""
+msgstr "Yükseklik Verisi Yüklenmediğinden Yükseklik Sağlanamıyor"
 
 #: /home/behr_mi/sumo/src/netbuild/NBHeightMapper.cpp:136
 msgid "Could not get height data for coordinate %"
-msgstr ""
+msgstr "% Koordinatı İçin Yükseklik Verisi Alınamadı"
 
 #: /home/behr_mi/sumo/src/netbuild/NBHeightMapper.cpp:204
 msgid ""
 "Could not create geocoordinates converter; check whether proj.4 is installed."
 msgstr ""
+"geocoordinates Coğrafi Koordinat Dönüştürücü Oluşturulamadı; proj.4 Kurulu "
+"Olup Olmadığını Kontrol Edin."
 
 #: /home/behr_mi/sumo/src/netbuild/NBHeightMapper.cpp:231
 msgid "Ignored heightmap feature type %"
-msgstr ""
+msgstr "heightmap Özellik Tipi % Yok Sayılmış"
 
 #: /home/behr_mi/sumo/src/netbuild/NBHeightMapper.cpp:276
 msgid "Cannot load shape file since SUMO was compiled without GDAL support."
-msgstr ""
+msgstr "SUMO, GDAL Desteği Olmadan Derlendiğinden Şekil Dosyası Yüklenemiyor."
 
 #: /home/behr_mi/sumo/src/netbuild/NBHeightMapper.cpp:288
 msgid "Cannot load GeoTIFF file."
-msgstr ""
+msgstr "GeoTIFF Dosyası Yüklenemiyor."
 
 #: /home/behr_mi/sumo/src/netbuild/NBHeightMapper.cpp:348
 msgid "Cannot load GeoTIFF file since SUMO was compiled without GDAL support."
-msgstr ""
+msgstr "SUMO, GDAL Desteği Olmadan Derlendiğinden GeoTIFF Dosyası Yüklenemiyor."
 
 #: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:259
 msgid ""
 "Cannot prune edges using a geo-boundary because no projection has been loaded"
 msgstr ""
+"Herhangi Bir Projeksiyon Yüklenmediğinden geo-boundary Kullanılarak Kenarlar "
+"Kesilemez"
 
 #: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:858
 msgid "Moving opposite lane '%' from invalid lane '%' to lane index %."
-msgstr ""
+msgstr "Karşı Şerit '%' Geçersiz Şeritten '%' Şerit İndeksine % Taşınıyor."
 
 #: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:860
 msgid "Removing opposite lane '%' for invalid lane '%'."
-msgstr ""
+msgstr "Geçersiz Şerit '%' İçin Karşı Şerit '%' Kaldırılıyor."
 
 #: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:869
 msgid "Removing unknown opposite lane '%' for edge '%'."
-msgstr ""
+msgstr "'%' Kesimi İçin Bilinmeyen Karşı Şerit '%' Kaldırılıyor."
 
 #: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:874
 msgid "Adapting invalid opposite lane '%' for edge '%' to '%'."
-msgstr ""
+msgstr "Geçersiz Karşı Şerit '%' Kesimi '%' İçin Uyarlanıyor."
 
 #: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:880
 msgid "Adapting missing opposite lane '%' for edge '%'."
-msgstr ""
+msgstr "Eksik Karşı Şerit '%' Kesimi '%' İçin Uyarlanıyor."
 
 #: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:886
 msgid "Averaging edge lengths for lane '%' (length %) and edge '%' (length %)."
 msgstr ""
+"Şerit '%' (Uzunluk %) ve Kesim '%' (Uzunluk %) İçin Ortalama Kesim "
+"Uzunlukları."
 
 #: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:1399
 msgid "Replacing loaded roundabout '%' with '%'."
-msgstr ""
+msgstr "Yüklü Dönel Kavşak '%', '%' ile Değiştiriliyor."
 
 #: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:1717
 msgid "Edge '%' overlaps with edge '%' by %."
-msgstr ""
+msgstr "'%' Kesim, '%' Kesim ile % Oranında Örtüşüyor."
 
 #: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:1733
 #, c-format
 msgid "Edge '%' has a vertical jump of %m."
-msgstr ""
+msgstr "'%' Kesimi %m Dikey Sıçramaya Sahip."
 
 #: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:1735
 #, c-format
 msgid "Edge '%' has a grade of %%."
-msgstr ""
+msgstr "'%' Kesimi %% Eğime Sahip."
 
 #: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:1745
 #, c-format
 msgid "Connection '%' has a vertical jump of %m."
-msgstr ""
+msgstr "'%' Bağlantısı %m Dikey Sıçramaya Sahip."
 
 #: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:1747
 #, c-format
 msgid "Connection '%' has a grade of %%."
-msgstr ""
+msgstr "'%' Bağlantısı %% Eğime Sahip."
 
 #: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:1779
 msgid "Not joining tram edge '%' with % lanes."
-msgstr ""
+msgstr "Tram Kesimi '%' ile % Şeritleri Birleştirilmedi."
 
 #: /home/behr_mi/sumo/src/netbuild/NBEdgeCont.cpp:1853
 msgid "Ambiguous tram edges '%' and '%' for lane '%'."
-msgstr ""
+msgstr "'%' Şeridi İçin Belirsiz Tram '%' ve '%' Kesimleri."
 
 #: /home/behr_mi/sumo/src/netbuild/NBPTLine.cpp:197
 msgid "Could not retrieve edge '%' for first stop of line '%'."
-msgstr ""
+msgstr "'%' Hattının İlk Durağı İçin '%' Kesimi Alınamadı."
 
 #: /home/behr_mi/sumo/src/netbuild/NBPTLine.cpp:203
 msgid "First stop edge '%' is not part of the route of line '%'."
-msgstr ""
+msgstr "İlk Durak Kesimi '%', '%' Hattı Rotasının Bir Parçası Değil."
 
 #: /home/behr_mi/sumo/src/netbuild/NBPTLine.cpp:227
 msgid "Could not retrieve edge '%' for last stop of line '%'."
-msgstr ""
+msgstr "'%' Hattının Son Durağı İçin '%' Kesimi Alınamadı."
 
 #: /home/behr_mi/sumo/src/netbuild/NBPTLine.cpp:233
 msgid "Last stop edge '%' is not part of the route of line '%'."
-msgstr ""
+msgstr "Son Durak Kesimi '%', '%' Hattı Rotasının Bir Parçası Değil."
 
 #: /home/behr_mi/sumo/src/netbuild/NBPTLine.cpp:294
 msgid "Removed invalid stop '%' from line '%'."
-msgstr ""
+msgstr "Geçersiz '%' Durak '%' Hattından Kaldırıldı."
 
 #: /home/behr_mi/sumo/src/netbuild/NBPTLine.cpp:312
 msgid "Removed duplicate stop '%' at area '%' from line '%'."
-msgstr ""
+msgstr "'%' Alanındaki Yinelenen '%' Durak '%' Hattından kaldırıldı."
 
 #: /home/behr_mi/sumo/src/netbuild/NBPTLine.cpp:315
+#, fuzzy
 msgid "Removed duplicate stop '%' named '%' from line '%'."
-msgstr ""
+msgstr "'%' Hattından '%' Yinelenen Durak '%' Kaldırıldı."
 
 #: /home/behr_mi/sumo/src/netbuild/NBPTStopCont.cpp:110
 msgid ""
 "Could not find corresponding edge or compatible lane for pt stop '%' (%). "
 "Thus, it will be removed!"
 msgstr ""
+"TT Durağı '%' (%) İçin Karşılık Gelen Kesim veya Uyumlu Şerit Bulunamadı. Bu "
+"Sebeple Kaldırılacak!"
 
 #: /home/behr_mi/sumo/src/netbuild/NBPTStopCont.cpp:136
 msgid ""
 "Could not create reverse-direction stop for superposed edge '%' (origStop "
 "'%'). Stop id '%' already in use by stop on edge '%'."
 msgstr ""
+"Üst Üste Konumlandırılmış Kesim '%' İçin Ters Yön Durağı Oluşturulamadı ("
+"origStop '%'). Durak No '%', '%' Kesimindeki Durak Tarafından Kullanımda."
 
 #: /home/behr_mi/sumo/src/netbuild/NBPTStopCont.cpp:272
 msgid "Could not determine cross product for edge '%'."
-msgstr ""
+msgstr "Kesim '%' İçin Çapraz Çarpım Belirlenemedi."
 
 #: /home/behr_mi/sumo/src/netbuild/NBPTStopCont.cpp:326
 msgid "Removing pt stop '%' on non existing edge '%'."
-msgstr ""
+msgstr "Var olmayan Kesim '%' Üzerindeki TT Durağı '%' Kaldırılıyor."
 
 #: /home/behr_mi/sumo/src/netbuild/NBPTStopCont.cpp:357
 msgid "Could not re-assign pt stop '%' after replacing edge '%'."
