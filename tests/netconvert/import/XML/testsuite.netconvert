@@ -101,3 +101,6 @@ params
 
 # test special characters in edge ids
 special_chars
+
+# write plain output will all lane data
+plainLanes
