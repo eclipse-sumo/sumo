@@ -42,6 +42,7 @@
 #include <netedit/dialogs/GNEFixAdditionalElements.h>
 #include <netedit/dialogs/GNEFixDemandElements.h>
 #include <netedit/elements/GNEGeneralHandler.h>
+#include <netedit/elements/data/GNEDataHandler.h>
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
@@ -1303,38 +1304,45 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     // load additionals if was recomputed with volatile options
     if (volatileOptions && OptionsCont::getOptions().getString("additional-files").size() > 0) {
         // Create additional handler
-        GNEGeneralHandler generalHandler(this, OptionsCont::getOptions().getString("additional-files"), false, false);
+        GNEGeneralHandler generalHandler(this, OptionsCont::getOptions().getString("additional-files"), false, true);
         // Run parser
         if (!generalHandler.parse()) {
-            WRITE_MESSAGE("Loading of '" + OptionsCont::getOptions().getString("additional-files") + "' failed.");
+            WRITE_ERROR("Loading of '" + OptionsCont::getOptions().getString("additional-files") + "' failed.");
+        } else {
+            WRITE_MESSAGE("Loading of '" + OptionsCont::getOptions().getString("additional-files") + "' successfully.");
         }
     }
     // load demand elements if was recomputed with volatile options
     if (volatileOptions && OptionsCont::getOptions().getString("route-files").size() > 0) {
         // Create general handler
-        GNEGeneralHandler handler(this, OptionsCont::getOptions().getString("route-files"), false, false);
+        GNEGeneralHandler handler(this, OptionsCont::getOptions().getString("route-files"), false, true);
         // Run parser
         if (!handler.parse()) {
-            WRITE_MESSAGE("Loading of '" + OptionsCont::getOptions().getString("route-files") + "' failed.");
+            WRITE_ERROR("Loading of '" + OptionsCont::getOptions().getString("route-files") + "' failed.");
+        } else {
+            WRITE_MESSAGE("Loading of '" + OptionsCont::getOptions().getString("route-files") + "' successfully.");
         }
     }
-
     // load datas if was recomputed with volatile options
     if (volatileOptions && OptionsCont::getOptions().getString("data-files").size() > 0) {
         // Create data handler
-        GNEGeneralHandler generalHandler(this, OptionsCont::getOptions().getString("data-files"), false, false);
+        GNEDataHandler dataHandler(this, OptionsCont::getOptions().getString("data-files"), true);
         // Run parser
-        if (!generalHandler.parse()) {
-            WRITE_MESSAGE("Loading of '" + OptionsCont::getOptions().getString("data-files") + "' failed.");
+        if (!dataHandler.parse()) {
+            WRITE_ERROR("Loading of '" + OptionsCont::getOptions().getString("data-files") + "' failed.");
+        } else {
+            WRITE_MESSAGE("Loading of '" + OptionsCont::getOptions().getString("data-files") + "' successfully.");
         }
     }
     // load meanDatas if was recomputed with volatile options
     if (volatileOptions && OptionsCont::getOptions().getString("meandata-files").size() > 0) {
         // Create meanData handler
-        GNEGeneralHandler generalHandler(this, OptionsCont::getOptions().getString("meandata-files"), false, false);
+        GNEGeneralHandler generalHandler(this, OptionsCont::getOptions().getString("meandata-files"), false, true);
         // Run parser
         if (!generalHandler.parse()) {
-            WRITE_MESSAGE("Loading of '" + OptionsCont::getOptions().getString("meandata-files") + "' failed.");
+            WRITE_ERROR("Loading of '" + OptionsCont::getOptions().getString("meandata-files") + "' failed.");
+        } else {
+            WRITE_MESSAGE("Loading of '" + OptionsCont::getOptions().getString("meandata-files") + "' successfully.");
         }
     }
     // clear myEdgesAndNumberOfLanes after reload additionals
