@@ -195,6 +195,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, const std::string&
     OutputDevice& cdevice = OutputDevice::getDevice(prefix + ".con.xml");
     cdevice.writeXMLHeader("connections", "connections_file.xsd", attrs);
     const bool writeNames = oc.getBool("output.street-names");
+    const bool writeLanes = oc.getBool("plain-output.lanes");
     LaneSpreadFunction defaultSpread = SUMOXMLDefinitions::LaneSpreadFunctions.get(oc.getString("default.spreadtype"));
     for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
         // write the edge itself to the edges-files
@@ -251,31 +252,31 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, const std::string&
         if (e->getBidiEdge() != 0) {
             edevice.writeAttr(SUMO_ATTR_BIDI, e->getBidiEdge()->getID());
         }
-        if (e->needsLaneSpecificOutput()) {
+        if (e->needsLaneSpecificOutput() || writeLanes) {
             int idx = 0;
             for (const NBEdge::Lane& lane : e->getLanes()) {
                 edevice.openTag(SUMO_TAG_LANE);
                 edevice.writeAttr(SUMO_ATTR_INDEX, idx++);
                 // write allowed lanes
-                if (e->hasLaneSpecificPermissions()) {
+                if (e->hasLaneSpecificPermissions() || writeLanes) {
                     writePermissions(edevice, lane.permissions);
                 }
                 writePreferences(edevice, lane.preferred);
                 // write other attributes
-                if (lane.width != NBEdge::UNSPECIFIED_WIDTH && e->hasLaneSpecificWidth()) {
+                if (lane.width != NBEdge::UNSPECIFIED_WIDTH && (e->hasLaneSpecificWidth() || writeLanes)) {
                     edevice.writeAttr(SUMO_ATTR_WIDTH, lane.width);
                 }
-                if (lane.endOffset != NBEdge::UNSPECIFIED_OFFSET && e->hasLaneSpecificEndOffset()) {
+                if (lane.endOffset != NBEdge::UNSPECIFIED_OFFSET && (e->hasLaneSpecificEndOffset() || writeLanes)) {
                     edevice.writeAttr(SUMO_ATTR_ENDOFFSET, lane.endOffset);
                 }
-                if (e->hasLaneSpecificSpeed()) {
+                if (e->hasLaneSpecificSpeed() || writeLanes) {
                     edevice.writeAttr(SUMO_ATTR_SPEED, lane.speed);
                 }
                 if (lane.accelRamp) {
                     edevice.writeAttr(SUMO_ATTR_ACCELERATION, lane.accelRamp);
                 }
-                if (lane.customShape.size() > 0) {
-                    writeShape(edevice, gch, lane.customShape, SUMO_ATTR_SHAPE, useGeo, geoAccuracy);
+                if (lane.customShape.size() > 0 || writeLanes) {
+                    writeShape(edevice, gch, lane.customShape.size() > 0 ? lane.customShape : lane.shape, SUMO_ATTR_SHAPE, useGeo, geoAccuracy);
                 }
                 if (lane.type != "") {
                     edevice.writeAttr(SUMO_ATTR_TYPE, lane.type);
