@@ -100,6 +100,9 @@ class MFXMenuCheckIcon;
 /// @brief button used in GroupBoxModule
 #define GUIDesignButtonMFXGroupBoxModule        (FRAME_LINE | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, GUIDesignHeight - 1, GUIDesignHeight - 1, 2, 2, 2, 2
 
+/// @brief button used in GroupBoxModule for extend
+#define GUIDesignButtonMFXGroupBoxModuleExtend  (FRAME_LINE | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 60, GUIDesignHeight - 1, 2, 2, 2, 2
+
 /// @brief button rectangular with thick and raise frame with a width of 100
 #define GUIDesignButtonStatusBarFixed           (ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, GUIDesignHeight, 2, 2, 2, 2
 
