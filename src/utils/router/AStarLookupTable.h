@@ -125,11 +125,11 @@ public:
         }
         std::string line;
         int numLandMarks = 0;
+        bool haveData = false;
         while (std::getline(strm, line)) {
             if (line == "") {
                 break;
             }
-            //std::cout << "'" << line << "'" << "\n";
             StringTokenizer st(line);
             if (st.size() == 1) {
                 const std::string lm = st.get(0);
@@ -141,17 +141,20 @@ public:
                 const std::string lm = st.get(0);
                 const std::string edge = st.get(1);
                 if (numericID[edge] != (int)myFromLandmarkDists[myLandmarks[lm]].size()) {
-                    WRITE_WARNING("Unknown or unordered edge '" + edge + "' in landmark file.");
+                    throw ProcessError(TLF("Unknown or unordered edge '%' in landmark file.", edge));
                 }
                 const double distFrom = StringUtils::toDouble(st.get(2));
                 const double distTo = StringUtils::toDouble(st.get(3));
                 myFromLandmarkDists[myLandmarks[lm]].push_back(distFrom);
                 myToLandmarkDists[myLandmarks[lm]].push_back(distTo);
+                haveData = true;
             } else {
-                assert((int)st.size() == 2 * numLandMarks + 1);
                 const std::string edge = st.get(0);
+                if ((int)st.size() != 2 * numLandMarks + 1) {
+                    throw ProcessError(TLF("Broken landmark file, unexpected number of entries (%) for edge '%'.", st.size() - 1, edge));
+                }
                 if (numericID[edge] != (int)myFromLandmarkDists[0].size()) {
-                    WRITE_WARNING("Unknown or unordered edge '" + edge + "' in landmark file.");
+                    throw ProcessError(TLF("Unknown or unordered edge '%' in landmark file.", edge));
                 }
                 for (int i = 0; i < numLandMarks; i++) {
                     const double distFrom = StringUtils::toDouble(st.get(2 * i + 1));
@@ -159,16 +162,20 @@ public:
                     myFromLandmarkDists[i].push_back(distFrom);
                     myToLandmarkDists[i].push_back(distTo);
                 }
+                haveData = true;
             }
         }
         if (myLandmarks.empty()) {
-            WRITE_WARNING("No landmarks in '" + filename + "', falling back to standard A*.");
+            WRITE_WARNINGF("No landmarks in '%', falling back to standard A*.", filename);
             return;
         }
 #ifdef HAVE_FOX
         MFXWorkerThread::Pool threadPool;
         std::vector<RoutingTask*> currentTasks;
 #endif
+        if (!haveData) {
+            WRITE_MESSAGE(TL("Calculating new lookup table."));
+        }
         std::vector<const E*> landmarks;
         for (int i = 0; i < numLandMarks; ++i) {
             if ((int)myFromLandmarkDists[i].size() != (int)edges.size() - myFirstNonInternal) {
@@ -183,16 +190,13 @@ public:
                     }
                 }
                 if (landmark == nullptr) {
-                    WRITE_WARNING("Landmark edge '" + landmarkID + "' does not exist in the network.");
-                    continue;
+                    throw ProcessError(TLF("Landmark edge '%' does not exist in the network.", landmarkID));
                 }
-                if (!outfile.empty()) {
-                    WRITE_WARNING("Not all network edges were found in the lookup table '" + filename + "' for landmark edge '" + landmarkID + "'. Saving new matrix to '" + outfile + "'.");
-                } else {
+                if (haveData) {
                     if (myFromLandmarkDists[i].empty()) {
-                        WRITE_WARNING("No lookup table for landmark edge '" + landmarkID + "', recalculating.");
+                        WRITE_WARNINGF(TL("No lookup table for landmark edge '%', recalculating."), landmarkID);
                     } else {
-                        throw ProcessError("Not all network edges were found in the lookup table '" + filename + "' for landmark edge '" + landmarkID + "'.");
+                        throw ProcessError(TLF("Not all network edges were found in the lookup table '%' for landmark edge '%'.", filename, landmarkID));
                     }
                 }
 #ifdef HAVE_FOX
@@ -289,6 +293,7 @@ public:
                 delete ostrm;
                 throw ProcessError("Could not open file '" + outfile + "' for writing.");
             }
+            WRITE_MESSAGEF(TL("Saving new matrix to '%'."), outfile);
             for (int i = 0; i < numLandMarks; ++i) {
                 (*ostrm) << getLandmark(i) << "\n";
             }
