@@ -69,30 +69,6 @@ public:
     /// @brief enable save TLS Programs
     void enableSaveTLSProgramsMenu();
 
-    /// @brief enable save additionals
-    void enableSaveAdditionalsMenu();
-
-    /// @brief disable save additionals
-    void disableSaveAdditionalsMenu();
-
-    /// @brief enable save demand elements
-    void enableSaveDemandElementsMenu();
-
-    /// @brief disable save demand elements
-    void disableSaveDemandElementsMenu();
-
-    /// @brief enable save data elements
-    void enableSaveDataElementsMenu();
-
-    /// @brief disable save data elements
-    void disableSaveDataElementsMenu();
-
-    /// @brief enable save meanDatas
-    void enableSaveMeanDatasMenu();
-
-    /// @brief disable save meanDatas
-    void disableSaveMeanDatasMenu();
-
     /// @name Inter-thread event handling
     /// @{
     /// @brief called when an event occurred

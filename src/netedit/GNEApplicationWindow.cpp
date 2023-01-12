@@ -725,7 +725,6 @@ GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
             // add it into recent nets
             myMenuBarFile.myRecentNetworks.appendFile(file.c_str());
             // when a net is loaded, save additionals and TLSPrograms are disabled
-            disableSaveAdditionalsMenu();
             myFileMenuCommands.saveTLSPrograms->disable();
             myFileMenuCommands.saveEdgeTypes->disable();
         }
@@ -1152,8 +1151,6 @@ GNEApplicationWindow::onCmdReload(FXObject*, FXSelector, void*) {
         // check if current network can be closed
         if (continueWithUnsavedChanges("reload")) {
             closeAllWindows();
-            // disable save additionals and TLS menu
-            disableSaveAdditionalsMenu();
             myFileMenuCommands.saveTLSPrograms->disable();
             // disable toolbargrip modes
             myToolbarsGrip.menu->disable();
@@ -1183,8 +1180,6 @@ GNEApplicationWindow::onCmdClose(FXObject*, FXSelector, void*) {
         closeAllWindows();
         // add a separator to the log
         myMessageWindow->addSeparator();
-        // disable save additionals and TLS menu
-        disableSaveAdditionalsMenu();
         myFileMenuCommands.saveTLSPrograms->disable();
         // hide all Supermode, Network and demand commands
         mySupermodeCommands.hideSupermodeCommands();
@@ -1737,8 +1732,6 @@ GNEApplicationWindow::closeAllWindows() {
     GUITextureSubSys::resetTextures();
     // reset fonts
     GLHelper::resetFont();
-    // disable saving command
-    disableSaveAdditionalsMenu();
 }
 
 
@@ -1809,62 +1802,6 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
 void
 GNEApplicationWindow::enableSaveTLSProgramsMenu() {
     myFileMenuCommands.saveTLSPrograms->enable();
-}
-
-
-void
-GNEApplicationWindow::enableSaveAdditionalsMenu() {
-    myFileMenuCommands.saveAdditionals->enable();
-    myFileMenuCommands.saveAdditionalsAs->enable();
-}
-
-
-void
-GNEApplicationWindow::disableSaveAdditionalsMenu() {
-    myFileMenuCommands.saveAdditionals->disable();
-    myFileMenuCommands.saveAdditionalsAs->disable();
-}
-
-
-void
-GNEApplicationWindow::enableSaveDemandElementsMenu() {
-    myFileMenuCommands.saveDemandElements->disable();
-    myFileMenuCommands.saveDemandElementsAs->disable();
-}
-
-
-void
-GNEApplicationWindow::disableSaveDemandElementsMenu() {
-    myFileMenuCommands.saveDemandElements->disable();
-    myFileMenuCommands.saveDemandElementsAs->disable();
-}
-
-
-void
-GNEApplicationWindow::enableSaveDataElementsMenu() {
-    myFileMenuCommands.saveDataElements->disable();
-    myFileMenuCommands.saveDataElementsAs->disable();
-}
-
-
-void
-GNEApplicationWindow::disableSaveDataElementsMenu() {
-    myFileMenuCommands.saveDataElements->disable();
-    myFileMenuCommands.saveDataElementsAs->disable();
-}
-
-
-void
-GNEApplicationWindow::enableSaveMeanDatasMenu() {
-    myFileMenuCommands.saveMeanDatas->enable();
-    myFileMenuCommands.saveMeanDatasAs->enable();
-}
-
-
-void
-GNEApplicationWindow::disableSaveMeanDatasMenu() {
-    myFileMenuCommands.saveMeanDatas->disable();
-    myFileMenuCommands.saveMeanDatasAs->disable();
 }
 
 
