@@ -27,24 +27,23 @@ from glob import glob
 from argparse import ArgumentParser
 
 
-SUMO_HOME = os.environ.get("SUMO_HOME", os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+SUMO_HOME = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 SUMO_LIBRARIES = os.environ.get("SUMO_LIBRARIES", os.path.join(os.path.dirname(SUMO_HOME), "SUMOLibraries"))
 
 
 def get_args(args=None):
-    existing_langs = [os.path.basename(p)[:2] for p in glob(SUMO_HOME + "/data/po/*_sumo.po")]
     arg_parser = ArgumentParser()
-    arg_parser.add_argument("-l", "--lang", nargs='*', default=existing_langs,
-                            help="languages to process")
+    arg_parser.add_argument("-l", "--lang", nargs='*', help="languages to process")
     arg_parser.add_argument("-m", "--mo-only", action="store_true", default=False,
                             help="only generate mo files, do not update po and pot")
+    arg_parser.add_argument("--sumo-home", default=SUMO_HOME, help="SUMO root directory to use")
     return arg_parser.parse_args(args)
 
 
-def generate_po(path, languages, pot_file, gui_pot_file):
+def generate_po(sumo_home, path, languages, pot_file, gui_pot_file):
     pots = {pot_file: open(pot_file + ".txt", "w"), gui_pot_file: open(gui_pot_file + ".txt", "w")}
-    for f in glob(SUMO_HOME + "/src/*.cpp") + glob(SUMO_HOME + "/src/*/*.cpp") + glob(SUMO_HOME + "/src/*/*/*.cpp"):
-        if "gui" in f[len(SUMO_HOME):] or "netedit" in f[len(SUMO_HOME):]:
+    for f in glob(sumo_home + "/src/*.cpp") + glob(sumo_home + "/src/*/*.cpp") + glob(sumo_home + "/src/*/*/*.cpp"):
+        if "gui" in f[len(sumo_home):] or "netedit" in f[len(sumo_home):]:
             print(f, file=pots[gui_pot_file])
         else:
             print(f, file=pots[pot_file])
@@ -67,7 +66,7 @@ def generate_po(path, languages, pot_file, gui_pot_file):
         else:
             os.remove(pot + ".new")
         for lang in languages:
-            po_file = "%s/data/po/%s_%s" % (SUMO_HOME, lang, os.path.basename(pot)[:-1])
+            po_file = "%s/data/po/%s_%s" % (sumo_home, lang, os.path.basename(pot)[:-1])
             if os.path.exists(po_file):
                 subprocess.check_call([path + "msgmerge", po_file, pot, "--output-file=" + po_file])
             else:
@@ -82,16 +81,18 @@ def main(args=None):
         if paths:
             path = paths[0] + os.path.sep
     options = get_args(args)
-    pot_file = SUMO_HOME + "/data/po/sumo.pot"
-    gui_pot_file = SUMO_HOME + "/data/po/gui.pot"
+    if options.lang is None:
+        options.lang = [os.path.basename(p)[:2] for p in glob(options.sumo_home + "/data/po/*_sumo.po")]
+    pot_file = options.sumo_home + "/data/po/sumo.pot"
+    gui_pot_file = options.sumo_home + "/data/po/gui.pot"
     if not options.mo_only:
-        generate_po(path, options.lang, pot_file, gui_pot_file)
+        generate_po(options.sumo_home, path, options.lang, pot_file, gui_pot_file)
     for lang in options.lang:
-        po_files = ["%s/data/po/%s_%s" % (SUMO_HOME, lang, os.path.basename(pot)[:-1])
+        po_files = ["%s/data/po/%s_%s" % (options.sumo_home, lang, os.path.basename(pot)[:-1])
                     for pot in (pot_file, gui_pot_file)]
-        merged_po_file = "%s/data/po/%s.po" % (SUMO_HOME, lang)
+        merged_po_file = "%s/data/po/%s.po" % (options.sumo_home, lang)
         subprocess.check_call([path + "msgcat"] + po_files + ["--output-file=" + merged_po_file])
-        d = "%s/data/locale/%s/LC_MESSAGES" % (SUMO_HOME, lang)
+        d = "%s/data/locale/%s/LC_MESSAGES" % (options.sumo_home, lang)
         try:
             os.makedirs(d)
         except OSError:
