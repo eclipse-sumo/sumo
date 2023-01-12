@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-04 13:42+0100\n"
-"PO-Revision-Date: 2023-01-12 08:40+0000\n"
+"PO-Revision-Date: 2023-01-12 08:43+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/tr/>\n"
@@ -408,13 +408,15 @@ msgstr "Var olmayan Kesim '%' Üzerindeki TT Durağı '%' Kaldırılıyor."
 
 #: /home/behr_mi/sumo/src/netbuild/NBPTStopCont.cpp:357
 msgid "Could not re-assign pt stop '%' after replacing edge '%'."
-msgstr ""
+msgstr "'%' Kesimi Değiştirildikten Sonra TT Durağı '%' Yeniden Atanamadı."
 
 #: /home/behr_mi/sumo/src/netbuild/NBPTStopCont.cpp:446
 msgid ""
 "Could not find corresponding edge or compatible lane for free-floating pt "
 "stop '%' (%). Thus, it will be removed!"
 msgstr ""
+"Serbest TT Durağı '%' (%) İçin Karşılık Gelen Kesim veya Uyumlu Şerit "
+"Bulunamadı. Bu Sebeple Kaldırılacak!"
 
 #: /home/behr_mi/sumo/src/netbuild/NBNodeCont.cpp:319
 msgid "Removed a road without junctions: %."
