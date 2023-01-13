@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-29 08:31:03 by Eclipse SUMO netconvert Version v1_11_0+0165-4261a27
+<!-- generated on 2023-01-13 08:07:04 by Eclipse SUMO netconvert Version v1_15_0+1615-074980ce6e7
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -19,23 +24,13 @@ SPDX-License-Identifier: EPL-2.0
         <output.original-names value="true"/>
     </output>
 
-    <processing>
-        <geometry.max-grade.fix value="false"/>
-    </processing>
-
-    <tls_building>
-        <tls.left-green.time value="0"/>
-    </tls_building>
-
     <junctions>
-        <no-internal-links value="false"/>
-        <rectangular-lane-cut value="true"/>
+        <no-turnarounds value="true"/>
     </junctions>
 
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
@@ -67,13 +62,6 @@ SPDX-License-Identifier: EPL-2.0
     <type id="stop" priority="1" speed="13.89" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" width="3.65"/>
     <type id="tram" priority="2" speed="13.89" allow="tram" width="3.65"/>
 
-    <edge id=":1.begin_0" function="internal">
-        <lane id=":1.begin_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="3.53" length="4.38" width="3.00" shape="0.00,1.50 -1.12,0.75 -1.50,0.00 -1.12,-0.75 0.00,-1.50"/>
-    </edge>
-    <edge id=":1.end_0" function="internal">
-        <lane id=":1.end_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="3.53" length="4.38" width="3.00" shape="50.00,-1.50 51.12,-0.75 51.50,0.00 51.12,0.75 50.00,1.50"/>
-    </edge>
-
     <edge id="-1" from="1.begin" to="1.end" priority="1" type="driving">
         <lane id="-1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="50.00" width="3.00" shape="0.00,-1.50 50.00,-1.50" type="driving">
             <param key="origId" value="1_-1"/>
@@ -85,17 +73,7 @@ SPDX-License-Identifier: EPL-2.0
         </lane>
     </edge>
 
-    <junction id="1.begin" type="priority" x="0.00" y="0.00" incLanes="1_0" intLanes=":1.begin_0_0" shape="0.00,0.00 0.00,3.00 0.00,0.00">
-        <request index="0" response="0" foes="0" cont="0"/>
-    </junction>
-    <junction id="1.end" type="priority" x="50.00" y="0.00" incLanes="-1_0" intLanes=":1.end_0_0" shape="50.00,0.00 50.00,-3.00 50.00,0.00">
-        <request index="0" response="0" foes="0" cont="0"/>
-    </junction>
-
-    <connection from="-1" to="1" fromLane="0" toLane="0" via=":1.end_0_0" dir="t" state="M"/>
-    <connection from="1" to="-1" fromLane="0" toLane="0" via=":1.begin_0_0" dir="t" state="M"/>
-
-    <connection from=":1.begin_0" to="-1" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from=":1.end_0" to="1" fromLane="0" toLane="0" dir="t" state="M"/>
+    <junction id="1.begin" type="dead_end" x="0.00" y="0.00" incLanes="1_0" intLanes="" shape="0.00,0.00 0.00,3.00 0.00,0.00"/>
+    <junction id="1.end" type="dead_end" x="50.00" y="0.00" incLanes="-1_0" intLanes="" shape="50.00,0.00 50.00,-3.00 50.00,0.00"/>
 
 </net>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-08 16:43:23 by Eclipse SUMO netconvert Version v1_12_0+1230-1e9008d
+<!-- generated on 2023-01-13 08:07:04 by Eclipse SUMO netconvert Version v1_15_0+1615-074980ce6e7
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -23,34 +23,23 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <opendrive-output value="foreign.net"/>
     </output>
 
-    <processing>
-        <geometry.max-grade.fix value="false"/>
-    </processing>
-
-    <tls_building>
-        <tls.left-green.time value="0"/>
-    </tls_building>
-
     <junctions>
-        <no-internal-links value="false"/>
-        <rectangular-lane-cut value="true"/>
+        <no-turnarounds value="true"/>
     </junctions>
 
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Mar  8 16:43:23 2022" north="0.00" south="0.00" east="50.00" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Fri Jan 13 08:07:04 2023" north="0.00" south="0.00" east="50.00" west="0.00"/>
     <road name="a1" length="50.00000000" id="20" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
-            <successor elementType="junction" elementId="2"/>
         </link>
         <type s="0" type="town"/>
         <planView>
@@ -86,7 +75,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <road name="a1" length="50.00000000" id="21" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="2"/>
-            <successor elementType="junction" elementId="1"/>
         </link>
         <type s="0" type="town"/>
         <planView>
@@ -120,95 +108,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <signals/>
     </road>
 
-    <road name=":1.begin_0" length="8.85886644" id="22" junction="1">
-        <link>
-            <predecessor elementType="road" elementId="21" contactPoint="end"/>
-            <successor elementType="road" elementId="20" contactPoint="start"/>
-        </link>
-        <type s="0" type="town"/>
-        <planView>
-            <geometry s="0.00000000" x="0.00000000" y="3.00000000" hdg="-2.67794504" length="8.85886644">
-                <paramPoly3 aU="-0.00000000" bU="13.41640786" cU="-10.73312629" dU="0.00000000" aV="0.00000000" bV="-0.00000000" cV="5.36656315" dV="0.00000000" pRange="normalized"/>
-            </geometry>
-        </planView>
-        <elevationProfile>
-            <elevation s="0" a="0.00" b="0" c="0" d="0"/>
-        </elevationProfile>
-        <lateralProfile/>
-        <lanes>
-            <laneOffset s="0" a="3.00" b="0" c="0" d="0"/>
-            <laneSection s="0">
-                <center>
-                    <lane id="0" type="none" level="true">
-                        <link/>
-                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.00"/>
-                    </lane>
-                </center>
-                <right>
-                    <lane id="-1" type="driving" level="true">
-                        <link>
-                            <predecessor id="-1"/>
-                            <successor id="-1"/>
-                        </link>
-                        <width sOffset="0" a="3.00" b="0" c="0" d="0"/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
-                        <speed sOffset="0" max="3.53"/>
-                    </lane>
-                 </right>
-            </laneSection>
-        </lanes>
-        <objects/>
-        <signals/>
-    </road>
-    <road name=":1.end_0" length="8.85886644" id="23" junction="2">
-        <link>
-            <predecessor elementType="road" elementId="20" contactPoint="end"/>
-            <successor elementType="road" elementId="21" contactPoint="start"/>
-        </link>
-        <type s="0" type="town"/>
-        <planView>
-            <geometry s="0.00000000" x="50.00000000" y="-3.00000000" hdg="0.46364761" length="8.85886644">
-                <paramPoly3 aU="0.00000000" bU="13.41640786" cU="-10.73312629" dU="0.00000000" aV="0.00000000" bV="0.00000000" cV="5.36656315" dV="0.00000000" pRange="normalized"/>
-            </geometry>
-        </planView>
-        <elevationProfile>
-            <elevation s="0" a="0.00" b="0" c="0" d="0"/>
-        </elevationProfile>
-        <lateralProfile/>
-        <lanes>
-            <laneOffset s="0" a="3.00" b="0" c="0" d="0"/>
-            <laneSection s="0">
-                <center>
-                    <lane id="0" type="none" level="true">
-                        <link/>
-                        <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.00"/>
-                    </lane>
-                </center>
-                <right>
-                    <lane id="-1" type="driving" level="true">
-                        <link>
-                            <predecessor id="-1"/>
-                            <successor id="-1"/>
-                        </link>
-                        <width sOffset="0" a="3.00" b="0" c="0" d="0"/>
-                        <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
-                        <speed sOffset="0" max="3.53"/>
-                    </lane>
-                 </right>
-            </laneSection>
-        </lanes>
-        <objects/>
-        <signals/>
-    </road>
 
-    <junction name="1.begin" id="1">
-        <connection id="0" incomingRoad="21" connectingRoad="22" contactPoint="start">
-            <laneLink from="-1" to="-1"/>
-        </connection>
-    </junction>
-    <junction name="1.end" id="2">
-        <connection id="0" incomingRoad="20" connectingRoad="23" contactPoint="start">
-            <laneLink from="-1" to="-1"/>
-        </connection>
-    </junction>
 </OpenDRIVE>
