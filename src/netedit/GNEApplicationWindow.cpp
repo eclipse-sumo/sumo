@@ -4746,8 +4746,6 @@ GNEApplicationWindow::loadAdditionalElements() {
     if (myNet && (additionalFiles.size() > 0)) {
         // begin undolist
         myUndoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, "loading additionals and shapes from '" + toString(additionalFiles) + "'");
-        // flag for check if there is error creating elements
-        bool errorCreatingElement = false;
         // iterate over every additional file
         for (const auto& additionalFile : additionalFiles) {
             WRITE_MESSAGE("loading additionals and shapes from '" + additionalFile + "'");
@@ -4772,10 +4770,6 @@ GNEApplicationWindow::loadAdditionalElements() {
             }
             // disable validation for additionals
             XMLSubSys::setValidation("auto", "auto", "auto");
-            // enable demand elements if there is an error creating element
-            if (handler.isErrorCreatingElement()) {
-                errorCreatingElement = true;
-            }
         }
         // end undo list
         myUndoList->end();
