@@ -57,6 +57,15 @@ public:
     /// @brief load net on startup
     void loadOptionOnStartup();
 
+    /// @brief create new network
+    void createNewNetwork();
+
+    /// @brief load network (with information previously stored in options)
+    void loadNetwork(const bool isReload);
+
+    /// @brief starts to load a netconvert configuration
+    void loadNetconvertConfig();
+
     /// @brief build dependent
     void dependentBuild();
 
@@ -65,6 +74,9 @@ public:
 
     /// @brief called if the user selects Processing->compute junctions with volatile options
     long computeJunctionWithVolatileOptions();
+
+    /// @brief check if console options was already loaded
+    bool consoleOptionsLoaded();
 
     /// @name Inter-thread event handling
     /// @{
@@ -628,6 +640,9 @@ protected:
     /// @brief SUMO options container
     OptionsCont mySUMOOptions;
 
+    /// @brief flag for check if console options was already loaded
+    bool myConsoleOptionsLoaded = true;
+
 private:
     /// @brief Toolbars Grip
     GNEApplicationWindowHelper::ToolbarsGrip myToolbarsGrip;
@@ -674,17 +689,6 @@ private:
     /// @brief Builds the menu bar
     void fillMenuBar();
 
-public:
-    /// @brief create new network
-    void createNewNetwork();
-
-    /// @brief load network (with information previously stored in options)
-    void loadNetwork(const bool isReload);
-
-    /// @brief starts to load a netconvert configuration
-    void loadNetconvertConfig();
-
-private:
     /// @brief this method closes all windows and deletes the current simulation */
     void closeAllWindows();
 

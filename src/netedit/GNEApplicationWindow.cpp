@@ -638,53 +638,42 @@ GNEApplicationWindow::onCmdEditChosen(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdNewNetwork(FXObject*, FXSelector, void*) {
-    // first check that current edited Net can be closed (und therefore the undo-list cleared, see #5753)
-    if (myViewNet && !onCmdClose(0, 0, 0)) {
-        return 1;
-    } else {
-        // reset all netedit options
-        auto& neteditOptions = OptionsCont::getOptions();
-        GNELoadThread::fillOptions(neteditOptions);
-        GNELoadThread::setDefaultOptions(neteditOptions);
+    // check if close current simulation
+    if (onCmdClose(0, 0, 0) == 1) {
         // create new network
         createNewNetwork();
-        return 1;
     }
+    return 1;
 }
 
 
 long
 GNEApplicationWindow::onCmdOpenNetconvertConfig(FXObject*, FXSelector, void*) {
-    auto& neteditOptions = OptionsCont::getOptions();
-    // first check that current edited Net can be closed (und therefore the undo-list cleared, see #5753)
-    if (myViewNet && !onCmdClose(0, 0, 0)) {
-        return 1;
-    } else {
-        // get the new file name
-        FXFileDialog opendialog(this, TL("Open Netconvert Configuration"));
-        opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN));
-        opendialog.setSelectMode(SELECTFILE_EXISTING);
-        opendialog.setPatternList(myConfigPattern.c_str());
-        if (gCurrentFolder.length() != 0) {
-            opendialog.setDirectory(gCurrentFolder);
-        }
-        if (opendialog.execute()) {
-            gCurrentFolder = opendialog.getDirectory();
-            std::string file = opendialog.getFilename().text();
-            // reset files in options
-            myLoadThread->resetFileOptions();
-            // set file to load
-            neteditOptions.resetWritable();
-            neteditOptions.set("configuration-file", file);
-            // load netconvert
-            loadNetconvertConfig();
-            // add it into recent configs
-            myMenuBarFile.myRecentNetworks.appendFile(file.c_str());
-            // after load, mark network saved
-            myNet->getSavingStatus()->networkSaved();
-        }
-        return 1;
+    // get the new file name
+    FXFileDialog opendialog(this, TL("Open Netconvert Configuration"));
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN));
+    opendialog.setSelectMode(SELECTFILE_EXISTING);
+    opendialog.setPatternList(myConfigPattern.c_str());
+    if (gCurrentFolder.length() != 0) {
+        opendialog.setDirectory(gCurrentFolder);
     }
+    if (opendialog.execute() && !opendialog.getFilename().empty() && (onCmdClose(0, 0, 0) == 1)) {
+        auto& neteditOptions = OptionsCont::getOptions();
+        gCurrentFolder = opendialog.getDirectory();
+        std::string file = opendialog.getFilename().text();
+        // reset files in options
+        myLoadThread->resetFileOptions();
+        // set file to load
+        neteditOptions.resetWritable();
+        neteditOptions.set("configuration-file", file);
+        // load netconvert
+        loadNetconvertConfig();
+        // add it into recent configs
+        myMenuBarFile.myRecentNetworks.appendFile(file.c_str());
+        // after load, mark network saved
+        myNet->getSavingStatus()->networkSaved();
+    }
+    return 1;
 }
 
 
@@ -699,32 +688,20 @@ GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
-    if (opendialog.execute()) {
+    if (opendialog.execute() && !opendialog.getFilename().empty() && onCmdClose(0, 0, 0)) {
         // get file
         const std::string file = opendialog.getFilename().text();
-        // check if file isn't empty first
-        if (!file.empty()) {
-            // check if current edited Net can be closed (and therefore the undo-list cleared, see #5753)
-            if (myViewNet) {
-                // call close
-                onCmdClose(0, 0, 0);
-                // if after close there is myViewNet yet, abort
-                if (myViewNet) {
-                    return 0;
-                }
-            }
-            // set current folder
-            gCurrentFolder = opendialog.getDirectory();
-            // reset files in options
-            myLoadThread->resetFileOptions();
-            // set file to load
-            neteditOptions.resetWritable();
-            neteditOptions.set("net-file", file);
-            // load network
-            loadNetwork(false);
-            // add it into recent nets
-            myMenuBarFile.myRecentNetworks.appendFile(file.c_str());
-        }
+        // set current folder
+        gCurrentFolder = opendialog.getDirectory();
+        // reset files in options
+        myLoadThread->resetFileOptions();
+        // set file to load
+        neteditOptions.resetWritable();
+        neteditOptions.set("net-file", file);
+        // load network
+        loadNetwork(false);
+        // add it into recent nets
+        myMenuBarFile.myRecentNetworks.appendFile(file.c_str());
     }
     return 0;
 }
@@ -732,50 +709,44 @@ GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenForeign(FXObject*, FXSelector, void*) {
-    // first check that current edited Net can be closed (und therefore the undo-list cleared, see #5753)
-    if (myViewNet && !onCmdClose(0, 0, 0)) {
-        return 1;
-    } else {
-        // get the new file name
-        FXFileDialog opendialog(this, TL("Import Foreign Network"));
-        opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_NET));
-        opendialog.setSelectMode(SELECTFILE_EXISTING);
-        FXString osmPattern("OSM net (*.osm.xml,*.osm)");
-        opendialog.setPatternText(0, osmPattern);
-        if (gCurrentFolder.length() != 0) {
-            opendialog.setDirectory(gCurrentFolder);
-        }
-        if (opendialog.execute()) {
-            gCurrentFolder = opendialog.getDirectory();
-            std::string file = opendialog.getFilename().text();
-
-            auto& neteditOptions = OptionsCont::getOptions();
-            GNELoadThread::fillOptions(neteditOptions);
-            if (osmPattern.contains(opendialog.getPattern())) {
-                // recommended osm options
-                // https://sumo.dlr.de/wiki/Networks/Import/OpenStreetMap#Recommended_NETCONVERT_Options
-                neteditOptions.set("osm-files", file);
-                neteditOptions.set("geometry.remove", "true");
-                neteditOptions.set("ramps.guess", "true");
-                neteditOptions.set("junctions.join", "true");
-                neteditOptions.set("tls.guess-signals", "true");
-                neteditOptions.set("tls.discard-simple", "true");
-            } else {
-                throw ProcessError("Attempted to import unknown file format '" + file + "'.");
-            }
-
-            GUIDialog_Options* wizard =
-                new GUIDialog_Options(this, OptionsCont::getOptions(), TL("Select Import Options"), getWidth(), getHeight());
-
-            if (wizard->execute()) {
-                NIFrame::checkOptions(); // needed to set projection parameters
-                loadNetconvertConfig();
-            }
-            // after load, mark network saved
-            myNet->getSavingStatus()->networkSaved();
-        }
-        return 1;
+    // get the new file name
+    FXFileDialog opendialog(this, TL("Import Foreign Network"));
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_NET));
+    opendialog.setSelectMode(SELECTFILE_EXISTING);
+    FXString osmPattern("OSM net (*.osm.xml,*.osm)");
+    opendialog.setPatternText(0, osmPattern);
+    if (gCurrentFolder.length() != 0) {
+        opendialog.setDirectory(gCurrentFolder);
     }
+    if (opendialog.execute() && !opendialog.getFilename().empty() && onCmdClose(0, 0, 0)) {
+        gCurrentFolder = opendialog.getDirectory();
+        std::string file = opendialog.getFilename().text();
+        auto& neteditOptions = OptionsCont::getOptions();
+        GNELoadThread::fillOptions(neteditOptions);
+        if (osmPattern.contains(opendialog.getPattern())) {
+            // recommended osm options
+            // https://sumo.dlr.de/wiki/Networks/Import/OpenStreetMap#Recommended_NETCONVERT_Options
+            neteditOptions.set("osm-files", file);
+            neteditOptions.set("geometry.remove", "true");
+            neteditOptions.set("ramps.guess", "true");
+            neteditOptions.set("junctions.join", "true");
+            neteditOptions.set("tls.guess-signals", "true");
+            neteditOptions.set("tls.discard-simple", "true");
+        } else {
+            throw ProcessError("Attempted to import unknown file format '" + file + "'.");
+        }
+
+        GUIDialog_Options* wizard =
+            new GUIDialog_Options(this, OptionsCont::getOptions(), TL("Select Import Options"), getWidth(), getHeight());
+
+        if (wizard->execute()) {
+            NIFrame::checkOptions(); // needed to set projection parameters
+            loadNetconvertConfig();
+        }
+        // after load, mark network saved
+        myNet->getSavingStatus()->networkSaved();
+    }
+    return 1;
 }
 
 
@@ -1111,12 +1082,10 @@ GNEApplicationWindow::onUpdReloadEdgeTypes(FXObject* sender, FXSelector, void*) 
 long
 GNEApplicationWindow::onCmdOpenRecent(FXObject*, FXSelector, void* fileData) {
     // first check that current edited Net can be closed (und therefore the undo-list cleared, see #5753)
-    if (myViewNet && !onCmdClose(0, 0, 0)) {
-        return 1;
-    } else if (myAmLoading) {
+    if (myAmLoading) {
         myStatusbar->getStatusLine()->setText(TL("Already loading!"));
         return 1;
-    } else {
+    } else if (onCmdClose(0, 0, 0) == 1) {
         auto& neteditOptions = OptionsCont::getOptions();
         // reset files in options
         myLoadThread->resetFileOptions();
@@ -1172,7 +1141,9 @@ GNEApplicationWindow::onCmdReload(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdClose(FXObject*, FXSelector, void*) {
-    if (continueWithUnsavedChanges("close")) {
+    if (myViewNet == nullptr) {
+        return 1;
+    } else if (continueWithUnsavedChanges("close")) {
         closeAllWindows();
         // add a separator to the log
         myMessageWindow->addSeparator();
@@ -1185,8 +1156,10 @@ GNEApplicationWindow::onCmdClose(FXObject*, FXSelector, void*) {
         myEditMenuCommands.networkViewOptions.hideNetworkViewOptionsMenuChecks();
         myEditMenuCommands.demandViewOptions.hideDemandViewOptionsMenuChecks();
         myEditMenuCommands.dataViewOptions.hideDataViewOptionsMenuChecks();
+        return 1;
+    } else {
+        return 0;
     }
-    return 1;
 }
 
 
@@ -1552,75 +1525,6 @@ GNEApplicationWindow::fillMenuBar() {
 }
 
 
-void
-GNEApplicationWindow::createNewNetwork() {
-    // save windows size and position
-    storeWindowSizeAndPos();
-    // begin wait cursor
-    getApp()->beginWaitCursor();
-    // enable loading flag and disable reloading flag
-    myAmLoading = true;
-    myReloading = false;
-    // close all windows
-    closeAllWindows();
-    // recenter view
-    gSchemeStorage.saveViewport(0, 0, -1, 0);
-    // create new network
-    myLoadThread->createNewNetwork();
-    // update status bar
-    setStatusBarText("Creating new network.");
-    // show supermode commands menu
-    mySupermodeCommands.showSupermodeCommands();
-    // show Network command menus (because Network is the default supermode)
-    myModesMenuCommands.networkMenuCommands.showNetworkMenuCommands();
-    // update window
-    update();
-}
-
-
-void
-GNEApplicationWindow::loadNetwork(const bool isReloading) {
-    storeWindowSizeAndPos();
-    getApp()->beginWaitCursor();
-    myAmLoading = true;
-    myReloading = isReloading;
-    closeAllWindows();
-    if (isReloading) {
-        myLoadThread->start();
-        setStatusBarText("Reloading network.");
-    } else {
-        gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
-        myLoadThread->loadNetwork();
-        setStatusBarText("Loading network file '" + OptionsCont::getOptions().getString("net-file") + "'.");
-    }
-    // show supermode commands menu
-    mySupermodeCommands.showSupermodeCommands();
-    // show Network command menus (because Network is the default supermode)
-    myModesMenuCommands.networkMenuCommands.showNetworkMenuCommands();
-    // update window
-    update();
-}
-
-
-void
-GNEApplicationWindow::loadNetconvertConfig() {
-    storeWindowSizeAndPos();
-    getApp()->beginWaitCursor();
-    myAmLoading = true;
-    myReloading = false;
-    closeAllWindows();
-    gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
-    setStatusBarText("Loading netconvert config '" + OptionsCont::getOptions().getString("configuration-file") + "'.");
-    myLoadThread->loadConfig();
-    // show supermode commands menu
-    mySupermodeCommands.showSupermodeCommands();
-    // show Network command menus (because Network is the default supermode)
-    myModesMenuCommands.networkMenuCommands.showNetworkMenuCommands();
-    // update window
-    update();
-}
-
-
 FXGLCanvas*
 GNEApplicationWindow::getBuildGLCanvas() const {
     // NETEDIT uses only a single View, then return nullptr
@@ -1751,6 +1655,75 @@ GNEApplicationWindow::loadOptionOnStartup() {
 
 
 void
+GNEApplicationWindow::createNewNetwork() {
+    // save windows size and position
+    storeWindowSizeAndPos();
+    // begin wait cursor
+    getApp()->beginWaitCursor();
+    // enable loading flag and disable reloading flag
+    myAmLoading = true;
+    myReloading = false;
+    // close all windows
+    closeAllWindows();
+    // recenter view
+    gSchemeStorage.saveViewport(0, 0, -1, 0);
+    // create new network
+    myLoadThread->createNewNetwork();
+    // update status bar
+    setStatusBarText("Creating new network.");
+    // show supermode commands menu
+    mySupermodeCommands.showSupermodeCommands();
+    // show Network command menus (because Network is the default supermode)
+    myModesMenuCommands.networkMenuCommands.showNetworkMenuCommands();
+    // update window
+    update();
+}
+
+
+void
+GNEApplicationWindow::loadNetwork(const bool isReloading) {
+    storeWindowSizeAndPos();
+    getApp()->beginWaitCursor();
+    myAmLoading = true;
+    myReloading = isReloading;
+    closeAllWindows();
+    if (isReloading) {
+        myLoadThread->start();
+        setStatusBarText("Reloading network.");
+    } else {
+        gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
+        myLoadThread->loadNetwork();
+        setStatusBarText("Loading network file '" + OptionsCont::getOptions().getString("net-file") + "'.");
+    }
+    // show supermode commands menu
+    mySupermodeCommands.showSupermodeCommands();
+    // show Network command menus (because Network is the default supermode)
+    myModesMenuCommands.networkMenuCommands.showNetworkMenuCommands();
+    // update window
+    update();
+}
+
+
+void
+GNEApplicationWindow::loadNetconvertConfig() {
+    storeWindowSizeAndPos();
+    getApp()->beginWaitCursor();
+    myAmLoading = true;
+    myReloading = false;
+    closeAllWindows();
+    gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
+    setStatusBarText("Loading netconvert config '" + OptionsCont::getOptions().getString("configuration-file") + "'.");
+    myLoadThread->loadConfig();
+    // show supermode commands menu
+    mySupermodeCommands.showSupermodeCommands();
+    // show Network command menus (because Network is the default supermode)
+    myModesMenuCommands.networkMenuCommands.showNetworkMenuCommands();
+    // update window
+    update();
+}
+
+
+void
 GNEApplicationWindow::setStatusBarText(const std::string& statusBarText) {
     myStatusbar->getStatusLine()->setText(statusBarText.c_str());
     myStatusbar->getStatusLine()->setNormalText(statusBarText.c_str());
@@ -1790,6 +1763,16 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
         myNet->computeNetwork(this, true, true);
         updateControls();
         return 1;
+    }
+}
+
+bool
+GNEApplicationWindow::consoleOptionsLoaded() {
+    if (myConsoleOptionsLoaded) {
+        myConsoleOptionsLoaded = false;
+        return true;
+    } else {
+        return false;
     }
 }
 
