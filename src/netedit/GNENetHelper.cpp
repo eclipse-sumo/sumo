@@ -2515,6 +2515,42 @@ GNENetHelper::SavingStatus::isNetworkSaved() const {
 
 
 void
+GNENetHelper::SavingStatus::requireSaveTLS() {
+    myTLSSaved = false;
+}
+
+
+void
+GNENetHelper::SavingStatus::TLSSaved() {
+    myTLSSaved = true;
+}
+
+
+bool
+GNENetHelper::SavingStatus::isTLSSaved() const {
+    return myTLSSaved;
+}
+
+
+void
+GNENetHelper::SavingStatus::requireSaveEdgeType() {
+    myEdgeTypeSaved = false;
+}
+
+
+void
+GNENetHelper::SavingStatus::edgeTypeSaved() {
+    myEdgeTypeSaved = true;
+}
+
+
+bool
+GNENetHelper::SavingStatus::isEdgeTypeSaved() const {
+    return myEdgeTypeSaved;
+}
+
+
+void
 GNENetHelper::SavingStatus::requireSaveAdditionals() {
     myAdditionalSaved = false;
 }

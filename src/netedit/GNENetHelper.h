@@ -761,6 +761,9 @@ struct GNENetHelper {
         /// @brief constructor
         SavingStatus();
 
+        /// @name network
+        /// @{
+
         /// @brief inform that network has to be saved
         void requireSaveNetwork();
 
@@ -769,6 +772,39 @@ struct GNENetHelper {
 
         /// @brief check if network are saved
         bool isNetworkSaved() const;
+
+        /// @}
+
+        /// @name TLS
+        /// @{
+
+        /// @brief inform that TLS has to be saved
+        void requireSaveTLS();
+
+        /// @brief mark TLS as saved
+        void TLSSaved();
+
+        /// @brief check if TLS are saved
+        bool isTLSSaved() const;
+
+        /// @}
+
+        /// @name edge types
+        /// @{
+
+        /// @brief inform that edgeType has to be saved
+        void requireSaveEdgeType();
+
+        /// @brief mark edgeType as saved
+        void edgeTypeSaved();
+
+        /// @brief check if edgeType are saved
+        bool isEdgeTypeSaved() const;
+
+        /// @}
+
+        /// @name additionals
+        /// @{
 
         /// @brief inform that additionals has to be saved
         void requireSaveAdditionals();
@@ -779,6 +815,11 @@ struct GNENetHelper {
         /// @brief check if additionals are saved
         bool isAdditionalsSaved() const;
 
+        /// @}
+
+        /// @name demand elements
+        /// @{
+
         /// @brief inform that demand elements has to be saved
         void requireSaveDemandElements();
 
@@ -787,6 +828,11 @@ struct GNENetHelper {
 
         /// @brief check if demand elements are saved
         bool isDemandElementsSaved() const;
+
+        /// @}
+
+        /// @name data elements
+        /// @{
 
         /// @brief inform that data elements has to be saved
         void requireSaveDataElements();
@@ -797,6 +843,11 @@ struct GNENetHelper {
         /// @brief check if data elements are saved
         bool isDataElementsSaved() const;
 
+        /// @}
+
+        /// @name mean datas
+        /// @{
+
         /// @brief inform that mean data elements has to be saved
         void requireSaveMeanDatas();
 
@@ -806,9 +857,17 @@ struct GNENetHelper {
         /// @brief check if mean data elements are saved
         bool isMeanDatasSaved() const;
 
+        /// @}
+
     private:
         /// @brief flag for network elements saved
         bool myNetworkSaved = true;
+
+        /// @brief flag for TLS saved
+        bool myTLSSaved = true;
+
+        /// @brief flag for edgeType saved
+        bool myEdgeTypeSaved = true;
 
         /// @brief flag for additional elements saved
         bool myAdditionalSaved = true;
