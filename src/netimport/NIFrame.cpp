@@ -437,9 +437,9 @@ NIFrame::checkOptions() {
             // a better interpretation of imported geometries
             oc.setDefault("geometry.max-grade.fix", "false");
         }
-        if (oc.isDefault("no-turnarounds")) {
+        if (oc.isDefault("no-turnarounds") && oc.isDefault("no-turnarounds.except-deadend")) {
             // changed default since all connections (connecting roads) are loaded from the input.
-            oc.set("no-turnarounds", "true");
+            oc.set("no-turnarounds.except-deadend", "true");
         }
     }
     if (!oc.isDefault("osm.extra-attributes") && oc.isDefault("osm.all-attributes")) {
