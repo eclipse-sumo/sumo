@@ -2551,26 +2551,10 @@ long
 GNEApplicationWindow::onUpdNeedsNetwork(FXObject* sender, FXSelector, void*) {
     // check if net exist
     if (myNet) {
-        // enable menu cascades
-        myFileMenuCommands.SUMOConfigMenuCascade->enable();
-        myFileMenuCommands.NETEDITConfigMenuCascade->enable();
-        myFileMenuCommands.TLSMenuCascade->enable();
-        myFileMenuCommands.edgeTypesMenuCascade->enable();
-        myFileMenuCommands.additionalMenuCascade->enable();
-        myFileMenuCommands.demandMenuCascade->enable();
-        myFileMenuCommands.dataMenuCascade->enable();
-        myFileMenuCommands.meanDataMenuCascade->enable();
+        myFileMenuCommands.enableMenuCascades();
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else {
-        // disable menu cascades
-        myFileMenuCommands.SUMOConfigMenuCascade->disable();
-        myFileMenuCommands.NETEDITConfigMenuCascade->disable();
-        myFileMenuCommands.TLSMenuCascade->disable();
-        myFileMenuCommands.edgeTypesMenuCascade->disable();
-        myFileMenuCommands.additionalMenuCascade->disable();
-        myFileMenuCommands.demandMenuCascade->disable();
-        myFileMenuCommands.dataMenuCascade->disable();
-        myFileMenuCommands.meanDataMenuCascade->disable();
+        myFileMenuCommands.disableMenuCascades();
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     }
 }
