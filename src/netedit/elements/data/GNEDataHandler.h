@@ -36,8 +36,13 @@ class GNENet;
 class GNEDataHandler : public DataHandler {
 
 public:
-    /// @brief Constructor
-    GNEDataHandler(GNENet* net, const std::string& file, const bool allowUndoRedo);
+    /**@brief Constructor
+     * @param[in] net GNENet
+     * @param[in] file Name of the parsed file
+     * @param[in] allowUndoRedo enable or disable undoRedo
+     * @param[in] overwrite enable or disable overwrite elements
+     */
+    GNEDataHandler(GNENet* net, const std::string& file, const bool allowUndoRedo, const bool overwrite);
 
     /// @brief Destructor
     ~GNEDataHandler();
@@ -91,6 +96,9 @@ protected:
 
     /// @brief allow undo/redo
     const bool myAllowUndoRedo;
+
+    /// @brief check if overwrite
+    const bool myOverwrite;
 
     /// @brief write error "duplicated additional"
     void writeErrorDuplicated(const SumoXMLTag tag, const std::string& id);

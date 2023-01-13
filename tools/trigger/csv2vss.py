@@ -62,7 +62,7 @@ def main():
     # maybe we should sort the timeline here
     with open(options.outfile, 'w') as outf:
         outf.write("<additional>\n")
-        for det, times in timeline.iteritems():
+        for det, times in timeline.items():
             if detectors:
                 if det in detectors:
                     outf.write(

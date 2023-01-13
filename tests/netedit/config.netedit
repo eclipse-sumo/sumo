@@ -3,7 +3,6 @@ binary:test.py
 use_case_record_mode:GUI
 virtual_display_wm_executable:fluxbox
 virtual_display_extra_args:-dpi 100 -shmem
-historical_report_split_version:false
 
 copy_test_path:test.py
 copy_test_path:netedit.neteditcfg

@@ -271,6 +271,27 @@ PositionVector::positionAtOffset(double pos, double lateralOffset) const {
 
 
 Position
+PositionVector::sidePositionAtAngle(double pos, double lateralOffset, double angle) const {
+    if (size() == 0) {
+        return Position::INVALID;
+    }
+    if (size() == 1) {
+        return front();
+    }
+    const_iterator i = begin();
+    double seenLength = 0;
+    do {
+        const double nextLength = (*i).distanceTo(*(i + 1));
+        if (seenLength + nextLength > pos) {
+            return sidePositionAtAngle(*i, *(i + 1), pos - seenLength, lateralOffset, angle);
+        }
+        seenLength += nextLength;
+    } while (++i != end() - 1);
+    return sidePositionAtAngle(*(end() - 2), *(end() - 1), (*(end() - 2)).distanceTo(*(end() - 1)), lateralOffset, angle);
+}
+
+
+Position
 PositionVector::positionAtOffset2D(double pos, double lateralOffset) const {
     if (size() == 0) {
         return Position::INVALID;
@@ -364,6 +385,18 @@ PositionVector::positionAtOffset(const Position& p1, const Position& p2, double 
         return p1;
     }
     return p1 + (p2 - p1) * (pos / dist);
+}
+
+
+Position
+PositionVector::sidePositionAtAngle(const Position& p1, const Position& p2, double pos, double lateralOffset, double angle) {
+    const double dist = p1.distanceTo(p2);
+    if (pos < 0. || dist < pos || dist == 0) {
+        return Position::INVALID;
+    }
+    angle -= DEG2RAD(90);
+    const Position offset(cos(angle) * lateralOffset, sin(angle) * lateralOffset);
+    return p1 + (p2 - p1) * (pos / dist) + offset;
 }
 
 

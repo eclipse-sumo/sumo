@@ -105,7 +105,7 @@ GNEMeanDataFrame::MeanDataTypeSelector::refreshMeanDataTypeSelector() {
     if (myCurrentMeanData.getTagStr() != myInvalidMeanData.getTagStr()) {
         for (int i = 0; i < (int)myTypeComboBox->getNumItems(); i++) {
             if (myTypeComboBox->getItem(i).text() == myCurrentMeanData.getTagStr()) {
-                myTypeComboBox->setCurrentItem(i);            
+                myTypeComboBox->setCurrentItem(i);
             }
         }
     } else {
@@ -162,13 +162,13 @@ GNEMeanDataFrame::MeanDataEditor::MeanDataEditor(GNEMeanDataFrame* meanDataFrame
     myMeanDataFrameParent(meanDataFrameParent) {
     // Create new meanData
     myCreateMeanDataButton = new FXButton(getCollapsableFrame(), TL("Create MeanData"),
-        GUIIconSubSys::getIcon(GUIIcon::MODEMEANDATA), this, MID_GNE_CREATE, GUIDesignButton);
+                                          GUIIconSubSys::getIcon(GUIIcon::MODEMEANDATA), this, MID_GNE_CREATE, GUIDesignButton);
     // Create delete/reset meanData
     myDeleteMeanDataButton = new FXButton(getCollapsableFrame(), TL("Delete MeanData"),
-        GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), this, MID_GNE_DELETE, GUIDesignButton);
+                                          GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), this, MID_GNE_DELETE, GUIDesignButton);
     // Create copy meanData
     myCopyMeanDataButton = new FXButton(getCollapsableFrame(), TL("Copy MeanData"),
-        GUIIconSubSys::getIcon(GUIIcon::COPY), this, MID_GNE_COPY, GUIDesignButton);
+                                        GUIIconSubSys::getIcon(GUIIcon::COPY), this, MID_GNE_COPY, GUIDesignButton);
 }
 
 
@@ -212,8 +212,8 @@ GNEMeanDataFrame::MeanDataEditor::onCmdCreateMeanData(FXObject*, FXSelector, voi
     // obtain a new valid MeanData ID
     const std::string typeID = myMeanDataFrameParent->myViewNet->getNet()->getAttributeCarriers()->generateMeanDataID(meanDataTag);
     // create new meanData
-    GNEMeanData* meanData = new GNEMeanData(myMeanDataFrameParent->myViewNet->getNet(), 
-        myMeanDataFrameParent->myMeanDataTypeSelector->getCurrentMeanData().getTag(), typeID);
+    GNEMeanData* meanData = new GNEMeanData(myMeanDataFrameParent->myViewNet->getNet(),
+                                            myMeanDataFrameParent->myMeanDataTypeSelector->getCurrentMeanData().getTag(), typeID);
     // add it using undoList (to allow undo-redo)
     myMeanDataFrameParent->myViewNet->getUndoList()->begin(GUIIcon::VTYPE, "create meanData");
     myMeanDataFrameParent->myViewNet->getUndoList()->add(new GNEChange_MeanData(meanData, true), true);
@@ -251,7 +251,7 @@ GNEMeanDataFrame::MeanDataEditor::onCmdCopyMeanData(FXObject*, FXSelector, void*
     if (meanData) {
         // create a new MeanData based on the current selected meanData
         GNEMeanData* typeCopy = new GNEMeanData(myMeanDataFrameParent->myViewNet->getNet(),
-            myMeanDataFrameParent->myMeanDataTypeSelector->getCurrentMeanData().getTag(), typeID);
+                                                myMeanDataFrameParent->myMeanDataTypeSelector->getCurrentMeanData().getTag(), typeID);
         // begin undo list operation
         myMeanDataFrameParent->myViewNet->getUndoList()->begin(GUIIcon::VTYPE, "copy meanData");
         // add it using undoList (to allow undo-redo)
@@ -340,13 +340,13 @@ GNEMeanDataFrame::MeanDataSelector::refreshMeanDataSelector(bool afterChangingID
     SumoXMLTag meanDataTag = myMeanDataFrameParent->myMeanDataTypeSelector->getCurrentMeanData().getTag();
     // get mean datas sorted by ID
     std::map<std::string, GNEMeanData*> sortedMeanDatas;
-    for (const auto &meanData : myMeanDataFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getMeanDatas().at(meanDataTag)) {
+    for (const auto& meanData : myMeanDataFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getMeanDatas().at(meanDataTag)) {
         sortedMeanDatas[meanData->getID()] = meanData;
     }
     // clear items
     myMeanDataComboBox->clearItems();
     // fill myMeanDataMatchBox with meanDatas
-    for (const auto &sortedMeanData : sortedMeanDatas) {
+    for (const auto& sortedMeanData : sortedMeanDatas) {
         myMeanDataComboBox->appendIconItem(sortedMeanData.first.c_str(), sortedMeanData.second->getACIcon());
     }
     // Set visible items

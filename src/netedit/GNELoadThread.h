@@ -52,9 +52,6 @@ public:
     /// @brief starts the thread. The thread ends after the net has been loaded
     FXint run();
 
-    /// @brief clear files in options (used before loading files)
-    void resetFileOptions();
-
     /// @brief begins the creation of an empty network
     void createNewNetwork();
 
@@ -74,16 +71,16 @@ public:
     static void setDefaultOptions(OptionsCont& neteditOptions);
 
 private:
-    /// @brief reset options (used for loading single networks or netconvert configs)
-    bool resetOptions(const std::string &file, const bool configuration);
+    /// @brief load options through console
+    bool loadConsoleOptions();
 
     /**@brief Closes the loading process
      *
      * This method is called both on success and failure.
      * All message callbacks to this instance are removed and the parent
-     * application is informed about the loading 
+     * application is informed about the loading
      */
-    void submitEndAndCleanup(GNENet* net, const std::string &loadedFile, const std::string& guiSettingsFile = "", const bool viewportFromRegistry = false);
+    void submitEndAndCleanup(GNENet* net, const std::string& loadedFile, const std::string& guiSettingsFile = "", const bool viewportFromRegistry = false);
 
     /// @brief NETEDIT application windows
     GNEApplicationWindow* myApplicationWindow;

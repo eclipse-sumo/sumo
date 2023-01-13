@@ -29,7 +29,7 @@
 
 void
 GUIShortcutsSubSys::buildAccelerators(FXAccelTable* accelTable, FXObject* target, const bool sumogui) {
-    
+
     // basic hotkeys
 
     accelTable->addAccel(parseKey(KEY_a), target, FXSEL(SEL_COMMAND, MID_HOTKEY_A_MODE_STARTSIMULATION_ADDITIONALSTOP));
@@ -169,7 +169,7 @@ GUIShortcutsSubSys::buildAccelerators(FXAccelTable* accelTable, FXObject* target
 
     accelTable->addAccel(parseKey(KEY_w, KEYMODIFIER_CONTROL), target, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_W_CLOSESIMULATION));
     accelTable->addAccel(parseKey(KEY_W, KEYMODIFIER_CONTROL), target, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_W_CLOSESIMULATION));
-    
+
     accelTable->addAccel(parseKey(KEY_v, KEYMODIFIER_CONTROL), target, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_V_PASTE));
     accelTable->addAccel(parseKey(KEY_V, KEYMODIFIER_CONTROL), target, FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_V_PASTE));
 

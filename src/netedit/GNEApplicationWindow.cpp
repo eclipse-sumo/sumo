@@ -82,27 +82,27 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_CLOSE,    MID_WINDOW,                 GNEApplicationWindow::onCmdQuit),
 
     // toolbar file
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_N_NEWWINDOW,                  GNEApplicationWindow::onCmdNewWindow),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_N_OPENNETWORK_NEWNETWORK,           GNEApplicationWindow::onCmdNewNetwork),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_N_OPENNETWORK_NEWNETWORK,           GNEApplicationWindow::onUpdOpen),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_N_NEWWINDOW,                  GNEApplicationWindow::onCmdNewWindow),
+    FXMAPFUNC(SEL_COMMAND,  MID_RECENTFILE,                                     GNEApplicationWindow::onCmdOpenRecent),
+    FXMAPFUNC(SEL_UPDATE,   MID_RECENTFILE,                                     GNEApplicationWindow::onUpdOpen),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_R_RELOAD,                           GNEApplicationWindow::onCmdReload),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_R_RELOAD,                           GNEApplicationWindow::onUpdReload),
+    // network
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_O_OPENSIMULATION_OPENNETWORK,       GNEApplicationWindow::onCmdOpenNetwork),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_O_OPENSIMULATION_OPENNETWORK,       GNEApplicationWindow::onUpdOpen),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_SHIFT_O_OPENNETCONVERTFILE,         GNEApplicationWindow::onCmdOpenNetconvertConfig),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_SHIFT_O_OPENNETCONVERTFILE,         GNEApplicationWindow::onUpdOpen),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_OPENFOREIGN,                    GNEApplicationWindow::onCmdOpenForeign),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_OPENFOREIGN,                    GNEApplicationWindow::onUpdOpen),
-    FXMAPFUNC(SEL_COMMAND,  MID_RECENTFILE,                                     GNEApplicationWindow::onCmdOpenRecent),
-    FXMAPFUNC(SEL_UPDATE,   MID_RECENTFILE,                                     GNEApplicationWindow::onUpdOpen),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_R_RELOAD,                           GNEApplicationWindow::onCmdReload),
-    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_R_RELOAD,                           GNEApplicationWindow::onUpdReload),
-    // network
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK,       GNEApplicationWindow::onCmdSaveNetwork),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK,       GNEApplicationWindow::onUpdSaveNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVENETWORK_AS,                 GNEApplicationWindow::onCmdSaveNetworkAs),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVENETWORK_AS,                 GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_L_SAVEASPLAINXML,                   GNEApplicationWindow::onCmdSaveAsPlainXML),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_L_SAVEASPLAINXML,                   GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SAVEJOINEDJUNCTIONS,                        GNEApplicationWindow::onCmdSaveJoined),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SAVEJOINEDJUNCTIONS,                        GNEApplicationWindow::onCmdSaveJoinedJunctions),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVEJOINEDJUNCTIONS,                        GNEApplicationWindow::onUpdNeedsNetwork),
     // NETEDITConfig
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_E_EDITSELECTION_LOADNETEDITCONFIG,  GNEApplicationWindow::onCmdOpenNETEDITConfig),
@@ -326,7 +326,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_F7_ADJUST_PERSON_PLANS,                GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS,    GNEApplicationWindow::onCmdProcessButton),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_F8_CLEANINVALID_CROSSINGS_DEMANDELEMENTS,    GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOGGLE_COMPUTE_NETWORK_DATA,                    GNEApplicationWindow::onCmdToogleComputeNetworkData),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOGGLE_COMPUTE_NETWORK_DATA,                    GNEApplicationWindow::onCmdToggleComputeNetworkData),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F10_SUMOOPTIONSMENU,                   GNEApplicationWindow::onCmdOpenSUMOOptionsDialog),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_SHIFT_F10_SUMOOPTIONSMENU,                   GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F10_OPTIONSMENU,                             GNEApplicationWindow::onCmdOpenOptionsDialog),
@@ -638,95 +638,48 @@ GNEApplicationWindow::onCmdEditChosen(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdNewNetwork(FXObject*, FXSelector, void*) {
-    // first check that current edited Net can be closed (und therefore the undo-list cleared, see #5753)
-    if (myViewNet && !onCmdClose(0, 0, 0)) {
-        return 1;
-    } else {
-        // reset all netedit options
-        auto &neteditOptions = OptionsCont::getOptions();
-        GNELoadThread::fillOptions(neteditOptions);
-        GNELoadThread::setDefaultOptions(neteditOptions);
+    // check if close current simulation
+    if (onCmdClose(0, 0, 0) == 1) {
         // create new network
         createNewNetwork();
-        return 1;
     }
+    return 1;
 }
 
 
 long
 GNEApplicationWindow::onCmdOpenNetconvertConfig(FXObject*, FXSelector, void*) {
-    auto &neteditOptions = OptionsCont::getOptions();
-    // first check that current edited Net can be closed (und therefore the undo-list cleared, see #5753)
-    if (myViewNet && !onCmdClose(0, 0, 0)) {
-        return 1;
-    } else {
-        // get the new file name
-        FXFileDialog opendialog(this, TL("Open Netconvert Configuration"));
-        opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN));
-        opendialog.setSelectMode(SELECTFILE_EXISTING);
-        opendialog.setPatternList(myConfigPattern.c_str());
-        if (gCurrentFolder.length() != 0) {
-            opendialog.setDirectory(gCurrentFolder);
-        }
-        if (opendialog.execute()) {
-            gCurrentFolder = opendialog.getDirectory();
-            std::string file = opendialog.getFilename().text();
-            // reset files in options
-            myLoadThread->resetFileOptions();
-            // set file to load
-            neteditOptions.resetWritable();
-            neteditOptions.set("configuration-file", file);
-            // load netconvert
-            loadNetconvertConfig();
-            // add it into recent configs
-            myMenuBarFile.myRecentNetworks.appendFile(file.c_str());
-        }
-        return 1;
+    auto& neteditOptions = OptionsCont::getOptions();
+    // get netconvert filename
+    const auto netconvertFile = GNEApplicationWindowHelper::openNetconvertFileDialog(this);
+    // continue depending of netconvertFile
+    if (!netconvertFile.empty() && (onCmdClose(0, 0, 0) == 1)) {
+        // set file to load
+        neteditOptions.resetWritable();
+        neteditOptions.set("configuration-file", netconvertFile);
+        // load netconvert
+        loadNetconvertConfig();
+        // add it into recent configs
+        myMenuBarFile.myRecentNetworks.appendFile(netconvertFile.c_str());
     }
+    return 1;
 }
 
 
 long
 GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
-    auto &neteditOptions = OptionsCont::getOptions();
-    // get the new file name
-    FXFileDialog opendialog(this, TL("Open Network"));
-    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_NET));
-    opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList("SUMO nets (*.net.xml,*.net.xml.gz)\nAll files (*)");
-    if (gCurrentFolder.length() != 0) {
-        opendialog.setDirectory(gCurrentFolder);
-    }
-    if (opendialog.execute()) {
-        // get file
-        const std::string file = opendialog.getFilename().text();
-        // check if file isn't empty first
-        if (!file.empty()) {
-            // check if current edited Net can be closed (and therefore the undo-list cleared, see #5753)
-            if (myViewNet) {
-                // call close
-                onCmdClose(0, 0, 0);
-                // if after close there is myViewNet yet, abort
-                if (myViewNet) {
-                    return 0;
-                }
-            }
-            // set current folder
-            gCurrentFolder = opendialog.getDirectory();
-            // reset files in options
-            myLoadThread->resetFileOptions();
-            // set file to load
-            neteditOptions.resetWritable();
-            neteditOptions.set("net-file", file);
-            // load network
-            loadNetwork(false);
-            // add it into recent nets
-            myMenuBarFile.myRecentNetworks.appendFile(file.c_str());
-            // when a net is loaded, save additionals and TLSPrograms are disabled
-            disableSaveAdditionalsMenu();
-            myFileMenuCommands.saveTLSPrograms->disable();
-            myFileMenuCommands.saveEdgeTypes->disable();
-        }
+    auto& neteditOptions = OptionsCont::getOptions();
+    // get netconvert filename
+    const auto networkFile = GNEApplicationWindowHelper::openNetworkFileDialog(this, false);
+    // continue depending of netconvertFile
+    if (!networkFile.empty() && (onCmdClose(0, 0, 0) == 1)) {
+        // set file to load
+        neteditOptions.resetWritable();
+        neteditOptions.set("net-file", networkFile);
+        // load network
+        loadNetwork(false);
+        // add it into recent nets
+        myMenuBarFile.myRecentNetworks.appendFile(networkFile.c_str());
     }
     return 0;
 }
@@ -734,54 +687,39 @@ GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenForeign(FXObject*, FXSelector, void*) {
-    // first check that current edited Net can be closed (und therefore the undo-list cleared, see #5753)
-    if (myViewNet && !onCmdClose(0, 0, 0)) {
-        return 1;
-    } else {
-        // get the new file name
-        FXFileDialog opendialog(this, TL("Import Foreign Network"));
-        opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_NET));
-        opendialog.setSelectMode(SELECTFILE_EXISTING);
-        FXString osmPattern("OSM net (*.osm.xml,*.osm)");
-        opendialog.setPatternText(0, osmPattern);
-        if (gCurrentFolder.length() != 0) {
-            opendialog.setDirectory(gCurrentFolder);
+    auto& neteditOptions = OptionsCont::getOptions();
+    // get netconvert filename
+    const auto OSMFile = GNEApplicationWindowHelper::openOSMFileDialog(this);
+    // continue depending of netconvertFile
+    if (!OSMFile.empty() && (onCmdClose(0, 0, 0) == 1)) {
+        // fill (reset) all options
+        GNELoadThread::fillOptions(neteditOptions);
+        // set default options defined in GNELoadThread::setDefaultOptions(...)
+        GNELoadThread::setDefaultOptions(neteditOptions);
+        // recommended osm options
+        // https://sumo.dlr.de/wiki/Networks/Import/OpenStreetMap#Recommended_NETCONVERT_Options
+        neteditOptions.set("osm-files", OSMFile);
+        neteditOptions.set("geometry.remove", "true");
+        neteditOptions.set("ramps.guess", "true");
+        neteditOptions.set("junctions.join", "true");
+        neteditOptions.set("tls.guess-signals", "true");
+        neteditOptions.set("tls.discard-simple", "true");
+        GUIDialog_Options* wizard =
+            new GUIDialog_Options(this, OptionsCont::getOptions(), TL("Select Import Options"), getWidth(), getHeight());
+        if (wizard->execute()) {
+            NIFrame::checkOptions(); // needed to set projection parameters
+            loadNetconvertConfig();
         }
-        if (opendialog.execute()) {
-            gCurrentFolder = opendialog.getDirectory();
-            std::string file = opendialog.getFilename().text();
-
-            auto &neteditOptions = OptionsCont::getOptions();
-            GNELoadThread::fillOptions(neteditOptions);
-            if (osmPattern.contains(opendialog.getPattern())) {
-                // recommended osm options
-                // https://sumo.dlr.de/wiki/Networks/Import/OpenStreetMap#Recommended_NETCONVERT_Options
-                neteditOptions.set("osm-files", file);
-                neteditOptions.set("geometry.remove", "true");
-                neteditOptions.set("ramps.guess", "true");
-                neteditOptions.set("junctions.join", "true");
-                neteditOptions.set("tls.guess-signals", "true");
-                neteditOptions.set("tls.discard-simple", "true");
-            } else {
-                throw ProcessError("Attempted to import unknown file format '" + file + "'.");
-            }
-
-            GUIDialog_Options* wizard =
-                new GUIDialog_Options(this, OptionsCont::getOptions(), TL("Select Import Options"), getWidth(), getHeight());
-
-            if (wizard->execute()) {
-                NIFrame::checkOptions(); // needed to set projection parameters
-                loadNetconvertConfig();
-            }
-        }
-        return 1;
+        // after load, mark network saved
+        myNet->getSavingStatus()->networkSaved();
     }
+    return 1;
 }
 
 
 long
 GNEApplicationWindow::onCmdOpenNETEDITConfig(FXObject*, FXSelector, void*) {
-    auto &neteditOptions = OptionsCont::getOptions();
+    auto& neteditOptions = OptionsCont::getOptions();
     // write debug information
     WRITE_DEBUG("Open NETEDITConfig dialog");
     // get the NETEDITConfig file name
@@ -802,8 +740,6 @@ GNEApplicationWindow::onCmdOpenNETEDITConfig(FXObject*, FXSelector, void*) {
             WRITE_MESSAGE("Loading NETEDITConfig from '" + file + "'");
             // close all windows
             closeAllWindows();
-            // reset files in options
-            myLoadThread->resetFileOptions();
             // set file to load
             neteditOptions.resetWritable();
             neteditOptions.set("configuration-file", file);
@@ -850,15 +786,13 @@ GNEApplicationWindow::onCmdOpenSUMOConfig(FXObject*, FXSelector, void*) {
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
         if (file.size() > 0 && continueWithUnsavedChanges("load SUMOConfig")) {
-            auto &neteditOptions = OptionsCont::getOptions();
+            auto& neteditOptions = OptionsCont::getOptions();
             // write info
             WRITE_MESSAGE("Loading SUMOConfig from '" + file + "'");
             // close all windows
             closeAllWindows();
             // set current folder
             gCurrentFolder = opendialog.getDirectory();
-            // reset files in options
-            myLoadThread->resetFileOptions();
             // set file to load
             neteditOptions.resetWritable();
             neteditOptions.set("sumocfg-file", file);
@@ -938,23 +872,23 @@ GNEApplicationWindow::onCmdReloadSUMOConfig(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onUpdReloadNETEDITConfig(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onUpdReloadNETEDITConfig(FXObject* sender, FXSelector, void*) {
     // check if file exist
     if (myViewNet && !OptionsCont::getOptions().getString("configuration-file").empty()) {
-        return myFileMenuCommands.reloadNETEDITConfig->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else {
-        return myFileMenuCommands.reloadNETEDITConfig->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     }
 }
 
 
 long
-GNEApplicationWindow::onUpdReloadSUMOConfig(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onUpdReloadSUMOConfig(FXObject* sender, FXSelector, void*) {
     // check if file exist
     if (myViewNet && !OptionsCont::getOptions().getString("sumocfg-file").empty()) {
-        return myFileMenuCommands.reloadSUMOConfig->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else {
-        return myFileMenuCommands.reloadSUMOConfig->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     }
 }
 
@@ -1013,12 +947,12 @@ GNEApplicationWindow::onCmdReloadTLSPrograms(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onUpdReloadTLSPrograms(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onUpdReloadTLSPrograms(FXObject* sender, FXSelector, void*) {
     // check if file exist
     if (myViewNet && OptionsCont::getOptions().getString("TLSPrograms-output").empty()) {
-        return myFileMenuCommands.reloadTLSPrograms->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
-        return myFileMenuCommands.reloadTLSPrograms->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     }
 }
 
@@ -1098,46 +1032,41 @@ GNEApplicationWindow::onCmdReloadEdgeTypes(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onUpdReloadEdgeTypes(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onUpdReloadEdgeTypes(FXObject* sender, FXSelector, void*) {
     // check if file exist
     if (myViewNet && OptionsCont::getOptions().getString("edgeTypes-output").empty()) {
-        return myFileMenuCommands.reloadEdgeTypes->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
-        return myFileMenuCommands.reloadEdgeTypes->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     }
 }
 
 
 long
 GNEApplicationWindow::onCmdOpenRecent(FXObject*, FXSelector, void* fileData) {
+    auto& neteditOptions = OptionsCont::getOptions();
     // first check that current edited Net can be closed (und therefore the undo-list cleared, see #5753)
-    if (myViewNet && !onCmdClose(0, 0, 0)) {
-        return 1;
-    } else if (myAmLoading) {
+    if (myAmLoading) {
         myStatusbar->getStatusLine()->setText(TL("Already loading!"));
-        return 1;
-    } else {
-        auto &neteditOptions = OptionsCont::getOptions();
-        // reset files in options
-        myLoadThread->resetFileOptions();
+    } else if (onCmdClose(0, 0, 0) == 1) {
+        // get filedata
+        const std::string recentFile = ((const char*)fileData);
         // set file to load
         neteditOptions.resetWritable();
-        // reset netedit files
-        neteditOptions.resetWritable();
-        // get filedata
-        std::string file((const char*)fileData);
-        // check what are currently loading
-        if ((file.find(".neteditcfg") != std::string::npos) || (file.find(".netccfg") != std::string::npos)) {
+        // check if we're loading a network o a config
+        if ((recentFile.find(".neteditcfg") != std::string::npos) || 
+            (recentFile.find(".sumocfg") != std::string::npos) ||
+            (recentFile.find(".netccfg") != std::string::npos)) {
             // load config
-            neteditOptions.set("configuration-file", file);
+            neteditOptions.set("configuration-file", recentFile);
             loadNetconvertConfig();
         } else {
             // load network
-            neteditOptions.set("net-file", file);
+            neteditOptions.set("net-file", recentFile);
             loadNetwork(false);
         }
-        return 1;
     }
+    return 1;
 }
 
 
@@ -1148,9 +1077,6 @@ GNEApplicationWindow::onCmdReload(FXObject*, FXSelector, void*) {
         // check if current network can be closed
         if (continueWithUnsavedChanges("reload")) {
             closeAllWindows();
-            // disable save additionals and TLS menu
-            disableSaveAdditionalsMenu();
-            myFileMenuCommands.saveTLSPrograms->disable();
             // disable toolbargrip modes
             myToolbarsGrip.menu->disable();
             // hide all Supermode, Network and demand commands
@@ -1175,13 +1101,12 @@ GNEApplicationWindow::onCmdReload(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdClose(FXObject*, FXSelector, void*) {
-    if (continueWithUnsavedChanges("close")) {
+    if (myViewNet == nullptr) {
+        return 1;
+    } else if (continueWithUnsavedChanges("close")) {
         closeAllWindows();
         // add a separator to the log
         myMessageWindow->addSeparator();
-        // disable save additionals and TLS menu
-        disableSaveAdditionalsMenu();
-        myFileMenuCommands.saveTLSPrograms->disable();
         // hide all Supermode, Network and demand commands
         mySupermodeCommands.hideSupermodeCommands();
         myModesMenuCommands.networkMenuCommands.hideNetworkMenuCommands();
@@ -1191,8 +1116,10 @@ GNEApplicationWindow::onCmdClose(FXObject*, FXSelector, void*) {
         myEditMenuCommands.networkViewOptions.hideNetworkViewOptionsMenuChecks();
         myEditMenuCommands.demandViewOptions.hideDemandViewOptionsMenuChecks();
         myEditMenuCommands.dataViewOptions.hideDataViewOptionsMenuChecks();
+        return 1;
+    } else {
+        return 0;
     }
-    return 1;
 }
 
 
@@ -1428,7 +1355,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     loadMeanDataElements();
     // after loading net shouldn't be saved
     if (myNet) {
-        myNet->requireSaveNet(false);
+        myNet->getSavingStatus()->networkSaved();
     }
     // write reload message
     if (myReloading) {
@@ -1467,9 +1394,9 @@ GNEApplicationWindow::fillMenuBar() {
     myFileMenuMeanDataElements = new FXMenuPane(this);
     myFileMenuRecentNetworks = new FXMenuPane(this);
     myFileMenuRecentConfigs = new FXMenuPane(this);
-    myFileMenuCommands.buildFileMenuCommands(myFileMenu, myFileMenuNETEDITConfig, myFileMenuSUMOConfig, 
-        myFileMenuTLS, myFileMenuEdgeTypes, myFileMenuAdditionals, myFileMenuDemandElements,
-        myFileMenuDataElements, myFileMenuMeanDataElements);
+    myFileMenuCommands.buildFileMenuCommands(myFileMenu, myFileMenuNETEDITConfig, myFileMenuSUMOConfig,
+            myFileMenuTLS, myFileMenuEdgeTypes, myFileMenuAdditionals, myFileMenuDemandElements,
+            myFileMenuDataElements, myFileMenuMeanDataElements);
     // add separator for recent files
     new FXMenuSeparator(myFileMenu);
     // build recent files
@@ -1555,75 +1482,6 @@ GNEApplicationWindow::fillMenuBar() {
     new FXMenuSeparator(myHelpMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, TL("&About"), "F12", TL("About netedit."),
                                            GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), this, MID_HOTKEY_F12_ABOUT);
-}
-
-
-void
-GNEApplicationWindow::createNewNetwork() {
-    // save windows size and position
-    storeWindowSizeAndPos();
-    // begin wait cursor
-    getApp()->beginWaitCursor();
-    // enable loading flag and disable reloading flag
-    myAmLoading = true;
-    myReloading = false;
-    // close all windows
-    closeAllWindows();
-    // recenter view
-    gSchemeStorage.saveViewport(0, 0, -1, 0); 
-    // create new network
-    myLoadThread->createNewNetwork();
-    // update status bar
-    setStatusBarText("Creating new network.");
-    // show supermode commands menu
-    mySupermodeCommands.showSupermodeCommands();
-    // show Network command menus (because Network is the default supermode)
-    myModesMenuCommands.networkMenuCommands.showNetworkMenuCommands();
-    // update window
-    update();
-}
-
-
-void
-GNEApplicationWindow::loadNetwork(const bool isReloading) {
-    storeWindowSizeAndPos();
-    getApp()->beginWaitCursor();
-    myAmLoading = true;
-    myReloading = isReloading;
-    closeAllWindows();
-    if (isReloading) {
-        myLoadThread->start();
-        setStatusBarText("Reloading network.");
-    } else {
-        gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
-        myLoadThread->loadNetwork();
-        setStatusBarText("Loading network file '" + OptionsCont::getOptions().getString("net-file") + "'.");
-    }
-    // show supermode commands menu
-    mySupermodeCommands.showSupermodeCommands();
-    // show Network command menus (because Network is the default supermode)
-    myModesMenuCommands.networkMenuCommands.showNetworkMenuCommands();
-    // update window
-    update();
-}
-
-
-void
-GNEApplicationWindow::loadNetconvertConfig() {
-    storeWindowSizeAndPos();
-    getApp()->beginWaitCursor();
-    myAmLoading = true;
-    myReloading = false;
-    closeAllWindows();
-    gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
-    setStatusBarText("Loading netconvert config '" + OptionsCont::getOptions().getString("configuration-file") + "'.");
-    myLoadThread->loadConfig();
-    // show supermode commands menu
-    mySupermodeCommands.showSupermodeCommands();
-    // show Network command menus (because Network is the default supermode)
-    myModesMenuCommands.networkMenuCommands.showNetworkMenuCommands();
-    // update window
-    update();
 }
 
 
@@ -1733,8 +1591,6 @@ GNEApplicationWindow::closeAllWindows() {
     GUITextureSubSys::resetTextures();
     // reset fonts
     GLHelper::resetFont();
-    // disable saving command
-    disableSaveAdditionalsMenu();
 }
 
 
@@ -1746,7 +1602,7 @@ GNEApplicationWindow::getDefaultCursor() {
 
 void
 GNEApplicationWindow::loadOptionOnStartup() {
-    auto &neteditOptions = OptionsCont::getOptions();
+    auto& neteditOptions = OptionsCont::getOptions();
     // Disable normalization preserve the given network as far as possible
     neteditOptions.set("offset.disable-normalization", "true");
     if (neteditOptions.getBool("new")) {
@@ -1759,6 +1615,75 @@ GNEApplicationWindow::loadOptionOnStartup() {
 
 
 void
+GNEApplicationWindow::createNewNetwork() {
+    // save windows size and position
+    storeWindowSizeAndPos();
+    // begin wait cursor
+    getApp()->beginWaitCursor();
+    // enable loading flag and disable reloading flag
+    myAmLoading = true;
+    myReloading = false;
+    // close all windows
+    closeAllWindows();
+    // recenter view
+    gSchemeStorage.saveViewport(0, 0, -1, 0);
+    // create new network
+    myLoadThread->createNewNetwork();
+    // update status bar
+    setStatusBarText("Creating new network.");
+    // show supermode commands menu
+    mySupermodeCommands.showSupermodeCommands();
+    // show Network command menus (because Network is the default supermode)
+    myModesMenuCommands.networkMenuCommands.showNetworkMenuCommands();
+    // update window
+    update();
+}
+
+
+void
+GNEApplicationWindow::loadNetwork(const bool isReloading) {
+    storeWindowSizeAndPos();
+    getApp()->beginWaitCursor();
+    myAmLoading = true;
+    myReloading = isReloading;
+    closeAllWindows();
+    if (isReloading) {
+        myLoadThread->start();
+        setStatusBarText("Reloading network.");
+    } else {
+        gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
+        myLoadThread->loadNetwork();
+        setStatusBarText("Loading network file '" + OptionsCont::getOptions().getString("net-file") + "'.");
+    }
+    // show supermode commands menu
+    mySupermodeCommands.showSupermodeCommands();
+    // show Network command menus (because Network is the default supermode)
+    myModesMenuCommands.networkMenuCommands.showNetworkMenuCommands();
+    // update window
+    update();
+}
+
+
+void
+GNEApplicationWindow::loadNetconvertConfig() {
+    storeWindowSizeAndPos();
+    getApp()->beginWaitCursor();
+    myAmLoading = true;
+    myReloading = false;
+    closeAllWindows();
+    gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
+    setStatusBarText("Loading netconvert config '" + OptionsCont::getOptions().getString("configuration-file") + "'.");
+    myLoadThread->loadConfig();
+    // show supermode commands menu
+    mySupermodeCommands.showSupermodeCommands();
+    // show Network command menus (because Network is the default supermode)
+    myModesMenuCommands.networkMenuCommands.showNetworkMenuCommands();
+    // update window
+    update();
+}
+
+
+void
 GNEApplicationWindow::setStatusBarText(const std::string& statusBarText) {
     myStatusbar->getStatusLine()->setText(statusBarText.c_str());
     myStatusbar->getStatusLine()->setNormalText(statusBarText.c_str());
@@ -1767,15 +1692,8 @@ GNEApplicationWindow::setStatusBarText(const std::string& statusBarText) {
 
 long
 GNEApplicationWindow::computeJunctionWithVolatileOptions() {
-    // obtain option container
-    auto &neteditOptions = OptionsCont::getOptions();
     // declare variable to save FXMessageBox outputs.
     FXuint answer = 0;
-    // declare string to save paths in wich additionals, shapes demand and data elements will be saved
-    std::string additionalsSavePath = neteditOptions.getString("additional-files");
-    std::string demandElementsSavePath = neteditOptions.getString("route-files");
-    std::string dataElementsSavePath = neteditOptions.getString("data-files");
-    std::string meanDatasSavePath = neteditOptions.getString("meandata-files");
     // write warning if netedit is running in testing mode
     WRITE_DEBUG("Opening FXMessageBox 'Volatile Recomputing'");
     // open question dialog box
@@ -1793,321 +1711,29 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
     } else {
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Closed FXMessageBox 'Volatile Recomputing' with 'Yes'");
-        // Check if there are additionals in our net
-        if (myNet->getAttributeCarriers()->getNumberOfAdditionals() > 0) {
-            // ask user if want to save additionals if weren't saved previously
-            if (neteditOptions.getString("additional-files") == "") {
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Opening FXMessageBox 'Save additionals before recomputing'");
-                // open question dialog box
-                answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, TL("Save additionals before recomputing with volatile options"),
-                                                "Would you like to save additionals before recomputing?");
-                if (answer != 1) { //1:yes, 2:no, 4:esc
-                    // write warning if netedit is running in testing mode
-                    if (answer == 2) {
-                        WRITE_DEBUG("Closed FXMessageBox 'Save additionals before recomputing' with 'No'");
-                    } else if (answer == 4) {
-                        WRITE_DEBUG("Closed FXMessageBox 'Save additionals before recomputing' with 'ESC'");
-                    }
-                } else {
-                    // write warning if netedit is running in testing mode
-                    WRITE_DEBUG("Closed FXMessageBox 'Save additionals before recomputing' with 'Yes'");
-                    // Open a dialog to set filename output
-                    FXString file = MFXUtils::getFilename2Write(this,
-                                    TL("Save demand element file"), ".xml",
-                                    GUIIconSubSys::getIcon(GUIIcon::MODETLS),
-                                    gCurrentFolder).text();
-                    // add xml extension
-                    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".rou.xml");
-                    // check that file is valid
-                    if (fileWithExtension != "") {
-                        // update additional files
-                        neteditOptions.resetWritable();
-                        neteditOptions.set("additional-files", fileWithExtension);
-                        // set obtanied filename output into additionalsSavePath (can be "")
-                        additionalsSavePath = neteditOptions.getString("additional-files");
-                    }
-                }
-            }
-            // Check if additional must be saved in a temporary directory, if user didn't define a directory for additionals
-            if (neteditOptions.getString("additional-files") == "") {
-                // Obtain temporary directory provided by FXSystem::getCurrentDirectory()
-                additionalsSavePath = FXSystem::getTempDirectory().text() + std::string("/tmpAdditionalsNetedit.xml");
-            }
-            // Start saving additionals
-            getApp()->beginWaitCursor();
-            try {
-                myNet->saveAdditionals(additionalsSavePath);
-            } catch (IOError& e) {
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Opening FXMessageBox 'Error saving additionals before recomputing'");
-                // open error message box
-                FXMessageBox::error(this, MBOX_OK, TL("Saving additionals in temporary folder failed!"), "%s", e.what());
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Closed FXMessageBox 'Error saving additionals before recomputing' with 'OK'");
-            }
-            // end saving additionals
-            myMessageWindow->addSeparator();
-            getApp()->endWaitCursor();
-            // restore focus
-            setFocus();
-        } else {
-            // clear additional path
-            additionalsSavePath = "";
-        }
-        // Check if there are demand elements in our net
-        if (myNet->getAttributeCarriers()->getNumberOfDemandElements() > 0) {
-            // ask user if want to save demand elements if weren't saved previously
-            if (neteditOptions.getString("route-files") == "") {
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Opening FXMessageBox 'Save demand elements before recomputing'");
-                // open question dialog box
-                answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, TL("Save demand elements before recomputing with volatile options"),
-                                                "Would you like to save demand elements before recomputing?");
-                if (answer != 1) { //1:yes, 2:no, 4:esc
-                    // write warning if netedit is running in testing mode
-                    if (answer == 2) {
-                        WRITE_DEBUG("Closed FXMessageBox 'Save demand elements before recomputing' with 'No'");
-                    } else if (answer == 4) {
-                        WRITE_DEBUG("Closed FXMessageBox 'Save demand elements before recomputing' with 'ESC'");
-                    }
-                } else {
-                    // write warning if netedit is running in testing mode
-                    WRITE_DEBUG("Closed FXMessageBox 'Save demand elements before recomputing' with 'Yes'");
-                    // Open a dialog to set filename output
-                    FXString file = MFXUtils::getFilename2Write(this,
-                                    TL("Save demand element file"), ".rou.xml",
-                                    GUIIconSubSys::getIcon(GUIIcon::MODETLS),
-                                    gCurrentFolder).text();
-                    // add xml extension
-                    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".rou.xml");
-                    // check that file is valid
-                    if (fileWithExtension != "") {
-                        // update route files
-                        neteditOptions.resetWritable();
-                        neteditOptions.set("route-files", fileWithExtension);
-                        // set obtanied filename output into demand elementSavePath (can be "")
-                        demandElementsSavePath = neteditOptions.getString("route-files");
-                    }
-                }
-            }
-            // Check if demand element must be saved in a temporary directory, if user didn't define a directory for demand elements
-            if (neteditOptions.getString("route-files") == "") {
-                // Obtain temporary directory provided by FXSystem::getCurrentDirectory()
-                demandElementsSavePath = FXSystem::getTempDirectory().text() + std::string("/tmpDemandElementsNetedit.xml");
-            }
-            // Start saving demand elements
-            getApp()->beginWaitCursor();
-            try {
-                myNet->saveDemandElements(demandElementsSavePath);
-            } catch (IOError& e) {
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Opening FXMessageBox 'Error saving demand elements before recomputing'");
-                // open error message box
-                FXMessageBox::error(this, MBOX_OK, TL("Saving demand elements in temporary folder failed!"), "%s", e.what());
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Closed FXMessageBox 'Error saving demand elements before recomputing' with 'OK'");
-            }
-            // end saving demand elements
-            myMessageWindow->addSeparator();
-            getApp()->endWaitCursor();
-            // restore focus
-            setFocus();
-        } else {
-            // clear demand element path
-            demandElementsSavePath = "";
-        }
-        // Check if there are data elements in our net
-        if (myNet->getAttributeCarriers()->getDataSets().size() > 0) {
-            // ask user if want to save data elements if weren't saved previously
-            if (neteditOptions.getString("data-files") == "") {
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Opening FXMessageBox 'Save data elements before recomputing'");
-                // open question dialog box
-                answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, TL("Save data elements before recomputing with volatile options"),
-                                                "Would you like to save data elements before recomputing?");
-                if (answer != 1) { //1:yes, 2:no, 4:esc
-                    // write warning if netedit is running in testing mode
-                    if (answer == 2) {
-                        WRITE_DEBUG("Closed FXMessageBox 'Save data elements before recomputing' with 'No'");
-                    } else if (answer == 4) {
-                        WRITE_DEBUG("Closed FXMessageBox 'Save data elements before recomputing' with 'ESC'");
-                    }
-                } else {
-                    // write warning if netedit is running in testing mode
-                    WRITE_DEBUG("Closed FXMessageBox 'Save data elements before recomputing' with 'Yes'");
-                    // Open a dialog to set filename output
-                    FXString file = MFXUtils::getFilename2Write(this,
-                                    TL("Save data element file"), ".rou.xml",
-                                    GUIIconSubSys::getIcon(GUIIcon::MODETLS),
-                                    gCurrentFolder).text();
-                    // add xml extension
-                    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".rou.xml");
-                    // check that file is valid
-                    if (fileWithExtension != "") {
-                        // update data files
-                        neteditOptions.resetWritable();
-                        neteditOptions.set("data-files", fileWithExtension);
-                        // set obtanied filename output into data elementSavePath (can be "")
-                        dataElementsSavePath = neteditOptions.getString("data-files");
-                    }
-                }
-            }
-            // Check if data element must be saved in a temporary directory, if user didn't define a directory for data elements
-            if (neteditOptions.getString("data-files") == "") {
-                // Obtain temporary directory provided by FXSystem::getCurrentDirectory()
-                dataElementsSavePath = FXSystem::getTempDirectory().text() + std::string("/tmpDataElementsNetedit.xml");
-            }
-            // Start saving data elements
-            getApp()->beginWaitCursor();
-            try {
-                myNet->saveDataElements(dataElementsSavePath);
-            } catch (IOError& e) {
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Opening FXMessageBox 'Error saving data elements before recomputing'");
-                // open error message box
-                FXMessageBox::error(this, MBOX_OK, TL("Saving data elements in temporary folder failed!"), "%s", e.what());
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Closed FXMessageBox 'Error saving data elements before recomputing' with 'OK'");
-            }
-            // end saving data elements
-            myMessageWindow->addSeparator();
-            getApp()->endWaitCursor();
-            // restore focus
-            setFocus();
-        } else {
-            // clear data element path
-            dataElementsSavePath = "";
-        }
-        // Check if there are meanDatas in our net
-        if (myNet->getAttributeCarriers()->getNumberOfMeanDatas() > 0) {
-            // ask user if want to save meanDatas if weren't saved previously
-            if (neteditOptions.getString("meandata-files") == "") {
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Opening FXMessageBox 'Save meanDatas before recomputing'");
-                // open question dialog box
-                answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, TL("Save meanDatas before recomputing with volatile options"),
-                                                "Would you like to save meanDatas before recomputing?");
-                if (answer != 1) { //1:yes, 2:no, 4:esc
-                    // write warning if netedit is running in testing mode
-                    if (answer == 2) {
-                        WRITE_DEBUG("Closed FXMessageBox 'Save meanDatas before recomputing' with 'No'");
-                    } else if (answer == 4) {
-                        WRITE_DEBUG("Closed FXMessageBox 'Save meanDatas before recomputing' with 'ESC'");
-                    }
-                } else {
-                    // write warning if netedit is running in testing mode
-                    WRITE_DEBUG("Closed FXMessageBox 'Save meanDatas before recomputing' with 'Yes'");
-                    // Open a dialog to set filename output
-                    FXString file = MFXUtils::getFilename2Write(this,
-                                    TL("Save demand element file"), ".xml",
-                                    GUIIconSubSys::getIcon(GUIIcon::MODETLS),
-                                    gCurrentFolder).text();
-                    // add xml extension
-                    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".rou.xml");
-                    // check that file is valid
-                    if (fileWithExtension != "") {
-                        // update meanData files
-                        neteditOptions.resetWritable();
-                        neteditOptions.set("meandata-files", fileWithExtension);
-                        // set obtanied filename output into meanDatasSavePath (can be "")
-                        meanDatasSavePath = neteditOptions.getString("meandata-files");
-                    }
-                }
-            }
-            // Check if meanData must be saved in a temporary directory, if user didn't define a directory for meanDatas
-            if (neteditOptions.getString("meandata-files") == "") {
-                // Obtain temporary directory provided by FXSystem::getCurrentDirectory()
-                meanDatasSavePath = FXSystem::getTempDirectory().text() + std::string("/tmpMeanDatasNetedit.xml");
-            }
-            // Start saving meanDatas
-            getApp()->beginWaitCursor();
-            try {
-                myNet->saveMeanDatas(meanDatasSavePath);
-            } catch (IOError& e) {
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Opening FXMessageBox 'Error saving meanDatas before recomputing'");
-                // open error message box
-                FXMessageBox::error(this, MBOX_OK, TL("Saving meanDatas in temporary folder failed!"), "%s", e.what());
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Closed FXMessageBox 'Error saving meanDatas before recomputing' with 'OK'");
-            }
-            // end saving meanDatas
-            myMessageWindow->addSeparator();
-            getApp()->endWaitCursor();
-            // restore focus
-            setFocus();
-        } else {
-            // clear meanData path
-            meanDatasSavePath = "";
-        }
+        // save additionals
+        onCmdSaveAdditionals(nullptr, 0, nullptr);
+        // save demand elements
+        onCmdSaveDemandElements(nullptr, 0, nullptr);
+        // save data elements
+        onCmdSaveDataElements(nullptr, 0, nullptr);
+        // save mean datas
+        onCmdSaveMeanDatas(nullptr, 0, nullptr);
         // compute with volatile options
-        myNet->computeNetwork(this, true, true, additionalsSavePath, demandElementsSavePath, dataElementsSavePath);
+        myNet->computeNetwork(this, true, true);
         updateControls();
         return 1;
     }
 }
 
-
-void
-GNEApplicationWindow::enableSaveTLSProgramsMenu() {
-    myFileMenuCommands.saveTLSPrograms->enable();
-}
-
-
-void
-GNEApplicationWindow::enableSaveAdditionalsMenu() {
-    myFileMenuCommands.saveAdditionals->enable();
-    myFileMenuCommands.saveAdditionalsAs->enable();
-}
-
-
-void
-GNEApplicationWindow::disableSaveAdditionalsMenu() {
-    myFileMenuCommands.saveAdditionals->disable();
-    myFileMenuCommands.saveAdditionalsAs->disable();
-}
-
-
-void
-GNEApplicationWindow::enableSaveDemandElementsMenu() {
-    myFileMenuCommands.saveDemandElements->disable();
-    myFileMenuCommands.saveDemandElementsAs->disable();
-}
-
-
-void
-GNEApplicationWindow::disableSaveDemandElementsMenu() {
-    myFileMenuCommands.saveDemandElements->disable();
-    myFileMenuCommands.saveDemandElementsAs->disable();
-}
-
-
-void
-GNEApplicationWindow::enableSaveDataElementsMenu() {
-    myFileMenuCommands.saveDataElements->disable();
-    myFileMenuCommands.saveDataElementsAs->disable();
-}
-
-
-void
-GNEApplicationWindow::disableSaveDataElementsMenu() {
-    myFileMenuCommands.saveDataElements->disable();
-    myFileMenuCommands.saveDataElementsAs->disable();
-}
-
-
-void
-GNEApplicationWindow::enableSaveMeanDatasMenu() {
-    myFileMenuCommands.saveMeanDatas->enable();
-    myFileMenuCommands.saveMeanDatasAs->enable();
-}
-
-
-void
-GNEApplicationWindow::disableSaveMeanDatasMenu() {
-    myFileMenuCommands.saveMeanDatas->disable();
-    myFileMenuCommands.saveMeanDatasAs->disable();
+bool
+GNEApplicationWindow::consoleOptionsLoaded() {
+    if (myConsoleOptionsLoaded) {
+        myConsoleOptionsLoaded = false;
+        return true;
+    } else {
+        return false;
+    }
 }
 
 
@@ -2315,10 +1941,10 @@ GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject*, FXSelector, void*) {
     // check that currently there is a View
     if (myViewNet) {
         // first check if network is saved
-        if (!myViewNet->getNet()->isNetSaved()) {
+        if (!myViewNet->getNet()->getSavingStatus()->isNetworkSaved()) {
             // save network
             onCmdSaveNetwork(nullptr, 0, nullptr);
-            if (!myViewNet->getNet()->isNetSaved()) {
+            if (!myViewNet->getNet()->getSavingStatus()->isNetworkSaved()) {
                 return 0;
             }
         }
@@ -2328,7 +1954,7 @@ GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject*, FXSelector, void*) {
             // save additionals
             onCmdSaveAdditionals(nullptr, 0, nullptr);
             // check if additionals were successfully saved. If not, abort
-            if (!myViewNet->getNet()->isAdditionalsSaved()) {
+            if (!myViewNet->getNet()->getSavingStatus()->isAdditionalsSaved()) {
                 return 0;
             }
         }
@@ -2338,7 +1964,7 @@ GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject*, FXSelector, void*) {
             // save additionals
             onCmdSaveDemandElements(nullptr, 0, nullptr);
             // check if demand elements were successfully saved. If not, abort
-            if (!myViewNet->getNet()->isDemandElementsSaved()) {
+            if (!myViewNet->getNet()->getSavingStatus()->isDemandElementsSaved()) {
                 return 0;
             }
         }
@@ -2360,7 +1986,7 @@ GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject*, FXSelector, void*) {
         // declare comand
         std::string cmd = sumogui + " --registry-viewport" + " -n "  + "\"" + OptionsCont::getOptions().getString("net-file") + "\"";
         // obtainer options container
-        const auto &neteditOptions = OptionsCont::getOptions();
+        const auto& neteditOptions = OptionsCont::getOptions();
         // if load additionals is enabled, add it to command
         if ((myEditMenuCommands.loadAdditionalsInSUMOGUI->getCheck() == TRUE) && (neteditOptions.getString("additional-files").size() > 0)) {
             cmd += " -a \"" + neteditOptions.getString("additional-files") + "\"";
@@ -2462,7 +2088,7 @@ long
 GNEApplicationWindow::onCmdForceSaveNetwork(FXObject* /*sender*/, FXSelector /*sel*/, void* /*ptr*/) {
     // check that view exists
     if (myViewNet) {
-        myViewNet->getNet()->requireSaveNet(true);
+        myViewNet->getNet()->getSavingStatus()->requireSaveNetwork();
         myViewNet->update();
     }
     return 1;
@@ -2473,7 +2099,7 @@ long
 GNEApplicationWindow::onCmdForceSaveAdditionals(FXObject* /*sender*/, FXSelector /*sel*/, void* /*ptr*/) {
     // check that view exists
     if (myViewNet) {
-        myViewNet->getNet()->requireSaveAdditionals(true);
+        myViewNet->getNet()->getSavingStatus()->requireSaveAdditionals();
         update();
     }
     return 1;
@@ -2484,7 +2110,7 @@ long
 GNEApplicationWindow::onCmdForceSaveDemandElements(FXObject* /*sender*/, FXSelector /*sel*/, void* /*ptr*/) {
     // check that view exists
     if (myViewNet) {
-        myViewNet->getNet()->requireSaveDemandElements(true);
+        myViewNet->getNet()->getSavingStatus()->requireSaveDemandElements();
         update();
     }
     return 1;
@@ -2495,7 +2121,7 @@ long
 GNEApplicationWindow::onCmdForceSaveDataElements(FXObject* /*sender*/, FXSelector /*sel*/, void* /*ptr*/) {
     // check that view exists
     if (myViewNet) {
-        myViewNet->getNet()->requireSaveDataElements(true);
+        myViewNet->getNet()->getSavingStatus()->requireSaveDataElements();
         update();
     }
     return 1;
@@ -2548,7 +2174,7 @@ GNEApplicationWindow::onCmdEditViewScheme(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdToggleGrid(FXObject* obj, FXSelector sel, void* ptr) {
+GNEApplicationWindow::onCmdToggleGrid(FXObject* sender, FXSelector sel, void* ptr) {
     // check that view exists
     if (myViewNet) {
         // show debug info
@@ -2560,14 +2186,14 @@ GNEApplicationWindow::onCmdToggleGrid(FXObject* obj, FXSelector sel, void* ptr) 
             WRITE_DEBUG("Enabled grid through Ctrl+g hotkey");
         }
         // Call manually toggle grid function
-        myViewNet->onCmdToggleShowGrid(obj, sel, ptr);
+        myViewNet->onCmdToggleShowGrid(sender, sel, ptr);
     }
     return 1;
 }
 
 
 long
-GNEApplicationWindow::onCmdToggleDrawJunctionShape(FXObject* obj, FXSelector sel, void* ptr) {
+GNEApplicationWindow::onCmdToggleDrawJunctionShape(FXObject* sender, FXSelector sel, void* ptr) {
     // check that view exists
     if (myViewNet) {
         // show debug info
@@ -2579,7 +2205,7 @@ GNEApplicationWindow::onCmdToggleDrawJunctionShape(FXObject* obj, FXSelector sel
             WRITE_DEBUG("Enabled draw junction shape through Ctrl+j hotkey");
         }
         // Call manually toggle junction shape function
-        myViewNet->onCmdToggleDrawJunctionShape(obj, sel, ptr);
+        myViewNet->onCmdToggleDrawJunctionShape(sender, sel, ptr);
     }
     return 1;
 }
@@ -2607,7 +2233,7 @@ GNEApplicationWindow::onCmdSetFrontElement(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdToggleEditOptions(FXObject* obj, FXSelector sel, void* /* ptr */) {
+GNEApplicationWindow::onCmdToggleEditOptions(FXObject* sender, FXSelector sel, void* /* ptr */) {
     // first check that we have a ViewNet
     if (myViewNet) {
         // first check what selector was called
@@ -2628,13 +2254,13 @@ GNEApplicationWindow::onCmdToggleEditOptions(FXObject* obj, FXSelector sel, void
         }
         // toggle edit options
         if (GNEApplicationWindowHelper::toggleEditOptionsNetwork(myViewNet,
-                visibleMenuCommands.at(numericalKeyPressed), numericalKeyPressed, obj, sel)) {
+                visibleMenuCommands.at(numericalKeyPressed), numericalKeyPressed, sender, sel)) {
             return 1;
         } else if (GNEApplicationWindowHelper::toggleEditOptionsDemand(myViewNet,
-                   visibleMenuCommands.at(numericalKeyPressed), numericalKeyPressed, obj, sel)) {
+                   visibleMenuCommands.at(numericalKeyPressed), numericalKeyPressed, sender, sel)) {
             return 1;
         } else if (GNEApplicationWindowHelper::toggleEditOptionsData(myViewNet,
-                   visibleMenuCommands.at(numericalKeyPressed), numericalKeyPressed, obj, sel)) {
+                   visibleMenuCommands.at(numericalKeyPressed), numericalKeyPressed, sender, sel)) {
             return 1;
         }
     }
@@ -2665,7 +2291,7 @@ GNEApplicationWindow::onCmdHotkeys(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdToogleComputeNetworkData(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdToggleComputeNetworkData(FXObject*, FXSelector, void*) {
     if (myProcessingMenuCommands.menuCheckRecomputeDataMode->getCheck() == TRUE) {
         return getApp()->reg().writeBoolEntry("NETEDIT", "RecomputeData", true);
     } else {
@@ -2865,159 +2491,13 @@ GNEApplicationWindow::onCmdClearTemplate(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdSaveNetworkAs(FXObject*, FXSelector, void*) {
-    // declar extensions
-    const std::string netExtension = ".net.xml";
-    const std::string zipNetExtension = netExtension + ".gz";
-    const std::string wildcard = (netExtension + "\n*" + zipNetExtension);
-    // open dialog
-    FXString file = MFXUtils::getFilename2Write(this,
-                    TL("Save Network as"), wildcard.c_str(),
-                    GUIIconSubSys::getIcon(GUIIcon::SAVE),
-                    gCurrentFolder);
-    // get file with extension
-    std::string networkFile = file.text();
-    // clear wildcard
-    const size_t pos = networkFile.find(wildcard);
-    if (pos != std::string::npos) {
-        // If found then erase it from string
-        networkFile.erase(pos, wildcard.length());
-    }
-    // check xml extension
-    if (!GNEApplicationWindowHelper::stringEndsWith(networkFile, netExtension) &&
-            !GNEApplicationWindowHelper::stringEndsWith(networkFile, zipNetExtension)) {
-        networkFile = FileHelpers::addExtension(networkFile, netExtension);
-    }
-    // check that file with extension is valid
-    if (networkFile != "") {
-        // set ouput file in NETEDIT configs
-        auto &neteditOptions = OptionsCont::getOptions();
-        neteditOptions.resetWritable();
-        neteditOptions.set("net-file", networkFile);
-        // se network output in SUMO configs
-        mySUMOOptions.resetWritable();
-        mySUMOOptions.set("net-file", networkFile);
-        // update NETEDIT title with the network name
-        setTitle(MFXUtils::getTitleText(myTitlePrefix, networkFile.c_str()));
-        // save network
-        onCmdSaveNetwork(nullptr, 0, nullptr);
-    }
-    return 1;
-}
-
-
-long
-GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
-    // obtain option container
-    auto &neteditOptions = OptionsCont::getOptions();
-    // declare current folder
-    FXString currentFolder = gCurrentFolder;
-    // check if there is a saved network
-    if (neteditOptions.getString("net-file").size() > 0) {
-        // extract folder
-        currentFolder = getFolder(neteditOptions.getString("net-file"));
-    }
-    // open dialog
-    FXString file = MFXUtils::getFilename2Write(this,
-                    TL("Save plain-xml edge-file (other names will be deduced from this)"), "",
-                    GUIIconSubSys::getIcon(GUIIcon::SAVE),
-                    currentFolder);
-    // check that file is valid (note: in this case we don't need to use function FileHelpers::addExtension)
-    if (file != "") {
-        std::string prefix = file.text();
-        // if the name of an edg.xml file was given, remove the suffix
-        if (StringUtils::endsWith(prefix, ".edg.xml")) {
-            prefix = prefix.substr(0, prefix.size() - 8);
-        }
-        if (StringUtils::endsWith(prefix, ".")) {
-            prefix = prefix.substr(0, prefix.size() - 1);
-        }
-        getApp()->beginWaitCursor();
-        try {
-            myNet->savePlain(prefix);
-        } catch (IOError& e) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Opening FXMessageBox 'Error saving plainXML'");
-            // open message box
-            FXMessageBox::error(this, MBOX_OK, TL("Saving plain xml failed!"), "%s", e.what());
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox 'Error saving plainXML' with 'OK'");
-        }
-        myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "Plain XML saved with prefix '" + prefix + "'.\n");
-        myMessageWindow->addSeparator();
-        getApp()->endWaitCursor();
-        // restore focus
-        setFocus();
-    }
-    return 1;
-}
-
-
-long
-GNEApplicationWindow::onCmdSaveJoined(FXObject*, FXSelector, void*) {
-    // obtain option container
-    auto &neteditOptions = OptionsCont::getOptions();
-    // declare current folder
-    FXString currentFolder = gCurrentFolder;
-    // check if there is a saved network
-    if (neteditOptions.getString("net-file").size() > 0) {
-        // extract folder
-        currentFolder = getFolder(neteditOptions.getString("net-file"));
-    }
-    // open dialog
-    FXString file = MFXUtils::getFilename2Write(this,
-                    TL("Save joined-junctions"), ".nod.xml",
-                    GUIIconSubSys::getIcon(GUIIcon::SAVE),
-                    currentFolder);
-    // add xml extension
-    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
-    // check that file with extension is valid
-    if (fileWithExtension != "") {
-        getApp()->beginWaitCursor();
-        try {
-            myNet->saveJoined(fileWithExtension);
-        } catch (IOError& e) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Opening FXMessageBox 'error saving joined'");
-            // opening error message
-            FXMessageBox::error(this, MBOX_OK, TL("Saving joined junctions failed!"), "%s", e.what());
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox 'error saving joined' with 'OK'");
-        }
-        myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "Joined junctions saved to '" + fileWithExtension + "'.\n");
-        myMessageWindow->addSeparator();
-        getApp()->endWaitCursor();
-        // restore focus
-        setFocus();
-    }
-    return 1;
-}
-
-
-long
 GNEApplicationWindow::onUpdNeedsNetwork(FXObject* sender, FXSelector, void*) {
     // check if net exist
     if (myNet) {
-        // enable menu cascades
-        myFileMenuCommands.SUMOConfigMenuCascade->enable();
-        myFileMenuCommands.NETEDITConfigMenuCascade->enable();
-        myFileMenuCommands.TLSMenuCascade->enable();
-        myFileMenuCommands.edgeTypesMenuCascade->enable();
-        myFileMenuCommands.additionalMenuCascade->enable();
-        myFileMenuCommands.demandMenuCascade->enable();
-        myFileMenuCommands.dataMenuCascade->enable();
-        myFileMenuCommands.meanDataMenuCascade->enable();
+        myFileMenuCommands.enableMenuCascades();
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else {
-        // disable menu cascades
-        myFileMenuCommands.SUMOConfigMenuCascade->disable();
-        myFileMenuCommands.NETEDITConfigMenuCascade->disable();
-        myFileMenuCommands.TLSMenuCascade->disable();
-        myFileMenuCommands.edgeTypesMenuCascade->disable();
-        myFileMenuCommands.additionalMenuCascade->disable();
-        myFileMenuCommands.demandMenuCascade->disable();
-        myFileMenuCommands.dataMenuCascade->disable();
-        myFileMenuCommands.meanDataMenuCascade->disable();
+        myFileMenuCommands.disableMenuCascades();
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     }
 }
@@ -3057,7 +2537,7 @@ GNEApplicationWindow::onUpdReload(FXObject* sender, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onUpdSaveNetwork(FXObject* sender, FXSelector, void*) {
-    return sender->handle(this, ((myNet == nullptr) || myNet->isNetSaved()) ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    return sender->handle(this, ((myNet == nullptr) || myNet->getSavingStatus()->isNetworkSaved()) ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
 }
 
 
@@ -3068,7 +2548,7 @@ GNEApplicationWindow::onUpdSaveAdditionals(FXObject* sender, FXSelector, void*) 
     } else if (myNet->getViewNet()->getViewParent()->getTAZFrame()->getTAZSaveChangesModule()->isChangesPending()) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
-        return sender->handle(this, myNet->isAdditionalsSaved() ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+        return sender->handle(this, myNet->getSavingStatus()->isAdditionalsSaved() ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     }
 }
 
@@ -3081,7 +2561,7 @@ GNEApplicationWindow::onUpdSaveAdditionalsAs(FXObject* sender, FXSelector, void*
 
 long
 GNEApplicationWindow::onUpdSaveDemandElements(FXObject* sender, FXSelector, void*) {
-    return sender->handle(this, ((myNet == nullptr) || myNet->isDemandElementsSaved()) ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    return sender->handle(this, ((myNet == nullptr) || myNet->getSavingStatus()->isDemandElementsSaved()) ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
 }
 
 
@@ -3093,7 +2573,7 @@ GNEApplicationWindow::onUpdSaveDemandElementsAs(FXObject* sender, FXSelector, vo
 
 long
 GNEApplicationWindow::onUpdSaveDataElements(FXObject* sender, FXSelector, void*) {
-    return sender->handle(this, ((myNet == nullptr) || myNet->isDataElementsSaved()) ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    return sender->handle(this, ((myNet == nullptr) || myNet->getSavingStatus()->isDataElementsSaved()) ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
 }
 
 
@@ -3108,7 +2588,7 @@ GNEApplicationWindow::onUpdSaveMeanDatas(FXObject* sender, FXSelector, void*) {
     if (myNet == nullptr) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
-        return sender->handle(this, myNet->isMeanDatasSaved() ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+        return sender->handle(this, myNet->getSavingStatus()->isMeanDatasSaved() ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     }
 }
 
@@ -3120,14 +2600,14 @@ GNEApplicationWindow::onUpdSaveMeanDatasAs(FXObject* sender, FXSelector, void*) 
 
 
 long
-GNEApplicationWindow::onUpdUndo(FXObject* obj, FXSelector sel, void* ptr) {
-    return myUndoList->onUpdUndo(obj, sel, ptr);
+GNEApplicationWindow::onUpdUndo(FXObject* sender, FXSelector sel, void* ptr) {
+    return myUndoList->onUpdUndo(sender, sel, ptr);
 }
 
 
 long
-GNEApplicationWindow::onUpdRedo(FXObject* obj, FXSelector sel, void* ptr) {
-    return myUndoList->onUpdRedo(obj, sel, ptr);
+GNEApplicationWindow::onUpdRedo(FXObject* sender, FXSelector sel, void* ptr) {
+    return myUndoList->onUpdRedo(sender, sel, ptr);
 }
 
 
@@ -3154,84 +2634,84 @@ GNEApplicationWindow::onUpdComputePathManager(FXObject* sender, FXSelector /*sel
 
 
 long
-GNEApplicationWindow::onCmdToggleViewOption(FXObject* obj, FXSelector sel, void* ptr) {
+GNEApplicationWindow::onCmdToggleViewOption(FXObject* sender, FXSelector sel, void* ptr) {
     // check viewNet
     if (myViewNet) {
         // continue depending of selector
         switch (FXSELID(sel)) {
             // Network
             case MID_GNE_NETWORKVIEWOPTIONS_TOGGLEGRID:
-                return myViewNet->onCmdToggleShowGrid(obj, sel, ptr);
+                return myViewNet->onCmdToggleShowGrid(sender, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE:
-                return myViewNet->onCmdToggleDrawJunctionShape(obj, sel, ptr);
+                return myViewNet->onCmdToggleDrawJunctionShape(sender, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_DRAWSPREADVEHICLES:
-                return myViewNet->onCmdToggleDrawSpreadVehicles(obj, sel, ptr);
+                return myViewNet->onCmdToggleDrawSpreadVehicles(sender, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_SHOWDEMANDELEMENTS:
-                return myViewNet->onCmdToggleShowDemandElementsNetwork(obj, sel, ptr);
+                return myViewNet->onCmdToggleShowDemandElementsNetwork(sender, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_SELECTEDGES:
-                return myViewNet->onCmdToggleSelectEdges(obj, sel, ptr);
+                return myViewNet->onCmdToggleSelectEdges(sender, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_SHOWCONNECTIONS:
-                return myViewNet->onCmdToggleShowConnections(obj, sel, ptr);
+                return myViewNet->onCmdToggleShowConnections(sender, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_HIDECONNECTIONS:
-                return myViewNet->onCmdToggleHideConnections(obj, sel, ptr);
+                return myViewNet->onCmdToggleHideConnections(sender, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_SHOWSUBADDITIONALS:
-                return myViewNet->onCmdToggleShowAdditionalSubElements(obj, sel, ptr);
+                return myViewNet->onCmdToggleShowAdditionalSubElements(sender, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_SHOWTAZELEMENTS:
-                return myViewNet->onCmdToggleShowTAZElements(obj, sel, ptr);
+                return myViewNet->onCmdToggleShowTAZElements(sender, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_EXTENDSELECTION:
-                return myViewNet->onCmdToggleExtendSelection(obj, sel, ptr);
+                return myViewNet->onCmdToggleExtendSelection(sender, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_CHANGEALLPHASES:
-                return myViewNet->onCmdToggleChangeAllPhases(obj, sel, ptr);
+                return myViewNet->onCmdToggleChangeAllPhases(sender, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_ASKFORMERGE:
-                return myViewNet->onCmdToggleWarnAboutMerge(obj, sel, ptr);
+                return myViewNet->onCmdToggleWarnAboutMerge(sender, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_SHOWBUBBLES:
-                return myViewNet->onCmdToggleShowJunctionBubbles(obj, sel, ptr);
+                return myViewNet->onCmdToggleShowJunctionBubbles(sender, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_MOVEELEVATION:
-                return myViewNet->onCmdToggleMoveElevation(obj, sel, ptr);
+                return myViewNet->onCmdToggleMoveElevation(sender, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_CHAINEDGES:
-                return myViewNet->onCmdToggleChainEdges(obj, sel, ptr);
+                return myViewNet->onCmdToggleChainEdges(sender, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_AUTOOPPOSITEEDGES:
-                return myViewNet->onCmdToggleAutoOppositeEdge(obj, sel, ptr);
+                return myViewNet->onCmdToggleAutoOppositeEdge(sender, sel, ptr);
             // Demand
             case MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID:
-                return myViewNet->onCmdToggleShowGrid(obj, sel, ptr);
+                return myViewNet->onCmdToggleShowGrid(sender, sel, ptr);
             case MID_GNE_DEMANDVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE:
-                return myViewNet->onCmdToggleDrawJunctionShape(obj, sel, ptr);
+                return myViewNet->onCmdToggleDrawJunctionShape(sender, sel, ptr);
             case MID_GNE_DEMANDVIEWOPTIONS_DRAWSPREADVEHICLES:
-                return myViewNet->onCmdToggleDrawSpreadVehicles(obj, sel, ptr);
+                return myViewNet->onCmdToggleDrawSpreadVehicles(sender, sel, ptr);
             case MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED:
-                return myViewNet->onCmdToggleHideNonInspecteDemandElements(obj, sel, ptr);
+                return myViewNet->onCmdToggleHideNonInspecteDemandElements(sender, sel, ptr);
             case MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES:
-                return myViewNet->onCmdToggleHideShapes(obj, sel, ptr);
+                return myViewNet->onCmdToggleHideShapes(sender, sel, ptr);
             case MID_GNE_DEMANDVIEWOPTIONS_SHOWTRIPS:
-                return myViewNet->onCmdToggleShowTrips(obj, sel, ptr);
+                return myViewNet->onCmdToggleShowTrips(sender, sel, ptr);
             case MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS:
-                return myViewNet->onCmdToggleShowAllPersonPlans(obj, sel, ptr);
+                return myViewNet->onCmdToggleShowAllPersonPlans(sender, sel, ptr);
             case MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON:
-                return myViewNet->onCmdToggleLockPerson(obj, sel, ptr);
+                return myViewNet->onCmdToggleLockPerson(sender, sel, ptr);
             case MID_GNE_DEMANDVIEWOPTIONS_SHOWALLCONTAINERPLANS:
-                return myViewNet->onCmdToggleShowAllContainerPlans(obj, sel, ptr);
+                return myViewNet->onCmdToggleShowAllContainerPlans(sender, sel, ptr);
             case MID_GNE_DEMANDVIEWOPTIONS_LOCKCONTAINER:
-                return myViewNet->onCmdToggleLockContainer(obj, sel, ptr);
+                return myViewNet->onCmdToggleLockContainer(sender, sel, ptr);
             case MID_GNE_DEMANDVIEWOPTIONS_SHOWOVERLAPPEDROUTES:
-                return myViewNet->onCmdToggleShowOverlappedRoutes(obj, sel, ptr);
+                return myViewNet->onCmdToggleShowOverlappedRoutes(sender, sel, ptr);
             // Data
             case MID_GNE_DATAVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE:
-                return myViewNet->onCmdToggleDrawJunctionShape(obj, sel, ptr);
+                return myViewNet->onCmdToggleDrawJunctionShape(sender, sel, ptr);
             case MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS:
-                return myViewNet->onCmdToggleShowAdditionals(obj, sel, ptr);
+                return myViewNet->onCmdToggleShowAdditionals(sender, sel, ptr);
             case MID_GNE_DATAVIEWOPTIONS_SHOWSHAPES:
-                return myViewNet->onCmdToggleShowShapes(obj, sel, ptr);
+                return myViewNet->onCmdToggleShowShapes(sender, sel, ptr);
             case MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS:
-                return myViewNet->onCmdToggleShowDemandElementsData(obj, sel, ptr);
+                return myViewNet->onCmdToggleShowDemandElementsData(sender, sel, ptr);
             case MID_GNE_DATAVIEWOPTIONS_TAZRELDRAWING:
-                return myViewNet->onCmdToggleTAZRelDrawing(obj, sel, ptr);
+                return myViewNet->onCmdToggleTAZRelDrawing(sender, sel, ptr);
             case MID_GNE_DATAVIEWOPTIONS_TAZDRAWFILL:
-                return myViewNet->onCmdToggleTAZRelDrawing(obj, sel, ptr);
+                return myViewNet->onCmdToggleTAZRelDrawing(sender, sel, ptr);
             case MID_GNE_DATAVIEWOPTIONS_TAZRELONLYFROM:
-                return myViewNet->onCmdToggleTAZRelOnlyFrom(obj, sel, ptr);
+                return myViewNet->onCmdToggleTAZRelOnlyFrom(sender, sel, ptr);
             case MID_GNE_DATAVIEWOPTIONS_TAZRELONLYTO:
-                return myViewNet->onCmdToggleTAZRelOnlyTo(obj, sel, ptr);
+                return myViewNet->onCmdToggleTAZRelOnlyTo(sender, sel, ptr);
             default:
                 return 0;
         }
@@ -3242,9 +2722,9 @@ GNEApplicationWindow::onCmdToggleViewOption(FXObject* obj, FXSelector sel, void*
 
 
 long
-GNEApplicationWindow::onUpdToggleViewOption(FXObject* obj, FXSelector sel, void* /*ptr*/) {
+GNEApplicationWindow::onUpdToggleViewOption(FXObject* sender, FXSelector sel, void* /*ptr*/) {
     // get menuCheck
-    MFXMenuCheckIcon* menuCheck = dynamic_cast<MFXMenuCheckIcon*>(obj);
+    MFXMenuCheckIcon* menuCheck = dynamic_cast<MFXMenuCheckIcon*>(sender);
     // check viewNet
     if (myViewNet && menuCheck) {
         // continue depending of selector
@@ -3519,13 +2999,13 @@ GNEApplicationWindow::onUpdToggleViewOption(FXObject* obj, FXSelector sel, void*
 
 
 long
-GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
-    auto &neteditOptions = OptionsCont::getOptions();
+GNEApplicationWindow::onCmdSaveNetwork(FXObject* sender, FXSelector sel, void* ptr) {
+    auto& neteditOptions = OptionsCont::getOptions();
     // function onCmdSaveNetworkAs must be executed if this is the first save
     if (neteditOptions.getString("net-file").empty()) {
-        return onCmdSaveNetworkAs(nullptr, 0, nullptr);
+        return onCmdSaveNetworkAs(sender, sel, ptr);
     } else {
-        // se network output in SUMO configs
+        // se net file in SUMO options
         mySUMOOptions.resetWritable();
         mySUMOOptions.set("net-file", neteditOptions.getString("net-file"));
         // set network in SUMOConfig
@@ -3589,97 +3069,195 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdSaveNETEDITConfig(FXObject*, FXSelector, void*) {
-    // obtain NETEDIT option container
-    auto &neteditOptions = OptionsCont::getOptions();
-    neteditOptions.resetWritable();
-    // Check if configuration file was already set at start of netedit or with a previous save
-    if (neteditOptions.getString("configuration-file").empty()) {
-        // get the new file name
-        FXFileDialog opendialog(this, TL("Save NETEDIT Configuration"));
-        opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::SAVE));
-        opendialog.setSelectMode(SELECTFILE_ANY);
-        opendialog.setPatternList("Config (*.neteditcfg)");
-        if (gCurrentFolder.length() != 0) {
-            opendialog.setDirectory(gCurrentFolder);
-        }
-        if (!opendialog.execute() || !MFXUtils::userPermitsOverwritingWhenFileExists(this, opendialog.getFilename())) {
-            return 1;
-        } else {
-            const std::string file = MFXUtils::assureExtension(opendialog.getFilename(),
-                    opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
-            neteditOptions.set("configuration-file", file);
-        }
+GNEApplicationWindow::onCmdSaveNetworkAs(FXObject*, FXSelector, void*) {
+    // declar extensions
+    const std::string netExtension = ".net.xml";
+    const std::string zipNetExtension = netExtension + ".gz";
+    const std::string wildcard = (netExtension + "\n*" + zipNetExtension);
+    // open dialog
+    FXString file = MFXUtils::getFilename2Write(this,
+                    TL("Save Network as"), wildcard.c_str(),
+                    GUIIconSubSys::getIcon(GUIIcon::SAVE),
+                    gCurrentFolder);
+    // get file with extension
+    std::string networkFile = file.text();
+    // clear wildcard
+    const size_t pos = networkFile.find(wildcard);
+    if (pos != std::string::npos) {
+        // If found then erase it from string
+        networkFile.erase(pos, wildcard.length());
     }
-    const auto neteditConfigFile = neteditOptions.getString("configuration-file");
-    // get config file without extension
-    const auto patterFile = StringUtils::replace(neteditConfigFile, ".neteditcfg", "");
-    // save all element giving automatic names
-    if (!myNet->isNetSaved()) {
-        if (neteditOptions.getString("net-file").empty()) {
-            neteditOptions.set("net-file", patterFile + ".net.xml");
-        }
+    // check xml extension
+    if (!GNEApplicationWindowHelper::stringEndsWith(networkFile, netExtension) &&
+            !GNEApplicationWindowHelper::stringEndsWith(networkFile, zipNetExtension)) {
+        networkFile = FileHelpers::addExtension(networkFile, netExtension);
+    }
+    // check that file with extension is valid
+    if (networkFile != "") {
+        // set ouput file in NETEDIT configs
+        auto& neteditOptions = OptionsCont::getOptions();
+        neteditOptions.resetWritable();
+        neteditOptions.set("net-file", networkFile);
+        // update NETEDIT title with the network name
+        setTitle(MFXUtils::getTitleText(myTitlePrefix, networkFile.c_str()));
+        // save network
         onCmdSaveNetwork(nullptr, 0, nullptr);
     }
-    if (!myNet->isAdditionalsSaved()) {
-        if (neteditOptions.getString("additional-files").empty()) {
-            neteditOptions.set("additional-files", patterFile + ".add.xml");
-        }
-        onCmdSaveAdditionals(nullptr, 0, nullptr);
-    }
-    if (!myNet->isDemandElementsSaved()) {
-        if (neteditOptions.getString("route-files").empty()) {
-            neteditOptions.set("route-files", patterFile + ".rou.xml");
-        }
-        onCmdSaveDemandElements(nullptr, 0, nullptr);
-    }
-    if (!myNet->isDataElementsSaved()) {
-        if (neteditOptions.getString("data-files").empty()) {
-            neteditOptions.set("data-files", patterFile + ".dat.xml");
-        }
-        onCmdSaveDataElements(nullptr, 0, nullptr);
-    }
-    if (!myNet->isMeanDatasSaved()) {
-        if (neteditOptions.getString("meandata-files").empty()) {
-            neteditOptions.set("meandata-files", patterFile + ".med.add.xml");
-        }
-        onCmdSaveMeanDatas(nullptr, 0, nullptr);
-    }
-    std::ofstream out(StringUtils::transcodeToLocal(neteditConfigFile));
-    if (out.good()) {
-        // write NETEDIT config
-        neteditOptions.writeConfiguration(out, true, false, false, neteditConfigFile, true);
-        setStatusBarText("netedit configuration saved to " + neteditConfigFile);
-        // config saved
-        myNeteditConfigSaved = true;
-        // After saving a config successfully, add it into recent configs
-        myMenuBarFile.myRecentConfigs.appendFile(neteditOptions.getString("configuration-file").c_str());
-    } else {
-        setStatusBarText("Could not save netedit configuration to " + neteditConfigFile);
-    }
-    out.close();
     return 1;
 }
 
 
 long
-GNEApplicationWindow::onCmdSaveNETEDITConfigAs(FXObject*, FXSelector, void*) {
-    // save all elements
-    if (!myNet->isNetSaved()) {
-        onCmdSaveNetwork(nullptr, 0, nullptr);
+GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
+    // obtain option container
+    auto& neteditOptions = OptionsCont::getOptions();
+    // declare current folder
+    FXString currentFolder = gCurrentFolder;
+    // check if there is a saved network
+    if (neteditOptions.getString("net-file").size() > 0) {
+        // extract folder
+        currentFolder = getFolder(neteditOptions.getString("net-file"));
     }
-    if (!myNet->isAdditionalsSaved()) {
-        onCmdSaveAdditionals(nullptr, 0, nullptr);
+    // open dialog
+    FXString file = MFXUtils::getFilename2Write(this,
+                    TL("Save plain-xml edge-file (other names will be deduced from this)"), "",
+                    GUIIconSubSys::getIcon(GUIIcon::SAVE),
+                    currentFolder);
+    // check that file is valid (note: in this case we don't need to use function FileHelpers::addExtension)
+    if (file != "") {
+        std::string prefix = file.text();
+        // if the name of an edg.xml file was given, remove the suffix
+        if (StringUtils::endsWith(prefix, ".edg.xml")) {
+            prefix = prefix.substr(0, prefix.size() - 8);
+        }
+        if (StringUtils::endsWith(prefix, ".")) {
+            prefix = prefix.substr(0, prefix.size() - 1);
+        }
+        getApp()->beginWaitCursor();
+        try {
+            myNet->savePlain(prefix);
+        } catch (IOError& e) {
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Opening FXMessageBox 'Error saving plainXML'");
+            // open message box
+            FXMessageBox::error(this, MBOX_OK, TL("Saving plain xml failed!"), "%s", e.what());
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Closed FXMessageBox 'Error saving plainXML' with 'OK'");
+        }
+        myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "Plain XML saved with prefix '" + prefix + "'.\n");
+        myMessageWindow->addSeparator();
+        getApp()->endWaitCursor();
+        // restore focus
+        setFocus();
     }
-    if (!myNet->isDemandElementsSaved()) {
-        onCmdSaveDemandElements(nullptr, 0, nullptr);
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onCmdSaveJoinedJunctions(FXObject*, FXSelector, void*) {
+    // obtain option container
+    auto& neteditOptions = OptionsCont::getOptions();
+    // declare current folder
+    FXString currentFolder = gCurrentFolder;
+    // check if there is a saved network
+    if (neteditOptions.getString("net-file").size() > 0) {
+        // extract folder
+        currentFolder = getFolder(neteditOptions.getString("net-file"));
     }
-    if (!myNet->isDataElementsSaved()) {
-        onCmdSaveDataElements(nullptr, 0, nullptr);
+    // open dialog
+    FXString file = MFXUtils::getFilename2Write(this,
+                    TL("Save joined-junctions"), ".nod.xml",
+                    GUIIconSubSys::getIcon(GUIIcon::SAVE),
+                    currentFolder);
+    // add xml extension
+    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
+    // check that file with extension is valid
+    if (fileWithExtension != "") {
+        getApp()->beginWaitCursor();
+        try {
+            myNet->saveJoined(fileWithExtension);
+        } catch (IOError& e) {
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Opening FXMessageBox 'error saving joined'");
+            // opening error message
+            FXMessageBox::error(this, MBOX_OK, TL("Saving joined junctions failed!"), "%s", e.what());
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Closed FXMessageBox 'error saving joined' with 'OK'");
+        }
+        myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "Joined junctions saved to '" + fileWithExtension + "'.\n");
+        myMessageWindow->addSeparator();
+        getApp()->endWaitCursor();
+        // restore focus
+        setFocus();
     }
-    if (!myNet->isMeanDatasSaved()) {
-        onCmdSaveMeanDatas(nullptr, 0, nullptr);
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onCmdSaveNETEDITConfig(FXObject*, FXSelector, void*) {
+    // obtain NETEDIT option container
+    auto& neteditOptions = OptionsCont::getOptions();
+    neteditOptions.resetWritable();
+    // Check if configuration file was already set at start of netedit or with a previous save
+    if (neteditOptions.getString("configuration-file").empty()) {
+        return onCmdSaveNETEDITConfigAs(nullptr, 0, nullptr);
+    } else {
+        const auto neteditConfigFile = neteditOptions.getString("configuration-file");
+        // get config file without extension
+        const auto patterFile = StringUtils::replace(neteditConfigFile, ".neteditcfg", "");
+        // save all element giving automatic names
+        if (!myNet->getSavingStatus()->isNetworkSaved()) {
+            if (neteditOptions.getString("net-file").empty()) {
+                neteditOptions.set("net-file", patterFile + ".net.xml");
+            }
+            onCmdSaveNetwork(nullptr, 0, nullptr);
+        }
+        if (!myNet->getSavingStatus()->isAdditionalsSaved()) {
+            if (neteditOptions.getString("additional-files").empty()) {
+                neteditOptions.set("additional-files", patterFile + ".add.xml");
+            }
+            onCmdSaveAdditionals(nullptr, 0, nullptr);
+        }
+        if (!myNet->getSavingStatus()->isDemandElementsSaved()) {
+            if (neteditOptions.getString("route-files").empty()) {
+                neteditOptions.set("route-files", patterFile + ".rou.xml");
+            }
+            onCmdSaveDemandElements(nullptr, 0, nullptr);
+        }
+        if (!myNet->getSavingStatus()->isDataElementsSaved()) {
+            if (neteditOptions.getString("data-files").empty()) {
+                neteditOptions.set("data-files", patterFile + ".dat.xml");
+            }
+            onCmdSaveDataElements(nullptr, 0, nullptr);
+        }
+        if (!myNet->getSavingStatus()->isMeanDatasSaved()) {
+            if (neteditOptions.getString("meandata-files").empty()) {
+                neteditOptions.set("meandata-files", patterFile + ".med.add.xml");
+            }
+            onCmdSaveMeanDatas(nullptr, 0, nullptr);
+        }
+        std::ofstream out(StringUtils::transcodeToLocal(neteditConfigFile));
+        if (out.good()) {
+            // write NETEDIT config
+            neteditOptions.writeConfiguration(out, true, false, false, neteditConfigFile, true);
+            setStatusBarText("netedit configuration saved to " + neteditConfigFile);
+            // config saved
+            myNet->getSavingStatus()->NETEDITConfigSaved();
+            // After saving a config successfully, add it into recent configs
+            myMenuBarFile.myRecentConfigs.appendFile(neteditOptions.getString("configuration-file").c_str());
+        } else {
+            setStatusBarText("Could not save netedit configuration to " + neteditConfigFile);
+        }
+        out.close();
+        return 1;
     }
+}
+
+
+long
+GNEApplicationWindow::onCmdSaveNETEDITConfigAs(FXObject* sender, FXSelector sel, void* ptr) {
     // obtain NETEDIT option container
     OptionsCont& neteditOptions = OptionsCont::getOptions();
     // get the new file name
@@ -3692,153 +3270,114 @@ GNEApplicationWindow::onCmdSaveNETEDITConfigAs(FXObject*, FXSelector, void*) {
     }
     if (!opendialog.execute() || !MFXUtils::userPermitsOverwritingWhenFileExists(this, opendialog.getFilename())) {
         return 1;
-    }
-    const std::string file = MFXUtils::assureExtension(opendialog.getFilename(),
-            opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
-    neteditOptions.resetWritable();
-    neteditOptions.set("configuration-file", file);
-    std::ofstream out(StringUtils::transcodeToLocal(file));
-    if (out.good()) {
-        // write NETEDIT config
-        neteditOptions.writeConfiguration(out, true, false, false, file, true);
-        setStatusBarText("Netedit configuration saved to " + file);
-        // config saved
-        myNeteditConfigSaved = true;
-        // After saving a config successfully, add it into recent configs
-        myMenuBarFile.myRecentConfigs.appendFile(neteditOptions.getString("configuration-file").c_str());
     } else {
-        setStatusBarText("Could not save netdit configuration to " + file);
+        // save file in NETEDIT options
+        const std::string file = MFXUtils::assureExtension(opendialog.getFilename(),
+                                 opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
+        neteditOptions.resetWritable();
+        neteditOptions.set("configuration-file", file);
+        // continue saving netedit config
+        return onCmdSaveNETEDITConfig(sender, sel, ptr);
     }
-    out.close();
-    return 1;
 }
 
 
 long
 GNEApplicationWindow::onUpdSaveNETEDITConfig(FXObject* sender, FXSelector, void*) {
-    bool enableButton = false;
-    // check if enable or disable
+    // check if enable or disable save NETEDIT config button
     if (myNet == nullptr) {
-        enableButton = false;
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (OptionsCont::getOptions().getString("configuration-file").empty()) {
-        enableButton = true;
-    } else if (myNeteditConfigSaved == false) {
-        return enableButton = true;
-    } else if (myNet->isNetSaved() && myNet->isAdditionalsSaved() && myNet->isDemandElementsSaved() && 
-               myNet->isDataElementsSaved() && myNet->isMeanDatasSaved()){
-        enableButton = false;
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    } else if (!myNet->getSavingStatus()->isNETEDITConfigSaved()) {
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else {
-        enableButton = true;
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     }
-    // enable/disable save individual files
-    if (myViewNet) {
-        myViewNet->getSaveElements().setSaveIndividualFiles(enableButton);
-    }
-    if (enableButton) {
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
-    } else {
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
-    }
-}
-
-
-long
-GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject*, FXSelector, void*) {
-    // obtain NETEDIT option container
-    auto &neteditOptions = OptionsCont::getOptions();
-    // reset containers
-    neteditOptions.resetWritable();
-    mySUMOOptions.resetWritable();
-    // Check if configuration file was already set at start of netedit or with a previous save
-    if (neteditOptions.getString("sumocfg-file").empty()) {
-        // get the new file name
-        FXFileDialog opendialog(this, TL("Save SUMO Configuration"));
-        opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::SAVE));
-        opendialog.setSelectMode(SELECTFILE_ANY);
-        opendialog.setPatternList("Config (*.sumocfg)");
-        if (gCurrentFolder.length() != 0) {
-            opendialog.setDirectory(gCurrentFolder);
-        }
-        if (!opendialog.execute() || !MFXUtils::userPermitsOverwritingWhenFileExists(this, opendialog.getFilename())) {
-            return 1;
+    // check if eenable/disable save individual files
+    if (myNet) {
+        if (myNet->getSavingStatus()->isAdditionalsSaved() && myNet->getSavingStatus()->isDemandElementsSaved() && 
+            myNet->getSavingStatus()->isDataElementsSaved() && myNet->getSavingStatus()->isMeanDatasSaved()) {
+            myViewNet->getSaveElements().setSaveIndividualFiles(false);
         } else {
-            const std::string file = MFXUtils::assureExtension(opendialog.getFilename(),
-                    opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
-            neteditOptions.set("sumocfg-file", file);
+            myViewNet->getSaveElements().setSaveIndividualFiles(true);
         }
     }
-    const auto sumoConfigFile = neteditOptions.getString("sumocfg-file");
-    // get config file without extension
-    const auto patterFile = StringUtils::replace(sumoConfigFile, ".sumocfg", "");
-    // save all element giving automatic names
-    if (!myNet->isNetSaved()) {
-        if (neteditOptions.getString("net-file").empty()) {
-            neteditOptions.set("net-file", patterFile + ".net.xml");
-        }
-        onCmdSaveNetwork(nullptr, 0, nullptr);
-    }
-    if (!myNet->isAdditionalsSaved()) {
-        if (neteditOptions.getString("additional-files").empty()) {
-            neteditOptions.set("additional-files", patterFile + ".add.xml");
-        }
-        onCmdSaveAdditionals(nullptr, 0, nullptr);
-    }
-    if (!myNet->isDemandElementsSaved()) {
-        if (neteditOptions.getString("route-files").empty()) {
-            neteditOptions.set("route-files", patterFile + ".rou.xml");
-        }
-        onCmdSaveDemandElements(nullptr, 0, nullptr);
-    }
-    if (!myNet->isMeanDatasSaved()) {
-        if (neteditOptions.getString("meandata-files").empty()) {
-            neteditOptions.set("meandata-files", patterFile + ".med.add.xml");
-        }
-        onCmdSaveMeanDatas(nullptr, 0, nullptr);
-    }
-    // set files in sumo options
-    mySUMOOptions.set("net-file", neteditOptions.getString("net-file"));
-    mySUMOOptions.set("route-files", neteditOptions.getString("route-files"));
-    if ((neteditOptions.getString("additional-files").size() > 0) && (neteditOptions.getString("meandata-files").size())) {
-        mySUMOOptions.set("additional-files", neteditOptions.getString("additional-files") + "," + neteditOptions.getString("meandata-files"));
-    } else if (neteditOptions.getString("additional-files").size() > 0) {
-        mySUMOOptions.set("additional-files", neteditOptions.getString("additional-files"));
-    } else if (neteditOptions.getString("meandata-files").size() > 0) {
-        mySUMOOptions.set("additional-files", neteditOptions.getString("meandata-files"));
-    } else {
-        mySUMOOptions.set("additional-files", "");
-    }
-    std::ofstream out(StringUtils::transcodeToLocal(sumoConfigFile));
-    if (out.good()) {
-        // write SUMO config
-        mySUMOOptions.writeConfiguration(out, true, false, false, sumoConfigFile, true);
-        setStatusBarText("SUMO configuration saved to " + sumoConfigFile);
-        // config saved
-        mySumoConfigSaved = true;
-        // After saving a config successfully, add it into recent configs
-        myMenuBarFile.myRecentConfigs.appendFile(neteditOptions.getString("sumocfg-file").c_str());
-    } else {
-        setStatusBarText("Could not save SUMO configuration to " + sumoConfigFile);
-    }
-    out.close();
     return 1;
 }
 
 
 long
-GNEApplicationWindow::onCmdSaveSUMOConfigAs(FXObject*, FXSelector, void*) {
-    // save all elements
-    if (!myNet->isNetSaved()) {
-        onCmdSaveNetwork(nullptr, 0, nullptr);
+GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject* sender, FXSelector sel, void* ptr) {
+    // obtain NETEDIT option container
+    auto& neteditOptions = OptionsCont::getOptions();
+    // reset containers
+    neteditOptions.resetWritable();
+    mySUMOOptions.resetWritable();
+    // Check if configuration file was already set at start of netedit or with a previous save
+    if (neteditOptions.getString("sumocfg-file").empty()) {
+        return onCmdSaveSUMOConfigAs(sender, sel, ptr);
+    } else {
+        const auto sumoConfigFile = neteditOptions.getString("sumocfg-file");
+        // get config file without extension
+        const auto patterFile = StringUtils::replace(sumoConfigFile, ".sumocfg", "");
+        // save all element giving automatic names
+        if (!myNet->getSavingStatus()->isNetworkSaved()) {
+            if (neteditOptions.getString("net-file").empty()) {
+                neteditOptions.set("net-file", patterFile + ".net.xml");
+            }
+            onCmdSaveNetwork(nullptr, 0, nullptr);
+        }
+        if (!myNet->getSavingStatus()->isAdditionalsSaved()) {
+            if (neteditOptions.getString("additional-files").empty()) {
+                neteditOptions.set("additional-files", patterFile + ".add.xml");
+            }
+            onCmdSaveAdditionals(nullptr, 0, nullptr);
+        }
+        if (!myNet->getSavingStatus()->isDemandElementsSaved()) {
+            if (neteditOptions.getString("route-files").empty()) {
+                neteditOptions.set("route-files", patterFile + ".rou.xml");
+            }
+            onCmdSaveDemandElements(nullptr, 0, nullptr);
+        }
+        if (!myNet->getSavingStatus()->isMeanDatasSaved()) {
+            if (neteditOptions.getString("meandata-files").empty()) {
+                neteditOptions.set("meandata-files", patterFile + ".med.add.xml");
+            }
+            onCmdSaveMeanDatas(nullptr, 0, nullptr);
+        }
+        // set files in sumo options
+        mySUMOOptions.set("net-file", neteditOptions.getString("net-file"));
+        mySUMOOptions.set("route-files", neteditOptions.getString("route-files"));
+        if ((neteditOptions.getString("additional-files").size() > 0) && (neteditOptions.getString("meandata-files").size())) {
+            mySUMOOptions.set("additional-files", neteditOptions.getString("additional-files") + "," + neteditOptions.getString("meandata-files"));
+        } else if (neteditOptions.getString("additional-files").size() > 0) {
+            mySUMOOptions.set("additional-files", neteditOptions.getString("additional-files"));
+        } else if (neteditOptions.getString("meandata-files").size() > 0) {
+            mySUMOOptions.set("additional-files", neteditOptions.getString("meandata-files"));
+        } else {
+            mySUMOOptions.set("additional-files", "");
+        }
+        std::ofstream out(StringUtils::transcodeToLocal(sumoConfigFile));
+        if (out.good()) {
+            // write SUMO config
+            mySUMOOptions.writeConfiguration(out, true, false, false, sumoConfigFile, true);
+            setStatusBarText("SUMO configuration saved to " + sumoConfigFile);
+            // config saved
+            myNet->getSavingStatus()->SUMOConfigSaved();
+            // After saving a config successfully, add it into recent configs
+            myMenuBarFile.myRecentConfigs.appendFile(neteditOptions.getString("sumocfg-file").c_str());
+        } else {
+            setStatusBarText("Could not save SUMO configuration to " + sumoConfigFile);
+        }
+        out.close();
+        return 1;
     }
-    if (!myNet->isAdditionalsSaved()) {
-        onCmdSaveAdditionals(nullptr, 0, nullptr);
-    }
-    if (!myNet->isDemandElementsSaved()) {
-        onCmdSaveDemandElements(nullptr, 0, nullptr);
-    }
-    if (!myNet->isMeanDatasSaved()) {
-        onCmdSaveMeanDatas(nullptr, 0, nullptr);
-    }
+}
+
+
+long
+GNEApplicationWindow::onCmdSaveSUMOConfigAs(FXObject* sender, FXSelector sel, void* ptr) {
     // obtain NETEDIT option container
     OptionsCont& neteditOptions = OptionsCont::getOptions();
     // get the new file name
@@ -3851,25 +3390,15 @@ GNEApplicationWindow::onCmdSaveSUMOConfigAs(FXObject*, FXSelector, void*) {
     }
     if (!opendialog.execute() || !MFXUtils::userPermitsOverwritingWhenFileExists(this, opendialog.getFilename())) {
         return 1;
-    }
-    const std::string file = MFXUtils::assureExtension(opendialog.getFilename(),
-            opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
-    neteditOptions.resetWritable();
-    neteditOptions.set("sumocfg-file", file);
-    std::ofstream out(StringUtils::transcodeToLocal(file));
-    if (out.good()) {
-        // write SUMO config
-        mySUMOOptions.writeConfiguration(out, true, false, false, file, true);
-        setStatusBarText("Configuration saved to " + file);
-        // config saved
-        mySumoConfigSaved = true;
-        // After saving a config successfully, add it into recent configs
-        myMenuBarFile.myRecentConfigs.appendFile(neteditOptions.getString("sumocfg-file").c_str());
     } else {
-        setStatusBarText("Could not save configuration to " + file);
+        // save file in NETEDIT options
+        const std::string file = MFXUtils::assureExtension(opendialog.getFilename(),
+                                 opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
+        neteditOptions.resetWritable();
+        neteditOptions.set("sumocfg-file", file);
+        // continue saving SUMO Config
+        return onCmdSaveSUMOConfig(sender, sel, ptr);
     }
-    out.close();
-    return 1;
 }
 
 
@@ -3879,23 +3408,20 @@ GNEApplicationWindow::onUpdSaveSUMOConfig(FXObject* sender, FXSelector, void*) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (OptionsCont::getOptions().getString("sumocfg-file").empty()) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
-    } else if (myNeteditConfigSaved == false) {
+    } else if (!myNet->getSavingStatus()->isSUMOConfigSaved()) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
-    } else if (myNet->isNetSaved() && myNet->isAdditionalsSaved() && myNet->isDemandElementsSaved() && 
-               myNet->isDataElementsSaved() && myNet->isMeanDatasSaved()){
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     }
 }
 
 
 long
 GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject*, FXSelector, void*) {
-    // obtain option container
-    auto &neteditOptions = OptionsCont::getOptions();
-    // check if save additional menu is enabled
-    if (myFileMenuCommands.saveTLSPrograms->isEnabled()) {
+    // check if there is TLS to save
+    if (myNet && !myNet->getSavingStatus()->isTLSSaved()) {
+        // obtain option container
+        auto& neteditOptions = OptionsCont::getOptions();
         // Check if TLS Programs file was already set at start of netedit or with a previous save
         if (neteditOptions.getString("TLSPrograms-output").empty()) {
             // declare current folder
@@ -3928,7 +3454,6 @@ GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject*, FXSelector, void*) {
             myNet->computeNetwork(this, true); // GNEChange_TLS does not triggere GNENet:requireRecompute
             myNet->saveTLSPrograms(neteditOptions.getString("TLSPrograms-output"));
             myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "TLS Programs saved in " + neteditOptions.getString("TLSPrograms-output") + ".\n");
-            myFileMenuCommands.saveTLSPrograms->disable();
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox 'error saving TLS Programs'");
@@ -3950,22 +3475,27 @@ GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onUpdSaveTLSPrograms(FXObject* sender, FXSelector, void*) {
-    // check if net exist and there is junctions
-    if (myNet && (myNet->getAttributeCarriers()->getJunctions().size() > 0)) {
-        sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    if (myNet == nullptr) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
-        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        // check if there is at least one TLS
+        for (const auto &junction : myNet->getAttributeCarriers()->getJunctions()) {
+            if (junction.second->getNBNode()->getControllingTLS().size() > 0) {
+                return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+            }
+        }
+        // no TLS, then disable
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     }
-    return 1;
 }
 
 
 long
 GNEApplicationWindow::onCmdSaveEdgeTypes(FXObject*, FXSelector, void*) {
     // obtain option container
-    auto &neteditOptions = OptionsCont::getOptions();
+    auto& neteditOptions = OptionsCont::getOptions();
     // check if save additional menu is enabled
-    if (myFileMenuCommands.saveEdgeTypes->isEnabled()) {
+    if (myNet && !myNet->getSavingStatus()->isEdgeTypeSaved()) {
         // Check if edgeType file was already set at start of netedit or with a previous save
         if (neteditOptions.getString("edgeTypes-output").empty()) {
             // declare current folder
@@ -3997,7 +3527,6 @@ GNEApplicationWindow::onCmdSaveEdgeTypes(FXObject*, FXSelector, void*) {
         try {
             myNet->saveEdgeTypes(neteditOptions.getString("edgeTypes-output"));
             myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "EdgeType saved in " + neteditOptions.getString("edgeTypes-output") + ".\n");
-            myFileMenuCommands.saveEdgeTypes->disable();
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox 'error saving edgeTypes'");
@@ -4032,7 +3561,7 @@ GNEApplicationWindow::onUpdSaveEdgeTypes(FXObject* sender, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdSaveTLSProgramsAs(FXObject*, FXSelector, void*) {
     // obtain option container
-    const auto &neteditOptions = OptionsCont::getOptions();
+    const auto& neteditOptions = OptionsCont::getOptions();
     // declare current folder
     FXString currentFolder = gCurrentFolder;
     // check if there is a saved network
@@ -4063,7 +3592,7 @@ GNEApplicationWindow::onCmdSaveTLSProgramsAs(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdSaveEdgeTypesAs(FXObject*, FXSelector, void*) {
     // obtain option container
-    const auto &neteditOptions = OptionsCont::getOptions();
+    const auto& neteditOptions = OptionsCont::getOptions();
     // declare current folder
     FXString currentFolder = gCurrentFolder;
     // check if there is a saved network
@@ -4104,23 +3633,15 @@ GNEApplicationWindow::onUpdSaveEdgeTypesAs(FXObject* sender, FXSelector, void*) 
 
 long
 GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
-    // write debug information
-    WRITE_DEBUG("Open additional dialog");
-    // get the Additional file name
-    FXFileDialog opendialog(this, TL("Open Additionals file"));
-    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL));
-    opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList("XML files (*.xml,*.xml.gz)\nAll files (*)");
-    if (gCurrentFolder.length() != 0) {
-        opendialog.setDirectory(gCurrentFolder);
-    }
-    if (opendialog.execute()) {
-        // close additional dialog
-        WRITE_DEBUG("Closet additional dialog");
+    auto &neteditOptions = OptionsCont::getOptions();
+    // get file
+    const auto additionalFile = GNEApplicationWindowHelper::openAdditionalFileDialog(this, false);
+    // check file
+    if (!additionalFile.empty()) {
         // declare overwrite flag
         bool overwriteElements = false;
         // check if open question dialog box
-        if (opendialog.getFilename().text() == OptionsCont::getOptions().getString("additional-files")) {
+        if (additionalFile == neteditOptions.getString("additional-files")) {
             // open overwrite dialog
             GNEOverwriteElementsDialog overwriteDialog(this, "additional");
             // continue depending of result
@@ -4132,50 +3653,35 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
                 overwriteElements = true;
             }
         }
-        // save previous status save
-        const bool requireSaveAdditionals = !myNet->isAdditionalsSaved();
-        const bool requireSaveDemandElements = !myNet->isDemandElementsSaved();
-        const bool requireSaveDataElements = !myNet->isDataElementsSaved();
-        // udpate current folder
-        gCurrentFolder = opendialog.getDirectory();
-        std::string file = opendialog.getFilename().text();
+        // flag for save current saving status
+        const auto previouslySaved = myNet->getSavingStatus()->isAdditionalsSaved();
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // Create additional handler
-        GNEGeneralHandler generalHandler(myNet, file, true, overwriteElements);
+        GNEGeneralHandler generalHandler(myNet, additionalFile, true, overwriteElements);
         // begin undoList operation
-        myUndoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, "reloading additionals from '" + file + "'");
+        myUndoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, TL("load additionals from '") + additionalFile + "'");
         // Run parser
         if (!generalHandler.parse()) {
-            WRITE_ERROR("Loading of " + file + " failed.");
+            // write error
+            WRITE_ERROR(TL("Loading of additional file failed: ") + additionalFile);
+        } else {
+            // change value of "additional-files"
+            neteditOptions.resetWritable();
+            neteditOptions.set("additional-files", additionalFile);
+            // write info
+            WRITE_MESSAGE(TL("Loading of additional file sucessfully: ") + additionalFile);
+            // enable save if there is errors loading additionals
+            if (previouslySaved && !generalHandler.isErrorCreatingElement()) {
+                myNet->getSavingStatus()->additionalsSaved();
+            }
         }
-        // enable demand elements if there is an error creating element
-        if (generalHandler.isErrorCreatingElement()) {
-            myNet->requireSaveAdditionals(true);
-        }
-        // end undoList operation and update view
+        // end undoList operation
         myUndoList->end();
-        update();
         // restore validation for additionals
         XMLSubSys::setValidation("auto", "auto", "auto");
-        // update require save additional elements
-        myNet->requireSaveAdditionals(requireSaveAdditionals);
-        myNet->requireSaveDemandElements(requireSaveDemandElements);
-        myNet->requireSaveDataElements(requireSaveDataElements);
-        // change value of "additional-files"
-        auto &neteditOptions = OptionsCont::getOptions();
-        neteditOptions.resetWritable();
-        neteditOptions.set("additional-files", opendialog.getFilename().text());
-        // set additional files in SUMO configs (additional and meanDatas)
-        mySUMOOptions.resetWritable();
-        if (neteditOptions.getString("meandata-files").size() > 0) {
-            mySUMOOptions.set("additional-files", neteditOptions.getString("additional-files") + "," + neteditOptions.getString("meandata-files"));
-        } else {
-            mySUMOOptions.set("additional-files", neteditOptions.getString("additional-files"));
-        }
-    } else {
-        // write debug information
-        WRITE_DEBUG("Cancel additional dialog");
+        // update view
+        update();
     }
     return 1;
 }
@@ -4183,102 +3689,66 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdReloadAdditionals(FXObject*, FXSelector, void*) {
-    // get file
-    const std::string file = OptionsCont::getOptions().getString("additional-files");
+    // get additionalFile
+    const std::string additionalFile = OptionsCont::getOptions().getString("additional-files");
     // disable validation for additionals
     XMLSubSys::setValidation("never", "auto", "auto");
     // Create general handler
-    GNEGeneralHandler generalHandler(myNet, file, true, true);
+    GNEGeneralHandler generalHandler(myNet, additionalFile, true, true);
     // begin undoList operation
-    myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODENETWORK, "reloading additionals from '" + file + "'");
+    myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODENETWORK, TL("reloading additionals from '") + additionalFile + "'");
     // clear additionals
     myNet->clearAdditionalElements(myUndoList);
     // Run parser
     if (!generalHandler.parse()) {
-        WRITE_ERROR("Reloading of " + file + " failed.");
+        WRITE_ERROR(TL("Reloading of additional file failed: ") + additionalFile);
     }
-    // end undoList operation and update view
+    // end undoList operation
     myUndoList->end();
-    update();
     // restore validation for additionals
     XMLSubSys::setValidation("auto", "auto", "auto");
+    // update view
+    update();
     return 1;
 }
 
 
 long
-GNEApplicationWindow::onUpdReloadAdditionals(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onUpdReloadAdditionals(FXObject* sender, FXSelector, void*) {
     // check if file exist
     if (myViewNet && OptionsCont::getOptions().getString("additional-files").empty()) {
-        return myFileMenuCommands.reloadAdditionals->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
-        return myFileMenuCommands.reloadAdditionals->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     }
 }
 
 
 long
-GNEApplicationWindow::onCmdSaveAdditionals(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdSaveAdditionals(FXObject* sender, FXSelector sel, void* ptr) {
     // obtain option container
-    auto &neteditOptions = OptionsCont::getOptions();
-    // check if save additional menu is enabled
-    if (myFileMenuCommands.saveAdditionals->isEnabled()) {
-        // Check if additionals file was already set at start of netedit or with a previous save
-        if (neteditOptions.getString("additional-files").empty()) {
-            // declare current folder
-            FXString currentFolder = gCurrentFolder;
-            // check if there is a saved network
-            if (neteditOptions.getString("net-file").size() > 0) {
-                // extract folder
-                currentFolder = getFolder(neteditOptions.getString("net-file"));
-            }
-            // open dialog
-            FXString file = MFXUtils::getFilename2Write(this,
-                            TL("Save Additionals file"), ".add.xml",
-                            GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL),
-                            currentFolder);
-            // add xml extension
-            std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
-            // check tat file is valid
-            if (fileWithExtension != "") {
-                // change value of "additional-files"
-                neteditOptions.resetWritable();
-                neteditOptions.set("additional-files", fileWithExtension);
-                // set additional files in SUMO configs (additional and meanDatas)
-                mySUMOOptions.resetWritable();
-                if (neteditOptions.getString("meandata-files").size() > 0) {
-                    mySUMOOptions.set("additional-files", neteditOptions.getString("additional-files") + "," + neteditOptions.getString("meandata-files"));
-                } else {
-                    mySUMOOptions.set("additional-files", neteditOptions.getString("additional-files"));
-                }
-            } else {
-                // None additionals file was selected, then stop function
-                return 0;
-            }
-        }
+    auto& neteditOptions = OptionsCont::getOptions();
+    // check saving conditions
+    if (myNet->getSavingStatus()->isAdditionalsSaved()) {
+        // nothing to save
+        return 1;
+    } else if (neteditOptions.getString("additional-files").empty()) {
+        // choose file to save
+        return onCmdSaveAdditionalsAs(sender, sel, ptr);
+    } else {
         // Start saving additionals
         getApp()->beginWaitCursor();
-        try {
-            // compute before saving (for detectors positions)
-            myNet->computeNetwork(this);
-            myNet->saveAdditionals(neteditOptions.getString("additional-files"));
-            myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "Additionals saved in " + neteditOptions.getString("additional-files") + ".\n");
-            myFileMenuCommands.saveAdditionals->disable();
-        } catch (IOError& e) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Opening FXMessageBox 'error saving additionals'");
-            // open error message box
-            FXMessageBox::error(this, MBOX_OK, TL("Saving additionals failed!"), "%s", e.what());
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox 'error saving additionals' with 'OK'");
-        }
-        myMessageWindow->addSeparator();
+        // compute before saving (for detectors positions)
+        myNet->computeNetwork(this);
+        // save additionals
+        myNet->saveAdditionals();
+        // show info
+        WRITE_MESSAGE("Additionals saved in '" + neteditOptions.getString("additional-files") + "'.");
+        // end saving additionals
         getApp()->endWaitCursor();
         // restore focus
         setFocus();
         return 1;
-    } else {
-        return 0;
     }
 }
 
@@ -4286,36 +3756,29 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdSaveAdditionalsAs(FXObject*, FXSelector, void*) {
     // obtain option container
-    const auto &neteditOptions = OptionsCont::getOptions();
+    const auto& neteditOptions = OptionsCont::getOptions();
     // declare current folder
     FXString currentFolder = gCurrentFolder;
-    // check if there is a saved network
-    if (neteditOptions.getString("net-file").size() > 0) {
-        // extract folder
+    // set current folder
+    if (neteditOptions.getString("configuration-file").size() > 0) {
+        currentFolder = getFolder(neteditOptions.getString("configuration-file"));
+    } else if (neteditOptions.getString("net-file").size() > 0) {
         currentFolder = getFolder(neteditOptions.getString("net-file"));
     }
     // Open window to select additional file
     FXString file = MFXUtils::getFilename2Write(this,
-                    TL("Save Additionals file as"), ".xml",
-                    GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL),
-                    currentFolder);
+                    TL("Save Additionals file as"), ".add.xml",
+                    GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL), currentFolder);
     // add xml extension
-    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
-    // check tat file is valid
-    if (fileWithExtension != "") {
+    const auto additionalFile = FileHelpers::addExtension(file.text(), ".xml");
+    // check that file is valid
+    if (additionalFile.size() > 0) {
         // reset writtable flag
         OptionsCont::getOptions().resetWritable();
         // change value of "additional-files"
-        OptionsCont::getOptions().set("additional-files", fileWithExtension);
-        // set additional files in SUMO configs (additional and meanDatas)
-        mySUMOOptions.resetWritable();
-        if (neteditOptions.getString("meandata-files").size() > 0) {
-            mySUMOOptions.set("additional-files", neteditOptions.getString("additional-files") + "," + neteditOptions.getString("meandata-files"));
-        } else {
-            mySUMOOptions.set("additional-files", neteditOptions.getString("additional-files"));
-        }
-        // change flag of menu command for save additionals
-        myFileMenuCommands.saveAdditionals->enable();
+        OptionsCont::getOptions().set("additional-files", additionalFile);
+        // enable save additionals
+        myNet->getSavingStatus()->requireSaveAdditionals();
         // save additionals
         return onCmdSaveAdditionals(nullptr, 0, nullptr);
     } else {
@@ -4326,23 +3789,15 @@ GNEApplicationWindow::onCmdSaveAdditionalsAs(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
-    // write debug information
-    WRITE_DEBUG("Open demand element dialog");
-    // get the demand element file name
-    FXFileDialog opendialog(this, TL("Open demand element file"));
-    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND));
-    opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList("XML files (*.xml,*.xml.gz)\nDemand files (*rou.xml,*rou.xml.gz)\nAll files (*)");
-    if (gCurrentFolder.length() != 0) {
-        opendialog.setDirectory(gCurrentFolder);
-    }
-    if (opendialog.execute()) {
-        // close additional dialog
-        WRITE_DEBUG("Close demand element dialog");
+    auto &neteditOptions = OptionsCont::getOptions();
+    // get file
+    const auto routeFile = GNEApplicationWindowHelper::openRouteFileDialog(this, false);
+    // check file
+    if (!routeFile.empty()) {
         // declare overwrite flag
         bool overwriteElements = false;
         // check if open question dialog box
-        if (opendialog.getFilename().text() == OptionsCont::getOptions().getString("route-files")) {
+        if (routeFile == neteditOptions.getString("route-files")) {
             // open overwrite dialog
             GNEOverwriteElementsDialog overwriteDialog(this, "route");
             // continue depending of result
@@ -4354,46 +3809,35 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
                 overwriteElements = true;
             }
         }
-        // save previous status save
-        const bool requireSaveAdditionals = !myNet->isAdditionalsSaved();
-        const bool requireSaveDemandElements = !myNet->isDemandElementsSaved();
-        const bool requireSaveDataElements = !myNet->isDataElementsSaved();
-        // udpate current folder
-        gCurrentFolder = opendialog.getDirectory();
-        std::string file = opendialog.getFilename().text();
+        // save previous demand element status saving
+        const auto previouslySaved = myNet->getSavingStatus()->isDemandElementsSaved();
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // Create generic handler
-        GNEGeneralHandler handler(myNet, file, true, overwriteElements);
+        GNEGeneralHandler handler(myNet, routeFile, true, overwriteElements);
         // begin undoList operation
-        myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, "loading demand elements from '" + file + "'");
+        myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, TL("loading demand elements from '") + routeFile + "'");
         // Run parser for additionals
         if (!handler.parse()) {
-            WRITE_ERROR("Loading of " + file + " failed.");
+            // write error
+            WRITE_ERROR(TL("Loading of route file failed: ") + routeFile);
+        } else {
+            // change value of "route-files"
+            neteditOptions.resetWritable();
+            neteditOptions.set("route-files", routeFile);
+            // show info
+            WRITE_MESSAGE(TL("Loading of route file sucessfully: ") + routeFile);
+            // enable demand elements if there is an error creating element
+            if (previouslySaved && !handler.isErrorCreatingElement()) {
+                myNet->getSavingStatus()->demandElementsSaved();
+            }
         }
-        // enable demand elements if there is an error creating element
-        if (handler.isErrorCreatingElement()) {
-            myNet->requireSaveDemandElements(true);
-        }
-        // end undoList operation and update view
+        // end undoList operation
         myUndoList->end();
-        update();
-        // restore validation for demand
+        // restore validation
         XMLSubSys::setValidation("auto", "auto", "auto");
-        // update require save additional elements
-        myNet->requireSaveAdditionals(requireSaveAdditionals);
-        myNet->requireSaveDemandElements(requireSaveDemandElements);
-        myNet->requireSaveDataElements(requireSaveDataElements);
-        // change value of "route-files"
-        auto &neteditOptions = OptionsCont::getOptions();
-        neteditOptions.resetWritable();
-        neteditOptions.set("route-files", opendialog.getFilename().text());
-        // set route files in SUMO configs
-        mySUMOOptions.resetWritable();
-        mySUMOOptions.set("route-files", neteditOptions.getString("route-files"));
-    } else {
-        // write debug information
-        WRITE_DEBUG("Cancel demand element dialog");
+        // update view
+        update();
     }
     return 1;
 }
@@ -4402,18 +3846,18 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdReloadDemandElements(FXObject*, FXSelector, void*) {
     // get file
-    const std::string file = OptionsCont::getOptions().getString("route-files");
+    const std::string routeFile = OptionsCont::getOptions().getString("route-files");
     // disable validation for additionals
     XMLSubSys::setValidation("never", "auto", "auto");
     // Create handler
-    GNEGeneralHandler handler(myNet, file, true, true);
+    GNEGeneralHandler handler(myNet, routeFile, true, true);
     // begin undoList operation
-    myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, "reloading demand elements from '" + file + "'");
+    myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, "reloading demand elements from '" + routeFile + "'");
     // clear demand elements
     myNet->clearDemandElements(myUndoList);
     // Run parser for additionals
     if (!handler.parse()) {
-        WRITE_ERROR("Reloading of " + file + " failed.");
+        WRITE_ERROR(TL("Reloading of route file failed: ") + routeFile);
     }
     // end undoList operation and update view
     myUndoList->end();
@@ -4425,85 +3869,54 @@ GNEApplicationWindow::onCmdReloadDemandElements(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onUpdReloadDemandElements(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onUpdReloadDemandElements(FXObject* sender, FXSelector, void*) {
     // check if file exist
     if (myViewNet && OptionsCont::getOptions().getString("route-files").empty()) {
-        return myFileMenuCommands.reloadDemandElements->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
-        return myFileMenuCommands.reloadDemandElements->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     }
 }
 
 
 long
-GNEApplicationWindow::onCmdSaveDemandElements(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdSaveDemandElements(FXObject* sender, FXSelector sel, void* ptr) {
     // obtain option container
-    auto &neteditOptions = OptionsCont::getOptions();
-    // check if save demand element menu is enabled
-    if (myFileMenuCommands.saveDemandElements->isEnabled()) {
-        // Check if demand elements file was already set at start of netedit or with a previous save
-        if (neteditOptions.getString("route-files").empty()) {
-            // declare current folder
-            FXString currentFolder = gCurrentFolder;
-            // check if there is a saved network
-            if (neteditOptions.getString("net-file").size() > 0) {
-                // extract folder
-                currentFolder = getFolder(neteditOptions.getString("net-file"));
-            }
-            // open dialog
-            FXString file = MFXUtils::getFilename2Write(this,
-                            TL("Save demand element file"), ".rou.xml",
-                            GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND),
-                            currentFolder);
-            // add xml extension
-            std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".rou.xml");
-            // check tat file is valid
-            if (fileWithExtension != "") {
-                // change value of "route-files"
-                neteditOptions.resetWritable();
-                neteditOptions.set("route-files", fileWithExtension);
-                // set route files in SUMO configs
-                mySUMOOptions.resetWritable();
-                mySUMOOptions.set("route-files", neteditOptions.getString("route-files"));
-            } else {
-                // None demand elements file was selected, then stop function
-                return 0;
-            }
-        }
+    auto& neteditOptions = OptionsCont::getOptions();
+    // check if requiere save demand elements
+    if (myNet->getSavingStatus()->isDemandElementsSaved()) {
+        // nothing to save
+        return 1;
+    } else if (neteditOptions.getString("route-files").empty()) {
+        return onCmdSaveDemandElementsAs(sender, sel, ptr);
+    } else {
         // Start saving demand elements
         getApp()->beginWaitCursor();
-        try {
-            myNet->saveDemandElements(neteditOptions.getString("route-files"));
-            myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "Demand elements saved in " + neteditOptions.getString("route-files") + ".\n");
-            myFileMenuCommands.saveDemandElements->disable();
-        } catch (IOError& e) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Opening FXMessageBox 'error saving demand elements'");
-            // open error message box
-            FXMessageBox::error(this, MBOX_OK, TL("Saving demand elements failed!"), "%s", e.what());
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox 'error saving demand elements' with 'OK'");
-        }
-        myMessageWindow->addSeparator();
+        // compute before saving
+        myNet->computeNetwork(this);
+        // save demand elements
+        myNet->saveDemandElements();
+        // show info
+        WRITE_MESSAGE("Demand elements saved in '" + neteditOptions.getString("route-files") + "'.");
+        // end saving demand elements
         getApp()->endWaitCursor();
         // restore focus
         setFocus();
         return 1;
-    } else {
-        return 0;
     }
 }
 
 
 long
-GNEApplicationWindow::onCmdSaveDemandElementsAs(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdSaveDemandElementsAs(FXObject* sender, FXSelector sel, void* ptr) {
     // obtain option container
-    const auto &neteditOptions = OptionsCont::getOptions();
+    const auto& neteditOptions = OptionsCont::getOptions();
     // declare current folder
     FXString currentFolder = gCurrentFolder;
-    // check if there is a saved network
-    if (neteditOptions.getString("net-file").size() > 0) {
-        // extract folder
+    // set current folder
+    if (neteditOptions.getString("configuration-file").size() > 0) {
+        currentFolder = getFolder(neteditOptions.getString("configuration-file"));
+    } else if (neteditOptions.getString("net-file").size() > 0) {
         currentFolder = getFolder(neteditOptions.getString("net-file"));
     }
     // Open window to select additionasl file
@@ -4519,13 +3932,10 @@ GNEApplicationWindow::onCmdSaveDemandElementsAs(FXObject*, FXSelector, void*) {
         OptionsCont::getOptions().resetWritable();
         // change value of "route-files"
         OptionsCont::getOptions().set("route-files", fileWithExtension);
-        // set route files in SUMO configs
-        mySUMOOptions.resetWritable();
-        mySUMOOptions.set("route-files", neteditOptions.getString("route-files"));
-        // change flag of menu command for save demand elements
-        myFileMenuCommands.saveDemandElements->enable();
+        // requiere save demand elements
+        myNet->getSavingStatus()->requireSaveDemandElements();
         // save demand elements
-        return onCmdSaveDemandElements(nullptr, 0, nullptr);
+        return onCmdSaveDemandElements(sender, sel, ptr);
     } else {
         return 1;
     }
@@ -4534,72 +3944,59 @@ GNEApplicationWindow::onCmdSaveDemandElementsAs(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
-    // write debug information
-    WRITE_DEBUG("Open data element dialog");
-    // get the data element file name
-    FXFileDialog opendialog(this, TL("Open data element file"));
-    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA));
-    opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList("XML files (*.xml,*.xml.gz)\nData files (*dat.xml,*dat.xml.gz)\nAll files (*)");
-    if (gCurrentFolder.length() != 0) {
-        opendialog.setDirectory(gCurrentFolder);
-    }
-    if (opendialog.execute()) {
-        // close additional dialog
-        WRITE_DEBUG("Close data element dialog");
+    auto &neteditOptions = OptionsCont::getOptions();
+    // get file
+    const auto dataFile = GNEApplicationWindowHelper::openDataFileDialog(this, false);
+    // check file
+    if (dataFile.empty()) {
+        // declare overwrite flag
+        bool overwriteElements = false;
         // check if open question dialog box
-        if (opendialog.getFilename().text() == OptionsCont::getOptions().getString("data-files")) {
-            // open question dialog box
-            const auto answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO, TL("Load same data file"),
-                                "Selected data file was already loaded. Continue?");
-            if (answer != 1) { //1:yes, 2:no, 4:esc
-                // write warning if netedit is running in testing mode
-                if (answer == 2) {
-                    WRITE_DEBUG("Closed FXMessageBox 'Load same data file' with 'No'");
-                } else if (answer == 4) {
-                    WRITE_DEBUG("Closed FXMessageBox 'Load same data file' with 'ESC'");
-                }
+        if (dataFile == neteditOptions.getString("data-files")) {
+            // open overwrite dialog
+            GNEOverwriteElementsDialog overwriteDialog(this, "data");
+            // continue depending of result
+            if (overwriteDialog.getResult() == GNEOverwriteElementsDialog::Result::CANCEL) {
+                // abort load
                 return 0;
+            } else if (overwriteDialog.getResult() == GNEOverwriteElementsDialog::Result::OVERWRITE) {
+                // enable overwriteElements
+                overwriteElements = true;
             }
         }
-        // save previous status save
-        const bool requireSaveAdditionals = !myNet->isAdditionalsSaved();
-        const bool requireSaveDemandElements = !myNet->isDemandElementsSaved();
-        const bool requireSaveDataElements = !myNet->isDataElementsSaved();
-        // udpate current folder
-        gCurrentFolder = opendialog.getDirectory();
-        std::string file = opendialog.getFilename().text();
+        // save previous demand element status saving
+        const auto previouslySaved = myNet->getSavingStatus()->isDataElementsSaved();
         // disable update data
         myViewNet->getNet()->disableUpdateData();
         // disable validation for data elements
         XMLSubSys::setValidation("never", "auto", "auto");
         // Create data handler
-        GNEDataHandler dataHandler(myNet, file, true);
+        GNEDataHandler dataHandler(myNet, dataFile, true, overwriteElements);
         // begin undoList operation
-        myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, "loading data elements from '" + file + "'");
+        myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, TL("loading data elements from '") + dataFile + "'");
         // Run data parser
         if (!dataHandler.parse()) {
-            WRITE_ERROR("Loading of " + file + " failed.");
+            // write error
+            WRITE_ERROR(TL("Loading of data file failed: ") + dataFile);
+        } else {
+            // change value of "data-files"
+            neteditOptions.resetWritable();
+            neteditOptions.set("data-files", dataFile);
+            // show info
+            WRITE_MESSAGE(TL("Loading of data file sucessfully: ") + dataFile);
+            // enable demand elements if there is an error creating element
+            if (previouslySaved && !dataHandler.isErrorCreatingElement()) {
+                myNet->getSavingStatus()->dataElementsSaved();
+            }
         }
-        // end undoList operation and update view
+        // end undoList operation
         myUndoList->end();
         // enable update data
         myViewNet->getNet()->enableUpdateData();
-        // update
-        update();
         // restore validation for data
         XMLSubSys::setValidation("auto", "auto", "auto");
-        // update require save additional elements
-        myNet->requireSaveAdditionals(requireSaveAdditionals);
-        myNet->requireSaveDemandElements(requireSaveDemandElements);
-        myNet->requireSaveDataElements(requireSaveDataElements);
-        // change value of "data-files"
-        auto &neteditOptions = OptionsCont::getOptions();
-        neteditOptions.resetWritable();
-        neteditOptions.set("data-files", opendialog.getFilename().text());
-    } else {
-        // write debug information
-        WRITE_DEBUG("Cancel data element dialog");
+        // update
+        update();
     }
     return 1;
 }
@@ -4608,24 +4005,20 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdReloadDataElements(FXObject*, FXSelector, void*) {
     // get file
-    const std::string file = OptionsCont::getOptions().getString("data-files");
+    const std::string dataFile = OptionsCont::getOptions().getString("data-files");
     // disable update data
     myViewNet->getNet()->disableUpdateData();
     // disable validation for additionals
     XMLSubSys::setValidation("never", "auto", "auto");
     // Create additional handler
-    GNEDataHandler dataHandler(myNet, file, true);
+    GNEDataHandler dataHandler(myNet, dataFile, true, false);
     // begin undoList operation
-    myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, "reloading data elements from '" + file + "'");
+    myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, TL("reloading data elements from '") + dataFile + "'");
     // clear data elements
     myNet->clearDemandElements(myUndoList);
     // Run data parser
     if (!dataHandler.parse()) {
-        WRITE_ERROR("Reloading of " + file + " failed.");
-    }
-    // enable demand elements if there is an error creating element
-    if (dataHandler.isErrorCreatingElement()) {
-        myNet->requireSaveDemandElements(true);
+        WRITE_ERROR(TL("Reloading of data file failed: ") + dataFile);
     }
     // restore validation for data
     XMLSubSys::setValidation("auto", "auto", "auto");
@@ -4640,87 +4033,57 @@ GNEApplicationWindow::onCmdReloadDataElements(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onUpdReloadDataElements(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onUpdReloadDataElements(FXObject* sender, FXSelector, void*) {
     // check if file exist
     if (myViewNet && OptionsCont::getOptions().getString("data-files").empty()) {
-        return myFileMenuCommands.reloadDataElements->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
-        return myFileMenuCommands.reloadDataElements->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     }
 }
 
 
 long
-GNEApplicationWindow::onCmdSaveDataElements(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdSaveDataElements(FXObject* sender, FXSelector sel, void* ptr) {
     // obtain option container
-    auto &neteditOptions = OptionsCont::getOptions();
-    // check if save data element menu is enabled
-    if (myFileMenuCommands.saveDataElements->isEnabled()) {
-        // Check if data elements file was already set at start of netedit or with a previous save
-        if (neteditOptions.getString("data-files").empty()) {
-            // declare current folder
-            FXString currentFolder = gCurrentFolder;
-            // check if there is a saved network
-            if (neteditOptions.getString("net-file").size() > 0) {
-                // extract folder
-                currentFolder = getFolder(neteditOptions.getString("net-file"));
-            }
-            // open dialog
-            FXString file = MFXUtils::getFilename2Write(this,
-                            TL("Save data element file"), ".xml",
-                            GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA),
-                            currentFolder);
-            // add xml extension
-            std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".dat.xml");
-            // check tat file is valid
-            if (fileWithExtension != "") {
-                // change value of "data-files"
-                neteditOptions.resetWritable();
-                neteditOptions.set("data-files", fileWithExtension);
-            } else {
-                // None data elements file was selected, then stop function
-                return 0;
-            }
-        }
+    auto& neteditOptions = OptionsCont::getOptions();
+    // check conditions
+    if (myNet->getSavingStatus()->isDataElementsSaved()) {
+        // nothing to save
+        return 1;
+    } else if (neteditOptions.getString("data-files").empty()) {
+        return onCmdSaveDataElementsAs(sender, sel, ptr);
+    } else {
         // Start saving data elements
         getApp()->beginWaitCursor();
-        try {
-            myNet->saveDataElements(neteditOptions.getString("data-files"));
-            myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "Data elements saved in " + neteditOptions.getString("data-files") + ".\n");
-            myFileMenuCommands.saveDataElements->disable();
-        } catch (IOError& e) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Opening FXMessageBox 'error saving data elements'");
-            // open error message box
-            FXMessageBox::error(this, MBOX_OK, TL("Saving data elements failed!"), "%s", e.what());
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox 'error saving data elements' with 'OK'");
-        }
-        myMessageWindow->addSeparator();
+        // save data elements
+        myNet->saveDataElements();
+        // write einfo
+        WRITE_MESSAGE("Data elements saved in '" + neteditOptions.getString("data-files") + "'.");
+        // end saving
         getApp()->endWaitCursor();
         // restore focus
         setFocus();
         return 1;
-    } else {
-        return 0;
     }
 }
 
 
 long
-GNEApplicationWindow::onCmdSaveDataElementsAs(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdSaveDataElementsAs(FXObject* sender, FXSelector sel, void* ptr) {
     // obtain option container
-    auto &neteditOptions = OptionsCont::getOptions();
+    auto& neteditOptions = OptionsCont::getOptions();
     // declare current folder
     FXString currentFolder = gCurrentFolder;
-    // check if there is a saved network
-    if (neteditOptions.getString("net-file").size() > 0) {
-        // extract folder
+    // set current folder
+    if (neteditOptions.getString("configuration-file").size() > 0) {
+        currentFolder = getFolder(neteditOptions.getString("configuration-file"));
+    } else if (neteditOptions.getString("net-file").size() > 0) {
         currentFolder = getFolder(neteditOptions.getString("net-file"));
     }
     // Open window to select additionasl file
     FXString file = MFXUtils::getFilename2Write(this,
-                    TL("Save data element file as"), ".xml",
+                    TL("Save data element file as"), ".dat.xml",
                     GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA),
                     currentFolder);
     // add xml extension
@@ -4731,10 +4094,10 @@ GNEApplicationWindow::onCmdSaveDataElementsAs(FXObject*, FXSelector, void*) {
         OptionsCont::getOptions().resetWritable();
         // change value of "data-files"
         OptionsCont::getOptions().set("data-files", fileWithExtension);
-        // change flag of menu command for save data elements
-        myFileMenuCommands.saveDataElements->enable();
+        // mark data elements as unsaved
+        myNet->getSavingStatus()->requireSaveDataElements();
         // save data elements
-        return onCmdSaveDataElements(nullptr, 0, nullptr);
+        return onCmdSaveDataElements(sender, sel, ptr);
     } else {
         return 1;
     }
@@ -4743,23 +4106,15 @@ GNEApplicationWindow::onCmdSaveDataElementsAs(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenMeanDatas(FXObject*, FXSelector, void*) {
-    // write debug information
-    WRITE_DEBUG("Open meanData dialog");
-    // get the MeanData file name
-    FXFileDialog opendialog(this, TL("Open MeanDatas file"));
-    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::MODEMEANDATA));
-    opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList("XML files (*.xml,*.xml.gz)\nAll files (*)");
-    if (gCurrentFolder.length() != 0) {
-        opendialog.setDirectory(gCurrentFolder);
-    }
-    if (opendialog.execute()) {
-        // close meanData dialog
-        WRITE_DEBUG("Close meanData dialog");
+    auto &neteditOptions = OptionsCont::getOptions();
+    // get file
+    const auto meanDataFile = GNEApplicationWindowHelper::openMeanDataDialog(this, false);
+    // check file
+    if (!meanDataFile.empty()) {
         // declare overwrite flag
         bool overwriteElements = false;
         // check if open question dialog box
-        if (opendialog.getFilename().text() == OptionsCont::getOptions().getString("meandata-files")) {
+        if (meanDataFile == OptionsCont::getOptions().getString("meandata-files")) {
             // open overwrite dialog
             GNEOverwriteElementsDialog overwriteDialog(this, "meanData");
             // continue depending of result
@@ -4771,50 +4126,35 @@ GNEApplicationWindow::onCmdOpenMeanDatas(FXObject*, FXSelector, void*) {
                 overwriteElements = true;
             }
         }
-        // save previous status save
-        const bool requireSaveMeanDatas = !myNet->isMeanDatasSaved();
-        const bool requireSaveDemandElements = !myNet->isDemandElementsSaved();
-        const bool requireSaveDataElements = !myNet->isDataElementsSaved();
-        // udpate current folder
-        gCurrentFolder = opendialog.getDirectory();
-        std::string file = opendialog.getFilename().text();
+        // save previous demand element status saving
+        const auto previouslySaved = myNet->getSavingStatus()->isMeanDatasSaved();
         // disable validation for meanDatas
         XMLSubSys::setValidation("never", "auto", "auto");
         // Create meanData handler
-        GNEGeneralHandler generalHandler(myNet, file, true, overwriteElements);
+        GNEGeneralHandler generalHandler(myNet, meanDataFile, true, overwriteElements);
         // begin undoList operation
-        myUndoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, "reloading meanDatas from '" + file + "'");
+        myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, TL("load meanDatas from '") + meanDataFile + "'");
         // Run parser
         if (!generalHandler.parse()) {
-            WRITE_ERROR("Loading of " + file + " failed.");
+            // write error
+            WRITE_ERROR(TL("Loading of meandata file failed: ") + meanDataFile);
+        } else {
+            // change value of "meandata-files"
+            neteditOptions.resetWritable();
+            neteditOptions.set("meandata-files", meanDataFile);
+            // show info
+            WRITE_MESSAGE(TL("Loading of meandata file sucessfully: ") + meanDataFile);
+            // enable demand elements if there is an error creating element
+            if (previouslySaved && !generalHandler.isErrorCreatingElement()) {
+                myNet->getSavingStatus()->meanDatasSaved();
+            }
         }
-        // enable demand elements if there is an error creating element
-        if (generalHandler.isErrorCreatingElement()) {
-            myNet->requireSaveMeanDatas(true);
-        }
-        // end undoList operation and update view
-        myUndoList->end();
-        update();
+        // end undoList operation
+        myUndoList->end();        
         // restore validation for meanDatas
         XMLSubSys::setValidation("auto", "auto", "auto");
-        // update require save meanData elements
-        myNet->requireSaveMeanDatas(requireSaveMeanDatas);
-        myNet->requireSaveDemandElements(requireSaveDemandElements);
-        myNet->requireSaveDataElements(requireSaveDataElements);
-        // change value of "meandata-files"
-        auto &neteditOptions = OptionsCont::getOptions();
-        neteditOptions.resetWritable();
-        neteditOptions.set("meandata-files", opendialog.getFilename().text());
-        // set meanData files in SUMO configs (additional and meanDatas)
-        mySUMOOptions.resetWritable();
-        if (neteditOptions.getString("additional-files").size() > 0) {
-            mySUMOOptions.set("additional-files", neteditOptions.getString("additional-files") + "," + neteditOptions.getString("meandata-files"));
-        } else {
-            mySUMOOptions.set("additional-files", neteditOptions.getString("meandata-files"));
-        }
-    } else {
-        // write debug information
-        WRITE_DEBUG("Cancel meanData dialog");
+        // update view
+        update();
     }
     return 1;
 }
@@ -4823,18 +4163,18 @@ GNEApplicationWindow::onCmdOpenMeanDatas(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdReloadMeanDatas(FXObject*, FXSelector, void*) {
     // get file
-    const std::string file = OptionsCont::getOptions().getString("meandata-files");
+    const std::string meanDataFile = OptionsCont::getOptions().getString("meandata-files");
     // disable validation for meanDatas
     XMLSubSys::setValidation("never", "auto", "auto");
     // Create general handler
-    GNEGeneralHandler generalHandler(myNet, file, true, true);
+    GNEGeneralHandler generalHandler(myNet, meanDataFile, true, true);
     // begin undoList operation
-    myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODENETWORK, "reloading meanDatas from '" + file + "'");
+    myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODENETWORK, TL("reloading meanDatas from '") + meanDataFile + "'");
     // clear meanDatas
     myNet->clearMeanDataElements(myUndoList);
     // Run parser
     if (!generalHandler.parse()) {
-        WRITE_ERROR("Reloading of " + file + " failed.");
+        WRITE_MESSAGE(TL("Loading of meandata file sucessfully: ") + meanDataFile);
     }
     // end undoList operation and update view
     myUndoList->end();
@@ -4846,91 +4186,52 @@ GNEApplicationWindow::onCmdReloadMeanDatas(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onUpdReloadMeanDatas(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onUpdReloadMeanDatas(FXObject* sender, FXSelector, void*) {
     // check if file exist
     if (myViewNet && OptionsCont::getOptions().getString("meandata-files").empty()) {
-        return myFileMenuCommands.reloadMeanDatas->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
-        return myFileMenuCommands.reloadMeanDatas->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     }
 }
 
 
 long
-GNEApplicationWindow::onCmdSaveMeanDatas(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdSaveMeanDatas(FXObject* sender, FXSelector sel, void* ptr) {
     // obtain option container
-    auto &neteditOptions = OptionsCont::getOptions();
-    // check if save meanData menu is enabled
-    if (myFileMenuCommands.saveMeanDatas->isEnabled()) {
-        // Check if meanDatas file was already set at start of netedit or with a previous save
-        if (neteditOptions.getString("meandata-files").empty()) {
-            // declare current folder
-            FXString currentFolder = gCurrentFolder;
-            // check if there is a saved network
-            if (neteditOptions.getString("net-file").size() > 0) {
-                // extract folder
-                currentFolder = getFolder(neteditOptions.getString("net-file"));
-            }
-            // open dialog
-            FXString file = MFXUtils::getFilename2Write(this,
-                            TL("Save MeanDatas file"), ".add.xml",
-                            GUIIconSubSys::getIcon(GUIIcon::MODEMEANDATA),
-                            currentFolder);
-            // add xml extension
-            std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
-            // check tat file is valid
-            if (fileWithExtension != "") {
-                // change value of "meandata-files"
-                neteditOptions.resetWritable();
-                neteditOptions.set("meandata-files", fileWithExtension);
-                // set meanData files in SUMO configs (additional and meanDatas)
-                mySUMOOptions.resetWritable();
-                if (neteditOptions.getString("additional-files").size() > 0) {
-                    mySUMOOptions.set("additional-files", neteditOptions.getString("additional-files") + "," + neteditOptions.getString("meandata-files"));
-                } else {
-                    mySUMOOptions.set("additional-files", neteditOptions.getString("meandata-files"));
-                }
-            } else {
-                // None meanDatas file was selected, then stop function
-                return 0;
-            }
-        }
+    auto& neteditOptions = OptionsCont::getOptions();
+    // check conditions
+    if (myNet->getSavingStatus()->isMeanDatasSaved()) {
+        // nothing to save
+        return 1;
+    } else if (neteditOptions.getString("meandata-files").empty()) {
+        return onCmdSaveMeanDatasAs(sender, sel, ptr);
+    } else {
         // Start saving meanDatas
         getApp()->beginWaitCursor();
-        try {
-            // compute before saving (for detectors positions)
-            myNet->computeNetwork(this);
-            myNet->saveMeanDatas(neteditOptions.getString("meandata-files"));
-            myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "MeanDatas saved in " + neteditOptions.getString("meandata-files") + ".\n");
-            myFileMenuCommands.saveMeanDatas->disable();
-        } catch (IOError& e) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Opening FXMessageBox 'error saving meanDatas'");
-            // open error message box
-            FXMessageBox::error(this, MBOX_OK, TL("Saving meanDatas failed!"), "%s", e.what());
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox 'error saving meanDatas' with 'OK'");
-        }
-        myMessageWindow->addSeparator();
+        // save mean datas
+        myNet->saveMeanDatas();
+        // write info
+        WRITE_MESSAGE("MeanDatas saved in '" + neteditOptions.getString("meandata-files") + "'.");
+        // end saving
         getApp()->endWaitCursor();
         // restore focus
         setFocus();
         return 1;
-    } else {
-        return 0;
     }
 }
 
 
 long
-GNEApplicationWindow::onCmdSaveMeanDatasAs(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdSaveMeanDatasAs(FXObject* sender, FXSelector sel, void* ptr) {
     // obtain option container
-    const auto &neteditOptions = OptionsCont::getOptions();
+    auto& neteditOptions = OptionsCont::getOptions();
     // declare current folder
     FXString currentFolder = gCurrentFolder;
-    // check if there is a saved network
-    if (neteditOptions.getString("net-file").size() > 0) {
-        // extract folder
+    // set current folder
+    if (neteditOptions.getString("configuration-file").size() > 0) {
+        currentFolder = getFolder(neteditOptions.getString("configuration-file"));
+    } else if (neteditOptions.getString("net-file").size() > 0) {
         currentFolder = getFolder(neteditOptions.getString("net-file"));
     }
     // Open window to select meanData file
@@ -4939,26 +4240,17 @@ GNEApplicationWindow::onCmdSaveMeanDatasAs(FXObject*, FXSelector, void*) {
                     GUIIconSubSys::getIcon(GUIIcon::MODEMEANDATA),
                     currentFolder);
     // add xml extension
-    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
+    std::string fileWithExtension = FileHelpers::addExtension(file.text(), "add.xml");
     // check tat file is valid
     if (fileWithExtension != "") {
         // reset writtable flag
-        OptionsCont::getOptions().resetWritable();
+        neteditOptions.resetWritable();
         // change value of "meandata-files"
-        OptionsCont::getOptions().set("meandata-files", fileWithExtension);
-
-        // set meanData output in SUMO configs (additional and meanDatas)
-        mySUMOOptions.resetWritable();
-        if (neteditOptions.getString("additional-files").size() > 0) {
-            mySUMOOptions.set("additional-files", neteditOptions.getString("additional-files") + "," + neteditOptions.getString("meandata-files"));
-        } else {
-            mySUMOOptions.set("additional-files", neteditOptions.getString("meandata-files"));
-        }
-
-        // change flag of menu command for save meanDatas
-        myFileMenuCommands.saveMeanDatas->enable();
+        neteditOptions.set("meandata-files", fileWithExtension);
+        // mark mean datas as unsaved
+        myNet->getSavingStatus()->requireSaveMeanDatas();
         // save meanDatas
-        return onCmdSaveMeanDatas(nullptr, 0, nullptr);
+        return onCmdSaveMeanDatas(sender, sel, ptr);
     } else {
         return 1;
     }
@@ -4968,12 +4260,12 @@ GNEApplicationWindow::onCmdSaveMeanDatasAs(FXObject*, FXSelector, void*) {
 bool
 GNEApplicationWindow::continueWithUnsavedChanges(const std::string& operation) {
     FXuint answer = 0;
-    if (myViewNet && myNet && !myNet->isNetSaved()) {
+    if (myNet && !myNet->getSavingStatus()->isNetworkSaved()) {
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Opening FXMessageBox 'Confirm " + operation + " network'");
         // open question box
         answer = GUISaveDialog::question(getApp(), ("Confirm " + operation + " Network").c_str(), "%s",
-            ("You have unsaved changes in the network.\nDo you wish to " + operation + " and discard all changes?").c_str());
+                                         ("You have unsaved changes in the network.\nDo you wish to " + operation + " and discard all changes?").c_str());
         // restore focus to view net
         myViewNet->setFocus();
         // if user close dialog box, check additionals and demand elements
@@ -5030,12 +4322,12 @@ GNEApplicationWindow::continueWithUnsavedChanges(const std::string& operation) {
 bool
 GNEApplicationWindow::continueWithUnsavedAdditionalChanges(const std::string& operation) {
     // Check if there are non saved additionals
-    if (myViewNet && myFileMenuCommands.saveAdditionals->isEnabled()) {
+    if (myNet && !myNet->getSavingStatus()->isAdditionalsSaved()) {
         WRITE_DEBUG("Opening FXMessageBox 'Save additionals before " + operation + "'");
         // open question box
         FXuint answer = GUISaveDialog::question(getApp(),
-            ("Save additionals before " + operation).c_str(), "%s",
-            ("You have unsaved additionals. Do you wish to " + operation + " and discard all changes?").c_str());
+                                                ("Save additionals before " + operation).c_str(), "%s",
+                                                ("You have unsaved additionals. Do you wish to " + operation + " and discard all changes?").c_str());
         // restore focus to view net
         myViewNet->setFocus();
         // if answer was affirmative, but there was an error during saving additionals, return false to stop closing/reloading
@@ -5073,11 +4365,11 @@ GNEApplicationWindow::continueWithUnsavedAdditionalChanges(const std::string& op
 bool
 GNEApplicationWindow::continueWithUnsavedDemandElementChanges(const std::string& operation) {
     // Check if there are non saved demand elements
-    if (myViewNet && myFileMenuCommands.saveDemandElements->isEnabled()) {
+    if (myNet && !myNet->getSavingStatus()->isDemandElementsSaved()) {
         WRITE_DEBUG("Opening FXMessageBox 'Save demand elements before " + operation + "'");
         // open question box
         FXuint answer = GUISaveDialog::question(getApp(), ("Save demand elements before " + operation).c_str(), "%s",
-            ("You have unsaved demand elements.\nDo you wish to " + operation + " and discard all changes?").c_str());
+                                                ("You have unsaved demand elements.\nDo you wish to " + operation + " and discard all changes?").c_str());
         // restore focus to view net
         myViewNet->setFocus();
         // if answer was affirmative, but there was an error during saving demand elements, return false to stop closing/reloading
@@ -5115,11 +4407,11 @@ GNEApplicationWindow::continueWithUnsavedDemandElementChanges(const std::string&
 bool
 GNEApplicationWindow::continueWithUnsavedDataElementChanges(const std::string& operation) {
     // Check if there are non saved data elements
-    if (myViewNet && myFileMenuCommands.saveDataElements->isEnabled()) {
+    if (myNet && !myNet->getSavingStatus()->isDataElementsSaved()) {
         WRITE_DEBUG("Opening FXMessageBox 'Save data elements before " + operation + "'");
         // open question box
         FXuint answer = GUISaveDialog::question(getApp(), ("Save data elements before " + operation).c_str(), "%s",
-            ("You have unsaved data elements.\nDo you wish to " + operation + " and discard all changes?").c_str());
+                                                ("You have unsaved data elements.\nDo you wish to " + operation + " and discard all changes?").c_str());
         // restore focus to view net
         myViewNet->setFocus();
         // if answer was affirmative, but there was an error during saving data elements, return false to stop closing/reloading
@@ -5310,15 +4602,13 @@ GNEApplicationWindow::getSUMOOptions() {
 void
 GNEApplicationWindow::loadAdditionalElements() {
     // obtain option container
-    auto &neteditOptions = OptionsCont::getOptions();
+    auto& neteditOptions = OptionsCont::getOptions();
     // get additional files
     const auto additionalFiles = neteditOptions.getStringVector("additional-files");
     // continue depending of network and additional files
     if (myNet && (additionalFiles.size() > 0)) {
         // begin undolist
         myUndoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, "loading additionals and shapes from '" + toString(additionalFiles) + "'");
-        // flag for check if there is error creating elements
-        bool errorCreatingElement = false;
         // iterate over every additional file
         for (const auto& additionalFile : additionalFiles) {
             WRITE_MESSAGE("loading additionals and shapes from '" + additionalFile + "'");
@@ -5343,16 +4633,6 @@ GNEApplicationWindow::loadAdditionalElements() {
             }
             // disable validation for additionals
             XMLSubSys::setValidation("auto", "auto", "auto");
-            // enable demand elements if there is an error creating element
-            if (handler.isErrorCreatingElement()) {
-                errorCreatingElement = true;
-            }
-        }
-        // check if enable save demand elements
-        if (errorCreatingElement) {
-            myNet->requireSaveAdditionals(true);
-        } else {
-            myNet->requireSaveAdditionals(false);
         }
         // end undo list
         myUndoList->end();
@@ -5363,7 +4643,7 @@ GNEApplicationWindow::loadAdditionalElements() {
 void
 GNEApplicationWindow::loadDemandElements() {
     // obtain option container
-    auto &neteditOptions = OptionsCont::getOptions();
+    auto& neteditOptions = OptionsCont::getOptions();
     // get route files
     const auto routeFiles = neteditOptions.getStringVector("route-files");
     // continue depending of network and route files
@@ -5395,12 +4675,6 @@ GNEApplicationWindow::loadDemandElements() {
                 errorCreatingElement = true;
             }
         }
-        // check if enable save demand elements
-        if (errorCreatingElement) {
-            myNet->requireSaveDemandElements(true);
-        } else {
-            myNet->requireSaveDemandElements(false);
-        }
         // end undo list
         myUndoList->end();
     }
@@ -5410,7 +4684,7 @@ GNEApplicationWindow::loadDemandElements() {
 void
 GNEApplicationWindow::loadDataElements() {
     // obtain option container
-    auto &neteditOptions = OptionsCont::getOptions();
+    auto& neteditOptions = OptionsCont::getOptions();
     // get data files
     const auto dataFiles = neteditOptions.getStringVector("data-files");
     // continue depending of network and data files
@@ -5419,12 +4693,10 @@ GNEApplicationWindow::loadDataElements() {
         myViewNet->getNet()->disableUpdateData();
         // begin undolist
         myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, "loading data elements from '" + toString(dataFiles) + "'");
-        // disable save data elements (because data elements were loaded through console)
-        myNet->requireSaveDataElements(false);
         // iterate over every data file
         for (const auto& dataFile : dataFiles) {
             WRITE_MESSAGE("Loading data elements from '" + dataFile + "'");
-            GNEDataHandler dataHandler(myNet, dataFile, true);
+            GNEDataHandler dataHandler(myNet, dataFile, true, false);
             // disable validation for data elements
             XMLSubSys::setValidation("never", "auto", "auto");
             if (!dataHandler.parse()) {
@@ -5436,12 +4708,6 @@ GNEApplicationWindow::loadDataElements() {
             }
             // disable validation for data elements
             XMLSubSys::setValidation("auto", "auto", "auto");
-            // enable demand elements if there is an error creating element
-            if (dataHandler.isErrorCreatingElement()) {
-                myNet->requireSaveDataElements(true);
-            } else {
-                myNet->requireSaveDataElements(false);
-            }
         }
         // end undolist
         myUndoList->end();
@@ -5454,15 +4720,13 @@ GNEApplicationWindow::loadDataElements() {
 void
 GNEApplicationWindow::loadMeanDataElements() {
     // obtain option container
-    auto &neteditOptions = OptionsCont::getOptions();
+    auto& neteditOptions = OptionsCont::getOptions();
     // get meanData files
     const auto meanDataFiles = neteditOptions.getStringVector("meandata-files");
     // continue depending of network and meanData files
     if (myNet && (meanDataFiles.size() > 0)) {
         // begin undolist
         myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, "loading meanData elements from '" + toString(meanDataFiles) + "'");
-        // disable save meanData elements (because meanData elements were loaded through console)
-        myNet->requireSaveMeanDatas(false);
         // iterate over every meanData file
         for (const auto& meanDataFile : meanDataFiles) {
             WRITE_MESSAGE("Loading meanData elements from '" + meanDataFile + "'");
@@ -5485,28 +4749,10 @@ GNEApplicationWindow::loadMeanDataElements() {
             }
             // disable validation for meanData elements
             XMLSubSys::setValidation("auto", "auto", "auto");
-            // enable demand elements if there is an error creating element
-            if (handler.isErrorCreatingElement()) {
-                myNet->requireSaveMeanDatas(true);
-            } else {
-                myNet->requireSaveMeanDatas(false);
-            }
         }
         // end undolist
         myUndoList->end();
     }
-}
-
-
-void
-GNEApplicationWindow::requireSaveSUMOConfig(bool value) {
-    mySumoConfigSaved = value;
-}
-
-
-void
-GNEApplicationWindow::requireSaveNETEDITConfig(bool value) {
-    myNeteditConfigSaved = value;
 }
 
 // ---------------------------------------------------------------------------

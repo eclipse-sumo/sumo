@@ -37,12 +37,31 @@ the time A and B reach their respective signals (counting backwards from the
 next stop based on "arrival". To account for delays the
 options --delay and --limit can be used to override the limit values
 
+A more complicated case arises when the next stop after the merging switch differs for
+both trains even though their routes are the same. In this case the ordering of
+the trains must be deduced from their next common stop and the algorithm adds
+a "virtual" intermediateStop directly after the switch to "normalize" the input.
+
 2. <insertionPredecessor>
 Whenever a vehicle B departs at a stop (assumed to coincide with the "until"
 attribute of it's first stop), the prior train A that leaves this stop is
 identified (also based on "until"). Then a constraint is created that prevents
 insertion of B until train A has passed the next signal that lies beyond the
 stop.
+
+These constraints are also needed in the context of parking-stops because these
+have the potential to alter train ordering:
+
+If vehicle A has a parking stop with 'ended' time and vehicle B has a
+parking stop at the same location without 'ended' (only an 'until' time),
+an insertionPredecessor constraint is created for B to ensure that A leaves
+first. This is because availability of an 'ended' value implies that the even is
+in the past whereas the lack of the value indicates that the stop is still in
+the future.
+
+In the case where an intermediateStop (see above) is also a parking stop, an
+insertionPredecessor constraint is added if the parking vehicle is scheduled to
+go second.
 
 3. <foeInsertion>
 Whenever a vehicle A departs at a stop (assumed to coincide with the "until"
@@ -52,10 +71,11 @@ B from entering the section with the stop until A has passed the next signal tha
 stop.
 
 4. <insertionOrder>
-Whenever two vehicles depart at the same stop and their arrival times at that stop
+Whenever two vehicles depart at the same stop and their until/ended times at that stop
 are in a different order from their departure times, an insertionOrder constraint
 is added the delays insertion to achieve the desired order.
-This may happen if departure times reflect the schedule but arrival times reflect post-facto timing (see below)
+This may happen if departure times reflect the schedule
+but until/ended times reflect post-facto timing (see below)
 
 5. <bidiPredecessor>
 Whenever two trains approach the same track section from different directions, a bidiPredecessor

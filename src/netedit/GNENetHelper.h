@@ -754,6 +754,174 @@ struct GNENetHelper {
         AttributeCarriers& operator=(const AttributeCarriers&) = delete;
     };
 
+    /// @brief modul for Saving status
+    class SavingStatus {
+
+    public:
+        /// @brief constructor
+        SavingStatus();
+
+        /// @name SUMOConfig
+        /// @{
+
+        /// @brief inform that SUMOConfig has to be saved
+        void requireSaveSUMOConfig();
+
+        /// @brief mark SUMOConfig as saved
+        void SUMOConfigSaved();
+
+        /// @brief check if SUMOConfig is saved
+        bool isSUMOConfigSaved() const;
+
+        /// @}
+
+        /// @name NETEDITConfig
+        /// @{
+
+        /// @brief inform that NETEDITConfig has to be saved
+        void requireSaveNETEDITConfig();
+
+        /// @brief mark NETEDITConfig as saved
+        void NETEDITConfigSaved();
+
+        /// @brief check if NETEDITConfig is saved
+        bool isNETEDITConfigSaved() const;
+
+        /// @}
+
+        /// @name network
+        /// @{
+
+        /// @brief inform that network has to be saved
+        void requireSaveNetwork();
+
+        /// @brief mark network as saved
+        void networkSaved();
+
+        /// @brief check if network is saved
+        bool isNetworkSaved() const;
+
+        /// @}
+
+        /// @name TLS
+        /// @{
+
+        /// @brief inform that TLS has to be saved
+        void requireSaveTLS();
+
+        /// @brief mark TLS as saved
+        void TLSSaved();
+
+        /// @brief check if TLS are saved
+        bool isTLSSaved() const;
+
+        /// @}
+
+        /// @name edge types
+        /// @{
+
+        /// @brief inform that edgeType has to be saved
+        void requireSaveEdgeType();
+
+        /// @brief mark edgeType as saved
+        void edgeTypeSaved();
+
+        /// @brief check if edgeType are saved
+        bool isEdgeTypeSaved() const;
+
+        /// @}
+
+        /// @name additionals
+        /// @{
+
+        /// @brief inform that additionals has to be saved
+        void requireSaveAdditionals();
+
+        /// @brief mark additionals as saved
+        void additionalsSaved();
+
+        /// @brief check if additionals are saved
+        bool isAdditionalsSaved() const;
+
+        /// @}
+
+        /// @name demand elements
+        /// @{
+
+        /// @brief inform that demand elements has to be saved
+        void requireSaveDemandElements();
+
+        /// @brief mark demand elements as saved
+        void demandElementsSaved();
+
+        /// @brief check if demand elements are saved
+        bool isDemandElementsSaved() const;
+
+        /// @}
+
+        /// @name data elements
+        /// @{
+
+        /// @brief inform that data elements has to be saved
+        void requireSaveDataElements();
+
+        /// @brief mark demand elements as saved
+        void dataElementsSaved();
+
+        /// @brief check if data elements are saved
+        bool isDataElementsSaved() const;
+
+        /// @}
+
+        /// @name mean datas
+        /// @{
+
+        /// @brief inform that mean data elements has to be saved
+        void requireSaveMeanDatas();
+
+        /// @brief mark mean data elements as saved
+        void meanDatasSaved();
+
+        /// @brief check if mean data elements are saved
+        bool isMeanDatasSaved() const;
+
+        /// @}
+
+    private:
+        /// @brief flag for SUMOConfigSUMOConfig saved
+        bool mySUMOConfigSaved = true;
+
+        /// @brief flag for network saved
+        bool myNETEDITConfigSaved = true;
+
+        /// @brief flag for network  saved
+        bool myNetworkSaved = true;
+
+        /// @brief flag for TLS saved
+        bool myTLSSaved = true;
+
+        /// @brief flag for edgeType saved
+        bool myEdgeTypeSaved = true;
+
+        /// @brief flag for additional elements saved
+        bool myAdditionalSaved = true;
+
+        /// @brief flag for demand elements saved
+        bool myDemandElementSaved = true;
+
+        /// @brief flag for data elements saved
+        bool myDataElementSaved = true;
+
+        /// @brief flag for meanData elements saved
+        bool myMeanDataElementSaved = true;
+
+        /// @brief Invalidated copy constructor.
+        SavingStatus(const SavingStatus&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        SavingStatus& operator=(const SavingStatus&) = delete;
+    };
+
     /// @brief class for GNEChange_ReplaceEdgeInTLS
     class GNEChange_ReplaceEdgeInTLS : public GNEChange {
         FXDECLARE_ABSTRACT(GNEChange_ReplaceEdgeInTLS)

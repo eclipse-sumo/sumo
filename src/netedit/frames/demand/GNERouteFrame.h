@@ -20,9 +20,9 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/frames/GNEFrame.h>
 #include <netedit/elements/demand/GNERouteHandler.h>
-#include <netedit/frames/GNEPathLegend.h>
+#include <netedit/frames/GNEFrame.h>
+#include <netedit/frames/GNEPathLegendModule.h>
 
 
 // ===========================================================================
@@ -157,5 +157,5 @@ private:
     GNEPathCreator* myPathCreator;
 
     /// @brief path legend modul
-    GNEM_PathLegend* myPathLegend;
+    GNEPathLegendModule* myPathLegend;
 };

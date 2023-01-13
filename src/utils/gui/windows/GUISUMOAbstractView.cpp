@@ -553,7 +553,7 @@ std::vector<GUIGlObject*>
 GUISUMOAbstractView::filterInernalLanes(const std::vector<GUIGlObject*>& objects) const {
     // count number of internal lanes
     size_t internalLanes = 0;
-    for (const auto &object : objects) {
+    for (const auto& object : objects) {
         if ((object->getType() == GLO_LANE) && (object->getMicrosimID().find(':') != std::string::npos)) {
             internalLanes++;
         }
@@ -1941,11 +1941,11 @@ GUISUMOAbstractView::LayerObject::getGLObject() const {
 }
 
 
-std::vector<GUIGlObject*> 
-GUISUMOAbstractView::filterGUIGLObjectsByLayer(const std::vector<GUIGlObject*> &objects) const {
+std::vector<GUIGlObject*>
+GUISUMOAbstractView::filterGUIGLObjectsByLayer(const std::vector<GUIGlObject*>& objects) const {
     // declare map for saving shapes sorted by layer and ID
     std::set<LayerObject> layerObjects;
-    for (const auto &object : objects) {
+    for (const auto& object : objects) {
         if ((object->getType() == GLO_POLYGON) || (object->getType() == GLO_POI)) {
             layerObjects.insert(LayerObject(dynamic_cast<Shape*>(object)->getShapeLayer(), object));
         } else {

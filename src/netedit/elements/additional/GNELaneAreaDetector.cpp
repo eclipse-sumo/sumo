@@ -309,7 +309,7 @@ GNELaneAreaDetector::drawGL(const GUIVisualizationSettings& s) const {
                 // Check if the distance is enought to draw details
                 if (s.drawDetail(s.detailSettings.detectorDetails, E2Exaggeration)) {
                     // draw E2 Logo
-                    drawDetectorLogo(s, E2Exaggeration, "E2", textColor);
+                    drawE2DetectorLogo(s, E2Exaggeration, "E2", textColor);
                 }
                 // draw geometry points
                 drawLeftGeometryPoint(myNet->getViewNet(), myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), E2Color);
@@ -423,7 +423,7 @@ GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNEL
                 // calculate position
                 const Position pos = E2Geometry.getShape().positionAtOffset2D(middlePoint);
                 // calculate rotation
-                const double rot = E2Geometry.getShape().rotationDegreeAtOffset(middlePoint);
+                const double rot = E2Geometry.getShape().rotationDegreeAtOffset(middlePoint) + 180;
                 // Start pushing matrix
                 GLHelper::pushMatrix();
                 // Traslate to position

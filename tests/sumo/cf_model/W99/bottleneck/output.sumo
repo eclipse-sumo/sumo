@@ -1,17 +1,17 @@
-Loading net-file from 'net.net.xml' ... done (1ms).
+Loading net-file from 'net.net.xml' ... done (0ms).
 Loading done.
-Simulation version v1_15_0+1163-053c4cf started with time: 0.00.
+Simulation version v1_15_0+1552-77b40087aab started with time: 0.00.
 Simulation ended at time: 1773.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 0.37s
- Real time factor: 4740.64
- UPS: 95606.951872
+ Duration: 0.25s
+ Real time factor: 7007.91
+ UPS: 141332.015810
 Vehicles: 
  Inserted: 834
  Running: 0
  Waiting: 0
-Teleports: 5 (Collisions: 5)
+ Teleports: 5 (Collisions: 5)
 Statistics (avg of 834):
  RouteLength: 495.36
  Speed: 13.06

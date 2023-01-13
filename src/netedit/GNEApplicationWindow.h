@@ -28,7 +28,7 @@
 // ===========================================================================
 /**
  * @class GNEApplicationWindow
- * @brief The main window of the Netedit.
+ * @brief The main window of Netedit.
  *
  * Contains the file opening support and a canvas to display the network in.
  *
@@ -57,6 +57,15 @@ public:
     /// @brief load net on startup
     void loadOptionOnStartup();
 
+    /// @brief create new network
+    void createNewNetwork();
+
+    /// @brief load network (with information previously stored in options)
+    void loadNetwork(const bool isReload);
+
+    /// @brief starts to load a netconvert configuration
+    void loadNetconvertConfig();
+
     /// @brief build dependent
     void dependentBuild();
 
@@ -66,32 +75,8 @@ public:
     /// @brief called if the user selects Processing->compute junctions with volatile options
     long computeJunctionWithVolatileOptions();
 
-    /// @brief enable save TLS Programs
-    void enableSaveTLSProgramsMenu();
-
-    /// @brief enable save additionals
-    void enableSaveAdditionalsMenu();
-
-    /// @brief disable save additionals
-    void disableSaveAdditionalsMenu();
-
-    /// @brief enable save demand elements
-    void enableSaveDemandElementsMenu();
-
-    /// @brief disable save demand elements
-    void disableSaveDemandElementsMenu();
-
-    /// @brief enable save data elements
-    void enableSaveDataElementsMenu();
-
-    /// @brief disable save data elements
-    void disableSaveDataElementsMenu();
-
-    /// @brief enable save meanDatas
-    void enableSaveMeanDatasMenu();
-
-    /// @brief disable save meanDatas
-    void disableSaveMeanDatasMenu();
+    /// @brief check if console options was already loaded
+    bool consoleOptionsLoaded();
 
     /// @name Inter-thread event handling
     /// @{
@@ -181,6 +166,15 @@ public:
 
     /// @brief called when the command/FXCall save network is executed
     long onCmdSaveNetwork(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save network as is executed
+    long onCmdSaveNetworkAs(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save as plain xml is executed
+    long onCmdSaveAsPlainXML(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save joined is executed
+    long onCmdSaveJoinedJunctions(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall save NETEDITConfig is executed
     long onCmdSaveNETEDITConfig(FXObject*, FXSelector, void*);
@@ -281,13 +275,10 @@ public:
     /// @brief called when the command/FXCall save meanDatas as is executed
     long onCmdSaveMeanDatasAs(FXObject*, FXSelector, void*);
 
-    /// @brief called when the command/FXCall save network as is executed
-    long onCmdSaveNetworkAs(FXObject*, FXSelector, void*);
-
     /// @brief called when the update/FXCall needs network is executed
     long onUpdNeedsNetwork(FXObject*, FXSelector, void*);
 
-    /// @brief called when the update/FXCall needs at least one newtork element is executed
+    /// @brief called when the update/FXCall needs at least one network element is executed
     long onUpdNeedsNetworkElement(FXObject*, FXSelector, void*);
 
     /// @brief called when the update/FXCall needs front element is executed
@@ -337,12 +328,6 @@ public:
 
     /// @brief update viewOption
     long onUpdToggleViewOption(FXObject*, FXSelector, void*);
-
-    /// @brief called when the command/FXCall save as plain xml is executed
-    long onCmdSaveAsPlainXML(FXObject*, FXSelector, void*);
-
-    /// @brief called when the command/FXCall save joined is executed
-    long onCmdSaveJoined(FXObject*, FXSelector, void*);
 
     /// @brief called when a key is pressed
     long onKeyPress(FXObject* o, FXSelector sel, void* data);
@@ -463,8 +448,8 @@ public:
     /// @brief called if the user selects help->Tutorial
     long onCmdTutorial(FXObject* sender, FXSelector sel, void* ptr);
 
-    /// @brief called when toogle checkbox compute network when swichting between supermodes
-    long onCmdToogleComputeNetworkData(FXObject*, FXSelector, void*);
+    /// @brief called when toggle checkbox compute network when switching between supermodes
+    long onCmdToggleComputeNetworkData(FXObject*, FXSelector, void*);
 
     /// @brief called if the user selects Processing->Configure Options
     long onCmdOpenOptionsDialog(FXObject*, FXSelector, void*);
@@ -565,7 +550,7 @@ public:
     const GNEApplicationWindowHelper::ProcessingMenuCommands& getProcessingMenuCommands() const;
 
     /// @brief get SUMO options container
-    OptionsCont &getSUMOOptions();
+    OptionsCont& getSUMOOptions();
 
     /// @brief load additional elements
     void loadAdditionalElements();
@@ -578,12 +563,6 @@ public:
 
     /// @brief load mean data elements
     void loadMeanDataElements();
-
-    /// @brief check if SUMO config must be saved
-    void requireSaveSUMOConfig(bool value);
-
-    /// @brief check if NETEDIT config must be saved
-    void requireSaveNETEDITConfig(bool value);
 
 protected:
     /// @brief FOX needs this for static members
@@ -599,25 +578,25 @@ protected:
     bool myReloading = false;
 
     /// @brief the submenus
-    FXMenuPane *myFileMenu = nullptr,
-               *myFileMenuNETEDITConfig = nullptr,
-               *myFileMenuSUMOConfig = nullptr,
-               *myFileMenuTLS = nullptr,
-               *myFileMenuEdgeTypes = nullptr,
-               *myFileMenuAdditionals = nullptr,
-               *myFileMenuDemandElements = nullptr,
-               *myFileMenuDataElements = nullptr,
-               *myFileMenuMeanDataElements = nullptr,
-               *myFileMenuRecentNetworks = nullptr,
-               *myFileMenuRecentConfigs = nullptr,
-               *myModesMenu = nullptr,
-               *myEditMenu = nullptr,
-               *myLockMenu = nullptr,
-               *myProcessingMenu = nullptr,
-               *myLocatorMenu = nullptr,
-               *myToolsMenu = nullptr,
-               *myWindowMenu = nullptr,
-               *myHelpMenu = nullptr;
+    FXMenuPane* myFileMenu = nullptr,
+                *myFileMenuNETEDITConfig = nullptr,
+                 *myFileMenuSUMOConfig = nullptr,
+                  *myFileMenuTLS = nullptr,
+                   *myFileMenuEdgeTypes = nullptr,
+                    *myFileMenuAdditionals = nullptr,
+                     *myFileMenuDemandElements = nullptr,
+                      *myFileMenuDataElements = nullptr,
+                       *myFileMenuMeanDataElements = nullptr,
+                        *myFileMenuRecentNetworks = nullptr,
+                         *myFileMenuRecentConfigs = nullptr,
+                          *myModesMenu = nullptr,
+                           *myEditMenu = nullptr,
+                            *myLockMenu = nullptr,
+                             *myProcessingMenu = nullptr,
+                              *myLocatorMenu = nullptr,
+                               *myToolsMenu = nullptr,
+                                *myWindowMenu = nullptr,
+                                 *myHelpMenu = nullptr;
 
     /// @brief menu title for modes
     FXMenuTitle* myModesMenuTitle = nullptr;
@@ -660,6 +639,9 @@ protected:
 
     /// @brief SUMO options container
     OptionsCont mySUMOOptions;
+
+    /// @brief flag for check if console options was already loaded
+    bool myConsoleOptionsLoaded = true;
 
 private:
     /// @brief Toolbars Grip
@@ -704,26 +686,9 @@ private:
     /// @brief The menu used for the MDI-windows
     FXMDIMenu* myMDIMenu = nullptr;
 
-    /// @brief flag for check if sumo config is saved
-    bool mySumoConfigSaved = false;
-
-    /// @brief flag for check if netedit config is saved
-    bool myNeteditConfigSaved = false;
-
     /// @brief Builds the menu bar
     void fillMenuBar();
 
-public:
-    /// @brief create new network
-    void createNewNetwork();
-
-    /// @brief load network (with information previously stored in options)
-    void loadNetwork(const bool isReload);
-
-    /// @brief starts to load a netconvert configuration
-    void loadNetconvertConfig();
-
-private:
     /// @brief this method closes all windows and deletes the current simulation */
     void closeAllWindows();
 

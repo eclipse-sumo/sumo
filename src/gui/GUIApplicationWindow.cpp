@@ -52,6 +52,7 @@
 #include <utils/gui/events/GUIEvent_Message.h>
 #include <utils/gui/globjects/GUIShapeContainer.h>
 #include <utils/gui/images/GUITexturesHelper.h>
+#include <utils/gui/images/VClassIcons.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/settings/GUISettingsHandler.h>
 #include <utils/gui/shortcuts/GUIShortcutsSubSys.h>
@@ -214,8 +215,7 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a, const std::string& configPa
     myRecentNetworks(a, "networks"),
     myRecentConfigs(a, "configs"),
     myConfigPattern(configPattern),
-    myLastStepEventMillis(SysUtils::getCurrentMillis() - MIN_DRAW_DELAY)
-{
+    myLastStepEventMillis(SysUtils::getCurrentMillis() - MIN_DRAW_DELAY) {
     // init icons
     GUIIconSubSys::initIcons(a);
     // init cursors
@@ -260,7 +260,7 @@ GUIApplicationWindow::dependentBuild(const bool isLibsumo) {
     {
         // build TraCi info
         myTraCiFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-        auto button = new FXButton(myTraCiFrame, TL("TraCI"), nullptr, this, MID_TRACI_STATUS, GUIDesignButtonStatusBarFixed);
+        auto button = new FXButton(myTraCiFrame, "TraCI", nullptr, this, MID_TRACI_STATUS, GUIDesignButtonStatusBarFixed);
         button->setBackColor(FXRGBA(253, 255, 206, 255));
         if (TraCIServer::getInstance() == nullptr) {
             myTraCiFrame->hide();
@@ -459,7 +459,7 @@ GUIApplicationWindow::fillMenuBar() {
     mySelectByPermissions = new FXMenuPane(this);
     std::vector<std::string> vehicleClasses = SumoVehicleClassStrings.getStrings();
     for (const auto& vehicleClass : vehicleClasses) {
-        GUIDesigns::buildFXMenuCommand(mySelectByPermissions, vehicleClass, nullptr, this, MID_HOTKEY_CTRL_E_EDITSELECTION_LOADNETEDITCONFIG);
+        GUIDesigns::buildFXMenuCommand(mySelectByPermissions, vehicleClass, VClassIcons::getVClassIcon(SumoVehicleClassStrings.get(vehicleClass)), this, MID_HOTKEY_CTRL_E_EDITSELECTION_LOADNETEDITCONFIG);
     }
     myEditMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myMenuBar, TL("&Edit"), nullptr, myEditMenu);
@@ -619,14 +619,14 @@ GUIApplicationWindow::fillMenuBar() {
                                  nullptr, myHelpMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, TL("&Online Documentation"), "F1", TL("Open Online documentation."),
                                            nullptr, this, MID_HOTKEY_F1_ONLINEDOCUMENTATION);
-    new FXMenuSeparator(myEditMenu);
+    new FXMenuSeparator(myHelpMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, TL("&Changelog"), "", TL("Open Changelog."),
                                            nullptr, this, MID_CHANGELOG);
     GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, TL("&Hotkeys"), "", TL("Open Hotkeys."),
                                            nullptr, this, MID_HOTKEYS);
     GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, TL("&Tutorial"), "", TL("Open Tutorial."),
                                            nullptr, this, MID_TUTORIAL);
-    new FXMenuSeparator(myEditMenu);
+    new FXMenuSeparator(myHelpMenu);
     GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu, TL("&About"), "F12", TL("About sumo-gui."),
                                            GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI), this, MID_HOTKEY_F12_ABOUT);
     // build SUMO Accelerators (hotkeys)
@@ -810,8 +810,8 @@ GUIApplicationWindow::buildRecentConfigs(FXMenuPane* fileMenu, FXMenuPane* fileM
     GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentConfigs, "", &myRecentConfigs, FXRecentFiles::ID_FILE_9);
     GUIDesigns::buildFXMenuCommandRecentFile(fileMenuRecentConfigs, "", &myRecentConfigs, FXRecentFiles::ID_FILE_10);
     new FXMenuSeparator(fileMenuRecentConfigs);  // NOSONAR, Fox does the cleanup
-    GUIDesigns::buildFXMenuCommand(fileMenuRecentConfigs, "Cl&ear Recent Files", nullptr, &myRecentConfigs, FXRecentFiles::ID_CLEAR);
-    GUIDesigns::buildFXMenuCommand(fileMenuRecentConfigs, "No Recent Files", nullptr, &myRecentConfigs, MFXRecentNetworks::ID_NOFILES);
+    GUIDesigns::buildFXMenuCommand(fileMenuRecentConfigs, "Cl&ear Recent Configs", nullptr, &myRecentConfigs, FXRecentFiles::ID_CLEAR);
+    GUIDesigns::buildFXMenuCommand(fileMenuRecentConfigs, "No Recent Configs", nullptr, &myRecentConfigs, MFXRecentNetworks::ID_NOFILES);
     // set target
     myRecentConfigs.setTarget(this);
     myRecentConfigs.setSelector(MID_RECENTFILE);
@@ -1135,7 +1135,7 @@ GUIApplicationWindow::onCmdOpenEdgeData(FXObject*, FXSelector, void*) {
 
 long
 GUIApplicationWindow::onCmdReload(FXObject*, FXSelector, void*) {
-    if (!myAmLoading) {
+    if (!myAmLoading && TraCIServer::getInstance() == nullptr) {
         storeWindowSizeAndPos();
         getApp()->beginWaitCursor();
         myAmLoading = true;

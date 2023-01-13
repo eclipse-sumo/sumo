@@ -174,13 +174,12 @@ MSPModel_Striping::add(MSTransportable* transportable, MSStageMoving* stage, SUM
     assert(person->getCurrentStageType() == MSStageType::WALKING);
     const MSLane* lane = stage->checkDepartLane(person->getEdge(), person->getVClass(), stage->getDepartLane(), person->getID());
     if (lane == nullptr) {
-        std::string error = "Person '" + person->getID() + "' could not find sidewalk on edge '" + person->getEdge()->getID() + "', time="
-                            + time2string(net->getCurrentTimeStep()) + ".";
+        const char* error = TL("Person '%' could not find sidewalk on edge '%', time=%.");
         if (OptionsCont::getOptions().getBool("ignore-route-errors")) {
-            WRITE_WARNING(error);
+            WRITE_WARNINGF(error, person->getID(), person->getEdge()->getID(), time2string(net->getCurrentTimeStep()));
             return nullptr;
         } else {
-            throw ProcessError(error);
+            throw ProcessError(TLF(error, person->getID(), person->getEdge()->getID(), time2string(net->getCurrentTimeStep())));
         }
     }
     PState* ped = new PState(person, stage, lane);
@@ -425,11 +424,19 @@ MSPModel_Striping::initWalkingAreaPaths(const MSNet*) {
                         } else if (myWalkingAreaDetail > 4) {
                             shape = shape.bezier(myWalkingAreaDetail);
                         }
+                        double angleOverride = INVALID_DOUBLE;
+                        if (shape.size() >= 4 && shape.length() < walkingArea->getWidth()) {
+                            const double aStart = shape.angleAt2D(0);
+                            const double aEnd = shape.angleAt2D(shape.size() - 2);
+                            if (fabs(aStart - aEnd) < DEG2RAD(10)) {
+                                angleOverride = (aStart + aEnd) / 2;
+                            }
+                        }
                         if (fromDir == BACKWARD) {
                             // will be walking backward on walkingArea
                             shape = shape.reverse();
                         }
-                        WalkingAreaPath wap = WalkingAreaPath(from, walkingArea, to, shape, fromDir);
+                        WalkingAreaPath wap = WalkingAreaPath(from, walkingArea, to, shape, fromDir, angleOverride);
                         myWalkingAreaPaths.insert(std::make_pair(std::make_pair(from, to), wap));
                         myMinNextLengths[walkingArea] = MIN2(myMinNextLengths[walkingArea], wap.length);
                     }
@@ -2198,7 +2205,12 @@ MSPModel_Striping::PState::getPosition(const MSStageMoving& stage, SUMOTime) con
         //        << " pos=" << myWalkingAreaPath->shape.positionAtOffset(myRelX, lateral_offset)
         //        << "\n";
         //}
-        return myWalkingAreaPath->shape.positionAtOffset(myRelX, lateral_offset);
+        if (myWalkingAreaPath->angleOverride == INVALID_DOUBLE) {
+            return myWalkingAreaPath->shape.positionAtOffset(myRelX, lateral_offset);
+        } else {
+            const double rotationOffset = myDir == FORWARD ? 0 : DEG2RAD(180);
+            return myWalkingAreaPath->shape.sidePositionAtAngle(myRelX, lateral_offset, myWalkingAreaPath->angleOverride + rotationOffset);
+        }
     }
 }
 
@@ -2211,6 +2223,9 @@ MSPModel_Striping::PState::getAngle(const MSStageMoving&, SUMOTime) const {
     if (myLane == nullptr) {
         // pedestrian has already finished
         return 0;
+    }
+    if (myWalkingAreaPath != nullptr && myWalkingAreaPath->angleOverride != INVALID_DOUBLE) {
+        return myWalkingAreaPath->angleOverride;
     }
     const PositionVector& shp = myWalkingAreaPath == nullptr ? myLane->getShape() : myWalkingAreaPath->shape;
     double geomX = myWalkingAreaPath == nullptr ? myLane->interpolateLanePosToGeometryPos(myRelX) : myRelX;

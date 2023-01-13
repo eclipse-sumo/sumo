@@ -1369,7 +1369,7 @@ NBNodeCont::maybeSlipLaneEnd(const NBNode* n, EdgeVector& incoming, double& outA
 
 bool
 NBNodeCont::feasibleCluster(const NodeSet& cluster, const std::map<const NBNode*, std::vector<NBNode*> >& ptStopEnds,
-        double maxDist, std::string& reason) const {
+                            double maxDist, std::string& reason) const {
     // check for clusters which are to complex and probably won't work very well
     // we count the incoming edges of the final junction
     std::map<NBEdge*, double, ComparatorIdLess> finalIncomingAngles;
@@ -2538,11 +2538,11 @@ NBNodeCont::getAllNames() const {
 
 
 void
-NBNodeCont::addPrefix(const std::string &prefix) {
+NBNodeCont::addPrefix(const std::string& prefix) {
     // make a copy of node containers
     const auto nodeContainerCopy = myNodes;
     myNodes.clear();
-    for (const auto &node : nodeContainerCopy) {
+    for (const auto& node : nodeContainerCopy) {
         node.second->setID(prefix + node.second->getID());
         myNodes[node.second->getID()] = node.second;
     }

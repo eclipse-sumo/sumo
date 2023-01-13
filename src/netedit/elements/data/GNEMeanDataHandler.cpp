@@ -49,12 +49,12 @@ GNEMeanDataHandler::~GNEMeanDataHandler() {}
 
 
 void
-GNEMeanDataHandler::buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string &ID, 
-        const std::string &file, SUMOTime period, SUMOTime begin, SUMOTime end, const bool trackVehicles, 
-        const std::vector<std::string> &writtenAttributes, const bool aggregate, const std::vector<std::string> &edgeIDs, 
-        const std::string &edgeFile, std::string excludeEmpty, const bool withInternal, 
-        const std::vector<std::string> &detectPersons, const double minSamples, const double maxTravelTime, 
-        const std::vector<std::string> &vTypes, const double speedThreshold) {
+GNEMeanDataHandler::buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& ID,
+                                      const std::string& file, SUMOTime period, SUMOTime begin, SUMOTime end, const bool trackVehicles,
+                                      const std::vector<std::string>& writtenAttributes, const bool aggregate, const std::vector<std::string>& edgeIDs,
+                                      const std::string& edgeFile, std::string excludeEmpty, const bool withInternal,
+                                      const std::vector<std::string>& detectPersons, const double minSamples, const double maxTravelTime,
+                                      const std::vector<std::string>& vTypes, const double speedThreshold) {
     // parse attributes
     const auto edges = parseEdges(SUMO_TAG_MEANDATA_EDGE, edgeIDs);
     // parse edges
@@ -64,8 +64,8 @@ GNEMeanDataHandler::buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* 
         writeError("Could not build " + toString(SUMO_TAG_MEANDATA_LANE) + "; " + ID + " already exist");
     } else if ((edges.size() == edgeIDs.size()) && (attributes.size() == writtenAttributes.size())) {
         GNEMeanData* edgeMeanData = new GNEMeanData(myNet, SUMO_TAG_MEANDATA_EDGE, ID, file, period, begin, end,
-            trackVehicles, attributes,  aggregate, edgeIDs, edgeFile, excludeEmpty,  withInternal, 
-            detectPersons, minSamples, maxTravelTime, vTypes, speedThreshold);
+                trackVehicles, attributes,  aggregate, edgeIDs, edgeFile, excludeEmpty,  withInternal,
+                detectPersons, minSamples, maxTravelTime, vTypes, speedThreshold);
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(GUIIcon::MEANDATAEDGE, "add " + toString(SUMO_TAG_MEANDATA_EDGE));
             myNet->getViewNet()->getUndoList()->add(new GNEChange_MeanData(edgeMeanData, true), true);
@@ -78,12 +78,12 @@ GNEMeanDataHandler::buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* 
 
 
 void
-GNEMeanDataHandler::buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string &ID, 
-        const std::string &file, SUMOTime period, SUMOTime begin, SUMOTime end, const bool trackVehicles, 
-        const std::vector<std::string> &writtenAttributes, const bool aggregate, const std::vector<std::string> &edgeIDs, 
-        const std::string &edgeFile, std::string excludeEmpty, const bool withInternal, 
-        const std::vector<std::string> &detectPersons, const double minSamples, const double maxTravelTime, 
-        const std::vector<std::string> &vTypes, const double speedThreshold) {
+GNEMeanDataHandler::buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& ID,
+                                      const std::string& file, SUMOTime period, SUMOTime begin, SUMOTime end, const bool trackVehicles,
+                                      const std::vector<std::string>& writtenAttributes, const bool aggregate, const std::vector<std::string>& edgeIDs,
+                                      const std::string& edgeFile, std::string excludeEmpty, const bool withInternal,
+                                      const std::vector<std::string>& detectPersons, const double minSamples, const double maxTravelTime,
+                                      const std::vector<std::string>& vTypes, const double speedThreshold) {
     // parse attributes
     const auto edges = parseEdges(SUMO_TAG_MEANDATA_LANE, edgeIDs);
     // parse edges
@@ -93,8 +93,8 @@ GNEMeanDataHandler::buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* 
         writeError("Could not build " + toString(SUMO_TAG_MEANDATA_LANE) + "; " + ID + " already exist");
     } else if ((edges.size() == edgeIDs.size()) && (attributes.size() == writtenAttributes.size())) {
         GNEMeanData* edgeMeanData = new GNEMeanData(myNet, SUMO_TAG_MEANDATA_LANE, ID, file, period, begin, end,
-            trackVehicles, attributes,  aggregate, edgeIDs, edgeFile, excludeEmpty,  withInternal, 
-            detectPersons, minSamples, maxTravelTime, vTypes, speedThreshold);
+                trackVehicles, attributes,  aggregate, edgeIDs, edgeFile, excludeEmpty,  withInternal,
+                detectPersons, minSamples, maxTravelTime, vTypes, speedThreshold);
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(GUIIcon::MEANDATALANE, "add " + toString(SUMO_TAG_MEANDATA_LANE));
             myNet->getViewNet()->getUndoList()->add(new GNEChange_MeanData(edgeMeanData, true), true);

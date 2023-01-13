@@ -76,7 +76,7 @@ GNEChange_DataInterval::undo() {
         myDataSetParent->addDataIntervalChild(myDataInterval);
     }
     // require always save elements
-    myDataInterval->getDataSetParent()->getNet()->requireSaveDataElements(true);
+    myDataInterval->getDataSetParent()->getNet()->getSavingStatus()->requireSaveDataElements();
 }
 
 
@@ -98,7 +98,7 @@ GNEChange_DataInterval::redo() {
         myDataSetParent->removeDataIntervalChild(myDataInterval);
     }
     // require always save elements
-    myDataInterval->getDataSetParent()->getNet()->requireSaveDataElements(true);
+    myDataInterval->getDataSetParent()->getNet()->getSavingStatus()->requireSaveDataElements();
 }
 
 

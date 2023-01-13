@@ -383,20 +383,20 @@ protected:
     long long  myGuiSettingsFileMTime = -2;
 
     /// @brief the submenus
-    FXMenuPane *myFileMenu = nullptr, 
-               *myEditMenu = nullptr, 
-               *mySelectByPermissions = nullptr, 
-               *mySettingsMenu = nullptr,
-               *myLocatorMenu = nullptr, 
-               *myControlMenu = nullptr,          
-               *myWindowMenu = nullptr, 
-               *myHelpMenu = nullptr;
+    FXMenuPane* myFileMenu = nullptr,
+                *myEditMenu = nullptr,
+                 *mySelectByPermissions = nullptr,
+                  *mySettingsMenu = nullptr,
+                   *myLocatorMenu = nullptr,
+                    *myControlMenu = nullptr,
+                     *myWindowMenu = nullptr,
+                      *myHelpMenu = nullptr;
 
     /// @brief FXMenu pane for recent networks
-    FXMenuPane *myFileMenuRecentNetworks = nullptr;
+    FXMenuPane* myFileMenuRecentNetworks = nullptr;
 
     /// @brief FXMenu pane for recent configs
-    FXMenuPane *myFileMenuRecentConfigs = nullptr;
+    FXMenuPane* myFileMenuRecentConfigs = nullptr;
 
     /// @brief the menu cascades
     FXMenuCascade* mySelectLanesMenuCascade = nullptr;
@@ -411,13 +411,13 @@ protected:
     FXSplitter* myMainSplitter = nullptr;
 
     /// @brief for some menu detaching fun
-    FXToolBarShell *myToolBarDrag1 = nullptr, 
-                   *myToolBarDrag2 = nullptr, 
-                   *myToolBarDrag3 = nullptr,
-                   *myToolBarDrag4 = nullptr, 
-                   *myToolBarDrag5 = nullptr, 
-                   *myMenuBarDrag = nullptr,
-                   *myToolBarDrag8 = nullptr;
+    FXToolBarShell* myToolBarDrag1 = nullptr,
+                    *myToolBarDrag2 = nullptr,
+                     *myToolBarDrag3 = nullptr,
+                      *myToolBarDrag4 = nullptr,
+                       *myToolBarDrag5 = nullptr,
+                        *myMenuBarDrag = nullptr,
+                         *myToolBarDrag8 = nullptr;
 
     /// @brief the simulation delay in milliseconds
     double mySimDelay = 0.;
@@ -447,12 +447,12 @@ protected:
     FXMenuBar* myMenuBar = nullptr;
 
     /// @brief The application tool bar
-    FXToolBar *myToolBar1 = nullptr, 
-              *myToolBar2 = nullptr, 
-              *myToolBar3 = nullptr, 
-              *myToolBar4 = nullptr, 
-              *myToolBar5 = nullptr, 
-              *myToolBar8 = nullptr;
+    FXToolBar* myToolBar1 = nullptr,
+               *myToolBar2 = nullptr,
+                *myToolBar3 = nullptr,
+                 *myToolBar4 = nullptr,
+                  *myToolBar5 = nullptr,
+                   *myToolBar8 = nullptr;
 
     /// @brief the simulation step display
     MFXLCDLabel* myLCDLabel = nullptr;
@@ -513,7 +513,7 @@ protected:
 
     /// @brief waiting time label
     MFXLCDLabel* myWaitingTimeLabel = nullptr;
-    
+
     /// @brief waiting time
     SUMOTime myWaitingTime = 0;
 
@@ -536,16 +536,16 @@ protected:
     SUMOTime myEmergencyVehicleCount = 0;
 
     /// @brief toolbars used in game
-    FXToolBar *myToolBar6 = nullptr, 
-              *myToolBar7 = nullptr, 
-              *myToolBar9 = nullptr, 
-              *myToolBar10 = nullptr;
+    FXToolBar* myToolBar6 = nullptr,
+               *myToolBar7 = nullptr,
+                *myToolBar9 = nullptr,
+                 *myToolBar10 = nullptr;
 
     /// @brief toolbars shell used in game
-    FXToolBarShell *myToolBarDrag6 = nullptr, 
-                   *myToolBarDrag7 = nullptr, 
-                   *myToolBarDrag9 = nullptr, 
-                   *myToolBarDrag10 = nullptr;
+    FXToolBarShell* myToolBarDrag6 = nullptr,
+                    *myToolBarDrag7 = nullptr,
+                     *myToolBarDrag9 = nullptr,
+                      *myToolBarDrag10 = nullptr;
     ////}
 
     /// @brief last time the simulation view was redrawn due to a simStep

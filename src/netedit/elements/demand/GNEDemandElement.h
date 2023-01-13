@@ -371,7 +371,7 @@ protected:
     void drawJunctionLine(const GNEDemandElement* element) const;
 
     /// @brief draw stack label
-    void drawStackLabel(const std::string &element, const Position& position, const double rotation, const double width, const double length, const double exaggeration) const;
+    void drawStackLabel(const std::string& element, const Position& position, const double rotation, const double width, const double length, const double exaggeration) const;
 
     /// @brief draw flow label
     void drawFlowLabel(const Position& position, const double rotation, const double width, const double length, const double exaggeration) const;
@@ -421,7 +421,7 @@ protected:
 
         /// @brief list of stops placed in the edge
         std::vector<GNEDemandElement*> stops;
-        
+
         /// @brief stopIndex (-1 menans out of route)
         int stopIndex = -1;
 

@@ -256,7 +256,7 @@ public:
     void recheckGuessedTLS(NBTrafficLightLogicCont& tlc);
 
     /// @brief check whether a specific guessed tls should keep its type
-    bool recheckTLSThreshold(NBNode* node); 
+    bool recheckTLSThreshold(NBNode* node);
 
     /// @brief compute keepClear status for all connections
     void computeKeepClear();
@@ -284,7 +284,7 @@ public:
     }
 
     /// @brief add prefix to all nodes
-    void addPrefix(const std::string &prefix); 
+    void addPrefix(const std::string& prefix);
 
     /// @brief Renames the node. Throws exception if newID already exists
     void rename(NBNode* node, const std::string& newID);
@@ -393,7 +393,7 @@ private:
 
     /// @brief determine wether the cluster is not too complex for joining
     bool feasibleCluster(const NodeSet& cluster, const std::map<const NBNode*, std::vector<NBNode*> >& ptStopEnds,
-            double maxDist, std::string& reason) const;
+                         double maxDist, std::string& reason) const;
 
     /// @brief joins the given node clusters
     void joinNodeClusters(NodeClusters clusters, NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc, bool resetConnections = false);

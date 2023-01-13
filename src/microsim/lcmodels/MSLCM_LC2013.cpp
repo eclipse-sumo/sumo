@@ -1244,10 +1244,10 @@ MSLCM_LC2013::_wantsChange(
         if (isOpposite()) {
             // always allow changing back
             laDist = (myVehicle.getVehicleType().getLengthWithGap()
-                    + neighLead.first->getVehicleType().getLengthWithGap()
-                    + neighLead.second);
+                      + neighLead.first->getVehicleType().getLengthWithGap()
+                      + neighLead.second);
         } else if (!hasStoppedLeader &&
-                (neighLead.second + myVehicle.getVehicleType().getLengthWithGap() + neighLead.first->getVehicleType().getLengthWithGap()) < (currentDist - posOnLane)) {
+                   (neighLead.second + myVehicle.getVehicleType().getLengthWithGap() + neighLead.first->getVehicleType().getLengthWithGap()) < (currentDist - posOnLane)) {
             // do not change to the target lane until passing the stopped vehicle
             // (unless the vehicle blocks our intended stopping position, then we have to wait anyway)
             changeToBest = false;

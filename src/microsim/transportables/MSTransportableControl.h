@@ -170,6 +170,16 @@ public:
         myJammedNumber++;
     }
 
+    /// @brief register a teleport after aborting a long wait
+    void registerTeleportAbortWait() {
+        myTeleportsAbortWait++;
+    }
+
+    /// @brief register a teleport to the final destination
+    void registerTeleportWrongDest() {
+        myTeleportsWrongDest++;
+    }
+
     /// @brief decrement counter to avoid double counting transportables loaded from state
     void fixLoadCount(const MSTransportable* transportable);
 
@@ -231,6 +241,21 @@ public:
      */
     int getArrivedNumber() const {
         return myArrivedNumber;
+    }
+
+    /// @brief return the number of teleports due to excessive waiting for a ride
+    int getTeleportsAbortWait() const {
+        return myTeleportsAbortWait;
+    }
+
+    /// @brief return the number of teleports of transportables riding to the wrong destination
+    int getTeleportsWrongDest() const {
+        return myTeleportsWrongDest;
+    }
+
+    /// @brief Returns the number of teleports transportables did
+    int getTeleportCount() const {
+        return myTeleportsAbortWait + myTeleportsWrongDest;
     }
 
     /// @}
@@ -312,6 +337,12 @@ protected:
 
     /// @brief The number of transportables that arrived at their destination
     int myArrivedNumber;
+
+    /// @brief The number of teleports due to long waits for a ride
+    int myTeleportsAbortWait;
+
+    /// @brief The number of teleports due to wrong destination
+    int myTeleportsWrongDest;
 
     /// @brief whether a new transportable waiting for a vehicle has been added in the last step
     bool myHaveNewWaiting;

@@ -227,8 +227,8 @@ GNEDetector::drawE1Shape(const GUIVisualizationSettings& s, const double exagger
 
 
 void
-GNEDetector::drawDetectorLogo(const GUIVisualizationSettings& s, const double exaggeration,
-                              const std::string& logo, const RGBColor& textColor) const {
+GNEDetector::drawE1DetectorLogo(const GUIVisualizationSettings& s, const double exaggeration,
+                                const std::string& logo, const RGBColor& textColor) const {
     if (!s.drawForRectangleSelection && !s.drawForPositionSelection) {
         // calculate middle point
         const double middlePoint = (myAdditionalGeometry.getShape().length2D() * 0.5);
@@ -237,9 +237,42 @@ GNEDetector::drawDetectorLogo(const GUIVisualizationSettings& s, const double ex
         // calculate rotation
         double rot = 0;
         if (myAdditionalGeometry.getShapeRotations().size() > 0) {
-            rot = myAdditionalGeometry.getShapeRotations().front();
+            rot = myAdditionalGeometry.getShapeRotations().front() + 180;
         } else if (myAdditionalGeometry.getShape().size() > 1)  {
-            rot = myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint);
+            rot = myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint) + 180;
+        }
+        // Start pushing matrix
+        GLHelper::pushMatrix();
+        // Traslate to position
+        glTranslated(pos.x(), pos.y(), 0.1);
+        // rotate over lane
+        GUIGeometry::rotateOverLane(rot);
+        // move
+        glTranslated(-1, 0, 0);
+        // scale text
+        glScaled(exaggeration, exaggeration, 1);
+        // draw E1 logo
+        GLHelper::drawText(logo, Position(), .1, 1.5, textColor);
+        // pop matrix
+        GLHelper::popMatrix();
+    }
+}
+
+
+void
+GNEDetector::drawE2DetectorLogo(const GUIVisualizationSettings& s, const double exaggeration,
+                                const std::string& logo, const RGBColor& textColor) const {
+    if (!s.drawForRectangleSelection && !s.drawForPositionSelection) {
+        // calculate middle point
+        const double middlePoint = (myAdditionalGeometry.getShape().length2D() * 0.5);
+        // calculate position
+        const Position pos = (myAdditionalGeometry.getShape().size() == 1) ? myAdditionalGeometry.getShape().front() : myAdditionalGeometry.getShape().positionAtOffset2D(middlePoint);
+        // calculate rotation
+        double rot = 0;
+        if (myAdditionalGeometry.getShapeRotations().size() > 0) {
+            rot = (myAdditionalGeometry.getShapeRotations().front() * -1) + 180;
+        } else if (myAdditionalGeometry.getShape().size() > 1)  {
+            rot = (myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint) * -1) + 180;
         }
         // Start pushing matrix
         GLHelper::pushMatrix();

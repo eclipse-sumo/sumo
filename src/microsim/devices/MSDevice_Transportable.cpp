@@ -204,18 +204,16 @@ MSDevice_Transportable::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/,
                                     MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     if (reason >= MSMoveReminder::NOTIFICATION_ARRIVED) {
         for (std::vector<MSTransportable*>::iterator i = myTransportables.begin(); i != myTransportables.end();) {
+            MSTransportableControl& tc = myAmContainer ? MSNet::getInstance()->getContainerControl() : MSNet::getInstance()->getPersonControl();
             MSTransportable* transportable = *i;
             if (transportable->getDestination() != veh.getEdge()) {
                 WRITE_WARNING((myAmContainer ? "Teleporting container '" : "Teleporting person '") + transportable->getID() +
                               "' from vehicle destination edge '" + veh.getEdge()->getID() +
                               "' to intended destination edge '" + transportable->getDestination()->getID() + "' time=" + time2string(SIMSTEP));
+                tc.registerTeleportWrongDest();
             }
             if (!transportable->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep(), true)) {
-                if (myAmContainer) {
-                    MSNet::getInstance()->getContainerControl().erase(transportable);
-                } else {
-                    MSNet::getInstance()->getPersonControl().erase(transportable);
-                }
+                tc.erase(transportable);
             }
             i = myTransportables.erase(i);
         }

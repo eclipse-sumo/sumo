@@ -1337,7 +1337,7 @@ struct GNEViewNetHelper {
 
         /// @brief checkable button for edit mode "TAZRelData"
         MFXCheckableButton* TAZRelDataButton = nullptr;
-        
+
         /// @brief checkable button for edit mode "meanData"
         MFXCheckableButton* meanDataButton = nullptr;
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-04 11:28:03 by Eclipse SUMO netgenerate Version v1_15_0+1277-3febad6e597
+<!-- generated on 2023-01-13 06:52:41 by Eclipse SUMO netgenerate Version v1_15_0+1613-efa7217bd7c
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -164,6 +164,9 @@
 
         <!-- Prefix of files to write plain xml nodes, edges and connections to -->
         <plain-output-prefix value="" synonymes="p plain plain-output" type="FILE"/>
+
+        <!-- Write all lanes and their attributes even when they are not customized -->
+        <plain-output.lanes value="false" type="BOOL"/>
 
         <!-- Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins -->
         <junctions.join-output value="" type="FILE"/>

@@ -69,7 +69,7 @@ GNEChange_DataSet::undo() {
         myDataSet->getNet()->getAttributeCarriers()->insertDataSet(myDataSet);
     }
     // require always save elements
-    myDataSet->getNet()->requireSaveDataElements(true);
+    myDataSet->getNet()->getSavingStatus()->requireSaveDataElements();
 }
 
 
@@ -87,7 +87,7 @@ GNEChange_DataSet::redo() {
         myDataSet->getNet()->getAttributeCarriers()->deleteDataSet(myDataSet);
     }
     // require always save elements
-    myDataSet->getNet()->requireSaveDataElements(true);
+    myDataSet->getNet()->getSavingStatus()->requireSaveDataElements();
 }
 
 

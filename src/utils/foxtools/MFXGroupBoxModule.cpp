@@ -66,7 +66,7 @@ MFXGroupBoxModule::MFXGroupBoxModule(GNEFrame* frame, const std::string& text, c
         myCollapseButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::COLLAPSE), this, MID_GROUPBOXMODULE_COLLAPSE, GUIDesignButtonMFXGroupBoxModule);
     }
     if (myOptions & Options::EXTENSIBLE) {
-        myExtendButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::EXTEND), this, MID_GROUPBOXMODULE_EXTEND, GUIDesignButtonMFXGroupBoxModule);
+        myExtendButton = new FXButton(headerFrame, "Extend", nullptr, this, MID_GROUPBOXMODULE_EXTEND, GUIDesignButtonMFXGroupBoxModuleExtend);
         myResetWidthButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GROUPBOXMODULE_RESETWIDTH, GUIDesignButtonMFXGroupBoxModule);
     }
     if (myOptions & Options::SAVE) {

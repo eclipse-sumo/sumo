@@ -269,20 +269,19 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
                 EdgeVector outgoingEdges = n->getOutgoingEdges();
                 size_t incomingEdgesNo = incomingEdges.size();
                 size_t outgoingEdgesNo = outgoingEdges.size();
-                
-                for (size_t i = 0; i < incomingEdgesNo; i++)
-                {
+
+                for (size_t i = 0; i < incomingEdgesNo; i++) {
                     /* Check if incoming edge has driving lanes(and sidewalks)
                      * if not, ignore
                      * if yes, check if there is a corresponding outgoing edge for the opposite direction
-                     *   -> if yes, check if it has driving lanes 
-                     *          --> if yes, do the crossing  
+                     *   -> if yes, check if it has driving lanes
+                     *          --> if yes, do the crossing
                      *          --> if no, only do the crossing with the incoming edge (usually one lane roads with two sidewalks)
                      *   -> if not, do nothing as we don't have a sidewalk in the opposite direction */
                     auto const iEdge = incomingEdges[i];
 
                     if (iEdge->getFirstNonPedestrianLaneIndex(NBNode::FORWARD) > -1
-                        && iEdge->getSpecialLane(SVC_PEDESTRIAN) > -1) {
+                            && iEdge->getSpecialLane(SVC_PEDESTRIAN) > -1) {
                         std::string const& iEdgeId = iEdge->getID();
                         std::size_t const m = iEdgeId.find_first_of("#");
                         std::string const& iWayId = iEdgeId.substr(0, m);
@@ -290,9 +289,9 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
                             auto const oEdge = outgoingEdges[j];
                             // Searching for a corresponding outgoing edge (based on OSM way identifier)
                             // with at least a pedestrian lane, going in the opposite direction
-                            if (oEdge->getID().find(iWayId) != std::string::npos 
-                                && oEdge->getSpecialLane(SVC_PEDESTRIAN) > -1
-                                && oEdge->getID().rfind(iWayId, 0) != 0) {
+                            if (oEdge->getID().find(iWayId) != std::string::npos
+                                    && oEdge->getSpecialLane(SVC_PEDESTRIAN) > -1
+                                    && oEdge->getID().rfind(iWayId, 0) != 0) {
                                 EdgeVector edgeVector = EdgeVector{ iEdge };
                                 if (oEdge->getFirstNonPedestrianLaneIndex(NBNode::FORWARD) > -1) {
                                     edgeVector.push_back(oEdge);
@@ -305,22 +304,20 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
                         }
                     }
                 }
-                for (size_t i = 0; i < outgoingEdgesNo; i++)
-                {
+                for (size_t i = 0; i < outgoingEdgesNo; i++) {
                     // Same checks as above for loop, but for outgoing edges
                     auto const oEdge = outgoingEdges[i];
 
                     if (oEdge->getFirstNonPedestrianLaneIndex(NBNode::FORWARD) > -1
-                        && oEdge->getSpecialLane(SVC_PEDESTRIAN) > -1)
-                    {
+                            && oEdge->getSpecialLane(SVC_PEDESTRIAN) > -1) {
                         std::string const& oEdgeId = oEdge->getID();
                         std::size_t const m = oEdgeId.find_first_of("#");
                         std::string const& iWayId = oEdgeId.substr(0, m);
                         for (size_t j = 0; j < incomingEdgesNo; j++) {
                             auto const iEdge = incomingEdges[j];
                             if (iEdge->getID().find(iWayId) != std::string::npos
-                                && iEdge->getSpecialLane(SVC_PEDESTRIAN) > -1
-                                && iEdge->getID().rfind(iWayId, 0) != 0) {
+                                    && iEdge->getSpecialLane(SVC_PEDESTRIAN) > -1
+                                    && iEdge->getID().rfind(iWayId, 0) != 0) {
                                 EdgeVector edgeVector = EdgeVector{ oEdge };
                                 if (iEdge->getFirstNonPedestrianLaneIndex(NBNode::FORWARD) > -1) {
                                     edgeVector.push_back(iEdge);
@@ -337,7 +334,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
             }
         }
     }
-    
+
     const double layerElevation = oc.getFloat("osm.layer-elevation");
     if (layerElevation > 0) {
         reconstructLayerElevation(layerElevation, nb);
@@ -415,8 +412,7 @@ NIImporter_OpenStreetMap::insertNodeChecking(long long int id, NBNodeCont& nc, N
                 delete tlDef;
                 throw ProcessError("Could not allocate tls '" + toString(id) + "'.");
             }
-        }
-        else if (n->pedestrianCrossing && myImportCrossings) {
+        } else if (n->pedestrianCrossing && myImportCrossings) {
             node->setParameter("computePedestrianCrossing", "true");
         }
         if (n->railwayBufferStop) {
@@ -905,7 +901,7 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
                 myCurrentNode->tlsControlled = true;
             } else if (key == "crossing" && value.find("traffic_signals") != std::string::npos) {
                 myCurrentNode->tlsControlled = true;
-            } else if (key == "highway" && value.find("crossing") != std::string::npos){
+            } else if (key == "highway" && value.find("crossing") != std::string::npos) {
                 myCurrentNode->pedestrianCrossing = true;
             } else if ((key == "noexit" && value == "yes")
                        || (key == "railway" && value == "buffer_stop")) {
@@ -1307,24 +1303,20 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 const std::vector<std::string> values = StringTokenizer(value, "|").getVector();
                 std::vector<double> widthLanes;
                 for (std::string width : values) {
-                    double parsedWidth = width == "" 
-                        ? -1
-                        : StringUtils::toDouble(width);
+                    double parsedWidth = width == ""
+                                         ? -1
+                                         : StringUtils::toDouble(width);
                     widthLanes.push_back(parsedWidth);
                 }
 
                 if (key == "width:lanes" || key == "width:lanes:forward") {
                     myCurrentEdge->myWidthLanesForward = widthLanes;
-                }
-                else if (key == "width:lanes:backward") {
+                } else if (key == "width:lanes:backward") {
                     myCurrentEdge->myWidthLanesBackward = widthLanes;
-                }
-                else {
+                } else {
                     WRITE_WARNINGF(TL("Using default lane width for edge '%' as key '%' could not be parsed."), toString(myCurrentEdge->id), key);
                 }
-            }
-            catch (const NumberFormatException&)
-            {
+            } catch (const NumberFormatException&) {
                 WRITE_WARNINGF(TL("Using default lane width for edge '%' as value '%' could not be parsed."), toString(myCurrentEdge->id), value);
             }
         } else if (key == "foot") {

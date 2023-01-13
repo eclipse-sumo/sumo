@@ -58,6 +58,9 @@ NWFrame::fillOptions(bool forNetgen) {
     oc.addSynonyme("plain-output-prefix", "plain");
     oc.addDescription("plain-output-prefix", "Output", "Prefix of files to write plain xml nodes, edges and connections to");
 
+    oc.doRegister("plain-output.lanes", new Option_Bool(false));
+    oc.addDescription("plain-output.lanes", "Output", "Write all lanes and their attributes even when they are not customized");
+
     oc.doRegister("junctions.join-output", new Option_FileName());
     oc.addDescription("junctions.join-output", "Output",
                       "Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins");

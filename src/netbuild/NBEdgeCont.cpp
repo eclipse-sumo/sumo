@@ -1609,11 +1609,11 @@ NBEdgeCont::updateAllChangeRestrictions(SVCPermissions ignoring) {
 
 
 void
-NBEdgeCont::addPrefix(const std::string &prefix) {
+NBEdgeCont::addPrefix(const std::string& prefix) {
     // make a copy of node containers
     const auto nodeContainerCopy = myEdges;
     myEdges.clear();
-    for (const auto &node : nodeContainerCopy) {
+    for (const auto& node : nodeContainerCopy) {
         node.second->setID(prefix + node.second->getID());
         myEdges[node.second->getID()] = node.second;
     }

@@ -29,6 +29,7 @@
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/images/VClassIcons.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEFrameAttributeModules.h"
@@ -264,7 +265,7 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                 if (ACAttr.getAttr() == SUMO_ATTR_VCLASS) {
                     // add all vClasses with their icons
                     for (const auto& vClassStr : SumoVehicleClassStrings.getStrings()) {
-                        myValueChoicesComboBox->appendIconItem(vClassStr.c_str(), GNEAttributeCarrier::getVClassIcon(getVehicleClassID(vClassStr)));
+                        myValueChoicesComboBox->appendIconItem(vClassStr.c_str(), VClassIcons::getVClassIcon(getVehicleClassID(vClassStr)));
                     }
                 } else {
                     for (const auto& discreteValue : myACAttr.getDiscreteValues()) {
@@ -292,6 +293,28 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                 }
                 myValueChoicesComboBox->show();
             }
+        } else if (ACParent && myACAttr.isVType() && (myACAttr.getAttr() == SUMO_ATTR_TYPE)) {
+            // fill comboBox with vTypes
+            myValueChoicesComboBox->clearItems();
+            for (const auto& vType : ACParent->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
+                myValueChoicesComboBox->appendIconItem(vType->getID().c_str(), vType->getACIcon());
+            }
+            // show only 10 vtypes
+            myValueChoicesComboBox->setNumVisible(myValueChoicesComboBox->getNumItems() < 10 ? myValueChoicesComboBox->getNumItems() : 10);
+            const int itemIndex = myValueChoicesComboBox->findItem(value.c_str());
+            if (itemIndex == -1) {
+                myValueChoicesComboBox->setText(value.c_str());
+            } else {
+                myValueChoicesComboBox->setCurrentItem(itemIndex);
+            }
+            // set color depending of computed
+            if (computed) {
+                myValueChoicesComboBox->setTextColor(FXRGB(0, 0, 255));
+            } else {
+                myValueChoicesComboBox->setTextColor(FXRGB(0, 0, 0));
+                myValueChoicesComboBox->killFocus();
+            }
+            myValueChoicesComboBox->show();
         } else {
             // In any other case (String, list, etc.), show value as String
             myValueTextField->setText(value.c_str());
@@ -354,7 +377,17 @@ GNEFrameAttributeModules::AttributesEditorRow::refreshAttributesEditorRow(const 
     if (myAttributeCheckButton->shown()) {
         myAttributeCheckButton->setCheck(attributeEnabled);
     }
-    if (myValueTextField->shown()) {
+    if (ACParent && myACAttr.isVType() && (myACAttr.getAttr() == SUMO_ATTR_TYPE)) {
+        // fill comboBox with vTypes
+        myValueChoicesComboBox->clearItems();
+        for (const auto& vType : ACParent->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
+            myValueChoicesComboBox->appendIconItem(vType->getID().c_str(), vType->getACIcon());
+        }
+        // show only 10 vtypes
+        myValueChoicesComboBox->setNumVisible(myValueChoicesComboBox->getNumItems() < 10 ? myValueChoicesComboBox->getNumItems() : 10);
+        myValueChoicesComboBox->setCurrentItem(myValueChoicesComboBox->findItem(value.c_str()));
+        myValueChoicesComboBox->show();
+    } else if (myValueTextField->shown()) {
         // set last valid value and restore color if onlyValid is disabled
         if (myValueTextField->getTextColor() == FXRGB(0, 0, 0) || myValueTextField->getTextColor() == FXRGB(0, 0, 255) || forceRefresh) {
             myValueTextField->setText(value.c_str());
@@ -373,7 +406,7 @@ GNEFrameAttributeModules::AttributesEditorRow::refreshAttributesEditorRow(const 
         if (myACAttr.getAttr() == SUMO_ATTR_VCLASS) {
             // add all vClasses with their icons
             for (const auto& vClassStr : SumoVehicleClassStrings.getStrings()) {
-                myValueChoicesComboBox->appendIconItem(vClassStr.c_str(), GNEAttributeCarrier::getVClassIcon(getVehicleClassID(vClassStr)));
+                myValueChoicesComboBox->appendIconItem(vClassStr.c_str(), VClassIcons::getVClassIcon(getVehicleClassID(vClassStr)));
             }
         } else {
             for (const auto& discreteValue : myACAttr.getDiscreteValues()) {
@@ -414,7 +447,7 @@ GNEFrameAttributeModules::AttributesEditorRow::isAttributesEditorRowValid() cons
 
 long
 GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject* obj, FXSelector, void*) {
-    GNEViewNet *viewNet = myAttributesEditorParent->getFrameParent()->getViewNet();
+    GNEViewNet* viewNet = myAttributesEditorParent->getFrameParent()->getViewNet();
     const auto& ACs = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
     if (obj == myAttributeColorButton) {
         // create FXColorDialog
@@ -459,8 +492,8 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject
         // declare accept changes
         bool acceptChanges = false;
         // open GNEAllowVClassesDialog (also used to modify SUMO_ATTR_CHANGE_LEFT etc
-        GNEAllowVClassesDialog(viewNet, 
-        viewNet->getInspectedAttributeCarriers().front(), SUMO_ATTR_ALLOW, &acceptChanges).execute();
+        GNEAllowVClassesDialog(viewNet,
+                               viewNet->getInspectedAttributeCarriers().front(), SUMO_ATTR_ALLOW, &acceptChanges).execute();
         // continue depending of acceptChanges
         if (acceptChanges) {
             std::string allowed = viewNet->getInspectedAttributeCarriers().front()->getAttribute(SUMO_ATTR_ALLOW);
@@ -519,6 +552,9 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
             // Get value of ComboBox
             newVal = myValueChoicesComboBox->getText().text();
         }
+    } else if (myACParent && myACAttr.isVType() && (myACAttr.getAttr() == SUMO_ATTR_TYPE)) {
+        // Get value of ComboBox
+        newVal = myValueChoicesComboBox->getText().text();
     } else {
         // Check if default value of attribute must be set
         if (myValueTextField->getText().empty() && myACAttr.hasDefaultValue()) {

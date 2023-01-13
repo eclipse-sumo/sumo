@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEPathLegend.cpp
+/// @file    GNEPathLegendModule.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2022
 ///
@@ -23,14 +23,14 @@
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/gui/div/GUIDesigns.h>
 
-#include "GNEPathLegend.h"
+#include "GNEPathLegendModule.h"
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
-GNEM_PathLegend::GNEM_PathLegend(GNEFrame* frameParent) :
+GNEPathLegendModule::GNEPathLegendModule(GNEFrame* frameParent) :
     MFXGroupBoxModule(frameParent, TL("Information")) {
     // declare label
     FXLabel* legendLabel = nullptr;
@@ -53,16 +53,16 @@ GNEM_PathLegend::GNEM_PathLegend(GNEFrame* frameParent) :
 }
 
 
-GNEM_PathLegend::~GNEM_PathLegend() {}
+GNEPathLegendModule::~GNEPathLegendModule() {}
 
 
 void
-GNEM_PathLegend::showPathLegendModule() {
+GNEPathLegendModule::showPathLegendModule() {
     show();
 }
 
 void
-GNEM_PathLegend::hidePathLegendModule() {
+GNEPathLegendModule::hidePathLegendModule() {
     hide();
 }
 

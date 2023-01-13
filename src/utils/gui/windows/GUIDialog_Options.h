@@ -56,7 +56,7 @@ public:
 
     public:
         /// @brief constructor
-        InputString(GUIDialog_Options *GUIDialogOptions, FXComposite* parent, const std::string& name);
+        InputString(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name);
 
         /// @brief try to set new attribute value
         long onCmdSetOption(FXObject*, FXSelector, void*);
@@ -67,7 +67,7 @@ public:
 
     private:
         /// @brief GUIDialog_Options parent
-        GUIDialog_Options *myGUIDialogOptions = nullptr;
+        GUIDialog_Options* myGUIDialogOptions = nullptr;
 
         /// @brief name
         std::string myName;
@@ -82,7 +82,7 @@ public:
 
     public:
         /// @brief constructor
-        InputStringVector(GUIDialog_Options *GUIDialogOptions, FXComposite* parent, const std::string& name);
+        InputStringVector(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name);
 
         /// @brief try to set new attribute value
         long onCmdSetOption(FXObject*, FXSelector, void*);
@@ -93,7 +93,7 @@ public:
 
     private:
         /// @brief GUIDialog_Options parent
-        GUIDialog_Options *myGUIDialogOptions = nullptr;
+        GUIDialog_Options* myGUIDialogOptions = nullptr;
 
         /// @brief name
         std::string myName;
@@ -108,7 +108,7 @@ public:
 
     public:
         /// @brief constructor
-        InputBool(GUIDialog_Options *GUIDialogOptions, FXComposite* parent, const std::string& name);
+        InputBool(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name);
 
         /// @brief try to set new attribute value
         long onCmdSetOption(FXObject*, FXSelector, void*);
@@ -119,7 +119,7 @@ public:
 
     private:
         /// @brief GUIDialog_Options parent
-        GUIDialog_Options *myGUIDialogOptions = nullptr;
+        GUIDialog_Options* myGUIDialogOptions = nullptr;
 
         /// @brief name
         std::string myName;
@@ -134,7 +134,7 @@ public:
 
     public:
         /// @brief
-        InputInt(GUIDialog_Options *GUIDialogOptions, FXComposite* parent, const std::string& name);
+        InputInt(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name);
 
         /// @brief try to set new attribute value
         long onCmdSetOption(FXObject*, FXSelector, void*);
@@ -145,7 +145,7 @@ public:
 
     private:
         /// @brief GUIDialog_Options parent
-        GUIDialog_Options *myGUIDialogOptions = nullptr;
+        GUIDialog_Options* myGUIDialogOptions = nullptr;
 
         /// @brief name
         std::string myName;
@@ -160,7 +160,7 @@ public:
 
     public:
         /// @brief
-        InputIntVector(GUIDialog_Options *GUIDialogOptions, FXComposite* parent, const std::string& name);
+        InputIntVector(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name);
 
         /// @brief try to set new attribute value
         long onCmdSetOption(FXObject*, FXSelector, void*);
@@ -171,7 +171,7 @@ public:
 
     private:
         /// @brief GUIDialog_Options parent
-        GUIDialog_Options *myGUIDialogOptions = nullptr;
+        GUIDialog_Options* myGUIDialogOptions = nullptr;
 
         /// @brief name
         std::string myName;
@@ -186,7 +186,7 @@ public:
 
     public:
         /// @brief constructor
-        InputFloat(GUIDialog_Options *GUIDialogOptions, FXComposite* parent, const std::string& name);
+        InputFloat(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name);
 
         /// @brief try to set new attribute value
         long onCmdSetOption(FXObject*, FXSelector, void*);
@@ -197,7 +197,7 @@ public:
 
     private:
         /// @brief GUIDialog_Options parent
-        GUIDialog_Options *myGUIDialogOptions = nullptr;
+        GUIDialog_Options* myGUIDialogOptions = nullptr;
 
         /// @brief name
         std::string myName;
@@ -212,7 +212,7 @@ public:
 
     public:
         /// @brief constructor
-        InputFilename(GUIDialog_Options *GUIDialogOptions, FXComposite* parent, const std::string& name);
+        InputFilename(GUIDialog_Options* GUIDialogOptions, FXComposite* parent, const std::string& name);
 
         /// @brief try to set new attribute value
         long onCmdSetOption(FXObject*, FXSelector, void*);
@@ -223,7 +223,7 @@ public:
 
     private:
         /// @brief GUIDialog_Options parent
-        GUIDialog_Options *myGUIDialogOptions = nullptr;
+        GUIDialog_Options* myGUIDialogOptions = nullptr;
 
         /// @brief name
         std::string myName;

@@ -48,7 +48,7 @@ GNEEdgeType::GNEEdgeType(const GNEEdgeType* edgeType) :
     GNENetworkElement(edgeType->getNet(), edgeType->getID(), GLO_EDGETYPE, SUMO_TAG_TYPE,
                       GUIIconSubSys::getIcon(GUIIcon::EDGETYPE), {}, {}, {}, {}, {}, {}),
                                 Parameterised(edgeType->getParametersMap()),
-    NBTypeCont::EdgeTypeDefinition(edgeType) {
+NBTypeCont::EdgeTypeDefinition(edgeType) {
 }
 
 
@@ -214,7 +214,7 @@ GNEEdgeType::updateGLObject() {
 std::string
 GNEEdgeType::getAttribute(SumoXMLAttr key) const {
     // get options
-    const auto &neteditOptions = OptionsCont::getOptions();
+    const auto& neteditOptions = OptionsCont::getOptions();
     switch (key) {
         case SUMO_ATTR_ID:
             return getMicrosimID();
@@ -315,6 +315,8 @@ GNEEdgeType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_SPREADTYPE:
             return SUMOXMLDefinitions::LaneSpreadFunctions.hasString(value);
         case SUMO_ATTR_WIDTH:
+        case SUMO_ATTR_SIDEWALKWIDTH:
+        case SUMO_ATTR_BIKELANEWIDTH:
             if (value.empty() || (value == "-1")) {
                 return true;
             } else {
@@ -433,6 +435,22 @@ GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 attrs.insert(key);
                 width = parse<double>(value);
+            }
+            break;
+        case SUMO_ATTR_SIDEWALKWIDTH:
+            if (value.empty()) {
+                attrs.erase(key);
+            } else {
+                attrs.insert(key);
+                sidewalkWidth = parse<double>(value);
+            }
+            break;
+        case SUMO_ATTR_BIKELANEWIDTH:
+            if (value.empty()) {
+                attrs.erase(key);
+            } else {
+                attrs.insert(key);
+                bikeLaneWidth = parse<double>(value);
             }
             break;
         case SUMO_ATTR_PRIORITY:

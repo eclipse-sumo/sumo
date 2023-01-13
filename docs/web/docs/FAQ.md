@@ -902,6 +902,13 @@ There are several reasons why a counter-lane-change-deadlock can happen:
   connections in [sumo-gui](sumo-gui.md) by activating
   *Junctions-\>show lane to lane connections* in the [gui settings dialog](sumo-gui.md#changing_the_appearancevisualisation_of_the_simulation).
 
+### Why do the vehicles not use all available lanes?
+
+  The main reason is usually that only the lanes they use allow them to continue their route. You should check the downstream junction
+  whether the connections are correct. If the number of lanes is reduced without further streets being involved
+  (not a proper junction) make sure to use the [zipper type](Networks/PlainXML.md#node_types). If you want to change the way vehicles behave
+  for the whole scenario, lower their [lcStrategic](Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#lane-changing_models) value.
+
 ### How do I get high flows/vehicle densities?
 
 By default, insertion flow is [limited by the time resolution of the simulation](Simulation/VehicleInsertion.md#forcing_insertion_avoiding_depart_delay) (vehicles are only inserted every full second) and by the default insertion speed of 0.

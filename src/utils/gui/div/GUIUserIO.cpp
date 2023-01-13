@@ -16,7 +16,7 @@
 /// @author  Michael Behrisch
 /// @date    2006-10-12
 ///
-// Some OS-dependant functions to ease cliboard manipulation
+// Some OS-dependant functions to ease clipboard manipulation
 /****************************************************************************/
 #include <config.h>
 

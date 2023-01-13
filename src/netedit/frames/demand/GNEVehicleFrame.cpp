@@ -141,7 +141,7 @@ GNEVehicleFrame::GNEVehicleFrame(GNEViewParent* viewParent, GNEViewNet* viewNet)
     myHelpCreation = new HelpCreation(this);
 
     // create legend label
-    myPathLegend = new GNEM_PathLegend(this);
+    myPathLegend = new GNEPathLegendModule(this);
 }
 
 

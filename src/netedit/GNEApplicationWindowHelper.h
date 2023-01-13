@@ -151,99 +151,18 @@ struct GNEApplicationWindowHelper {
         FileMenuCommands(GNEApplicationWindow* GNEApp);
 
         /// @brief build menu commands
-        void buildFileMenuCommands(FXMenuPane* fileMenu, FXMenuPane* fileMenuNEEDITConfig, FXMenuPane* fileMenuSUMOConfig, 
+        void buildFileMenuCommands(FXMenuPane* fileMenu, FXMenuPane* fileMenuNEEDITConfig, FXMenuPane* fileMenuSUMOConfig,
                                    FXMenuPane* fileMenuTLS, FXMenuPane* fileMenuEdgeTypes, FXMenuPane* fileMenuAdditionals,
-                                   FXMenuPane* fileMenuDemandElements, FXMenuPane* fileMenuDataElements, 
+                                   FXMenuPane* fileMenuDemandElements, FXMenuPane* fileMenuDataElements,
                                    FXMenuPane* fileMenuMeanDataElements);
 
-        /// @brief FXMenuCascade for NETEDITConfig
-        FXMenuCascade* NETEDITConfigMenuCascade = nullptr;
-        
-        /// @brief FXMenuCascade for SUMOConfig
-        FXMenuCascade* SUMOConfigMenuCascade = nullptr;
+        /// @brief enable menu cascades
+        void enableMenuCascades();
 
-        /// @brief FXMenuCascade for TLS
-        FXMenuCascade* TLSMenuCascade = nullptr;
-
-        /// @brief FXMenuCascade for edgeTypes
-        FXMenuCascade* edgeTypesMenuCascade = nullptr;
-
-        /// @brief FXMenuCascade for additional
-        FXMenuCascade* additionalMenuCascade = nullptr;
-
-        /// @brief FXMenuCascade for demand
-        FXMenuCascade* demandMenuCascade = nullptr;
-
-        /// @brief FXMenuCascade for data
-        FXMenuCascade* dataMenuCascade = nullptr;
-
-        /// @brief FXMenuCascade for mean datadata
-        FXMenuCascade* meanDataMenuCascade = nullptr;
-
-        /// @brief FXMenuCommand for reload NETEDITConfig
-        FXMenuCommand* reloadNETEDITConfig = nullptr;
-
-        /// @brief FXMenuCommand for enable or disable save NETEDITConfig
-        FXMenuCommand* saveNETEDITConfig = nullptr;
-
-        /// @brief FXMenuCommand for reload SUMOConfig
-        FXMenuCommand* reloadSUMOConfig = nullptr;
-
-        /// @brief FXMenuCommand for enable or disable save SUMOConfig
-        FXMenuCommand* saveSUMOConfig = nullptr;
-
-        /// @brief FXMenuCommand for reload TLS Programs
-        FXMenuCommand* reloadTLSPrograms = nullptr;
-
-        /// @brief FXMenuCommand for enable or disable save TLS Programs
-        FXMenuCommand* saveTLSPrograms = nullptr;
-
-        /// @brief FXMenuCommand for reload Edge Types
-        FXMenuCommand* reloadEdgeTypes = nullptr;
-
-        /// @brief FXMenuCommand for enable or disable save edgeTypes
-        FXMenuCommand* saveEdgeTypes = nullptr;
-
-        /// @brief FXMenuCommand for enable or disable save additionals
-        FXMenuCommand* saveAdditionals = nullptr;
-
-        /// @brief FXMenuCommand for enable or disable save additionals As
-        FXMenuCommand* saveAdditionalsAs = nullptr;
-
-        /// @brief FXMenuCommand for reload additionals
-        FXMenuCommand* reloadAdditionals = nullptr;
-
-        /// @brief FXMenuCommand for enable or disable save demand elements
-        FXMenuCommand* saveDemandElements = nullptr;
-
-        /// @brief FXMenuCommand for enable or disable save demand elements as
-        FXMenuCommand* saveDemandElementsAs = nullptr;
-
-        /// @brief FXMenuCommand for reload demand elements
-        FXMenuCommand* reloadDemandElements = nullptr;
-
-        /// @brief FXMenuCommand for enable or disable save data elements
-        FXMenuCommand* saveDataElements = nullptr;
-
-        /// @brief FXMenuCommand for enable or disable save data elements as
-        FXMenuCommand* saveDataElementsAs = nullptr;
-
-        /// @brief FXMenuCommand for reload data elements
-        FXMenuCommand* reloadDataElements = nullptr;
-
-        /// @brief FXMenuCommand for enable or disable save meanDatas
-        FXMenuCommand* saveMeanDatas = nullptr;
-
-        /// @brief FXMenuCommand for enable or disable save meanDatas As
-        FXMenuCommand* saveMeanDatasAs = nullptr;
-
-        /// @brief FXMenuCommand for reload meanDatas
-        FXMenuCommand* reloadMeanDatas = nullptr;
+        /// @brief disable menu cascades
+        void disableMenuCascades();
 
     private:
-        /// @brief pointer to current GNEApplicationWindows
-        GNEApplicationWindow* myGNEApp;
-
         /// @brief build NETEDIT Config section
         void buildNETEDITConfigSection(FXMenuPane* menuPane);
 
@@ -267,6 +186,33 @@ struct GNEApplicationWindowHelper {
 
         /// @brief build meanData section
         void buildMeanDataSection(FXMenuPane* menuPane);
+
+        /// @brief pointer to current GNEApplicationWindows
+        GNEApplicationWindow* myGNEApp = nullptr;
+
+        /// @brief FXMenuCascade for NETEDITConfig
+        FXMenuCascade* myNETEDITConfigMenuCascade = nullptr;
+
+        /// @brief FXMenuCascade for SUMOConfig
+        FXMenuCascade* mySUMOConfigMenuCascade = nullptr;
+
+        /// @brief FXMenuCascade for TLS
+        FXMenuCascade* myTLSMenuCascade = nullptr;
+
+        /// @brief FXMenuCascade for edgeTypes
+        FXMenuCascade* myEdgeTypesMenuCascade = nullptr;
+
+        /// @brief FXMenuCascade for additional
+        FXMenuCascade* myAdditionalMenuCascade = nullptr;
+
+        /// @brief FXMenuCascade for demand
+        FXMenuCascade* myDemandMenuCascade = nullptr;
+
+        /// @brief FXMenuCascade for data
+        FXMenuCascade* myDataMenuCascade = nullptr;
+
+        /// @brief FXMenuCascade for mean datadata
+        FXMenuCascade* myMeanDataMenuCascade = nullptr;
 
         /// @brief Invalidated copy constructor.
         FileMenuCommands(const FileMenuCommands&) = delete;
@@ -1122,7 +1068,31 @@ struct GNEApplicationWindowHelper {
     /// @brief check if a string ends with another string
     static bool stringEndsWith(const std::string& str, const std::string& suffix);
 
+    /// @brief open netconvert file dialog
+    static std::string openNetworkFileDialog(FXWindow* window, const bool save);
+
+    /// @brief open netconvert file dialog
+    static std::string openNetconvertFileDialog(FXWindow* window);
+
+    /// @brief open OSM file dialog
+    static std::string openOSMFileDialog(FXWindow* window);
+
+    /// @brief open additional dialog
+    static std::string openAdditionalFileDialog(FXWindow* window, const bool save);
+
+    /// @brief open route file dialog
+    static std::string openRouteFileDialog(FXWindow* window, const bool save);
+
+    /// @brief open data file dialog
+    static std::string openDataFileDialog(FXWindow* window, const bool save);
+
+    /// @brief open meandata filename dialog
+    static std::string openMeanDataDialog(FXWindow* window, const bool save);
+
 private:
+    /// @brief open filename dialog
+    static std::string openFileDialog(FXWindow* window, const std::string title, GUIIcon icon, const std::string patternList, const bool save);
+
     /// @brief Invalidated copy constructor.
     GNEApplicationWindowHelper(const GNEApplicationWindowHelper&) = delete;
 

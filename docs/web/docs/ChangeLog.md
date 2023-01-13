@@ -56,6 +56,7 @@ title: ChangeLog
   - The grouping of inspected overlapped elements no longer includes invisible elements. Issue #12126
   - Custom `loadingDuration` and `boardingDuration` are written as s instead of ms (also affects duarouter). Issue #12383
   - Fixed invalid default edge attributes after setting a template. Issue #12392
+  - Moving a selected edge with selected junctions now also moves the custom edge end points. Issue #12445
   
 - sumo-gui
   - Fixed invalid camera position after tracked vehicles exits the simulation. Issue #12137 (regression in 1.13.0)
@@ -70,6 +71,7 @@ title: ChangeLog
   - Fixes 3D view boundary coordinates after rotating the view. Issue #11941
   - Fixed crash on quick-reload reloading. Issue #12367
   - Fixed crash when using 'select reachability' related to negative edge speeds. Issue #12400, #12403
+  - Reload hotkey no longer takes effect when running with TraCI. Issue #12431
     
 - meso
   - Stopping at pos=0 is now working. Issue #12240
@@ -95,9 +97,14 @@ title: ChangeLog
   - Added missing (guessed) connections when an outgoing edge has additional lanes. Issue #8899
   - Fixed invalid link state at zipper junction. Issue #7676
   - Prohibitions involving edges with underscore in their name are now working. Issue #12419
+  - Turnaround are now correctly added if the inntermost lane prohibits passenger traffic. Issue #12447
+  - OpenDRIVE networks no longer include guessed turn-arounds by default (option **--no-turnarounds false** can be used to replicate the old behavior). Issue #12448
   
 - polyconvert
   - Fixed invalid polygon output for some line based inputs. Issue #12161
+    
+- duarouter
+  - Fixed crash on unknown landmark edge. Issue #12438
     
 - TraCI
   - Fixed moveToXY failure at parallel internal junction. Issue #12065
@@ -108,7 +115,8 @@ title: ChangeLog
   - Context subscriptions to the simulation domain now always return all requested objects regardless of range argument. Issue #12306
   - `trafficlight.swapConstraints` now preserves params (and swaps params for `bidiPredecessor`). Issue #12326
   - Fixed problems when using libsumo with gui. Issue #12285, #12021
-  - Fixed crash on rerouting after insertStop/replaceStop. Issue #12387  
+  - Fixed crash on rerouting after insertStop/replaceStop. Issue #12387
+  - Signal states are now updated immediately after calling `trafficlight.setProgramLogic`. Issue #12414
 
 - Tools
   - plot_net_dump_file.py: plotting a single measure is working again. Issue #11975 (regression in 1.15.0)
@@ -152,6 +160,7 @@ title: ChangeLog
   - Option **--tls.guess-signals** no longer requires signals on non-passeger edges to interpret an intersection as controlled. Issue #12260
   - Option **--junctions.join** can now join intersections with more than 4 incoming edges. Issue #12261
   - Walkingarea shapes for pure pedestrian intersections now match the junction shape. Issue #12377
+  - Added option **--plain-output.lanes** to include all lane attributes in plain-xml output. Issue #12443
 
 - netedit
   - It is now possible to load and save a *.sumocfg* file and also to edit all sumo options (SHIFT-F10). Issue #11896
@@ -169,7 +178,11 @@ title: ChangeLog
   - Geometry points now change color in move mode to indicate whether a click would create or merge points. Isse #12177
   - Move mode can now toggle whether closely spaced geometry points shall be automatically removed. Issue #12244
   - Stops now support attribute 'jump'. Issue #12269
-  - Crossing mode now ensures that only sensible crossings can be defined. Issue #12366  
+  - Crossing mode now ensures that only sensible crossings can be defined. Issue #12366
+  - Vehicle instpect mode now allose selecting vehicle type from a drop-down list. Issue #12379
+  - Added edge color legend to person and container mode. Issue #11613
+  - Added edge color legend when creating e2 detectors along multiple lanes. Issue #11334
+  - Moving a single selected edge now moves its whole geometry including endpoints. Issue #12442
 
 - sumo-gui
   - When option **--use-stop-ended** is set, show-route mode now labels the 'ended' time of stops. Issue #11833
@@ -186,6 +199,7 @@ title: ChangeLog
   - All dialogs now remember their previous position. Issue #11962
   - Window menu now includes entries for opening a new view. Issue #12417
   - Train insertion that is delayed due to oncoming trains is now indicated in the lane parameter dialog. Issue #12421
+  - Added vClass icons in the "Select lanes which allow" and "Select reachable" lists. Issue #12429
 
 - TraCI
   - Added functions `vehicle.getDeparture` and `vehicle.getDepartDelay`. Issue #3036

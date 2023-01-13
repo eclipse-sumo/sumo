@@ -51,8 +51,7 @@ ROVehicle::ROVehicle(const SUMOVehicleParameter& pars,
                      const RONet* net, MsgHandler* errorHandler):
     RORoutable(pars, type),
     myRoute(route),
-    myJumpTime(-1)
-{
+    myJumpTime(-1) {
     getParameter().stops.clear();
     if (route != nullptr && route->getFirstRoute() != nullptr) {
         for (std::vector<SUMOVehicleParameter::Stop>::const_iterator s = route->getFirstRoute()->getStops().begin(); s != route->getFirstRoute()->getStops().end(); ++s) {

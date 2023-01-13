@@ -234,9 +234,9 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
             } else {
                 // build trip with from-to junctions
                 buildTripJunctions(obj,
-                          obj->getVehicleParameter(),
-                          obj->getStringAttribute(SUMO_ATTR_FROMJUNCTION),
-                          obj->getStringAttribute(SUMO_ATTR_TOJUNCTION));
+                                   obj->getVehicleParameter(),
+                                   obj->getStringAttribute(SUMO_ATTR_FROMJUNCTION),
+                                   obj->getStringAttribute(SUMO_ATTR_TOJUNCTION));
             }
             break;
         case SUMO_TAG_VEHICLE:

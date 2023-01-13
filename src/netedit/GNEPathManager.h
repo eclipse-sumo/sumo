@@ -316,7 +316,7 @@ public:
     const PathElement* getPathElement(const GUIGlObject* GLObject) const;
 
     /// @brief get path segments
-    const std::vector<Segment*> &getPathElementSegments(PathElement* pathElement) const;
+    const std::vector<Segment*>& getPathElementSegments(PathElement* pathElement) const;
 
     /// @brief obtain instance of PathDraw
     PathDraw* getPathDraw();

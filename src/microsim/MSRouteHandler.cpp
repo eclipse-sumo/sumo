@@ -711,7 +711,7 @@ MSRouteHandler::addVehicleStopsToImplicitRoute(ConstMSRoutePtr route, bool isPer
         }
     }
     ConstMSRoutePtr newRoute = std::make_shared<MSRoute>("!" + myVehicleParameter->id, edges,
-                                    isPermanent, new RGBColor(route->getColor()), route->getStops());
+                               isPermanent, new RGBColor(route->getColor()), route->getStops());
     if (!MSRoute::dictionary(newRoute->getID(), newRoute)) {
         throw ProcessError("Could not adapt implicit route for " + std::string(isPermanent ? "flow" : "vehicle") + "  '" + myVehicleParameter->id + "'");
     }

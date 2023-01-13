@@ -41,9 +41,9 @@
 // member method definitions
 // ===========================================================================
 
-GNEMeanData::GNEMeanData(GNENet *net, SumoXMLTag tag, const std::string& id) :
+GNEMeanData::GNEMeanData(GNENet* net, SumoXMLTag tag, const std::string& id) :
     GNEHierarchicalElement(net, tag, {}, {}, {}, {}, {}, {}),
-    myID(id) {
+myID(id) {
     // reset default values
     resetDefaultValues();
     // set file
@@ -53,29 +53,29 @@ GNEMeanData::GNEMeanData(GNENet *net, SumoXMLTag tag, const std::string& id) :
 }
 
 
-GNEMeanData::GNEMeanData(GNENet *net, SumoXMLTag tag, std::string ID, std::string file, SUMOTime period,
-        SUMOTime begin, SUMOTime end, const bool trackVehicles, const std::vector<SumoXMLAttr> &writtenAttributes,
-        const bool aggregate, const std::vector<std::string> &edges, const std::string &edgeFile, 
-        std::string excludeEmpty, const bool withInternal, const std::vector<std::string> &detectPersons, 
-        const double minSamples, const double maxTravelTime, const std::vector<std::string> &vTypes, const double speedThreshold) :
+GNEMeanData::GNEMeanData(GNENet* net, SumoXMLTag tag, std::string ID, std::string file, SUMOTime period,
+                         SUMOTime begin, SUMOTime end, const bool trackVehicles, const std::vector<SumoXMLAttr>& writtenAttributes,
+                         const bool aggregate, const std::vector<std::string>& edges, const std::string& edgeFile,
+                         std::string excludeEmpty, const bool withInternal, const std::vector<std::string>& detectPersons,
+                         const double minSamples, const double maxTravelTime, const std::vector<std::string>& vTypes, const double speedThreshold) :
     GNEHierarchicalElement(net, tag, {}, {}, {}, {}, {}, {}),
-    myID(ID), 
-    myFile(file),
-    myPeriod(period),
-    myBegin(begin),  
-    myEnd(end), 
-    myTrackVehicles(trackVehicles),
-    myWrittenAttributes(writtenAttributes),
-    myAggregate(aggregate),
-    myEdges(edges),
-    myEdgeFile(edgeFile),
-    myExcludeEmpty(excludeEmpty),
-    myWithInternal(withInternal),
-    myDetectPersons(detectPersons), 
-    myMinSamples(minSamples),
-    myMaxTravelTime(maxTravelTime),
-    myVTypes(vTypes), 
-    mySpeedThreshold(speedThreshold) {
+myID(ID),
+myFile(file),
+myPeriod(period),
+myBegin(begin),
+myEnd(end),
+myTrackVehicles(trackVehicles),
+myWrittenAttributes(writtenAttributes),
+myAggregate(aggregate),
+myEdges(edges),
+myEdgeFile(edgeFile),
+myExcludeEmpty(excludeEmpty),
+myWithInternal(withInternal),
+myDetectPersons(detectPersons),
+myMinSamples(minSamples),
+myMaxTravelTime(maxTravelTime),
+myVTypes(vTypes),
+mySpeedThreshold(speedThreshold) {
     // set file
     if (myFile.empty()) {
         myFile = (myID + ".xml");
@@ -253,7 +253,7 @@ GNEMeanData::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
 
 
 bool
-GNEMeanData::isValid(SumoXMLAttr key , const std::string& value) {
+GNEMeanData::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             return (myNet->getAttributeCarriers()->retrieveMeanData(myTagProperty.getTag(), value, false) == nullptr);

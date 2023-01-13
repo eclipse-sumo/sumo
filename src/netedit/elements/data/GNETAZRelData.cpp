@@ -251,7 +251,7 @@ GNETAZRelData::fixGenericDataProblem() {
 
 void
 GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
-    const auto &color = setColor(s);
+    const auto& color = setColor(s);
     // draw TAZRels
     if ((color.alpha() != 0) && drawTAZRel()) {
         // get flag for only draw contour

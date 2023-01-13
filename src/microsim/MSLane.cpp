@@ -933,14 +933,14 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
 #ifdef DEBUG_INSERTION
                 if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
                     std::cout << SIMTIME << " isInsertionSuccess lane=" << getID()
-                        << " veh=" << aVehicle->getID()
-                        << " patchSpeed=" << patchSpeed
-                        << " speed=" << speed
-                        << " remaining=" << remaining
-                        << " leader=" << currentLane->getLastVehicleInformation(aVehicle, 0, 0).toString()
-                        << " last=" << Named::getIDSecure(getLastAnyVehicle())
-                        << " meanSpeed=" << getMeanSpeed()
-                        << " failed (@926)!\n";
+                              << " veh=" << aVehicle->getID()
+                              << " patchSpeed=" << patchSpeed
+                              << " speed=" << speed
+                              << " remaining=" << remaining
+                              << " leader=" << currentLane->getLastVehicleInformation(aVehicle, 0, 0).toString()
+                              << " last=" << Named::getIDSecure(getLastAnyVehicle())
+                              << " meanSpeed=" << getMeanSpeed()
+                              << " failed (@926)!\n";
                 }
 #endif
                 return false;

@@ -3398,7 +3398,7 @@ NBEdge::appendTurnaround(bool noTLSControlled, bool noFringe, bool onlyDeadends,
     if (onlyDeadends && !isDeadEnd) {
         return;
     }
-    const int fromLane = (int)myLanes.size() - 1;
+    const int fromLane = getFirstAllowedLaneIndex(NBNode::BACKWARD);
     if (onlyTurnlane) {
         for (const Connection& c : getConnectionsFromLane(fromLane)) {
             LinkDirection dir = myTo->getDirection(this, c.toEdge);
@@ -3407,7 +3407,7 @@ NBEdge::appendTurnaround(bool noTLSControlled, bool noFringe, bool onlyDeadends,
             }
         }
     }
-    const int toLane = (int)myTurnDestination->getNumLanes() - 1;
+    const int toLane = myTurnDestination->getFirstAllowedLaneIndex(NBNode::BACKWARD);
     if (checkPermissions) {
         if ((getPermissions(fromLane) & myTurnDestination->getPermissions(toLane)) == 0) {
             // exclude connection if fromLane and toEdge have no common permissions

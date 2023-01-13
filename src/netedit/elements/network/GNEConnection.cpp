@@ -661,7 +661,7 @@ GNEConnection::changeTLIndex(SumoXMLAttr key, int tlIndex, int tlIndex2, GNEUndo
     undoList->begin(GUIIcon::CONNECTION, "change tls linkIndex for connection");
     // make a copy
     std::set<NBTrafficLightDefinition*> defs = getEdgeFrom()->getNBEdge()->getToNode()->getControllingTLS();
-    for (const auto &tlDef : defs) {
+    for (const auto& tlDef : defs) {
         NBLoadedSUMOTLDef* sumoDef = dynamic_cast<NBLoadedSUMOTLDef*>(tlDef);
         NBTrafficLightLogic* tllogic = sumoDef ? sumoDef->getLogic() : tlDef->compute(OptionsCont::getOptions());
         if (tllogic != nullptr) {
@@ -670,7 +670,7 @@ GNEConnection::changeTLIndex(SumoXMLAttr key, int tlIndex, int tlIndex2, GNEUndo
                                   getLaneFrom()->getIndex(), getLaneTo()->getIndex(), tlIndex, tlIndex2, false);
             // make a copy
             std::vector<NBNode*> nodes = tlDef->getNodes();
-            for (const auto &node : nodes) {
+            for (const auto& node : nodes) {
                 GNEJunction* junction = getNet()->getAttributeCarriers()->retrieveJunction(node->getID());
                 undoList->add(new GNEChange_TLS(junction, tlDef, false), true);
                 undoList->add(new GNEChange_TLS(junction, newDef, true), true);
@@ -687,7 +687,7 @@ void
 GNEConnection::drawConnectionArrows(const GUIVisualizationSettings& s) const {
     if (s.showLaneDirection) {
         for (int i = 1; i < (int)myConnectionGeometry.getShape().size(); i++) {
-            const auto posA = myConnectionGeometry.getShape()[i-1];
+            const auto posA = myConnectionGeometry.getShape()[i - 1];
             const auto posB = myConnectionGeometry.getShape()[i];
             GLHelper::drawTriangleAtEnd(posA, posB, (double) 1, (double) .2);
         }

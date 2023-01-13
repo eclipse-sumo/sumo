@@ -453,7 +453,7 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             // enable save demand elements if there are stops
             for (const auto& stop : getChildDemandElements()) {
                 if (stop->getTagProperty().isStop() || stop->getTagProperty().isStopPerson()) {
-                    myNet->requireSaveDemandElements(true);
+                    myNet->getSavingStatus()->requireSaveDemandElements();
                 }
             }
             break;

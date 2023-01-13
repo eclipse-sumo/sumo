@@ -23,10 +23,11 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/dialogs/GNESingleParametersDialog.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/images/VClassIcons.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/common/StringTokenizer.h>
 
 #include "GNEVehicleTypeDialog.h"
 
@@ -70,7 +71,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VClassRow::VClassRow(VTypeAttributes* VTy
     myComboBoxVClassLabelImage->setBackColor(FXRGBA(255, 255, 255, 255));
     // fill combo Box with all allowed VClass for the current edited VType
     for (const auto& vClass : myVTypeAttributesParent->myVehicleTypeDialog->getEditedDemandElement()->getTagProperty().getAttributeProperties(SUMO_ATTR_VCLASS).getDiscreteValues()) {
-        myComboBoxVClass->appendIconItem(vClass.c_str(), GNEAttributeCarrier::getVClassIcon(SumoVehicleClassStrings.get(vClass)));
+        myComboBoxVClass->appendIconItem(vClass.c_str(), VClassIcons::getVClassIcon(SumoVehicleClassStrings.get(vClass)));
     }
     // only show as maximum 10 VClasses
     if (myComboBoxVClass->getNumItems() > 10) {

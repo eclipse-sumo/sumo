@@ -101,8 +101,7 @@ public:
         if (myRouters.count(svc) == 0) {
             // create new router for the given permissions and maximum speed
             // XXX a new router may also be needed if vehicles differ in speed factor
-            myRouters[svc] = new CHRouterType(
-                myEdges, myIgnoreErrors, &E::getTravelTimeStatic, svc.first, myWeightPeriod, false, false);
+            myRouters[svc] = new CHRouterType(myEdges, myIgnoreErrors, this->myOperation, svc.first, myWeightPeriod, false, false);
         }
         return myRouters[svc]->compute(from, to, vehicle, msTime, into, silent);
     }

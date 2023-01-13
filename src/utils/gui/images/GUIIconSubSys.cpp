@@ -51,7 +51,7 @@
 #include "save.xpm"
 #include "save_sumoconfig.xpm"
 #include "save_neteditconfig.xpm"
-#include "save_question.xpm"
+#include "save_multiple.xpm"
 #include "save_networkelements.xpm"
 #include "save_aditionalelements.xpm"
 #include "save_demandelements.xpm"
@@ -503,7 +503,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::SAVE] = new FXXPMIcon(a, save_xpm);
     myIcons[GUIIcon::SAVE_SUMOCONFIG] = new FXXPMIcon(a, save_sumoconfig_xpm);
     myIcons[GUIIcon::SAVE_NETEDITCONFIG] = new FXXPMIcon(a, save_neteditconfig_xpm);
-    myIcons[GUIIcon::SAVE_QUESTION] = new FXXPMIcon(a, save_question_xpm);
+    myIcons[GUIIcon::SAVE_MULTIPLE] = new FXXPMIcon(a, save_multiple_xpm);
     myIcons[GUIIcon::SAVE_NETWORKELEMENTS] = new FXXPMIcon(a, save_networkelements_xpm);
     myIcons[GUIIcon::SAVE_ADDITIONALELEMENTS] = new FXXPMIcon(a, save_additionalelements_xpm);
     myIcons[GUIIcon::SAVE_DEMANDELEMENTS] = new FXXPMIcon(a, save_demandelements_xpm);

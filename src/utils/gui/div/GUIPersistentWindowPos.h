@@ -38,9 +38,9 @@ public:
      * @param[in] str The storage of object selections to use
      */
     GUIPersistentWindowPos(FXWindow* parent, const std::string& name, bool storeSize,
-            int x=150, int y=150,
-            int width=700, int height=500,
-            int minSize=400, int minTitlebarHeight=20); 
+                           int x = 150, int y = 150,
+                           int width = 700, int height = 500,
+                           int minSize = 400, int minTitlebarHeight = 20);
 
     /// @brief Destructor (Notifies both the parent and the storage about being destroyed)
     ~GUIPersistentWindowPos();

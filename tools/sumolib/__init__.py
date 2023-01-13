@@ -46,7 +46,7 @@ def call(executable, args):
     optParser = OptionParser()
     pullOptions(executable, optParser)
     cmd = [executable]
-    for option, value in args.__dict__.iteritems():
+    for option, value in args.__dict__.items():
         o = "--" + option.replace("_", "-")
         opt = optParser.get_option(o)
         if opt is not None and value is not None and opt.default != value:

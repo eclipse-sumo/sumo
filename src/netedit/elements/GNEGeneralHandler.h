@@ -60,23 +60,39 @@ private:
     /// @brief tagType
     struct TagType {
 
+        enum class Type {
+            NONE,
+            NETWORK,
+            ADDITIONAL,
+            DEMAND,
+            DATA,
+            MEANDATA,
+        };
+
         /// @brief constructor
-        TagType(SumoXMLTag tag, const bool network, const bool additional, const bool demand, const bool meanData);
+        TagType(SumoXMLTag tag, Type type);
+
+        /// @brief is network element
+        bool isNetwork() const;
+
+        /// @brief is network element
+        bool isAdditional() const;
+
+        /// @brief is network element
+        bool isDemand() const;
+
+        /// @brief is network element
+        bool isData() const;
+
+        /// @brief is network element
+        bool isMeanData() const;
 
         /// @brief tag related with this TagType
         const SumoXMLTag tag;
 
-        /// @brief tagType is network
-        const bool network;
-
-        /// @brief tagType is additional
-        const bool additional;
-
-        /// @brief tagType is demand
-        const bool demand;
-
-        /// @brief tagType is a meanData
-        const bool meanData;
+    private:
+        /// @brief tag type
+        const Type myType;
     };
 
     /// @brief queue with the inserted tags

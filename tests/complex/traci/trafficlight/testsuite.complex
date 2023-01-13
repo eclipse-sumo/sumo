@@ -1,3 +1,5 @@
+
+
 # rail signal constraint retrieval and modification
 constraints
 
@@ -27,3 +29,6 @@ actuated
 
 # tests interaction with actuated traffic light that uses custom switching conditions
 actuated_conditions
+
+# Overwrite signal program with TraCI-generated phases twice
+setLogic_repeated

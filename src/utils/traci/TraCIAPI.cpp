@@ -31,14 +31,14 @@
 // TraCIAPI-methods
 // ---------------------------------------------------------------------------
 
-TraCIAPI::TraCIAPI() : 
-        edge(*this), gui(*this), inductionloop(*this),
-        junction(*this), lane(*this), lanearea(*this), multientryexit(*this),
-        person(*this), poi(*this), polygon(*this),
-        rerouter(*this), route(*this), routeprobe(*this),
-        simulation(*this), trafficlights(*this),
-        vehicle(*this), vehicletype(*this),
-        mySocket(nullptr) {
+TraCIAPI::TraCIAPI() :
+    edge(*this), gui(*this), inductionloop(*this),
+    junction(*this), lane(*this), lanearea(*this), multientryexit(*this),
+    person(*this), poi(*this), polygon(*this),
+    rerouter(*this), route(*this), routeprobe(*this),
+    simulation(*this), trafficlights(*this),
+    vehicle(*this), vehicletype(*this),
+    mySocket(nullptr) {
     myDomains[libsumo::RESPONSE_SUBSCRIBE_EDGE_VARIABLE] = &edge;
     myDomains[libsumo::RESPONSE_SUBSCRIBE_GUI_VARIABLE] = &gui;
     myDomains[libsumo::RESPONSE_SUBSCRIBE_JUNCTION_VARIABLE] = &junction;

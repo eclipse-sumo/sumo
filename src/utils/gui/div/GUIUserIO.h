@@ -16,7 +16,7 @@
 /// @author  Michael Behrisch
 /// @date    Sept 2006
 ///
-// Some OS-dependant functions to ease cliboard manipulation
+// Some OS-dependant functions to ease clipboard manipulation
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -30,10 +30,10 @@
 // ===========================================================================
 /**
  * @class GUIUserIO
- * @brief Some OS-dependant functions to ease cliboard manipulation
+ * @brief Some OS-dependant functions to ease clipboard manipulation
  *
  * This helper contains only one function by now. It is used to store a text
- *  snipplet permanently within Windows-clipboard. This method is necessary,
+ *  snippet permanently within Windows-clipboard. This method is necessary,
  *  because FOX only implements the Linux/UNIX-text copying scheme where
  *  a marked text is copied. This does not work as soon as the widget with
  *  the marked text is destroyed or when the selection is lost. Because this

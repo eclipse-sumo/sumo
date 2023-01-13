@@ -54,6 +54,9 @@ GNEContainerPlanFrame::GNEContainerPlanFrame(GNEViewParent* viewParent, GNEViewN
 
     // Create GNEElementTree modul
     myContainerHierarchy = new GNEElementTree(this);
+
+    // create legend label
+    myPathLegend = new GNEPathLegendModule(this);
 }
 
 
@@ -78,12 +81,13 @@ GNEContainerPlanFrame::show() {
             myContainerSelector->setDemandElement(*containerFlows.begin());
         }
     } else {
-        // hide all moduls except helpCreation
+        // hide all moduls
         myContainerSelector->hideDemandElementSelector();
         myContainerPlanTagSelector->hideTagSelector();
         myContainerPlanAttributes->hideAttributesCreatorModule();
         myPathCreator->hidePathCreatorModule();
         myContainerHierarchy->hideHierarchicalElementTree();
+        myPathLegend->hidePathLegendModule();
     }
     // show frame
     GNEFrame::show();
@@ -156,6 +160,8 @@ GNEContainerPlanFrame::tagSelected() {
         if (previousEdge) {
             // set path creator mode
             myPathCreator->showPathCreatorModule(containerPlanTag, true, false);
+            // show legend
+            myPathLegend->showPathLegendModule();
             // check if add previous edge
             if (!myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopContainer()) {
                 myPathCreator->addEdge(previousEdge, false, false);
@@ -163,6 +169,8 @@ GNEContainerPlanFrame::tagSelected() {
         } else {
             // set path creator mode
             myPathCreator->showPathCreatorModule(containerPlanTag, false, false);
+            // show legend
+            myPathLegend->showPathLegendModule();
         }
         // show container hierarchy
         myContainerHierarchy->showHierarchicalElementTree(myContainerSelector->getCurrentDemandElement());
@@ -171,6 +179,8 @@ GNEContainerPlanFrame::tagSelected() {
         myContainerPlanAttributes->hideAttributesCreatorModule();
         myPathCreator->hidePathCreatorModule();
         myContainerHierarchy->hideHierarchicalElementTree();
+        myPathLegend->hidePathLegendModule();
+        myPathLegend->hidePathLegendModule();
     }
 }
 
@@ -189,6 +199,7 @@ GNEContainerPlanFrame::demandElementSelected() {
             myContainerPlanAttributes->hideAttributesCreatorModule();
             myPathCreator->hidePathCreatorModule();
             myContainerHierarchy->hideHierarchicalElementTree();
+            myPathLegend->hidePathLegendModule();
         }
     } else {
         // hide moduls if container selected isn't valid
@@ -196,6 +207,7 @@ GNEContainerPlanFrame::demandElementSelected() {
         myContainerPlanAttributes->hideAttributesCreatorModule();
         myPathCreator->hidePathCreatorModule();
         myContainerHierarchy->hideHierarchicalElementTree();
+        myPathLegend->hidePathLegendModule();
     }
 }
 

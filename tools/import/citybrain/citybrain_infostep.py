@@ -15,14 +15,13 @@
 # @author  Jakob Erdmann
 # @date    2021-05-07
 
+from __future__ import print_function
 import os
 import sys
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
-    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools', 'route'))
 import sumolib  # noqa
-from sort_routes import sort_departs  # noqa
 
 
 def get_options(args=None):

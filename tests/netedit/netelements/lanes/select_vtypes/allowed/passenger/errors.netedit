@@ -1,17 +1,286 @@
+GLDebug: initJunctionsAndEdges function called in GNENet constructor
+GLDebug: 	Inserted junction:gneJ10 into SUMORTree with boundary 38.00,28.00,62.00,52.00
+GLDebug: 	Inserted junction:gneJ11 into SUMORTree with boundary 48.00,28.00,72.00,52.00
+GLDebug: 	Inserted junction:gneJ12 into SUMORTree with boundary 68.00,28.00,92.00,52.00
+GLDebug: 	Inserted junction:gneJ13 into SUMORTree with boundary 48.00,18.00,72.00,42.00
+GLDebug: 	Inserted junction:gneJ14 into SUMORTree with boundary 68.00,18.00,92.00,42.00
+GLDebug: 	Inserted junction:gneJ15 into SUMORTree with boundary 48.00,8.00,72.00,32.00
+GLDebug: 	Inserted junction:gneJ16 into SUMORTree with boundary 68.00,8.00,92.00,32.00
+GLDebug: 	Inserted junction:gneJ17 into SUMORTree with boundary 18.00,18.00,42.00,42.00
+GLDebug: 	Inserted junction:gneJ18 into SUMORTree with boundary 38.00,18.00,62.00,42.00
+GLDebug: 	Inserted junction:gneJ19 into SUMORTree with boundary 18.00,8.00,42.00,32.00
+GLDebug: 	Inserted junction:gneJ2 into SUMORTree with boundary -12.00,28.00,12.00,52.00
+GLDebug: 	Inserted junction:gneJ20 into SUMORTree with boundary 38.00,8.00,62.00,32.00
+GLDebug: 	Inserted junction:gneJ21 into SUMORTree with boundary -12.00,-2.00,12.00,22.00
+GLDebug: 	Inserted junction:gneJ22 into SUMORTree with boundary 8.00,-2.00,32.00,22.00
+GLDebug: 	Inserted junction:gneJ23 into SUMORTree with boundary 18.00,-2.00,42.00,22.00
+GLDebug: 	Inserted junction:gneJ24 into SUMORTree with boundary 38.00,-2.00,62.00,22.00
+GLDebug: 	Inserted junction:gneJ25 into SUMORTree with boundary 48.00,-2.00,72.00,22.00
+GLDebug: 	Inserted junction:gneJ26 into SUMORTree with boundary 68.00,-2.00,92.00,22.00
+GLDebug: 	Inserted junction:gneJ27 into SUMORTree with boundary 18.00,-12.00,42.00,12.00
+GLDebug: 	Inserted junction:gneJ28 into SUMORTree with boundary 38.00,-12.00,62.00,12.00
+GLDebug: 	Inserted junction:gneJ3 into SUMORTree with boundary 8.00,28.00,32.00,52.00
+GLDebug: 	Inserted junction:gneJ4 into SUMORTree with boundary -12.00,18.00,12.00,42.00
+GLDebug: 	Inserted junction:gneJ5 into SUMORTree with boundary 8.00,18.00,32.00,42.00
+GLDebug: 	Inserted junction:gneJ7 into SUMORTree with boundary -12.00,8.00,12.00,32.00
+GLDebug: 	Inserted junction:gneJ8 into SUMORTree with boundary 8.00,8.00,32.00,32.00
+GLDebug: 	Inserted junction:gneJ9 into SUMORTree with boundary 18.00,28.00,42.00,52.00
+GLDebug: 	Inserted edge:-gneE14 into SUMORTree with boundary -10.00,18.40,30.00,40.00
+GLDebug: 	Inserted edge:-gneE15 into SUMORTree with boundary -10.00,10.00,30.00,31.60
+GLDebug: 	Inserted edge:-gneE16 into SUMORTree with boundary 20.00,10.00,60.00,31.60
+GLDebug: 	Inserted edge:-gneE17 into SUMORTree with boundary 20.00,18.40,60.00,40.00
+GLDebug: 	Inserted edge:-gneE18 into SUMORTree with boundary 20.00,30.00,60.00,51.60
+GLDebug: 	Inserted edge:-gneE19 into SUMORTree with boundary 50.00,30.00,90.00,51.60
+GLDebug: 	Inserted edge:-gneE20 into SUMORTree with boundary 50.00,18.40,90.00,40.00
+GLDebug: 	Inserted edge:-gneE21 into SUMORTree with boundary 50.00,10.00,90.00,31.60
+GLDebug: 	Inserted edge:-gneE22 into SUMORTree with boundary -10.00,0.00,30.00,21.60
+GLDebug: 	Inserted edge:-gneE23 into SUMORTree with boundary 20.00,0.00,60.00,21.60
+GLDebug: 	Inserted edge:-gneE24 into SUMORTree with boundary 50.00,0.00,90.00,21.60
+GLDebug: 	Inserted edge:-gneE25 into SUMORTree with boundary 20.00,-10.00,60.00,11.60
+GLDebug: 	Inserted edge:gneE12 into SUMORTree with boundary -10.00,30.00,30.00,51.60
+GLDebug: 	Inserted edge:gneE13 into SUMORTree with boundary -10.00,28.40,30.00,50.00
+GLDebug: 	Inserted edge:gneE14 into SUMORTree with boundary -10.00,20.00,30.00,41.60
+GLDebug: 	Inserted edge:gneE15 into SUMORTree with boundary -10.00,8.40,30.00,30.00
+GLDebug: 	Inserted edge:gneE16 into SUMORTree with boundary 20.00,8.40,60.00,30.00
+GLDebug: 	Inserted edge:gneE17 into SUMORTree with boundary 20.00,20.00,60.00,41.60
+GLDebug: 	Inserted edge:gneE18 into SUMORTree with boundary 20.00,28.40,60.00,50.00
+GLDebug: 	Inserted edge:gneE19 into SUMORTree with boundary 50.00,28.40,90.00,50.00
+GLDebug: 	Inserted edge:gneE20 into SUMORTree with boundary 50.00,20.00,90.00,41.60
+GLDebug: 	Inserted edge:gneE21 into SUMORTree with boundary 50.00,8.40,90.00,30.00
+GLDebug: 	Inserted edge:gneE22 into SUMORTree with boundary -10.00,-1.60,30.00,20.00
+GLDebug: 	Inserted edge:gneE23 into SUMORTree with boundary 20.00,-1.60,60.00,20.00
+GLDebug: 	Inserted edge:gneE24 into SUMORTree with boundary 50.00,-1.60,90.00,20.00
+GLDebug: 	Inserted edge:gneE25 into SUMORTree with boundary 20.00,-11.60,60.00,10.00
 Debug: Setting new attribute
 Debug: Key DEL (delete) pressed
 Debug: Removing connection 'gneE12_0->gneE13_0' from edge 'gneE12'
 Debug: Removing connection 'gneE13_0->gneE12_0' from edge 'gneE13'
 Debug: Removing edge 'gneE13' from net
+GLDebug: 	Removed object edge:gneE13 from SUMORTree with boundary -10.00,28.40,30.00,50.00
 Debug: Key F5 (Compute) pressed
+GLDebug: Removing junctions during recomputing
+GLDebug: 	Removed object junction:gneJ10 from SUMORTree with boundary 38.00,28.00,62.00,52.00
+GLDebug: 	Removed object junction:gneJ11 from SUMORTree with boundary 48.00,28.00,72.00,52.00
+GLDebug: 	Removed object junction:gneJ12 from SUMORTree with boundary 68.00,28.00,92.00,52.00
+GLDebug: 	Removed object junction:gneJ13 from SUMORTree with boundary 48.00,18.00,72.00,42.00
+GLDebug: 	Removed object junction:gneJ14 from SUMORTree with boundary 68.00,18.00,92.00,42.00
+GLDebug: 	Removed object junction:gneJ15 from SUMORTree with boundary 48.00,8.00,72.00,32.00
+GLDebug: 	Removed object junction:gneJ16 from SUMORTree with boundary 68.00,8.00,92.00,32.00
+GLDebug: 	Removed object junction:gneJ17 from SUMORTree with boundary 18.00,18.00,42.00,42.00
+GLDebug: 	Removed object junction:gneJ18 from SUMORTree with boundary 38.00,18.00,62.00,42.00
+GLDebug: 	Removed object junction:gneJ19 from SUMORTree with boundary 18.00,8.00,42.00,32.00
+GLDebug: 	Removed object junction:gneJ2 from SUMORTree with boundary -12.00,28.00,12.00,52.00
+GLDebug: 	Removed object junction:gneJ20 from SUMORTree with boundary 38.00,8.00,62.00,32.00
+GLDebug: 	Removed object junction:gneJ21 from SUMORTree with boundary -12.00,-2.00,12.00,22.00
+GLDebug: 	Removed object junction:gneJ22 from SUMORTree with boundary 8.00,-2.00,32.00,22.00
+GLDebug: 	Removed object junction:gneJ23 from SUMORTree with boundary 18.00,-2.00,42.00,22.00
+GLDebug: 	Removed object junction:gneJ24 from SUMORTree with boundary 38.00,-2.00,62.00,22.00
+GLDebug: 	Removed object junction:gneJ25 from SUMORTree with boundary 48.00,-2.00,72.00,22.00
+GLDebug: 	Removed object junction:gneJ26 from SUMORTree with boundary 68.00,-2.00,92.00,22.00
+GLDebug: 	Removed object junction:gneJ27 from SUMORTree with boundary 18.00,-12.00,42.00,12.00
+GLDebug: 	Removed object junction:gneJ28 from SUMORTree with boundary 38.00,-12.00,62.00,12.00
+GLDebug: 	Removed object junction:gneJ3 from SUMORTree with boundary 8.00,28.00,32.00,52.00
+GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,18.00,12.00,42.00
+GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 8.00,18.00,32.00,42.00
+GLDebug: 	Removed object junction:gneJ7 from SUMORTree with boundary -12.00,8.00,12.00,32.00
+GLDebug: 	Removed object junction:gneJ8 from SUMORTree with boundary 8.00,8.00,32.00,32.00
+GLDebug: 	Removed object junction:gneJ9 from SUMORTree with boundary 18.00,28.00,42.00,52.00
+GLDebug: Removing edges during recomputing
+GLDebug: 	Removed object edge:-gneE14 from SUMORTree with boundary -10.00,18.40,30.00,40.00
+GLDebug: 	Removed object edge:-gneE15 from SUMORTree with boundary -10.00,10.00,30.00,31.60
+GLDebug: 	Removed object edge:-gneE16 from SUMORTree with boundary 20.00,10.00,60.00,31.60
+GLDebug: 	Removed object edge:-gneE17 from SUMORTree with boundary 20.00,18.40,60.00,40.00
+GLDebug: 	Removed object edge:-gneE18 from SUMORTree with boundary 20.00,30.00,60.00,51.60
+GLDebug: 	Removed object edge:-gneE19 from SUMORTree with boundary 50.00,30.00,90.00,51.60
+GLDebug: 	Removed object edge:-gneE20 from SUMORTree with boundary 50.00,18.40,90.00,40.00
+GLDebug: 	Removed object edge:-gneE21 from SUMORTree with boundary 50.00,10.00,90.00,31.60
+GLDebug: 	Removed object edge:-gneE22 from SUMORTree with boundary -10.00,0.00,30.00,21.60
+GLDebug: 	Removed object edge:-gneE23 from SUMORTree with boundary 20.00,0.00,60.00,21.60
+GLDebug: 	Removed object edge:-gneE24 from SUMORTree with boundary 50.00,0.00,90.00,21.60
+GLDebug: 	Removed object edge:-gneE25 from SUMORTree with boundary 20.00,-10.00,60.00,11.60
+GLDebug: 	Removed object edge:gneE12 from SUMORTree with boundary -10.00,30.00,30.00,51.60
+GLDebug: 	Removed object edge:gneE14 from SUMORTree with boundary -10.00,20.00,30.00,41.60
+GLDebug: 	Removed object edge:gneE15 from SUMORTree with boundary -10.00,8.40,30.00,30.00
+GLDebug: 	Removed object edge:gneE16 from SUMORTree with boundary 20.00,8.40,60.00,30.00
+GLDebug: 	Removed object edge:gneE17 from SUMORTree with boundary 20.00,20.00,60.00,41.60
+GLDebug: 	Removed object edge:gneE18 from SUMORTree with boundary 20.00,28.40,60.00,50.00
+GLDebug: 	Removed object edge:gneE19 from SUMORTree with boundary 50.00,28.40,90.00,50.00
+GLDebug: 	Removed object edge:gneE20 from SUMORTree with boundary 50.00,20.00,90.00,41.60
+GLDebug: 	Removed object edge:gneE21 from SUMORTree with boundary 50.00,8.40,90.00,30.00
+GLDebug: 	Removed object edge:gneE22 from SUMORTree with boundary -10.00,-1.60,30.00,20.00
+GLDebug: 	Removed object edge:gneE23 from SUMORTree with boundary 20.00,-1.60,60.00,20.00
+GLDebug: 	Removed object edge:gneE24 from SUMORTree with boundary 50.00,-1.60,90.00,20.00
+GLDebug: 	Removed object edge:gneE25 from SUMORTree with boundary 20.00,-11.60,60.00,10.00
+GLDebug: Add junctions during recomputing after calling myNetBuilder->compute(...)
+GLDebug: 	Inserted junction:gneJ10 into SUMORTree with boundary 40.00,26.80,60.00,53.20
+GLDebug: 	Inserted junction:gneJ11 into SUMORTree with boundary 50.00,26.80,70.00,53.20
+GLDebug: 	Inserted junction:gneJ12 into SUMORTree with boundary 70.00,26.80,90.00,53.20
+GLDebug: 	Inserted junction:gneJ13 into SUMORTree with boundary 50.00,16.80,70.00,43.20
+GLDebug: 	Inserted junction:gneJ14 into SUMORTree with boundary 70.00,16.80,90.00,43.20
+GLDebug: 	Inserted junction:gneJ15 into SUMORTree with boundary 50.00,6.80,70.00,33.20
+GLDebug: 	Inserted junction:gneJ16 into SUMORTree with boundary 70.00,6.80,90.00,33.20
+GLDebug: 	Inserted junction:gneJ17 into SUMORTree with boundary 20.00,16.80,40.00,43.20
+GLDebug: 	Inserted junction:gneJ18 into SUMORTree with boundary 40.00,16.80,60.00,43.20
+GLDebug: 	Inserted junction:gneJ19 into SUMORTree with boundary 20.00,6.80,40.00,33.20
+GLDebug: 	Inserted junction:gneJ2 into SUMORTree with boundary -10.00,30.00,10.00,53.20
+GLDebug: 	Inserted junction:gneJ20 into SUMORTree with boundary 40.00,6.80,60.00,33.20
+GLDebug: 	Inserted junction:gneJ21 into SUMORTree with boundary -10.00,-3.20,10.00,23.20
+GLDebug: 	Inserted junction:gneJ22 into SUMORTree with boundary 10.00,-3.20,30.00,23.20
+GLDebug: 	Inserted junction:gneJ23 into SUMORTree with boundary 20.00,-3.20,40.00,23.20
+GLDebug: 	Inserted junction:gneJ24 into SUMORTree with boundary 40.00,-3.20,60.00,23.20
+GLDebug: 	Inserted junction:gneJ25 into SUMORTree with boundary 50.00,-3.20,70.00,23.20
+GLDebug: 	Inserted junction:gneJ26 into SUMORTree with boundary 70.00,-3.20,90.00,23.20
+GLDebug: 	Inserted junction:gneJ27 into SUMORTree with boundary 20.00,-13.20,40.00,13.20
+GLDebug: 	Inserted junction:gneJ28 into SUMORTree with boundary 40.00,-13.20,60.00,13.20
+GLDebug: 	Inserted junction:gneJ3 into SUMORTree with boundary 10.00,30.00,30.00,53.20
+GLDebug: 	Inserted junction:gneJ4 into SUMORTree with boundary -10.00,16.80,10.00,43.20
+GLDebug: 	Inserted junction:gneJ5 into SUMORTree with boundary 10.00,16.80,30.00,43.20
+GLDebug: 	Inserted junction:gneJ7 into SUMORTree with boundary -10.00,6.80,10.00,33.20
+GLDebug: 	Inserted junction:gneJ8 into SUMORTree with boundary 10.00,6.80,30.00,33.20
+GLDebug: 	Inserted junction:gneJ9 into SUMORTree with boundary 20.00,26.80,40.00,53.20
+GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
+GLDebug: 	Inserted edge:-gneE14 into SUMORTree with boundary -10.00,18.40,30.00,40.00
+GLDebug: 	Inserted edge:-gneE15 into SUMORTree with boundary -10.00,10.00,30.00,31.60
+GLDebug: 	Inserted edge:-gneE16 into SUMORTree with boundary 20.00,10.00,60.00,31.60
+GLDebug: 	Inserted edge:-gneE17 into SUMORTree with boundary 20.00,18.40,60.00,40.00
+GLDebug: 	Inserted edge:-gneE18 into SUMORTree with boundary 20.00,30.00,60.00,51.60
+GLDebug: 	Inserted edge:-gneE19 into SUMORTree with boundary 50.00,30.00,90.00,51.60
+GLDebug: 	Inserted edge:-gneE20 into SUMORTree with boundary 50.00,18.40,90.00,40.00
+GLDebug: 	Inserted edge:-gneE21 into SUMORTree with boundary 50.00,10.00,90.00,31.60
+GLDebug: 	Inserted edge:-gneE22 into SUMORTree with boundary -10.00,0.00,30.00,21.60
+GLDebug: 	Inserted edge:-gneE23 into SUMORTree with boundary 20.00,0.00,60.00,21.60
+GLDebug: 	Inserted edge:-gneE24 into SUMORTree with boundary 50.00,0.00,90.00,21.60
+GLDebug: 	Inserted edge:-gneE25 into SUMORTree with boundary 20.00,-10.00,60.00,11.60
+GLDebug: 	Inserted edge:gneE12 into SUMORTree with boundary -10.00,30.00,30.00,51.60
+GLDebug: 	Inserted edge:gneE14 into SUMORTree with boundary -10.00,20.00,30.00,41.60
+GLDebug: 	Inserted edge:gneE15 into SUMORTree with boundary -10.00,8.40,30.00,30.00
+GLDebug: 	Inserted edge:gneE16 into SUMORTree with boundary 20.00,8.40,60.00,30.00
+GLDebug: 	Inserted edge:gneE17 into SUMORTree with boundary 20.00,20.00,60.00,41.60
+GLDebug: 	Inserted edge:gneE18 into SUMORTree with boundary 20.00,28.40,60.00,50.00
+GLDebug: 	Inserted edge:gneE19 into SUMORTree with boundary 50.00,28.40,90.00,50.00
+GLDebug: 	Inserted edge:gneE20 into SUMORTree with boundary 50.00,20.00,90.00,41.60
+GLDebug: 	Inserted edge:gneE21 into SUMORTree with boundary 50.00,8.40,90.00,30.00
+GLDebug: 	Inserted edge:gneE22 into SUMORTree with boundary -10.00,-1.60,30.00,20.00
+GLDebug: 	Inserted edge:gneE23 into SUMORTree with boundary 20.00,-1.60,60.00,20.00
+GLDebug: 	Inserted edge:gneE24 into SUMORTree with boundary 50.00,-1.60,90.00,20.00
+GLDebug: 	Inserted edge:gneE25 into SUMORTree with boundary 20.00,-11.60,60.00,10.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Adding edge 'gneE13' from net
+GLDebug: 	Inserted edge:gneE13 into SUMORTree with boundary -10.00,28.40,30.00,50.00
 Debug: Adding connection 'gneE13_0->gneE12_0' into edge 'gneE13'
 Debug: Created connection 'fromgneE13_0togneE12_0' in retrieveGNEConnection()
 Debug: Adding connection 'gneE12_0->gneE13_0' into edge 'gneE12'
 Debug: Created connection 'fromgneE12_0togneE13_0' in retrieveGNEConnection()
 Debug: Key F5 (Compute) pressed
+GLDebug: Removing junctions during recomputing
+GLDebug: 	Removed object junction:gneJ10 from SUMORTree with boundary 40.00,26.80,60.00,53.20
+GLDebug: 	Removed object junction:gneJ11 from SUMORTree with boundary 50.00,26.80,70.00,53.20
+GLDebug: 	Removed object junction:gneJ12 from SUMORTree with boundary 70.00,26.80,90.00,53.20
+GLDebug: 	Removed object junction:gneJ13 from SUMORTree with boundary 50.00,16.80,70.00,43.20
+GLDebug: 	Removed object junction:gneJ14 from SUMORTree with boundary 70.00,16.80,90.00,43.20
+GLDebug: 	Removed object junction:gneJ15 from SUMORTree with boundary 50.00,6.80,70.00,33.20
+GLDebug: 	Removed object junction:gneJ16 from SUMORTree with boundary 70.00,6.80,90.00,33.20
+GLDebug: 	Removed object junction:gneJ17 from SUMORTree with boundary 20.00,16.80,40.00,43.20
+GLDebug: 	Removed object junction:gneJ18 from SUMORTree with boundary 40.00,16.80,60.00,43.20
+GLDebug: 	Removed object junction:gneJ19 from SUMORTree with boundary 20.00,6.80,40.00,33.20
+GLDebug: 	Removed object junction:gneJ2 from SUMORTree with boundary -10.00,30.00,10.00,53.20
+GLDebug: 	Removed object junction:gneJ20 from SUMORTree with boundary 40.00,6.80,60.00,33.20
+GLDebug: 	Removed object junction:gneJ21 from SUMORTree with boundary -10.00,-3.20,10.00,23.20
+GLDebug: 	Removed object junction:gneJ22 from SUMORTree with boundary 10.00,-3.20,30.00,23.20
+GLDebug: 	Removed object junction:gneJ23 from SUMORTree with boundary 20.00,-3.20,40.00,23.20
+GLDebug: 	Removed object junction:gneJ24 from SUMORTree with boundary 40.00,-3.20,60.00,23.20
+GLDebug: 	Removed object junction:gneJ25 from SUMORTree with boundary 50.00,-3.20,70.00,23.20
+GLDebug: 	Removed object junction:gneJ26 from SUMORTree with boundary 70.00,-3.20,90.00,23.20
+GLDebug: 	Removed object junction:gneJ27 from SUMORTree with boundary 20.00,-13.20,40.00,13.20
+GLDebug: 	Removed object junction:gneJ28 from SUMORTree with boundary 40.00,-13.20,60.00,13.20
+GLDebug: 	Removed object junction:gneJ3 from SUMORTree with boundary 10.00,30.00,30.00,53.20
+GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -10.00,16.80,10.00,43.20
+GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 10.00,16.80,30.00,43.20
+GLDebug: 	Removed object junction:gneJ7 from SUMORTree with boundary -10.00,6.80,10.00,33.20
+GLDebug: 	Removed object junction:gneJ8 from SUMORTree with boundary 10.00,6.80,30.00,33.20
+GLDebug: 	Removed object junction:gneJ9 from SUMORTree with boundary 20.00,26.80,40.00,53.20
+GLDebug: Removing edges during recomputing
+GLDebug: 	Removed object edge:-gneE14 from SUMORTree with boundary -10.00,18.40,30.00,40.00
+GLDebug: 	Removed object edge:-gneE15 from SUMORTree with boundary -10.00,10.00,30.00,31.60
+GLDebug: 	Removed object edge:-gneE16 from SUMORTree with boundary 20.00,10.00,60.00,31.60
+GLDebug: 	Removed object edge:-gneE17 from SUMORTree with boundary 20.00,18.40,60.00,40.00
+GLDebug: 	Removed object edge:-gneE18 from SUMORTree with boundary 20.00,30.00,60.00,51.60
+GLDebug: 	Removed object edge:-gneE19 from SUMORTree with boundary 50.00,30.00,90.00,51.60
+GLDebug: 	Removed object edge:-gneE20 from SUMORTree with boundary 50.00,18.40,90.00,40.00
+GLDebug: 	Removed object edge:-gneE21 from SUMORTree with boundary 50.00,10.00,90.00,31.60
+GLDebug: 	Removed object edge:-gneE22 from SUMORTree with boundary -10.00,0.00,30.00,21.60
+GLDebug: 	Removed object edge:-gneE23 from SUMORTree with boundary 20.00,0.00,60.00,21.60
+GLDebug: 	Removed object edge:-gneE24 from SUMORTree with boundary 50.00,0.00,90.00,21.60
+GLDebug: 	Removed object edge:-gneE25 from SUMORTree with boundary 20.00,-10.00,60.00,11.60
+GLDebug: 	Removed object edge:gneE12 from SUMORTree with boundary -10.00,30.00,30.00,51.60
+GLDebug: 	Removed object edge:gneE13 from SUMORTree with boundary -10.00,28.40,30.00,50.00
+GLDebug: 	Removed object edge:gneE14 from SUMORTree with boundary -10.00,20.00,30.00,41.60
+GLDebug: 	Removed object edge:gneE15 from SUMORTree with boundary -10.00,8.40,30.00,30.00
+GLDebug: 	Removed object edge:gneE16 from SUMORTree with boundary 20.00,8.40,60.00,30.00
+GLDebug: 	Removed object edge:gneE17 from SUMORTree with boundary 20.00,20.00,60.00,41.60
+GLDebug: 	Removed object edge:gneE18 from SUMORTree with boundary 20.00,28.40,60.00,50.00
+GLDebug: 	Removed object edge:gneE19 from SUMORTree with boundary 50.00,28.40,90.00,50.00
+GLDebug: 	Removed object edge:gneE20 from SUMORTree with boundary 50.00,20.00,90.00,41.60
+GLDebug: 	Removed object edge:gneE21 from SUMORTree with boundary 50.00,8.40,90.00,30.00
+GLDebug: 	Removed object edge:gneE22 from SUMORTree with boundary -10.00,-1.60,30.00,20.00
+GLDebug: 	Removed object edge:gneE23 from SUMORTree with boundary 20.00,-1.60,60.00,20.00
+GLDebug: 	Removed object edge:gneE24 from SUMORTree with boundary 50.00,-1.60,90.00,20.00
+GLDebug: 	Removed object edge:gneE25 from SUMORTree with boundary 20.00,-11.60,60.00,10.00
+GLDebug: Add junctions during recomputing after calling myNetBuilder->compute(...)
+GLDebug: 	Inserted junction:gneJ10 into SUMORTree with boundary 40.00,26.80,60.00,53.20
+GLDebug: 	Inserted junction:gneJ11 into SUMORTree with boundary 50.00,26.80,70.00,53.20
+GLDebug: 	Inserted junction:gneJ12 into SUMORTree with boundary 70.00,26.80,90.00,53.20
+GLDebug: 	Inserted junction:gneJ13 into SUMORTree with boundary 50.00,16.80,70.00,43.20
+GLDebug: 	Inserted junction:gneJ14 into SUMORTree with boundary 70.00,16.80,90.00,43.20
+GLDebug: 	Inserted junction:gneJ15 into SUMORTree with boundary 50.00,6.80,70.00,33.20
+GLDebug: 	Inserted junction:gneJ16 into SUMORTree with boundary 70.00,6.80,90.00,33.20
+GLDebug: 	Inserted junction:gneJ17 into SUMORTree with boundary 20.00,16.80,40.00,43.20
+GLDebug: 	Inserted junction:gneJ18 into SUMORTree with boundary 40.00,16.80,60.00,43.20
+GLDebug: 	Inserted junction:gneJ19 into SUMORTree with boundary 20.00,6.80,40.00,33.20
+GLDebug: 	Inserted junction:gneJ2 into SUMORTree with boundary -10.00,26.80,10.00,53.20
+GLDebug: 	Inserted junction:gneJ20 into SUMORTree with boundary 40.00,6.80,60.00,33.20
+GLDebug: 	Inserted junction:gneJ21 into SUMORTree with boundary -10.00,-3.20,10.00,23.20
+GLDebug: 	Inserted junction:gneJ22 into SUMORTree with boundary 10.00,-3.20,30.00,23.20
+GLDebug: 	Inserted junction:gneJ23 into SUMORTree with boundary 20.00,-3.20,40.00,23.20
+GLDebug: 	Inserted junction:gneJ24 into SUMORTree with boundary 40.00,-3.20,60.00,23.20
+GLDebug: 	Inserted junction:gneJ25 into SUMORTree with boundary 50.00,-3.20,70.00,23.20
+GLDebug: 	Inserted junction:gneJ26 into SUMORTree with boundary 70.00,-3.20,90.00,23.20
+GLDebug: 	Inserted junction:gneJ27 into SUMORTree with boundary 20.00,-13.20,40.00,13.20
+GLDebug: 	Inserted junction:gneJ28 into SUMORTree with boundary 40.00,-13.20,60.00,13.20
+GLDebug: 	Inserted junction:gneJ3 into SUMORTree with boundary 10.00,26.80,30.00,53.20
+GLDebug: 	Inserted junction:gneJ4 into SUMORTree with boundary -10.00,16.80,10.00,43.20
+GLDebug: 	Inserted junction:gneJ5 into SUMORTree with boundary 10.00,16.80,30.00,43.20
+GLDebug: 	Inserted junction:gneJ7 into SUMORTree with boundary -10.00,6.80,10.00,33.20
+GLDebug: 	Inserted junction:gneJ8 into SUMORTree with boundary 10.00,6.80,30.00,33.20
+GLDebug: 	Inserted junction:gneJ9 into SUMORTree with boundary 20.00,26.80,40.00,53.20
+GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
+GLDebug: 	Inserted edge:-gneE14 into SUMORTree with boundary -10.00,18.40,30.00,40.00
+GLDebug: 	Inserted edge:-gneE15 into SUMORTree with boundary -10.00,10.00,30.00,31.60
+GLDebug: 	Inserted edge:-gneE16 into SUMORTree with boundary 20.00,10.00,60.00,31.60
+GLDebug: 	Inserted edge:-gneE17 into SUMORTree with boundary 20.00,18.40,60.00,40.00
+GLDebug: 	Inserted edge:-gneE18 into SUMORTree with boundary 20.00,30.00,60.00,51.60
+GLDebug: 	Inserted edge:-gneE19 into SUMORTree with boundary 50.00,30.00,90.00,51.60
+GLDebug: 	Inserted edge:-gneE20 into SUMORTree with boundary 50.00,18.40,90.00,40.00
+GLDebug: 	Inserted edge:-gneE21 into SUMORTree with boundary 50.00,10.00,90.00,31.60
+GLDebug: 	Inserted edge:-gneE22 into SUMORTree with boundary -10.00,0.00,30.00,21.60
+GLDebug: 	Inserted edge:-gneE23 into SUMORTree with boundary 20.00,0.00,60.00,21.60
+GLDebug: 	Inserted edge:-gneE24 into SUMORTree with boundary 50.00,0.00,90.00,21.60
+GLDebug: 	Inserted edge:-gneE25 into SUMORTree with boundary 20.00,-10.00,60.00,11.60
+GLDebug: 	Inserted edge:gneE12 into SUMORTree with boundary -10.00,30.00,30.00,51.60
+GLDebug: 	Inserted edge:gneE13 into SUMORTree with boundary -10.00,28.40,30.00,50.00
+GLDebug: 	Inserted edge:gneE14 into SUMORTree with boundary -10.00,20.00,30.00,41.60
+GLDebug: 	Inserted edge:gneE15 into SUMORTree with boundary -10.00,8.40,30.00,30.00
+GLDebug: 	Inserted edge:gneE16 into SUMORTree with boundary 20.00,8.40,60.00,30.00
+GLDebug: 	Inserted edge:gneE17 into SUMORTree with boundary 20.00,20.00,60.00,41.60
+GLDebug: 	Inserted edge:gneE18 into SUMORTree with boundary 20.00,28.40,60.00,50.00
+GLDebug: 	Inserted edge:gneE19 into SUMORTree with boundary 50.00,28.40,90.00,50.00
+GLDebug: 	Inserted edge:gneE20 into SUMORTree with boundary 50.00,20.00,90.00,41.60
+GLDebug: 	Inserted edge:gneE21 into SUMORTree with boundary 50.00,8.40,90.00,30.00
+GLDebug: 	Inserted edge:gneE22 into SUMORTree with boundary -10.00,-1.60,30.00,20.00
+GLDebug: 	Inserted edge:gneE23 into SUMORTree with boundary 20.00,-1.60,60.00,20.00
+GLDebug: 	Inserted edge:gneE24 into SUMORTree with boundary 50.00,-1.60,90.00,20.00
+GLDebug: 	Inserted edge:gneE25 into SUMORTree with boundary 20.00,-11.60,60.00,10.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Removing connection 'gneE12_0->gneE13_0' from edge 'gneE12'
@@ -19,6 +288,113 @@ Debug: Deleting unreferenced connection 'fromgneE12_0togneE13_0' in removeConnec
 Debug: Removing connection 'gneE13_0->gneE12_0' from edge 'gneE13'
 Debug: Deleting unreferenced connection 'fromgneE13_0togneE12_0' in removeConnection()
 Debug: Removing edge 'gneE13' from net
+GLDebug: 	Removed object edge:gneE13 from SUMORTree with boundary -10.00,28.40,30.00,50.00
+GLDebug: Removing junctions during recomputing
+GLDebug: 	Removed object junction:gneJ10 from SUMORTree with boundary 40.00,26.80,60.00,53.20
+GLDebug: 	Removed object junction:gneJ11 from SUMORTree with boundary 50.00,26.80,70.00,53.20
+GLDebug: 	Removed object junction:gneJ12 from SUMORTree with boundary 70.00,26.80,90.00,53.20
+GLDebug: 	Removed object junction:gneJ13 from SUMORTree with boundary 50.00,16.80,70.00,43.20
+GLDebug: 	Removed object junction:gneJ14 from SUMORTree with boundary 70.00,16.80,90.00,43.20
+GLDebug: 	Removed object junction:gneJ15 from SUMORTree with boundary 50.00,6.80,70.00,33.20
+GLDebug: 	Removed object junction:gneJ16 from SUMORTree with boundary 70.00,6.80,90.00,33.20
+GLDebug: 	Removed object junction:gneJ17 from SUMORTree with boundary 20.00,16.80,40.00,43.20
+GLDebug: 	Removed object junction:gneJ18 from SUMORTree with boundary 40.00,16.80,60.00,43.20
+GLDebug: 	Removed object junction:gneJ19 from SUMORTree with boundary 20.00,6.80,40.00,33.20
+GLDebug: 	Removed object junction:gneJ2 from SUMORTree with boundary -10.00,26.80,10.00,53.20
+GLDebug: 	Removed object junction:gneJ20 from SUMORTree with boundary 40.00,6.80,60.00,33.20
+GLDebug: 	Removed object junction:gneJ21 from SUMORTree with boundary -10.00,-3.20,10.00,23.20
+GLDebug: 	Removed object junction:gneJ22 from SUMORTree with boundary 10.00,-3.20,30.00,23.20
+GLDebug: 	Removed object junction:gneJ23 from SUMORTree with boundary 20.00,-3.20,40.00,23.20
+GLDebug: 	Removed object junction:gneJ24 from SUMORTree with boundary 40.00,-3.20,60.00,23.20
+GLDebug: 	Removed object junction:gneJ25 from SUMORTree with boundary 50.00,-3.20,70.00,23.20
+GLDebug: 	Removed object junction:gneJ26 from SUMORTree with boundary 70.00,-3.20,90.00,23.20
+GLDebug: 	Removed object junction:gneJ27 from SUMORTree with boundary 20.00,-13.20,40.00,13.20
+GLDebug: 	Removed object junction:gneJ28 from SUMORTree with boundary 40.00,-13.20,60.00,13.20
+GLDebug: 	Removed object junction:gneJ3 from SUMORTree with boundary 10.00,26.80,30.00,53.20
+GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -10.00,16.80,10.00,43.20
+GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 10.00,16.80,30.00,43.20
+GLDebug: 	Removed object junction:gneJ7 from SUMORTree with boundary -10.00,6.80,10.00,33.20
+GLDebug: 	Removed object junction:gneJ8 from SUMORTree with boundary 10.00,6.80,30.00,33.20
+GLDebug: 	Removed object junction:gneJ9 from SUMORTree with boundary 20.00,26.80,40.00,53.20
+GLDebug: Removing edges during recomputing
+GLDebug: 	Removed object edge:-gneE14 from SUMORTree with boundary -10.00,18.40,30.00,40.00
+GLDebug: 	Removed object edge:-gneE15 from SUMORTree with boundary -10.00,10.00,30.00,31.60
+GLDebug: 	Removed object edge:-gneE16 from SUMORTree with boundary 20.00,10.00,60.00,31.60
+GLDebug: 	Removed object edge:-gneE17 from SUMORTree with boundary 20.00,18.40,60.00,40.00
+GLDebug: 	Removed object edge:-gneE18 from SUMORTree with boundary 20.00,30.00,60.00,51.60
+GLDebug: 	Removed object edge:-gneE19 from SUMORTree with boundary 50.00,30.00,90.00,51.60
+GLDebug: 	Removed object edge:-gneE20 from SUMORTree with boundary 50.00,18.40,90.00,40.00
+GLDebug: 	Removed object edge:-gneE21 from SUMORTree with boundary 50.00,10.00,90.00,31.60
+GLDebug: 	Removed object edge:-gneE22 from SUMORTree with boundary -10.00,0.00,30.00,21.60
+GLDebug: 	Removed object edge:-gneE23 from SUMORTree with boundary 20.00,0.00,60.00,21.60
+GLDebug: 	Removed object edge:-gneE24 from SUMORTree with boundary 50.00,0.00,90.00,21.60
+GLDebug: 	Removed object edge:-gneE25 from SUMORTree with boundary 20.00,-10.00,60.00,11.60
+GLDebug: 	Removed object edge:gneE12 from SUMORTree with boundary -10.00,30.00,30.00,51.60
+GLDebug: 	Removed object edge:gneE14 from SUMORTree with boundary -10.00,20.00,30.00,41.60
+GLDebug: 	Removed object edge:gneE15 from SUMORTree with boundary -10.00,8.40,30.00,30.00
+GLDebug: 	Removed object edge:gneE16 from SUMORTree with boundary 20.00,8.40,60.00,30.00
+GLDebug: 	Removed object edge:gneE17 from SUMORTree with boundary 20.00,20.00,60.00,41.60
+GLDebug: 	Removed object edge:gneE18 from SUMORTree with boundary 20.00,28.40,60.00,50.00
+GLDebug: 	Removed object edge:gneE19 from SUMORTree with boundary 50.00,28.40,90.00,50.00
+GLDebug: 	Removed object edge:gneE20 from SUMORTree with boundary 50.00,20.00,90.00,41.60
+GLDebug: 	Removed object edge:gneE21 from SUMORTree with boundary 50.00,8.40,90.00,30.00
+GLDebug: 	Removed object edge:gneE22 from SUMORTree with boundary -10.00,-1.60,30.00,20.00
+GLDebug: 	Removed object edge:gneE23 from SUMORTree with boundary 20.00,-1.60,60.00,20.00
+GLDebug: 	Removed object edge:gneE24 from SUMORTree with boundary 50.00,-1.60,90.00,20.00
+GLDebug: 	Removed object edge:gneE25 from SUMORTree with boundary 20.00,-11.60,60.00,10.00
+GLDebug: Add junctions during recomputing after calling myNetBuilder->compute(...)
+GLDebug: 	Inserted junction:gneJ10 into SUMORTree with boundary 40.00,26.80,60.00,53.20
+GLDebug: 	Inserted junction:gneJ11 into SUMORTree with boundary 50.00,26.80,70.00,53.20
+GLDebug: 	Inserted junction:gneJ12 into SUMORTree with boundary 70.00,26.80,90.00,53.20
+GLDebug: 	Inserted junction:gneJ13 into SUMORTree with boundary 50.00,16.80,70.00,43.20
+GLDebug: 	Inserted junction:gneJ14 into SUMORTree with boundary 70.00,16.80,90.00,43.20
+GLDebug: 	Inserted junction:gneJ15 into SUMORTree with boundary 50.00,6.80,70.00,33.20
+GLDebug: 	Inserted junction:gneJ16 into SUMORTree with boundary 70.00,6.80,90.00,33.20
+GLDebug: 	Inserted junction:gneJ17 into SUMORTree with boundary 20.00,16.80,40.00,43.20
+GLDebug: 	Inserted junction:gneJ18 into SUMORTree with boundary 40.00,16.80,60.00,43.20
+GLDebug: 	Inserted junction:gneJ19 into SUMORTree with boundary 20.00,6.80,40.00,33.20
+GLDebug: 	Inserted junction:gneJ2 into SUMORTree with boundary -10.00,30.00,10.00,53.20
+GLDebug: 	Inserted junction:gneJ20 into SUMORTree with boundary 40.00,6.80,60.00,33.20
+GLDebug: 	Inserted junction:gneJ21 into SUMORTree with boundary -10.00,-3.20,10.00,23.20
+GLDebug: 	Inserted junction:gneJ22 into SUMORTree with boundary 10.00,-3.20,30.00,23.20
+GLDebug: 	Inserted junction:gneJ23 into SUMORTree with boundary 20.00,-3.20,40.00,23.20
+GLDebug: 	Inserted junction:gneJ24 into SUMORTree with boundary 40.00,-3.20,60.00,23.20
+GLDebug: 	Inserted junction:gneJ25 into SUMORTree with boundary 50.00,-3.20,70.00,23.20
+GLDebug: 	Inserted junction:gneJ26 into SUMORTree with boundary 70.00,-3.20,90.00,23.20
+GLDebug: 	Inserted junction:gneJ27 into SUMORTree with boundary 20.00,-13.20,40.00,13.20
+GLDebug: 	Inserted junction:gneJ28 into SUMORTree with boundary 40.00,-13.20,60.00,13.20
+GLDebug: 	Inserted junction:gneJ3 into SUMORTree with boundary 10.00,30.00,30.00,53.20
+GLDebug: 	Inserted junction:gneJ4 into SUMORTree with boundary -10.00,16.80,10.00,43.20
+GLDebug: 	Inserted junction:gneJ5 into SUMORTree with boundary 10.00,16.80,30.00,43.20
+GLDebug: 	Inserted junction:gneJ7 into SUMORTree with boundary -10.00,6.80,10.00,33.20
+GLDebug: 	Inserted junction:gneJ8 into SUMORTree with boundary 10.00,6.80,30.00,33.20
+GLDebug: 	Inserted junction:gneJ9 into SUMORTree with boundary 20.00,26.80,40.00,53.20
+GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
+GLDebug: 	Inserted edge:-gneE14 into SUMORTree with boundary -10.00,18.40,30.00,40.00
+GLDebug: 	Inserted edge:-gneE15 into SUMORTree with boundary -10.00,10.00,30.00,31.60
+GLDebug: 	Inserted edge:-gneE16 into SUMORTree with boundary 20.00,10.00,60.00,31.60
+GLDebug: 	Inserted edge:-gneE17 into SUMORTree with boundary 20.00,18.40,60.00,40.00
+GLDebug: 	Inserted edge:-gneE18 into SUMORTree with boundary 20.00,30.00,60.00,51.60
+GLDebug: 	Inserted edge:-gneE19 into SUMORTree with boundary 50.00,30.00,90.00,51.60
+GLDebug: 	Inserted edge:-gneE20 into SUMORTree with boundary 50.00,18.40,90.00,40.00
+GLDebug: 	Inserted edge:-gneE21 into SUMORTree with boundary 50.00,10.00,90.00,31.60
+GLDebug: 	Inserted edge:-gneE22 into SUMORTree with boundary -10.00,0.00,30.00,21.60
+GLDebug: 	Inserted edge:-gneE23 into SUMORTree with boundary 20.00,0.00,60.00,21.60
+GLDebug: 	Inserted edge:-gneE24 into SUMORTree with boundary 50.00,0.00,90.00,21.60
+GLDebug: 	Inserted edge:-gneE25 into SUMORTree with boundary 20.00,-10.00,60.00,11.60
+GLDebug: 	Inserted edge:gneE12 into SUMORTree with boundary -10.00,30.00,30.00,51.60
+GLDebug: 	Inserted edge:gneE14 into SUMORTree with boundary -10.00,20.00,30.00,41.60
+GLDebug: 	Inserted edge:gneE15 into SUMORTree with boundary -10.00,8.40,30.00,30.00
+GLDebug: 	Inserted edge:gneE16 into SUMORTree with boundary 20.00,8.40,60.00,30.00
+GLDebug: 	Inserted edge:gneE17 into SUMORTree with boundary 20.00,20.00,60.00,41.60
+GLDebug: 	Inserted edge:gneE18 into SUMORTree with boundary 20.00,28.40,60.00,50.00
+GLDebug: 	Inserted edge:gneE19 into SUMORTree with boundary 50.00,28.40,90.00,50.00
+GLDebug: 	Inserted edge:gneE20 into SUMORTree with boundary 50.00,20.00,90.00,41.60
+GLDebug: 	Inserted edge:gneE21 into SUMORTree with boundary 50.00,8.40,90.00,30.00
+GLDebug: 	Inserted edge:gneE22 into SUMORTree with boundary -10.00,-1.60,30.00,20.00
+GLDebug: 	Inserted edge:gneE23 into SUMORTree with boundary 20.00,-1.60,60.00,20.00
+GLDebug: 	Inserted edge:gneE24 into SUMORTree with boundary 50.00,-1.60,90.00,20.00
+GLDebug: 	Inserted edge:gneE25 into SUMORTree with boundary 20.00,-11.60,60.00,10.00
 Debug: network elements saved
 Debug: Deleting unreferenced edge 'gneE13' GNEChange_Edge
 Debug: Deleting unreferenced lane in GNEChange_Attribute
@@ -99,3 +475,4 @@ Debug: Deleting unreferenced junction 'gneJ7' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ8' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ9' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
+GLDebug: Number of objects in SUMORTree during call of the destructor: 51

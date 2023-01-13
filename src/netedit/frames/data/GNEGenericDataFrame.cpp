@@ -144,7 +144,7 @@ GNEGenericDataFrame::DataSetSelector::onCmdCreateDataSet(FXObject*, FXSelector, 
         WRITE_WARNING(TL("Invalid duplicated dataSet ID"));
     } else {
         // build data set
-        GNEDataHandler dataHandler(myGenericDataFrameParent->getViewNet()->getNet(), "", true);
+        GNEDataHandler dataHandler(myGenericDataFrameParent->getViewNet()->getNet(), "", true, false);
         dataHandler.buildDataSet(dataSetID);
         // refresh tag selector
         refreshDataSetSelector(myGenericDataFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDataSet(dataSetID));
@@ -288,7 +288,7 @@ GNEGenericDataFrame::IntervalSelector::onCmdCreateInterval(FXObject*, FXSelector
         GNEDataSet* dataSet = myGenericDataFrameParent->myDataSetSelector->getDataSet();
         if (dataSet && dataSet->checkNewInterval(begin, end)) {
             // declare dataHandler
-            GNEDataHandler dataHandler(myGenericDataFrameParent->getViewNet()->getNet(), "", true);
+            GNEDataHandler dataHandler(myGenericDataFrameParent->getViewNet()->getNet(), "", true, false);
             // build data interval
             dataHandler.buildDataInterval(nullptr, dataSet->getID(), begin, end);
         }

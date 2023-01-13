@@ -42,10 +42,11 @@
 // member method definitions
 // ===========================================================================
 
-GNEDataHandler::GNEDataHandler(GNENet* net, const std::string& file, const bool allowUndoRedo) :
+GNEDataHandler::GNEDataHandler(GNENet* net, const std::string& file, const bool allowUndoRedo, const bool overwrite) :
     DataHandler(file),
     myNet(net),
-    myAllowUndoRedo(allowUndoRedo) {
+    myAllowUndoRedo(allowUndoRedo),
+    myOverwrite(overwrite) {
 }
 
 

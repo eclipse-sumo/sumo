@@ -458,7 +458,9 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                 }
                 for (NBEdge* be : parallelBikeEdges) {
 #ifdef DEBUG_PHASES
-                    if (DEBUGCOND) std::cout << " chosen=" << e->getID() << " be=" << be->getID() << "\n";
+                    if (DEBUGCOND) {
+                        std::cout << " chosen=" << e->getID() << " be=" << be->getID() << "\n";
+                    }
 #endif
                     chosenSet.insert(be);
                     toProc.erase(std::find(toProc.begin(), toProc.end(), be));

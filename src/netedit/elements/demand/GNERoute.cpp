@@ -200,7 +200,7 @@ GNERoute::writeDemandElement(OutputDevice& device) const {
     // write sorted stops
     if (myTagProperty.getTag() == SUMO_TAG_ROUTE) {
         // write stops
-        for (const auto &demandElement : getChildDemandElements()) {
+        for (const auto& demandElement : getChildDemandElements()) {
             if (demandElement->getTagProperty().isStop() || demandElement->getTagProperty().isWaypoint()) {
                 demandElement->writeDemandElement(device);
             }

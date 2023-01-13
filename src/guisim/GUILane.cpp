@@ -32,11 +32,12 @@
 #include <utils/common/StdDefs.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/div/GLHelper.h>
-#include <utils/gui/globjects/GLIncludes.h>
-#include <utils/gui/globjects/GUIPolygon.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/globjects/GUIPolygon.h>
+#include <utils/gui/images/VClassIcons.h>
+#include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSLane.h>
@@ -946,7 +947,7 @@ GUILane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     ret->insertMenuPaneChild(reachableByClass);
     new FXMenuCascade(ret, "Select reachable", GUIIconSubSys::getIcon(GUIIcon::FLAG), reachableByClass);
     for (auto i : SumoVehicleClassStrings.getStrings()) {
-        GUIDesigns::buildFXMenuCommand(reachableByClass, i.c_str(), nullptr, &parent, MID_REACHABILITY);
+        GUIDesigns::buildFXMenuCommand(reachableByClass, i.c_str(), VClassIcons::getVClassIcon(SumoVehicleClassStrings.get(i)), &parent, MID_REACHABILITY);
     }
     return ret;
 }

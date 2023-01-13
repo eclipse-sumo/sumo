@@ -75,11 +75,20 @@ GNELoadThread::run() {
     // declare loaded file
     std::string loadedFile;
     // get netedit options
-    auto &neteditOptions = OptionsCont::getOptions();
+    auto& neteditOptions = OptionsCont::getOptions();
     // check if we're loading a sumo or netconvet config file
-    if (neteditOptions.getString("sumocfg-file").size() > 0) {
+    if (myNewNet) {
+        // fill (reset) all options
+        fillOptions(neteditOptions);
+        // set default options defined in GNELoadThread::setDefaultOptions(...)
+        setDefaultOptions(neteditOptions);
+    } else if (neteditOptions.getString("sumocfg-file").size() > 0) {
         // set sumo config as loaded file
         loadedFile = neteditOptions.getString("sumocfg-file");
+        // fill (reset) all options
+        fillOptions(neteditOptions);
+        // set default options defined in GNELoadThread::setDefaultOptions(...)
+        setDefaultOptions(neteditOptions);
         // declare parser for sumo config file
         GNEApplicationWindowHelper::GNESUMOConfigHandler confighandler(myApplicationWindow->getSUMOOptions(), loadedFile);
         // if there is an error loading sumo config, stop
@@ -91,6 +100,10 @@ GNELoadThread::run() {
     } else if (neteditOptions.getString("configuration-file").size() > 0) {
         // set netedit config as loaded file
         loadedFile = neteditOptions.getString("configuration-file");
+        // fill (reset) all options
+        fillOptions(neteditOptions);
+        // set default options defined in GNELoadThread::setDefaultOptions(...)
+        setDefaultOptions(neteditOptions);
         // declare parser for netedit config file
         GNEApplicationWindowHelper::GNENETEDITConfigHandler confighandler(loadedFile);
         // if there is an error loading sumo config, stop
@@ -102,11 +115,14 @@ GNELoadThread::run() {
     } else if (neteditOptions.getString("net-file").size() > 0) {
         // set netwok as loadedFile
         loadedFile = neteditOptions.getString("net-file");
-        if (!resetOptions(loadedFile, false)) {
-            submitEndAndCleanup(net, loadedFile);
-            return 0;
-        }
-    } else if (!myNewNet) {
+        // fill (reset) all options
+        fillOptions(neteditOptions);
+        // set default options defined in GNELoadThread::setDefaultOptions(...)
+        setDefaultOptions(neteditOptions);
+        // set net manually
+        neteditOptions.resetWritable();
+        neteditOptions.set("net-file", loadedFile);
+    } else if (!loadConsoleOptions()) {
         WRITE_ERROR("Invalid input network option. Load with either sumo/netedit/netconvert config or with -new option");
         submitEndAndCleanup(net, loadedFile);
         return 0;
@@ -119,9 +135,9 @@ GNELoadThread::run() {
     MsgHandler::initOutputOptions();
     // if there is an error checking options, stop
     if (!(NIFrame::checkOptions() &&
-          NBFrame::checkOptions() &&
-          NWFrame::checkOptions() &&
-          SystemFrame::checkOptions())) {
+            NBFrame::checkOptions() &&
+            NWFrame::checkOptions() &&
+            SystemFrame::checkOptions())) {
         // options are not valid
         WRITE_ERROR(TL("Invalid Options. Nothing loaded"));
         submitEndAndCleanup(net, loadedFile);
@@ -156,7 +172,7 @@ GNELoadThread::run() {
         // create new network
         net = new GNENet(netBuilder);
     } else {
-        // declare net loader 
+        // declare net loader
         NILoader nl(*netBuilder);
         try {
             // try to load network using netedit options
@@ -228,7 +244,7 @@ GNELoadThread::run() {
 
 
 void
-GNELoadThread::submitEndAndCleanup(GNENet* net, const std::string &loadedFile, const std::string& guiSettingsFile, const bool viewportFromRegistry) {
+GNELoadThread::submitEndAndCleanup(GNENet* net, const std::string& loadedFile, const std::string& guiSettingsFile, const bool viewportFromRegistry) {
     // remove message callbacks
     MsgHandler::getDebugInstance()->removeRetriever(myDebugRetriever);
     MsgHandler::getGLDebugInstance()->removeRetriever(myGLDebugRetriever);
@@ -480,46 +496,31 @@ GNELoadThread::setDefaultOptions(OptionsCont& neteditOptions) {
 
 
 bool
-GNELoadThread::resetOptions(const std::string &file, const bool configuration) {
-    auto &neteditOptions = OptionsCont::getOptions();
-    // fill (reset) all options
-    fillOptions(neteditOptions);
-    // set default options defined in GNELoadThread::setDefaultOptions(...)
-    setDefaultOptions(neteditOptions);
-    // check if is a configuration (needed for parsing configuration file)
-    if (configuration) {
-        neteditOptions.set("configuration-file", file);
-    } else {
-        neteditOptions.set("net-file", file);
-    }
-    try {
-        // set all values writable, because certain attributes already setted can be updated through console
-        neteditOptions.resetWritable();
-        // load options from console
-        OptionsIO::getOptions();
-        return true;
-    } catch (ProcessError& e) {
-        if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
-            WRITE_ERROR(e.what());
+GNELoadThread::loadConsoleOptions() {
+    // only loaded once
+    if (myApplicationWindow->consoleOptionsLoaded()) {
+        // get netedit options
+        auto& neteditOptions = OptionsCont::getOptions();
+        // fill (reset) all options
+        fillOptions(neteditOptions);
+        // set default options defined in GNELoadThread::setDefaultOptions(...)
+        setDefaultOptions(neteditOptions);
+        try {
+            // set all values writable, because certain attributes already setted can be updated through console
+            OptionsCont::getOptions().resetWritable();
+            // load options from console
+            OptionsIO::getOptions();
+            return true;
+        } catch (ProcessError& e) {
+            if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
+                WRITE_ERROR(e.what());
+            }
+            WRITE_ERROR(TL("Failed to reset options."));
+            return false;
         }
-        WRITE_ERROR(TL("Failed to reset options."));
+    } else {
         return false;
     }
-}
-
-
-void
-GNELoadThread::resetFileOptions() {
-    auto &neteditOptions = OptionsCont::getOptions();
-    // reset netedit files
-    neteditOptions.resetWritable();
-    neteditOptions.set("configuration-file", "");
-    neteditOptions.set("sumocfg-file", "");
-    neteditOptions.set("net-file", "");
-    neteditOptions.set("additional-files", "");
-    neteditOptions.set("route-files", "");
-    neteditOptions.set("data-files", "");
-    neteditOptions.set("meandata-files", "");
 }
 
 

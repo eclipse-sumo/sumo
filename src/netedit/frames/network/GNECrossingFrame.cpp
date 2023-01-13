@@ -318,7 +318,7 @@ GNECrossingFrame::CrossingParameters::clearEdges() {
 void
 GNECrossingFrame::CrossingParameters::invertEdges(GNEJunction* parentJunction) {
     std::vector<std::string> crossingEdges;
-    for (const auto &edge : parentJunction->getChildEdges()) {
+    for (const auto& edge : parentJunction->getChildEdges()) {
         if (std::find(myCurrentSelectedEdges.begin(), myCurrentSelectedEdges.end(), edge) == myCurrentSelectedEdges.end()) {
             crossingEdges.push_back(edge->getID());
         }
@@ -332,7 +332,7 @@ GNECrossingFrame::CrossingParameters::invertEdges(GNEJunction* parentJunction) {
 void
 GNECrossingFrame::CrossingParameters::useSelectedEdges(GNEJunction* parentJunction) {
     std::vector<std::string> crossingEdges;
-    for (const auto &edge : parentJunction->getChildEdges()) {
+    for (const auto& edge : parentJunction->getChildEdges()) {
         if (edge->isAttributeCarrierSelected()) {
             crossingEdges.push_back(edge->getID());
         }
@@ -347,7 +347,7 @@ std::vector<NBEdge*>
 GNECrossingFrame::CrossingParameters::getCrossingEdges() const {
     std::vector<NBEdge*> NBEdgeVector;
     // Iterate over myCurrentSelectedEdges
-    for (const auto &edge : myCurrentSelectedEdges) {
+    for (const auto& edge : myCurrentSelectedEdges) {
         NBEdgeVector.push_back(edge->getNBEdge());
     }
     return NBEdgeVector;
@@ -412,7 +412,7 @@ GNECrossingFrame::CrossingParameters::onCmdSetAttribute(FXObject*, FXSelector, v
     }
     // Update edge colors
     if (myCurrentSelectedEdges.empty()) {
-         for (const auto& edge : myCrossingFrameParent->myEdgeSelector->getCurrentJunction()->getChildEdges()) {
+        for (const auto& edge : myCrossingFrameParent->myEdgeSelector->getCurrentJunction()->getChildEdges()) {
             // restore colors
             edge->resetCandidateFlags();
             // mark all edges as possible candidate

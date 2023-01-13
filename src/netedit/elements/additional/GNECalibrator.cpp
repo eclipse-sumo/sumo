@@ -434,7 +434,7 @@ GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, const dou
     // set drawing mode
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     // set color
-    const RGBColor color = drawUsingSelectColor()? s.colorSettings.selectedAdditionalColor : s.additionalSettings.calibratorColor;
+    const RGBColor color = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.additionalSettings.calibratorColor;
     // avoid draw invisible elements
     if (color.alpha() != 0) {
         GLHelper::setColor(color);

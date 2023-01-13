@@ -44,7 +44,7 @@ class TemplateHandler : public XERCES_CPP_NAMESPACE::HandlerBase {
 
 public:
     /// @brief run parser
-    static void parseTemplate(OptionsCont& options, const std::string &templateString);
+    static void parseTemplate(OptionsCont& options, const std::string& templateString);
 
 private:
     /// @brief Constructor
@@ -63,8 +63,8 @@ private:
     void startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::AttributeList& attributes);
 
     /// @brief add option
-    bool addOption(const std::string &value, const std::string &synonymes, 
-                   const std::string &type, const std::string &help) const;
+    bool addOption(const std::string& value, const std::string& synonymes,
+                   const std::string& type, const std::string& help) const;
 
     /** @brief Called on the end of an element
      *

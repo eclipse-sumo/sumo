@@ -838,7 +838,10 @@ TrafficLight::setProgramLogic(const std::string& tlsID, const TraCILogic& logic)
         tlLogic->init(db);
         MSNet::getInstance()->createTLWrapper(tlLogic);
     } else {
-        static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic(logic.programID))->setPhases(phases, logic.currentPhaseIndex);
+        MSSimpleTrafficLightLogic* tlLogic = static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic(logic.programID));
+        tlLogic->setPhases(phases, logic.currentPhaseIndex);
+        tlLogic->setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
+        vars.executeOnSwitchActions();
     }
 }
 

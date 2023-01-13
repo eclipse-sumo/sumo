@@ -79,6 +79,7 @@ def set_travel_cost(data, routing, manager, verbose):
     assert(type(manager) == pywrapcp.RoutingIndexManager)
     assert(type(verbose) == bool)
     # Create and register a transit callback.
+
     def distance_callback(from_index, to_index):
         """Returns the distance between the two nodes."""
         # Convert from routing variable Index to distance matrix NodeIndex.
@@ -127,7 +128,7 @@ def add_transportation_requests_constraint(data, routing, manager, solver, dista
             distance_dimension.CumulVar(delivery_index))  # define order: first pickup then dropoff
         if hasattr(request, 'is_new') and request.is_new:  # is that a new request?
             # allows to reject the order but gives penalty
-            routing.AddDisjunction([pickup_index, delivery_index], 100_000, 2)
+            routing.AddDisjunction([pickup_index, delivery_index], 100000, 2)
 
 
 def add_direct_route_factor_constraint(data, routing, manager, solver, distance_dimension, verbose):

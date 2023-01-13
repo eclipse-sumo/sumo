@@ -255,9 +255,11 @@ SUMOTime
 MSTransportable::abortStage(SUMOTime step) {
     WRITE_WARNINGF(TL("Teleporting % '%'; waited too long, from edge '%', time=%."),
                    isPerson() ? "person" : "container", getID(), (*myStep)->getEdge()->getID(), time2string(step));
+    MSTransportableControl& tc = isPerson() ? MSNet::getInstance()->getPersonControl() : MSNet::getInstance()->getContainerControl();
+    tc.registerTeleportAbortWait();
     (*myStep)->abort(this);
     if (!proceed(MSNet::getInstance(), step)) {
-        MSNet::getInstance()->getPersonControl().erase(this);
+        tc.erase(this);
     }
     return 0;
 }

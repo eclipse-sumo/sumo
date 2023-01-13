@@ -651,7 +651,7 @@ public:
      * @param[in] candidates The candidate vector of edges to be crossed
      * @return The number of crossings built
      * */
-    int checkCrossing(EdgeVector candidates, bool checkOnly=false);
+    int checkCrossing(EdgeVector candidates, bool checkOnly = false);
 
     /// @brief return true if there already exist a crossing with the same edges as the input
     bool checkCrossingDuplicated(EdgeVector edges);

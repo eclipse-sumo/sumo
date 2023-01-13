@@ -47,7 +47,7 @@ using XERCES_CPP_NAMESPACE::XMLUni;
 // method definitions
 // ===========================================================================
 
-SUMOSAXReader::SUMOSAXReader(GenericSAXHandler& handler, const std::string& validationScheme, XERCES_CPP_NAMESPACE::XMLGrammarPool* grammarPool) : 
+SUMOSAXReader::SUMOSAXReader(GenericSAXHandler& handler, const std::string& validationScheme, XERCES_CPP_NAMESPACE::XMLGrammarPool* grammarPool) :
     myHandler(nullptr),
     myValidationScheme(validationScheme),
     myGrammarPool(grammarPool),

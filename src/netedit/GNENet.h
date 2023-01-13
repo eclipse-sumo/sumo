@@ -54,6 +54,9 @@ public:
     /// @brief get all attribute carriers used in this net
     GNENetHelper::AttributeCarriers* getAttributeCarriers() const;
 
+    /// @brief get saving status
+    GNENetHelper::SavingStatus* getSavingStatus() const;
+
     /// @brief get path manager
     GNEPathManager* getPathManager();
 
@@ -290,12 +293,6 @@ public:
     /// @brief transform the given junction into a roundabout
     void createRoundabout(GNEJunction* junction, GNEUndoList* undoList);
 
-    /// @brief inform that net has to be saved
-    void requireSaveNet(bool value);
-
-    /// @brief return if net has to be saved
-    bool isNetSaved() const;
-
     /// @brief save the network
     void saveNetwork();
 
@@ -336,11 +333,8 @@ public:
      * param[in] window The window to inform about delay
      * param[in] force Whether to force recomputation even if not needed
      * param[in] volatileOptions enable or disable volatile options
-     * param[in] additionalPath path in which additionals were saved before recomputing with volatile options
-     * param[in] demandPath path in which demand elements were saved before recomputing with volatile options
-     * param[in] dataPath path in which data elements were saved before recomputing with volatile options
      */
-    void computeNetwork(GNEApplicationWindow* window, bool force = false, bool volatileOptions = false, std::string additionalPath = "", std::string demandPath = "", std::string dataPath = "");
+    void computeNetwork(GNEApplicationWindow* window, bool force = false, bool volatileOptions = false);
 
     /**@brief compute demand elements
      * param[in] window The window to inform about delay
@@ -425,38 +419,14 @@ public:
     /// @brief remove edge id from the list of explicit turnarounds
     void removeExplicitTurnaround(std::string id);
 
-    /// @brief inform that additionals has to be saved
-    void requireSaveAdditionals(bool value);
+    /// @brief save additional elements
+    void saveAdditionals();
 
-    /**@brief save additional elements of the network
-     * @param[in] filename name of the file in which save additionals
-    */
-    void saveAdditionals(const std::string& filename);
+    /// @brief save demand element elements of the network
+    void saveDemandElements();
 
-    /// @brief check if additionals are saved
-    bool isAdditionalsSaved() const;
-
-    /// @brief inform that demand elements has to be saved
-    void requireSaveDemandElements(bool value);
-
-    /**@brief save demand element elements of the network
-     * @param[in] filename name of the file in which save demand elements
-    */
-    void saveDemandElements(const std::string& filename);
-
-    /// @brief check if demand elements are saved
-    bool isDemandElementsSaved() const;
-
-    /// @brief inform that data sets has to be saved
-    void requireSaveDataElements(bool value);
-
-    /**@brief save data set elements of the network
-     * @param[in] filename name of the file in which save data sets
-    */
-    void saveDataElements(const std::string& filename);
-
-    /// @brief check if data sets are saved
-    bool isDataElementsSaved() const;
+    /// @brief save data set elements of the network
+    void saveDataElements();
 
     /// @brief get minimum interval
     double getDataSetIntervalMinimumBegin() const;
@@ -464,19 +434,8 @@ public:
     /// @brief get maximum interval
     double getDataSetIntervalMaximumEnd() const;
 
-    /// @brief inform that meanDatas has to be saved
-    void requireSaveMeanDatas(bool value);
-
-    /**@brief save meanData elements of the network
-     * @param[in] filename name of the file in which save meanDatas
-    */
-    void saveMeanDatas(const std::string& filename);
-
-    /// @brief check if meanDatas are saved
-    bool isMeanDatasSaved() const;
-
-    /// @brief inform that TLS Programs has to be saved
-    void requireSaveTLSPrograms();
+    /// @brief save meanData elements of the network
+    void saveMeanDatas();
 
     /**@brief save TLS Programs elements of the network
      * @param[in] filename name of the file in which save TLS Programs
@@ -531,7 +490,10 @@ protected:
     GNEViewNet* myViewNet = nullptr;
 
     /// @brief AttributeCarriers of net
-    GNENetHelper::AttributeCarriers* myAttributeCarriers;
+    GNENetHelper::AttributeCarriers* myAttributeCarriers = nullptr;
+
+    /// @brief AttributeCarriers of net
+    GNENetHelper::SavingStatus* mySavingStatus;
 
     /// @brief Path manager
     GNEPathManager* myPathManager;
@@ -548,24 +510,6 @@ protected:
     /// @brief whether the net needs recomputation
     bool myNeedRecompute = true;
 
-    /// @brief Flag to check if net has to be saved
-    bool myNetSaved = true;
-
-    /// @brief Flag to check if additionals has to be saved
-    bool myAdditionalsSaved = true;
-
-    /// @brief Flag to check if shapes has to be saved
-    bool myTLSProgramsSaved = true;
-
-    /// @brief Flag to check if demand elements has to be saved
-    bool myDemandElementsSaved = true;
-
-    /// @brief Flag to check if data elements has to be saved
-    bool myDataElementsSaved = true;
-
-    /// @brief Flag to check if meanDatas has to be saved
-    bool myMeanDatasSaved = true;
-
     /// @brief Flag to enable or disable update geometry of elements after inserting or removing element in net
     bool myUpdateGeometryEnabled = true;
 
@@ -580,16 +524,16 @@ private:
     bool checkJunctionPosition(const Position& pos);
 
     /// @brief save additionals after confirming invalid objects
-    void saveAdditionalsConfirmed(const std::string& filename);
+    void saveAdditionalsConfirmed();
 
     /// @brief save demand elements after confirming invalid objects
-    void saveDemandElementsConfirmed(const std::string& filename);
+    void saveDemandElementsConfirmed();
 
     /// @brief save data elements after confirming invalid objects
-    void saveDataElementsConfirmed(const std::string& filename);
+    void saveDataElementsConfirmed();
 
     /// @brief save meanDatas
-    void saveMeanDatasConfirmed(const std::string& filename);
+    void saveMeanDatasConfirmed();
 
     /// @brief write additional element by type and sorted by ID
     void writeAdditionalByType(OutputDevice& device, const std::vector<SumoXMLTag> tags) const;

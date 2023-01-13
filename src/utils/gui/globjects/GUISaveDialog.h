@@ -44,7 +44,7 @@ public:
     };
 
     /// @brief Construct free floating message box with given caption, icon, and message text
-    GUISaveDialog(FXApp* app, const FXString &caption, const FXString &text, FXIcon* ic);
+    GUISaveDialog(FXApp* app, const FXString& caption, const FXString& text, FXIcon* ic);
 
     /// @brief called when user click over button
     long onCmdClicked(FXObject*, FXSelector, void*);
@@ -61,7 +61,7 @@ protected:
 
 private:
     /// @brief initialize save dialog
-    void initialize(const FXString &text, FXIcon* ic);
+    void initialize(const FXString& text, FXIcon* ic);
 
     /// @brief question icon
     static const unsigned char myQuestionIcon[];
@@ -70,5 +70,5 @@ private:
     GUISaveDialog(const GUISaveDialog&) = delete;
 
     /// @brief invalidate copy operator
-    GUISaveDialog &operator=(const GUISaveDialog&) = delete;
+    GUISaveDialog& operator=(const GUISaveDialog&) = delete;
 };

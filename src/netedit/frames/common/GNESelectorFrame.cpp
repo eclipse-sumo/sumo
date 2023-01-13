@@ -1063,7 +1063,7 @@ GNESelectorFrame::SelectionOperation::processDataElementSelection(const bool onl
     // get undoRedo (only for improve code legibly)
     const auto undoList = mySelectorFrameParent->myViewNet->getUndoList();
     // get ACs (only for improve code legibly)
-    const auto &ACs = mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers();
+    const auto& ACs = mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers();
     // invert generic datas
     for (const auto& genericDataTag : ACs->getGenericDatas()) {
         for (const auto& genericData : genericDataTag.second) {

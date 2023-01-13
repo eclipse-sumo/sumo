@@ -31,8 +31,7 @@
 // ===========================================================================
 
 GNEAdditionalFrame::GNEAdditionalFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
-    GNEFrame(viewParent, viewNet, "Additionals"),
-    myBaseAdditional(nullptr) {
+    GNEFrame(viewParent, viewNet, "Additionals") {
 
     // create item Selector module for additionals
     myAdditionalTagSelector = new GNETagSelector(this, GNETagProperties::TagType::ADDITIONALELEMENT, SUMO_TAG_BUS_STOP);
@@ -54,6 +53,9 @@ GNEAdditionalFrame::GNEAdditionalFrame(GNEViewParent* viewParent, GNEViewNet* vi
 
     // Create list for E2Multilane lane selector
     myConsecutiveLaneSelector = new GNEConsecutiveSelector(this, false);
+
+    // Create legend for E2 detector
+    myE2DetectorLegendModule = new GNEE2DetectorLegendModule(this);
 }
 
 
@@ -214,12 +216,15 @@ GNEAdditionalFrame::tagSelected() {
         // check if we must show consecutive lane selector
         if (templateAC->getTagProperty().getTag() == GNE_TAG_MULTI_LANE_AREA_DETECTOR) {
             myConsecutiveLaneSelector->showConsecutiveLaneSelectorModule();
+            myE2DetectorLegendModule->showE2DetectorLegend();
             myLanesSelector->hideNetworkElementsSelector();
         } else if (templateAC->getTagProperty().hasAttribute(SUMO_ATTR_LANES)) {
             myConsecutiveLaneSelector->hideConsecutiveLaneSelectorModule();
+            myE2DetectorLegendModule->hideE2DetectorLegend();
             myLanesSelector->showNetworkElementsSelector();
         } else {
             myConsecutiveLaneSelector->hideConsecutiveLaneSelectorModule();
+            myE2DetectorLegendModule->hideE2DetectorLegend();
             myLanesSelector->hideNetworkElementsSelector();
         }
         // reset last position
@@ -232,6 +237,7 @@ GNEAdditionalFrame::tagSelected() {
         myEdgesSelector->hideNetworkElementsSelector();
         myLanesSelector->hideNetworkElementsSelector();
         myConsecutiveLaneSelector->hideConsecutiveLaneSelectorModule();
+        myE2DetectorLegendModule->hideE2DetectorLegend();
     }
 }
 

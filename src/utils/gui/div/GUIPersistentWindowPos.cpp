@@ -59,7 +59,7 @@ GUIPersistentWindowPos::GUIPersistentWindowPos(FXWindow* parent, const std::stri
 {}
 
 GUIPersistentWindowPos::GUIPersistentWindowPos() :
-    myParent(nullptr) 
+    myParent(nullptr)
 { }
 
 GUIPersistentWindowPos::~GUIPersistentWindowPos() {
@@ -86,10 +86,10 @@ GUIPersistentWindowPos::loadWindowPos() {
         FXRegistry& reg = myParent->getApp()->reg();
         // ensure window is visible after switching screen resolutions
         myParent->setX(MAX2(0, MIN2(reg.readIntEntry(myWindowName.c_str(), "x", myDefaultX),
-                        myParent->getApp()->getRootWindow()->getWidth() - myMinSize)));
+                                    myParent->getApp()->getRootWindow()->getWidth() - myMinSize)));
         myParent->setY(MAX2(myMinTitlebarHeight,
-                    MIN2(reg.readIntEntry(myWindowName.c_str(), "y", myDefaultY),
-                        myParent->getApp()->getRootWindow()->getHeight() - myMinSize)));
+                            MIN2(reg.readIntEntry(myWindowName.c_str(), "y", myDefaultY),
+                                 myParent->getApp()->getRootWindow()->getHeight() - myMinSize)));
         if (myStoreSize) {
             myParent->setWidth(MAX2(reg.readIntEntry(myWindowName.c_str(), "width", myDefaultWidth), myMinSize));
             myParent->setHeight(MAX2(reg.readIntEntry(myWindowName.c_str(), "height", myDefaultHeight), myMinSize));

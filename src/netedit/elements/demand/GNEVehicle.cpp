@@ -261,8 +261,8 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::onCmdTransform(FXObject* obj, FXSelect
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_VEHICLE, tag, GUIIconSubSys::getIcon(GUIIcon::VEHICLE),
-    GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
-    SUMOVehicleParameter() {
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
+SUMOVehicleParameter() {
     // reset default values
     resetDefaultValues();
     // set end and vehPerHours
@@ -273,9 +273,9 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net) :
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEDemandElement* route) :
     GNEDemandElement(vehicleID, net, (tag == GNE_TAG_FLOW_ROUTE) ? GLO_ROUTEFLOW : GLO_VEHICLE, tag,
-        (tag == GNE_TAG_FLOW_ROUTE) ? GUIIconSubSys::getIcon(GUIIcon::ROUTEFLOW) : GUIIconSubSys::getIcon(GUIIcon::VEHICLE),
-    GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {vehicleType, route}, {}),
-    SUMOVehicleParameter() {
+                     (tag == GNE_TAG_FLOW_ROUTE) ? GUIIconSubSys::getIcon(GUIIcon::ROUTEFLOW) : GUIIconSubSys::getIcon(GUIIcon::VEHICLE),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {vehicleType, route}, {}),
+SUMOVehicleParameter() {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleID;
     // set manually vtypeID (needed for saving)
@@ -287,9 +287,9 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleType, GNEDemandElement* route, const SUMOVehicleParameter& vehicleParameters) :
     GNEDemandElement(vehicleParameters.id, net, (tag == GNE_TAG_FLOW_ROUTE) ? GLO_ROUTEFLOW : GLO_VEHICLE, tag,
-        (tag == GNE_TAG_FLOW_ROUTE) ? GUIIconSubSys::getIcon(GUIIcon::ROUTEFLOW) : GUIIconSubSys::getIcon(GUIIcon::VEHICLE),
-    GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {vehicleType, route}, {}),
-    SUMOVehicleParameter(vehicleParameters) {
+                     (tag == GNE_TAG_FLOW_ROUTE) ? GUIIconSubSys::getIcon(GUIIcon::ROUTEFLOW) : GUIIconSubSys::getIcon(GUIIcon::VEHICLE),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {vehicleType, route}, {}),
+SUMOVehicleParameter(vehicleParameters) {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleParameters.id;
     // set manually vtypeID (needed for saving)
@@ -301,9 +301,9 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleTyp
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleType, const SUMOVehicleParameter& vehicleParameters) :
     GNEDemandElement(vehicleParameters.id, net, (tag == GNE_TAG_VEHICLE_WITHROUTE) ? GLO_VEHICLE : GLO_ROUTEFLOW, tag,
-        (tag == GNE_TAG_FLOW_ROUTE) ? GUIIconSubSys::getIcon(GUIIcon::ROUTEFLOW) : GUIIconSubSys::getIcon(GUIIcon::VEHICLE),
-    GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {vehicleType}, {}),
-    SUMOVehicleParameter(vehicleParameters) {
+                     (tag == GNE_TAG_FLOW_ROUTE) ? GUIIconSubSys::getIcon(GUIIcon::ROUTEFLOW) : GUIIconSubSys::getIcon(GUIIcon::VEHICLE),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {vehicleType}, {}),
+SUMOVehicleParameter(vehicleParameters) {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleParameters.id;
     // reset routeid
@@ -315,23 +315,23 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleTyp
 }
 
 
-GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID, GNEDemandElement* vehicleType, 
-        GNEEdge* fromEdge, GNEEdge* toEdge) :
-        GNEDemandElement(vehicleID, net, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, tag,
-        (tag == SUMO_TAG_FLOW) ? GUIIconSubSys::getIcon(GUIIcon::FLOW) : GUIIconSubSys::getIcon(GUIIcon::TRIP),
-    GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge, toEdge}, {}, {}, {vehicleType}, {}),
-    SUMOVehicleParameter() {
+GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID, GNEDemandElement* vehicleType,
+                       GNEEdge* fromEdge, GNEEdge* toEdge) :
+    GNEDemandElement(vehicleID, net, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, tag,
+                     (tag == SUMO_TAG_FLOW) ? GUIIconSubSys::getIcon(GUIIcon::FLOW) : GUIIconSubSys::getIcon(GUIIcon::TRIP),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge, toEdge}, {}, {}, {vehicleType}, {}),
+SUMOVehicleParameter() {
     // adjust default flow attributes
     adjustDefaultFlowAttributes(this);
 }
 
 
-GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleType, GNEEdge* fromEdge, GNEEdge* toEdge, 
-    const SUMOVehicleParameter& vehicleParameters) :
+GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleType, GNEEdge* fromEdge, GNEEdge* toEdge,
+                       const SUMOVehicleParameter& vehicleParameters) :
     GNEDemandElement(vehicleParameters.id, net, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, tag,
-        (tag == SUMO_TAG_FLOW) ? GUIIconSubSys::getIcon(GUIIcon::FLOW) : GUIIconSubSys::getIcon(GUIIcon::TRIP),
-    GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge, toEdge}, {}, {}, {vehicleType}, {}),
-    SUMOVehicleParameter(vehicleParameters) {
+                     (tag == SUMO_TAG_FLOW) ? GUIIconSubSys::getIcon(GUIIcon::FLOW) : GUIIconSubSys::getIcon(GUIIcon::TRIP),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {fromEdge, toEdge}, {}, {}, {vehicleType}, {}),
+SUMOVehicleParameter(vehicleParameters) {
     // adjust default flow attributes
     adjustDefaultFlowAttributes(this);
 }
@@ -339,9 +339,11 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleTyp
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEJunction* fromJunction, GNEJunction* toJunction) :
     GNEDemandElement(vehicleID, net, (tag == GNE_TAG_FLOW_JUNCTIONS) ? GLO_FLOW : GLO_TRIP, tag,
-    (tag == GNE_TAG_FLOW_JUNCTIONS) ? GUIIconSubSys::getIcon(GUIIcon::FLOW_JUNCTIONS) : GUIIconSubSys::getIcon(GUIIcon::TRIP_JUNCTIONS),
-        GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {fromJunction, toJunction}, {}, {}, {}, {vehicleType}, {}),
-    SUMOVehicleParameter() {
+                     (tag == GNE_TAG_FLOW_JUNCTIONS) ? GUIIconSubSys::getIcon(GUIIcon::FLOW_JUNCTIONS) : GUIIconSubSys::getIcon(GUIIcon::TRIP_JUNCTIONS),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {
+    fromJunction, toJunction
+}, {}, {}, {}, {vehicleType}, {}),
+SUMOVehicleParameter() {
     // adjust default flow attributes
     adjustDefaultFlowAttributes(this);
 }
@@ -349,9 +351,11 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleType, GNEJunction* fromJunction, GNEJunction* toJunction, const SUMOVehicleParameter& vehicleParameters) :
     GNEDemandElement(vehicleParameters.id, net, (tag == GNE_TAG_FLOW_JUNCTIONS) ? GLO_FLOW : GLO_TRIP, tag,
-        (tag == GNE_TAG_FLOW_JUNCTIONS) ? GUIIconSubSys::getIcon(GUIIcon::FLOW_JUNCTIONS) : GUIIconSubSys::getIcon(GUIIcon::TRIP_JUNCTIONS),
-    GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {fromJunction, toJunction}, {}, {}, {}, {vehicleType}, {}),
-    SUMOVehicleParameter(vehicleParameters) {
+                     (tag == GNE_TAG_FLOW_JUNCTIONS) ? GUIIconSubSys::getIcon(GUIIcon::FLOW_JUNCTIONS) : GUIIconSubSys::getIcon(GUIIcon::TRIP_JUNCTIONS),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {
+    fromJunction, toJunction
+}, {}, {}, {}, {vehicleType}, {}),
+SUMOVehicleParameter(vehicleParameters) {
     // adjust default flow attributes
     adjustDefaultFlowAttributes(this);
 }
@@ -450,7 +454,7 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
             device.writeAttr(SUMO_ATTR_PERIOD, time2string(repetitionOffset));
         }
         if (isAttributeEnabled(GNE_ATTR_POISSON)) {
-            device.writeAttr(SUMO_ATTR_PERIOD, "exp(" + time2string(repetitionOffset) + ")");
+            device.writeAttr(SUMO_ATTR_PERIOD, "exp(" + toString(1.0 / STEPS2TIME(repetitionOffset)) + ")");
         }
         if (isAttributeEnabled(SUMO_ATTR_PROB)) {
             device.writeAttr(SUMO_ATTR_PROB, repetitionProbability);
@@ -464,7 +468,7 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
             // write embedded route
             getChildDemandElements().front()->writeDemandElement(device);
             // write stops
-            for (const auto &demandElement : getChildDemandElements()) {
+            for (const auto& demandElement : getChildDemandElements()) {
                 if (demandElement->getTagProperty().isStop() || demandElement->getTagProperty().isWaypoint()) {
                     demandElement->writeDemandElement(device);
                 }
@@ -499,7 +503,7 @@ GNEVehicle::isDemandElementValid() const {
             return Problem::INVALID_PATH;
         }
     } else if ((getChildDemandElements().size() > 0) && getChildDemandElements().front()->getTagProperty().isRoute()) {
-            // check if exist a valid path using route child edges
+        // check if exist a valid path using route child edges
         if (myNet->getPathManager()->getPathCalculator()->calculateDijkstraPath(getParentDemandElements().at(0)->getVClass(), getChildDemandElements().at(0)->getParentEdges()).size() > 0) {
             return Problem::OK;
         } else {
@@ -844,7 +848,7 @@ GNEVehicle::computePathElement() {
                 }
             } else {
                 // add via lanes
-                for (const auto &edgeID : via) {
+                for (const auto& edgeID : via) {
                     const auto edge = myNet->getAttributeCarriers()->retrieveEdge(edgeID, false);
                     if (edge) {
                         lanes.push_back(edge->getLaneByAllowedVClass(getVClass()));
@@ -1292,8 +1296,9 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_VEHSPERHOUR:
             return toString(3600 / STEPS2TIME(repetitionOffset));
         case SUMO_ATTR_PERIOD:
-        case GNE_ATTR_POISSON:
             return time2string(repetitionOffset);
+        case GNE_ATTR_POISSON:
+            return toString(1 / STEPS2TIME(repetitionOffset));
         case SUMO_ATTR_PROB:
             return toString(repetitionProbability, 10);
         case SUMO_ATTR_NUMBER:
@@ -2157,8 +2162,10 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             repetitionOffset = TIME2STEPS(3600 / parse<double>(value));
             break;
         case SUMO_ATTR_PERIOD:
-        case GNE_ATTR_POISSON:
             repetitionOffset = string2time(value);
+            break;
+        case GNE_ATTR_POISSON:
+            repetitionOffset = TIME2STEPS(1 / parse<double>(value));
             break;
         case SUMO_ATTR_PROB:
             repetitionProbability = parse<double>(value);

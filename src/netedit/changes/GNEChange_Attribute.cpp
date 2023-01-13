@@ -88,13 +88,13 @@ GNEChange_Attribute::undo() {
         }
         // check if networkElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
         if (myAC->getTagProperty().isNetworkElement()) {
-            myAC->getNet()->requireSaveNet(true);
+            myAC->getNet()->getSavingStatus()->requireSaveNetwork();
         } else if (myAC->getTagProperty().isAdditionalElement()) {
-            myAC->getNet()->requireSaveAdditionals(true);
+            myAC->getNet()->getSavingStatus()->requireSaveAdditionals();
         } else if (myAC->getTagProperty().isDemandElement()) {
-            myAC->getNet()->requireSaveDemandElements(true);
+            myAC->getNet()->getSavingStatus()->requireSaveDemandElements();
         } else if (myAC->getTagProperty().isDataElement()) {
-            myAC->getNet()->requireSaveDataElements(true);
+            myAC->getNet()->getSavingStatus()->requireSaveDataElements();
         }
     }
 }
@@ -120,13 +120,13 @@ GNEChange_Attribute::redo() {
         }
         // check if networkElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
         if (myAC->getTagProperty().isNetworkElement()) {
-            myAC->getNet()->requireSaveNet(true);
+            myAC->getNet()->getSavingStatus()->requireSaveNetwork();
         } else if (myAC->getTagProperty().isAdditionalElement()) {
-            myAC->getNet()->requireSaveAdditionals(true);
+            myAC->getNet()->getSavingStatus()->requireSaveAdditionals();
         } else if (myAC->getTagProperty().isDemandElement()) {
-            myAC->getNet()->requireSaveDemandElements(true);
+            myAC->getNet()->getSavingStatus()->requireSaveDemandElements();
         } else if (myAC->getTagProperty().isDataElement()) {
-            myAC->getNet()->requireSaveDataElements(true);
+            myAC->getNet()->getSavingStatus()->requireSaveDataElements();
         }
     }
 }

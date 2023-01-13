@@ -164,6 +164,10 @@ public:
     /// @brief Returns the position at the given length
     Position positionAtOffset2D(double pos, double lateralOffset = 0) const;
 
+    /* @brief Returns position similar to positionAtOffset but instead of applying the
+     * lateral offset orthogonal to the shape, apply it orthogonal to the given angle */
+    Position sidePositionAtAngle(double pos, double lateralOffset, double angle) const;
+
     /// @brief Returns the rotation at the given length
     double rotationAtOffset(double pos) const;
 
@@ -178,6 +182,10 @@ public:
 
     /// Returns the position between the two given point at the specified position
     static Position positionAtOffset2D(const Position& p1, const Position& p2, double pos, double lateralOffset = 0.);
+
+    /* @brief Returns position similar to positionAtOffset but instead of applying the
+     * lateral offset orthogonal to the shape, apply it orthogonal to the given angle */
+    static Position sidePositionAtAngle(const Position& p1, const Position& p2, double pos, double lateralOffset, double angle);
 
     /// @brief Returns a boundary enclosing this list of lines
     Boundary getBoxBoundary() const;

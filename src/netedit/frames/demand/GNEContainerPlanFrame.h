@@ -20,11 +20,12 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/frames/GNEFrame.h>
 #include <netedit/frames/GNEAttributesCreator.h>
 #include <netedit/frames/GNEDemandSelector.h>
-#include <netedit/frames/GNETagSelector.h>
 #include <netedit/frames/GNEElementTree.h>
+#include <netedit/frames/GNEFrame.h>
+#include <netedit/frames/GNEPathLegendModule.h>
+#include <netedit/frames/GNETagSelector.h>
 
 
 // ===========================================================================
@@ -86,6 +87,9 @@ private:
 
     /// @brief Path Creator
     GNEPathCreator* myPathCreator;
+
+    /// @brief path legend modul
+    GNEPathLegendModule* myPathLegend;
 
     /// @brief Container Hierarchy
     GNEElementTree* myContainerHierarchy;

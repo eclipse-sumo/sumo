@@ -61,9 +61,9 @@ Further examples are shown below. Some of them are generated with the scenario a
 ### Multi-line plots
 
 - By default, every distinct ID (as defined by **--idattr**) will generated a new line for all the data points associated with that ID.
-- If multple files are given, the abbreviated filename will become part of the data point ID and thereby create distinct lines or scatterpoints for data from each file
-- If a commma-separated list of values is passed to option **--idattr**, then values for each of the attributes will be combined with `|` to form the data point ID
-- If a comma-separared list of values given to **--xattr** or **--yattr** (or both), and the data does not supply an ID (or option **--idattr @NONE** is set) then each combination of individual xattr and yattr will create a new line
+- If multiple files are given, the abbreviated filename will become part of the data point ID and thereby create distinct lines or scatterpoints for data from each file
+- If a comma-separated list of values is passed to option **--idattr**, then values for each of the attributes will be combined with `|` to form the data point ID
+- If a comma-separated list of values given to **--xattr** or **--yattr** (or both), and the data does not supply an ID (or option **--idattr @NONE** is set) then each combination of individual xattr and yattr will create a new line
 
 If a combined plot is needed that cannot be created with any of the above methods (i.e. because the data comes from different kinds of data files such as summary-output and edgeData) then an alternative is to use option **--csv-output** and plotting the resulting data with another tool (i.e. [gnuplot](https://en.wikipedia.org/wiki/Gnuplot)).
 

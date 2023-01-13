@@ -49,9 +49,9 @@ GNEChangeGroup::GNEChangeGroup(Supermode groupSupermode, GUIIcon icon, const std
     // extract localTime
     const auto local_time = *localtime(&time);
     // convert localtime to HH:MM:SS
-    myTimeStamp = toString(local_time.tm_hour) + ":" + 
-        ((local_time.tm_min <= 9)? "0" : "") + toString(local_time.tm_min) + ":" +
-        ((local_time.tm_sec <= 9)? "0" : "") + toString(local_time.tm_sec);
+    myTimeStamp = toString(local_time.tm_hour) + ":" +
+                  ((local_time.tm_min <= 9) ? "0" : "") + toString(local_time.tm_min) + ":" +
+                  ((local_time.tm_sec <= 9) ? "0" : "") + toString(local_time.tm_sec);
 }
 
 

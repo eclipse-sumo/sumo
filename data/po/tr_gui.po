@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-01-04 13:42+0100\n"
-"PO-Revision-Date: 2023-01-06 07:49+0000\n"
+"POT-Creation-Date: 2023-01-12 11:25+0100\n"
+"PO-Revision-Date: 2023-01-12 08:40+0000\n"
 "Last-Translator: kyasin <yasingoka@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/tr/>\n"
@@ -32,628 +32,602 @@ msgid ""
 "Graphical editor for SUMO networks, demand and additional infrastructure."
 msgstr "SUMO Ağları Talep ve Ek Altyapılar için Grafiksel Düzenleyici."
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:201
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:427
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:246
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:439
 msgid "&Reload"
 msgstr "Tekrar Yükle"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:364
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:456
 msgid "&Inspect"
 msgstr "İncele"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:367
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:459
 msgid "&Delete"
 msgstr "Sil"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:370
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:462
 msgid "&Select"
 msgstr "Seç"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:427
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:508
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:519
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:600
 msgid "&Move"
 msgstr "Taşı"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:430
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:522
 msgid "&Edge"
 msgstr "Kesim"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:433
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:525
 msgid "&Connection"
 msgstr "Bağlantı"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:436
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:528
 msgid "Pro&hibition"
 msgstr "Geçiş Kuralı"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:442
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1807
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:511
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:534
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1899
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:524
 msgid "&Additional"
 msgstr "Ek"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:445
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:537
 msgid "C&rossing"
 msgstr "Geçit"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:448
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:540
 msgid "TA&Z"
 msgstr "TAB"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:454
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:546
 msgid "&Wire"
 msgstr "Enerji Hattı"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:576
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:668
 msgid "&MeanData"
 msgstr "Ortalama Veri"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1152
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1783
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:493
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1244
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1875
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:506
 msgid "&Junctions"
 msgstr "Kavşaklar"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1157
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1786
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:496
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1249
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1878
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:509
 msgid "&Edges"
 msgstr "Kesimler"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1162
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1254
 msgid "&Lanes"
 msgstr "Şeritler"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1167
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1259
 msgid "&Connections"
 msgstr "Bağlantılar"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1172
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1264
 msgid "C&rossings"
 msgstr "Geçitler"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1177
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1269
 msgid "Walkin&gAreas"
 msgstr "Yürüme Alanları"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1182
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1274
 msgid "&Additionals"
 msgstr "Ekler"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1187
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1279
 msgid "&TAZs"
 msgstr "TABlar"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1192
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1284
 msgid "&Wires"
 msgstr "Enerji Hatları"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1197
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1289
 msgid "&Polygons"
 msgstr "Çokgenler"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1202
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1294
 msgid "P&OIs"
 msgstr "ENler"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1207
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1299
 msgid "&Routes"
 msgstr "Rotalar"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1212
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1792
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:499
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1304
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1884
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:512
 msgid "&Vehicles"
 msgstr "Araçlar"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1217
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1795
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:502
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1309
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1887
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:515
 msgid "&Persons"
 msgstr "Yolcular"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1222
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1314
 msgid "Person&Trips"
 msgstr "Yolcu&Seyahatler"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1227
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1319
 msgid "&Walks"
 msgstr "Yürümeler"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1232
-#, fuzzy
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1324
 msgid "Ri&des"
-msgstr "Turlar"
+msgstr "Binişler"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1237
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1329
 msgid "&Containers"
 msgstr "Konteynerler"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1242
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1334
 msgid "Tra&nsports"
 msgstr "Aktarımlar"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1247
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1339
 msgid "Trans&hips"
 msgstr "Nakliyeler"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1252
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1344
 msgid "Stop&s"
 msgstr "Duraklar"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1257
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1349
 msgid "&EdgeDatas"
 msgstr "Kesit Verileri"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1262
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1354
 msgid "E&dgeRelDatas"
 msgstr "Kesit İlişkili Veriler"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1267
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1359
 msgid "Edge&TAZRel"
 msgstr "Kesit&TAB İlişkili"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1789
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1881
 msgid "&WalkingAreas"
 msgstr "Yürüme Alanları"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1798
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1890
 msgid "&Route"
 msgstr "Rota"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1801
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1893
 msgid "&Stops"
 msgstr "Duraklar"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1804
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:508
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1896
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:521
 msgid "&TLS"
 msgstr "TIS"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1810
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:514
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1902
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:527
 msgid "P&oI"
 msgstr "Pol"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1813
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:517
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1905
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:530
 msgid "Po&lygon"
 msgstr "Çokgen"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1830
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1922
 msgid "&NetDiff"
 msgstr "NetDiff"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1889
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1982
 msgid "&Network"
 msgstr "Ağ"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1892
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1985
 msgid "&Demand"
 msgstr "Talep"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1895
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1988
 msgid "&Data"
 msgstr "Veri"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:459
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:457
 msgid "A microscopic, multi-modal traffic simulation."
 msgstr "Mikro Ölçekli, Çok Modlu Trafik Simülasyonu."
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:469
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:467
 msgid "DEBUG: GNEApplicationWindow::dependentBuild called twice"
 msgstr ""
 "Hata Ayıklama: GNEApplicationWindow::dependentBuild (GNE Uygulamaları "
 "Penceresi::Bağıl Yapılandırma) Üst Üste Çağrıldı"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:485
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:489
 msgid "Recomputing\t\tRecomputing is needed"
 msgstr "Yeniden Hesaplama\t\tYeniden Hesaplama Gerekiyor"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:488
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:260
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:492
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:271
 msgid ""
 "N/A\t\tOriginal coordinate (before coordinate transformation in netconvert)"
 msgstr "Yok\t\tOrijinal Koordinat (Netconvert Koordinat Dönüşümünden Önce)"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:491
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:263
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:495
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:274
 msgid "N/A\t\tNetwork coordinate"
 msgstr "Yok\t\tAğ Koordinatı"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:495
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:499
 msgid "N/A\t\tTest coordinate"
 msgstr "Yok\t\tTest Koordinatı"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:509
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:291
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:513
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:302
 msgid "Ready."
 msgstr "Hazır."
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:656
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:664
 msgid "Open Netconvert Configuration"
 msgstr "Netconvert Yapılandırmasını Aç"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:680
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1019
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:693
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1061
 msgid "Open Network"
 msgstr "Ağ Yükle"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:732
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:742
 msgid "Import Foreign Network"
 msgstr "Dışarıdan Ağ Yükle"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:760
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:770
 msgid "Select Import Options"
 msgstr "İçeri Aktarma Seçeneklerini Seç"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:777
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:788
 msgid "Open NETEDITConfig file"
 msgstr "NeteditConfig Dosyası Aç"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:820
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:840
 msgid "Open SUMOConfig file"
 msgstr "SUMOConfig Dosyası Aç"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:934
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:967
 msgid "Open TLS Programs file"
 msgstr "TIS Programları Dosyası Aç"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:996
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1029
 msgid "Load edgeType file"
 msgstr "Kesim Tipi Dosyası Yükle"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1084
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1124
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1117
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1166
 msgid "Already loading!"
 msgstr "Halen Yükleniyor!"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1427
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1435
 msgid "Reload successfully"
 msgstr "Yeniden Yükleme Başarılı"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1451
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:409
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1459
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:421
 msgid "&File"
 msgstr "Dosya"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1468
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:444
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1480
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:457
 msgid "&Quit"
 msgstr "Çık"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1468
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:444
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1480
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:457
 msgid "Quit the Application."
 msgstr "Uygulamadan Çık."
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1472
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1484
 msgid "&Modes"
 msgstr "Türler"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1484
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:453
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1496
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:466
 msgid "&Edit"
 msgstr "Düzenle"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1509
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1521
 msgid "L&ock"
 msgstr "Kilitle"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1516
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1528
 msgid "&Processing"
 msgstr "İşlem"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1520
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:491
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1532
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:504
 msgid "&Locate"
 msgstr "Belirle"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1524
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1536
 msgid "&Tools"
 msgstr "Araçlar"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1528
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:556
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1540
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:569
 msgid "&Window"
 msgstr "Pencere"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1532
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:600
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1544
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:619
 msgid "&Help"
 msgstr "Yardım"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1534
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:602
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1546
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:621
 msgid "&Online Documentation"
 msgstr "Çevrimiçi Dökümantasyon"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1534
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:602
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1546
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:621
 msgid "Open Online documentation."
 msgstr "Çevrimiçi Dökümantasyonu Aç."
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1537
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:605
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1549
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:624
 msgid "&Changelog"
 msgstr "Değişim Günlüğü"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1537
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:605
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1549
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:624
 msgid "Open Changelog."
 msgstr "Değişim Günlüğünü Aç."
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1539
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:607
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1551
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:626
 msgid "&Hotkeys"
 msgstr "Kısayollar"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1539
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:607
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1551
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:626
 msgid "Open Hotkeys."
 msgstr "Kısayolları Aç."
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1541
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:609
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1553
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:628
 msgid "&Tutorial"
 msgstr "Öğretici"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1541
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:609
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1553
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:628
 msgid "Open Tutorial."
 msgstr "Öğreticiyi Aç."
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1544
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:612
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1556
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:631
 msgid "&About"
 msgstr "Hakkında"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1544
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1556
 msgid "About netedit."
 msgstr "Netedit Hakkında."
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1673
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1685
 msgid "Press F5"
 msgstr "F5'e Bas"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1708
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1709
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1711
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:2114
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:2115
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:2117
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1720
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1721
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1723
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:2156
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:2157
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:2159
 msgid "N/A"
 msgstr "Yok"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1769
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1781
 msgid "Recompute with volatile options"
 msgstr "Havai Seçeneklerle Yeniden Hesapla"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1790
-msgid "Save additionals before recomputing with volatile options"
-msgstr "Havai Seçeneklerle Yeniden Hesaplamadan Önce Ekleri Kaydet"
-
 #: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1804
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1866
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1990
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4387
-msgid "Save demand element file"
-msgstr "Talep Elemanları Dosyasını Kaydet"
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1832
-msgid "Saving additionals in temporary folder failed!"
-msgstr "Eklerin Geçici Dosyaya Kaydı Başarısız!"
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1852
 msgid "Save demand elements before recomputing with volatile options"
 msgstr ""
 "Geçici Seçeneklerle Yeniden Hesaplamadan Önce Talep Elemanlarını Kaydet"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1894
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1818
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1942
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4270
+msgid "Save demand element file"
+msgstr "Talep Elemanları Dosyasını Kaydet"
+
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1846
 msgid "Saving demand elements in temporary folder failed!"
 msgstr "Talep Elemanlarının Geçici Dosyaya Kaydı Başarısız!"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1914
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1866
 msgid "Save data elements before recomputing with volatile options"
 msgstr "Geçici Seçeneklerle Yeniden Hesaplamadan Önce Veri Elemanlarını Kaydet"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1928
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4602
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1880
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4485
 msgid "Save data element file"
 msgstr "Veri Elemanları Dosyasını Kaydet"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1956
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1908
 msgid "Saving data elements in temporary folder failed!"
 msgstr "Veri Elemanlarının Geçici Dosyaya Kaydı Başarısız!"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1976
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1928
 msgid "Save meanDatas before recomputing with volatile options"
 msgstr "Geçici Seçeneklerle Yeniden Hesaplamadan Önce Ortalama Verileri Kaydet"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:2018
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1970
 msgid "Saving meanDatas in temporary folder failed!"
 msgstr "Ortalama Verilerin Geçici Dosyaya Kaydı Başarısız!"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:2673
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:2625
 msgid "Configure Options"
 msgstr "Yapılandırma Seçenekleri"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:2686
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:2638
 msgid "SUMO Options"
 msgstr "SUMO Seçenekleri"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:2705
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:2657
 msgid "Undo"
 msgstr "Geri Al"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:2737
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:2689
 msgid "Redo"
 msgstr "İleri Al"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:2862
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3382
+msgid "Saving Network failed!"
+msgstr "Ağ Kaydı Başarısız!"
+
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3408
 msgid "Save Network as"
 msgstr "Ağı Farklı Kaydet"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:2909
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3452
 msgid "Save plain-xml edge-file (other names will be deduced from this)"
 msgstr ""
 "plain-xml edge-file (Yalın XML Kesim Dosyası) Kaydet (Diğer İsimler Buradan "
 "Oluşturulacak)"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:2929
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3472
 msgid "Saving plain xml failed!"
 msgstr "Yalın XML Kaydı Başarısız!"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:2956
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3499
 msgid "Save joined-junctions"
 msgstr "Birleşmiş Kavşakları Kaydet"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:2970
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3513
 msgid "Saving joined junctions failed!"
 msgstr "Birleşmiş Kavşakların Kaydı Başarısız!"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3587
-msgid "Saving Network failed!"
-msgstr "Ağ Kaydı Başarısız!"
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3625
-msgid "Save NETEDIT Configuration"
-msgstr "Netedit Yapılandırmasını Kaydet"
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3673
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3593
 msgid "Save NETEDIT Configuration as"
 msgstr "Netedit Yapılandırmasını Farklı Kaydet"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3735
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1136
-msgid "Save SUMO Configuration"
-msgstr "SUMO Yapılandırmasını Kaydet"
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3783
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3716
 msgid "Save SUMO Configuration as"
 msgstr "SUMO Yapılandırmasını Farklı Kaydet"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3842
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3771
 msgid "Save TLS Programs"
 msgstr "TIS Programlarını Kaydet"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3868
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3797
 msgid "Saving TLS Programs failed!"
 msgstr "TIS Programlarının Kaydı Başarısız!"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3912
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3841
 msgid "Save edgeType file"
 msgstr "Kesim Tipi Dosyası Kaydet"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3937
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3866
 msgid "Saving edgeTypes failed!"
 msgstr "Kesim Tipi Dosyası Kaydı Başarısız!"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3977
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3906
 msgid "Save TLS Programs as"
 msgstr "TIS Programlarını Farklı Kaydet"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4008
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3937
 msgid "Save edgeType file as"
 msgstr "Kesim Tipi Dosyasını Farklı Kaydet"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4042
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3971
 msgid "Open Additionals file"
 msgstr "Ekler Dosyası Yükle"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4169
-msgid "Save Additionals file"
-msgstr "Ekler Dosyası Kaydet"
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4203
-msgid "Saving additionals failed!"
-msgstr "Ekler Dosyasının Kaydı Başarısız!"
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4231
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4124
 msgid "Save Additionals file as"
 msgstr "Ekler Dosyasını Farklı Kaydet"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4264
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4147
 msgid "Open demand element file"
 msgstr "Talep Elemanları Dosyası Yükle"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4415
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4298
 msgid "Saving demand elements failed!"
 msgstr "Talep Elemanları Kaydı Başarısız!"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4443
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4326
 msgid "Save demand element file as"
 msgstr "Talep Elemanları Dosyasını Farklı Kaydet"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4472
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4355
 msgid "Open data element file"
 msgstr "Veri Elemanları Dosyası Yükle"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4485
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4368
 msgid "Load same data file"
 msgstr "Aynı Veri Dosyasını Yükle"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4627
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4510
 msgid "Saving data elements failed!"
 msgstr "Veri Elemanları Kaydı Başarısız!"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4655
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4538
 msgid "Save data element file as"
 msgstr "Veri Elemanları Dosyasını Farklı Kaydet"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4681
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4564
 msgid "Open MeanDatas file"
 msgstr "Ortalama Veriler Dosyasını Aç"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4808
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4691
 msgid "Save MeanDatas file"
 msgstr "Ortalama Veriler Dosyasını Kaydet"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4842
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4725
 msgid "Saving meanDatas failed!"
 msgstr "Ortalama Veriler Kaydı Başarısız!"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4870
+#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4753
 msgid "Save MeanDatas file as"
 msgstr "Ortalama Veriler Dosyasını Farklı Kaydet"
 
-#: /home/behr_mi/sumo/src/netedit/GNELoadThread.cpp:106
+#: /home/behr_mi/sumo/src/netedit/GNELoadThread.cpp:126
 msgid "Invalid Options. Nothing loaded"
 msgstr "Geçersiz Seçenekler. Hiçbir Şey Yüklenmedi"
 
-#: /home/behr_mi/sumo/src/netedit/GNELoadThread.cpp:120
+#: /home/behr_mi/sumo/src/netedit/GNELoadThread.cpp:140
 msgid "Could not build projection!"
 msgstr "Projeksiyon Oluşturulamıyor!"
 
-#: /home/behr_mi/sumo/src/netedit/GNELoadThread.cpp:144
+#: /home/behr_mi/sumo/src/netedit/GNELoadThread.cpp:168
 msgid "Performing initial computation ...\n"
 msgstr "Ön Hesaplama Gerçekleştiriliyor...\n"
 
-#: /home/behr_mi/sumo/src/netedit/GNELoadThread.cpp:186
+#: /home/behr_mi/sumo/src/netedit/GNELoadThread.cpp:202
 msgid "Failed to build network."
 msgstr "Ağ Oluşturulması Başarısız."
 
-#: /home/behr_mi/sumo/src/netedit/GNELoadThread.cpp:498
-msgid "Failed to parse options."
+#: /home/behr_mi/sumo/src/netedit/GNELoadThread.cpp:505
+#, fuzzy
+msgid "Failed to reset options."
 msgstr "Seçenek Çözümlemesi Başarısız."
 
 #: /home/behr_mi/sumo/src/netedit/GNEViewParent.cpp:445
-#: /home/behr_mi/sumo/src/gui/GUISUMOViewParent.cpp:140
+#: /home/behr_mi/sumo/src/gui/GUISUMOViewParent.cpp:141
 msgid "Save Snapshot"
 msgstr "Anlık Görüntü Kaydet"
 
 #: /home/behr_mi/sumo/src/netedit/GNEViewParent.cpp:465
-#: /home/behr_mi/sumo/src/gui/GUISUMOViewParent.cpp:165
+#: /home/behr_mi/sumo/src/gui/GUISUMOViewParent.cpp:166
 msgid "No file extension was specified - saving Snapshot as PNG."
 msgstr "Dosya Uzantısı Belirlenmedi - Anlık Görüntü PNG Olarak Kaydediliyor."
 
 #: /home/behr_mi/sumo/src/netedit/GNEViewParent.cpp:472
-#: /home/behr_mi/sumo/src/gui/GUISUMOViewParent.cpp:171
+#: /home/behr_mi/sumo/src/gui/GUISUMOViewParent.cpp:172
 msgid "Saving failed."
 msgstr "Kaydetme Başarısız."
 
 #: /home/behr_mi/sumo/src/netedit/GNEViewParent.cpp:476
-#: /home/behr_mi/sumo/src/gui/GUISUMOViewParent.cpp:173
+#: /home/behr_mi/sumo/src/gui/GUISUMOViewParent.cpp:174
 msgid "Snapshot successfully saved!"
 msgstr "Anlık Görüntü Kaydı Başarılı!"
 
@@ -682,87 +656,83 @@ msgstr "Çıkılıyor (Hata Kaynaklı)."
 msgid "Simulation started with time: %."
 msgstr "Simülasyon Zamanla Başladı: %."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:253
-msgid "TraCI"
-msgstr "TraCI (Trafik Kontrol Arayüzü)"
-
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:411
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:423
 msgid "New Window"
 msgstr "Yeni Pencere"
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:411
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:423
 msgid "Open a new sumo-gui window."
 msgstr "Yeni Bir sumo-gui (SUMO-GKA) Penceresi Aç."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:415
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:427
 msgid "&Open Simulation..."
 msgstr "Simülasyon Aç..."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:415
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:427
 msgid "Open a simulation (Configuration file)."
 msgstr "Simülasyon Aç (Yapılandırma Dosyası)."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:418
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:430
 msgid "Open &Network..."
 msgstr "Aç&Ağ..."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:418
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:430
 msgid "Open a network."
 msgstr "Ağ Dosyası Aç."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:421
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:433
 msgid "Open Shapes "
 msgstr "Şekilleri Aç "
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:421
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:433
 msgid "Load POIs and Polygons for visualization."
 msgstr "Görselleştirme için ENler ve Çokgenleri Yükle."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:424
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:436
 msgid "Open EdgeData "
 msgstr "Kesim Verisi Dosyası Aç "
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:424
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:436
 msgid "Load edge related data for visualization."
 msgstr "Görselleştirme için Kesim İlişkili Veri Dosyası Yükle."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:427
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:439
 msgid "Reloads the simulation / the network."
 msgstr "Simülasyonu/Ağı Yeniden Yükler."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:430
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:442
 msgid "Quick-Reload"
 msgstr "Hızlı Yeniden Yükleme"
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:430
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:442
 msgid "Reloads the simulation (but not network)."
 msgstr "Simülasyonu Yeniden Yükler (Ağ Hariç)."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:434
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:446
 msgid "Save Configuration"
 msgstr "Yapılandırmaları Kaydet"
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:434
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:446
 msgid "Save current options as a configuration file."
 msgstr "Mevcut Seçenekleri Yapılandırma Dosyası Olarak Kaydet."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:437
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:449
 msgid "Close"
 msgstr "Kapat"
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:437
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:449
 msgid "Close the simulation."
 msgstr "Simülasyonu Kapat."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:455
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:468
 msgid "Edit Selected..."
 msgstr "Seçilenleri Düzenle..."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:455
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:468
 msgid "Opens a dialog for editing the list of selected items."
 msgstr "Seçilen Öğelerin Listesini Düzenlemek İçin Bir İletişim Kutusu Açar."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:458
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:471
 msgid ""
 "Select lanes which allow...\t\tOpens a menu for selecting a vehicle class by "
 "which to selected lanes."
@@ -770,105 +740,106 @@ msgstr ""
 "İzin Veren Şeritleri Seç...\t\tŞeritlerin Belirleneceği Bir Araç Sınıfı "
 "Seçmek İçin Menü Açar."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:462
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:475
 msgid "Edit Breakpoints"
 msgstr "Kesim Noktalarını Düzenle"
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:462
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:475
 msgid "Opens a dialog for editing breakpoints."
 msgstr "Kesim Noktalarını Düzenlemek İçin Bir İletişim Kutusu Açar."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:465
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:478
 msgid "Edit Visualisation"
 msgstr "Görselleştirmeyi Düzenle"
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:465
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:478
 msgid "Opens a dialog for editing visualization settings."
 msgstr "Görselleştirme Ayarlarının Düzenlenmesi İçin Bir İletişim Kutusu Açar."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:468
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:481
 msgid "Edit Viewport"
 msgstr "Görüntü Alanını Düzenle"
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:468
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:481
 msgid "Opens a dialog for editing viewing area, zoom and rotation."
 msgstr ""
 "Görüntü Alanını, Yakınlaştırmayı ve Döndürmeyi Düzenlemek İçin Bir İletişim "
 "Penceresi Açar."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:472
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:485
 msgid "Open network in netedit"
 msgstr "Ağı Netedit'te Aç"
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:472
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:485
 msgid "Opens current network in NETEDIT."
 msgstr "Mevcut Ağı Netedit'te Açar."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:479
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:492
 msgid "&Settings"
 msgstr "Ayarlar"
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:481
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:494
+#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:53
 msgid "Application Settings"
 msgstr "Uygulama Ayarları"
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:481
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:494
 msgid "Open a Dialog for Application Settings editing."
 msgstr "Uygulama Ayarlarının Düzenlenmesi İçin Bir İletişim Penceresi Aç."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:484
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:497
 msgid "Gaming Mode\tCtrl+G\tToggle gaming mode on/off."
 msgstr "Oyun Modu\tCTRL+G\tOyun Modunu Aç/Kapa."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:487
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:500
 msgid "Full Screen Mode"
 msgstr "Tam Ekran Modu"
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:487
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:500
 msgid "Toggle full screen mode on/off."
 msgstr "Tam Ekran Modunu Aç/Kapa."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:493
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:506
 msgid "Open a Dialog for Locating a Junction."
 msgstr "Bir Kavşak Belirlemek İçin İletişim Kutusu Aç."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:496
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:509
 msgid "Open a Dialog for Locating an Edge."
 msgstr "Bir Kesim Belirlemek İçin İletişim Penceresi Aç."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:499
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:512
 msgid "Open a Dialog for Locating a Vehicle."
 msgstr "Bir Araç Belirlemek İçin İletişim Penceresi Aç."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:502
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:515
 msgid "Open a Dialog for Locating a Person."
 msgstr "Bir Yolcu Belirlemek İçin İletişim Penceresi Aç."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:505
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:518
 msgid "&Container"
 msgstr "Konteyner"
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:505
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:518
 msgid "Open a Dialog for Locating a Container."
 msgstr "Bir Konteyner Belirlemek İçin İletişim Penceresi Aç."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:508
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:521
 msgid "Open a Dialog for Locating a Traffic Light."
 msgstr "Bir Trafik Işığı Belirlemek İçin İletişim Penceresi Aç."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:511
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:524
 msgid "Open a Dialog for Locating an Additional Structure."
 msgstr "Bir Ek Yapı Belirlemek İçin İletişim Penceresi Aç."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:514
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:527
 msgid "Open a Dialog for Locating a Point of Interest."
 msgstr "Bir Etki Noktası Belirlemek İçin İletişim Penceresi Aç."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:517
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:530
 msgid "Open a Dialog for Locating a Polygon."
 msgstr "Bir Çokgen Belirlemek İçin İletişim Penceresi Aç."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:521
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:534
 msgid ""
 "Show Internal Structures\t\tShow internal junctions and streets in locator "
 "dialog."
@@ -876,12 +847,12 @@ msgstr ""
 "Dahili Yapıları Göster\t\tDahili Kavşak ve Sokakları Belirleyici Pencerede "
 "Göster."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:524
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:537
 msgid "Show Parking Vehicles\t\tShow parking vehicles in locator dialog."
 msgstr ""
 "Park Eden Araçları Göster\t\tPark Eden Araçları Belirleyici Pencerede Göster."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:528
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:541
 msgid ""
 "Show vehicles outside the road network\t\tShow vehicles that are teleporting "
 "or driving remote-controlled outside the road network in locator dialog."
@@ -889,145 +860,155 @@ msgstr ""
 "Yol Ağının Dışında Kalan Araçları Göster\t\tIşınlanan veya Yol Ağının "
 "Dışında Uzaktan Kontrollü Sürüş Yapan Araçları Belirleyici Pencerede Göster."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:534
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:547
 msgid "Simulation"
 msgstr "Simülasyon"
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:536
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:549
 msgid "Run"
 msgstr "Başlat"
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:536
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:549
 msgid "Start/ Resume the simulation."
 msgstr "Simülasyonu Başlat/Durdur."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:539
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:552
 msgid "Stop"
 msgstr "Dur"
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:539
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:552
 msgid "Halt the simulation."
 msgstr "Simülasyonu Beklet."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:542
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:555
 msgid "Step"
 msgstr "Adım"
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:542
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:555
 msgid "Perform one simulation step."
 msgstr "Bir Simülasyon Adımı Yürüt."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:545
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:558
 msgid "Delay+"
 msgstr "Gecikme+"
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:545
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:558
 msgid "Increase simulation step delay."
 msgstr "Simülasyon Adım Gecikmesini Artır."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:547
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:560
 msgid "Delay-"
 msgstr "Gecikme-"
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:547
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:560
 msgid "Decrease simulation step delay."
 msgstr "Simülasyon Adım Gecikmesini Düşür."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:549
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:562
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:284
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:288
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:281
 msgid "Save"
 msgstr "Kaydet"
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:549
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:562
 msgid "Save the current simulation state to a file."
 msgstr "Mevcut Simülasyon Durumunu Dosyaya Kaydet."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:552
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:565
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:283
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:287
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:280
 msgid "Load"
 msgstr "Yükle"
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:552
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:565
 msgid "Load simulation state for the current network from file."
 msgstr "Mevcut Ağ İçin Simülasyon Durumunu Dosyadan Yükle."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:558
-msgid "Show Status Line\t\tToggle the Status Bar on/off."
-msgstr "Durum Çubuğunu Göster\t\tDurum Çubuğunu Aç/Kapa."
-
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:561
-msgid "Show Message Window\t\tToggle the Message Window on/off."
-msgstr "Mesaj Penceresini Göster\t\tMesaj Penceresini Aç/Kapa."
-
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:564
-msgid "Show Simulation Time\t\tToggle the Simulation Time on/off."
-msgstr "Simülasyon Zamanını Göster\t\tSimülasyon Zamanını Aç/Kapa."
-
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:567
-msgid "Show Simulation Delay\t\tToggle the Simulation Delay Entry on/off."
-msgstr "Simülasyon Gecikmesini Göster\t\tSimülasyon Gecikme Girişini Aç/Kapa."
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:570
+#, fuzzy
+msgid "Open new view"
+msgstr "OSG Dosyası Aç"
 
 #: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:572
+#, fuzzy
+msgid "Open new 3D view"
+msgstr "\tYeni Bir 3B Görünüm Aç\tYeni Bir 3B Görünüm Aç."
+
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:575
 msgid "Tile &Horizontally"
 msgstr "Döşeme & Yatay"
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:575
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:578
 msgid "Tile &Vertically"
 msgstr "Döşeme & Dikey"
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:578
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:581
 msgid "Cascade"
 msgstr "Kademeli"
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:582
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:585
 msgid "&Close"
 msgstr "Kapat"
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:592
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:595
 msgid "&Others..."
 msgstr "Diğer..."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:595
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:599
+msgid "Show Status Line\t\tToggle the Status Bar on/off."
+msgstr "Durum Çubuğunu Göster\t\tDurum Çubuğunu Aç/Kapa."
+
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:602
+msgid "Show Message Window\t\tToggle the Message Window on/off."
+msgstr "Mesaj Penceresini Göster\t\tMesaj Penceresini Aç/Kapa."
+
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:605
+msgid "Show Simulation Time\t\tToggle the Simulation Time on/off."
+msgstr "Simülasyon Zamanını Göster\t\tSimülasyon Zamanını Aç/Kapa."
+
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:608
+msgid "Show Simulation Delay\t\tToggle the Simulation Delay Entry on/off."
+msgstr "Simülasyon Gecikmesini Göster\t\tSimülasyon Gecikme Girişini Aç/Kapa."
+
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:614
 msgid "Clear Message Window"
 msgstr "Mesaj Penceresi Temizle"
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:595
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:614
 msgid "Clear the message window."
 msgstr "Mesaj Penceresini Temizle."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:612
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:631
 msgid "About sumo-gui."
 msgstr "SUMO-GUI Hakkında."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:627
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:646
 msgid "\tOpen simulation\tOpen a simulation (Configuration file)."
 msgstr "\tSimülasyon Aç\tBir Simülasyon Aç (Yapılandırma Dosyası)."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:629
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:648
 msgid "\tOpen network\tOpen a network."
 msgstr "\tAğ Aç\tBir Ağ Aç."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:631
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:650
 msgid "\tReload\tReloads the simulation / the network."
 msgstr "\tYeniden Yükle\tSimülasyonu/Ağı Yeniden Yükler."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:640
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:659
 msgid "\tRun\tStart/Resume the loaded simulation."
 msgstr "\tÇalıştır\tYüklü Simülasyonu Başlat/Durdur."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:642
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:661
 msgid "\tStop\tHalt the running simulation."
 msgstr "\tDur\tÇalışan Simülasyona Ara Ver."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:644
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:663
 msgid "\tStep\tPerform a single simulation step."
 msgstr "\tAdım\tBir Simülasyon Adımı Çalıştır."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:652
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:671
 msgid ""
 "Time:\tToggle between time formats\tToggle between seconds and hour:minute:"
 "seconds display."
@@ -1035,7 +1016,7 @@ msgstr ""
 "Zaman:\tDüzenler Arasında Geçiş Yap\tSaniye ve Saat:Dakika:Saniye Düzenleri "
 "Arasında Geçiş Yap."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:666
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:685
 msgid ""
 "Delay (ms):\tDelay per simulated second\tDelay per simulated second. Click "
 "to toggle between the last two delay values."
@@ -1043,7 +1024,7 @@ msgstr ""
 "Gecikme (ms):\tSimülasyon Saniyesi Başına Gecikme\tSimülasyon Saniyesi "
 "Başına Gecikme. Son İki Gecikme Değeri Arasında Geçiş Yapmak İçin Tıkla."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:689
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:708
 msgid ""
 "Scale Traffic:\t\tScale traffic from flows and vehicles that are loaded "
 "incrementally from route files."
@@ -1051,19 +1032,19 @@ msgstr ""
 "Trafiği Ölçeklendir:\t\tRota Dosyalarından Artarak Yüklenen Akım ve "
 "Araçlardan Oluşan Trafiği Ölçeklendir."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:701
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:720
 msgid "\tOpen new view\tOpen a new microscopic view."
 msgstr "\tYeni Bir Görünüm Aç\tYeni Bir Mikroskopik Görünüm Aç."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:704
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:723
 msgid "\tOpen new 3D view\tOpen a new 3D view."
 msgstr "\tYeni Bir 3B Görünüm Aç\tYeni Bir 3B Görünüm Aç."
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:714
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:733
 msgid "Waiting Time:\t\tTime spent waiting accumulated for all vehicles"
 msgstr "Bekleme Süresi:\t\tTüm Araçlar İçin Birikmiş Bekleme Süresi"
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:725
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:744
 msgid ""
 "Time Loss:\t\tTime lost due to being unable to drive with maximum speed for "
 "all vehicles"
@@ -1071,12 +1052,12 @@ msgstr ""
 "Süre Kaybı:\t\tTüm Araçlar İçin Maksimum Hızda Sürüş Gerçekleşmediğinden "
 "Oluşan Süre Kaybı"
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:736
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:755
 msgid "Distance (km):\t\tTotal distance driven by DRT vehicles"
 msgstr ""
 "Mesafe (km):\t\tTalep Uyarmalı Ulaştırma Araçlarının Aldığı Toplam Mesafe"
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:747
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:766
 msgid ""
 "Emergency Vehicle waiting time:\t\tTime spent waiting accumulated for "
 "emergency vehicles"
@@ -1084,33 +1065,37 @@ msgstr ""
 "Acil Durum Araçları Bekleme Süresi:\t\tAcil Durum Araçları İçin Birikmiş "
 "Bekleme Süresi"
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:999
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1041
 msgid "Open Simulation Configuration"
 msgstr "Simülasyon Yapılandırması Aç"
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1039
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1081
 msgid "Open Shapes"
 msgstr "Şekilleri Aç"
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1070
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1112
 msgid "Open EdgeData"
 msgstr "Kesim Verilerini Aç"
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1209
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1235
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:2040
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1178
+msgid "Save SUMO Configuration"
+msgstr "SUMO Yapılandırmasını Kaydet"
+
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1251
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1277
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:2082
 msgid "No simulation loaded!"
 msgstr "Herhangi Bir Simülasyon Yüklenmedi!"
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1251
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1293
 msgid "Save Simulation State"
 msgstr "Simülasyon Durumu Kaydet"
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1273
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1315
 msgid "Load Simulation State"
 msgstr "Simülasyon Durumu Yükle"
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1933
+#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1975
 msgid "Simulation ended"
 msgstr "Simülasyon Bitti"
 
@@ -1142,7 +1127,7 @@ msgstr "Onayla"
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:72
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:639
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:390
-#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:103
+#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:106
 msgid "&Cancel"
 msgstr "İptal Et"
 
@@ -1196,15 +1181,15 @@ msgstr ""
 "Geçersiz E2 Dedektörlerini Kaldır\t\tBağlantısız Şeritlerde Çok Şeritli E2 "
 "Dedektörlerini Kaldır"
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVehicleTypeDialog.cpp:444
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVehicleTypeDialog.cpp:445
 msgid "Edit parameters"
 msgstr "Parametreleri Düzenle"
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVehicleTypeDialog.cpp:658
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVehicleTypeDialog.cpp:659
 msgid "Open Image"
 msgstr "Görsel Aç"
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVehicleTypeDialog.cpp:685
+#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVehicleTypeDialog.cpp:686
 msgid "Open OSG File"
 msgstr "OSG Dosyası Aç"
 
@@ -1291,7 +1276,7 @@ msgstr "Temizle"
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:282
 #: /home/behr_mi/sumo/src/netedit/frames/GNEAttributesCreator.cpp:59
 #: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:73
-#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:699
+#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:743
 #: /home/behr_mi/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:318
 msgid "Help"
 msgstr "Yardım"
@@ -1412,20 +1397,20 @@ msgstr "Tamam\t\tİletişim Penceresini Kapat"
 #: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:70
 #: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:172
 #: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:178
-#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:224
-#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:498
+#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:225
+#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:539
 #: /home/behr_mi/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:234
-#: /home/behr_mi/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:348
+#: /home/behr_mi/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:353
 msgid "false"
 msgstr "Yanlış"
 
 #: /home/behr_mi/sumo/src/netedit/dialogs/GNECalibratorFlowDialog.cpp:371
 #: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:170
 #: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:176
-#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:221
-#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:495
+#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:222
+#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:536
 #: /home/behr_mi/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:231
-#: /home/behr_mi/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:345
+#: /home/behr_mi/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:350
 msgid "true"
 msgstr "Doğru"
 
@@ -1510,7 +1495,7 @@ msgid "Select conflicted crossing"
 msgstr "Çakışan Geçitleri Seç"
 
 #: /home/behr_mi/sumo/src/netedit/frames/GNEAttributesCreator.cpp:49
-#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:689
+#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:733
 msgid "Internal attributes"
 msgstr "Dahili Öznitelikler"
 
@@ -1571,9 +1556,8 @@ msgid "Walks"
 msgstr "Yürümeler"
 
 #: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:191
-#, fuzzy
 msgid "Rides"
-msgstr "Turlar"
+msgstr "Binişler"
 
 #: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:194
 msgid "Person stops"
@@ -1727,23 +1711,23 @@ msgid "- Center view: if is enabled, view will be center over created element."
 msgstr ""
 "- Merkez Görünüm: Eğer Aktifse, Görünüm Oluşturulmuş Elemanları Ortalayacak."
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:89
+#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:90
 msgid "attributeCheckButton"
 msgstr "Öznitelik Kontrol Butonu"
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:914
+#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:958
 msgid "Extended attributes"
 msgstr "Genişletilmiş Öznitelikler"
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:917
+#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:961
 msgid "Open attributes editor"
 msgstr "Öznitelik Düzenleyicisini Aç"
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:948
+#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:992
 msgid "Attributes"
 msgstr "Öznitelikler"
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:952
+#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:996
 msgid "Edit attributes"
 msgstr "Öznitelikleri Düzenle"
 
@@ -1828,7 +1812,8 @@ msgstr "Buton"
 msgid "Disabled"
 msgstr "Devre Dışı"
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEPathLegend.cpp:34
+#: /home/behr_mi/sumo/src/netedit/frames/GNEE2DetectorLegendModule.cpp:34
+#: /home/behr_mi/sumo/src/netedit/frames/GNEPathLegendModule.cpp:34
 msgid "Information"
 msgstr "Bilgi"
 
@@ -1848,36 +1833,36 @@ msgstr "Çizimi Durdur"
 msgid "Abort drawing"
 msgstr "Çizimi İptal Et"
 
-#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:88
+#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:89
 msgid "&Load\t\t"
 msgstr "Yükle\t\t"
 
-#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:90
+#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:91
 msgid "&Save\t\t"
 msgstr "Kaydet\t\t"
 
-#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:93
+#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:94
 msgid "Clea&r\t\t"
 msgstr "Temizle\t\t"
 
-#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:96
+#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:97
 msgid "&Close\t\t"
 msgstr "Kapat\t\t"
 
-#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:139
+#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:141
 msgid "Load Breakpoints"
 msgstr "Kesim Noktalarını Yükle"
 
-#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:160
+#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:162
 msgid "Save Breakpoints"
 msgstr "Kesim Noktalarını Kaydet"
 
-#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:170
+#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:172
 msgid "Storing failed!"
 msgstr "Kayıt Başarısız!"
 
-#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:239
-#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:242
+#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:241
+#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:244
 msgid "Time format error"
 msgstr "Zaman Formatı Hatası"
 
@@ -1906,13 +1891,35 @@ msgstr "Mesajlara Tıklandığında Elemanları Belirle"
 msgid "Breakpoint offset when clicking on time message"
 msgstr "Zaman Mesajına Tıklandığında Kesim Noktası Ötelemesi"
 
-#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:99
+#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:77
+msgid "Language (needs restart)"
+msgstr ""
+
+#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:102
 msgid "Allow Textures"
 msgstr "Dokulara İzin Ver"
 
-#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:102
+#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:105
 msgid "&OK"
 msgstr "Tamam"
+
+#~ msgid "Save additionals before recomputing with volatile options"
+#~ msgstr "Havai Seçeneklerle Yeniden Hesaplamadan Önce Ekleri Kaydet"
+
+#~ msgid "Saving additionals in temporary folder failed!"
+#~ msgstr "Eklerin Geçici Dosyaya Kaydı Başarısız!"
+
+#~ msgid "Save NETEDIT Configuration"
+#~ msgstr "Netedit Yapılandırmasını Kaydet"
+
+#~ msgid "Save Additionals file"
+#~ msgstr "Ekler Dosyası Kaydet"
+
+#~ msgid "Saving additionals failed!"
+#~ msgstr "Ekler Dosyasının Kaydı Başarısız!"
+
+#~ msgid "TraCI"
+#~ msgstr "TraCI (Trafik Kontrol Arayüzü)"
 
 #~ msgid "Save SUMOConfig"
 #~ msgstr "SUMOConfig Dosyası Kaydet"

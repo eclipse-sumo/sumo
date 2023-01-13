@@ -168,7 +168,7 @@ NBTrafficLightLogicCont::computeLogics(OptionsCont& oc) {
         for (NBTrafficLightDefinition* def : getDefinitions()) {
             NBLoadedSUMOTLDef* lDef = dynamic_cast<NBLoadedSUMOTLDef*>(def);
             if (lDef != nullptr) {
-                NBOwnTLDef* oDef = new NBOwnTLDef(def->getID(), def->getNodes(), def->getOffset(), def->getType()); 
+                NBOwnTLDef* oDef = new NBOwnTLDef(def->getID(), def->getNodes(), def->getOffset(), def->getType());
                 oDef->setProgramID(def->getProgramID());
                 oDef->setParticipantsInformation();
                 for (NBNode* node : oDef->getNodes()) {

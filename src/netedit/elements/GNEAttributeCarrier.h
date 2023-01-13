@@ -248,9 +248,6 @@ public:
     /// @brief check if lanes are consecutives
     static bool lanesConsecutives(const std::vector<GNELane*>& lanes);
 
-    /// @brief returns icon associated to the given vClass
-    static FXIcon* getVClassIcon(const SUMOVehicleClass vc);
-
     /// @name Certain attributes and ACs (for example, connections) can be either loaded or guessed. The following static variables are used to remark it.
     /// @{
     /// @brief feature is still unchanged after being loaded (implies approval)

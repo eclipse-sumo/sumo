@@ -60,15 +60,15 @@ class MSTransportable : public SUMOTrafficObject {
 public:
     /// @name inherited from SUMOTrafficObject
     /// @{
-    bool isPerson() const {
+    inline bool isPerson() const {
         return myAmPerson;
     }
 
-    bool isContainer() const {
+    inline bool isContainer() const {
         return !myAmPerson;
     }
 
-    std::string getObjectType() {
+    inline std::string getObjectType() {
         return myAmPerson ? "Person" : "Container";
     }
 
@@ -76,7 +76,7 @@ public:
         return myNumericalID;
     }
 
-    bool isStopped() const {
+    inline bool isStopped() const {
         return getCurrentStageType() == MSStageType::WAITING;
     }
 

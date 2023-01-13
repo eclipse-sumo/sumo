@@ -376,7 +376,7 @@ NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
             if (j == 0) {
                 markType = "solid";
             } else if (j > 0
-                    && (e->getPermissions(j - 1) & ~(SVC_PEDESTRIAN | SVC_BICYCLE)) == 0) {
+                       && (e->getPermissions(j - 1) & ~(SVC_PEDESTRIAN | SVC_BICYCLE)) == 0) {
                 // solid road mark to the left of sidewalk or bicycle lane
                 markType = "solid";
             } else if (e->getPermissions(j) == 0) {
@@ -537,7 +537,7 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
         device << "                            <predecessor id=\"" << fromIndex << "\"/>\n";
         device << "                            <successor id=\"" << toIndex << "\"/>\n";
         device << "                        </link>\n";
-        device << "                        <width sOffset=\"0\" a=\"" << inEdgeWidth << "\" b=\""<< bCoefficient << "\" c=\"" << cCoefficient << "\" d=\"" << dCoefficient << "\"/>\n";
+        device << "                        <width sOffset=\"0\" a=\"" << inEdgeWidth << "\" b=\"" << bCoefficient << "\" c=\"" << cCoefficient << "\" d=\"" << dCoefficient << "\"/>\n";
         std::string markType = "broken";
         if (inEdge->isTurningDirectionAt(outEdge)) {
             markType = "none";
@@ -984,8 +984,7 @@ NWWriter_OpenDrive::writeRoadObjects(OutputDevice& device, const NBEdge* e, cons
     if (crossings.size() > 0) {
         device.setPrecision(8); // geometry hdg requires higher precision
         PositionVector road = getInnerLaneBorder(e);
-        for (size_t ic = 0; ic < crossings.size(); ic++)
-        {
+        for (size_t ic = 0; ic < crossings.size(); ic++) {
             SUMOPolygon* p = shc.getPolygons().get(crossings[ic]);
             if (p != 0) {
                 writeRoadObjectPoly(device, e, road, p);
@@ -1058,13 +1057,11 @@ NWWriter_OpenDrive::parseTrafficSignId(const std::string& trafficSign) {
         std::string value;
         if (match[3].matched) {
             value = match[3].str();
-        }
-        else if (match[4].matched) {
+        } else if (match[4].matched) {
             value = match[4].str();
         }
         return TrafficSign{ match[1], match[2], "", value};
-    }
-    else {
+    } else {
         return TrafficSign{ "OpenDrive", trafficSign, "", ""};
     }
 }
@@ -1143,7 +1140,7 @@ NWWriter_OpenDrive::writeSignals(OutputDevice& device, const NBEdge* e, double l
             }
             device.closeTag();
         }
-    } else if(e->knowsParameter(ROAD_OBJECTS)) {
+    } else if (e->knowsParameter(ROAD_OBJECTS)) {
         PositionVector roadShape = getInnerLaneBorder(e);
         for (std::string id : StringTokenizer(e->getParameter(ROAD_OBJECTS, "")).getVector()) {
             PointOfInterest* poi = shc.getPOIs().get(id);
@@ -1203,8 +1200,8 @@ NWWriter_OpenDrive::s2x(int sumoIndex, int numLanes) {
     // lefthand (old):-1,-2,-3
     return (lefthand
             ? (LHLL
-                ? numLanes - sumoIndex
-                : - sumoIndex - 1)
+               ? numLanes - sumoIndex
+               : - sumoIndex - 1)
             : sumoIndex - numLanes);
 }
 

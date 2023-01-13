@@ -45,7 +45,6 @@ public:
         ACCEPT,     // load elements
         CANCEL,     // cancel load
         OVERWRITE   // load elements, overwritting elements with the same ID
-
     };
 
     /// @brief Constructor

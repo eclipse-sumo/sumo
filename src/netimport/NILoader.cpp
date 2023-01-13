@@ -167,7 +167,7 @@ NILoader::loadXML(OptionsCont& oc) {
     // load the connections
     if (ok) {
         NIXMLConnectionsHandler connectionsHandler(myNetBuilder.getEdgeCont(),
-                                                   myNetBuilder.getNodeCont(), myNetBuilder.getTLLogicCont());
+                myNetBuilder.getNodeCont(), myNetBuilder.getTLLogicCont());
         ok = NITypeLoader::load(connectionsHandler, oc.getStringVector("connection-files"), "connections");
     }
     // load traffic lights (needs to come last, references loaded edges and connections)

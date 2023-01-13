@@ -11,11 +11,11 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEPathLegend.h
+/// @file    GNEE2DetectorLegendModule.h
 /// @author  Pablo Alvarez Lopez
-/// @date    Mar 2022
+/// @date    Jan 2023
 ///
-// Frame for path legends
+// Frame for E2 detector legend
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -32,18 +32,18 @@ class GNEFrame;
 // class definitions
 // ===========================================================================
 
-class GNEM_PathLegend : public MFXGroupBoxModule {
+class GNEE2DetectorLegendModule : public MFXGroupBoxModule {
 
 public:
     /// @brief constructor
-    GNEM_PathLegend(GNEFrame* frameParent);
+    GNEE2DetectorLegendModule(GNEFrame* frameParent);
 
     /// @brief destructor
-    ~GNEM_PathLegend();
+    ~GNEE2DetectorLegendModule();
 
     /// @brief show Legend modul
-    void showPathLegendModule();
+    void showE2DetectorLegend();
 
     /// @brief hide Legend modul
-    void hidePathLegendModule();
+    void hideE2DetectorLegend();
 };

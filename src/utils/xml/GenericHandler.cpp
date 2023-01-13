@@ -35,9 +35,9 @@
 // class definitions
 // ===========================================================================
 
-GenericHandler::GenericHandler(const std::string& file, const std::string& expectedRoot) : 
-    myParentHandler(nullptr), 
-    myParentIndicator(SUMO_TAG_NOTHING), 
+GenericHandler::GenericHandler(const std::string& file, const std::string& expectedRoot) :
+    myParentHandler(nullptr),
+    myParentIndicator(SUMO_TAG_NOTHING),
     myFileName(file),
     myExpectedRoot(expectedRoot), myNextSectionStart(-1, nullptr) {
 }
@@ -75,9 +75,9 @@ GenericHandler::convert(const std::string& name) const {
 
 void
 GenericHandler::startElement(const XMLCh* const /*uri*/,
-                                const XMLCh* const /*localname*/,
-                                const XMLCh* const qname,
-                                const XERCES_CPP_NAMESPACE::Attributes& attrs) {
+                             const XMLCh* const /*localname*/,
+                             const XMLCh* const qname,
+                             const XERCES_CPP_NAMESPACE::Attributes& attrs) {
     std::string name = StringUtils::transcode(qname);
     if (!myRootSeen && myExpectedRoot != "" && name != myExpectedRoot) {
         WRITE_WARNING("Found root element '" + name + "' in file '" + getFileName() + "' (expected '" + myExpectedRoot + "').");
@@ -110,8 +110,8 @@ GenericHandler::startElement(const XMLCh* const /*uri*/,
 
 void
 GenericHandler::endElement(const XMLCh* const /*uri*/,
-                              const XMLCh* const /*localname*/,
-                              const XMLCh* const qname) {
+                           const XMLCh* const /*localname*/,
+                           const XMLCh* const qname) {
     std::string name = StringUtils::transcode(qname);
     int element = convertTag(name);
     // collect characters
