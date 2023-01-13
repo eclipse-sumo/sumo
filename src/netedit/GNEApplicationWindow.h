@@ -552,12 +552,6 @@ public:
     /// @brief load mean data elements
     void loadMeanDataElements();
 
-    /// @brief check if SUMO config must be saved
-    void requireSaveSUMOConfig();
-
-    /// @brief check if NETEDIT config must be saved
-    void requireSaveNETEDITConfig();
-
 protected:
     /// @brief FOX needs this for static members
     GNEApplicationWindow();
@@ -676,12 +670,6 @@ private:
 
     /// @brief The menu used for the MDI-windows
     FXMDIMenu* myMDIMenu = nullptr;
-
-    /// @brief flag for check if sumo config is saved
-    bool mySumoConfigSaved = false;
-
-    /// @brief flag for check if netedit config is saved
-    bool myNeteditConfigSaved = false;
 
     /// @brief Builds the menu bar
     void fillMenuBar();

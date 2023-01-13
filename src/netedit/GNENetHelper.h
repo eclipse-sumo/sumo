@@ -761,6 +761,34 @@ struct GNENetHelper {
         /// @brief constructor
         SavingStatus();
 
+        /// @name SUMOConfig
+        /// @{
+
+        /// @brief inform that SUMOConfig has to be saved
+        void requireSaveSUMOConfig();
+
+        /// @brief mark SUMOConfig as saved
+        void SUMOConfigSaved();
+
+        /// @brief check if SUMOConfig is saved
+        bool isSUMOConfigSaved() const;
+
+        /// @}
+
+        /// @name NETEDITConfig
+        /// @{
+
+        /// @brief inform that NETEDITConfig has to be saved
+        void requireSaveNETEDITConfig();
+
+        /// @brief mark NETEDITConfig as saved
+        void NETEDITConfigSaved();
+
+        /// @brief check if NETEDITConfig is saved
+        bool isNETEDITConfigSaved() const;
+
+        /// @}
+
         /// @name network
         /// @{
 
@@ -770,7 +798,7 @@ struct GNENetHelper {
         /// @brief mark network as saved
         void networkSaved();
 
-        /// @brief check if network are saved
+        /// @brief check if network is saved
         bool isNetworkSaved() const;
 
         /// @}
@@ -860,7 +888,13 @@ struct GNENetHelper {
         /// @}
 
     private:
-        /// @brief flag for network elements saved
+        /// @brief flag for SUMOConfigSUMOConfig saved
+        bool mySUMOConfigSaved = true;
+
+        /// @brief flag for network saved
+        bool myNETEDITConfigSaved = true;
+
+        /// @brief flag for network  saved
         bool myNetworkSaved = true;
 
         /// @brief flag for TLS saved

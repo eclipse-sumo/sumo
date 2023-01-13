@@ -3301,7 +3301,7 @@ GNEApplicationWindow::onCmdSaveNETEDITConfig(FXObject*, FXSelector, void*) {
             neteditOptions.writeConfiguration(out, true, false, false, neteditConfigFile, true);
             setStatusBarText("netedit configuration saved to " + neteditConfigFile);
             // config saved
-            myNeteditConfigSaved = true;
+            myNet->getSavingStatus()->NETEDITConfigSaved();
             // After saving a config successfully, add it into recent configs
             myMenuBarFile.myRecentConfigs.appendFile(neteditOptions.getString("configuration-file").c_str());
         } else {
@@ -3346,7 +3346,7 @@ GNEApplicationWindow::onUpdSaveNETEDITConfig(FXObject* sender, FXSelector, void*
         sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (OptionsCont::getOptions().getString("configuration-file").empty()) {
         sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
-    } else if (myNeteditConfigSaved == false) {
+    } else if (!myNet->getSavingStatus()->isNETEDITConfigSaved()) {
         sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else if (myNet->getSavingStatus()->isNetworkSaved() && myNet->getSavingStatus()->isAdditionalsSaved() && myNet->getSavingStatus()->isDemandElementsSaved() && 
                myNet->getSavingStatus()->isDataElementsSaved() && myNet->getSavingStatus()->isMeanDatasSaved()) {
@@ -3424,7 +3424,7 @@ GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject* obj, FXSelector sel, void* p
             mySUMOOptions.writeConfiguration(out, true, false, false, sumoConfigFile, true);
             setStatusBarText("SUMO configuration saved to " + sumoConfigFile);
             // config saved
-            mySumoConfigSaved = true;
+            myNet->getSavingStatus()->SUMOConfigSaved();
             // After saving a config successfully, add it into recent configs
             myMenuBarFile.myRecentConfigs.appendFile(neteditOptions.getString("sumocfg-file").c_str());
         } else {
@@ -3468,7 +3468,7 @@ GNEApplicationWindow::onUpdSaveSUMOConfig(FXObject* sender, FXSelector, void*) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (OptionsCont::getOptions().getString("sumocfg-file").empty()) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
-    } else if (myNeteditConfigSaved == false) {
+    } else if (!myNet->getSavingStatus()->isSUMOConfigSaved()) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else if (myNet->getSavingStatus()->isNetworkSaved() && myNet->getSavingStatus()->isAdditionalsSaved() && myNet->getSavingStatus()->isDemandElementsSaved() && 
                myNet->getSavingStatus()->isDataElementsSaved() && myNet->getSavingStatus()->isMeanDatasSaved()){
@@ -4824,18 +4824,6 @@ GNEApplicationWindow::loadMeanDataElements() {
         // end undolist
         myUndoList->end();
     }
-}
-
-
-void
-GNEApplicationWindow::requireSaveSUMOConfig() {
-    mySumoConfigSaved = false;
-}
-
-
-void
-GNEApplicationWindow::requireSaveNETEDITConfig() {
-    myNeteditConfigSaved = false;
 }
 
 // ---------------------------------------------------------------------------

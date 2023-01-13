@@ -2497,8 +2497,48 @@ GNENetHelper::SavingStatus::SavingStatus() {
 
 
 void
+GNENetHelper::SavingStatus::requireSaveSUMOConfig() {
+    mySUMOConfigSaved = false;
+}
+
+
+void
+GNENetHelper::SavingStatus::SUMOConfigSaved() {
+    mySUMOConfigSaved = true;
+}
+
+
+bool
+GNENetHelper::SavingStatus::isSUMOConfigSaved() const {
+    return mySUMOConfigSaved;
+}
+
+
+
+void
+GNENetHelper::SavingStatus::requireSaveNETEDITConfig() {
+    myNETEDITConfigSaved = false;
+}
+
+
+void
+GNENetHelper::SavingStatus::NETEDITConfigSaved() {
+    myNETEDITConfigSaved = true;
+}
+
+
+bool
+GNENetHelper::SavingStatus::isNETEDITConfigSaved() const {
+    return myNETEDITConfigSaved;
+}
+
+
+void
 GNENetHelper::SavingStatus::requireSaveNetwork() {
     myNetworkSaved = false;
+    // implies requiere save NETEDITConfig and SUMOConfig
+    myNETEDITConfigSaved = false;
+    mySUMOConfigSaved = false;
 }
 
 
@@ -2553,6 +2593,9 @@ GNENetHelper::SavingStatus::isEdgeTypeSaved() const {
 void
 GNENetHelper::SavingStatus::requireSaveAdditionals() {
     myAdditionalSaved = false;
+    // implies requiere save NETEDITConfig and SUMOConfig
+    myNETEDITConfigSaved = false;
+    mySUMOConfigSaved = false;
 }
 
 
@@ -2571,6 +2614,9 @@ GNENetHelper::SavingStatus::isAdditionalsSaved() const {
 void
 GNENetHelper::SavingStatus::requireSaveDemandElements() {
     myDemandElementSaved = false;
+    // implies requiere save NETEDITConfig and SUMOConfig
+    myNETEDITConfigSaved = false;
+    mySUMOConfigSaved = false;
 }
 
 
@@ -2589,6 +2635,9 @@ GNENetHelper::SavingStatus::isDemandElementsSaved() const {
 void
 GNENetHelper::SavingStatus::requireSaveDataElements() {
     myDataElementSaved = false;
+    // implies requiere save NETEDITConfig and SUMOConfig
+    myNETEDITConfigSaved = false;
+    mySUMOConfigSaved = false;
 }
 
 
@@ -2607,6 +2656,9 @@ GNENetHelper::SavingStatus::isDataElementsSaved() const {
 void
 GNENetHelper::SavingStatus::requireSaveMeanDatas() {
     myMeanDataElementSaved = false;
+    // implies requiere save NETEDITConfig and SUMOConfig
+    myNETEDITConfigSaved = false;
+    mySUMOConfigSaved = false;
 }
 
 
