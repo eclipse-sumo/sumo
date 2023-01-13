@@ -1318,7 +1318,7 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     // load datas if was recomputed with volatile options
     if (volatileOptions && OptionsCont::getOptions().getString("data-files").size() > 0) {
         // Create data handler
-        GNEDataHandler dataHandler(this, OptionsCont::getOptions().getString("data-files"), true);
+        GNEDataHandler dataHandler(this, OptionsCont::getOptions().getString("data-files"), false, true);
         // Run parser
         if (!dataHandler.parse()) {
             WRITE_ERROR("Loading of '" + OptionsCont::getOptions().getString("data-files") + "' failed.");
