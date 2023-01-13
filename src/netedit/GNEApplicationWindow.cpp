@@ -938,23 +938,23 @@ GNEApplicationWindow::onCmdReloadSUMOConfig(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onUpdReloadNETEDITConfig(FXObject* obj, FXSelector, void*) {
+GNEApplicationWindow::onUpdReloadNETEDITConfig(FXObject* sender, FXSelector, void*) {
     // check if file exist
     if (myViewNet && !OptionsCont::getOptions().getString("configuration-file").empty()) {
-        return obj->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else {
-        return obj->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     }
 }
 
 
 long
-GNEApplicationWindow::onUpdReloadSUMOConfig(FXObject* obj, FXSelector, void*) {
+GNEApplicationWindow::onUpdReloadSUMOConfig(FXObject* sender, FXSelector, void*) {
     // check if file exist
     if (myViewNet && !OptionsCont::getOptions().getString("sumocfg-file").empty()) {
-        return obj->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else {
-        return obj->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     }
 }
 
@@ -1013,12 +1013,12 @@ GNEApplicationWindow::onCmdReloadTLSPrograms(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onUpdReloadTLSPrograms(FXObject* obj, FXSelector, void*) {
+GNEApplicationWindow::onUpdReloadTLSPrograms(FXObject* sender, FXSelector, void*) {
     // check if file exist
     if (myViewNet && OptionsCont::getOptions().getString("TLSPrograms-output").empty()) {
-        return obj->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
-        return obj->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     }
 }
 
@@ -1098,12 +1098,12 @@ GNEApplicationWindow::onCmdReloadEdgeTypes(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onUpdReloadEdgeTypes(FXObject* obj, FXSelector, void*) {
+GNEApplicationWindow::onUpdReloadEdgeTypes(FXObject* sender, FXSelector, void*) {
     // check if file exist
     if (myViewNet && OptionsCont::getOptions().getString("edgeTypes-output").empty()) {
-        return obj->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
-        return obj->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     }
 }
 
@@ -2231,7 +2231,7 @@ GNEApplicationWindow::onCmdEditViewScheme(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdToggleGrid(FXObject* obj, FXSelector sel, void* ptr) {
+GNEApplicationWindow::onCmdToggleGrid(FXObject* sender, FXSelector sel, void* ptr) {
     // check that view exists
     if (myViewNet) {
         // show debug info
@@ -2243,14 +2243,14 @@ GNEApplicationWindow::onCmdToggleGrid(FXObject* obj, FXSelector sel, void* ptr) 
             WRITE_DEBUG("Enabled grid through Ctrl+g hotkey");
         }
         // Call manually toggle grid function
-        myViewNet->onCmdToggleShowGrid(obj, sel, ptr);
+        myViewNet->onCmdToggleShowGrid(sender, sel, ptr);
     }
     return 1;
 }
 
 
 long
-GNEApplicationWindow::onCmdToggleDrawJunctionShape(FXObject* obj, FXSelector sel, void* ptr) {
+GNEApplicationWindow::onCmdToggleDrawJunctionShape(FXObject* sender, FXSelector sel, void* ptr) {
     // check that view exists
     if (myViewNet) {
         // show debug info
@@ -2262,7 +2262,7 @@ GNEApplicationWindow::onCmdToggleDrawJunctionShape(FXObject* obj, FXSelector sel
             WRITE_DEBUG("Enabled draw junction shape through Ctrl+j hotkey");
         }
         // Call manually toggle junction shape function
-        myViewNet->onCmdToggleDrawJunctionShape(obj, sel, ptr);
+        myViewNet->onCmdToggleDrawJunctionShape(sender, sel, ptr);
     }
     return 1;
 }
@@ -2290,7 +2290,7 @@ GNEApplicationWindow::onCmdSetFrontElement(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdToggleEditOptions(FXObject* obj, FXSelector sel, void* /* ptr */) {
+GNEApplicationWindow::onCmdToggleEditOptions(FXObject* sender, FXSelector sel, void* /* ptr */) {
     // first check that we have a ViewNet
     if (myViewNet) {
         // first check what selector was called
@@ -2311,13 +2311,13 @@ GNEApplicationWindow::onCmdToggleEditOptions(FXObject* obj, FXSelector sel, void
         }
         // toggle edit options
         if (GNEApplicationWindowHelper::toggleEditOptionsNetwork(myViewNet,
-                visibleMenuCommands.at(numericalKeyPressed), numericalKeyPressed, obj, sel)) {
+                visibleMenuCommands.at(numericalKeyPressed), numericalKeyPressed, sender, sel)) {
             return 1;
         } else if (GNEApplicationWindowHelper::toggleEditOptionsDemand(myViewNet,
-                   visibleMenuCommands.at(numericalKeyPressed), numericalKeyPressed, obj, sel)) {
+                   visibleMenuCommands.at(numericalKeyPressed), numericalKeyPressed, sender, sel)) {
             return 1;
         } else if (GNEApplicationWindowHelper::toggleEditOptionsData(myViewNet,
-                   visibleMenuCommands.at(numericalKeyPressed), numericalKeyPressed, obj, sel)) {
+                   visibleMenuCommands.at(numericalKeyPressed), numericalKeyPressed, sender, sel)) {
             return 1;
         }
     }
@@ -2657,14 +2657,14 @@ GNEApplicationWindow::onUpdSaveMeanDatasAs(FXObject* sender, FXSelector, void*) 
 
 
 long
-GNEApplicationWindow::onUpdUndo(FXObject* obj, FXSelector sel, void* ptr) {
-    return myUndoList->onUpdUndo(obj, sel, ptr);
+GNEApplicationWindow::onUpdUndo(FXObject* sender, FXSelector sel, void* ptr) {
+    return myUndoList->onUpdUndo(sender, sel, ptr);
 }
 
 
 long
-GNEApplicationWindow::onUpdRedo(FXObject* obj, FXSelector sel, void* ptr) {
-    return myUndoList->onUpdRedo(obj, sel, ptr);
+GNEApplicationWindow::onUpdRedo(FXObject* sender, FXSelector sel, void* ptr) {
+    return myUndoList->onUpdRedo(sender, sel, ptr);
 }
 
 
@@ -2691,84 +2691,84 @@ GNEApplicationWindow::onUpdComputePathManager(FXObject* sender, FXSelector /*sel
 
 
 long
-GNEApplicationWindow::onCmdToggleViewOption(FXObject* obj, FXSelector sel, void* ptr) {
+GNEApplicationWindow::onCmdToggleViewOption(FXObject* sender, FXSelector sel, void* ptr) {
     // check viewNet
     if (myViewNet) {
         // continue depending of selector
         switch (FXSELID(sel)) {
             // Network
             case MID_GNE_NETWORKVIEWOPTIONS_TOGGLEGRID:
-                return myViewNet->onCmdToggleShowGrid(obj, sel, ptr);
+                return myViewNet->onCmdToggleShowGrid(sender, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE:
-                return myViewNet->onCmdToggleDrawJunctionShape(obj, sel, ptr);
+                return myViewNet->onCmdToggleDrawJunctionShape(sender, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_DRAWSPREADVEHICLES:
-                return myViewNet->onCmdToggleDrawSpreadVehicles(obj, sel, ptr);
+                return myViewNet->onCmdToggleDrawSpreadVehicles(sender, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_SHOWDEMANDELEMENTS:
-                return myViewNet->onCmdToggleShowDemandElementsNetwork(obj, sel, ptr);
+                return myViewNet->onCmdToggleShowDemandElementsNetwork(sender, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_SELECTEDGES:
-                return myViewNet->onCmdToggleSelectEdges(obj, sel, ptr);
+                return myViewNet->onCmdToggleSelectEdges(sender, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_SHOWCONNECTIONS:
-                return myViewNet->onCmdToggleShowConnections(obj, sel, ptr);
+                return myViewNet->onCmdToggleShowConnections(sender, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_HIDECONNECTIONS:
-                return myViewNet->onCmdToggleHideConnections(obj, sel, ptr);
+                return myViewNet->onCmdToggleHideConnections(sender, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_SHOWSUBADDITIONALS:
-                return myViewNet->onCmdToggleShowAdditionalSubElements(obj, sel, ptr);
+                return myViewNet->onCmdToggleShowAdditionalSubElements(sender, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_SHOWTAZELEMENTS:
-                return myViewNet->onCmdToggleShowTAZElements(obj, sel, ptr);
+                return myViewNet->onCmdToggleShowTAZElements(sender, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_EXTENDSELECTION:
-                return myViewNet->onCmdToggleExtendSelection(obj, sel, ptr);
+                return myViewNet->onCmdToggleExtendSelection(sender, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_CHANGEALLPHASES:
-                return myViewNet->onCmdToggleChangeAllPhases(obj, sel, ptr);
+                return myViewNet->onCmdToggleChangeAllPhases(sender, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_ASKFORMERGE:
-                return myViewNet->onCmdToggleWarnAboutMerge(obj, sel, ptr);
+                return myViewNet->onCmdToggleWarnAboutMerge(sender, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_SHOWBUBBLES:
-                return myViewNet->onCmdToggleShowJunctionBubbles(obj, sel, ptr);
+                return myViewNet->onCmdToggleShowJunctionBubbles(sender, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_MOVEELEVATION:
-                return myViewNet->onCmdToggleMoveElevation(obj, sel, ptr);
+                return myViewNet->onCmdToggleMoveElevation(sender, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_CHAINEDGES:
-                return myViewNet->onCmdToggleChainEdges(obj, sel, ptr);
+                return myViewNet->onCmdToggleChainEdges(sender, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_AUTOOPPOSITEEDGES:
-                return myViewNet->onCmdToggleAutoOppositeEdge(obj, sel, ptr);
+                return myViewNet->onCmdToggleAutoOppositeEdge(sender, sel, ptr);
             // Demand
             case MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID:
-                return myViewNet->onCmdToggleShowGrid(obj, sel, ptr);
+                return myViewNet->onCmdToggleShowGrid(sender, sel, ptr);
             case MID_GNE_DEMANDVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE:
-                return myViewNet->onCmdToggleDrawJunctionShape(obj, sel, ptr);
+                return myViewNet->onCmdToggleDrawJunctionShape(sender, sel, ptr);
             case MID_GNE_DEMANDVIEWOPTIONS_DRAWSPREADVEHICLES:
-                return myViewNet->onCmdToggleDrawSpreadVehicles(obj, sel, ptr);
+                return myViewNet->onCmdToggleDrawSpreadVehicles(sender, sel, ptr);
             case MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED:
-                return myViewNet->onCmdToggleHideNonInspecteDemandElements(obj, sel, ptr);
+                return myViewNet->onCmdToggleHideNonInspecteDemandElements(sender, sel, ptr);
             case MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES:
-                return myViewNet->onCmdToggleHideShapes(obj, sel, ptr);
+                return myViewNet->onCmdToggleHideShapes(sender, sel, ptr);
             case MID_GNE_DEMANDVIEWOPTIONS_SHOWTRIPS:
-                return myViewNet->onCmdToggleShowTrips(obj, sel, ptr);
+                return myViewNet->onCmdToggleShowTrips(sender, sel, ptr);
             case MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS:
-                return myViewNet->onCmdToggleShowAllPersonPlans(obj, sel, ptr);
+                return myViewNet->onCmdToggleShowAllPersonPlans(sender, sel, ptr);
             case MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON:
-                return myViewNet->onCmdToggleLockPerson(obj, sel, ptr);
+                return myViewNet->onCmdToggleLockPerson(sender, sel, ptr);
             case MID_GNE_DEMANDVIEWOPTIONS_SHOWALLCONTAINERPLANS:
-                return myViewNet->onCmdToggleShowAllContainerPlans(obj, sel, ptr);
+                return myViewNet->onCmdToggleShowAllContainerPlans(sender, sel, ptr);
             case MID_GNE_DEMANDVIEWOPTIONS_LOCKCONTAINER:
-                return myViewNet->onCmdToggleLockContainer(obj, sel, ptr);
+                return myViewNet->onCmdToggleLockContainer(sender, sel, ptr);
             case MID_GNE_DEMANDVIEWOPTIONS_SHOWOVERLAPPEDROUTES:
-                return myViewNet->onCmdToggleShowOverlappedRoutes(obj, sel, ptr);
+                return myViewNet->onCmdToggleShowOverlappedRoutes(sender, sel, ptr);
             // Data
             case MID_GNE_DATAVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE:
-                return myViewNet->onCmdToggleDrawJunctionShape(obj, sel, ptr);
+                return myViewNet->onCmdToggleDrawJunctionShape(sender, sel, ptr);
             case MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS:
-                return myViewNet->onCmdToggleShowAdditionals(obj, sel, ptr);
+                return myViewNet->onCmdToggleShowAdditionals(sender, sel, ptr);
             case MID_GNE_DATAVIEWOPTIONS_SHOWSHAPES:
-                return myViewNet->onCmdToggleShowShapes(obj, sel, ptr);
+                return myViewNet->onCmdToggleShowShapes(sender, sel, ptr);
             case MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS:
-                return myViewNet->onCmdToggleShowDemandElementsData(obj, sel, ptr);
+                return myViewNet->onCmdToggleShowDemandElementsData(sender, sel, ptr);
             case MID_GNE_DATAVIEWOPTIONS_TAZRELDRAWING:
-                return myViewNet->onCmdToggleTAZRelDrawing(obj, sel, ptr);
+                return myViewNet->onCmdToggleTAZRelDrawing(sender, sel, ptr);
             case MID_GNE_DATAVIEWOPTIONS_TAZDRAWFILL:
-                return myViewNet->onCmdToggleTAZRelDrawing(obj, sel, ptr);
+                return myViewNet->onCmdToggleTAZRelDrawing(sender, sel, ptr);
             case MID_GNE_DATAVIEWOPTIONS_TAZRELONLYFROM:
-                return myViewNet->onCmdToggleTAZRelOnlyFrom(obj, sel, ptr);
+                return myViewNet->onCmdToggleTAZRelOnlyFrom(sender, sel, ptr);
             case MID_GNE_DATAVIEWOPTIONS_TAZRELONLYTO:
-                return myViewNet->onCmdToggleTAZRelOnlyTo(obj, sel, ptr);
+                return myViewNet->onCmdToggleTAZRelOnlyTo(sender, sel, ptr);
             default:
                 return 0;
         }
@@ -2779,9 +2779,9 @@ GNEApplicationWindow::onCmdToggleViewOption(FXObject* obj, FXSelector sel, void*
 
 
 long
-GNEApplicationWindow::onUpdToggleViewOption(FXObject* obj, FXSelector sel, void* /*ptr*/) {
+GNEApplicationWindow::onUpdToggleViewOption(FXObject* sender, FXSelector sel, void* /*ptr*/) {
     // get menuCheck
-    MFXMenuCheckIcon* menuCheck = dynamic_cast<MFXMenuCheckIcon*>(obj);
+    MFXMenuCheckIcon* menuCheck = dynamic_cast<MFXMenuCheckIcon*>(sender);
     // check viewNet
     if (myViewNet && menuCheck) {
         // continue depending of selector
@@ -3056,11 +3056,11 @@ GNEApplicationWindow::onUpdToggleViewOption(FXObject* obj, FXSelector sel, void*
 
 
 long
-GNEApplicationWindow::onCmdSaveNetwork(FXObject* obj, FXSelector sel, void* ptr) {
+GNEApplicationWindow::onCmdSaveNetwork(FXObject* sender, FXSelector sel, void* ptr) {
     auto& neteditOptions = OptionsCont::getOptions();
     // function onCmdSaveNetworkAs must be executed if this is the first save
     if (neteditOptions.getString("net-file").empty()) {
-        return onCmdSaveNetworkAs(obj, sel, ptr);
+        return onCmdSaveNetworkAs(sender, sel, ptr);
     } else {
         // se net file in SUMO options
         mySUMOOptions.resetWritable();
@@ -3314,7 +3314,7 @@ GNEApplicationWindow::onCmdSaveNETEDITConfig(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdSaveNETEDITConfigAs(FXObject* obj, FXSelector sel, void* ptr) {
+GNEApplicationWindow::onCmdSaveNETEDITConfigAs(FXObject* sender, FXSelector sel, void* ptr) {
     // obtain NETEDIT option container
     OptionsCont& neteditOptions = OptionsCont::getOptions();
     // get the new file name
@@ -3334,7 +3334,7 @@ GNEApplicationWindow::onCmdSaveNETEDITConfigAs(FXObject* obj, FXSelector sel, vo
         neteditOptions.resetWritable();
         neteditOptions.set("configuration-file", file);
         // continue saving netedit config
-        return onCmdSaveNETEDITConfig(obj, sel, ptr);
+        return onCmdSaveNETEDITConfig(sender, sel, ptr);
     }
 }
 
@@ -3365,7 +3365,7 @@ GNEApplicationWindow::onUpdSaveNETEDITConfig(FXObject* sender, FXSelector, void*
 
 
 long
-GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject* obj, FXSelector sel, void* ptr) {
+GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject* sender, FXSelector sel, void* ptr) {
     // obtain NETEDIT option container
     auto& neteditOptions = OptionsCont::getOptions();
     // reset containers
@@ -3373,7 +3373,7 @@ GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject* obj, FXSelector sel, void* p
     mySUMOOptions.resetWritable();
     // Check if configuration file was already set at start of netedit or with a previous save
     if (neteditOptions.getString("sumocfg-file").empty()) {
-        return onCmdSaveSUMOConfigAs(obj, sel, ptr);
+        return onCmdSaveSUMOConfigAs(sender, sel, ptr);
     } else {
         const auto sumoConfigFile = neteditOptions.getString("sumocfg-file");
         // get config file without extension
@@ -3434,7 +3434,7 @@ GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject* obj, FXSelector sel, void* p
 
 
 long
-GNEApplicationWindow::onCmdSaveSUMOConfigAs(FXObject* obj, FXSelector sel, void* ptr) {
+GNEApplicationWindow::onCmdSaveSUMOConfigAs(FXObject* sender, FXSelector sel, void* ptr) {
     // obtain NETEDIT option container
     OptionsCont& neteditOptions = OptionsCont::getOptions();
     // get the new file name
@@ -3454,7 +3454,7 @@ GNEApplicationWindow::onCmdSaveSUMOConfigAs(FXObject* obj, FXSelector sel, void*
         neteditOptions.resetWritable();
         neteditOptions.set("sumocfg-file", file);
         // continue saving SUMO Config
-        return onCmdSaveSUMOConfig(obj, sel, ptr);
+        return onCmdSaveSUMOConfig(sender, sel, ptr);
     }
 }
 
@@ -3773,18 +3773,18 @@ GNEApplicationWindow::onCmdReloadAdditionals(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onUpdReloadAdditionals(FXObject* obj, FXSelector, void*) {
+GNEApplicationWindow::onUpdReloadAdditionals(FXObject* sender, FXSelector, void*) {
     // check if file exist
     if (myViewNet && OptionsCont::getOptions().getString("additional-files").empty()) {
-        return obj->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
-        return obj->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     }
 }
 
 
 long
-GNEApplicationWindow::onCmdSaveAdditionals(FXObject* obj, FXSelector sel, void* ptr) {
+GNEApplicationWindow::onCmdSaveAdditionals(FXObject* sender, FXSelector sel, void* ptr) {
     // obtain option container
     auto& neteditOptions = OptionsCont::getOptions();
     // check saving conditions
@@ -3793,7 +3793,7 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject* obj, FXSelector sel, void* 
         return 1;
     } else if (neteditOptions.getString("additional-files").empty()) {
         // choose file to save
-        return onCmdSaveAdditionalsAs(obj, sel, ptr);
+        return onCmdSaveAdditionalsAs(sender, sel, ptr);
     } else {
         // Start saving additionals
         getApp()->beginWaitCursor();
@@ -3930,18 +3930,18 @@ GNEApplicationWindow::onCmdReloadDemandElements(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onUpdReloadDemandElements(FXObject* obj, FXSelector, void*) {
+GNEApplicationWindow::onUpdReloadDemandElements(FXObject* sender, FXSelector, void*) {
     // check if file exist
     if (myViewNet && OptionsCont::getOptions().getString("route-files").empty()) {
-        return obj->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
-        return obj->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     }
 }
 
 
 long
-GNEApplicationWindow::onCmdSaveDemandElements(FXObject* obj, FXSelector sel, void* ptr) {
+GNEApplicationWindow::onCmdSaveDemandElements(FXObject* sender, FXSelector sel, void* ptr) {
     // obtain option container
     auto& neteditOptions = OptionsCont::getOptions();
     // check if requiere save demand elements
@@ -3949,7 +3949,7 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject* obj, FXSelector sel, voi
         // nothing to save
         return 1;
     } else if (neteditOptions.getString("route-files").empty()) {
-        return onCmdSaveDemandElementsAs(obj, sel, ptr);
+        return onCmdSaveDemandElementsAs(sender, sel, ptr);
     } else {
         // Start saving demand elements
         getApp()->beginWaitCursor();
@@ -3969,7 +3969,7 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject* obj, FXSelector sel, voi
 
 
 long
-GNEApplicationWindow::onCmdSaveDemandElementsAs(FXObject* obj, FXSelector sel, void* ptr) {
+GNEApplicationWindow::onCmdSaveDemandElementsAs(FXObject* sender, FXSelector sel, void* ptr) {
     // obtain option container
     const auto& neteditOptions = OptionsCont::getOptions();
     // declare current folder
@@ -3996,7 +3996,7 @@ GNEApplicationWindow::onCmdSaveDemandElementsAs(FXObject* obj, FXSelector sel, v
         // requiere save demand elements
         myNet->getSavingStatus()->requireSaveDemandElements();
         // save demand elements
-        return onCmdSaveDemandElements(obj, sel, ptr);
+        return onCmdSaveDemandElements(sender, sel, ptr);
     } else {
         return 1;
     }
@@ -4096,18 +4096,18 @@ GNEApplicationWindow::onCmdReloadDataElements(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onUpdReloadDataElements(FXObject* obj, FXSelector, void*) {
+GNEApplicationWindow::onUpdReloadDataElements(FXObject* sender, FXSelector, void*) {
     // check if file exist
     if (myViewNet && OptionsCont::getOptions().getString("data-files").empty()) {
-        return obj->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
-        return obj->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     }
 }
 
 
 long
-GNEApplicationWindow::onCmdSaveDataElements(FXObject* obj, FXSelector sel, void* ptr) {
+GNEApplicationWindow::onCmdSaveDataElements(FXObject* sender, FXSelector sel, void* ptr) {
     // obtain option container
     auto& neteditOptions = OptionsCont::getOptions();
     // check conditions
@@ -4115,7 +4115,7 @@ GNEApplicationWindow::onCmdSaveDataElements(FXObject* obj, FXSelector sel, void*
         // nothing to save
         return 1;
     } else if (neteditOptions.getString("data-files").empty()) {
-        return onCmdSaveDataElementsAs(obj, sel, ptr);
+        return onCmdSaveDataElementsAs(sender, sel, ptr);
     } else {
         // Start saving data elements
         getApp()->beginWaitCursor();
@@ -4133,7 +4133,7 @@ GNEApplicationWindow::onCmdSaveDataElements(FXObject* obj, FXSelector sel, void*
 
 
 long
-GNEApplicationWindow::onCmdSaveDataElementsAs(FXObject* obj, FXSelector sel, void* ptr) {
+GNEApplicationWindow::onCmdSaveDataElementsAs(FXObject* sender, FXSelector sel, void* ptr) {
     // obtain option container
     auto& neteditOptions = OptionsCont::getOptions();
     // declare current folder
@@ -4160,7 +4160,7 @@ GNEApplicationWindow::onCmdSaveDataElementsAs(FXObject* obj, FXSelector sel, voi
         // mark data elements as unsaved
         myNet->getSavingStatus()->requireSaveDataElements();
         // save data elements
-        return onCmdSaveDataElements(obj, sel, ptr);
+        return onCmdSaveDataElements(sender, sel, ptr);
     } else {
         return 1;
     }
@@ -4251,18 +4251,18 @@ GNEApplicationWindow::onCmdReloadMeanDatas(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onUpdReloadMeanDatas(FXObject* obj, FXSelector, void*) {
+GNEApplicationWindow::onUpdReloadMeanDatas(FXObject* sender, FXSelector, void*) {
     // check if file exist
     if (myViewNet && OptionsCont::getOptions().getString("meandata-files").empty()) {
-        return obj->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
-        return obj->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     }
 }
 
 
 long
-GNEApplicationWindow::onCmdSaveMeanDatas(FXObject* obj, FXSelector sel, void* ptr) {
+GNEApplicationWindow::onCmdSaveMeanDatas(FXObject* sender, FXSelector sel, void* ptr) {
     // obtain option container
     auto& neteditOptions = OptionsCont::getOptions();
     // check conditions
@@ -4270,7 +4270,7 @@ GNEApplicationWindow::onCmdSaveMeanDatas(FXObject* obj, FXSelector sel, void* pt
         // nothing to save
         return 1;
     } else if (neteditOptions.getString("meandata-files").empty()) {
-        return onCmdSaveMeanDatasAs(obj, sel, ptr);
+        return onCmdSaveMeanDatasAs(sender, sel, ptr);
     } else {
         // Start saving meanDatas
         getApp()->beginWaitCursor();
@@ -4288,7 +4288,7 @@ GNEApplicationWindow::onCmdSaveMeanDatas(FXObject* obj, FXSelector sel, void* pt
 
 
 long
-GNEApplicationWindow::onCmdSaveMeanDatasAs(FXObject* obj, FXSelector sel, void* ptr) {
+GNEApplicationWindow::onCmdSaveMeanDatasAs(FXObject* sender, FXSelector sel, void* ptr) {
     // obtain option container
     auto& neteditOptions = OptionsCont::getOptions();
     // declare current folder
@@ -4315,7 +4315,7 @@ GNEApplicationWindow::onCmdSaveMeanDatasAs(FXObject* obj, FXSelector sel, void* 
         // mark mean datas as unsaved
         myNet->getSavingStatus()->requireSaveMeanDatas();
         // save meanDatas
-        return onCmdSaveMeanDatas(obj, sel, ptr);
+        return onCmdSaveMeanDatas(sender, sel, ptr);
     } else {
         return 1;
     }
