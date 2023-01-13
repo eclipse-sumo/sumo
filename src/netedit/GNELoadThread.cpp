@@ -76,14 +76,19 @@ GNELoadThread::run() {
     std::string loadedFile;
     // get netedit options
     auto& neteditOptions = OptionsCont::getOptions();
-    // fill (reset) all options
-    fillOptions(neteditOptions);
-    // set default options defined in GNELoadThread::setDefaultOptions(...)
-    setDefaultOptions(neteditOptions);
     // check if we're loading a sumo or netconvet config file
-    if (neteditOptions.getString("sumocfg-file").size() > 0) {
+    if (myNewNet) {
+        // fill (reset) all options
+        fillOptions(neteditOptions);
+        // set default options defined in GNELoadThread::setDefaultOptions(...)
+        setDefaultOptions(neteditOptions);
+    } else if (neteditOptions.getString("sumocfg-file").size() > 0) {
         // set sumo config as loaded file
         loadedFile = neteditOptions.getString("sumocfg-file");
+        // fill (reset) all options
+        fillOptions(neteditOptions);
+        // set default options defined in GNELoadThread::setDefaultOptions(...)
+        setDefaultOptions(neteditOptions);
         // declare parser for sumo config file
         GNEApplicationWindowHelper::GNESUMOConfigHandler confighandler(myApplicationWindow->getSUMOOptions(), loadedFile);
         // if there is an error loading sumo config, stop
@@ -95,6 +100,10 @@ GNELoadThread::run() {
     } else if (neteditOptions.getString("configuration-file").size() > 0) {
         // set netedit config as loaded file
         loadedFile = neteditOptions.getString("configuration-file");
+        // fill (reset) all options
+        fillOptions(neteditOptions);
+        // set default options defined in GNELoadThread::setDefaultOptions(...)
+        setDefaultOptions(neteditOptions);
         // declare parser for netedit config file
         GNEApplicationWindowHelper::GNENETEDITConfigHandler confighandler(loadedFile);
         // if there is an error loading sumo config, stop
@@ -106,6 +115,13 @@ GNELoadThread::run() {
     } else if (neteditOptions.getString("net-file").size() > 0) {
         // set netwok as loadedFile
         loadedFile = neteditOptions.getString("net-file");
+        // fill (reset) all options
+        fillOptions(neteditOptions);
+        // set default options defined in GNELoadThread::setDefaultOptions(...)
+        setDefaultOptions(neteditOptions);
+        // set net manually
+        neteditOptions.resetWritable();
+        neteditOptions.set("net-file", loadedFile);
     } else if (!loadConsoleOptions()) {
         WRITE_ERROR("Invalid input network option. Load with either sumo/netedit/netconvert config or with -new option");
         submitEndAndCleanup(net, loadedFile);
@@ -481,17 +497,28 @@ GNELoadThread::setDefaultOptions(OptionsCont& neteditOptions) {
 
 bool
 GNELoadThread::loadConsoleOptions() {
-    try {
-        // set all values writable, because certain attributes already setted can be updated through console
-        OptionsCont::getOptions().resetWritable();
-        // load options from console
-        OptionsIO::getOptions();
-        return true;
-    } catch (ProcessError& e) {
-        if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
-            WRITE_ERROR(e.what());
+    // only loaded once
+    if (myApplicationWindow->consoleOptionsLoaded()) {
+        // get netedit options
+        auto& neteditOptions = OptionsCont::getOptions();
+        // fill (reset) all options
+        fillOptions(neteditOptions);
+        // set default options defined in GNELoadThread::setDefaultOptions(...)
+        setDefaultOptions(neteditOptions);
+        try {
+            // set all values writable, because certain attributes already setted can be updated through console
+            OptionsCont::getOptions().resetWritable();
+            // load options from console
+            OptionsIO::getOptions();
+            return true;
+        } catch (ProcessError& e) {
+            if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
+                WRITE_ERROR(e.what());
+            }
+            WRITE_ERROR(TL("Failed to reset options."));
+            return false;
         }
-        WRITE_ERROR(TL("Failed to reset options."));
+    } else {
         return false;
     }
 }
