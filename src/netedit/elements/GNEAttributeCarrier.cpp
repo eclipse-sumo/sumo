@@ -4998,9 +4998,9 @@ GNEAttributeCarrier::fillCommonFlowAttributes(SumoXMLTag currentTag, SumoXMLAttr
 
     attrProperty = GNEAttributeProperties(GNE_ATTR_POISSON,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::FLOWDEFINITION,
-                                          "Insert " + toString(currentTag) + "s spaciated using a poisson distribution\n"
+                                          "Insert " + toString(currentTag) + "expected vehicles per second with poisson distributed insertion rate\n"
                                           "(not together with period or vehsPerHour or probability)",
-                                          "2");
+                                          "0.5");
     myTagProperties[currentTag].addAttribute(attrProperty);
 }
 

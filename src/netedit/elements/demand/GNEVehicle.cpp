@@ -454,7 +454,7 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
             device.writeAttr(SUMO_ATTR_PERIOD, time2string(repetitionOffset));
         }
         if (isAttributeEnabled(GNE_ATTR_POISSON)) {
-            device.writeAttr(SUMO_ATTR_PERIOD, "exp(" + time2string(repetitionOffset) + ")");
+            device.writeAttr(SUMO_ATTR_PERIOD, "exp(" + toString(1.0 / STEPS2TIME(repetitionOffset)) + ")");
         }
         if (isAttributeEnabled(SUMO_ATTR_PROB)) {
             device.writeAttr(SUMO_ATTR_PROB, repetitionProbability);
@@ -1296,8 +1296,9 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_VEHSPERHOUR:
             return toString(3600 / STEPS2TIME(repetitionOffset));
         case SUMO_ATTR_PERIOD:
-        case GNE_ATTR_POISSON:
             return time2string(repetitionOffset);
+        case GNE_ATTR_POISSON:
+            return toString(1 / STEPS2TIME(repetitionOffset));
         case SUMO_ATTR_PROB:
             return toString(repetitionProbability, 10);
         case SUMO_ATTR_NUMBER:
@@ -2161,8 +2162,10 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             repetitionOffset = TIME2STEPS(3600 / parse<double>(value));
             break;
         case SUMO_ATTR_PERIOD:
-        case GNE_ATTR_POISSON:
             repetitionOffset = string2time(value);
+            break;
+        case GNE_ATTR_POISSON:
+            repetitionOffset = TIME2STEPS(1 / parse<double>(value));
             break;
         case SUMO_ATTR_PROB:
             repetitionProbability = parse<double>(value);
