@@ -320,7 +320,7 @@ GNERouteHandler::buildTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             writeError("Invalid " + toString(SUMO_ATTR_DEPARTSPEED) + " used in " + toString(vehicleParameters.tag) + " '" + vehicleParameters.id + "'. " + toString(vehicleParameters.departSpeed) + " is greater than vType" + toString(SUMO_ATTR_MAXSPEED));
         } else {
             // check if update via attribute
-            if (sumoBaseObject->hasStringListAttribute(SUMO_ATTR_VIA)) {
+            if (sumoBaseObject && sumoBaseObject->hasStringListAttribute(SUMO_ATTR_VIA)) {
                 vehicleParameters.via = sumoBaseObject->getStringListAttribute(SUMO_ATTR_VIA);
             }
             // create trip or flow using tripParameters
@@ -403,7 +403,7 @@ GNERouteHandler::buildFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             writeError("Invalid " + toString(SUMO_ATTR_DEPARTSPEED) + " used in " + toString(vehicleParameters.tag) + " '" + vehicleParameters.id + "'. " + toString(vehicleParameters.departSpeed) + " is greater than vType" + toString(SUMO_ATTR_MAXSPEED));
         } else {
             // check if update via attribute
-            if (sumoBaseObject->hasStringListAttribute(SUMO_ATTR_VIA)) {
+            if (sumoBaseObject && sumoBaseObject->hasStringListAttribute(SUMO_ATTR_VIA)) {
                 vehicleParameters.via = sumoBaseObject->getStringListAttribute(SUMO_ATTR_VIA);
             }
             // create trip or flow using tripParameters
