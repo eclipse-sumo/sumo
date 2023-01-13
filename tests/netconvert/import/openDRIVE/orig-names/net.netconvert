@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-13 08:07:04 by Eclipse SUMO netconvert Version v1_15_0+1615-074980ce6e7
+<!-- generated on 2023-01-13 10:29:34 by Eclipse SUMO netconvert Version v1_15_0+1617-9355f8dde13
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -25,7 +25,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </output>
 
     <junctions>
-        <no-turnarounds value="true"/>
+        <no-turnarounds.except-deadend value="true"/>
     </junctions>
 
     <report>
@@ -62,6 +62,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <type id="stop" priority="1" speed="13.89" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" width="3.65"/>
     <type id="tram" priority="2" speed="13.89" allow="tram" width="3.65"/>
 
+    <edge id=":1.begin_0" function="internal">
+        <lane id=":1.begin_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="3.53" length="4.38" width="3.00" shape="0.00,1.50 -1.12,0.75 -1.50,0.00 -1.12,-0.75 0.00,-1.50"/>
+    </edge>
+    <edge id=":1.end_0" function="internal">
+        <lane id=":1.end_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="3.53" length="4.38" width="3.00" shape="50.00,-1.50 51.12,-0.75 51.50,0.00 51.12,0.75 50.00,1.50"/>
+    </edge>
+
     <edge id="-1" from="1.begin" to="1.end" priority="1" type="driving">
         <lane id="-1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="50.00" width="3.00" shape="0.00,-1.50 50.00,-1.50" type="driving">
             <param key="origId" value="1_-1"/>
@@ -73,7 +80,17 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </lane>
     </edge>
 
-    <junction id="1.begin" type="dead_end" x="0.00" y="0.00" incLanes="1_0" intLanes="" shape="0.00,0.00 0.00,3.00 0.00,0.00"/>
-    <junction id="1.end" type="dead_end" x="50.00" y="0.00" incLanes="-1_0" intLanes="" shape="50.00,0.00 50.00,-3.00 50.00,0.00"/>
+    <junction id="1.begin" type="priority" x="0.00" y="0.00" incLanes="1_0" intLanes=":1.begin_0_0" shape="0.00,0.00 0.00,3.00 0.00,0.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="1.end" type="priority" x="50.00" y="0.00" incLanes="-1_0" intLanes=":1.end_0_0" shape="50.00,0.00 50.00,-3.00 50.00,0.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+
+    <connection from="-1" to="1" fromLane="0" toLane="0" via=":1.end_0_0" dir="t" state="M"/>
+    <connection from="1" to="-1" fromLane="0" toLane="0" via=":1.begin_0_0" dir="t" state="M"/>
+
+    <connection from=":1.begin_0" to="-1" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":1.end_0" to="1" fromLane="0" toLane="0" dir="t" state="M"/>
 
 </net>
