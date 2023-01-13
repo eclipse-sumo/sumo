@@ -1069,29 +1069,29 @@ struct GNEApplicationWindowHelper {
     static bool stringEndsWith(const std::string& str, const std::string& suffix);
 
     /// @brief open netconvert file dialog
-    static std::string openNetconvertFileDialog(FXWindow* window);
+    static std::string openNetworkFileDialog(FXWindow* window, const bool save);
 
     /// @brief open netconvert file dialog
-    static std::string openNetworkFileDialog(FXWindow* window);
+    static std::string openNetconvertFileDialog(FXWindow* window);
 
     /// @brief open OSM file dialog
     static std::string openOSMFileDialog(FXWindow* window);
 
     /// @brief open additional dialog
-    static std::string openAdditionalFileDialog(FXWindow* window);
+    static std::string openAdditionalFileDialog(FXWindow* window, const bool save);
 
     /// @brief open route file dialog
-    static std::string openRouteFileDialog(FXWindow* window);
+    static std::string openRouteFileDialog(FXWindow* window, const bool save);
 
     /// @brief open data file dialog
-    static std::string openDataFileDialog(FXWindow* window);
+    static std::string openDataFileDialog(FXWindow* window, const bool save);
 
     /// @brief open meandata filename dialog
-    static std::string openMeanDataDialog(FXWindow* window);
+    static std::string openMeanDataDialog(FXWindow* window, const bool save);
 
 private:
     /// @brief open filename dialog
-    static std::string openFileDialog(FXWindow* window, const std::string title, GUIIcon icon, const std::string patternList);
+    static std::string openFileDialog(FXWindow* window, const std::string title, GUIIcon icon, const std::string patternList, const bool save);
 
     /// @brief Invalidated copy constructor.
     GNEApplicationWindowHelper(const GNEApplicationWindowHelper&) = delete;

@@ -670,7 +670,7 @@ long
 GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
     auto& neteditOptions = OptionsCont::getOptions();
     // get netconvert filename
-    const auto networkFile = GNEApplicationWindowHelper::openNetworkFileDialog(this);
+    const auto networkFile = GNEApplicationWindowHelper::openNetworkFileDialog(this, false);
     // continue depending of netconvertFile
     if (!networkFile.empty() && (onCmdClose(0, 0, 0) == 1)) {
         // set file to load
@@ -3635,7 +3635,7 @@ long
 GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
     auto &neteditOptions = OptionsCont::getOptions();
     // get file
-    const auto additionalFile = GNEApplicationWindowHelper::openAdditionalFileDialog(this);
+    const auto additionalFile = GNEApplicationWindowHelper::openAdditionalFileDialog(this, false);
     // check file
     if (!additionalFile.empty()) {
         // declare overwrite flag
@@ -3791,7 +3791,7 @@ long
 GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
     auto &neteditOptions = OptionsCont::getOptions();
     // get file
-    const auto routeFile = GNEApplicationWindowHelper::openRouteFileDialog(this);
+    const auto routeFile = GNEApplicationWindowHelper::openRouteFileDialog(this, false);
     // check file
     if (!routeFile.empty()) {
         // declare overwrite flag
@@ -3946,7 +3946,7 @@ long
 GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
     auto &neteditOptions = OptionsCont::getOptions();
     // get file
-    const auto dataFile = GNEApplicationWindowHelper::openDataFileDialog(this);
+    const auto dataFile = GNEApplicationWindowHelper::openDataFileDialog(this, false);
     // check file
     if (dataFile.empty()) {
         // declare overwrite flag
@@ -4108,7 +4108,7 @@ long
 GNEApplicationWindow::onCmdOpenMeanDatas(FXObject*, FXSelector, void*) {
     auto &neteditOptions = OptionsCont::getOptions();
     // get file
-    const auto meanDataFile = GNEApplicationWindowHelper::openMeanDataDialog(this);
+    const auto meanDataFile = GNEApplicationWindowHelper::openMeanDataDialog(this, false);
     // check file
     if (!meanDataFile.empty()) {
         // declare overwrite flag
