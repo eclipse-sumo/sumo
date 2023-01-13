@@ -156,6 +156,7 @@ struct GNEApplicationWindowHelper {
                                    FXMenuPane* fileMenuDemandElements, FXMenuPane* fileMenuDataElements,
                                    FXMenuPane* fileMenuMeanDataElements);
 
+
         /// @brief FXMenuCascade for NETEDITConfig
         FXMenuCascade* NETEDITConfigMenuCascade = nullptr;
 
@@ -179,7 +180,7 @@ struct GNEApplicationWindowHelper {
 
         /// @brief FXMenuCascade for mean datadata
         FXMenuCascade* meanDataMenuCascade = nullptr;
-
+    private:
         /// @brief FXMenuCommand for reload NETEDITConfig
         FXMenuCommand* reloadNETEDITConfig = nullptr;
 

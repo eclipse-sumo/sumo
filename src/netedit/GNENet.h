@@ -437,9 +437,6 @@ public:
     /// @brief save meanData elements of the network
     void saveMeanDatas();
 
-    /// @brief inform that TLS Programs has to be saved
-    void requireSaveTLSPrograms();
-
     /**@brief save TLS Programs elements of the network
      * @param[in] filename name of the file in which save TLS Programs
      */
@@ -512,9 +509,6 @@ protected:
 
     /// @brief whether the net needs recomputation
     bool myNeedRecompute = true;
-
-    /// @brief Flag to check if shapes has to be saved
-    bool myTLSProgramsSaved = true;
 
     /// @brief Flag to enable or disable update geometry of elements after inserting or removing element in net
     bool myUpdateGeometryEnabled = true;

@@ -724,9 +724,6 @@ GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
             loadNetwork(false);
             // add it into recent nets
             myMenuBarFile.myRecentNetworks.appendFile(file.c_str());
-            // when a net is loaded, save additionals and TLSPrograms are disabled
-            myFileMenuCommands.saveTLSPrograms->disable();
-            myFileMenuCommands.saveEdgeTypes->disable();
         }
     }
     return 0;
@@ -941,23 +938,23 @@ GNEApplicationWindow::onCmdReloadSUMOConfig(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onUpdReloadNETEDITConfig(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onUpdReloadNETEDITConfig(FXObject* obj, FXSelector, void*) {
     // check if file exist
     if (myViewNet && !OptionsCont::getOptions().getString("configuration-file").empty()) {
-        return myFileMenuCommands.reloadNETEDITConfig->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+        return obj->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else {
-        return myFileMenuCommands.reloadNETEDITConfig->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        return obj->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     }
 }
 
 
 long
-GNEApplicationWindow::onUpdReloadSUMOConfig(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onUpdReloadSUMOConfig(FXObject* obj, FXSelector, void*) {
     // check if file exist
     if (myViewNet && !OptionsCont::getOptions().getString("sumocfg-file").empty()) {
-        return myFileMenuCommands.reloadSUMOConfig->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+        return obj->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else {
-        return myFileMenuCommands.reloadSUMOConfig->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        return obj->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     }
 }
 
@@ -1016,12 +1013,12 @@ GNEApplicationWindow::onCmdReloadTLSPrograms(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onUpdReloadTLSPrograms(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onUpdReloadTLSPrograms(FXObject* obj, FXSelector, void*) {
     // check if file exist
     if (myViewNet && OptionsCont::getOptions().getString("TLSPrograms-output").empty()) {
-        return myFileMenuCommands.reloadTLSPrograms->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        return obj->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
-        return myFileMenuCommands.reloadTLSPrograms->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+        return obj->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     }
 }
 
@@ -1101,12 +1098,12 @@ GNEApplicationWindow::onCmdReloadEdgeTypes(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onUpdReloadEdgeTypes(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onUpdReloadEdgeTypes(FXObject* obj, FXSelector, void*) {
     // check if file exist
     if (myViewNet && OptionsCont::getOptions().getString("edgeTypes-output").empty()) {
-        return myFileMenuCommands.reloadEdgeTypes->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        return obj->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
-        return myFileMenuCommands.reloadEdgeTypes->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+        return obj->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     }
 }
 
@@ -1151,7 +1148,6 @@ GNEApplicationWindow::onCmdReload(FXObject*, FXSelector, void*) {
         // check if current network can be closed
         if (continueWithUnsavedChanges("reload")) {
             closeAllWindows();
-            myFileMenuCommands.saveTLSPrograms->disable();
             // disable toolbargrip modes
             myToolbarsGrip.menu->disable();
             // hide all Supermode, Network and demand commands
@@ -1180,7 +1176,6 @@ GNEApplicationWindow::onCmdClose(FXObject*, FXSelector, void*) {
         closeAllWindows();
         // add a separator to the log
         myMessageWindow->addSeparator();
-        myFileMenuCommands.saveTLSPrograms->disable();
         // hide all Supermode, Network and demand commands
         mySupermodeCommands.hideSupermodeCommands();
         myModesMenuCommands.networkMenuCommands.hideNetworkMenuCommands();
@@ -1796,12 +1791,6 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
         updateControls();
         return 1;
     }
-}
-
-
-void
-GNEApplicationWindow::enableSaveTLSProgramsMenu() {
-    myFileMenuCommands.saveTLSPrograms->enable();
 }
 
 
@@ -3508,10 +3497,10 @@ GNEApplicationWindow::onUpdSaveSUMOConfig(FXObject* sender, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject*, FXSelector, void*) {
-    // obtain option container
-    auto& neteditOptions = OptionsCont::getOptions();
-    // check if save additional menu is enabled
-    if (myFileMenuCommands.saveTLSPrograms->isEnabled()) {
+    // check if there is TLS to save
+    if (myNet && !myNet->getSavingStatus()->isTLSSaved()) {
+        // obtain option container
+        auto& neteditOptions = OptionsCont::getOptions();
         // Check if TLS Programs file was already set at start of netedit or with a previous save
         if (neteditOptions.getString("TLSPrograms-output").empty()) {
             // declare current folder
@@ -3544,7 +3533,6 @@ GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject*, FXSelector, void*) {
             myNet->computeNetwork(this, true); // GNEChange_TLS does not triggere GNENet:requireRecompute
             myNet->saveTLSPrograms(neteditOptions.getString("TLSPrograms-output"));
             myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "TLS Programs saved in " + neteditOptions.getString("TLSPrograms-output") + ".\n");
-            myFileMenuCommands.saveTLSPrograms->disable();
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox 'error saving TLS Programs'");
@@ -3566,13 +3554,18 @@ GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onUpdSaveTLSPrograms(FXObject* sender, FXSelector, void*) {
-    // check if net exist and there is junctions
-    if (myNet && (myNet->getAttributeCarriers()->getJunctions().size() > 0)) {
-        sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    if (myNet == nullptr) {
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
-        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        // check if there is at least one TLS
+        for (const auto &junction : myNet->getAttributeCarriers()->getJunctions()) {
+            if (junction.second->getNBNode()->getControllingTLS().size() > 0) {
+                return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+            }
+        }
+        // no TLS, then disable
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     }
-    return 1;
 }
 
 
@@ -3581,7 +3574,7 @@ GNEApplicationWindow::onCmdSaveEdgeTypes(FXObject*, FXSelector, void*) {
     // obtain option container
     auto& neteditOptions = OptionsCont::getOptions();
     // check if save additional menu is enabled
-    if (myFileMenuCommands.saveEdgeTypes->isEnabled()) {
+    if (myNet && !myNet->getSavingStatus()->isEdgeTypeSaved()) {
         // Check if edgeType file was already set at start of netedit or with a previous save
         if (neteditOptions.getString("edgeTypes-output").empty()) {
             // declare current folder
@@ -3613,7 +3606,6 @@ GNEApplicationWindow::onCmdSaveEdgeTypes(FXObject*, FXSelector, void*) {
         try {
             myNet->saveEdgeTypes(neteditOptions.getString("edgeTypes-output"));
             myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "EdgeType saved in " + neteditOptions.getString("edgeTypes-output") + ".\n");
-            myFileMenuCommands.saveEdgeTypes->disable();
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox 'error saving edgeTypes'");
@@ -3803,12 +3795,12 @@ GNEApplicationWindow::onCmdReloadAdditionals(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onUpdReloadAdditionals(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onUpdReloadAdditionals(FXObject* obj, FXSelector, void*) {
     // check if file exist
     if (myViewNet && OptionsCont::getOptions().getString("additional-files").empty()) {
-        return myFileMenuCommands.reloadAdditionals->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        return obj->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
-        return myFileMenuCommands.reloadAdditionals->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+        return obj->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     }
 }
 
@@ -3960,12 +3952,12 @@ GNEApplicationWindow::onCmdReloadDemandElements(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onUpdReloadDemandElements(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onUpdReloadDemandElements(FXObject* obj, FXSelector, void*) {
     // check if file exist
     if (myViewNet && OptionsCont::getOptions().getString("route-files").empty()) {
-        return myFileMenuCommands.reloadDemandElements->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        return obj->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
-        return myFileMenuCommands.reloadDemandElements->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+        return obj->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     }
 }
 
@@ -4126,12 +4118,12 @@ GNEApplicationWindow::onCmdReloadDataElements(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onUpdReloadDataElements(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onUpdReloadDataElements(FXObject* obj, FXSelector, void*) {
     // check if file exist
     if (myViewNet && OptionsCont::getOptions().getString("data-files").empty()) {
-        return myFileMenuCommands.reloadDataElements->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        return obj->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
-        return myFileMenuCommands.reloadDataElements->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+        return obj->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     }
 }
 
@@ -4281,12 +4273,12 @@ GNEApplicationWindow::onCmdReloadMeanDatas(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onUpdReloadMeanDatas(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onUpdReloadMeanDatas(FXObject* obj, FXSelector, void*) {
     // check if file exist
     if (myViewNet && OptionsCont::getOptions().getString("meandata-files").empty()) {
-        return myFileMenuCommands.reloadMeanDatas->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        return obj->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
-        return myFileMenuCommands.reloadMeanDatas->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+        return obj->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     }
 }
 
@@ -4355,7 +4347,7 @@ GNEApplicationWindow::onCmdSaveMeanDatasAs(FXObject* obj, FXSelector sel, void* 
 bool
 GNEApplicationWindow::continueWithUnsavedChanges(const std::string& operation) {
     FXuint answer = 0;
-    if (myViewNet && myNet && !myNet->getSavingStatus()->isNetworkSaved()) {
+    if (myNet && !myNet->getSavingStatus()->isNetworkSaved()) {
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Opening FXMessageBox 'Confirm " + operation + " network'");
         // open question box
@@ -4417,7 +4409,7 @@ GNEApplicationWindow::continueWithUnsavedChanges(const std::string& operation) {
 bool
 GNEApplicationWindow::continueWithUnsavedAdditionalChanges(const std::string& operation) {
     // Check if there are non saved additionals
-    if (myViewNet && myFileMenuCommands.saveAdditionals->isEnabled()) {
+    if (myNet && !myNet->getSavingStatus()->isAdditionalsSaved()) {
         WRITE_DEBUG("Opening FXMessageBox 'Save additionals before " + operation + "'");
         // open question box
         FXuint answer = GUISaveDialog::question(getApp(),
@@ -4460,7 +4452,7 @@ GNEApplicationWindow::continueWithUnsavedAdditionalChanges(const std::string& op
 bool
 GNEApplicationWindow::continueWithUnsavedDemandElementChanges(const std::string& operation) {
     // Check if there are non saved demand elements
-    if (myViewNet && myFileMenuCommands.saveDemandElements->isEnabled()) {
+    if (myNet && !myNet->getSavingStatus()->isDemandElementsSaved()) {
         WRITE_DEBUG("Opening FXMessageBox 'Save demand elements before " + operation + "'");
         // open question box
         FXuint answer = GUISaveDialog::question(getApp(), ("Save demand elements before " + operation).c_str(), "%s",
@@ -4502,7 +4494,7 @@ GNEApplicationWindow::continueWithUnsavedDemandElementChanges(const std::string&
 bool
 GNEApplicationWindow::continueWithUnsavedDataElementChanges(const std::string& operation) {
     // Check if there are non saved data elements
-    if (myViewNet && myFileMenuCommands.saveDataElements->isEnabled()) {
+    if (myNet && !myNet->getSavingStatus()->isDataElementsSaved()) {
         WRITE_DEBUG("Opening FXMessageBox 'Save data elements before " + operation + "'");
         // open question box
         FXuint answer = GUISaveDialog::question(getApp(), ("Save data elements before " + operation).c_str(), "%s",

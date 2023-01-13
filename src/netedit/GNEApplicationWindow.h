@@ -66,9 +66,6 @@ public:
     /// @brief called if the user selects Processing->compute junctions with volatile options
     long computeJunctionWithVolatileOptions();
 
-    /// @brief enable save TLS Programs
-    void enableSaveTLSProgramsMenu();
-
     /// @name Inter-thread event handling
     /// @{
     /// @brief called when an event occurred

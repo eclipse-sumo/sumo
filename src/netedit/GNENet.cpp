@@ -2567,16 +2567,6 @@ GNENet::writeMeanDataLaneComment(OutputDevice& device) const {
 
 
 void
-GNENet::requireSaveTLSPrograms() {
-    if (myTLSProgramsSaved == true) {
-        WRITE_DEBUG("TLSPrograms has to be saved");
-    }
-    myTLSProgramsSaved = false;
-    myViewNet->getViewParent()->getGNEAppWindows()->enableSaveTLSProgramsMenu();
-}
-
-
-void
 GNENet::saveTLSPrograms(const std::string& filename) {
     // open output device
     OutputDevice& device = OutputDevice::getDevice(filename);
@@ -2584,8 +2574,8 @@ GNENet::saveTLSPrograms(const std::string& filename) {
     // write traffic lights using NWWriter
     NWWriter_SUMO::writeTrafficLights(device, getTLLogicCont());
     device.close();
-    // change flag to true
-    myTLSProgramsSaved = true;
+    // change save status
+    mySavingStatus->TLSSaved();
     // show debug information
     WRITE_DEBUG("TLSPrograms saved");
 }
