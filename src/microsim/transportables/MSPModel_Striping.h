@@ -231,12 +231,13 @@ protected:
     };
 
     struct WalkingAreaPath {
-        WalkingAreaPath(const MSLane* _from, const MSLane* _walkingArea, const MSLane* _to, const PositionVector& _shape, int _dir) :
+        WalkingAreaPath(const MSLane* _from, const MSLane* _walkingArea, const MSLane* _to, const PositionVector& _shape, int _dir, double _angleOverride) :
             from(_from),
             to(_to),
             lane(_walkingArea),
             shape(_shape),
             dir(_dir),
+            angleOverride(_angleOverride),
             length(_shape.length()) {
         }
 
@@ -245,6 +246,7 @@ protected:
         const MSLane* const lane; // the walkingArea;
         const PositionVector shape;
         const int dir; // the direction when entering this path
+        const double angleOverride;
         const double length;
 
     };
