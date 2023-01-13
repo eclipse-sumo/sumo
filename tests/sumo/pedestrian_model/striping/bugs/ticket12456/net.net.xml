@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-01-13 14:54:17 by Eclipse SUMO netedit Version v1_15_0+1630-380458c
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1.00"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="1"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<net version="1.9" walkingareas="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="100.00,100.00" convBoundary="50.00,50.00,150.00,100.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id=":C_0" function="internal">
+        <lane id=":C_0_0" index="0" allow="passenger" speed="13.89" length="8.48" shape="101.60,91.30 101.79,94.41 102.37,96.62 103.34,97.96 104.70,98.40"/>
+    </edge>
+    <edge id=":C_1" function="internal">
+        <lane id=":C_1_0" index="0" allow="passenger" speed="13.89" length="6.20" shape="98.50,98.40 104.70,98.40"/>
+    </edge>
+    <edge id=":C_c0" function="crossing" crossingEdges="-CS">
+        <lane id=":C_c0_0" index="0" allow="pedestrian" speed="1.00" length="3.20" width="4.00" shape="100.00,93.30 103.20,93.30"/>
+    </edge>
+    <edge id=":C_w0" function="walkingarea">
+        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="1.00" length="2.12" width="4.00" shape="104.70,96.80 104.70,92.80 103.20,91.30 103.20,95.30"/>
+    </edge>
+    <edge id=":C_w1" function="walkingarea">
+        <lane id=":C_w1_0" index="0" allow="pedestrian" speed="1.00" length="2.50" width="4.00" shape="100.00,95.30 100.00,91.30 98.50,93.80 98.50,96.80"/>
+    </edge>
+
+    <edge id="-CS" from="S" to="C" priority="2">
+        <lane id="-CS_0" index="0" allow="passenger" speed="13.89" length="41.30" shape="101.60,50.00 101.60,91.30"/>
+    </edge>
+    <edge id="CE" from="C" to="E" priority="3">
+        <lane id="CE_0" index="0" allow="pedestrian" speed="13.89" length="45.30" width="4.00" shape="104.70,94.80 150.00,94.80"/>
+        <lane id="CE_1" index="1" allow="passenger" speed="13.89" length="45.30" shape="104.70,98.40 150.00,98.40"/>
+    </edge>
+    <edge id="WC" from="W" to="C" priority="3">
+        <lane id="WC_0" index="0" allow="pedestrian" speed="13.89" length="48.50" width="3.00" shape="50.00,95.30 98.50,95.30"/>
+        <lane id="WC_1" index="1" allow="passenger" speed="13.89" length="48.50" shape="50.00,98.40 98.50,98.40"/>
+    </edge>
+
+    <junction id="C" type="priority" x="100.00" y="100.00" incLanes="-CS_0 WC_0 WC_1 :C_w1_0" intLanes=":C_0_0 :C_1_0 :C_c0_0" shape="104.70,100.00 104.70,92.80 103.20,91.30 100.00,91.30 98.50,93.80 98.50,100.00">
+        <request index="0" response="110" foes="110" cont="0"/>
+        <request index="1" response="000" foes="001" cont="0"/>
+        <request index="2" response="000" foes="001" cont="0"/>
+    </junction>
+    <junction id="E" type="dead_end" x="150.00" y="100.00" incLanes="CE_0 CE_1" intLanes="" shape="150.00,92.80 150.00,100.00"/>
+    <junction id="S" type="dead_end" x="100.00" y="50.00" incLanes="" intLanes="" shape="100.00,50.00 103.20,50.00"/>
+    <junction id="W" type="dead_end" x="50.00" y="100.00" incLanes="" intLanes="" shape="50.00,100.00 50.00,93.80"/>
+
+    <connection from="-CS" to="CE" fromLane="0" toLane="1" via=":C_0_0" dir="r" state="m"/>
+    <connection from="WC" to="CE" fromLane="1" toLane="1" via=":C_1_0" dir="s" state="M"/>
+
+    <connection from=":C_0" to="CE" fromLane="0" toLane="1" dir="r" state="M"/>
+    <connection from=":C_1" to="CE" fromLane="0" toLane="1" dir="s" state="M"/>
+
+    <connection from=":C_c0" to=":C_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":C_w0" to="CE" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":C_w1" to=":C_c0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="WC" to=":C_w1" fromLane="0" toLane="0" dir="s" state="M"/>
+</net>
