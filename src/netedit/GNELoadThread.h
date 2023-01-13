@@ -74,8 +74,8 @@ public:
     static void setDefaultOptions(OptionsCont& neteditOptions);
 
 private:
-    /// @brief reset options (used for loading single networks or netconvert configs)
-    bool resetOptions(const std::string& file, const bool configuration);
+    /// @brief load options through console
+    bool loadConsoleOptions();
 
     /**@brief Closes the loading process
      *

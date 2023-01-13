@@ -76,6 +76,10 @@ GNELoadThread::run() {
     std::string loadedFile;
     // get netedit options
     auto& neteditOptions = OptionsCont::getOptions();
+    // fill (reset) all options
+    fillOptions(neteditOptions);
+    // set default options defined in GNELoadThread::setDefaultOptions(...)
+    setDefaultOptions(neteditOptions);
     // check if we're loading a sumo or netconvet config file
     if (neteditOptions.getString("sumocfg-file").size() > 0) {
         // set sumo config as loaded file
@@ -102,11 +106,7 @@ GNELoadThread::run() {
     } else if (neteditOptions.getString("net-file").size() > 0) {
         // set netwok as loadedFile
         loadedFile = neteditOptions.getString("net-file");
-        if (!resetOptions(loadedFile, false)) {
-            submitEndAndCleanup(net, loadedFile);
-            return 0;
-        }
-    } else if (!myNewNet) {
+    } else if (!loadConsoleOptions()) {
         WRITE_ERROR("Invalid input network option. Load with either sumo/netedit/netconvert config or with -new option");
         submitEndAndCleanup(net, loadedFile);
         return 0;
@@ -480,21 +480,10 @@ GNELoadThread::setDefaultOptions(OptionsCont& neteditOptions) {
 
 
 bool
-GNELoadThread::resetOptions(const std::string& file, const bool configuration) {
-    auto& neteditOptions = OptionsCont::getOptions();
-    // fill (reset) all options
-    fillOptions(neteditOptions);
-    // set default options defined in GNELoadThread::setDefaultOptions(...)
-    setDefaultOptions(neteditOptions);
-    // check if is a configuration (needed for parsing configuration file)
-    if (configuration) {
-        neteditOptions.set("configuration-file", file);
-    } else {
-        neteditOptions.set("net-file", file);
-    }
+GNELoadThread::loadConsoleOptions() {
     try {
         // set all values writable, because certain attributes already setted can be updated through console
-        neteditOptions.resetWritable();
+        OptionsCont::getOptions().resetWritable();
         // load options from console
         OptionsIO::getOptions();
         return true;
