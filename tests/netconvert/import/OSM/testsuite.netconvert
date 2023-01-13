@@ -96,6 +96,9 @@ ticket8155_orig
 vehicle_lanes
 motorway_ramp_prohibitChange
 
+# bike and bus and vehicle lane access
+vehicle_lanes2
+
 # change default to roadCenter
 spreadType
 
