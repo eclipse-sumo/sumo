@@ -3348,11 +3348,8 @@ GNEApplicationWindow::onUpdSaveNETEDITConfig(FXObject* sender, FXSelector, void*
         sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else if (!myNet->getSavingStatus()->isNETEDITConfigSaved()) {
         sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
-    } else if (myNet->getSavingStatus()->isNetworkSaved() && myNet->getSavingStatus()->isAdditionalsSaved() && myNet->getSavingStatus()->isDemandElementsSaved() && 
-               myNet->getSavingStatus()->isDataElementsSaved() && myNet->getSavingStatus()->isMeanDatasSaved()) {
-        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
-        sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     }
     // check if eenable/disable save individual files
     if (myNet) {
@@ -3470,11 +3467,8 @@ GNEApplicationWindow::onUpdSaveSUMOConfig(FXObject* sender, FXSelector, void*) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else if (!myNet->getSavingStatus()->isSUMOConfigSaved()) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
-    } else if (myNet->getSavingStatus()->isNetworkSaved() && myNet->getSavingStatus()->isAdditionalsSaved() && myNet->getSavingStatus()->isDemandElementsSaved() && 
-               myNet->getSavingStatus()->isDataElementsSaved() && myNet->getSavingStatus()->isMeanDatasSaved()){
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
-        return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     }
 }
 
