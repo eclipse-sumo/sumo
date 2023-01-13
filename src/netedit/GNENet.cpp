@@ -1270,18 +1270,18 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     if (!myNeedRecompute) {
         if (force) {
             if (volatileOptions) {
-                window->setStatusBarText("Forced computing junctions with volatile options ...");
+                window->setStatusBarText(TL("Forced computing junctions with volatile options ..."));
             } else {
-                window->setStatusBarText("Forced computing junctions ...");
+                window->setStatusBarText(TL("Forced computing junctions ..."));
             }
         } else {
             return;
         }
     } else {
         if (volatileOptions) {
-            window->setStatusBarText("Computing junctions with volatile options ...");
+            window->setStatusBarText(TL("Computing junctions with volatile options ..."));
         } else {
-            window->setStatusBarText("Computing junctions  ...");
+            window->setStatusBarText(TL("Computing junctions ..."));
         }
     }
     // save current number of lanes for every edge if recomputing is with volatile options
@@ -1299,20 +1299,20 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
         GNEGeneralHandler generalHandler(this, OptionsCont::getOptions().getString("additional-files"), false, true);
         // Run parser
         if (!generalHandler.parse()) {
-            WRITE_ERROR("Loading of '" + OptionsCont::getOptions().getString("additional-files") + "' failed.");
+            WRITE_ERROR(TL("Loading of additional file failed: ") + OptionsCont::getOptions().getString("additional-files"));
         } else {
-            WRITE_MESSAGE("Loading of '" + OptionsCont::getOptions().getString("additional-files") + "' successfully.");
+            WRITE_MESSAGE(TL("Loading of additional file sucessfully: ") + OptionsCont::getOptions().getString("additional-files"));
         }
     }
     // load demand elements if was recomputed with volatile options
     if (volatileOptions && OptionsCont::getOptions().getString("route-files").size() > 0) {
         // Create general handler
-        GNEGeneralHandler handler(this, OptionsCont::getOptions().getString("route-files"), false, true);
+        GNEGeneralHandler generalHandler(this, OptionsCont::getOptions().getString("route-files"), false, true);
         // Run parser
-        if (!handler.parse()) {
-            WRITE_ERROR("Loading of '" + OptionsCont::getOptions().getString("route-files") + "' failed.");
+        if (!generalHandler.parse()) {
+            WRITE_ERROR(TL("Loading of route file failed: ") + OptionsCont::getOptions().getString("route-files"));
         } else {
-            WRITE_MESSAGE("Loading of '" + OptionsCont::getOptions().getString("route-files") + "' successfully.");
+            WRITE_MESSAGE(TL("Loading of route file sucessfully: ") + OptionsCont::getOptions().getString("route-files"));
         }
     }
     // load datas if was recomputed with volatile options
@@ -1321,9 +1321,9 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
         GNEDataHandler dataHandler(this, OptionsCont::getOptions().getString("data-files"), false, true);
         // Run parser
         if (!dataHandler.parse()) {
-            WRITE_ERROR("Loading of '" + OptionsCont::getOptions().getString("data-files") + "' failed.");
+            WRITE_ERROR(TL("Loading of data file failed: ") + OptionsCont::getOptions().getString("data-files"));
         } else {
-            WRITE_MESSAGE("Loading of '" + OptionsCont::getOptions().getString("data-files") + "' successfully.");
+            WRITE_MESSAGE(TL("Loading of data file sucessfully: ") + OptionsCont::getOptions().getString("data-files"));
         }
     }
     // load meanDatas if was recomputed with volatile options
@@ -1332,21 +1332,21 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
         GNEGeneralHandler generalHandler(this, OptionsCont::getOptions().getString("meandata-files"), false, true);
         // Run parser
         if (!generalHandler.parse()) {
-            WRITE_ERROR("Loading of '" + OptionsCont::getOptions().getString("meandata-files") + "' failed.");
+            WRITE_ERROR(TL("Loading of meandata file failed: ") + OptionsCont::getOptions().getString("meandata-files"));
         } else {
-            WRITE_MESSAGE("Loading of '" + OptionsCont::getOptions().getString("meandata-files") + "' successfully.");
+            WRITE_MESSAGE(TL("Loading of meandata file sucessfully: ") + OptionsCont::getOptions().getString("meandata-files"));
         }
     }
     // clear myEdgesAndNumberOfLanes after reload additionals
     myEdgesAndNumberOfLanes.clear();
     window->getApp()->endWaitCursor();
-    window->setStatusBarText("Finished computing junctions.");
+    window->setStatusBarText(TL("Finished computing junctions."));
 }
 
 
 void
 GNENet::computeDemandElements(GNEApplicationWindow* window) {
-    window->setStatusBarText("Computing demand elements ...");
+    window->setStatusBarText(TL("Computing demand elements ..."));
     // if we aren't in Demand mode, update path calculator
     if (!myViewNet->getEditModes().isCurrentSupermodeDemand() &&
             !myPathManager->getPathCalculator()->isPathCalculatorUpdated())  {
@@ -1360,20 +1360,20 @@ GNENet::computeDemandElements(GNEApplicationWindow* window) {
             demandElement->computePathElement();
         }
     }
-    window->setStatusBarText("Finished computing demand elements.");
+    window->setStatusBarText(TL("Finished computing demand elements."));
 }
 
 
 void
 GNENet::computeDataElements(GNEApplicationWindow* window) {
-    window->setStatusBarText("Computing data elements ...");
+    window->setStatusBarText(TL("Computing data elements ..."));
     // iterate over all demand elements and compute
     for (const auto& genericDataTag : myAttributeCarriers->getGenericDatas()) {
         for (const auto& genericData : genericDataTag.second) {
             genericData->computePathElement();
         }
     }
-    window->setStatusBarText("Finished computing data elements.");
+    window->setStatusBarText(TL("Finished computing data elements."));
 }
 
 

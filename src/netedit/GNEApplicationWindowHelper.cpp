@@ -2511,5 +2511,33 @@ GNEApplicationWindowHelper::stringEndsWith(const std::string& str, const std::st
     }
 }
 
+
+std::string
+GNEApplicationWindowHelper::openDialog(FXWindow* window, const std::string title, GUIIcon icon) {
+    // write debug information
+    WRITE_DEBUG(title);
+    // configure open additional dialog
+    FXFileDialog opendialog(window, title.c_str());
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL));
+    opendialog.setSelectMode(SELECTFILE_EXISTING);
+    opendialog.setPatternList("XML files (*.xml)\nAll files (*)");
+    if (gCurrentFolder.length() != 0) {
+        opendialog.setDirectory(gCurrentFolder);
+    }
+    if (opendialog.execute()) {
+        // close additional dialog
+        WRITE_DEBUG("Close dialog sucesfully");
+        // udpate current folder
+        gCurrentFolder = opendialog.getDirectory();
+        // return file
+        return opendialog.getFilename().text();
+    } else {
+        // close additional dialog
+        WRITE_DEBUG("Abort dialog");
+        // return empty file
+        return "";
+    }
+}
+
 /****************************************************************************/
 

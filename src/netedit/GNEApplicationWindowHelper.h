@@ -1122,6 +1122,9 @@ struct GNEApplicationWindowHelper {
     /// @brief check if a string ends with another string
     static bool stringEndsWith(const std::string& str, const std::string& suffix);
 
+    /// @brief open filename dialog
+    static std::string openDialog(FXWindow* window, const std::string type, GUIIcon icon);
+
 private:
     /// @brief Invalidated copy constructor.
     GNEApplicationWindowHelper(const GNEApplicationWindowHelper&) = delete;
