@@ -2205,7 +2205,12 @@ MSPModel_Striping::PState::getPosition(const MSStageMoving& stage, SUMOTime) con
         //        << " pos=" << myWalkingAreaPath->shape.positionAtOffset(myRelX, lateral_offset)
         //        << "\n";
         //}
-        return myWalkingAreaPath->shape.positionAtOffset(myRelX, lateral_offset);
+        if (myWalkingAreaPath->angleOverride == INVALID_DOUBLE) {
+            return myWalkingAreaPath->shape.positionAtOffset(myRelX, lateral_offset);
+        } else {
+            const double rotationOffset = myDir == FORWARD ? 0 : DEG2RAD(180);
+            return myWalkingAreaPath->shape.sidePositionAtAngle(myRelX, lateral_offset, myWalkingAreaPath->angleOverride + rotationOffset);
+        }
     }
 }
 
