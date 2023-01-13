@@ -525,21 +525,6 @@ GNELoadThread::loadConsoleOptions() {
 
 
 void
-GNELoadThread::resetFileOptions() {
-    auto& neteditOptions = OptionsCont::getOptions();
-    // reset netedit files
-    neteditOptions.resetWritable();
-    neteditOptions.set("configuration-file", "");
-    neteditOptions.set("sumocfg-file", "");
-    neteditOptions.set("net-file", "");
-    neteditOptions.set("additional-files", "");
-    neteditOptions.set("route-files", "");
-    neteditOptions.set("data-files", "");
-    neteditOptions.set("meandata-files", "");
-}
-
-
-void
 GNELoadThread::createNewNetwork() {
     // set flags
     myLoadNet = false;

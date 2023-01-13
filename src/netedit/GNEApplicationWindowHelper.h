@@ -1068,10 +1068,31 @@ struct GNEApplicationWindowHelper {
     /// @brief check if a string ends with another string
     static bool stringEndsWith(const std::string& str, const std::string& suffix);
 
-    /// @brief open filename dialog
-    static std::string openDialog(FXWindow* window, const std::string type, GUIIcon icon);
+    /// @brief open netconvert file dialog
+    static std::string openNetconvertFileDialog(FXWindow* window);
+
+    /// @brief open netconvert file dialog
+    static std::string openNetworkFileDialog(FXWindow* window);
+
+    /// @brief open OSM file dialog
+    static std::string openOSMFileDialog(FXWindow* window);
+
+    /// @brief open additional dialog
+    static std::string openAdditionalFileDialog(FXWindow* window);
+
+    /// @brief open route file dialog
+    static std::string openRouteFileDialog(FXWindow* window);
+
+    /// @brief open data file dialog
+    static std::string openDataFileDialog(FXWindow* window);
+
+    /// @brief open meandata filename dialog
+    static std::string openMeanDataDialog(FXWindow* window);
 
 private:
+    /// @brief open filename dialog
+    static std::string openFileDialog(FXWindow* window, const std::string title, GUIIcon icon, const std::string patternList);
+
     /// @brief Invalidated copy constructor.
     GNEApplicationWindowHelper(const GNEApplicationWindowHelper&) = delete;
 

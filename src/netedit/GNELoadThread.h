@@ -52,9 +52,6 @@ public:
     /// @brief starts the thread. The thread ends after the net has been loaded
     FXint run();
 
-    /// @brief clear files in options (used before loading files)
-    void resetFileOptions();
-
     /// @brief begins the creation of an empty network
     void createNewNetwork();
 
