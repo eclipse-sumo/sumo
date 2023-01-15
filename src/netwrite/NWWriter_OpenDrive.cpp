@@ -995,6 +995,7 @@ NWWriter_OpenDrive::writeRoadObjects(OutputDevice& device, const NBEdge* e, cons
     device.closeTag();
 }
 
+
 std::vector<NWWriter_OpenDrive::TrafficSign>
 NWWriter_OpenDrive::parseTrafficSign(const std::string& trafficSign, PointOfInterest* poi) {
     std::vector<TrafficSign> result;
@@ -1008,11 +1009,10 @@ NWWriter_OpenDrive::parseTrafficSign(const std::string& trafficSign, PointOfInte
     } else if (trafficSign == "hazard" && poi->knowsParameter("hazard")) {
         result.push_back(TrafficSign{ "OpenDrive", trafficSign, poi->getParameter("hazard"), "" });
     } else {
-        std::string::size_type pos = trafficSign.find_first_of(",;");
-        if (pos != std::string::npos) {
+        if (trafficSign.find_first_of(",;") != std::string::npos) {
             std::string::size_type colon = trafficSign.find(':');
-            std::string country = trafficSign.substr(0, colon);
-            std::string remaining = trafficSign.substr(colon + 1);
+            const std::string country = trafficSign.substr(0, colon);
+            const std::string remaining = trafficSign.substr(colon + 1);
 
             std::vector<std::string> tokens;
             std::string::size_type lastPos = 0;

@@ -4643,17 +4643,15 @@ GNEApplicationWindow::loadAdditionalElements() {
 void
 GNEApplicationWindow::loadDemandElements() {
     // obtain option container
-    auto& neteditOptions = OptionsCont::getOptions();
+    OptionsCont& neteditOptions = OptionsCont::getOptions();
     // get route files
-    const auto routeFiles = neteditOptions.getStringVector("route-files");
+    const std::vector<std::string> routeFiles = neteditOptions.getStringVector("route-files");
     // continue depending of network and route files
     if (myNet && (routeFiles.size() > 0)) {
         // begin undolist
         myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, "loading demand elements from '" + toString(routeFiles) + "'");
-        // flag for check if there is error creating elements
-        bool errorCreatingElement = false;
         // iterate over every route file
-        for (const auto& routeFile : routeFiles) {
+        for (const std::string& routeFile : routeFiles) {
             WRITE_MESSAGE("Loading demand elements from '" + routeFile + "'");
             GNEGeneralHandler handler(myNet, routeFile, true, false);
             // disable validation for demand elements
@@ -4670,10 +4668,6 @@ GNEApplicationWindow::loadDemandElements() {
             }
             // disable validation for demand elements
             XMLSubSys::setValidation("auto", "auto", "auto");
-            // enable demand elements if there is an error creating element
-            if (handler.isErrorCreatingElement()) {
-                errorCreatingElement = true;
-            }
         }
         // end undo list
         myUndoList->end();

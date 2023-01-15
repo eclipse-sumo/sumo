@@ -427,7 +427,7 @@ MSPModel_Striping::initWalkingAreaPaths(const MSNet*) {
                         double angleOverride = INVALID_DOUBLE;
                         if (shape.size() >= 4 && shape.length() < walkingArea->getWidth()) {
                             const double aStart = shape.angleAt2D(0);
-                            const double aEnd = shape.angleAt2D(shape.size() - 2);
+                            const double aEnd = shape.angleAt2D((int)shape.size() - 2);
                             if (fabs(aStart - aEnd) < DEG2RAD(10)) {
                                 angleOverride = (aStart + aEnd) / 2;
                             }

@@ -154,7 +154,7 @@ NBNode::ApproachingDivider::execute(const int src, const int dest) {
     }
 
 #endif
-    size_t numConnections = approachingLanes.size();
+    int numConnections = (int)approachingLanes.size();
     double factor = 1;
     const bool rightOnRed = incomingEdge->getToNode()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED;
     if (myNumStraight == 1 && myDirections[src] == LinkDirection::STRAIGHT && (
@@ -166,8 +166,8 @@ NBNode::ApproachingDivider::execute(const int src, const int dest) {
                 || src == 0
                 // - a minor straight road is likely in conflict anyway
                 || (incomingEdge->getJunctionPriority(incomingEdge->getToNode()) == NBEdge::MINOR_ROAD && !rightOnRed))) {
-        numConnections = myAvailableLanes.size();
-        factor = (double)approachingLanes.size() / numConnections;
+        numConnections = (int)myAvailableLanes.size();
+        factor = (double)approachingLanes.size() / (double)numConnections;
         if (factor > 0.5) {
             factor = 1;
         }
@@ -175,7 +175,7 @@ NBNode::ApproachingDivider::execute(const int src, const int dest) {
     std::deque<int>* approachedLanes = spread(numConnections, dest);
     assert(approachedLanes->size() <= myAvailableLanes.size());
     // set lanes
-    int maxFrom = approachingLanes.size() - 1;
+    const int maxFrom = (int)approachingLanes.size() - 1;
     for (int i = 0; i < (int)approachedLanes->size(); i++) {
         // distribute i evenly on approaching lanes in case we are building more
         // connections than there are lanes
