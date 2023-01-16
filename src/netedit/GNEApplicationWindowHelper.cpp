@@ -2713,24 +2713,46 @@ GNEApplicationWindowHelper::openFileDialog(FXWindow* window, const std::string t
     WRITE_DEBUG(title);
     // configure open dialog
     FXFileDialog opendialog(window, title.c_str());
-    opendialog.setIcon(GUIIconSubSys::getIcon(icon));
     // check if allow to create a new file, or select only existent files
     if (save) {
         opendialog.setSelectMode(SELECTFILE_ANY);
     } else {
         opendialog.setSelectMode(SELECTFILE_EXISTING);
     }
+    // set icon and pattern list
+    opendialog.setIcon(GUIIconSubSys::getIcon(icon));
     opendialog.setPatternList(patternList.c_str());
+    // set current folder
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
+    // open dialog
     if (opendialog.execute()) {
-        // close additional dialog
-        WRITE_DEBUG("Close dialog sucesfully");
-        // udpate current folder
-        gCurrentFolder = opendialog.getDirectory();
-        // return file
-        return opendialog.getFilename().text();
+        // continue depending if we're loading or saving
+        if (save) {
+            // check if overwritte file
+            if (MFXUtils::userPermitsOverwritingWhenFileExists(window, opendialog.getFilename())) {
+                // close save dialog
+                WRITE_DEBUG("Close save dialog sucesfully");
+                // udpate current folder
+                gCurrentFolder = opendialog.getDirectory();
+                // assureExtension
+                return MFXUtils::assureExtension(opendialog.getFilename(),
+                    opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
+            } else {
+                // close additional dialog
+                WRITE_DEBUG("Abort overwritte file");
+                // return empty file
+                return "";
+            }
+        } else {
+            // close load dialog
+            WRITE_DEBUG("Close load dialog sucesfully");
+            // udpate current folder
+            gCurrentFolder = opendialog.getDirectory();
+            // return file
+            return opendialog.getFilename().text();
+        }
     } else {
         // close additional dialog
         WRITE_DEBUG("Abort dialog");

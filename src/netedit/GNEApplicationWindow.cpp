@@ -1125,7 +1125,6 @@ GNEApplicationWindow::onCmdToolNetDiff(FXObject*, FXSelector, void*) {
             }
         }
         // get the second network to ddiff
-        FXFileDialog opendialog(this, TL("Open diff Network"));
         opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_NET));
         opendialog.setSelectMode(SELECTFILE_EXISTING);
         opendialog.setPatternList("SUMO nets (*.net.xml,*.net.xml.gz)\nAll files (*)");
@@ -3192,13 +3191,14 @@ GNEApplicationWindow::onCmdSaveNETEDITConfig(FXObject*, FXSelector, void*) {
         if (out.good()) {
             // write NETEDIT config
             neteditOptions.writeConfiguration(out, true, false, false, neteditConfigFile, true);
-            setStatusBarText("netedit configuration saved to " + neteditConfigFile);
+            // write info
+            WRITE_MESSAGE(TL("NETEDIT configuration saved in '") + neteditConfigFile + "'");
             // config saved
             myNet->getSavingStatus()->NETEDITConfigSaved();
             // After saving a config successfully, add it into recent configs
             myMenuBarFile.myRecentConfigs.appendFile(neteditOptions.getString("configuration-file").c_str());
         } else {
-            setStatusBarText("Could not save netedit configuration to " + neteditConfigFile);
+            WRITE_MESSAGE(TL("Could not save NETEDIT configuration in '") + neteditConfigFile + "'");
         }
         out.close();
         return 1;
@@ -3208,26 +3208,17 @@ GNEApplicationWindow::onCmdSaveNETEDITConfig(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdSaveNETEDITConfigAs(FXObject* sender, FXSelector sel, void* ptr) {
-    // obtain NETEDIT option container
-    OptionsCont& neteditOptions = OptionsCont::getOptions();
-    // get the new file name
-    FXFileDialog opendialog(this, TL("Save NETEDIT Configuration as"));
-    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::SAVE));
-    opendialog.setSelectMode(SELECTFILE_ANY);
-    opendialog.setPatternList("Config (*.sumocfg)");
-    if (gCurrentFolder.length() != 0) {
-        opendialog.setDirectory(gCurrentFolder);
-    }
-    if (!opendialog.execute() || !MFXUtils::userPermitsOverwritingWhenFileExists(this, opendialog.getFilename())) {
-        return 1;
-    } else {
-        // save file in NETEDIT options
-        const std::string file = MFXUtils::assureExtension(opendialog.getFilename(),
-                                 opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
+    auto& neteditOptions = OptionsCont::getOptions();
+    // get neteditConfig filename
+    const auto neteditConfigFile = GNEApplicationWindowHelper::openNETEDITConfigFileDialog(this, true);
+    // continue depending of file
+    if (!neteditConfigFile.empty()) {
         neteditOptions.resetWritable();
-        neteditOptions.set("configuration-file", file);
+        neteditOptions.set("configuration-file", neteditConfigFile);
         // continue saving netedit config
         return onCmdSaveNETEDITConfig(sender, sel, ptr);
+    } else {
+        return 0;
     }
 }
 
@@ -3312,13 +3303,14 @@ GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject* sender, FXSelector sel, void
         if (out.good()) {
             // write SUMO config
             mySUMOOptions.writeConfiguration(out, true, false, false, sumoConfigFile, true);
-            setStatusBarText("SUMO configuration saved to " + sumoConfigFile);
+            // write info
+            WRITE_MESSAGE(TL("SUMO configuration saved in '") + sumoConfigFile + "'");
             // config saved
             myNet->getSavingStatus()->SUMOConfigSaved();
             // After saving a config successfully, add it into recent configs
             myMenuBarFile.myRecentConfigs.appendFile(neteditOptions.getString("sumocfg-file").c_str());
         } else {
-            setStatusBarText("Could not save SUMO configuration to " + sumoConfigFile);
+            WRITE_MESSAGE(TL("Could not save SUMO configuration in '") + sumoConfigFile + "'");
         }
         out.close();
         return 1;
@@ -3328,26 +3320,18 @@ GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject* sender, FXSelector sel, void
 
 long
 GNEApplicationWindow::onCmdSaveSUMOConfigAs(FXObject* sender, FXSelector sel, void* ptr) {
-    // obtain NETEDIT option container
-    OptionsCont& neteditOptions = OptionsCont::getOptions();
-    // get the new file name
-    FXFileDialog opendialog(this, TL("Save SUMO Configuration as"));
-    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::SAVE));
-    opendialog.setSelectMode(SELECTFILE_ANY);
-    opendialog.setPatternList("Config (*.sumocfg)");
-    if (gCurrentFolder.length() != 0) {
-        opendialog.setDirectory(gCurrentFolder);
-    }
-    if (!opendialog.execute() || !MFXUtils::userPermitsOverwritingWhenFileExists(this, opendialog.getFilename())) {
-        return 1;
-    } else {
+    auto& neteditOptions = OptionsCont::getOptions();
+    // get sumoConfig filename
+    const auto sumoConfigFile = GNEApplicationWindowHelper::openSUMOConfigFileDialog(this, true);
+    // continue depending of file
+    if (!sumoConfigFile.empty()) {
         // save file in NETEDIT options
-        const std::string file = MFXUtils::assureExtension(opendialog.getFilename(),
-                                 opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
         neteditOptions.resetWritable();
-        neteditOptions.set("sumocfg-file", file);
+        neteditOptions.set("sumocfg-file", sumoConfigFile);
         // continue saving SUMO Config
         return onCmdSaveSUMOConfig(sender, sel, ptr);
+    } else {
+        return 0;
     }
 }
 
