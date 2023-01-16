@@ -51,6 +51,12 @@ GNEGeneralHandler::isErrorCreatingElement() const {
 }
 
 
+bool
+GNEGeneralHandler::isMeanDataFile() const {
+    return myMeanDataFile;
+}
+
+
 void
 GNEGeneralHandler::beginTag(SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
     switch (tag) {
@@ -121,6 +127,8 @@ GNEGeneralHandler::endTag() {
     } else if (myQueue.back().isMeanData()) {
         // end parse meanData elements
         myMeanDataHandler.endParseAttributes();
+        // mark file as meandata
+        myMeanDataFile = true;
     } else {
         WRITE_ERROR(toString(myQueue.back().tag) + " cannot be processed either " +
                     "with additional handler nor with demand handler nor with meanData handler");

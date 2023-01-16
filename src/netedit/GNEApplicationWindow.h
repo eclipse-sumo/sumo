@@ -561,9 +561,6 @@ public:
     /// @brief load data elements
     void loadDataElements();
 
-    /// @brief load mean data elements
-    void loadMeanDataElements();
-
 protected:
     /// @brief FOX needs this for static members
     GNEApplicationWindow();
@@ -703,6 +700,9 @@ private:
 
     /// @brief warns about unsaved changes in data elements and gives the user the option to abort
     bool continueWithUnsavedDataElementChanges(const std::string& operation);
+
+    /// @brief set additional files in SUMO Config
+    void setAdditionalsInSUMOConfig();
 
     /// @brief extract folder
     FXString getFolder(const std::string& folder) const;
