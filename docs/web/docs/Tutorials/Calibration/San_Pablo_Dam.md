@@ -13,9 +13,7 @@ SUMO](../../Tutorials/Hello_SUMO.md), [Tutorials/quick
 start](../../Tutorials/quick_start.md) or [Tutorials/Quick Start old
 style](../../Tutorials/Quick_Start_old_style.md).
 
-All files mentioned here can also be found in the
-{{SUMO}}/docs/tutorial/san_pablo_dam directory. The most recent version can be
-found in the repository at [{{SUMO}}/tests/complex/tutorial/san_pablo_dam/data/]({{Source}}tests/complex/tutorial/san_pablo_dam/data/).
+All files mentioned here can be found in the repository at [{{SUMO}}/tests/complex/tutorial/san_pablo_dam/]({{Source}}tests/complex/tutorial/san_pablo_dam/).
 
 # Description
 
