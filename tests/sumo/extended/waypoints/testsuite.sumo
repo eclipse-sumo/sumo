@@ -22,5 +22,8 @@ until_late
 # when option --use-stop-ended is set, waypoint with attributes 'until'  and 'ended' should trigger stopping according to the 'ended' time if the vehicle arrives too early
 use_ended
 
+# whatever happens when a vehicle has to stop due to being early for a scheduled waypoint and attribute parking=true is set
+use_ended_parking
+
 # ignore capacity on parkingarea
 parkingarea
