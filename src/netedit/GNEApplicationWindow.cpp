@@ -100,9 +100,9 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK,       GNEApplicationWindow::onUpdSaveNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVENETWORK_AS,                 GNEApplicationWindow::onCmdSaveNetworkAs),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVENETWORK_AS,                 GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_L_SAVEASPLAINXML,                   GNEApplicationWindow::onCmdSaveAsPlainXML),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_L_SAVEASPLAINXML,                   GNEApplicationWindow::onCmdSavePlainXMLAs),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_L_SAVEASPLAINXML,                   GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SAVEJOINEDJUNCTIONS,                        GNEApplicationWindow::onCmdSaveJoinedJunctions),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SAVEJOINEDJUNCTIONS,                        GNEApplicationWindow::onCmdSaveJoinedJunctionsAs),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_SAVEJOINEDJUNCTIONS,                        GNEApplicationWindow::onUpdNeedsNetwork),
     // NETEDITConfig
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_E_EDITSELECTION_LOADNETEDITCONFIG,  GNEApplicationWindow::onCmdOpenNETEDITConfig),
@@ -3019,30 +3019,9 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject* sender, FXSelector sel, void* p
 
 long
 GNEApplicationWindow::onCmdSaveNetworkAs(FXObject*, FXSelector, void*) {
-    // declar extensions
-    const std::string netExtension = ".net.xml";
-    const std::string zipNetExtension = netExtension + ".gz";
-    const std::string wildcard = (netExtension + "\n*" + zipNetExtension);
-    // open dialog
-    FXString file = MFXUtils::getFilename2Write(this,
-                    TL("Save Network as"), wildcard.c_str(),
-                    GUIIconSubSys::getIcon(GUIIcon::SAVE),
-                    gCurrentFolder);
-    // get file with extension
-    std::string networkFile = file.text();
-    // clear wildcard
-    const size_t pos = networkFile.find(wildcard);
-    if (pos != std::string::npos) {
-        // If found then erase it from string
-        networkFile.erase(pos, wildcard.length());
-    }
-    // check xml extension
-    if (!GNEApplicationWindowHelper::stringEndsWith(networkFile, netExtension) &&
-            !GNEApplicationWindowHelper::stringEndsWith(networkFile, zipNetExtension)) {
-        networkFile = FileHelpers::addExtension(networkFile, netExtension);
-    }
-    // check that file with extension is valid
-    if (networkFile != "") {
+    // get network file file
+    const auto networkFile = GNEApplicationWindowHelper::openNetworkFileDialog(this, true);
+    if (networkFile.size() > 0) {
         // set ouput file in NETEDIT configs
         auto& neteditOptions = OptionsCont::getOptions();
         neteditOptions.resetWritable();
@@ -3057,34 +3036,15 @@ GNEApplicationWindow::onCmdSaveNetworkAs(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
-    // obtain option container
+GNEApplicationWindow::onCmdSavePlainXMLAs(FXObject*, FXSelector, void*) {
     auto& neteditOptions = OptionsCont::getOptions();
-    // declare current folder
-    FXString currentFolder = gCurrentFolder;
-    // check if there is a saved network
-    if (neteditOptions.getString("net-file").size() > 0) {
-        // extract folder
-        currentFolder = getFolder(neteditOptions.getString("net-file"));
-    }
-    // open dialog
-    FXString file = MFXUtils::getFilename2Write(this,
-                    TL("Save plain-xml edge-file (other names will be deduced from this)"), "",
-                    GUIIconSubSys::getIcon(GUIIcon::SAVE),
-                    currentFolder);
-    // check that file is valid (note: in this case we don't need to use function FileHelpers::addExtension)
-    if (file != "") {
-        std::string prefix = file.text();
-        // if the name of an edg.xml file was given, remove the suffix
-        if (StringUtils::endsWith(prefix, ".edg.xml")) {
-            prefix = prefix.substr(0, prefix.size() - 8);
-        }
-        if (StringUtils::endsWith(prefix, ".")) {
-            prefix = prefix.substr(0, prefix.size() - 1);
-        }
+    // get neteditConfig filename
+    const auto plainXMLFile = GNEApplicationWindowHelper::savePlainXMLFileDialog(this);
+    // continue depending of file
+    if (plainXMLFile.size() > 0) {
         getApp()->beginWaitCursor();
         try {
-            myNet->savePlain(prefix);
+            myNet->savePlain(plainXMLFile);
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox 'Error saving plainXML'");
@@ -3093,9 +3053,9 @@ GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'Error saving plainXML' with 'OK'");
         }
-        myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "Plain XML saved with prefix '" + prefix + "'.\n");
-        myMessageWindow->addSeparator();
         getApp()->endWaitCursor();
+        // write info
+        WRITE_MESSAGE(TL("Plain XML saved with prefix '") + plainXMLFile + "'.");
         // restore focus
         setFocus();
     }
@@ -3104,28 +3064,15 @@ GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdSaveJoinedJunctions(FXObject*, FXSelector, void*) {
-    // obtain option container
+GNEApplicationWindow::onCmdSaveJoinedJunctionsAs(FXObject*, FXSelector, void*) {
     auto& neteditOptions = OptionsCont::getOptions();
-    // declare current folder
-    FXString currentFolder = gCurrentFolder;
-    // check if there is a saved network
-    if (neteditOptions.getString("net-file").size() > 0) {
-        // extract folder
-        currentFolder = getFolder(neteditOptions.getString("net-file"));
-    }
-    // open dialog
-    FXString file = MFXUtils::getFilename2Write(this,
-                    TL("Save joined-junctions"), ".nod.xml",
-                    GUIIconSubSys::getIcon(GUIIcon::SAVE),
-                    currentFolder);
-    // add xml extension
-    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
-    // check that file with extension is valid
-    if (fileWithExtension != "") {
+    // get neteditConfig filename
+    const auto joinedJunctionsFile = GNEApplicationWindowHelper::saveJoinedJunctionsFileDialog(this);
+    // continue depending of file
+    if (joinedJunctionsFile.size() > 0) {
         getApp()->beginWaitCursor();
         try {
-            myNet->saveJoined(fileWithExtension);
+            myNet->saveJoined(joinedJunctionsFile);
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox 'error saving joined'");
@@ -3134,9 +3081,9 @@ GNEApplicationWindow::onCmdSaveJoinedJunctions(FXObject*, FXSelector, void*) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'error saving joined' with 'OK'");
         }
-        myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "Joined junctions saved to '" + fileWithExtension + "'.\n");
-        myMessageWindow->addSeparator();
         getApp()->endWaitCursor();
+        // write info
+        WRITE_MESSAGE(TL("Joined junctions saved to '") + joinedJunctionsFile + "'.");
         // restore focus
         setFocus();
     }
@@ -3351,59 +3298,36 @@ GNEApplicationWindow::onUpdSaveSUMOConfig(FXObject* sender, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject* obj, FXSelector sel, void* ptr) {
+    // obtain option container
+    auto& neteditOptions = OptionsCont::getOptions();
     // check if there is TLS to save
     if (myNet && !myNet->getSavingStatus()->isTLSSaved()) {
-        // obtain option container
-        auto& neteditOptions = OptionsCont::getOptions();
         // Check if TLS Programs file was already set at start of netedit or with a previous save
         if (neteditOptions.getString("tls-file").empty()) {
-            // declare current folder
-            FXString currentFolder = gCurrentFolder;
-            // check if there is a saved network
-            if (neteditOptions.getString("net-file").size() > 0) {
-                // extract folder
-                currentFolder = getFolder(neteditOptions.getString("net-file"));
+            return onCmdSaveTLSProgramsAs(obj, sel, ptr);
+        } else {
+            // Start saving TLS Programs
+            getApp()->beginWaitCursor();
+            try {
+                myNet->computeNetwork(this, true); // GNEChange_TLS does not triggere GNENet:requireRecompute
+                myNet->saveTLSPrograms(neteditOptions.getString("tls-file"));
+                myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "TLS Programs saved in " + neteditOptions.getString("tls-file") + ".\n");
+            } catch (IOError& e) {
+                // write warning if netedit is running in testing mode
+                WRITE_DEBUG("Opening FXMessageBox 'error saving TLS Programs'");
+                // open error message box
+                FXMessageBox::error(this, MBOX_OK, TL("Saving TLS Programs failed!"), "%s", e.what());
+                // write warning if netedit is running in testing mode
+                WRITE_DEBUG("Closed FXMessageBox 'error saving TLS Programs' with 'OK'");
             }
-            // open dialog
-            FXString file = MFXUtils::getFilename2Write(this,
-                            TL("Save TLS Programs"), ".xml",
-                            GUIIconSubSys::getIcon(GUIIcon::MODETLS),
-                            currentFolder);
-            // add xml extension
-            std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
-            // check tat file is valid
-            if (file == "") {
-                // None TLS Programs file was selected, then stop function
-                return 0;
-            } else {
-                // change value of "tls-file"
-                neteditOptions.resetWritable();
-                neteditOptions.set("tls-file", fileWithExtension);
-            }
+            myMessageWindow->addSeparator();
+            getApp()->endWaitCursor();
+            // restore focus
+            setFocus();
         }
-        // Start saving TLS Programs
-        getApp()->beginWaitCursor();
-        try {
-            myNet->computeNetwork(this, true); // GNEChange_TLS does not triggere GNENet:requireRecompute
-            myNet->saveTLSPrograms(neteditOptions.getString("tls-file"));
-            myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "TLS Programs saved in " + neteditOptions.getString("tls-file") + ".\n");
-        } catch (IOError& e) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Opening FXMessageBox 'error saving TLS Programs'");
-            // open error message box
-            FXMessageBox::error(this, MBOX_OK, TL("Saving TLS Programs failed!"), "%s", e.what());
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox 'error saving TLS Programs' with 'OK'");
-        }
-        myMessageWindow->addSeparator();
-        getApp()->endWaitCursor();
-        // restore focus
-        setFocus();
-        return 1;
-    } else {
-        return 0;
     }
+    return 1;
 }
 
 
@@ -3425,58 +3349,35 @@ GNEApplicationWindow::onUpdSaveTLSPrograms(FXObject* sender, FXSelector, void*) 
 
 
 long
-GNEApplicationWindow::onCmdSaveEdgeTypes(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdSaveEdgeTypes(FXObject* obj, FXSelector sel, void* ptr) {
     // obtain option container
     auto& neteditOptions = OptionsCont::getOptions();
     // check if save additional menu is enabled
     if (myNet && !myNet->getSavingStatus()->isEdgeTypeSaved()) {
         // Check if edgeType file was already set at start of netedit or with a previous save
         if (neteditOptions.getString("edgetypes-file").empty()) {
-            // declare current folder
-            FXString currentFolder = gCurrentFolder;
-            // check if there is a saved network
-            if (neteditOptions.getString("net-file").size() > 0) {
-                // extract folder
-                currentFolder = getFolder(neteditOptions.getString("net-file"));
+            return onCmdSaveTLSProgramsAs(obj, sel, ptr);
+        } else {
+            // Start saving edgeTypes
+            getApp()->beginWaitCursor();
+            try {
+                myNet->saveEdgeTypes(neteditOptions.getString("edgetypes-file"));
+                myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "EdgeType saved in " + neteditOptions.getString("edgetypes-file") + ".\n");
+            } catch (IOError& e) {
+                // write warning if netedit is running in testing mode
+                WRITE_DEBUG("Opening FXMessageBox 'error saving edgeTypes'");
+                // open error message box
+                FXMessageBox::error(this, MBOX_OK, TL("Saving edgeTypes failed!"), "%s", e.what());
+                // write warning if netedit is running in testing mode
+                WRITE_DEBUG("Closed FXMessageBox 'error saving edgeTypes' with 'OK'");
             }
-            // open dialog
-            FXString file = MFXUtils::getFilename2Write(this,
-                            TL("Save edgeType file"), ".xml",
-                            GUIIconSubSys::getIcon(GUIIcon::MODECREATEEDGE),
-                            currentFolder);
-            // add xml extension
-            std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
-            // check tat file is valid
-            if (file == "") {
-                // None edgeType Programs file was selected, then stop function
-                return 0;
-            } else {
-                // change value of "edgetypes-file"
-                neteditOptions.resetWritable();
-                neteditOptions.set("edgetypes-file", fileWithExtension);
-            }
+            myMessageWindow->addSeparator();
+            getApp()->endWaitCursor();
+            // restore focus
+            setFocus();
         }
-        // Start saving edgeTypes
-        getApp()->beginWaitCursor();
-        try {
-            myNet->saveEdgeTypes(neteditOptions.getString("edgetypes-file"));
-            myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "EdgeType saved in " + neteditOptions.getString("edgetypes-file") + ".\n");
-        } catch (IOError& e) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Opening FXMessageBox 'error saving edgeTypes'");
-            // open error message box
-            FXMessageBox::error(this, MBOX_OK, TL("Saving edgeTypes failed!"), "%s", e.what());
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox 'error saving edgeTypes' with 'OK'");
-        }
-        myMessageWindow->addSeparator();
-        getApp()->endWaitCursor();
-        // restore focus
-        setFocus();
-        return 1;
-    } else {
-        return 0;
     }
+    return 1;
 }
 
 
@@ -3496,25 +3397,13 @@ long
 GNEApplicationWindow::onCmdSaveTLSProgramsAs(FXObject*, FXSelector, void*) {
     // obtain option container
     const auto& neteditOptions = OptionsCont::getOptions();
-    // declare current folder
-    FXString currentFolder = gCurrentFolder;
-    // check if there is a saved network
-    if (neteditOptions.getString("net-file").size() > 0) {
-        // extract folder
-        currentFolder = getFolder(neteditOptions.getString("net-file"));
-    }
-    // Open window to select TLS Programs file
-    FXString file = MFXUtils::getFilename2Write(this,
-                    TL("Save TLS Programs as"), ".xml",
-                    GUIIconSubSys::getIcon(GUIIcon::MODETLS),
-                    currentFolder);
-    // add xml extension
-    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
+    // get TLS file
+    const auto TLSFile = GNEApplicationWindowHelper::openTLSFileDialog(this, true);
     // check tat file is valid
-    if (fileWithExtension != "") {
+    if (TLSFile != "") {
         // change value of "tls-file"
         OptionsCont::getOptions().resetWritable();
-        OptionsCont::getOptions().set("tls-file", fileWithExtension);
+        OptionsCont::getOptions().set("tls-file", TLSFile);
         // save TLS Programs
         return onCmdSaveTLSPrograms(nullptr, 0, nullptr);
     } else {
@@ -3526,25 +3415,14 @@ GNEApplicationWindow::onCmdSaveTLSProgramsAs(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdSaveEdgeTypesAs(FXObject*, FXSelector, void*) {
     // obtain option container
-    const auto& neteditOptions = OptionsCont::getOptions();
-    // declare current folder
-    FXString currentFolder = gCurrentFolder;
-    // check if there is a saved network
-    if (neteditOptions.getString("net-file").size() > 0) {
-        // extract folder
-        currentFolder = getFolder(neteditOptions.getString("net-file"));
-    }
-    // Open window to select edgeType file
-    FXString file = MFXUtils::getFilename2Write(this,
-                    TL("Save edgeType file as"), ".xml",
-                    GUIIconSubSys::getIcon(GUIIcon::MODECREATEEDGE),
-                    currentFolder);
-    // add xml extension
-    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
+    auto& neteditOptions = OptionsCont::getOptions();
+    // get network file file
+    const auto edgeTypesFile = GNEApplicationWindowHelper::openEdgeTypeFileDialog(this, true);
     // check tat file is valid
-    if (fileWithExtension != "") {
+    if (edgeTypesFile.size() > 0) {
         // change value of "edgetypes-file"
-        OptionsCont::getOptions().set("edgetypes-file", fileWithExtension);
+        neteditOptions.resetWritable();
+        neteditOptions.set("edgetypes-file", edgeTypesFile);
         // save edgeTypes
         return onCmdSaveEdgeTypes(nullptr, 0, nullptr);
     } else {
@@ -3699,12 +3577,8 @@ GNEApplicationWindow::onCmdSaveAdditionalsAs(FXObject*, FXSelector, void*) {
     } else if (neteditOptions.getString("net-file").size() > 0) {
         currentFolder = getFolder(neteditOptions.getString("net-file"));
     }
-    // Open window to select additional file
-    FXString file = MFXUtils::getFilename2Write(this,
-                    TL("Save Additionals file as"), ".add.xml",
-                    GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL), currentFolder);
-    // add xml extension
-    const auto additionalFile = FileHelpers::addExtension(file.text(), ".xml");
+    // get additional file
+    const auto additionalFile = GNEApplicationWindowHelper::openAdditionalFileDialog(this, true);
     // check that file is valid
     if (additionalFile.size() > 0) {
         // reset writtable flag
@@ -3853,19 +3727,14 @@ GNEApplicationWindow::onCmdSaveDemandElementsAs(FXObject* sender, FXSelector sel
     } else if (neteditOptions.getString("net-file").size() > 0) {
         currentFolder = getFolder(neteditOptions.getString("net-file"));
     }
-    // Open window to select additionasl file
-    FXString file = MFXUtils::getFilename2Write(this,
-                    TL("Save demand element file as"), ".rou.xml",
-                    GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND),
-                    currentFolder);
-    // add xml extension
-    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".rou.xml");
+    // get route file
+    const auto routeFile = GNEApplicationWindowHelper::openRouteFileDialog(this, true);
     // check that file is correct
-    if (fileWithExtension != "") {
+    if (routeFile != "") {
         // reset writtable flag
         OptionsCont::getOptions().resetWritable();
         // change value of "route-files"
-        OptionsCont::getOptions().set("route-files", fileWithExtension);
+        OptionsCont::getOptions().set("route-files", routeFile);
         // requiere save demand elements
         myNet->getSavingStatus()->requireSaveDemandElements();
         // save demand elements
@@ -4015,19 +3884,14 @@ GNEApplicationWindow::onCmdSaveDataElementsAs(FXObject* sender, FXSelector sel, 
     } else if (neteditOptions.getString("net-file").size() > 0) {
         currentFolder = getFolder(neteditOptions.getString("net-file"));
     }
-    // Open window to select additionasl file
-    FXString file = MFXUtils::getFilename2Write(this,
-                    TL("Save data element file as"), ".dat.xml",
-                    GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA),
-                    currentFolder);
-    // add xml extension
-    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".dat.xml");
+    // get data file
+    const auto dataFile = GNEApplicationWindowHelper::openDataFileDialog(this, true);
     // check that file is correct
-    if (fileWithExtension != "") {
+    if (dataFile != "") {
         // reset writtable flag
         OptionsCont::getOptions().resetWritable();
         // change value of "data-files"
-        OptionsCont::getOptions().set("data-files", fileWithExtension);
+        OptionsCont::getOptions().set("data-files", dataFile);
         // mark data elements as unsaved
         myNet->getSavingStatus()->requireSaveDataElements();
         // save data elements
@@ -4168,19 +4032,14 @@ GNEApplicationWindow::onCmdSaveMeanDatasAs(FXObject* sender, FXSelector sel, voi
     } else if (neteditOptions.getString("net-file").size() > 0) {
         currentFolder = getFolder(neteditOptions.getString("net-file"));
     }
-    // Open window to select meanData file
-    FXString file = MFXUtils::getFilename2Write(this,
-                    TL("Save MeanDatas file as"), ".add.xml",
-                    GUIIconSubSys::getIcon(GUIIcon::MODEMEANDATA),
-                    currentFolder);
-    // add xml extension
-    std::string fileWithExtension = FileHelpers::addExtension(file.text(), "add.xml");
-    // check tat file is valid
-    if (fileWithExtension != "") {
+    // get meanData file
+    const auto meanDataFile = GNEApplicationWindowHelper::openMeanDataDialog(this, true);
+    // check that file is valid
+    if (meanDataFile != "") {
         // reset writtable flag
         neteditOptions.resetWritable();
         // change value of "meandata-files"
-        neteditOptions.set("meandata-files", fileWithExtension);
+        neteditOptions.set("meandata-files", meanDataFile);
         // mark mean datas as unsaved
         myNet->getSavingStatus()->requireSaveMeanDatas();
         // save meanDatas

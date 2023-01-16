@@ -171,10 +171,10 @@ public:
     long onCmdSaveNetworkAs(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall save as plain xml is executed
-    long onCmdSaveAsPlainXML(FXObject*, FXSelector, void*);
+    long onCmdSavePlainXMLAs(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall save joined is executed
-    long onCmdSaveJoinedJunctions(FXObject*, FXSelector, void*);
+    long onCmdSaveJoinedJunctionsAs(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall save NETEDITConfig is executed
     long onCmdSaveNETEDITConfig(FXObject*, FXSelector, void*);

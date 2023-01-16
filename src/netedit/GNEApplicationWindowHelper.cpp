@@ -2604,6 +2604,20 @@ GNEApplicationWindowHelper::openNetconvertFileDialog(FXWindow* window) {
 
 
 std::string
+GNEApplicationWindowHelper::savePlainXMLFileDialog(FXWindow* window) {
+    return openFileDialog(window, TL("Save plain XML as"), GUIIcon::SAVE,
+        "XML files (*.xml)\nAll files (*)", true);
+}
+
+
+std::string
+GNEApplicationWindowHelper::saveJoinedJunctionsFileDialog(FXWindow* window) {
+    return openFileDialog(window, TL("Save joined Junctions as"), GUIIcon::SAVE,
+        "Junction files (*.nod.xml)\nXML files (*.xml)\nAll files (*)", true);
+}
+
+
+std::string
 GNEApplicationWindowHelper::openOSMFileDialog(FXWindow* window) {
     return openFileDialog(window, TL("Open OSM file"), GUIIcon::OPEN_NET,
         "OSM net (*.osm.xml,*.osm)", false);

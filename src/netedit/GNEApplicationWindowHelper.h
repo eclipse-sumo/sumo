@@ -1074,6 +1074,12 @@ struct GNEApplicationWindowHelper {
     /// @brief open netconvert file dialog
     static std::string openNetconvertFileDialog(FXWindow* window);
 
+    /// @brief open plain xml file dialog
+    static std::string savePlainXMLFileDialog(FXWindow* window);
+
+    /// @brief open joined junctions file dialog
+    static std::string saveJoinedJunctionsFileDialog(FXWindow* window);
+
     /// @brief open OSM file dialog
     static std::string openOSMFileDialog(FXWindow* window);
 
