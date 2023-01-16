@@ -164,9 +164,12 @@ public:
             auto* const minimumInfo = this->myFrontierList.front();
             const E* const minEdge = minimumInfo->edge;
 #ifdef DijkstraRouter_DEBUG_QUERY
-            std::cout << "DEBUG: hit '" << minEdge->getID() << "' Eff: " << minimumInfo->effort << ", Leave: " << minimumInfo->leaveTime << " Q: ";
-            for (auto& it : this->myFrontierList) {
-                std::cout << "\n   " << it->effort << ", " << it->edge->getID();
+            std::cout << "DEBUG: hit=" << minEdge->getID()
+                      << " TT=" << minimumInfo->effort
+                      << " EF=" << this->getEffort(minEdge, vehicle, minimumInfo->leaveTime)
+                      << " Leave: " << minimumInfo->leaveTime << " Q: ";
+            for (const auto& edgeInfo : this->myFrontierList) {
+                std::cout << "\n   " << edgeInfo->effort << ", " << edgeInfo->edge->getID();
             }
             std::cout << "\n";
 #endif

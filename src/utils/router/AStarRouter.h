@@ -164,13 +164,26 @@ public:
         }
         // loop
         int num_visited = 0;
-        const bool mayRevisit = myLookupTable != 0 && !myLookupTable->consistent();
+        const bool mayRevisit = myLookupTable != nullptr && !myLookupTable->consistent();
         const double speed = vehicle == nullptr ? myMaxSpeed : MIN2(vehicle->getMaxSpeed(), myMaxSpeed * vehicle->getChosenSpeedFactor());
         while (!this->myFrontierList.empty()) {
             num_visited += 1;
             // use the node with the minimal length
             auto* const minimumInfo = this->myFrontierList.front();
             const E* const minEdge = minimumInfo->edge;
+#ifdef ASTAR_DEBUG_QUERY
+            if (ASTAR_DEBUG_COND) {
+                std::cout << "DEBUG: hit=" << minEdge->getID()
+                          << " TT=" << minimumInfo->effort
+                          << " EF=" << this->getEffort(minEdge, vehicle, minimumInfo->leaveTime)
+                          << " HT=" << minimumInfo->heuristicEffort
+                          << " Q(TT,HT,Edge)=";
+                for (const auto& edgeInfo : this->myFrontierList) {
+                    std::cout << "\n   " << edgeInfo->effort << "," << edgeInfo->heuristicEffort << "," << edgeInfo->edge->getID();
+                }
+                std::cout << "\n";
+            }
+#endif
             // check whether the destination node was already reached
             if (minEdge == to) {
                 this->buildPathFrom(minimumInfo, into);
@@ -184,8 +197,8 @@ public:
 #endif
 #ifdef ASTAR_DEBUG_VISITED
                 if (ASTAR_DEBUG_COND) {
-                    OutputDevice& dev = OutputDevice::getDevice(Named::getIDSecure(vehicle) + "_" + toString(STEPS2TIME(msTime)));
-                    for (const auto& i : myEdgeInfos) {
+                    OutputDevice& dev = OutputDevice::getDevice(StringUtils::replace(Named::getIDSecure(vehicle), ":", "_") + "_" + toString(STEPS2TIME(msTime)));
+                    for (const auto& i : this->myEdgeInfos) {
                         if (i.visited) {
                             dev << "edge:" << i.edge->getID() << "\n";
                         }
@@ -199,19 +212,6 @@ public:
             this->myFrontierList.pop_back();
             this->myFound.push_back(minimumInfo);
             minimumInfo->visited = true;
-#ifdef ASTAR_DEBUG_QUERY
-            if (ASTAR_DEBUG_COND) {
-                std::cout << "DEBUG: hit=" << minEdge->getID()
-                          << " TT=" << minimumInfo->effort
-                          << " EF=" << this->getEffort(minEdge, vehicle, minimumInfo->leaveTime)
-                          << " HT=" << minimumInfo->heuristicEffort
-                          << " Q(TT,HT,Edge)=";
-                for (const auto& edgeInfo : myFrontierList) {
-                    std::cout << edgeInfo->effort << "," << edgeInfo->heuristicEffort << "," << edgeInfo->edge->getID() << " ";
-                }
-                std::cout << "\n";
-            }
-#endif
             const double effortDelta = this->getEffort(minEdge, vehicle, minimumInfo->leaveTime);
             const double leaveTime = minimumInfo->leaveTime + this->getTravelTime(minEdge, vehicle, minimumInfo->leaveTime, effortDelta);
 
