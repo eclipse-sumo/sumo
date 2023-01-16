@@ -34,6 +34,7 @@
     <teleports total="0" jam="0" yield="0" wrongLane="0"/>
     <safety collisions="0" emergencyStops="0"/>
     <persons loaded="10" running="0" jammed="0"/>
+    <personTeleports total="0" abortWait="0" wrongDest="0"/>
     <vehicleTripStatistics count="2" routeLength="3826.27" speed="6.07" duration="630.00" waitingTime="16.50" timeLoss="106.89" departDelay="0.00" departDelayWaiting="0.00" totalTravelTime="1260.00" totalDepartDelay="0.00"/>
     <pedestrianStatistics number="0" routeLength="0.00" duration="0.00" timeLoss="0.00"/>
     <rideStatistics number="10" waitingTime="122.40" routeLength="644.98" duration="117.30" bus="0" train="0" taxi="7" bike="0" aborted="3"/>
