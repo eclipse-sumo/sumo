@@ -505,7 +505,11 @@ GNENetHelper::AttributeCarriers::retrieveCrossing(GNEAttributeCarrier* AC, bool 
     if (crossing && (myCrossings.count(crossing) > 0)) {
         return crossing;
     } else if (hardFail) {
-        throw UnknownElement("Crossing " + AC->getID());
+        if (AC) {
+            throw UnknownElement("Crossing " + AC->getID());
+        } else {
+            throw UnknownElement("Crossing");
+        }
     } else {
         return nullptr;
     }
@@ -569,7 +573,11 @@ GNENetHelper::AttributeCarriers::retrieveWalkingArea(GNEAttributeCarrier* AC, bo
     if (walkingArea && (myWalkingAreas.count(walkingArea) > 0)) {
         return walkingArea;
     } else if (hardFail) {
-        throw UnknownElement("WalkingArea " + AC->getID());
+        if (AC) {
+            throw UnknownElement("WalkingArea " + AC->getID());
+        } else {
+            throw UnknownElement("WalkingArea");
+        }
     } else {
         return nullptr;
     }
@@ -860,7 +868,11 @@ GNENetHelper::AttributeCarriers::retrieveLane(GNEAttributeCarrier* AC, bool hard
     if (lane && (myLanes.count(lane) > 0)) {
         return lane;
     } else if (hardFail) {
-        throw UnknownElement("Lane " + AC->getID());
+        if (AC) {
+            throw UnknownElement("Lane " + AC->getID());
+        } else {
+            throw UnknownElement("Lane");
+        }
     } else {
         return nullptr;
     }
@@ -941,7 +953,11 @@ GNENetHelper::AttributeCarriers::retrieveConnection(GNEAttributeCarrier* AC, boo
     if (connection && (myConnections.count(connection) > 0)) {
         return connection;
     } else if (hardFail) {
-        throw UnknownElement("Connection " + AC->getID());
+        if (AC) {
+            throw UnknownElement("Connection " + AC->getID());
+        } else {
+            throw UnknownElement("Connection");
+        }
     } else {
         return nullptr;
     }
