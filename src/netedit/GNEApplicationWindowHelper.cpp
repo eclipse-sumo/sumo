@@ -2617,7 +2617,7 @@ GNEApplicationWindowHelper::openNETEDITConfigFileDialog(FXWindow* window, const 
             "NETEDIT Config files (*.neteditcfg,)\nAll files (*)", true);
     } else {
         return openFileDialog(window, TL("Open NETEDIT Config file"), GUIIcon::OPEN_NETEDITCONFIG,
-            "NETEDIT Config files (*.neteditcfg,)\nAll files (*)", false);
+            "NETEDIT Config files (*.neteditcfg)\nAll files (*)", false);
     }
 }
 
@@ -2626,10 +2626,10 @@ std::string
 GNEApplicationWindowHelper::openSUMOConfigFileDialog(FXWindow* window, const bool save) {
     if (save) {
         return openFileDialog(window, TL("Save SUMO Config file as"), GUIIcon::SAVE_SUMOCONFIG,
-            "SUMO Config files (*.neteditcfg,)\nAll files (*)", true);
+            "SUMO Config files (*.neteditcfg)\nAll files (*)", true);
     } else {
         return openFileDialog(window, TL("Open SUMO Config file"), GUIIcon::OPEN_SUMOCONFIG,
-            "SUMO Config files (*.neteditcfg,)\nAll files (*)", false);
+            "SUMO Config files (*.neteditcfg)\nAll files (*)", false);
     }
 }
 

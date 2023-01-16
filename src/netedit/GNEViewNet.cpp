@@ -2920,7 +2920,7 @@ GNEViewNet::addRestrictedLane(SUMOVehicleClass vclass, const bool insertAtFront)
             setOfEdges.insert(myNet->getAttributeCarriers()->retrieveEdge(lane->getParentEdge()->getID()));
         }
         // If we handeln a set of edges
-        if (setOfEdges.size() > 0) {
+        if (laneAtPopupPosition->isAttributeCarrierSelected() || laneAtPopupPosition->getParentEdge()->isAttributeCarrierSelected()) {
             // declare counter for number of restrictions
             int counter = 0;
             // iterate over set of edges

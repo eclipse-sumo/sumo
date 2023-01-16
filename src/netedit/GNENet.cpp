@@ -797,10 +797,10 @@ GNENet::addRestrictedLane(SUMOVehicleClass vclass, GNEEdge* edge, int index, GNE
         return false;
     }
     if (index < 0) {
+        // for pedestrians and greenVerge, always index 0
+        index = 0;
         // guess index from vclass
-        if (vclass == SVC_PEDESTRIAN) {
-            index = 0;
-        } else if (vclass == SVC_BICYCLE) {
+        if (vclass == SVC_BICYCLE) {
             // add bikelanes to the left of an existing sidewalk
             index = edge->getLanes()[0]->isRestricted(SVC_PEDESTRIAN) ? 1 : 0;
         } else if (vclass == SVC_BUS) {
