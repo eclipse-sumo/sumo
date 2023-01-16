@@ -19,3 +19,6 @@ both_ended_swapped2
 
 # started and ended information is available for both trains and indicates swapped order (but started times are still in the original order)
 both_ended_swapped2_parking
+
+# started and ended information is available for the first of three trains
+first_ended_parking
