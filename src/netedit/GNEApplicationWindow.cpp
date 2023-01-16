@@ -3041,7 +3041,9 @@ GNEApplicationWindow::onCmdSaveNetworkAs(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdSavePlainXMLAs(FXObject*, FXSelector, void*) {
     // get neteditConfig filename
-    const auto plainXMLFile = GNEApplicationWindowHelper::savePlainXMLFileDialog(this);
+    auto plainXMLFile = GNEApplicationWindowHelper::savePlainXMLFileDialog(this);
+    // Remove extension
+    plainXMLFile.pop_back();
     // continue depending of file
     if (plainXMLFile.size() > 0) {
         getApp()->beginWaitCursor();

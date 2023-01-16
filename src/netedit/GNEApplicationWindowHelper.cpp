@@ -2605,8 +2605,7 @@ GNEApplicationWindowHelper::openNetconvertFileDialog(FXWindow* window) {
 
 std::string
 GNEApplicationWindowHelper::savePlainXMLFileDialog(FXWindow* window) {
-    return openFileDialog(window, TL("Save plain XML as"), GUIIcon::SAVE,
-        "XML files (*.xml)\nAll files (*)", true);
+    return openFileDialog(window, TL("Save plain XML as"), GUIIcon::SAVE, "", true);
 }
 
 
