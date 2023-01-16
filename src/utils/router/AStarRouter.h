@@ -216,6 +216,7 @@ public:
             const double leaveTime = minimumInfo->leaveTime + this->getTravelTime(minEdge, vehicle, minimumInfo->leaveTime, effortDelta);
 
             // admissible A* heuristic: straight line distance at maximum speed
+            // this is calculated from the end of minEdge so it possibly includes via efforts to the followers
             const double heuristic_remaining = (myLookupTable == nullptr ? minEdge->getDistanceTo(to) / speed :
                                                 myLookupTable->lowerBound(minEdge, to, speed, vehicle->getChosenSpeedFactor(),
                                                         minEdge->getMinimumTravelTime(nullptr), to->getMinimumTravelTime(nullptr)));
@@ -237,7 +238,8 @@ public:
                 if ((!followerInfo.visited || mayRevisit) && effort < oldEffort) {
                     followerInfo.effort = effort;
                     // if we use the effort including the via effort below we would count the via twice as shown by the ticket676 test
-                    followerInfo.heuristicEffort = MIN2(heuristicEffort, followerInfo.heuristicEffort);
+                    // but we should never get below the real effort, see #12463
+                    followerInfo.heuristicEffort = MAX2(MIN2(heuristicEffort, followerInfo.heuristicEffort), effort);
                     followerInfo.leaveTime = time;
                     followerInfo.prev = minimumInfo;
 #ifdef ASTAR_DEBUG_QUERY_FOLLOWERS
