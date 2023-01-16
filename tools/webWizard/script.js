@@ -73,9 +73,11 @@ on("ready", function(){
 
             var node = elem("<div>", {className: "container"});
             var header = elem("<h4>", {textContent: category});
+            var checkbox = elem("<input>",{type: "checkbox", checked:true, className: "checkAll", id: category.toLowerCase()});
             node.append(header);
+            node.append(checkbox);
 
-            var types = elem("<div>", {className: "roadTypes"});
+            var types = elem("<div>", {className: "roadTypes " + category.toLowerCase()});
             var label = elem("<label>");
 
             for (var i = 0; i < typeList.length; i++) {
@@ -318,6 +320,18 @@ on("ready", function(){
 
     canvasToggle.on("click", toggleCanvas);
     toggleCanvas();
+
+    // function to check or uncheck all checkboxes for a certain roadType
+    var checkOrUncheckAll = function() {
+        Array.from(document.querySelectorAll(".roadTypes." + this.getAttribute("id") + " input[type=checkbox]")).forEach(el => el.checked = this.checked);
+    };
+
+    // listen if a roadType checkbox is selected/unselected
+    var roadTypeCheckboxes = document.getElementsByClassName("checkAll"); 
+
+    Array.from(roadTypeCheckboxes).forEach(function(element) {
+        element.addEventListener("click", checkOrUncheckAll);
+    });
 
     // OSM map
     // avoid cross domain resource sharing issues (#3991)
