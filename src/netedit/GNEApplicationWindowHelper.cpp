@@ -2639,10 +2639,10 @@ std::string
 GNEApplicationWindowHelper::openSUMOConfigFileDialog(FXWindow* window, const bool save) {
     if (save) {
         return openFileDialog(window, TL("Save SUMO Config file as"), GUIIcon::SAVE_SUMOCONFIG,
-            "SUMO Config files (*.neteditcfg)\nAll files (*)", true);
+            "SUMO Config files (*.sumocfg)\nAll files (*)", true);
     } else {
         return openFileDialog(window, TL("Open SUMO Config file"), GUIIcon::OPEN_SUMOCONFIG,
-            "SUMO Config files (*.neteditcfg)\nAll files (*)", false);
+            "SUMO Config files (*.sumocfg)\nAll files (*)", false);
     }
 }
 
