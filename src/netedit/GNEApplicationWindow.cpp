@@ -1891,13 +1891,10 @@ long
 GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject* obj, FXSelector sel, void* ptr) {
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
-    // first check if network is saved
-    if (!myNet->getSavingStatus()->isSUMOConfigSaved()) {
-        // save SUMOConfig
-        if (onCmdSaveSUMOConfig(obj, sel, ptr) == 0) {
-            // SUMOConfig wasn't saved, then stop
-            return 0;
-        }
+    // force save SUMOConfig
+    if (onCmdSaveSUMOConfig(obj, sel, ptr) == 0) {
+        // SUMOConfig wasn't saved, then stop
+        return 0;
     }
     // save current viewport in registry
     FXRegistry reg("SUMO GUI", "sumo-gui");
@@ -1907,34 +1904,17 @@ GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject* obj, FXSelector sel, void* ptr)
     reg.writeRealEntry("viewport", "z", myViewNet->getChanger().getZPos());
     reg.write();
     // declare executable
-    std::string sumogui = "sumo-gui";
+    std::string sumoGuiExecutable = "sumo-gui";
     // if SUMO_HOME is defined, update executable
     const char* sumoHome = getenv("SUMO_HOME");
     if (sumoHome != nullptr) {
         std::string newPath = std::string(sumoHome) + "/bin/sumo-gui";
         if (FileHelpers::isReadable(newPath) || FileHelpers::isReadable(newPath + ".exe")) {
-            sumogui = "\"" + newPath + "\"";
+            sumoGuiExecutable = "\"" + newPath + "\"";
         }
     }
-    // declare comand
-    std::string cmd = sumogui + " --registry-viewport" + " -n "  + "\"" + neteditOptions.getString("net-file") + "\"";
-    // if load additionals is enabled, add it to command
-    if ((myEditMenuCommands.loadAdditionalsInSUMOGUI->getCheck() == TRUE) && (neteditOptions.getString("additional-files").size() > 0)) {
-        // save additionals
-        onCmdSaveAdditionals(obj, sel, ptr);
-        cmd += " -a \"" + neteditOptions.getString("additional-files") + "\"";
-    }
-    // if load demand is enabled, add it to command
-    if ((myEditMenuCommands.loadDemandInSUMOGUI->getCheck() == TRUE) && (neteditOptions.getString("route-files").size() > 0)) {
-        // save additionals
-        onCmdSaveDemandElements(obj, sel, ptr);
-        cmd += " -r \"" + neteditOptions.getString("route-files") + "\"";
-    }
-    // if we have trips or flow over junctions, add option junction-taz
-    if ((myNet->getAttributeCarriers()->getDemandElements().at(GNE_TAG_TRIP_JUNCTIONS).size() > 0) ||
-            (myNet->getAttributeCarriers()->getDemandElements().at(GNE_TAG_FLOW_JUNCTIONS).size() > 0)) {
-        cmd += " --junction-taz";
-    }
+    // declare command
+    std::string cmd = sumoGuiExecutable + " --registry-viewport" + " -c "  + "\"" + neteditOptions.getString("sumocfg-file") + "\"";
     // start in background
 #ifndef WIN32
     cmd = cmd + " &";
@@ -3209,13 +3189,17 @@ GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject* sender, FXSelector sel, void
             }
             onCmdSaveNetwork(nullptr, 0, nullptr);
         }
-        if (!ignoreAdditionals && !myNet->getSavingStatus()->isAdditionalsSaved()) {
+        if (ignoreAdditionals) {
+            neteditOptions.set("additional-files", "");
+        } else if (!myNet->getSavingStatus()->isAdditionalsSaved()) {
             if (neteditOptions.getString("additional-files").empty()) {
                 neteditOptions.set("additional-files", patterFile + ".add.xml");
             }
             onCmdSaveAdditionals(nullptr, 0, nullptr);
         }
-        if (!ignoreDemandElements && !myNet->getSavingStatus()->isDemandElementsSaved()) {
+        if (ignoreDemandElements) {
+            neteditOptions.set("route-files", "");
+        } else if (!myNet->getSavingStatus()->isDemandElementsSaved()) {
             if (neteditOptions.getString("route-files").empty()) {
                 neteditOptions.set("route-files", patterFile + ".rou.xml");
             }
@@ -3250,8 +3234,10 @@ GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject* sender, FXSelector sel, void
             mySUMOOptions.writeConfiguration(out, true, false, false, sumoConfigFile, true);
             // write info
             WRITE_MESSAGE(TL("SUMO configuration saved in '") + sumoConfigFile + "'");
-            // config saved
-            myNet->getSavingStatus()->SUMOConfigSaved();
+            // if ignoreAdditionals or ignoreDemandElements is enabled, don't mark SUMOConfig as saved
+            if (!ignoreAdditionals && !ignoreDemandElements) {
+                myNet->getSavingStatus()->SUMOConfigSaved();
+            }
             // After saving a config successfully, add it into recent configs
             myMenuBarFile.myRecentConfigs.appendFile(neteditOptions.getString("sumocfg-file").c_str());
         } else {
