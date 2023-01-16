@@ -720,49 +720,29 @@ GNEApplicationWindow::onCmdOpenForeign(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdOpenNETEDITConfig(FXObject*, FXSelector, void*) {
     auto& neteditOptions = OptionsCont::getOptions();
-    // write debug information
-    WRITE_DEBUG("Open NETEDITConfig dialog");
-    // get the NETEDITConfig file name
-    FXFileDialog opendialog(this, TL("Open NETEDITConfig file"));
-    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI));
-    opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList("NETEDITConfig files (*.neteditcfg)\nAll files (*)");
-    if (gCurrentFolder.length() != 0) {
-        opendialog.setDirectory(gCurrentFolder);
-    }
-    if (opendialog.execute()) {
-        // close additional dialog
-        WRITE_DEBUG("Close NETEDITConfig dialog");
-        gCurrentFolder = opendialog.getDirectory();
-        std::string file = opendialog.getFilename().text();
-        if (file.size() > 0 && continueWithUnsavedChanges("load NETEDITConfig")) {
-            // write info
-            WRITE_MESSAGE("Loading NETEDITConfig from '" + file + "'");
-            // close all windows
-            closeAllWindows();
-            // set file to load
-            neteditOptions.resetWritable();
-            neteditOptions.set("configuration-file", file);
-            // disable validation for additionals
-            XMLSubSys::setValidation("never", "auto", "auto");
-            // Create additional handler
-            GNEApplicationWindowHelper::GNENETEDITConfigHandler confighandler(file);
-            // Run parser
-            if (!confighandler.loadNETEDITConfig()) {
-                WRITE_ERROR("Loading of " + file + " failed.");
-            } else {
-                myLoadThread->loadConfig();
-                // After load config successfully, add it into recent configs
-                myMenuBarFile.myRecentConfigs.appendFile(neteditOptions.getString("configuration-file").c_str());
-            }
-            // update view
-            update();
-            // restore validation for additionals
-            XMLSubSys::setValidation("auto", "auto", "auto");
+    // get netconvert filename
+    const auto neteditConfigFile = GNEApplicationWindowHelper::openNETEDITConfigFileDialog(this, false);
+    // continue depending of netconvertFile
+    if (!neteditConfigFile.empty() && (onCmdClose(0, 0, 0) == 1)) {
+        // set file to load
+        neteditOptions.resetWritable();
+        neteditOptions.set("configuration-file", neteditConfigFile);
+        // disable validation for additionals
+        XMLSubSys::setValidation("never", "auto", "auto");
+        // Create additional handler
+        GNEApplicationWindowHelper::GNENETEDITConfigHandler confighandler(neteditConfigFile);
+        // Run parser
+        if (!confighandler.loadNETEDITConfig()) {
+            WRITE_ERROR("Loading of " + neteditConfigFile + " failed.");
+        } else {
+            myLoadThread->loadConfig();
+            // After load config successfully, add it into recent configs
+            myMenuBarFile.myRecentConfigs.appendFile(neteditOptions.getString("configuration-file").c_str());
         }
-    } else {
-        // write debug information
-        WRITE_DEBUG("Cancel NETEDITConfig dialog");
+        // update view
+        update();
+        // restore validation for additionals
+        XMLSubSys::setValidation("auto", "auto", "auto");
     }
     return 1;
 }
@@ -770,52 +750,30 @@ GNEApplicationWindow::onCmdOpenNETEDITConfig(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenSUMOConfig(FXObject*, FXSelector, void*) {
-    // write debug information
-    WRITE_DEBUG("Open SUMOConfig dialog");
-    // get the SUMOConfig file name
-    FXFileDialog opendialog(this, TL("Open SUMOConfig file"));
-    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI));
-    opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList("SUMOConfig files (*.sumocfg)\nAll files (*)");
-    if (gCurrentFolder.length() != 0) {
-        opendialog.setDirectory(gCurrentFolder);
-    }
-    if (opendialog.execute()) {
-        // close additional dialog
-        WRITE_DEBUG("Close SUMOConfig dialog");
-        gCurrentFolder = opendialog.getDirectory();
-        std::string file = opendialog.getFilename().text();
-        if (file.size() > 0 && continueWithUnsavedChanges("load SUMOConfig")) {
-            auto& neteditOptions = OptionsCont::getOptions();
-            // write info
-            WRITE_MESSAGE("Loading SUMOConfig from '" + file + "'");
-            // close all windows
-            closeAllWindows();
-            // set current folder
-            gCurrentFolder = opendialog.getDirectory();
-            // set file to load
-            neteditOptions.resetWritable();
-            neteditOptions.set("sumocfg-file", file);
-            // disable validation for additionals
-            XMLSubSys::setValidation("never", "auto", "auto");
-            // Create additional handler
-            GNEApplicationWindowHelper::GNESUMOConfigHandler confighandler(mySUMOOptions, file);
-            // Run parser
-            if (!confighandler.loadSUMOConfig()) {
-                WRITE_ERROR("Loading of SUMOConfig " + file + " failed.");
-            } else {
-                myLoadThread->loadConfig();
-                // After load config successfully, add it into recent configs
-                myMenuBarFile.myRecentConfigs.appendFile(neteditOptions.getString("sumocfg-file").c_str());
-            }
-            // update view
-            update();
-            // restore validation for additionals
-            XMLSubSys::setValidation("auto", "auto", "auto");
+    auto& neteditOptions = OptionsCont::getOptions();
+    // get netconvert filename
+    const auto sumoConfigFile = GNEApplicationWindowHelper::openSUMOConfigFileDialog(this, false);
+    // continue depending of netconvertFile
+    if (!sumoConfigFile.empty() && (onCmdClose(0, 0, 0) == 1)) {
+        // set file to load
+        neteditOptions.resetWritable();
+        neteditOptions.set("sumocfg-file", sumoConfigFile);
+        // disable validation for additionals
+        XMLSubSys::setValidation("never", "auto", "auto");
+        // Create additional handler
+        GNEApplicationWindowHelper::GNESUMOConfigHandler confighandler(mySUMOOptions, sumoConfigFile);
+        // Run parser
+        if (!confighandler.loadSUMOConfig()) {
+            WRITE_ERROR("Loading of SUMOConfig " + sumoConfigFile + " failed.");
+        } else {
+            myLoadThread->loadConfig();
+            // After load config successfully, add it into recent configs
+            myMenuBarFile.myRecentConfigs.appendFile(neteditOptions.getString("sumocfg-file").c_str());
         }
-    } else {
-        // write debug information
-        WRITE_DEBUG("Cancel SUMOConfig dialog");
+        // update view
+        update();
+        // restore validation for additionals
+        XMLSubSys::setValidation("auto", "auto", "auto");
     }
     return 1;
 }
@@ -895,25 +853,18 @@ GNEApplicationWindow::onUpdReloadSUMOConfig(FXObject* sender, FXSelector, void*)
 
 long
 GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
-    // write debug information
-    WRITE_DEBUG("Open TLSProgram dialog");
-    // get the TLSPrograms file name
-    FXFileDialog opendialog(this, TL("Open TLS Programs file"));
-    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::MODETLS));
-    opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList("TLSProgram files (*.xml,*.xml.gz)\nAll files (*)");
-    if (gCurrentFolder.length() != 0) {
-        opendialog.setDirectory(gCurrentFolder);
-    }
-    if (opendialog.execute()) {
-        // close additional dialog
-        WRITE_DEBUG("Close TLSProgram dialog");
-        gCurrentFolder = opendialog.getDirectory();
-        std::string file = opendialog.getFilename().text();
+    auto& neteditOptions = OptionsCont::getOptions();
+    // get netconvert filename
+    const auto TLSFile = GNEApplicationWindowHelper::openTLSFileDialog(this, false);
+    // continue depending of netconvertFile
+    if (!TLSFile.empty()) {
+        // set file to load
+        neteditOptions.resetWritable();
+        neteditOptions.set("tls-file", TLSFile);
         // Run parser
-        myUndoList->begin(Supermode::NETWORK, GUIIcon::MODETLS, "loading TLS Programs from '" + file + "'");
+        myUndoList->begin(Supermode::NETWORK, GUIIcon::MODETLS, "loading TLS Programs from '" + TLSFile + "'");
         myNet->computeNetwork(this);
-        if (myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->parseTLSPrograms(file) == false) {
+        if (myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->parseTLSPrograms(TLSFile) == false) {
             // Abort undo/redo
             myUndoList->abortAllChangeGroups();
         } else {
@@ -932,9 +883,9 @@ GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdReloadTLSPrograms(FXObject*, FXSelector, void*) {
     // Run parser
-    myUndoList->begin(Supermode::NETWORK, GUIIcon::MODETLS, "loading TLS Programs from '" + OptionsCont::getOptions().getString("TLSPrograms-output") + "'");
+    myUndoList->begin(Supermode::NETWORK, GUIIcon::MODETLS, "loading TLS Programs from '" + OptionsCont::getOptions().getString("tls-file") + "'");
     myNet->computeNetwork(this);
-    if (myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->parseTLSPrograms(OptionsCont::getOptions().getString("TLSPrograms-output")) == false) {
+    if (myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->parseTLSPrograms(OptionsCont::getOptions().getString("tls-file")) == false) {
         // Abort undo/redo
         myUndoList->abortAllChangeGroups();
     } else {
@@ -949,7 +900,7 @@ GNEApplicationWindow::onCmdReloadTLSPrograms(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onUpdReloadTLSPrograms(FXObject* sender, FXSelector, void*) {
     // check if file exist
-    if (myViewNet && OptionsCont::getOptions().getString("TLSPrograms-output").empty()) {
+    if (myViewNet && OptionsCont::getOptions().getString("tls-file").empty()) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
@@ -959,21 +910,20 @@ GNEApplicationWindow::onUpdReloadTLSPrograms(FXObject* sender, FXSelector, void*
 
 long
 GNEApplicationWindow::onCmdOpenEdgeTypes(FXObject*, FXSelector, void*) {
-    // open dialog
-    FXFileDialog opendialog(this, TL("Load edgeType file"));
-    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::MODECREATEEDGE));
-    opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList("*.xml,*.xml.gz");
-    if (gCurrentFolder.length() != 0) {
-        opendialog.setDirectory(gCurrentFolder);
-    }
-    if (opendialog.execute()) {
+    auto& neteditOptions = OptionsCont::getOptions();
+    // get netconvert filename
+    const auto edgeTypeFile = GNEApplicationWindowHelper::openEdgeTypeFileDialog(this, false);
+    // continue depending of netconvertFile
+    if (!edgeTypeFile.empty()) {
+        // set file to load
+        neteditOptions.resetWritable();
+        neteditOptions.set("edgetypes-file", edgeTypeFile);
         // declare type container
         NBTypeCont typeContainerAux;
         // declare type handler
         NIXMLTypesHandler handler(typeContainerAux);
         // load edge types
-        NITypeLoader::load(handler, {opendialog.getFilename().text()}, "types");
+        NITypeLoader::load(handler, {edgeTypeFile}, "types");
         // write information
         WRITE_MESSAGE("Loaded " + toString(typeContainerAux.size()) + " edge types");
         // now create GNETypes based on typeContainerAux
@@ -995,7 +945,7 @@ GNEApplicationWindow::onCmdOpenEdgeTypes(FXObject*, FXSelector, void*) {
         // refresh edge type selector
         myViewNet->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->refreshEdgeTypeSelector();
     }
-    return 0;
+    return 1;
 }
 
 
@@ -1006,7 +956,7 @@ GNEApplicationWindow::onCmdReloadEdgeTypes(FXObject*, FXSelector, void*) {
     // declare type handler
     NIXMLTypesHandler handler(typeContainerAux);
     // load edge types
-    NITypeLoader::load(handler, {OptionsCont::getOptions().getString("edgeTypes-output")}, "types");
+    NITypeLoader::load(handler, {OptionsCont::getOptions().getString("edgetypes-file")}, "types");
     // write information
     WRITE_MESSAGE("Loaded " + toString(typeContainerAux.size()) + " edge types");
     // now create GNETypes based on typeContainerAux
@@ -1034,7 +984,7 @@ GNEApplicationWindow::onCmdReloadEdgeTypes(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onUpdReloadEdgeTypes(FXObject* sender, FXSelector, void*) {
     // check if file exist
-    if (myViewNet && OptionsCont::getOptions().getString("edgeTypes-output").empty()) {
+    if (myViewNet && OptionsCont::getOptions().getString("edgetypes-file").empty()) {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else {
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
@@ -3423,7 +3373,7 @@ GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject*, FXSelector, void*) {
         // obtain option container
         auto& neteditOptions = OptionsCont::getOptions();
         // Check if TLS Programs file was already set at start of netedit or with a previous save
-        if (neteditOptions.getString("TLSPrograms-output").empty()) {
+        if (neteditOptions.getString("tls-file").empty()) {
             // declare current folder
             FXString currentFolder = gCurrentFolder;
             // check if there is a saved network
@@ -3443,17 +3393,17 @@ GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject*, FXSelector, void*) {
                 // None TLS Programs file was selected, then stop function
                 return 0;
             } else {
-                // change value of "TLSPrograms-output"
+                // change value of "tls-file"
                 neteditOptions.resetWritable();
-                neteditOptions.set("TLSPrograms-output", fileWithExtension);
+                neteditOptions.set("tls-file", fileWithExtension);
             }
         }
         // Start saving TLS Programs
         getApp()->beginWaitCursor();
         try {
             myNet->computeNetwork(this, true); // GNEChange_TLS does not triggere GNENet:requireRecompute
-            myNet->saveTLSPrograms(neteditOptions.getString("TLSPrograms-output"));
-            myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "TLS Programs saved in " + neteditOptions.getString("TLSPrograms-output") + ".\n");
+            myNet->saveTLSPrograms(neteditOptions.getString("tls-file"));
+            myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "TLS Programs saved in " + neteditOptions.getString("tls-file") + ".\n");
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox 'error saving TLS Programs'");
@@ -3497,7 +3447,7 @@ GNEApplicationWindow::onCmdSaveEdgeTypes(FXObject*, FXSelector, void*) {
     // check if save additional menu is enabled
     if (myNet && !myNet->getSavingStatus()->isEdgeTypeSaved()) {
         // Check if edgeType file was already set at start of netedit or with a previous save
-        if (neteditOptions.getString("edgeTypes-output").empty()) {
+        if (neteditOptions.getString("edgetypes-file").empty()) {
             // declare current folder
             FXString currentFolder = gCurrentFolder;
             // check if there is a saved network
@@ -3517,16 +3467,16 @@ GNEApplicationWindow::onCmdSaveEdgeTypes(FXObject*, FXSelector, void*) {
                 // None edgeType Programs file was selected, then stop function
                 return 0;
             } else {
-                // change value of "edgeTypes-output"
+                // change value of "edgetypes-file"
                 neteditOptions.resetWritable();
-                neteditOptions.set("edgeTypes-output", fileWithExtension);
+                neteditOptions.set("edgetypes-file", fileWithExtension);
             }
         }
         // Start saving edgeTypes
         getApp()->beginWaitCursor();
         try {
-            myNet->saveEdgeTypes(neteditOptions.getString("edgeTypes-output"));
-            myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "EdgeType saved in " + neteditOptions.getString("edgeTypes-output") + ".\n");
+            myNet->saveEdgeTypes(neteditOptions.getString("edgetypes-file"));
+            myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "EdgeType saved in " + neteditOptions.getString("edgetypes-file") + ".\n");
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox 'error saving edgeTypes'");
@@ -3578,9 +3528,9 @@ GNEApplicationWindow::onCmdSaveTLSProgramsAs(FXObject*, FXSelector, void*) {
     std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
     // check tat file is valid
     if (fileWithExtension != "") {
-        // change value of "TLSPrograms-output"
+        // change value of "tls-file"
         OptionsCont::getOptions().resetWritable();
-        OptionsCont::getOptions().set("TLSPrograms-output", fileWithExtension);
+        OptionsCont::getOptions().set("tls-file", fileWithExtension);
         // save TLS Programs
         return onCmdSaveTLSPrograms(nullptr, 0, nullptr);
     } else {
@@ -3609,8 +3559,8 @@ GNEApplicationWindow::onCmdSaveEdgeTypesAs(FXObject*, FXSelector, void*) {
     std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
     // check tat file is valid
     if (fileWithExtension != "") {
-        // change value of "edgeTypes-output"
-        OptionsCont::getOptions().set("edgeTypes-output", fileWithExtension);
+        // change value of "edgetypes-file"
+        OptionsCont::getOptions().set("edgetypes-file", fileWithExtension);
         // save edgeTypes
         return onCmdSaveEdgeTypes(nullptr, 0, nullptr);
     } else {

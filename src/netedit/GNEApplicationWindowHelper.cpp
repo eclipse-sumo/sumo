@@ -2611,6 +2611,54 @@ GNEApplicationWindowHelper::openOSMFileDialog(FXWindow* window) {
 
 
 std::string
+GNEApplicationWindowHelper::openNETEDITConfigFileDialog(FXWindow* window, const bool save) {
+    if (save) {
+        return openFileDialog(window, TL("Save NETEDIT Config file as"), GUIIcon::SAVE_NETEDITCONFIG,
+            "NETEDIT Config files (*.neteditcfg,)\nAll files (*)", true);
+    } else {
+        return openFileDialog(window, TL("Open NETEDIT Config file"), GUIIcon::OPEN_NETEDITCONFIG,
+            "NETEDIT Config files (*.neteditcfg,)\nAll files (*)", false);
+    }
+}
+
+
+std::string
+GNEApplicationWindowHelper::openSUMOConfigFileDialog(FXWindow* window, const bool save) {
+    if (save) {
+        return openFileDialog(window, TL("Save SUMO Config file as"), GUIIcon::SAVE_SUMOCONFIG,
+            "SUMO Config files (*.neteditcfg,)\nAll files (*)", true);
+    } else {
+        return openFileDialog(window, TL("Open SUMO Config file"), GUIIcon::OPEN_SUMOCONFIG,
+            "SUMO Config files (*.neteditcfg,)\nAll files (*)", false);
+    }
+}
+
+
+std::string
+GNEApplicationWindowHelper::openTLSFileDialog(FXWindow* window, const bool save) {
+    if (save) {
+        return openFileDialog(window, TL("Save TLS file as"), GUIIcon::SAVE_NETWORKELEMENTS,
+        "TLS files (*.tll.xml)\nXML files (*.xml)\nAll files (*)", true);
+    } else {
+        return openFileDialog(window, TL("Open TLS file"), GUIIcon::OPEN_TLSPROGRAMS,
+        "TLS files (*.tll.xml)\nXML files (*.xml)\nAll files (*)", false);
+    }
+}
+
+
+std::string
+GNEApplicationWindowHelper::openEdgeTypeFileDialog(FXWindow* window, const bool save) {
+    if (save) {
+        return openFileDialog(window, TL("Save EdgeType file as"), GUIIcon::SAVE_NETWORKELEMENTS,
+        "EdgeType files (*.tll.xml)\nXML files (*.xml)\nAll files (*)", true);
+    } else {
+        return openFileDialog(window, TL("Open EdgeType file"), GUIIcon::OPEN_NET,
+        "EdgeType files (*.typ.xml)\nXML files (*.xml)\nAll files (*)", false);
+    }
+}
+
+
+std::string
 GNEApplicationWindowHelper::openAdditionalFileDialog(FXWindow* window, const bool save) {
     if (save) {
         return openFileDialog(window, TL("Save Additionals file as"), GUIIcon::SAVE_ADDITIONALELEMENTS,

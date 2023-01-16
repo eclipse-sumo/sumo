@@ -1077,6 +1077,18 @@ struct GNEApplicationWindowHelper {
     /// @brief open OSM file dialog
     static std::string openOSMFileDialog(FXWindow* window);
 
+    /// @brief open NETEDIT config file dialog
+    static std::string openNETEDITConfigFileDialog(FXWindow* window, const bool save);
+
+    /// @brief open SUMO config file dialog
+    static std::string openSUMOConfigFileDialog(FXWindow* window, const bool save);
+
+    /// @brief open TLS file dialog
+    static std::string openTLSFileDialog(FXWindow* window, const bool save);
+
+    /// @brief open edgeType file dialog
+    static std::string openEdgeTypeFileDialog(FXWindow* window, const bool save);
+
     /// @brief open additional dialog
     static std::string openAdditionalFileDialog(FXWindow* window, const bool save);
 
