@@ -1888,80 +1888,63 @@ GNEApplicationWindow::onCmdNewWindow(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject*, FXSelector, void*) {
+GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject* obj, FXSelector sel, void* ptr) {
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
-    // check that currently there is a View
-    if (myViewNet) {
-        // first check if network is saved
-        if (!myViewNet->getNet()->getSavingStatus()->isNetworkSaved()) {
-            // save network
-            onCmdSaveNetwork(nullptr, 0, nullptr);
-            if (!myViewNet->getNet()->getSavingStatus()->isNetworkSaved()) {
-                return 0;
-            }
+    // first check if network is saved
+    if (!myNet->getSavingStatus()->isSUMOConfigSaved()) {
+        // save SUMOConfig
+        if (onCmdSaveSUMOConfig(obj, sel, ptr) == 0) {
+            // SUMOConfig wasn't saved, then stop
+            return 0;
         }
-        // now check if additionals must be loaded and are saved
-        if ((myEditMenuCommands.loadAdditionalsInSUMOGUI->getCheck() == TRUE) &&
-                (myViewNet->getNet()->getAttributeCarriers()->getNumberOfAdditionals() > 0)) {
-            // save additionals
-            onCmdSaveAdditionals(nullptr, 0, nullptr);
-            // check if additionals were successfully saved. If not, abort
-            if (!myViewNet->getNet()->getSavingStatus()->isAdditionalsSaved()) {
-                return 0;
-            }
-        }
-        // finally check if demand elements must be loaded and are saved
-        if ((myEditMenuCommands.loadDemandInSUMOGUI->getCheck() == TRUE) &&
-                (myViewNet->getNet()->getAttributeCarriers()->getNumberOfDemandElements() > 0)) {
-            // save additionals
-            onCmdSaveDemandElements(nullptr, 0, nullptr);
-            // check if demand elements were successfully saved. If not, abort
-            if (!myViewNet->getNet()->getSavingStatus()->isDemandElementsSaved()) {
-                return 0;
-            }
-        }
-        // obtain viewport
-        FXRegistry reg("SUMO GUI", "sumo-gui");
-        reg.read();
-        reg.writeRealEntry("viewport", "x", myViewNet->getChanger().getXPos());
-        reg.writeRealEntry("viewport", "y", myViewNet->getChanger().getYPos());
-        reg.writeRealEntry("viewport", "z", myViewNet->getChanger().getZPos());
-        reg.write();
-        std::string sumogui = "sumo-gui";
-        const char* sumoPath = getenv("SUMO_HOME");
-        if (sumoPath != nullptr) {
-            std::string newPath = std::string(sumoPath) + "/bin/sumo-gui";
-            if (FileHelpers::isReadable(newPath) || FileHelpers::isReadable(newPath + ".exe")) {
-                sumogui = "\"" + newPath + "\"";
-            }
-        }
-        // declare comand
-        std::string cmd = sumogui + " --registry-viewport" + " -n "  + "\"" + neteditOptions.getString("net-file") + "\"";
-        // if load additionals is enabled, add it to command
-        if ((myEditMenuCommands.loadAdditionalsInSUMOGUI->getCheck() == TRUE) && (neteditOptions.getString("additional-files").size() > 0)) {
-            cmd += " -a \"" + neteditOptions.getString("additional-files") + "\"";
-        }
-        // if load demand is enabled, add it to command
-        if ((myEditMenuCommands.loadDemandInSUMOGUI->getCheck() == TRUE) && (neteditOptions.getString("route-files").size() > 0)) {
-            cmd += " -r \"" + neteditOptions.getString("route-files") + "\"";
-        }
-        // if we have trips or flow over junctions, add option junction-taz
-        if ((myNet->getAttributeCarriers()->getDemandElements().at(GNE_TAG_TRIP_JUNCTIONS).size() > 0) ||
-                (myNet->getAttributeCarriers()->getDemandElements().at(GNE_TAG_FLOW_JUNCTIONS).size() > 0)) {
-            cmd += " --junction-taz";
-        }
-        // start in background
-#ifndef WIN32
-        cmd = cmd + " &";
-#else
-        // see "help start" for the parameters
-        cmd = "start /B \"\" " + cmd;
-#endif
-        WRITE_MESSAGE(TL("Running ") + cmd + ".");
-        // yay! fun with dangerous commands... Never use this over the internet
-        SysUtils::runHiddenCommand(cmd);
     }
+    // save current viewport in registry
+    FXRegistry reg("SUMO GUI", "sumo-gui");
+    reg.read();
+    reg.writeRealEntry("viewport", "x", myViewNet->getChanger().getXPos());
+    reg.writeRealEntry("viewport", "y", myViewNet->getChanger().getYPos());
+    reg.writeRealEntry("viewport", "z", myViewNet->getChanger().getZPos());
+    reg.write();
+    // declare executable
+    std::string sumogui = "sumo-gui";
+    // if SUMO_HOME is defined, update executable
+    const char* sumoHome = getenv("SUMO_HOME");
+    if (sumoHome != nullptr) {
+        std::string newPath = std::string(sumoHome) + "/bin/sumo-gui";
+        if (FileHelpers::isReadable(newPath) || FileHelpers::isReadable(newPath + ".exe")) {
+            sumogui = "\"" + newPath + "\"";
+        }
+    }
+    // declare comand
+    std::string cmd = sumogui + " --registry-viewport" + " -n "  + "\"" + neteditOptions.getString("net-file") + "\"";
+    // if load additionals is enabled, add it to command
+    if ((myEditMenuCommands.loadAdditionalsInSUMOGUI->getCheck() == TRUE) && (neteditOptions.getString("additional-files").size() > 0)) {
+        // save additionals
+        onCmdSaveAdditionals(obj, sel, ptr);
+        cmd += " -a \"" + neteditOptions.getString("additional-files") + "\"";
+    }
+    // if load demand is enabled, add it to command
+    if ((myEditMenuCommands.loadDemandInSUMOGUI->getCheck() == TRUE) && (neteditOptions.getString("route-files").size() > 0)) {
+        // save additionals
+        onCmdSaveDemandElements(obj, sel, ptr);
+        cmd += " -r \"" + neteditOptions.getString("route-files") + "\"";
+    }
+    // if we have trips or flow over junctions, add option junction-taz
+    if ((myNet->getAttributeCarriers()->getDemandElements().at(GNE_TAG_TRIP_JUNCTIONS).size() > 0) ||
+            (myNet->getAttributeCarriers()->getDemandElements().at(GNE_TAG_FLOW_JUNCTIONS).size() > 0)) {
+        cmd += " --junction-taz";
+    }
+    // start in background
+#ifndef WIN32
+    cmd = cmd + " &";
+#else
+    // see "help start" for the parameters
+    cmd = "start /B \"\" " + cmd;
+#endif
+    WRITE_MESSAGE(TL("Running ") + cmd + ".");
+    // yay! fun with dangerous commands... Never use this over the internet
+    SysUtils::runHiddenCommand(cmd);
     return 1;
 }
 
@@ -3043,7 +3026,9 @@ GNEApplicationWindow::onCmdSavePlainXMLAs(FXObject*, FXSelector, void*) {
     // get neteditConfig filename
     auto plainXMLFile = GNEApplicationWindowHelper::savePlainXMLFileDialog(this);
     // Remove extension
-    plainXMLFile.pop_back();
+    if (plainXMLFile.size() > 0) {
+        plainXMLFile.pop_back();
+    }
     // continue depending of file
     if (plainXMLFile.size() > 0) {
         getApp()->beginWaitCursor();
@@ -3209,6 +3194,11 @@ GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject* sender, FXSelector sel, void
     if (neteditOptions.getString("sumocfg-file").empty()) {
         return onCmdSaveSUMOConfigAs(sender, sel, ptr);
     } else {
+        // check if ignore additionals and demand elements (only used open SUMO-GUI from NETEDIT)
+        const FXSelector openSUMO = FXSEL(SEL_COMMAND, MID_HOTKEY_CTRL_T_OPENNETEDIT_OPENSUMO);
+        const bool ignoreAdditionals = (sel == openSUMO)? (myEditMenuCommands.loadAdditionalsInSUMOGUI->getCheck() == FALSE) : false;
+        const bool ignoreDemandElements = (sel == openSUMO)? (myEditMenuCommands.loadDemandInSUMOGUI->getCheck() == FALSE) : false;
+        // get SUMOConfig file
         const auto sumoConfigFile = neteditOptions.getString("sumocfg-file");
         // get config file without extension
         const auto patterFile = StringUtils::replace(sumoConfigFile, ".sumocfg", "");
@@ -3219,13 +3209,13 @@ GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject* sender, FXSelector sel, void
             }
             onCmdSaveNetwork(nullptr, 0, nullptr);
         }
-        if (!myNet->getSavingStatus()->isAdditionalsSaved()) {
+        if (!ignoreAdditionals && !myNet->getSavingStatus()->isAdditionalsSaved()) {
             if (neteditOptions.getString("additional-files").empty()) {
                 neteditOptions.set("additional-files", patterFile + ".add.xml");
             }
             onCmdSaveAdditionals(nullptr, 0, nullptr);
         }
-        if (!myNet->getSavingStatus()->isDemandElementsSaved()) {
+        if (!ignoreDemandElements && !myNet->getSavingStatus()->isDemandElementsSaved()) {
             if (neteditOptions.getString("route-files").empty()) {
                 neteditOptions.set("route-files", patterFile + ".rou.xml");
             }
@@ -3248,6 +3238,11 @@ GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject* sender, FXSelector sel, void
             mySUMOOptions.set("additional-files", neteditOptions.getString("meandata-files"));
         } else {
             mySUMOOptions.set("additional-files", "");
+        }
+        // if we have trips or flow over junctions, add option junction-taz
+        if ((myNet->getAttributeCarriers()->getDemandElements().at(GNE_TAG_TRIP_JUNCTIONS).size() > 0) ||
+                (myNet->getAttributeCarriers()->getDemandElements().at(GNE_TAG_FLOW_JUNCTIONS).size() > 0)) {
+            mySUMOOptions.set("junction-taz", "true");
         }
         std::ofstream out(StringUtils::transcodeToLocal(sumoConfigFile));
         if (out.good()) {
