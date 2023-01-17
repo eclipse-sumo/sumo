@@ -78,17 +78,14 @@ GNELoadThread::run() {
     auto& neteditOptions = OptionsCont::getOptions();
     // check if we're loading a sumo or netconvet config file
     if (myNewNet) {
-        // fill (reset) all options
-        fillOptions(neteditOptions);
         // set default options defined in GNELoadThread::setDefaultOptions(...)
         setDefaultOptions(neteditOptions);
+    } else if (neteditOptions.getString("net-file").size() > 0) {
+        ///
     } else if (neteditOptions.getString("sumocfg-file").size() > 0) {
         // set sumo config as loaded file
         loadedFile = neteditOptions.getString("sumocfg-file");
-        // fill (reset) all options
-        fillOptions(neteditOptions);
-        // set default options defined in GNELoadThread::setDefaultOptions(...)
-        setDefaultOptions(neteditOptions);
+
         // declare parser for sumo config file
         GNEApplicationWindowHelper::GNESUMOConfigHandler confighandler(myApplicationWindow->getSUMOOptions(), loadedFile);
         // if there is an error loading sumo config, stop
@@ -100,10 +97,6 @@ GNELoadThread::run() {
     } else if (neteditOptions.getString("configuration-file").size() > 0) {
         // set netedit config as loaded file
         loadedFile = neteditOptions.getString("configuration-file");
-        // fill (reset) all options
-        fillOptions(neteditOptions);
-        // set default options defined in GNELoadThread::setDefaultOptions(...)
-        setDefaultOptions(neteditOptions);
         // declare parser for netedit config file
         GNEApplicationWindowHelper::GNENETEDITConfigHandler confighandler(loadedFile);
         // if there is an error loading sumo config, stop
@@ -518,7 +511,6 @@ GNELoadThread::createNewNetwork() {
     // set flags
     myLoadNet = false;
     myNewNet = true;
-    // start thread
     start();
 }
 
@@ -528,7 +520,6 @@ GNELoadThread::loadNetwork() {
     // set flags
     myLoadNet = true;
     myNewNet = false;
-    // start thread
     start();
 }
 
@@ -538,7 +529,6 @@ GNELoadThread::loadConfig() {
     // set flags
     myLoadNet = false;
     myNewNet = false;
-    // start thread
     start();
 }
 

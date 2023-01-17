@@ -60,11 +60,17 @@ public:
     /// @brief create new network
     void createNewNetwork();
 
-    /// @brief load network (with information previously stored in options)
-    void loadNetwork(const bool isReload);
+    /// @brief load network
+    void loadNetwork(const std::string &networkFile);
 
-    /// @brief starts to load a netconvert configuration
-    void loadNetconvertConfig();
+    /// @brief reload network
+    void reloadNetwork();
+
+    /// @brief starts to load a configuration
+    void loadConfiguration(const std::string &configurationFile);
+
+    /// @brief starts to load a OSM File
+    void loadOSM(const std::string &OSMFile);
 
     /// @brief build dependent
     void dependentBuild();
@@ -567,9 +573,6 @@ protected:
 
     /// @brief information whether the gui is currently loading and the load-options shall be greyed out
     bool myAmLoading = false;
-
-    /// @brief information whether the gui is currently reloading
-    bool myReloading = false;
 
     /// @brief the submenus
     FXMenuPane* myFileMenu = nullptr,

@@ -55,7 +55,11 @@ main(int argc, char** argv) {
 #endif
         // initialise subsystems
         XMLSubSys::init();
+        // fill options
         GNELoadThread::fillOptions(neteditOptions);
+        // set default options
+        GNELoadThread::setDefaultOptions(neteditOptions);
+        // set argumentos called throught console
         OptionsIO::setArgs(argc, argv);
         OptionsIO::getOptions(true);
         if (neteditOptions.processMetaOptions(false)) {

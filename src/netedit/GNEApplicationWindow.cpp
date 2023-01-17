@@ -649,18 +649,12 @@ GNEApplicationWindow::onCmdNewNetwork(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenNetconvertConfig(FXObject*, FXSelector, void*) {
-    auto& neteditOptions = OptionsCont::getOptions();
     // get netconvert filename
     const auto netconvertFile = GNEApplicationWindowHelper::openNetconvertFileDialog(this);
     // continue depending of netconvertFile
     if (!netconvertFile.empty() && (onCmdClose(0, 0, 0) == 1)) {
-        // set file to load
-        neteditOptions.resetWritable();
-        neteditOptions.set("configuration-file", netconvertFile);
-        // load netconvert
-        loadNetconvertConfig();
-        // add it into recent configs
-        myMenuBarFile.myRecentNetworks.appendFile(netconvertFile.c_str());
+        // load configuration
+        loadConfiguration(netconvertFile);
     }
     return 1;
 }
@@ -668,18 +662,12 @@ GNEApplicationWindow::onCmdOpenNetconvertConfig(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
-    auto& neteditOptions = OptionsCont::getOptions();
     // get netconvert filename
     const auto networkFile = GNEApplicationWindowHelper::openNetworkFileDialog(this, false);
     // continue depending of netconvertFile
     if (!networkFile.empty() && (onCmdClose(0, 0, 0) == 1)) {
-        // set file to load
-        neteditOptions.resetWritable();
-        neteditOptions.set("net-file", networkFile);
         // load network
-        loadNetwork(false);
-        // add it into recent nets
-        myMenuBarFile.myRecentNetworks.appendFile(networkFile.c_str());
+        loadNetwork(networkFile);
     }
     return 0;
 }
@@ -687,31 +675,11 @@ GNEApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenForeign(FXObject*, FXSelector, void*) {
-    auto& neteditOptions = OptionsCont::getOptions();
     // get netconvert filename
     const auto OSMFile = GNEApplicationWindowHelper::openOSMFileDialog(this);
     // continue depending of netconvertFile
     if (!OSMFile.empty() && (onCmdClose(0, 0, 0) == 1)) {
-        // fill (reset) all options
-        GNELoadThread::fillOptions(neteditOptions);
-        // set default options defined in GNELoadThread::setDefaultOptions(...)
-        GNELoadThread::setDefaultOptions(neteditOptions);
-        // recommended osm options
-        // https://sumo.dlr.de/wiki/Networks/Import/OpenStreetMap#Recommended_NETCONVERT_Options
-        neteditOptions.set("osm-files", OSMFile);
-        neteditOptions.set("geometry.remove", "true");
-        neteditOptions.set("ramps.guess", "true");
-        neteditOptions.set("junctions.join", "true");
-        neteditOptions.set("tls.guess-signals", "true");
-        neteditOptions.set("tls.discard-simple", "true");
-        GUIDialog_Options* wizard =
-            new GUIDialog_Options(this, OptionsCont::getOptions(), TL("Select Import Options"), getWidth(), getHeight());
-        if (wizard->execute()) {
-            NIFrame::checkOptions(); // needed to set projection parameters
-            loadNetconvertConfig();
-        }
-        // after load, mark network saved
-        myNet->getSavingStatus()->networkSaved();
+        loadOSM(OSMFile);
     }
     return 1;
 }
@@ -724,25 +692,16 @@ GNEApplicationWindow::onCmdOpenNETEDITConfig(FXObject*, FXSelector, void*) {
     const auto neteditConfigFile = GNEApplicationWindowHelper::openNETEDITConfigFileDialog(this, false);
     // continue depending of netconvertFile
     if (!neteditConfigFile.empty() && (onCmdClose(0, 0, 0) == 1)) {
-        // set file to load
+        // reset options
+        myLoadThread->fillOptions(neteditOptions);
+        myLoadThread->setDefaultOptions(neteditOptions);
+        // set configuration file to load
         neteditOptions.resetWritable();
         neteditOptions.set("configuration-file", neteditConfigFile);
-        // disable validation for additionals
-        XMLSubSys::setValidation("never", "auto", "auto");
-        // Create additional handler
-        GNEApplicationWindowHelper::GNENETEDITConfigHandler confighandler(neteditConfigFile);
-        // Run parser
-        if (!confighandler.loadNETEDITConfig()) {
-            WRITE_ERROR("Loading of " + neteditConfigFile + " failed.");
-        } else {
-            myLoadThread->loadConfig();
-            // After load config successfully, add it into recent configs
-            myMenuBarFile.myRecentConfigs.appendFile(neteditOptions.getString("configuration-file").c_str());
-        }
+        // run load thread
+        myLoadThread->loadConfig();
         // update view
         update();
-        // restore validation for additionals
-        XMLSubSys::setValidation("auto", "auto", "auto");
     }
     return 1;
 }
@@ -755,25 +714,16 @@ GNEApplicationWindow::onCmdOpenSUMOConfig(FXObject*, FXSelector, void*) {
     const auto sumoConfigFile = GNEApplicationWindowHelper::openSUMOConfigFileDialog(this, false);
     // continue depending of netconvertFile
     if (!sumoConfigFile.empty() && (onCmdClose(0, 0, 0) == 1)) {
-        // set file to load
+        // reset options
+        myLoadThread->fillOptions(neteditOptions);
+        myLoadThread->setDefaultOptions(neteditOptions);
+        // set configuration file to load
         neteditOptions.resetWritable();
         neteditOptions.set("sumocfg-file", sumoConfigFile);
-        // disable validation for additionals
-        XMLSubSys::setValidation("never", "auto", "auto");
-        // Create additional handler
-        GNEApplicationWindowHelper::GNESUMOConfigHandler confighandler(mySUMOOptions, sumoConfigFile);
-        // Run parser
-        if (!confighandler.loadSUMOConfig()) {
-            WRITE_ERROR("Loading of SUMOConfig " + sumoConfigFile + " failed.");
-        } else {
-            myLoadThread->loadConfig();
-            // After load config successfully, add it into recent configs
-            myMenuBarFile.myRecentConfigs.appendFile(neteditOptions.getString("sumocfg-file").c_str());
-        }
+        // run load thread
+        myLoadThread->loadConfig();
         // update view
         update();
-        // restore validation for additionals
-        XMLSubSys::setValidation("auto", "auto", "auto");
     }
     return 1;
 }
@@ -781,24 +731,19 @@ GNEApplicationWindow::onCmdOpenSUMOConfig(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdReloadNETEDITConfig(FXObject*, FXSelector, void*) {
-    const auto file = OptionsCont::getOptions().getString("configuration-file");
-    if (file.size() > 0) {
-        // disable validation for additionals
-        XMLSubSys::setValidation("never", "auto", "auto");
-        // Create additional handler
-        GNEApplicationWindowHelper::GNENETEDITConfigHandler confighandler(file);
-        // Run parser
-        if (!confighandler.loadNETEDITConfig()) {
-            WRITE_ERROR("Loading of NETEDITConfig " + file + " failed.");
-        } else {
-            // close all windows
-            closeAllWindows();
-            // load config
-            myLoadThread->loadConfig();
-        }
+    auto& neteditOptions = OptionsCont::getOptions();
+    const auto neteditConfigFile = neteditOptions.getString("configuration-file");
+    if (neteditConfigFile.size() > 0) {
+        // reset options
+        myLoadThread->fillOptions(neteditOptions);
+        myLoadThread->setDefaultOptions(neteditOptions);
+        // set configuration file to load
+        neteditOptions.resetWritable();
+        neteditOptions.set("configuration-file", neteditConfigFile);
+        // run load thread
+        myLoadThread->loadConfig();
+        // update view
         update();
-        // restore validation for additionals
-        XMLSubSys::setValidation("auto", "auto", "auto");
     }
     return 1;
 }
@@ -806,24 +751,19 @@ GNEApplicationWindow::onCmdReloadNETEDITConfig(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdReloadSUMOConfig(FXObject*, FXSelector, void*) {
-    const auto file = OptionsCont::getOptions().getString("sumocfg-file");
-    if (file.size() > 0) {
-        // disable validation for additionals
-        XMLSubSys::setValidation("never", "auto", "auto");
-        // Create additional handler
-        GNEApplicationWindowHelper::GNESUMOConfigHandler confighandler(mySUMOOptions, file);
-        // Run parser
-        if (!confighandler.loadSUMOConfig()) {
-            WRITE_ERROR("Loading of SUMOConfig " + file + " failed.");
-        } else {
-            // close all windows
-            closeAllWindows();
-            // load config
-            myLoadThread->loadConfig();
-        }
+    auto& neteditOptions = OptionsCont::getOptions();
+    const auto sumoConfigFile = neteditOptions.getString("sumocfg-file");
+    if (sumoConfigFile.size() > 0) {
+        // reset options
+        myLoadThread->fillOptions(neteditOptions);
+        myLoadThread->setDefaultOptions(neteditOptions);
+        // set configuration file to load
+        neteditOptions.resetWritable();
+        neteditOptions.set("configuration-file", sumoConfigFile);
+        // run load thread
+        myLoadThread->loadConfig();
+        // update view
         update();
-        // restore validation for additionals
-        XMLSubSys::setValidation("auto", "auto", "auto");
     }
     return 1;
 }
@@ -996,26 +936,21 @@ GNEApplicationWindow::onUpdReloadEdgeTypes(FXObject* sender, FXSelector, void*) 
 
 long
 GNEApplicationWindow::onCmdOpenRecent(FXObject*, FXSelector, void* fileData) {
-    auto& neteditOptions = OptionsCont::getOptions();
     // first check that current edited Net can be closed (und therefore the undo-list cleared, see #5753)
     if (myAmLoading) {
         myStatusbar->getStatusLine()->setText(TL("Already loading!"));
     } else if (onCmdClose(0, 0, 0) == 1) {
         // get filedata
         const std::string recentFile = ((const char*)fileData);
-        // set file to load
-        neteditOptions.resetWritable();
         // check if we're loading a network o a config
         if ((recentFile.find(".neteditcfg") != std::string::npos) || 
             (recentFile.find(".sumocfg") != std::string::npos) ||
             (recentFile.find(".netccfg") != std::string::npos)) {
             // load config
-            neteditOptions.set("configuration-file", recentFile);
-            loadNetconvertConfig();
+            loadConfiguration(recentFile);
         } else {
             // load network
-            neteditOptions.set("net-file", recentFile);
-            loadNetwork(false);
+            loadNetwork(recentFile);
         }
     }
     return 1;
@@ -1024,28 +959,10 @@ GNEApplicationWindow::onCmdOpenRecent(FXObject*, FXSelector, void* fileData) {
 
 long
 GNEApplicationWindow::onCmdReload(FXObject*, FXSelector, void*) {
-    // first check that current edited Net can be closed (und therefore the undo-list cleared, see #5753)
-    if (myViewNet) {
-        // check if current network can be closed
-        if (continueWithUnsavedChanges("reload")) {
-            closeAllWindows();
-            // disable toolbargrip modes
-            myToolbarsGrip.menu->disable();
-            // hide all Supermode, Network and demand commands
-            mySupermodeCommands.hideSupermodeCommands();
-            myModesMenuCommands.networkMenuCommands.hideNetworkMenuCommands();
-            myModesMenuCommands.demandMenuCommands.hideDemandMenuCommands();
-            myModesMenuCommands.dataMenuCommands.hideDataMenuCommands();
-            // hide view options
-            myEditMenuCommands.networkViewOptions.hideNetworkViewOptionsMenuChecks();
-            myEditMenuCommands.demandViewOptions.hideDemandViewOptionsMenuChecks();
-            myEditMenuCommands.dataViewOptions.hideDataViewOptionsMenuChecks();
-            // reload network (this uses the stored files saved in options)
-            loadNetwork(true);
-        } else {
-            // abort reloading (because "cancel button" was pressed)
-            return 1;
-        }
+    // check if close current simulation
+    if (onCmdClose(0, 0, 0) == 1) {
+        // reload
+        reloadNetwork();
     }
     return 1;
 }
@@ -1304,11 +1221,6 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     if (myNet) {
         myNet->getSavingStatus()->networkSaved();
     }
-    // write reload message
-    if (myReloading) {
-        WRITE_MESSAGE(TL("Reload successfully"));
-        myReloading = false;
-    }
     // update app
     update();
     // restore focus
@@ -1555,80 +1467,156 @@ GNEApplicationWindow::loadOptionOnStartup() {
     if (neteditOptions.getBool("new")) {
         createNewNetwork();
     } else {
-        // load network with the previously stored information in options
-        loadNetwork(false);
+        // set flag
+        myAmLoading = true;
+        getApp()->beginWaitCursor();
+        myLoadThread->loadNetwork();
+        setStatusBarText("Loading console arguments");
+        getApp()->endWaitCursor();
+        // add it into recent networks and configs
+        if (neteditOptions.getString("net-file").size() > 0) {
+            myMenuBarFile.myRecentNetworks.appendFile(neteditOptions.getString("net-file").c_str());
+        }
+        if (neteditOptions.getString("configuration-file").size() > 0) {
+            myMenuBarFile.myRecentNetworks.appendFile(neteditOptions.getString("net-file").c_str());
+        }
     }
 }
 
 
 void
 GNEApplicationWindow::createNewNetwork() {
+    auto& neteditOptions = OptionsCont::getOptions();
     // save windows size and position
     storeWindowSizeAndPos();
-    // begin wait cursor
-    getApp()->beginWaitCursor();
     // enable loading flag and disable reloading flag
     myAmLoading = true;
-    myReloading = false;
-    // close all windows
-    closeAllWindows();
     // recenter view
     gSchemeStorage.saveViewport(0, 0, -1, 0);
+    // begin wait cursor
+    getApp()->beginWaitCursor();
+    // fill (reset) all options
+    GNELoadThread::fillOptions(neteditOptions);
+    // set default options defined in GNELoadThread::setDefaultOptions(...)
+    GNELoadThread::setDefaultOptions(neteditOptions);
     // create new network
     myLoadThread->createNewNetwork();
     // update status bar
     setStatusBarText("Creating new network.");
-    // show supermode commands menu
-    mySupermodeCommands.showSupermodeCommands();
-    // show Network command menus (because Network is the default supermode)
-    myModesMenuCommands.networkMenuCommands.showNetworkMenuCommands();
+    // end wait cursor
+    getApp()->endWaitCursor();
     // update window
     update();
 }
 
 
 void
-GNEApplicationWindow::loadNetwork(const bool isReloading) {
+GNEApplicationWindow::loadNetwork(const std::string &networkFile) {
+    auto& neteditOptions = OptionsCont::getOptions();
+    // store size, position and viewport
     storeWindowSizeAndPos();
-    getApp()->beginWaitCursor();
-    myAmLoading = true;
-    myReloading = isReloading;
-    closeAllWindows();
-    if (isReloading) {
-        myLoadThread->start();
-        setStatusBarText("Reloading network.");
-    } else {
-        gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
-        myLoadThread->loadNetwork();
-        setStatusBarText("Loading network file '" + OptionsCont::getOptions().getString("net-file") + "'");
-    }
-    // show supermode commands menu
-    mySupermodeCommands.showSupermodeCommands();
-    // show Network command menus (because Network is the default supermode)
-    myModesMenuCommands.networkMenuCommands.showNetworkMenuCommands();
-    // update window
-    update();
-}
-
-
-void
-GNEApplicationWindow::loadNetconvertConfig() {
-    storeWindowSizeAndPos();
-    getApp()->beginWaitCursor();
-    myAmLoading = true;
-    myReloading = false;
-    closeAllWindows();
     gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
-    setStatusBarText("Loading netconvert config '" + OptionsCont::getOptions().getString("configuration-file") + "'");
-    myLoadThread->loadConfig();
-    // show supermode commands menu
-    mySupermodeCommands.showSupermodeCommands();
-    // show Network command menus (because Network is the default supermode)
-    myModesMenuCommands.networkMenuCommands.showNetworkMenuCommands();
-    // update window
-    update();
+    // set flag
+    myAmLoading = true;
+    // fill (reset) all options
+    myLoadThread->fillOptions(neteditOptions);
+    // set default options defined in GNELoadThread::setDefaultOptions(...)
+    myLoadThread->setDefaultOptions(neteditOptions);
+    // set file to load
+    neteditOptions.resetWritable();
+    neteditOptions.set("net-file", networkFile);
+    getApp()->beginWaitCursor();
+    myLoadThread->loadNetwork();
+    setStatusBarText("Loading network file '" + networkFile + "'");
+    getApp()->endWaitCursor();
+    // add it into recent nets
+    myMenuBarFile.myRecentNetworks.appendFile(networkFile.c_str());
 }
 
+
+void
+GNEApplicationWindow::reloadNetwork() {
+    auto& neteditOptions = OptionsCont::getOptions();
+    // store size, position and viewport
+    storeWindowSizeAndPos();
+    gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
+    // set flag
+    myAmLoading = true;
+    // get network
+    const auto networkFile = neteditOptions.getString("net-file");
+    // fill (reset) all options
+    myLoadThread->fillOptions(neteditOptions);
+    // set default options defined in GNELoadThread::setDefaultOptions(...)
+    myLoadThread->setDefaultOptions(neteditOptions);
+    // set file to load
+    neteditOptions.resetWritable();
+    neteditOptions.set("net-file", networkFile);
+    getApp()->beginWaitCursor();
+    myLoadThread->loadNetwork();
+    setStatusBarText("Reloading network file '" + networkFile + "'");
+    getApp()->endWaitCursor();
+}
+
+
+void
+GNEApplicationWindow::loadConfiguration(const std::string &configurationFile) {
+    auto& neteditOptions = OptionsCont::getOptions();
+    // store size, position and viewport
+    storeWindowSizeAndPos();
+    gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
+    // set flag
+    myAmLoading = true;
+    // fill (reset) all options
+    myLoadThread->fillOptions(neteditOptions);
+    // set default options defined in GNELoadThread::setDefaultOptions(...)
+    myLoadThread->setDefaultOptions(neteditOptions);
+    // set file to load
+    neteditOptions.resetWritable();
+    neteditOptions.set("configuration-file", configurationFile);
+    getApp()->beginWaitCursor();
+    myLoadThread->loadConfig();
+    setStatusBarText("Loading configuration file '" + configurationFile + "'");
+    getApp()->endWaitCursor();
+    // add it into recent configs
+    myMenuBarFile.myRecentNetworks.appendFile(configurationFile.c_str());
+}
+
+
+void
+GNEApplicationWindow::loadOSM(const std::string &OSMFile) {
+    auto& neteditOptions = OptionsCont::getOptions();
+    // store size, position and viewport
+    storeWindowSizeAndPos();
+    gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
+    // set flag
+    myAmLoading = true;
+    // fill (reset) all options
+    myLoadThread->fillOptions(neteditOptions);
+    // set default options defined in GNELoadThread::setDefaultOptions(...)
+    myLoadThread->setDefaultOptions(neteditOptions);
+    // recommended osm options
+    // https://sumo.dlr.de/wiki/Networks/Import/OpenStreetMap#Recommended_NETCONVERT_Options
+    neteditOptions.set("osm-files", OSMFile);
+    neteditOptions.set("geometry.remove", "true");
+    neteditOptions.set("ramps.guess", "true");
+    neteditOptions.set("junctions.join", "true");
+    neteditOptions.set("tls.guess-signals", "true");
+    neteditOptions.set("tls.discard-simple", "true");
+    GUIDialog_Options* wizard =
+        new GUIDialog_Options(this, OptionsCont::getOptions(), TL("Select Import Options"), getWidth(), getHeight());
+    if (wizard->execute()) {
+        NIFrame::checkOptions(); // needed to set projection parameters
+        // set file to load
+        neteditOptions.resetWritable();
+        neteditOptions.set("configuration-file", OSMFile);
+        getApp()->beginWaitCursor();
+        myLoadThread->loadConfig();
+        setStatusBarText("Loading OSM file '" + OSMFile + "'");
+        getApp()->endWaitCursor();
+    }
+    // after load, mark network saved
+    myNet->getSavingStatus()->networkSaved();
+}
 
 void
 GNEApplicationWindow::setStatusBarText(const std::string& statusBarText) {
