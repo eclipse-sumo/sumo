@@ -63,9 +63,6 @@ public:
     /// @brief load network
     void loadNetwork(const std::string &networkFile);
 
-    /// @brief reload network
-    void reloadNetwork();
-
     /// @brief starts to load a configuration
     void loadConfiguration(const std::string &configurationFile);
 

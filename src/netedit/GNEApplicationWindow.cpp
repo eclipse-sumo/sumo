@@ -731,19 +731,22 @@ GNEApplicationWindow::onCmdOpenSUMOConfig(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdReloadNETEDITConfig(FXObject*, FXSelector, void*) {
-    auto& neteditOptions = OptionsCont::getOptions();
-    // get existent configuration file
-    const auto neteditConfigFile = neteditOptions.getString("configuration-file");
-    // reset options
-    myLoadThread->fillOptions(neteditOptions);
-    myLoadThread->setDefaultOptions(neteditOptions);
-    // set configuration file to load
-    neteditOptions.resetWritable();
-    neteditOptions.set("configuration-file", neteditConfigFile);
-    // run load thread
-    myLoadThread->loadNetworkOrConfig();
-    // update view
-    update();
+    // check if close current simulation
+    if (onCmdClose(0, 0, 0) == 1) {
+        auto& neteditOptions = OptionsCont::getOptions();
+        // get existent configuration file
+        const auto neteditConfigFile = neteditOptions.getString("configuration-file");
+        // reset options
+        myLoadThread->fillOptions(neteditOptions);
+        myLoadThread->setDefaultOptions(neteditOptions);
+        // set configuration file to load
+        neteditOptions.resetWritable();
+        neteditOptions.set("configuration-file", neteditConfigFile);
+        // run load thread
+        myLoadThread->loadNetworkOrConfig();
+        // update view
+        update();
+    }
     return 1;
 }
 
@@ -751,14 +754,15 @@ GNEApplicationWindow::onCmdReloadNETEDITConfig(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdReloadSUMOConfig(FXObject*, FXSelector, void*) {
     auto& neteditOptions = OptionsCont::getOptions();
-    const auto sumoConfigFile = neteditOptions.getString("sumocfg-file");
-    if (sumoConfigFile.size() > 0) {
+    // check if close current simulation
+    if (onCmdClose(0, 0, 0) == 1) {
+        const auto sumoConfigFile = neteditOptions.getString("sumocfg-file");
         // reset options
         myLoadThread->fillOptions(neteditOptions);
         myLoadThread->setDefaultOptions(neteditOptions);
         // set configuration file to load
         neteditOptions.resetWritable();
-        neteditOptions.set("configuration-file", sumoConfigFile);
+        neteditOptions.set("sumocfg-file", sumoConfigFile);
         // run load thread
         myLoadThread->loadNetworkOrConfig();
         // update view
@@ -958,10 +962,27 @@ GNEApplicationWindow::onCmdOpenRecent(FXObject*, FXSelector, void* fileData) {
 
 long
 GNEApplicationWindow::onCmdReload(FXObject*, FXSelector, void*) {
-    // check if close current simulation
+    auto& neteditOptions = OptionsCont::getOptions();
+    // check if close current file
     if (onCmdClose(0, 0, 0) == 1) {
-        // reload
-        reloadNetwork();
+        // store size, position and viewport
+        storeWindowSizeAndPos();
+        gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
+        // set flag
+        myAmLoading = true;
+        // get network
+        const auto networkFile = neteditOptions.getString("net-file");
+        // fill (reset) all options
+        myLoadThread->fillOptions(neteditOptions);
+        // set default options defined in GNELoadThread::setDefaultOptions(...)
+        myLoadThread->setDefaultOptions(neteditOptions);
+        // set file to load
+        neteditOptions.resetWritable();
+        neteditOptions.set("net-file", networkFile);
+        // set status bar
+        setStatusBarText("Reloading network file '" + networkFile + "'");
+        // loaad network
+        myLoadThread->loadNetworkOrConfig();
     }
     return 1;
 }
@@ -1526,30 +1547,6 @@ GNEApplicationWindow::loadNetwork(const std::string &networkFile) {
     myLoadThread->loadNetworkOrConfig();
     // add it into recent nets
     myMenuBarFile.myRecentNetworks.appendFile(networkFile.c_str());
-}
-
-
-void
-GNEApplicationWindow::reloadNetwork() {
-    auto& neteditOptions = OptionsCont::getOptions();
-    // store size, position and viewport
-    storeWindowSizeAndPos();
-    gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
-    // set flag
-    myAmLoading = true;
-    // get network
-    const auto networkFile = neteditOptions.getString("net-file");
-    // fill (reset) all options
-    myLoadThread->fillOptions(neteditOptions);
-    // set default options defined in GNELoadThread::setDefaultOptions(...)
-    myLoadThread->setDefaultOptions(neteditOptions);
-    // set file to load
-    neteditOptions.resetWritable();
-    neteditOptions.set("net-file", networkFile);
-    // set status bar
-    setStatusBarText("Reloading network file '" + networkFile + "'");
-    // loaad network
-    myLoadThread->loadNetworkOrConfig();
 }
 
 
