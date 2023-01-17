@@ -804,7 +804,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     double dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
     const bool isRail = isRailway(aVehicle->getVClass());
     // do not insert if the bidirectional edge is occupied
-    if (myEdge->getBidiEdge() != nullptr && isRail && getBidiLane()->getVehicleNumberWithPartials() > 0) {
+    if (getBidiLane() != nullptr && isRail && getBidiLane()->getVehicleNumberWithPartials() > 0) {
         if ((aVehicle->getParameter().insertionChecks & (int)InsertionCheck::BIDI) != 0) {
 #ifdef DEBUG_INSERTION
             if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
@@ -960,7 +960,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         if (nextLane != nullptr) {
 
             // do not insert if the bidirectional edge is occupied before a railSignal has been encountered
-            if (firstRailSignal == nullptr && nextLane->getEdge().getBidiEdge() != nullptr && nextLane->getBidiLane()->getVehicleNumberWithPartials() > 0) {
+            if (firstRailSignal == nullptr && nextLane->getBidiLane() != nullptr && nextLane->getBidiLane()->getVehicleNumberWithPartials() > 0) {
                 if ((aVehicle->getParameter().insertionChecks & (int)InsertionCheck::ONCOMING_TRAIN) != 0) {
                     return false;
                 }
@@ -1676,7 +1676,7 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
         if (myPartialVehicles.size() > 0) {
             detectCollisionBetween(timestep, stage, *lastVeh, myPartialVehicles.front(), toRemove, toTeleport);
         }
-        if (myEdge->getBidiEdge() != nullptr) {
+        if (getBidiLane() != nullptr) {
             // bidirectional railway
             MSLane* bidiLane = getBidiLane();
             if (bidiLane->getVehicleNumberWithPartials() > 0) {
