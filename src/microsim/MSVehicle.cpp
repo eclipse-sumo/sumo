@@ -5755,7 +5755,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
 
 #ifdef DEBUG_BESTLANES
         if (DEBUG_COND) {
-            std::cout << "   edge=" << cE.getID() << " (bestIndex=" << bestThisIndex << " bestMaxIndex=" << bestThisMaxIndex << "):\n";
+            std::cout << "   edge=" << cE->getID() << " (bestIndex=" << bestThisIndex << " bestMaxIndex=" << bestThisMaxIndex << "):\n";
             std::vector<LaneQ>& laneQs = clanes;
             for (std::vector<LaneQ>::iterator j = laneQs.begin(); j != laneQs.end(); ++j) {
                 std::cout << "     lane=" << (*j).lane->getID() << " length=" << (*j).length << " bestOffset=" << (*j).bestLaneOffset << " allowCont=" << (*j).allowsContinuation << "\n";
