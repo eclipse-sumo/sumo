@@ -1296,10 +1296,8 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     }
     getApp()->endWaitCursor();
     myMessageWindow->registerMsgHandlers();
-    // load additionals/shapes
-    loadAdditionalElements();
-    // load demand elements
-    loadDemandElements();
+    // load elements
+    loadElements();
     // load data elements
     loadDataElements();
     // after loading net shouldn't be saved
@@ -4391,75 +4389,47 @@ GNEApplicationWindow::getSUMOOptions() {
 
 
 void
-GNEApplicationWindow::loadAdditionalElements() {
+GNEApplicationWindow::loadElements() {
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
     // get additional files
-    StringVector additionalAndMeanDatas;
+    StringVector files;
     for (const auto &additionalFiles : neteditOptions.getStringVector("additional-files")) {
-        additionalAndMeanDatas.push_back(additionalFiles);
+        files.push_back(additionalFiles);
+    }
+    for (const auto &routeFiles : neteditOptions.getStringVector("route-files")) {
+        files.push_back(routeFiles);
     }
     for (const auto &meanDataFiles : neteditOptions.getStringVector("meandata-files")) {
-        additionalAndMeanDatas.push_back(meanDataFiles);
+        files.push_back(meanDataFiles);
     }
     // continue depending of network and additional files
-    if (myNet && (additionalAndMeanDatas.size() > 0)) {
+    if (myNet && (files.size() > 0)) {
         // begin undolist
-        myUndoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, "loading additionals from '" + toString(additionalAndMeanDatas) + "'");
+        myUndoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, "loading elements from '" + toString(files) + "'");
         // iterate over every additional file
-        for (const auto& additionalFile : additionalAndMeanDatas) {
-            WRITE_MESSAGE(TL("loading additionals and meandatas from '") + additionalFile + "'");
+        for (const auto& file : files) {
+            WRITE_MESSAGE(TL("loading additionals and meandatas from '") + file + "'");
             // declare general handler
-            GNEGeneralHandler handler(myNet, additionalFile, true, false);
+            GNEGeneralHandler handler(myNet, file, true, false);
             // disable validation for additionals
             XMLSubSys::setValidation("never", "auto", "auto");
             // Run parser
             if (!handler.parse()) {
-                WRITE_ERROR("Loading of " + additionalFile + " failed.");
+                WRITE_ERROR("Loading of " + file + " failed.");
             }
             // set netedit options
             neteditOptions.resetWritable();
-            if (handler.isMeanDataFile()) {
-                neteditOptions.set("meandata-files", additionalFile);
-            } else {
-                neteditOptions.set("additional-files", additionalFile);
+            if (handler.isAdditionalFile() && neteditOptions.getString("additional-files").empty()) {
+                neteditOptions.set("additional-files", file);
+            } else if (handler.isRouteFile() && neteditOptions.getString("route-files").empty()) {
+                neteditOptions.set("route-files", file);
+            } else if (handler.isMeanDataFile() && neteditOptions.getString("meandata-files").empty()) {
+                neteditOptions.set("meandata-files", file);
             }
             // set additionals in SUMOConfig
             setInputInSUMOOptions(false, false);
             // disable validation for additionals
-            XMLSubSys::setValidation("auto", "auto", "auto");
-        }
-        // end undo list
-        myUndoList->end();
-    }
-}
-
-
-void
-GNEApplicationWindow::loadDemandElements() {
-    // get option container
-    OptionsCont& neteditOptions = OptionsCont::getOptions();
-    // get route files
-    const std::vector<std::string> routeFiles = neteditOptions.getStringVector("route-files");
-    // continue depending of network and route files
-    if (myNet && (routeFiles.size() > 0)) {
-        // begin undolist
-        myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, "loading demand elements from '" + toString(routeFiles) + "'");
-        // iterate over every route file
-        for (const std::string& routeFile : routeFiles) {
-            WRITE_MESSAGE(TL("Loading demand elements from '") + routeFile + "'");
-            GNEGeneralHandler handler(myNet, routeFile, true, false);
-            XMLSubSys::setValidation("never", "auto", "auto");
-            if (!handler.parse()) {
-                WRITE_ERROR("Loading of " + routeFile + " failed.");
-            }
-            // set first routeFile as default file
-            neteditOptions.resetWritable();
-            neteditOptions.set("route-files", routeFile);
-            // set route files in SUMO configs
-            mySUMOOptions.resetWritable();
-            mySUMOOptions.set("route-files", neteditOptions.getString("route-files"));
-            // disable validation for demand elements
             XMLSubSys::setValidation("auto", "auto", "auto");
         }
         // end undo list

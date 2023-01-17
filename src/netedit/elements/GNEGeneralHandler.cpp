@@ -52,8 +52,20 @@ GNEGeneralHandler::isErrorCreatingElement() const {
 
 
 bool
+GNEGeneralHandler::isAdditionalFile() const {
+    return fileType == TagType::Type::ADDITIONAL;
+}
+
+
+bool
+GNEGeneralHandler::isRouteFile() const {
+    return fileType == TagType::Type::DEMAND;
+}
+
+
+bool
 GNEGeneralHandler::isMeanDataFile() const {
-    return myMeanDataFile;
+    return fileType == TagType::Type::MEANDATA;
 }
 
 
@@ -121,14 +133,18 @@ GNEGeneralHandler::endTag() {
     } else if (myQueue.back().isAdditional()) {
         // end parse additional elements
         myAdditionalHandler.endParseAttributes();
+        // mark file as additional
+        fileType = TagType::Type::ADDITIONAL;
     } else if (myQueue.back().isDemand()) {
         // end parse demand elements
         myDemandHandler.endParseAttributes();
+        // mark file as demand
+        fileType = TagType::Type::DEMAND;
     } else if (myQueue.back().isMeanData()) {
         // end parse meanData elements
         myMeanDataHandler.endParseAttributes();
-        // mark file as meandata
-        myMeanDataFile = true;
+        // mark file as demand
+        fileType = TagType::Type::MEANDATA;
     } else {
         WRITE_ERROR(toString(myQueue.back().tag) + " cannot be processed either " +
                     "with additional handler nor with demand handler nor with meanData handler");

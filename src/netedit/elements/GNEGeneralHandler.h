@@ -56,6 +56,12 @@ public:
     /// @brief get flag for check if a element wasn't created
     bool isErrorCreatingElement() const;
 
+    /// @brief check if the parser file is a additional file
+    bool isAdditionalFile() const;
+
+    /// @brief check if the parser file is a route file
+    bool isRouteFile() const;
+
     /// @brief check if the parser file is a meanData file
     bool isMeanDataFile() const;
 
@@ -110,8 +116,8 @@ private:
     /// @brief meanData handler
     GNEMeanDataHandler myMeanDataHandler;
 
-    /// @brief flag for mark file as meanData file
-    bool myMeanDataFile = false;
+    /// @brief flag for set file type
+    TagType::Type fileType = TagType::Type::NONE;
 
     /// @brief start element
     void beginTag(SumoXMLTag tag, const SUMOSAXAttributes& attrs);

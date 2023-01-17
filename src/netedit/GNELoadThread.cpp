@@ -112,16 +112,6 @@ GNELoadThread::run() {
             submitEndAndCleanup(net, loadedFile);
             return 0;
         }
-    } else if (neteditOptions.getString("net-file").size() > 0) {
-        // set netwok as loadedFile
-        loadedFile = neteditOptions.getString("net-file");
-        // fill (reset) all options
-        fillOptions(neteditOptions);
-        // set default options defined in GNELoadThread::setDefaultOptions(...)
-        setDefaultOptions(neteditOptions);
-        // set net manually
-        neteditOptions.resetWritable();
-        neteditOptions.set("net-file", loadedFile);
     } else if (!loadConsoleOptions()) {
         WRITE_ERROR("Invalid input network option. Load with either sumo/netedit/netconvert config or with -new option");
         submitEndAndCleanup(net, loadedFile);

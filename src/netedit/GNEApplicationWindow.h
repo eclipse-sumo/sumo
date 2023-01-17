@@ -552,11 +552,8 @@ public:
     /// @brief get SUMO options container
     OptionsCont& getSUMOOptions();
 
-    /// @brief load additional elements
-    void loadAdditionalElements();
-
-    /// @brief load demand elements
-    void loadDemandElements();
+    /// @brief load elements (additional, routes and meanDatas)
+    void loadElements();
 
     /// @brief load data elements
     void loadDataElements();
