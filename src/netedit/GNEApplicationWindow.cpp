@@ -2966,7 +2966,7 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject* sender, FXSelector sel, void* p
             WRITE_DEBUG("Closed FXMessageBox 'error saving network' with 'OK'");
         }
         // write info
-        WRITE_MESSAGE(TL("Network saved in '") + neteditOptions.getString("net-file") + "'.'");
+        WRITE_MESSAGE(TL("Network saved in '") + neteditOptions.getString("net-file") + "'.");
         // After saving a net successfully, add it into Recent Nets list.
         myMenuBarFile.myRecentNetworks.appendFile(neteditOptions.getString("net-file").c_str());
         myMessageWindow->addSeparator();
