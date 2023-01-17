@@ -59,3 +59,4 @@ disconnected_walk
 
 # position beyond the lanes end
 invalid_departpos
+busStop_missing
