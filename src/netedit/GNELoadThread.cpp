@@ -64,32 +64,33 @@ GNELoadThread::~GNELoadThread() {
 
 FXint
 GNELoadThread::run() {
+    auto& neteditOptions = OptionsCont::getOptions();
     // register message callbacks
     MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);
     MsgHandler::getDebugInstance()->addRetriever(myDebugRetriever);
     MsgHandler::getGLDebugInstance()->addRetriever(myGLDebugRetriever);
     MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
     MsgHandler::getWarningInstance()->addRetriever(myWarningRetriever);
+    // flag for check if input is valid
+    bool validInput = false;
     // declare network
     GNENet* net = nullptr;
     // declare loaded file
     std::string loadedFile;
-    // get netedit options
-    auto& neteditOptions = OptionsCont::getOptions();
-    // check if we're loading a sumo or netconvet config file
-    if (myNewNet) {
-        // set default options defined in GNELoadThread::setDefaultOptions(...)
-        setDefaultOptions(neteditOptions);
+    // check conditions
+    if (neteditOptions.getBool("new")) {
+        validInput = true;
     } else if (neteditOptions.getString("net-file").size() > 0) {
-        ///
+        validInput = true;
     } else if (neteditOptions.getString("sumocfg-file").size() > 0) {
         // set sumo config as loaded file
         loadedFile = neteditOptions.getString("sumocfg-file");
-
         // declare parser for sumo config file
         GNEApplicationWindowHelper::GNESUMOConfigHandler confighandler(myApplicationWindow->getSUMOOptions(), loadedFile);
         // if there is an error loading sumo config, stop
-        if (!confighandler.loadSUMOConfig()) {
+        if (confighandler.loadSUMOConfig()) {
+            validInput = true;
+        } else {
             WRITE_ERROR("Loading of sumo config file '" + loadedFile + "' failed.");
             submitEndAndCleanup(net, loadedFile);
             return 0;
@@ -100,12 +101,18 @@ GNELoadThread::run() {
         // declare parser for netedit config file
         GNEApplicationWindowHelper::GNENETEDITConfigHandler confighandler(loadedFile);
         // if there is an error loading sumo config, stop
-        if (!confighandler.loadNETEDITConfig()) {
+        if (confighandler.loadNETEDITConfig()) {
+            validInput = true;
+        } else {
             WRITE_ERROR("Loading of netedit config file '" + loadedFile + "' failed.");
             submitEndAndCleanup(net, loadedFile);
             return 0;
         }
-    } else if (!loadConsoleOptions()) {
+    } else if (loadConsoleOptions()) {
+        validInput = true;
+    }
+    // check input
+    if (!validInput) {    
         WRITE_ERROR("Invalid input network option. Load with either sumo/netedit/netconvert config or with -new option");
         submitEndAndCleanup(net, loadedFile);
         return 0;
@@ -117,10 +124,7 @@ GNELoadThread::run() {
     // init output options
     MsgHandler::initOutputOptions();
     // if there is an error checking options, stop
-    if (!(NIFrame::checkOptions() &&
-            NBFrame::checkOptions() &&
-            NWFrame::checkOptions() &&
-            SystemFrame::checkOptions())) {
+    if (!(NIFrame::checkOptions() && NBFrame::checkOptions() && NWFrame::checkOptions() && SystemFrame::checkOptions())) {
         // options are not valid
         WRITE_ERROR(TL("Invalid Options. Nothing loaded"));
         submitEndAndCleanup(net, loadedFile);
@@ -151,7 +155,7 @@ GNELoadThread::run() {
     // apply netedit options in netBuilder. In this options we have all information for building network
     netBuilder->applyOptions(neteditOptions);
     // check if create a new net
-    if (myNewNet) {
+    if (neteditOptions.getBool("new")) {
         // create new network
         net = new GNENet(netBuilder);
     } else {
@@ -160,7 +164,7 @@ GNELoadThread::run() {
         try {
             // try to load network using netedit options
             nl.load(neteditOptions);
-            if (myLoadNet) {
+            if (true) {    // CHECK
                 // make coordinate conversion usable before first netBuilder->compute()
                 GeoConvHelper::computeFinal();
             } else {
@@ -228,6 +232,7 @@ GNELoadThread::run() {
 
 void
 GNELoadThread::submitEndAndCleanup(GNENet* net, const std::string& loadedFile, const std::string& guiSettingsFile, const bool viewportFromRegistry) {
+    auto& neteditOptions = OptionsCont::getOptions();
     // remove message callbacks
     MsgHandler::getDebugInstance()->removeRetriever(myDebugRetriever);
     MsgHandler::getGLDebugInstance()->removeRetriever(myGLDebugRetriever);
@@ -235,8 +240,17 @@ GNELoadThread::submitEndAndCleanup(GNENet* net, const std::string& loadedFile, c
     MsgHandler::getWarningInstance()->removeRetriever(myWarningRetriever);
     MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);
     // inform parent about the process
-    myEventQueue.push_back(new GNEEvent_NetworkLoaded(net, myNewNet, loadedFile, guiSettingsFile, viewportFromRegistry));
+    if (neteditOptions.getBool("new")) {
+        myEventQueue.push_back(new GNEEvent_NetworkLoaded(net, true, loadedFile, guiSettingsFile, viewportFromRegistry));
+        // disable option "new"
+        neteditOptions.resetWritable();
+        neteditOptions.set("new", "true");
+    } else {
+        myEventQueue.push_back(new GNEEvent_NetworkLoaded(net, true, loadedFile, guiSettingsFile, viewportFromRegistry));
+    }
     myEventThrow.signal();
+    // end wait cursor
+    myApplicationWindow->getApp()->endWaitCursor();
 }
 
 
@@ -507,28 +521,24 @@ GNELoadThread::loadConsoleOptions() {
 
 
 void
-GNELoadThread::createNewNetwork() {
-    // set flags
-    myLoadNet = false;
-    myNewNet = true;
+GNELoadThread::newNetwork() {
+    auto& neteditOptions = OptionsCont::getOptions();
+    // reset netedit options
+    fillOptions(neteditOptions);
+    setDefaultOptions(neteditOptions);
+    // enable option "new"
+    neteditOptions.resetWritable();
+    neteditOptions.set("new", "true");
+    // start thread
     start();
 }
 
 
 void
-GNELoadThread::loadNetwork() {
-    // set flags
-    myLoadNet = true;
-    myNewNet = false;
-    start();
-}
-
-
-void
-GNELoadThread::loadConfig() {
-    // set flags
-    myLoadNet = false;
-    myNewNet = false;
+GNELoadThread::loadNetworkOrConfig() {
+    // begin wait cursor
+    myApplicationWindow->getApp()->beginWaitCursor();
+    // start thread
     start();
 }
 
@@ -538,6 +548,5 @@ GNELoadThread::retrieveMessage(const MsgHandler::MsgType type, const std::string
     myEventQueue.push_back(new GUIEvent_Message(type, msg));
     myEventThrow.signal();
 }
-
 
 /****************************************************************************/

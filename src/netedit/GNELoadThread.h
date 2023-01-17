@@ -40,7 +40,7 @@ class GNEApplicationWindow;
 /**
  * @class GNELoadThread
  */
-class GNELoadThread : public MFXSingleEventThread {
+class GNELoadThread : protected MFXSingleEventThread {
 
 public:
     /// @brief constructor
@@ -53,13 +53,10 @@ public:
     FXint run();
 
     /// @brief begins the creation of an empty network
-    void createNewNetwork();
+    void newNetwork();
 
-    /// @brief begins the loading of an existent network
-    void loadNetwork();
-
-    /// @brief begins the loading of an existent configuration (netconvert, netedit or sumo config)
-    void loadConfig();
+    /// @brief begins the loading of an existent network or config
+    void loadNetworkOrConfig();
 
     /// @brief Retrieves messages from the loading module
     void retrieveMessage(const MsgHandler::MsgType type, const std::string& msg);
@@ -93,10 +90,4 @@ private:
 
     /// @brief event throw
     FXEX::MFXThreadEvent& myEventThrow;
-
-    /// @brief Information whether only the network shall be loaded
-    bool myLoadNet = false;
-
-    /// @brief if true, a new net is created
-    bool myNewNet = false;
 };
