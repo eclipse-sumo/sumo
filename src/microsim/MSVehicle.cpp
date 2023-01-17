@@ -1561,7 +1561,9 @@ MSVehicle::keepStopping(bool afterProcessing) const {
     if (isStopped()) {
         // when coming out of vehicleTransfer we must shift the time forward
         return (myStops.front().duration - (afterProcessing ? DELTA_T : 0) > 0 || isStoppedTriggered() || myStops.front().pars.collision
-                || (myStops.front().getSpeed() > 0 && myState.myPos < MIN2(myStops.front().pars.endPos, myStops.front().lane->getLength() - POSITION_EPS)));
+                || (myStops.front().getSpeed() > 0
+                    && (myState.myPos < MIN2(myStops.front().pars.endPos, myStops.front().lane->getLength() - POSITION_EPS))
+                    && (myStops.front().pars.parking == ParkingType::ONROAD || getSpeed() >= SUMO_const_haltingSpeed)));
     } else {
         return false;
     }
@@ -1612,7 +1614,7 @@ MSVehicle::processNextStop(double currentVelocity) {
             std::cout << SIMTIME << " vehicle '" << getID() << "' reached stop.\n"
                       << "Remaining duration: " << STEPS2TIME(stop.duration) << std::endl;
             if (stop.getSpeed() > 0) {
-                std::cout << " waypointSpeed=" << stop.getSpeed() << "vehPos=" << myState.myPos << " endPos=" << stop.pars.endPos << "\n";
+                std::cout << " waypointSpeed=" << stop.getSpeed() << " vehPos=" << myState.myPos << " endPos=" << stop.pars.endPos << "\n";
             }
         }
 #endif

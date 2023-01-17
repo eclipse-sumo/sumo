@@ -961,8 +961,9 @@ MSBaseVehicle::isStopped() const {
 
 bool
 MSBaseVehicle::isParking() const {
-    return isStopped() && (myStops.begin()->pars.parking == ParkingType::OFFROAD) && (
-               myStops.begin()->parkingarea == nullptr || !myStops.begin()->parkingarea->parkOnRoad());
+    return (isStopped() && (myStops.begin()->pars.parking == ParkingType::OFFROAD)
+            && (myStops.begin()->parkingarea == nullptr || !myStops.begin()->parkingarea->parkOnRoad())
+            && (myStops.begin()->getSpeed() == 0 || getSpeed() < SUMO_const_haltingSpeed));
 }
 
 
