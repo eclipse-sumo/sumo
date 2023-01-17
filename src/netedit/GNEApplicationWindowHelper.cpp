@@ -2627,7 +2627,7 @@ std::string
 GNEApplicationWindowHelper::openNETEDITConfigFileDialog(FXWindow* window, const bool save) {
     if (save) {
         return openFileDialog(window, TL("Save NETEDIT Config file as"), GUIIcon::SAVE_NETEDITCONFIG,
-            "NETEDIT Config files (*.neteditcfg,)\nAll files (*)", true);
+            "NETEDIT Config files (*.neteditcfg)\nAll files (*)", true);
     } else {
         return openFileDialog(window, TL("Open NETEDIT Config file"), GUIIcon::OPEN_NETEDITCONFIG,
             "NETEDIT Config files (*.neteditcfg)\nAll files (*)", false);
