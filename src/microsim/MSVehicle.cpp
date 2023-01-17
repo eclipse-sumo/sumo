@@ -5728,7 +5728,9 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
                                                 || requiredChangeRightForbidden)) {
                     // this lane and all further lanes to the left cannot be used
                     requiredChangeRightForbidden = true;
-                    (*j).length -= (*j).currentLength;
+                    if ((*j).length == (*j).currentLength) {
+                        (*j).length = 0;
+                    }
                 } else if ((*j).bestLaneOffset > 0 && (!(*j).lane->allowsChangingLeft(getVClass())
                                                        || !(*j).lane->getParallelLane(1, false)->allowsVehicleClass(getVClass()))) {
                     // this lane and all previous lanes to the right cannot be used
@@ -5739,7 +5741,9 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
             }
         }
         for (int idx = requireChangeToLeftForbidden; idx >= 0; idx--) {
-            clanes[idx].length -= clanes[idx].currentLength;
+            if (clanes[idx].length == clanes[idx].currentLength) {
+                clanes[idx].length = 0;
+            };
         }
 
         //vehicle with elecHybrid device prefers running under an overhead wire
