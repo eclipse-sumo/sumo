@@ -1662,8 +1662,7 @@ GNEViewNet::getFrontAttributeCarrier() const {
 void
 GNEViewNet::setFrontAttributeCarrier(GNEAttributeCarrier* AC) {
     myFrontAttributeCarrier = AC;
-    // update view
-    updateViewNet();
+    update();
 }
 
 
