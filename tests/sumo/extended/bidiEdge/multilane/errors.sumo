@@ -1,0 +1,3 @@
+Warning: Edge '-218797686#0s' and bidi edge '218797686#0s' have no matching bidi lanes
+Warning: Missing green phase in tlLogic 'joinedS_3366619456_cluster_1652675105_1704693841_2169462573_3366620150_#7more', program '0' for tl-index 6.
+Warning: At actuated tlLogic 'joinedS_3366619456_cluster_1652675105_1704693841_2169462573_3366620150_#7more', actuated phase 2 has no controlling detector.
