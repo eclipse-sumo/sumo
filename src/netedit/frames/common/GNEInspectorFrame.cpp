@@ -78,11 +78,11 @@ FXDEFMAP(GNEInspectorFrame::AdditionalDialog) AdditionalDialogMap[] = {
 
 // Object implementation
 FXIMPLEMENT(GNEInspectorFrame,                          FXVerticalFrame,    GNEInspectorFrameMap,       ARRAYNUMBER(GNEInspectorFrameMap))
-FXIMPLEMENT(GNEInspectorFrame::NeteditAttributesEditor, MFXGroupBoxModule,   NeteditAttributesEditorMap, ARRAYNUMBER(NeteditAttributesEditorMap))
-FXIMPLEMENT(GNEInspectorFrame::GEOAttributesEditor,     MFXGroupBoxModule,   GEOAttributesEditorMap,     ARRAYNUMBER(GEOAttributesEditorMap))
-FXIMPLEMENT(GNEInspectorFrame::TemplateEditor,          MFXGroupBoxModule,   TemplateEditorMap,          ARRAYNUMBER(TemplateEditorMap))
-FXIMPLEMENT(GNEInspectorFrame::ParametersEditor,        MFXGroupBoxModule,   ParametersEditorMap,        ARRAYNUMBER(ParametersEditorMap))
-FXIMPLEMENT(GNEInspectorFrame::AdditionalDialog,        MFXGroupBoxModule,   AdditionalDialogMap,        ARRAYNUMBER(AdditionalDialogMap))
+FXIMPLEMENT(GNEInspectorFrame::NeteditAttributesEditor, MFXGroupBoxModule,  NeteditAttributesEditorMap, ARRAYNUMBER(NeteditAttributesEditorMap))
+FXIMPLEMENT(GNEInspectorFrame::GEOAttributesEditor,     MFXGroupBoxModule,  GEOAttributesEditorMap,     ARRAYNUMBER(GEOAttributesEditorMap))
+FXIMPLEMENT(GNEInspectorFrame::TemplateEditor,          MFXGroupBoxModule,  TemplateEditorMap,          ARRAYNUMBER(TemplateEditorMap))
+FXIMPLEMENT(GNEInspectorFrame::ParametersEditor,        MFXGroupBoxModule,  ParametersEditorMap,        ARRAYNUMBER(ParametersEditorMap))
+FXIMPLEMENT(GNEInspectorFrame::AdditionalDialog,        MFXGroupBoxModule,  AdditionalDialogMap,        ARRAYNUMBER(AdditionalDialogMap))
 
 
 // ===========================================================================
@@ -1253,6 +1253,8 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
     }
     // update frame width
     setFrameWidth(myViewNet->getViewParent()->getFrameAreaWidth());
+    // update viewNet
+    myViewNet->update();
 }
 
 
