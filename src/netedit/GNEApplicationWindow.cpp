@@ -3187,17 +3187,13 @@ GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject* sender, FXSelector sel, void
             }
             onCmdSaveNetwork(nullptr, 0, nullptr);
         }
-        if (ignoreAdditionals) {
-            neteditOptions.set("additional-files", "");
-        } else if (!myNet->getSavingStatus()->isAdditionalsSaved()) {
+        if (!myNet->getSavingStatus()->isAdditionalsSaved()) {
             if (neteditOptions.getString("additional-files").empty()) {
                 neteditOptions.set("additional-files", patterFile + ".add.xml");
             }
             onCmdSaveAdditionals(nullptr, 0, nullptr);
         }
-        if (ignoreDemandElements) {
-            neteditOptions.set("route-files", "");
-        } else if (!myNet->getSavingStatus()->isDemandElementsSaved()) {
+        if (!myNet->getSavingStatus()->isDemandElementsSaved()) {
             if (neteditOptions.getString("route-files").empty()) {
                 neteditOptions.set("route-files", patterFile + ".rou.xml");
             }
@@ -3209,10 +3205,8 @@ GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject* sender, FXSelector sel, void
             }
             onCmdSaveMeanDatas(nullptr, 0, nullptr);
         }
-        // set files in sumo options
-        mySUMOOptions.set("net-file", neteditOptions.getString("net-file"));
-        mySUMOOptions.set("route-files", neteditOptions.getString("route-files"));
-        setAdditionalsInSUMOConfig();
+        // set input in sumo options
+        setInputInSUMOOptions(ignoreAdditionals, ignoreDemandElements);
         // if we have trips or flow over junctions, add option junction-taz
         if ((myNet->getAttributeCarriers()->getDemandElements().at(GNE_TAG_TRIP_JUNCTIONS).size() > 0) ||
                 (myNet->getAttributeCarriers()->getDemandElements().at(GNE_TAG_FLOW_JUNCTIONS).size() > 0)) {
@@ -4212,19 +4206,31 @@ GNEApplicationWindow::continueWithUnsavedDataElementChanges(const std::string& o
 
 
 void
-GNEApplicationWindow::setAdditionalsInSUMOConfig() {
+GNEApplicationWindow::setInputInSUMOOptions(const bool ignoreAdditionals, const bool ignoreRoutes) {
     // obtain NETEDIT option container
     auto& neteditOptions = OptionsCont::getOptions();
-    // set SUMOOptions depending of additionalFiles and meanData files
     mySUMOOptions.resetWritable();
-    if ((neteditOptions.getString("additional-files").size() > 0) && (neteditOptions.getString("meandata-files").size())) {
-        mySUMOOptions.set("additional-files", neteditOptions.getString("additional-files") + "," + neteditOptions.getString("meandata-files"));
-    } else if (neteditOptions.getString("additional-files").size() > 0) {
-        mySUMOOptions.set("additional-files", neteditOptions.getString("additional-files"));
-    } else if (neteditOptions.getString("meandata-files").size() > 0) {
+    // set network
+    mySUMOOptions.set("net-file", neteditOptions.getString("net-file"));
+    // set routes
+    if (ignoreRoutes) {
+        mySUMOOptions.set("route-files", "");
+    } else {
+        mySUMOOptions.set("route-files", neteditOptions.getString("route-files"));
+    }
+    // set SUMOOptions depending of additionalFiles and meanData files
+    if (ignoreAdditionals) {
         mySUMOOptions.set("additional-files", neteditOptions.getString("meandata-files"));
     } else {
-        mySUMOOptions.set("additional-files", "");
+        if ((neteditOptions.getString("additional-files").size() > 0) && (neteditOptions.getString("meandata-files").size())) {
+            mySUMOOptions.set("additional-files", neteditOptions.getString("additional-files") + "," + neteditOptions.getString("meandata-files"));
+        } else if (neteditOptions.getString("additional-files").size() > 0) {
+            mySUMOOptions.set("additional-files", neteditOptions.getString("additional-files"));
+        } else if (neteditOptions.getString("meandata-files").size() > 0) {
+            mySUMOOptions.set("additional-files", neteditOptions.getString("meandata-files"));
+        } else {
+            mySUMOOptions.set("additional-files", "");
+        }
     }
 }
 
@@ -4418,7 +4424,7 @@ GNEApplicationWindow::loadAdditionalElements() {
                 neteditOptions.set("additional-files", additionalFile);
             }
             // set additionals in SUMOConfig
-            setAdditionalsInSUMOConfig();
+            setInputInSUMOOptions(false, false);
             // disable validation for additionals
             XMLSubSys::setValidation("auto", "auto", "auto");
         }

@@ -701,8 +701,8 @@ private:
     /// @brief warns about unsaved changes in data elements and gives the user the option to abort
     bool continueWithUnsavedDataElementChanges(const std::string& operation);
 
-    /// @brief set additional files in SUMO Config
-    void setAdditionalsInSUMOConfig();
+    /// @brief set input files in sumo options
+    void setInputInSUMOOptions(const bool ignoreAdditionals, const bool ignoreRoutes);
 
     /// @brief extract folder
     FXString getFolder(const std::string& folder) const;
