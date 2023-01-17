@@ -687,9 +687,7 @@ GUIOSGBuilder::buildPlane(double length) {
     geom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::POLYGON, 0, 4));
 
     osg::ref_ptr<osg::StateSet> ss = geode->getOrCreateStateSet();
-    ss->setMode(GL_DEPTH_TEST, osg::StateAttribute::OFF);
     ss->setRenderingHint(osg::StateSet::OPAQUE_BIN);
-    ss->setRenderBinDetails(-1, "RenderBin");
     ss->setMode(GL_BLEND, osg::StateAttribute::OVERRIDE | osg::StateAttribute::PROTECTED | osg::StateAttribute::ON);
 
     return geode;
