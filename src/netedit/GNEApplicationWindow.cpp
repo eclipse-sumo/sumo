@@ -2139,6 +2139,7 @@ GNEApplicationWindow::onCmdSetFrontElement(FXObject*, FXSelector, void*) {
         } else {
             myViewNet->setFrontAttributeCarrier(nullptr);
         }
+        update();
     }
     return 1;
 }
