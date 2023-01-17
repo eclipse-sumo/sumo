@@ -1133,7 +1133,7 @@ def getUpstreamSignal(net, vehStops, stopIndex):
     return findSignal(net, list(reversed(prevEdges)), True)
 
 
-def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoutes, departTimes):
+def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoutes, departTimes, writeInactive=False):
     """find routes that start at a stop with a traffic light at end of the edge
     and routes that pass this stop. Ensure insertion happens in the correct order
     (finds constraints on insertion)
@@ -1144,7 +1144,8 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
     numIgnoredConflicts = 0
     for busStop, stops in stopRoutes.items():
         if busStop == options.debugStop:
-            print("findInsertionConflicts at stop %s" % busStop)
+            print("findInsertionConflicts at stop %s%s" % (
+                busStop, " (writeInactive)" if writeInactive else ""))
         untils = []
         for edgesBefore, stop in stops:
             if stop.hasAttribute("until") and not options.untilFromDuration:
@@ -1163,12 +1164,13 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
             nIndex = nVehStops.index((nEdges, nStop))
             nIsPassing = nIndex < len(nVehStops) - 1
             nIsDepart = len(nEdges) == 1 and nIndex == 0
+            nInvalid = nStop.getAttributeSecure("invalid", False)
             if options.verbose and busStop == options.debugStop:
                 print("%s n: %s %s %s %s %s passing: %s depart: %s%s%s" %
                       (i, humanReadableTime(nUntil), nStop.tripId, nStop.vehID, nIndex, len(nVehStops),
                        nIsPassing, nIsDepart,
                        (" bidiStop: %s" % nStop.busStop) if nIsBidiStop else "",
-                       " invalid" if nStop.getAttributeSecure("invalid", False) else ""))
+                       " invalid" if nInvalid else ""))
             # ignore duplicate bidiStop vs bidiStop conflicts
             if prevPassing is not None and nIsDepart and not nIsBidiStop:
                 pUntil, pEdges, pStop = prevPassing
@@ -1199,11 +1201,14 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
                             continue
                         # check for inconsistent ordering
                         active = True
-                        if pStop.getAttributeSecure("invalid", False):
+                        isInvalid = pStop.getAttributeSecure("invalid", False)
+                        if isInvalid:
                             active = False
                             numIgnoredConflicts += 1
-                            if not options.writeInactive:
+                            if not writeInactive:
                                 continue
+                        elif writeInactive:
+                            continue
                         # predecessor tripId after stop is needed
                         limit = 1  # recheck
                         pTripId = pStop.getAttributeSecure("tripId", pStop.vehID)
@@ -1227,10 +1232,14 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
                             print("   found insertionConflict pSignal=%s nSignal=%s pTripId=%s" % (
                                 pSignal, nSignal, pTripId)),
 
-            if nIsPassing or nIsBidiStop:
+            if (nIsPassing or nIsBidiStop) and (not nInvalid or writeInactive):
                 prevPassing = (nUntil, nEdges, nStop)
 
-    print("Found %s insertion conflicts" % numConflicts)
+    if writeInactive:
+        if numConflicts > 0:
+            print("Found %s inactive insertion conflicts" % numConflicts)
+    else:
+        print("Found %s insertion conflicts" % numConflicts)
     if numIgnoredConflicts > 0:
         print("Ignored %s insertion conflicts" % (numIgnoredConflicts))
     return conflicts
@@ -1757,6 +1766,9 @@ def main(options):
 
     foeInsertionConflicts = findFoeInsertionConflicts(options, net, stopEdges, stopRoutesBidi, vehicleStopRoutes)
     insertionConflicts = findInsertionConflicts(options, net, stopEdges, stopRoutesBidi, vehicleStopRoutes, departTimes)
+    inactiveInsertionConflicts = defaultdict(list)
+    if options.writeInactive:
+        inactiveInsertionConflicts = findInsertionConflicts(options, net, stopEdges, stopRoutesBidi, vehicleStopRoutes, departTimes, True)
 
     bidiConflicts = findBidiConflicts(options, net, stopEdges, uniqueRoutes,
                                       stopRoutes, vehicleStopRoutes)
@@ -1776,7 +1788,9 @@ def main(options):
                 writeConstraint(options, outf, "predecessor", conflict)
             for conflict in foeInsertionConflicts[signal]:
                 writeConstraint(options, outf, "foeInsertion", conflict)
-            for conflict in (insertionConflicts[signal] + parkingConflicts[signal] +
+            for conflict in (insertionConflicts[signal] +
+                             inactiveInsertionConflicts[signal] +
+                             parkingConflicts[signal] +
                              intermediateParkingConflicts[signal]):
                 writeConstraint(options, outf, "insertionPredecessor", conflict)
             for conflict in bidiConflicts[signal]:
