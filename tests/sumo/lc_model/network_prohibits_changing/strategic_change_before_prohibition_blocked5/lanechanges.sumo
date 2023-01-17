@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-17 09:21:41 by Eclipse SUMO sumo Version v1_15_0+1673-4c2717c
+<!-- generated on 2023-01-17 09:52:59 by Eclipse SUMO sumo Version v1_15_0+1675-6c45157
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -38,4 +38,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <lanechanges>
+    <change id="mustChangeRight" type="DEFAULT_VEHTYPE" time="4.00" from="beg_0" to="beg_1" dir="1" speed="4.41" pos="14.02" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="100.88" origLeaderSecureGap="4.41" origLeaderSpeed="0.00"/>
+    <change id="mustChangeRight" type="DEFAULT_VEHTYPE" time="22.00" from=":J1_0_2" to=":J1_0_1" dir="-1" speed="13.18" pos="6.43" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="mustChangeRight" type="DEFAULT_VEHTYPE" time="23.00" from="middle3_1" to="middle3_0" dir="-1" speed="13.32" pos="11.55" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
 </lanechanges>
