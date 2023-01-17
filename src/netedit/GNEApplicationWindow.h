@@ -167,6 +167,9 @@ public:
     /// @brief called when the command/FXCall run NetDiff is executed
     long onCmdToolNetDiff(FXObject*, FXSelector, void*);
 
+    /// @brief called when the command/FXCall run NetDiff is updated
+    long onUpdToolNetDiff(FXObject*, FXSelector, void*);
+
     /// @brief called when the command/FXCall save network is executed
     long onCmdSaveNetwork(FXObject*, FXSelector, void*);
 

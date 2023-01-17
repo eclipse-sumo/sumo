@@ -357,7 +357,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
 
     // toolbar tools
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARTOOLS_NETDIFF,   GNEApplicationWindow::onCmdToolNetDiff),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARTOOLS_NETDIFF,   GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARTOOLS_NETDIFF,   GNEApplicationWindow::onUpdToolNetDiff),
 
     // toolbar windows
     FXMAPFUNC(SEL_COMMAND,  MID_CLEARMESSAGEWINDOW,     GNEApplicationWindow::onCmdClearMsgWindow),
@@ -1026,10 +1026,9 @@ GNEApplicationWindow::onCmdLocate(FXObject*, FXSelector sel, void*) {
 
 long
 GNEApplicationWindow::onCmdToolNetDiff(FXObject*, FXSelector, void*) {
+/*
     // open a modal NetDiff tool dialog
     GNEToolNetDiff(this);  // NOSONAR
-
-    /*
         const auto &neteditOptions = OptionsCont::getOptions();
         // check that currently there is a View
         if (myViewNet == nullptr) {
@@ -1097,6 +1096,14 @@ GNEApplicationWindow::onCmdToolNetDiff(FXObject*, FXSelector, void*) {
             SysUtils::runHiddenCommand(cmd);
         }
         */
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onUpdToolNetDiff(FXObject* sender, FXSelector, void*) {
+    // currently disabled
+    sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     return 1;
 }
 
