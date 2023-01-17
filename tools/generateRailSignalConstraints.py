@@ -19,7 +19,8 @@
 Generate railSignalConstrains definitions that enforce a loaded rail schedule
 (Zuglenkung)
 
-Two types of constraints are generated in different cases:
+Different types of constraints are generated in different cases:
+
 1. <predecessor>
 When two vehicles stop subsequently at the same busStop (trainStop) and they reach that stop
 via different routes, the switch where both routes merge is identified and a
@@ -94,8 +95,10 @@ arrival and until times:
 
 Given two vehicles A and B which stop at the same location, if A arrives at the
 stop later than B, but A also leaves earlier than B, then B is "overtaken" by A.
-The stop of A and all subsequent stops of A are marked as invalid and will not
-participate in constraint generation.
+All subsquent stops of B are marked as invalid and will not
+participate in constraint generation. If the stop where overtaking took place
+doesn't have a 'started' value (which implies that the original schedule is
+inconsistent), then this stop is also mared as invalid.
 
 If two vehicles have a 'parking'-stop with the same 'until' time at the same
 location, their stops will also be marked as invalid since the simulation cannot
