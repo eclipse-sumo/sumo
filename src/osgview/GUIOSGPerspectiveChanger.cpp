@@ -150,7 +150,7 @@ GUIOSGPerspectiveChanger::centerTo(const Position& pos, double radius, bool /* a
     osg::Vec3d radiusVec = leftBorder - center;
     int sign = ((outerFov ^ radiusVec) * (outerFov ^ dir) > 0) ? 1 : -1;
     osg::Vec3d camUpdate = center + dir * sign * (outerFov ^ radiusVec).length() / (outerFov ^ dir).length();
-    myCameraManipulator->setHomePosition(camUpdate, lookAt, up);
+    myCameraManipulator->setHomePosition(camUpdate, center, up);
     myRotation = 0.;
     dynamic_cast<GUIOSGView&>(myCallback).myViewer->home();
     updateViewport(camUpdate);
