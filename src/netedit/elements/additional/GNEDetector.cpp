@@ -237,16 +237,18 @@ GNEDetector::drawE1DetectorLogo(const GUIVisualizationSettings& s, const double 
         // calculate rotation
         double rot = 0;
         if (myAdditionalGeometry.getShapeRotations().size() > 0) {
-            rot = myAdditionalGeometry.getShapeRotations().front() + 180;
+            rot = myAdditionalGeometry.getShapeRotations().front() + 90;
         } else if (myAdditionalGeometry.getShape().size() > 1)  {
-            rot = myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint) + 180;
+            rot = myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint) + 90;
         }
+        // adjust rotation depending of text angle
+        rot = s.getTextAngle(rot);
         // Start pushing matrix
         GLHelper::pushMatrix();
         // Traslate to position
         glTranslated(pos.x(), pos.y(), 0.1);
         // rotate over lane
-        GUIGeometry::rotateOverLane(rot);
+        glRotated(rot, 0, 0, 1);
         // move
         glTranslated(-1, 0, 0);
         // scale text
@@ -270,16 +272,18 @@ GNEDetector::drawE2DetectorLogo(const GUIVisualizationSettings& s, const double 
         // calculate rotation
         double rot = 0;
         if (myAdditionalGeometry.getShapeRotations().size() > 0) {
-            rot = (myAdditionalGeometry.getShapeRotations().front() * -1) + 180;
+            rot = myAdditionalGeometry.getShapeRotations().front() + 90;
         } else if (myAdditionalGeometry.getShape().size() > 1)  {
-            rot = (myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint) * -1) + 180;
+            rot = myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint) + 90;
         }
+        // adjust rotation depending of text angle
+        rot = s.getTextAngle(rot);
         // Start pushing matrix
         GLHelper::pushMatrix();
         // Traslate to position
         glTranslated(pos.x(), pos.y(), 0.1);
         // rotate over lane
-        GUIGeometry::rotateOverLane(rot);
+        glRotated(rot, 0, 0, 1);
         // move
         glTranslated(-1, 0, 0);
         // scale text

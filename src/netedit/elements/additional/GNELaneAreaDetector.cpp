@@ -423,13 +423,13 @@ GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNEL
                 // calculate position
                 const Position pos = E2Geometry.getShape().positionAtOffset2D(middlePoint);
                 // calculate rotation
-                const double rot = E2Geometry.getShape().rotationDegreeAtOffset(middlePoint) + 180;
+                const double rot = s.getTextAngle((E2Geometry.getShape().rotationDegreeAtOffset(middlePoint) * -1) + 90);
                 // Start pushing matrix
                 GLHelper::pushMatrix();
                 // Traslate to position
                 glTranslated(pos.x(), pos.y(), getType() + offsetFront + 0.1);
-                // rotate over lane
-                GUIGeometry::rotateOverLane(rot);
+                // rotate
+                glRotated(rot, 0, 0, 1);
                 // move
                 glTranslated(-1, 0, 0);
                 // scale text
