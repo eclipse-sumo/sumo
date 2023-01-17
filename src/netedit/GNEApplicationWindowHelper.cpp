@@ -2588,7 +2588,7 @@ std::string
 GNEApplicationWindowHelper::openNetworkFileDialog(FXWindow* window, const bool save) {
     if (save) {
         return openFileDialog(window, TL("Save Network file as"), GUIIcon::SAVE_NETWORKELEMENTS,
-            "SUMO Network files (*.net.xml,*.net.xml.gz)\nXML files (*.xml)\nAll files (*)", true);
+            "SUMO Network files (*.net.xml)\nSUMO Network files zipped (*.net.xml.gz)\nXML files (*.xml)\nAll files (*)", true);
     } else {
         return openFileDialog(window, TL("Open Network file"), GUIIcon::OPEN_NET,
             "SUMO Network files (*.net.xml,*.net.xml.gz)\nXML files (*.xml)\nAll files (*)", false);
