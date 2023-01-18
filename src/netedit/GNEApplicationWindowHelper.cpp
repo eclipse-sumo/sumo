@@ -261,6 +261,10 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
         TL("&Reload"), "Ctrl+R", TL("Reload the network."),
         GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_HOTKEY_CTRL_R_RELOAD);
+    
+    GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
+        TL("Reload Network"), "", TL("Reload the network."),
+        GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_GNE_TOOLBARFILE_RELOADNETWORK);
 
     new FXMenuSeparator(fileMenu);
 

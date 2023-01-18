@@ -146,8 +146,17 @@ public:
     /// @brief called when the command/FXCall reload edge types is updated
     long onUpdReloadEdgeTypes(FXObject*, FXSelector, void*);
 
-    /// @brief called when the command/FXCall reload is executed
-    long onCmdReload(FXObject*, FXSelector, void*);
+    /// @brief called when the command/FXCall smart reload is executed
+    long onCmdSmartReload(FXObject*, FXSelector, void*);
+
+    /// @brief called when the update/FXCall smart reload is executed
+    long onUpdSmartReload(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall network reload is executed
+    long onCmdReloadNetwork(FXObject*, FXSelector, void*);
+
+    /// @brief called when the update/FXCall network reload is executed
+    long onUpdReloadNetwork(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall open recent is executed
     long onCmdOpenRecent(FXObject*, FXSelector, void*);
@@ -289,9 +298,6 @@ public:
 
     /// @brief called when the update/FXCall needs front element is executed
     long onUpdNeedsFrontElement(FXObject*, FXSelector, void*);
-
-    /// @brief called when the update/FXCall reload is executed
-    long onUpdReload(FXObject*, FXSelector, void*);
 
     /// @brief called when the update/FXCall save network is executed
     long onUpdSaveNetwork(FXObject*, FXSelector, void*);

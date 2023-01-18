@@ -685,6 +685,8 @@ enum {
     /// @name Toolbar file messages
     /// @{
 
+    /// @brief reload only network
+    MID_GNE_TOOLBARFILE_RELOADNETWORK,
     /// @brief open foreign network
     MID_GNE_TOOLBARFILE_OPENFOREIGN,
     /// @brief save joined junctions
