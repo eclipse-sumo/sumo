@@ -46,7 +46,7 @@ public:
     bool handleKeyDown(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa) override;
     bool handleKeyUp(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa) override;
     void rotateYawPitch(osg::Quat& rotation, const double yaw, const double pitch, const osg::Vec3d& localUp);
-    osg::Camera* getHUD();
+    osg::ref_ptr<osg::Camera> getHUD();
     /// @brief Set the position of the manipulator using a 4x4 matrix.
     void setByMatrix(const osg::Matrixd& matrix) override;
     /// @brief Get the position of the manipulator as 4x4 matrix.

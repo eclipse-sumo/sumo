@@ -70,7 +70,7 @@ GUIOSGManipulator::~GUIOSGManipulator() {
 }
 
 
-osg::Camera*
+osg::ref_ptr<osg::Camera>
 GUIOSGManipulator::getHUD() {
     if (myHUDCamera == nullptr) {
         myHUDCamera = new osg::Camera;
@@ -82,7 +82,7 @@ GUIOSGManipulator::getHUD() {
         myHUDCamera->setAllowEventFocus(false);
         myHUDCamera->addChild(myTextNode);
     }
-    return myHUDCamera.get();
+    return myHUDCamera;
 }
 
 

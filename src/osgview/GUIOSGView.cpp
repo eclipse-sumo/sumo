@@ -205,7 +205,7 @@ GUIOSGView::GUIOSGView(
     myViewer->home();
     getApp()->addChore(this, MID_CHORE);
 
-    osg::Camera* hudCamera = myCameraManipulator->getHUD();
+    osg::ref_ptr<osg::Camera> hudCamera = myCameraManipulator->getHUD();
     hudCamera->setGraphicsContext(myAdapter);
     hudCamera->setViewport(0, 0, w, h);
     myViewer->addSlave(hudCamera, false);
