@@ -1565,8 +1565,6 @@ GNEApplicationWindow::getDefaultCursor() {
 void
 GNEApplicationWindow::loadOptionOnStartup() {
     auto& neteditOptions = OptionsCont::getOptions();
-    // Disable normalization preserve the given network as far as possible
-    neteditOptions.set("offset.disable-normalization", "true");
     if (neteditOptions.getBool("new")) {
         createNewNetwork();
     } else {
