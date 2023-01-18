@@ -16,7 +16,7 @@ title: ChangeLog
   - Fixed incomplete vehroute-output when using option **--vehroute-output.sorted** and some cars or vehicle do not finish their journey. Issue #12049
   - stop-output contains now always contains the correct 'started' values even if other values were part of the input. Issue #12125
   - Fixed error when trying to use laneChangeModel *DK2008* with continuos lane change model. Issue #12144
-  - Fixed invalid lane choice in the presence of lane change restrictions. Issue #12118
+  - Fixed invalid lane choice in the presence of lane change restrictions. Issue #12118, #12461
   - Fixed crash in public transport scenario with looped routes. Issue #12150
   - Fixed bug where vehicle with short boardingDuration fails to board passengers after deboarding. Issue #12168
   - Fixed invalid error when loading edgeData with negative electricity consumption. Issue #12172
@@ -30,7 +30,9 @@ title: ChangeLog
   - Fixed invalid change to lane with stopped leader. Issue #12113
   - Containers and persons are now unloaded in parallel. Issue #12385
   - Fixed premature simulation end with triggered stop and combined loading/unloading. Issue #12386
-  - Fixed invalid error when using departSpeed values 'avg', 'last', 'desired' or 'speedLimit' near a minor link or speed reduction. Issue #12398, #12401  
+  - Fixed invalid error when using departSpeed values 'avg', 'last', 'desired' or 'speedLimit' near a minor link or speed reduction. Issue #12398, #12401
+  - Vehicles no longer become stuck when using a waypoint with parking=true. Issue #12468
+  - The simulation now aborts after an unknown stoppingPlace has been loaded for a vehicle. To obtain the old behavior, option **--ignore-route-errors** may be used. Issue #12487
   - railway fixes
     - Fixed invalid insertion delay on bidirectional track. Issue #12423, #12079
     - Fixed unsafe insertion after parking stop. Issue #12425
@@ -42,6 +44,7 @@ title: ChangeLog
     - Fixed failure in cooperative speed adaptation at low step length. Issue #12283
 
 - netedit
+  - Fixed crash when adding green verge to an edge selection. Issue #12446 (regression in 1.10.0)
   - Fixed bug where stops on looped routes where saved in an invalid order. Issue #12054 (regression in 1.12.0)
   - Right click on elements above a polygon now acts on the top element again. Issue #12111 (regression in 1.14.1)
   - Fixed invalid position of start and end edge geometry points after merging geometry points in move mode. Issue #12178 (regression in 1.14.1)
@@ -57,6 +60,8 @@ title: ChangeLog
   - Custom `loadingDuration` and `boardingDuration` are written as s instead of ms (also affects duarouter). Issue #12383
   - Fixed invalid default edge attributes after setting a template. Issue #12392
   - Moving a selected edge with selected junctions now also moves the custom edge end points. Issue #12445
+  - Fixed invalid conversion between periodic flow rate and poisson flow rate. Issue #12451
+  - Calibrator-flow attributes begin and end are now loaded correctly. Issue #12470
   
 - sumo-gui
   - Fixed invalid camera position after tracked vehicles exits the simulation. Issue #12137 (regression in 1.13.0)
@@ -72,6 +77,7 @@ title: ChangeLog
   - Fixed crash on quick-reload reloading. Issue #12367
   - Fixed crash when using 'select reachability' related to negative edge speeds. Issue #12400, #12403
   - Reload hotkey no longer takes effect when running with TraCI. Issue #12431
+  - Fixed invalid pedestrian position while passing a short walkingarea. Issue #12456
     
 - meso
   - Stopping at pos=0 is now working. Issue #12240
@@ -80,7 +86,8 @@ title: ChangeLog
 - netconvert
   - Fixed unnecessary dead-end lanes at large intersections. Issue #2472
   - Fixed invalid OpenDRIVE output when writing traffic signals with signal groups. Issue #11980
-  - Fixed invalid OpenDrive output for lefthand networks. Issue #11995, #12038, #12047
+  - Fixed invalid OpenDRIVE output for lefthand networks. Issue #11995, #12038, #12047
+  - No longer adding guessed turn-around connection at *real* intersections by default. Issue #12448
   - Fixed invalid right of way rules when connections from the same edge merge and both have internal junctions. Issue #11988  
   - Fixed invalid right of way rules causing mutual conflict at multimodal priority-junction. Issue #5609
   - Fixed bug where **--junctions.join** failed in multimodal networks. Issue #6495
@@ -105,6 +112,7 @@ title: ChangeLog
     
 - duarouter
   - Fixed crash on unknown landmark edge. Issue #12438
+  - Fixed invalid routing result by A* (minor difference caused by internal edge lengths). Issue #12463
     
 - TraCI
   - Fixed moveToXY failure at parallel internal junction. Issue #12065
@@ -124,6 +132,7 @@ title: ChangeLog
   - tlsCycleAdaptation.py: Fixed bug where controllers differed in cycle length when setting option **--unified-cycle**. Issue #12045
   - tlsCycleAdaptation.py: Fixed mismatch between optimal and actual cycle duration. Issue #12068
   - generateRailSignalConstraints.py: Fixed inconsistent bidiPredecessors. Issue #12075
+  - generateRailSignalConstraints.py: Added missing insertion constraint after invalidated stop. Issue #12474
   - tracemapper.py: Fixed duplicate consecutive edges in route. Issue #12094
   - cutRoutes.pyL No longer writes persons without a plan. Issue #12245
   - routesampler.py: Option **--total-count** is now compatible with **--weighted**. Issue #12284
@@ -164,6 +173,7 @@ title: ChangeLog
 
 - netedit
   - It is now possible to load and save a *.sumocfg* file and also to edit all sumo options (SHIFT-F10). Issue #11896
+  - If a .sumocfg is set, it will be used automatically when launching sumo from the menu. Issue #12450
   - Added support for saving and loading *.neteditcfg* files to simplify simulation project management. Issue #12309
   - Added TimeStamp in Undo-Redo list. Issue #11744
   - Now drawing red line between edge geometry points (if the points are not along the edge). Issue #11530
@@ -182,7 +192,7 @@ title: ChangeLog
   - Vehicle instpect mode now allose selecting vehicle type from a drop-down list. Issue #12379
   - Added edge color legend to person and container mode. Issue #11613
   - Added edge color legend when creating e2 detectors along multiple lanes. Issue #11334
-  - Moving a single selected edge now moves its whole geometry including endpoints. Issue #12442
+  - Moving a single selected edge now moves its whole geometry including endpoints. Issue #12442  
 
 - sumo-gui
   - When option **--use-stop-ended** is set, show-route mode now labels the 'ended' time of stops. Issue #11833
@@ -210,6 +220,7 @@ title: ChangeLog
   - The JAVA bindings now facilitate casting of subscription results. Issue #8930
 
 - Tools
+  - osmWebWizard.py: Add checkboxes to select/deselect groups of elements in the road types tab. Issue #10692
   - runSeeds.py: Now forwarding unknown options to application call. Issue #12312
   - runSeeds.py: Now supports setting a list of applications and a list of configurations to run all at once (with results in subfolders). Issue #12311
   - routeSampler.py: Major improvement in sampling speed. Issue #12319
@@ -248,6 +259,8 @@ title: ChangeLog
 - Added all required fmi functions required for FMPy version 0.3.13. Issue #12199
 - Netedit options **--SUMOConfig-output, --additionals-output, --demandelements-output, --dataelements-output**. Instead, the corresponding input file path is used for output. Issue #12388
 - Some netedit buttons for saving are now grouped in a sub-menu to avoid clutter. Issue #12360
+- Test extraction now works for the San Pablo Dam tutorial. Issue #12466
+- The netdiff tool accessible via the 'Tools' menu has been temporarily disabled due to stability issues. #12435
 
 ## Version 1.15.0 (08.11.2022)
 
