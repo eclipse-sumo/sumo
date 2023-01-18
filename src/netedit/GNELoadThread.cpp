@@ -232,7 +232,6 @@ GNELoadThread::run() {
 
 void
 GNELoadThread::submitEndAndCleanup(GNENet* net, const std::string& loadedFile, const std::string& guiSettingsFile, const bool viewportFromRegistry) {
-    auto& neteditOptions = OptionsCont::getOptions();
     // remove message callbacks
     MsgHandler::getDebugInstance()->removeRetriever(myDebugRetriever);
     MsgHandler::getGLDebugInstance()->removeRetriever(myGLDebugRetriever);
@@ -240,14 +239,7 @@ GNELoadThread::submitEndAndCleanup(GNENet* net, const std::string& loadedFile, c
     MsgHandler::getWarningInstance()->removeRetriever(myWarningRetriever);
     MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);
     // inform parent about the process
-    if (neteditOptions.getBool("new")) {
-        myEventQueue.push_back(new GNEEvent_NetworkLoaded(net, true, loadedFile, guiSettingsFile, viewportFromRegistry));
-        // disable option "new"
-        neteditOptions.resetWritable();
-        neteditOptions.set("new", "true");
-    } else {
-        myEventQueue.push_back(new GNEEvent_NetworkLoaded(net, true, loadedFile, guiSettingsFile, viewportFromRegistry));
-    }
+    myEventQueue.push_back(new GNEEvent_NetworkLoaded(net, loadedFile, guiSettingsFile, viewportFromRegistry));
     myEventThrow.signal();
 }
 

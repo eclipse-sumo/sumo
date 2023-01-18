@@ -41,11 +41,10 @@ class GNENet;
 class GNEEvent_NetworkLoaded : public GUIEvent {
 public:
     /// @brief constructor
-    GNEEvent_NetworkLoaded(GNENet* _net, const bool _newNet, const std::string& _file,
+    GNEEvent_NetworkLoaded(GNENet* _net, const std::string& _file,
                            const std::string& _settingsFile, const bool _viewportFromRegistry) :
         GUIEvent(GUIEventType::SIMULATION_LOADED),
         net(_net),
-        isNewNet(_newNet),
         file(_file),
         settingsFile(_settingsFile),
         viewportFromRegistry(_viewportFromRegistry) { }
@@ -54,10 +53,7 @@ public:
     ~GNEEvent_NetworkLoaded() { }
 
     /// @brief the loaded net
-    GNENet* const net;
-
-    /// @brief flag for new net
-    const bool isNewNet;
+    GNENet* net;
 
     /// @brief the name of the loaded file
     const std::string file;

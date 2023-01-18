@@ -2000,16 +2000,23 @@ GNEViewNetHelper::SaveElements::setSaveIndividualFiles(bool value) {
 // GNEViewNetHelper::EditModes - methods
 // ---------------------------------------------------------------------------
 
-GNEViewNetHelper::EditModes::EditModes(GNEViewNet* viewNet, const bool newNet) :
+GNEViewNetHelper::EditModes::EditModes(GNEViewNet* viewNet) :
     currentSupermode(Supermode::NETWORK),
-    networkEditMode(newNet ? NetworkEditMode::NETWORK_CREATE_EDGE : NetworkEditMode::NETWORK_INSPECT),
+    networkEditMode(NetworkEditMode::NETWORK_INSPECT),
     demandEditMode(DemandEditMode::DEMAND_INSPECT),
     dataEditMode(DataEditMode::DATA_INSPECT),
     networkButton(nullptr),
     demandButton(nullptr),
     dataButton(nullptr),
-    myViewNet(viewNet)
-{ }
+    myViewNet(viewNet) {
+    auto& neteditOptions = OptionsCont::getOptions();
+    // if new option is enabled, start in create edge mode
+    if (neteditOptions.getBool("new")) {
+        networkEditMode = NetworkEditMode::NETWORK_CREATE_EDGE;
+        neteditOptions.resetWritable();
+        neteditOptions.set("new", "false");
+    }
+}
 
 
 void

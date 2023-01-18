@@ -231,10 +231,10 @@ FXIMPLEMENT(GNEViewNet, GUISUMOAbstractView, GNEViewNetMap, ARRAYNUMBER(GNEViewN
 // member method definitions
 // ===========================================================================
 GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMainWindow& app,
-                       GNEViewParent* viewParent, GNENet* net, const bool newNet, GNEUndoList* undoList,
+                       GNEViewParent* viewParent, GNENet* net, GNEUndoList* undoList,
                        FXGLVisual* glVis, FXGLCanvas* share) :
     GUISUMOAbstractView(tmpParent, app, viewParent, net->getGrid(), glVis, share),
-    myEditModes(this, newNet),
+    myEditModes(this),
     myTestingMode(this),
     myObjectsUnderCursor(this),
     myCommonCheckableButtons(this),
@@ -884,7 +884,7 @@ GNEViewNet::getSaveElements() {
 
 
 GNEViewNet::GNEViewNet() :
-    myEditModes(this, false),
+    myEditModes(this),
     myTestingMode(this),
     myObjectsUnderCursor(this),
     myCommonCheckableButtons(this),

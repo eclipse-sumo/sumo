@@ -102,10 +102,9 @@ public:
      * @param[in] h Initial height
      * @param[in] share A canvas tor get the shared context from
      * @param[in] net The network to show
-     * @param[in] newNet check if we're creating a new net or using an existent
      */
     GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString& name, GNEApplicationWindow* parentWindow,
-                  FXGLCanvas* share, GNENet* net, const bool newNet, GNEUndoList* undoList, FXIcon* ic = nullptr,
+                  FXGLCanvas* share, GNENet* net, GNEUndoList* undoList, FXIcon* ic = nullptr,
                   FXuint opts = 0, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0);
 
     /// @brief Destructor

@@ -88,7 +88,7 @@ FXIMPLEMENT(GNEViewParent, GUIGlChildWindow, GNEViewParentMap, ARRAYNUMBER(GNEVi
 // ===========================================================================
 
 GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString& name, GNEApplicationWindow* parentWindow,
-                             FXGLCanvas* share, GNENet* net, const bool newNet, GNEUndoList* undoList, FXIcon* ic, FXuint opts, FXint x, FXint y, FXint w, FXint h) :
+                             FXGLCanvas* share, GNENet* net, GNEUndoList* undoList, FXIcon* ic, FXuint opts, FXint x, FXint y, FXint w, FXint h) :
     GUIGlChildWindow(p, parentWindow, mdimenu, name, parentWindow->getToolbarsGrip().navigation, ic, opts, x, y, w, h),
     myGNEAppWindows(parentWindow) {
     // Add child to parent
@@ -123,7 +123,7 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
     FXComposite* tmp = new FXComposite(this);
 
     // Create view net
-    GNEViewNet* viewNet = new GNEViewNet(tmp, myViewArea, *myParent, this, net, newNet, undoList, myParent->getGLVisual(), share);
+    GNEViewNet* viewNet = new GNEViewNet(tmp, myViewArea, *myParent, this, net, undoList, myParent->getGLVisual(), share);
 
     // show toolbar grips
     myGNEAppWindows->getToolbarsGrip().buildMenuToolbarsGrip();
