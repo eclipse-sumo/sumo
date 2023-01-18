@@ -306,6 +306,11 @@ GNELaneAreaDetector::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::setColor(E2Color);
                 // draw geometry
                 GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, s.detectorSettings.E2Width * E2Exaggeration);
+                // arrow
+                if (myAdditionalGeometry.getShape().size() > 1) {
+                    glTranslated(0, 0, 0.1);
+                    GLHelper::drawTriangleAtEnd(myAdditionalGeometry.getShape()[-2], myAdditionalGeometry.getShape()[-1], (double) 0.5, (double) 1, 0.5);
+                }
                 // Check if the distance is enought to draw details
                 if (s.drawDetail(s.detailSettings.detectorDetails, E2Exaggeration)) {
                     // draw E2 Logo
@@ -408,6 +413,11 @@ GNELaneAreaDetector::drawPartialGL(const GUIVisualizationSettings& s, const GNEL
             drawLeftGeometryPoint(myNet->getViewNet(), E2Geometry.getShape().front(), E2Geometry.getShapeRotations().front(), E2Color, true);
         } else if (segment->isLastSegment()) {
             drawRightGeometryPoint(myNet->getViewNet(), E2Geometry.getShape().back(), E2Geometry.getShapeRotations().back(), E2Color, true);
+            // draw arrow
+            if (E2Geometry.getShape().size() > 1) {
+                glTranslated(0, 0, 0.1);
+                GLHelper::drawTriangleAtEnd(E2Geometry.getShape()[-2], E2Geometry.getShape()[-1], (double) 0.5, (double) 1, 0.5);
+            }
         }
         // Pop layer matrix
         GLHelper::popMatrix();
