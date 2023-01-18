@@ -1948,10 +1948,28 @@ long
 GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject* obj, FXSelector sel, void* ptr) {
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
-    // force save SUMOConfig
-    if (onCmdSaveSUMOConfig(obj, sel, ptr) == 0) {
-        // SUMOConfig wasn't saved, then stop
-        return 0;
+    // input parameters
+    std::string inputParameters;
+    // if we have only a network, then load directly without creating a SUMOConfig
+    if ((myNet->getAttributeCarriers()->getNumberOfAdditionals() == 0 && myNet->getAttributeCarriers()->getNumberOfDemandElements() == 0) ||
+        (myEditMenuCommands.loadAdditionalsInSUMOGUI->getCheck() == FALSE) && (myEditMenuCommands.loadDemandInSUMOGUI->getCheck() == FALSE)) {
+        // force save network
+        if (onCmdSaveNetwork(obj, sel, ptr) == 0) {
+            // network wasn't saved, then stop
+            return 0;
+        }
+        inputParameters = " --registry-viewport -n \"" + neteditOptions.getString("net-file") + "\"";
+        // write info
+        WRITE_MESSAGE(TL("Loading network '") + neteditOptions.getString("net-file") + TL("' in SUMO-GUI"));
+    } else {
+        // force save SUMOConfig
+        if (onCmdSaveSUMOConfig(obj, sel, ptr) == 0) {
+            // SUMOConfig wasn't saved, then stop
+            return 0;
+        }
+        inputParameters = " --registry-viewport -c \"" + neteditOptions.getString("sumocfg-file") + "\"";
+        // write info
+        WRITE_MESSAGE(TL("Loading sumo config '") + neteditOptions.getString("sumocfg-file") + TL("' in SUMO-GUI"));
     }
     // save current viewport in registry
     FXRegistry reg("SUMO GUI", "sumo-gui");
@@ -1971,7 +1989,7 @@ GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject* obj, FXSelector sel, void* ptr)
         }
     }
     // declare command
-    std::string cmd = sumoGuiExecutable + " --registry-viewport" + " -c "  + "\"" + neteditOptions.getString("sumocfg-file") + "\"";
+    std::string cmd = sumoGuiExecutable + inputParameters;
     // start in background
 #ifndef WIN32
     cmd = cmd + " &";
