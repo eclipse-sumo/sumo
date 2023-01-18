@@ -69,7 +69,8 @@ def main(options):
             if vehicle.stop is None:
                 continue
             lastUntil = None
-            for stop in vehicle.stop:
+            stops = list(vehicle.stop)
+            for i, stop in enumerate(stops):
                 isParking = stop.parking in ["true", "True", "1"]
                 if isParking and options.ignoreParking:
                     continue
@@ -98,17 +99,21 @@ def main(options):
                 flags = ''
                 if isParking:
                     flags += "p"
-                stopTimes[stop.busStop].append((arrival, until, vehicle.id,
+                if i == 0:
+                    flags += "F"
+                if i == len(stops) - 1:
+                    flags += "L"
+                stopTimes[stop.busStop].append([arrival, until, vehicle.id,
                                                 stop.getAttributeSecure("tripId", ""),
                                                 stop.getAttributeSecure("started", ""),
                                                 stop.getAttributeSecure("ended", ""),
                                                 flags
-                                                ))
+                                                ])
 
     for stop, times in stopTimes.items():
         times.sort()
         for i, (a, u, v, t, s, e, f) in enumerate(times):
-            for a2, u2, v2, t2, s2, e2, f in times[i + 1:]:
+            for a2, u2, v2, t2, s2, e2, f2 in times[i + 1:]:
                 if u2 <= u:
                     print("Vehicle %s (%s, %s) overtakes %s (%s, %s) at stop %s" % (
                         v2, tf(a2), tf(u2), v, tf(a), tf(u), stop), file=sys.stderr)
