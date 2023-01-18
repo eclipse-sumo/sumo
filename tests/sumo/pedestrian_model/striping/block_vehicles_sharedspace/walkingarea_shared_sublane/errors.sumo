@@ -1,11 +1,14 @@
-Warning: Vehicle 'EN.2' performs emergency braking on lane ':C_4_0' with decel=9.00, wished=4.50, severity=1.00, time=290.00.
-Warning: Vehicle 'NS.7' collision with person 'pWN.21', lane=':C_1_0', time=501.00, stage=events.
-Warning: Vehicle 'NS.7' collision with person 'pWN.23', lane=':C_1_0', time=506.00, stage=events.
-Warning: Vehicle 'NS.7' collision with person 'pWN.23', lane=':C_1_0', time=512.00, stage=events.
-Warning: Person 'pWN.23' is jammed on edge ':C_w0', time=516.00.
-Warning: Vehicle 'NS.7' collision with person 'pWN.24', lane=':C_1_0', time=517.00, stage=events.
-Warning: Vehicle 'NS.7' collision with person 'pWN.23', lane=':C_1_0', time=522.00, stage=events.
-Warning: Person 'pWN.24' is jammed on edge ':C_w0', time=524.00.
-Warning: Vehicle 'NS.7' collision with person 'pWN.25', lane=':C_1_0', time=525.00, stage=events.
-Warning: Vehicle 'WE.3' collision with person 'pSW.23', lane=':C_13_0', time=668.00, stage=events.
-Warning: Vehicle 'WE.3' collision with person 'pSW.24', lane=':C_13_0', time=675.00, stage=events.
+Warning: Vehicle 'NS.2' collision with person 'pWN.1', lane=':C_1_0', time=106.00, stage=events.
+Warning: Vehicle 'NS.2' collision with person 'pSW.1', lane=':C_1_0', time=107.00, stage=events.
+Warning: Vehicle 'NS.3' collision with person 'pWN.8', lane=':C_1_0', time=191.00, stage=events.
+Warning: Vehicle 'EW.1' collision with person 'pNE.3', lane=':C_5_0', time=218.00, stage=events.
+Warning: Person 'pNE.3' is jammed on edge ':C_w0', time=229.00.
+Warning: Vehicle 'EW.1' collision with person 'pNE.3', lane=':C_5_0', time=229.00, stage=events.
+Warning: Vehicle 'NS.7' collision with person 'pEW.22', lane=':C_1_0', time=496.00, stage=laneChange.
+Warning: Vehicle 'NS.7' collision with person 'pEW.23', lane=':C_1_0', time=497.00, stage=laneChange.
+Warning: Person 'pWN.21' is jammed on edge ':C_w0', time=513.00.
+Warning: Vehicle 'NS.8' collision with person 'pWN.21', lane=':C_1_0', time=513.00, stage=events.
+Warning: Vehicle 'NS.8' collision with person 'pWN.25', lane=':C_1_0', time=520.00, stage=laneChange.
+Warning: Vehicle 'NS.8' collision with person 'pWN.22', lane=':C_1_0', time=520.00, stage=laneChange.
+Warning: Vehicle 'NS.8' collision with person 'pWN.24', lane=':C_1_0', time=521.00, stage=laneChange.
+Warning: Vehicle 'NS.8' collision with person 'pSW.14', lane=':C_1_0', time=525.00, stage=events.

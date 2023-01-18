@@ -1,2 +1,9 @@
-Warning: Vehicle 'EN.2' performs emergency braking on lane ':C_4_0' with decel=9.00, wished=4.50, severity=1.00, time=290.00.
-Warning: Vehicle 'SW.4' performs emergency braking on lane ':C_10_0' with decel=9.00, wished=4.50, severity=1.00, time=959.00.
+Warning: Vehicle 'NS.2' collision with person 'pWN.1', lane=':C_1_0', time=106.00, stage=events.
+Warning: Vehicle 'NS.2' collision with person 'pSW.1', lane=':C_1_0', time=107.00, stage=events.
+Warning: Vehicle 'NS.3' collision with person 'pWN.8', lane=':C_1_0', time=191.00, stage=events.
+Warning: Vehicle 'EW.1' collision with person 'pNE.3', lane=':C_5_0', time=218.00, stage=events.
+Warning: Person 'pNE.3' is jammed on edge ':C_w0', time=229.00.
+Warning: Vehicle 'EW.1' collision with person 'pNE.3', lane=':C_5_0', time=229.00, stage=events.
+Warning: Vehicle 'WN.6' collision with person 'pEW.27', lane=':C_14_0', time=571.00, stage=events.
+Warning: Person 'pEW.26' is jammed on edge ':C_w0', time=577.00.
+Warning: Vehicle 'WE.3' collision with person 'pES.26', lane=':C_13_0', time=656.00, stage=events.
