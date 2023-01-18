@@ -1533,16 +1533,29 @@ MSLink::checkWalkingAreaFoe(const MSVehicle* ego, const MSLane* foeLane, std::ve
         }
         for (MSTransportable* t : foeLane->getEdge().getPersons()) {
             MSPerson* p = static_cast<MSPerson*>(t);
-            const double dist = ego->getPosition().distanceTo2D(p->getPosition()) - p->getVehicleType().getLength() - MSPModel::SAFETY_GAP;
+            double dist = ego->getPosition().distanceTo2D(p->getPosition()) - p->getVehicleType().getLength() - MSPModel::SAFETY_GAP;
+            const bool inFront = isInFront(ego, egoPath, p);
 #ifdef DEBUG_WALKINGAREA
             if (ego->isSelected()) {
                 std::cout << SIMTIME << " veh=" << ego->getID() << " ped=" << p->getID()
                           << " pos=" << ego->getPosition() << " pedPos=" << p->getPosition()
                           << " rawDist=" << ego->getPosition().distanceTo2D(p->getPosition())
+                          << " inFront=" << inFront
                           << " dist=" << dist << "\n";
             }
 #endif
-            if (dist < ego->getVehicleType().getWidth() / 2 || isInFront(ego, egoPath, p)) {
+            if (dist < ego->getVehicleType().getWidth() / 2 || inFront) {
+                if (inFront && isOnComingPed(ego, p)) {
+                    // account for pedestrian movement while closing in
+                    const double timeToStop = (ego->getSpeed() + ACCEL2SPEED(ego->getCarFollowModel().getMaxAccel())) / ego->getCarFollowModel().getMaxDecel();
+                    const double pedDist = p->getMaxSpeed() * MAX2(timeToStop, TS);
+                    dist = MAX2(0.0, dist - pedDist);
+#ifdef DEBUG_WALKINGAREA
+                    if (ego->isSelected()) {
+                        std::cout << "    timeToStop=" << timeToStop << " pedDist=" << pedDist << " dist2=" << dist << "\n";
+                    }
+#endif
+                }
                 distToPeds = MIN2(distToPeds, dist);
                 if (collectBlockers != nullptr) {
                     collectBlockers->push_back(p);
@@ -1569,6 +1582,19 @@ MSLink::isInFront(const MSVehicle* ego, const PositionVector& egoPath, const MSP
         return egoPath.distance2D(p->getPosition()) < ego->getVehicleType().getWidth() + MSPModel::SAFETY_GAP;
     }
     return false;
+}
+
+
+bool
+MSLink::isOnComingPed(const MSVehicle* ego, const MSPerson* p) const {
+    const double pedToEgoAngle = p->getPosition().angleTo2D(ego->getPosition());
+    const double angleDiff = fabs(GeomHelper::angleDiff(p->getAngle(), pedToEgoAngle));
+#ifdef DEBUG_WALKINGAREA
+    if (ego->isSelected()) {
+        std::cout << " ped-angleDiff=" << RAD2DEG(angleDiff) << "\n";
+    }
+#endif
+    return angleDiff < DEG2RAD(75);
 }
 
 
