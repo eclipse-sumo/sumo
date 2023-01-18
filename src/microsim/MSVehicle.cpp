@@ -3032,7 +3032,8 @@ MSVehicle::adaptToJunctionLeader(const std::pair<const MSVehicle*, double> leade
             const double vStop = cfModel.stopSpeed(this, getSpeed(), distToCrossing - getVehicleType().getMinGap());
             if (leaderInfo.first == this) {
                 // braking for pedestrian
-                vsafeLeader = vStop;
+                const double vStopCrossing = cfModel.stopSpeed(this, getSpeed(), distToCrossing);
+                vsafeLeader = vStopCrossing;
 #ifdef DEBUG_PLAN_MOVE_LEADERINFO
                 if (DEBUG_COND) {
                     std::cout << "  breaking for pedestrian distToCrossing=" << distToCrossing << " vStop=" << vStop << "\n";
