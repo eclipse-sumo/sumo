@@ -82,6 +82,8 @@ GNELoadThread::run() {
         validInput = true;
     } else if (neteditOptions.getString("net-file").size() > 0) {
         validInput = true;
+        // add it into recent networks
+        myApplicationWindow->getMenuBarFile().myRecentNetworks.appendFile(loadedFile.c_str());
     } else if (neteditOptions.getString("sumocfg-file").size() > 0) {
         // set sumo config as loaded file
         loadedFile = neteditOptions.getString("sumocfg-file");
@@ -90,6 +92,8 @@ GNELoadThread::run() {
         // if there is an error loading sumo config, stop
         if (confighandler.loadSUMOConfig()) {
             validInput = true;
+            // add it into recent configs
+            myApplicationWindow->getMenuBarFile().myRecentConfigs.appendFile(loadedFile.c_str());
         } else {
             WRITE_ERROR("Loading of sumo config file '" + loadedFile + "' failed.");
             submitEndAndCleanup(net, loadedFile);
@@ -103,6 +107,8 @@ GNELoadThread::run() {
         // if there is an error loading sumo config, stop
         if (confighandler.loadNETEDITConfig()) {
             validInput = true;
+            // add it into recent configs
+            myApplicationWindow->getMenuBarFile().myRecentConfigs.appendFile(loadedFile.c_str());
         } else {
             WRITE_ERROR("Loading of netedit config file '" + loadedFile + "' failed.");
             submitEndAndCleanup(net, loadedFile);
@@ -113,7 +119,7 @@ GNELoadThread::run() {
     }
     // check input
     if (!validInput) {    
-        WRITE_ERROR("Invalid input network option. Load with either sumo/netedit/netconvert config or with -new option");
+        WRITE_ERROR("Invalid input options for GNELoadThread::run()");
         submitEndAndCleanup(net, loadedFile);
         return 0;
     }
