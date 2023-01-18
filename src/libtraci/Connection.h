@@ -21,6 +21,7 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+
 #include <vector>
 #include <map>
 #include <limits>
@@ -28,6 +29,7 @@
 #include <sstream>
 #include <iomanip>
 #include <thread>
+#include <mutex>
 #include <foreign/tcpip/socket.h>
 #include <libsumo/Subscription.h>
 
@@ -169,6 +171,8 @@ private:
     mutable tcpip::Storage myOutput;
     /// @brief The reusable input storage
     mutable tcpip::Storage myInput;
+
+    mutable std::mutex myMutex;
 
     std::map<int, libsumo::SubscriptionResults> mySubscriptionResults;
     std::map<int, libsumo::ContextSubscriptionResults> myContextSubscriptionResults;
