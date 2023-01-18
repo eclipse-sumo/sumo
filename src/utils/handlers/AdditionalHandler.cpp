@@ -1300,6 +1300,9 @@ AdditionalHandler::parseCalibratorFlowAttributes(const SUMOSAXAttributes& attrs)
                 flowParameter->calibratorSpeed = attrs.get<double>(SUMO_ATTR_SPEED, "", parsedOk);
                 flowParameter->parametersSet |= VEHPARS_CALIBRATORSPEED_SET;
             }
+            // set begin and end
+            flowParameter->depart = attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, "", parsedOk);
+            flowParameter->repetitionEnd = attrs.getSUMOTimeReporting(SUMO_ATTR_END, "", parsedOk);
             if (parsedOk) {
                 // set tag
                 myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_FLOW);

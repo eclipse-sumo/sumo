@@ -78,6 +78,8 @@ GNECalibratorFlow::writeAdditional(OutputDevice& device) const {
         device.openTag(SUMO_TAG_FLOW);
         // write vehicle attributes
         write(device, OptionsCont::getOptions(), SUMO_TAG_FLOW, getParentDemandElements().at(0)->getID());
+        // write end
+        device.writeAttr(SUMO_ATTR_END, getAttribute(SUMO_ATTR_END));
         // write route
         device.writeAttr(SUMO_ATTR_ROUTE, getParentDemandElements().at(1)->getID());
         // VPH
