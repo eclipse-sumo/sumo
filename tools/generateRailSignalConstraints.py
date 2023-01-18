@@ -1768,7 +1768,8 @@ def main(options):
     insertionConflicts = findInsertionConflicts(options, net, stopEdges, stopRoutesBidi, vehicleStopRoutes, departTimes)
     inactiveInsertionConflicts = defaultdict(list)
     if options.writeInactive:
-        inactiveInsertionConflicts = findInsertionConflicts(options, net, stopEdges, stopRoutesBidi, vehicleStopRoutes, departTimes, True)
+        inactiveInsertionConflicts = findInsertionConflicts(options, net, stopEdges, stopRoutesBidi,
+                                                            vehicleStopRoutes, departTimes, True)
 
     bidiConflicts = findBidiConflicts(options, net, stopEdges, uniqueRoutes,
                                       stopRoutes, vehicleStopRoutes)
