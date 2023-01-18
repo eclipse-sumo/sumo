@@ -113,8 +113,10 @@ def main(options):
     for stop, times in stopTimes.items():
         times.sort()
         for i, (a, u, v, t, s, e, f) in enumerate(times):
-            for a2, u2, v2, t2, s2, e2, f2 in times[i + 1:]:
+            for i2, (a2, u2, v2, t2, s2, e2, f2) in enumerate(times[i + 1:]):
                 if u2 <= u:
+                    times[i][-1] += "o"
+                    times[i + 1 + i2][-1] += "O"
                     print("Vehicle %s (%s, %s) overtakes %s (%s, %s) at stop %s" % (
                         v2, tf(a2), tf(u2), v, tf(a), tf(u), stop), file=sys.stderr)
 
