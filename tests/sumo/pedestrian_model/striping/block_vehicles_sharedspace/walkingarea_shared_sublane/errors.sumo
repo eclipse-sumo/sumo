@@ -1,7 +1,19 @@
-Warning: Vehicle 'NS.2' collision with person 'pWN.1', lane=':C_1_0', time=107.00, stage=events.
-Warning: Vehicle 'WN.6' collision with person 'pEW.27', lane=':C_14_0', time=572.00, stage=events.
-Warning: Person 'pEW.27' is jammed on edge ':C_w0', time=583.00.
-Warning: Vehicle 'WN.6' collision with person 'pEW.27', lane=':C_14_0', time=583.00, stage=events.
-Warning: Vehicle 'WN.6' collision with person 'pEW.28', lane=':C_14_0', time=590.00, stage=events.
-Warning: Vehicle 'WN.6' collision with person 'pEW.29', lane=':C_14_0', time=598.00, stage=events.
-Warning: Person 'pEW.29' is jammed on edge ':C_w0', time=603.00.
+Warning: Person 'pEW.7' is jammed on edge ':C_w0', time=186.00.
+Warning: Vehicle 'NW.0' collision with person 'pSW.4', lane='CW_0', gap=-1.41, time=209.00, stage=laneChange.
+Warning: Person 'pWN.21' is jammed on edge ':C_w0', time=513.00.
+Warning: Vehicle 'NS.8' collision with person 'pWN.21', lane=':C_1_0', time=516.00, stage=events.
+Warning: Person 'pWN.23' is jammed on edge ':C_w0', time=523.00.
+Warning: Vehicle 'NS.8' collision with person 'pWN.23', lane=':C_1_0', time=523.00, stage=laneChange.
+Warning: Person 'pNE.18' is jammed on edge ':C_w0', time=587.00.
+Warning: Vehicle 'WS.6' collision with person 'pNS.27', lane=':C_12_0', time=623.00, stage=move.
+Warning: Vehicle 'WS.6' collision with person 'pNS.28', lane='CS_0', gap=-0.99, time=643.00, stage=laneChange.
+Warning: Person 'pSN.34' is jammed on edge ':C_w0', time=764.00.
+Warning: Person 'pEW.40' is jammed on edge ':C_w0', time=822.00.
+Warning: Vehicle 'SE.5' performs emergency braking on lane ':C_8_0' with decel=9.00, wished=4.50, severity=1.00, time=832.00.
+Warning: Person 'pSW.35' is jammed on edge ':C_w0', time=846.00.
+Warning: Person 'pSW.36' is jammed on edge ':C_w0', time=855.00.
+Warning: Vehicle 'SE.5' collision with person 'pSW.36', lane=':C_8_0', time=856.00, stage=events.
+Warning: Person 'pSN.42' is jammed on edge ':C_w0', time=859.00.
+Warning: Person 'pNS.43' is jammed on edge ':C_w0', time=947.00.
+Warning: Person 'pSW.39' is jammed on edge ':C_w0', time=966.00.
+Warning: Person 'pWN.42' is jammed on edge ':C_w0', time=999.00.
