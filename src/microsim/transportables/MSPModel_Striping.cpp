@@ -1018,14 +1018,15 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
                             if (angleDiff > M_PI / 2) {
                                 angleDiff = M_PI - angleDiff;
                             }
-                            double xWidth; // extent of car in x direction (= carWidth at 90 degrees)
-                            const double b = tan(angleDiff) * veh->getVehicleType().getWidth();
-                            if (b <= veh->getVehicleType().getLength()) {
-                                const double a = veh->getVehicleType().getWidth();
-                                xWidth = sqrt(a * a + b * b);
+                            double xWidth; // extent of car in x direction (= carWidth at 90 degrees, carLength at 0 degrees)
+                            const double L = veh->getLength();
+                            const double W = veh->getVehicleType().getWidth();
+                            const double widestAngle = atan2(W, L);
+                            const double xWidthMax = sqrt(L * L + W * W);
+                            if (angleDiff <= widestAngle) {
+                                xWidth = (xWidthMax - L) / widestAngle * angleDiff + L;
                             } else {
-                                // XXX actually xWidth shrinks towards car length while angleDiff approachess 90
-                                xWidth = veh->getVehicleType().getLength();
+                                xWidth = (W - xWidthMax) / (90 - widestAngle) * angleDiff + xWidthMax;
                             }
                             // distort y to account for angleDiff
                             const double correctY = sin(angleDiff) * veh->getVehicleType().getWidth() / 2; // + 0.5 * SAFETY_GAP;
@@ -1043,9 +1044,11 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
                                           << " pos=" << veh->getPosition() << " back=" << veh->getBackPosition()
                                           << " vehAngle=" << RAD2DEG(veh->getAngle())
                                           << " shapeAngle=" << RAD2DEG(shapeAngle)
-                                          << " angleDiff=" << RAD2DEG(angleDiff) << " b=" << b << " xWidth=" << xWidth
+                                          << " angleDiff=" << RAD2DEG(angleDiff) << " wa=" << RAD2DEG(widestAngle) << " xwm=" << xWidthMax << " xWidth=" << xWidth
                                           << " correctY=" << correctY
-                                          << " vecCoord=" << relPos << " vecCoordBack=" << relPos2 << "\n";
+                                          << " vecCoord=" << relPos << " vecCoordBack=" << relPos2
+                                          << " pos2=" << path->shape.positionAtOffset(relPos.x(), relPos.y())
+                                          << " back2=" << path->shape.positionAtOffset(relPos2.x(), relPos2.y()) << "\n";
                             }
                             const bool addFront = addVehicleFoe(veh, lane, relPos, xWidth, 0, lateral_offset, minY, maxY, toDelete, transformedPeds);
                             const bool addBack = addVehicleFoe(veh, lane, relPos2, xWidth, 0, lateral_offset, minY, maxY, toDelete, transformedPeds);
