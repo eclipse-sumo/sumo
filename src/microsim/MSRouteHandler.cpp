@@ -1092,12 +1092,12 @@ MSRouteHandler::addRideOrTransport(const SUMOSAXAttributes& attrs, const SumoXML
 
 MSStoppingPlace*
 MSRouteHandler::retrieveStoppingPlace(const SUMOSAXAttributes& attrs, const std::string& errorSuffix, SUMOVehicleParameter::Stop* stopParam) {
+    bool ok = true;
     // dummy stop parameter to hold the attributes
     SUMOVehicleParameter::Stop stop;
     if (stopParam != nullptr) {
         stop = *stopParam;
     } else {
-        bool ok = true;
         stop.busstop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, nullptr, ok, "");
         stop.busstop = attrs.getOpt<std::string>(SUMO_ATTR_TRAIN_STOP, nullptr, ok, stop.busstop); // alias
         stop.chargingStation = attrs.getOpt<std::string>(SUMO_ATTR_CHARGING_STATION, nullptr, ok, "");
@@ -1109,30 +1109,38 @@ MSRouteHandler::retrieveStoppingPlace(const SUMOSAXAttributes& attrs, const std:
     if (stop.busstop != "") {
         toStop = MSNet::getInstance()->getStoppingPlace(stop.busstop, SUMO_TAG_BUS_STOP);
         if (toStop == nullptr) {
+            ok = false;
             WRITE_ERROR("The busStop '" + stop.busstop + "' is not known " + errorSuffix + ".");
         }
     } else if (stop.containerstop != "") {
         toStop = MSNet::getInstance()->getStoppingPlace(stop.containerstop, SUMO_TAG_CONTAINER_STOP);
         if (toStop == nullptr) {
+            ok = false;
             WRITE_ERROR("The containerStop '" + stop.containerstop + "' is not known " + errorSuffix + ".");
         }
     } else if (stop.parkingarea != "") {
         toStop = MSNet::getInstance()->getStoppingPlace(stop.parkingarea, SUMO_TAG_PARKING_AREA);
         if (toStop == nullptr) {
+            ok = false;
             WRITE_ERROR("The parkingArea '" + stop.parkingarea + "' is not known " + errorSuffix + ".");
         }
     } else if (stop.chargingStation != "") {
         // ok, we have a charging station
         toStop = MSNet::getInstance()->getStoppingPlace(stop.chargingStation, SUMO_TAG_CHARGING_STATION);
         if (toStop == nullptr) {
+            ok = false;
             WRITE_ERROR("The chargingStation '" + stop.chargingStation + "' is not known " + errorSuffix + ".");
         }
     } else if (stop.overheadWireSegment != "") {
         // ok, we have an overhead wire segment
         toStop = MSNet::getInstance()->getStoppingPlace(stop.overheadWireSegment, SUMO_TAG_OVERHEAD_WIRE_SEGMENT);
         if (toStop == nullptr) {
+            ok = false;
             WRITE_ERROR("The overhead wire segment '" + stop.overheadWireSegment + "' is not known " + errorSuffix + ".");
         }
+    }
+    if (!ok && MSGlobals::gCheckRoutes) {
+        throw ProcessError("Invalid stop definition " + errorSuffix + ".");
     }
     return toStop;
 }
