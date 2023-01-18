@@ -205,12 +205,6 @@ GNEEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
                 if (s.drawForRectangleSelection || s.drawForPositionSelection) {
                     GLHelper::setColor(s.detectorSettings.E3EntryColor);
                     GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
-                } else if (drawUsingSelectColor()) {
-                    GLHelper::drawText("E3", Position(), .1, 2.8, s.colorSettings.selectedAdditionalColor, 180);
-                } else if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
-                    GLHelper::drawText("E3", Position(), .1, 2.8, s.detectorSettings.E3EntryColor, 180);
-                } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
-                    GLHelper::drawText("E3", Position(), .1, 2.8, s.detectorSettings.E3ExitColor, 180);
                 }
                 //move to logo position
                 glTranslated(1.7, 0, 0);
@@ -235,6 +229,29 @@ GNEEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
                 }
                 // pop matrix
                 GLHelper::popMatrix();
+                // check if draw E3
+                if (!s.drawForRectangleSelection && !s.drawForPositionSelection) {
+                    // calculate position
+                    const Position pos = myAdditionalGeometry.getShape().front();
+                    // calculate rotation
+                    const double rot = s.getTextAngle(myAdditionalGeometry.getShapeRotations().front() + 90);
+                    // Push matrix
+                    GLHelper::pushMatrix();
+                    // Traslate to position
+                    //glTranslated(pos.x(), pos.y(), 0.1);
+                    // scale text
+                    glScaled(entryExitExaggeration, entryExitExaggeration, 1);
+                    // draw depending of color
+                    if (drawUsingSelectColor()) {
+                        GLHelper::drawText("E3", pos, .1, 2.8, s.colorSettings.selectedAdditionalColor, rot);
+                    } else if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
+                        GLHelper::drawText("E3", pos, .1, 2.8, s.detectorSettings.E3EntryColor, rot);
+                    } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
+                        GLHelper::drawText("E3", pos, .1, 2.8, s.detectorSettings.E3ExitColor, rot);
+                    }
+                    // pop matrix
+                    GLHelper::popMatrix();
+                }
             }
             // Pop layer matrix
             GLHelper::popMatrix();
