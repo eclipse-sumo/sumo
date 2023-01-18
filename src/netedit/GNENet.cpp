@@ -1284,6 +1284,8 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
             window->setStatusBarText(TL("Computing junctions ..."));
         }
     }
+    // start recomputing
+    window->getApp()->beginWaitCursor();
     // save current number of lanes for every edge if recomputing is with volatile options
     if (volatileOptions) {
         for (const auto& edge : myAttributeCarriers->getEdges()) {
@@ -1339,7 +1341,9 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     }
     // clear myEdgesAndNumberOfLanes after reload additionals
     myEdgesAndNumberOfLanes.clear();
+    // end recomputing
     window->getApp()->endWaitCursor();
+    // update status bar
     window->setStatusBarText(TL("Finished computing junctions."));
 }
 

@@ -1314,7 +1314,6 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
             myViewNet->setViewportFromToRot(off, p, 0);
         }
     }
-    getApp()->endWaitCursor();
     myMessageWindow->registerMsgHandlers();
     // load elements
     loadElements();
@@ -2971,7 +2970,7 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject* sender, FXSelector sel, void* p
         // se net file in SUMO options
         mySUMOOptions.resetWritable();
         mySUMOOptions.set("net-file", neteditOptions.getString("net-file"));
-        // set network in SUMOConfig
+        // begin save network
         getApp()->beginWaitCursor();
         try {
             // obtain invalid networkElements (currently only edges or crossings
@@ -3022,6 +3021,7 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject* sender, FXSelector sel, void* p
         // After saving a net successfully, add it into Recent Nets list.
         myMenuBarFile.myRecentNetworks.appendFile(neteditOptions.getString("net-file").c_str());
         myMessageWindow->addSeparator();
+        // end save network
         getApp()->endWaitCursor();
         // update view
         myViewNet->updateViewNet();
@@ -3060,6 +3060,7 @@ GNEApplicationWindow::onCmdSavePlainXMLAs(FXObject*, FXSelector, void*) {
     }
     // continue depending of file
     if (plainXMLFile.size() > 0) {
+        // start saving plain XML
         getApp()->beginWaitCursor();
         try {
             myNet->savePlain(plainXMLFile);
@@ -3071,6 +3072,7 @@ GNEApplicationWindow::onCmdSavePlainXMLAs(FXObject*, FXSelector, void*) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'Error saving plainXML' with 'OK'");
         }
+        // end saving plain XML
         getApp()->endWaitCursor();
         // write info
         WRITE_MESSAGE(TL("Plain XML saved with prefix '") + plainXMLFile + "'");

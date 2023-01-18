@@ -249,8 +249,6 @@ GNELoadThread::submitEndAndCleanup(GNENet* net, const std::string& loadedFile, c
         myEventQueue.push_back(new GNEEvent_NetworkLoaded(net, true, loadedFile, guiSettingsFile, viewportFromRegistry));
     }
     myEventThrow.signal();
-    // end wait cursor
-    myApplicationWindow->getApp()->endWaitCursor();
 }
 
 
@@ -536,8 +534,6 @@ GNELoadThread::newNetwork() {
 
 void
 GNELoadThread::loadNetworkOrConfig() {
-    // begin wait cursor
-    myApplicationWindow->getApp()->beginWaitCursor();
     // start thread
     start();
 }
