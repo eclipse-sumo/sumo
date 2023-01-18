@@ -1534,11 +1534,12 @@ MSLink::checkWalkingAreaFoe(const MSVehicle* ego, const MSLane* foeLane, std::ve
         for (MSTransportable* t : foeLane->getEdge().getPersons()) {
             MSPerson* p = static_cast<MSPerson*>(t);
             double dist = ego->getPosition().distanceTo2D(p->getPosition()) - p->getVehicleType().getLength() - MSPModel::SAFETY_GAP;
-            const bool inFront = isInFront(ego, egoPath, p);
+            const bool inFront = isInFront(ego, egoPath, p->getPosition()) || isInFront(ego, egoPath, getFuturePosition(p));
 #ifdef DEBUG_WALKINGAREA
             if (ego->isSelected()) {
                 std::cout << SIMTIME << " veh=" << ego->getID() << " ped=" << p->getID()
                           << " pos=" << ego->getPosition() << " pedPos=" << p->getPosition()
+                          << " futurePedPos=" << getFuturePosition(p)
                           << " rawDist=" << ego->getPosition().distanceTo2D(p->getPosition())
                           << " inFront=" << inFront
                           << " dist=" << dist << "\n";
@@ -1570,8 +1571,8 @@ MSLink::checkWalkingAreaFoe(const MSVehicle* ego, const MSLane* foeLane, std::ve
 }
 
 bool
-MSLink::isInFront(const MSVehicle* ego, const PositionVector& egoPath, const MSPerson* p) const {
-    const double pedAngle = ego->getPosition().angleTo2D(p->getPosition());
+MSLink::isInFront(const MSVehicle* ego, const PositionVector& egoPath, const Position& pPos) const {
+    const double pedAngle = ego->getPosition().angleTo2D(pPos);
     const double angleDiff = fabs(GeomHelper::angleDiff(ego->getAngle(), pedAngle));
 #ifdef DEBUG_WALKINGAREA
     if (ego->isSelected()) {
@@ -1579,7 +1580,7 @@ MSLink::isInFront(const MSVehicle* ego, const PositionVector& egoPath, const MSP
     }
 #endif
     if (angleDiff < DEG2RAD(75)) {
-        return egoPath.distance2D(p->getPosition()) < ego->getVehicleType().getWidth() + MSPModel::SAFETY_GAP;
+        return egoPath.distance2D(pPos) < ego->getVehicleType().getWidth() + MSPModel::SAFETY_GAP;
     }
     return false;
 }
@@ -1595,6 +1596,16 @@ MSLink::isOnComingPed(const MSVehicle* ego, const MSPerson* p) const {
     }
 #endif
     return angleDiff < DEG2RAD(75);
+}
+
+
+Position
+MSLink::getFuturePosition(const MSPerson* p, double timeHorizon) const {
+    const double a = p->getAngle();
+    const double dist = timeHorizon * p->getMaxSpeed();
+
+    const Position offset(cos(a) * dist, sin(a) * dist);
+    return p->getPosition() + offset;
 }
 
 
