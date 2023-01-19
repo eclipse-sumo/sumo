@@ -10,17 +10,19 @@ option(PPROF "Link the pprof profiler library (applies to gcc/clang builds only)
 option(COVERAGE "Enable output of coverage data (applies to gcc/clang builds only)" false)
 option(SUMO_UTILS "Enable generation of a shared library for the utility functions for option handling, XML parsing etc." false)
 option(FMI "Enable generation of an FMI library for SUMO" true)
+option(NETEDIT "Enable build of netedit" true)
 set(BINARY_SUFFIX "" CACHE STRING "Append the suffix to every generated binary")
 set(COMPILE_DEFINITIONS "" CACHE STRING "Macros or defines to add when compiling")
 set(CCACHE_SUPPORT ON CACHE BOOL "Enable ccache support if installed")
 set(TCMALLOC ON CACHE BOOL "Use tcmalloc if installed")
+
 # disable warnings
 option(DISABLEWARNING_C5264 "'const' variable is not used" true)
 option(DISABLEWARNING_C4355 "'this' : used in base member initializer list" true)
 option(DISABLEWARNING_C4266 "'function' : no override available for virtual member function from base 'type'" true)
 option(DISABLEWARNING_C4127 "conditional expression is constant" true)
-
 option(DISABLEWARNING_C26495 "'variable' is uninitialized. Always initialize a member variable" true)
+
 # Set a default build type if none was specified
 # you may use -DCMAKE_BUILD_TYPE:STRING=Debug from the command line
 set(default_build_type "Release")
