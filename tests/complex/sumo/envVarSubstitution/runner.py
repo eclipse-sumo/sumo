@@ -40,7 +40,7 @@ subprocess.call([sumoBinary, "-c", "sumo.sumocfg", "--no-step-log", "-C", "confi
 # file output direct
 subprocess.call([sumoBinary, "-c", "config.sumocfg"])
 
-files = list(sorted(os.listdir()))
+files = list(sorted(os.listdir(".")))
 print("uncheck:", files, os.curdir)
 assert(files[0].endswith(".trips.xml"))
 assert(int(files[0][:-10]) > 0)
