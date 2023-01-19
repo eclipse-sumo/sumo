@@ -1,7 +1,7 @@
 Warning: Removed 1 pt stops because they could not be assigned to the network
 Warning: 11 total messages of type: Ambiguity in turnarounds computation at junction '%'.
 Warning: 18 total messages of type: Ambiguous railway kilometrage direction for way '%' (assuming forward)
-Warning: 8 total messages of type: Cannot assign stop % on edge '%' to pt line '%'. Ignoring!
+Warning: 7 total messages of type: Cannot assign stop % on edge '%' to pt line '%'. Ignoring!
 Warning: 2 total messages of type: Connection '%_%->%_%' is only %m short.
 Warning: 25 total messages of type: Converting invalid rail_crossing to traffic_light at junction '%'.
 Warning: 1 total messages of type: Could not add bidi-edge '%'.
@@ -12,7 +12,7 @@ Warning: 2 total messages of type: Discarding invalid crossing '%' at junction '
 Warning: 2 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
 Warning: 13 total messages of type: Discarding unusable type '%' (first occurrence for edge '%').
 Warning: 2 total messages of type: Edge '%' is not connected to outgoing edges at junction '%'.
-Warning: 15 total messages of type: Edge sequence is not consistent with stop sequence in line '%', not adding bidi edges.
+Warning: 14 total messages of type: Edge sequence is not consistent with stop sequence in line '%', not adding bidi edges.
 Warning: 11 total messages of type: First stop edge '%' is not part of the route of line '%'.
 Warning: 4 total messages of type: Found angle of % degrees at edge '%', segment %.
 Warning: 15 total messages of type: Found sharp turn with radius % at the end of edge '%'.

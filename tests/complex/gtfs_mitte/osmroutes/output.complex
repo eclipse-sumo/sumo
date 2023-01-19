@@ -1,5 +1,5 @@
 Success.
-Building scenario in '/home/behr_mi/.texttest/tmp/complex.perf.06Jan110926.121685/complex.perf/gtfs_mitte/osmroutes/test'.
+Building scenario in '/home/kobo/.texttest/tmp/complex.perf.python3.19Jan110513.774309/complex.perf.python3/gtfs_mitte/osmroutes/test'.
 200 OK
 generating trips...
 Skipping line '1231708' because it only drives at night
@@ -30,7 +30,7 @@ Cannot extend route before first stop for line '6593455' (stop edge 25946661 not
 Cannot extend route after last stop for line '6593455' (stop edge 25946661 not in route)
 Cannot extend route after last stop for line '6622626' (stop edge 755551647 not in route)
 Cannot extend route to fringe for line '7794031' (not enough edges given)
-Imported 107 lines with 310 stops and skipped 16 lines
+Imported 107 lines with 309 stops and skipped 16 lines
    bus: 45
    light_rail: 18
    subway: 8
@@ -49,12 +49,12 @@ Success.
 Success.
 Success.
 Written configuration to 'osm.sumocfg'
-function import_gtfs called at Fri, 06 Jan 2023 11:11:05 +0000
-function import_gtfs finished after 20.284567 seconds
-function filter_gtfs called at Fri, 06 Jan 2023 11:11:25 +0000
-function filter_gtfs finished after 7.173539 seconds
-function import_osm called at Fri, 06 Jan 2023 11:11:32 +0000
-function import_osm finished after 0.006698 seconds
-function map_gtfs_osm called at Fri, 06 Jan 2023 11:11:32 +0000
-function map_gtfs_osm finished after 7.463626 seconds
+function import_gtfs called at Thu, 19 Jan 2023 11:06:40 +0000
+function import_gtfs finished after 40.247254 seconds
+function filter_gtfs called at Thu, 19 Jan 2023 11:07:20 +0000
+function filter_gtfs finished after 10.372818 seconds
+function import_osm called at Thu, 19 Jan 2023 11:07:31 +0000
+function import_osm finished after 0.011172 seconds
+function map_gtfs_osm called at Thu, 19 Jan 2023 11:07:31 +0000
+function map_gtfs_osm finished after 15.154548 seconds
 Not all given gtfs elements have been mapped, see gtfs_missing.xml for more information
