@@ -299,8 +299,12 @@ GUILane::drawLinkRules(const GUIVisualizationSettings& s, const GUINet& net) con
         return;
     }
     // draw all links
-    const double w = myWidth / (double) noLinks;
-    double x1 = myEdge->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL ? -myWidth * 0.5 : 0;
+    const double isRailSignal = myEdge->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL;
+    double w = myWidth / (double) noLinks;
+    if (isRailSignal && noLinks > 1 && myLinks.back()->isTurnaround() && s.showRails) {
+        w = myWidth / (double) (noLinks - 1);
+    }
+    double x1 = isRailSignal ? -myWidth * 0.5 : 0;
     for (int i = 0; i < noLinks; ++i) {
         double x2 = x1 + w;
         drawLinkRule(s, net, myLinks[MSGlobals::gLefthand ? noLinks - 1 - i : i], getShape(), x1, x2);
