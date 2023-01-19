@@ -6730,6 +6730,7 @@ MSVehicle::resumeFromStopping() {
         }
         myPastStops.push_back(stop.pars);
         myStops.pop_front();
+        myStopDist = std::numeric_limits<double>::max();
         // do not count the stopping time towards gridlock time.
         // Other outputs use an independent counter and are not affected.
         myWaitingTime = 0;
