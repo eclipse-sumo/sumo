@@ -1573,6 +1573,13 @@ GNEApplicationWindow::loadOptionOnStartup() {
         setStatusBarText("Loading console arguments");
         // load console arguments
         myLoadThread->loadNetworkOrConfig();
+        // add it into recent networks and configs
+        if (neteditOptions.getString("net-file").size() > 0) {
+            myMenuBarFile.myRecentNetworks.appendFile(neteditOptions.getString("net-file").c_str());
+        }
+        if (neteditOptions.getString("configuration-file").size() > 0) {
+            myMenuBarFile.myRecentNetworks.appendFile(neteditOptions.getString("net-file").c_str());
+        }
     }
 }
 
@@ -1618,6 +1625,8 @@ GNEApplicationWindow::loadNetwork(const std::string &networkFile) {
     setStatusBarText("Loading network file '" + networkFile + "'");
     // load network
     myLoadThread->loadNetworkOrConfig();
+    // add it into recent nets
+    myMenuBarFile.myRecentNetworks.appendFile(networkFile.c_str());
 }
 
 
@@ -1640,6 +1649,8 @@ GNEApplicationWindow::loadConfiguration(const std::string &configurationFile) {
     setStatusBarText("Loading configuration file '" + configurationFile + "'");
     // load config
     myLoadThread->loadNetworkOrConfig();
+    // add it into recent configs
+    myMenuBarFile.myRecentNetworks.appendFile(configurationFile.c_str());
 }
 
 
@@ -4426,18 +4437,6 @@ GNEApplicationWindow::getLockMenuCommands() {
 }
 
 
-const GNEApplicationWindowHelper::ProcessingMenuCommands&
-GNEApplicationWindow::getProcessingMenuCommands() const {
-    return myProcessingMenuCommands;
-}
-
-
-GNEApplicationWindowHelper::MenuBarFile&
-GNEApplicationWindow::getMenuBarFile() {
-    return myMenuBarFile;
-}
-
-
 void
 GNEApplicationWindow::clearUndoList() {
     if (myViewNet) {
@@ -4446,6 +4445,12 @@ GNEApplicationWindow::clearUndoList() {
     }
     // clear undo list and return true to continue with closing/reload
     myUndoList->clear();
+}
+
+
+const GNEApplicationWindowHelper::ProcessingMenuCommands&
+GNEApplicationWindow::getProcessingMenuCommands() const {
+    return myProcessingMenuCommands;
 }
 
 

@@ -555,14 +555,11 @@ public:
     /// @brief get lock Menu Commands
     GNEApplicationWindowHelper::LockMenuCommands& getLockMenuCommands();
 
-    /// @brief get processing Menu Commands
-    const GNEApplicationWindowHelper::ProcessingMenuCommands& getProcessingMenuCommands() const;
-
-    /// @brief MenuBarFile
-    GNEApplicationWindowHelper::MenuBarFile &getMenuBarFile();
-
     /// @brief clear undo list
     void clearUndoList();
+
+    /// @brief get processing Menu Commands
+    const GNEApplicationWindowHelper::ProcessingMenuCommands& getProcessingMenuCommands() const;
 
     /// @brief get SUMO options container
     OptionsCont& getSUMOOptions();
