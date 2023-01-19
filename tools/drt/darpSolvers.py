@@ -23,7 +23,10 @@ Track progress https://github.com/eclipse/sumo/issues/8256
 
 import os
 import sys
-import time
+try:
+    from time import perf_counter
+except ImportError:
+    from time import clock as perf_counter
 
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
@@ -624,7 +627,7 @@ def search_trips(trip, pairs, res_assigned_veh, res_picked_veh, res_all,
     # trip means [trip_id, trip_time, trip_pax]
     trip_id, trip_time, trip_pax = trip
     for pair in pairs:
-        if (time.perf_counter() - start_time) > options.rtv_time:
+        if (perf_counter() - start_time) > options.rtv_time:
             # limit trip search time
             break
         if pair.split("_")[0] != trip_id.split("_")[-1]:
@@ -809,7 +812,7 @@ def exhaustive_search(options, res_id_unassigned, res_id_picked, res_all,
                 trips_tree[i] = [[pair, rv_dict[pair][0]+step, 1] for pair in pairs
                                  if pair.split("_")[0] == veh_id]
 
-            start_time = time.perf_counter()
+            start_time = perf_counter()
             while trips_tree[i]:
                 # exhaustive search
                 trips_tree.append([])
@@ -817,7 +820,7 @@ def exhaustive_search(options, res_id_unassigned, res_id_picked, res_all,
                     trips_tree[i + 1], rtv_dict = search_trips(trip, pairs, res_assigned_veh, res_picked_veh, res_all,
                                                                rv_dict, rtv_res, veh_capacity, veh_bin, rtv_dict,
                                                                trips_tree[i + 1], options, start_time)
-                    if (time.perf_counter() - start_time) > options.rtv_time:
+                    if (perf_counter() - start_time) > options.rtv_time:
                         memory_problems.append(False)
                         break
                 del trips_tree[i][:]
