@@ -23,8 +23,7 @@ import sys
 import time
 import socket
 import difflib
-toolDir = os.path.join(
-    os.path.dirname(__file__), '..', '..', '..', '..', "tools")
+toolDir = os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', "tools")
 if 'SUMO_HOME' in os.environ:
     toolDir = os.path.join(os.environ['SUMO_HOME'], "tools")
 sys.path.append(toolDir)
@@ -65,19 +64,16 @@ OUT_PORT = sumolib.miscutils.getFreeSocketPort()
 sumoBinary = sumolib.checkBinary('sumo')
 xmlProtoPy = os.path.join(toolDir, 'xml', 'xml2protobuf.py')
 protoXmlPy = os.path.join(toolDir, 'xml', 'protobuf2xml.py')
-schema = os.path.join(
-    toolDir, '..', 'data', 'xsd', 'amitran', 'trajectories.xsd')
+schema = os.path.join(toolDir, '..', 'data', 'xsd', 'amitran', 'trajectories.xsd')
 
 # file output direct
-subprocess.call(
-    [sumoBinary, "-c", "sumo.sumocfg", "--amitran-output", "direct.xml"])
+subprocess.call([sumoBinary, "-c", "sumo.sumocfg", "--amitran-output", "direct.xml"])
 
 # protobuf roundtrip
-xPro = subprocess.Popen(
-    ['python', xmlProtoPy, '-x', schema, '-o', str(IN_PORT), str(SUMO_PORT)])
+os.environ["PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION"] = "python"
+xPro = subprocess.Popen(['python', xmlProtoPy, '-x', schema, '-o', str(IN_PORT), str(SUMO_PORT)])
 pPro = subprocess.Popen(['python', protoXmlPy, '-x', schema, str(OUT_PORT)])
-sumoPro = subprocess.Popen(
-    [sumoBinary, "-c", "sumo.sumocfg", "--amitran-output", "localhost:%s" % SUMO_PORT])
+sumoPro = subprocess.Popen([sumoBinary, "-c", "sumo.sumocfg", "--amitran-output", "localhost:%s" % SUMO_PORT])
 try:
     connect(IN_PORT, OUT_PORT)
     sumoPro.wait()
