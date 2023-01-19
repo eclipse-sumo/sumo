@@ -119,6 +119,7 @@ following things need to be there:
   - https://pypi.org/project/sumolib/
   - https://pypi.org/project/traci/
   - https://pypi.org/project/libtraci/
+- check the Maven build https://ci.eclipse.org/sumo/job/SUMO%20Build%20-%20Maven%20Release/view/tags/
 
 If everything is fine:
 
