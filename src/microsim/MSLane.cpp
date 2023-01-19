@@ -1778,11 +1778,15 @@ MSLane::detectPedestrianJunctionCollision(const MSVehicle* collider, const Posit
             if (DEBUG_COND) {
                 std::cout << "    collider=" << collider->getID()
                           << " ped=" << (*it_p)->getID()
+                          << " jammed=" << (*it_p)->isJammed()
                           << " colliderBoundary=" << colliderBoundary
                           << " pedBoundary=" << (*it_p)->getBoundingBox()
                           << "\n";
             }
 #endif
+            if ((*it_p)->isJammed()) {
+                continue;
+            }
             if (colliderBoundary.overlapsWith((*it_p)->getBoundingBox())
                     && collider->getBoundingPoly().overlapsWith((*it_p)->getBoundingBox())) {
                 std::string collisionType = "junctionPedestrian";

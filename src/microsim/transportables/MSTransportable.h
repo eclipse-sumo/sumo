@@ -84,6 +84,11 @@ public:
 
     SUMOVehicleClass getVClass() const;
 
+    /// @brief whether the transportable (persons) is jammed as defined by the current pedestrian model
+    virtual bool isJammed() const {
+        return false;
+    }
+
     /** @brief Returns the maximum speed (the minimum of desired and physical maximum speed)
      * @return The objects's maximum speed
      */
