@@ -4,6 +4,9 @@
 2_arm
 2_corner
 
+# one of the edges has no sidewalks
+2_corner_someForbidden
+
 # attempt to specify an invalid crossing
 2_arm_oneway_invalid
 
