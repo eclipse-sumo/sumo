@@ -136,7 +136,7 @@ GUIOSGView::GUIOSGView(
     GUINet& net, FXGLVisual* glVis,
     FXGLCanvas* share) :
     GUISUMOAbstractView(p, app, parent, net.getVisualisationSpeedUp(), glVis, share),
-    myTracked(0), myCameraManipulator(new GUIOSGManipulator()), myLastUpdate(-1),
+    myTracked(0), myCameraManipulator(new GUIOSGManipulator(this)), myLastUpdate(-1),
     myOSGNormalizedCursorX(0.), myOSGNormalizedCursorY(0.) {
 
     if (myChanger != nullptr) {
@@ -178,9 +178,6 @@ GUIOSGView::GUIOSGView(
     myPlane->addUpdateCallback(new PlaneMoverCallback(myViewer->getCamera()));
     myRoot->addChild(myPlane);
 
-    // adjust the main light
-    adoptViewSettings();
-
     // add the stats handler
     osgViewer::StatsHandler* statsHandler = new osgViewer::StatsHandler();
     statsHandler->setKeyEventTogglesOnScreenStats(osgGA::GUIEventAdapter::KEY_I);
@@ -205,10 +202,30 @@ GUIOSGView::GUIOSGView(
     myViewer->home();
     getApp()->addChore(this, MID_CHORE);
 
-    osg::ref_ptr<osg::Camera> hudCamera = myCameraManipulator->getHUD();
-    hudCamera->setGraphicsContext(myAdapter);
-    hudCamera->setViewport(0, 0, w, h);
-    myViewer->addSlave(hudCamera, false);
+    myTextNode = new osg::Geode();
+    myText = new osgText::Text;
+    myText->setCharacterSize(16.f);
+    myTextNode->addDrawable(myText);
+    myText->setAlignment(osgText::TextBase::AlignmentType::LEFT_TOP);
+    myText->setDrawMode(osgText::TextBase::DrawModeMask::FILLEDBOUNDINGBOX | osgText::TextBase::DrawModeMask::TEXT);
+    myText->setBoundingBoxColor(osg::Vec4(0.0f, 0.0f, 0.2f, 0.5f));
+    myText->setBoundingBoxMargin(2.0f);
+
+    myHUD = new osg::Camera;
+    myHUD->setProjectionMatrixAsOrtho2D(0, 800, 0, 800); // default size will be overwritten
+    myHUD->setReferenceFrame(osg::Transform::ABSOLUTE_RF);
+    myHUD->setViewMatrix(osg::Matrix::identity());
+    myHUD->setClearMask(GL_DEPTH_BUFFER_BIT);
+    myHUD->setRenderOrder(osg::Camera::POST_RENDER);
+    myHUD->setAllowEventFocus(false);
+    myHUD->addChild(myTextNode);
+    myHUD->setGraphicsContext(myAdapter);
+    myHUD->setViewport(0, 0, w, h);
+    myViewer->addSlave(myHUD, false);
+    myCameraManipulator->updateHUDText();
+
+    // adjust the main light
+    adoptViewSettings();
 }
 
 
@@ -219,6 +236,9 @@ GUIOSGView::~GUIOSGView() {
     myRoot = 0;
     myAdapter = 0;
     myCameraManipulator = 0;
+    myHUD = 0;
+    myText = 0;
+    myTextNode = 0;
     myGreenLight = 0;
     myYellowLight = 0;
     myRedLight = 0;
@@ -252,7 +272,7 @@ GUIOSGView::adoptViewSettings() {
     cullMask ^= (-int(myVisualizationSettings->generate3DTLSModels) ^ cullMask) & (1UL << NODESET_TLSMODELS);
     myViewer->getCamera()->setCullMask(cullMask);
     unsigned int hudCullMask = (myVisualizationSettings->show3DHeadUpDisplay) ? 0xFFFFFFFF : 0;
-    myCameraManipulator->getHUD()->setCullMask(hudCullMask);
+    myHUD->setCullMask(hudCullMask);
 }
 
 
@@ -339,14 +359,28 @@ GUIOSGView::buildViewToolBars(GUIGlChildWindow* v) {
 void
 GUIOSGView::resize(int w, int h) {
     GUISUMOAbstractView::resize(w, h);
-    myCameraManipulator->updateHUDPosition(w, h);
+    updateHUDPosition(w, h);
 }
 
 
 void
 GUIOSGView::position(int x, int y, int w, int h) {
     GUISUMOAbstractView::position(x, y, w, h);
-    myCameraManipulator->updateHUDPosition(w, h);
+    updateHUDPosition(w, h);
+}
+
+
+void
+GUIOSGView::updateHUDPosition(int width, int height) {
+    // keep the HUD text in the left top corner
+    myHUD->setProjectionMatrixAsOrtho2D(0, width, 0, height);
+    myText->setPosition(osg::Vec3d(0., static_cast<double>(height), 0.));
+}
+
+
+void
+GUIOSGView::updateHUDText(const std::string text) {
+    myText->setText(text);
 }
 
 
@@ -723,7 +757,7 @@ long GUIOSGView::onConfigure(FXObject* sender, FXSelector sel, void* ptr) {
     if (w > 0 && h > 0) {
         myAdapter->getEventQueue()->windowResize(0, 0, w, h);
         myAdapter->resized(0, 0, w, h);
-        myCameraManipulator->updateHUDPosition(w, h);
+        updateHUDPosition(w, h);
     }
     return FXGLCanvas::onConfigure(sender, sel, ptr);
 }

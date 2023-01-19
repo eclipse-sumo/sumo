@@ -233,6 +233,9 @@ public:
     // @brief convert RGBColor 0..255 RGBA values to osg::Vec4 0..1 vector
     static osg::Vec4d toOSGColorVector(RGBColor c, bool useAlpha = false);
 
+    // @brief Overwrite the HUD text
+    void updateHUDText(const std::string text);
+
 protected:
     /// @brief Store the normalized OSG window cursor coordinates
     void setWindowCursorPosition(float x, float y);
@@ -255,6 +258,9 @@ protected:
 
 private:
     double calculateRotation(const osg::Vec3d& lookFrom, const osg::Vec3d& lookAt, const osg::Vec3d& up);
+
+    /// @brief inform HUD about the current window size to let it reposition
+    void updateHUDPosition(int width, int height);
 
     class FXOSGAdapter : public osgViewer::GraphicsWindow {
     public:
@@ -352,6 +358,9 @@ protected:
     osg::ref_ptr<osgViewer::Viewer> myViewer;
     osg::ref_ptr<osg::Group> myRoot;
     osg::ref_ptr<osg::MatrixTransform> myPlane;
+    osg::ref_ptr<osg::Camera> myHUD;
+    osg::ref_ptr<osg::Geode> myTextNode;
+    osg::ref_ptr<osgText::Text> myText;
 
 private:
     GUIVehicle* myTracked;

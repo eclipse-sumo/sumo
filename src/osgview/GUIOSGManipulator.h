@@ -24,6 +24,8 @@
 
 #include "GUIOSGHeader.h"
 
+class GUIOSGView;
+
 enum ManipulatorMode {
     MODE_EGO = 0,
     MODE_WALK,
@@ -32,7 +34,7 @@ enum ManipulatorMode {
 
 class GUIOSGManipulator : public osgGA::TerrainManipulator {
 public:
-    GUIOSGManipulator(ManipulatorMode initMode = MODE_TERRAIN, bool verticalFixed = true, double eyeHeight = 1.7);
+    GUIOSGManipulator(GUIOSGView* parent, ManipulatorMode initMode = MODE_TERRAIN, bool verticalFixed = true, double eyeHeight = 1.7);
     ~GUIOSGManipulator();
     bool performMovementLeftMouseButton(const double eventTimeDelta, const double dx, const double dy) override;
     bool performMovementMiddleMouseButton(const double eventTimeDelta, const double dx, const double dy) override;
@@ -46,26 +48,24 @@ public:
     bool handleKeyDown(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa) override;
     bool handleKeyUp(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa) override;
     void rotateYawPitch(osg::Quat& rotation, const double yaw, const double pitch, const osg::Vec3d& localUp);
-    osg::ref_ptr<osg::Camera> getHUD();
     /// @brief Set the position of the manipulator using a 4x4 matrix.
     void setByMatrix(const osg::Matrixd& matrix) override;
     /// @brief Get the position of the manipulator as 4x4 matrix.
     osg::Matrixd getMatrix() const override;
     /// @brief Get the position of the manipulator as a inverse matrix of the manipulator, typically used as a model view matrix.
     osg::Matrixd getInverseMatrix() const override;
-    /// @brief inform HUD about the current window size to let it reposition
-    void updateHUDPosition(int width, int height);
+    /// @brief Note the the current manipulator mode in the HUD
+    void updateHUDText();
 protected:
     void centerMousePointer(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa) override;
 private:
-    void updateHUDText();
-
-protected:
-    osg::ref_ptr<osg::Geode> myTextNode;
-    osg::ref_ptr<osg::Camera> myHUDCamera;
+    /// @brief invalidated standard constructor
+    GUIOSGManipulator() = delete;
+    GUIOSGManipulator(const GUIOSGManipulator& g);
 private:
+    /// @brief ref to parent view for callback
+    GUIOSGView* myParent;
     /// @brief remember which ManipulatorMode we use
-    osg::ref_ptr<osgText::Text> myText;
     ManipulatorMode myCurrentMode;
     //double myWalkEyeHeight;
     double myMoveSpeed;
