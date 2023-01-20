@@ -561,4 +561,16 @@ MSTrafficLightLogic::loadState(MSTLLogicControl& tlcontrol, SUMOTime t, int step
     setTrafficLightSignals(t - spentDuration);
 }
 
+
+SUMOTime
+MSTrafficLightLogic::computeCycleTime(const Phases& phases) {
+    SUMOTime result = 0;
+    for (const MSPhaseDefinition* p : phases) {
+        result += p->duration;
+    }
+    return result;
+}
+
+
+
 /****************************************************************************/

@@ -39,9 +39,7 @@ MSPhasedTrafficLightLogic::MSPhasedTrafficLightLogic(MSTLLogicControl& tlcontrol
         const Parameterised::Map& parameters)
     : MSTrafficLightLogic(tlcontrol, id, programID, offset, logicType, delay, parameters), myPhases(phases),
       myStep(step) {
-    for (int i = 0; i < (int)myPhases.size(); i++) {
-        myDefaultCycleTime += myPhases[i]->duration;
-    }
+    myDefaultCycleTime = computeCycleTime(myPhases);
 }
 
 
@@ -198,6 +196,7 @@ MSPhasedTrafficLightLogic::setPhases(const Phases& phases, int step) {
     deletePhases();
     myPhases = phases;
     myStep = step;
+    myDefaultCycleTime = computeCycleTime(myPhases);
 }
 
 

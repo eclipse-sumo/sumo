@@ -484,6 +484,8 @@ protected:
 
     };
 
+    SUMOTime computeCycleTime(const Phases& phases);
+
 
 protected:
     /// @brief The id of the logic
