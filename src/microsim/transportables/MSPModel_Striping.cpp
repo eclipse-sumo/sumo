@@ -1355,9 +1355,14 @@ MSPModel_Striping::addCrossingVehs(const MSLane* crossing, int stripes, double l
         }
         if (hasCrossingVehObs) {
             // check whether the crossing is fully blocked
+            const int reserved = getReserved(obs.size(), RESERVE_FOR_ONCOMING_FACTOR_JUNCTIONS);
             bool allBlocked = true;
-            for (Obstacle& o : obs) {
-                if (o.type != OBSTACLE_VEHICLE) {
+
+            for (int i = 0; i < (int)obs.size(); i++) {
+                const Obstacle& o = obs[i];
+                if (o.type != OBSTACLE_VEHICLE && (
+                            (dir == FORWARD && i >= reserved) ||
+                            (dir == BACKWARD && i < (int)obs.size() - reserved))) {
                     allBlocked = false;
                     break;
                 }
@@ -1948,6 +1953,14 @@ MSPModel_Striping::PState::moveToNextLane(SUMOTime currentTime) {
     }
 }
 
+
+int
+MSPModel_Striping::getReserved(int stripes, double factor) {
+    return MIN2(
+            (int)floor(stripes * factor),
+            (int)floor(RESERVE_FOR_ONCOMING_MAX / stripeWidth));
+}
+
 void
 MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
     const int stripes = (int)obs.size();
@@ -1992,9 +2005,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
     // lanes with stripes less than 1 / RESERVE_FOR_ONCOMING_FACTOR
     // may still deadlock in heavy pedestrian traffic
     const bool onJunction = myLane->getEdge().isWalkingArea() || myLane->getEdge().isCrossing();
-    const int reserved = MIN2(
-            (int)floor(stripes * (onJunction ? RESERVE_FOR_ONCOMING_FACTOR_JUNCTIONS : RESERVE_FOR_ONCOMING_FACTOR)),
-            (int)floor(RESERVE_FOR_ONCOMING_MAX / stripeWidth));
+    const int reserved = getReserved(stripes, (onJunction ? RESERVE_FOR_ONCOMING_FACTOR_JUNCTIONS : RESERVE_FOR_ONCOMING_FACTOR));
     if (myDir == FORWARD) {
         for (int i = 0; i < reserved; ++i) {
             utility[i] += INAPPROPRIATE_PENALTY * (i == current ? 0.5 : 1);
