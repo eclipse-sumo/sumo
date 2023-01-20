@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-18 14:09:41 by Eclipse SUMO sumo Version v1_15_0+1721-da6a1b6
+<!-- generated on 2023-01-20 12:01:27 by Eclipse SUMO sumo Version v1_15_0+1766-b5ac88f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -44,8 +44,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="bike163" depart="0.00" departLane="a_0" departPos="7.61" departPosLat="-0.92" departSpeed="3.10" departDelay="0.00" arrival="323.70" arrivalLane="b_0" arrivalPos="4.20" arrivalPosLat="0.67" arrivalSpeed="5.03" duration="323.70" routeLength="28.27" waitingTime="303.90" waitingCount="10" stopTime="0.00" timeLoss="319.24" rerouteNo="0" devices="tripinfo_bike163" vType="bike_bicycle" speedFactor="1.14" vaporized=""/>
-    <tripinfo id="bike172" depart="0.00" departLane="a_0" departPos="7.61" departPosLat="0.30" departSpeed="3.03" departDelay="0.00" arrival="323.90" arrivalLane="b_0" arrivalPos="4.20" arrivalPosLat="-0.64" arrivalSpeed="5.17" duration="323.90" routeLength="28.27" waitingTime="309.50" waitingCount="5" stopTime="0.00" timeLoss="319.40" rerouteNo="0" devices="tripinfo_bike172" vType="bike_bicycle" speedFactor="1.14" vaporized=""/>
+    <tripinfo id="bike163" depart="0.00" departLane="a_0" departPos="7.61" departPosLat="-0.92" departSpeed="3.10" departDelay="0.00" arrival="56.40" arrivalLane="b_0" arrivalPos="4.20" arrivalPosLat="-0.67" arrivalSpeed="4.77" duration="56.40" routeLength="28.27" waitingTime="34.90" waitingCount="3" stopTime="0.00" timeLoss="51.93" rerouteNo="0" devices="tripinfo_bike163" vType="bike_bicycle" speedFactor="1.14" vaporized=""/>
+    <tripinfo id="bike172" depart="0.00" departLane="a_0" departPos="7.61" departPosLat="0.30" departSpeed="3.03" departDelay="0.00" arrival="323.80" arrivalLane="b_0" arrivalPos="4.20" arrivalPosLat="-0.67" arrivalSpeed="5.10" duration="323.80" routeLength="28.27" waitingTime="308.90" waitingCount="5" stopTime="0.00" timeLoss="319.30" rerouteNo="0" devices="tripinfo_bike172" vType="bike_bicycle" speedFactor="1.14" vaporized=""/>
     <personinfo id="ped144" depart="0.50" type="ped_pedestrian" speedFactor="1.24">
         <walk depart="0.50" departPos="11.12" arrival="325.70" arrivalPos="2.10" duration="325.20" routeLength="23.08" timeLoss="311.80" maxSpeed="1.72"/>
     </personinfo>

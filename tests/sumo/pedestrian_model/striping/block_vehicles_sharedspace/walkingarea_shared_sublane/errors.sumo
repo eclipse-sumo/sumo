@@ -1,16 +1,5 @@
-Warning: Person 'pEW.7' is jammed on edge ':C_w0', time=186.00.
-Warning: Vehicle 'NW.0' collision with person 'pSW.4', lane='CW_0', gap=-1.41, time=209.00, stage=laneChange.
-Warning: Person 'pWN.21' is jammed on edge ':C_w0', time=513.00.
-Warning: Person 'pWN.23' is jammed on edge ':C_w0', time=523.00.
-Warning: Person 'pNE.18' is jammed on edge ':C_w0', time=587.00.
-Warning: Vehicle 'WS.6' collision with person 'pNS.27', lane=':C_12_0', time=623.00, stage=move.
-Warning: Vehicle 'WS.6' collision with person 'pNS.28', lane='CS_0', gap=-0.99, time=643.00, stage=laneChange.
-Warning: Person 'pSN.34' is jammed on edge ':C_w0', time=764.00.
-Warning: Person 'pEW.40' is jammed on edge ':C_w0', time=822.00.
-Warning: Vehicle 'SE.5' performs emergency braking on lane ':C_8_0' with decel=9.00, wished=4.50, severity=1.00, time=832.00.
-Warning: Person 'pSW.35' is jammed on edge ':C_w0', time=846.00.
-Warning: Person 'pSW.36' is jammed on edge ':C_w0', time=855.00.
-Warning: Person 'pSN.42' is jammed on edge ':C_w0', time=859.00.
-Warning: Person 'pNS.43' is jammed on edge ':C_w0', time=947.00.
-Warning: Person 'pSW.39' is jammed on edge ':C_w0', time=966.00.
-Warning: Person 'pWN.42' is jammed on edge ':C_w0', time=999.00.
+Warning: Vehicle 'NS.5' performs emergency braking on lane ':C_1_0' with decel=9.00, wished=4.50, severity=1.00, time=428.00.
+Warning: Vehicle 'NS.6' collision with person 'pWN.24', lane=':C_1_0', time=520.00, stage=laneChange.
+Warning: Teleporting vehicle 'WS.5'; junction collision with vehicle 'WN.7', lane=':C_12_0', gap=-1.00', latGap=0.00, time=573.00 stage=move.
+Warning: Vehicle 'WS.5' ends teleporting on edge 'CS', time=573.00.
+Warning: Vehicle 'WN.7' collision with person 'pNS.22', lane=':C_14_0', time=576.00, stage=move.

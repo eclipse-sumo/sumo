@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-18 14:09:41 by Eclipse SUMO sumo Version v1_15_0+1721-da6a1b6
+<!-- generated on 2023-01-20 12:09:31 by Eclipse SUMO sumo Version v1_15_0+1766-b5ac88f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -72,23 +72,23 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <person id="p0" x="48.27" y="-2.93" angle="90.00" speed="1.39" pos="48.27" edge="beg" slope="0.00"/>
     </timestep>
     <timestep time="8.00">
-        <vehicle id="car.0" x="48.64" y="-1.65" angle="90.00" type="car" speed="3.08" pos="0.09" lane=":2_0_0" slope="0.00"/>
+        <vehicle id="car.0" x="47.14" y="-1.65" angle="90.00" type="car" speed="1.58" pos="47.14" lane="beg_0" slope="0.00"/>
         <person id="p0" x="49.66" y="-2.93" angle="90.00" speed="1.39" pos="1.11" edge=":2_w0" slope="0.00"/>
     </timestep>
     <timestep time="9.00">
-        <vehicle id="car.0" x="50.15" y="-1.65" angle="90.00" type="car" speed="1.51" pos="1.60" lane=":2_0_0" slope="0.00"/>
+        <vehicle id="car.0" x="48.54" y="-1.65" angle="90.00" type="car" speed="1.40" pos="48.54" lane="beg_0" slope="0.00"/>
         <person id="p0" x="51.05" y="-2.93" angle="90.00" speed="1.39" pos="2.50" edge=":2_w0" slope="0.00"/>
     </timestep>
     <timestep time="10.00">
-        <vehicle id="car.0" x="51.56" y="-1.65" angle="90.00" type="car" speed="1.40" pos="3.01" lane=":2_0_0" slope="0.00"/>
+        <vehicle id="car.0" x="49.93" y="-1.65" angle="90.00" type="car" speed="1.39" pos="1.38" lane=":2_0_0" slope="0.00"/>
         <person id="p0" x="52.44" y="-2.93" angle="90.00" speed="1.39" pos="3.89" edge=":2_w0" slope="0.00"/>
     </timestep>
     <timestep time="11.00">
-        <vehicle id="car.0" x="51.56" y="-1.65" angle="90.00" type="car" speed="0.00" pos="3.01" lane=":2_0_0" slope="0.00"/>
+        <vehicle id="car.0" x="51.11" y="-1.65" angle="90.00" type="car" speed="1.18" pos="2.56" lane=":2_0_0" slope="0.00"/>
         <person id="p0" x="53.83" y="-2.93" angle="90.00" speed="1.39" pos="0.28" edge="end" slope="0.00"/>
     </timestep>
     <timestep time="12.00">
-        <vehicle id="car.0" x="52.50" y="-1.65" angle="90.00" type="car" speed="0.94" pos="3.95" lane=":2_0_0" slope="0.00"/>
+        <vehicle id="car.0" x="52.50" y="-1.65" angle="90.00" type="car" speed="1.39" pos="3.95" lane=":2_0_0" slope="0.00"/>
         <person id="p0" x="55.22" y="-2.93" angle="90.00" speed="1.39" pos="1.67" edge="end" slope="0.00"/>
     </timestep>
     <timestep time="13.00">
