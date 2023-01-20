@@ -1353,6 +1353,28 @@ MSPModel_Striping::addCrossingVehs(const MSLane* crossing, int stripes, double l
                 }
             }
         }
+        if (hasCrossingVehObs) {
+            // check whether the crossing is fully blocked
+            bool allBlocked = true;
+            for (Obstacle& o : obs) {
+                if (o.type != OBSTACLE_VEHICLE) {
+                    allBlocked = false;
+                    break;
+                }
+            }
+            if (allBlocked) {
+                if (DEBUGCOND2(crossing)) {
+                    std::cout << SIMTIME << " crossing=" << crossing->getID() << " allBlocked\n";
+                }
+                for (Obstacle& o : obs) {
+                    if (dir == FORWARD) {
+                        o.xBack = NUMERICAL_EPS;
+                    } else {
+                        o.xFwd = crossing->getLength() - NUMERICAL_EPS;
+                    }
+                }
+            }
+        }
     }
     return hasCrossingVehObs;
 }
