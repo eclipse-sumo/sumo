@@ -528,6 +528,9 @@ MSFrame::fillOptions() {
     oc.doRegister("pedestrian.striping.reserve-oncoming.junctions", new Option_Float(0.34));
     oc.addDescription("pedestrian.striping.reserve-oncoming.junctions", "Processing", "Fraction of stripes to reserve for oncoming pedestrians on crossings and walkingareas");
 
+    oc.doRegister("pedestrian.striping.reserve-oncoming.max", new Option_Float(1.28));
+    oc.addDescription("pedestrian.striping.reserve-oncoming.max", "Processing", "Maximum width in m to reserve for oncoming pedestrians");
+
     oc.doRegister("pedestrian.striping.legacy-departposlat", new Option_Bool(false));
     oc.addDescription("pedestrian.striping.legacy-departposlat", "Processing", "Interpret departPosLat for walks in legacy style");
 

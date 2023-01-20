@@ -141,6 +141,7 @@ public:
     // @brief fraction of the leftmost lanes to reserve for oncoming traffic
     static double RESERVE_FOR_ONCOMING_FACTOR;
     static double RESERVE_FOR_ONCOMING_FACTOR_JUNCTIONS;
+    static double RESERVE_FOR_ONCOMING_MAX;
 
     // @brief the time pedestrians take to reach maximum impatience
     static const double MAX_WAIT_TOLERANCE;

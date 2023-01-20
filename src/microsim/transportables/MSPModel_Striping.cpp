@@ -100,8 +100,9 @@ const double MSPModel_Striping::INAPPROPRIATE_PENALTY(-20000.); // meters
 const double MSPModel_Striping::ONCOMING_CONFLICT_PENALTY(-1000.); // meters
 const double MSPModel_Striping::OBSTRUCTION_THRESHOLD(MSPModel_Striping::OBSTRUCTED_PENALTY * 0.5); // despite obstruction, additional utility may have been added
 const double MSPModel_Striping::SQUEEZE(0.7);
-double MSPModel_Striping::RESERVE_FOR_ONCOMING_FACTOR(0.0);
-double MSPModel_Striping::RESERVE_FOR_ONCOMING_FACTOR_JUNCTIONS(0.34);
+double MSPModel_Striping::RESERVE_FOR_ONCOMING_FACTOR;
+double MSPModel_Striping::RESERVE_FOR_ONCOMING_FACTOR_JUNCTIONS;
+double MSPModel_Striping::RESERVE_FOR_ONCOMING_MAX;
 const double MSPModel_Striping::MAX_WAIT_TOLERANCE(120.); // seconds
 const double MSPModel_Striping::LATERAL_SPEED_FACTOR(0.4);
 const double MSPModel_Striping::MIN_STARTUP_DIST(0.4); // meters
@@ -128,6 +129,7 @@ MSPModel_Striping::MSPModel_Striping(const OptionsCont& oc, MSNet* net) :
     minGapToVehicle = oc.getFloat("pedestrian.striping.mingap-to-vehicle");
     RESERVE_FOR_ONCOMING_FACTOR = oc.getFloat("pedestrian.striping.reserve-oncoming");
     RESERVE_FOR_ONCOMING_FACTOR_JUNCTIONS = oc.getFloat("pedestrian.striping.reserve-oncoming.junctions");
+    RESERVE_FOR_ONCOMING_MAX = oc.getFloat("pedestrian.striping.reserve-oncoming.max");
 
     jamTime = string2time(oc.getString("pedestrian.striping.jamtime"));
     if (jamTime <= 0) {
@@ -1023,7 +1025,7 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
                             relCorners.add(relCenter[1]);
                             // persons should requier less gap than the vehicles to prevent getting stuck
                             // when a vehicles moves towards them
-                            relCorners.grow(SAFETY_GAP / 2);
+                            relCorners.growWidth(SAFETY_GAP / 2);
                             const double xWidth = relCorners.getWidth();
                             const double vehYmin = MAX2(minY - lateral_offset, relCorners.ymin());
                             const double vehYmax = MIN2(maxY - lateral_offset, relCorners.ymax());
@@ -1135,6 +1137,7 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
 
     for (int ii = 0; ii < (int)pedestrians.size(); ++ii) {
         PState& p = *pedestrians[ii];
+        UNUSED_PARAMETER(debug);
         //if (debug) {
         //    std::cout << SIMTIME << " CHECKING d=" << dir << " p=" << p.getID() << " relX=" << p.myRelX << " xmin=" << p.getMinX() << " xmax=" << p.getMaxX() << " pdir=" << p.myDir << "\n";
         //}
@@ -1967,7 +1970,9 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
     // lanes with stripes less than 1 / RESERVE_FOR_ONCOMING_FACTOR
     // may still deadlock in heavy pedestrian traffic
     const bool onJunction = myLane->getEdge().isWalkingArea() || myLane->getEdge().isCrossing();
-    const int reserved = (int)floor(stripes * (onJunction ? RESERVE_FOR_ONCOMING_FACTOR_JUNCTIONS : RESERVE_FOR_ONCOMING_FACTOR));
+    const int reserved = MIN2(
+            (int)floor(stripes * (onJunction ? RESERVE_FOR_ONCOMING_FACTOR_JUNCTIONS : RESERVE_FOR_ONCOMING_FACTOR)),
+            (int)floor(RESERVE_FOR_ONCOMING_MAX / stripeWidth));
     if (myDir == FORWARD) {
         for (int i = 0; i < reserved; ++i) {
             utility[i] += INAPPROPRIATE_PENALTY * (i == current ? 0.5 : 1);
