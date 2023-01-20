@@ -41,17 +41,24 @@ jobs:
         name: helper-wheels
         path: tools/dist
 
+    - name: Building Python wheels (latest manylinux docker)
+      # if: github.repository == 'DLR-TS/sumo'
+      uses: docker://quay.io/pypa/manylinux2014_x86_64
+      with:
+        entrypoint: tools/build/build_wheels.sh
+
+    # the next two steps are only needed when we debug the manylinux build
     # - name: Building Python wheels (fixed manylinux docker)
     #   if: github.repository == 'eclipse/sumo'
     #   uses: docker://quay.io/pypa/manylinux2014_x86_64:2022-11-14-1226cfc
     #   with:
     #     entrypoint: tools/build/build_wheels.sh
 
-    - name: Building Python wheels (latest manylinux docker)
-      # if: github.repository == 'DLR-TS/sumo'
-      uses: docker://quay.io/pypa/manylinux2014_x86_64
-      with:
-        entrypoint: tools/build/build_wheels.sh
+    # - name: Uploading raw wheels (without auditwheel being applied)
+    #   uses: actions/upload-artifact@v3
+    #   with:
+    #     name: manylinux-raw-wheels
+    #     path: dist
 
     - name: Uploading artifacts (Python wheels)
       uses: actions/upload-artifact@v3
