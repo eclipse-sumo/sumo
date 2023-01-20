@@ -1008,66 +1008,56 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
                     for (const MSLane* foeLane : itFoe->second) {
                         for (auto itVeh = foeLane->anyVehiclesBegin(); itVeh != foeLane->anyVehiclesEnd(); ++itVeh) {
                             const MSVehicle* veh = *itVeh;
-                            Position relPos = path->shape.transformToVectorCoordinates(veh->getPosition());
-                            Position relPos2 = path->shape.transformToVectorCoordinates(veh->getBackPosition());
-
-                            const double centerX = (relPos.x() + relPos2.x()) / 2;
-                            const double shapeAngle = path->shape.rotationAtOffset(centerX);
-                            // 0 means car is at 90 degree angle
-                            double angleDiff = fabs(GeomHelper::angleDiff(veh->getAngle(), shapeAngle + M_PI / 2));
-                            if (angleDiff > M_PI / 2) {
-                                angleDiff = M_PI - angleDiff;
-                            }
-                            double xWidth; // extent of car in x direction (= carWidth at 90 degrees, carLength at 0 degrees)
-                            const double L = veh->getLength();
-                            const double W = veh->getVehicleType().getWidth();
-                            const double widestAngle = atan2(W, L);
-                            const double xWidthMax = sqrt(L * L + W * W);
-                            if (angleDiff <= widestAngle) {
-                                xWidth = (xWidthMax - L) / widestAngle * angleDiff + L;
-                            } else {
-                                xWidth = (W - xWidthMax) / (90 - widestAngle) * angleDiff + xWidthMax;
-                            }
-                            // distort y to account for angleDiff
-                            const double correctY = sin(angleDiff) * veh->getVehicleType().getWidth() / 2; // + 0.5 * SAFETY_GAP;
-                            relPos.setx(centerX);
-                            relPos2.setx(centerX);
-                            if (relPos.y() < relPos2.y()) {
-                                relPos.sety(relPos.y() - correctY);
-                                relPos2.sety(relPos2.y() + correctY);
-                            } else {
-                                relPos.sety(relPos.y() + correctY);
-                                relPos2.sety(relPos2.y() - correctY);
-                            }
+                            const double vehWidth = veh->getVehicleType().getWidth();
+                            Boundary relCorners;
+                            Position relFront = path->shape.transformToVectorCoordinates(veh->getPosition());
+                            Position relBack = path->shape.transformToVectorCoordinates(veh->getBackPosition());
+                            PositionVector relCenter;
+                            relCenter.push_back(relFront);
+                            relCenter.push_back(relBack);
+                            relCenter.move2side(vehWidth / 2);
+                            relCorners.add(relCenter[0]);
+                            relCorners.add(relCenter[1]);
+                            relCenter.move2side(-vehWidth);
+                            relCorners.add(relCenter[0]);
+                            relCorners.add(relCenter[1]);
+                            // persons should requier less gap than the vehicles to prevent getting stuck
+                            // when a vehicles moves towards them
+                            relCorners.grow(SAFETY_GAP / 2);
+                            const double xWidth = relCorners.getWidth();
+                            const double vehYmin = MAX2(minY - lateral_offset, relCorners.ymin());
+                            const double vehYmax = MIN2(maxY - lateral_offset, relCorners.ymax());
+                            const double xCenter = relCorners.getCenter().x();
+                            Position yMinPos(xCenter, vehYmin);
+                            Position yMaxPos(xCenter, vehYmax);
+                            const bool addFront = addVehicleFoe(veh, lane, yMinPos, dir * xWidth, 0, lateral_offset, minY, maxY, toDelete, transformedPeds);
+                            const bool addBack = addVehicleFoe(veh, lane, yMaxPos, dir * xWidth, 0, lateral_offset, minY, maxY, toDelete, transformedPeds);
                             if (path == debugPath) {
                                 std::cout << "  veh=" << veh->getID()
-                                          << " pos=" << veh->getPosition() << " back=" << veh->getBackPosition()
-                                          << " vehAngle=" << RAD2DEG(veh->getAngle())
-                                          << " shapeAngle=" << RAD2DEG(shapeAngle)
-                                          << " angleDiff=" << RAD2DEG(angleDiff) << " wa=" << RAD2DEG(widestAngle) << " xwm=" << xWidthMax << " xWidth=" << xWidth
-                                          << " correctY=" << correctY
-                                          << " vecCoord=" << relPos << " vecCoordBack=" << relPos2
-                                          << " pos2=" << path->shape.positionAtOffset(relPos.x(), relPos.y())
-                                          << " back2=" << path->shape.positionAtOffset(relPos2.x(), relPos2.y()) << "\n";
+                                          << " corners=" << relCorners
+                                          << " xWidth=" << xWidth
+                                          << " ymin=" << relCorners.ymin()
+                                          << " ymax=" << relCorners.ymax()
+                                          << " vehYmin=" << vehYmin
+                                          << " vehYmax=" << vehYmax
+                                          << "\n";
                             }
-                            const bool addFront = addVehicleFoe(veh, lane, relPos, xWidth, 0, lateral_offset, minY, maxY, toDelete, transformedPeds);
-                            const bool addBack = addVehicleFoe(veh, lane, relPos2, xWidth, 0, lateral_offset, minY, maxY, toDelete, transformedPeds);
                             if (addFront && addBack) {
                                 // add in-between positions
-                                const double length = veh->getVehicleType().getLength();
-                                for (double dist = stripeWidth; dist < length; dist += stripeWidth) {
-                                    const double relDist = dist / length;
-                                    Position between = (relPos * relDist) + (relPos2 * (1 - relDist));
+                                const double yDist = vehYmax - vehYmin;
+                                for (double dist = stripeWidth; dist < yDist; dist += stripeWidth) {
+                                    const double relDist = dist / yDist;
+                                    Position between = (yMinPos * relDist) + (yMaxPos * (1 - relDist));
                                     if (path == debugPath) {
                                         std::cout << "  vehBetween=" << veh->getID() << " pos=" << between << "\n";
                                     }
-                                    addVehicleFoe(veh, lane, between, xWidth, stripeWidth, lateral_offset, minY, maxY, toDelete, transformedPeds);
+                                    addVehicleFoe(veh, lane, between, dir * xWidth, stripeWidth, lateral_offset, minY, maxY, toDelete, transformedPeds);
                                 }
                             }
                         }
                     }
                 }
-                moveInDirectionOnLane(transformedPeds, lane, currentTime, changedLane, dir);
+                moveInDirectionOnLane(transformedPeds, lane, currentTime, changedLane, dir, path == debugPath);
                 arriveAndAdvance(pedestrians, currentTime, changedLane, dir);
                 // clean up
                 for (Pedestrians::iterator it_p = toDelete.begin(); it_p != toDelete.end(); ++it_p) {
@@ -1075,7 +1065,7 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
                 }
             }
         } else {
-            moveInDirectionOnLane(pedestrians, lane, currentTime, changedLane, dir);
+            moveInDirectionOnLane(pedestrians, lane, currentTime, changedLane, dir, false);
             arriveAndAdvance(pedestrians, currentTime, changedLane, dir);
         }
     }
@@ -1129,7 +1119,7 @@ MSPModel_Striping::arriveAndAdvance(Pedestrians& pedestrians, SUMOTime currentTi
 
 
 void
-MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane* lane, SUMOTime currentTime, std::set<MSPerson*>& changedLane, int dir) {
+MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane* lane, SUMOTime currentTime, std::set<MSPerson*>& changedLane, int dir, bool debug) {
     const int stripes = numStripes(lane);
     //std::cout << " laneWidth=" << lane->getWidth() << " stripeWidth=" << stripeWidth << " stripes=" << stripes << "\n";
     Obstacles obs(stripes, Obstacle(dir)); // continously updated
@@ -1145,7 +1135,9 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
 
     for (int ii = 0; ii < (int)pedestrians.size(); ++ii) {
         PState& p = *pedestrians[ii];
-        //std::cout << SIMTIME << "CHECKING" << p.myPerson->getID() << "\n";
+        //if (debug) {
+        //    std::cout << SIMTIME << " CHECKING d=" << dir << " p=" << p.getID() << " relX=" << p.myRelX << " xmin=" << p.getMinX() << " xmax=" << p.getMaxX() << " pdir=" << p.myDir << "\n";
+        //}
         Obstacles currentObs = obs;
         if (p.myDir != dir || changedLane.count(p.myPerson) != 0 || p.myRemoteXYPos != Position::INVALID) {
             if (!p.myWaitingToEnter && !p.myAmJammed) {
@@ -1157,8 +1149,12 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
                     // ensure recognition of oncoming
                     o.speed = (p.myDir == FORWARD ? 0.1 : -0.1);
                 }
-                obs[p.stripe()] = o;
-                obs[p.otherStripe()] = o;
+                if (o.closer(obs[p.stripe()], dir)) {
+                    obs[p.stripe()] = o;
+                }
+                if (o.closer(obs[p.otherStripe()], dir)) {
+                    obs[p.otherStripe()] = o;
+                }
             }
             continue;
         }
@@ -1255,8 +1251,12 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
         gDebugFlag1 = false;
         if (!p.myWaitingToEnter && !p.myAmJammed) {
             Obstacle o(p);
-            obs[p.stripe()] = o;
-            obs[p.otherStripe()] = o;
+            if (o.closer(obs[p.stripe()], dir)) {
+                obs[p.stripe()] = o;
+            }
+            if (o.closer(obs[p.otherStripe()], dir)) {
+                obs[p.otherStripe()] = o;
+            }
             if (MSGlobals::gCheck4Accidents && p.myWalkingAreaPath == nullptr && !p.myAmJammed) {
                 for (int coll = 0; coll < ii; ++coll) {
                     PState& c = *pedestrians[coll];
@@ -1498,6 +1498,16 @@ MSPModel_Striping::Obstacle::Obstacle(const PState& ped) :
     type(ped.getOType()),
     description(ped.getID()) {
     assert(!ped.myWaitingToEnter);
+}
+
+
+bool
+MSPModel_Striping::Obstacle::closer(const Obstacle& o, int dir) {
+    if (dir == FORWARD) {
+        return xBack <= o.xBack;
+    } else {
+        return xFwd >= o.xFwd;
+    }
 }
 
 
@@ -2558,7 +2568,9 @@ MSPModel_Striping::PState::isRemoteControlled() const {
 MSPModel_Striping::PStateVehicle::PStateVehicle(const MSVehicle* veh, const MSLane* walkingarea, double relX, double relY, double xWidth, double yWidth):
     myVehicle(veh), myXWidth(xWidth), myYWidth(yWidth) {
     myLane = walkingarea; // to ensure correct limits when calling otherStripe()
-    myRelX = relX;
+    // relX is the center but we want it to be the max value if the movement direction is forward
+    // and the min value otherwise (indicated by xWidth sign)
+    myRelX = relX + xWidth / 2;
     myRelY = relY;
 }
 
@@ -2574,12 +2586,12 @@ MSPModel_Striping::PStateVehicle::getWidth() const {
 
 double
 MSPModel_Striping::PStateVehicle::getMinX(const bool /*includeMinGap*/) const {
-    return myRelX - myXWidth / 2 - SAFETY_GAP ;
+    return myXWidth > 0 ? myRelX - myXWidth : myRelX;
 }
 
 double
 MSPModel_Striping::PStateVehicle::getMaxX(const bool /*includeMinGap*/) const {
-    return myRelX + myXWidth / 2 + SAFETY_GAP;
+    return myXWidth > 0 ? myRelX : myRelX - myXWidth;
 }
 
 // ===========================================================================

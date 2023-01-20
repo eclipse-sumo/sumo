@@ -228,6 +228,8 @@ protected:
         ObstacleType type;
         /// @brief the id / description of the obstacle
         std::string description;
+
+        bool closer(const Obstacle& o, int dir);
     };
 
     struct WalkingAreaPath {
@@ -455,7 +457,7 @@ protected:
     void moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& changedLane, int dir);
 
     /// @brief move pedestrians forward on one lane
-    void moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane* lane, SUMOTime currentTime, std::set<MSPerson*>& changedLane, int dir);
+    void moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane* lane, SUMOTime currentTime, std::set<MSPerson*>& changedLane, int dir, bool debug);
 
     /// @brief handle arrivals and lane advancement
     void arriveAndAdvance(Pedestrians& pedestrians, SUMOTime currentTime, std::set<MSPerson*>& changedLane, int dir);
