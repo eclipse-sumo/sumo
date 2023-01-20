@@ -1533,7 +1533,7 @@ MSLink::checkWalkingAreaFoe(const MSVehicle* ego, const MSLane* foeLane, std::ve
         }
         for (MSTransportable* t : foeLane->getEdge().getPersons()) {
             MSPerson* p = static_cast<MSPerson*>(t);
-            double dist = ego->getPosition().distanceTo2D(p->getPosition()) - p->getVehicleType().getLength() - MSPModel::SAFETY_GAP;
+            double dist = ego->getPosition().distanceTo2D(p->getPosition()) - p->getVehicleType().getLength() - 2 * MSPModel::SAFETY_GAP;
             const bool inFront = isInFront(ego, egoPath, p->getPosition()) || isInFront(ego, egoPath, getFuturePosition(p));
 #ifdef DEBUG_WALKINGAREA
             if (ego->isSelected()) {
