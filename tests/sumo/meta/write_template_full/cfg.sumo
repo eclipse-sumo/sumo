@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-04 11:28:03 by Eclipse SUMO sumo Version v1_15_0+1277-3febad6e597
+<!-- generated on 2023-01-20 11:43:52 by Eclipse SUMO sumo Version v1_15_0+1763-04f0927
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -178,6 +178,7 @@
         <pedestrian.striping.jamtime.narrow value="1" type="TIME" help="Time in seconds after which pedestrians start squeezing through a jam while on a narrow lane when using model &apos;striping&apos;"/>
         <pedestrian.striping.reserve-oncoming value="0" type="FLOAT" help="Fraction of stripes to reserve for oncoming pedestrians"/>
         <pedestrian.striping.reserve-oncoming.junctions value="0.34" type="FLOAT" help="Fraction of stripes to reserve for oncoming pedestrians on crossings and walkingareas"/>
+        <pedestrian.striping.reserve-oncoming.max value="1.28" type="FLOAT" help="Maximum width in m to reserve for oncoming pedestrians"/>
         <pedestrian.striping.legacy-departposlat value="false" type="BOOL" help="Interpret departPosLat for walks in legacy style"/>
         <pedestrian.striping.walkingarea-detail value="4" type="INT" help="Generate INT intermediate points to smooth out lanes within the walkingarea"/>
         <pedestrian.remote.address value="localhost:9000" type="STR" help="The address (host:port) of the external simulation"/>
@@ -455,7 +456,6 @@
         <window-size value="" type="STR[]" help="Create initial window with the given x,y size"/>
         <window-pos value="" type="STR[]" help="Create initial window at the given x,y position"/>
         <tracker-interval value="1" type="TIME" help="The aggregation period for value tracker windows"/>
-        <osg-view value="false" type="BOOL" help="Start with an OpenSceneGraph view instead of the regular 2D view"/>
         <gui-testing value="false" type="BOOL" help="Enable overlay for screen recognition"/>
         <gui-testing-debug value="false" type="BOOL" help="Enable output messages during GUI-Testing"/>
         <gui-testing.setting-output value="" type="FILE" help="Save gui settings in the given settings output file"/>

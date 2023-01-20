@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_15_0+1315-6cce7c5914f
+Eclipse SUMO sumo Version v1_15_0+1763-04f0927
  Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -350,6 +350,8 @@ Processing Options:
   --pedestrian.striping.reserve-oncoming.junctions FLOAT  Fraction of stripes
                                         to reserve for oncoming pedestrians on
                                         crossings and walkingareas
+  --pedestrian.striping.reserve-oncoming.max FLOAT  Maximum width in m to
+                                        reserve for oncoming pedestrians
   --pedestrian.striping.legacy-departposlat  Interpret departPosLat for walks
                                         in legacy style
   --pedestrian.striping.walkingarea-detail INT  Generate INT intermediate
@@ -844,8 +846,6 @@ GUI Only Options:
                                         position
   --tracker-interval TIME              The aggregation period for value tracker
                                         windows
-  --osg-view                           Start with an OpenSceneGraph view
-                                        instead of the regular 2D view
   --gui-testing                        Enable overlay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                         GUI-Testing
