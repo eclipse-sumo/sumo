@@ -34,12 +34,12 @@ environment:
           configuration: Release
           cmake_opts: "-DENABLE_JAVA_BINDINGS=0 -DCHECK_OPTIONAL_LIBS=0 -DNETEDIT=0 -A x64"
           PYTHON: C:\Python38-x64
-        - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2022
-          ver: 2022
-          generator: "Ninja"
-          configuration: Release
-          cmake_opts: "-DENABLE_JAVA_BINDINGS=0"
-          PYTHON: C:\Python38-x64
+        # - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2022
+        #   ver: 2022
+        #   generator: "Ninja"
+        #   configuration: Release
+        #   cmake_opts: "-DENABLE_JAVA_BINDINGS=0"
+        #   PYTHON: C:\Python38-x64
 
 install:
     - git clone --depth 1 https://github.com/DLR-TS/SUMOLibraries
