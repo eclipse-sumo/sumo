@@ -1,5 +1,5 @@
 Warning: Removed 1 pt stops because they could not be assigned to the network
-Warning: 11 total messages of type: Ambiguity in turnarounds computation at junction '%'.
+Warning: 9 total messages of type: Ambiguity in turnarounds computation at junction '%'.
 Warning: 18 total messages of type: Ambiguous railway kilometrage direction for way '%' (assuming forward)
 Warning: 7 total messages of type: Cannot assign stop % on edge '%' to pt line '%'. Ignoring!
 Warning: 2 total messages of type: Connection '%_%->%_%' is only %m short.
@@ -16,14 +16,14 @@ Warning: 14 total messages of type: Edge sequence is not consistent with stop se
 Warning: 11 total messages of type: First stop edge '%' is not part of the route of line '%'.
 Warning: 4 total messages of type: Found angle of % degrees at edge '%', segment %.
 Warning: 15 total messages of type: Found sharp turn with radius % at the end of edge '%'.
-Warning: 27 total messages of type: Found sharp turn with radius % at the start of edge '%'.
+Warning: 26 total messages of type: Found sharp turn with radius % at the start of edge '%'.
 Warning: 3 total messages of type: Ignoring restriction relation '%' with unknown to-way.
 Warning: 2 total messages of type: Ignoring restriction relation '%'.
 Warning: 1 total messages of type: Invalid pedestrian topology: crossing '%' across [%] has no target.
 Warning: 12 total messages of type: Last stop edge '%' is not part of the route of line '%'.
 Warning: 2 total messages of type: No connection found between stops on edge '%' and edge '%'.
-Warning: 111 total messages of type: No way found for reference '%' in relation '%'
-Warning: 4 total messages of type: Not joining junctions % (%).
+Warning: 112 total messages of type: No way found for reference '%' in relation '%'
+Warning: 7 total messages of type: Not joining junctions % (%).
 Warning: 4 total messages of type: PT line '%' in relation % seems to be split, only keeping first part.
 Warning: 17 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.
 Warning: 13 total messages of type: PT stop '%' has been moved to edge '%'.
@@ -35,7 +35,7 @@ Warning: 3 total messages of type: The traffic light '%' cannot be adapted to a 
 Warning: 1 total messages of type: The traffic light '%' does not control any links; it will not be build.
 Warning: 3 total messages of type: The traffic light '%' has a high cycle time of %.
 Warning: 2 total messages of type: direction of restriction relation could not be determined%
-Warning: At actuated tlLogic 'cluster_10173804193_10561486887_1876468344_9700774819', actuated phase 4 has no controlling detector.
+Warning: At actuated tlLogic 'cluster_10173804193_10561486885_10567768857_10567768859_#6more', actuated phase 0 has no controlling detector.
 Warning: At actuated tlLogic 'cluster_160503146_1633759809_27411250_311264850_#6more', actuated phase 7 has no controlling detector.
 Warning: At actuated tlLogic 'cluster_21487209_2480337678_29219440_3831343134_#4more', linkIndex 25 has no controlling detector.
 Warning: At actuated tlLogic 'cluster_21487209_2480337678_29219440_3831343134_#4more', linkIndex 26 has no controlling detector.
@@ -67,28 +67,28 @@ Warning: Found sharp turn with radius 8.90 at the start of edge '-105066743'.
 Warning: Found angle of 114.03 degrees at edge '-51784728', segment 0.
 Warning: Found sharp turn with radius 7.52 at the end of edge '-626237088'.
 Warning: Shape for junction '29221595' has distance 26.30 to its given position.
-Warning: Edge '1132681347' is not connected to outgoing edges at junction '10559094830'.
+Warning: Edge '1134043485' is not connected to outgoing edges at junction '10572530864'.
 Warning: The rail crossing '10315421457' does not have any roads.
-Warning: Unused state in tlLogic '1275468905', program '0' at tl-index 4
-Warning: 11 total messages of type: Ambiguity in turnarounds computation at junction '%'.
+Warning: Unused state in tlLogic '10567769016', program '0' at tl-index 2
+Warning: 9 total messages of type: Ambiguity in turnarounds computation at junction '%'.
 Warning: 2 total messages of type: Edge '%' is not connected to outgoing edges at junction '%'.
 Warning: 4 total messages of type: Found angle of % degrees at edge '%', segment %.
 Warning: 15 total messages of type: Found sharp turn with radius % at the end of edge '%'.
-Warning: 27 total messages of type: Found sharp turn with radius % at the start of edge '%'.
+Warning: 26 total messages of type: Found sharp turn with radius % at the start of edge '%'.
 Warning: 2 total messages of type: Shape for junction '%' has distance % to its given position.
 Warning: 63 total messages of type: The rail crossing '%' does not have any roads.
-Warning: 78 total messages of type: Unused state in tlLogic '%', program '%' at tl-index %
-Warning: Ambiguity in turnarounds computation at junction '10559094682'.
-Warning: Found sharp turn with radius 8.80 at the start of edge '1132678923'.
-Warning: Found sharp turn with radius 5.94 at the end of edge '1132682863'.
+Warning: 80 total messages of type: Unused state in tlLogic '%', program '%' at tl-index %
+Warning: Ambiguity in turnarounds computation at junction '10572530716'.
+Warning: Found sharp turn with radius 8.80 at the start of edge '1134041023'.
+Warning: Found sharp turn with radius 5.94 at the end of edge '1134044996'.
 Warning: Shape for junction '29221595' has distance 26.30 to its given position.
-Warning: Non-static traffic light '3153666983' does not define variable phase length.
-Warning: Unused state in tlLogic '1275468905', program '0' at tl-index 4
+Warning: Non-static traffic light '10567769017' does not define variable phase length.
+Warning: Unused state in tlLogic '10567769016', program '0' at tl-index 2
 Warning: 2 total messages of type: Ambiguity in turnarounds computation at junction '%'.
 Warning: 3 total messages of type: Found sharp turn with radius % at the start of edge '%'.
-Warning: 28 total messages of type: Non-static traffic light '%' does not define variable phase length.
+Warning: 30 total messages of type: Non-static traffic light '%' does not define variable phase length.
 Warning: 2 total messages of type: Shape for junction '%' has distance % to its given position.
-Warning: 78 total messages of type: Unused state in tlLogic '%', program '%' at tl-index %
+Warning: 80 total messages of type: Unused state in tlLogic '%', program '%' at tl-index %
 Warning: Non-static traffic light 'cluster_10301760524_25954547_29221622_9044259979_#4more' does not define variable phase length.
 Warning: Unused state in tlLogic '3918673906', program '0' at tl-index 2
 Warning: 31 total messages of type: Non-static traffic light '%' does not define variable phase length.
@@ -114,14 +114,14 @@ Warning! Disconnected route '226300' between '625843712' and '4773464#0', no pat
 Warning! Disconnected route '235007' between '305093247#2' and '23386522#0', no path found. Keeping longer part.
 Warning! Disconnected route '235160' between '82652397#1' and '-4612431#1', no path found. Keeping longer part.
 Warning! Disconnected route '235167' between '82652397#1' and '-4612431#1', no path found. Keeping longer part.
-Warning! Fixed connection 235175 43
-Warning! Disconnected route '235175' between '82652397#1' and '60333313', no path found. Keeping longer part.
-Warning! Fixed connection 235177 43
-Warning! Disconnected route '235177' between '82652397#1' and '60333313', no path found. Keeping longer part.
-Warning! Disconnected route '236031' between '82652397#1' and '60333313', no path found. Keeping longer part.
+Warning! Fixed connection 235175 44
+Warning! Disconnected route '235175' between '82652397#1' and '1133457765#0', no path found. Keeping longer part.
+Warning! Fixed connection 235177 44
+Warning! Disconnected route '235177' between '82652397#1' and '1133457765#0', no path found. Keeping longer part.
+Warning! Disconnected route '236031' between '82652397#1' and '1133457765#0', no path found. Keeping longer part.
 Warning! Disconnected route '53641' between '625843712' and '4773464#0', no path found. Keeping longer part.
 Warning! Disconnected route '236599' between '82652397#1' and '-4612431#1', no path found. Keeping longer part.
-Warning! Fixed connection 236633 43
+Warning! Fixed connection 236633 44
 Warning! Disconnected route '236633' between '82652397#1' and '312533962#0', no path found. Keeping longer part.
 Warning! Disconnected route '237460' between '195104960#3' and '24240246#0', no path found. Keeping longer part.
 Warning! Disconnected route '238053' between '24913304#4' and '195104960#3', no path found. Keeping longer part.
