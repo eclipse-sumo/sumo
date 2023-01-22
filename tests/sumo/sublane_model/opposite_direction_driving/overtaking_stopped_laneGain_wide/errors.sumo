@@ -1,3 +1,1 @@
 Warning: Vehicle 'overtaking'; frontal collision with vehicle 'stopped', lane=':C_1_1', gap=-1.00', latGap=0.00, time=8.50 stage=move.
-Warning: Vehicle 'overtaking' performs emergency braking on lane ':C_1_1' with decel=9.00, wished=4.50, severity=1.00, time=10.50.
-Warning: Vehicle 'overtaking'; junction collision with vehicle 'stopped', lane=':C_1_1', gap=-1.00', latGap=0.00, time=108.50 stage=move.
