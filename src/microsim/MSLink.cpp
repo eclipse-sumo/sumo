@@ -1247,7 +1247,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
             const double leaderBackDist = foeDistToCrossing - leaderBack;
             const double l2 = ego != nullptr ? ego->getLength() + 2 : 0; // add some slack to account for further meeting-angle effects
             const double sagitta = ego != nullptr && myRadius != std::numeric_limits<double>::max() ? myRadius - sqrt(myRadius * myRadius - 0.25 * l2 * l2) : 0;
-            const bool pastTheCrossingPoint = leaderBackDist + foeCrossingWidth  + sagitta < 0;
+            const bool pastTheCrossingPoint = leaderBackDist + foeCrossingWidth + sagitta < 0;
             const bool foeIsBicycleTurn = (leader->getVehicleType().getVehicleClass() == SVC_BICYCLE
                                            && foeLane->getIncomingLanes().front().viaLink->getDirection() == LinkDirection::LEFT);
             const bool ignoreIndirectBicycleTurn = pastTheCrossingPoint && foeIsBicycleTurn;
@@ -1295,6 +1295,14 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                 }
                 continue;
             }
+            if (!MSGlobals::gComputeLC && sameSource && ego->getLane() == myInternalLaneBefore && leaderBack + leader->getLength() < ego->getPositionOnLane() - ego->getLength()) {
+                // ego is already on the junction and clearly ahead of foe
+                if (gDebugFlag1) {
+                    std::cout << "   ego ahead of same-source foe\n";
+                }
+                continue;
+            }
+
             // ignore foe vehicles that will not pass
             if ((!cannotIgnore || leader->isStopped() || sameTarget)
                     && !willPass
