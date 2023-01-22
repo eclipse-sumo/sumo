@@ -21,3 +21,6 @@ ticket12398c
 
 # emergency braking at ped crossing
 ticket12455
+
+# emergency braking on junction due to invalid junction leader
+ticket12511
