@@ -21,6 +21,7 @@ Methods available: exhaustive_search and simple_rerouting
 Track progress https://github.com/eclipse/sumo/issues/8256
 """
 
+from __future__ import print_function
 import os
 import sys
 try:

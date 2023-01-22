@@ -20,6 +20,7 @@ Simulate Demand Responsive Transport via TraCi
 Track progress https://github.com/eclipse/sumo/issues/8256
 """
 
+from __future__ import print_function
 import os
 import sys
 from argparse import ArgumentParser
