@@ -347,10 +347,8 @@ def keepNumeric(d, xyIndex):
         if isnumeric(d[xyIndex][i]):
             res_x.append(d[0][i])
             res_y.append(d[1][i])
-    d[0].clear()
-    d[0].extend(res_x)
-    d[1].clear()
-    d[1].extend(res_y)
+    d[0][:] = res_x
+    d[1][:] = res_y
 
 
 def useWildcards(labels):
@@ -385,10 +383,8 @@ def applyTicks(d, xyIndex, ticksFile):
             res_x.append(point[0])
             res_y.append(point[1])
 
-    d[0].clear()
-    d[0].extend(res_x)
-    d[1].clear()
-    d[1].extend(res_y)
+    d[0][:] = res_x
+    d[1][:] = res_y
 
 
 def main(options):
