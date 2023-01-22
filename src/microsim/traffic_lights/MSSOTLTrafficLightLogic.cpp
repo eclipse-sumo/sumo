@@ -38,8 +38,8 @@ MSSOTLTrafficLightLogic::MSSOTLTrafficLightLogic(
     const Phases& phases,
     int step,
     SUMOTime delay,
-    const Parameterised::Map& parameters)
-    : MSPhasedTrafficLightLogic(tlcontrol, id, programID, 0, logicType, phases, step, delay, parameters) {
+    const Parameterised::Map& parameters) :
+    MSSimpleTrafficLightLogic(tlcontrol, id, programID, 0, logicType, phases, step, delay, parameters) {
     this->mySensors = nullptr;
     this->myCountSensors = nullptr;
     sensorsSelfBuilt = true;
@@ -57,8 +57,8 @@ MSSOTLTrafficLightLogic::MSSOTLTrafficLightLogic(
     int step,
     SUMOTime delay,
     const Parameterised::Map& parameters,
-    MSSOTLSensors* sensors)
-    : MSPhasedTrafficLightLogic(tlcontrol, id, programID, 0, logicType, phases, step, delay, parameters) {
+    MSSOTLSensors* sensors) :
+    MSSimpleTrafficLightLogic(tlcontrol, id, programID, 0, logicType, phases, step, delay, parameters) {
     this->mySensors = sensors;
     sensorsSelfBuilt = false;
     checkPhases();
@@ -72,9 +72,6 @@ MSSOTLTrafficLightLogic::~MSSOTLTrafficLightLogic() {
             delete *vIt;
         }
     m_pushButtons.clear();
-    for (int i = 0; i < (int)myPhases.size(); i++) {
-        delete myPhases[i];
-    }
     if (sensorsSelfBuilt) {
         delete mySensors;
 //		delete myCountSensors;
@@ -508,3 +505,11 @@ bool MSSOTLTrafficLightLogic::isPushButtonPressed() {
     return MSPushButton::anyActive(m_pushButtons[currentPhase.getState()]);
 }
 
+
+void MSSOTLTrafficLightLogic::setStep(int step) {
+    step = step % myPhases.size();
+    if (myStep != step) {
+        myStep = step;
+        myPhases[myStep]->myLastSwitch = MSNet::getInstance()->getCurrentTimeStep();
+    }
+}

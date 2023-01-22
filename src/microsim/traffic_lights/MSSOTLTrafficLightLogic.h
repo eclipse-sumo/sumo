@@ -25,8 +25,8 @@
 #include <utils/common/RandHelper.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/SUMOTime.h>
+#include "MSSimpleTrafficLightLogic.h"
 #include "MSSOTLDefinitions.h"
-#include "MSPhasedTrafficLightLogic.h"
 #include "MSSOTLE2Sensors.h"
 
 
@@ -52,7 +52,7 @@ class MSPushButton;
  * Basically a SOTL logic overrides the natural flow of steps in order and length
  * according to sensors on input (and output) lanes
  */
-class MSSOTLTrafficLightLogic: public MSPhasedTrafficLightLogic {
+class MSSOTLTrafficLightLogic: public MSSimpleTrafficLightLogic {
 public:
     // typedef int CTS;
 
@@ -191,6 +191,8 @@ protected:
 
     }
 
+    /// @brief Forces a specific step
+    void setStep(int step);
 
 private:
     /*
