@@ -38,19 +38,19 @@ netedit.changeElement("busStop")
 netedit.changeColorUsingDialog(netedit.attrs.busStop.create.colorButton, 5)
 
 # try to create busStop
-netedit.leftClick(referencePosition, 250, 250)
+netedit.leftClick(referencePosition, 250, 240)
 
 # set invalid person number
 netedit.changeDefaultValue(netedit.attrs.busStop.create.color, "Vlue")
 
 # try to create busStop
-netedit.leftClick(referencePosition, 260, 250)
+netedit.leftClick(referencePosition, 260, 240)
 
 # set invalid person number
 netedit.changeDefaultValue(netedit.attrs.busStop.create.color, "red")
 
 # create busStop in mode "reference left"
-netedit.leftClick(referencePosition, 270, 250)
+netedit.leftClick(referencePosition, 270, 240)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

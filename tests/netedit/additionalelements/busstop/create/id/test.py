@@ -35,25 +35,25 @@ netedit.additionalMode()
 netedit.changeElement("busStop")
 
 # create busStop in mode "reference left"
-netedit.leftClick(referencePosition, 250, 250)
+netedit.leftClick(referencePosition, 250, 240)
 
 # set invalid ID (duplicated
 netedit.changeDefaultValue(netedit.attrs.busStop.create.id, ";;;;;;;;;;;;;;;;")
 
 # create busStop in mode "reference left"
-netedit.leftClick(referencePosition, 255, 250)
+netedit.leftClick(referencePosition, 255, 240)
 
 # set invalid ID (duplicated
 netedit.changeDefaultValue(netedit.attrs.busStop.create.id, "bs_0")
 
 # create busStop in mode "reference left"
-netedit.leftClick(referencePosition, 260, 250)
+netedit.leftClick(referencePosition, 260, 240)
 
 # set invalid ID (duplicated
 netedit.changeDefaultValue(netedit.attrs.busStop.create.id, "custom_ID")
 
 # create busStop in mode "reference left"
-netedit.leftClick(referencePosition, 270, 250)
+netedit.leftClick(referencePosition, 270, 240)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)
