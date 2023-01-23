@@ -56,8 +56,8 @@ netedit.leftClick(referencePosition, 465, 333)
 netedit.leftClick(referencePosition, 465, 333)
 netedit.leftClick(referencePosition, 555, 100)
 
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)
