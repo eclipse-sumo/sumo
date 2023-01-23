@@ -1,6 +1,9 @@
 single
 multiple
 reactiondist
+
+# change probability of reacting
+reactprob
 short_edge
 
 # blocking vehicle just finished a turnaround and is standing on a short edge
