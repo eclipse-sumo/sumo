@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-27 14:09:59 by Eclipse SUMO netedit Version v1_14_1+2004-bd823dceeab
+<!-- generated on 2023-01-23 16:30:34 by Eclipse SUMO netedit Version v1_15_0+1826-58ab4d0b50b
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Oct140621.7564\netedit.gui\netelements\junctions\inspect_tls_selected\tllayout\incoming\input_net.net.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.23Jan142342.5664/netedit.daily.net.junctions/netelements/junctions/inspect_tls_selected/tllayout/incoming/additionals.add.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.23Jan142342.5664/netedit.daily.net.junctions/netelements/junctions/inspect_tls_selected/tllayout/incoming/routes.rou.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.23Jan142342.5664/netedit.daily.net.junctions/netelements/junctions/inspect_tls_selected/tllayout/incoming/datas.dat.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.23Jan142342.5664/netedit.daily.net.junctions/netelements/junctions/inspect_tls_selected/tllayout/incoming/net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Oct140621.7564\netedit.gui\netelements\junctions\inspect_tls_selected\tllayout\incoming\net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.23Jan142342.5664/netedit.daily.net.junctions/netelements/junctions/inspect_tls_selected/tllayout/incoming/net.net.xml"/>
     </output>
 
     <processing>
@@ -30,27 +33,19 @@
         <walkingareas value="0"/>
     </pedestrian>
 
-    <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Oct140621.7564\netedit.gui\netelements\junctions\inspect_tls_selected\tllayout\incoming\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Oct140621.7564\netedit.gui\netelements\junctions\inspect_tls_selected\tllayout\incoming\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Oct140621.7564\netedit.gui\netelements\junctions\inspect_tls_selected\tllayout\incoming\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Oct140621.7564\netedit.gui\netelements\junctions\inspect_tls_selected\tllayout\incoming\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Oct140621.7564\netedit.gui\netelements\junctions\inspect_tls_selected\tllayout\incoming\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Oct140621.7564\netedit.gui\netelements\junctions\inspect_tls_selected\tllayout\incoming\datas.xml"/>
-    </netedit>
-
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Oct140621.7564\netedit.gui\netelements\junctions\inspect_tls_selected\tllayout\incoming\gui-settings.xml"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.23Jan142342.5664/netedit.daily.net.junctions/netelements/junctions/inspect_tls_selected/tllayout/incoming/gui-settings.xml"/>
         <window-size value="936, 697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Oct140621.7564\netedit.gui\netelements\junctions\inspect_tls_selected\tllayout\incoming\guisettingsoutput.xml"/>
+        <gui-testing-debug-gl value="true"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.23Jan142342.5664/netedit.daily.net.junctions/netelements/junctions/inspect_tls_selected/tllayout/incoming/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Oct140621.7564\netedit.gui\netelements\junctions\inspect_tls_selected\tllayout\incoming\log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.net.junctions.23Jan142342.5664/netedit.daily.net.junctions/netelements/junctions/inspect_tls_selected/tllayout/incoming/log.txt"/>
     </report>
 
 </configuration>
@@ -224,16 +219,18 @@
         <phase duration="5"  state="r"/>
     </tlLogic>
     <tlLogic id="Center" type="actuated" programID="0" offset="0">
-        <phase duration="13" state="gGGgGrrrrrrrrrrrrrrrGG" minDur="5" maxDur="50"/>
+        <phase duration="14" state="gGGgGrrrrrrrrrrrrrrrGG" minDur="5" maxDur="50"/>
         <phase duration="5"  state="gGGgGrrrrrrrrrrrrrrrrr"/>
         <phase duration="3"  state="yyyyyrrrrrrrrrrrrrrrrr"/>
-        <phase duration="20" state="rrrrrGGGGGrrrrrrrrrrrr" minDur="5" maxDur="50"/>
+        <phase duration="19" state="rrrrrGGGGGrrrrrrrrrrrr" minDur="5" maxDur="50"/>
         <phase duration="3"  state="rrrrryyyyyrrrrrrrrrrrr"/>
-        <phase duration="15" state="rrrrrrrrrrgGGgGrrrrrGG" minDur="5" maxDur="50"/>
+        <phase duration="1"  state="rrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="14" state="rrrrrrrrrrgGGgGrrrrrGG" minDur="5" maxDur="50"/>
         <phase duration="5"  state="rrrrrrrrrrgGGgGrrrrrrr"/>
         <phase duration="3"  state="rrrrrrrrrryyyyyrrrrrrr"/>
-        <phase duration="20" state="rrrrrrrrrrrrrrrGGGGGrr" minDur="5" maxDur="50"/>
+        <phase duration="19" state="rrrrrrrrrrrrrrrGGGGGrr" minDur="5" maxDur="50"/>
         <phase duration="3"  state="rrrrrrrrrrrrrrryyyyyrr"/>
+        <phase duration="1"  state="rrrrrrrrrrrrrrrrrrrrrr"/>
     </tlLogic>
     <tlLogic id="D" type="static" programID="0" offset="0">
         <phase duration="82" state="G"/>

@@ -95,8 +95,6 @@ Debug: Adding stopPerson: edge 'p_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding stopPerson: edge 'p_0' in GNEChange_DemandElement
-Debug: demand elements saved
-Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -10.00,-16.40,10.00,13.20
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 42.10,-16.40,76.40,14.70
@@ -134,6 +132,8 @@ GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary -10.00,-10.00,70.00,1
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
 Debug: network elements saved
+Debug: Additionals saved
+Debug: demand elements saved
 Debug: Deleting unreferenced stopPerson: edge
 Debug: Deleting unreferenced stopPerson: edge
 Debug: Deleting unreferenced stopPerson: edge
