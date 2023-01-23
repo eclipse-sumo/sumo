@@ -71,11 +71,8 @@ netedit.checkDoubleParameters(referencePosition, netedit.attrs.TAZRelData.inspec
 # save data elements
 netedit.saveDatas(referencePosition, True, 0, 30)
 
-# save network
+# save Netedit config
 netedit.saveNetwork(referencePosition, True, 0, 30)
-
-# save additionals
-netedit.saveAdditionals(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -61,7 +61,7 @@ netedit.redo(referencePosition, 1, 0, 30)
 # save data elements
 netedit.saveDatas(referencePosition, True, 0, 30)
 
-# save network
+# save Netedit config
 netedit.saveNetwork(referencePosition, True, 0, 30)
 
 # quit netedit
