@@ -1578,7 +1578,7 @@ GNEApplicationWindow::loadOptionOnStartup() {
             myMenuBarFile.myRecentNetworks.appendFile(neteditOptions.getString("net-file").c_str());
         }
         if (neteditOptions.getString("configuration-file").size() > 0) {
-            myMenuBarFile.myRecentNetworks.appendFile(neteditOptions.getString("net-file").c_str());
+            myMenuBarFile.myRecentConfigs.appendFile(neteditOptions.getString("configuration-file").c_str());
         }
     }
 }
@@ -1608,49 +1608,57 @@ GNEApplicationWindow::createNewNetwork() {
 
 void
 GNEApplicationWindow::loadNetwork(const std::string &networkFile) {
-    auto& neteditOptions = OptionsCont::getOptions();
-    // store size, position and viewport
-    storeWindowSizeAndPos();
-    gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
-    // set flag
-    myAmLoading = true;
-    // fill (reset) all options
-    myLoadThread->fillOptions(neteditOptions);
-    // set default options defined in GNELoadThread::setDefaultOptions(...)
-    myLoadThread->setDefaultOptions(neteditOptions);
-    // set file to load
-    neteditOptions.resetWritable();
-    neteditOptions.set("net-file", networkFile);
-    // set status bar
-    setStatusBarText("Loading network file '" + networkFile + "'");
-    // load network
-    myLoadThread->loadNetworkOrConfig();
-    // add it into recent nets
-    myMenuBarFile.myRecentNetworks.appendFile(networkFile.c_str());
+    if (networkFile.empty()) {
+        WRITE_ERROR(TL("Trying to load an empty network"));
+    } else {
+        auto& neteditOptions = OptionsCont::getOptions();
+        // store size, position and viewport
+        storeWindowSizeAndPos();
+        gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
+        // set flag
+        myAmLoading = true;
+        // fill (reset) all options
+        myLoadThread->fillOptions(neteditOptions);
+        // set default options defined in GNELoadThread::setDefaultOptions(...)
+        myLoadThread->setDefaultOptions(neteditOptions);
+        // set file to load
+        neteditOptions.resetWritable();
+        neteditOptions.set("net-file", networkFile);
+        // set status bar
+        setStatusBarText("Loading network file '" + networkFile + "'");
+        // load network
+        myLoadThread->loadNetworkOrConfig();
+        // add it into recent nets
+        myMenuBarFile.myRecentNetworks.appendFile(networkFile.c_str());
+    }
 }
 
 
 void
 GNEApplicationWindow::loadConfiguration(const std::string &configurationFile) {
-    auto& neteditOptions = OptionsCont::getOptions();
-    // store size, position and viewport
-    storeWindowSizeAndPos();
-    gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
-    // set flag
-    myAmLoading = true;
-    // fill (reset) all options
-    myLoadThread->fillOptions(neteditOptions);
-    // set default options defined in GNELoadThread::setDefaultOptions(...)
-    myLoadThread->setDefaultOptions(neteditOptions);
-    // set file to load
-    neteditOptions.resetWritable();
-    neteditOptions.set("configuration-file", configurationFile);
-    // set status bar
-    setStatusBarText("Loading configuration file '" + configurationFile + "'");
-    // load config
-    myLoadThread->loadNetworkOrConfig();
-    // add it into recent configs
-    myMenuBarFile.myRecentNetworks.appendFile(configurationFile.c_str());
+    if (configurationFile.empty()) {
+        WRITE_ERROR(TL("Trying to load an empty configuration"));
+    } else {
+        auto& neteditOptions = OptionsCont::getOptions();
+        // store size, position and viewport
+        storeWindowSizeAndPos();
+        gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
+        // set flag
+        myAmLoading = true;
+        // fill (reset) all options
+        myLoadThread->fillOptions(neteditOptions);
+        // set default options defined in GNELoadThread::setDefaultOptions(...)
+        myLoadThread->setDefaultOptions(neteditOptions);
+        // set file to load
+        neteditOptions.resetWritable();
+        neteditOptions.set("configuration-file", configurationFile);
+        // set status bar
+        setStatusBarText("Loading configuration file '" + configurationFile + "'");
+        // load config
+        myLoadThread->loadNetworkOrConfig();
+        // add it into recent configs
+        myMenuBarFile.myRecentConfigs.appendFile(configurationFile.c_str());
+    }
 }
 
 
