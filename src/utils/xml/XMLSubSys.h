@@ -135,10 +135,11 @@ public:
      * @param[in] file    The file to run the parser at
      * @param[in] isNet   whether a network gets loaded
      * @param[in] isRoute whether routes get loaded
+     * @param[in] isExternal whether it is an external file like matsim or opendrive
      * @return true if the parsing was done without errors, false otherwise (error was printed)
      */
     static bool runParser(GenericSAXHandler& handler, const std::string& file,
-                          const bool isNet = false, const bool isRoute = false);
+                          const bool isNet = false, const bool isRoute = false, const bool isExternal = false);
 
 
 private:

@@ -174,7 +174,7 @@ bool NIImporter_OpenDrive::myImportInternalShapes;
 // ---------------------------------------------------------------------------
 void
 NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
-    // check whether the option is set (properly)
+    // check whether the option is set properly and all files exist
     if (!oc.isUsableFileList("opendrive-files")) {
         return;
     }
@@ -191,15 +191,10 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     NIImporter_OpenDrive handler(nb.getTypeCont(), edges);
     handler.needsCharacterData();
     // parse file(s)
-    std::vector<std::string> files = oc.getStringVector("opendrive-files");
-    for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
-        if (!FileHelpers::isReadable(*file)) {
-            WRITE_ERROR("Could not open opendrive file '" + *file + "'.");
-            return;
-        }
-        handler.setFileName(*file);
-        PROGRESS_BEGIN_MESSAGE("Parsing opendrive from '" + *file + "'");
-        XMLSubSys::runParser(handler, *file);
+    for (const std::string& file : oc.getStringVector("opendrive-files")) {
+        handler.setFileName(file);
+        PROGRESS_BEGIN_MESSAGE("Parsing opendrive from '" + file + "'");
+        XMLSubSys::runParser(handler, file, false, false, true);
         PROGRESS_DONE_MESSAGE();
     }
     // apply signal reference information

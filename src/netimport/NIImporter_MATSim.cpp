@@ -82,24 +82,19 @@ StringBijection<int>::Entry NIImporter_MATSim::matsimAttrs[] = {
 // ---------------------------------------------------------------------------
 void
 NIImporter_MATSim::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
-    // check whether the option is set (properly)
-    if (!oc.isSet("matsim-files")) {
+    // check whether the option is set properly and all files exist
+    if (!oc.isUsableFileList("matsim-files")) {
         return;
     }
     /* Parse file(s)
      * Each file is parsed twice: first for nodes, second for edges. */
-    std::vector<std::string> files = oc.getStringVector("matsim-files");
+    const std::vector<std::string> files = oc.getStringVector("matsim-files");
     // load nodes, first
     NodesHandler nodesHandler(nb.getNodeCont());
-    for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
-        // nodes
-        if (!FileHelpers::isReadable(*file)) {
-            WRITE_ERROR("Could not open matsim-file '" + *file + "'.");
-            return;
-        }
-        nodesHandler.setFileName(*file);
-        PROGRESS_BEGIN_MESSAGE("Parsing nodes from matsim-file '" + *file + "'");
-        if (!XMLSubSys::runParser(nodesHandler, *file)) {
+    for (const std::string& file : files) {
+        nodesHandler.setFileName(file);
+        PROGRESS_BEGIN_MESSAGE("Parsing nodes from matsim-file '" + file + "'");
+        if (!XMLSubSys::runParser(nodesHandler, file, false, false, true)) {
             return;
         }
         PROGRESS_DONE_MESSAGE();
@@ -107,11 +102,10 @@ NIImporter_MATSim::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // load edges, then
     EdgesHandler edgesHandler(nb.getNodeCont(), nb.getEdgeCont(), oc.getBool("matsim.keep-length"),
                               oc.getBool("matsim.lanes-from-capacity"), NBCapacity2Lanes(oc.getFloat("lanes-from-capacity.norm")));
-    for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
-        // edges
-        edgesHandler.setFileName(*file);
-        PROGRESS_BEGIN_MESSAGE("Parsing edges from matsim-file '" + *file + "'");
-        XMLSubSys::runParser(edgesHandler, *file);
+    for (const std::string& file : files) {
+        edgesHandler.setFileName(file);
+        PROGRESS_BEGIN_MESSAGE("Parsing edges from matsim-file '" + file + "'");
+        XMLSubSys::runParser(edgesHandler, file, false, false, true);
         PROGRESS_DONE_MESSAGE();
     }
 }

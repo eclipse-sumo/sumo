@@ -86,7 +86,28 @@ XMLSubSys::setValidation(const std::string& validationScheme, const std::string&
 #endif
         const char* sumoPath = std::getenv("SUMO_HOME");
         if (sumoPath == nullptr) {
-            WRITE_WARNING(TL("Environment variable SUMO_HOME is not set, XML validation will fail or use slow website lookups."));
+            bool needWarning = true;
+            if (validationScheme == "local") {
+                WRITE_WARNING(TL("Environment variable SUMO_HOME is not set, disabling XML validation. Set 'auto' or 'always' for web lookups."));
+                myValidationScheme = "never";
+            }
+            if (netValidationScheme == "local") {
+                if (needWarning) {
+                    WRITE_WARNING(TL("Environment variable SUMO_HOME is not set, disabling XML validation. Set 'auto' or 'always' for web lookups."));
+                    needWarning = false;
+                }
+                myNetValidationScheme = "never";
+            }
+            if (routeValidationScheme == "local") {
+                if (needWarning) {
+                    WRITE_WARNING(TL("Environment variable SUMO_HOME is not set, disabling XML validation. Set 'auto' or 'always' for web lookups."));
+                    needWarning = false;
+                }
+                myRouteValidationScheme = "never";
+            }
+            if (needWarning) {
+                WRITE_WARNING(TL("Environment variable SUMO_HOME is not set, XML validation will fail or use slow website lookups."));
+            }
             return;
         }
         if (StringUtils::startsWith(sumoPath, "http:") || StringUtils::startsWith(sumoPath, "https:") || StringUtils::startsWith(sumoPath, "ftp:")) {
@@ -135,12 +156,15 @@ XMLSubSys::setHandler(GenericSAXHandler& handler) {
 
 bool
 XMLSubSys::runParser(GenericSAXHandler& handler, const std::string& file,
-                     const bool isNet, const bool isRoute) {
+                     const bool isNet, const bool isRoute, const bool isExternal) {
     MsgHandler::getErrorInstance()->clear();
     try {
         std::string validationScheme = isNet ? myNetValidationScheme : myValidationScheme;
         if (isRoute) {
             validationScheme = myRouteValidationScheme;
+        }
+        if (isExternal && validationScheme == "local") {
+            validationScheme = "never";
         }
         if (myNextFreeReader == (int)myReaders.size()) {
             myReaders.push_back(new SUMOSAXReader(handler, validationScheme, myGrammarPool));
