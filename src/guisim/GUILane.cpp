@@ -580,7 +580,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                     halfGauge *= 0.4;
                 }
                 const double halfInnerFeetWidth = halfGauge - 0.039 * exaggeration;
-                const double halfRailWidth = detailZoom ? (halfInnerFeetWidth + 0.15 * exaggeration) : SUMO_const_halfLaneWidth;
+                const double halfRailWidth = detailZoom ? (halfInnerFeetWidth + 0.15 * exaggeration) : SUMO_const_halfLaneWidth * exaggeration;
                 const double halfCrossTieWidth = halfGauge * 1.81;
                 if (myShapeColors.size() > 0) {
                     GLHelper::drawBoxLines(shape, myShapeRotations, myShapeLengths, myShapeColors, halfRailWidth);
