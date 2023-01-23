@@ -4483,11 +4483,17 @@ GNEApplicationWindow::loadElements() {
     for (const auto &meanDataFiles : neteditOptions.getStringVector("meandata-files")) {
         files.push_back(meanDataFiles);
     }
-    // clear options
+    // use first file as output
     neteditOptions.resetWritable();
-    neteditOptions.set("additional-files", "");
-    neteditOptions.set("route-files", "");
-    neteditOptions.set("meandata-files", "");
+    if (neteditOptions.getStringVector("additional-files").size() > 0) {
+        neteditOptions.set("additional-files", neteditOptions.getStringVector("additional-files").front());
+    }
+    if (neteditOptions.getStringVector("route-files").size() > 0) {
+        neteditOptions.set("route-files", neteditOptions.getStringVector("route-files").front());
+    }
+    if (neteditOptions.getStringVector("meandata-files").size() > 0) {
+        neteditOptions.set("meandata-files", neteditOptions.getStringVector("meandata-files").front());
+    }
     // continue depending of network and additional files
     if (myNet && (files.size() > 0)) {
         // begin undolist
