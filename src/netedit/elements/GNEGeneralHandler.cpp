@@ -143,11 +143,11 @@ GNEGeneralHandler::endTag() {
     } else if (myQueue.back().isMeanData()) {
         // end parse meanData elements
         myMeanDataHandler.endParseAttributes();
-        // mark file as demand
+        // mark file as mean data
         fileType = TagType::Type::MEANDATA;
     } else {
-        WRITE_ERROR(toString(myQueue.back().tag) + " cannot be processed either " +
-                    "with additional handler nor with demand handler nor with meanData handler");
+        // mark file as demand
+        fileType = TagType::Type::NONE;
     }
 }
 

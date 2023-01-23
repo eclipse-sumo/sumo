@@ -54,6 +54,8 @@ MeanDataHandler::beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes& a
                 WRITE_WARNING(TL("MeanData elements cannot load attributes as params"));
                 break;
             default:
+                // tag cannot be parsed in MeanDataHandler
+                return false;
                 break;
         }
     } catch (InvalidArgument& e) {
