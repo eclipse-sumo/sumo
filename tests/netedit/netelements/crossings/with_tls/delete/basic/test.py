@@ -44,8 +44,8 @@ netedit.leftClick(referencePosition, 410, 225)
 netedit.undo(referencePosition, 2)
 netedit.redo(referencePosition, 2)
 
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

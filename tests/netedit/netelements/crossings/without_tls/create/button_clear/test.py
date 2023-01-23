@@ -42,8 +42,8 @@ netedit.leftClick(referencePosition, 150, 200)
 netedit.leftClick(referencePosition, 150, 250)
 netedit.crossingClearEdges()
 
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

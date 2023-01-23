@@ -35,8 +35,8 @@ netedit.rebuildNetwork()
 # wait 30 seconds (for slow computers)
 time.sleep(30)
 
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # wait 30 seconds (for slow computers)
 time.sleep(30)

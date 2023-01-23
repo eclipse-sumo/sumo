@@ -46,8 +46,8 @@ netedit.createCrossing(True)
 netedit.modifyCrossingDefaultValue(netedit.attrs.crossing.createTLS.edges, "3 7")
 netedit.createCrossing(True)
 
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # press space to fix crossings
 netedit.typeSpace()

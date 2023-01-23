@@ -48,8 +48,8 @@ netedit.undo(referencePosition, 1)
 netedit.rebuildNetwork()
 netedit.redo(referencePosition, 1)
 
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # press space to fix crossings
 netedit.typeSpace()

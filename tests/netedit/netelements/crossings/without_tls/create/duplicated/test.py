@@ -46,8 +46,8 @@ netedit.createCrossing(False)
 netedit.modifyCrossingDefaultValue(netedit.attrs.crossing.create.edges, "3 7")
 netedit.createCrossing(False)
 
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

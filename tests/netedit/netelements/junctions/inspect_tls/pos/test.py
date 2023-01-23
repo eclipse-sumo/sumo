@@ -83,14 +83,11 @@ netedit.rebuildNetwork()
 # wait for output
 time.sleep(10)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
 # Fix stopping places position
 netedit.fixStoppingPlace("fixPositions")
 
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

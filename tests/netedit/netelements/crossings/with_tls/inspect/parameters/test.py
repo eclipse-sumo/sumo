@@ -43,8 +43,8 @@ netedit.leftClick(referencePosition, 250, 225)
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.crossing.inspectTLS.parameters, True)
 
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

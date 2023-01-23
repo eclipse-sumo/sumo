@@ -41,8 +41,8 @@ netedit.leftClick(referencePosition, 325, 225)
 netedit.modifyCrossingDefaultValue(netedit.attrs.crossing.create.edges, "4")
 netedit.createCrossing(False)
 
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # press space to fix crossings
 netedit.typeSpace()

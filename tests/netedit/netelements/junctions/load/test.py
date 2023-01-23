@@ -34,11 +34,8 @@ netedit.forceSaveAdditionals()
 # Rebuild network
 netedit.rebuildNetwork()
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

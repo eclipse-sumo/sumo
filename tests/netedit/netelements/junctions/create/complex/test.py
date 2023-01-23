@@ -84,8 +84,8 @@ netedit.rebuildNetwork()
 netedit.undo(referencePosition, 16)
 netedit.redo(referencePosition, 16)
 
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)
