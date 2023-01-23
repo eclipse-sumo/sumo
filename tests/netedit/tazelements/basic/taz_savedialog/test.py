@@ -34,8 +34,8 @@ netedit.TAZMode()
 # create TAZ
 netedit.createSquaredTAZ(referencePosition, 181, 129, 200, True)
 
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit without saving TAZs
 netedit.quit(neteditProcess, False, False, False, False, True, True)

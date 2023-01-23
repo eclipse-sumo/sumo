@@ -47,10 +47,8 @@ netedit.leftClick(referencePosition, 115, 70)
 netedit.checkParameters(referencePosition, netedit.attrs.TAZ.inspectSelection.parameters, False)
 
 # save TAZs
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -45,10 +45,8 @@ netedit.undo(referencePosition, 2)
 netedit.redo(referencePosition, 2)
 
 # save TAZs
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)
