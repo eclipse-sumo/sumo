@@ -2,109 +2,68 @@ Warning: Vehicle 'flowA.5' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.9' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.33' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.34' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.5' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.54' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.73' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.81' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.10' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.12' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.14' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.122' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.17' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.139' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.140' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.151' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.22' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.187' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.200' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.26' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.27' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.212' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.214' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.30' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.33' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.251' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.271' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.273' will not be able to arrive with the given speed!
-Warning: Choosing new speed factor 1.22 for vehicle 'flowA.273' to match departure speed 12.00 (max 11.81).
+Warning: Choosing new speed factor 1.22 for vehicle 'flowA.271' to match departure speed 12.00 (max 11.94).
 Warning: Vehicle 'flowA.287' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.290' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.37' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.38' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.39' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.333' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.44' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.46' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.366' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.48' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.49' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.372' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.374' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.50' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.52' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.54' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.398' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.56' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.403' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.58' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.423' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.430' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.435' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.436' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.61' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.439' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.63' will not be able to depart using the given velocity (slow lane ahead)!
-Warning: Choosing new speed factor 1.26 for vehicle 'flowA.439' to match departure speed 12.00 (max 10.46).
 Warning: Vehicle 'flowA.442' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.452' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.66' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.462' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.470' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.67' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.485' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.70' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.487' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.493' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.498' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.500' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.75' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.510' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.513' will not be able to arrive with the given speed!
-Warning: Choosing new speed factor 1.21 for vehicle 'flowA.510' to match departure speed 12.00 (max 10.67).
 Warning: Vehicle 'flowA.517' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.531' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.542' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.79' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.565' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.566' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.575' will not be able to arrive with the given speed!
-Warning: Choosing new speed factor 1.26 for vehicle 'flowA.575' to match departure speed 12.00 (max 10.46).
-Error: Vehicle 'flowB.82' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.592' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.598' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.84' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.604' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.614' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.86' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.645' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.652' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.654' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.657' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.660' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.672' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.92' will not be able to depart using the given velocity (slow lane ahead)!
+Warning: Choosing new speed factor 1.26 for vehicle 'flowA.672' to match departure speed 12.00 (max 11.37).
 Warning: Vehicle 'flowA.685' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.686' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.94' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.96' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.717' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.98' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.101' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.741' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.103' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.747' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.758' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.107' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.792' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.801' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.836' will not be able to arrive with the given speed!
@@ -113,14 +72,11 @@ Warning: Vehicle 'flowA.842' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.849' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.858' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.866' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.122' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.903' will not be able to arrive with the given speed!
+Warning: Choosing new speed factor 1.20 for vehicle 'flowA.903' to match departure speed 12.00 (max 11.45).
 Warning: Vehicle 'flowA.916' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.126' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.923' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.928' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.129' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.131' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.945' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.953' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.973' will not be able to arrive with the given speed!
@@ -128,8 +84,6 @@ Warning: Vehicle 'flowA.978' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.983' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.989' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1000' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.137' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.139' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.1018' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1022' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1024' will not be able to arrive with the given speed!
@@ -140,34 +94,23 @@ Warning: Vehicle 'flowA.1072' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1074' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1088' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1091' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.150' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.1097' will not be able to arrive with the given speed!
-Warning: Choosing new speed factor 1.23 for vehicle 'flowA.1097' to match departure speed 12.00 (max 11.49).
 Warning: Vehicle 'flowA.1099' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1112' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1117' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.154' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.1127' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.155' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.1133' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1143' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1153' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1155' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1162' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.162' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.166' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.1271' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1286' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.171' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.173' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.175' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.1345' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.181' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.1364' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1367' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1371' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1377' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.184' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.1380' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1401' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1405' will not be able to arrive with the given speed!
@@ -181,27 +124,19 @@ Warning: Vehicle 'flowA.1468' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1470' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1472' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1475' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.194' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.1486' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.196' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.198' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.200' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.1547' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.206' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.207' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.1594' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1609' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1621' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.215' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.1636' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1639' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1646' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.217' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.1655' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.219' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.1660' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1667' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1668' will not be able to arrive with the given speed!
+Warning: Choosing new speed factor 1.21 for vehicle 'flowA.1667' to match departure speed 12.00 (max 10.04).
 Warning: Vehicle 'flowA.1669' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1706' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1707' will not be able to arrive with the given speed!
@@ -210,7 +145,6 @@ Warning: Vehicle 'flowA.1714' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1721' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1723' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1724' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.228' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.1745' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1781' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1808' will not be able to arrive with the given speed!
@@ -221,6 +155,7 @@ Warning: Vehicle 'flowA.1836' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1837' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1855' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1868' will not be able to arrive with the given speed!
+Warning: Choosing new speed factor 1.21 for vehicle 'flowA.1868' to match departure speed 12.00 (max 11.81).
 Warning: Vehicle 'flowA.1886' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1897' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1910' will not be able to arrive with the given speed!
@@ -228,21 +163,12 @@ Warning: Vehicle 'flowA.1918' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1919' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1933' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.1954' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.252' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.1968' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.257' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.1995' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.262' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.2020' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.266' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.2048' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.267' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.269' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.2058' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.271' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.2083' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.274' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.276' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.2100' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2102' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2103' will not be able to arrive with the given speed!
@@ -250,72 +176,48 @@ Warning: Vehicle 'flowA.2104' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2113' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2131' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2137' will not be able to arrive with the given speed!
-Warning: Choosing new speed factor 1.22 for vehicle 'flowA.2137' to match departure speed 12.00 (max 11.97).
-Error: Vehicle 'flowB.283' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.2148' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2156' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2164' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2172' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.285' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.2182' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2188' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2195' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2198' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2207' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2210' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.292' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.2212' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2213' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.293' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.295' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.296' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.298' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.300' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.2256' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2261' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.301' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.2284' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.308' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.2302' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2307' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2308' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.311' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.2314' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2318' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2319' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2320' will not be able to arrive with the given speed!
-Warning: Choosing new speed factor 1.22 for vehicle 'flowA.2319' to match departure speed 12.00 (max 11.17).
 Warning: Vehicle 'flowA.2326' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.314' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.2342' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2358' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2362' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2363' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.318' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.320' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.2377' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2385' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2389' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2401' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2407' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2414' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.326' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.2423' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2425' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2432' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2439' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2442' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.331' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.2493' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.334' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.336' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.2501' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.338' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.2518' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2531' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.341' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.344' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.346' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.2571' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2575' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2582' will not be able to arrive with the given speed!
@@ -326,50 +228,37 @@ Warning: Vehicle 'flowA.2608' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2618' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2620' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2633' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.356' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.2657' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2660' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2663' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.360' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.2690' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2700' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2715' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2719' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.365' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.366' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.2725' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2739' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2754' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.369' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.2765' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2770' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2773' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2774' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.372' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.2794' will not be able to arrive with the given speed!
+Warning: Choosing new speed factor 1.27 for vehicle 'flowA.2794' to match departure speed 12.00 (max 11.59).
 Warning: Vehicle 'flowA.2804' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2814' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2815' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2819' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2821' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.376' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.2837' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2845' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2855' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2863' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.380' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.382' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.383' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.2883' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.387' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.389' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.2913' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.392' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.2943' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2955' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2957' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2964' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.398' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.2985' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2986' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.2987' will not be able to arrive with the given speed!
@@ -377,159 +266,107 @@ Warning: Vehicle 'flowA.2997' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3009' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3010' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3014' will not be able to arrive with the given speed!
-Warning: Choosing new speed factor 1.22 for vehicle 'flowA.3014' to match departure speed 12.00 (max 10.50).
 Warning: Vehicle 'flowA.3028' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.405' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.3035' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3047' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3070' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.410' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.3099' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3106' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3114' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3115' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3116' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3117' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.414' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.3123' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3132' will not be able to arrive with the given speed!
+Warning: Choosing new speed factor 1.23 for vehicle 'flowA.3132' to match departure speed 12.00 (max 10.46).
 Warning: Vehicle 'flowA.3135' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3137' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3142' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3146' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.420' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.3171' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3174' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3193' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.425' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.3204' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3218' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3242' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3245' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.434' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.3276' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3285' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3292' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3294' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.439' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.3336' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3340' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3348' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.445' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.3366' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3367' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.447' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.448' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.449' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.3374' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.450' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.3396' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3400' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3401' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3403' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.454' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.455' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.456' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.458' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.3432' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3441' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3449' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3457' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3466' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.466' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.468' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.3513' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3520' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3534' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.473' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.474' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.3555' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3565' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.478' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.3573' will not be able to arrive with the given speed!
-Warning: Choosing new speed factor 1.21 for vehicle 'flowA.3573' to match departure speed 12.00 (max 11.40).
 Warning: Vehicle 'flowA.3590' will not be able to arrive with the given speed!
-Warning: Choosing new speed factor 1.24 for vehicle 'flowA.3590' to match departure speed 12.00 (max 11.41).
 Warning: Vehicle 'flowA.3591' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3595' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3608' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.481' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.3611' will not be able to arrive with the given speed!
-Warning: Choosing new speed factor 1.26 for vehicle 'flowA.3611' to match departure speed 12.00 (max 11.74).
-Error: Vehicle 'flowB.483' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.3657' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.490' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.3673' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3677' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3687' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3695' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.493' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.495' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.3718' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.500' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.3745' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.502' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.503' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.504' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.3763' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3770' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3771' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.508' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.3796' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.510' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.512' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.3805' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3815' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3838' will not be able to arrive with the given speed!
+Warning: Choosing new speed factor 1.27 for vehicle 'flowA.3838' to match departure speed 12.00 (max 10.25).
 Warning: Vehicle 'flowA.3843' will not be able to arrive with the given speed!
+Warning: Choosing new speed factor 1.20 for vehicle 'flowA.3843' to match departure speed 12.00 (max 12.00).
 Warning: Vehicle 'flowA.3858' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3862' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3872' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.520' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.522' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.3885' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.525' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.3911' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.527' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.3923' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.531' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.3944' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.534' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.3952' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3963' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3975' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.3980' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.536' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.3982' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.537' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.540' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.4005' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.542' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.4010' will not be able to arrive with the given speed!
-Warning: Choosing new speed factor 1.21 for vehicle 'flowA.4010' to match departure speed 12.00 (max 11.56).
 Warning: Vehicle 'flowA.4013' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4017' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4023' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4033' will not be able to arrive with the given speed!
-Warning: Choosing new speed factor 1.22 for vehicle 'flowA.4033' to match departure speed 12.00 (max 11.70).
 Warning: Vehicle 'flowA.4040' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.547' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.4041' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4053' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.550' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.551' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.4071' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4074' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4080' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4086' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4091' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4093' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.555' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.556' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.4114' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4121' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4126' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.560' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.4130' will not be able to arrive with the given speed!
 Warning: Choosing new speed factor 1.21 for vehicle 'flowA.4130' to match departure speed 12.00 (max 11.04).
 Warning: Vehicle 'flowA.4136' will not be able to arrive with the given speed!
@@ -538,140 +375,84 @@ Warning: Vehicle 'flowA.4153' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4156' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4174' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4186' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.568' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.4195' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4205' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4216' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4231' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4233' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.574' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.575' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.4240' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4249' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.578' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.4266' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.579' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.4280' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.581' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.582' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.4297' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.583' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.585' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.586' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.4304' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4322' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4328' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4337' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.591' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.4348' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4362' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4366' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.595' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.597' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.4403' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4409' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.601' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.602' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.603' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.607' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.608' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.4452' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4459' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4474' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4476' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.612' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.614' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.4501' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4504' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4514' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.617' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.619' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.621' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.4549' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4555' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.625' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.4583' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4602' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4603' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4622' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4623' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4628' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.633' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.4655' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4684' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.636' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.4686' will not be able to arrive with the given speed!
 Warning: Choosing new speed factor 1.23 for vehicle 'flowA.4686' to match departure speed 12.00 (max 11.20).
 Warning: Vehicle 'flowA.4692' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.639' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.4700' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4715' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4723' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.641' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.643' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.4734' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.646' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.4757' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4758' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.649' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.4778' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4806' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.655' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.4835' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.657' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.658' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.4860' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4862' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.660' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.4866' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4872' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.661' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.4873' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.663' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.667' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.669' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.4930' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.671' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.4940' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.673' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.4948' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.675' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.4962' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.676' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.4976' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4977' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.678' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.4990' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.4993' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.5004' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.5012' will not be able to arrive with the given speed!
+Warning: Choosing new speed factor 1.20 for vehicle 'flowA.5012' to match departure speed 12.00 (max 11.52).
 Warning: Vehicle 'flowA.5020' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.686' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.5050' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.5060' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.689' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.691' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.5075' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.5084' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.694' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.5089' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.696' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.697' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.5103' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.5105' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.5128' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.5130' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.702' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.5137' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.703' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.705' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.707' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.5157' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.710' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.5187' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.712' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.5202' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.715' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.5213' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.5216' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.5217' will not be able to arrive with the given speed!
@@ -680,26 +461,16 @@ Warning: Vehicle 'flowA.5228' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.5234' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.5236' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.5246' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.720' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.722' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.5274' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.5295' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.725' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.727' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.5322' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.729' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.5329' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.730' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.732' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.735' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.5370' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.5372' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.5373' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.5374' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.737' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.5388' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.5391' will not be able to arrive with the given speed!
-Warning: Choosing new speed factor 1.23 for vehicle 'flowA.5391' to match departure speed 12.00 (max 11.91).
 Warning: Vehicle 'flowA.5403' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.5407' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.5408' will not be able to arrive with the given speed!
@@ -709,63 +480,38 @@ Warning: Vehicle 'flowA.5436' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.5450' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.5452' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.5454' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.746' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.748' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.5478' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.749' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.5486' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.5496' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.5497' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.5502' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.5519' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.755' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.5537' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.5546' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.759' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.5558' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.5560' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.5565' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.761' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.5597' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.5611' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.766' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.5623' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.5624' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.5629' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.768' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.769' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.771' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.772' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.5667' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.5708' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.5713' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.5719' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.781' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.784' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.5745' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.786' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.788' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.5758' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.5769' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.790' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.5790' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.792' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.5796' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.798' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.5858' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.801' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.5871' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.5876' will not be able to arrive with the given speed!
-Warning: Choosing new speed factor 1.20 for vehicle 'flowA.5876' to match departure speed 12.00 (max 11.98).
-Error: Vehicle 'flowB.808' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.809' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.5934' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.5935' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.811' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.5937' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.815' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.5967' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.819' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.5996' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6018' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6022' will not be able to arrive with the given speed!
@@ -773,18 +519,13 @@ Warning: Vehicle 'flowA.6030' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6033' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6048' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6051' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.826' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.828' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.6074' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6075' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6081' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.832' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.6115' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.837' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.6118' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6127' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6130' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.842' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.6162' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6165' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6167' will not be able to arrive with the given speed!
@@ -793,181 +534,55 @@ Warning: Vehicle 'flowA.6178' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6203' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6228' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6234' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.850' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.6243' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.851' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.6244' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6265' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6270' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.855' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.857' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.861' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.6318' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6320' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.864' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.6343' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6344' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6350' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6364' will not be able to arrive with the given speed!
+Warning: Choosing new speed factor 1.31 for vehicle 'flowA.6364' to match departure speed 12.00 (max 11.68).
 Warning: Vehicle 'flowA.6366' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6377' will not be able to arrive with the given speed!
-Warning: Choosing new speed factor 1.27 for vehicle 'flowA.6377' to match departure speed 12.00 (max 11.83).
 Warning: Vehicle 'flowA.6385' will not be able to arrive with the given speed!
-Warning: Choosing new speed factor 1.21 for vehicle 'flowA.6385' to match departure speed 12.00 (max 11.99).
+Warning: Choosing new speed factor 1.25 for vehicle 'flowA.6385' to match departure speed 12.00 (max 11.99).
 Warning: Vehicle 'flowA.6391' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.870' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.6404' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.872' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.6413' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.875' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.6443' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.877' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.6449' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6460' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.880' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.6463' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6466' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.882' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.6484' will not be able to arrive with the given speed!
+Warning: Choosing new speed factor 1.21 for vehicle 'flowA.6484' to match departure speed 12.00 (max 11.60).
 Warning: Vehicle 'flowA.6491' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6502' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6515' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6524' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6529' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.888' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.891' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.6580' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6593' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.901' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.902' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.6643' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.905' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.6661' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6667' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6672' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6677' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.909' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.910' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.913' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.915' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.6710' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.918' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.6725' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6726' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6731' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6739' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6742' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6744' will not be able to arrive with the given speed!
+Warning: Choosing new speed factor 1.20 for vehicle 'flowA.6744' to match departure speed 12.00 (max 11.97).
 Warning: Vehicle 'flowA.6755' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.927' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.6774' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6776' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6783' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6784' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6798' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.6806' will not be able to arrive with the given speed!
-Error: Vehicle 'flowB.933' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.937' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.938' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.940' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.942' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.944' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.946' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.948' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.955' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.957' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.968' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.970' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.971' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.974' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.976' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.979' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.981' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.989' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.993' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.997' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.999' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1002' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1004' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1005' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1015' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1020' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1022' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1029' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1032' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1034' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1036' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1038' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1040' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1041' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1043' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1048' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1049' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1052' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1058' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1065' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1067' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1068' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1073' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1074' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1076' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1079' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1085' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1086' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1090' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1096' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1099' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1103' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1108' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1109' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1111' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1114' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1116' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1117' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1119' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1121' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1127' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1129' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1130' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1131' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1134' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1139' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1147' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1151' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1160' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1167' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1174' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1181' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1187' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1190' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1191' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1195' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1200' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1201' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1207' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1211' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1213' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1216' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1218' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1220' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1221' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1223' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1231' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1233' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1239' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1243' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1245' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1246' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1253' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1254' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1258' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1260' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1270' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1272' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1277' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1281' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1283' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1286' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1287' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1290' will not be able to depart using the given velocity (slow lane ahead)!
-Error: Vehicle 'flowB.1294' will not be able to depart using the given velocity (slow lane ahead)!

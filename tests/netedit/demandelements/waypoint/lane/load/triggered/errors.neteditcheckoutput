@@ -6,6 +6,11 @@ Error: Attribute 'triggered' in definition of a stop is empty.
 Error: Invalid duration or end time is given for a stop on lane '' in vehicle 'routeFlow_0'.
 Error: Attribute 'triggered' in definition of a stop is empty.
 Error: Invalid duration or end time is given for a stop on lane '' in vehicle 'routeFlow_0'.
-Warning: Vehicle 'routeFlow_0.0' performs emergency braking on lane 'gneE1_0' with decel=9.85, wished=4.50, severity=1.19, time=10.00.
-Warning: Vehicle 'routeFlow_0.1' performs emergency braking on lane 'gneE1_0' with decel=9.28, wished=4.50, severity=1.06, time=210.00.
-Warning: Vehicle 'routeFlow_0.4' performs emergency braking on lane 'gneE1_0' with decel=9.17, wished=4.50, severity=1.04, time=810.00.
+Warning: Vehicle 'routeFlow_0.0' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-9.85, offset=8.61), time=10.00.
+Warning: Vehicle 'routeFlow_0.1' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-8.84, offset=6.50), time=210.00.
+Warning: Vehicle 'routeFlow_0.2' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-7.35, offset=3.98), time=411.00.
+Warning: Vehicle 'routeFlow_0.3' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-8.68, offset=7.41), time=611.00.
+Warning: Vehicle 'routeFlow_0.4' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-8.86, offset=5.33), time=810.00.
+Warning: Vehicle 'routeFlow_0.5' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-7.65, offset=4.68), time=1011.00.
+Warning: Vehicle 'routeFlow_0.6' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-9.08, offset=6.65), time=1210.00.
+Warning: Vehicle 'routeFlow_0.7' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=-8.25, offset=2.56), time=1410.00.
