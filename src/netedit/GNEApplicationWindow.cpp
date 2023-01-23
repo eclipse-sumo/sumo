@@ -2993,6 +2993,8 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject* sender, FXSelector sel, void* p
     if (neteditOptions.getString("net-file").empty()) {
         return onCmdSaveNetworkAs(sender, sel, ptr);
     } else {
+        // always recompute before saving
+        myNet->computeNetwork(this);
         // se net file in SUMO options
         mySUMOOptions.resetWritable();
         mySUMOOptions.set("net-file", neteditOptions.getString("net-file"));
@@ -3148,32 +3150,30 @@ GNEApplicationWindow::onCmdSaveNETEDITConfig(FXObject*, FXSelector, void*) {
         const auto neteditConfigFile = neteditOptions.getString("configuration-file");
         // get config file without extension
         const auto patterFile = StringUtils::replace(neteditConfigFile, ".neteditcfg", "");
-        // save all element giving automatic names
-        if (!myNet->getSavingStatus()->isNetworkSaved()) {
-            if (neteditOptions.getString("net-file").empty()) {
-                neteditOptions.set("net-file", patterFile + ".net.xml");
-            }
-            onCmdSaveNetwork(nullptr, 0, nullptr);
+        if (neteditOptions.getString("net-file").empty()) {
+            neteditOptions.set("net-file", patterFile + ".net.xml");
         }
-        if (!myNet->getSavingStatus()->isAdditionalsSaved()) {
+        onCmdSaveNetwork(nullptr, 0, nullptr);
+        // save all element giving automatic names
+        if (myNet->getAttributeCarriers()->getNumberOfAdditionals() > 0) {
             if (neteditOptions.getString("additional-files").empty()) {
                 neteditOptions.set("additional-files", patterFile + ".add.xml");
             }
             onCmdSaveAdditionals(nullptr, 0, nullptr);
         }
-        if (!myNet->getSavingStatus()->isDemandElementsSaved()) {
+        if (myNet->getAttributeCarriers()->getNumberOfDemandElements() > 0) {
             if (neteditOptions.getString("route-files").empty()) {
                 neteditOptions.set("route-files", patterFile + ".rou.xml");
             }
             onCmdSaveDemandElements(nullptr, 0, nullptr);
         }
-        if (!myNet->getSavingStatus()->isDataElementsSaved()) {
+        if (myNet->getAttributeCarriers()->getNumberOfGenericDatas() > 0) {
             if (neteditOptions.getString("data-files").empty()) {
                 neteditOptions.set("data-files", patterFile + ".dat.xml");
             }
             onCmdSaveDataElements(nullptr, 0, nullptr);
         }
-        if (!myNet->getSavingStatus()->isMeanDatasSaved()) {
+        if (myNet->getAttributeCarriers()->getNumberOfMeanDatas() > 0) {
             if (neteditOptions.getString("meandata-files").empty()) {
                 neteditOptions.set("meandata-files", patterFile + ".med.add.xml");
             }
@@ -3260,25 +3260,23 @@ GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject* sender, FXSelector sel, void
         // get config file without extension
         const auto patterFile = StringUtils::replace(sumoConfigFile, ".sumocfg", "");
         // save all element giving automatic names
-        if (!myNet->getSavingStatus()->isNetworkSaved()) {
-            if (neteditOptions.getString("net-file").empty()) {
-                neteditOptions.set("net-file", patterFile + ".net.xml");
-            }
-            onCmdSaveNetwork(nullptr, 0, nullptr);
+        if (neteditOptions.getString("net-file").empty()) {
+            neteditOptions.set("net-file", patterFile + ".net.xml");
         }
-        if (!myNet->getSavingStatus()->isAdditionalsSaved()) {
+        onCmdSaveNetwork(nullptr, 0, nullptr);
+        if (myNet->getAttributeCarriers()->getNumberOfAdditionals() > 0) {
             if (neteditOptions.getString("additional-files").empty()) {
                 neteditOptions.set("additional-files", patterFile + ".add.xml");
             }
             onCmdSaveAdditionals(nullptr, 0, nullptr);
         }
-        if (!myNet->getSavingStatus()->isDemandElementsSaved()) {
+        if (myNet->getAttributeCarriers()->getNumberOfDemandElements() > 0) {
             if (neteditOptions.getString("route-files").empty()) {
                 neteditOptions.set("route-files", patterFile + ".rou.xml");
             }
             onCmdSaveDemandElements(nullptr, 0, nullptr);
         }
-        if (!myNet->getSavingStatus()->isMeanDatasSaved()) {
+        if (myNet->getAttributeCarriers()->getNumberOfMeanDatas() > 0) {
             if (neteditOptions.getString("meandata-files").empty()) {
                 neteditOptions.set("meandata-files", patterFile + ".med.add.xml");
             }

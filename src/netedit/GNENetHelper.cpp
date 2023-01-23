@@ -1946,6 +1946,19 @@ GNENetHelper::AttributeCarriers::retrieveGenericDatas(const SumoXMLTag genericDa
 
 
 int
+GNENetHelper::AttributeCarriers::getNumberOfGenericDatas() const {
+    int counter = 0;
+    // iterate over all generic datas
+    for (const auto &genericDataTag : myGenericDatas) {
+        for (const auto& genericData : genericDataTag.second) {
+            counter++;
+        }
+    }
+    return counter;
+}
+
+
+int
 GNENetHelper::AttributeCarriers::getNumberOfSelectedEdgeDatas() const {
     int counter = 0;
     // iterate over all edgeDatas

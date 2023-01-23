@@ -541,6 +541,9 @@ struct GNENetHelper {
         /// @brief retrieve generic datas within the given interval
         std::vector<GNEGenericData*> retrieveGenericDatas(const SumoXMLTag genericDataTag, const double begin, const double end);
 
+        /// @brief Return the number of generic datas
+        int getNumberOfGenericDatas() const;
+
         /// @brief get number of selected edge datas
         int getNumberOfSelectedEdgeDatas() const;
 
