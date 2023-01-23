@@ -6,33 +6,37 @@ title: ChangeLog
 
 ### Bugfixes
 
-- Simulation 
-  - Fixed crash when defining ride without lines. Issue #12167 (regression in 1.11.0)
+- Simulation   
   - Improved simulation speed in large networks with simulation routing. Issue #12416 (regression in 1.2.0)
-  - Fixed invalid blocked state while decelerating and trying to perform lane change. Issue #12108
-  - Fixed invalid walking distance output related to lengths of crossings and walkingArea paths. Issue #11983
+  - Fixed invalid blocked state while decelerating and trying to perform lane change. Issue #12108  
   - Fixed invalid braking at internal junction. Issue #12000
   - Fixed invalid right of way rules when for two conflicting connections with internal junctions. Issue #11988
   - Fixed incomplete vehroute-output when using option **--vehroute-output.sorted** and some cars or vehicle do not finish their journey. Issue #12049
   - stop-output contains now always contains the correct 'started' values even if other values were part of the input. Issue #12125
   - Fixed error when trying to use laneChangeModel *DK2008* with continuos lane change model. Issue #12144
   - Fixed invalid lane choice in the presence of lane change restrictions. Issue #12118, #12461
-  - Fixed crash in public transport scenario with looped routes. Issue #12150
-  - Fixed bug where vehicle with short boardingDuration fails to board passengers after deboarding. Issue #12168
+  - Fixed crash in public transport scenario with looped routes. Issue #12150  
   - Fixed invalid error when loading edgeData with negative electricity consumption. Issue #12172
-  - Fixed collision on bidi edge. Issue #12393  
-  - Fixed crash when letting persons route between identical junctions. Issue #12242
+  - Fixed collision on bidi edge. Issue #12393    
   - Fixed invalid switching in branching 'actuated' traffic light programs. Issue #12265
   - Fixed invalid bike lane detector placement for 'actuated' traffic lights. Issue #12266
   - Fixed vehicle angles when using 'lcSigma' with the continous lane change mode. Issue #12201
   - Fixed inconsistency in waitingTime definition between tripinfo-output and accumulated waitingTime. Issue #12287
   - Fixed invalid lot assignment for onRoad parkingArea. Issue #12330
-  - Fixed invalid change to lane with stopped leader. Issue #12113
-  - Containers and persons are now unloaded in parallel. Issue #12385
-  - Fixed premature simulation end with triggered stop and combined loading/unloading. Issue #12386
+  - Fixed invalid change to lane with stopped leader. Issue #12113    
   - Fixed invalid error when using departSpeed values 'avg', 'last', 'desired' or 'speedLimit' near a minor link or speed reduction. Issue #12398, #12401
   - Vehicles no longer become stuck when using a waypoint with parking=true. Issue #12468
   - The simulation now aborts after an unknown stoppingPlace has been loaded for a vehicle. To obtain the old behavior, option **--ignore-route-errors** may be used. Issue #12487
+  - Fixed invalid braking on junction. Issue #12511
+  - intermodal simulation
+    - Fixed crash when defining ride without lines. Issue #12167 (regression in 1.11.0)
+    - Fixed invalid walking distance output related to lengths of crossings and walkingArea paths. Issue #11983
+    - Fixed bug where vehicle with short boardingDuration fails to board passengers after deboarding. Issue #12168
+    - Fixed crash when letting persons route between identical junctions. Issue #12242
+    - Containers and persons are now unloaded in parallel. Issue #12385
+    - Fixed premature simulation end with triggered stop and combined loading/unloading. Issue #12386
+    - Fixed unsafe deceleration at pedestrian crossing. Issue #12455
+    - Pedestrian no longer walk onto crossings which are fully blocked by traffic. Issue #12507
   - railway fixes
     - Fixed invalid insertion delay on bidirectional track. Issue #12423, #12079
     - Fixed unsafe insertion after parking stop. Issue #12425
@@ -78,12 +82,15 @@ title: ChangeLog
   - Fixed crash when using 'select reachability' related to negative edge speeds. Issue #12400, #12403
   - Reload hotkey no longer takes effect when running with TraCI. Issue #12431
   - Fixed invalid pedestrian position while passing a short walkingarea. Issue #12456
+  - Right-click on vehices and person no longer fails on very wide lanes. Issue #12505
+  - Fixed fluctating rail width when using edge size-exaggeration at varying zoom levels. Issue #11832
     
 - meso
   - Stopping at pos=0 is now working. Issue #12240
   - Picking up persons and containers with `lines="ANY"` is now working. Issue #12241
 
 - netconvert
+  - Fixed xml-validation error when importing MATSim network. Issue #12509 (regression in 1.15.0)
   - Fixed unnecessary dead-end lanes at large intersections. Issue #2472
   - Fixed invalid OpenDRIVE output when writing traffic signals with signal groups. Issue #11980
   - Fixed invalid OpenDRIVE output for lefthand networks. Issue #11995, #12038, #12047
@@ -106,6 +113,7 @@ title: ChangeLog
   - Prohibitions involving edges with underscore in their name are now working. Issue #12419
   - Turnaround are now correctly added if the inntermost lane prohibits passenger traffic. Issue #12447
   - OpenDRIVE networks no longer include guessed turn-arounds by default (option **--no-turnarounds false** can be used to replicate the old behavior). Issue #12448
+  - line name from **--ptline-files** is not exported. Issue #12497
   
 - polyconvert
   - Fixed invalid polygon output for some line based inputs. Issue #12161
@@ -125,6 +133,7 @@ title: ChangeLog
   - Fixed problems when using libsumo with gui. Issue #12285, #12021
   - Fixed crash on rerouting after insertStop/replaceStop. Issue #12387
   - Signal states are now updated immediately after calling `trafficlight.setProgramLogic`. Issue #12414
+  - Cycle type is now updated after call to `traci.trafficlight.setProgramLogic`. Issue #12357
 
 - Tools
   - plot_net_dump_file.py: plotting a single measure is working again. Issue #11975 (regression in 1.15.0)
@@ -170,6 +179,7 @@ title: ChangeLog
   - Option **--junctions.join** can now join intersections with more than 4 incoming edges. Issue #12261
   - Walkingarea shapes for pure pedestrian intersections now match the junction shape. Issue #12377
   - Added option **--plain-output.lanes** to include all lane attributes in plain-xml output. Issue #12443
+  - Added option **--pedestrian.striping.reserve-oncoming.max** (default 1.28) to configure an upper limit on stripes to reserve for oncoming pedestrians. Issue #12506
 
 - netedit
   - It is now possible to load and save a *.sumocfg* file and also to edit all sumo options (SHIFT-F10). Issue #11896
@@ -205,6 +215,7 @@ title: ChangeLog
   - Added vehicle setting to maintain orientation after reversal. This achieves a more realistic visualisation of reversing trains and (grounded) aircraft. Issue #12140
   - Added settings to show/hide HUD elements in 3D view. Issue #12294
   - Added terrain to 3D view (using flat background color) #12279
+  - Added Fly Movement mode in SUMO 3D View for Windows OS (Linux still pending). Issue #11473
   - Color legend decoration now includes the name of the coloring scheme. Issue #11967
   - All dialogs now remember their previous position. Issue #11962
   - Window menu now includes entries for opening a new view. Issue #12417
@@ -236,6 +247,7 @@ title: ChangeLog
   - tracemapper.py: Added option **--vehicle-class** to guide edge mapping. Issue #12117
   - net2geojson.py: Added option **--boundary** to write polygons instead of center lines. Issue #12296
   - stateReplay.py: Now works on Windows. Issue #12298
+  - checkStopOrder.py: now indicating terminal stops and overtaking events in **--stop-table** output. Issue #12471
   - Added new tool [filterElements.py](Tools/Xml.md#filterelementspy) to filter elements from an xml file (either all instances or filtered by attribute value). Issue #12304
   - Added new tool [attributeDiff.py](Tools/Output.md#attributediffpy) to compute the numerical difference between two xml files with the same structure. Issue #12318
   - Added new tool [fcdDifff.py](Tools/Output.md#fcddiffpy) to compare two fcd-output files (by vehicle id and time). Issue #12233
