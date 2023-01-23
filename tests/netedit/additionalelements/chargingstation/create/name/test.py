@@ -38,7 +38,7 @@ netedit.changeElement("chargingStation")
 netedit.changeDefaultValue(netedit.attrs.chargingStation.create.name, "custom stopping place name")
 
 # create chargingStation in mode "reference left"
-netedit.leftClick(referencePosition, 250, 250)
+netedit.leftClick(referencePosition, 250, 235)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)
