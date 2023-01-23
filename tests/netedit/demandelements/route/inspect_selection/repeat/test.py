@@ -76,11 +76,8 @@ netedit.modifyAttribute(netedit.attrs.route.inspectSelection.repeat, "14", False
 netedit.undo(referencePosition, 4)
 netedit.redo(referencePosition, 4)
 
-# save routes
-netedit.saveRoutes(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

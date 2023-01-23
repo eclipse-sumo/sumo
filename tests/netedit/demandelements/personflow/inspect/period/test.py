@@ -75,14 +75,9 @@ netedit.modifyAttribute(netedit.attrs.personFlow.inspect.spacingOption, "26", Fa
 netedit.undo(referencePosition, 3)
 netedit.redo(referencePosition, 3)
 
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # save persons
-netedit.saveRoutes(referencePosition)
-
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
 # quit netedit
 netedit.quit(neteditProcess)

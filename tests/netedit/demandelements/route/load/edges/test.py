@@ -37,14 +37,11 @@ netedit.forceSaveDemandElements()
 # Recompute
 netedit.rebuildNetwork()
 
-# save routes
-netedit.saveRoutes(referencePosition)
-
 # save invalid routes
 netedit.typeSpace()
 
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

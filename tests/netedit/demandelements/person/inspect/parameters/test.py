@@ -56,14 +56,9 @@ netedit.leftClick(referencePosition, 310, 140)
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.person.inspect.parameters, False)
 
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # save persons
-netedit.saveRoutes(referencePosition)
-
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
 # quit netedit
 netedit.quit(neteditProcess)

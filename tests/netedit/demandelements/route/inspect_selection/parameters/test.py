@@ -63,11 +63,8 @@ netedit.leftClick(referencePosition, 280, 392)
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.route.inspectSelection.parameters, False)
 
-# save routes
-netedit.saveRoutes(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

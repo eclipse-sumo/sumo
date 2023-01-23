@@ -84,14 +84,8 @@ netedit.modifyAttribute(netedit.attrs.personStopEdge.inspect.until, "6.7", False
 netedit.undo(referencePosition, 3)
 netedit.redo(referencePosition, 3)
 
-# save routes
-netedit.saveRoutes(referencePosition)
-
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

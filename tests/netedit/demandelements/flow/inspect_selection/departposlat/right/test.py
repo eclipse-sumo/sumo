@@ -57,11 +57,8 @@ netedit.modifyAttribute(netedit.attrs.flow.inspectSelection.departPosLat, "right
 netedit.undo(referencePosition, 5)
 netedit.redo(referencePosition, 5)
 
-# save routes
-netedit.saveRoutes(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

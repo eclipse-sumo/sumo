@@ -77,14 +77,8 @@ netedit.modifyAttribute(netedit.attrs.walkRoute.inspect.route, "gneE4", True)
 netedit.undo(referencePosition, 3)
 netedit.redo(referencePosition, 3)
 
-# save routes
-netedit.saveRoutes(referencePosition)
-
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

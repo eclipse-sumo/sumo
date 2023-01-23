@@ -51,14 +51,8 @@ netedit.typeEnter()
 netedit.undo(referencePosition, 1)
 netedit.redo(referencePosition, 1)
 
-# save routes
-netedit.saveRoutes(referencePosition)
-
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

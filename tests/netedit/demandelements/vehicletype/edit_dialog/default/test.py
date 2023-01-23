@@ -43,11 +43,8 @@ netedit.openVTypeDialog()
 # close dialog
 netedit.closeVTypeDialog()
 
-# save routes
-netedit.saveRoutes(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

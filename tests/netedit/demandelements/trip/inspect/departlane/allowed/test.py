@@ -63,11 +63,8 @@ netedit.modifyAttribute(netedit.attrs.trip.inspect.departLane, "allowed", False)
 netedit.undo(referencePosition, 3)
 netedit.redo(referencePosition, 3)
 
-# save routes
-netedit.saveRoutes(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -90,14 +90,8 @@ netedit.redo(referencePosition, 2)
 # press enter to create route
 netedit.typeEnter()
 
-# save routes
-netedit.saveRoutes(referencePosition)
-
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

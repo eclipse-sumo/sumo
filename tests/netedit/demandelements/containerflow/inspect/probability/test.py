@@ -78,14 +78,9 @@ netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.spacingOption, "0.3"
 netedit.undo(referencePosition, 2)
 netedit.redo(referencePosition, 2)
 
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # save containers
-netedit.saveRoutes(referencePosition)
-
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
 # quit netedit
 netedit.quit(neteditProcess)

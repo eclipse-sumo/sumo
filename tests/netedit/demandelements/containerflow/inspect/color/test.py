@@ -75,14 +75,9 @@ netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.color, "12,13,14", F
 netedit.undo(referencePosition, 3)
 netedit.redo(referencePosition, 3)
 
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # save containers
-netedit.saveRoutes(referencePosition)
-
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
 # quit netedit
 netedit.quit(neteditProcess)

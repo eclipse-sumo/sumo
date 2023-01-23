@@ -69,11 +69,8 @@ netedit.modifyAttribute(netedit.attrs.tripFromToJunction.inspect.color, "12,13,1
 netedit.undo(referencePosition, 5)
 netedit.redo(referencePosition, 5)
 
-# save routes
-netedit.saveRoutes(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

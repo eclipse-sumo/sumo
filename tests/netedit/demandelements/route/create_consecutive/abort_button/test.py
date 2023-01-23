@@ -45,8 +45,8 @@ for _ in range(netedit.attrs.frames.route.abort):
     netedit.typeTab()
 netedit.typeSpace()
 
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

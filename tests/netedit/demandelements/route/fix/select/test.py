@@ -37,20 +37,14 @@ netedit.forceSaveDemandElements()
 # Go to demand mode
 netedit.supermodeDemand()
 
-# save routes
-netedit.saveRoutes(referencePosition)
-
 # fix
 netedit.fixDemandElement(netedit.attrs.fix.demandElements.routes.selectInvalidRoutes)
 
 # press supr key to remove invalid routes
 netedit.deleteUsingSuprKey()
 
-# save routes
-netedit.saveRoutes(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -38,11 +38,8 @@ netedit.forceSaveDemandElements()
 netedit.undo(referencePosition, 1)
 netedit.redo(referencePosition, 1)
 
-# save network
-netedit.saveNetwork(referencePosition)
-
-# save routes
-netedit.saveRoutes(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 netedit.typeSpace()
 
