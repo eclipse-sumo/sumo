@@ -43,17 +43,8 @@ netedit.supermodeData()
 # toggle option
 netedit.changeEditMode(netedit.attrs.modes.data.TAZFill)
 
-# save network
-netedit.saveNetwork(referencePosition)
-
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save additionals
-netedit.saveRoutes(referencePosition)
-
-# save additionals
-netedit.saveDatas(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -32,8 +32,8 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--n
 # open and close about dialog
 netedit.openAboutDialog()
 
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)
