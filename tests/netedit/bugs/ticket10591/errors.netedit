@@ -1,4 +1,495 @@
+GLDebug: initJunctionsAndEdges function called in GNENet constructor
+GLDebug: 	Inserted junction:100154846 into SUMORTree with boundary 1712.35,3587.22,1736.35,3611.22
+GLDebug: 	Inserted junction:100157291 into SUMORTree with boundary 1827.44,3705.82,1851.44,3729.82
+GLDebug: 	Inserted junction:100159422 into SUMORTree with boundary 1030.03,2233.21,1054.03,2257.21
+GLDebug: 	Inserted junction:100159780 into SUMORTree with boundary 993.07,2127.88,1017.07,2151.88
+GLDebug: 	Inserted junction:100161132 into SUMORTree with boundary 1177.89,1679.11,1201.89,1703.11
+GLDebug: 	Inserted junction:100167375 into SUMORTree with boundary 237.36,3376.27,261.36,3400.27
+GLDebug: 	Inserted junction:100167392 into SUMORTree with boundary 1728.69,2592.80,1752.69,2616.80
+GLDebug: 	Inserted junction:138559856 into SUMORTree with boundary -12.00,354.65,12.00,378.65
+GLDebug: 	Inserted junction:138559868 into SUMORTree with boundary 803.52,1332.55,827.52,1356.55
+GLDebug: 	Inserted junction:138562259 into SUMORTree with boundary 655.09,1180.57,679.09,1204.57
+GLDebug: 	Inserted junction:1552842725 into SUMORTree with boundary 1841.14,905.32,1865.14,929.32
+GLDebug: 	Inserted junction:1552842823 into SUMORTree with boundary 863.99,1424.49,887.99,1448.49
+GLDebug: 	Inserted junction:158906921 into SUMORTree with boundary 1816.06,2667.21,1840.06,2691.21
+GLDebug: 	Inserted junction:1589761370 into SUMORTree with boundary 1229.35,1084.26,1253.35,1108.26
+GLDebug: 	Inserted junction:2030862306 into SUMORTree with boundary 1440.53,2783.13,1464.53,2807.13
+GLDebug: 	Inserted junction:206191818 into SUMORTree with boundary 1049.51,1255.61,1073.51,1279.61
+GLDebug: 	Inserted junction:206191819 into SUMORTree with boundary 1116.64,1178.71,1140.64,1202.71
+GLDebug: 	Inserted junction:206191826 into SUMORTree with boundary 712.05,1558.48,736.05,1582.48
+GLDebug: 	Inserted junction:206191828 into SUMORTree with boundary 605.27,1630.90,629.27,1654.90
+GLDebug: 	Inserted junction:206191829 into SUMORTree with boundary 614.14,1602.28,638.14,1626.28
+GLDebug: 	Inserted junction:206191832 into SUMORTree with boundary 744.12,1476.17,768.12,1500.17
+GLDebug: 	Inserted junction:206191835 into SUMORTree with boundary 1016.98,1246.36,1040.98,1270.36
+GLDebug: 	Inserted junction:2165987557 into SUMORTree with boundary 1151.49,1167.72,1175.49,1191.72
+GLDebug: 	Inserted junction:2165987560 into SUMORTree with boundary 963.54,1345.70,987.54,1369.70
+GLDebug: 	Inserted junction:2165987569 into SUMORTree with boundary 1000.02,1522.13,1024.02,1546.13
+GLDebug: 	Inserted junction:2165987571 into SUMORTree with boundary 1094.19,1624.86,1118.19,1648.86
+GLDebug: 	Inserted junction:2165987572 into SUMORTree with boundary 1230.81,1791.38,1254.81,1815.38
+GLDebug: 	Inserted junction:2255293294 into SUMORTree with boundary 1950.12,2833.56,1974.12,2857.56
+GLDebug: 	Inserted junction:2255293408 into SUMORTree with boundary 1581.68,3526.34,1605.68,3550.34
+GLDebug: 	Inserted junction:280777678 into SUMORTree with boundary 1330.96,1762.54,1354.96,1786.54
+GLDebug: 	Inserted junction:283017766 into SUMORTree with boundary 789.26,1345.30,813.26,1369.30
+GLDebug: 	Inserted junction:286046797 into SUMORTree with boundary 1893.59,2923.35,1917.59,2947.35
+GLDebug: 	Inserted junction:290952496 into SUMORTree with boundary 1394.42,1794.77,1418.42,1818.77
+GLDebug: 	Inserted junction:290968580 into SUMORTree with boundary 983.10,1526.77,1007.10,1550.77
+GLDebug: 	Inserted junction:290971361 into SUMORTree with boundary 843.83,1377.52,867.83,1401.52
+GLDebug: 	Inserted junction:290971408 into SUMORTree with boundary 829.36,1390.47,853.36,1414.47
+GLDebug: 	Inserted junction:292526263-AddedOffRampNode into SUMORTree with boundary 1124.83,1189.83,1148.83,1213.83
+GLDebug: 	Inserted junction:2960840894 into SUMORTree with boundary 1451.11,928.11,1475.11,952.11
+GLDebug: 	Inserted junction:311410889 into SUMORTree with boundary 1671.91,3407.90,1695.91,3431.90
+GLDebug: 	Inserted junction:31358110 into SUMORTree with boundary 1841.59,3058.50,1865.59,3082.50
+GLDebug: 	Inserted junction:3246050925 into SUMORTree with boundary 911.42,1391.12,935.42,1415.12
+GLDebug: 	Inserted junction:3246050926 into SUMORTree with boundary 811.60,1418.52,835.60,1442.52
+GLDebug: 	Inserted junction:3246050927 into SUMORTree with boundary 896.91,1452.50,920.91,1476.50
+GLDebug: 	Inserted junction:3467805279 into SUMORTree with boundary 1490.17,1941.03,1514.17,1965.03
+GLDebug: 	Inserted junction:35215930 into SUMORTree with boundary 1949.72,277.39,1973.72,301.39
+GLDebug: 	Inserted junction:3663247364 into SUMORTree with boundary 1609.79,3387.49,1633.79,3411.49
+GLDebug: 	Inserted junction:4090512230 into SUMORTree with boundary 910.17,4083.35,934.17,4107.35
+GLDebug: 	Inserted junction:4092042341 into SUMORTree with boundary 1129.10,1473.76,1153.10,1497.76
+GLDebug: 	Inserted junction:4307897715 into SUMORTree with boundary 1941.10,2755.52,1965.10,2779.52
+GLDebug: 	Inserted junction:4307897716 into SUMORTree with boundary 2041.25,2754.60,2065.25,2778.60
+GLDebug: 	Inserted junction:492462651 into SUMORTree with boundary 1233.93,1785.04,1257.93,1809.04
+GLDebug: 	Inserted junction:6211252183 into SUMORTree with boundary 1663.03,3367.98,1687.03,3391.98
+GLDebug: 	Inserted junction:6211252184 into SUMORTree with boundary 1680.32,3372.53,1704.32,3396.53
+GLDebug: 	Inserted junction:665725990 into SUMORTree with boundary 854.84,1389.35,878.84,1413.35
+GLDebug: 	Inserted junction:8037309237 into SUMORTree with boundary 780.30,1308.12,804.30,1332.12
+GLDebug: 	Inserted junction:9216394493 into SUMORTree with boundary 1741.96,3245.15,1765.96,3269.15
+GLDebug: 	Inserted junction:9216394494 into SUMORTree with boundary 1733.87,3260.04,1757.87,3284.04
+GLDebug: 	Inserted junction:967017790 into SUMORTree with boundary 666.31,1171.73,690.31,1195.73
+GLDebug: 	Inserted junction:cluster_1401188845_57343261_57343267_9104177905_9104177906_9104177907_9104177908 into SUMORTree with boundary 1991.32,2796.48,2015.32,2820.48
+GLDebug: 	Inserted junction:cluster_1552842866_412543167 into SUMORTree with boundary 1042.73,1567.90,1066.73,1591.90
+GLDebug: 	Inserted junction:cluster_1867592741_2030862351_8094449969_96499875 into SUMORTree with boundary 1462.16,2815.77,1486.16,2839.77
+GLDebug: 	Inserted junction:cluster_2334532594_3169446746_9104177903_9104177904 into SUMORTree with boundary 2302.06,2431.81,2326.06,2455.81
+GLDebug: 	Inserted junction:cluster_246758619_cluster_2008877556_206191834 into SUMORTree with boundary 842.04,1396.56,866.04,1420.56
+GLDebug: 	Inserted junction:cluster_31358103_567607181_cluster_1867580179_2255293396 into SUMORTree with boundary 1607.12,3446.82,1662.43,3524.70
+GLDebug: 	Inserted junction:cluster_412543168_681323998 into SUMORTree with boundary 1256.29,1732.17,1280.29,1756.17
+GLDebug: 	Inserted junction:cluster_665725993_cluster_206191823_206191824 into SUMORTree with boundary 876.93,1416.64,900.93,1440.64
+GLDebug: 	Inserted edge:-1013117571#1 into SUMORTree with boundary 1713.34,3589.22,1849.44,3729.07
+GLDebug: 	Inserted edge:-129519181#1 into SUMORTree with boundary 1032.03,2234.28,1463.71,2805.13
+GLDebug: 	Inserted edge:-141968830#1 into SUMORTree with boundary 1131.10,907.32,1863.63,1496.85
+GLDebug: 	Inserted edge:-145009991#3 into SUMORTree with boundary 911.13,3527.11,1603.68,4105.35
+GLDebug: 	Inserted edge:-145586617#31 into SUMORTree with boundary 667.32,279.06,1971.72,1193.73
+GLDebug: 	Inserted edge:-170149081#1 into SUMORTree with boundary 912.17,3528.34,1604.71,4106.57
+GLDebug: 	Inserted edge:-206579065 into SUMORTree with boundary 1232.81,1787.04,1257.37,1814.09
+GLDebug: 	Inserted edge:-206579070 into SUMORTree with boundary 1332.24,1764.54,1416.42,1818.20
+GLDebug: 	Inserted edge:-25368898#9 into SUMORTree with boundary 1464.16,2594.80,1751.73,2837.77
+GLDebug: 	Inserted edge:-33234937#10 into SUMORTree with boundary 1492.17,1942.92,1752.08,2614.80
+GLDebug: 	Inserted edge:-33234956#1 into SUMORTree with boundary 1730.69,2593.63,1839.05,2689.21
+GLDebug: 	Inserted edge:-339558638#6 into SUMORTree with boundary 1396.42,1795.40,1513.77,1963.03
+GLDebug: 	Inserted edge:-53087792#10 into SUMORTree with boundary 995.07,1793.38,1254.25,2150.96
+GLDebug: 	Inserted edge:-54039620#2 into SUMORTree with boundary 1258.29,1728.86,1355.19,1784.54
+GLDebug: 	Inserted edge:-746625193#2 into SUMORTree with boundary 1044.73,1475.76,1154.61,1589.90
+GLDebug: 	Inserted edge:-81535329#13 into SUMORTree with boundary 239.36,2817.77,1484.16,3399.63
+GLDebug: 	Inserted edge:1003191656#0 into SUMORTree with boundary 2042.01,2433.81,2331.28,2777.61
+GLDebug: 	Inserted edge:1003191667#1 into SUMORTree with boundary 1986.95,2425.88,2324.06,2818.48
+GLDebug: 	Inserted edge:10860201#0 into SUMORTree with boundary 1442.53,2782.19,1491.20,2837.77
+GLDebug: 	Inserted edge:11279544#0 into SUMORTree with boundary 1620.34,3479.64,1734.38,3613.37
+GLDebug: 	Inserted edge:11279822#0 into SUMORTree with boundary 978.46,2129.88,1052.03,2256.57
+GLDebug: 	Inserted edge:11279858#0 into SUMORTree with boundary 989.00,2129.88,1053.56,2255.21
+GLDebug: 	Inserted edge:11279895#0 into SUMORTree with boundary 993.89,1792.69,1252.81,2149.88
+GLDebug: 	Inserted edge:145009985#0 into SUMORTree with boundary 1626.42,3479.64,1738.34,3609.22
+GLDebug: 	Inserted edge:145586606 into SUMORTree with boundary 605.21,1255.14,1073.54,1655.34
+GLDebug: 	Inserted edge:145586607 into SUMORTree with boundary 1114.53,1081.35,1253.40,1203.17
+GLDebug: 	Inserted edge:145586617#0 into SUMORTree with boundary 668.31,279.39,1973.29,1194.99
+GLDebug: 	Inserted edge:145586622#0 into SUMORTree with boundary 1818.06,2669.21,1963.10,2777.52
+GLDebug: 	Inserted edge:192530508#0 into SUMORTree with boundary 1030.73,2235.21,1462.53,2806.21
+GLDebug: 	Inserted edge:194895343#0 into SUMORTree with boundary 1439.15,2784.72,1484.16,2842.96
+GLDebug: 	Inserted edge:194896804#0 into SUMORTree with boundary 1464.16,2813.79,1633.35,3409.84
+GLDebug: 	Inserted edge:19791219 into SUMORTree with boundary 964.49,1257.61,1076.95,1368.91
+GLDebug: 	Inserted edge:19791220 into SUMORTree with boundary 614.67,1476.97,767.18,1624.91
+GLDebug: 	Inserted edge:204721580#0 into SUMORTree with boundary 1663.48,2924.58,1916.99,3390.38
+GLDebug: 	Inserted edge:206579065 into SUMORTree with boundary 1228.50,1784.92,1255.93,1813.38
+GLDebug: 	Inserted edge:206579066#0 into SUMORTree with boundary 1231.49,1734.17,1278.29,1807.04
+GLDebug: 	Inserted edge:206579067 into SUMORTree with boundary 1038.78,1569.90,1118.23,1649.32
+GLDebug: 	Inserted edge:206579068 into SUMORTree with boundary 1178.19,1678.40,1286.99,1756.08
+GLDebug: 	Inserted edge:206579070 into SUMORTree with boundary 1332.96,1763.11,1417.14,1816.77
+GLDebug: 	Inserted edge:206579071 into SUMORTree with boundary 896.81,1452.08,1007.19,1551.20
+GLDebug: 	Inserted edge:206579073 into SUMORTree with boundary 999.84,1521.79,1070.45,1589.90
+GLDebug: 	Inserted edge:206579079 into SUMORTree with boundary 744.04,1418.09,835.68,1500.60
+GLDebug: 	Inserted edge:206579082 into SUMORTree with boundary 911.27,1345.28,987.63,1415.49
+GLDebug: 	Inserted edge:206579085 into SUMORTree with boundary 1018.98,1175.81,1138.64,1268.36
+GLDebug: 	Inserted edge:206579088 into SUMORTree with boundary 607.27,1560.48,734.05,1652.90
+GLDebug: 	Inserted edge:216169544#0 into SUMORTree with boundary 1580.08,3479.64,1646.42,3548.34
+GLDebug: 	Inserted edge:216169546#0 into SUMORTree with boundary 1583.68,3479.64,1646.42,3549.65
+GLDebug: 	Inserted edge:22721677#0 into SUMORTree with boundary -11.22,355.61,689.53,1194.76
+GLDebug: 	Inserted edge:22721677#4 into SUMORTree with boundary 667.08,1172.70,803.45,1331.23
+GLDebug: 	Inserted edge:22917228#0 into SUMORTree with boundary 840.42,1398.56,888.24,1448.77
+GLDebug: 	Inserted edge:22917233#0 into SUMORTree with boundary 878.93,1416.36,1023.07,1545.34
+GLDebug: 	Inserted edge:25368898#0 into SUMORTree with boundary 1464.16,2593.58,1750.69,2837.77
+GLDebug: 	Inserted edge:25368900#0 into SUMORTree with boundary 238.52,2817.77,1484.16,3398.27
+GLDebug: 	Inserted edge:25944425#0 into SUMORTree with boundary 803.14,1332.41,868.21,1401.66
+GLDebug: 	Inserted edge:26547171#0 into SUMORTree with boundary 843.48,1377.35,875.10,1418.56
+GLDebug: 	Inserted edge:26547171#2 into SUMORTree with boundary 844.04,1385.01,879.07,1418.56
+GLDebug: 	Inserted edge:26547172#0 into SUMORTree with boundary 854.61,1389.05,902.63,1438.64
+GLDebug: 	Inserted edge:26547179 into SUMORTree with boundary 790.06,1346.24,852.56,1413.53
+GLDebug: 	Inserted edge:266227880#0 into SUMORTree with boundary 1818.06,2669.21,2013.32,2819.53
+GLDebug: 	Inserted edge:27077898#0 into SUMORTree with boundary 844.04,1247.14,1040.02,1418.56
+GLDebug: 	Inserted edge:27077902#0 into SUMORTree with boundary 713.01,1418.64,898.93,1581.70
+GLDebug: 	Inserted edge:292525977 into SUMORTree with boundary 1151.42,927.43,1474.85,1192.16
+GLDebug: 	Inserted edge:292526263 into SUMORTree with boundary 1123.67,1166.02,1176.54,1215.44
+GLDebug: 	Inserted edge:292526263-AddedOffRampEdge into SUMORTree with boundary 1048.35,1188.22,1152.09,1283.64
+GLDebug: 	Inserted edge:318210393#0 into SUMORTree with boundary 867.83,1418.64,920.99,1476.93
+GLDebug: 	Inserted edge:318210393#2 into SUMORTree with boundary 863.99,1418.64,898.93,1452.14
+GLDebug: 	Inserted edge:318210399#0 into SUMORTree with boundary 811.53,1397.05,864.04,1442.96
+GLDebug: 	Inserted edge:318210401#0 into SUMORTree with boundary 878.93,1390.68,935.49,1439.91
+GLDebug: 	Inserted edge:33234937#0 into SUMORTree with boundary 1490.57,1943.03,1750.69,2615.60
+GLDebug: 	Inserted edge:33234956#0 into SUMORTree with boundary 1729.60,2594.80,1838.06,2690.47
+GLDebug: 	Inserted edge:339558638#0 into SUMORTree with boundary 1395.60,1796.77,1512.17,1963.11
+GLDebug: 	Inserted edge:348583831#0 into SUMORTree with boundary 1626.42,3408.79,1696.91,3503.67
+GLDebug: 	Inserted edge:348583833#0 into SUMORTree with boundary 1625.98,3369.58,1686.58,3499.64
+GLDebug: 	Inserted edge:407167843#0 into SUMORTree with boundary 1129.93,905.80,1863.14,1495.76
+GLDebug: 	Inserted edge:431573403 into SUMORTree with boundary 1894.19,2834.68,1973.46,2946.13
+GLDebug: 	Inserted edge:431573404#0 into SUMORTree with boundary 1949.57,2797.48,2013.32,2857.49
+GLDebug: 	Inserted edge:431573405#0 into SUMORTree with boundary 1993.32,2754.53,2065.69,2824.22
+GLDebug: 	Inserted edge:431573406#0 into SUMORTree with boundary 1842.18,2798.48,2026.38,3081.25
+GLDebug: 	Inserted edge:431573407#0 into SUMORTree with boundary 1942.08,2756.29,2013.32,2818.48
+GLDebug: 	Inserted edge:472236111#0 into SUMORTree with boundary 1680.75,3261.29,1757.28,3394.83
+GLDebug: 	Inserted edge:52783765#0 into SUMORTree with boundary 1235.93,1733.57,1285.00,1807.98
+GLDebug: 	Inserted edge:53385386#0 into SUMORTree with boundary 1044.73,1564.02,1200.88,1702.37
+GLDebug: 	Inserted edge:54039595#0 into SUMORTree with boundary 1095.08,1625.71,1278.29,1756.29
+GLDebug: 	Inserted edge:54039620#0 into SUMORTree with boundary 1258.29,1733.57,1352.96,1785.96
+GLDebug: 	Inserted edge:541676222 into SUMORTree with boundary 1608.66,3388.84,1650.52,3499.64
+GLDebug: 	Inserted edge:663605951#0 into SUMORTree with boundary 1672.37,3374.23,1703.89,3430.32
+GLDebug: 	Inserted edge:72230301#0 into SUMORTree with boundary 1714.35,3587.98,1850.44,3727.82
+GLDebug: 	Inserted edge:745656019#0 into SUMORTree with boundary 1453.44,2817.77,1646.42,3511.98
+GLDebug: 	Inserted edge:81414476#0 into SUMORTree with boundary 984.09,1527.53,1064.73,1595.66
+GLDebug: 	Inserted edge:83708562 into SUMORTree with boundary 614.12,1178.28,1140.72,1626.76
+GLDebug: 	Inserted edge:862741106 into SUMORTree with boundary 779.98,1307.92,827.84,1356.75
+GLDebug: 	Inserted edge:862741108 into SUMORTree with boundary 830.16,1391.41,864.04,1420.63
+GLDebug: 	Inserted edge:868347084 into SUMORTree with boundary 655.88,1181.52,812.54,1368.26
+GLDebug: 	Inserted edge:872231978 into SUMORTree with boundary 1044.73,1474.67,1151.10,1589.90
+GLDebug: 	Inserted edge:97206934#0 into SUMORTree with boundary 1742.55,3059.75,1865.00,3267.90
+GLDebug: 	Inserted edge:998166558 into SUMORTree with boundary 1733.06,3245.62,1766.77,3283.57
 Debug: Key F5 (Compute) pressed
+GLDebug: Removing junctions during recomputing
+GLDebug: 	Removed object junction:100154846 from SUMORTree with boundary 1712.35,3587.22,1736.35,3611.22
+GLDebug: 	Removed object junction:100157291 from SUMORTree with boundary 1827.44,3705.82,1851.44,3729.82
+GLDebug: 	Removed object junction:100159422 from SUMORTree with boundary 1030.03,2233.21,1054.03,2257.21
+GLDebug: 	Removed object junction:100159780 from SUMORTree with boundary 993.07,2127.88,1017.07,2151.88
+GLDebug: 	Removed object junction:100161132 from SUMORTree with boundary 1177.89,1679.11,1201.89,1703.11
+GLDebug: 	Removed object junction:100167375 from SUMORTree with boundary 237.36,3376.27,261.36,3400.27
+GLDebug: 	Removed object junction:100167392 from SUMORTree with boundary 1728.69,2592.80,1752.69,2616.80
+GLDebug: 	Removed object junction:138559856 from SUMORTree with boundary -12.00,354.65,12.00,378.65
+GLDebug: 	Removed object junction:138559868 from SUMORTree with boundary 803.52,1332.55,827.52,1356.55
+GLDebug: 	Removed object junction:138562259 from SUMORTree with boundary 655.09,1180.57,679.09,1204.57
+GLDebug: 	Removed object junction:1552842725 from SUMORTree with boundary 1841.14,905.32,1865.14,929.32
+GLDebug: 	Removed object junction:1552842823 from SUMORTree with boundary 863.99,1424.49,887.99,1448.49
+GLDebug: 	Removed object junction:158906921 from SUMORTree with boundary 1816.06,2667.21,1840.06,2691.21
+GLDebug: 	Removed object junction:1589761370 from SUMORTree with boundary 1229.35,1084.26,1253.35,1108.26
+GLDebug: 	Removed object junction:2030862306 from SUMORTree with boundary 1440.53,2783.13,1464.53,2807.13
+GLDebug: 	Removed object junction:206191818 from SUMORTree with boundary 1049.51,1255.61,1073.51,1279.61
+GLDebug: 	Removed object junction:206191819 from SUMORTree with boundary 1116.64,1178.71,1140.64,1202.71
+GLDebug: 	Removed object junction:206191826 from SUMORTree with boundary 712.05,1558.48,736.05,1582.48
+GLDebug: 	Removed object junction:206191828 from SUMORTree with boundary 605.27,1630.90,629.27,1654.90
+GLDebug: 	Removed object junction:206191829 from SUMORTree with boundary 614.14,1602.28,638.14,1626.28
+GLDebug: 	Removed object junction:206191832 from SUMORTree with boundary 744.12,1476.17,768.12,1500.17
+GLDebug: 	Removed object junction:206191835 from SUMORTree with boundary 1016.98,1246.36,1040.98,1270.36
+GLDebug: 	Removed object junction:2165987557 from SUMORTree with boundary 1151.49,1167.72,1175.49,1191.72
+GLDebug: 	Removed object junction:2165987560 from SUMORTree with boundary 963.54,1345.70,987.54,1369.70
+GLDebug: 	Removed object junction:2165987569 from SUMORTree with boundary 1000.02,1522.13,1024.02,1546.13
+GLDebug: 	Removed object junction:2165987571 from SUMORTree with boundary 1094.19,1624.86,1118.19,1648.86
+GLDebug: 	Removed object junction:2165987572 from SUMORTree with boundary 1230.81,1791.38,1254.81,1815.38
+GLDebug: 	Removed object junction:2255293294 from SUMORTree with boundary 1950.12,2833.56,1974.12,2857.56
+GLDebug: 	Removed object junction:2255293408 from SUMORTree with boundary 1581.68,3526.34,1605.68,3550.34
+GLDebug: 	Removed object junction:280777678 from SUMORTree with boundary 1330.96,1762.54,1354.96,1786.54
+GLDebug: 	Removed object junction:283017766 from SUMORTree with boundary 789.26,1345.30,813.26,1369.30
+GLDebug: 	Removed object junction:286046797 from SUMORTree with boundary 1893.59,2923.35,1917.59,2947.35
+GLDebug: 	Removed object junction:290952496 from SUMORTree with boundary 1394.42,1794.77,1418.42,1818.77
+GLDebug: 	Removed object junction:290968580 from SUMORTree with boundary 983.10,1526.77,1007.10,1550.77
+GLDebug: 	Removed object junction:290971361 from SUMORTree with boundary 843.83,1377.52,867.83,1401.52
+GLDebug: 	Removed object junction:290971408 from SUMORTree with boundary 829.36,1390.47,853.36,1414.47
+GLDebug: 	Removed object junction:292526263-AddedOffRampNode from SUMORTree with boundary 1124.83,1189.83,1148.83,1213.83
+GLDebug: 	Removed object junction:2960840894 from SUMORTree with boundary 1451.11,928.11,1475.11,952.11
+GLDebug: 	Removed object junction:311410889 from SUMORTree with boundary 1671.91,3407.90,1695.91,3431.90
+GLDebug: 	Removed object junction:31358110 from SUMORTree with boundary 1841.59,3058.50,1865.59,3082.50
+GLDebug: 	Removed object junction:3246050925 from SUMORTree with boundary 911.42,1391.12,935.42,1415.12
+GLDebug: 	Removed object junction:3246050926 from SUMORTree with boundary 811.60,1418.52,835.60,1442.52
+GLDebug: 	Removed object junction:3246050927 from SUMORTree with boundary 896.91,1452.50,920.91,1476.50
+GLDebug: 	Removed object junction:3467805279 from SUMORTree with boundary 1490.17,1941.03,1514.17,1965.03
+GLDebug: 	Removed object junction:35215930 from SUMORTree with boundary 1949.72,277.39,1973.72,301.39
+GLDebug: 	Removed object junction:3663247364 from SUMORTree with boundary 1609.79,3387.49,1633.79,3411.49
+GLDebug: 	Removed object junction:4090512230 from SUMORTree with boundary 910.17,4083.35,934.17,4107.35
+GLDebug: 	Removed object junction:4092042341 from SUMORTree with boundary 1129.10,1473.76,1153.10,1497.76
+GLDebug: 	Removed object junction:4307897715 from SUMORTree with boundary 1941.10,2755.52,1965.10,2779.52
+GLDebug: 	Removed object junction:4307897716 from SUMORTree with boundary 2041.25,2754.60,2065.25,2778.60
+GLDebug: 	Removed object junction:492462651 from SUMORTree with boundary 1233.93,1785.04,1257.93,1809.04
+GLDebug: 	Removed object junction:6211252183 from SUMORTree with boundary 1663.03,3367.98,1687.03,3391.98
+GLDebug: 	Removed object junction:6211252184 from SUMORTree with boundary 1680.32,3372.53,1704.32,3396.53
+GLDebug: 	Removed object junction:665725990 from SUMORTree with boundary 854.84,1389.35,878.84,1413.35
+GLDebug: 	Removed object junction:8037309237 from SUMORTree with boundary 780.30,1308.12,804.30,1332.12
+GLDebug: 	Removed object junction:9216394493 from SUMORTree with boundary 1741.96,3245.15,1765.96,3269.15
+GLDebug: 	Removed object junction:9216394494 from SUMORTree with boundary 1733.87,3260.04,1757.87,3284.04
+GLDebug: 	Removed object junction:967017790 from SUMORTree with boundary 666.31,1171.73,690.31,1195.73
+GLDebug: 	Removed object junction:cluster_1401188845_57343261_57343267_9104177905_9104177906_9104177907_9104177908 from SUMORTree with boundary 1991.32,2796.48,2015.32,2820.48
+GLDebug: 	Removed object junction:cluster_1552842866_412543167 from SUMORTree with boundary 1042.73,1567.90,1066.73,1591.90
+GLDebug: 	Removed object junction:cluster_1867592741_2030862351_8094449969_96499875 from SUMORTree with boundary 1462.16,2815.77,1486.16,2839.77
+GLDebug: 	Removed object junction:cluster_2334532594_3169446746_9104177903_9104177904 from SUMORTree with boundary 2302.06,2431.81,2326.06,2455.81
+GLDebug: 	Removed object junction:cluster_246758619_cluster_2008877556_206191834 from SUMORTree with boundary 842.04,1396.56,866.04,1420.56
+GLDebug: 	Removed object junction:cluster_31358103_567607181_cluster_1867580179_2255293396 from SUMORTree with boundary 1607.12,3446.82,1662.43,3524.70
+GLDebug: 	Removed object junction:cluster_412543168_681323998 from SUMORTree with boundary 1256.29,1732.17,1280.29,1756.17
+GLDebug: 	Removed object junction:cluster_665725993_cluster_206191823_206191824 from SUMORTree with boundary 876.93,1416.64,900.93,1440.64
+GLDebug: Removing edges during recomputing
+GLDebug: 	Removed object edge:-1013117571#1 from SUMORTree with boundary 1713.34,3589.22,1849.44,3729.07
+GLDebug: 	Removed object edge:-129519181#1 from SUMORTree with boundary 1032.03,2234.28,1463.71,2805.13
+GLDebug: 	Removed object edge:-141968830#1 from SUMORTree with boundary 1131.10,907.32,1863.63,1496.85
+GLDebug: 	Removed object edge:-145009991#3 from SUMORTree with boundary 911.13,3527.11,1603.68,4105.35
+GLDebug: 	Removed object edge:-145586617#31 from SUMORTree with boundary 667.32,279.06,1971.72,1193.73
+GLDebug: 	Removed object edge:-170149081#1 from SUMORTree with boundary 912.17,3528.34,1604.71,4106.57
+GLDebug: 	Removed object edge:-206579065 from SUMORTree with boundary 1232.81,1787.04,1257.37,1814.09
+GLDebug: 	Removed object edge:-206579070 from SUMORTree with boundary 1332.24,1764.54,1416.42,1818.20
+GLDebug: 	Removed object edge:-25368898#9 from SUMORTree with boundary 1464.16,2594.80,1751.73,2837.77
+GLDebug: 	Removed object edge:-33234937#10 from SUMORTree with boundary 1492.17,1942.92,1752.08,2614.80
+GLDebug: 	Removed object edge:-33234956#1 from SUMORTree with boundary 1730.69,2593.63,1839.05,2689.21
+GLDebug: 	Removed object edge:-339558638#6 from SUMORTree with boundary 1396.42,1795.40,1513.77,1963.03
+GLDebug: 	Removed object edge:-53087792#10 from SUMORTree with boundary 995.07,1793.38,1254.25,2150.96
+GLDebug: 	Removed object edge:-54039620#2 from SUMORTree with boundary 1258.29,1728.86,1355.19,1784.54
+GLDebug: 	Removed object edge:-746625193#2 from SUMORTree with boundary 1044.73,1475.76,1154.61,1589.90
+GLDebug: 	Removed object edge:-81535329#13 from SUMORTree with boundary 239.36,2817.77,1484.16,3399.63
+GLDebug: 	Removed object edge:1003191656#0 from SUMORTree with boundary 2042.01,2433.81,2331.28,2777.61
+GLDebug: 	Removed object edge:1003191667#1 from SUMORTree with boundary 1986.95,2425.88,2324.06,2818.48
+GLDebug: 	Removed object edge:10860201#0 from SUMORTree with boundary 1442.53,2782.19,1491.20,2837.77
+GLDebug: 	Removed object edge:11279544#0 from SUMORTree with boundary 1620.34,3479.64,1734.38,3613.37
+GLDebug: 	Removed object edge:11279822#0 from SUMORTree with boundary 978.46,2129.88,1052.03,2256.57
+GLDebug: 	Removed object edge:11279858#0 from SUMORTree with boundary 989.00,2129.88,1053.56,2255.21
+GLDebug: 	Removed object edge:11279895#0 from SUMORTree with boundary 993.89,1792.69,1252.81,2149.88
+GLDebug: 	Removed object edge:145009985#0 from SUMORTree with boundary 1626.42,3479.64,1738.34,3609.22
+GLDebug: 	Removed object edge:145586606 from SUMORTree with boundary 605.21,1255.14,1073.54,1655.34
+GLDebug: 	Removed object edge:145586607 from SUMORTree with boundary 1114.53,1081.35,1253.40,1203.17
+GLDebug: 	Removed object edge:145586617#0 from SUMORTree with boundary 668.31,279.39,1973.29,1194.99
+GLDebug: 	Removed object edge:145586622#0 from SUMORTree with boundary 1818.06,2669.21,1963.10,2777.52
+GLDebug: 	Removed object edge:192530508#0 from SUMORTree with boundary 1030.73,2235.21,1462.53,2806.21
+GLDebug: 	Removed object edge:194895343#0 from SUMORTree with boundary 1439.15,2784.72,1484.16,2842.96
+GLDebug: 	Removed object edge:194896804#0 from SUMORTree with boundary 1464.16,2813.79,1633.35,3409.84
+GLDebug: 	Removed object edge:19791219 from SUMORTree with boundary 964.49,1257.61,1076.95,1368.91
+GLDebug: 	Removed object edge:19791220 from SUMORTree with boundary 614.67,1476.97,767.18,1624.91
+GLDebug: 	Removed object edge:204721580#0 from SUMORTree with boundary 1663.48,2924.58,1916.99,3390.38
+GLDebug: 	Removed object edge:206579065 from SUMORTree with boundary 1228.50,1784.92,1255.93,1813.38
+GLDebug: 	Removed object edge:206579066#0 from SUMORTree with boundary 1231.49,1734.17,1278.29,1807.04
+GLDebug: 	Removed object edge:206579067 from SUMORTree with boundary 1038.78,1569.90,1118.23,1649.32
+GLDebug: 	Removed object edge:206579068 from SUMORTree with boundary 1178.19,1678.40,1286.99,1756.08
+GLDebug: 	Removed object edge:206579070 from SUMORTree with boundary 1332.96,1763.11,1417.14,1816.77
+GLDebug: 	Removed object edge:206579071 from SUMORTree with boundary 896.81,1452.08,1007.19,1551.20
+GLDebug: 	Removed object edge:206579073 from SUMORTree with boundary 999.84,1521.79,1070.45,1589.90
+GLDebug: 	Removed object edge:206579079 from SUMORTree with boundary 744.04,1418.09,835.68,1500.60
+GLDebug: 	Removed object edge:206579082 from SUMORTree with boundary 911.27,1345.28,987.63,1415.49
+GLDebug: 	Removed object edge:206579085 from SUMORTree with boundary 1018.98,1175.81,1138.64,1268.36
+GLDebug: 	Removed object edge:206579088 from SUMORTree with boundary 607.27,1560.48,734.05,1652.90
+GLDebug: 	Removed object edge:216169544#0 from SUMORTree with boundary 1580.08,3479.64,1646.42,3548.34
+GLDebug: 	Removed object edge:216169546#0 from SUMORTree with boundary 1583.68,3479.64,1646.42,3549.65
+GLDebug: 	Removed object edge:22721677#0 from SUMORTree with boundary -11.22,355.61,689.53,1194.76
+GLDebug: 	Removed object edge:22721677#4 from SUMORTree with boundary 667.08,1172.70,803.45,1331.23
+GLDebug: 	Removed object edge:22917228#0 from SUMORTree with boundary 840.42,1398.56,888.24,1448.77
+GLDebug: 	Removed object edge:22917233#0 from SUMORTree with boundary 878.93,1416.36,1023.07,1545.34
+GLDebug: 	Removed object edge:25368898#0 from SUMORTree with boundary 1464.16,2593.58,1750.69,2837.77
+GLDebug: 	Removed object edge:25368900#0 from SUMORTree with boundary 238.52,2817.77,1484.16,3398.27
+GLDebug: 	Removed object edge:25944425#0 from SUMORTree with boundary 803.14,1332.41,868.21,1401.66
+GLDebug: 	Removed object edge:26547171#0 from SUMORTree with boundary 843.48,1377.35,875.10,1418.56
+GLDebug: 	Removed object edge:26547171#2 from SUMORTree with boundary 844.04,1385.01,879.07,1418.56
+GLDebug: 	Removed object edge:26547172#0 from SUMORTree with boundary 854.61,1389.05,902.63,1438.64
+GLDebug: 	Removed object edge:26547179 from SUMORTree with boundary 790.06,1346.24,852.56,1413.53
+GLDebug: 	Removed object edge:266227880#0 from SUMORTree with boundary 1818.06,2669.21,2013.32,2819.53
+GLDebug: 	Removed object edge:27077898#0 from SUMORTree with boundary 844.04,1247.14,1040.02,1418.56
+GLDebug: 	Removed object edge:27077902#0 from SUMORTree with boundary 713.01,1418.64,898.93,1581.70
+GLDebug: 	Removed object edge:292525977 from SUMORTree with boundary 1151.42,927.43,1474.85,1192.16
+GLDebug: 	Removed object edge:292526263 from SUMORTree with boundary 1123.67,1166.02,1176.54,1215.44
+GLDebug: 	Removed object edge:292526263-AddedOffRampEdge from SUMORTree with boundary 1048.35,1188.22,1152.09,1283.64
+GLDebug: 	Removed object edge:318210393#0 from SUMORTree with boundary 867.83,1418.64,920.99,1476.93
+GLDebug: 	Removed object edge:318210393#2 from SUMORTree with boundary 863.99,1418.64,898.93,1452.14
+GLDebug: 	Removed object edge:318210399#0 from SUMORTree with boundary 811.53,1397.05,864.04,1442.96
+GLDebug: 	Removed object edge:318210401#0 from SUMORTree with boundary 878.93,1390.68,935.49,1439.91
+GLDebug: 	Removed object edge:33234937#0 from SUMORTree with boundary 1490.57,1943.03,1750.69,2615.60
+GLDebug: 	Removed object edge:33234956#0 from SUMORTree with boundary 1729.60,2594.80,1838.06,2690.47
+GLDebug: 	Removed object edge:339558638#0 from SUMORTree with boundary 1395.60,1796.77,1512.17,1963.11
+GLDebug: 	Removed object edge:348583831#0 from SUMORTree with boundary 1626.42,3408.79,1696.91,3503.67
+GLDebug: 	Removed object edge:348583833#0 from SUMORTree with boundary 1625.98,3369.58,1686.58,3499.64
+GLDebug: 	Removed object edge:407167843#0 from SUMORTree with boundary 1129.93,905.80,1863.14,1495.76
+GLDebug: 	Removed object edge:431573403 from SUMORTree with boundary 1894.19,2834.68,1973.46,2946.13
+GLDebug: 	Removed object edge:431573404#0 from SUMORTree with boundary 1949.57,2797.48,2013.32,2857.49
+GLDebug: 	Removed object edge:431573405#0 from SUMORTree with boundary 1993.32,2754.53,2065.69,2824.22
+GLDebug: 	Removed object edge:431573406#0 from SUMORTree with boundary 1842.18,2798.48,2026.38,3081.25
+GLDebug: 	Removed object edge:431573407#0 from SUMORTree with boundary 1942.08,2756.29,2013.32,2818.48
+GLDebug: 	Removed object edge:472236111#0 from SUMORTree with boundary 1680.75,3261.29,1757.28,3394.83
+GLDebug: 	Removed object edge:52783765#0 from SUMORTree with boundary 1235.93,1733.57,1285.00,1807.98
+GLDebug: 	Removed object edge:53385386#0 from SUMORTree with boundary 1044.73,1564.02,1200.88,1702.37
+GLDebug: 	Removed object edge:54039595#0 from SUMORTree with boundary 1095.08,1625.71,1278.29,1756.29
+GLDebug: 	Removed object edge:54039620#0 from SUMORTree with boundary 1258.29,1733.57,1352.96,1785.96
+GLDebug: 	Removed object edge:541676222 from SUMORTree with boundary 1608.66,3388.84,1650.52,3499.64
+GLDebug: 	Removed object edge:663605951#0 from SUMORTree with boundary 1672.37,3374.23,1703.89,3430.32
+GLDebug: 	Removed object edge:72230301#0 from SUMORTree with boundary 1714.35,3587.98,1850.44,3727.82
+GLDebug: 	Removed object edge:745656019#0 from SUMORTree with boundary 1453.44,2817.77,1646.42,3511.98
+GLDebug: 	Removed object edge:81414476#0 from SUMORTree with boundary 984.09,1527.53,1064.73,1595.66
+GLDebug: 	Removed object edge:83708562 from SUMORTree with boundary 614.12,1178.28,1140.72,1626.76
+GLDebug: 	Removed object edge:862741106 from SUMORTree with boundary 779.98,1307.92,827.84,1356.75
+GLDebug: 	Removed object edge:862741108 from SUMORTree with boundary 830.16,1391.41,864.04,1420.63
+GLDebug: 	Removed object edge:868347084 from SUMORTree with boundary 655.88,1181.52,812.54,1368.26
+GLDebug: 	Removed object edge:872231978 from SUMORTree with boundary 1044.73,1474.67,1151.10,1589.90
+GLDebug: 	Removed object edge:97206934#0 from SUMORTree with boundary 1742.55,3059.75,1865.00,3267.90
+GLDebug: 	Removed object edge:998166558 from SUMORTree with boundary 1733.06,3245.62,1766.77,3283.57
+GLDebug: Add junctions during recomputing after calling myNetBuilder->compute(...)
+GLDebug: 	Inserted junction:100154846 into SUMORTree with boundary 1707.82,3582.38,1739.64,3614.36
+GLDebug: 	Inserted junction:100157291 into SUMORTree with boundary 1827.44,3705.32,1851.44,3730.32
+GLDebug: 	Inserted junction:100159422 into SUMORTree with boundary 1029.71,2233.73,1055.00,2257.76
+GLDebug: 	Inserted junction:100159780 into SUMORTree with boundary 991.63,2128.90,1016.43,2153.21
+GLDebug: 	Inserted junction:100161132 into SUMORTree with boundary 1174.98,1676.29,1205.60,1707.16
+GLDebug: 	Inserted junction:100167375 into SUMORTree with boundary 237.68,3375.55,261.04,3400.99
+GLDebug: 	Inserted junction:100167392 into SUMORTree with boundary 1723.76,2587.83,1757.55,2621.48
+GLDebug: 	Inserted junction:138559856 into SUMORTree with boundary -12.44,354.58,12.44,378.72
+GLDebug: 	Inserted junction:138559868 into SUMORTree with boundary 801.93,1331.13,829.20,1357.87
+GLDebug: 	Inserted junction:138562259 into SUMORTree with boundary 654.68,1180.47,679.50,1204.67
+GLDebug: 	Inserted junction:1552842725 into SUMORTree with boundary 1842.17,904.27,1864.11,930.37
+GLDebug: 	Inserted junction:1552842823 into SUMORTree with boundary 862.44,1422.90,889.19,1450.39
+GLDebug: 	Inserted junction:158906921 into SUMORTree with boundary 1818.01,2668.19,1845.98,2697.94
+GLDebug: 	Inserted junction:1589761370 into SUMORTree with boundary 1226.21,1080.13,1254.43,1109.94
+GLDebug: 	Inserted junction:2030862306 into SUMORTree with boundary 1439.16,2781.86,1467.91,2810.40
+GLDebug: 	Inserted junction:206191818 into SUMORTree with boundary 1040.71,1251.65,1079.13,1291.99
+GLDebug: 	Inserted junction:206191819 into SUMORTree with boundary 1112.32,1173.58,1142.92,1205.37
+GLDebug: 	Inserted junction:206191826 into SUMORTree with boundary 709.95,1555.49,739.13,1584.16
+GLDebug: 	Inserted junction:206191828 into SUMORTree with boundary 616.05,1619.20,643.19,1649.94
+GLDebug: 	Inserted junction:206191829 into SUMORTree with boundary 635.75,1573.92,668.22,1604.29
+GLDebug: 	Inserted junction:206191832 into SUMORTree with boundary 741.01,1471.93,772.27,1503.21
+GLDebug: 	Inserted junction:206191835 into SUMORTree with boundary 1013.91,1244.69,1043.07,1273.35
+GLDebug: 	Inserted junction:2165987557 into SUMORTree with boundary 1146.34,1163.48,1179.64,1197.20
+GLDebug: 	Inserted junction:2165987560 into SUMORTree with boundary 959.38,1342.66,990.66,1373.95
+GLDebug: 	Inserted junction:2165987569 into SUMORTree with boundary 996.93,1519.11,1028.20,1550.35
+GLDebug: 	Inserted junction:2165987571 into SUMORTree with boundary 1090.14,1620.69,1121.20,1651.85
+GLDebug: 	Inserted junction:2165987572 into SUMORTree with boundary 1228.21,1786.97,1257.45,1818.35
+GLDebug: 	Inserted junction:2255293294 into SUMORTree with boundary 1947.31,2829.56,1978.30,2860.57
+GLDebug: 	Inserted junction:2255293408 into SUMORTree with boundary 1578.33,3521.15,1608.64,3553.55
+GLDebug: 	Inserted junction:280777678 into SUMORTree with boundary 1327.94,1757.02,1357.98,1789.21
+GLDebug: 	Inserted junction:283017766 into SUMORTree with boundary 788.63,1345.27,813.74,1369.52
+GLDebug: 	Inserted junction:286046797 into SUMORTree with boundary 1892.71,2923.66,1918.46,2947.02
+GLDebug: 	Inserted junction:290952496 into SUMORTree with boundary 1394.87,1793.87,1418.15,1819.57
+GLDebug: 	Inserted junction:290968580 into SUMORTree with boundary 978.96,1522.54,1010.20,1553.76
+GLDebug: 	Inserted junction:290971361 into SUMORTree with boundary 842.16,1376.21,869.46,1402.88
+GLDebug: 	Inserted junction:290971408 into SUMORTree with boundary 828.87,1390.23,853.86,1414.70
+GLDebug: 	Inserted junction:292526263-AddedOffRampNode into SUMORTree with boundary 1119.61,1184.38,1154.06,1221.70
+GLDebug: 	Inserted junction:2960840894 into SUMORTree with boundary 1450.49,926.09,1475.73,954.13
+GLDebug: 	Inserted junction:311410889 into SUMORTree with boundary 1668.09,3405.40,1697.99,3435.13
+GLDebug: 	Inserted junction:31358110 into SUMORTree with boundary 1840.69,3058.87,1866.49,3082.13
+GLDebug: 	Inserted junction:3246050925 into SUMORTree with boundary 910.18,1389.45,936.78,1416.90
+GLDebug: 	Inserted junction:3246050926 into SUMORTree with boundary 810.37,1416.77,836.83,1444.27
+GLDebug: 	Inserted junction:3246050927 into SUMORTree with boundary 895.68,1450.76,922.17,1478.22
+GLDebug: 	Inserted junction:3467805279 into SUMORTree with boundary 1488.97,1942.72,1515.37,1963.39
+GLDebug: 	Inserted junction:35215930 into SUMORTree with boundary 1948.59,278.73,1974.85,300.05
+GLDebug: 	Inserted junction:3663247364 into SUMORTree with boundary 1607.67,3384.89,1637.30,3414.38
+GLDebug: 	Inserted junction:4090512230 into SUMORTree with boundary 910.10,4082.91,934.24,4107.79
+GLDebug: 	Inserted junction:4092042341 into SUMORTree with boundary 1126.03,1470.65,1156.17,1503.05
+GLDebug: 	Inserted junction:4307897715 into SUMORTree with boundary 1938.98,2753.85,1968.19,2782.51
+GLDebug: 	Inserted junction:4307897716 into SUMORTree with boundary 2037.01,2751.48,2068.25,2782.75
+GLDebug: 	Inserted junction:492462651 into SUMORTree with boundary 1230.14,1783.88,1258.76,1808.54
+GLDebug: 	Inserted junction:6211252183 into SUMORTree with boundary 1661.93,3369.17,1688.13,3390.79
+GLDebug: 	Inserted junction:6211252184 into SUMORTree with boundary 1679.15,3373.77,1705.49,3395.28
+GLDebug: 	Inserted junction:665725990 into SUMORTree with boundary 853.38,1387.81,880.29,1414.90
+GLDebug: 	Inserted junction:8037309237 into SUMORTree with boundary 777.22,1305.02,808.53,1336.33
+GLDebug: 	Inserted junction:9216394493 into SUMORTree with boundary 1737.83,3242.12,1768.68,3272.96
+GLDebug: 	Inserted junction:9216394494 into SUMORTree with boundary 1731.17,3256.24,1762.00,3287.07
+GLDebug: 	Inserted junction:967017790 into SUMORTree with boundary 661.29,1166.24,696.03,1201.38
+GLDebug: 	Inserted junction:cluster_1401188845_57343261_57343267_9104177905_9104177906_9104177907_9104177908 into SUMORTree with boundary 1972.21,2783.65,2030.04,2839.75
+GLDebug: 	Inserted junction:cluster_1552842866_412543167 into SUMORTree with boundary 1032.31,1556.34,1078.93,1605.62
+GLDebug: 	Inserted junction:cluster_1867592741_2030862351_8094449969_96499875 into SUMORTree with boundary 1446.81,2807.51,1497.91,2854.38
+GLDebug: 	Inserted junction:cluster_2334532594_3169446746_9104177903_9104177904 into SUMORTree with boundary 2294.99,2425.77,2333.28,2462.16
+GLDebug: 	Inserted junction:cluster_246758619_cluster_2008877556_206191834 into SUMORTree with boundary 828.75,1375.71,881.77,1429.54
+GLDebug: 	Inserted junction:cluster_31358103_567607181_cluster_1867580179_2255293396 into SUMORTree with boundary 1607.12,3446.82,1662.43,3524.70
+GLDebug: 	Inserted junction:cluster_412543168_681323998 into SUMORTree with boundary 1245.10,1723.22,1290.88,1760.66
+GLDebug: 	Inserted junction:cluster_665725993_cluster_206191823_206191824 into SUMORTree with boundary 860.64,1405.77,914.13,1460.13
+GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
+GLDebug: 	Inserted edge:-1013117571#1 into SUMORTree with boundary 1713.34,3589.22,1849.44,3729.07
+GLDebug: 	Inserted edge:-129519181#1 into SUMORTree with boundary 1032.03,2234.28,1463.71,2805.13
+GLDebug: 	Inserted edge:-141968830#1 into SUMORTree with boundary 1131.10,907.32,1863.63,1496.85
+GLDebug: 	Inserted edge:-145009991#3 into SUMORTree with boundary 911.13,3527.11,1603.68,4105.35
+GLDebug: 	Inserted edge:-145586617#31 into SUMORTree with boundary 667.32,279.06,1971.72,1193.73
+GLDebug: 	Inserted edge:-170149081#1 into SUMORTree with boundary 912.17,3528.34,1604.71,4106.57
+GLDebug: 	Inserted edge:-206579065 into SUMORTree with boundary 1232.81,1787.04,1257.37,1814.09
+GLDebug: 	Inserted edge:-206579070 into SUMORTree with boundary 1332.24,1764.54,1416.42,1818.20
+GLDebug: 	Inserted edge:-25368898#9 into SUMORTree with boundary 1464.16,2594.80,1751.73,2837.77
+GLDebug: 	Inserted edge:-33234937#10 into SUMORTree with boundary 1492.17,1942.92,1752.08,2614.80
+GLDebug: 	Inserted edge:-33234956#1 into SUMORTree with boundary 1730.69,2593.63,1840.97,2689.45
+GLDebug: 	Inserted edge:-339558638#6 into SUMORTree with boundary 1396.42,1795.40,1513.77,1963.03
+GLDebug: 	Inserted edge:-53087792#10 into SUMORTree with boundary 995.07,1793.38,1254.25,2152.13
+GLDebug: 	Inserted edge:-54039620#2 into SUMORTree with boundary 1258.29,1728.86,1355.19,1784.54
+GLDebug: 	Inserted edge:-746625193#2 into SUMORTree with boundary 1044.73,1475.76,1154.61,1589.90
+GLDebug: 	Inserted edge:-81535329#13 into SUMORTree with boundary 239.36,2817.77,1484.16,3399.63
+GLDebug: 	Inserted edge:1003191656#0 into SUMORTree with boundary 2043.25,2433.81,2332.09,2777.61
+GLDebug: 	Inserted edge:1003191667#1 into SUMORTree with boundary 1986.95,2425.88,2324.06,2818.48
+GLDebug: 	Inserted edge:10860201#0 into SUMORTree with boundary 1442.53,2782.19,1491.20,2837.77
+GLDebug: 	Inserted edge:11279544#0 into SUMORTree with boundary 1620.34,3479.64,1734.35,3613.37
+GLDebug: 	Inserted edge:11279822#0 into SUMORTree with boundary 978.46,2129.88,1052.03,2256.57
+GLDebug: 	Inserted edge:11279858#0 into SUMORTree with boundary 989.00,2129.88,1053.56,2255.21
+GLDebug: 	Inserted edge:11279895#0 into SUMORTree with boundary 992.82,1792.69,1252.81,2149.98
+GLDebug: 	Inserted edge:145009985#0 into SUMORTree with boundary 1626.42,3479.64,1738.34,3609.22
+GLDebug: 	Inserted edge:145586606 into SUMORTree with boundary 607.27,1257.61,1073.54,1655.34
+GLDebug: 	Inserted edge:145586607 into SUMORTree with boundary 1114.53,1081.35,1253.40,1202.17
+GLDebug: 	Inserted edge:145586617#0 into SUMORTree with boundary 668.31,279.39,1973.29,1194.99
+GLDebug: 	Inserted edge:145586622#0 into SUMORTree with boundary 1818.06,2669.21,1963.10,2777.52
+GLDebug: 	Inserted edge:192530508#0 into SUMORTree with boundary 1030.73,2235.21,1462.53,2806.21
+GLDebug: 	Inserted edge:194895343#0 into SUMORTree with boundary 1439.15,2785.13,1484.16,2842.96
+GLDebug: 	Inserted edge:194896804#0 into SUMORTree with boundary 1464.16,2813.79,1633.35,3409.49
+GLDebug: 	Inserted edge:19791219 into SUMORTree with boundary 965.54,1257.61,1076.95,1368.91
+GLDebug: 	Inserted edge:19791220 into SUMORTree with boundary 614.67,1476.97,766.12,1624.28
+GLDebug: 	Inserted edge:204721580#0 into SUMORTree with boundary 1663.48,2924.58,1916.92,3390.38
+GLDebug: 	Inserted edge:206579065 into SUMORTree with boundary 1228.50,1784.92,1255.93,1813.38
+GLDebug: 	Inserted edge:206579066#0 into SUMORTree with boundary 1231.49,1734.17,1278.29,1807.04
+GLDebug: 	Inserted edge:206579067 into SUMORTree with boundary 1038.78,1569.90,1116.19,1649.32
+GLDebug: 	Inserted edge:206579068 into SUMORTree with boundary 1179.89,1678.40,1286.99,1754.17
+GLDebug: 	Inserted edge:206579070 into SUMORTree with boundary 1332.96,1763.11,1417.14,1816.77
+GLDebug: 	Inserted edge:206579071 into SUMORTree with boundary 896.81,1452.18,1005.10,1551.20
+GLDebug: 	Inserted edge:206579073 into SUMORTree with boundary 1002.02,1521.79,1070.45,1589.90
+GLDebug: 	Inserted edge:206579079 into SUMORTree with boundary 744.04,1418.09,835.56,1498.17
+GLDebug: 	Inserted edge:206579082 into SUMORTree with boundary 911.40,1347.70,987.63,1415.49
+GLDebug: 	Inserted edge:206579085 into SUMORTree with boundary 1018.98,1175.81,1138.64,1268.36
+GLDebug: 	Inserted edge:206579088 into SUMORTree with boundary 607.27,1560.48,734.05,1652.90
+GLDebug: 	Inserted edge:216169544#0 into SUMORTree with boundary 1580.08,3479.64,1646.42,3548.34
+GLDebug: 	Inserted edge:216169546#0 into SUMORTree with boundary 1583.68,3479.64,1646.42,3549.65
+GLDebug: 	Inserted edge:22721677#0 into SUMORTree with boundary -11.22,355.61,689.53,1193.73
+GLDebug: 	Inserted edge:22721677#4 into SUMORTree with boundary 668.31,1172.70,803.45,1330.12
+GLDebug: 	Inserted edge:22917228#0 into SUMORTree with boundary 840.42,1398.56,888.06,1448.77
+GLDebug: 	Inserted edge:22917233#0 into SUMORTree with boundary 878.93,1416.36,1023.07,1544.13
+GLDebug: 	Inserted edge:25368898#0 into SUMORTree with boundary 1464.16,2593.58,1750.69,2837.77
+GLDebug: 	Inserted edge:25368900#0 into SUMORTree with boundary 238.52,2817.77,1484.16,3398.27
+GLDebug: 	Inserted edge:25944425#0 into SUMORTree with boundary 803.24,1332.41,868.21,1401.55
+GLDebug: 	Inserted edge:26547171#0 into SUMORTree with boundary 843.34,1377.08,875.10,1418.56
+GLDebug: 	Inserted edge:26547171#2 into SUMORTree with boundary 844.04,1385.01,879.78,1418.56
+GLDebug: 	Inserted edge:26547172#0 into SUMORTree with boundary 854.72,1389.05,902.63,1438.64
+GLDebug: 	Inserted edge:26547179 into SUMORTree with boundary 790.06,1346.33,852.46,1413.53
+GLDebug: 	Inserted edge:266227880#0 into SUMORTree with boundary 1818.06,2669.21,2013.32,2819.53
+GLDebug: 	Inserted edge:27077898#0 into SUMORTree with boundary 844.04,1247.14,1038.98,1418.56
+GLDebug: 	Inserted edge:27077902#0 into SUMORTree with boundary 714.05,1418.64,898.93,1581.70
+GLDebug: 	Inserted edge:292525977 into SUMORTree with boundary 1153.49,927.43,1474.85,1192.16
+GLDebug: 	Inserted edge:292526263 into SUMORTree with boundary 1126.68,1168.55,1176.54,1215.44
+GLDebug: 	Inserted edge:292526263-AddedOffRampEdge into SUMORTree with boundary 1049.66,1190.85,1152.09,1283.64
+GLDebug: 	Inserted edge:318210393#0 into SUMORTree with boundary 867.83,1418.64,920.88,1476.93
+GLDebug: 	Inserted edge:318210393#2 into SUMORTree with boundary 862.83,1418.64,898.93,1452.14
+GLDebug: 	Inserted edge:318210399#0 into SUMORTree with boundary 811.53,1397.05,864.04,1442.86
+GLDebug: 	Inserted edge:318210401#0 into SUMORTree with boundary 878.93,1390.79,935.49,1439.91
+GLDebug: 	Inserted edge:33234937#0 into SUMORTree with boundary 1490.57,1943.03,1750.69,2615.60
+GLDebug: 	Inserted edge:33234956#0 into SUMORTree with boundary 1729.60,2594.80,1839.00,2691.97
+GLDebug: 	Inserted edge:339558638#0 into SUMORTree with boundary 1395.60,1796.77,1512.17,1963.11
+GLDebug: 	Inserted edge:348583831#0 into SUMORTree with boundary 1626.42,3409.90,1696.91,3503.67
+GLDebug: 	Inserted edge:348583833#0 into SUMORTree with boundary 1625.98,3369.58,1686.58,3499.64
+GLDebug: 	Inserted edge:407167843#0 into SUMORTree with boundary 1129.93,905.80,1863.14,1495.76
+GLDebug: 	Inserted edge:431573403 into SUMORTree with boundary 1894.19,2834.68,1972.12,2946.00
+GLDebug: 	Inserted edge:431573404#0 into SUMORTree with boundary 1949.57,2797.48,2013.32,2855.56
+GLDebug: 	Inserted edge:431573405#0 into SUMORTree with boundary 1993.32,2756.60,2065.69,2824.22
+GLDebug: 	Inserted edge:431573406#0 into SUMORTree with boundary 1842.25,2798.48,2026.38,3081.25
+GLDebug: 	Inserted edge:431573407#0 into SUMORTree with boundary 1943.10,2756.29,2013.32,2818.48
+GLDebug: 	Inserted edge:472236111#0 into SUMORTree with boundary 1680.78,3262.04,1757.28,3394.83
+GLDebug: 	Inserted edge:52783765#0 into SUMORTree with boundary 1235.93,1733.57,1285.00,1807.98
+GLDebug: 	Inserted edge:53385386#0 into SUMORTree with boundary 1044.73,1564.02,1200.88,1701.11
+GLDebug: 	Inserted edge:54039595#0 into SUMORTree with boundary 1095.08,1626.86,1278.29,1756.29
+GLDebug: 	Inserted edge:54039620#0 into SUMORTree with boundary 1258.29,1733.57,1352.96,1785.96
+GLDebug: 	Inserted edge:541676222 into SUMORTree with boundary 1609.47,3388.84,1650.52,3499.64
+GLDebug: 	Inserted edge:663605951#0 into SUMORTree with boundary 1673.36,3374.37,1703.89,3430.32
+GLDebug: 	Inserted edge:72230301#0 into SUMORTree with boundary 1714.35,3587.98,1850.44,3727.82
+GLDebug: 	Inserted edge:745656019#0 into SUMORTree with boundary 1453.44,2817.77,1646.42,3511.98
+GLDebug: 	Inserted edge:81414476#0 into SUMORTree with boundary 984.09,1528.77,1064.73,1595.66
+GLDebug: 	Inserted edge:83708562 into SUMORTree with boundary 614.12,1178.28,1139.54,1624.28
+GLDebug: 	Inserted edge:862741106 into SUMORTree with boundary 782.30,1307.92,827.84,1356.64
+GLDebug: 	Inserted edge:862741108 into SUMORTree with boundary 830.16,1391.53,864.04,1420.63
+GLDebug: 	Inserted edge:868347084 into SUMORTree with boundary 655.88,1181.52,812.46,1368.26
+GLDebug: 	Inserted edge:872231978 into SUMORTree with boundary 1044.73,1474.67,1151.10,1589.90
+GLDebug: 	Inserted edge:97206934#0 into SUMORTree with boundary 1743.96,3059.88,1865.00,3267.90
+GLDebug: 	Inserted edge:998166558 into SUMORTree with boundary 1734.97,3247.15,1766.77,3283.57
 Debug: Created connection 'from-1013117571#1_0to11279544#0_0' in retrieveGNEConnection()
 Debug: Created connection 'from-1013117571#1_0to72230301#0_0' in retrieveGNEConnection()
 Debug: Created connection 'from-129519181#1_0to10860201#0_0' in retrieveGNEConnection()
@@ -250,10 +741,342 @@ Debug: Deleting unreferenced connection 'from26547172#0_0to22917233#0_0' in remo
 Debug: Deleting TLS from junction 'cluster_665725993_cluster_206191823_206191824'
 Debug: Adding TLS into junction 'cluster_665725993_cluster_206191823_206191824'
 Debug: Removing lane '26547172#0_0' from edge
+GLDebug: 	Removed object edge:26547172#0 from SUMORTree with boundary 854.72,1389.05,902.63,1438.64
+GLDebug: 	Inserted edge:26547172#0 into SUMORTree with boundary 854.72,1391.35,900.52,1438.64
 Debug: Key F5 (Compute) pressed
+GLDebug: Removing junctions during recomputing
+GLDebug: 	Removed object junction:100154846 from SUMORTree with boundary 1707.82,3582.38,1739.64,3614.36
+GLDebug: 	Removed object junction:100157291 from SUMORTree with boundary 1827.44,3705.32,1851.44,3730.32
+GLDebug: 	Removed object junction:100159422 from SUMORTree with boundary 1029.71,2233.73,1055.00,2257.76
+GLDebug: 	Removed object junction:100159780 from SUMORTree with boundary 991.63,2128.90,1016.43,2153.21
+GLDebug: 	Removed object junction:100161132 from SUMORTree with boundary 1174.98,1676.29,1205.60,1707.16
+GLDebug: 	Removed object junction:100167375 from SUMORTree with boundary 237.68,3375.55,261.04,3400.99
+GLDebug: 	Removed object junction:100167392 from SUMORTree with boundary 1723.76,2587.83,1757.55,2621.48
+GLDebug: 	Removed object junction:138559856 from SUMORTree with boundary -12.44,354.58,12.44,378.72
+GLDebug: 	Removed object junction:138559868 from SUMORTree with boundary 801.93,1331.13,829.20,1357.87
+GLDebug: 	Removed object junction:138562259 from SUMORTree with boundary 654.68,1180.47,679.50,1204.67
+GLDebug: 	Removed object junction:1552842725 from SUMORTree with boundary 1842.17,904.27,1864.11,930.37
+GLDebug: 	Removed object junction:1552842823 from SUMORTree with boundary 862.44,1422.90,889.19,1450.39
+GLDebug: 	Removed object junction:158906921 from SUMORTree with boundary 1818.01,2668.19,1845.98,2697.94
+GLDebug: 	Removed object junction:1589761370 from SUMORTree with boundary 1226.21,1080.13,1254.43,1109.94
+GLDebug: 	Removed object junction:2030862306 from SUMORTree with boundary 1439.16,2781.86,1467.91,2810.40
+GLDebug: 	Removed object junction:206191818 from SUMORTree with boundary 1040.71,1251.65,1079.13,1291.99
+GLDebug: 	Removed object junction:206191819 from SUMORTree with boundary 1112.32,1173.58,1142.92,1205.37
+GLDebug: 	Removed object junction:206191826 from SUMORTree with boundary 709.95,1555.49,739.13,1584.16
+GLDebug: 	Removed object junction:206191828 from SUMORTree with boundary 616.05,1619.20,643.19,1649.94
+GLDebug: 	Removed object junction:206191829 from SUMORTree with boundary 635.75,1573.92,668.22,1604.29
+GLDebug: 	Removed object junction:206191832 from SUMORTree with boundary 741.01,1471.93,772.27,1503.21
+GLDebug: 	Removed object junction:206191835 from SUMORTree with boundary 1013.91,1244.69,1043.07,1273.35
+GLDebug: 	Removed object junction:2165987557 from SUMORTree with boundary 1146.34,1163.48,1179.64,1197.20
+GLDebug: 	Removed object junction:2165987560 from SUMORTree with boundary 959.38,1342.66,990.66,1373.95
+GLDebug: 	Removed object junction:2165987569 from SUMORTree with boundary 996.93,1519.11,1028.20,1550.35
+GLDebug: 	Removed object junction:2165987571 from SUMORTree with boundary 1090.14,1620.69,1121.20,1651.85
+GLDebug: 	Removed object junction:2165987572 from SUMORTree with boundary 1228.21,1786.97,1257.45,1818.35
+GLDebug: 	Removed object junction:2255293294 from SUMORTree with boundary 1947.31,2829.56,1978.30,2860.57
+GLDebug: 	Removed object junction:2255293408 from SUMORTree with boundary 1578.33,3521.15,1608.64,3553.55
+GLDebug: 	Removed object junction:280777678 from SUMORTree with boundary 1327.94,1757.02,1357.98,1789.21
+GLDebug: 	Removed object junction:283017766 from SUMORTree with boundary 788.63,1345.27,813.74,1369.52
+GLDebug: 	Removed object junction:286046797 from SUMORTree with boundary 1892.71,2923.66,1918.46,2947.02
+GLDebug: 	Removed object junction:290952496 from SUMORTree with boundary 1394.87,1793.87,1418.15,1819.57
+GLDebug: 	Removed object junction:290968580 from SUMORTree with boundary 978.96,1522.54,1010.20,1553.76
+GLDebug: 	Removed object junction:290971361 from SUMORTree with boundary 842.16,1376.21,869.46,1402.88
+GLDebug: 	Removed object junction:290971408 from SUMORTree with boundary 828.87,1390.23,853.86,1414.70
+GLDebug: 	Removed object junction:292526263-AddedOffRampNode from SUMORTree with boundary 1119.61,1184.38,1154.06,1221.70
+GLDebug: 	Removed object junction:2960840894 from SUMORTree with boundary 1450.49,926.09,1475.73,954.13
+GLDebug: 	Removed object junction:311410889 from SUMORTree with boundary 1668.09,3405.40,1697.99,3435.13
+GLDebug: 	Removed object junction:31358110 from SUMORTree with boundary 1840.69,3058.87,1866.49,3082.13
+GLDebug: 	Removed object junction:3246050925 from SUMORTree with boundary 910.18,1389.45,936.78,1416.90
+GLDebug: 	Removed object junction:3246050926 from SUMORTree with boundary 810.37,1416.77,836.83,1444.27
+GLDebug: 	Removed object junction:3246050927 from SUMORTree with boundary 895.68,1450.76,922.17,1478.22
+GLDebug: 	Removed object junction:3467805279 from SUMORTree with boundary 1488.97,1942.72,1515.37,1963.39
+GLDebug: 	Removed object junction:35215930 from SUMORTree with boundary 1948.59,278.73,1974.85,300.05
+GLDebug: 	Removed object junction:3663247364 from SUMORTree with boundary 1607.67,3384.89,1637.30,3414.38
+GLDebug: 	Removed object junction:4090512230 from SUMORTree with boundary 910.10,4082.91,934.24,4107.79
+GLDebug: 	Removed object junction:4092042341 from SUMORTree with boundary 1126.03,1470.65,1156.17,1503.05
+GLDebug: 	Removed object junction:4307897715 from SUMORTree with boundary 1938.98,2753.85,1968.19,2782.51
+GLDebug: 	Removed object junction:4307897716 from SUMORTree with boundary 2037.01,2751.48,2068.25,2782.75
+GLDebug: 	Removed object junction:492462651 from SUMORTree with boundary 1230.14,1783.88,1258.76,1808.54
+GLDebug: 	Removed object junction:6211252183 from SUMORTree with boundary 1661.93,3369.17,1688.13,3390.79
+GLDebug: 	Removed object junction:6211252184 from SUMORTree with boundary 1679.15,3373.77,1705.49,3395.28
+GLDebug: 	Removed object junction:665725990 from SUMORTree with boundary 853.38,1387.81,880.29,1414.90
+GLDebug: 	Removed object junction:8037309237 from SUMORTree with boundary 777.22,1305.02,808.53,1336.33
+GLDebug: 	Removed object junction:9216394493 from SUMORTree with boundary 1737.83,3242.12,1768.68,3272.96
+GLDebug: 	Removed object junction:9216394494 from SUMORTree with boundary 1731.17,3256.24,1762.00,3287.07
+GLDebug: 	Removed object junction:967017790 from SUMORTree with boundary 661.29,1166.24,696.03,1201.38
+GLDebug: 	Removed object junction:cluster_1401188845_57343261_57343267_9104177905_9104177906_9104177907_9104177908 from SUMORTree with boundary 1972.21,2783.65,2030.04,2839.75
+GLDebug: 	Removed object junction:cluster_1552842866_412543167 from SUMORTree with boundary 1032.31,1556.34,1078.93,1605.62
+GLDebug: 	Removed object junction:cluster_1867592741_2030862351_8094449969_96499875 from SUMORTree with boundary 1446.81,2807.51,1497.91,2854.38
+GLDebug: 	Removed object junction:cluster_2334532594_3169446746_9104177903_9104177904 from SUMORTree with boundary 2294.99,2425.77,2333.28,2462.16
+GLDebug: 	Removed object junction:cluster_246758619_cluster_2008877556_206191834 from SUMORTree with boundary 828.75,1375.71,881.77,1429.54
+GLDebug: 	Removed object junction:cluster_31358103_567607181_cluster_1867580179_2255293396 from SUMORTree with boundary 1607.12,3446.82,1662.43,3524.70
+GLDebug: 	Removed object junction:cluster_412543168_681323998 from SUMORTree with boundary 1245.10,1723.22,1290.88,1760.66
+GLDebug: 	Removed object junction:cluster_665725993_cluster_206191823_206191824 from SUMORTree with boundary 860.64,1405.77,914.13,1460.13
+GLDebug: Removing edges during recomputing
+GLDebug: 	Removed object edge:-1013117571#1 from SUMORTree with boundary 1713.34,3589.22,1849.44,3729.07
+GLDebug: 	Removed object edge:-129519181#1 from SUMORTree with boundary 1032.03,2234.28,1463.71,2805.13
+GLDebug: 	Removed object edge:-141968830#1 from SUMORTree with boundary 1131.10,907.32,1863.63,1496.85
+GLDebug: 	Removed object edge:-145009991#3 from SUMORTree with boundary 911.13,3527.11,1603.68,4105.35
+GLDebug: 	Removed object edge:-145586617#31 from SUMORTree with boundary 667.32,279.06,1971.72,1193.73
+GLDebug: 	Removed object edge:-170149081#1 from SUMORTree with boundary 912.17,3528.34,1604.71,4106.57
+GLDebug: 	Removed object edge:-206579065 from SUMORTree with boundary 1232.81,1787.04,1257.37,1814.09
+GLDebug: 	Removed object edge:-206579070 from SUMORTree with boundary 1332.24,1764.54,1416.42,1818.20
+GLDebug: 	Removed object edge:-25368898#9 from SUMORTree with boundary 1464.16,2594.80,1751.73,2837.77
+GLDebug: 	Removed object edge:-33234937#10 from SUMORTree with boundary 1492.17,1942.92,1752.08,2614.80
+GLDebug: 	Removed object edge:-33234956#1 from SUMORTree with boundary 1730.69,2593.63,1840.97,2689.45
+GLDebug: 	Removed object edge:-339558638#6 from SUMORTree with boundary 1396.42,1795.40,1513.77,1963.03
+GLDebug: 	Removed object edge:-53087792#10 from SUMORTree with boundary 995.07,1793.38,1254.25,2152.13
+GLDebug: 	Removed object edge:-54039620#2 from SUMORTree with boundary 1258.29,1728.86,1355.19,1784.54
+GLDebug: 	Removed object edge:-746625193#2 from SUMORTree with boundary 1044.73,1475.76,1154.61,1589.90
+GLDebug: 	Removed object edge:-81535329#13 from SUMORTree with boundary 239.36,2817.77,1484.16,3399.63
+GLDebug: 	Removed object edge:1003191656#0 from SUMORTree with boundary 2043.25,2433.81,2332.09,2777.61
+GLDebug: 	Removed object edge:1003191667#1 from SUMORTree with boundary 1986.95,2425.88,2324.06,2818.48
+GLDebug: 	Removed object edge:10860201#0 from SUMORTree with boundary 1442.53,2782.19,1491.20,2837.77
+GLDebug: 	Removed object edge:11279544#0 from SUMORTree with boundary 1620.34,3479.64,1734.35,3613.37
+GLDebug: 	Removed object edge:11279822#0 from SUMORTree with boundary 978.46,2129.88,1052.03,2256.57
+GLDebug: 	Removed object edge:11279858#0 from SUMORTree with boundary 989.00,2129.88,1053.56,2255.21
+GLDebug: 	Removed object edge:11279895#0 from SUMORTree with boundary 992.82,1792.69,1252.81,2149.98
+GLDebug: 	Removed object edge:145009985#0 from SUMORTree with boundary 1626.42,3479.64,1738.34,3609.22
+GLDebug: 	Removed object edge:145586606 from SUMORTree with boundary 607.27,1257.61,1073.54,1655.34
+GLDebug: 	Removed object edge:145586607 from SUMORTree with boundary 1114.53,1081.35,1253.40,1202.17
+GLDebug: 	Removed object edge:145586617#0 from SUMORTree with boundary 668.31,279.39,1973.29,1194.99
+GLDebug: 	Removed object edge:145586622#0 from SUMORTree with boundary 1818.06,2669.21,1963.10,2777.52
+GLDebug: 	Removed object edge:192530508#0 from SUMORTree with boundary 1030.73,2235.21,1462.53,2806.21
+GLDebug: 	Removed object edge:194895343#0 from SUMORTree with boundary 1439.15,2785.13,1484.16,2842.96
+GLDebug: 	Removed object edge:194896804#0 from SUMORTree with boundary 1464.16,2813.79,1633.35,3409.49
+GLDebug: 	Removed object edge:19791219 from SUMORTree with boundary 965.54,1257.61,1076.95,1368.91
+GLDebug: 	Removed object edge:19791220 from SUMORTree with boundary 614.67,1476.97,766.12,1624.28
+GLDebug: 	Removed object edge:204721580#0 from SUMORTree with boundary 1663.48,2924.58,1916.92,3390.38
+GLDebug: 	Removed object edge:206579065 from SUMORTree with boundary 1228.50,1784.92,1255.93,1813.38
+GLDebug: 	Removed object edge:206579066#0 from SUMORTree with boundary 1231.49,1734.17,1278.29,1807.04
+GLDebug: 	Removed object edge:206579067 from SUMORTree with boundary 1038.78,1569.90,1116.19,1649.32
+GLDebug: 	Removed object edge:206579068 from SUMORTree with boundary 1179.89,1678.40,1286.99,1754.17
+GLDebug: 	Removed object edge:206579070 from SUMORTree with boundary 1332.96,1763.11,1417.14,1816.77
+GLDebug: 	Removed object edge:206579071 from SUMORTree with boundary 896.81,1452.18,1005.10,1551.20
+GLDebug: 	Removed object edge:206579073 from SUMORTree with boundary 1002.02,1521.79,1070.45,1589.90
+GLDebug: 	Removed object edge:206579079 from SUMORTree with boundary 744.04,1418.09,835.56,1498.17
+GLDebug: 	Removed object edge:206579082 from SUMORTree with boundary 911.40,1347.70,987.63,1415.49
+GLDebug: 	Removed object edge:206579085 from SUMORTree with boundary 1018.98,1175.81,1138.64,1268.36
+GLDebug: 	Removed object edge:206579088 from SUMORTree with boundary 607.27,1560.48,734.05,1652.90
+GLDebug: 	Removed object edge:216169544#0 from SUMORTree with boundary 1580.08,3479.64,1646.42,3548.34
+GLDebug: 	Removed object edge:216169546#0 from SUMORTree with boundary 1583.68,3479.64,1646.42,3549.65
+GLDebug: 	Removed object edge:22721677#0 from SUMORTree with boundary -11.22,355.61,689.53,1193.73
+GLDebug: 	Removed object edge:22721677#4 from SUMORTree with boundary 668.31,1172.70,803.45,1330.12
+GLDebug: 	Removed object edge:22917228#0 from SUMORTree with boundary 840.42,1398.56,888.06,1448.77
+GLDebug: 	Removed object edge:22917233#0 from SUMORTree with boundary 878.93,1416.36,1023.07,1544.13
+GLDebug: 	Removed object edge:25368898#0 from SUMORTree with boundary 1464.16,2593.58,1750.69,2837.77
+GLDebug: 	Removed object edge:25368900#0 from SUMORTree with boundary 238.52,2817.77,1484.16,3398.27
+GLDebug: 	Removed object edge:25944425#0 from SUMORTree with boundary 803.24,1332.41,868.21,1401.55
+GLDebug: 	Removed object edge:26547171#0 from SUMORTree with boundary 843.34,1377.08,875.10,1418.56
+GLDebug: 	Removed object edge:26547171#2 from SUMORTree with boundary 844.04,1385.01,879.78,1418.56
+GLDebug: 	Removed object edge:26547172#0 from SUMORTree with boundary 854.72,1391.35,900.52,1438.64
+GLDebug: 	Removed object edge:26547179 from SUMORTree with boundary 790.06,1346.33,852.46,1413.53
+GLDebug: 	Removed object edge:266227880#0 from SUMORTree with boundary 1818.06,2669.21,2013.32,2819.53
+GLDebug: 	Removed object edge:27077898#0 from SUMORTree with boundary 844.04,1247.14,1038.98,1418.56
+GLDebug: 	Removed object edge:27077902#0 from SUMORTree with boundary 714.05,1418.64,898.93,1581.70
+GLDebug: 	Removed object edge:292525977 from SUMORTree with boundary 1153.49,927.43,1474.85,1192.16
+GLDebug: 	Removed object edge:292526263 from SUMORTree with boundary 1126.68,1168.55,1176.54,1215.44
+GLDebug: 	Removed object edge:292526263-AddedOffRampEdge from SUMORTree with boundary 1049.66,1190.85,1152.09,1283.64
+GLDebug: 	Removed object edge:318210393#0 from SUMORTree with boundary 867.83,1418.64,920.88,1476.93
+GLDebug: 	Removed object edge:318210393#2 from SUMORTree with boundary 862.83,1418.64,898.93,1452.14
+GLDebug: 	Removed object edge:318210399#0 from SUMORTree with boundary 811.53,1397.05,864.04,1442.86
+GLDebug: 	Removed object edge:318210401#0 from SUMORTree with boundary 878.93,1390.79,935.49,1439.91
+GLDebug: 	Removed object edge:33234937#0 from SUMORTree with boundary 1490.57,1943.03,1750.69,2615.60
+GLDebug: 	Removed object edge:33234956#0 from SUMORTree with boundary 1729.60,2594.80,1839.00,2691.97
+GLDebug: 	Removed object edge:339558638#0 from SUMORTree with boundary 1395.60,1796.77,1512.17,1963.11
+GLDebug: 	Removed object edge:348583831#0 from SUMORTree with boundary 1626.42,3409.90,1696.91,3503.67
+GLDebug: 	Removed object edge:348583833#0 from SUMORTree with boundary 1625.98,3369.58,1686.58,3499.64
+GLDebug: 	Removed object edge:407167843#0 from SUMORTree with boundary 1129.93,905.80,1863.14,1495.76
+GLDebug: 	Removed object edge:431573403 from SUMORTree with boundary 1894.19,2834.68,1972.12,2946.00
+GLDebug: 	Removed object edge:431573404#0 from SUMORTree with boundary 1949.57,2797.48,2013.32,2855.56
+GLDebug: 	Removed object edge:431573405#0 from SUMORTree with boundary 1993.32,2756.60,2065.69,2824.22
+GLDebug: 	Removed object edge:431573406#0 from SUMORTree with boundary 1842.25,2798.48,2026.38,3081.25
+GLDebug: 	Removed object edge:431573407#0 from SUMORTree with boundary 1943.10,2756.29,2013.32,2818.48
+GLDebug: 	Removed object edge:472236111#0 from SUMORTree with boundary 1680.78,3262.04,1757.28,3394.83
+GLDebug: 	Removed object edge:52783765#0 from SUMORTree with boundary 1235.93,1733.57,1285.00,1807.98
+GLDebug: 	Removed object edge:53385386#0 from SUMORTree with boundary 1044.73,1564.02,1200.88,1701.11
+GLDebug: 	Removed object edge:54039595#0 from SUMORTree with boundary 1095.08,1626.86,1278.29,1756.29
+GLDebug: 	Removed object edge:54039620#0 from SUMORTree with boundary 1258.29,1733.57,1352.96,1785.96
+GLDebug: 	Removed object edge:541676222 from SUMORTree with boundary 1609.47,3388.84,1650.52,3499.64
+GLDebug: 	Removed object edge:663605951#0 from SUMORTree with boundary 1673.36,3374.37,1703.89,3430.32
+GLDebug: 	Removed object edge:72230301#0 from SUMORTree with boundary 1714.35,3587.98,1850.44,3727.82
+GLDebug: 	Removed object edge:745656019#0 from SUMORTree with boundary 1453.44,2817.77,1646.42,3511.98
+GLDebug: 	Removed object edge:81414476#0 from SUMORTree with boundary 984.09,1528.77,1064.73,1595.66
+GLDebug: 	Removed object edge:83708562 from SUMORTree with boundary 614.12,1178.28,1139.54,1624.28
+GLDebug: 	Removed object edge:862741106 from SUMORTree with boundary 782.30,1307.92,827.84,1356.64
+GLDebug: 	Removed object edge:862741108 from SUMORTree with boundary 830.16,1391.53,864.04,1420.63
+GLDebug: 	Removed object edge:868347084 from SUMORTree with boundary 655.88,1181.52,812.46,1368.26
+GLDebug: 	Removed object edge:872231978 from SUMORTree with boundary 1044.73,1474.67,1151.10,1589.90
+GLDebug: 	Removed object edge:97206934#0 from SUMORTree with boundary 1743.96,3059.88,1865.00,3267.90
+GLDebug: 	Removed object edge:998166558 from SUMORTree with boundary 1734.97,3247.15,1766.77,3283.57
+GLDebug: Add junctions during recomputing after calling myNetBuilder->compute(...)
+GLDebug: 	Inserted junction:100154846 into SUMORTree with boundary 1707.82,3582.38,1739.64,3614.36
+GLDebug: 	Inserted junction:100157291 into SUMORTree with boundary 1827.44,3705.32,1851.44,3730.32
+GLDebug: 	Inserted junction:100159422 into SUMORTree with boundary 1029.71,2233.73,1055.00,2257.76
+GLDebug: 	Inserted junction:100159780 into SUMORTree with boundary 991.63,2128.90,1016.43,2153.21
+GLDebug: 	Inserted junction:100161132 into SUMORTree with boundary 1174.98,1676.29,1205.60,1707.16
+GLDebug: 	Inserted junction:100167375 into SUMORTree with boundary 237.68,3375.55,261.04,3400.99
+GLDebug: 	Inserted junction:100167392 into SUMORTree with boundary 1723.76,2587.83,1757.55,2621.48
+GLDebug: 	Inserted junction:138559856 into SUMORTree with boundary -12.44,354.58,12.44,378.72
+GLDebug: 	Inserted junction:138559868 into SUMORTree with boundary 801.93,1331.13,829.20,1357.87
+GLDebug: 	Inserted junction:138562259 into SUMORTree with boundary 654.68,1180.47,679.50,1204.67
+GLDebug: 	Inserted junction:1552842725 into SUMORTree with boundary 1842.17,904.27,1864.11,930.37
+GLDebug: 	Inserted junction:1552842823 into SUMORTree with boundary 862.44,1422.90,889.19,1450.39
+GLDebug: 	Inserted junction:158906921 into SUMORTree with boundary 1818.01,2668.19,1845.98,2697.94
+GLDebug: 	Inserted junction:1589761370 into SUMORTree with boundary 1226.21,1080.13,1254.43,1109.94
+GLDebug: 	Inserted junction:2030862306 into SUMORTree with boundary 1439.16,2781.86,1467.91,2810.40
+GLDebug: 	Inserted junction:206191818 into SUMORTree with boundary 1040.71,1251.65,1079.13,1291.99
+GLDebug: 	Inserted junction:206191819 into SUMORTree with boundary 1112.32,1173.58,1142.92,1205.37
+GLDebug: 	Inserted junction:206191826 into SUMORTree with boundary 709.95,1555.49,739.13,1584.16
+GLDebug: 	Inserted junction:206191828 into SUMORTree with boundary 616.05,1619.20,643.19,1649.94
+GLDebug: 	Inserted junction:206191829 into SUMORTree with boundary 635.75,1573.92,668.22,1604.29
+GLDebug: 	Inserted junction:206191832 into SUMORTree with boundary 741.01,1471.93,772.27,1503.21
+GLDebug: 	Inserted junction:206191835 into SUMORTree with boundary 1013.91,1244.69,1043.07,1273.35
+GLDebug: 	Inserted junction:2165987557 into SUMORTree with boundary 1146.34,1163.48,1179.64,1197.20
+GLDebug: 	Inserted junction:2165987560 into SUMORTree with boundary 959.38,1342.66,990.66,1373.95
+GLDebug: 	Inserted junction:2165987569 into SUMORTree with boundary 996.93,1519.11,1028.20,1550.35
+GLDebug: 	Inserted junction:2165987571 into SUMORTree with boundary 1090.14,1620.69,1121.20,1651.85
+GLDebug: 	Inserted junction:2165987572 into SUMORTree with boundary 1228.21,1786.97,1257.45,1818.35
+GLDebug: 	Inserted junction:2255293294 into SUMORTree with boundary 1947.31,2829.56,1978.30,2860.57
+GLDebug: 	Inserted junction:2255293408 into SUMORTree with boundary 1578.33,3521.15,1608.64,3553.55
+GLDebug: 	Inserted junction:280777678 into SUMORTree with boundary 1327.94,1757.02,1357.98,1789.21
+GLDebug: 	Inserted junction:283017766 into SUMORTree with boundary 788.63,1345.27,813.74,1369.52
+GLDebug: 	Inserted junction:286046797 into SUMORTree with boundary 1892.71,2923.66,1918.46,2947.02
+GLDebug: 	Inserted junction:290952496 into SUMORTree with boundary 1394.87,1793.87,1418.15,1819.57
+GLDebug: 	Inserted junction:290968580 into SUMORTree with boundary 978.96,1522.54,1010.20,1553.76
+GLDebug: 	Inserted junction:290971361 into SUMORTree with boundary 842.16,1376.21,869.46,1402.88
+GLDebug: 	Inserted junction:290971408 into SUMORTree with boundary 828.87,1390.23,853.86,1414.70
+GLDebug: 	Inserted junction:292526263-AddedOffRampNode into SUMORTree with boundary 1119.61,1184.38,1154.06,1221.70
+GLDebug: 	Inserted junction:2960840894 into SUMORTree with boundary 1450.49,926.09,1475.73,954.13
+GLDebug: 	Inserted junction:311410889 into SUMORTree with boundary 1668.09,3405.40,1697.99,3435.13
+GLDebug: 	Inserted junction:31358110 into SUMORTree with boundary 1840.69,3058.87,1866.49,3082.13
+GLDebug: 	Inserted junction:3246050925 into SUMORTree with boundary 910.18,1389.45,936.78,1416.90
+GLDebug: 	Inserted junction:3246050926 into SUMORTree with boundary 810.37,1416.77,836.83,1444.27
+GLDebug: 	Inserted junction:3246050927 into SUMORTree with boundary 895.68,1450.76,922.17,1478.22
+GLDebug: 	Inserted junction:3467805279 into SUMORTree with boundary 1488.97,1942.72,1515.37,1963.39
+GLDebug: 	Inserted junction:35215930 into SUMORTree with boundary 1948.59,278.73,1974.85,300.05
+GLDebug: 	Inserted junction:3663247364 into SUMORTree with boundary 1607.67,3384.89,1637.30,3414.38
+GLDebug: 	Inserted junction:4090512230 into SUMORTree with boundary 910.10,4082.91,934.24,4107.79
+GLDebug: 	Inserted junction:4092042341 into SUMORTree with boundary 1126.03,1470.65,1156.17,1503.05
+GLDebug: 	Inserted junction:4307897715 into SUMORTree with boundary 1938.98,2753.85,1968.19,2782.51
+GLDebug: 	Inserted junction:4307897716 into SUMORTree with boundary 2037.01,2751.48,2068.25,2782.75
+GLDebug: 	Inserted junction:492462651 into SUMORTree with boundary 1230.14,1783.88,1258.76,1808.54
+GLDebug: 	Inserted junction:6211252183 into SUMORTree with boundary 1661.93,3369.17,1688.13,3390.79
+GLDebug: 	Inserted junction:6211252184 into SUMORTree with boundary 1679.15,3373.77,1705.49,3395.28
+GLDebug: 	Inserted junction:665725990 into SUMORTree with boundary 850.63,1385.12,881.94,1416.43
+GLDebug: 	Inserted junction:8037309237 into SUMORTree with boundary 777.22,1305.02,808.53,1336.33
+GLDebug: 	Inserted junction:9216394493 into SUMORTree with boundary 1737.83,3242.12,1768.68,3272.96
+GLDebug: 	Inserted junction:9216394494 into SUMORTree with boundary 1731.17,3256.24,1762.00,3287.07
+GLDebug: 	Inserted junction:967017790 into SUMORTree with boundary 661.29,1166.24,696.03,1201.38
+GLDebug: 	Inserted junction:cluster_1401188845_57343261_57343267_9104177905_9104177906_9104177907_9104177908 into SUMORTree with boundary 1972.21,2783.65,2030.04,2839.75
+GLDebug: 	Inserted junction:cluster_1552842866_412543167 into SUMORTree with boundary 1032.31,1556.34,1078.93,1605.62
+GLDebug: 	Inserted junction:cluster_1867592741_2030862351_8094449969_96499875 into SUMORTree with boundary 1446.81,2807.51,1497.91,2854.38
+GLDebug: 	Inserted junction:cluster_2334532594_3169446746_9104177903_9104177904 into SUMORTree with boundary 2294.99,2425.77,2333.28,2462.16
+GLDebug: 	Inserted junction:cluster_246758619_cluster_2008877556_206191834 into SUMORTree with boundary 828.75,1375.71,881.77,1429.54
+GLDebug: 	Inserted junction:cluster_31358103_567607181_cluster_1867580179_2255293396 into SUMORTree with boundary 1607.12,3446.82,1662.43,3524.70
+GLDebug: 	Inserted junction:cluster_412543168_681323998 into SUMORTree with boundary 1245.10,1723.22,1290.88,1760.66
+GLDebug: 	Inserted junction:cluster_665725993_cluster_206191823_206191824 into SUMORTree with boundary 860.64,1407.02,913.60,1460.13
+GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
+GLDebug: 	Inserted edge:-1013117571#1 into SUMORTree with boundary 1714.35,3589.22,1849.44,3729.07
+GLDebug: 	Inserted edge:-129519181#1 into SUMORTree with boundary 1032.03,2234.66,1462.70,2805.13
+GLDebug: 	Inserted edge:-141968830#1 into SUMORTree with boundary 1131.10,907.32,1863.63,1495.76
+GLDebug: 	Inserted edge:-145009991#3 into SUMORTree with boundary 911.13,3528.34,1603.68,4105.35
+GLDebug: 	Inserted edge:-145586617#31 into SUMORTree with boundary 668.31,279.06,1971.72,1193.73
+GLDebug: 	Inserted edge:-170149081#1 into SUMORTree with boundary 912.17,3528.34,1603.68,4106.57
+GLDebug: 	Inserted edge:-206579065 into SUMORTree with boundary 1232.81,1787.04,1257.32,1813.38
+GLDebug: 	Inserted edge:-206579070 into SUMORTree with boundary 1332.96,1764.54,1416.42,1818.15
+GLDebug: 	Inserted edge:-25368898#9 into SUMORTree with boundary 1464.16,2594.80,1750.69,2837.77
+GLDebug: 	Inserted edge:-33234937#10 into SUMORTree with boundary 1492.17,1943.03,1750.69,2614.80
+GLDebug: 	Inserted edge:-33234956#1 into SUMORTree with boundary 1730.69,2594.80,1840.97,2689.45
+GLDebug: 	Inserted edge:-339558638#6 into SUMORTree with boundary 1396.42,1795.45,1513.76,1963.03
+GLDebug: 	Inserted edge:-53087792#10 into SUMORTree with boundary 995.07,1793.38,1252.81,2152.13
+GLDebug: 	Inserted edge:-54039620#2 into SUMORTree with boundary 1258.29,1729.77,1352.96,1784.54
+GLDebug: 	Inserted edge:-746625193#2 into SUMORTree with boundary 1044.73,1475.76,1151.88,1589.90
+GLDebug: 	Inserted edge:-81535329#13 into SUMORTree with boundary 239.36,2817.77,1484.16,3399.63
+GLDebug: 	Inserted edge:1003191656#0 into SUMORTree with boundary 2043.25,2433.81,2332.09,2776.60
+GLDebug: 	Inserted edge:1003191667#1 into SUMORTree with boundary 1988.10,2426.83,2324.06,2818.48
+GLDebug: 	Inserted edge:10860201#0 into SUMORTree with boundary 1442.53,2782.62,1490.00,2837.77
+GLDebug: 	Inserted edge:11279544#0 into SUMORTree with boundary 1621.51,3479.64,1734.35,3612.23
+GLDebug: 	Inserted edge:11279822#0 into SUMORTree with boundary 978.46,2129.88,1052.03,2256.57
+GLDebug: 	Inserted edge:11279858#0 into SUMORTree with boundary 989.00,2129.88,1053.56,2255.21
+GLDebug: 	Inserted edge:11279895#0 into SUMORTree with boundary 992.82,1793.38,1252.81,2149.98
+GLDebug: 	Inserted edge:145009985#0 into SUMORTree with boundary 1626.42,3479.64,1737.14,3609.22
+GLDebug: 	Inserted edge:145586606 into SUMORTree with boundary 607.27,1257.61,1071.51,1652.90
+GLDebug: 	Inserted edge:145586607 into SUMORTree with boundary 1115.72,1081.35,1253.40,1202.17
+GLDebug: 	Inserted edge:145586617#0 into SUMORTree with boundary 668.31,279.39,1973.29,1193.73
+GLDebug: 	Inserted edge:145586622#0 into SUMORTree with boundary 1818.06,2669.21,1963.10,2777.52
+GLDebug: 	Inserted edge:192530508#0 into SUMORTree with boundary 1031.01,2235.21,1462.53,2805.13
+GLDebug: 	Inserted edge:194895343#0 into SUMORTree with boundary 1439.54,2785.13,1484.16,2842.55
+GLDebug: 	Inserted edge:194896804#0 into SUMORTree with boundary 1464.16,2814.74,1632.48,3409.49
+GLDebug: 	Inserted edge:19791219 into SUMORTree with boundary 965.54,1257.61,1075.72,1367.70
+GLDebug: 	Inserted edge:19791220 into SUMORTree with boundary 616.14,1478.17,766.12,1624.28
+GLDebug: 	Inserted edge:204721580#0 into SUMORTree with boundary 1663.48,2924.71,1916.92,3390.38
+GLDebug: 	Inserted edge:206579065 into SUMORTree with boundary 1230.27,1785.01,1255.93,1813.38
+GLDebug: 	Inserted edge:206579066#0 into SUMORTree with boundary 1231.83,1734.17,1278.29,1807.04
+GLDebug: 	Inserted edge:206579067 into SUMORTree with boundary 1041.05,1569.90,1116.19,1646.86
+GLDebug: 	Inserted edge:206579068 into SUMORTree with boundary 1179.89,1680.38,1285.00,1754.17
+GLDebug: 	Inserted edge:206579070 into SUMORTree with boundary 1332.96,1764.54,1417.05,1816.77
+GLDebug: 	Inserted edge:206579071 into SUMORTree with boundary 896.92,1452.18,1005.10,1548.77
+GLDebug: 	Inserted edge:206579073 into SUMORTree with boundary 1002.02,1524.13,1068.41,1589.90
+GLDebug: 	Inserted edge:206579079 into SUMORTree with boundary 746.12,1418.18,835.56,1498.17
+GLDebug: 	Inserted edge:206579082 into SUMORTree with boundary 911.40,1347.70,985.54,1415.37
+GLDebug: 	Inserted edge:206579085 into SUMORTree with boundary 1018.98,1175.81,1138.64,1268.36
+GLDebug: 	Inserted edge:206579088 into SUMORTree with boundary 607.27,1560.48,734.05,1652.90
+GLDebug: 	Inserted edge:216169544#0 into SUMORTree with boundary 1581.15,3479.64,1646.42,3548.34
+GLDebug: 	Inserted edge:216169546#0 into SUMORTree with boundary 1583.68,3479.64,1646.42,3549.65
+GLDebug: 	Inserted edge:22721677#0 into SUMORTree with boundary -11.22,355.61,688.31,1193.73
+GLDebug: 	Inserted edge:22721677#4 into SUMORTree with boundary 668.31,1173.73,802.30,1330.12
+GLDebug: 	Inserted edge:22917228#0 into SUMORTree with boundary 842.59,1398.56,888.06,1448.59
+GLDebug: 	Inserted edge:22917233#0 into SUMORTree with boundary 878.93,1417.49,1022.02,1544.13
+GLDebug: 	Inserted edge:25368898#0 into SUMORTree with boundary 1464.16,2594.80,1750.69,2837.77
+GLDebug: 	Inserted edge:25368900#0 into SUMORTree with boundary 238.52,2817.77,1484.16,3398.27
+GLDebug: 	Inserted edge:25944425#0 into SUMORTree with boundary 803.24,1332.53,868.12,1401.55
+GLDebug: 	Inserted edge:26547171#0 into SUMORTree with boundary 843.34,1377.08,872.68,1418.56
+GLDebug: 	Inserted edge:26547171#2 into SUMORTree with boundary 844.04,1387.30,879.78,1418.56
+GLDebug: 	Inserted edge:26547172#0 into SUMORTree with boundary 856.84,1391.35,900.52,1438.64
+GLDebug: 	Inserted edge:26547179 into SUMORTree with boundary 790.15,1346.33,852.46,1413.42
+GLDebug: 	Inserted edge:266227880#0 into SUMORTree with boundary 1818.06,2669.21,2013.32,2819.53
+GLDebug: 	Inserted edge:27077898#0 into SUMORTree with boundary 844.04,1248.36,1038.98,1418.56
+GLDebug: 	Inserted edge:27077902#0 into SUMORTree with boundary 714.05,1418.64,898.93,1580.48
+GLDebug: 	Inserted edge:292525977 into SUMORTree with boundary 1153.49,927.43,1474.85,1189.72
+GLDebug: 	Inserted edge:292526263 into SUMORTree with boundary 1126.68,1168.55,1173.49,1212.82
+GLDebug: 	Inserted edge:292526263-AddedOffRampEdge into SUMORTree with boundary 1049.66,1190.85,1149.08,1282.49
+GLDebug: 	Inserted edge:318210393#0 into SUMORTree with boundary 869.92,1418.64,920.88,1476.84
+GLDebug: 	Inserted edge:318210393#2 into SUMORTree with boundary 862.83,1418.64,898.93,1449.64
+GLDebug: 	Inserted edge:318210399#0 into SUMORTree with boundary 811.64,1398.56,864.04,1442.86
+GLDebug: 	Inserted edge:318210401#0 into SUMORTree with boundary 878.93,1390.79,935.35,1438.64
+GLDebug: 	Inserted edge:33234937#0 into SUMORTree with boundary 1490.58,1943.03,1750.69,2614.80
+GLDebug: 	Inserted edge:33234956#0 into SUMORTree with boundary 1730.69,2594.80,1839.00,2691.97
+GLDebug: 	Inserted edge:339558638#0 into SUMORTree with boundary 1395.69,1796.77,1512.17,1963.03
+GLDebug: 	Inserted edge:348583831#0 into SUMORTree with boundary 1626.42,3409.90,1695.59,3501.80
+GLDebug: 	Inserted edge:348583833#0 into SUMORTree with boundary 1626.42,3369.58,1686.58,3499.64
+GLDebug: 	Inserted edge:407167843#0 into SUMORTree with boundary 1131.10,905.80,1863.14,1495.76
+GLDebug: 	Inserted edge:431573403 into SUMORTree with boundary 1894.26,2835.56,1972.12,2946.00
+GLDebug: 	Inserted edge:431573404#0 into SUMORTree with boundary 1951.92,2798.48,2013.32,2855.56
+GLDebug: 	Inserted edge:431573405#0 into SUMORTree with boundary 1993.32,2756.60,2063.25,2822.72
+GLDebug: 	Inserted edge:431573406#0 into SUMORTree with boundary 1842.25,2798.48,2025.19,3081.12
+GLDebug: 	Inserted edge:431573407#0 into SUMORTree with boundary 1943.10,2757.52,2013.32,2818.48
+GLDebug: 	Inserted edge:472236111#0 into SUMORTree with boundary 1680.78,3262.04,1755.87,3394.69
+GLDebug: 	Inserted edge:52783765#0 into SUMORTree with boundary 1235.93,1733.57,1285.00,1807.98
+GLDebug: 	Inserted edge:53385386#0 into SUMORTree with boundary 1044.73,1565.27,1199.89,1701.11
+GLDebug: 	Inserted edge:54039595#0 into SUMORTree with boundary 1096.19,1626.86,1278.29,1754.76
+GLDebug: 	Inserted edge:54039620#0 into SUMORTree with boundary 1258.29,1733.57,1352.96,1784.54
+GLDebug: 	Inserted edge:541676222 into SUMORTree with boundary 1609.47,3389.49,1647.58,3499.64
+GLDebug: 	Inserted edge:663605951#0 into SUMORTree with boundary 1673.36,3374.37,1703.86,3429.90
+GLDebug: 	Inserted edge:72230301#0 into SUMORTree with boundary 1714.35,3589.22,1850.44,3727.82
+GLDebug: 	Inserted edge:745656019#0 into SUMORTree with boundary 1454.97,2817.77,1646.42,3511.20
+GLDebug: 	Inserted edge:81414476#0 into SUMORTree with boundary 985.10,1528.77,1064.73,1594.54
+GLDebug: 	Inserted edge:83708562 into SUMORTree with boundary 616.14,1179.30,1139.54,1624.28
+GLDebug: 	Inserted edge:862741106 into SUMORTree with boundary 782.30,1310.12,827.73,1356.64
+GLDebug: 	Inserted edge:862741108 into SUMORTree with boundary 830.26,1391.53,864.04,1419.49
+GLDebug: 	Inserted edge:868347084 into SUMORTree with boundary 655.88,1181.52,812.46,1368.16
+GLDebug: 	Inserted edge:872231978 into SUMORTree with boundary 1044.73,1475.76,1151.10,1589.90
+GLDebug: 	Inserted edge:97206934#0 into SUMORTree with boundary 1743.96,3059.88,1864.93,3267.15
+GLDebug: 	Inserted edge:998166558 into SUMORTree with boundary 1734.97,3247.15,1764.86,3282.04
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Adding lane '26547172#0_0' into edge
+GLDebug: 	Removed object edge:26547172#0 from SUMORTree with boundary 856.84,1391.35,900.52,1438.64
+GLDebug: 	Inserted edge:26547172#0 into SUMORTree with boundary 854.61,1389.05,902.63,1438.64
 Debug: Removing TLS from junction 'cluster_665725993_cluster_206191823_206191824'
 Debug: Adding TLS into junction 'cluster_665725993_cluster_206191823_206191824'
 Debug: Adding connection '26547172#0_0->22917233#0_0' into edge '26547172#0'
@@ -261,6 +1084,662 @@ Debug: Created connection 'from26547172#0_0to22917233#0_0' in retrieveGNEConnect
 Debug: Adding connection '26547171#2_0->26547172#0_0' into edge '26547171#2'
 Debug: Created connection 'from26547171#2_0to26547172#0_0' in retrieveGNEConnection()
 Debug: Key F5 (Compute) pressed
+GLDebug: Removing junctions during recomputing
+GLDebug: 	Removed object junction:100154846 from SUMORTree with boundary 1707.82,3582.38,1739.64,3614.36
+GLDebug: 	Removed object junction:100157291 from SUMORTree with boundary 1827.44,3705.32,1851.44,3730.32
+GLDebug: 	Removed object junction:100159422 from SUMORTree with boundary 1029.71,2233.73,1055.00,2257.76
+GLDebug: 	Removed object junction:100159780 from SUMORTree with boundary 991.63,2128.90,1016.43,2153.21
+GLDebug: 	Removed object junction:100161132 from SUMORTree with boundary 1174.98,1676.29,1205.60,1707.16
+GLDebug: 	Removed object junction:100167375 from SUMORTree with boundary 237.68,3375.55,261.04,3400.99
+GLDebug: 	Removed object junction:100167392 from SUMORTree with boundary 1723.76,2587.83,1757.55,2621.48
+GLDebug: 	Removed object junction:138559856 from SUMORTree with boundary -12.44,354.58,12.44,378.72
+GLDebug: 	Removed object junction:138559868 from SUMORTree with boundary 801.93,1331.13,829.20,1357.87
+GLDebug: 	Removed object junction:138562259 from SUMORTree with boundary 654.68,1180.47,679.50,1204.67
+GLDebug: 	Removed object junction:1552842725 from SUMORTree with boundary 1842.17,904.27,1864.11,930.37
+GLDebug: 	Removed object junction:1552842823 from SUMORTree with boundary 862.44,1422.90,889.19,1450.39
+GLDebug: 	Removed object junction:158906921 from SUMORTree with boundary 1818.01,2668.19,1845.98,2697.94
+GLDebug: 	Removed object junction:1589761370 from SUMORTree with boundary 1226.21,1080.13,1254.43,1109.94
+GLDebug: 	Removed object junction:2030862306 from SUMORTree with boundary 1439.16,2781.86,1467.91,2810.40
+GLDebug: 	Removed object junction:206191818 from SUMORTree with boundary 1040.71,1251.65,1079.13,1291.99
+GLDebug: 	Removed object junction:206191819 from SUMORTree with boundary 1112.32,1173.58,1142.92,1205.37
+GLDebug: 	Removed object junction:206191826 from SUMORTree with boundary 709.95,1555.49,739.13,1584.16
+GLDebug: 	Removed object junction:206191828 from SUMORTree with boundary 616.05,1619.20,643.19,1649.94
+GLDebug: 	Removed object junction:206191829 from SUMORTree with boundary 635.75,1573.92,668.22,1604.29
+GLDebug: 	Removed object junction:206191832 from SUMORTree with boundary 741.01,1471.93,772.27,1503.21
+GLDebug: 	Removed object junction:206191835 from SUMORTree with boundary 1013.91,1244.69,1043.07,1273.35
+GLDebug: 	Removed object junction:2165987557 from SUMORTree with boundary 1146.34,1163.48,1179.64,1197.20
+GLDebug: 	Removed object junction:2165987560 from SUMORTree with boundary 959.38,1342.66,990.66,1373.95
+GLDebug: 	Removed object junction:2165987569 from SUMORTree with boundary 996.93,1519.11,1028.20,1550.35
+GLDebug: 	Removed object junction:2165987571 from SUMORTree with boundary 1090.14,1620.69,1121.20,1651.85
+GLDebug: 	Removed object junction:2165987572 from SUMORTree with boundary 1228.21,1786.97,1257.45,1818.35
+GLDebug: 	Removed object junction:2255293294 from SUMORTree with boundary 1947.31,2829.56,1978.30,2860.57
+GLDebug: 	Removed object junction:2255293408 from SUMORTree with boundary 1578.33,3521.15,1608.64,3553.55
+GLDebug: 	Removed object junction:280777678 from SUMORTree with boundary 1327.94,1757.02,1357.98,1789.21
+GLDebug: 	Removed object junction:283017766 from SUMORTree with boundary 788.63,1345.27,813.74,1369.52
+GLDebug: 	Removed object junction:286046797 from SUMORTree with boundary 1892.71,2923.66,1918.46,2947.02
+GLDebug: 	Removed object junction:290952496 from SUMORTree with boundary 1394.87,1793.87,1418.15,1819.57
+GLDebug: 	Removed object junction:290968580 from SUMORTree with boundary 978.96,1522.54,1010.20,1553.76
+GLDebug: 	Removed object junction:290971361 from SUMORTree with boundary 842.16,1376.21,869.46,1402.88
+GLDebug: 	Removed object junction:290971408 from SUMORTree with boundary 828.87,1390.23,853.86,1414.70
+GLDebug: 	Removed object junction:292526263-AddedOffRampNode from SUMORTree with boundary 1119.61,1184.38,1154.06,1221.70
+GLDebug: 	Removed object junction:2960840894 from SUMORTree with boundary 1450.49,926.09,1475.73,954.13
+GLDebug: 	Removed object junction:311410889 from SUMORTree with boundary 1668.09,3405.40,1697.99,3435.13
+GLDebug: 	Removed object junction:31358110 from SUMORTree with boundary 1840.69,3058.87,1866.49,3082.13
+GLDebug: 	Removed object junction:3246050925 from SUMORTree with boundary 910.18,1389.45,936.78,1416.90
+GLDebug: 	Removed object junction:3246050926 from SUMORTree with boundary 810.37,1416.77,836.83,1444.27
+GLDebug: 	Removed object junction:3246050927 from SUMORTree with boundary 895.68,1450.76,922.17,1478.22
+GLDebug: 	Removed object junction:3467805279 from SUMORTree with boundary 1488.97,1942.72,1515.37,1963.39
+GLDebug: 	Removed object junction:35215930 from SUMORTree with boundary 1948.59,278.73,1974.85,300.05
+GLDebug: 	Removed object junction:3663247364 from SUMORTree with boundary 1607.67,3384.89,1637.30,3414.38
+GLDebug: 	Removed object junction:4090512230 from SUMORTree with boundary 910.10,4082.91,934.24,4107.79
+GLDebug: 	Removed object junction:4092042341 from SUMORTree with boundary 1126.03,1470.65,1156.17,1503.05
+GLDebug: 	Removed object junction:4307897715 from SUMORTree with boundary 1938.98,2753.85,1968.19,2782.51
+GLDebug: 	Removed object junction:4307897716 from SUMORTree with boundary 2037.01,2751.48,2068.25,2782.75
+GLDebug: 	Removed object junction:492462651 from SUMORTree with boundary 1230.14,1783.88,1258.76,1808.54
+GLDebug: 	Removed object junction:6211252183 from SUMORTree with boundary 1661.93,3369.17,1688.13,3390.79
+GLDebug: 	Removed object junction:6211252184 from SUMORTree with boundary 1679.15,3373.77,1705.49,3395.28
+GLDebug: 	Removed object junction:665725990 from SUMORTree with boundary 850.63,1385.12,881.94,1416.43
+GLDebug: 	Removed object junction:8037309237 from SUMORTree with boundary 777.22,1305.02,808.53,1336.33
+GLDebug: 	Removed object junction:9216394493 from SUMORTree with boundary 1737.83,3242.12,1768.68,3272.96
+GLDebug: 	Removed object junction:9216394494 from SUMORTree with boundary 1731.17,3256.24,1762.00,3287.07
+GLDebug: 	Removed object junction:967017790 from SUMORTree with boundary 661.29,1166.24,696.03,1201.38
+GLDebug: 	Removed object junction:cluster_1401188845_57343261_57343267_9104177905_9104177906_9104177907_9104177908 from SUMORTree with boundary 1972.21,2783.65,2030.04,2839.75
+GLDebug: 	Removed object junction:cluster_1552842866_412543167 from SUMORTree with boundary 1032.31,1556.34,1078.93,1605.62
+GLDebug: 	Removed object junction:cluster_1867592741_2030862351_8094449969_96499875 from SUMORTree with boundary 1446.81,2807.51,1497.91,2854.38
+GLDebug: 	Removed object junction:cluster_2334532594_3169446746_9104177903_9104177904 from SUMORTree with boundary 2294.99,2425.77,2333.28,2462.16
+GLDebug: 	Removed object junction:cluster_246758619_cluster_2008877556_206191834 from SUMORTree with boundary 828.75,1375.71,881.77,1429.54
+GLDebug: 	Removed object junction:cluster_31358103_567607181_cluster_1867580179_2255293396 from SUMORTree with boundary 1607.12,3446.82,1662.43,3524.70
+GLDebug: 	Removed object junction:cluster_412543168_681323998 from SUMORTree with boundary 1245.10,1723.22,1290.88,1760.66
+GLDebug: 	Removed object junction:cluster_665725993_cluster_206191823_206191824 from SUMORTree with boundary 860.64,1407.02,913.60,1460.13
+GLDebug: Removing edges during recomputing
+GLDebug: 	Removed object edge:-1013117571#1 from SUMORTree with boundary 1714.35,3589.22,1849.44,3729.07
+GLDebug: 	Removed object edge:-129519181#1 from SUMORTree with boundary 1032.03,2234.66,1462.70,2805.13
+GLDebug: 	Removed object edge:-141968830#1 from SUMORTree with boundary 1131.10,907.32,1863.63,1495.76
+GLDebug: 	Removed object edge:-145009991#3 from SUMORTree with boundary 911.13,3528.34,1603.68,4105.35
+GLDebug: 	Removed object edge:-145586617#31 from SUMORTree with boundary 668.31,279.06,1971.72,1193.73
+GLDebug: 	Removed object edge:-170149081#1 from SUMORTree with boundary 912.17,3528.34,1603.68,4106.57
+GLDebug: 	Removed object edge:-206579065 from SUMORTree with boundary 1232.81,1787.04,1257.32,1813.38
+GLDebug: 	Removed object edge:-206579070 from SUMORTree with boundary 1332.96,1764.54,1416.42,1818.15
+GLDebug: 	Removed object edge:-25368898#9 from SUMORTree with boundary 1464.16,2594.80,1750.69,2837.77
+GLDebug: 	Removed object edge:-33234937#10 from SUMORTree with boundary 1492.17,1943.03,1750.69,2614.80
+GLDebug: 	Removed object edge:-33234956#1 from SUMORTree with boundary 1730.69,2594.80,1840.97,2689.45
+GLDebug: 	Removed object edge:-339558638#6 from SUMORTree with boundary 1396.42,1795.45,1513.76,1963.03
+GLDebug: 	Removed object edge:-53087792#10 from SUMORTree with boundary 995.07,1793.38,1252.81,2152.13
+GLDebug: 	Removed object edge:-54039620#2 from SUMORTree with boundary 1258.29,1729.77,1352.96,1784.54
+GLDebug: 	Removed object edge:-746625193#2 from SUMORTree with boundary 1044.73,1475.76,1151.88,1589.90
+GLDebug: 	Removed object edge:-81535329#13 from SUMORTree with boundary 239.36,2817.77,1484.16,3399.63
+GLDebug: 	Removed object edge:1003191656#0 from SUMORTree with boundary 2043.25,2433.81,2332.09,2776.60
+GLDebug: 	Removed object edge:1003191667#1 from SUMORTree with boundary 1988.10,2426.83,2324.06,2818.48
+GLDebug: 	Removed object edge:10860201#0 from SUMORTree with boundary 1442.53,2782.62,1490.00,2837.77
+GLDebug: 	Removed object edge:11279544#0 from SUMORTree with boundary 1621.51,3479.64,1734.35,3612.23
+GLDebug: 	Removed object edge:11279822#0 from SUMORTree with boundary 978.46,2129.88,1052.03,2256.57
+GLDebug: 	Removed object edge:11279858#0 from SUMORTree with boundary 989.00,2129.88,1053.56,2255.21
+GLDebug: 	Removed object edge:11279895#0 from SUMORTree with boundary 992.82,1793.38,1252.81,2149.98
+GLDebug: 	Removed object edge:145009985#0 from SUMORTree with boundary 1626.42,3479.64,1737.14,3609.22
+GLDebug: 	Removed object edge:145586606 from SUMORTree with boundary 607.27,1257.61,1071.51,1652.90
+GLDebug: 	Removed object edge:145586607 from SUMORTree with boundary 1115.72,1081.35,1253.40,1202.17
+GLDebug: 	Removed object edge:145586617#0 from SUMORTree with boundary 668.31,279.39,1973.29,1193.73
+GLDebug: 	Removed object edge:145586622#0 from SUMORTree with boundary 1818.06,2669.21,1963.10,2777.52
+GLDebug: 	Removed object edge:192530508#0 from SUMORTree with boundary 1031.01,2235.21,1462.53,2805.13
+GLDebug: 	Removed object edge:194895343#0 from SUMORTree with boundary 1439.54,2785.13,1484.16,2842.55
+GLDebug: 	Removed object edge:194896804#0 from SUMORTree with boundary 1464.16,2814.74,1632.48,3409.49
+GLDebug: 	Removed object edge:19791219 from SUMORTree with boundary 965.54,1257.61,1075.72,1367.70
+GLDebug: 	Removed object edge:19791220 from SUMORTree with boundary 616.14,1478.17,766.12,1624.28
+GLDebug: 	Removed object edge:204721580#0 from SUMORTree with boundary 1663.48,2924.71,1916.92,3390.38
+GLDebug: 	Removed object edge:206579065 from SUMORTree with boundary 1230.27,1785.01,1255.93,1813.38
+GLDebug: 	Removed object edge:206579066#0 from SUMORTree with boundary 1231.83,1734.17,1278.29,1807.04
+GLDebug: 	Removed object edge:206579067 from SUMORTree with boundary 1041.05,1569.90,1116.19,1646.86
+GLDebug: 	Removed object edge:206579068 from SUMORTree with boundary 1179.89,1680.38,1285.00,1754.17
+GLDebug: 	Removed object edge:206579070 from SUMORTree with boundary 1332.96,1764.54,1417.05,1816.77
+GLDebug: 	Removed object edge:206579071 from SUMORTree with boundary 896.92,1452.18,1005.10,1548.77
+GLDebug: 	Removed object edge:206579073 from SUMORTree with boundary 1002.02,1524.13,1068.41,1589.90
+GLDebug: 	Removed object edge:206579079 from SUMORTree with boundary 746.12,1418.18,835.56,1498.17
+GLDebug: 	Removed object edge:206579082 from SUMORTree with boundary 911.40,1347.70,985.54,1415.37
+GLDebug: 	Removed object edge:206579085 from SUMORTree with boundary 1018.98,1175.81,1138.64,1268.36
+GLDebug: 	Removed object edge:206579088 from SUMORTree with boundary 607.27,1560.48,734.05,1652.90
+GLDebug: 	Removed object edge:216169544#0 from SUMORTree with boundary 1581.15,3479.64,1646.42,3548.34
+GLDebug: 	Removed object edge:216169546#0 from SUMORTree with boundary 1583.68,3479.64,1646.42,3549.65
+GLDebug: 	Removed object edge:22721677#0 from SUMORTree with boundary -11.22,355.61,688.31,1193.73
+GLDebug: 	Removed object edge:22721677#4 from SUMORTree with boundary 668.31,1173.73,802.30,1330.12
+GLDebug: 	Removed object edge:22917228#0 from SUMORTree with boundary 842.59,1398.56,888.06,1448.59
+GLDebug: 	Removed object edge:22917233#0 from SUMORTree with boundary 878.93,1417.49,1022.02,1544.13
+GLDebug: 	Removed object edge:25368898#0 from SUMORTree with boundary 1464.16,2594.80,1750.69,2837.77
+GLDebug: 	Removed object edge:25368900#0 from SUMORTree with boundary 238.52,2817.77,1484.16,3398.27
+GLDebug: 	Removed object edge:25944425#0 from SUMORTree with boundary 803.24,1332.53,868.12,1401.55
+GLDebug: 	Removed object edge:26547171#0 from SUMORTree with boundary 843.34,1377.08,872.68,1418.56
+GLDebug: 	Removed object edge:26547171#2 from SUMORTree with boundary 844.04,1387.30,879.78,1418.56
+GLDebug: 	Removed object edge:26547172#0 from SUMORTree with boundary 854.61,1389.05,902.63,1438.64
+GLDebug: 	Removed object edge:26547179 from SUMORTree with boundary 790.15,1346.33,852.46,1413.42
+GLDebug: 	Removed object edge:266227880#0 from SUMORTree with boundary 1818.06,2669.21,2013.32,2819.53
+GLDebug: 	Removed object edge:27077898#0 from SUMORTree with boundary 844.04,1248.36,1038.98,1418.56
+GLDebug: 	Removed object edge:27077902#0 from SUMORTree with boundary 714.05,1418.64,898.93,1580.48
+GLDebug: 	Removed object edge:292525977 from SUMORTree with boundary 1153.49,927.43,1474.85,1189.72
+GLDebug: 	Removed object edge:292526263 from SUMORTree with boundary 1126.68,1168.55,1173.49,1212.82
+GLDebug: 	Removed object edge:292526263-AddedOffRampEdge from SUMORTree with boundary 1049.66,1190.85,1149.08,1282.49
+GLDebug: 	Removed object edge:318210393#0 from SUMORTree with boundary 869.92,1418.64,920.88,1476.84
+GLDebug: 	Removed object edge:318210393#2 from SUMORTree with boundary 862.83,1418.64,898.93,1449.64
+GLDebug: 	Removed object edge:318210399#0 from SUMORTree with boundary 811.64,1398.56,864.04,1442.86
+GLDebug: 	Removed object edge:318210401#0 from SUMORTree with boundary 878.93,1390.79,935.35,1438.64
+GLDebug: 	Removed object edge:33234937#0 from SUMORTree with boundary 1490.58,1943.03,1750.69,2614.80
+GLDebug: 	Removed object edge:33234956#0 from SUMORTree with boundary 1730.69,2594.80,1839.00,2691.97
+GLDebug: 	Removed object edge:339558638#0 from SUMORTree with boundary 1395.69,1796.77,1512.17,1963.03
+GLDebug: 	Removed object edge:348583831#0 from SUMORTree with boundary 1626.42,3409.90,1695.59,3501.80
+GLDebug: 	Removed object edge:348583833#0 from SUMORTree with boundary 1626.42,3369.58,1686.58,3499.64
+GLDebug: 	Removed object edge:407167843#0 from SUMORTree with boundary 1131.10,905.80,1863.14,1495.76
+GLDebug: 	Removed object edge:431573403 from SUMORTree with boundary 1894.26,2835.56,1972.12,2946.00
+GLDebug: 	Removed object edge:431573404#0 from SUMORTree with boundary 1951.92,2798.48,2013.32,2855.56
+GLDebug: 	Removed object edge:431573405#0 from SUMORTree with boundary 1993.32,2756.60,2063.25,2822.72
+GLDebug: 	Removed object edge:431573406#0 from SUMORTree with boundary 1842.25,2798.48,2025.19,3081.12
+GLDebug: 	Removed object edge:431573407#0 from SUMORTree with boundary 1943.10,2757.52,2013.32,2818.48
+GLDebug: 	Removed object edge:472236111#0 from SUMORTree with boundary 1680.78,3262.04,1755.87,3394.69
+GLDebug: 	Removed object edge:52783765#0 from SUMORTree with boundary 1235.93,1733.57,1285.00,1807.98
+GLDebug: 	Removed object edge:53385386#0 from SUMORTree with boundary 1044.73,1565.27,1199.89,1701.11
+GLDebug: 	Removed object edge:54039595#0 from SUMORTree with boundary 1096.19,1626.86,1278.29,1754.76
+GLDebug: 	Removed object edge:54039620#0 from SUMORTree with boundary 1258.29,1733.57,1352.96,1784.54
+GLDebug: 	Removed object edge:541676222 from SUMORTree with boundary 1609.47,3389.49,1647.58,3499.64
+GLDebug: 	Removed object edge:663605951#0 from SUMORTree with boundary 1673.36,3374.37,1703.86,3429.90
+GLDebug: 	Removed object edge:72230301#0 from SUMORTree with boundary 1714.35,3589.22,1850.44,3727.82
+GLDebug: 	Removed object edge:745656019#0 from SUMORTree with boundary 1454.97,2817.77,1646.42,3511.20
+GLDebug: 	Removed object edge:81414476#0 from SUMORTree with boundary 985.10,1528.77,1064.73,1594.54
+GLDebug: 	Removed object edge:83708562 from SUMORTree with boundary 616.14,1179.30,1139.54,1624.28
+GLDebug: 	Removed object edge:862741106 from SUMORTree with boundary 782.30,1310.12,827.73,1356.64
+GLDebug: 	Removed object edge:862741108 from SUMORTree with boundary 830.26,1391.53,864.04,1419.49
+GLDebug: 	Removed object edge:868347084 from SUMORTree with boundary 655.88,1181.52,812.46,1368.16
+GLDebug: 	Removed object edge:872231978 from SUMORTree with boundary 1044.73,1475.76,1151.10,1589.90
+GLDebug: 	Removed object edge:97206934#0 from SUMORTree with boundary 1743.96,3059.88,1864.93,3267.15
+GLDebug: 	Removed object edge:998166558 from SUMORTree with boundary 1734.97,3247.15,1764.86,3282.04
+GLDebug: Add junctions during recomputing after calling myNetBuilder->compute(...)
+GLDebug: 	Inserted junction:100154846 into SUMORTree with boundary 1707.82,3582.38,1739.64,3614.36
+GLDebug: 	Inserted junction:100157291 into SUMORTree with boundary 1827.44,3705.32,1851.44,3730.32
+GLDebug: 	Inserted junction:100159422 into SUMORTree with boundary 1029.71,2233.73,1055.00,2257.76
+GLDebug: 	Inserted junction:100159780 into SUMORTree with boundary 991.63,2128.90,1016.43,2153.21
+GLDebug: 	Inserted junction:100161132 into SUMORTree with boundary 1174.98,1676.29,1205.60,1707.16
+GLDebug: 	Inserted junction:100167375 into SUMORTree with boundary 237.68,3375.55,261.04,3400.99
+GLDebug: 	Inserted junction:100167392 into SUMORTree with boundary 1723.76,2587.83,1757.55,2621.48
+GLDebug: 	Inserted junction:138559856 into SUMORTree with boundary -12.44,354.58,12.44,378.72
+GLDebug: 	Inserted junction:138559868 into SUMORTree with boundary 801.93,1331.13,829.20,1357.87
+GLDebug: 	Inserted junction:138562259 into SUMORTree with boundary 654.68,1180.47,679.50,1204.67
+GLDebug: 	Inserted junction:1552842725 into SUMORTree with boundary 1842.17,904.27,1864.11,930.37
+GLDebug: 	Inserted junction:1552842823 into SUMORTree with boundary 862.44,1422.90,889.19,1450.39
+GLDebug: 	Inserted junction:158906921 into SUMORTree with boundary 1818.01,2668.19,1845.98,2697.94
+GLDebug: 	Inserted junction:1589761370 into SUMORTree with boundary 1226.21,1080.13,1254.43,1109.94
+GLDebug: 	Inserted junction:2030862306 into SUMORTree with boundary 1439.16,2781.86,1467.91,2810.40
+GLDebug: 	Inserted junction:206191818 into SUMORTree with boundary 1040.71,1251.65,1079.13,1291.99
+GLDebug: 	Inserted junction:206191819 into SUMORTree with boundary 1112.32,1173.58,1142.92,1205.37
+GLDebug: 	Inserted junction:206191826 into SUMORTree with boundary 709.95,1555.49,739.13,1584.16
+GLDebug: 	Inserted junction:206191828 into SUMORTree with boundary 616.05,1619.20,643.19,1649.94
+GLDebug: 	Inserted junction:206191829 into SUMORTree with boundary 635.75,1573.92,668.22,1604.29
+GLDebug: 	Inserted junction:206191832 into SUMORTree with boundary 741.01,1471.93,772.27,1503.21
+GLDebug: 	Inserted junction:206191835 into SUMORTree with boundary 1013.91,1244.69,1043.07,1273.35
+GLDebug: 	Inserted junction:2165987557 into SUMORTree with boundary 1146.34,1163.48,1179.64,1197.20
+GLDebug: 	Inserted junction:2165987560 into SUMORTree with boundary 959.38,1342.66,990.66,1373.95
+GLDebug: 	Inserted junction:2165987569 into SUMORTree with boundary 996.93,1519.11,1028.20,1550.35
+GLDebug: 	Inserted junction:2165987571 into SUMORTree with boundary 1090.14,1620.69,1121.20,1651.85
+GLDebug: 	Inserted junction:2165987572 into SUMORTree with boundary 1228.21,1786.97,1257.45,1818.35
+GLDebug: 	Inserted junction:2255293294 into SUMORTree with boundary 1947.31,2829.56,1978.30,2860.57
+GLDebug: 	Inserted junction:2255293408 into SUMORTree with boundary 1578.33,3521.15,1608.64,3553.55
+GLDebug: 	Inserted junction:280777678 into SUMORTree with boundary 1327.94,1757.02,1357.98,1789.21
+GLDebug: 	Inserted junction:283017766 into SUMORTree with boundary 788.63,1345.27,813.74,1369.52
+GLDebug: 	Inserted junction:286046797 into SUMORTree with boundary 1892.71,2923.66,1918.46,2947.02
+GLDebug: 	Inserted junction:290952496 into SUMORTree with boundary 1394.87,1793.87,1418.15,1819.57
+GLDebug: 	Inserted junction:290968580 into SUMORTree with boundary 978.96,1522.54,1010.20,1553.76
+GLDebug: 	Inserted junction:290971361 into SUMORTree with boundary 842.16,1376.21,869.46,1402.88
+GLDebug: 	Inserted junction:290971408 into SUMORTree with boundary 828.87,1390.23,853.86,1414.70
+GLDebug: 	Inserted junction:292526263-AddedOffRampNode into SUMORTree with boundary 1119.61,1184.38,1154.06,1221.70
+GLDebug: 	Inserted junction:2960840894 into SUMORTree with boundary 1450.49,926.09,1475.73,954.13
+GLDebug: 	Inserted junction:311410889 into SUMORTree with boundary 1668.09,3405.40,1697.99,3435.13
+GLDebug: 	Inserted junction:31358110 into SUMORTree with boundary 1840.69,3058.87,1866.49,3082.13
+GLDebug: 	Inserted junction:3246050925 into SUMORTree with boundary 910.18,1389.45,936.78,1416.90
+GLDebug: 	Inserted junction:3246050926 into SUMORTree with boundary 810.37,1416.77,836.83,1444.27
+GLDebug: 	Inserted junction:3246050927 into SUMORTree with boundary 895.68,1450.76,922.17,1478.22
+GLDebug: 	Inserted junction:3467805279 into SUMORTree with boundary 1488.97,1942.72,1515.37,1963.39
+GLDebug: 	Inserted junction:35215930 into SUMORTree with boundary 1948.59,278.73,1974.85,300.05
+GLDebug: 	Inserted junction:3663247364 into SUMORTree with boundary 1607.67,3384.89,1637.30,3414.38
+GLDebug: 	Inserted junction:4090512230 into SUMORTree with boundary 910.10,4082.91,934.24,4107.79
+GLDebug: 	Inserted junction:4092042341 into SUMORTree with boundary 1126.03,1470.65,1156.17,1503.05
+GLDebug: 	Inserted junction:4307897715 into SUMORTree with boundary 1938.98,2753.85,1968.19,2782.51
+GLDebug: 	Inserted junction:4307897716 into SUMORTree with boundary 2037.01,2751.48,2068.25,2782.75
+GLDebug: 	Inserted junction:492462651 into SUMORTree with boundary 1230.14,1783.88,1258.76,1808.54
+GLDebug: 	Inserted junction:6211252183 into SUMORTree with boundary 1661.93,3369.17,1688.13,3390.79
+GLDebug: 	Inserted junction:6211252184 into SUMORTree with boundary 1679.15,3373.77,1705.49,3395.28
+GLDebug: 	Inserted junction:665725990 into SUMORTree with boundary 853.38,1387.81,880.29,1414.90
+GLDebug: 	Inserted junction:8037309237 into SUMORTree with boundary 777.22,1305.02,808.53,1336.33
+GLDebug: 	Inserted junction:9216394493 into SUMORTree with boundary 1737.83,3242.12,1768.68,3272.96
+GLDebug: 	Inserted junction:9216394494 into SUMORTree with boundary 1731.17,3256.24,1762.00,3287.07
+GLDebug: 	Inserted junction:967017790 into SUMORTree with boundary 661.29,1166.24,696.03,1201.38
+GLDebug: 	Inserted junction:cluster_1401188845_57343261_57343267_9104177905_9104177906_9104177907_9104177908 into SUMORTree with boundary 1972.21,2783.65,2030.04,2839.75
+GLDebug: 	Inserted junction:cluster_1552842866_412543167 into SUMORTree with boundary 1032.31,1556.34,1078.93,1605.62
+GLDebug: 	Inserted junction:cluster_1867592741_2030862351_8094449969_96499875 into SUMORTree with boundary 1446.81,2807.51,1497.91,2854.38
+GLDebug: 	Inserted junction:cluster_2334532594_3169446746_9104177903_9104177904 into SUMORTree with boundary 2294.99,2425.77,2333.28,2462.16
+GLDebug: 	Inserted junction:cluster_246758619_cluster_2008877556_206191834 into SUMORTree with boundary 828.75,1375.71,881.77,1429.54
+GLDebug: 	Inserted junction:cluster_31358103_567607181_cluster_1867580179_2255293396 into SUMORTree with boundary 1607.12,3446.82,1662.43,3524.70
+GLDebug: 	Inserted junction:cluster_412543168_681323998 into SUMORTree with boundary 1245.10,1723.22,1290.88,1760.66
+GLDebug: 	Inserted junction:cluster_665725993_cluster_206191823_206191824 into SUMORTree with boundary 860.64,1405.77,914.13,1460.13
+GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
+GLDebug: 	Inserted edge:-1013117571#1 into SUMORTree with boundary 1714.35,3589.22,1849.44,3729.07
+GLDebug: 	Inserted edge:-129519181#1 into SUMORTree with boundary 1032.03,2234.66,1462.70,2805.13
+GLDebug: 	Inserted edge:-141968830#1 into SUMORTree with boundary 1131.10,907.32,1863.63,1495.76
+GLDebug: 	Inserted edge:-145009991#3 into SUMORTree with boundary 911.13,3528.34,1603.68,4105.35
+GLDebug: 	Inserted edge:-145586617#31 into SUMORTree with boundary 668.31,279.06,1971.72,1193.73
+GLDebug: 	Inserted edge:-170149081#1 into SUMORTree with boundary 912.17,3528.34,1603.68,4106.57
+GLDebug: 	Inserted edge:-206579065 into SUMORTree with boundary 1232.81,1787.04,1257.32,1813.38
+GLDebug: 	Inserted edge:-206579070 into SUMORTree with boundary 1332.96,1764.54,1416.42,1818.15
+GLDebug: 	Inserted edge:-25368898#9 into SUMORTree with boundary 1464.16,2594.80,1750.69,2837.77
+GLDebug: 	Inserted edge:-33234937#10 into SUMORTree with boundary 1492.17,1943.03,1750.69,2614.80
+GLDebug: 	Inserted edge:-33234956#1 into SUMORTree with boundary 1730.69,2594.80,1840.97,2689.45
+GLDebug: 	Inserted edge:-339558638#6 into SUMORTree with boundary 1396.42,1795.45,1513.76,1963.03
+GLDebug: 	Inserted edge:-53087792#10 into SUMORTree with boundary 995.07,1793.38,1252.81,2152.13
+GLDebug: 	Inserted edge:-54039620#2 into SUMORTree with boundary 1258.29,1729.77,1352.96,1784.54
+GLDebug: 	Inserted edge:-746625193#2 into SUMORTree with boundary 1044.73,1475.76,1151.88,1589.90
+GLDebug: 	Inserted edge:-81535329#13 into SUMORTree with boundary 239.36,2817.77,1484.16,3399.63
+GLDebug: 	Inserted edge:1003191656#0 into SUMORTree with boundary 2043.25,2433.81,2332.09,2776.60
+GLDebug: 	Inserted edge:1003191667#1 into SUMORTree with boundary 1988.10,2426.83,2324.06,2818.48
+GLDebug: 	Inserted edge:10860201#0 into SUMORTree with boundary 1442.53,2782.62,1490.00,2837.77
+GLDebug: 	Inserted edge:11279544#0 into SUMORTree with boundary 1621.51,3479.64,1734.35,3612.23
+GLDebug: 	Inserted edge:11279822#0 into SUMORTree with boundary 978.46,2129.88,1052.03,2256.57
+GLDebug: 	Inserted edge:11279858#0 into SUMORTree with boundary 989.00,2129.88,1053.56,2255.21
+GLDebug: 	Inserted edge:11279895#0 into SUMORTree with boundary 992.82,1793.38,1252.81,2149.98
+GLDebug: 	Inserted edge:145009985#0 into SUMORTree with boundary 1626.42,3479.64,1737.14,3609.22
+GLDebug: 	Inserted edge:145586606 into SUMORTree with boundary 607.27,1257.61,1071.51,1652.90
+GLDebug: 	Inserted edge:145586607 into SUMORTree with boundary 1115.72,1081.35,1253.40,1202.17
+GLDebug: 	Inserted edge:145586617#0 into SUMORTree with boundary 668.31,279.39,1973.29,1193.73
+GLDebug: 	Inserted edge:145586622#0 into SUMORTree with boundary 1818.06,2669.21,1963.10,2777.52
+GLDebug: 	Inserted edge:192530508#0 into SUMORTree with boundary 1031.01,2235.21,1462.53,2805.13
+GLDebug: 	Inserted edge:194895343#0 into SUMORTree with boundary 1439.54,2785.13,1484.16,2842.55
+GLDebug: 	Inserted edge:194896804#0 into SUMORTree with boundary 1464.16,2814.74,1632.48,3409.49
+GLDebug: 	Inserted edge:19791219 into SUMORTree with boundary 965.54,1257.61,1075.72,1367.70
+GLDebug: 	Inserted edge:19791220 into SUMORTree with boundary 616.14,1478.17,766.12,1624.28
+GLDebug: 	Inserted edge:204721580#0 into SUMORTree with boundary 1663.48,2924.71,1916.92,3390.38
+GLDebug: 	Inserted edge:206579065 into SUMORTree with boundary 1230.27,1785.01,1255.93,1813.38
+GLDebug: 	Inserted edge:206579066#0 into SUMORTree with boundary 1231.83,1734.17,1278.29,1807.04
+GLDebug: 	Inserted edge:206579067 into SUMORTree with boundary 1041.05,1569.90,1116.19,1646.86
+GLDebug: 	Inserted edge:206579068 into SUMORTree with boundary 1179.89,1680.38,1285.00,1754.17
+GLDebug: 	Inserted edge:206579070 into SUMORTree with boundary 1332.96,1764.54,1417.05,1816.77
+GLDebug: 	Inserted edge:206579071 into SUMORTree with boundary 896.92,1452.18,1005.10,1548.77
+GLDebug: 	Inserted edge:206579073 into SUMORTree with boundary 1002.02,1524.13,1068.41,1589.90
+GLDebug: 	Inserted edge:206579079 into SUMORTree with boundary 746.12,1418.18,835.56,1498.17
+GLDebug: 	Inserted edge:206579082 into SUMORTree with boundary 911.40,1347.70,985.54,1415.37
+GLDebug: 	Inserted edge:206579085 into SUMORTree with boundary 1018.98,1175.81,1138.64,1268.36
+GLDebug: 	Inserted edge:206579088 into SUMORTree with boundary 607.27,1560.48,734.05,1652.90
+GLDebug: 	Inserted edge:216169544#0 into SUMORTree with boundary 1581.15,3479.64,1646.42,3548.34
+GLDebug: 	Inserted edge:216169546#0 into SUMORTree with boundary 1583.68,3479.64,1646.42,3549.65
+GLDebug: 	Inserted edge:22721677#0 into SUMORTree with boundary -11.22,355.61,688.31,1193.73
+GLDebug: 	Inserted edge:22721677#4 into SUMORTree with boundary 668.31,1173.73,802.30,1330.12
+GLDebug: 	Inserted edge:22917228#0 into SUMORTree with boundary 842.59,1398.56,888.06,1448.59
+GLDebug: 	Inserted edge:22917233#0 into SUMORTree with boundary 878.93,1417.49,1022.02,1544.13
+GLDebug: 	Inserted edge:25368898#0 into SUMORTree with boundary 1464.16,2594.80,1750.69,2837.77
+GLDebug: 	Inserted edge:25368900#0 into SUMORTree with boundary 238.52,2817.77,1484.16,3398.27
+GLDebug: 	Inserted edge:25944425#0 into SUMORTree with boundary 803.24,1332.53,868.12,1401.55
+GLDebug: 	Inserted edge:26547171#0 into SUMORTree with boundary 843.34,1377.08,872.68,1418.56
+GLDebug: 	Inserted edge:26547171#2 into SUMORTree with boundary 844.04,1387.30,879.78,1418.56
+GLDebug: 	Inserted edge:26547172#0 into SUMORTree with boundary 854.72,1389.05,902.63,1438.64
+GLDebug: 	Inserted edge:26547179 into SUMORTree with boundary 790.15,1346.33,852.46,1413.42
+GLDebug: 	Inserted edge:266227880#0 into SUMORTree with boundary 1818.06,2669.21,2013.32,2819.53
+GLDebug: 	Inserted edge:27077898#0 into SUMORTree with boundary 844.04,1248.36,1038.98,1418.56
+GLDebug: 	Inserted edge:27077902#0 into SUMORTree with boundary 714.05,1418.64,898.93,1580.48
+GLDebug: 	Inserted edge:292525977 into SUMORTree with boundary 1153.49,927.43,1474.85,1189.72
+GLDebug: 	Inserted edge:292526263 into SUMORTree with boundary 1126.68,1168.55,1173.49,1212.82
+GLDebug: 	Inserted edge:292526263-AddedOffRampEdge into SUMORTree with boundary 1049.66,1190.85,1149.08,1282.49
+GLDebug: 	Inserted edge:318210393#0 into SUMORTree with boundary 869.92,1418.64,920.88,1476.84
+GLDebug: 	Inserted edge:318210393#2 into SUMORTree with boundary 862.83,1418.64,898.93,1449.64
+GLDebug: 	Inserted edge:318210399#0 into SUMORTree with boundary 811.64,1398.56,864.04,1442.86
+GLDebug: 	Inserted edge:318210401#0 into SUMORTree with boundary 878.93,1390.79,935.35,1438.64
+GLDebug: 	Inserted edge:33234937#0 into SUMORTree with boundary 1490.58,1943.03,1750.69,2614.80
+GLDebug: 	Inserted edge:33234956#0 into SUMORTree with boundary 1730.69,2594.80,1839.00,2691.97
+GLDebug: 	Inserted edge:339558638#0 into SUMORTree with boundary 1395.69,1796.77,1512.17,1963.03
+GLDebug: 	Inserted edge:348583831#0 into SUMORTree with boundary 1626.42,3409.90,1695.59,3501.80
+GLDebug: 	Inserted edge:348583833#0 into SUMORTree with boundary 1626.42,3369.58,1686.58,3499.64
+GLDebug: 	Inserted edge:407167843#0 into SUMORTree with boundary 1131.10,905.80,1863.14,1495.76
+GLDebug: 	Inserted edge:431573403 into SUMORTree with boundary 1894.26,2835.56,1972.12,2946.00
+GLDebug: 	Inserted edge:431573404#0 into SUMORTree with boundary 1951.92,2798.48,2013.32,2855.56
+GLDebug: 	Inserted edge:431573405#0 into SUMORTree with boundary 1993.32,2756.60,2063.25,2822.72
+GLDebug: 	Inserted edge:431573406#0 into SUMORTree with boundary 1842.25,2798.48,2025.19,3081.12
+GLDebug: 	Inserted edge:431573407#0 into SUMORTree with boundary 1943.10,2757.52,2013.32,2818.48
+GLDebug: 	Inserted edge:472236111#0 into SUMORTree with boundary 1680.78,3262.04,1755.87,3394.69
+GLDebug: 	Inserted edge:52783765#0 into SUMORTree with boundary 1235.93,1733.57,1285.00,1807.98
+GLDebug: 	Inserted edge:53385386#0 into SUMORTree with boundary 1044.73,1565.27,1199.89,1701.11
+GLDebug: 	Inserted edge:54039595#0 into SUMORTree with boundary 1096.19,1626.86,1278.29,1754.76
+GLDebug: 	Inserted edge:54039620#0 into SUMORTree with boundary 1258.29,1733.57,1352.96,1784.54
+GLDebug: 	Inserted edge:541676222 into SUMORTree with boundary 1609.47,3389.49,1647.58,3499.64
+GLDebug: 	Inserted edge:663605951#0 into SUMORTree with boundary 1673.36,3374.37,1703.86,3429.90
+GLDebug: 	Inserted edge:72230301#0 into SUMORTree with boundary 1714.35,3589.22,1850.44,3727.82
+GLDebug: 	Inserted edge:745656019#0 into SUMORTree with boundary 1454.97,2817.77,1646.42,3511.20
+GLDebug: 	Inserted edge:81414476#0 into SUMORTree with boundary 985.10,1528.77,1064.73,1594.54
+GLDebug: 	Inserted edge:83708562 into SUMORTree with boundary 616.14,1179.30,1139.54,1624.28
+GLDebug: 	Inserted edge:862741106 into SUMORTree with boundary 782.30,1310.12,827.73,1356.64
+GLDebug: 	Inserted edge:862741108 into SUMORTree with boundary 830.26,1391.53,864.04,1419.49
+GLDebug: 	Inserted edge:868347084 into SUMORTree with boundary 655.88,1181.52,812.46,1368.16
+GLDebug: 	Inserted edge:872231978 into SUMORTree with boundary 1044.73,1475.76,1151.10,1589.90
+GLDebug: 	Inserted edge:97206934#0 into SUMORTree with boundary 1743.96,3059.88,1864.93,3267.15
+GLDebug: 	Inserted edge:998166558 into SUMORTree with boundary 1734.97,3247.15,1764.86,3282.04
+GLDebug: Removing junctions during recomputing
+GLDebug: 	Removed object junction:100154846 from SUMORTree with boundary 1707.82,3582.38,1739.64,3614.36
+GLDebug: 	Removed object junction:100157291 from SUMORTree with boundary 1827.44,3705.32,1851.44,3730.32
+GLDebug: 	Removed object junction:100159422 from SUMORTree with boundary 1029.71,2233.73,1055.00,2257.76
+GLDebug: 	Removed object junction:100159780 from SUMORTree with boundary 991.63,2128.90,1016.43,2153.21
+GLDebug: 	Removed object junction:100161132 from SUMORTree with boundary 1174.98,1676.29,1205.60,1707.16
+GLDebug: 	Removed object junction:100167375 from SUMORTree with boundary 237.68,3375.55,261.04,3400.99
+GLDebug: 	Removed object junction:100167392 from SUMORTree with boundary 1723.76,2587.83,1757.55,2621.48
+GLDebug: 	Removed object junction:138559856 from SUMORTree with boundary -12.44,354.58,12.44,378.72
+GLDebug: 	Removed object junction:138559868 from SUMORTree with boundary 801.93,1331.13,829.20,1357.87
+GLDebug: 	Removed object junction:138562259 from SUMORTree with boundary 654.68,1180.47,679.50,1204.67
+GLDebug: 	Removed object junction:1552842725 from SUMORTree with boundary 1842.17,904.27,1864.11,930.37
+GLDebug: 	Removed object junction:1552842823 from SUMORTree with boundary 862.44,1422.90,889.19,1450.39
+GLDebug: 	Removed object junction:158906921 from SUMORTree with boundary 1818.01,2668.19,1845.98,2697.94
+GLDebug: 	Removed object junction:1589761370 from SUMORTree with boundary 1226.21,1080.13,1254.43,1109.94
+GLDebug: 	Removed object junction:2030862306 from SUMORTree with boundary 1439.16,2781.86,1467.91,2810.40
+GLDebug: 	Removed object junction:206191818 from SUMORTree with boundary 1040.71,1251.65,1079.13,1291.99
+GLDebug: 	Removed object junction:206191819 from SUMORTree with boundary 1112.32,1173.58,1142.92,1205.37
+GLDebug: 	Removed object junction:206191826 from SUMORTree with boundary 709.95,1555.49,739.13,1584.16
+GLDebug: 	Removed object junction:206191828 from SUMORTree with boundary 616.05,1619.20,643.19,1649.94
+GLDebug: 	Removed object junction:206191829 from SUMORTree with boundary 635.75,1573.92,668.22,1604.29
+GLDebug: 	Removed object junction:206191832 from SUMORTree with boundary 741.01,1471.93,772.27,1503.21
+GLDebug: 	Removed object junction:206191835 from SUMORTree with boundary 1013.91,1244.69,1043.07,1273.35
+GLDebug: 	Removed object junction:2165987557 from SUMORTree with boundary 1146.34,1163.48,1179.64,1197.20
+GLDebug: 	Removed object junction:2165987560 from SUMORTree with boundary 959.38,1342.66,990.66,1373.95
+GLDebug: 	Removed object junction:2165987569 from SUMORTree with boundary 996.93,1519.11,1028.20,1550.35
+GLDebug: 	Removed object junction:2165987571 from SUMORTree with boundary 1090.14,1620.69,1121.20,1651.85
+GLDebug: 	Removed object junction:2165987572 from SUMORTree with boundary 1228.21,1786.97,1257.45,1818.35
+GLDebug: 	Removed object junction:2255293294 from SUMORTree with boundary 1947.31,2829.56,1978.30,2860.57
+GLDebug: 	Removed object junction:2255293408 from SUMORTree with boundary 1578.33,3521.15,1608.64,3553.55
+GLDebug: 	Removed object junction:280777678 from SUMORTree with boundary 1327.94,1757.02,1357.98,1789.21
+GLDebug: 	Removed object junction:283017766 from SUMORTree with boundary 788.63,1345.27,813.74,1369.52
+GLDebug: 	Removed object junction:286046797 from SUMORTree with boundary 1892.71,2923.66,1918.46,2947.02
+GLDebug: 	Removed object junction:290952496 from SUMORTree with boundary 1394.87,1793.87,1418.15,1819.57
+GLDebug: 	Removed object junction:290968580 from SUMORTree with boundary 978.96,1522.54,1010.20,1553.76
+GLDebug: 	Removed object junction:290971361 from SUMORTree with boundary 842.16,1376.21,869.46,1402.88
+GLDebug: 	Removed object junction:290971408 from SUMORTree with boundary 828.87,1390.23,853.86,1414.70
+GLDebug: 	Removed object junction:292526263-AddedOffRampNode from SUMORTree with boundary 1119.61,1184.38,1154.06,1221.70
+GLDebug: 	Removed object junction:2960840894 from SUMORTree with boundary 1450.49,926.09,1475.73,954.13
+GLDebug: 	Removed object junction:311410889 from SUMORTree with boundary 1668.09,3405.40,1697.99,3435.13
+GLDebug: 	Removed object junction:31358110 from SUMORTree with boundary 1840.69,3058.87,1866.49,3082.13
+GLDebug: 	Removed object junction:3246050925 from SUMORTree with boundary 910.18,1389.45,936.78,1416.90
+GLDebug: 	Removed object junction:3246050926 from SUMORTree with boundary 810.37,1416.77,836.83,1444.27
+GLDebug: 	Removed object junction:3246050927 from SUMORTree with boundary 895.68,1450.76,922.17,1478.22
+GLDebug: 	Removed object junction:3467805279 from SUMORTree with boundary 1488.97,1942.72,1515.37,1963.39
+GLDebug: 	Removed object junction:35215930 from SUMORTree with boundary 1948.59,278.73,1974.85,300.05
+GLDebug: 	Removed object junction:3663247364 from SUMORTree with boundary 1607.67,3384.89,1637.30,3414.38
+GLDebug: 	Removed object junction:4090512230 from SUMORTree with boundary 910.10,4082.91,934.24,4107.79
+GLDebug: 	Removed object junction:4092042341 from SUMORTree with boundary 1126.03,1470.65,1156.17,1503.05
+GLDebug: 	Removed object junction:4307897715 from SUMORTree with boundary 1938.98,2753.85,1968.19,2782.51
+GLDebug: 	Removed object junction:4307897716 from SUMORTree with boundary 2037.01,2751.48,2068.25,2782.75
+GLDebug: 	Removed object junction:492462651 from SUMORTree with boundary 1230.14,1783.88,1258.76,1808.54
+GLDebug: 	Removed object junction:6211252183 from SUMORTree with boundary 1661.93,3369.17,1688.13,3390.79
+GLDebug: 	Removed object junction:6211252184 from SUMORTree with boundary 1679.15,3373.77,1705.49,3395.28
+GLDebug: 	Removed object junction:665725990 from SUMORTree with boundary 853.38,1387.81,880.29,1414.90
+GLDebug: 	Removed object junction:8037309237 from SUMORTree with boundary 777.22,1305.02,808.53,1336.33
+GLDebug: 	Removed object junction:9216394493 from SUMORTree with boundary 1737.83,3242.12,1768.68,3272.96
+GLDebug: 	Removed object junction:9216394494 from SUMORTree with boundary 1731.17,3256.24,1762.00,3287.07
+GLDebug: 	Removed object junction:967017790 from SUMORTree with boundary 661.29,1166.24,696.03,1201.38
+GLDebug: 	Removed object junction:cluster_1401188845_57343261_57343267_9104177905_9104177906_9104177907_9104177908 from SUMORTree with boundary 1972.21,2783.65,2030.04,2839.75
+GLDebug: 	Removed object junction:cluster_1552842866_412543167 from SUMORTree with boundary 1032.31,1556.34,1078.93,1605.62
+GLDebug: 	Removed object junction:cluster_1867592741_2030862351_8094449969_96499875 from SUMORTree with boundary 1446.81,2807.51,1497.91,2854.38
+GLDebug: 	Removed object junction:cluster_2334532594_3169446746_9104177903_9104177904 from SUMORTree with boundary 2294.99,2425.77,2333.28,2462.16
+GLDebug: 	Removed object junction:cluster_246758619_cluster_2008877556_206191834 from SUMORTree with boundary 828.75,1375.71,881.77,1429.54
+GLDebug: 	Removed object junction:cluster_31358103_567607181_cluster_1867580179_2255293396 from SUMORTree with boundary 1607.12,3446.82,1662.43,3524.70
+GLDebug: 	Removed object junction:cluster_412543168_681323998 from SUMORTree with boundary 1245.10,1723.22,1290.88,1760.66
+GLDebug: 	Removed object junction:cluster_665725993_cluster_206191823_206191824 from SUMORTree with boundary 860.64,1405.77,914.13,1460.13
+GLDebug: Removing edges during recomputing
+GLDebug: 	Removed object edge:-1013117571#1 from SUMORTree with boundary 1714.35,3589.22,1849.44,3729.07
+GLDebug: 	Removed object edge:-129519181#1 from SUMORTree with boundary 1032.03,2234.66,1462.70,2805.13
+GLDebug: 	Removed object edge:-141968830#1 from SUMORTree with boundary 1131.10,907.32,1863.63,1495.76
+GLDebug: 	Removed object edge:-145009991#3 from SUMORTree with boundary 911.13,3528.34,1603.68,4105.35
+GLDebug: 	Removed object edge:-145586617#31 from SUMORTree with boundary 668.31,279.06,1971.72,1193.73
+GLDebug: 	Removed object edge:-170149081#1 from SUMORTree with boundary 912.17,3528.34,1603.68,4106.57
+GLDebug: 	Removed object edge:-206579065 from SUMORTree with boundary 1232.81,1787.04,1257.32,1813.38
+GLDebug: 	Removed object edge:-206579070 from SUMORTree with boundary 1332.96,1764.54,1416.42,1818.15
+GLDebug: 	Removed object edge:-25368898#9 from SUMORTree with boundary 1464.16,2594.80,1750.69,2837.77
+GLDebug: 	Removed object edge:-33234937#10 from SUMORTree with boundary 1492.17,1943.03,1750.69,2614.80
+GLDebug: 	Removed object edge:-33234956#1 from SUMORTree with boundary 1730.69,2594.80,1840.97,2689.45
+GLDebug: 	Removed object edge:-339558638#6 from SUMORTree with boundary 1396.42,1795.45,1513.76,1963.03
+GLDebug: 	Removed object edge:-53087792#10 from SUMORTree with boundary 995.07,1793.38,1252.81,2152.13
+GLDebug: 	Removed object edge:-54039620#2 from SUMORTree with boundary 1258.29,1729.77,1352.96,1784.54
+GLDebug: 	Removed object edge:-746625193#2 from SUMORTree with boundary 1044.73,1475.76,1151.88,1589.90
+GLDebug: 	Removed object edge:-81535329#13 from SUMORTree with boundary 239.36,2817.77,1484.16,3399.63
+GLDebug: 	Removed object edge:1003191656#0 from SUMORTree with boundary 2043.25,2433.81,2332.09,2776.60
+GLDebug: 	Removed object edge:1003191667#1 from SUMORTree with boundary 1988.10,2426.83,2324.06,2818.48
+GLDebug: 	Removed object edge:10860201#0 from SUMORTree with boundary 1442.53,2782.62,1490.00,2837.77
+GLDebug: 	Removed object edge:11279544#0 from SUMORTree with boundary 1621.51,3479.64,1734.35,3612.23
+GLDebug: 	Removed object edge:11279822#0 from SUMORTree with boundary 978.46,2129.88,1052.03,2256.57
+GLDebug: 	Removed object edge:11279858#0 from SUMORTree with boundary 989.00,2129.88,1053.56,2255.21
+GLDebug: 	Removed object edge:11279895#0 from SUMORTree with boundary 992.82,1793.38,1252.81,2149.98
+GLDebug: 	Removed object edge:145009985#0 from SUMORTree with boundary 1626.42,3479.64,1737.14,3609.22
+GLDebug: 	Removed object edge:145586606 from SUMORTree with boundary 607.27,1257.61,1071.51,1652.90
+GLDebug: 	Removed object edge:145586607 from SUMORTree with boundary 1115.72,1081.35,1253.40,1202.17
+GLDebug: 	Removed object edge:145586617#0 from SUMORTree with boundary 668.31,279.39,1973.29,1193.73
+GLDebug: 	Removed object edge:145586622#0 from SUMORTree with boundary 1818.06,2669.21,1963.10,2777.52
+GLDebug: 	Removed object edge:192530508#0 from SUMORTree with boundary 1031.01,2235.21,1462.53,2805.13
+GLDebug: 	Removed object edge:194895343#0 from SUMORTree with boundary 1439.54,2785.13,1484.16,2842.55
+GLDebug: 	Removed object edge:194896804#0 from SUMORTree with boundary 1464.16,2814.74,1632.48,3409.49
+GLDebug: 	Removed object edge:19791219 from SUMORTree with boundary 965.54,1257.61,1075.72,1367.70
+GLDebug: 	Removed object edge:19791220 from SUMORTree with boundary 616.14,1478.17,766.12,1624.28
+GLDebug: 	Removed object edge:204721580#0 from SUMORTree with boundary 1663.48,2924.71,1916.92,3390.38
+GLDebug: 	Removed object edge:206579065 from SUMORTree with boundary 1230.27,1785.01,1255.93,1813.38
+GLDebug: 	Removed object edge:206579066#0 from SUMORTree with boundary 1231.83,1734.17,1278.29,1807.04
+GLDebug: 	Removed object edge:206579067 from SUMORTree with boundary 1041.05,1569.90,1116.19,1646.86
+GLDebug: 	Removed object edge:206579068 from SUMORTree with boundary 1179.89,1680.38,1285.00,1754.17
+GLDebug: 	Removed object edge:206579070 from SUMORTree with boundary 1332.96,1764.54,1417.05,1816.77
+GLDebug: 	Removed object edge:206579071 from SUMORTree with boundary 896.92,1452.18,1005.10,1548.77
+GLDebug: 	Removed object edge:206579073 from SUMORTree with boundary 1002.02,1524.13,1068.41,1589.90
+GLDebug: 	Removed object edge:206579079 from SUMORTree with boundary 746.12,1418.18,835.56,1498.17
+GLDebug: 	Removed object edge:206579082 from SUMORTree with boundary 911.40,1347.70,985.54,1415.37
+GLDebug: 	Removed object edge:206579085 from SUMORTree with boundary 1018.98,1175.81,1138.64,1268.36
+GLDebug: 	Removed object edge:206579088 from SUMORTree with boundary 607.27,1560.48,734.05,1652.90
+GLDebug: 	Removed object edge:216169544#0 from SUMORTree with boundary 1581.15,3479.64,1646.42,3548.34
+GLDebug: 	Removed object edge:216169546#0 from SUMORTree with boundary 1583.68,3479.64,1646.42,3549.65
+GLDebug: 	Removed object edge:22721677#0 from SUMORTree with boundary -11.22,355.61,688.31,1193.73
+GLDebug: 	Removed object edge:22721677#4 from SUMORTree with boundary 668.31,1173.73,802.30,1330.12
+GLDebug: 	Removed object edge:22917228#0 from SUMORTree with boundary 842.59,1398.56,888.06,1448.59
+GLDebug: 	Removed object edge:22917233#0 from SUMORTree with boundary 878.93,1417.49,1022.02,1544.13
+GLDebug: 	Removed object edge:25368898#0 from SUMORTree with boundary 1464.16,2594.80,1750.69,2837.77
+GLDebug: 	Removed object edge:25368900#0 from SUMORTree with boundary 238.52,2817.77,1484.16,3398.27
+GLDebug: 	Removed object edge:25944425#0 from SUMORTree with boundary 803.24,1332.53,868.12,1401.55
+GLDebug: 	Removed object edge:26547171#0 from SUMORTree with boundary 843.34,1377.08,872.68,1418.56
+GLDebug: 	Removed object edge:26547171#2 from SUMORTree with boundary 844.04,1387.30,879.78,1418.56
+GLDebug: 	Removed object edge:26547172#0 from SUMORTree with boundary 854.72,1389.05,902.63,1438.64
+GLDebug: 	Removed object edge:26547179 from SUMORTree with boundary 790.15,1346.33,852.46,1413.42
+GLDebug: 	Removed object edge:266227880#0 from SUMORTree with boundary 1818.06,2669.21,2013.32,2819.53
+GLDebug: 	Removed object edge:27077898#0 from SUMORTree with boundary 844.04,1248.36,1038.98,1418.56
+GLDebug: 	Removed object edge:27077902#0 from SUMORTree with boundary 714.05,1418.64,898.93,1580.48
+GLDebug: 	Removed object edge:292525977 from SUMORTree with boundary 1153.49,927.43,1474.85,1189.72
+GLDebug: 	Removed object edge:292526263 from SUMORTree with boundary 1126.68,1168.55,1173.49,1212.82
+GLDebug: 	Removed object edge:292526263-AddedOffRampEdge from SUMORTree with boundary 1049.66,1190.85,1149.08,1282.49
+GLDebug: 	Removed object edge:318210393#0 from SUMORTree with boundary 869.92,1418.64,920.88,1476.84
+GLDebug: 	Removed object edge:318210393#2 from SUMORTree with boundary 862.83,1418.64,898.93,1449.64
+GLDebug: 	Removed object edge:318210399#0 from SUMORTree with boundary 811.64,1398.56,864.04,1442.86
+GLDebug: 	Removed object edge:318210401#0 from SUMORTree with boundary 878.93,1390.79,935.35,1438.64
+GLDebug: 	Removed object edge:33234937#0 from SUMORTree with boundary 1490.58,1943.03,1750.69,2614.80
+GLDebug: 	Removed object edge:33234956#0 from SUMORTree with boundary 1730.69,2594.80,1839.00,2691.97
+GLDebug: 	Removed object edge:339558638#0 from SUMORTree with boundary 1395.69,1796.77,1512.17,1963.03
+GLDebug: 	Removed object edge:348583831#0 from SUMORTree with boundary 1626.42,3409.90,1695.59,3501.80
+GLDebug: 	Removed object edge:348583833#0 from SUMORTree with boundary 1626.42,3369.58,1686.58,3499.64
+GLDebug: 	Removed object edge:407167843#0 from SUMORTree with boundary 1131.10,905.80,1863.14,1495.76
+GLDebug: 	Removed object edge:431573403 from SUMORTree with boundary 1894.26,2835.56,1972.12,2946.00
+GLDebug: 	Removed object edge:431573404#0 from SUMORTree with boundary 1951.92,2798.48,2013.32,2855.56
+GLDebug: 	Removed object edge:431573405#0 from SUMORTree with boundary 1993.32,2756.60,2063.25,2822.72
+GLDebug: 	Removed object edge:431573406#0 from SUMORTree with boundary 1842.25,2798.48,2025.19,3081.12
+GLDebug: 	Removed object edge:431573407#0 from SUMORTree with boundary 1943.10,2757.52,2013.32,2818.48
+GLDebug: 	Removed object edge:472236111#0 from SUMORTree with boundary 1680.78,3262.04,1755.87,3394.69
+GLDebug: 	Removed object edge:52783765#0 from SUMORTree with boundary 1235.93,1733.57,1285.00,1807.98
+GLDebug: 	Removed object edge:53385386#0 from SUMORTree with boundary 1044.73,1565.27,1199.89,1701.11
+GLDebug: 	Removed object edge:54039595#0 from SUMORTree with boundary 1096.19,1626.86,1278.29,1754.76
+GLDebug: 	Removed object edge:54039620#0 from SUMORTree with boundary 1258.29,1733.57,1352.96,1784.54
+GLDebug: 	Removed object edge:541676222 from SUMORTree with boundary 1609.47,3389.49,1647.58,3499.64
+GLDebug: 	Removed object edge:663605951#0 from SUMORTree with boundary 1673.36,3374.37,1703.86,3429.90
+GLDebug: 	Removed object edge:72230301#0 from SUMORTree with boundary 1714.35,3589.22,1850.44,3727.82
+GLDebug: 	Removed object edge:745656019#0 from SUMORTree with boundary 1454.97,2817.77,1646.42,3511.20
+GLDebug: 	Removed object edge:81414476#0 from SUMORTree with boundary 985.10,1528.77,1064.73,1594.54
+GLDebug: 	Removed object edge:83708562 from SUMORTree with boundary 616.14,1179.30,1139.54,1624.28
+GLDebug: 	Removed object edge:862741106 from SUMORTree with boundary 782.30,1310.12,827.73,1356.64
+GLDebug: 	Removed object edge:862741108 from SUMORTree with boundary 830.26,1391.53,864.04,1419.49
+GLDebug: 	Removed object edge:868347084 from SUMORTree with boundary 655.88,1181.52,812.46,1368.16
+GLDebug: 	Removed object edge:872231978 from SUMORTree with boundary 1044.73,1475.76,1151.10,1589.90
+GLDebug: 	Removed object edge:97206934#0 from SUMORTree with boundary 1743.96,3059.88,1864.93,3267.15
+GLDebug: 	Removed object edge:998166558 from SUMORTree with boundary 1734.97,3247.15,1764.86,3282.04
+GLDebug: Add junctions during recomputing after calling myNetBuilder->compute(...)
+GLDebug: 	Inserted junction:100154846 into SUMORTree with boundary 1707.82,3582.38,1739.64,3614.36
+GLDebug: 	Inserted junction:100157291 into SUMORTree with boundary 1827.44,3705.32,1851.44,3730.32
+GLDebug: 	Inserted junction:100159422 into SUMORTree with boundary 1029.71,2233.73,1055.00,2257.76
+GLDebug: 	Inserted junction:100159780 into SUMORTree with boundary 991.63,2128.90,1016.43,2153.21
+GLDebug: 	Inserted junction:100161132 into SUMORTree with boundary 1174.98,1676.29,1205.60,1707.16
+GLDebug: 	Inserted junction:100167375 into SUMORTree with boundary 237.68,3375.55,261.04,3400.99
+GLDebug: 	Inserted junction:100167392 into SUMORTree with boundary 1723.76,2587.83,1757.55,2621.48
+GLDebug: 	Inserted junction:138559856 into SUMORTree with boundary -12.44,354.58,12.44,378.72
+GLDebug: 	Inserted junction:138559868 into SUMORTree with boundary 801.93,1331.13,829.20,1357.87
+GLDebug: 	Inserted junction:138562259 into SUMORTree with boundary 654.68,1180.47,679.50,1204.67
+GLDebug: 	Inserted junction:1552842725 into SUMORTree with boundary 1842.17,904.27,1864.11,930.37
+GLDebug: 	Inserted junction:1552842823 into SUMORTree with boundary 862.44,1422.90,889.19,1450.39
+GLDebug: 	Inserted junction:158906921 into SUMORTree with boundary 1818.01,2668.19,1845.98,2697.94
+GLDebug: 	Inserted junction:1589761370 into SUMORTree with boundary 1226.21,1080.13,1254.43,1109.94
+GLDebug: 	Inserted junction:2030862306 into SUMORTree with boundary 1439.16,2781.86,1467.91,2810.40
+GLDebug: 	Inserted junction:206191818 into SUMORTree with boundary 1040.71,1251.65,1079.13,1291.99
+GLDebug: 	Inserted junction:206191819 into SUMORTree with boundary 1112.32,1173.58,1142.92,1205.37
+GLDebug: 	Inserted junction:206191826 into SUMORTree with boundary 709.95,1555.49,739.13,1584.16
+GLDebug: 	Inserted junction:206191828 into SUMORTree with boundary 616.05,1619.20,643.19,1649.94
+GLDebug: 	Inserted junction:206191829 into SUMORTree with boundary 635.75,1573.92,668.22,1604.29
+GLDebug: 	Inserted junction:206191832 into SUMORTree with boundary 741.01,1471.93,772.27,1503.21
+GLDebug: 	Inserted junction:206191835 into SUMORTree with boundary 1013.91,1244.69,1043.07,1273.35
+GLDebug: 	Inserted junction:2165987557 into SUMORTree with boundary 1146.34,1163.48,1179.64,1197.20
+GLDebug: 	Inserted junction:2165987560 into SUMORTree with boundary 959.38,1342.66,990.66,1373.95
+GLDebug: 	Inserted junction:2165987569 into SUMORTree with boundary 996.93,1519.11,1028.20,1550.35
+GLDebug: 	Inserted junction:2165987571 into SUMORTree with boundary 1090.14,1620.69,1121.20,1651.85
+GLDebug: 	Inserted junction:2165987572 into SUMORTree with boundary 1228.21,1786.97,1257.45,1818.35
+GLDebug: 	Inserted junction:2255293294 into SUMORTree with boundary 1947.31,2829.56,1978.30,2860.57
+GLDebug: 	Inserted junction:2255293408 into SUMORTree with boundary 1578.33,3521.15,1608.64,3553.55
+GLDebug: 	Inserted junction:280777678 into SUMORTree with boundary 1327.94,1757.02,1357.98,1789.21
+GLDebug: 	Inserted junction:283017766 into SUMORTree with boundary 788.63,1345.27,813.74,1369.52
+GLDebug: 	Inserted junction:286046797 into SUMORTree with boundary 1892.71,2923.66,1918.46,2947.02
+GLDebug: 	Inserted junction:290952496 into SUMORTree with boundary 1394.87,1793.87,1418.15,1819.57
+GLDebug: 	Inserted junction:290968580 into SUMORTree with boundary 978.96,1522.54,1010.20,1553.76
+GLDebug: 	Inserted junction:290971361 into SUMORTree with boundary 842.16,1376.21,869.46,1402.88
+GLDebug: 	Inserted junction:290971408 into SUMORTree with boundary 828.87,1390.23,853.86,1414.70
+GLDebug: 	Inserted junction:292526263-AddedOffRampNode into SUMORTree with boundary 1119.61,1184.38,1154.06,1221.70
+GLDebug: 	Inserted junction:2960840894 into SUMORTree with boundary 1450.49,926.09,1475.73,954.13
+GLDebug: 	Inserted junction:311410889 into SUMORTree with boundary 1668.09,3405.40,1697.99,3435.13
+GLDebug: 	Inserted junction:31358110 into SUMORTree with boundary 1840.69,3058.87,1866.49,3082.13
+GLDebug: 	Inserted junction:3246050925 into SUMORTree with boundary 910.18,1389.45,936.78,1416.90
+GLDebug: 	Inserted junction:3246050926 into SUMORTree with boundary 810.37,1416.77,836.83,1444.27
+GLDebug: 	Inserted junction:3246050927 into SUMORTree with boundary 895.68,1450.76,922.17,1478.22
+GLDebug: 	Inserted junction:3467805279 into SUMORTree with boundary 1488.97,1942.72,1515.37,1963.39
+GLDebug: 	Inserted junction:35215930 into SUMORTree with boundary 1948.59,278.73,1974.85,300.05
+GLDebug: 	Inserted junction:3663247364 into SUMORTree with boundary 1607.67,3384.89,1637.30,3414.38
+GLDebug: 	Inserted junction:4090512230 into SUMORTree with boundary 910.10,4082.91,934.24,4107.79
+GLDebug: 	Inserted junction:4092042341 into SUMORTree with boundary 1126.03,1470.65,1156.17,1503.05
+GLDebug: 	Inserted junction:4307897715 into SUMORTree with boundary 1938.98,2753.85,1968.19,2782.51
+GLDebug: 	Inserted junction:4307897716 into SUMORTree with boundary 2037.01,2751.48,2068.25,2782.75
+GLDebug: 	Inserted junction:492462651 into SUMORTree with boundary 1230.14,1783.88,1258.76,1808.54
+GLDebug: 	Inserted junction:6211252183 into SUMORTree with boundary 1661.93,3369.17,1688.13,3390.79
+GLDebug: 	Inserted junction:6211252184 into SUMORTree with boundary 1679.15,3373.77,1705.49,3395.28
+GLDebug: 	Inserted junction:665725990 into SUMORTree with boundary 853.38,1387.81,880.29,1414.90
+GLDebug: 	Inserted junction:8037309237 into SUMORTree with boundary 777.22,1305.02,808.53,1336.33
+GLDebug: 	Inserted junction:9216394493 into SUMORTree with boundary 1737.83,3242.12,1768.68,3272.96
+GLDebug: 	Inserted junction:9216394494 into SUMORTree with boundary 1731.17,3256.24,1762.00,3287.07
+GLDebug: 	Inserted junction:967017790 into SUMORTree with boundary 661.29,1166.24,696.03,1201.38
+GLDebug: 	Inserted junction:cluster_1401188845_57343261_57343267_9104177905_9104177906_9104177907_9104177908 into SUMORTree with boundary 1972.21,2783.65,2030.04,2839.75
+GLDebug: 	Inserted junction:cluster_1552842866_412543167 into SUMORTree with boundary 1032.31,1556.34,1078.93,1605.62
+GLDebug: 	Inserted junction:cluster_1867592741_2030862351_8094449969_96499875 into SUMORTree with boundary 1446.81,2807.51,1497.91,2854.38
+GLDebug: 	Inserted junction:cluster_2334532594_3169446746_9104177903_9104177904 into SUMORTree with boundary 2294.99,2425.77,2333.28,2462.16
+GLDebug: 	Inserted junction:cluster_246758619_cluster_2008877556_206191834 into SUMORTree with boundary 828.75,1375.71,881.77,1429.54
+GLDebug: 	Inserted junction:cluster_31358103_567607181_cluster_1867580179_2255293396 into SUMORTree with boundary 1607.12,3446.82,1662.43,3524.70
+GLDebug: 	Inserted junction:cluster_412543168_681323998 into SUMORTree with boundary 1245.10,1723.22,1290.88,1760.66
+GLDebug: 	Inserted junction:cluster_665725993_cluster_206191823_206191824 into SUMORTree with boundary 860.64,1405.77,914.13,1460.13
+GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
+GLDebug: 	Inserted edge:-1013117571#1 into SUMORTree with boundary 1714.35,3589.22,1849.44,3729.07
+GLDebug: 	Inserted edge:-129519181#1 into SUMORTree with boundary 1032.03,2234.66,1462.70,2805.13
+GLDebug: 	Inserted edge:-141968830#1 into SUMORTree with boundary 1131.10,907.32,1863.63,1495.76
+GLDebug: 	Inserted edge:-145009991#3 into SUMORTree with boundary 911.13,3528.34,1603.68,4105.35
+GLDebug: 	Inserted edge:-145586617#31 into SUMORTree with boundary 668.31,279.06,1971.72,1193.73
+GLDebug: 	Inserted edge:-170149081#1 into SUMORTree with boundary 912.17,3528.34,1603.68,4106.57
+GLDebug: 	Inserted edge:-206579065 into SUMORTree with boundary 1232.81,1787.04,1257.32,1813.38
+GLDebug: 	Inserted edge:-206579070 into SUMORTree with boundary 1332.96,1764.54,1416.42,1818.15
+GLDebug: 	Inserted edge:-25368898#9 into SUMORTree with boundary 1464.16,2594.80,1750.69,2837.77
+GLDebug: 	Inserted edge:-33234937#10 into SUMORTree with boundary 1492.17,1943.03,1750.69,2614.80
+GLDebug: 	Inserted edge:-33234956#1 into SUMORTree with boundary 1730.69,2594.80,1840.97,2689.45
+GLDebug: 	Inserted edge:-339558638#6 into SUMORTree with boundary 1396.42,1795.45,1513.76,1963.03
+GLDebug: 	Inserted edge:-53087792#10 into SUMORTree with boundary 995.07,1793.38,1252.81,2152.13
+GLDebug: 	Inserted edge:-54039620#2 into SUMORTree with boundary 1258.29,1729.77,1352.96,1784.54
+GLDebug: 	Inserted edge:-746625193#2 into SUMORTree with boundary 1044.73,1475.76,1151.88,1589.90
+GLDebug: 	Inserted edge:-81535329#13 into SUMORTree with boundary 239.36,2817.77,1484.16,3399.63
+GLDebug: 	Inserted edge:1003191656#0 into SUMORTree with boundary 2043.25,2433.81,2332.09,2776.60
+GLDebug: 	Inserted edge:1003191667#1 into SUMORTree with boundary 1988.10,2426.83,2324.06,2818.48
+GLDebug: 	Inserted edge:10860201#0 into SUMORTree with boundary 1442.53,2782.62,1490.00,2837.77
+GLDebug: 	Inserted edge:11279544#0 into SUMORTree with boundary 1621.51,3479.64,1734.35,3612.23
+GLDebug: 	Inserted edge:11279822#0 into SUMORTree with boundary 978.46,2129.88,1052.03,2256.57
+GLDebug: 	Inserted edge:11279858#0 into SUMORTree with boundary 989.00,2129.88,1053.56,2255.21
+GLDebug: 	Inserted edge:11279895#0 into SUMORTree with boundary 992.82,1793.38,1252.81,2149.98
+GLDebug: 	Inserted edge:145009985#0 into SUMORTree with boundary 1626.42,3479.64,1737.14,3609.22
+GLDebug: 	Inserted edge:145586606 into SUMORTree with boundary 607.27,1257.61,1071.51,1652.90
+GLDebug: 	Inserted edge:145586607 into SUMORTree with boundary 1115.72,1081.35,1253.40,1202.17
+GLDebug: 	Inserted edge:145586617#0 into SUMORTree with boundary 668.31,279.39,1973.29,1193.73
+GLDebug: 	Inserted edge:145586622#0 into SUMORTree with boundary 1818.06,2669.21,1963.10,2777.52
+GLDebug: 	Inserted edge:192530508#0 into SUMORTree with boundary 1031.01,2235.21,1462.53,2805.13
+GLDebug: 	Inserted edge:194895343#0 into SUMORTree with boundary 1439.54,2785.13,1484.16,2842.55
+GLDebug: 	Inserted edge:194896804#0 into SUMORTree with boundary 1464.16,2814.74,1632.48,3409.49
+GLDebug: 	Inserted edge:19791219 into SUMORTree with boundary 965.54,1257.61,1075.72,1367.70
+GLDebug: 	Inserted edge:19791220 into SUMORTree with boundary 616.14,1478.17,766.12,1624.28
+GLDebug: 	Inserted edge:204721580#0 into SUMORTree with boundary 1663.48,2924.71,1916.92,3390.38
+GLDebug: 	Inserted edge:206579065 into SUMORTree with boundary 1230.27,1785.01,1255.93,1813.38
+GLDebug: 	Inserted edge:206579066#0 into SUMORTree with boundary 1231.83,1734.17,1278.29,1807.04
+GLDebug: 	Inserted edge:206579067 into SUMORTree with boundary 1041.05,1569.90,1116.19,1646.86
+GLDebug: 	Inserted edge:206579068 into SUMORTree with boundary 1179.89,1680.38,1285.00,1754.17
+GLDebug: 	Inserted edge:206579070 into SUMORTree with boundary 1332.96,1764.54,1417.05,1816.77
+GLDebug: 	Inserted edge:206579071 into SUMORTree with boundary 896.92,1452.18,1005.10,1548.77
+GLDebug: 	Inserted edge:206579073 into SUMORTree with boundary 1002.02,1524.13,1068.41,1589.90
+GLDebug: 	Inserted edge:206579079 into SUMORTree with boundary 746.12,1418.18,835.56,1498.17
+GLDebug: 	Inserted edge:206579082 into SUMORTree with boundary 911.40,1347.70,985.54,1415.37
+GLDebug: 	Inserted edge:206579085 into SUMORTree with boundary 1018.98,1175.81,1138.64,1268.36
+GLDebug: 	Inserted edge:206579088 into SUMORTree with boundary 607.27,1560.48,734.05,1652.90
+GLDebug: 	Inserted edge:216169544#0 into SUMORTree with boundary 1581.15,3479.64,1646.42,3548.34
+GLDebug: 	Inserted edge:216169546#0 into SUMORTree with boundary 1583.68,3479.64,1646.42,3549.65
+GLDebug: 	Inserted edge:22721677#0 into SUMORTree with boundary -11.22,355.61,688.31,1193.73
+GLDebug: 	Inserted edge:22721677#4 into SUMORTree with boundary 668.31,1173.73,802.30,1330.12
+GLDebug: 	Inserted edge:22917228#0 into SUMORTree with boundary 842.59,1398.56,888.06,1448.59
+GLDebug: 	Inserted edge:22917233#0 into SUMORTree with boundary 878.93,1417.49,1022.02,1544.13
+GLDebug: 	Inserted edge:25368898#0 into SUMORTree with boundary 1464.16,2594.80,1750.69,2837.77
+GLDebug: 	Inserted edge:25368900#0 into SUMORTree with boundary 238.52,2817.77,1484.16,3398.27
+GLDebug: 	Inserted edge:25944425#0 into SUMORTree with boundary 803.24,1332.53,868.12,1401.55
+GLDebug: 	Inserted edge:26547171#0 into SUMORTree with boundary 843.34,1377.08,872.68,1418.56
+GLDebug: 	Inserted edge:26547171#2 into SUMORTree with boundary 844.04,1387.30,879.78,1418.56
+GLDebug: 	Inserted edge:26547172#0 into SUMORTree with boundary 854.72,1389.16,900.52,1438.64
+GLDebug: 	Inserted edge:26547179 into SUMORTree with boundary 790.15,1346.33,852.46,1413.42
+GLDebug: 	Inserted edge:266227880#0 into SUMORTree with boundary 1818.06,2669.21,2013.32,2819.53
+GLDebug: 	Inserted edge:27077898#0 into SUMORTree with boundary 844.04,1248.36,1038.98,1418.56
+GLDebug: 	Inserted edge:27077902#0 into SUMORTree with boundary 714.05,1418.64,898.93,1580.48
+GLDebug: 	Inserted edge:292525977 into SUMORTree with boundary 1153.49,927.43,1474.85,1189.72
+GLDebug: 	Inserted edge:292526263 into SUMORTree with boundary 1126.68,1168.55,1173.49,1212.82
+GLDebug: 	Inserted edge:292526263-AddedOffRampEdge into SUMORTree with boundary 1049.66,1190.85,1149.08,1282.49
+GLDebug: 	Inserted edge:318210393#0 into SUMORTree with boundary 869.92,1418.64,920.88,1476.84
+GLDebug: 	Inserted edge:318210393#2 into SUMORTree with boundary 862.83,1418.64,898.93,1449.64
+GLDebug: 	Inserted edge:318210399#0 into SUMORTree with boundary 811.64,1398.56,864.04,1442.86
+GLDebug: 	Inserted edge:318210401#0 into SUMORTree with boundary 878.93,1390.79,935.35,1438.64
+GLDebug: 	Inserted edge:33234937#0 into SUMORTree with boundary 1490.58,1943.03,1750.69,2614.80
+GLDebug: 	Inserted edge:33234956#0 into SUMORTree with boundary 1730.69,2594.80,1839.00,2691.97
+GLDebug: 	Inserted edge:339558638#0 into SUMORTree with boundary 1395.69,1796.77,1512.17,1963.03
+GLDebug: 	Inserted edge:348583831#0 into SUMORTree with boundary 1626.42,3409.90,1695.59,3501.80
+GLDebug: 	Inserted edge:348583833#0 into SUMORTree with boundary 1626.42,3369.58,1686.58,3499.64
+GLDebug: 	Inserted edge:407167843#0 into SUMORTree with boundary 1131.10,905.80,1863.14,1495.76
+GLDebug: 	Inserted edge:431573403 into SUMORTree with boundary 1894.26,2835.56,1972.12,2946.00
+GLDebug: 	Inserted edge:431573404#0 into SUMORTree with boundary 1951.92,2798.48,2013.32,2855.56
+GLDebug: 	Inserted edge:431573405#0 into SUMORTree with boundary 1993.32,2756.60,2063.25,2822.72
+GLDebug: 	Inserted edge:431573406#0 into SUMORTree with boundary 1842.25,2798.48,2025.19,3081.12
+GLDebug: 	Inserted edge:431573407#0 into SUMORTree with boundary 1943.10,2757.52,2013.32,2818.48
+GLDebug: 	Inserted edge:472236111#0 into SUMORTree with boundary 1680.78,3262.04,1755.87,3394.69
+GLDebug: 	Inserted edge:52783765#0 into SUMORTree with boundary 1235.93,1733.57,1285.00,1807.98
+GLDebug: 	Inserted edge:53385386#0 into SUMORTree with boundary 1044.73,1565.27,1199.89,1701.11
+GLDebug: 	Inserted edge:54039595#0 into SUMORTree with boundary 1096.19,1626.86,1278.29,1754.76
+GLDebug: 	Inserted edge:54039620#0 into SUMORTree with boundary 1258.29,1733.57,1352.96,1784.54
+GLDebug: 	Inserted edge:541676222 into SUMORTree with boundary 1609.47,3389.49,1647.58,3499.64
+GLDebug: 	Inserted edge:663605951#0 into SUMORTree with boundary 1673.36,3374.37,1703.86,3429.90
+GLDebug: 	Inserted edge:72230301#0 into SUMORTree with boundary 1714.35,3589.22,1850.44,3727.82
+GLDebug: 	Inserted edge:745656019#0 into SUMORTree with boundary 1454.97,2817.77,1646.42,3511.20
+GLDebug: 	Inserted edge:81414476#0 into SUMORTree with boundary 985.10,1528.77,1064.73,1594.54
+GLDebug: 	Inserted edge:83708562 into SUMORTree with boundary 616.14,1179.30,1139.54,1624.28
+GLDebug: 	Inserted edge:862741106 into SUMORTree with boundary 782.30,1310.12,827.73,1356.64
+GLDebug: 	Inserted edge:862741108 into SUMORTree with boundary 830.26,1391.53,864.04,1419.49
+GLDebug: 	Inserted edge:868347084 into SUMORTree with boundary 655.88,1181.52,812.46,1368.16
+GLDebug: 	Inserted edge:872231978 into SUMORTree with boundary 1044.73,1475.76,1151.10,1589.90
+GLDebug: 	Inserted edge:97206934#0 into SUMORTree with boundary 1743.96,3059.88,1864.93,3267.15
+GLDebug: 	Inserted edge:998166558 into SUMORTree with boundary 1734.97,3247.15,1764.86,3282.04
 Debug: network elements saved
 Debug: Deleting unreferenced type 'highway.bridleway' in AttributeCarriers destructor
 Debug: Deleting unreferenced type 'highway.bus_guideway' in AttributeCarriers destructor
@@ -890,3 +2369,4 @@ Debug: Deleting unreferenced junction 'cluster_31358103_567607181_cluster_186758
 Debug: Deleting unreferenced junction 'cluster_412543168_681323998' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'cluster_665725993_cluster_206191823_206191824' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
+GLDebug: Number of objects in SUMORTree during call of the destructor: 162

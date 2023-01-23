@@ -72,6 +72,7 @@ Debug: Created walkingArea ':D_w0' in retrieveGNEWalkingArea()
 Debug: Current Viewport values: 50.00, 50.00, 50.00. Zoom = '248.00'
 Debug: Value 'dummy Edges' for attribute edges of crossing isn't valid
 Debug: Setting new attribute
+Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
@@ -218,6 +219,7 @@ Debug: Created walkingArea ':D_w0' in retrieveGNEWalkingArea()
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
+Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
@@ -225,6 +227,8 @@ Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
+Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
+Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:A from SUMORTree with boundary 31.60,-10.00,68.40,10.00
@@ -271,6 +275,8 @@ Debug: Created walkingArea ':D_w0' in retrieveGNEWalkingArea()
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
+Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
+Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
@@ -278,7 +284,10 @@ Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
+Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
+Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: Removing crossing from junction 'Center'
+Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:A from SUMORTree with boundary 31.60,-10.00,68.40,10.00
 GLDebug: 	Removed object junction:B from SUMORTree with boundary 31.60,90.00,68.40,110.00
@@ -322,6 +331,7 @@ Debug: Created walkingArea ':Center_w3' in retrieveGNEWalkingArea()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Created walkingArea ':D_w0' in retrieveGNEWalkingArea()
 Debug: network elements saved after dialog
+Debug: Deleting unreferenced crossing in GNEChange_Attribute
 Debug: Deleting unreferenced crossing in GNEChange_Attribute
 Debug: Deleting unreferenced edge '1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor

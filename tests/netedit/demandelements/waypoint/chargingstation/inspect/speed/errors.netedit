@@ -38,8 +38,6 @@ Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
-Debug: Additionals saved
-Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -10.00,-13.20,10.00,13.20
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 15.00,-13.20,35.00,13.20
@@ -53,6 +51,8 @@ GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,35.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,35.00,11.60
 Debug: network elements saved
+Debug: Additionals saved
+Debug: demand elements saved
 Debug: Deleting unreferenced waypointChargingStation
 Debug: Deleting unreferenced flow
 Debug: Deleting unreferenced chargingStation

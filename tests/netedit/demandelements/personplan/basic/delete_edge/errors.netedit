@@ -149,8 +149,6 @@ Debug: Removing connection 'gneE5_0->gneE10_0' from edge 'gneE5'
 Debug: Deleting unreferenced connection 'fromgneE5_0togneE10_0' in removeConnection()
 Debug: Removing edge 'gneE5' from net
 GLDebug: 	Removed object edge:gneE5 from SUMORTree with boundary -10.00,30.00,70.00,51.60
-Debug: demand elements saved
-Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -10.00,-16.40,10.00,13.20
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 42.10,-16.40,76.40,14.70
@@ -186,6 +184,8 @@ GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary -10.00,-10.00,70.00,1
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
 Debug: network elements saved
+Debug: Additionals saved
+Debug: demand elements saved
 Debug: Deleting unreferenced edge 'gneE5' GNEChange_Edge
 Debug: Deleting unreferenced lane 'gneE5_0' in GNEEdge destructor
 Debug: Deleting unreferenced personTrip: edge->edge

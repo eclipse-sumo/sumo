@@ -56,6 +56,48 @@ Debug: Created walkingArea ':C_w2' in retrieveGNEWalkingArea()
 Debug: Created walkingArea ':C_w3' in retrieveGNEWalkingArea()
 Debug: Created walkingArea ':N_w0' in retrieveGNEWalkingArea()
 Debug: Created walkingArea ':S_w0' in retrieveGNEWalkingArea()
+GLDebug: Removing junctions during recomputing
+GLDebug: 	Removed object junction:C from SUMORTree with boundary 77.60,85.30,122.40,114.70
+GLDebug: 	Removed object junction:E from SUMORTree with boundary 190.00,86.80,210.00,113.20
+GLDebug: 	Removed object junction:N from SUMORTree with boundary 79.10,190.00,120.90,210.00
+GLDebug: 	Removed object junction:S from SUMORTree with boundary 79.10,-10.00,120.90,10.00
+GLDebug: 	Removed object junction:W from SUMORTree with boundary -10.00,86.80,10.00,113.20
+GLDebug: Removing edges during recomputing
+GLDebug: 	Removed object edge:CE from SUMORTree with boundary 90.00,88.40,210.00,110.00
+GLDebug: 	Removed object edge:CN from SUMORTree with boundary 90.00,90.00,121.20,210.00
+GLDebug: 	Removed object edge:CS from SUMORTree with boundary 78.80,-10.00,110.00,110.00
+GLDebug: 	Removed object edge:CW from SUMORTree with boundary -10.00,90.00,110.00,111.60
+GLDebug: 	Removed object edge:EC from SUMORTree with boundary 90.00,90.00,210.00,111.60
+GLDebug: 	Removed object edge:NC from SUMORTree with boundary 78.80,90.00,110.00,210.00
+GLDebug: 	Removed object edge:SC from SUMORTree with boundary 90.00,-10.00,121.20,110.00
+GLDebug: 	Removed object edge:WC from SUMORTree with boundary -10.00,88.40,110.00,110.00
+GLDebug: Add junctions during recomputing after calling myNetBuilder->compute(...)
+GLDebug: 	Inserted junction:C into SUMORTree with boundary 77.60,85.30,122.40,114.70
+GLDebug: 	Inserted junction:E into SUMORTree with boundary 190.00,86.80,210.00,113.20
+GLDebug: 	Inserted junction:N into SUMORTree with boundary 79.10,190.00,120.90,210.00
+GLDebug: 	Inserted junction:S into SUMORTree with boundary 79.10,-10.00,120.90,10.00
+GLDebug: 	Inserted junction:W into SUMORTree with boundary -10.00,86.80,10.00,113.20
+GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
+GLDebug: 	Inserted edge:CE into SUMORTree with boundary 90.00,88.40,210.00,110.00
+GLDebug: 	Inserted edge:CN into SUMORTree with boundary 90.00,90.00,119.40,210.00
+GLDebug: 	Inserted edge:CS into SUMORTree with boundary 80.60,-10.00,110.00,110.00
+GLDebug: 	Inserted edge:CW into SUMORTree with boundary -10.00,90.00,110.00,111.60
+GLDebug: 	Inserted edge:EC into SUMORTree with boundary 90.00,90.00,210.00,111.60
+GLDebug: 	Inserted edge:NC into SUMORTree with boundary 80.60,90.00,110.00,210.00
+GLDebug: 	Inserted edge:SC into SUMORTree with boundary 90.00,-10.00,119.40,110.00
+GLDebug: 	Inserted edge:WC into SUMORTree with boundary -10.00,88.40,110.00,110.00
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Created walkingArea ':C_w0' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':C_w1' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':C_w2' in retrieveGNEWalkingArea()
+Debug: Created walkingArea ':C_w3' in retrieveGNEWalkingArea()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Created walkingArea ':N_w0' in retrieveGNEWalkingArea()
+Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
+Debug: Created walkingArea ':S_w0' in retrieveGNEWalkingArea()
 Debug: network elements saved
 Debug: Deleting unreferenced edge 'CE' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'CE_0' in GNEEdge destructor

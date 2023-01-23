@@ -1,3 +1,8 @@
+GLDebug: initJunctionsAndEdges function called in GNENet constructor
+GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -12.00,-12.00,12.00,12.00
+GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 38.00,-12.00,62.00,12.00
+GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-18.00,60.00,10.00
+GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,18.00
 Debug: Adding busStop 'busStop_gneE1_0_0' in GNEChange_Additional
 Debug: Adding calibratorLane 'calibrator_gneE1_0_0' in GNEChange_Additional
 Debug: Adding calibratorLane 'calibrator_gneE1_1_1' in GNEChange_Additional
@@ -7,14 +12,17 @@ Debug: Adding containerStop 'containerStop_gneE1_1_0' in GNEChange_Additional
 Debug: Adding inductionLoop 'inductionLoop_gneE0_2_0' in GNEChange_Additional
 Debug: Adding laneAreaDetector 'laneAreaDetector_gneE0_1_0' in GNEChange_Additional
 Debug: Adding entryExitDetector 'entryExitDetector_0' in GNEChange_Additional
+GLDebug: 	Inserted e3Detector:entryExitDetector_0 into SUMORTree with boundary 0.00,-25.00,20.00,-5.00
 Debug: Adding detEntry 'entryExitDetector_0' in GNEChange_Additional
 Debug: Adding detExit 'entryExitDetector_0' in GNEChange_Additional
 Debug: Adding instantInductionLoop 'instantInductionLoop_1' in GNEChange_Additional
 Debug: Adding rerouter 'rerouter_0' in GNEChange_Additional
+GLDebug: 	Inserted rerouter:rerouter_0 into SUMORTree with boundary 5.15,-24.96,25.15,-4.96
 Debug: Adding rerouterSymbol 'gneE1' in GNEChange_Additional
 Debug: Adding routeProbe 'routeProbe_gneE1_0' in GNEChange_Additional
 Debug: Adding vaporizer 'gneE1' in GNEChange_Additional
 Debug: Adding variableSpeedSign 'variableSpeedSign_0' in GNEChange_Additional
+GLDebug: 	Inserted variableSpeedSign:variableSpeedSign_0 into SUMORTree with boundary 9.52,-24.87,29.52,-4.87
 Debug: Adding variableSpeedSignSymbol 'gneE1_0' in GNEChange_Additional
 Debug: Adding variableSpeedSignSymbol 'gneE1_1' in GNEChange_Additional
 Debug: Removing detEntry 'entryExitDetector_0' in GNEChange_Additional
@@ -31,6 +39,7 @@ Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Setting new attribute
 Debug: Removing edge 'gneE0' from net
+GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -10.00,-18.00,60.00,10.00
 Debug: Removing busStop 'busStop_gneE1_0_0' in GNEChange_Additional
 Debug: Removing calibratorLane 'calibrator_gneE1_0_0' in GNEChange_Additional
 Debug: Removing variableSpeedSignSymbol 'gneE1_0' in GNEChange_Additional
@@ -47,11 +56,15 @@ Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
 Debug: Setting new attribute
 Debug: Removing edge 'gneE1' from net
+GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,60.00,18.00
 Debug: Removing junction 'gneJ0' from net
+GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Adding junction 'gneJ0' into net
+GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -12.00,-12.00,12.00,12.00
 Debug: Adding edge 'gneE1' from net
+GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,18.00
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
@@ -68,6 +81,7 @@ Debug: Adding variableSpeedSignSymbol 'gneE1_0' in GNEChange_Additional
 Debug: Adding calibratorLane 'calibrator_gneE1_0_0' in GNEChange_Additional
 Debug: Adding busStop 'busStop_gneE1_0_0' in GNEChange_Additional
 Debug: Adding edge 'gneE0' from net
+GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-18.00,60.00,10.00
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: declaring connections of edge 'gneE0' as loaded (It will not be removed)
@@ -86,19 +100,46 @@ Debug: Adding detEntry 'entryExitDetector_0' in GNEChange_Additional
 Debug: Opened FXMessageBox Problem deleting junction 'gneJ0'
 Debug: Closed FXMessageBox Problem deleting junction 'gneJ0'
 Debug: Key F5 (Compute) pressed
-Debug: Additionals saved
+GLDebug: Removing junctions during recomputing
+GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
+GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00
+GLDebug: Removing edges during recomputing
+GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -10.00,-18.00,60.00,10.00
+GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,60.00,18.00
+GLDebug: Add junctions during recomputing after calling myNetBuilder->compute(...)
+GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -10.00,-19.60,10.00,19.60
+GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 40.00,-19.60,60.00,19.60
+GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
+GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-18.00,60.00,10.00
+GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,18.00
+GLDebug: Removing junctions during recomputing
+GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -10.00,-19.60,10.00,19.60
+GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 40.00,-19.60,60.00,19.60
+GLDebug: Removing edges during recomputing
+GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -10.00,-18.00,60.00,10.00
+GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,60.00,18.00
+GLDebug: Add junctions during recomputing after calling myNetBuilder->compute(...)
+GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -10.00,-19.60,10.00,19.60
+GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 40.00,-19.60,60.00,19.60
+GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
+GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-18.00,60.00,10.00
+GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,18.00
 Debug: network elements saved
+Debug: Additionals saved
 Debug: Deleting unreferenced variableSpeedSignSymbol
 Debug: Deleting unreferenced variableSpeedSignSymbol
 Debug: Deleting unreferenced variableSpeedSign
+GLDebug: 	Removed object variableSpeedSign:variableSpeedSign_0 from SUMORTree with boundary 9.52,-24.87,29.52,-4.87
 Debug: Deleting unreferenced vaporizer
 Debug: Deleting unreferenced routeProbe
 Debug: Deleting unreferenced rerouterSymbol
 Debug: Deleting unreferenced rerouter
+GLDebug: 	Removed object rerouter:rerouter_0 from SUMORTree with boundary 5.15,-24.96,25.15,-4.96
 Debug: Deleting unreferenced instantInductionLoop
 Debug: Deleting unreferenced detExit
 Debug: Deleting unreferenced detEntry
 Debug: Deleting unreferenced entryExitDetector
+GLDebug: 	Removed object e3Detector:entryExitDetector_0 from SUMORTree with boundary 0.00,-25.00,20.00,-5.00
 Debug: Deleting unreferenced laneAreaDetector
 Debug: Deleting unreferenced inductionLoop
 Debug: Deleting unreferenced containerStop
@@ -120,3 +161,4 @@ Debug: Deleting unreferenced connection 'fromgneE1_2togneE0_2' in GNEEdge destru
 Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
+GLDebug: Number of objects in SUMORTree during call of the destructor: 4

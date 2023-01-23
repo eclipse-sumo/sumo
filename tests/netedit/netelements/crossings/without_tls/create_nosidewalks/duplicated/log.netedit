@@ -1,2 +1,4 @@
-Warning: Invalid pedestrian topology: crossing ':Center_c0' across [3 7] has no target.
-Warning: There is already another crossing with the same edges in the junction; Duplicated crossing aren't allowed.
+Warning: Invalid pedestrian topology: crossing ':Center_c0' across [3] has no target.
+Warning: Discarding invalid crossing ':Center_c0' at junction 'Center' with edges [3] (no walkingarea found).
+Warning: Discarding invalid crossing ':Center_c1' at junction 'Center' with edges [3 7] (no walkingarea found).
+Warning: Invalid pedestrian topology: crossing ':Center_c0' across [3] has no target.

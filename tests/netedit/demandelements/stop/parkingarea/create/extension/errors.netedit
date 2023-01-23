@@ -39,8 +39,6 @@ Debug: Adding stopParkingArea 'vehicle_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding stopParkingArea 'vehicle_0' in GNEChange_DemandElement
-Debug: Additionals saved
-Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -10.00,-13.20,10.00,13.20
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 15.00,-13.20,35.00,13.20
@@ -54,6 +52,8 @@ GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,35.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -18.20,-18.40,38.20,28.00
 Debug: network elements saved
+Debug: Additionals saved
+Debug: demand elements saved
 Debug: Deleting unreferenced stopParkingArea
 Debug: Deleting unreferenced stopParkingArea
 Debug: Deleting unreferenced stopParkingArea

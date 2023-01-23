@@ -13,7 +13,7 @@ Debug: Adding rerouter 'rerouter_3' in GNEChange_Additional
 GLDebug: 	Inserted rerouter:rerouter_3 into SUMORTree with boundary 30.00,-20.00,50.00,0.00
 Debug: Adding rerouterSymbol 'gneE0' in GNEChange_Additional
 Debug: Adding rerouterSymbol 'gneE1' in GNEChange_Additional
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.rerouter.24Jun133818.22403/netedit.daily.additional.rerouter/additionalelements/rerouter/load/position/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.rerouter.23Jan142341.5544/netedit.daily.additional.rerouter/additionalelements/rerouter/load/position/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00
@@ -28,7 +28,6 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -10.00,-13.20,10.00,13.20
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 40.00,-13.20,60.00,13.20
@@ -42,6 +41,7 @@ GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: network elements saved
+Debug: Additionals saved
 Debug: Deleting unreferenced rerouterSymbol
 Debug: Deleting unreferenced rerouterSymbol
 Debug: Deleting unreferenced rerouter

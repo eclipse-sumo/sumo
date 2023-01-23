@@ -203,7 +203,6 @@ Debug: Adding busStop 'busStop_5_0_6' in GNEChange_Additional
 Debug: Adding busStop 'busStop_6_1_3' in GNEChange_Additional
 Debug: Adding busStop 'busStop_7_0_1' in GNEChange_Additional
 Debug: Adding busStop 'busStop_8_0_4' in GNEChange_Additional
-Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:A from SUMORTree with boundary 31.60,-10.00,68.40,10.00
 GLDebug: 	Removed object junction:B from SUMORTree with boundary 31.60,90.00,68.40,110.00
@@ -251,6 +250,7 @@ Debug: Created walkingArea ':Center_w3' in retrieveGNEWalkingArea()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Created walkingArea ':D_w0' in retrieveGNEWalkingArea()
 Debug: network elements saved
+Debug: Additionals saved
 Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced busStop

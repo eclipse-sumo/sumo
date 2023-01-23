@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-06 09:58:43 by Eclipse SUMO netedit Version v1_14_1+1475-2a92dd1fe38
+<!-- generated on 2023-01-23 14:31:17 by Eclipse SUMO netedit Version v1_15_0+1826-58ab4d0b50b
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
@@ -8,9 +8,9 @@
     <route id="CRoute" edges="gneE0 gneE1"/>
     <!-- Calibrators -->
     <calibrator id="calibratorFlows" edge="gneE0" pos="20.00" period="100.00" output="calibratorFlows.txt">
-        <flow type="DEFAULT_VEHTYPE" begin="-0.00" speed="10.00" route="CRoute" vehsPerHour="250.00"/>
-        <flow type="DEFAULT_VEHTYPE" begin="-0.00" arrivalPosLat="-3.00" speed="10.00" route="CRoute" vehsPerHour="250.00"/>
-        <flow type="DEFAULT_VEHTYPE" begin="-0.00" arrivalPosLat="7.50" speed="10.00" route="CRoute" vehsPerHour="250.00"/>
-        <flow type="DEFAULT_VEHTYPE" begin="-0.00" arrivalPosLat="right" speed="10.00" route="CRoute" vehsPerHour="250.00"/>
+        <flow type="DEFAULT_VEHTYPE" begin="0.00" speed="10.00" end="100.00" route="CRoute" vehsPerHour="250.00"/>
+        <flow type="DEFAULT_VEHTYPE" begin="200.00" arrivalPosLat="-3.00" speed="10.00" end="300.00" route="CRoute" vehsPerHour="250.00"/>
+        <flow type="DEFAULT_VEHTYPE" begin="300.00" arrivalPosLat="7.50" speed="10.00" end="400.00" route="CRoute" vehsPerHour="250.00"/>
+        <flow type="DEFAULT_VEHTYPE" begin="400.00" arrivalPosLat="right" speed="10.00" end="500.00" route="CRoute" vehsPerHour="250.00"/>
     </calibrator>
 </additional>
