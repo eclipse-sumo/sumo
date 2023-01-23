@@ -3155,25 +3155,25 @@ GNEApplicationWindow::onCmdSaveNETEDITConfig(FXObject*, FXSelector, void*) {
         }
         onCmdSaveNetwork(nullptr, 0, nullptr);
         // save all element giving automatic names
-        if (myNet->getAttributeCarriers()->getNumberOfAdditionals() > 0) {
+        if ((myNet->getAttributeCarriers()->getNumberOfAdditionals() > 0) || !myNet->getSavingStatus()->isAdditionalsSaved()) {
             if (neteditOptions.getString("additional-files").empty()) {
                 neteditOptions.set("additional-files", patterFile + ".add.xml");
             }
             onCmdSaveAdditionals(nullptr, 0, nullptr);
         }
-        if (myNet->getAttributeCarriers()->getNumberOfDemandElements() > 0) {
+        if ((myNet->getAttributeCarriers()->getNumberOfDemandElements() > 0) || !myNet->getSavingStatus()->isDemandElementsSaved()) {
             if (neteditOptions.getString("route-files").empty()) {
                 neteditOptions.set("route-files", patterFile + ".rou.xml");
             }
             onCmdSaveDemandElements(nullptr, 0, nullptr);
         }
-        if (myNet->getAttributeCarriers()->getNumberOfGenericDatas() > 0) {
+        if ((myNet->getAttributeCarriers()->getNumberOfGenericDatas() > 0) || !myNet->getSavingStatus()->isDataElementsSaved()) {
             if (neteditOptions.getString("data-files").empty()) {
                 neteditOptions.set("data-files", patterFile + ".dat.xml");
             }
             onCmdSaveDataElements(nullptr, 0, nullptr);
         }
-        if (myNet->getAttributeCarriers()->getNumberOfMeanDatas() > 0) {
+        if ((myNet->getAttributeCarriers()->getNumberOfMeanDatas() > 0) || !myNet->getSavingStatus()->isMeanDatasSaved()) {
             if (neteditOptions.getString("meandata-files").empty()) {
                 neteditOptions.set("meandata-files", patterFile + ".med.add.xml");
             }
@@ -3264,19 +3264,19 @@ GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject* sender, FXSelector sel, void
             neteditOptions.set("net-file", patterFile + ".net.xml");
         }
         onCmdSaveNetwork(nullptr, 0, nullptr);
-        if (myNet->getAttributeCarriers()->getNumberOfAdditionals() > 0) {
+        if ((myNet->getAttributeCarriers()->getNumberOfAdditionals() > 0) || !myNet->getSavingStatus()->isAdditionalsSaved()) {
             if (neteditOptions.getString("additional-files").empty()) {
                 neteditOptions.set("additional-files", patterFile + ".add.xml");
             }
             onCmdSaveAdditionals(nullptr, 0, nullptr);
         }
-        if (myNet->getAttributeCarriers()->getNumberOfDemandElements() > 0) {
+        if ((myNet->getAttributeCarriers()->getNumberOfDemandElements() > 0) || !myNet->getSavingStatus()->isDemandElementsSaved()) {
             if (neteditOptions.getString("route-files").empty()) {
                 neteditOptions.set("route-files", patterFile + ".rou.xml");
             }
             onCmdSaveDemandElements(nullptr, 0, nullptr);
         }
-        if (myNet->getAttributeCarriers()->getNumberOfMeanDatas() > 0) {
+        if ((myNet->getAttributeCarriers()->getNumberOfMeanDatas() > 0) || !myNet->getSavingStatus()->isDataElementsSaved()) {
             if (neteditOptions.getString("meandata-files").empty()) {
                 neteditOptions.set("meandata-files", patterFile + ".med.add.xml");
             }
