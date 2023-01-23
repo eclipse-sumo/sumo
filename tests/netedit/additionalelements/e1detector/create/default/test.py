@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("inductionLoop")
 
 # create E1 with default parameters
-netedit.leftClick(referencePosition, 200, 245)
+netedit.leftClick(referencePosition, 200, 235)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

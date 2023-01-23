@@ -38,13 +38,13 @@ netedit.changeElement("inductionLoop")
 netedit.changeDefaultValue(netedit.attrs.E1.create.file, "&&&&&&&&")
 
 # try to create E1 with invalid filename
-netedit.leftClick(referencePosition, 350, 245)
+netedit.leftClick(referencePosition, 350, 235)
 
 # set valid filename
 netedit.changeDefaultValue(netedit.attrs.E1.create.file, "myOwnFilename.txt")
 
 # try to create E1 with invalid filename
-netedit.leftClick(referencePosition, 350, 245)
+netedit.leftClick(referencePosition, 350, 235)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

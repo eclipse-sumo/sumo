@@ -35,19 +35,19 @@ netedit.additionalMode()
 netedit.changeElement("inductionLoop")
 
 # create E1
-netedit.leftClick(referencePosition, 183, 210)
+netedit.leftClick(referencePosition, 183, 235)
 
 # change to move mode
 netedit.moveMode()
 
 # move E1 to right
-netedit.moveElement(referencePosition, 183, 210, 241, 210)
+netedit.moveElement(referencePosition, 183, 210, 241, 235)
 
 # move E1 to left
-netedit.moveElement(referencePosition, 241, 210, 232, 210)
+netedit.moveElement(referencePosition, 241, 210, 232, 235)
 
 # move E1 to right again
-netedit.moveElement(referencePosition, 232, 210, 419, 210)
+netedit.moveElement(referencePosition, 232, 210, 419, 235)
 
 # Check undos and redos
 netedit.undo(referencePosition, 4)

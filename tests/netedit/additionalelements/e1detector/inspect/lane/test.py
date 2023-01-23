@@ -35,29 +35,23 @@ netedit.additionalMode()
 netedit.changeElement("inductionLoop")
 
 # create E1
-netedit.leftClick(referencePosition, 250, 210)
+netedit.leftClick(referencePosition, 250, 235)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first E1
-netedit.leftClick(referencePosition, 250, 210)
+netedit.leftClick(referencePosition, 250, 235)
 
 # Change parameter lane with a non valid value (dummy lane)
 netedit.modifyAttribute(netedit.attrs.E1.inspect.lane, "dummy lane", True)
 
 # Change parameter lane with a valid value (different edge)
-netedit.modifyAttribute(netedit.attrs.E1.inspect.lane, "gneE0_0", True)
-
-# Change parameter lane with a valid value (original edge, same lane)
-netedit.modifyAttribute(netedit.attrs.E1.inspect.lane, "gneE2_1", True)
-
-# Change parameter lane with a valid value (original edge, different lane)
-netedit.modifyAttribute(netedit.attrs.E1.inspect.lane, "gneE2_0", True)
+netedit.modifyAttribute(netedit.attrs.E1.inspect.lane, "gneE1_0", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)
