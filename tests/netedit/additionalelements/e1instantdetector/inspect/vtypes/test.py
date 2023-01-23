@@ -35,13 +35,13 @@ netedit.additionalMode()
 netedit.changeElement("instantInductionLoop")
 
 # create E1
-netedit.leftClick(referencePosition, 250, 210)
+netedit.leftClick(referencePosition, 250, 235)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first E1
-netedit.leftClick(referencePosition, 250, 210)
+netedit.leftClick(referencePosition, 250, 235)
 
 # Change parameter vtypes with a invalid value
 netedit.modifyAttribute(netedit.attrs.E1Instant.inspect.vTypes, "Type%%%%%1 T;;yp$2 Type3", True)
