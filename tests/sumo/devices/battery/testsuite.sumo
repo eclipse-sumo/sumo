@@ -19,6 +19,9 @@ trackFuel_elec
 # leave the road while charging
 chargingStations_parked
 
+# leave the road while charging
+chargingStations_parkingCapacity
+
 # usually loaded from vehicle parameter,
 # default taken from vType parameter
 actualBatteryCapacity
