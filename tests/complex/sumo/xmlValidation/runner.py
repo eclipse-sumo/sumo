@@ -38,6 +38,8 @@ for scheme, elem in ((None, "trip"), (None, "tri"), ("blub", "trip"), ("blub", "
         else:
             env["SUMO_HOME"] = home
         for valid in ("never", "local", "auto", "always"):
+            if home == os.environ["SUMO_HOME"]:
+                home = "<environ>"
             print("XML schema:", scheme, "XML element:", elem, "SUMO_HOME:", home, "--xml-validation", valid)
             sys.stdout.flush()
             subprocess.call([sumoBinary, "-n", "n.net.xml", "-r", routes.name, "-X", valid, "--no-step-log"],
