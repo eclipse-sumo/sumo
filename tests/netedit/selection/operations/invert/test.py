@@ -64,11 +64,8 @@ netedit.redo(referencePosition, 1)
 # extra wait for debug
 time.sleep(3)
 
-# save additionals and shapes
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

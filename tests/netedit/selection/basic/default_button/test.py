@@ -38,11 +38,8 @@ netedit.forceSaveAdditionals()
 netedit.selectionApply()
 netedit.deleteSelectedItems()
 
-# save network
-netedit.saveNetwork(referencePosition)
-
-# save shapes
-netedit.saveAdditionals(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -64,11 +64,8 @@ netedit.leftClickControl(referencePosition, 210, 240)
 # select lane using control + click in an edge previously selected
 netedit.leftClickControl(referencePosition, 210, 210)
 
-# save network
-netedit.saveNetwork(referencePosition)
-
-# save shapes
-netedit.saveAdditionals(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

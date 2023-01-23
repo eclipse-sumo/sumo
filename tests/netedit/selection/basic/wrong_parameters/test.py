@@ -92,11 +92,8 @@ netedit.typeEnter()
 netedit.selectItems("Network", "junction", "id", "gneJ0")
 netedit.deleteSelectedItems()
 
-# save network
-netedit.saveNetwork(referencePosition)
-
-# save shapes
-netedit.saveAdditionals(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

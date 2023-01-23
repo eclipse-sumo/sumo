@@ -50,11 +50,8 @@ netedit.redo(referencePosition, 1)
 # undo deletion again (all must be selected)
 netedit.undo(referencePosition, 1)
 
-# save additionals and shapes
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

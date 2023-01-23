@@ -68,11 +68,8 @@ netedit.deleteSelectedItems()
 netedit.selectItems("Additional", "busStop", "lines", "linetoRemove")
 netedit.deleteSelectedItems()
 
-# save additionals and shapes
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

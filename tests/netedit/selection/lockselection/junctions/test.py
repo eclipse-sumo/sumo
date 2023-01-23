@@ -65,11 +65,8 @@ netedit.lockSelection(netedit.attrs.selection.lockSelectionNetwork.junctions)
 netedit.undo(referencePosition, 5)
 netedit.redo(referencePosition, 5)
 
-# save additionals and shapes
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)
