@@ -37,8 +37,8 @@ netedit.changeElement("poly")
 # create polygon
 netedit.createSquaredPoly(referencePosition, 100, 50, 100, True)
 
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit without saving shapes
 netedit.quit(neteditProcess, False, False, False, False, True, True)

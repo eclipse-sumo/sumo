@@ -32,11 +32,8 @@ neteditProcess, referencePosition = netedit.setupAndStart(
 # Recompute with volatile options
 netedit.rebuildNetworkWithVolatileOptions()
 
-# save shapes
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -59,11 +59,8 @@ netedit.modifyAttribute(netedit.attrs.Poly.inspect.shape, "12.00,8.00 9.00,13.00
 netedit.undo(referencePosition, 3)
 netedit.redo(referencePosition, 3)
 
-# save shapes
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

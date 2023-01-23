@@ -46,11 +46,8 @@ netedit.leftClick(referencePosition, 108, 50)
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.POIGEO.inspect.parameters, False)
 
-# save shapes
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

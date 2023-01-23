@@ -41,11 +41,8 @@ netedit.createSquaredTAZ(referencePosition, 182, 130, 200, True)
 netedit.undo(referencePosition, 1)
 netedit.redo(referencePosition, 1)
 
-# save shapes
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

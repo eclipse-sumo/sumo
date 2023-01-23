@@ -53,11 +53,8 @@ netedit.modifyAttribute(netedit.attrs.POI.inspect.pos, "20.40,7.50", False)
 netedit.undo(referencePosition, 2)
 netedit.redo(referencePosition, 2)
 
-# save shapes
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

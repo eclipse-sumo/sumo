@@ -45,11 +45,8 @@ netedit.leftClick(referencePosition, 182, 130)
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.Poly.inspect.parameters, False)
 
-# save shapes
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

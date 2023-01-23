@@ -49,11 +49,8 @@ netedit.modifyBoolAttribute(netedit.attrs.Poly.inspect.reativePath, False)
 netedit.undo(referencePosition, 23)
 netedit.redo(referencePosition, 23)
 
-# save shapes
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

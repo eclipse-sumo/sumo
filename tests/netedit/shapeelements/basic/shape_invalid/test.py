@@ -43,11 +43,8 @@ netedit.changeElement("poi")
 # create POI
 netedit.leftClick(referencePosition, 150, 50)
 
-# save shapes
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

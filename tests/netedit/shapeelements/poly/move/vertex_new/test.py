@@ -47,11 +47,8 @@ netedit.moveElement(referencePosition, 325, 130, 325, 319)
 netedit.undo(referencePosition, 2)
 netedit.redo(referencePosition, 2)
 
-# save Shapes
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

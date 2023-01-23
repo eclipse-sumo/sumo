@@ -31,11 +31,8 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # force save additionals
 netedit.forceSaveAdditionals()
 
-# save shapes
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

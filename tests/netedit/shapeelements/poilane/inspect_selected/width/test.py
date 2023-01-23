@@ -56,11 +56,8 @@ netedit.modifyAttribute(netedit.attrs.POILane.inspectSelection.width, "5.5", Tru
 netedit.undo(referencePosition, 2)
 netedit.redo(referencePosition, 2)
 
-# save shapes
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

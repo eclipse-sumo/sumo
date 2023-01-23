@@ -62,11 +62,8 @@ netedit.modifyAttribute(netedit.attrs.POI.inspect.color, "125,60,200", False)
 netedit.undo(referencePosition, 3)
 netedit.redo(referencePosition, 3)
 
-# save shapes
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)
