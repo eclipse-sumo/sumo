@@ -38,19 +38,19 @@ netedit.changeElement("containerStop")
 netedit.changeColorUsingDialog(netedit.attrs.containerStop.create.colorButton, 5)
 
 # try to create containerStop
-netedit.leftClick(referencePosition, 250, 250)
+netedit.leftClick(referencePosition, 250, 240)
 
 # set invalid container number
 netedit.changeDefaultValue(netedit.attrs.containerStop.create.color, "Vlue")
 
 # try to create containerStop
-netedit.leftClick(referencePosition, 260, 250)
+netedit.leftClick(referencePosition, 260, 240)
 
 # set invalid container number
 netedit.changeDefaultValue(netedit.attrs.containerStop.create.color, "red")
 
 # create containerStop in mode "reference left"
-netedit.leftClick(referencePosition, 270, 250)
+netedit.leftClick(referencePosition, 270, 240)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

@@ -44,10 +44,10 @@ netedit.leftClick(referencePosition, 233, 235)
 netedit.moveMode()
 
 # move containerStop to right
-netedit.moveElement(referencePosition, 233, 250, 371, 250)
+netedit.moveElement(referencePosition, 233, 250, 371, 240)
 
 # move containerStop back
-netedit.moveElement(referencePosition, 371, 250, 277, 250)
+netedit.moveElement(referencePosition, 371, 250, 277, 240)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

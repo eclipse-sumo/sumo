@@ -38,29 +38,23 @@ netedit.changeElement("containerStop")
 netedit.changeDefaultValue(netedit.attrs.containerStop.create.references, "reference center")
 
 # create containerStop in mode "reference center"
-netedit.leftClick(referencePosition, 250, 170)
+netedit.leftClick(referencePosition, 250, 240)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first containerStop
-netedit.leftClick(referencePosition, 250, 190)
+netedit.leftClick(referencePosition, 250, 250)
 
 # Change parameter lane with a non valid value (dummy lane)
 netedit.modifyAttribute(netedit.attrs.containerStop.inspect.lane, "dummy lane", True)
 
 # Change parameter lane with a valid value (different edge)
-netedit.modifyAttribute(netedit.attrs.containerStop.inspect.lane, "gneE0_0", True)
-
-# Change parameter lane with a valid value (original edge, same lane)
-netedit.modifyAttribute(netedit.attrs.containerStop.inspect.lane, "gneE2_1", True)
-
-# Change parameter lane with a valid value (original edge, different lane)
-netedit.modifyAttribute(netedit.attrs.containerStop.inspect.lane, "gneE2_0", True)
+netedit.modifyAttribute(netedit.attrs.containerStop.inspect.lane, "gneE1_0", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

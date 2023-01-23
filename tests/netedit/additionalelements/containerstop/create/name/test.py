@@ -38,7 +38,7 @@ netedit.changeElement("containerStop")
 netedit.changeDefaultValue(netedit.attrs.containerStop.create.name, "custom container stop name")
 
 # create containerStop in mode "reference left"
-netedit.leftClick(referencePosition, 250, 250)
+netedit.leftClick(referencePosition, 250, 240)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

@@ -44,10 +44,10 @@ netedit.deleteMode()
 netedit.changeProtectAdditionalElements(referencePosition)
 
 # delete created containerStop
-netedit.leftClick(referencePosition, 260, 250)
+netedit.leftClick(referencePosition, 260, 240)
 
 # delete first loaded containerStop
-netedit.leftClick(referencePosition, 450, 250)
+netedit.leftClick(referencePosition, 450, 240)
 
 # delete lane with the second loaded containerStop
 netedit.leftClick(referencePosition, 200, 200)
