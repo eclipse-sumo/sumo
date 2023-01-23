@@ -41,11 +41,8 @@ netedit.rebuildNetwork()
 # wait for output
 time.sleep(10)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save Netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # wait for output
 time.sleep(10)
