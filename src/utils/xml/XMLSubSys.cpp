@@ -163,6 +163,9 @@ XMLSubSys::runParser(GenericSAXHandler& handler, const std::string& file,
     } catch (const std::exception& ex) {
         WRITE_ERROR("Error occurred: " + std::string(ex.what()) + " while parsing '" + file + "'");
         return false;
+    } catch (const XERCES_CPP_NAMESPACE::SAXException& e) {
+        WRITE_ERROR("SAX error occured while parsing '" + file + "':\n " + StringUtils::transcode(e.getMessage()));
+        return false;
     } catch (...) {
         WRITE_ERROR("Unspecified error occurred wile parsing '" + file + "'");
         return false;
