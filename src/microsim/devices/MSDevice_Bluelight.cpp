@@ -214,10 +214,12 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
                 //other vehicle should not use the rescue lane so they should not make any lane changes
                 lanechange.setLaneChangeMode(1605);//todo change lane back
                 // the vehicles should react according to the distance to the emergency vehicle taken from real world data
-                double reactionProb = 0.189; // todo works only for one second steps
-                if (distanceDelta < 12.5) {
-                    reactionProb = 0.577;
-                }
+                double reactionProb = (
+                        distanceDelta < getFloatParam(myHolder, OptionsCont::getOptions(), "bluelight.near-dist", 12.5, false)
+                        ? getFloatParam(myHolder, OptionsCont::getOptions(), "bluelight.reaction-prob-near", 0.577, false)
+                        : getFloatParam(myHolder, OptionsCont::getOptions(), "bluelight.reaction-prob-far", 0.189, false));
+                // todo works only for one second steps
+                //std::cout << SIMTIME << " veh2=" << veh2->getID() << " distanceDelta=" << distanceDelta << " reaction=" << reaction << " reactionProb=" << reactionProb << "\n";
                 if (reaction < reactionProb) {
                     myInfluencedVehicles.insert(veh2->getID());
                     myInfluencedTypes.insert(std::make_pair(veh2->getID(), veh2->getVehicleType().getID()));
