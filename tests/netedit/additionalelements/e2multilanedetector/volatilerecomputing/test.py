@@ -50,18 +50,15 @@ netedit.rebuildNetwork()
 
 # wait more
 time.sleep(2)
-
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
 # create new connections
 netedit.fixStoppingPlace("activateFriendlyPos")
 
 # wait more
 time.sleep(3)
 
-# save network
-netedit.saveNetwork(referencePosition)
+
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

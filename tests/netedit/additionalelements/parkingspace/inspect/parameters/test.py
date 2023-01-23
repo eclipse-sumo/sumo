@@ -53,11 +53,8 @@ netedit.leftClick(referencePosition, 230, 275)
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.parkingSpace.inspect.parameters, False)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

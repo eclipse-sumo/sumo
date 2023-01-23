@@ -41,11 +41,8 @@ netedit.changeElement("multiLaneAreaDetector")
 netedit.leftClick(referencePosition, 190, 240)
 netedit.typeEnter()
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -53,11 +53,8 @@ netedit.modifyAttribute(netedit.attrs.E1Instant.inspect.vTypes, "Type1 Type2 Typ
 netedit.undo(referencePosition, 2)
 netedit.redo(referencePosition, 2)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

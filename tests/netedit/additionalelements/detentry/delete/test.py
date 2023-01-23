@@ -92,11 +92,8 @@ netedit.waitDeleteWarning()
 # check redo
 netedit.redo(referencePosition, 5)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

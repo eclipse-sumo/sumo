@@ -48,21 +48,16 @@ netedit.selectMode()
 
 # clear selection
 netedit.selectionClear()
-
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
 # select invalids
 netedit.fixStoppingPlace("selectInvalids")
 
 # remove it using DEL key
 netedit.deleteUsingSuprKey()
 
-# save additionals again
-netedit.saveAdditionals(referencePosition)
+ again
 
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

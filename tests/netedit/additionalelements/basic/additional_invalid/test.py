@@ -38,19 +38,16 @@ netedit.additionalMode()
 netedit.changeElement("dummyAdditional")
 
 # try to create an dummy additional
-netedit.leftClick(referencePosition, 250, 250)
+netedit.leftClick(referencePosition, 250, 240)
 
 # select valid additional (busStop)
 netedit.changeElement("busStop")
 
 # create busStop in mode "reference left"
-netedit.leftClick(referencePosition, 300, 250)
+netedit.leftClick(referencePosition, 300, 240)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

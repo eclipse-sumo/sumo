@@ -48,15 +48,12 @@ netedit.selectMode()
 
 # clear selection
 netedit.selectionClear()
-
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
 # Fix stopping places position
 netedit.fixStoppingPlace("activateFriendlyPos")
 
-# save network
-netedit.saveNetwork(referencePosition)
+
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

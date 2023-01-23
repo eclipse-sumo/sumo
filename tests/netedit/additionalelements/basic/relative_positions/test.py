@@ -48,15 +48,12 @@ netedit.modifyAttribute(netedit.attrs.edge.inspect.length, "25", False)
 
 # recompute
 netedit.rebuildNetwork()
-
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
 # fix stopping place positions
 netedit.fixStoppingPlace("fixPositions")
 
-# save network
-netedit.saveNetwork(referencePosition)
+
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

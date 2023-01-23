@@ -53,11 +53,8 @@ netedit.modifyAttribute(netedit.attrs.E2Multilane.inspectSelection.vTypes, "Type
 netedit.undo(referencePosition, 3)
 netedit.redo(referencePosition, 3)
 
-# save network
-netedit.saveNetwork(referencePosition)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 # quit netedit
 netedit.quit(neteditProcess)

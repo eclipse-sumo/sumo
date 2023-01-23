@@ -62,11 +62,8 @@ netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.lane, "gneE2_0", T
 netedit.undo(referencePosition, 4)
 netedit.redo(referencePosition, 4)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

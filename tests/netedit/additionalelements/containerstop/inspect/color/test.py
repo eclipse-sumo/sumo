@@ -65,11 +65,8 @@ netedit.modifyAttribute(netedit.attrs.containerStop.inspect.color, "125,60,200",
 netedit.undo(referencePosition, 4)
 netedit.redo(referencePosition, 4)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -58,11 +58,8 @@ netedit.leftClick(referencePosition, 310, 240)
 # wait warning
 netedit.waitDeleteWarning()
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

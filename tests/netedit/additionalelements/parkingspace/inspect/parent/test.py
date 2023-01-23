@@ -72,11 +72,8 @@ netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.parent, "pa_1", False
 netedit.undo(referencePosition, 5)
 netedit.redo(referencePosition, 5)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -41,19 +41,16 @@ netedit.changeElement("busStop")
 netedit.changeDefaultValue(netedit.attrs.busStop.create.references, "dummy reference")
 
 # try to create busStop with the dummy reference
-netedit.leftClick(referencePosition, 240, 250)
+netedit.leftClick(referencePosition, 240, 240)
 
 # set valid reference
 netedit.changeDefaultValue(netedit.attrs.busStop.create.references, "reference right")
 
 # create busStop with the valid reference
-netedit.leftClick(referencePosition, 300, 250)
+netedit.leftClick(referencePosition, 300, 240)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

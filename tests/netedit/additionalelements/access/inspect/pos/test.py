@@ -72,11 +72,8 @@ netedit.modifyAttribute(netedit.attrs.access.inspect.pos, "25", True)
 netedit.undo(referencePosition, 6)
 netedit.redo(referencePosition, 6)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

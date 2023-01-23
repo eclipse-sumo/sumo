@@ -43,11 +43,8 @@ netedit.leftClick(referencePosition, 160, 245)
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.E3.inspectSelection.parameters, True)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

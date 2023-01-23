@@ -83,11 +83,8 @@ netedit.modifyAttribute(netedit.attrs.E3.inspect.id, "correctID", False)
 netedit.undo(referencePosition, 8)
 netedit.redo(referencePosition, 8)
 
-# save additionals
-netedit.saveAdditionals(referencePosition)
-
-# save network
-netedit.saveNetwork(referencePosition)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)
