@@ -863,6 +863,33 @@ def changeEditMode(key):
     typeTwoKeys('alt', key)
 
 #################################################
+# Configs
+#################################################
+
+def saveNeteditConfig(referencePosition, clickOverReference=False):
+    """
+    @brief save netedit config
+    """
+    # check if clickOverReference is enabled
+    if clickOverReference:
+        # click over reference (to avoid problem with undo-redo)
+        leftClick(referencePosition, 0, 0)
+    # save netedit config using hotkey
+    typeThreeKeys('ctrl', 'shift', 'e')
+
+
+def saveSumoConfig(referencePosition, clickOverReference=False):
+    """
+    @brief save sumo config
+    """
+    # check if clickOverReference is enabled
+    if clickOverReference:
+        # click over reference (to avoid problem with undo-redo)
+        leftClick(referencePosition, 0, 0)
+    # save netedit config using hotkey
+    typeThreeKeys('ctrl', 'shift', 's')
+
+#################################################
 # Create nodes and edges
 #################################################
 
