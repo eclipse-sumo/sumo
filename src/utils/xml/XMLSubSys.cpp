@@ -164,6 +164,7 @@ XMLSubSys::runParser(GenericSAXHandler& handler, const std::string& file,
             validationScheme = myRouteValidationScheme;
         }
         if (isExternal && validationScheme == "local") {
+            WRITE_MESSAGEF(TL("Disabling XML validation for external file '%'. Use 'auto' or 'always' to enable."), file);
             validationScheme = "never";
         }
         if (myNextFreeReader == (int)myReaders.size()) {
