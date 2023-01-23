@@ -3,9 +3,9 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 trainStop
 reference center
-TestFunctions: Clicked over position 554 - 338
-TestFunctions: Clicked over position 554 - 358
-Train Stop Name
+TestFunctions: Clicked over position 554 - 408
+TestFunctions: Clicked over position 554 - 418
+Bus Stop Name
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

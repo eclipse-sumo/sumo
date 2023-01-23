@@ -37,32 +37,32 @@ netedit.changeElement("trainStop")
 # set invalid length (dummy)
 netedit.changeDefaultValue(netedit.attrs.trainStop.create.length, "dummyLenght")
 
-# try to create trainstop with invalid length
-netedit.leftClick(referencePosition, 500, 250)
+# try to create busstop with invalid length
+netedit.leftClick(referencePosition, 500, 240)
 
 # set invalid length (negative)
 netedit.changeDefaultValue(netedit.attrs.trainStop.create.length, "-20")
 
-# try to create trainstop with invalid length
-netedit.leftClick(referencePosition, 500, 250)
+# try to create busstop with invalid length
+netedit.leftClick(referencePosition, 500, 240)
 
 # Change length
 netedit.changeDefaultValue(netedit.attrs.trainStop.create.length, "5")
 
 # create trainStop in mode "reference left"
-netedit.leftClick(referencePosition, 510, 250)
+netedit.leftClick(referencePosition, 510, 240)
 
 # change reference to right
 netedit.changeDefaultValue(netedit.attrs.trainStop.create.references, "reference right")
 
 # create trainStop in mode "reference right"
-netedit.leftClick(referencePosition, 230, 250)
+netedit.leftClick(referencePosition, 230, 240)
 
 # change reference to center
 netedit.changeDefaultValue(netedit.attrs.trainStop.create.references, "reference center")
 
 # create trainStop in mode "reference center"
-netedit.leftClick(referencePosition, 425, 250)
+netedit.leftClick(referencePosition, 425, 240)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

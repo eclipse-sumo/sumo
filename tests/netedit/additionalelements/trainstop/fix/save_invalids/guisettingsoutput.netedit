@@ -108,7 +108,7 @@
                 <entry color="204,204,204" threshold="0.00"/>
                 <entry color="red" threshold="1.00"/>
             </colorScheme>
-            <colorScheme name="by ats distance (kilometrage)" interpolated="1">
+            <colorScheme name="by abs distance (kilometrage)" interpolated="1">
                 <entry color="204,204,204" threshold="0.00"/>
                 <entry color="red" threshold="1.00"/>
             </colorScheme>

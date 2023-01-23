@@ -44,13 +44,13 @@ netedit.deleteMode()
 netedit.changeProtectAdditionalElements(referencePosition)
 
 # delete created trainStop
-netedit.leftClick(referencePosition, 260, 255)
+netedit.leftClick(referencePosition, 260, 250)
 
 # delete first loaded trainStop
-netedit.leftClick(referencePosition, 450, 255)
+netedit.leftClick(referencePosition, 450, 250)
 
 # delete lane with the second loaded trainStop
-netedit.leftClick(referencePosition, 200, 205)
+netedit.leftClick(referencePosition, 200, 200)
 
 # Check undo
 netedit.undo(referencePosition, 3)
@@ -62,7 +62,7 @@ netedit.deleteMode()
 netedit.changeProtectAdditionalElements(referencePosition)
 
 # try to delete lane with the second loaded trainStop (doesn't allowed)
-netedit.leftClick(referencePosition, 200, 205)
+netedit.leftClick(referencePosition, 200, 200)
 
 # wait warning
 netedit.waitDeleteWarning()

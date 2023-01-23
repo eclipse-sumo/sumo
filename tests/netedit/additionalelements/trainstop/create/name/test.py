@@ -35,10 +35,10 @@ netedit.additionalMode()
 netedit.changeElement("trainStop")
 
 # set name
-netedit.changeDefaultValue(netedit.attrs.trainStop.create.name, "custom train stop name")
+netedit.changeDefaultValue(netedit.attrs.trainStop.create.name, "custom bus stop name")
 
 # create trainStop in mode "reference left"
-netedit.leftClick(referencePosition, 250, 250)
+netedit.leftClick(referencePosition, 250, 240)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

@@ -37,7 +37,7 @@ netedit.selectionInvert()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect trainstops
+# inspect busstops
 netedit.leftClick(referencePosition, 160, 270)
 
 # change color using dialog
@@ -56,8 +56,8 @@ netedit.modifyAttribute(netedit.attrs.trainStop.inspectSelection.color, "blue", 
 netedit.modifyAttribute(netedit.attrs.trainStop.inspectSelection.color, "125,60,200", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.undo(referencePosition, 4)
+netedit.redo(referencePosition, 4)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)
