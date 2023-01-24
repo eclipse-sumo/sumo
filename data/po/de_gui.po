@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 09:18+0100\n"
-"PO-Revision-Date: 2023-01-24 13:35+0000\n"
+"PO-Revision-Date: 2023-01-24 13:56+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -383,44 +383,44 @@ msgstr "Speichere den aktuellen Simulationsstand als Datei."
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:283
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:280
 msgid "Load"
-msgstr ""
+msgstr "Laden"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:564
 msgid "Load simulation state for the current network from file."
-msgstr ""
+msgstr "Lade einen Simulationsstand für das aktuelle Netz aus einer Datei."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:568
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1428
 msgid "&Window"
-msgstr ""
+msgstr "&Fenster"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:569
 msgid "Open new view"
-msgstr ""
+msgstr "Öffne eine neue Ansicht"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:571
 msgid "Open new 3D view"
-msgstr ""
+msgstr "Öffne eine neue 3D-Ansicht"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:574
 msgid "Tile &Horizontally"
-msgstr ""
+msgstr "&Übereinander anordnen"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:577
 msgid "Tile &Vertically"
-msgstr ""
+msgstr "&Nebeneinander anordnen"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:580
 msgid "Cascade"
-msgstr ""
+msgstr "&Versetzt anordnen"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:584
 msgid "&Close"
-msgstr ""
+msgstr "&Schließen"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:594
 msgid "&Others..."
-msgstr ""
+msgstr "&Weitere..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:598
 msgid "Show Status Line\t\tToggle the Status Bar on/off."
@@ -441,46 +441,46 @@ msgstr ""
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:613
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2022
 msgid "Clear Message Window"
-msgstr ""
+msgstr "Leere das Meldungsfenster"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:613
 msgid "Clear the message window."
-msgstr ""
+msgstr "Leere das Meldungsfenster."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:618
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1432
 msgid "&Help"
-msgstr ""
+msgstr "&Hilfe"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:620
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1434
 msgid "&Online Documentation"
-msgstr ""
+msgstr "&Online-Dokumentation"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:620
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1434
 msgid "Open Online documentation."
-msgstr ""
+msgstr "Öffne die Online-Dokumentation."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:623
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1437
 msgid "&Changelog"
-msgstr ""
+msgstr "&Änderungsprotokoll"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:623
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1437
 msgid "Open Changelog."
-msgstr ""
+msgstr "Öffne das Änderungsprotokoll."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:625
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1439
 msgid "&Hotkeys"
-msgstr ""
+msgstr "&Hotkeys"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:625
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1439
 msgid "Open Hotkeys."
-msgstr ""
+msgstr "Zeige Hotkeys."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:627
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1441
