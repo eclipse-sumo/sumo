@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 09:18+0100\n"
 "PO-Revision-Date: 2023-01-24 14:32+0000\n"
-"Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
+"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
 "Language: de\n"
@@ -235,7 +235,7 @@ msgstr "Öffnet einen Dialog, um einen Knotenpunkt zu finden."
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1325
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1954
 msgid "&Edges"
-msgstr "&Kanten"
+msgstr "K&anten"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:508
 msgid "Open a Dialog for Locating an Edge."
@@ -573,46 +573,46 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:1040
 msgid "Open Simulation Configuration"
-msgstr ""
+msgstr "Öffne Simulationskonfiguration"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:1060
 msgid "Open Network"
-msgstr ""
+msgstr "Öffne Netz"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:1080
 msgid "Open Shapes"
-msgstr ""
+msgstr "Lade Shapes"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:1111
 msgid "Open EdgeData"
-msgstr ""
+msgstr "Lade EdgeData"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:1165
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1048
 msgid "Already loading!"
-msgstr ""
+msgstr "Lädt bereits!"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:1177
 msgid "Save SUMO Configuration"
-msgstr ""
+msgstr "Speichere Simulationskonfiguration"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:1250
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:1276
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:2081
 msgid "No simulation loaded!"
-msgstr ""
+msgstr "Keine Simulation geladen!"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:1292
 msgid "Save Simulation State"
-msgstr ""
+msgstr "Speichere Simulationsstand"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:1314
 msgid "Load Simulation State"
-msgstr ""
+msgstr "Lade Simulationsstand"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:1974
 msgid "Simulation ended"
-msgstr ""
+msgstr "Simulation beendet"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:2155
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:2156
@@ -621,48 +621,48 @@ msgstr ""
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1540
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1542
 msgid "N/A"
-msgstr ""
+msgstr "Nicht verfügbar"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIRunThread.cpp:100
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIRunThread.cpp:106
 msgid "Quitting (on error)."
-msgstr ""
+msgstr "Abbruch wegen Fehler."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIRunThread.cpp:265
 msgid "Simulation started with time: %."
-msgstr ""
+msgstr "Die Simulation hat zur Zeit % begonnen."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUISUMOViewParent.cpp:141
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEViewParent.cpp:445
 msgid "Save Snapshot"
-msgstr ""
+msgstr "Speichere Snapshot"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUISUMOViewParent.cpp:166
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEViewParent.cpp:465
 msgid "No file extension was specified - saving Snapshot as PNG."
-msgstr ""
+msgstr "Keine Dateiendung angegeben - speichere Snapshot als PNG."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUISUMOViewParent.cpp:172
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEViewParent.cpp:472
 msgid "Saving failed."
-msgstr ""
+msgstr "Speichern fehlgeschlagen."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUISUMOViewParent.cpp:174
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEViewParent.cpp:476
 msgid "Snapshot successfully saved!"
-msgstr ""
+msgstr "Snapshot erfolgreich gespeichert!"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUITLLogicPhasesTrackerWindow.cpp:269
 msgid "phase names"
-msgstr ""
+msgstr "Phasenbezeichnungen"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUITLLogicPhasesTrackerWindow.cpp:272
 msgid "detectors"
-msgstr ""
+msgstr "Detektoren"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUITLLogicPhasesTrackerWindow.cpp:273
 msgid "conditions"
-msgstr ""
+msgstr "Bedingungen"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUITLLogicPhasesTrackerWindow.cpp:336
 msgid "Overflow in time computation occurred."
@@ -670,7 +670,7 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\guisim\GUIBaseVehicle.cpp:300
 msgid "GUI-triggered stop not implemented for meso"
-msgstr ""
+msgstr "Über GUI ausgelöster Halt in meso nicht implementiert"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\guisim\GUINet.cpp:632
 msgid "Trying to set data value for the unknown edge '%'."
