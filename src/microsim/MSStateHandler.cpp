@@ -430,7 +430,7 @@ MSStateHandler::myEndElement(int element) {
                         myVCAttrs->getFloat(SUMO_ATTR_DEPART),
                         myVCAttrs->getFloat(SUMO_ATTR_TIME));
             if (myRemoved > 0) {
-                WRITE_MESSAGE("Removed " + toString(myRemoved) + " vehicles while loading state.");
+                WRITE_MESSAGEF(TL("Removed % vehicles while loading state."), toString(myRemoved));
                 vc.discountStateRemoved(myRemoved);
             }
             break;

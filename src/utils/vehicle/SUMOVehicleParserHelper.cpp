@@ -1163,7 +1163,7 @@ SUMOVehicleParserHelper::parseCFMParams(SUMOVTypeParameter* into, const SumoXMLT
         if (SUMOXMLDefinitions::Tags.has((int)element)) {
             WRITE_ERROR("Unknown car following model " + toString(element) + " when parsing vType '" + into->id + "'");
         } else {
-            WRITE_ERROR("Unknown car following model when parsing vType '" + into->id + "'");
+            WRITE_ERRORF(TL("Unknown car following model when parsing vType '%'"), into->id);
         }
         return false;
     }
@@ -1196,11 +1196,11 @@ SUMOVehicleParserHelper::parseCFMParams(SUMOVTypeParameter* into, const SumoXMLT
                     // obtain CFM attribute in int format
                     CFMDoubleAttribute = StringUtils::toDouble(parsedCFMAttribute);
                 } catch (...) {
-                    WRITE_ERROR("Invalid Car-Following-Model Attribute " + toString(it) + ". Cannot be parsed to float");
+                    WRITE_ERRORF(TL("Invalid Car-Following-Model Attribute %. Cannot be parsed to float"), toString(it));
                     return false;
                 }
                 if (CFMDoubleAttribute <= 0) {
-                    WRITE_ERROR("Invalid Car-Following-Model Attribute " + toString(it) + ". Must be greater than 0");
+                    WRITE_ERRORF(TL("Invalid Car-Following-Model Attribute %. Must be greater than 0"), toString(it));
                     return false;
                 }
                 // add parsedCFMAttribute to cfParameter
@@ -1212,7 +1212,7 @@ SUMOVehicleParserHelper::parseCFMParams(SUMOVTypeParameter* into, const SumoXMLT
                     // obtain CFM attribute in double format
                     CFMDoubleAttribute = StringUtils::toDouble(parsedCFMAttribute);
                 } catch (...) {
-                    WRITE_ERROR("Invalid Car-Following-Model Attribute " + toString(it) + ". Cannot be parsed to float");
+                    WRITE_ERRORF(TL("Invalid Car-Following-Model Attribute %. Cannot be parsed to float"), toString(it));
                     return false;
                 }
                 // check attributes of type "positiveFloatType" (> 0)
@@ -1223,7 +1223,7 @@ SUMOVehicleParserHelper::parseCFMParams(SUMOVTypeParameter* into, const SumoXMLT
                     case SUMO_ATTR_EMERGENCYDECEL:
                     case SUMO_ATTR_TAU:
                         if (CFMDoubleAttribute <= 0) {
-                            WRITE_ERROR("Invalid Car-Following-Model Attribute " + toString(it) + ". Must be greater than 0");
+                            WRITE_ERRORF(TL("Invalid Car-Following-Model Attribute %. Must be greater than 0"), toString(it));
                             return false;
                         }
                         break;
@@ -1234,7 +1234,7 @@ SUMOVehicleParserHelper::parseCFMParams(SUMOVTypeParameter* into, const SumoXMLT
                 switch (it) {
                     case SUMO_ATTR_SIGMA:
                         if ((CFMDoubleAttribute < 0) || (CFMDoubleAttribute > 1)) {
-                            WRITE_ERROR("Invalid Car-Following-Model Attribute " + toString(it) + ". Only values between [0-1] are allowed");
+                            WRITE_ERRORF(TL("Invalid Car-Following-Model Attribute %. Only values between [0-1] are allowed"), toString(it));
                             return false;
                         }
                         break;
@@ -1493,7 +1493,7 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter* into, LaneChangeModel
                 // obtain CFM attribute in double format
                 LCMAttribute = StringUtils::toDouble(parsedLCMAttribute);
             } catch (...) {
-                WRITE_ERROR("Invalid Lane-Change-Model Attribute " + toString(it) + ". Cannot be parsed to float");
+                WRITE_ERRORF(TL("Invalid Lane-Change-Model Attribute %. Cannot be parsed to float"), toString(it));
                 return false;
             }
             // check attributes of type "nonNegativeFloatType" (>= 0)
@@ -1510,7 +1510,7 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter* into, LaneChangeModel
                 case SUMO_ATTR_LCA_LANE_DISCIPLINE:
                 case SUMO_ATTR_LCA_SIGMA:
                     if (LCMAttribute < 0) {
-                        WRITE_ERROR("Invalid Lane-Change-Model Attribute " + toString(it) + ". Must be equal or greater than 0");
+                        WRITE_ERRORF(TL("Invalid Lane-Change-Model Attribute %. Must be equal or greater than 0"), toString(it));
                         return false;
                     }
                     break;
@@ -1521,7 +1521,7 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter* into, LaneChangeModel
             switch (it) {
                 case SUMO_ATTR_LCA_ACCEL_LAT:
                     if (LCMAttribute <= 0) {
-                        WRITE_ERROR("Invalid Lane-Change-Model Attribute " + toString(it) + ". Must be greater than 0");
+                        WRITE_ERRORF(TL("Invalid Lane-Change-Model Attribute %. Must be greater than 0"), toString(it));
                         return false;
                     }
                     break;
@@ -1532,7 +1532,7 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter* into, LaneChangeModel
             switch (it) {
                 case SUMO_ATTR_LCA_OVERTAKE_DELTASPEED_FACTOR:
                     if (LCMAttribute < -1 || LCMAttribute > 1) {
-                        WRITE_ERROR("Invalid Lane-Change-Model Attribute " + toString(it) + ". Must be between -1 and 1");
+                        WRITE_ERRORF(TL("Invalid Lane-Change-Model Attribute %. Must be between -1 and 1"), toString(it));
                         return false;
                     }
                     break;
@@ -1578,7 +1578,7 @@ SUMOVehicleParserHelper::parseJMParams(SUMOVTypeParameter* into, const SUMOSAXAt
                 // obtain CFM attribute in double format
                 JMAttribute = StringUtils::toDouble(parsedJMAttribute);
             } catch (...) {
-                WRITE_ERROR("Invalid Junction-Model Attribute " + toString(it) + ". Cannot be parsed to float");
+                WRITE_ERRORF(TL("Invalid Junction-Model Attribute %. Cannot be parsed to float"), toString(it));
                 return false;
             }
             // now continue checking other properties (-1 is the default value)
@@ -1587,13 +1587,13 @@ SUMOVehicleParserHelper::parseJMParams(SUMOVTypeParameter* into, const SUMOSAXAt
                 if (it == SUMO_ATTR_JM_SIGMA_MINOR) {
                     // check attributes sigma minor
                     if ((JMAttribute < 0) || (JMAttribute > 1)) {
-                        WRITE_ERROR("Invalid Junction-Model Attribute " + toString(it) + ". Only values between [0-1] are allowed");
+                        WRITE_ERRORF(TL("Invalid Junction-Model Attribute %. Only values between [0-1] are allowed"), toString(it));
                         return false;
                     }
                 } else {
                     // check attributes of type "nonNegativeFloatType" (>= 0)
                     if (JMAttribute < 0) {
-                        WRITE_ERROR("Invalid Junction-Model Attribute " + toString(it) + ". Must be equal or greater than 0");
+                        WRITE_ERRORF(TL("Invalid Junction-Model Attribute %. Must be equal or greater than 0"), toString(it));
                         return false;
                     }
                 }

@@ -100,7 +100,7 @@ NILoader::load(OptionsCont& oc) {
                 oc.getBool("tls.guess-signals"));
         int removed = myNetBuilder.getTLLogicCont().getNumExtracted();
         if (removed > 0) {
-            WRITE_MESSAGE(" Removed " + toString(removed) + " traffic lights before loading plain-XML");
+            WRITE_MESSAGEF(TL(" Removed % traffic lights before loading plain-XML"), toString(removed));
         }
     }
     if (oc.getBool("railway.signals.discard")) {
@@ -125,23 +125,23 @@ NILoader::load(OptionsCont& oc) {
     // report loaded structures
     WRITE_MESSAGE(TL(" Import done:"));
     if (myNetBuilder.getDistrictCont().size() > 0) {
-        WRITE_MESSAGE("   " + toString(myNetBuilder.getDistrictCont().size()) + " districts loaded.");
+        WRITE_MESSAGEF(TL("   % districts loaded."), toString(myNetBuilder.getDistrictCont().size()));
     }
-    WRITE_MESSAGE("   " + toString(myNetBuilder.getNodeCont().size()) + " nodes loaded.");
+    WRITE_MESSAGEF(TL("   % nodes loaded."), toString(myNetBuilder.getNodeCont().size()));
     if (myNetBuilder.getTypeCont().size() > 0) {
-        WRITE_MESSAGE("   " + toString(myNetBuilder.getTypeCont().size()) + " types loaded.");
+        WRITE_MESSAGEF(TL("   % types loaded."), toString(myNetBuilder.getTypeCont().size()));
     }
-    WRITE_MESSAGE("   " + toString(myNetBuilder.getEdgeCont().size()) + " edges loaded.");
+    WRITE_MESSAGEF(TL("   % edges loaded."), toString(myNetBuilder.getEdgeCont().size()));
     if (myNetBuilder.getEdgeCont().getNumEdgeSplits() > 0) {
-        WRITE_MESSAGE("The split of edges was performed " + toString(myNetBuilder.getEdgeCont().getNumEdgeSplits()) + " times.");
+        WRITE_MESSAGEF(TL("The split of edges was performed % times."), toString(myNetBuilder.getEdgeCont().getNumEdgeSplits()));
     }
 
     //TODO: uncomment the following lines + adapt tests! [Gregor March '17]
 //  if (myNetBuilder.getPTStopCont().size() > 0) {
-//    WRITE_MESSAGE("   " + toString(myNetBuilder.getPTStopCont().size()) + " pt stops loaded.");
+//    WRITE_MESSAGEF(TL("   % pt stops loaded."), toString(myNetBuilder.getPTStopCont().size()));
 //  }
     if (GeoConvHelper::getProcessing().usingGeoProjection()) {
-        WRITE_MESSAGE("Proj projection parameters used: '" + GeoConvHelper::getProcessing().getProjString() + "'.");
+        WRITE_MESSAGEF(TL("Proj projection parameters used: '%'."), GeoConvHelper::getProcessing().getProjString());
     }
 }
 

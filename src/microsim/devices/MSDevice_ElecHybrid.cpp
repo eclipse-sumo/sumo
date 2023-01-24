@@ -597,11 +597,11 @@ MSDevice_ElecHybrid::deleteVehicleFromCircuit(SUMOVehicle& veh) {
         if (myPreviousOverheadWireSegment->getTractionSubstation() != nullptr) {
             //check if all pointers to vehicle elements and nodes are not nullptr
             if (veh_elem == nullptr || veh_pos_tail_elem == nullptr || pos_veh_node == nullptr) {
-                WRITE_ERROR("During deleting vehicle '" + veh.getID() + "' from circuit some init previous Nodes or Elements was not assigned.");
+                WRITE_ERRORF(TL("During deleting vehicle '%' from circuit some init previous Nodes or Elements was not assigned."), veh.getID());
             }
             //check if pos_veh_node has 3 elements - they should be: veh_elem, veh_pos_tail_elem and an overhead line resistor element "ahead" of vehicle.
             if (pos_veh_node->getElements()->size() != 3) {
-                WRITE_ERROR("During deleting vehicle '" + veh.getID() + "' from circuit the size of element-vector of pNode or nNode was not 3. It should be 3 by Jakub's opinion.");
+                WRITE_ERRORF(TL("During deleting vehicle '%' from circuit the size of element-vector of pNode or nNode was not 3. It should be 3 by Jakub's opinion."), veh.getID());
             }
             //delete vehicle resistor element "veh_elem" in the previous circuit,
             pos_veh_node->eraseElement(veh_elem);
@@ -613,7 +613,7 @@ MSDevice_ElecHybrid::deleteVehicleFromCircuit(SUMOVehicle& veh) {
             pos_veh_node->eraseElement(veh_pos_tail_elem);
 
             if (pos_veh_node->getElements()->size() != 1) {
-                WRITE_ERROR("During deleting vehicle '" + veh.getID() + "' from circuit the size of element-vector of pNode or nNode was not 1. It should be 1 by Jakub's opinion.");
+                WRITE_ERRORF(TL("During deleting vehicle '%' from circuit the size of element-vector of pNode or nNode was not 1. It should be 1 by Jakub's opinion."), veh.getID());
             }
 
             // add the resistance value of veh_tail element to the resistance value of the ahead overhead line element

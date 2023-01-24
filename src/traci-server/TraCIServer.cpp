@@ -316,10 +316,10 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
     }
 
     try {
-        WRITE_MESSAGE("***Starting server on port " + toString(port) + " ***");
+        WRITE_MESSAGEF(TL("***Starting server on port % ***"), toString(port));
         tcpip::Socket serverSocket(port);
         if (numClients > 1) {
-            WRITE_MESSAGE("  waiting for " + toString(numClients) + " clients...");
+            WRITE_MESSAGEF(TL("  waiting for % clients..."), toString(numClients));
         }
         while ((int)mySockets.size() < numClients) {
             int index = (int)mySockets.size() + libsumo::MAX_ORDER + 1;

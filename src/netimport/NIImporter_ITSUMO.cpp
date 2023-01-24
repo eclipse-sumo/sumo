@@ -114,7 +114,7 @@ NIImporter_ITSUMO::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         // nodes
         if (!FileHelpers::isReadable(*file)) {
-            WRITE_ERROR("Could not open itsumo-file '" + *file + "'.");
+            WRITE_ERRORF(TL("Could not open itsumo-file '%'."), *file);
             return;
         }
         handler.setFileName(*file);
@@ -214,7 +214,7 @@ NIImporter_ITSUMO::Handler::myEndElement(int element) {
                                               NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, LaneSpreadFunction::RIGHT);
                     if (!myNetBuilder.getEdgeCont().insert(edge)) {
                         delete edge;
-                        WRITE_ERROR("Could not add edge '" + ls->id + "'. Probably declared twice.");
+                        WRITE_ERRORF(TL("Could not add edge '%'. Probably declared twice."), ls->id);
                     }
                     delete ls;
                 }
@@ -229,17 +229,17 @@ NIImporter_ITSUMO::Handler::myEndElement(int element) {
                 double y = StringUtils::toDouble(myParameter["y"]);
                 Position pos(x, y);
                 if (!NBNetBuilder::transformCoordinate(pos)) {
-                    WRITE_ERROR("Unable to project coordinates for node '" + id + "'.");
+                    WRITE_ERRORF(TL("Unable to project coordinates for node '%'."), id);
                 }
                 NBNode* node = new NBNode(id, pos);
                 if (!myNetBuilder.getNodeCont().insert(node)) {
                     delete node;
-                    WRITE_ERROR("Could not add node '" + id + "'. Probably declared twice.");
+                    WRITE_ERRORF(TL("Could not add node '%'. Probably declared twice."), id);
                 }
             } catch (NumberFormatException&) {
-                WRITE_ERROR("Not numeric position information for node '" + myParameter["id"] + "'.");
+                WRITE_ERRORF(TL("Not numeric position information for node '%'."), myParameter["id"]);
             } catch (EmptyData&) {
-                WRITE_ERROR("Missing data in node '" + myParameter["id"] + "'.");
+                WRITE_ERRORF(TL("Missing data in node '%'."), myParameter["id"]);
             }
         }
         break;
@@ -257,10 +257,10 @@ NIImporter_ITSUMO::Handler::myEndElement(int element) {
                 NBNode* from = myNetBuilder.getNodeCont().retrieve(fromID);
                 NBNode* to = myNetBuilder.getNodeCont().retrieve(toID);
                 if (from == nullptr || to == nullptr) {
-                    WRITE_ERROR("Missing node in laneset '" + myParameter["lanesetID"] + "'.");
+                    WRITE_ERRORF(TL("Missing node in laneset '%'."), myParameter["lanesetID"]);
                 } else {
                     if (myLaneSets.find(id) != myLaneSets.end()) {
-                        WRITE_ERROR("Fond laneset-id '" + id + "' twice.");
+                        WRITE_ERRORF(TL("Fond laneset-id '%' twice."), id);
                     } else {
                         double vSum = 0;
                         for (std::vector<Lane>::iterator j = myCurrentLanes.begin(); j != myCurrentLanes.end(); ++j) {
@@ -274,9 +274,9 @@ NIImporter_ITSUMO::Handler::myEndElement(int element) {
                     }
                 }
             } catch (NumberFormatException&) {
-                WRITE_ERROR("Not numeric value in laneset '" + myParameter["lanesetID"] + "'.");
+                WRITE_ERRORF(TL("Not numeric value in laneset '%'."), myParameter["lanesetID"]);
             } catch (EmptyData&) {
-                WRITE_ERROR("Missing data in laneset '" + myParameter["lanesetID"] + "'.");
+                WRITE_ERRORF(TL("Missing data in laneset '%'."), myParameter["lanesetID"]);
             }
         }
         break;
@@ -287,9 +287,9 @@ NIImporter_ITSUMO::Handler::myEndElement(int element) {
                 double v = StringUtils::toDouble(myParameter["v"]);
                 myCurrentLanes.push_back(Lane(id, (int) i, v));
             } catch (NumberFormatException&) {
-                WRITE_ERROR("Not numeric value in lane '" + myParameter["laneID"] + "'.");
+                WRITE_ERRORF(TL("Not numeric value in lane '%'."), myParameter["laneID"]);
             } catch (EmptyData&) {
-                WRITE_ERROR("Missing data in lane '" + myParameter["laneID"] + "'.");
+                WRITE_ERRORF(TL("Missing data in lane '%'."), myParameter["laneID"]);
             }
         }
         break;

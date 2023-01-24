@@ -232,7 +232,7 @@ NLEdgeControlBuilder::build(double networkVersion) {
         for (auto& item : myBidiEdges) {
             item.first->checkAndRegisterBiDirEdge(item.second);
         }
-        //WRITE_MESSAGE("Loaded " + toString(myBidiEdges.size()) + " bidirectional edges");
+        //WRITE_MESSAGEF(TL("Loaded % bidirectional edges"), toString(myBidiEdges.size()));
     } else {
         // legacy network
         for (MSEdge* e : myEdges) {

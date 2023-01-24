@@ -115,7 +115,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
     const std::vector<std::string> files = oc.getStringVector("sumo-net-file");
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         if (!FileHelpers::isReadable(*file)) {
-            WRITE_ERROR("Could not open sumo-net-file '" + *file + "'.");
+            WRITE_ERRORF(TL("Could not open sumo-net-file '%'."), *file);
             return;
         }
         setFileName(*file);
@@ -162,7 +162,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
         e->updateParameters(ed->getParametersMap());
         e->setDistance(ed->distance);
         if (!myNetBuilder.getEdgeCont().insert(e)) {
-            WRITE_ERROR("Could not insert edge '" + ed->id + "'.");
+            WRITE_ERRORF(TL("Could not insert edge '%'."), ed->id);
             delete e;
             continue;
         }
@@ -188,7 +188,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
             const std::vector<Connection>& connections = lane->connections;
             for (const Connection& c : connections) {
                 if (myEdges.count(c.toEdgeID) == 0) {
-                    WRITE_ERROR("Unknown edge '" + c.toEdgeID + "' given in connection.");
+                    WRITE_ERRORF(TL("Unknown edge '%' given in connection."), c.toEdgeID);
                     continue;
                 }
                 NBEdge* toEdge = myEdges[c.toEdgeID]->builtEdge;
@@ -223,7 +223,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                             }
                         }
                     } else {
-                        WRITE_ERROR("The traffic light '" + c.tlID + "' is not known.");
+                        WRITE_ERRORF(TL("The traffic light '%' is not known."), c.tlID);
                     }
                 }
             }
@@ -396,7 +396,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
             NBEdge* edge = myNetBuilder.getEdgeCont().retrieve(edgeID);
             if (edge == nullptr) {
                 if (!myNetBuilder.getEdgeCont().wasIgnored(edgeID)) {
-                    WRITE_ERROR("Unknown edge '" + (edgeID) + "' in roundabout");
+                    WRITE_ERRORF(TL("Unknown edge '%' in roundabout"), (edgeID));
                 }
             } else {
                 roundabout.insert(edge);
@@ -621,7 +621,7 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
         return;
     }
     if (myCurrentEdge == nullptr) {
-        WRITE_ERROR("Found lane '" + id  + "' not within edge element.");
+        WRITE_ERRORF(TL("Found lane '%' not within edge element."), id );
         return;
     }
     const std::string expectedID = myCurrentEdge->id + "_" + toString(myCurrentEdge->lanes.size());
@@ -780,7 +780,7 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, nullptr, ok);
     if (myEdges.count(fromID) == 0) {
-        WRITE_ERROR("Unknown edge '" + fromID + "' given in connection.");
+        WRITE_ERRORF(TL("Unknown edge '%' given in connection."), fromID);
         return;
     }
     EdgeAttrs* from = myEdges[fromID];
@@ -918,7 +918,7 @@ NIImporter_SUMO::addProhibition(const SUMOSAXAttributes& attrs) {
 NBLoadedSUMOTLDef*
 NIImporter_SUMO::initTrafficLightLogic(const SUMOSAXAttributes& attrs, NBLoadedSUMOTLDef* currentTL) {
     if (currentTL) {
-        WRITE_ERROR("Definition of tl-logic '" + currentTL->getID() + "' was not finished.");
+        WRITE_ERRORF(TL("Definition of tl-logic '%' was not finished."), currentTL->getID());
         return nullptr;
     }
     bool ok = true;
@@ -1005,18 +1005,18 @@ NIImporter_SUMO::parseProhibitionConnection(const std::string& attr, std::string
     // split from/to
     const std::string::size_type div = attr.find("->");
     if (div == std::string::npos) {
-        WRITE_ERROR("Missing connection divider in prohibition attribute '" + attr + "'");
+        WRITE_ERRORF(TL("Missing connection divider in prohibition attribute '%'"), attr);
         ok = false;
     }
     from = attr.substr(0, div);
     to = attr.substr(div + 2);
     // check whether the edges are known
     if (myEdges.count(from) == 0) {
-        WRITE_ERROR("Unknown edge prohibition '" + from + "'");
+        WRITE_ERRORF(TL("Unknown edge prohibition '%'"), from);
         ok = false;
     }
     if (myEdges.count(to) == 0) {
-        WRITE_ERROR("Unknown edge prohibition '" + to + "'");
+        WRITE_ERRORF(TL("Unknown edge prohibition '%'"), to);
         ok = false;
     }
 }

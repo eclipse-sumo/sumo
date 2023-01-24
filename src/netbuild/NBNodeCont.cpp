@@ -697,7 +697,7 @@ NBNodeCont::addCluster2Join(const std::set<std::string>& cluster, NBNode* node) 
             if (retrieve(nodeID) != nullptr) {
                 validCluster.insert(nodeID);
             } else {
-                WRITE_ERROR("Unknown junction '" + nodeID + "' in join-cluster.");
+                WRITE_ERRORF(TL("Unknown junction '%' in join-cluster."), nodeID);
             }
         }
     }
@@ -719,7 +719,7 @@ NBNodeCont::joinLoadedClusters(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLigh
         for (std::string nodeID : item.first) {
             NBNode* node = retrieve(nodeID);
             if (node == nullptr) {
-                WRITE_ERROR("unknown junction '" + nodeID + "' while joining.");
+                WRITE_ERRORF(TL("unknown junction '%' while joining."), nodeID);
             } else {
                 cluster.insert(node);
             }

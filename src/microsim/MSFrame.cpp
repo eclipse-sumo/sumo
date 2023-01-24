@@ -932,7 +932,7 @@ MSFrame::checkOptions() {
         }
     }
     if (!SUMOXMLDefinitions::CarFollowModels.hasString(oc.getString("carfollow.model"))) {
-        WRITE_ERROR("Unknown model '" + oc.getString("carfollow.model")  + "' for option 'carfollow.model'.");
+        WRITE_ERRORF(TL("Unknown model '%' for option 'carfollow.model'."), oc.getString("carfollow.model") );
         ok = false;
     }
     if (oc.isSet("default.emergencydecel")) {
@@ -941,7 +941,7 @@ MSFrame::checkOptions() {
             try {
                 StringUtils::toDouble(val);
             } catch (NumberFormatException&) {
-                WRITE_ERROR("Invalid value '" + val + "' for option 'default.emergencydecel'. Must be a FLOAT or 'default' or 'decel'");
+                WRITE_ERRORF(TL("Invalid value '%' for option 'default.emergencydecel'. Must be a FLOAT or 'default' or 'decel'"), val);
                 ok = false;
             }
         }
@@ -979,7 +979,7 @@ MSFrame::checkOptions() {
     if (oc.isSet("persontrip.transfer.car-walk")) {
         for (const std::string& opt : OptionsCont::getOptions().getStringVector("persontrip.transfer.car-walk")) {
             if (opt != "parkingAreas" && opt != "ptStops" && opt != "allJunctions") {
-                WRITE_ERROR("Invalid transfer option '" + opt + "'. Must be one of 'parkingAreas', 'ptStops' and 'allJunctions'");
+                WRITE_ERRORF(TL("Invalid transfer option '%'. Must be one of 'parkingAreas', 'ptStops' and 'allJunctions'"), opt);
                 ok = false;
             }
         }

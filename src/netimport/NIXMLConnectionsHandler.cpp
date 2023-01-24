@@ -344,7 +344,7 @@ NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
     NBNode* node = myNodeCont.retrieve(nodeID);
     if (node == nullptr) {
         if (!discard && myNodeCont.wasRemoved(nodeID)) {
-            WRITE_ERROR("Node '" + nodeID + "' in crossing is not known.");
+            WRITE_ERRORF(TL("Node '%' in crossing is not known."), nodeID);
         }
         return;
     }
@@ -353,7 +353,7 @@ NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
             node->discardAllCrossings(true);
             return;
         } else {
-            WRITE_ERROR("No edges specified for crossing at node '" + nodeID + "'.");
+            WRITE_ERRORF(TL("No edges specified for crossing at node '%'."), nodeID);
             return;
         }
     }
@@ -387,7 +387,7 @@ NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
     }
     PositionVector customShape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, nullptr, ok, PositionVector::EMPTY);
     if (!NBNetBuilder::transformCoordinates(customShape)) {
-        WRITE_ERROR("Unable to project shape for crossing at node '" + node->getID() + "'.");
+        WRITE_ERRORF(TL("Unable to project shape for crossing at node '%'."), node->getID());
     }
     if (discard) {
         node->removeCrossing(edges);
@@ -432,7 +432,7 @@ NIXMLConnectionsHandler::addWalkingArea(const SUMOSAXAttributes& attrs) {
     const std::string nodeID = attrs.get<std::string>(SUMO_ATTR_NODE, nullptr, ok);
     std::vector<std::string> edgeIDs;
     if (!attrs.hasAttribute(SUMO_ATTR_EDGES)) {
-        WRITE_ERROR("No edges specified for walkingArea at node '" + nodeID + "'.");
+        WRITE_ERRORF(TL("No edges specified for walkingArea at node '%'."), nodeID);
         return;
     }
     for (const std::string& id : attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, nodeID.c_str(), ok)) {
@@ -464,7 +464,7 @@ NIXMLConnectionsHandler::addWalkingArea(const SUMOSAXAttributes& attrs) {
     PositionVector customShape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, nullptr, ok, PositionVector::EMPTY);
     double customWidth = attrs.getOpt<double>(SUMO_ATTR_WIDTH, nullptr, ok, NBEdge::UNSPECIFIED_WIDTH);
     if (!NBNetBuilder::transformCoordinates(customShape)) {
-        WRITE_ERROR("Unable to project shape for walkingArea at node '" + node->getID() + "'.");
+        WRITE_ERRORF(TL("Unable to project shape for walkingArea at node '%'."), node->getID());
     }
     node->addWalkingAreaShape(edges, customShape, customWidth);
 }

@@ -142,10 +142,10 @@ NIXMLNodesHandler::addNode(const SUMOSAXAttributes& attrs) {
     }
     if (xOk && yOk) {
         if (needConversion && !NBNetBuilder::transformCoordinate(myPosition, true, myLocation)) {
-            WRITE_ERROR("Unable to project coordinates for node '" + myID + "'.");
+            WRITE_ERRORF(TL("Unable to project coordinates for node '%'."), myID);
         }
     } else {
-        WRITE_ERROR("Missing position (at node ID='" + myID + "').");
+        WRITE_ERRORF(TL("Missing position (at node ID='%')."), myID);
     }
     bool updateEdgeGeometries = node != nullptr && myPosition != node->getPosition();
     node = processNodeType(attrs, node, myID, myPosition, updateEdgeGeometries, myNodeCont, myEdgeCont, myTLLogicCont);
@@ -207,7 +207,7 @@ NIXMLNodesHandler::processNodeType(const SUMOSAXAttributes& attrs, NBNode* node,
     if (attrs.hasAttribute(SUMO_ATTR_SHAPE)) {
         shape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, nodeID.c_str(), ok, PositionVector());
         if (!NBNetBuilder::transformCoordinates(shape)) {
-            WRITE_ERROR("Unable to project node shape at node '" + node->getID() + "'.");
+            WRITE_ERRORF(TL("Unable to project node shape at node '%'."), node->getID());
         }
         if (shape.size() > 2) {
             shape.closePolygon();

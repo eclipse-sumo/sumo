@@ -182,7 +182,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         int numJoinedTramEdges = myEdgeCont.joinTramEdges(myDistrictCont, myPTStopCont, myPTLineCont, oc.getFloat("edges.join-tram-dist"));
         PROGRESS_TIME_MESSAGE(before);
         if (numJoinedTramEdges > 0) {
-            WRITE_MESSAGE(" Joined " + toString(numJoinedTramEdges) + " tram edges into roads.");
+            WRITE_MESSAGEF(TL(" Joined % tram edges into roads."), toString(numJoinedTramEdges));
         }
     }
     if (oc.getBool("junctions.join")
@@ -225,14 +225,14 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         PROGRESS_TIME_MESSAGE(before);
     }
     if (numJoined > 0) {
-        WRITE_MESSAGE(" Joined " + toString(numJoined) + " junction cluster(s).");
+        WRITE_MESSAGEF(TL(" Joined % junction cluster(s)."), toString(numJoined));
     }
     if (mayAddOrRemove && oc.exists("junctions.join-same") && oc.getBool("junctions.join-same")) {
         before = PROGRESS_BEGIN_TIME_MESSAGE(TL("Joining junctions with identical coordinates"));
         int numJoined2 = myNodeCont.joinSameJunctions(myDistrictCont, myEdgeCont, myTLLCont);
         PROGRESS_TIME_MESSAGE(before);
         if (numJoined2 > 0) {
-            WRITE_MESSAGE(" Joined " + toString(numJoined2) + " junctions.");
+            WRITE_MESSAGEF(TL(" Joined % junctions."), toString(numJoined2));
         }
     }
     //
@@ -240,7 +240,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         before = PROGRESS_BEGIN_TIME_MESSAGE(TL("Joining lanes"));
         const int num = myEdgeCont.joinLanes(SVC_IGNORING) + myEdgeCont.joinLanes(SVC_PEDESTRIAN);
         PROGRESS_TIME_MESSAGE(before);
-        WRITE_MESSAGE("   Joined lanes on " + toString(num) + " edges.");
+        WRITE_MESSAGEF(TL("   Joined lanes on % edges."), toString(num));
     }
     //
     if (mayAddOrRemove) {
@@ -250,7 +250,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false);
         const int numRemoved = myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myTLLCont, myPTStopCont, myPTLineCont, myParkingCont, removeGeometryNodes);
         PROGRESS_TIME_MESSAGE(before);
-        WRITE_MESSAGE("   " + toString(numRemoved) + " nodes removed.");
+        WRITE_MESSAGEF(TL("   % nodes removed."), toString(numRemoved));
     }
 
     // MOVE TO ORIGIN
@@ -300,7 +300,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         if (oc.getBool("junctions.join-same")) {
             int numJoined3 = myNodeCont.joinSameJunctions(myDistrictCont, myEdgeCont, myTLLCont);
             if (numJoined3 > 0) {
-                WRITE_MESSAGE(" Joined " + toString(numJoined3) + " junctions after splitting geometry.");
+                WRITE_MESSAGEF(TL(" Joined % junctions after splitting geometry."), toString(numJoined3));
             }
         }
     }
@@ -353,7 +353,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
                               oc.getBool("bikelanes.guess.from-permissions"),
                               "bikelanes.guess.exclude",
                               myTLLCont);
-        WRITE_MESSAGE("Guessed " + toString(bikelanes) + " bike lanes.");
+        WRITE_MESSAGEF(TL("Guessed % bike lanes."), toString(bikelanes));
     }
 
     // guess sidewalks
@@ -364,7 +364,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
                               oc.getBool("sidewalks.guess.from-permissions"),
                               "sidewalks.guess.exclude",
                               myTLLCont);
-        WRITE_MESSAGE("Guessed " + toString(sidewalks) + " sidewalks.");
+        WRITE_MESSAGEF(TL("Guessed % sidewalks."), toString(sidewalks));
     }
     // check whether any not previously setable connections may be set now
     myEdgeCont.recheckPostProcessConnections();
@@ -439,7 +439,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
             crossings += (*i).second->guessCrossings();
         }
-        WRITE_MESSAGE("Guessed " + toString(crossings) + " pedestrian crossings.");
+        WRITE_MESSAGEF(TL("Guessed % pedestrian crossings."), toString(crossings));
     }
     if (!myNetworkHaveCrossings) {
         bool haveValidCrossings = false;
@@ -479,7 +479,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         before = PROGRESS_BEGIN_TIME_MESSAGE(TL("Guessing and setting roundabouts"));
         const int numGuessed = myEdgeCont.guessRoundabouts();
         if (numGuessed > 0) {
-            WRITE_MESSAGE(" Guessed " + toString(numGuessed) + " roundabout(s).");
+            WRITE_MESSAGEF(TL(" Guessed % roundabout(s)."), toString(numGuessed));
         }
         PROGRESS_TIME_MESSAGE(before);
     }
@@ -498,7 +498,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         before = PROGRESS_BEGIN_TIME_MESSAGE(TL("Guessing Network fringe"));
         const int numGuessed = myNodeCont.guessFringe();
         if (numGuessed > 0) {
-            WRITE_MESSAGE(" Guessed " + toString(numGuessed) + " fringe nodes.");
+            WRITE_MESSAGEF(TL(" Guessed % fringe nodes."), toString(numGuessed));
         }
         PROGRESS_TIME_MESSAGE(before);
     }

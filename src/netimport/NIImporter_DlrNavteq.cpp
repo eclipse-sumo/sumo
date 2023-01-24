@@ -699,7 +699,7 @@ NIImporter_DlrNavteq::readDate(const std::string& yyyymmdd) {
         } catch (...) {
         }
     }
-    WRITE_ERROR("Could not parse YYYY-MM-DD date '" + yyyymmdd + "'");
+    WRITE_ERRORF(TL("Could not parse YYYY-MM-DD date '%'"), yyyymmdd);
     time_t now;
     time(&now);
     return now;

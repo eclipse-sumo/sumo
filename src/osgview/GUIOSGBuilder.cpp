@@ -468,7 +468,7 @@ GUIOSGBuilder::buildDecal(const GUISUMOAbstractView::Decal& d, osg::Group& addTo
         osg::Image* pImage = osgDB::readImageFile(d.filename);
         if (pImage == nullptr) {
             base = nullptr;
-            WRITE_ERROR("Could not load '" + d.filename + "'.");
+            WRITE_ERRORF(TL("Could not load '%'."), d.filename);
             return;
         }
         osg::Texture2D* texture = new osg::Texture2D();
@@ -594,7 +594,7 @@ GUIOSGBuilder::buildMovable(const MSVehicleType& type) {
     if (myCars.find(osgFile) == myCars.end()) {
         myCars[osgFile] = osgDB::readNodeFile(osgFile);
         if (myCars[osgFile] == 0) {
-            WRITE_ERROR("Could not load '" + osgFile + "'. The model is replaced by a cone shape.");
+            WRITE_ERRORF(TL("Could not load '%'. The model is replaced by a cone shape."), osgFile);
             osg::PositionAttitudeTransform* rot = new osg::PositionAttitudeTransform();
             rot->addChild(new osg::ShapeDrawable(new osg::Cone(osg::Vec3d(0, 0, 0), 1.0f, 1.0f)));
             rot->setAttitude(osg::Quat(osg::DegreesToRadians(90.), osg::Vec3(1, 0, 0),

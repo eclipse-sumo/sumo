@@ -372,7 +372,7 @@ NIVissimTL::dict_SetSignals(NBTrafficLightLogicCont& tlc,
                                  TrafficLightType::STATIC : TrafficLightType::ACTUATED);
         NBLoadedTLDef* def = new NBLoadedTLDef(ec, id, 0, type);
         if (!tlc.insert(def)) {
-            WRITE_ERROR("Error on adding a traffic light\n Must be a multiple id ('" + id + "')");
+            WRITE_ERRORF(TL("Error on adding a traffic light\n Must be a multiple id ('%')"), id);
             continue;
         }
         def->setCycleDuration(tl->myAbsDuration);

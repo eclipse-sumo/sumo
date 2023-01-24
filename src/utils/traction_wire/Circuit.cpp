@@ -41,7 +41,7 @@ static std::mutex circuit_lock;
 
 Node* Circuit::addNode(std::string name) {
     if (getNode(name) != nullptr) {
-        WRITE_ERROR("The node: '" + name + "' already exists.");
+        WRITE_ERRORF(TL("The node: '%' already exists."), name);
         return nullptr;
     }
 
@@ -805,7 +805,7 @@ Element* Circuit::addElement(std::string name, double value, Node* pNode, Node* 
     Element* e = getElement(name);
 
     if (e != nullptr) {
-        //WRITE_ERROR("The element: '" + name + "' already exists.");
+        //WRITE_ERRORF(TL("The element: '%' already exists."), name);
         std::cout << "The element: '" + name + "' already exists.";
         return nullptr;
     }
@@ -939,7 +939,7 @@ bool Circuit::checkCircuit(std::string substationId) {
     // int id = -1;
     if (!getNode(-1)->isGround()) {
         //cout << "ERROR: Node id -1 is not the ground \n";
-        WRITE_ERROR("Circuit Node with id '-1' is not the grounded, please adjust the definition of the section (with substation '" + substationId + "').");
+        WRITE_ERRORF(TL("Circuit Node with id '-1' is not the grounded, please adjust the definition of the section (with substation '%')."), substationId);
     }
     std::vector<Node*>* queue = new std::vector<Node*>(0);
     Node* node = nullptr;
@@ -963,7 +963,7 @@ bool Circuit::checkCircuit(std::string substationId) {
                     nodesVisited[(*it)->getId()] = 1;
                 } else if ((*it)->getType() == Element::ElementType::RESISTOR_traction_wire) {
                     //cout << "ERROR: The resistor type connects the ground \n";
-                    WRITE_ERROR("A Circuit Resistor Element connects the ground, please adjust the definition of the section (with substation '" + substationId + "').");
+                    WRITE_ERRORF(TL("A Circuit Resistor Element connects the ground, please adjust the definition of the section (with substation '%')."), substationId);
                 }
             }
         }

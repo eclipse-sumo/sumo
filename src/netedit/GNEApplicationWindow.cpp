@@ -1127,7 +1127,7 @@ GNEApplicationWindow::onCmdToolNetDiff(FXObject*, FXSelector, void*) {
         // get netdiff path
         const std::string netDiff = std::string(sumoPath) + "/tools/net/netdiff.py";
         if (!FileHelpers::isReadable(netDiff)) {
-            WRITE_ERROR("netdiff.py cannot be found in path '" + netDiff + "'");
+            WRITE_ERRORF(TL("netdiff.py cannot be found in path '%'"), netDiff);
             return 0;
         }
         // check if network is saved
@@ -4505,7 +4505,7 @@ GNEApplicationWindow::loadElements() {
             XMLSubSys::setValidation("never", "auto", "auto");
             // Run parser
             if (!handler.parse()) {
-                WRITE_ERROR("Loading of " + file + " failed.");
+                WRITE_ERRORF(TL("Loading of % failed."), file);
             }
             // set netedit options
             neteditOptions.resetWritable();
@@ -4546,7 +4546,7 @@ GNEApplicationWindow::loadDataElements() {
             // disable validation for data elements
             XMLSubSys::setValidation("never", "auto", "auto");
             if (!dataHandler.parse()) {
-                WRITE_ERROR("Loading of " + dataFile + " failed.");
+                WRITE_ERRORF(TL("Loading of % failed."), dataFile);
             }
             // set first dataElementsFiles as default file
             neteditOptions.resetWritable();

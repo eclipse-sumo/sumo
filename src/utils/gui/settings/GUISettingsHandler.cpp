@@ -550,7 +550,7 @@ GUISettingsHandler::loadBreakpoints(const std::string& file) {
             WRITE_ERROR(" A breakpoint-value must be an int. " + toString(e.what()));
         } catch (EmptyData&) {
         } catch (ProcessError&) {
-            WRITE_ERROR(" Could not decode breakpoint '" + val + "'");
+            WRITE_ERRORF(TL(" Could not decode breakpoint '%'"), val);
         }
     }
     return result;

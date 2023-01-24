@@ -283,7 +283,7 @@ GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
         std::ifstream strm(file.c_str());
         // check if file can be opened
         if (!strm.good()) {
-            WRITE_ERROR("Could not open '" + file + "'.");
+            WRITE_ERRORF(TL("Could not open '%'."), file);
             return 0;
         }
         // convert all glObjects into GNEAttributeCarriers

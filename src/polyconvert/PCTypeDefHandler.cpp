@@ -68,7 +68,7 @@ PCTypeDefHandler::myStartElement(int element,
         const std::string imgFile = attrs.getOpt<std::string>(SUMO_ATTR_IMGFILE, id.c_str(), ok, Shape::DEFAULT_IMG_FILE);
         // !!! what about error handling?
         if (!myContainer.add(id, type, color, prefix, layer, angle, imgFile, discard, allowFill)) {
-            WRITE_ERROR("Could not add polygon type '" + id + "' (probably the id is already used).");
+            WRITE_ERRORF(TL("Could not add polygon type '%' (probably the id is already used)."), id);
         }
     }
 }

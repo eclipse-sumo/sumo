@@ -1026,7 +1026,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                                            aVehicle->getID(), nextLane->getID());
                         } else {
                             // we may not drive with the given velocity - we would be too fast on the next lane
-                            WRITE_ERROR("Vehicle '" + aVehicle->getID() + "' will not be able to depart using the given velocity (slow lane ahead)!");
+                            WRITE_ERRORF(TL("Vehicle '%' will not be able to depart using the given velocity (slow lane ahead)!"), aVehicle->getID());
                             MSNet::getInstance()->getInsertionControl().descheduleDeparture(aVehicle);
                             return false;
                         }
@@ -4161,7 +4161,7 @@ MSLane::initCollisionOptions(const OptionsCont& oc) {
     } else if (action == "remove") {
         myCollisionAction = COLLISION_ACTION_REMOVE;
     } else {
-        WRITE_ERROR("Invalid collision.action '" + action + "'.");
+        WRITE_ERRORF(TL("Invalid collision.action '%'."), action);
     }
     myCheckJunctionCollisions = oc.getBool("collision.check-junctions");
     myCheckJunctionCollisionMinGap = oc.getFloat("collision.check-junctions.mingap");

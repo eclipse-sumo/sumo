@@ -182,7 +182,7 @@ main(int argc, char** argv) {
                     if (attrName == "all") {
                         attributes = std::numeric_limits<long long int>::max() - 1;
                     } else {
-                        WRITE_ERROR("Unknown attribute '" + attrName + "' to write in output.");
+                        WRITE_ERRORF(TL("Unknown attribute '%' to write in output."), attrName);
                     }
                     continue;
                 }

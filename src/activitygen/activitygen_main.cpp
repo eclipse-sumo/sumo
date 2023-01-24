@@ -110,7 +110,7 @@ main(int argc, char* argv[]) {
         net = new RONet();
         AGStreet::Builder builder;
         loadNet(*net, builder);
-        WRITE_MESSAGE("Loaded " + toString(net->getEdgeNumber()) + " edges.");
+        WRITE_MESSAGEF(TL("Loaded % edges."), toString(net->getEdgeNumber()));
         if (oc.getBool("debug")) {
             WRITE_MESSAGE(TL("\n\t ---- begin AcitivtyGen ----\n"));
         }

@@ -1261,7 +1261,7 @@ MSEdge::checkAndRegisterBiDirEdge(const std::string& bidiID) {
     if (bidiID != "") {
         myBidiEdge = dictionary(bidiID);
         if (myBidiEdge == nullptr) {
-            WRITE_ERROR("Bidi-edge '" + bidiID + "' does not exist");
+            WRITE_ERRORF(TL("Bidi-edge '%' does not exist"), bidiID);
         }
         setBidiLanes();
         return;

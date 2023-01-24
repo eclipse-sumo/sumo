@@ -208,12 +208,12 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     // use values from the edge to overwrite if existing, then
     if (myIsUpdate) {
         if (!myHaveReportedAboutOverwriting) {
-            WRITE_MESSAGE("Duplicate edge id occurred ('" + myCurrentID + "'); assuming overwriting is wished.");
+            WRITE_MESSAGEF(TL("Duplicate edge id occurred ('%'); assuming overwriting is wished."), myCurrentID);
             myHaveReportedAboutOverwriting = true;
         }
         if (attrs.hasAttribute(SUMO_ATTR_TYPE) && myCurrentType != myCurrentEdge->getTypeID()) {
             if (!myHaveReportedAboutTypeOverride) {
-                WRITE_MESSAGE("Edge '" + myCurrentID + "' changed it's type; assuming type override is wished.");
+                WRITE_MESSAGEF(TL("Edge '%' changed it's type; assuming type override is wished."), myCurrentID);
                 myHaveReportedAboutTypeOverride = true;
             }
         }
@@ -389,7 +389,7 @@ NIXMLEdgesHandler::addLane(const SUMOSAXAttributes& attrs) {
     }
     // check whether this lane exists
     if (lane >= myCurrentEdge->getNumLanes()) {
-        WRITE_ERROR("Lane index is larger than number of lanes (edge '" + myCurrentID + "').");
+        WRITE_ERRORF(TL("Lane index is larger than number of lanes (edge '%')."), myCurrentID);
         return;
     }
     myCurrentLaneIndex = lane;
@@ -433,7 +433,7 @@ NIXMLEdgesHandler::addLane(const SUMOSAXAttributes& attrs) {
         PositionVector shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, myCurrentID.c_str(), ok);
         if (!NBNetBuilder::transformCoordinates(shape)) {
             const std::string laneID = myCurrentID + "_" + toString(lane);
-            WRITE_ERROR("Unable to project coordinates for lane '" + laneID + "'.");
+            WRITE_ERRORF(TL("Unable to project coordinates for lane '%'."), laneID);
         }
         if (shape.size() == 1) {
             // lane shape of length 1 is not permitted
@@ -485,9 +485,9 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
                 int lane = StringUtils::toInt(id);
                 e.lanes.push_back(lane);
             } catch (NumberFormatException&) {
-                WRITE_ERROR("Error on parsing a split (edge '" + myCurrentID + "').");
+                WRITE_ERRORF(TL("Error on parsing a split (edge '%')."), myCurrentID);
             } catch (EmptyData&) {
-                WRITE_ERROR("Error on parsing a split (edge '" + myCurrentID + "').");
+                WRITE_ERRORF(TL("Error on parsing a split (edge '%')."), myCurrentID);
             }
         }
         if (e.lanes.empty()) {
@@ -506,7 +506,7 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
         }
         const std::string nodeID = attrs.getOpt(SUMO_ATTR_ID, nullptr, ok, e.nameID);
         if (nodeID == myCurrentEdge->getFromNode()->getID() || nodeID == myCurrentEdge->getToNode()->getID()) {
-            WRITE_ERROR("Invalid split node id for edge '" + myCurrentEdge->getID() + "' (from- and to-node are forbidden)");
+            WRITE_ERRORF(TL("Invalid split node id for edge '%' (from- and to-node are forbidden)"), myCurrentEdge->getID());
             return;
         }
         e.node = myNodeCont.retrieve(nodeID);
@@ -540,7 +540,7 @@ NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes& attrs) {
             }
         }
     } else if (!myIsUpdate) {
-        WRITE_ERROR("The from-node is not given for edge '" + myCurrentID + "'.");
+        WRITE_ERRORF(TL("The from-node is not given for edge '%'."), myCurrentID);
         ok = false;
     }
     if (attrs.hasAttribute(SUMO_ATTR_TO)) {
@@ -552,7 +552,7 @@ NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes& attrs) {
             }
         }
     } else if (!myIsUpdate) {
-        WRITE_ERROR("The to-node is not given for edge '" + myCurrentID + "'.");
+        WRITE_ERRORF(TL("The to-node is not given for edge '%'."), myCurrentID);
         ok = false;
     }
     return ok && myFromNode != nullptr && myToNode != nullptr;
@@ -582,7 +582,7 @@ NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes& attrs) {
     }
     PositionVector shape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, nullptr, ok, PositionVector());
     if (!NBNetBuilder::transformCoordinates(shape)) {
-        WRITE_ERROR("Unable to project coordinates for edge '" + myCurrentID + "'.");
+        WRITE_ERRORF(TL("Unable to project coordinates for edge '%'."), myCurrentID);
     }
     myReinitKeepEdgeShape = myKeepEdgeShape;
     return shape;

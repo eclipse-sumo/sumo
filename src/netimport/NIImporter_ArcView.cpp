@@ -135,7 +135,7 @@ NIImporter_ArcView::load() {
     GDALDataset* poDS = (GDALDataset*)GDALOpenEx(mySHPName.c_str(), GDAL_OF_VECTOR | GA_ReadOnly, NULL, NULL, NULL);
 #endif
     if (poDS == NULL) {
-        WRITE_ERROR("Could not open shape description '" + mySHPName + "'.");
+        WRITE_ERRORF(TL("Could not open shape description '%'."), mySHPName);
         return;
     }
 
@@ -184,7 +184,7 @@ NIImporter_ArcView::load() {
         std::string from_node;
         std::string to_node;
         if (!getStringEntry(poFeature, "shapefile.street-id", "LINK_ID", true, id)) {
-            WRITE_ERROR("Needed field '" + id + "' (street-id) is missing.");
+            WRITE_ERRORF(TL("Needed field '%' (street-id) is missing."), id);
             id = "";
         }
         if (id == "") {
@@ -195,11 +195,11 @@ NIImporter_ArcView::load() {
         name = StringUtils::replace(name, "&", "&amp;");
 
         if (!getStringEntry(poFeature, "shapefile.from-id", "REF_IN_ID", true, from_node)) {
-            WRITE_ERROR("Needed field '" + from_node + "' (from node id) is missing.");
+            WRITE_ERRORF(TL("Needed field '%' (from node id) is missing."), from_node);
             from_node = "";
         }
         if (!getStringEntry(poFeature, "shapefile.to-id", "NREF_IN_ID", true, to_node)) {
-            WRITE_ERROR("Needed field '" + to_node + "' (to node id) is missing.");
+            WRITE_ERRORF(TL("Needed field '%' (to node id) is missing."), to_node);
             to_node = "";
         }
 
@@ -245,7 +245,7 @@ NIImporter_ArcView::load() {
         OGRwkbGeometryType gtype = poGeometry->getGeometryType();
         if (gtype != wkbLineString && gtype != wkbLineString25D) {
             OGRFeature::DestroyFeature(poFeature);
-            WRITE_ERROR("Road geometry must be of type 'linestring' or 'linestring25D' (found '" + toString(gtype) + "')");
+            WRITE_ERRORF(TL("Road geometry must be of type 'linestring' or 'linestring25D' (found '%')"), toString(gtype));
             return;
         }
         OGRLineString* cgeom = (OGRLineString*) poGeometry;
@@ -286,7 +286,7 @@ NIImporter_ArcView::load() {
             if (from == nullptr) {
                 from = new NBNode(from_node, from_pos);
                 if (!myNodeCont.insert(from)) {
-                    WRITE_ERROR("Node '" + from_node + "' could not be added");
+                    WRITE_ERRORF(TL("Node '%' could not be added"), from_node);
                     delete from;
                     continue;
                 }
@@ -300,7 +300,7 @@ NIImporter_ArcView::load() {
             if (to == nullptr) {
                 to = new NBNode(to_node, to_pos);
                 if (!myNodeCont.insert(to)) {
-                    WRITE_ERROR("Node '" + to_node + "' could not be added");
+                    WRITE_ERRORF(TL("Node '%' could not be added"), to_node);
                     delete to;
                     continue;
                 }
@@ -325,7 +325,7 @@ NIImporter_ArcView::load() {
         if (existing != nullptr || existingReverse != nullptr) {
             if ((existing != nullptr && existing->getGeometry() == shape)
                     || (existingReverse != nullptr && existingReverse->getGeometry() == shape.reverse())) {
-                WRITE_ERROR("Edge '" + (existing != nullptr ? id : existingReverse->getID()) + " is not unique.");
+                WRITE_ERRORF(TL("Edge '% is not unique."), (existing != nullptr ? id : existingReverse->getID()));
             } else {
                 if (idIndex.count(id) == 0) {
                     idIndex[id] = 0;
@@ -349,7 +349,7 @@ NIImporter_ArcView::load() {
                 checkSpread(edge);
                 addParams(edge, poFeature, params);
             } else {
-                WRITE_ERROR("Could not create edge '" + id + "'. An edge with the same id already exists.");
+                WRITE_ERRORF(TL("Could not create edge '%'. An edge with the same id already exists."), id);
             }
         }
         // add negative direction if wanted
@@ -362,7 +362,7 @@ NIImporter_ArcView::load() {
                 checkSpread(edge);
                 addParams(edge, poFeature, params);
             } else {
-                WRITE_ERROR("Could not create edge '-" + id + "'. An edge with the same id already exists.");
+                WRITE_ERRORF(TL("Could not create edge '-%'. An edge with the same id already exists."), id);
             }
         }
         //

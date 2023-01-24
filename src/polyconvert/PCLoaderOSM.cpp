@@ -101,7 +101,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) 
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         // nodes
         if (!FileHelpers::isReadable(*file)) {
-            WRITE_ERROR("Could not open osm-file '" + *file + "'.");
+            WRITE_ERRORF(TL("Could not open osm-file '%'."), *file);
             return;
         }
         const long before = PROGRESS_BEGIN_TIME_MESSAGE("Parsing nodes from osm-file '" + *file + "'");
@@ -251,7 +251,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) 
             continue;
         }
         if (e->myCurrentNodes.size() == 0) {
-            WRITE_ERROR("Polygon '" + toString(e->id) + "' has no shape.");
+            WRITE_ERRORF(TL("Polygon '%' has no shape."), toString(e->id));
             continue;
         }
         // compute shape

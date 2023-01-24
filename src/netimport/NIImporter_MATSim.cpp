@@ -139,12 +139,12 @@ NIImporter_MATSim::NodesHandler::myStartElement(int element, const SUMOSAXAttrib
     }
     Position pos(x, y);
     if (!NBNetBuilder::transformCoordinate(pos)) {
-        WRITE_ERROR("Unable to project coordinates for node '" + id + "'.");
+        WRITE_ERRORF(TL("Unable to project coordinates for node '%'."), id);
     }
     NBNode* node = new NBNode(id, pos);
     if (!myNodeCont.insert(node)) {
         delete node;
-        WRITE_ERROR("Could not add node '" + id + "'. Probably declared twice.");
+        WRITE_ERRORF(TL("Could not add node '%'. Probably declared twice."), id);
     }
 }
 
@@ -177,7 +177,7 @@ NIImporter_MATSim::EdgesHandler::insertEdge(const std::string& id, NBNode* fromN
     }
     if (!myEdgeCont.insert(edge)) {
         delete edge;
-        WRITE_ERROR("Could not add edge '" + id + "'. Probably declared twice.");
+        WRITE_ERRORF(TL("Could not add edge '%'. Probably declared twice."), id);
     }
 }
 
@@ -231,10 +231,10 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
     NBNode* fromNode = myNodeCont.retrieve(fromNodeID);
     NBNode* toNode = myNodeCont.retrieve(toNodeID);
     if (fromNode == nullptr) {
-        WRITE_ERROR("Could not find from-node for edge '" + id + "'.");
+        WRITE_ERRORF(TL("Could not find from-node for edge '%'."), id);
     }
     if (toNode == nullptr) {
-        WRITE_ERROR("Could not find to-node for edge '" + id + "'.");
+        WRITE_ERRORF(TL("Could not find to-node for edge '%'."), id);
     }
     if (fromNode == nullptr || toNode == nullptr) {
         return;
@@ -250,7 +250,7 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
             toNode = intermediate;
         } else {
             delete intermediate;
-            WRITE_ERROR("Could not add intermediate node to split loop edge '" + id + "'.");
+            WRITE_ERRORF(TL("Could not add intermediate node to split loop edge '%'."), id);
         }
     }
     insertEdge(id, fromNode, toNode, freeSpeed, (int)(permLanes + 0.5), capacity, length);

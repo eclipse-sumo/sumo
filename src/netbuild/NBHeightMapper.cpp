@@ -300,7 +300,7 @@ NBHeightMapper::loadTiff(const std::string& file) {
         boundary.add(topLeft);
         boundary.add(topLeft.x() + horizontalSize, topLeft.y() + verticalSize);
     } else {
-        WRITE_ERROR("Could not parse geo information from " + file + ".");
+        WRITE_ERRORF(TL("Could not parse geo information from %."), file);
         return 0;
     }
     const int picSize = xSize * ySize;
@@ -309,14 +309,14 @@ NBHeightMapper::loadTiff(const std::string& file) {
     for (int i = 1; i <= poDataset->GetRasterCount(); i++) {
         GDALRasterBand* poBand = poDataset->GetRasterBand(i);
         if (poBand->GetColorInterpretation() != GCI_GrayIndex) {
-            WRITE_ERROR("Unknown color band in " + file + ".");
+            WRITE_ERRORF(TL("Unknown color band in %."), file);
             clearData();
             ok = false;
             break;
         }
         assert(xSize == poBand->GetXSize() && ySize == poBand->GetYSize());
         if (poBand->RasterIO(GF_Read, 0, 0, xSize, ySize, raster, xSize, ySize, GDT_Int16, 0, 0) == CE_Failure) {
-            WRITE_ERROR("Failure in reading " + file + ".");
+            WRITE_ERRORF(TL("Failure in reading %."), file);
             clearData();
             ok = false;
             break;

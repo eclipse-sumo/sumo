@@ -45,7 +45,7 @@ ODAmitranHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             myBegin = attrs.get<int>(SUMO_ATTR_STARTTIME, myVehicleType.c_str(), ok);
             myEnd = myBegin + attrs.get<int>(SUMO_ATTR_DURATION, myVehicleType.c_str(), ok);
             if (myBegin >= myEnd) {
-                WRITE_ERROR("Invalid duration for timeSlice starting " + toString(myBegin) + ".");
+                WRITE_ERRORF(TL("Invalid duration for timeSlice starting %."), toString(myBegin));
             }
             break;
         case SUMO_TAG_OD_PAIR:

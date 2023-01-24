@@ -151,7 +151,7 @@ RONet::getRestrictions(const std::string& id) const {
 bool
 RONet::addEdge(ROEdge* edge) {
     if (!myEdges.add(edge->getID(), edge)) {
-        WRITE_ERROR("The edge '" + edge->getID() + "' occurs at least twice.");
+        WRITE_ERRORF(TL("The edge '%' occurs at least twice."), edge->getID());
         delete edge;
         return false;
     }
@@ -165,7 +165,7 @@ RONet::addEdge(ROEdge* edge) {
 bool
 RONet::addDistrict(const std::string id, ROEdge* source, ROEdge* sink) {
     if (myDistricts.count(id) > 0) {
-        WRITE_ERROR("The TAZ '" + id + "' occurs at least twice.");
+        WRITE_ERRORF(TL("The TAZ '%' occurs at least twice."), id);
         delete source;
         delete sink;
         return false;
@@ -188,7 +188,7 @@ RONet::addDistrict(const std::string id, ROEdge* source, ROEdge* sink) {
 bool
 RONet::addDistrictEdge(const std::string tazID, const std::string edgeID, const bool isSource) {
     if (myDistricts.count(tazID) == 0) {
-        WRITE_ERROR("The TAZ '" + tazID + "' is unknown.");
+        WRITE_ERRORF(TL("The TAZ '%' is unknown."), tazID);
         return false;
     }
     ROEdge* edge = getEdge(edgeID);
@@ -248,7 +248,7 @@ RONet::setBidiEdges(const std::map<ROEdge*, std::string>& bidiMap) {
     for (const auto& item : bidiMap) {
         ROEdge* bidi = myEdges.get(item.second);
         if (bidi == nullptr) {
-            WRITE_ERROR("The bidi edge '" + item.second + "' is not known.");
+            WRITE_ERRORF(TL("The bidi edge '%' is not known."), item.second);
         }
         item.first->setBidiEdge(bidi);
         myHasBidiEdges = true;
@@ -259,7 +259,7 @@ RONet::setBidiEdges(const std::map<ROEdge*, std::string>& bidiMap) {
 void
 RONet::addNode(RONode* node) {
     if (!myNodes.add(node->getID(), node)) {
-        WRITE_ERROR("The node '" + node->getID() + "' occurs at least twice.");
+        WRITE_ERRORF(TL("The node '%' occurs at least twice."), node->getID());
         delete node;
     }
 }
@@ -412,7 +412,7 @@ RONet::addVehicleType(SUMOVTypeParameter* type) {
     if (checkVType(type->id)) {
         myVehicleTypes.add(type->id, type);
     } else {
-        WRITE_ERROR("The vehicle type '" + type->id + "' occurs at least twice.");
+        WRITE_ERRORF(TL("The vehicle type '%' occurs at least twice."), type->id);
         delete type;
         return false;
     }
@@ -447,7 +447,7 @@ RONet::addVehicle(const std::string& id, ROVehicle* veh) {
         myRoutables[veh->getDepart()].push_back(veh);
         return true;
     }
-    WRITE_ERROR("Another vehicle with the id '" + id + "' exists.");
+    WRITE_ERRORF(TL("Another vehicle with the id '%' exists."), id);
     delete veh;
     return false;
 }
@@ -494,7 +494,7 @@ RONet::addPerson(ROPerson* person) {
         myRoutables[person->getDepart()].push_back(person);
         return true;
     }
-    WRITE_ERROR("Another person with the id '" + person->getID() + "' exists.");
+    WRITE_ERRORF(TL("Another person with the id '%' exists."), person->getID());
     return false;
 }
 

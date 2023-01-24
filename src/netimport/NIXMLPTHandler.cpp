@@ -170,7 +170,7 @@ NIXMLPTHandler::addPTStop(const SUMOSAXAttributes& attrs) {
         Position pos = edge->geometryPositionAtOffset((startPos + endPos) / 2);
         myCurrentStop = std::make_shared<NBPTStop>(id, pos, edgeID, edgeID, endPos - startPos, name, permissions, parkingLength, color, startPos);
         if (!myStopCont.insert(myCurrentStop)) {
-            WRITE_ERROR("Could not add public transport stop '" + id + "' (already exists)");
+            WRITE_ERRORF(TL("Could not add public transport stop '%' (already exists)"), id);
         }
     }
 }

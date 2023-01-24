@@ -203,7 +203,7 @@ GUILoadThread::run() {
 #endif
             if (oc.isSet("edgedata-files")) {
                 if (!oc.isUsableFileList("edgedata-files")) {
-                    WRITE_ERROR("Could not load edgedata-files '" + oc.getString("edgedata-files") + "'");
+                    WRITE_ERRORF(TL("Could not load edgedata-files '%'"), oc.getString("edgedata-files"));
                 } else {
                     for (const std::string& file : oc.getStringVector("edgedata-files")) {
                         net->loadEdgeData(file);

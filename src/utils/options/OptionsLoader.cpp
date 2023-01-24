@@ -74,7 +74,7 @@ void OptionsLoader::setValue(const std::string& key, const std::string& value) {
         // try to add value in option container
         try {
             if (!setSecure(myOptions, key, value)) {
-                WRITE_ERROR("Could not set option '" + key + "' (probably defined twice).");
+                WRITE_ERRORF(TL("Could not set option '%' (probably defined twice)."), key);
                 myError = true;
             }
         } catch (ProcessError& e) {

@@ -529,7 +529,7 @@ NLHandler::addLane(const SUMOSAXAttributes& attrs) {
     const bool isRampAccel = attrs.getOpt<bool>(SUMO_ATTR_ACCELERATION, id.c_str(), ok, false);
     const std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, "");
     if (shape.size() < 2) {
-        WRITE_ERROR("Shape of lane '" + id + "' is broken.\n Can not build according edge.");
+        WRITE_ERRORF(TL("Shape of lane '%' is broken.\n Can not build according edge."), id);
         myCurrentIsBroken = true;
         return;
     }
@@ -551,7 +551,7 @@ NLHandler::addLane(const SUMOSAXAttributes& attrs) {
             // insert the lane into the lane-dictionary, checking
             if (!MSLane::dictionary(id, lane)) {
                 delete lane;
-                WRITE_ERROR("Another lane with the id '" + id + "' exists.");
+                WRITE_ERRORF(TL("Another lane with the id '%' exists."), id);
                 myCurrentIsBroken = true;
                 myLastParameterised.push_back(nullptr);
             } else {
@@ -1408,13 +1408,13 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
 
         MSEdge* from = MSEdge::dictionaryHint(fromID, myPreviousEdgeIdx);
         if (from == nullptr) {
-            WRITE_ERROR("Unknown from-edge '" + fromID + "' in connection.");
+            WRITE_ERRORF(TL("Unknown from-edge '%' in connection."), fromID);
             return;
         }
         myPreviousEdgeIdx = from->getNumericalID();
         MSEdge* to = MSEdge::dictionary(toID);
         if (to == nullptr) {
-            WRITE_ERROR("Unknown to-edge '" + toID + "' in connection.");
+            WRITE_ERRORF(TL("Unknown to-edge '%' in connection."), toID);
             return;
         }
         if (fromLaneIdx < 0 || fromLaneIdx >= (int)from->getLanes().size() ||
@@ -1639,7 +1639,7 @@ NLHandler::addRoundabout(const SUMOSAXAttributes& attrs) {
         for (const std::string& eID : edgeIDs) {
             MSEdge* edge = MSEdge::dictionary(eID);
             if (edge == nullptr) {
-                WRITE_ERROR("Unknown edge '" + eID + "' in roundabout");
+                WRITE_ERRORF(TL("Unknown edge '%' in roundabout"), eID);
             } else {
                 edge->markAsRoundabout();
             }

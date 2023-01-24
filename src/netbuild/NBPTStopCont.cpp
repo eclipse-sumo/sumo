@@ -167,7 +167,7 @@ NBPTStopCont::generateBidiStops(NBEdgeCont& ec) {
         myPTStops[newStop->getID()] = newStop;
     }
     if (toAdd.size() > 0) {
-        WRITE_MESSAGE("Added " + toString(toAdd.size()) + " stops for superposed rail edges.");
+        WRITE_MESSAGEF(TL("Added % stops for superposed rail edges."), toString(toAdd.size()));
     }
     return (int)toAdd.size() + existingBidiStops;
 }

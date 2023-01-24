@@ -81,7 +81,7 @@ NLTriggerBuilder::buildVaporizer(const SUMOSAXAttributes& attrs) {
     }
     MSEdge* e = MSEdge::dictionary(id);
     if (e == nullptr) {
-        WRITE_ERROR("Unknown edge ('" + id + "') referenced in a vaporizer.");
+        WRITE_ERRORF(TL("Unknown edge ('%') referenced in a vaporizer."), id);
         return;
     }
     SUMOTime begin = attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, nullptr, ok);
@@ -90,11 +90,11 @@ NLTriggerBuilder::buildVaporizer(const SUMOSAXAttributes& attrs) {
         return;
     }
     if (begin < 0) {
-        WRITE_ERROR("A vaporization begin time is negative (edge id='" + id + "').");
+        WRITE_ERRORF(TL("A vaporization begin time is negative (edge id='%')."), id);
         return;
     }
     if (begin >= end) {
-        WRITE_ERROR("A vaporization ends before it starts (edge id='" + id + "').");
+        WRITE_ERRORF(TL("A vaporization ends before it starts (edge id='%')."), id);
         return;
     }
     if (end >= string2time(OptionsCont::getOptions().getString("begin"))) {
@@ -188,12 +188,12 @@ NLTriggerBuilder::parseAndBuildOverheadWireSegment(MSNet& net, const SUMOSAXAttr
         the overhead wire segment references a non-existent lane. */
     MSLane* const lane = getLane(attrs, "overheadWireSegment", id);
     if (lane == nullptr) {
-        WRITE_MESSAGE("The overheadWireSegment '" + id + "' was not created as it is attached to internal lane. It will be build automatically.");
+        WRITE_MESSAGEF(TL("The overheadWireSegment '%' was not created as it is attached to internal lane. It will be build automatically."), id);
         return;
     }
 
     if (lane->isInternal()) {
-        WRITE_MESSAGE("The overheadWireSegment '" + id + "' not built as it is attached to internal lane. It will be build automatically.");
+        WRITE_MESSAGEF(TL("The overheadWireSegment '%' not built as it is attached to internal lane. It will be build automatically."), id);
         return;
     }
 
@@ -205,7 +205,7 @@ NLTriggerBuilder::parseAndBuildOverheadWireSegment(MSNet& net, const SUMOSAXAttr
     if (!ok || myHandler->checkStopPos(frompos, topos, lane->getLength(), POSITION_EPS, friendlyPos) != SUMORouteHandler::StopPos::STOPPOS_VALID) {
         frompos = 0;
         topos = lane->getLength();
-        WRITE_MESSAGE("The overheadWireSegment '" + id + "' has wrong position. Automatically set from 0 to the length of the lane.");
+        WRITE_MESSAGEF(TL("The overheadWireSegment '%' has wrong position. Automatically set from 0 to the length of the lane."), id);
         //throw InvalidArgument("Invalid position for overheadWireSegment'" + id + "'.");
     }
 

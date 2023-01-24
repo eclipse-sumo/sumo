@@ -81,7 +81,7 @@ NLBuilder::EdgeFloatTimeLineRetriever_EdgeEffort::addEdgeWeight(const std::strin
     if (edge != nullptr) {
         myNet.getWeightsStorage().addEffort(edge, begTime, endTime, value);
     } else {
-        WRITE_ERROR("Trying to set the effort for the unknown edge '" + id + "'.");
+        WRITE_ERRORF(TL("Trying to set the effort for the unknown edge '%'."), id);
     }
 }
 
@@ -96,7 +96,7 @@ NLBuilder::EdgeFloatTimeLineRetriever_EdgeTravelTime::addEdgeWeight(const std::s
     if (edge != nullptr) {
         myNet.getWeightsStorage().addTravelTime(edge, begTime, endTime, value);
     } else {
-        WRITE_ERROR("Trying to set the travel time for the unknown edge '" + id + "'.");
+        WRITE_ERRORF(TL("Trying to set the travel time for the unknown edge '%'."), id);
     }
 }
 
@@ -240,7 +240,7 @@ NLBuilder::build() {
         std::vector<std::string> files = myOptions.getStringVector("weight-files");
         for (std::vector<std::string>::iterator i = files.begin(); i != files.end(); ++i) {
             // report about loading when wished
-            WRITE_MESSAGE("Loading weights from '" + *i + "'...");
+            WRITE_MESSAGEF(TL("Loading weights from '%'..."), *i);
             // parse the file
             if (!XMLSubSys::runParser(handler, *i)) {
                 return false;
@@ -411,7 +411,7 @@ NLBuilder::load(const std::string& mmlWhat, const bool isNet) {
     for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
         const long before = PROGRESS_BEGIN_TIME_MESSAGE("Loading " + mmlWhat + " from '" + *fileIt + "'");
         if (!XMLSubSys::runParser(myXMLHandler, *fileIt, isNet)) {
-            WRITE_MESSAGE("Loading of " + mmlWhat + " failed.");
+            WRITE_MESSAGEF(TL("Loading of % failed."), mmlWhat);
             return false;
         }
         PROGRESS_TIME_MESSAGE(before);

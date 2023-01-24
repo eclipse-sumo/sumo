@@ -217,7 +217,7 @@ RODUAFrame::checkOptions() {
         return false;
     }
     if (oc.getBool("bulk-routing") && (oc.getString("routing-algorithm") == "CH" || oc.getString("routing-algorithm") == "CHWrapper")) {
-        WRITE_ERROR("Routing algorithm '" + oc.getString("routing-algorithm") + "' does not support bulk routing.");
+        WRITE_ERRORF(TL("Routing algorithm '%' does not support bulk routing."), oc.getString("routing-algorithm"));
         return false;
     }
     if (oc.isDefault("routing-algorithm") && (oc.isSet("astar.all-distances") || oc.isSet("astar.landmark-distances") || oc.isSet("astar.save-landmark-distances"))) {
@@ -225,7 +225,7 @@ RODUAFrame::checkOptions() {
     }
 
     if (oc.getString("route-choice-method") != "gawron" && oc.getString("route-choice-method") != "logit") {
-        WRITE_ERROR("Invalid route choice method '" + oc.getString("route-choice-method") + "'.");
+        WRITE_ERRORF(TL("Invalid route choice method '%'."), oc.getString("route-choice-method"));
         return false;
     }
     if (oc.getBool("logit")) {

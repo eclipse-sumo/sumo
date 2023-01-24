@@ -143,7 +143,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
     NodesHandler nodesHandler(myOSMNodes, myUniqueNodes, oc);
     for (const std::string& file : files) {
         if (!FileHelpers::isReadable(file)) {
-            WRITE_ERROR("Could not open osm-file '" + file + "'.");
+            WRITE_ERRORF(TL("Could not open osm-file '%'."), file);
             return;
         }
         nodesHandler.setFileName(file);
@@ -155,7 +155,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
             return;
         }
         if (nodesHandler.getDuplicateNodes() > 0) {
-            WRITE_MESSAGE("Found and substituted " + toString(nodesHandler.getDuplicateNodes()) + " osm nodes.");
+            WRITE_MESSAGEF(TL("Found and substituted % osm nodes."), toString(nodesHandler.getDuplicateNodes()));
         }
         PROGRESS_TIME_MESSAGE(before);
     }
@@ -194,7 +194,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
             }
         }
         if (numRemoved > 0) {
-            WRITE_MESSAGE("Removed " + toString(numRemoved) + " duplicate osm edges.");
+            WRITE_MESSAGEF(TL("Removed % duplicate osm edges."), toString(numRemoved));
         }
         PROGRESS_DONE_MESSAGE();
     }
@@ -391,7 +391,7 @@ NIImporter_OpenStreetMap::insertNodeChecking(long long int id, NBNodeCont& nc, N
         }
         node = new NBNode(toString(id), pos);
         if (!nc.insert(node)) {
-            WRITE_ERROR("Could not insert junction '" + toString(id) + "'.");
+            WRITE_ERRORF(TL("Could not insert junction '%'."), toString(id));
             delete node;
             return nullptr;
         }

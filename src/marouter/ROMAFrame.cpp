@@ -236,11 +236,11 @@ bool
 ROMAFrame::checkOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
     if (oc.isSet("assignment-method") && oc.getString("assignment-method") != "incremental" && oc.getString("assignment-method") != "UE" && oc.getString("assignment-method") != "SUE") {
-        WRITE_ERROR("Invalid assignment method '" + oc.getString("assignment-method") + "'.");
+        WRITE_ERRORF(TL("Invalid assignment method '%'."), oc.getString("assignment-method"));
         return false;
     }
     if (oc.getString("route-choice-method") != "gawron" && oc.getString("route-choice-method") != "logit" && oc.getString("route-choice-method") != "lohse") {
-        WRITE_ERROR("Invalid route choice method '" + oc.getString("route-choice-method") + "'.");
+        WRITE_ERRORF(TL("Invalid route choice method '%'."), oc.getString("route-choice-method"));
         return false;
     }
     if (oc.getInt("paths") > 1 && (oc.getString("routing-algorithm") == "CH" || oc.getString("routing-algorithm") == "CHWrapper")) {

@@ -313,13 +313,13 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
                 }
             }
             if (myActiveRoute.size() > 0 && !myActiveRoute.back()->isConnectedTo(*myActiveRoute.front(), vClass)) {
-                WRITE_ERROR("Disconnected route " + rid + " when repeating.");
+                WRITE_ERRORF(TL("Disconnected route % when repeating."), rid);
             }
         }
     }
     myCurrentCosts = attrs.getOpt<double>(SUMO_ATTR_COST, myActiveRouteID.c_str(), ok, -1);
     if (ok && myCurrentCosts != -1 && myCurrentCosts < 0) {
-        WRITE_ERROR("Invalid cost for route '" + myActiveRouteID + "'.");
+        WRITE_ERRORF(TL("Invalid cost for route '%'."), myActiveRouteID);
     }
 }
 

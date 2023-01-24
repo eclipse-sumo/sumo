@@ -47,7 +47,7 @@ MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype) :
     } else if (trainType.compare("ICE3") == 0) {
         myTrainParams = initICE3Params();
     } else {
-        WRITE_ERROR("Unknown train type: " + trainType + ". Exiting!");
+        WRITE_ERRORF(TL("Unknown train type: %. Exiting!"), trainType);
         throw ProcessError();
     }
     // override with user values

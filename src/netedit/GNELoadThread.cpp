@@ -91,7 +91,7 @@ GNELoadThread::run() {
         if (confighandler.loadSUMOConfig()) {
             validInput = true;
         } else {
-            WRITE_ERROR("Loading of sumo config file '" + loadedFile + "' failed.");
+            WRITE_ERRORF(TL("Loading of sumo config file '%' failed."), loadedFile);
             submitEndAndCleanup(net, loadedFile);
             return 0;
         }
@@ -104,7 +104,7 @@ GNELoadThread::run() {
         if (confighandler.loadNETEDITConfig()) {
             validInput = true;
         } else {
-            WRITE_ERROR("Loading of netedit config file '" + loadedFile + "' failed.");
+            WRITE_ERRORF(TL("Loading of netedit config file '%' failed."), loadedFile);
             submitEndAndCleanup(net, loadedFile);
             return 0;
         }

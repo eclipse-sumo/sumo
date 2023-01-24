@@ -241,7 +241,7 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
             std::string name = curr->getID();
             bool ok = ec.splitAt(dc, curr, rn, curr->getID() + ADDED_ON_RAMP_EDGE, curr->getID(), curr->getNumLanes() + toAdd, curr->getNumLanes());
             if (!ok) {
-                WRITE_ERROR("Ups - could not build on-ramp for edge '" + curr->getID() + "'!");
+                WRITE_ERRORF(TL("Ups - could not build on-ramp for edge '%'!"), curr->getID());
                 return;
             }
             //ec.retrieve(name)->invalidateConnections();
@@ -348,7 +348,7 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
             std::string name = curr->getID();
             bool ok = ec.splitAt(dc, curr, rn, curr->getID(), curr->getID() + "-AddedOffRampEdge", curr->getNumLanes(), curr->getNumLanes() + toAdd);
             if (!ok) {
-                WRITE_ERROR("Ups - could not build off-ramp for edge '" + curr->getID() + "'!");
+                WRITE_ERRORF(TL("Ups - could not build off-ramp for edge '%'!"), curr->getID());
                 return;
             }
             curr = ec.retrieve(name + "-AddedOffRampEdge");

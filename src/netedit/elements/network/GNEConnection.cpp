@@ -676,7 +676,7 @@ GNEConnection::changeTLIndex(SumoXMLAttr key, int tlIndex, int tlIndex2, GNEUndo
                 undoList->add(new GNEChange_TLS(junction, newDef, true), true);
             }
         } else {
-            WRITE_ERROR("Could not set attribute '" + toString(key) + "' (tls is broken)");
+            WRITE_ERRORF(TL("Could not set attribute '%' (tls is broken)"), toString(key));
         }
     }
     undoList->end();

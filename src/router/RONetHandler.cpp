@@ -134,7 +134,7 @@ RONetHandler::myEndElement(int element) {
         case SUMO_TAG_NET:
             // build junction graph
             for (std::set<std::string>::const_iterator it = myUnseenNodeIDs.begin(); it != myUnseenNodeIDs.end(); ++it) {
-                WRITE_ERROR("Unknown node '" + *it + "'.");
+                WRITE_ERRORF(TL("Unknown node '%'."), *it);
             }
             break;
         default:
@@ -240,7 +240,7 @@ RONetHandler::parseLane(const SUMOSAXAttributes& attrs) {
         return;
     }
     if (shape.size() < 2) {
-        WRITE_ERROR("Ignoring lane '" + id + "' with broken shape.");
+        WRITE_ERRORF(TL("Ignoring lane '%' with broken shape."), id);
         return;
     }
     // get the length

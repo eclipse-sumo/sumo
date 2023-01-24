@@ -81,7 +81,7 @@ NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parse(std::istream& from)
     if (type == "extern") {
         return parseRestActuated(id, name, from, type);
     }
-    WRITE_ERROR("Unsupported LSA-Type '" + type + "' occurred.");
+    WRITE_ERRORF(TL("Unsupported LSA-Type '%' occurred."), type);
     return false;
 }
 

@@ -61,7 +61,7 @@ ROLoader::EdgeFloatTimeLineRetriever_EdgeTravelTime::addEdgeWeight(const std::st
             if (OptionsCont::getOptions().getBool("ignore-errors")) {
                 WRITE_WARNINGF(TL("Trying to set a weight for the unknown edge '%'."), id);
             } else {
-                WRITE_ERROR("Trying to set a weight for the unknown edge '" + id + "'.");
+                WRITE_ERRORF(TL("Trying to set a weight for the unknown edge '%'."), id);
             }
         }
     }
@@ -82,7 +82,7 @@ ROLoader::EdgeFloatTimeLineRetriever_EdgeWeight::addEdgeWeight(const std::string
             if (OptionsCont::getOptions().getBool("ignore-errors")) {
                 WRITE_WARNINGF(TL("Trying to set a weight for the unknown edge '%'."), id);
             } else {
-                WRITE_ERROR("Trying to set a weight for the unknown edge '" + id + "'.");
+                WRITE_ERRORF(TL("Trying to set a weight for the unknown edge '%'."), id);
             }
         }
     }
@@ -232,7 +232,7 @@ ROLoader::openTypedRoutes(const std::string& optionName,
             RORouteHandler* handler = new RORouteHandler(net, fileIt, myOptions.getBool("repair"), myEmptyDestinationsAllowed, myOptions.getBool("ignore-errors"), !readAll);
             if (readAll) {
                 if (!XMLSubSys::runParser(*handler, fileIt)) {
-                    WRITE_ERROR("Loading of " + fileIt + " failed.");
+                    WRITE_ERRORF(TL("Loading of % failed."), fileIt);
                     return false;
                 }
                 delete handler;

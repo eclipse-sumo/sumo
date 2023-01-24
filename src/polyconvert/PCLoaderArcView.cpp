@@ -104,7 +104,7 @@ PCLoaderArcView::toShape(OGRLineString* geom, const std::string& tid) {
         Position pos(p.getX(), p.getY());
 #endif
         if (!geoConvHelper.x2cartesian(pos)) {
-            WRITE_ERROR("Unable to project coordinates for polygon '" + tid + "'.");
+            WRITE_ERRORF(TL("Unable to project coordinates for polygon '%'."), tid);
         }
         shape.push_back_noDoublePos(pos);
     }
@@ -229,7 +229,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                 OGRPoint* cgeom = (OGRPoint*) poGeometry;
                 Position pos(cgeom->getX(), cgeom->getY());
                 if (!geoConvHelper.x2cartesian(pos)) {
-                    WRITE_ERROR("Unable to project coordinates for POI '" + id + "'.");
+                    WRITE_ERRORF(TL("Unable to project coordinates for POI '%'."), id);
                 }
                 PointOfInterest* poi = new PointOfInterest(id, type, color, pos, false, "", 0, false, 0, layer, angle, imgFile);
                 if (toFill.add(poi)) {
@@ -262,7 +262,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
                     Position pos(cgeom2->getX(), cgeom2->getY());
                     const std::string tid = id + "#" + toString(i);
                     if (!geoConvHelper.x2cartesian(pos)) {
-                        WRITE_ERROR("Unable to project coordinates for POI '" + tid + "'.");
+                        WRITE_ERRORF(TL("Unable to project coordinates for POI '%'."), tid);
                     }
                     PointOfInterest* poi = new PointOfInterest(tid, type, color, pos, false, "", 0, false, 0, layer, angle, imgFile);
                     if (toFill.add(poi)) {

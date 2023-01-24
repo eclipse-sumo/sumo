@@ -704,7 +704,7 @@ NBFrame::checkOptions() {
     bool ok = true;
     //
     if (!SUMOXMLDefinitions::TrafficLightTypes.hasString(oc.getString("tls.default-type"))) {
-        WRITE_ERROR("unsupported value '" + oc.getString("tls.default-type") + "' for option '--tls.default-type'");
+        WRITE_ERRORF(TL("unsupported value '%' for option '--tls.default-type'"), oc.getString("tls.default-type"));
         ok = false;
     }
     if (oc.isSet("keep-edges.in-boundary") && oc.isSet("keep-edges.in-geo-boundary")) {
@@ -761,7 +761,7 @@ NBFrame::checkOptions() {
     }
     if (!oc.isDefault("default.right-of-way") &&
             !SUMOXMLDefinitions::RightOfWayValues.hasString(oc.getString("default.right-of-way"))) {
-        WRITE_ERROR("default.right-of-way must be one of '" + toString(SUMOXMLDefinitions::RightOfWayValues.getStrings()) + "'");
+        WRITE_ERRORF(TL("default.right-of-way must be one of '%'"), toString(SUMOXMLDefinitions::RightOfWayValues.getStrings()));
         ok = false;
     }
     if (oc.getFloat("roundabouts.visibility-distance") < 0 && oc.getFloat("roundabouts.visibility-distance") != NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE) {
@@ -781,7 +781,7 @@ NBFrame::checkOptions() {
         oc.setDefault("railway.topology.repair.stop-turn", "true");
     }
     if (!SUMOXMLDefinitions::LaneSpreadFunctions.hasString(oc.getString("default.spreadtype"))) {
-        WRITE_ERROR("Unknown value for default.spreadtype '" + oc.getString("default.spreadtype") + "'.");
+        WRITE_ERRORF(TL("Unknown value for default.spreadtype '%'."), oc.getString("default.spreadtype"));
         ok = false;
     }
     return ok;

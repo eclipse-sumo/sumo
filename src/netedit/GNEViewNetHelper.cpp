@@ -1849,7 +1849,7 @@ GNEViewNetHelper::TestingMode::initTestingMode() {
             myTestingWidth = GNEAttributeCarrier::parse<int>(windowSize[0]);
             myTestingHeight = GNEAttributeCarrier::parse<int>(windowSize[1]);
         } else {
-            WRITE_ERROR("Invalid windows size-format: " + toString(windowSize) + "for option 'window-size'");
+            WRITE_ERRORF(TL("Invalid windows size-format: %for option 'window-size'"), toString(windowSize));
         }
     }
 }

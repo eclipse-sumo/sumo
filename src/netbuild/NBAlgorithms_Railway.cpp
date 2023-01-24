@@ -170,7 +170,7 @@ NBRailwayTopologyAnalyzer::makeAllBidi(NBEdgeCont& ec) {
             }
         }
     }
-    WRITE_MESSAGE("Added " + toString(numAddedBidiEdges) + " bidi-edges to ensure that all tracks are usable in both directions.");
+    WRITE_MESSAGEF(TL("Added % bidi-edges to ensure that all tracks are usable in both directions."), toString(numAddedBidiEdges));
     if (numNotCenterEdges) {
         WRITE_WARNINGF(TL("Ignore % edges because they have the wrong spreadType"), toString(numNotCenterEdges));
     }
@@ -367,7 +367,7 @@ NBRailwayTopologyAnalyzer::getBrokenRailNodes(NBEdgeCont& ec, bool verbose) {
                       + " C=" + toString(numBrokenC)
                       + " D=" + toString(numBrokenD)
                       + ")");
-        WRITE_MESSAGE("Found " + toString(numBufferStops) + " railway nodes marked as buffer_stop");
+        WRITE_MESSAGEF(TL("Found % railway nodes marked as buffer_stop"), toString(numBufferStops));
     }
 
     for (NBEdge* e : bidiEdges) {
@@ -377,7 +377,7 @@ NBRailwayTopologyAnalyzer::getBrokenRailNodes(NBEdgeCont& ec, bool verbose) {
         device.closeTag();
     }
     if (verbose) {
-        WRITE_MESSAGE("Found " + toString(bidiEdges.size()) + " bidirectional rail edges");
+        WRITE_MESSAGEF(TL("Found % bidirectional rail edges"), toString(bidiEdges.size()));
     }
 
     device.close();
@@ -520,7 +520,7 @@ NBRailwayTopologyAnalyzer::extendBidiEdges(NBEdgeCont& ec) {
         }
     }
     if (added > 0) {
-        WRITE_MESSAGE("Added " + toString(added) + " bidi-edges as extension of existing bidi edges.");
+        WRITE_MESSAGEF(TL("Added % bidi-edges as extension of existing bidi edges."), toString(added));
     }
     return added;
 }
@@ -636,7 +636,7 @@ NBRailwayTopologyAnalyzer::reverseEdges(NBEdgeCont& ec, NBPTStopCont& sc) {
     }
     // sort by sequence length
     if (seqsToReverse.size() > 0) {
-        WRITE_MESSAGE("Found " + toString(seqsToReverse.size()) + " reversible edge sequences between broken rail nodes");
+        WRITE_MESSAGEF(TL("Found % reversible edge sequences between broken rail nodes"), toString(seqsToReverse.size()));
     }
     std::sort(seqsToReverse.begin(), seqsToReverse.end(),
     [](const EdgeVector & a, const EdgeVector & b) {
@@ -1144,9 +1144,9 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStraightConnectivity(NBEdgeCont& ec, b
     }
     if (added > 0) {
         if (geometryLike) {
-            WRITE_MESSAGE("Added " + toString(added) + " bidi-edges to ensure connectivity of straight tracks at geometry-like nodes.");
+            WRITE_MESSAGEF(TL("Added % bidi-edges to ensure connectivity of straight tracks at geometry-like nodes."), toString(added));
         } else {
-            WRITE_MESSAGE("Added " + toString(added) + " bidi-edges to ensure connectivity of straight tracks at switches.");
+            WRITE_MESSAGEF(TL("Added % bidi-edges to ensure connectivity of straight tracks at switches."), toString(added));
         }
     }
     return added;

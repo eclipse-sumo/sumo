@@ -191,7 +191,7 @@ void MSSwarmTrafficLightLogic::init(NLDetectorBuilder& nb) {
     //Initializing thresholds for theta evaluations
     lastThetaSensitivityUpdate = MSNet::getInstance()->getCurrentTimeStep();
 
-    WRITE_MESSAGE("*** Intersection " + getID() + " will run using MSSwarmTrafficLightLogic ***");
+    WRITE_MESSAGEF(TL("*** Intersection % will run using MSSwarmTrafficLightLogic ***"), getID());
     std::string logFileName = getParameter("SWARMLOG", "");
     logData = logFileName.compare("") != 0;
     if (logData) {
@@ -244,7 +244,7 @@ int MSSwarmTrafficLightLogic::decideNextPhase() {
     if (myCurrentPolicy->getName().compare("Congestion") == 0 && getCurrentPhaseDef().isCommit()) {
         congestion_steps += 1;	//STEPS2TIME(getCurrentPhaseDef().duration);
 #ifdef SWARM_DEBUG
-        WRITE_MESSAGE("\n" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic decideNextPhase()");
+        WRITE_MESSAGEF(TL("\n% MSSwarmTrafficLightLogic decideNextPhase()"), time2string(MSNet::getInstance()->getCurrentTimeStep()));
 std:
         ostringstream dnp;
         dnp << (MSNet::getInstance()->getCurrentTimeStep()) << " MSSwarmTrafficLightLogic::decideNextPhase:: " << "tlsid=" << getID() << " congestion_steps=" << congestion_steps;
@@ -258,7 +258,7 @@ std:
                 skipEta = true;
             }
 #ifdef SWARM_DEBUG
-            WRITE_MESSAGE("\n" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " MSSwarmTrafficLightLogic decideNextPhase()");
+            WRITE_MESSAGEF(TL("\n% MSSwarmTrafficLightLogic decideNextPhase()"), time2string(MSNet::getInstance()->getCurrentTimeStep()));
             std::ostringstream dnp;
             dnp << (MSNet::getInstance()->getCurrentTimeStep()) << " MSSwarmTrafficLightLogic::decideNextPhase:: " << "tlsid=" << getID() << " max congestion reached, congestion_steps=" << congestion_steps;
             WRITE_MESSAGE(dnp.str());

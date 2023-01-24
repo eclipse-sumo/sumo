@@ -175,7 +175,7 @@ AGActivityGenHandler::parseStreets(const SUMOSAXAttributes& attrs) {
         std::string eid = attrs.getString(SUMO_ATTR_EDGE);
         AGStreet* street = dynamic_cast<AGStreet*>(net->getEdge(eid));
         if (street == nullptr) {
-            WRITE_ERROR("Edge '" + eid + "' is not known.");
+            WRITE_ERRORF(TL("Edge '%' is not known."), eid);
             return;
         }
         street->setPopulation(pop * street->getLength());

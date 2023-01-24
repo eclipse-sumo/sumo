@@ -50,7 +50,7 @@ Element::Element(std::string name, ElementType type, double value) {
             this->resistance = value;
             break;
         default:
-            WRITE_ERROR("Undefined element type for '" + name + "'.");
+            WRITE_ERRORF(TL("Undefined element type for '%'."), name);
             break;
     }
     this->pNode = nullptr;

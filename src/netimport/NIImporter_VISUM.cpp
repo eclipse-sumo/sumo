@@ -244,7 +244,7 @@ NIImporter_VISUM::load() {
                     myCurrentID = "<unknown>";
                     (this->*(*i).function)();
                 } catch (OutOfBoundsException&) {
-                    WRITE_ERROR("Too short value line in " + (*i).name + " occurred.");
+                    WRITE_ERRORF(TL("Too short value line in % occurred."), (*i).name);
                 } catch (NumberFormatException&) {
                     WRITE_ERROR("A value in " + (*i).name + " should be numeric but is not (id='" + myCurrentID + "').");
                 } catch (UnknownElement& e) {
@@ -318,12 +318,12 @@ NIImporter_VISUM::parse_Nodes() {
     double y = getNamedFloat(KEYS.getString(VISUM_YCOORD));
     Position pos(x, y);
     if (!NBNetBuilder::transformCoordinate(pos)) {
-        WRITE_ERROR("Unable to project coordinates for node " + myCurrentID + ".");
+        WRITE_ERRORF(TL("Unable to project coordinates for node %."), myCurrentID);
         return;
     }
     // add to the list
     if (!myNetBuilder.getNodeCont().insert(myCurrentID, pos)) {
-        WRITE_ERROR("Duplicate node occurred ('" + myCurrentID + "').");
+        WRITE_ERRORF(TL("Duplicate node occurred ('%')."), myCurrentID);
     }
 }
 
@@ -341,13 +341,13 @@ NIImporter_VISUM::parse_Districts() {
     double y = getNamedFloat(KEYS.getString(VISUM_YCOORD));
     Position pos(x, y);
     if (!NBNetBuilder::transformCoordinate(pos, false)) {
-        WRITE_ERROR("Unable to project coordinates for district " + myCurrentID + ".");
+        WRITE_ERRORF(TL("Unable to project coordinates for district %."), myCurrentID);
         return;
     }
     // build the district
     NBDistrict* district = new NBDistrict(myCurrentID, pos);
     if (!myNetBuilder.getDistrictCont().insert(district)) {
-        WRITE_ERROR("Duplicate district occurred ('" + myCurrentID + "').");
+        WRITE_ERRORF(TL("Duplicate district occurred ('%')."), myCurrentID);
         delete district;
         return;
     }
@@ -365,7 +365,7 @@ NIImporter_VISUM::parse_Point() {
     double y = StringUtils::toDouble(myLineParser.get(KEYS.getString(VISUM_YCOORD)));
     Position pos(x, y);
     if (!NBNetBuilder::transformCoordinate(pos, false)) {
-        WRITE_ERROR("Unable to project coordinates for point " + toString(id) + ".");
+        WRITE_ERRORF(TL("Unable to project coordinates for point %."), toString(id));
         return;
     }
     myPoints[id] = pos;
@@ -455,7 +455,7 @@ NIImporter_VISUM::parse_Edges() {
         e->setPermissions(permissions);
         if (!myNetBuilder.getEdgeCont().insert(e)) {
             delete e;
-            WRITE_ERROR("Duplicate edge occurred ('" + myCurrentID + "').");
+            WRITE_ERRORF(TL("Duplicate edge occurred ('%')."), myCurrentID);
         }
     }
     myTouchedEdges.push_back(myCurrentID);
@@ -472,7 +472,7 @@ NIImporter_VISUM::parse_Edges() {
         e->setPermissions(permissions);
         if (!myNetBuilder.getEdgeCont().insert(e)) {
             delete e;
-            WRITE_ERROR("Duplicate edge occurred ('" + myCurrentID + "').");
+            WRITE_ERRORF(TL("Duplicate edge occurred ('%')."), myCurrentID);
         }
     }
     myTouchedEdges.push_back(myCurrentID);
@@ -581,7 +581,7 @@ NIImporter_VISUM::parse_Connectors_legacy() {
         } else {
             NBNode* src = buildDistrictNode(bez, dest, true);
             if (src == nullptr) {
-                WRITE_ERROR("The district '" + bez + "' could not be built.");
+                WRITE_ERRORF(TL("The district '%' could not be built."), bez);
                 return;
             }
             NBEdge* edge = new NBEdge(id, src, dest, "VisumConnector",
@@ -591,7 +591,7 @@ NIImporter_VISUM::parse_Connectors_legacy() {
                                       LaneSpreadFunction::RIGHT, "");
             edge->setAsMacroscopicConnector();
             if (!myNetBuilder.getEdgeCont().insert(edge)) {
-                WRITE_ERROR("A duplicate edge id occurred (ID='" + id + "').");
+                WRITE_ERRORF(TL("A duplicate edge id occurred (ID='%')."), id);
                 return;
             }
             edge = myNetBuilder.getEdgeCont().retrieve(id);
@@ -615,7 +615,7 @@ NIImporter_VISUM::parse_Connectors_legacy() {
         } else {
             NBNode* src = buildDistrictNode(bez, dest, false);
             if (src == nullptr) {
-                WRITE_ERROR("The district '" + bez + "' could not be built.");
+                WRITE_ERRORF(TL("The district '%' could not be built."), bez);
                 return;
             }
             id = "-" + id;
@@ -626,7 +626,7 @@ NIImporter_VISUM::parse_Connectors_legacy() {
                                       LaneSpreadFunction::RIGHT, "");
             edge->setAsMacroscopicConnector();
             if (!myNetBuilder.getEdgeCont().insert(edge)) {
-                WRITE_ERROR("A duplicate edge id occurred (ID='" + id + "').");
+                WRITE_ERRORF(TL("A duplicate edge id occurred (ID='%')."), id);
                 return;
             }
             edge = myNetBuilder.getEdgeCont().retrieve(id);
@@ -700,7 +700,7 @@ NIImporter_VISUM::parse_EdgePolys() {
     }
     Position pos(x, y);
     if (!NBNetBuilder::transformCoordinate(pos)) {
-        WRITE_ERROR("Unable to project coordinates for node '" + from->getID() + "'.");
+        WRITE_ERRORF(TL("Unable to project coordinates for node '%'."), from->getID());
         return;
     }
     NBEdge* e = from->getConnectionTo(to);
@@ -914,7 +914,7 @@ NIImporter_VISUM::parse_SignalGroups() {
     const SUMOTime yellowTime = myLineParser.know("GELB") ? TIME2STEPS(getNamedFloat("GELB")) : -1;
     // add to the list
     if (myTLS.find(LSAid) == myTLS.end()) {
-        WRITE_ERROR("Could not find TLS '" + LSAid + "' for setting the signal group.");
+        WRITE_ERRORF(TL("Could not find TLS '%' for setting the signal group."), LSAid);
         return;
     }
     myTLS.find(LSAid)->second->addSignalGroup(myCurrentID, startTime, endTime, yellowTime);
@@ -994,7 +994,7 @@ NIImporter_VISUM::parse_AreaSubPartElement() {
 //     try {
 //         index = StringUtils::toInt(indexS) - 1;
 //     } catch (NumberFormatException&) {
-//         WRITE_ERROR("An index for a TEILFLAECHENELEMENT is not numeric (id='" + toString(id) + "').");
+//         WRITE_ERRORF(TL("An index for a TEILFLAECHENELEMENT is not numeric (id='%')."), toString(id));
 //         return;
 //     }
     PositionVector shape;
@@ -1004,7 +1004,7 @@ NIImporter_VISUM::parse_AreaSubPartElement() {
         shape = shape.reverse();
     }
     if (mySubPartsAreas.find(id) == mySubPartsAreas.end()) {
-        WRITE_ERROR("Unknown are for area part '" + myCurrentID + "'.");
+        WRITE_ERRORF(TL("Unknown are for area part '%'."), myCurrentID);
         return;
     }
 
@@ -1268,7 +1268,7 @@ NIImporter_VISUM::getNamedNode(const std::string& fieldName) {
     std::string nodeS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
     NBNode* node = myNetBuilder.getNodeCont().retrieve(nodeS);
     if (node == nullptr) {
-        WRITE_ERROR("The node '" + nodeS + "' is not known.");
+        WRITE_ERRORF(TL("The node '%' is not known."), nodeS);
     }
     return node;
 }
@@ -1299,7 +1299,7 @@ NIImporter_VISUM::getNamedEdge(const std::string& fieldName) {
     std::string edgeS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
     NBEdge* edge = myNetBuilder.getEdgeCont().retrieve(edgeS);
     if (edge == nullptr) {
-        WRITE_ERROR("The edge '" + edgeS + "' is not known.");
+        WRITE_ERRORF(TL("The edge '%' is not known."), edgeS);
     }
     return edge;
 }
@@ -1397,7 +1397,7 @@ NIImporter_VISUM::getNamedEdgeContinuating(const std::string& fieldName, NBNode*
     std::string edgeS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
     NBEdge* edge = myNetBuilder.getEdgeCont().retrieve(edgeS);
     if (edge == nullptr) {
-        WRITE_ERROR("The edge '" + edgeS + "' is not known.");
+        WRITE_ERRORF(TL("The edge '%' is not known."), edgeS);
     }
     return getNamedEdgeContinuating(edge, node);
 }
@@ -1505,7 +1505,7 @@ NIImporter_VISUM::buildDistrictNode(const std::string& id, NBNode* dest,
     }
     // insert the node
     if (!myNetBuilder.getNodeCont().insert(nid, dist->getPosition())) {
-        WRITE_ERROR("Could not build connector node '" + nid + "'.");
+        WRITE_ERRORF(TL("Could not build connector node '%'."), nid);
     }
     // return the node
     return myNetBuilder.getNodeCont().retrieve(nid);

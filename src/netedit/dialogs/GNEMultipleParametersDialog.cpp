@@ -311,10 +311,10 @@ GNEMultipleParametersDialog::ParametersOperations::onCmdLoadParameters(FXObject*
         // Create additional handler and run parser
         GNEParameterHandler handler(this, file);
         if (!XMLSubSys::runParser(handler, file, false)) {
-            WRITE_MESSAGE("Loading of Parameters From " + file + " failed.");
+            WRITE_MESSAGEF(TL("Loading of Parameters From % failed."), file);
         }
         // show loaded attributes
-        WRITE_MESSAGE("Loaded " + toString((int)myParameterDialogParent->myParametersValues->getParameterRows().size() - numberOfParametersbeforeLoad) + " Parameters.");
+        WRITE_MESSAGEF(TL("Loaded % Parameters."), toString((int)myParameterDialogParent->myParametersValues->getParameterRows().size() - numberOfParametersbeforeLoad));
     }
     return 1;
 }

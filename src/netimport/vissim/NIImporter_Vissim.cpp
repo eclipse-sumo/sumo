@@ -884,7 +884,7 @@ NIImporter_Vissim::load(const OptionsCont& options) {
     // try to open the file
     std::ifstream strm(file.c_str());
     if (!strm.good()) {
-        WRITE_ERROR("Could not open vissim-file '" + file + "'.");
+        WRITE_ERRORF(TL("Could not open vissim-file '%'."), file);
         return;
     }
     std::string token;

@@ -94,11 +94,11 @@ ODMatrix::add(double vehicleNumber, const std::pair<SUMOTime, SUMOTime>& beginEn
         return false;
     }
     if (!originIsEdge && myDistricts.get(origin)->sourceNumber() == 0) {
-        WRITE_ERROR("District '" + origin + "' has no source.");
+        WRITE_ERRORF(TL("District '%' has no source."), origin);
         myNumDiscarded += vehicleNumber;
         return false;
     } else if (!destinationIsEdge && myDistricts.get(destination)->sinkNumber() == 0) {
-        WRITE_ERROR("District '" + destination + "' has no sink.");
+        WRITE_ERRORF(TL("District '%' has no sink."), destination);
         myNumDiscarded += vehicleNumber;
         return false;
     }

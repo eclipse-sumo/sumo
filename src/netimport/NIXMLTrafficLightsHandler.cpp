@@ -111,7 +111,7 @@ NIXMLTrafficLightsHandler::myEndElement(int element) {
 NBLoadedSUMOTLDef*
 NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs, NBLoadedSUMOTLDef* currentTL) {
     if (currentTL) {
-        WRITE_ERROR("Definition of tlLogic '" + currentTL->getID() + "' was not finished.");
+        WRITE_ERRORF(TL("Definition of tlLogic '%' was not finished."), currentTL->getID());
         return nullptr;
     }
     bool ok = true;
@@ -269,7 +269,7 @@ NIXMLTrafficLightsHandler::addTlConnection(const SUMOSAXAttributes& attrs) {
     } else {
         SumoXMLNodeType type = from->getToNode()->getType();
         if (type != SumoXMLNodeType::RAIL_CROSSING && type != SumoXMLNodeType::RAIL_SIGNAL) {
-            WRITE_ERROR("The traffic light '" + tlID + "' is not known.");
+            WRITE_ERRORF(TL("The traffic light '%' is not known."), tlID);
         }
     }
 }
@@ -315,7 +315,7 @@ NIXMLTrafficLightsHandler::retrieveEdge(
     std::string edgeID = attrs.get<std::string>(attr, nullptr, ok);
     NBEdge* edge = myEdgeCont.retrieve(edgeID, true);
     if (edge == nullptr) {
-        WRITE_ERROR("Unknown edge '" + edgeID + "' given in connection.");
+        WRITE_ERRORF(TL("Unknown edge '%' given in connection."), edgeID);
         ok = false;
     }
     return edge;

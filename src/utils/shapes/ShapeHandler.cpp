@@ -167,10 +167,10 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
             } else {
                 // try computing x,y from lon,lat
                 if ((lat == INVALID_POSITION) || (lon == INVALID_POSITION)) {
-                    WRITE_ERROR("Either (x, y), (lon, lat) or (lane, pos) must be specified for PoI '" + id + "'.");
+                    WRITE_ERRORF(TL("Either (x, y), (lon, lat) or (lane, pos) must be specified for PoI '%'."), id);
                     return;
                 } else if (!gch->usingGeoProjection()) {
-                    WRITE_ERROR("(lon, lat) is specified for PoI '" + id + "' but no geo-conversion is specified for the network.");
+                    WRITE_ERRORF(TL("(lon, lat) is specified for PoI '%' but no geo-conversion is specified for the network."), id);
                     return;
                 }
                 pos.set(lon, lat);
@@ -182,13 +182,13 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
                     success = gch->x2cartesian_const(pos);
                 }
                 if (!success) {
-                    WRITE_ERROR("Unable to project coordinates for PoI '" + id + "'.");
+                    WRITE_ERRORF(TL("Unable to project coordinates for PoI '%'."), id);
                     return;
                 }
             }
         }
         if (!myShapeContainer.addPOI(id, type, color, pos, useGeo, laneID, lanePos, friendlyPos, lanePosLat, layer, angle, imgFile, relativePath, width, height, ignorePruning)) {
-            WRITE_ERROR("PoI '" + id + "' already exists.");
+            WRITE_ERRORF(TL("PoI '%' already exists."), id);
         }
         myLastParameterised = myShapeContainer.getPOIs().get(id);
         if ((laneID != "") && addLanePosParams()) {
@@ -259,7 +259,7 @@ ShapeHandler::addPoly(const SUMOSAXAttributes& attrs, const bool ignorePruning, 
         }
         // create polygon, or show an error if polygon already exists
         if (!myShapeContainer.addPolygon(id, type, color, layer, angle, imgFile, relativePath, shape, geo, fill, lineWidth, ignorePruning)) {
-            WRITE_ERROR("Polygon '" + id + "' already exists.");
+            WRITE_ERRORF(TL("Polygon '%' already exists."), id);
         }
         myLastParameterised = myShapeContainer.getPolygons().get(id);
     }
@@ -276,7 +276,7 @@ bool
 ShapeHandler::loadFiles(const std::vector<std::string>& files, ShapeHandler& sh) {
     for (const auto& fileIt : files) {
         if (!XMLSubSys::runParser(sh, fileIt, false)) {
-            WRITE_MESSAGE("Loading of shapes from " + fileIt + " failed.");
+            WRITE_MESSAGEF(TL("Loading of shapes from % failed."), fileIt);
             return false;
         }
     }

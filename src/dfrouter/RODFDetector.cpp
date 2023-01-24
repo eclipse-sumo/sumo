@@ -168,7 +168,7 @@ RODFDetector::buildDestinationDistribution(const RODFDetectorCon& detectors,
         std::map<SUMOTime, RandomDistributor<int>* >& into) const {
     if (myRoutes == nullptr) {
         if (myType != DISCARDED_DETECTOR && myType != BETWEEN_DETECTOR) {
-            WRITE_ERROR("Missing routes for detector '" + myID + "'.");
+            WRITE_ERRORF(TL("Missing routes for detector '%'."), myID);
         }
         return;
     }
@@ -302,7 +302,7 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
         }
         out.closeTag(); // routeDistribution
     } else {
-        WRITE_ERROR("Detector '" + getID() + "' has no routes!?");
+        WRITE_ERRORF(TL("Detector '%' has no routes!?"), getID());
         return false;
     }
     // insertions

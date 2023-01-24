@@ -120,7 +120,7 @@ MSDevice_FCD::buildShapeFilter(void) {
         if (loadedShapes.getPolygons().size() > 0) {
             for (std::string attrName : oc.getStringVector("fcd-output.filter-shapes")) {
                 if (loadedShapes.getPolygons().get(attrName) == 0) {
-                    WRITE_ERROR("Specified shape '" + attrName + "' for filtering fcd-output could not be found.");
+                    WRITE_ERRORF(TL("Specified shape '%' for filtering fcd-output could not be found."), attrName);
                 } else {
                     // store the PositionVector, not reference, as traci can manipulate / detete the polygons
                     myShape4Filters.push_back(loadedShapes.getPolygons().get(attrName)->getShape());
@@ -164,7 +164,7 @@ MSDevice_FCD::initOnce() {
                 if (attrName == "all") {
                     myWrittenAttributes = ~0;
                 } else {
-                    WRITE_ERROR("Unknown attribute '" + attrName + "' to write in fcd output.");
+                    WRITE_ERRORF(TL("Unknown attribute '%' to write in fcd output."), attrName);
                 }
                 continue;
             }

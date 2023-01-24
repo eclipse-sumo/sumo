@@ -435,9 +435,9 @@ GUIOSGView::onPaint(FXObject*, FXSelector, void*) {
                     tlNode->setName("tlLogic:" + tlLogic);
                     myRoot->addChild(tlNode);
                 } catch (NumberFormatException&) {
-                    WRITE_ERROR("Invalid link index in '" + d.filename + "'.");
+                    WRITE_ERRORF(TL("Invalid link index in '%'."), d.filename);
                 } catch (InvalidArgument&) {
-                    WRITE_ERROR("Unknown traffic light in '" + d.filename + "'.");
+                    WRITE_ERRORF(TL("Unknown traffic light in '%'."), d.filename);
                 }
             } else {
                 GUIOSGBuilder::buildDecal(d, *myRoot);

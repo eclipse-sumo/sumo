@@ -955,7 +955,7 @@ GUIApplicationWindow::onCmdNeteditNetwork(FXObject*, FXSelector, void*) {
     // see "help start" for the parameters
     cmd = "start /B \"\" " + cmd;
 #endif
-    WRITE_MESSAGE("Running " + cmd + ".");
+    WRITE_MESSAGEF(TL("Running %."), cmd);
     // yay! fun with dangerous commands... Never use this over the internet
     SysUtils::runHiddenCommand(cmd);
     return 1;
@@ -990,7 +990,7 @@ GUIApplicationWindow::onCmdNeteditSUMOConfig(FXObject*, FXSelector, void*) {
     // see "help start" for the parameters
     cmd = "start /B \"\" " + cmd;
 #endif
-    WRITE_MESSAGE("Running " + cmd + ".");
+    WRITE_MESSAGEF(TL("Running %."), cmd);
     // yay! fun with dangerous commands... Never use this over the internet
     SysUtils::runHiddenCommand(cmd);
     return 1;
@@ -1027,7 +1027,7 @@ GUIApplicationWindow::onCmdNewWindow(FXObject*, FXSelector, void*) {
     // see "help start" for the parameters
     cmd = "start /B \"\" " + cmd;
 #endif
-    WRITE_MESSAGE("Running " + cmd + ".");
+    WRITE_MESSAGEF(TL("Running %."), cmd);
     // yay! fun with dangerous commands... Never use this over the internet
     SysUtils::runHiddenCommand(cmd);
     return 1;
@@ -1091,7 +1091,7 @@ GUIApplicationWindow::onCmdOpenShapes(FXObject*, FXSelector, void*) {
         dynamic_cast<GUIShapeContainer&>(myRunThread->getNet().getShapeContainer()).allowReplacement();
         NLShapeHandler handler(file, myRunThread->getNet().getShapeContainer());
         if (!XMLSubSys::runParser(handler, file, false)) {
-            WRITE_MESSAGE("Loading of " + file + " failed.");
+            WRITE_MESSAGEF(TL("Loading of % failed."), file);
         }
         update();
         if (myMDIClient->numChildren() > 0) {
@@ -1119,7 +1119,7 @@ GUIApplicationWindow::onCmdOpenEdgeData(FXObject*, FXSelector, void*) {
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
         if (!GUINet::getGUIInstance()->loadEdgeData(file)) {
-            WRITE_MESSAGE("Loading of " + file + " failed.");
+            WRITE_MESSAGEF(TL("Loading of % failed."), file);
         }
         update();
         if (myMDIClient->numChildren() > 0) {

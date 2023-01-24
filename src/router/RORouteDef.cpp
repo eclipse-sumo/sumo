@@ -219,7 +219,7 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
         }
         // reconnect remaining edges
         if (mandatory.size() > oldEdges.size() && initialSize > 2) {
-            WRITE_MESSAGE("There are stop edges which were not part of the original route for vehicle '" + veh.getID() + "'.");
+            WRITE_MESSAGEF(TL("There are stop edges which were not part of the original route for vehicle '%'."), veh.getID());
         }
         const ConstROEdgeVector& targets = mandatory.size() > oldEdges.size() ? mandatory : oldEdges;
         newEdges.push_back(targets.front());

@@ -1278,7 +1278,7 @@ NIImporter_OpenDrive::setEdgeLinks2(OpenDriveEdge& e, const std::map<std::string
                     std::swap(c.fromCP, c.toCP);
                 }
                 if (edges.find(c.fromEdge) == edges.end()) {
-                    WRITE_ERROR("While setting connections: incoming road '" + c.fromEdge + "' is not known.");
+                    WRITE_ERRORF(TL("While setting connections: incoming road '%' is not known."), c.fromEdge);
                 } else {
                     OpenDriveEdge* src = edges.find(c.fromEdge)->second;
                     src->connections.insert(c);
@@ -1310,7 +1310,7 @@ NIImporter_OpenDrive::setEdgeLinks2(OpenDriveEdge& e, const std::map<std::string
                     std::swap(c.fromCP, c.toCP);
                 }
                 if (edges.find(c.fromEdge) == edges.end()) {
-                    WRITE_ERROR("While setting connections: incoming road '" + c.fromEdge + "' is not known.");
+                    WRITE_ERRORF(TL("While setting connections: incoming road '%' is not known."), c.fromEdge);
                 } else {
                     OpenDriveEdge* src = edges.find(c.fromEdge)->second;
                     src->connections.insert(c);
@@ -1479,7 +1479,7 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
         }
 #endif
         if (!NBNetBuilder::transformCoordinates(e.geom)) {
-            WRITE_ERROR("Unable to project coordinates for edge '" + e.id + "'.");
+            WRITE_ERRORF(TL("Unable to project coordinates for edge '%'."), e.id);
         }
         // add z-data
         int k = 0;
@@ -2324,7 +2324,7 @@ NIImporter_OpenDrive::myStartElement(int element,
             c.toCP = myCurrentContactPoint;
             c.all = false;
             if (myEdges.find(c.fromEdge) == myEdges.end()) {
-                WRITE_ERROR("In laneLink-element: incoming road '" + c.fromEdge + "' is not known.");
+                WRITE_ERRORF(TL("In laneLink-element: incoming road '%' is not known."), c.fromEdge);
             } else {
                 OpenDriveEdge* e = myEdges.find(c.fromEdge)->second;
                 e->connections.insert(c);
@@ -2404,7 +2404,7 @@ NIImporter_OpenDrive::myStartElement(int element,
         break;
         case OPENDRIVE_TAG_REPEAT: {
             if (myCurrentEdge.objects.empty()) {
-                WRITE_ERROR("Repeat without object at edge '" + toString(myCurrentEdge.id) + "'.");
+                WRITE_ERRORF(TL("Repeat without object at edge '%'."), toString(myCurrentEdge.id));
                 ok = false;
             } else {
                 OpenDriveObject o = myCurrentEdge.objects.back();
@@ -2458,7 +2458,7 @@ NIImporter_OpenDrive::myCharacters(int element, const std::string& cdata) {
                     result = new GeoConvHelper(proj, myOffset, origBoundary, convBoundary);
                     GeoConvHelper::setLoaded(*result);
                 } catch (ProcessError& e) {
-                    WRITE_ERROR("Could not set projection (" + std::string(e.what()) + "). This can be ignored with --ignore-errors.");
+                    WRITE_ERRORF(TL("Could not set projection (%). This can be ignored with --ignore-errors."), std::string(e.what()));
                 }
             }
         } else {
@@ -2487,7 +2487,7 @@ NIImporter_OpenDrive::myEndElement(int element) {
                 c.toCP = myCurrentContactPoint;
                 c.all = true;
                 if (myEdges.find(c.fromEdge) == myEdges.end()) {
-                    WRITE_ERROR("In laneLink-element: incoming road '" + c.fromEdge + "' is not known.");
+                    WRITE_ERRORF(TL("In laneLink-element: incoming road '%' is not known."), c.fromEdge);
                 } else {
                     OpenDriveEdge* e = myEdges.find(c.fromEdge)->second;
                     e->connections.insert(c);

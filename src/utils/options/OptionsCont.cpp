@@ -369,7 +369,7 @@ OptionsCont::isUsableFileList(const std::string& name) const {
     bool ok = true;
     std::vector<std::string> files = getStringVector(name);
     if (files.size() == 0) {
-        WRITE_ERROR("The file list for '" + name + "' is empty.");
+        WRITE_ERRORF(TL("The file list for '%' is empty."), name);
         ok = false;
     }
     for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
@@ -635,7 +635,7 @@ OptionsCont::processMetaOptions(bool missingOptions) {
         } else {
             writeConfiguration(out, true, false, getBool("save-commented"), configPath);
             if (getBool("verbose")) {
-                WRITE_MESSAGE("Written configuration to '" + configPath + "'");
+                WRITE_MESSAGEF(TL("Written configuration to '%'"), configPath);
             }
             return true;
         }
@@ -652,7 +652,7 @@ OptionsCont::processMetaOptions(bool missingOptions) {
         } else {
             writeConfiguration(out, false, true, getBool("save-commented"));
             if (getBool("verbose")) {
-                WRITE_MESSAGE("Written template to '" + getString("save-template") + "'");
+                WRITE_MESSAGEF(TL("Written template to '%'"), getString("save-template"));
             }
             return true;
         }
@@ -668,7 +668,7 @@ OptionsCont::processMetaOptions(bool missingOptions) {
         } else {
             writeSchema(out);
             if (getBool("verbose")) {
-                WRITE_MESSAGE("Written schema to '" + getString("save-schema") + "'");
+                WRITE_MESSAGEF(TL("Written schema to '%'"), getString("save-schema"));
             }
             return true;
         }

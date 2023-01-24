@@ -82,7 +82,7 @@ NIXMLTypesHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 if (SUMOXMLDefinitions::LaneSpreadFunctions.hasString(spreadTypeS)) {
                     spreadType = SUMOXMLDefinitions::LaneSpreadFunctions.get(spreadTypeS);
                 } else {
-                    WRITE_ERROR("Invalid lane spread type '" + spreadTypeS + "'. Using default 'right'");
+                    WRITE_ERRORF(TL("Invalid lane spread type '%'. Using default 'right'"), spreadTypeS);
                 }
                 // insert edgeType in container
                 myTypeCont.insertEdgeType(myCurrentTypeID, numLanes, speed, priority, permissions, spreadType, width,

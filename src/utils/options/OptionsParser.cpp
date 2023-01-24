@@ -124,14 +124,14 @@ bool
 OptionsParser::processNonBooleanSingleSwitch(OptionsCont& oc, const std::string& arg, const bool append) {
     if (arg[1] == '=') {
         if (arg.size() < 3) {
-            WRITE_ERROR("Missing value for parameter '" + arg.substr(0, 1) + "'.");
+            WRITE_ERRORF(TL("Missing value for parameter '%'."), arg.substr(0, 1));
             return false;
         } else {
             return oc.set(arg.substr(0, 1), arg.substr(2), append);
         }
     } else {
         if (arg.size() < 2) {
-            WRITE_ERROR("Missing value for parameter '" + arg + "'.");
+            WRITE_ERRORF(TL("Missing value for parameter '%'."), arg);
             return false;
         } else {
             return oc.set(arg.substr(0, 1), arg.substr(1), append);
@@ -143,11 +143,11 @@ OptionsParser::processNonBooleanSingleSwitch(OptionsCont& oc, const std::string&
 bool
 OptionsParser::checkParameter(const std::string& arg1) {
     if (arg1[0] != '-' && arg1[0] != '+') {
-        WRITE_ERROR("The parameter '" + arg1 + "' is not allowed in this context.\n Switch or parameter name expected.");
+        WRITE_ERRORF(TL("The parameter '%' is not allowed in this context.\n Switch or parameter name expected."), arg1);
         return false;
     }
     if ((arg1[0] == '-' && arg1[1] == '+') || (arg1[0] == '+' && arg1[1] == '-')) {
-        WRITE_ERROR("Mixed parameter syntax in '" + arg1 + "'.");
+        WRITE_ERRORF(TL("Mixed parameter syntax in '%'."), arg1);
         return false;
     }
     return true;
