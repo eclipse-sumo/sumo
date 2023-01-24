@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 09:18+0100\n"
-"PO-Revision-Date: 2023-01-24 14:06+0000\n"
-"Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
+"PO-Revision-Date: 2023-01-24 14:32+0000\n"
+"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
 "Language: es\n"
@@ -2614,11 +2614,11 @@ msgstr "No hay carriles (lanes) en la red"
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNERerouterIntervalDialog.cpp:341
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNERerouterIntervalDialog.cpp:361
 msgid "There is no edges in the network"
-msgstr ""
+msgstr "No hay calles (edges) en la red"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNERerouterIntervalDialog.cpp:398
 msgid "There is no parking areas in the network"
-msgstr ""
+msgstr "No hay áreas de parqueo en la red"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEUndoListDialog.cpp:58
 msgid "OK\tclose dialog"
@@ -2626,32 +2626,32 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEVehicleTypeDialog.cpp:445
 msgid "Edit parameters"
-msgstr ""
+msgstr "Editar parámetros"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEVehicleTypeDialog.cpp:659
 msgid "Open Image"
-msgstr ""
+msgstr "Abrir imagen"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEVehicleTypeDialog.cpp:686
 msgid "Open OSG File"
-msgstr ""
+msgstr "Abrir archivo OSG"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEAttributesCreator.cpp:49
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:733
 msgid "Internal attributes"
-msgstr ""
+msgstr "Atributos internos"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:62
 msgid "name"
-msgstr ""
+msgstr "nombre"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:64
 msgid "button"
-msgstr ""
+msgstr "botón"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:69
 msgid "Disabled"
-msgstr ""
+msgstr "Desactivado"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:55
 msgid "Consecutive lane selector"
@@ -2659,15 +2659,15 @@ msgstr "Selector de carriles (lanes) consecutivos"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:61
 msgid "Finish path creation"
-msgstr ""
+msgstr "Finalizar creación de trayectoria"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:64
 msgid "Abort path creation"
-msgstr ""
+msgstr "Abortar creación de trayectoria"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:67
 msgid "Remove last lane"
-msgstr "Elimina el último carril (lane)"
+msgstr "Eliminar el último carril (lane)"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:70
 msgid "Show candidate lanes"
@@ -2679,7 +2679,7 @@ msgstr "Carril (lane) inválido"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:151
 msgid "Lane path needs at least two lanes"
-msgstr "Un camino de carriles (lanes) necesita al menos dos carriles (lanes)"
+msgstr "Un camino de carriles (lanes) necesita al menos dos carriles"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:406
 msgid "- Selected lanes: "
@@ -2696,41 +2696,41 @@ msgstr "No hay carriles (lanes) seleccionados"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEDemandSelector.cpp:65
 msgid "Parent element"
-msgstr ""
+msgstr "Elemento principal"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:48
 msgid "Drawing"
-msgstr ""
+msgstr "Dibujar"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:52
 msgid "Start drawing"
-msgstr ""
+msgstr "Empezar a dibujar"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:53
 msgid "Stop drawing"
-msgstr ""
+msgstr "Terminar de dibujar"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:54
 msgid "Abort drawing"
-msgstr ""
+msgstr "Cancelar dibujo"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEE2DetectorLegendModule.cpp:34
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEPathLegendModule.cpp:34
 msgid "Information"
-msgstr ""
+msgstr "Información"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEElementTree.cpp:62
 msgid "Hierarchy"
-msgstr ""
+msgstr "Jerarquía"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEFlowEditor.cpp:50
 msgid "Flow attributes"
-msgstr ""
+msgstr "Attributos del flujo (flow)"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEFlowEditor.cpp:469
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEFlowEditor.cpp:596
 msgid "rate"
-msgstr ""
+msgstr "índice"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:90
 msgid "attributeCheckButton"
@@ -2738,29 +2738,28 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:958
 msgid "Extended attributes"
-msgstr ""
+msgstr "Atributos extendidos"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:961
 msgid "Open attributes editor"
-msgstr ""
+msgstr "Abrir editor de atributos"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:992
 msgid "Attributes"
-msgstr ""
+msgstr "Atributos"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:996
 msgid "Edit attributes"
-msgstr ""
+msgstr "Editar atributos"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:49
 msgid "Netedit attributes"
-msgstr ""
+msgstr "Atributos de netedit"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:230
 msgid ""
 "- Reference point: Mark the initial position of the additional element.\n"
-msgstr ""
-"- Punto de referencia: Marcar la posición inicial del elemento adicional.\n"
+msgstr "\n"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:231
 msgid ""
@@ -2796,6 +2795,8 @@ msgstr ""
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:238
 msgid "- Center view: if is enabled, view will be center over created element."
 msgstr ""
+"- Centrar vista: si está activo, la vista se centrará sobre el elemento "
+"creado."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNENetworkSelector.cpp:49
 msgid "NetworkElements"
@@ -2803,11 +2804,11 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNENetworkSelector.cpp:56
 msgid "Use selected"
-msgstr ""
+msgstr "Usar el seleccionado"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNENetworkSelector.cpp:65
 msgid "Edges"
-msgstr ""
+msgstr "Calles (edges)"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNENetworkSelector.cpp:71
 msgid "Lanes"
@@ -2815,7 +2816,7 @@ msgstr "Carriles (lanes)"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEOverlappedInspection.cpp:52
 msgid "Overlapped elements"
-msgstr ""
+msgstr "Elementos superpuestos"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEOverlappedInspection.cpp:278
 msgid " - Click in the same position\n"
@@ -2843,23 +2844,23 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEPathCreator.cpp:154
 msgid "Use last route"
-msgstr ""
+msgstr "Usar última ruta"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEPathCreator.cpp:157
 msgid "Finish route creation"
-msgstr ""
+msgstr "Finalizar creación de ruta"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEPathCreator.cpp:160
 msgid "Abort route creation"
-msgstr ""
+msgstr "Abortar creación de ruta"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEPathCreator.cpp:163
 msgid "Remove last edge"
-msgstr ""
+msgstr "Remover última calle (edge)"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEPathCreator.cpp:166
 msgid "Show candidate edges"
-msgstr ""
+msgstr "Mostrar calles (edges) candidatas"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEPathCreator.cpp:374
 msgid "Double junctions aren't allowed"
@@ -2871,19 +2872,19 @@ msgstr "Solo dos cruces (junctions) están permitidos"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEPathCreator.cpp:421
 msgid "Double edges aren't allowed"
-msgstr ""
+msgstr "Calles (edges) dobles no están permitidas"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEPathCreator.cpp:431
 msgid "Only consecutives edges are allowed"
-msgstr ""
+msgstr "Sólo calles (edges) consecutivas están permitidas"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEPathCreator.cpp:440
 msgid "Only two edges are allowed"
-msgstr ""
+msgstr "Sólo dos calles (edges) están permitidas"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEPathCreator.cpp:531
 msgid "first select an edge"
-msgstr ""
+msgstr "primero seleccione una calle (edge)"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEPathCreator.cpp:941
 msgid "- Selected edges: "
@@ -2899,7 +2900,7 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEPathCreator.cpp:948
 msgid "No edges selected"
-msgstr ""
+msgstr "No hay calles (edges) seleccionadas"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNESelectorParent.cpp:36
 msgid "Parent selector"
