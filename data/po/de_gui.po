@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 09:18+0100\n"
-"PO-Revision-Date: 2023-01-24 13:06+0000\n"
+"PO-Revision-Date: 2023-01-24 13:35+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -60,7 +60,7 @@ msgstr "Öffne sumo-gui in einem neuen Fenster."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:426
 msgid "&Open Simulation..."
-msgstr ""
+msgstr "&Öffne Simulation..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:426
 msgid "Open a simulation (Configuration file)."
@@ -94,27 +94,27 @@ msgstr "Lade kantenbezogene Daten zur Visualisierung."
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:976
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:262
 msgid "&Reload"
-msgstr ""
+msgstr "&Neu laden"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:438
 msgid "Reloads the simulation / the network."
-msgstr ""
+msgstr "Lädt die Simulation / das Netz erneut."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:441
 msgid "Quick-Reload"
-msgstr ""
+msgstr "Neu laden (Schnellmodus)"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:441
 msgid "Reloads the simulation (but not network)."
-msgstr ""
+msgstr "Lädt die Simulation erneut (aber nicht das Netz)."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:445
 msgid "Save Configuration"
-msgstr ""
+msgstr "Konfigurationsdatei speichern"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:445
 msgid "Save current options as a configuration file."
-msgstr ""
+msgstr "Speichert die aktuellen Optionen in einer Konfigurationsdatei."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:448
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:306
@@ -142,7 +142,7 @@ msgstr "&Bearbeiten"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:467
 msgid "Edit Selected..."
-msgstr "Bearbeite Auswahl..."
+msgstr "Auswahl bearbeiten..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:467
 msgid "Opens a dialog for editing the list of selected items."
@@ -156,7 +156,7 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:474
 msgid "Edit Breakpoints"
-msgstr "Bearbeite Haltepunkte"
+msgstr "Haltepunkte bearbeiten"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:474
 msgid "Opens a dialog for editing breakpoints."
@@ -175,7 +175,7 @@ msgstr "Öffnet einen Dialog, um die Visualisierungseinstellungen zu bearbeiten.
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:480
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1277
 msgid "Edit Viewport"
-msgstr "Bearbeite Ansichtsbereich"
+msgstr "Ansichtsbereich bearbeiten"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:480
 msgid "Opens a dialog for editing viewing area, zoom and rotation."
@@ -185,7 +185,7 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:484
 msgid "Open network in netedit"
-msgstr "Öffne Netz in netedit"
+msgstr "Öffne das Netz in netedit"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:484
 msgid "Opens current network in NETEDIT."
@@ -328,55 +328,55 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:548
 msgid "Run"
-msgstr ""
+msgstr "Ausführen"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:548
 msgid "Start/ Resume the simulation."
-msgstr ""
+msgstr "Simulation beginnen / fortführen."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:551
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:688
 msgid "Stop"
-msgstr ""
+msgstr "Anhalten"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:551
 msgid "Halt the simulation."
-msgstr ""
+msgstr "Halte die Simulation an."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:554
 msgid "Step"
-msgstr ""
+msgstr "Schritt"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:554
 msgid "Perform one simulation step."
-msgstr ""
+msgstr "Führe einen Simulationsschritt aus."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:557
 msgid "Delay+"
-msgstr ""
+msgstr "Verzögerung+"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:557
 msgid "Increase simulation step delay."
-msgstr ""
+msgstr "Erhöhe die Verzögerung pro Simulationsschritt."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:559
 msgid "Delay-"
-msgstr ""
+msgstr "Verzögerung-"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:559
 msgid "Decrease simulation step delay."
-msgstr ""
+msgstr "Reduziere die Verzögerung pro Simulationsschritt."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:561
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:288
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:284
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:281
 msgid "Save"
-msgstr ""
+msgstr "Speichern"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:561
 msgid "Save the current simulation state to a file."
-msgstr ""
+msgstr "Speichere den aktuellen Simulationsstand als Datei."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:564
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:287
