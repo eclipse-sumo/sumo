@@ -90,10 +90,10 @@ GNEConnectorFrame::ConnectionModifications::ConnectionModifications(GNEConnector
     myConnectorFrameParent(connectorFrameParent) {
 
     // Create "Cancel" button
-    myCancelButton = new FXButton(getCollapsableFrame(), TL("Cancel\t\tDiscard connection modifications (Esc)"),
+    myCancelButton = new FXButton(getCollapsableFrame(), (TL("Cancel") + std::string("\t\t") + TL("Discard connection modifications (Esc)")).c_str(),
                                   GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_CANCEL, GUIDesignButton);
     // Create "OK" button
-    mySaveButton = new FXButton(getCollapsableFrame(), TL("OK\t\tSave connection modifications (Enter)"),
+    mySaveButton = new FXButton(getCollapsableFrame(), (TL("OK") + std::string("\t\t") + TL("Save connection modifications (Enter)")).c_str(),
                                 GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_OK, GUIDesignButton);
 
     // Create checkbox for protect routes
@@ -152,22 +152,22 @@ GNEConnectorFrame::ConnectionOperations::ConnectionOperations(GNEConnectorFrame*
     myConnectorFrameParent(connectorFrameParent) {
 
     // Create "Select Dead Ends" button
-    mySelectDeadEndsButton = new FXButton(getCollapsableFrame(), TL("Select Dead Ends\t\tSelects all lanes that have no outgoing connection (clears previous selection)"),
+    mySelectDeadEndsButton = new FXButton(getCollapsableFrame(), (TL("Select Dead Ends") + std::string("\t\t") + TL("Selects all lanes that have no outgoing connection (clears previous selection)")).c_str(),
                                           0, this, MID_GNE_CONNECTORFRAME_SELECTDEADENDS, GUIDesignButton);
     // Create "Select Dead Starts" button
-    mySelectDeadStartsButton = new FXButton(getCollapsableFrame(), TL("Select Dead Starts\t\tSelects all lanes that have no incoming connection (clears previous selection)"),
+    mySelectDeadStartsButton = new FXButton(getCollapsableFrame(), (TL("Select Dead Starts") + std::string("\t\t") + TL("Selects all lanes that have no incoming connection (clears previous selection)")).c_str(),
                                             0, this, MID_GNE_CONNECTORFRAME_SELECTDEADSTARTS, GUIDesignButton);
     // Create "Select Conflicts" button
-    mySelectConflictsButton = new FXButton(getCollapsableFrame(), TL("Select Conflicts\t\tSelects all lanes with more than one incoming connection from the same edge (clears previous selection)"),
+    mySelectConflictsButton = new FXButton(getCollapsableFrame(), (TL("Select Conflicts") + std::string("\t\t") + TL("Selects all lanes with more than one incoming connection from the same edge (clears previous selection)")).c_str(),
                                            0, this, MID_GNE_CONNECTORFRAME_SELECTCONFLICTS, GUIDesignButton);
     // Create "Select Edges which may always pass" button
-    mySelectPassingButton = new FXButton(getCollapsableFrame(), TL("Select Passing\t\tSelects all lanes with a connection that has has the 'pass' attribute set"),
+    mySelectPassingButton = new FXButton(getCollapsableFrame(), (TL("Select Passing") + std::string("\t\t") + TL("Selects all lanes with a connection that has has the 'pass' attribute set")).c_str(),
                                          0, this, MID_GNE_CONNECTORFRAME_SELECTPASS, GUIDesignButton);
     // Create "Clear Selected" button
-    myClearSelectedButton = new FXButton(getCollapsableFrame(), TL("Clear Selected\t\tClears all connections of all selected objects"),
+    myClearSelectedButton = new FXButton(getCollapsableFrame(), (TL("Clear Selected") + std::string("\t\t") + TL("Clears all connections of all selected objects")).c_str(),
                                          0, this, MID_CHOOSEN_CLEAR, GUIDesignButton);
     // Create "Reset Selected" button
-    myResetSelectedButton = new FXButton(getCollapsableFrame(), TL("Reset Selected\t\tRecomputes connections at all selected junctions"),
+    myResetSelectedButton = new FXButton(getCollapsableFrame(), (TL("Reset Selected") + std::string("\t\t") + TL("Recomputes connections at all selected junctions")).c_str(),
                                          0, this, MID_CHOOSEN_RESET, GUIDesignButton);
 }
 

@@ -254,15 +254,15 @@ GNEFixAdditionalElements::PositionOptions::PositionOptions(GNEFixAdditionalEleme
     FXHorizontalFrame* RadioButtons = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
     // create Vertical Frame for left options
     FXVerticalFrame* RadioButtonsLeft = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
-    activateFriendlyPositionAndSave = new FXRadioButton(RadioButtonsLeft, TL("Activate friendlyPos and save\t\tFriendly pos parameter will be activated in all stopping places and E2 detectors"),
+    activateFriendlyPositionAndSave = new FXRadioButton(RadioButtonsLeft, (TL("Activate friendlyPos and save") + std::string("\t\t") + TL("Friendly pos parameter will be activated in all stopping places and E2 detectors")).c_str(),
             fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    saveInvalid = new FXRadioButton(RadioButtonsLeft, TL("Save invalid positions\t\tSave stopping places and E2 detectors with invalid positions"),
+    saveInvalid = new FXRadioButton(RadioButtonsLeft, (TL("Save invalid positions") + std::string("\t\t") + TL("Save stopping places and E2 detectors with invalid positions")).c_str(),
                                     fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // create Vertical Frame for right options
     FXVerticalFrame* RadioButtonsRight = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
-    fixPositionsAndSave = new FXRadioButton(RadioButtonsRight, TL("Fix positions and save\t\tPosition of stopping places and E2 detectors will be fixed"),
+    fixPositionsAndSave = new FXRadioButton(RadioButtonsRight, (TL("Fix positions and save") + std::string("\t\t") + TL("Position of stopping places and E2 detectors will be fixed")).c_str(),
                                             fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    selectInvalidStopsAndCancel = new FXRadioButton(RadioButtonsRight, TL("Select invalid additionals\t\tCancel saving of additionals and select invalid stopping places and E2 detectors"),
+    selectInvalidStopsAndCancel = new FXRadioButton(RadioButtonsRight, (TL("Select invalid additionals") + std::string("\t\t") + TL("Cancel saving of additionals and select invalid stopping places and E2 detectors")).c_str(),
             fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // leave option "activateFriendlyPositionAndSave" as default
     activateFriendlyPositionAndSave->setCheck(true);
@@ -322,17 +322,17 @@ GNEFixAdditionalElements::ConsecutiveLaneOptions::ConsecutiveLaneOptions(GNEFixA
     FXHorizontalFrame* RadioButtons = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
     // create Vertical Frame for left options
     FXVerticalFrame* RadioButtonsLeft = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
-    buildConnectionBetweenLanes = new FXRadioButton(RadioButtonsLeft, TL("Build connections between lanes\t\tNew connections will be created between non-connected lanes"),
+    buildConnectionBetweenLanes = new FXRadioButton(RadioButtonsLeft, (TL("Build connections between lanes") + std::string("\t\t") + TL("New connections will be created between non-connected lanes")).c_str(),
             fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    removeInvalidElements = new FXRadioButton(RadioButtonsLeft, TL("Remove invalid E2 detectors\t\tRemove Multilane E2 Detectors with non-connected lanes"),
+    removeInvalidElements = new FXRadioButton(RadioButtonsLeft, (TL("Remove invalid E2 detectors") + std::string("\t\t") + TL("Remove Multilane E2 Detectors with non-connected lanes")).c_str(),
             fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // add a vertical separator between both options
     new FXVerticalSeparator(RadioButtons, GUIDesignVerticalSeparator);
     // create Vertical Frame for right options
     FXVerticalFrame* RadioButtonsRight = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
-    activateFriendlyPositionAndSave = new FXRadioButton(RadioButtonsRight, TL("Activate friendlyPos and save\t\tFriendly pos parameter will be activated in all stopping places and E2 detectors"),
+    activateFriendlyPositionAndSave = new FXRadioButton(RadioButtonsRight, (TL("Activate friendlyPos and save") + std::string("\t\t") + TL("Friendly pos parameter will be activated in all stopping places and E2 detectors")).c_str(),
             fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    fixPositionsAndSave = new FXRadioButton(RadioButtonsRight, TL("Fix positions and save\t\tPosition of stopping places and E2 detectors will be fixed"),
+    fixPositionsAndSave = new FXRadioButton(RadioButtonsRight, (TL("Fix positions and save") + std::string("\t\t") + TL("Position of stopping places and E2 detectors will be fixed")).c_str(),
                                             fixAdditionalPositions, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // leave option "buildConnectionBetweenLanes" and "activateFriendlyPositionAndSave" as default
     buildConnectionBetweenLanes->setCheck(true);

@@ -21,6 +21,7 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/common/Translation.h>
 
 #include "GNEToolDialogElements.h"
 #include "GNEToolDialog.h"
@@ -51,7 +52,7 @@ GNEToolDialogElements::FileNameArgument::FileNameArgument(FXComposite* parent, G
     new FXLabel(this, parameter.empty() ? name.c_str() : (name + " (" + parameter + ")").c_str(), nullptr, GUIDesignLabelLeftThick);
     // Create Open button
     auto horizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myFilenameButton = new FXButton(horizontalFrame, "\t\tSelect filename", GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, FXDialogBox::ID_ACCEPT, GUIDesignButtonIcon);
+    myFilenameButton = new FXButton(horizontalFrame, (std::string("\t\t") + TL("Select filename")).c_str(), GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, FXDialogBox::ID_ACCEPT, GUIDesignButtonIcon);
     myFilenameTextField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
 }
 

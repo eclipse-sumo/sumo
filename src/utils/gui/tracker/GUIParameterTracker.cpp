@@ -113,7 +113,7 @@ GUIParameterTracker::buildToolBar() {
     myToolBar = new FXToolBar(this, myToolBarDrag, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | FRAME_RAISED);
     new FXToolBarGrip(myToolBar, myToolBar, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // save button
-    new FXButton(myToolBar, "\t\tSave the data...",
+    new FXButton(myToolBar, (std::string("\t\t") + TL("Save the data...")).c_str(),
                  GUIIconSubSys::getIcon(GUIIcon::SAVE), this, GUIParameterTracker::MID_SAVE, GUIDesignButtonToolbar);
 
     // aggregation interval combo
