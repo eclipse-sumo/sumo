@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 09:18+0100\n"
-"PO-Revision-Date: 2023-01-24 15:22+0000\n"
+"PO-Revision-Date: 2023-01-24 17:03+0000\n"
 "Last-Translator: bcoueraud87 <benjamin.coueraud@dlr.de>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/fr/>\n"
@@ -1164,51 +1164,51 @@ msgstr "Recharger Configuration Sumo"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:368
 msgid "Reload sumo configuration."
-msgstr ""
+msgstr "Recharger sumo configuration."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:376
 msgid "Load TLS Programs..."
-msgstr ""
+msgstr "Charger Programmes des Feux de Circulation..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:376
 msgid "Load programs for traffic lights in the current net."
-msgstr ""
+msgstr "Charger programmes des feux de circulation dans le réseau actuel."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:382
 msgid "Save TLS Programs"
-msgstr ""
+msgstr "Sauvegarder Programmes des Feux de Circulation"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:382
 msgid "Save all traffic light programs of the current network."
-msgstr ""
+msgstr "Sauvegarder Programmes des Feux de Circulation du réseau actuel."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:386
 msgid "Save TLS Programs As..."
-msgstr ""
+msgstr "Sauvegarder Programmes des Feux de Circulation sous..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:386
 msgid "Save all traffic light programs of the current network to another file."
-msgstr ""
+msgstr "Sauvegarder programmes des feux de circulation dans autre fichier."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:392
 msgid "Reload TLS Programs"
-msgstr ""
+msgstr "Rechargement Programmes des Feux de Circulation"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:392
 msgid "Reload TLS Programs."
-msgstr ""
+msgstr "Rechargement Programmes des Feux de Circulation."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:400
 msgid "Load Edge Types..."
-msgstr ""
+msgstr "Chargement des Types d'Arêtes..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:400
 msgid "Load edge types in the current net."
-msgstr ""
+msgstr "Chargement des types d'arêtes dans le réseau actuel."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:406
 msgid "Save Edge Types"
-msgstr ""
+msgstr "Sauvegarder Types d'Arêtes"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:406
 msgid "Save edge types of the current net."
