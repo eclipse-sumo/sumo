@@ -905,7 +905,7 @@ MSE2Collector::detectorUpdate(const SUMOTime /* step */) {
         if (myLanes.size() > 1) {
             /// code is more complicated because we have to make persons with
             //dir=BACKWARD send a virtual forward-lane-sequence
-            throw ProcessError("Multi-lane e2Detector does not support detecting persons yet");
+            throw ProcessError(TL("Multi-lane e2Detector does not support detecting persons yet"));
         }
         for (MSLane* lane : getLanes()) {
             if (lane->hasPedestrians()) {

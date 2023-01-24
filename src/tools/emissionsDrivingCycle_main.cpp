@@ -166,10 +166,10 @@ main(int argc, char** argv) {
 
         quiet = oc.getBool("quiet");
         if (!oc.isSet("timeline-file") && !oc.isSet("netstate-file")) {
-            throw ProcessError("Either a timeline or a netstate / amitran file must be given.");
+            throw ProcessError(TL("Either a timeline or a netstate / amitran file must be given."));
         }
         if (!oc.isSet("output-file") && (oc.isSet("timeline-file") || !oc.isSet("emission-output"))) {
-            throw ProcessError("The output file must be given.");
+            throw ProcessError(TL("The output file must be given."));
         }
         std::ostream* out = nullptr;
         if (oc.isSet("output-file")) {
@@ -210,7 +210,7 @@ main(int argc, char** argv) {
         std::map<std::string, SUMOVTypeParameter*> vTypes;
         if (oc.isSet("vtype")) {
             if (!oc.isSet("additional-files")) {
-                throw ProcessError("Option --vtype requires option --additional-files for loading vehicle types");
+                throw ProcessError(TL("Option --vtype requires option --additional-files for loading vehicle types"));
             }
             if (!oc.isUsableFileList("additional-files")) {
                 throw ProcessError();

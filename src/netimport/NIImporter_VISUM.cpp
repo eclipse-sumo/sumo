@@ -853,7 +853,7 @@ NIImporter_VISUM::parse_Lanes() {
         }
         NBNode* rn = new NBNode(edgeID + "_" +  toString((int) length) + "_" + node->getID(), p);
         if (!myNetBuilder.getNodeCont().insert(rn)) {
-            throw ProcessError("Ups - could not insert node!");
+            throw ProcessError(TL("Ups - could not insert node!"));
         }
         std::string nid = edgeID + "_" +  toString((int) length) + "_" + node->getID();
         myNetBuilder.getEdgeCont().splitAt(myNetBuilder.getDistrictCont(), edge, useLength, rn,

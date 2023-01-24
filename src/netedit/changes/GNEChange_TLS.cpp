@@ -47,7 +47,7 @@ GNEChange_TLS::GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tl
     if (myTlDef == nullptr) {
         // check forward
         if (!forward) {
-            throw ProcessError("If myTlDef is null, forward cannot be false");
+            throw ProcessError(TL("If myTlDef is null, forward cannot be false"));
         }
         // potential memory leak if this change is never executed
         TrafficLightType type = SUMOXMLDefinitions::TrafficLightTypes.get(OptionsCont::getOptions().getString("tls.default-type"));
@@ -70,7 +70,7 @@ GNEChange_TLS::GNEChange_TLS(GNEJunction* junction, NBTrafficLightDefinition* tl
     if (myTlDef == nullptr) {
         // check forward
         if (!forward) {
-            throw ProcessError("If myTlDef is null, forward cannot be false");
+            throw ProcessError(TL("If myTlDef is null, forward cannot be false"));
         }
         if (myJunction->getNBNode()->isTLControlled()) {
             // copy existing type

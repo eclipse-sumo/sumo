@@ -421,7 +421,7 @@ MSStateHandler::myEndElement(int element) {
         }
         case SUMO_TAG_SNAPSHOT: {
             if (myVCAttrs == nullptr) {
-                throw ProcessError("Could not load vehicle control state");
+                throw ProcessError(TL("Could not load vehicle control state"));
             }
             MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
             vc.setState(myVCAttrs->getInt(SUMO_ATTR_NUMBER),

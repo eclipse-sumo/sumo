@@ -71,7 +71,7 @@ GNENetworkSelector::GNENetworkSelector(GNEFrame* frameParent, const Type network
             setText(TL("Lanes"));
             break;
         default:
-            throw ProcessError("Invalid NetworkElementType");
+            throw ProcessError(TL("Invalid NetworkElementType"));
     }
     // Hide List
     hide();
@@ -180,7 +180,7 @@ GNENetworkSelector::onCmdUseSelectedElements(FXObject*, FXSelector, void*) {
             }
             break;
         default:
-            throw ProcessError("Invalid NetworkElementType");
+            throw ProcessError(TL("Invalid NetworkElementType"));
     }
     // Update Frame
     update();

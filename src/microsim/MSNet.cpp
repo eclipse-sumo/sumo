@@ -184,7 +184,7 @@ MSNet::getInstance(void) {
     if (myInstance != nullptr) {
         return myInstance;
     }
-    throw ProcessError("A network was not yet constructed.");
+    throw ProcessError(TL("A network was not yet constructed."));
 }
 
 void
@@ -218,7 +218,7 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
     myEdgeDataEndTime(-1),
     myDynamicShapeUpdater(nullptr) {
     if (myInstance != nullptr) {
-        throw ProcessError("A network was already constructed.");
+        throw ProcessError(TL("A network was already constructed."));
     }
     OptionsCont& oc = OptionsCont::getOptions();
     myStep = string2time(oc.getString("begin"));
@@ -283,7 +283,7 @@ MSNet::closeBuilding(const OptionsCont& oc, MSEdgeControl* edges, MSJunctionCont
     myVersion = version;
     if ((!MSGlobals::gUsingInternalLanes || !myHasInternalLinks)
             && MSGlobals::gWeightsSeparateTurns > 0) {
-        throw ProcessError("Option weights.separate-turns is only supported when simulating with internal lanes");
+        throw ProcessError(TL("Option weights.separate-turns is only supported when simulating with internal lanes"));
     }
 }
 

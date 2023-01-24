@@ -166,7 +166,7 @@ public:
         UNUSED_PARAMETER(veh);
         UNUSED_PARAMETER(beyond);
         UNUSED_PARAMETER(latOffset);
-        throw ProcessError("Method not supported");
+        throw ProcessError(TL("Method not supported"));
     }
 
     /// @brief discard all information
@@ -226,14 +226,14 @@ public:
         UNUSED_PARAMETER(gap);
         UNUSED_PARAMETER(latOffset);
         UNUSED_PARAMETER(sublane);
-        throw ProcessError("Method not supported");
+        throw ProcessError(TL("Method not supported"));
     }
 
     virtual int addLeader(const MSVehicle* veh, bool beyond, double latOffset = 0) {
         UNUSED_PARAMETER(veh);
         UNUSED_PARAMETER(beyond);
         UNUSED_PARAMETER(latOffset);
-        throw ProcessError("Method not supported");
+        throw ProcessError(TL("Method not supported"));
     }
 
     /// @brief discard all information

@@ -144,7 +144,7 @@ MFXTreeListDynamic::prependItem(FXTreeItem* father, const FXString& text, FXIcon
         newItem->setTextColor(tColor);
         return newItem;
     }
-    throw ProcessError("New item cannot be NULL");
+    throw ProcessError(TL("New item cannot be NULL"));
 }
 
 
@@ -156,7 +156,7 @@ MFXTreeListDynamic::appendItem(FXTreeItem* father, const FXString& text, FXIcon*
         newItem->setTextColor(tColor);
         return newItem;
     }
-    throw ProcessError("New item cannot be NULL");
+    throw ProcessError(TL("New item cannot be NULL"));
 }
 
 

@@ -3695,7 +3695,7 @@ NBNode::getCrossing(const EdgeVector& edges, bool hardFail) const {
     if (!hardFail) {
         return nullptr;
     }
-    throw ProcessError("Request for unknown crossing for the given Edges");
+    throw ProcessError(TL("Request for unknown crossing for the given Edges"));
 }
 
 
@@ -3706,7 +3706,7 @@ NBNode::getWalkingArea(const std::string& id) {
             return walkingArea;
         }
     }
-    throw ProcessError("Request for unknown crossing for the given Edges");
+    throw ProcessError(TL("Request for unknown crossing for the given Edges"));
 }
 
 

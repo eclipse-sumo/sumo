@@ -211,7 +211,7 @@ GNEDataSet::addDataIntervalChild(GNEDataInterval* dataInterval) {
         // add reference in attributeCarriers
         myNet->getAttributeCarriers()->insertDataInterval(dataInterval);
     } else {
-        throw ProcessError("DataInterval was already inserted");
+        throw ProcessError(TL("DataInterval was already inserted"));
     }
 }
 
@@ -228,7 +228,7 @@ GNEDataSet::removeDataIntervalChild(GNEDataInterval* dataInterval) {
         // remove reference from attributeCarriers
         myNet->getAttributeCarriers()->deleteDataInterval(dataInterval);
     } else {
-        throw ProcessError("DataInterval wasn't previously inserted");
+        throw ProcessError(TL("DataInterval wasn't previously inserted"));
     }
 }
 
@@ -252,7 +252,7 @@ GNEDataSet::updateDataIntervalBegin(const double oldBegin) {
         // insert again using new begin
         myDataIntervalChildren[dataInterval->getAttributeDouble(SUMO_ATTR_BEGIN)] = dataInterval;
     } else {
-        throw ProcessError("DataInterval wasn't previously inserted");
+        throw ProcessError(TL("DataInterval wasn't previously inserted"));
     }
 }
 

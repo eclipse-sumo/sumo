@@ -89,7 +89,7 @@ GeoConvHelper::GeoConvHelper(const std::string& proj, const Position& offset,
         }
         if (myProjection == nullptr) {
             // !!! check pj_errno
-            throw ProcessError("Could not build projection!");
+            throw ProcessError(TL("Could not build projection!"));
         }
 #endif
     }

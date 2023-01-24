@@ -307,7 +307,7 @@ GNEGenericData::replaceParentTAZElement(const int index, const std::string& valu
             parentTAZElements = {parentTAZElements.at(0), TAZ};
         }
     } else {
-        throw ProcessError("Invalid index");
+        throw ProcessError(TL("Invalid index"));
     }
     // replace parent TAZElements
     replaceParentElements(this, parentTAZElements);

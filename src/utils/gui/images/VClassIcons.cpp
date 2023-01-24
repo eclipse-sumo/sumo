@@ -88,7 +88,7 @@ VClassIcons::getVClassIcon(const SUMOVehicleClass vc) {
         case SVC_CUSTOM2:
             return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_CUSTOM2);
         default:
-            throw ProcessError("Invalid vClass");
+            throw ProcessError(TL("Invalid vClass"));
     }
 }
 

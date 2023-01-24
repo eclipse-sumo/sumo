@@ -521,7 +521,7 @@ GNEInspectorFrame::GEOAttributesEditor::onCmdSetGEOAttribute(FXObject* obj, FXSe
                     myGEOAttributeTextField->setTextColor(FXRGB(255, 0, 0));
                 }
             } else {
-                throw ProcessError("myGEOAttributeTextField must be hidden becaurse there isn't GEO Attribute to edit");
+                throw ProcessError(TL("myGEOAttributeTextField must be hidden becaurse there isn't GEO Attribute to edit"));
             }
         } else if (obj == myUseGEOCheckButton) {
             // update GEO Attribute of entire selection
@@ -670,7 +670,7 @@ long
 GNEInspectorFrame::TemplateEditor::onCmdSetTemplate(FXObject*, FXSelector, void*) {
     // first check that there is exactly an inspected edge
     if (myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() != 1) {
-        throw ProcessError("Only one edge must be inspected");
+        throw ProcessError(TL("Only one edge must be inspected"));
     }
     // retrieve edge ID (and throw exception if edge doesn't exist)
     GNEEdge* edge = myInspectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->retrieveEdge(myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getID());

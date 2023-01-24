@@ -270,7 +270,7 @@ main(int argc, char** argv) {
             }
 #endif
             if (!GeoConvHelper::init(oc)) {
-                throw ProcessError("Could not build projection!");
+                throw ProcessError(TL("Could not build projection!"));
             }
         } else {
             // from the supplied network
@@ -282,7 +282,7 @@ main(int argc, char** argv) {
         bool prune = false;
         if (oc.getBool("prune.in-net")) {
             if (!oc.isSet("net")) {
-                throw ProcessError("In order to prune the input on the net, you have to supply a network.");
+                throw ProcessError(TL("In order to prune the input on the net, you have to supply a network."));
             }
             bool ok = true;
             // !!! no proper error handling

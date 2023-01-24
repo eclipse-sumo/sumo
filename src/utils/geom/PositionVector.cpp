@@ -1386,7 +1386,7 @@ PositionVector::push_front(const Position& p) {
 void
 PositionVector::pop_front() {
     if (empty()) {
-        throw ProcessError("PositionVector is empty");
+        throw ProcessError(TL("PositionVector is empty"));
     } else {
         erase(begin());
     }

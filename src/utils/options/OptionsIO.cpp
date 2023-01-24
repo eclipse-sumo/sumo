@@ -85,7 +85,7 @@ OptionsIO::getOptions(const bool commandLineOnly) {
     // preparse the options
     //  (maybe another configuration file was chosen)
     if (!OptionsParser::parse(myArgs, true)) {
-        throw ProcessError("Could not parse commandline options.");
+        throw ProcessError(TL("Could not parse commandline options."));
     }
     if (!commandLineOnly || OptionsCont::getOptions().isSet("save-configuration", false)) {
         // read the configuration when everything's ok
@@ -132,7 +132,7 @@ OptionsIO::loadConfiguration() {
         // reparse the options (overwrite the settings from the configuration file)
         oc.resetWritable();
         if (!OptionsParser::parse(myArgs)) {
-            throw ProcessError("Could not parse commandline options.");
+            throw ProcessError(TL("Could not parse commandline options."));
         }
     }
 }

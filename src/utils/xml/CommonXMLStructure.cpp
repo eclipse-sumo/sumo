@@ -268,7 +268,7 @@ CommonXMLStructure::SumoBaseObject::getVehicleTypeParameter() const {
     if (myDefinedVehicleTypeParameter) {
         return myVehicleTypeParameter;
     } else {
-        throw ProcessError("Undefined vehicleType parameter");
+        throw ProcessError(TL("Undefined vehicleType parameter"));
     }
 }
 
@@ -278,7 +278,7 @@ CommonXMLStructure::SumoBaseObject::getVehicleParameter() const {
     if (myDefinedVehicleParameter) {
         return myVehicleParameter;
     } else {
-        throw ProcessError("Undefined vehicle parameter");
+        throw ProcessError(TL("Undefined vehicle parameter"));
     }
 }
 
@@ -288,7 +288,7 @@ CommonXMLStructure::SumoBaseObject::getStopParameter() const {
     if (myDefinedStopParameter) {
         return myStopParameter;
     } else {
-        throw ProcessError("Undefined stop parameter");
+        throw ProcessError(TL("Undefined stop parameter"));
     }
 
 }

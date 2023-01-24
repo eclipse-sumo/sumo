@@ -57,7 +57,7 @@ RONet::getInstance(void) {
     if (myInstance != nullptr) {
         return myInstance;
     }
-    throw ProcessError("A network was not yet constructed.");
+    throw ProcessError(TL("A network was not yet constructed."));
 }
 
 
@@ -77,7 +77,7 @@ RONet::RONet() :
                   || OptionsCont::getOptions().getBool("ptline-routing")),
     myHasBidiEdges(false) {
     if (myInstance != nullptr) {
-        throw ProcessError("A network was already constructed.");
+        throw ProcessError(TL("A network was already constructed."));
     }
     SUMOVTypeParameter* type = new SUMOVTypeParameter(DEFAULT_VTYPE_ID, SVC_PASSENGER);
     type->onlyReferenced = true;

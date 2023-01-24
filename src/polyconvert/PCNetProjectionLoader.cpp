@@ -68,7 +68,7 @@ PCNetProjectionLoader::load(const std::string& file, double scale) {
     // clean up
     PROGRESS_TIME_MESSAGE(before);
     if (!handler.hasReadAll()) {
-        throw ProcessError("Could not find projection parameter in net.");
+        throw ProcessError(TL("Could not find projection parameter in net."));
     }
     delete parser;
 }

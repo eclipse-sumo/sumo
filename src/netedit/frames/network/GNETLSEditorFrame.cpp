@@ -413,7 +413,7 @@ GNETLSEditorFrame::getPhase(const int index) {
     if ((index >= 0) || (index < (int)myEditedDef->getLogic()->getPhases().size())) {
         return myEditedDef->getLogic()->getPhases().at(index);
     } else {
-        throw ProcessError("Invalid phase index");
+        throw ProcessError(TL("Invalid phase index"));
     }
 }
 
@@ -586,7 +586,7 @@ GNETLSEditorFrame::TLSAttributes::initTLSAttributes() {
     // get current edited junction
     const auto junction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
     if (junction == nullptr) {
-        throw ProcessError("Junction cannot be NULL");
+        throw ProcessError(TL("Junction cannot be NULL"));
     } else {
         // enable Offset
         myOffsetTextField->enable();
@@ -1380,7 +1380,7 @@ GNETLSEditorFrame::TLSDefinition::initTLSDefinitions() {
     // get current edited junction
     const auto junction = myTLSEditorParent->myTLSJunction->getCurrentJunction();
     if (junction == nullptr) {
-        throw ProcessError("Junction cannot be NULL");
+        throw ProcessError(TL("Junction cannot be NULL"));
     } else {
         // clear definitions
         myTLSDefinitions.clear();
@@ -1448,7 +1448,7 @@ GNETLSEditorFrame::TLSDefinition::getCurrentTLSDefinition() const {
             return TLSDefinition;
         }
     }
-    throw ProcessError("TLSDefinition cannot be found");
+    throw ProcessError(TL("TLSDefinition cannot be found"));
 }
 
 
@@ -1779,7 +1779,7 @@ GNETLSEditorFrame::TLSDefinition::createTLS(GNEJunction* junction) {
     const auto currentTLS = getCurrentTLSProgramID();
     // check conditions
     if (junction == nullptr) {
-        throw ProcessError("junction cannot be null");
+        throw ProcessError(TL("junction cannot be null"));
     } else if (junction->getAttribute(SUMO_ATTR_TYPE) != toString(SumoXMLNodeType::TRAFFIC_LIGHT)) {
         // set junction as TLS
         junction->setAttribute(SUMO_ATTR_TYPE, toString(SumoXMLNodeType::TRAFFIC_LIGHT), myTLSEditorParent->getViewNet()->getUndoList());
@@ -1821,9 +1821,9 @@ GNETLSEditorFrame::TLSDefinition::createTLS(GNEJunction* junction) {
 bool
 GNETLSEditorFrame::TLSDefinition::switchProgram() {
     if (myTLSEditorParent->myTLSJunction->getCurrentJunction() == nullptr) {
-        throw ProcessError("Junction cannot be NULL");
+        throw ProcessError(TL("Junction cannot be NULL"));
     } else if (getNumberOfTLSDefinitions() != getNumberOfPrograms()) {
-        throw ProcessError("myProgramComboBox must have the same number of TLSDefinitions");
+        throw ProcessError(TL("myProgramComboBox must have the same number of TLSDefinitions"));
     } else {
         // reset save flag
         myHaveModifications = false;
@@ -2013,7 +2013,7 @@ GNETLSEditorFrame::TLSPhases::changePhaseValue(const int col, const int row, con
     } else if (col == colRed) {
         return setRed(row, value);
     } else {
-        throw ProcessError("invalid column");
+        throw ProcessError(TL("invalid column"));
     }
 }
 

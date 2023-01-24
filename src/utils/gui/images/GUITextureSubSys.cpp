@@ -220,7 +220,7 @@ GUITextureSubSys::getTexture(GUITexture which) {
                 myInstance->myTextures[which] = GUITexturesHelper::add(new FXGIFImage(myInstance->myApp, GNETexture_TractionSubstationSelected, IMAGE_KEEP | IMAGE_SHMI | IMAGE_SHMP));
                 break;
             default:
-                throw ProcessError("Undefined texture");
+                throw ProcessError(TL("Undefined texture"));
         }
     }
     // Return GLID associated to the texture

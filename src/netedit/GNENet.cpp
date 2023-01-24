@@ -641,7 +641,7 @@ void
 GNENet::deleteDemandElement(GNEDemandElement* demandElement, GNEUndoList* undoList) {
     // check that default VTypes aren't removed
     if ((demandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && (GNEAttributeCarrier::parse<bool>(demandElement->getAttribute(GNE_ATTR_DEFAULT_VTYPE)))) {
-        throw ProcessError("Trying to delete a default Vehicle Type");
+        throw ProcessError(TL("Trying to delete a default Vehicle Type"));
     } else {
         // check if currently is being inspected
         if (myViewNet->isAttributeCarrierInspected(demandElement)) {
@@ -1852,7 +1852,7 @@ GNENet::replaceJunctionByGeometry(GNEJunction* junction, GNEUndoList* undoList) 
         // finish operation
         undoList->end();
     } else {
-        throw ProcessError("Junction isn't removable");
+        throw ProcessError(TL("Junction isn't removable"));
     }
 }
 
@@ -2323,7 +2323,7 @@ GNENet::writeAdditionalByType(OutputDevice& device, const std::vector<SumoXMLTag
             if (sortedAdditionals.count(additional->getID()) == 0) {
                 sortedAdditionals[additional->getID()] = additional;
             } else {
-                throw ProcessError("Duplicated ID");
+                throw ProcessError(TL("Duplicated ID"));
             }
         }
     }
@@ -2400,7 +2400,7 @@ GNENet::writeMeanDatas(OutputDevice& device, SumoXMLTag tag) const {
         if (sortedMeanDatas.count(meanData->getID()) == 0) {
             sortedMeanDatas[meanData->getID()] = meanData;
         } else {
-            throw ProcessError("Duplicated ID");
+            throw ProcessError(TL("Duplicated ID"));
         }
     }
     for (const auto& additional : sortedMeanDatas) {
@@ -2686,7 +2686,7 @@ GNENet::initJunctionsAndEdges() {
         edge->getToJunction()->addChildElement(edge);
         // check grid
         if (myGrid.getWidth() > 10e16 || myGrid.getHeight() > 10e16) {
-            throw ProcessError("Network size exceeds 1 Lightyear. Please reconsider your inputs.\n");
+            throw ProcessError(TL("Network size exceeds 1 Lightyear. Please reconsider your inputs.\n"));
         }
     }
     // make sure myGrid is initialized even for an empty net
@@ -2760,7 +2760,7 @@ GNENet::computeAndUpdate(OptionsCont& neteditOptions, bool volatileOptions) {
     if (volatileOptions) {
         // check that net exist
         if (myViewNet == nullptr) {
-            throw ProcessError("ViewNet doesn't exist");
+            throw ProcessError(TL("ViewNet doesn't exist"));
         }
         // disable update geometry before clear undo list
         myUpdateGeometryEnabled = false;

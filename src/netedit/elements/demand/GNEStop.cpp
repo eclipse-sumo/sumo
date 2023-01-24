@@ -440,7 +440,7 @@ GNEStop::getPositionInView() const {
         } else if (getParentAdditionals().size() > 0) {
             return getParentAdditionals().front()->getPositionInView();
         } else {
-            throw ProcessError("Invalid Stop parent");
+            throw ProcessError(TL("Invalid Stop parent"));
         }
     }
 }
@@ -455,7 +455,7 @@ GNEStop::getParentName() const {
     } else if (getParentLanes().size() > 0) {
         return getParentLanes().front()->getID();
     } else {
-        throw ProcessError("Invalid parent");
+        throw ProcessError(TL("Invalid parent"));
     }
 }
 

@@ -131,7 +131,7 @@ MSTransportable::proceed(MSNet* net, SUMOTime time, const bool vehicleArrived) {
 
 void
 MSTransportable::setID(const std::string& /*newID*/) {
-    throw ProcessError("Changing a transportable ID is not permitted");
+    throw ProcessError(TL("Changing a transportable ID is not permitted"));
 }
 
 SUMOTime

@@ -185,13 +185,13 @@ public:
     /** @brief replace the current parking area stop with a new stop with merge duration
      */
     bool replaceParkingArea(MSParkingArea* /* parkingArea = 0 */, std::string& /*errorMsg*/) {
-        throw ProcessError("parkingZoneReroute not implemented for meso");
+        throw ProcessError(TL("parkingZoneReroute not implemented for meso"));
     }
 
     /** @brief get the current parking area stop
      */
     MSParkingArea* getNextParkingArea() {
-        throw ProcessError("parkingZoneReroute not implemented for meso");
+        throw ProcessError(TL("parkingZoneReroute not implemented for meso"));
     }
 
     /** @brief Sets the (planned) time at which the vehicle leaves its current segment

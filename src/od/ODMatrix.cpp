@@ -530,7 +530,7 @@ ODMatrix::readV(LineReader& lr, double scale,
                         add(vehNumber, beginEnd, *si, *di, vehType);
                     }
                     if (di == names.end()) {
-                        throw ProcessError("More entries than districts found.");
+                        throw ProcessError(TL("More entries than districts found."));
                     }
                     ++di;
                 }

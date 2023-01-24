@@ -118,7 +118,7 @@ NBEdgeCont::applyOptions(OptionsCont& oc) {
         PositionVector boundaryShape = GeomConvHelper::parseShapeReporting(polyPlainString, "pruning-boundary", 0, ok, false, false);
         if (ok) {
             if (boundaryShape.size() < 2) {
-                throw ProcessError("Invalid boundary: need at least 2 coordinates");
+                throw ProcessError(TL("Invalid boundary: need at least 2 coordinates"));
             } else if (boundaryShape.size() == 2) {
                 // prunning boundary (box)
                 myPruningBoundary.push_back(boundaryShape[0]);
@@ -137,9 +137,9 @@ NBEdgeCont::applyOptions(OptionsCont& oc) {
                 poly.push_back(StringUtils::toDouble((*i))); // !!! may throw something anyhow...
             }
             if (poly.size() < 4) {
-                throw ProcessError("Invalid boundary: need at least 2 coordinates");
+                throw ProcessError(TL("Invalid boundary: need at least 2 coordinates"));
             } else if (poly.size() % 2 != 0) {
-                throw ProcessError("Invalid boundary: malformed coordinate");
+                throw ProcessError(TL("Invalid boundary: malformed coordinate"));
             } else if (poly.size() == 4) {
                 // prunning boundary (box)
                 myPruningBoundary.push_back(Position(poly[0], poly[1]));
@@ -687,7 +687,7 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
     for (int i2 = 0; i2 < (int)two->getNumLanes(); i2++) {
         const int i1 = MIN2(MAX2((int)0, i2 + offset), (int)one->getNumLanes());
         if (!one->addLane2LaneConnection(i1, two, i2, NBEdge::Lane2LaneInfoType::COMPUTED)) {
-            throw ProcessError("Could not set connection!");
+            throw ProcessError(TL("Could not set connection!"));
         }
     }
     if (myRemoveEdgesAfterJoining) {

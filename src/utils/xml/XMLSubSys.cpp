@@ -111,7 +111,7 @@ XMLSubSys::setValidation(const std::string& validationScheme, const std::string&
             return;
         }
         if (StringUtils::startsWith(sumoPath, "http:") || StringUtils::startsWith(sumoPath, "https:") || StringUtils::startsWith(sumoPath, "ftp:")) {
-            throw ProcessError("SUMO_HOME looks like an URL, aborting to avoid inadvertent network access.");
+            throw ProcessError(TL("SUMO_HOME looks like an URL, aborting to avoid inadvertent network access."));
         }
         for (const char* const& filetype : {
                     "additional", "routes", "net"

@@ -125,7 +125,7 @@ NLBuilder::build() {
         return false;
     }
     if (myXMLHandler.networkVersion() == 0.) {
-        throw ProcessError("Invalid network, no network version declared.");
+        throw ProcessError(TL("Invalid network, no network version declared."));
     }
     // check whether the loaded net agrees with the simulation options
     if ((myOptions.getBool("no-internal-links") || myOptions.getBool("mesosim")) && myXMLHandler.haveSeenInternalEdge() && myXMLHandler.haveSeenDefaultLength()) {
@@ -212,7 +212,7 @@ NLBuilder::build() {
     buildDefaultMeanData("lanedata-output", "DEFAULT_LANEDATA", true);
 
     if (stateBeginMismatch && myNet.getVehicleControl().getLoadedVehicleNo() > 0) {
-        throw ProcessError("Loading vehicles ahead of a state file is not supported. Correct --begin option or load vehicles with option --route-files");
+        throw ProcessError(TL("Loading vehicles ahead of a state file is not supported. Correct --begin option or load vehicles with option --route-files"));
     }
 
     // load weights if wished
@@ -374,7 +374,7 @@ NLBuilder::buildNet() {
         if (myOptions.isSet("save-state.files")) {
             stateDumpFiles = myOptions.getStringVector("save-state.files");
             if (stateDumpFiles.size() != stateDumpTimes.size()) {
-                throw ProcessError("Wrong number of state file names!");
+                throw ProcessError(TL("Wrong number of state file names!"));
             }
         } else {
             const std::string prefix = myOptions.getString("save-state.prefix");

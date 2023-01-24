@@ -303,7 +303,7 @@ GNEPersonTrip::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* f
 GNELane*
 GNEPersonTrip::getFirstPathLane() const {
     if (getParentJunctions().size() > 0) {
-        throw ProcessError("This personTrip use junctions");
+        throw ProcessError(TL("This personTrip use junctions"));
     } else {
         return getParentEdges().front()->getLaneByDisallowedVClass(SVC_PEDESTRIAN);
     }
@@ -314,7 +314,7 @@ GNELane*
 GNEPersonTrip::getLastPathLane() const {
     // check if personPlan ends in a BusStop or junction
     if (getParentJunctions().size() > 0) {
-        throw ProcessError("This personTrip use junctions");
+        throw ProcessError(TL("This personTrip use junctions"));
     } else if (getParentAdditionals().size() > 0) {
         return getParentAdditionals().front()->getParentLanes().front();
     } else {

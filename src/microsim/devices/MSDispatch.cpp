@@ -188,11 +188,11 @@ MSDispatch::servedReservation(const Reservation* res) {
     }
     auto it = myGroupReservations.find(res->group);
     if (it == myGroupReservations.end()) {
-        throw ProcessError("Inconsistent group reservations.");
+        throw ProcessError(TL("Inconsistent group reservations."));
     }
     auto it2 = std::find(it->second.begin(), it->second.end(), res);
     if (it2 == it->second.end()) {
-        throw ProcessError("Inconsistent group reservations (2).");
+        throw ProcessError(TL("Inconsistent group reservations (2)."));
     }
     myRunningReservations.insert(*it2);
     const_cast<Reservation*>(*it2)->state = Reservation::ASSIGNED;

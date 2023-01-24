@@ -91,19 +91,19 @@ void
 GNETagProperties::checkTagIntegrity() const {
     // check that element must ist at least networkElement, Additional, or shape
     if (!isNetworkElement() && !isAdditionalElement() && !isDemandElement() && !isDataElement() && !isInternalLane()) {
-        throw ProcessError("element must be at leas networkElement, additional, TAZ, demandElement or dataElement");
+        throw ProcessError(TL("element must be at leas networkElement, additional, TAZ, demandElement or dataElement"));
     }
     // check that element only is networkElement, Additional, or shape at the same time
     if ((isNetworkElement() + isAdditionalElement() + isDemandElement() + isDataElement()) > 1) {
-        throw ProcessError("element can be only a networkElement, additional, demandElement or dataElement at the same time");
+        throw ProcessError(TL("element can be only a networkElement, additional, demandElement or dataElement at the same time"));
     }
     // check that element only is shape, TAZ, or wire at the same time
     if ((isShapeElement() + isTAZElement() + isWireElement()) > 1) {
-        throw ProcessError("element can be only a shape, TAZ or wire element at the same time");
+        throw ProcessError(TL("element can be only a shape, TAZ or wire element at the same time"));
     }
     // if element can mask the start and end position, check that bot attributes exist
     if (canMaskStartEndPos() && (!hasAttribute(SUMO_ATTR_STARTPOS) || !hasAttribute(SUMO_ATTR_ENDPOS))) {
-        throw ProcessError("If attribute mask the start and end position, bot attribute has to be defined");
+        throw ProcessError(TL("If attribute mask the start and end position, bot attribute has to be defined"));
     }
     // check that master tag is valid
     if (isChild() && myParentTags.empty()) {
@@ -129,11 +129,11 @@ GNETagProperties::checkTagIntegrity() const {
             if ((attributeProperty.getAttr() != SUMO_ATTR_ALLOW) && (attributeProperty.getAttr() != SUMO_ATTR_DISALLOW) &&
                     (attributeProperty.getAttr() != SUMO_ATTR_CHANGE_LEFT) && (attributeProperty.getAttr() != SUMO_ATTR_CHANGE_RIGHT) &&
                     (attributeProperty.getAttr() != GNE_ATTR_STOPOEXCEPTION)) {
-                throw ProcessError("Attributes aren't combinables");
+                throw ProcessError(TL("Attributes aren't combinables"));
             } else if ((attributeProperty.getAttr() == SUMO_ATTR_ALLOW) && !hasAttribute(SUMO_ATTR_DISALLOW)) {
-                throw ProcessError("allow need a disallow attribute in the same tag");
+                throw ProcessError(TL("allow need a disallow attribute in the same tag"));
             } else if ((attributeProperty.getAttr() == SUMO_ATTR_DISALLOW) && !hasAttribute(SUMO_ATTR_ALLOW)) {
-                throw ProcessError("disallow need an allow attribute in the same tag");
+                throw ProcessError(TL("disallow need an allow attribute in the same tag"));
             }
         }
     }

@@ -267,22 +267,22 @@ main(int argc, char** argv) {
         // load the districts
         // check whether the user gave a net filename
         if (!oc.isSet("taz-files")) {
-            throw ProcessError("You must supply a TAZ, network or districts file ('-n').");
+            throw ProcessError(TL("You must supply a TAZ, network or districts file ('-n')."));
         }
         // get the file name and set it
         ODDistrictCont districts;
         districts.loadDistricts(oc.getStringVector("taz-files"));
         if (districts.size() == 0) {
-            throw ProcessError("No districts loaded.");
+            throw ProcessError(TL("No districts loaded."));
         }
         // load the matrix
         ODMatrix matrix(districts, oc.getFloat("scale"));
         matrix.loadMatrix(oc);
         if (matrix.getNumLoaded() == 0) {
-            throw ProcessError("No vehicles loaded.");
+            throw ProcessError(TL("No vehicles loaded."));
         }
         if (MsgHandler::getErrorInstance()->wasInformed() && !oc.getBool("ignore-errors")) {
-            throw ProcessError("Loading failed.");
+            throw ProcessError(TL("Loading failed."));
         }
         WRITE_MESSAGE(toString(matrix.getNumLoaded()) + " vehicles loaded.");
         // apply a curve if wished
@@ -312,7 +312,7 @@ main(int argc, char** argv) {
             haveOutput = true;
         }
         if (!haveOutput) {
-            throw ProcessError("No output file given.");
+            throw ProcessError(TL("No output file given."));
         }
         WRITE_MESSAGE(toString(matrix.getNumDiscarded()) + " vehicles discarded.");
         WRITE_MESSAGE(toString(matrix.getNumWritten()) + " vehicles written.");

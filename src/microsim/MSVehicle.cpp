@@ -752,7 +752,7 @@ MSVehicle::Influencer::influenceChangeDecision(const SUMOTime currentTime, const
             case REQUEST_RIGHT:
                 return state | LCA_RIGHT;
             default:
-                throw ProcessError("should not happen");
+                throw ProcessError(TL("should not happen"));
         }
     }
 }
@@ -7069,7 +7069,7 @@ MSVehicle::saveState(OutputDevice& out) {
 void
 MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     if (!attrs.hasAttribute(SUMO_ATTR_POSITION)) {
-        throw ProcessError("Error: Invalid vehicles in state (may be a meso state)!");
+        throw ProcessError(TL("Error: Invalid vehicles in state (may be a meso state)!"));
     }
     int routeOffset;
     bool stopped;

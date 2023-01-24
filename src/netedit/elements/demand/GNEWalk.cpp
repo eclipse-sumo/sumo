@@ -328,7 +328,7 @@ GNEWalk::getFirstPathLane() const {
     if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
         return getParentDemandElements().at(1)->getParentEdges().front()->getLaneByAllowedVClass(SVC_PEDESTRIAN);
     } else if (getParentJunctions().size() > 0) {
-        throw ProcessError("This walk use junctions");
+        throw ProcessError(TL("This walk use junctions"));
     } else {
         return getParentEdges().front()->getLaneByAllowedVClass(SVC_PEDESTRIAN);
     }
@@ -343,7 +343,7 @@ GNEWalk::getLastPathLane() const {
     } else if (getParentAdditionals().size() > 0) {
         return getParentAdditionals().front()->getParentLanes().front();
     } else if (getParentJunctions().size() > 0) {
-        throw ProcessError("This walk use junctions");
+        throw ProcessError(TL("This walk use junctions"));
     } else {
         return getParentEdges().back()->getLaneByDisallowedVClass(SVC_PEDESTRIAN);
     }

@@ -25,6 +25,8 @@
 #include <string>
 #include <stdexcept>
 
+#include "Translation.h"
+
 
 // ===========================================================================
 // class definitions
@@ -38,7 +40,7 @@ class ProcessError : public std::runtime_error {
 public:
     /// @brief constructor
     ProcessError()
-        : std::runtime_error("Process Error") {}
+        : std::runtime_error(TL("Process Error")) {}
 
     /// @brief constructor
     ProcessError(const std::string& msg)
@@ -67,7 +69,7 @@ class EmptyData : public ProcessError {
 public:
     /// @brief constructor
     EmptyData()
-        : ProcessError("Empty Data") {}
+        : ProcessError(TL("Empty Data")) {}
 };
 
 
@@ -94,7 +96,7 @@ class NumberFormatException : public FormatException {
 public:
     /// @brief constructor
     NumberFormatException(const std::string& data)
-        : FormatException("Invalid Number Format " + data) {}
+        : FormatException(TLF("Invalid Number Format ", data)) {}
 };
 
 
@@ -107,7 +109,7 @@ class TimeFormatException : public FormatException {
 public:
     /// @brief constructor
     TimeFormatException(const std::string& data)
-        : FormatException("Invalid Time Format " + data) {}
+        : FormatException(TLF("Invalid Time Format ", data)) {}
 };
 
 
@@ -120,7 +122,7 @@ class BoolFormatException : public FormatException {
 public:
     /// @brief constructor
     BoolFormatException(const std::string& data)
-        : FormatException("Invalid Bool Format " + data) {}
+        : FormatException(TLF("Invalid Bool Format ", data)) {}
 };
 
 
@@ -132,7 +134,7 @@ public:
 class OutOfBoundsException : public ProcessError {
 public:
     /// @brief constructor
-    OutOfBoundsException(const std::string& msg = "Out Of Bounds")
+    OutOfBoundsException(const std::string& msg = TL("Out Of Bounds"))
         : ProcessError(msg) {}
 };
 
@@ -146,7 +148,7 @@ class UnknownElement : public ProcessError {
 public:
     /// @brief constructor
     UnknownElement()
-        : ProcessError("Unknown Element") {}
+        : ProcessError(TL("Unknown Element")) {}
 
     /// @brief constructor
     UnknownElement(const std::string& msg)
@@ -166,7 +168,7 @@ public:
 /// define SOFT_ASSERT raise an assertion in debug mode everywhere except on the windows test server
 #ifdef MSVC_TEST_SERVER
 #ifdef _DEBUG
-#define SOFT_ASSERT(expr) if (!(expr)) {throw ProcessError("should not happen");}
+#define SOFT_ASSERT(expr) if (!(expr)) {throw ProcessError(TL("should not happen"));}
 #else
 #define SOFT_ASSERT(expr)
 #endif

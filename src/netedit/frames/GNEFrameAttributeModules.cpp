@@ -510,7 +510,7 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject
         }
         return 1;
     } else {
-        throw ProcessError("Invalid call to onCmdOpenAttributeDialog");
+        throw ProcessError(TL("Invalid call to onCmdOpenAttributeDialog"));
     }
 }
 

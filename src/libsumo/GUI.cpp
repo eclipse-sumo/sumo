@@ -327,7 +327,7 @@ GUI::start(const std::vector<std::string>& cmd) {
         myApp->init(argc, argv);
         int minor, major;
         if (!FXGLVisual::supported(myApp, major, minor)) {
-            throw ProcessError("This system has no OpenGL support. Exiting.");
+            throw ProcessError(TL("This system has no OpenGL support. Exiting."));
         }
 
         // build the main window

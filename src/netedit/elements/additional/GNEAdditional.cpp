@@ -379,7 +379,7 @@ GNEAdditional::shiftLaneIndex() {
 void
 GNEAdditional::calculatePerpendicularLine(const double endLaneposition) {
     if (getParentEdges().empty()) {
-        throw ProcessError("Invalid number of edges");
+        throw ProcessError(TL("Invalid number of edges"));
     } else {
         // get lanes
         const GNELane* firstLane = getParentEdges().front()->getLanes().front();

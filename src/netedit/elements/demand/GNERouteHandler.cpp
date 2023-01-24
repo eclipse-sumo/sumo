@@ -224,7 +224,7 @@ GNERouteHandler::buildEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* su
 void
 GNERouteHandler::buildRouteDistribution(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& /*id*/) {
     // unsupported
-    writeError("NETEDIT doesn't support route distributions");
+    writeError(TL("NETEDIT doesn't support route distributions"));
 }
 
 
@@ -992,7 +992,7 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             stopTagType = waypoint ? GNE_TAG_WAYPOINT_BUSSTOP : SUMO_TAG_STOP_BUSSTOP;
             // containers cannot stops in busStops
             if (stopParent->getTagProperty().isContainer()) {
-                writeError("Containers don't support stops at busStops");
+                writeError(TL("Containers don't support stops at busStops"));
                 validParentDemandElement = false;
             }
         } else if (stopParameters.containerstop.size() > 0) {
@@ -1000,7 +1000,7 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             stopTagType = waypoint ? GNE_TAG_WAYPOINT_CONTAINERSTOP : SUMO_TAG_STOP_CONTAINERSTOP;
             // persons cannot stops in containerStops
             if (stopParent->getTagProperty().isPerson()) {
-                writeError("Persons don't support stops at containerStops");
+                writeError(TL("Persons don't support stops at containerStops"));
                 validParentDemandElement = false;
             }
         } else if (stopParameters.chargingStation.size() > 0) {
@@ -1008,10 +1008,10 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             stopTagType = waypoint ? GNE_TAG_WAYPOINT_CHARGINGSTATION : SUMO_TAG_STOP_CHARGINGSTATION;
             // check person and containers
             if (stopParent->getTagProperty().isPerson()) {
-                writeError("Persons don't support stops at chargingStations");
+                writeError(TL("Persons don't support stops at chargingStations"));
                 validParentDemandElement = false;
             } else if (stopParent->getTagProperty().isContainer()) {
-                writeError("Containers don't support stops at chargingStations");
+                writeError(TL("Containers don't support stops at chargingStations"));
                 validParentDemandElement = false;
             }
         } else if (stopParameters.parkingarea.size() > 0) {
@@ -1019,10 +1019,10 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             stopTagType = waypoint ? GNE_TAG_WAYPOINT_PARKINGAREA : SUMO_TAG_STOP_PARKINGAREA;
             // check person and containers
             if (stopParent->getTagProperty().isPerson()) {
-                writeError("Persons don't support stops at parkingAreas");
+                writeError(TL("Persons don't support stops at parkingAreas"));
                 validParentDemandElement = false;
             } else if (stopParent->getTagProperty().isContainer()) {
-                writeError("Containers don't support stops at parkingAreas");
+                writeError(TL("Containers don't support stops at parkingAreas"));
                 validParentDemandElement = false;
             }
         } else if (stopParameters.lane.size() > 0) {
@@ -1032,7 +1032,7 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             edge = myNet->getAttributeCarriers()->retrieveEdge(stopParameters.edge, false);
             // check vehicles
             if (stopParent->getTagProperty().isVehicle()) {
-                writeError("vehicles don't support stops at edges");
+                writeError(TL("vehicles don't support stops at edges"));
                 validParentDemandElement = false;
             }
         }
@@ -1045,9 +1045,9 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
         if (validParentDemandElement) {
             // check if values are correct
             if (stoppingPlace && lane && edge) {
-                writeError("A stop must be defined either over a stoppingPlace, a edge or a lane");
+                writeError(TL("A stop must be defined either over a stoppingPlace, a edge or a lane"));
             } else if (!stoppingPlace && !lane && !edge) {
-                writeError("A stop requires only a stoppingPlace, edge or lane");
+                writeError(TL("A stop requires only a stoppingPlace, edge or lane"));
             } else if (stoppingPlace) {
                 // create stop using stopParameters and stoppingPlace
                 GNEDemandElement* stop = nullptr;

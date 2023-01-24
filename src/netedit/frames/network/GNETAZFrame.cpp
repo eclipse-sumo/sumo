@@ -333,7 +333,7 @@ GNETAZFrame::CurrentTAZ::addTAZChild(GNETAZSourceSink* sourceSink) {
             }
         }
     } else {
-        throw ProcessError("Invalid TAZ Child");
+        throw ProcessError(TL("Invalid TAZ Child"));
     }
 }
 
@@ -916,7 +916,7 @@ GNETAZFrame::TAZSelectionStatistics::selectEdge(const CurrentTAZ::TAZEdgeColor& 
     // find TAZEdgeColor using edge as criterium wasn't previously selected
     for (const auto& selectedEdge : myEdgeAndTAZChildrenSelected) {
         if (selectedEdge.edge == TAZEdgeColor.edge) {
-            throw ProcessError("TAZEdgeColor already selected");
+            throw ProcessError(TL("TAZEdgeColor already selected"));
         }
     }
     // add edge and their TAZ Children into myTAZChildSelected
@@ -948,9 +948,9 @@ GNETAZFrame::TAZSelectionStatistics::unselectEdge(GNEEdge* edge) {
             }
         }
         // throw exception if edge wasn't found
-        throw ProcessError("edge wasn't found");
+        throw ProcessError(TL("edge wasn't found"));
     } else {
-        throw ProcessError("Invalid edge");
+        throw ProcessError(TL("Invalid edge"));
     }
 }
 
@@ -1689,7 +1689,7 @@ GNETAZFrame::addOrRemoveTAZMember(GNEEdge* edge) {
         myTAZChildDefaultParameters->updateSelectEdgesButton();
         return true;
     } else {
-        throw ProcessError("Edge cannot be null");
+        throw ProcessError(TL("Edge cannot be null"));
     }
 }
 

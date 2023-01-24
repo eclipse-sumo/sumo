@@ -170,7 +170,7 @@ GNEDataInterval::addGenericDataChild(GNEGenericData* genericData) {
         // update colors
         genericData->getDataIntervalParent()->getDataSetParent()->updateAttributeColors();
     } else {
-        throw ProcessError("GenericData was already inserted");
+        throw ProcessError(TL("GenericData was already inserted"));
     }
 }
 
@@ -196,7 +196,7 @@ GNEDataInterval::removeGenericDataChild(GNEGenericData* genericData) {
         // remove reference from attributeCarriers
         myNet->getAttributeCarriers()->deleteGenericData(genericData);
     } else {
-        throw ProcessError("GenericData wasn't previously inserted");
+        throw ProcessError(TL("GenericData wasn't previously inserted"));
     }
 }
 

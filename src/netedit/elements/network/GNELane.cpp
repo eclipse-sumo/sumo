@@ -807,7 +807,7 @@ GNELane::getLaneParametricLength() const  {
     if (laneParametricLength > 0) {
         return laneParametricLength;
     } else {
-        throw ProcessError("Lane Parametric Length cannot be never 0");
+        throw ProcessError(TL("Lane Parametric Length cannot be never 0"));
     }
 }
 

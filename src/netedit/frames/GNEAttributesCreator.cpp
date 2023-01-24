@@ -85,7 +85,7 @@ GNEAttributesCreator::showAttributesCreatorModule(GNEAttributeCarrier* templateA
         // show
         show();
     } else {
-        throw ProcessError("invalid templateAC in showAttributesCreatorModule");
+        throw ProcessError(TL("invalid templateAC in showAttributesCreatorModule"));
     }
 }
 

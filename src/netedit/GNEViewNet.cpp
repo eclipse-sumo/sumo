@@ -841,7 +841,7 @@ GNEViewNet::aksChangeSupermode(const std::string& operation, Supermode expectedS
     } else if (expectedSupermode == Supermode::DATA) {
         supermode = "data";
     } else {
-        throw ProcessError("invalid expecte supermode");
+        throw ProcessError(TL("invalid expecte supermode"));
     }
     // open question box
     const auto answer = FXMessageBox::question(myApp, MBOX_YES_NO,

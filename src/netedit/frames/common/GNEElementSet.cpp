@@ -72,7 +72,7 @@ GNEElementSet::GNEElementSet(GNESelectorFrame* selectorFrameParent, Supermode su
         // set default set
         myCurrentSet = Type::GENERICDATA;
     } else {
-        throw ProcessError("Invalid supermode");
+        throw ProcessError(TL("Invalid supermode"));
     }
     // build MatchAttribute
     myMatchAttribute = new GNEMatchAttribute(this, defaultTag, defaultAttr, defaultValue);

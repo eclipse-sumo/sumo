@@ -108,13 +108,13 @@ GNEDialogACChooser::getObjectName(GUIGlObject* o) const {
         GNEJunction* junction = dynamic_cast<GNEJunction*>(o);
         // check that junction exist
         if (junction == nullptr) {
-            throw ProcessError("Invalid Junction");
+            throw ProcessError(TL("Invalid Junction"));
         }
         // get definitions
         const std::set<NBTrafficLightDefinition*>& defs = junction->getNBNode()->getControllingTLS();
         // check that traffic light exists
         if (defs.empty()) {
-            throw ProcessError("Invalid number of TLSs");
+            throw ProcessError(TL("Invalid number of TLSs"));
         }
         // get TLDefinition
         const std::string& tlDefID = (*defs.begin())->getID();

@@ -535,7 +535,7 @@ MSMeanData::getEdgeID(const MSEdge* const edge) {
 void
 MSMeanData::writeAggregated(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime) {
     if (myTrackVehicles) {
-        throw ProcessError("aggregated meanData output not yet implemented for trackVehicles");
+        throw ProcessError(TL("aggregated meanData output not yet implemented for trackVehicles"));
     }
 
     double edgeLengthSum = 0;

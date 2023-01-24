@@ -271,12 +271,12 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
     if (addLanes) {
         if (potHighway->getStep() < NBEdge::EdgeBuildingStep::LANES2LANES_USER) {
             if (!potHighway->addLane2LaneConnections(0, first, potRamp->getNumLanes(), MIN2(first->getNumLanes() - potRamp->getNumLanes(), potHighway->getNumLanes()), NBEdge::Lane2LaneInfoType::VALIDATED, true)) {
-                throw ProcessError("Could not set connection!");
+                throw ProcessError(TL("Could not set connection!"));
             }
         }
         if (potRamp->getStep() < NBEdge::EdgeBuildingStep::LANES2LANES_USER) {
             if (!potRamp->addLane2LaneConnections(0, first, 0, potRamp->getNumLanes(), NBEdge::Lane2LaneInfoType::VALIDATED, true)) {
-                throw ProcessError("Could not set connection!");
+                throw ProcessError(TL("Could not set connection!"));
             }
         }
         patchRampGeometry(potRamp, first, potHighway, false);
@@ -387,10 +387,10 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
     if (addLanes) {
         if (first->getStep() < NBEdge::EdgeBuildingStep::LANES2LANES_USER) {
             if (!first->addLane2LaneConnections(potRamp->getNumLanes(), potHighway, 0, MIN2(first->getNumLanes() - 1, potHighway->getNumLanes()), NBEdge::Lane2LaneInfoType::VALIDATED, true)) {
-                throw ProcessError("Could not set connection!");
+                throw ProcessError(TL("Could not set connection!"));
             }
             if (!first->addLane2LaneConnections(0, potRamp, 0, potRamp->getNumLanes(), NBEdge::Lane2LaneInfoType::VALIDATED, false)) {
-                throw ProcessError("Could not set connection!");
+                throw ProcessError(TL("Could not set connection!"));
             }
         }
         patchRampGeometry(potRamp, first, potHighway, true);

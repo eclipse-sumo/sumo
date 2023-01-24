@@ -133,7 +133,7 @@ TrajectoriesHandler::computeEmissions(const std::string id, const SUMOEmissionCl
         a = PollutantsInterface::getModifiedAccel(c, v, a, s);
     }
     if (a == INVALID_VALUE) {
-        throw ProcessError("Acceleration information is missing; try running with --compute-a.");
+        throw ProcessError(TL("Acceleration information is missing; try running with --compute-a."));
     }
     if (s == INVALID_VALUE) {
         s = myDefaultSlope;

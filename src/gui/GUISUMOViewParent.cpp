@@ -215,7 +215,7 @@ GUISUMOViewParent::getObjectIDs(int messageId) const {
         case MID_HOTKEY_SHIFT_L_LOCATEPOLY:
             return static_cast<GUIShapeContainer&>(GUINet::getInstance()->getShapeContainer()).getPolygonIDs();
         default:
-            throw ProcessError("Unknown Message ID in onCmdLocate");
+            throw ProcessError(TL("Unknown Message ID in onCmdLocate"));
     }
 }
 
@@ -264,7 +264,7 @@ GUISUMOViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 titleString = "Polygon Chooser";
                 break;
             default:
-                throw ProcessError("Unknown Message ID in onCmdLocate");
+                throw ProcessError(TL("Unknown Message ID in onCmdLocate"));
         }
 
         myGLObjChooser[messageId] = new GUIDialog_GLObjChooser(this, messageId, icon, titleString.c_str(), getObjectIDs(messageId), GUIGlObjectStorage::gIDStorage);

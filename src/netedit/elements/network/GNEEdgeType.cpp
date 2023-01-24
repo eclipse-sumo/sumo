@@ -152,7 +152,7 @@ GNEEdgeType::removeLaneType(const int index) {
     if (index < (int)myLaneTypes.size()) {
         myLaneTypes.erase(myLaneTypes.begin() + index);
     } else {
-        throw ProcessError("Invalid index");
+        throw ProcessError(TL("Invalid index"));
     }
 }
 

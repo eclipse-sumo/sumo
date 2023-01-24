@@ -123,7 +123,7 @@ AGWorkPosition::take(AGAdult* worker) {
         myStatData->workPositions--;
         myAdult = worker;
     } else {
-        throw ProcessError("Work position already occupied. Cannot give it to another adult.");
+        throw ProcessError(TL("Work position already occupied. Cannot give it to another adult."));
     }
 }
 

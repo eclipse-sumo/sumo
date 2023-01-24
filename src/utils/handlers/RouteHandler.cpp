@@ -417,7 +417,7 @@ RouteHandler::parseRoute(const SUMOSAXAttributes& attrs) {
     const bool embeddedRoute = isEmbeddedRoute(attrs);
     // first check if this is an embedded route
     if ((embeddedRoute && attrs.hasAttribute(SUMO_ATTR_ID)) || (!embeddedRoute && !attrs.hasAttribute(SUMO_ATTR_ID))) {
-        writeError("a route must be defined either within a vehicle/flow or with an ID attribute");
+        writeError(TL("a route must be defined either within a vehicle/flow or with an ID attribute"));
     } else {
         // declare Ok Flag
         bool parsedOk = true;
@@ -479,9 +479,9 @@ RouteHandler::parseTrip(const SUMOSAXAttributes& attrs) {
     if (tripParameter) {
         // check from/to edge/junction
         if (attrs.hasAttribute(SUMO_ATTR_FROM) && attrs.hasAttribute(SUMO_ATTR_FROMJUNCTION)) {
-            writeError("Attributes 'from' and 'fromJunction' cannot be defined together");
+            writeError(TL("Attributes 'from' and 'fromJunction' cannot be defined together"));
         } else if (attrs.hasAttribute(SUMO_ATTR_TO) && attrs.hasAttribute(SUMO_ATTR_TOJUNCTION)) {
-            writeError("Attributes 'to' and 'toJunction' cannot be defined together");
+            writeError(TL("Attributes 'to' and 'toJunction' cannot be defined together"));
         } else if (attrs.hasAttribute(SUMO_ATTR_FROM) && attrs.hasAttribute(SUMO_ATTR_TO)) {
             // from-to attributes
             const std::string from = attrs.getOpt<std::string>(SUMO_ATTR_FROM, tripParameter->id.c_str(), parsedOk, "");
@@ -512,7 +512,7 @@ RouteHandler::parseTrip(const SUMOSAXAttributes& attrs) {
                 myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TOJUNCTION, toJunction);
             }
         } else {
-            writeError("trip definition needs either 'from/to' or 'fromJunction/toJunction'");
+            writeError(TL("trip definition needs either 'from/to' or 'fromJunction/toJunction'"));
         }
         // delete trip parameter (because in XMLStructure we have a copy)
         delete tripParameter;
@@ -546,9 +546,9 @@ RouteHandler::parseFlow(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->setVehicleParameter(flowParameter);
         // check from/to edge/junction
         if (attrs.hasAttribute(SUMO_ATTR_FROM) && attrs.hasAttribute(SUMO_ATTR_FROMJUNCTION)) {
-            writeError("Attributes 'from' and 'fromJunction' cannot be defined together");
+            writeError(TL("Attributes 'from' and 'fromJunction' cannot be defined together"));
         } else if (attrs.hasAttribute(SUMO_ATTR_TO) && attrs.hasAttribute(SUMO_ATTR_TOJUNCTION)) {
-            writeError("Attributes 'to' and 'toJunction' cannot be defined together");
+            writeError(TL("Attributes 'to' and 'toJunction' cannot be defined together"));
         } else if (attrs.hasAttribute(SUMO_ATTR_FROM) && attrs.hasAttribute(SUMO_ATTR_TO)) {
             // from-to attributes
             const std::string from = attrs.get<std::string>(SUMO_ATTR_FROM, flowParameter->id.c_str(), parsedOk);
@@ -843,11 +843,11 @@ RouteHandler::parseParameters(const SUMOSAXAttributes& attrs) {
     CommonXMLStructure::SumoBaseObject* SumoBaseObjectParent = myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject();
     // check parent
     if (SumoBaseObjectParent == nullptr) {
-        writeError("Parameters must be defined within an object");
+        writeError(TL("Parameters must be defined within an object"));
     } else if (SumoBaseObjectParent->getTag() == SUMO_TAG_ROOTFILE) {
-        writeError("Parameters cannot be defined in the additional file's root.");
+        writeError(TL("Parameters cannot be defined in the additional file's root."));
     } else if (SumoBaseObjectParent->getTag() == SUMO_TAG_PARAM) {
-        writeError("Parameters cannot be defined within another parameter.");
+        writeError(TL("Parameters cannot be defined within another parameter."));
     } else if (parsedOk) {
         // get tag str
         const std::string parentTagStr = toString(SumoBaseObjectParent->getTag());
@@ -881,9 +881,9 @@ RouteHandler::parseNestedCFM(const SumoXMLTag tag, const SUMOSAXAttributes& attr
             vTypeObject->setVehicleTypeParameter(&vType);
             return true;
         } else if (myHardFail) {
-            throw ProcessError("Invalid parsing embedded VType");
+            throw ProcessError(TL("Invalid parsing embedded VType"));
         } else {
-            writeError("Invalid parsing embedded VType");
+            writeError(TL("Invalid parsing embedded VType"));
         }
     }
     return false;
@@ -967,7 +967,7 @@ RouteHandler::parseStopParameters(SUMOVehicleParameter::Stop& stop, const SUMOSA
     stop.lane = attrs.getOpt<std::string>(SUMO_ATTR_LANE, nullptr, ok, stop.busstop);
     // check errors
     if (!stop.edge.empty() && !stop.lane.empty()) {
-        writeError("A stop must be defined either with an edge or with an lane, not both");
+        writeError(TL("A stop must be defined either with an edge or with an lane, not both"));
         return false;
     }
     // stopping places
@@ -981,10 +981,10 @@ RouteHandler::parseStopParameters(SUMOVehicleParameter::Stop& stop, const SUMOSA
     const int numStoppingPlaces = !stop.busstop.empty() + !stop.chargingStation.empty() + !stop.overheadWireSegment.empty() +
                                   !stop.containerstop.empty() + !stop.parkingarea.empty();
     if (numStoppingPlaces > 1) {
-        writeError("A stop must be defined only in a StoppingPlace");
+        writeError(TL("A stop must be defined only in a StoppingPlace"));
         return false;
     } else if ((numStoppingPlaces == 0) && stop.edge.empty() && stop.lane.empty()) {
-        writeError("A stop must be defined in an edge, a lane, or in a StoppingPlace");
+        writeError(TL("A stop must be defined in an edge, a lane, or in a StoppingPlace"));
         return false;
     }
     // declare error suffix

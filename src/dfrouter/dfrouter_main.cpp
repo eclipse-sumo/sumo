@@ -67,7 +67,7 @@
 void
 readDetectors(RODFDetectorCon& detectors, OptionsCont& oc, RODFNet* optNet) {
     if (!oc.isSet("detector-files")) {
-        throw ProcessError("No detector file given (use --detector-files <FILE>).");
+        throw ProcessError(TL("No detector file given (use --detector-files <FILE>)."));
     }
     // read definitions stored in XML-format
     std::vector<std::string> files = oc.getStringVector("detector-files");
@@ -85,7 +85,7 @@ readDetectors(RODFDetectorCon& detectors, OptionsCont& oc, RODFNet* optNet) {
         }
     }
     if (detectors.getDetectors().empty()) {
-        throw ProcessError("No detectors found.");
+        throw ProcessError(TL("No detectors found."));
     }
 }
 
@@ -140,7 +140,7 @@ startComputation(RODFNet* optNet, RODFDetectorFlows& flows, RODFDetectorCon& det
             }
         }
         if (i == detectors.getDetectors().end() && !oc.getBool("routes-for-all")) {
-            throw ProcessError("No source detectors found.");
+            throw ProcessError(TL("No source detectors found."));
         }
         // compute routes between the detectors (optionally)
         if (!detectors.detectorsHaveRoutes() || oc.getBool("revalidate-routes") || oc.getBool("guess-empty-flows")) {
@@ -155,11 +155,11 @@ startComputation(RODFNet* optNet, RODFDetectorFlows& flows, RODFDetectorCon& det
     // check
     // whether the detectors are valid
     if (!detectors.detectorsHaveCompleteTypes()) {
-        throw ProcessError("The detector types are not defined; use in combination with a network");
+        throw ProcessError(TL("The detector types are not defined; use in combination with a network"));
     }
     // whether the detectors have routes
     if (!detectors.detectorsHaveRoutes()) {
-        throw ProcessError("The emitters have no routes; use in combination with a network");
+        throw ProcessError(TL("The emitters have no routes; use in combination with a network"));
     }
 
     // save the detectors if wished

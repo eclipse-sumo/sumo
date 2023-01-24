@@ -96,7 +96,7 @@ MSBaseVehicle::BaseInfluencer::getRouterTT(const int rngIndex, SUMOVehicleClass 
 
 double
 MSBaseVehicle::getPreviousSpeed() const {
-    throw ProcessError("getPreviousSpeed() is not available for non-MSVehicles.");
+    throw ProcessError(TL("getPreviousSpeed() is not available for non-MSVehicles."));
 }
 
 
@@ -169,7 +169,7 @@ MSBaseVehicle::initDevices() {
 
 void
 MSBaseVehicle::setID(const std::string& /*newID*/) {
-    throw ProcessError("Changing a vehicle ID is not permitted");
+    throw ProcessError(TL("Changing a vehicle ID is not permitted"));
 }
 
 const SUMOVehicleParameter&

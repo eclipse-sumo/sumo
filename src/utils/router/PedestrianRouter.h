@@ -122,7 +122,7 @@ public:
         The definition of the effort depends on the wished routing scheme */
     bool compute(const E*, const E*, const _IntermodalTrip* const,
                  SUMOTime, std::vector<const E*>&, bool) {
-        throw ProcessError("Do not use this method");
+        throw ProcessError(TL("Do not use this method"));
     }
 
     void prohibit(const std::vector<E*>& toProhibit) {

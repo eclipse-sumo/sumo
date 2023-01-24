@@ -129,14 +129,14 @@ GNEAttributeCarrier::resetDefaultValues() {
 
 void
 GNEAttributeCarrier::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    throw ProcessError("Nothing to enable, implement in Children");
+    throw ProcessError(TL("Nothing to enable, implement in Children"));
 
 }
 
 
 void
 GNEAttributeCarrier::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
-    throw ProcessError("Nothing to disable, implement in Children");
+    throw ProcessError(TL("Nothing to disable, implement in Children"));
 }
 
 
@@ -844,7 +844,7 @@ GNEAttributeCarrier::resetAttributes() {
 
 void
 GNEAttributeCarrier::toggleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
-    throw ProcessError("Nothing to toggle, implement in Children");
+    throw ProcessError(TL("Nothing to toggle, implement in Children"));
 }
 
 

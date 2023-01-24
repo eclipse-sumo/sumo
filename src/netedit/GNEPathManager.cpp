@@ -82,7 +82,7 @@ GNEPathManager::Segment::isFirstSegment() const {
     if (myLane) {
         return myFirstSegment;
     } else {
-        throw ProcessError("Invalid call: Only allowed in lane segments");
+        throw ProcessError(TL("Invalid call: Only allowed in lane segments"));
     }
 }
 
@@ -92,7 +92,7 @@ GNEPathManager::Segment::isLastSegment() const {
     if (myLane) {
         return myLastSegment;
     } else {
-        throw ProcessError("Invalid call: Only allowed in lane segments");
+        throw ProcessError(TL("Invalid call: Only allowed in lane segments"));
     }
 }
 
@@ -114,7 +114,7 @@ GNEPathManager::Segment::getPreviousLane() const {
     if (myJunction) {
         return myPreviousLane;
     } else {
-        throw ProcessError("Invalid call: Only allowed in junction segments");
+        throw ProcessError(TL("Invalid call: Only allowed in junction segments"));
     }
 }
 
@@ -124,7 +124,7 @@ GNEPathManager::Segment::getNextLane() const {
     if (myJunction) {
         return myNextLane;
     } else {
-        throw ProcessError("Invalid call: Only allowed in junction segments");
+        throw ProcessError(TL("Invalid call: Only allowed in junction segments"));
     }
 }
 

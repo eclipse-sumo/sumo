@@ -216,7 +216,7 @@ GNETLSTable::setItemText(FXint row, FXint column, const std::string& text) {
             updateAccumulatedDuration();
         }
     } else {
-        throw ProcessError("Invalid row or column");
+        throw ProcessError(TL("Invalid row or column"));
     }
 }
 
@@ -227,7 +227,7 @@ GNETLSTable::getItemText(const int row, const int column) const {
             (column >= 0) && (column < (FXint)myColumns.size())) {
         return myRows.at(row)->getText(column);
     }
-    throw ProcessError("Invalid row or column");
+    throw ProcessError(TL("Invalid row or column"));
 }
 
 
@@ -251,7 +251,7 @@ GNETLSTable::selectRow(const int row) {
         // update index label
         updateIndexLabel();
     } else {
-        throw ProcessError("Invalid row");
+        throw ProcessError(TL("Invalid row"));
     }
 }
 
@@ -261,7 +261,7 @@ GNETLSTable::setColumnLabelTop(const int column, const std::string& text, const 
     if ((column >= 0) && (column < (int)myColumns.size())) {
         myColumns.at(column)->setColumnLabelTop(text, tooltip);
     } else {
-        throw ProcessError("Invalid column");
+        throw ProcessError(TL("Invalid column"));
     }
 }
 
@@ -271,7 +271,7 @@ GNETLSTable::setColumnLabelBot(const int column, const std::string& text) {
     if ((column >= 0) && (column < (int)myColumns.size())) {
         myColumns.at(column)->setColumnLabelBot(text);
     } else {
-        throw ProcessError("Invalid column");
+        throw ProcessError(TL("Invalid column"));
     }
 }
 
@@ -907,7 +907,7 @@ GNETLSTable::Cell::getDoubleValue() const {
     if (myTextField->getText().empty()) {
         return 0;
     } else if (!GNEAttributeCarrier::canParse<double>(myTextField->getText().text())) {
-        throw ProcessError("Cannot be parsed to double");
+        throw ProcessError(TL("Cannot be parsed to double"));
     } else {
         return GNEAttributeCarrier::parse<double>(myTextField->getText().text());
     }
@@ -919,7 +919,7 @@ GNETLSTable::Cell::setTooltip(const std::string& toolTip) {
     if (myTextField) {
         myTextField->setToolTipText(toolTip.c_str());
     } else {
-        throw ProcessError("Tooltips pnly for TextFields");
+        throw ProcessError(TL("Tooltips pnly for TextFields"));
     }
 }
 
@@ -1273,7 +1273,7 @@ GNETLSTable::Row::Row(GNETLSTable* table) :
                 break;
             }
             default:
-                throw ProcessError("Invalid Cell type");
+                throw ProcessError(TL("Invalid Cell type"));
         }
     }
 }
@@ -1292,7 +1292,7 @@ GNETLSTable::Row::getText(int index) const {
     if (myCells.at(index)->getTextField()) {
         return myCells.at(index)->getTextField()->getText().text();
     } else {
-        throw ProcessError("Cell doesn't have a textField");
+        throw ProcessError(TL("Cell doesn't have a textField"));
     }
 }
 

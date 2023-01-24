@@ -476,7 +476,7 @@ TraCIServer::checkClientOrdering() {
 #ifdef DEBUG_MULTI_CLIENTS
                 std::cout << "    Client " << myCurrentSocket->second->socket << " did not set order initially." << std::endl;
 #endif
-                throw ProcessError("Execution order (libsumo::CMD_SETORDER) was not set for all TraCI clients in pre-execution phase.");
+                throw ProcessError(TL("Execution order (libsumo::CMD_SETORDER) was not set for all TraCI clients in pre-execution phase."));
             }
             if (commandId == libsumo::CMD_SETORDER) {
                 // This is what we have waited for.

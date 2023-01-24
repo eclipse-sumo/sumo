@@ -1214,7 +1214,7 @@ MSActuatedTrafficLightLogic::executeAssignments(const AssignmentMap& assignments
 double
 MSActuatedTrafficLightLogic::evalAtomicExpression(const std::string& expr) const {
     if (expr.size() == 0) {
-        throw ProcessError("Invalid empty expression");
+        throw ProcessError(TL("Invalid empty expression"));
     } else if (expr[0] == '!') {
         return evalAtomicExpression(expr.substr(1)) == 0. ? 1. : 0.;
     } else if (expr[0] == '-') {

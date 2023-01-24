@@ -118,7 +118,7 @@ MSPModel_Remote::~MSPModel_Remote() {
         ClientContext context1;
         Status st = myHybridsimStub->shutdown(&context1, req, &rpl);
         if (!st.ok()) {
-            throw ProcessError("Could not shutdown remote server");
+            throw ProcessError(TL("Could not shutdown remote server"));
         }
 
     */
@@ -147,7 +147,7 @@ MSPModel_Remote::execute(SUMOTime time) {
         ClientContext context2;
         Status st2 = myHybridsimStub->receiveTrajectories(&context2, req2, &trajectories);
         if (!st2.ok()) {
-            throw ProcessError("Could not receive trajectories from remote simulation");
+            throw ProcessError(TL("Could not receive trajectories from remote simulation"));
         }
         for (hybridsim::Trajectory trajectory : trajectories.trajectories()) {
             if (remoteIdPStateMapping.find(trajectory.id()) != remoteIdPStateMapping.end()) {
@@ -175,7 +175,7 @@ MSPModel_Remote::execute(SUMOTime time) {
         ClientContext context3;
         Status st3 = myHybridsimStub->queryRetrievableAgents(&context3, req3, &agents);
         if (!st3.ok()) {
-            throw ProcessError("Could not query retrievable agents");
+            throw ProcessError(TL("Could not query retrievable agents"));
         }
         //TODO check whether agents can be retrieved
         for (hybridsim::Agent agent : agents.agents()) {
@@ -192,7 +192,7 @@ MSPModel_Remote::execute(SUMOTime time) {
         ClientContext context4;
         Status st4 = myHybridsimStub->confirmRetrievedAgents(&context4, agents, &rpl2);
         if (!st4.ok()) {
-            throw ProcessError("Could not confirm retrieved agents");
+            throw ProcessError(TL("Could not confirm retrieved agents"));
         }
     */
     return DELTA_T;
@@ -296,5 +296,5 @@ MSPModel_Remote::usingInternalLanes() {
 
 void
 MSPModel_Remote::clearState() {
-    throw ProcessError("Pedestrian model 'remote' does not support simulation.loadState state\n");
+    throw ProcessError(TL("Pedestrian model 'remote' does not support simulation.loadState state\n"));
 }

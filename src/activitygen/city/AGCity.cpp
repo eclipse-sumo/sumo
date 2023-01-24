@@ -424,7 +424,7 @@ AGCity::getStreet(const std::string& edge) {
 const AGStreet&
 AGCity::getRandomStreet() {
     if (passengerStreets.empty()) {
-        throw ProcessError("No street that allows passenger vehicles found in this city.");
+        throw ProcessError(TL("No street that allows passenger vehicles found in this city."));
     }
     return *RandHelper::getRandomFrom(passengerStreets);
 }

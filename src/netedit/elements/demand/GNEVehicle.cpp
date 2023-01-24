@@ -642,7 +642,7 @@ GNEVehicle::getParentName() const {
     } else if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
         return getParentEdges().front()->getID();
     } else {
-        throw ProcessError("Invalid vehicle tag");
+        throw ProcessError(TL("Invalid vehicle tag"));
     }
 }
 

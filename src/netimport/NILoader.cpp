@@ -109,10 +109,10 @@ NILoader::load(OptionsCont& oc) {
     ok &= loadXML(oc);
     // check the loaded structures
     if (myNetBuilder.getNodeCont().size() == 0) {
-        throw ProcessError("No nodes loaded.");
+        throw ProcessError(TL("No nodes loaded."));
     }
     if (myNetBuilder.getEdgeCont().size() == 0) {
-        throw ProcessError("No edges loaded.");
+        throw ProcessError(TL("No edges loaded."));
     }
     if (!myNetBuilder.getEdgeCont().checkConsistency(myNetBuilder.getNodeCont())) {
         throw ProcessError();

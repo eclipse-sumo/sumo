@@ -418,7 +418,7 @@ GNEHierarchicalElement::checkChildAdditionalsOverlapping() const {
         }
         return true;
     } else {
-        throw ProcessError("Some child meanData were lost during sorting");
+        throw ProcessError(TL("Some child meanData were lost during sorting"));
     }
 }
 

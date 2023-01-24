@@ -26,6 +26,7 @@
 
 #include <gtest/gtest.h>
 #include <utils/common/StringUtils.h>
+#include <utils/common/UtilExceptions.h>
 
 
 // ===========================================================================

@@ -134,7 +134,7 @@ GNEDrawingShape::addNewPoint(const Position& P) {
     if (myStopDrawingButton->isEnabled()) {
         myTemporalShape.push_back(P);
     } else {
-        throw ProcessError("A new point cannot be added if drawing wasn't started");
+        throw ProcessError(TL("A new point cannot be added if drawing wasn't started"));
     }
 }
 

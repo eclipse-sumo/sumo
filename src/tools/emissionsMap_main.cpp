@@ -156,10 +156,10 @@ main(int argc, char** argv) {
         double sStep = oc.getFloat("s-step");
         if (!oc.getBool("iterate")) {
             if (!oc.isSet("emission-class")) {
-                throw ProcessError("The emission class (-e) must be given.");
+                throw ProcessError(TL("The emission class (-e) must be given."));
             }
             if (!oc.isSet("output-file")) {
-                throw ProcessError("The output file (-o) must be given.");
+                throw ProcessError(TL("The output file (-o) must be given."));
             }
             const SUMOEmissionClass c = PollutantsInterface::getClassByName(oc.getString("emission-class"));
             single(oc.getString("output-file"), oc.getString("emission-class"),

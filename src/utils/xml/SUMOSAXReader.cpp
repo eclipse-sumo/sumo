@@ -153,7 +153,7 @@ SUMOSAXReader::parseFirst(std::string systemID) {
 bool
 SUMOSAXReader::parseNext() {
     if (myXMLReader == nullptr) {
-        throw ProcessError("The XML-parser was not initialized.");
+        throw ProcessError(TL("The XML-parser was not initialized."));
     }
     return myXMLReader->parseNext(myToken);
 }
@@ -162,7 +162,7 @@ SUMOSAXReader::parseNext() {
 bool
 SUMOSAXReader::parseSection(int element) {
     if (myXMLReader == nullptr) {
-        throw ProcessError("The XML-parser was not initialized.");
+        throw ProcessError(TL("The XML-parser was not initialized."));
     }
     bool started = false;
     if (myNextSection.first != -1) {
@@ -188,7 +188,7 @@ SUMOSAXReader::ensureSAXReader() {
     if (myXMLReader == nullptr) {
         myXMLReader = XERCES_CPP_NAMESPACE::XMLReaderFactory::createXMLReader(XERCES_CPP_NAMESPACE::XMLPlatformUtils::fgMemoryManager, myGrammarPool);
         if (myXMLReader == nullptr) {
-            throw ProcessError("The XML-parser could not be build.");
+            throw ProcessError(TL("The XML-parser could not be build."));
         }
         setValidation();
         myXMLReader->setContentHandler(myHandler);

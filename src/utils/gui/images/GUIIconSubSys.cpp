@@ -922,7 +922,7 @@ GUIIconSubSys::~GUIIconSubSys() {
 void
 GUIIconSubSys::initIcons(FXApp* a) {
     if (myInstance) {
-        throw ProcessError("Instance was previously created");
+        throw ProcessError(TL("Instance was previously created"));
     } else {
         myInstance = new GUIIconSubSys(a);
     }

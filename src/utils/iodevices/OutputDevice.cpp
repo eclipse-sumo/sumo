@@ -83,7 +83,7 @@ OutputDevice::getDevice(const std::string& name, bool usePrefix) {
         } catch (NumberFormatException&) {
             throw IOError("Given port number '" + name.substr(name.find(":") + 1) + "' is not numeric.");
         } catch (EmptyData&) {
-            throw IOError("No port number given.");
+            throw IOError(TL("No port number given."));
         }
     } else {
         std::string name2 = (name == "nul" || name == "NUL") ? "/dev/null" : name;

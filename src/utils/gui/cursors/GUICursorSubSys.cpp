@@ -79,7 +79,7 @@ GUICursorSubSys::initCursors(FXApp* a) {
     if (myInstance == nullptr) {
         myInstance = new GUICursorSubSys(a);
     } else {
-        throw ProcessError("GUICursorSubSys already init");
+        throw ProcessError(TL("GUICursorSubSys already init"));
     }
 }
 

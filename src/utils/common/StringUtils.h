@@ -28,7 +28,6 @@
 #include <iomanip>
 #include <xercesc/util/XMLString.hpp>
 #include <utils/common/StdDefs.h>
-#include <utils/common/UtilExceptions.h>
 
 
 // ===========================================================================

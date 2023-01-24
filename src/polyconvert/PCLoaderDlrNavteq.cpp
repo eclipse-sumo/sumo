@@ -134,7 +134,7 @@ PCLoaderDlrNavteq::loadPOIFile(const std::string& file,
         Position pos(x, y);
         // check the poi
         if (name == "") {
-            throw ProcessError("The name of a POI is missing.");
+            throw ProcessError(TL("The name of a POI is missing."));
         }
         if (!GeoConvHelper::getProcessing().x2cartesian(pos, true)) {
             throw ProcessError("Unable to project coordinates for POI '" + name + "'.");

@@ -71,7 +71,7 @@ Distribution_Parameterized::parse(const std::string& description, const bool har
         // set default distribution parameterized
         myParameter = {0., 0.};
         if (hardFail) {
-            throw ProcessError("Invalid format of distribution parameterized");
+            throw ProcessError(TL("Invalid format of distribution parameterized"));
         } else {
             WRITE_ERROR(TL("Invalid format of distribution parameterized"));
         }

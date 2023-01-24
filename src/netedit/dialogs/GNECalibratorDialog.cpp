@@ -234,7 +234,7 @@ GNECalibratorDialog::onCmdAddFlow(FXObject*, FXSelector, void*) {
         updateFlowTable();
         return 1;
     } else {
-        throw ProcessError("routes cannot be empty");
+        throw ProcessError(TL("routes cannot be empty"));
     }
 }
 

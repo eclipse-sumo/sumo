@@ -154,7 +154,7 @@ VehicleEngineHandler::myStartElement(int element, const SUMOSAXAttributes& attrs
                 engineParameters.maxRpm = attrs.getInt(ENGINE_ATTR_ENGINE_MAXRPM);
                 std::string mapType = attrs.getString(ENGINE_ATTR_ENGINE_TYPE);
                 if (mapType != "poly") {
-                    throw ProcessError("Invalid engine map type. Only \"poly\" is supported for now");
+                    throw ProcessError(TL("Invalid engine map type. Only \"poly\" is supported for now"));
                 }
             }
             break;

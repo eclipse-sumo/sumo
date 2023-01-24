@@ -63,7 +63,7 @@ MSCFModel_CC::MSCFModel_CC(const MSVehicleType* vtype) : MSCFModel(vtype),
 
     //if the lanes count has not been specified in the attributes of the model, lane changing cannot properly work
     if (myLanesCount == -1) {
-        throw ProcessError("The number of lanes needs to be specified in the attributes of carFollowing-CC with the \"lanesCount\" attribute");
+        throw ProcessError(TL("The number of lanes needs to be specified in the attributes of carFollowing-CC with the \"lanesCount\" attribute"));
     }
 
     //instantiate the driver model. For now, use Krauss as default, then needs to be parameterized

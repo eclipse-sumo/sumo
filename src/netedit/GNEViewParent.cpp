@@ -380,7 +380,7 @@ GNEViewParent::getGNEAppWindows() const {
 void
 GNEViewParent::eraseACChooserDialog(GNEDialogACChooser* chooserDialog) {
     if (chooserDialog == nullptr) {
-        throw ProcessError("ChooserDialog already deleted");
+        throw ProcessError(TL("ChooserDialog already deleted"));
     } else if (chooserDialog == myACChoosers.ACChooserJunction) {
         myACChoosers.ACChooserJunction = nullptr;
     } else if (chooserDialog == myACChoosers.ACChooserEdges) {
@@ -408,7 +408,7 @@ GNEViewParent::eraseACChooserDialog(GNEDialogACChooser* chooserDialog) {
     } else if (chooserDialog == myACChoosers.ACChooserWire) {
         myACChoosers.ACChooserWire = nullptr;
     } else {
-        throw ProcessError("Unregistered chooserDialog");
+        throw ProcessError(TL("Unregistered chooserDialog"));
     }
 }
 
@@ -673,7 +673,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 }
                 break;
             default:
-                throw ProcessError("Unknown Message ID in onCmdLocate");
+                throw ProcessError(TL("Unknown Message ID in onCmdLocate"));
         }
         if (*chooserLoc) {
             // restore focus in the existent chooser dialog

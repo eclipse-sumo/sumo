@@ -462,7 +462,7 @@ GNEVehicleTypeDialog::VTypeAttributes::VTypeAttributeRow::VTypeAttributeRow(VTyp
             myComboBox->setNumVisible(10);
         }
     } else {
-        throw ProcessError("Invalid row type");
+        throw ProcessError(TL("Invalid row type"));
     }
 }
 

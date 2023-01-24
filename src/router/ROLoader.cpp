@@ -108,7 +108,7 @@ void
 ROLoader::loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
     std::string file = myOptions.getString("net-file");
     if (file == "") {
-        throw ProcessError("Missing definition of network to load!");
+        throw ProcessError(TL("Missing definition of network to load!"));
     }
     if (!FileHelpers::isReadable(file)) {
         throw ProcessError("The network file '" + file + "' is not accessible.");

@@ -91,14 +91,14 @@ getTurningDefaults(OptionsCont& oc) {
     std::vector<double> ret;
     std::vector<std::string> defs = oc.getStringVector("turn-defaults");
     if (defs.size() < 2) {
-        throw ProcessError("The defaults for turnings must be a tuple of at least two numbers divided by ','.");
+        throw ProcessError(TL("The defaults for turnings must be a tuple of at least two numbers divided by ','."));
     }
     for (std::vector<std::string>::const_iterator i = defs.begin(); i != defs.end(); ++i) {
         try {
             double val = StringUtils::toDouble(*i);
             ret.push_back(val);
         } catch (NumberFormatException&) {
-            throw ProcessError("A turn default is not numeric.");
+            throw ProcessError(TL("A turn default is not numeric."));
         }
     }
     return ret;

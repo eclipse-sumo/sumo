@@ -145,7 +145,7 @@ MSRoutingEngine::_initEdgeWeights(std::vector<double>& edgeSpeeds, std::vector<s
         myLastAdaptation = MSNet::getInstance()->getCurrentTimeStep();
         myPriorityFactor = oc.getFloat("weights.priority-factor");
         if (myPriorityFactor < 0) {
-            throw ProcessError("weights.priority-factor cannot be negative.");
+            throw ProcessError(TL("weights.priority-factor cannot be negative."));
         }
         if (myPriorityFactor > 0) {
             if (myEdgePriorityRange == 0) {

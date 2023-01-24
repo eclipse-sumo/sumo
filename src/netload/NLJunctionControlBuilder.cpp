@@ -113,7 +113,7 @@ NLJunctionControlBuilder::closeJunction(const std::string& basePath) {
         throw InvalidArgument("The description for the junction logic '" + myActiveKey + "' is malicious.");
     }
     if (myJunctions == nullptr) {
-        throw ProcessError("Information about the number of nodes was missing.");
+        throw ProcessError(TL("Information about the number of nodes was missing."));
     }
     MSJunction* junction = nullptr;
     switch (myType) {
@@ -468,7 +468,7 @@ MSTLLogicControl*
 NLJunctionControlBuilder::buildTLLogics() {
     postLoadInitialization(); // must happen after edgeBuilder is finished
     if (!myLogicControl->closeNetworkReading()) {
-        throw ProcessError("Traffic lights could not be built.");
+        throw ProcessError(TL("Traffic lights could not be built."));
     }
     MSTLLogicControl* ret = myLogicControl;
     myLogicControl = nullptr;

@@ -551,7 +551,7 @@ MEVehicle::saveState(OutputDevice& out) {
 void
 MEVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     if (attrs.hasAttribute(SUMO_ATTR_POSITION)) {
-        throw ProcessError("Error: Invalid vehicles in state (may be a micro state)!");
+        throw ProcessError(TL("Error: Invalid vehicles in state (may be a micro state)!"));
     }
     int routeOffset;
     int segIndex;

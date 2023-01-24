@@ -24,10 +24,8 @@
 #include <string>
 #include <vector>
 #include <map>
-#ifdef HAVE_INTL
-#include <libintl.h>
-#endif
 #include <utils/common/StringUtils.h>
+#include <utils/common/Translation.h>
 #include <utils/iodevices/OutputDevice.h>
 
 
