@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 09:18+0100\n"
 "PO-Revision-Date: 2023-01-24 14:32+0000\n"
-"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
+"Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
 "Language: es\n"
@@ -585,7 +585,7 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:1040
 msgid "Open Simulation Configuration"
-msgstr ""
+msgstr "Abrir configuración de simulación"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:1060
 msgid "Open Network"
@@ -694,6 +694,8 @@ msgstr "Intentando establecer datos para el edge desconocido '%'."
 msgid ""
 "Trying to set data value for the unknown relation from edge '%' to edge '%'."
 msgstr ""
+"Intentando establecer un valor de dato para la relación desconocida desde "
+"calle (edge) '%' hasta calle (edge) '%'."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\guisim\GUINet.cpp:674
 msgid "No data defined after simulation begin time."
@@ -893,12 +895,12 @@ msgstr "Cargando elementos de demanda desde '"
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3667
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNENet.cpp:1315
 msgid "Loading of route file failed: "
-msgstr ""
+msgstr "Fallo en la carga de archivo de rutas: "
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3673
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNENet.cpp:1317
 msgid "Loading of route file sucessfully: "
-msgstr ""
+msgstr "Elementos de ruta cargados con éxito: "
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3704
 msgid "Reloading of route file failed: "
@@ -906,21 +908,21 @@ msgstr "La recarga del archivo de demanda falló: "
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3744
 msgid "Demand elements saved in '"
-msgstr ""
+msgstr "Elementos de demanda guardados en '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3816
 msgid "loading data elements from '"
-msgstr ""
+msgstr "carga de elementos de datos de '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3820
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNENet.cpp:1326
 msgid "Loading of data file failed: "
-msgstr ""
+msgstr "La carga de elementos de datos falló: "
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3826
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNENet.cpp:1328
 msgid "Loading of data file sucessfully: "
-msgstr ""
+msgstr "Elementos de datos cargados con éxito: "
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3856
 msgid "reloading data elements from '"
@@ -932,22 +934,22 @@ msgstr "La recarga de elementos de datos falló: "
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3902
 msgid "Data elements saved in '"
-msgstr ""
+msgstr "Elementos de datos guardaos en '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3971
 msgid "load meanDatas from '"
-msgstr ""
+msgstr "carga de meanDatas de '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3975
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNENet.cpp:1337
 msgid "Loading of meandata file failed: "
-msgstr ""
+msgstr "La carga de meanDatas falló: "
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3981
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:4012
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNENet.cpp:1339
 msgid "Loading of meandata file sucessfully: "
-msgstr ""
+msgstr "MeanDatas cargados con éxito: "
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:4007
 msgid "reloading meanDatas from '"
@@ -955,7 +957,7 @@ msgstr "recarga de meanDatas desde '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:4050
 msgid "MeanDatas saved in '"
-msgstr ""
+msgstr "MeanDatas guardados en '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:4489
 msgid "loading additionals and meandatas from '"
@@ -963,75 +965,75 @@ msgstr "cargando elementos adicionales y meanDatas desde '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:4532
 msgid "Loading data elements from '"
-msgstr ""
+msgstr "Cargando elementos de datos de '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:140
 msgid "nets"
-msgstr ""
+msgstr "redes"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:141
 msgid "configs"
-msgstr ""
+msgstr "configuraciones"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:160
 msgid "Cl&ear Recent Networks"
-msgstr ""
+msgstr "&Limpiar redes recientes"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:161
 msgid "No Recent Networks"
-msgstr ""
+msgstr "No hay redes recientes"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:165
 msgid "Recent Networks"
-msgstr ""
+msgstr "Redes recientes"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:183
 msgid "Cl&ear Recent Configs"
-msgstr ""
+msgstr "&Limpiar configuraciones recientes"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:184
 msgid "No Recent Configs"
-msgstr ""
+msgstr "No hay configuraciones recientes"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:188
 msgid "Recent Configs"
-msgstr ""
+msgstr "Configuraciones recientes"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:206
 msgid "&New Network"
-msgstr ""
+msgstr "&Nueva red"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:206
 msgid "Create a new network."
-msgstr ""
+msgstr "Crear una red nueva."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:210
 msgid "Open a new netedit window."
-msgstr ""
+msgstr "Abrir una nueva ventana de netedit."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:217
 msgid "Load Netedit config..."
-msgstr ""
+msgstr "Cargar una configuración de netedit..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:217
 msgid "Load a netedit configuration file."
-msgstr ""
+msgstr "Cargar un archivo de configuración de netedit."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:221
 msgid "Load Sumo config..."
-msgstr ""
+msgstr "Cargar una configuración de sumo..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:221
 msgid "Load a SUMO configuration file."
-msgstr ""
+msgstr "Cargar un archivo de configuración de sumo."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:228
 msgid "&Open Network..."
-msgstr ""
+msgstr "&Abrir red..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:228
 msgid "Open a SUMO network."
-msgstr ""
+msgstr "Abrir una red de sumo."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:232
 msgid "Open Netconvert Configura&tion..."
