@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 09:18+0100\n"
-"PO-Revision-Date: 2023-01-24 14:32+0000\n"
+"PO-Revision-Date: 2023-01-24 14:48+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -674,16 +674,18 @@ msgstr "Über GUI ausgelöster Halt in meso nicht implementiert"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\guisim\GUINet.cpp:632
 msgid "Trying to set data value for the unknown edge '%'."
-msgstr ""
+msgstr "Versuche Wert für die unbekannte Kante '%' zu setzen."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\guisim\GUINet.cpp:656
 msgid ""
 "Trying to set data value for the unknown relation from edge '%' to edge '%'."
 msgstr ""
+"Versuche Wert für die unbekannte Beziehung zwischen Kante '%' und '%' zu "
+"setzen."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\guisim\GUINet.cpp:674
 msgid "No data defined after simulation begin time."
-msgstr ""
+msgstr "Keine Daten mit späterem Zeitbezug als dem Simulationsbeginn."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:443
 #, fuzzy
