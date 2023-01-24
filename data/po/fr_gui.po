@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 09:18+0100\n"
-"PO-Revision-Date: 2023-01-24 14:06+0000\n"
+"PO-Revision-Date: 2023-01-24 14:32+0000\n"
 "Last-Translator: bcoueraud87 <benjamin.coueraud@dlr.de>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/fr/>\n"
@@ -732,31 +732,31 @@ msgstr "&Modes"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1409
 msgid "L&ock"
-msgstr ""
+msgstr "&Vérouiller"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1416
 msgid "&Processing"
-msgstr ""
+msgstr "&Traitement"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1424
 msgid "&Tools"
-msgstr ""
+msgstr "&Outils"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1444
 msgid "About netedit."
-msgstr ""
+msgstr "A propos de netedit."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1504
 msgid "Press F5"
-msgstr ""
+msgstr "Appuyer sur F5"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1679
 msgid "Select Import Options"
-msgstr ""
+msgstr "Sélectionner les Options d'Importation"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1708
 msgid "Recompute with volatile options"
-msgstr ""
+msgstr "Recalculer avec options volatiles"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1940
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:2000
@@ -765,94 +765,94 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1963
 msgid "Loading network '"
-msgstr ""
+msgstr "Chargement du réseau '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1963
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1972
 msgid "' in SUMO-GUI"
-msgstr ""
+msgstr "' dans SUMO-GUI"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1972
 msgid "Loading sumo config '"
-msgstr ""
+msgstr "Chargement de la configuration sumo '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:2302
 msgid "Configure Options"
-msgstr ""
+msgstr "Configurer Options"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:2315
 msgid "SUMO Options"
-msgstr ""
+msgstr "Options de SUMO"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:2334
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1259
 msgid "Undo"
-msgstr ""
+msgstr "Annuler"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:2366
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1262
 msgid "Redo"
-msgstr ""
+msgstr "Refaire"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3033
 msgid "Saving Network failed!"
-msgstr ""
+msgstr "La sauvegarde du Réseau a échoué!"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3038
 msgid "Network saved in '"
-msgstr ""
+msgstr "Réseau sauvegardé dans '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3089
 msgid "Saving plain xml failed!"
-msgstr ""
+msgstr "La sauvegarde au format plain xml a échoué!"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3096
 msgid "Plain XML saved with prefix '"
-msgstr ""
+msgstr "Sauvegarde au format Plain XML avec le préfixe '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3117
 msgid "Saving joined junctions failed!"
-msgstr ""
+msgstr "La sauvegarde des junctions connectées a échoué!"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3123
 msgid "Joined junctions saved to '"
-msgstr ""
+msgstr "Junctions connectées sauvegardées dans '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3179
 msgid "NETEDIT configuration saved in '"
-msgstr ""
+msgstr "Configuration NETEDIT sauvegardée dans '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3185
 msgid "Could not save NETEDIT configuration in '"
-msgstr ""
+msgstr "Impossible de sauvegarder la configuration NETEDIT dans '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3291
 msgid "SUMO configuration saved in '"
-msgstr ""
+msgstr "Configuration SUMO sauvegardée dans '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3299
 msgid "Could not save SUMO configuration in '"
-msgstr ""
+msgstr "Impossible de sauvegarder la configuration SUMO dans '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3353
 msgid "TLS Programs saved in '"
-msgstr ""
+msgstr "Programmes pour Feux de Circulation sauvegardés dans '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3358
 msgid "Saving TLS Programs failed!"
-msgstr ""
+msgstr "La sauvegarde des Programmes pour Feux de Circulation a echoué!"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3401
 msgid "EdgeType saved in '"
-msgstr ""
+msgstr "EdgeType sauvegardé dans '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3406
 msgid "Saving edgeTypes failed!"
-msgstr ""
+msgstr "La sauvegarde des edgeTypes a échoué!"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3510
 msgid "load additionals from '"
-msgstr ""
+msgstr "Chargement de données additionnelles depuis '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3514
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNENet.cpp:1304
@@ -866,7 +866,7 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3546
 msgid "reloading additionals from '"
-msgstr ""
+msgstr "rechargement des fichiers additionnels depuis '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3551
 msgid "Reloading of additional file failed: "
@@ -874,11 +874,11 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3593
 msgid "Additionals saved in '"
-msgstr ""
+msgstr "Fichiers additionnels sauvegardés dans '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3663
 msgid "loading demand elements from '"
-msgstr ""
+msgstr "chargement des éléments de demande depuis '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3667
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNENet.cpp:1315
@@ -896,7 +896,7 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3744
 msgid "Demand elements saved in '"
-msgstr ""
+msgstr "Eléments de demande sauvegardés dans '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3816
 msgid "loading data elements from '"
