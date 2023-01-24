@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 09:18+0100\n"
 "PO-Revision-Date: 2023-01-24 13:36+0000\n"
-"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
+"Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
 "Language: es\n"
@@ -228,11 +228,11 @@ msgstr "&Localizar"
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1320
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1951
 msgid "&Junctions"
-msgstr "&Cruces"
+msgstr "&Cruces (Junctions)"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:505
 msgid "Open a Dialog for Locating a Junction."
-msgstr "Abrir una ventana para localizar cruces."
+msgstr "Abrir una ventana para localizar cruces (junctions)."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:508
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1325
@@ -314,8 +314,8 @@ msgid ""
 "Show Internal Structures\t\tShow internal junctions and streets in locator "
 "dialog."
 msgstr ""
-"Mostrar estructuras internas\t\tMostrar cruces y calles internos en la "
-"ventana de localización."
+"Mostrar estructuras internas\t\tMostrar cruces (junctions) y calles (edges) "
+"internos en la ventana de localización."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:536
 msgid "Show Parking Vehicles\t\tShow parking vehicles in locator dialog."
@@ -821,11 +821,11 @@ msgstr "Xml plano guardado con prefijo '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3117
 msgid "Saving joined junctions failed!"
-msgstr "¡El guardado de las unión de cruces falló!"
+msgstr "¡El guardado de las unión de cruces (joined junctions) falló!"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3123
 msgid "Joined junctions saved to '"
-msgstr "Unión de cruces guardado en '"
+msgstr "Unión de cruces (joined junctions) guardado en '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3179
 msgid "NETEDIT configuration saved in '"
@@ -1074,11 +1074,13 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:255
 msgid "Save &Joined Junctions..."
-msgstr ""
+msgstr "Guardar y unir cruces (joined junctions)..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:255
 msgid "Save log of joined junctions (allows reproduction of joins)."
 msgstr ""
+"Guardar registro de cruces unidos (joined junctions) (Permite la "
+"reproducción de uniones)."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:262
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:266
@@ -1405,7 +1407,7 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:598
 msgid "Create junction and edges."
-msgstr "Crear junction y edges."
+msgstr "Crear cruces (junctions) y calles (edges)."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:601
 msgid "&Connection"
@@ -1425,7 +1427,7 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:607
 msgid "Modes traffic lights over junctions."
-msgstr ""
+msgstr "Modo para crear semáforos (TLS) sobre cruces (junctions)."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:610
 msgid "Create additional elements."
@@ -1578,7 +1580,7 @@ msgstr "Hacer click debe referirse a carriles"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:831
 msgid "Show connections over junctions"
-msgstr "Mostrar conexiones sobre los cruces"
+msgstr "Mostrar conexiones sobre los cruces (junctions)"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:836
 msgid "Hide connections"
@@ -1608,7 +1610,7 @@ msgstr "Preguntar por confirmación antes de fusionar cruce (junction)"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:866
 msgid "Show bubbles over junctions shapes"
-msgstr "Mostrar burbujas sobre las formas de los cruces"
+msgstr "Mostrar burbujas sobre las formas de los cruces (junctions)"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:871
 msgid "Apply mouse movement to elevation"
@@ -1827,35 +1829,36 @@ msgstr "Desbloquear todos los elementos"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1790
 msgid "Compute Junctions"
-msgstr ""
+msgstr "Computar cruces (junctions)"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1790
 msgid "Compute junction shape and logic."
-msgstr ""
+msgstr "Computar forma y lógica de los cruces (junctions)."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1793
 msgid "Compute Junctions with volatile options"
-msgstr ""
+msgstr "Computar cruces (junctions) con opciones volátiles"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1793
 msgid "Compute junction shape and logic using volatile junctions."
 msgstr ""
+"Computar forma y lógica de los cruces (junctions) usando opciones volátiles."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1796
 msgid "Clean Junctions"
-msgstr ""
+msgstr "Limpiar cruces (junctions)"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1796
 msgid "Remove solitary junctions."
-msgstr ""
+msgstr "Eliminar cruces (junctions) solitarios."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1799
 msgid "Join Selected Junctions"
-msgstr ""
+msgstr "Unir cruces (junctions) seleccionados"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1799
 msgid "Join selected junctions into a single junction."
-msgstr ""
+msgstr "Unir cruces (junctions) seleccionados en un solo cruce (junction)."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1802
 msgid "Clean invalid crossings"
@@ -1931,7 +1934,7 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1951
 msgid "Open a dialog for locating a Junction."
-msgstr ""
+msgstr "Abrir ventana para localizar cruces (junctions)."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1954
 msgid "Open a dialog for locating an Edge."
@@ -2061,7 +2064,7 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2618
 msgid "Save joined Junctions as"
-msgstr ""
+msgstr "Guardar cruces unidos (joined junctions) como"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2625
 msgid "Open OSM file"
@@ -2153,23 +2156,23 @@ msgstr "Error al restablecer las opciones."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNENet.cpp:1273
 msgid "Forced computing junctions with volatile options ..."
-msgstr ""
+msgstr "Forzar computación de los cruces (junctions) con opciones volátiles..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNENet.cpp:1275
 msgid "Forced computing junctions ..."
-msgstr ""
+msgstr "Forzar computación de los cruces (junctions)..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNENet.cpp:1282
 msgid "Computing junctions with volatile options ..."
-msgstr ""
+msgstr "Computar cruces (junctions) con opciones volátiles..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNENet.cpp:1284
 msgid "Computing junctions ..."
-msgstr ""
+msgstr "Computar cruces (junctions)..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNENet.cpp:1347
 msgid "Finished computing junctions."
-msgstr ""
+msgstr "Computación de cruces (junctions) finalizada)."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNENet.cpp:1353
 msgid "Computing demand elements ..."
@@ -2844,11 +2847,11 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEPathCreator.cpp:374
 msgid "Double junctions aren't allowed"
-msgstr ""
+msgstr "Los cruces (junctions) dobles no están permitidos"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEPathCreator.cpp:382
 msgid "Only two junctions are allowed"
-msgstr ""
+msgstr "Solo dos cruces (junctions) están permitidos"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEPathCreator.cpp:421
 msgid "Double edges aren't allowed"
