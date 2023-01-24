@@ -8,14 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 09:18+0100\n"
-"PO-Revision-Date: 2022-10-11 10:52+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2023-01-24 12:21+0000\n"
+"Last-Translator: bcoueraud87 <benjamin.coueraud@dlr.de>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.16-dev\n"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\guisim_main.cpp:57
 msgid "GUI version of the microscopic, multi-modal traffic simulation SUMO."
@@ -40,7 +42,7 @@ msgstr ""
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:301
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:499
 msgid "Ready."
-msgstr ""
+msgstr "Prêt."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:420
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1347
@@ -50,35 +52,35 @@ msgstr "&Fichier"
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:422
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:210
 msgid "New Window"
-msgstr ""
+msgstr "Nouvelle Fenêtre"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:422
 msgid "Open a new sumo-gui window."
-msgstr ""
+msgstr "Ouvrir une nouvelle fenêtre sumo-gui."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:426
 msgid "&Open Simulation..."
-msgstr ""
+msgstr "&Ouvrir Simulation..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:426
 msgid "Open a simulation (Configuration file)."
-msgstr ""
+msgstr "Ouvrir une simulation (fichier de Configuration)."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:429
 msgid "Open &Network..."
-msgstr ""
+msgstr "Ouvrir &Réseau..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:429
 msgid "Open a network."
-msgstr ""
+msgstr "Ouvrir un réseau."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:432
 msgid "Open Shapes "
-msgstr ""
+msgstr "Ouvrir Formes. "
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:432
 msgid "Load POIs and Polygons for visualization."
-msgstr ""
+msgstr "Charger POIs et Polygones pour visualisation."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:435
 msgid "Open EdgeData "
@@ -86,65 +88,65 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:435
 msgid "Load edge related data for visualization."
-msgstr ""
+msgstr "Charger données liées aux arêtes pour visualisation."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:438
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:976
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:262
 msgid "&Reload"
-msgstr ""
+msgstr "&Recharger"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:438
 msgid "Reloads the simulation / the network."
-msgstr ""
+msgstr "Recharge la simulation / le réseau."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:441
 msgid "Quick-Reload"
-msgstr ""
+msgstr "Rechargement-Rapide"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:441
 msgid "Reloads the simulation (but not network)."
-msgstr ""
+msgstr "Recharge la simulation (mais pas le réseau)."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:445
 msgid "Save Configuration"
-msgstr ""
+msgstr "Sauvegarder Configuration"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:445
 msgid "Save current options as a configuration file."
-msgstr ""
+msgstr "Sauvegarder options actuelles en tant que fichier de configuration."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:448
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:306
 msgid "Close"
-msgstr ""
+msgstr "Fermer"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:448
 msgid "Close the simulation."
-msgstr ""
+msgstr "Fermer la simulation."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:456
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1368
 msgid "&Quit"
-msgstr ""
+msgstr "&Quitter"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:456
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1368
 msgid "Quit the Application."
-msgstr ""
+msgstr "Quitter l'Application."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:465
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1384
 msgid "&Edit"
-msgstr ""
+msgstr "&Editer"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:467
 msgid "Edit Selected..."
-msgstr ""
+msgstr "Editer Sélection..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:467
 msgid "Opens a dialog for editing the list of selected items."
-msgstr ""
+msgstr "Ouvre un dialogue pour éditer la liste des items sélectionnés."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:470
 msgid ""
@@ -154,7 +156,7 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:474
 msgid "Edit Breakpoints"
-msgstr ""
+msgstr "Editer Points d'arrêt"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:474
 msgid "Opens a dialog for editing breakpoints."
