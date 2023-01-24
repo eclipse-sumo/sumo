@@ -200,7 +200,7 @@ public:
                        std::vector<SUMOTime> stateDumpTimes, std::vector<std::string> stateDumpFiles,
                        bool hasInternalLinks,
                        bool junctionHigherSpeeds,
-                       double version);
+                       const MMVersion& version);
 
 
     /** @brief Returns whether the network has specific vehicle class permissions
@@ -799,7 +799,7 @@ public:
     }
 
     /// @brief return the network version
-    double getNetworkVersion() const {
+    MMVersion getNetworkVersion() const {
         return myVersion;
     }
 
@@ -964,7 +964,7 @@ protected:
     bool myLefthand;
 
     /// @brief the network version
-    double myVersion;
+    MMVersion myVersion;
 
     /// @brief end of loaded edgeData
     SUMOTime myEdgeDataEndTime;

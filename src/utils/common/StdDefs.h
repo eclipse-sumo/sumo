@@ -59,8 +59,9 @@ const double SUMO_const_haltingSpeed = (double) 0.1;
 
 const double INVALID_DOUBLE = std::numeric_limits<double>::max();
 
-/// @brief version for written networks and default version for loading
-const double NETWORK_VERSION = 1.9;
+/// @brief (M)ajor/(M)inor version for written networks and default version for loading
+typedef std::pair<int, double> MMVersion;
+const MMVersion NETWORK_VERSION(1, 16);
 
 
 /* -------------------------------------------------------------------------
@@ -154,3 +155,4 @@ double roundDecimal(double x, int precision);
  * @return the number of objects to create (something between 0 and ceil(frac))
  */
 int getScalingQuota(double frac, int loaded);
+

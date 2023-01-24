@@ -124,7 +124,7 @@ NLBuilder::build() {
     if (!load("net-file", true)) {
         return false;
     }
-    if (myXMLHandler.networkVersion() == 0.) {
+    if (myXMLHandler.networkVersion() == MMVersion(0, 0)) {
         throw ProcessError(TL("Invalid network, no network version declared."));
     }
     // check whether the loaded net agrees with the simulation options

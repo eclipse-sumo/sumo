@@ -75,7 +75,7 @@ NLHandler::NLHandler(const std::string& file, MSNet& net,
     myHaveSeenNeighs(false),
     myHaveSeenAdditionalSpeedRestrictions(false),
     myHaveSeenMesoEdgeType(false),
-    myNetworkVersion(0),
+    myNetworkVersion(0, 0),
     myNetIsLoaded(false) {
 }
 
@@ -92,7 +92,7 @@ NLHandler::myStartElement(int element,
                 bool ok;
                 MSGlobals::gLefthand = attrs.getOpt<bool>(SUMO_ATTR_LEFTHAND, nullptr, ok, false);
                 myHaveJunctionHigherSpeeds = attrs.getOpt<bool>(SUMO_ATTR_HIGHER_SPEED, nullptr, ok, false);
-                myNetworkVersion = attrs.get<double>(SUMO_ATTR_VERSION, nullptr, ok, false);
+                myNetworkVersion = StringUtils::toVersion(attrs.get<std::string>(SUMO_ATTR_VERSION, nullptr, ok, false));
                 break;
             }
             case SUMO_TAG_EDGE:
@@ -1466,7 +1466,7 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
         } else {
             toLane->addIncomingLane(fromLane, link);
         }
-        toLane->addApproachingLane(fromLane, myNetworkVersion < 0.25);
+        toLane->addApproachingLane(fromLane, myNetworkVersion < MMVersion(0, 25));
 
         // if a traffic light is responsible for it, inform the traffic light
         // check whether this link is controlled by a traffic light

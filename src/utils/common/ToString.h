@@ -415,3 +415,9 @@ template <>
 inline std::string toString(const Parameterised::Map& v, std::streamsize) {
     return joinToString(v, ", ", ":");
 }
+
+template <>
+inline std::string toString(const MMVersion& v, std::streamsize) {
+    // we only need higher accuracy on the minor version for hotfix releases
+    return toString(v.first) + "." + toString(v.second, 0);
+}

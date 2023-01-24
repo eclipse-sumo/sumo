@@ -338,7 +338,7 @@ extern bool canParseVehicleClasses(const std::string& classes);
  * @param[in] allowedS Definition which classes are allowed
  * @param[in] disallowedS Definition which classes are not allowed
  */
-extern SVCPermissions parseVehicleClasses(const std::string& allowedS, const std::string& disallowedS, double networkVersion = NETWORK_VERSION);
+extern SVCPermissions parseVehicleClasses(const std::string& allowedS, const std::string& disallowedS, const MMVersion& networkVersion = NETWORK_VERSION);
 
 /** @brief Encodes the given vector of allowed class into a bitset
  * Unlike the methods which parse a string it gives immediately a warning output on deprecated vehicle classes.

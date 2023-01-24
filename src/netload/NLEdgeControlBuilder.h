@@ -127,7 +127,7 @@ public:
     void closeLane();
 
     /// builds the MSEdgeControl-class which holds all edges
-    MSEdgeControl* build(double networkVersion);
+    MSEdgeControl* build(const MMVersion& networkVersion);
 
 
     /** @brief Builds an edge instance (MSEdge in this case)

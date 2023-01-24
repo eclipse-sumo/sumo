@@ -179,7 +179,7 @@ NLEdgeControlBuilder::closeLane() {
 
 
 MSEdgeControl*
-NLEdgeControlBuilder::build(double networkVersion) {
+NLEdgeControlBuilder::build(const MMVersion& networkVersion) {
     if (MSGlobals::gUseMesoSim && !OptionsCont::getOptions().getBool("meso-lane-queue")) {
         MSEdge::setMesoIgnoredVClasses(parseVehicleClasses(OptionsCont::getOptions().getStringVector("meso-ignore-lanes-by-vclass")));
     }
@@ -228,7 +228,7 @@ NLEdgeControlBuilder::build(double networkVersion) {
         deprecatedVehicleClassesSeen.clear();
     }
     // check for bi-directional edges (this are edges in opposing direction and superposable/congruent shapes)
-    if (myBidiEdges.size() > 0 || networkVersion > 1.0) {
+    if (myBidiEdges.size() > 0 || networkVersion > MMVersion(1, 0)) {
         for (auto& item : myBidiEdges) {
             item.first->checkAndRegisterBiDirEdge(item.second);
         }

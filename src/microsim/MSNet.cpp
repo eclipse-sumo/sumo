@@ -260,7 +260,7 @@ MSNet::closeBuilding(const OptionsCont& oc, MSEdgeControl* edges, MSJunctionCont
                      std::vector<std::string> stateDumpFiles,
                      bool hasInternalLinks,
                      bool junctionHigherSpeeds,
-                     double version) {
+                     const MMVersion& version) {
     myEdges = edges;
     myJunctions = junctions;
     myRouteLoaders = routeLoaders;

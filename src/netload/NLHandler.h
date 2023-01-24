@@ -124,7 +124,7 @@ public:
         return myHaveSeenMesoEdgeType;
     }
 
-    double networkVersion() const {
+    MMVersion networkVersion() const {
         return myNetworkVersion;
     }
 
@@ -368,7 +368,7 @@ protected:
     bool myHaveSeenMesoEdgeType;
 
     /// @brief the loaded network version
-    double myNetworkVersion;
+    MMVersion myNetworkVersion;
 
     /// @brief whether the location element was already loadee
     bool myNetIsLoaded;

@@ -38,6 +38,7 @@
 #include <xercesc/util/TranscodingException.hpp>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/ToString.h>
+#include <utils/common/StringTokenizer.h>
 #include "StringUtils.h"
 
 
@@ -422,6 +423,11 @@ StringUtils::toBool(const std::string& sData) {
     throw BoolFormatException(s);
 }
 
+MMVersion
+StringUtils::toVersion(const std::string& sData) {
+    std::vector<std::string> parts = StringTokenizer(sData, ".").getVector();
+    return MMVersion(toInt(parts.front()), toDouble(parts.back()));
+}
 
 std::string
 StringUtils::transcode(const XMLCh* const data, int length) {

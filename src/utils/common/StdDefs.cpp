@@ -19,6 +19,7 @@
 ///
 /****************************************************************************/
 #include "StdDefs.h"
+#include <sstream>
 
 
 // set by option --precision (see SystemFrame.cpp)
