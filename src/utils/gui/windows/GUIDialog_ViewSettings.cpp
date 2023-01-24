@@ -1764,10 +1764,10 @@ GUIDialog_ViewSettings::buildHeader(FXVerticalFrame* contentFrame) {
     }
     mySchemeName->setNumVisible(5);
 
-    new FXButton(horizontalFrame, TL(std::string("\t\t") + TL("Save the setting to registry")).c_str(), GUIIconSubSys::getIcon(GUIIcon::SAVE_DATABASE), this, MID_SIMPLE_VIEW_SAVE, GUIDesignButtonToolbar);
-    new FXButton(horizontalFrame, TL(std::string("\t\t") + TL("Remove the setting from registry")).c_str(), GUIIconSubSys::getIcon(GUIIcon::REMOVEDB), this, MID_SIMPLE_VIEW_DELETE, GUIDesignButtonToolbar);
-    new FXButton(horizontalFrame, TL(std::string("\t\t") + TL("Export setting to file")).c_str(), GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_SIMPLE_VIEW_EXPORT, GUIDesignButtonToolbar);
-    new FXButton(horizontalFrame, TL(std::string("\t\t") + TL("Load setting from file")).c_str(), GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_SIMPLE_VIEW_IMPORT, GUIDesignButtonToolbar);
+    new FXButton(horizontalFrame, (std::string("\t\t") + TL("Save the setting to registry")).c_str(), GUIIconSubSys::getIcon(GUIIcon::SAVE_DATABASE), this, MID_SIMPLE_VIEW_SAVE, GUIDesignButtonToolbar);
+    new FXButton(horizontalFrame, (std::string("\t\t") + TL("Remove the setting from registry")).c_str(), GUIIconSubSys::getIcon(GUIIcon::REMOVEDB), this, MID_SIMPLE_VIEW_DELETE, GUIDesignButtonToolbar);
+    new FXButton(horizontalFrame, (std::string("\t\t") + TL("Export setting to file")).c_str(), GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_SIMPLE_VIEW_EXPORT, GUIDesignButtonToolbar);
+    new FXButton(horizontalFrame, (std::string("\t\t") + TL("Load setting from file")).c_str(), GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_SIMPLE_VIEW_IMPORT, GUIDesignButtonToolbar);
 
     new FXVerticalSeparator(horizontalFrame);
     new FXLabel(horizontalFrame, "Export includes:", nullptr, GUIDesignViewSettingsLabel1);
