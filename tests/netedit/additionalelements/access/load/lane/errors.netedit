@@ -31,7 +31,7 @@ Error: Attribute 'lane' is missing in definition of a access.
 Debug: Adding busStop 'busStop_0' in GNEChange_Additional
 Error: Could not build busStop in netedit; lane doesn't exist.
 Debug: Adding access 'busStop_0' in GNEChange_Additional
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.access.24Jun133818.22369/netedit.daily.additional.access/additionalelements/access/load/lane/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.access.24Jan091455.3718/netedit.daily.additional.access/additionalelements/access/load/lane/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,18.00,12.00,42.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,18.00,62.00,42.00
@@ -94,7 +94,6 @@ GLDebug: 	Inserted edge:8 into SUMORTree with boundary -10.00,18.40,60.00,40.00
 GLDebug: 	Inserted edge:9 into SUMORTree with boundary -10.00,10.00,60.00,31.60
 Debug: Created connection 'from7_0to8_0' in retrieveGNEConnection()
 Debug: Created connection 'from8_0to7_0' in retrieveGNEConnection()
-Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -10.00,16.80,10.00,43.20
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 40.00,16.80,60.00,43.20
@@ -156,6 +155,7 @@ GLDebug: 	Inserted edge:7 into SUMORTree with boundary -10.00,20.00,60.00,41.60
 GLDebug: 	Inserted edge:8 into SUMORTree with boundary -10.00,18.40,60.00,40.00
 GLDebug: 	Inserted edge:9 into SUMORTree with boundary -10.00,10.00,60.00,31.60
 Debug: network elements saved
+Debug: Additionals saved
 Debug: Deleting unreferenced access
 Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced edge '1' in AttributeCarriers destructor

@@ -23,7 +23,17 @@ Error: Attribute 'number' in definition of containerFlow 'p_3' Invalid Number Fo
 Error: Attribute 'number' in definition of containerFlow 'p_4' Invalid Number Format (long long integer format) 12.5.
 Debug: Adding containerFlow 'p_5' in GNEChange_DemandElement
 Debug: Adding tranship: edge->edge 'p_5' in GNEChange_DemandElement
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.containerflow.24Jun133819.22438/netedit.daily.demand.containerflow/demandelements/containerflow/load/number/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.containerflow.24Jan091456.3792/netedit.daily.demand.containerflow/demandelements/containerflow/load/number/routes.rou.xml failed.
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Removing tranship: edge->edge 'p_5' in GNEChange_DemandElement
+Debug: Removing containerFlow 'p_5' in GNEChange_DemandElement
+Debug: Removing containerStop 'containerStop' in GNEChange_Additional
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Adding containerStop 'containerStop' in GNEChange_Additional
+Debug: Adding containerFlow 'p_5' in GNEChange_DemandElement
+Debug: Adding tranship: edge->edge 'p_5' in GNEChange_DemandElement
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00
@@ -71,15 +81,6 @@ Debug: Created connection 'fromgneE6_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Removing tranship: edge->edge 'p_5' in GNEChange_DemandElement
-Debug: Removing containerFlow 'p_5' in GNEChange_DemandElement
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Adding containerFlow 'p_5' in GNEChange_DemandElement
-Debug: Adding tranship: edge->edge 'p_5' in GNEChange_DemandElement
-Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -10.00,-16.40,10.00,13.20
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 39.60,-16.40,76.40,17.20
@@ -117,6 +118,8 @@ GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary -10.00,-10.00,70.00,1
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
 Debug: network elements saved
+Debug: Additionals saved
+Debug: demand elements saved
 Debug: Deleting unreferenced tranship: edge->edge
 Debug: Deleting unreferenced containerFlow
 Debug: Deleting unreferenced containerStop

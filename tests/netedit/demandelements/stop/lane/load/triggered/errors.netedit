@@ -20,7 +20,9 @@ Error: There is another flowRoute with the same ID='routeFlow_0'.
 Debug: Adding stopLane 'routeFlow_0' in GNEChange_DemandElement
 Error: There is another flowRoute with the same ID='routeFlow_0'.
 Debug: Adding stopLane 'routeFlow_0' in GNEChange_DemandElement
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.stop.lane.23Jan142342.5618/netedit.daily.demand.stop.lane/demandelements/stop/lane/load/triggered/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.stop.lane.24Jan091456.3832/netedit.daily.demand.stop.lane/demandelements/stop/lane/load/triggered/routes.rou.xml failed.
+Debug: Enabled show demand elements through alt + 4
+Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 13.00,-12.00,37.00,12.00
@@ -35,8 +37,6 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,35.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,35.00,11.60
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Debug: Enabled hide shapes through alt + 4
-Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -10.00,-13.20,10.00,13.20
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 15.00,-13.20,35.00,13.20
@@ -50,7 +50,6 @@ GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,35.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,35.00,11.60
 Debug: network elements saved
-Debug: Additionals saved
 Debug: demand elements saved
 Debug: Deleting unreferenced stopLane
 Debug: Deleting unreferenced stopLane

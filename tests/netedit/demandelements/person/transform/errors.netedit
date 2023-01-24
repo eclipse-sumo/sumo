@@ -136,8 +136,8 @@ GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary -10.00,-10.00,70.00,1
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
 Debug: network elements saved
-Debug: demand elements saved
 Debug: Additionals saved
+Debug: demand elements saved
 Debug: Deleting unreferenced personFlow
 Debug: Deleting unreferenced personTrip: edge->edge
 Debug: Deleting unreferenced person
@@ -184,3 +184,4 @@ Debug: Deleting unreferenced junction 'gneJ8' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ9' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 16
+X connection to :7107.0 broken (explicit kill or server shutdown).
