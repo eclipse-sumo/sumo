@@ -91,7 +91,7 @@ TrajectoriesHandler::myStartElement(int element,
         case SUMO_TAG_MOTIONSTATE: {
             const std::string id = attrs.getString(SUMO_ATTR_VEHICLE);
             if (myEmissionClassByVehicle.count(id) == 0) {
-                WRITE_WARNING("Motion state for unknown vehicle '" + id + "'!");
+                WRITE_WARNINGF(TL("Motion state for unknown vehicle '%'!"), id);
                 myEmissionClassByVehicle[id] = myDefaultClass;
             }
             const SUMOEmissionClass c = myEmissionClassByVehicle[id];

@@ -1312,7 +1312,7 @@ Vehicle::changeLaneRelative(const std::string& vehID, int indexOffset, double du
     int laneIndex = veh->getLaneIndex() + indexOffset;
     if (laneIndex < 0 && !veh->getLaneChangeModel().isOpposite()) {
         if (veh->getLaneIndex() == -1) {
-            WRITE_WARNING("Ignoring changeLaneRelative for vehicle '" + vehID + "' that isn't on the road");
+            WRITE_WARNINGF(TL("Ignoring changeLaneRelative for vehicle '%' that isn't on the road"), vehID);
         } else {
             WRITE_WARNING("Ignoring indexOffset " + toString(indexOffset) + " for vehicle '" + vehID + "' on laneIndex " + toString(veh->getLaneIndex()));
         }
@@ -1406,7 +1406,7 @@ Vehicle::add(const std::string& vehID,
     }
     if (vehicleParams.departProcedure == DepartDefinition::GIVEN && vehicleParams.depart < MSNet::getInstance()->getCurrentTimeStep()) {
         vehicleParams.depart = MSNet::getInstance()->getCurrentTimeStep();
-        WRITE_WARNING("Departure time for vehicle '" + vehID + "' is in the past; using current time instead.");
+        WRITE_WARNINGF(TL("Departure time for vehicle '%' is in the past; using current time instead."), vehID);
     } else if (vehicleParams.departProcedure == DepartDefinition::NOW) {
         vehicleParams.depart = MSNet::getInstance()->getCurrentTimeStep();
     }

@@ -245,7 +245,7 @@ NIVissimConnection::buildEdgeConnections(NBEdgeCont& ec) {
     const std::vector<int>& fromLanes = getFromLanes();
     const std::vector<int>& toLanes = getToLanes();
     if (fromLanes.size() != toLanes.size()) {
-        WRITE_WARNING("Lane sizes differ for connection '" + toString(getID()) + "'.");
+        WRITE_WARNINGF(TL("Lane sizes differ for connection '%'."), toString(getID()));
     } else {
         for (int index = 0; index < (int)fromLanes.size(); ++index) {
             if (fromEdge->getNumLanes() <= fromLanes[index]) {

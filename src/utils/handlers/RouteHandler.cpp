@@ -855,9 +855,9 @@ RouteHandler::parseParameters(const SUMOSAXAttributes& attrs) {
         const std::string value = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
         // show warnings if values are invalid
         if (key.empty()) {
-            WRITE_WARNING("Error parsing key from " + parentTagStr + " generic parameter. Key cannot be empty");
+            WRITE_WARNINGF(TL("Error parsing key from % generic parameter. Key cannot be empty"), parentTagStr);
         } else if (!SUMOXMLDefinitions::isValidParameterKey(key)) {
-            WRITE_WARNING("Error parsing key from " + parentTagStr + " generic parameter. Key contains invalid characters");
+            WRITE_WARNINGF(TL("Error parsing key from % generic parameter. Key contains invalid characters"), parentTagStr);
         } else {
             WRITE_DEBUG("Inserting generic parameter '" + key + "|" + value + "' into " + parentTagStr);
             // insert parameter in SumoBaseObjectParent
@@ -873,7 +873,7 @@ RouteHandler::parseNestedCFM(const SumoXMLTag tag, const SUMOSAXAttributes& attr
     const auto vTypeObject = myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject();
     // parse embedded car following model information
     if (vTypeObject && (vTypeObject->getTag() == SUMO_TAG_VTYPE)) {
-        WRITE_WARNING("Defining car following parameters in a nested element is deprecated in vType '" + vTypeObject->getStringAttribute(SUMO_ATTR_ID) + "', use attributes instead!");
+        WRITE_WARNINGF(TL("Defining car following parameters in a nested element is deprecated in vType '%', use attributes instead!"), vTypeObject->getStringAttribute(SUMO_ATTR_ID));
         // get vType to modify it
         auto vType = vTypeObject->getVehicleTypeParameter();
         // parse nested CFM attributes

@@ -73,7 +73,7 @@ NIVisumTL::build(NBEdgeCont& ec, NBTrafficLightLogicCont& tlc) {
     for (std::vector<NBNode*>::iterator ni = myNodes.begin(); ni != myNodes.end(); ni++) {
         NBNode* node = (*ni);
         if (node == nullptr) {
-            WRITE_WARNING("invalid node for traffic light '" + myName + "'");
+            WRITE_WARNINGF(TL("invalid node for traffic light '%'"), myName);
             continue;
         }
         TrafficLightType type = SUMOXMLDefinitions::TrafficLightTypes.get(OptionsCont::getOptions().getString("tls.default-type"));

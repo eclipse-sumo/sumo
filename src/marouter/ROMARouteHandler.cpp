@@ -84,7 +84,7 @@ void
 ROMARouteHandler::myEndElement(int element) {
     if (element == SUMO_TAG_TRIP || element == SUMO_TAG_VEHICLE) {
         if (myVehicleParameter->fromTaz == "" || myVehicleParameter->toTaz == "") {
-            WRITE_WARNING("No origin or no destination given, ignoring '" + myVehicleParameter->id + "'!");
+            WRITE_WARNINGF(TL("No origin or no destination given, ignoring '%'!"), myVehicleParameter->id);
         } else {
             int quota = getScalingQuota(myScale, myNumLoaded);
             for (int i = 0; i < quota; i++) {

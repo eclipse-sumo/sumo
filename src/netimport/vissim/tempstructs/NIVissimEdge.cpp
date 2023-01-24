@@ -436,7 +436,7 @@ NIVissimEdge::buildNBEdge(NBDistrictCont& dc, NBNodeCont& nc, NBEdgeCont& ec,
         toInf = getToNode(nc, tmpClusters);
         toNode = toInf.second;
         if (fromInf.first != 0 && toNode != nullptr && fromInf.first->around(toNode->getPosition())) {
-            WRITE_WARNING("Will not build edge '" + toString(myID) + "'.");
+            WRITE_WARNINGF(TL("Will not build edge '%'."), toString(myID));
             myAmWithinJunction = true;
             return;
         }
@@ -487,7 +487,7 @@ NIVissimEdge::buildNBEdge(NBDistrictCont& dc, NBNodeCont& nc, NBEdgeCont& ec,
     avgSpeed *= OptionsCont::getOptions().getFloat("vissim.speed-norm");
 
     if (fromNode == toNode) {
-        WRITE_WARNING("Could not build edge '" + toString(myID) + "'; would connect same node.");
+        WRITE_WARNINGF(TL("Could not build edge '%'; would connect same node."), toString(myID));
         return;
     }
 
@@ -523,13 +523,13 @@ NIVissimEdge::getRealSpeed(int distNo) {
     std::string id = toString<int>(distNo);
     Distribution* dist = DistributionCont::dictionary("speed", id);
     if (dist == nullptr) {
-        WRITE_WARNING("The referenced speed distribution '" + id + "' is not known.");
+        WRITE_WARNINGF(TL("The referenced speed distribution '%' is not known."), id);
         return -1;
     }
     assert(dist != 0);
     double speed = dist->getMax();
     if (speed < 0 || speed > 1000) {
-        WRITE_WARNING("What about distribution '" + toString<int>(distNo) + "' ");
+        WRITE_WARNINGF(TL("What about distribution '%' "), toString<int>(distNo));
     }
     return speed;
 }

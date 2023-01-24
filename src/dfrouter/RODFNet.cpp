@@ -278,7 +278,7 @@ RODFNet::computeRoutesFor(ROEdge* edge, RODFRouteDesc& base, int /*no*/,
             //  without a detector occurred
             if (current.passedNo > maxFollowingLength) {
                 // mark not to process any further
-                WRITE_WARNING("Could not close route for '" + det.getID() + "'");
+                WRITE_WARNINGF(TL("Could not close route for '%'"), det.getID());
                 unfoundEnds.push_back(current);
                 current.factor = 1.;
                 double cdist = current.edges2Pass[0]->getFromJunction()->getPosition().distanceTo(current.edges2Pass.back()->getToJunction()->getPosition());
@@ -436,7 +436,7 @@ RODFNet::revalidateFlows(const RODFDetector* detector,
     }
     // ok, there is no information for the whole time;
     //  lets find preceding detectors and rebuild the flows if possible
-    WRITE_WARNING("Detector '" + detector->getID() + "' has no flows.\n Trying to rebuild.");
+    WRITE_WARNINGF(TL("Detector '%' has no flows.\n Trying to rebuild."), detector->getID());
     // go back and collect flows
     ROEdgeVector previous;
     {
@@ -698,7 +698,7 @@ RODFNet::isSource(const RODFDetector& det, ROEdge* edge,
                   const RODFDetectorCon& detectors,
                   bool strict) const {
     if (seen.size() == 1000) { // !!!
-        WRITE_WARNING("Quitting checking for being a source for detector '" + det.getID() + "' due to seen edge limit.");
+        WRITE_WARNINGF(TL("Quitting checking for being a source for detector '%' due to seen edge limit."), det.getID());
         return false;
     }
     if (edge == getDetectorEdge(det)) {
@@ -798,7 +798,7 @@ bool
 RODFNet::isDestination(const RODFDetector& det, ROEdge* edge, ROEdgeVector& seen,
                        const RODFDetectorCon& detectors) const {
     if (seen.size() == 1000) { // !!!
-        WRITE_WARNING("Quitting checking for being a destination for detector '" + det.getID() + "' due to seen edge limit.");
+        WRITE_WARNINGF(TL("Quitting checking for being a destination for detector '%' due to seen edge limit."), det.getID());
         return false;
     }
     if (edge == getDetectorEdge(det)) {
@@ -874,7 +874,7 @@ bool
 RODFNet::isFalseSource(const RODFDetector& det, ROEdge* edge, ROEdgeVector& seen,
                        const RODFDetectorCon& detectors) const {
     if (seen.size() == 1000) { // !!!
-        WRITE_WARNING("Quitting checking for being a false source for detector '" + det.getID() + "' due to seen edge limit.");
+        WRITE_WARNINGF(TL("Quitting checking for being a false source for detector '%' due to seen edge limit."), det.getID());
         return false;
     }
     seen.push_back(edge);

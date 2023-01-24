@@ -1702,7 +1702,7 @@ GUISUMOAbstractView::checkGDALImage(Decal& d) {
                 d.centerY = (topLeft.y() + bottomRight.y()) / 2;
                 //WRITE_MESSAGE("proj: " + toString(poDataset->GetProjectionRef()) + " dim: " + toString(d.width) + "," + toString(d.height) + " center: " + toString(d.centerX) + "," + toString(d.centerY));
             } else {
-                WRITE_WARNING("Could not convert coordinates in " + d.filename + ".");
+                WRITE_WARNINGF(TL("Could not convert coordinates in %."), d.filename);
             }
         }
     }
@@ -1717,7 +1717,7 @@ GUISUMOAbstractView::checkGDALImage(Decal& d) {
     const int picSize = xSize * ySize;
     FXColor* result;
     if (!FXMALLOC(&result, FXColor, picSize)) {
-        WRITE_WARNING("Could not allocate memory for " + d.filename + ".");
+        WRITE_WARNINGF(TL("Could not allocate memory for %."), d.filename);
         return 0;
     }
     for (int j = 0; j < picSize; j++) {

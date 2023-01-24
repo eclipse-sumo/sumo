@@ -297,7 +297,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
             }
             break;
             default:
-                WRITE_WARNING("Unsupported shape type occurred (id='" + id + "').");
+                WRITE_WARNINGF(TL("Unsupported shape type occurred (id='%')."), id);
                 break;
         }
         if (oc.getBool("shapefile.add-param")) {

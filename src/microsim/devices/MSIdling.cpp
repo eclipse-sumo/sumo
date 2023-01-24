@@ -152,7 +152,7 @@ MSIdling_RandomCircling::idle(MSDevice_Taxi* taxi) {
             }
         }
         if (successors.size() == 0) {
-            WRITE_WARNING("Vehicle '" + veh.getID() + "' ends idling in a cul-de-sac");
+            WRITE_WARNINGF(TL("Vehicle '%' ends idling in a cul-de-sac"), veh.getID());
             break;
         } else {
             int nextIndex = RandHelper::rand((int)successors.size(), veh.getRNG());

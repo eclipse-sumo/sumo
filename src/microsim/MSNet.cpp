@@ -1421,7 +1421,7 @@ MSNet::getRouterTT(const int rngIndex, const MSEdgeVector& prohibited) const {
             myRouterTT[rngIndex] = new DijkstraRouter<MSEdge, SUMOVehicle>(MSEdge::getAllEdges(), true, &MSNet::getTravelTime, nullptr, false, nullptr, true);
         } else {
             if (routingAlgorithm != "astar") {
-                WRITE_WARNING("TraCI and Triggers cannot use routing algorithm '" + routingAlgorithm + "'. using 'astar' instead.");
+                WRITE_WARNINGF(TL("TraCI and Triggers cannot use routing algorithm '%'. using 'astar' instead."), routingAlgorithm);
             }
             myRouterTT[rngIndex] = new AStarRouter<MSEdge, SUMOVehicle>(MSEdge::getAllEdges(), true, &MSNet::getTravelTime, nullptr, true);
         }

@@ -495,7 +495,7 @@ NBEdgeCont::processSplits(NBEdge* e, std::vector<Split> splits,
             const bool ok = splitAt(dc, e, exp.pos - seen, exp.node,
                                     idBefore, idAfter, e->getNumLanes(), (int) exp.lanes.size(), exp.speed);
             if (!ok) {
-                WRITE_WARNING("Error on parsing a split (edge '" + origID + "').");
+                WRITE_WARNINGF(TL("Error on parsing a split (edge '%')."), origID);
                 return;
             }
             seen = exp.pos;

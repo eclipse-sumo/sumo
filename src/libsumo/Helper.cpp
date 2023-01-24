@@ -1392,7 +1392,7 @@ Helper::postProcessRemoteControl() {
             controlled.second->getInfluencer().postProcessRemoteControl(controlled.second);
             numControlled++;
         } else {
-            WRITE_WARNING("Vehicle '" + controlled.first + "' was removed though being controlled by TraCI");
+            WRITE_WARNINGF(TL("Vehicle '%' was removed though being controlled by TraCI"), controlled.first);
         }
     }
     myRemoteControlledVehicles.clear();
@@ -1401,7 +1401,7 @@ Helper::postProcessRemoteControl() {
             controlled.second->getInfluencer().postProcessRemoteControl(controlled.second);
             numControlled++;
         } else {
-            WRITE_WARNING("Person '" + controlled.first + "' was removed though being controlled by TraCI");
+            WRITE_WARNINGF(TL("Person '%' was removed though being controlled by TraCI"), controlled.first);
         }
     }
     myRemoteControlledPersons.clear();

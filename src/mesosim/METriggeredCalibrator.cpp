@@ -174,7 +174,7 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
                     route = MSRoute::dictionary(pars->routeid);
                 }
                 if (route == nullptr) {
-                    WRITE_WARNING("No valid routes in calibrator '" + getID() + "'.");
+                    WRITE_WARNINGF(TL("No valid routes in calibrator '%'."), getID());
                     break;
                 }
                 if (!route->contains(myEdge)) {

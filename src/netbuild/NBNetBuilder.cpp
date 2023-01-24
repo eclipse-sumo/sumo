@@ -136,7 +136,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     } else {
         int numDeletedStops = myPTStopCont.cleanupDeleted(myEdgeCont);
         if (numDeletedStops > 0) {
-            WRITE_WARNING("Removed " + toString(numDeletedStops) + " pt stops because they could not be assigned to the network");
+            WRITE_WARNINGF(TL("Removed % pt stops because they could not be assigned to the network"), toString(numDeletedStops));
         }
     }
 

@@ -2971,10 +2971,10 @@ NBEdge::recheckLanes() {
                 const bool forbiddenRight = lane.changeRight != SVCAll && lane.changeRight != SVC_IGNORING && lane.changeRight != SVC_UNSPECIFIED;
                 if (forbiddenLeft && (i == 0 || forbiddenRight)) {
                     lane.changeLeft = SVC_UNSPECIFIED;
-                    WRITE_WARNING("Ignoring changeLeft prohibition for '" + getLaneID(i) + "' to avoid dead-end");
+                    WRITE_WARNINGF(TL("Ignoring changeLeft prohibition for '%' to avoid dead-end"), getLaneID(i));
                 } else if (forbiddenRight && (i == getNumLanes() - 1 || (i > 0 && myLanes[i - 1].accelRamp))) {
                     lane.changeRight = SVC_UNSPECIFIED;
-                    WRITE_WARNING("Ignoring changeRight prohibition for '" + getLaneID(i) + "' to avoid dead-end");
+                    WRITE_WARNINGF(TL("Ignoring changeRight prohibition for '%' to avoid dead-end"), getLaneID(i));
                 }
             }
         }

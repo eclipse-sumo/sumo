@@ -53,11 +53,11 @@ Command_Hotkey_TrafficLight::registerHotkey(const std::string& key, MSTrafficLig
             // see FXAccelTable::parseAccel
             hotkey = c + FX::KEY_space - ' ';
         } else {
-            WRITE_WARNING("Hotkey '" + key + "' is not supported");
+            WRITE_WARNINGF(TL("Hotkey '%' is not supported"), key);
             return false;
         }
     } else {
-        WRITE_WARNING("Hotkey '" + key + "' is not supported");
+        WRITE_WARNINGF(TL("Hotkey '%' is not supported"), key);
         return false;
     }
     GUINet* gn = dynamic_cast<GUINet*>(MSNet::getInstance());

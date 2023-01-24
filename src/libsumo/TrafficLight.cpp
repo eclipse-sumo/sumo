@@ -644,7 +644,7 @@ TrafficLight::findConstraintsDeadLocks(const std::string& foeId, const std::stri
                 }
             }
         } else if (ego != nullptr) {
-            WRITE_WARNING("Cannot check for all deadlocks on swapConstraints because the route for vehicle '" + ego->getID() + "' is not computed yet");
+            WRITE_WARNINGF(TL("Cannot check for all deadlocks on swapConstraints because the route for vehicle '%' is not computed yet"), ego->getID());
         }
     }
 

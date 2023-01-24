@@ -741,7 +741,7 @@ NBNode::indirectLeftShape(const PositionVector& begShape, const PositionVector& 
     begShapeEndLineRev.extrapolate2D(100, true);
     Position intersect = endShapeBegLine.intersectionPosition2D(begShapeEndLineRev);
     if (intersect == Position::INVALID) {
-        WRITE_WARNING("Could not compute indirect left turn shape at node '" + getID()  + "'");
+        WRITE_WARNINGF(TL("Could not compute indirect left turn shape at node '%'"), getID() );
     } else {
         Position dir = intersect;
         dir.sub(endShape[0]);

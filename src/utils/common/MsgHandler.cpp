@@ -235,7 +235,7 @@ MsgHandler::setupI18n(const std::string& locale) {
 #endif
     }
     if (!setlocale(LC_MESSAGES, "")) {
-        WRITE_WARNING("Could not set locale to '" + locale + "'.");
+        WRITE_WARNINGF(TL("Could not set locale to '%'."), locale);
     }
     const char* sumoPath = getenv("SUMO_HOME");
     if (sumoPath == nullptr) {

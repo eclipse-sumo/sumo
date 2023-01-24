@@ -174,7 +174,7 @@ GNETAZRelDataFrame::buildTAZRelationData() {
     // check conditions
     if (myFirstTAZ && mySecondTAZ) {
         if (!myIntervalSelector->getDataInterval()) {
-            WRITE_WARNING("A " + toString(SUMO_TAG_TAZREL) + " must be defined within an interval.");
+            WRITE_WARNINGF(TL("A % must be defined within an interval."), toString(SUMO_TAG_TAZREL));
         } else if ((myFirstTAZ == mySecondTAZ) && myIntervalSelector->getDataInterval()->TAZRelExists(myFirstTAZ)) {
             WRITE_WARNING("There is already a " + toString(SUMO_TAG_TAZREL) + " defined in TAZ'" + myFirstTAZ->getID() + "'.");
         } else if ((myFirstTAZ != mySecondTAZ) && myIntervalSelector->getDataInterval()->TAZRelExists(myFirstTAZ, mySecondTAZ)) {

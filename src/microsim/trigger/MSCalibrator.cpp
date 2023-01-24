@@ -139,7 +139,7 @@ MSCalibrator::init() {
         // calibration should happen after regular insertions have taken place
         MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(new CalibratorCommand(this));
     } else {
-        WRITE_WARNING("No flow intervals in calibrator '" + getID() + "'.");
+        WRITE_WARNINGF(TL("No flow intervals in calibrator '%'."), getID());
     }
     myDidInit = true;
 }
@@ -206,7 +206,7 @@ MSCalibrator::myStartElement(int element,
             } else if (myLane != nullptr && (
                            state.vehicleParameter->departLaneProcedure != DepartLaneDefinition::GIVEN
                            || state.vehicleParameter->departLane != myLane->getIndex())) {
-                WRITE_WARNING("Insertion lane may differ from calibrator lane for calibrator '" + getID() + "'.");
+                WRITE_WARNINGF(TL("Insertion lane may differ from calibrator lane for calibrator '%'."), getID());
             }
             if (state.vehicleParameter->vtypeid != DEFAULT_VTYPE_ID &&
                     MSNet::getInstance()->getVehicleControl().getVType(state.vehicleParameter->vtypeid) == nullptr) {
@@ -411,7 +411,7 @@ MSCalibrator::execute(SUMOTime currentTime) {
                 route = MSRoute::dictionary(pars->routeid);
             }
             if (route == nullptr) {
-                WRITE_WARNING("No valid routes in calibrator '" + getID() + "'.");
+                WRITE_WARNINGF(TL("No valid routes in calibrator '%'."), getID());
                 break;
             }
             if (!route->contains(myEdge)) {

@@ -197,13 +197,13 @@ MSDevice_ToC::getOutputFilename(const SUMOVehicle& v, const OptionsCont& oc) {
         try {
             file = v.getParameter().getParameter("device.toc.file", file);
         } catch (...) {
-            WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device.toc.file", file) + "'for vehicle parameter 'ssm.measures'");
+            WRITE_WARNINGF(TL("Invalid value '%'for vehicle parameter 'ssm.measures'"), v.getParameter().getParameter("device.toc.file", file));
         }
     } else if (v.getVehicleType().getParameter().knowsParameter("device.toc.file")) {
         try {
             file = v.getVehicleType().getParameter().getParameter("device.toc.file", file);
         } catch (...) {
-            WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device.toc.file", file) + "'for vType parameter 'ssm.measures'");
+            WRITE_WARNINGF(TL("Invalid value '%'for vType parameter 'ssm.measures'"), v.getVehicleType().getParameter().getParameter("device.toc.file", file));
         }
     } else {
         file = oc.getString("device.toc.file") == "" ? file : oc.getString("device.toc.file");
@@ -997,7 +997,7 @@ MSDevice_ToC::_2ToCState(const std::string& str) {
     } else if (str == "RECOVERING") {
         return RECOVERING;
     } else {
-        WRITE_WARNING("Unknown ToCState '" + str + "'");
+        WRITE_WARNINGF(TL("Unknown ToCState '%'"), str);
         return UNDEFINED;
     }
 }
@@ -1018,7 +1018,7 @@ MSDevice_ToC::_2string(ToCState state) {
     } else if (state == RECOVERING) {
         return "RECOVERING";
     } else {
-        WRITE_WARNING("Unknown ToCState '" + toString(state) + "'");
+        WRITE_WARNINGF(TL("Unknown ToCState '%'"), toString(state));
         return toString(state);
     }
 }

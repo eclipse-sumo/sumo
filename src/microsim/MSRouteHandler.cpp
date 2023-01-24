@@ -270,7 +270,7 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
         //  we may use this vehicle's id as default
         myActiveRouteID = "!" + myVehicleParameter->id; // !!! document this
         if (attrs.hasAttribute(SUMO_ATTR_ID)) {
-            WRITE_WARNING("Ids of internal routes are ignored (vehicle '" + myVehicleParameter->id + "').");
+            WRITE_WARNINGF(TL("Ids of internal routes are ignored (vehicle '%')."), myVehicleParameter->id);
         }
     } else {
         bool ok = true;
@@ -556,7 +556,7 @@ MSRouteHandler::closeVehicle() {
         if (myVehicleParameter->wasSet(VEHPARS_ROUTE_SET)) {
             // if the route id was given, prefer that one
             if (route != nullptr && !myAmLoadingState) {
-                WRITE_WARNING("Ignoring child element 'route' for vehicle '" + myVehicleParameter->id + "' because attribute 'route' is set.");
+                WRITE_WARNINGF(TL("Ignoring child element 'route' for vehicle '%' because attribute 'route' is set."), myVehicleParameter->id);
             }
             route = MSRoute::dictionary(myVehicleParameter->routeid, &myParsingRNG);
         }

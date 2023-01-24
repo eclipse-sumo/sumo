@@ -1752,9 +1752,9 @@ AdditionalHandler::parseParameters(const SUMOSAXAttributes& attrs) {
         const std::string value = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
         // show warnings if values are invalid
         if (key.empty()) {
-            WRITE_WARNING("Error parsing key from " + parentTagStr + " generic parameter. Key cannot be empty.");
+            WRITE_WARNINGF(TL("Error parsing key from % generic parameter. Key cannot be empty."), parentTagStr);
         } else if (!SUMOXMLDefinitions::isValidParameterKey(key)) {
-            WRITE_WARNING("Error parsing key from " + parentTagStr + " generic parameter. Key contains invalid characters.");
+            WRITE_WARNINGF(TL("Error parsing key from % generic parameter. Key contains invalid characters."), parentTagStr);
         } else {
             WRITE_DEBUG("Inserting generic parameter '" + key + "|" + value + "' into " + parentTagStr);
             // insert parameter in SumoBaseObjectParent

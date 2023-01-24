@@ -687,7 +687,7 @@ MSTractionSubstation::solveCircuit(SUMOTime /*currentTime*/) {
     myCircuit->solve();
 
     if (myCircuit->getAlphaBest() != 1.0) {
-        WRITE_WARNING("The requested total power could not be delivered by the overhead wire. Only " + toString(myCircuit->getAlphaBest()) + " of originally requested power was provided.");
+        WRITE_WARNINGF(TL("The requested total power could not be delivered by the overhead wire. Only % of originally requested power was provided."), toString(myCircuit->getAlphaBest()));
     }
 #endif
 

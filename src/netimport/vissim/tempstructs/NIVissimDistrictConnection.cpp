@@ -357,7 +357,7 @@ double
 NIVissimDistrictConnection::getMeanSpeed() const {
     //assert(myAssignedVehicles.size()!=0);
     if (myAssignedVehicles.size() == 0) {
-        WRITE_WARNING("No streams assigned at district'" + toString(myID) + "'.\n Using default speed 200km/h");
+        WRITE_WARNINGF(TL("No streams assigned at district'%'.\n Using default speed 200km/h"), toString(myID));
         return (double) 200 / (double) 3.6;
     }
     double speed = 0;
@@ -374,7 +374,7 @@ NIVissimDistrictConnection::getRealSpeed(int distNo) const {
     std::string id = toString<int>(distNo);
     Distribution* dist = DistributionCont::dictionary("speed", id);
     if (dist == nullptr) {
-        WRITE_WARNING("The referenced speed distribution '" + id + "' is not known.");
+        WRITE_WARNINGF(TL("The referenced speed distribution '%' is not known."), id);
         WRITE_WARNING(TL(". Using default."));
         return OptionsCont::getOptions().getFloat("vissim.default-speed");
     }

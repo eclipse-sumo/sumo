@@ -557,7 +557,7 @@ void
 GeoConvHelper::setLoaded(const GeoConvHelper& loaded) {
     myNumLoaded++;
     if (myNumLoaded > 1) {
-        WRITE_WARNING("Ignoring loaded location attribute nr. " + toString(myNumLoaded) + " for tracking of original location");
+        WRITE_WARNINGF(TL("Ignoring loaded location attribute nr. % for tracking of original location"), toString(myNumLoaded));
     } else {
         myLoaded = loaded;
     }

@@ -207,7 +207,7 @@ NIVissimDisturbance::addToNode(NBNode* node, NBDistrictCont& dc,
                 toNode->addSortedLinkFoes(NBConnection(e, edge), NBConnection(pcoe, pcie));
             }
         } else {
-            WRITE_WARNING("Would have to split edge '" + e->getID() + "' to build a prohibition");
+            WRITE_WARNINGF(TL("Would have to split edge '%' to build a prohibition"), e->getID());
             refusedProhibits++;
             // quite ugly - why was it not build?
             return false;
@@ -234,7 +234,7 @@ NIVissimDisturbance::addToNode(NBNode* node, NBDistrictCont& dc,
 
         NBEdge* e = ec.retrievePossiblySplit(toString<int>(myEdge.getEdgeID()), myEdge.getPosition());
         if (e == nullptr) {
-            WRITE_WARNING("Could not prohibit '" + toString<int>(myEdge.getEdgeID()) + "' - it was not built.");
+            WRITE_WARNINGF(TL("Could not prohibit '%' - it was not built."), toString<int>(myEdge.getEdgeID()));
             return false;
         }
         std::string nid1 = e->getID() + "[0]";
@@ -259,7 +259,7 @@ NIVissimDisturbance::addToNode(NBNode* node, NBDistrictCont& dc,
                 toNode->addSortedLinkFoes(NBConnection(bcoe, bcie), NBConnection(e, edge));
             }
         } else {
-            WRITE_WARNING("Would have to split edge '" + e->getID() + "' to build a prohibition");
+            WRITE_WARNINGF(TL("Would have to split edge '%' to build a prohibition"), e->getID());
             refusedProhibits++;
             return false;
             /*

@@ -418,7 +418,7 @@ MSDevice_BTreceiver::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notific
 bool
 MSDevice_BTreceiver::notifyMove(SUMOTrafficObject& veh, double /* oldPos */, double newPos, double newSpeed) {
     if (sVehicles.find(veh.getID()) == sVehicles.end()) {
-        WRITE_WARNING("btreceiver: Can not update position of vehicle '" + veh.getID() + "' which is not on the road.");
+        WRITE_WARNINGF(TL("btreceiver: Can not update position of vehicle '%' which is not on the road."), veh.getID());
         return true;
     }
     const std::string location = MSDevice_BTsender::getLocation(veh);
@@ -433,7 +433,7 @@ MSDevice_BTreceiver::notifyLeave(SUMOTrafficObject& veh, double /* lastPos */, M
         return true;
     }
     if (sVehicles.find(veh.getID()) == sVehicles.end()) {
-        WRITE_WARNING("btreceiver: Can not update position of vehicle '" + veh.getID() + "' which is not on the road.");
+        WRITE_WARNINGF(TL("btreceiver: Can not update position of vehicle '%' which is not on the road."), veh.getID());
         return true;
     }
     const std::string location = MSDevice_BTsender::getLocation(veh);

@@ -118,7 +118,7 @@ XMLSubSys::setValidation(const std::string& validationScheme, const std::string&
                 }) {
             const std::string file = sumoPath + std::string("/data/xsd/") + filetype + "_file.xsd";
             if (!parser->loadGrammar(file.c_str(), XERCES_CPP_NAMESPACE::Grammar::SchemaGrammarType, true)) {
-                WRITE_WARNING("Cannot read local schema '" + file + "'.");
+                WRITE_WARNINGF(TL("Cannot read local schema '%'."), file);
             }
         }
     }

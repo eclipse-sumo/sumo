@@ -361,7 +361,7 @@ ODMatrix::writeFlows(const SUMOTime begin, const SUMOTime end,
                     dev.writeAttr(SUMO_ATTR_NUMBER, int(c->vehicleNumber));
                 } else {
                     if (probability > 1) {
-                        WRITE_WARNING("Flow density of " + toString(probability) + " vehicles per second, cannot be represented with a simple probability. Falling back to even spacing.");
+                        WRITE_WARNINGF(TL("Flow density of % vehicles per second, cannot be represented with a simple probability. Falling back to even spacing."), toString(probability));
                         dev.writeAttr(SUMO_ATTR_NUMBER, int(c->vehicleNumber));
                     } else {
                         dev.setPrecision(6);
@@ -381,7 +381,7 @@ ODMatrix::writeFlows(const SUMOTime begin, const SUMOTime end,
                     dev.writeAttr(SUMO_ATTR_NUMBER, int(c->vehicleNumber));
                 } else {
                     if (probability > 1) {
-                        WRITE_WARNING("Flow density of " + toString(probability) + " vehicles per second, cannot be represented with a simple probability. Falling back to even spacing.");
+                        WRITE_WARNINGF(TL("Flow density of % vehicles per second, cannot be represented with a simple probability. Falling back to even spacing."), toString(probability));
                         dev.writeAttr(SUMO_ATTR_NUMBER, int(c->vehicleNumber));
                     } else {
                         dev.setPrecision(6);
@@ -407,7 +407,7 @@ ODMatrix::writeFlows(const SUMOTime begin, const SUMOTime end,
                     dev.writeAttr(SUMO_ATTR_NUMBER, int(c->vehicleNumber));
                 } else {
                     if (probability > 1) {
-                        WRITE_WARNING("Flow density of " + toString(probability) + " vehicles per second, cannot be represented with a simple probability. Falling back to even spacing.");
+                        WRITE_WARNINGF(TL("Flow density of % vehicles per second, cannot be represented with a simple probability. Falling back to even spacing."), toString(probability));
                         dev.writeAttr(SUMO_ATTR_NUMBER, int(c->vehicleNumber));
                     } else {
                         dev.setPrecision(6);

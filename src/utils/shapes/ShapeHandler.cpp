@@ -237,7 +237,7 @@ ShapeHandler::addPoly(const SUMOSAXAttributes& attrs, const bool ignorePruning, 
                 }
             }
             if (!success) {
-                WRITE_WARNING("Unable to project coordinates for polygon '" + id + "'.");
+                WRITE_WARNINGF(TL("Unable to project coordinates for polygon '%'."), id);
                 return;
             }
         }

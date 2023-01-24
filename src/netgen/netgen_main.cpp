@@ -131,7 +131,7 @@ buildNetwork(NBNetBuilder& nb) {
             WRITE_ERROR("The radius of spider networks must be at least "  + toString(POSITION_EPS));
             hadError = true;
         } else if (oc.getFloat("spider.space-radius") < minLength) {
-            WRITE_WARNING("The radius of spider networks should be at least " + toString(minLength) + " for the given lanenumber, lanewidth and junction radius");
+            WRITE_WARNINGF(TL("The radius of spider networks should be at least % for the given lanenumber, lanewidth and junction radius"), toString(minLength));
         }
         if (hadError) {
             throw ProcessError();
@@ -180,18 +180,18 @@ buildNetwork(NBNetBuilder& nb) {
             WRITE_ERROR("The distance between nodes must be at least " + toString(POSITION_EPS));
             hadError = true;
         } else if (xLength < minLength || yLength < minLength) {
-            WRITE_WARNING("The distance between nodes should be at least " + toString(minLength) + " for the given lanenumber, lanewidth and junction radius");
+            WRITE_WARNINGF(TL("The distance between nodes should be at least % for the given lanenumber, lanewidth and junction radius"), toString(minLength));
         }
         if (xAttachLength != 0.0 && xAttachLength < POSITION_EPS) {
             WRITE_ERROR("The length of attached streets must be at least " + toString(POSITION_EPS));
             hadError = true;
         } else if (xAttachLength != 0.0 && xAttachLength < minAttachLength) {
-            WRITE_WARNING("The length of attached streets should be at least " + toString(minAttachLength) + " for the given lanenumber, lanewidth and junction radius");
+            WRITE_WARNINGF(TL("The length of attached streets should be at least % for the given lanenumber, lanewidth and junction radius"), toString(minAttachLength));
         } else if (yAttachLength != 0.0 && yAttachLength < POSITION_EPS) {
             WRITE_ERROR("The length of attached streets must be at least " + toString(POSITION_EPS));
             hadError = true;
         } else if (yAttachLength != 0.0 && yAttachLength < minAttachLength) {
-            WRITE_WARNING("The length of attached streets should be at least " + toString(minAttachLength) + " for the given lanenumber, lanewidth and junction radius");
+            WRITE_WARNINGF(TL("The length of attached streets should be at least % for the given lanenumber, lanewidth and junction radius"), toString(minAttachLength));
         }
         if (hadError) {
             throw ProcessError();

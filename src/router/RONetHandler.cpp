@@ -277,7 +277,7 @@ RONetHandler::parseJunction(const SUMOSAXAttributes& attrs) {
     }
     RONode* n = myNet.getNode(id);
     if (n == nullptr) {
-        WRITE_WARNING("Skipping isolated junction '" + id + "'.");
+        WRITE_WARNINGF(TL("Skipping isolated junction '%'."), id);
     } else {
         n->setPosition(Position(x, y, z));
     }
@@ -365,7 +365,7 @@ RONetHandler::parseAccess(const SUMOSAXAttributes& attrs) {
         throw InvalidArgument("Unknown lane '" + lane + "' for access.");
     }
     if ((edge->getPermissions() & SVC_PEDESTRIAN) == 0) {
-        WRITE_WARNING("Ignoring invalid access from non-pedestrian edge '" + edge->getID() + "'.");
+        WRITE_WARNINGF(TL("Ignoring invalid access from non-pedestrian edge '%'."), edge->getID());
         return;
     }
     double pos = attrs.getOpt<double>(SUMO_ATTR_POSITION, "access", ok, 0.);

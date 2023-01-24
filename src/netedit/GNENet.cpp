@@ -1904,7 +1904,7 @@ GNENet::splitJunction(GNEJunction* junction, bool reconnect, GNEUndoList* undoLi
             if (newJunction->isValid(SUMO_ATTR_ID, newID)) {
                 undoList->changeAttribute(new GNEChange_Attribute(newJunction, SUMO_ATTR_ID, newID));
             } else {
-                WRITE_WARNING("Could not rename split node to '" + newID + "'");
+                WRITE_WARNINGF(TL("Could not rename split node to '%'"), newID);
             }
         }
     }

@@ -410,7 +410,7 @@ NBRampsComputer::moveRampRight(NBEdge* ramp, int addedLanes) {
         g.move2side(offset);
         ramp->setGeometry(g);
     } catch (InvalidArgument&) {
-        WRITE_WARNING("For edge '" + ramp->getID() + "': could not compute shape.");
+        WRITE_WARNINGF(TL("For edge '%': could not compute shape."), ramp->getID());
     }
 }
 

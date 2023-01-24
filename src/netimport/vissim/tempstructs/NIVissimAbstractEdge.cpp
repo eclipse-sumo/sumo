@@ -41,7 +41,7 @@ NIVissimAbstractEdge::NIVissimAbstractEdge(int id,
     for (PositionVector::const_iterator i = geom.begin(); i != geom.end(); ++i) {
         Position p = *i;
         if (!NBNetBuilder::transformCoordinate(p)) {
-            WRITE_WARNING("Unable to project coordinates for edge '" + toString(id) + "'.");
+            WRITE_WARNINGF(TL("Unable to project coordinates for edge '%'."), toString(id));
         }
         myGeom.push_back_noDoublePos(p);
     }

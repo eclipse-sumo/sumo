@@ -299,7 +299,7 @@ RORouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
         //  we may use this vehicle's id as default
         myVehicleParameter->routeid = myActiveRouteID = "!" + myVehicleParameter->id; // !!! document this
         if (attrs.hasAttribute(SUMO_ATTR_ID)) {
-            WRITE_WARNING("Ids of internal routes are ignored (vehicle '" + myVehicleParameter->id + "').");
+            WRITE_WARNINGF(TL("Ids of internal routes are ignored (vehicle '%')."), myVehicleParameter->id);
         }
     } else {
         bool ok = true;
@@ -476,7 +476,7 @@ RORouteHandler::openRouteDistribution(const SUMOSAXAttributes& attrs) {
         //  we may use this vehicle's id as default
         myVehicleParameter->routeid = id = "!" + myVehicleParameter->id; // !!! document this
         if (attrs.hasAttribute(SUMO_ATTR_ID)) {
-            WRITE_WARNING("Ids of internal route distributions are ignored (vehicle '" + myVehicleParameter->id + "').");
+            WRITE_WARNINGF(TL("Ids of internal route distributions are ignored (vehicle '%')."), myVehicleParameter->id);
         }
     } else {
         id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
@@ -592,7 +592,7 @@ RORouteHandler::closePerson() {
         type = myNet.getVehicleTypeSecure(DEFAULT_PEDTYPE_ID);
     }
     if (myActivePlan == nullptr || myActivePlan->empty()) {
-        WRITE_WARNING("Discarding person '" + myVehicleParameter->id + "' because her plan is empty");
+        WRITE_WARNINGF(TL("Discarding person '%' because her plan is empty"), myVehicleParameter->id);
     } else {
         ROPerson* person = new ROPerson(*myVehicleParameter, type);
         for (ROPerson::PlanItem* item : *myActivePlan) {
@@ -618,7 +618,7 @@ RORouteHandler::closePersonFlow() {
         type = myNet.getVehicleTypeSecure(DEFAULT_PEDTYPE_ID);
     }
     if (myActivePlan == nullptr || myActivePlan->empty()) {
-        WRITE_WARNING("Discarding personFlow '" + myVehicleParameter->id + "' because their plan is empty");
+        WRITE_WARNINGF(TL("Discarding personFlow '%' because their plan is empty"), myVehicleParameter->id);
     } else {
         checkLastDepart();
         // instantiate all persons of this flow
@@ -699,7 +699,7 @@ RORouteHandler::closeContainer() {
         checkLastDepart();
         registerLastDepart();
     } else {
-        WRITE_WARNING("Discarding container '" + myVehicleParameter->id + "' because it's plan is empty");
+        WRITE_WARNINGF(TL("Discarding container '%' because it's plan is empty"), myVehicleParameter->id);
     }
     delete myVehicleParameter;
     myVehicleParameter = nullptr;
@@ -716,7 +716,7 @@ void RORouteHandler::closeContainerFlow() {
         checkLastDepart();
         registerLastDepart();
     } else {
-        WRITE_WARNING("Discarding containerFlow '" + myVehicleParameter->id + "' because it's plan is empty");
+        WRITE_WARNINGF(TL("Discarding containerFlow '%' because it's plan is empty"), myVehicleParameter->id);
     }
     delete myVehicleParameter;
     myVehicleParameter = nullptr;

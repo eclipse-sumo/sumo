@@ -371,7 +371,7 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
                                                     resistance, node_pos, pos_veh_node, Element::ElementType::RESISTOR_traction_wire);
 
                 if (element_pos->getResistance() - resistance < 0) {
-                    WRITE_WARNING("The resistivity of overhead wire segment connected to vehicle " + veh.getID() + " is < 0. Set to 1e-6.");
+                    WRITE_WARNINGF(TL("The resistivity of overhead wire segment connected to vehicle % is < 0. Set to 1e-6."), veh.getID());
                 }
 
                 element_pos->setResistance(element_pos->getResistance() - resistance);
@@ -919,7 +919,7 @@ void
 MSDevice_ElecHybrid::setActualBatteryCapacity(const double actualBatteryCapacity) {
     // Use the SOC limits to cap the actual battery capacity
     if (actualBatteryCapacity < mySOCMin * myMaximumBatteryCapacity) {
-        //WRITE_WARNING("The Battery of vehicle '" + getID() + "' has been exhausted.");
+        //WRITE_WARNINGF(TL("The Battery of vehicle '%' has been exhausted."), getID());
         myActualBatteryCapacity = MIN2(mySOCMin * myMaximumBatteryCapacity, myActualBatteryCapacity);
     } else if (actualBatteryCapacity > mySOCMax * myMaximumBatteryCapacity) {
         myActualBatteryCapacity = MAX2(mySOCMax * myMaximumBatteryCapacity, myActualBatteryCapacity);

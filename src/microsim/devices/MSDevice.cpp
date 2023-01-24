@@ -158,7 +158,7 @@ MSDevice::insertDefaultAssignmentOptions(const std::string& deviceName, const st
 
 void
 MSDevice::saveState(OutputDevice& /* out */) const {
-    WRITE_WARNING("Device '" + getID() + "' cannot save state");
+    WRITE_WARNINGF(TL("Device '%' cannot save state"), getID());
 }
 
 

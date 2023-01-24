@@ -224,7 +224,7 @@ NLEdgeControlBuilder::build(double networkVersion) {
         }
     }
     if (!deprecatedVehicleClassesSeen.empty()) {
-        WRITE_WARNING("Deprecated vehicle classes '" + toString(deprecatedVehicleClassesSeen) + "' in input network.");
+        WRITE_WARNINGF(TL("Deprecated vehicle classes '%' in input network."), toString(deprecatedVehicleClassesSeen));
         deprecatedVehicleClassesSeen.clear();
     }
     // check for bi-directional edges (this are edges in opposing direction and superposable/congruent shapes)

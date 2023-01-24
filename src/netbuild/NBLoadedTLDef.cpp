@@ -297,7 +297,7 @@ NBLoadedTLDef::myCompute(int brakingTimeSeconds) {
     logic->addStep(myCycleDuration + (*switchTimes.begin()) - prev, buildPhaseState(prev));
     // check whether any warnings were printed
     if (MsgHandler::getWarningInstance()->wasInformed()) {
-        WRITE_WARNING("During computation of traffic light '" + getID() + "'.");
+        WRITE_WARNINGF(TL("During computation of traffic light '%'."), getID());
     }
     logic->closeBuilding();
 

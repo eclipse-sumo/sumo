@@ -207,7 +207,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
             op = &ROEdge::getStoredEffort;
         }
         if (measure != "traveltime" && !net.hasLoadedEffort()) {
-            WRITE_WARNING("No weight data was loaded for attribute '" + measure + "'.");
+            WRITE_WARNINGF(TL("No weight data was loaded for attribute '%'."), measure);
         }
         router = new DijkstraRouter<ROEdge, ROVehicle>(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), op, ttOp, false, nullptr, net.hasPermissions());
     }

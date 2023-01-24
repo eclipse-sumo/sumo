@@ -453,10 +453,10 @@ GNEVTypeDistributionsDialog::ParametersOperations::GNEParameterHandler::myStartE
                         if (key.size() == 0) {
                             WRITE_WARNING(TL("Key of Parameter cannot be empty"));
                         } else {
-                            WRITE_WARNING("Key '" + key + "' of Parameter contains invalid characters");
+                            WRITE_WARNINGF(TL("Key '%' of Parameter contains invalid characters"), key);
                         }
                     } else if (myParametersOperationsParent->myParameterDialogParent->myParametersValues->keyExist(key)) {
-                        WRITE_WARNING("Key '" + key + "' already exist");
+                        WRITE_WARNINGF(TL("Key '%' already exist"), key);
                     } else {
                         // add parameter to vector of myParameterDialogParent
                         myParametersOperationsParent->myParameterDialogParent->myParametersValues->addParameter(std::make_pair(key, value));

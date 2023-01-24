@@ -205,7 +205,7 @@ PCLoaderDlrNavteq::loadPolyFile(const std::string& file,
             double y = StringUtils::toDouble(ypos);
             Position pos(x, y);
             if (!GeoConvHelper::getProcessing().x2cartesian(pos)) {
-                WRITE_WARNING("Unable to project coordinates for polygon '" + id + "'.");
+                WRITE_WARNINGF(TL("Unable to project coordinates for polygon '%'."), id);
             }
             vec.push_back(pos);
         }
@@ -217,7 +217,7 @@ PCLoaderDlrNavteq::loadPolyFile(const std::string& file,
 
         // check the polygon
         if (vec.size() == 0) {
-            WRITE_WARNING("The polygon '" + id + "' is empty.");
+            WRITE_WARNINGF(TL("The polygon '%' is empty."), id);
             continue;
         }
         if (id == "") {

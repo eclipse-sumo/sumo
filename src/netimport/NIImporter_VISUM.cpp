@@ -577,7 +577,7 @@ NIImporter_VISUM::parse_Connectors_legacy() {
         }
         if (!hasContinuation) {
             // obviously, there is no continuation on the net
-            WRITE_WARNING("Incoming connector '" + id + "' will not be build - would be not connected to network.");
+            WRITE_WARNINGF(TL("Incoming connector '%' will not be build - would be not connected to network."), id);
         } else {
             NBNode* src = buildDistrictNode(bez, dest, true);
             if (src == nullptr) {
@@ -611,7 +611,7 @@ NIImporter_VISUM::parse_Connectors_legacy() {
         }
         if (!hasPredeccessor) {
             // obviously, the network is not connected to this node
-            WRITE_WARNING("Outgoing connector '" + id + "' will not be build - would be not connected to network.");
+            WRITE_WARNINGF(TL("Outgoing connector '%' will not be build - would be not connected to network."), id);
         } else {
             NBNode* src = buildDistrictNode(bez, dest, false);
             if (src == nullptr) {
@@ -843,7 +843,7 @@ NIImporter_VISUM::parse_Lanes() {
         double useLength = length - seenLength;
         useLength = edge->getLength() - useLength;
         if (useLength < 0 || useLength > edge->getLength()) {
-            WRITE_WARNING("Could not find split position for edge '" + edge->getID() + "'.");
+            WRITE_WARNINGF(TL("Could not find split position for edge '%'."), edge->getID());
             return;
         }
         std::string edgeID = edge->getID();
@@ -1548,7 +1548,7 @@ NIImporter_VISUM::loadLanguage(const std::string& file) {
             KEYS.remove(keyDE, key);
             KEYS.insert(keyNew, key);
         } else if (keyDE != "") {
-            WRITE_WARNING("Unknown entry '" + keyDE + "' in VISUM language map");
+            WRITE_WARNINGF(TL("Unknown entry '%' in VISUM language map"), keyDE);
         }
     }
 

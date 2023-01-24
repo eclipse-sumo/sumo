@@ -208,7 +208,7 @@ GNEElementTree::onCmdDeleteItem(FXObject*, FXSelector, void*) {
     } else if (myClickedDemandElement) {
         // check that default VTypes aren't removed
         if ((myClickedDemandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && (GNEAttributeCarrier::parse<bool>(myClickedDemandElement->getAttribute(GNE_ATTR_DEFAULT_VTYPE)))) {
-            WRITE_WARNING("Default Vehicle Type '" + myClickedDemandElement->getAttribute(SUMO_ATTR_ID) + "' cannot be removed");
+            WRITE_WARNINGF(TL("Default Vehicle Type '%' cannot be removed"), myClickedDemandElement->getAttribute(SUMO_ATTR_ID));
             return 1;
         } else if (myClickedDemandElement->getTagProperty().isPersonPlan() && (myClickedDemandElement->getParentDemandElements().front()->getChildDemandElements().size() == 1)) {
             // we need to check if we're removing the last person plan of a person.

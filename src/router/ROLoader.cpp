@@ -59,7 +59,7 @@ ROLoader::EdgeFloatTimeLineRetriever_EdgeTravelTime::addEdgeWeight(const std::st
     } else {
         if (id[0] != ':') {
             if (OptionsCont::getOptions().getBool("ignore-errors")) {
-                WRITE_WARNING("Trying to set a weight for the unknown edge '" + id + "'.");
+                WRITE_WARNINGF(TL("Trying to set a weight for the unknown edge '%'."), id);
             } else {
                 WRITE_ERROR("Trying to set a weight for the unknown edge '" + id + "'.");
             }
@@ -80,7 +80,7 @@ ROLoader::EdgeFloatTimeLineRetriever_EdgeWeight::addEdgeWeight(const std::string
     } else {
         if (id[0] != ':') {
             if (OptionsCont::getOptions().getBool("ignore-errors")) {
-                WRITE_WARNING("Trying to set a weight for the unknown edge '" + id + "'.");
+                WRITE_WARNINGF(TL("Trying to set a weight for the unknown edge '%'."), id);
             } else {
                 WRITE_ERROR("Trying to set a weight for the unknown edge '" + id + "'.");
             }
@@ -130,7 +130,7 @@ ROLoader::loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
         }
     }
     if (!deprecatedVehicleClassesSeen.empty()) {
-        WRITE_WARNING("Deprecated vehicle classes '" + toString(deprecatedVehicleClassesSeen) + "' in input network.");
+        WRITE_WARNINGF(TL("Deprecated vehicle classes '%' in input network."), toString(deprecatedVehicleClassesSeen));
         deprecatedVehicleClassesSeen.clear();
     }
     if (myOptions.isSet("additional-files", false)) { // dfrouter does not register this option

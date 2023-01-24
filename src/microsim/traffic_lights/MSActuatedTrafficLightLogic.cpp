@@ -136,7 +136,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     initSwitchingRules();
     if (myLanes.size() == 0) {
         // must be an older network
-        WRITE_WARNING("Traffic light '" + getID() + "' does not control any links");
+        WRITE_WARNINGF(TL("Traffic light '%' does not control any links"), getID());
     }
     bool warn = true; // warn only once
     const int numLinks = (int)myLinks.size();

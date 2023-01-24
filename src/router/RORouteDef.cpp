@@ -120,7 +120,7 @@ RORouteDef::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router
         if (repairCurrentRoute(router, begin, veh, myAlternatives[0]->getEdgeVector(), newEdges)) {
             if (myAlternatives[0]->getEdgeVector() != newEdges) {
                 if (!myMayBeDisconnected) {
-                    WRITE_WARNING("Repaired route of vehicle '" + veh.getID() + "'.");
+                    WRITE_WARNINGF(TL("Repaired route of vehicle '%'."), veh.getID());
                 }
                 myNewRoute = true;
                 RGBColor* col = myAlternatives[0]->getColor() != nullptr ? new RGBColor(*myAlternatives[0]->getColor()) : nullptr;

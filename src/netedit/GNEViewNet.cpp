@@ -2499,7 +2499,7 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
                 }
             }
             if (lanes.empty()) {
-                WRITE_WARNING("No lanes around " + toString(SUMO_TAG_POI) + " to attach it");
+                WRITE_WARNINGF(TL("No lanes around % to attach it"), toString(SUMO_TAG_POI));
             } else {
                 // obtain nearest lane to POI
                 GNELane* nearestLane = lanes.front();

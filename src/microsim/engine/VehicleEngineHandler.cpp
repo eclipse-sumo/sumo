@@ -194,7 +194,7 @@ VehicleEngineHandler::myStartElement(int element, const SUMOSAXAttributes& attrs
         case ENGINE_TAG_GEARS:
             break;
         default:
-            WRITE_WARNING("Unknown tag '" + toString(element) + "' while parsing.");
+            WRITE_WARNINGF(TL("Unknown tag '%' while parsing."), toString(element));
     }
 }
 

@@ -338,7 +338,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
         oc.set("internal-junctions.vehicle-width", toString(myInternalJunctionsVehicleWidth));
     }
     if (!deprecatedVehicleClassesSeen.empty()) {
-        WRITE_WARNING("Deprecated vehicle class(es) '" + toString(deprecatedVehicleClassesSeen) + "' in input network.");
+        WRITE_WARNINGF(TL("Deprecated vehicle class(es) '%' in input network."), toString(deprecatedVehicleClassesSeen));
         deprecatedVehicleClassesSeen.clear();
     }
     if (!oc.getBool("no-internal-links")) {
@@ -692,13 +692,13 @@ NIImporter_SUMO::addStopOffsets(const SUMOSAXAttributes& attrs, bool& ok) {
     // Admissibility of value will be checked in _loadNetwork(), when lengths are known
     if (myCurrentLane == nullptr) {
         if (myCurrentEdge->edgeStopOffset.isDefined()) {
-            WRITE_WARNING("Duplicate definition of stopOffset for edge " + myCurrentEdge->id + ".\nIgnoring duplicate specification.");
+            WRITE_WARNINGF(TL("Duplicate definition of stopOffset for edge %.\nIgnoring duplicate specification."), myCurrentEdge->id);
         } else {
             myCurrentEdge->edgeStopOffset = offset;
         }
     } else {
         if (myCurrentLane->laneStopOffset.isDefined()) {
-            WRITE_WARNING("Duplicate definition of lane's stopOffset on edge " + myCurrentEdge->id + ".\nIgnoring duplicate specifications.");
+            WRITE_WARNINGF(TL("Duplicate definition of lane's stopOffset on edge %.\nIgnoring duplicate specifications."), myCurrentEdge->id);
         } else {
             myCurrentLane->laneStopOffset = offset;
         }

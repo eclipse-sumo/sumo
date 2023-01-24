@@ -5284,7 +5284,7 @@ MSVehicle::leaveLane(const MSMoveReminder::Notification reason, const MSLane* ap
     if (reason != MSMoveReminder::NOTIFICATION_PARKING && resumeFromStopping()) {
         myStopDist = std::numeric_limits<double>::max();
         if (myPastStops.back().speed <= 0) {
-            WRITE_WARNING("Vehicle '" + getID() + "' aborts stop.");
+            WRITE_WARNINGF(TL("Vehicle '%' aborts stop."), getID());
         }
     }
     if (reason != MSMoveReminder::NOTIFICATION_PARKING && reason != MSMoveReminder::NOTIFICATION_LANE_CHANGE) {

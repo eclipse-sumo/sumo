@@ -76,7 +76,7 @@ loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
         PROGRESS_DONE_MESSAGE();
     }
     if (!deprecatedVehicleClassesSeen.empty()) {
-        WRITE_WARNING("Deprecated vehicle classes '" + toString(deprecatedVehicleClassesSeen) + "' in input network.");
+        WRITE_WARNINGF(TL("Deprecated vehicle classes '%' in input network."), toString(deprecatedVehicleClassesSeen));
         deprecatedVehicleClassesSeen.clear();
     }
 }

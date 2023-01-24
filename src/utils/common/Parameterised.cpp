@@ -84,7 +84,7 @@ Parameterised::getDouble(const std::string& key, const double defaultValue) cons
         try {
             return StringUtils::toDouble(i->second);
         } catch (NumberFormatException&) {
-            WRITE_WARNING("Invalid conversion from string to double (" + i->second + ")");
+            WRITE_WARNINGF(TL("Invalid conversion from string to double (%)"), i->second);
             return defaultValue;
         } catch (EmptyData&) {
             WRITE_WARNING(TL("Invalid conversion from string to double (empty value)"));
@@ -106,7 +106,7 @@ Parameterised::getDoubles(const std::string& key, std::vector<double> defaultVal
             }
             return result;
         } catch (NumberFormatException&) {
-            WRITE_WARNING("Invalid conversion from string to doubles (" + i->second + ")");
+            WRITE_WARNINGF(TL("Invalid conversion from string to doubles (%)"), i->second);
             return defaultValue;
         } catch (EmptyData&) {
             WRITE_WARNING(TL("Invalid conversion from string to doubles (empty value)"));
@@ -202,7 +202,7 @@ Parameterised::areParametersValid(const std::string& value, bool report, const s
         if (!isParameterValid(keyValueStr, kvsep, sep)) {
             // report depending of flag
             if (report) {
-                WRITE_WARNING("Invalid format of parameter (" + keyValueStr + ")");
+                WRITE_WARNINGF(TL("Invalid format of parameter (%)"), keyValueStr);
             }
             return false;
         }
@@ -227,14 +227,14 @@ Parameterised::areAttributesValid(const std::string& value, bool report, const s
             if (!((letter >= 'a') && (letter <= 'z')) && !((letter >= 'A') && (letter <= 'Z'))) {
                 // report depending of flag
                 if (report) {
-                    WRITE_WARNING("Invalid format of attribute '" + attr + "'. Attribute must start with a letter");
+                    WRITE_WARNINGF(TL("Invalid format of attribute '%'. Attribute must start with a letter"), attr);
                 }
                 return false;
             }
         } else {
             // report depending of flag
             if (report) {
-                WRITE_WARNING("Invalid format of attribute (" + keyValueStr + ")");
+                WRITE_WARNINGF(TL("Invalid format of attribute (%)"), keyValueStr);
             }
             return false;
         }

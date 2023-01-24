@@ -92,7 +92,7 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             lr.readAll(handler4);
             PROGRESS_DONE_MESSAGE();
         } else {
-            WRITE_WARNING("Output will not contain street names because the file '" + file + "' was not found");
+            WRITE_WARNINGF(TL("Output will not contain street names because the file '%' was not found"), file);
         }
     }
 

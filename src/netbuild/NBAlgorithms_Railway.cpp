@@ -172,7 +172,7 @@ NBRailwayTopologyAnalyzer::makeAllBidi(NBEdgeCont& ec) {
     }
     WRITE_MESSAGE("Added " + toString(numAddedBidiEdges) + " bidi-edges to ensure that all tracks are usable in both directions.");
     if (numNotCenterEdges) {
-        WRITE_WARNING("Ignore " + toString(numNotCenterEdges) + " edges because they have the wrong spreadType");
+        WRITE_WARNINGF(TL("Ignore % edges because they have the wrong spreadType"), toString(numNotCenterEdges));
     }
     return numAddedBidiEdges;
 }
@@ -531,7 +531,7 @@ NBRailwayTopologyAnalyzer::extendBidiEdges(NBEdgeCont& ec, NBNode* node, NBEdge*
     assert(bidiIn->getToNode() == node);
     NBEdge* bidiOut = bidiIn->getTurnDestination(true);
     if (bidiOut == nullptr) {
-        WRITE_WARNING("Could not find bidi-edge for edge '" + bidiIn->getID() + "'");
+        WRITE_WARNINGF(TL("Could not find bidi-edge for edge '%'"), bidiIn->getID());
         return 0;
     }
     EdgeVector tmpBidiOut;

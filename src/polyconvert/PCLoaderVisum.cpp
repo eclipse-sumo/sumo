@@ -146,7 +146,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
             double y = StringUtils::toDouble(lineParser.get(KEYS.getString(VISUM_YCOORD)));
             Position pos(x, y);
             if (!geoConvHelper.x2cartesian(pos)) {
-                WRITE_WARNING("Unable to project coordinates for point '" + toString(id) + "'.");
+                WRITE_WARNINGF(TL("Unable to project coordinates for point '%'."), toString(id));
             }
             punkte[id] = pos;
             continue;
@@ -168,7 +168,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
             double y = StringUtils::toDouble(lineParser.get(KEYS.getString(VISUM_YCOORD)));
             Position pos(x, y);
             if (!geoConvHelper.x2cartesian(pos)) {
-                WRITE_WARNING("Unable to project coordinates for edge '" + toString(id) + "'.");
+                WRITE_WARNINGF(TL("Unable to project coordinates for edge '%'."), toString(id));
             }
             kanten[id].insert(kanten[id].begin() + index, pos);
             continue;
@@ -268,7 +268,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
             double y = StringUtils::toDouble(lineParser.get(KEYS.getString(VISUM_YCOORD)));
             Position pos(x, y);
             if (!geoConvHelper.x2cartesian(pos)) {
-                WRITE_WARNING("Unable to project coordinates for POI '" + id + "'.");
+                WRITE_WARNINGF(TL("Unable to project coordinates for POI '%'."), id);
             }
             std::string type = typemap[catid];
             // patch the values
@@ -338,7 +338,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
             std::string ypos = st.next();
             Position pos2D((double) atof(xpos.c_str()), (double) atof(ypos.c_str()));
             if (!geoConvHelper.x2cartesian(pos2D)) {
-                WRITE_WARNING("Unable to project coordinates for polygon '" + id + "'.");
+                WRITE_WARNINGF(TL("Unable to project coordinates for polygon '%'."), id);
             }
             vec.push_back(pos2D);
         }
@@ -382,7 +382,7 @@ PCLoaderVisum::load(const std::string& file, OptionsCont& oc, PCPolyContainer& t
                 } else {
                     Position pos(x, y);
                     if (!geoConvHelper.x2cartesian(pos)) {
-                        WRITE_WARNING("Unable to project coordinates for POI '" + id + "'.");
+                        WRITE_WARNINGF(TL("Unable to project coordinates for POI '%'."), id);
                     }
                     const std::string origId = id;
                     int index = 1;
@@ -441,7 +441,7 @@ PCLoaderVisum::loadLanguage(const std::string& file) {
             KEYS.insert(keyNew, key);
         } else if (keyDE != "") {
             // do not warn about network-related keys (NIImporter_VISUM)
-            //WRITE_WARNING("Unknown entry '" + keyDE + "' in VISUM language map");
+            //WRITE_WARNINGF(TL("Unknown entry '%' in VISUM language map"), keyDE);
         }
     }
 

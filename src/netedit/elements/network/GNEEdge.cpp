@@ -2166,7 +2166,7 @@ void
 GNEEdge::smooth(GNEUndoList* undoList) {
     PositionVector modifiedShape = smoothShape(myNBEdge->getGeometry(), false);
     if (modifiedShape.size() < 2) {
-        WRITE_WARNING("Could not compute smooth shape for edge '" + getID() + "'");
+        WRITE_WARNINGF(TL("Could not compute smooth shape for edge '%'"), getID());
     } else {
         PositionVector innerShape(modifiedShape.begin() + 1, modifiedShape.end() - 1);
         setAttribute(SUMO_ATTR_SHAPE, toString(innerShape), undoList);
@@ -2184,7 +2184,7 @@ GNEEdge::smoothElevation(GNEUndoList* undoList) {
     }
     PositionVector elevation = smoothShape(elevationBase, true);
     if (elevation.size() <= 2) {
-        WRITE_WARNING("Could not compute smooth elevation for edge '" + getID() + "'");
+        WRITE_WARNINGF(TL("Could not compute smooth elevation for edge '%'"), getID());
     } else {
         PositionVector modifiedShape = myNBEdge->getGeometry();
         if (modifiedShape.size() < 5) {

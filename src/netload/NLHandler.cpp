@@ -1055,7 +1055,7 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
     const bool showDetector = attrs.getOpt<bool>(SUMO_ATTR_SHOW_DETECTOR, id.c_str(), ok, true);
     const std::string contStr = attrs.getOpt<std::string>(SUMO_ATTR_CONT, id.c_str(), ok, "");
     if (contStr != "") {
-        WRITE_WARNING("Ignoring deprecated argument 'cont' for E2 detector '" + id + "'");
+        WRITE_WARNINGF(TL("Ignoring deprecated argument 'cont' for E2 detector '%'"), id);
     }
     std::string lane = attrs.getOpt<std::string>(SUMO_ATTR_LANE, id.c_str(), ok, "");
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), ok);
@@ -1199,7 +1199,7 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
             throw InvalidArgument("The detector '" + id + "' refers to an unknown lsa '" + lsaid + "'.");
         }
         if (period != -1) {
-            WRITE_WARNING("Ignoring argument 'period' for E2Detector '" + id + "' since argument 'tl' was given.");
+            WRITE_WARNINGF(TL("Ignoring argument 'period' for E2Detector '%' since argument 'tl' was given."), id);
             period = -1;
         }
     }
@@ -1595,7 +1595,7 @@ NLHandler::addDistrict(const SUMOSAXAttributes& attrs) {
             const bool fill = attrs.getOpt<bool>(SUMO_ATTR_FILL, myCurrentDistrictID.c_str(), ok, false);
             if (shape.size() != 0) {
                 if (!myNet.getShapeContainer().addPolygon(myCurrentDistrictID, "taz", color, 0, 0, "", false, shape, false, fill, 1.0, false, name)) {
-                    WRITE_WARNING("Skipping visualization of taz '" + myCurrentDistrictID + "', polygon already exists.");
+                    WRITE_WARNINGF(TL("Skipping visualization of taz '%', polygon already exists."), myCurrentDistrictID);
                 } else {
                     myLastParameterised.push_back(myNet.getShapeContainer().getPolygons().get(myCurrentDistrictID));
                     myCurrentIsBroken = false;

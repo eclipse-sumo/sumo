@@ -114,7 +114,7 @@ GNEWireFrame::createPath(const bool /* useLastRoute */) {
     // first check that current tag is valid (currently only for overhead wires)
     if (tagProperty.getTag() == SUMO_TAG_OVERHEAD_WIRE_SECTION) {
         if (myConsecutiveLaneSelector->getLanePath().size() == 1) {
-            WRITE_WARNING("A " + toString(SUMO_TAG_OVERHEAD_WIRE_SECTION) + " needs at least two lane positions");
+            WRITE_WARNINGF(TL("A % needs at least two lane positions"), toString(SUMO_TAG_OVERHEAD_WIRE_SECTION));
         } else if (createBaseWireObject(tagProperty)) {
             // get attributes and values
             myWireAttributes->getAttributesAndValues(myBaseWire, true);

@@ -382,7 +382,7 @@ NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
     bool priority = attrs.getOpt<bool>(SUMO_ATTR_PRIORITY, nodeID.c_str(), ok, node->isTLControlled(), true);
     if (node->isTLControlled() && !priority) {
         // traffic_light nodes should always have priority crossings
-        WRITE_WARNING("Crossing at controlled node '" + nodeID + "' must be prioritized");
+        WRITE_WARNINGF(TL("Crossing at controlled node '%' must be prioritized"), nodeID);
         priority = true;
     }
     PositionVector customShape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, nullptr, ok, PositionVector::EMPTY);

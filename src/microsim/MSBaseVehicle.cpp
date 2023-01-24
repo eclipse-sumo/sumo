@@ -810,7 +810,7 @@ MSBaseVehicle::calculateArrivalParams(bool onInit) {
     switch (myParameter->arrivalPosProcedure) {
         case ArrivalPosDefinition::GIVEN:
             if (fabs(myParameter->arrivalPos) > lastLaneLength) {
-                WRITE_WARNING("Vehicle '" + getID() + "' will not be able to arrive at the given position!");
+                WRITE_WARNINGF(TL("Vehicle '%' will not be able to arrive at the given position!"), getID());
             }
             // Maybe we should warn the user about invalid inputs!
             myArrivalPos = MIN2(myParameter->arrivalPos, lastLaneLength);
@@ -866,7 +866,7 @@ MSBaseVehicle::calculateArrivalParams(bool onInit) {
                 return;
             }
         }
-        WRITE_WARNING("Vehicle '" + getID() + "' will not be able to arrive with the given speed!");
+        WRITE_WARNINGF(TL("Vehicle '%' will not be able to arrive with the given speed!"), getID());
     }
 }
 

@@ -304,7 +304,7 @@ NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
     } else {
         bool ok = writeGeomSmooth(ls, e->getSpeed(), planViewOSS, elevationOSS, straightThresh, length);
         if (!ok) {
-            WRITE_WARNING("Could not compute smooth shape for edge '" + e->getID() + "'.");
+            WRITE_WARNINGF(TL("Could not compute smooth shape for edge '%'."), e->getID());
         }
     }
     planViewOSS.closeTag();

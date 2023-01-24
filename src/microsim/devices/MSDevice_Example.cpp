@@ -60,7 +60,7 @@ MSDevice_Example::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevic
             try {
                 customParameter2 = StringUtils::toDouble(v.getParameter().getParameter("example", "-1"));
             } catch (...) {
-                WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("example", "-1") + "'for vehicle parameter 'example'");
+                WRITE_WARNINGF(TL("Invalid value '%'for vehicle parameter 'example'"), v.getParameter().getParameter("example", "-1"));
             }
 
         } else {
@@ -72,7 +72,7 @@ MSDevice_Example::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevic
             try {
                 customParameter3 = StringUtils::toDouble(v.getVehicleType().getParameter().getParameter("example", "-1"));
             } catch (...) {
-                WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("example", "-1") + "'for vType parameter 'example'");
+                WRITE_WARNINGF(TL("Invalid value '%'for vType parameter 'example'"), v.getVehicleType().getParameter().getParameter("example", "-1"));
             }
 
         } else {

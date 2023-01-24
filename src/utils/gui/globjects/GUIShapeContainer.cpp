@@ -53,7 +53,7 @@ GUIShapeContainer::addPOI(const std::string& id, const std::string& type, const 
             myVis.removeAdditionalGLObject(oldP);
             myPOIs.remove(id);
             myPOIs.add(id, p);
-            WRITE_WARNING("Replacing POI '" + id + "'");
+            WRITE_WARNINGF(TL("Replacing POI '%'"), id);
         } else {
             delete p;
             return false;
@@ -78,7 +78,7 @@ GUIShapeContainer::addPolygon(const std::string& id, const std::string& type,
             myVis.removeAdditionalGLObject(oldP);
             myPolygons.remove(id);
             myPolygons.add(id, p);
-            WRITE_WARNING("Replacing polygon '" + id + "'");
+            WRITE_WARNINGF(TL("Replacing polygon '%'"), id);
         } else {
             delete p;
             return false;

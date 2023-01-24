@@ -117,7 +117,7 @@ MSDevice_BTsender::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notificat
 bool
 MSDevice_BTsender::notifyMove(SUMOTrafficObject& veh, double /* oldPos */, double newPos, double newSpeed) {
     if (sVehicles.find(veh.getID()) == sVehicles.end()) {
-        WRITE_WARNING("btsender: Can not update position of vehicle '" + veh.getID() + "' which is not on the road.");
+        WRITE_WARNINGF(TL("btsender: Can not update position of vehicle '%' which is not on the road."), veh.getID());
         return true;
     }
     sVehicles[veh.getID()]->updates.push_back(VehicleState(newSpeed, veh.getPosition(), getLocation(veh), newPos, veh.getRoutePosition()));
@@ -131,7 +131,7 @@ MSDevice_BTsender::notifyLeave(SUMOTrafficObject& veh, double /* lastPos */, MSM
         return true;
     }
     if (sVehicles.find(veh.getID()) == sVehicles.end()) {
-        WRITE_WARNING("btsender: Can not update position of vehicle '" + veh.getID() + "' which is not on the road.");
+        WRITE_WARNINGF(TL("btsender: Can not update position of vehicle '%' which is not on the road."), veh.getID());
         return true;
     }
     sVehicles[veh.getID()]->updates.push_back(VehicleState(veh.getSpeed(), veh.getPosition(), getLocation(veh), veh.getPositionOnLane(), veh.getRoutePosition()));

@@ -135,7 +135,7 @@ NIVissimTL::NIVissimTLSignal::addTo(NBEdgeCont& ec, NBLoadedTLDef* tl) const {
         // What to do if on an edge? -> close all outgoing connections
         NBEdge* edge = ec.retrievePossiblySplit(toString<int>(myEdgeID), myPosition);
         if (edge == nullptr) {
-            WRITE_WARNING("Could not set tls signal at edge '" + toString(myEdgeID) + "' - the edge was not built.");
+            WRITE_WARNINGF(TL("Could not set tls signal at edge '%' - the edge was not built."), toString(myEdgeID));
             return false;
         }
         // Check whether it is already known, which edges are approached
