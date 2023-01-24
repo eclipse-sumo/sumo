@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 09:18+0100\n"
 "PO-Revision-Date: 2023-01-24 12:21+0000\n"
-"Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
+"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
 "Language: es\n"
@@ -1534,7 +1534,7 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:738
 msgid "Create edgeRelation elements."
-msgstr ""
+msgstr "Crear elementos edgeRelation."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:741
 msgid "TA&ZRelation"
@@ -1555,34 +1555,34 @@ msgstr ""
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:806
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1003
 msgid "Show grid"
-msgstr ""
+msgstr "Mostrar rejilla"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:811
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1008
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1143
 msgid "Hide junction shape"
-msgstr ""
+msgstr "Ocultar la forma del cruce (junction)"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:816
 msgid "Draw vehicles spread in lane or in depart position"
-msgstr ""
+msgstr "Dibujar vehículos repartidos en el carril o en posición de partida"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:821
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1158
 msgid "Show demand elements"
-msgstr ""
+msgstr "Mostrar elementos de demanda"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:826
 msgid "Clicking should target lanes"
-msgstr ""
+msgstr "Hacer click debe referirse a carriles"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:831
 msgid "Show connections over junctions"
-msgstr ""
+msgstr "Mostrar conexiones sobre los cruces"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:836
 msgid "Hide connections"
-msgstr ""
+msgstr "Ocultar conexiones"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:841
 msgid "Show sub-additional elements"
@@ -1590,11 +1590,13 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:846
 msgid "Show TAZ elements"
-msgstr ""
+msgstr "Mostrar elementos de zona de análisis de tráfico (TAZ)"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:851
 msgid "Selecting multiple edges automatically select their junctions"
 msgstr ""
+"Seleccionar múltiples calles (edges) automáticamente selecciona su cruce "
+"(junction)"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:856
 msgid "Clicking should apply state changes to all phases of TLS plan"
@@ -1602,36 +1604,36 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:861
 msgid "Ask for confirmation before merging junction"
-msgstr ""
+msgstr "Preguntar por confirmación antes de fusionar cruce (junction)"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:866
 msgid "Show bubbles over junctions shapes"
-msgstr ""
+msgstr "Mostrar burbujas sobre las formas de los cruces"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:871
 msgid "Apply mouse movement to elevation"
-msgstr ""
+msgstr "Aplicar movimiento del cursor a la elevación"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:876
 msgid "Create consecutive edges"
-msgstr ""
+msgstr "Crear calles (edges) sucesivas"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:881
 msgid "Create an edge in the opposite direction"
-msgstr ""
+msgstr "Crear una calle (edge) en la dirección opuesta"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1013
 msgid "Draw vehicles spread/depart position"
-msgstr ""
+msgstr "Dibujar vehículos separados / posición de salida"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1018
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1153
 msgid "Show shapes"
-msgstr ""
+msgstr "Mostrar formas"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1023
 msgid "Show all trips"
-msgstr ""
+msgstr "Mostrar todos los viajes (trips)"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1028
 msgid "Show all person plans"
@@ -1639,27 +1641,27 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1033
 msgid "Lock selected person"
-msgstr ""
+msgstr "Bloquear persona seleccionada"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1038
 msgid "Show all container plans"
-msgstr ""
+msgstr "Mostrar todos los planes de contenedor"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1043
 msgid "Lock selected container"
-msgstr ""
+msgstr "Bloquear contenedor seleccionado"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1048
 msgid "Show non-inspected demand elements"
-msgstr ""
+msgstr "Mostrar elementos de demanda no inspeccionados"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1053
 msgid "Show number of overlapped routes"
-msgstr ""
+msgstr "Mostrar número de rutas superpuestas"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1148
 msgid "Show additionals"
-msgstr ""
+msgstr "Mostrar elementos adicionales (additionals)"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1163
 msgid "Draw TAZRel from center"
@@ -1679,15 +1681,15 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1259
 msgid "Undo the last change."
-msgstr ""
+msgstr "Deshacer el último cambio."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1262
 msgid "Redo the last change."
-msgstr ""
+msgstr "Rehacer el último cambio."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1265
 msgid "Show undo/redo history"
-msgstr ""
+msgstr "Mostrar el historial de deshacer/rehacer"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1265
 msgid "Open undo/redo history dialog."
