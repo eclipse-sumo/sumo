@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 09:18+0100\n"
-"PO-Revision-Date: 2023-01-24 11:18+0000\n"
+"PO-Revision-Date: 2023-01-24 12:20+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -133,20 +133,20 @@ msgstr "&Beenden"
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:456
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1368
 msgid "Quit the Application."
-msgstr "Schließe die Anwendung."
+msgstr "Beende die Anwendung."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:465
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1384
 msgid "&Edit"
-msgstr ""
+msgstr "&Bearbeiten"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:467
 msgid "Edit Selected..."
-msgstr ""
+msgstr "Bearbeite Auswahl..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:467
 msgid "Opens a dialog for editing the list of selected items."
-msgstr ""
+msgstr "Öffnet einen Dialog, um die Objektauswahl zu verändern."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:470
 msgid ""
@@ -156,30 +156,32 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:474
 msgid "Edit Breakpoints"
-msgstr ""
+msgstr "Bearbeite Haltepunkte"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:474
 msgid "Opens a dialog for editing breakpoints."
-msgstr ""
+msgstr "Öffnet einen Dialog, um die Haltepunkte zu bearbeiten."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:477
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1274
 msgid "Edit Visualisation"
-msgstr ""
+msgstr "Bearbeite Visualisierung"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:477
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1274
 msgid "Opens a dialog for editing visualization settings."
-msgstr ""
+msgstr "Öffnet einen Dialog, um die Visualisierungseinstellungen zu bearbeiten."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:480
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1277
 msgid "Edit Viewport"
-msgstr ""
+msgstr "Bearbeite Ansichtsbereich"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:480
 msgid "Opens a dialog for editing viewing area, zoom and rotation."
 msgstr ""
+"Öffnet einen Dialog, um den Ansichtsbereich, dessen Drehung und Zoom zu "
+"verändern."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:484
 msgid "Open network in netedit"
