@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 10:03+0100\n"
-"PO-Revision-Date: 2023-01-24 13:36+0000\n"
+"PO-Revision-Date: 2023-01-24 13:56+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -151,11 +151,11 @@ msgstr "開啟用於編輯所選項目表的對話框。"
 msgid ""
 "Select lanes which allow...\t\tOpens a menu for selecting a vehicle class by "
 "which to selected lanes."
-msgstr ""
+msgstr "選擇允許...的車道 \t\t開啟選單選擇所選車道的車種類別。"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:474
 msgid "Edit Breakpoints"
-msgstr ""
+msgstr "編輯中斷點"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:474
 msgid "Opens a dialog for editing breakpoints."
