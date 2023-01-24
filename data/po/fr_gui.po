@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 09:18+0100\n"
-"PO-Revision-Date: 2023-01-24 12:48+0000\n"
+"PO-Revision-Date: 2023-01-24 12:54+0000\n"
 "Last-Translator: bcoueraud87 <benjamin.coueraud@dlr.de>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/fr/>\n"
@@ -286,25 +286,25 @@ msgstr "&Additionel"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:523
 msgid "Open a Dialog for Locating an Additional Structure."
-msgstr ""
+msgstr "Ouvre un Dialogue pour Localiser une Structure Additionnelle."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:526
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1978
 msgid "P&oI"
-msgstr ""
+msgstr "P&oI"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:526
 msgid "Open a Dialog for Locating a Point of Interest."
-msgstr ""
+msgstr "Ouvre un Dialogue pour Localiser un Point d'Intérêt."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:529
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1981
 msgid "Po&lygon"
-msgstr ""
+msgstr "Po&lygone"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:529
 msgid "Open a Dialog for Locating a Polygon."
-msgstr ""
+msgstr "Ouvre un Dialogue pour Localiser un Polygone."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:533
 msgid ""
