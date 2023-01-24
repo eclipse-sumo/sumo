@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 09:18+0100\n"
-"PO-Revision-Date: 2023-01-24 14:57+0000\n"
+"PO-Revision-Date: 2023-01-24 15:11+0000\n"
 "Last-Translator: bcoueraud87 <benjamin.coueraud@dlr.de>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/fr/>\n"
@@ -1009,57 +1009,55 @@ msgstr "Charger un fichier de configuration netedit."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:221
 msgid "Load Sumo config..."
-msgstr ""
+msgstr "Charger une configuration Sumo..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:221
 msgid "Load a SUMO configuration file."
-msgstr ""
+msgstr "Charger un fichier de configuration SUMO."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:228
-#, fuzzy
 msgid "&Open Network..."
-msgstr "&Réseau"
+msgstr "&Ouvrir Réseau..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:228
 msgid "Open a SUMO network."
-msgstr ""
+msgstr "Ouvrir un réseau SUMO."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:232
 msgid "Open Netconvert Configura&tion..."
-msgstr ""
+msgstr "Ouvrir Configuration &Netconvert..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:232
 msgid "Open a configuration file with NETCONVERT options."
-msgstr ""
+msgstr "Ouvrir un fichier de configuration avec options pour NETCONVERT."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:236
 msgid "Import &Foreign Network..."
-msgstr ""
+msgstr "Importer Réseau au Format externe..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:236
 msgid "Import a foreign network such as OSM."
-msgstr ""
+msgstr "Importer un réseau au format externe tel que OSM."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:243
-#, fuzzy
 msgid "&Save Network"
-msgstr "&Réseau"
+msgstr "&Sauvegarder Réseau"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:243
 msgid "Save the network."
-msgstr ""
+msgstr "Sauvegarder le réseau."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:247
 msgid "Save Net&work As..."
-msgstr ""
+msgstr "Sauvegarder le Ré&seau sous..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:247
 msgid "Save the network to another file."
-msgstr ""
+msgstr "Sauvegarder le réseau dans un autre fichier."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:251
 msgid "Save Plain XM&L..."
-msgstr ""
+msgstr "Sauvegarder au format Plain XM&L..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:251
 msgid "Save a plain XML representation of the network."
