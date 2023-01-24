@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 09:18+0100\n"
-"PO-Revision-Date: 2023-01-24 15:17+0000\n"
+"PO-Revision-Date: 2023-01-24 15:22+0000\n"
 "Last-Translator: bcoueraud87 <benjamin.coueraud@dlr.de>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/fr/>\n"
@@ -1120,47 +1120,47 @@ msgstr "Fermer le réseau."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:340
 msgid "Save Netedit Config"
-msgstr "Sauvegarder Configuration Netedit."
+msgstr "Sauvegarder Configuration Netedit"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:340
 msgid "Save netedit configuration file."
-msgstr ""
+msgstr "Sauvegarder fichier de configuration netedit ."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:344
 msgid "Save Netedit Config As..."
-msgstr ""
+msgstr "Sauvegarder Configuration Netedit sous..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:344
 msgid "Save netedit configuration in a new file."
-msgstr ""
+msgstr "Sauvegarder configuration netedit dans nouveau fichier."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:350
 msgid "Reload Netedit Config"
-msgstr ""
+msgstr "Recharger Configuration Netedit"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:350
 msgid "Reload netedit configuration."
-msgstr ""
+msgstr "Recharger configuration netedit."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:358
 msgid "Save Sumo Config"
-msgstr ""
+msgstr "Sauvegarder Configuration Sumo"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:358
 msgid "Save sumo configuration file."
-msgstr ""
+msgstr "Sauvegarder fichier de configuration sumo."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:362
 msgid "Save Sumo Config As..."
-msgstr ""
+msgstr "Sauvegarder Configuration Sumo sous..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:362
 msgid "Save sumo configuration in a new file."
-msgstr ""
+msgstr "Sauvegarder configuration sumo dans un nouveau fichier."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:368
 msgid "Reload Sumo Config"
-msgstr ""
+msgstr "Recharger Configuration Sumo"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:368
 msgid "Reload sumo configuration."
