@@ -84,7 +84,7 @@ MSPModel_Remote::add(MSTransportable* person, MSStageMoving* stage, SUMOTime now
                        || edge->getFromJunction() == prv->getFromJunction()) ? FORWARD : BACKWARD;
             }
             if (edgesTransitionsMapping.find(edge) == edgesTransitionsMapping.end()) {
-                throw ProcessError("Cannot map edge : " + edge->getID() + " to remote simulation");
+                throw ProcessError(TLF("Cannot map edge : % to remote simulation", edge->getID()));
             };
             std::tuple<int, int> transitions = edgesTransitionsMapping[edge];
 
@@ -101,11 +101,11 @@ MSPModel_Remote::add(MSTransportable* person, MSStageMoving* stage, SUMOTime now
         ClientContext context;
         Status st = myHybridsimStub->transferAgent(&context, req, &rpl);
         if (!st.ok()) {
-            throw ProcessError("Person: " + person->getID() + " could not be transferred to remote simulation");
+            throw ProcessError(TLF("Person: % could not be transferred to remote simulation", person->getID()));
         }
         if (!rpl.val()) {
             //TODO not yet implemented
-            throw ProcessError("Remote simulation declined to accept person: " + person->getID() + ".");
+            throw ProcessError(TLF("Remote simulation declined to accept person: %.", person->getID()));
         }
     */
     return state;
@@ -165,7 +165,7 @@ MSPModel_Remote::execute(SUMOTime time) {
                 }
     //            pState.
             } else {
-                throw ProcessError("Pedestrian with id: " + toString(trajectory.id()) + " is not known.");
+                throw ProcessError(TLF("Pedestrian with id: % is not known.", toString(trajectory.id())));
             }
         }
 
@@ -206,7 +206,7 @@ MSPModel_Remote::getFirstPedestrianLane(const MSEdge* const& edge) {
             return lane;
         }
     }
-    throw ProcessError("Edge: " + edge->getID() + " does not allow pedestrians.");
+    throw ProcessError(TLF("Edge: % does not allow pedestrians.", edge->getID()));
 }
 
 

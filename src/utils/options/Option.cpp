@@ -234,7 +234,7 @@ Option_Float::set(const std::string& v, const std::string& orig, const bool /* a
         myValue = StringUtils::toDouble(v);
         return markSet(orig);
     } catch (...) {
-        throw ProcessError("'" + v + "' is not a valid float.");
+        throw ProcessError(TLF("'%' is not a valid float.", v));
     }
 }
 
@@ -261,7 +261,7 @@ Option_Bool::set(const std::string& v, const std::string& orig, const bool /* ap
         myValue = StringUtils::toBool(v);
         return markSet(orig);
     } catch (...) {
-        throw ProcessError("'" + v + "' is not a valid bool.");
+        throw ProcessError(TLF("'%' is not a valid bool.", v));
     }
 }
 
@@ -331,7 +331,7 @@ Option_IntVector::set(const std::string& v, const std::string& orig, const bool 
     } catch (EmptyData&) {
         throw ProcessError("Empty element occurred in " + v);
     } catch (...) {
-        throw ProcessError("'" + v + "' is not a valid integer vector.");
+        throw ProcessError(TLF("'%' is not a valid integer vector.", v));
     }
 }
 

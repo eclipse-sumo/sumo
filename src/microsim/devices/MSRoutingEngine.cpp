@@ -408,7 +408,7 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
             MSEdge::getAllEdges(), true, myEffortFunc,
             string2time(oc.getString("begin")), string2time(oc.getString("end")), weightPeriod, hasPermissions, oc.getInt("device.rerouting.threads"));
     } else {
-        throw ProcessError("Unknown routing algorithm '" + routingAlgorithm + "'!");
+        throw ProcessError(TLF("Unknown routing algorithm '%'!", routingAlgorithm));
     }
 
     RailwayRouter<MSEdge, SUMOVehicle>* railRouter = nullptr;

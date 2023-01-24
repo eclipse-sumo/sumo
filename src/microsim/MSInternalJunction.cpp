@@ -52,7 +52,7 @@ MSInternalJunction::~MSInternalJunction() {}
 void
 MSInternalJunction::postloadInit() {
     if (myIncomingLanes.size() == 0) {
-        throw ProcessError("Internal junction " + getID() + " has no incoming lanes");
+        throw ProcessError(TLF("Internal junction % has no incoming lanes", getID()));
     }
     // the first lane in the list of incoming lanes is special. It defines the
     // link that needs to do all the checking for this internal junction

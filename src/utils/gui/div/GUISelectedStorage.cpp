@@ -113,7 +113,7 @@ void
 GUISelectedStorage::select(GUIGlID id, bool update) {
     GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
     if (!object) {
-        throw ProcessError("Unknown object in GUISelectedStorage::select (id=" + toString(id) + ").");
+        throw ProcessError(TLF("Unknown object in GUISelectedStorage::select (id=%).", toString(id)));
     }
     GUIGlObjectType type = object->getType();
     GUIGlObjectStorage::gIDStorage.unblockObject(id);
@@ -130,7 +130,7 @@ void
 GUISelectedStorage::deselect(GUIGlID id) {
     GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
     if (!object) {
-        throw ProcessError("Unknown object in GUISelectedStorage::deselect (id=" + toString(id) + ").");
+        throw ProcessError(TLF("Unknown object in GUISelectedStorage::deselect (id=%).", toString(id)));
     }
     GUIGlObjectType type = object->getType();
     GUIGlObjectStorage::gIDStorage.unblockObject(id);
@@ -147,7 +147,7 @@ void
 GUISelectedStorage::toggleSelection(GUIGlID id) {
     GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
     if (!object) {
-        throw ProcessError("Unknown object in GUISelectedStorage::toggleSelection (id=" + toString(id) + ").");
+        throw ProcessError(TLF("Unknown object in GUISelectedStorage::toggleSelection (id=%).", toString(id)));
     }
 
     bool selected = isSelected(object->getType(), id);

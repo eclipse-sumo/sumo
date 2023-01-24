@@ -1425,7 +1425,7 @@ AdditionalHandler::parseDestProbRerouteAttributes(const SUMOSAXAttributes& attrs
     // continue if flag is ok
     if (parsedOk) {
         if (probability < 0) {
-            writeError("Probability of " + toString(SUMO_TAG_DEST_PROB_REROUTE) + " must be equal or greater than 0");
+            writeError(TLF("Probability of % must be equal or greater than 0", toString(SUMO_TAG_DEST_PROB_REROUTE)));
         } else {
             // set tag
             myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_DEST_PROB_REROUTE);
@@ -1451,7 +1451,7 @@ AdditionalHandler::parseParkingAreaRerouteAttributes(const SUMOSAXAttributes& at
     // continue if flag is ok
     if (parsedOk) {
         if (probability < 0) {
-            writeError("Probability of " + toString(SUMO_TAG_PARKING_AREA_REROUTE) + " must be equal or greater than 0");
+            writeError(TLF("Probability of % must be equal or greater than 0", toString(SUMO_TAG_PARKING_AREA_REROUTE)));
         } else {
             // set tag
             myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_PARKING_AREA_REROUTE);
@@ -1476,7 +1476,7 @@ AdditionalHandler::parseRouteProbRerouteAttributes(const SUMOSAXAttributes& attr
     // continue if flag is ok
     if (parsedOk) {
         if (probability < 0) {
-            writeError("Probability of " + toString(SUMO_TAG_ROUTE_PROB_REROUTE) + " must be equal or greater than 0");
+            writeError(TLF("Probability of % must be equal or greater than 0", toString(SUMO_TAG_ROUTE_PROB_REROUTE)));
         } else {
             // set tag
             myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ROUTE_PROB_REROUTE);

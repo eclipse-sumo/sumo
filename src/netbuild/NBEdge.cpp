@@ -427,7 +427,7 @@ void
 NBEdge::reinitNodes(NBNode* from, NBNode* to) {
     // connections may still be valid
     if (from == nullptr || to == nullptr) {
-        throw ProcessError("At least one of edge's '" + myID + "' nodes is not known.");
+        throw ProcessError(TLF("At least one of edge's '%' nodes is not known.", myID));
     }
     if (myFrom != from) {
         myFrom->removeEdge(this, false);
@@ -452,13 +452,13 @@ NBEdge::reinitNodes(NBNode* from, NBNode* to) {
 void
 NBEdge::init(int noLanes, bool tryIgnoreNodePositions, const std::string& origID) {
     if (noLanes == 0) {
-        throw ProcessError("Edge '" + myID + "' needs at least one lane.");
+        throw ProcessError(TLF("Edge '%' needs at least one lane.", myID));
     }
     if (myFrom == nullptr || myTo == nullptr) {
-        throw ProcessError("At least one of edge's '" + myID + "' nodes is not known.");
+        throw ProcessError(TLF("At least one of edge's '%' nodes is not known.", myID));
     }
     if (!SUMOXMLDefinitions::isValidNetID(myID)) {
-        throw ProcessError("Invalid edge id '" + myID + "'.");
+        throw ProcessError(TLF("Invalid edge id '%'.", myID));
     }
     // revisit geometry
     //  should have at least two points at the end...
@@ -4330,7 +4330,7 @@ NBEdge::Lane
 NBEdge::getFirstNonPedestrianLane(int direction) const {
     int index = getFirstNonPedestrianLaneIndex(direction);
     if (index < 0) {
-        throw ProcessError("Edge " + getID() + " allows pedestrians on all lanes");
+        throw ProcessError(TLF("Edge % allows pedestrians on all lanes", getID()));
     }
     return myLanes[index];
 }

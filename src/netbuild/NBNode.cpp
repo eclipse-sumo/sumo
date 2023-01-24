@@ -296,7 +296,7 @@ NBNode::NBNode(const std::string& id, const Position& position,
     myIsBentPriority(false),
     myTypeWasGuessed(false) {
     if (!SUMOXMLDefinitions::isValidNetID(myID)) {
-        throw ProcessError("Invalid node id '" + myID + "'.");
+        throw ProcessError(TLF("Invalid node id '%'.", myID));
     }
 }
 
@@ -318,7 +318,7 @@ NBNode::NBNode(const std::string& id, const Position& position, NBDistrict* dist
     myIsBentPriority(false),
     myTypeWasGuessed(false) {
     if (!SUMOXMLDefinitions::isValidNetID(myID)) {
-        throw ProcessError("Invalid node id '" + myID + "'.");
+        throw ProcessError(TLF("Invalid node id '%'.", myID));
     }
 }
 
@@ -757,10 +757,10 @@ NBNode::indirectLeftShape(const PositionVector& begShape, const PositionVector& 
 PositionVector
 NBNode::computeInternalLaneShape(const NBEdge* fromE, const NBEdge::Connection& con, int numPoints, NBNode* recordError, int shapeFlag) const {
     if (con.fromLane >= fromE->getNumLanes()) {
-        throw ProcessError("Connection '" + con.getDescription(fromE) + "' starts at a non-existant lane.");
+        throw ProcessError(TLF("Connection '%' starts at a non-existant lane.", con.getDescription(fromE)));
     }
     if (con.toLane >= con.toEdge->getNumLanes()) {
-        throw ProcessError("Connection '" + con.getDescription(fromE) + "' targets a non-existant lane.");
+        throw ProcessError(TLF("Connection '%' targets a non-existant lane.", con.getDescription(fromE)));
     }
     PositionVector fromShape = fromE->getLaneShape(con.fromLane);
     PositionVector toShape = con.toEdge->getLaneShape(con.toLane);
@@ -3679,7 +3679,7 @@ NBNode::getCrossing(const std::string& id) const {
             return c.get();
         }
     }
-    throw ProcessError("Request for unknown crossing '" + id + "'");
+    throw ProcessError(TLF("Request for unknown crossing '%'", id));
 }
 
 

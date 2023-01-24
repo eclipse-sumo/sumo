@@ -1058,7 +1058,7 @@ MSActuatedTrafficLightLogic::evalExpression(const std::string& condition) const 
             }
         }
         if (bracketClose == std::string::npos) {
-            throw ProcessError("Unmatched parentheses in condition " + condition + "'");
+            throw ProcessError(TLF("Unmatched parentheses in condition %'", condition));
         }
         std::string cond2 = condition;
         const std::string inBracket = condition.substr(bracketOpen + 1, bracketClose - bracketOpen - 1);
@@ -1073,7 +1073,7 @@ MSActuatedTrafficLightLogic::evalExpression(const std::string& condition) const 
     std::vector<std::string> tokens = StringTokenizer(condition).getVector();
     //std::cout << SIMTIME << " tokens(" << tokens.size() << ")=" << toString(tokens) << "\n";
     if (tokens.size() == 0) {
-        throw ProcessError("Invalid empty condition '" + condition + "'");
+        throw ProcessError(TLF("Invalid empty condition '%'", condition));
     } else if (tokens.size() == 1) {
         try {
             return evalAtomicExpression(tokens[0]);
@@ -1088,7 +1088,7 @@ MSActuatedTrafficLightLogic::evalExpression(const std::string& condition) const 
                 throw ProcessError("Error when evaluating expression '" + condition + "':\n  " + e.what());
             }
         } else {
-            throw ProcessError("Unsupported condition '" + condition + "'");
+            throw ProcessError(TLF("Unsupported condition '%'", condition));
         }
     } else if (tokens.size() == 3) {
         // infix expression
@@ -1202,7 +1202,7 @@ MSActuatedTrafficLightLogic::executeAssignments(const AssignmentMap& assignments
             if (it != conditions.end()) {
                 it->second = toString(val);
             } else if (forbidden.find(id) != forbidden.end()) {
-                throw ProcessError("Modifying global condition '" + id + "' is forbidden");
+                throw ProcessError(TLF("Modifying global condition '%' is forbidden", id));
             } else {
                 myStack.back()[id] = val;
             }

@@ -296,10 +296,10 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
     ROEdge* from = myNet.getEdge(fromID);
     ROEdge* to = myNet.getEdge(toID);
     if (from == nullptr) {
-        throw ProcessError("unknown from-edge '" + fromID + "' in connection");
+        throw ProcessError(TLF("unknown from-edge '%' in connection", fromID));
     }
     if (to == nullptr) {
-        throw ProcessError("unknown to-edge '" + toID + "' in connection");
+        throw ProcessError(TLF("unknown to-edge '%' in connection", toID));
     }
     if ((int)from->getLanes().size() <= fromLane) {
         throw ProcessError("invalid fromLane '" + toString(fromLane) + "' in connection from '" + fromID + "'.");
@@ -313,7 +313,7 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
     }  else {
         ROEdge* const via = myNet.getEdge(SUMOXMLDefinitions::getEdgeIDFromLane(viaID));
         if (via == nullptr) {
-            throw ProcessError("unknown via-edge '" + viaID + "' in connection");
+            throw ProcessError(TLF("unknown via-edge '%' in connection", viaID));
         }
         from->getLanes()[fromLane]->addOutgoingLane(to->getLanes()[toLane], via);
         from->addSuccessor(to, via, dir);

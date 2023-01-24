@@ -202,7 +202,7 @@ void
 NIImporter_VISUM::load() {
     // open the file
     if (!myLineReader.setFile(myFileName)) {
-        throw ProcessError("Can not open visum-file '" + myFileName + "'.");
+        throw ProcessError(TLF("Can not open visum-file '%'.", myFileName));
     }
     // scan the file for data positions
     while (myLineReader.hasMore()) {
@@ -1536,7 +1536,7 @@ void
 NIImporter_VISUM::loadLanguage(const std::string& file) {
     std::ifstream strm(file.c_str());
     if (!strm.good()) {
-        throw ProcessError("Could not load VISUM language map from '" + file + "'.");
+        throw ProcessError(TLF("Could not load VISUM language map from '%'.", file));
     }
     while (strm.good()) {
         std::string keyDE;

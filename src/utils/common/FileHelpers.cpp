@@ -70,7 +70,7 @@ FileHelpers::isDirectory(std::string path) {
     struct stat fileInfo;
     if (stat(StringUtils::transcodeToLocal(path).c_str(), &fileInfo) != 0) {
 #endif
-        throw ProcessError("Cannot get file attributes for file '" + path + "'!");
+        throw ProcessError(TLF("Cannot get file attributes for file '%'!", path));
     }
     return (fileInfo.st_mode & S_IFMT) == S_IFDIR;
 }

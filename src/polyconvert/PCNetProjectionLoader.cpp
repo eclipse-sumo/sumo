@@ -52,7 +52,7 @@
 void
 PCNetProjectionLoader::load(const std::string& file, double scale) {
     if (!FileHelpers::isReadable(file)) {
-        throw ProcessError("Could not open net-file '" + file + "'.");
+        throw ProcessError(TLF("Could not open net-file '%'.", file));
     }
     // build handler and parser
     PCNetProjectionLoader handler(scale);
@@ -61,7 +61,7 @@ PCNetProjectionLoader::load(const std::string& file, double scale) {
     const long before = PROGRESS_BEGIN_TIME_MESSAGE("Parsing network projection from '" + file + "'");
     if (!parser->parseFirst(file)) {
         delete parser;
-        throw ProcessError("Can not read XML-file '" + handler.getFileName() + "'.");
+        throw ProcessError(TLF("Can not read XML-file '%'.", handler.getFileName()));
     }
     // parse
     while (parser->parseNext() && !handler.hasReadAll());

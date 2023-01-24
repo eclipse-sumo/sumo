@@ -464,7 +464,7 @@ RONet::getDeparture(const std::string& vehID) const {
     if (it != myVehIDs.end()) {
         return it->second;
     } else {
-        throw ProcessError("Requesting departure time for unknown vehicle '" + vehID + "'");
+        throw ProcessError(TLF("Requesting departure time for unknown vehicle '%'", vehID));
     }
 }
 

@@ -410,7 +410,7 @@ NIImporter_OpenStreetMap::insertNodeChecking(long long int id, NBNodeCont& nc, N
             if (!tlsc.insert(tlDef)) {
                 // actually, nothing should fail here
                 delete tlDef;
-                throw ProcessError("Could not allocate tls '" + toString(id) + "'.");
+                throw ProcessError(TLF("Could not allocate tls '%'.", toString(id)));
             }
         } else if (n->pedestrianCrossing && myImportCrossings) {
             node->setParameter("computePedestrianCrossing", "true");
@@ -745,7 +745,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
 
             if (!ec.insert(nbe)) {
                 delete nbe;
-                throw ProcessError("Could not add edge '" + id + "'.");
+                throw ProcessError(TLF("Could not add edge '%'.", id));
             }
         }
         if (addBackward) {
@@ -791,7 +791,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
 
             if (!ec.insert(nbe)) {
                 delete nbe;
-                throw ProcessError("Could not add edge '-" + id + "'.");
+                throw ProcessError(TLF("Could not add edge '-%'.", id));
             }
         }
         if ((e->myParkingType & PARKING_BOTH) != 0 && OptionsCont::getOptions().isSet("parking-output")) {

@@ -136,7 +136,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
     GDALDataset* poDS = (GDALDataset*) GDALOpenEx(shpName.c_str(), GDAL_OF_VECTOR | GA_ReadOnly, NULL, NULL, NULL);
 #endif
     if (poDS == NULL) {
-        throw ProcessError("Could not open shape description '" + shpName + "'.");
+        throw ProcessError(TLF("Could not open shape description '%'.", shpName));
     }
 
     // begin file parsing
@@ -181,7 +181,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
         ++runningID;
         id = StringUtils::latin1_to_utf8(StringUtils::prune(id));
         if (id == "") {
-            throw ProcessError("Missing id under '" + idField + "'");
+            throw ProcessError(TLF("Missing id under '%'", idField));
         }
         id = oc.getString("prefix") + id;
         std::string type;

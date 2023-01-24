@@ -73,7 +73,7 @@ MSStateHandler::MSStateTimeHandler::getTime(const std::string& fileName) {
     try {
         if (!parser->parseFirst(fileName)) {
             delete parser;
-            throw ProcessError("Can not read XML-file '" + fileName + "'.");
+            throw ProcessError(TLF("Can not read XML-file '%'.", fileName));
         }
     } catch (ProcessError&) {
         delete parser;
@@ -84,7 +84,7 @@ MSStateHandler::MSStateTimeHandler::getTime(const std::string& fileName) {
     // clean up
     if (handler.myTime == -1) {
         delete parser;
-        throw ProcessError("Could not parse time from state file '" + fileName + "'");
+        throw ProcessError(TLF("Could not parse time from state file '%'", fileName));
     }
     delete parser;
     return handler.myTime;
@@ -226,7 +226,7 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             for (const std::string& laneID : laneIDs) {
                 MSLane* lane = MSLane::dictionary(laneID);
                 if (lane == nullptr) {
-                    throw ProcessError("Unknown lane '" + laneID + "' in loaded state.");
+                    throw ProcessError(TLF("Unknown lane '%' in loaded state.", laneID));
                 }
                 activeLanes.push_back(lane);
             }
@@ -282,7 +282,7 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             const std::string laneID = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
             myCurrentLane = MSLane::dictionary(laneID);
             if (myCurrentLane == nullptr) {
-                throw ProcessError("Unknown lane '" + laneID + "' in loaded state.");
+                throw ProcessError(TLF("Unknown lane '%' in loaded state.", laneID));
             }
             break;
         }
@@ -456,7 +456,7 @@ MSStateHandler::closeVehicle() {
         MSRouteHandler::closeVehicle();
         SUMOVehicle* v = vc.getVehicle(vehID);
         if (v == nullptr) {
-            throw ProcessError("Could not load vehicle '" + vehID + "' from state");
+            throw ProcessError(TLF("Could not load vehicle '%' from state", vehID));
         }
         v->setChosenSpeedFactor(myAttrs->getFloat(SUMO_ATTR_SPEEDFACTOR));
         v->loadState(*myAttrs, myOffset);

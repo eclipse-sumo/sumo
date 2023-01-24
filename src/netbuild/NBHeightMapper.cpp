@@ -187,7 +187,7 @@ NBHeightMapper::loadShapeFile(const std::string& file) {
     GDALDataset* ds = (GDALDataset*)GDALOpenEx(file.c_str(), GDAL_OF_VECTOR | GA_ReadOnly, nullptr, nullptr, nullptr);
 #endif
     if (ds == nullptr) {
-        throw ProcessError("Could not open shape file '" + file + "'.");
+        throw ProcessError(TLF("Could not open shape file '%'.", file));
     }
 
     // begin file parsing

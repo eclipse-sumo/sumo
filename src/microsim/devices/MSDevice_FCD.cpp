@@ -145,7 +145,7 @@ MSDevice_FCD::initOnce() {
         const std::string file = oc.getString("fcd-output.filter-edges.input-file");
         std::ifstream strm(file.c_str());
         if (!strm.good()) {
-            throw ProcessError("Could not load names of edges for filtering fcd-output from '" + file + "'.");
+            throw ProcessError(TLF("Could not load names of edges for filtering fcd-output from '%'.", file));
         }
         while (strm.good()) {
             std::string name;

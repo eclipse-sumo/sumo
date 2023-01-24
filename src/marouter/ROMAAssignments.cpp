@@ -187,11 +187,11 @@ const ConstROEdgeVector
 ROMAAssignments::computePath(ODCell* cell, const SUMOTime time, const double probability, SUMOAbstractRouter<ROEdge, ROVehicle>* router, bool setBulkMode) {
     const ROEdge* const from = myNet.getEdge(cell->origin + (cell->originIsEdge ? "" : "-source"));
     if (from == nullptr) {
-        throw ProcessError("Unknown origin '" + cell->origin + "'.");
+        throw ProcessError(TLF("Unknown origin '%'.", cell->origin));
     }
     const ROEdge* const to = myNet.getEdge(cell->destination + (cell->destinationIsEdge ? "" : "-sink"));
     if (to == nullptr) {
-        throw ProcessError("Unknown destination '" + cell->destination + "'.");
+        throw ProcessError(TLF("Unknown destination '%'.", cell->destination));
     }
     ConstROEdgeVector edges;
     if (router == nullptr) {

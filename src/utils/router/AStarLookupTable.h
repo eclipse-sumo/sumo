@@ -121,7 +121,7 @@ public:
         std::ifstream strm(filename.c_str());
 #endif
         if (!strm.good()) {
-            throw ProcessError("Could not load landmark-lookup-table from '" + filename + "'.");
+            throw ProcessError(TLF("Could not load landmark-lookup-table from '%'.", filename));
         }
         std::string line;
         std::vector<const E*> landmarks;
@@ -288,7 +288,7 @@ public:
 #endif
             if (!ostrm->good()) {
                 delete ostrm;
-                throw ProcessError("Could not open file '" + outfile + "' for writing.");
+                throw ProcessError(TLF("Could not open file '%' for writing.", outfile));
             }
             WRITE_MESSAGEF(TL("Saving new matrix to '%'."), outfile);
             for (int i = 0; i < numLandMarks; ++i) {

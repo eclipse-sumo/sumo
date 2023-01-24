@@ -104,7 +104,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
 
     if (oc.isSet("restriction-params") &&
             (routingAlgorithm == "CH" || routingAlgorithm == "CHWrapper")) {
-        throw ProcessError("Routing algorithm '" + routingAlgorithm + "' does not support restriction-params");
+        throw ProcessError(TLF("Routing algorithm '%' does not support restriction-params", routingAlgorithm));
     }
 
     if (measure == "traveltime" && priorityFactor == 0) {
@@ -148,7 +148,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
                 ROEdge::getAllEdges(), oc.getBool("ignore-errors"), ttFunction,
                 begin, end, weightPeriod, net.hasPermissions(), oc.getInt("routing-threads"));
         } else {
-            throw ProcessError("Unknown routing Algorithm '" + routingAlgorithm + "'!");
+            throw ProcessError(TLF("Unknown routing Algorithm '%'!", routingAlgorithm));
         }
     } else {
         if (measure == "traveltime") {

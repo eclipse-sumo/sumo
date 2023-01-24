@@ -79,7 +79,7 @@ MSAbstractLaneChangeModel::initGlobalOptions(const OptionsCont& oc) {
 MSAbstractLaneChangeModel*
 MSAbstractLaneChangeModel::build(LaneChangeModel lcm, MSVehicle& v) {
     if (MSGlobals::gLateralResolution > 0 && lcm != LaneChangeModel::SL2015 && lcm != LaneChangeModel::DEFAULT) {
-        throw ProcessError("Lane change model '" + toString(lcm) + "' is not compatible with sublane simulation");
+        throw ProcessError(TLF("Lane change model '%' is not compatible with sublane simulation", toString(lcm)));
     }
     switch (lcm) {
         case LaneChangeModel::DK2008:
@@ -95,7 +95,7 @@ MSAbstractLaneChangeModel::build(LaneChangeModel lcm, MSVehicle& v) {
                 return new MSLCM_SL2015(v);
             }
         default:
-            throw ProcessError("Lane change model '" + toString(lcm) + "' not implemented");
+            throw ProcessError(TLF("Lane change model '%' not implemented", toString(lcm)));
     }
 }
 

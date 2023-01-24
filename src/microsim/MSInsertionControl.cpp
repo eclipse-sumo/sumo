@@ -273,7 +273,7 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
                     /// @note probably obsolete since flows save their state
                     break;
                 }
-                throw ProcessError("Another vehicle with the id '" + newPars->id + "' exists.");
+                throw ProcessError(TLF("Another vehicle with the id '%' exists.", newPars->id));
             }
             vtype = nullptr;
         }

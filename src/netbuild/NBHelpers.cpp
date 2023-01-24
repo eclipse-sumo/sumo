@@ -86,7 +86,7 @@ void
 NBHelpers::loadEdgesFromFile(const std::string& file, std::set<std::string>& into) {
     std::ifstream strm(file.c_str());
     if (!strm.good()) {
-        throw ProcessError("Could not load names of edges too keep from '" + file + "'.");
+        throw ProcessError(TLF("Could not load names of edges too keep from '%'.", file));
     }
     while (strm.good()) {
         std::string name;
@@ -104,7 +104,7 @@ void
 NBHelpers::loadPrefixedIDsFomFile(const std::string& file, const std::string prefix, std::set<std::string>& into) {
     std::ifstream strm(file.c_str());
     if (!strm.good()) {
-        throw ProcessError("Could not load IDs from '" + file + "'.");
+        throw ProcessError(TLF("Could not load IDs from '%'.", file));
     }
     while (strm.good()) {
         std::string prefixedID;

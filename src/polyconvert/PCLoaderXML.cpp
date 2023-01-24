@@ -60,7 +60,7 @@ PCLoaderXML::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
     std::vector<std::string> files = oc.getStringVector("xml");
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         if (!FileHelpers::isReadable(*file)) {
-            throw ProcessError("Could not open xml-file '" + *file + "'.");
+            throw ProcessError(TLF("Could not open xml-file '%'.", *file));
         }
         const long before = PROGRESS_BEGIN_TIME_MESSAGE("Parsing XML from '" + *file + "'");
         if (!XMLSubSys::runParser(handler, *file)) {

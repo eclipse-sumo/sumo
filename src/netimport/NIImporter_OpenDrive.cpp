@@ -251,7 +251,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     for (std::map<std::string, Boundary>::iterator i = posMap.begin(); i != posMap.end(); ++i) {
         //std::cout << " import node=" << (*i).first << " z=" << (*i).second.getCenter() << " boundary=" << (*i).second << "\n";
         if (!nb.getNodeCont().insert((*i).first, (*i).second.getCenter())) {
-            throw ProcessError("Could not add node '" + (*i).first + "'.");
+            throw ProcessError(TLF("Could not add node '%'.", (*i).first));
         }
     }
     //  assign built nodes
@@ -265,7 +265,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                     // not yet seen, build (possibly a junction without connections)
                     Position pos = l.linkType == OPENDRIVE_LT_SUCCESSOR ? e->geom[-1] : e->geom[0];
                     if (!nb.getNodeCont().insert(nid, pos)) {
-                        throw ProcessError("Could not build node '" + nid + "'.");
+                        throw ProcessError(TLF("Could not build node '%'.", nid));
                     }
                 }
                 // set node information
@@ -303,7 +303,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 // not yet seen, build
                 Position pos = l.linkType == OPENDRIVE_LT_SUCCESSOR ? e->geom[-1] : e->geom[0];
                 if (!nb.getNodeCont().insert(nid, pos)) {
-                    throw ProcessError("Could not build node '" + nid + "'.");
+                    throw ProcessError(TLF("Could not build node '%'.", nid));
                 }
             }
             /* debug-stuff
@@ -370,7 +370,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         joinedPos.mul(1. / (double)joined.size());
         const std::string joinedID = nc.createClusterId(joined);
         if (!nc.insert(joinedID, joinedPos)) {
-            throw ProcessError("Could not add node '" + joinedID + "'.");
+            throw ProcessError(TLF("Could not add node '%'.", joinedID));
         }
         NBNode* n = nc.retrieve(joinedID);
         for (NBNode* j : joined) {
@@ -465,7 +465,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 const std::string nodeID = e->id + (positionIDs ? "." + toString(nextS) : "#" + toString(sectionIndex + 1));
                 sTo = new NBNode(nodeID, geomWithOffset.positionAtOffset(nextS));
                 if (!nb.getNodeCont().insert(sTo)) {
-                    throw ProcessError("Could not add node '" + sTo->getID() + "'.");
+                    throw ProcessError(TLF("Could not add node '%'.", sTo->getID()));
                 }
                 sE = nextS / cF;
             }
@@ -529,7 +529,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                     }
                 }
                 if (!nb.getEdgeCont().insert(currRight, myImportAllTypes)) {
-                    throw ProcessError("Could not add edge '" + currRight->getID() + "'.");
+                    throw ProcessError(TLF("Could not add edge '%'.", currRight->getID()));
                 }
                 if (nb.getEdgeCont().wasIgnored(id)) {
                     prevRight = nullptr;
@@ -587,7 +587,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                     }
                 }
                 if (!nb.getEdgeCont().insert(currLeft, myImportAllTypes)) {
-                    throw ProcessError("Could not add edge '" + currLeft->getID() + "'.");
+                    throw ProcessError(TLF("Could not add edge '%'.", currLeft->getID()));
                 }
                 if (nb.getEdgeCont().wasIgnored(id)) {
                     prevLeft = nullptr;
@@ -1341,7 +1341,7 @@ NIImporter_OpenDrive::getOrBuildNode(const std::string& id, const Position& pos,
         // not yet built; build now
         if (!nc.insert(id, pos)) {
             // !!! clean up
-            throw ProcessError("Could not add node '" + id + "'.");
+            throw ProcessError(TLF("Could not add node '%'.", id));
         }
     }
     return nc.retrieve(id);
@@ -1353,7 +1353,7 @@ NIImporter_OpenDrive::setNodeSecure(NBNodeCont& nc, OpenDriveEdge& e,
                                     const std::string& nodeID, NIImporter_OpenDrive::LinkType lt, std::vector<NodeSet>& joinedNodeIDs) {
     NBNode* n = nc.retrieve(nodeID);
     if (n == nullptr) {
-        throw ProcessError("Could not find node '" + nodeID + "'.");
+        throw ProcessError(TLF("Could not find node '%'.", nodeID));
     }
     NBNode* toJoin = nullptr;
     if (lt == OPENDRIVE_LT_SUCCESSOR) {
@@ -2531,11 +2531,11 @@ void
 NIImporter_OpenDrive::addGeometryShape(GeometryType type, const std::vector<double>& vals) {
     // checks
     if (myCurrentEdge.geometries.size() == 0) {
-        throw ProcessError("Mismatching parenthesis in geometry definition for road '" + myCurrentEdge.id + "'");
+        throw ProcessError(TLF("Mismatching parenthesis in geometry definition for road '%'", myCurrentEdge.id));
     }
     OpenDriveGeometry& last = myCurrentEdge.geometries.back();
     if (last.type != OPENDRIVE_GT_UNKNOWN) {
-        throw ProcessError("Double geometry information for road '" + myCurrentEdge.id + "'");
+        throw ProcessError(TLF("Double geometry information for road '%'", myCurrentEdge.id));
     }
     // set
     last.type = type;

@@ -141,7 +141,7 @@ MSRailSignalConstraint_Predecessor::loadState(const SUMOSAXAttributes& attrs) {
     const std::vector<std::string>& tripIDs = attrs.get<std::vector<std::string> >(SUMO_ATTR_STATE, nullptr, ok);
     MSLane* lane = MSLane::dictionary(laneID);
     if (lane == nullptr) {
-        throw ProcessError("Unknown lane '" + laneID + "' in loaded state.");
+        throw ProcessError(TLF("Unknown lane '%' in loaded state.", laneID));
     }
     if (myTrackerLookup.count(lane) == 0) {
         WRITE_WARNINGF(TL("Unknown tracker lane '%' in loaded state."), laneID);

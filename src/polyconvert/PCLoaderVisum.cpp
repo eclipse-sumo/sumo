@@ -111,7 +111,7 @@ PCLoaderVisum::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
     std::vector<std::string> files = oc.getStringVector("visum-files");
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         if (!FileHelpers::isReadable(*file)) {
-            throw ProcessError("Could not open visum-file '" + *file + "'.");
+            throw ProcessError(TLF("Could not open visum-file '%'.", *file));
         }
         PROGRESS_BEGIN_MESSAGE("Parsing from visum-file '" + *file + "'");
         load(*file, oc, toFill, tm);
@@ -428,7 +428,7 @@ void
 PCLoaderVisum::loadLanguage(const std::string& file) {
     std::ifstream strm(file.c_str());
     if (!strm.good()) {
-        throw ProcessError("Could not load VISUM language map from '" + file + "'.");
+        throw ProcessError(TLF("Could not load VISUM language map from '%'.", file));
     }
     while (strm.good()) {
         std::string keyDE;

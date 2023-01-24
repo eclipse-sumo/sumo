@@ -626,7 +626,7 @@ GNEAttributeCarrier::getTagProperty(SumoXMLTag tag) {
     }
     // check that tag is defined
     if (myTagProperties.count(tag) == 0) {
-        throw ProcessError("TagProperty for tag '" + toString(tag) + "' not defined");
+        throw ProcessError(TLF("TagProperty for tag '%' not defined", toString(tag)));
     } else {
         return myTagProperties.at(tag);
     }

@@ -215,7 +215,7 @@ NLEdgeControlBuilder::build(double networkVersion) {
         for (MSEdge* const edge : myEdges) {
             if (edge->isInternal()) {
                 if (edge->getNumSuccessors() != 1 || edge->getNumPredecessors() != 1) {
-                    throw ProcessError("Internal edge '" + edge->getID() + "' is not properly connected (probably a manually modified net.xml).");
+                    throw ProcessError(TLF("Internal edge '%' is not properly connected (probably a manually modified net.xml).", edge->getID()));
                 }
                 if (edge->getSuccessors()[0]->isRoundabout() || edge->getPredecessors()[0]->isRoundabout()) {
                     edge->markAsRoundabout();

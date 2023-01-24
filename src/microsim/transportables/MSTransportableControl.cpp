@@ -65,7 +65,7 @@ MSTransportableControl::MSTransportableControl(const bool isPerson):
         } else if (model == "nonInteracting") {
             myMovementModel = myNonInteractingModel;
         } else {
-            throw ProcessError("Unknown pedestrian model '" + model + "'");
+            throw ProcessError(TLF("Unknown pedestrian model '%'", model));
         }
     } else {
         myMovementModel = myNonInteractingModel = new MSPModel_NonInteracting(oc, net);

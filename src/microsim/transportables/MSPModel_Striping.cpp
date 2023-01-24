@@ -460,7 +460,7 @@ MSPModel_Striping::getArbitraryPath(const MSEdge* walkingArea) {
         lanes.push_back(getSidewalk<MSEdge, MSLane>(succ));
     }
     if (lanes.size() < 1) {
-        throw ProcessError("Invalid walkingarea '" + walkingArea->getID() + "' does not allow continuation.");
+        throw ProcessError(TLF("Invalid walkingarea '%' does not allow continuation.", walkingArea->getID()));
     }
     return &myWalkingAreaPaths.find(std::make_pair(lanes.front(), lanes.back()))->second;
 }
@@ -1902,7 +1902,7 @@ MSPModel_Striping::PState::moveToNextLane(SUMOTime currentTime) {
                         myNLI = getNextLane(*this, myLane, oldLane);
                         myWalkingAreaPath = nullptr;
                     } else {
-                        throw ProcessError("Disconnected walk for person '" + myPerson->getID() + "'.");
+                        throw ProcessError(TLF("Disconnected walk for person '%'.", myPerson->getID()));
                     }
                 }
             } else {

@@ -178,7 +178,7 @@ NIXMLNodesHandler::processNodeType(const SUMOSAXAttributes& attrs, NBNode* node,
     if (node == nullptr) {
         node = new NBNode(nodeID, position, type);
         if (!nc.insert(node)) {
-            throw ProcessError("Could not insert node though checked this before (id='" + nodeID + "').");
+            throw ProcessError(TLF("Could not insert node though checked this before (id='%').", nodeID));
         }
     } else {
         // patch information
@@ -352,7 +352,7 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes& attrs
         if (!tlc.insert(tlDef)) {
             // actually, nothing should fail here
             delete tlDef;
-            throw ProcessError("Could not allocate tls '" + currentNode->getID() + "'.");
+            throw ProcessError(TLF("Could not allocate tls '%'.", currentNode->getID()));
         }
         tlDef->setLayout(layout);
         tlDefs.insert(tlDef);

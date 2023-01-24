@@ -429,7 +429,7 @@ NLBuilder::buildRouteLoaderControl(const OptionsCont& oc) {
         std::vector<std::string> files = oc.getStringVector("route-files");
         for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
             if (!FileHelpers::isReadable(*fileIt)) {
-                throw ProcessError("The route file '" + *fileIt + "' is not accessible.");
+                throw ProcessError(TLF("The route file '%' is not accessible.", *fileIt));
             }
         }
         // open files for reading

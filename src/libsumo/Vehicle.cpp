@@ -1102,7 +1102,7 @@ Vehicle::getStopParameter(const std::string& vehID, int nextStopIndex, const std
         } else if (param == toString(SUMO_ATTR_ENDED)) {
             return pars.ended < 0 ? "-1" : time2string(pars.ended);
         } else {
-            throw ProcessError("Unsupported parameter '" + param + "'");
+            throw ProcessError(TLF("Unsupported parameter '%'", param));
         }
     } catch (ProcessError& e) {
         throw TraCIException("Could not get stop parameter for vehicle '" + vehID + "' (" + e.what() + ")");
@@ -1209,7 +1209,7 @@ Vehicle::setStopParameter(const std::string& vehID, int nextStopIndex,
             pars.ended = string2time(value);
             pars.parametersSet |= STOP_ENDED_SET;
         } else {
-            throw ProcessError("Unsupported parameter '" + param + "'");
+            throw ProcessError(TLF("Unsupported parameter '%'", param));
         }
     } catch (ProcessError& e) {
         throw TraCIException("Could not set stop parameter for vehicle '" + vehID + "' (" + e.what() + ")");

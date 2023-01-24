@@ -177,7 +177,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
                 ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic,
                 begin, end, weightPeriod, net.hasPermissions(), oc.getInt("routing-threads"));
         } else {
-            throw ProcessError("Unknown routing Algorithm '" + routingAlgorithm + "'!");
+            throw ProcessError(TLF("Unknown routing Algorithm '%'!", routingAlgorithm));
         }
     } else {
         DijkstraRouter<ROEdge, ROVehicle>::Operation op;

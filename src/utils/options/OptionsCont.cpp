@@ -138,7 +138,7 @@ OptionsCont::isSet(const std::string& name, bool failOnNonExistant) const {
     KnownContType::const_iterator i = myValues.find(name);
     if (i == myValues.end()) {
         if (failOnNonExistant) {
-            throw ProcessError("Internal request for unknown option '" + name + "'!");
+            throw ProcessError(TLF("Internal request for unknown option '%'!", name));
         } else {
             return false;
         }
@@ -161,7 +161,7 @@ Option*
 OptionsCont::getSecure(const std::string& name) const {
     KnownContType::const_iterator k = myValues.find(name);
     if (k == myValues.end()) {
-        throw ProcessError("No option with the name '" + name + "' exists.");
+        throw ProcessError(TLF("No option with the name '%' exists.", name));
     }
     std::map<std::string, bool>::iterator s = myDeprecatedSynonymes.find(name);
     if (s != myDeprecatedSynonymes.end() && !s->second) {
@@ -631,7 +631,7 @@ OptionsCont::processMetaOptions(bool missingOptions) {
         }
         std::ofstream out(StringUtils::transcodeToLocal(configPath).c_str());
         if (!out.good()) {
-            throw ProcessError("Could not save configuration to '" + configPath + "'");
+            throw ProcessError(TLF("Could not save configuration to '%'", configPath));
         } else {
             writeConfiguration(out, true, false, getBool("save-commented"), configPath);
             if (getBool("verbose")) {
@@ -648,7 +648,7 @@ OptionsCont::processMetaOptions(bool missingOptions) {
         }
         std::ofstream out(StringUtils::transcodeToLocal(getString("save-template")).c_str());
         if (!out.good()) {
-            throw ProcessError("Could not save template to '" + getString("save-template") + "'");
+            throw ProcessError(TLF("Could not save template to '%'", getString("save-template")));
         } else {
             writeConfiguration(out, false, true, getBool("save-commented"));
             if (getBool("verbose")) {
@@ -664,7 +664,7 @@ OptionsCont::processMetaOptions(bool missingOptions) {
         }
         std::ofstream out(StringUtils::transcodeToLocal(getString("save-schema")).c_str());
         if (!out.good()) {
-            throw ProcessError("Could not save schema to '" + getString("save-schema") + "'");
+            throw ProcessError(TLF("Could not save schema to '%'", getString("save-schema")));
         } else {
             writeSchema(out);
             if (getBool("verbose")) {

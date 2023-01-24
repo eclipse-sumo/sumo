@@ -146,25 +146,25 @@ GNETagProperties::getDefaultValue(SumoXMLAttr attr) const {
     for (const auto& attributeProperty : myAttributeProperties) {
         if (attributeProperty.getAttr() == attr) {
             if (!attributeProperty.hasDefaultValue()) {
-                throw ProcessError("attribute '" + attributeProperty.getAttrStr() + "' doesn't have a default value");
+                throw ProcessError(TLF("attribute '%' doesn't have a default value", attributeProperty.getAttrStr()));
             } else {
                 return attributeProperty.getDefaultValue();
             }
         }
     }
-    throw ProcessError("Attribute '" + toString(attr) + "' not defined");
+    throw ProcessError(TLF("Attribute '%' not defined", toString(attr)));
 }
 
 
 void
 GNETagProperties::addAttribute(const GNEAttributeProperties& attributeProperty) {
     if ((myAttributeProperties.size() + 1) >= MAXNUMBEROFATTRIBUTES) {
-        throw ProcessError("Maximum number of attributes for tag " + attributeProperty.getAttrStr() + " exceeded");
+        throw ProcessError(TLF("Maximum number of attributes for tag % exceeded", attributeProperty.getAttrStr()));
     } else {
         // Check that attribute wasn't already inserted
         for (const auto& attrProperty : myAttributeProperties) {
             if (attributeProperty.getAttr() == attrProperty.getAttr()) {
-                throw ProcessError("Attribute '" + attributeProperty.getAttrStr() + "' already inserted");
+                throw ProcessError(TLF("Attribute '%' already inserted", attributeProperty.getAttrStr()));
             }
         }
         // insert AttributeProperties in vector
@@ -201,7 +201,7 @@ GNETagProperties::getAttributeProperties(SumoXMLAttr attr) const {
         }
     }
     // throw error if these attribute doesn't exist
-    throw ProcessError("Attribute '" + toString(attr) + "' doesn't exist");
+    throw ProcessError(TLF("Attribute '%' doesn't exist", toString(attr)));
 }
 
 

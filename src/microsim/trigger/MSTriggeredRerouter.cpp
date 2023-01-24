@@ -124,7 +124,7 @@ MSTriggeredRerouter::myStartElement(int element,
         // get the destination edge
         std::string dest = attrs.getStringSecure(SUMO_ATTR_ID, "");
         if (dest == "") {
-            throw ProcessError("MSTriggeredRerouter " + getID() + ": No destination edge id given.");
+            throw ProcessError(TLF("MSTriggeredRerouter %: No destination edge id given.", getID()));
         }
         MSEdge* to = MSEdge::dictionary(dest);
         if (to == nullptr) {
@@ -189,7 +189,7 @@ MSTriggeredRerouter::myStartElement(int element,
         // check if route exists
         std::string routeStr = attrs.getStringSecure(SUMO_ATTR_ID, "");
         if (routeStr == "") {
-            throw ProcessError("MSTriggeredRerouter " + getID() + ": No route id given.");
+            throw ProcessError(TLF("MSTriggeredRerouter %: No route id given.", getID()));
         }
         ConstMSRoutePtr route = MSRoute::dictionary(routeStr);
         if (route == nullptr) {
@@ -214,7 +214,7 @@ MSTriggeredRerouter::myStartElement(int element,
         // get the destination edge
         std::string parkingarea = attrs.getStringSecure(SUMO_ATTR_ID, "");
         if (parkingarea == "") {
-            throw ProcessError("MSTriggeredRerouter " + getID() + ": No parking area id given.");
+            throw ProcessError(TLF("MSTriggeredRerouter %: No parking area id given.", getID()));
         }
         MSParkingArea* pa = static_cast<MSParkingArea*>(MSNet::getInstance()->getStoppingPlace(parkingarea, SUMO_TAG_PARKING_AREA));
         if (pa == nullptr) {

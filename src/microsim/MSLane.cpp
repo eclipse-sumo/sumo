@@ -4279,7 +4279,7 @@ MSLane::saveRNGStates(OutputDevice& out) {
 void
 MSLane::loadRNGState(int index, const std::string& state) {
     if (index >= getNumRNGs()) {
-        throw ProcessError("State was saved with more than " + toString(getNumRNGs()) + " threads. Change the number of threads or do not load RNG state");
+        throw ProcessError(TLF("State was saved with more than % threads. Change the number of threads or do not load RNG state", toString(getNumRNGs())));
     }
     RandHelper::loadState(state, &myRNGs[index]);
 }

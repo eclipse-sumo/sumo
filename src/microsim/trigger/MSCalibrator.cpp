@@ -158,7 +158,7 @@ MSCalibrator::~MSCalibrator() {
 MSCalibrator::AspiredState
 MSCalibrator::getCurrentStateInterval() const {
     if (myCurrentStateInterval == myIntervals.end()) {
-        throw ProcessError("Calibrator '" + getID() + "' has no active or upcoming interval");
+        throw ProcessError(TLF("Calibrator '%' has no active or upcoming interval", getID()));
     }
     return *myCurrentStateInterval;
 }
@@ -689,9 +689,9 @@ MSCalibrator::setFlow(SUMOTime begin, SUMOTime end, double vehsPerHour, double s
             state.vehicleParameter->departSpeedProcedure = vehicleParameter.departSpeedProcedure;
             return;
         } else if (begin < it->end) {
-            throw ProcessError("Cannot set flow for calibrator '" + getID() + "' with overlapping interval.");
+            throw ProcessError(TLF("Cannot set flow for calibrator '%' with overlapping interval.", getID()));
         } else if (begin >= end) {
-            throw ProcessError("Cannot set flow for calibrator '" + getID() + "' with negative interval.");
+            throw ProcessError(TLF("Cannot set flow for calibrator '%' with negative interval.", getID()));
         }
         it++;
     }

@@ -64,7 +64,7 @@ loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
         throw ProcessError(TL("Missing definition of network to load!"));
     }
     if (!FileHelpers::isReadable(file)) {
-        throw ProcessError("The network file '" + file + "' could not be accessed.");
+        throw ProcessError(TLF("The network file '%' could not be accessed.", file));
     }
     PROGRESS_BEGIN_MESSAGE(TL("Loading net"));
     RONetHandler handler(toFill, eb, true, 0);

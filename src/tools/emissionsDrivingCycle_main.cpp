@@ -218,11 +218,11 @@ main(int argc, char** argv) {
             for (auto file : oc.getStringVector("additional-files")) {
                 VTypesHandler typesHandler(file, vTypes);
                 if (!XMLSubSys::runParser(typesHandler, file)) {
-                    throw ProcessError("Loading of " + file + " failed.");
+                    throw ProcessError(TLF("Loading of % failed.", file));
                 }
             }
             if (vTypes.count(oc.getString("vtype")) == 0) {
-                throw ProcessError("Vehicle type '" + oc.getString("vtype") + "' is not defined");
+                throw ProcessError(TLF("Vehicle type '%' is not defined", oc.getString("vtype")));
             }
             energyParams = EnergyParams(vTypes[oc.getString("vtype")]);
         }
@@ -242,7 +242,7 @@ main(int argc, char** argv) {
 
             LineReader lr(oc.getString("timeline-file"));
             if (!lr.good()) {
-                throw ProcessError("Unreadable file '" + lr.getFileName() + "'.");
+                throw ProcessError(TLF("Unreadable file '%'.", lr.getFileName()));
             }
             while (lr.hasMore()) {
                 std::string line = lr.readLine();
@@ -273,9 +273,9 @@ main(int argc, char** argv) {
                             time++;
                         }
                     } catch (EmptyData&) {
-                        throw ProcessError("Missing an entry in line '" + line + "'.");
+                        throw ProcessError(TLF("Missing an entry in line '%'.", line));
                     } catch (NumberFormatException&) {
-                        throw ProcessError("Not numeric entry in line '" + line + "'.");
+                        throw ProcessError(TLF("Not numeric entry in line '%'.", line));
                     }
                 }
             }

@@ -330,7 +330,7 @@ NLJunctionControlBuilder::closeTrafficLightLogic(const std::string& basePath) {
             tlLogic = new MSOffTrafficLightLogic(getTLLogicControlToUse(), myActiveKey);
             break;
         case TrafficLightType::INVALID:
-            throw ProcessError("Invalid traffic light type '" + toString(myLogicType) + "'");
+            throw ProcessError(TLF("Invalid traffic light type '%'", toString(myLogicType)));
     }
     myActivePhases.clear();
     if (tlLogic != nullptr) {

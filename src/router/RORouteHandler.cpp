@@ -197,9 +197,9 @@ RORouteHandler::myStartElement(int element,
                                const SUMOSAXAttributes& attrs) {
     try {
         if (myActivePlan != nullptr && myActivePlan->empty() && myVehicleParameter->departProcedure == DepartDefinition::TRIGGERED && element != SUMO_TAG_RIDE) {
-            throw ProcessError("Triggered departure for person '" + myVehicleParameter->id + "' requires starting with a ride.");
+            throw ProcessError(TLF("Triggered departure for person '%' requires starting with a ride.", myVehicleParameter->id));
         } else if (myActiveContainerPlan != nullptr && myActiveContainerPlanSize == 0 && myVehicleParameter->departProcedure == DepartDefinition::TRIGGERED && element != SUMO_TAG_TRANSPORT) {
-            throw ProcessError("Triggered departure for container '" + myVehicleParameter->id + "' requires starting with a transport.");
+            throw ProcessError(TLF("Triggered departure for container '%' requires starting with a transport.", myVehicleParameter->id));
         }
         SUMORouteHandler::myStartElement(element, attrs);
         bool ok = true;
@@ -221,7 +221,7 @@ RORouteHandler::myStartElement(int element,
             case SUMO_TAG_TRANSPORT:
             case SUMO_TAG_TRANSHIP:
                 if (myActiveContainerPlan == nullptr) {
-                    throw ProcessError("Found " + toString((SumoXMLTag)element) + " outside container element");
+                    throw ProcessError(TLF("Found % outside container element", toString((SumoXMLTag)element)));
                 }
                 // copy container elements
                 myActiveContainerPlan->openTag((SumoXMLTag)element);
@@ -429,7 +429,7 @@ RORouteHandler::closeRoute(const bool mayBeDisconnected) {
                         const std::string description = myVehicleParameter != nullptr
                                                         ?  "for vehicle '" + myVehicleParameter->id + "'"
                                                         :  "'" + myActiveRouteID + "'";
-                        throw ProcessError("Cannot repeat stops with 'until' in route " + description + " because no cycleTime is defined.");
+                        throw ProcessError(TLF("Cannot repeat stops with 'until' in route % because no cycleTime is defined.", description));
                     }
                     stop.until += myActiveRoutePeriod * (i + 1);
                     stop.arrival += myActiveRoutePeriod * (i + 1);
@@ -626,7 +626,7 @@ RORouteHandler::closePersonFlow() {
         std::string baseID = myVehicleParameter->id;
         if (myVehicleParameter->repetitionProbability > 0) {
             if (myVehicleParameter->repetitionEnd == SUMOTime_MAX) {
-                throw ProcessError("probabilistic personFlow '" + myVehicleParameter->id + "' must specify end time");
+                throw ProcessError(TLF("probabilistic personFlow '%' must specify end time", myVehicleParameter->id));
             } else {
                 for (SUMOTime t = myVehicleParameter->depart; t < myVehicleParameter->repetitionEnd; t += TIME2STEPS(1)) {
                     if (RandHelper::rand() < myVehicleParameter->repetitionProbability) {
@@ -1019,7 +1019,7 @@ RORouteHandler::addTransport(const SUMOSAXAttributes& attrs) {
         const std::string desc = attrs.get<std::string>(SUMO_ATTR_LINES, pid.c_str(), ok);
         StringTokenizer st(desc);
         if (st.size() != 1) {
-            throw ProcessError("Triggered departure for container '" + pid + "' requires a unique lines value.");
+            throw ProcessError(TLF("Triggered departure for container '%' requires a unique lines value.", pid));
         }
         const std::string vehID = st.front();
         if (!myNet.knowsVehicle(vehID)) {
@@ -1202,7 +1202,7 @@ RORouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
                          attrs.get<std::string>(SUMO_ATTR_ARRIVALPOS, description.c_str(), ok));
         }
     } else {
-        throw ProcessError("No destination edge for " + description + ".");
+        throw ProcessError(TLF("No destination edge for %.", description));
     }
 }
 
@@ -1222,7 +1222,7 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
             from = myActiveRoute.front();
         }
     } else if (myActivePlan->empty()) {
-        throw ProcessError("Start edge not defined for person '" + myVehicleParameter->id + "'.");
+        throw ProcessError(TLF("Start edge not defined for person '%'.", myVehicleParameter->id));
     } else {
         from = myActivePlan->back()->getDestination();
     }
@@ -1233,7 +1233,7 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
 
     const SUMOTime duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, id, ok, -1);
     if (attrs.hasAttribute(SUMO_ATTR_DURATION) && duration <= 0) {
-        throw ProcessError("Non-positive walking duration for  '" + myVehicleParameter->id + "'.");
+        throw ProcessError(TLF("Non-positive walking duration for  '%'.", myVehicleParameter->id));
     }
 
     double departPos = 0;
@@ -1290,11 +1290,11 @@ RORouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
         const char* const objId = myVehicleParameter->id.c_str();
         const double duration = attrs.getOpt<double>(SUMO_ATTR_DURATION, objId, ok, -1);
         if (attrs.hasAttribute(SUMO_ATTR_DURATION) && duration <= 0) {
-            throw ProcessError("Non-positive walking duration for  '" + myVehicleParameter->id + "'.");
+            throw ProcessError(TLF("Non-positive walking duration for  '%'.", myVehicleParameter->id));
         }
         const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, objId, ok, -1.);
         if (attrs.hasAttribute(SUMO_ATTR_SPEED) && speed <= 0) {
-            throw ProcessError("Non-positive walking speed for  '" + myVehicleParameter->id + "'.");
+            throw ProcessError(TLF("Non-positive walking speed for  '%'.", myVehicleParameter->id));
         }
         double departPos = 0.;
         double arrivalPos = std::numeric_limits<double>::infinity();

@@ -68,7 +68,7 @@ PCLoaderDlrNavteq::loadPOIFiles(OptionsCont& oc, PCPolyContainer& toFill,
     std::vector<std::string> files = oc.getStringVector("dlr-navteq-poi-files");
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         if (!FileHelpers::isReadable(*file)) {
-            throw ProcessError("Could not open dlr-navteq-poi-file '" + *file + "'.");
+            throw ProcessError(TLF("Could not open dlr-navteq-poi-file '%'.", *file));
         }
         PROGRESS_BEGIN_MESSAGE("Parsing pois from dlr-navteq-poi-file '" + *file + "'");
         loadPOIFile(*file, oc, toFill, tm);
@@ -83,7 +83,7 @@ PCLoaderDlrNavteq::loadPolyFiles(OptionsCont& oc, PCPolyContainer& toFill,
     std::vector<std::string> files = oc.getStringVector("dlr-navteq-poly-files");
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         if (!FileHelpers::isReadable(*file)) {
-            throw ProcessError("Could not open dlr-navteq-poly-file '" + *file + "'.");
+            throw ProcessError(TLF("Could not open dlr-navteq-poly-file '%'.", *file));
         }
         PROGRESS_BEGIN_MESSAGE("Parsing pois from dlr-navteq-poly-file '" + *file + "'");
         loadPolyFile(*file, oc, toFill, tm);
@@ -125,11 +125,11 @@ PCLoaderDlrNavteq::loadPOIFile(const std::string& file,
         double x, y;
         stream >> x;
         if (stream.fail()) {
-            throw ProcessError("Invalid x coordinate for POI '" + name + "'.");
+            throw ProcessError(TLF("Invalid x coordinate for POI '%'.", name));
         }
         stream >> y;
         if (stream.fail()) {
-            throw ProcessError("Invalid y coordinate for POI '" + name + "'.");
+            throw ProcessError(TLF("Invalid y coordinate for POI '%'.", name));
         }
         Position pos(x, y);
         // check the poi
@@ -137,7 +137,7 @@ PCLoaderDlrNavteq::loadPOIFile(const std::string& file,
             throw ProcessError(TL("The name of a POI is missing."));
         }
         if (!GeoConvHelper::getProcessing().x2cartesian(pos, true)) {
-            throw ProcessError("Unable to project coordinates for POI '" + name + "'.");
+            throw ProcessError(TLF("Unable to project coordinates for POI '%'.", name));
         }
 
         // patch the values
@@ -188,7 +188,7 @@ PCLoaderDlrNavteq::loadPolyFile(const std::string& file,
         StringTokenizer st(line, "\t");
         std::vector<std::string> values = st.getVector();
         if (values.size() < 6 || values.size() % 2 != 0) {
-            throw ProcessError("Invalid dlr-navteq-polygon - line: '" + line + "'.");
+            throw ProcessError(TLF("Invalid dlr-navteq-polygon - line: '%'.", line));
         }
         std::string id = values[0];
         std::string ort = values[1];

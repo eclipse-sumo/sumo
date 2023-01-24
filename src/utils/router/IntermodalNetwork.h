@@ -292,7 +292,7 @@ public:
         typename std::map<const E*, EdgePair>::const_iterator it = myBidiLookup.find(e);
         if (it == myBidiLookup.end()) {
             assert(false);
-            throw ProcessError("Edge '" + e->getID() + "' not found in intermodal network.'");
+            throw ProcessError(TLF("Edge '%' not found in intermodal network.'", e->getID()));
         }
         return (*it).second;
     }
@@ -301,7 +301,7 @@ public:
     const _IntermodalEdge* getDepartEdge(const E* e, const double pos) const {
         typename std::map<const E*, std::vector<_IntermodalEdge*> >::const_iterator it = myDepartLookup.find(e);
         if (it == myDepartLookup.end()) {
-            throw ProcessError("Depart edge '" + e->getID() + "' not found in intermodal network.");
+            throw ProcessError(TLF("Depart edge '%' not found in intermodal network.", e->getID()));
         }
         if ((e->getPermissions() & SVC_PEDESTRIAN) == 0) {
             // use most specific split (best trainStop, quay etc)
@@ -335,7 +335,7 @@ public:
     _IntermodalEdge* getDepartConnector(const E* e, const int splitIndex = 0) const {
         typename std::map<const E*, std::vector<_IntermodalEdge*> >::const_iterator it = myDepartLookup.find(e);
         if (it == myDepartLookup.end()) {
-            throw ProcessError("Depart edge '" + e->getID() + "' not found in intermodal network.");
+            throw ProcessError(TLF("Depart edge '%' not found in intermodal network.", e->getID()));
         }
         if (splitIndex >= (int)it->second.size()) {
             throw ProcessError("Split index " + toString(splitIndex) + " invalid for depart edge '" + e->getID() + "' .");
@@ -347,7 +347,7 @@ public:
     _IntermodalEdge* getArrivalEdge(const E* e, const double pos) const {
         typename std::map<const E*, std::vector<_IntermodalEdge*> >::const_iterator it = myArrivalLookup.find(e);
         if (it == myArrivalLookup.end()) {
-            throw ProcessError("Arrival edge '" + e->getID() + "' not found in intermodal network.");
+            throw ProcessError(TLF("Arrival edge '%' not found in intermodal network.", e->getID()));
         }
         const std::vector<_IntermodalEdge*>& splitList = it->second;
         typename std::vector<_IntermodalEdge*>::const_iterator splitIt = splitList.begin();

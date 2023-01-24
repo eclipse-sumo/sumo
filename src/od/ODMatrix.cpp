@@ -431,7 +431,7 @@ ODMatrix::getNextNonCommentLine(LineReader& lr) {
             return StringUtils::prune(line);
         }
     }
-    throw ProcessError("End of file while reading " + lr.getFileName() + ".");
+    throw ProcessError(TLF("End of file while reading %.", lr.getFileName()));
 }
 
 
@@ -458,7 +458,7 @@ ODMatrix::readTime(LineReader& lr) {
         }
         return std::make_pair(begin, end);
     } catch (OutOfBoundsException&) {
-        throw ProcessError("Broken period definition '" + line + "'.");
+        throw ProcessError(TLF("Broken period definition '%'.", line));
     } catch (NumberFormatException& e) {
         throw ProcessError("Broken period definition '" + line + "' (" + e.what() + ").");
     }
@@ -472,7 +472,7 @@ ODMatrix::readFactor(LineReader& lr, double scale) {
     try {
         factor = StringUtils::toDouble(line) * scale;
     } catch (NumberFormatException&) {
-        throw ProcessError("Broken factor: '" + line + "'.");
+        throw ProcessError(TLF("Broken factor: '%'.", line));
     }
     return factor;
 }
@@ -506,7 +506,7 @@ ODMatrix::readV(LineReader& lr, double scale,
         }
     }
     if (!lr.hasMore()) {
-        throw ProcessError("Missing line with " + toString(numDistricts) + " district names.");
+        throw ProcessError(TLF("Missing line with % district names.", toString(numDistricts)));
     }
 
     // parse the cells
@@ -516,7 +516,7 @@ ODMatrix::readV(LineReader& lr, double scale,
             try {
                 line = getNextNonCommentLine(lr);
             } catch (ProcessError&) {
-                throw ProcessError("Missing line for district " + (*si) + ".");
+                throw ProcessError(TLF("Missing line for district %.", (*si)));
             }
             if (line.length() == 0) {
                 continue;
@@ -535,7 +535,7 @@ ODMatrix::readV(LineReader& lr, double scale,
                     ++di;
                 }
             } catch (NumberFormatException&) {
-                throw ProcessError("Not numeric vehicle number in line '" + line + "'.");
+                throw ProcessError(TLF("Not numeric vehicle number in line '%'.", line));
             }
             if (!lr.hasMore()) {
                 break;
@@ -581,9 +581,9 @@ ODMatrix::readO(LineReader& lr, double scale,
                 add(vehNumber, beginEnd, sourceD, destD, vehType);
             }
         } catch (OutOfBoundsException&) {
-            throw ProcessError("Missing at least one information in line '" + line + "'.");
+            throw ProcessError(TLF("Missing at least one information in line '%'.", line));
         } catch (NumberFormatException&) {
-            throw ProcessError("Not numeric vehicle number in line '" + line + "'.");
+            throw ProcessError(TLF("Not numeric vehicle number in line '%'.", line));
         }
     }
     PROGRESS_DONE_MESSAGE();
@@ -644,7 +644,7 @@ ODMatrix::loadMatrix(OptionsCont& oc) {
     for (std::vector<std::string>::iterator i = files.begin(); i != files.end(); ++i) {
         LineReader lr(*i);
         if (!lr.good()) {
-            throw ProcessError("Could not open '" + (*i) + "'.");
+            throw ProcessError(TLF("Could not open '%'.", (*i)));
         }
         std::string type = lr.readLine();
         // get the type only
@@ -655,13 +655,13 @@ ODMatrix::loadMatrix(OptionsCont& oc) {
         if (type.length() > 1 && type[1] == 'V') {
             // process ptv's 'V'-matrices
             if (type.find('N') != std::string::npos) {
-                throw ProcessError("'" + *i + "' does not contain the needed information about the time described.");
+                throw ProcessError(TLF("'%' does not contain the needed information about the time described.", *i));
             }
             readV(lr, 1, oc.getString("vtype"), type.find('M') != std::string::npos);
         } else if (type.length() > 1 && type[1] == 'O') {
             // process ptv's 'O'-matrices
             if (type.find('N') != std::string::npos) {
-                throw ProcessError("'" + *i + "' does not contain the needed information about the time described.");
+                throw ProcessError(TLF("'%' does not contain the needed information about the time described.", *i));
             }
             readO(lr, 1, oc.getString("vtype"), type.find('M') != std::string::npos);
         } else {
@@ -671,7 +671,7 @@ ODMatrix::loadMatrix(OptionsCont& oc) {
     std::vector<std::string> amitranFiles = oc.getStringVector("od-amitran-files");
     for (std::vector<std::string>::iterator i = amitranFiles.begin(); i != amitranFiles.end(); ++i) {
         if (!FileHelpers::isReadable(*i)) {
-            throw ProcessError("Could not access matrix file '" + *i + "' to load.");
+            throw ProcessError(TLF("Could not access matrix file '%' to load.", *i));
         }
         PROGRESS_BEGIN_MESSAGE("Loading matrix in Amitran format from '" + *i + "'");
         ODAmitranHandler handler(*this, *i);
@@ -684,7 +684,7 @@ ODMatrix::loadMatrix(OptionsCont& oc) {
     myVType = oc.getString("vtype");
     for (std::string file : oc.getStringVector("tazrelation-files")) {
         if (!FileHelpers::isReadable(file)) {
-            throw ProcessError("Could not access matrix file '" + file + "' to load.");
+            throw ProcessError(TLF("Could not access matrix file '%' to load.", file));
         }
         PROGRESS_BEGIN_MESSAGE("Loading matrix in tazRelation format from '" + file + "'");
 
@@ -711,7 +711,7 @@ ODMatrix::loadRoutes(OptionsCont& oc, SUMOSAXHandler& handler) {
     std::vector<std::string> routeFiles = oc.getStringVector("route-files");
     for (std::vector<std::string>::iterator i = routeFiles.begin(); i != routeFiles.end(); ++i) {
         if (!FileHelpers::isReadable(*i)) {
-            throw ProcessError("Could not access route file '" + *i + "' to load.");
+            throw ProcessError(TLF("Could not access route file '%' to load.", *i));
         }
         PROGRESS_BEGIN_MESSAGE("Loading routes and trips from '" + *i + "'");
         if (!XMLSubSys::runParser(handler, *i)) {
@@ -728,7 +728,7 @@ ODMatrix::parseTimeLine(const std::vector<std::string>& def, bool timelineDayInH
     Distribution_Points result("N/A");
     if (timelineDayInHours) {
         if (def.size() != 24) {
-            throw ProcessError("Assuming 24 entries for a day timeline, but got " + toString(def.size()) + ".");
+            throw ProcessError(TLF("Assuming 24 entries for a day timeline, but got %.", toString(def.size())));
         }
         for (int chour = 0; chour < 24; ++chour) {
             result.add(chour * 3600., StringUtils::toDouble(def[chour]));
@@ -738,7 +738,7 @@ ODMatrix::parseTimeLine(const std::vector<std::string>& def, bool timelineDayInH
         for (int i = 0; i < (int)def.size(); i++) {
             StringTokenizer st2(def[i], ":");
             if (st2.size() != 2) {
-                throw ProcessError("Broken time line definition: missing a value in '" + def[i] + "'.");
+                throw ProcessError(TLF("Broken time line definition: missing a value in '%'.", def[i]));
             }
             const double time = StringUtils::toDouble(st2.next());
             result.add(time, StringUtils::toDouble(st2.next()));

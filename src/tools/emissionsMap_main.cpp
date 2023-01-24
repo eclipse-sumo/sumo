@@ -59,7 +59,7 @@ void single(const std::string& of, const std::string& className, SUMOEmissionCla
     }
     std::ofstream o(of.c_str());
     if (!o.good()) {
-        throw ProcessError("Could not open file '" + of + "' for writing.");
+        throw ProcessError(TLF("Could not open file '%' for writing.", of));
     }
     for (double v = vMin; v <= vMax; v += vStep) {
         for (double a = aMin; a <= aMax; a += aStep) {

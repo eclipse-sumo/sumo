@@ -461,7 +461,7 @@ NIVissimEdge::buildNBEdge(NBDistrictCont& dc, NBNodeCont& nc, NBEdgeCont& ec,
         Position pos = myGeom[0];
         fromNode = new NBNode(toString<int>(myID) + "-SourceNode", pos, SumoXMLNodeType::NOJUNCTION);
         if (!nc.insert(fromNode)) {
-            throw ProcessError("Could not insert node '" + fromNode->getID() + "' to nodes container.");
+            throw ProcessError(TLF("Could not insert node '%' to nodes container.", fromNode->getID()));
         }
     }
     if (toNode == nullptr) {
@@ -469,7 +469,7 @@ NIVissimEdge::buildNBEdge(NBDistrictCont& dc, NBNodeCont& nc, NBEdgeCont& ec,
         Position pos = myGeom[-1];
         toNode = new NBNode(toString<int>(myID) + "-DestinationNode", pos, SumoXMLNodeType::NOJUNCTION);
         if (!nc.insert(toNode)) {
-            throw ProcessError("Could not insert node '" + toNode->getID() + "' to nodes container.");
+            throw ProcessError(TLF("Could not insert node '%' to nodes container.", toNode->getID()));
         }
     }
 

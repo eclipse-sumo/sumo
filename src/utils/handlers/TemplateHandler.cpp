@@ -61,7 +61,7 @@ TemplateHandler::parseTemplate(OptionsCont& options, const std::string& template
         XERCES_CPP_NAMESPACE::MemBufInputSource memBufIS((const XMLByte*)templateString.c_str(), templateString.size(), "template");
         parser.parse(memBufIS);
         if (handler.myError) {
-            throw ProcessError("Could not load template '" + templateString + "'.");
+            throw ProcessError(TLF("Could not load template '%'.", templateString));
         }
     } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
         throw ProcessError("Could not load template '" + templateString + "':\n " + StringUtils::transcode(e.getMessage()));

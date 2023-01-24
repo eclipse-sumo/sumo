@@ -140,7 +140,7 @@ loadJTRDefinitions(RONet& net, OptionsCont& oc) {
         for (std::vector<std::string>::const_iterator i = edges.begin(); i != edges.end(); ++i) {
             ROJTREdge* edge = static_cast<ROJTREdge*>(net.getEdge(*i));
             if (edge == nullptr) {
-                throw ProcessError("The edge '" + *i + "' declared as a sink is not known.");
+                throw ProcessError(TLF("The edge '%' declared as a sink is not known.", *i));
             }
             edge->setSink();
         }

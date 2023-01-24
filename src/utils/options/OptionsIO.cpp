@@ -100,7 +100,7 @@ OptionsIO::loadConfiguration() {
     if (oc.exists("configuration-file") && oc.isSet("configuration-file")) {
         const std::string path = oc.getString("configuration-file");
         if (!FileHelpers::isReadable(path)) {
-            throw ProcessError("Could not access configuration '" + oc.getString("configuration-file") + "'.");
+            throw ProcessError(TLF("Could not access configuration '%'.", oc.getString("configuration-file")));
         }
         const bool verbose = !oc.exists("verbose") || oc.getBool("verbose");
         if (verbose) {
@@ -118,7 +118,7 @@ OptionsIO::loadConfiguration() {
             parser.setErrorHandler(&handler);
             parser.parse(StringUtils::transcodeToLocal(path).c_str());
             if (handler.errorOccurred()) {
-                throw ProcessError("Could not load configuration '" + path + "'.");
+                throw ProcessError(TLF("Could not load configuration '%'.", path));
             }
         } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
             throw ProcessError("Could not load configuration '" + path + "':\n " + StringUtils::transcode(e.getMessage()));
@@ -151,7 +151,7 @@ OptionsIO::getRoot(const std::string& filename) {
         parser.setErrorHandler(&handler);
         XERCES_CPP_NAMESPACE::XMLPScanToken token;
         if (!FileHelpers::isReadable(filename) || FileHelpers::isDirectory(filename)) {
-            throw ProcessError("Could not open '" + filename + "'.");
+            throw ProcessError(TLF("Could not open '%'.", filename));
         }
 #ifdef HAVE_ZLIB
         zstr::ifstream istream(StringUtils::transcodeToLocal(filename).c_str(), std::fstream::in | std::fstream::binary);
@@ -161,11 +161,11 @@ OptionsIO::getRoot(const std::string& filename) {
         const bool result = parser.parseFirst(StringUtils::transcodeToLocal(filename).c_str(), token);
 #endif
         if (!result) {
-            throw ProcessError("Can not read XML-file '" + filename + "'.");
+            throw ProcessError(TLF("Can not read XML-file '%'.", filename));
         }
         while (parser.parseNext(token) && handler.getItem() == "");
         if (handler.errorOccurred()) {
-            throw ProcessError("Could not load '" + filename + "'.");
+            throw ProcessError(TLF("Could not load '%'.", filename));
         }
     } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
         throw ProcessError("Could not load '" + filename + "':\n " + StringUtils::transcode(e.getMessage()));

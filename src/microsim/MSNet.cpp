@@ -1591,7 +1591,7 @@ MSNet::quickReload() {
         MSRouteHandler rh(file, true);
         const long before = PROGRESS_BEGIN_TIME_MESSAGE("Loading traffic from '" + file + "'");
         if (!XMLSubSys::runParser(rh, file, false)) {
-            throw ProcessError("Loading of " + file + " failed.");
+            throw ProcessError(TLF("Loading of % failed.", file));
         }
         PROGRESS_TIME_MESSAGE(before);
     }
@@ -1610,7 +1610,7 @@ MSNet::loadState(const std::string& fileName) {
     MSStateHandler h(fileName, 0);
     XMLSubSys::runParser(h, fileName);
     if (MsgHandler::getErrorInstance()->wasInformed()) {
-        throw ProcessError("Loading state from '" + fileName + "' failed.");
+        throw ProcessError(TLF("Loading state from '%' failed.", fileName));
     }
     // reset route loaders
     delete myRouteLoaders;

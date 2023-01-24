@@ -308,7 +308,7 @@ void FileHelpers::readEdgeVector(std::istream& in, std::vector<const E*>& edges,
             }
             int followIndex = (data >> ((numFields - field - 1) * bits)) & mask;
             if (followIndex >= prev->getNumSuccessors()) {
-                throw ProcessError("Invalid follower index in route '" + rid + "'!");
+                throw ProcessError(TLF("Invalid follower index in route '%'!", rid));
             }
             prev = prev->getSuccessors()[followIndex];
             edges.push_back(prev);
@@ -318,7 +318,7 @@ void FileHelpers::readEdgeVector(std::istream& in, std::vector<const E*>& edges,
         while (size > 0) {
             const E* edge = E::getAllEdges()[bitsOrEntry];
             if (edge == 0) {
-                throw ProcessError("An edge within the route '" + rid + "' is not known!");
+                throw ProcessError(TLF("An edge within the route '%' is not known!", rid));
             }
             edges.push_back(edge);
             size--;

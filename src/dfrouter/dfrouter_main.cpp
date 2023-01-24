@@ -73,7 +73,7 @@ readDetectors(RODFDetectorCon& detectors, OptionsCont& oc, RODFNet* optNet) {
     std::vector<std::string> files = oc.getStringVector("detector-files");
     for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
         if (!FileHelpers::isReadable(*fileIt)) {
-            throw ProcessError("Could not open detector file '" + *fileIt + "'");
+            throw ProcessError(TLF("Could not open detector file '%'", *fileIt));
         }
         PROGRESS_BEGIN_MESSAGE("Loading detector definitions from '" + *fileIt + "'");
         RODFDetectorHandler handler(optNet, oc.getBool("ignore-invalid-detectors"), detectors, *fileIt);
@@ -100,7 +100,7 @@ readDetectorFlows(RODFDetectorFlows& flows, OptionsCont& oc, RODFDetectorCon& dc
     std::vector<std::string> files = oc.getStringVector("measure-files");
     for (std::vector<std::string>::const_iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt) {
         if (!FileHelpers::isReadable(*fileIt)) {
-            throw ProcessError("The measure-file '" + *fileIt + "' can not be opened.");
+            throw ProcessError(TLF("The measure-file '%' can not be opened.", *fileIt));
         }
         // parse
         PROGRESS_BEGIN_MESSAGE("Loading flows from '" + *fileIt + "'");

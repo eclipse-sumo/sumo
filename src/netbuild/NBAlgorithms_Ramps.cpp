@@ -236,7 +236,7 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
             bool wasFirst = first == curr;
             NBNode* rn = new NBNode(curr->getID() + "-AddedOnRampNode", curr->getGeometry().positionAtOffset(rampLength - currLength));
             if (!nc.insert(rn)) {
-                throw ProcessError("Ups - could not build on-ramp for edge '" + curr->getID() + "' (node could not be build)!");
+                throw ProcessError(TLF("Ups - could not build on-ramp for edge '%' (node could not be build)!", curr->getID()));
             }
             std::string name = curr->getID();
             bool ok = ec.splitAt(dc, curr, rn, curr->getID() + ADDED_ON_RAMP_EDGE, curr->getID(), curr->getNumLanes() + toAdd, curr->getNumLanes());
@@ -343,7 +343,7 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
             Position pos = curr->getGeometry().positionAtOffset(curr->getGeometry().length() - (rampLength  - currLength));
             NBNode* rn = new NBNode(curr->getID() + "-AddedOffRampNode", pos);
             if (!nc.insert(rn)) {
-                throw ProcessError("Ups - could not build off-ramp for edge '" + curr->getID() + "' (node could not be build)!");
+                throw ProcessError(TLF("Ups - could not build off-ramp for edge '%' (node could not be build)!", curr->getID()));
             }
             std::string name = curr->getID();
             bool ok = ec.splitAt(dc, curr, rn, curr->getID(), curr->getID() + "-AddedOffRampEdge", curr->getNumLanes(), curr->getNumLanes() + toAdd);

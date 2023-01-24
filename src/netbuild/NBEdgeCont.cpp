@@ -435,7 +435,7 @@ NBEdgeCont::extract(NBDistrictCont& dc, NBEdge* edge, bool remember) {
 void
 NBEdgeCont::rename(NBEdge* edge, const std::string& newID) {
     if (myEdges.count(newID) != 0) {
-        throw ProcessError("Attempt to rename edge using existing id '" + newID + "'");
+        throw ProcessError(TLF("Attempt to rename edge using existing id '%'", newID));
     }
     myEdges.erase(edge->getID());
     edge->setID(newID);

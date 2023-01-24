@@ -2314,7 +2314,7 @@ GUIVisualizationSettings::getLinkColor(const LinkState& ls, bool realistic) {
         case LINKSTATE_DEADEND:
             return SUMO_color_DEADEND;
         default:
-            throw ProcessError("No color defined for LinkState '" + std::string(ls, 1) + "'");
+            throw ProcessError(TLF("No color defined for LinkState '%'", std::string(ls, 1)));
     }
 }
 

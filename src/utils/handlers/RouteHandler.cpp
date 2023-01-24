@@ -434,7 +434,7 @@ RouteHandler::parseRoute(const SUMOSAXAttributes& attrs) {
             if (!id.empty() && !SUMOXMLDefinitions::isValidVehicleID(id)) {
                 writeErrorInvalidID(SUMO_TAG_ROUTE, id);
             } else if (cycleTime < 0) {
-                writeError("cycleTime of " + toString(SUMO_TAG_DEST_PROB_REROUTE) + " must be equal or greater than 0");
+                writeError(TLF("cycleTime of % must be equal or greater than 0", toString(SUMO_TAG_DEST_PROB_REROUTE)));
             } else {
                 // set tag
                 myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_ROUTE);

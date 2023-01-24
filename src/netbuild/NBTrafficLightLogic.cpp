@@ -97,7 +97,7 @@ NBTrafficLightLogic::addStep(const SUMOTime duration, const std::string& state, 
     // check state contents
     const std::string::size_type illegal = state.find_first_not_of(SUMOXMLDefinitions::ALLOWED_TLS_LINKSTATES);
     if (std::string::npos != illegal) {
-        throw ProcessError("When adding phase: illegal character '" + toString(state[illegal]) + "' in state");
+        throw ProcessError(TLF("When adding phase: illegal character '%' in state", toString(state[illegal])));
     }
     // interpret index
     if (index < 0 || index >= (int)myPhases.size()) {

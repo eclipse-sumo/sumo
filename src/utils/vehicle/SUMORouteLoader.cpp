@@ -33,7 +33,7 @@ SUMORouteLoader::SUMORouteLoader(SUMORouteHandler* handler)
     : myParser(nullptr), myMoreAvailable(true), myHandler(handler) {
     myParser = XMLSubSys::getSAXReader(*myHandler, false, true);
     if (!myParser->parseFirst(myHandler->getFileName())) {
-        throw ProcessError("Can not read XML-file '" + myHandler->getFileName() + "'.");
+        throw ProcessError(TLF("Can not read XML-file '%'.", myHandler->getFileName()));
     }
 }
 

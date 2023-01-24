@@ -144,7 +144,7 @@ MSDevice_Taxi::initDispatch() {
     } else if (algo == "traci") {
         myDispatcher = new MSDispatch_TraCI(params.getParametersMap());
     } else {
-        throw ProcessError("Dispatch algorithm '" + algo + "' is not known");
+        throw ProcessError(TLF("Dispatch algorithm '%' is not known", algo));
     }
     myDispatchCommand = new StaticCommand<MSDevice_Taxi>(&MSDevice_Taxi::triggerDispatch);
     // round to next multiple of myDispatchPeriod
@@ -310,7 +310,7 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
                 if (myCustomers.count(person) != 0) {
                     nOccur[person] += 1;
                     if (myCurrentReservations.count(res) == 0) {
-                        throw ProcessError("Invalid Re-dispatch for existing customer '" + person->getID() + "' with a new reservation");
+                        throw ProcessError(TLF("Invalid Re-dispatch for existing customer '%' with a new reservation", person->getID()));
                     }
                 }
             }
@@ -343,7 +343,7 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
                 if (item.second == 1) {
                     // customers must already be on board
                     if (onBoard.count(item.first) == 0) {
-                        throw ProcessError("Re-dispatch did not mention pickup for existing customer '" + item.first->getID() + "'");
+                        throw ProcessError(TLF("Re-dispatch did not mention pickup for existing customer '%'", item.first->getID()));
                     }
                 } else if (item.second == 2) {
                     if (onBoard.count(item.first) == 0) {

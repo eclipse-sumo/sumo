@@ -69,7 +69,7 @@ ODDistrictCont::loadDistricts(std::vector<std::string> files) {
     for (std::vector<std::string>::iterator i = files.begin(); i != files.end(); ++i) {
         const std::string& districtfile = *i;
         if (!FileHelpers::isReadable(districtfile)) {
-            throw ProcessError("Could not access network file '" + districtfile + "' to load.");
+            throw ProcessError(TLF("Could not access network file '%' to load.", districtfile));
         }
         PROGRESS_BEGIN_MESSAGE("Loading districts from '" + districtfile + "'");
         // build the xml-parser and handler

@@ -467,7 +467,7 @@ GNELane::drawLane2LaneConnections() const {
                 glColor3d(.75, .5, 0.25);
                 break;
             default:
-                throw ProcessError("Unexpected LinkState '" + toString(state) + "'");
+                throw ProcessError(TLF("Unexpected LinkState '%'", toString(state)));
         }
         const Position& endPos = it.toEdge->getLaneShape(it.toLane)[0];
         glBegin(GL_LINES);

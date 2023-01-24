@@ -84,7 +84,7 @@ ROJTRTurnDefLoader::myStartElement(int element,
                     std::string id = st.next();
                     ROEdge* edge = myNet.getEdge(id);
                     if (edge == nullptr) {
-                        throw ProcessError("The edge '" + id + "' declared as a sink is not known.");
+                        throw ProcessError(TLF("The edge '%' declared as a sink is not known.", id));
                     }
                     edge->setSink();
                 }
@@ -125,7 +125,7 @@ ROJTRTurnDefLoader::myStartElement(int element,
                     std::string id = st.next();
                     ROEdge* edge = myNet.getEdge(id);
                     if (edge == nullptr) {
-                        throw ProcessError("The edge '" + id + "' declared as a source is not known.");
+                        throw ProcessError(TLF("The edge '%' declared as a source is not known.", id));
                     }
                     edge->setSource();
                 }

@@ -161,7 +161,7 @@ NEMALogic::constructTimingAndPhaseDefs(std::string& barriers, std::string& coord
                 if (myPhaseStrLen < 0) {
                     myPhaseStrLen = (int)state.size();
                 } else if (myPhaseStrLen != (int)state.size()) {
-                    throw ProcessError("At NEMA tlLogic '" + getID() + "', different sizes of NEMA phase states. Please check the NEMA XML");
+                    throw ProcessError(TLF("At NEMA tlLogic '%', different sizes of NEMA phase states. Please check the NEMA XML", getID()));
                 }
 
                 // get the lane-based info
