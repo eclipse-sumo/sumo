@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 09:18+0100\n"
-"PO-Revision-Date: 2023-01-24 15:11+0000\n"
+"PO-Revision-Date: 2023-01-24 15:17+0000\n"
 "Last-Translator: bcoueraud87 <benjamin.coueraud@dlr.de>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/fr/>\n"
@@ -1061,65 +1061,66 @@ msgstr "Sauvegarder au format Plain XM&L..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:251
 msgid "Save a plain XML representation of the network."
-msgstr ""
+msgstr "Sauvegarder le réseau au format plain XML."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:255
 msgid "Save &Joined Junctions..."
-msgstr ""
+msgstr "Sauvegarder &Junctions Connectées..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:255
 msgid "Save log of joined junctions (allows reproduction of joins)."
 msgstr ""
+"Sauvegarder le journal des junctions connectées (permet la reproduction des "
+"connections)."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:262
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:266
 msgid "Reload the network."
-msgstr ""
+msgstr "Recharger le réseau."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:266
-#, fuzzy
 msgid "Reload Network"
-msgstr "&Réseau"
+msgstr "Recharger Réseau"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:273
 msgid "Netedit Config"
-msgstr ""
+msgstr "Configuration Netedit"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:277
 msgid "Sumo Config"
-msgstr ""
+msgstr "Configuration Sumo"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:281
 msgid "Traffic Lights"
-msgstr ""
+msgstr "Feux de Circulation"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:285
 msgid "Edge Types"
-msgstr ""
+msgstr "Types d'Arêtes"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:289
 msgid "Additionals and Shapes"
-msgstr ""
+msgstr "Eléments additionnels et Formes"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:293
 msgid "Demand Elements"
-msgstr ""
+msgstr "Eléments de Demande"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:297
 msgid "Data Elements"
-msgstr ""
+msgstr "Données liées au réseau"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:301
 msgid "MeanData Elements"
-msgstr ""
+msgstr "Eléments MeanData"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:306
 msgid "Close the network."
-msgstr ""
+msgstr "Fermer le réseau."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:340
 msgid "Save Netedit Config"
-msgstr ""
+msgstr "Sauvegarder Configuration Netedit."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:340
 msgid "Save netedit configuration file."
