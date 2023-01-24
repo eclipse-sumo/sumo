@@ -8,14 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 09:18+0100\n"
-"PO-Revision-Date: 2022-10-11 14:31+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2023-01-24 11:18+0000\n"
+"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.16-dev\n"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\guisim_main.cpp:57
 msgid "GUI version of the microscopic, multi-modal traffic simulation SUMO."
@@ -1312,73 +1314,73 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:488
 msgid "Reload data elements."
-msgstr ""
+msgstr "Recargar elementos data."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:496
 msgid "Load MeanDatas..."
-msgstr ""
+msgstr "Abrir MeanDatas..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:496
 msgid "Load meanDatas and shapes."
-msgstr ""
+msgstr "Abrir meanDatas y shapes."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:502
 msgid "Save MeanDatas"
-msgstr ""
+msgstr "Guardar MeanDatas"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:502
 msgid "Save meanDatas and shapes."
-msgstr ""
+msgstr "Guardar meanDatas y shapes."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:506
 msgid "Save MeanDatas As..."
-msgstr ""
+msgstr "Guardar MeanDatas como..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:506
 msgid "Save meanData elements to another file."
-msgstr ""
+msgstr "Guardar elementos meanData en otro archivo."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:512
 msgid "Reload MeanDatas"
-msgstr ""
+msgstr "Recargar MeanDatas"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:512
 msgid "Reload meanDatas."
-msgstr ""
+msgstr "Recargar meanDatas."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:532
 msgid "&Inspect"
-msgstr ""
+msgstr "&Inspeccionar"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:532
 msgid "Inspect elements and change their attributes."
-msgstr ""
+msgstr "Inspeccionar elementos y cambiar sus atributos."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:535
 msgid "&Delete"
-msgstr ""
+msgstr "&Eliminar"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:535
 msgid "Delete elements."
-msgstr ""
+msgstr "Eliminar elementos."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:538
 msgid "&Select"
-msgstr ""
+msgstr "&Seleccionar"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:538
 msgid "Select elements."
-msgstr ""
+msgstr "Seleccionar elementos."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:595
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:676
 msgid "&Move"
-msgstr ""
+msgstr "&Mover"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:595
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:676
 msgid "Move elements."
-msgstr ""
+msgstr "Mover elementos."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:598
 msgid "&Edge"
@@ -1386,11 +1388,11 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:598
 msgid "Create junction and edges."
-msgstr ""
+msgstr "Crear junction y edges."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:601
 msgid "&Connection"
-msgstr ""
+msgstr "&Conexión"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:601
 msgid "Modes connections between lanes."
@@ -1398,7 +1400,7 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:604
 msgid "Pro&hibition"
-msgstr ""
+msgstr "Pro&hibición"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:604
 msgid "Modes connection prohibitions."
@@ -1410,15 +1412,15 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:610
 msgid "Create additional elements."
-msgstr ""
+msgstr "Crear elementos adicionales."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:613
 msgid "C&rossing"
-msgstr ""
+msgstr "C&ruce"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:613
 msgid "Create crossings between edges."
-msgstr ""
+msgstr "Crear cruces entre edges."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:616
 msgid "TA&Z"
@@ -1426,7 +1428,7 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:616
 msgid "Create Traffic Assignment Zones."
-msgstr ""
+msgstr "Crear zona de análisis de tráfico (TAZ)."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:619
 msgid "Create Points-Of-Interest and polygons."
@@ -1442,23 +1444,23 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:679
 msgid "Route"
-msgstr ""
+msgstr "Ruta"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:679
 msgid "Create Routes."
-msgstr ""
+msgstr "Crear rutas."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:682
 msgid "Vehicle"
-msgstr ""
+msgstr "Vehículo"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:682
 msgid "Create vehicles."
-msgstr ""
+msgstr "Crear vehículos."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:685
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:685
 msgid "Create types (vehicles, person an containers)."
@@ -1466,15 +1468,15 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:688
 msgid "Create stops."
-msgstr ""
+msgstr "Crear paradas."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:691
 msgid "Person"
-msgstr ""
+msgstr "Persona"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:691
 msgid "Create persons."
-msgstr ""
+msgstr "Crear personas."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:694
 msgid "Person plan"
@@ -1487,11 +1489,11 @@ msgstr ""
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:697
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNETagSelector.cpp:179
 msgid "Container"
-msgstr ""
+msgstr "Contenedor"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:697
 msgid "Create containers."
-msgstr ""
+msgstr "Crear contenedores."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:700
 msgid "Container plan"
@@ -1507,7 +1509,7 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:735
 msgid "Create edgeData elements."
-msgstr ""
+msgstr "Crear elementos edgeData."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:738
 msgid "Edge&Relation"
