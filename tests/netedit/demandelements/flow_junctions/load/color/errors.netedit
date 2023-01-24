@@ -15,6 +15,19 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary -10.00,28.40,70.00,50
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary -10.00,-10.00,70.00,11.60
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
+Error: Attribute 'color' in definition of flow 'flow_0' Invalid color definition 'dummycolor'.
+Error: Attribute 'color' in definition of flow 'flow_1' Invalid color definition ''.
+Debug: Adding flowJunctions 'flow_2' in GNEChange_DemandElement
+Debug: Adding flowJunctions 'flow_3' in GNEChange_DemandElement
+Debug: Adding flowJunctions 'flow_4' in GNEChange_DemandElement
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.flow_junctions.24Jan091456.3802/netedit.daily.demand.flow_junctions/demandelements/flow_junctions/load/color/routes.rou.xml failed.
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Removing flowJunctions 'flow_4' in GNEChange_DemandElement
+Debug: Removing flowJunctions 'flow_3' in GNEChange_DemandElement
+Debug: Removing flowJunctions 'flow_2' in GNEChange_DemandElement
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
 Debug: Adding flowJunctions 'flow_2' in GNEChange_DemandElement
 Debug: Adding flowJunctions 'flow_3' in GNEChange_DemandElement
 Debug: Adding flowJunctions 'flow_4' in GNEChange_DemandElement
@@ -65,17 +78,6 @@ Debug: Created connection 'fromgneE6_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Removing flowJunctions 'flow_4' in GNEChange_DemandElement
-Debug: Removing flowJunctions 'flow_3' in GNEChange_DemandElement
-Debug: Removing flowJunctions 'flow_2' in GNEChange_DemandElement
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Adding flowJunctions 'flow_2' in GNEChange_DemandElement
-Debug: Adding flowJunctions 'flow_3' in GNEChange_DemandElement
-Debug: Adding flowJunctions 'flow_4' in GNEChange_DemandElement
-Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -10.00,-13.20,10.00,13.20
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 39.60,-13.20,76.40,17.20
@@ -113,6 +115,7 @@ GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary -10.00,-10.00,70.00,1
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
 Debug: network elements saved
+Debug: demand elements saved
 Debug: Deleting unreferenced flowJunctions
 Debug: Deleting unreferenced flowJunctions
 Debug: Deleting unreferenced flowJunctions
