@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 09:18+0100\n"
-"PO-Revision-Date: 2023-01-24 12:21+0000\n"
-"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
+"PO-Revision-Date: 2023-01-24 12:24+0000\n"
+"Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
 "Language: es\n"
@@ -837,7 +837,7 @@ msgstr "No se puede guardar la configuración de netedit en '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3291
 msgid "SUMO configuration saved in '"
-msgstr "Configuración de sumo salvada en '"
+msgstr "Configuración de sumo guardada en '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3299
 msgid "Could not save SUMO configuration in '"
@@ -866,7 +866,7 @@ msgstr "Cargar elementos adicionales desde '"
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3514
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNENet.cpp:1304
 msgid "Loading of additional file failed: "
-msgstr "El cargado de elementos adicionales falló: "
+msgstr "La carga de elementos adicionales falló: "
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3520
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNENet.cpp:1306
@@ -875,7 +875,7 @@ msgstr "Elementos adicionales cargados con éxito: "
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3546
 msgid "reloading additionals from '"
-msgstr "Recarga de elementos adicionales desde '"
+msgstr "Recargando elementos adicionales desde '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3551
 msgid "Reloading of additional file failed: "
@@ -883,11 +883,11 @@ msgstr "Fallo en la recarga de elementos adicionales: "
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3593
 msgid "Additionals saved in '"
-msgstr ""
+msgstr "Elementos adicionales guardados en '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3663
 msgid "loading demand elements from '"
-msgstr ""
+msgstr "Cargando elementos de demanda desde '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3667
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNENet.cpp:1315
@@ -923,11 +923,11 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3856
 msgid "reloading data elements from '"
-msgstr ""
+msgstr "Recargando elementos de datos desde '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3861
 msgid "Reloading of data file failed: "
-msgstr ""
+msgstr "La recarga de elementos de datos falló: "
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3902
 msgid "Data elements saved in '"
@@ -1546,7 +1546,7 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:744
 msgid "&MeanData"
-msgstr ""
+msgstr "&Medidas de tráfico"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:744
 msgid "Create MeanData edge/lanes."
