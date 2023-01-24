@@ -8,71 +8,74 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 10:03+0100\n"
-"PO-Revision-Date: 2023-01-24 10:03+0100\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2023-01-24 11:18+0000\n"
+"Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
+"Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
+"eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
 "Language: zh-Hant\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CP1252\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.16-dev\n"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\guisim_main.cpp:57
 msgid "GUI version of the microscopic, multi-modal traffic simulation SUMO."
-msgstr ""
+msgstr "微觀多模式交通模擬 SUMO 的 圖形用戶界面 (GUI) 版本"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\guisim_main.cpp:77
 msgid "This system has no OpenGL support. Exiting."
-msgstr ""
+msgstr "該系統不支持開放式圖形庫 (OpenGL)。 退出。"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:270
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:478
 msgid ""
 "N/A\t\tOriginal coordinate (before coordinate transformation in netconvert)"
-msgstr ""
+msgstr "N/A\t\t原始坐標（在 netconvert 軟體中進行坐標轉換之前）"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:273
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:481
 msgid "N/A\t\tNetwork coordinate"
-msgstr ""
+msgstr "N/A\t\t路網坐標"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:301
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:499
 msgid "Ready."
-msgstr ""
+msgstr "準備完成。"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:420
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1347
 msgid "&File"
-msgstr ""
+msgstr "&檔案"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:422
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:210
 msgid "New Window"
-msgstr ""
+msgstr "新视窗"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:422
 msgid "Open a new sumo-gui window."
-msgstr ""
+msgstr "開啟一個新的 sumo-gui 视窗。"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:426
 msgid "&Open Simulation..."
-msgstr ""
+msgstr "&開啟模擬..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:426
 msgid "Open a simulation (Configuration file)."
-msgstr ""
+msgstr "開啟模擬(設定檔)。"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:429
 msgid "Open &Network..."
-msgstr ""
+msgstr "開啟 &路網..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:429
 msgid "Open a network."
-msgstr ""
+msgstr "開啟路網。"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:432
 msgid "Open Shapes "
-msgstr ""
+msgstr "開啟形狀檔案 "
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:432
 msgid "Load POIs and Polygons for visualization."
