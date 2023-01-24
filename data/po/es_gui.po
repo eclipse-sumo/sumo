@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 09:18+0100\n"
-"PO-Revision-Date: 2023-01-24 12:48+0000\n"
-"Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
+"PO-Revision-Date: 2023-01-24 13:36+0000\n"
+"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
 "Language: es\n"
@@ -1755,15 +1755,15 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1365
 msgid "&Polygons"
-msgstr ""
+msgstr "&Polígonos"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1370
 msgid "P&OIs"
-msgstr ""
+msgstr "P&OIs"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1375
 msgid "&Routes"
-msgstr ""
+msgstr "&Rutas"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1390
 msgid "Person&Trips"
@@ -1779,11 +1779,11 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1405
 msgid "&Containers"
-msgstr ""
+msgstr "&Contenedores"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1410
 msgid "Tra&nsports"
-msgstr ""
+msgstr "Tra&nsportes"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1415
 msgid "Trans&hips"
@@ -1791,7 +1791,7 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1420
 msgid "Stop&s"
-msgstr ""
+msgstr "&Paradas"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1425
 msgid "&EdgeDatas"
@@ -1807,23 +1807,23 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1443
 msgid "Lock selected elements"
-msgstr ""
+msgstr "Bloquear elementos seleccionados"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1443
 msgid "selected elements"
-msgstr ""
+msgstr "elementos seleccionados"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1450
 msgid "Lock all elements"
-msgstr ""
+msgstr "Bloquear todos los elementos"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1450
 msgid "all elements"
-msgstr ""
+msgstr "todos los elementos"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1454
 msgid "Unlock all elements"
-msgstr ""
+msgstr "Desbloquear todos los elementos"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1790
 msgid "Compute Junctions"
@@ -2145,11 +2145,11 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNELoadThread.cpp:205
 msgid "Failed to build network."
-msgstr ""
+msgstr "No se pudo construir la red."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNELoadThread.cpp:504
 msgid "Failed to reset options."
-msgstr ""
+msgstr "Error al restablecer las opciones."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNENet.cpp:1273
 msgid "Forced computing junctions with volatile options ..."
