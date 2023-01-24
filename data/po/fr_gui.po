@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 09:18+0100\n"
-"PO-Revision-Date: 2023-01-24 12:24+0000\n"
+"PO-Revision-Date: 2023-01-24 12:48+0000\n"
 "Last-Translator: bcoueraud87 <benjamin.coueraud@dlr.de>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/fr/>\n"
@@ -175,32 +175,34 @@ msgstr "Ouvre un dialogue pour éditer les réglages de visualisation."
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:480
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1277
 msgid "Edit Viewport"
-msgstr ""
+msgstr "Editer le Rectangle de visualisation"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:480
 msgid "Opens a dialog for editing viewing area, zoom and rotation."
 msgstr ""
+"Ouvre un dialogue pour éditer la zone de visualisation, le zoom et la "
+"rotation."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:484
 msgid "Open network in netedit"
-msgstr ""
+msgstr "Ouvrir un réseau dans netedit"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:484
 msgid "Opens current network in NETEDIT."
-msgstr ""
+msgstr "Ouvrir le réseau actuel dans NETEDIT."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:491
 msgid "&Settings"
-msgstr ""
+msgstr "&Réglages"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:493
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\dialogs\GUIDialog_AppSettings.cpp:53
 msgid "Application Settings"
-msgstr ""
+msgstr "Réglages de l'Application"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:493
 msgid "Open a Dialog for Application Settings editing."
-msgstr ""
+msgstr "Ouvrir un dialogue pour éditer les Réglages de l'Application."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:496
 msgid "Gaming Mode\tCtrl+G\tToggle gaming mode on/off."
@@ -208,36 +210,36 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:499
 msgid "Full Screen Mode"
-msgstr ""
+msgstr "Mode Plein Ecran"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:499
 msgid "Toggle full screen mode on/off."
-msgstr ""
+msgstr "Allumer/éteindre le mode plein écran."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:503
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1420
 msgid "&Locate"
-msgstr ""
+msgstr "&Localiser"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:505
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1320
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1951
 msgid "&Junctions"
-msgstr ""
+msgstr "&Junctions"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:505
 msgid "Open a Dialog for Locating a Junction."
-msgstr ""
+msgstr "Ouvre un Dialogue pour Localiser une Junction."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:508
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1325
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1954
 msgid "&Edges"
-msgstr ""
+msgstr "&Arêtes"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:508
 msgid "Open a Dialog for Locating an Edge."
-msgstr ""
+msgstr "Ouvre un Dialogue pour Localiser une Arête."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:511
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1380
@@ -247,7 +249,7 @@ msgstr "&Véhicules"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:511
 msgid "Open a Dialog for Locating a Vehicle."
-msgstr ""
+msgstr "Ouvre un Dialogue pour localiser un Véhicule."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:514
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1385
@@ -257,30 +259,30 @@ msgstr "&Personnes"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:514
 msgid "Open a Dialog for Locating a Person."
-msgstr ""
+msgstr "Ouvre un Dialogue pour Localiser une Personne."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:517
 msgid "&Container"
-msgstr ""
+msgstr "&Conteneur"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:517
 msgid "Open a Dialog for Locating a Container."
-msgstr ""
+msgstr "Ouvre un Dialogue pour localiser un Conteneur."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:520
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1972
 msgid "&TLS"
-msgstr ""
+msgstr "&Feux de circulation"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:520
 msgid "Open a Dialog for Locating a Traffic Light."
-msgstr ""
+msgstr "Ouvrir un Dialogue pour Localiser un Feu de Circulation."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:523
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:610
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1975
 msgid "&Additional"
-msgstr ""
+msgstr "&Additionel"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:523
 msgid "Open a Dialog for Locating an Additional Structure."
