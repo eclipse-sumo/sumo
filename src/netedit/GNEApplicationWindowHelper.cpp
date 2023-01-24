@@ -1274,7 +1274,7 @@ GNEApplicationWindowHelper::EditMenuCommands::buildViewMenuCommands(FXMenuPane* 
                      TL("Edit Visualisation"), "F9", TL("Opens a dialog for editing visualization settings."),
                      GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL), myGNEApp, MID_HOTKEY_F9_EDIT_VIEWSCHEME);
     editViewPort = GUIDesigns::buildFXMenuCommandShortcut(editMenu,
-                   TL("Edit Viewport"), "Ctrl+I", TL("Opens a dialog for editing viewing are, zoom and rotation."),
+                   TL("Edit Viewport"), "Ctrl+I", TL("Opens a dialog for editing viewing area, zoom and rotation."),
                    GUIIconSubSys::getIcon(GUIIcon::EDITVIEWPORT), myGNEApp, MID_HOTKEY_CTRL_I_EDITVIEWPORT);
 }
 
