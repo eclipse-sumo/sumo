@@ -42,7 +42,8 @@ def get_args(args=None):
 
 def generate_po(sumo_home, path, languages, pot_file, gui_pot_file):
     pots = {pot_file: open(pot_file + ".txt", "w"), gui_pot_file: open(gui_pot_file + ".txt", "w")}
-    for f in glob(sumo_home + "/src/*.cpp") + glob(sumo_home + "/src/*/*.cpp") + glob(sumo_home + "/src/*/*/*.cpp"):
+    for f in sorted(glob(sumo_home + "/src/*.cpp") + glob(sumo_home + "/src/*/*.cpp") + glob(sumo_home + "/src/*/*/*.cpp") +
+                    glob(sumo_home + "/src/*.h") + glob(sumo_home + "/src/*/*.h") + glob(sumo_home + "/src/*/*/*.h")):
         if "gui" in f[len(sumo_home):] or "netedit" in f[len(sumo_home):]:
             print(f, file=pots[gui_pot_file])
         else:
@@ -82,7 +83,7 @@ def main(args=None):
             path = paths[0] + os.path.sep
     options = get_args(args)
     if options.lang is None:
-        options.lang = [os.path.basename(p)[:2] for p in glob(options.sumo_home + "/data/po/*_sumo.po")]
+        options.lang = [os.path.basename(p)[:-8] for p in glob(options.sumo_home + "/data/po/*_sumo.po")]
     pot_file = options.sumo_home + "/data/po/sumo.pot"
     gui_pot_file = options.sumo_home + "/data/po/gui.pot"
     if not options.mo_only:
