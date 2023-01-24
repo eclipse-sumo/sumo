@@ -113,7 +113,7 @@ ROLoader::loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
     if (!FileHelpers::isReadable(file)) {
         throw ProcessError("The network file '" + file + "' is not accessible.");
     }
-    PROGRESS_BEGIN_MESSAGE("Loading net");
+    PROGRESS_BEGIN_MESSAGE(TL("Loading net"));
     RONetHandler handler(toFill, eb, !myOptions.exists("no-internal-links") || myOptions.getBool("no-internal-links"),
                          myOptions.exists("weights.minor-penalty") ? myOptions.getFloat("weights.minor-penalty") : 0);
     handler.setFileName(file);

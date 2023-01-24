@@ -102,7 +102,7 @@ void
 PCPolyContainer::save(const std::string& file, bool useGeo) {
     const GeoConvHelper& gch = GeoConvHelper::getFinal();
     if (useGeo && !gch.usingGeoProjection()) {
-        WRITE_WARNING("Ignoring option \"proj.plain-geo\" because no geo-conversion has been defined");
+        WRITE_WARNING(TL("Ignoring option \"proj.plain-geo\" because no geo-conversion has been defined"));
         useGeo = false;
     }
     OutputDevice& out = OutputDevice::getDevice(file);

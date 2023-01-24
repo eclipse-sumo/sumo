@@ -183,7 +183,7 @@ NWFrame::checkOptions() {
 
 void
 NWFrame::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
-    const long before = PROGRESS_BEGIN_TIME_MESSAGE("Writing network");
+    const long before = PROGRESS_BEGIN_TIME_MESSAGE(TL("Writing network"));
     NWWriter_SUMO::writeNetwork(oc, nb);
     NWWriter_Amitran::writeNetwork(oc, nb);
     NWWriter_MATSim::writeNetwork(oc, nb);

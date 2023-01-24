@@ -66,7 +66,7 @@ loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
     if (!FileHelpers::isReadable(file)) {
         throw ProcessError("The network file '" + file + "' could not be accessed.");
     }
-    PROGRESS_BEGIN_MESSAGE("Loading net");
+    PROGRESS_BEGIN_MESSAGE(TL("Loading net"));
     RONetHandler handler(toFill, eb, true, 0);
     handler.setFileName(file);
     if (!XMLSubSys::runParser(handler, file, true)) {

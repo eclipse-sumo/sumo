@@ -73,7 +73,7 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     LineReader lr;
     // load nodes
     std::map<std::string, PositionVector> myGeoms;
-    PROGRESS_BEGIN_MESSAGE("Loading nodes");
+    PROGRESS_BEGIN_MESSAGE(TL("Loading nodes"));
     std::string file = oc.getString("dlr-navteq-prefix") + "_nodes_unsplitted.txt";
     NodesHandler handler1(nb.getNodeCont(), file, myGeoms);
     if (!lr.setFile(file)) {
@@ -87,7 +87,7 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     if (oc.getBool("output.street-names")) {
         file = oc.getString("dlr-navteq-prefix") + "_names.txt";
         if (lr.setFile(file)) {
-            PROGRESS_BEGIN_MESSAGE("Loading street names");
+            PROGRESS_BEGIN_MESSAGE(TL("Loading street names"));
             NamesHandler handler4(file, streetNames);
             lr.readAll(handler4);
             PROGRESS_DONE_MESSAGE();
@@ -97,7 +97,7 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     }
 
     // load edges
-    PROGRESS_BEGIN_MESSAGE("Loading edges");
+    PROGRESS_BEGIN_MESSAGE(TL("Loading edges"));
     file = oc.getString("dlr-navteq-prefix") + "_links_unsplitted.txt";
     // parse the file
     EdgesHandler handler2(nb.getNodeCont(), nb.getEdgeCont(), nb.getTypeCont(), file, myGeoms, streetNames);
@@ -111,7 +111,7 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // load traffic lights if given
     file = oc.getString("dlr-navteq-prefix") + "_traffic_signals.txt";
     if (lr.setFile(file)) {
-        PROGRESS_BEGIN_MESSAGE("Loading traffic lights");
+        PROGRESS_BEGIN_MESSAGE(TL("Loading traffic lights"));
         TrafficlightsHandler handler3(nb.getNodeCont(), nb.getTLLogicCont(), nb.getEdgeCont(), file);
         lr.readAll(handler3);
         PROGRESS_DONE_MESSAGE();
@@ -120,7 +120,7 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // load prohibited manoeuvres if given
     file = oc.getString("dlr-navteq-prefix") + "_prohibited_manoeuvres.txt";
     if (lr.setFile(file)) {
-        PROGRESS_BEGIN_MESSAGE("Loading prohibited manoeuvres");
+        PROGRESS_BEGIN_MESSAGE(TL("Loading prohibited manoeuvres"));
         ProhibitionHandler handler6(nb.getEdgeCont(), file, csTime);
         lr.readAll(handler6);
         PROGRESS_DONE_MESSAGE();
@@ -129,7 +129,7 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // load connected lanes if given
     file = oc.getString("dlr-navteq-prefix") + "_connected_lanes.txt";
     if (lr.setFile(file)) {
-        PROGRESS_BEGIN_MESSAGE("Loading connected lanes");
+        PROGRESS_BEGIN_MESSAGE(TL("Loading connected lanes"));
         ConnectedLanesHandler handler7(nb.getEdgeCont());
         lr.readAll(handler7);
         PROGRESS_DONE_MESSAGE();
@@ -138,7 +138,7 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // load time restrictions if given
     file = oc.getString("dlr-navteq-prefix") + "_links_timerestrictions.txt";
     if (lr.setFile(file)) {
-        PROGRESS_BEGIN_MESSAGE("Loading time restrictions");
+        PROGRESS_BEGIN_MESSAGE(TL("Loading time restrictions"));
         if (!oc.isDefault("construction-date")) {
             csTime = readDate(oc.getString("construction-date"));
         }

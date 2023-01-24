@@ -110,7 +110,7 @@ RODFNet::buildDetectorEdgeDependencies(RODFDetectorCon& detcont) const {
 void
 RODFNet::computeTypes(RODFDetectorCon& detcont,
                       bool sourcesStrict) const {
-    PROGRESS_BEGIN_MESSAGE("Computing detector types");
+    PROGRESS_BEGIN_MESSAGE(TL("Computing detector types"));
     const std::vector< RODFDetector*>& dets = detcont.getDetectors();
     // build needed information. first
     buildDetectorEdgeDependencies(detcont);

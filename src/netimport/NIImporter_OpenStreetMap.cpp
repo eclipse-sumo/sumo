@@ -179,7 +179,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
     /* Remove duplicate edges with the same shape and attributes */
     if (!oc.getBool("osm.skip-duplicates-check")) {
         int numRemoved = 0;
-        PROGRESS_BEGIN_MESSAGE("Removing duplicate edges");
+        PROGRESS_BEGIN_MESSAGE(TL("Removing duplicate edges"));
         if (myEdges.size() > 1) {
             std::set<const Edge*, CompareEdges> dupsFinder;
             for (auto it = myEdges.begin(); it != myEdges.end();) {

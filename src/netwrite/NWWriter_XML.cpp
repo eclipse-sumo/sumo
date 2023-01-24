@@ -85,7 +85,7 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, const std::string& prefix, NBNod
     const GeoConvHelper& gch = GeoConvHelper::getFinal();
     bool useGeo = oc.exists("proj.plain-geo") && oc.getBool("proj.plain-geo");
     if (useGeo && !gch.usingGeoProjection()) {
-        WRITE_WARNING("Ignoring option \"proj.plain-geo\" because no geo-conversion has been defined");
+        WRITE_WARNING(TL("Ignoring option \"proj.plain-geo\" because no geo-conversion has been defined"));
         useGeo = false;
     }
     const bool geoAccuracy = useGeo || gch.usingInverseGeoProjection();

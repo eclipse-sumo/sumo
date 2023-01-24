@@ -104,7 +104,7 @@ OptionsIO::loadConfiguration() {
         }
         const bool verbose = !oc.exists("verbose") || oc.getBool("verbose");
         if (verbose) {
-            PROGRESS_BEGIN_MESSAGE("Loading configuration");
+            PROGRESS_BEGIN_MESSAGE(TL("Loading configuration"));
         }
         oc.resetWritable();
         // build parser

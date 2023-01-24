@@ -121,11 +121,11 @@ startComputation(RODFNet* optNet, RODFDetectorFlows& flows, RODFDetectorCon& det
     // if a network was loaded... (mode1)
     if (optNet != nullptr) {
         if (oc.getBool("remove-empty-detectors")) {
-            PROGRESS_BEGIN_MESSAGE("Removing empty detectors");
+            PROGRESS_BEGIN_MESSAGE(TL("Removing empty detectors"));
             optNet->removeEmptyDetectors(detectors, flows);
             PROGRESS_DONE_MESSAGE();
         } else  if (oc.getBool("report-empty-detectors")) {
-            PROGRESS_BEGIN_MESSAGE("Scanning for empty detectors");
+            PROGRESS_BEGIN_MESSAGE(TL("Scanning for empty detectors"));
             optNet->reportEmptyDetectors(detectors, flows);
             PROGRESS_DONE_MESSAGE();
         }
@@ -144,7 +144,7 @@ startComputation(RODFNet* optNet, RODFDetectorFlows& flows, RODFDetectorCon& det
         }
         // compute routes between the detectors (optionally)
         if (!detectors.detectorsHaveRoutes() || oc.getBool("revalidate-routes") || oc.getBool("guess-empty-flows")) {
-            PROGRESS_BEGIN_MESSAGE("Computing routes");
+            PROGRESS_BEGIN_MESSAGE(TL("Computing routes"));
             optNet->buildRoutes(detectors,
                                 oc.getBool("keep-unfinished-routes"), oc.getBool("routes-for-all"),
                                 !oc.getBool("keep-longer-routes"), oc.getInt("max-search-depth"));
@@ -190,12 +190,12 @@ startComputation(RODFNet* optNet, RODFDetectorFlows& flows, RODFDetectorCon& det
     if (oc.isSet("emitters-output") || oc.isSet("emitters-poi-output")) {
         optNet->buildEdgeFlowMap(flows, detectors, begin, end, step); // !!!
         if (oc.getBool("revalidate-flows")) {
-            PROGRESS_BEGIN_MESSAGE("Rechecking loaded flows");
+            PROGRESS_BEGIN_MESSAGE(TL("Rechecking loaded flows"));
             optNet->revalidateFlows(detectors, flows, begin, end, step);
             PROGRESS_DONE_MESSAGE();
         }
         if (oc.isSet("emitters-output")) {
-            PROGRESS_BEGIN_MESSAGE("Writing emitters");
+            PROGRESS_BEGIN_MESSAGE(TL("Writing emitters"));
             detectors.writeEmitters(oc.getString("emitters-output"), flows,
                                     begin, end, step,
                                     *optNet,
@@ -207,28 +207,28 @@ startComputation(RODFNet* optNet, RODFDetectorFlows& flows, RODFDetectorCon& det
             PROGRESS_DONE_MESSAGE();
         }
         if (oc.isSet("emitters-poi-output")) {
-            PROGRESS_BEGIN_MESSAGE("Writing emitter pois");
+            PROGRESS_BEGIN_MESSAGE(TL("Writing emitter pois"));
             detectors.writeEmitterPOIs(oc.getString("emitters-poi-output"), flows);
             PROGRESS_DONE_MESSAGE();
         }
     }
     // save end speed trigger if wished
     if (oc.isSet("variable-speed-sign-output")) {
-        PROGRESS_BEGIN_MESSAGE("Writing speed triggers");
+        PROGRESS_BEGIN_MESSAGE(TL("Writing speed triggers"));
         detectors.writeSpeedTrigger(optNet, oc.getString("variable-speed-sign-output"), flows,
                                     begin, end, step);
         PROGRESS_DONE_MESSAGE();
     }
     // save checking detectors if wished
     if (oc.isSet("validation-output")) {
-        PROGRESS_BEGIN_MESSAGE("Writing validation detectors");
+        PROGRESS_BEGIN_MESSAGE(TL("Writing validation detectors"));
         detectors.writeValidationDetectors(oc.getString("validation-output"),
                                            oc.getBool("validation-output.add-sources"), true, true); // !!!
         PROGRESS_DONE_MESSAGE();
     }
     // build global rerouter on end if wished
     if (oc.isSet("end-reroute-output")) {
-        PROGRESS_BEGIN_MESSAGE("Writing highway end rerouter");
+        PROGRESS_BEGIN_MESSAGE(TL("Writing highway end rerouter"));
         detectors.writeEndRerouterDetectors(oc.getString("end-reroute-output")); // !!!
         PROGRESS_DONE_MESSAGE();
     }
