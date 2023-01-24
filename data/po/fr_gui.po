@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 09:18+0100\n"
-"PO-Revision-Date: 2023-01-24 13:56+0000\n"
+"PO-Revision-Date: 2023-01-24 13:59+0000\n"
 "Last-Translator: bcoueraud87 <benjamin.coueraud@dlr.de>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/fr/>\n"
@@ -686,7 +686,7 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\guisim\GUINet.cpp:674
 msgid "No data defined after simulation begin time."
-msgstr ""
+msgstr "Aucune donnée définie après l'heure de départ de la simulation."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:443
 #, fuzzy
@@ -708,7 +708,7 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:859
 msgid "Loaded edge types from '"
-msgstr ""
+msgstr "Types d'arêtes chargés depuis '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:892
 msgid "Reloaded edge types from '"
