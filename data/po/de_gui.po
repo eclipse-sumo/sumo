@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 09:18+0100\n"
-"PO-Revision-Date: 2023-01-24 12:48+0000\n"
+"PO-Revision-Date: 2023-01-24 13:06+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -272,21 +272,21 @@ msgstr "Öffnet einen Dialog, um einen Container zu finden."
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:520
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1972
 msgid "&TLS"
-msgstr ""
+msgstr "&LSA"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:520
 msgid "Open a Dialog for Locating a Traffic Light."
-msgstr ""
+msgstr "Öffnet einen Dialog, um eine Lichtsignalanlage zu finden."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:523
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:610
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1975
 msgid "&Additional"
-msgstr ""
+msgstr "&Zusätzliche Elemente"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:523
 msgid "Open a Dialog for Locating an Additional Structure."
-msgstr ""
+msgstr "Öffnet einen Dialog, um zusätzliche Elemente zu finden."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:526
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1978
@@ -295,7 +295,7 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:526
 msgid "Open a Dialog for Locating a Point of Interest."
-msgstr ""
+msgstr "Öffnet einen Dialog, um ein Point of Interest (POI) zu finden."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:529
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1981
@@ -304,7 +304,7 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:529
 msgid "Open a Dialog for Locating a Polygon."
-msgstr ""
+msgstr "Öffnet einen Dialog, um ein Polygon zu finden."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:533
 msgid ""
