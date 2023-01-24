@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 09:18+0100\n"
 "PO-Revision-Date: 2023-01-24 14:48+0000\n"
-"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
+"Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
 "Language: es\n"
@@ -1037,27 +1037,27 @@ msgstr "Abrir una red de sumo."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:232
 msgid "Open Netconvert Configura&tion..."
-msgstr ""
+msgstr "Abrir configuración de netconvert..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:232
 msgid "Open a configuration file with NETCONVERT options."
-msgstr ""
+msgstr "Abrir un archivo de configuración con opciones de netconvert."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:236
 msgid "Import &Foreign Network..."
-msgstr ""
+msgstr "&Importar una red externa..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:236
 msgid "Import a foreign network such as OSM."
-msgstr ""
+msgstr "Importar una red externa de OSM."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:243
 msgid "&Save Network"
-msgstr ""
+msgstr "&Guardar red"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:243
 msgid "Save the network."
-msgstr ""
+msgstr "Guardar la red."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:247
 msgid "Save Net&work As..."
