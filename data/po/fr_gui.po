@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 09:18+0100\n"
-"PO-Revision-Date: 2023-01-24 14:48+0000\n"
+"PO-Revision-Date: 2023-01-24 14:57+0000\n"
 "Last-Translator: bcoueraud87 <benjamin.coueraud@dlr.de>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/fr/>\n"
@@ -957,57 +957,55 @@ msgstr "Chargement de données liées au réseau depuis '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:140
 msgid "nets"
-msgstr ""
+msgstr "réseaux"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:141
 msgid "configs"
-msgstr ""
+msgstr "configurations"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:160
 msgid "Cl&ear Recent Networks"
-msgstr ""
+msgstr "&Effacer Réseaux Récents"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:161
 msgid "No Recent Networks"
-msgstr ""
+msgstr "Aucuns Réseaux Récents"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:165
-#, fuzzy
 msgid "Recent Networks"
-msgstr "&Réseau"
+msgstr "Réseaux Récents"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:183
 msgid "Cl&ear Recent Configs"
-msgstr ""
+msgstr "&Effacer Configurations Récentes"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:184
 msgid "No Recent Configs"
-msgstr ""
+msgstr "Aucunes Configurations Récentes"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:188
 msgid "Recent Configs"
-msgstr ""
+msgstr "Configurations Récentes"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:206
-#, fuzzy
 msgid "&New Network"
-msgstr "&Réseau"
+msgstr "&Nouveau Réseau"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:206
 msgid "Create a new network."
-msgstr ""
+msgstr "Créer un nouveau réseau."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:210
 msgid "Open a new netedit window."
-msgstr ""
+msgstr "Ouvrir une nouvelle fenêtre netedit."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:217
 msgid "Load Netedit config..."
-msgstr ""
+msgstr "Charger une configuration Netedit..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:217
 msgid "Load a netedit configuration file."
-msgstr ""
+msgstr "Charger un fichier de configuration netedit."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:221
 msgid "Load Sumo config..."
