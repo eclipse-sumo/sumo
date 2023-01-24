@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 09:18+0100\n"
-"PO-Revision-Date: 2023-01-24 13:59+0000\n"
+"PO-Revision-Date: 2023-01-24 14:06+0000\n"
 "Last-Translator: bcoueraud87 <benjamin.coueraud@dlr.de>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/fr/>\n"
@@ -712,24 +712,23 @@ msgstr "Types d'arêtes chargés depuis '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:892
 msgid "Reloaded edge types from '"
-msgstr ""
+msgstr "Types d'arêtes rechargés depuis '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:973
 msgid "&Reload Netedit config"
-msgstr ""
+msgstr "&Recharger configuration Netedit"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:974
 msgid "&Reload Sumo config"
-msgstr ""
+msgstr "&Recharger configuration Sumo"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:975
-#, fuzzy
 msgid "&Reload Network"
-msgstr "&Réseau"
+msgstr "&Recharger Réseau"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1372
 msgid "&Modes"
-msgstr ""
+msgstr "&Modes"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1409
 msgid "L&ock"
