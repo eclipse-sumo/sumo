@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 09:18+0100\n"
-"PO-Revision-Date: 2023-01-24 14:32+0000\n"
-"Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
+"PO-Revision-Date: 2023-01-24 14:48+0000\n"
+"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
 "Language: es\n"
@@ -23,7 +23,7 @@ msgstr ""
 msgid "GUI version of the microscopic, multi-modal traffic simulation SUMO."
 msgstr ""
 "Versión gráfica de la herramienta de simulación de tráfico microscópico y "
-"multi-modal SUMO."
+"multimodal SUMO."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\guisim_main.cpp:77
 msgid "This system has no OpenGL support. Exiting."
@@ -45,7 +45,7 @@ msgstr "N/A\t\tCoordenadas de la red"
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:301
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:499
 msgid "Ready."
-msgstr "Preparado."
+msgstr "Listo."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:420
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1347
@@ -67,7 +67,7 @@ msgstr "&Abrir simulación..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:426
 msgid "Open a simulation (Configuration file)."
-msgstr "Abrir simulación (Archivo de configuración)."
+msgstr "Abrir simulación (archivo de configuración)."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:429
 msgid "Open &Network..."
@@ -91,7 +91,7 @@ msgstr "Abrir EdgeDatas. "
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:435
 msgid "Load edge related data for visualization."
-msgstr "Abrir datos relacionados a la edge, para visualización."
+msgstr "Abrir datos relacionados a la calle (edge), para visualización."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:438
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:976
@@ -101,7 +101,7 @@ msgstr "&Recargar"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:438
 msgid "Reloads the simulation / the network."
-msgstr "Recargar simulación / red."
+msgstr "Recarga la simulación / red."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:441
 msgid "Quick-Reload"
@@ -109,7 +109,7 @@ msgstr "Recarga rápida"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:441
 msgid "Reloads the simulation (but not network)."
-msgstr "Recargar simulación (Pero no la red)."
+msgstr "Recargar simulación (pero no la red)."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:445
 msgid "Save Configuration"
@@ -117,7 +117,7 @@ msgstr "Guardar configuración"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:445
 msgid "Save current options as a configuration file."
-msgstr "Salvar opciones en un archivo de configuración."
+msgstr "Guardar opciones en un archivo de configuración."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:448
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:306
@@ -126,7 +126,7 @@ msgstr "Cerrar"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:448
 msgid "Close the simulation."
-msgstr "Cerrar simulación."
+msgstr "Cerrar la simulación."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:456
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1368
@@ -141,7 +141,7 @@ msgstr "Cerrar la aplicación."
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:465
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1384
 msgid "&Edit"
-msgstr "&Editar"
+msgstr "&Edición"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:467
 msgid "Edit Selected..."
@@ -162,7 +162,7 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:474
 msgid "Edit Breakpoints"
-msgstr "Editar punto de interrupción"
+msgstr "Editar puntos de interrupción"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:474
 msgid "Opens a dialog for editing breakpoints."
@@ -176,7 +176,7 @@ msgstr "Editar visualización"
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:477
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1274
 msgid "Opens a dialog for editing visualization settings."
-msgstr "Abrir ventana de edición de las opciones de visualización."
+msgstr "Abre una ventana para editar las opciones de visualización."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:480
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1277
@@ -2958,7 +2958,7 @@ msgstr "Viajes de personas"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNETagSelector.cpp:188
 msgid "Walks"
-msgstr "Paseos"
+msgstr "Caminatas"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNETagSelector.cpp:191
 msgid "Rides"
