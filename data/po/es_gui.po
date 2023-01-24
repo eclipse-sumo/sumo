@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 09:18+0100\n"
-"PO-Revision-Date: 2023-01-24 14:48+0000\n"
+"PO-Revision-Date: 2023-01-24 14:57+0000\n"
 "Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -1061,11 +1061,11 @@ msgstr "Guardar la red."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:247
 msgid "Save Net&work As..."
-msgstr ""
+msgstr "&Guardar red como..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:247
 msgid "Save the network to another file."
-msgstr ""
+msgstr "Guardar la red en otro archivo."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:251
 msgid "Save Plain XM&L..."
@@ -1088,27 +1088,27 @@ msgstr ""
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:262
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:266
 msgid "Reload the network."
-msgstr ""
+msgstr "Recargar la red."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:266
 msgid "Reload Network"
-msgstr ""
+msgstr "Recargar red"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:273
 msgid "Netedit Config"
-msgstr ""
+msgstr "Configuración de netedit"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:277
 msgid "Sumo Config"
-msgstr ""
+msgstr "Configuración de sumo"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:281
 msgid "Traffic Lights"
-msgstr ""
+msgstr "Semáforos (TLS)"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:285
 msgid "Edge Types"
-msgstr ""
+msgstr "Tipos de edge"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:289
 msgid "Additionals and Shapes"
@@ -1116,87 +1116,87 @@ msgstr "Elementos adicionales y formas (shapes)"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:293
 msgid "Demand Elements"
-msgstr ""
+msgstr "Elementos de demanda"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:297
 msgid "Data Elements"
-msgstr ""
+msgstr "Elementos de datos"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:301
 msgid "MeanData Elements"
-msgstr ""
+msgstr "Elementos meanData"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:306
 msgid "Close the network."
-msgstr ""
+msgstr "Cerrar la red."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:340
 msgid "Save Netedit Config"
-msgstr ""
+msgstr "Guardar configuración de netedit"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:340
 msgid "Save netedit configuration file."
-msgstr ""
+msgstr "Guardar configuración de netedit en un archivo."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:344
 msgid "Save Netedit Config As..."
-msgstr ""
+msgstr "Guardar configuración de netedit como..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:344
 msgid "Save netedit configuration in a new file."
-msgstr ""
+msgstr "Guardar configuración de netedit en un nuevo archivo."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:350
 msgid "Reload Netedit Config"
-msgstr ""
+msgstr "Recargar configuración de netedit"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:350
 msgid "Reload netedit configuration."
-msgstr ""
+msgstr "Recargar configuración de netedit."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:358
 msgid "Save Sumo Config"
-msgstr ""
+msgstr "Guardar configuración de sumo"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:358
 msgid "Save sumo configuration file."
-msgstr ""
+msgstr "Guardar configuración de sumo en un archivo."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:362
 msgid "Save Sumo Config As..."
-msgstr ""
+msgstr "Guardar configuración de sumo como..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:362
 msgid "Save sumo configuration in a new file."
-msgstr ""
+msgstr "Guardar configuración de sumo en un nuevo archivo."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:368
 msgid "Reload Sumo Config"
-msgstr ""
+msgstr "Recargar configuración de sumo"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:368
 msgid "Reload sumo configuration."
-msgstr ""
+msgstr "Recargar configuración de sumo."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:376
 msgid "Load TLS Programs..."
-msgstr ""
+msgstr "Cargar programa de semáforos (TLS)..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:376
 msgid "Load programs for traffic lights in the current net."
-msgstr ""
+msgstr "Cargar programa de configuración para los semáforos de la red actual."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:382
 msgid "Save TLS Programs"
-msgstr ""
+msgstr "Guardar programas de semáforos (TLS)"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:382
 msgid "Save all traffic light programs of the current network."
-msgstr ""
+msgstr "Guardar todos los programas de semáforos de la red actual."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:386
 msgid "Save TLS Programs As..."
-msgstr ""
+msgstr "Guardar programas de semáforos (TLS) como..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:386
 msgid "Save all traffic light programs of the current network to another file."
