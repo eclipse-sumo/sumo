@@ -88,7 +88,7 @@ public:
 
         const AVCodec* codec = avcodec_find_encoder(myFormatContext->oformat->video_codec);
         if (codec == nullptr) {
-            WRITE_WARNING("Unknown codec, falling back to HEVC!");
+            WRITE_WARNING(TL("Unknown codec, falling back to HEVC!"));
             codec = avcodec_find_encoder_by_name("libx265");
         }
         if (codec == nullptr) {
@@ -172,7 +172,7 @@ public:
             ret = 0;
         }
         if (avcodec_send_frame(myCodecCtx, nullptr) < 0) {
-            WRITE_WARNING("Error sending final frame!");
+            WRITE_WARNING(TL("Error sending final frame!"));
             ret = -1;
         }
         while (ret >= 0) {
@@ -180,7 +180,7 @@ public:
             if (ret == AVERROR(EAGAIN) || ret == AVERROR_EOF) {
                 break;
             } else if (ret < 0) {
-                WRITE_WARNING("Error during final encoding step!");
+                WRITE_WARNING(TL("Error during final encoding step!"));
                 break;
             }
             ret = av_write_frame(myFormatContext, myPkt);

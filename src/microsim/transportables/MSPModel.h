@@ -177,7 +177,7 @@ public:
         UNUSED_PARAMETER(lanePos);
         UNUSED_PARAMETER(lanePosLat);
         UNUSED_PARAMETER(t);
-        WRITE_WARNING("moveTo is ignored by the current movement model");
+        WRITE_WARNING(TL("moveTo is ignored by the current movement model"));
     }
 
     /// @brief try to move transportable to the given position
@@ -193,7 +193,7 @@ public:
         UNUSED_PARAMETER(routeOffset);
         UNUSED_PARAMETER(edges);
         UNUSED_PARAMETER(t);
-        WRITE_WARNING("moveToXY is ignored by the current movement model");
+        WRITE_WARNING(TL("moveToXY is ignored by the current movement model"));
     }
 
     /// @brief whether the transportable is jammed

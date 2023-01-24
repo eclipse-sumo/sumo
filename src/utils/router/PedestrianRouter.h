@@ -84,11 +84,11 @@ public:
     double compute(const E* from, const E* to, double departPos, double arrivalPos, double speed,
                    SUMOTime msTime, const N* onlyNode, std::vector<const E*>& into, bool allEdges = false) {
         if (getSidewalk<E, L>(from) == 0) {
-            WRITE_WARNING("Departure edge '" + from->getID() + "' does not allow pedestrians.");
+            WRITE_WARNINGF(TL("Departure edge '%' does not allow pedestrians."), from->getID());
             return false;
         }
         if (getSidewalk<E, L>(to) == 0) {
-            WRITE_WARNING("Destination edge '" + to->getID() + "' does not allow pedestrians.");
+            WRITE_WARNINGF(TL("Destination edge '%' does not allow pedestrians."), to->getID());
             return false;
         }
         _IntermodalTrip trip(from, to, departPos, arrivalPos, speed, msTime, onlyNode);
