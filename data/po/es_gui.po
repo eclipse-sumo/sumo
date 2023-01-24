@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 09:18+0100\n"
-"PO-Revision-Date: 2023-01-24 13:59+0000\n"
-"Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
+"PO-Revision-Date: 2023-01-24 14:06+0000\n"
+"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
 "Language: es\n"
@@ -2501,14 +2501,14 @@ msgstr ""
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:281
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:278
 msgid "Sort"
-msgstr ""
+msgstr "Ordenar"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:286
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:282
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:279
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNENetworkSelector.cpp:55
 msgid "Clear"
-msgstr ""
+msgstr "Despejar"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:289
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:285
@@ -2518,19 +2518,19 @@ msgstr ""
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:73
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEOverlappedInspection.cpp:318
 msgid "Help"
-msgstr ""
+msgstr "Ayuda"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:299
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:295
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:292
 msgid "Open Parameter Template"
-msgstr ""
+msgstr "Abrir plantilla de parámetros"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:327
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:323
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:320
 msgid "Save Parameter Template file"
-msgstr ""
+msgstr "Guardar archivo de plantilla de parámetros"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:403
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:399
