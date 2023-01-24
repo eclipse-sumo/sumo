@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 09:18+0100\n"
-"PO-Revision-Date: 2023-01-24 11:18+0000\n"
+"PO-Revision-Date: 2023-01-24 12:21+0000\n"
 "Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -588,42 +588,42 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:1060
 msgid "Open Network"
-msgstr ""
+msgstr "Abrir red"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:1080
 msgid "Open Shapes"
-msgstr ""
+msgstr "Abrir formas"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:1111
 msgid "Open EdgeData"
-msgstr ""
+msgstr "Abrir datos para calles"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:1165
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1048
 msgid "Already loading!"
-msgstr ""
+msgstr "¡Actualmente cargando!"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:1177
 msgid "Save SUMO Configuration"
-msgstr ""
+msgstr "Guardar configuración para SUMO"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:1250
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:1276
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:2081
 msgid "No simulation loaded!"
-msgstr ""
+msgstr "¡No hay ninguna simulación cargada!"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:1292
 msgid "Save Simulation State"
-msgstr ""
+msgstr "Guardar estado de la simulación"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:1314
 msgid "Load Simulation State"
-msgstr ""
+msgstr "Cargar estado de la simulación"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:1974
 msgid "Simulation ended"
-msgstr ""
+msgstr "Simulación finalizada"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:2155
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:2156
@@ -632,60 +632,62 @@ msgstr ""
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1540
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1542
 msgid "N/A"
-msgstr ""
+msgstr "N/A"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIRunThread.cpp:100
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIRunThread.cpp:106
 msgid "Quitting (on error)."
-msgstr ""
+msgstr "Saliendo (debido al el error)."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIRunThread.cpp:265
 msgid "Simulation started with time: %."
-msgstr ""
+msgstr "Simulación iniciada con tiempo:%."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUISUMOViewParent.cpp:141
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEViewParent.cpp:445
 msgid "Save Snapshot"
-msgstr ""
+msgstr "Salvar captura de pantalla"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUISUMOViewParent.cpp:166
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEViewParent.cpp:465
 msgid "No file extension was specified - saving Snapshot as PNG."
 msgstr ""
+"No se ha especificado ninguna extensión de archivo. Salvando captura de "
+"pantalla como PNG."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUISUMOViewParent.cpp:172
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEViewParent.cpp:472
 msgid "Saving failed."
-msgstr ""
+msgstr "El guardado ha fallado."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUISUMOViewParent.cpp:174
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEViewParent.cpp:476
 msgid "Snapshot successfully saved!"
-msgstr ""
+msgstr "¡La captura de pantalla se guardó con éxito!"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUITLLogicPhasesTrackerWindow.cpp:269
 msgid "phase names"
-msgstr ""
+msgstr "nombre de las fases"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUITLLogicPhasesTrackerWindow.cpp:272
 msgid "detectors"
-msgstr ""
+msgstr "detectores"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUITLLogicPhasesTrackerWindow.cpp:273
 msgid "conditions"
-msgstr ""
+msgstr "condiciones"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUITLLogicPhasesTrackerWindow.cpp:336
 msgid "Overflow in time computation occurred."
-msgstr ""
+msgstr "Ha ocurrido un desbordamiento (Overflow) en tiempo de computación."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\guisim\GUIBaseVehicle.cpp:300
 msgid "GUI-triggered stop not implemented for meso"
-msgstr ""
+msgstr "GUI-triggered stop no implementada para meso"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\guisim\GUINet.cpp:632
 msgid "Trying to set data value for the unknown edge '%'."
-msgstr ""
+msgstr "Intentando establecer datos para el edge desconocido '%'."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\guisim\GUINet.cpp:656
 msgid ""
@@ -695,188 +697,189 @@ msgstr ""
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\guisim\GUINet.cpp:674
 msgid "No data defined after simulation begin time."
 msgstr ""
+"No se han definidos datos después del tiempo de comienzo de la simulación."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:443
 msgid "A microscopic, multi-modal traffic simulation."
-msgstr ""
+msgstr "Una simulación de tráfico microscópica y multi-modal."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:453
 msgid "DEBUG: GNEApplicationWindow::dependentBuild called twice"
-msgstr ""
+msgstr "DEBUG: GNEApplicationWindow::dependentBuild called twice"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:475
 msgid "Recomputing\t\tRecomputing is needed"
-msgstr ""
+msgstr "Recalcular\t\tEs necesario recalcular"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:485
 msgid "N/A\t\tTest coordinate"
-msgstr ""
+msgstr "N/A\t\tCoordenadas para tests"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:859
 msgid "Loaded edge types from '"
-msgstr ""
+msgstr "Edge types cargados desde '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:892
 msgid "Reloaded edge types from '"
-msgstr ""
+msgstr "Recargados edge types desde '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:973
 msgid "&Reload Netedit config"
-msgstr ""
+msgstr "&Recargar configuración de netedit"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:974
 msgid "&Reload Sumo config"
-msgstr ""
+msgstr "&Recargar configuración de sumo"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:975
 msgid "&Reload Network"
-msgstr ""
+msgstr "&Recargar red"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1372
 msgid "&Modes"
-msgstr ""
+msgstr "&Modos"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1409
 msgid "L&ock"
-msgstr ""
+msgstr "&Bloquear"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1416
 msgid "&Processing"
-msgstr ""
+msgstr "&Procesar"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1424
 msgid "&Tools"
-msgstr ""
+msgstr "&Herramientas"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1444
 msgid "About netedit."
-msgstr ""
+msgstr "Acerca de netedit."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1504
 msgid "Press F5"
-msgstr ""
+msgstr "Presiona F5"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1679
 msgid "Select Import Options"
-msgstr ""
+msgstr "Seleccionar opciones de importación"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1708
 msgid "Recompute with volatile options"
-msgstr ""
+msgstr "Recalcular con opciones volátiles"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1940
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:2000
 msgid "Running "
-msgstr ""
+msgstr "Ejecutando "
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1963
 msgid "Loading network '"
-msgstr ""
+msgstr "Cargando red '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1963
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1972
 msgid "' in SUMO-GUI"
-msgstr ""
+msgstr "' en sumo-gui"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1972
 msgid "Loading sumo config '"
-msgstr ""
+msgstr "Cargando configuración de sumo '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:2302
 msgid "Configure Options"
-msgstr ""
+msgstr "Configurar opciones"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:2315
 msgid "SUMO Options"
-msgstr ""
+msgstr "Opciones de sumo"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:2334
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1259
 msgid "Undo"
-msgstr ""
+msgstr "Deshacer"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:2366
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1262
 msgid "Redo"
-msgstr ""
+msgstr "Rehacer"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3033
 msgid "Saving Network failed!"
-msgstr ""
+msgstr "¡El guardado de la red falló!"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3038
 msgid "Network saved in '"
-msgstr ""
+msgstr "Red guardada en '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3089
 msgid "Saving plain xml failed!"
-msgstr ""
+msgstr "¡El guardado en xml plano falló!"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3096
 msgid "Plain XML saved with prefix '"
-msgstr ""
+msgstr "Xml plano guardado con prefijo '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3117
 msgid "Saving joined junctions failed!"
-msgstr ""
+msgstr "¡El guardado de las unión de cruces falló!"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3123
 msgid "Joined junctions saved to '"
-msgstr ""
+msgstr "Unión de cruces guardado en '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3179
 msgid "NETEDIT configuration saved in '"
-msgstr ""
+msgstr "Configuración de netedit guardada en '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3185
 msgid "Could not save NETEDIT configuration in '"
-msgstr ""
+msgstr "No se puede guardar la configuración de netedit en '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3291
 msgid "SUMO configuration saved in '"
-msgstr ""
+msgstr "Configuración de sumo salvada en '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3299
 msgid "Could not save SUMO configuration in '"
-msgstr ""
+msgstr "No se puede guardar la configuración de sumo en '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3353
 msgid "TLS Programs saved in '"
-msgstr ""
+msgstr "Programa de semáforos guardado en '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3358
 msgid "Saving TLS Programs failed!"
-msgstr ""
+msgstr "¡El guardado de los programas de los semáforos falló!"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3401
 msgid "EdgeType saved in '"
-msgstr ""
+msgstr "Tipos de calle guardado en '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3406
 msgid "Saving edgeTypes failed!"
-msgstr ""
+msgstr "¡El guardado de los tipos de calles falló!"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3510
 msgid "load additionals from '"
-msgstr ""
+msgstr "Cargar elementos adicionales desde '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3514
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNENet.cpp:1304
 msgid "Loading of additional file failed: "
-msgstr ""
+msgstr "El cargado de elementos adicionales falló: "
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3520
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNENet.cpp:1306
 msgid "Loading of additional file sucessfully: "
-msgstr ""
+msgstr "Elementos adicionales cargados con éxito: "
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3546
 msgid "reloading additionals from '"
-msgstr ""
+msgstr "Recarga de elementos adicionales desde '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3551
 msgid "Reloading of additional file failed: "
-msgstr ""
+msgstr "Fallo en la recarga de elementos adicionales: "
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3593
 msgid "Additionals saved in '"
