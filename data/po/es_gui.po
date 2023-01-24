@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 09:18+0100\n"
-"PO-Revision-Date: 2023-01-24 12:24+0000\n"
+"PO-Revision-Date: 2023-01-24 12:48+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -1698,14 +1698,16 @@ msgstr "Mostrar la ventana del historial de deshacer/rehacer."
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1277
 msgid "Opens a dialog for editing viewing are, zoom and rotation."
 msgstr ""
+"Abre una ventana para editar el área de visualización, nivel de zoom y "
+"rotación."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1286
 msgid "Clear front element"
-msgstr ""
+msgstr "Despejar elemento frontal"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1286
 msgid "Clear current front element"
-msgstr ""
+msgstr "Despejar elemento frontal actual"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1295
 msgid "Load additionals in sumo-gui\t\tLoad additionals in sumo-gui."
@@ -1717,31 +1719,31 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1303
 msgid "Open in sumo-gui"
-msgstr ""
+msgstr "Abrir en sumo-gui"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1303
 msgid "Opens the sumo-gui application with the current network."
-msgstr ""
+msgstr "Abre la aplicación sumo-gui con la actual red (network)."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1330
 msgid "&Lanes"
-msgstr ""
+msgstr "&Carriles"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1335
 msgid "&Connections"
-msgstr ""
+msgstr "&Conexiones"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1340
 msgid "C&rossings"
-msgstr ""
+msgstr "&Cruces"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1345
 msgid "Walkin&gAreas"
-msgstr ""
+msgstr "Walkin&gAreas"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1350
 msgid "&Additionals"
-msgstr ""
+msgstr "&Elementos adicionales"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1355
 msgid "&TAZs"
