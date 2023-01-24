@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 09:18+0100\n"
 "PO-Revision-Date: 2023-01-24 14:06+0000\n"
-"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
+"Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
 "Language: es\n"
@@ -79,7 +79,7 @@ msgstr "Abrir red."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:432
 msgid "Open Shapes "
-msgstr "Abrir shapes. "
+msgstr "Abrir archivo con formas (shapes). "
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:432
 msgid "Load POIs and Polygons for visualization."
@@ -593,7 +593,7 @@ msgstr "Abrir red"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:1080
 msgid "Open Shapes"
-msgstr "Abrir formas"
+msgstr "Abrir archivo de formas (shapes)"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:1111
 msgid "Open EdgeData"
@@ -1067,11 +1067,11 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:251
 msgid "Save Plain XM&L..."
-msgstr ""
+msgstr "&Guardar red en XML plano..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:251
 msgid "Save a plain XML representation of the network."
-msgstr ""
+msgstr "Guardar una representación de la red en XML plano."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:255
 msgid "Save &Joined Junctions..."
@@ -1342,7 +1342,7 @@ msgstr "Abrir MeanDatas..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:496
 msgid "Load meanDatas and shapes."
-msgstr "Abrir meanDatas y shapes."
+msgstr "Abrir meanDatas y formas (shapes)."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:502
 msgid "Save MeanDatas"
@@ -1350,7 +1350,7 @@ msgstr "Guardar MeanDatas"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:502
 msgid "Save meanDatas and shapes."
-msgstr "Guardar meanDatas y shapes."
+msgstr "Guardar meanDatas y formas (shapes)."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:506
 msgid "Save MeanDatas As..."
@@ -1633,7 +1633,7 @@ msgstr "Dibujar vehículos separados / posición de salida"
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1018
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1153
 msgid "Show shapes"
-msgstr "Mostrar formas"
+msgstr "Mostrar formas (shapes)"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1023
 msgid "Show all trips"
@@ -2790,6 +2790,8 @@ msgid ""
 "- Block movement: if is enabled, the created additional element will be "
 "blocked. i.e. cannot be moved with\n"
 msgstr ""
+"- Bloquear movimiento: Si está activo, el elemento adicional creado se "
+"bloqueará, ej. no se puede mover con\n"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:238
 msgid "- Center view: if is enabled, view will be center over created element."
@@ -2913,11 +2915,11 @@ msgstr "Elementos de la red"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNETagSelector.cpp:155
 msgid "Additional elements"
-msgstr "Elementos adicional"
+msgstr "Elementos adicionales"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNETagSelector.cpp:158
 msgid "Shape elements"
-msgstr "Elementos de forma"
+msgstr "Elementos de forma (shape)"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNETagSelector.cpp:161
 msgid "TAZ elements"
