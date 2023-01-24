@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 09:18+0100\n"
-"PO-Revision-Date: 2023-01-24 12:20+0000\n"
+"PO-Revision-Date: 2023-01-24 12:24+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -146,7 +146,7 @@ msgstr "Bearbeite Auswahl..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:467
 msgid "Opens a dialog for editing the list of selected items."
-msgstr "Öffnet einen Dialog, um die Objektauswahl zu verändern."
+msgstr "Öffnet einen Dialog, um die Objektauswahl zu bearbeiten."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:470
 msgid ""
@@ -185,24 +185,24 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:484
 msgid "Open network in netedit"
-msgstr ""
+msgstr "Öffne Netz in netedit"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:484
 msgid "Opens current network in NETEDIT."
-msgstr ""
+msgstr "Öffnet das aktuelle Netz in NETEDIT."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:491
 msgid "&Settings"
-msgstr ""
+msgstr "&Einstellungen"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:493
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\dialogs\GUIDialog_AppSettings.cpp:53
 msgid "Application Settings"
-msgstr ""
+msgstr "Anwendungseinstellungen"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:493
 msgid "Open a Dialog for Application Settings editing."
-msgstr ""
+msgstr "Öffnet einen Dialog, um die Anwendungseinstellungen zu bearbeiten."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:496
 msgid "Gaming Mode\tCtrl+G\tToggle gaming mode on/off."
@@ -210,11 +210,11 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:499
 msgid "Full Screen Mode"
-msgstr ""
+msgstr "Vollbildmodus"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:499
 msgid "Toggle full screen mode on/off."
-msgstr ""
+msgstr "Schalte Vollbildmodus an/aus."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:503
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1420
