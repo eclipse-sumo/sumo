@@ -1,28 +1,26 @@
-# French translations for sumo package.
-# Copyright (C) 2022 THE sumo'S COPYRIGHT HOLDER
+# Chinese translations for sumo package.
+# Copyright (C) 2023 THE sumo'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the sumo package.
-# Automatically generated, 2022.
+# Automatically generated, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 09:18+0100\n"
-"PO-Revision-Date: 2022-10-09 17:46+0200\n"
+"PO-Revision-Date: 2023-01-24 09:18+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
-"Language: fr\n"
+"Language: zh\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=CP1252\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netconvert_main.cpp:97
-#, fuzzy
 msgid ""
 "Network importer / builder for the microscopic, multi-modal traffic "
 "simulation SUMO."
-msgstr "Un simulateur de trafic microscopique et multimodal."
+msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\od2trips_main.cpp:193
 msgid "No TAZ input file (-n) specified."
@@ -41,39 +39,37 @@ msgid "Only one of the the options 'pedestrians' and 'persontrips' may be set."
 msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\od2trips_main.cpp:248
-#, fuzzy
 msgid ""
 "Importer of O/D-matrices for the microscopic, multi-modal traffic simulation "
 "SUMO."
-msgstr "Un simulateur de trafic microscopique et multimodal."
+msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\sumo_main.cpp:49
 msgid "Another interrupt signal received, hard exit."
-msgstr "Un autre signal d'interruption reçu, fermeture forcée."
+msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\sumo_main.cpp:52
 msgid "Interrupt signal received, trying to exit gracefully."
-msgstr "Signal d'interruption reçu, fermeture."
+msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\sumo_main.cpp:85
 msgid "A microscopic, multi-modal traffic simulation."
-msgstr "Un simulateur de trafic microscopique et multimodal."
+msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\sumo_main.cpp:113
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\sumo_main.cpp:122
 msgid "Quitting (on error)."
-msgstr "Fermeture (suite à une erreur)."
+msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\sumo_main.cpp:125
 msgid "Quitting (on unknown error)."
-msgstr "Fermeture (suite à une erreur inconnue)."
+msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\activitygen\activitygen_main.cpp:89
-#, fuzzy
 msgid ""
 "Generates trips of persons throughout a day for the microscopic, multi-modal "
 "traffic simulation SUMO."
-msgstr "Un simulateur de trafic microscopique et multimodal."
+msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\activitygen\activitygen_main.cpp:115
 msgid ""
@@ -116,11 +112,10 @@ msgid " Could not build list of latter flows."
 msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\duarouter\duarouter_main.cpp:238
-#, fuzzy
 msgid ""
 "Shortest path router and DUE computer for the microscopic, multi-modal "
 "traffic simulation SUMO."
-msgstr "Un simulateur de trafic microscopique et multimodal."
+msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\duarouter\RODUAFrame.cpp:232
 msgid ""
@@ -138,11 +133,10 @@ msgid ""
 msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\jtrrouter\jtrrouter_main.cpp:182
-#, fuzzy
 msgid ""
 "Router for the microscopic, multi-modal traffic simulation SUMO based on "
 "junction turning ratios."
-msgstr "Un simulateur de trafic microscopique et multimodal."
+msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\jtrrouter\ROJTRTurnDefLoader.cpp:116
 msgid "Ignoring flow '%' without 'from'"
@@ -1356,11 +1350,10 @@ msgid ""
 msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netgen\netgen_main.cpp:229
-#, fuzzy
 msgid ""
 "Synthetic network generator for the microscopic, multi-modal traffic "
 "simulation SUMO."
-msgstr "Un simulateur de trafic microscopique et multimodal."
+msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netgen\netgen_main.cpp:265
 msgid " Generation done;"
@@ -2015,11 +2008,10 @@ msgid "Unable to project coordinates for POI '%'."
 msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\polyconvert\polyconvert_main.cpp:232
-#, fuzzy
 msgid ""
 "Importer of polygons and POIs for the microscopic, multi-modal traffic "
 "simulation SUMO."
-msgstr "Un simulateur de trafic microscopique et multimodal."
+msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\router\ROEdge.cpp:204
 msgid ""

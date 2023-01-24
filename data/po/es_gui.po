@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-01-12 11:25+0100\n"
+"POT-Creation-Date: 2023-01-24 09:18+0100\n"
 "PO-Revision-Date: 2022-10-11 14:31+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -17,1829 +17,2908 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: /home/behr_mi/sumo/src/guisim_main.cpp:57
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\guisim_main.cpp:57
 msgid "GUI version of the microscopic, multi-modal traffic simulation SUMO."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/guisim_main.cpp:77
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\guisim_main.cpp:77
 msgid "This system has no OpenGL support. Exiting."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/netedit_main.cpp:48
-msgid ""
-"Graphical editor for SUMO networks, demand and additional infrastructure."
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:246
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:439
-msgid "&Reload"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:456
-msgid "&Inspect"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:459
-msgid "&Delete"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:462
-msgid "&Select"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:519
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:600
-msgid "&Move"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:522
-msgid "&Edge"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:525
-msgid "&Connection"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:528
-msgid "Pro&hibition"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:534
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1899
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:524
-msgid "&Additional"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:537
-msgid "C&rossing"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:540
-msgid "TA&Z"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:546
-msgid "&Wire"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:668
-msgid "&MeanData"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1244
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1875
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:506
-msgid "&Junctions"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1249
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1878
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:509
-msgid "&Edges"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1254
-msgid "&Lanes"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1259
-msgid "&Connections"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1264
-msgid "C&rossings"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1269
-msgid "Walkin&gAreas"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1274
-msgid "&Additionals"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1279
-msgid "&TAZs"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1284
-msgid "&Wires"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1289
-msgid "&Polygons"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1294
-msgid "P&OIs"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1299
-msgid "&Routes"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1304
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1884
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:512
-msgid "&Vehicles"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1309
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1887
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:515
-msgid "&Persons"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1314
-msgid "Person&Trips"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1319
-msgid "&Walks"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1324
-msgid "Ri&des"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1329
-msgid "&Containers"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1334
-msgid "Tra&nsports"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1339
-msgid "Trans&hips"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1344
-msgid "Stop&s"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1349
-msgid "&EdgeDatas"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1354
-msgid "E&dgeRelDatas"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1359
-msgid "Edge&TAZRel"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1881
-msgid "&WalkingAreas"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1890
-msgid "&Route"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1893
-msgid "&Stops"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1896
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:521
-msgid "&TLS"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1902
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:527
-msgid "P&oI"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1905
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:530
-msgid "Po&lygon"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1922
-msgid "&NetDiff"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1982
-msgid "&Network"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1985
-msgid "&Demand"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1988
-msgid "&Data"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:457
-msgid "A microscopic, multi-modal traffic simulation."
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:467
-msgid "DEBUG: GNEApplicationWindow::dependentBuild called twice"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:489
-msgid "Recomputing\t\tRecomputing is needed"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:492
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:271
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:270
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:478
 msgid ""
 "N/A\t\tOriginal coordinate (before coordinate transformation in netconvert)"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:495
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:274
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:273
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:481
 msgid "N/A\t\tNetwork coordinate"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:499
-msgid "N/A\t\tTest coordinate"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:513
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:302
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:301
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:499
 msgid "Ready."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:664
-msgid "Open Netconvert Configuration"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:693
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1061
-msgid "Open Network"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:742
-msgid "Import Foreign Network"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:770
-msgid "Select Import Options"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:788
-msgid "Open NETEDITConfig file"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:840
-msgid "Open SUMOConfig file"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:967
-msgid "Open TLS Programs file"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1029
-msgid "Load edgeType file"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1117
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1166
-msgid "Already loading!"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1435
-msgid "Reload successfully"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1459
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:421
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:420
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1347
 msgid "&File"
 msgstr "&Archivo"
 
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1480
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:457
-msgid "&Quit"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1480
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:457
-msgid "Quit the Application."
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1484
-msgid "&Modes"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1496
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:466
-msgid "&Edit"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1521
-msgid "L&ock"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1528
-msgid "&Processing"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1532
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:504
-msgid "&Locate"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1536
-msgid "&Tools"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1540
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:569
-msgid "&Window"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1544
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:619
-msgid "&Help"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1546
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:621
-msgid "&Online Documentation"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1546
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:621
-msgid "Open Online documentation."
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1549
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:624
-msgid "&Changelog"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1549
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:624
-msgid "Open Changelog."
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1551
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:626
-msgid "&Hotkeys"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1551
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:626
-msgid "Open Hotkeys."
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1553
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:628
-msgid "&Tutorial"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1553
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:628
-msgid "Open Tutorial."
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1556
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:631
-msgid "&About"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1556
-msgid "About netedit."
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1685
-msgid "Press F5"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1720
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1721
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1723
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:2156
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:2157
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:2159
-msgid "N/A"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1781
-msgid "Recompute with volatile options"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1804
-msgid "Save demand elements before recomputing with volatile options"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1818
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1942
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4270
-msgid "Save demand element file"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1846
-msgid "Saving demand elements in temporary folder failed!"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1866
-msgid "Save data elements before recomputing with volatile options"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1880
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4485
-msgid "Save data element file"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1908
-msgid "Saving data elements in temporary folder failed!"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1928
-msgid "Save meanDatas before recomputing with volatile options"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:1970
-msgid "Saving meanDatas in temporary folder failed!"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:2625
-msgid "Configure Options"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:2638
-msgid "SUMO Options"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:2657
-msgid "Undo"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:2689
-msgid "Redo"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3382
-msgid "Saving Network failed!"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3408
-msgid "Save Network as"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3452
-msgid "Save plain-xml edge-file (other names will be deduced from this)"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3472
-msgid "Saving plain xml failed!"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3499
-msgid "Save joined-junctions"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3513
-msgid "Saving joined junctions failed!"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3593
-msgid "Save NETEDIT Configuration as"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3716
-msgid "Save SUMO Configuration as"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3771
-msgid "Save TLS Programs"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3797
-msgid "Saving TLS Programs failed!"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3841
-msgid "Save edgeType file"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3866
-msgid "Saving edgeTypes failed!"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3906
-msgid "Save TLS Programs as"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3937
-msgid "Save edgeType file as"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:3971
-msgid "Open Additionals file"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4124
-msgid "Save Additionals file as"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4147
-msgid "Open demand element file"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4298
-msgid "Saving demand elements failed!"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4326
-msgid "Save demand element file as"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4355
-msgid "Open data element file"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4368
-msgid "Load same data file"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4510
-msgid "Saving data elements failed!"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4538
-msgid "Save data element file as"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4564
-msgid "Open MeanDatas file"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4691
-msgid "Save MeanDatas file"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4725
-msgid "Saving meanDatas failed!"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEApplicationWindow.cpp:4753
-msgid "Save MeanDatas file as"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNELoadThread.cpp:126
-msgid "Invalid Options. Nothing loaded"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNELoadThread.cpp:140
-msgid "Could not build projection!"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNELoadThread.cpp:168
-msgid "Performing initial computation ...\n"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNELoadThread.cpp:202
-msgid "Failed to build network."
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNELoadThread.cpp:505
-msgid "Failed to reset options."
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEViewParent.cpp:445
-#: /home/behr_mi/sumo/src/gui/GUISUMOViewParent.cpp:141
-msgid "Save Snapshot"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEViewParent.cpp:465
-#: /home/behr_mi/sumo/src/gui/GUISUMOViewParent.cpp:166
-msgid "No file extension was specified - saving Snapshot as PNG."
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEViewParent.cpp:472
-#: /home/behr_mi/sumo/src/gui/GUISUMOViewParent.cpp:172
-msgid "Saving failed."
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/GNEViewParent.cpp:476
-#: /home/behr_mi/sumo/src/gui/GUISUMOViewParent.cpp:174
-msgid "Snapshot successfully saved!"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/gui/GUITLLogicPhasesTrackerWindow.cpp:269
-msgid "phase names"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/gui/GUITLLogicPhasesTrackerWindow.cpp:272
-msgid "detectors"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/gui/GUITLLogicPhasesTrackerWindow.cpp:273
-msgid "conditions"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/gui/GUITLLogicPhasesTrackerWindow.cpp:336
-msgid "Overflow in time computation occurred."
-msgstr ""
-
-#: /home/behr_mi/sumo/src/gui/GUIRunThread.cpp:100
-#: /home/behr_mi/sumo/src/gui/GUIRunThread.cpp:106
-msgid "Quitting (on error)."
-msgstr ""
-
-#: /home/behr_mi/sumo/src/gui/GUIRunThread.cpp:265
-msgid "Simulation started with time: %."
-msgstr ""
-
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:423
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:422
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:210
 msgid "New Window"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:423
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:422
 msgid "Open a new sumo-gui window."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:427
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:426
 msgid "&Open Simulation..."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:427
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:426
 msgid "Open a simulation (Configuration file)."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:430
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:429
 msgid "Open &Network..."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:430
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:429
 msgid "Open a network."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:433
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:432
 msgid "Open Shapes "
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:433
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:432
 msgid "Load POIs and Polygons for visualization."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:436
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:435
 msgid "Open EdgeData "
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:436
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:435
 msgid "Load edge related data for visualization."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:439
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:438
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:976
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:262
+msgid "&Reload"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:438
 msgid "Reloads the simulation / the network."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:442
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:441
 msgid "Quick-Reload"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:442
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:441
 msgid "Reloads the simulation (but not network)."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:446
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:445
 msgid "Save Configuration"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:446
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:445
 msgid "Save current options as a configuration file."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:449
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:448
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:306
 msgid "Close"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:449
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:448
 msgid "Close the simulation."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:468
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:456
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1368
+msgid "&Quit"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:456
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1368
+msgid "Quit the Application."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:465
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1384
+msgid "&Edit"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:467
 msgid "Edit Selected..."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:468
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:467
 msgid "Opens a dialog for editing the list of selected items."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:471
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:470
 msgid ""
 "Select lanes which allow...\t\tOpens a menu for selecting a vehicle class by "
 "which to selected lanes."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:475
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:474
 msgid "Edit Breakpoints"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:475
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:474
 msgid "Opens a dialog for editing breakpoints."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:478
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:477
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1274
 msgid "Edit Visualisation"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:478
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:477
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1274
 msgid "Opens a dialog for editing visualization settings."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:481
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:480
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1277
 msgid "Edit Viewport"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:481
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:480
 msgid "Opens a dialog for editing viewing area, zoom and rotation."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:485
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:484
 msgid "Open network in netedit"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:485
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:484
 msgid "Opens current network in NETEDIT."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:492
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:491
 msgid "&Settings"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:494
-#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:53
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:493
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\dialogs\GUIDialog_AppSettings.cpp:53
 msgid "Application Settings"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:494
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:493
 msgid "Open a Dialog for Application Settings editing."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:497
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:496
 msgid "Gaming Mode\tCtrl+G\tToggle gaming mode on/off."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:500
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:499
 msgid "Full Screen Mode"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:500
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:499
 msgid "Toggle full screen mode on/off."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:506
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:503
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1420
+msgid "&Locate"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:505
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1320
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1951
+msgid "&Junctions"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:505
 msgid "Open a Dialog for Locating a Junction."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:509
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:508
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1325
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1954
+msgid "&Edges"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:508
 msgid "Open a Dialog for Locating an Edge."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:512
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:511
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1380
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1960
+msgid "&Vehicles"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:511
 msgid "Open a Dialog for Locating a Vehicle."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:515
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:514
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1385
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1963
+msgid "&Persons"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:514
 msgid "Open a Dialog for Locating a Person."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:518
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:517
 msgid "&Container"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:518
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:517
 msgid "Open a Dialog for Locating a Container."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:521
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:520
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1972
+msgid "&TLS"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:520
 msgid "Open a Dialog for Locating a Traffic Light."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:524
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:523
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:610
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1975
+msgid "&Additional"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:523
 msgid "Open a Dialog for Locating an Additional Structure."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:527
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:526
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1978
+msgid "P&oI"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:526
 msgid "Open a Dialog for Locating a Point of Interest."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:530
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:529
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1981
+msgid "Po&lygon"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:529
 msgid "Open a Dialog for Locating a Polygon."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:534
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:533
 msgid ""
 "Show Internal Structures\t\tShow internal junctions and streets in locator "
 "dialog."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:537
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:536
 msgid "Show Parking Vehicles\t\tShow parking vehicles in locator dialog."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:541
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:540
 msgid ""
 "Show vehicles outside the road network\t\tShow vehicles that are teleporting "
 "or driving remote-controlled outside the road network in locator dialog."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:547
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:546
 msgid "Simulation"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:549
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:548
 msgid "Run"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:549
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:548
 msgid "Start/ Resume the simulation."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:552
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:551
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:688
 msgid "Stop"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:552
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:551
 msgid "Halt the simulation."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:555
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:554
 msgid "Step"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:555
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:554
 msgid "Perform one simulation step."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:558
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:557
 msgid "Delay+"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:558
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:557
 msgid "Increase simulation step delay."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:560
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:559
 msgid "Delay-"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:560
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:559
 msgid "Decrease simulation step delay."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:562
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:284
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:288
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:281
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:561
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:288
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:284
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:281
 msgid "Save"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:562
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:561
 msgid "Save the current simulation state to a file."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:565
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:283
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:287
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:280
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:564
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:287
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:283
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:280
 msgid "Load"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:565
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:564
 msgid "Load simulation state for the current network from file."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:570
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:568
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1428
+msgid "&Window"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:569
 msgid "Open new view"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:572
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:571
 msgid "Open new 3D view"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:575
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:574
 msgid "Tile &Horizontally"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:578
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:577
 msgid "Tile &Vertically"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:581
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:580
 msgid "Cascade"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:585
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:584
 msgid "&Close"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:595
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:594
 msgid "&Others..."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:599
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:598
 msgid "Show Status Line\t\tToggle the Status Bar on/off."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:602
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:601
 msgid "Show Message Window\t\tToggle the Message Window on/off."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:605
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:604
 msgid "Show Simulation Time\t\tToggle the Simulation Time on/off."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:608
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:607
 msgid "Show Simulation Delay\t\tToggle the Simulation Delay Entry on/off."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:614
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:613
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2022
 msgid "Clear Message Window"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:614
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:613
 msgid "Clear the message window."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:631
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:618
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1432
+msgid "&Help"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:620
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1434
+msgid "&Online Documentation"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:620
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1434
+msgid "Open Online documentation."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:623
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1437
+msgid "&Changelog"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:623
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1437
+msgid "Open Changelog."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:625
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1439
+msgid "&Hotkeys"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:625
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1439
+msgid "Open Hotkeys."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:627
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1441
+msgid "&Tutorial"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:627
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1441
+msgid "Open Tutorial."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:630
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1444
+msgid "&About"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:630
 msgid "About sumo-gui."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:646
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:645
 msgid "\tOpen simulation\tOpen a simulation (Configuration file)."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:648
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:647
 msgid "\tOpen network\tOpen a network."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:650
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:649
 msgid "\tReload\tReloads the simulation / the network."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:659
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:658
 msgid "\tRun\tStart/Resume the loaded simulation."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:661
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:660
 msgid "\tStop\tHalt the running simulation."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:663
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:662
 msgid "\tStep\tPerform a single simulation step."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:671
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:670
 msgid ""
 "Time:\tToggle between time formats\tToggle between seconds and hour:minute:"
 "seconds display."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:685
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:684
 msgid ""
 "Delay (ms):\tDelay per simulated second\tDelay per simulated second. Click "
 "to toggle between the last two delay values."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:708
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:707
 msgid ""
 "Scale Traffic:\t\tScale traffic from flows and vehicles that are loaded "
 "incrementally from route files."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:720
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:719
 msgid "\tOpen new view\tOpen a new microscopic view."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:723
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:722
 msgid "\tOpen new 3D view\tOpen a new 3D view."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:733
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:732
 msgid "Waiting Time:\t\tTime spent waiting accumulated for all vehicles"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:744
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:743
 msgid ""
 "Time Loss:\t\tTime lost due to being unable to drive with maximum speed for "
 "all vehicles"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:755
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:754
 msgid "Distance (km):\t\tTotal distance driven by DRT vehicles"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:766
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:765
 msgid ""
 "Emergency Vehicle waiting time:\t\tTime spent waiting accumulated for "
 "emergency vehicles"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1041
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:1040
 msgid "Open Simulation Configuration"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1081
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:1060
+msgid "Open Network"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:1080
 msgid "Open Shapes"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1112
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:1111
 msgid "Open EdgeData"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1178
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:1165
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1048
+msgid "Already loading!"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:1177
 msgid "Save SUMO Configuration"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1251
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1277
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:2082
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:1250
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:1276
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:2081
 msgid "No simulation loaded!"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1293
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:1292
 msgid "Save Simulation State"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1315
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:1314
 msgid "Load Simulation State"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/GUIApplicationWindow.cpp:1975
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:1974
 msgid "Simulation ended"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/guisim/GUINet.cpp:632
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:2155
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:2156
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:2158
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1539
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1540
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1542
+msgid "N/A"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIRunThread.cpp:100
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIRunThread.cpp:106
+msgid "Quitting (on error)."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIRunThread.cpp:265
+msgid "Simulation started with time: %."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUISUMOViewParent.cpp:141
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEViewParent.cpp:445
+msgid "Save Snapshot"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUISUMOViewParent.cpp:166
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEViewParent.cpp:465
+msgid "No file extension was specified - saving Snapshot as PNG."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUISUMOViewParent.cpp:172
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEViewParent.cpp:472
+msgid "Saving failed."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUISUMOViewParent.cpp:174
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEViewParent.cpp:476
+msgid "Snapshot successfully saved!"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUITLLogicPhasesTrackerWindow.cpp:269
+msgid "phase names"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUITLLogicPhasesTrackerWindow.cpp:272
+msgid "detectors"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUITLLogicPhasesTrackerWindow.cpp:273
+msgid "conditions"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUITLLogicPhasesTrackerWindow.cpp:336
+msgid "Overflow in time computation occurred."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\guisim\GUIBaseVehicle.cpp:300
+msgid "GUI-triggered stop not implemented for meso"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\guisim\GUINet.cpp:632
 msgid "Trying to set data value for the unknown edge '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/guisim/GUINet.cpp:656
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\guisim\GUINet.cpp:656
 msgid ""
 "Trying to set data value for the unknown relation from edge '%' to edge '%'."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/guisim/GUINet.cpp:674
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\guisim\GUINet.cpp:674
 msgid "No data defined after simulation begin time."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/guisim/GUIBaseVehicle.cpp:300
-msgid "GUI-triggered stop not implemented for meso"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:443
+msgid "A microscopic, multi-modal traffic simulation."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:71
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:638
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:389
-msgid "&Accept"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:453
+msgid "DEBUG: GNEApplicationWindow::dependentBuild called twice"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:72
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:639
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:390
-#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:106
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:475
+msgid "Recomputing\t\tRecomputing is needed"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:485
+msgid "N/A\t\tTest coordinate"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:859
+msgid "Loaded edge types from '"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:892
+msgid "Reloaded edge types from '"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:973
+msgid "&Reload Netedit config"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:974
+msgid "&Reload Sumo config"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:975
+msgid "&Reload Network"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1372
+msgid "&Modes"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1409
+msgid "L&ock"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1416
+msgid "&Processing"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1424
+msgid "&Tools"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1444
+msgid "About netedit."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1504
+msgid "Press F5"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1679
+msgid "Select Import Options"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1708
+msgid "Recompute with volatile options"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1940
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:2000
+msgid "Running "
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1963
+msgid "Loading network '"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1963
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1972
+msgid "' in SUMO-GUI"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1972
+msgid "Loading sumo config '"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:2302
+msgid "Configure Options"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:2315
+msgid "SUMO Options"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:2334
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1259
+msgid "Undo"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:2366
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1262
+msgid "Redo"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3033
+msgid "Saving Network failed!"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3038
+msgid "Network saved in '"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3089
+msgid "Saving plain xml failed!"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3096
+msgid "Plain XML saved with prefix '"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3117
+msgid "Saving joined junctions failed!"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3123
+msgid "Joined junctions saved to '"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3179
+msgid "NETEDIT configuration saved in '"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3185
+msgid "Could not save NETEDIT configuration in '"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3291
+msgid "SUMO configuration saved in '"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3299
+msgid "Could not save SUMO configuration in '"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3353
+msgid "TLS Programs saved in '"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3358
+msgid "Saving TLS Programs failed!"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3401
+msgid "EdgeType saved in '"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3406
+msgid "Saving edgeTypes failed!"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3510
+msgid "load additionals from '"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3514
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNENet.cpp:1304
+msgid "Loading of additional file failed: "
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3520
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNENet.cpp:1306
+msgid "Loading of additional file sucessfully: "
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3546
+msgid "reloading additionals from '"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3551
+msgid "Reloading of additional file failed: "
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3593
+msgid "Additionals saved in '"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3663
+msgid "loading demand elements from '"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3667
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNENet.cpp:1315
+msgid "Loading of route file failed: "
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3673
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNENet.cpp:1317
+msgid "Loading of route file sucessfully: "
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3704
+msgid "Reloading of route file failed: "
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3744
+msgid "Demand elements saved in '"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3816
+msgid "loading data elements from '"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3820
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNENet.cpp:1326
+msgid "Loading of data file failed: "
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3826
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNENet.cpp:1328
+msgid "Loading of data file sucessfully: "
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3856
+msgid "reloading data elements from '"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3861
+msgid "Reloading of data file failed: "
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3902
+msgid "Data elements saved in '"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3971
+msgid "load meanDatas from '"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3975
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNENet.cpp:1337
+msgid "Loading of meandata file failed: "
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:3981
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:4012
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNENet.cpp:1339
+msgid "Loading of meandata file sucessfully: "
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:4007
+msgid "reloading meanDatas from '"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:4050
+msgid "MeanDatas saved in '"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:4489
+msgid "loading additionals and meandatas from '"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:4532
+msgid "Loading data elements from '"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:140
+msgid "nets"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:141
+msgid "configs"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:160
+msgid "Cl&ear Recent Networks"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:161
+msgid "No Recent Networks"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:165
+msgid "Recent Networks"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:183
+msgid "Cl&ear Recent Configs"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:184
+msgid "No Recent Configs"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:188
+msgid "Recent Configs"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:206
+msgid "&New Network"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:206
+msgid "Create a new network."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:210
+msgid "Open a new netedit window."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:217
+msgid "Load Netedit config..."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:217
+msgid "Load a netedit configuration file."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:221
+msgid "Load Sumo config..."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:221
+msgid "Load a SUMO configuration file."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:228
+msgid "&Open Network..."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:228
+msgid "Open a SUMO network."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:232
+msgid "Open Netconvert Configura&tion..."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:232
+msgid "Open a configuration file with NETCONVERT options."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:236
+msgid "Import &Foreign Network..."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:236
+msgid "Import a foreign network such as OSM."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:243
+msgid "&Save Network"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:243
+msgid "Save the network."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:247
+msgid "Save Net&work As..."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:247
+msgid "Save the network to another file."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:251
+msgid "Save Plain XM&L..."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:251
+msgid "Save a plain XML representation of the network."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:255
+msgid "Save &Joined Junctions..."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:255
+msgid "Save log of joined junctions (allows reproduction of joins)."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:262
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:266
+msgid "Reload the network."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:266
+msgid "Reload Network"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:273
+msgid "Netedit Config"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:277
+msgid "Sumo Config"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:281
+msgid "Traffic Lights"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:285
+msgid "Edge Types"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:289
+msgid "Additionals and Shapes"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:293
+msgid "Demand Elements"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:297
+msgid "Data Elements"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:301
+msgid "MeanData Elements"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:306
+msgid "Close the network."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:340
+msgid "Save Netedit Config"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:340
+msgid "Save netedit configuration file."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:344
+msgid "Save Netedit Config As..."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:344
+msgid "Save netedit configuration in a new file."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:350
+msgid "Reload Netedit Config"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:350
+msgid "Reload netedit configuration."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:358
+msgid "Save Sumo Config"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:358
+msgid "Save sumo configuration file."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:362
+msgid "Save Sumo Config As..."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:362
+msgid "Save sumo configuration in a new file."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:368
+msgid "Reload Sumo Config"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:368
+msgid "Reload sumo configuration."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:376
+msgid "Load TLS Programs..."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:376
+msgid "Load programs for traffic lights in the current net."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:382
+msgid "Save TLS Programs"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:382
+msgid "Save all traffic light programs of the current network."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:386
+msgid "Save TLS Programs As..."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:386
+msgid "Save all traffic light programs of the current network to another file."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:392
+msgid "Reload TLS Programs"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:392
+msgid "Reload TLS Programs."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:400
+msgid "Load Edge Types..."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:400
+msgid "Load edge types in the current net."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:406
+msgid "Save Edge Types"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:406
+msgid "Save edge types of the current net."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:410
+msgid "Save Edge Types As..."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:410
+msgid "Save edge types of the current net to another file."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:416
+msgid "Reload edge types"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:416
+msgid "Reload edge types."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:424
+msgid "Load Additionals..."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:424
+msgid "Load additionals and shapes."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:430
+msgid "Save Additionals"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:430
+msgid "Save additionals and shapes."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:434
+msgid "Save Additionals As..."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:434
+msgid "Save additional elements to another file."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:440
+msgid "Reload Additionals"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:440
+msgid "Reload additionals."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:448
+msgid "Load Demand Elements..."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:448
+msgid "Load demand elements."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:454
+msgid "Save Demand Elements"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:454
+msgid "Save demand elements."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:458
+msgid "Save Demand Elements As..."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:458
+msgid "Save demand elements to another file."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:464
+msgid "Reload Demand Elements"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:464
+msgid "Reload demand elements."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:472
+msgid "Load Data Elements..."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:472
+msgid "Load data elements."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:478
+msgid "Save Data Elements"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:478
+msgid "Save data elements."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:482
+msgid "Save Data Elements As..."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:482
+msgid "Save data elements to another file."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:488
+msgid "Reload Data Elements"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:488
+msgid "Reload data elements."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:496
+msgid "Load MeanDatas..."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:496
+msgid "Load meanDatas and shapes."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:502
+msgid "Save MeanDatas"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:502
+msgid "Save meanDatas and shapes."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:506
+msgid "Save MeanDatas As..."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:506
+msgid "Save meanData elements to another file."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:512
+msgid "Reload MeanDatas"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:512
+msgid "Reload meanDatas."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:532
+msgid "&Inspect"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:532
+msgid "Inspect elements and change their attributes."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:535
+msgid "&Delete"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:535
+msgid "Delete elements."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:538
+msgid "&Select"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:538
+msgid "Select elements."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:595
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:676
+msgid "&Move"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:595
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:676
+msgid "Move elements."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:598
+msgid "&Edge"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:598
+msgid "Create junction and edges."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:601
+msgid "&Connection"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:601
+msgid "Modes connections between lanes."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:604
+msgid "Pro&hibition"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:604
+msgid "Modes connection prohibitions."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:607
+msgid "Modes traffic lights over junctions."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:610
+msgid "Create additional elements."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:613
+msgid "C&rossing"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:613
+msgid "Create crossings between edges."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:616
+msgid "TA&Z"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:616
+msgid "Create Traffic Assignment Zones."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:619
+msgid "Create Points-Of-Interest and polygons."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:622
+msgid "&Wire"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:622
+msgid "Create wires."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:679
+msgid "Route"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:679
+msgid "Create Routes."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:682
+msgid "Vehicle"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:682
+msgid "Create vehicles."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:685
+msgid "Type"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:685
+msgid "Create types (vehicles, person an containers)."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:688
+msgid "Create stops."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:691
+msgid "Person"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:691
+msgid "Create persons."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:694
+msgid "Person plan"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:694
+msgid "Create person plans."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:697
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNETagSelector.cpp:179
+msgid "Container"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:697
+msgid "Create containers."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:700
+msgid "Container plan"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:700
+msgid "Create container plans."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:735
+msgid "&EdgeData"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:735
+msgid "Create edgeData elements."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:738
+msgid "Edge&Relation"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:738
+msgid "Create edgeRelation elements."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:741
+msgid "TA&ZRelation"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:741
+msgid "Create TAZRelation elements."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:744
+msgid "&MeanData"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:744
+msgid "Create MeanData edge/lanes."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:806
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1003
+msgid "Show grid"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:811
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1008
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1143
+msgid "Hide junction shape"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:816
+msgid "Draw vehicles spread in lane or in depart position"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:821
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1158
+msgid "Show demand elements"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:826
+msgid "Clicking should target lanes"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:831
+msgid "Show connections over junctions"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:836
+msgid "Hide connections"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:841
+msgid "Show sub-additional elements"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:846
+msgid "Show TAZ elements"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:851
+msgid "Selecting multiple edges automatically select their junctions"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:856
+msgid "Clicking should apply state changes to all phases of TLS plan"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:861
+msgid "Ask for confirmation before merging junction"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:866
+msgid "Show bubbles over junctions shapes"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:871
+msgid "Apply mouse movement to elevation"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:876
+msgid "Create consecutive edges"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:881
+msgid "Create an edge in the opposite direction"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1013
+msgid "Draw vehicles spread/depart position"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1018
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1153
+msgid "Show shapes"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1023
+msgid "Show all trips"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1028
+msgid "Show all person plans"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1033
+msgid "Lock selected person"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1038
+msgid "Show all container plans"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1043
+msgid "Lock selected container"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1048
+msgid "Show non-inspected demand elements"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1053
+msgid "Show number of overlapped routes"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1148
+msgid "Show additionals"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1163
+msgid "Draw TAZRel from center"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1168
+msgid "Draw TAZ fill"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1173
+msgid "Only draw TAZRel from"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1178
+msgid "Only draw TAZRel to"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1259
+msgid "Undo the last change."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1262
+msgid "Redo the last change."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1265
+msgid "Show undo/redo history"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1265
+msgid "Open undo/redo history dialog."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1277
+msgid "Opens a dialog for editing viewing are, zoom and rotation."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1286
+msgid "Clear front element"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1286
+msgid "Clear current front element"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1295
+msgid "Load additionals in sumo-gui\t\tLoad additionals in sumo-gui."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1299
+msgid "Load demand in sumo-gui\t\tLoad demand in sumo-gui."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1303
+msgid "Open in sumo-gui"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1303
+msgid "Opens the sumo-gui application with the current network."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1330
+msgid "&Lanes"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1335
+msgid "&Connections"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1340
+msgid "C&rossings"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1345
+msgid "Walkin&gAreas"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1350
+msgid "&Additionals"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1355
+msgid "&TAZs"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1360
+msgid "&Wires"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1365
+msgid "&Polygons"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1370
+msgid "P&OIs"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1375
+msgid "&Routes"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1390
+msgid "Person&Trips"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1395
+msgid "&Walks"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1400
+msgid "Ri&des"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1405
+msgid "&Containers"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1410
+msgid "Tra&nsports"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1415
+msgid "Trans&hips"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1420
+msgid "Stop&s"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1425
+msgid "&EdgeDatas"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1430
+msgid "E&dgeRelDatas"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1435
+msgid "Edge&TAZRel"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1443
+msgid "Lock selected elements"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1443
+msgid "selected elements"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1450
+msgid "Lock all elements"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1450
+msgid "all elements"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1454
+msgid "Unlock all elements"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1790
+msgid "Compute Junctions"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1790
+msgid "Compute junction shape and logic."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1793
+msgid "Compute Junctions with volatile options"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1793
+msgid "Compute junction shape and logic using volatile junctions."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1796
+msgid "Clean Junctions"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1796
+msgid "Remove solitary junctions."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1799
+msgid "Join Selected Junctions"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1799
+msgid "Join selected junctions into a single junction."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1802
+msgid "Clean invalid crossings"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1802
+msgid "Clear invalid crossings."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1808
+msgid "Recompute Network in Data Mode"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1811
+msgid "RecomputeData"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1814
+msgid "Compute demand"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1814
+msgid "Computes demand elements."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1817
+msgid "Clean routes"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1817
+msgid "Removes routes without vehicles."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1820
+msgid "Join routes"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1820
+msgid "Joins routes with the same edges."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1823
+msgid "Adjust person plans"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1823
+msgid "Adjust person plans (start/end positions, arrival positions, etc.)"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1826
+msgid "Clean invalid route elements"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1826
+msgid "Clear elements with an invalid path (routes, Trips, Flows...)."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1832
+msgid "SUMO options"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1832
+msgid "Configure SUMO Options."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1838
+msgid "Options"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1838
+msgid "Configure NETEDIT Options."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1951
+msgid "Open a dialog for locating a Junction."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1954
+msgid "Open a dialog for locating an Edge."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1957
+msgid "&WalkingAreas"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1957
+msgid "Open a dialog for locating a Walking Area."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1960
+msgid "Open a dialog for locating a Vehicle."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1963
+msgid "Open a dialog for locating a Person."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1966
+msgid "&Route"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1966
+msgid "Open a dialog for locating a Route."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1969
+msgid "&Stops"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1969
+msgid "Open a dialog for locating a Stop."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1972
+msgid "Open a dialog for locating a Traffic Light."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1975
+msgid "Open a dialog for locating an Additional Structure."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1978
+msgid "Open a dialog for locating a Point of Interest."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1981
+msgid "Open a dialog for locating a Polygon."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1998
+msgid "&NetDiff"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2015
+msgid "Show Status Line"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2015
+msgid "Toggle this Status Bar on/off."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2018
+msgid "Show Message Window"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2018
+msgid "Toggle the Message Window on/off."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2022
+msgid "Clear the Message Window."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2058
+msgid "&Network"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2058
+msgid "Select network mode."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2061
+msgid "&Demand"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2061
+msgid "Select demand mode."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2064
+msgid "&Data"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2064
+msgid "Select data mode."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2096
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2100
+msgid "Could not load SUMO configuration '"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2145
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2149
+msgid "Could not load NETEDIT configuration '"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2594
+msgid "Save Network file as"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2597
+msgid "Open Network file"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2605
+msgid "Open NetConvert file"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2612
+msgid "Save plain XML as"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2618
+msgid "Save joined Junctions as"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2625
+msgid "Open OSM file"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2633
+msgid "Save NETEDIT Config file as"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2636
+msgid "Open NETEDIT Config file"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2645
+msgid "Save SUMO Config file as"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2648
+msgid "Open SUMO Config file"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2657
+msgid "Save TLS file as"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2660
+msgid "Open TLS file"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2669
+msgid "Save EdgeType file as"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2672
+msgid "Open EdgeType file"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2681
+msgid "Save Additionals file as"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2684
+msgid "Open Additionals file"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2693
+msgid "Save Route file as"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2696
+msgid "Open Route file"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2705
+msgid "Save Data file as"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2708
+msgid "Open Data file"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2717
+msgid "Save MeanData file as"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2720
+msgid "Open MeanData file"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNELoadThread.cpp:129
+msgid "Invalid Options. Nothing loaded"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNELoadThread.cpp:143
+msgid "Could not build projection!"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNELoadThread.cpp:171
+msgid "Performing initial computation ...\n"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNELoadThread.cpp:205
+msgid "Failed to build network."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNELoadThread.cpp:504
+msgid "Failed to reset options."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNENet.cpp:1273
+msgid "Forced computing junctions with volatile options ..."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNENet.cpp:1275
+msgid "Forced computing junctions ..."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNENet.cpp:1282
+msgid "Computing junctions with volatile options ..."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNENet.cpp:1284
+msgid "Computing junctions ..."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNENet.cpp:1347
+msgid "Finished computing junctions."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNENet.cpp:1353
+msgid "Computing demand elements ..."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNENet.cpp:1367
+msgid "Finished computing demand elements."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNENet.cpp:1373
+msgid "Computing data elements ..."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNENet.cpp:1380
+msgid "Finished computing data elements."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\netedit_main.cpp:48
+msgid ""
+"Graphical editor for SUMO networks, demand and additional infrastructure."
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\dialogs\GUIDialog_AboutSUMO.cpp:69
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\dialogs\GUIDialog_HallOfFame.cpp:57
+msgid "OK\t\t"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\dialogs\GUIDialog_AppSettings.cpp:62
+msgid "Quit on Simulation End"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\dialogs\GUIDialog_AppSettings.cpp:64
+msgid "Autostart Simulation on Load and Reload"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\dialogs\GUIDialog_AppSettings.cpp:66
+msgid "Reload Simulation after finish (Demo mode)"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\dialogs\GUIDialog_AppSettings.cpp:68
+msgid "Locate elements when clicking on messages"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\dialogs\GUIDialog_AppSettings.cpp:74
+msgid "Breakpoint offset when clicking on time message"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\dialogs\GUIDialog_AppSettings.cpp:77
+msgid "Language (needs restart)"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\dialogs\GUIDialog_AppSettings.cpp:102
+msgid "Allow Textures"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\dialogs\GUIDialog_AppSettings.cpp:105
+msgid "&OK"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\dialogs\GUIDialog_AppSettings.cpp:106
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:72
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixDemandElements.cpp:639
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:390
 msgid "&Cancel"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:257
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:333
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:89
+msgid "&Load\t\t"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:91
+msgid "&Save\t\t"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:94
+msgid "Clea&r\t\t"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:97
+msgid "&Close\t\t"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:141
+msgid "Load Breakpoints"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:162
+msgid "Save Breakpoints"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:172
+msgid "Storing failed!"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:241
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\dialogs\GUIDialog_Breakpoints.cpp:244
+msgid "Time format error"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEAbout.cpp:76
+msgid "&OK\t\t"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEAdditionalDialog.cpp:62
+msgid "accept\t\tclose accepting changes"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEAdditionalDialog.cpp:63
+msgid "cancel\t\tclose discarding changes"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEAdditionalDialog.cpp:64
+msgid "reset\t\treset to previous values"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:276
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:649
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:690
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:494
+msgid "accept\t\tclose"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:277
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:650
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:691
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:495
+msgid "cancel\t\tclose"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNECalibratorDialog.cpp:472
+msgid "No routes defined"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNECalibratorFlowDialog.cpp:109
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNECalibratorFlowDialog.cpp:374
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:234
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:353
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:225
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:539
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:66
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:70
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:172
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:178
+msgid "false"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNECalibratorFlowDialog.cpp:371
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:231
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:350
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:222
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:536
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:170
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:176
+msgid "true"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEDemandElementDialog.cpp:63
+msgid "&Accept\t\tclose accepting changes"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEDemandElementDialog.cpp:64
+msgid "&Cancel\t\tclose discarding changes"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEDemandElementDialog.cpp:65
+msgid "&Reset\t\treset to previous values"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:71
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixDemandElements.cpp:638
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:389
+msgid "&Accept"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:257
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:333
 msgid ""
 "Activate friendlyPos and save\t\tFriendly pos parameter will be activated in "
 "all stopping places and E2 detectors"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:259
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:259
 msgid ""
 "Save invalid positions\t\tSave stopping places and E2 detectors with invalid "
 "positions"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:263
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:335
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:263
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:335
 msgid ""
 "Fix positions and save\t\tPosition of stopping places and E2 detectors will "
 "be fixed"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:265
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:265
 msgid ""
 "Select invalid additionals\t\tCancel saving of additionals and select "
 "invalid stopping places and E2 detectors"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:325
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:325
 msgid ""
 "Build connections between lanes\t\tNew connections will be created between "
 "non-connected lanes"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:327
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:327
 msgid ""
 "Remove invalid E2 detectors\t\tRemove Multilane E2 Detectors with non-"
 "connected lanes"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVehicleTypeDialog.cpp:445
-msgid "Edit parameters"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVehicleTypeDialog.cpp:659
-msgid "Open Image"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVehicleTypeDialog.cpp:686
-msgid "Open OSG File"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:202
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:189
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixDemandElements.cpp:202
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:189
 msgid "Save list of conflicted items"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:240
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixDemandElements.cpp:240
 msgid "Remove invalid routes"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:243
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixDemandElements.cpp:243
 msgid "Save invalid routes"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:246
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixDemandElements.cpp:246
 msgid "Select conflicted routes"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:249
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixDemandElements.cpp:249
 msgid "Remove stops out of route"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:351
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixDemandElements.cpp:351
 msgid "Remove invalid vehicles"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:354
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixDemandElements.cpp:354
 msgid "Save invalid vehicles"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:357
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixDemandElements.cpp:357
 msgid "Select conflicted vehicle"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:360
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixDemandElements.cpp:360
 msgid "Remove stops out of vehicle's route"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:457
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixDemandElements.cpp:457
 msgid "Activate friendlyPos and save"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:460
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixDemandElements.cpp:460
 msgid "Save invalid positions"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:463
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixDemandElements.cpp:463
 msgid "Select conflicted Stops"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:466
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixDemandElements.cpp:466
 msgid "Fix positions and save"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:557
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixDemandElements.cpp:557
 msgid "Delete person plan"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:560
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixDemandElements.cpp:560
 msgid "Save invalid person plans"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:563
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixDemandElements.cpp:563
 msgid "Select conflicted person plans"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:281
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:285
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:278
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:52
+msgid "Fix network elements problems"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:206
+msgid "Saving successfully"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:213
+msgid "Saving list of conflicted items failed"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:227
+msgid "Remove invalid edges"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:230
+msgid "Save invalid edges"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:233
+msgid "Select conflicted edges"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:308
+msgid "Remove invalid crossings"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:311
+msgid "Save invalid crossings"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:314
+msgid "Select conflicted crossing"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:285
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:281
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:278
 msgid "Sort"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:282
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:286
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:279
-#: /home/behr_mi/sumo/src/netedit/frames/GNENetworkSelector.cpp:55
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:286
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:282
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:279
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNENetworkSelector.cpp:55
 msgid "Clear"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:285
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:289
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:282
-#: /home/behr_mi/sumo/src/netedit/frames/GNEAttributesCreator.cpp:59
-#: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:73
-#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:743
-#: /home/behr_mi/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:318
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:289
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:285
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:282
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEAttributesCreator.cpp:59
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:743
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:73
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEOverlappedInspection.cpp:318
 msgid "Help"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:295
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:299
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:292
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:299
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:295
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:292
 msgid "Open Parameter Template"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:323
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:327
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:320
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:327
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:323
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:320
 msgid "Save Parameter Template file"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:399
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:403
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:396
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:403
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:399
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:396
 msgid "- Parameters are defined by a Key and a Value.\n"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:400
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:404
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:397
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:404
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:400
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:397
 msgid ""
 "- In Netedit can be defined using format key1=parameter1|"
 "key2=parameter2|...\n"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:401
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:405
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:398
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:405
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:401
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:398
 msgid " - Duplicated and empty Keys aren't valid.\n"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:402
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:406
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:399
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:406
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:402
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:399
 msgid " - Whitespace and certain characters aren't allowed (@$%^&/|\\....)\n"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:411
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:415
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:408
-#: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:247
-#: /home/behr_mi/sumo/src/netedit/frames/GNEFrame.cpp:233
-#: /home/behr_mi/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:285
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:415
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:411
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:408
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEFrame.cpp:233
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:247
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEOverlappedInspection.cpp:285
 msgid "OK\t\tclose"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:447
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:448
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:444
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:448
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:447
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:444
 msgid "Key of Parameter not defined"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:449
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:450
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:446
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:450
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:449
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:446
 msgid "Value of Parameter not defined"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:457
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:458
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:454
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:458
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:457
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:454
 msgid "Key of Parameter cannot be empty"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:690
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:649
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEAllowVClassesDialog.cpp:276
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:494
-msgid "accept\t\tclose"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:691
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:650
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEAllowVClassesDialog.cpp:277
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:495
-msgid "cancel\t\tclose"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEAbout.cpp:76
-msgid "&OK\t\t"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNERerouterIntervalDialog.cpp:182
-msgid "Rerouter has more than one edge"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNERerouterIntervalDialog.cpp:321
-msgid "There is no lanes in the network"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNERerouterIntervalDialog.cpp:341
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNERerouterIntervalDialog.cpp:361
-msgid "There is no edges in the network"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNERerouterIntervalDialog.cpp:398
-msgid "There is no parking areas in the network"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNECalibratorDialog.cpp:472
-msgid "No routes defined"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEUndoListDialog.cpp:58
-msgid "OK\tclose dialog"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNECalibratorFlowDialog.cpp:109
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNECalibratorFlowDialog.cpp:374
-#: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:66
-#: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:70
-#: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:172
-#: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:178
-#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:225
-#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:539
-#: /home/behr_mi/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:234
-#: /home/behr_mi/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:353
-msgid "false"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNECalibratorFlowDialog.cpp:371
-#: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:170
-#: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:176
-#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:222
-#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:536
-#: /home/behr_mi/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:231
-#: /home/behr_mi/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:350
-msgid "true"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:478
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:478
 msgid ""
 "Only for\n"
 "existent keys"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEAdditionalDialog.cpp:62
-msgid "accept\t\tclose accepting changes"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEAdditionalDialog.cpp:63
-msgid "cancel\t\tclose discarding changes"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEAdditionalDialog.cpp:64
-msgid "reset\t\treset to previous values"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEOverwriteElementsDialog.cpp:59
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEOverwriteElementsDialog.cpp:59
 msgid "accept\t\tload elements"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEOverwriteElementsDialog.cpp:60
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEOverwriteElementsDialog.cpp:60
 msgid "cancel\t\tcancel loading of elements"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEOverwriteElementsDialog.cpp:61
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEOverwriteElementsDialog.cpp:61
 msgid "overwrite\t\toverwrite elements"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEDemandElementDialog.cpp:63
-msgid "&Accept\t\tclose accepting changes"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNERerouterIntervalDialog.cpp:182
+msgid "Rerouter has more than one edge"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEDemandElementDialog.cpp:64
-msgid "&Cancel\t\tclose discarding changes"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNERerouterIntervalDialog.cpp:321
+msgid "There is no lanes in the network"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEDemandElementDialog.cpp:65
-msgid "&Reset\t\treset to previous values"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNERerouterIntervalDialog.cpp:341
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNERerouterIntervalDialog.cpp:361
+msgid "There is no edges in the network"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:52
-msgid "Fix network elements problems"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNERerouterIntervalDialog.cpp:398
+msgid "There is no parking areas in the network"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:206
-msgid "Saving successfully"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEUndoListDialog.cpp:58
+msgid "OK\tclose dialog"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:213
-msgid "Saving list of conflicted items failed"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEVehicleTypeDialog.cpp:445
+msgid "Edit parameters"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:227
-msgid "Remove invalid edges"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEVehicleTypeDialog.cpp:659
+msgid "Open Image"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:230
-msgid "Save invalid edges"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEVehicleTypeDialog.cpp:686
+msgid "Open OSG File"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:233
-msgid "Select conflicted edges"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:308
-msgid "Remove invalid crossings"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:311
-msgid "Save invalid crossings"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:314
-msgid "Select conflicted crossing"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/frames/GNEAttributesCreator.cpp:49
-#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:733
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEAttributesCreator.cpp:49
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:733
 msgid "Internal attributes"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:89
-msgid "Element"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:62
+msgid "name"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:152
-msgid "network elements"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:64
+msgid "button"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:155
-msgid "Additional elements"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:69
+msgid "Disabled"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:158
-msgid "Shape elements"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:55
+msgid "Consecutive lane selector"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:161
-msgid "TAZ elements"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:61
+msgid "Finish path creation"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:164
-msgid "Wire elements"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:64
+msgid "Abort path creation"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:167
-msgid "Vehicles"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:67
+msgid "Remove last lane"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:170
-msgid "Stops"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:70
+msgid "Show candidate lanes"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:173
-msgid "Persons"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:134
+msgid "Invalid lane"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:176
-msgid "Person plans"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:151
+msgid "Lane path needs at least two lanes"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:179
-msgid "Container"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:406
+msgid "- Selected lanes: "
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:182
-msgid "Container plans"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:185
-msgid "Person trips"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:188
-msgid "Walks"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:191
-msgid "Rides"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/frames/GNETagSelector.cpp:194
-msgid "Person stops"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/frames/GNEElementTree.cpp:62
-msgid "Hierarchy"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/frames/GNESelectorParent.cpp:36
-msgid "Parent selector"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/frames/GNEDemandSelector.cpp:65
-msgid "Parent element"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:145
-msgid "Route creator"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:154
-msgid "Use last route"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:157
-msgid "Finish route creation"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:160
-msgid "Abort route creation"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:163
-msgid "Remove last edge"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:166
-msgid "Show candidate edges"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:374
-msgid "Double junctions aren't allowed"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:382
-msgid "Only two junctions are allowed"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:421
-msgid "Double edges aren't allowed"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:431
-msgid "Only consecutives edges are allowed"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:440
-msgid "Only two edges are allowed"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:531
-msgid "first select an edge"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:941
-msgid "- Selected edges: "
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:942
-msgid "- Path edges: "
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:943
-#: /home/behr_mi/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:407
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:407
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEPathCreator.cpp:943
 msgid "- Length: "
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:944
-msgid "- Average speed: "
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:411
+msgid "No lanes selected"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEPathCreator.cpp:948
-msgid "No edges selected"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEDemandSelector.cpp:65
+msgid "Parent element"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNENetworkSelector.cpp:49
-msgid "NetworkElements"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:48
+msgid "Drawing"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNENetworkSelector.cpp:56
-msgid "Use selected"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:52
+msgid "Start drawing"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNENetworkSelector.cpp:65
-msgid "Edges"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:53
+msgid "Stop drawing"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNENetworkSelector.cpp:71
-msgid "Lanes"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:54
+msgid "Abort drawing"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:49
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEE2DetectorLegendModule.cpp:34
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEPathLegendModule.cpp:34
+msgid "Information"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEElementTree.cpp:62
+msgid "Hierarchy"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEFlowEditor.cpp:50
+msgid "Flow attributes"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEFlowEditor.cpp:469
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEFlowEditor.cpp:596
+msgid "rate"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:90
+msgid "attributeCheckButton"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:958
+msgid "Extended attributes"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:961
+msgid "Open attributes editor"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:992
+msgid "Attributes"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:996
+msgid "Edit attributes"
+msgstr ""
+
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:49
 msgid "Netedit attributes"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:230
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:230
 msgid ""
 "- Reference point: Mark the initial position of the additional element.\n"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:231
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:231
 msgid ""
 "  Example: If you want to create a busStop with a length of 30 in the point "
 "100 of the lane:\n"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:232
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:232
 msgid ""
 "  - Reference Left will create it with startPos = 70 and endPos = 100.\n"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:233
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:233
 msgid ""
 "  - Reference Right will create it with startPos = 100 and endPos = 130.\n"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:234
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:234
 msgid ""
 "  - Reference Center will create it with startPos = 85 and endPos = 115.\n"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:236
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:236
 msgid ""
 "- Block movement: if is enabled, the created additional element will be "
 "blocked. i.e. cannot be moved with\n"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNENeteditAttributes.cpp:238
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:238
 msgid "- Center view: if is enabled, view will be center over created element."
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:90
-msgid "attributeCheckButton"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNENetworkSelector.cpp:49
+msgid "NetworkElements"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:958
-msgid "Extended attributes"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNENetworkSelector.cpp:56
+msgid "Use selected"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:961
-msgid "Open attributes editor"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNENetworkSelector.cpp:65
+msgid "Edges"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:992
-msgid "Attributes"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNENetworkSelector.cpp:71
+msgid "Lanes"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:996
-msgid "Edit attributes"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:52
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEOverlappedInspection.cpp:52
 msgid "Overlapped elements"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:278
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEOverlappedInspection.cpp:278
 msgid " - Click in the same position\n"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:279
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEOverlappedInspection.cpp:279
 msgid "   for inspect next element\n"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:280
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEOverlappedInspection.cpp:280
 msgid " - Shift + Click in the same\n"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:281
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEOverlappedInspection.cpp:281
 msgid "   position for inspect\n"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:282
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEOverlappedInspection.cpp:282
 msgid "   previous element"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:55
-msgid "Consecutive lane selector"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEPathCreator.cpp:145
+msgid "Route creator"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:61
-msgid "Finish path creation"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEPathCreator.cpp:154
+msgid "Use last route"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:64
-msgid "Abort path creation"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEPathCreator.cpp:157
+msgid "Finish route creation"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:67
-msgid "Remove last lane"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEPathCreator.cpp:160
+msgid "Abort route creation"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:70
-msgid "Show candidate lanes"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEPathCreator.cpp:163
+msgid "Remove last edge"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:134
-msgid "Invalid lane"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEPathCreator.cpp:166
+msgid "Show candidate edges"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:151
-msgid "Lane path needs at least two lanes"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEPathCreator.cpp:374
+msgid "Double junctions aren't allowed"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:406
-msgid "- Selected lanes: "
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEPathCreator.cpp:382
+msgid "Only two junctions are allowed"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:411
-msgid "No lanes selected"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEPathCreator.cpp:421
+msgid "Double edges aren't allowed"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEFlowEditor.cpp:50
-msgid "Flow attributes"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEPathCreator.cpp:431
+msgid "Only consecutives edges are allowed"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEFlowEditor.cpp:469
-#: /home/behr_mi/sumo/src/netedit/frames/GNEFlowEditor.cpp:596
-msgid "rate"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEPathCreator.cpp:440
+msgid "Only two edges are allowed"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:62
-msgid "name"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEPathCreator.cpp:531
+msgid "first select an edge"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:64
-msgid "button"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEPathCreator.cpp:941
+msgid "- Selected edges: "
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:69
-msgid "Disabled"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEPathCreator.cpp:942
+msgid "- Path edges: "
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEE2DetectorLegendModule.cpp:34
-#: /home/behr_mi/sumo/src/netedit/frames/GNEPathLegendModule.cpp:34
-msgid "Information"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEPathCreator.cpp:944
+msgid "- Average speed: "
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEDrawingShape.cpp:48
-msgid "Drawing"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEPathCreator.cpp:948
+msgid "No edges selected"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEDrawingShape.cpp:52
-msgid "Start drawing"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNESelectorParent.cpp:36
+msgid "Parent selector"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEDrawingShape.cpp:53
-msgid "Stop drawing"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNETagSelector.cpp:89
+msgid "Element"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/netedit/frames/GNEDrawingShape.cpp:54
-msgid "Abort drawing"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNETagSelector.cpp:152
+msgid "network elements"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:89
-msgid "&Load\t\t"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNETagSelector.cpp:155
+msgid "Additional elements"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:91
-msgid "&Save\t\t"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNETagSelector.cpp:158
+msgid "Shape elements"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:94
-msgid "Clea&r\t\t"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNETagSelector.cpp:161
+msgid "TAZ elements"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:97
-msgid "&Close\t\t"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNETagSelector.cpp:164
+msgid "Wire elements"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:141
-msgid "Load Breakpoints"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNETagSelector.cpp:167
+msgid "Vehicles"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:162
-msgid "Save Breakpoints"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNETagSelector.cpp:170
+msgid "Stops"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:172
-msgid "Storing failed!"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNETagSelector.cpp:173
+msgid "Persons"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:241
-#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:244
-msgid "Time format error"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNETagSelector.cpp:176
+msgid "Person plans"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_AboutSUMO.cpp:69
-#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_HallOfFame.cpp:57
-msgid "OK\t\t"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNETagSelector.cpp:182
+msgid "Container plans"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:62
-msgid "Quit on Simulation End"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNETagSelector.cpp:185
+msgid "Person trips"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:64
-msgid "Autostart Simulation on Load and Reload"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNETagSelector.cpp:188
+msgid "Walks"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:66
-msgid "Reload Simulation after finish (Demo mode)"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNETagSelector.cpp:191
+msgid "Rides"
 msgstr ""
 
-#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:68
-msgid "Locate elements when clicking on messages"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:74
-msgid "Breakpoint offset when clicking on time message"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:77
-msgid "Language (needs restart)"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:102
-msgid "Allow Textures"
-msgstr ""
-
-#: /home/behr_mi/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:105
-msgid "&OK"
+#: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNETagSelector.cpp:194
+msgid "Person stops"
 msgstr ""
