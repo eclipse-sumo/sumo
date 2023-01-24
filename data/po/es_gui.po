@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 09:18+0100\n"
 "PO-Revision-Date: 2023-01-24 13:56+0000\n"
-"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
+"Last-Translator: Pablo Alvarez Lopez <pablo.alvarezlopez@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
 "Language: es\n"
@@ -156,8 +156,9 @@ msgid ""
 "Select lanes which allow...\t\tOpens a menu for selecting a vehicle class by "
 "which to selected lanes."
 msgstr ""
-"Seleccionar carriles que permiten...\t\tAbrir un menú para escoger una clase "
-"de vehículo que seleccionará los carriles permitidos."
+"Seleccionar carriles (lanes) que permiten...\t\tAbrir un menú para escoger "
+"una clase de vehículo (vclass) que seleccionará los carriles (lanes) "
+"permitidos."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:474
 msgid "Edit Breakpoints"
@@ -285,7 +286,7 @@ msgstr "Abrir una ventana para localizar semáforos."
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:610
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1975
 msgid "&Additional"
-msgstr "&Elementos adicionales"
+msgstr "&Elemento adicional"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:523
 msgid "Open a Dialog for Locating an Additional Structure."
@@ -958,7 +959,7 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:4489
 msgid "loading additionals and meandatas from '"
-msgstr ""
+msgstr "cargando elementos adicionales y meanDatas desde '"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:4532
 msgid "Loading data elements from '"
@@ -1109,7 +1110,7 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:289
 msgid "Additionals and Shapes"
-msgstr ""
+msgstr "Elementos adicionales y formas (shapes)"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:293
 msgid "Demand Elements"
@@ -1241,35 +1242,35 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:424
 msgid "Load Additionals..."
-msgstr ""
+msgstr "Cargar elementos adicionales..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:424
 msgid "Load additionals and shapes."
-msgstr ""
+msgstr "Cargar elementos adicionales y formas (shapes)."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:430
 msgid "Save Additionals"
-msgstr ""
+msgstr "Guardar elementos adicionales"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:430
 msgid "Save additionals and shapes."
-msgstr ""
+msgstr "Guardar elementos adicionales y formas (shapes)."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:434
 msgid "Save Additionals As..."
-msgstr ""
+msgstr "Guardar elementos adicionales como..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:434
 msgid "Save additional elements to another file."
-msgstr ""
+msgstr "Guardar elementos adicionales en otro archivo."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:440
 msgid "Reload Additionals"
-msgstr ""
+msgstr "Recargar elementos adicionales"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:440
 msgid "Reload additionals."
-msgstr ""
+msgstr "Recargar elementos adicionales."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:448
 msgid "Load Demand Elements..."
@@ -1415,7 +1416,7 @@ msgstr "&Conexión"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:601
 msgid "Modes connections between lanes."
-msgstr ""
+msgstr "Modo para conexión entre carriles (lanes)."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:604
 msgid "Pro&hibition"
@@ -1552,7 +1553,7 @@ msgstr "&Medidas de tráfico"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:744
 msgid "Create MeanData edge/lanes."
-msgstr ""
+msgstr "Crear MeanData para calles (edges) o carriles (lanes)."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:806
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1003
@@ -1567,7 +1568,8 @@ msgstr "Ocultar la forma del cruce (junction)"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:816
 msgid "Draw vehicles spread in lane or in depart position"
-msgstr "Dibujar vehículos repartidos en el carril o en posición de partida"
+msgstr ""
+"Dibujar vehículos repartidos en el carril (lane) o en posición de partida"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:821
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1158
@@ -1576,7 +1578,7 @@ msgstr "Mostrar elementos de demanda"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:826
 msgid "Clicking should target lanes"
-msgstr "Hacer click debe referirse a carriles"
+msgstr "Hacer click debe referirse a carriles (lanes)"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:831
 msgid "Show connections over junctions"
@@ -1588,7 +1590,7 @@ msgstr "Ocultar conexiones"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:841
 msgid "Show sub-additional elements"
-msgstr ""
+msgstr "Mostrar elementos sub-adicionales"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:846
 msgid "Show TAZ elements"
@@ -1663,7 +1665,7 @@ msgstr "Mostrar número de rutas superpuestas"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1148
 msgid "Show additionals"
-msgstr "Mostrar elementos adicionales (additionals)"
+msgstr "Mostrar elementos adicionales"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1163
 msgid "Draw TAZRel from center"
@@ -1714,6 +1716,8 @@ msgstr "Despejar elemento frontal actual"
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1295
 msgid "Load additionals in sumo-gui\t\tLoad additionals in sumo-gui."
 msgstr ""
+"Cargar elementos adicionales en sumo-gui\t\tCargar elementos adicionales en "
+"sumo-gui."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1299
 msgid "Load demand in sumo-gui\t\tLoad demand in sumo-gui."
@@ -1729,7 +1733,7 @@ msgstr "Abre la aplicación sumo-gui con la actual red (network)."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1330
 msgid "&Lanes"
-msgstr "&Carriles"
+msgstr "&Carriles (lanes)"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1335
 msgid "&Connections"
@@ -1978,7 +1982,7 @@ msgstr "Abrir una ventana para localizar semáforos."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1975
 msgid "Open a dialog for locating an Additional Structure."
-msgstr "Abrir una ventana para localizar estructuras adicionales."
+msgstr "Abrir una ventana para localizar elementos adicionales."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1978
 msgid "Open a dialog for locating a Point of Interest."
@@ -2104,11 +2108,11 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2681
 msgid "Save Additionals file as"
-msgstr ""
+msgstr "Guardar elementos adicionales como"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2684
 msgid "Open Additionals file"
-msgstr ""
+msgstr "Abrir archivo de elementos adicionales"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:2693
 msgid "Save Route file as"
@@ -2378,12 +2382,16 @@ msgid ""
 "Build connections between lanes\t\tNew connections will be created between "
 "non-connected lanes"
 msgstr ""
+"Crear conexión (connection) entre carriles (lanes)\t\tSe crearán nuevas "
+"conexiones (connections) entre carriles (lanes) no conectados"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixAdditionalElements.cpp:327
 msgid ""
 "Remove invalid E2 detectors\t\tRemove Multilane E2 Detectors with non-"
 "connected lanes"
 msgstr ""
+"Eliminar detectores E2 inválidos\t\tEliminar detectores multicarril E2 con "
+"carriles (lanes) desconectados"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixDemandElements.cpp:202
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNEFixNetworkElements.cpp:189
@@ -2598,7 +2606,7 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNERerouterIntervalDialog.cpp:321
 msgid "There is no lanes in the network"
-msgstr ""
+msgstr "No hay carriles (lanes) en la red"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNERerouterIntervalDialog.cpp:341
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\dialogs\GNERerouterIntervalDialog.cpp:361
@@ -2644,7 +2652,7 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:55
 msgid "Consecutive lane selector"
-msgstr ""
+msgstr "Selector de carriles (lanes) consecutivos"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:61
 msgid "Finish path creation"
@@ -2656,23 +2664,23 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:67
 msgid "Remove last lane"
-msgstr ""
+msgstr "Elimina el último carril (lane)"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:70
 msgid "Show candidate lanes"
-msgstr ""
+msgstr "Mostrar carriles (lanes) candidatos"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:134
 msgid "Invalid lane"
-msgstr ""
+msgstr "Carril (lane) inválido"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:151
 msgid "Lane path needs at least two lanes"
-msgstr ""
+msgstr "Un camino de carriles (lanes) necesita al menos dos carriles (lanes)"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:406
 msgid "- Selected lanes: "
-msgstr ""
+msgstr "- Carriles (lanes) seleccionados: "
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:407
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEPathCreator.cpp:943
@@ -2681,7 +2689,7 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:411
 msgid "No lanes selected"
-msgstr ""
+msgstr "No hay carriles (lanes) seleccionados"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEDemandSelector.cpp:65
 msgid "Parent element"
@@ -2755,6 +2763,8 @@ msgid ""
 "  Example: If you want to create a busStop with a length of 30 in the point "
 "100 of the lane:\n"
 msgstr ""
+"  Ejemplo: Si tu quieres crear una parada de bus (busStop) con un largo de "
+"30 en el punto 100 del carril (lane):\n"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:232
 msgid ""
@@ -2795,7 +2805,7 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNENetworkSelector.cpp:71
 msgid "Lanes"
-msgstr ""
+msgstr "Carriles (lanes)"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNEOverlappedInspection.cpp:52
 msgid "Overlapped elements"
