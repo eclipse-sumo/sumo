@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 09:18+0100\n"
-"PO-Revision-Date: 2023-01-24 13:58+0000\n"
+"PO-Revision-Date: 2023-01-24 14:06+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -60,7 +60,7 @@ msgstr "Öffne sumo-gui in einem neuen Fenster."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:426
 msgid "&Open Simulation..."
-msgstr "&Öffne Simulation..."
+msgstr "Ö&ffne Simulation..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:426
 msgid "Open a simulation (Configuration file)."
@@ -94,7 +94,7 @@ msgstr "Lade kantenbezogene Daten zur Visualisierung."
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:976
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:262
 msgid "&Reload"
-msgstr "&Neu laden"
+msgstr "Neu &laden"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:438
 msgid "Reloads the simulation / the network."
