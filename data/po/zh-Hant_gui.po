@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 10:03+0100\n"
-"PO-Revision-Date: 2023-01-24 11:18+0000\n"
+"PO-Revision-Date: 2023-01-24 13:36+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\guisim_main.cpp:57
 msgid "GUI version of the microscopic, multi-modal traffic simulation SUMO."
-msgstr "微觀多模式交通模擬 SUMO 的 圖形用戶界面 (GUI) 版本"
+msgstr "微觀多模式交通模擬 SUMO 的圖形用戶界面 (GUI) 版本。"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\guisim_main.cpp:77
 msgid "This system has no OpenGL support. Exiting."
@@ -75,77 +75,77 @@ msgstr "開啟路網。"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:432
 msgid "Open Shapes "
-msgstr "開啟形狀檔案 "
+msgstr "開啟形狀檔案。 "
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:432
 msgid "Load POIs and Polygons for visualization."
-msgstr ""
+msgstr "載入興趣點(POIs)和多邊形以進行視覺化。"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:435
 msgid "Open EdgeData "
-msgstr ""
+msgstr "開啟 EdgeData檔案。 "
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:435
 msgid "Load edge related data for visualization."
-msgstr ""
+msgstr "載入路段相關資料以進行視覺化。"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:438
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:976
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:262
 msgid "&Reload"
-msgstr ""
+msgstr "&重新載入"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:438
 msgid "Reloads the simulation / the network."
-msgstr ""
+msgstr "重新載入模擬和路網。"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:441
 msgid "Quick-Reload"
-msgstr ""
+msgstr "快速重新載入"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:441
 msgid "Reloads the simulation (but not network)."
-msgstr ""
+msgstr "重新載入模擬(不含路網)。"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:445
 msgid "Save Configuration"
-msgstr ""
+msgstr "儲存設定檔"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:445
 msgid "Save current options as a configuration file."
-msgstr ""
+msgstr "儲存目前選項於設定檔。"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:448
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:306
 msgid "Close"
-msgstr ""
+msgstr "關閉"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:448
 msgid "Close the simulation."
-msgstr ""
+msgstr "關閉模擬。"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:456
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1368
 msgid "&Quit"
-msgstr ""
+msgstr "&退出"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:456
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1368
 msgid "Quit the Application."
-msgstr ""
+msgstr "退出應用程式。"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:465
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1384
 msgid "&Edit"
-msgstr ""
+msgstr "&編輯"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:467
 msgid "Edit Selected..."
-msgstr ""
+msgstr "編輯 Selected..."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:467
 msgid "Opens a dialog for editing the list of selected items."
-msgstr ""
+msgstr "開啟用於編輯所選項目表的對話框。"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:470
 msgid ""
