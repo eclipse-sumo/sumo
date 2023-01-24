@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 10:03+0100\n"
-"PO-Revision-Date: 2023-01-24 13:56+0000\n"
+"PO-Revision-Date: 2023-01-25 07:18+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -159,131 +159,131 @@ msgstr "編輯中斷點"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:474
 msgid "Opens a dialog for editing breakpoints."
-msgstr ""
+msgstr "開啟對話窗以編輯中斷點。"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:477
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1274
 msgid "Edit Visualisation"
-msgstr ""
+msgstr "編輯視覺化展示"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:477
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1274
 msgid "Opens a dialog for editing visualization settings."
-msgstr ""
+msgstr "開啟對話窗以編輯視覺展示選項。"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:480
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1277
 msgid "Edit Viewport"
-msgstr ""
+msgstr "編輯視區"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:480
 msgid "Opens a dialog for editing viewing area, zoom and rotation."
-msgstr ""
+msgstr "開啟對話窗以編輯觀看區域, 放大和旋轉。"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:484
 msgid "Open network in netedit"
-msgstr ""
+msgstr "在netedit內開啟路網"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:484
 msgid "Opens current network in NETEDIT."
-msgstr ""
+msgstr "在 NETEDIT 內開啟現有路網。"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:491
 msgid "&Settings"
-msgstr ""
+msgstr "&設定"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:493
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\dialogs\GUIDialog_AppSettings.cpp:53
 msgid "Application Settings"
-msgstr ""
+msgstr "應用程式設定"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:493
 msgid "Open a Dialog for Application Settings editing."
-msgstr ""
+msgstr "開啟對話窗以編輯Application Settings。"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:496
 msgid "Gaming Mode\tCtrl+G\tToggle gaming mode on/off."
-msgstr ""
+msgstr "遊戲模式\tCtrl+G\t開啟/關閉遊戲模式。"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:499
 msgid "Full Screen Mode"
-msgstr ""
+msgstr "全螢幕模式"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:499
 msgid "Toggle full screen mode on/off."
-msgstr ""
+msgstr "切換全螢幕模式 開啟/關閉。"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:503
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1420
 msgid "&Locate"
-msgstr ""
+msgstr "&定位"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:505
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1320
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1951
 msgid "&Junctions"
-msgstr ""
+msgstr "&路口"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:505
 msgid "Open a Dialog for Locating a Junction."
-msgstr ""
+msgstr "開啟對話窗以進行路口定位。"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:508
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1325
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1954
 msgid "&Edges"
-msgstr ""
+msgstr "&路段"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:508
 msgid "Open a Dialog for Locating an Edge."
-msgstr ""
+msgstr "開啟對話窗以進行路段定位。"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:511
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1380
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1960
 msgid "&Vehicles"
-msgstr ""
+msgstr "&車輛"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:511
 msgid "Open a Dialog for Locating a Vehicle."
-msgstr ""
+msgstr "開啟對話窗以進行車輛定位。"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:514
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1385
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1963
 msgid "&Persons"
-msgstr ""
+msgstr "&人員"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:514
 msgid "Open a Dialog for Locating a Person."
-msgstr ""
+msgstr "開啟對話窗以進行人員定位。"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:517
 msgid "&Container"
-msgstr ""
+msgstr "&集裝箱"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:517
 msgid "Open a Dialog for Locating a Container."
-msgstr ""
+msgstr "開啟對話窗以進行集裝箱定位。"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:520
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1972
 msgid "&TLS"
-msgstr ""
+msgstr "&號誌"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:520
 msgid "Open a Dialog for Locating a Traffic Light."
-msgstr ""
+msgstr "開啟對話窗以進行號誌定位。"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:523
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:610
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1975
 msgid "&Additional"
-msgstr ""
+msgstr "&額外的"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:523
 msgid "Open a Dialog for Locating an Additional Structure."
-msgstr ""
+msgstr "開啟對話窗以進行附加結構定位。"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:526
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1978
@@ -292,7 +292,7 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:526
 msgid "Open a Dialog for Locating a Point of Interest."
-msgstr ""
+msgstr "開啟對話窗以進行興趣點定位。"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:529
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1981
@@ -301,52 +301,53 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:529
 msgid "Open a Dialog for Locating a Polygon."
-msgstr ""
+msgstr "開啟對話窗以進行多邊形物件定位。"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:533
 msgid ""
 "Show Internal Structures\t\tShow internal junctions and streets in locator "
 "dialog."
-msgstr ""
+msgstr "顯示內部結構\t\t在定位對話窗中顯示內部路口和道路。"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:536
 msgid "Show Parking Vehicles\t\tShow parking vehicles in locator dialog."
-msgstr ""
+msgstr "顯示停車車輛\t\t在定位對話窗中顯示停車車輛。"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:540
 msgid ""
 "Show vehicles outside the road network\t\tShow vehicles that are teleporting "
 "or driving remote-controlled outside the road network in locator dialog."
-msgstr ""
+msgstr "顯示路網外的車輛\t\t在定位對話窗中顯示在路網外被傳送"
+"(teleporting)或被遠程控制的車輛。"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:546
 msgid "Simulation"
-msgstr ""
+msgstr "模擬"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:548
 msgid "Run"
-msgstr ""
+msgstr "執行"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:548
 msgid "Start/ Resume the simulation."
-msgstr ""
+msgstr "開始/恢復模擬。"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:551
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:688
 msgid "Stop"
-msgstr ""
+msgstr "停止"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:551
 msgid "Halt the simulation."
-msgstr ""
+msgstr "暫停模擬。"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:554
 msgid "Step"
-msgstr ""
+msgstr "步長(step)"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:554
 msgid "Perform one simulation step."
-msgstr ""
+msgstr "執行一個模擬步長。"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:557
 msgid "Delay+"
