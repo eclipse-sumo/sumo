@@ -28,15 +28,6 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# go to demand mode (For undo-redo)
-netedit.supermodeDemand()
-
-# force save demand elements
-netedit.forceSaveDemandElements()
-
-# Recompute
-netedit.rebuildNetwork()
-
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)
 
