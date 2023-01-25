@@ -1317,9 +1317,10 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     }
     myMessageWindow->registerMsgHandlers();
     // load elements
-    loadElements();
-    // load data elements
+    loadAdditionalElements();
+    loadDemandElements();
     loadDataElements();
+    loadMeanDataElements();
     // after loading net shouldn't be saved
     if (myNet) {
         myNet->getSavingStatus()->networkSaved();
@@ -4468,38 +4469,21 @@ GNEApplicationWindow::getSUMOOptions() {
 
 
 void
-GNEApplicationWindow::loadElements() {
+GNEApplicationWindow::loadAdditionalElements() {
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
     // get additional files
-    StringVector files;
-    for (const auto &additionalFiles : neteditOptions.getStringVector("additional-files")) {
-        files.push_back(additionalFiles);
-    }
-    for (const auto &routeFiles : neteditOptions.getStringVector("route-files")) {
-        files.push_back(routeFiles);
-    }
-    for (const auto &meanDataFiles : neteditOptions.getStringVector("meandata-files")) {
-        files.push_back(meanDataFiles);
-    }
-    // use first file as output
-    neteditOptions.resetWritable();
-    if (neteditOptions.getStringVector("additional-files").size() > 0) {
-        neteditOptions.set("additional-files", neteditOptions.getStringVector("additional-files").front());
-    }
-    if (neteditOptions.getStringVector("route-files").size() > 0) {
-        neteditOptions.set("route-files", neteditOptions.getStringVector("route-files").front());
-    }
-    if (neteditOptions.getStringVector("meandata-files").size() > 0) {
-        neteditOptions.set("meandata-files", neteditOptions.getStringVector("meandata-files").front());
-    }
+    const auto additionalFiles = neteditOptions.getStringVector("additional-files");
     // continue depending of network and additional files
-    if (myNet && (files.size() > 0)) {
+    if (myNet && (additionalFiles.size() > 0)) {
+        // use first file as output
+        neteditOptions.resetWritable();
+        neteditOptions.set("additional-files", additionalFiles.front());
         // begin undolist
-        myUndoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, "loading elements from '" + toString(files) + "'");
+        myUndoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, TL("loading additional elements from '") + toString(additionalFiles) + "'");
         // iterate over every additional file
-        for (const auto& file : files) {
-            WRITE_MESSAGE(TL("loading additionals and meandatas from '") + file + "'");
+        for (const auto& file : additionalFiles) {
+            WRITE_MESSAGE(TL("loading additionals from '") + file + "'");
             // declare general handler
             GNEGeneralHandler handler(myNet, file, true, false);
             // disable validation for additionals
@@ -4508,14 +4492,75 @@ GNEApplicationWindow::loadElements() {
             if (!handler.parse()) {
                 WRITE_ERRORF(TL("Loading of % failed."), file);
             }
-            // set netedit options
-            neteditOptions.resetWritable();
-            if (handler.isAdditionalFile() && neteditOptions.getString("additional-files").empty()) {
-                neteditOptions.set("additional-files", file);
-            } else if (handler.isRouteFile() && neteditOptions.getString("route-files").empty()) {
-                neteditOptions.set("route-files", file);
-            } else if (handler.isMeanDataFile() && neteditOptions.getString("meandata-files").empty()) {
-                neteditOptions.set("meandata-files", file);
+            // set additionals in SUMOConfig
+            setInputInSUMOOptions(false, false);
+            // disable validation for additionals
+            XMLSubSys::setValidation("auto", "auto", "auto");
+        }
+        // end undo list
+        myUndoList->end();
+    }
+}
+
+
+void
+GNEApplicationWindow::loadDemandElements() {
+    // get option container
+    auto& neteditOptions = OptionsCont::getOptions();
+    // get demand files
+    const auto demandFiles = neteditOptions.getStringVector("route-files");
+    // continue depending of network and additional files
+    if (myNet && (demandFiles.size() > 0)) {
+        // use first file as output
+        neteditOptions.resetWritable();
+        neteditOptions.set("route-files", demandFiles.front());
+        // begin undolist
+        myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, TL("loading demand elements from '") + toString(demandFiles) + "'");
+        // iterate over every additional file
+        for (const auto& file : demandFiles) {
+            WRITE_MESSAGE(TL("loading demand elements from '") + file + "'");
+            // declare general handler
+            GNEGeneralHandler handler(myNet, file, true, false);
+            // disable validation for additionals
+            XMLSubSys::setValidation("never", "auto", "auto");
+            // Run parser
+            if (!handler.parse()) {
+                WRITE_ERRORF(TL("Loading of % failed."), file);
+            }
+            // set additionals in SUMOConfig
+            setInputInSUMOOptions(false, false);
+            // disable validation for additionals
+            XMLSubSys::setValidation("auto", "auto", "auto");
+        }
+        // end undo list
+        myUndoList->end();
+    }
+}
+
+
+void
+GNEApplicationWindow::loadMeanDataElements() {
+    // get option container
+    auto& neteditOptions = OptionsCont::getOptions();
+    // get meanData files
+    const auto meanDataFiles = neteditOptions.getStringVector("meandata-files");
+    // continue depending of network and additional files
+    if (myNet && (meanDataFiles.size() > 0)) {
+            // use first file as output
+        neteditOptions.resetWritable();
+        neteditOptions.set("meandata-files", meanDataFiles.front());
+        // begin undolist
+        myUndoList->begin(Supermode::DATA, GUIIcon::MODEMEANDATA, TL("loading meanDatas from '") + toString(meanDataFiles) + "'");
+        // iterate over every additional file
+        for (const auto& file : meanDataFiles) {
+            WRITE_MESSAGE(TL("loading meandatas from '") + file + "'");
+            // declare general handler
+            GNEGeneralHandler handler(myNet, file, true, false);
+            // disable validation for additionals
+            XMLSubSys::setValidation("never", "auto", "auto");
+            // Run parser
+            if (!handler.parse()) {
+                WRITE_ERRORF(TL("Loading of % failed."), file);
             }
             // set additionals in SUMOConfig
             setInputInSUMOOptions(false, false);
@@ -4539,7 +4584,7 @@ GNEApplicationWindow::loadDataElements() {
         // disable update data
         myViewNet->getNet()->disableUpdateData();
         // begin undolist
-        myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, "loading data elements from '" + toString(dataFiles) + "'");
+        myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, TL("loading data elements from '") + toString(dataFiles) + "'");
         // iterate over every data file
         for (const auto& dataFile : dataFiles) {
             WRITE_MESSAGE(TL("Loading data elements from '") + dataFile + "'");
