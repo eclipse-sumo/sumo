@@ -82,6 +82,12 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("default.crossing-width", new Option_Float((double) 4.0));
     oc.addDescription("default.crossing-width", "Building Defaults", "The default width of a pedestrian crossing");
 
+    oc.doRegister("default.crossing-speed", new Option_Float(2.78));
+    oc.addDescription("default.crossing-speed", "Building Defaults", "The default speed 'limit' on a pedestrian crossing (in m/s)");
+
+    oc.doRegister("default.walkingarea-speed", new Option_Float(2.78));
+    oc.addDescription("default.walkingarea-speed", "Building Defaults", "The default speed 'limit' on a pedestrian walkingarea (in m/s)");
+
     oc.doRegister("default.allow", new Option_String());
     oc.addDescription("default.allow", "Building Defaults", "The default for allowed vehicle classes");
 
