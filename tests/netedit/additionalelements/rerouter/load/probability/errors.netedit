@@ -8,7 +8,7 @@ GLDebug: 	Inserted rerouter:rerouter_0 into SUMORTree with boundary -10.00,0.00,
 Debug: Adding rerouterSymbol 'gneE0' in GNEChange_Additional
 Debug: Adding rerouterSymbol 'gneE1' in GNEChange_Additional
 Error: Attribute 'probability' in definition of rerouter 'rerouter_1' is empty.
-Error: Attribute 'probability' in definition of rerouter 'rerouter_2' Invalid Number Format (double) dummyProbability.
+Error: Attribute 'probability' in definition of rerouter 'rerouter_2' Invalid Number Format .
 Error: Could not build rerouter with ID 'rerouter_3' in netedit; attribute probability cannot be negative.
 Debug: Adding rerouter 'rerouter_4' in GNEChange_Additional
 GLDebug: 	Inserted rerouter:rerouter_4 into SUMORTree with boundary 10.00,0.00,30.00,20.00
@@ -18,7 +18,7 @@ Debug: Adding rerouter 'rerouter_5' in GNEChange_Additional
 GLDebug: 	Inserted rerouter:rerouter_5 into SUMORTree with boundary 20.00,0.00,40.00,20.00
 Debug: Adding rerouterSymbol 'gneE0' in GNEChange_Additional
 Debug: Adding rerouterSymbol 'gneE1' in GNEChange_Additional
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.rerouter.23Jan142341.5544/netedit.daily.additional.rerouter/additionalelements/rerouter/load/probability/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.rerouter.25Jan182728.9762/netedit.daily.additional.rerouter/additionalelements/rerouter/load/probability/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

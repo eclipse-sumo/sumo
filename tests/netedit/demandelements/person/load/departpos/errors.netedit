@@ -25,29 +25,7 @@ Debug: Adding person 'p_4' in GNEChange_DemandElement
 Debug: Adding personTrip: edge->edge 'p_4' in GNEChange_DemandElement
 Debug: Adding person 'p_5' in GNEChange_DemandElement
 Debug: Adding personTrip: edge->edge 'p_5' in GNEChange_DemandElement
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.person.24Jan091456.3804/netedit.daily.demand.person/demandelements/person/load/departpos/routes.rou.xml failed.
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Removing personTrip: edge->edge 'p_5' in GNEChange_DemandElement
-Debug: Removing person 'p_5' in GNEChange_DemandElement
-Debug: Removing personTrip: edge->edge 'p_4' in GNEChange_DemandElement
-Debug: Removing person 'p_4' in GNEChange_DemandElement
-Debug: Removing personTrip: edge->edge 'p_3' in GNEChange_DemandElement
-Debug: Removing person 'p_3' in GNEChange_DemandElement
-Debug: Removing personTrip: edge->edge 'p_0' in GNEChange_DemandElement
-Debug: Removing person 'p_0' in GNEChange_DemandElement
-Debug: Removing busStop 'busStop' in GNEChange_Additional
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Adding busStop 'busStop' in GNEChange_Additional
-Debug: Adding person 'p_0' in GNEChange_DemandElement
-Debug: Adding personTrip: edge->edge 'p_0' in GNEChange_DemandElement
-Debug: Adding person 'p_3' in GNEChange_DemandElement
-Debug: Adding personTrip: edge->edge 'p_3' in GNEChange_DemandElement
-Debug: Adding person 'p_4' in GNEChange_DemandElement
-Debug: Adding personTrip: edge->edge 'p_4' in GNEChange_DemandElement
-Debug: Adding person 'p_5' in GNEChange_DemandElement
-Debug: Adding personTrip: edge->edge 'p_5' in GNEChange_DemandElement
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.person.25Jan182728.9835/netedit.daily.demand.person/demandelements/person/load/departpos/routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00
@@ -95,6 +73,26 @@ Debug: Created connection 'fromgneE6_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Removing personTrip: edge->edge 'p_5' in GNEChange_DemandElement
+Debug: Removing person 'p_5' in GNEChange_DemandElement
+Debug: Removing personTrip: edge->edge 'p_4' in GNEChange_DemandElement
+Debug: Removing person 'p_4' in GNEChange_DemandElement
+Debug: Removing personTrip: edge->edge 'p_3' in GNEChange_DemandElement
+Debug: Removing person 'p_3' in GNEChange_DemandElement
+Debug: Removing personTrip: edge->edge 'p_0' in GNEChange_DemandElement
+Debug: Removing person 'p_0' in GNEChange_DemandElement
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Adding person 'p_0' in GNEChange_DemandElement
+Debug: Adding personTrip: edge->edge 'p_0' in GNEChange_DemandElement
+Debug: Adding person 'p_3' in GNEChange_DemandElement
+Debug: Adding personTrip: edge->edge 'p_3' in GNEChange_DemandElement
+Debug: Adding person 'p_4' in GNEChange_DemandElement
+Debug: Adding personTrip: edge->edge 'p_4' in GNEChange_DemandElement
+Debug: Adding person 'p_5' in GNEChange_DemandElement
+Debug: Adding personTrip: edge->edge 'p_5' in GNEChange_DemandElement
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -10.00,-16.40,10.00,13.20
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 39.60,-16.40,76.40,17.20

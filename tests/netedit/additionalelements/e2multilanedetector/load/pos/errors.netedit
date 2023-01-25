@@ -7,13 +7,13 @@ GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary 15.00,-11.60,60.00,10
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary 15.00,-10.00,60.00,11.60
 GLDebug: 	Inserted edge:gneE5 into SUMORTree with boundary -10.00,-10.00,35.00,11.60
 Error: Attribute 'pos' is missing in definition of laneAreaDetector 'multiLaneAreaDetector_0'.
-Error: Attribute 'pos' in definition of laneAreaDetector 'multiLaneAreaDetector_1' Invalid Number Format (double) dummyPos.
+Error: Attribute 'pos' in definition of laneAreaDetector 'multiLaneAreaDetector_1' Invalid Number Format .
 Debug: Adding multiLaneAreaDetector 'multiLaneAreaDetector_2' in GNEChange_Additional
 Debug: Adding multiLaneAreaDetector 'multiLaneAreaDetector_3' in GNEChange_Additional
 Error: Could not build laneAreaDetector with ID 'multiLaneAreaDetector_4' in netedit; Invalid position over lane.
 Debug: Adding multiLaneAreaDetector 'multiLaneAreaDetector_5' in GNEChange_Additional
 Debug: Adding multiLaneAreaDetector 'multiLaneAreaDetector_6' in GNEChange_Additional
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.e2multilanedetector.24Jun133818.22395/netedit.daily.additional.e2multilanedetector/additionalelements/e2multilanedetector/load/pos/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.e2multilanedetector.25Jan182727.9754/netedit.daily.additional.e2multilanedetector/additionalelements/e2multilanedetector/load/pos/additionals.add.xml failed.
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00

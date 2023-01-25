@@ -3,7 +3,7 @@ GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -12.00,-12.00,12.
 GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 38.00,-12.00,62.00,12.00
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
-Error: Attribute 'z' in definition of a space Invalid Number Format (double) dummyZ.
+Error: Attribute 'z' in definition of a space Invalid Number Format .
 Error: Attribute 'z' in definition of a space is empty.
 Debug: Adding parkingArea 'parkingArea_0' in GNEChange_Additional
 Debug: Adding space 'parkingArea_0' in GNEChange_Additional
@@ -24,7 +24,7 @@ GLDebug: 	Removed object parkingSpace:parkingArea_0 from SUMORTree with boundary
 GLDebug: 	Inserted parkingSpace:parkingArea_0 into SUMORTree with boundary -4.30,-34.30,34.30,4.30
 GLDebug: 	Removed object parkingSpace:parkingArea_0 from SUMORTree with boundary -4.30,-34.30,34.30,4.30
 GLDebug: 	Inserted parkingSpace:parkingArea_0 into SUMORTree with boundary -4.30,-34.30,34.30,4.30
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.parkingspace.23Jan142341.5542/netedit.daily.additional.parkingspace/additionalelements/parkingspace/load/z/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.parkingspace.25Jan182727.9760/netedit.daily.additional.parkingspace/additionalelements/parkingspace/load/z/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

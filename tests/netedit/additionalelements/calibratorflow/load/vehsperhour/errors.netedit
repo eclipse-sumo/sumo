@@ -6,11 +6,11 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Adding route 'CRoute' in GNEChange_DemandElement
 Error: Attribute 'vehsPerHour' in definition of a flow is empty.
 Error: Attribute 'vehsPerHour' in definition of a flow is empty.
-Error: Attribute 'vehsPerHour' in definition of a flow Invalid Number Format (double) dummy.
-Error: Attribute 'vehsPerHour' in definition of a flow Invalid Number Format (double) dummy.
+Error: Attribute 'vehsPerHour' in definition of a flow Invalid Number Format .
+Error: Attribute 'vehsPerHour' in definition of a flow Invalid Number Format .
 Debug: Adding calibrator 'calibratorFlows' in GNEChange_Additional
 Debug: Adding calibratorFlow 'calibratorFlows' in GNEChange_Additional
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.calibratorflow.23Jan142341.5518/netedit.daily.additional.calibratorflow/additionalelements/calibratorflow/load/vehsperhour/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.calibratorflow.25Jan182727.9736/netedit.daily.additional.calibratorflow/additionalelements/calibratorflow/load/vehsperhour/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

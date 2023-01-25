@@ -84,7 +84,7 @@ Debug: Setting new attribute
 Debug: declaring connections of edge '5' as loaded (It will not be removed)
 Debug: Setting new attribute
 Debug: declaring connections of edge '7' as loaded (It will not be removed)
-Debug: Removing connection '5_1->3_1' from edge '5'
+Debug: Removing connection '6_1->1_1' from edge '6'
 Debug: Setting new attribute
 Debug: declaring connections of edge '6' as loaded (It will not be removed)
 Debug: Setting new attribute
@@ -93,7 +93,16 @@ Debug: Setting new attribute
 Debug: declaring connections of edge '5' as loaded (It will not be removed)
 Debug: Setting new attribute
 Debug: declaring connections of edge '7' as loaded (It will not be removed)
-Debug: Removing connection '6_0->1_0' from edge '6'
+Debug: Removing connection '6_0->3_0' from edge '6'
+Debug: Setting new attribute
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '5_1->3_1' from edge '5'
 Debug: Setting new attribute
 Debug: declaring connections of edge '6' as loaded (It will not be removed)
 Debug: Setting new attribute
@@ -111,15 +120,6 @@ Debug: Setting new attribute
 Debug: declaring connections of edge '5' as loaded (It will not be removed)
 Debug: Setting new attribute
 Debug: declaring connections of edge '7' as loaded (It will not be removed)
-Debug: Removing connection '5_0->4_0' from edge '5'
-Debug: Setting new attribute
-Debug: declaring connections of edge '6' as loaded (It will not be removed)
-Debug: Setting new attribute
-Debug: declaring connections of edge '8' as loaded (It will not be removed)
-Debug: Setting new attribute
-Debug: declaring connections of edge '5' as loaded (It will not be removed)
-Debug: Setting new attribute
-Debug: declaring connections of edge '7' as loaded (It will not be removed)
 Debug: Removing connection '5_0->2_0' from edge '5'
 Debug: Setting new attribute
 Debug: declaring connections of edge '6' as loaded (It will not be removed)
@@ -129,43 +129,16 @@ Debug: Setting new attribute
 Debug: declaring connections of edge '5' as loaded (It will not be removed)
 Debug: Setting new attribute
 Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '7_0->4_0' from edge '7'
+Debug: Setting new attribute
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
 Debug: Removing connection '8_0->3_0' from edge '8'
-Debug: Setting new attribute
-Debug: declaring connections of edge '6' as loaded (It will not be removed)
-Debug: Setting new attribute
-Debug: declaring connections of edge '8' as loaded (It will not be removed)
-Debug: Setting new attribute
-Debug: declaring connections of edge '5' as loaded (It will not be removed)
-Debug: Setting new attribute
-Debug: declaring connections of edge '7' as loaded (It will not be removed)
-Debug: Removing connection '7_1->4_1' from edge '7'
-Debug: Setting new attribute
-Debug: declaring connections of edge '6' as loaded (It will not be removed)
-Debug: Setting new attribute
-Debug: declaring connections of edge '8' as loaded (It will not be removed)
-Debug: Setting new attribute
-Debug: declaring connections of edge '5' as loaded (It will not be removed)
-Debug: Setting new attribute
-Debug: declaring connections of edge '7' as loaded (It will not be removed)
-Debug: Removing connection '7_1->2_1' from edge '7'
-Debug: Setting new attribute
-Debug: declaring connections of edge '6' as loaded (It will not be removed)
-Debug: Setting new attribute
-Debug: declaring connections of edge '8' as loaded (It will not be removed)
-Debug: Setting new attribute
-Debug: declaring connections of edge '5' as loaded (It will not be removed)
-Debug: Setting new attribute
-Debug: declaring connections of edge '7' as loaded (It will not be removed)
-Debug: Removing connection '8_1->1_1' from edge '8'
-Debug: Setting new attribute
-Debug: declaring connections of edge '6' as loaded (It will not be removed)
-Debug: Setting new attribute
-Debug: declaring connections of edge '8' as loaded (It will not be removed)
-Debug: Setting new attribute
-Debug: declaring connections of edge '5' as loaded (It will not be removed)
-Debug: Setting new attribute
-Debug: declaring connections of edge '7' as loaded (It will not be removed)
-Debug: Removing connection '8_1->3_1' from edge '8'
 Debug: Setting new attribute
 Debug: declaring connections of edge '6' as loaded (It will not be removed)
 Debug: Setting new attribute
@@ -201,7 +174,7 @@ Debug: Setting new attribute
 Debug: declaring connections of edge '5' as loaded (It will not be removed)
 Debug: Setting new attribute
 Debug: declaring connections of edge '7' as loaded (It will not be removed)
-Debug: Removing connection '6_1->1_1' from edge '6'
+Debug: Removing connection '7_1->4_1' from edge '7'
 Debug: Setting new attribute
 Debug: declaring connections of edge '6' as loaded (It will not be removed)
 Debug: Setting new attribute
@@ -210,7 +183,7 @@ Debug: Setting new attribute
 Debug: declaring connections of edge '5' as loaded (It will not be removed)
 Debug: Setting new attribute
 Debug: declaring connections of edge '7' as loaded (It will not be removed)
-Debug: Removing connection '7_0->4_0' from edge '7'
+Debug: Removing connection '8_1->3_1' from edge '8'
 Debug: Setting new attribute
 Debug: declaring connections of edge '6' as loaded (It will not be removed)
 Debug: Setting new attribute
@@ -219,7 +192,34 @@ Debug: Setting new attribute
 Debug: declaring connections of edge '5' as loaded (It will not be removed)
 Debug: Setting new attribute
 Debug: declaring connections of edge '7' as loaded (It will not be removed)
-Debug: Removing connection '6_0->3_0' from edge '6'
+Debug: Removing connection '8_1->1_1' from edge '8'
+Debug: Setting new attribute
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '5_0->4_0' from edge '5'
+Debug: Setting new attribute
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '6_0->1_0' from edge '6'
+Debug: Setting new attribute
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '7_1->2_1' from edge '7'
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:A from SUMORTree with boundary 33.60,-10.00,66.40,10.00
@@ -253,8 +253,8 @@ GLDebug: 	Inserted edge:7 into SUMORTree with boundary -10.00,35.20,60.00,60.00
 GLDebug: 	Inserted edge:8 into SUMORTree with boundary 40.00,40.00,110.00,64.80
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Adding a previously selected connection '6_0->3_0' into edge '6'
-Debug: Created connection 'from6_0to3_0' in retrieveGNEConnection()
+Debug: Adding a previously selected connection '7_1->2_1' into edge '7'
+Debug: Created connection 'from7_1to2_1' in retrieveGNEConnection()
 Debug: Restoring previous attribute
 Debug: declaring connections of edge '7' as loaded (It will not be removed)
 Debug: Restoring previous attribute
@@ -263,8 +263,8 @@ Debug: Restoring previous attribute
 Debug: declaring connections of edge '8' as loaded (It will not be removed)
 Debug: Restoring previous attribute
 Debug: declaring connections of edge '6' as loaded (It will not be removed)
-Debug: Adding a previously selected connection '7_0->4_0' into edge '7'
-Debug: Created connection 'from7_0to4_0' in retrieveGNEConnection()
+Debug: Adding a previously selected connection '6_0->1_0' into edge '6'
+Debug: Created connection 'from6_0to1_0' in retrieveGNEConnection()
 Debug: Restoring previous attribute
 Debug: declaring connections of edge '7' as loaded (It will not be removed)
 Debug: Restoring previous attribute
@@ -273,8 +273,38 @@ Debug: Restoring previous attribute
 Debug: declaring connections of edge '8' as loaded (It will not be removed)
 Debug: Restoring previous attribute
 Debug: declaring connections of edge '6' as loaded (It will not be removed)
-Debug: Adding a previously selected connection '6_1->1_1' into edge '6'
-Debug: Created connection 'from6_1to1_1' in retrieveGNEConnection()
+Debug: Adding a previously selected connection '5_0->4_0' into edge '5'
+Debug: Created connection 'from5_0to4_0' in retrieveGNEConnection()
+Debug: Restoring previous attribute
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Restoring previous attribute
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Restoring previous attribute
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Restoring previous attribute
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Adding a previously selected connection '8_1->1_1' into edge '8'
+Debug: Created connection 'from8_1to1_1' in retrieveGNEConnection()
+Debug: Restoring previous attribute
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Restoring previous attribute
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Restoring previous attribute
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Restoring previous attribute
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Adding a previously selected connection '8_1->3_1' into edge '8'
+Debug: Created connection 'from8_1to3_1' in retrieveGNEConnection()
+Debug: Restoring previous attribute
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Restoring previous attribute
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Restoring previous attribute
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Restoring previous attribute
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Adding a previously selected connection '7_1->4_1' into edge '7'
+Debug: Created connection 'from7_1to4_1' in retrieveGNEConnection()
 Debug: Restoring previous attribute
 Debug: declaring connections of edge '7' as loaded (It will not be removed)
 Debug: Restoring previous attribute
@@ -313,48 +343,18 @@ Debug: Restoring previous attribute
 Debug: declaring connections of edge '8' as loaded (It will not be removed)
 Debug: Restoring previous attribute
 Debug: declaring connections of edge '6' as loaded (It will not be removed)
-Debug: Adding a previously selected connection '8_1->3_1' into edge '8'
-Debug: Created connection 'from8_1to3_1' in retrieveGNEConnection()
-Debug: Restoring previous attribute
-Debug: declaring connections of edge '7' as loaded (It will not be removed)
-Debug: Restoring previous attribute
-Debug: declaring connections of edge '5' as loaded (It will not be removed)
-Debug: Restoring previous attribute
-Debug: declaring connections of edge '8' as loaded (It will not be removed)
-Debug: Restoring previous attribute
-Debug: declaring connections of edge '6' as loaded (It will not be removed)
-Debug: Adding a previously selected connection '8_1->1_1' into edge '8'
-Debug: Created connection 'from8_1to1_1' in retrieveGNEConnection()
-Debug: Restoring previous attribute
-Debug: declaring connections of edge '7' as loaded (It will not be removed)
-Debug: Restoring previous attribute
-Debug: declaring connections of edge '5' as loaded (It will not be removed)
-Debug: Restoring previous attribute
-Debug: declaring connections of edge '8' as loaded (It will not be removed)
-Debug: Restoring previous attribute
-Debug: declaring connections of edge '6' as loaded (It will not be removed)
-Debug: Adding a previously selected connection '7_1->2_1' into edge '7'
-Debug: Created connection 'from7_1to2_1' in retrieveGNEConnection()
-Debug: Restoring previous attribute
-Debug: declaring connections of edge '7' as loaded (It will not be removed)
-Debug: Restoring previous attribute
-Debug: declaring connections of edge '5' as loaded (It will not be removed)
-Debug: Restoring previous attribute
-Debug: declaring connections of edge '8' as loaded (It will not be removed)
-Debug: Restoring previous attribute
-Debug: declaring connections of edge '6' as loaded (It will not be removed)
-Debug: Adding a previously selected connection '7_1->4_1' into edge '7'
-Debug: Created connection 'from7_1to4_1' in retrieveGNEConnection()
-Debug: Restoring previous attribute
-Debug: declaring connections of edge '7' as loaded (It will not be removed)
-Debug: Restoring previous attribute
-Debug: declaring connections of edge '5' as loaded (It will not be removed)
-Debug: Restoring previous attribute
-Debug: declaring connections of edge '8' as loaded (It will not be removed)
-Debug: Restoring previous attribute
-Debug: declaring connections of edge '6' as loaded (It will not be removed)
 Debug: Adding a previously selected connection '8_0->3_0' into edge '8'
 Debug: Created connection 'from8_0to3_0' in retrieveGNEConnection()
+Debug: Restoring previous attribute
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Restoring previous attribute
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Restoring previous attribute
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Restoring previous attribute
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Adding a previously selected connection '7_0->4_0' into edge '7'
+Debug: Created connection 'from7_0to4_0' in retrieveGNEConnection()
 Debug: Restoring previous attribute
 Debug: declaring connections of edge '7' as loaded (It will not be removed)
 Debug: Restoring previous attribute
@@ -373,16 +373,6 @@ Debug: Restoring previous attribute
 Debug: declaring connections of edge '8' as loaded (It will not be removed)
 Debug: Restoring previous attribute
 Debug: declaring connections of edge '6' as loaded (It will not be removed)
-Debug: Adding a previously selected connection '5_0->4_0' into edge '5'
-Debug: Created connection 'from5_0to4_0' in retrieveGNEConnection()
-Debug: Restoring previous attribute
-Debug: declaring connections of edge '7' as loaded (It will not be removed)
-Debug: Restoring previous attribute
-Debug: declaring connections of edge '5' as loaded (It will not be removed)
-Debug: Restoring previous attribute
-Debug: declaring connections of edge '8' as loaded (It will not be removed)
-Debug: Restoring previous attribute
-Debug: declaring connections of edge '6' as loaded (It will not be removed)
 Debug: Adding a previously selected connection '5_1->2_1' into edge '5'
 Debug: Created connection 'from5_1to2_1' in retrieveGNEConnection()
 Debug: Restoring previous attribute
@@ -393,8 +383,8 @@ Debug: Restoring previous attribute
 Debug: declaring connections of edge '8' as loaded (It will not be removed)
 Debug: Restoring previous attribute
 Debug: declaring connections of edge '6' as loaded (It will not be removed)
-Debug: Adding a previously selected connection '6_0->1_0' into edge '6'
-Debug: Created connection 'from6_0to1_0' in retrieveGNEConnection()
+Debug: Adding a previously selected connection '5_1->3_1' into edge '5'
+Debug: Created connection 'from5_1to3_1' in retrieveGNEConnection()
 Debug: Restoring previous attribute
 Debug: declaring connections of edge '7' as loaded (It will not be removed)
 Debug: Restoring previous attribute
@@ -403,8 +393,18 @@ Debug: Restoring previous attribute
 Debug: declaring connections of edge '8' as loaded (It will not be removed)
 Debug: Restoring previous attribute
 Debug: declaring connections of edge '6' as loaded (It will not be removed)
-Debug: Adding a previously selected connection '5_1->3_1' into edge '5'
-Debug: Created connection 'from5_1to3_1' in retrieveGNEConnection()
+Debug: Adding a previously selected connection '6_0->3_0' into edge '6'
+Debug: Created connection 'from6_0to3_0' in retrieveGNEConnection()
+Debug: Restoring previous attribute
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Restoring previous attribute
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Restoring previous attribute
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Restoring previous attribute
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Adding a previously selected connection '6_1->1_1' into edge '6'
+Debug: Created connection 'from6_1to1_1' in retrieveGNEConnection()
 Debug: Restoring previous attribute
 Debug: declaring connections of edge '7' as loaded (It will not be removed)
 Debug: Restoring previous attribute
@@ -454,8 +454,8 @@ Debug: Setting new attribute
 Debug: declaring connections of edge '5' as loaded (It will not be removed)
 Debug: Setting new attribute
 Debug: declaring connections of edge '7' as loaded (It will not be removed)
-Debug: Removing connection '5_1->3_1' from edge '5'
-Debug: Deleting unreferenced connection 'from5_1to3_1' in removeConnection()
+Debug: Removing connection '6_1->1_1' from edge '6'
+Debug: Deleting unreferenced connection 'from6_1to1_1' in removeConnection()
 Debug: Setting new attribute
 Debug: declaring connections of edge '6' as loaded (It will not be removed)
 Debug: Setting new attribute
@@ -464,8 +464,18 @@ Debug: Setting new attribute
 Debug: declaring connections of edge '5' as loaded (It will not be removed)
 Debug: Setting new attribute
 Debug: declaring connections of edge '7' as loaded (It will not be removed)
-Debug: Removing connection '6_0->1_0' from edge '6'
-Debug: Deleting unreferenced connection 'from6_0to1_0' in removeConnection()
+Debug: Removing connection '6_0->3_0' from edge '6'
+Debug: Deleting unreferenced connection 'from6_0to3_0' in removeConnection()
+Debug: Setting new attribute
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '5_1->3_1' from edge '5'
+Debug: Deleting unreferenced connection 'from5_1to3_1' in removeConnection()
 Debug: Setting new attribute
 Debug: declaring connections of edge '6' as loaded (It will not be removed)
 Debug: Setting new attribute
@@ -484,16 +494,6 @@ Debug: Setting new attribute
 Debug: declaring connections of edge '5' as loaded (It will not be removed)
 Debug: Setting new attribute
 Debug: declaring connections of edge '7' as loaded (It will not be removed)
-Debug: Removing connection '5_0->4_0' from edge '5'
-Debug: Deleting unreferenced connection 'from5_0to4_0' in removeConnection()
-Debug: Setting new attribute
-Debug: declaring connections of edge '6' as loaded (It will not be removed)
-Debug: Setting new attribute
-Debug: declaring connections of edge '8' as loaded (It will not be removed)
-Debug: Setting new attribute
-Debug: declaring connections of edge '5' as loaded (It will not be removed)
-Debug: Setting new attribute
-Debug: declaring connections of edge '7' as loaded (It will not be removed)
 Debug: Removing connection '5_0->2_0' from edge '5'
 Debug: Deleting unreferenced connection 'from5_0to2_0' in removeConnection()
 Debug: Setting new attribute
@@ -504,48 +504,18 @@ Debug: Setting new attribute
 Debug: declaring connections of edge '5' as loaded (It will not be removed)
 Debug: Setting new attribute
 Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '7_0->4_0' from edge '7'
+Debug: Deleting unreferenced connection 'from7_0to4_0' in removeConnection()
+Debug: Setting new attribute
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
 Debug: Removing connection '8_0->3_0' from edge '8'
 Debug: Deleting unreferenced connection 'from8_0to3_0' in removeConnection()
-Debug: Setting new attribute
-Debug: declaring connections of edge '6' as loaded (It will not be removed)
-Debug: Setting new attribute
-Debug: declaring connections of edge '8' as loaded (It will not be removed)
-Debug: Setting new attribute
-Debug: declaring connections of edge '5' as loaded (It will not be removed)
-Debug: Setting new attribute
-Debug: declaring connections of edge '7' as loaded (It will not be removed)
-Debug: Removing connection '7_1->4_1' from edge '7'
-Debug: Deleting unreferenced connection 'from7_1to4_1' in removeConnection()
-Debug: Setting new attribute
-Debug: declaring connections of edge '6' as loaded (It will not be removed)
-Debug: Setting new attribute
-Debug: declaring connections of edge '8' as loaded (It will not be removed)
-Debug: Setting new attribute
-Debug: declaring connections of edge '5' as loaded (It will not be removed)
-Debug: Setting new attribute
-Debug: declaring connections of edge '7' as loaded (It will not be removed)
-Debug: Removing connection '7_1->2_1' from edge '7'
-Debug: Deleting unreferenced connection 'from7_1to2_1' in removeConnection()
-Debug: Setting new attribute
-Debug: declaring connections of edge '6' as loaded (It will not be removed)
-Debug: Setting new attribute
-Debug: declaring connections of edge '8' as loaded (It will not be removed)
-Debug: Setting new attribute
-Debug: declaring connections of edge '5' as loaded (It will not be removed)
-Debug: Setting new attribute
-Debug: declaring connections of edge '7' as loaded (It will not be removed)
-Debug: Removing connection '8_1->1_1' from edge '8'
-Debug: Deleting unreferenced connection 'from8_1to1_1' in removeConnection()
-Debug: Setting new attribute
-Debug: declaring connections of edge '6' as loaded (It will not be removed)
-Debug: Setting new attribute
-Debug: declaring connections of edge '8' as loaded (It will not be removed)
-Debug: Setting new attribute
-Debug: declaring connections of edge '5' as loaded (It will not be removed)
-Debug: Setting new attribute
-Debug: declaring connections of edge '7' as loaded (It will not be removed)
-Debug: Removing connection '8_1->3_1' from edge '8'
-Debug: Deleting unreferenced connection 'from8_1to3_1' in removeConnection()
 Debug: Setting new attribute
 Debug: declaring connections of edge '6' as loaded (It will not be removed)
 Debug: Setting new attribute
@@ -584,8 +554,8 @@ Debug: Setting new attribute
 Debug: declaring connections of edge '5' as loaded (It will not be removed)
 Debug: Setting new attribute
 Debug: declaring connections of edge '7' as loaded (It will not be removed)
-Debug: Removing connection '6_1->1_1' from edge '6'
-Debug: Deleting unreferenced connection 'from6_1to1_1' in removeConnection()
+Debug: Removing connection '7_1->4_1' from edge '7'
+Debug: Deleting unreferenced connection 'from7_1to4_1' in removeConnection()
 Debug: Setting new attribute
 Debug: declaring connections of edge '6' as loaded (It will not be removed)
 Debug: Setting new attribute
@@ -594,8 +564,8 @@ Debug: Setting new attribute
 Debug: declaring connections of edge '5' as loaded (It will not be removed)
 Debug: Setting new attribute
 Debug: declaring connections of edge '7' as loaded (It will not be removed)
-Debug: Removing connection '7_0->4_0' from edge '7'
-Debug: Deleting unreferenced connection 'from7_0to4_0' in removeConnection()
+Debug: Removing connection '8_1->3_1' from edge '8'
+Debug: Deleting unreferenced connection 'from8_1to3_1' in removeConnection()
 Debug: Setting new attribute
 Debug: declaring connections of edge '6' as loaded (It will not be removed)
 Debug: Setting new attribute
@@ -604,8 +574,38 @@ Debug: Setting new attribute
 Debug: declaring connections of edge '5' as loaded (It will not be removed)
 Debug: Setting new attribute
 Debug: declaring connections of edge '7' as loaded (It will not be removed)
-Debug: Removing connection '6_0->3_0' from edge '6'
-Debug: Deleting unreferenced connection 'from6_0to3_0' in removeConnection()
+Debug: Removing connection '8_1->1_1' from edge '8'
+Debug: Deleting unreferenced connection 'from8_1to1_1' in removeConnection()
+Debug: Setting new attribute
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '5_0->4_0' from edge '5'
+Debug: Deleting unreferenced connection 'from5_0to4_0' in removeConnection()
+Debug: Setting new attribute
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '6_0->1_0' from edge '6'
+Debug: Deleting unreferenced connection 'from6_0to1_0' in removeConnection()
+Debug: Setting new attribute
+Debug: declaring connections of edge '6' as loaded (It will not be removed)
+Debug: Setting new attribute
+Debug: declaring connections of edge '8' as loaded (It will not be removed)
+Debug: Setting new attribute
+Debug: declaring connections of edge '5' as loaded (It will not be removed)
+Debug: Setting new attribute
+Debug: declaring connections of edge '7' as loaded (It will not be removed)
+Debug: Removing connection '7_1->2_1' from edge '7'
+Debug: Deleting unreferenced connection 'from7_1to2_1' in removeConnection()
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:A from SUMORTree with boundary 33.60,-10.00,66.40,10.00
 GLDebug: 	Removed object junction:B from SUMORTree with boundary 33.60,90.00,66.40,110.00

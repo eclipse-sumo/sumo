@@ -5,10 +5,10 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Adding poiGeo 'POI_0' in GNEChange_Additional
 GLDebug: 	Inserted poi:POI_0 into SUMORTree with boundary -6636430.98,1900621.60,-6636409.98,1900642.60
-Error: Attribute 'width' in definition of poi 'POI_1' Invalid Number Format (double) dummyWidth.
+Error: Attribute 'width' in definition of poi 'POI_1' Invalid Number Format .
 Debug: Adding poiGeo 'POI_2' in GNEChange_Additional
 GLDebug: 	Inserted poi:POI_2 into SUMORTree with boundary -1949224.71,3597192.17,-1949202.71,3597214.17
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poigeo.23Jan142342.5677/netedit.daily.shape.poigeo/shapeelements/poigeo/load/width/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poigeo.25Jan182729.10188/netedit.daily.shape.poigeo/shapeelements/poigeo/load/width/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

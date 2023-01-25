@@ -88,8 +88,8 @@ Debug: Adding edgeRelation 'Data1[0.00,3600.00]:-E0' in GNEChange_GenericData
 Debug: Adding edgeRelation 'Data1[0.00,3600.00]:-E2' in GNEChange_GenericData
 Debug: Adding edgeRelation 'Data1[0.00,3600.00]:E2' in GNEChange_GenericData
 Debug: Adding edgeRelation 'Data1[0.00,3600.00]:E0' in GNEChange_GenericData
-Debug: Adding edgeData 'Data1[0.00,3600.00]:-E0' in GNEChange_GenericData
-Debug: Adding edgeData 'Data1[0.00,3600.00]:-E3' in GNEChange_GenericData
+Debug: Adding edgeRelSingle 'Data1[0.00,3600.00]:-E0' in GNEChange_GenericData
+Debug: Adding edgeRelSingle 'Data1[0.00,3600.00]:-E3' in GNEChange_GenericData
 Debug: Adding tazRelation 'Data1[0.00,3600.00]:taz_1->taz_0' in GNEChange_GenericData
 GLDebug: 	Inserted TAZRelData:Data1 into SUMORTree with boundary -10000000020.00,-10000000020.00,10000000020.00,10000000020.00
 GLDebug: 	Removed object TAZRelData:Data1 from SUMORTree with boundary -10000000020.00,-10000000020.00,10000000020.00,10000000020.00
@@ -99,8 +99,8 @@ GLDebug: 	Inserted TAZRelData:Data1 into SUMORTree with boundary -10000000020.00
 GLDebug: 	Removed object TAZRelData:Data1 from SUMORTree with boundary -10000000020.00,-10000000020.00,10000000020.00,10000000020.00
 GLDebug: 	Inserted TAZRelData:Data1 into SUMORTree with boundary 15.50,0.00,55.50,80.00
 Debug: adding dataInterval [3600.00, 7200.00] in GNEChange_DataInterval
-Debug: Adding edgeData 'Data1[3600.00,7200.00]:-E2' in GNEChange_GenericData
-Debug: Adding edgeData 'Data1[3600.00,7200.00]:-E1' in GNEChange_GenericData
+Debug: Adding edgeRelSingle 'Data1[3600.00,7200.00]:-E2' in GNEChange_GenericData
+Debug: Adding edgeRelSingle 'Data1[3600.00,7200.00]:-E1' in GNEChange_GenericData
 GLDebug: 	Removed object TAZRelData:Data1 from SUMORTree with boundary 15.50,0.00,55.50,80.00
 GLDebug: 	Inserted TAZRelData:Data1 into SUMORTree with boundary 16.00,0.00,56.00,80.00
 GLDebug: 	Removed object TAZRelData:Data1 from SUMORTree with boundary 14.50,0.00,54.50,80.00
@@ -202,15 +202,15 @@ Debug: network elements saved
 Debug: Additionals saved
 Debug: demand elements saved
 Debug: data sets saved
-Debug: Deleting unreferenced edgeData
-Debug: Deleting unreferenced edgeData
+Debug: Deleting unreferenced edgeRelSingle
+Debug: Deleting unreferenced edgeRelSingle
 Debug: Deleting unreferenced dataInterval [3600.00, 7200.00] in ~GNEChange_DataInterval()
 Debug: Deleting unreferenced tazRelation
 GLDebug: 	Removed object TAZRelData:Data1 from SUMORTree with boundary 16.00,0.00,56.00,80.00
 Debug: Deleting unreferenced tazRelation
 GLDebug: 	Removed object TAZRelData:Data1 from SUMORTree with boundary 14.00,0.00,54.00,80.00
-Debug: Deleting unreferenced edgeData
-Debug: Deleting unreferenced edgeData
+Debug: Deleting unreferenced edgeRelSingle
+Debug: Deleting unreferenced edgeRelSingle
 Debug: Deleting unreferenced edgeRelation
 Debug: Deleting unreferenced edgeRelation
 Debug: Deleting unreferenced edgeRelation

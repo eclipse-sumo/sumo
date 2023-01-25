@@ -88,8 +88,8 @@ Debug: Adding edgeRelation 'Data1[0.00,3600.00]:-E0' in GNEChange_GenericData
 Debug: Adding edgeRelation 'Data1[0.00,3600.00]:-E2' in GNEChange_GenericData
 Debug: Adding edgeRelation 'Data1[0.00,3600.00]:E2' in GNEChange_GenericData
 Debug: Adding edgeRelation 'Data1[0.00,3600.00]:E0' in GNEChange_GenericData
-Debug: Adding edgeData 'Data1[0.00,3600.00]:-E0' in GNEChange_GenericData
-Debug: Adding edgeData 'Data1[0.00,3600.00]:-E3' in GNEChange_GenericData
+Debug: Adding edgeRelSingle 'Data1[0.00,3600.00]:-E0' in GNEChange_GenericData
+Debug: Adding edgeRelSingle 'Data1[0.00,3600.00]:-E3' in GNEChange_GenericData
 Debug: Adding tazRelation 'Data1[0.00,3600.00]:taz_1->taz_0' in GNEChange_GenericData
 GLDebug: 	Inserted TAZRelData:Data1 into SUMORTree with boundary -10000000020.00,-10000000020.00,10000000020.00,10000000020.00
 GLDebug: 	Removed object TAZRelData:Data1 from SUMORTree with boundary -10000000020.00,-10000000020.00,10000000020.00,10000000020.00
@@ -99,8 +99,8 @@ GLDebug: 	Inserted TAZRelData:Data1 into SUMORTree with boundary -10000000020.00
 GLDebug: 	Removed object TAZRelData:Data1 from SUMORTree with boundary -10000000020.00,-10000000020.00,10000000020.00,10000000020.00
 GLDebug: 	Inserted TAZRelData:Data1 into SUMORTree with boundary 15.50,0.00,55.50,80.00
 Debug: adding dataInterval [3600.00, 7200.00] in GNEChange_DataInterval
-Debug: Adding edgeData 'Data1[3600.00,7200.00]:-E2' in GNEChange_GenericData
-Debug: Adding edgeData 'Data1[3600.00,7200.00]:-E1' in GNEChange_GenericData
+Debug: Adding edgeRelSingle 'Data1[3600.00,7200.00]:-E2' in GNEChange_GenericData
+Debug: Adding edgeRelSingle 'Data1[3600.00,7200.00]:-E1' in GNEChange_GenericData
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:J0 from SUMORTree with boundary -12.00,48.00,12.00,72.00
 GLDebug: 	Removed object junction:J1 from SUMORTree with boundary 58.00,48.00,82.00,72.00
@@ -149,7 +149,7 @@ Debug: Created walkingArea ':J2_w1' in retrieveGNEWalkingArea()
 Debug: Created crossing ':J3_c0' in retrieveGNECrossing()
 Debug: Created walkingArea ':J3_w0' in retrieveGNEWalkingArea()
 Debug: Created walkingArea ':J3_w1' in retrieveGNEWalkingArea()
-Debug: Enabled toggle show grid through alt + 1
+Debug: Disabled toggle show grid through alt + 1
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:J0 from SUMORTree with boundary -15.20,44.80,15.20,75.20
 GLDebug: 	Removed object junction:J1 from SUMORTree with boundary 54.80,44.80,85.20,75.20
@@ -198,15 +198,15 @@ Debug: network elements saved
 Debug: Additionals saved
 Debug: demand elements saved
 Debug: data sets saved
-Debug: Deleting unreferenced edgeData
-Debug: Deleting unreferenced edgeData
+Debug: Deleting unreferenced edgeRelSingle
+Debug: Deleting unreferenced edgeRelSingle
 Debug: Deleting unreferenced dataInterval [3600.00, 7200.00] in ~GNEChange_DataInterval()
 Debug: Deleting unreferenced tazRelation
 GLDebug: 	Removed object TAZRelData:Data1 from SUMORTree with boundary 15.50,0.00,55.50,80.00
 Debug: Deleting unreferenced tazRelation
 GLDebug: 	Removed object TAZRelData:Data1 from SUMORTree with boundary 14.50,0.00,54.50,80.00
-Debug: Deleting unreferenced edgeData
-Debug: Deleting unreferenced edgeData
+Debug: Deleting unreferenced edgeRelSingle
+Debug: Deleting unreferenced edgeRelSingle
 Debug: Deleting unreferenced edgeRelation
 Debug: Deleting unreferenced edgeRelation
 Debug: Deleting unreferenced edgeRelation

@@ -1,2 +1,2 @@
-Error: Attribute 'arrivalPos' in definition of a transport Invalid Number Format (double) dummy.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.18Oct084013.8133/netedit.gui/demandelements/containerplan/transports/transport_edgeedge/load/arrivalpos/routes.rou.xml failed.
+Error: Attribute 'arrivalPos' in definition of a transport Invalid Number Format .
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.containerplan.25Jan182728.9820/netedit.daily.demand.containerplan/demandelements/containerplan/transports/transport_edgeedge/load/arrivalpos/routes.rou.xml failed.

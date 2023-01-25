@@ -4,11 +4,11 @@ GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 38.00,-12.00,62.0
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Error: lane and position must be be defined together in POIs
-Error: Attribute 'pos' in definition of poi 'POI_1' Invalid Number Format (double) dummyY.
+Error: Attribute 'pos' in definition of poi 'POI_1' Invalid Number Format .
 Debug: Adding poiLane 'POI_2' in GNEChange_Additional
 Error: Could not build poi with ID 'POI_3' in netedit; Invalid position over lane.
 Debug: Adding poiLane 'POI_4' in GNEChange_Additional
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poilane.23Jan142342.5679/netedit.daily.shape.poilane/shapeelements/poilane/load/pos/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poilane.25Jan182729.10198/netedit.daily.shape.poilane/shapeelements/poilane/load/pos/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

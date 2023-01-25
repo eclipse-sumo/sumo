@@ -4,7 +4,7 @@ GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 38.00,-12.00,62.0
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Adding parkingArea 'parkingArea' in GNEChange_Additional
-Error: Attribute 'probability' in definition of a parkingAreaReroute Invalid Number Format (double) dummyProb.
+Error: Attribute 'probability' in definition of a parkingAreaReroute Invalid Number Format .
 Error: Probability of parkingAreaReroute must be equal or greater than 0
 Debug: Adding rerouter 'rerouter_0' in GNEChange_Additional
 GLDebug: 	Inserted rerouter:rerouter_0 into SUMORTree with boundary -10.00,0.00,10.00,20.00
@@ -22,7 +22,7 @@ Debug: Adding parkingAreaReroute 'rerouter_0' in GNEChange_Additional
 GLDebug: 	Removed object rerouter:rerouter_0 from SUMORTree with boundary -10.00,-11.60,54.00,21.00
 GLDebug: 	Inserted rerouter:rerouter_0 into SUMORTree with boundary -10.00,-11.60,54.00,21.00
 Debug: Adding parkingAreaReroute 'rerouter_0' in GNEChange_Additional
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.rerouterelements.23Jan142341.5546/netedit.daily.additional.rerouterelements/additionalelements/rerouterelements/parkingareareroute/load/probability/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.rerouterelements.25Jan182728.9764/netedit.daily.additional.rerouterelements/additionalelements/rerouterelements/parkingareareroute/load/probability/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

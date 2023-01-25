@@ -16,7 +16,7 @@ Debug: Adding trip 'trip_3' in GNEChange_DemandElement
 Debug: Adding waypointContainerStop 'trip_3' in GNEChange_DemandElement
 Debug: Adding trip 'trip_4' in GNEChange_DemandElement
 Debug: Adding waypointContainerStop 'trip_4' in GNEChange_DemandElement
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.waypoint.containerstop.24Jan091457.3858/netedit.daily.demand.waypoint.containerstop/demandelements/waypoint/containerstop/load/until/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.waypoint.containerstop.25Jan182729.10027/netedit.daily.demand.waypoint.containerstop/demandelements/waypoint/containerstop/load/until/routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 13.00,-12.00,37.00,12.00
@@ -31,6 +31,7 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,35.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,35.00,11.60
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -10.00,-13.20,10.00,13.20
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 15.00,-13.20,35.00,13.20

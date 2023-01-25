@@ -24,7 +24,7 @@ Debug: Selected item 'waypointContainerStop' in GNETagSelector
 Debug: Adding waypointContainerStop 'trip' in GNEChange_DemandElement
 Debug: Setting new attribute into waypointContainerStop 'trip'
 Debug: Setting new attribute into waypointContainerStop 'trip'
-Debug: Value 'waypointContainerStop' for attribute duration of waypointContainerStop isn't valid
+Debug: Value 'dummyValue' for attribute duration of waypointContainerStop isn't valid
 Debug: Setting new attribute
 Debug: Value '-5' for attribute duration of waypointContainerStop isn't valid
 Debug: Setting new attribute

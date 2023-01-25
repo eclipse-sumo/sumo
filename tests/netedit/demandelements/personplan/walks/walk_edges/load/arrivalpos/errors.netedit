@@ -17,31 +17,13 @@ GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
 Debug: Adding busStop 'busStopA' in GNEChange_Additional
 Debug: Adding busStop 'busStopB' in GNEChange_Additional
-Error: Attribute 'arrivalPos' in definition of a walk Invalid Number Format (double) dummy.
+Error: Attribute 'arrivalPos' in definition of a walk Invalid Number Format .
 Debug: Adding person 'p_0' in GNEChange_DemandElement
 Debug: Adding walk: edge->edge 'p_0' in GNEChange_DemandElement
 Debug: Adding person 'p_1' in GNEChange_DemandElement
 Debug: Adding walk: edge->edge 'p_1' in GNEChange_DemandElement
 Debug: Adding walk: edges 'p_1' in GNEChange_DemandElement
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.personplan.24Jan091456.3813/netedit.daily.demand.personplan/demandelements/personplan/walks/walk_edges/load/arrivalpos/routes.rou.xml failed.
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Removing walk: edges 'p_1' in GNEChange_DemandElement
-Debug: Removing walk: edge->edge 'p_1' in GNEChange_DemandElement
-Debug: Removing person 'p_1' in GNEChange_DemandElement
-Debug: Removing walk: edge->edge 'p_0' in GNEChange_DemandElement
-Debug: Removing person 'p_0' in GNEChange_DemandElement
-Debug: Removing busStop 'busStopB' in GNEChange_Additional
-Debug: Removing busStop 'busStopA' in GNEChange_Additional
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Adding busStop 'busStopA' in GNEChange_Additional
-Debug: Adding busStop 'busStopB' in GNEChange_Additional
-Debug: Adding person 'p_0' in GNEChange_DemandElement
-Debug: Adding walk: edge->edge 'p_0' in GNEChange_DemandElement
-Debug: Adding person 'p_1' in GNEChange_DemandElement
-Debug: Adding walk: edge->edge 'p_1' in GNEChange_DemandElement
-Debug: Adding walk: edges 'p_1' in GNEChange_DemandElement
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.personplan.25Jan182728.9846/netedit.daily.demand.personplan/demandelements/personplan/walks/walk_edges/load/arrivalpos/routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00
@@ -89,6 +71,20 @@ Debug: Created connection 'fromgneE6_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Removing walk: edges 'p_1' in GNEChange_DemandElement
+Debug: Removing walk: edge->edge 'p_1' in GNEChange_DemandElement
+Debug: Removing person 'p_1' in GNEChange_DemandElement
+Debug: Removing walk: edge->edge 'p_0' in GNEChange_DemandElement
+Debug: Removing person 'p_0' in GNEChange_DemandElement
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Adding person 'p_0' in GNEChange_DemandElement
+Debug: Adding walk: edge->edge 'p_0' in GNEChange_DemandElement
+Debug: Adding person 'p_1' in GNEChange_DemandElement
+Debug: Adding walk: edge->edge 'p_1' in GNEChange_DemandElement
+Debug: Adding walk: edges 'p_1' in GNEChange_DemandElement
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -10.00,-16.40,10.00,13.20
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 42.10,-16.40,76.40,14.70

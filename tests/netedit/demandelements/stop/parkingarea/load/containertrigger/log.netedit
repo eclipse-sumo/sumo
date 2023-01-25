@@ -1,9 +1,9 @@
-Error: Attribute 'containerTriggered' in definition of a stop Invalid Bool Format dummy.
+Error: Attribute 'containerTriggered' in definition of a stop Invalid Bool Format .
 Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'parkingArea'
 Error: Attribute 'containerTriggered' in definition of a stop is empty.
 Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'parkingArea'
-Error: Attribute 'containerTriggered' in definition of a stop Invalid Bool Format -4.
+Error: Attribute 'containerTriggered' in definition of a stop Invalid Bool Format .
 Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'parkingArea'
-Error: Attribute 'containerTriggered' in definition of a stop Invalid Bool Format 2.3.
+Error: Attribute 'containerTriggered' in definition of a stop Invalid Bool Format .
 Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'parkingArea'
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.stop.parkingarea.08Apr202456.3564/netedit.daily.demand.stop.parkingarea/demandelements/stop/parkingarea/load/containertrigger/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.stop.parkingarea.25Jan182728.9903/netedit.daily.demand.stop.parkingarea/demandelements/stop/parkingarea/load/containertrigger/routes.rou.xml failed.

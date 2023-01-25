@@ -1,3 +1,3 @@
-Error: Attribute 'friendlyPos' in definition of laneAreaDetector 'E2_02' Invalid Bool Format dummyfriendlypos.
+Error: Attribute 'friendlyPos' in definition of laneAreaDetector 'E2_02' Invalid Bool Format .
 Error: Could not build laneAreaDetector with ID 'E2_06' in netedit; attribute length cannot be negative.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\e2detector\load\friendlypos\additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.e2detector.25Jan182727.9752/netedit.daily.additional.e2detector/additionalelements/e2detector/load/friendlypos/additionals.add.xml failed.

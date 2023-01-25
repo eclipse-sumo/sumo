@@ -22,7 +22,7 @@ Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Selected item 'routeFlow' in DemandElementSelector
 Debug: Selected item 'waypointLane' in GNETagSelector
 Debug: Adding waypointLane 'routeFlow' in GNEChange_DemandElement
-Debug: Value 'waypointLane' for attribute parking of waypointLane isn't valid
+Debug: Value 'opportunistic' for attribute parking of waypointLane isn't valid
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
@@ -56,7 +56,6 @@ GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,35.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,35.00,11.60
 Debug: network elements saved
-Debug: Additionals saved
 Debug: demand elements saved
 Debug: Deleting unreferenced waypointLane
 Debug: Deleting unreferenced flowRoute
