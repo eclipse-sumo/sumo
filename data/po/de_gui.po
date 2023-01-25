@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-24 09:18+0100\n"
-"PO-Revision-Date: 2023-01-24 14:48+0000\n"
+"PO-Revision-Date: 2023-01-25 09:23+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -465,7 +465,7 @@ msgstr "Öffne die Online-Dokumentation."
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:623
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1437
 msgid "&Changelog"
-msgstr "&Änderungsprotokoll"
+msgstr "Änderungs&protokoll"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\gui\GUIApplicationWindow.cpp:623
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1437
@@ -715,39 +715,39 @@ msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:973
 msgid "&Reload Netedit config"
-msgstr ""
+msgstr "Lade Netedit-Konfiguration erneut"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:974
 msgid "&Reload Sumo config"
-msgstr ""
+msgstr "Lade Sumo-Konfiguration erneut"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:975
 msgid "&Reload Network"
-msgstr ""
+msgstr "Lade Netz erneut"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1372
 msgid "&Modes"
-msgstr ""
+msgstr "&Modi"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1409
 msgid "L&ock"
-msgstr ""
+msgstr "Sperren"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1416
 msgid "&Processing"
-msgstr ""
+msgstr "Operationen"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1424
 msgid "&Tools"
-msgstr ""
+msgstr "Werkzeuge"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1444
 msgid "About netedit."
-msgstr ""
+msgstr "Über netedit."
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1504
 msgid "Press F5"
-msgstr ""
+msgstr "Drücke F5"
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\GNEApplicationWindow.cpp:1679
 msgid "Select Import Options"
