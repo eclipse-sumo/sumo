@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-12 08:40+0000\n"
-"Last-Translator: kyasin <yasingoka@gmail.com>\n"
+"PO-Revision-Date: 2023-01-26 06:39+0000\n"
+"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/tr/>\n"
 "Language: tr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.15.1-dev\n"
+"X-Generator: Weblate 4.16-dev\n"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:270
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:273
@@ -605,16 +605,15 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:707
 msgid "Scale Traffic:"
-msgstr ""
+msgstr "Trafiği Ölçeklendir:"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:707
-#, fuzzy
 msgid ""
 "Scale traffic from flows and vehicles that are loaded incrementally from "
 "route files."
 msgstr ""
-"Trafiği Ölçeklendir:\t\tRota Dosyalarından Artarak Yüklenen Akım ve "
-"Araçlardan Oluşan Trafiği Ölçeklendir."
+"Rota Dosyalarından Artarak Yüklenen Akım ve Araçlardan Oluşan Trafiği "
+"Ölçeklendir."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:719
 #, fuzzy
@@ -628,34 +627,29 @@ msgstr "\tYeni Bir 3B Görünüm Aç\tYeni Bir 3B Görünüm Aç."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:732
 msgid "Waiting Time:"
-msgstr ""
+msgstr "Bekleme Süresi:"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:732
-#, fuzzy
 msgid "Time spent waiting accumulated for all vehicles"
-msgstr "Bekleme Süresi:\t\tTüm Araçlar İçin Birikmiş Bekleme Süresi"
+msgstr "Tüm Araçlar İçin Birikmiş Bekleme Süresi"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:743
 msgid "Time Loss:"
-msgstr ""
+msgstr "Süre Kaybı:"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:743
-#, fuzzy
 msgid ""
 "Time lost due to being unable to drive with maximum speed for all vehicles"
 msgstr ""
-"Süre Kaybı:\t\tTüm Araçlar İçin Maksimum Hızda Sürüş Gerçekleşmediğinden "
-"Oluşan Süre Kaybı"
+"Tüm Araçlar İçin Maksimum Hızda Sürüş Gerçekleşmediğinden Oluşan Süre Kaybı"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:754
 msgid "Distance (km):"
-msgstr ""
+msgstr "Mesafe (km):"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:754
-#, fuzzy
 msgid "Total distance driven by DRT vehicles"
-msgstr ""
-"Mesafe (km):\t\tTalep Uyarmalı Ulaştırma Araçlarının Aldığı Toplam Mesafe"
+msgstr "Talep Uyarmalı Ulaştırma Araçlarının Aldığı Toplam Mesafe"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:765
 msgid "Emergency Vehicle waiting time:"
