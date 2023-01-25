@@ -161,7 +161,7 @@ public:
     bool isString() const;
 
     /// @brief return true if attribute is a position
-    bool isposition() const;
+    bool isPosition() const;
 
     /// @brief return true if attribute is a probability
     bool isProbability() const;
