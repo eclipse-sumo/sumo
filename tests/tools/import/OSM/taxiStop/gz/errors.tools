@@ -21,6 +21,7 @@ Warning: Converting invalid rail_crossing to traffic_light at junction '39186739
 Warning: Converting invalid rail_crossing to traffic_light at junction '3918673906'.
 Warning: Converting invalid rail_crossing to traffic_light at junction '3918673907'.
 Warning: Converting invalid rail_crossing to traffic_light at junction '3918673909'.
+Warning: Converting invalid rail_crossing to priority junction '4402536776'.
 Warning: Found sharp turn with radius 6.39 at the start of edge '-52348720#0'.
 Warning: Found sharp turn with radius 6.39 at the end of edge '52348720#0'.
 Warning: The rail crossing '4567083492' does not have any roads.
