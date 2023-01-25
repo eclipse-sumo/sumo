@@ -67,7 +67,9 @@ GNEAttributeProperties::~GNEAttributeProperties() {}
 
 void
 GNEAttributeProperties::checkAttributeIntegrity() const {
-    // check that default values can be parsed
+    // check integrity only in debug mode
+#ifdef DEBUG
+    // check that default values can be parsed (only in debug mode)
     if (hasDefaultValue()) {
         if (isInt() && !GNEAttributeCarrier::canParse<int>(myDefaultValue)) {
             throw FormatException("Default value cannot be parsed to int");
@@ -110,6 +112,7 @@ GNEAttributeProperties::checkAttributeIntegrity() const {
             throw FormatException("invalid range");
         }
     }
+#endif // DEBUG
 }
 
 
