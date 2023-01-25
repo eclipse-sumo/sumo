@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-25 09:23+0000\n"
+"PO-Revision-Date: 2023-01-26 06:39+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
-"gui-netedit/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -300,7 +300,7 @@ msgstr "Öffnet einen Dialog, um zusätzliche Elemente zu finden."
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:526
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1978
 msgid "P&oI"
-msgstr "&Punto de interés (POI)"
+msgstr ""
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:526
 msgid "Open a Dialog for Locating a Point of Interest."
@@ -309,7 +309,7 @@ msgstr "Öffnet einen Dialog, um ein Point of Interest (POI) zu finden."
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:529
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1981
 msgid "Po&lygon"
-msgstr "&Polígono"
+msgstr ""
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:529
 msgid "Open a Dialog for Locating a Polygon."
@@ -317,33 +317,35 @@ msgstr "Öffnet einen Dialog, um ein Polygon zu finden."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:533
 msgid "Show Internal Structures"
-msgstr ""
+msgstr "Zeige interne Struktur"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:533
 msgid "Show internal junctions and streets in locator dialog."
-msgstr ""
+msgstr "Zeige interne Knotenpunkte und Kanten im Finden-Dialog."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:536
 msgid "Show Parking Vehicles"
-msgstr ""
+msgstr "Zeige geparkte Fahrzeuge"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:536
 msgid "Show parking vehicles in locator dialog."
-msgstr ""
+msgstr "Zeige geparkte Fahrzeuge im Finden-Dialog."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:540
 msgid "Show vehicles outside the road network"
-msgstr ""
+msgstr "Zeige sich außerhalb des Netzes befindende Fahrzeuge"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:540
 msgid ""
 "Show vehicles that are teleporting or driving remote-controlled outside the "
 "road network in locator dialog."
 msgstr ""
+"Zeige teleportierte und ferngesteuerte Fahrzeuge , die sich außerhalb des "
+"Netzes befinden, im Finden-Dialog."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:546
 msgid "Simulation"
-msgstr "Simulación"
+msgstr ""
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:548
 msgid "Run"
@@ -457,17 +459,16 @@ msgstr "Schalte Vollbildmodus an/aus."
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:601
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2018
 msgid "Show Message Window"
-msgstr ""
+msgstr "Zeige Meldungsfenster"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:601
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2018
 msgid "Toggle the Message Window on/off."
-msgstr ""
+msgstr "Blende das Meldungsfenster ein/aus."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:604
-#, fuzzy
 msgid "Show Simulation Time"
-msgstr "Speichere Simulationsstand"
+msgstr "Zeige Simulationszeit"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:604
 #, fuzzy
