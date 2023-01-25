@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-24 15:11+0000\n"
+"PO-Revision-Date: 2023-01-26 06:39+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -35,17 +35,15 @@ msgstr "N/A"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:270
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:479
-#, fuzzy
 msgid "Original coordinate (before coordinate transformation in netconvert)"
 msgstr ""
-"N/A\t\tCoordenadas originales (Antes de la transformación de coordenadas en "
+"Coordenadas originales (antes de la transformación de coordenadas en "
 "netconvert)"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:273
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:482
-#, fuzzy
 msgid "Network coordinate"
-msgstr "N/A\t\tCoordenadas de la red"
+msgstr "Coordenadas de la red"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:301
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:500
@@ -158,15 +156,13 @@ msgstr "Abrir ventana para editar la lista de elementos seleccionados."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:470
 msgid "Select lanes which allow..."
-msgstr ""
+msgstr "Seleccionar carriles (lanes) que permitan..."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:470
-#, fuzzy
 msgid "Opens a menu for selecting a vehicle class by which to selected lanes."
 msgstr ""
-"Seleccionar carriles (lanes) que permiten...\t\tAbrir un menú para escoger "
-"una clase de vehículo (vclass) que seleccionará los carriles (lanes) "
-"permitidos."
+"Abre un menú para escoger una clase de vehículo (vclass) que seleccionará "
+"los carriles (lanes) permitidos."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:474
 msgid "Edit Breakpoints"
@@ -320,40 +316,34 @@ msgid "Open a Dialog for Locating a Polygon."
 msgstr "Abrir ventana para localizar polígonos."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:533
-#, fuzzy
 msgid "Show Internal Structures"
-msgstr "Atributos internos"
+msgstr "Mostrar estructuras internas"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:533
-#, fuzzy
 msgid "Show internal junctions and streets in locator dialog."
 msgstr ""
-"Mostrar estructuras internas\t\tMostrar cruces (junctions) y calles (edges) "
-"internos en la ventana de localización."
+"Mostrar cruces (junctions) y calles (edges) internos en la ventana de "
+"localización."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:536
 msgid "Show Parking Vehicles"
-msgstr ""
+msgstr "Mostrar vehículos parqueados"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:536
-#, fuzzy
 msgid "Show parking vehicles in locator dialog."
-msgstr ""
-"Mostrar vehículos aparcados\t\tMostrar vehículos aparcados en la ventana de "
-"localización."
+msgstr "Mostrar vehículos parqueados en la ventana de localización."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:540
 msgid "Show vehicles outside the road network"
-msgstr ""
+msgstr "Mostrar vehículos fuera de la red vial"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:540
-#, fuzzy
 msgid ""
 "Show vehicles that are teleporting or driving remote-controlled outside the "
 "road network in locator dialog."
 msgstr ""
-"Mostrar vehículos fuera de la red\t\tMostrar vehículos teletransportados o "
-"controlados remotamente fuera de la red en la ventana de localización."
+"Mostrar vehículos teletransportados o controlados remotamente fuera de la "
+"red en la ventana de localización."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:546
 msgid "Simulation"
@@ -461,42 +451,37 @@ msgstr "&Otros..."
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:598
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2015
 msgid "Show Status Line"
-msgstr ""
+msgstr "Mostrar barra de estado"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:598
-#, fuzzy
 msgid "Toggle the Status Bar on/off."
-msgstr "Mostrar barra de estado\t\tAlternar la barra de estado."
+msgstr "Mostrar/ocultar la barra de estado."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:601
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2018
 msgid "Show Message Window"
-msgstr ""
+msgstr "Mostrar ventana de mensajes"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:601
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2018
 msgid "Toggle the Message Window on/off."
-msgstr ""
+msgstr "Mostrar/ocultar ventana de mensajes."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:604
-#, fuzzy
 msgid "Show Simulation Time"
-msgstr "Guardar estado de la simulación"
+msgstr "Mostrar el tiempo de la simulación"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:604
-#, fuzzy
 msgid "Toggle the Simulation Time on/off."
-msgstr "Mostrar tiempo de simulación\t\tAlternar el tiempo de simulación."
+msgstr "Mostrar/ocultar el tiempo de simulación."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:607
-#, fuzzy
 msgid "Show Simulation Delay"
-msgstr "Guardar estado de la simulación"
+msgstr "Mostrar retardo (delay) de la simulación"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:607
-#, fuzzy
 msgid "Toggle the Simulation Delay Entry on/off."
-msgstr "Mostrar tiempo de simulación\t\tAlternar el tiempo de simulación."
+msgstr "Mostrar/ocultar el retardo (delay) de la simulación."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:613
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2022
@@ -601,7 +586,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:707
 msgid "Scale Traffic:"
-msgstr ""
+msgstr "Escalar tráfico:"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:707
 msgid ""
@@ -615,49 +600,49 @@ msgid "Open a new microscopic view."
 msgstr "Abrir una nueva ventana de sumo-gui."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:722
-#, fuzzy
 msgid "Open a new 3D view."
-msgstr "Abrir una nueva vista 3D"
+msgstr "Abrir una nueva vista 3D."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:732
 msgid "Waiting Time:"
-msgstr ""
+msgstr "Tiempo de espera:"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:732
 msgid "Time spent waiting accumulated for all vehicles"
-msgstr ""
+msgstr "Tiempo de espera acumulado para todos los vehículos"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:743
 msgid "Time Loss:"
-msgstr ""
+msgstr "Tiempo perdido:"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:743
 msgid ""
 "Time lost due to being unable to drive with maximum speed for all vehicles"
 msgstr ""
+"Tiempo perdido por no poder conducir a máxima velocidad para todos los "
+"vehículos"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:754
 msgid "Distance (km):"
-msgstr ""
+msgstr "Distancia (km):"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:754
 msgid "Total distance driven by DRT vehicles"
-msgstr ""
+msgstr "Distancia total recorrida por vehículos DRT"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:765
 msgid "Emergency Vehicle waiting time:"
-msgstr ""
+msgstr "Tiempo de espera de vehículos de emergencia:"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:765
 msgid "Time spent waiting accumulated for emergency vehicles"
-msgstr ""
+msgstr "Tiempo de espera acumulado de los vehículos de emergencia"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:958
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:993
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1030
-#, fuzzy
 msgid "Running %."
-msgstr "Ejecutando "
+msgstr "Ejecutando %."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1040
 msgid "Open Simulation Configuration"
@@ -675,9 +660,9 @@ msgstr "Abrir archivo de formas (shapes)"
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1122
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4509
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4550
-#, fuzzy, c-format
+#, c-format
 msgid "Loading of % failed."
-msgstr "La carga de elementos de datos falló: "
+msgstr "La carga de % falló."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1111
 msgid "Open EdgeData"
@@ -717,7 +702,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/gui/GUIRunThread.cpp:100
 #: /home/micha/programming/sumo/src/gui/GUIRunThread.cpp:106
 msgid "Quitting (on error)."
-msgstr "Saliendo (debido al el error)."
+msgstr "Saliendo (debido a un error)."
 
 #: /home/micha/programming/sumo/src/gui/GUIRunThread.cpp:265
 msgid "Simulation started with time: %."
@@ -858,7 +843,7 @@ msgstr "Error de formato de tiempo"
 #: /home/micha/programming/sumo/src/guisim/Command_Hotkey_TrafficLight.cpp:60
 #, c-format
 msgid "Hotkey '%' is not supported"
-msgstr ""
+msgstr "El atajo '%' no es soportado"
 
 #: /home/micha/programming/sumo/src/guisim/GUIBaseVehicle.cpp:300
 msgid "GUI-triggered stop not implemented for meso"
@@ -909,14 +894,12 @@ msgid "Recomputing"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:476
-#, fuzzy
 msgid "Recomputing is needed"
-msgstr "Recalcular\t\tEs necesario recalcular"
+msgstr "Es necesario recalcular"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:486
-#, fuzzy
 msgid "Test coordinate"
-msgstr "N/A\t\tCoordenadas para tests"
+msgstr "Coordenadas para tests"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:860
 msgid "Loaded edge types from '"
@@ -968,9 +951,8 @@ msgid "Trying to load an empty network"
 msgstr "No hay carriles (lanes) en la red"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1641
-#, fuzzy
 msgid "Trying to load an empty configuration"
-msgstr "Recargar configuración de netedit."
+msgstr "Intentando cargar una configuración vacía"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1688
 msgid "Select Import Options"
@@ -1922,9 +1904,8 @@ msgid "Clear current front element"
 msgstr "Despejar elemento frontal actual"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1295
-#, fuzzy
 msgid "Load additionals in sumo-gui"
-msgstr "Cargar elementos adicionales y formas (shapes)."
+msgstr "Cargar elementos adicionales en sumo-gui"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1295
 #, fuzzy
@@ -1937,9 +1918,8 @@ msgid "Load demand in sumo-gui"
 msgstr "Abrir en sumo-gui"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1299
-#, fuzzy
 msgid "Load demand in sumo-gui."
-msgstr "Abrir en sumo-gui"
+msgstr "Cargar demanda en sumo-gui."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1303
 msgid "Open in sumo-gui"
@@ -2345,14 +2325,14 @@ msgid "Open MeanData file"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:94
-#, fuzzy, c-format
+#, c-format
 msgid "Loading of sumo config file '%' failed."
-msgstr "Cargando configuración de sumo '"
+msgstr "La carga del archivo de configuración de sumo '%' falló."
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:107
-#, fuzzy, c-format
+#, c-format
 msgid "Loading of netedit config file '%' failed."
-msgstr "La carga de elementos adicionales falló: "
+msgstr "La carga del archivo de configuración de netedit '%' falló."
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:116
 msgid ""
@@ -2505,9 +2485,8 @@ msgid "Invalid additional pointer"
 msgstr "Cargar elementos adicionales desde '"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:2367
-#, fuzzy
 msgid "Invalid demandElement pointer"
-msgstr "Guardar elementos de demanda en otro archivo."
+msgstr "Puntero de demandElement inválido"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:2426
 #, fuzzy
@@ -2743,9 +2722,8 @@ msgid "Position of stopping places and E2 detectors will be fixed"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:265
-#, fuzzy
 msgid "Select invalid additionals"
-msgstr "Recargar elementos adicionales."
+msgstr "Seleccionar elementos adicionales inválidos"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:265
 #, fuzzy
@@ -2758,9 +2736,8 @@ msgstr ""
 "inválidos"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:325
-#, fuzzy
 msgid "Build connections between lanes"
-msgstr "Modo para conexión entre carriles (lanes)."
+msgstr "Crear conexiones entre carriles (lanes)"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:325
 #, fuzzy
@@ -2902,16 +2879,15 @@ msgstr "Abrir plantilla de parámetros"
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:314
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:310
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:307
-#, fuzzy, c-format
+#, c-format
 msgid "Loading of Parameters From % failed."
-msgstr "Fallo en la carga de archivo de rutas: "
+msgstr "Fallo en la carga de parámetros desde '%'."
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:317
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:313
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:310
-#, fuzzy
 msgid "Loaded % Parameters."
-msgstr "Editar parámetros"
+msgstr "Se cargaron % parámetros."
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:327
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:323
@@ -2998,9 +2974,8 @@ msgid "overwrite"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEOverwriteElementsDialog.cpp:61
-#, fuzzy
 msgid "overwrite elements"
-msgstr "Mover elementos."
+msgstr "sobrescribir elementos"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNERerouterIntervalDialog.cpp:182
 msgid "Rerouter has more than one edge"
