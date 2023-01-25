@@ -69,6 +69,15 @@ GNEAttributeProperties::checkAttributeIntegrity() const {
     if (isPositive() && !(isInt() || isFloat() || isSUMOTime())) {
         throw FormatException("Only int, floats or SUMOTimes can be positive");
     }
+/*
+    // check that default values can be parsed
+    if (isPositive() && !(isInt() || isFloat() || isSUMOTime())) {
+        throw FormatException("Only int, floats or SUMOTimes can be positive");
+    }
+
+*/
+
+
     // check that secuential attributes correspond to a list
     if (isSecuential() && !isList()) {
         throw FormatException("Secuential property only is compatible with list properties");

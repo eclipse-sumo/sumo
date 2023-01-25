@@ -286,6 +286,15 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_CF_EIDM_T_ACC_MAX:
         case SUMO_ATTR_CF_EIDM_M_FLATNESS:
         case SUMO_ATTR_CF_EIDM_M_BEGIN:
+        case SUMO_ATTR_CF_W99_CC1:
+        case SUMO_ATTR_CF_W99_CC2:
+        case SUMO_ATTR_CF_W99_CC3:
+        case SUMO_ATTR_CF_W99_CC4:
+        case SUMO_ATTR_CF_W99_CC5:
+        case SUMO_ATTR_CF_W99_CC6:
+        case SUMO_ATTR_CF_W99_CC7:
+        case SUMO_ATTR_CF_W99_CC8:
+        case SUMO_ATTR_CF_W99_CC9:
             return getCFParamString(key, myTagProperty.getDefaultValue(key));
         case SUMO_ATTR_COLLISION_MINGAP_FACTOR:
         case SUMO_ATTR_TMP1:
@@ -590,6 +599,15 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
         case SUMO_ATTR_CF_KERNER_PHI:
         case SUMO_ATTR_CF_IDM_DELTA:
         case SUMO_ATTR_CF_IDM_STEPPING:
+        case SUMO_ATTR_CF_W99_CC1:
+        case SUMO_ATTR_CF_W99_CC2:
+        case SUMO_ATTR_CF_W99_CC3:
+        case SUMO_ATTR_CF_W99_CC4:
+        case SUMO_ATTR_CF_W99_CC5:
+        case SUMO_ATTR_CF_W99_CC6:
+        case SUMO_ATTR_CF_W99_CC7:
+        case SUMO_ATTR_CF_W99_CC8:
+        case SUMO_ATTR_CF_W99_CC9:
         // JM Attributes
         case SUMO_ATTR_JM_CROSSING_GAP:
         case SUMO_ATTR_JM_IGNORE_KEEPCLEAR_TIME:
@@ -723,6 +741,15 @@ GNEVType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CF_KERNER_PHI:
         case SUMO_ATTR_CF_IDM_DELTA:
         case SUMO_ATTR_CF_IDM_STEPPING:
+        case SUMO_ATTR_CF_W99_CC1:
+        case SUMO_ATTR_CF_W99_CC2:
+        case SUMO_ATTR_CF_W99_CC3:
+        case SUMO_ATTR_CF_W99_CC4:
+        case SUMO_ATTR_CF_W99_CC5:
+        case SUMO_ATTR_CF_W99_CC6:
+        case SUMO_ATTR_CF_W99_CC7:
+        case SUMO_ATTR_CF_W99_CC8:
+        case SUMO_ATTR_CF_W99_CC9:
             return canParse<double>(value);
         case SUMO_ATTR_CF_EIDM_USEVEHDYNAMICS:
             return canParse<bool>(value);
@@ -1032,6 +1059,33 @@ GNEVType::overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter newVT
     }
     if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_EIDM_M_BEGIN, "").empty()) {
         vType->setAttribute(SUMO_ATTR_CF_EIDM_M_BEGIN, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_EIDM_M_BEGIN, 0)), undoList);
+    }
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_W99_CC1, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_W99_CC1, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_W99_CC1, 0)), undoList);
+    }
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_W99_CC2, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_W99_CC2, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_W99_CC2, 0)), undoList);
+    }
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_W99_CC3, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_W99_CC3, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_W99_CC3, 0)), undoList);
+    }
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_W99_CC4, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_W99_CC4, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_W99_CC4, 0)), undoList);
+    }
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_W99_CC5, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_W99_CC5, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_W99_CC5, 0)), undoList);
+    }
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_W99_CC6, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_W99_CC6, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_W99_CC6, 0)), undoList);
+    }
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_W99_CC7, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_W99_CC7, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_W99_CC7, 0)), undoList);
+    }
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_W99_CC8, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_W99_CC8, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_W99_CC8, 0)), undoList);
+    }
+    if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_W99_CC9, "").empty()) {
+        vType->setAttribute(SUMO_ATTR_CF_W99_CC9, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_W99_CC9, 0)), undoList);
     }
     if (!newVTypeParameter.getCFParamString(SUMO_ATTR_CF_PWAGNER2009_TAULAST, "").empty()) {
         vType->setAttribute(SUMO_ATTR_CF_PWAGNER2009_TAULAST, toString(newVTypeParameter.getCFParam(SUMO_ATTR_CF_PWAGNER2009_TAULAST, 0)), undoList);
@@ -1439,6 +1493,15 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CF_EIDM_T_ACC_MAX:
         case SUMO_ATTR_CF_EIDM_M_FLATNESS:
         case SUMO_ATTR_CF_EIDM_M_BEGIN:
+        case SUMO_ATTR_CF_W99_CC1:
+        case SUMO_ATTR_CF_W99_CC2:
+        case SUMO_ATTR_CF_W99_CC3:
+        case SUMO_ATTR_CF_W99_CC4:
+        case SUMO_ATTR_CF_W99_CC5:
+        case SUMO_ATTR_CF_W99_CC6:
+        case SUMO_ATTR_CF_W99_CC7:
+        case SUMO_ATTR_CF_W99_CC8:
+        case SUMO_ATTR_CF_W99_CC9:
             // empty or default values means that value isn't set
             if (value.empty() || (canParse<double>(value) && (parse<double>(value) == parse<double>(myTagProperty.getDefaultValue(key))))) {
                 const auto it = cfParameter.find(key);

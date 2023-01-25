@@ -1358,6 +1358,42 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelParameters(G
     myAdaptTimeRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_IDMM_ADAPT_TIME);
     myRows.push_back(myAdaptTimeRow);
 
+    // 24 create FX and Label for W99 CC 01
+    myW99CC1 = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_W99_CC1);
+    myRows.push_back(myW99CC1);
+
+    // 25 create FX and Label for W99 CC 02
+    myW99CC2 = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_W99_CC2);
+    myRows.push_back(myW99CC2);
+
+    // 26 create FX and Label for W99 CC 03
+    myW99CC3 = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_W99_CC3);
+    myRows.push_back(myW99CC3);
+
+    // 27 create FX and Label for W99 CC 04
+    myW99CC4 = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_W99_CC4);
+    myRows.push_back(myW99CC4);
+
+    // 28 create FX and Label for W99 CC 05
+    myW99CC5 = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_W99_CC5);
+    myRows.push_back(myW99CC5);
+
+    // 29 create FX and Label for W99 CC 06
+    myW99CC6 = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_W99_CC6);
+    myRows.push_back(myW99CC6);
+
+    // 30 create FX and Label for W99 CC 07
+    myW99CC7 = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_W99_CC7);
+    myRows.push_back(myW99CC7);
+
+    // 31 create FX and Label for W99 CC 08
+    myW99CC8 = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_W99_CC8);
+    myRows.push_back(myW99CC8);
+
+    // 32 create FX and Label for W99 CC 09
+    myW99CC9 = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_W99_CC9);
+    myRows.push_back(myW99CC9);
+
     // X1 create FX and Label for Look ahead/preview Time
     myTpreviewRow = new CarFollowingModelRow(this, myVerticalFrameRows, SUMO_ATTR_CF_EIDM_T_LOOK_AHEAD);
     myRows.push_back(myTpreviewRow);
@@ -1542,6 +1578,17 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::refreshCFMFields() {
                 myMinGapFactorRow->show();
                 mySecurityRow->show();
                 myEstimationRow->show();
+                break;
+            case SUMO_TAG_CF_W99:
+                myW99CC1->show();
+                myW99CC2->show();
+                myW99CC3->show();
+                myW99CC4->show();
+                myW99CC5->show();
+                myW99CC6->show();
+                myW99CC7->show();
+                myW99CC8->show();
+                myW99CC9->show();
                 break;
             case SUMO_TAG_CF_RAIL:
                 myTauRow->show();

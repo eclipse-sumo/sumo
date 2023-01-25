@@ -550,6 +550,33 @@ public:
         /// @brief Row for Adapt Time
         CarFollowingModelRow* myAdaptTimeRow;
 
+        /// @brief Row for W99 CC 01
+        CarFollowingModelRow* myW99CC1;
+
+        /// @brief Row for W99 CC 02
+        CarFollowingModelRow* myW99CC2;
+
+        /// @brief Row for W99 CC 03
+        CarFollowingModelRow* myW99CC3;
+
+        /// @brief Row for W99 CC 04
+        CarFollowingModelRow* myW99CC4;
+
+        /// @brief Row for W99 CC 05
+        CarFollowingModelRow* myW99CC5;
+
+        /// @brief Row for W99 CC 06
+        CarFollowingModelRow* myW99CC6;
+
+        /// @brief Row for W99 CC 07
+        CarFollowingModelRow* myW99CC7;
+
+        /// @brief Row for W99 CC 08
+        CarFollowingModelRow* myW99CC8;
+
+        /// @brief Row for W99 CC 09
+        CarFollowingModelRow* myW99CC9;
+
         /// @brief Row for Look ahead/preview Time
         CarFollowingModelRow* myTpreviewRow;
 
