@@ -89,6 +89,8 @@ GNETagProperties::getTagStr() const {
 
 void
 GNETagProperties::checkTagIntegrity() const {
+    // check integrity only in debug mode
+#ifdef DEBUG
     // check that element must ist at least networkElement, Additional, or shape
     if (!isNetworkElement() && !isAdditionalElement() && !isDemandElement() && !isDataElement() && !isInternalLane()) {
         throw ProcessError(TL("element must be at leas networkElement, additional, TAZ, demandElement or dataElement"));
@@ -137,6 +139,7 @@ GNETagProperties::checkTagIntegrity() const {
             }
         }
     }
+#endif // DEBUG
 }
 
 
