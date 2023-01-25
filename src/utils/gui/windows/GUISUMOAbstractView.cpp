@@ -559,7 +559,7 @@ GUISUMOAbstractView::filterInernalLanes(const std::vector<GUIGlObject*>& objects
         }
     }
     // if all objects are internal lanes, return it all
-    if (objects.size() == internalLanes) {
+    if (objects.size() == internalLanes || !myVisualizationSettings->drawJunctionShape) {
         return objects;
     }
     // in other case filter internal lanes
