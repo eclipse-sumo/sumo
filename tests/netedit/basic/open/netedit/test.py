@@ -26,7 +26,7 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit without search the pink square reference
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--new'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # quit netedit
 netedit.quit(neteditProcess)

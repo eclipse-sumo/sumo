@@ -311,7 +311,7 @@ def dragDrop(referencePosition, x1, y1, x2, y2):
 #################################################
 
 
-def Popen(extraParameters, debugInformation):
+def Popen(extraParameters):
     """
     @brief open netedit
     """
@@ -379,7 +379,7 @@ def getReferenceMatch(neProcess, makeScrenshot):
     sys.exit("TestFunctions: Killed Netedit process. 'reference.png' not found")
 
 
-def setupAndStart(testRoot, extraParameters=[], debugInformation=True, makeScrenshot=True):
+def setupAndStart(testRoot, extraParameters=[], makeScrenshot=True):
     """
     @brief setup and start netedit
     """
@@ -387,7 +387,7 @@ def setupAndStart(testRoot, extraParameters=[], debugInformation=True, makeScren
     # to work around non working gtk clipboard
         pyperclip.set_clipboard("xclip")
 # Open Netedit
-    neteditProcess = Popen(extraParameters, debugInformation)
+    neteditProcess = Popen(extraParameters)
 # atexit.register(quit, neteditProcess, False, False)
 # print debug information
     print("TestFunctions: Netedit opened successfully")
