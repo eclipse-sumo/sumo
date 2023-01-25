@@ -493,13 +493,13 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject
         bool acceptChanges = false;
         // open GNEAllowVClassesDialog (also used to modify SUMO_ATTR_CHANGE_LEFT etc
         GNEAllowVClassesDialog(viewNet,
-                               viewNet->getInspectedAttributeCarriers().front(), SUMO_ATTR_ALLOW, &acceptChanges).execute();
+                               viewNet->getInspectedAttributeCarriers().front(),myACAttr.getAttr() , &acceptChanges).execute();
         // continue depending of acceptChanges
         if (acceptChanges) {
-            std::string allowed = viewNet->getInspectedAttributeCarriers().front()->getAttribute(SUMO_ATTR_ALLOW);
+            std::string allowed = viewNet->getInspectedAttributeCarriers().front()->getAttribute(myACAttr.getAttr());
             // Set new value of attribute in all selected ACs
             for (const auto& inspectedAC : viewNet->getInspectedAttributeCarriers()) {
-                inspectedAC->setAttribute(SUMO_ATTR_ALLOW, allowed, viewNet->getUndoList());
+                inspectedAC->setAttribute(myACAttr.getAttr(), allowed, viewNet->getUndoList());
             }
             // finish change multiple attributes
             if (ACs.size() > 1) {
