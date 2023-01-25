@@ -6,8 +6,8 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Routes -->
     <route id="r_0" edges="E0 E1 E2 E3">
-        <stop lane="E2_1" startPos="24.80" endPos="34.80" duration="15.00"/>
         <stop lane="E0_1" startPos="24.80" endPos="34.80" duration="10.00"/>
+        <stop lane="E2_1" startPos="24.80" endPos="34.80" duration="15.00"/>
     </route>
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <trip id="t_0" depart="0.00" from="-E2" to="-E0"/>
