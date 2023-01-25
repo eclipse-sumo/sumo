@@ -371,9 +371,9 @@ GUIOSGView::position(int x, int y, int w, int h) {
 
 
 void
-GUIOSGView::updateHUDPosition(int width, int height) {
+GUIOSGView::updateHUDPosition(int w, int h) {
     // keep the HUD text in the left top corner
-    myHUD->setProjectionMatrixAsOrtho2D(0, width, 0, height);
+    myHUD->setProjectionMatrixAsOrtho2D(0, w, 0, h);
     myText->setPosition(osg::Vec3d(0., static_cast<double>(height), 0.));
 }
 
