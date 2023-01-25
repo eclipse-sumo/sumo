@@ -1355,7 +1355,7 @@ MSPModel_Striping::addCrossingVehs(const MSLane* crossing, int stripes, double l
         }
         if (hasCrossingVehObs) {
             // check whether the crossing is fully blocked
-            const int reserved = getReserved(obs.size(), RESERVE_FOR_ONCOMING_FACTOR_JUNCTIONS);
+            const int reserved = getReserved((int)obs.size(), RESERVE_FOR_ONCOMING_FACTOR_JUNCTIONS);
             bool allBlocked = true;
 
             for (int i = 0; i < (int)obs.size(); i++) {
