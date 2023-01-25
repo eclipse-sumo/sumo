@@ -21,6 +21,8 @@ Warning: Removing pt stop '1979567864' on non existing edge ''.
 Warning: Removing pt stop '256572343' on non existing edge ''.
 Warning: Removing pt stop '300403947' on non existing edge ''.
 Warning: Removed 12 pt stops because they could not be assigned to the network
+Warning: Converting invalid rail_crossing to priority junction '295035351'.
+Warning: Converting invalid rail_crossing to priority junction '3312029525'.
 Warning: Reducing junction cluster 1093872774,245901919,245904890,7022705834 (parallel incoming -22873499#0,150039007#0).
 Warning: Reducing junction cluster 313566,368880,84510146 (parallel incoming -8225118#0,751186388).
 Warning: Not joining junctions 245904901,248150932 (parallel outgoing 27115018#0,329890957).

@@ -17,5 +17,11 @@ Warning: Not joining tram edge '175769905#1' with 2 lanes.
 Warning: Not joining tram edge '175769905#2' with 2 lanes.
 Warning: Not joining tram edge '175769905#3' with 2 lanes.
 Warning: Not joining tram edge '175769905#4' with 2 lanes.
+Warning: Converting invalid rail_crossing to priority junction '1863122982'.
+Warning: Converting invalid rail_crossing to priority junction '1863122984'.
+Warning: Converting invalid rail_crossing to priority junction '1863122991'.
+Warning: Converting invalid rail_crossing to priority junction '1863122992'.
+Warning: Converting invalid rail_crossing to priority junction '1882685597'.
+Warning: 7 total messages of type: Converting invalid rail_crossing to priority junction '%'.
 Warning: 26 total messages of type: No way found for reference '%' in relation '%'
 Warning: 23 total messages of type: Not joining tram edge '%' with % lanes.

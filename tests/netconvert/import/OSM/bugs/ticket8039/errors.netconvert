@@ -32,6 +32,9 @@ Warning: Removing pt stop '250749715' on non existing edge ''.
 Warning: Removing pt stop '4103427181' on non existing edge ''.
 Warning: Removing pt stop '4539421794' on non existing edge ''.
 Warning: Removed 3 pt stops because they could not be assigned to the network
+Warning: Converting invalid rail_crossing to priority junction '1100375051'.
+Warning: Converting invalid rail_crossing to priority junction '1100375067'.
+Warning: Converting invalid rail_crossing to priority junction '1100375072'.
 Warning: Ambiguity in turnarounds computation at junction '344918064'.
 Warning: Ambiguity in turnarounds computation at junction '506075298'.
 Warning: Found sharp turn with radius 7.88 at the start of edge '-10426716#0'.

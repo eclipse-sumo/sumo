@@ -6,5 +6,10 @@ Warning: Found sharp turn with radius 5.35 at the start of edge '-376621077'.
 Warning: Found sharp turn with radius 4.17 at the start of edge '-458565760'.
 Warning: Found sharp turn with radius 5.35 at the end of edge '376621077'.
 Warning: Found sharp turn with radius 4.17 at the end of edge '458565760'.
+Warning: Converting invalid rail_crossing to priority junction '1436665652'.
+Warning: Converting invalid rail_crossing to priority junction '4100631378'.
+Warning: Converting invalid rail_crossing to priority junction '4100631384'.
+Warning: Converting invalid rail_crossing to priority junction '4351304133'.
+Warning: Converting invalid rail_crossing to priority junction '7282990174'.
 Warning: Edge '-329301843#0' is not connected to outgoing edges at junction '3361686498'.
 Warning: Lane '-329301843#1_0' is not connected from any incoming edge at junction '3361686496'.
