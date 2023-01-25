@@ -266,6 +266,7 @@ NBNodeTypeComputer::validateRailCrossings(NBNodeCont& nc, NBTrafficLightLogicCon
             }
             if (numNonRailIn == 0 || numNonRailOut == 0 || numRailway == 0) {
                 // not a crossing (maybe unregulated or rail_signal)
+                WRITE_WARNINGF(TL("Converting invalid rail_crossing to priority junction '%'."), n->getID());
                 n->myType = SumoXMLNodeType::PRIORITY;
             } else if (numNonRailwayNonPed > 2 || nonRailNodes.size() > 2) {
                 // does not look like a rail crossing (roads in conflict). maybe a traffic light?
