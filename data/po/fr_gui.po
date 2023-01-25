@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-24 17:03+0000\n"
-"Last-Translator: bcoueraud87 <benjamin.coueraud@dlr.de>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
-"gui-netedit/fr/>\n"
+"PO-Revision-Date: 2023-01-26 06:39+0000\n"
+"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -856,12 +856,14 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/guisim/GUINet.cpp:632
 msgid "Trying to set data value for the unknown edge '%'."
-msgstr ""
+msgstr "Essai de définition de la valeur des données pour l'arête '%'."
 
 #: /home/micha/programming/sumo/src/guisim/GUINet.cpp:656
 msgid ""
 "Trying to set data value for the unknown relation from edge '%' to edge '%'."
 msgstr ""
+"Essai de définition de la valeur des donnés pour la relation inconnue entre "
+"l'arête '%' et l'arête '%'."
 
 #: /home/micha/programming/sumo/src/guisim/GUINet.cpp:674
 msgid "No data defined after simulation begin time."
