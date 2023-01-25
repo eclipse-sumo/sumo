@@ -377,7 +377,8 @@ GNEFrameAttributeModules::AttributesEditorRow::refreshAttributesEditorRow(const 
     if (myAttributeCheckButton->shown()) {
         myAttributeCheckButton->setCheck(attributeEnabled);
     }
-    if (ACParent && myACAttr.isVType() && (myACAttr.getAttr() == SUMO_ATTR_TYPE)) {
+    if ((myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() == 1) && 
+        ACParent && myACAttr.isVType() && (myACAttr.getAttr() == SUMO_ATTR_TYPE)) {
         // fill comboBox with vTypes
         myValueChoicesComboBox->clearItems();
         for (const auto& vType : ACParent->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
