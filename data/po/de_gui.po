@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
 "PO-Revision-Date: 2023-01-26 06:39+0000\n"
-"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
+"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
 "Language: de\n"
@@ -36,12 +36,12 @@ msgstr "Nicht verfügbar"
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:270
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:479
 msgid "Original coordinate (before coordinate transformation in netconvert)"
-msgstr ""
+msgstr "Originalkoordinate (vor der Koordinatentransformation in netconvert)"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:273
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:482
 msgid "Network coordinate"
-msgstr ""
+msgstr "Netzwerkkoordinate"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:301
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:500
@@ -80,7 +80,7 @@ msgstr "Öffne ein Netz."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:432
 msgid "Open Shapes "
-msgstr "Lade Shapes "
+msgstr "Lade Shapes. "
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:432
 msgid "Load POIs and Polygons for visualization."
@@ -88,7 +88,7 @@ msgstr "Lade POI und Polygone zur Visualisierung."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:435
 msgid "Open EdgeData "
-msgstr "Lade EdgeData "
+msgstr "Lade EdgeData. "
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:435
 msgid "Load edge related data for visualization."
@@ -154,7 +154,7 @@ msgstr "Öffnet einen Dialog, um die Objektauswahl zu bearbeiten."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:470
 msgid "Select lanes which allow..."
-msgstr ""
+msgstr "Fahrspuren auswählen welche erlauben..."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:470
 #, fuzzy
