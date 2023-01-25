@@ -41,9 +41,9 @@ add_dependencies(libtracistatic generate-version-h install_dll)
 set_property(TARGET libtracistatic PROPERTY FOLDER "libtraci")
 
 if (WIN32)
-    set(libtcpip foreign_tcpip ws2_32)
+    set(libtcpip foreign_tcpip ws2_32 ${Intl_LIBRARIES})
 else()
-    set(libtcpip foreign_tcpip)
+    set(libtcpip foreign_tcpip ${Intl_LIBRARIES})
 endif()
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/bin)
