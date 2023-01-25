@@ -260,7 +260,7 @@ def parselines(xmlline, element_name, element_attrs=None, attr_conversions=None,
 
 
 def parse(xmlfile, element_names, element_attrs=None, attr_conversions=None,
-          heterogeneous=True, warn=False):
+          heterogeneous=True, warn=False, ignoreXmlns=False):
     """
     Parses the given element_names from xmlfile and yield compound objects for
     their xml subtrees (no extra objects are returned if element_names appear in
@@ -293,9 +293,13 @@ def parse(xmlfile, element_names, element_attrs=None, attr_conversions=None,
     element_types = {}
     kwargs = {'parser': ET.XMLParser(target=ET.TreeBuilder(insert_comments=True))} if supports_comments() else {}
     for _, parsenode in ET.iterparse(_open(xmlfile, None), **kwargs):
-        if parsenode.tag in element_names:
+        tag = parsenode.tag
+        if ignoreXmlns and "}" in tag:
+            # see https://bugs.python.org/issue18304
+            tag = tag.split("}")[1]
+        if tag in element_names:
             yield _get_compound_object(parsenode, element_types,
-                                       parsenode.tag, element_attrs,
+                                       tag, element_attrs,
                                        attr_conversions, heterogeneous, warn)
             parsenode.clear()
 
