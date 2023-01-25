@@ -23,23 +23,7 @@ Debug: Adding vehicleWithRoute 'vehicle_3' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'vehicle_3' in GNEChange_DemandElement
 Debug: Adding vehicleWithRoute 'vehicle_4' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'vehicle_4' in GNEChange_DemandElement
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.vehicle_embedded.24Jan091456.3848/netedit.daily.demand.vehicle_embedded/demandelements/vehicle_embedded/load/arrivallane/routes.rou.xml failed.
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Removing routeEmbedded 'vehicle_4' in GNEChange_DemandElement
-Debug: Removing vehicleWithRoute 'vehicle_4' in GNEChange_DemandElement
-Debug: Removing routeEmbedded 'vehicle_3' in GNEChange_DemandElement
-Debug: Removing vehicleWithRoute 'vehicle_3' in GNEChange_DemandElement
-Debug: Removing routeEmbedded 'vehicle_2' in GNEChange_DemandElement
-Debug: Removing vehicleWithRoute 'vehicle_2' in GNEChange_DemandElement
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Adding vehicleWithRoute 'vehicle_2' in GNEChange_DemandElement
-Debug: Adding routeEmbedded 'vehicle_2' in GNEChange_DemandElement
-Debug: Adding vehicleWithRoute 'vehicle_3' in GNEChange_DemandElement
-Debug: Adding routeEmbedded 'vehicle_3' in GNEChange_DemandElement
-Debug: Adding vehicleWithRoute 'vehicle_4' in GNEChange_DemandElement
-Debug: Adding routeEmbedded 'vehicle_4' in GNEChange_DemandElement
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.vehicle_embedded.25Jan182728.9940/netedit.daily.demand.vehicle_embedded/demandelements/vehicle_embedded/load/arrivallane/routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00
@@ -87,6 +71,22 @@ Debug: Created connection 'fromgneE6_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Removing routeEmbedded 'vehicle_4' in GNEChange_DemandElement
+Debug: Removing vehicleWithRoute 'vehicle_4' in GNEChange_DemandElement
+Debug: Removing routeEmbedded 'vehicle_3' in GNEChange_DemandElement
+Debug: Removing vehicleWithRoute 'vehicle_3' in GNEChange_DemandElement
+Debug: Removing routeEmbedded 'vehicle_2' in GNEChange_DemandElement
+Debug: Removing vehicleWithRoute 'vehicle_2' in GNEChange_DemandElement
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Adding vehicleWithRoute 'vehicle_2' in GNEChange_DemandElement
+Debug: Adding routeEmbedded 'vehicle_2' in GNEChange_DemandElement
+Debug: Adding vehicleWithRoute 'vehicle_3' in GNEChange_DemandElement
+Debug: Adding routeEmbedded 'vehicle_3' in GNEChange_DemandElement
+Debug: Adding vehicleWithRoute 'vehicle_4' in GNEChange_DemandElement
+Debug: Adding routeEmbedded 'vehicle_4' in GNEChange_DemandElement
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -10.00,-13.20,10.00,13.20
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 39.60,-13.20,76.40,17.20

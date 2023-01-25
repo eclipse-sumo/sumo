@@ -18,14 +18,14 @@ GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31
 Debug: Adding route 'route_0' in GNEChange_DemandElement
 Error: At most one of 'period' and 'probability' has to be given in the definition of flow 'flow_0'.
 Error: At least one of 'period', 'vehsPerHour', 'personsPerHour', 'containersPerHour', 'perHour', 'probability', and 'number' is needed in flow 'flow_1'.
-Error: Attribute 'probability' in definition of flow 'flow_2' Invalid Number Format (double) dummyProb.
+Error: Attribute 'probability' in definition of flow 'flow_2' Invalid Number Format .
 Error: Attribute 'probability' in definition of flow 'flow_3' is empty.
 Error: Invalid repetition probability in the definition of flow 'flow_4'.
 Error: Invalid repetition probability in the definition of flow 'flow_5'.
 Error: Invalid repetition probability in the definition of flow 'flow_6'.
 Debug: Adding flowRoute 'flow_7' in GNEChange_DemandElement
 Debug: Adding flowRoute 'flow_8' in GNEChange_DemandElement
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.27Jun101826.5735/netedit.gui/demandelements/routeflow/load/probability/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.routeflow.25Jan182728.9856/netedit.daily.demand.routeflow/demandelements/routeflow/load/probability/routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00
@@ -83,7 +83,6 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding route 'route_0' in GNEChange_DemandElement
 Debug: Adding flowRoute 'flow_7' in GNEChange_DemandElement
 Debug: Adding flowRoute 'flow_8' in GNEChange_DemandElement
-Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -10.00,-13.20,10.00,13.20
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 39.60,-13.20,76.40,17.20
@@ -121,6 +120,7 @@ GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary -10.00,-10.00,70.00,1
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
 Debug: network elements saved
+Debug: demand elements saved
 Debug: Deleting unreferenced flowRoute
 Debug: Deleting unreferenced flowRoute
 Debug: Deleting unreferenced route

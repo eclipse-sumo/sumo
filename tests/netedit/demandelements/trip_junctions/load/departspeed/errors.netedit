@@ -22,23 +22,7 @@ Debug: Adding tripJunctions 'trip_5' in GNEChange_DemandElement
 Debug: Adding tripJunctions 'trip_6' in GNEChange_DemandElement
 Debug: Adding tripJunctions 'trip_7' in GNEChange_DemandElement
 Debug: Adding tripJunctions 'trip_8' in GNEChange_DemandElement
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.trip_junctions.24Jan091456.3843/netedit.daily.demand.trip_junctions/demandelements/trip_junctions/load/departspeed/routes.rou.xml failed.
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Removing tripJunctions 'trip_8' in GNEChange_DemandElement
-Debug: Removing tripJunctions 'trip_7' in GNEChange_DemandElement
-Debug: Removing tripJunctions 'trip_6' in GNEChange_DemandElement
-Debug: Removing tripJunctions 'trip_5' in GNEChange_DemandElement
-Debug: Removing tripJunctions 'trip_4' in GNEChange_DemandElement
-Debug: Removing tripJunctions 'trip_2' in GNEChange_DemandElement
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Adding tripJunctions 'trip_2' in GNEChange_DemandElement
-Debug: Adding tripJunctions 'trip_4' in GNEChange_DemandElement
-Debug: Adding tripJunctions 'trip_5' in GNEChange_DemandElement
-Debug: Adding tripJunctions 'trip_6' in GNEChange_DemandElement
-Debug: Adding tripJunctions 'trip_7' in GNEChange_DemandElement
-Debug: Adding tripJunctions 'trip_8' in GNEChange_DemandElement
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.trip_junctions.25Jan182728.9927/netedit.daily.demand.trip_junctions/demandelements/trip_junctions/load/departspeed/routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00
@@ -86,6 +70,22 @@ Debug: Created connection 'fromgneE6_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Removing tripJunctions 'trip_8' in GNEChange_DemandElement
+Debug: Removing tripJunctions 'trip_7' in GNEChange_DemandElement
+Debug: Removing tripJunctions 'trip_6' in GNEChange_DemandElement
+Debug: Removing tripJunctions 'trip_5' in GNEChange_DemandElement
+Debug: Removing tripJunctions 'trip_4' in GNEChange_DemandElement
+Debug: Removing tripJunctions 'trip_2' in GNEChange_DemandElement
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Adding tripJunctions 'trip_2' in GNEChange_DemandElement
+Debug: Adding tripJunctions 'trip_4' in GNEChange_DemandElement
+Debug: Adding tripJunctions 'trip_5' in GNEChange_DemandElement
+Debug: Adding tripJunctions 'trip_6' in GNEChange_DemandElement
+Debug: Adding tripJunctions 'trip_7' in GNEChange_DemandElement
+Debug: Adding tripJunctions 'trip_8' in GNEChange_DemandElement
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -10.00,-13.20,10.00,13.20
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 39.60,-13.20,76.40,17.20

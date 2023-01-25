@@ -24,13 +24,7 @@ Debug: Inserting generic parameter 'key3|$$value with spaces%%' into route
 Debug: Inserting generic parameter 'key4|value5' into route
 Error: Attribute 'key' is missing in definition of a param.
 Debug: Adding route 'route_0' in GNEChange_DemandElement
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.vehicletype.24Jan091456.3850/netedit.daily.demand.vehicletype/demandelements/vehicletype/load/parameters/routes.rou.xml failed.
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Removing route 'route_0' in GNEChange_DemandElement
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Adding route 'route_0' in GNEChange_DemandElement
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.vehicletype.25Jan182728.9957/netedit.daily.demand.vehicletype/demandelements/vehicletype/load/parameters/routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00
@@ -78,6 +72,12 @@ Debug: Created connection 'fromgneE6_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Removing route 'route_0' in GNEChange_DemandElement
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Adding route 'route_0' in GNEChange_DemandElement
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -10.00,-13.20,10.00,13.20
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 39.60,-13.20,76.40,17.20
