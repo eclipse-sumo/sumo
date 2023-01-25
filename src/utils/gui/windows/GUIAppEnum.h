@@ -215,14 +215,6 @@ enum {
     MID_HOTKEY_CTRL_SHIFT_O_OPENNETCONVERTFILE,
     /// @brief save SUMOConfig (SUMO AND NETEDIT)
     MID_HOTKEY_CTRL_SHIFT_S_SAVESUMOCONFIG,
-    /// @brief Force save network (flag, temporal)
-    MID_HOTKEY_CTRL_SHIFT_W_FORCESAVENETEWORK,
-    /// @brief Force save additionals (flag, temporal)
-    MID_HOTKEY_CTRL_SHIFT_X_FORCESAVEADDITIONALS,
-    /// @brief Force save demand elements (flag, temporal)
-    MID_HOTKEY_CTRL_SHIFT_Y_FORCESAVEDEMANDELEMENTS,
-    /// @brief Force save data elements (flag, temporal)
-    MID_HOTKEY_CTRL_SHIFT_Z_FORCESAVEDATAELEMENTS,
 
     /// @}
 
