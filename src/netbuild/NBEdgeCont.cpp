@@ -549,6 +549,9 @@ NBEdgeCont::processSplits(NBEdge* e, std::vector<Split> splits,
             // invalidate traffic light definition loaded from a SUMO network
             // XXX it would be preferable to reconstruct the phase definitions heuristically
             e->getFromNode()->invalidateTLS(tlc, true, true);
+            if (exp.speed != -1.) {
+                e->setSpeed(-1, exp.speed);
+            }
         } else {
             WRITE_WARNING("Split at '" + toString(exp.pos) + "' lies beyond the edge's length (edge '" + origID + "').");
         }
