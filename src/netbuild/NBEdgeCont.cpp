@@ -668,6 +668,10 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
     if (friction != -1.) {
         two->setFriction(-1, friction);
     }
+    if (edge->getDistance() != 0) {
+        one->setDistance(edge->getDistance());
+        two->setDistance(one->getDistance() + pos);
+    }
     // replace information about this edge within the nodes
     edge->myFrom->replaceOutgoing(edge, one, 0);
     edge->myTo->replaceIncoming(edge, two, 0);
