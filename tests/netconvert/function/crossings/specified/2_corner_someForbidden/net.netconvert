@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-19 10:10:17 by Eclipse SUMO netconvert Version v1_15_0+1745-65131bb
+<!-- generated on 2023-01-25 08:45:35 by Eclipse SUMO netconvert Version v1_15_0+1914-84100d0141c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,16 +46,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":C_1_0" index="0" allow="passenger" speed="6.25" length="8.25" shape="1.60,91.55 1.79,94.55 2.38,96.69 3.34,97.97 4.70,98.40"/>
     </edge>
     <edge id=":C_c0" function="crossing" crossingEdges="CE EC">
-        <lane id=":C_c0_0" index="0" allow="pedestrian" speed="1.00" length="6.40" width="4.00" shape="2.70,96.80 2.70,103.20"/>
+        <lane id=":C_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="2.70,96.80 2.70,103.20"/>
     </edge>
     <edge id=":C_w0" function="walkingarea">
-        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="1.00" length="2.14" width="4.00" shape="4.70,104.70 4.70,103.20 2.29,102.88 0.31,101.91 -1.22,100.29 -2.32,98.02 -2.98,95.11"/>
+        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="2.78" length="2.14" width="4.00" shape="4.70,104.70 4.70,103.20 2.29,102.88 0.31,101.91 -1.22,100.29 -2.32,98.02 -2.98,95.11"/>
     </edge>
     <edge id=":C_w1" function="walkingarea">
-        <lane id=":C_w1_0" index="0" allow="pedestrian" speed="1.00" length="2.74" width="4.00" shape="4.70,96.80 4.70,93.05 3.24,93.15 3.37,94.47 3.58,95.49 3.87,96.22 4.24,96.65"/>
+        <lane id=":C_w1_0" index="0" allow="pedestrian" speed="2.78" length="2.74" width="4.00" shape="4.70,96.80 4.70,93.05 3.24,93.15 3.37,94.47 3.58,95.49 3.87,96.22 4.24,96.65"/>
     </edge>
     <edge id=":E_w0" function="walkingarea">
-        <lane id=":E_w0_0" index="0" allow="pedestrian" speed="1.00" length="9.03" width="3.75" shape="100.00,103.20 100.00,104.70 100.00,93.05 100.00,96.80"/>
+        <lane id=":E_w0_0" index="0" allow="pedestrian" speed="2.78" length="9.03" width="3.75" shape="100.00,103.20 100.00,104.70 100.00,93.05 100.00,96.80"/>
     </edge>
 
     <edge id="CE" from="C" to="E" priority="3">

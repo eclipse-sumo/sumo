@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-11-19 18:47:40 by Eclipse SUMO netconvert Version v1_15_0+0447-ecea371
+<!-- generated on 2023-01-25 08:45:42 by Eclipse SUMO netconvert Version v1_15_0+1914-84100d0141c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -112,13 +112,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":cluster_2351978965_3491058798_606104206_606104215_16_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="23.31" shape="24.72,34.19 47.77,37.64"/>
     </edge>
     <edge id=":cluster_2351978965_3491058798_606104206_606104215_c0" function="crossing" crossingEdges="411031867 -411031867">
-        <lane id=":cluster_2351978965_3491058798_606104206_606104215_c0_0" index="0" allow="pedestrian" speed="1.00" length="2.00" width="4.00" shape="45.61,31.31 45.66,33.31"/>
+        <lane id=":cluster_2351978965_3491058798_606104206_606104215_c0_0" index="0" allow="pedestrian" speed="2.78" length="2.00" width="4.00" shape="45.61,31.31 45.66,33.31"/>
     </edge>
     <edge id=":cluster_2351978965_3491058798_606104206_606104215_w0" function="walkingarea">
-        <lane id=":cluster_2351978965_3491058798_606104206_606104215_w0_0" index="0" allow="pedestrian" speed="1.00" length="2.36" width="4.00" shape="47.54,36.01 47.84,33.03 47.66,33.25 47.29,33.45 47.10,33.96 47.09,34.62 47.23,35.29 47.52,35.81"/>
+        <lane id=":cluster_2351978965_3491058798_606104206_606104215_w0_0" index="0" allow="pedestrian" speed="2.78" length="2.36" width="4.00" shape="47.54,36.01 47.84,33.03 47.66,33.25 47.29,33.45 47.10,33.96 47.09,34.62 47.23,35.29 47.52,35.81"/>
     </edge>
     <edge id=":cluster_2351978965_3491058798_606104206_606104215_w1" function="walkingarea">
-        <lane id=":cluster_2351978965_3491058798_606104206_606104215_w1_0" index="0" allow="pedestrian" speed="1.00" length="2.14" width="4.00" shape="47.60,31.25 45.83,29.37 42.86,29.80 43.04,30.13 43.48,30.57 44.15,30.90 45.07,31.12 46.22,31.24"/>
+        <lane id=":cluster_2351978965_3491058798_606104206_606104215_w1_0" index="0" allow="pedestrian" speed="2.78" length="2.14" width="4.00" shape="47.60,31.25 45.83,29.37 42.86,29.80 43.04,30.13 43.48,30.57 44.15,30.90 45.07,31.12 46.22,31.24"/>
     </edge>
 
     <edge id="-411031867" from="307157666" to="cluster_2351978965_3491058798_606104206_606104215" priority="1" type="highway.cycleway" shape="52.26,32.09 40.62,32.47">

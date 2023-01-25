@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_15_0+1613-efa7217bd7c
+Eclipse SUMO netgenerate Version v1_15_0+1914-84100d0141c
  Copyright (C) 2001-2023 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -211,6 +211,10 @@ Building Defaults Options:
   --default.bikelane-width FLOAT       The default width of added bike lanes
   --default.crossing-width FLOAT       The default width of a pedestrian
                                         crossing
+  --default.crossing-speed FLOAT       The default speed 'limit' on a
+                                        pedestrian crossing (in m/s)
+  --default.walkingarea-speed FLOAT    The default speed 'limit' on a
+                                        pedestrian walkingarea (in m/s)
   --default.allow STR                  The default for allowed vehicle classes
   --default.disallow STR               The default for disallowed vehicle
                                         classes
