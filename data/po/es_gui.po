@@ -2763,7 +2763,7 @@ msgstr "Atributos de netedit"
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:230
 msgid ""
 "- Reference point: Mark the initial position of the additional element.\n"
-msgstr "\n"
+msgstr ""
 
 #: C:\Users\behr_mi\Projekte\sumo\repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:231
 msgid ""
