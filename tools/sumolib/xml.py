@@ -258,6 +258,11 @@ def parselines(xmlline, element_name, element_attrs=None, attr_conversions=None,
                        heterogeneous, warn):
             yield x
 
+def _handle_namespace(tag, ignoreXmlns):
+    if ignoreXmlns and "}" in tag:
+        # see https://bugs.python.org/issue18304
+        return tag.split("}")[1]
+    return tag
 
 def parse(xmlfile, element_names, element_attrs=None, attr_conversions=None,
           heterogeneous=True, warn=False, ignoreXmlns=False):
@@ -293,14 +298,12 @@ def parse(xmlfile, element_names, element_attrs=None, attr_conversions=None,
     element_types = {}
     kwargs = {'parser': ET.XMLParser(target=ET.TreeBuilder(insert_comments=True))} if supports_comments() else {}
     for _, parsenode in ET.iterparse(_open(xmlfile, None), **kwargs):
-        tag = parsenode.tag
-        if ignoreXmlns and "}" in tag:
-            # see https://bugs.python.org/issue18304
-            tag = tag.split("}")[1]
+        tag = _handle_namespace(parsenode.tag, ignoreXmlns)
         if tag in element_names:
             yield _get_compound_object(parsenode, element_types,
                                        tag, element_attrs,
-                                       attr_conversions, heterogeneous, warn)
+                                       attr_conversions, heterogeneous, warn,
+                                       ignoreXmlns)
             parsenode.clear()
 
 
@@ -308,7 +311,7 @@ def _IDENTITY(x):
     return x
 
 
-def _get_compound_object(node, element_types, element_name, element_attrs, attr_conversions, heterogeneous, warn):
+def _get_compound_object(node, element_types, element_name, element_attrs, attr_conversions, heterogeneous, warn, ignoreXmlns):
     if element_name not in element_types or heterogeneous:
         # initialized the compound_object type from the first encountered #
         # element
@@ -323,8 +326,9 @@ def _get_compound_object(node, element_types, element_name, element_attrs, attr_
     child_list = []
     if len(node) > 0:
         for c in node:
-            child = _get_compound_object(c, element_types, c.tag, element_attrs, attr_conversions, heterogeneous, warn)
-            child_dict.setdefault(c.tag, []).append(child)
+            tag = _handle_namespace(c.tag, ignoreXmlns)
+            child = _get_compound_object(c, element_types, tag, element_attrs, attr_conversions, heterogeneous, warn, ignoreXmlns)
+            child_dict.setdefault(tag, []).append(child)
             child_list.append(child)
     attrnames = element_types[element_name]._original_fields
     return element_types[element_name](
