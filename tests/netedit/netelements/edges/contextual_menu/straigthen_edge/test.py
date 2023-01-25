@@ -31,9 +31,6 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # recompute
 netedit.rebuildNetwork()
 
-# force save additionals
-netedit.forceSaveAdditionals()
-
 # go to inspect mode
 netedit.inspectMode()
 

@@ -32,9 +32,6 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--s
 # Recompute with volatile options
 netedit.rebuildNetworkWithVolatileOptions(False)
 
-# force save additionals
-netedit.forceSaveAdditionals()
-
 # recompute
 netedit.rebuildNetwork()
 

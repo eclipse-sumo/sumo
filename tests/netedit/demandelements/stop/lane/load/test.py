@@ -28,6 +28,9 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
+# go to demand mode (For undo-redo)
+netedit.supermodeDemand()
+
 # show demand elements in network mode
 netedit.changeEditMode(netedit.attrs.modes.network.showDemandElements)
 

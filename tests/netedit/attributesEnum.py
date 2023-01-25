@@ -46,12 +46,12 @@ class modes:
         selectLane = '5'
         showConnections = '6'
         showSubAdditionals = '7'
-        # create edge
+    # create edge
         chainMode = '5'
         twoWayMode = '6'
-        # TLS mode
+    # TLS mode
         applyAllPhases = '5'
-        # move mode
+    # move mode
         mergingJunction = '5'
         showBubbles = '6'
         moveElevation = '7'

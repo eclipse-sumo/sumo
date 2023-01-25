@@ -28,10 +28,7 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# force save additionals
-netedit.forceSaveAdditionals()
-
-
+    
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)
 # save

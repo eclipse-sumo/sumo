@@ -28,15 +28,6 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# force save additionals
-netedit.forceSaveAdditionals()
-
-# force save demand elements
-netedit.forceSaveDemandElements()
-
-# force save data elements
-netedit.forceSaveDataElements()
-
 # toggle select lanes
 netedit.changeEditMode(netedit.attrs.modes.network.selectLane)
 

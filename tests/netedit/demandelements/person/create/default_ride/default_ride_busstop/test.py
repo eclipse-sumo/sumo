@@ -31,9 +31,6 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # go to demand mode
 netedit.supermodeDemand()
 
-# force save additionals
-netedit.forceSaveAdditionals()
-
 # go to person mode
 netedit.personMode()
 

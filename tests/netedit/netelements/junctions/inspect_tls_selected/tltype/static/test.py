@@ -31,9 +31,6 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # rebuild network
 netedit.rebuildNetwork()
 
-# force save additionals
-netedit.forceSaveAdditionals()
-
 # go to select mode
 netedit.selectMode()
 

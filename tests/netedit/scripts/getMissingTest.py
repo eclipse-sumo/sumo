@@ -72,17 +72,17 @@ cleanedReferences = []
 # iterate over lines
 for reference in references:
     if ('.' in line):
-        # remove first element all until (
+    # remove first element all until (
         reference = removeFrom(reference)
-        # remove last element until ,
+    # remove last element until ,
         reference = removeTo(reference)
-        # replace extra characters
+    # replace extra characters
         reference = reference.replace('netedit.attrs.', '')
         if (len(reference) > 0):
-            # add endline
+        # add endline
             if (reference[-1] != '\n'):
                 reference += '\n'
-            # add into cleanedReferences
+        # add into cleanedReferences
             cleanedReferences.append(reference)
 
 """
@@ -111,18 +111,18 @@ dic = {'dummy': 1000}
 
 # get number of
 for reference in cleanedReferences:
-    # remove all spaces
+# remove all spaces
     reference = reference.replace(' ', '')
-    # remove all spaces
+# remove all spaces
     reference = reference.replace('+1', '')
-    # check number of dots
+# check number of dots
     if (reference.count('.') > 1):
         found = False
         for key in dic:
             if (key == reference):
                 dic[key] += 1
                 found = True
-        # add in diccionary
+    # add in diccionary
         if not found:
             dic[reference] = 0
 

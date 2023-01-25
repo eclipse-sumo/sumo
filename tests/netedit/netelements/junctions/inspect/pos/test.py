@@ -35,9 +35,6 @@ netedit.rebuildNetwork()
 # wait for output
 time.sleep(10)
 
-# force save additionals
-netedit.forceSaveAdditionals()
-
 # inspect central node
 netedit.leftClick(referencePosition, 325, 250)
 

@@ -31,9 +31,6 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # show demand elements in network mode
 netedit.changeEditMode(netedit.attrs.modes.network.showDemandElements)
 
-# force save demand elements
-netedit.forceSaveDemandElements()
-
 # Go to demand mode
 netedit.supermodeDemand()
 
