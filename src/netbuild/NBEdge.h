@@ -314,6 +314,7 @@ public:
         double getSpeed() const {
             return vmax;
         }
+        // @brief needed for NBRouterEdge
         double getLength() const {
             return shape.length() + viaShape.length();
         }

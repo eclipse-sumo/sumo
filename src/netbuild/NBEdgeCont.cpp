@@ -723,6 +723,8 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
     insert(one, true);  // duplicate id check happened earlier
     insert(two, true);  // duplicate id check happened earlier
     myEdgesSplit[edge] = {one, two};
+    myWasSplit.insert(one);
+    myWasSplit.insert(two);
     return true;
 }
 
@@ -2031,5 +2033,26 @@ NBEdgeCont::checkConsistency(const NBNodeCont& nc) {
     return ok;
 }
 
+
+void
+NBEdgeCont::fixSplitCustomLength() {
+    for (auto item : myEdges) {
+        NBEdge* e = item.second;
+        if (e->hasLoadedLength() && myWasSplit.count(e) != 0) {
+            // subtract half the length of the longest incoming / outgoing connection
+            double maxLengthOut = 0;
+            for (const NBEdge::Connection& c : e->getConnections()) {
+                maxLengthOut = MAX2(maxLengthOut, c.length + c.viaLength);
+            }
+            double maxLengthIn = 0;
+            for (const NBEdge* in : e->getIncomingEdges()) {
+                for (const NBEdge::Connection& c : in->getConnectionsFromLane(-1, e, -1)) {
+                    maxLengthIn = MAX2(maxLengthIn, c.length + c.viaLength);
+                }
+            }
+            e->setLoadedLength(MAX2(POSITION_EPS, e->getLoadedLength() - (maxLengthIn + maxLengthOut) / 2));
+        }
+    }
+}
 
 /****************************************************************************/

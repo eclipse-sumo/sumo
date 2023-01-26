@@ -595,6 +595,9 @@ public:
     /// @brief add prefix to all edges
     void addPrefix(const std::string& prefix);
 
+    /// @brief adapt custom lengths of split edges to account for intersection size
+    void fixSplitCustomLength();
+
 private:
     /// @brief compute the form factor for a loop of edges
     static double formFactor(const EdgeVector& loopEdges);
@@ -722,6 +725,8 @@ private:
 
     /// @brief the number of splits of edges during the building
     std::map<const NBEdge*, std::pair<NBEdge*, NBEdge*> > myEdgesSplit;
+    /// @brief the edges that were created as result of splitting
+    std::set<const NBEdge*> myWasSplit;
 
     /// @name Settings for accepting/dismissing edges
     /// @{
