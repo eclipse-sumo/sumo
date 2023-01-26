@@ -15,18 +15,18 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary -10.00,28.40,70.00,50
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary -10.00,-10.00,70.00,11.60
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
-Error: Attribute 'containerNumber' in definition of vehicle 'vehicle_0' Invalid Number Format .
+Error: Attribute 'containerNumber' in definition of vehicle 'vehicle_0' Invalid Number Format (long long integer format) dummycontainerNumber.
 Error: a route must be defined either within a vehicle/flow or with an ID attribute
 Error: Attribute 'containerNumber' in definition of vehicle 'vehicle_1' is empty.
 Error: a route must be defined either within a vehicle/flow or with an ID attribute
 Error: a route must be defined either within a vehicle/flow or with an ID attribute
 Debug: Adding vehicleWithRoute 'vehicle_3' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'vehicle_3' in GNEChange_DemandElement
-Error: Attribute 'containerNumber' in definition of vehicle 'vehicle_4' Invalid Number Format .
+Error: Attribute 'containerNumber' in definition of vehicle 'vehicle_4' Invalid Number Format (long long integer format) 2.5.
 Error: a route must be defined either within a vehicle/flow or with an ID attribute
 Debug: Adding vehicleWithRoute 'vehicle_5' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'vehicle_5' in GNEChange_DemandElement
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.vehicle_embedded.25Jan182728.9940/netedit.daily.demand.vehicle_embedded/demandelements/vehicle_embedded/load/containernumber/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.vehicle_embedded.26Jan095536.11244/netedit.daily.demand.vehicle_embedded/demandelements/vehicle_embedded/load/containernumber/routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00

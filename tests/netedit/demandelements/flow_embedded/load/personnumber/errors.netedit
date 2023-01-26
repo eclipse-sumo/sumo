@@ -15,18 +15,18 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary -10.00,28.40,70.00,50
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary -10.00,-10.00,70.00,11.60
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
-Error: Attribute 'personNumber' in definition of flow 'flow_0' Invalid Number Format .
+Error: Attribute 'personNumber' in definition of flow 'flow_0' Invalid Number Format (long long integer format) dummyPersonNumber.
 Error: a route must be defined either within a vehicle/flow or with an ID attribute
 Error: Attribute 'personNumber' in definition of flow 'flow_1' is empty.
 Error: a route must be defined either within a vehicle/flow or with an ID attribute
 Error: a route must be defined either within a vehicle/flow or with an ID attribute
 Debug: Adding flowWithRoute 'flow_3' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'flow_3' in GNEChange_DemandElement
-Error: Attribute 'personNumber' in definition of flow 'flow_4' Invalid Number Format .
+Error: Attribute 'personNumber' in definition of flow 'flow_4' Invalid Number Format (long long integer format) 2.5.
 Error: a route must be defined either within a vehicle/flow or with an ID attribute
 Debug: Adding flowWithRoute 'flow_5' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'flow_5' in GNEChange_DemandElement
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.flow_embedded.25Jan182728.9830/netedit.daily.demand.flow_embedded/demandelements/flow_embedded/load/personnumber/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.flow_embedded.26Jan095535.11201/netedit.daily.demand.flow_embedded/demandelements/flow_embedded/load/personnumber/routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00

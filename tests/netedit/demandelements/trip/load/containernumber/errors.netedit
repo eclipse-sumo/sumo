@@ -15,12 +15,12 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary -10.00,28.40,70.00,50
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary -10.00,-10.00,70.00,11.60
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
-Error: Attribute 'containerNumber' in definition of trip 'trip_0' Invalid Number Format .
+Error: Attribute 'containerNumber' in definition of trip 'trip_0' Invalid Number Format (long long integer format) dummycontainerNumber.
 Error: Attribute 'containerNumber' in definition of trip 'trip_1' is empty.
 Debug: Adding trip 'trip_3' in GNEChange_DemandElement
-Error: Attribute 'containerNumber' in definition of trip 'trip_4' Invalid Number Format .
+Error: Attribute 'containerNumber' in definition of trip 'trip_4' Invalid Number Format (long long integer format) 2.5.
 Debug: Adding trip 'trip_5' in GNEChange_DemandElement
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.trip.25Jan182728.9910/netedit.daily.demand.trip/demandelements/trip/load/containernumber/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.trip.26Jan095536.11237/netedit.daily.demand.trip/demandelements/trip/load/containernumber/routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00
