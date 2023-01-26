@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-26 07:56+0000\n"
+"PO-Revision-Date: 2023-01-26 08:14+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -157,9 +157,10 @@ msgid "Select lanes which allow..."
 msgstr "Fahrspuren auswählen welche erlauben..."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:470
-#, fuzzy
 msgid "Opens a menu for selecting a vehicle class by which to selected lanes."
-msgstr "Öffnet einen Dialog, um die Objektauswahl zu bearbeiten."
+msgstr ""
+"Öffnet ein Menu, um für eine Fahrzeugklasse freigegebene Fahrstreifen "
+"auszuwählen."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:474
 msgid "Edit Breakpoints"
