@@ -39,6 +39,9 @@ preserve_custom_length
 # modify custom length in proportion so that the total custom length is preserved (with shape)
 preserve_custom_length2
 
+# modify custom length in proportion so that the total custom length is preserved even when the split-junction is large
+preserve_custom_length_intersection
+
 # three lanes, changing the speed and changing it back, modifying navteq input
 speed_navteq
 
