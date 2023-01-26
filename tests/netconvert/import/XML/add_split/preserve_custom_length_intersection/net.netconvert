@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-26 10:33:48 by Eclipse SUMO netconvert Version v1_15_0+1959-c0376c5
+<!-- generated on 2023-01-26 11:02:47 by Eclipse SUMO netconvert Version v1_15_0+1961-33c8f86
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -52,15 +52,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":new_4_2" index="2" speed="13.89" length="14.40" shape="46.00,18.40 60.40,18.40"/>
     </edge>
 
-    <edge id="1" from="0" to="new" priority="-1" length="100.00">
-        <lane id="1_0" index="0" speed="13.89" length="100.00" shape="0.00,12.00 46.00,12.00"/>
-        <lane id="1_1" index="1" speed="13.89" length="100.00" shape="0.00,15.20 46.00,15.20"/>
-        <lane id="1_2" index="2" speed="13.89" length="100.00" shape="0.00,18.40 46.00,18.40"/>
+    <edge id="1" from="0" to="new" priority="-1" length="92.80">
+        <lane id="1_0" index="0" speed="13.89" length="92.80" shape="0.00,12.00 46.00,12.00"/>
+        <lane id="1_1" index="1" speed="13.89" length="92.80" shape="0.00,15.20 46.00,15.20"/>
+        <lane id="1_2" index="2" speed="13.89" length="92.80" shape="0.00,18.40 46.00,18.40"/>
     </edge>
-    <edge id="1.100" from="new" to="1" priority="-1" length="100.00">
-        <lane id="1.100_0" index="0" speed="13.89" length="100.00" shape="60.40,12.00 100.00,12.00"/>
-        <lane id="1.100_1" index="1" speed="13.89" length="100.00" shape="60.40,15.20 100.00,15.20"/>
-        <lane id="1.100_2" index="2" speed="13.89" length="100.00" shape="60.40,18.40 100.00,18.40"/>
+    <edge id="1.100" from="new" to="1" priority="-1" length="92.80">
+        <lane id="1.100_0" index="0" speed="13.89" length="92.80" shape="60.40,12.00 100.00,12.00"/>
+        <lane id="1.100_1" index="1" speed="13.89" length="92.80" shape="60.40,15.20 100.00,15.20"/>
+        <lane id="1.100_2" index="2" speed="13.89" length="92.80" shape="60.40,18.40 100.00,18.40"/>
     </edge>
     <edge id="a" from="a" to="new" priority="-1">
         <lane id="a_0" index="0" speed="13.89" length="6.40" shape="54.80,0.00 54.80,6.40"/>
