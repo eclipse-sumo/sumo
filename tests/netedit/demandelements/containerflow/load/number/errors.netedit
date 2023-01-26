@@ -16,14 +16,14 @@ GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary -10.00,-10.00,70.00,1
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
 Debug: Adding containerStop 'containerStop' in GNEChange_Additional
-Error: Attribute 'number' in definition of containerFlow 'p_0' Invalid Number Format .
+Error: Attribute 'number' in definition of containerFlow 'p_0' Invalid Number Format (long long integer format) 23.00.
 Error: Attribute 'number' in definition of containerFlow 'p_1' is empty.
-Error: Attribute 'number' in definition of containerFlow 'p_2' Invalid Number Format .
-Error: Attribute 'number' in definition of containerFlow 'p_3' Invalid Number Format .
-Error: Attribute 'number' in definition of containerFlow 'p_4' Invalid Number Format .
+Error: Attribute 'number' in definition of containerFlow 'p_2' Invalid Number Format (long long integer format) dummy.
+Error: Attribute 'number' in definition of containerFlow 'p_3' Invalid Number Format (long long integer format) -23.00.
+Error: Attribute 'number' in definition of containerFlow 'p_4' Invalid Number Format (long long integer format) 12.5.
 Debug: Adding containerFlow 'p_5' in GNEChange_DemandElement
 Debug: Adding tranship: edge->edge 'p_5' in GNEChange_DemandElement
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.containerflow.25Jan182728.9806/netedit.daily.demand.containerflow/demandelements/containerflow/load/number/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.containerflow.26Jan095535.11193/netedit.daily.demand.containerflow/demandelements/containerflow/load/number/routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00

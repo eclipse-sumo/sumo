@@ -28,3 +28,5 @@ Warning: Unreachable edge 'E2' within tlLogic 'customID'
 Warning: Unreachable edge 'E3' within tlLogic 'customID'
 Warning: The traffic light 'customID' cannot be adapted to a cycle time of 90.00.
 Warning: The traffic light 'customID' has a high cycle time of 258.00.
+Warning: The traffic light 'customID' cannot be adapted to a cycle time of 90.00.
+Warning: The traffic light 'customID' has a high cycle time of 258.00.

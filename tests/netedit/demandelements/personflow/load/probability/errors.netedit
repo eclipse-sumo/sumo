@@ -17,7 +17,7 @@ GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
 Debug: Adding busStop 'busStop' in GNEChange_Additional
 Error: Invalid repetition probability in the definition of personFlow 'p_0'.
-Error: Attribute 'probability' in definition of personFlow 'p_1' Invalid Number Format .
+Error: Attribute 'probability' in definition of personFlow 'p_1' Invalid Number Format (double) dummyProb.
 Error: Attribute 'probability' in definition of personFlow 'p_2' is empty.
 Error: Invalid repetition probability in the definition of personFlow 'p_3'.
 Error: Invalid repetition probability in the definition of personFlow 'p_4'.
@@ -26,7 +26,7 @@ Debug: Adding personFlow 'p_6' in GNEChange_DemandElement
 Debug: Adding personTrip: edge->edge 'p_6' in GNEChange_DemandElement
 Debug: Adding personFlow 'p_7' in GNEChange_DemandElement
 Debug: Adding personTrip: edge->edge 'p_7' in GNEChange_DemandElement
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.personflow.25Jan182728.9838/netedit.daily.demand.personflow/demandelements/personflow/load/probability/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.personflow.26Jan095535.11214/netedit.daily.demand.personflow/demandelements/personflow/load/probability/routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00

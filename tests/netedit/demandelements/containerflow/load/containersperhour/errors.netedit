@@ -18,7 +18,7 @@ GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31
 Debug: Adding containerStop 'containerStop' in GNEChange_Additional
 Debug: Adding containerFlow 'p_0' in GNEChange_DemandElement
 Debug: Adding tranship: edge->edge 'p_0' in GNEChange_DemandElement
-Error: Attribute 'containersPerHour' in definition of containerFlow 'p_1' Invalid Number Format .
+Error: Attribute 'containersPerHour' in definition of containerFlow 'p_1' Invalid Number Format (double) dummyPeriod.
 Error: Attribute 'containersPerHour' in definition of containerFlow 'p_2' is empty.
 Error: Invalid repetition rate in the definition of containerFlow 'p_3'.
 Error: Invalid repetition rate in the definition of containerFlow 'p_4'.
@@ -28,7 +28,7 @@ Debug: Adding containerFlow 'p_6' in GNEChange_DemandElement
 Debug: Adding tranship: edge->edge 'p_6' in GNEChange_DemandElement
 Debug: Adding containerFlow 'p_7' in GNEChange_DemandElement
 Debug: Adding tranship: edge->edge 'p_7' in GNEChange_DemandElement
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.containerflow.25Jan182728.9806/netedit.daily.demand.containerflow/demandelements/containerflow/load/containersperhour/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.containerflow.26Jan095535.11193/netedit.daily.demand.containerflow/demandelements/containerflow/load/containersperhour/routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00

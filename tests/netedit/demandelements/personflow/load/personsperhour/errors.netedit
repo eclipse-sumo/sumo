@@ -18,7 +18,7 @@ GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31
 Debug: Adding busStop 'busStop' in GNEChange_Additional
 Debug: Adding personFlow 'p_0' in GNEChange_DemandElement
 Debug: Adding personTrip: edge->edge 'p_0' in GNEChange_DemandElement
-Error: Attribute 'personsPerHour' in definition of personFlow 'p_1' Invalid Number Format .
+Error: Attribute 'personsPerHour' in definition of personFlow 'p_1' Invalid Number Format (double) dummyPeriod.
 Error: Attribute 'personsPerHour' in definition of personFlow 'p_2' is empty.
 Error: Invalid repetition rate in the definition of personFlow 'p_3'.
 Error: Invalid repetition rate in the definition of personFlow 'p_4'.
@@ -28,7 +28,7 @@ Debug: Adding personFlow 'p_6' in GNEChange_DemandElement
 Debug: Adding personTrip: edge->edge 'p_6' in GNEChange_DemandElement
 Debug: Adding personFlow 'p_7' in GNEChange_DemandElement
 Debug: Adding personTrip: edge->edge 'p_7' in GNEChange_DemandElement
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.personflow.25Jan182728.9838/netedit.daily.demand.personflow/demandelements/personflow/load/personsperhour/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.personflow.26Jan095535.11214/netedit.daily.demand.personflow/demandelements/personflow/load/personsperhour/routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00

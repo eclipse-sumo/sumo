@@ -15,12 +15,12 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary -10.00,28.40,70.00,50
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary -10.00,-10.00,70.00,11.60
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
-Error: Attribute 'width' in definition of vType 'vType0' Invalid Number Format .
+Error: Attribute 'width' in definition of vType 'vType0' Invalid Number Format (double) dummyWidth.
 Error: width must be greater than 0
 Error: width must be greater than 0
 Debug: Adding vType 'vType3' in GNEChange_DemandElement
 Debug: Adding vType 'vType4' in GNEChange_DemandElement
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.vehicletype.25Jan182728.9957/netedit.daily.demand.vehicletype/demandelements/vehicletype/load/width/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.vehicletype.26Jan095536.11246/netedit.daily.demand.vehicletype/demandelements/vehicletype/load/width/routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00
