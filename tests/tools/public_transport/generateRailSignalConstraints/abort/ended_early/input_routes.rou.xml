@@ -34,11 +34,11 @@
     <vType id="train" length="50.00" vClass="rail"/>
     <vehicle id="t0" type="train" depart="0.00" departSpeed="max">
         <route edges="a b c"/>
-        <stop busStop="stop_a" arrival="100" until="130" duration="30" started="70" ended="100"/>
-        <stop busStop="stop_c" arrival="200" until="230" duration="30"/>
+        <stop busStop="stop_a" arrival="1100" until="1130" duration="30" started="70" ended="100"/>
+        <stop busStop="stop_c" arrival="1200" until="1230" duration="30"/>
     </vehicle>
     <vehicle id="t1" type="train" depart="20.00" departSpeed="max">
         <route edges="d e c "/>
-        <stop busStop="stop_c" arrival="150" until="180" duration="30"/>
+        <stop busStop="stop_c" arrival="1150" until="1180" duration="30"/>
     </vehicle>
 </routes>
