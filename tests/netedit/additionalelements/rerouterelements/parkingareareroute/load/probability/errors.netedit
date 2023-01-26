@@ -22,7 +22,7 @@ Debug: Adding parkingAreaReroute 'rerouter_0' in GNEChange_Additional
 GLDebug: 	Removed object rerouter:rerouter_0 from SUMORTree with boundary -10.00,-11.60,54.00,21.00
 GLDebug: 	Inserted rerouter:rerouter_0 into SUMORTree with boundary -10.00,-11.60,54.00,21.00
 Debug: Adding parkingAreaReroute 'rerouter_0' in GNEChange_Additional
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.rerouterelements.24Jun133818.22405/netedit.daily.additional.rerouterelements/additionalelements/rerouterelements/parkingareareroute/load/probability/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.rerouterelements.1_from_26Jan095535.126248/netedit.daily.additional.rerouterelements/additionalelements/rerouterelements/parkingareareroute/load/probability/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00
@@ -37,7 +37,6 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-18.40,60.00,28.00
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -10.00,-13.20,10.00,13.20
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 40.00,-13.20,60.00,13.20
@@ -51,6 +50,7 @@ GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-18.40,60.00,28.00
 Debug: network elements saved
+Debug: Additionals saved
 Debug: Deleting unreferenced parkingAreaReroute
 Debug: Deleting unreferenced parkingAreaReroute
 Debug: Deleting unreferenced parkingAreaReroute

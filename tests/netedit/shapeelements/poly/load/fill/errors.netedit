@@ -5,10 +5,10 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Adding poly 'poly_0' in GNEChange_Additional
 GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary 20.00,0.00,50.00,30.00
-Error: Attribute 'fill' in definition of poly 'poly_1' Invalid Bool Format .
+Error: Attribute 'fill' in definition of poly 'poly_1' Invalid Bool Format dummy.
 Debug: Adding poly 'poly_2' in GNEChange_Additional
 GLDebug: 	Inserted polygon:poly_2 into SUMORTree with boundary 20.00,-20.00,50.00,10.00
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poly.25Jan182729.10212/netedit.daily.shape.poly/shapeelements/poly/load/fill/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poly.26Jan095536.11321/netedit.daily.shape.poly/shapeelements/poly/load/fill/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00
