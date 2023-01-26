@@ -96,7 +96,7 @@ class NumberFormatException : public FormatException {
 public:
     /// @brief constructor
     NumberFormatException(const std::string& data)
-        : FormatException(TLF("Invalid Number Format ", data)) {}
+        : FormatException(TLF("Invalid Number Format %", data)) {}
 };
 
 
@@ -109,7 +109,7 @@ class TimeFormatException : public FormatException {
 public:
     /// @brief constructor
     TimeFormatException(const std::string& data)
-        : FormatException(TLF("Invalid Time Format ", data)) {}
+        : FormatException(TLF("Invalid Time Format %", data)) {}
 };
 
 
@@ -122,7 +122,7 @@ class BoolFormatException : public FormatException {
 public:
     /// @brief constructor
     BoolFormatException(const std::string& data)
-        : FormatException(TLF("Invalid Bool Format ", data)) {}
+        : FormatException(TLF("Invalid Bool Format %", data)) {}
 };
 
 
