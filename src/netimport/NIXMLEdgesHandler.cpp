@@ -512,7 +512,11 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
         e.node = myNodeCont.retrieve(nodeID);
         e.offsetFactor = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
         if (e.node == nullptr) {
-            e.node = new NBNode(nodeID, myCurrentEdge->getGeometry().positionAtOffset(e.pos));
+            double geomPos = e.pos;
+            if (myCurrentEdge->hasLoadedLength()) {
+                geomPos *= myCurrentEdge->getGeometry().length() / myCurrentEdge->getLoadedLength();
+            }
+            e.node = new NBNode(nodeID, myCurrentEdge->getGeometry().positionAtOffset(geomPos));
             myNodeCont.insert(e.node);
         }
         NIXMLNodesHandler::processNodeType(attrs, e.node, e.node->getID(), e.node->getPosition(), false,

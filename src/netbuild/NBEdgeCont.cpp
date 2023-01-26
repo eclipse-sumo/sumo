@@ -648,7 +648,11 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
     assert(changedLeft < (int)noLanesSecondEdge);
 
     // build the new edges' geometries
-    std::pair<PositionVector, PositionVector> geoms = edge->getGeometry().splitAt(pos);
+    double geomPos = pos;
+    if (edge->hasLoadedLength()) {
+        geomPos *= edge->getGeometry().length() / edge->getLoadedLength();
+    }
+    std::pair<PositionVector, PositionVector> geoms = edge->getGeometry().splitAt(geomPos);
     // build and insert the edges
     NBEdge* one = new NBEdge(firstEdgeName, edge->myFrom, node, edge, geoms.first, noLanesFirstEdge);
     NBEdge* two = new NBEdge(secondEdgeName, node, edge->myTo, edge, geoms.second, noLanesSecondEdge);
@@ -671,6 +675,10 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
     if (edge->getDistance() != 0) {
         one->setDistance(edge->getDistance());
         two->setDistance(one->getDistance() + pos);
+    }
+    if (edge->hasLoadedLength()) {
+        one->setLoadedLength(pos);
+        two->setLoadedLength(edge->getLoadedLength() - pos);
     }
     // replace information about this edge within the nodes
     edge->myFrom->replaceOutgoing(edge, one, 0);
