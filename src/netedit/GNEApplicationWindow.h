@@ -690,16 +690,19 @@ private:
     void closeAllWindows();
 
     /// @brief warns about unsaved changes and gives the user the option to abort
-    bool continueWithUnsavedChanges(const std::string& operation);
+    bool continueWithUnsavedChanges();
 
     /// @brief warns about unsaved changes in additionals and gives the user the option to abort
-    bool continueWithUnsavedAdditionalChanges(const std::string& operation);
+    bool continueWithUnsavedAdditionalChanges();
 
     /// @brief warns about unsaved changes in demand elements and gives the user the option to abort
-    bool continueWithUnsavedDemandElementChanges(const std::string& operation);
+    bool continueWithUnsavedDemandElementChanges();
 
     /// @brief warns about unsaved changes in data elements and gives the user the option to abort
-    bool continueWithUnsavedDataElementChanges(const std::string& operation);
+    bool continueWithUnsavedDataElementChanges();
+
+    /// @brief warns about unsaved changes in meanData elements and gives the user the option to abort
+    bool continueWithUnsavedMeanDataElementChanges();
 
     /// @brief set input files in sumo options
     void setInputInSUMOOptions(const bool ignoreAdditionals, const bool ignoreRoutes);
