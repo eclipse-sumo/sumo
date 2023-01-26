@@ -17,7 +17,7 @@ GLDebug: 	Inserted parkingSpace:pa_0 into SUMORTree with boundary -5.70,-15.70,3
 GLDebug: 	Removed object parkingSpace:pa_0 from SUMORTree with boundary -5.70,-15.70,35.70,25.70
 GLDebug: 	Inserted parkingSpace:pa_0 into SUMORTree with boundary -5.70,-15.70,35.70,25.70
 Debug: Value 'dummyPosition' for attribute pos of space isn't valid
-Debug: Value 'dummyPosition' for attribute pos of space isn't valid
+Debug: Value '' for attribute pos of space isn't valid
 Debug: Setting new attribute
 GLDebug: 	Removed object parkingSpace:pa_0 from SUMORTree with boundary -5.70,-15.70,35.70,25.70
 GLDebug: 	Inserted parkingSpace:pa_0 into SUMORTree with boundary -24.20,-23.70,17.20,17.70

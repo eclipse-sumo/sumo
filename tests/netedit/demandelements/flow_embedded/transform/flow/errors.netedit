@@ -173,4 +173,4 @@ Debug: Deleting unreferenced junction 'gneJ8' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ9' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 16
-X connection to :13457.0 broken (explicit kill or server shutdown).
+X connection to :7758.0 broken (explicit kill or server shutdown).

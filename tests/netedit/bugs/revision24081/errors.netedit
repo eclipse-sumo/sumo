@@ -75,12 +75,12 @@ GLDebug: 	Removed object edge:gneE6 from SUMORTree with boundary 40.00,40.00,61.
 GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary 15.00,39.28,61.60,110.00
 GLDebug: 	Removed object edge:-gneE6 from SUMORTree with boundary 38.40,40.00,60.00,110.00
 GLDebug: 	Inserted edge:-gneE6 into SUMORTree with boundary 13.57,40.00,60.00,110.72
+GLDebug: 	Removed object edge:-gneE5 from SUMORTree with boundary 40.00,38.40,110.00,60.00
+GLDebug: 	Inserted edge:-gneE5 into SUMORTree with boundary 15.00,38.40,110.00,60.00
 GLDebug: 	Removed object edge:-gneE4 from SUMORTree with boundary 40.00,-10.00,61.60,60.00
 GLDebug: 	Inserted edge:-gneE4 into SUMORTree with boundary 15.00,-10.00,61.60,60.72
 GLDebug: 	Removed object edge:-gneE3 from SUMORTree with boundary -10.00,40.00,60.00,61.60
 GLDebug: 	Inserted edge:-gneE3 into SUMORTree with boundary -10.00,40.00,52.80,61.60
-GLDebug: 	Removed object edge:-gneE5 from SUMORTree with boundary 40.00,38.40,110.00,60.00
-GLDebug: 	Inserted edge:-gneE5 into SUMORTree with boundary 15.00,38.40,110.00,60.00
 GLDebug: 	Removed object edge:gneE3 from SUMORTree with boundary -10.00,38.40,60.00,60.00
 GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary -10.00,38.40,52.80,60.00
 GLDebug: 	Removed object edge:gneE5 from SUMORTree with boundary 40.00,40.00,110.00,61.60
@@ -96,12 +96,12 @@ GLDebug: 	Removed object edge:gneE6 from SUMORTree with boundary 15.00,39.28,61.
 GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary 16.43,39.28,61.60,110.00
 GLDebug: 	Removed object edge:-gneE6 from SUMORTree with boundary 13.57,40.00,60.00,110.72
 GLDebug: 	Inserted edge:-gneE6 into SUMORTree with boundary 13.57,40.00,60.00,110.72
+GLDebug: 	Removed object edge:-gneE5 from SUMORTree with boundary 15.00,38.40,110.00,60.00
+GLDebug: 	Inserted edge:-gneE5 into SUMORTree with boundary 15.00,38.40,110.00,60.00
 GLDebug: 	Removed object edge:-gneE4 from SUMORTree with boundary 15.00,-10.00,61.60,60.72
 GLDebug: 	Inserted edge:-gneE4 into SUMORTree with boundary 16.43,-10.00,61.60,60.72
 GLDebug: 	Removed object edge:-gneE3 from SUMORTree with boundary -10.00,40.00,52.80,61.60
 GLDebug: 	Inserted edge:-gneE3 into SUMORTree with boundary -10.00,40.00,60.00,61.60
-GLDebug: 	Removed object edge:-gneE5 from SUMORTree with boundary 15.00,38.40,110.00,60.00
-GLDebug: 	Inserted edge:-gneE5 into SUMORTree with boundary 15.00,38.40,110.00,60.00
 GLDebug: 	Removed object edge:gneE3 from SUMORTree with boundary -10.00,38.40,52.80,60.00
 GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary -10.00,38.40,60.00,60.00
 GLDebug: 	Removed object edge:gneE5 from SUMORTree with boundary 15.00,40.00,110.00,61.60
@@ -163,12 +163,12 @@ GLDebug: 	Removed object edge:gneE6 from SUMORTree with boundary 40.00,40.00,61.
 GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary 15.00,39.28,61.60,110.00
 GLDebug: 	Removed object edge:-gneE6 from SUMORTree with boundary 38.40,40.00,60.00,110.00
 GLDebug: 	Inserted edge:-gneE6 into SUMORTree with boundary 13.57,40.00,60.00,110.72
+GLDebug: 	Removed object edge:-gneE5 from SUMORTree with boundary 40.00,38.40,110.00,60.00
+GLDebug: 	Inserted edge:-gneE5 into SUMORTree with boundary 15.00,38.40,110.00,60.00
 GLDebug: 	Removed object edge:-gneE4 from SUMORTree with boundary 40.00,-10.00,61.60,60.00
 GLDebug: 	Inserted edge:-gneE4 into SUMORTree with boundary 15.00,-10.00,61.60,60.72
 GLDebug: 	Removed object edge:-gneE3 from SUMORTree with boundary -10.00,40.00,60.00,61.60
 GLDebug: 	Inserted edge:-gneE3 into SUMORTree with boundary -10.00,40.00,52.80,61.60
-GLDebug: 	Removed object edge:-gneE5 from SUMORTree with boundary 40.00,38.40,110.00,60.00
-GLDebug: 	Inserted edge:-gneE5 into SUMORTree with boundary 15.00,38.40,110.00,60.00
 GLDebug: 	Removed object edge:gneE3 from SUMORTree with boundary -10.00,38.40,60.00,60.00
 GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary -10.00,38.40,52.80,60.00
 GLDebug: 	Removed object edge:gneE5 from SUMORTree with boundary 40.00,40.00,110.00,61.60

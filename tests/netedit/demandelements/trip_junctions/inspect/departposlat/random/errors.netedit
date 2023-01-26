@@ -67,6 +67,7 @@ Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'trip (from-to junctions)' in GNETagSelector
 Debug: Key ENTER pressed
 Debug: Adding tripJunctions 't_0' in GNEChange_DemandElement
+Debug: Value 'trip (from-to junctions)' for attribute departPosLat of tripJunctions isn't valid
 Debug: Value 'dummyPosLat' for attribute departPosLat of tripJunctions isn't valid
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed

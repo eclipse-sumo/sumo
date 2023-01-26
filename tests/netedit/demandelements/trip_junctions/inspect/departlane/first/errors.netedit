@@ -67,8 +67,7 @@ Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'trip (from-to junctions)' in GNETagSelector
 Debug: Key ENTER pressed
 Debug: Adding tripJunctions 't_0' in GNEChange_DemandElement
-Debug: Value 'dummyDepart' for attribute color of tripJunctions isn't valid
-Debug: Value 'first' for attribute color of tripJunctions isn't valid
+Debug: Value 'dummyDepart' for attribute departLane of tripJunctions isn't valid
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing tripJunctions 't_0' in GNEChange_DemandElement
