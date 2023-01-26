@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-26 12:18+0000\n"
+"PO-Revision-Date: 2023-01-26 13:10+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -28,12 +28,10 @@ msgid "Consolidating statistics"
 msgstr "Statistiken konsolidieren"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:58
-#, fuzzy
 msgid "Building street representation"
 msgstr "Baut Straßendarstellungen"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:62
-#, fuzzy
 msgid "Generating work positions"
 msgstr "Generiert Arbeitspositionen"
 
@@ -46,7 +44,6 @@ msgid "Generating population"
 msgstr "Generiert Einwohner"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:75
-#, fuzzy
 msgid "Allocating schools"
 msgstr "Zuweisung von Schulen"
 
@@ -55,7 +52,6 @@ msgid "Allocating work places"
 msgstr "Zuweisung von Arbeitsplätzen"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:83
-#, fuzzy
 msgid "Allocating car places"
 msgstr "Zuweisung von Autostellplätzen"
 
@@ -65,7 +61,6 @@ msgid "Edge '%' is not known."
 msgstr "Kante '%' ist nicht bekannt."
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGenHandler.cpp:329
-#, fuzzy
 msgid "Unknown bus station '%'."
 msgstr "Unbekannte Busstation '%'."
 
@@ -75,9 +70,9 @@ msgid "Missing definition of network to load!"
 msgstr "Fehlende Information für das zu ladende Netzwerk!"
 
 #: /home/micha/programming/sumo/src/activitygen/activitygen_main.cpp:67
-#, c-format, fuzzy
+#, c-format
 msgid "The network file '%' could not be accessed."
-msgstr "Auf den Netzwerkfile '%' konnte nicht zurückgegriffen werden."
+msgstr "Auf die Netzwerkdatei '%' konnte nicht zurückgegriffen werden."
 
 #: /home/micha/programming/sumo/src/activitygen/activitygen_main.cpp:69
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:116
@@ -87,12 +82,11 @@ msgstr "Lade Netz"
 #: /home/micha/programming/sumo/src/activitygen/activitygen_main.cpp:79
 #: /home/micha/programming/sumo/src/netload/NLEdgeControlBuilder.cpp:227
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:133
-#, c-format, fuzzy
+#, c-format
 msgid "Deprecated vehicle classes '%' in input network."
 msgstr "Abgelehnte Fahrzeugklassen '%' im Eingabenetzwerk."
 
 #: /home/micha/programming/sumo/src/activitygen/activitygen_main.cpp:89
-#, fuzzy
 msgid ""
 "Generates trips of persons throughout a day for the microscopic, multi-modal "
 "traffic simulation SUMO."
@@ -101,21 +95,25 @@ msgstr ""
 "multimodale Verkehrssimulation SUMO."
 
 #: /home/micha/programming/sumo/src/activitygen/activitygen_main.cpp:113
-#, c-format, fuzzy
+#, c-format
 msgid "Loaded % edges."
-msgstr "Lädt % Kanten."
+msgstr "% Kanten geladen."
 
 #: /home/micha/programming/sumo/src/activitygen/activitygen_main.cpp:115
 msgid ""
 "\n"
 "\t ---- begin AcitivtyGen ----\n"
 msgstr ""
+"\n"
+"\t --- Beginn ActivityGen ---\n"
 
 #: /home/micha/programming/sumo/src/activitygen/activitygen_main.cpp:128
 msgid ""
 "\n"
 "\t ---- end of ActivityGen ----\n"
 msgstr ""
+"\n"
+"\t --- Ende von ActivityGen ---\n"
 
 #: /home/micha/programming/sumo/src/activitygen/city/AGAdult.cpp:108
 #, fuzzy
@@ -171,7 +169,7 @@ msgid " % source detectors"
 msgstr " % Quelldetektoren"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFNet.cpp:144
-#, c-format, fuzzy
+#, c-format
 msgid " % sink detectors"
 msgstr " % Zieldetektoren"
 
@@ -186,7 +184,6 @@ msgid " % invalid detectors"
 msgstr " % ungültige Detektoren"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFNet.cpp:281
-#, fuzzy
 msgid "Could not close route for '%'"
 msgstr "Route für '%' konnte nicht geschlossen werden"
 
@@ -196,28 +193,25 @@ msgid ""
 "Detector '%' has no flows.\n"
 " Trying to rebuild."
 msgstr ""
-"Detektor '%' besitzt keine Ströme.\n"
-"Versuch zum Wiederaufbau."
+"Detektor '%' besitzt keine Flüsse.\n"
+"Erneuter Wiederaufbau."
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFNet.cpp:467
-#, fuzzy
 msgid " Could not build list of previous flows."
-msgstr " Liste vergangener Flows konnte nicht erstellt werden."
+msgstr " Liste vergangener Flüsse konnte nicht erstellt werden."
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFNet.cpp:504
-#, fuzzy
 msgid " Could not build list of latter flows."
-msgstr " Liste von den letzten Flows konnte nicht erstellt werden."
+msgstr " Liste von den letzten Flüssen konnte nicht erstellt werden."
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFNet.cpp:591
-#, fuzzy
 msgid "Removed detector '%' because no flows for him exist."
-msgstr "Detektor '%' wurde entfernt, da keine Flows existieren."
+msgstr "Detektor '%' wurde entfernt, da keine Flüsse existieren."
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFNet.cpp:614
-#, c-format, fuzzy
+#, c-format
 msgid "Detector '%' has no flow."
-msgstr "Detektor '%' hat keinen Flow."
+msgstr "Detektor '%' hat keinen Fluss."
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFNet.cpp:701
 #, c-format
@@ -240,9 +234,8 @@ msgid ""
 msgstr ""
 
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:70
-#, fuzzy
 msgid "No detector file given (use --detector-files <FILE>)."
-msgstr "Keine Detektordatei vorhanden (benutze --detector-files <FILE>)."
+msgstr "Keine Detektordatei vorhanden (benutze --detector-files <Datei>)."
 
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:76
 msgid "Could not open detector file '%'"
@@ -253,7 +246,7 @@ msgid "No detectors found."
 msgstr "Keine Detektoren gefunden."
 
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:103
-#, c-format, fuzzy
+#, c-format
 msgid "The measure-file '%' can not be opened."
 msgstr "Die Messdatei '%' konnte nicht geöffnet werden."
 
@@ -285,9 +278,8 @@ msgstr ""
 "Die Emitter haben keine Routen; nutze es in Kombination mit einem Netzwerk"
 
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:193
-#, fuzzy
 msgid "Rechecking loaded flows"
-msgstr "Überprüfe geladene Flows"
+msgstr "Überprüfe geladene Flüsse"
 
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:198
 msgid "Writing emitters"
@@ -298,7 +290,6 @@ msgid "Writing emitter pois"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:217
-#, fuzzy
 msgid "Writing speed triggers"
 msgstr "Schreibe Geschwindigkeitsauslöser"
 
@@ -315,7 +306,7 @@ msgid "Builds vehicle routes for SUMO using detector values."
 msgstr "Baut Fahrzeugrouten für SUMO unter der Verwendung von Detektorwerten."
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:220
-#, c-format, fuzzy
+#, c-format
 msgid "Routing algorithm '%' does not support bulk routing."
 msgstr "Der Routing-Algorithmus '%' unterstützt kein Massenrouting."
 
