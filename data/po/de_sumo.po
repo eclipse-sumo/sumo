@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-26 13:10+0000\n"
+"PO-Revision-Date: 2023-01-26 14:38+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -612,97 +612,112 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/libtraci/Connection.cpp:168
 msgid "Not connected."
-msgstr ""
+msgstr "Nicht verbunden."
 
 #: /home/micha/programming/sumo/src/marouter/ROMAAssignments.cpp:190
 msgid "Unknown origin '%'."
-msgstr ""
+msgstr "Unbekannter Ursprung '%'."
 
 #: /home/micha/programming/sumo/src/marouter/ROMAAssignments.cpp:194
 msgid "Unknown destination '%'."
-msgstr ""
+msgstr "Unbekanntes Ziel '%'."
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:239
 msgid "Invalid assignment method '%'."
-msgstr ""
+msgstr "Ungültige Zuweisungsmethode '%'."
 
 #: /home/micha/programming/sumo/src/marouter/ROMAFrame.cpp:247
+#, fuzzy
 msgid ""
 "Contraction hierarchies do not work with k shortest path search (please use "
 "a different routing algorithm)!"
 msgstr ""
+"Verkürzungshierarchien arbeiten nicht mit der k kürzesten Wegsuche (bitte "
+"nutzen Sie einen anderen Routen-Algorithmus)!"
 
 #: /home/micha/programming/sumo/src/marouter/ROMARouteHandler.cpp:87
+#, fuzzy
 msgid "No origin or no destination given, ignoring '%'!"
-msgstr ""
+msgstr "Kein Start- oder Zielpunkt gegeben, '%' wird ignoriert!"
 
 #: /home/micha/programming/sumo/src/marouter/marouter_main.cpp:239
 msgid ""
 "Deterministic user equilibrium ('UE') is not implemented yet, using "
 "stochastic method ('SUE')."
 msgstr ""
+"Deterministisches Benutzergleichgewicht ('UE') ist noch nicht implementiert, "
+"es wird die stochastische Methode ('SUE') verwendet."
 
 #: /home/micha/programming/sumo/src/marouter/marouter_main.cpp:323
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:315
 msgid "No output file given."
-msgstr ""
+msgstr "Keine Ausgabedatei vorhanden."
 
 #: /home/micha/programming/sumo/src/marouter/marouter_main.cpp:340
 msgid ""
 "Import O/D-matrices for macroscopic traffic assignment to generate SUMO "
 "routes."
 msgstr ""
+"Importiere O/D-Matrizen für die makroskopische Verkehrszuweisung zur "
+"Generierung von SUMO-Routen."
 
 #: /home/micha/programming/sumo/src/marouter/marouter_main.cpp:376
 msgid "No districts loaded, will use edge ids!"
-msgstr ""
+msgstr "Keine Distrikte geladen, es werden Kanten-IDs verwendet!"
 
 #: /home/micha/programming/sumo/src/marouter/marouter_main.cpp:387
 msgid "No valid vehicles loaded."
-msgstr ""
+msgstr "Es wurden keine gültigen Fahrzeuge geladen."
 
 #: /home/micha/programming/sumo/src/marouter/marouter_main.cpp:390
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:285
 msgid "Loading failed."
-msgstr ""
+msgstr "Ladevorgang fehlgeschlagen."
 
 #: /home/micha/programming/sumo/src/mesosim/MELoop.cpp:89
 #: /home/micha/programming/sumo/src/microsim/MSVehicleTransfer.cpp:66
 #: /home/micha/programming/sumo/src/microsim/MSVehicleTransfer.cpp:184
+#, fuzzy
 msgid "Vehicle '%' teleports beyond arrival edge '%', time=%."
 msgstr ""
+"Das Fahrzeug '%' teleportiert sich über die Ankunftskante '%' hinaus, Zeit=%"
 
 #: /home/micha/programming/sumo/src/mesosim/MELoop.cpp:109
+#, fuzzy
 msgid "Vehicle '%' ends teleporting on edge '%':%, time=%."
-msgstr ""
+msgstr "Fahrzeug '%' beendet teleport an der Kante '%':%, Zeit=%."
 
 #: /home/micha/programming/sumo/src/mesosim/MELoop.cpp:176
 msgid ""
 "Teleporting vehicle '%'; waited too long, from edge '%':% to edge '%':%, "
 "time=%."
 msgstr ""
+"Teleportiertes Fahrzeug '%'; wartet zu lange, von Kante '%':% zu Kante '%':"
+"%, Zeit=%"
 
 #: /home/micha/programming/sumo/src/mesosim/MELoop.cpp:186
 msgid "Teleporting vehicle '%'; waited too long, from edge '%':%, time=%."
 msgstr ""
+"Teleportiertes Fahrzeug '%'; hat zu lange gewartet, von Kante '%':%, Zeit=%"
 
 #: /home/micha/programming/sumo/src/mesosim/METriggeredCalibrator.cpp:137
 #: /home/micha/programming/sumo/src/microsim/trigger/MSCalibrator.cpp:596
 msgid "Clearing jam at calibrator '%' at time=%."
-msgstr ""
+msgstr "Stau wurde beseitigt am Kalibrator '%' zur Zeit= %."
 
 #: /home/micha/programming/sumo/src/mesosim/METriggeredCalibrator.cpp:145
 msgid "Could not clear jam at calibrator '%' at time=%."
-msgstr ""
+msgstr "Stau am Kalibrator '%' zur Zeit=% konnte nicht beseitigt werden."
 
 #: /home/micha/programming/sumo/src/mesosim/METriggeredCalibrator.cpp:177
 #: /home/micha/programming/sumo/src/microsim/trigger/MSCalibrator.cpp:414
 msgid "No valid routes in calibrator '%'."
-msgstr ""
+msgstr "Keine gültigen Routen im Kalibrator '%'."
 
 #: /home/micha/programming/sumo/src/mesosim/METriggeredCalibrator.cpp:246
 msgid "DEBUG: Could not clear jam at calibrator '%' at time=%."
 msgstr ""
+"FEHLER: Stau am Kalibrator '%' zur Zeit=% konnte nicht beseitigt werden."
 
 #: /home/micha/programming/sumo/src/mesosim/MEVehicle.cpp:220
 msgid "Join stops are not available in meso yet (vehicle '%', segment '%')."
@@ -713,6 +728,8 @@ msgid ""
 "Vehicle '%' has multiple stops on segment '%', time=% (stop-output will be "
 "merged)."
 msgstr ""
+"Fahrzeug '%' hat mehrere Halte auf den Abschnitt '%'; Zeit=% (stop-output "
+"wird zusammengeführt)."
 
 #: /home/micha/programming/sumo/src/mesosim/MEVehicle.cpp:554
 msgid "Error: Invalid vehicles in state (may be a micro state)!"
