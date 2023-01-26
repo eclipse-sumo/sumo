@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-26 14:38+0000\n"
+"PO-Revision-Date: 2023-01-26 18:10+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -214,17 +214,21 @@ msgid "Detector '%' has no flow."
 msgstr "Detektor '%' hat keinen Fluss."
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFNet.cpp:701
-#, c-format
+#, c-format, fuzzy
 msgid ""
 "Quitting checking for being a source for detector '%' due to seen edge limit."
 msgstr ""
+"Überprüfung ob es sich um eine Quelle für den Detektor '%' handelt wird "
+"beendet, da das Kantenlimit erreicht wurde."
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFNet.cpp:801
-#, c-format
+#, c-format, fuzzy
 msgid ""
 "Quitting checking for being a destination for detector '%' due to seen edge "
 "limit."
 msgstr ""
+"Überprüfung ob es sich um ein Ziel für den Detektor '%' handelt wird "
+"beendet, da das Kantenlimit erreicht wurde."
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFNet.cpp:877
 #, c-format
@@ -322,7 +326,6 @@ msgstr ""
 "Die --logit Option ist veraltet, bitte nutze --route-choice-method logit."
 
 #: /home/micha/programming/sumo/src/duarouter/RODUAFrame.cpp:244
-#, fuzzy
 msgid "Cannot derive file name for alternatives output, skipping it."
 msgstr ""
 "Der Dateiname für die alternative Ausgabe kann nicht erlangt werden, "
@@ -388,14 +391,13 @@ msgstr ""
 "'from-edge' Kennzeichnung)."
 
 #: /home/micha/programming/sumo/src/jtrrouter/ROJTRTurnDefLoader.cpp:172
-#, c-format, fuzzy
+#, c-format
 msgid "The edge '%' is not known within the network (within a 'to-edge' tag)."
 msgstr ""
 "Die Kante '%' ist innerhalb des Netzwerkes nicht bekannt (innerhalb einer "
 "'to-edge' Kennzeichnung)."
 
 #: /home/micha/programming/sumo/src/jtrrouter/ROJTRTurnDefLoader.cpp:178
-#, fuzzy
 msgid "'probability' must be positive (in definition of to-edge '%')."
 msgstr ""
 "'probability' die Wahrscheinlichkeit muss positiv sein (in der Definition "
@@ -456,16 +458,22 @@ msgid ""
 msgstr ""
 
 #: /home/micha/programming/sumo/src/libsumo/Helper.cpp:1161
+#, fuzzy
 msgid ""
 "Turn filter is only feasible for context domain 'vehicle' (current is '%'), "
 "ignoring filter..."
 msgstr ""
+"Abbiegefilter ist nur für den Kontext 'Fahrzeug' möglich (aktuell ist '%'), "
+"Filter wird ignoriert..."
 
 #: /home/micha/programming/sumo/src/libsumo/Helper.cpp:1226
+#, fuzzy
 msgid ""
 "Field of vision opening angle ('%') should be within interval (0, 360), "
 "ignoring filter..."
 msgstr ""
+"Der Öffnungswinkel ('%') für den sichtbaren Ausschnitt sollte im Intervall "
+"(0,360) liegen, Filter wird ignoriert..."
 
 #: /home/micha/programming/sumo/src/libsumo/Helper.cpp:1395
 msgid "Vehicle '%' was removed though being controlled by TraCI"
@@ -605,10 +613,12 @@ msgstr ""
 msgid ""
 "Invalid action step length (<0). Ignoring command setActionStepLength()."
 msgstr ""
+"Ungültige Aktionsschrittlänge (<0). Befehl setActionStepLength() wird "
+"ignoriert."
 
 #: /home/micha/programming/sumo/src/libsumo/Vehicle.cpp:2013
 msgid "setActionStepLength not applicable for meso"
-msgstr ""
+msgstr "setActionStepLength nicht zutreffend für Meso"
 
 #: /home/micha/programming/sumo/src/libtraci/Connection.cpp:168
 msgid "Not connected."
@@ -636,7 +646,6 @@ msgstr ""
 "nutzen Sie einen anderen Routen-Algorithmus)!"
 
 #: /home/micha/programming/sumo/src/marouter/ROMARouteHandler.cpp:87
-#, fuzzy
 msgid "No origin or no destination given, ignoring '%'!"
 msgstr "Kein Start- oder Zielpunkt gegeben, '%' wird ignoriert!"
 
@@ -677,13 +686,11 @@ msgstr "Ladevorgang fehlgeschlagen."
 #: /home/micha/programming/sumo/src/mesosim/MELoop.cpp:89
 #: /home/micha/programming/sumo/src/microsim/MSVehicleTransfer.cpp:66
 #: /home/micha/programming/sumo/src/microsim/MSVehicleTransfer.cpp:184
-#, fuzzy
 msgid "Vehicle '%' teleports beyond arrival edge '%', time=%."
 msgstr ""
 "Das Fahrzeug '%' teleportiert sich über die Ankunftskante '%' hinaus, Zeit=%"
 
 #: /home/micha/programming/sumo/src/mesosim/MELoop.cpp:109
-#, fuzzy
 msgid "Vehicle '%' ends teleporting on edge '%':%, time=%."
 msgstr "Fahrzeug '%' beendet teleport an der Kante '%':%, Zeit=%."
 
@@ -738,7 +745,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/mesosim/MEVehicle.h:188
 #: /home/micha/programming/sumo/src/mesosim/MEVehicle.h:194
 msgid "parkingZoneReroute not implemented for meso"
-msgstr ""
+msgstr "parkingZoneReroute ist nicht implementiert für Meso"
 
 #: /home/micha/programming/sumo/src/microsim/MSBaseVehicle.cpp:99
 msgid "getPreviousSpeed() is not available for non-MSVehicles."
@@ -746,84 +753,95 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/MSBaseVehicle.cpp:172
 msgid "Changing a vehicle ID is not permitted"
-msgstr ""
+msgstr "Das Ändern einer Fahrzeug-ID ist nicht zulässig"
 
 #: /home/micha/programming/sumo/src/microsim/MSBaseVehicle.cpp:289
 msgid "Vehicle '%' is not allowed on any lane of via edge '%'."
-msgstr ""
+msgstr "Das Fahrzeug '%' ist auf keinen Streifen auf der Kante '%' erlaubt."
 
 #: /home/micha/programming/sumo/src/microsim/MSBaseVehicle.cpp:317
 msgid "Vehicle '%' has no valid route from edge '%' to stop edge '%'."
 msgstr ""
+"Das Fahrzeug '%' hat keine zulässige Route von der Kante '%' zur Stopkante "
+"'%'."
 
 #: /home/micha/programming/sumo/src/microsim/MSBaseVehicle.cpp:361
 #, c-format
 msgid "Vehicle '%' has no valid route."
-msgstr ""
+msgstr "Fahrzeug '%' hat keine zulässige Route."
 
 #: /home/micha/programming/sumo/src/microsim/MSBaseVehicle.cpp:363
 msgid "Removing vehicle '%' which has no valid route."
-msgstr ""
+msgstr "Entferne Fahrzeug '%', welches keine zulässige Route besitzt."
 
 #: /home/micha/programming/sumo/src/microsim/MSBaseVehicle.cpp:377
 #, c-format
 msgid "No route for vehicle '%' found."
-msgstr ""
+msgstr "Keine Route für das Fahrzeug '%' gefunden."
 
 #: /home/micha/programming/sumo/src/microsim/MSBaseVehicle.cpp:422
 msgid "Invalid route replacement for vehicle '%'. %"
-msgstr ""
+msgstr "Ungültiger Routensatz für das Fahrzeug '%'. %"
 
 #: /home/micha/programming/sumo/src/microsim/MSBaseVehicle.cpp:447
 #, c-format
 msgid "current edge '%' not found in new route"
-msgstr ""
+msgstr "aktuelle Kante '%' wurde nicht in der neuen Route gefunden"
 
 #: /home/micha/programming/sumo/src/microsim/MSBaseVehicle.cpp:460
 msgid "Vehicle is on junction-internal edge leading elsewhere"
 msgstr ""
+"Fahrzeug steht auf einer kreuzungsinternen Kante, welche woanders hinführt"
 
 #: /home/micha/programming/sumo/src/microsim/MSBaseVehicle.cpp:473
 msgid ""
 "Vehicle is moving past junction and committed to move to another successor "
 "edge"
 msgstr ""
+"Das Fahrzeug bewegt sich über den Knotenpunkt hinaus und steuert eine "
+"nachfolgende Kante an"
 
 #: /home/micha/programming/sumo/src/microsim/MSBaseVehicle.cpp:543
 msgid "Vehicle '%' could not assign stop '%' after rerouting (%) at time=%."
 msgstr ""
+"Fahrzeug '%' konnte nach einer Umleitung nicht den Stop '%' zugewiesen "
+"werden zur Zeit=%."
 
 #: /home/micha/programming/sumo/src/microsim/MSBaseVehicle.cpp:683
 msgid "No connection between edge '%' and edge '%'."
-msgstr ""
+msgstr "Keine Verbindung zwischen Kante '%' und Kante '%'."
 
 #: /home/micha/programming/sumo/src/microsim/MSBaseVehicle.cpp:692
 #, c-format
 msgid "Edge '%' prohibits."
-msgstr ""
+msgstr "Kante '%' ist verboten."
 
 #: /home/micha/programming/sumo/src/microsim/MSBaseVehicle.cpp:706
 #, c-format
 msgid "Vehicle '%' is not allowed to depart on its first edge."
 msgstr ""
+"Das Fahrzeug '%' ist nicht zur Abfahrt berechtigt bei seiner ersten Kante."
 
 #: /home/micha/programming/sumo/src/microsim/MSBaseVehicle.cpp:736
 msgid "Vehicle '%' has no valid route. %"
-msgstr ""
+msgstr "Fahrzeug '%' hat keine zulässige Route. %"
 
 #: /home/micha/programming/sumo/src/microsim/MSBaseVehicle.cpp:799
+#, fuzzy
 msgid ""
 "Vehicle '%' ignores attribute arrivalEdge=% after rerouting at time=% "
 "(routeLength=%)"
 msgstr ""
+"Fahrzeug '%' ignoriert das Attribut arrivalEdge=% nach einer Umleitung zur "
+"Zeit=% (routeLength=%)"
 
 #: /home/micha/programming/sumo/src/microsim/MSBaseVehicle.cpp:813
 msgid "Vehicle '%' will not be able to arrive at the given position!"
-msgstr ""
+msgstr "Fahrzeug '%' ist nicht in der Lage die gegebene Position zu erreichen!"
 
 #: /home/micha/programming/sumo/src/microsim/MSBaseVehicle.cpp:869
 msgid "Vehicle '%' will not be able to arrive with the given speed!"
-msgstr ""
+msgstr "Fahrzeug '%' kann nicht die gegebene Geschwindigkeit erreichen!"
 
 #: /home/micha/programming/sumo/src/microsim/MSBaseVehicle.h:879
 msgid "getLeader not yet implemented for meso"
@@ -838,6 +856,8 @@ msgid ""
 "Choosing new speed factor % for vehicle '%' to match departure speed % (max "
 "%)."
 msgstr ""
+"Wähle eine neue Geschwindigkeit % für das Fahrzeug '%' um der "
+"Abfahrtsgeschwindigkeit % zu entsprechen (max %)."
 
 #: /home/micha/programming/sumo/src/microsim/MSEdge.cpp:1264
 #, c-format
@@ -852,22 +872,24 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/MSEventControl.cpp:79
 msgid "Command returned negative repeat number; will be deleted."
 msgstr ""
+"Der Befehl gab eine negative Wiederholungszahl zurück; er wird gelöscht."
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:799
 msgid "No network file (-n) specified."
-msgstr ""
+msgstr "Keine Netzwerkdatei (-n) spezifiziert."
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:803
 msgid "Invalid scaling factor."
-msgstr ""
+msgstr "Ungültiger Skalierungsfaktor."
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:807
 msgid "A vehroute-output file is needed for exit times."
 msgstr ""
+"Eine Fahrzeugrouten-Ausgabe-Datei wird für die Ausstiegszeiten benötigt."
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:819
 msgid "You can either restart or quit on end."
-msgstr ""
+msgstr "Sie können entweder neu starten oder am Ende beenden."
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:824
 msgid ""
@@ -876,15 +898,15 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:842
 msgid "The begin time should not be negative."
-msgstr ""
+msgstr "Die Startzeit darf nicht negativ sein."
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:852
 msgid "The end time should be after the begin time."
-msgstr ""
+msgstr "Die Endzeit muss nach der Startzeit sein."
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:857
 msgid "the minimum step-length is 0.001"
-msgstr ""
+msgstr "die minimale Schrittlänge ist 0.001"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:884
 msgid ""
@@ -903,27 +925,33 @@ msgid ""
 "Only one of the options 'lanechange.duration' or 'lateral-resolution' may be "
 "given."
 msgstr ""
+"Es darf nur eine der Optionen 'lanechange.duration' oder 'lateral-"
+"resolution' angegeben werden."
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:896
 msgid "Sublane dynamics are not supported by mesoscopic simulation"
-msgstr ""
+msgstr "Sublane-Dynamik wird nicht unterstützt in mesoskopischen Simulationen"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:900
 msgid ""
 "The option 'ignore-accidents' is deprecated. Use 'collision.action none' "
 "instead."
 msgstr ""
+"Die Option 'ignore-accidents' ist veraltet. Nutze statt dessen "
+"'collision.action none'."
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:913
 msgid ""
 "The option tripinfo-output.write-undeparted implies tripinfo-output.write-"
 "unfinished."
 msgstr ""
+"Die Option tripinfo-output.write-undeparted impliziert tripinfo-output.write-"
+"unfinished."
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:935
 #, c-format
 msgid "Unknown model '%' for option 'carfollow.model'."
-msgstr ""
+msgstr "Unbekanntes Model '%' für die Option 'carfollow.model'."
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:944
 #, c-format
@@ -931,18 +959,22 @@ msgid ""
 "Invalid value '%' for option 'default.emergencydecel'. Must be a FLOAT or "
 "'default' or 'decel'"
 msgstr ""
+"Ungültiger Wert '%' für die Option 'default.emergencydecel'. Es muss ein "
+"FLOAT, 'Vorgabewert' oder 'Verzögerung' sein."
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:950
 msgid "You need a non-negative delay."
-msgstr ""
+msgstr "Du brauchst eine nicht negative Verzögerung."
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:963
 msgid "Parallel simulation is only possible when compiled with Fox."
 msgstr ""
+"Parallele Simulationen sind nur möglich, wenn diese mit Fox kompiliert "
+"wurden."
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:968
 msgid "You need at least one thread."
-msgstr ""
+msgstr "Sie brauchen mindestens einen Strang."
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:972
 msgid ""
@@ -952,13 +984,15 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:975
 msgid "game.mode must be one of ['tls', 'drt']"
-msgstr ""
+msgstr "game.mode muss einer von ['tls', 'drt'] sein"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:982
 msgid ""
 "Invalid transfer option '%'. Must be one of 'parkingAreas', 'ptStops' and "
 "'allJunctions'"
 msgstr ""
+"Ungültige Übergabeoption '%'. Es muss eine von 'parkingAreas', 'ptStops' "
+"oder 'allJunctions' sein"
 
 #: /home/micha/programming/sumo/src/microsim/MSFrame.cpp:1041
 msgid ""
@@ -970,16 +1004,16 @@ msgstr ""
 #: /home/micha/programming/sumo/src/router/RONet.cpp:450
 #, c-format
 msgid "Another vehicle with the id '%' exists."
-msgstr ""
+msgstr "Ein anderes Fahrzeug mit der ID '%' existiert bereits."
 
 #: /home/micha/programming/sumo/src/microsim/MSInternalJunction.cpp:55
 #, c-format
 msgid "Internal junction % has no incoming lanes"
-msgstr ""
+msgstr "Die interne Kreuzung '%' hat keine ankommenden Fahrspuren"
 
 #: /home/micha/programming/sumo/src/microsim/MSLane.cpp:312
 msgid "Unequal lengths of neigh lane '%' and lane '%' (% != %)."
-msgstr ""
+msgstr "Ungleiche Längen für die Nachbarspuren '%' und '%' (% != %)."
 
 #: /home/micha/programming/sumo/src/microsim/MSLane.cpp:321
 msgid "Unequal lengths of bidi lane '%' and lane '%' (% != %)."
@@ -988,92 +1022,113 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/MSLane.cpp:758
 #, c-format
 msgid "Vehicle '%' is inserted in emergency situation."
-msgstr ""
+msgstr "Fahrzeug '%' wird in Notsituationen eingesetzt."
 
 #: /home/micha/programming/sumo/src/microsim/MSLane.cpp:780
 msgid ""
 "Invalid departPos % given for vehicle '%'. Inserting at lane end instead."
 msgstr ""
+"Ungültige Abfahrtsposition % für das Fahrzeug '%'. Füge es statt dessen am "
+"Spurende ein."
 
 #: /home/micha/programming/sumo/src/microsim/MSLane.cpp:1025
 msgid ""
 "Vehicle '%' is inserted too fast and will violate the speed limit on a lane "
 "'%'."
 msgstr ""
+"Fahrzeug '%' wird zu schnell eingeführt und verletzt die "
+"Geschwindigkeitsbeschränkung der Fahrspur '%'."
 
 #: /home/micha/programming/sumo/src/microsim/MSLane.cpp:1029
 msgid ""
 "Vehicle '%' will not be able to depart using the given velocity (slow lane "
 "ahead)!"
 msgstr ""
+"Fahrzeug '%' kann nicht mit der gegebenen Geschwindigkeit abfahren (langsame "
+"Spur voraus)!"
 
 #: /home/micha/programming/sumo/src/microsim/MSLane.cpp:1658
 msgid ""
 "Vehicle '%' collision with person '%', lane='%', gap=%, time=%, stage=%."
 msgstr ""
+"Fahrzeug '%' kollidiert mit Person '%', Spur='%', Abstand=%, Zeit=%, "
+"Etappe=%."
 
 #: /home/micha/programming/sumo/src/microsim/MSLane.cpp:1800
 msgid "Vehicle '%' collision with person '%', lane='%', time=%, stage=%."
-msgstr ""
+msgstr "Fahrzeug '%' kollidiert mit Person '%', Spur='%', Zeit=%, Etappe=%."
 
 #: /home/micha/programming/sumo/src/microsim/MSLane.cpp:2097
 msgid "Teleporting vehicle '%'; beyond end of lane, target lane='%', time=%."
 msgstr ""
+"Teleportierendes Fahrzeug '%', jenseits des Fahrspurenendes, "
+"Zielfahrspur='%', Zeit=%."
 
 #: /home/micha/programming/sumo/src/microsim/MSLane.cpp:2104
 msgid "Removing vehicle '%' after earlier collision, lane='%', time=%."
-msgstr ""
+msgstr "Fahrzeug '%' wird nach vorheriger Kollision entfernt, Spur='%', Zeit=%."
 
 #: /home/micha/programming/sumo/src/microsim/MSLane.cpp:2109
 msgid "Teleporting vehicle '%' after earlier collision, lane='%', time=%."
 msgstr ""
+"Fahrzeug '%' wird nach vorheriger Kollision teleportiert, Spur='%', Zeit=%."
 
 #: /home/micha/programming/sumo/src/microsim/MSLane.cpp:2581
 msgid ""
 "Lane '%' is approached multiple times from edge '%'. This may cause "
 "collisions."
 msgstr ""
+"Die Spur '%' wird mehrfach von der Kante '%' angesteuert. Dadurch kann es zu "
+"Kollisionen kommen."
 
 #: /home/micha/programming/sumo/src/microsim/MSLane.cpp:4164
+#, fuzzy
 msgid "Invalid collision.action '%'."
-msgstr ""
+msgstr "Ungültige Kollisionsaktion '%'."
 
 #: /home/micha/programming/sumo/src/microsim/MSLane.cpp:4282
+#, fuzzy
 msgid ""
 "State was saved with more than % threads. Change the number of threads or do "
 "not load RNG state"
 msgstr ""
+"Der Status wurde in mehr als % Strängen gespeichert. Ändere die Anzahl an "
+"Strängen oder lade nicht den RNG Status"
 
 #: /home/micha/programming/sumo/src/microsim/MSLeaderInfo.h:169
 #: /home/micha/programming/sumo/src/microsim/MSLeaderInfo.h:229
 #: /home/micha/programming/sumo/src/microsim/MSLeaderInfo.h:236
 msgid "Method not supported"
-msgstr ""
+msgstr "Methode wird nicht unterstützt"
 
 #: /home/micha/programming/sumo/src/microsim/MSNet.cpp:187
 #: /home/micha/programming/sumo/src/router/RONet.cpp:60
 msgid "A network was not yet constructed."
-msgstr ""
+msgstr "Ein Netz wurde noch nicht aufgebaut."
 
 #: /home/micha/programming/sumo/src/microsim/MSNet.cpp:221
 #: /home/micha/programming/sumo/src/router/RONet.cpp:80
 msgid "A network was already constructed."
-msgstr ""
+msgstr "Ein Netzwerk wurde aufgebaut."
 
 #: /home/micha/programming/sumo/src/microsim/MSNet.cpp:286
 msgid ""
 "Option weights.separate-turns is only supported when simulating with "
 "internal lanes"
 msgstr ""
+"Die Option weights.separate-turns wird nur unterstützt, wenn mehrere interne "
+"Spuren simuliert werden"
 
 #: /home/micha/programming/sumo/src/microsim/MSNet.cpp:388
 msgid "Simulation version % started with time: %."
-msgstr ""
+msgstr "Simulationsversion % startet mit der Zeit: %."
 
 #: /home/micha/programming/sumo/src/microsim/MSNet.cpp:1424
 msgid ""
 "TraCI and Triggers cannot use routing algorithm '%'. using 'astar' instead."
 msgstr ""
+"TraCI und Triggers können keine Routen-Algorithmen '%' nutzen. Nutze statt "
+"dessen 'astar'."
 
 #: /home/micha/programming/sumo/src/microsim/MSNet.cpp:1594
 #: /home/micha/programming/sumo/src/netload/NLBuilder.cpp:414
@@ -1086,46 +1141,49 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/MSNet.cpp:1613
 #, c-format
 msgid "Loading state from '%' failed."
-msgstr ""
+msgstr "Laden vom Status '%' ist fehlgeschlagen."
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:248
 #, c-format
 msgid "Vehicle type distribution '%' is empty."
-msgstr ""
+msgstr "Fahrzeugtypenverteilung '%' ist leer."
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:252
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:896
 #, c-format
 msgid "Another vehicle type (or distribution) with the id '%' exists."
-msgstr ""
+msgstr "Anderer Fahrzeugtyp (oder Verteilung) mit der ID '%' existiert bereits."
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:273
 #: /home/micha/programming/sumo/src/router/RORouteHandler.cpp:302
 msgid "Ids of internal routes are ignored (vehicle '%')."
-msgstr ""
+msgstr "IDs interner Routen werden ignoriert (Fahrzeug '%')."
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:303
 msgid "Attribute 'period' is deprecated for route. Use 'cycleTime' instead."
 msgstr ""
+"Attribut 'period' ist veraltet für die Route. Nutze statt dessen 'cycleTime'."
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:316
 msgid "Disconnected route % when repeating."
-msgstr ""
+msgstr "Getrennte Routen % bei der Wiederherstellung."
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:322
 msgid "Invalid cost for route '%'."
-msgstr ""
+msgstr "Ungültige Kosten für die Route '%'."
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:379
 #, c-format
 msgid "Route '%' has no edges."
-msgstr ""
+msgstr "Route '%' hat keine Kanten."
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:397
 #: /home/micha/programming/sumo/src/router/RORouteHandler.cpp:432
 msgid ""
 "Cannot repeat stops with 'until' in route % because no cycleTime is defined."
 msgstr ""
+"Stopps mit 'bis' in der Route % können nicht wiederholt werden, da keine "
+"Durchlaufszeit definiert ist."
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:406
 msgid ""
@@ -1136,29 +1194,31 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:429
 #, c-format
 msgid "A vehicle with id '%' already exists."
-msgstr ""
+msgstr "Fahrzeug mit der ID '%' existiert bereits."
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:432
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:506
 #, c-format
 msgid "Another route (or distribution) with the id '%' exists."
-msgstr ""
+msgstr "Eine andere Route (oder Verteilung) mit der ID '%' existiert."
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:510
 #, c-format
 msgid "Route distribution '%' is empty."
-msgstr ""
+msgstr "Routenverteilung '%' ist leer."
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:559
 msgid ""
 "Ignoring child element 'route' for vehicle '%' because attribute 'route' is "
 "set."
 msgstr ""
+"Untergeordnetes Element 'route' für das Fahrzeug '%' wird ignoriert, da das "
+"Attribut 'route' festgelegt ist."
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:568
 #, c-format
 msgid "Vehicle '%' has no route."
-msgstr ""
+msgstr "Fahrzeug '%' hat keine Route."
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:741
 #: /home/micha/programming/sumo/src/microsim/transportables/MSTransportable.cpp:327
