@@ -38,7 +38,7 @@ Debug: Inserting generic parameter 'key2|' into vaporizer
 Debug: Inserting generic parameter 'key3|$$value with spaces%%' into vaporizer
 Debug: Inserting generic parameter 'keyFinal|valueFinal' into vaporizer
 Debug: Adding vaporizer '1' in GNEChange_Additional
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.vaporizer.23Jan142341.5552/netedit.daily.additional.vaporizer/additionalelements/vaporizer/load/parameters/additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15_from_27Jun114342.7200\netedit.gui\additionalelements\vaporizer\load\parameters\additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,18.00,12.00,42.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,18.00,62.00,42.00
@@ -101,6 +101,7 @@ GLDebug: 	Inserted edge:8 into SUMORTree with boundary -10.00,18.40,60.00,40.00
 GLDebug: 	Inserted edge:9 into SUMORTree with boundary -10.00,10.00,60.00,31.60
 Debug: Created connection 'from7_0to8_0' in retrieveGNEConnection()
 Debug: Created connection 'from8_0to7_0' in retrieveGNEConnection()
+Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -10.00,16.80,10.00,43.20
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 40.00,16.80,60.00,43.20
@@ -162,7 +163,6 @@ GLDebug: 	Inserted edge:7 into SUMORTree with boundary -10.00,20.00,60.00,41.60
 GLDebug: 	Inserted edge:8 into SUMORTree with boundary -10.00,18.40,60.00,40.00
 GLDebug: 	Inserted edge:9 into SUMORTree with boundary -10.00,10.00,60.00,31.60
 Debug: network elements saved
-Debug: Additionals saved
 Debug: Deleting unreferenced vaporizer
 Debug: Deleting unreferenced edge '1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor

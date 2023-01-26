@@ -38,7 +38,7 @@ netedit.changeElement("inductionLoop")
 netedit.changeDefaultBoolValue(netedit.attrs.E1.create.friendlyPos)
 
 # create E1 with different friendly position
-netedit.leftClick(referencePosition, 450, 235)
+netedit.leftClick(referencePosition, 450, 245)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

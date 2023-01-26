@@ -38,13 +38,13 @@ netedit.changeElement("trainStop")
 netedit.changeDefaultValue(netedit.attrs.trainStop.create.references, "reference center")
 
 # create trainStop in mode "reference center"
-netedit.leftClick(referencePosition, 250, 240)
+netedit.leftClick(referencePosition, 250, 170)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first trainStop
-netedit.leftClick(referencePosition, 250, 250)
+netedit.leftClick(referencePosition, 250, 190)
 
 # Change parameter startPos with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.trainStop.inspect.startPos, "", True)

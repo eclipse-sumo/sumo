@@ -7,14 +7,14 @@ GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary 15.00,-11.60,60.00,10
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary 15.00,-10.00,60.00,11.60
 GLDebug: 	Inserted edge:gneE5 into SUMORTree with boundary -10.00,-10.00,35.00,11.60
 Error: 'lanes' and 'endPos' must be defined together in a lane area detector.
-Error: Attribute 'endPos' in definition of laneAreaDetector 'multiLaneAreaDetector_1' Invalid Number Format .
+Error: Attribute 'endPos' in definition of laneAreaDetector 'multiLaneAreaDetector_1' Invalid Number Format (double) dummyEndPos.
 Error: Attribute 'endPos' in definition of laneAreaDetector 'multiLaneAreaDetector_2' is empty.
 Error: Could not build laneAreaDetector with ID 'multiLaneAreaDetector_3' in netedit; Invalid position over lane.
 Debug: Adding multiLaneAreaDetector 'multiLaneAreaDetector_4' in GNEChange_Additional
 Debug: Adding multiLaneAreaDetector 'multiLaneAreaDetector_5' in GNEChange_Additional
 Debug: Adding multiLaneAreaDetector 'multiLaneAreaDetector_6' in GNEChange_Additional
 Debug: Adding multiLaneAreaDetector 'multiLaneAreaDetector_7' in GNEChange_Additional
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.e2multilanedetector.25Jan182727.9754/netedit.daily.additional.e2multilanedetector/additionalelements/e2multilanedetector/load/endpos/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.e2multilanedetector.24Jun133818.22395/netedit.daily.additional.e2multilanedetector/additionalelements/e2multilanedetector/load/endpos/additionals.add.xml failed.
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00

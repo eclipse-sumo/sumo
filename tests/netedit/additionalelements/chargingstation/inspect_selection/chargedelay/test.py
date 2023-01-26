@@ -38,7 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect chargingStations
-netedit.leftClick(referencePosition, 150, 235)
+netedit.leftClick(referencePosition, 150, 320)
 
 # Set invalid charge delay
 netedit.modifyAttribute(netedit.attrs.chargingStation.inspectSelection.chargeDelay, "dummyChargeDelay", True)

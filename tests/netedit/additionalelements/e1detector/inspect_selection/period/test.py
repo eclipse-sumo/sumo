@@ -38,7 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect E1
-netedit.leftClick(referencePosition, 150, 235)
+netedit.leftClick(referencePosition, 150, 240)
 
 # Change parameter period with a non valid value (non numeral)
 netedit.modifyAttribute(netedit.attrs.E1.inspectSelection.period, "dummyFrequency", True)

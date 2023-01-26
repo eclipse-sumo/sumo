@@ -41,7 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect E1
-netedit.leftClick(referencePosition, 150, 235)
+netedit.leftClick(referencePosition, 150, 240)
 
 # Change parameter vtypes with a empty value
 netedit.modifyAttribute(netedit.attrs.E1Instant.inspectSelection.vTypes, "", True)

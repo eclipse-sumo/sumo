@@ -1,2 +1,2 @@
-Error: Attribute 'friendlyPos' in definition of laneAreaDetector 'multiLaneAreaDetector_1' Invalid Bool Format .
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.e2multilanedetector.25Jan182727.9754/netedit.daily.additional.e2multilanedetector/additionalelements/e2multilanedetector/load/friendlypos/additionals.add.xml failed.
+Error: Attribute 'friendlyPos' in definition of laneAreaDetector 'multiLaneAreaDetector_1' Invalid Bool Format dummy.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\e2multilanedetector\load\friendlypos\additionals.add.xml failed.

@@ -38,13 +38,13 @@ netedit.changeElement("trainStop")
 netedit.changeDefaultValue(netedit.attrs.trainStop.create.references, "reference center")
 
 # create trainStop in mode "reference center"
-netedit.leftClick(referencePosition, 250, 240)
+netedit.leftClick(referencePosition, 250, 170)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first trainStop
-netedit.leftClick(referencePosition, 250, 250)
+netedit.leftClick(referencePosition, 250, 190)
 
 # change color using dialog
 netedit.modifyColorAttribute(netedit.attrs.trainStop.inspect.colorButton, 5, True)
@@ -62,8 +62,8 @@ netedit.modifyAttribute(netedit.attrs.trainStop.inspect.color, "blue", True)
 netedit.modifyAttribute(netedit.attrs.trainStop.inspect.color, "125,60,200", True)
 
 # Check undos and redos
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

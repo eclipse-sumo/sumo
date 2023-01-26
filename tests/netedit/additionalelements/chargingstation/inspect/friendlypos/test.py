@@ -38,13 +38,13 @@ netedit.changeElement("chargingStation")
 netedit.changeDefaultValue(netedit.attrs.chargingStation.create.references, "reference center")
 
 # create chargingStation in mode "reference center"
-netedit.leftClick(referencePosition, 250, 235)
+netedit.leftClick(referencePosition, 250, 172)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first chargingStation
-netedit.leftClick(referencePosition, 250, 235)
+netedit.leftClick(referencePosition, 250, 165)
 
 # Change parameter charge in transit
 netedit.modifyBoolAttribute(netedit.attrs.chargingStation.inspect.friendlyPos, True)

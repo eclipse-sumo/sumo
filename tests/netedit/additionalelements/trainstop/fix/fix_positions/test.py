@@ -37,11 +37,11 @@ netedit.selectionInvert()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect busstops
-netedit.leftClick(referencePosition, 278, 200)
+# inspect trainstops
+netedit.leftClick(referencePosition, 278, 195)
 
 # disable friendlyPos
-netedit.modifyBoolAttribute(netedit.attrs.trainStop.inspectSelection.friendlyPos, True)
+netedit.modifyBoolAttribute(netedit.attrs.trainStop.inspectSelection.friendlyPos, False)
 
 # go to select mode
 netedit.selectMode()

@@ -35,19 +35,19 @@ netedit.additionalMode()
 netedit.changeElement("busStop")
 
 # create busStop in mode "reference left"
-netedit.leftClick(referencePosition, 240, 240)
+netedit.leftClick(referencePosition, 240, 250)
 
 # change reference to right
 netedit.changeDefaultValue(netedit.attrs.busStop.create.references, "reference right")
 
 # create busStop in mode "reference right"
-netedit.leftClick(referencePosition, 230, 240)
+netedit.leftClick(referencePosition, 230, 250)
 
 # change reference to center
 netedit.changeDefaultValue(netedit.attrs.busStop.create.references, "reference center")
 
 # create busStop in mode "reference center"
-netedit.leftClick(referencePosition, 425, 240)
+netedit.leftClick(referencePosition, 425, 250)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

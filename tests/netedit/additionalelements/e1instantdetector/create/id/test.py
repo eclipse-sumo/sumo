@@ -35,25 +35,25 @@ netedit.additionalMode()
 netedit.changeElement("instantInductionLoop")
 
 # Create E1
-netedit.leftClick(referencePosition, 140, 235)
+netedit.leftClick(referencePosition, 140, 245)
 
 # set a invalid  id (duplicated)
 netedit.changeDefaultValue(netedit.attrs.E1Instant.create.id, "e1i_0")
 
 # try to create E1 with invalid id
-netedit.leftClick(referencePosition, 180, 235)
+netedit.leftClick(referencePosition, 180, 245)
 
 # set a invalid  id
 netedit.changeDefaultValue(netedit.attrs.E1Instant.create.id, ";;;")
 
 # try to create E1 with invalid id
-netedit.leftClick(referencePosition, 200, 235)
+netedit.leftClick(referencePosition, 200, 245)
 
 # set a valid id
 netedit.changeDefaultValue(netedit.attrs.E1Instant.create.id, "customID")
 
 # create E1 with valid id
-netedit.leftClick(referencePosition, 220, 235)
+netedit.leftClick(referencePosition, 220, 245)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)
