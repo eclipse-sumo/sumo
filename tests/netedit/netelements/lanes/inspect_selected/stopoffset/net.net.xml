@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-28 15:35:38 by Eclipse SUMO netconvert Version v1_14_1+2076-67fbe0b3845
+<!-- generated on 2023-01-26 09:13:38 by Eclipse SUMO netconvert Version v1_15_0+1955-2a740b567ac
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value=".\netedit\netelements\lanes\inspect_selected\stopoffset\input_net.nod.xml"/>
-        <edge-files value=".\netedit\netelements\lanes\inspect_selected\stopoffset\input_net.edg.xml"/>
-        <connection-files value=".\netedit\netelements\lanes\inspect_selected\stopoffset\input_net.con.xml"/>
+        <node-files value="D:/SUMO/tests/netedit\netelements\lanes\inspect_selected\stopoffset/net.nod.xml"/>
+        <edge-files value="D:/SUMO/tests/netedit\netelements\lanes\inspect_selected\stopoffset/net.edg.xml"/>
+        <connection-files value="D:/SUMO/tests/netedit\netelements\lanes\inspect_selected\stopoffset/net.con.xml"/>
     </input>
 
     <output>
-        <output-file value=".\netedit\netelements\lanes\inspect_selected\stopoffset\input_net.net.xml"/>
+        <output-file value="D:/SUMO/tests/netedit\netelements\lanes\inspect_selected\stopoffset/net.net.xml"/>
     </output>
-
-    <report>
-        <verbose value="true"/>
-    </report>
 
 </configuration>
 -->

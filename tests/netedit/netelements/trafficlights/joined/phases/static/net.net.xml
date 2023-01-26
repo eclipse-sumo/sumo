@@ -1,33 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-11-04 10:52:14 by Eclipse SUMO netedit Version v1_14_1+2222-c0b312538fe
+<!-- generated on 2023-01-26 09:13:39 by Eclipse SUMO netconvert Version v1_15_0+1955-2a740b567ac
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:\SUMO\tests\netedit\netelements\trafficlights\joined\phases\static\input_net.net.xml"/>
+        <node-files value="D:/SUMO/tests/netedit\netelements\trafficlights\joined\phases\static/net.nod.xml"/>
+        <edge-files value="D:/SUMO/tests/netedit\netelements\trafficlights\joined\phases\static/net.edg.xml"/>
+        <connection-files value="D:/SUMO/tests/netedit\netelements\trafficlights\joined\phases\static/net.con.xml"/>
+        <tllogic-files value="D:/SUMO/tests/netedit\netelements\trafficlights\joined\phases\static/net.tll.xml"/>
     </input>
 
     <output>
-        <output-file value="D:\SUMO\tests\netedit\netelements\trafficlights\joined\phases\static\input_net.net.xml"/>
+        <output-file value="D:/SUMO/tests/netedit\netelements\trafficlights\joined\phases\static/net.net.xml"/>
     </output>
-
-    <processing>
-        <geometry.min-radius.fix.railways value="false"/>
-        <geometry.max-grade.fix value="false"/>
-        <offset.disable-normalization value="true"/>
-        <lefthand value="0"/>
-    </processing>
-
-    <junctions>
-        <no-turnarounds value="true"/>
-        <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.50"/>
-        <rectangular-lane-cut value="0"/>
-    </junctions>
-
-    <pedestrian>
-        <walkingareas value="0"/>
-    </pedestrian>
 
 </configuration>
 -->
