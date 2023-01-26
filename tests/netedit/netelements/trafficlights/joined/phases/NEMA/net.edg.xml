@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-11-04 09:37:50 by Eclipse SUMO netedit Version v1_14_1+2222-c0b312538fe
+<!-- generated on 2023-01-26 15:49:51 by Eclipse SUMO netconvert Version v1_15_0+1990-019f60057a9
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:\SUMO\tests\netedit\netelements\trafficlights\joined\phases\NEMA\input_net.net.xml"/>
+        <sumo-net-file value="D:/SUMO/tests/netedit\netelements\trafficlights\joined\phases\NEMA/net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="D:\SUMO\tests\netedit\netelements\trafficlights\joined\phases\NEMA\input_net.net.xml"/>
+        <plain-output-prefix value="D:/SUMO/tests/netedit\netelements\trafficlights\joined\phases\NEMA/net"/>
     </output>
 
     <processing>
@@ -32,7 +32,7 @@
 </configuration>
 -->
 
-<edges version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+<edges version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
     <edge id="-E0" from="J1" to="J0" priority="-1" numLanes="3" speed="13.89" length="300.00">
         <lane index="0" allow="pedestrian"/>
         <lane index="1" disallow="pedestrian"/>
