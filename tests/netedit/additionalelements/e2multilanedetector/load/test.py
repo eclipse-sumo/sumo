@@ -28,9 +28,6 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# force save additionals
-netedit.forceSaveAdditionals()
-
 # recompute
 netedit.rebuildNetwork()
 
@@ -38,9 +35,9 @@ netedit.rebuildNetwork()
 netedit.undo(referencePosition, 1)
 netedit.redo(referencePosition, 1)
 
-
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)
+
 # type space (for dialog)
 netedit.typeSpace()
 
