@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-25 19:40:31 by Eclipse SUMO netedit Version v1_15_0+1949-962673d476a
+<!-- generated on 2023-01-26 15:29:30 by Eclipse SUMO netedit Version v1_15_0+1986-45defa09f05
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.25Jan182729.10092/netedit.daily.net.edges/netelements/edges/inspect_selected/disallow/additionals.add.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.25Jan182729.10092/netedit.daily.net.edges/netelements/edges/inspect_selected/disallow/routes.rou.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.25Jan182729.10092/netedit.daily.net.edges/netelements/edges/inspect_selected/disallow/datas.dat.xml"/>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.25Jan182729.10092/netedit.daily.net.edges/netelements/edges/inspect_selected/disallow/net.net.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Jan143216.1724\netedit.gui\netelements\edges\inspect_selected\disallow\additionals.add.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Jan143216.1724\netedit.gui\netelements\edges\inspect_selected\disallow\routes.rou.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Jan143216.1724\netedit.gui\netelements\edges\inspect_selected\disallow\datas.dat.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Jan143216.1724\netedit.gui\netelements\edges\inspect_selected\disallow\net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.25Jan182729.10092/netedit.daily.net.edges/netelements/edges/inspect_selected/disallow/net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Jan143216.1724\netedit.gui\netelements\edges\inspect_selected\disallow\net.net.xml"/>
     </output>
 
     <processing>
@@ -33,18 +33,18 @@
     </pedestrian>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.25Jan182729.10092/netedit.daily.net.edges/netelements/edges/inspect_selected/disallow/gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Jan143216.1724\netedit.gui\netelements\edges\inspect_selected\disallow\gui-settings.xml"/>
         <window-size value="936, 697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.25Jan182729.10092/netedit.daily.net.edges/netelements/edges/inspect_selected/disallow/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Jan143216.1724\netedit.gui\netelements\edges\inspect_selected\disallow\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.25Jan182729.10092/netedit.daily.net.edges/netelements/edges/inspect_selected/disallow/log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_26Jan143216.1724\netedit.gui\netelements\edges\inspect_selected\disallow\log.txt"/>
     </report>
 
 </configuration>
@@ -79,24 +79,24 @@
         <lane id=":gneJ1_3_0" index="0" speed="3.65" length="3.23" shape="48.00,-0.80 48.40,0.00 48.00,0.80 46.80,1.60"/>
     </edge>
     <edge id=":gneJ2_0" function="internal">
-        <lane id=":gneJ2_0_0" index="0" speed="9.32" length="19.63" shape="7.20,24.80 3.35,23.85 0.60,21.00 -1.05,16.25 -1.60,9.60"/>
+        <lane id=":gneJ2_0_0" index="0" allow="private taxi delivery truck trailer bicycle evehicle rail_fast ship custom2" speed="10.81" length="19.63" shape="7.20,24.80 3.35,23.85 0.60,21.00 -1.05,16.25 -1.60,9.60"/>
     </edge>
     <edge id=":gneJ2_1" function="internal">
-        <lane id=":gneJ2_1_0" index="0" speed="3.65" length="4.67" shape="7.20,21.60 6.00,20.80 5.60,20.00 6.00,19.20 7.20,18.40"/>
+        <lane id=":gneJ2_1_0" index="0" allow="private taxi delivery truck trailer bicycle evehicle rail_fast ship custom2" speed="3.82" length="4.67" shape="7.20,21.60 6.00,20.80 5.60,20.00 6.00,19.20 7.20,18.40"/>
     </edge>
     <edge id=":gneJ2_2" function="internal">
-        <lane id=":gneJ2_2_0" index="0" speed="6.51" length="9.03" shape="1.60,9.60 1.95,12.05 3.00,13.80 4.75,14.85 7.20,15.20"/>
-        <lane id=":gneJ2_2_1" index="1" speed="7.33" length="11.73" shape="1.60,9.60 1.95,13.45 3.00,16.20 4.75,17.85 7.20,18.40"/>
+        <lane id=":gneJ2_2_0" index="0" allow="private taxi delivery truck trailer bicycle evehicle rail_fast ship custom2" speed="6.51" length="9.03" shape="1.60,9.60 1.95,12.05 3.00,13.80 4.75,14.85 7.20,15.20"/>
+        <lane id=":gneJ2_2_1" index="1" allow="private taxi delivery truck trailer bicycle evehicle rail_fast ship custom2" speed="7.33" length="11.73" shape="1.60,9.60 1.95,13.45 3.00,16.20 4.75,17.85 7.20,18.40"/>
     </edge>
     <edge id=":gneJ3_0" function="internal">
-        <lane id=":gneJ3_0_0" index="0" speed="9.32" length="19.63" shape="51.60,9.60 51.05,16.25 49.40,21.00 46.65,23.85 42.80,24.80"/>
-        <lane id=":gneJ3_0_1" index="1" speed="8.67" length="16.85" shape="51.60,9.60 51.05,14.85 49.40,18.60 46.65,20.85 42.80,21.60"/>
+        <lane id=":gneJ3_0_0" index="0" allow="private taxi delivery truck trailer bicycle evehicle rail_fast ship custom2" speed="9.32" length="19.63" shape="51.60,9.60 51.05,16.25 49.40,21.00 46.65,23.85 42.80,24.80"/>
+        <lane id=":gneJ3_0_1" index="1" allow="private taxi delivery truck trailer bicycle evehicle rail_fast ship custom2" speed="8.67" length="16.85" shape="51.60,9.60 51.05,14.85 49.40,18.60 46.65,20.85 42.80,21.60"/>
     </edge>
     <edge id=":gneJ3_2" function="internal">
-        <lane id=":gneJ3_2_0" index="0" speed="6.51" length="9.03" shape="42.80,15.20 45.25,14.85 47.00,13.80 48.05,12.05 48.40,9.60"/>
+        <lane id=":gneJ3_2_0" index="0" allow="private taxi delivery truck trailer bicycle evehicle rail_fast ship custom2" speed="7.49" length="9.03" shape="42.80,15.20 45.25,14.85 47.00,13.80 48.05,12.05 48.40,9.60"/>
     </edge>
     <edge id=":gneJ3_3" function="internal">
-        <lane id=":gneJ3_3_0" index="0" speed="3.65" length="4.67" shape="42.80,18.40 44.00,19.20 44.40,20.00 44.00,20.80 42.80,21.60"/>
+        <lane id=":gneJ3_3_0" index="0" allow="private taxi delivery truck trailer bicycle evehicle rail_fast ship custom2" speed="3.82" length="4.67" shape="42.80,18.40 44.00,19.20 44.40,20.00 44.00,20.80 42.80,21.60"/>
     </edge>
 
     <edge id="gneE0" from="gneJ0" to="gneJ1" priority="1">
@@ -106,12 +106,12 @@
         <lane id="gneE1_0" index="0" speed="13.89" length="43.60" shape="46.80,1.60 3.20,1.60"/>
     </edge>
     <edge id="gneE2" from="gneJ2" to="gneJ3" priority="1">
-        <lane id="gneE2_0" index="0" speed="13.89" length="35.60" shape="7.20,15.20 42.80,15.20"/>
-        <lane id="gneE2_1" index="1" speed="13.89" length="35.60" shape="7.20,18.40 42.80,18.40"/>
+        <lane id="gneE2_0" index="0" allow="private taxi delivery truck trailer bicycle evehicle rail_fast ship custom2" speed="13.89" length="35.60" shape="7.20,15.20 42.80,15.20"/>
+        <lane id="gneE2_1" index="1" allow="private taxi delivery truck trailer bicycle evehicle rail_fast ship custom2" speed="13.89" length="35.60" shape="7.20,18.40 42.80,18.40"/>
     </edge>
     <edge id="gneE3" from="gneJ3" to="gneJ2" priority="1">
-        <lane id="gneE3_0" index="0" speed="13.89" length="35.60" shape="42.80,24.80 7.20,24.80"/>
-        <lane id="gneE3_1" index="1" speed="13.89" length="35.60" shape="42.80,21.60 7.20,21.60"/>
+        <lane id="gneE3_0" index="0" allow="private taxi delivery truck trailer bicycle evehicle rail_fast ship custom2" speed="13.89" length="35.60" shape="42.80,24.80 7.20,24.80"/>
+        <lane id="gneE3_1" index="1" allow="private taxi delivery truck trailer bicycle evehicle rail_fast ship custom2" speed="13.89" length="35.60" shape="42.80,21.60 7.20,21.60"/>
     </edge>
     <edge id="gneE4" from="gneJ3" to="gneJ1" priority="1">
         <lane id="gneE4_0" index="0" speed="13.89" length="6.40" shape="48.40,9.60 48.40,3.20"/>
@@ -157,9 +157,9 @@
     <connection from="gneE1" to="gneE9" fromLane="0" toLane="0" via=":gneJ0_1_0" dir="r" state="M"/>
     <connection from="gneE1" to="gneE0" fromLane="0" toLane="0" via=":gneJ0_2_0" dir="t" state="m"/>
     <connection from="gneE2" to="gneE4" fromLane="0" toLane="0" keepClear="0" via=":gneJ3_2_0" dir="r" state="M"/>
-    <connection from="gneE2" to="gneE3" fromLane="1" toLane="1" via=":gneJ3_3_0" dir="t" state="m"/>
+    <connection from="gneE2" to="gneE3" fromLane="1" toLane="1" via=":gneJ3_3_0" dir="s" state="m"/>
     <connection from="gneE3" to="gneE8" fromLane="0" toLane="0" via=":gneJ2_0_0" dir="l" state="M"/>
-    <connection from="gneE3" to="gneE2" fromLane="1" toLane="1" via=":gneJ2_1_0" dir="t" state="m"/>
+    <connection from="gneE3" to="gneE2" fromLane="1" toLane="1" via=":gneJ2_1_0" dir="s" state="m"/>
     <connection from="gneE4" to="gneE1" fromLane="0" toLane="0" keepClear="0" via=":gneJ1_0_0" dir="r" state="M"/>
     <connection from="gneE5" to="gneE3" fromLane="0" toLane="0" keepClear="0" via=":gneJ3_0_0" dir="l" state="M"/>
     <connection from="gneE5" to="gneE3" fromLane="0" toLane="1" keepClear="0" via=":gneJ3_0_1" dir="l" state="M"/>
@@ -176,12 +176,12 @@
     <connection from=":gneJ1_2" to="gneE1" fromLane="0" toLane="0" via=":gneJ1_3_0" dir="t" state="m"/>
     <connection from=":gneJ1_3" to="gneE1" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from=":gneJ2_0" to="gneE8" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from=":gneJ2_1" to="gneE2" fromLane="0" toLane="1" dir="t" state="M"/>
+    <connection from=":gneJ2_1" to="gneE2" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":gneJ2_2" to="gneE2" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":gneJ2_2" to="gneE2" fromLane="1" toLane="1" dir="r" state="M"/>
     <connection from=":gneJ3_0" to="gneE3" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from=":gneJ3_0" to="gneE3" fromLane="1" toLane="1" dir="l" state="M"/>
     <connection from=":gneJ3_2" to="gneE4" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from=":gneJ3_3" to="gneE3" fromLane="0" toLane="1" dir="t" state="M"/>
+    <connection from=":gneJ3_3" to="gneE3" fromLane="0" toLane="1" dir="s" state="M"/>
 
 </net>

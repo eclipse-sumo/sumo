@@ -60,9 +60,12 @@ Debug: Created connection 'fromgneE5_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE2_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE2_1' in retrieveGNEConnection()
-Debug: Value 'dummyLegth' for attribute spreadType of edge isn't valid
-Debug: Value '-12' for attribute spreadType of edge isn't valid
-Debug: Value '40.5' for attribute spreadType of edge isn't valid
+Debug: Value 'dummyLegth' for attribute length of edge isn't valid
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Value '-12' for attribute length of edge isn't valid
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -13.20,-13.20,13.20,13.20
@@ -94,12 +97,8 @@ GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -11.60,-10.00,10.00,3
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,-10.00,11.60,30.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing busStop 'busStop6' in GNEChange_Additional
-Debug: Removing busStop 'busStop5' in GNEChange_Additional
-Debug: Removing busStop 'busStop4' in GNEChange_Additional
-Debug: Removing busStop 'busStop3' in GNEChange_Additional
-Debug: Removing busStop 'busStop2' in GNEChange_Additional
-Debug: Removing busStop 'busStop1' in GNEChange_Additional
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -13.20,-13.20,13.20,13.20
@@ -131,12 +130,8 @@ GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -11.60,-10.00,10.00,3
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,-10.00,11.60,30.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding busStop 'busStop1' in GNEChange_Additional
-Debug: Adding busStop 'busStop2' in GNEChange_Additional
-Debug: Adding busStop 'busStop3' in GNEChange_Additional
-Debug: Adding busStop 'busStop4' in GNEChange_Additional
-Debug: Adding busStop 'busStop5' in GNEChange_Additional
-Debug: Adding busStop 'busStop6' in GNEChange_Additional
+Debug: Setting new attribute
+Debug: Setting new attribute
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -13.20,-13.20,13.20,13.20
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 36.80,-13.20,63.20,13.20

@@ -68,7 +68,12 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
-Debug: Value 'authority army vip passenger hov taxi bus coach tram bicycle' for attribute length of edge isn't valid
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -13.20,-13.20,13.20,13.20
@@ -108,13 +113,20 @@ Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
 Debug: Removing busStop 'busStop6' in GNEChange_Additional
 Debug: Removing busStop 'busStop5' in GNEChange_Additional
 Debug: Removing busStop 'busStop4' in GNEChange_Additional
 Debug: Removing busStop 'busStop3' in GNEChange_Additional
 Debug: Removing busStop 'busStop2' in GNEChange_Additional
 Debug: Removing busStop 'busStop1' in GNEChange_Additional
-Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -13.20,-13.20,13.20,13.20
@@ -161,6 +173,13 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -13.20,-13.20,13.20,13.20
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 36.80,-13.20,63.20,13.20

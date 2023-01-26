@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-25 19:45:32 by Eclipse SUMO netedit Version v1_15_0+1949-962673d476a
+<!-- generated on 2023-01-26 14:43:36 by Eclipse SUMO netedit Version v1_15_0+1986-45defa09f05
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.25Jan182729.10092/netedit.daily.net.edges/netelements/edges/inspect_selected/name/additionals.add.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.25Jan182729.10092/netedit.daily.net.edges/netelements/edges/inspect_selected/name/routes.rou.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.25Jan182729.10092/netedit.daily.net.edges/netelements/edges/inspect_selected/name/datas.dat.xml"/>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.25Jan182729.10092/netedit.daily.net.edges/netelements/edges/inspect_selected/name/net.net.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.26Jan143216.88\netedit.gui\netelements\edges\inspect_selected\name\additionals.add.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.26Jan143216.88\netedit.gui\netelements\edges\inspect_selected\name\routes.rou.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.26Jan143216.88\netedit.gui\netelements\edges\inspect_selected\name\datas.dat.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.26Jan143216.88\netedit.gui\netelements\edges\inspect_selected\name\net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.25Jan182729.10092/netedit.daily.net.edges/netelements/edges/inspect_selected/name/net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.26Jan143216.88\netedit.gui\netelements\edges\inspect_selected\name\net.net.xml"/>
+        <output.street-names value="true"/>
     </output>
 
     <processing>
@@ -33,18 +34,18 @@
     </pedestrian>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.25Jan182729.10092/netedit.daily.net.edges/netelements/edges/inspect_selected/name/gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.26Jan143216.88\netedit.gui\netelements\edges\inspect_selected\name\gui-settings.xml"/>
         <window-size value="936, 697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.25Jan182729.10092/netedit.daily.net.edges/netelements/edges/inspect_selected/name/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.26Jan143216.88\netedit.gui\netelements\edges\inspect_selected\name\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.net.edges.25Jan182729.10092/netedit.daily.net.edges/netelements/edges/inspect_selected/name/log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.26Jan143216.88\netedit.gui\netelements\edges\inspect_selected\name\log.txt"/>
     </report>
 
 </configuration>
@@ -105,11 +106,11 @@
     <edge id="gneE1" from="gneJ1" to="gneJ0" priority="1">
         <lane id="gneE1_0" index="0" speed="13.89" length="43.60" shape="46.80,1.60 3.20,1.60"/>
     </edge>
-    <edge id="gneE2" from="gneJ2" to="gneJ3" priority="1">
+    <edge id="gneE2" from="gneJ2" to="gneJ3" name="my own name" priority="1">
         <lane id="gneE2_0" index="0" speed="13.89" length="35.60" shape="7.20,15.20 42.80,15.20"/>
         <lane id="gneE2_1" index="1" speed="13.89" length="35.60" shape="7.20,18.40 42.80,18.40"/>
     </edge>
-    <edge id="gneE3" from="gneJ3" to="gneJ2" priority="1">
+    <edge id="gneE3" from="gneJ3" to="gneJ2" name="my own name" priority="1">
         <lane id="gneE3_0" index="0" speed="13.89" length="35.60" shape="42.80,24.80 7.20,24.80"/>
         <lane id="gneE3_1" index="1" speed="13.89" length="35.60" shape="42.80,21.60 7.20,21.60"/>
     </edge>

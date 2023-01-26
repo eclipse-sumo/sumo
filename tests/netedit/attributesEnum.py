@@ -178,15 +178,17 @@ class edge:
         spreadType = 12
         priority = 14
         width = 15
+        sidewalkWidth = 16
+        bikelaneWidth = 17
 
     class createLane:
-        add = 22
-        remove = 23
-        speed = 24
-        allowButton = 25
-        allow = 26
-        disallow = 27
-        width = 28
+        add = 24
+        remove = 25
+        speed = 26
+        allowButton = 27
+        allow = 28
+        disallow = 29
+        width = 30
 
     class inspect:
         id = 1
@@ -198,21 +200,20 @@ class edge:
         type = 7
         allowedButton = 8
         allowed = 9
-        disallowedButton = 10
-        disallowed = 11
-        shape = 12
-        length = 13
-        spreadType = 14
-        name = 16
-        width = 17
-        endOffset = 18
-        shapeStart = 19
-        shapeEnd = 20
-        distance = 21
-        stopOffset = 22
-        stopExceptionButton = 23
-        stopException = 24
-        parameters = 27
+        disallowed = 10
+        shape = 11
+        length = 12
+        spreadType = 13
+        name = 15
+        width = 16
+        endOffset = 17
+        shapeStart = 18
+        shapeEnd = 19
+        distance = 20
+        stopOffset = 21
+        stopExceptionButton = 22
+        stopException = 23
+        parameters = 26
 
     class inspectSelection:
         speed = 1
@@ -221,24 +222,23 @@ class edge:
         type = 4
         allowedButton = 5
         allowed = 6
-        disallowedButton = 7
-        disallowed = 8
-        length = 9
-        spreadType = 10
-        name = 12
-        width = 13
-        endOffset = 14
-        shapeStart = 15
-        shapeEnd = 16
-        stopOffset = 17
-        stopExceptionButton = 18
-        stopException = 19
-        parameters = 22
+        disallowed = 7
+        length = 8
+        spreadType = 9
+        name = 11
+        width = 12
+        endOffset = 13
+        shapeStart = 14
+        shapeEnd = 15
+        stopOffset = 16
+        stopExceptionButton = 17
+        stopException = 18
+        parameters = 21
 
     class template:
-        create = 33
-        copy = 34
-        clear = 35
+        create = 32
+        copy = 33
+        clear = 34
 
     class contextualMenu:
         splitEdge = 1
