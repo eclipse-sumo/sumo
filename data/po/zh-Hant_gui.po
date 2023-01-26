@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-25 07:18+0000\n"
+"PO-Revision-Date: 2023-01-26 06:39+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -368,120 +368,116 @@ msgstr "暫停模擬。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:554
 msgid "Step"
-msgstr "步長(step)"
+msgstr "時間節距"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:554
 msgid "Perform one simulation step."
-msgstr "執行一個模擬步長。"
+msgstr "執行一個模擬時間節距。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:557
 msgid "Delay+"
-msgstr ""
+msgstr "延遲+"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:557
 msgid "Increase simulation step delay."
-msgstr ""
+msgstr "增加模擬時間節距的延遲。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:559
 msgid "Delay-"
-msgstr ""
+msgstr "延遲-"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:559
 msgid "Decrease simulation step delay."
-msgstr ""
+msgstr "減少模擬時間節距的延遲。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:561
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:288
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:284
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:281
 msgid "Save"
-msgstr ""
+msgstr "儲存"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:561
 msgid "Save the current simulation state to a file."
-msgstr ""
+msgstr "現有模擬狀態另存新檔。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:564
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:287
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:283
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:280
 msgid "Load"
-msgstr ""
+msgstr "載入"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:564
 msgid "Load simulation state for the current network from file."
-msgstr ""
+msgstr "將模擬狀態檔案載入於目前路網內。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:568
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1429
 msgid "&Window"
-msgstr ""
+msgstr "&視窗"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:569
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:719
 msgid "Open new view"
-msgstr ""
+msgstr "開啟新視窗"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:571
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:722
 msgid "Open new 3D view"
-msgstr ""
+msgstr "開啟新的3維視窗"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:574
 msgid "Tile &Horizontally"
-msgstr ""
+msgstr "圖磚&水平方向"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:577
 msgid "Tile &Vertically"
-msgstr ""
+msgstr "圖磚&垂直方向"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:580
 msgid "Cascade"
-msgstr ""
+msgstr "級聯 (Cascade)"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:584
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:97
 msgid "&Close"
-msgstr ""
+msgstr "&關閉"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:594
 msgid "&Others..."
-msgstr ""
+msgstr "&其它..."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:598
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2015
 msgid "Show Status Line"
-msgstr ""
+msgstr "顯示狀態列"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:598
-#, fuzzy
 msgid "Toggle the Status Bar on/off."
-msgstr "切換全螢幕模式 開啟/關閉。"
+msgstr "切換狀態控制桿(開啟/關閉)。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:601
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2018
 msgid "Show Message Window"
-msgstr ""
+msgstr "顯示訊息窗"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:601
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2018
 msgid "Toggle the Message Window on/off."
-msgstr ""
+msgstr "切換訊息窗(開啟/關閉)。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:604
-#, fuzzy
 msgid "Show Simulation Time"
-msgstr "模擬"
+msgstr "顯示模擬時間"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:604
-#, fuzzy
 msgid "Toggle the Simulation Time on/off."
-msgstr "切換全螢幕模式 開啟/關閉。"
+msgstr "切換模擬時間(開啟/關閉)。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:607
-#, fuzzy
 msgid "Show Simulation Delay"
-msgstr "模擬"
+msgstr "顯示模擬延遲"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:607
 msgid "Toggle the Simulation Delay Entry on/off."
