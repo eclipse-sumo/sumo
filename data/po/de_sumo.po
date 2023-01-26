@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
 "PO-Revision-Date: 2023-01-26 18:10+0000\n"
-"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
+"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
 "Language: de\n"
@@ -1136,7 +1136,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:221
 #, c-format
 msgid "Loading of % failed."
-msgstr ""
+msgstr "Laden von % fehlgeschlagen."
 
 #: /home/micha/programming/sumo/src/microsim/MSNet.cpp:1613
 #, c-format
@@ -5160,7 +5160,7 @@ msgstr "Eine mikroskopische, multimodale Verkehrssimulation."
 #: /home/micha/programming/sumo/src/sumo_main.cpp:113
 #: /home/micha/programming/sumo/src/sumo_main.cpp:122
 msgid "Quitting (on error)."
-msgstr ""
+msgstr "Abbruch wegen Fehler."
 
 #: /home/micha/programming/sumo/src/sumo_main.cpp:125
 msgid "Quitting (on unknown error)."
