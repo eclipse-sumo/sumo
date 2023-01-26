@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-26 11:45+0000\n"
+"PO-Revision-Date: 2023-01-26 18:10+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -35,15 +35,13 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:270
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:479
-#, fuzzy
 msgid "Original coordinate (before coordinate transformation in netconvert)"
-msgstr "N/A\t\t原始坐標（在 netconvert 軟體中進行坐標轉換之前）"
+msgstr "原始坐標（在 netconvert 軟體中進行坐標轉換之前）"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:273
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:482
-#, fuzzy
 msgid "Network coordinate"
-msgstr "N/A\t\t路網坐標"
+msgstr "路網坐標"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:301
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:500
@@ -568,60 +566,60 @@ msgstr "\t停止\t暫停執行中的模擬。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:662
 msgid "\tStep\tPerform a single simulation step."
-msgstr ""
+msgstr "\t時間節距\t執行單一模擬時間節距。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:670
 msgid ""
 "Time:\tToggle between time formats\tToggle between seconds and hour:minute:"
 "seconds display."
-msgstr ""
+msgstr "時間:\t切換時間格式\t時間顯示切換：秒 或 小時：分鐘：秒。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:684
 msgid ""
 "Delay (ms):\tDelay per simulated second\tDelay per simulated second. Click "
 "to toggle between the last two delay values."
 msgstr ""
+"延遲(毫秒):\t每個模擬秒(simulated second)的延遲\t每個模擬秒(simulated second)"
+"的延遲. 按鍵進行最後兩個延遲值的切換。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:707
 msgid "Scale Traffic:"
-msgstr ""
+msgstr "依比例增減交通："
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:707
 msgid ""
 "Scale traffic from flows and vehicles that are loaded incrementally from "
 "route files."
-msgstr ""
+msgstr "依據交通流量及由路徑檔案漸進地載入的車輛來增減交通。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:719
-#, fuzzy
 msgid "Open a new microscopic view."
-msgstr "開啟一個新的 sumo-gui 视窗。"
+msgstr "開啟新的微觀模擬视窗。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:722
-#, fuzzy
 msgid "Open a new 3D view."
-msgstr "開啟一個新的 sumo-gui 视窗。"
+msgstr "開啟新的3維視窗。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:732
 msgid "Waiting Time:"
-msgstr ""
+msgstr "停等時間："
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:732
 msgid "Time spent waiting accumulated for all vehicles"
-msgstr ""
+msgstr "所有車輛累計的等待時間"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:743
 msgid "Time Loss:"
-msgstr ""
+msgstr "損失時間："
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:743
 msgid ""
 "Time lost due to being unable to drive with maximum speed for all vehicles"
-msgstr ""
+msgstr "所有車輛由於無法以最大速度行駛而損失的時間"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:754
 msgid "Distance (km):"
-msgstr ""
+msgstr "距離(公里)："
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:754
 msgid "Total distance driven by DRT vehicles"
