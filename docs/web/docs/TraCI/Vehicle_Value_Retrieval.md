@@ -197,7 +197,7 @@ value is also shown in the table.
 <td><p>fuel consumption<br />
 (id 0x65)</p></td>
 <td><p>double</p></td>
-<td><p>Vehicle's fuel consumption in ml/s during this time step, to get the value for one step multiply with the step length; error value: -2^30</p></td>
+<td><p>Vehicle's fuel consumption in mg/s during this time step, to get the value for one step multiply with the step length; error value: -2^30</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getFuelConsumption">getFuelConsumption</a></p></td>
 </tr>
 <tr class="odd">
