@@ -131,7 +131,7 @@ MSPerson::MSPersonStage_Walking::proceed(MSNet* net, MSTransportable* person, SU
         for (MSMoveReminder* rem : lane->getMoveReminders()) {
             if (rem->notifyEnter(*person, MSMoveReminder::NOTIFICATION_DEPARTED, lane)) {
                 myMoveReminders.push_back(rem);
-            };
+            }
         }
     }
     if (OptionsCont::getOptions().getBool("vehroute-output.exit-times")) {
