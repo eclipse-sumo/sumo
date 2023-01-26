@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-26 06:39+0000\n"
+"PO-Revision-Date: 2023-01-26 09:55+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -455,7 +455,7 @@ msgstr "顯示狀態列"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:598
 msgid "Toggle the Status Bar on/off."
-msgstr "切換狀態控制桿(開啟/關閉)。"
+msgstr "開啟/關閉狀態控制桿。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:601
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2018
@@ -465,7 +465,7 @@ msgstr "顯示訊息窗"
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:601
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2018
 msgid "Toggle the Message Window on/off."
-msgstr "切換訊息窗(開啟/關閉)。"
+msgstr "開啟/關閉訊息窗。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:604
 msgid "Show Simulation Time"
@@ -473,7 +473,7 @@ msgstr "顯示模擬時間"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:604
 msgid "Toggle the Simulation Time on/off."
-msgstr "切換模擬時間(開啟/關閉)。"
+msgstr "開啟/關閉模擬時間。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:607
 msgid "Show Simulation Delay"
@@ -481,82 +481,82 @@ msgstr "顯示模擬延遲"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:607
 msgid "Toggle the Simulation Delay Entry on/off."
-msgstr ""
+msgstr "開啟/關閉模擬延遲輸入。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:613
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2022
 msgid "Clear Message Window"
-msgstr ""
+msgstr "清除訊息窗內訊息"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:613
 msgid "Clear the message window."
-msgstr ""
+msgstr "清除訊息窗內訊息。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:618
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1433
 msgid "&Help"
-msgstr ""
+msgstr "&求助"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:620
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1435
 msgid "&Online Documentation"
-msgstr ""
+msgstr "&線上使用手冊"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:620
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1435
 msgid "Open Online documentation."
-msgstr ""
+msgstr "開啟線上使用手冊。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:623
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1438
 msgid "&Changelog"
-msgstr ""
+msgstr "&變更記錄"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:623
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1438
 msgid "Open Changelog."
-msgstr ""
+msgstr "開啟變更記錄。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:625
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1440
 msgid "&Hotkeys"
-msgstr ""
+msgstr "&快捷鍵"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:625
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1440
 msgid "Open Hotkeys."
-msgstr ""
+msgstr "開啟快捷鍵。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:627
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1442
 msgid "&Tutorial"
-msgstr ""
+msgstr "&範例教學"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:627
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1442
 msgid "Open Tutorial."
-msgstr ""
+msgstr "開啟Tutorial。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:630
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1445
 msgid "&About"
-msgstr ""
+msgstr "&關於"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:630
 msgid "About sumo-gui."
-msgstr ""
+msgstr "關於sumo-gui。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:645
 msgid "\tOpen simulation\tOpen a simulation (Configuration file)."
-msgstr ""
+msgstr "\t開啟模擬\t開啟一個模擬 (設定檔)。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:647
 msgid "\tOpen network\tOpen a network."
-msgstr ""
+msgstr "\t開啟路網\t開啟一個路網。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:649
 msgid "\tReload\tReloads the simulation / the network."
-msgstr ""
+msgstr "\t重新載入\t重新載入模擬 / 路網。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:658
 msgid "\tRun\tStart/Resume the loaded simulation."
