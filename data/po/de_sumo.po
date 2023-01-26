@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-26 06:39+0000\n"
+"PO-Revision-Date: 2023-01-26 11:45+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -52,7 +52,7 @@ msgstr "Zuweisung von Schulen"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:79
 msgid "Allocating work places"
-msgstr ""
+msgstr "Zuweisung von Arbeitsplätzen"
 
 #: /home/micha/programming/sumo/src/activitygen/AGActivityGen.cpp:83
 #, fuzzy
@@ -246,24 +246,24 @@ msgstr "Keine Detektordatei vorhanden (benutze --detector-files <FILE>)."
 
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:76
 msgid "Could not open detector file '%'"
-msgstr ""
+msgstr "Detektordatei '%' konnte nicht geöffnet werden"
 
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:88
 msgid "No detectors found."
-msgstr ""
+msgstr "Keine Detektoren gefunden."
 
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:103
-#, c-format
+#, c-format, fuzzy
 msgid "The measure-file '%' can not be opened."
-msgstr ""
+msgstr "Die Messdatei '%' konnte nicht geöffnet werden."
 
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:124
 msgid "Removing empty detectors"
-msgstr ""
+msgstr "Entferne leere Detektoren"
 
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:128
 msgid "Scanning for empty detectors"
-msgstr ""
+msgstr "Scannen nach leeren Detektoren"
 
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:143
 msgid "No source detectors found."
@@ -342,16 +342,18 @@ msgid ""
 "Option --write-trips.junctions takes no affect when --write-trips is "
 "disabled."
 msgstr ""
+"Die Option --write-trips.junctions hat keine Auswirken wenn --write-trips "
+"deaktiviert ist."
 
 #: /home/micha/programming/sumo/src/duarouter/duarouter_main.cpp:107
 #, c-format
 msgid "Routing algorithm '%' does not support restriction-params"
-msgstr ""
+msgstr "Der Routing-Algorithmus '%' unterstützt keine Einschränkungsparameter"
 
 #: /home/micha/programming/sumo/src/duarouter/duarouter_main.cpp:151
 #: /home/micha/programming/sumo/src/marouter/marouter_main.cpp:180
 msgid "Unknown routing Algorithm '%'!"
-msgstr ""
+msgstr "Unbekannter Routing-Algorithmus '%'!"
 
 #: /home/micha/programming/sumo/src/duarouter/duarouter_main.cpp:178
 #: /home/micha/programming/sumo/src/marouter/marouter_main.cpp:210
@@ -367,35 +369,39 @@ msgstr "Eine mikroskopische, multimodale Verkehrssimulation."
 
 #: /home/micha/programming/sumo/src/foreign/rtree/SUMORTree.h:140
 #: /home/micha/programming/sumo/src/foreign/rtree/SUMORTree.h:176
-#, c-format
+#, c-format, fuzzy
 msgid "Boundary of GUIGlObject % has an invalid size"
-msgstr ""
+msgstr "Die Grenze von GUIObject '%' hat eine unzulässige Größe"
 
 #: /home/micha/programming/sumo/src/jtrrouter/ROJTRTurnDefLoader.cpp:87
 #: /home/micha/programming/sumo/src/jtrrouter/jtrrouter_main.cpp:143
 #, c-format
 msgid "The edge '%' declared as a sink is not known."
-msgstr ""
+msgstr "Die als Senke deklarierte Kante '%' ist nicht bekannt."
 
 #: /home/micha/programming/sumo/src/jtrrouter/ROJTRTurnDefLoader.cpp:116
 msgid "Ignoring flow '%' without 'from'"
-msgstr ""
+msgstr "Fluss '%' ohne 'from' wird ignoriert"
 
 #: /home/micha/programming/sumo/src/jtrrouter/ROJTRTurnDefLoader.cpp:128
 #, c-format
 msgid "The edge '%' declared as a source is not known."
-msgstr ""
+msgstr "Die Quellkante '%' ist nicht bekannt."
 
 #: /home/micha/programming/sumo/src/jtrrouter/ROJTRTurnDefLoader.cpp:152
-#, c-format
+#, c-format, fuzzy
 msgid ""
 "The edge '%' is not known within the network (within a 'from-edge' tag)."
 msgstr ""
+"Die Kante '%' ist innerhalb des Netzwerkes nicht bekannt (innerhalb einer "
+"'from-edge' Kennzeichnung)."
 
 #: /home/micha/programming/sumo/src/jtrrouter/ROJTRTurnDefLoader.cpp:172
-#, c-format
+#, c-format, fuzzy
 msgid "The edge '%' is not known within the network (within a 'to-edge' tag)."
 msgstr ""
+"Die Kante '%' ist innerhalb des Netzwerkes nicht bekannt (innerhalb einer "
+"'to-edge' Kennzeichnung)."
 
 #: /home/micha/programming/sumo/src/jtrrouter/ROJTRTurnDefLoader.cpp:178
 msgid "'probability' must be positive (in definition of to-edge '%')."
