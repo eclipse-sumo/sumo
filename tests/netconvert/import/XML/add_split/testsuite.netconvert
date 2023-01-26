@@ -36,6 +36,9 @@ set_type
 # modify custom length in proportion so that the total custom length is preserved
 preserve_custom_length
 
+# modify custom length in proportion so that the total custom length is preserved (with shape)
+preserve_custom_length2
+
 # three lanes, changing the speed and changing it back, modifying navteq input
 speed_navteq
 
