@@ -104,6 +104,12 @@ If two vehicles have a 'parking'-stop with the same 'until' time at the same
 location, their stops will also be marked as invalid since the simulation cannot
 enforce an order in this case (and local desired order is ambiguous).
 
+Another kind of inconsistency is indicated by 'ended' times that lie ahead of
+the 'until' time of the respective stop by a significant margin (--.
+This situation may corrrespond to the actions of
+a real-life dispatcher. In such a case, the must not be constraint any further
+since it is no longer running according to the schedule.
+
 == Post-Facto Stop Timings ==
 
 When simulating the past (i.e. to predict the future), additional timing data
@@ -175,6 +181,8 @@ def get_options(args=None):
     parser.add_argument("--abort-unordered", dest="abortUnordered", action="store_true", default=False,
                         help="Abort generation of constraints for a stop "
                         "once the ordering of vehicles by 'arrival' differs from the ordering by 'until'")
+    parser.add_argument("--premature-threshold", default=600, dest="prematureThreshold",
+                        help="Ignore schedule if a train leaves a station ahead of schedule by more than the threshold value")
     parser.add_argument("--write-inactive", dest="writeInactive", action="store_true", default=False,
                         help="Export aborted constraints as inactive")
     parser.add_argument("-p", "--ignore-parking", dest="ignoreParking", action="store_true", default=False,
@@ -243,6 +251,7 @@ def get_options(args=None):
 
     options.delay = parseTime(options.delay)
     options.redundant = parseTime(options.redundant)
+    options.prematureThreshold = parseTime(options.prematureThreshold)
 
     return options
 
@@ -606,12 +615,13 @@ def markOvertaken(options, vehicleStopRoutes, stopRoutes):
         for i, (edgesBefore, stop) in enumerate(stopRoute):
             if not (stop.hasAttribute("arrival") and stop.hasAttribute("until")):
                 continue
+
+            ended = parseTime(stop.ended) if stop.hasAttribute("ended") else None
+            until = parseTime(stop.until)
             parking = parseBool(stop.getAttributeSecure("parking", "false"))
             if not overtaken:
                 arrival = parseTime(stop.arrival)
-                until = parseTime(stop.until)
                 started = parseTime(stop.started) if stop.hasAttribute("started") else None
-                ended = parseTime(stop.ended) if stop.hasAttribute("ended") else None
                 for edgesBefore2, stop2 in stopRoutes[stop.busStop]:
                     if stop2.vehID == stop.vehID:
                         continue
@@ -673,6 +683,14 @@ def markOvertaken(options, vehicleStopRoutes, stopRoutes):
                             ),
                                 file=sys.stderr)
                         break
+
+            if not overtaken:
+                if ended is not None and until - ended > options.prematureThreshold:
+                    # train is running ahead of schedule and further schedule times are unreliable
+                    overtaken = 1
+                    ignored = True
+                    print("Vehicle %s is running ahead of schedule by %ss at stop %s (index %s) and ignores further timings." %
+                          (stop.vehID, int(until - ended), stop.busStop, i), file=sys.stderr)
 
             # the stop where overtaking was detected can still be used for
             # signal switching but subsequent stops cannot (as they might
