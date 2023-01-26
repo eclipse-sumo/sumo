@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-26 18:10+0000\n"
+"PO-Revision-Date: 2023-01-26 20:16+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -956,38 +956,38 @@ msgstr "Mit volatilen Optionen neu berechnen"
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1949
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:2009
 msgid "Running "
-msgstr ""
+msgstr "Führt aus "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1972
 msgid "Loading network '"
-msgstr ""
+msgstr "Lädt Netz '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1972
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1981
 msgid "' in SUMO-GUI"
-msgstr ""
+msgstr "' in SUMO-GUI"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1981
 msgid "Loading sumo config '"
-msgstr ""
+msgstr "Lädt SUMO-Konfiguration '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:2311
 msgid "Configure Options"
-msgstr ""
+msgstr "Konfiguration der Optionen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:2324
 msgid "SUMO Options"
-msgstr ""
+msgstr "SUMO-Optionen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:2343
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1259
 msgid "Undo"
-msgstr ""
+msgstr "Rückgängig"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:2375
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1262
 msgid "Redo"
-msgstr ""
+msgstr "Wiederherstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3044
 msgid "Saving Network failed!"
