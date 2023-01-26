@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-26 11:45+0000\n"
+"PO-Revision-Date: 2023-01-26 12:18+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -404,8 +404,11 @@ msgstr ""
 "'to-edge' Kennzeichnung)."
 
 #: /home/micha/programming/sumo/src/jtrrouter/ROJTRTurnDefLoader.cpp:178
+#, fuzzy
 msgid "'probability' must be positive (in definition of to-edge '%')."
 msgstr ""
+"'probability' die Wahrscheinlichkeit muss positiv sein (in der Definition "
+"von to-edge '%')."
 
 #: /home/micha/programming/sumo/src/jtrrouter/ROJTRTurnDefLoader.cpp:201
 #: /home/micha/programming/sumo/src/jtrrouter/ROJTRTurnDefLoader.cpp:206
@@ -413,7 +416,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:1400
 #, c-format
 msgid "The edge '%' is not known."
-msgstr ""
+msgstr "Die Kante '%' ist nicht bekannt."
 
 #: /home/micha/programming/sumo/src/jtrrouter/jtrrouter_main.cpp:94
 msgid ""
@@ -423,7 +426,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/jtrrouter/jtrrouter_main.cpp:101
 msgid "A turn default is not numeric."
-msgstr ""
+msgstr "Eine Abbiegevorgabe ist nicht numerisch."
 
 #: /home/micha/programming/sumo/src/jtrrouter/jtrrouter_main.cpp:182
 #, fuzzy
@@ -433,17 +436,20 @@ msgid ""
 msgstr "Eine mikroskopische, multimodale Verkehrssimulation."
 
 #: /home/micha/programming/sumo/src/libsumo/GUI.cpp:304
+#, fuzzy
 msgid ""
 "Libsumo on Windows does not work with GUI, falling back to plain libsumo."
 msgstr ""
+"Libsumo auf Windows arbeitet nicht mit GUI, es wird auf das einfache libsumo "
+"zurückgegriffen."
 
 #: /home/micha/programming/sumo/src/libsumo/GUI.cpp:330
 msgid "This system has no OpenGL support. Exiting."
-msgstr ""
+msgstr "Dieses System hat keine OpenGL-Unterstützung. Beenden."
 
 #: /home/micha/programming/sumo/src/libsumo/GUI.cpp:352
 msgid "libsumo.load is not implemented for the GUI."
-msgstr ""
+msgstr "libsumo.load ist nicht für GUI implementiert."
 
 #: /home/micha/programming/sumo/src/libsumo/Helper.cpp:901
 #, c-format
@@ -472,15 +478,15 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/libsumo/Helper.cpp:1395
 msgid "Vehicle '%' was removed though being controlled by TraCI"
-msgstr ""
+msgstr "Fahrzeug '%' wurde entfernt, obwohl es von TraCI kontrolliert wurde"
 
 #: /home/micha/programming/sumo/src/libsumo/Helper.cpp:1404
 msgid "Person '%' was removed though being controlled by TraCI"
-msgstr ""
+msgstr "Person '%' wurde entfernt, obwohl es von TraCI kontrolliert wurde"
 
 #: /home/micha/programming/sumo/src/libsumo/Simulation.cpp:104
 msgid "Simulation version % started via libsumo with time: %."
-msgstr ""
+msgstr "Simulationsversion % startet über libsumo mit der Zeit: %"
 
 #: /home/micha/programming/sumo/src/libsumo/TrafficLight.cpp:647
 #, c-format
@@ -512,7 +518,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/libsumo/Vehicle.cpp:1105
 #: /home/micha/programming/sumo/src/libsumo/Vehicle.cpp:1212
 msgid "Unsupported parameter '%'"
-msgstr ""
+msgstr "Nicht unterstützter Parameter '%'"
 
 #: /home/micha/programming/sumo/src/libsumo/Vehicle.cpp:1225
 msgid "rerouteParkingArea not yet implemented for meso"
@@ -534,6 +540,8 @@ msgstr ""
 #, c-format
 msgid "Ignoring changeLaneRelative for vehicle '%' that isn't on the road"
 msgstr ""
+"Ignoriert changeLaneRelative für das Fahrzeug '%' welches sich nicht auf der "
+"Straße befindet"
 
 #: /home/micha/programming/sumo/src/libsumo/Vehicle.cpp:1332
 msgid "changeSublane not applicable for meso"
@@ -544,6 +552,8 @@ msgstr ""
 msgid ""
 "Departure time for vehicle '%' is in the past; using current time instead."
 msgstr ""
+"Abfahrtszeit für das Fahrzeug '%' liegt in der Vergangenheit; bitte eine "
+"aktuelle Zeit verwenden."
 
 #: /home/micha/programming/sumo/src/libsumo/Vehicle.cpp:1501
 msgid "moveToXY not yet implemented for meso"
@@ -561,6 +571,8 @@ msgstr ""
 msgid ""
 "Ignoring openGap(). New time headway must not be smaller than the original."
 msgstr ""
+"Ignoriert openGap(). Der neue Zeitvorsprung darf nicht kleiner sein als der "
+"Ursprüngliche."
 
 #: /home/micha/programming/sumo/src/libsumo/Vehicle.cpp:1659
 msgid "deactivateGapControl not applicable for meso"
