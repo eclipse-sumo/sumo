@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-26 12:18+0000\n"
-"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
+"PO-Revision-Date: 2023-01-26 18:10+0000\n"
+"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
 "Language: de\n"
@@ -216,7 +216,7 @@ msgstr "Öffnet einen Dialog, um die Anwendungseinstellungen zu bearbeiten."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:496
 msgid "Gaming Mode\tCtrl+G\tToggle gaming mode on/off."
-msgstr ""
+msgstr "Spielmodus\t\tCtrl+G\t\tWechsle in den Spielmodus / verlasse diesen."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:499
 msgid "Full Screen Mode"
@@ -346,7 +346,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:546
 msgid "Simulation"
-msgstr ""
+msgstr "Simulation"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:548
 msgid "Run"
@@ -450,12 +450,11 @@ msgstr "&Weitere..."
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:598
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2015
 msgid "Show Status Line"
-msgstr ""
+msgstr "Zeige Statuszeile"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:598
-#, fuzzy
 msgid "Toggle the Status Bar on/off."
-msgstr "Schalte Vollbildmodus an/aus."
+msgstr "Blende die Statuszeile ein/aus."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:601
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2018
@@ -472,18 +471,16 @@ msgid "Show Simulation Time"
 msgstr "Zeige Simulationszeit"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:604
-#, fuzzy
 msgid "Toggle the Simulation Time on/off."
-msgstr "Schalte Vollbildmodus an/aus."
+msgstr "Blende die Simulationszeit ein/aus."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:607
-#, fuzzy
 msgid "Show Simulation Delay"
-msgstr "Speichere Simulationsstand"
+msgstr "Zeige Simulationsverzögerung"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:607
 msgid "Toggle the Simulation Delay Entry on/off."
-msgstr ""
+msgstr "Blende die Simulationsverzögerung ein/aus."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:613
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2022
@@ -586,13 +583,15 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:707
 msgid "Scale Traffic:"
-msgstr ""
+msgstr "Skaliere Verkehrsaufkommen:"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:707
 msgid ""
 "Scale traffic from flows and vehicles that are loaded incrementally from "
 "route files."
 msgstr ""
+"Skaliere das Verkehrsaufkommen von Verkehrsflüssen und Einzelfahrzeugen, die "
+"stückweise aus Route-Dateien geladen werden."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:719
 msgid "Open a new microscopic view."
@@ -604,42 +603,44 @@ msgstr "Öffne eine neue 3D-Ansicht."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:732
 msgid "Waiting Time:"
-msgstr ""
+msgstr "Wartezeit:"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:732
 msgid "Time spent waiting accumulated for all vehicles"
-msgstr ""
+msgstr "Über alle Fahrzeuge summierte Wartezeit"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:743
 msgid "Time Loss:"
-msgstr ""
+msgstr "Verlustzeit:"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:743
 msgid ""
 "Time lost due to being unable to drive with maximum speed for all vehicles"
 msgstr ""
+"Über alle Fahrzeuge summierte Verlustzeit (Zeitdifferenz zur Fahrt mit "
+"maximaler Geschwindigkeit)"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:754
 msgid "Distance (km):"
-msgstr ""
+msgstr "Fahrleistung (km):"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:754
 msgid "Total distance driven by DRT vehicles"
-msgstr ""
+msgstr "Fahrleistungssumme über alle DRT-Fahrzeuge"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:765
 msgid "Emergency Vehicle waiting time:"
-msgstr ""
+msgstr "Wartezeit von Einsatzfahrzeugen:"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:765
 msgid "Time spent waiting accumulated for emergency vehicles"
-msgstr ""
+msgstr "Über alle Einsatzfahrzeuge summierte Wartezeit"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:958
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:993
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1030
 msgid "Running %."
-msgstr ""
+msgstr "Führt % aus."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1040
 msgid "Open Simulation Configuration"
@@ -694,7 +695,7 @@ msgstr "Simulation beendet"
 
 #: /home/micha/programming/sumo/src/gui/GUILoadThread.cpp:206
 msgid "Could not load edgedata-files '%'"
-msgstr ""
+msgstr "Konnte edgedata-Dateien '%' nicht laden"
 
 #: /home/micha/programming/sumo/src/gui/GUIRunThread.cpp:100
 #: /home/micha/programming/sumo/src/gui/GUIRunThread.cpp:106
@@ -756,40 +757,40 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:247
 #: /home/micha/programming/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:285
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:62
 msgid "Quit on Simulation End"
-msgstr ""
+msgstr "Programm nach Simulation beenden"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:64
 msgid "Autostart Simulation on Load and Reload"
-msgstr ""
+msgstr "Simulation nach dem (erneuten) Laden automatisch starten"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:66
 msgid "Reload Simulation after finish (Demo mode)"
-msgstr ""
+msgstr "Simulation nach dem Ende erneut laden (Demomodus)"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:68
 msgid "Locate elements when clicking on messages"
-msgstr ""
+msgstr "Klicke auf die Meldung , um das Element im Netz zu finden"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:74
 msgid "Breakpoint offset when clicking on time message"
-msgstr ""
+msgstr "Haltepunktversatz bei Klick auf Zeitmeldung"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:77
 msgid "Language (needs restart)"
-msgstr ""
+msgstr "Sprache (Neustart notwendig)"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:102
 msgid "Allow Textures"
-msgstr ""
+msgstr "Texturen zulassen"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:105
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAbout.cpp:76
 msgid "&OK"
-msgstr ""
+msgstr "&OK"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:106
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEDemandElementDialog.cpp:64
@@ -797,38 +798,36 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:639
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:390
 msgid "&Cancel"
-msgstr ""
+msgstr "&Abbrechen"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:89
-#, fuzzy
 msgid "&Load"
-msgstr "Laden"
+msgstr "&Laden"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:91
-#, fuzzy
 msgid "&Save"
-msgstr "Speichern"
+msgstr "&Speichern"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:94
 msgid "Clea&r"
-msgstr ""
+msgstr "L&eeren"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:141
 msgid "Load Breakpoints"
-msgstr ""
+msgstr "Lade Haltepunkte"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:162
 msgid "Save Breakpoints"
-msgstr ""
+msgstr "Speichere Haltepunkte"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:172
 msgid "Storing failed!"
-msgstr ""
+msgstr "Speichern fehlgeschlagen!"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:241
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:244
 msgid "Time format error"
-msgstr ""
+msgstr "Zeitformatfehler"
 
 #: /home/micha/programming/sumo/src/guisim/Command_Hotkey_InductionLoop.cpp:55
 #: /home/micha/programming/sumo/src/guisim/Command_Hotkey_InductionLoop.cpp:59
@@ -836,7 +835,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/guisim/Command_Hotkey_TrafficLight.cpp:60
 #, c-format
 msgid "Hotkey '%' is not supported"
-msgstr ""
+msgstr "Hotkey '%' wird nicht unterstützt"
 
 #: /home/micha/programming/sumo/src/guisim/GUIBaseVehicle.cpp:300
 msgid "GUI-triggered stop not implemented for meso"
@@ -845,7 +844,7 @@ msgstr "Über GUI ausgelöster Halt in meso nicht implementiert"
 #: /home/micha/programming/sumo/src/guisim/GUINet.cpp:326
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:2689
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs.\n"
-msgstr ""
+msgstr "Netz größer als ein Lichtjahr. Bitte die EIngabedaten prüfen.\n"
 
 #: /home/micha/programming/sumo/src/guisim/GUINet.cpp:542
 msgid "A gui-network was not yet constructed."
@@ -884,23 +883,23 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:476
 msgid "Recomputing"
-msgstr ""
+msgstr "Erneute Berechnung"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:476
 msgid "Recomputing is needed"
-msgstr ""
+msgstr "Erneute Berechnung notwendig"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:486
 msgid "Test coordinate"
-msgstr ""
+msgstr "Test-Koordinate"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:860
 msgid "Loaded edge types from '"
-msgstr ""
+msgstr "Kantentypen geladen aus '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:893
 msgid "Reloaded edge types from '"
-msgstr ""
+msgstr "Kantentypen erneut geladen aus '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:974
 msgid "&Reload Netedit config"
@@ -924,7 +923,7 @@ msgstr "Sperren"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1417
 msgid "&Processing"
-msgstr "Operationen"
+msgstr "&Operationen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1425
 msgid "&Tools"
@@ -940,19 +939,19 @@ msgstr "Drücke F5"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1613
 msgid "Trying to load an empty network"
-msgstr ""
+msgstr "Das Netz enthält keine Elemente"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1641
 msgid "Trying to load an empty configuration"
-msgstr ""
+msgstr "Versuche eine leere Konfiguration zu laden"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1688
 msgid "Select Import Options"
-msgstr ""
+msgstr "Importoptionen auswählen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1717
 msgid "Recompute with volatile options"
-msgstr ""
+msgstr "Mit volatilen Optionen neu berechnen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1949
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:2009
