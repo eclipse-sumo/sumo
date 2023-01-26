@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-26 09:55+0000\n"
+"PO-Revision-Date: 2023-01-26 11:45+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -560,11 +560,11 @@ msgstr "\t重新載入\t重新載入模擬 / 路網。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:658
 msgid "\tRun\tStart/Resume the loaded simulation."
-msgstr ""
+msgstr "\t執行\t開始/恢復已載入的模擬。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:660
 msgid "\tStop\tHalt the running simulation."
-msgstr ""
+msgstr "\t停止\t暫停執行中的模擬。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:662
 msgid "\tStep\tPerform a single simulation step."
