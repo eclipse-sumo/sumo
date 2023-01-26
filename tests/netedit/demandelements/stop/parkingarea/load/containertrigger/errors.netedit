@@ -4,7 +4,7 @@ GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 13.00,-12.00,37.0
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,35.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,35.00,11.60
 Debug: Adding parkingArea 'parkingArea' in GNEChange_Additional
-Error: Attribute 'containerTriggered' in definition of a stop Invalid Bool Format .
+Error: Attribute 'containerTriggered' in definition of a stop Invalid Bool Format dummy.
 Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'parkingArea'
 Debug: Adding vehicleWithRoute 'vehicle_0' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'vehicle_0' in GNEChange_DemandElement
@@ -12,21 +12,21 @@ Error: Attribute 'containerTriggered' in definition of a stop is empty.
 Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'parkingArea'
 Debug: Adding vehicleWithRoute 'vehicle_1' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'vehicle_1' in GNEChange_DemandElement
-Error: Attribute 'containerTriggered' in definition of a stop Invalid Bool Format .
+Error: Attribute 'containerTriggered' in definition of a stop Invalid Bool Format -4.
 Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'parkingArea'
 Debug: Adding vehicleWithRoute 'vehicle_2' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'vehicle_2' in GNEChange_DemandElement
 Debug: Adding vehicleWithRoute 'vehicle_3' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'vehicle_3' in GNEChange_DemandElement
 Debug: Adding stopParkingArea 'vehicle_3' in GNEChange_DemandElement
-Error: Attribute 'containerTriggered' in definition of a stop Invalid Bool Format .
+Error: Attribute 'containerTriggered' in definition of a stop Invalid Bool Format 2.3.
 Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'parkingArea'
 Debug: Adding vehicleWithRoute 'vehicle_4' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'vehicle_4' in GNEChange_DemandElement
 Debug: Adding vehicleWithRoute 'vehicle_5' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'vehicle_5' in GNEChange_DemandElement
 Debug: Adding stopParkingArea 'vehicle_5' in GNEChange_DemandElement
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.stop.parkingarea.25Jan182728.9903/netedit.daily.demand.stop.parkingarea/demandelements/stop/parkingarea/load/containertrigger/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.stop.parkingarea.26Jan095536.11235/netedit.daily.demand.stop.parkingarea/demandelements/stop/parkingarea/load/containertrigger/routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 13.00,-12.00,37.00,12.00

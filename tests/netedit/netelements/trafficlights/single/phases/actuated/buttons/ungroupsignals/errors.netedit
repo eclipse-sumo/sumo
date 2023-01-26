@@ -1,3 +1,17 @@
+GLDebug: initJunctionsAndEdges function called in GNENet constructor
+GLDebug: 	Inserted junction:J0 into SUMORTree with boundary 18.00,18.00,42.00,42.00
+GLDebug: 	Inserted junction:J1 into SUMORTree with boundary -12.00,18.00,12.00,42.00
+GLDebug: 	Inserted junction:J2 into SUMORTree with boundary 48.00,18.00,72.00,42.00
+GLDebug: 	Inserted junction:J3 into SUMORTree with boundary 18.00,48.00,42.00,72.00
+GLDebug: 	Inserted junction:J4 into SUMORTree with boundary 18.00,-12.00,42.00,12.00
+GLDebug: 	Inserted edge:-E0 into SUMORTree with boundary -10.00,12.00,40.00,40.00
+GLDebug: 	Inserted edge:-E1 into SUMORTree with boundary 20.00,20.00,70.00,48.00
+GLDebug: 	Inserted edge:-E2 into SUMORTree with boundary 12.00,20.00,40.00,70.00
+GLDebug: 	Inserted edge:-E3 into SUMORTree with boundary 20.00,-10.00,48.00,40.00
+GLDebug: 	Inserted edge:E0 into SUMORTree with boundary -10.00,20.00,40.00,48.00
+GLDebug: 	Inserted edge:E1 into SUMORTree with boundary 20.00,12.00,70.00,40.00
+GLDebug: 	Inserted edge:E2 into SUMORTree with boundary 20.00,20.00,48.00,70.00
+GLDebug: 	Inserted edge:E3 into SUMORTree with boundary 12.00,-10.00,40.00,40.00
 Debug: Adding inductionLoop 'E1_00' in GNEChange_Additional
 Debug: Adding inductionLoop 'E1_01' in GNEChange_Additional
 Debug: Adding inductionLoop 'E1_02' in GNEChange_Additional
@@ -22,6 +36,36 @@ Debug: Adding vehicleWithRoute 'trip_3' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'trip_3' in GNEChange_DemandElement
 Debug: Adding vehicleWithRoute 'trip_4' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'trip_4' in GNEChange_DemandElement
+GLDebug: Removing junctions during recomputing
+GLDebug: 	Removed object junction:J0 from SUMORTree with boundary 18.00,18.00,42.00,42.00
+GLDebug: 	Removed object junction:J1 from SUMORTree with boundary -12.00,18.00,12.00,42.00
+GLDebug: 	Removed object junction:J2 from SUMORTree with boundary 48.00,18.00,72.00,42.00
+GLDebug: 	Removed object junction:J3 from SUMORTree with boundary 18.00,48.00,42.00,72.00
+GLDebug: 	Removed object junction:J4 from SUMORTree with boundary 18.00,-12.00,42.00,12.00
+GLDebug: Removing edges during recomputing
+GLDebug: 	Removed object edge:-E0 from SUMORTree with boundary -10.00,12.00,40.00,40.00
+GLDebug: 	Removed object edge:-E1 from SUMORTree with boundary 20.00,20.00,70.00,48.00
+GLDebug: 	Removed object edge:-E2 from SUMORTree with boundary 12.00,20.00,40.00,70.00
+GLDebug: 	Removed object edge:-E3 from SUMORTree with boundary 20.00,-10.00,48.00,40.00
+GLDebug: 	Removed object edge:E0 from SUMORTree with boundary -10.00,20.00,40.00,48.00
+GLDebug: 	Removed object edge:E1 from SUMORTree with boundary 20.00,12.00,70.00,40.00
+GLDebug: 	Removed object edge:E2 from SUMORTree with boundary 20.00,20.00,48.00,70.00
+GLDebug: 	Removed object edge:E3 from SUMORTree with boundary 12.00,-10.00,40.00,40.00
+GLDebug: Add junctions during recomputing after calling myNetBuilder->compute(...)
+GLDebug: 	Inserted junction:J0 into SUMORTree with boundary 8.90,8.90,51.10,51.10
+GLDebug: 	Inserted junction:J1 into SUMORTree with boundary -10.00,10.40,10.00,49.60
+GLDebug: 	Inserted junction:J2 into SUMORTree with boundary 50.00,10.40,70.00,49.60
+GLDebug: 	Inserted junction:J3 into SUMORTree with boundary 10.40,50.00,49.60,70.00
+GLDebug: 	Inserted junction:J4 into SUMORTree with boundary 10.40,-10.00,49.60,10.00
+GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
+GLDebug: 	Inserted edge:-E0 into SUMORTree with boundary -10.00,12.00,40.00,40.00
+GLDebug: 	Inserted edge:-E1 into SUMORTree with boundary 20.00,20.00,70.00,48.00
+GLDebug: 	Inserted edge:-E2 into SUMORTree with boundary 12.00,20.00,40.00,70.00
+GLDebug: 	Inserted edge:-E3 into SUMORTree with boundary 20.00,-10.00,48.00,40.00
+GLDebug: 	Inserted edge:E0 into SUMORTree with boundary -10.00,20.00,40.00,48.00
+GLDebug: 	Inserted edge:E1 into SUMORTree with boundary 20.00,12.00,70.00,40.00
+GLDebug: 	Inserted edge:E2 into SUMORTree with boundary 20.00,20.00,48.00,70.00
+GLDebug: 	Inserted edge:E3 into SUMORTree with boundary 12.00,-10.00,40.00,40.00
 Debug: Created connection 'from-E0_1toE3_1' in retrieveGNEConnection()
 Debug: Created connection 'from-E0_2toE3_2' in retrieveGNEConnection()
 Debug: Created connection 'from-E0_2toE1_2' in retrieveGNEConnection()
@@ -48,13 +92,141 @@ Debug: Created connection 'fromE3_1to-E3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromE3_2to-E3_2' in retrieveGNEConnection()
 Debug: Adding TLS into junction 'J0'
 Debug: Setting new attribute
+GLDebug: 	Inserted tlLogic::J0_0 into SUMORTree with boundary 8.90,24.80,35.20,51.10
+GLDebug: 	Inserted tlLogic::J0_1 into SUMORTree with boundary 8.90,21.60,38.40,51.10
+GLDebug: 	Inserted tlLogic::J0_2 into SUMORTree with boundary 18.40,8.90,38.40,51.10
+GLDebug: 	Inserted tlLogic::J0_3 into SUMORTree with boundary 18.40,18.40,51.10,51.10
+GLDebug: 	Inserted tlLogic::J0_4 into SUMORTree with boundary 24.80,24.80,51.10,51.10
+GLDebug: 	Inserted tlLogic::J0_5 into SUMORTree with boundary 21.60,21.60,51.10,51.10
+GLDebug: 	Inserted tlLogic::J0_6 into SUMORTree with boundary 8.90,21.60,51.10,41.60
+GLDebug: 	Inserted tlLogic::J0_7 into SUMORTree with boundary 18.40,8.90,51.10,41.60
+GLDebug: 	Inserted tlLogic::J0_8 into SUMORTree with boundary 24.80,8.90,51.10,35.20
+GLDebug: 	Inserted tlLogic::J0_9 into SUMORTree with boundary 21.60,8.90,51.10,38.40
+GLDebug: 	Inserted tlLogic::J0_10 into SUMORTree with boundary 21.60,8.90,41.60,51.10
+GLDebug: 	Inserted tlLogic::J0_11 into SUMORTree with boundary 8.90,8.90,41.60,41.60
+GLDebug: 	Inserted tlLogic::J0_12 into SUMORTree with boundary 8.90,8.90,35.20,35.20
+GLDebug: 	Inserted tlLogic::J0_13 into SUMORTree with boundary 8.90,8.90,38.40,38.40
+GLDebug: 	Inserted tlLogic::J0_14 into SUMORTree with boundary 8.90,18.40,51.10,38.40
+GLDebug: 	Inserted tlLogic::J0_15 into SUMORTree with boundary 8.90,18.40,41.60,51.10
+GLDebug: 	Removed object tlLogic::J0_0 from SUMORTree with boundary 8.90,24.80,35.20,51.10
+GLDebug: 	Removed object tlLogic::J0_1 from SUMORTree with boundary 8.90,21.60,38.40,51.10
+GLDebug: 	Removed object tlLogic::J0_2 from SUMORTree with boundary 18.40,8.90,38.40,51.10
+GLDebug: 	Removed object tlLogic::J0_3 from SUMORTree with boundary 18.40,18.40,51.10,51.10
+GLDebug: 	Removed object tlLogic::J0_4 from SUMORTree with boundary 24.80,24.80,51.10,51.10
+GLDebug: 	Removed object tlLogic::J0_5 from SUMORTree with boundary 21.60,21.60,51.10,51.10
+GLDebug: 	Removed object tlLogic::J0_6 from SUMORTree with boundary 8.90,21.60,51.10,41.60
+GLDebug: 	Removed object tlLogic::J0_7 from SUMORTree with boundary 18.40,8.90,51.10,41.60
+GLDebug: 	Removed object tlLogic::J0_8 from SUMORTree with boundary 24.80,8.90,51.10,35.20
+GLDebug: 	Removed object tlLogic::J0_9 from SUMORTree with boundary 21.60,8.90,51.10,38.40
+GLDebug: 	Removed object tlLogic::J0_10 from SUMORTree with boundary 21.60,8.90,41.60,51.10
+GLDebug: 	Removed object tlLogic::J0_11 from SUMORTree with boundary 8.90,8.90,41.60,41.60
+GLDebug: 	Removed object tlLogic::J0_12 from SUMORTree with boundary 8.90,8.90,35.20,35.20
+GLDebug: 	Removed object tlLogic::J0_13 from SUMORTree with boundary 8.90,8.90,38.40,38.40
+GLDebug: 	Removed object tlLogic::J0_14 from SUMORTree with boundary 8.90,18.40,51.10,38.40
+GLDebug: 	Removed object tlLogic::J0_15 from SUMORTree with boundary 8.90,18.40,41.60,51.10
 Debug: Setting new attribute
+GLDebug: 	Inserted tlLogic::J0_0 into SUMORTree with boundary 8.90,24.80,35.20,51.10
+GLDebug: 	Inserted tlLogic::J0_1 into SUMORTree with boundary 8.90,21.60,38.40,51.10
+GLDebug: 	Inserted tlLogic::J0_2 into SUMORTree with boundary 18.40,8.90,38.40,51.10
+GLDebug: 	Inserted tlLogic::J0_3 into SUMORTree with boundary 18.40,18.40,51.10,51.10
+GLDebug: 	Inserted tlLogic::J0_4 into SUMORTree with boundary 24.80,24.80,51.10,51.10
+GLDebug: 	Inserted tlLogic::J0_5 into SUMORTree with boundary 21.60,21.60,51.10,51.10
+GLDebug: 	Inserted tlLogic::J0_6 into SUMORTree with boundary 8.90,21.60,51.10,41.60
+GLDebug: 	Inserted tlLogic::J0_7 into SUMORTree with boundary 18.40,8.90,51.10,41.60
+GLDebug: 	Inserted tlLogic::J0_8 into SUMORTree with boundary 24.80,8.90,51.10,35.20
+GLDebug: 	Inserted tlLogic::J0_9 into SUMORTree with boundary 21.60,8.90,51.10,38.40
+GLDebug: 	Inserted tlLogic::J0_10 into SUMORTree with boundary 21.60,8.90,41.60,51.10
+GLDebug: 	Inserted tlLogic::J0_11 into SUMORTree with boundary 8.90,8.90,41.60,41.60
+GLDebug: 	Inserted tlLogic::J0_12 into SUMORTree with boundary 8.90,8.90,35.20,35.20
+GLDebug: 	Inserted tlLogic::J0_13 into SUMORTree with boundary 8.90,8.90,38.40,38.40
+GLDebug: 	Inserted tlLogic::J0_14 into SUMORTree with boundary 8.90,18.40,51.10,38.40
+GLDebug: 	Inserted tlLogic::J0_15 into SUMORTree with boundary 8.90,18.40,41.60,51.10
 Debug: Key ENTER pressed
+GLDebug: 	Removed object tlLogic::J0_0 from SUMORTree with boundary 8.90,24.80,35.20,51.10
+GLDebug: 	Removed object tlLogic::J0_1 from SUMORTree with boundary 8.90,21.60,38.40,51.10
+GLDebug: 	Removed object tlLogic::J0_2 from SUMORTree with boundary 18.40,8.90,38.40,51.10
+GLDebug: 	Removed object tlLogic::J0_3 from SUMORTree with boundary 18.40,18.40,51.10,51.10
+GLDebug: 	Removed object tlLogic::J0_4 from SUMORTree with boundary 24.80,24.80,51.10,51.10
+GLDebug: 	Removed object tlLogic::J0_5 from SUMORTree with boundary 21.60,21.60,51.10,51.10
+GLDebug: 	Removed object tlLogic::J0_6 from SUMORTree with boundary 8.90,21.60,51.10,41.60
+GLDebug: 	Removed object tlLogic::J0_7 from SUMORTree with boundary 18.40,8.90,51.10,41.60
+GLDebug: 	Removed object tlLogic::J0_8 from SUMORTree with boundary 24.80,8.90,51.10,35.20
+GLDebug: 	Removed object tlLogic::J0_9 from SUMORTree with boundary 21.60,8.90,51.10,38.40
+GLDebug: 	Removed object tlLogic::J0_10 from SUMORTree with boundary 21.60,8.90,41.60,51.10
+GLDebug: 	Removed object tlLogic::J0_11 from SUMORTree with boundary 8.90,8.90,41.60,41.60
+GLDebug: 	Removed object tlLogic::J0_12 from SUMORTree with boundary 8.90,8.90,35.20,35.20
+GLDebug: 	Removed object tlLogic::J0_13 from SUMORTree with boundary 8.90,8.90,38.40,38.40
+GLDebug: 	Removed object tlLogic::J0_14 from SUMORTree with boundary 8.90,18.40,51.10,38.40
+GLDebug: 	Removed object tlLogic::J0_15 from SUMORTree with boundary 8.90,18.40,41.60,51.10
+GLDebug: 	Inserted tlLogic::J0_0 into SUMORTree with boundary 8.90,24.80,35.20,51.10
+GLDebug: 	Inserted tlLogic::J0_1 into SUMORTree with boundary 8.90,21.60,38.40,51.10
+GLDebug: 	Inserted tlLogic::J0_2 into SUMORTree with boundary 18.40,8.90,38.40,51.10
+GLDebug: 	Inserted tlLogic::J0_3 into SUMORTree with boundary 18.40,18.40,51.10,51.10
+GLDebug: 	Inserted tlLogic::J0_4 into SUMORTree with boundary 24.80,24.80,51.10,51.10
+GLDebug: 	Inserted tlLogic::J0_5 into SUMORTree with boundary 21.60,21.60,51.10,51.10
+GLDebug: 	Inserted tlLogic::J0_6 into SUMORTree with boundary 8.90,21.60,51.10,41.60
+GLDebug: 	Inserted tlLogic::J0_7 into SUMORTree with boundary 18.40,8.90,51.10,41.60
+GLDebug: 	Inserted tlLogic::J0_8 into SUMORTree with boundary 24.80,8.90,51.10,35.20
+GLDebug: 	Inserted tlLogic::J0_9 into SUMORTree with boundary 21.60,8.90,51.10,38.40
+GLDebug: 	Inserted tlLogic::J0_10 into SUMORTree with boundary 21.60,8.90,41.60,51.10
+GLDebug: 	Inserted tlLogic::J0_11 into SUMORTree with boundary 8.90,8.90,41.60,41.60
+GLDebug: 	Inserted tlLogic::J0_12 into SUMORTree with boundary 8.90,8.90,35.20,35.20
+GLDebug: 	Inserted tlLogic::J0_13 into SUMORTree with boundary 8.90,8.90,38.40,38.40
+GLDebug: 	Inserted tlLogic::J0_14 into SUMORTree with boundary 8.90,18.40,51.10,38.40
+GLDebug: 	Inserted tlLogic::J0_15 into SUMORTree with boundary 8.90,18.40,41.60,51.10
 Debug: Ungroup states
 Debug: Key ENTER pressed
 Debug: Deleting TLS from junction 'J0'
 Debug: Adding TLS into junction 'J0'
+GLDebug: 	Removed object tlLogic::J0_0 from SUMORTree with boundary 8.90,24.80,35.20,51.10
+GLDebug: 	Removed object tlLogic::J0_1 from SUMORTree with boundary 8.90,21.60,38.40,51.10
+GLDebug: 	Removed object tlLogic::J0_2 from SUMORTree with boundary 18.40,8.90,38.40,51.10
+GLDebug: 	Removed object tlLogic::J0_3 from SUMORTree with boundary 18.40,18.40,51.10,51.10
+GLDebug: 	Removed object tlLogic::J0_4 from SUMORTree with boundary 24.80,24.80,51.10,51.10
+GLDebug: 	Removed object tlLogic::J0_5 from SUMORTree with boundary 21.60,21.60,51.10,51.10
+GLDebug: 	Removed object tlLogic::J0_6 from SUMORTree with boundary 8.90,21.60,51.10,41.60
+GLDebug: 	Removed object tlLogic::J0_7 from SUMORTree with boundary 18.40,8.90,51.10,41.60
+GLDebug: 	Removed object tlLogic::J0_8 from SUMORTree with boundary 24.80,8.90,51.10,35.20
+GLDebug: 	Removed object tlLogic::J0_9 from SUMORTree with boundary 21.60,8.90,51.10,38.40
+GLDebug: 	Removed object tlLogic::J0_10 from SUMORTree with boundary 21.60,8.90,41.60,51.10
+GLDebug: 	Removed object tlLogic::J0_11 from SUMORTree with boundary 8.90,8.90,41.60,41.60
+GLDebug: 	Removed object tlLogic::J0_12 from SUMORTree with boundary 8.90,8.90,35.20,35.20
+GLDebug: 	Removed object tlLogic::J0_13 from SUMORTree with boundary 8.90,8.90,38.40,38.40
+GLDebug: 	Removed object tlLogic::J0_14 from SUMORTree with boundary 8.90,18.40,51.10,38.40
+GLDebug: 	Removed object tlLogic::J0_15 from SUMORTree with boundary 8.90,18.40,41.60,51.10
+GLDebug: 	Inserted tlLogic::J0_0 into SUMORTree with boundary 8.90,24.80,35.20,51.10
+GLDebug: 	Inserted tlLogic::J0_1 into SUMORTree with boundary 8.90,21.60,38.40,51.10
+GLDebug: 	Inserted tlLogic::J0_2 into SUMORTree with boundary 18.40,8.90,38.40,51.10
+GLDebug: 	Inserted tlLogic::J0_3 into SUMORTree with boundary 18.40,18.40,51.10,51.10
+GLDebug: 	Inserted tlLogic::J0_4 into SUMORTree with boundary 24.80,24.80,51.10,51.10
+GLDebug: 	Inserted tlLogic::J0_5 into SUMORTree with boundary 21.60,21.60,51.10,51.10
+GLDebug: 	Inserted tlLogic::J0_6 into SUMORTree with boundary 8.90,21.60,51.10,41.60
+GLDebug: 	Inserted tlLogic::J0_7 into SUMORTree with boundary 18.40,8.90,51.10,41.60
+GLDebug: 	Inserted tlLogic::J0_8 into SUMORTree with boundary 24.80,8.90,51.10,35.20
+GLDebug: 	Inserted tlLogic::J0_9 into SUMORTree with boundary 21.60,8.90,51.10,38.40
+GLDebug: 	Inserted tlLogic::J0_10 into SUMORTree with boundary 21.60,8.90,41.60,51.10
+GLDebug: 	Inserted tlLogic::J0_11 into SUMORTree with boundary 8.90,8.90,41.60,41.60
+GLDebug: 	Inserted tlLogic::J0_12 into SUMORTree with boundary 8.90,8.90,35.20,35.20
+GLDebug: 	Inserted tlLogic::J0_13 into SUMORTree with boundary 8.90,8.90,38.40,38.40
+GLDebug: 	Inserted tlLogic::J0_14 into SUMORTree with boundary 8.90,18.40,51.10,38.40
+GLDebug: 	Inserted tlLogic::J0_15 into SUMORTree with boundary 8.90,18.40,41.60,51.10
 Debug: Key ESC (abort) pressed
+GLDebug: 	Removed object tlLogic::J0_0 from SUMORTree with boundary 8.90,24.80,35.20,51.10
+GLDebug: 	Removed object tlLogic::J0_1 from SUMORTree with boundary 8.90,21.60,38.40,51.10
+GLDebug: 	Removed object tlLogic::J0_2 from SUMORTree with boundary 18.40,8.90,38.40,51.10
+GLDebug: 	Removed object tlLogic::J0_3 from SUMORTree with boundary 18.40,18.40,51.10,51.10
+GLDebug: 	Removed object tlLogic::J0_4 from SUMORTree with boundary 24.80,24.80,51.10,51.10
+GLDebug: 	Removed object tlLogic::J0_5 from SUMORTree with boundary 21.60,21.60,51.10,51.10
+GLDebug: 	Removed object tlLogic::J0_6 from SUMORTree with boundary 8.90,21.60,51.10,41.60
+GLDebug: 	Removed object tlLogic::J0_7 from SUMORTree with boundary 18.40,8.90,51.10,41.60
+GLDebug: 	Removed object tlLogic::J0_8 from SUMORTree with boundary 24.80,8.90,51.10,35.20
+GLDebug: 	Removed object tlLogic::J0_9 from SUMORTree with boundary 21.60,8.90,51.10,38.40
+GLDebug: 	Removed object tlLogic::J0_10 from SUMORTree with boundary 21.60,8.90,41.60,51.10
+GLDebug: 	Removed object tlLogic::J0_11 from SUMORTree with boundary 8.90,8.90,41.60,41.60
+GLDebug: 	Removed object tlLogic::J0_12 from SUMORTree with boundary 8.90,8.90,35.20,35.20
+GLDebug: 	Removed object tlLogic::J0_13 from SUMORTree with boundary 8.90,8.90,38.40,38.40
+GLDebug: 	Removed object tlLogic::J0_14 from SUMORTree with boundary 8.90,18.40,51.10,38.40
+GLDebug: 	Removed object tlLogic::J0_15 from SUMORTree with boundary 8.90,18.40,41.60,51.10
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing TLS from junction 'J0'
@@ -63,6 +235,36 @@ Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Deleting TLS from junction 'J0'
 Debug: Adding TLS into junction 'J0'
+GLDebug: Removing junctions during recomputing
+GLDebug: 	Removed object junction:J0 from SUMORTree with boundary 8.90,8.90,51.10,51.10
+GLDebug: 	Removed object junction:J1 from SUMORTree with boundary -10.00,10.40,10.00,49.60
+GLDebug: 	Removed object junction:J2 from SUMORTree with boundary 50.00,10.40,70.00,49.60
+GLDebug: 	Removed object junction:J3 from SUMORTree with boundary 10.40,50.00,49.60,70.00
+GLDebug: 	Removed object junction:J4 from SUMORTree with boundary 10.40,-10.00,49.60,10.00
+GLDebug: Removing edges during recomputing
+GLDebug: 	Removed object edge:-E0 from SUMORTree with boundary -10.00,12.00,40.00,40.00
+GLDebug: 	Removed object edge:-E1 from SUMORTree with boundary 20.00,20.00,70.00,48.00
+GLDebug: 	Removed object edge:-E2 from SUMORTree with boundary 12.00,20.00,40.00,70.00
+GLDebug: 	Removed object edge:-E3 from SUMORTree with boundary 20.00,-10.00,48.00,40.00
+GLDebug: 	Removed object edge:E0 from SUMORTree with boundary -10.00,20.00,40.00,48.00
+GLDebug: 	Removed object edge:E1 from SUMORTree with boundary 20.00,12.00,70.00,40.00
+GLDebug: 	Removed object edge:E2 from SUMORTree with boundary 20.00,20.00,48.00,70.00
+GLDebug: 	Removed object edge:E3 from SUMORTree with boundary 12.00,-10.00,40.00,40.00
+GLDebug: Add junctions during recomputing after calling myNetBuilder->compute(...)
+GLDebug: 	Inserted junction:J0 into SUMORTree with boundary 8.90,8.90,51.10,51.10
+GLDebug: 	Inserted junction:J1 into SUMORTree with boundary -10.00,10.40,10.00,49.60
+GLDebug: 	Inserted junction:J2 into SUMORTree with boundary 50.00,10.40,70.00,49.60
+GLDebug: 	Inserted junction:J3 into SUMORTree with boundary 10.40,50.00,49.60,70.00
+GLDebug: 	Inserted junction:J4 into SUMORTree with boundary 10.40,-10.00,49.60,10.00
+GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
+GLDebug: 	Inserted edge:-E0 into SUMORTree with boundary -10.00,12.00,40.00,40.00
+GLDebug: 	Inserted edge:-E1 into SUMORTree with boundary 20.00,20.00,70.00,48.00
+GLDebug: 	Inserted edge:-E2 into SUMORTree with boundary 12.00,20.00,40.00,70.00
+GLDebug: 	Inserted edge:-E3 into SUMORTree with boundary 20.00,-10.00,48.00,40.00
+GLDebug: 	Inserted edge:E0 into SUMORTree with boundary -10.00,20.00,40.00,48.00
+GLDebug: 	Inserted edge:E1 into SUMORTree with boundary 20.00,12.00,70.00,40.00
+GLDebug: 	Inserted edge:E2 into SUMORTree with boundary 20.00,20.00,48.00,70.00
+GLDebug: 	Inserted edge:E3 into SUMORTree with boundary 12.00,-10.00,40.00,40.00
 Debug: network elements saved
 Debug: Additionals saved
 Debug: demand elements saved
@@ -152,3 +354,4 @@ Debug: Deleting unreferenced junction 'J2' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'J3' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'J4' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
+GLDebug: Number of objects in SUMORTree during call of the destructor: 13

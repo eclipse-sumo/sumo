@@ -17,13 +17,13 @@ GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -10.00,8.40,40.00,30.
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,10.00,40.00,31.60
 Debug: Adding containerStop 'containerStopA' in GNEChange_Additional
 Debug: Adding containerStop 'containerStopB' in GNEChange_Additional
-Error: Attribute 'speed' in definition of a tranship Invalid Number Format .
+Error: Attribute 'speed' in definition of a tranship Invalid Number Format (double) dummySpeed.
 Debug: Adding container 'c_0' in GNEChange_DemandElement
 Debug: Adding tranship: edge->edge 'c_0' in GNEChange_DemandElement
 Debug: Adding container 'c_1' in GNEChange_DemandElement
 Debug: Adding tranship: edge->edge 'c_1' in GNEChange_DemandElement
 Debug: Adding tranship: edge->containerStop 'c_1' in GNEChange_DemandElement
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.containerplan.25Jan182728.9820/netedit.daily.demand.containerplan/demandelements/containerplan/tranships/tranship_edgecontainerstop/load/speed/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.containerplan.26Jan095535.11195/netedit.daily.demand.containerplan/demandelements/containerplan/tranships/tranship_edgecontainerstop/load/speed/routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 48.00,-12.00,72.00,12.00

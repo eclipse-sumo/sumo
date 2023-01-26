@@ -1,6 +1,6 @@
 Error: Attribute 'speed' in definition of a stop is empty.
 Error: Speed cannot be negative for stop at 'parkingArea'
-Error: Attribute 'speed' in definition of a stop Invalid Number Format .
+Error: Attribute 'speed' in definition of a stop Invalid Number Format (double) dummySpeed.
 Error: Speed cannot be negative for stop at 'parkingArea'
 Error: Speed cannot be negative for stop at 'parkingArea'
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.waypoint.parkingarea.25Jan182729.10073/netedit.daily.demand.waypoint.parkingarea/demandelements/waypoint/parkingarea/load/speed/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.waypoint.parkingarea.26Jan095536.11267/netedit.daily.demand.waypoint.parkingarea/demandelements/waypoint/parkingarea/load/speed/routes.rou.xml failed.

@@ -5,7 +5,7 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Selected item 'calibrator' in GNETagSelector
 Debug: Adding calibrator 'ca_0' in GNEChange_Additional
-Debug: Invalid input parameter of calibrator
+Debug: Adding calibrator 'calibrator' in GNEChange_Additional
 Debug: Invalid input parameter of calibrator
 Debug: Adding calibrator 'customID' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
@@ -13,10 +13,10 @@ Debug: Calling GNEUndoList::undo()
 Debug: Removing calibrator 'customID' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing calibrator 'ca_0' in GNEChange_Additional
+Debug: Removing calibrator 'calibrator' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding calibrator 'ca_0' in GNEChange_Additional
+Debug: Adding calibrator 'calibrator' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding calibrator 'customID' in GNEChange_Additional
@@ -34,7 +34,6 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -10.00,-13.20,10.00,13.20
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 40.00,-13.20,60.00,13.20
@@ -48,6 +47,8 @@ GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: network elements saved
+Debug: Additionals saved
+Debug: Deleting unreferenced calibrator
 Debug: Deleting unreferenced calibrator
 Debug: Deleting unreferenced calibrator
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor

@@ -61,7 +61,6 @@ Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE2_1togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE3_1togneE2_1' in retrieveGNEConnection()
-Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -10.00,-13.20,10.00,13.20
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 40.00,-13.20,60.00,13.20
@@ -83,6 +82,7 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,5.20,60.00,30.00
 GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary -10.00,10.00,60.00,34.80
 Debug: network elements saved
+Debug: Additionals saved
 Debug: Deleting unreferenced trainStop
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor

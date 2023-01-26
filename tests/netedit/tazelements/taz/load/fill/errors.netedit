@@ -5,10 +5,10 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Adding taz 'TAZ_0' in GNEChange_Additional
 GLDebug: 	Inserted taz:TAZ_0 into SUMORTree with boundary -20.00,20.00,10.00,50.00
-Error: Attribute 'fill' in definition of taz 'TAZ_1' Invalid Bool Format .
+Error: Attribute 'fill' in definition of taz 'TAZ_1' Invalid Bool Format dummyfill.
 Debug: Adding taz 'TAZ_2' in GNEChange_Additional
 GLDebug: 	Inserted taz:TAZ_2 into SUMORTree with boundary 20.00,20.00,50.00,50.00
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.taz.taz.25Jan182729.10247/netedit.daily.taz.taz/tazelements/taz/load/fill/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.taz.taz.26Jan095537.11329/netedit.daily.taz.taz/tazelements/taz/load/fill/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

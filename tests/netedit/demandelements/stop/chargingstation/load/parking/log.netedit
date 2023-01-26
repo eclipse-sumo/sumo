@@ -1,9 +1,9 @@
-Error: Attribute 'parking' in definition of a stop Invalid Bool Format .
+Error: Attribute 'parking' in definition of a stop Invalid Bool Format dummy.
 Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'chargingStation'
 Error: Attribute 'parking' in definition of a stop is empty.
 Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'chargingStation'
-Error: Attribute 'parking' in definition of a stop Invalid Bool Format .
+Error: Attribute 'parking' in definition of a stop Invalid Bool Format -4.
 Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'chargingStation'
-Error: Attribute 'parking' in definition of a stop Invalid Bool Format .
+Error: Attribute 'parking' in definition of a stop Invalid Bool Format 2.3.
 Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'chargingStation'
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.stop.chargingstation.25Jan182728.9879/netedit.daily.demand.stop.chargingstation/demandelements/stop/chargingstation/load/parking/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.stop.chargingstation.26Jan095536.11228/netedit.daily.demand.stop.chargingstation/demandelements/stop/chargingstation/load/parking/routes.rou.xml failed.

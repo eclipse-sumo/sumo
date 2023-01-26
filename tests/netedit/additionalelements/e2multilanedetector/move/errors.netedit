@@ -53,7 +53,6 @@ Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -10.00,-13.20,10.00,13.20
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 40.00,-13.20,60.00,13.20
@@ -73,6 +72,7 @@ GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary 15.00,-11.60,60.00,10
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary 15.00,-10.00,60.00,11.60
 GLDebug: 	Inserted edge:gneE5 into SUMORTree with boundary -10.00,-10.00,35.00,11.60
 Debug: network elements saved
+Debug: Additionals saved
 Debug: Deleting unreferenced multiLaneAreaDetector
 Debug: Deleting unreferenced edge 'gneE2' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
@@ -90,3 +90,4 @@ Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ2' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 7
+X connection to :11619.0 broken (explicit kill or server shutdown).

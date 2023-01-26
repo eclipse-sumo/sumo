@@ -8,7 +8,7 @@ Error: Attribute 'speed' in definition of a stop is empty.
 Error: Speed cannot be negative for stop at 'parkingArea'
 Debug: Adding vehicleWithRoute 'vehicle_0' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'vehicle_0' in GNEChange_DemandElement
-Error: Attribute 'speed' in definition of a stop Invalid Number Format .
+Error: Attribute 'speed' in definition of a stop Invalid Number Format (double) dummySpeed.
 Error: Speed cannot be negative for stop at 'parkingArea'
 Debug: Adding vehicleWithRoute 'vehicle_1' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'vehicle_1' in GNEChange_DemandElement
@@ -18,7 +18,7 @@ Debug: Adding routeEmbedded 'vehicle_2' in GNEChange_DemandElement
 Debug: Adding vehicleWithRoute 'vehicle_3' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'vehicle_3' in GNEChange_DemandElement
 Debug: Adding waypointParkingArea 'vehicle_3' in GNEChange_DemandElement
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.waypoint.parkingarea.25Jan182729.10073/netedit.daily.demand.waypoint.parkingarea/demandelements/waypoint/parkingarea/load/speed/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.waypoint.parkingarea.26Jan095536.11267/netedit.daily.demand.waypoint.parkingarea/demandelements/waypoint/parkingarea/load/speed/routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 13.00,-12.00,37.00,12.00
