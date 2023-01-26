@@ -1,0 +1,1 @@
+Error: Could not build chargingStation with ID 'cs_0' in netedit; attribute chargeDelay cannot be negative.

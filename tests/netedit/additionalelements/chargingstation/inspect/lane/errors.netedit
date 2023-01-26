@@ -63,7 +63,6 @@ Debug: Created connection 'fromgneE2_1togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE3_1togneE2_1' in retrieveGNEConnection()
 Debug: Created walkingArea ':gneJ2_w0' in retrieveGNEWalkingArea()
 Debug: Created walkingArea ':gneJ3_w0' in retrieveGNEWalkingArea()
-Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -10.00,-13.20,10.00,13.20
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 40.00,-13.20,60.00,13.20
@@ -89,6 +88,7 @@ Debug: Created walkingArea ':gneJ2_w0' in retrieveGNEWalkingArea()
 Debug: Deleting unreferenced walkingArea in rebuildGNEWalkingAreas()
 Debug: Created walkingArea ':gneJ3_w0' in retrieveGNEWalkingArea()
 Debug: network elements saved
+Debug: Additionals saved
 Debug: Deleting unreferenced chargingStation
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
