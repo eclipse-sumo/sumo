@@ -483,7 +483,7 @@ NBEdgeCont::processSplits(NBEdge* e, std::vector<Split> splits,
     double seen = 0;
     for (const Split& exp : splits) {
         assert(exp.lanes.size() != 0);
-        if (exp.pos > 0 && e->getGeometry().length() + seen > exp.pos && exp.pos > seen) {
+        if (exp.pos > 0 && e->getLoadedLength() + seen > exp.pos && exp.pos > seen) {
             nc.insert(exp.node);
             nc.markAsSplit(exp.node);
             //  split the edge
