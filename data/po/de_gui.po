@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-27 12:44+0000\n"
+"PO-Revision-Date: 2023-01-27 13:01+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -547,23 +547,23 @@ msgstr "Über sumo-gui."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:645
 msgid "\tOpen simulation\tOpen a simulation (Configuration file)."
-msgstr ""
+msgstr "\tSimulation öffnen\tÖffne eine Simulation (Konfigurationsdatei)."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:647
 msgid "\tOpen network\tOpen a network."
-msgstr ""
+msgstr "\tNetz öffnen\tÖffne ein Netz."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:649
 msgid "\tReload\tReloads the simulation / the network."
-msgstr ""
+msgstr "\tNeu laden\tLädt die Simulation / das Netz erneut."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:658
 msgid "\tRun\tStart/Resume the loaded simulation."
-msgstr ""
+msgstr "\tAusführen\tBeginne oder führe die Simulation fort."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:660
 msgid "\tStop\tHalt the running simulation."
-msgstr ""
+msgstr "\tHalt\tHalte die Simulation an."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:662
 msgid "\tStep\tPerform a single simulation step."
@@ -878,7 +878,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/guisim_main.cpp:77
 #: /home/micha/programming/sumo/src/netedit/netedit_main.cpp:75
 msgid "This system has no OpenGL support. Exiting."
-msgstr "Dieses System hat keine OpenGL-Unterstützung. Beenden."
+msgstr "Dieses System unterstützt OpenGL nicht. Abbruch."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:443
 #, fuzzy
@@ -1004,23 +1004,23 @@ msgstr "Netz gespeichert in'"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3100
 msgid "Saving plain xml failed!"
-msgstr ""
+msgstr "Speichern im \"Plain XML\"-Format fehlgeschlagen!"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3107
 msgid "Plain XML saved with prefix '"
-msgstr ""
+msgstr "Im \"Plain XML\"-Format gespeichert; Präfix '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3128
 msgid "Saving joined junctions failed!"
-msgstr ""
+msgstr "Speichern der vereinigten Knoten fehlgeschlagen!"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3134
 msgid "Joined junctions saved to '"
-msgstr ""
+msgstr "Vereinigte Knoten gespeichert in '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3188
 msgid "NETEDIT configuration saved in '"
-msgstr ""
+msgstr "Netedit-Konfiguration gespeichert in '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3194
 msgid "Could not save NETEDIT configuration in '"
