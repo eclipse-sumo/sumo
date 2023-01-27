@@ -194,7 +194,7 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
                 if (!it->edges.empty()) {
                     MSStoppingPlace* bs = MSNet::getInstance()->getStoppingPlace(it->destStop, SUMO_TAG_BUS_STOP);
                     double localArrivalPos = bs != nullptr ? bs->getAccessPos(it->edges.back()) : it->edges.back()->getLength() / 2.;
-                    const MSEdge* rideOrigin = myOrigin->isTazConnector() ? it->edges.front() : nullptr;
+                    const MSEdge* const rideOrigin = myOrigin->isTazConnector() && (transportable->getNumStages() == oldNumStages) ? it->edges.front() : nullptr;
                     if (it + 1 == result.end() && myHaveArrivalPos) {
                         localArrivalPos = myArrivalPos;
                     }
