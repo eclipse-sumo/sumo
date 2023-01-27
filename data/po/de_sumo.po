@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-27 13:34+0000\n"
+"PO-Revision-Date: 2023-01-27 14:57+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -188,7 +188,7 @@ msgid "Could not close route for '%'"
 msgstr "Route für '%' konnte nicht geschlossen werden"
 
 #: /home/micha/programming/sumo/src/dfrouter/RODFNet.cpp:439
-#, c-format, fuzzy
+#, c-format
 msgid ""
 "Detector '%' has no flows.\n"
 " Trying to rebuild."
@@ -1265,34 +1265,39 @@ msgstr "Keine Zielkante für %."
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1371
 #: /home/micha/programming/sumo/src/router/RORouteHandler.cpp:1225
 msgid "Start edge not defined for person '%'."
-msgstr ""
+msgstr "Keine definierte Startkante für Person '%'."
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1381
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1446
 #: /home/micha/programming/sumo/src/router/RORouteHandler.cpp:1236
 #: /home/micha/programming/sumo/src/router/RORouteHandler.cpp:1293
 msgid "Non-positive walking duration for  '%'."
-msgstr ""
+msgstr "Keine positive Wegedauer für '%'."
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1408
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1452
 #: /home/micha/programming/sumo/src/router/RORouteHandler.cpp:1297
 msgid "Non-positive walking speed for  '%'."
-msgstr ""
+msgstr "Keine positive Gehgeschwindigkeit für '%'."
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1477
 msgid "No edges to walk for person '%'."
-msgstr ""
+msgstr "Keine Gehwege für die Person '%'."
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1514
+#, fuzzy
 msgid ""
 "Could not find departure lane for walk of person '%' when interpreting "
 "departPosLat"
 msgstr ""
+"Beim interpretieren von \"departPosLat\" konnte die Abfahrtspur für den "
+"Gehweg für die Person '%' nicht gefunden werden."
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1586
+#, fuzzy
 msgid "Could not read tranship speed for container '%'."
 msgstr ""
+"Umladegeschwindigkeit für den Container '%' konnte nicht gefunden werden."
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1594
 msgid "Non-positive tranship speed for container '%'."
@@ -1301,13 +1306,16 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1620
 #, c-format
 msgid "The start edge for container '%' is not known."
-msgstr ""
+msgstr "Die Startkante für den Container '%' ist nicht bekannt."
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1639
+#, fuzzy
 msgid ""
 "Inconsistent tranship for container '%', only one option is allowed: "
 "'edges', 'to', 'containerStop'"
 msgstr ""
+"Inkonsistente Umladung für den Container '%', nur die folgenden Optionen "
+"sind erlaubt: 'Kanten', 'zu', 'Containerhalt'"
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1645
 msgid "No edges to tranship container '%'."
@@ -1333,11 +1341,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/MSStateHandler.cpp:424
 msgid "Could not load vehicle control state"
-msgstr ""
+msgstr "Fahrzeugsteuerungsstatus konnte nicht geladen werden"
 
 #: /home/micha/programming/sumo/src/microsim/MSStateHandler.cpp:433
 msgid "Removed % vehicles while loading state."
-msgstr ""
+msgstr "% Fahrzeuge während des Ladevorganges entfernt."
 
 #: /home/micha/programming/sumo/src/microsim/MSStateHandler.cpp:459
 #, c-format
@@ -1351,12 +1359,12 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/MSVehicle.cpp:319
 msgid "No gap control available for meso."
-msgstr ""
+msgstr "Für Meso ist keine Lückensteuerung verfügbar."
 
 #: /home/micha/programming/sumo/src/microsim/MSVehicle.cpp:755
 #: /home/micha/programming/sumo/src/utils/common/UtilExceptions.h:171
 msgid "should not happen"
-msgstr ""
+msgstr "sollte nicht passieren"
 
 #: /home/micha/programming/sumo/src/microsim/MSVehicle.cpp:944
 msgid ""
@@ -1373,8 +1381,9 @@ msgid "Suspicious right_before_left junction '%'."
 msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/MSVehicle.cpp:4245
+#, fuzzy
 msgid " for unknown reasons"
-msgstr ""
+msgstr " aus unbekannten Gründen"
 
 #: /home/micha/programming/sumo/src/microsim/MSVehicle.cpp:4253
 msgid ""
@@ -1395,20 +1404,21 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/MSVehicle.cpp:5287
 #, c-format
 msgid "Vehicle '%' aborts stop."
-msgstr ""
+msgstr "Fahrzeug '%' bricht den Halt ab."
 
 #: /home/micha/programming/sumo/src/microsim/MSVehicle.cpp:7072
 msgid "Error: Invalid vehicles in state (may be a meso state)!"
-msgstr ""
+msgstr "Fehler: Ungültige Fahrzeuge im Zustand (kann ein Meso-Zustand sein)!"
 
 #: /home/micha/programming/sumo/src/microsim/MSVehicleControl.cpp:442
 #, c-format
 msgid "Vehicle '%' aborted waiting for a % that will never come."
 msgstr ""
+"Fahrzeug '%' hat abgebrochen und wartet auf %, welches nicht kommen wird."
 
 #: /home/micha/programming/sumo/src/microsim/MSVehicleTransfer.cpp:169
 msgid "Vehicle '%' ends teleporting on edge '%', time=%."
-msgstr ""
+msgstr "Fahrzeug '%' beendet teleport auf der Kante '%', Zeit=%."
 
 #: /home/micha/programming/sumo/src/microsim/MSVehicleType.cpp:433
 #, c-format
@@ -1439,15 +1449,15 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/cfmodels/MSCFModel_Krauss.cpp:58
 msgid "Rounding 'sigmaStep' to % for vType '%'"
-msgstr ""
+msgstr "Runde 'Sigma-Schritt' zu % für den Fahrzeugtyp '%'"
 
 #: /home/micha/programming/sumo/src/microsim/cfmodels/MSCFModel_Rail.cpp:50
 msgid "Unknown train type: %. Exiting!"
-msgstr ""
+msgstr "Unbekannter Schienenfahrzeugtyp: %. Beenden!"
 
 #: /home/micha/programming/sumo/src/microsim/cfmodels/MSCFModel_Rail.cpp:211
 msgid "function call not allowed for rail model. Exiting!"
-msgstr ""
+msgstr "Funktionsaufruf für das Schienenmodell ist nicht zulässig. Beenden!"
 
 #: /home/micha/programming/sumo/src/microsim/cfmodels/MSCFModel_Rail.cpp:252
 msgid ""
@@ -1458,11 +1468,13 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice.cpp:161
 #, c-format
 msgid "Device '%' cannot save state"
-msgstr ""
+msgstr "Die Einrichtung '%' kann den Status nicht speichern"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_BTreceiver.cpp:299
 msgid "Nope, a circle cannot be crossed more often than twice by a line."
 msgstr ""
+"Nein, ein Kreis kann nicht mehr als zweimal von einer Linie durchquert "
+"werden."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_BTreceiver.cpp:421
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_BTreceiver.cpp:436
@@ -1502,9 +1514,11 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ElecHybrid.cpp:528
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ElecHybrid.cpp:711
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ElecHybrid.cpp:848
+#, fuzzy
 msgid ""
 "Overhead wire solver is on, but the Eigen library has not been compiled in!"
 msgstr ""
+"Der Freileitungslöser ist an aber die Eigen-Bibliothek ist nicht kompiliert!"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ElecHybrid.cpp:600
 #, c-format
@@ -1531,11 +1545,13 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:883
 msgid "The element or node with the last Id was not found in the circuit!"
 msgstr ""
+"Das Element oder der Knoten mit der letzten ID wurden nicht im Kreislauf "
+"gefunden!"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Example.cpp:63
 #, c-format
 msgid "Invalid value '%'for vehicle parameter 'example'"
-msgstr ""
+msgstr "Ungültiger Wert '%' für den Fahrzeugparameter 'Beispiel'"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Example.cpp:75
 #, c-format
