@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-27 12:44+0000\n"
+"PO-Revision-Date: 2023-01-27 13:01+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -836,20 +836,20 @@ msgstr "不支援快捷鍵''%' i"
 
 #: /home/micha/programming/sumo/src/guisim/GUIBaseVehicle.cpp:300
 msgid "GUI-triggered stop not implemented for meso"
-msgstr ""
+msgstr "透過圖像使用介面(GUI) 觸發的停止指令尚未完成於meso內"
 
 #: /home/micha/programming/sumo/src/guisim/GUINet.cpp:326
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:2689
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs.\n"
-msgstr ""
+msgstr "路網規模超過 1 光年。 請重新考慮您的輸入。\n"
 
 #: /home/micha/programming/sumo/src/guisim/GUINet.cpp:542
 msgid "A gui-network was not yet constructed."
-msgstr ""
+msgstr "尚未構建圖像使用介面(GUI) 路網。"
 
 #: /home/micha/programming/sumo/src/guisim/GUINet.cpp:632
 msgid "Trying to set data value for the unknown edge '%'."
-msgstr ""
+msgstr "嘗試為未知路段 '%'設定數據值。"
 
 #: /home/micha/programming/sumo/src/guisim/GUINet.cpp:656
 msgid ""
