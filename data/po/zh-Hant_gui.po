@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-27 14:57+0000\n"
+"PO-Revision-Date: 2023-01-27 17:04+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -957,226 +957,226 @@ msgstr "載入路網 '"
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1972
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1981
 msgid "' in SUMO-GUI"
-msgstr ""
+msgstr "' 在 SUMO-GUI 中"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1981
 msgid "Loading sumo config '"
-msgstr ""
+msgstr "載入Sumo的設定檔"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:2311
 msgid "Configure Options"
-msgstr ""
+msgstr "設定選項"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:2324
 msgid "SUMO Options"
-msgstr ""
+msgstr "Sumo選項"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:2343
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1259
 msgid "Undo"
-msgstr ""
+msgstr "還原"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:2375
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1262
 msgid "Redo"
-msgstr ""
+msgstr "重做"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3044
 msgid "Saving Network failed!"
-msgstr ""
+msgstr "儲存路網失敗！"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3049
 msgid "Network saved in '"
-msgstr ""
+msgstr "路網儲存於 '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3100
 msgid "Saving plain xml failed!"
-msgstr ""
+msgstr "儲存純 xml 檔案失敗！"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3107
 msgid "Plain XML saved with prefix '"
-msgstr ""
+msgstr "以前置字為基礎儲存的純 XML檔案"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3128
 msgid "Saving joined junctions failed!"
-msgstr ""
+msgstr "儲存整合路口失敗！"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3134
 msgid "Joined junctions saved to '"
-msgstr ""
+msgstr "整合路口儲存於"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3188
 msgid "NETEDIT configuration saved in '"
-msgstr ""
+msgstr "NETEDIT設定檔儲存於"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3194
 msgid "Could not save NETEDIT configuration in '"
-msgstr ""
+msgstr "無法將 NETEDIT 設定檔儲存於"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3298
 msgid "SUMO configuration saved in '"
-msgstr ""
+msgstr "SUMO設定檔儲存於"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3306
 msgid "Could not save SUMO configuration in '"
-msgstr ""
+msgstr "無法將SUMO 設定檔儲存於"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3360
 msgid "TLS Programs saved in '"
-msgstr ""
+msgstr "號誌時制計畫儲存於"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3365
 msgid "Saving TLS Programs failed!"
-msgstr ""
+msgstr "儲存號誌時制計畫失敗！"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3408
 msgid "EdgeType saved in '"
-msgstr ""
+msgstr "EdgeType 儲存於"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3413
 msgid "Saving edgeTypes failed!"
-msgstr ""
+msgstr "儲存EdgeType失敗！"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3517
 msgid "load additionals from '"
-msgstr ""
+msgstr "載入其它檔案"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3521
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1304
 msgid "Loading of additional file failed: "
-msgstr ""
+msgstr "載入附加檔案失敗： "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3527
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1306
 msgid "Loading of additional file sucessfully: "
-msgstr ""
+msgstr "成功載入附加檔： "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3553
 msgid "reloading additionals from '"
-msgstr ""
+msgstr "從 ' 重新載入附加檔案"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3558
 msgid "Reloading of additional file failed: "
-msgstr ""
+msgstr "重新載入附加檔案失敗： "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3600
 msgid "Additionals saved in '"
-msgstr ""
+msgstr "附加檔案儲存於"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3670
 msgid "loading demand elements from '"
-msgstr ""
+msgstr "從 ' 載入交通需求"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3674
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1315
 msgid "Loading of route file failed: "
-msgstr ""
+msgstr "載入路徑檔案失敗： "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3680
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1317
 msgid "Loading of route file sucessfully: "
-msgstr ""
+msgstr "成功載入路徑檔案： "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3711
 msgid "Reloading of route file failed: "
-msgstr ""
+msgstr "重新載入路徑檔案失敗： "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3751
 msgid "Demand elements saved in '"
-msgstr ""
+msgstr "交通需求儲存於 '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3823
 msgid "loading data elements from '"
-msgstr ""
+msgstr "從 '載入資料"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3827
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1326
 msgid "Loading of data file failed: "
-msgstr ""
+msgstr "載入資料檔案失敗： "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3833
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1328
 msgid "Loading of data file sucessfully: "
-msgstr ""
+msgstr "成功載入資料檔案： "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3863
 msgid "reloading data elements from '"
-msgstr ""
+msgstr "從 ' 重新載入資料"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3868
 msgid "Reloading of data file failed: "
-msgstr ""
+msgstr "載入資料檔案失敗： "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3909
 msgid "Data elements saved in '"
-msgstr ""
+msgstr "資料儲存於 '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3978
 msgid "load meanDatas from '"
-msgstr ""
+msgstr "從 ' 載入meanDatas"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3982
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1337
 msgid "Loading of meandata file failed: "
-msgstr ""
+msgstr "載入meandata檔案失敗： "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3988
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4019
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1339
 msgid "Loading of meandata file sucessfully: "
-msgstr ""
+msgstr "成功載入meandata檔案： "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4014
 msgid "reloading meanDatas from '"
-msgstr ""
+msgstr "從 ' 重新載入 meanDatas"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4057
 msgid "MeanDatas saved in '"
-msgstr ""
+msgstr "MeanDatas儲存於 '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4502
 msgid "loading additionals and meandatas from '"
-msgstr ""
+msgstr "從 ' 載入附加檔案和meandatas"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4545
 msgid "Loading data elements from '"
-msgstr ""
+msgstr "從 '載入資料"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:140
 msgid "nets"
-msgstr ""
+msgstr "路網"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:141
 msgid "configs"
-msgstr ""
+msgstr "設定檔案"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:160
 msgid "Cl&ear Recent Networks"
-msgstr ""
+msgstr "Cl&ear 最近開啟過的路網"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:161
 msgid "No Recent Networks"
-msgstr ""
+msgstr "無最近開啟過的路網"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:165
 msgid "Recent Networks"
-msgstr ""
+msgstr "最近開啟過的路網"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:183
 msgid "Cl&ear Recent Configs"
-msgstr ""
+msgstr "Cl&ear 最近開啟過的設定檔案"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:184
 msgid "No Recent Configs"
-msgstr ""
+msgstr "無最近開啟過的設定檔案"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:188
 msgid "Recent Configs"
-msgstr ""
+msgstr "最近開啟過的設定檔案"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:206
 msgid "&New Network"
-msgstr ""
+msgstr "&新路網"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:206
 msgid "Create a new network."
