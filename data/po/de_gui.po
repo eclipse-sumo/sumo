@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-27 13:04+0000\n"
+"PO-Revision-Date: 2023-01-27 13:34+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -1037,71 +1037,72 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3360
 msgid "TLS Programs saved in '"
-msgstr ""
+msgstr "LSA-Programme unter dem folgenden Pfad gespeichert: '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3365
 msgid "Saving TLS Programs failed!"
-msgstr ""
+msgstr "Speichern der LSA-Programme fehlgeschlagen!"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3408
 msgid "EdgeType saved in '"
-msgstr ""
+msgstr "EdgeType gespeichert unter '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3413
 msgid "Saving edgeTypes failed!"
-msgstr ""
+msgstr "Speichern der edgeTypes fehlgeschlagen!"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3517
 msgid "load additionals from '"
-msgstr ""
+msgstr "Lädt weitere Daten aus '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3521
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1304
 msgid "Loading of additional file failed: "
-msgstr ""
+msgstr "Laden weiterer Daten aus der folgenden Datei fehlgeschlagen: "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3527
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1306
 msgid "Loading of additional file sucessfully: "
-msgstr ""
+msgstr "Weitere Daten erfolgreich aus der folgenden Datei geladen: "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3553
 msgid "reloading additionals from '"
-msgstr ""
+msgstr "Lädt weitere Daten erneut aus '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3558
 msgid "Reloading of additional file failed: "
 msgstr ""
+"Erneutes Laden von weiteren Daten aus der folgenden Datei fehlgeschlagen: "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3600
 msgid "Additionals saved in '"
-msgstr ""
+msgstr "Weitere Daten gespeichert unter '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3670
 msgid "loading demand elements from '"
-msgstr ""
+msgstr "Lädt Nachfrageelemente aus '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3674
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1315
 msgid "Loading of route file failed: "
-msgstr ""
+msgstr "Laden der folgenden Route-Datei fehlgeschlagen: "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3680
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1317
 msgid "Loading of route file sucessfully: "
-msgstr ""
+msgstr "Folgende Route-Datei wurde erfolgreich geladen: "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3711
 msgid "Reloading of route file failed: "
-msgstr ""
+msgstr "Erneutes Laden der folgenden Route-Datei fehlgeschlagen: "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3751
 msgid "Demand elements saved in '"
-msgstr ""
+msgstr "Nachfrageelemente gespeichert unter '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3823
 msgid "loading data elements from '"
-msgstr ""
+msgstr "Lädt Nachfrageelemente aus '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3827
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1326
@@ -1127,30 +1128,30 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3978
 msgid "load meanDatas from '"
-msgstr ""
+msgstr "Lädt meanData aus '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3982
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1337
 msgid "Loading of meandata file failed: "
-msgstr ""
+msgstr "Laden der folgenden meanData-Datei fehlgeschlagen: "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3988
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4019
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1339
 msgid "Loading of meandata file sucessfully: "
-msgstr ""
+msgstr "Nachfolgende MeanData-Datei wurde erfolgreich geladen: "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4014
 msgid "reloading meanDatas from '"
-msgstr ""
+msgstr "Lädt meanData erneut aus '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4057
 msgid "MeanDatas saved in '"
-msgstr ""
+msgstr "MeanData gespeichert unter '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4502
 msgid "loading additionals and meandatas from '"
-msgstr ""
+msgstr "Lädt weitere Daten und meanData aus '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4545
 msgid "Loading data elements from '"
@@ -1166,71 +1167,71 @@ msgstr "Konfigurationen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:160
 msgid "Cl&ear Recent Networks"
-msgstr ""
+msgstr "Chronik der letzten Netze leeren"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:161
 msgid "No Recent Networks"
-msgstr ""
+msgstr "Keine letzten Netze"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:165
 msgid "Recent Networks"
-msgstr ""
+msgstr "Letzte Netze"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:183
 msgid "Cl&ear Recent Configs"
-msgstr ""
+msgstr "Chronik der letzten Konfigurationen leeren"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:184
 msgid "No Recent Configs"
-msgstr ""
+msgstr "Keine letzten Konfigurationen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:188
 msgid "Recent Configs"
-msgstr ""
+msgstr "Letzte Konfigurationen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:206
 msgid "&New Network"
-msgstr ""
+msgstr "&Neues Netz"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:206
 msgid "Create a new network."
-msgstr ""
+msgstr "Erstelle ein neues Netz."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:210
 msgid "Open a new netedit window."
-msgstr ""
+msgstr "Öffne ein neues netedit-Fenster."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:217
 msgid "Load Netedit config..."
-msgstr ""
+msgstr "Netedit-Konfiguration laden..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:217
 msgid "Load a netedit configuration file."
-msgstr ""
+msgstr "Lade eine netedit-Konfigurationsdatei."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:221
 msgid "Load Sumo config..."
-msgstr ""
+msgstr "Sumo-Konfiguration laden..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:221
 msgid "Load a SUMO configuration file."
-msgstr ""
+msgstr "Lade eine sumo-Konfigurationsdatei."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:228
 msgid "&Open Network..."
-msgstr ""
+msgstr "Netz ö&ffnen..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:228
 msgid "Open a SUMO network."
-msgstr ""
+msgstr "Öffne ein sumo-Netz."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:232
 msgid "Open Netconvert Configura&tion..."
-msgstr ""
+msgstr "Netconvert-Konfiguration öffnen..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:232
 msgid "Open a configuration file with NETCONVERT options."
-msgstr ""
+msgstr "Öffne eine Konfigurationsdatei mit netconvert-Optionen."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:236
 msgid "Import &Foreign Network..."
