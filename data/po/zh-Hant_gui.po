@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-27 13:01+0000\n"
+"PO-Revision-Date: 2023-01-27 13:04+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -518,12 +518,12 @@ msgstr "開啟變更記錄。"
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:625
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1440
 msgid "&Hotkeys"
-msgstr "&快捷鍵"
+msgstr "&快速鍵"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:625
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1440
 msgid "Open Hotkeys."
-msgstr "開啟快捷鍵。"
+msgstr "開啟快速鍵。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:627
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1442
