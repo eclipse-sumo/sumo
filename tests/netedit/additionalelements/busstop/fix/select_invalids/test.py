@@ -28,6 +28,9 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
+# recompute
+netedit.rebuildNetwork()
+
 # go to select mode
 netedit.selectMode()
 
@@ -48,13 +51,15 @@ netedit.selectMode()
 
 # clear selection
 netedit.selectionClear()
+
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
+
 # select invalids
 netedit.fixStoppingPlace("selectInvalids")
 
 # remove it using DEL key
 netedit.deleteUsingSuprKey()
-
- again
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

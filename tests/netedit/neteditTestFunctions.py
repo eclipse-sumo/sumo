@@ -34,7 +34,8 @@ DELAY_KEY_TAB = 0.2
 DELAY_MOUSE_MOVE = 0.5
 DELAY_MOUSE_CLICK = 1
 DELAY_QUESTION = 3
-DELAY_RELOAD = 5
+DELAY_SAVING = 1
+DELAY_RELOAD = 3
 DELAY_QUIT_NETEDIT = 5
 DELAY_UNDOREDO = 1
 DELAY_SELECT = 1
@@ -852,6 +853,8 @@ def saveNeteditConfig(referencePosition, clickOverReference=False):
         leftClick(referencePosition, 0, 0)
     # save netedit config using hotkey
     typeThreeKeys('ctrl', 'shift', 'e')
+    # wait for saving
+    time.sleep(DELAY_SAVING)
 
 
 def saveSumoConfig(referencePosition, clickOverReference=False):
@@ -864,6 +867,8 @@ def saveSumoConfig(referencePosition, clickOverReference=False):
         leftClick(referencePosition, 0, 0)
     # save netedit config using hotkey
     typeThreeKeys('ctrl', 'shift', 's')
+    # wait for saving
+    time.sleep(DELAY_SAVING)
 
 #################################################
     # Create nodes and edges

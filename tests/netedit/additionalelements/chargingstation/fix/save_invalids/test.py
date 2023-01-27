@@ -48,12 +48,12 @@ netedit.selectMode()
 
 # clear selection
 netedit.selectionClear()
-# save invalids
-netedit.fixStoppingPlace("saveInvalids")
-
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)
+
+# save invalids
+netedit.fixStoppingPlace("saveInvalids")
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -28,6 +28,9 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
+# recompute
+netedit.rebuildNetwork()
+
 # go to select mode
 netedit.selectMode()
 
@@ -48,12 +51,12 @@ netedit.selectMode()
 
 # clear selection
 netedit.selectionClear()
-# Fix stopping places position
-netedit.fixStoppingPlace("fixPositions")
-
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)
+
+# Fix stopping places position
+netedit.fixStoppingPlace("fixPositions")
 
 # quit netedit
 netedit.quit(neteditProcess)
