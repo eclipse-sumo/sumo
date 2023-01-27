@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-27 17:04+0000\n"
+"PO-Revision-Date: 2023-01-29 16:06+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -1756,29 +1756,33 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:453
 msgid "Could not add taxi stop for vehicle '%' to %. time=% error=%."
 msgstr ""
+"Taxistand für das Fahrzeug '%' konnte nicht zu % hinzugefügt werden. Zeit=% "
+"Fehler=%."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:569
 msgid "Taxi '%' reaches scheduled end of service at time=%."
-msgstr ""
+msgstr "Taxi '%' erreicht planmäßiges Betriebsende zur Zeit=%."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:645
 msgid ""
 "All customers left vehicle '%' at time=% but there are % remaining stops"
 msgstr ""
+"Alle Kunden haben das Fahrzeug '%' zur Zeit=% verlassen, aber es gibt % "
+"verbliebene Halte"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:161
 msgid "ToC device is not supported by the mesoscopic simulation."
-msgstr ""
+msgstr "ToC-Gerät wird von der mesoskopischen Simulation nicht unterstützt."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:200
 #, c-format
 msgid "Invalid value '%'for vehicle parameter 'ssm.measures'"
-msgstr ""
+msgstr "Ungültiger Wert '%' für den Fahrzeugparameter 'ssm.measures'"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:206
 #, c-format
 msgid "Invalid value '%'for vType parameter 'ssm.measures'"
-msgstr ""
+msgstr "Ungültiger Wert '%' für den Fahrzeugtypparameter 'ssm.measures'"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:246
 msgid ""
@@ -1790,29 +1794,33 @@ msgstr ""
 msgid ""
 "Setting device.toc.currentAwareness during automated mode has no effect."
 msgstr ""
+"Das Festlegen von device.toc.currentAwareness während des automatischen "
+"Modus hat keinen Effekt."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:1000
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_ToC.cpp:1021
 msgid "Unknown ToCState '%'"
-msgstr ""
+msgstr "Unbekannter ToC-Status '%'"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDispatch.cpp:88
 msgid ""
 "Mixing reservations of persons and containers with the same group is not "
 "supported for % and %"
 msgstr ""
+"Das Mischen von Reservierungen von Personen und Behältern der gleich Gruppe "
+"wird nicht unterstützt für % und %"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDispatch.cpp:191
 msgid "Inconsistent group reservations."
-msgstr ""
+msgstr "Inkonsistente Gruppenreservierungen."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDispatch.cpp:195
 msgid "Inconsistent group reservations (2)."
-msgstr ""
+msgstr "Inkonsistente Gruppenreservierungen (2)."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSIdling.cpp:63
 msgid "Idle taxi '%' has no next segment to stop. time=%."
-msgstr ""
+msgstr "Das inaktive Taxi '%' hat keinen nächsten Abschnitt zum Halten. Zeit=%."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSIdling.cpp:155
 #, c-format
@@ -1822,38 +1830,42 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/devices/MSRoutingEngine.cpp:96
 msgid "Rerouting is useless if the edge weights do not get updated!"
 msgstr ""
+"Die Umleitung ist nutzlos, wenn die Kantengewichte nicht aktualisiert werden!"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSRoutingEngine.cpp:148
+#, fuzzy
 msgid "weights.priority-factor cannot be negative."
-msgstr ""
+msgstr "weights.priority-factor kann nicht negativ sein"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSRoutingEngine.cpp:152
 msgid ""
 "Option weights.priority-factor does not take effect because all edges have "
 "the same priority"
 msgstr ""
+"Die Option weights.priority-factor hat keinen Effekt, da alle Kanten die "
+"gleiche Priorität besitzten"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSRoutingEngine.cpp:411
 msgid "Unknown routing algorithm '%'!"
-msgstr ""
+msgstr "Unbekannter Routen-Algorithmus '%'!"
 
 #: /home/micha/programming/sumo/src/microsim/engine/VehicleEngineHandler.cpp:157
 msgid "Invalid engine map type. Only \"poly\" is supported for now"
-msgstr ""
+msgstr "Ungültiger Motorkennfeldtyp. Derzeit wird nur \"poly\" unterstützt"
 
 #: /home/micha/programming/sumo/src/microsim/engine/VehicleEngineHandler.cpp:197
 msgid "Unknown tag '%' while parsing."
-msgstr ""
+msgstr "Unbekannte Kennzeichnung '%' während der Analyse."
 
 #: /home/micha/programming/sumo/src/microsim/lcmodels/MSAbstractLaneChangeModel.cpp:82
 #, c-format
 msgid "Lane change model '%' is not compatible with sublane simulation"
-msgstr ""
+msgstr "Spurenwechselmodel '%' ist nicht kompatibel mit der Sublane-Simulation"
 
 #: /home/micha/programming/sumo/src/microsim/lcmodels/MSAbstractLaneChangeModel.cpp:98
 #, c-format
 msgid "Lane change model '%' not implemented"
-msgstr ""
+msgstr "Spurwechselmodel '%' ist nicht implementiert"
 
 #: /home/micha/programming/sumo/src/microsim/output/MSDetectorControl.cpp:180
 msgid ""
@@ -1866,12 +1878,16 @@ msgid ""
 "No valid detector length and start position given. Assuming startPos = 0 and "
 "length = end position"
 msgstr ""
+"Keine gültige Detektorlänge und Startposition gegeben. Es wird startPos = 0 "
+"und Länge = Endposition angenommen"
 
 #: /home/micha/programming/sumo/src/microsim/output/MSE2Collector.cpp:128
 msgid ""
 "No valid detector length and end position given. Assuming endPos = lane "
 "length and length = endPos-startPos"
 msgstr ""
+"Keine gültige Detektorlänge und Endposition gegeben. Es wird endPos = "
+"Spurlänge und Länge = Endposition- Startposition angenommen"
 
 #: /home/micha/programming/sumo/src/microsim/output/MSE2Collector.cpp:908
 msgid "Multi-lane e2Detector does not support detecting persons yet"
@@ -1884,15 +1900,19 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/output/MSStopOut.cpp:69
 msgid "Vehicle '%' stops on edge '%', time=% without ending the previous stop."
 msgstr ""
+"Fahrzeug '%' hält auf der Kante '%', Zeit=% ohne die vorherige Haltestelle "
+"zu beenden."
 
 #: /home/micha/programming/sumo/src/microsim/output/MSStopOut.cpp:105
 msgid "Vehicle '%' ends stop on edge '%', time=% without entering the stop."
 msgstr ""
+"Fahrzeug '%' beendet Halt auf der Kante '%', Zeit=% ohne Einfahrt in die "
+"Haltestelle."
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:139
 #, c-format
 msgid "Traffic light '%' does not control any links"
-msgstr ""
+msgstr "Lichtsignalanlage '%' kontrolliert keine Verbindungen"
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:406
 msgid "At actuated tlLogic '%', actuated phase % has no controlling detector."
@@ -1908,29 +1928,30 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1076
 msgid "Invalid empty condition '%'"
-msgstr ""
+msgstr "Ungültige leere Bedingung '%'"
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1091
 msgid "Unsupported condition '%'"
-msgstr ""
+msgstr "Nicht unterstützter Zustand '%'"
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1154
+#, fuzzy
 msgid "Division by 0 in condition '%'"
-msgstr ""
+msgstr "Division durch 0 in Zustand '%'"
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1205
 #, c-format
 msgid "Modifying global condition '%' is forbidden"
-msgstr ""
+msgstr "Die Änderung der globalen Bedingung '%' ist verboten"
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1217
 msgid "Invalid empty expression"
-msgstr ""
+msgstr "Ungültiger leerer Ausdruck"
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSRailSignal.cpp:109
 #, c-format
 msgid "Rail signal at junction '%' does not control any links"
-msgstr ""
+msgstr "Bahnsignal am Knotenpunkt '%' kontrolliert keine Verbindungen"
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSRailSignalConstraint.cpp:147
 #, c-format
@@ -3317,7 +3338,7 @@ msgstr "Eine mikroskopische, multimodale Verkehrssimulation."
 #: /home/micha/programming/sumo/src/polyconvert/polyconvert_main.cpp:273
 #: /home/micha/programming/sumo/src/utils/geom/GeoConvHelper.cpp:92
 msgid "Could not build projection!"
-msgstr ""
+msgstr "Projektionen konnten nicht erstellt werden!"
 
 #: /home/micha/programming/sumo/src/netgen/NGFrame.cpp:233
 msgid "You have to specify the type of network to generate."
@@ -4897,7 +4918,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/osgview/GUIOSGView.cpp:972
 #: /home/micha/programming/sumo/src/osgview/GUIOSGView.cpp:973
 msgid "N/A"
-msgstr ""
+msgstr "Nicht verfügbar"
 
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderArcView.cpp:107
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderDlrNavteq.cpp:208
