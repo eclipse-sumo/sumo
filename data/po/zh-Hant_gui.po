@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-27 17:04+0000\n"
+"PO-Revision-Date: 2023-01-29 16:06+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -1180,180 +1180,180 @@ msgstr "&新路網"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:206
 msgid "Create a new network."
-msgstr ""
+msgstr "建立新路網。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:210
 msgid "Open a new netedit window."
-msgstr ""
+msgstr "開啟新的netedit 視窗。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:217
 msgid "Load Netedit config..."
-msgstr ""
+msgstr "載入Netedit 設定檔案..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:217
 msgid "Load a netedit configuration file."
-msgstr ""
+msgstr "載入netedit 設定檔。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:221
 msgid "Load Sumo config..."
-msgstr ""
+msgstr "載入Sumo設定檔案..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:221
 msgid "Load a SUMO configuration file."
-msgstr ""
+msgstr "載入 SUMO 設定檔。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:228
 msgid "&Open Network..."
-msgstr ""
+msgstr "&開啟路網..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:228
 msgid "Open a SUMO network."
-msgstr ""
+msgstr "開啟SUMO路網。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:232
 msgid "Open Netconvert Configura&tion..."
-msgstr ""
+msgstr "開啟Netconvert設定檔案..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:232
 msgid "Open a configuration file with NETCONVERT options."
-msgstr ""
+msgstr "使用NETCONVERT選項開啟設定檔案。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:236
 msgid "Import &Foreign Network..."
-msgstr ""
+msgstr "匯入 &外部路網..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:236
 msgid "Import a foreign network such as OSM."
-msgstr ""
+msgstr "匯入外部路網，例如 OSM。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:243
 msgid "&Save Network"
-msgstr ""
+msgstr "&儲存路網"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:243
 msgid "Save the network."
-msgstr ""
+msgstr "儲存路網。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:247
 msgid "Save Net&work As..."
-msgstr ""
+msgstr "將路網另存為..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:247
 msgid "Save the network to another file."
-msgstr ""
+msgstr "將路網儲存到另一個檔案。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:251
 msgid "Save Plain XM&L..."
-msgstr ""
+msgstr "儲存純XML檔案..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:251
 msgid "Save a plain XML representation of the network."
-msgstr ""
+msgstr "將路網以純 XML形式進行儲存。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:255
 msgid "Save &Joined Junctions..."
-msgstr ""
+msgstr "儲存整合的路口..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:255
 msgid "Save log of joined junctions (allows reproduction of joins)."
-msgstr ""
+msgstr "儲存整合路口的紀錄（允許連接點重現）。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:262
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:266
 msgid "Reload the network."
-msgstr ""
+msgstr "重新載入路網。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:266
 msgid "Reload Network"
-msgstr ""
+msgstr "重新載入路網"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:273
 msgid "Netedit Config"
-msgstr ""
+msgstr "Netedit設定檔"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:277
 msgid "Sumo Config"
-msgstr ""
+msgstr "Sumo設定檔"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:281
 msgid "Traffic Lights"
-msgstr ""
+msgstr "交通號誌"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:285
 msgid "Edge Types"
-msgstr ""
+msgstr "路段類型"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:289
 msgid "Additionals and Shapes"
-msgstr ""
+msgstr "附加檔案及圖形物件"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:293
 msgid "Demand Elements"
-msgstr ""
+msgstr "交通需求要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:297
 msgid "Data Elements"
-msgstr ""
+msgstr "資料要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:301
 msgid "MeanData Elements"
-msgstr ""
+msgstr "MeanData要素"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:306
 msgid "Close the network."
-msgstr ""
+msgstr "關閉路網。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:340
 msgid "Save Netedit Config"
-msgstr ""
+msgstr "儲存Netedit設定檔"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:340
 msgid "Save netedit configuration file."
-msgstr ""
+msgstr "儲存netedit設定檔。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:344
 msgid "Save Netedit Config As..."
-msgstr ""
+msgstr "將 Netedit 設定檔另存為..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:344
 msgid "Save netedit configuration in a new file."
-msgstr ""
+msgstr "將 netedit 設定檔儲存為一個新檔案。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:350
 msgid "Reload Netedit Config"
-msgstr ""
+msgstr "重新載入 Netedit 的設定檔"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:350
 msgid "Reload netedit configuration."
-msgstr ""
+msgstr "重新載入 netedit 的設定檔。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:358
 msgid "Save Sumo Config"
-msgstr ""
+msgstr "儲存Sumo設定檔"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:358
 msgid "Save sumo configuration file."
-msgstr ""
+msgstr "儲存sumo設定檔。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:362
 msgid "Save Sumo Config As..."
-msgstr ""
+msgstr "將Sumo設定檔另存為..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:362
 msgid "Save sumo configuration in a new file."
-msgstr ""
+msgstr "將 sumo 設定檔儲存為一個新檔案。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:368
 msgid "Reload Sumo Config"
-msgstr ""
+msgstr "重新載入Sumo的設定檔"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:368
 msgid "Reload sumo configuration."
-msgstr ""
+msgstr "重新載入Sumo的設定檔。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:376
 msgid "Load TLS Programs..."
-msgstr ""
+msgstr "載入號誌時制計畫..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:376
 msgid "Load programs for traffic lights in the current net."
