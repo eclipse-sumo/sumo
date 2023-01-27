@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-27 14:57+0000\n"
+"PO-Revision-Date: 2023-01-27 17:04+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -1319,25 +1319,25 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1645
 msgid "No edges to tranship container '%'."
-msgstr ""
+msgstr "Keine Kanten für den Umschlagecontainer '%'."
 
 #: /home/micha/programming/sumo/src/microsim/MSStateHandler.cpp:76
 #: /home/micha/programming/sumo/src/polyconvert/PCNetProjectionLoader.cpp:64
 #: /home/micha/programming/sumo/src/utils/options/OptionsIO.cpp:164
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMORouteLoader.cpp:36
 msgid "Can not read XML-file '%'."
-msgstr ""
+msgstr "XML-Datei '%' kann nicht gelesen werden."
 
 #: /home/micha/programming/sumo/src/microsim/MSStateHandler.cpp:87
 msgid "Could not parse time from state file '%'"
-msgstr ""
+msgstr "Zeit aus der Statusdatei '%' konnte nicht analysiert werden"
 
 #: /home/micha/programming/sumo/src/microsim/MSStateHandler.cpp:229
 #: /home/micha/programming/sumo/src/microsim/MSStateHandler.cpp:285
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSRailSignalConstraint.cpp:144
-#, c-format
+#, c-format, fuzzy
 msgid "Unknown lane '%' in loaded state."
-msgstr ""
+msgstr "Unbekannte Spur '%' in der geladenen Status."
 
 #: /home/micha/programming/sumo/src/microsim/MSStateHandler.cpp:424
 msgid "Could not load vehicle control state"
@@ -1348,9 +1348,9 @@ msgid "Removed % vehicles while loading state."
 msgstr "% Fahrzeuge während des Ladevorganges entfernt."
 
 #: /home/micha/programming/sumo/src/microsim/MSStateHandler.cpp:459
-#, c-format
+#, c-format, fuzzy
 msgid "Could not load vehicle '%' from state"
-msgstr ""
+msgstr "Fahrzeug '%' in der Nation kann nicht geladen werden"
 
 #: /home/micha/programming/sumo/src/microsim/MSVehicle.cpp:306
 msgid ""
@@ -1375,6 +1375,8 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/MSVehicle.cpp:1816
 msgid "Vehicle '%' to split from vehicle '%' is not known. time=%."
 msgstr ""
+"Fahrzeug '%' welches von Fahrzeug '%' getrennt werden soll ist nicht "
+"bekannt. Zeit=%."
 
 #: /home/micha/programming/sumo/src/microsim/MSVehicle.cpp:2691
 msgid "Suspicious right_before_left junction '%'."
@@ -1426,6 +1428,8 @@ msgid ""
 "Value of tau=% in vehicle type '%' lower than simulation step size may cause "
 "collisions."
 msgstr ""
+"Der Wert von Tau=% im Fahrzeugtyp '%' ist kleiner als die Schrittweite der "
+"Simulation, es kann zu Kollisionen führen."
 
 #: /home/micha/programming/sumo/src/microsim/MSVehicleType.cpp:439
 #, c-format
@@ -1556,7 +1560,7 @@ msgstr "Ungültiger Wert '%' für den Fahrzeugparameter 'Beispiel'"
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Example.cpp:75
 #, c-format
 msgid "Invalid value '%'for vType parameter 'example'"
-msgstr ""
+msgstr "Ungültiger Wert '%' für den Fahrzeugtypparameter 'Beispiel'"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_FCD.cpp:123
 #, c-format
@@ -1568,14 +1572,16 @@ msgid "Could not load names of edges for filtering fcd-output from '%'."
 msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_FCD.cpp:167
-#, c-format
+#, c-format, fuzzy
 msgid "Unknown attribute '%' to write in fcd output."
-msgstr ""
+msgstr "Unbekanntes Attribut '%' für die fcd-Ausgabe."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_GLOSA.cpp:171
 msgid ""
 "Invalid value '%' for parameter 'device.glosa.range' of traffic light '%'"
 msgstr ""
+"Ungültiger Wert '%' für den Parameter 'device.glosa.range' der "
+"Lichtsignalanlage '%'"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_GLOSA.cpp:297
 msgid "GLOSA error 1 root_argument=% s=% t=% v=%"
@@ -1592,26 +1598,32 @@ msgid ""
 msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Routing.cpp:106
+#, fuzzy
 msgid "weights.random-factor cannot be less than 1"
-msgstr ""
+msgstr "weights.random-factor kann nicht kleiner als 1 sein"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Routing.cpp:110
+#, fuzzy
 msgid "Negative value for device.rerouting.adaptation-interval!"
-msgstr ""
+msgstr "Negativer Wert für device.rerouting.adaptation-interval!"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Routing.cpp:115
+#, fuzzy
 msgid ""
 "The value for device.rerouting.adaptation-weight must be between 0 and 1!"
 msgstr ""
+"Der Wert für device.rerouting.adaptation-weight muss zwischen 0 und 1 liegen!"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Routing.cpp:120
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:243
 msgid "Parallel routing is only possible when compiled with Fox."
-msgstr ""
+msgstr "Paralleles Wege sind nur möglich, wenn es mit Fox kompiliert wurde."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Routing.cpp:125
 msgid "Adapting number of routing threads to number of simulation threads."
 msgstr ""
+"Anpassung der Anzahl der Routen-Stränge an die Anzahl der Simulations-"
+"Stränge."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_SSM.cpp:247
 msgid "Could not load names of edges for filtering SSM device output from '%'."
@@ -1639,98 +1651,103 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_SSM.cpp:3692
 #, c-format
 msgid "Invalid value '%'for vehicle parameter 'ssm.measures'."
-msgstr ""
+msgstr "Ungültiger Wert '%' für den Fahrzeugparameter 'ssm.measures'."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_SSM.cpp:3496
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_SSM.cpp:3698
 #, c-format
 msgid "Invalid value '%'for vType parameter 'ssm.measures'."
-msgstr ""
+msgstr "Ungültiger Wert '%'für den Fahrzeugtypenparameter 'ssm.measures'."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_SSM.cpp:3524
 #, c-format
 msgid "Invalid value '%'for vehicle parameter 'ssm.geo'."
-msgstr ""
+msgstr "Ungültiger Wert '%'für Fahrzeugparameter 'ssm.geo'."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_SSM.cpp:3530
 #, c-format
 msgid "Invalid value '%'for vType parameter 'ssm.geo'."
-msgstr ""
+msgstr "Ungültiger Wert '%'für Fahrzeugtypenparameter 'ssm.geo'."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_SSM.cpp:3551
 #, c-format
 msgid "Invalid value '%'for vehicle parameter 'ssm.write-positions'."
-msgstr ""
+msgstr "Ungültiger Wert '%'für Fahrzeugparameter 'ssm.write-positions'."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_SSM.cpp:3557
 #, c-format
 msgid "Invalid value '%'for vType parameter 'ssm.write-positions'."
-msgstr ""
+msgstr "Ungültiger Wert '%'für Fahrzeugtypparameter 'ssm.write-positions'."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_SSM.cpp:3578
 #, c-format
 msgid "Invalid value '%'for vehicle parameter 'ssm.write-lane-positions'."
-msgstr ""
+msgstr "Ungültiger Wert '%'für Fahrzeugparameter 'ssm.write-lane-positions'."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_SSM.cpp:3584
 #, c-format
 msgid "Invalid value '%'for vType parameter 'ssm.write-lane-positions'."
-msgstr ""
+msgstr "Ungültiger Wert '%'für Fahrzeugtypparameter 'ssm.write-lane-positions'."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_SSM.cpp:3605
 #, c-format
 msgid "Invalid value '%'for vehicle parameter 'ssm.range'."
-msgstr ""
+msgstr "Ungültiger Wert '%'für Fahrzeugparameter 'ssm.range'."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_SSM.cpp:3611
 #, c-format
 msgid "Invalid value '%'for vType parameter 'ssm.range'."
-msgstr ""
+msgstr "Ungültiger Wert '%'für Fahrzeugtypparameter 'ssm.range'."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_SSM.cpp:3632
 #, c-format
 msgid "Invalid value '%'for vehicle parameter 'ssm.extratime'."
-msgstr ""
+msgstr "Ungültiger Wert '%'für Fahrzeugparameter 'ssm.extratime'."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_SSM.cpp:3638
 #, c-format
 msgid "Invalid value '%'for vType parameter 'ssm.extratime'."
-msgstr ""
+msgstr "Ungültiger Wert '%'für Fahrzeugtypparameter 'ssm.extratime'."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_SSM.cpp:3663
 #, c-format
 msgid "Invalid value '%'for vehicle parameter 'ssm.trajectories'."
-msgstr ""
+msgstr "Ungültiger Wert '%'für Fahrzeugparameter 'ssm.trajectories'."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_SSM.cpp:3669
 #, c-format
 msgid "Invalid value '%'for vType parameter 'ssm.trajectories'."
-msgstr ""
+msgstr "Ungültiger Wert '%'für Fahrzeugtypparameter 'ssm.trajectories'."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_SSM.cpp:3731
-#, c-format
+#, c-format, fuzzy
 msgid "Invalid value '%'for vehicle parameter 'ssm.thresholds'."
-msgstr ""
+msgstr "Ungültiger Wert '%'für Fahrzeugparameter 'ssm.thresholds'."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_SSM.cpp:3737
-#, c-format
+#, c-format, fuzzy
 msgid "Invalid value '%'for vType parameter 'ssm.thresholds'."
-msgstr ""
+msgstr "Ungültiger Wert %'für Fahrzeugtypparameter 'ssm.thresholds'."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:122
 msgid ""
 "Vehicle '%' with personCapacity % and containerCapacity % is not usable as "
 "taxi."
 msgstr ""
+"Fahrzeug '%' mit der Personenkapazität von % und einer Behälterkapazität von "
+"% ist nicht als Taxi nutzbar."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:147
 #, c-format
 msgid "Dispatch algorithm '%' is not known"
-msgstr ""
+msgstr "Absendungs-Algorithmus %' ist nicht bekannt"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:313
+#, fuzzy
 msgid "Invalid Re-dispatch for existing customer '%' with a new reservation"
 msgstr ""
+"Ungültiger Rückversand für den existierenden Kunden '%' mit einer neuen "
+"Reservierung"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Taxi.cpp:346
 msgid "Re-dispatch did not mention pickup for existing customer '%'"
