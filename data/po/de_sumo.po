@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-27 13:01+0000\n"
-"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
+"PO-Revision-Date: 2023-01-27 13:34+0000\n"
+"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
 "Language: de\n"
@@ -1222,24 +1222,29 @@ msgstr "Fahrzeug '%' hat keine Route."
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:741
 #: /home/micha/programming/sumo/src/microsim/transportables/MSTransportable.cpp:327
+#, fuzzy
 msgid ""
 "Person '%' receives type '%' which implicitly uses unsuitable vClass '%'."
 msgstr ""
+"Person '%' erhält Typ '%', welcher impliziert die ungeeignete Fahrzeugklasse "
+"'%' verwendet."
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:877
 msgid ""
 "There exists a person and a container with the same id '%'. Starting with "
 "SUMO 1.9.0 this is an error."
 msgstr ""
+"Es gibt eine Person und ein Container mit der gleichen ID '%'. Ab der "
+"Version SUMO 1.9.0 ist dies ein Fehler."
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:972
 #, c-format
 msgid "Another flow with the id '%' exists."
-msgstr ""
+msgstr "Ein anderer Fluss mit der ID '%' existiert."
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1143
 msgid "Invalid stop definition%."
-msgstr ""
+msgstr "Ungültige Stopinformation%."
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1310
 #: /home/micha/programming/sumo/src/router/RORouteHandler.cpp:1184
@@ -1248,11 +1253,14 @@ msgid ""
 "The attribute departPos is no longer supported for walks, please use the "
 "person attribute, the arrivalPos of the previous step or explicit stops."
 msgstr ""
+"Das Attribut departPos wird nicht mehr für Spaziergänge unterstützt, "
+"verwenden Sie bitte das Personenattribut, die Ankunftsposition des "
+"vorherigen Schritts oder explizite Stopps."
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1342
 #: /home/micha/programming/sumo/src/router/RORouteHandler.cpp:1205
 msgid "No destination edge for %."
-msgstr ""
+msgstr "Keine Zielkante für %."
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1371
 #: /home/micha/programming/sumo/src/router/RORouteHandler.cpp:1225
