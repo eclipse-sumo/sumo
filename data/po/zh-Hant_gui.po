@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-27 13:04+0000\n"
+"PO-Revision-Date: 2023-01-27 13:34+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -627,11 +627,11 @@ msgstr "需求反應運輸(DRT)車輛行駛的總距離"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:765
 msgid "Emergency Vehicle waiting time:"
-msgstr "緊急車輛等候時間："
+msgstr "緊急救援車輛等候時間："
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:765
 msgid "Time spent waiting accumulated for emergency vehicles"
-msgstr "緊急車輛累計等待的時間"
+msgstr "緊急救援車輛累計等待的時間"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:958
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:993
@@ -854,20 +854,20 @@ msgstr "嘗試為未知路段 '%'設定數據值。"
 #: /home/micha/programming/sumo/src/guisim/GUINet.cpp:656
 msgid ""
 "Trying to set data value for the unknown relation from edge '%' to edge '%'."
-msgstr ""
+msgstr "嘗試為從路段 '%' 到路段'% 的未知關係(relation)設定數據值。"
 
 #: /home/micha/programming/sumo/src/guisim/GUINet.cpp:674
 msgid "No data defined after simulation begin time."
-msgstr ""
+msgstr "模擬開始時間後沒有資料被定義。"
 
 #: /home/micha/programming/sumo/src/guisim_main.cpp:57
 msgid "GUI version of the microscopic, multi-modal traffic simulation SUMO."
-msgstr "微觀多模式交通模擬 SUMO 的圖形用戶界面 (GUI) 版本。"
+msgstr "微觀多運具交通模擬軟體SUMO 的圖形用戶界面 (GUI) 版本。"
 
 #: /home/micha/programming/sumo/src/guisim_main.cpp:77
 #: /home/micha/programming/sumo/src/netedit/netedit_main.cpp:75
 msgid "This system has no OpenGL support. Exiting."
-msgstr "該系統不支持開放式圖形庫 (OpenGL)。 退出。"
+msgstr "此系統不支援開放圖形語言 (OpenGL)。 退出中。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:443
 msgid "A microscopic, multi-modal traffic simulation."
