@@ -31,6 +31,7 @@ copy_test_path:errorScreenshot.png
 [collate_file]
 net:net.net.xml
 net:netedit.net.xml
+net:net_loadedmanually.net.xml
 netcon:net.con.xml
 netedg:net.edg.xml
 netnod:net.nod.xml

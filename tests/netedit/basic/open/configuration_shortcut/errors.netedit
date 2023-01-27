@@ -1,1 +1,55 @@
+GLDebug: initJunctionsAndEdges function called in GNENet constructor
+GLDebug: 	Inserted junction:A into SUMORTree with boundary 38.00,-12.00,62.00,12.00
+GLDebug: 	Inserted junction:B into SUMORTree with boundary 38.00,88.00,62.00,112.00
+GLDebug: 	Inserted junction:C into SUMORTree with boundary -12.00,38.00,12.00,62.00
+GLDebug: 	Inserted junction:Center into SUMORTree with boundary 38.00,38.00,62.00,62.00
+GLDebug: 	Inserted junction:D into SUMORTree with boundary 88.00,38.00,112.00,62.00
+GLDebug: 	Inserted edge:1 into SUMORTree with boundary 32.00,-10.00,60.00,60.00
+GLDebug: 	Inserted edge:2 into SUMORTree with boundary 40.00,40.00,68.00,110.00
+GLDebug: 	Inserted edge:3 into SUMORTree with boundary -10.00,40.00,60.00,68.00
+GLDebug: 	Inserted edge:4 into SUMORTree with boundary 40.00,32.00,110.00,60.00
+GLDebug: 	Inserted edge:5 into SUMORTree with boundary 40.00,-10.00,68.00,60.00
+GLDebug: 	Inserted edge:6 into SUMORTree with boundary 32.00,40.00,60.00,110.00
+GLDebug: 	Inserted edge:7 into SUMORTree with boundary -10.00,32.00,60.00,60.00
+GLDebug: 	Inserted edge:8 into SUMORTree with boundary 40.00,40.00,110.00,68.00
+Debug: Open NetConvert file
+Debug: Close load dialog sucesfully
+Debug: Deleting unreferenced edge '1' in AttributeCarriers destructor
+Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane '1_1' in GNEEdge destructor
+Debug: Deleting unreferenced lane '1_2' in GNEEdge destructor
+Debug: Deleting unreferenced edge '2' in AttributeCarriers destructor
+Debug: Deleting unreferenced lane '2_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane '2_1' in GNEEdge destructor
+Debug: Deleting unreferenced lane '2_2' in GNEEdge destructor
+Debug: Deleting unreferenced edge '3' in AttributeCarriers destructor
+Debug: Deleting unreferenced lane '3_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane '3_1' in GNEEdge destructor
+Debug: Deleting unreferenced lane '3_2' in GNEEdge destructor
+Debug: Deleting unreferenced edge '4' in AttributeCarriers destructor
+Debug: Deleting unreferenced lane '4_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane '4_1' in GNEEdge destructor
+Debug: Deleting unreferenced lane '4_2' in GNEEdge destructor
+Debug: Deleting unreferenced edge '5' in AttributeCarriers destructor
+Debug: Deleting unreferenced lane '5_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane '5_1' in GNEEdge destructor
+Debug: Deleting unreferenced lane '5_2' in GNEEdge destructor
+Debug: Deleting unreferenced edge '6' in AttributeCarriers destructor
+Debug: Deleting unreferenced lane '6_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane '6_1' in GNEEdge destructor
+Debug: Deleting unreferenced lane '6_2' in GNEEdge destructor
+Debug: Deleting unreferenced edge '7' in AttributeCarriers destructor
+Debug: Deleting unreferenced lane '7_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane '7_1' in GNEEdge destructor
+Debug: Deleting unreferenced lane '7_2' in GNEEdge destructor
+Debug: Deleting unreferenced edge '8' in AttributeCarriers destructor
+Debug: Deleting unreferenced lane '8_0' in GNEEdge destructor
+Debug: Deleting unreferenced lane '8_1' in GNEEdge destructor
+Debug: Deleting unreferenced lane '8_2' in GNEEdge destructor
+Debug: Deleting unreferenced junction 'A' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'B' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'C' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'Center' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'D' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
+GLDebug: Number of objects in SUMORTree during call of the destructor: 13

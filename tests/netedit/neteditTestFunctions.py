@@ -679,7 +679,7 @@ def openNetworkAs(waitTime=2):
     typeTwoKeys('alt', 'f')
     pasteIntoTextField(_TEXTTEST_SANDBOX)
     typeEnter()
-    pasteIntoTextField("input_net_loadedmanually.net.xml")
+    pasteIntoTextField("net_loadedmanually.net.xml")
     typeEnter()
     # wait for saving
     time.sleep(waitTime)
@@ -811,7 +811,7 @@ def openConfigurationShortcut(waitTime=2):
     typeTwoKeys('alt', 'f')
     pasteIntoTextField(_TEXTTEST_SANDBOX)
     typeEnter()
-    pasteIntoTextField("input_net.netccfg")
+    pasteIntoTextField("net.netccfg")
     typeEnter()
     # wait for loading
     time.sleep(waitTime)
