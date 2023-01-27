@@ -36,11 +36,13 @@ def get_args(args=None):
     arg_parser.add_argument("-l", "--lang", nargs='*', help="languages to process")
     arg_parser.add_argument("-m", "--mo-only", action="store_true", default=False,
                             help="only generate mo files, do not update po and pot")
+    arg_parser.add_argument("-f", "--fuzzy", action="store_true", default=False,
+                            help="use fuzzy matching to prefill new message ids")
     arg_parser.add_argument("--sumo-home", default=SUMO_HOME, help="SUMO root directory to use")
     return arg_parser.parse_args(args)
 
 
-def generate_po(sumo_home, path, languages, pot_file, gui_pot_file):
+def generate_po(sumo_home, path, languages, pot_file, gui_pot_file, fuzzy):
     pots = {pot_file: open(pot_file + ".txt", "w"), gui_pot_file: open(gui_pot_file + ".txt", "w")}
     for f in sorted(glob(sumo_home + "/src/*.cpp") +
                     glob(sumo_home + "/src/*/*.cpp") +
@@ -73,7 +75,8 @@ def generate_po(sumo_home, path, languages, pot_file, gui_pot_file):
         for lang in languages:
             po_file = "%s/data/po/%s_%s" % (sumo_home, lang, os.path.basename(pot)[:-1])
             if os.path.exists(po_file):
-                subprocess.check_call([path + "msgmerge", po_file, pot, "--output-file=" + po_file])
+                subprocess.check_call([path + "msgmerge", po_file, pot,
+                                       "--output-file=" + po_file] + ([] if fuzzy else ["--no-fuzzy-matching"]))
             else:
                 subprocess.check_call([path + "msginit", "--input=" + pot, "--output=" + po_file,
                                        "--no-translator", "--locale=" + lang])
@@ -91,7 +94,7 @@ def main(args=None):
     pot_file = options.sumo_home + "/data/po/sumo.pot"
     gui_pot_file = options.sumo_home + "/data/po/gui.pot"
     if not options.mo_only:
-        generate_po(options.sumo_home, path, options.lang, pot_file, gui_pot_file)
+        generate_po(options.sumo_home, path, options.lang, pot_file, gui_pot_file, options.fuzzy)
     for lang in options.lang:
         po_files = ["%s/data/po/%s_%s" % (options.sumo_home, lang, os.path.basename(pot)[:-1])
                     for pot in (pot_file, gui_pot_file)]
