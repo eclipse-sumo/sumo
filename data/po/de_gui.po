@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-27 13:34+0000\n"
+"PO-Revision-Date: 2023-01-27 14:57+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -1235,76 +1235,78 @@ msgstr "Öffne eine Konfigurationsdatei mit netconvert-Optionen."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:236
 msgid "Import &Foreign Network..."
-msgstr ""
+msgstr "Netz &importieren..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:236
 msgid "Import a foreign network such as OSM."
-msgstr ""
+msgstr "Importiere ein Netz aus einem externen Format wie OSM."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:243
 msgid "&Save Network"
-msgstr ""
+msgstr "Netz &speichern"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:243
 msgid "Save the network."
-msgstr ""
+msgstr "Speichere das Netz."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:247
 msgid "Save Net&work As..."
-msgstr ""
+msgstr "Netz speichern unter..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:247
 msgid "Save the network to another file."
-msgstr ""
+msgstr "Speichere das Netz in einer anderen Datei."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:251
 msgid "Save Plain XM&L..."
-msgstr ""
+msgstr "Als Plain XML speichern..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:251
 msgid "Save a plain XML representation of the network."
-msgstr ""
+msgstr "Speichere eine \"Plain XML\"-Abbildung des Netzes."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:255
 msgid "Save &Joined Junctions..."
-msgstr ""
+msgstr "Vereinigte Knoten speichern..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:255
 msgid "Save log of joined junctions (allows reproduction of joins)."
 msgstr ""
+"Speichere ein Protokoll der vereinigten Knoten, um die Vereinigung "
+"wiederholen zu können."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:262
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:266
 msgid "Reload the network."
-msgstr ""
+msgstr "Lade das Netz erneut."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:266
 msgid "Reload Network"
-msgstr ""
+msgstr "Netz erneut laden"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:273
 msgid "Netedit Config"
-msgstr ""
+msgstr "Netedit-Konfiguration"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:277
 msgid "Sumo Config"
-msgstr ""
+msgstr "Sumo-Konfiguration"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:281
 msgid "Traffic Lights"
-msgstr ""
+msgstr "Lichtsignalanlagen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:285
 msgid "Edge Types"
-msgstr ""
+msgstr "Kantentypen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:289
 msgid "Additionals and Shapes"
-msgstr ""
+msgstr "Weitere Daten und Shapes"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:293
 msgid "Demand Elements"
-msgstr ""
+msgstr "Nachfrageelemente"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:297
 msgid "Data Elements"
@@ -1312,83 +1314,85 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:301
 msgid "MeanData Elements"
-msgstr ""
+msgstr "MeanData-Elemente"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:306
 msgid "Close the network."
-msgstr ""
+msgstr "Schließe das Netz."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:340
 msgid "Save Netedit Config"
-msgstr ""
+msgstr "Netedit-Konfiguration speichern"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:340
 msgid "Save netedit configuration file."
-msgstr ""
+msgstr "Speichere die netedit-Konfigurationsdatei."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:344
 msgid "Save Netedit Config As..."
-msgstr ""
+msgstr "Netedit-Konfiguration speichern unter..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:344
 msgid "Save netedit configuration in a new file."
-msgstr ""
+msgstr "Speichere die netedit-Konfiguration in einer neuen Datei."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:350
 msgid "Reload Netedit Config"
-msgstr ""
+msgstr "Netedit-Konfiguration erneut laden"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:350
 msgid "Reload netedit configuration."
-msgstr ""
+msgstr "Lade die netedit-Konfiguration erneut."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:358
 msgid "Save Sumo Config"
-msgstr ""
+msgstr "Sumo-Konfiguration speichern"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:358
 msgid "Save sumo configuration file."
-msgstr ""
+msgstr "Speichere die sumo-Konfigurationsdatei."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:362
 msgid "Save Sumo Config As..."
-msgstr ""
+msgstr "Sumo-Konfiguration speichern unter..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:362
 msgid "Save sumo configuration in a new file."
-msgstr ""
+msgstr "Speichere sumo-Konfiguration in einer neuen Datei."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:368
 msgid "Reload Sumo Config"
-msgstr ""
+msgstr "Sumo-Konfiguration erneut laden"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:368
 msgid "Reload sumo configuration."
-msgstr ""
+msgstr "Lade die sumo-Konfiguration erneut."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:376
 msgid "Load TLS Programs..."
-msgstr ""
+msgstr "LSA-Programme laden..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:376
 msgid "Load programs for traffic lights in the current net."
-msgstr ""
+msgstr "Lade Programme für Lichtsignalanlagen des aktuellen Netzes."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:382
 msgid "Save TLS Programs"
-msgstr ""
+msgstr "LSA-Programme speichern"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:382
 msgid "Save all traffic light programs of the current network."
-msgstr ""
+msgstr "Speichere alle Programme von Lichtsignalanlagen des aktuellen Netzes."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:386
 msgid "Save TLS Programs As..."
-msgstr ""
+msgstr "LSA-Programme speichern unter..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:386
 msgid "Save all traffic light programs of the current network to another file."
 msgstr ""
+"Speichere alle Programme der Lichtsignalanlagen des aktuellen Netzes in "
+"einer neuen Datei."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:392
 msgid "Reload TLS Programs"
