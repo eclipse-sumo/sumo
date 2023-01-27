@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-26 18:10+0000\n"
+"PO-Revision-Date: 2023-01-27 13:01+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -438,7 +438,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/libsumo/GUI.cpp:330
 msgid "This system has no OpenGL support. Exiting."
-msgstr "Dieses System hat keine OpenGL-Unterstützung. Beenden."
+msgstr "Dieses System unterstützt OpenGL nicht. Abbruch."
 
 #: /home/micha/programming/sumo/src/libsumo/GUI.cpp:352
 msgid "libsumo.load is not implemented for the GUI."
