@@ -28,14 +28,9 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Value 'dummySpeedTreshold' for attribute timeThreshold of entryExitDetector isn't valid
+Debug: Value '-5' for attribute timeThreshold of entryExitDetector isn't valid
 Debug: Setting new attribute
 Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
-Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
@@ -62,6 +57,7 @@ Debug: Removing detExit 'entryExitDetector_A' in GNEChange_Additional
 Debug: Removing detEntry 'entryExitDetector_A' in GNEChange_Additional
 Debug: Removing entryExitDetector 'entryExitDetector_A' in GNEChange_Additional
 GLDebug: 	Removed object e3Detector:entryExitDetector_A from SUMORTree with boundary -2.50,-12.00,17.50,8.00
+Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding entryExitDetector 'entryExitDetector_A' in GNEChange_Additional
@@ -89,9 +85,6 @@ Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute
-Debug: Setting new attribute
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00
@@ -138,3 +131,4 @@ Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 4
+X connection to :26391.0 broken (explicit kill or server shutdown).
