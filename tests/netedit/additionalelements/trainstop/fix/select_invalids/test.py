@@ -41,20 +41,22 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 278, 195)
 
 # disable friendlyPos
-netedit.modifyBoolAttribute(netedit.attrs.trainStop.inspectSelection.friendlyPos, False)
+netedit.modifyBoolAttribute(netedit.attrs.trainStop.inspectSelection.friendlyPos, True)
 
 # go to select mode
 netedit.selectMode()
 
 # clear selection
 netedit.selectionClear()
+
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
+
 # select invalids
 netedit.fixStoppingPlace("selectInvalids")
 
 # remove it using DEL key
 netedit.deleteUsingSuprKey()
-
- again
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

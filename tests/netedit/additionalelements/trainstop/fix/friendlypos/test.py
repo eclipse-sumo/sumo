@@ -41,19 +41,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 278, 195)
 
 # disable friendlyPos
-netedit.modifyBoolAttribute(netedit.attrs.trainStop.inspectSelection.friendlyPos, False)
+netedit.modifyBoolAttribute(netedit.attrs.trainStop.inspectSelection.friendlyPos, True)
 
 # go to select mode
 netedit.selectMode()
 
 # clear selection
 netedit.selectionClear()
-# Fix stopping places position
-netedit.fixStoppingPlace("activateFriendlyPos")
-
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)
+
+# Fix stopping places position
+netedit.fixStoppingPlace("activateFriendlyPos")
 
 # quit netedit
 netedit.quit(neteditProcess)

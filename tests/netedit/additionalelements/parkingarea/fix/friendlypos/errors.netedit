@@ -43,10 +43,6 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -11.10,-28.00,73.20,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -21.20,-18.40,61.20,28.00
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Additionals saved after dialog
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -10.00,-13.20,10.00,13.20
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 40.00,-13.20,60.00,13.20
@@ -60,6 +56,10 @@ GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -11.10,-28.00,73.20,18.40
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -21.20,-18.40,61.20,28.00
 Debug: network elements saved
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Additionals saved after dialog
 Debug: Deleting unreferenced parkingArea
 Debug: Deleting unreferenced parkingArea
 Debug: Deleting unreferenced parkingArea
