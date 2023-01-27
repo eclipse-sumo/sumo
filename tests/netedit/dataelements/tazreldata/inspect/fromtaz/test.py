@@ -64,14 +64,11 @@ netedit.modifyAttribute(netedit.attrs.TAZRelData.inspect.fromTAZ, "taz_1", False
 netedit.modifyAttribute(netedit.attrs.TAZRelData.inspect.fromTAZ, "taz_2", False)
 
 # Check undo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
-
-# save data elements
-netedit.saveDatas(referencePosition, True, 0, 30)
+netedit.undo(referencePosition, 1)
+netedit.redo(referencePosition, 1)
 
 # save Netedit config
-netedit.saveNetwork(referencePosition, True, 0, 30)
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

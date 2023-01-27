@@ -49,11 +49,8 @@ netedit.typeEnter()
 netedit.undo(referencePosition, 1, 0, 30)
 netedit.redo(referencePosition, 1, 0, 30)
 
-# save data elements
-netedit.saveDatas(referencePosition, True, 0, 30)
-
 # save Netedit config
-netedit.saveNetwork(referencePosition, True, 0, 30)
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)
