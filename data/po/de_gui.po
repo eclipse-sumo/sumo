@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-26 20:16+0000\n"
+"PO-Revision-Date: 2023-01-27 09:43+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -301,7 +301,7 @@ msgstr "Öffnet einen Dialog, um zusätzliche Elemente zu finden."
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:526
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1978
 msgid "P&oI"
-msgstr ""
+msgstr "P&oI"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:526
 msgid "Open a Dialog for Locating a Point of Interest."
@@ -310,7 +310,7 @@ msgstr "Öffnet einen Dialog, um ein Point of Interest (POI) zu finden."
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:529
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1981
 msgid "Po&lygon"
-msgstr ""
+msgstr "Po&lygon"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:529
 msgid "Open a Dialog for Locating a Polygon."
@@ -991,7 +991,7 @@ msgstr "Wiederherstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3044
 msgid "Saving Network failed!"
-msgstr ""
+msgstr "Speichern des Netzes fehlgeschlagen!"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3049
 msgid "Network saved in '"
@@ -1152,11 +1152,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:140
 msgid "nets"
-msgstr ""
+msgstr "Netze"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:141
 msgid "configs"
-msgstr ""
+msgstr "Konfigurationen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:160
 msgid "Cl&ear Recent Networks"
