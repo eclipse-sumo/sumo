@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-27 09:43+0000\n"
+"PO-Revision-Date: 2023-01-27 12:44+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -567,19 +567,24 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:662
 msgid "\tStep\tPerform a single simulation step."
-msgstr ""
+msgstr "\tSchritt\tFühre einen einzelnen Simulationsschritt aus."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:670
 msgid ""
 "Time:\tToggle between time formats\tToggle between seconds and hour:minute:"
 "seconds display."
 msgstr ""
+"Zeit:\tWechsle zwischen Zeitformaten\tWechsle Zeitformat zwischen Sekunden "
+"und Stunde:Minute:Sekunde."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:684
 msgid ""
 "Delay (ms):\tDelay per simulated second\tDelay per simulated second. Click "
 "to toggle between the last two delay values."
 msgstr ""
+"Verzögerung (ms):\tVerzögerung pro simulierte Sekunde\tVerzögerung pro "
+"simulierte Sekunde. Wechsle mit Klick zwischen den letzten zwei "
+"Verzögerunswerten vor und zurück."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:707
 msgid "Scale Traffic:"
@@ -995,7 +1000,7 @@ msgstr "Speichern des Netzes fehlgeschlagen!"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3049
 msgid "Network saved in '"
-msgstr ""
+msgstr "Netz gespeichert in'"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3100
 msgid "Saving plain xml failed!"
