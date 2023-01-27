@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-27 13:34+0000\n"
+"PO-Revision-Date: 2023-01-27 14:57+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -871,44 +871,43 @@ msgstr "此系統不支援開放圖形語言 (OpenGL)。 退出中。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:443
 msgid "A microscopic, multi-modal traffic simulation."
-msgstr ""
+msgstr "微觀多運具交通模擬軟體。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:476
 msgid "Recomputing"
-msgstr ""
+msgstr "重新計算"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:476
 msgid "Recomputing is needed"
-msgstr ""
+msgstr "需要重新計算"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:486
-#, fuzzy
 msgid "Test coordinate"
-msgstr "N/A\t\t路網坐標"
+msgstr "測試坐標"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:860
 msgid "Loaded edge types from '"
-msgstr ""
+msgstr "載入的路段類型從 '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:893
 msgid "Reloaded edge types from '"
-msgstr ""
+msgstr "重新載入的路段類型從 '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:974
 msgid "&Reload Netedit config"
-msgstr ""
+msgstr "&重新載入 Netedit 的設定檔"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:975
 msgid "&Reload Sumo config"
-msgstr ""
+msgstr "&重新載入Sumo的設定檔"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:976
 msgid "&Reload Network"
-msgstr ""
+msgstr "&重新載入路網"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1373
 msgid "&Modes"
-msgstr ""
+msgstr "&運具"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1410
 msgid "L&ock"
@@ -916,44 +915,44 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1417
 msgid "&Processing"
-msgstr ""
+msgstr "&處理中"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1425
 msgid "&Tools"
-msgstr ""
+msgstr "&工具"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1445
 msgid "About netedit."
-msgstr ""
+msgstr "關於netedit。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1505
 msgid "Press F5"
-msgstr ""
+msgstr "按F5按鍵"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1613
 msgid "Trying to load an empty network"
-msgstr ""
+msgstr "嘗試載入一個空白路網"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1641
 msgid "Trying to load an empty configuration"
-msgstr ""
+msgstr "嘗試載入一個空白設定檔"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1688
 msgid "Select Import Options"
-msgstr ""
+msgstr "選擇匯入選項"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1717
 msgid "Recompute with volatile options"
-msgstr ""
+msgstr "使用易失變數選項進行重新計算"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1949
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:2009
 msgid "Running "
-msgstr ""
+msgstr "執行中 "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1972
 msgid "Loading network '"
-msgstr ""
+msgstr "載入路網 '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1972
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1981
