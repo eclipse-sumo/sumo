@@ -182,7 +182,8 @@ def get_options(args=None):
                         help="Abort generation of constraints for a stop "
                         "once the ordering of vehicles by 'arrival' differs from the ordering by 'until'")
     parser.add_argument("--premature-threshold", default=600, dest="prematureThreshold",
-                        help="Ignore schedule if a train leaves a station ahead of schedule by more than the threshold value")
+                        help="Ignore schedule if a train leaves a station ahead of schedule by " +
+                        "more than the threshold value")
     parser.add_argument("--write-inactive", dest="writeInactive", action="store_true", default=False,
                         help="Export aborted constraints as inactive")
     parser.add_argument("-p", "--ignore-parking", dest="ignoreParking", action="store_true", default=False,
@@ -689,7 +690,7 @@ def markOvertaken(options, vehicleStopRoutes, stopRoutes):
                     # train is running ahead of schedule and further schedule times are unreliable
                     overtaken = 1
                     ignored = True
-                    print("Vehicle %s is running ahead of schedule by %ss at stop %s (index %s) and ignores further timings." %
+                    print("Vehicle %s is running ahead of schedule by %ss at stop %s (index %s) and ignores further timings." %  # noqa
                           (stop.vehID, int(until - ended), stop.busStop, i), file=sys.stderr)
 
             # the stop where overtaking was detected can still be used for

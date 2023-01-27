@@ -258,11 +258,13 @@ def parselines(xmlline, element_name, element_attrs=None, attr_conversions=None,
                        heterogeneous, warn):
             yield x
 
+
 def _handle_namespace(tag, ignoreXmlns):
     if ignoreXmlns and "}" in tag:
         # see https://bugs.python.org/issue18304
         return tag.split("}")[1]
     return tag
+
 
 def parse(xmlfile, element_names, element_attrs=None, attr_conversions=None,
           heterogeneous=True, warn=False, ignoreXmlns=False):
@@ -311,7 +313,8 @@ def _IDENTITY(x):
     return x
 
 
-def _get_compound_object(node, element_types, element_name, element_attrs, attr_conversions, heterogeneous, warn, ignoreXmlns):
+def _get_compound_object(node, element_types, element_name, element_attrs, attr_conversions,
+                         heterogeneous, warn, ignoreXmlns):
     if element_name not in element_types or heterogeneous:
         # initialized the compound_object type from the first encountered #
         # element
@@ -327,7 +330,8 @@ def _get_compound_object(node, element_types, element_name, element_attrs, attr_
     if len(node) > 0:
         for c in node:
             tag = _handle_namespace(c.tag, ignoreXmlns)
-            child = _get_compound_object(c, element_types, tag, element_attrs, attr_conversions, heterogeneous, warn, ignoreXmlns)
+            child = _get_compound_object(c, element_types, tag, element_attrs, attr_conversions,
+                                         heterogeneous, warn, ignoreXmlns)
             child_dict.setdefault(tag, []).append(child)
             child_list.append(child)
     attrnames = element_types[element_name]._original_fields

@@ -42,8 +42,12 @@ def get_args(args=None):
 
 def generate_po(sumo_home, path, languages, pot_file, gui_pot_file):
     pots = {pot_file: open(pot_file + ".txt", "w"), gui_pot_file: open(gui_pot_file + ".txt", "w")}
-    for f in sorted(glob(sumo_home + "/src/*.cpp") + glob(sumo_home + "/src/*/*.cpp") + glob(sumo_home + "/src/*/*/*.cpp") +
-                    glob(sumo_home + "/src/*.h") + glob(sumo_home + "/src/*/*.h") + glob(sumo_home + "/src/*/*/*.h")):
+    for f in sorted(glob(sumo_home + "/src/*.cpp") +
+                    glob(sumo_home + "/src/*/*.cpp") +
+                    glob(sumo_home + "/src/*/*/*.cpp") +
+                    glob(sumo_home + "/src/*.h") +
+                    glob(sumo_home + "/src/*/*.h") +
+                    glob(sumo_home + "/src/*/*/*.h")):
         if "gui" in f[len(sumo_home):] or "netedit" in f[len(sumo_home):]:
             print(f, file=pots[gui_pot_file])
         else:
