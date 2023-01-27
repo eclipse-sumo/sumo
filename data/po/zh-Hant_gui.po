@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-26 18:10+0000\n"
+"PO-Revision-Date: 2023-01-27 12:44+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -623,33 +623,33 @@ msgstr "距離(公里)："
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:754
 msgid "Total distance driven by DRT vehicles"
-msgstr ""
+msgstr "需求反應運輸(DRT)車輛行駛的總距離"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:765
 msgid "Emergency Vehicle waiting time:"
-msgstr ""
+msgstr "緊急車輛等候時間："
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:765
 msgid "Time spent waiting accumulated for emergency vehicles"
-msgstr ""
+msgstr "緊急車輛累計等待的時間"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:958
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:993
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1030
 msgid "Running %."
-msgstr ""
+msgstr "執行中 %。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1040
 msgid "Open Simulation Configuration"
-msgstr ""
+msgstr "開啟模擬設定檔"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1060
 msgid "Open Network"
-msgstr ""
+msgstr "開啟路網"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1080
 msgid "Open Shapes"
-msgstr ""
+msgstr "開啟幾何物件(shape)"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1094
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1122
@@ -657,93 +657,93 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4550
 #, c-format
 msgid "Loading of % failed."
-msgstr ""
+msgstr "載入的 % f失敗。"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1111
 msgid "Open EdgeData"
-msgstr ""
+msgstr "開啟EdgeData"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1165
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:1049
 msgid "Already loading!"
-msgstr ""
+msgstr "已經載入！"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1177
 msgid "Save SUMO Configuration"
-msgstr ""
+msgstr "儲存SUMO設定檔"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1250
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1276
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:2081
 msgid "No simulation loaded!"
-msgstr ""
+msgstr "沒有載入任何模擬檔案！"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1292
 msgid "Save Simulation State"
-msgstr ""
+msgstr "儲存模擬狀態"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1314
 msgid "Load Simulation State"
-msgstr ""
+msgstr "載入模擬狀態"
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:1974
 msgid "Simulation ended"
-msgstr ""
+msgstr "模擬結束"
 
 #: /home/micha/programming/sumo/src/gui/GUILoadThread.cpp:206
 msgid "Could not load edgedata-files '%'"
-msgstr ""
+msgstr "無法載入路段數據檔案(edgedata-files) '%'"
 
 #: /home/micha/programming/sumo/src/gui/GUIRunThread.cpp:100
 #: /home/micha/programming/sumo/src/gui/GUIRunThread.cpp:106
 msgid "Quitting (on error)."
-msgstr ""
+msgstr "退出 (由於錯誤)。"
 
 #: /home/micha/programming/sumo/src/gui/GUIRunThread.cpp:265
 msgid "Simulation started with time: %."
-msgstr ""
+msgstr "模擬開始時間： %。"
 
 #: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:141
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:445
 msgid "Save Snapshot"
-msgstr ""
+msgstr "儲存快照"
 
 #: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:166
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:465
 msgid "No file extension was specified - saving Snapshot as PNG."
-msgstr ""
+msgstr "未指定副檔名 – 快照儲存為可攜式網路圖像格式(PNG)。"
 
 #: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:172
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:472
 msgid "Saving failed."
-msgstr ""
+msgstr "儲存失敗。"
 
 #: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:174
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:476
 msgid "Snapshot successfully saved!"
-msgstr ""
+msgstr "快照已成功地儲存！"
 
 #: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:218
 #: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:267
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:676
 msgid "Unknown Message ID in onCmdLocate"
-msgstr ""
+msgstr "未知訊息ID 存在於onCmdLocate"
 
 #: /home/micha/programming/sumo/src/gui/GUITLLogicPhasesTrackerWindow.cpp:269
 msgid "phase names"
-msgstr ""
+msgstr "相位名稱"
 
 #: /home/micha/programming/sumo/src/gui/GUITLLogicPhasesTrackerWindow.cpp:272
 msgid "detectors"
-msgstr ""
+msgstr "偵測器"
 
 #: /home/micha/programming/sumo/src/gui/GUITLLogicPhasesTrackerWindow.cpp:273
 msgid "conditions"
-msgstr ""
+msgstr "條件"
 
 #: /home/micha/programming/sumo/src/gui/GUITLLogicPhasesTrackerWindow.cpp:336
 msgid "Overflow in time computation occurred."
-msgstr ""
+msgstr "時間計算發生溢位。"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_AboutSUMO.cpp:69
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_HallOfFame.cpp:57
@@ -754,40 +754,40 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:247
 #: /home/micha/programming/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:285
 msgid "OK"
-msgstr ""
+msgstr "確定"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:62
 msgid "Quit on Simulation End"
-msgstr ""
+msgstr "由於模擬結束而退出"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:64
 msgid "Autostart Simulation on Load and Reload"
-msgstr ""
+msgstr "載入和重新載入後自動起動模擬"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:66
 msgid "Reload Simulation after finish (Demo mode)"
-msgstr ""
+msgstr "結束後重新載入模擬（展示模式）"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:68
 msgid "Locate elements when clicking on messages"
-msgstr ""
+msgstr "點擊訊息時進行元素（element）定位"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:74
 msgid "Breakpoint offset when clicking on time message"
-msgstr ""
+msgstr "點擊時間訊息時偏移中斷點的時間"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:77
 msgid "Language (needs restart)"
-msgstr ""
+msgstr "Language (needs restart)\t語言（需要重新啟動）"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:102
 msgid "Allow Textures"
-msgstr ""
+msgstr "允許紋理"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:105
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAbout.cpp:76
 msgid "&OK"
-msgstr ""
+msgstr "&確定"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_AppSettings.cpp:106
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEDemandElementDialog.cpp:64
@@ -795,36 +795,36 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:639
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:390
 msgid "&Cancel"
-msgstr ""
+msgstr "&取消"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:89
 msgid "&Load"
-msgstr ""
+msgstr "&載入"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:91
 msgid "&Save"
-msgstr ""
+msgstr "&儲存"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:94
 msgid "Clea&r"
-msgstr ""
+msgstr "清除"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:141
 msgid "Load Breakpoints"
-msgstr ""
+msgstr "載入中斷點"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:162
 msgid "Save Breakpoints"
-msgstr ""
+msgstr "儲存中斷點"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:172
 msgid "Storing failed!"
-msgstr ""
+msgstr "儲存失敗！"
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:241
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_Breakpoints.cpp:244
 msgid "Time format error"
-msgstr ""
+msgstr "時間格式錯誤"
 
 #: /home/micha/programming/sumo/src/guisim/Command_Hotkey_InductionLoop.cpp:55
 #: /home/micha/programming/sumo/src/guisim/Command_Hotkey_InductionLoop.cpp:59
@@ -832,7 +832,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/guisim/Command_Hotkey_TrafficLight.cpp:60
 #, c-format
 msgid "Hotkey '%' is not supported"
-msgstr ""
+msgstr "不支援快捷鍵''%' i"
 
 #: /home/micha/programming/sumo/src/guisim/GUIBaseVehicle.cpp:300
 msgid "GUI-triggered stop not implemented for meso"
