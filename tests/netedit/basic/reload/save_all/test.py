@@ -44,15 +44,6 @@ netedit.changeElement("busStop")
 # create busStop in mode "reference left"
 netedit.leftClick(referencePosition, 250, 245)
 
-# go to shape mode
-netedit.shapeMode()
-
-# go to additional mode
-netedit.changeElement("poly")
-
-# create polygon
-netedit.createSquaredPoly(referencePosition, 100, 50, 100, True)
-
 # go to demand mode
 netedit.supermodeDemand()
 
@@ -69,8 +60,8 @@ netedit.typeEnter()
 # reload netedits saving all
 netedit.reload(neteditProcess, True, True, True, True, True, True)
 
-# click over view again
-netedit.leftClick(referencePosition, 0, 0)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
-netedit.quit(neteditProcess, False, False, False, False, False, False)
+netedit.quit(neteditProcess)

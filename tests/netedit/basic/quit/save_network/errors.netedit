@@ -19,11 +19,6 @@ GLDebug: 	Inserted edge:E0 into SUMORTree with boundary -20.00,-29.60,54.00,-8.0
 Debug: Setting new attribute
 Debug: Selected item 'busStop' in GNETagSelector
 Debug: Adding busStop 'bs_0' in GNEChange_Additional
-Debug: Selected item 'poly' in GNETagSelector
-Debug: Key ENTER pressed
-Debug: Key ENTER pressed
-Debug: Adding poly 'po_0' in GNEChange_Additional
-GLDebug: 	Inserted polygon:po_0 into SUMORTree with boundary -14.00,8.00,12.00,34.00
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:J0 from SUMORTree with boundary -22.00,-30.00,2.00,-6.00
 GLDebug: 	Removed object junction:J1 from SUMORTree with boundary 32.00,-30.00,56.00,-6.00
@@ -48,7 +43,7 @@ Debug: Key ENTER pressed
 Debug: Adding route 'r_0' in GNEChange_DemandElement
 Debug: Additionals saved
 Debug: demand elements saved
-Debug: Opening FXMessageBox 'Confirm quit network'
+Debug: Opening FXMessageBox 'Confirm close network'
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:J0 from SUMORTree with boundary -20.00,-31.20,0.00,-8.00
 GLDebug: 	Removed object junction:J1 from SUMORTree with boundary 34.00,-31.20,54.00,-8.00
@@ -69,8 +64,6 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: network elements saved
 Debug: Deleting unreferenced route
-Debug: Deleting unreferenced poly
-GLDebug: 	Removed object polygon:po_0 from SUMORTree with boundary -14.00,8.00,12.00,34.00
 Debug: Deleting unreferenced busStop
 Debug: Deleting unreferenced edge 'E0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'E0_0' in GNEEdge destructor

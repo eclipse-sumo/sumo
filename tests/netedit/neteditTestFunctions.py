@@ -533,7 +533,8 @@ def waitQuestion(answer):
 def reload(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
            openAdditionalsNonSavedDialog=False, saveAdditionals=False,
            openDemandNonSavedDialog=False, saveDemandElements=False,
-           openDataNonSavedDialog=False, saveDataElements=False):
+           openDataNonSavedDialog=False, saveDataElements=False,
+           openMeanDataNonSavedDialog=False, saveMeanDataElements=False):
     """
     @brief reload Netedit
     """
@@ -550,7 +551,7 @@ def reload(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
         # wait for log
             time.sleep(DELAY_RECOMPUTE)
         else:
-            waitQuestion('q')
+            waitQuestion('d')
     # Check if additionals must be saved
     if openAdditionalsNonSavedDialog:
     # Wait some seconds
@@ -558,7 +559,7 @@ def reload(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
         if saveAdditionals:
             waitQuestion('s')
         else:
-            waitQuestion('q')
+            waitQuestion('d')
     # Check if demand elements must be saved
     if openDemandNonSavedDialog:
     # Wait some seconds
@@ -566,7 +567,7 @@ def reload(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
         if saveDemandElements:
             waitQuestion('s')
         else:
-            waitQuestion('q')
+            waitQuestion('d')
     # Check if data elements must be saved
     if openDataNonSavedDialog:
     # Wait some seconds
@@ -574,7 +575,15 @@ def reload(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
         if saveDataElements:
             waitQuestion('s')
         else:
-            waitQuestion('q')
+            waitQuestion('d')
+    # Check if meanData elements must be saved
+    if openMeanDataNonSavedDialog:
+    # Wait some seconds
+        time.sleep(DELAY_QUESTION)
+        if saveMeanDataElements:
+            waitQuestion('s')
+        else:
+            waitQuestion('d')
     # Wait some seconds
     time.sleep(DELAY_RELOAD)
     # check if Netedit was crashed during reloading
@@ -585,7 +594,8 @@ def reload(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
 def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
          openAdditionalsNonSavedDialog=False, saveAdditionals=False,
          openDemandNonSavedDialog=False, saveDemandElements=False,
-         openDataNonSavedDialog=False, saveDataElements=False):
+         openDataNonSavedDialog=False, saveDataElements=False,
+         openMeanDataNonSavedDialog=False, saveMeanDataElements=False):
     """
     @brief quit Netedit
     """
@@ -607,7 +617,7 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
                 # wait for log
                 time.sleep(DELAY_RECOMPUTE)
             else:
-                waitQuestion('q')
+                waitQuestion('d')
         # Check if additionals must be saved
         if openAdditionalsNonSavedDialog:
             # Wait some seconds
@@ -615,7 +625,7 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
             if saveAdditionals:
                 waitQuestion('s')
             else:
-                waitQuestion('q')
+                waitQuestion('d')
         # Check if demand elements must be saved
         if openDemandNonSavedDialog:
             # Wait some seconds
@@ -623,12 +633,20 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
             if saveDemandElements:
                 waitQuestion('s')
             else:
-                waitQuestion('q')
+                waitQuestion('d')
         # Check if data elements must be saved
         if openDataNonSavedDialog:
             # Wait some seconds
             time.sleep(DELAY_QUESTION)
             if saveDataElements:
+                waitQuestion('s')
+            else:
+                waitQuestion('d')
+        # Check if meanData elements must be saved
+        if openMeanDataNonSavedDialog:
+            # Wait some seconds
+            time.sleep(DELAY_QUESTION)
+            if saveMeanDataElements:
                 waitQuestion('s')
             else:
                 waitQuestion('q')
