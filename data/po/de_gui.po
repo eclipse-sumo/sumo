@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-27 13:01+0000\n"
+"PO-Revision-Date: 2023-01-27 13:04+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -1024,15 +1024,16 @@ msgstr "Netedit-Konfiguration gespeichert in '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3194
 msgid "Could not save NETEDIT configuration in '"
-msgstr ""
+msgstr "Konnte netedit-Konfiguration nicht im folgenden Pfad abspeichern: '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3298
 msgid "SUMO configuration saved in '"
-msgstr ""
+msgstr "Sumo-Konfiguration gespeichert unter '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3306
 msgid "Could not save SUMO configuration in '"
 msgstr ""
+"Konnte die sumo-Konfiguration nicht unter dem folgenden Pfad speichern: '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3360
 msgid "TLS Programs saved in '"
