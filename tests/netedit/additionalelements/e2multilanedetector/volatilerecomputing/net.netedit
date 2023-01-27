@@ -1,65 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-16 12:07:28 by Eclipse SUMO netedit Version v1_14_1+1089-9da63a631b2
+<!-- generated on 2023-01-27 10:09:30 by Eclipse SUMO netedit Version v1_15_0+1999-2abd82a1d98
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.daily.additional.e2multilanedetector.16Sep110502.20495/netedit.daily.additional.e2multilanedetector/additionalelements/e2multilanedetector/volatilerecomputing/input_net.net.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Jan100853.11312\netedit.gui\additionalelements\e2multilanedetector\volatilerecomputing\additionals.add.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Jan100853.11312\netedit.gui\additionalelements\e2multilanedetector\volatilerecomputing\routes.rou.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Jan100853.11312\netedit.gui\additionalelements\e2multilanedetector\volatilerecomputing\datas.dat.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Jan100853.11312\netedit.gui\additionalelements\e2multilanedetector\volatilerecomputing\net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.daily.additional.e2multilanedetector.16Sep110502.20495/netedit.daily.additional.e2multilanedetector/additionalelements/e2multilanedetector/volatilerecomputing/net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Jan100853.11312\netedit.gui\additionalelements\e2multilanedetector\volatilerecomputing\net.net.xml"/>
     </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
+        <lefthand value="0"/>
     </processing>
 
     <junctions>
         <no-internal-links value="false"/>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
     </junctions>
 
     <pedestrian>
         <sidewalks.guess value="true"/>
         <crossings.guess value="true"/>
-        <walkingareas value="false"/>
+        <walkingareas value="0"/>
     </pedestrian>
 
-    <netedit>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.daily.additional.e2multilanedetector.16Sep110502.20495/netedit.daily.additional.e2multilanedetector/additionalelements/e2multilanedetector/volatilerecomputing/additionals.xml"/>
-        <additionals-output value="/home/palcraft/.texttest/tmp/netedit.daily.additional.e2multilanedetector.16Sep110502.20495/netedit.daily.additional.e2multilanedetector/additionalelements/e2multilanedetector/volatilerecomputing/additionals.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.daily.additional.e2multilanedetector.16Sep110502.20495/netedit.daily.additional.e2multilanedetector/additionalelements/e2multilanedetector/volatilerecomputing/routes.xml"/>
-        <demandelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.additional.e2multilanedetector.16Sep110502.20495/netedit.daily.additional.e2multilanedetector/additionalelements/e2multilanedetector/volatilerecomputing/routes.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.daily.additional.e2multilanedetector.16Sep110502.20495/netedit.daily.additional.e2multilanedetector/additionalelements/e2multilanedetector/volatilerecomputing/datas.xml"/>
-        <dataelements-output value="/home/palcraft/.texttest/tmp/netedit.daily.additional.e2multilanedetector.16Sep110502.20495/netedit.daily.additional.e2multilanedetector/additionalelements/e2multilanedetector/volatilerecomputing/datas.xml"/>
-    </netedit>
-
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.daily.additional.e2multilanedetector.16Sep110502.20495/netedit.daily.additional.e2multilanedetector/additionalelements/e2multilanedetector/volatilerecomputing/gui-settings.xml"/>
-        <window-size value="936,697"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Jan100853.11312\netedit.gui\additionalelements\e2multilanedetector\volatilerecomputing\gui-settings.xml"/>
+        <window-size value="936, 697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.daily.additional.e2multilanedetector.16Sep110502.20495/netedit.daily.additional.e2multilanedetector/additionalelements/e2multilanedetector/volatilerecomputing/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Jan100853.11312\netedit.gui\additionalelements\e2multilanedetector\volatilerecomputing\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.daily.additional.e2multilanedetector.16Sep110502.20495/netedit.daily.additional.e2multilanedetector/additionalelements/e2multilanedetector/volatilerecomputing/log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Jan100853.11312\netedit.gui\additionalelements\e2multilanedetector\volatilerecomputing\log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.9" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.16" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="25.00,10.00" convBoundary="0.00,0.00,50.00,40.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -76,13 +70,13 @@
         <lane id=":gneJ0_3_0" index="0" disallow="pedestrian" speed="3.65" length="3.37" shape="4.12,0.88 4.00,0.80 3.60,0.00 4.00,-0.80 5.20,-1.60"/>
     </edge>
     <edge id=":gneJ0_c0" function="crossing" crossingEdges="gneE5 gneE8">
-        <lane id=":gneJ0_c0_0" index="0" allow="pedestrian" speed="1.00" length="6.40" width="4.00" shape="3.20,3.20 -3.20,3.20"/>
+        <lane id=":gneJ0_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="3.20,3.20 -3.20,3.20"/>
     </edge>
     <edge id=":gneJ0_w0" function="walkingarea">
-        <lane id=":gneJ0_w0_0" index="0" allow="pedestrian" speed="1.00" length="8.91" width="4.00" shape="5.20,-3.20 5.20,-5.20 1.88,-4.94 -0.76,-4.14 -2.76,-2.76 -4.14,-0.76 -4.94,1.88 -5.20,5.20 -3.20,5.20 -2.97,2.63 -2.27,0.53 -1.10,-1.10 0.53,-2.27 2.63,-2.97"/>
+        <lane id=":gneJ0_w0_0" index="0" allow="pedestrian" speed="2.78" length="8.91" width="4.00" shape="5.20,-3.20 5.20,-5.20 1.88,-4.94 -0.76,-4.14 -2.76,-2.76 -4.14,-0.76 -4.94,1.88 -5.20,5.20 -3.20,5.20 -2.97,2.63 -2.27,0.53 -1.10,-1.10 0.53,-2.27 2.63,-2.97"/>
     </edge>
     <edge id=":gneJ0_w1" function="walkingarea">
-        <lane id=":gneJ0_w1_0" index="0" allow="pedestrian" speed="1.00" length="1.96" width="4.00" shape="3.20,5.20 5.20,5.20 5.20,3.20 4.59,3.26 4.09,3.42 3.70,3.70 3.42,4.09 3.26,4.59"/>
+        <lane id=":gneJ0_w1_0" index="0" allow="pedestrian" speed="2.78" length="1.96" width="4.00" shape="3.20,5.20 5.20,5.20 5.20,3.20 4.59,3.26 4.09,3.42 3.70,3.70 3.42,4.09 3.26,4.59"/>
     </edge>
     <edge id=":gneJ1_0" function="internal">
         <lane id=":gneJ1_0_0" index="0" disallow="pedestrian" speed="5.37" length="5.81" shape="48.40,5.20 48.17,3.62 47.50,2.50 46.38,1.82 44.80,1.60"/>
@@ -100,13 +94,13 @@
         <lane id=":gneJ1_4_0" index="0" disallow="pedestrian" speed="3.65" length="3.23" shape="46.00,-0.80 46.40,0.00 46.00,0.80 44.80,1.60"/>
     </edge>
     <edge id=":gneJ1_c0" function="crossing" crossingEdges="gneE10 gneE9">
-        <lane id=":gneJ1_c0_0" index="0" allow="pedestrian" speed="1.00" length="6.40" width="4.00" shape="53.20,3.20 46.80,3.20"/>
+        <lane id=":gneJ1_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="53.20,3.20 46.80,3.20"/>
     </edge>
     <edge id=":gneJ1_w0" function="walkingarea">
-        <lane id=":gneJ1_w0_0" index="0" allow="pedestrian" speed="1.00" length="1.96" width="4.00" shape="44.80,3.20 44.80,5.20 46.80,5.20 46.74,4.59 46.58,4.09 46.30,3.70 45.91,3.42 45.41,3.26"/>
+        <lane id=":gneJ1_w0_0" index="0" allow="pedestrian" speed="2.78" length="1.96" width="4.00" shape="44.80,3.20 44.80,5.20 46.80,5.20 46.74,4.59 46.58,4.09 46.30,3.70 45.91,3.42 45.41,3.26"/>
     </edge>
     <edge id=":gneJ1_w1" function="walkingarea">
-        <lane id=":gneJ1_w1_0" index="0" allow="pedestrian" speed="1.00" length="8.91" width="4.00" shape="53.20,5.20 55.20,5.20 54.94,1.88 54.14,-0.76 52.76,-2.76 50.76,-4.14 48.12,-4.94 44.80,-5.20 44.80,-3.20 47.37,-2.97 49.47,-2.27 51.10,-1.10 52.27,0.53 52.97,2.63"/>
+        <lane id=":gneJ1_w1_0" index="0" allow="pedestrian" speed="2.78" length="8.91" width="4.00" shape="53.20,5.20 55.20,5.20 54.94,1.88 54.14,-0.76 52.76,-2.76 50.76,-4.14 48.12,-4.94 44.80,-5.20 44.80,-3.20 47.37,-2.97 49.47,-2.27 51.10,-1.10 52.27,0.53 52.97,2.63"/>
     </edge>
     <edge id=":gneJ2_0" function="internal">
         <lane id=":gneJ2_0_0" index="0" disallow="pedestrian" speed="10.17" length="23.57" shape="51.60,34.80 51.05,43.38 49.40,49.50 46.65,53.17 42.80,54.40"/>
@@ -122,13 +116,13 @@
         <lane id=":gneJ2_6_0" index="0" disallow="pedestrian" speed="3.65" length="4.67" shape="42.80,38.40 44.00,39.20 44.40,40.00 44.00,40.80 42.80,41.60"/>
     </edge>
     <edge id=":gneJ2_c0" function="crossing" crossingEdges="gneE12 gneE11">
-        <lane id=":gneJ2_c0_0" index="0" allow="pedestrian" speed="1.00" length="6.40" width="4.00" shape="46.80,36.80 53.20,36.80"/>
+        <lane id=":gneJ2_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="46.80,36.80 53.20,36.80"/>
     </edge>
     <edge id=":gneJ2_w0" function="walkingarea">
-        <lane id=":gneJ2_w0_0" index="0" allow="pedestrian" speed="1.00" length="16.64" width="4.00" shape="42.80,56.00 42.80,58.00 47.19,56.98 50.46,54.21 52.75,50.15 54.21,45.26 54.98,39.99 55.20,34.80 53.20,34.80 52.91,41.28 52.04,46.58 50.60,50.70 48.58,53.64 45.98,55.41"/>
+        <lane id=":gneJ2_w0_0" index="0" allow="pedestrian" speed="2.78" length="16.64" width="4.00" shape="42.80,56.00 42.80,58.00 47.19,56.98 50.46,54.21 52.75,50.15 54.21,45.26 54.98,39.99 55.20,34.80 53.20,34.80 52.91,41.28 52.04,46.58 50.60,50.70 48.58,53.64 45.98,55.41"/>
     </edge>
     <edge id=":gneJ2_w1" function="walkingarea">
-        <lane id=":gneJ2_w1_0" index="0" allow="pedestrian" speed="1.00" length="3.74" width="4.00" shape="46.80,34.80 44.80,34.80 42.80,36.80 42.80,40.00 44.02,39.86 45.02,39.42 45.80,38.70 46.36,37.69 46.69,36.39"/>
+        <lane id=":gneJ2_w1_0" index="0" allow="pedestrian" speed="2.78" length="3.74" width="4.00" shape="46.80,34.80 44.80,34.80 42.80,36.80 42.80,40.00 44.02,39.86 45.02,39.42 45.80,38.70 46.36,37.69 46.69,36.39"/>
     </edge>
     <edge id=":gneJ3_0" function="internal">
         <lane id=":gneJ3_0_0" index="0" disallow="pedestrian" speed="10.17" length="23.57" shape="7.20,54.40 3.35,53.17 0.60,49.50 -1.05,43.38 -1.60,34.80"/>
@@ -140,13 +134,13 @@
         <lane id=":gneJ3_2_0" index="0" disallow="pedestrian" speed="5.99" length="7.49" shape="1.60,34.80 1.95,36.38 3.00,37.50 4.75,38.17 7.20,38.40"/>
     </edge>
     <edge id=":gneJ3_c0" function="crossing" crossingEdges="gneE2">
-        <lane id=":gneJ3_c0_0" index="0" allow="pedestrian" speed="1.00" length="16.00" width="4.00" shape="5.20,40.00 5.20,56.00"/>
+        <lane id=":gneJ3_c0_0" index="0" allow="pedestrian" speed="2.78" length="16.00" width="4.00" shape="5.20,40.00 5.20,56.00"/>
     </edge>
     <edge id=":gneJ3_w0" function="walkingarea">
-        <lane id=":gneJ3_w0_0" index="0" allow="pedestrian" speed="1.00" length="16.79" width="4.00" shape="-3.20,34.80 -5.20,34.80 -4.98,39.99 -4.21,45.26 -2.75,50.15 -0.46,54.21 2.81,56.98 7.20,58.00 7.20,56.00 4.02,55.41 1.42,53.64 -0.60,50.70 -2.04,46.58 -2.91,41.28"/>
+        <lane id=":gneJ3_w0_0" index="0" allow="pedestrian" speed="2.78" length="16.79" width="4.00" shape="-3.20,34.80 -5.20,34.80 -4.98,39.99 -4.21,45.26 -2.75,50.15 -0.46,54.21 2.81,56.98 7.20,58.00 7.20,56.00 4.02,55.41 1.42,53.64 -0.60,50.70 -2.04,46.58 -2.91,41.28"/>
     </edge>
     <edge id=":gneJ3_w1" function="walkingarea">
-        <lane id=":gneJ3_w1_0" index="0" allow="pedestrian" speed="1.00" length="4.18" width="4.00" shape="7.20,40.00 7.20,36.80 5.20,34.80 3.20,34.80 3.31,36.39 3.64,37.69 4.20,38.70 4.98,39.42 5.98,39.86"/>
+        <lane id=":gneJ3_w1_0" index="0" allow="pedestrian" speed="2.78" length="4.18" width="4.00" shape="7.20,40.00 7.20,36.80 5.20,34.80 3.20,34.80 3.31,36.39 3.64,37.69 4.20,38.70 4.98,39.42 5.98,39.86"/>
     </edge>
     <edge id=":gneJ4_0" function="internal">
         <lane id=":gneJ4_0_0" index="0" disallow="pedestrian" speed="13.89" length="14.40" shape="-1.60,27.20 -1.60,12.80"/>
@@ -173,22 +167,22 @@
         <lane id=":gneJ4_7_0" index="0" disallow="pedestrian" speed="6.51" length="4.28" shape="3.20,17.12 4.75,18.05 7.20,18.40"/>
     </edge>
     <edge id=":gneJ4_c0" function="crossing" crossingEdges="gneE13 gneE14">
-        <lane id=":gneJ4_c0_0" index="0" allow="pedestrian" speed="1.00" length="6.40" width="4.00" shape="3.20,25.20 -3.20,25.20"/>
+        <lane id=":gneJ4_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="3.20,25.20 -3.20,25.20"/>
     </edge>
     <edge id=":gneJ4_c1" function="crossing" crossingEdges="gneE6 gneE7">
-        <lane id=":gneJ4_c1_0" index="0" allow="pedestrian" speed="1.00" length="6.40" width="4.00" shape="5.20,16.80 5.20,23.20"/>
+        <lane id=":gneJ4_c1_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="5.20,16.80 5.20,23.20"/>
     </edge>
     <edge id=":gneJ4_c2" function="crossing" crossingEdges="gneE8 gneE5">
-        <lane id=":gneJ4_c2_0" index="0" allow="pedestrian" speed="1.00" length="6.40" width="4.00" shape="-3.20,14.80 3.20,14.80"/>
+        <lane id=":gneJ4_c2_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="-3.20,14.80 3.20,14.80"/>
     </edge>
     <edge id=":gneJ4_w0" function="walkingarea">
-        <lane id=":gneJ4_w0_0" index="0" allow="pedestrian" speed="1.00" length="9.03" width="4.00" shape="-3.20,16.80 -3.20,12.80 -5.20,12.80 -5.20,27.20 -3.20,27.20 -3.20,23.20"/>
+        <lane id=":gneJ4_w0_0" index="0" allow="pedestrian" speed="2.78" length="9.03" width="4.00" shape="-3.20,16.80 -3.20,12.80 -5.20,12.80 -5.20,27.20 -3.20,27.20 -3.20,23.20"/>
     </edge>
     <edge id=":gneJ4_w1" function="walkingarea">
-        <lane id=":gneJ4_w1_0" index="0" allow="pedestrian" speed="1.00" length="3.30" width="4.00" shape="3.20,27.20 5.20,27.20 7.20,25.20 7.20,23.20 5.98,23.31 4.98,23.64 4.20,24.20 3.64,24.98 3.31,25.98"/>
+        <lane id=":gneJ4_w1_0" index="0" allow="pedestrian" speed="2.78" length="3.30" width="4.00" shape="3.20,27.20 5.20,27.20 7.20,25.20 7.20,23.20 5.98,23.31 4.98,23.64 4.20,24.20 3.64,24.98 3.31,25.98"/>
     </edge>
     <edge id=":gneJ4_w2" function="walkingarea">
-        <lane id=":gneJ4_w2_0" index="0" allow="pedestrian" speed="1.00" length="3.30" width="4.00" shape="7.20,16.80 7.20,14.80 5.20,12.80 3.20,12.80 3.31,14.02 3.64,15.02 4.20,15.80 4.98,16.36 5.98,16.69"/>
+        <lane id=":gneJ4_w2_0" index="0" allow="pedestrian" speed="2.78" length="3.30" width="4.00" shape="7.20,16.80 7.20,14.80 5.20,12.80 3.20,12.80 3.31,14.02 3.64,15.02 4.20,15.80 4.98,16.36 5.98,16.69"/>
     </edge>
     <edge id=":gneJ5_0" function="internal">
         <lane id=":gneJ5_0_0" index="0" disallow="pedestrian" speed="6.51" length="4.75" shape="48.40,27.20 48.05,24.75 47.00,23.00 46.80,22.88"/>
@@ -215,22 +209,22 @@
         <lane id=":gneJ5_5_0" index="0" disallow="pedestrian" speed="8.00" length="14.19" shape="42.80,18.40 46.65,18.95 49.40,20.60 51.05,23.35 51.60,27.20"/>
     </edge>
     <edge id=":gneJ5_c0" function="crossing" crossingEdges="gneE11 gneE12">
-        <lane id=":gneJ5_c0_0" index="0" allow="pedestrian" speed="1.00" length="6.40" width="4.00" shape="53.20,25.20 46.80,25.20"/>
+        <lane id=":gneJ5_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="53.20,25.20 46.80,25.20"/>
     </edge>
     <edge id=":gneJ5_c1" function="crossing" crossingEdges="gneE9 gneE10">
-        <lane id=":gneJ5_c1_0" index="0" allow="pedestrian" speed="1.00" length="6.40" width="4.00" shape="46.80,14.80 53.20,14.80"/>
+        <lane id=":gneJ5_c1_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="46.80,14.80 53.20,14.80"/>
     </edge>
     <edge id=":gneJ5_c2" function="crossing" crossingEdges="gneE7 gneE6">
-        <lane id=":gneJ5_c2_0" index="0" allow="pedestrian" speed="1.00" length="6.40" width="4.00" shape="44.80,23.20 44.80,16.80"/>
+        <lane id=":gneJ5_c2_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="44.80,23.20 44.80,16.80"/>
     </edge>
     <edge id=":gneJ5_w0" function="walkingarea">
-        <lane id=":gneJ5_w0_0" index="0" allow="pedestrian" speed="1.00" length="3.30" width="4.00" shape="42.80,23.20 42.80,25.20 44.80,27.20 46.80,27.20 46.69,25.98 46.36,24.98 45.80,24.20 45.02,23.64 44.02,23.31"/>
+        <lane id=":gneJ5_w0_0" index="0" allow="pedestrian" speed="2.78" length="3.30" width="4.00" shape="42.80,23.20 42.80,25.20 44.80,27.20 46.80,27.20 46.69,25.98 46.36,24.98 45.80,24.20 45.02,23.64 44.02,23.31"/>
     </edge>
     <edge id=":gneJ5_w1" function="walkingarea">
-        <lane id=":gneJ5_w1_0" index="0" allow="pedestrian" speed="1.00" length="9.03" width="4.00" shape="53.20,23.20 53.20,27.20 55.20,27.20 55.20,12.80 53.20,12.80 53.20,16.80"/>
+        <lane id=":gneJ5_w1_0" index="0" allow="pedestrian" speed="2.78" length="9.03" width="4.00" shape="53.20,23.20 53.20,27.20 55.20,27.20 55.20,12.80 53.20,12.80 53.20,16.80"/>
     </edge>
     <edge id=":gneJ5_w2" function="walkingarea">
-        <lane id=":gneJ5_w2_0" index="0" allow="pedestrian" speed="1.00" length="3.30" width="4.00" shape="46.80,12.80 44.80,12.80 42.80,14.80 42.80,16.80 44.02,16.69 45.02,16.36 45.80,15.80 46.36,15.02 46.69,14.02"/>
+        <lane id=":gneJ5_w2_0" index="0" allow="pedestrian" speed="2.78" length="3.30" width="4.00" shape="46.80,12.80 44.80,12.80 42.80,14.80 42.80,16.80 44.02,16.69 45.02,16.36 45.80,15.80 46.36,15.02 46.69,14.02"/>
     </edge>
 
     <edge id="gneE0" from="gneJ0" to="gneJ1" priority="1">

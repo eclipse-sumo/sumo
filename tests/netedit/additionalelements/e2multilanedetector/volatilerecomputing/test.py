@@ -33,32 +33,17 @@ neteditProcess, referencePosition = netedit.setupAndStart(
 # rebuild before recomputing with volatile options
 netedit.rebuildNetwork()
 
-# wait more
-time.sleep(2)
-
 # Recompute with volatile options
 netedit.rebuildNetworkWithVolatileOptions()
 
 # create new connections
 netedit.fixStoppingPlace("activateFriendlyPos")
 
-# wait more
-time.sleep(3)
-
-# rebuild before saving
-netedit.rebuildNetwork()
-
-# wait more
-time.sleep(2)
-# create new connections
-netedit.fixStoppingPlace("activateFriendlyPos")
-
-# wait more
-time.sleep(3)
-
-
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)
+
+# create new connections
+netedit.fixStoppingPlace("activateFriendlyPos")
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -38,7 +38,7 @@ netedit.changeElement("containerStop")
 netedit.changeDefaultValue(netedit.attrs.containerStop.create.references, "reference center")
 
 # create containerStop in mode "reference center"
-netedit.leftClick(referencePosition, 250, 170)
+netedit.leftClick(referencePosition, 250, 165)
 
 # go to inspect mode
 netedit.inspectMode()
