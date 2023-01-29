@@ -466,7 +466,7 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
     NBEdgeCont::Split e;
     e.pos = attrs.get<double>(SUMO_ATTR_POSITION, nullptr, ok);
     if (ok) {
-        if (fabs(e.pos) > myCurrentEdge->getGeometry().length()) {
+        if (fabs(e.pos) > myCurrentEdge->getLoadedLength()) {
             WRITE_ERROR("Edge '" + myCurrentID + "' has a split at invalid position " + toString(e.pos) + ".");
             return;
         }
