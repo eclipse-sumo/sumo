@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-27 14:57+0000\n"
-"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
+"PO-Revision-Date: 2023-01-29 16:06+0000\n"
+"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
 "Language: de\n"
@@ -735,7 +735,7 @@ msgstr "Snapshot erfolgreich gespeichert!"
 #: /home/micha/programming/sumo/src/gui/GUISUMOViewParent.cpp:267
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:676
 msgid "Unknown Message ID in onCmdLocate"
-msgstr ""
+msgstr "Unbekannte Nachrichten ID in onCmdLocate"
 
 #: /home/micha/programming/sumo/src/gui/GUITLLogicPhasesTrackerWindow.cpp:269
 msgid "phase names"
@@ -751,7 +751,7 @@ msgstr "Bedingungen"
 
 #: /home/micha/programming/sumo/src/gui/GUITLLogicPhasesTrackerWindow.cpp:336
 msgid "Overflow in time computation occurred."
-msgstr ""
+msgstr "Überschuss bei der Zeitberechnung aufgetreten."
 
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_AboutSUMO.cpp:69
 #: /home/micha/programming/sumo/src/gui/dialogs/GUIDialog_HallOfFame.cpp:57
@@ -853,7 +853,7 @@ msgstr "Netz größer als ein Lichtjahr. Bitte die EIngabedaten prüfen.\n"
 
 #: /home/micha/programming/sumo/src/guisim/GUINet.cpp:542
 msgid "A gui-network was not yet constructed."
-msgstr ""
+msgstr "Ein gui-Netz wurde nicht erstellt."
 
 #: /home/micha/programming/sumo/src/guisim/GUINet.cpp:632
 msgid "Trying to set data value for the unknown edge '%'."
@@ -1107,24 +1107,24 @@ msgstr "Lädt Nachfrageelemente aus '"
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3827
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1326
 msgid "Loading of data file failed: "
-msgstr ""
+msgstr "Laden der Datendatei ist fehlgeschlagen: "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3833
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1328
 msgid "Loading of data file sucessfully: "
-msgstr ""
+msgstr "Laden der Datendatei war erfolgreich: "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3863
 msgid "reloading data elements from '"
-msgstr ""
+msgstr "Neu laden von Datenelementen aus"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3868
 msgid "Reloading of data file failed: "
-msgstr ""
+msgstr "Neu laden von der Datendatei ist fehlgeschlagen: "
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3909
 msgid "Data elements saved in '"
-msgstr ""
+msgstr "Speicherung der Datenelemente in"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:3978
 msgid "load meanDatas from '"
@@ -1155,7 +1155,7 @@ msgstr "Lädt weitere Daten und meanData aus '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4545
 msgid "Loading data elements from '"
-msgstr ""
+msgstr "Laden der Datenelemente von"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:140
 msgid "nets"
@@ -1310,7 +1310,7 @@ msgstr "Nachfrageelemente"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:297
 msgid "Data Elements"
-msgstr ""
+msgstr "Datenelemente"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:301
 msgid "MeanData Elements"
@@ -1396,475 +1396,501 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:392
 msgid "Reload TLS Programs"
-msgstr ""
+msgstr "Neu laden vom TLS Programmen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:392
 msgid "Reload TLS Programs."
-msgstr ""
+msgstr "Neu laden von TLS Programmen."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:400
 msgid "Load Edge Types..."
-msgstr ""
+msgstr "Laden von Kantentypen..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:400
 msgid "Load edge types in the current net."
-msgstr ""
+msgstr "Lade Kantentypen in das aktuelle Netz."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:406
 msgid "Save Edge Types"
-msgstr ""
+msgstr "Speicher Kantentypen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:406
 msgid "Save edge types of the current net."
-msgstr ""
+msgstr "Speicher Kantentypen des aktuellen Netzes."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:410
 msgid "Save Edge Types As..."
-msgstr ""
+msgstr "Speicher Kantentypen als..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:410
 msgid "Save edge types of the current net to another file."
-msgstr ""
+msgstr "Speicher Kantentypen des aktuellen Netzes in einer anderen Datei."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:416
 msgid "Reload edge types"
-msgstr ""
+msgstr "Lade Kantentypen neu"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:416
 msgid "Reload edge types."
-msgstr ""
+msgstr "Lade Kantentypen neu."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:424
 msgid "Load Additionals..."
-msgstr ""
+msgstr "Lade weitere Daten..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:424
 msgid "Load additionals and shapes."
-msgstr ""
+msgstr "Lade weitere Daten und Umrisse."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:430
 msgid "Save Additionals"
-msgstr ""
+msgstr "Speicher weitere Daten"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:430
 msgid "Save additionals and shapes."
-msgstr ""
+msgstr "Speicher weitere Daten und Umrisse."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:434
 msgid "Save Additionals As..."
-msgstr ""
+msgstr "Speicher weitere Daten unter..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:434
 msgid "Save additional elements to another file."
-msgstr ""
+msgstr "Speicher die Zusatzelemente in einer anderen Datei."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:440
 msgid "Reload Additionals"
-msgstr ""
+msgstr "Neu laden der weiteren Daten"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:440
 msgid "Reload additionals."
-msgstr ""
+msgstr "Neu laden weiterer Daten."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:448
 msgid "Load Demand Elements..."
-msgstr ""
+msgstr "Lade Nachfrageelemente..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:448
 msgid "Load demand elements."
-msgstr ""
+msgstr "Lade Nachfrageelemente."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:454
 msgid "Save Demand Elements"
-msgstr ""
+msgstr "Speicher Nachfrageelemente"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:454
 msgid "Save demand elements."
-msgstr ""
+msgstr "Speicher Nachfrageelemente."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:458
 msgid "Save Demand Elements As..."
-msgstr ""
+msgstr "Speicher Nachfrageelemente unter..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:458
 msgid "Save demand elements to another file."
-msgstr ""
+msgstr "Speicher Nachfrageelemente in einer anderen Datei."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:464
 msgid "Reload Demand Elements"
-msgstr ""
+msgstr "Neu laden der Nachfrageelemente"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:464
 msgid "Reload demand elements."
-msgstr ""
+msgstr "Neu laden der Nachfrageelemente."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:472
 msgid "Load Data Elements..."
-msgstr ""
+msgstr "Lade Datenelemente..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:472
 msgid "Load data elements."
-msgstr ""
+msgstr "Lade Datenelemente."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:478
 msgid "Save Data Elements"
-msgstr ""
+msgstr "Speicher Datenelemente"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:478
 msgid "Save data elements."
-msgstr ""
+msgstr "Speicher Datenelemente."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:482
 msgid "Save Data Elements As..."
-msgstr ""
+msgstr "Speicher Datenelemente unter..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:482
 msgid "Save data elements to another file."
-msgstr ""
+msgstr "Speicher Datenelemente in einer anderen Datei."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:488
 msgid "Reload Data Elements"
-msgstr ""
+msgstr "Neu laden der Datenelemente"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:488
 msgid "Reload data elements."
-msgstr ""
+msgstr "Neu laden der Datenelemente."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:496
+#, fuzzy
 msgid "Load MeanDatas..."
-msgstr ""
+msgstr "Lade Mean-Daten..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:496
+#, fuzzy
 msgid "Load meanDatas and shapes."
-msgstr ""
+msgstr "Lade Mean-Daten und Formen."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:502
 msgid "Save MeanDatas"
-msgstr ""
+msgstr "Speicher Mean-Daten"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:502
+#, fuzzy
 msgid "Save meanDatas and shapes."
-msgstr ""
+msgstr "Speicher Mean-Daten und Formen."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:506
+#, fuzzy
 msgid "Save MeanDatas As..."
-msgstr ""
+msgstr "Speicher Mean-Daten unter..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:506
+#, fuzzy
 msgid "Save meanData elements to another file."
-msgstr ""
+msgstr "Speicher Mean-Daten-Elemente in einer anderen Datei."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:512
+#, fuzzy
 msgid "Reload MeanDatas"
-msgstr ""
+msgstr "Neu laden der Mean-Daten"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:512
+#, fuzzy
 msgid "Reload meanDatas."
-msgstr ""
+msgstr "Neu laden von Mean-Daten."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:532
 msgid "&Inspect"
-msgstr ""
+msgstr "&Prüfung"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:532
 msgid "Inspect elements and change their attributes."
-msgstr ""
+msgstr "Überprüft Elemente und ändert ihre Attribute."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:535
 msgid "&Delete"
-msgstr ""
+msgstr "&Löschen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:535
 msgid "Delete elements."
-msgstr ""
+msgstr "Lösche Elemente."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:538
 msgid "&Select"
-msgstr ""
+msgstr "&Auswählen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:538
 msgid "Select elements."
-msgstr ""
+msgstr "Wähle Elemente aus."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:595
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:676
 msgid "&Move"
-msgstr ""
+msgstr "&Bewegung"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:595
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:676
 msgid "Move elements."
-msgstr ""
+msgstr "Bewegungselemente."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:598
 msgid "&Edge"
-msgstr ""
+msgstr "&Kante"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:598
 msgid "Create junction and edges."
-msgstr ""
+msgstr "Erstellt Knotenpunkte und Kanten."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:601
 msgid "&Connection"
-msgstr ""
+msgstr "&Verbindung"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:601
+#, fuzzy
 msgid "Modes connections between lanes."
-msgstr ""
+msgstr "Modusverbindungen zwischen Fahrspuren."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:604
+#, fuzzy
 msgid "Pro&hibition"
-msgstr ""
+msgstr "Ver&bot"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:604
 msgid "Modes connection prohibitions."
-msgstr ""
+msgstr "Modi Verbindungsverbote."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:607
+#, fuzzy
 msgid "Modes traffic lights over junctions."
-msgstr ""
+msgstr "Modi-Lichtsignalanlage über Knotenpunkt."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:610
 msgid "Create additional elements."
-msgstr ""
+msgstr "Erstellt zusätzliche Elemente."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:613
+#, fuzzy
 msgid "C&rossing"
-msgstr ""
+msgstr "K&reuzung"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:613
 msgid "Create crossings between edges."
-msgstr ""
+msgstr "Erstellt Kreuzungen zwischen Kanten."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:616
+#, fuzzy
 msgid "TA&Z"
-msgstr ""
+msgstr "TA&Z"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:616
 msgid "Create Traffic Assignment Zones."
-msgstr ""
+msgstr "Erstellt Verkehrszuweisungszonen."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:619
 msgid "Create Points-Of-Interest and polygons."
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:622
+#, fuzzy
 msgid "&Wire"
-msgstr ""
+msgstr "&Leitung"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:622
+#, fuzzy
 msgid "Create wires."
-msgstr ""
+msgstr "Erstellt Leitungen."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:679
 msgid "Route"
-msgstr ""
+msgstr "Weg"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:679
 msgid "Create Routes."
-msgstr ""
+msgstr "Erstellt Routen."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:682
 msgid "Vehicle"
-msgstr ""
+msgstr "Fahrzeug"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:682
 msgid "Create vehicles."
-msgstr ""
+msgstr "Erstelle Fahrzeuge."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:685
 msgid "Type"
-msgstr ""
+msgstr "Typ"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:685
 msgid "Create types (vehicles, person an containers)."
-msgstr ""
+msgstr "Erstelle Typen (Fahrzeuge, Personen und Container)."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:688
+#, fuzzy
 msgid "Create stops."
-msgstr ""
+msgstr "Erstelle Haltepunkte."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:691
 msgid "Person"
-msgstr ""
+msgstr "Person"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:691
 msgid "Create persons."
-msgstr ""
+msgstr "Erstelle Personen."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:694
 msgid "Person plan"
-msgstr ""
+msgstr "Personenplan"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:694
 msgid "Create person plans."
-msgstr ""
+msgstr "Erstelle Personenpläne."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:697
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:179
 msgid "Container"
-msgstr ""
+msgstr "Behälter"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:697
 msgid "Create containers."
-msgstr ""
+msgstr "Erstelle Container."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:700
 msgid "Container plan"
-msgstr ""
+msgstr "Containerplan"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:700
 msgid "Create container plans."
-msgstr ""
+msgstr "Erstelle Containerpläne."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:735
 msgid "&EdgeData"
-msgstr ""
+msgstr "&Kantendaten"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:735
 msgid "Create edgeData elements."
-msgstr ""
+msgstr "Erstelle Kantendatenelemente."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:738
 msgid "Edge&Relation"
-msgstr ""
+msgstr "Kanten&Beziehung"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:738
 msgid "Create edgeRelation elements."
-msgstr ""
+msgstr "Erstelle Kantenbeziehungselemente."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:741
 msgid "TA&ZRelation"
-msgstr ""
+msgstr "TA&ZBeziehung"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:741
 msgid "Create TAZRelation elements."
-msgstr ""
+msgstr "Erstelle TAZ-Beziehungselemente."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:744
+#, fuzzy
 msgid "&MeanData"
-msgstr ""
+msgstr "&Mean-Daten"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:744
+#, fuzzy
 msgid "Create MeanData edge/lanes."
-msgstr ""
+msgstr "Erstelle Mean-Daten Kanten/Spuren."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:806
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1003
 msgid "Show grid"
-msgstr ""
+msgstr "Raster anzeigen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:811
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1008
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1143
 msgid "Hide junction shape"
-msgstr ""
+msgstr "Knotenpunktform ausblenden"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:816
 msgid "Draw vehicles spread in lane or in depart position"
-msgstr ""
+msgstr "Zeichnet Fahrzeug verteilt in der Spur oder Abfahrtsposition"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:821
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1158
 msgid "Show demand elements"
-msgstr ""
+msgstr "Zeigt Nachfrageelemente"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:826
 msgid "Clicking should target lanes"
-msgstr ""
+msgstr "Bahnen sollten angeklickt werden"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:831
 msgid "Show connections over junctions"
-msgstr ""
+msgstr "Zeigt Verbindungen über die Knotenpunkte"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:836
 msgid "Hide connections"
-msgstr ""
+msgstr "Verbindungen ausblenden"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:841
 msgid "Show sub-additional elements"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:846
+#, fuzzy
 msgid "Show TAZ elements"
-msgstr ""
+msgstr "Zeige TAZ Elemente"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:851
 msgid "Selecting multiple edges automatically select their junctions"
 msgstr ""
+"Durch die Auswahl mehrerer Kanten werden ihre Knotenpunkte automatisch "
+"gewählt"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:856
 msgid "Clicking should apply state changes to all phases of TLS plan"
 msgstr ""
+"Durch klicken sollten Statusänderungen auf alle Phasen der Lichtsignalanlage "
+"(TLS) angewendet werden"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:861
 msgid "Ask for confirmation before merging junction"
 msgstr ""
+"Bitte um eine Bestätigung bevor Knotenpunkte zusammengeführt werden sollen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:866
+#, fuzzy
 msgid "Show bubbles over junctions shapes"
-msgstr ""
+msgstr "Zeige Blasen über Knotenpunktformen an"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:871
+#, fuzzy
 msgid "Apply mouse movement to elevation"
-msgstr ""
+msgstr "Wende die Mausbewegung auf die Höhe an"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:876
 msgid "Create consecutive edges"
-msgstr ""
+msgstr "Erstelle aufeinanderfolgende Kanten"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:881
 msgid "Create an edge in the opposite direction"
-msgstr ""
+msgstr "Erstelle eine Kante in der entgegengesetzten Richtung"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1013
 msgid "Draw vehicles spread/depart position"
-msgstr ""
+msgstr "Zeichnet die Verbreitungs- und Abfahrtsposition von Fahrzeugen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1018
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1153
 msgid "Show shapes"
-msgstr ""
+msgstr "Zeige Formen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1023
 msgid "Show all trips"
-msgstr ""
+msgstr "Zeige alle Fahrten"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1028
 msgid "Show all person plans"
-msgstr ""
+msgstr "Zeige alle Personenpläne"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1033
 msgid "Lock selected person"
-msgstr ""
+msgstr "Sperre ausgewählte Person"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1038
 msgid "Show all container plans"
-msgstr ""
+msgstr "Zeige alle Containerpläne"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1043
 msgid "Lock selected container"
-msgstr ""
+msgstr "Sperre ausgewählten Container"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1048
 msgid "Show non-inspected demand elements"
-msgstr ""
+msgstr "Zeige nicht geprüfte Bedarfselemente"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1053
 msgid "Show number of overlapped routes"
-msgstr ""
+msgstr "Zeige Anzahl von überlappenden Routen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1148
 msgid "Show additionals"
-msgstr ""
+msgstr "Zeige weitere Daten"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1163
 msgid "Draw TAZRel from center"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1168
+#, fuzzy
 msgid "Draw TAZ fill"
-msgstr ""
+msgstr "Zeichne TAZ-Füllung"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1173
 msgid "Only draw TAZRel from"
@@ -1876,11 +1902,12 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1259
 msgid "Undo the last change."
-msgstr ""
+msgstr "Macht die letzte Änderung rückgängig."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1262
+#, fuzzy
 msgid "Redo the last change."
-msgstr ""
+msgstr "Wiederholt die letzte Änderung."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1265
 msgid "Show undo/redo history"
@@ -1891,56 +1918,58 @@ msgid "Open undo/redo history dialog."
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1286
+#, fuzzy
 msgid "Clear front element"
-msgstr ""
+msgstr "Reinigt Frontelement"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1286
+#, fuzzy
 msgid "Clear current front element"
-msgstr ""
+msgstr "Reinigt aktuelles Frontelement"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1295
 msgid "Load additionals in sumo-gui"
-msgstr ""
+msgstr "Lade weitere Daten in sumo-gui"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1295
 msgid "Load additionals in sumo-gui."
-msgstr ""
+msgstr "Lade weitere Daten in sumo-gui."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1299
 msgid "Load demand in sumo-gui"
-msgstr ""
+msgstr "Lade Nachfrage in sumo-gui"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1299
 msgid "Load demand in sumo-gui."
-msgstr ""
+msgstr "Lade Nachfrage in sumo-gui."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1303
 msgid "Open in sumo-gui"
-msgstr ""
+msgstr "Öffne in sumo-gui"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1303
 msgid "Opens the sumo-gui application with the current network."
-msgstr ""
+msgstr "Öffnet die sumo-gui Anwendung mit dem aktuellen Netz."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1330
 msgid "&Lanes"
-msgstr ""
+msgstr "&Spuren"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1335
 msgid "&Connections"
-msgstr ""
+msgstr "&Verbindungen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1340
 msgid "C&rossings"
-msgstr ""
+msgstr "K&reuzungen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1345
 msgid "Walkin&gAreas"
-msgstr ""
+msgstr "Geh&wege"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1350
 msgid "&Additionals"
-msgstr ""
+msgstr "&weitere Daten"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1355
 msgid "&TAZs"
@@ -1952,7 +1981,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1365
 msgid "&Polygons"
-msgstr ""
+msgstr "&Polygone"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1370
 msgid "P&OIs"
@@ -1960,39 +1989,41 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1375
 msgid "&Routes"
-msgstr ""
+msgstr "&Routen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1390
 msgid "Person&Trips"
-msgstr ""
+msgstr "Personen&Fahrten"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1395
 msgid "&Walks"
-msgstr ""
+msgstr "&Spaziergänge"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1400
 msgid "Ri&des"
-msgstr ""
+msgstr "Fahr&ten"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1405
 msgid "&Containers"
-msgstr ""
+msgstr "&Container"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1410
+#, fuzzy
 msgid "Tra&nsports"
-msgstr ""
+msgstr "Tra&nsporte"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1415
 msgid "Trans&hips"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1420
+#, fuzzy
 msgid "Stop&s"
-msgstr ""
+msgstr "Halt&e"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1425
 msgid "&EdgeDatas"
-msgstr ""
+msgstr "&Kantendaten"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1430
 msgid "E&dgeRelDatas"
@@ -2004,99 +2035,103 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1443
 msgid "Lock selected elements"
-msgstr ""
+msgstr "Sperre ausgewählte Elemente"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1443
 msgid "selected elements"
-msgstr ""
+msgstr "ausgewählte Elemente"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1450
 msgid "Lock all elements"
-msgstr ""
+msgstr "Sperre alle Elemente"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1450
 msgid "all elements"
-msgstr ""
+msgstr "alle Elemente"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1454
 msgid "Unlock all elements"
-msgstr ""
+msgstr "Entsperre alle Elemente"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1790
 msgid "Compute Junctions"
-msgstr ""
+msgstr "Berechne Knotenpunkte"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1790
 msgid "Compute junction shape and logic."
-msgstr ""
+msgstr "Berechne Knotenpunktform und Logik."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1793
+#, fuzzy
 msgid "Compute Junctions with volatile options"
-msgstr ""
+msgstr "Berechne Knotenpunkte mit instabilen Optionen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1793
+#, fuzzy
 msgid "Compute junction shape and logic using volatile junctions."
 msgstr ""
+"Berechne Knotenpunktform und Logik, welche instabile Knotenpunkte benutzen."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1796
 msgid "Clean Junctions"
-msgstr ""
+msgstr "Bereinige Knotenpunkte"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1796
 msgid "Remove solitary junctions."
-msgstr ""
+msgstr "Entferne einzelne Knotenpunkte."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1799
 msgid "Join Selected Junctions"
-msgstr ""
+msgstr "Kombiniere ausgewählte Knotenpunkte"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1799
 msgid "Join selected junctions into a single junction."
-msgstr ""
+msgstr "Verbinde ausgewählte Knotenpunkte zu einem einzigen Knotenpunkt."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1802
 msgid "Clean invalid crossings"
-msgstr ""
+msgstr "Reinige ungültige Kreuzungen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1802
 msgid "Clear invalid crossings."
-msgstr ""
+msgstr "Reinige ungültige Kreuzungen."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1808
+#, fuzzy
 msgid "Recompute Network in Data Mode"
-msgstr ""
+msgstr "Berechne Netz in Datenmodus neu"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1811
 msgid "RecomputeData"
-msgstr ""
+msgstr "Berechne Daten neu"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1814
 msgid "Compute demand"
-msgstr ""
+msgstr "Berechne Nachfrage"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1814
 msgid "Computes demand elements."
-msgstr ""
+msgstr "Berechne Nachfrageelemente."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1817
 msgid "Clean routes"
-msgstr ""
+msgstr "Reinige Routen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1817
 msgid "Removes routes without vehicles."
-msgstr ""
+msgstr "Entferne Routen ohne Fahrzeuge."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1820
 msgid "Join routes"
-msgstr ""
+msgstr "Verbinde Routen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1820
 msgid "Joins routes with the same edges."
-msgstr ""
+msgstr "Verbinde Routen mit den selben Kanten."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1823
 msgid "Adjust person plans"
-msgstr ""
+msgstr "Anpassung Personenpläne"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1823
 msgid "Adjust person plans (start/end positions, arrival positions, etc.)"
@@ -2104,79 +2139,81 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1826
 msgid "Clean invalid route elements"
-msgstr ""
+msgstr "Reinige ungültige Routenelemente"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1826
 msgid "Clear elements with an invalid path (routes, Trips, Flows...)."
 msgstr ""
+"Reinige Elemente mit einem ungültigen Pfad (Routen, Fahrten, Flüsse...)."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1832
 msgid "SUMO options"
-msgstr ""
+msgstr "SUMO Optionen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1832
 msgid "Configure SUMO Options."
-msgstr ""
+msgstr "Konfiguriere SUMO Optionen."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1838
 msgid "Options"
-msgstr ""
+msgstr "Optionen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1838
 msgid "Configure NETEDIT Options."
-msgstr ""
+msgstr "Konfiguriere NETEDIT Optionen."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1951
 msgid "Open a dialog for locating a Junction."
-msgstr ""
+msgstr "Öffnet einen Dialog zur Lokalisation von Knotenpunkten."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1954
 msgid "Open a dialog for locating an Edge."
-msgstr ""
+msgstr "Öffnet einen Dialog zur Lokalisation einer Kante."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1957
 msgid "&WalkingAreas"
-msgstr ""
+msgstr "&Gehwege"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1957
+#, fuzzy
 msgid "Open a dialog for locating a Walking Area."
-msgstr ""
+msgstr "Öffnet einen Dialog zur Lokalisation von Fußgängerzonen."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1960
 msgid "Open a dialog for locating a Vehicle."
-msgstr ""
+msgstr "Öffnet einen Dialog zur Lokalisation von Fahrzeugen."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1963
 msgid "Open a dialog for locating a Person."
-msgstr ""
+msgstr "Öffnet einen Dialog zur Lokalisation von Personen."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1966
 msgid "&Route"
-msgstr ""
+msgstr "&Route"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1966
 msgid "Open a dialog for locating a Route."
-msgstr ""
+msgstr "Öffnet einen Dialog zur Lokalisation von Routen."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1969
 msgid "&Stops"
-msgstr ""
+msgstr "&Haltepunkte"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1969
 msgid "Open a dialog for locating a Stop."
-msgstr ""
+msgstr "Öffnet einen Dialog zur Lokalisation von Haltepunkten."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1972
 msgid "Open a dialog for locating a Traffic Light."
-msgstr ""
+msgstr "Öffnet einen Dialog zur Lokalisation einer Lichtsignalanlage."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1975
 msgid "Open a dialog for locating an Additional Structure."
-msgstr ""
+msgstr "Öffnet einen Dialog zur Lokalisation einer weiteren Struktur."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1978
 msgid "Open a dialog for locating a Point of Interest."
-msgstr ""
+msgstr "Öffnet einen Dialog zur Lokalisation interessanten Punktes."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1981
 msgid "Open a dialog for locating a Polygon."
@@ -2188,279 +2225,298 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2015
 msgid "Toggle this Status Bar on/off."
-msgstr ""
+msgstr "Schalte die Statusleiste an/aus."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2022
 msgid "Clear the Message Window."
-msgstr ""
+msgstr "Reinige das Meldungsfenster."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2058
 msgid "&Network"
-msgstr ""
+msgstr "&Netz"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2058
 msgid "Select network mode."
-msgstr ""
+msgstr "Wähle Netzmodus."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2061
 msgid "&Demand"
-msgstr ""
+msgstr "&Nachfrage"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2061
 msgid "Select demand mode."
-msgstr ""
+msgstr "Wähle Nachfragemodus."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2064
 msgid "&Data"
-msgstr ""
+msgstr "&Daten"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2064
 msgid "Select data mode."
-msgstr ""
+msgstr "Wähle Datenmodus."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2096
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2100
 msgid "Could not load SUMO configuration '"
-msgstr ""
+msgstr "SUMO-Konfiguration konnte nicht geladen werden '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2145
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2149
 msgid "Could not load NETEDIT configuration '"
-msgstr ""
+msgstr "NETEDIT-Konfiguration konnte nicht geladen werden '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2594
 msgid "Save Network file as"
-msgstr ""
+msgstr "Speicher Netz-Datei unter"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2597
 msgid "Open Network file"
-msgstr ""
+msgstr "Öffne Netz-Datei"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2605
+#, fuzzy
 msgid "Open NetConvert file"
-msgstr ""
+msgstr "Öffne NetConvert-Datei"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2612
+#, fuzzy
 msgid "Save plain XML as"
-msgstr ""
+msgstr "Speicher Flächen-XML unter"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2618
 msgid "Save joined Junctions as"
-msgstr ""
+msgstr "Speicher vereinigte Knotenpunkte unter"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2625
 msgid "Open OSM file"
-msgstr ""
+msgstr "Öffne OSM-Datei"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2633
 msgid "Save NETEDIT Config file as"
-msgstr ""
+msgstr "Speicher NETEDIT-Konfigurationsdatei unter"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2636
 msgid "Open NETEDIT Config file"
-msgstr ""
+msgstr "Öffne NETEDIT-Konfigurationsdatei"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2645
 msgid "Save SUMO Config file as"
-msgstr ""
+msgstr "Speicher SUMO-Konfigurationsdatei unter"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2648
 msgid "Open SUMO Config file"
-msgstr ""
+msgstr "Öffne SUMO-Konfigurationsdatei"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2657
 msgid "Save TLS file as"
-msgstr ""
+msgstr "Speicher LSA-Datei unter"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2660
 msgid "Open TLS file"
-msgstr ""
+msgstr "Öffne LSA-Datei"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2669
 msgid "Save EdgeType file as"
-msgstr ""
+msgstr "Speicher Kantentypendatei unter"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2672
 msgid "Open EdgeType file"
-msgstr ""
+msgstr "Öffne Kantentypendatei"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2681
 msgid "Save Additionals file as"
-msgstr ""
+msgstr "Speicher Datei mit weiteren Daten unter"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2684
 msgid "Open Additionals file"
-msgstr ""
+msgstr "Öffne Datei mit weiteren Daten"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2693
 msgid "Save Route file as"
-msgstr ""
+msgstr "Speicher Routendatei unter"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2696
 msgid "Open Route file"
-msgstr ""
+msgstr "Öffne Routendatei"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2705
 msgid "Save Data file as"
-msgstr ""
+msgstr "Speicher Datendatei unter"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2708
 msgid "Open Data file"
-msgstr ""
+msgstr "Öffne Datendatei"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2717
 msgid "Save MeanData file as"
-msgstr ""
+msgstr "Speicher Mean Daten-Datei unter"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:2720
+#, fuzzy
 msgid "Open MeanData file"
-msgstr ""
+msgstr "Öffne Mean Daten-Datei"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:94
-#, c-format
+#, c-format, fuzzy
 msgid "Loading of sumo config file '%' failed."
-msgstr ""
+msgstr "Laden der SUMO Konfigurations-Datei '%' fehlgeschlagen."
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:107
-#, c-format
+#, c-format, fuzzy
 msgid "Loading of netedit config file '%' failed."
-msgstr ""
+msgstr "Laden der NETEDIT Konfigurationsdatei '%' fehlgeschlagen."
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:116
+#, fuzzy
 msgid ""
 "Invalid input network option. Load with either sumo/netedit/netconvert "
 "config or with -new option"
 msgstr ""
+"Ungültige Eingabe-Netzwerkoption. Lade entweder mit sumo/netedit/netconvert "
+"congif oder mit -new option."
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:129
 msgid "Invalid Options. Nothing loaded"
-msgstr ""
+msgstr "Ungültige Optionen. Nichts wurde geladen"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:143
 msgid "Could not build projection!"
-msgstr ""
+msgstr "Projektionen konnten nicht erstellt werden!"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:171
 msgid "Performing initial computation ...\n"
-msgstr ""
+msgstr "Durchführung der Erstberechnung ...\n"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:205
 msgid "Failed to build network."
-msgstr ""
+msgstr "Netzaufbau fehlgeschlagen."
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:504
 msgid "Failed to reset options."
-msgstr ""
+msgstr "Rücksetzung der Optionen fehlgeschlagen."
 
 #: /home/micha/programming/sumo/src/netedit/GNEMoveElement.cpp:285
 #: /home/micha/programming/sumo/src/netedit/GNEMoveElement.cpp:299
 #: /home/micha/programming/sumo/src/netedit/GNEMoveElement.cpp:408
 #: /home/micha/programming/sumo/src/netedit/GNEMoveElement.cpp:424
 msgid "trying to move an invalid position"
-msgstr ""
+msgstr "versuch eine ungültige Position zu verschieben"
 
 #: /home/micha/programming/sumo/src/netedit/GNEMoveElement.cpp:582
+#, fuzzy
 msgid "Invalid move operationType"
-msgstr ""
+msgstr "Ungültiger Bewegungs Operationstyp"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:644
+#, fuzzy
 msgid "Trying to delete a default Vehicle Type"
-msgstr ""
+msgstr "Versuch einen Standardfahrzeugtypen zu löschen"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1273
 msgid "Forced computing junctions with volatile options ..."
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1275
+#, fuzzy
 msgid "Forced computing junctions ..."
-msgstr ""
+msgstr "Zwinge Berechnung von Knotenpunkten..."
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1282
 msgid "Computing junctions with volatile options ..."
-msgstr ""
+msgstr "Berechne Knotenpunkte mit instabilen Optionen..."
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1284
 msgid "Computing junctions ..."
-msgstr ""
+msgstr "Berechne Knotenpunkte ..."
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1347
 msgid "Finished computing junctions."
-msgstr ""
+msgstr "Beende Berechnung von Knotenpunkten."
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1353
 msgid "Computing demand elements ..."
-msgstr ""
+msgstr "Berechne Nachfrageelemente..."
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1367
 msgid "Finished computing demand elements."
-msgstr ""
+msgstr "Beende Berechnung der Nachfragelemente."
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1373
 msgid "Computing data elements ..."
-msgstr ""
+msgstr "Berechne Datenelemente ..."
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1380
 msgid "Finished computing data elements."
-msgstr ""
+msgstr "Beende Berechnung der Datenelemente."
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1855
 msgid "Junction isn't removable"
-msgstr ""
+msgstr "Knotenpunt ist nicht entfernbar"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1907
 msgid "Could not rename split node to '%'"
-msgstr ""
+msgstr "Geteilter Knoten konnte nicht zu '%' unbenannt werden"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:2326
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:2403
 msgid "Duplicated ID"
-msgstr ""
+msgstr "Doppelte ID"
 
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:2763
+#, fuzzy
 msgid "ViewNet doesn't exist"
-msgstr ""
+msgstr "Ansichts-Netz existiert nicht"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:218
+#, fuzzy
 msgid "GUIGlObject does not match the declared type"
-msgstr ""
+msgstr "GUIGI-Objekt stimmt nicht mit dem deklarierten Typ überein"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:223
 msgid "Attempted to retrieve non-existant GUIGlObject"
-msgstr ""
+msgstr "Es wurde versucht ein nicht existierendes GUIGI-Objekt abzurufen"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:1025
+#, fuzzy
 msgid "Attempted to retrieve non-existant additional (string)"
-msgstr ""
+msgstr "Es wurde versucht nicht existierende weitere Daten abzurufen (String)"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:1039
+#, fuzzy
 msgid "Attempted to retrieve non-existant additional (AttributeCarrier)"
 msgstr ""
+"Es wurde versucht nicht existierende weitere Daten abzurufen "
+"(AttributeCarrier)"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:1065
 msgid "Attempted to retrieve non-existant rerouter interval"
-msgstr ""
+msgstr "Es wurde versucht ein nicht existierendes Umleitungsintervall abzurufen"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:1320
 msgid "Attempted to retrieve non-existant demand element (string)"
 msgstr ""
+"Es wurde versucht ein nicht existierendes Nachfrageelement (String) abzurufen"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:1334
+#, fuzzy
 msgid "Attempted to retrieve non-existant demand element (AttributeCarrier)"
 msgstr ""
+"Es wurde versucht ein nicht existierendes Nachfrageelement (AttributeCarrier)"
+" abzurufen"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:1461
 msgid "Default vType doesn't exist"
-msgstr ""
+msgstr "Vorgegebener Fahrzeugtyp existiert nicht"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:1816
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:1830
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:1904
 msgid "Attempted to retrieve non-existant data set"
-msgstr ""
+msgstr "Es wurde versucht einen nicht existierenden Datensatz abzurufen"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:1861
 msgid "Attempted to retrieve non-existant data interval"
-msgstr ""
+msgstr "Es wurde versucht ein nicht existierendes Datensatz-Intervall abzurufen"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:2130
 msgid "Attempted to retrieve non-existant meanData (string)"
@@ -2471,30 +2527,34 @@ msgid "Attempted to retrieve non-existant meanData (AttributeCarrier)"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:2310
+#, fuzzy
 msgid "Invalid additional pointer"
-msgstr ""
+msgstr "Ungültiger zusätzlicher Zeiger"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:2367
+#, fuzzy
 msgid "Invalid demandElement pointer"
-msgstr ""
+msgstr "Ungültiger Nachfrageelement Zeiger"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:2426
+#, fuzzy
 msgid "Invalid dataSet pointer"
-msgstr ""
+msgstr "Ungültiger Datensatz Zeiger"
 
 #: /home/micha/programming/sumo/src/netedit/GNENetHelper.cpp:2473
+#, fuzzy
 msgid "Invalid meanData pointer"
-msgstr ""
+msgstr "Ungültiger Mean-Daten Verweis"
 
 #: /home/micha/programming/sumo/src/netedit/GNEPathManager.cpp:85
 #: /home/micha/programming/sumo/src/netedit/GNEPathManager.cpp:95
 msgid "Invalid call: Only allowed in lane segments"
-msgstr ""
+msgstr "Ungültiger Aufruf: Nur erlaubt in Spurabschnitten"
 
 #: /home/micha/programming/sumo/src/netedit/GNEPathManager.cpp:117
 #: /home/micha/programming/sumo/src/netedit/GNEPathManager.cpp:127
 msgid "Invalid call: Only allowed in junction segments"
-msgstr ""
+msgstr "Ungültiger Aufruf: Nur erlaubt in Knotenpunktabschnitten"
 
 #: /home/micha/programming/sumo/src/netedit/GNEUndoList.cpp:146
 msgid "GNEUndoList::undo() cannot call undo inside begin-end block"
@@ -2534,25 +2594,25 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:844
 msgid "invalid expecte supermode"
-msgstr ""
+msgstr "ungültiger erwarteter Spurmodus"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNet.cpp:2502
-#, c-format
+#, c-format, fuzzy
 msgid "No lanes around % to attach it"
-msgstr ""
+msgstr "Keine Spuren um % zum verbinden"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewNetHelper.cpp:1852
-#, c-format
+#, c-format, fuzzy
 msgid "Invalid windows size-format: %for option 'window-size'"
-msgstr ""
+msgstr "Ungültige Fenstergrößen-Format: % für die Option 'Fenstergröße'"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:383
 msgid "ChooserDialog already deleted"
-msgstr ""
+msgstr "Auswahldialog wurde gelöscht"
 
 #: /home/micha/programming/sumo/src/netedit/GNEViewParent.cpp:411
 msgid "Unregistered chooserDialog"
-msgstr ""
+msgstr "Unregistrierter Auswahldialog"
 
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_TLS.cpp:50
 #: /home/micha/programming/sumo/src/netedit/changes/GNEChange_TLS.cpp:73
@@ -2566,13 +2626,13 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:690
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:494
 msgid "accept"
-msgstr ""
+msgstr "akzeptiert"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAdditionalDialog.cpp:62
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEDemandElementDialog.cpp:63
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEGeometryPointDialog.cpp:75
 msgid "close accepting changes"
-msgstr ""
+msgstr "schließe akzeptierte Änderungen"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAdditionalDialog.cpp:63
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAllowVClassesDialog.cpp:277
@@ -2581,26 +2641,26 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:691
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:495
 msgid "cancel"
-msgstr ""
+msgstr "abbrechen"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAdditionalDialog.cpp:63
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEDemandElementDialog.cpp:64
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEGeometryPointDialog.cpp:76
 msgid "close discarding changes"
-msgstr ""
+msgstr "schließe verworfenen Änderungen"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAdditionalDialog.cpp:64
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAllowVClassesDialog.cpp:278
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:651
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:692
 msgid "reset"
-msgstr ""
+msgstr "Zurücksetzung"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAdditionalDialog.cpp:64
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEDemandElementDialog.cpp:65
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEGeometryPointDialog.cpp:77
 msgid "reset to previous values"
-msgstr ""
+msgstr "Zurücksetzten auf vorherige Werte"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAllowVClassesDialog.cpp:276
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEAllowVClassesDialog.cpp:277
@@ -2619,17 +2679,16 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrame.cpp:233
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:247
 #: /home/micha/programming/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:285
-#, fuzzy
 msgid "close"
-msgstr "Schließen"
+msgstr "schließen"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNECalibratorDialog.cpp:237
 msgid "routes cannot be empty"
-msgstr ""
+msgstr "Routen dürfen nicht leer sein"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNECalibratorDialog.cpp:472
 msgid "No routes defined"
-msgstr ""
+msgstr "Keine Routen definiert"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNECalibratorFlowDialog.cpp:109
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNECalibratorFlowDialog.cpp:374
@@ -2642,7 +2701,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:172
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:178
 msgid "false"
-msgstr ""
+msgstr "falsch"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNECalibratorFlowDialog.cpp:371
 #: /home/micha/programming/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:231
@@ -2652,33 +2711,33 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:170
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:176
 msgid "true"
-msgstr ""
+msgstr "wahr"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEDemandElementDialog.cpp:63
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:71
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:638
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:389
 msgid "&Accept"
-msgstr ""
+msgstr "&Akzeptiert"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEDemandElementDialog.cpp:65
 msgid "&Reset"
-msgstr ""
+msgstr "&Zurücksetzen"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEDialogACChooser.cpp:111
-#, fuzzy
 msgid "Invalid Junction"
-msgstr "&Knotenpunkte"
+msgstr "Ungültiger Knotenpunkt"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEDialogACChooser.cpp:117
 msgid "Invalid number of TLSs"
-msgstr ""
+msgstr "Ungültige Anzahl von Lichtsignalanlagen (TLSs)"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:257
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:333
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:457
+#, fuzzy
 msgid "Activate friendlyPos and save"
-msgstr ""
+msgstr "Aktiviere friendlyPos und speichere"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:257
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:333
@@ -2690,7 +2749,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:259
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:460
 msgid "Save invalid positions"
-msgstr ""
+msgstr "Speicher ungültige Positionen"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:259
 msgid "Save stopping places and E2 detectors with invalid positions"
@@ -2700,7 +2759,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:335
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:466
 msgid "Fix positions and save"
-msgstr ""
+msgstr "Repariere Positionen und speichere"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:263
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:335
@@ -2709,7 +2768,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:265
 msgid "Select invalid additionals"
-msgstr ""
+msgstr "Wähle ungültige weitere Daten"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:265
 msgid ""
@@ -2719,15 +2778,16 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:325
 msgid "Build connections between lanes"
-msgstr ""
+msgstr "Baue Verbindungen zwischen Spuren"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:325
 msgid "New connections will be created between non-connected lanes"
-msgstr ""
+msgstr "Neue Verbindungen werden erstellt zwischen nicht verbunden Spuren"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:327
+#, fuzzy
 msgid "Remove invalid E2 detectors"
-msgstr ""
+msgstr "Entferne ungültige E2 Detektoren"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:327
 msgid "Remove Multilane E2 Detectors with non-connected lanes"
@@ -2740,47 +2800,49 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:240
 msgid "Remove invalid routes"
-msgstr ""
+msgstr "Entferne ungültige Routen"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:243
 msgid "Save invalid routes"
-msgstr ""
+msgstr "Speichere ungültige Routen"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:246
 msgid "Select conflicted routes"
-msgstr ""
+msgstr "Wähle Konfliktrouten"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:249
 msgid "Remove stops out of route"
-msgstr ""
+msgstr "Entferne Haltepunkte außerhalb von Routen"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:351
 msgid "Remove invalid vehicles"
-msgstr ""
+msgstr "Entferne ungültige Fahrzeuge"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:354
 msgid "Save invalid vehicles"
-msgstr ""
+msgstr "Speicher ungültige Fahrzeuge"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:357
+#, fuzzy
 msgid "Select conflicted vehicle"
-msgstr ""
+msgstr "Wähle Konfliktfahrzeuge"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:360
 msgid "Remove stops out of vehicle's route"
-msgstr ""
+msgstr "Entferne Haltepunkte außerhalb von Fahrzeugrouten"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:463
+#, fuzzy
 msgid "Select conflicted Stops"
-msgstr ""
+msgstr "Wählte Konfliktstops"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:557
 msgid "Delete person plan"
-msgstr ""
+msgstr "Lösche Personenpläne"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:560
 msgid "Save invalid person plans"
-msgstr ""
+msgstr "Speicher ungültige Personenpläne"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixDemandElements.cpp:563
 msgid "Select conflicted person plans"
@@ -2788,52 +2850,54 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:52
 msgid "Fix network elements problems"
-msgstr ""
+msgstr "Repariere Probleme von Netzelementen"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:206
 msgid "Saving successfully"
-msgstr ""
+msgstr "Speichern erfolgreich"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:213
 msgid "Saving list of conflicted items failed"
-msgstr ""
+msgstr "Speichern der Liste mit Konfliktelementen fehlgeschlagen"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:227
 msgid "Remove invalid edges"
-msgstr ""
+msgstr "Entferne ungültige Kanten"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:230
 msgid "Save invalid edges"
-msgstr ""
+msgstr "Speicher ungültige Kanten"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:233
+#, fuzzy
 msgid "Select conflicted edges"
-msgstr ""
+msgstr "Wähle Konfliktkanten"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:308
 msgid "Remove invalid crossings"
-msgstr ""
+msgstr "Entferne ungültige Kreuzungen"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:311
 msgid "Save invalid crossings"
-msgstr ""
+msgstr "Speicher ungültige Kreuzungen"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixNetworkElements.cpp:314
+#, fuzzy
 msgid "Select conflicted crossing"
-msgstr ""
+msgstr "Wähle Konfliktkreuzungen"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:285
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:281
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:278
 msgid "Sort"
-msgstr ""
+msgstr "Sortieren"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:286
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:282
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:279
 #: /home/micha/programming/sumo/src/netedit/frames/GNENetworkSelector.cpp:55
 msgid "Clear"
-msgstr ""
+msgstr "Bereinigen"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:289
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:285
@@ -2843,149 +2907,158 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:73
 #: /home/micha/programming/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:318
 msgid "Help"
-msgstr ""
+msgstr "Hilfe"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:299
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:295
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:292
 msgid "Open Parameter Template"
-msgstr ""
+msgstr "Öffne Vorlagenparameter"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:314
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:310
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:307
 #, c-format
 msgid "Loading of Parameters From % failed."
-msgstr ""
+msgstr "Laden der Parameter von % fehlgeschlagen."
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:317
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:313
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:310
 msgid "Loaded % Parameters."
-msgstr ""
+msgstr "% Parameter geladen."
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:327
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:323
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:320
 msgid "Save Parameter Template file"
-msgstr ""
+msgstr "Speicher Vorlageparameter-Datei"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:403
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:399
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:396
 msgid "- Parameters are defined by a Key and a Value.\n"
-msgstr ""
+msgstr "- Parameter sind definiert als Schlüssel und als Wert.\n"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:404
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:400
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:397
+#, fuzzy
 msgid ""
 "- In Netedit can be defined using format key1=parameter1|"
 "key2=parameter2|...\n"
 msgstr ""
+"- In Netedit kann das Format Schlüssel1=Parameter1| Schlüssel2=Parameter2| "
+"definiert werden...\n"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:405
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:401
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:398
 msgid " - Duplicated and empty Keys aren't valid.\n"
-msgstr ""
+msgstr " - Doppelte und leere Schlüssel sind nicht gültig.\n"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:406
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:402
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:399
 msgid " - Whitespace and certain characters aren't allowed (@$%^&/|\\....)\n"
 msgstr ""
+" - Leere Flächen und bestimmte Zeichen sind nicht erlaubt (@$%^&/|\\....)\n"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:448
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:447
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:444
+#, fuzzy
 msgid "Key of Parameter not defined"
-msgstr ""
+msgstr "Parameterschlüssel ist nicht definiert"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:450
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:449
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:446
 msgid "Value of Parameter not defined"
-msgstr ""
+msgstr "Wert vom Parameter ist nicht definiert"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:458
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:457
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:454
 msgid "Key of Parameter cannot be empty"
-msgstr ""
+msgstr "Schlüssel des Parameters darf nicht leer sein"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:460
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:459
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:456
 #, c-format
 msgid "Key '%' of Parameter contains invalid characters"
-msgstr ""
+msgstr "Schlüssel '%' des Parameters enthält ungültige Zeichen"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:463
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNESingleParametersDialog.cpp:462
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:459
 #, c-format
 msgid "Key '%' already exist"
-msgstr ""
+msgstr "Schlüssel '%' existiert bereits"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEMultipleParametersDialog.cpp:478
 msgid ""
 "Only for\n"
 "existent keys"
 msgstr ""
+"Nur für\n"
+"existieren Schlüssel"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEOverwriteElementsDialog.cpp:59
 msgid "load elements"
-msgstr ""
+msgstr "lade Elemente"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEOverwriteElementsDialog.cpp:60
 msgid "cancel loading of elements"
-msgstr ""
+msgstr "Abbruch vom Laden der Elemente"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEOverwriteElementsDialog.cpp:61
 msgid "overwrite"
-msgstr ""
+msgstr "überschreiben"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEOverwriteElementsDialog.cpp:61
 msgid "overwrite elements"
-msgstr ""
+msgstr "überschriebene Elemente"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNERerouterIntervalDialog.cpp:182
+#, fuzzy
 msgid "Rerouter has more than one edge"
-msgstr ""
+msgstr "Umsteuerer hat mehr als eine Kante"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNERerouterIntervalDialog.cpp:321
 msgid "There is no lanes in the network"
-msgstr ""
+msgstr "Es gibt keine Fahrspuren im Netz"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNERerouterIntervalDialog.cpp:341
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNERerouterIntervalDialog.cpp:361
 msgid "There is no edges in the network"
-msgstr ""
+msgstr "Es sind keine Kanten im Netz"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNERerouterIntervalDialog.cpp:398
 msgid "There is no parking areas in the network"
-msgstr ""
+msgstr "Im Netz sind keine Parkzonen vorhanden"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEUndoListDialog.cpp:58
+#, fuzzy
 msgid "OK\tclose dialog"
-msgstr ""
+msgstr "Ok -> schließe Dialog"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVehicleTypeDialog.cpp:445
 msgid "Edit parameters"
-msgstr ""
+msgstr "Bearbeite Parameter"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVehicleTypeDialog.cpp:465
 msgid "Invalid row type"
-msgstr ""
+msgstr "Ungültiger Zeilentyp"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVehicleTypeDialog.cpp:659
 msgid "Open Image"
-msgstr ""
+msgstr "Öffne Abbildung"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEVehicleTypeDialog.cpp:686
 msgid "Open OSG File"
-msgstr ""
+msgstr "Öffne OSG-Datei"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:132
 msgid "Nothing to enable, implement in Children"
@@ -2996,9 +3069,9 @@ msgid "Nothing to disable, implement in Children"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:629
-#, c-format
+#, c-format, fuzzy
 msgid "TagProperty for tag '%' not defined"
-msgstr ""
+msgstr "Kennzeichnungsmerkmal für Kennzeichen '%' ist nicht definiert"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeCarrier.cpp:847
 msgid "Nothing to toggle, implement in Children"
@@ -3009,33 +3082,44 @@ msgid "Attribute wasn't found in myTagPropertyParent"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeProperties.cpp:274
+#, fuzzy
 msgid "Attr doesn't support synonym"
-msgstr ""
+msgstr "Attr unterstützt kein Synonym"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeProperties.cpp:284
 #: /home/micha/programming/sumo/src/netedit/elements/GNEAttributeProperties.cpp:294
+#, fuzzy
 msgid "Attr doesn't support range"
-msgstr ""
+msgstr "Attr unterstützt den Umfang nicht"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNEHierarchicalElement.cpp:421
 msgid "Some child meanData were lost during sorting"
 msgstr ""
+"Einige nachfolgende Mean-Daten sind während der Sortierung verloren gegangen"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:94
+#, fuzzy
 msgid ""
 "element must be at leas networkElement, additional, TAZ, demandElement or "
 "dataElement"
 msgstr ""
+"Element muss mindestens ein Netzelement, Zusatzelement, TAZ, "
+"Nachfrageelement oder ein Datenelement sein"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:98
+#, fuzzy
 msgid ""
 "element can be only a networkElement, additional, demandElement or "
 "dataElement at the same time"
 msgstr ""
+"Element kann nur ein Netzelement, Zusatzelement, Nachfrageelement oder "
+"Datenelement zu selben Zeit sein"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:102
+#, fuzzy
 msgid "element can be only a shape, TAZ or wire element at the same time"
 msgstr ""
+"Element kann nur eine Form, TAZ oder ein Leitungselement zur selben Zeit sein"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:106
 msgid ""
@@ -3065,24 +3149,24 @@ msgid "Attribute '%' not defined"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:162
-#, c-format
+#, c-format, fuzzy
 msgid "Maximum number of attributes for tag % exceeded"
-msgstr ""
+msgstr "Maximale Anzahl von Attributen für die Marke % überschritten"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:167
 #, c-format
 msgid "Attribute '%' already inserted"
-msgstr ""
+msgstr "Attribut '%' bereits eingefügt"
 
 #: /home/micha/programming/sumo/src/netedit/elements/GNETagProperties.cpp:204
-#, c-format
+#, c-format, fuzzy
 msgid "Attribute '%' doesn't exist"
-msgstr ""
+msgstr "Attribut '%' existiert nicht"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEAttributesCreator.cpp:49
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:733
 msgid "Internal attributes"
-msgstr ""
+msgstr "Interne Attribute"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEAttributesCreator.cpp:88
 msgid "invalid templateAC in showAttributesCreatorModule"
@@ -3090,15 +3174,16 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:62
 msgid "name"
-msgstr ""
+msgstr "Name"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:64
 msgid "button"
-msgstr ""
+msgstr "Knopf"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:69
+#, fuzzy
 msgid "Disabled"
-msgstr ""
+msgstr "Arbeitsunfähig"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEAttributesCreatorRow.cpp:476
 msgid "Unsupported additional ID"
@@ -3106,40 +3191,41 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:55
 msgid "Consecutive lane selector"
-msgstr ""
+msgstr "Fortlaufender Spurwähler"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:61
 msgid "Finish path creation"
-msgstr ""
+msgstr "Beenden der Pfaderstellung"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:64
 msgid "Abort path creation"
-msgstr ""
+msgstr "Abbruch der Pfaderstellung"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:67
 msgid "Remove last lane"
-msgstr ""
+msgstr "Entferne letzte Spur"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:70
+#, fuzzy
 msgid "Show candidate lanes"
-msgstr ""
+msgstr "Zeige Kandidatenspuren"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:134
 msgid "Invalid lane"
-msgstr ""
+msgstr "Ungültige Spur"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:151
 msgid "Lane path needs at least two lanes"
-msgstr ""
+msgstr "Fahrbahnpfad benötigt mindestens zwei Spuren"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:406
 msgid "- Selected lanes: "
-msgstr ""
+msgstr "- Ausgewählte Fahrspuren: "
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:407
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:943
 msgid "- Length: "
-msgstr ""
+msgstr "- Länge: "
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEConsecutiveSelector.cpp:411
 msgid "No lanes selected"
@@ -3159,11 +3245,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDrawingShape.cpp:53
 msgid "Stop drawing"
-msgstr ""
+msgstr "Zeichnen wird gestoppt"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDrawingShape.cpp:54
 msgid "Abort drawing"
-msgstr ""
+msgstr "Zeichnen wird abgebrochen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEDrawingShape.cpp:137
 msgid "A new point cannot be added if drawing wasn't started"
@@ -3172,11 +3258,11 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netedit/frames/GNEE2DetectorLegendModule.cpp:34
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathLegendModule.cpp:34
 msgid "Information"
-msgstr ""
+msgstr "Information"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:62
 msgid "Hierarchy"
-msgstr ""
+msgstr "Hierarchie"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEElementTree.cpp:211
 #, c-format
@@ -3214,11 +3300,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEFrameAttributeModules.cpp:996
 msgid "Edit attributes"
-msgstr ""
+msgstr "Bearbeite Attribute"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:49
 msgid "Netedit attributes"
-msgstr ""
+msgstr "Netedit Attribute"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENeteditAttributes.cpp:230
 msgid ""
@@ -3258,112 +3344,118 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENetworkSelector.cpp:49
 msgid "NetworkElements"
-msgstr ""
+msgstr "Netzelemente"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENetworkSelector.cpp:56
 msgid "Use selected"
-msgstr ""
+msgstr "Verwende ausgewählt"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENetworkSelector.cpp:65
 msgid "Edges"
-msgstr ""
+msgstr "Kanten"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENetworkSelector.cpp:71
 msgid "Lanes"
-msgstr ""
+msgstr "Spuren"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNENetworkSelector.cpp:74
 #: /home/micha/programming/sumo/src/netedit/frames/GNENetworkSelector.cpp:183
 msgid "Invalid NetworkElementType"
-msgstr ""
+msgstr "Ungültiges Netztyp-Element"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:52
 msgid "Overlapped elements"
-msgstr ""
+msgstr "Überlappende Elemente"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:278
+#, fuzzy
 msgid " - Click in the same position\n"
-msgstr ""
+msgstr " - Klicke an die gleiche Position\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:279
+#, fuzzy
 msgid "   for inspect next element\n"
-msgstr ""
+msgstr "   ...um das nächste Element zu implizieren\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:280
+#, fuzzy
 msgid " - Shift + Click in the same\n"
-msgstr ""
+msgstr " - Umschalten + Klicken auf das Gleiche\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:281
+#, fuzzy
 msgid "   position for inspect\n"
-msgstr ""
+msgstr "   Position für Inspektion\n"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEOverlappedInspection.cpp:282
+#, fuzzy
 msgid "   previous element"
-msgstr ""
+msgstr "   vorheriges Element"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:145
 msgid "Route creator"
-msgstr ""
+msgstr "Routenersteller"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:154
 msgid "Use last route"
-msgstr ""
+msgstr "Nutze letzte Route"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:157
 msgid "Finish route creation"
-msgstr ""
+msgstr "Beende Routenerstellung"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:160
 msgid "Abort route creation"
-msgstr ""
+msgstr "Abbruch Routenerstellung"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:163
 msgid "Remove last edge"
-msgstr ""
+msgstr "Entferne letzte Kante"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:166
+#, fuzzy
 msgid "Show candidate edges"
-msgstr ""
+msgstr "Zeige Kandidatenkanten"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:374
 msgid "Double junctions aren't allowed"
-msgstr ""
+msgstr "Doppelte Knotenpunkte sind nicht erlaubt"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:382
 msgid "Only two junctions are allowed"
-msgstr ""
+msgstr "Nur zwei Knotenpunkte sind erlaubt"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:421
 msgid "Double edges aren't allowed"
-msgstr ""
+msgstr "Doppelte Kanten sind nicht erlaubt"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:431
 msgid "Only consecutives edges are allowed"
-msgstr ""
+msgstr "Nur aufeinanderfolgende Kanten sind erlaubt"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:440
 msgid "Only two edges are allowed"
-msgstr ""
+msgstr "Nur zwei Kanten sind erlaubt"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:531
 msgid "first select an edge"
-msgstr ""
+msgstr "wähle zuerst eine Kante"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:941
 msgid "- Selected edges: "
-msgstr ""
+msgstr "- Ausgewählte Kanten: "
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:942
 msgid "- Path edges: "
-msgstr ""
+msgstr "- Wegkanten: "
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:944
 msgid "- Average speed: "
-msgstr ""
+msgstr "- Durchschnittsgeschwindigkeit: "
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNEPathCreator.cpp:948
 msgid "No edges selected"
-msgstr ""
+msgstr "Keine Kanten ausgewählt"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNESelectorParent.cpp:36
 msgid "Parent selector"
@@ -3376,12 +3468,12 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:254
 msgid "Invalid row"
-msgstr ""
+msgstr "Ungültige Reihe"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:264
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:274
 msgid "Invalid column"
-msgstr ""
+msgstr "Ungültige Spalte"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:910
 msgid "Cannot be parsed to double"
@@ -3393,81 +3485,87 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:1276
 msgid "Invalid Cell type"
-msgstr ""
+msgstr "Ungültiger Zellentyp"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:1295
 msgid "Cell doesn't have a textField"
-msgstr ""
+msgstr "Zelle besitzt kein Textfeld"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:89
 msgid "Element"
-msgstr ""
+msgstr "Element"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:152
 msgid "network elements"
-msgstr ""
+msgstr "Netzelemente"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:155
 msgid "Additional elements"
-msgstr ""
+msgstr "Zusatzelemente"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:158
 msgid "Shape elements"
-msgstr ""
+msgstr "Formelemente"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:161
 msgid "TAZ elements"
-msgstr ""
+msgstr "TAZ-Elemente"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:164
+#, fuzzy
 msgid "Wire elements"
-msgstr ""
+msgstr "Drahtelemente"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:167
 msgid "Vehicles"
-msgstr ""
+msgstr "Fahrzeuge"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:170
 msgid "Stops"
-msgstr ""
+msgstr "Haltepunkte"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:173
 msgid "Persons"
-msgstr ""
+msgstr "Personen"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:176
 msgid "Person plans"
-msgstr ""
+msgstr "Personenpläne"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:182
 msgid "Container plans"
-msgstr ""
+msgstr "Containerpläne"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:185
 msgid "Person trips"
-msgstr ""
+msgstr "Personenfahrten"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:188
 msgid "Walks"
-msgstr ""
+msgstr "Spaziergänge"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:191
 msgid "Rides"
-msgstr ""
+msgstr "Fahrten"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:194
+#, fuzzy
 msgid "Person stops"
-msgstr ""
+msgstr "Personenhaltepunkte"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:197
+#, fuzzy
 msgid "invalid tag property"
-msgstr ""
+msgstr "ungültig markierte Eigenschaft"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:474
+#, fuzzy
 msgid "Non-supported tagProperty in ACTemplate"
-msgstr ""
+msgstr "Nicht unterstütze Markeneigenschaft in der AC-Vorlage"
 
 #: /home/micha/programming/sumo/src/netedit/netedit_main.cpp:48
 msgid ""
 "Graphical editor for SUMO networks, demand and additional infrastructure."
 msgstr ""
+"Grafischer Editor für SUMO-Netze, die Nachfrage und zusätzliche "
+"Infrastruktur."
