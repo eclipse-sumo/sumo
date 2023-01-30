@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-30 17:17+0000\n"
+"PO-Revision-Date: 2023-01-31 07:37+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -4757,7 +4757,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:186
 msgid "Writing network"
-msgstr ""
+msgstr "Schreibe Netz"
 
 #: /home/micha/programming/sumo/src/netwrite/NWWriter_DlrNavteq.cpp:91
 msgid ""
@@ -4781,7 +4781,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netwrite/NWWriter_SUMO.cpp:517
 #, c-format
 msgid "Lane '%' has a maximum allowed speed of 0."
-msgstr ""
+msgstr "Fahrspur '%' hat eine Höchstgeschwindigkeit von 0."
 
 #: /home/micha/programming/sumo/src/netwrite/NWWriter_XML.cpp:88
 #: /home/micha/programming/sumo/src/polyconvert/PCPolyContainer.cpp:105
@@ -4801,12 +4801,12 @@ msgstr ""
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:97
 #, c-format
 msgid "District '%' has no source."
-msgstr ""
+msgstr "Bezirk '%' hat keine Quelle."
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:101
 #, c-format
 msgid "District '%' has no sink."
-msgstr ""
+msgstr "Bezirk '%' hat kein Ziel."
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:364
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:384
@@ -4826,34 +4826,34 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:475
 msgid "Broken factor: '%'."
-msgstr ""
+msgstr "Gebrochener Faktor: '%'."
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:509
 #, c-format
 msgid "Missing line with % district names."
-msgstr ""
+msgstr "Fehlende Zeile mit % Bezirksnamen."
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:519
 msgid "Missing line for district %."
-msgstr ""
+msgstr "Fehlende Zeile für Bezirk %."
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:533
 msgid "More entries than districts found."
-msgstr ""
+msgstr "Mehr Einträge als Bezirke gefunden."
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:538
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:586
 msgid "Not numeric vehicle number in line '%'."
-msgstr ""
+msgstr "Keine nummerische Fahrzeuganzahl in Zeile '%'."
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:584
 msgid "Missing at least one information in line '%'."
-msgstr ""
+msgstr "Mindestens eine Information in Zeile '%' fehlt."
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:647
 #: /home/micha/programming/sumo/src/utils/options/OptionsIO.cpp:154
 msgid "Could not open '%'."
-msgstr ""
+msgstr "'%' konnte nicht geöffnet werden."
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:658
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:664
@@ -4865,12 +4865,12 @@ msgstr ""
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:687
 #, c-format
 msgid "Could not access matrix file '%' to load."
-msgstr ""
+msgstr "Kein Zugriff auf die Matrix-Datei '%' zum Laden."
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:714
 #, c-format
 msgid "Could not access route file '%' to load."
-msgstr ""
+msgstr "Kein Zugriff auf die Routen-Datei '%' zum Laden."
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:731
 msgid "Assuming 24 entries for a day timeline, but got %."
@@ -4918,7 +4918,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/osgview/GUIOSGBuilder.cpp:471
 #: /home/micha/programming/sumo/src/utils/options/OptionsIO.cpp:168
 msgid "Could not load '%'."
-msgstr ""
+msgstr "'%' konnte nicht geladen werden."
 
 #: /home/micha/programming/sumo/src/osgview/GUIOSGBuilder.cpp:597
 msgid "Could not load '%'. The model is replaced by a cone shape."
@@ -4980,12 +4980,14 @@ msgid "Could not open dlr-navteq-poly-file '%'."
 msgstr ""
 
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderDlrNavteq.cpp:128
+#, fuzzy
 msgid "Invalid x coordinate for POI '%'."
-msgstr ""
+msgstr "Ungültige x-Koordinate für POI '%'."
 
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderDlrNavteq.cpp:132
+#, fuzzy
 msgid "Invalid y coordinate for POI '%'."
-msgstr ""
+msgstr "Ungültige y-Koordinate für POI '%'."
 
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderDlrNavteq.cpp:137
 msgid "The name of a POI is missing."
@@ -5018,27 +5020,27 @@ msgstr ""
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderOSM.cpp:254
 #, c-format
 msgid "Polygon '%' has no shape."
-msgstr ""
+msgstr "Polygon '%' hat keine Form."
 
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderVisum.cpp:114
 msgid "Could not open visum-file '%'."
-msgstr ""
+msgstr "Visum-Datei '%' konnte nicht geöffnet werden."
 
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderVisum.cpp:149
 msgid "Unable to project coordinates for point '%'."
-msgstr ""
+msgstr "Koordinaten für den Punkt '%' können nicht projiziert werden."
 
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderXML.cpp:63
 msgid "Could not open xml-file '%'."
-msgstr ""
+msgstr "XML-Datei '%' konnte nicht geöffnet werden."
 
 #: /home/micha/programming/sumo/src/polyconvert/PCNetProjectionLoader.cpp:55
 msgid "Could not open net-file '%'."
-msgstr ""
+msgstr "Netz-Datei '%' konnte nicht geöffnet werden."
 
 #: /home/micha/programming/sumo/src/polyconvert/PCNetProjectionLoader.cpp:71
 msgid "Could not find projection parameter in net."
-msgstr ""
+msgstr "Keine Projektions-Parameter im Netz gefunden."
 
 #: /home/micha/programming/sumo/src/polyconvert/PCTypeDefHandler.cpp:71
 msgid "Could not add polygon type '%' (probably the id is already used)."
@@ -5075,32 +5077,32 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:233
 msgid "No output specified."
-msgstr ""
+msgstr "Keine Ausgabe spezifiziert."
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:238
 msgid "A positive number of alternatives must be enabled."
-msgstr ""
+msgstr "Eine positive Anzahl von Alternativen muss bereitgestellt sein."
 
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:62
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:64
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:83
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:85
 msgid "Trying to set a weight for the unknown edge '%'."
-msgstr ""
+msgstr "Versuche ein Gewicht zu setzten für die unbekannte Kante '%'."
 
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:114
 #, c-format
 msgid "The network file '%' is not accessible."
-msgstr ""
+msgstr "Die Netz-Datei '%' ist nicht erreichbar."
 
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:140
 #, c-format
 msgid "The additional file '%' is not accessible."
-msgstr ""
+msgstr "Die Zusatz-Datei '%' ist nicht erreichbar."
 
 #: /home/micha/programming/sumo/src/router/ROLoader.cpp:281
 msgid "failed."
-msgstr ""
+msgstr "fehlgeschlagen."
 
 #: /home/micha/programming/sumo/src/router/RONet.cpp:154
 #, c-format
@@ -5143,7 +5145,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/router/RONetHandler.cpp:137
 msgid "Unknown node '%'."
-msgstr ""
+msgstr "Unbekannter Knoten '%'."
 
 #: /home/micha/programming/sumo/src/router/RONetHandler.cpp:243
 msgid "Ignoring lane '%' with broken shape."
@@ -5174,13 +5176,15 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/router/RORouteDef.cpp:123
 msgid "Repaired route of vehicle '%'."
-msgstr ""
+msgstr "Reparierte Route vom Fahrzeug '%'."
 
 #: /home/micha/programming/sumo/src/router/RORouteDef.cpp:222
 msgid ""
 "There are stop edges which were not part of the original route for vehicle "
 "'%'."
 msgstr ""
+"Es gibt Haltekanten, welche kein Part der originalen Route für Fahrzeug '%' "
+"sind."
 
 #: /home/micha/programming/sumo/src/router/RORouteHandler.cpp:200
 msgid "Triggered departure for person '%' requires starting with a ride."
@@ -5219,7 +5223,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/router/RORouteHandler.cpp:702
 msgid "Discarding container '%' because it's plan is empty"
-msgstr ""
+msgstr "Container '%' wird verworfen, weil sein Plan leer ist"
 
 #: /home/micha/programming/sumo/src/router/RORouteHandler.cpp:719
 msgid "Discarding containerFlow '%' because it's plan is empty"
@@ -5277,7 +5281,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:185
 #, c-format
 msgid "Unknown attribute '%' to write in output."
-msgstr ""
+msgstr "Unbekanntes Attribut '%' zum Schreiben in eine Ausgabe."
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:213
 msgid ""
@@ -5404,12 +5408,12 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/common/SUMOVehicleClass.cpp:194
 msgid "StopOffset requires an offset value"
-msgstr ""
+msgstr "Haltversatz erfordert einen Versatzwert"
 
 #: /home/micha/programming/sumo/src/utils/common/SUMOVehicleClass.cpp:344
 #, c-format
 msgid "Unknown vehicle class '%' encountered."
-msgstr ""
+msgstr "Unbekannte Fahrzeugklasse '%' angetroffen."
 
 #: /home/micha/programming/sumo/src/utils/common/SUMOVehicleClass.cpp:385
 msgid ""
@@ -5419,7 +5423,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/common/UtilExceptions.h:43
 msgid "Process Error"
-msgstr ""
+msgstr "Prozessfehler"
 
 #: /home/micha/programming/sumo/src/utils/common/UtilExceptions.h:72
 msgid "Empty Data"
@@ -5439,11 +5443,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/common/UtilExceptions.h:137
 msgid "Out Of Bounds"
-msgstr ""
+msgstr "Außerhalb der Grenzen"
 
 #: /home/micha/programming/sumo/src/utils/common/UtilExceptions.h:151
 msgid "Unknown Element"
-msgstr ""
+msgstr "Unbekanntes Element"
 
 #: /home/micha/programming/sumo/src/utils/distribution/Distribution_Parameterized.cpp:74
 #: /home/micha/programming/sumo/src/utils/distribution/Distribution_Parameterized.cpp:76
@@ -5470,7 +5474,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXTreeListDynamic.cpp:147
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXTreeListDynamic.cpp:159
 msgid "New item cannot be NULL"
-msgstr ""
+msgstr "Neuer Gegenstand kann nicht NULL sein"
 
 #: /home/micha/programming/sumo/src/utils/geom/GeoConvHelper.cpp:86
 msgid "Ignoring geoidgrids and vgridshift in projection"
@@ -5525,7 +5529,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/handlers/AdditionalHandler.cpp:1242
 msgid "Calibrators need either an edge or a lane"
-msgstr ""
+msgstr "Kalibratoren benötigen entweder eine Kante oder Fahrspur"
 
 #: /home/micha/programming/sumo/src/utils/handlers/AdditionalHandler.cpp:1289
 msgid ""
@@ -5554,7 +5558,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/handlers/AdditionalHandler.cpp:1743
 msgid "Parameters must be defined within an object."
-msgstr ""
+msgstr "Parameter müssen innerhalb eines Objektes definiert werden."
 
 #: /home/micha/programming/sumo/src/utils/handlers/AdditionalHandler.cpp:1745
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:848
@@ -5565,6 +5569,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:850
 msgid "Parameters cannot be defined within another parameter."
 msgstr ""
+"Parameter können nicht innerhalb eines anderen Parameters definiert werden."
 
 #: /home/micha/programming/sumo/src/utils/handlers/AdditionalHandler.cpp:1755
 #, c-format
@@ -5589,16 +5594,20 @@ msgstr ""
 msgid ""
 "a route must be defined either within a vehicle/flow or with an ID attribute"
 msgstr ""
+"eine Route muss entweder innerhalb eines Fahrzeuges/Flusses oder mit einem "
+"ID-Attribut definiert werden"
 
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:437
 #, c-format
 msgid "cycleTime of % must be equal or greater than 0"
-msgstr ""
+msgstr "Durchlaufzeit von % muss gleich oder größer als 0 sein"
 
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:482
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:549
+#, fuzzy
 msgid "Attributes 'from' and 'fromJunction' cannot be defined together"
 msgstr ""
+"Attribute 'von' und 'vonKnotenpunkt' können nicht zusammen definiert werden"
 
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:484
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:551
@@ -5644,23 +5653,26 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:984
 msgid "A stop must be defined only in a StoppingPlace"
-msgstr ""
+msgstr "Ein Halt darf nur innerhalb eines Halteplatzes definiert werden"
 
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:987
 msgid "A stop must be defined in an edge, a lane, or in a StoppingPlace"
 msgstr ""
+"Ein Halt muss innerhalb einer Kante, Fahrspur oder in einem Halteplatz "
+"definiert werden"
 
 #: /home/micha/programming/sumo/src/utils/handlers/TemplateHandler.cpp:64
 msgid "Could not load template '%'."
-msgstr ""
+msgstr "Vorlage '%' konnte nicht geladen werden."
 
 #: /home/micha/programming/sumo/src/utils/iodevices/OutputDevice.cpp:86
 msgid "No port number given."
-msgstr ""
+msgstr "Keine Anschlussnummer (Port-Nummer) ist gegeben."
 
 #: /home/micha/programming/sumo/src/utils/iodevices/OutputDevice.cpp:161
+#, fuzzy
 msgid "Error on closing output devices."
-msgstr ""
+msgstr "Fehler beim Schließen des Ausgabegerätes."
 
 #: /home/micha/programming/sumo/src/utils/iodevices/OutputDevice_File.cpp:46
 msgid "Could not redirect to NUL device (%)."
@@ -5687,7 +5699,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/options/Option.cpp:334
 #, c-format
 msgid "'%' is not a valid integer vector."
-msgstr ""
+msgstr "'%' ist kein gültiger integer-Vektor."
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:66
 msgid ""
@@ -5746,7 +5758,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:667
 msgid "Could not save schema to '%'"
-msgstr ""
+msgstr "Schema konnte nicht in '%' gespeichert werden"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:671
 #, fuzzy
@@ -5797,20 +5809,20 @@ msgid "Could not load landmark-lookup-table from '%'."
 msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/router/AStarLookupTable.h:138
-#, c-format
+#, c-format, fuzzy
 msgid "Duplicate edge '%' in landmark file."
-msgstr ""
+msgstr "Doppelte Kante '%' in der Orientierungs-Datei."
 
 #: /home/micha/programming/sumo/src/utils/router/AStarLookupTable.h:143
-#, c-format
+#, c-format, fuzzy
 msgid "Landmark edge '%' does not exist in the network."
-msgstr ""
+msgstr "Orientierungskante '%' existiert nicht im Netz."
 
 #: /home/micha/programming/sumo/src/utils/router/AStarLookupTable.h:154
 #: /home/micha/programming/sumo/src/utils/router/AStarLookupTable.h:167
-#, c-format
+#, c-format, fuzzy
 msgid "Unknown or unordered edge '%' in landmark file."
-msgstr ""
+msgstr "Unbekannte oder untergeordnete Kante '%' in der Orientierungs-Datei."
 
 #: /home/micha/programming/sumo/src/utils/router/AStarLookupTable.h:164
 msgid "Broken landmark file, unexpected number of entries (%) for edge '%'."
@@ -5832,31 +5844,31 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/router/AStarLookupTable.h:293
 msgid "Saving new matrix to '%'."
-msgstr ""
+msgstr "Speicher neue Matrix in '%'."
 
 #: /home/micha/programming/sumo/src/utils/router/IntermodalNetwork.h:295
 #, c-format
 msgid "Edge '%' not found in intermodal network.'"
-msgstr ""
+msgstr "Kante '%' wurde nicht im intermodalen Netz gefunden.'"
 
 #: /home/micha/programming/sumo/src/utils/router/IntermodalNetwork.h:304
 #: /home/micha/programming/sumo/src/utils/router/IntermodalNetwork.h:338
 #, c-format
 msgid "Depart edge '%' not found in intermodal network."
-msgstr ""
+msgstr "Abfartskante '%' wurde nicht im intermodalen Netz gefunden."
 
 #: /home/micha/programming/sumo/src/utils/router/IntermodalNetwork.h:350
 #, c-format
 msgid "Arrival edge '%' not found in intermodal network."
-msgstr ""
+msgstr "Ankunftskante '%' wurde nicht im intermodalen Netz gefunden."
 
 #: /home/micha/programming/sumo/src/utils/router/IntermodalNetwork.h:620
 msgid "Ignoring unordered stop at '%' until % for vehicle '%'."
-msgstr ""
+msgstr "Ignoriere untergeordneten Halt bei '%' bis % für Fahrzeug '%'."
 
 #: /home/micha/programming/sumo/src/utils/router/IntermodalNetwork.h:632
 msgid "Ignoring stop at '%' until % for vehicle '%'."
-msgstr ""
+msgstr "Ignoriere Halt bei '%' bis % für Fahrzeug '%'."
 
 #: /home/micha/programming/sumo/src/utils/router/IntermodalNetwork.h:637
 #, c-format
@@ -5864,6 +5876,8 @@ msgid ""
 "Not using public transport line '%' for routing persons. It has less than "
 "two usable stops."
 msgstr ""
+"Linie '%' des öffentlichens Verkehrs wird nicht für die Routen von Personen "
+"verwendet. Sie hat weniger als zwei nutbare Halte."
 
 #: /home/micha/programming/sumo/src/utils/router/IntermodalRouter.h:214
 #: /home/micha/programming/sumo/src/utils/router/PedestrianRouter.h:125
@@ -5873,12 +5887,12 @@ msgstr "Benutzen Sie nicht diese Methode"
 #: /home/micha/programming/sumo/src/utils/router/PedestrianRouter.h:87
 #, c-format
 msgid "Departure edge '%' does not allow pedestrians."
-msgstr ""
+msgstr "Ankunftskante '%' erlaubt keine zu Fuß Gehenden."
 
 #: /home/micha/programming/sumo/src/utils/router/PedestrianRouter.h:91
 #, c-format
 msgid "Destination edge '%' does not allow pedestrians."
-msgstr ""
+msgstr "Zielkante '%' erlaubt keine zu Fuß Gehenden."
 
 #: /home/micha/programming/sumo/src/utils/shapes/ShapeHandler.cpp:84
 msgid "Error parsing key from shape generic parameter. Key cannot be empty"
@@ -5933,7 +5947,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/shapes/ShapeHandler.cpp:279
 #, c-format
 msgid "Loading of shapes from % failed."
-msgstr ""
+msgstr "Laden von Formen von % fehlgeschlagen."
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Circuit.cpp:44
 #, c-format
@@ -6004,7 +6018,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/traction_wire/Element.cpp:53
 msgid "Undefined element type for '%'."
-msgstr ""
+msgstr "Undefinierter Elemententyp für '%'."
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMORouteHandler.cpp:63
 msgid "Route file should be sorted by departure time, ignoring '%'!"
@@ -6131,7 +6145,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/xml/XMLSubSys.cpp:121
 msgid "Cannot read local schema '%'."
-msgstr ""
+msgstr "Lokales Schema '%' kann nicht gelesen werden."
 
 #: /home/micha/programming/sumo/src/utils/xml/XMLSubSys.cpp:167
 msgid ""
