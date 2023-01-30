@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-30 12:40+0000\n"
+"PO-Revision-Date: 2023-01-30 13:56+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -1500,15 +1500,21 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_BTreceiver.cpp:421
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_BTreceiver.cpp:436
+#, fuzzy
 msgid ""
 "btreceiver: Can not update position of vehicle '%' which is not on the road."
 msgstr ""
+"btreceiver: Position vom Fahrzeug '%', welches nicht auf der Strecke ist, "
+"kann nicht aktualisiert werden."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_BTsender.cpp:120
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_BTsender.cpp:134
+#, fuzzy
 msgid ""
 "btsender: Can not update position of vehicle '%' which is not on the road."
 msgstr ""
+"btsender: Position vom Fahrzeug '%', welches nicht auf der Strecke ist, kann "
+"nicht aktualisiert werden."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSDevice_Bluelight.cpp:68
 msgid ""
@@ -1841,9 +1847,9 @@ msgid "Idle taxi '%' has no next segment to stop. time=%."
 msgstr "Das inaktive Taxi '%' hat keinen nächsten Abschnitt zum Halten. Zeit=%."
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSIdling.cpp:155
-#, c-format
+#, c-format, fuzzy
 msgid "Vehicle '%' ends idling in a cul-de-sac"
-msgstr ""
+msgstr "Fahrzeug '%' endet im Leerlauf in einer Sackgasse"
 
 #: /home/micha/programming/sumo/src/microsim/devices/MSRoutingEngine.cpp:96
 msgid "Rerouting is useless if the edge weights do not get updated!"
@@ -1908,8 +1914,10 @@ msgstr ""
 "Spurlänge und Länge = Endposition- Startposition angenommen"
 
 #: /home/micha/programming/sumo/src/microsim/output/MSE2Collector.cpp:908
+#, fuzzy
 msgid "Multi-lane e2Detector does not support detecting persons yet"
 msgstr ""
+"Mehrspuriger E2-Detektor unterstützt noch nicht das Detektieren von Personen"
 
 #: /home/micha/programming/sumo/src/microsim/output/MSMeanData.cpp:538
 msgid "aggregated meanData output not yet implemented for trackVehicles"
@@ -1972,18 +1980,18 @@ msgid "Rail signal at junction '%' does not control any links"
 msgstr "Bahnsignal am Knotenpunkt '%' kontrolliert keine Verbindungen"
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSRailSignalConstraint.cpp:147
-#, c-format
+#, c-format, fuzzy
 msgid "Unknown tracker lane '%' in loaded state."
-msgstr ""
+msgstr "Unbekannte Verfolgungsspur '%' im Zustand geladen."
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSSOTLTrafficLightLogic.cpp:169
 msgid "Listing output lanes"
-msgstr ""
+msgstr "Auflistung von Ausgabe-Fahrstreifen"
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSSOTLTrafficLightLogic.cpp:243
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSSOTLTrafficLightLogic.cpp:277
 msgid "Unrecognized traffic threshold calculation mode"
-msgstr ""
+msgstr "Berechnungsmodus für unbekannte Verkehrsschwellenwerte"
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSSOTLTrafficLightLogic.cpp:443
 msgid "MSSOTLTrafficLightLogic::trySwitch()"
@@ -2010,11 +2018,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSTLLogicControl.cpp:116
 msgid "No initial signal plan loaded for tls '%'."
-msgstr ""
+msgstr "Es wurde kein initialisierter Signalplan für die LSA '%' geladen."
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSTLLogicControl.cpp:163
 msgid "Could not build an off-state for tls '%'."
-msgstr ""
+msgstr "Auszustand für die LSA '%' konnte nicht gebaut werden."
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/MSTrafficLightLogic.cpp:159
 msgid "Unused states in tlLogic '%', program '%' in phase % after tl-index %"
@@ -2055,7 +2063,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/traffic_lights/NEMAController.cpp:959
 msgid "I am starting in the coordinated phases"
-msgstr ""
+msgstr "Ich starte in den koordinierten Phasen"
 
 #: /home/micha/programming/sumo/src/microsim/transportables/MSPModel.h:180
 msgid "moveTo is ignored by the current movement model"
@@ -2068,7 +2076,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/transportables/MSPModel_Remote.cpp:209
 #, c-format
 msgid "Edge: % does not allow pedestrians."
-msgstr ""
+msgstr "Kante: % erlaubt keine zu Fuß gehenden."
 
 #: /home/micha/programming/sumo/src/microsim/transportables/MSPModel_Remote.cpp:299
 msgid "Pedestrian model 'remote' does not support simulation.loadState state\n"
@@ -2083,7 +2091,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/transportables/MSPModel_Striping.cpp:179
 msgid "Person '%' could not find sidewalk on edge '%', time=%."
-msgstr ""
+msgstr "Person '%' wurde nicht am Seitenweg von der Kante '%' gefunden, Zeit=%."
 
 #: /home/micha/programming/sumo/src/microsim/transportables/MSPModel_Striping.cpp:463
 #, c-format
@@ -2092,11 +2100,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/microsim/transportables/MSPModel_Striping.cpp:1905
 msgid "Disconnected walk for person '%'."
-msgstr ""
+msgstr "Unterbrochener Fußweg für Person '%'."
 
 #: /home/micha/programming/sumo/src/microsim/transportables/MSPModel_Striping.cpp:2106
 msgid "Person '%' is jammed on edge '%', time=%."
-msgstr ""
+msgstr "Person '%' klemmt auf der Kante '%', Zeit=%."
 
 #: /home/micha/programming/sumo/src/microsim/transportables/MSPerson.cpp:90
 msgid "Adjusting departPos for cloned walk with routeDistribution '%'"
