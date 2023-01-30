@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-30 12:40+0000\n"
+"PO-Revision-Date: 2023-01-30 13:56+0000\n"
 "Last-Translator: bcoueraud87 <benjamin.coueraud@dlr.de>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/fr/>\n"
@@ -1147,7 +1147,7 @@ msgstr "chargement éléments additionnels et meandatas depuis '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindow.cpp:4545
 msgid "Loading data elements from '"
-msgstr "Chargement de données liées au réseau depuis '"
+msgstr "Chargement données liées au réseau depuis '"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:140
 msgid "nets"
@@ -1195,7 +1195,7 @@ msgstr "Ouvrir une nouvelle fenêtre netedit."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:217
 msgid "Load Netedit config..."
-msgstr "Charger une configuration Netedit..."
+msgstr "Charger configuration Netedit..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:217
 msgid "Load a netedit configuration file."
@@ -1203,7 +1203,7 @@ msgstr "Charger un fichier de configuration netedit."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:221
 msgid "Load Sumo config..."
-msgstr "Charger une configuration Sumo..."
+msgstr "Charger configuration Sumo..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:221
 msgid "Load a SUMO configuration file."
@@ -1223,7 +1223,7 @@ msgstr "Ouvrir Configuration &Netconvert..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:232
 msgid "Open a configuration file with NETCONVERT options."
-msgstr "Ouvrir un fichier de configuration avec options pour NETCONVERT."
+msgstr "Ouvrir un fichier de configuration avec options NETCONVERT."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:236
 msgid "Import &Foreign Network..."
@@ -1243,7 +1243,7 @@ msgstr "Sauvegarder le réseau."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:247
 msgid "Save Net&work As..."
-msgstr "Sauvegarder le Ré&seau sous..."
+msgstr "Sauvegarder Ré&seau sous..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:247
 msgid "Save the network to another file."
@@ -1264,7 +1264,7 @@ msgstr "Sauvegarder &Junctions Connectées..."
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:255
 msgid "Save log of joined junctions (allows reproduction of joins)."
 msgstr ""
-"Sauvegarder le journal des junctions connectées (permet la reproduction des "
+"Sauvegarder journal des junctions connectées (permet reproduction des "
 "connections)."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:262
@@ -1318,7 +1318,7 @@ msgstr "Sauvegarder Configuration Netedit"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:340
 msgid "Save netedit configuration file."
-msgstr "Sauvegarder fichier de configuration netedit ."
+msgstr "Sauvegarder fichier configuration netedit ."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:344
 msgid "Save Netedit Config As..."
@@ -1326,7 +1326,7 @@ msgstr "Sauvegarder Configuration Netedit sous..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:344
 msgid "Save netedit configuration in a new file."
-msgstr "Sauvegarder configuration netedit dans nouveau fichier."
+msgstr "Sauvegarder configuration netedit dans un nouveau fichier."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:350
 msgid "Reload Netedit Config"
@@ -1342,7 +1342,7 @@ msgstr "Sauvegarder Configuration Sumo"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:358
 msgid "Save sumo configuration file."
-msgstr "Sauvegarder fichier de configuration sumo."
+msgstr "Sauvegarder fichier configuration sumo."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:362
 msgid "Save Sumo Config As..."
@@ -1358,47 +1358,49 @@ msgstr "Recharger Configuration Sumo"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:368
 msgid "Reload sumo configuration."
-msgstr "Recharger sumo configuration."
+msgstr "Recharger configuration sumo."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:376
 msgid "Load TLS Programs..."
-msgstr "Charger Programmes des Feux de Circulation..."
+msgstr "Charger Programmes Feux de Circulation..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:376
 msgid "Load programs for traffic lights in the current net."
-msgstr "Charger programmes des feux de circulation dans le réseau actuel."
+msgstr "Charger programmes feux de circulation dans le réseau actuel."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:382
 msgid "Save TLS Programs"
-msgstr "Sauvegarder Programmes des Feux de Circulation"
+msgstr "Sauvegarder Programmes Feux de Circulation"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:382
 msgid "Save all traffic light programs of the current network."
-msgstr "Sauvegarder Programmes des Feux de Circulation du réseau actuel."
+msgstr "Sauvegarder Programmes Feux de Circulation du réseau actuel."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:386
 msgid "Save TLS Programs As..."
-msgstr "Sauvegarder Programmes des Feux de Circulation sous..."
+msgstr "Sauvegarder Programmes Feux de Circulation sous..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:386
 msgid "Save all traffic light programs of the current network to another file."
-msgstr "Sauvegarder programmes des feux de circulation dans autre fichier."
+msgstr ""
+"Sauvegarder tous les programmes de feux de circulation du réseau actuel dans "
+"autre fichier."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:392
 msgid "Reload TLS Programs"
-msgstr "Rechargement Programmes des Feux de Circulation"
+msgstr "Rechargement Programmes Feux de Circulation"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:392
 msgid "Reload TLS Programs."
-msgstr "Rechargement Programmes des Feux de Circulation."
+msgstr "Rechargement Programmes Feux de Circulation."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:400
 msgid "Load Edge Types..."
-msgstr "Chargement des Types d'Arêtes..."
+msgstr "Chargement Types d'Arêtes..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:400
 msgid "Load edge types in the current net."
-msgstr "Chargement des types d'arêtes dans le réseau actuel."
+msgstr "Chargement des types d'arêtes dans réseau actuel."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:406
 msgid "Save Edge Types"
@@ -1406,23 +1408,23 @@ msgstr "Sauvegarder Types d'Arêtes"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:406
 msgid "Save edge types of the current net."
-msgstr ""
+msgstr "Sauvegarder types d'arêtes du réseau actuel."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:410
 msgid "Save Edge Types As..."
-msgstr ""
+msgstr "Sauvegarder Types d'Arêtes en tant que..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:410
 msgid "Save edge types of the current net to another file."
-msgstr ""
+msgstr "Sauvegarder types d'arêtes du réseau actuel vers autre fichier."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:416
 msgid "Reload edge types"
-msgstr ""
+msgstr "Recharger types d'arêtes"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:416
 msgid "Reload edge types."
-msgstr ""
+msgstr "Recharger type d'arêtes."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:424
 msgid "Load Additionals..."
