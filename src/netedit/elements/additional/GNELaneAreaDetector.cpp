@@ -171,35 +171,35 @@ GNELaneAreaDetector::getAdditionalProblem() const {
             errorFirstLanePosition = (toString(SUMO_ATTR_POSITION) + " < 0");
         }
         if (myPositionOverLane > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) {
-            errorFirstLanePosition = (toString(SUMO_ATTR_POSITION) + " > lanes's length");
+            errorFirstLanePosition = (toString(SUMO_ATTR_POSITION) + TL(" > lanes's length"));
         }
     } else {
         // abort if lanes aren't consecutives
         if (!areLaneConsecutives(getParentLanes())) {
-            return "lanes aren't consecutives";
+            return TL("lanes aren't consecutives");
         }
         // abort if lanes aren't connected
         if (!areLaneConnected(getParentLanes())) {
-            return "lanes aren't connected";
+            return TL("lanes aren't connected");
         }
         // check positions over first lane
         if (myPositionOverLane < 0) {
             errorFirstLanePosition = (toString(SUMO_ATTR_POSITION) + " < 0");
         }
         if (myPositionOverLane > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) {
-            errorFirstLanePosition = (toString(SUMO_ATTR_POSITION) + " > lanes's length");
+            errorFirstLanePosition = (toString(SUMO_ATTR_POSITION) + TL(" > lanes's length"));
         }
         // check positions over last lane
         if (myEndPositionOverLane < 0) {
             errorLastLanePosition = (toString(SUMO_ATTR_ENDPOS) + " < 0");
         }
         if (myEndPositionOverLane > getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength()) {
-            errorLastLanePosition = (toString(SUMO_ATTR_ENDPOS) + " > lanes's length");
+            errorLastLanePosition = (toString(SUMO_ATTR_ENDPOS) + TL(" > lanes's length"));
         }
     }
     // check separator
     if ((errorFirstLanePosition.size() > 0) && (errorLastLanePosition.size() > 0)) {
-        separator = " and ";
+        separator = TL(" and ");
     }
     // return error message
     return errorFirstLanePosition + separator + errorLastLanePosition;

@@ -112,7 +112,7 @@ GNEInductionLoopDetector::getAdditionalProblem() const {
             errorPosition = (toString(SUMO_ATTR_POSITION) + " < 0");
         }
         if (myPositionOverLane > len) {
-            errorPosition = (toString(SUMO_ATTR_POSITION) + " > lanes's length");
+            errorPosition = (toString(SUMO_ATTR_POSITION) + TL(" > lanes's length"));
         }
         return errorPosition;
     }

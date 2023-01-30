@@ -129,16 +129,16 @@ GNEStoppingPlace::getAdditionalProblem() const {
     if (startPos < 0) {
         errorStart = (toString(SUMO_ATTR_STARTPOS) + " < 0");
     } else if (startPos > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) {
-        errorStart = (toString(SUMO_ATTR_STARTPOS) + " > lanes's length");
+        errorStart = (toString(SUMO_ATTR_STARTPOS) + TL(" > lanes's length"));
     }
     if (endPos < 0) {
         errorEnd = (toString(SUMO_ATTR_ENDPOS) + " < 0");
     } else if (endPos > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) {
-        errorEnd = (toString(SUMO_ATTR_ENDPOS) + " > lanes's length");
+        errorEnd = (toString(SUMO_ATTR_ENDPOS) + TL(" > lanes's length"));
     }
     // check separator
     if ((errorStart.size() > 0) && (errorEnd.size() > 0)) {
-        separator = " and ";
+        separator = TL(" and ");
     }
     return errorStart + separator + errorEnd;
 }
