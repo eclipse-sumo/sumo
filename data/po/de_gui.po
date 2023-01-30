@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-30 08:31+0000\n"
-"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
+"PO-Revision-Date: 2023-01-30 09:20+0000\n"
+"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
 "Language: de\n"
@@ -1789,7 +1789,7 @@ msgstr "Zeigt Nachfrageelemente"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:826
 msgid "Clicking should target lanes"
-msgstr "Bahnen sollten angeklickt werden"
+msgstr "Fahrstreifen per Klick auswählen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:831
 msgid "Show connections over junctions"
@@ -1827,14 +1827,12 @@ msgstr ""
 "Bitte um eine Bestätigung bevor Knotenpunkte zusammengeführt werden sollen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:866
-#, fuzzy
 msgid "Show bubbles over junctions shapes"
-msgstr "Zeige Blasen über Knotenpunktformen an"
+msgstr "Zeige Blasen über Knotenpunktgeometrie an"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:871
-#, fuzzy
 msgid "Apply mouse movement to elevation"
-msgstr "Wende die Mausbewegung auf die Höhe an"
+msgstr "Verändere die Höhe mithilfe der Mausbewegung"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:876
 msgid "Create consecutive edges"
@@ -1886,9 +1884,8 @@ msgid "Show additionals"
 msgstr "Zeige weitere Daten"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1163
-#, fuzzy
 msgid "Draw TAZRel from center"
-msgstr "Zeichne TAZRel vom Zetrum"
+msgstr "Zeichne TAZRel vom Zentrum"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1168
 #, fuzzy
@@ -1960,7 +1957,7 @@ msgstr "Öffnet die sumo-gui Anwendung mit dem aktuellen Netz."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1330
 msgid "&Lanes"
-msgstr "&Spuren"
+msgstr "&Fahrstreifen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1335
 msgid "&Connections"
@@ -1968,11 +1965,11 @@ msgstr "&Verbindungen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1340
 msgid "C&rossings"
-msgstr "K&reuzungen"
+msgstr "Fußgängerfurten"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1345
 msgid "Walkin&gAreas"
-msgstr "Geh&wege"
+msgstr "&Walking Areas"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1350
 msgid "&Additionals"
@@ -1984,9 +1981,8 @@ msgid "&TAZs"
 msgstr "&TAZs"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1360
-#, fuzzy
 msgid "&Wires"
-msgstr "&Leitungen"
+msgstr "&Oberleitungen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1365
 msgid "&Polygons"
