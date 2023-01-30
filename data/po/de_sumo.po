@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-29 16:06+0000\n"
+"PO-Revision-Date: 2023-01-30 12:40+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -290,8 +290,9 @@ msgid "Writing emitters"
 msgstr "Schreibe Emitters"
 
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:210
+#, fuzzy
 msgid "Writing emitter pois"
-msgstr ""
+msgstr "Schreibe Emitter-Pois"
 
 #: /home/micha/programming/sumo/src/dfrouter/dfrouter_main.cpp:217
 msgid "Writing speed triggers"
@@ -351,8 +352,9 @@ msgstr "Unbekannter Routing-Algorithmus '%'!"
 
 #: /home/micha/programming/sumo/src/duarouter/duarouter_main.cpp:178
 #: /home/micha/programming/sumo/src/marouter/marouter_main.cpp:210
+#, fuzzy
 msgid "No weight data was loaded for attribute '%'."
-msgstr ""
+msgstr "Es wurden keine Gewichtsdaten für das Attribut '%' geladen."
 
 #: /home/micha/programming/sumo/src/duarouter/duarouter_main.cpp:238
 #, fuzzy
@@ -495,24 +497,28 @@ msgid ""
 msgstr ""
 
 #: /home/micha/programming/sumo/src/libsumo/Vehicle.cpp:483
+#, fuzzy
 msgid "getNextTLS not yet implemented for meso"
-msgstr ""
+msgstr "getNextTLS ist noch nicht implementiert für Meso"
 
 #: /home/micha/programming/sumo/src/libsumo/Vehicle.cpp:525
+#, fuzzy
 msgid "getStopState not yet implemented for meso"
-msgstr ""
+msgstr "getStopState ist noch nicht implementiert für Meso"
 
 #: /home/micha/programming/sumo/src/libsumo/Vehicle.cpp:741
+#, fuzzy
 msgid "getFollowSpeed not applicable for meso"
-msgstr ""
+msgstr "getFollowSpeed ist nicht zutreffend für Meso"
 
 #: /home/micha/programming/sumo/src/libsumo/Vehicle.cpp:754
 msgid "getSecureGap not applicable for meso"
-msgstr ""
+msgstr "getSecureGap ist nicht zutreffend für Meso"
 
 #: /home/micha/programming/sumo/src/libsumo/Vehicle.cpp:767
+#, fuzzy
 msgid "getStopSpeed not applicable for meso"
-msgstr ""
+msgstr "getStopSpeed ist nicht zutreffend für Meso"
 
 #: /home/micha/programming/sumo/src/libsumo/Vehicle.cpp:1105
 #: /home/micha/programming/sumo/src/libsumo/Vehicle.cpp:1212
@@ -520,20 +526,24 @@ msgid "Unsupported parameter '%'"
 msgstr "Nicht unterstützter Parameter '%'"
 
 #: /home/micha/programming/sumo/src/libsumo/Vehicle.cpp:1225
+#, fuzzy
 msgid "rerouteParkingArea not yet implemented for meso"
-msgstr ""
+msgstr "rerouteParkingArea ist noch nicht implementiert für Meso"
 
 #: /home/micha/programming/sumo/src/libsumo/Vehicle.cpp:1240
+#, fuzzy
 msgid "resume not yet implemented for meso"
-msgstr ""
+msgstr "Fortsetzung ist noch nicht implementiert für Meso"
 
 #: /home/micha/programming/sumo/src/libsumo/Vehicle.cpp:1292
+#, fuzzy
 msgid "changeLane not applicable for meso"
-msgstr ""
+msgstr "changeLange ist nicht zutreffend für Meso"
 
 #: /home/micha/programming/sumo/src/libsumo/Vehicle.cpp:1307
+#, fuzzy
 msgid "changeLaneRelative not applicable for meso"
-msgstr ""
+msgstr "changeLaneRelative ist nicht zutreffend für Meso"
 
 #: /home/micha/programming/sumo/src/libsumo/Vehicle.cpp:1315
 #, c-format
@@ -543,8 +553,9 @@ msgstr ""
 "Straße befindet"
 
 #: /home/micha/programming/sumo/src/libsumo/Vehicle.cpp:1332
+#, fuzzy
 msgid "changeSublane not applicable for meso"
-msgstr ""
+msgstr "changeSublane ist nicht zutreffend für Meso"
 
 #: /home/micha/programming/sumo/src/libsumo/Vehicle.cpp:1409
 #, c-format
@@ -739,8 +750,9 @@ msgstr ""
 "wird zusammengeführt)."
 
 #: /home/micha/programming/sumo/src/mesosim/MEVehicle.cpp:554
+#, fuzzy
 msgid "Error: Invalid vehicles in state (may be a micro state)!"
-msgstr ""
+msgstr "Fehler: Ungültige Fahrzeuge im Zustand (kann ein Mikrostatus sein)!"
 
 #: /home/micha/programming/sumo/src/mesosim/MEVehicle.h:188
 #: /home/micha/programming/sumo/src/mesosim/MEVehicle.h:194
@@ -1186,10 +1198,13 @@ msgstr ""
 "Durchlaufszeit definiert ist."
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:406
+#, fuzzy
 msgid ""
 "Cannot repeat stops with 'arrival' in route % because no cycleTime is "
 "defined."
 msgstr ""
+"Kann keine Halte mit 'Ankunft' in Route % wiederholen, da keine Umlaufzeit "
+"definiert ist."
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:429
 #, c-format
@@ -1300,8 +1315,9 @@ msgstr ""
 "Umladegeschwindigkeit für den Container '%' konnte nicht gefunden werden."
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1594
+#, fuzzy
 msgid "Non-positive tranship speed for container '%'."
-msgstr ""
+msgstr "Keine positive Umlade-Geschwindigkeit für Container '%'."
 
 #: /home/micha/programming/sumo/src/microsim/MSRouteHandler.cpp:1620
 #, c-format
@@ -1396,6 +1412,8 @@ msgstr ""
 #: /home/micha/programming/sumo/src/microsim/MSVehicle.cpp:4328
 msgid "Unexpected end of opposite lane for vehicle '%' at lane '%', time=%."
 msgstr ""
+"Unerwartetes Ende des Gegenfahrstreifens für Fahrzeug '%' auf Fahrstreifen "
+"'%', Zeit=%."
 
 #: /home/micha/programming/sumo/src/microsim/MSVehicle.cpp:4446
 msgid ""
