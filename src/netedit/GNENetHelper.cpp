@@ -2731,13 +2731,13 @@ GNENetHelper::GNEChange_ReplaceEdgeInTLS::redo() {
 
 std::string
 GNENetHelper::GNEChange_ReplaceEdgeInTLS::undoName() const {
-    return "Redo replace in TLS";
+    return TL("Redo replace in TLS");
 }
 
 
 std::string
 GNENetHelper::GNEChange_ReplaceEdgeInTLS::redoName() const {
-    return "Undo replace in TLS";
+    return TL("Undo replace in TLS");
 }
 
 

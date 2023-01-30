@@ -1585,17 +1585,15 @@ GNENet::cleanInvalidCrossings(GNEUndoList* undoList) {
         // show warning in gui testing debug mode
         WRITE_DEBUG("Closed FXMessageBox 'No crossing to remove' with 'OK'");
     } else {
-
-        // traduction continues here
-
         std::string plural = myInvalidCrossings.size() == 1 ? ("") : ("s");
         // show warning in gui testing debug mode
         WRITE_DEBUG("Opening FXMessageBox 'clear crossings'");
         // Ask confirmation to user
-        FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO,
-                                               ("Clear " + toString(SUMO_TAG_CROSSING) + "s").c_str(), "%s",
-                                               ("Clear " + toString(SUMO_TAG_CROSSING) + plural + " will be removed. Continue?").c_str());
-        if (answer != 1) { // 1:yes, 2:no, 4:esc
+        const std::string header = TL("Clear crossings");
+        const std::string body = TL("Crossings will be cleared. Continue?.");
+        const auto answer = FXMessageBox::question(getApp(), MBOX_YES_NO, header.c_str(), "%s", body.c_str());
+        // 1:yes, 2:no, 4:esc
+        if (answer != 1) {
             // write warning if netedit is running in testing mode
             if (answer == 2) {
                 WRITE_DEBUG("Closed FXMessageBox 'clear crossings' with 'No'");
@@ -1603,7 +1601,7 @@ GNENet::cleanInvalidCrossings(GNEUndoList* undoList) {
                 WRITE_DEBUG("Closed FXMessageBox 'clear crossings' with 'ESC'");
             }
         } else {
-            undoList->begin(GUIIcon::MODEDELETE, "Clean " + toString(SUMO_TAG_CROSSING) + "s");
+            undoList->begin(GUIIcon::MODEDELETE, TL("clear crossings"));
             for (auto i = myInvalidCrossings.begin(); i != myInvalidCrossings.end(); i++) {
                 deleteCrossing((*i), undoList);
             }
@@ -1616,7 +1614,7 @@ GNENet::cleanInvalidCrossings(GNEUndoList* undoList) {
 
 void
 GNENet::removeSolitaryJunctions(GNEUndoList* undoList) {
-    undoList->begin(GUIIcon::MODEDELETE, "Clean " + toString(SUMO_TAG_JUNCTION) + "s");
+    undoList->begin(GUIIcon::MODEDELETE, TL("clear junctions"));
     std::vector<GNEJunction*> toRemove;
     for (auto it : myAttributeCarriers->getJunctions()) {
         GNEJunction* junction = it.second;
@@ -1645,7 +1643,7 @@ GNENet::cleanUnusedRoutes(GNEUndoList* undoList) {
     // finally remove all routesWithoutChildren
     if (routesWithoutChildren.size() > 0) {
         // begin undo list
-        undoList->begin(GUIIcon::MODEDELETE, "clean unused routes");
+        undoList->begin(GUIIcon::MODEDELETE, TL("clear unused routes"));
         // iterate over routesWithoutChildren
         for (const auto& i : routesWithoutChildren) {
             // due route doesn't have children, simply call GNEChange_DemandElement
@@ -1700,7 +1698,7 @@ GNENet::joinRoutes(GNEUndoList* undoList) {
     // if exist
     if (thereIsRoutesToMerge) {
         // begin undo list
-        undoList->begin(GUIIcon::ROUTE, "merge routes");
+        undoList->begin(GUIIcon::ROUTE, TL("merge routes"));
         // iterate over route to edges
         for (const auto& i : routesToMerge) {
             if (i.size() > 1) {
@@ -1754,7 +1752,7 @@ GNENet::adjustPersonPlans(GNEUndoList* undoList) {
     // continue if there is personPlanMap to adjust
     if (personPlanMap.size() > 0) {
         // begin undo list
-        undoList->begin(GUIIcon::MODEPERSONPLAN, "adjust person plans");
+        undoList->begin(GUIIcon::MODEPERSONPLAN, TL("adjust person plans"));
         // iterate over invalidDemandElements
         for (const auto& personPlan : personPlanMap) {
             // set arrivalPos attribute
@@ -1794,7 +1792,7 @@ GNENet::cleanInvalidDemandElements(GNEUndoList* undoList) {
     // continue if there is invalidDemandElements to remove
     if (invalidDemandElements.size() > 0) {
         // begin undo list
-        undoList->begin(GUIIcon::MODEDELETE, "remove invalid demand elements");
+        undoList->begin(GUIIcon::MODEDELETE, TL("remove invalid demand elements"));
         // iterate over invalidDemandElements
         for (const auto& invalidDemandElement : invalidDemandElements) {
             // simply call GNEChange_DemandElement
@@ -1809,7 +1807,7 @@ void
 GNENet::replaceJunctionByGeometry(GNEJunction* junction, GNEUndoList* undoList) {
     if (junction->getNBNode()->checkIsRemovable()) {
         // start operation
-        undoList->begin(GUIIcon::JUNCTION, "Replace junction by geometry");
+        undoList->begin(GUIIcon::JUNCTION, TL("replace junction by geometry"));
         // obtain Edges to join
         std::vector<std::pair<NBEdge*, NBEdge*> > toJoin = junction->getNBNode()->getEdgesToJoin();
         // clear connections of junction to replace
@@ -1866,7 +1864,7 @@ GNENet::splitJunction(GNEJunction* junction, bool reconnect, GNEUndoList* undoLi
         return;
     }
     // start operation
-    undoList->begin(GUIIcon::JUNCTION, "Split junction");
+    undoList->begin(GUIIcon::JUNCTION, TL("split junction"));
     // record connections
     std::map<GNEEdge*, std::vector<NBEdge::Connection>> straightConnections;
     for (GNEEdge* e : junction->getGNEIncomingEdges()) {
@@ -1945,7 +1943,7 @@ GNENet::splitJunction(GNEJunction* junction, bool reconnect, GNEUndoList* undoLi
 
 void
 GNENet::clearJunctionConnections(GNEJunction* junction, GNEUndoList* undoList) {
-    undoList->begin(GUIIcon::MODEDELETE, "clear junction connections");
+    undoList->begin(GUIIcon::MODEDELETE, TL("clear junction connections"));
     std::vector<GNEConnection*> connections = junction->getGNEConnections();
     // Iterate over all connections and clear it
     for (auto i : connections) {
@@ -1957,7 +1955,7 @@ GNENet::clearJunctionConnections(GNEJunction* junction, GNEUndoList* undoList) {
 
 void
 GNENet::resetJunctionConnections(GNEJunction* junction, GNEUndoList* undoList) {
-    undoList->begin(GUIIcon::CONNECTION, "reset junction connections");
+    undoList->begin(GUIIcon::CONNECTION, TL("reset junction connections"));
     // first clear connections
     clearJunctionConnections(junction, undoList);
     // invalidate logic to create new connections in the next recomputing
@@ -1968,7 +1966,7 @@ GNENet::resetJunctionConnections(GNEJunction* junction, GNEUndoList* undoList) {
 
 void
 GNENet::clearAdditionalElements(GNEUndoList* undoList) {
-    undoList->begin(GUIIcon::MODEADDITIONAL, "clear additional elements");
+    undoList->begin(GUIIcon::MODEADDITIONAL, TL("clear additional elements"));
     // clear additionals
     for (const auto& additionalMap : myAttributeCarriers->getAdditionals()) {
         while (additionalMap.second.size() > 0) {
@@ -1981,7 +1979,7 @@ GNENet::clearAdditionalElements(GNEUndoList* undoList) {
 
 void
 GNENet::clearDemandElements(GNEUndoList* undoList) {
-    undoList->begin(GUIIcon::MODEDELETE, "clear demand elements");
+    undoList->begin(GUIIcon::MODEDELETE, TL("clear demand elements"));
     // clear demand elements
     for (const auto& demandElementsMap : myAttributeCarriers->getDemandElements()) {
         while (demandElementsMap.second.size() > 0) {
@@ -1994,7 +1992,7 @@ GNENet::clearDemandElements(GNEUndoList* undoList) {
 
 void
 GNENet::clearDataElements(GNEUndoList* undoList) {
-    undoList->begin(GUIIcon::MODEDELETE, "clear data elements");
+    undoList->begin(GUIIcon::MODEDELETE, TL("clear data elements"));
     // clear data sets
     for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
         deleteDataSet(dataSet, undoList);
@@ -2005,7 +2003,7 @@ GNENet::clearDataElements(GNEUndoList* undoList) {
 
 void
 GNENet::clearMeanDataElements(GNEUndoList* undoList) {
-    undoList->begin(GUIIcon::MODEADDITIONAL, "clear meanData elements");
+    undoList->begin(GUIIcon::MODEADDITIONAL, TL("clear meanData elements"));
     // clear meanDatas
     for (const auto& meanDataMap : myAttributeCarriers->getMeanDatas()) {
         while (meanDataMap.second.size() > 0) {
@@ -2688,7 +2686,7 @@ GNENet::initJunctionsAndEdges() {
         edge->getToJunction()->addChildElement(edge);
         // check grid
         if (myGrid.getWidth() > 10e16 || myGrid.getHeight() > 10e16) {
-            throw ProcessError(TL("Network size exceeds 1 Lightyear. Please reconsider your inputs.\n"));
+            throw ProcessError(TL("Network size exceeds 1 Lightyear. Please reconsider your inputs.") + std::string("\n"));
         }
     }
     // make sure myGrid is initialized even for an empty net
