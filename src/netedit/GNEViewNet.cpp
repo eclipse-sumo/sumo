@@ -2932,19 +2932,20 @@ GNEViewNet::addRestrictedLane(SUMOVehicleClass vclass, const bool insertAtFront)
             }
             // if all lanes own a Sidewalk, stop function
             if (counter == (int)setOfEdges.size()) {
-
-////////////
-
-                FXMessageBox::information(getApp(), MBOX_OK,
-                                          ("Add vclass for" + toString(vclass) + " to selected lanes").c_str(), "%s",
-                                          ("All lanes own already another lane in the same edge with a restriction for " + toString(vclass)).c_str());
+                const std::string headerA = TL("Add vclass for ");
+                const std::string headerB = TL(" to selected lanes");
+                const std::string body = TL("All lanes own already another lane in the same edge with a restriction for ");
+                FXMessageBox::information(getApp(), MBOX_OK, (headerA + toString(vclass) + headerB).c_str(), "%s", (body + toString(vclass) + ".").c_str());
                 return 0;
             } else {
                 WRITE_DEBUG("Opening FXMessageBox 'restrict lanes'");
                 // Ask confirmation to user
-                FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO,
-                                                       ("Add vclass for " + toString(vclass) + " to selected lanes").c_str(), "%s",
-                                                       (toString(setOfEdges.size() - counter) + " restrictions for " + toString(vclass) + " will be added. continue?").c_str());
+                const std::string headerA = TL("Add vclass for ");
+                const std::string headerB = TL(" to selected lanes");
+                const std::string bodyA = TL(" restrictions for ");
+                const std::string bodyB = TL(" will be added. Continue?");
+                FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO, (headerA + toString(vclass) + headerB).c_str(), "%s",
+                                                       (toString(setOfEdges.size() - counter) + bodyA + toString(vclass) + bodyB).c_str());
                 if (answer != 1) { //1:yes, 2:no, 4:esc
                     // write warning if netedit is running in testing mode
                     if (answer == 2) {
@@ -2959,7 +2960,7 @@ GNEViewNet::addRestrictedLane(SUMOVehicleClass vclass, const bool insertAtFront)
                 }
             }
             // begin undo operation
-            myUndoList->begin(GUIIcon::LANE, "Add restrictions for " + toString(vclass));
+            myUndoList->begin(GUIIcon::LANE, TL("add restrictions for ") + toString(vclass));
             // iterate over set of edges
             for (const auto& edge : setOfEdges) {
                 // add restricted lane (guess target)
@@ -2969,7 +2970,7 @@ GNEViewNet::addRestrictedLane(SUMOVehicleClass vclass, const bool insertAtFront)
             myUndoList->end();
         } else {
             // If only have a single lane, start undo/redo operation
-            myUndoList->begin(GUIIcon::LANE, "Add vclass for " + toString(vclass));
+            myUndoList->begin(GUIIcon::LANE, TL("add vclass for ") + toString(vclass));
             // Add restricted lane
             if (vclass == SVC_PEDESTRIAN) {
                 // always add pedestrian lanes on the right
@@ -3026,16 +3027,20 @@ GNEViewNet::removeRestrictedLane(SUMOVehicleClass vclass) {
             }
             // if all lanes don't own a Sidewalk, stop function
             if (counter == 0) {
-                FXMessageBox::information(getApp(), MBOX_OK,
-                                          ("Remove vclass for " + toString(vclass) + " to selected lanes").c_str(), "%s",
-                                          ("Selected lanes and edges haven't a restriction for " + toString(vclass)).c_str());
+                const std::string headerA = TL("Remove vclass for ");
+                const std::string headerB = TL(" from selected lanes");
+                const std::string body = TL("Selected lanes and edges haven't a restriction for ");
+                FXMessageBox::information(getApp(), MBOX_OK, (headerA + toString(vclass) + headerB).c_str(), "%s", (body + toString(vclass) + ".").c_str());
                 return 0;
             } else {
                 WRITE_DEBUG("Opening FXMessageBox 'restrict lanes'");
                 // Ask confirmation to user
-                FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO,
-                                                       ("Remove vclass for " + toString(vclass) + " to selected lanes").c_str(), "%s",
-                                                       (toString(counter) + " restrictions for " + toString(vclass) + " will be removed. continue?").c_str());
+                const std::string headerA = TL("Remove vclass for ");
+                const std::string headerB = TL(" in selected lanes");
+                const std::string bodyA = TL(" restrictions for ");
+                const std::string bodyB = TL(" will be removed. Continue?");
+                FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO, (headerA + toString(vclass) + headerB).c_str(), "%s",
+                                                       (toString(setOfEdges.size() - counter) + bodyA + toString(vclass) + bodyB).c_str());
                 if (answer != 1) { //1:yes, 2:no, 4:esc
                     // write warning if netedit is running in testing mode
                     if (answer == 2) {
@@ -3060,7 +3065,7 @@ GNEViewNet::removeRestrictedLane(SUMOVehicleClass vclass) {
             myUndoList->end();
         } else {
             // If only have a single lane, start undo/redo operation
-            myUndoList->begin(GUIIcon::LANE, "Remove vclass for " + toString(vclass));
+            myUndoList->begin(GUIIcon::LANE, TL("emove vclass for ") + toString(vclass));
             // Remove Sidewalk
             myNet->removeRestrictedLane(vclass, laneAtPopupPosition->getParentEdge(), myUndoList);
             // end undo/redo operation
@@ -3202,7 +3207,7 @@ GNEViewNet::onCmdResetEdgeEndPoints(FXObject*, FXSelector, void*) {
     // Obtain junction under mouse
     GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction) {
-        myUndoList->begin(GUIIcon::EDGE, "reset edge endpoints");
+        myUndoList->begin(GUIIcon::EDGE, TL("reset edge endpoints"));
         // are, otherwise recompute them
         if (junction->isAttributeCarrierSelected()) {
             const auto selectedJunctions = myNet->getAttributeCarriers()->getSelectedJunctions();
@@ -3247,7 +3252,7 @@ GNEViewNet::onCmdEditJunctionShape(FXObject*, FXSelector, void*) {
         }
         // if grid is enabled, show warning
         if (myVisualizationSettings->showGrid) {
-            WRITE_WARNING("Grid is still active, press ctrl+g to deactivate");
+            WRITE_WARNING(TL("Grid is still active, press ctrl+g to deactivate"));
         }
         // start edit custom shape
         myEditNetworkElementShapes.startEditCustomShape(junction);
@@ -3266,14 +3271,14 @@ GNEViewNet::onCmdResetJunctionShape(FXObject*, FXSelector, void*) {
     if (junction) {
         // are, otherwise recompute them
         if (junction->isAttributeCarrierSelected()) {
-            myUndoList->begin(GUIIcon::JUNCTION, "reset custom junction shapes");
+            myUndoList->begin(GUIIcon::JUNCTION, TL("reset custom junction shapes"));
             const auto selectedJunctions = myNet->getAttributeCarriers()->getSelectedJunctions();
             for (const auto& selectedJunction : selectedJunctions) {
                 selectedJunction->setAttribute(SUMO_ATTR_SHAPE, "", myUndoList);
             }
             myUndoList->end();
         } else {
-            myUndoList->begin(GUIIcon::JUNCTION, "reset custom junction shape");
+            myUndoList->begin(GUIIcon::JUNCTION, TL("reset custom junction shape"));
             junction->setAttribute(SUMO_ATTR_SHAPE, "", myUndoList);
             myUndoList->end();
         }
@@ -3384,7 +3389,7 @@ GNEViewNet::onCmdClearConnections(FXObject*, FXSelector, void*) {
         // check if we're handling a selection
         if (junction->isAttributeCarrierSelected()) {
             const auto selectedJunctions = myNet->getAttributeCarriers()->getSelectedJunctions();
-            myUndoList->begin(GUIIcon::CONNECTION, "clear connections of selected junctions");
+            myUndoList->begin(GUIIcon::CONNECTION, TL("clear connections of selected junctions"));
             for (const auto& selectedJunction : selectedJunctions) {
                 myNet->clearJunctionConnections(selectedJunction, myUndoList);
             }
@@ -3416,7 +3421,7 @@ GNEViewNet::onCmdResetConnections(FXObject*, FXSelector, void*) {
         // check if we're handling a selection
         if (junction->isAttributeCarrierSelected()) {
             const auto selectedJunctions = myNet->getAttributeCarriers()->getSelectedJunctions();
-            myUndoList->begin(GUIIcon::CONNECTION, "reset connections of selected junctions");
+            myUndoList->begin(GUIIcon::CONNECTION, TL("reset connections of selected junctions"));
             for (const auto& selectedJunction : selectedJunctions) {
                 myNet->resetJunctionConnections(selectedJunction, myUndoList);
             }
@@ -3440,7 +3445,7 @@ GNEViewNet::onCmdAddTLS(FXObject*, FXSelector, void*) {
         // check if we're adding TLS in multiple junctions
         if (junction->isAttributeCarrierSelected()) {
             const auto selectedJunctions = myNet->getAttributeCarriers()->getSelectedJunctions();
-            myNet->getViewNet()->getUndoList()->begin(GUIIcon::MODETLS, "add TLS in multiple junctions");
+            myNet->getViewNet()->getUndoList()->begin(GUIIcon::MODETLS, TL("add TLS in multiple junctions"));
             for (const auto& selectedJunction : selectedJunctions) {
                 selectedJunction->setAttribute(SUMO_ATTR_TYPE, "traffic_light", myUndoList);
             }
@@ -3467,7 +3472,7 @@ GNEViewNet::onCmdAddJoinTLS(FXObject*, FXSelector, void*) {
     if (junction != nullptr) {
         // check if we're adding TLS in multiple junctions
         if (junction->isAttributeCarrierSelected()) {
-            myNet->getViewNet()->getUndoList()->begin(GUIIcon::MODETLS, "add TLS in multiple junctions");
+            myNet->getViewNet()->getUndoList()->begin(GUIIcon::MODETLS, TL("add TLS in multiple junctions"));
         }
         // change junction type
         junction->setAttribute(SUMO_ATTR_TYPE, "traffic_light", myUndoList);
@@ -3514,7 +3519,7 @@ GNEViewNet::onCmdEditConnectionShape(FXObject*, FXSelector, void*) {
     }
     // if grid is enabled, show warning
     if (myVisualizationSettings->showGrid) {
-        WRITE_WARNING("Grid is still active, press ctrl+g to deactivate");
+        WRITE_WARNING(TL("Grid is still active, press ctrl+g to deactivate"));
     }
     // destroy pop-up and update view Net
     destroyPopup();
@@ -3549,7 +3554,7 @@ GNEViewNet::onCmdEditCrossingShape(FXObject*, FXSelector, void*) {
         }
         // if grid is enabled, show warning
         if (myVisualizationSettings->showGrid) {
-            WRITE_WARNING("Grid is still active, press ctrl+g to deactivate");
+            WRITE_WARNING(TL("Grid is still active, press ctrl+g to deactivate"));
         }
         // start edit custom shape
         myEditNetworkElementShapes.startEditCustomShape(crossing);
@@ -3572,7 +3577,7 @@ GNEViewNet::onCmdEditWalkingAreaShape(FXObject*, FXSelector, void*) {
             myNet->computeAndUpdate(OptionsCont::getOptions(), false);
             // if grid is enabled, show warning
             if (myVisualizationSettings->showGrid) {
-                WRITE_WARNING("Grid is still active, press ctrl+g to deactivate");
+                WRITE_WARNING(TL("Grid is still active, press ctrl+g to deactivate"));
             }
         }
         // start edit custom shape
@@ -5533,7 +5538,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             // avoid create additionals if control key is pressed
             if (!myMouseButtonKeyPressed.controlKeyPressed()) {
                 if ((getPositionInformation() == myLastClickedPosition) && !myMouseButtonKeyPressed.shiftKeyPressed()) {
-                    WRITE_WARNING("Shift + click to create two additionals in the same position");
+                    WRITE_WARNING(TL("Shift + click to create two additionals in the same position"));
                 } else if (myViewParent->getAdditionalFrame()->addAdditional(myObjectsUnderCursor)) {
                     // save last mouse position
                     myLastClickedPosition = getPositionInformation();
@@ -5782,7 +5787,7 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
         case DemandEditMode::DEMAND_STOP: {
             // Handle click
             if ((getPositionInformation() == myLastClickedPosition) && !myMouseButtonKeyPressed.controlKeyPressed()) {
-                WRITE_WARNING("Control + click to create two stop in the same position");
+                WRITE_WARNING(TL("Control + click to create two stop in the same position"));
             } else if (myViewParent->getStopFrame()->addStop(myObjectsUnderCursor, myMouseButtonKeyPressed)) {
                 // save last mouse position
                 myLastClickedPosition = getPositionInformation();
