@@ -17,9 +17,10 @@
 ///
 // Checkable button similar to a FXButton but maintain the check
 /****************************************************************************/
-#ifndef MFXCheckableButton_h
-#define MFXCheckableButton_h
+#pragma once
 #include <config.h>
+
+#include <string>
 
 #include "fxheader.h"
 #include "MFXStaticToolTip.h"
@@ -33,7 +34,7 @@ class MFXCheckableButton : public FXButton {
 
 public:
     /// @brief constructor (Very similar to the FXButton constructor)
-    MFXCheckableButton(bool amChecked, FXComposite* p, MFXStaticToolTip* staticToolTip, const FXString& text,
+    MFXCheckableButton(bool amChecked, FXComposite* p, MFXStaticToolTip* staticToolTip, const std::string& text,
                        FXIcon* ic = NULL, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = BUTTON_NORMAL,
                        FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
                        FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
@@ -98,6 +99,3 @@ private:
     /// @brief Invalidated assignment operator.
     MFXCheckableButton& operator=(const MFXCheckableButton&) = delete;
 };
-
-
-#endif

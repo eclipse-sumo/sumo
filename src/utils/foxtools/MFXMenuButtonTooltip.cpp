@@ -36,10 +36,10 @@ FXDEFMAP(MFXMenuButtonTooltip) MFXMenuButtonTooltipMap[] = {
 FXIMPLEMENT(MFXMenuButtonTooltip, FXMenuButton, MFXMenuButtonTooltipMap, ARRAYNUMBER(MFXMenuButtonTooltipMap))
 
 
-MFXMenuButtonTooltip::MFXMenuButtonTooltip(FXComposite* p, MFXStaticToolTip* staticToolTip, const FXString& text, FXIcon* ic,
+MFXMenuButtonTooltip::MFXMenuButtonTooltip(FXComposite* p, MFXStaticToolTip* staticToolTip, const std::string& text, FXIcon* ic,
         FXPopup* pup, FXObject* optionalTarget, FXuint opts,
         FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) :
-    FXMenuButton(p, text, ic, pup, opts, x, y, w, h, pl, pr, pt, pb),
+    FXMenuButton(p, text.c_str(), ic, pup, opts, x, y, w, h, pl, pr, pt, pb),
     myStaticToolTip(staticToolTip),
     myOptionalTarget(optionalTarget) {
 }

@@ -17,9 +17,10 @@
 ///
 // MenuButton similar to FXMenuButton but with the possibility of showing tooltips
 /****************************************************************************/
-#ifndef MFXMenuButtonTooltip_h
-#define MFXMenuButtonTooltip_h
+#pragma once
 #include <config.h>
+
+#include <string>
 
 #include "fxheader.h"
 #include "MFXStaticToolTip.h"
@@ -33,7 +34,7 @@ class MFXMenuButtonTooltip : public FXMenuButton {
 
 public:
     /// @brief constructor (Exactly like the FXMenuButton constructor)
-    MFXMenuButtonTooltip(FXComposite* p, MFXStaticToolTip* staticToolTip, const FXString& text, FXIcon* ic,
+    MFXMenuButtonTooltip(FXComposite* p, MFXStaticToolTip* staticToolTip, const std::string& text, FXIcon* ic,
                          FXPopup* pup, FXObject* optionalTarget,
                          FXuint opts = JUSTIFY_NORMAL | ICON_BEFORE_TEXT | MENUBUTTON_DOWN,
                          FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
@@ -81,6 +82,3 @@ private:
     /// @brief Invalidated assignment operator.
     MFXMenuButtonTooltip& operator=(const MFXMenuButtonTooltip&) = delete;
 };
-
-
-#endif

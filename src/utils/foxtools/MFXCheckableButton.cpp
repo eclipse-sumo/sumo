@@ -35,10 +35,10 @@ FXDEFMAP(MFXCheckableButton) MFXCheckableButtonMap[] = {
 FXIMPLEMENT(MFXCheckableButton, FXButton, MFXCheckableButtonMap, ARRAYNUMBER(MFXCheckableButtonMap))
 
 MFXCheckableButton::MFXCheckableButton(bool amChecked, FXComposite* p, MFXStaticToolTip* staticToolTip,
-                                       const FXString& text, FXIcon* ic, FXObject* tgt, FXSelector sel,
+                                       const std::string& text, FXIcon* ic, FXObject* tgt, FXSelector sel,
                                        FXuint opts, FXint x, FXint y, FXint w, FXint h,
                                        FXint pl, FXint pr, FXint pt, FXint pb) :
-    FXButton(p, text, ic, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb),
+    FXButton(p, text.c_str(), ic, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb),
     myAmChecked(amChecked), myAmInitialised(false),
     myStaticToolTip(staticToolTip) {
     border = 0;
