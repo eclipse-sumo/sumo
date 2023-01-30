@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-30 13:56+0000\n"
+"PO-Revision-Date: 2023-01-30 17:17+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -5287,54 +5287,54 @@ msgstr ""
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:225
 #, c-format
 msgid "Vehicle type '%' is not defined"
-msgstr ""
+msgstr "Fahrzeugtyp '%' ist nicht definiert"
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:245
 msgid "Unreadable file '%'."
-msgstr ""
+msgstr "Nicht lesbare Datei '%'."
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:276
 msgid "Missing an entry in line '%'."
-msgstr ""
+msgstr "Fehlender Eintrag in Zeile '%'."
 
 #: /home/micha/programming/sumo/src/tools/emissionsDrivingCycle_main.cpp:278
 msgid "Not numeric entry in line '%'."
-msgstr ""
+msgstr "Kein nummerischer Eintrag in Zeile '%'."
 
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:62
 #: /home/micha/programming/sumo/src/utils/router/AStarLookupTable.h:291
 #, c-format
 msgid "Could not open file '%' for writing."
-msgstr ""
+msgstr "Datei '%' kann nicht geöffnet werden zum Schreiben."
 
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:86
 msgid "Builds and writes an emissions map for SUMO's emission models."
-msgstr ""
+msgstr "Baut und schreibt eine Emissionskarte für das SUMOs Emissionsmodelle."
 
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:159
 msgid "The emission class (-e) must be given."
-msgstr ""
+msgstr "Die Emissionsklasse (-e) muss gegeben sein."
 
 #: /home/micha/programming/sumo/src/tools/emissionsMap_main.cpp:162
 msgid "The output file (-o) must be given."
-msgstr ""
+msgstr "Die Ausgabedatei (-o) muss gegeben sein."
 
 #: /home/micha/programming/sumo/src/traci-server/TraCIServer.cpp:313
 msgid "Starting TraCI without using internal lanes!"
-msgstr ""
+msgstr "Starte TraCI ohne Verwendung interne Fahrspuren!"
 
 #: /home/micha/programming/sumo/src/traci-server/TraCIServer.cpp:319
 msgid "***Starting server on port % ***"
-msgstr ""
+msgstr "***Starte Server am Anschluss % ***"
 
 #: /home/micha/programming/sumo/src/traci-server/TraCIServer.cpp:322
-#, c-format
+#, c-format, fuzzy
 msgid "  waiting for % clients..."
-msgstr ""
+msgstr "  warte auf % Kunden..."
 
 #: /home/micha/programming/sumo/src/traci-server/TraCIServer.cpp:346
 msgid "  client connected"
-msgstr ""
+msgstr "  Klienten verbunden"
 
 #: /home/micha/programming/sumo/src/traci-server/TraCIServer.cpp:479
 msgid ""
@@ -5344,16 +5344,16 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/common/FileHelpers.cpp:73
 msgid "Cannot get file attributes for file '%'!"
-msgstr ""
+msgstr "Dateiattribute für die Datei '%' können nicht abgerufen werden!"
 
 #: /home/micha/programming/sumo/src/utils/common/FileHelpers.h:311
 msgid "Invalid follower index in route '%'!"
-msgstr ""
+msgstr "Ungültiger Verfolgerindex in der Route '%'!"
 
 #: /home/micha/programming/sumo/src/utils/common/FileHelpers.h:321
 #, c-format
 msgid "An edge within the route '%' is not known!"
-msgstr ""
+msgstr "Eine Kante in der Route '%' ist nicht bekannt!"
 
 #: /home/micha/programming/sumo/src/utils/common/MsgHandler.cpp:238
 msgid "Could not set locale to '%'."
@@ -5370,31 +5370,33 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/common/Parameterised.cpp:87
 msgid "Invalid conversion from string to double (%)"
-msgstr ""
+msgstr "Ungültige Konvertierung von String zu Double (%)"
 
 #: /home/micha/programming/sumo/src/utils/common/Parameterised.cpp:90
 msgid "Invalid conversion from string to double (empty value)"
-msgstr ""
+msgstr "Ungültige Konvertierung von String zu Double (leerer Wert)"
 
 #: /home/micha/programming/sumo/src/utils/common/Parameterised.cpp:109
 msgid "Invalid conversion from string to doubles (%)"
-msgstr ""
+msgstr "Ungültige Konvertierung von String zu Doubles (%)"
 
 #: /home/micha/programming/sumo/src/utils/common/Parameterised.cpp:112
 msgid "Invalid conversion from string to doubles (empty value)"
-msgstr ""
+msgstr "Ungültige Konvertierung von String zu Doubles (leerer Wert)"
 
 #: /home/micha/programming/sumo/src/utils/common/Parameterised.cpp:205
 msgid "Invalid format of parameter (%)"
-msgstr ""
+msgstr "Ungültiges Format für den Parameter (%)"
 
 #: /home/micha/programming/sumo/src/utils/common/Parameterised.cpp:230
 msgid "Invalid format of attribute '%'. Attribute must start with a letter"
 msgstr ""
+"Ungültiger Format für Attribut '%'. Attribute müssen mit einem Buchstaben "
+"anfangen"
 
 #: /home/micha/programming/sumo/src/utils/common/Parameterised.cpp:237
 msgid "Invalid format of attribute (%)"
-msgstr ""
+msgstr "Ungültiges Format für Attribut (%)"
 
 #: /home/micha/programming/sumo/src/utils/common/SUMOVehicleClass.cpp:190
 msgid "Simultaneous specification of vClasses and exceptions is not allowed"
@@ -5421,15 +5423,15 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/common/UtilExceptions.h:72
 msgid "Empty Data"
-msgstr ""
+msgstr "Leere Daten"
 
 #: /home/micha/programming/sumo/src/utils/common/UtilExceptions.h:99
 msgid "Invalid Number Format "
-msgstr ""
+msgstr "Ungültiges Zahlenformat "
 
 #: /home/micha/programming/sumo/src/utils/common/UtilExceptions.h:112
 msgid "Invalid Time Format "
-msgstr ""
+msgstr "Ungültiges Zeit Format "
 
 #: /home/micha/programming/sumo/src/utils/common/UtilExceptions.h:125
 msgid "Invalid Bool Format "
@@ -5447,7 +5449,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/distribution/Distribution_Parameterized.cpp:76
 #: /home/micha/programming/sumo/src/utils/distribution/Distribution_Parameterized.cpp:93
 msgid "Invalid format of distribution parameterized"
-msgstr ""
+msgstr "Ungültiges Verteilungsformat parametrisiert"
 
 #: /home/micha/programming/sumo/src/utils/emissions/EnergyParams.cpp:153
 msgid "Vehicle device '%' doesn't have a valid value for parameter % (%)."
@@ -5506,7 +5508,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/geom/PositionVector.cpp:1389
 msgid "PositionVector is empty"
-msgstr ""
+msgstr "Positionsvektor ist leer"
 
 #: /home/micha/programming/sumo/src/utils/geom/PositionVector.cpp:1503
 #: /home/micha/programming/sumo/src/utils/geom/PositionVector.cpp:1517
@@ -5536,7 +5538,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/handlers/AdditionalHandler.cpp:1479
 #, c-format
 msgid "Probability of % must be equal or greater than 0"
-msgstr ""
+msgstr "Wahrscheinlichkeit von % muss gleich oder größer als 0 sein"
 
 #: /home/micha/programming/sumo/src/utils/handlers/AdditionalHandler.cpp:1665
 msgid "X and Y must be be defined together in POIs"
@@ -5577,7 +5579,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/handlers/DataHandler.cpp:111
 msgid "Data elements cannot load attributes as params"
-msgstr ""
+msgstr "Datenelemente können keine Attribute laden wie Parameter"
 
 #: /home/micha/programming/sumo/src/utils/handlers/MeanDataHandler.cpp:54
 msgid "MeanData elements cannot load attributes as params"
@@ -5609,7 +5611,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:846
 msgid "Parameters must be defined within an object"
-msgstr ""
+msgstr "Parameter müssen innerhalb eines Objektes definiert werden"
 
 #: /home/micha/programming/sumo/src/utils/handlers/RouteHandler.cpp:858
 #, c-format
@@ -5667,18 +5669,20 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/options/Option.cpp:237
 #, c-format
 msgid "'%' is not a valid float."
-msgstr ""
+msgstr "'%' ist kein gültiger float."
 
 #: /home/micha/programming/sumo/src/utils/options/Option.cpp:264
 #, c-format
 msgid "'%' is not a valid bool."
-msgstr ""
+msgstr "'%' ist kein gültiger bool."
 
 #: /home/micha/programming/sumo/src/utils/options/Option.cpp:324
 msgid ""
 "Please note that using ';' as list separator is deprecated and not accepted "
 "anymore."
 msgstr ""
+"Bitte beachte, dass die Verwendung von ';' als Listentrennzeichen veraltet "
+"ist und nicht mehr akzeptiert wird."
 
 #: /home/micha/programming/sumo/src/utils/options/Option.cpp:334
 #, c-format
@@ -5730,11 +5734,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:638
 msgid "Written configuration to '%'"
-msgstr ""
+msgstr "Schreibe Konfiguration nach '%'"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:651
 msgid "Could not save template to '%'"
-msgstr ""
+msgstr "Vorlage konnte nicht nach '%' gespeichert werden"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:655
 msgid "Written template to '%'"
@@ -5745,34 +5749,37 @@ msgid "Could not save schema to '%'"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:671
+#, fuzzy
 msgid "Written schema to '%'"
-msgstr ""
+msgstr "Geschriebenes Schema in '%'"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsIO.cpp:88
 #: /home/micha/programming/sumo/src/utils/options/OptionsIO.cpp:135
 msgid "Could not parse commandline options."
-msgstr ""
+msgstr "Kommandozeilen-Optionen konnten nicht analysiert werden."
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsIO.cpp:103
 msgid "Could not access configuration '%'."
-msgstr ""
+msgstr "Zugriff auf die Konfiguration '%' nicht möglich."
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsIO.cpp:107
 msgid "Loading configuration"
-msgstr ""
+msgstr "Lade Konfiguration"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsIO.cpp:121
 msgid "Could not load configuration '%'."
-msgstr ""
+msgstr "Konfiguration '%' konnte nicht geladen werden."
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsLoader.cpp:77
 msgid "Could not set option '%' (probably defined twice)."
 msgstr ""
+"Option '%' konnte nicht gesetzt werden (wahrscheinlich wurde sie zweimal "
+"definiert)."
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsParser.cpp:127
 #: /home/micha/programming/sumo/src/utils/options/OptionsParser.cpp:134
 msgid "Missing value for parameter '%'."
-msgstr ""
+msgstr "Fehlender Wert für den Parameter '%'."
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsParser.cpp:146
 #, c-format
@@ -5811,7 +5818,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/router/AStarLookupTable.h:187
 msgid "Calculating new lookup table."
-msgstr ""
+msgstr "Berechnen einer neuen Nachschlagetabelle."
 
 #: /home/micha/programming/sumo/src/utils/router/AStarLookupTable.h:194
 msgid "No lookup table for landmark edge '%', recalculating."
@@ -5861,7 +5868,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/router/IntermodalRouter.h:214
 #: /home/micha/programming/sumo/src/utils/router/PedestrianRouter.h:125
 msgid "Do not use this method"
-msgstr ""
+msgstr "Benutzen Sie nicht diese Methode"
 
 #: /home/micha/programming/sumo/src/utils/router/PedestrianRouter.h:87
 #, c-format
@@ -5912,7 +5919,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/shapes/ShapeHandler.cpp:252
 msgid "Polygon's shape cannot be empty."
-msgstr ""
+msgstr "Die Form von Polygonen kann nicht leer sein."
 
 #: /home/micha/programming/sumo/src/utils/shapes/ShapeHandler.cpp:257
 msgid "Polygon's lineWidth must be greater than 0."
@@ -6019,8 +6026,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1199
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1215
+#, fuzzy
 msgid "Invalid Car-Following-Model Attribute %. Cannot be parsed to float"
 msgstr ""
+"Ungültiges Fahrzeugfolgemodell Attribut %. Kann nicht analysiert werden nach "
+"float"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1203
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1226
@@ -6054,45 +6064,51 @@ msgid "Invalid Junction-Model Attribute %. Cannot be parsed to float"
 msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1590
+#, fuzzy
 msgid ""
 "Invalid Junction-Model Attribute %. Only values between [0-1] are allowed"
 msgstr ""
+"Ungültiges Knotenpunkt-Model Attribut %. Es sind nur Werte zwischen [0-1] "
+"erlaubt"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1596
+#, fuzzy
 msgid "Invalid Junction-Model Attribute %. Must be equal or greater than 0"
 msgstr ""
+"Ungültiges Knotenpunkt-Model Attribut %. Es muss gleich oder größer 0 sein"
 
 #: /home/micha/programming/sumo/src/utils/xml/CommonXMLStructure.cpp:271
 msgid "Undefined vehicleType parameter"
-msgstr ""
+msgstr "Undefinierter Fahrzeugtyp-Parameter"
 
 #: /home/micha/programming/sumo/src/utils/xml/CommonXMLStructure.cpp:281
 msgid "Undefined vehicle parameter"
-msgstr ""
+msgstr "Undefinierter Fahrzeugparameter"
 
 #: /home/micha/programming/sumo/src/utils/xml/CommonXMLStructure.cpp:291
 msgid "Undefined stop parameter"
-msgstr ""
+msgstr "Undefinierter Haltepunkt-Parameter"
 
 #: /home/micha/programming/sumo/src/utils/xml/SUMOSAXReader.cpp:110
 #: /home/micha/programming/sumo/src/utils/xml/SUMOSAXReader.cpp:136
 msgid "Cannot read file '%'!"
-msgstr ""
+msgstr "Datei %' ist nicht lesbar!"
 
 #: /home/micha/programming/sumo/src/utils/xml/SUMOSAXReader.cpp:113
 #: /home/micha/programming/sumo/src/utils/xml/SUMOSAXReader.cpp:139
 #, c-format
 msgid "File '%' is a directory!"
-msgstr ""
+msgstr "Datei '%' ist ein Verzeichnis!"
 
 #: /home/micha/programming/sumo/src/utils/xml/SUMOSAXReader.cpp:156
 #: /home/micha/programming/sumo/src/utils/xml/SUMOSAXReader.cpp:165
 msgid "The XML-parser was not initialized."
-msgstr ""
+msgstr "Der XML-Parser war nicht initialisiert."
 
 #: /home/micha/programming/sumo/src/utils/xml/SUMOSAXReader.cpp:191
+#, fuzzy
 msgid "The XML-parser could not be build."
-msgstr ""
+msgstr "Der XML-Parser konnte nicht gebaut werden."
 
 #: /home/micha/programming/sumo/src/utils/xml/XMLSubSys.cpp:91
 #: /home/micha/programming/sumo/src/utils/xml/XMLSubSys.cpp:96
