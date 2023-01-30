@@ -112,7 +112,7 @@ GNEMultiEntryExitDetector::writeAdditional(OutputDevice& device) const {
         writeParams(device);
         device.closeTag();
     } else {
-        WRITE_WARNING(myTagProperty.getTagStr() + " '" + getID() + "' needs at least one entry and one exit");
+        WRITE_WARNING("E3 '" + getID() + TL("' needs at least one entry and one exit"));
     }
 }
 
@@ -296,10 +296,10 @@ GNEMultiEntryExitDetector::checkChildAdditionalRestriction() const {
     }
     // write warnings
     if (numEntrys == 0) {
-        WRITE_WARNING("An " + toString(SUMO_TAG_ENTRY_EXIT_DETECTOR) + " need at least one " + toString(SUMO_TAG_DET_ENTRY) + " detector");
+        WRITE_WARNING(TL("An E3 need at least one entry detector"));
     }
     if (numExits == 0) {
-        WRITE_WARNING("An " + toString(SUMO_TAG_ENTRY_EXIT_DETECTOR) + " need at least one " + toString(SUMO_TAG_DET_EXIT) + " detector");
+        WRITE_WARNING(TL("An E3 need at least one exit detector"));
     }
     // return false depending of number of Entrys and Exits
     return ((numEntrys != 0) && (numExits != 0));

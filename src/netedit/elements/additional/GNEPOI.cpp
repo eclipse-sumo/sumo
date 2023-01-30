@@ -261,7 +261,7 @@ GNEPOI::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         return ret;
     } else {
         // add option for convert to GNEPOI
-        GUIDesigns::buildFXMenuCommand(ret, "Attach to nearest lane", GUIIconSubSys::getIcon(GUIIcon::LANE), &parent, MID_GNE_POI_TRANSFORM);
+        GUIDesigns::buildFXMenuCommand(ret, TL("Attach to nearest lane"), GUIIconSubSys::getIcon(GUIIcon::LANE), &parent, MID_GNE_POI_TRANSFORM);
     }
     return ret;
 }
