@@ -94,9 +94,9 @@ GNEChange_DataSet::redo() {
 std::string
 GNEChange_DataSet::undoName() const {
     if (myForward) {
-        return ("Undo create " + myDataSet->getTagStr() + " '" + myDataSet->getID() + "'");
+        return (TL("Undo create ") + myDataSet->getTagStr() + " '" + myDataSet->getID() + "'");
     } else {
-        return ("Undo delete " + myDataSet->getTagStr() + " '" + myDataSet->getID() + "'");
+        return (TL("Undo delete ") + myDataSet->getTagStr() + " '" + myDataSet->getID() + "'");
     }
 }
 
@@ -104,9 +104,9 @@ GNEChange_DataSet::undoName() const {
 std::string
 GNEChange_DataSet::redoName() const {
     if (myForward) {
-        return ("Redo create " + myDataSet->getTagStr() + " '" + myDataSet->getID() + "'");
+        return (TL("Redo create ") + myDataSet->getTagStr() + " '" + myDataSet->getID() + "'");
     } else {
-        return ("Redo delete " + myDataSet->getTagStr() + " '" + myDataSet->getID() + "'");
+        return (TL("Redo delete ") + myDataSet->getTagStr() + " '" + myDataSet->getID() + "'");
     }
 }
 

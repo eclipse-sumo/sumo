@@ -133,9 +133,9 @@ GNEChange_Edge::redo() {
 std::string
 GNEChange_Edge::undoName() const {
     if (myForward) {
-        return ("Undo create " + toString(SUMO_TAG_EDGE) + " '" + myEdge->getID() + "'");
+        return (TL("Undo create edge '") + myEdge->getID() + "'");
     } else {
-        return ("Undo delete " + toString(SUMO_TAG_EDGE) + " '" + myEdge->getID() + "'");
+        return (TL("Undo delete edge '") + myEdge->getID() + "'");
     }
 }
 
@@ -143,9 +143,9 @@ GNEChange_Edge::undoName() const {
 std::string
 GNEChange_Edge::redoName() const {
     if (myForward) {
-        return ("Redo create " + toString(SUMO_TAG_EDGE) + " '" + myEdge->getID() + "'");
+        return (TL("Redo create edge '") + myEdge->getID() + "'");
     } else {
-        return ("Redo delete " + toString(SUMO_TAG_EDGE) + " '" + myEdge->getID() + "'");
+        return (TL("Redo delete edge '") + myEdge->getID() + "'");
     }
 }
 

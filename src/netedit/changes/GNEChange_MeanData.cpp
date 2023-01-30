@@ -115,9 +115,9 @@ GNEChange_MeanData::redo() {
 std::string
 GNEChange_MeanData::undoName() const {
     if (myForward) {
-        return ("Undo create " + myMeanData->getTagStr());
+        return (TL("Undo create ") + myMeanData->getTagStr());
     } else {
-        return ("Undo delete " + myMeanData->getTagStr());
+        return (TL("Undo delete ") + myMeanData->getTagStr());
     }
 }
 
@@ -125,8 +125,8 @@ GNEChange_MeanData::undoName() const {
 std::string
 GNEChange_MeanData::redoName() const {
     if (myForward) {
-        return ("Redo create " + myMeanData->getTagStr());
+        return (TL("Redo create ") + myMeanData->getTagStr());
     } else {
-        return ("Redo delete " + myMeanData->getTagStr());
+        return (TL("Redo delete ") + myMeanData->getTagStr());
     }
 }

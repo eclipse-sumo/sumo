@@ -160,9 +160,9 @@ void GNEChange_Crossing::redo() {
 std::string
 GNEChange_Crossing::undoName() const {
     if (myForward) {
-        return ("Undo create " + toString(SUMO_TAG_CROSSING));
+        return TL("Undo create crossing");
     } else {
-        return ("Undo delete " + toString(SUMO_TAG_CROSSING));
+        return TL("Undo delete crossing");
     }
 }
 
@@ -170,8 +170,8 @@ GNEChange_Crossing::undoName() const {
 std::string
 GNEChange_Crossing::redoName() const {
     if (myForward) {
-        return ("Redo create " + toString(SUMO_TAG_CROSSING));
+        return TL("Redo create crossing");
     } else {
-        return ("Redo delete " + toString(SUMO_TAG_CROSSING));
+        return TL("Redo delete crossing");
     }
 }

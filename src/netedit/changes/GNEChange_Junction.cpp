@@ -106,9 +106,9 @@ GNEChange_Junction::redo() {
 std::string
 GNEChange_Junction::undoName() const {
     if (myForward) {
-        return ("Undo create " + toString(SUMO_TAG_JUNCTION) + " '" + myJunction->getID() + "'");
+        return (TL("Undo create junction '") + myJunction->getID() + "'");
     } else {
-        return ("Undo delete " + toString(SUMO_TAG_JUNCTION) + " '" + myJunction->getID() + "'");
+        return (TL("Undo delete junction '") + myJunction->getID() + "'");
     }
 }
 
@@ -116,8 +116,8 @@ GNEChange_Junction::undoName() const {
 std::string
 GNEChange_Junction::redoName() const {
     if (myForward) {
-        return ("Redo create " + toString(SUMO_TAG_JUNCTION) + " '" + myJunction->getID() + "'");
+        return (TL("Redo create junction '") + myJunction->getID() + "'");
     } else {
-        return ("Redo delete " + toString(SUMO_TAG_JUNCTION) + " '" + myJunction->getID() + "'");
+        return (TL("Redo delete junction '") + myJunction->getID() + "'");
     }
 }

@@ -99,16 +99,19 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
 
     // Create undo/redo buttons
     myUndoButton = new MFXButtonTooltip(myGripNavigationToolbar, myGNEAppWindows->getStaticTooltipMenu(),
-                                        "\tUndo\tUndo the last change. (Ctrl+Z)", GUIIconSubSys::getIcon(GUIIcon::UNDO), parentWindow, MID_HOTKEY_CTRL_Z_UNDO, GUIDesignButtonToolbar);
+        std::string("\t") + TL("Undo") + std::string("\t") + TL("Undo the last change. (Ctrl+Z)"), 
+        GUIIconSubSys::getIcon(GUIIcon::UNDO), parentWindow, MID_HOTKEY_CTRL_Z_UNDO, GUIDesignButtonToolbar);
     myRedoButton = new MFXButtonTooltip(myGripNavigationToolbar, myGNEAppWindows->getStaticTooltipMenu(),
-                                        "\tRedo\tRedo the last change. (Ctrl+Y)", GUIIconSubSys::getIcon(GUIIcon::REDO), parentWindow, MID_HOTKEY_CTRL_Y_REDO, GUIDesignButtonToolbar);
+        std::string("\t") + TL("Redo") + std::string("\t") + TL("Redo the last change. (Ctrl+Y)"), 
+        GUIIconSubSys::getIcon(GUIIcon::REDO), parentWindow, MID_HOTKEY_CTRL_Y_REDO, GUIDesignButtonToolbar);
 
     // Create Vertical separator
     new FXVerticalSeparator(myGripNavigationToolbar, GUIDesignVerticalSeparator);
 
     // create compute path manager button
     myComputePathManagerButton = new MFXButtonTooltip(myGripNavigationToolbar, myGNEAppWindows->getStaticTooltipMenu(),
-            "\tCompute path manager\tCompute path manager.", GUIIconSubSys::getIcon(GUIIcon::COMPUTEPATHMANAGER), parentWindow, MID_GNE_TOOLBAREDIT_COMPUTEPATHMANAGER, GUIDesignButtonToolbar);
+        std::string("\t") + TL("Compute path manager") + std::string("\t") + TL("Compute path manager."), 
+        GUIIconSubSys::getIcon(GUIIcon::COMPUTEPATHMANAGER), parentWindow, MID_GNE_TOOLBAREDIT_COMPUTEPATHMANAGER, GUIDesignButtonToolbar);
 
     // Create Frame Splitter
     myFramesSplitter = new FXSplitter(myChildWindowContentFrame, this, MID_GNE_VIEWPARENT_FRAMEAREAWIDTH, GUIDesignSplitter | SPLITTER_HORIZONTAL);
@@ -499,7 +502,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
         switch (messageId) {
             case MID_HOTKEY_SHIFT_J_LOCATEJUNCTION:
                 chooserLoc = &myACChoosers.ACChooserJunction;
-                locateTitle = "Junction";
+                locateTitle = TL("Junction");
                 ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getJunctions().size());
                 for (const auto& junction : viewNet->getNet()->getAttributeCarriers()->getJunctions()) {
                     ACsToLocate.push_back(junction.second);
@@ -507,7 +510,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 break;
             case MID_HOTKEY_SHIFT_E_LOCATEEDGE:
                 chooserLoc = &myACChoosers.ACChooserEdges;
-                locateTitle = "Edge";
+                locateTitle = TL("Edge");
                 ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getEdges().size());
                 for (const auto& edge : viewNet->getNet()->getAttributeCarriers()->getEdges()) {
                     ACsToLocate.push_back(edge.second);
@@ -515,7 +518,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 break;
             case MID_HOTKEY_SHIFT_W_LOCATEWALKINGAREA:
                 chooserLoc = &myACChoosers.ACChooserWalkingAreas;
-                locateTitle = "WalkingArea";
+                locateTitle = TL("WalkingArea");
                 ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getWalkingAreas().size());
                 for (const auto& walkingArea : viewNet->getNet()->getAttributeCarriers()->getWalkingAreas()) {
                     ACsToLocate.push_back(walkingArea);
@@ -523,7 +526,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 break;
             case MID_HOTKEY_SHIFT_V_LOCATEVEHICLE: {
                 chooserLoc = &myACChoosers.ACChooserVehicles;
-                locateTitle = "Vehicle";
+                locateTitle = TL("Vehicle");
                 const auto demandElements = viewNet->getNet()->getAttributeCarriers()->getDemandElements();
                 // reserve memory
                 ACsToLocate.reserve(demandElements.at(SUMO_TAG_VEHICLE).size() +
@@ -570,7 +573,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
             }
             case MID_HOTKEY_SHIFT_P_LOCATEPERSON:
                 chooserLoc = &myACChoosers.ACChooserPersons;
-                locateTitle = "Person";
+                locateTitle = TL("Person");
                 ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSON).size() +
                                     viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSONFLOW).size());
                 // fill ACsToLocate with persons
@@ -584,7 +587,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 break;
             case MID_HOTKEY_SHIFT_R_LOCATEROUTE:
                 chooserLoc = &myACChoosers.ACChooserRoutes;
-                locateTitle = "Route";
+                locateTitle = TL("Route");
                 ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).size());
                 for (const auto& route : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE)) {
                     ACsToLocate.push_back(route);
@@ -592,7 +595,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 break;
             case MID_HOTKEY_SHIFT_S_LOCATESTOP: {
                 chooserLoc = &myACChoosers.ACChooserStops;
-                locateTitle = "Stop";
+                locateTitle = TL("Stop");
                 // reserve memory
                 ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_LANE).size() +
                                     viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_BUSSTOP).size() +
@@ -623,7 +626,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
             }
             case MID_HOTKEY_SHIFT_T_LOCATETLS:
                 chooserLoc = &myACChoosers.ACChooserTLS;
-                locateTitle = "TLS";
+                locateTitle = TL("TLS");
                 // fill ACsToLocate with junctions that haven TLS
                 ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getJunctions().size());
                 for (const auto& junction : viewNet->getNet()->getAttributeCarriers()->getJunctions()) {
@@ -634,7 +637,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 break;
             case MID_HOTKEY_SHIFT_A_LOCATEADDITIONAL:
                 chooserLoc = &myACChoosers.ACChooserAdditional;
-                locateTitle = "Additional";
+                locateTitle = TL("Additional");
                 for (const auto& additionalTag : viewNet->getNet()->getAttributeCarriers()->getAdditionals()) {
                     if (additionalTag.first == SUMO_TAG_POI
                             || additionalTag.first == GNE_TAG_POILANE
@@ -649,7 +652,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 break;
             case MID_HOTKEY_SHIFT_O_LOCATEPOI:
                 chooserLoc = &myACChoosers.ACChooserPOI;
-                locateTitle = "POI";
+                locateTitle = TL("POI");
                 // fill ACsToLocate with POIs
                 for (const auto& POI : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_POI)) {
                     ACsToLocate.push_back(POI);
@@ -663,7 +666,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 break;
             case MID_HOTKEY_SHIFT_L_LOCATEPOLY:
                 chooserLoc = &myACChoosers.ACChooserPolygon;
-                locateTitle = "Poly";
+                locateTitle = TL("Poly");
                 // fill ACsToLocate with polys and TAZs (because share namespae)
                 for (const auto& polygon : viewNet->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_POLY)) {
                     ACsToLocate.push_back(polygon);

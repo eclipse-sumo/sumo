@@ -108,9 +108,9 @@ GNEChange_EdgeType::redo() {
 std::string
 GNEChange_EdgeType::undoName() const {
     if (myForward) {
-        return "Undo create edgeType '" + myEdgeType->getID() + "'";
+        return TL("Undo create edgeType '") + myEdgeType->getID() + "'";
     } else {
-        return "Undo delete edgeType '" + myEdgeType->getID() + "'";
+        return TL("Undo delete edgeType '") + myEdgeType->getID() + "'";
     }
 }
 
@@ -118,8 +118,8 @@ GNEChange_EdgeType::undoName() const {
 std::string
 GNEChange_EdgeType::redoName() const {
     if (myForward) {
-        return "Redo create edgeType '" + myEdgeType->getID() + "'";
+        return TL("Redo create edgeType '") + myEdgeType->getID() + "'";
     } else {
-        return "Redo delete edgeType '" + myEdgeType->getID() + "'";
+        return TL("Redo delete edgeType '") + myEdgeType->getID() + "'";
     }
 }

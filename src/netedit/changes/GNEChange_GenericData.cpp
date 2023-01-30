@@ -125,9 +125,9 @@ GNEChange_GenericData::redo() {
 std::string
 GNEChange_GenericData::undoName() const {
     if (myForward) {
-        return ("Undo create " + myGenericData->getTagStr());
+        return (TL("Undo create ") + myGenericData->getTagStr());
     } else {
-        return ("Undo delete " + myGenericData->getTagStr());
+        return (TL("Undo delete ") + myGenericData->getTagStr());
     }
 }
 
@@ -135,8 +135,8 @@ GNEChange_GenericData::undoName() const {
 std::string
 GNEChange_GenericData::redoName() const {
     if (myForward) {
-        return ("Redo create " + myGenericData->getTagStr());
+        return (TL("Redo create ") + myGenericData->getTagStr());
     } else {
-        return ("Redo delete " + myGenericData->getTagStr());
+        return (TL("Redo delete ") + myGenericData->getTagStr());
     }
 }

@@ -151,13 +151,13 @@ GNEChange_Attribute::trueChange() {
 
 std::string
 GNEChange_Attribute::undoName() const {
-    return ("Undo change " + myAC->getTagStr() + " attribute");
+    return (TL("Undo change ") + myAC->getTagStr() + " attribute");
 }
 
 
 std::string
 GNEChange_Attribute::redoName() const {
-    return ("Redo change " + myAC->getTagStr() + " attribute");
+    return (TL("Redo change ") + myAC->getTagStr() + " attribute");
 }
 
 /****************************************************************************/

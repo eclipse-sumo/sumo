@@ -169,9 +169,9 @@ GNEChange_TLS::redo() {
 std::string
 GNEChange_TLS::undoName() const {
     if (myForward) {
-        return ("Undo create " + toString(SUMO_TAG_TRAFFIC_LIGHT) + " '" + myJunction->getID() + "'");
+        return (TL("Undo create TLS '") + myJunction->getID() + "'");
     } else {
-        return ("Undo delete " + toString(SUMO_TAG_TRAFFIC_LIGHT) + " '" + myJunction->getID() + "'");
+        return (TL("Undo delete TLS '") + myJunction->getID() + "'");
     }
 }
 
@@ -179,8 +179,8 @@ GNEChange_TLS::undoName() const {
 std::string
 GNEChange_TLS::redoName() const {
     if (myForward) {
-        return ("Redo create " + toString(SUMO_TAG_TRAFFIC_LIGHT) + " '" + myJunction->getID() + "'");
+        return (TL("Redo create TLS '") + myJunction->getID() + "'");
     } else {
-        return ("Redo delete " + toString(SUMO_TAG_TRAFFIC_LIGHT) + " '" + myJunction->getID() + "'");
+        return (TL("Redo delete TLS '") + myJunction->getID() + "'");
     }
 }
