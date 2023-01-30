@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-30 09:20+0000\n"
+"PO-Revision-Date: 2023-01-30 10:52+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -3512,7 +3512,7 @@ msgstr "Ungültige Zeile oder Spalte"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:254
 msgid "Invalid row"
-msgstr "Ungültige Reihe"
+msgstr "Ungültige Zeile"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:264
 #: /home/micha/programming/sumo/src/netedit/frames/GNETLSTable.cpp:274
@@ -3546,7 +3546,7 @@ msgstr "Netzelemente"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:155
 msgid "Additional elements"
-msgstr "Zusatzelemente"
+msgstr "Weitere Elemente"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:158
 msgid "Shape elements"
@@ -3557,9 +3557,8 @@ msgid "TAZ elements"
 msgstr "TAZ-Elemente"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:164
-#, fuzzy
 msgid "Wire elements"
-msgstr "Drahtelemente"
+msgstr "Oberleitungselemente"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:167
 msgid "Vehicles"
@@ -3587,7 +3586,7 @@ msgstr "Personenfahrten"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:188
 msgid "Walks"
-msgstr "Spaziergänge"
+msgstr "Fußwege"
 
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:191
 msgid "Rides"
