@@ -35,7 +35,7 @@
 // method definitions
 // ===========================================================================
 GNEAbout::GNEAbout(FXWindow* parent) :
-    FXDialogBox(parent, "About Eclipse SUMO netedit", GUIDesignDialogBox) {
+    FXDialogBox(parent, TL("About Eclipse SUMO netedit"), GUIDesignDialogBox) {
     // set dialog icon
     setIcon(GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI));
 
@@ -50,8 +50,8 @@ GNEAbout::GNEAbout(FXWindow* parent) :
     myHeadlineFont = new FXFont(getApp(), "Arial", 18, FXFont::Bold);
     FXLabel* neteditLabel = new FXLabel(descriptionFrame, "SUMO netedit " VERSION_STRING, nullptr, GUIDesignLabelAboutInfo);
     neteditLabel->setFont(myHeadlineFont);
-    new FXLabel(descriptionFrame, "Network editor for Eclipse SUMO, the Simulation of Urban MObility", nullptr, GUIDesignLabelAboutInfo);
-    new FXLabel(descriptionFrame, "Graphical editor for road networks and infrastructure.", nullptr, GUIDesignLabelAboutInfo);
+    new FXLabel(descriptionFrame, TL("Network editor for Eclipse SUMO, the Simulation of Urban MObility"), nullptr, GUIDesignLabelAboutInfo);
+    new FXLabel(descriptionFrame, TL("Graphical editor for road networks and infrastructure."), nullptr, GUIDesignLabelAboutInfo);
     new FXLabel(descriptionFrame, HAVE_ENABLED, nullptr, GUIDesignLabelAboutInfo);
 
     // write HAVE_ENABLED with the current modules (except Windows) in debug mode
@@ -63,8 +63,8 @@ GNEAbout::GNEAbout(FXWindow* parent) :
 
     // copyright notice
     new FXLabel(this, "Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.", nullptr, GUIDesignLabelAboutInfo);
-    new FXLabel(this, "This application is based on code provided by the Eclipse SUMO project.", nullptr, GUIDesignLabelAboutInfo);
-    new FXLabel(this, "These core components are available under the conditions of the Eclipse Public License v2.", nullptr, GUIDesignLabelAboutInfo);
+    new FXLabel(this, TL("This application is based on code provided by the Eclipse SUMO project."), nullptr, GUIDesignLabelAboutInfo);
+    new FXLabel(this, TL("These core components are available under the conditions of the Eclipse Public License v2."), nullptr, GUIDesignLabelAboutInfo);
     (new MFXLinkLabel(this, "SPDX-License-Identifier: EPL-2.0", nullptr, GUIDesignLabelAboutInfo))->setTipText("https://www.eclipse.org/legal/epl-v20.html");
 
     // link to homepage
