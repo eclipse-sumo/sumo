@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-29 16:06+0000\n"
+"PO-Revision-Date: 2023-01-30 17:17+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -1357,241 +1357,241 @@ msgstr "載入號誌時制計畫..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:376
 msgid "Load programs for traffic lights in the current net."
-msgstr ""
+msgstr "於現有路網內載入交通號誌計畫。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:382
 msgid "Save TLS Programs"
-msgstr ""
+msgstr "儲存交通號誌計畫"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:382
 msgid "Save all traffic light programs of the current network."
-msgstr ""
+msgstr "儲存現有路網內所有交通號誌計畫。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:386
 msgid "Save TLS Programs As..."
-msgstr ""
+msgstr "將交通號誌計畫另存為..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:386
 msgid "Save all traffic light programs of the current network to another file."
-msgstr ""
+msgstr "現有路網內所有交通號誌計畫另存新檔。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:392
 msgid "Reload TLS Programs"
-msgstr ""
+msgstr "重新載入交通號誌計畫"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:392
 msgid "Reload TLS Programs."
-msgstr ""
+msgstr "重新載入交通號誌計畫。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:400
 msgid "Load Edge Types..."
-msgstr ""
+msgstr "載入路段類型..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:400
 msgid "Load edge types in the current net."
-msgstr ""
+msgstr "於現有路網內載入路段類型。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:406
 msgid "Save Edge Types"
-msgstr ""
+msgstr "儲存路段類型"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:406
 msgid "Save edge types of the current net."
-msgstr ""
+msgstr "儲存現有路網內的路段類型。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:410
 msgid "Save Edge Types As..."
-msgstr ""
+msgstr "將路段類型另存為…"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:410
 msgid "Save edge types of the current net to another file."
-msgstr ""
+msgstr "將現有路網內的路段類型另存新檔。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:416
 msgid "Reload edge types"
-msgstr ""
+msgstr "重新載入路段類型"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:416
 msgid "Reload edge types."
-msgstr ""
+msgstr "重新載入路段類型。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:424
 msgid "Load Additionals..."
-msgstr ""
+msgstr "載入附加檔案…"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:424
 msgid "Load additionals and shapes."
-msgstr ""
+msgstr "載入附加檔案及圖形物件檔案。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:430
 msgid "Save Additionals"
-msgstr ""
+msgstr "儲存附加檔案"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:430
 msgid "Save additionals and shapes."
-msgstr ""
+msgstr "儲存附加檔案及圖形物件檔案。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:434
 msgid "Save Additionals As..."
-msgstr ""
+msgstr "將附加檔案另存為..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:434
 msgid "Save additional elements to another file."
-msgstr ""
+msgstr "將附加元素(element))另存新檔。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:440
 msgid "Reload Additionals"
-msgstr ""
+msgstr "重新載入附加檔案"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:440
 msgid "Reload additionals."
-msgstr ""
+msgstr "重新載入附加檔案。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:448
 msgid "Load Demand Elements..."
-msgstr ""
+msgstr "載入需求元素..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:448
 msgid "Load demand elements."
-msgstr ""
+msgstr "載入需求元件。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:454
 msgid "Save Demand Elements"
-msgstr ""
+msgstr "儲存需求元件"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:454
 msgid "Save demand elements."
-msgstr ""
+msgstr "儲存需求元件 。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:458
 msgid "Save Demand Elements As..."
-msgstr ""
+msgstr "將需求元件另存為…"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:458
 msgid "Save demand elements to another file."
-msgstr ""
+msgstr "將需求元件另存新檔。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:464
 msgid "Reload Demand Elements"
-msgstr ""
+msgstr "重新載入需求元件"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:464
 msgid "Reload demand elements."
-msgstr ""
+msgstr "重新載入需求元件。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:472
 msgid "Load Data Elements..."
-msgstr ""
+msgstr "載入資料元件..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:472
 msgid "Load data elements."
-msgstr ""
+msgstr "載入資料元件。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:478
 msgid "Save Data Elements"
-msgstr ""
+msgstr "儲存資料元件"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:478
 msgid "Save data elements."
-msgstr ""
+msgstr "儲存資料元件。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:482
 msgid "Save Data Elements As..."
-msgstr ""
+msgstr "將資料元件另存為…"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:482
 msgid "Save data elements to another file."
-msgstr ""
+msgstr "將資料元件另存新檔。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:488
 msgid "Reload Data Elements"
-msgstr ""
+msgstr "重新載入資料元件"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:488
 msgid "Reload data elements."
-msgstr ""
+msgstr "重新載入資料元件。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:496
 msgid "Load MeanDatas..."
-msgstr ""
+msgstr "載入 MeanDatas..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:496
 msgid "Load meanDatas and shapes."
-msgstr ""
+msgstr "載入 MeanDatas及圖形物件檔案。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:502
 msgid "Save MeanDatas"
-msgstr ""
+msgstr "儲存MeanDatas"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:502
 msgid "Save meanDatas and shapes."
-msgstr ""
+msgstr "儲存MeanDatas及圖形物件檔案。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:506
 msgid "Save MeanDatas As..."
-msgstr ""
+msgstr "將MeanDatas另存為…"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:506
 msgid "Save meanData elements to another file."
-msgstr ""
+msgstr "將MeanDatas另存新檔。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:512
 msgid "Reload MeanDatas"
-msgstr ""
+msgstr "重新載入MeanDatas"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:512
 msgid "Reload meanDatas."
-msgstr ""
+msgstr "重新載入MeanDatas。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:532
 msgid "&Inspect"
-msgstr ""
+msgstr "&檢查"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:532
 msgid "Inspect elements and change their attributes."
-msgstr ""
+msgstr "檢查元素並更改其屬性。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:535
 msgid "&Delete"
-msgstr ""
+msgstr "&刪除"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:535
 msgid "Delete elements."
-msgstr ""
+msgstr "刪除元件。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:538
 msgid "&Select"
-msgstr ""
+msgstr "&選擇"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:538
 msgid "Select elements."
-msgstr ""
+msgstr "選擇元件。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:595
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:676
 msgid "&Move"
-msgstr ""
+msgstr "＆移動"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:595
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:676
 msgid "Move elements."
-msgstr ""
+msgstr "移動元件。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:598
 msgid "&Edge"
-msgstr ""
+msgstr "＆路段"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:598
 msgid "Create junction and edges."
-msgstr ""
+msgstr "建立路口及路段。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:601
 msgid "&Connection"
-msgstr ""
+msgstr "&連接"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:601
 msgid "Modes connections between lanes."
-msgstr ""
+msgstr "車道之間的運具連接。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:604
 msgid "Pro&hibition"
@@ -1599,7 +1599,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:604
 msgid "Modes connection prohibitions."
-msgstr ""
+msgstr "禁止的運具連接。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:607
 msgid "Modes traffic lights over junctions."
