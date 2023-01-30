@@ -305,6 +305,7 @@ protected:
     FXRealSpinner* myLaneColorRainbowThreshold2 = nullptr;
     FXButton* myJunctionColorRainbow = nullptr;
     FXComboBox* myParamKey = nullptr;
+    FXComboBox* myScalingParamKey = nullptr;
     FXComboBox* myMeanDataID = nullptr;
 
     /// @brief ... lane scaler

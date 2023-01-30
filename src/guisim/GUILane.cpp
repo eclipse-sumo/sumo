@@ -510,9 +510,9 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
     double exaggeration = s.laneWidthExaggeration;
     if (MSGlobals::gUseMesoSim) {
         GUIEdge* myGUIEdge = dynamic_cast<GUIEdge*>(myEdge);
-        exaggeration *= s.edgeScaler.getScheme().getColor(myGUIEdge->getScaleValue(s.edgeScaler.getActive()));
+        exaggeration *= s.edgeScaler.getScheme().getColor(myGUIEdge->getScaleValue(s, s.edgeScaler.getActive()));
     } else {
-        exaggeration *= s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
+        exaggeration *= s.laneScaler.getScheme().getColor(getScaleValue(s, s.laneScaler.getActive()));
     }
     const bool hasRailSignal = myEdge->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL;
     const bool detailZoom = s.scale * exaggeration > 5;
@@ -1371,7 +1371,7 @@ GUILane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
 
 
 double
-GUILane::getScaleValue(int activeScheme) const {
+GUILane::getScaleValue(const GUIVisualizationSettings& s, int activeScheme) const {
     switch (activeScheme) {
         case 0:
             return 0;
@@ -1435,6 +1435,9 @@ GUILane::getScaleValue(int activeScheme) const {
             return getEmissions<PollutantsInterface::ELEC>() / myLength;
         case 22:
             return MSNet::getInstance()->getInsertionControl().getPendingEmits(this);
+        case 23:
+            // by edge data value
+            return GUINet::getGUIInstance()->getEdgeData(myEdge, s.edgeDataScaling);
     }
     return 0;
 }

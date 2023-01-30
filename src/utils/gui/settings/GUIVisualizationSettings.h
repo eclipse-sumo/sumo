@@ -752,6 +752,8 @@ public:
     std::string edgeData;
     /// @brief id for coloring by live edgeData
     std::string edgeDataID;
+    /// @brief key for scaling by edgeData
+    std::string edgeDataScaling;
 
     /// @brief threshold below which edge data value should not be rendered
     bool edgeValueHideCheck;

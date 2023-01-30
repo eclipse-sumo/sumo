@@ -190,7 +190,7 @@ public:
     double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const override;
 
     /// @brief gets the scaling value according to the current scheme index
-    double getScaleValue(int activeScheme) const;
+    double getScaleValue(const GUIVisualizationSettings& s, int activeScheme) const;
 
     /// @brief returns the segment closest to the given position
     MESegment* getSegmentAtPosition(const Position& pos);

@@ -541,6 +541,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     vehicleTextParam("PARAM_TEXT"),
     edgeData("speed"),
     edgeDataID(""),
+    edgeDataScaling(""),
     edgeValueHideCheck(false),
     edgeValueHideThreshold(0),
     edgeValueHideCheck2(false),
@@ -1264,6 +1265,13 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
         laneScheme.addColor(10, 10.);
         laneScheme.addColor(50, 100.);
         laneScaler.addScheme(laneScheme);
+        laneScheme = GUIScaleScheme(SCHEME_NAME_EDGEDATA_NUMERICAL, 0.1, "missing data", false, MISSING_DATA);
+        laneScheme.addColor(1, 1.);
+        laneScheme.addColor(2, 10.);
+        laneScheme.addColor(5, 100.);
+        laneScheme.addColor(10, 1000.);
+        laneScheme.setAllowsNegativeValues(true);
+        laneScaler.addScheme(laneScheme);
     }
 
     /// add edge coloring schemes
@@ -1376,6 +1384,14 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
         edgeScheme.addColor(1, 1.);
         edgeScheme.addColor(10, 10.);
         edgeScheme.addColor(50, 100.);
+        edgeScaler.addScheme(edgeScheme);
+        edgeScheme = GUIScaleScheme(SCHEME_NAME_EDGEDATA_NUMERICAL, 0.1, "missing data", false, MISSING_DATA);
+        edgeScheme.addColor(1, 1.);
+        edgeScheme.addColor(2, 10.);
+        edgeScheme.addColor(5, 100.);
+        edgeScheme.addColor(10, 1000.);
+        edgeScaler.addScheme(edgeScheme);
+        edgeScheme.setAllowsNegativeValues(true);
         edgeScaler.addScheme(edgeScheme);
     }
 
@@ -1731,6 +1747,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("vehicleTextParam", vehicleTextParam);
     dev.writeAttr("edgeData", edgeData);
     dev.writeAttr("edgeDataID", edgeDataID);
+    dev.writeAttr("edgeDataScaling", edgeDataScaling);
     dev.writeAttr("edgeValueHideCheck", edgeValueHideCheck);
     dev.writeAttr("edgeValueHideThreshold", edgeValueHideThreshold);
     dev.writeAttr("edgeValueHideCheck2", edgeValueHideCheck2);
@@ -2067,6 +2084,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (edgeDataID != v2.edgeDataID) {
+        return false;
+    }
+    if (edgeDataScaling != v2.edgeDataScaling) {
         return false;
     }
     if (edgeValueHideCheck != v2.edgeValueHideCheck) {

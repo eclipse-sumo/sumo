@@ -551,7 +551,7 @@ GUIEdge::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
 
 
 double
-GUIEdge::getScaleValue(int activeScheme) const {
+GUIEdge::getScaleValue(const GUIVisualizationSettings& s, int activeScheme) const {
     switch (activeScheme) {
         case 1:
             return gSelected.isSelected(getType(), getGlID());
@@ -567,6 +567,9 @@ GUIEdge::getScaleValue(int activeScheme) const {
             return getRelativeSpeed();
         case 7:
             return getPendingEmits();
+        case 8:
+            // by edge data value
+            return GUINet::getGUIInstance()->getEdgeData(this, s.edgeDataScaling);
     }
     return 0;
 }
