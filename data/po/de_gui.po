@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-31 14:30+0000\n"
+"PO-Revision-Date: 2023-01-31 14:31+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -1589,12 +1589,12 @@ msgstr "Wähle Elemente aus."
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:595
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:676
 msgid "&Move"
-msgstr "&Bewegung"
+msgstr "&Verschieben"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:595
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:676
 msgid "Move elements."
-msgstr "Bewege Elemente."
+msgstr "Verschiebe Elemente."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:598
 msgid "&Edge"
