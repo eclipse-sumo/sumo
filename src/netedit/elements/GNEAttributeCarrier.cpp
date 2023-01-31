@@ -5818,13 +5818,8 @@ GNEAttributeCarrier::fillCommonMeanDataAttributes(SumoXMLTag currentTag) {
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_TRACK_VEHICLES,
                                           GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-<<<<<<< HEAD
                                           TL("whether aggregation should be performed over all vehicles that entered the edge/lane in the aggregation interval"),
-                                          "1");
-=======
-                                          "whether aggregation should be performed over all vehicles that entered the edge/lane in the aggregation interval",
                                           "0");
->>>>>>> fix #12543
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_DETECT_PERSONS,
