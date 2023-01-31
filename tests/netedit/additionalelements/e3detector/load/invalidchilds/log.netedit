@@ -1,4 +1,4 @@
 Error: Attribute 'pos' in definition of a detEntry Invalid Number Format (double) dummmyPosition.
 Error: Attribute 'pos' in definition of a detExit Invalid Number Format (double) dummmyPosition.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\e3detector\load\invalidchilds\additionals.add.xml failed.
-Warning: entryExitDetector 'entryExitDetector_0' needs at least one entry and one exit
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.detectors.31Jan144855.2754/netedit.daily.additional.detectors/additionalelements/e3detector/load/invalidchilds/additionals.add.xml failed.
+Warning: E3 'entryExitDetector_0' needs at least one entry and one exit

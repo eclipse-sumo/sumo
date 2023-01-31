@@ -1,3 +1,3 @@
-Warning: entryExitDetector 'e3_1' needs at least one entry and one exit
-Warning: entryExitDetector 'entryExitDetector_1' needs at least one entry and one exit
-Warning: entryExitDetector 'entryExitDetector_4' needs at least one entry and one exit
+Warning: E3 'e3_1' needs at least one entry and one exit
+Warning: E3 'entryExitDetector_1' needs at least one entry and one exit
+Warning: E3 'entryExitDetector_4' needs at least one entry and one exit

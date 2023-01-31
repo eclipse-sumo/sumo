@@ -68,7 +68,6 @@ Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'flow (over route)' in GNETagSelector
 Debug: Adding flowRoute 'f_0' in GNEChange_DemandElement
-Debug: Value 'flow (over route)' for attribute arrivalSpeed of flowRoute isn't valid
 Debug: Value 'dummySpeed' for attribute arrivalSpeed of flowRoute isn't valid
 Debug: Setting new attribute
 Debug: Value '-10' for attribute arrivalSpeed of flowRoute isn't valid
@@ -172,3 +171,4 @@ Debug: Deleting unreferenced junction 'gneJ8' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ9' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 16
+X connection to :12670.0 broken (explicit kill or server shutdown).

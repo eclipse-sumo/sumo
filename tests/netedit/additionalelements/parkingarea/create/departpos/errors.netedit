@@ -7,7 +7,7 @@ Debug: Selected item 'parkingArea' in GNETagSelector
 Debug: Invalid input parameter of parkingArea
 Debug: Adding parkingArea 'pa_0' in GNEChange_Additional
 Debug: Invalid input parameter of parkingArea
-Error: Could not build parkingArea with ID 'pa_1' in netedit; Invalid departPos over lane.
+Error: Could not build parking area with ID 'pa_1' in netedit; Invalid departPos over lane.
 Debug: Adding parkingArea 'pa_1' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()

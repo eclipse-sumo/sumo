@@ -106,6 +106,8 @@ GLDebug: 	Inserted parkingSpace:pa_0 into SUMORTree with boundary 14.30,-20.70,5
 GLDebug: 	Removed object parkingSpace:pa_0 from SUMORTree with boundary 14.30,-20.70,55.70,20.70
 GLDebug: 	Inserted parkingSpace:pa_0 into SUMORTree with boundary 14.30,-20.70,55.70,20.70
 GLDebug: 	Removed object parkingSpace:pa_0 from SUMORTree with boundary 14.30,-20.70,55.70,20.70
+GLDebug: 	Inserted parkingSpace:pa_0 into SUMORTree with boundary 14.30,-20.70,55.70,20.70
+GLDebug: 	Removed object parkingSpace:pa_0 from SUMORTree with boundary 14.30,-20.70,55.70,20.70
 GLDebug: 	Inserted parkingSpace:pa_0 into SUMORTree with boundary 14.30,-10.70,55.70,30.70
 Debug: Setting new attribute
 GLDebug: 	Removed object parkingSpace:pa_0 from SUMORTree with boundary 14.30,-10.70,55.70,30.70
@@ -262,4 +264,4 @@ Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 4
-X connection to :6020.0 broken (explicit kill or server shutdown).
+X connection to :3195.0 broken (explicit kill or server shutdown).

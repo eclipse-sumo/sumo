@@ -5,9 +5,9 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Adding laneAreaDetector 'E2_01' in GNEChange_Additional
 Debug: Adding laneAreaDetector 'E2_02' in GNEChange_Additional
-Error: Could not build laneAreaDetector with ID 'E2_03' in netedit; invalid traffic light ID.
+Error: Could not build lane area detector with ID 'E2_03' in netedit; invalid traffic light ID.
 Debug: Adding laneAreaDetector 'E2_04' in GNEChange_Additional
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.e2detector.1_from_26Jan095535.115978/netedit.daily.additional.e2detector/additionalelements/e2detector/load/tl/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.detectors.31Jan144855.2754/netedit.daily.additional.detectors/additionalelements/e2detector/load/tl/additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

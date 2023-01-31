@@ -68,8 +68,7 @@ Debug: Selected item 'vehicle (embedded route)' in GNETagSelector
 Debug: Key ENTER pressed
 Debug: Adding vehicleWithRoute 'v_0' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'v_0' in GNEChange_DemandElement
-Debug: Value 'dummyDepart' for attribute color of vehicleWithRoute isn't valid
-Debug: Value 'first' for attribute color of vehicleWithRoute isn't valid
+Debug: Value 'dummyDepart' for attribute departLane of vehicleWithRoute isn't valid
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing routeEmbedded 'v_0' in GNEChange_DemandElement
