@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-31 09:11+0000\n"
+"PO-Revision-Date: 2023-01-31 11:39+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -1622,9 +1622,8 @@ msgid "Modes connection prohibitions."
 msgstr "Modus zur Anzeige von Vorfahrtregeln."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:607
-#, fuzzy
 msgid "Modes traffic lights over junctions."
-msgstr "Modi-Lichtsignalanlage über Knotenpunkt."
+msgstr "Modus zur Bearbeitung der Lichtsignalanlagen."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:610
 msgid "Create additional elements."
@@ -1653,22 +1652,20 @@ msgid "Create Points-Of-Interest and polygons."
 msgstr "Erstellt relevante Punkte und Polygone."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:622
-#, fuzzy
 msgid "&Wire"
-msgstr "&Leitung"
+msgstr "&Oberleitung"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:622
-#, fuzzy
 msgid "Create wires."
-msgstr "Erstellt Leitungen."
+msgstr "Erstelle Oberleitungen."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:679
 msgid "Route"
-msgstr "Weg"
+msgstr "Route"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:679
 msgid "Create Routes."
-msgstr "Erstellt Routen."
+msgstr "Erstelle Routen."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:682
 msgid "Vehicle"
@@ -1710,7 +1707,7 @@ msgstr "Erstelle Personenpläne."
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:697
 #: /home/micha/programming/sumo/src/netedit/frames/GNETagSelector.cpp:179
 msgid "Container"
-msgstr "Behälter"
+msgstr "Container"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:697
 msgid "Create containers."
@@ -1726,7 +1723,7 @@ msgstr "Erstelle Containerpläne."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:735
 msgid "&EdgeData"
-msgstr "&Kantendaten"
+msgstr "&EdgeData"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:735
 msgid "Create edgeData elements."
@@ -1749,14 +1746,12 @@ msgid "Create TAZRelation elements."
 msgstr "Erstelle TAZ-Beziehungselemente."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:744
-#, fuzzy
 msgid "&MeanData"
-msgstr "&Mean-Daten"
+msgstr "&MeanData"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:744
-#, fuzzy
 msgid "Create MeanData edge/lanes."
-msgstr "Erstelle Mean-Daten Kanten/Spuren."
+msgstr "MeanData für Kanten oder Fahrstreifen anlegen."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:806
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1003
@@ -1771,12 +1766,13 @@ msgstr "Knotenpunktform ausblenden"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:816
 msgid "Draw vehicles spread in lane or in depart position"
-msgstr "Zeichnet Fahrzeug verteilt in der Spur oder Abfahrtsposition"
+msgstr ""
+"Zeichne Fahrzeuge über den Fahrstreifen verteilt oder an der Abfahrtsposition"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:821
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1158
 msgid "Show demand elements"
-msgstr "Zeigt Nachfrageelemente"
+msgstr "Nachfrageelemente anzeigen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:826
 msgid "Clicking should target lanes"
@@ -1803,8 +1799,8 @@ msgstr "Zeige TAZ Elemente"
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:851
 msgid "Selecting multiple edges automatically select their junctions"
 msgstr ""
-"Durch die Auswahl mehrerer Kanten werden ihre Knotenpunkte automatisch "
-"gewählt"
+"Bei mehreren ausgewählten Kanten automatisch angrenzende Knotenpunkte mit "
+"auswählen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:856
 msgid "Clicking should apply state changes to all phases of TLS plan"
@@ -1835,7 +1831,7 @@ msgstr "Erstelle eine Kante in der entgegengesetzten Richtung"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1013
 msgid "Draw vehicles spread/depart position"
-msgstr "Zeichnet die Verbreitungs- und Abfahrtsposition von Fahrzeugen"
+msgstr "Zeichne Fahrzeuge an der Abfahrtsposition versetzt"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1018
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1153
@@ -1868,7 +1864,7 @@ msgstr "Zeige nicht geprüfte Bedarfselemente"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1053
 msgid "Show number of overlapped routes"
-msgstr "Zeige Anzahl von überlappenden Routen"
+msgstr "Zeige Anzahl an überlappenden Routen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1148
 msgid "Show additionals"
@@ -1895,32 +1891,27 @@ msgstr "Zeichne nur TAZRel zu"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1259
 msgid "Undo the last change."
-msgstr "Macht die letzte Änderung rückgängig."
+msgstr "Mache die letzte Änderung rückgängig."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1262
-#, fuzzy
 msgid "Redo the last change."
-msgstr "Wiederholt die letzte Änderung."
+msgstr "Stelle die letzte Änderung wieder her."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1265
-#, fuzzy
 msgid "Show undo/redo history"
-msgstr "Zeige rückgängigen/wiederholenden Verlauf"
+msgstr "Zeige den Verlauf für Rückgängig/Wiederherstellen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1265
-#, fuzzy
 msgid "Open undo/redo history dialog."
-msgstr "Öffne Dialog für rückgängigen/wiederholenden Verlauf."
+msgstr "Öffne Dialog für den Verlauf Rückgängig/Wiederherstellen."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1286
-#, fuzzy
 msgid "Clear front element"
-msgstr "Reinigt Frontelement"
+msgstr "Frontelement zurücksetzen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1286
-#, fuzzy
 msgid "Clear current front element"
-msgstr "Reinigt aktuelles Frontelement"
+msgstr "Aktuelles Frontelement zurücksetzen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1295
 msgid "Load additionals in sumo-gui"
@@ -2075,23 +2066,23 @@ msgstr "Bereinige Knotenpunkte"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1796
 msgid "Remove solitary junctions."
-msgstr "Entferne einzelne Knotenpunkte."
+msgstr "Entferne alleinstehende Knotenpunkte."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1799
 msgid "Join Selected Junctions"
-msgstr "Kombiniere ausgewählte Knotenpunkte"
+msgstr "Vereinige ausgewählte Knotenpunkte"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1799
 msgid "Join selected junctions into a single junction."
-msgstr "Verbinde ausgewählte Knotenpunkte zu einem einzigen Knotenpunkt."
+msgstr "Vereinige ausgewählte Knotenpunkte zu einem einzigen Knotenpunkt."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1802
 msgid "Clean invalid crossings"
-msgstr "Reinige ungültige Kreuzungen"
+msgstr "Ungültige Fußgängerfurten entfernen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1802
 msgid "Clear invalid crossings."
-msgstr "Reinige ungültige Kreuzungen."
+msgstr "Entferne ungültige Fußgängerfurten."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1808
 #, fuzzy
@@ -2365,13 +2356,12 @@ msgid "Loading of netedit config file '%' failed."
 msgstr "Laden der NETEDIT Konfigurationsdatei '%' fehlgeschlagen."
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:116
-#, fuzzy
 msgid ""
 "Invalid input network option. Load with either sumo/netedit/netconvert "
 "config or with -new option"
 msgstr ""
-"Ungültige Eingabe-Netzwerkoption. Lade entweder mit sumo/netedit/netconvert "
-"congif oder mit -new option."
+"Ungültige Option für Netz-Eingabedaten . Lade entweder mit sumo/netedit/"
+"netconvert config oder mit der Option -new"
 
 #: /home/micha/programming/sumo/src/netedit/GNELoadThread.cpp:129
 msgid "Invalid Options. Nothing loaded"
@@ -2777,13 +2767,12 @@ msgid "Select invalid additionals"
 msgstr "Wähle ungültige weitere Daten"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:265
-#, fuzzy
 msgid ""
 "Cancel saving of additionals and select invalid stopping places and E2 "
 "detectors"
 msgstr ""
-"Beende Speicherung weiterer Daten und wähle ungültige Haltestellen und E2 "
-"Detektoren."
+"Breche Speicherung weiterer Daten ab und wähle ungültige Haltestellen und E2-"
+"Detektoren aus"
 
 #: /home/micha/programming/sumo/src/netedit/dialogs/GNEFixAdditionalElements.cpp:325
 msgid "Build connections between lanes"
