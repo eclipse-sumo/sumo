@@ -94,7 +94,7 @@ GNEMeanData::writeMeanData(OutputDevice& device) const {
     device.writeAttr(SUMO_ATTR_FILE, myFile);
     // write optional attributes
     if (myPeriod != -1) {
-        device.writeAttr(SUMO_ATTR_PERIOD, myPeriod);
+        device.writeAttr(SUMO_ATTR_PERIOD, STEPS2TIME(myPeriod));
     }
     if (myBegin != -1) {
         device.writeAttr(SUMO_ATTR_BEGIN, myBegin);
@@ -120,8 +120,8 @@ GNEMeanData::writeMeanData(OutputDevice& device) const {
     if (myVTypes.size() > 0) {
         device.writeAttr(SUMO_ATTR_VTYPES, getAttribute(SUMO_ATTR_VTYPES));
     }
-    if (!myTrackVehicles) {
-        device.writeAttr(SUMO_ATTR_TRACK_VEHICLES, false);
+    if (myTrackVehicles) {
+        device.writeAttr(SUMO_ATTR_TRACK_VEHICLES, true);
     }
     if (myDetectPersons.size() > 0) {
         device.writeAttr(SUMO_ATTR_DETECT_PERSONS, myDetectPersons);
