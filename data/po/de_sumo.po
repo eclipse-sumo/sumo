@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-31 14:30+0000\n"
+"PO-Revision-Date: 2023-01-31 15:03+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -4155,13 +4155,15 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netimport/NIImporter_SUMO.cpp:624
 #, c-format
 msgid "Found lane '%' not within edge element."
-msgstr ""
+msgstr "Fahrstreifen '%' ohne Kantenelemente gefunden."
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_SUMO.cpp:695
 msgid ""
 "Duplicate definition of stopOffset for edge %.\n"
 "Ignoring duplicate specification."
 msgstr ""
+"Doppelte Definiton von stopOffset für die Kante %.\n"
+"Ignoriere doppelte Spezifizierung."
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_SUMO.cpp:701
 msgid ""
@@ -4202,15 +4204,15 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:326
 msgid "Duplicate node occurred ('%')."
-msgstr ""
+msgstr "Doppelter Knoten entdeckt ('%')."
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:344
 msgid "Unable to project coordinates for district %."
-msgstr ""
+msgstr "Koordinaten für den Bezirk % können nicht projiziert werden."
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:350
 msgid "Duplicate district occurred ('%')."
-msgstr ""
+msgstr "Doppelter Bezirk aufgetreten ('%')."
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:368
 msgid "Unable to project coordinates for point %."
@@ -4261,7 +4263,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:987
 msgid "Unknown edge in TEILFLAECHENELEMENT"
-msgstr ""
+msgstr "Unbekannte Kante im TEILFLAECHENELEMENT"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:1007
 msgid "Unknown are for area part '%'."
@@ -4302,15 +4304,17 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:1271
 #, c-format
 msgid "The node '%' is not known."
-msgstr ""
+msgstr "Der Knoten '%' ist nicht bekannt."
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:1508
+#, fuzzy
 msgid "Could not build connector node '%'."
-msgstr ""
+msgstr "Verbindungsknoten '%' konnte nicht gebaut werden."
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:1518
+#, fuzzy
 msgid " The from-node was not found within the net"
-msgstr ""
+msgstr " Der from-Knoten wurde nicht im Netz gefunden"
 
 #: /home/micha/programming/sumo/src/netimport/NIImporter_VISUM.cpp:1521
 msgid " The to-node was not found within the net"
@@ -4336,11 +4340,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netimport/NILoader.cpp:112
 msgid "No nodes loaded."
-msgstr ""
+msgstr "Keine Knoten geladen."
 
 #: /home/micha/programming/sumo/src/netimport/NILoader.cpp:115
 msgid "No edges loaded."
-msgstr ""
+msgstr "Keine Kanten geladen."
 
 #: /home/micha/programming/sumo/src/netimport/NILoader.cpp:126
 msgid " Import done:"
@@ -4389,11 +4393,14 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netimport/NINavTeqHelper.cpp:90
 msgid "Invalid lane number (edge '%')."
-msgstr ""
+msgstr "Ungültige Fahrstreifennummer (Kante '%')."
 
 #: /home/micha/programming/sumo/src/netimport/NINavTeqHelper.cpp:94
+#, fuzzy
 msgid "Non-numerical value for an edge's lane number occurred (edge '%'."
 msgstr ""
+"Nicht nummerischer Wert für eine Kanten-Fahrstreifennummer entdeckt (Kante "
+"'%')."
 
 #: /home/micha/programming/sumo/src/netimport/NIVisumTL.cpp:76
 msgid "invalid node for traffic light '%'"
@@ -4432,11 +4439,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLConnectionsHandler.cpp:435
 msgid "No edges specified for walkingArea at node '%'."
-msgstr ""
+msgstr "Keine Kanten für die walkingArea am Knoten '%' spezifiziert."
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLConnectionsHandler.cpp:467
 msgid "Unable to project shape for walkingArea at node '%'."
-msgstr ""
+msgstr "Shape für die walkingArea am Knoten '%' kann nicht projiziert werden."
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLEdgesHandler.cpp:211
 msgid "Duplicate edge id occurred ('%'); assuming overwriting is wished."
@@ -4469,29 +4476,29 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLEdgesHandler.cpp:543
 msgid "The from-node is not given for edge '%'."
-msgstr ""
+msgstr "Der from-Knoten ist nicht gegeben für Kante '%'."
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLEdgesHandler.cpp:555
 msgid "The to-node is not given for edge '%'."
-msgstr ""
+msgstr "Der to-Knoten ist nicht gegeben für Kante '%'."
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLEdgesHandler.cpp:654
 #, c-format
 msgid "Duplicate edge '%' occurred."
-msgstr ""
+msgstr "Doppelte Kante '%' aufgetreten."
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLEdgesHandler.cpp:663
 msgid "An important information is missing in edge '%'."
-msgstr ""
+msgstr "Eine wichtige Information für die Kante '%' fehlt."
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLEdgesHandler.cpp:685
 #, c-format
 msgid "Unknown edge '%' in roundabout."
-msgstr ""
+msgstr "Unbekannte Kante '%' im Kreisverkehr."
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLNodesHandler.cpp:148
 msgid "Missing position (at node ID='%')."
-msgstr ""
+msgstr "Fehlende Position (am Knoten ID ='%')."
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLNodesHandler.cpp:181
 msgid "Could not insert node though checked this before (id='%')."
@@ -4511,11 +4518,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLPTHandler.cpp:253
 msgid "Found route outside line definition"
-msgstr ""
+msgstr "Route außerhalb der Zeilendefinition gefunden"
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLTrafficLightsHandler.cpp:114
 msgid "Definition of tlLogic '%' was not finished."
-msgstr ""
+msgstr "Definition von tlLogic '%' wurde nicht beendet."
 
 #: /home/micha/programming/sumo/src/netimport/NIXMLTypesHandler.cpp:85
 msgid "Invalid lane spread type '%'. Using default 'right'"
@@ -4561,7 +4568,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netload/NLBuilder.cpp:272
 msgid "Loading done."
-msgstr ""
+msgstr "Fertig geladen."
 
 #: /home/micha/programming/sumo/src/netload/NLBuilder.cpp:377
 msgid "Wrong number of state file names!"
@@ -4607,17 +4614,18 @@ msgstr ""
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:554
 #, c-format
 msgid "Another lane with the id '%' exists."
-msgstr ""
+msgstr "Ein anderer Fahrstreifen mit der ID '%' existiert."
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:871
 msgid "maxDur % should not be smaller than minDir % in phase of tlLogic %"
-msgstr ""
+msgstr "maxDur % muss kleiner sein als minDir% in der Phase von tlLogic %"
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:998
+#, fuzzy
 msgid ""
 "VTypeProbes are deprecated. Use fcd-output devices (assigned to the vType) "
 "instead."
-msgstr ""
+msgstr "VTypeProbes sind verworfen. Nutze fcd-output"
 
 #: /home/micha/programming/sumo/src/netload/NLHandler.cpp:1058
 msgid "Ignoring deprecated argument 'cont' for E2 detector '%'"
@@ -4754,6 +4762,8 @@ msgid ""
 "'ptline-clean-up' only works in conjunction with 'ptline-output'. Ignoring "
 "invalid option."
 msgstr ""
+"'ptline-clean-up' arbeitet nur in Verbindung mit 'ptline-output'. Ignoriere "
+"ungültige Option."
 
 #: /home/micha/programming/sumo/src/netwrite/NWFrame.cpp:186
 msgid "Writing network"
