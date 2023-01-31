@@ -296,10 +296,10 @@ GNEMultiEntryExitDetector::checkChildAdditionalRestriction() const {
     }
     // write warnings
     if (numEntrys == 0) {
-        WRITE_WARNING(TL("An E3 need at least one entry detector"));
+        WRITE_WARNING(TL("An entry-exit detector needs at least one entry detector"));
     }
     if (numExits == 0) {
-        WRITE_WARNING(TL("An E3 need at least one exit detector"));
+        WRITE_WARNING(TL("An entry-exit detector needs at least one exit detector"));
     }
     // return false depending of number of Entrys and Exits
     return ((numEntrys != 0) && (numExits != 0));
