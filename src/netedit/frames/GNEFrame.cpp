@@ -182,7 +182,7 @@ GNEFrame::getScrollBarWidth() const {
 
 void
 GNEFrame::openHelpAttributesDialog(const GNEAttributeCarrier* AC) const {
-    FXDialogBox* attributesHelpDialog = new FXDialogBox(myScrollWindowsContents, ("Parameters of " + AC->getTagStr()).c_str(), GUIDesignDialogBoxResizable, 0, 0, 0, 0, 10, 10, 10, 38, 4, 4);
+    FXDialogBox* attributesHelpDialog = new FXDialogBox(myScrollWindowsContents, (TL("Parameters of ") + AC->getTagStr()).c_str(), GUIDesignDialogBoxResizable, 0, 0, 0, 0, 10, 10, 10, 38, 4, 4);
     // Create FXTable
     FXTable* myTable = new FXTable(attributesHelpDialog, attributesHelpDialog, MID_TABLE, GUIDesignTableNotEditable);
     attributesHelpDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT));
@@ -192,9 +192,9 @@ GNEFrame::openHelpAttributesDialog(const GNEAttributeCarrier* AC) const {
     myTable->setVisibleColumns(3);
     myTable->setTableSize((FXint)(AC->getTagProperty().getNumberOfAttributes()), 3);
     myTable->setBackColor(FXRGB(255, 255, 255));
-    myTable->setColumnText(0, "Attribute");
-    myTable->setColumnText(1, "Description");
-    myTable->setColumnText(2, "Definition");
+    myTable->setColumnText(0, TL("Attribute"));
+    myTable->setColumnText(1, TL("Description"));
+    myTable->setColumnText(2, TL("Definition"));
     myTable->getRowHeader()->setWidth(0);
     // Iterate over vector of additional parameters
     int itemIndex = 0;
@@ -233,7 +233,7 @@ GNEFrame::openHelpAttributesDialog(const GNEAttributeCarrier* AC) const {
     new FXButton(myHorizontalFrameOKButton, (TL("OK") + std::string("\t\t") + TL("close")).c_str(), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), attributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
     // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Opening HelpAttributes dialog for tag '" + AC->getTagProperty().getTagStr() + "' showing " + toString(AC->getTagProperty().getNumberOfAttributes()) + " attributes");
+    WRITE_DEBUG(TL("Opening HelpAttributes dialog for tag '") + AC->getTagProperty().getTagStr() + TL("' showing ") + toString(AC->getTagProperty().getNumberOfAttributes()) + TL(" attributes"));
     // create Dialog
     attributesHelpDialog->create();
     // show in the given position
@@ -243,7 +243,7 @@ GNEFrame::openHelpAttributesDialog(const GNEAttributeCarrier* AC) const {
     // open as modal dialog (will block all windows until stop() or stopModal() is called)
     getApp()->runModalFor(attributesHelpDialog);
     // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Closing HelpAttributes dialog for tag '" + AC->getTagProperty().getTagStr() + "'");
+    WRITE_DEBUG(TL("Closing HelpAttributes dialog for tag '") + AC->getTagProperty().getTagStr() + "'");
 }
 
 
@@ -315,7 +315,7 @@ GNEFrame::getPredefinedTagsMML() const {
 FXLabel*
 GNEFrame::buildRainbow(FXComposite* parent) {
     // create label for color information
-    FXLabel* label = new FXLabel(parent, "Scale: Min -> Max", nullptr, GUIDesignLabelCenterThick);
+    FXLabel* label = new FXLabel(parent, TL("Scale: Min -> Max"), nullptr, GUIDesignLabelCenterThick);
     // create frame for color scale
     FXHorizontalFrame* horizontalFrameColors = new FXHorizontalFrame(parent, GUIDesignAuxiliarHorizontalFrame);
     for (const auto& color : GNEViewNetHelper::getRainbowScaledColors()) {

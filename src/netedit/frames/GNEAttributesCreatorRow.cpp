@@ -56,8 +56,8 @@ GNEAttributesCreatorRow::GNEAttributesCreatorRow(GNEAttributesCreator* Attribute
     myAttrProperties(attrProperties) {
     // Create left visual elements
     myAttributeLabel = new MFXLabelTooltip(this,
-                                           AttributesCreatorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-                                           "name", nullptr, GUIDesignLabelAttribute);
+        AttributesCreatorParent->getFrameParent()->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+        TL("name"), nullptr, GUIDesignLabelAttribute);
     myAttributeLabel->hide();
     myEnableAttributeCheckButton = new FXCheckButton(this, TL("name"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
     myEnableAttributeCheckButton->hide();
@@ -422,7 +422,7 @@ GNEAttributesCreatorRow::onCmdOpenAttributeDialog(FXObject*, FXSelector, void*) 
     // continue depending of attribute
     if (myAttrProperties.getAttr() == SUMO_ATTR_COLOR) {
         // create FXColorDialog
-        FXColorDialog colordialog(this, tr("Color Dialog"));
+        FXColorDialog colordialog(this, TL("Color Dialog"));
         colordialog.setTarget(this);
         // If previous attribute wasn't correct, set black as default color
         if (GNEAttributeCarrier::canParse<RGBColor>(myValueTextField->getText().text())) {

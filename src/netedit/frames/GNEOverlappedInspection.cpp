@@ -59,7 +59,7 @@ GNEOverlappedInspection::GNEOverlappedInspection(GNEFrame* frameParent) :
 
 
 GNEOverlappedInspection::GNEOverlappedInspection(GNEFrame* frameParent, const SumoXMLTag filteredTag) :
-    MFXGroupBoxModule(frameParent, ("Overlapped " + toString(filteredTag) + "s").c_str()),
+    MFXGroupBoxModule(frameParent, (TL("Overlapped ") + toString(filteredTag) + "s").c_str()),
     myFrameParent(frameParent),
     myFilteredTag(filteredTag),
     myItemIndex(0) {
@@ -272,13 +272,13 @@ GNEOverlappedInspection::onCmdListItemSelected(FXObject*, FXSelector, void*) {
 
 long
 GNEOverlappedInspection::onCmdOverlappingHelp(FXObject*, FXSelector, void*) {
-    FXDialogBox* helpDialog = new FXDialogBox(getCollapsableFrame(), "GEO attributes Help", GUIDesignDialogBox);
+    FXDialogBox* helpDialog = new FXDialogBox(getCollapsableFrame(), TL("GEO attributes Help"), GUIDesignDialogBox);
     std::ostringstream help;
     help
-            << TL(" - Click in the same position\n")
-            << TL("   for inspect next element\n")
-            << TL(" - Shift + Click in the same\n")
-            << TL("   position for inspect\n")
+            << TL(" - Click in the same position") << "\n"
+            << TL("   for inspect next element") << "\n"
+            << TL(" - Shift + Click in the same") << "\n"
+            << TL("   position for inspect") << "\n"
             << TL("   previous element");
     new FXLabel(helpDialog, help.str().c_str(), nullptr, GUIDesignLabelFrameInformation);
     // "OK"

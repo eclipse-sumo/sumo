@@ -52,9 +52,9 @@ GNENeteditAttributes::GNENeteditAttributes(GNEFrame* frameParent) :
     myActualAdditionalReferencePoint(AdditionalReferencePoint::LEFT) {
     // Create FXListBox for the reference points and fill it
     myReferencePointMatchBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
-    myReferencePointMatchBox->appendItem("reference left");
-    myReferencePointMatchBox->appendItem("reference right");
-    myReferencePointMatchBox->appendItem("reference center");
+    myReferencePointMatchBox->appendItem(TL("reference left"));
+    myReferencePointMatchBox->appendItem(TL("reference right"));
+    myReferencePointMatchBox->appendItem(TL("reference center"));
     // Create Frame for Length Label and textField
     myLengthFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(myLengthFrame, toString(SUMO_ATTR_LENGTH).c_str(), 0, GUIDesignLabelAttribute);
@@ -62,11 +62,11 @@ GNENeteditAttributes::GNENeteditAttributes(GNEFrame* frameParent) :
     myLengthTextField->setText("10");
     // Create Frame for block close polygon and checkBox (By default disabled)
     myCloseShapeFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(myCloseShapeFrame, "Close shape", 0, GUIDesignLabelAttribute);
+    new FXLabel(myCloseShapeFrame, TL("Close shape"), 0, GUIDesignLabelAttribute);
     myCloseShapeCheckButton = new FXCheckButton(myCloseShapeFrame, TL("false"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     // Create Frame for center element after creation (By default enabled)
     myCenterViewAfterCreationFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(myCenterViewAfterCreationFrame, "Center view", 0, GUIDesignLabelAttribute);
+    new FXLabel(myCenterViewAfterCreationFrame, TL("Center view"), 0, GUIDesignLabelAttribute);
     myCenterViewAfterCreationButton = new FXCheckButton(myCenterViewAfterCreationFrame, TL("false"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myCenterViewAfterCreationButton->setCheck(true);
     // Create help button
@@ -134,7 +134,7 @@ GNENeteditAttributes::getNeteditAttributesAndValues(CommonXMLStructure::SumoBase
             double mousePositionOverLane = lane->getLaneShape().nearest_offset_to_point2D(myFrameParent->getViewNet()->snapToActiveGrid(myFrameParent->getViewNet()->getPositionInformation())) / lane->getLengthGeometryFactor();
             // check if current reference point is valid
             if (myActualAdditionalReferencePoint == AdditionalReferencePoint::INVALID) {
-                std::string errorMessage = "Current selected reference point isn't valid";
+                std::string errorMessage = TL("Current selected reference point isn't valid");
                 myFrameParent->getViewNet()->setStatusBarText(errorMessage);
                 // Write Warning in console if we're in testing mode
                 WRITE_DEBUG(errorMessage);
@@ -192,17 +192,18 @@ GNENeteditAttributes::onCmdSetNeteditAttribute(FXObject* obj, FXSelector, void*)
         update();
     } else if (obj == myReferencePointMatchBox) {
         // Cast actual reference point type
-        if (myReferencePointMatchBox->getText() == "reference left") {
+        if (myReferencePointMatchBox->getText() == TL("reference left")) {
             myReferencePointMatchBox->setTextColor(FXRGB(0, 0, 0));
             myReferencePointMatchBox->killFocus();
             myActualAdditionalReferencePoint = AdditionalReferencePoint::LEFT;
             myLengthTextField->enable();
-        } else if (myReferencePointMatchBox->getText() == "reference right") {
+        }
+        else if (myReferencePointMatchBox->getText() == TL("reference right")) {
             myReferencePointMatchBox->setTextColor(FXRGB(0, 0, 0));
             myReferencePointMatchBox->killFocus();
             myActualAdditionalReferencePoint = AdditionalReferencePoint::RIGHT;
             myLengthTextField->enable();
-        } else if (myReferencePointMatchBox->getText() == "reference center") {
+        } else if (myReferencePointMatchBox->getText() == TL("reference center")) {
             myLengthTextField->enable();
             myReferencePointMatchBox->setTextColor(FXRGB(0, 0, 0));
             myReferencePointMatchBox->killFocus();
@@ -227,14 +228,13 @@ GNENeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
     // set help text
     std::ostringstream help;
     help
-            << TL("- Reference point: Mark the initial position of the additional element.\n")
-            << TL("  Example: If you want to create a busStop with a length of 30 in the point 100 of the lane:\n")
-            << TL("  - Reference Left will create it with startPos = 70 and endPos = 100.\n")
-            << TL("  - Reference Right will create it with startPos = 100 and endPos = 130.\n")
-            << TL("  - Reference Center will create it with startPos = 85 and endPos = 115.\n")
-            << "\n"
-            << TL("- Block movement: if is enabled, the created additional element will be blocked. i.e. cannot be moved with\n")
-            << "  the mouse. This option can be modified inspecting element.\n"
+            << TL("- Reference point: Mark the initial position of the additional element.") << "\n"
+            << TL("  Example: If you want to create a busStop with a length of 30 in the point 100 of the lane:") << "\n"
+            << TL("  - Reference Left will create it with startPos = 70 and endPos = 100.") << "\n"
+            << TL("  - Reference Right will create it with startPos = 100 and endPos = 130.") << "\n"
+            << TL("  - Reference Center will create it with startPos = 85 and endPos = 115.") << "\n"
+            << TL("- Block movement: if is enabled, the created additional element will be blocked. i.e. cannot be moved with") << "\n"
+            << TL("  the mouse. This option can be modified inspecting element.") << "\n"
             << TL("- Center view: if is enabled, view will be center over created element.");
     // Create label with the help text
     new FXLabel(additionalNeteditAttributesHelpDialog, help.str().c_str(), 0, GUIDesignLabelFrameInformation);
@@ -259,18 +259,6 @@ GNENeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
     // Write Warning in console if we're in testing mode
     WRITE_DEBUG("Closing GNENeteditAttributes help dialog");
     return 1;
-    /**********
-    help from ShapeFrame
-            << TL("- Block movement: If enabled, the created polygon element will be blocked. i.e. cannot be moved with\n")
-            << "  the mouse. This option can be modified inspecting element.\n"
-            << "\n"
-            << TL("- Block shape: If enabled, the shape of created polygon element will be blocked. i.e. their geometry points\n")
-            << "  cannot be edited be moved with the mouse. This option can be modified inspecting element.\n"
-            << "\n"
-            << TL("- Close shape: If enabled, the created polygon element will be closed. i.e. the last created geometry point\n")
-            << "  will be connected with the first geometry point automatically. This option can be modified inspecting element.";
-
-    ****************/
 }
 
 

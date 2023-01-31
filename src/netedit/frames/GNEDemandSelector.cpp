@@ -45,7 +45,7 @@ FXIMPLEMENT(DemandElementSelector,      MFXGroupBoxModule,     DemandElementSele
 // ===========================================================================
 
 DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTag, GNEDemandElement* defaultElement) :
-    MFXGroupBoxModule(frameParent, ("Parent " + toString(demandElementTag)).c_str()),
+    MFXGroupBoxModule(frameParent, (TL("Parent ") + toString(demandElementTag)).c_str()),
     myFrameParent(frameParent),
     myCurrentDemandElement(defaultElement),
     myDemandElementTags({demandElementTag}),
@@ -105,9 +105,9 @@ DemandElementSelector::setDemandElement(GNEDemandElement* demandElement) {
     // Set new current demand element
     myCurrentDemandElement = demandElement;
     if (demandElement == nullptr) {
-        myDemandElementsMatchBox->setCustomText("select item...");
+        myDemandElementsMatchBox->setCustomText(TL("select item..."));
         // set info label
-        myInfoLabel->setText("-Select an item in the list or\n  click over an element in view");
+        myInfoLabel->setText((TL("-Select an item in the list or") + std::string("\n") + TL("click over an element in view")).c_str());
         myInfoLabel->show();
     } else {
         // check that demandElement tag correspond to a tag of myDemandElementTags
@@ -130,9 +130,15 @@ DemandElementSelector::setDemandElements(const std::vector<GNEDemandElement*>& d
     for (const auto& demandElement : demandElements) {
         myDemandElementsMatchBox->appendIconItem(demandElement->getID().c_str(), demandElement->getACIcon());
     }
-    myDemandElementsMatchBox->setCustomText("select sub-item...");
+    myDemandElementsMatchBox->setCustomText(TL("select sub-item..."));
     // set info label
-    myInfoLabel->setText("-Clicked over multiple\n elements\n-Select an item in the\n list or click over an\n element in view");
+    const std::string info =
+        TL("-Clicked over multiple") + std::string("\n") + 
+        TL("elements") + std::string("\n") + 
+        TL(" - Select an item in the") + std::string("\n") + 
+        TL(" list or click over an") + std::string("\n") + 
+        TL(" element in view");
+    myInfoLabel->setText(info.c_str());
     myInfoLabel->show();
 }
 
@@ -323,7 +329,7 @@ DemandElementSelector::onCmdSelectDemandElement(FXObject*, FXSelector, void*) {
                 // call demandElementSelected function
                 myFrameParent->demandElementSelected();
                 // Write Warning in console if we're in testing mode
-                WRITE_DEBUG(("Selected item '" + myDemandElementsMatchBox->getText() + "' in DemandElementSelector").text());
+                WRITE_DEBUG((TL("Selected item '") + myDemandElementsMatchBox->getText() + TL("' in DemandElementSelector")).text());
                 myInfoLabel->hide();
                 return 1;
             }
@@ -336,7 +342,7 @@ DemandElementSelector::onCmdSelectDemandElement(FXObject*, FXSelector, void*) {
     // change color of myDemandElementsMatchBox to red (invalid)
     myDemandElementsMatchBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Selected invalid item in DemandElementSelector");
+    WRITE_DEBUG(TL("Selected invalid item in DemandElementSelector"));
     return 1;
 }
 

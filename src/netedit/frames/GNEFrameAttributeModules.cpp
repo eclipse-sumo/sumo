@@ -156,8 +156,8 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                 myAttributeVTypeButton->killFocus();
             }
             myAttributeVTypeButton->setText(myACAttr.getAttrStr().c_str());
-            myAttributeVTypeButton->setTipText(("Inspect vehicle " + myACAttr.getAttrStr() + " parent").c_str());
-            myAttributeVTypeButton->setHelpText(("Inspect vehicle " + myACAttr.getAttrStr() + " parent").c_str());
+            myAttributeVTypeButton->setTipText((TL("Inspect vehicle ") + myACAttr.getAttrStr() + " parent").c_str());
+            myAttributeVTypeButton->setHelpText((TL("Inspect vehicle ") + myACAttr.getAttrStr() + " parent").c_str());
             myAttributeVTypeButton->show();
         } else if (myACAttr.isColor()) {
             // show color button and set color text depending of computed
@@ -168,13 +168,13 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                 myAttributeColorButton->killFocus();
             }
             myAttributeColorButton->setText(myACAttr.getAttrStr().c_str());
-            myAttributeColorButton->setTipText("Open dialog for editing color");
-            myAttributeColorButton->setHelpText("Open dialog for editing color");
+            myAttributeColorButton->setTipText(TL("Open dialog for editing color"));
+            myAttributeColorButton->setHelpText(TL("Open dialog for editing color"));
             myAttributeColorButton->show();
         } else if (myACAttr.getAttr() == SUMO_ATTR_ALLOW) {
             myAttributeAllowButton->setText(myACAttr.getAttrStr().c_str());
-            myAttributeAllowButton->setTipText("Open dialog for editing allowed vClasses");
-            myAttributeAllowButton->setHelpText("Open dialog for editing allowed vClasses");
+            myAttributeAllowButton->setTipText(TL("Open dialog for editing allowed vClasses"));
+            myAttributeAllowButton->setHelpText(TL("Open dialog for editing allowed vClasses"));
             myAttributeAllowButton->show();
         } else if (myACAttr.isActivatable()) {
             // show checkbox button and set color text depending of computed
@@ -245,8 +245,8 @@ GNEFrameAttributeModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                 myAttributeLabel->hide();
                 // Show button combinable choices
                 myAttributeAllowButton->setText(myACAttr.getAttrStr().c_str());
-                myAttributeAllowButton->setTipText("Open dialog for editing allowed vClasses");
-                myAttributeAllowButton->setHelpText("Open dialog for editing allowed vClasses");
+                myAttributeAllowButton->setTipText(TL("Open dialog for editing allowed vClasses"));
+                myAttributeAllowButton->setHelpText(TL("Open dialog for editing allowed vClasses"));
                 myAttributeAllowButton->show();
                 // Show string with the values
                 myValueTextField->setText(value.c_str());
@@ -452,7 +452,7 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject
     const auto& ACs = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
     if (obj == myAttributeColorButton) {
         // create FXColorDialog
-        FXColorDialog colordialog(this, tr("Color Dialog"));
+        FXColorDialog colordialog(this, TL("Color Dialog"));
         colordialog.setTarget(this);
         // If previous attribute wasn't correct, set black as default color
         if (GNEAttributeCarrier::canParse<RGBColor>(myValueTextField->getText().text())) {
@@ -469,7 +469,7 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject
             if (viewNet->getInspectedAttributeCarriers().front()->isValid(myACAttr.getAttr(), newValue)) {
                 // if its valid for the first AC than its valid for all (of the same type)
                 if (ACs.size() > 1) {
-                    viewNet->getUndoList()->begin(ACs.front()->getTagProperty().getGUIIcon(), "Change multiple attributes");
+                    viewNet->getUndoList()->begin(ACs.front()->getTagProperty().getGUIIcon(), TL("change multiple attributes"));
                 }
                 // Set new value of attribute in all selected ACs
                 for (const auto& inspectedAC : viewNet->getInspectedAttributeCarriers()) {
@@ -488,7 +488,7 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject
     } else if (obj == myAttributeAllowButton) {
         // if its valid for the first AC than its valid for all (of the same type)
         if (ACs.size() > 1) {
-            viewNet->getUndoList()->begin(ACs.front()->getTagProperty().getGUIIcon(), "Change multiple attributes");
+            viewNet->getUndoList()->begin(ACs.front()->getTagProperty().getGUIIcon(), TL("change multiple attributes"));
         }
         // declare accept changes
         bool acceptChanges = false;
@@ -600,10 +600,10 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
         if (!mergeJunction(myACAttr.getAttr(), inspectedACs, newVal)) {
             // if its valid for the first AC than its valid for all (of the same type)
             if (inspectedACs.size() > 1) {
-                myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->begin(inspectedACs.front()->getTagProperty().getGUIIcon(), "Change multiple attributes");
+                myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->begin(inspectedACs.front()->getTagProperty().getGUIIcon(), TL("change multiple attributes"));
             } else if (myACAttr.getAttr() == SUMO_ATTR_ID) {
                 // IDs attribute has to be encapsulated
-                myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->begin(inspectedACs.front()->getTagProperty().getGUIIcon(), "change " + myACAttr.getTagPropertyParent().getTagStr() + " attribute");
+                myAttributesEditorParent->getFrameParent()->getViewNet()->getUndoList()->begin(inspectedACs.front()->getTagProperty().getGUIIcon(), TL("change ") + myACAttr.getTagPropertyParent().getTagStr() + TL(" attribute"));
             }
             // Set new value of attribute in all selected ACs
             for (const auto& inspectedAC : inspectedACs) {
@@ -657,7 +657,7 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
             }
         }
         // Write Warning in console if we're in testing mode
-        WRITE_DEBUG("Value '" + newVal + "' for attribute " + myACAttr.getAttrStr() + " of " + myACAttr.getTagPropertyParent().getTagStr() + " isn't valid");
+        WRITE_DEBUG(TL("Value '") + newVal + TL("' for attribute ") + myACAttr.getAttrStr() + TL(" of ") + myACAttr.getTagPropertyParent().getTagStr() + TL(" isn't valid"));
     }
     return 1;
 }
@@ -674,7 +674,7 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSelectCheckButton(FXObject*,
         myValueCheckButton->enable();
         myValueTextField->enable();
         // enable attribute
-        undoList->begin(ACs.front()->getTagProperty().getGUIIcon(), "enable attribute '" + myACAttr.getAttrStr() + "'");
+        undoList->begin(ACs.front()->getTagProperty().getGUIIcon(), TL("enable attribute '") + myACAttr.getAttrStr() + "'");
         ACs.front()->enableAttribute(myACAttr.getAttr(), undoList);
         undoList->end();
     } else {
@@ -682,7 +682,7 @@ GNEFrameAttributeModules::AttributesEditorRow::onCmdSelectCheckButton(FXObject*,
         myValueCheckButton->disable();
         myValueTextField->disable();
         // disable attribute
-        undoList->begin(ACs.front()->getTagProperty().getGUIIcon(), "disable attribute '" + myACAttr.getAttrStr() + "'");
+        undoList->begin(ACs.front()->getTagProperty().getGUIIcon(), TL("disable attribute '") + myACAttr.getAttrStr() + "'");
         ACs.front()->disableAttribute(myACAttr.getAttr(), undoList);
         undoList->end();
     }

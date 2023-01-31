@@ -172,9 +172,9 @@ GNEAttributesCreator::showWarningMessage(std::string extra) const {
     std::string errorMessage;
     // show warning box if input parameters aren't invalid
     if (extra.size() == 0) {
-        errorMessage = "Invalid input parameter of " + myTemplateAC->getTagProperty().getTagStr();
+        errorMessage = TL("Invalid input parameter of ") + myTemplateAC->getTagProperty().getTagStr();
     } else {
-        errorMessage = "Invalid input parameter of " + myTemplateAC->getTagProperty().getTagStr() + ": " + extra;
+        errorMessage = TL("Invalid input parameter of ") + myTemplateAC->getTagProperty().getTagStr() + ": " + extra;
     }
     // set message in status bar
     myFrameParent->getViewNet()->setStatusBarText(errorMessage);

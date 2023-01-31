@@ -149,7 +149,7 @@ GNEPathCreator::GNEPathCreator(GNEFrame* frameParent) :
     myToStoppingPlace(nullptr),
     myRoute(nullptr) {
     // create label for route info
-    myInfoRouteLabel = new FXLabel(getCollapsableFrame(), "No edges selected", 0, GUIDesignLabelFrameThicked);
+    myInfoRouteLabel = new FXLabel(getCollapsableFrame(), TL("No edges selected"), 0, GUIDesignLabelFrameThicked);
     // create button for use last route
     myUseLastRoute = new FXButton(getCollapsableFrame(), TL("Use last route"), GUIIconSubSys::getIcon(GUIIcon::ROUTE), this, MID_GNE_PATHCREATOR_USELASTROUTE, GUIDesignButton);
     myUseLastRoute->disable();
@@ -390,7 +390,7 @@ GNEPathCreator::addJunction(GNEJunction* junction, const bool /* shiftKeyPressed
     // enable finish button
     myFinishCreationButton->enable();
     // disable undo/redo
-    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo("route creation");
+    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo(TL("route creation"));
     // enable or disable remove last junction button
     if (mySelectedJunctions.size() > 1) {
         myRemoveLastInsertedElement->enable();
@@ -446,14 +446,14 @@ GNEPathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool co
         if (edge->isSpecialCandidate()) {
             if (!shiftKeyPressed) {
                 // Write warning
-                WRITE_WARNING("Invalid edge (SHIFT + click to add an invalid vClass edge)");
+                WRITE_WARNING(TL("Invalid edge (SHIFT + click to add an invalid vClass edge)"));
                 // abort add edge
                 return false;
             }
         } else if (edge->isConflictedCandidate()) {
             if (!controlKeyPressed) {
                 // Write warning
-                WRITE_WARNING("Invalid edge (CONTROL + click to add a disconnected edge)");
+                WRITE_WARNING(TL("Invalid edge (CONTROL + click to add a disconnected edge)"));
                 // abort add edge
                 return false;
             }
@@ -466,7 +466,7 @@ GNEPathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool co
     // enable finish button
     myFinishCreationButton->enable();
     // disable undo/redo
-    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo("route creation");
+    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo(TL("route creation"));
     // enable or disable remove last edge button
     if (mySelectedEdges.size() > 1) {
         myRemoveLastInsertedElement->enable();

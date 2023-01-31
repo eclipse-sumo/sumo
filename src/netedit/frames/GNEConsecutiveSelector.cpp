@@ -56,7 +56,7 @@ GNEConsecutiveSelector::GNEConsecutiveSelector(GNEFrame* frameParent, const bool
     myFrameParent(frameParent),
     myAllowOneLane(allowOneLane) {
     // create label for route info
-    myInfoPathLabel = new FXLabel(getCollapsableFrame(), "No lanes selected", 0, GUIDesignLabelFrameThicked);
+    myInfoPathLabel = new FXLabel(getCollapsableFrame(), TL("No lanes selected"), 0, GUIDesignLabelFrameThicked);
     // create button for finish route creation
     myFinishCreationButton = new FXButton(getCollapsableFrame(), TL("Finish path creation"), nullptr, this, MID_GNE_FINISH, GUIDesignButton);
     myFinishCreationButton->disable();
@@ -70,7 +70,7 @@ GNEConsecutiveSelector::GNEConsecutiveSelector(GNEFrame* frameParent, const bool
     myShowCandidateLanes = new FXCheckButton(getCollapsableFrame(), TL("Show candidate lanes"), this, MID_GNE_SHOWCANDIDATES, GUIDesignCheckButton);
     myShowCandidateLanes->setCheck(TRUE);
     // create information label
-    new FXLabel(this, "-BACKSPACE: undo click\n-ESC: Abort path creation", 0, GUIDesignLabelFrameInformation);
+    new FXLabel(this, (TL("-BACKSPACE: undo click") + std::string("\n") + TL("-ESC: Abort path creation")).c_str(), 0, GUIDesignLabelFrameInformation);
 }
 
 
@@ -168,7 +168,7 @@ GNEConsecutiveSelector::addLane(GNELane* lane) {
     // enable finish button
     myFinishCreationButton->enable();
     // disable undo/redo
-    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo("route creation");
+    myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo(TL("route creation"));
     // enable or disable remove last lane button
     if (myLanePath.size() > 1) {
         myRemoveLastInsertedElement->enable();

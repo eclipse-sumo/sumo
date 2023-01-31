@@ -61,13 +61,13 @@ GNEMeanDataHandler::buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* 
     const auto attributes = parseAttributes(SUMO_TAG_MEANDATA_EDGE, writtenAttributes);
     // check if meanData edge exists
     if (myNet->getAttributeCarriers()->retrieveMeanData(SUMO_TAG_MEANDATA_EDGE, ID, false) != nullptr) {
-        writeError("Could not build " + toString(SUMO_TAG_MEANDATA_LANE) + "; " + ID + " already exist");
+        writeError(TL("Could not build meanDataEdge; ") + ID + TL(" already exist"));
     } else if ((edges.size() == edgeIDs.size()) && (attributes.size() == writtenAttributes.size())) {
         GNEMeanData* edgeMeanData = new GNEMeanData(myNet, SUMO_TAG_MEANDATA_EDGE, ID, file, period, begin, end,
                 trackVehicles, attributes,  aggregate, edgeIDs, edgeFile, excludeEmpty,  withInternal,
                 detectPersons, minSamples, maxTravelTime, vTypes, speedThreshold);
         if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->begin(GUIIcon::MEANDATAEDGE, "add " + toString(SUMO_TAG_MEANDATA_EDGE));
+            myNet->getViewNet()->getUndoList()->begin(GUIIcon::MEANDATAEDGE, TL("add meanDataEdge"));
             myNet->getViewNet()->getUndoList()->add(new GNEChange_MeanData(edgeMeanData, true), true);
             myNet->getViewNet()->getUndoList()->end();
         } else {
@@ -90,13 +90,13 @@ GNEMeanDataHandler::buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* 
     const auto attributes = parseAttributes(SUMO_TAG_MEANDATA_LANE, writtenAttributes);
     // check if meanData edge exists
     if (myNet->getAttributeCarriers()->retrieveMeanData(SUMO_TAG_MEANDATA_LANE, ID, false) != nullptr) {
-        writeError("Could not build " + toString(SUMO_TAG_MEANDATA_LANE) + "; " + ID + " already exist");
+        writeError(TL("Could not build meanDataLane; ") + ID + TL(" already exist"));
     } else if ((edges.size() == edgeIDs.size()) && (attributes.size() == writtenAttributes.size())) {
         GNEMeanData* edgeMeanData = new GNEMeanData(myNet, SUMO_TAG_MEANDATA_LANE, ID, file, period, begin, end,
                 trackVehicles, attributes,  aggregate, edgeIDs, edgeFile, excludeEmpty,  withInternal,
                 detectPersons, minSamples, maxTravelTime, vTypes, speedThreshold);
         if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->begin(GUIIcon::MEANDATALANE, "add " + toString(SUMO_TAG_MEANDATA_LANE));
+            myNet->getViewNet()->getUndoList()->begin(GUIIcon::MEANDATALANE, TL("add meanDataLane"));
             myNet->getViewNet()->getUndoList()->add(new GNEChange_MeanData(edgeMeanData, true), true);
             myNet->getViewNet()->getUndoList()->end();
         } else {
@@ -113,7 +113,7 @@ GNEMeanDataHandler::parseEdges(const SumoXMLTag tag, const std::vector<std::stri
         GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(edgeID, false);
         // empty edges aren't allowed. If edge is empty, write error, clear edges and stop
         if (edge == nullptr) {
-            writeError("Could not build " + toString(tag) + " in netedit; " +  toString(SUMO_TAG_EDGE) + " doesn't exist.");
+            writeError(TL("Could not build ") + toString(tag) + TL(" in netedit; edge doesn't exist."));
             edges.clear();
             return edges;
         } else {
@@ -129,7 +129,7 @@ GNEMeanDataHandler::parseAttributes(const SumoXMLTag tag, const std::vector<std:
     std::vector<SumoXMLAttr> attrs;
     for (const auto& attrStr : attrStrs) {
         if (SUMOXMLDefinitions::Tags.hasString(attrStr)) {
-            writeError("Could not build " + toString(tag) + " in netedit; attribute '" + attrStr + "' doesn't exist.");
+            writeError(TL("Could not build ") + toString(tag) + TL(" in netedit; attribute '") + attrStr + TL("' doesn't exist."));
             attrs.clear();
             return attrs;
         } else {

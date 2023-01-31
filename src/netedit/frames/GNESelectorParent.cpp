@@ -36,7 +36,7 @@ GNESelectorParent::GNESelectorParent(GNEFrame* frameParent) :
     MFXGroupBoxModule(frameParent, TL("Parent selector")),
     myFrameParent(frameParent) {
     // Create label with the type of GNESelectorParent
-    myParentsLabel = new FXLabel(getCollapsableFrame(), "No element selected", nullptr, GUIDesignLabelLeftThick);
+    myParentsLabel = new FXLabel(getCollapsableFrame(), TL("No element selected"), nullptr, GUIDesignLabelLeftThick);
     // Create list
     myParentsList = new FXList(getCollapsableFrame(), this, MID_GNE_SET_TYPE, GUIDesignListSingleElementFixedHeight);
     // Hide List
@@ -79,7 +79,7 @@ void
 GNESelectorParent::showSelectorParentModule(const std::vector<SumoXMLTag>& parentTags) {
     if (parentTags.size() > 0) {
         myParentTags = parentTags;
-        myParentsLabel->setText(("Parent type: " + toString(parentTags.front())).c_str());
+        myParentsLabel->setText((TL("Parent type: ") + toString(parentTags.front())).c_str());
         refreshSelectorParentModule();
         show();
     } else {

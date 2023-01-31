@@ -35,17 +35,17 @@ GNEE2DetectorLegendModule::GNEE2DetectorLegendModule(GNEFrame* frameParent) :
     // declare label
     FXLabel* legendLabel = nullptr;
     // edge candidate
-    legendLabel = new FXLabel(getCollapsableFrame(), " edge candidate", 0, GUIDesignLabelLeft);
+    legendLabel = new FXLabel(getCollapsableFrame(), TL(" edge candidate"), 0, GUIDesignLabelLeft);
     legendLabel->setBackColor(MFXUtils::getFXColor(frameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.possible));
     legendLabel->setTextColor(MFXUtils::getFXColor(RGBColor::WHITE));
     // last edge selected
-    legendLabel = new FXLabel(getCollapsableFrame(), " last edge selected", 0, GUIDesignLabelLeft);
+    legendLabel = new FXLabel(getCollapsableFrame(), TL(" last edge selected"), 0, GUIDesignLabelLeft);
     legendLabel->setBackColor(MFXUtils::getFXColor(frameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.target));
     // edge selected
-    legendLabel = new FXLabel(getCollapsableFrame(), " edge selected", 0, GUIDesignLabelLeft);
+    legendLabel = new FXLabel(getCollapsableFrame(), TL(" edge selected"), 0, GUIDesignLabelLeft);
     legendLabel->setBackColor(MFXUtils::getFXColor(frameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.source));
     // edge disconnected
-    legendLabel = new FXLabel(getCollapsableFrame(), " edge disconnected", 0, GUIDesignLabelLeft);
+    legendLabel = new FXLabel(getCollapsableFrame(), TL(" edge disconnected"), 0, GUIDesignLabelLeft);
     legendLabel->setBackColor(MFXUtils::getFXColor(frameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.conflict));
 }
 

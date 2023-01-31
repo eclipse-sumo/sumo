@@ -55,14 +55,14 @@ GNEDrawingShape::GNEDrawingShape(GNEFrame* frameParent) :
     // create information label
     std::ostringstream information;
     information
-            << "- 'Start drawing' or ENTER\n"
-            << "  to create shape.\n"
-            << "- 'Stop drawing' or ENTER to\n"
-            << "  finish shape creation.\n"
-            << "- 'Abort drawing' or ESC to\n"
-            << "  abort shape creation.\n"
-            << "- 'Shift + Click' to remove\n"
-            << "  last inserted point.";
+        << TL("- 'Start drawing' or ENTER") << "\n"
+        << TL("  to create shape.") << "\n"
+        << TL("- 'Stop drawing' or ENTER to") << "\n"
+        << TL("  finish shape creation.") << "\n"
+        << TL("- 'Abort drawing' or ESC to") << "\n"
+        << TL("  abort shape creation.") << "\n"
+        << TL("- 'Shift + Click' to remove") << "\n"
+        << TL("  last inserted point.");
     myInformationLabel = new FXLabel(getCollapsableFrame(), information.str().c_str(), 0, GUIDesignLabelFrameInformation);
     // disable stop and abort functions as init
     myStopDrawingButton->disable();
