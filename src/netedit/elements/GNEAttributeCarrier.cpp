@@ -1954,7 +1954,7 @@ GNEAttributeCarrier::fillAdditionalElements() {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_PERIOD,
                                               GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
                                               TL("The aggregation period the values the detector collects shall be summed up"),
-                                              TL("300.00"));
+                                              "300.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_NAME,
@@ -2092,7 +2092,7 @@ GNEAttributeCarrier::fillAdditionalElements() {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_PERIOD,
                                               GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
                                               TL("The aggregation period the values the detector collects shall be summed up"),
-                                              TL("300.00"));
+                                              "300.00");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TLID,
@@ -5767,7 +5767,7 @@ GNEAttributeCarrier::fillCommonMeanDataAttributes(SumoXMLTag currentTag) {
     attrProperty = GNEAttributeProperties(SUMO_ATTR_PERIOD,
                                           GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::DEFAULTVALUE,
                                           TL("The aggregation period the values the detector collects shall be summed up"),
-                                          "");
+                                          "300.00");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_BEGIN,
