@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-30 13:56+0000\n"
+"PO-Revision-Date: 2023-01-31 11:39+0000\n"
 "Last-Translator: bcoueraud87 <benjamin.coueraud@dlr.de>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/fr/>\n"
@@ -81,7 +81,7 @@ msgstr "Ouvrir un réseau."
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:432
 msgid "Open Shapes "
-msgstr "Ouvrir Formes. "
+msgstr "Ouvrir Formes "
 
 #: /home/micha/programming/sumo/src/gui/GUIApplicationWindow.cpp:432
 msgid "Load POIs and Polygons for visualization."
