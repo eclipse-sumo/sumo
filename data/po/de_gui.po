@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-30 17:17+0000\n"
+"PO-Revision-Date: 2023-01-31 08:48+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -849,7 +849,7 @@ msgstr "Über GUI ausgelöster Halt in meso nicht implementiert"
 #: /home/micha/programming/sumo/src/guisim/GUINet.cpp:326
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:2689
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs.\n"
-msgstr "Netz größer als ein Lichtjahr. Bitte die EIngabedaten prüfen.\n"
+msgstr "Netz größer als ein Lichtjahr. Bitte die Eingabedaten prüfen.\n"
 
 #: /home/micha/programming/sumo/src/guisim/GUINet.cpp:542
 msgid "A gui-network was not yet constructed."
