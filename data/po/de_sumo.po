@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-31 12:17+0000\n"
+"PO-Revision-Date: 2023-01-31 13:47+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -6053,14 +6053,18 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1203
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1226
+#, fuzzy
 msgid "Invalid Car-Following-Model Attribute %. Must be greater than 0"
-msgstr ""
+msgstr "Ungültiges Fahrzeugfolgemodell-Attribut %. Muss größer als 0 sein"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1237
+#, fuzzy
 msgid ""
 "Invalid Car-Following-Model Attribute %. Only values between [0-1] are "
 "allowed"
 msgstr ""
+"Ungültiges Fahrzeugfolgemodell-Attribut %. Es sind nur Werte zwischen [0-1] "
+"erlaubt"
 
 #: /home/micha/programming/sumo/src/utils/vehicle/SUMOVehicleParserHelper.cpp:1496
 msgid "Invalid Lane-Change-Model Attribute %. Cannot be parsed to float"
