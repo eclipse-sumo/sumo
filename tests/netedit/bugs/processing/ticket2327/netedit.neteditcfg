@@ -2,9 +2,12 @@
 
 <configuration>
 
-    <netedit>
-        <new-network value="true"/>
-    </netedit>
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="additionals.add.xml"/>
+        <route-files value="routes.rou.xml"/>
+        <data-files value="datas.dat.xml"/>
+    </input>
 
     <visualisation>
         <gui-settings-file value="gui-settings.xml"/>
