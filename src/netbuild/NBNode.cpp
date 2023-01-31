@@ -3272,7 +3272,7 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
             continue;
         }
         // build shape and connections
-        std::set<NBEdge*, ComparatorIdLess> connected;
+        std::set<const NBEdge*, ComparatorIdLess>& connected = wa.refEdges;
         for (int j = 0; j < count; ++j) {
             const int nlI = (startIdx + j) % normalizedLanes.size();
             NBEdge* edge = normalizedLanes[nlI].first;
@@ -3318,8 +3318,8 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
         if (connected.size() == 2 && !connectsCrossing && wa.nextSidewalks.size() == 1 && wa.prevSidewalks.size() == 1
                 && normalizedLanes.size() == 2) {
             // do not build a walkingArea since a normal connection exists
-            NBEdge* e1 = *connected.begin();
-            NBEdge* e2 = *(++connected.begin());
+            const NBEdge* e1 = *connected.begin();
+            const NBEdge* e2 = *(++connected.begin());
             if (e1->hasConnectionTo(e2, 0, 0) || e2->hasConnectionTo(e1, 0, 0)) {
                 if (gDebugFlag1) {
                     std::cout << "    not building a walkingarea since normal connections exist\n";
@@ -3479,13 +3479,13 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
             wa.shape.push_back(tmp[0]);
             tmp.move2side(-prev.width);
             wa.shape.push_back(tmp[0]);
+            wa.refEdges.insert(prev.edges.begin(), prev.edges.end());
+            wa.refEdges.insert(next.edges.begin(), next.edges.end());
             // apply custom shapes
             if (myWalkingAreaCustomShapes.size() > 0) {
-                std::set<NBEdge*, ComparatorIdLess> crossed(prev.edges.begin(), prev.edges.end());
-                crossed.insert(next.edges.begin(), next.edges.end());
                 for (auto wacs : myWalkingAreaCustomShapes) {
                     // every edge in wacs.edges must be part of crossed
-                    if (wacs.shape.size() != 0 && wacs.edges.size() > 1 && includes(crossed, wacs.edges)) {
+                    if (wacs.shape.size() != 0 && wacs.edges.size() > 1 && includes(wa.refEdges, wacs.edges)) {
                         wa.shape = wacs.shape;
                         wa.hasCustomShape = true;
                     }
@@ -3502,7 +3502,7 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
 }
 
 bool
-NBNode::includes(const std::set<NBEdge*, ComparatorIdLess>& super,
+NBNode::includes(const std::set<const NBEdge*, ComparatorIdLess>& super,
                  const std::set<const NBEdge*, ComparatorIdLess>& sub) {
     // for some reason std::include does not work reliably
     for (const NBEdge* e : sub) {

@@ -200,6 +200,8 @@ public:
         int minNextCrossingEdges = std::numeric_limits<int>::max();
         /// @brief minimum number of edges crossed by incoming crossings
         int minPrevCrossingEdges = std::numeric_limits<int>::max();
+        /// @brief reference edges that uniquely identify this walkingarea
+        std::set<const NBEdge*, ComparatorIdLess> refEdges;
     };
 
     struct WalkingAreaCustomShape {
@@ -855,7 +857,7 @@ private:
     void displaceShapeAtWidthChange(const NBEdge* from, const NBEdge::Connection& con, PositionVector& fromShape, PositionVector& toShape) const;
 
     /// @brief returns whether sub is a subset of super
-    static bool includes(const std::set<NBEdge*, ComparatorIdLess>& super,
+    static bool includes(const std::set<const NBEdge*, ComparatorIdLess>& super,
                          const std::set<const NBEdge*, ComparatorIdLess>& sub);
 
     NBEdge* getNextCompatibleOutgoing(const NBEdge* incoming, SVCPermissions vehPerm, EdgeVector::const_iterator start, bool clockwise) const;
