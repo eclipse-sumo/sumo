@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-31 11:39+0000\n"
+"PO-Revision-Date: 2023-01-31 14:30+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -1396,11 +1396,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:392
 msgid "Reload TLS Programs"
-msgstr "Neu laden vom TLS Programmen"
+msgstr "LSA-Programme erneut laden"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:392
 msgid "Reload TLS Programs."
-msgstr "Neu laden von TLS Programmen."
+msgstr "Lade LSA-Programme erneut."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:400
 msgid "Load Edge Types..."
@@ -1412,27 +1412,27 @@ msgstr "Lade Kantentypen in das aktuelle Netz."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:406
 msgid "Save Edge Types"
-msgstr "Speicher Kantentypen"
+msgstr "Kantentypen speichern"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:406
 msgid "Save edge types of the current net."
-msgstr "Speicher Kantentypen des aktuellen Netzes."
+msgstr "Speichere Kantentypen des aktuellen Netzes."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:410
 msgid "Save Edge Types As..."
-msgstr "Speicher Kantentypen als..."
+msgstr "Kantentypen speichern unter..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:410
 msgid "Save edge types of the current net to another file."
-msgstr "Speicher Kantentypen des aktuellen Netzes in einer anderen Datei."
+msgstr "Speichere Kantentypen des aktuellen Netzes in einer neuen Datei."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:416
 msgid "Reload edge types"
-msgstr "Lade Kantentypen neu"
+msgstr "Kantentypen erneut laden"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:416
 msgid "Reload edge types."
-msgstr "Lade Kantentypen neu."
+msgstr "Lade Kantentypen erneut."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:424
 msgid "Load Additionals..."
@@ -1440,15 +1440,15 @@ msgstr "Lade weitere Daten..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:424
 msgid "Load additionals and shapes."
-msgstr "Lade weitere Daten und Umrisse."
+msgstr "Lade weitere Daten und Shapes."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:430
 msgid "Save Additionals"
-msgstr "Speicher weitere Daten"
+msgstr "Weitere Daten speichern"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:430
 msgid "Save additionals and shapes."
-msgstr "Speicher weitere Daten und Umrisse."
+msgstr "Speichere weitere Daten und Shapes."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:434
 msgid "Save Additionals As..."
@@ -1456,7 +1456,7 @@ msgstr "Speicher weitere Daten unter..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:434
 msgid "Save additional elements to another file."
-msgstr "Speicher die Zusatzelemente in einer anderen Datei."
+msgstr "Speichere die weiteren Elemente in einer neuen Datei."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:440
 msgid "Reload Additionals"
@@ -1476,7 +1476,7 @@ msgstr "Lade Nachfrageelemente."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:454
 msgid "Save Demand Elements"
-msgstr "Speicher Nachfrageelemente"
+msgstr "Nachfrageelemente speichern"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:454
 msgid "Save demand elements."
@@ -1484,23 +1484,23 @@ msgstr "Speichere Nachfrageelemente."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:458
 msgid "Save Demand Elements As..."
-msgstr "Speicher Nachfrageelemente unter..."
+msgstr "Nachfrageelemente speichern unter..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:458
 msgid "Save demand elements to another file."
-msgstr "Speicher Nachfrageelemente in einer anderen Datei."
+msgstr "Speichere Nachfrageelemente in einer neuen Datei."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:464
 msgid "Reload Demand Elements"
-msgstr "Neu laden der Nachfrageelemente"
+msgstr "Nachfrageelemente erneut laden"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:464
 msgid "Reload demand elements."
-msgstr "Neu laden der Nachfrageelemente."
+msgstr "Lade die Nachfrageelemente erneut."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:472
 msgid "Load Data Elements..."
-msgstr "Lade Datenelemente..."
+msgstr "Datenelemente laden..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:472
 msgid "Load data elements."
@@ -1520,7 +1520,7 @@ msgstr "Datenelemente speichern unter..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:482
 msgid "Save data elements to another file."
-msgstr "Speicheer Datenelemente in einer neuen Datei."
+msgstr "Speichere Datenelemente in einer neuen Datei."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:488
 msgid "Reload Data Elements"
