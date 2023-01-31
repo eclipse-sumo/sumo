@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-31 08:48+0000\n"
+"PO-Revision-Date: 2023-01-31 09:11+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -1480,7 +1480,7 @@ msgstr "Speicher Nachfrageelemente"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:454
 msgid "Save demand elements."
-msgstr "Speicher Nachfrageelemente."
+msgstr "Speichere Nachfrageelemente."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:458
 msgid "Save Demand Elements As..."
@@ -1508,66 +1508,59 @@ msgstr "Lade Datenelemente."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:478
 msgid "Save Data Elements"
-msgstr "Speicher Datenelemente"
+msgstr "Datenelemente speichern"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:478
 msgid "Save data elements."
-msgstr "Speicher Datenelemente."
+msgstr "Speichere Datenelemente."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:482
 msgid "Save Data Elements As..."
-msgstr "Speicher Datenelemente unter..."
+msgstr "Datenelemente speichern unter..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:482
 msgid "Save data elements to another file."
-msgstr "Speicher Datenelemente in einer anderen Datei."
+msgstr "Speicheer Datenelemente in einer neuen Datei."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:488
 msgid "Reload Data Elements"
-msgstr "Neu laden der Datenelemente"
+msgstr "Datenelemente erneut laden"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:488
 msgid "Reload data elements."
-msgstr "Neu laden der Datenelemente."
+msgstr "Lade Datenelemente erneut."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:496
-#, fuzzy
 msgid "Load MeanDatas..."
-msgstr "Lade Mean-Daten..."
+msgstr "Lade meanData..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:496
-#, fuzzy
 msgid "Load meanDatas and shapes."
-msgstr "Lade Mean-Daten und Formen."
+msgstr "Lade meanData und Shapes."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:502
 msgid "Save MeanDatas"
-msgstr "Speicher Mean-Daten"
+msgstr "MeanData speichern"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:502
-#, fuzzy
 msgid "Save meanDatas and shapes."
-msgstr "Speicher Mean-Daten und Formen."
+msgstr "Speichere meanData und Shapes."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:506
-#, fuzzy
 msgid "Save MeanDatas As..."
-msgstr "Speicher Mean-Daten unter..."
+msgstr "MeanData speichern unter..."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:506
-#, fuzzy
 msgid "Save meanData elements to another file."
-msgstr "Speicher Mean-Daten-Elemente in einer anderen Datei."
+msgstr "Speichere meanData-Elemente in einer neuen Datei."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:512
-#, fuzzy
 msgid "Reload MeanDatas"
-msgstr "Neu laden der Mean-Daten"
+msgstr "MeanData erneut laden"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:512
-#, fuzzy
 msgid "Reload meanDatas."
-msgstr "Neu laden von Mean-Daten."
+msgstr "Lade meanData erneut."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:532
 msgid "&Inspect"
@@ -1575,7 +1568,7 @@ msgstr "&Prüfung"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:532
 msgid "Inspect elements and change their attributes."
-msgstr "Überprüft Elemente und ändert ihre Attribute."
+msgstr "Überprüfe Elemente und ändere ihre Attribute."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:535
 msgid "&Delete"
@@ -1601,7 +1594,7 @@ msgstr "&Bewegung"
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:595
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:676
 msgid "Move elements."
-msgstr "Bewegungselemente."
+msgstr "Bewege Elemente."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:598
 msgid "&Edge"
@@ -1609,16 +1602,15 @@ msgstr "&Kante"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:598
 msgid "Create junction and edges."
-msgstr "Erstellt Knotenpunkte und Kanten."
+msgstr "Erstelle Knotenpunkte und Kanten."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:601
 msgid "&Connection"
 msgstr "&Verbindung"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:601
-#, fuzzy
 msgid "Modes connections between lanes."
-msgstr "Modusverbindungen zwischen Fahrspuren."
+msgstr "Modus zur Verbindung von Fahrstreifen verschiedener Kanten."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:604
 #, fuzzy
@@ -1627,7 +1619,7 @@ msgstr "Ver&bot"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:604
 msgid "Modes connection prohibitions."
-msgstr "Modi Verbindungsverbote."
+msgstr "Modus zur Anzeige von Vorfahrtregeln."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:607
 #, fuzzy
@@ -1636,16 +1628,15 @@ msgstr "Modi-Lichtsignalanlage über Knotenpunkt."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:610
 msgid "Create additional elements."
-msgstr "Erstellt zusätzliche Elemente."
+msgstr "Erstelle zusätzliche Elemente."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:613
-#, fuzzy
 msgid "C&rossing"
-msgstr "K&reuzung"
+msgstr "Fußgängerfurt"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:613
 msgid "Create crossings between edges."
-msgstr "Erstellt Kreuzungen zwischen Kanten."
+msgstr "Erstelle Fußgängerfurten über Kanten."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:616
 #, fuzzy
