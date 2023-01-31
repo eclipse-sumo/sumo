@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-31 11:39+0000\n"
-"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
+"PO-Revision-Date: 2023-01-31 12:17+0000\n"
+"Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
 "Language: de\n"
@@ -4796,7 +4796,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/od/ODDistrictCont.cpp:72
 #, c-format
 msgid "Could not access network file '%' to load."
-msgstr ""
+msgstr "Zugriff auf Netz-Datei '%' zum Laden nicht möglich."
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:97
 #, c-format
@@ -4822,7 +4822,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:461
 msgid "Broken period definition '%'."
-msgstr ""
+msgstr "Gebrochene Perioden-Definition '%'."
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:475
 msgid "Broken factor: '%'."
@@ -4860,6 +4860,7 @@ msgstr "'%' konnte nicht geöffnet werden."
 #, c-format
 msgid "'%' does not contain the needed information about the time described."
 msgstr ""
+"'%' enthält nicht die benötigten Informationen für die beschriebene Zeit."
 
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:674
 #: /home/micha/programming/sumo/src/od/ODMatrix.cpp:687
@@ -4885,8 +4886,9 @@ msgid "No TAZ input file (-n) specified."
 msgstr ""
 
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:197
+#, fuzzy
 msgid "No input specified."
-msgstr ""
+msgstr "Keine Eingabe spezifiziert."
 
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:201
 msgid "No trip table output file (-o) or flow-output is specified."
@@ -4909,11 +4911,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:276
 msgid "No districts loaded."
-msgstr ""
+msgstr "Keine Bezirke geladen."
 
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:282
 msgid "No vehicles loaded."
-msgstr ""
+msgstr "Keine Fahrzeuge geladen."
 
 #: /home/micha/programming/sumo/src/osgview/GUIOSGBuilder.cpp:471
 #: /home/micha/programming/sumo/src/utils/options/OptionsIO.cpp:168
@@ -4931,15 +4933,16 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/osgview/GUIOSGView.cpp:168
 msgid "Could not load traffic light files."
-msgstr ""
+msgstr "LSA-Dateien konnten nicht geladen werden."
 
 #: /home/micha/programming/sumo/src/osgview/GUIOSGView.cpp:438
+#, fuzzy
 msgid "Invalid link index in '%'."
-msgstr ""
+msgstr "Ungültiger Verbindungsindex in '%'."
 
 #: /home/micha/programming/sumo/src/osgview/GUIOSGView.cpp:440
 msgid "Unknown traffic light in '%'."
-msgstr ""
+msgstr "Unbekannte Ampel in '%'."
 
 #: /home/micha/programming/sumo/src/osgview/GUIOSGView.cpp:972
 #: /home/micha/programming/sumo/src/osgview/GUIOSGView.cpp:973
@@ -5000,11 +5003,11 @@ msgstr ""
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderDlrNavteq.cpp:220
 #, c-format
 msgid "The polygon '%' is empty."
-msgstr ""
+msgstr "Das Polygon '%' ist leer."
 
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderDlrNavteq.cpp:224
 msgid "The name of a polygon is missing; it will be discarded."
-msgstr ""
+msgstr "Fehlender Name für ein Polygon; es wird verworfen."
 
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderOSM.cpp:157
 msgid "Could not import polygon from relation '%' (missing ways)"
@@ -5107,7 +5110,7 @@ msgstr "fehlgeschlagen."
 #: /home/micha/programming/sumo/src/router/RONet.cpp:154
 #, c-format
 msgid "The edge '%' occurs at least twice."
-msgstr ""
+msgstr "Die Kante '%' kommt mindestens zweimal vor."
 
 #: /home/micha/programming/sumo/src/router/RONet.cpp:168
 #, c-format
@@ -5127,12 +5130,12 @@ msgstr ""
 #: /home/micha/programming/sumo/src/router/RONet.cpp:262
 #, c-format
 msgid "The node '%' occurs at least twice."
-msgstr ""
+msgstr "Der Knoten '%' kommt mindestens zweimal vor."
 
 #: /home/micha/programming/sumo/src/router/RONet.cpp:415
 #, c-format
 msgid "The vehicle type '%' occurs at least twice."
-msgstr ""
+msgstr "Der Fahrzeugtyp '%' kommt mindestens zweimal vor."
 
 #: /home/micha/programming/sumo/src/router/RONet.cpp:467
 msgid "Requesting departure time for unknown vehicle '%'"
@@ -5141,7 +5144,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/router/RONet.cpp:497
 #, c-format
 msgid "Another person with the id '%' exists."
-msgstr ""
+msgstr "Eine andere Person mit der ID '%' existiert."
 
 #: /home/micha/programming/sumo/src/router/RONetHandler.cpp:137
 msgid "Unknown node '%'."
@@ -5149,11 +5152,11 @@ msgstr "Unbekannter Knoten '%'."
 
 #: /home/micha/programming/sumo/src/router/RONetHandler.cpp:243
 msgid "Ignoring lane '%' with broken shape."
-msgstr ""
+msgstr "Ignoriere Fahrstreifen '%' mit gebrochener Form."
 
 #: /home/micha/programming/sumo/src/router/RONetHandler.cpp:280
 msgid "Skipping isolated junction '%'."
-msgstr ""
+msgstr "Isolierter Knotenpunkt '%' wird übersprungen."
 
 #: /home/micha/programming/sumo/src/router/RONetHandler.cpp:299
 #, c-format
@@ -5198,7 +5201,7 @@ msgstr ""
 #: /home/micha/programming/sumo/src/router/RORouteHandler.cpp:224
 #, c-format
 msgid "Found % outside container element"
-msgstr ""
+msgstr "% außerhalb des Containerelements gefunden"
 
 #: /home/micha/programming/sumo/src/router/RORouteHandler.cpp:324
 msgid "No probability for route %, using default."
@@ -5367,6 +5370,8 @@ msgstr ""
 msgid ""
 "Environment variable SUMO_HOME is not set, could not find localized messages."
 msgstr ""
+"Umgebungsvariable SUMO_HOME ist nicht gesetzt, es können keine lokalen "
+"Meldungen gefunden werden."
 
 #: /home/micha/programming/sumo/src/utils/common/MsgHandler.cpp:249
 msgid "Could not find localized messages."
@@ -5709,26 +5714,26 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:141
 msgid "Internal request for unknown option '%'!"
-msgstr ""
+msgstr "Interne Anfrage für unbekannte Option '%!"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:164
 #, c-format
 msgid "No option with the name '%' exists."
-msgstr ""
+msgstr "Es existiert keine Option mit dem Namen %'."
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:372
 #, c-format
 msgid "The file list for '%' is empty."
-msgstr ""
+msgstr "Die Listendatei für '%' ist leer."
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:381
 msgid "Empty file name given; ignoring."
-msgstr ""
+msgstr "Leerer Dateiname gegeben; wird ignoriert."
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:581
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:603
 msgid " Build features: "
-msgstr ""
+msgstr " Baue Eigenschaften: "
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:585
 msgid ""
