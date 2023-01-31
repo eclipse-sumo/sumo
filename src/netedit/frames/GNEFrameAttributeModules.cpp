@@ -1145,7 +1145,7 @@ GNEFrameAttributeModules::isSupermodeValid(const GNEViewNet* viewNet, const GNEA
                AC->getTagProperty().isDemandElement()) {
         return true;
     } else if (viewNet->getEditModes().isCurrentSupermodeData() &&
-               AC->getTagProperty().isDataElement()) {
+               (AC->getTagProperty().isDataElement() || AC->getTagProperty().isMeanData())) {
         return true;
     } else {
         return false;
@@ -1159,7 +1159,7 @@ GNEFrameAttributeModules::isSupermodeValid(const GNEViewNet* viewNet, const GNEA
         return (viewNet->getEditModes().isCurrentSupermodeNetwork());
     } else if (ACAttr.getTagPropertyParent().isDemandElement()) {
         return (viewNet->getEditModes().isCurrentSupermodeDemand());
-    } else if (ACAttr.getTagPropertyParent().isDataElement()) {
+    } else if (ACAttr.getTagPropertyParent().isDataElement() || ACAttr.getTagPropertyParent().isMeanData()) {
         return (viewNet->getEditModes().isCurrentSupermodeData());
     } else {
         return false;

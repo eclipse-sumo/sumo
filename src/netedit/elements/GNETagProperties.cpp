@@ -73,7 +73,7 @@ Supermode
 GNETagProperties::getSupermode() const {
     if (isDemandElement()) {
         return Supermode::DEMAND;
-    } else if (isDataElement()) {
+    } else if (isDataElement() || isMeanData()) {
         return Supermode::DATA;
     } else {
         return Supermode::NETWORK;
@@ -92,12 +92,12 @@ GNETagProperties::checkTagIntegrity() const {
     // check integrity only in debug mode
 #ifdef DEBUG
     // check that element must ist at least networkElement, Additional, or shape
-    if (!isNetworkElement() && !isAdditionalElement() && !isDemandElement() && !isDataElement() && !isInternalLane()) {
-        throw ProcessError(TL("element must be at leas networkElement, additional, TAZ, demandElement or dataElement"));
+    if (!isNetworkElement() && !isAdditionalElement() && !isDemandElement() && !isDataElement() && !isMeanData() && !isInternalLane()) {
+        throw ProcessError(TL("element must be at least networkElement, additional, TAZ, demandElement, dataElement or meanData"));
     }
     // check that element only is networkElement, Additional, or shape at the same time
-    if ((isNetworkElement() + isAdditionalElement() + isDemandElement() + isDataElement()) > 1) {
-        throw ProcessError(TL("element can be only a networkElement, additional, demandElement or dataElement at the same time"));
+    if ((isNetworkElement() + isAdditionalElement() + isDemandElement() + isDataElement() + isMeanData()) > 1) {
+        throw ProcessError(TL("element can be only a networkElement, additional, demandElement, dataElement or meanData at the same time"));
     }
     // check that element only is shape, TAZ, or wire at the same time
     if ((isShapeElement() + isTAZElement() + isWireElement()) > 1) {

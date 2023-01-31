@@ -95,6 +95,8 @@ GNEChange_Attribute::undo() {
             myAC->getNet()->getSavingStatus()->requireSaveDemandElements();
         } else if (myAC->getTagProperty().isDataElement()) {
             myAC->getNet()->getSavingStatus()->requireSaveDataElements();
+        } else if (myAC->getTagProperty().isMeanData()) {
+            myAC->getNet()->getSavingStatus()->requireSaveMeanDatas();
         }
     }
 }
@@ -127,6 +129,8 @@ GNEChange_Attribute::redo() {
             myAC->getNet()->getSavingStatus()->requireSaveDemandElements();
         } else if (myAC->getTagProperty().isDataElement()) {
             myAC->getNet()->getSavingStatus()->requireSaveDataElements();
+        } else if (myAC->getTagProperty().isMeanData()) {
+            myAC->getNet()->getSavingStatus()->requireSaveMeanDatas();
         }
     }
 }

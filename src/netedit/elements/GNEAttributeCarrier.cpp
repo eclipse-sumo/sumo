@@ -5728,7 +5728,7 @@ GNEAttributeCarrier::fillDataElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::DATAELEMENT | GNETagProperties::MEANDATA,
+                                      GNETagProperties::MEANDATA,
                                       GNETagProperties::NOTDRAWABLE | GNETagProperties::NOPARAMETERS | GNETagProperties::NOTSELECTABLE,
                                       GUIIcon::MEANDATAEDGE, currentTag);
 
@@ -5740,7 +5740,7 @@ GNEAttributeCarrier::fillDataElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::DATAELEMENT | GNETagProperties::MEANDATA,
+                                      GNETagProperties::MEANDATA,
                                       GNETagProperties::NOTDRAWABLE | GNETagProperties::NOPARAMETERS | GNETagProperties::NOTSELECTABLE,
                                       GUIIcon::MEANDATALANE, currentTag);
 

@@ -3182,7 +3182,7 @@ GNEApplicationWindow::onUpdSaveNETEDITConfig(FXObject* sender, FXSelector, void*
     } else {
         sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     }
-    // check if eenable/disable save individual files
+    // check if enable/disable save individual files
     if (myNet) {
         if (myNet->getSavingStatus()->isAdditionalsSaved() && myNet->getSavingStatus()->isDemandElementsSaved() && 
             myNet->getSavingStatus()->isDataElementsSaved() && myNet->getSavingStatus()->isMeanDatasSaved()) {
@@ -3231,7 +3231,7 @@ GNEApplicationWindow::onCmdSaveSUMOConfig(FXObject* sender, FXSelector sel, void
             }
             onCmdSaveDemandElements(nullptr, 0, nullptr);
         }
-        if ((myNet->getAttributeCarriers()->getNumberOfMeanDatas() > 0) || !myNet->getSavingStatus()->isDataElementsSaved()) {
+        if ((myNet->getAttributeCarriers()->getNumberOfMeanDatas() > 0) || !myNet->getSavingStatus()->isMeanDatasSaved()) {
             if (neteditOptions.getString("meandata-files").empty()) {
                 neteditOptions.set("meandata-files", patterFile + ".med.add.xml");
             }
@@ -4249,7 +4249,7 @@ GNEApplicationWindow::continueWithUnsavedDataElementChanges() {
 bool
 GNEApplicationWindow::continueWithUnsavedMeanDataElementChanges() {
     // Check if there are non saved data elements
-    if (myNet && !myNet->getSavingStatus()->isDataElementsSaved()) {
+    if (myNet && !myNet->getSavingStatus()->isMeanDatasSaved()) {
         WRITE_DEBUG("Opening FXMessageBox 'Save meanData elements before close'");
         // open question box
         const std::string header = TL("Save meanData elements before close");
