@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-31 13:47+0000\n"
+"PO-Revision-Date: 2023-01-31 14:22+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -5115,12 +5115,12 @@ msgstr "Die Kante '%' kommt mindestens zweimal vor."
 #: /home/micha/programming/sumo/src/router/RONet.cpp:168
 #, c-format
 msgid "The TAZ '%' occurs at least twice."
-msgstr ""
+msgstr "Das TAZ '%' kommt mindestens zweimal vor."
 
 #: /home/micha/programming/sumo/src/router/RONet.cpp:191
-#, c-format
+#, c-format, fuzzy
 msgid "The TAZ '%' is unknown."
-msgstr ""
+msgstr "Die TAZ '%' ist unbekannt."
 
 #: /home/micha/programming/sumo/src/router/RONet.cpp:251
 #, c-format
@@ -5139,7 +5139,7 @@ msgstr "Der Fahrzeugtyp '%' kommt mindestens zweimal vor."
 
 #: /home/micha/programming/sumo/src/router/RONet.cpp:467
 msgid "Requesting departure time for unknown vehicle '%'"
-msgstr ""
+msgstr "Abfahrtszeit für das unbekannte Fahrzeug '%' anfordern"
 
 #: /home/micha/programming/sumo/src/router/RONet.cpp:497
 #, c-format
@@ -5159,19 +5159,19 @@ msgid "Skipping isolated junction '%'."
 msgstr "Isolierter Knotenpunkt '%' wird übersprungen."
 
 #: /home/micha/programming/sumo/src/router/RONetHandler.cpp:299
-#, c-format
+#, c-format, fuzzy
 msgid "unknown from-edge '%' in connection"
-msgstr ""
+msgstr "unbekannte from-Kante '%' in der Verbindung"
 
 #: /home/micha/programming/sumo/src/router/RONetHandler.cpp:302
-#, c-format
+#, c-format, fuzzy
 msgid "unknown to-edge '%' in connection"
-msgstr ""
+msgstr "unbekannte to-Kante '%' in Verbindung"
 
 #: /home/micha/programming/sumo/src/router/RONetHandler.cpp:316
-#, c-format
+#, c-format, fuzzy
 msgid "unknown via-edge '%' in connection"
-msgstr ""
+msgstr "unbekannte via-Kante '%' in Verbindung"
 
 #: /home/micha/programming/sumo/src/router/RONetHandler.cpp:368
 msgid "Ignoring invalid access from non-pedestrian edge '%'."
@@ -5209,15 +5209,16 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/router/RORouteHandler.cpp:479
 msgid "Ids of internal route distributions are ignored (vehicle '%')."
-msgstr ""
+msgstr "IDs von internen Routenverteilungen werden ignoriert (Fahrzeug '%')."
 
 #: /home/micha/programming/sumo/src/router/RORouteHandler.cpp:595
 msgid "Discarding person '%' because her plan is empty"
-msgstr ""
+msgstr "Verwerfe Person '%', da ihr Plan leer ist"
 
 #: /home/micha/programming/sumo/src/router/RORouteHandler.cpp:621
+#, fuzzy
 msgid "Discarding personFlow '%' because their plan is empty"
-msgstr ""
+msgstr "Verwerfe Personenfluss '%', da ihr Plan leer ist"
 
 #: /home/micha/programming/sumo/src/router/RORouteHandler.cpp:629
 #, c-format
@@ -5444,7 +5445,7 @@ msgstr "Ungültiges Zeit Format "
 
 #: /home/micha/programming/sumo/src/utils/common/UtilExceptions.h:125
 msgid "Invalid Bool Format "
-msgstr ""
+msgstr "Ungültiges Bool-Format "
 
 #: /home/micha/programming/sumo/src/utils/common/UtilExceptions.h:137
 msgid "Out Of Bounds"
@@ -5466,15 +5467,16 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/emissions/HelpersEnergy.cpp:225
 msgid "An acceleration given by the power was not found."
-msgstr ""
+msgstr "Eine durch die Leistung gegebene Beschleunigung wurde nicht gefunden."
 
 #: /home/micha/programming/sumo/src/utils/emissions/PHEMCEP.cpp:393
 msgid "Error during calculation of position in pattern!"
-msgstr ""
+msgstr "Fehler bei der Berechnung der Position im Modell!"
 
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXGroupBoxModule.cpp:94
+#, fuzzy
 msgid "This MFXGroupBoxModule doesn't support Extensible flag"
-msgstr ""
+msgstr "Dieses MFXGroupBoxModule unterstützt keine erweiterbare Flagge"
 
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXTreeListDynamic.cpp:147
 #: /home/micha/programming/sumo/src/utils/foxtools/MFXTreeListDynamic.cpp:159
@@ -5491,7 +5493,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/geom/GeoConvHelper.cpp:236
 msgid "The projection method needs to be uniquely defined."
-msgstr ""
+msgstr "Die Projektionsmethode muss eindeutig definiert sein."
 
 #: /home/micha/programming/sumo/src/utils/geom/GeoConvHelper.cpp:560
 #, c-format
@@ -5527,6 +5529,8 @@ msgstr ""
 #: /home/micha/programming/sumo/src/utils/handlers/AdditionalHandler.cpp:960
 msgid "'lane' and 'length' must be defined together in a lane area detector."
 msgstr ""
+"'lane' und 'length' müssen zusammen in einem Fahrstreifen-Zonen Detektor "
+"definiert sein."
 
 #: /home/micha/programming/sumo/src/utils/handlers/AdditionalHandler.cpp:965
 msgid "'lanes' and 'endPos' must be defined together in a lane area detector."
@@ -5743,11 +5747,11 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:586
 msgid " Use --help to get the list of options."
-msgstr ""
+msgstr " Verwende --help um eine Liste von Optionen zu bekommen."
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:634
 msgid "Could not save configuration to '%'"
-msgstr ""
+msgstr "Die Konfiguration konnte nicht in '%' gespeichert werden"
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsCont.cpp:638
 msgid "Written configuration to '%'"
@@ -5799,15 +5803,17 @@ msgid "Missing value for parameter '%'."
 msgstr "Fehlender Wert für den Parameter '%'."
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsParser.cpp:146
-#, c-format
+#, c-format, fuzzy
 msgid ""
 "The parameter '%' is not allowed in this context.\n"
 " Switch or parameter name expected."
 msgstr ""
+"Der Parameter '%' ist nicht erlaubt in diesem Kontext.\n"
+"Schalter oder Parametername werden erwartet."
 
 #: /home/micha/programming/sumo/src/utils/options/OptionsParser.cpp:150
 msgid "Mixed parameter syntax in '%'."
-msgstr ""
+msgstr "Gemischte Parametersyntax in '%'."
 
 #: /home/micha/programming/sumo/src/utils/router/AStarLookupTable.h:124
 msgid "Could not load landmark-lookup-table from '%'."
@@ -5925,12 +5931,12 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/utils/shapes/ShapeHandler.cpp:185
 msgid "Unable to project coordinates for PoI '%'."
-msgstr ""
+msgstr "Koordinaten für den Pol '%' können nicht projiziert werden."
 
 #: /home/micha/programming/sumo/src/utils/shapes/ShapeHandler.cpp:191
 #, c-format
 msgid "PoI '%' already exists."
-msgstr ""
+msgstr "Pol '%' existiert bereits."
 
 #: /home/micha/programming/sumo/src/utils/shapes/ShapeHandler.cpp:209
 msgid "Invalid characters for Poly ID"
