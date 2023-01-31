@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-31 14:31+0000\n"
+"PO-Revision-Date: 2023-01-31 15:03+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -1638,18 +1638,16 @@ msgid "Create crossings between edges."
 msgstr "Erstelle Fußgängerfurten über Kanten."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:616
-#, fuzzy
 msgid "TA&Z"
-msgstr "TA&Z"
+msgstr "Verkehrsumlegungszonen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:616
 msgid "Create Traffic Assignment Zones."
-msgstr "Erstellt Verkehrszuweisungszonen."
+msgstr "Erstelle Verkehrsumlegungszonen."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:619
-#, fuzzy
 msgid "Create Points-Of-Interest and polygons."
-msgstr "Erstellt relevante Punkte und Polygone."
+msgstr "Erstelle PoI und Polygone."
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:622
 msgid "&Wire"
@@ -1780,7 +1778,7 @@ msgstr "Fahrstreifen per Klick auswählen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:831
 msgid "Show connections over junctions"
-msgstr "Zeigt Verbindungen über die Knotenpunkte"
+msgstr "Verbindungen über Knotenpunkte zeigen"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:836
 msgid "Hide connections"
