@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-31 14:22+0000\n"
+"PO-Revision-Date: 2023-01-31 14:30+0000\n"
 "Last-Translator: Pauline Hartwig <Pauline.Hartwig@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -4788,6 +4788,7 @@ msgstr "Fahrspur '%' hat eine Höchstgeschwindigkeit von 0."
 msgid ""
 "Ignoring option \"proj.plain-geo\" because no geo-conversion has been defined"
 msgstr ""
+"Ignoriere Option \"proj.plain-geo\", da keine geo-conversion definiert wurde"
 
 #: /home/micha/programming/sumo/src/od/ODAmitranHandler.cpp:48
 msgid "Invalid duration for timeSlice starting %."
@@ -4906,8 +4907,9 @@ msgid ""
 msgstr "Eine mikroskopische, multimodale Verkehrssimulation."
 
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:270
+#, fuzzy
 msgid "You must supply a TAZ, network or districts file ('-n')."
-msgstr ""
+msgstr "Sie müssen eine TAZ-, Netz- oder Bezirksdatei ('-n') angeben."
 
 #: /home/micha/programming/sumo/src/od2trips_main.cpp:276
 msgid "No districts loaded."
@@ -4959,7 +4961,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderArcView.cpp:184
 msgid "Missing id under '%'"
-msgstr ""
+msgstr "Fehlende ID unter '%'"
 
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderArcView.cpp:232
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderArcView.cpp:265
@@ -4972,7 +4974,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderArcView.cpp:300
 msgid "Unsupported shape type occurred (id='%')."
-msgstr ""
+msgstr "Nicht unterstützter Formtyp aufgetreten (id='%')."
 
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderDlrNavteq.cpp:71
 msgid "Could not open dlr-navteq-poi-file '%'."
@@ -4993,12 +4995,13 @@ msgid "Invalid y coordinate for POI '%'."
 msgstr "Ungültige y-Koordinate für POI '%'."
 
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderDlrNavteq.cpp:137
+#, fuzzy
 msgid "The name of a POI is missing."
-msgstr ""
+msgstr "Der Name von POI fehlt."
 
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderDlrNavteq.cpp:191
 msgid "Invalid dlr-navteq-polygon - line: '%'."
-msgstr ""
+msgstr "Ungültiges dlr-navteq-polygon - Zeile: '%'."
 
 #: /home/micha/programming/sumo/src/polyconvert/PCLoaderDlrNavteq.cpp:220
 #, c-format
@@ -5073,10 +5076,13 @@ msgid ""
 msgstr ""
 
 #: /home/micha/programming/sumo/src/router/ROEdge.cpp:453
+#, fuzzy
 msgid ""
 "Option weights.priority-factor does not take effect because all edges have "
 "the same priority."
 msgstr ""
+"Die Option weights.priority-factor bewirkt keinen Effekt, da alle Kanten die "
+"gleiche Priorität haben."
 
 #: /home/micha/programming/sumo/src/router/ROFrame.cpp:233
 msgid "No output specified."
