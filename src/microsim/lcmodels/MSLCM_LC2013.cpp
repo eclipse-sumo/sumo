@@ -1036,6 +1036,8 @@ MSLCM_LC2013::prepareStep() {
         }
         myVehicle.setLateralPositionOnLane(oldPosLat + scaledDelta);
         setSpeedLat(DIST2SPEED(scaledDelta));
+    } else {
+        resetSpeedLat();
     }
 }
 

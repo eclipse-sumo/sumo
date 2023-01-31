@@ -4288,12 +4288,12 @@ MSVehicle::executeMove() {
             setEmergencyBlueLight(MSNet::getInstance()->getCurrentTimeStep());
         }
         // must be done before angle computation
-        myLaneChangeModel->resetSpeedLat();
         // State needs to be reset for all vehicles before the next call to MSEdgeControl::changeLanes
         if (myActionStep) {
             // check (#2681): Can this be skipped?
             myLaneChangeModel->prepareStep();
         } else {
+            myLaneChangeModel->resetSpeedLat();
 #ifdef DEBUG_ACTIONSTEPS
             if (DEBUG_COND) {
                 std::cout << SIMTIME << " veh '" << getID() << "' skips LCM->prepareStep()." << std::endl;

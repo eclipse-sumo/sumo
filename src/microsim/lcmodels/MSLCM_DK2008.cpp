@@ -639,6 +639,7 @@ MSLCM_DK2008::prepareStep() {
     myDontBrake = false;
     // truncate myChangeProbability to work around numerical instability between different builds
     myChangeProbability = ceil(myChangeProbability * 100000.0) * 0.00001;
+    resetSpeedLat();
 }
 
 
