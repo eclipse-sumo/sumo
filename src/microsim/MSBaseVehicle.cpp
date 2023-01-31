@@ -1586,6 +1586,8 @@ MSBaseVehicle::replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, c
         newEdges.push_back(stopEdge);
     }
     //std::cout << SIMTIME << " replaceStop veh=" << getID()
+    //    << " teleport=" << teleport
+    //    << " busStop=" << stop.busstop
     //    << " oldEdges=" << oldRemainingEdges.size()
     //    << " newEdges=" << newEdges.size()
     //    << " toNewStop=" << toNewStop.size()
@@ -1735,7 +1737,9 @@ MSBaseVehicle::insertStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, co
     } else {
         newEdges.push_back(stopEdge);
     }
-    //std::cout << SIMTIME << " replaceStop veh=" << getID()
+    //std::cout << SIMTIME << " insertStop veh=" << getID()
+    //    << " teleport=" << teleport
+    //    << " busStop=" << stop.busstop
     //    << " oldEdges=" << oldRemainingEdges.size()
     //    << " newEdges=" << newEdges.size()
     //    << " toNewStop=" << toNewStop.size()
