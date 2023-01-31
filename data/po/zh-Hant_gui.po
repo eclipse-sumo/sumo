@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-01-25 10:49+0100\n"
-"PO-Revision-Date: 2023-01-30 17:17+0000\n"
+"PO-Revision-Date: 2023-01-31 07:38+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
@@ -1603,11 +1603,11 @@ msgstr "禁止的運具連接。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:607
 msgid "Modes traffic lights over junctions."
-msgstr ""
+msgstr "模式 交通號誌位於路口。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:610
 msgid "Create additional elements."
-msgstr ""
+msgstr "建立附加元素。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:613
 msgid "C&rossing"
@@ -1615,7 +1615,7 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:613
 msgid "Create crossings between edges."
-msgstr ""
+msgstr "在路段之間建立人行穿越道。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:616
 msgid "TA&Z"
@@ -1623,15 +1623,15 @@ msgstr ""
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:616
 msgid "Create Traffic Assignment Zones."
-msgstr ""
+msgstr "建立交通指派分區。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:619
 msgid "Create Points-Of-Interest and polygons."
-msgstr ""
+msgstr "建立興趣點及多邊形物件。"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:622
 msgid "&Wire"
-msgstr ""
+msgstr "&通訊線(Wire)"
 
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:622
 msgid "Create wires."
