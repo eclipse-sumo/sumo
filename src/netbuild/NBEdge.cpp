@@ -1241,7 +1241,7 @@ NBEdge::getConnectionRef(int fromLane, const NBEdge* to, int toLane) {
 
 
 bool
-NBEdge::hasConnectionTo(NBEdge* destEdge, int destLane, int fromLane) const {
+NBEdge::hasConnectionTo(const NBEdge* destEdge, int destLane, int fromLane) const {
     return destEdge != nullptr && find_if(myConnections.begin(), myConnections.end(), connections_toedgelane_finder(destEdge, destLane, fromLane)) != myConnections.end();
 }
 

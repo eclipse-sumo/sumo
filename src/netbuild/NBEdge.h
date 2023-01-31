@@ -1011,7 +1011,7 @@ public:
      * @param[in] fromLane If a value >= 0 is given, only return true if a connection from the given lane exists
      * @return whether a connection to the specified lane exists
      */
-    bool hasConnectionTo(NBEdge* destEdge, int destLane, int fromLane = -1) const;
+    bool hasConnectionTo(const NBEdge* destEdge, int destLane, int fromLane = -1) const;
 
     /** @brief Returns the information whethe a connection to the given edge has been added (or computed)
      *
@@ -1854,7 +1854,7 @@ public:
     class connections_toedgelane_finder {
     public:
         /// @brief constructor
-        connections_toedgelane_finder(NBEdge* const edge2find, int lane2find, int fromLane2find) :
+        connections_toedgelane_finder(const NBEdge* const edge2find, int lane2find, int fromLane2find) :
             myEdge2Find(edge2find),
             myLane2Find(lane2find),
             myFromLane2Find(fromLane2find) { }
@@ -1866,7 +1866,7 @@ public:
 
     private:
         /// @brief edge to find
-        NBEdge* const myEdge2Find;
+        const NBEdge* const myEdge2Find;
 
         /// @brief lane to find
         int myLane2Find;
