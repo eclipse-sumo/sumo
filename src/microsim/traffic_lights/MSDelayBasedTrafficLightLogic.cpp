@@ -211,8 +211,6 @@ MSDelayBasedTrafficLightLogic::trySwitch() {
                   << std::endl;
 #endif
 
-        // keep this phase a little longer?
-        bool prolong =  othersEmpty || actDuration < currentPhase.maxDuration;
         // assure minimal duration
         proposedProlongation = MAX3(SUMOTime(0), proposedProlongation, currentPhase.minDuration - actDuration);
         if (othersEmpty) {
@@ -222,13 +220,14 @@ MSDelayBasedTrafficLightLogic::trySwitch() {
             // vehicles are present on other approaches -> prolong no further than the max green time
             proposedProlongation = MIN2(proposedProlongation, MAX2(SUMOTime(0), currentPhase.maxDuration - actDuration));
         }
+        // optional
+        //proposedProlongation = MIN2(proposedProlongation, MAX2(SUMOTime(0), currentPhase.maxDuration - actDuration));
 
 #ifdef DEBUG_TIMELOSS_CONTROL
         std::cout << "Proposed prolongation = " << proposedProlongation << std::endl;
 #endif
 
-        prolong = proposedProlongation > 0;
-        if (prolong) {
+        if (proposedProlongation > 0) {
             // check again after the prolonged period (must be positive...)
             // XXX: Can it be harmful not to return a duration of integer seconds?
             return proposedProlongation;
