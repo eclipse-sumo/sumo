@@ -1580,7 +1580,7 @@ GNENet::cleanInvalidCrossings(GNEUndoList* undoList) {
         WRITE_DEBUG("Opening FXMessageBox 'No crossing to remove'");
         // open a dialog informing that there isn't crossing to remove
         const std::string header = TL("Clear crossings");
-        const std::string body = TL("There is no invalid crossings to remove.");
+        const std::string body = TL("There are no invalid crossings to remove.");
         FXMessageBox::warning(getApp(), MBOX_OK, (header).c_str(), "%s", (body).c_str());
         // show warning in gui testing debug mode
         WRITE_DEBUG("Closed FXMessageBox 'No crossing to remove' with 'OK'");
