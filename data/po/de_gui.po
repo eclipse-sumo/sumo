@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-01 15:37+0100\n"
-"PO-Revision-Date: 2023-02-01 15:12+0000\n"
+"PO-Revision-Date: 2023-02-01 15:26+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -3732,7 +3732,7 @@ msgstr ""
 #: D:\SUMO/src\netedit\GNENet.cpp:1907
 #: /home/micha/programming/sumo/src/netedit/GNENet.cpp:1907
 msgid "Could not rename split node to '%'"
-msgstr "Geteilter Knoten konnte nicht zu '%' unbenannt werden"
+msgstr "Aufgetrennter Knoten konnte nicht zu '%' unbenannt werden"
 
 #: D:\SUMO/src\netedit\GNENet.cpp:1946
 msgid "clear junction connections"
