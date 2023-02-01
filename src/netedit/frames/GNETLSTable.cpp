@@ -919,7 +919,7 @@ GNETLSTable::Cell::setTooltip(const std::string& toolTip) {
     if (myTextField) {
         myTextField->setToolTipText(toolTip.c_str());
     } else {
-        throw ProcessError(TL("Tooltips pnly for TextFields"));
+        throw ProcessError(TL("Tooltips only for TextFields"));
     }
 }
 
