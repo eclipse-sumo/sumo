@@ -4302,14 +4302,18 @@ GNEApplicationWindow::setInputInSUMOOptions(const bool ignoreAdditionals, const 
     // set network
     mySUMOOptions.set("net-file", neteditOptions.getString("net-file"));
     // set routes
-    if (ignoreRoutes) {
-        mySUMOOptions.set("route-files", "");
+    if (ignoreRoutes || neteditOptions.getString("route-files").empty()) {
+        mySUMOOptions.resetDefault("route-files");
     } else {
         mySUMOOptions.set("route-files", neteditOptions.getString("route-files"));
     }
     // set SUMOOptions depending of additionalFiles and meanData files
     if (ignoreAdditionals) {
-        mySUMOOptions.set("additional-files", neteditOptions.getString("meandata-files"));
+        if (neteditOptions.getString("meandata-files").empty()) {
+            mySUMOOptions.resetDefault("additional-files");
+        } else {
+            mySUMOOptions.set("additional-files", neteditOptions.getString("meandata-files"));
+        }
     } else {
         if ((neteditOptions.getString("additional-files").size() > 0) && (neteditOptions.getString("meandata-files").size())) {
             mySUMOOptions.set("additional-files", neteditOptions.getString("additional-files") + "," + neteditOptions.getString("meandata-files"));
@@ -4318,7 +4322,7 @@ GNEApplicationWindow::setInputInSUMOOptions(const bool ignoreAdditionals, const 
         } else if (neteditOptions.getString("meandata-files").size() > 0) {
             mySUMOOptions.set("additional-files", neteditOptions.getString("meandata-files"));
         } else {
-            mySUMOOptions.set("additional-files", "");
+            mySUMOOptions.resetDefault("additional-files");
         }
     }
 }
