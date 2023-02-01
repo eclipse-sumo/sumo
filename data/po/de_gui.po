@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2023-02-01 15:37+0100\n"
-"PO-Revision-Date: 2023-01-31 15:03+0000\n"
+"PO-Revision-Date: 2023-02-01 15:12+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
-"gui-netedit/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2737,7 +2737,7 @@ msgstr ""
 #: D:\SUMO/src\netedit\GNEApplicationWindowHelper.cpp:1432
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1435
 msgid "Edge&TAZRel"
-msgstr ""
+msgstr "Zuordnung Kante zu Verkehrsumlegungszone"
 
 #: D:\SUMO/src\netedit\GNEApplicationWindowHelper.cpp:1440
 #: /home/micha/programming/sumo/src/netedit/GNEApplicationWindowHelper.cpp:1443
